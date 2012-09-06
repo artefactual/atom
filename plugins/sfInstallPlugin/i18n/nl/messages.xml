@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2012-08-17T14:34:32Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Password strength:</source>
+        <target>Sterkte van het wachtwoord</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>To make your password stronger:</source>
+        <target>Om het wachtwoord sterker te maken:</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Make it at least six characters</source>
+        <target>Gebruik tenminste zes tekens</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Add lowercase letters</source>
+        <target>Gebruik kleine letters</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Add uppercase letters</source>
+        <target>Voeg hoofdletters toe</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Add numbers</source>
+        <target>Voeg nummers toe</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Add punctuation</source>
+        <target>Voeg interpunctie toe</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Make it different from your username</source>
+        <target>Maak hem verschillend van uw gebruikersnaam</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Yes</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>No</source>
+        <target>Nee</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Passwords match:</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

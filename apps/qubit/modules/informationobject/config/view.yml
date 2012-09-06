@@ -1,0 +1,65 @@
+browseSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
+
+editPhysicalObjectsSuccess:
+  stylesheets:
+    /vendor/yui/autocomplete/assets/skins/sam/autocomplete: { position: first }
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+    /vendor/yui/connection/connection-min:
+    /vendor/yui/datasource/datasource-min:
+    /vendor/yui/autocomplete/autocomplete-min:
+    autocomplete:
+    multiDelete:
+
+listSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
+
+physicalObjects:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
+
+addDigitalObjectSuccess:
+  stylesheets:
+    /vendor/yui/container/assets/skins/sam/container: { position: first }
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+    /vendor/yui/connection/connection-min:
+    /vendor/yui/datasource/datasource-min:
+    /vendor/yui/container/container-min:
+    blank:
+  components:
+    sidebar: [repository, uploadLimit]
+
+multiFileUploadSuccess:
+  stylesheets:
+    /vendor/yui/container/assets/skins/sam/container: { position: first }
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+    /vendor/yui/connection/connection-min:
+    /vendor/yui/datasource/datasource-min:
+    /vendor/yui/container/container-min:
+    blank:
+  components:
+    sidebar: [repository, uploadLimit]
+
+storageLocationsSuccess:
+  stylesheets:
+    print-preview: { media: screen, position: last }
+
+fileListSuccess:
+  stylesheets:
+    print-preview: { media: screen, position: last }
+
+itemListSuccess:
+  stylesheets:
+    print-preview: { media: screen, position: last }

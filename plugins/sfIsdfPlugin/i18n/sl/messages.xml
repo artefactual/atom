@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2011-11-04T15:08:33Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new function</source>
+        <target>Dodaj novo funkcijo</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>Neimenovan</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>Uredi %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>%1%Type%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Vrsta%2% - vnos tega elementa %3%obvezen%4%.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Uradno odobrena oblika imena%2% - Vnos tega elementa je %3%obvezen %4%.</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%OIdentifikator popisa%2% - vnos tega elementa je %3%obvezen%4%.</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Edit %1% - ISDF</source>
+        <target>Uredi %1% - ISDF</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Identity area</source>
+        <target>Področje o identiteti</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>"Specify whether the description is a function or one of its subdivisions." (ISDF 5.1.1) Select the type from the drop-down menu; these values are drawn from the ISDF Function Types taxonomy.</source>
+        <target>"Navedite, ali je popis funkcija ali ena od njenih podfunkcij." (ISDF 5.1.1) Izberite vrsto iz spustnega menija; te vrednosti se črpajo iz taksonomije Funkcijskih tipov ISDF.</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Type</source>
+        <target>Vrsta</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>This is a mandatory element.</source>
+        <target>Vnos tega elementa je obvezen.</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>"Record the authorised name of the function being described. In cases where the name is not enough, add qualifiers to make it unique such as the territorial or administrative scope, or the name of the institution which performs it. This element is to be used in conjunction with the Function description identifier element (5.4.1)." (ISDF 5.1.2)</source>
+        <target>"Zabeležite uradno odobreno obliko imena popisne funkcije. Če samo ime ne nudi dovolj informacij, ga naredite edinstvenega z dodajanjem kvalifikatorjev, npr. ozemeljski ali administrativni obseg ali ime institucije, ki funkcijo opravlja. Ta element se mora uporabljati v povezavi z identifikacijskim elementom funkcijskega popisa (5.4.1)." (ISDF 5.1.2)</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Authorized form of name</source>
+        <target>Uradno odobrena oblika imena</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>"Purpose: To indicate the various forms in which the authorized form(s) of name occurs in other languages or script forms. Rule: Record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions element (5.4.3.) which rules have been applied." (ISDF 5.1.3)</source>
+        <target>"Namen: za prikaz različnih oblik, v katerih se uradno odobrena oblika (oblike) imena pojavlja v drugih jezikih ali sistemih pisave. Pravilo: zabeležite vzporedne oblike imena v skladu z vsemi pomembnimi narodnimi in mednarodnimi dogovori ali pravili, ki jih je uporabila ustanova pri popisovanju, vključno z morebitnimi podelementi in/ali kvalifikatorji, ki jih zahtevajo omenjeni dogovori ali pravila. Opredelite v elementu Pravila in/ali dogovori (5.4.3.), katera pravila so bila uporabljena." (ISDF 5.1.3)</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Parallel form(s) of name</source>
+        <target>Vzporedna/-e oblika/-e imena</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>"Record any other names for the function being described." (ISDF 5.1.4)</source>
+        <target>"Zabeležite morebitna druga imena popisane funkcije." (ISDF 5.1.4)</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Other form(s) of name</source>
+        <target>Druga/-e oblika/-e imena</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>"Record any term and/or code from a classification scheme of functions. Record the classification scheme used in the element Rules and/or conventions used (5.4.3)." (ISDF 5.1.5)</source>
+        <target>"Zabeležite vsak izraz in/ali kodo iz klasifikacijskega načrta funkcij. Zapišite uporabljeni klasifikacijski načrt v elementu Uporabljena pravila in/ali dogovori. (5.4.3)." (ISDF 5.1.5)</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Context area</source>
+        <target>Področje konteksta</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>"Provide a date or date span which covers the dates when the function was started and when it finished. If a function is ongoing, no end date is needed." (ISDF 5.2.1)</source>
+        <target>"Navedite datum ali obdobje, ki pokriva datume med začetkom in koncem funkcije. Če je funkcija v teku, vnos končnega datuma ni potreben." (ISDF 5.2.1)</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>"Record a narrative description of the purpose of the function." (ISDF 5.2.2)</source>
+        <target>"V obliki pripovedi opišite namen funkcije." (ISDF 5.2.2) </target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>"Record in narrative form or as a chronology the main events relating to the function." (ISDF 5.2.3)</source>
+        <target>"V obliki pripovedi ali v časovnem zaporedju zapišite glavne dogodke, povezane s funkcijo." (ISDF 5.2.3)</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>"Record any law, directive or charter which creates, changes or ends the function." (ISDF 5.2.4)</source>
+        <target>"Zabeležite vsak zakon, direktivo ali listino, ki ustvarja, spreminja ali konča funkcijo." (ISDF 5.2.4)</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Relationships area</source>
+        <target>Področje povezav</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Control area</source>
+        <target>Področje nadzora</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISDF 5.4.1)</source>
+        <target>"Navedite enoten identifikator popisa, ki je v skladu s krajevnimi in/ali narodnimi dogovori. Če se bo popis uporabljal na mednarodni ravni, zapišite kodo države, v kateri je popis nastal, v skladu z najnovejšo različico kod ISO 3166 za predstavitev imen držav. Če je popisovalec mednarodna organizacija, navedite identifikator organizacije namesto kode države." (ISDF 5.4.1)</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Description identifier</source>
+        <target>Identifikator opisa</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>"Record the full authorised form of name(s) of agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a recognized code for the agency." (ISDF 5.4.2)</source>
+        <target>"Zabeležite popolno uradno odobreno obliko imena (imen) ustanove (ustanov), ki je odgovorna za nastanek, spreminjanje in razširjanje arhivskega popisa ali zabeležite splošno priznano kodo ustanove. " (ISDF 5.4.2)</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Institution identifier</source>
+        <target>identifikator institucije</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival description. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied." (ISDF 5.4.3)</source>
+        <target>"Namen: za opredelitev narodnih ali mednarodnih dogovorov ali pravil, ki so se uporabljali pri arhivskem popisovanju. Pravilo: zabeležite imena in tudi edicije ali datume objave dogovorov ali uporabljenih pravil, če je lahko ta podatek koristen v prihodnosti. (ISDF 5.4.3)"</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Rules and/or conventions used</source>
+        <target>Uporabljena pravila in/ali dogovori</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDF 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
+        <target>Namen tega polja je "[p]rikaz stanja popisa, da uporabniki lažje razumejo trenutni status popisa." (ISDF 5.4.4). Iz spustnega menija izberite končna verzija, pregledana verzija ali osnutek. </target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Status</source>
+        <target>status</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimum records are those that consist only of the three essential elements of an ISDF compliant record (see 4.7), while full records are those that convey information for all relevant ISDF elements of description." (ISDF 5.4.5)</source>
+        <target>Iz spustnega menija izberite popoln, delen ali minimalen. "Če smernic in pravil na državni ravni ni, so minimalni zapisi tisti, ki so sestavljeni le iz treh bistvenih elementov zapisa po ISDF-ju (glejte 4.7), medtem ko so popolni zapisi tisti, ki nudijo informacije za vse pomembne elemente popisa po ISDF." (ISDF 5.4.5)</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Level of detail</source>
+        <target>Nivo podrobnosti</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>"Record the date the description was created and the dates of any revisions to the description." (ISDF 5.4.6)</source>
+        <target>"Zabeležite, kdaj je nastal popis in omenite datume morebitnih revizij popisa." (ISDF 5.4.6)</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Dates of creation, revision or deletion</source>
+        <target>Datumi nastanka, popravljanja in izbrisa</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)</source>
+        <target>Iz spustnega menija izberite jezik/-e tega zapisa; vnesite prvih nekaj črk za omejitev izbire. (ISDF 5.4.7)</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Language(s)</source>
+        <target>Jezik/-i</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)</source>
+        <target>Iz spustnega menija izberite pisavo/-e, v kateri je napisan zapis o ustvarjalcu; vnesite prvih nekaj črk za omejitev izbire. (ISDF 5.4.7)</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Script(s)</source>
+        <target>Pisava/-e</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>"Record the sources consulted in establishing the function description." (ISDF 5.4.8)</source>
+        <target>"Zabeležite vire, ki so vam bili v pomoč pri preučevanju opisa funkcije." (ISDF 5.4.8)</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>"Record notes pertinent to the creation and maintenance of the description." (ISDF 5.4.9)</source>
+        <target>"Zabeležite podatke, povezane z nastankom in vzdrževanjem arhivskega popisa." (ISDF 5.4.9)</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Actions</source>
+        <target>Dejanja</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Cancel</source>
+        <target>Prekliči</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Save</source>
+        <target>Shrani</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Create</source>
+        <target>Ustvari</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>View ISDF function</source>
+        <target>Ogled ISDF-funkcije</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Edit function</source>
+        <target>Uredi funkcijo</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Edit identity area</source>
+        <target>Uredi področje o identiteti</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Classification</source>
+        <target>Klasifikacija</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Edit context area</source>
+        <target>Uredi področje o kontekstu</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Dates</source>
+        <target>datum</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Description</source>
+        <target>Opis</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>History</source>
+        <target>Zgodovina</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Legislation</source>
+        <target>Zakonodaja</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Edit relationships area</source>
+        <target>Uredi področje o povezavah</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Related function</source>
+        <target>Sorodna funkcija</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Identifier</source>
+        <target>Identifikator</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Category of relationship</source>
+        <target>Kategorija povezave</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Description of relationship</source>
+        <target>Opis povezave</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Dates of relationship</source>
+        <target>Datumi povezave</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Related authority record</source>
+        <target>Soroden zapis o ustvarjalcu</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Nature of relationship</source>
+        <target>Značilnosti povezave</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Dates of the relationship</source>
+        <target>Datumi povezave</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Related resource</source>
+        <target>Soroden vir</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Title</source>
+        <target>Naslov</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Edit control area</source>
+        <target>Uredi področje o nadzoru</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Sources</source>
+        <target>viri</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Maintenance notes</source>
+        <target>Obvestila o vzdrževanju</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Edit</source>
+        <target>Uredi</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Delete</source>
+        <target>Izbriši</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Add new</source>
+        <target>Dodaj novo</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Related authority records</source>
+        <target>Sorodni zapisi o ustvarjalcu</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Identifier/name</source>
+        <target>Identifikator/ime</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Select the name from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
+        <target>Iz spustnega menija izberite ime; vnesite identifikator ali prvih nekaj črk za omejitev izbire. (ISDF 6.1)</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Related functions</source>
+        <target>Sorodne funkcije</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Name</source>
+        <target>Ime</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Category</source>
+        <target>Kategorija</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>"Record the authorised form of name and any unique identifier of the related function." (ISDF 5.3.1)</source>
+        <target>"Zabeležite uradno odobreno obliko imena in morebiten edinstven identifikator povezane funkcije." (ISDF 5.3.1)</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>"Record a general category into which the relationship being described falls." (ISDF 5.3.2) Select a category from the drop-down menu: hierarchical, temporal or associative.</source>
+        <target>"Navedite splošno kategorijo, v katero sodi popisan odnos." (ISDF 5.3.2) Kategorijo izberite iz spustnega menija; izbirate lahko med hierarhično, časovno in asociativno kategorijo." </target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>"Record a precise description of the nature of the relationship between the function being described and the related function." (ISDF 5.3.3) Note that the text entered in this field will also appear in the related function.</source>
+        <target>"Navedite natančen opis značilnosti povezave med popisano funkcijo in sorodno funkcijo." (ISDF 5.3.3) Upoštevajte, da se bo besedilo, ki ste ga vnesli v to polje, pojavilo tudi v povezani funkciji.</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Related resources</source>
+        <target>Sorodni viri</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Identifier/title</source>
+        <target>Identifikator/naslov</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
+        <target>Iz spustnega menija izberite naslov; vnesite identifikator ali prvih nekaj črk za omejitev izbire. (ISDF 6.1)</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,269 @@
+<?php
+// $Id: field_ui.test,v 1.7 2010/01/25 10:38:34 dries Exp $
+
+/**
+ * @file
+ * Unit test file for fields in core UI.
+ */
+
+/**
+ * Field UI tests.
+ */
+class FieldUITestCase extends DrupalWebTestCase {
+    public static function getInfo() {
+    return array(
+      'name' => 'Field UI tests',
+      'description' => 'Test the field UI functionality.',
+      'group' => 'Field UI',
+    );
+  }
+
+  function setUp() {
+    parent::setUp('field_test');
+
+    // Create test user.
+    $admin_user = $this->drupalCreateUser(array('access content', 'administer content types', 'administer taxonomy'));
+    $this->drupalLogin($admin_user);
+
+    // Create content type, with underscores.
+    $type_name =  strtolower($this->randomName(8)) . '_' .'test';
+    $type = $this->drupalCreateContentType(array('name' => $type_name, 'type' => $type_name));
+    $this->type = $type->type;
+    // Store a valid URL name, with hyphens instead of underscores.
+    $this->hyphen_type = str_replace('_', '-', $this->type);
+
+    // Create random field name.
+    $this->field_label = $this->randomName(8);
+    $this->field_name = 'field_' . strtolower($this->randomName(8));
+  }
+
+  /**
+   * Main entry point for the field CRUD tests.
+   *
+   * In order to act on the same fields, and not create the fields over and over
+   * again the following tests create, update and delete the same fields.
+   */
+  function testCRUDFields() {
+    $this->manageFieldsPage();
+    $this->createField();
+    $this->updateField();
+    $this->addExistingField();
+    $this->deleteField();
+  }
+
+  /**
+   * Test the manage fields page.
+   */
+  function manageFieldsPage() {
+    $this->drupalGet(('admin/structure/types/manage/' . $this->hyphen_type . '/fields'));
+    // Check all table columns.
+    $table_headers = array(
+      t('Label'),
+      t('Name'),
+      t('Field'),
+      t('Widget'),
+      t('Operations'),
+    );
+    foreach ($table_headers as $table_header) {
+      // We check that the label appear in the table headings.
+      $this->assertRaw($table_header . '</th>', t('%table_header table header was found.', array('%table_header' => $table_header)));
+    }
+
+    // "Add new field" and "Add existing field" aren't a table heading so just
+    // test the text.
+    foreach (array('Add new field', 'Add existing field') as $element) {
+      $this->assertText($element, t('"@element" was found.', array('@element' => $element)));
+    }
+  }
+
+  /**
+   * Test adding a new field.
+   *
+   * @todo Assert properties can bet set in the form and read back in $field and
+   * $instances.
+   */
+  function createField() {
+    // Create a test field.
+    $edit = array(
+      '_add_new_field[label]' => $this->field_label,
+      '_add_new_field[field_name]' => $this->field_name,
+      '_add_new_field[type]' => 'test_field',
+      '_add_new_field[widget_type]' => 'test_field_widget',
+    );
+    $this->drupalPost('admin/structure/types/manage/' . $this->hyphen_type . '/fields',  $edit, t('Save'));
+
+    $this->assertRaw(t('These settings apply to the %label field everywhere it is used.', array('%label' => $this->field_label)), t('Field settings page was displayed.'));
+
+    $this->drupalPost(NULL, array(), t('Save field settings'));
+
+    // Assert redirection to instance and widget settings page.
+    $this->assertText(t('Updated field @label field settings.', array('@label' => $this->field_label)), t('Redirected to instance and widget settings page.'));
+
+    // Assert the field settings.
+    $this->assertFieldSettings($this->type, $this->field_name);
+
+    $this->drupalPost(NULL, array(), t('Save settings'));
+
+    // Assert redirection back the to "manage fields" page.
+    $this->assertText(t('Saved @label configuration.', array('@label' => $this->field_label)), t('Redirected to "Manage fields" page.'));
+    $this->assertText($this->field_name, t('Field was created and appears in overview page.'));
+
+    // Assert the field appears in the "add existing field" section for
+    // different entity types; e.g. if a field was added in a node entity, it
+    // should also appear in the 'taxonomy term' entity.
+    $this->drupalGet('admin/structure/taxonomy/1/fields');
+    $this->assertTrue($this->xpath('//select[@id="edit--add-existing-field-field-name"]//option[@value="' . $this->field_name . '"]'), t('Existing field was found in account settings.'));
+  }
+
+  /**
+   * Test editing an existing field.
+   */
+  function updateField() {
+    // Go to the field edit page.
+    $this->drupalGet('admin/structure/types/manage/' . $this->hyphen_type . '/fields/' . $this->field_name);
+
+    // Populate the field settings with new settings.
+    $string = 'updated dummy test string';
+    $edit = array(
+      'field[settings][test_field_setting]' => $string,
+      'instance[settings][test_instance_setting]' => $string,
+      'instance[widget][settings][test_widget_setting]' => $string,
+    );
+    $this->drupalPost(NULL, $edit, t('Save settings'));
+
+    // Assert the field settings.
+    $this->assertFieldSettings($this->type, $this->field_name, $string);
+
+    // Assert redirection back to the "manage fields" page.
+    $this->assertText(t('Saved @label configuration.', array('@label' => $this->field_label)), t('Redirected to "Manage fields" page.'));
+  }
+
+  /**
+   * Test adding an existing field in another content type.
+   */
+  function addExistingField() {
+    // Check "Add existing field" appears.
+    $this->drupalGet(('admin/structure/types/manage/page/fields'));
+    $this->assertRaw(t('Add existing field'), t('"Add existing field" was found.'));
+
+    // Add a new field based on an existing field.
+    $edit = array(
+      '_add_existing_field[label]' => $this->field_label . '_2',
+      '_add_existing_field[field_name]' => $this->field_name,
+      '_add_existing_field[widget_type]' => 'test_field_widget',
+    );
+    $this->drupalPost("admin/structure/types/manage/page/fields", $edit, t('Save'));
+    $this->drupalPost(NULL, array(), t('Save settings'));
+
+    // Assert redirection back the to "manage fields" page.
+    $this->assertText(t('Saved @label-2 configuration.', array('@label-2' => $this->field_label . '_2')), t('Redirected to "Manage fields" page.'));
+    $this->assertText($this->field_name, t('Field was created and appears in overview page.'));
+  }
+
+  /**
+   * Test deleting an existing field.
+   */
+  function deleteField() {
+    $this->drupalGet('admin/structure/types/manage/' . $this->hyphen_type . '/fields/body/delete');
+    $this->assertText(t('Are you sure you want to delete the field Body'), t('Delete confirmation was found.'));
+
+    $this->drupalPost(NULL, array(), t('Delete'));
+    $this->assertText(t('The field Body has been deleted from the @type content type.', array('@type' => $this->type)), t('Delete message was found.'));
+
+    // Reset the fields info.
+    _field_info_collate_fields(TRUE);
+    // Assert fields instance were deleted.
+    $this->assertNull(field_info_instance('node', 'body', $this->type), t('Field instance settings were deleted.'));
+
+    // Re-load the manage fields page.
+    $this->drupalGet('admin/structure/types/manage/' . $this->hyphen_type . '/fields/');
+    $this->assertNoText(t('Body'), t('Body field was deleted.'));
+
+    // Re-add body field by visiting the content type edit page.
+    $edit = array('body_label' => 'New body field');
+    $this->drupalPost('admin/structure/types/manage/' . $this->hyphen_type, $edit, t('Save content type'));
+    $this->drupalGet('admin/structure/types/manage/' . $this->hyphen_type . '/fields/');
+    $this->assertText(t('New body field'), t('New body field was found.'));
+
+    // Reset the fields info.
+    _field_info_collate_fields(TRUE);
+    // Assert fields instance are back.
+    $this->assertNotNull(field_info_instance('node', 'body', $this->type), t('Field instance settings were re-created.'));
+  }
+
+  /**
+   * Assert the field settings.
+   *
+   * @param $bundle
+   *   The bundle name for the instance.
+   * @param $field_name
+   *   The field name for the instance.
+   * @param $string
+   *   The settings text.
+   * @param $obj_type
+   *   The object type for the instance.
+   */
+  function assertFieldSettings($bundle, $field_name, $string = 'dummy test string', $obj_type = 'node') {
+    // Reset the fields info.
+    _field_info_collate_fields(TRUE);
+    // Assert field settings.
+    $field = field_info_field($field_name);
+    $this->assertTrue($field['settings']['test_field_setting'] == $string, t('Field settings were found.'));
+
+    // Assert instance and widget settings.
+    $instance = field_info_instance($obj_type, $field_name, $bundle);
+    $this->assertTrue($instance['settings']['test_instance_setting'] == $string, t('Field instance settings were found.'));
+    $this->assertTrue($instance['widget']['settings']['test_widget_setting'] == $string, t('Field widget settings were found.'));
+  }
+
+  /**
+   * Tests that default value is correctly validated and saved.
+   */
+  function testDefaultValue() {
+    // Create a test field and instance.
+    $field_name = 'test';
+    $field = array(
+      'field_name' => $field_name,
+      'type' => 'test_field'
+    );
+    field_create_field($field);
+    $instance = array(
+      'field_name' => $field_name,
+      'object_type' => 'node',
+      'bundle' => $this->type,
+    );
+    field_create_instance($instance);
+
+    $langcode = LANGUAGE_NONE;
+    $admin_path = 'admin/structure/types/manage/' . $this->hyphen_type . '/fields/' . $field_name;
+    $element_id = "edit-instance-default-value-widget-$field_name-$langcode-0-value";
+    $element_name = "instance[default_value_widget][$field_name][$langcode][0][value]";
+
+    $this->drupalGet($admin_path);
+    $this->assertFieldById($element_id, '', t('The default value widget was empty.'));
+
+    // Check that invalid default values are rejected.
+    $edit = array($element_name => '-1');
+    $this->drupalPost($admin_path, $edit, t('Save settings'));
+    $this->assertText("$field_name does not accept the value -1", t('Form vaildation failed.'));
+
+    // Check that the default value is saved.
+    $edit = array($element_name => '1');
+    $this->drupalPost($admin_path, $edit, t('Save settings'));
+    $this->assertText("Saved $field_name configuration", t('The form was successfully submitted.'));
+    $instance = field_info_instance('node', $field_name, $this->type);
+    $this->assertEqual($instance['default_value'], array(array('value' => 1)), t('The default value was correctly saved.'));
+
+    // Check that the default value shows up in the form
+    $this->drupalGet($admin_path);
+    $this->assertFieldById($element_id, '1', t('The default value widget was displayed with the correct value.'));
+
+    // Check that the default value can be emptied.
+    $edit = array($element_name => '');
+    $this->drupalPost(NULL, $edit, t('Save settings'));
+    $this->assertText("Saved $field_name configuration", t('The form was successfully submitted.'));
+    field_info_cache_clear();
+    $instance = field_info_instance('node', $field_name, $this->type);
+    $this->assertEqual($instance['default_value'], NULL, t('The default value was correctly saved.'));
+  }
+}

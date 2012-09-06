@@ -1,0 +1,47 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/13-View
+
+default:
+  http_metas:
+    content-type: text/html
+
+  metas:
+    title: Qubit
+    description: Open information management toolkit
+    # keywords: symfony, project
+    # language: en
+    # robots: index, follow
+
+  stylesheets:
+    /plugins/sfDrupalPlugin/vendor/drupal/modules/system/system: { media: all, position: first }
+    /plugins/sfDrupalPlugin/vendor/drupal/modules/system/system-behavior: { media: all, position: first }
+    /plugins/sfDrupalPlugin/vendor/drupal/modules/system/system-menus: { media: all, position: first }
+    /plugins/sfDrupalPlugin/vendor/drupal/themes/garland/style: { media: all, position: first }
+    /plugins/sfDrupalPlugin/vendor/drupal/themes/garland/print: { media: print, position: first }
+    /vendor/yui/button/assets/skins/sam/button: { position: first }
+    /vendor/yui/menu/assets/skins/sam/menu: { position: first }
+    form:
+    graphic:
+    main:
+    print: { media: print, position: last }
+
+  javascripts:
+    /vendor/jquery:
+    /vendor/jquery-ui:
+    /vendor/jquery.expander.js:
+    /vendor/bootstrap:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/drupal:
+    qubit:
+    /vendor/yui/yahoo-dom-event/yahoo-dom-event:
+    /vendor/yui/element/element-min:
+    /vendor/yui/button/button-min:
+    /vendor/yui/container/container_core-min:
+    /vendor/yui/menu/menu-min:
+
+  has_layout:     true
+  layout:         layout
+
+  components:
+    footer:       []
+    header:       []
+    sidebar:      []

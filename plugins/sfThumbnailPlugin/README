@@ -1,0 +1,164 @@
+= sfThumbnailPlugin plugin =
+
+The `sfThumbnailPlugin` creates thumbnails from images. It relies on your choice of the [http://php.net/gd/ GD] or [http://www.imagemagick.org ImageMagick] libraries.
+
+== Installation ==
+
+To install the plugin for a symfony project, the usual process is to use the symfony command line:
+{{{
+$ symfony plugin-install http://plugins.symfony-project.com/sfThumbnailPlugin
+}}}
+
+Alternatively, if you don't have PEAR installed, you can download the latest package attached to this plugin's wiki page and extract it under your project's `plugins/` directory. 
+
+Clear the cache to enable the autoloading to find the new classes:
+{{{
+$ php symfony cc
+}}}
+
+You're done.
+
+'''Note''': If the [http://php.net/gd GD library] is not activated, you might have to uncomment the related line in your `php.ini` and restart your web server to enable PHP image handling functions.
+
+'''Note''': To use !ImageMagick, you'll need to download and install the binaries from http://www.imagemagick.org.
+
+== Contents ==
+
+The plugin contains three classes, `sfThumbnail`, `sfGDAdapter` and `sfImageMagickAdapter`. Available methods are:
+
+{{{
+// Initialize the thumbnail attributes
+__construct($maxWidth = null, $maxHeight = null, $scale = true, $inflate = true, $quality = 75, $adapterClass = null, $adapterOptions = array())
+
+// Load image file from a file system
+loadFile($imageFile) 
+
+// Load image file from a string (GD adapter only, currently)
+loadData($imageString, $mimeType)
+
+// Save the thumbnail to a file
+save($thumbFile, $targetMime = null)
+}}}
+
+Supported GD image types are 'image/jpeg', 'image/png' and 'image/gif'.
+
+!ImageMagick supports over [http://www.imagemagick.org/script/formats.php 100 types].
+
+Note that the $quality setting only applies to JPEG images.
+
+== Usage ==
+
+=== Creating a thumbnail from an existing image file ===
+
+The process of creating a thumbnail from an existing image file is pretty straightforward. 
+
+First, you must initialize a new `sfThumbnail` object with two parameters: the maximum width and height of the desired thumbnail.
+
+{{{
+// Initialize the object for 150x150 thumbnails
+$thumbnail = new sfThumbnail(150, 150);
+}}}
+
+Then, specify a file path to the image to reduce to the `loadFile()` method.
+
+{{{
+// Load the image to reduce
+$thumbnail->loadFile('/path/to/image/file.png');
+}}}
+
+Finally, ask the thumbnail object to save the thumbnail. You must provide a file path. Optionally, if you don't want the thumbnail to use the same mime type as the source image, you can specify a mime type as the second parameter.
+
+{{{
+// Save the thumbnail
+$thumbnail->save('/path/to/thumbnail/file.jpg', 'image/jpg');
+}}}
+
+Both the source and destination file paths must be absolute paths in your filesystem. To store files under a symfony project directory, make sure you use the [http://www.symfony-project.com/book/trunk/19-Mastering-Symfony-s-Configuration-Files#The%20Basic%20File%20Structure directory constants], accessed by `sfConfig::get()`.
+
+=== Creating a thumbnail for an uploaded file ===
+
+If you upload images, you might need to create thumbnails of each uploaded file. For instance, to save a thumbnail of maximum size 150x150px at the same time as the uploaded image, the form handling action can look like:
+
+{{{
+public function executeUpload()
+{
+  // Retrieve the name of the uploaded file
+  $fileName = $this->getRequest()->getFileName('file');
+
+  // Create the thumbnail
+  $thumbnail = new sfThumbnail(150, 150);
+  $thumbnail->loadFile($this->getRequest()->getFilePath('file'));
+  $thumbnail->save(sfConfig::get('sf_upload_dir').'/thumbnail/'.$fileName, 'image/png');
+
+  // Move the uploaded file to the 'uploads' directory
+  $this->getRequest()->moveFile('file', sfConfig::get('sf_upload_dir').'/'.$fileName);
+
+  // Do whatever is next
+  $this->redirect('media/show?filename='.$fileName); 
+}
+}}}
+
+Don't forget to create the `uploads/thumbnail/` directory before calling the action. 
+
+== !ImageMagick-Specific Usage ==
+
+Usage is the same as above except you need to explicitly call the sfImageMagickAdapter class.
+
+{{{
+$thumbnail = new sfThumbnail(150, 150, true, true, 75, 'sfImageMagickAdapter');
+}}}
+
+=== Custom Options ===
+
+The last option in the constructor is an array that you can use to pass custom options to !ImageMagick. Below are some examples of this functionality.
+
+Extract the first page from a PDF document:
+
+{{{
+$thumbnail = new sfThumbnail(150, 150, true, true, 75, 'sfImageMagickAdapter', array('extract' => 1));
+}}}
+
+"1" stands for the first page, "2" for the second page, etc.
+
+If for some reason you use a non-standard name for your !ImageMagick binary, you can specify it like so:
+
+{{{
+$thumbnail = new sfThumbnail(150, 150, true, true, 75, 'sfImageMagickAdapter', array('convert' => 'my_imagemagick_binary'));
+}}}
+
+By default sfThumbnail resizes the image in order to get to the desired width and height of the thumbnail. But what if you want to force the thumbnail to be a certain width and height but without distorting the image of the source size scale is different than the thumbnail size scale
+Now you can use a custom option "method" to achieve just that but "shaving" the source image in order to get it to be the same scale as the thumbnail and them resize it to the required dimentions.
+When "shave_bottom" is used and the image’s width is greater than the height then sfThumbnail shaves from both left side and right side until the desired scale.
+There is one requirement for the "method" option to work as expected and it is to turn off scaling (set the third parameter of sfThumbnail to FALSE)
+
+{{{
+$thumbnail = new sfThumbnail(150, 150, false, true, 75, 'sfImageMagickAdapter', array('method' => 'shave_all'));
+
+$thumbnail->loadFile('http://www.walkerbooks.co.uk/assets_walker/dynamic/1172005677146.png');
+$thumbnail->save('/tmp/shave.png', 'image/png'); 
+}}}
+
+== Changelog ==
+
+=== Trunk ===
+
+ * fabien: added a toResource() method to get the image resource for the thumbnail
+
+=== 2007-09-15 | 1.5.0 Stable ===
+
+ * kupokomapa: toString($mime) method now works for both adapters
+ * kupokomapa: loadFile() method can now accept a URI if sfWebBrowserPluging is available
+ * kupokomapa: Implemented "method" option for sfImageMagickAdapter where "method" for now can be "shave_all" or "shave_bottom"
+
+=== 2007-09-12 | 1.4.0 Stable ===
+
+ * davedash: Added toString($mime) function to save file to a string
+
+=== 2007-05-18 | 1.3.0 Stable ===
+
+ * bmeynell: Updated README
+ * bmeynell: Fixed ticket (#1710)
+ * bmeynell: Added adapter support
+ * francois: Updated README
+
+=== 2006-11-29 | 1.2.0 Stable ===

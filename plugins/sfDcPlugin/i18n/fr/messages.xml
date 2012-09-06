@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2012-08-17T14:33:27Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new resource</source>
+        <target>Ajouter une ressource</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>Sans titre</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Select the type of activity (creation, publication or contribution) that established the relation between the authority record and the archival description.</source>
+        <target>Sélectionner le type d'activité (création, publication ou contribution) à l'origine de la relation entre la notice d'autorité et la description archivistique. </target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>%1%Identifier%2% - This is a mandatory element.</source>
+        <target>%1%Identifiant%2% - Cet élément est %3%obligatoire%4%.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Title%2% - This is a mandatory element.</source>
+        <target>%1%Intitulé%2% - Cet élément est obligatoire.</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Edit resource metadata - Dublin Core</source>
+        <target>Modifier les métadonnées de la ressource - Dublin Core</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>This is a duplicate of record %1%</source>
+        <target>Il s'agit d'une copie de la notice %1%</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>The unambiguous reference code used to uniquely identify this resource.</source>
+        <target>Code de référence univoque utilisé pour référencer de manière unique la ressource</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Identifier</source>
+        <target>Identifiant</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>This is a mandatory element.</source>
+        <target>Cet élément est obligatoire.</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>The name given to this resource.</source>
+        <target>Nom donné à la ressource</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Title</source>
+        <target>Intitulé</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Names and dates</source>
+        <target>Noms et dates</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Subject</source>
+        <target>Sujet</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
+        <target>Thème de la ressource. Rechercher un terme existant dans le référentiel des Mots-matières en saisissant les premiers caractères du terme. Sinon saisir un nouveau terme pour le créer et établir un lien avec ce nouveau terme.</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>An abstract, table of contents or description of the resource's scope and contents.</source>
+        <target>Résumé, sommaire ou description du sujet et du contenu d'une ressource. </target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Description</source>
+        <target>Description</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>&lt;p&gt;The nature or genre of the resource.&lt;/p&gt;&lt;p&gt;Assign as many types as applicable. The &lt;em&gt;Type&lt;/em&gt; options are limited to the DCMI Type vocabulary.&lt;/p&gt;&lt;p&gt;Assign the &lt;em&gt;Collection&lt;/em&gt; value if this resource is the top-level for a set of lower-level (child) resources.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the &lt;em&gt;image&lt;/em&gt;, &lt;em&gt;text&lt;/em&gt;, &lt;em&gt;sound&lt;/em&gt; or &lt;em&gt;moving image&lt;/em&gt; types are added automatically upon output, so do not duplicate those values here.&lt;/p&gt;</source>
+        <target>&lt;p&gt;Nature ou genre de la ressource.&lt;/p&gt;&lt;p&gt;Assigner autant de types que nécessaire. Les choix du &lt;em&gt;type&lt;/em&gt; se limitent à la terminologie du vocabulaire DCMI.&lt;/p&gt;&lt;p&gt;Assigner la valeur &lt;em&gt;Collection&lt;/em&gt; s'il s'agit d'un niveau supérieur d'un ensemble de ressources de bas-niveau (niveau enfant).&lt;/p&gt;&lt;p&gt;Nota bene : si cette ressource est liée à un objet numérique, les types &lt;em&gt;image&lt;/em&gt;, &lt;em&gt;texte&lt;/em&gt;, &lt;em&gt;son&lt;/em&gt; or &lt;em&gt;image animée&lt;/em&gt; sont automatiquement ajoutés à l'issue du processus de liaison à l'objet ; il ne faut donc pas dupliquer ces valeurs ici.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Child levels (if describing a collection)</source>
+        <target>Niveaux inférieurs (pour la description d'une collection)</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>&lt;p&gt;&lt;strong&gt;Child levels&lt;/strong&gt;&lt;br/&gt;Use these two fields to add lower levels to a collection level description. Click &lt;em&gt;Add new&lt;/em&gt; to create as many child levels as necessary.&lt;/p&gt;&lt;p&gt;These fields can also be used to add any number of intermediate levels of description (e.g. series, file, etc) between the top and bottom levels in a descriptive hierarchy. Use the hierarchy treeview to re-order hierarchy levels as necessary.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Identifier&lt;/em&gt;: The unambiguous reference code used to uniquely identify the child-level resource.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Title&lt;/em&gt;: The name given to the child-level resource.&lt;/p&gt;</source>
+        <target>&lt;p&gt;&lt;strong&gt;Niveaux inférieurs&lt;/strong&gt;&lt;br/&gt;Utiliser ces deux champs pour ajouter des niveaux inférieurs à un niveau de description d'un fonds. Cliquer sur &lt;em&gt;Ajouter un niveau&lt;/em&gt; pour créer autant de niveaux inférieurs que nécessaire. &lt;/p&gt;&lt;p&gt;Ces champs peuvent aussi être utilisés pour ajouter n'importe quel niveau de description intermédiaire (par exemple une série, un dossier, etc.) entre les niveaux les plus hauts et les plus bas d'une description hiérarchique. Si nécessaire, utiliser l'arborescence hiérarchique pour réorganiser les niveaux de description.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Identifier&lt;/em&gt;: Code de référence unique utilisé pour identifier de façon univoque la ressource de niveau inférieur.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Title&lt;/em&gt;: Intitulé donné à la ressource de niveau inférieur.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>&lt;p&gt;The file format, physical medium, or dimensions of the resource.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the Internet Media Types (MIME) will be added automatically upon output, so don't duplicate those values here.&lt;/p&gt;</source>
+        <target>&lt;p&gt;Format de fichier, support physique, ou dimensions de la ressource.&lt;/p&gt;&lt;p&gt;Nota bene : si cette ressource est associée à un objet numérique, le type MIME (Internet Media Type) de ce dernier sera ajouté automatiquement à la sortie, il ne faut donc pas dupliquer ces valeurs ici.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Format</source>
+        <target>Format</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Related material(s) from which this resource is derived.</source>
+        <target>Document(s) associé(s) d'où est dérivée la ressource</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Source</source>
+        <target>Source</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Language(s) of this resource.</source>
+        <target>Langue(s) de la ressource</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Relation (isLocatedAt)</source>
+        <target>Relation (estLocaliséA)</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>&lt;p&gt;The name of the organization which has custody of the resource.&lt;/p&gt;&lt;p&gt;Search for an existing name in the organization records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new organization record.&lt;/p&gt;</source>
+        <target>&lt;p&gt;Nom de l'organisme qui conserve la ressource.&lt;/p&gt;&lt;p&gt;Rechercher un nom existant dans la liste des organismes enregistrés en saisissant les premiers caractères du nom. Sinon, saisir un nouveau nom pour créer une nouvelle notice sur l'organisme et établir une relation avec cette notice.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Coverage (spatial)</source>
+        <target>Couverture géographique</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>&lt;p&gt;The name of a place or geographic area which is a topic of the resource or relevant to its jurisdiction.&lt;/p&gt;&lt;p&gt;Search for an existing term in the Place taxonomy by typing the first few characters of the place name. Alternatively, type a new name to create and link to a new place.&lt;/p&gt;&lt;p&gt;Please note: if you entered a place of creation, publication or contribution that will be output automatically, so don’t repeat that place name here.&lt;/p&gt;</source>
+        <target>&lt;p&gt;Nom d'un lieu ou d'une zone géographique mentionné dans la ressource ou en rapport avec sa juridiction.&lt;/p&gt;&lt;p&gt;Rechercher un terme existant dans le référentiel des noms de lieux en saisissant les premiers caractères du nom de lieu. Sinon saisir un nouveau terme pour créer un nom de lieu et établir une relation avec ce nouveau terme.&lt;/p&gt;&lt;p&gt;Nota bene : si l'on a saisi un lieu de création, de publication ou de contribution qui sera déduit automatiquement, ne pas répéter ce nom de lieu ici.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).</source>
+        <target>Informations sur les droits s'appliquant à la ressource (par exemple propriété intellectuelle, conditions d'accès, etc.).</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Rights</source>
+        <target>Droits</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Rights area</source>
+        <target>Zone des droits</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>View resource metadata</source>
+        <target>Afficher les métadonnées de la ressource</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Edit resource metadata</source>
+        <target>Modifier les métadonnées de la ressource</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Creator</source>
+        <target>Producteur</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Publisher</source>
+        <target>Editeur</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Contributor</source>
+        <target>Contributeur</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Type</source>
+        <target>Type</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Language</source>
+        <target>Langue</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Edit rights area</source>
+        <target>Modifier la zone des droits</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Accession area</source>
+        <target>Zone des entrées</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>%1%Relation%2% (%3%isLocatedAt%4%) - This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

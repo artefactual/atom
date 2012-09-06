@@ -1,0 +1,115 @@
+# This file is part of Qubit Toolkit.
+#
+# Qubit Toolkit is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# Qubit Toolkit is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
+# for more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# Qubit Toolkit; if not, write to the Free Software Foundation, Inc., 51
+# Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+# Dublin Core (dc) IMPORT FILTER MAPPINGS
+#
+# @package qubit
+# @subpackage object import
+# @author Peter Van Garderen <peter@artefactual.com>
+# @version svn: $Id:$
+#
+# filter for importing Dublin Core (dc) records
+
+information_object:
+  XPath:  "/dc | /dublinCore | /metadata | /record | /oai_dc:dc"
+  Object:  InformationObject
+  # define an axis for the parent object; if no node is matched here, the object is rooted if possible
+  Parent:  "ancestor::record"
+  Methods:
+    collection_type:
+      XPath:   "."    # not really a match, just use self
+      Method:  setCollectionTypeId
+      Parameters: [QubitTerm::PUBLISHED_MATERIAL_ID]
+
+    sourceStandard:
+      XPath:   "."    # not really a match, just use self
+      Method:  setSourceStandard
+      Parameters: ["'http://purl.org/dc/elements/1.1/'"]
+
+    publicationStatus:
+      XPath:   "."    # not really a match, just use self
+      Method:  setStatus
+      Parameters: ["array('typeId' => QubitTerm::STATUS_TYPE_PUBLICATION_ID, 'statusId' => sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID))"]
+
+    # each of the following XPath expressions are relative to the current matched node:
+
+    title:
+      XPath:   "(dc:title | title)"
+      Method:  setTitle
+
+    creator:
+      XPath:  "(dc:creator | creator)"
+      Method:  setActorByName
+      Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID)"]
+
+    subject:
+      XPath:   "(dc:subject | subject)"
+      Method:  setTermRelationByName
+      Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID)"]
+
+    description:
+      XPath:   "(dc:description | description)"
+      Method:  setScopeAndContent
+
+    publisher:
+      XPath:  "(dc:publisher | publisher)"
+      Method:  setActorByName
+      Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::PUBLICATION_ID)"]
+
+    contributor:
+      XPath:  "(dc:contributor | contributor)"
+      Method:  setActorByName
+      Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CONTRIBUTION_ID)"]
+
+    date:
+      XPath:   "(dc:date | date)"
+      Method:  setDates
+      Parameters: [$nodeValue, "$options = array('normalized_dates' => $nodeValue)"]
+
+    type:
+      XPath:  "(dc:type | type)"
+      Method:  setTermRelationByName
+      Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::DC_TYPE_ID)"]
+
+    format:
+      XPath:  "(dc:format | format)"
+      Method:  setExtentAndMedium
+
+    identifier:
+      XPath:  "(dc:identifier | identifier)"
+      Method: setIdentifier
+
+    source:
+      XPath:  "(dc:source | source)"
+      Method:  setLocationOfOriginals
+
+    language:
+      XPath:  "(dc:language | language)"
+      Method:  addProperty
+      Parameters: [$name = 'information_object_language', $nodeValue, "$options = array('scope' => 'languages', 'sourceCulture' => true)"]
+
+    relation:
+      XPath:  "(dc:relation | relation)"
+      Method:  setRepositoryByName
+
+    coverage:
+      XPath:  "(dc:coverage | coverage)"
+      Method:  setTermRelationByName
+      Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::PLACE_ID)"]
+
+    rights:
+      XPath:  "(dc:rights | rights)"
+      Method:  setAccessConditions

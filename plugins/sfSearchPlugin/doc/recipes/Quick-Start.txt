@@ -1,0 +1,139 @@
+= Quick Start =
+This guide will quickly setup sfSearch in about 10 minutes.  It is written to integrate Zend_Search_Lucene, Propel, and symfony specifically.
+
+== Install ==
+Checkout the neccessary packages:
+  * Checkout [wiki:sfSearchPlugin]:
+{{{
+svn co http://svn.symfony-project.com/plugins/sfSearchPlugin/trunk/core plugins/sfSearchPlugin
+}}}
+  * Checkout [wiki:sfLucenePlugin]:
+{{{
+svn co http://svn.symfony-project.com/plugins/sfLucenePlugin/trunk/lucene plugins/sfLucenePlugin
+}}}
+  * Checkout [wiki:sfPropelSearchPlugin]:
+{{{
+svn co http://svn.symfony-project.com/plugins/sfPropelSearchPlugin/trunk/propel plugins/sfPropelSearchPlugin
+}}}
+
+== Configure Index ==
+Now we are ready to configure our first index.
+
+=== Intialize Index ===
+Create the index skeleton:
+{{{
+symfony search:init-index MySearchIndex
+}}}
+
+This will create the file {{{ %SF_ROOT_DIR%/lib/search/MySearchIndex.class.php }}}.
+
+Open {{{ %SF_ROOT_DIR%/lib/search/MySearchIndex.class.php }}} and locate the following segment:
+{{{
+#!php
+<?php
+protected function configure()
+{
+}
+}}}
+
+=== Setup Zend_Search_Lucene ===
+Give the index a backend indexing engine:
+{{{
+#!php
+<?php
+protected function configure()
+{
+  $this->setEngine(new xfLuceneEngine(sfConfig::get('sf_data_dir') . '/index/MySearchIndex'));
+}
+}}}
+
+=== Setup Propel Services ===
+Tell sfSearch to index your book model:
+{{{
+#!php
+<?php
+protected function configure()
+{
+  $this->setEngine(new xfLuceneEngine(sfConfig::get('sf_data_dir') . '/index/MySearchIndex'));
+
+  $bookService = new xfService(new xfPropelIdentifier('Book'));
+  $bookService->addBuilder(new xfPropelBuilder(array(
+          new xfField('author', xfField::KEYWORD),
+          new xfField('title', xfField::TEXT),
+          new xfField('description', xfField::TEXT),
+          new xfField('isbn', xfField::KEYORD)
+          )));
+  $bookService->addRetort(new xfRetortField);
+  $bookService->addRetort(new xfRetortRoute('book/preview?isbn=$isbn$'));
+
+  $this->getServiceRegistry()->register($bookService);
+}
+}}}
+
+To have sfSearch automatically update your model when you save or delete it, open {{{ lib/model/Book.php }}} and append the following to the bottom of the class declaration:
+{{{
+#!php
+<?php
+xfPropelBehavior::register('Book', array('MySearchIndex'));
+}}}
+
+Repeat this section for each model.
+
+== Configure Interface ==
+Create skeleton interface:
+{{{
+symfony search:init-interface frontend search MySearchIndex 
+}}}
+
+Open {{{ apps/frontend/modules/search/config/generator.yml }}} and you will see:
+{{{
+generator:
+  class:              xfGeneratorInterface
+  param:
+    index_class:      MySearch
+    theme:            default
+}}}
+
+Configure how to display each service:
+{{{
+generator:
+  class:              xfGeneratorInterface
+  param:
+    index_class:      MySearch
+    theme:            default
+
+    simple:
+     services:
+      propel-Book:
+        title: getTitle
+        description: getDescription
+        route: getRoute 
+}}}
+
+Make sure you change "title", "description", and "route" to match the retorts you registered in the service registry.
+
+Repeat the block
+{{{
+propel-Book:
+  title: getTitle
+  description: getDescription
+  route: getRoute 
+}}}
+for every service you have.
+
+== Find Something ==
+We are now ready to start searching the index.
+
+=== Clear Cache ===
+{{{
+symfony cache:clear
+}}}
+
+=== Populate Index ===
+Build the index:
+{{{
+symfony search:populate MySearchIndex
+}}}
+
+=== Test Interface ===
+Surf to {{{ http://localhost/project/search }}} and try a search. Enjoy!

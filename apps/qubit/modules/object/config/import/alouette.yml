@@ -1,0 +1,148 @@
+#
+# ALOUETTECANADA PORTAL XML IMPORT FILTER MAPPINGS
+#
+# This file is part of the Qubit Toolkit.
+# Copyright (C) 2006-2008 Peter Van Garderen <peter@artefactual.com>
+#
+# All XPath expressions should be absolute to the root node, if possible
+#
+
+# Base Object is the type of object we're importing
+BaseObject: InformationObject
+
+#
+# === BASE OBJECT ATTRIBUTES ===
+#
+
+id:
+  XPath:   /add/doc/field[@name='id']
+  Method:  setIdentifier
+
+localid:
+  XPath:   /add/doc/field[@name='localid']
+  Method:  #setId       # NB: this will overwrite an existing object with the same ID
+
+title:
+  XPath:   /add/doc/field[@name='title']
+  Method:  setTitle
+
+creator:
+  XPath:   /add/doc/field[@name='creator']
+  Method:  
+
+publisher:
+  XPath:   /add/doc/field[@name='publisher']
+  Method:  
+
+source:
+  XPath:   /add/doc/field[@name='source']
+  Method:  setSources
+
+language:
+  XPath:   /add/doc/field[@name='language']
+  Method:  
+
+description:
+  XPath:   /add/doc/field[@name='description']
+  Method:  setScopeAndContent
+
+subject:
+  XPath:   /add/doc/field[@name='subject']
+  Method:  setSubjectAccessPoint
+
+created:
+  XPath:   /add/doc/field[@name='created']
+  Method:  setCreatedAt
+
+modified:
+  XPath:   /add/doc/field[@name='modified']
+  Method:  setUpdatedAt
+
+spatial:
+  XPath:   /add/doc/field[@name='spatial']
+  Method:  
+
+temporal:
+  XPath:   /add/doc/field[@name='temporal']
+  Method:  setRevisionHistory
+
+url:
+  XPath:   /add/doc/field[@name='url']
+  Method:  
+
+mediaType:
+  XPath:   /add/doc/field[@name='mediaType']
+  Method:  
+
+type:
+  XPath:   /add/doc/field[@name='type']
+  Method:  
+
+thumbnail:
+  XPath:   /add/doc/field[@name='thumbnail']
+  Method:  
+
+titlesort:
+  XPath:   /add/doc/field[@name='titlesort']
+  Method:  
+
+bibliographicCitation:
+  XPath:   /add/doc/field[@name='bibliographicCitation']
+  Method:  
+
+fSpatial:
+  XPath:   /add/doc/field[@name='fSpatial']
+  Method:  
+
+fSubject:
+  XPath:   /add/doc/field[@name='fSubject']
+  Method:  
+
+abstract:
+  XPath:   /add/doc/field[@name='abstract']
+  Method:  
+
+itemLatitude:
+  XPath:   /add/doc/field[@name='itemLatitude']
+  Method:  
+
+itemLongitude:
+  XPath:   /add/doc/field[@name='itemLongitude']
+  Method:  
+
+dateOldest:
+  XPath:   /add/doc/field[@name='dateOldest']
+  Method:  
+
+dateNewest:
+  XPath:   /add/doc/field[@name='dateNewest']
+  Method:  
+
+mystery:
+  XPath:   /add/doc/field[@name='mystery']
+  Method:  
+
+featureMystery:
+  XPath:   /add/doc/field[@name='featureMystery']
+  Method:  
+
+comment:
+  XPath:   /add/doc/field[@name='comment']
+  Method:  
+
+featureComment:
+  XPath:   /add/doc/field[@name='featureComment']
+  Method:  
+
+site:
+  XPath:   /add/doc/field[@name='site']
+  Method:  
+  
+recordOwner:
+  XPath:   /add/doc/field[@name='recordOwner']
+  Method:  setInstitutionResponsibleIdentifier
+  
+searchSet:
+  XPath:   /add/doc/field[@name='searchSet']
+  Method:  
+  

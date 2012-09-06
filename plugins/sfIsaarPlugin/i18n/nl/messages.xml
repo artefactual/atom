@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2012-08-17T14:31:19Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new authority record</source>
+        <target>Voeg nieuwe normbeschrijving toe</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>Zonder titel</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>Bewerken %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Dates of existence%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>%1%Type of entity%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Edit %1% - ISAAR</source>
+        <target>Bewerken %1% - ISAAR</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Identity area</source>
+        <target>Identificatie</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>"Specify the type of entity that is being described in this authority record." (ISAAR 5.1.1) Select Corporate body, Family or Person from the drop-down menu.</source>
+        <target>"Specificeer de soort entiteit (organisatie, persoon of familie) die beschreven wordt in deze geautoriseerde beschrijving." (ISAAR 5.1.1)</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Type of entity</source>
+        <target>Soort entiteit</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>This is a mandatory element.</source>
+        <target>Dit is een verplicht veld.</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>"Record the standardized form of name for the entity being described in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record. Use dates, place, jurisdiction, occupation, epithet and other qualifiers as appropriate to distinguish the authorized form of name from those of other entities with similar names." (ISAAR 5.1.2)</source>
+        <target>Leg de gestandaardiseerde naam van de beschreven entiteit vast in overeenstemming met relevante nationale of internationale afspraken of regels gebruikt door de instantie die de geautoriseerde beschrijving creëert. Gebruik, waar nodig, datering, plaats, juridische context, beroep, bijnaam en andere kwalificaties teneinde de geautoriseerde naam te onderscheiden van die van andere entiteiten met dezelfde naam. (ISAAR 5.1.2)</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Authorized form of name</source>
+        <target>Geauthoriseerde naam</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>"Purpose: To indicate the various forms in which the Authorized form of name occurs in other languages or script form(s). Rule: record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record, including any necessary sub elements and/or qualifiers required by those conventions or rules." (ISAAR 5.1.3)</source>
+        <target>"Leg de parallelle naam (namen) vast in overeenstemming met relevante nationale of internationale afspraken of regels gebruikt door de instantie die de geautoriseerde beschrijving creëert, met inbegrip van de nodige subelementen en kwalificaties die door die afspraken of regels vereist worden. Specificeer in het element Regels en/of afspraken (5.4.3) welke regels werden toegepast." (ISAAR 5.1.3)</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Parallel form(s) of name</source>
+        <target>Parallelle vormen van de naam</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>"Record the standardized form of name for the entity being described in accordance with other conventions or rules. Specify the rules and/or if appropriate the name of the agency by which these standardized forms of name have been constructed." (ISAAR 5.1.4)</source>
+        <target>"Leg de gestandaardiseerde naam van de beschreven entiteit vast, in overeenstemming met andere afspraken of regels. Specificeer de regels en/of, indien gepast, de naam van de instantie die deze gestandaardiseerde namen heeft geformuleerd." (ISAAR 5.1.4)</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Standardized form(s) of name according to other rules</source>
+        <target>Gestandaardiseerde naamvorm(en) volgens andere regels.</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>The purpose of this field is to "indicate any other name(s) for the corporate body, person or family not used elsewhere in the Identity Area." Examples are acronyms, previous names, pseudonyms, maiden names and titles of nobility or honour. (ISAAR 5.1.5)</source>
+        <target>Het doel van dit veld is Het aangeven van een andere naam (namen) voor de organisatie, persoon of familie, voor zover ze niet elders in het veld Identiteit voorkomen." Voorbeelden zijn acroniemen, vorige namen, pseudoniemen, meisjesnamen en adelijke titels. (ISAAR (5.1.5)</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Other form(s) of name</source>
+        <target>Aandere naamsvormen</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>"Record where possible any official number or other identifier (e.g. a company registration number) for the corporate body and reference the jurisdiction and scheme under which it has been allocated." (ISAAR 5.1.6)</source>
+        <target>"Leg waar mogelijk een officieel nummer of een andere identificatiecode (bijvoorbeeld een registratienummer van een bedrijf) voor de organisatie vast en verwijs naar het rechtsgebied en het schema waarbinnen het werd toegekend." (ISAAR 5.1.6)</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Identifiers for corporate bodies</source>
+        <target>Identificatiecode voor organisaties</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Description area</source>
+        <target>Beschrijving</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>"Record the dates of existence of the entity being described. For corporate bodies include the date of establishment/foundation/enabling legislation and dissolution. For persons include the dates or approximate dates of birth and death or, when these dates are not known, floruit dates. Where parallel systems of dating are used, equivalences may be recorded according to relevant conventions or rules. Specify in the Rules and/or conventions element (5.4.3) the system(s) of dating used, e.g. ISO 8601." (ISAAR 5.2.1)</source>
+        <target>Leg van de beschreven entiteit de bestaansperiode vast. Neem voor organisaties de datum van vestiging/oprichting/wettelijk mandaat en opheffing op. Neem voor personen de datums of vermoedelijke datums van geboorte en overlijden op of, wanneer deze datums onbekend zijn, de periode waarin zij actief waren. Waar parallelle dateringssystemen worden gebruikt, kan men in overeenstemming met relevante conventies of regels de datums in de verschillende systemen geven. Specificeer in het element Regels en/of afspraken (5.4.3) het/de gebruikte
+dateringssyste(e)m(en), bijvoorbeeld ISO 8601."</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Dates of existence</source>
+        <target>Bestaansperiode</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>"Record in narrative form or as a chronology the main life events, activities, achievements and/or roles of the entity being described. This may include information on gender, nationality, family and religious or political affiliations. Wherever possible, supply dates as an integral component of the narrative description." (ISAAR 5.2.2)</source>
+        <target>Leg de belangrijkste levensmomenten, activiteiten, prestaties en/of functies van de beschreven entiteit vast in de verhalende vorm of als een chronologische opsomming. Hieronder valt ook informatie over geslacht, nationaliteit, familie en religieuze of politieke banden. Laat waar mogelijk dateringen een integraal onderdeel uitmaken van de verhalende beschrijving." (ISAAR 5.2.2)</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>"Purpose: to indicate the predominant places and/or jurisdictions where the corporate body, person or family was based, lived or resided or had some other connection. Rule: record the name of the predominant place(s)/jurisdiction(s), together with the nature and covering dates of the relationship with the entity." (ISAAR 5.2.3)</source>
+        <target>"Leg de namen van de belangrijkste plaatsen/rechtsgebieden vast samen met de aard en het tijdsbestek van hun relatie met de eenheid." (ISAAR 5.2.3)</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>"Record the legal status and where appropriate the type of corporate body together with the covering dates when this status applied." (ISAAR 5.2.4)</source>
+        <target>"Leg de rechtsvorm vast en, waar van toepassing, de aard van de organisatie samen met het tijdsbestek waarin deze vorm van toepassing was." (ISAAR 5.2.4)</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>"Record the functions, occupations and activities performed by the entity being described, together with the covering dates when useful. If necessary, describe the nature of the function, occupation or activity." (ISAAR 5.2.5)</source>
+        <target>"Leg de functies, beroepen en activiteiten van de beschreven entiteit vast, en waar van nut het tijdsbestek. Beschrijf, indien noodzakelijk, de aard van de functie, het beroep of de activiteit." (ISAAR 5.2.5)</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Functions, occupations and activities</source>
+        <target>Functies, beroepen en activiteiten</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the entity being described, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISAAR 5.2.6)</source>
+        <target>Leg alle documenten, wetten, richtlijnen of handvesten vast die gelden als een gezagsbron voor de bevoegdheden, functies en verantwoordelijkheden van de beschreven entiteit, samen met informatie over het rechtsgebied en het tijdsbestek waarbinnen het mandaat van toepassing was of werd gewijzigd." (ISAAR 5.2.6)</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Mandates/sources of authority</source>
+        <target>Mandaat/bronnen van bevoegdheid</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>"Describe the internal structure of a corporate body and the dates of any changes to that structure that are significant to the understanding of the way that corporate body conducted its affairs (e.g. by means of dated organization charts). Describe the genealogy of a family (e.g. by means of a family tree) in a way that demonstrates the inter-relationships of its members with covering dates." (ISAAR 5.2.7)</source>
+        <target>"Beschrijf de interne structuur van een organisatie en geef de datums van alle structuurwijzigingen die bijdragen aan het begrip van de wijze waarop de organisatie haar activiteiten uitvoerde (bijvoorbeeld door middel van gedateerde organogrammen).
+Beschrijf de genealogie van een familie (bijvoorbeeld door middel van een stamboom) zodanig dat de onderlinge relaties tussen haar leden duidelijk zijn, met inbegrip van het tijdsbestek."</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Internal structures/genealogy</source>
+        <target>Interne structuren / genealogie</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>"Provide any significant information on the social, cultural, economic, political and/or historical context in which the entity being described operated." (ISAAR 5.2.8)</source>
+        <target>"Verschaf alle belangrijke informatie over de sociale, culturele, economische, politieke en/of historische context waarbinnen de beschreven entiteit functioneerde." (ISAAR 5.2.8)</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Relationships area</source>
+        <target>relaties</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Control area</source>
+        <target>Beheer</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>"Record a unique authority record identifier in accordance with local and/or national conventions. If the authority record is to be used internationally, record the country code of the country in which the authority record was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the authority record is an international organization, give the organizational identifier in place of the country code." (ISAAR 5.4.1)</source>
+        <target>"Leg een unieke identificatiecode voor de geautoriseerde beschrijving vast volgens lokale en/of nationale afspraken. Indien de geautoriseerde beschrijving internationaal gebruikt gaat worden, leg dan de landcode vast van het land waar de geautoriseerde beschrijving werd gemaakt, in overeenstemming met de laatste versie van ISO 3166 Codes for the representation of names of countries." (ISAAR 5.4.1)</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Description identifier</source>
+        <target>Identificatie van de beschrijving</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>"Record the full authorized form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the authority record or, alternatively, record a code for the agency in accordance with the national or international agency code standard. Include reference to any systems of identification used to identify the institutions (e.g. ISO 15511)." (ISAAR 5.4.2)</source>
+        <target>Leg de volledige geautoriseerde naam(namen) vast van de instantie(s) verantwoordelijk voor het maken, wijzigen of verspreiden van de geautoriseerde beschrijving. Of leganders een code van de instantie vast in overstemming met de nationale of internationale standaard voor het toekennen van codes aan instanties. Verwijs naar eventuele identificatiesystemen die gebruikt zijn om de instellingen te identificeren (bijvoorbeeld ISO 15511)." (ISAAR 5.4.2)</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Institution identifier</source>
+        <target>Identificatiecode van de instelling</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival authority record. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied. Specify separately which rules have been applied for creating the Authorized form of name. Include reference to any system(s) of dating used to identify dates in this authority record (e.g. ISO 8601)." (ISAAR 5.4.3)</source>
+        <target>"Leg de namen en, waar van nut, de uitgaven of publicatiedatums vast van de toegepaste afspraken of regels. Specificeer afzonderlijk de regels die zijn toegepast voor het bepalen van de geautoriseerde naam. Verwijs naar de dateringssystemen die gebruikt zijn om datums in deze geautoriseerde beschrijving vast te stellen (bijvoorbeeld ISO 8601)." (ISAAR 5.4.3)</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Rules and/or conventions used</source>
+        <target>Toegepaste regels en/of conventies</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>The purpose of this field is "[t]o indicate the drafting status of the authority record so that users can understand the current status of the authority record." (ISAAR 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
+        <target>Het doel van dit veld is "de status van de beschrijving te tonen, zodat gebruikers weten wat de huidge status van de beschrijving is." (ISAAR 5.4.4). Selecteer Definitie, Herzien, of Concept uit het drop-down menu.</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal records are those that consist only of the four essential elements of an ISAAR(CPF) compliant authority record (see 4.8), while full records are those that convey information for all relevant ISAAR(CPF) elements of description." (ISAAR 5.4.5)</source>
+        <target> Selecteer Volledig, Gedeeltelijk of Minimaal uit het drop-down menu. "Bij ontbreken van nationale richtlijnen of regels zijn minimale beschrijvingen die beschrijvingen die slechts drie essentiele elementen van een ISAAR(CPF) conforme beschrijving bevatten, terwijl volledige beschrijvingen alle relevante elementen hebben." (ISAAR 5.4.5)</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>"Record the date the authority record was created and the dates of any revisions to the record." (ISAAR 5.4.6)</source>
+        <target>"Leg de datum vast waarop de geautoriseerde beschrijving werd gemaakt en de datums van eventuele herzieningen van de beschrijving. Specificeer in het element Regels en/of afspraken (5.4.3) het gebruikte ateringssysteem, bijvoorbeeld ISO 8601." (ISAAR 5.4.6)</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Dates of creation, revision and deletion</source>
+        <target>Datering van aanmaak, herziening of verwijdering</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Select the language(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
+        <target>Selecteer de taal van de normbeschrijving uit het drop-down menu; typ de eerste paar letters om de keuze te beperken. (ISAAR 5.4.7)</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Select the script(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
+        <target>Select het schrift of de schriften van de normbeschrijving uit het drop-down menu, typ de eerste paar letters om de keuze te beperken. (ISAAR 5.4.7)</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>"Record the sources consulted in establishing the authority record." (ISAAR 5.4.8)</source>
+        <target>"Leg de bronnen vast die zijn geraadpleegd bij het opstellen van de geautoriseerde beschrijving." (ISAAR 5.4.8)</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>"Record notes pertinent to the creation and maintenance of the authority record. The names of persons responsible for creating the authority record may be recorded here." (ISAAR 5.4.9)</source>
+        <target>"Maak aantekeningen over de creatie en het onderhoud van de geautoriseerde beschrijving. Hier kunnen de namen van personen die verantwoordelijk zijn voor het maken van de geautoriseerde beschrijving worden vastgelegd." (ISAAR 5.4.9)</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Actions</source>
+        <target>Handelingen</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Cancel</source>
+        <target>Verwijderen</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Save</source>
+        <target>bewaren</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Create</source>
+        <target>Aanmaken</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>View authority record</source>
+        <target>Bekijk geauthoriseerde beschrijving</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Edit authority record</source>
+        <target>Bewerken normbeschrijving</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Edit identity area</source>
+        <target>Bewerken identiteit area</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Edit description area</source>
+        <target>Bewerken beschrijvings area</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>History</source>
+        <target>Geschiedenis</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Places</source>
+        <target>Plaatsen</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Legal status</source>
+        <target>Rechtsvorm</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>General context</source>
+        <target>Algemene context</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Edit relationships area</source>
+        <target>Bewerken relaties area</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Related entity</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Identifier of the related entity</source>
+        <target>Identificatie van de gerelateerde entiteit</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Category of the relationship</source>
+        <target>Soort relatie</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Dates of the relationship</source>
+        <target>Datering van de relatie</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Description of relationship</source>
+        <target>Beschrijving van de relatie</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Related function</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Edit control area</source>
+        <target>Bewerken beheer area</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Level of detail</source>
+        <target>Niveau van detaillering</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Language(s)</source>
+        <target>Taal (talen)</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Script(s)</source>
+        <target>Schrift(en)</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Sources</source>
+        <target>bronnen</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Maintenance notes</source>
+        <target>Onderhoudsaantekeningen</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Edit</source>
+        <target>Bewerken</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Delete</source>
+        <target>Verwijderen</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Add new</source>
+        <target>Nieuw toevoegen</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Related corporate bodies, persons or families</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Name</source>
+        <target>Naam</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Type</source>
+        <target>Soort</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Dates</source>
+        <target>Datums</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Description</source>
+        <target>Beschrijving</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Related corporate body, person or family</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>"Record the authorized form of name and any relevant unique identifiers, including the authority record identifier, for the related entity." (ISAAR 5.3.1) Select the name from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target>"Leg de geautoriseerde naam en alle relevante unieke identificatiecodes vast, inclusief de identificatiecode van de geautoriseerde beschrijving, voor de verwante entiteit." (ISAAR 5.3.1) Selecteer de naam van het drop-box menu; voer de eerste paar letters in om de keuze te beperken.</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>"Purpose: To identify the general category of relationship between the entity being described and another corporate body, person or family." (ISAAR 5.3.2). Select a category from the drop-down menu: hierarchical, temporal, family or associative.</source>
+        <target>"Leg de namen van de belangrijkste plaatsen/rechtsgebieden vast samen met de aard en het tijdsbestek van hun relatie met de eenheid." (ISAAR 5.2.3). Selecteer een categorie uit het drop-down menu: hierarchisch, volgtijdelijk of associatief.</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Category of relationship</source>
+        <target>Soort relatie</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>"Record a precise description of the nature of the relationship between the entity described in this authority record and the other related entity....Record in the Rules and/or conventions element (5.4.3) any classification scheme used as a source of controlled vocabulary terms to describe the relationship. A narrative description of the history and/or nature of the relationship may also be provided here." (ISAAR 5.3.3). Note that the text entered in this field will also appear in the related authority record.</source>
+        <target>"Beschrijf nauwkeurig de aard van de relatie van de in deze geautoriseerde beschrijving genoemde entiteit met de andere verwante entiteit, bijvoorbeeld hogere instantie, ondergeschikte instantie, eigenaar, voorganger, echtgenoot, echtgenote, zoon, neef/nicht, leraar van, student van, collega. Leg in het element Regels en/of afspraken (5.4.3) elk classificatieschema vast waaraan termen zijn ontleend voor een gecontroleerde woordenlijst die gebruikt wordt om de relatie te beschrijven. Hier kan desgewenst een verhalende beschrijving van de geschiedenis en/of de aard van de relatie worden verschaft." (ISAAR 5.3.3). De tekst die in dit veld wordt ingevoerd wil ook in het gerelateerde authority record verschijnen.</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>"Record when relevant the commencement date of the relationship or succession date and, when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target>"Leg, waar relevant, de begin- of opvolgingsdatum van de relatie vast en, waar relevant, de einddatum." (ISAAR 5.3.4). Voer de datum in zoals die op de raadpleegpagina van het authority record moet verschijnen. Maak gebruik van nadere specificaties of typografische tekens om onzekerheden vast te leggen.</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Related resources</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Title</source>
+        <target>Titel</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Relationship</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Title of related resource</source>
+        <target>Titel van de gerelateerde bron</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>"Provide the unique identifiers/reference codes and/or titles for the related resources." (ISAAR 6.1) Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices.</source>
+        <target>"Verschaf de unieke identificatiecodes/referenties en/of titels van de verwante bronnen. Verschaf, indien van toepassing, ook de identificatiecodes van elke afzonderlijke beschrijving van de verwante bron." (ISAAR 6.1). Selecteer de titel van het drop down menu; voer de eerste paar letters in om de keuze te beperken.</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>"Describe the nature of the relationships between the corporate body, person or family and the related resource." (ISAAR 6.3) Select the type of relationship from the drop-down menu; these values are drawn from the Event Types taxonomy.</source>
+        <target>"Beschrijf de aard van de relaties tussen de organisatie, persoon of familie en de verwante bronnen, en het aangeven van de betekenis van deze datums." Selecteer het soort relatie uit het drop-down menu; de waarden zijn afkomstig uit de Event Types taxonomie.</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Nature of relationship</source>
+        <target>Soort relatie</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>"Identify the type of related resources, e.g. Archival materials (fonds, record series, etc), archival description, finding aid, monograph, journal article, web site, photograph, museum collection, documentary film, oral history recording." (ISAAR 6.2) In the current version of the software, Archival material is provided as the only default value.</source>
+        <target>"Identificeer de soort verwante bronnen, bijvoorbeeld archiefmateriaal (archief, reeks, enzovoort), archivistische beschrijving, toegang, monografie, tijdschriftartikel, website, foto, museumverzameling, documentaire film, opname voor mondelinge geschiedenis."</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Type of related resource</source>
+        <target>Soort gerelateerde bron</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>"Provide any relevant dates for the related resources and/or the relationship between the corporate body, person or family and the related resource." (ISAAR 6.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target>"Verschaf alle relevante datums voor de verwante bronnen en/of de relatie tussen de organisatie, persoon of familie en de verwante bron en beschrijf de betekenis van die datums." (ISAAR 6.4). Voer de datum in zoals u wilt dat deze op de pagina voor het authority record verschijnt; maak indien gewenst gebruik van nadere aanduidingen of typografische symbolen om onzekerheden aan te geven."</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

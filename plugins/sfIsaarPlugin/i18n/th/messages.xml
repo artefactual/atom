@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="th" datatype="plaintext" original="messages" date="2012-08-15T12:06:01Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new authority record</source>
+        <target>เพิ่มรายงานทะเบียนเอกสารใหม่</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>ไม่ระบุชื่อเรื่อง</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>แก้ไข%1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
+        <target>1%แบบเต็มที่ได้รับอนุญาตของชื่อ%2% - นี่เป็นองค์ประกอบที่จำเป็น%3%%4%.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Dates of existence%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%วันที่ของการมีอยู่%2% - นี่เป็นองค์ประกอบที่จำเป็น %3%%4%.</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%คำอธิบายidentifier%2% - นี่เป็นองค์ประกอบที่จำเป็น%3%%4%.</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>%1%Type of entity%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%ประเภทของentity%2% - นี่เป็นองค์ประกอบที่จำเป็น %3%y%4%.</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Related resources</source>
+        <target>ทรัพยากรที่เกี่ยวข้อ</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Title</source>
+        <target>ชื่อเรื่อง</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Relationship</source>
+        <target>พื้นที่ความสัมพันธ์</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Dates</source>
+        <target>วันที่</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Title of related resource</source>
+        <target>ชื่อเรื่องเอกสารที่เกี่ยวข้อง</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>"Provide the unique identifiers/reference codes and/or titles for the related resources." (ISAAR 6.1) Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices.</source>
+        <target>"กรอกunique identifiers รหัสอ้างอิงและ / หรือ ชื่อเรื่องแหล่งข้อมูลที่เกี่ยวข้อง "(ISAAR 6.1) เลือกชื่อเรื่องจาก drop-down menu. หรือใส่ตัวอักษรบางตัวเพื่อจำกัดตัวเลือก".</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>"Describe the nature of the relationships between the corporate body, person or family and the related resource." (ISAAR 6.3) Select the type of relationship from the drop-down menu; these values are drawn from the Event Types taxonomy.</source>
+        <target>อธิบายลักษณะความสัมพันธ์ระหว่างนิติบุคคล บุคคลหรือครอบครัว กับทรัพยากรที่เกี่ยวข้อง "(ISAAR 6.3) เลือกประเภทของความสัมพันธ์จากdrop-down menu;ค่าเหล่านี้ถูกดึงมาจากอนุกรมวิธานประเภทเหตุการณ์.</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Nature of relationship</source>
+        <target>ลักษณะของความสัมพันธ์</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>"Identify the type of related resources, e.g. Archival materials (fonds, record series, etc), archival description, finding aid, monograph, journal article, web site, photograph, museum collection, documentary film, oral history recording." (ISAAR 6.2) In the current version of the software, Archival material is provided as the only default value.</source>
+        <target>"ระบุประเภทของแหล่งข้อมูลที่เกี่ยวข้องเช่น เอกสารจดหมายเหตุ (เอกสารระดับกลุ่ม,  รายการ ซีรี่ย์, etc) คำอธิบายจดหมายเหตุ, เครื่องมือช่วยค้นเอกสาร, หนังสือค้าง, บทความวารสาร, เว็บไซต์, ถ่ายภาพ, คอลเลกชันพิพิธภัณฑ์, ภาพยนตร์สารคดี, บันทึกคำบอกเล่าประวัติศาสตร์ "(ISAAR 6.2) ในรุ่นปัจจุบันของซอฟแวร์ ค่าเริ่มต้นถูกกำหนดเป็นเอกสารจดหมายเหตุ.</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Type of related resource</source>
+        <target>ประเภททรัพยากรเกี่ยวข้อง</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>"Provide any relevant dates for the related resources and/or the relationship between the corporate body, person or family and the related resource." (ISAAR 6.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target>"กรอกวันที่มีความเกี่ยวข้องใด ๆกับแหล่งข้อมูลที่เกี่ยวข้อง และ / หรือความสัมพันธ์ระหว่างนิติบุคคล  บุคคล หรือครอบครัวกับทรัพยากรที่เกี่ยวข้อง. "(ISAAR 6.4) ใส่วันที่ที่คุณต้องการให้ปรากฏในหน้าแสดงauthority record ใช้qualifiers และ / หรือสัญลักษณ์การพิมพ์แสดงความไม่แน่ใจถ้าต้องการ".  </target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>View authority record</source>
+        <target>ดูคำอธิบายจดหมายเหตุ</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Edit authority record</source>
+        <target>แก้ไขรายการควบคุม</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Identity area</source>
+        <target>พื้นที่Identity</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Edit identity area</source>
+        <target>แก้ไขพื้นที่identity</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Type of entity</source>
+        <target>ประเภทentity</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Authorized form of name</source>
+        <target>รูปแบบช่ือที่กําหนดใหใชได</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Parallel form(s) of name</source>
+        <target>แบบฟอร์มขอชื่อเทียบเคียง</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Standardized form(s) of name according to other rules</source>
+        <target>รูปแบบมาตรฐานของชื่อตามกฎระเบียบอื่น ๆ</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Other form(s) of name</source>
+        <target>แบบฟอร์มการขอชื่ออื่นๆ</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Identifiers for corporate bodies</source>
+        <target>ตัวระบุสำหรับนิติบุคคล</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Description area</source>
+        <target>พื้นที่ทำคำอธิบายเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Edit description area</source>
+        <target>แก้ไขพื้นทคำอธิบายเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Dates of existence</source>
+        <target>วันที่เก็บเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>History</source>
+        <target>ประวัติศาสตร์</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Places</source>
+        <target>สถานที</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Legal status</source>
+        <target>สถานะทางกฎหมาย</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Functions, occupations and activities</source>
+        <target>ฟังก์ชั่น,อาชีพ,กิจกรรม</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Mandates/sources of authority</source>
+        <target>เอกสารที่ / แหล่งที่มาของอำนาจ</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Internal structures/genealogy</source>
+        <target>โครงสร้างภายใน / ลำดับวงศ์ตระกูล </target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>General context</source>
+        <target>บริบททั่วไปt</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Relationships area</source>
+        <target>พื้นที่ความสัมพันธ์</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Edit relationships area</source>
+        <target>แก้ไขพื้นที่ความสัมพันธ์</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Related entity</source>
+        <target>entityที่เกี่ยวข้อง</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Identifier of the related entity</source>
+        <target>ตัวระบุเอนทิตีที่เกี่ยวข้องentity</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Category of the relationship</source>
+        <target>หมวดหมู่ของความสัมพันธ์</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Dates of the relationship</source>
+        <target>วันที่ความสัมพันธ์</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Description of relationship</source>
+        <target>คำอธิบายความสัมพันธ์</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Related function</source>
+        <target>ฟังก์ชั่นที่เกี่ยวข้อง</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Control area</source>
+        <target>ข้อมูลเกี่ยวกับควบคุม</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Edit control area</source>
+        <target>แก้ไขพื้นที่ควบคุม</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Description identifier</source>
+        <target>การทำคำอธิบายเอกสารidentifier</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Institution identifier</source>
+        <target>identifierของหน่วยงาน</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Rules and/or conventions used</source>
+        <target>กฎระเบียบและ / หรือข้อตกลง</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Status</source>
+        <target>สถานะ</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Level of detail</source>
+        <target>ระดับของคําอธิบาย</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Dates of creation, revision and deletion</source>
+        <target>วันที่สร้าง/แก้ไข/ลบ</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Language(s)</source>
+        <target>ภาษา</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Script(s)</source>
+        <target>สคริป</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Sources</source>
+        <target>แหล่ง</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Maintenance notes</source>
+        <target>หมายเหตุการบำรุงรักษา</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Actions</source>
+        <target>แอคชัน</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Edit</source>
+        <target>แก้ไข</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Delete</source>
+        <target>ลบ</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Add new</source>
+        <target>เพิ่มใหม</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Edit %1% - ISAAR</source>
+        <target>แก้ไข %1% - ISAAR</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>"Specify the type of entity that is being described in this authority record." (ISAAR 5.1.1) Select Corporate body, Family or Person from the drop-down menu.</source>
+        <target>"ะบุประเภทของentityที่ถูกอธิบายไว้ในauthority recordนี้."(ISAAR 5.1.1) เลือกว่า นิติบุคคล  ครอบครัวหรือบุคคลจากdrop-down menu"</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>This is a mandatory element.</source>
+        <target>นี่คือองค์ประกอบที่จำเป็น.</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>"Record the standardized form of name for the entity being described in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record. Use dates, place, jurisdiction, occupation, epithet and other qualifiers as appropriate to distinguish the authorized form of name from those of other entities with similar names." (ISAAR 5.1.2)</source>
+        <target>"บันทึกรูปแบบมาตรฐานของชื่อสำหรับนิติบุคคลที่ถูกอธิบายให้สอดคล้องกับอนุสัญญาชาติหรือระดับนานาชาติใด ๆ ที่เกี่ยวข้องหรือกฎระเบียบที่นำมาใช้โดยหน่วยงานที่สร้างระเบียนผู้มีอำนาจ ใช้วันที่, สถานที่, อำนาจ, อาชีพ, คุณศัพท์และบ่นอื่น ๆ ตามความเหมาะสมที่จะแยกรูปแบบผู้มีอำนาจของชื่อจากผู้ที่ของหน่วยงานอื่น ๆ ที่มีชื่อที่คล้ายกัน."(ISAAR 5.1.2)</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>"Purpose: To indicate the various forms in which the Authorized form of name occurs in other languages or script form(s). Rule: record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record, including any necessary sub elements and/or qualifiers required by those conventions or rules." (ISAAR 5.1.3)</source>
+        <target>"วัตถุประสงค์: เพื่อระบุรูปแบบต่างๆของ authorised form of nameที่พบในภาษาหรือสคริปอื่นๆ กฎ:บันทึกparallel form(s) of nameตามข้อกำหนดของหน่วยงานระดับชาติหรือระดับนานาชาติใดๆที่สร้างคำอธิบาย โดยประกอบด้วยองค์ประกอบย่อยที่จำเป็นและ / หรือqualifiersที่จำเป็นซึ่งกำหนดในข้อกำหนดหรือกฏดังกล่าว" (ISAAR 5.1.3)</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>"Record the standardized form of name for the entity being described in accordance with other conventions or rules. Specify the rules and/or if appropriate the name of the agency by which these standardized forms of name have been constructed." (ISAAR 5.1.4)</source>
+        <target>"บันทึกรูปแบบมาตรฐานของชื่อสำหรับนิติบุคคลที่ถูกอธิบายให้สอดคล้องกับอนุสัญญาชาติหรือระดับนานาชาติใด ๆ ที่เกี่ยวข้องหรือกฎระเบียบที่นำมาใช้โดยหน่วยงานที่สร้างระเบียนผู้มีอำนาจ ใช้วันที่, สถานที่, อำนาจ, อาชีพ, คุณศัพท์และบ่นอื่น ๆ ตามความเหมาะสมที่จะแยกรูปแบบผู้มีอำนาจของชื่อจากผู้ที่ของหน่วยงานอื่น ๆ ที่มีชื่อที่คล้ายกัน."(ISAAR 5.1.4)</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>The purpose of this field is to "indicate any other name(s) for the corporate body, person or family not used elsewhere in the Identity Area." Examples are acronyms, previous names, pseudonyms, maiden names and titles of nobility or honour. (ISAAR 5.1.5)</source>
+        <target>วัตถุประสงค์ของfieldนี้คือการ "ระบุชื่ออื่น ๆ สำหรับนิติบุคคล บุคคลหรือครอบครัวที่ไม่ได้ถูกใช้ที่อื่นในIdentity Area" ตัวอย่างเช่น ตัวย่อ ชื่อเก่า นามแฝง นามสกุลเก่า(ก่อนแต่งงาน) และชื่อเกียรติยศ (ISAAR 5.1.5)</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>"Record where possible any official number or other identifier (e.g. a company registration number) for the corporate body and reference the jurisdiction and scheme under which it has been allocated." (ISAAR 5.1.6)</source>
+        <target>"บันทึกที่เป็นไปได้ที่เลขที่เป็นทางการหรือตัวระบุอื่น ๆ (เช่นหมายเลขทะเบียนของ บริษัท) สำหรับนิติบุคคลและการอ้างอิงเขตอำนาจและรูปแบบตามที่มันได้รับการจัดส(ISAAR 5.1.6)</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>"Record the dates of existence of the entity being described. For corporate bodies include the date of establishment/foundation/enabling legislation and dissolution. For persons include the dates or approximate dates of birth and death or, when these dates are not known, floruit dates. Where parallel systems of dating are used, equivalences may be recorded according to relevant conventions or rules. Specify in the Rules and/or conventions element (5.4.3) the system(s) of dating used, e.g. ISO 8601." (ISAAR 5.2.1)</source>
+        <target>"บันทึกวันที่ของการมีอยู่ของentityที่ถูกอธิบาย  สำหรับนิติบุคคลรวมถึงวันที่ก่อตี้ง/ จัดตั้งมูลนิธิ / การสลายตัว สำหรับบุคคลรวมถึงวันที่เกิดและตายหรือในกรณีที่ไม่ทราบให้ใช้วันที่เจริญรุ่งเรืองสูงสุด ในกรณีที่parallel systems of dating ถูกใช้ equivalences อาจถูกบันทึกตามข้อกำหนดหรือกฎที่เกี่ยวข้อง กรุณาระบุกฎและ / หรือข้อำหนดที่ (5.4.3) ระบบของdating ใช้ด้วย ISO 8601".(ISAAR 5.2.1)</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>"Record in narrative form or as a chronology the main life events, activities, achievements and/or roles of the entity being described. This may include information on gender, nationality, family and religious or political affiliations. Wherever possible, supply dates as an integral component of the narrative description." (ISAAR 5.2.2)</source>
+        <target>"บันทึกในรูปแบบการเล่าเรื่องหรือตามลำดับเวลาของเหตุการณ์สำคัญ กิจกรรม ความสำเร็จและ / หรือบทบาทของentityที่ถูกอธิบาย ซึ่งอาจรวมถึงข้อมูลเกี่ยวกับเพศ, สัญชาติ, ครอบครัวและความเกี่ยวพันกับศาสนาหรือการเมือง หากเป็นไปได้กรุณากรอกวันที่ซึ่งเป็นองค์ประกอบสำคัญของรายละเอียดการเล่าเรื่อง."(ISAAR 5.2.2)</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>"Purpose: to indicate the predominant places and/or jurisdictions where the corporate body, person or family was based, lived or resided or had some other connection. Rule: record the name of the predominant place(s)/jurisdiction(s), together with the nature and covering dates of the relationship with the entity." (ISAAR 5.2.3)</source>
+        <target>"วัตถุประสงค์: เพื่อระบุสถานที่ที่สำคัญ และ / หรือเขตอำนาจศาลที่นิติบุคคล บุคคลหรือครอบครัวมีพื้นฐานอาศัยอยู่ หรืออาศัยอยู่หรือมีความเกี่ยวข้องอื่น ๆ กฎ: บันทึกชื่อของสถานที่ที่สำคัญ / เขตอำนาจ ร่วมกับลักษณะและวันที่ที่เกี่ยวข้องของความสัมพันธ์กับentity" (ISAAR 5.2.3) </target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>"Record the legal status and where appropriate the type of corporate body together with the covering dates when this status applied." (ISAAR 5.2.4)</source>
+        <target>"บันทึกสถานะทางกฎหมายและประเภทของนิติบุคคล รวมถึงช่วงระยะเวลาที่สถานะถูกใช้." (ISAAR 5.2.4)</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>"Record the functions, occupations and activities performed by the entity being described, together with the covering dates when useful. If necessary, describe the nature of the function, occupation or activity." (ISAAR 5.2.5)</source>
+        <target>"บันทึกฟังก์ชั่นการประกอบอาชีพและกิจกรรมที่ดำเนินการโดยองค์กรที่ถูกอธิบายไว้ด้วยกันวันที่ครอบคลุมเมื่อมีประโยชน์. ถ้าจำเป็นให้อธิบายลักษณะของฟังก์ชั่นการประกอบอาชีพหรือกิจกรรม."(ISAAR 5.2.5)</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the entity being described, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISAAR 5.2.6)</source>
+        <target>"บันทึกเอกสาร กฎหมาย คำสั่งหรือใบอนุญาตซึ่งทำหน้าที่เป็นแหล่งที่มาของauthorityทางด้านอำนาจ หน้าที่และความรับผิดชอบของentityซึ่งประกอบด้วยข้อมูลเกี่ยวกับเขตอำนาจและวันที่คำส่งถูกนำไปใช้หรือมีการเปลี่ยนแปลง. "(ISAAR 5.2.6)</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>"Describe the internal structure of a corporate body and the dates of any changes to that structure that are significant to the understanding of the way that corporate body conducted its affairs (e.g. by means of dated organization charts). Describe the genealogy of a family (e.g. by means of a family tree) in a way that demonstrates the inter-relationships of its members with covering dates." (ISAAR 5.2.7)</source>
+        <target>"อธิบายโครงสร้างภายในของนิติบุคคลและวันที่ทำการเปลี่ยนแปลงใดๆกับโครงสร้างที่มีความสำคัญต่อความเข้าใจในวิธีการดำเนินการต่างๆขององค์กร (เช่นการใช้ปฎิทินขององกรณ์) อธิบายลำดับวงศ์ตระกูลของครอบครัว (เช่นโดยวิธีการใช้แผนภูมิต้นไม้ครอบครัว) โดยแสดงให้เห็นถึงความสัมพันธ์ระหว่างของสมาชิกตามวันที่"(ISAAR 5.2.7)</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>"Provide any significant information on the social, cultural, economic, political and/or historical context in which the entity being described operated." (ISAAR 5.2.8)</source>
+        <target>"กรอกข้อมูลที่มีนัยสำคัญกับบริบททางสังคม วัฒนธรรม เศรษฐกิจ การเมืองและ / หรือประวัติศาสตร์ ซึ่งเกี่ยวข้องกับentity"(ISAAR 5.2.8)</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>"Record a unique authority record identifier in accordance with local and/or national conventions. If the authority record is to be used internationally, record the country code of the country in which the authority record was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the authority record is an international organization, give the organizational identifier in place of the country code." (ISAAR 5.4.1)</source>
+        <target>"บันทึกauthority recordเฉพาะที่สอดคล้องกับข้อตกลงในระดับท้องถิ่นและ / หรือระดับชาติ ในกรณีที่authority record ถูกใช้ในระดับสากลกรุณาบันทึกรหัสประเทศของประเทศที่authority recordถูกสร้างขึ้นโดยให้สอดคล้องกับเวอร์ชันล่าสุดของ ISO 3166 Codes รหัสสำหรับแทนชื่อของประเทศ ในกรณีที่ผู้สร้างauthority recordเป็นองค์กรระหว่างประเทศให้ระบุorganizational identifierแทนรหัสประเทศ"(ISAAR 5.4.1)</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>"Record the full authorized form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the authority record or, alternatively, record a code for the agency in accordance with the national or international agency code standard. Include reference to any systems of identification used to identify the institutions (e.g. ISO 15511)." (ISAAR 5.4.2)</source>
+        <target>"บันทึกแบบเต็มได้รับอนุญาตของหน่วยงาน,ที่รับผิดชอบในการสร้าง,การปรับเปลี่ยนหรือเผยแพร่คำอธิบายหรือบันทึกรหัสของหน่วยงานตามมาตรฐานระดับชาติหรือระดับนานาชาติ รวมทั้งการอ้างอิงถึงระบบใดๆ ที่ใช้ในการระบุสถาบัน (เช่น ISO 15511). "(ISAAR 5.4.2)</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival authority record. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied. Specify separately which rules have been applied for creating the Authorized form of name. Include reference to any system(s) of dating used to identify dates in this authority record (e.g. ISO 8601)." (ISAAR 5.4.3)</source>
+        <target>"วัตถุประสงค์:เพื่อระบุแบบแผนหรือกฎในระดับชาติหรือระดับนานาชาติที่ใช้ในการสร้าง รายการควบคุมจดหมายเหตุ กฎ:กฎ:บันทึกชื่อและที่ที่กฏถูกใช้ประโยชน์ หรือวันที่กฏถูกประกาศใช้ กรุณาระบุแยกสำหรักฎซึ่งถูกใช้ในการสร้างแบบฟอร์มรูปแบบช่ือที่กําหนดใหใชได รวมถึงแหล่งอ้างอิงถึงระบบdatingใดๆของ  ใช้ในระบุวันที่ในรายการควบคุมนี้ (เช่น ISO 8601)." (ISAAR 5.4.3)</target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>The purpose of this field is "[t]o indicate the drafting status of the authority record so that users can understand the current status of the authority record." (ISAAR 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
+        <target>วัตถุประสงค์ของ เขตข้อมูลนี้คือการ "　บ่งบอกถึงสถานะในการจัดทำร่างระเบียนผู้มีอำนาจเพื่อให้ผู้ใช้สามารถเข้าใจสถานะปัจจุบันของระเบียนผู้มีอำนาจ." (ISAAR 5.4.4) เลือกฉบับสุดท้าย ฉบับแก้ไข หรือฉบับร่างจากdrop-down menu.</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal records are those that consist only of the four essential elements of an ISAAR(CPF) compliant authority record (see 4.8), while full records are those that convey information for all relevant ISAAR(CPF) elements of description." (ISAAR 5.4.5)</source>
+        <target>เลือกเต็ม,บางส่วน,หรือน้อยที่สุดจากเมนูแบบเลื่อนลง "ในกรณีที่ในประเทศไม่มีแนวทางหรือข้อกำหนด ระเบียนน้อยที่สุดประกอบด้วยเพียงสามองค์ประกอบสำคัญของการบันทึกตามมาตรฐาน ISDF (ดู 4.7) ในขณะที่ระเบียนเต็มประกอบด้วยองค์ประกอบทั้งหมดที่เกี่ยวข้องกับการรายละเอียด ISDF " (ISDF 5.4.5)</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>"Record the date the authority record was created and the dates of any revisions to the record." (ISAAR 5.4.6)</source>
+        <target>"บันทึกวันที่ที่authority recordถูกสร้างและวันที่ทำการแก้ไขใดๆ "(ISAAR 5.4.6)</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Select the language(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
+        <target>เลือกภาษาของรายการควบคุมจากdrop-down menu; ป้อนตัวอักษรบางตัวเพื่อจำกัดตัวเลือก (ISAAR 5.4.7)</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Select the script(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
+        <target>เลือกภาษาของรายการควบคุมจากdrop-down menu; ป้อนตัวอักษรบางตัวเพื่อจำกัดตัวเลือก (ISAAR 5.4.7).</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>"Record the sources consulted in establishing the authority record." (ISAAR 5.4.8)</source>
+        <target>"บันทึกแหล่งที่มาที่ใช้ในการสร้าง authority record."(ISAAR 5.4.8)</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>"Record notes pertinent to the creation and maintenance of the authority record. The names of persons responsible for creating the authority record may be recorded here." (ISAAR 5.4.9)</source>
+        <target>" บันทึกบทนำหน้าเกี่ยวกับauthority recordของการสร้างและการบำรุงรักษา ชื่อของบุคคลที่มีความรับผิดชอบในการสร้างauthority recordอาจถูกบันทึกไว้ที่นี่."(ISAAR 5.4.9)</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Cancel</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Save</source>
+        <target>บันทึก</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Create</source>
+        <target>สร้าง</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Related corporate bodies, persons or families</source>
+        <target>นิติบุคคล บุคคล หรือครอบครัวที่เกี่ยวข้อง</target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Name</source>
+        <target>ชื่อ</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Type</source>
+        <target>ประเภท</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Description</source>
+        <target>คำอธิบาย</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Related corporate body, person or family</source>
+        <target>นิติบุคคล บุคคล หรือครอบครัวที่เกี่ยวข้องของ</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>"Record the authorized form of name and any relevant unique identifiers, including the authority record identifier, for the related entity." (ISAAR 5.3.1) Select the name from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target>"บันทึก authorized form of nameและidentifierเฉพาะที่เกี่ยวข้องใดๆ ประกอบด้วยauthority record identifier สำหรับentityที่เกี่ยวข้อง"(ISAAR 5.3.1) เลือกชื่อจาก drop-down menu; ป้อนตัวอักษรบางตัวเพื่อจำกัดตัวเลือก</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>"Purpose: To identify the general category of relationship between the entity being described and another corporate body, person or family." (ISAAR 5.3.2). Select a category from the drop-down menu: hierarchical, temporal, family or associative.</source>
+        <target>"วัตถุประสงค์: เพื่อระบุประเภททั่วไปของความสัมพันธ์ระหว่างเอนทิตีที่มีถูกอธิบายกับ นิติบุคคล บุคคลหรือครอบครัวอื่น "(ISAAR 5.3.2) เลือกประเภทจากdrop-down menu:  hierarchical, temporal, family or associative".</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Category of relationship</source>
+        <target>หมวดหมู่ของความสัมพันธ์</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>"Record a precise description of the nature of the relationship between the entity described in this authority record and the other related entity....Record in the Rules and/or conventions element (5.4.3) any classification scheme used as a source of controlled vocabulary terms to describe the relationship. A narrative description of the history and/or nature of the relationship may also be provided here." (ISAAR 5.3.3). Note that the text entered in this field will also appear in the related authority record.</source>
+        <target>"บันทึกคำอธิบายที่ถูกต้องชัดเจนของธรรมชาติของลักษณะความสัมพันธ์ระหว่างentityที่อธิบายไว้ในauthority recordนี้กับentityที่เกี่ยวข้องอื่นๆ .... สำหรับวิธีการจัดหมวดหมู่ใดๆที่ถูกใช้เป็นแหล่งของการกำหนด คำศัพท์ที่จะอธิบายความสัมพันธ์ กรุณาบันทึกในกฎระเบียบและ / หรือข้อกำหนด(5.4.3)  ซึ่งอาจจะประกอบไปด้วยคำอธิบายเล่าเรื่องของประวัติศาสตร์และ / หรือลักษณะของความสัมพันธ์ "(ISAAR 5.3.3). หมายเหตุ:ข้อความที่ถูกพิมพ์ลงในฟิลด์นี้จะปรากฏในauthority recordที่เกี่ยวข้องด้วย.</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>"Record when relevant the commencement date of the relationship or succession date and, when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target>"บันทึกเมื่อมีความเกี่ยวข้องวันเริ่มจากวันที่ความสัมพันธ์หรือการสืบทอดและเมื่อมีความเกี่ยวข้อง, วันที่เลิกจากความสัมพันธ์."(ISAAR 5.3.4) ใส่วันที่ที่คุณต้องการให้ปรากฏในหน้าแสดงการบันทึกอำนาจ, ใช้คัดเลือกและ / หรือสัญลักษณ์การพิมพ์ที่จะแสดงความไม่แน่นอนถ้าต้องการ.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

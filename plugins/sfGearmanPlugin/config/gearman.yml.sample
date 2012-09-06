@@ -1,0 +1,22 @@
+all:
+  server:
+    default:
+      host: 127.0.0.1
+      port: 4730
+
+# doctrine record/table worker configuration
+  doctrine:
+    workername:
+      ModelName: [eventname, ~] # use ~ to include events defined in schema.yml
+    example:
+      Article: [publish, insert, update]
+
+# standard php worker configuration
+  worker:
+    workername:
+      functionname: callback
+    example:
+      size: [FileWorker, size]
+      mtime: [FileWorker, mtime]
+
+# vim: set ft=yaml et ts=2 sw=2:

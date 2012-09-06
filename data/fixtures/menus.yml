@@ -1,0 +1,883 @@
+QubitMenu:
+  QubitMenu_root:
+    id: 1
+  QubitMenu_mainmenu:
+    id: 2
+    parent_id: QubitMenu_root
+    source_culture: en
+    name: mainMenu
+  QubitMenu_quicklinks:
+    id: 3
+    parent_id: QubitMenu_root
+    source_culture: en
+    name: quickLinks
+  QubitMenu_browse:
+    id: 4
+    parent_id: QubitMenu_root
+    source_culture: en
+    name: browse
+    label:
+      en: Browse
+      es: Navegar
+      fr: Parcourir
+      gl: Navegar
+      id: Telusur
+      ja: ブラウズ
+      ka: დათვალიერება(ამორჩევა)
+      nl: Blader
+      pl: Przeglądaj
+      pt: Navegar
+      sl: Brskaj
+  QubitMenu_mainmenu_addedit:
+    id: 5
+    parent_id: QubitMenu_mainmenu
+    source_culture: en
+    name: add
+    label:
+      de: Hinzufügen
+      en: Add
+      es: Agregar
+      fa: افزودن
+      fr: Ajouter
+      gl: Engadir
+      id: Tambah
+      it: aggiungi
+      ja: 追加
+      ka: დამატება
+      ko: 추가
+      nl: 'Voeg toe'
+      pl: Dodaj
+      pt: Adicionar
+      pt_BR: Adicionar
+      sl: Dodaj
+      th: เพิ่ม
+    path: accession/add
+  QubitMenu_mainmenu_manage:
+    id: 10
+    parent_id: QubitMenu_mainmenu
+    source_culture: en
+    name: manage
+    label:
+      en: Manage
+      es: Administrar
+      fr: Gérer
+      gl: Administrar
+      ja: 運営する
+      ka: მართვა
+      nl: Beheer
+      pl: Zarządzanie
+      pt: Gerir
+      sl: Uredi
+      th: บริหาร(Manage)
+    path: accession/browse
+  QubitMenu_mainmenu_manage_accessions:
+    parent_id: QubitMenu_mainmenu_manage
+    source_culture: en
+    name: accessions
+    label:
+      en: Accessions
+      es: Ingresos
+      fr: Entrées
+      gl: Accesos
+      ja: 受入資料
+      ka: დაშვებები
+      nl: Aanwinsten
+      pl: Dopływy
+      pt: Incorporação
+      sl: Prevzemi
+      th: การเข้าถึงเอกสาร
+    path: accession/browse
+  QubitMenu_mainmenu_manage_donors:
+    parent_id: QubitMenu_mainmenu_manage
+    source_culture: en
+    name: donors
+    label:
+      en: Donors
+      es: Donadores
+      fr: 'Donateurs/Services versants'
+      gl: Donantes
+      ja: 寄贈者
+      ka: დონორები
+      nl: Schenkers
+      pl: 'Przekazujący (materiały archiwalne)'
+      pt: Doadores
+      sl: Donatorji
+      th: ผู้บริจาค
+    path: donor/browse
+  QubitMenu_mainmenu_manage_physicalobject:
+    parent_id: QubitMenu_mainmenu_manage
+    source_culture: en
+    name: browsePhysicalObjects
+    label:
+      en: 'Physical storage'
+      es: 'Unidad de almacenaje'
+      fr: 'Localisation physique'
+      gl: 'Almacenamento físico'
+      id: 'Penyimpanan Fisik'
+      ja: 物理的記憶
+      ka: 'ფიზიკური საცავი'
+      nl: 'Fysieke opslag'
+      pl: 'Fizyczne miejsce przechowywania'
+      pt: 'Depósito físico'
+      sl: 'Fizična hramba'
+      th: การเก็บเอกสารทางกายภาพ
+    path: physicalobject/browse
+  QubitMenu_mainmenu_manage_rightsholders:
+    parent_id: QubitMenu_mainmenu_manage
+    source_culture: en
+    name: rightsholders
+    label:
+      en: 'Rights holders'
+      es: 'Titulares de derechos'
+      fr: 'Détenteurs de droits'
+      gl: 'Titulares de dereitos'
+      ja: 権利保持者
+      ka: 'უფლებების მქონეები(მფლობელები)'
+      nl: Rechthebbenden
+      pl: 'Posiadacze praw'
+      pt: 'Proprietários dos direitos'
+      sl: 'Imetniki pravic'
+      th: เจ้าของสิทธิ
+    path: rightsholder/browse
+  QubitMenu_mainmenu_manage_taxonomies:
+    id: 6
+    parent_id: QubitMenu_mainmenu_manage
+    source_culture: en
+    name: taxonomies
+    label:
+      en: Taxonomies
+      es: Taxonomías
+      fr: Référentiels
+      gl: Taxonomías
+      id: Taksonomi
+      ja: 分類
+      ka: 'ტაქსონომიები  ( კლასიფიცირება)'
+      nl: Taxonomieën
+      pl: Taksonomie
+      pt: Taxonomias
+      sl: Taksonomije
+      th: อนุกรมวิธาน
+    path: taxonomy/list
+  QubitMenu_mainmenu_import:
+    id: 7
+    parent_id: QubitMenu_mainmenu
+    source_culture: en
+    name: import
+    label:
+      de: importieren
+      en: Import
+      es: Importar
+      fa: 'وارد كردن'
+      fr: Importer
+      gl: Importar
+      it: importa
+      ja: インポート
+      ka: იმპორტი
+      ko: 가져오기
+      nl: import
+      pl: Importowanie
+      pt: importar
+      pt_BR: Importar
+      sl: Uvoz
+      th: นำเข้า
+    path: object/importSelect
+  QubitMenu_mainmenu_admin:
+    id: 9
+    parent_id: QubitMenu_mainmenu
+    source_culture: en
+    name: admin
+    label:
+      de: Administrator
+      en: Admin
+      es: Administrador
+      fa: مدير
+      fr: Administration
+      gl: Administrador
+      it: amministra
+      ja: 管理者
+      ka: ადმინი
+      pl: Administrator
+      pt: Admin
+      sl: Skrbnik
+    path: user/list
+  QubitMenu_mainmenu_addedit_accessionrecord:
+    parent_id: QubitMenu_mainmenu_addedit
+    source_culture: en
+    name: addAccessionRecord
+    label:
+      en: 'Accession records'
+      es: 'Registros de ingresos'
+      fr: 'Notice d''entrée'
+      gl: 'Rexistros de adhesiones'
+      ja: 受入記録
+      ka: 'დაშვების დოკუმენტები'
+      nl: 'Aanwinst documentatie'
+      pl: Nabytki
+      pt: 'Registos de incorporação'
+      sl: 'Zapisi o prevzemu'
+      th: รายงานการเข้าถึงเอกสาร
+    path: accession/add
+  QubitMenu_mainmenu_addedit_informationobject:
+    parent_id: QubitMenu_mainmenu_addedit
+    source_culture: en
+    name: addInformationObject
+    label:
+      en: 'Information objects'
+      es: 'Information objects'
+      fr: 'Descriptions archivistiques'
+      it: 'oggetto informativo'
+      ja: 情報オブジェクト
+      ka: 'საინფორმაციო ობიექტები'
+      nl: 'information object'
+      pt: 'Objeto informacional'
+      sl: 'Informacijski objekti'
+      th: วัตถุข้อมูล
+    path: informationobject/add
+  QubitMenu_mainmenu_addedit_actor:
+    parent_id: QubitMenu_mainmenu_addedit
+    source_culture: en
+    name: addActor
+    label:
+      en: Persons/organizations
+      es: Personas/organizaciones
+      fr: Personnes/organismes
+      gl: Persoas/organizacións
+      it: persona/organizzazione
+      ja: 個人/機関
+      ka: 'პერსონები/ ორგანიზაციები'
+      nl: personen/organisaties
+      pt: Pessoas/organizações
+      sl: Osebe/organizacije
+      th: 'บุคคล / องค์การ'
+    path: actor/add
+  QubitMenu_mainmenu_addedit_repository:
+    parent_id: QubitMenu_mainmenu_addedit
+    source_culture: en
+    name: addRepository
+    label:
+      en: Repositories
+      es: 'Instituciones archivísticas'
+      fr: 'Institution de conservation'
+      gl: Repositorios
+      id: Repositori
+      it: 'soggetto conservatore'
+      ja: リポジトリ
+      ka: საცავები
+      nl: depot
+      pt: Custódias
+      sl: Skladišča
+      th: คลังเก็บ
+    path: repository/add
+  QubitMenu_mainmenu_addedit_term:
+    parent_id: QubitMenu_mainmenu_addedit
+    source_culture: en
+    name: addTerm
+    label:
+      en: Terms
+      es: Términos
+      fr: Termes
+      gl: Termos
+      id: Istilah
+      it: termine
+      ja: 用語
+      ka: ვადები
+      nl: Termen
+      pl: Terminy
+      pt: Termos
+      sl: Izrazi
+      th: คำศัพท์
+    path: term/add
+  QubitMenu_mainmenu_addedit_functions:
+    parent_id: QubitMenu_mainmenu_addedit
+    source_culture: en
+    name: addFunction
+    label:
+      de: Funktionen
+      en: Functions
+      es: Funciones
+      fr: Fonctions
+      gl: Funcións
+      id: Fungsi
+      ja: 機能
+      ka: ფუნქციები
+      nl: Functies
+      pl: Funkcja
+      pt: Funções
+      sl: Funkcije
+      th: ฟังก์ชั่น
+    path: function/add
+  QubitMenu_mainmenu_import_xml:
+    parent_id: QubitMenu_mainmenu_import
+    source_culture: en
+    name: importXml
+    label:
+      en: XML
+      es: XML
+      fr: XML
+      gl: XML
+      ka: XML
+      pl: XML
+      pt: XML
+      sl: XML
+    path: 'object/importSelect?type=xml'
+  QubitMenu_mainmenu_import_csv:
+    parent_id: QubitMenu_mainmenu_import
+    source_culture: en
+    name: importCsv
+    label:
+      en: CSV
+      es: CSV
+      fr: CSV
+      gl: CSV
+      ka: CSV
+      pl: CSV
+      pt: CSV
+      sl: CSV
+    path: 'object/importSelect?type=csv'
+  QubitMenu_mainmenu_admin_users:
+    parent_id: QubitMenu_mainmenu_admin
+    source_culture: en
+    name: users
+    label:
+      en: Users
+      es: Usuarios
+      fa: كاربران
+      fr: Utilisateurs
+      gl: Usuarios
+      it: utenti
+      ja: ユーザー
+      ka: მომხმარებლები
+      nl: Gebruikers
+      pl: Użytkownicy
+      pt: Utilizadores
+      sl: Uporabniki
+      th: ผู้ใช้
+    path: user/list
+  QubitMenu_mainmenu_admin_users_profile:
+    parent_id: QubitMenu_mainmenu_admin_users
+    name: userProfile
+    path: 'user/index?slug=%currentSlug%'
+    source_culture: en
+    label:
+      en: Profile
+      es: Perfil
+      fr: Profil
+      gl: Perfil
+      ja: プロフィール
+      ka: პროფილი
+      nl: Profiel
+      pl: Profil
+      pt: Perfil
+      sl: profil
+      th: ประว้ติส่วนตัว
+  QubitMenu_mainmenu_admin_users_infoObjectAcl:
+    parent_id: QubitMenu_mainmenu_admin_users
+    name: userInformationObjectAcl
+    path: 'user/indexInformationObjectAcl?slug=%currentSlug%'
+    source_culture: en
+    label:
+      en: 'Information object permissions'
+      es: 'Information object permissions'
+      fr: 'Droits sur la description archivistique'
+      ja: 情報オブジェクト許可
+      ka: 'საინფორმაციო ობიექტის უფლებამოსილებები'
+      pt: 'Permissões do objeto informacional'
+      sl: 'Dovoljenja glede informacijskega objekta'
+      th: วัตถุข้อมูลการอนุญาต
+  QubitMenu_mainmenu_admin_users_actorAcl:
+    parent_id: QubitMenu_mainmenu_admin_users
+    name: userActorAcl
+    path: 'user/indexActorAcl?slug=%currentSlug%'
+    source_culture: en
+    label:
+      en: 'Actor permissions'
+      es: 'Permisos del actor'
+      fr: 'Permissions de l''utilisateur'
+      gl: 'Permisos de actor'
+      id: 'Izin Aktor'
+      ja: 主体者の許可
+      ka: 'მონაწილის უფლებები'
+      pl: 'Uprawnienia sprawcy/powoda'
+      pt: 'Permissões do ator'
+      sl: 'Dovoljenja za delovalca'
+  QubitMenu_mainmenu_admin_users_termAcl:
+    parent_id: QubitMenu_mainmenu_admin_users
+    name: userTermAcl
+    path: 'user/indexTermAcl?slug=%currentSlug%'
+    source_culture: en
+    label:
+      en: 'Taxonomy permissions'
+      es: 'Permisos para taxonomías'
+      fr: 'Droits sur les référentiels'
+      gl: 'Permisos de taxonomías'
+      id: 'Perijinan Taksonomi'
+      ja: 分類許可
+      ka: 'ტაქსონომის ნების დართვა'
+      nl: 'Taxonomie permissies'
+      pl: 'Uprawnienia w zakresie taksonomii'
+      pt: 'Permissões da taxonomia'
+      sl: 'Dovoljenja za taksonomijo'
+      th: การอนุญาตอนุกรมวิธาน
+  QubitMenu_mainmenu_admin_groups:
+    parent_id: QubitMenu_mainmenu_admin
+    source_culture: en
+    name: groups
+    label:
+      en: Groups
+      es: Grupos
+      fr: Groupes
+      gl: Grupos
+      ja: グループ
+      ka: ჯგუფები
+      nl: Groepen
+      pl: Grupy
+      pt: Groupos
+      sl: Skupine
+      th: กลุ่ม
+    path: aclGroup/list
+  QubitMenu_mainmenu_admin_groups_profile:
+    parent_id: QubitMenu_mainmenu_admin_groups
+    name: groupProfile
+    path: 'aclGroup/index?id=%currentId%'
+    source_culture: en
+    label:
+      en: Profile
+      es: Perfil
+      fr: Profil
+      gl: Perfil
+      ja: プロフィール
+      ka: პროფილი
+      nl: Profiel
+      pl: Profil
+      pt: Perfil
+      sl: profil
+      th: ประว้ติส่วนตัว
+  QubitMenu_mainmenu_admin_groups_infoObjectAcl:
+    parent_id: QubitMenu_mainmenu_admin_groups
+    name: groupInformationObjectAcl
+    path: 'aclGroup/indexInformationObjectAcl?id=%currentId%'
+    source_culture: en
+    label:
+      en: 'Information object permissions'
+      es: 'Information object permissions'
+      fr: 'Droits sur la description archivistique'
+      ja: 情報オブジェクト許可
+      ka: 'საინფორმაციო ობიექტის უფლებამოსილებები'
+      pt: 'Permissões do objeto informacional'
+      sl: 'Dovoljenja glede informacijskega objekta'
+      th: วัตถุข้อมูลการอนุญาต
+  QubitMenu_mainmenu_admin_groups_actorAcl:
+    parent_id: QubitMenu_mainmenu_admin_groups
+    name: groupActorAcl
+    path: 'aclGroup/indexActorAcl?id=%currentId%'
+    source_culture: en
+    label:
+      en: 'Actor permissions'
+      es: 'Permisos del actor'
+      fr: 'Permissions de l''utilisateur'
+      gl: 'Permisos de actor'
+      id: 'Izin Aktor'
+      ja: 主体者の許可
+      ka: 'მონაწილის უფლებები'
+      pl: 'Uprawnienia sprawcy/powoda'
+      pt: 'Permissões do ator'
+      sl: 'Dovoljenja za delovalca'
+  QubitMenu_mainmenu_admin_groups_termAcl:
+    parent_id: QubitMenu_mainmenu_admin_groups
+    name: groupTermAcl
+    path: 'aclGroup/indexTermAcl?id=%currentId%'
+    source_culture: en
+    label:
+      en: 'Taxonomy permissions'
+      es: 'Permisos para taxonomías'
+      fr: 'Droits sur les référentiels'
+      gl: 'Permisos de taxonomías'
+      id: 'Perijinan Taksonomi'
+      ja: 分類許可
+      ka: 'ტაქსონომის ნების დართვა'
+      nl: 'Taxonomie permissies'
+      pl: 'Uprawnienia w zakresie taksonomii'
+      pt: 'Permissões da taxonomia'
+      sl: 'Dovoljenja za taksonomijo'
+      th: การอนุญาตอนุกรมวิธาน
+  QubitMenu_mainmenu_admin_staticpages:
+    parent_id: QubitMenu_mainmenu_admin
+    source_culture: en
+    name: staticPages
+    label:
+      en: 'Static pages'
+      es: 'Páginas estáticas'
+      fa: 'صفحات ايستا'
+      fr: 'Pages statiques'
+      gl: 'Páxinas estáticas'
+      it: 'pagine statiche'
+      ja: 静的ページ
+      ka: 'არეულ-დარეული გვერდები'
+      nl: 'statische pagina''s'
+      pl: 'Strony statyczne'
+      pt: 'Páginas estáticas'
+      sl: 'Statične strani'
+      th: หน้าคง
+    path: staticpage/list
+  QubitMenu_mainmenu_admin_menu:
+    parent_id: QubitMenu_mainmenu_admin
+    source_culture: en
+    name: menu
+    label:
+      en: Menus
+      es: Menús
+      fr: Menus
+      gl: Menús
+      ja: メニュー
+      ka: მენიუები
+      pl: 'Listy menu'
+      pt: Menus
+      sl: Meniji
+    path: menu/list
+  QuitMenu_mainmenu_admin_plugins:
+    parent_id: QubitMenu_mainmenu_admin
+    source_culture: en
+    name: plugins
+    label:
+      en: Plugins
+      es: Plugins
+      fr: Extensions
+      ja: プラグイン
+      ka: ფლაგინები
+      pl: Wtyczki/pluginy
+      pt: Componentes
+      sl: Vtičniki
+      th: ปลั๊กอิน
+    path: sfPluginAdminPlugin/plugins
+  QuitMenu_mainmenu_admin_themes:
+    parent_id: QubitMenu_mainmenu_admin
+    source_culture: en
+    name: themes
+    label:
+      en: Themes
+      es: Temas
+      fr: Thèmes
+      gl: Temas
+      id: Tema
+      ja: テーマ
+      ka: თემები
+      nl: 'Thema''s'
+      pl: Motywy
+      pt: Temas
+      sl: Teme
+    path: sfPluginAdminPlugin/themes
+  QubitMenu_mainmenu_admin_settings:
+    parent_id: QubitMenu_mainmenu_admin
+    source_culture: en
+    name: settings
+    label:
+      de: Einstellungen
+      en: Settings
+      es: Configuraciones
+      fa: تنظيمات
+      fr: Paramétrages
+      gl: Configuraciones
+      it: impostazioni
+      ja: 設定
+      ka: '“სეთინგები“, ფუნქციები.'
+      nl: Instellingen
+      pl: Ustawienia
+      pt: Configurações
+      sl: Nastavitve
+      th: การตั้งค่า
+    path: settings/list
+  QubitMenu_mainmenu_admin_descriptionUpdates:
+    parent_id: QubitMenu_mainmenu_admin
+    source_culture: en
+    name: descriptionUpdates
+    label:
+      en: 'Description updates'
+      es: 'Actualizaciones de descripción'
+      fr: 'Mises à jour de la description'
+      gl: 'Actualizacións da descrición'
+      id: 'Update Dekripsi'
+      ja: 記述のアップデート
+      ka: 'განახლებების აღწერა, ან აღწერის განახლებები'
+      nl: 'Wijzigingen van de beschrijving'
+      pl: 'Uaktualnienia opisu'
+      pt: 'Actualizações da descrição'
+      pt_BR: 'Atualizações da descrição'
+      sl: 'Posodobitve popisa'
+      th: อับเดตคำอธิบาย
+    path: search/descriptionUpdates
+  QubitMenu_mainmenu_admin_globalReplace:
+    parent_id: QubitMenu_mainmenu_admin
+    source_culture: en
+    name: globalReplace
+    label:
+      en: 'Global search/replace'
+      es: 'Buscar/reemplazar global'
+      fr: 'Recherche et remplacement globaux'
+      gl: 'Búsqueda global/Reemprazar'
+      ja: 'グローバル 検索/変更'
+      ka: 'გლობალური ძებნა /შენაცვლება'
+      pt: 'Pesquisa/substituição global'
+      sl: 'Išči/zamenjaj v celotnem programu'
+      th: 'ค้นหา / แทน ทั่วโลก'
+    path: search/globalReplace
+  QubitMenu_quicklinks_home:
+    parent_id: QubitMenu_quicklinks
+    source_culture: en
+    name: home
+    label:
+      de: Startseite
+      en: Home
+      es: Inicio
+      fa: 'صفحه اصلي'
+      fr: Accueil
+      gl: Inicio
+      it: 'pagina iniziale'
+      ja: ホーム
+      ka: საწყისი
+      nl: home
+      pl: 'Strona Domowa'
+      pt: Início
+      pt_BR: Início
+      sl: Domov
+    path: '@homepage'
+  QubitMenu_quicklinks_about:
+    parent_id: QubitMenu_quicklinks
+    source_culture: en
+    name: about
+    label:
+      de: Über
+      en: About
+      es: Acerca
+      fa: 'درباره ما'
+      fr: 'À propos'
+      gl: Acerca
+      id: 'Tentang Kami'
+      it: 'informazioni su'
+      ja: ついて
+      ka: შესახებ
+      nl: Over
+      pl: O...
+      pt: Sobre
+      sl: 'O programu'
+    path: 'staticpage/index?slug=about'
+  QubitMenu_quicklinks_help:
+    parent_id: QubitMenu_quicklinks
+    source_culture: en
+    name: help
+    label:
+      de: Hilfe
+      en: Help
+      es: Ayuda
+      fa: راهنما
+      fr: Aide
+      gl: Axuda
+      it: aiuto
+      ja: ヘルプ
+      ka: დახმარება
+      nl: Help
+      pl: Pomoc
+      pt: Ajuda
+      sl: Pomoč
+    path: 'http://qubit-toolkit.org/'
+  QubitMenu_quicklinks_myProfile:
+    parent_id: QubitMenu_quicklinks
+    source_culture: en
+    name: myProfile
+    label:
+      en: 'My profile'
+      es: 'Mi perfil'
+      fr: 'Mon profil'
+      gl: 'O meu perfil'
+      ja: 私のプロフィール
+      ka: 'ჩემი პროფილი'
+      nl: 'Mijn profiel'
+      pl: 'Mój profil'
+      pt: 'O meu perfil'
+      sl: 'Moj profil'
+      th: ประว้ติส่วนตัว
+    path: '%profile%'
+  QubitMenu_quicklinks_login:
+    parent_id: QubitMenu_quicklinks
+    source_culture: en
+    name: login
+    label:
+      de: Anmelden
+      en: 'Log in'
+      es: 'Iniciar sesión'
+      fa: 'ورود به سيستم'
+      fr: 'Ouverture de session'
+      gl: 'Iniciar sesión'
+      it: accesso
+      ja: ログイン
+      ka: ავტორიზაცია
+      ko: 로그인
+      nl: Inloggen
+      pl: Logowanie
+      pt: Entrar
+      pt_BR: entrar
+      sl: Prijava
+      th: เข้าสู่ระบบ
+    path: user/login
+  QubitMenu_quicklinks_logout:
+    parent_id: QubitMenu_quicklinks
+    source_culture: en
+    name: logout
+    label:
+      de: Abmelden
+      en: 'Log out'
+      es: 'cerrar sesión'
+      fa: خروج
+      fr: 'Fermeture de session'
+      gl: 'Pechar sesión'
+      it: esci
+      ja: ログアウト
+      ka: გამოსვლა
+      nl: uitloggen
+      pt: Sair
+      sl: odjava
+    path: user/logout
+  QubitMenu_browse_informationobjects:
+    parent_id: QubitMenu_browse
+    source_culture: en
+    name: browseInformationObjects
+    label:
+      en: 'Information objects'
+      es: 'Information objects'
+      fr: 'Descriptions archivistiques'
+      it: 'oggetto informativo'
+      ja: 情報オブジェクト
+      ka: 'საინფორმაციო ობიექტები'
+      nl: 'information object'
+      pt: 'Objeto informacional'
+      sl: 'Informacijski objekti'
+      th: วัตถุข้อมูล
+    path: informationobject/browse
+  QubitMenu_browse_actors:
+    parent_id: QubitMenu_browse
+    source_culture: en
+    name: browseActors
+    label:
+      en: Persons/organizations
+      es: Personas/organizaciones
+      fr: Personnes/organismes
+      gl: Persoas/organizacións
+      it: persona/organizzazione
+      ja: 個人/機関
+      ka: 'პერსონები/ ორგანიზაციები'
+      nl: personen/organisaties
+      pt: Pessoas/organizações
+      sl: Osebe/organizacije
+      th: 'บุคคล / องค์การ'
+    path: actor/browse
+  QubitMenu_browse_repositories:
+    parent_id: QubitMenu_browse
+    source_culture: en
+    name: browseRepositories
+    label:
+      en: Repositories
+      es: 'Instituciones archivísticas'
+      fr: 'Institution de conservation'
+      gl: Repositorios
+      id: Repositori
+      it: 'soggetto conservatore'
+      ja: リポジトリ
+      ka: საცავები
+      nl: depot
+      pt: Custódias
+      sl: Skladišča
+      th: คลังเก็บ
+    path: repository/browse
+  QubitMenu_browse_functions:
+    parent_id: QubitMenu_browse
+    source_culture: en
+    name: browseFunctions
+    label:
+      de: Funktionen
+      en: Functions
+      es: Funciones
+      fr: Fonctions
+      gl: Funcións
+      id: Fungsi
+      ja: 機能
+      ka: ფუნქციები
+      nl: Functies
+      pl: Funkcja
+      pt: Funções
+      sl: Funkcije
+      th: ฟังก์ชั่น
+    path: function/browse
+  QubitMenu_browse_subjects:
+    parent_id: QubitMenu_browse
+    source_culture: en
+    name: browseSubjects
+    label:
+      de: Themen
+      en: Subjects
+      es: Materias
+      fr: Sujets
+      gl: Materias
+      id: Subjek
+      it: soggetti
+      ja: 主題
+      ka: სუბიექტები
+      nl: Onderwerpen
+      pt: Assuntos
+      sl: Osebe
+      th: หัวข้อ
+    path: 'taxonomy/browse?id=35'
+  QubitMenu_browse_places:
+    parent_id: QubitMenu_browse
+    source_culture: en
+    name: browsePlaces
+    label:
+      de: Orte
+      en: Places
+      es: Lugares
+      fr: Lieux
+      gl: Lugares
+      id: Tempat
+      it: luoghi
+      ja: 場所
+      ka: ადგილები
+      nl: Plaatsen
+      pl: Miejsca
+      pt: Locais
+      sl: Kraji
+      th: สถานที
+    path: 'taxonomy/browse?id=42'
+  QubitMenu_browse_digital_objects:
+    parent_id: QubitMenu_browse
+    source_culture: en
+    name: browseDigitalObjects
+    label:
+      de: 'Digitales Objekt'
+      en: 'Digital objects'
+      es: 'Objetos digitales'
+      fr: 'Objets numériques'
+      id: 'Objek Digital'
+      it: 'Oggetto digitale'
+      ja: ディジタルオブジェクト
+      ka: 'ციფრული ობიექტები'
+      ko: '디지털 객체'
+      nl: 'Digitale objecten'
+      pl: 'Obiekty cyfrowe'
+      pt: 'Objeto digital'
+      sl: 'Digitalni predmeti'
+      th: วัตถุดิจิตอล
+    path: digitalobject/list
+  QubitMenu_mainmenu_admin_visibleElements:
+    parent_id: QubitMenu_mainmenu_admin
+    source_culture: en
+    name: visibleElements
+    label:
+      en: 'Visible elements'
+      es: 'Elementos visibles'
+      fr: 'Éléments visibles'
+      gl: 'Elementos visíbeis'
+      id: 'Elemen terlihat'
+      ja: 見えるエレメント
+      ka: 'შესამჩნევი ელემენტები'
+      pt: 'Elementos visiveis'
+      sl: 'Vidni elementi'
+      th: 'elementsที่สามารถมองเห็นได้,'
+    path: settings/visibleElements

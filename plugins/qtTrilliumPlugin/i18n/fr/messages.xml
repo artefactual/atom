@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2011-11-08T09:43:00Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Language</source>
+        <target>Langue</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Quick links</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Search</source>
+        <target>Rechercher</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Advanced search</source>
+        <target>Recherche avancée</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Results %1% to %2% of %3%</source>
+        <target>Résultats %1% à %2% sur %3%</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>No results</source>
+        <target>Aucun résultat</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Pages</source>
+        <target>Pages</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>&amp;laquo; Previous</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Go to previous page</source>
+        <target>Page précédente</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Go to page %1%</source>
+        <target>Aller à la page %1%</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Next &amp;raquo;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Go to next page</source>
+        <target>Page suivante</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>%1% results per page</source>
+        <target>%1% résultats par page</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

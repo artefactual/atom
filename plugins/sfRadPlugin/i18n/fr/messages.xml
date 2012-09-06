@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2012-08-15T11:36:56Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new archival description</source>
+        <target>Ajouter une description archivistique</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>Sans titre</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>Modifier %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>"Give the date(s) of creation of the unit being described either as a single date, or range of dates (for inclusive dates and/or predominant dates). Always give the inclusive dates. When providing predominant dates, specify them as such, preceded by the word predominant..." (RAD 1.4B2) Record probable and uncertain dates in square brackets, using the conventions described in 1.4B5.</source>
+        <target>"On transcrit la date de création de l'unité archivistique à décrire soit sous forme d'une date unique, soit sous forme de dates échelonnées (dates inclusives ou dates prédominantes). On donne toujours les dates inclusives. Lorsque l'on précise des dates prédominantes, ces dernières doivent être précédées du mot surtout ou de son équivalent dans une autre langue." (RDDA 1.4B2) Saisir les dates probables et incertaines entre crochets, en utilisant les conventions décrites en 1.4B5.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>"Make notes on dates and any details pertaining to the dates of creation, publication, or distribution, of the unit being described that are not included in the Date(s) of creation, including publication, distribution, etc., area and that are considered to be important." (RAD 1.8B8) "Make notes on the date(s) of accumulation or collection of the unit being described." (RAD 1.8B8a)</source>
+        <target>"On rédigera une note sur toutes dates importantes concernant l'unité archivistique à décrire que l'on ne retrouve pas dans la zone des dates de création, incluant la diffusion, la publication, etc." (RDDA 1.8B8) "On rédigera une note en ce qui a trait aux dates d'accumulation ou de collection de l'unité archivistique à décrire." (RDDA 1.8Ba)</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Select the type of activity that established the relation between the authority record and the archival description (e.g. creation, accumulation, collection, publication, etc.)</source>
+        <target>Sélectionner le type d'activité à l'origine de la relation entre la notice d'autorité et la description archivistique (par exemple création, accumulation, collection, publication, etc.)</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>This archival description requires at least one date.</source>
+        <target>La description archivistique nécessite au moins une date.</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Date(s) - are not consistent with %1%higher levels%2%.</source>
+        <target>Les informations de date ne sont pas cohérentes par rapport aux %1%niveaux supérieurs%2%.</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Physical description - This is a mandatory element.</source>
+        <target>Description matérielle - Cet élément est obligatoire</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Scope and content - This is a mandatory element.</source>
+        <target>Portée et contenu - C'est un élément obligatoire</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Title - This is a mandatory element.</source>
+        <target>Titre - Cet élément est obligatoire.</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Level of description - Value "%value%" is not consistent with higher levels.</source>
+        <target>Niveau de description - la valeur "%valeur%" n'est pas cohérente avec les niveaux supérieurs.</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Level of description - This is a mandatory element.</source>
+        <target>Niveau de description - Cet élément est obligatoire.</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Statement of scale (architectural) - This is a mandatory element for architectural drawing.</source>
+        <target>Mention d'échelle (architecturale) - Cet élément est obligatoire pour les documents architecturaux</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Statement of coordinates (cartographic) - This is a mandatory element for cartographic material.</source>
+        <target>Mention des coordonnées (cartographiques) - Cet élément est obligatoire pour les documents cartographiques.</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Statement of projection (cartographic) - This is a mandatory element for cartographic material.</source>
+        <target>Mention de projection (cartographique) - Cet élément est obligatoire pour les documents cartographiques</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Statement of scale (cartographic) - This is a mandatory element for cartographic material.</source>
+        <target>Mention d'échelle (cartographique) - Cet élément est obligatoire pour les documents cartographiques</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
+        <target>Juridiction responsable et dénomination (philatélique) - Cet élément est obligatoire pour des documents philétaliques</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Edition statement - This is a mandatory element for published items.</source>
+        <target>Mention d'édition - Cet élément est obligatoire pour les imprimés.</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Standard number - This is a mandatory element for published items.</source>
+        <target>Numéro normalisé - Cet élément est obligatoire pour les imprimés.</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Edit archival description - RAD</source>
+        <target>Modifier la description archivistique - RDDA</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>This is a duplicate of record %1%</source>
+        <target>Il s'agit d'une copie de la notice %1%</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Title and statement of responsibility area</source>
+        <target>Zone du titre et de la mention de responsabilité</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
+        <target>Entrer le titre propre, soit transcrit, soit fourni tel quel par la ressource. (RDDA 1.1B)</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Title proper</source>
+        <target>Titre propre</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>This is a mandatory element.</source>
+        <target>Cet élément est obligatoire.</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
+        <target>Sélectionner l'indication générale du genre de document au plus haut niveau de la description. S'il y en a plus de trois, sélectionner "supports multiples" (RDDA 1.1 C)</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>General material designation</source>
+        <target>Dénomination générale des documents</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>"[W]hen applicable, transcribe parallel titles that appear in conjunction with the formal title proper..." (RAD 1.1D)</source>
+        <target>"[O]n transcrira, s'il y a lieu, les titres parallèles qui apparaissent avec le titre officiel propre..." (RDDA 1.1D)</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Parallel titles</source>
+        <target>Titres parallèles</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>"Transcribe other title information that appears in conjunction with the formal title proper..." (RAD 1.1E)</source>
+        <target>"On transcrira les compléments du titre qui apparaissent conjointement avec le titre officiel propre..." (RDDA 1.1E)</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Other title information</source>
+        <target>Compléments du titre</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)</source>
+        <target>"Au niveau de la pièce, on transcrira les mentions de responsabilité explicites qui apparaissent conjointement avec le titre officiel propre dans la source principale d'information." (RDDA 1.1F)</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Statement of responsibility</source>
+        <target>Mention de responsabilité</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Title notes</source>
+        <target>Notes du titre</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Note type</source>
+        <target>Type de note</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Select a note type from the drop-down menu and enter note text in accordance with RAD 1.8B1 through 1.8B6.</source>
+        <target>Sélectionner un type de note dans le menu déroulant et saisir le texte de note conformément aux RDDA, sections 1.8B1 à 1.8B6.</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
+        <target>Sélectionner un niveau de description dans le menu déroulant. Voir les RDDA 1.0A pour les règles et conventions sur la sélection des niveaux de description.</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Level of description</source>
+        <target>Niveau de description</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Enter an unambiguous code used to uniquely identify the description.&lt;br/&gt;&lt;strong&gt;Level:&lt;/strong&gt; Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
+        <target>&lt;strong&gt;Identifiant:&lt;/strong&gt; Saisir un code univoque pour l'identification unique de la description.&lt;br/&gt;&lt;strong&gt;Level:&lt;/strong&gt; Sélectionner un niveau dans le menu déroulant. Voir les RDDA 1.0A pour les règles et conventions relatives à la sélection des niveaux.&lt;br/&gt;&lt;strong&gt;Titre:&lt;/strong&gt; Saisir le titre propre, soit transcrit, soit fourni tel quel par la ressource. (RDDA 1.1B)</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
+        <target>Sélectionner le dépôt qui conserve les documents et qui exerce un contrôle sur ces documents. Les valeurs de ce champ récupèrent
+dans les notices des services d'archives la Forme autorisée du champ Nom. Rechercher un nom existant en saisissant les premières lettres du nom. Sinon saisir un nouveau nom pour créer un service d'archives et établir un lien vers la notice de ce service.</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Enter an unambiguous code used to uniquely identify the description.</source>
+        <target>Entrer un code univoque pour l'identification unique de la description</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Reference code</source>
+        <target>Code de référence</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Edition area</source>
+        <target>Zone de l'édition</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>"Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
+        <target>"On transcrit telle quelle la mention d'édition relative à la pièce à décrire." (RDDA 1.2B1) "Lorsqu'une pièce, dont on sait qu'elle comporte des modifications importantes par rapport aux éditions antérieures, est dépourvue d'une mention d'édition, on compose alors une brève mention dans la langue et la graphie du titre propre et on la met entre crochets." (RDDA 1.2B3)</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Edition statement</source>
+        <target>Mention d'édition</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
+        <target>"On transcrit à la suite de la mention d'édition, s'il y a lieu, la mention de responsabilité relative à une ou à plusieurs éditions, mais non à toutes les éditions de la pièce à décrire." (RDDA 1.2C1) "Lorsque l'on décrit la première édition, on transcrit toutes les mentions de responsabilité dans la zone du titre et de la mention de responsabilité." (RDDA 1.2C2)</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Statement of responsibility relating to the edition</source>
+        <target>Mention de responsabilité relative à l'édition</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Class of material specific details area</source>
+        <target>Zone des précisions relatives à la catégorie de documents</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>"Give the scale of the unit being described...as a representative fraction (RF) expressed as a ratio (1: ). Precede the ratio by Scale. Give the scale even if it is already recorded as part of the title proper or other title information." (RAD 5.3B1)</source>
+        <target>"On indiquera l’échelle de l’unité archivistique à décrire (...) sous la forme d’une fraction représentative (FR) exprimée par un rapport (1: ). La mention du rapport est précédée du terme Échelle. On donnera l’échelle même si elle est déjà transcrite comme faisant partie du titre propre ou du complément du titre." (RDDA 5.3B1)</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Statement of scale (cartographic)</source>
+        <target>Mention d'échelle (cartographique)</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>"Give the statement of projection if it is found on the prescribed source(s) of information." (RAD 5.3C1)</source>
+        <target>"On transcrira la mention de projection si elle apparaît dans les sources d’information prescrites." (RDDA 5.3C1)</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Statement of projection (cartographic)</source>
+        <target>Mention de projection (cartographique)</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>"At the fonds, series or file levels, record coordinates for the maximum coverage provided by the materials in the unit, as long as they are reasonably contiguous." (RAD 5.3D)</source>
+        <target>"Au niveau du fonds, de la série et du dossier, on indiquera les coordonnées maximales fournies par les documents en autant qu’elles sont contiguës." (RDDA 5.3D)</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Statement of coordinates (cartographic)</source>
+        <target>Mention des coordonnées (cartographiques)</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>"Give in English the scale in the units of measure found on the unit being described. If there is no English equivalent for the name of the unit of measure, give the name, within quotation marks, as found on the unit being described." (RAD 6.3B)</source>
+        <target>On indiquera, en français, l’échelle de l’unité de mesure de l’unité archivistique à décrire. Si l’unité de mesure ne peut être indiquée par un équivalent en français, on transcrira, entre guillemets, celle inscrite sur l’unité archivistique à décrire." (RDDA 6.3B)</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Statement of scale (architectural)</source>
+        <target>Mention d'échelle (architecturale)</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
+        <target>"On consigne le nom de la juridiction responsable (par exemple gouvernement) du document philatélique." (RDDA 12.3B1) "Pour toutes les unités ayant une valeur (p. ex., les timbres-poste, les timbres fiscaux, les entiers postaux), il faut enregistrer cette valeur de façon normalisée en transcrivant le montant de la valeur en chiffres arabes et en le faisant suivre du nom de l'unité monétaire. Il faut toujours inclure la mention de la valeur même si celle-ci a déja été consignée au titre propre ou comme complément du titre." (RDDA 12.3C1)</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Issuing jurisdiction and denomination (philatelic)</source>
+        <target>Juridiction responsable et dénomination (philatélique)</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Dates of creation area</source>
+        <target>Zone des dates de production</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Add new name and/or date(s)</source>
+        <target>Ajouter un nom et/ou des dates</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Physical description area</source>
+        <target>Zone de description matérielle</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
+        <target>"À tous les niveaux de description, on indique l'étendue de l'unité archivistique à décrire en donnant le nombre d'unités matérielles qui la composent en chiffres arabes. On donnera l'indication spécifique du genre de document conformément à la règle .5B des chapitres portant sur les catégories de documents dont fait partie l'unité archivistique à décrire." (RDDA, 1.5B1) Ce champ inclut les autres caractéristiques physiques et les dimensions, telles qu'elles sont spécifiées dans les RDDA 1.5C et 1.5D. Séparer les différentes saisies dans ce champ par un retour chariot (en pressant la touche Entrée du clavier).</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Physical description</source>
+        <target>Description matérielle</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Publisher's series area</source>
+        <target>Zone de la collection</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>"At the item level of description, transcribe a title proper of the publisher's series as instructed in 1.1B1." (RAD 1.6B)</source>
+        <target>"Au niveau de la pièce, on se conformera aux directives de la règle 1.1B1 pour transcrire un titre propre de collection." (RDDA 1.6B)</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Title proper of publisher's series</source>
+        <target>Titre propre de la collection</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>"Transcribe parallel titles of a publisher's series as instructed in 1.1D." (RAD 1.6C1)</source>
+        <target>"On se conformera aux directives de la règle 1.1D pour transcrire les titres parallèles de la collection." (RDDA 1.6C1)</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Parallel title of publisher's series</source>
+        <target>Titre parallèle de la collection</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>"Transcribe other title information of a publisher's series as instructed in 1.1E and only if considered necessary for identifying the publisher's series." (RAD 1.6D1)</source>
+        <target>"On transcrit les compléments du titre d'une collection seulement s'ils apportent des informations nécessaires à l'identification de la collection. On se conforme alors aux directives de la règle 1.1E." (RDDA 1.6D1)</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Other title information of publisher's series</source>
+        <target>Compléments du titre de la collection</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>"Transcribe explicit statements of responsibility appearing in conjunction with a formal title proper of a publisher's series as instructed in 1.1F and only if considered necessary for identifying the publisher's series." (RAD 1.6E1)</source>
+        <target>"On transcrit les mentions de responsabilité explicites accompagnant le titre propre d'une collection uniquement si elles paraissent indispensables à l'identification de cette collection. On se conforme alors aux directives de la règle 1.1F." (RDDA 1.6E1)</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Statement of responsibility relating to publisher's series</source>
+        <target>Mention de responsabilité relative à la collection</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>"Give the numbering of the item within a publisher's series in the terms given in the item." (RAD 1.6F1)</source>
+        <target>"On transcrit la numérotation d'une pièce faisant partie d'une collection en utilisant la désignation qu'on lui a donnée dans l'unité." (RDDA 1.6F1)</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Numbering within publisher's series</source>
+        <target>Numérotation à l'intérieur de la collection</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>"Make notes on important details of publisher's series that are not included in the Publisher's series area, including variant series titles, incomplete series, and of numbers or letters that imply a series." (RAD 1.8B10)</source>
+        <target>"On signalera en note les détails importants à propos de la collection qui ne sont pas inclus dans la zone de la collection, par exemple les variantes du titre, les collections incomplètes et le nombre de numéros ou de lettres que suppose une collection." (RDDA 1.8B10)</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Note on publisher's series</source>
+        <target>Note sur la collection</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Archival description area</source>
+        <target>Zone de la description archivistique</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Administrative history</source>
+        <target>Histoire administrative</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Biographical sketch</source>
+        <target>Notice biographique sommaire</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Edit authority record</source>
+        <target>Modifier la notice d'autorité</target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>"Give the history of the custody of the unit being described, i.e., the successive transfers of ownership and custody or control of the material, along with the dates thereof, insofar as it can be ascertained." (RAD 1.7C)</source>
+        <target>"On donne l'historique de la conservation concernant l'unité archivistique à décrire correspondante, c'est-à-dire les transferts successifs de propriété et de conservation des documents ainsi que leurs dates, et ce, dans la mesure où on peut le vérifier." (RDDA 1.7C)</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Custodial history</source>
+        <target>Historique de la conservation</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>"At the fonds, series, and collection levels of description, and when necessary at the file and the item levels of description, indicate the level being described and give information about the scope and the internal structure of or arrangement of the records, and about their contents." (RAD 1.7D) "For the scope of the unit being described, give information about the functions and/or kinds of activities generating the records, the period of time, the subject matter, and the geographical area to which they pertain. For the content of the unit being described, give information about its internal structure by indicating its arrangement, organization, and/or enumerating its next lowest level of description. Summarize the principal documentary forms (e.g., reports, minutes, correspondence, drawings, speeches)." (RAD 1.7D1)</source>
+        <target>"Aux niveaux du fonds, de la série, et de la collection, et si nécessaire aux niveaux du dossier et de la pièce, on indiquera le niveau décrit et on donnera de l’information sur la portée, la structure interne ou classification et le contenu des documents de l’unité archivistique à décrire." (RDDA 1.7D) "L'information sur la portée d’une unité archivistique à décrire contiendra des renseignements sur les fonctions et les activités à l'origine de la création des documents, sur la période couverte par son contenu, sur le(s) sujet(s), et sur les lieux géographiques sur lesquels il porte. L'information sur le contenu d’une unité archivistique à décrire traitera de sa structure interne par la description de sa classification et de son classement, et/ou l'énumération de son niveau de description inférieur immédiat. On donnera une liste sommaire des principales formes documentaires (par exemple : rapports, procès-verbaux, correspondance, dessins, discours)." (RDDA 1.7D1)</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Scope and content</source>
+        <target>Présentation du contenu</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Notes area</source>
+        <target>Zone des notes</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>"Make notes on the physical condition of the unit being described if that condition materially affects the clarity or legibility of the records." (RAD 1.8B9a)</source>
+        <target>"On rédigera une note sur l'état de conservation de l'unité archivistique à décrire si cela affecte la clarté ou la lisibilité des documents." (RDDA 1.8B9a)</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Physical condition</source>
+        <target>Etat de conservation</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>"Record the donor or source (i.e., the immediate prior custodian) from whom the unit being described was acquired, and the date and method of acquisition, as well as the source/donor's relationship to the material, if any or all of this information is not confidential. If the source/donor is unknown, record that information." (RAD 1.8B12)</source>
+        <target>"On indique le nom du donateur ou de la source (c'est-à-dire le nom de la dernière personne physique ou morale qui assurait la garde ou la conservation de l'unité archivistique), la date et le mode d'acquisition ainsi que les liens entre le donateur (ou la source) et l'unité archivistique, dans la mesure où cette information n'est pas confidentielle. Enfin, si le donateur ou la source sont inconnus, on consignera cette information dans la note." (RDDA 1.8B12)</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Immediate source of acquisition</source>
+        <target>Modalités d'entrée</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>"Make notes on the arrangement of the unit being described which contribute significantly to its understanding but cannot be put in the Scope and content (see 1.7D), e.g., about reorganisation(s) by the creator, arrangement by the archivist, changes in the classification scheme, or reconstitution of original order." (RAD 1.8B13)</source>
+        <target>"On rédige une note sur le classement de l'unité archivistique à décrire si cette information est susceptible de favoriser la compréhension des documents et qu'on ne peut l'inclure dans l'élément Portée et contenu (voir la règle 1.7D) comme, par exemple, l'organisation des documents par le créateur, l'organisation des documents par l'archiviste, les changements dans le cadre de classification ou la reconstitution de l'ordre original." (RDDA 1.8B13)</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target>"On mentionne ici la langue de l'unité archivistique à décrire, à moins qu'elle n'ait déjà été notée ailleurs ou que d'autres éléments de la description en témoignent de façon évidente." (RDDA 1.8B14). Sélectionner la langue dans le menu déroulant ; saisir les toutes premières lettres pour réduire la liste des choix.</target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target>"S'il y a lieu, on indiquera tout alphabet ou système de symboles particuliers." (RDDA 1.8B14) Sélectionner le code dans le menu déroulant ; entrer les toutes premières lettres pour restreindre la liste des choix.</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
+        <target>"Si l'unité archivistique à décrire est une reproduction, on indiquera l'emplacement de l'original, s'il est connu. On transcrira également les numéros ou cotes pouvant aider à repérer l'original à l'emplacement mentionné. Si l'original n'existe plus, on le signalera." (RDDA 1.8B15a)</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>"If all or part of the unit being described is available (either in the institution or elsewhere) in another format(s), e.g., if the text being described is also available on microfilm; or if a film is also available on videocassette, make a note indicating the other format(s) in which the unit being described is available and its location, if that information is known. If only a part of the unit being described is available in another format(s), indicate which parts." (RAD 1.8B15b)</source>
+        <target>"Si l'unité archivistique à décrire se présente, en totalité ou en partie, dans d'autres formats (à l'intérieur de l'établissement ou ailleurs), par exemple, si le document textuel à décrire se présente également sous forme de microfilm ou si un film se présente également sous forme de vidéocassette, on en prendra note en précisant la nature de ces autres formats et en indiquant leur emplacement, s'il est connu. Si seule une partie de l'unité archivistique à décrire est disponible dans un autre format, on précisera laquelle." (RDDA 1.8B15b)</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Availability of other formats</source>
+        <target>Disponibilité d'autres formats</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>"Give information about any restrictions placed on access to the unit (or parts of the unit) being described." (RAD 1.8B16a)</source>
+        <target>"On colligera ici toute information pertinente concernant la restriction à la consultation de l'unité archivistique à décrire ou d'une de ses parties." (RDDA 1.8B16a)</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Restrictions on access</source>
+        <target>Restrictions d'accès</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>"Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c)</source>
+        <target>"On indique toute restriction imposée par la loi ou par le donateur qui peut affecter l’utilisation ou la reproduction des documents." (RDDA 1.8B16c)</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Terms governing use, reproduction, and publication</source>
+        <target>Délais d'utilisation, de reproduction et de publication</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>"Give information regarding the existence of any finding aids. Include appropriate administrative and/or intellectual control tools over the material in existence at the time the unit is described, such as card catalogues, box lists, series lists, inventories, indexes, etc." (RAD 1.8B17)</source>
+        <target>"On mentionnera l'existence d'instruments de recherche, y compris tout moyen de contrôle administratif ou intellectuel existant au moment de la description de l'unité archivistique, qu'il s'agisse de catalogues, de listes, d'inventaires, d'index, etc." (RDDA 1.8B17)</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
+        <target>Pour les documents connexes, "si d'autres documents conservés par un autre établissement sont reliés à l'unité archivistique à décrire en raison de leur provenance commune, on en fera mention au niveau du fonds, de la série, de la collection ou de la pièce isolée, en indiquant leur emplacement, s'il est connu." (RDDA 1.8B18). Pour les documents associés, "on signalera les groupes de documents de toute unité extérieure à l’unité archivistique à décrire s'ils ont des liens significatifs avec cette dernière en raison de responsabilités partagées, d'activités de même nature, etc." (RDDA 1.8B20)</target>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Associated/related material</source>
+        <target>Sources complémentaires/associées</target>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
+        <target>"Lorsque l'unité archivistique à décrire est ouverte (par exemple une série ou un fonds), on rédige une note signalant que d'autres versements sont attendus. (...) Si aucun versement ultérieur n'est prévu, on indique que l'unité est close." (RDDA 1.8B19)</target>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Other notes</source>
+        <target>Autres notes</target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Select a note type from the drop-down menu and enter note text in accordance with the following sections in RAD: 1.5E (Accompanying material); 1.8 B11 (Alpha-numeric designations); 1.8B9b (Conservation); 1.8B7 (Edition); 1.8B9 (Physical Description); 1.8B16b (Rights); 1.8B21 (General note).</source>
+        <target>Sélectionner un type de note dans le menu déroulant et saisir le texte de la note conformément aux sections suivantes dans  (Documents d'accompagnement) ; 1.8 B11 (Indication alphanumériques) ; 1.8B9b (Restauration/Conservation) ; 1.8B7 (Edition) ; 1.8B9 (Collation) ; 1.8B16b (Droits) ; 1.8B21 (Note générale).</target>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Standard number area</source>
+        <target>Zone du numéro normalisé</target>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
+        <target>"On donnera le numéro normalisé (ISBN) ou le numéro international normalisé pour les séries (ISSN) ou tout autre numéro accepté par convention internationale pour la pièce décrite. On donnera ces numéros en respectant l'usage des abréviations ainsi que l'emploi des espaces et des traits d'union." (RDDA 1.9B1)</target>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Access points</source>
+        <target>Points d'accès</target>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Subject access points</source>
+        <target>Points d'accès sujets</target>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
+        <target>Rechercher un terme existant dans le référentiel des Mots-matières en saisissant les premiers caractères du terme. Sinon saisir un nouveau terme pour créer un mot-matière et établir une relation avec ce nouveau terme.</target>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Place access points</source>
+        <target>Points d'accès lieux</target>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
+        <target>Rechercher un terme existant dans le référentiel des Noms de lieux en saisissant les premiers caracères du terme. Sinon saisir un nouveau terme pour créer un nom de lieu et établir une relation avec ce nouveau terme.</target>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>Name access points (subjects)</source>
+        <target>Points d'accès mots-matières</target>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target>"On établira, au besoin, les accès de provenance, d’auteur et les accès autres que sujet à partir de la description. Tous les accès doivent figurer en évidence dans la description à laquelle ils se rapportent." (RDDA 21.0B) Les valeurs de ce champ récupèrent dans les notices d'autorité la Forme autorisée du champ Nom. Rechercher un nom déjà existant en en saisissant les premiers caractères. Sinon saisir un nouveau nom pour le créer et le lier à une nouvelle notice d'autorité. </target>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Control area</source>
+        <target>Zone du contrôle</target>
+      </trans-unit>
+      <trans-unit id="117">
+        <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
+        <target>Enregistrer un numéro d’identification unique pour la notice d’autorité, conformément aux conventions locales et/ou nationales. Si la notice d’autorité doit faire l’objet d’une utilisation internationale, enregistrer le code du pays dans lequel la notice d’autorité a été établie, en utilisant la dernière version de la norme ISO 3166 : Codes pour la représentation des noms de pays. Lorsque l’auteur de la notice d’autorité est un organisme international, donner le numéro d’identification de l’organisme à la place du code du pays.</target>
+      </trans-unit>
+      <trans-unit id="118">
+        <source>Description identifier</source>
+        <target>Identifiant de la description</target>
+      </trans-unit>
+      <trans-unit id="119">
+        <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
+        <target>Enregistrer la(les) forme(s) autorisée(s) du nom complètes des institutions responsables de la création, de la mise à jour ou de la diffusion de la description ou bien enregistrer un code pour l'institution conformément à la norme nationale ou internationale de codification des institutions.</target>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>Institution identifier</source>
+        <target>Identifiant du service responsable de la description</target>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>Record the international, national and/or local rules or conventions followed in preparing the description.</source>
+        <target>Enregistrer les règles ou conventions internationales, nationales et/ou locales suivies pour établir la description</target>
+      </trans-unit>
+      <trans-unit id="122">
+        <source>Rules or conventions</source>
+        <target>Règles ou conventions</target>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>Status</source>
+        <target>Niveau d'élaboration</target>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
+        <target>Enregistrer le statut en cours de la description, en indiquant s'il s'agit d'un brouillon, si elle est finalisée et/ou révisée ou supprimée.</target>
+      </trans-unit>
+      <trans-unit id="125">
+        <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
+        <target>Enregistrer si la description est élémentaire, moyenne ou complète conformément aux règles et/ou conventions internationales et/ou nationales pertinentes.</target>
+      </trans-unit>
+      <trans-unit id="126">
+        <source>Level of detail</source>
+        <target>Niveau de détail</target>
+      </trans-unit>
+      <trans-unit id="127">
+        <source>Record the date(s) the entry was prepared and/or revised.</source>
+        <target>Enregistrer la(les) date(s) de préparation et/ou de révision de l'entrée.</target>
+      </trans-unit>
+      <trans-unit id="128">
+        <source>Dates of creation, revision and deletion</source>
+        <target>Dates de production, de révision et de suppression</target>
+      </trans-unit>
+      <trans-unit id="129">
+        <source>Indicate the language(s) used to create the description of the archival material.</source>
+        <target>Indiquer la(les) langue(s) utilisée(s) pour créer la description des documents d'archives.</target>
+      </trans-unit>
+      <trans-unit id="130">
+        <source>Language</source>
+        <target>Langue</target>
+      </trans-unit>
+      <trans-unit id="131">
+        <source>Indicate the script(s) used to create the description of the archival material.</source>
+        <target>Indiquer le(s) système(s) d'écriture utilisé(s) pour créer la description des documents d'archives.</target>
+      </trans-unit>
+      <trans-unit id="132">
+        <source>Script</source>
+        <target>Écriture</target>
+      </trans-unit>
+      <trans-unit id="133">
+        <source>Rights area</source>
+        <target>Zone des droits</target>
+      </trans-unit>
+      <trans-unit id="134">
+        <source>View archival description</source>
+        <target>Afficher la description archivistique</target>
+      </trans-unit>
+      <trans-unit id="135">
+        <source>Edit archival description</source>
+        <target>Modifier la description archivistique</target>
+      </trans-unit>
+      <trans-unit id="136">
+        <source>Part of %1%</source>
+        <target>Faisant partie de %1%</target>
+      </trans-unit>
+      <trans-unit id="137">
+        <source>Edit title and statement of responsibility area</source>
+        <target>Modifier la zone du titre et de déclaration de responsabilité</target>
+      </trans-unit>
+      <trans-unit id="138">
+        <source>Parallel title</source>
+        <target>Titre parallèle</target>
+      </trans-unit>
+      <trans-unit id="139">
+        <source>Title statements of responsibility</source>
+        <target>Mentions de responsabilité du titre</target>
+      </trans-unit>
+      <trans-unit id="140">
+        <source>Repository</source>
+        <target>Entrepôt</target>
+      </trans-unit>
+      <trans-unit id="141">
+        <source>Edit edition area</source>
+        <target>Modifier la zone d'édition</target>
+      </trans-unit>
+      <trans-unit id="142">
+        <source>Edition statement of responsibility</source>
+        <target>Mentions de responsabilité relatives à l'édition</target>
+      </trans-unit>
+      <trans-unit id="143">
+        <source>Edit class of material specific details area</source>
+        <target>Modifier la zone des précisions relatives à la catégorie de documents</target>
+      </trans-unit>
+      <trans-unit id="144">
+        <source>Edit dates of creation area</source>
+        <target>Modifier la zone des dates de production</target>
+      </trans-unit>
+      <trans-unit id="145">
+        <source>Edit physical description area</source>
+        <target>Modifier la zone de la description physique</target>
+      </trans-unit>
+      <trans-unit id="146">
+        <source>Edit publisher's series area</source>
+        <target>Modifier la zone de la collection</target>
+      </trans-unit>
+      <trans-unit id="147">
+        <source>Parallel titles of publisher's series</source>
+        <target>Titres parallèles de la collection</target>
+      </trans-unit>
+      <trans-unit id="148">
+        <source>Edit archival description area</source>
+        <target>Modifier la zone de description archivistique</target>
+      </trans-unit>
+      <trans-unit id="149">
+        <source>Edit notes area</source>
+        <target>Modifier la zone des notes</target>
+      </trans-unit>
+      <trans-unit id="150">
+        <source>Arrangement</source>
+        <target>Classement</target>
+      </trans-unit>
+      <trans-unit id="151">
+        <source>Language of material</source>
+        <target>Langue des documents</target>
+      </trans-unit>
+      <trans-unit id="152">
+        <source>Script of material</source>
+        <target>Écriture des documents</target>
+      </trans-unit>
+      <trans-unit id="153">
+        <source>Location of originals</source>
+        <target>Localisation des originaux</target>
+      </trans-unit>
+      <trans-unit id="154">
+        <source>Finding aids</source>
+        <target>Instruments de recherche</target>
+      </trans-unit>
+      <trans-unit id="155">
+        <source>Associated / related material</source>
+        <target>Sources complémentaires / associées</target>
+      </trans-unit>
+      <trans-unit id="156">
+        <source>Accruals</source>
+        <target>Accroissements</target>
+      </trans-unit>
+      <trans-unit id="157">
+        <source>Edit standard number area</source>
+        <target>Modifier la zone du nombre standard</target>
+      </trans-unit>
+      <trans-unit id="158">
+        <source>Standard number</source>
+        <target>Numéro normalisé</target>
+      </trans-unit>
+      <trans-unit id="159">
+        <source>Edit access points</source>
+        <target>Modifier les index.</target>
+      </trans-unit>
+      <trans-unit id="160">
+        <source>Edit control area</source>
+        <target>Modifier la zone de contrôle</target>
+      </trans-unit>
+      <trans-unit id="161">
+        <source>Description record identifier</source>
+        <target>Identifiant de la description du document</target>
+      </trans-unit>
+      <trans-unit id="162">
+        <source>Language of description</source>
+        <target>Langue de la description</target>
+      </trans-unit>
+      <trans-unit id="163">
+        <source>Script of description</source>
+        <target>Langage d'écriture de la description</target>
+      </trans-unit>
+      <trans-unit id="164">
+        <source>Sources</source>
+        <target>Sources</target>
+      </trans-unit>
+      <trans-unit id="165">
+        <source>Edit rights area</source>
+        <target>Modifier la zone des droits</target>
+      </trans-unit>
+      <trans-unit id="166">
+        <source>Accession area</source>
+        <target>Zone des entrées</target>
+      </trans-unit>
+      <trans-unit id="167">
+        <source>Language and script note</source>
+        <target>Note de langue et graphie</target>
+      </trans-unit>
+      <trans-unit id="168">
+        <source>Language and script notes</source>
+        <target>Notes de langue et graphie</target>
+      </trans-unit>
+      <trans-unit id="169">
+        <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).</source>
+        <target>"Notez tout alphabet distinctif ou système de symboles employés." (RDDA 1.8.B14)</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

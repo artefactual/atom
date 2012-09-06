@@ -1,0 +1,2744 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xliff version="1.0">
+  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2012-08-27T09:01:22Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source/>
+        <target/>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsJobSchedulingForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>"Record, when relevant, the start and the end date of the relationship." (ISDF 6.3) Enter the date as you would like it to appear in the show page for the function, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target>"Zabeležite začetni in končni datum povezave." (ISDF 6.3) Vnesite datum, kot želite, da bo prikazan na prikazni strani funkcije in pri tem po želji uporabite kvalifikatorje in/ali tipografske simbole za izražanje dvoma.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/relation/actions/editComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>#</source>
+        <target>#</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/storageLocationsSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>%1% (use: %2%)</source>
+        <target>%1% (uporaba: %2%)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/autocompleteSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>%1% hierarchy</source>
+        <target>%1% hierarhija</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/fileListSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>%1% name</source>
+        <target>%1% ime</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editInformationObjectAclSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>%1% of</source>
+        <target>%1% od</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/actor/templates/_contextMenu.php</note>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>%1% representation</source>
+        <target>%1% zastopanje</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>%1% results per page</source>
+        <target>%1% rezultatov na stran</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>%1% term</source>
+        <target>%1% obdobje</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/taxonomy/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="117">
+        <source>%1% to %2%</source>
+        <target>%1% do %2%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/descriptionUpdatesSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="118">
+        <source>%1% upload limit of %2% GB exceeded for %3%</source>
+        <target>%1% omejitev velikosti datoteke %2% GB je presežena za %3%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/actions/uploadAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="137">
+        <source>%du% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; of &lt;em&gt;Unlimited&lt;/em&gt;</source>
+        <target>%du% &lt; okr. naslov="1 GB = 1 000 000 000 bitov"&gt;GB&lt;/okr&gt; od &lt;em&gt;neomejeno&lt;/em&gt;</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/_uploadLimit.php</note>
+      </trans-unit>
+      <trans-unit id="138">
+        <source>%du% of %limit% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; (%percent%%)</source>
+        <target>%du% of %limit% &lt;okr. naslov="1 GB = 1 000 000 000 bitov"&gt;GB&lt;/okr&gt; (%odstotek%%)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/_uploadLimit.php</note>
+      </trans-unit>
+      <trans-unit id="140">
+        <source>(Only showing first %1% results for performance reasons)</source>
+        <target>(Prikaz le prvih %1% rezultatov zaradi hitrejšega delovanja programa)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchResults.php</note>
+      </trans-unit>
+      <trans-unit id="148">
+        <source>A %1%release %2%%3% upgrade is available.</source>
+        <target>Na voljo je nadgradnja %1%izdaje %2%%3%.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_updateCheck.php</note>
+      </trans-unit>
+      <trans-unit id="149">
+        <source>A brief site description or &amp;quot;tagline&amp;quot; for the header</source>
+        <target>Kratek opis strani ali "slogan" za glavo</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="150">
+        <source>A coded designation for the copyright status of the object at the time the rights statement is recorded.</source>
+        <target>Kodirana označba za status avtorske pravice v zvezi z objektom v času, ko je zabeležena izjava o pravicah.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="151">
+        <source>A condition or limitation on the act.</source>
+        <target>Pogojevanje ali omejitev dejanja.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="161">
+        <source>Access</source>
+        <target>Dostopanje</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_metadata.php</note>
+      </trans-unit>
+      <trans-unit id="165">
+        <source>Access control</source>
+        <target>Nadzor dostopanja</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="167">
+        <source>Access restrictions</source>
+        <target>Omejitve dostopanja</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/fileListSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="173">
+        <source>Accession counter</source>
+        <target>Števec pridobljenega gradiva</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="175">
+        <source>Accession mask</source>
+        <target>Prevzemna maska</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="189">
+        <source>Act</source>
+        <target>Dejanje</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="190">
+        <source>Action</source>
+        <target>Dejanje</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editInformationObjectAclSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="191">
+        <source>Actions</source>
+        <target>Dejanja</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/deleteSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="192">
+        <source>Active</source>
+        <target>Aktiven</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="197">
+        <source>Actor browse options</source>
+        <target>Možnosti brskanja po delovalcu</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/actor/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="198">
+        <source>Actor name</source>
+        <target>Ime delovalca</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_event.php</note>
+      </trans-unit>
+      <trans-unit id="200">
+        <source>Add</source>
+        <target>Dodaj</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="201">
+        <source>Add %1%</source>
+        <target>Dodaj %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editInformationObjectAclSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="202">
+        <source>Add an alpha-numeric code to uniquely identify this particular OAI repository within its network domain to create a unique, OAI-compliant identifier, e.g. oai:foo.org:repositorycode_10001</source>
+        <target>Dodajte črkovno-številčno kodo za natančno prepoznavo skladišča OAI znotraj njegove spletne domene in na ta način ustvarite unikaten identifikator, ki je v skladu z iniciativo odprtih arhivov (OAI), npr. oai:foo.org:repositorycode_10001</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsOaiRepositoryForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="203">
+        <source>Add container links (duplicate links will be ignored)</source>
+        <target>Dodajte povezave o tehnični enoti (podvojene povezave ne bodo upoštevane)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/editPhysicalObjectsSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="204">
+        <source>Add lowercase letters</source>
+        <target>Dodaj male črke</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="205">
+        <source>Add new</source>
+        <target>Dodaj novo</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="210">
+        <source>Add new child levels</source>
+        <target>Dodaj nove podnivoje</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_childLevels.php</note>
+      </trans-unit>
+      <trans-unit id="216">
+        <source>Add new menu</source>
+        <target>Dodaj nov meni</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="219">
+        <source>Add new narrow terms</source>
+        <target>Dodaj nove, ozko opredeljene izraze</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="220">
+        <source>Add new page</source>
+        <target>Dodaj novo stran</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/staticpage/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="221">
+        <source>Add new physical storage</source>
+        <target>Dodaj novo možnost fizične hrambe</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/physicalobject/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="223">
+        <source>Add new rights holder</source>
+        <target>Dodaj novega imetnika pravic</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/rightsholder/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="224">
+        <source>Add new term</source>
+        <target>Dodaj nov izraz</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="225">
+        <source>Add new user</source>
+        <target>Dodaj novega uporabnika</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="226">
+        <source>Add numbers</source>
+        <target>Dodaj številke</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="227">
+        <source>Add permissions by %1%</source>
+        <target>Dodaj dovoljenja %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editInformationObjectAclSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="229">
+        <source>Add punctuation</source>
+        <target>Dodaj ločila</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="231">
+        <source>Add uppercase letters</source>
+        <target>Dodaj velike črke</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="232">
+        <source>Additional information about the copyright status.</source>
+        <target>Dodatne informacije o statusu avtorske pravice.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="233">
+        <source>Additional information about the license, such as contact persons, action dates, or interpretations. The note may also indicated the location of the license, if it is available online or embedded in the object itself.</source>
+        <target>Dodatne informacije o licenci, npr. kontaktne osebe, pomembni datumi ali interpretacije. Opomba lahko vključuje tudi mesto licence oz. podatek, ali je dostopna na spletu ali vgrajena v sam objekt.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="234">
+        <source>Additional information about the statute.</source>
+        <target>Dodatne informacije o statutu.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="235">
+        <source>Address</source>
+        <target>Naslov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
+      </trans-unit>
+      <trans-unit id="237">
+        <source>Admin/biographical history</source>
+        <target>Zgodovina skrbnikove dejavnosti</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchFields.php</note>
+      </trans-unit>
+      <trans-unit id="238">
+        <source>Administration area</source>
+        <target>Administrativno področje</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_adminInfo.php</note>
+      </trans-unit>
+      <trans-unit id="240">
+        <source>Administrative history</source>
+        <target>Historiat ustvarjalca</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_creatorDetail.php</note>
+      </trans-unit>
+      <trans-unit id="242">
+        <source>Advanced search</source>
+        <target>Napredno iskanje</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_box.php</note>
+      </trans-unit>
+      <trans-unit id="243">
+        <source>All %1%</source>
+        <target>Vsi %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/indexTermAclSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="244">
+        <source>All privileges</source>
+        <target>Vsi privilegiji</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/indexTermAclSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="246">
+        <source>Allow</source>
+        <target>Dovoli</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/actions/editComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="247">
+        <source>Allow unlimited uploads</source>
+        <target>Dovoli neomejeno nalaganje</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/_uploadLimit.php</note>
+      </trans-unit>
+      <trans-unit id="248">
+        <source>Allowed languages for translation</source>
+        <target>Jeziki z dovoljenjem za prevajanje</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="250">
+        <source>Alphabetic</source>
+        <target>Abecedni vrstni red</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/taxonomy/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="252">
+        <source>An identifying designation for the statute. Use standard citation form when applicable, e.g. bibliographic citation.</source>
+        <target>Enopomenska označba za statut. Uporabite ustaljeno obliko citiranja, npr. bibliografsko navajanje, kjer je to ustrezno.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="254">
+        <source>Any field</source>
+        <target>Katero koli polje</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchFields.php</note>
+      </trans-unit>
+      <trans-unit id="255">
+        <source>Application version</source>
+        <target>Verzija aplikacije</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="261">
+        <source>Archival history</source>
+        <target>Zgodovina arhivskega gradiva</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchFields.php</note>
+      </trans-unit>
+      <trans-unit id="266">
+        <source>Archivist's notes</source>
+        <target>Opombe arhivarja</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/sfIsadPlugin/modules/sfIsadPlugin/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="267">
+        <source>Are you sure you want to delete %1% and all its descendants?</source>
+        <target>Ste prepričani, da želite izbrisati %1% in vse njegove naslednike?</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/deleteSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="268">
+        <source>Are you sure you want to delete %1%?</source>
+        <target>Ste prepričani, da želite izbrisati %1%?</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/deleteSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="269">
+        <source>Are you sure you want to delete the digital object linked to %1%?</source>
+        <target>Ste prepričani, da želite izbrisati digitalni predmet, povezan z/s %1%?</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/deleteSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="270">
+        <source>Are you sure you want to delete this reference/thumbnail representation?</source>
+        <target>Ste prepričani, da želite izbrisati predstavitev z referenco/sličico?</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/deleteSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="271">
+        <source>Are you sure you want to delete user %1%?</source>
+        <target>Ste prepričani, da želite izbrisati uporabnika %1%?</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/deleteSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="272">
+        <source>Are you sure you want to replace "%1%" with "%2%" in %3%?</source>
+        <target>Ste prepričani, da želite zamenjati "%1%" z/s "%2%" v %3%?</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/globalReplaceAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="277">
+        <source>Associated terms</source>
+        <target>Povezani izrazi</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="282">
+        <source>Authorized form of name</source>
+        <target>Standardizirana oblika imena</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/rightsholder/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="283">
+        <source>Authorized form of name - This is a mandatory element.</source>
+        <target>Standardizirana oblika imena – vnos tega elementa je obvezen.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/rightsholder/actions/indexAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="286">
+        <source>BT %1%</source>
+        <target>BT %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="287">
+        <source>Back</source>
+        <target>Nazaj</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/fileListError.php</note>
+      </trans-unit>
+      <trans-unit id="288">
+        <source>Back to previous page</source>
+        <target>Nazaj na prejšnjo stran</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/admin/templates/termPermissionSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="289">
+        <source>Basic info</source>
+        <target>Osnovni podatki</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="290">
+        <source>Basis</source>
+        <target>Osnova</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="291">
+        <source>Basis for the permissions granted or for the restriction of rights</source>
+        <target>Osnova za odobrena dovoljenja ali za omejitev pravic</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="292">
+        <source>Biographical history</source>
+        <target>Biografska zgodovina</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_creatorDetail.php</note>
+      </trans-unit>
+      <trans-unit id="294">
+        <source>Both source and replacement fields are required.</source>
+        <target>Zahtevani sta tako izvorno kot tudi nadomestno polje.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/globalReplaceAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="296">
+        <source>Broad term</source>
+        <target>Splošen izraz</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="299">
+        <source>Browse %1%</source>
+        <target>Prebrskaj %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="300">
+        <source>Browse %1% - %2%</source>
+        <target>Prebrskaj %1% - %2%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="302">
+        <source>Browse all %1%</source>
+        <target>Prebrskaj vse %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/browseTermSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="304">
+        <source>Browse options</source>
+        <target>Možnosti brskanja</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/taxonomy/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="305">
+        <source>Browse rights holder</source>
+        <target>Prebrskaj podatke o imetniku pravic</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/rightsholder/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="309">
+        <source>Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses). Used to identify the granting agreement uniquely within the repository system.</source>
+        <target>Lahko je besedilna datoteka ali enotni označevalnik vira (URI) (npr. licence Creative Commons, GNU ali druge spletne licence). Uporablja se za identifikacijo sporazuma glede dovoljenja znotraj sistema skladiščenja.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="310">
+        <source>Cancel</source>
+        <target>Prekliči</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/deleteSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="313">
+        <source>Case-sensitive</source>
+        <target>Razlikovanje med velikimi/malimi črkami</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_advancedSearch.php</note>
+      </trans-unit>
+      <trans-unit id="317">
+        <source>Change language</source>
+        <target>Zamenjaj jezik</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/i18n/templates/_changeLanguageSelectbox.php</note>
+      </trans-unit>
+      <trans-unit id="318">
+        <source>Change password</source>
+        <target>Spremeni geslo</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="319">
+        <source>Check for updates</source>
+        <target>Poišči posodobitve</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="323">
+        <source>Click Confirm to delete this physical storage from the system. This will also remove the physical storage location from the following records:</source>
+        <target>Kliknite Potrdi za izbris te fizične hrambe iz sistema. Ta ukaz bo izbrisal tudi podatke o lokaciji fizične hrambe iz naslednjih zapisov:</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/physicalobject/templates/deleteSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="324">
+        <source>Code</source>
+        <target>Koda</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="331">
+        <source>Conditions governing access</source>
+        <target>Pogoji, ki urejajo dostop</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/physicalobject/templates/boxListSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="336">
+        <source>Confirm password</source>
+        <target>Potrdi geslo</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="339">
+        <source>Contact area</source>
+        <target>Področje kontaktov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/rightsholder/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="340">
+        <source>Contact information</source>
+        <target>Kontaktni podatki</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
+      </trans-unit>
+      <trans-unit id="341">
+        <source>Contact person</source>
+        <target>Kontaktna oseba</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="343">
+        <source>Containers</source>
+        <target>Tehnične enote</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/editPhysicalObjectsSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="348">
+        <source>Continue</source>
+        <target>Nadaljuj</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/reportsSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="353">
+        <source>Copyright information</source>
+        <target>Podatki o avtorskih pravicah</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="354">
+        <source>Copyright jurisdiction</source>
+        <target>Zakonodaja, ki ureja avtorske pravice</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="355">
+        <source>Copyright note</source>
+        <target>Opomba o avtorskih pravicah</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="356">
+        <source>Copyright status</source>
+        <target>Status avtorskih pravic</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="357">
+        <source>Copyright status date</source>
+        <target>Datum spremembe statusa avtorskih pravic</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="359">
+        <source>Country</source>
+        <target>Država</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="360">
+        <source>Country name</source>
+        <target>Ime države</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
+      </trans-unit>
+      <trans-unit id="362">
+        <source>Create</source>
+        <target>Ustvari</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="364">
+        <source>Created</source>
+        <target>Ustvarjeno</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/descriptionUpdatesSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="367">
+        <source>Creator(s)</source>
+        <target>Ustvarjalec/-ci</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_creator.php</note>
+      </trans-unit>
+      <trans-unit id="372">
+        <source>Date (based on start date)</source>
+        <target>Datum, ki temelji na začetnem datumu</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/actions/itemListAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="375">
+        <source>Date range</source>
+        <target>Časovna doba</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/descriptionUpdatesSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="376">
+        <source>Date that the decision to ascribe the right to this statute was made. As context for any future review/re-interpretation.</source>
+        <target>Zabeležite, kdaj je prišlo do odločitve o pripisu pravice do statuta, kar bo služilo kot kontekst za morebitne prihodnje preglede/interpretacije.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="377">
+        <source>Date(s)</source>
+        <target>Datum/-i</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/browseTermSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="379">
+        <source>Dates</source>
+        <target>Datumi</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/fileListSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="382">
+        <source>Dates of creation, revision and deletion</source>
+        <target>Datumi nastanka, popravljanja in izbrisa</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/sfIsdiahPlugin/modules/sfIsdiahPlugin/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="391">
+        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads</source>
+        <target>Privzeta %1% omejitev nalaganja za nov %2%. Vrednost "0" (nič) onemogoči nalaganje datoteke. Vrednost "-1" dovoli neomejeno število nalaganj.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="392">
+        <source>Default page elements</source>
+        <target>Privzeti elementi strani</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="393">
+        <source>Default publication status</source>
+        <target>Privzet status objave</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="394">
+        <source>Default publication status for newly created or imported %1%</source>
+        <target>Privzet status objave za na novo ustvarjene ali uvožene %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="395">
+        <source>Default template</source>
+        <target>Privzeta predloga</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="396">
+        <source>Default upload limit (GB)</source>
+        <target>Privzeta omejitev nalaganja (GB)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="397">
+        <source>Delete</source>
+        <target>Izbriši</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_editRepresentation.php</note>
+      </trans-unit>
+      <trans-unit id="398">
+        <source>Delete an &lt;a href="%1%"&gt;existing %2%&lt;/a&gt; to reduce disk usage</source>
+        <target>Izbriši &lt;a href="%1%"&gt;obstoječ %2%&lt;/a&gt; za zmanjšanje zasedenosti diska</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/uploadLimitExceededSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="399">
+        <source>Deny</source>
+        <target>Zavrni</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editInformationObjectAclSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="401">
+        <source>Describe the nature of the relationship between the function and the related resource. (ISDF 6.2)</source>
+        <target>Opišite značilnosti povezave med funkcijo in sorodnim virom. (ISDF 6.2)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/relation/actions/editComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="402">
+        <source>Description</source>
+        <target>Opis</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="408">
+        <source>Description identifier</source>
+        <target>Identifikator popisa</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/sfIsdiahPlugin/modules/sfIsdiahPlugin/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="411">
+        <source>Description updates</source>
+        <target>Posodobitve popisa</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/descriptionUpdatesSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="412">
+        <source>Determines whether to sort siblings in the information object treeview control and, if so, what sort criteria to use</source>
+        <target>Določa, ali naj se brati oz. sestre razvrstijo s pomočjo drevesne strukture in kakšni kriteriji naj se v tem primeru uporabijo.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="413">
+        <source>Did you follow a broken link?</source>
+        <target>Ste sledili mrtvi povezavi?</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/admin/templates/error404Success.php</note>
+      </trans-unit>
+      <trans-unit id="414">
+        <source>Did you type the URL correctly?</source>
+        <target>Ste spletni naslov vpisali pravilno?</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/admin/templates/error404Success.php</note>
+      </trans-unit>
+      <trans-unit id="417">
+        <source>Digital object (%1%) rights area</source>
+        <target>Področje pravic digitalnega objekta (%1%)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_rights.php</note>
+      </trans-unit>
+      <trans-unit id="418">
+        <source>Digital object available</source>
+        <target>Razpoložljiv digitalni predmet</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_advancedSearch.php</note>
+      </trans-unit>
+      <trans-unit id="419">
+        <source>Digital object is available</source>
+        <target>Digitalni objekt je na voljo</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/advancedAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="420">
+        <source>Digital object metadata</source>
+        <target>Metapodatki o digitalnem objektu</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_metadata.php</note>
+      </trans-unit>
+      <trans-unit id="421">
+        <source>Digital objects</source>
+        <target>Digitalni predmeti</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="422">
+        <source>Disable uploads</source>
+        <target>Onemogoči nalaganje</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/_uploadLimit.php</note>
+      </trans-unit>
+      <trans-unit id="423">
+        <source>Disallow</source>
+        <target>Prepovej</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/actions/editComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="427">
+        <source>Display note(s)</source>
+        <target>Prikaži opombo/-e</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="430">
+        <source>Do not index imported items</source>
+        <target>Uvoženih enot ne označi z indeksom</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/object/templates/importSelectSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="435">
+        <source>Download %1%</source>
+        <target>Naloži %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_showCompound.php</note>
+      </trans-unit>
+      <trans-unit id="436">
+        <source>Download audio</source>
+        <target>Naloži zvočno gradivo</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_showAudio.php</note>
+      </trans-unit>
+      <trans-unit id="437">
+        <source>Download movie</source>
+        <target>Naloži film</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_showVideo.php</note>
+      </trans-unit>
+      <trans-unit id="438">
+        <source>Draft</source>
+        <target>Osnutek</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="439">
+        <source>Dublin Core 1.1 XML</source>
+        <target>Dublin Core 1.1 XML</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_format.php</note>
+      </trans-unit>
+      <trans-unit id="441">
+        <source>Dublin Core, Version 1.1. Dublin Core Metadata Initiative</source>
+        <target>Dublin Core, verzija 1.1., Iniciativa o metapodatkih Dublin Core (DCMI)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsDefaultTemplateForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="442">
+        <source>Duplicate</source>
+        <target>Dupliciraj</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_actions.php</note>
+      </trans-unit>
+      <trans-unit id="443">
+        <source>EAC</source>
+        <target>Kodiran arhivski kontekst (EAC)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/actor/templates/_format.php</note>
+      </trans-unit>
+      <trans-unit id="444">
+        <source>EAD 2002 XML</source>
+        <target>EAD 2002 XML</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_format.php</note>
+      </trans-unit>
+      <trans-unit id="445">
+        <source>Edit</source>
+        <target>Uredi</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="446">
+        <source>Edit %1%</source>
+        <target>Uredi %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="450">
+        <source>Edit %1% permissions</source>
+        <target>Uredi %1% dovoljenja</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editInformationObjectAclSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="471">
+        <source>Edit digital object</source>
+        <target>Uredi digitalni predmet</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_rights.php</note>
+      </trans-unit>
+      <trans-unit id="478">
+        <source>Edit menu</source>
+        <target>Uredi meni</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="480">
+        <source>Edit page</source>
+        <target>Uredi stran</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/staticpage/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="489">
+        <source>Edit rights holder</source>
+        <target>Uredi podatke o imetniku pravic</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/rightsholder/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="492">
+        <source>Edit term</source>
+        <target>Uredi izraz</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="493">
+        <source>Edit this page</source>
+        <target>Uredi to stran</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/staticpage/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="495">
+        <source>Edit upload limit</source>
+        <target>Uredi omejitev nalaganja</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/_uploadLimit.php</note>
+      </trans-unit>
+      <trans-unit id="496">
+        <source>Edit user</source>
+        <target>Uredi uporabnika</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/indexTermAclSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="503">
+        <source>Elapsed time: %1% seconds.</source>
+        <target>Pretečen čas: %1% sekund.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/object/templates/importSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="504">
+        <source>Email</source>
+        <target>E-pošta</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="505">
+        <source>Email your &lt;a href="mailto:%1%"&gt;system administrator&lt;/a&gt; and request a larger upload limit</source>
+        <target>Pošljite e-sporočilo svojemu &lt;a href="mailto:%1%"&gt;sistemskemu skrbniku&lt;/a&gt; in prosite za povišanje omejitve nalaganja</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/uploadLimitExceededSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="507">
+        <source>Enable OAI</source>
+        <target>Omogoči OAI</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsOaiRepositoryForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="508">
+        <source>Enable automatic update notification</source>
+        <target>Omogoči prikaz obvestila o samodejnih posodobitvah</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="509">
+        <source>Enable job scheduler</source>
+        <target>Omogoči razporejevalnik opravil</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsJobSchedulingForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="513">
+        <source>Enable or disable the display of certain page elements. Unless they have been overridden by a specific theme, these settings will be used site wide.</source>
+        <target>Omogoči ali prepreči prikaz določenih elementov strani. Te nastavitve bodo veljale za celotno stran, razen če jih razveljavi specifična tema.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="515">
+        <source>End</source>
+        <target>Konec</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/relation/actions/editComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="516">
+        <source>End date</source>
+        <target>Končni datum</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="518">
+        <source>Enter free-text information, including qualifiers or typographical symbols to express uncertainty, to change the way the date displays. If this field is not used, the default will be the start and end years only.</source>
+        <target>Vnesite prosto besedilo, vključno s kvalifikatorji ali tipografskimi simboli za izražanje dvoma, in na ta način spremenite prikaz datuma. Če tega polja ne izpolnite, program prikaže samo začetno in končno leto.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/event/actions/editComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="519">
+        <source>Enter the end year. Do not use any qualifiers or typographical symbols to express uncertainty. If the start and end years are the same, enter data only in the "Date" field and leave the "End date" blank.</source>
+        <target>Vnesite končno leto in pri tem ne uporabite kvalifikatorjev ali tipografskih simbolov za izražanje dvoma. Če sta začetno in končno leto enaka, vnesite podatke samo v polje "Datum", polje "Konec" pa pustite prazno.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/relation/actions/editComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="520">
+        <source>Enter the start year. Do not use any qualifiers or typographical symbols to express uncertainty.</source>
+        <target>Vnesite začetno leto in pri tem ne uporabljajte kvalifikatorjev ali tipografskih simbolov za izražanje dvoma.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/relation/actions/editComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="522">
+        <source>Equivalent terms</source>
+        <target>Ekvivalentni izrazi</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="523">
+        <source>Error encountered</source>
+        <target>Program je naletel na napako</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/object/templates/importSelectSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="524">
+        <source>Event</source>
+        <target>Dogodek</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_event.php</note>
+      </trans-unit>
+      <trans-unit id="526">
+        <source>Event note</source>
+        <target>Opomba o dogodku</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_event.php</note>
+      </trans-unit>
+      <trans-unit id="527">
+        <source>Event type</source>
+        <target>Vrsta dogodka</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_event.php</note>
+      </trans-unit>
+      <trans-unit id="530">
+        <source>Export</source>
+        <target>Izvoz</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/_format.php</note>
+      </trans-unit>
+      <trans-unit id="532">
+        <source>Extent and medium</source>
+        <target>Obseg in nosilec zapisa</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchFields.php</note>
+      </trans-unit>
+      <trans-unit id="535">
+        <source>Fax</source>
+        <target>Faks</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
+      </trans-unit>
+      <trans-unit id="538">
+        <source>File %1% could not be moved to %2%</source>
+        <target>Datoteke %1% ni bilo mogoče premakniti v %2%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/actions/uploadAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="539">
+        <source>File %1% could not be thumbnailed</source>
+        <target>Datoteke %1% ni bilo mogoče opremiti s predogledno sličico</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/actions/uploadAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="540">
+        <source>File list</source>
+        <target>Seznam spisov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/actions/reportsAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="541">
+        <source>File list - report criteria</source>
+        <target>Seznam spisov – objavi kriterije</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/fileListCriteria.php</note>
+      </trans-unit>
+      <trans-unit id="542">
+        <source>Filename</source>
+        <target>Ime spisa</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_editRepresentation.php</note>
+      </trans-unit>
+      <trans-unit id="543">
+        <source>Filesize</source>
+        <target>Velikost datoteke</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_editRepresentation.php</note>
+      </trans-unit>
+      <trans-unit id="545">
+        <source>Filter/Limit</source>
+        <target>Filter/omejitev</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_advancedSearch.php</note>
+      </trans-unit>
+      <trans-unit id="555">
+        <source>Function Browse Options</source>
+        <target>Možnosti brskanja po funkcijah</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/function/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="560">
+        <source>General material designation</source>
+        <target>Splošna označba gradiva</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_advancedSearch.php</note>
+      </trans-unit>
+      <trans-unit id="568">
+        <source>Global</source>
+        <target>Globalne nastavitve</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="569">
+        <source>Global search/replace</source>
+        <target>Išči/zamenjaj v celotnem programu</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/globalReplaceAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="570">
+        <source>Go to homepage</source>
+        <target>Pojdi na začetno stran</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/admin/templates/termPermissionSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="571">
+        <source>Go to next page</source>
+        <target>Pojdi na naslednjo stran</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
+      </trans-unit>
+      <trans-unit id="572">
+        <source>Go to page %1%</source>
+        <target>Pojdi na stran %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
+      </trans-unit>
+      <trans-unit id="573">
+        <source>Go to previous page</source>
+        <target>Pojdi na prejšnjo stran</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
+      </trans-unit>
+      <trans-unit id="574">
+        <source>Grant</source>
+        <target>Odobri</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editInformationObjectAclSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="580">
+        <source>Hierarchical list of menus for the site, first column</source>
+        <target>Hierarhični seznam menijev strani, prvi stolpec</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="581">
+        <source>Hierarchical terms</source>
+        <target>Hierarhični izrazi</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="587">
+        <source>Home</source>
+        <target>Domov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/templates/_header.php</note>
+      </trans-unit>
+      <trans-unit id="588">
+        <source>I18n languages</source>
+        <target>Jeziki i18n</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="589">
+        <source>ISAAR(CPF), 2nd ed. International Council on Archives</source>
+        <target>ISAAR(CPF), 2. izdaja Mednarodnih standardov za arhivski zapis o ustvarjalcih arhivskega gradiva: pravnih osebah, fizičnih osebah in družinah, Mednarodni arhivski svet</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsDefaultTemplateForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="590">
+        <source>ISAD template</source>
+        <target>Predloga ISAD</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="591">
+        <source>ISAD(G), 2nd ed. International Council on Archives</source>
+        <target>ISAD(G), 2. izdaja Splošnih mednarodnih standardov za arhivsko popisovanje, Mednarodni arhivski svet</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsDefaultTemplateForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="593">
+        <source>ISDIAH, 1st ed. International Council on Archives</source>
+        <target>ISDIAH, 1. izdaja Mednarodnih standardov za opisovanje institucij z arhivskim gradivom, Mednarodni arhivski svet</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsDefaultTemplateForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="594">
+        <source>Identifier</source>
+        <target>Identifikator</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_childLevels.php</note>
+      </trans-unit>
+      <trans-unit id="605">
+        <source>Identity area</source>
+        <target>Področje identitete</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/rightsholder/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="609">
+        <source>Immediate source of acquisition</source>
+        <target>Neposreden vir, od katerega se gradivo prevzema</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/qtAccessionPlugin/modules/accession/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="610">
+        <source>Immediate source of acquisition or transfer</source>
+        <target>Neposreden vir, od katerega se gradivo prevzema ali prenaša</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/sfIsadPlugin/modules/sfIsadPlugin/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="611">
+        <source>Import</source>
+        <target>Uvoz</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/_format.php</note>
+      </trans-unit>
+      <trans-unit id="613">
+        <source>Import a CSV file</source>
+        <target>Uvozi CSV-datoteko</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/object/actions/importSelectAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="616">
+        <source>Import completed</source>
+        <target>Uvoz je končan</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/object/templates/importSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="617">
+        <source>Import digital objects</source>
+        <target>Uvozi digitalne predmete</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_actions.php</note>
+      </trans-unit>
+      <trans-unit id="619">
+        <source>Import multiple digital objects</source>
+        <target>Uvozi več digitalnih predmetov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="622">
+        <source>Include thumbnails</source>
+        <target>Vključi predogledno sličico</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/itemListCriteria.php</note>
+      </trans-unit>
+      <trans-unit id="629">
+        <source>Information Object Browse Options</source>
+        <target>Možnosti brskanja po podatkih o informacijskem objektu</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="637">
+        <source>Inherit</source>
+        <target>Prenesi</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editInformationObjectAclSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="638">
+        <source>Inherit reference code (information object)</source>
+        <target>Prenesi signaturo (informacijski objekt)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="639">
+        <source>Inherited from %1%</source>
+        <target>Prenesi od %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_creatorDetail.php</note>
+      </trans-unit>
+      <trans-unit id="640">
+        <source>Institution identifier</source>
+        <target>Identifikator ustanove</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/sfIsdiahPlugin/modules/sfIsdiahPlugin/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="644">
+        <source>Invalid end date</source>
+        <target>Neveljaven končni datum</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/descriptionUpdatesAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="645">
+        <source>Invalid start date</source>
+        <target>Neveljaven začetni datum</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/descriptionUpdatesAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="649">
+        <source>It has %1% descendants that will also be deleted</source>
+        <target>Ima %1% naslednikov, ki bodo tudi izbrisani</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/deleteSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="650">
+        <source>It has %1% descendants that will also be deleted:</source>
+        <target>Ima %1% naslednikov, ki bodo tudi izbrisani:</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/deleteSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="651">
+        <source>It's used in %1% events that will also be deleted</source>
+        <target>Uporablja se pri %1% dogodkih, ki bodo tudi izbrisani</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/deleteSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="653">
+        <source>Item list</source>
+        <target>Seznam dokumentov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/actions/reportsAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="654">
+        <source>Item list - report criteria</source>
+        <target>Seznam dokumentov – objavi kriterije</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/itemListCriteria.php</note>
+      </trans-unit>
+      <trans-unit id="655">
+        <source>Job scheduling</source>
+        <target>Razporejanje opravil</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="656">
+        <source>Keyword(s)</source>
+        <target>Ključna/-e beseda/-e</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/advancedAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="657">
+        <source>Label</source>
+        <target>Označba</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="658">
+        <source>Language</source>
+        <target>Jezik</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/i18n/templates/_changeLanguageList.php</note>
+      </trans-unit>
+      <trans-unit id="664">
+        <source>Language(s)</source>
+        <target>Jezik/-i</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/sfIsdiahPlugin/modules/sfIsdiahPlugin/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="668">
+        <source>Level</source>
+        <target>Nivo</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_childLevels.php</note>
+      </trans-unit>
+      <trans-unit id="669">
+        <source>Level of description</source>
+        <target>Nivo popisa</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/browseTermSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="672">
+        <source>Level of detail</source>
+        <target>Stopnja podrobnosti</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/sfIsdiahPlugin/modules/sfIsdiahPlugin/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="675">
+        <source>License identifier</source>
+        <target>Identifikator licence</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="676">
+        <source>License information</source>
+        <target>Podatki o licenci</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="677">
+        <source>License note</source>
+        <target>Opomba o licenci</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="678">
+        <source>License terms</source>
+        <target>Pogoji licence</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="679">
+        <source>Limit administrator functionality to a static IP address or range</source>
+        <target>Omeji skrbnikovo dejavnost na statični IP-naslov ali obseg</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsSecurityForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="680">
+        <source>Limit uploads to %1% GB</source>
+        <target>Omeji nalaganje na %1% GB</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/_uploadLimit.php</note>
+      </trans-unit>
+      <trans-unit id="681">
+        <source>Link digital object</source>
+        <target>Poveži digitalni predmet</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_actions.php</note>
+      </trans-unit>
+      <trans-unit id="682">
+        <source>Link physical storage</source>
+        <target>Poveži fizično hrambo</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_actions.php</note>
+      </trans-unit>
+      <trans-unit id="683">
+        <source>Link to an external digital object</source>
+        <target>Poveži z zunanjim digitalnim predmetom</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/addDigitalObjectSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="684">
+        <source>List %1%</source>
+        <target>Navedi %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/taxonomy/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="688">
+        <source>List pages</source>
+        <target>Navedi strani</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/staticpage/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="690">
+        <source>List taxonomies</source>
+        <target>Navedi taksonomije</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/taxonomy/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="692">
+        <source>List users</source>
+        <target>Navedi uporabnike</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="693">
+        <source>Loading preview...</source>
+        <target>Nalaganje predogleda ...</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="695">
+        <source>Locality</source>
+        <target>Okolica</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
+      </trans-unit>
+      <trans-unit id="696">
+        <source>Location</source>
+        <target>Lokacija</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/physicalObjectsSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="700">
+        <source>Log in</source>
+        <target>Prijava</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/loginSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="703">
+        <source>MODS 3.3 XML</source>
+        <target>MODS 3.3 XML</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_format.php</note>
+      </trans-unit>
+      <trans-unit id="705">
+        <source>MODS, Version 3.3. U.S. Library of Congress</source>
+        <target>MODS, verzija 3.3., ameriška kongresna knjižnica</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsDefaultTemplateForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="706">
+        <source>Main</source>
+        <target>Glavni kontakt</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="707">
+        <source>Main menu</source>
+        <target>Glavni meni</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/_mainMenu.php</note>
+      </trans-unit>
+      <trans-unit id="710">
+        <source>Make it at least six characters</source>
+        <target>Vnesite najmanj 6 znakov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="711">
+        <source>Make it different from your username</source>
+        <target>Vnesite ime, drugačno od vašega uporabniškega imena</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="717">
+        <source>Master</source>
+        <target>Glavni dokument</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="720">
+        <source>Max. size ~%1%</source>
+        <target>Največja velikost ~%1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="721">
+        <source>Maximum image width (pixels)</source>
+        <target>Največja dovoljena širina slike (v slikovnih točkah)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="723">
+        <source>Media type</source>
+        <target>Vrsta medija</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_metadata.php</note>
+      </trans-unit>
+      <trans-unit id="730">
+        <source>Mime-type</source>
+        <target>Tip mime</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_metadata.php</note>
+      </trans-unit>
+      <trans-unit id="732">
+        <source>Minimum value is "%min%"</source>
+        <target>Najmanjša vrednost je "%min%"</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="734">
+        <source>Move</source>
+        <target>Premakni</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_actions.php</note>
+      </trans-unit>
+      <trans-unit id="735">
+        <source>Move %1%</source>
+        <target>Premakni %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/moveSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="736">
+        <source>Move down</source>
+        <target>Premakni dol</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="737">
+        <source>Move here</source>
+        <target>Premakni sem</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/moveSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="738">
+        <source>Move item down in list</source>
+        <target>Premakni predmet navzdol po seznamu</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="739">
+        <source>Move item up in list</source>
+        <target>Premakni predmet navzgor po seznamu</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="740">
+        <source>Move up</source>
+        <target>Premakni gor</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="743">
+        <source>Multiple repositories</source>
+        <target>Skladišča na več lokacijah</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="745">
+        <source>Mustn't contain ";"</source>
+        <target>Ne sme vsebovati ";"</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/staticpage/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="747">
+        <source>N/A</source>
+        <target>ni podatkov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/itemListSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="748">
+        <source>NT %1%</source>
+        <target>NT %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="749">
+        <source>Name</source>
+        <target>Ime</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/taxonomy/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="750">
+        <source>Name - A term with this name already exists.</source>
+        <target>Ime – izraz s tem imenom že obstaja.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/actions/indexAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="751">
+        <source>Name access points</source>
+        <target>Imenska gesla</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_nameAccessPoints.php</note>
+      </trans-unit>
+      <trans-unit id="753">
+        <source>Name of creator</source>
+        <target>Ime ustvarjalca</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_creatorDetail.php</note>
+      </trans-unit>
+      <trans-unit id="755">
+        <source>Name of the person(s) or organization(s) which has the authority to grant permissions or set rights restrictions.</source>
+        <target>Ime osebe (oseb) ali organizacije (organizacij), ki je pooblaščena za podeljevanje dovoljenj ali postavljanje omejitev pravic.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="760">
+        <source>New password</source>
+        <target>Novo geslo</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/passwordEditSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="761">
+        <source>Next</source>
+        <target>Naslednji</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
+      </trans-unit>
+      <trans-unit id="762">
+        <source>No</source>
+        <target>Ne</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="763">
+        <source>No digital object is available</source>
+        <target>Na voljo ni noben digitalni objekt</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/advancedAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="764">
+        <source>No results</source>
+        <target>Brez rezultatov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
+      </trans-unit>
+      <trans-unit id="765">
+        <source>No results found.</source>
+        <target>Brez rezultatov.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/indexAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="766">
+        <source>None</source>
+        <target>Noben</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/fileListSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="767">
+        <source>Note</source>
+        <target>Opomba</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/taxonomy/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="772">
+        <source>Notes</source>
+        <target>Opombe</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/sfIsadPlugin/modules/sfIsadPlugin/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="776">
+        <source>OAI Repository</source>
+        <target>Skladišče v skladu z iniciativo OAI</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="777">
+        <source>OAI repository code</source>
+        <target>Koda skladišča v skladu z iniciativo OAI</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsOaiRepositoryForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="778">
+        <source>OAI repository identifier</source>
+        <target>Identifikator skladišča v skladu z iniciativo OAI</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsOaiRepositoryForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="780">
+        <source>Oops, we couldn't find any file level descriptions.</source>
+        <target>Ups, nismo mogli najti popisov na nivoju spisov.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/fileListError.php</note>
+      </trans-unit>
+      <trans-unit id="781">
+        <source>Oops, we couldn't find any item level descriptions.</source>
+        <target>Ups, nismo mogli najti popisov na nivoju dokumentov.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/itemListError.php</note>
+      </trans-unit>
+      <trans-unit id="782">
+        <source>Oops, we couldn't find any physical storage locations for the current resource</source>
+        <target>Ups, nismo mogli najti lokacij, kjer je trenutni vir shranjen.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/storageLocationsError.php</note>
+      </trans-unit>
+      <trans-unit id="785">
+        <source>Or, create a new container</source>
+        <target>Ali ustvarite novo tehnično enoto</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/editPhysicalObjectsSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="788">
+        <source>Other details</source>
+        <target>Druge podrobnosti</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="795">
+        <source>Pages</source>
+        <target>Strani</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
+      </trans-unit>
+      <trans-unit id="804">
+        <source>Part of</source>
+        <target>Del</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="807">
+        <source>Password</source>
+        <target>Geslo</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="808">
+        <source>Password strength:</source>
+        <target>Varnost gesla:</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="809">
+        <source>Passwords match:</source>
+        <target>Ujemanje gesel:</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="810">
+        <source>Path</source>
+        <target>Pot</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="812">
+        <source>Permissions</source>
+        <target>Dovoljenja</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editInformationObjectAclSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="813">
+        <source>Permissions by %1%</source>
+        <target>Dovoljenja %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editInformationObjectAclSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="815">
+        <source>Permissions for all %1%</source>
+        <target>Dovoljenja za vse %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editInformationObjectAclSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="820">
+        <source>Phrase</source>
+        <target>Fraza</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/advancedAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="822">
+        <source>Physical characteristics and technical requirements</source>
+        <target>Fizične značilnosti in tehnične zahteve</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/sfIsadPlugin/modules/sfIsadPlugin/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="823">
+        <source>Physical condition</source>
+        <target>Fizično stanje</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/qtAccessionPlugin/modules/accession/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="827">
+        <source>Physical location</source>
+        <target>Fizično nahajanje</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="829">
+        <source>Physical storage</source>
+        <target>Fizična hramba</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/physicalObjectsSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="830">
+        <source>Physical storage locations</source>
+        <target>Lokacije fizične hrambe</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/actions/reportsAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="831">
+        <source>Place</source>
+        <target>Kraj</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_dates.php</note>
+      </trans-unit>
+      <trans-unit id="832">
+        <source>Place access points</source>
+        <target>Krajevna gesla</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_placeAccessPoints.php</note>
+      </trans-unit>
+      <trans-unit id="834">
+        <source>Please log in to access that page</source>
+        <target>Za dostopanje do te strani se, prosimo, prijavite</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/loginSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="837">
+        <source>Postal code</source>
+        <target>Poštna številka</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
+      </trans-unit>
+      <trans-unit id="838">
+        <source>Previous</source>
+        <target>Prejšnji</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
+      </trans-unit>
+      <trans-unit id="839">
+        <source>Primary</source>
+        <target>Glavni kontakt</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="840">
+        <source>Primary contact</source>
+        <target>Glavni kontakt</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
+      </trans-unit>
+      <trans-unit id="842">
+        <source>Print</source>
+        <target>Natisni</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/physicalobject/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="843">
+        <source>Print preview</source>
+        <target>Predogled tiskanja</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/storageLocationsSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="844">
+        <source>Printed: %d%</source>
+        <target>Natisnjeno: %d%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/templates/layout.php</note>
+      </trans-unit>
+      <trans-unit id="851">
+        <source>Provide a brief description of the menu and it's purpose.</source>
+        <target>Na kratko opišite meni in njegov namen.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="852">
+        <source>Provide a link to an external website or an internal, symfony path (module/action).</source>
+        <target>Zagotovite povezavo do zunanje spletne strani ali do notranje poti v sklopu ogrodja symfony (modul/akcija).</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="853">
+        <source>Provide a menu label for users.  For menu items that are not visible (i.e. are organizational only) this should be left blank.</source>
+        <target>Zagotovite oznako menija za uporabnike. Pri enotah menija, ki niso vidne (služijo samo organizacijskim namenom), to polje pustite prazno.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="856">
+        <source>Provide an internal menu name.  This is not visible to users.</source>
+        <target>Navedite ime menija za notranje potrebe. Uporabniki tega imena ne vidijo.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="866">
+        <source>Publication status</source>
+        <target>Status objave</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_adminInfo.php</note>
+      </trans-unit>
+      <trans-unit id="867">
+        <source>Publication status &lt;span class="note2"&gt;(%1% only)&lt;/span&gt;</source>
+        <target>Status objave &lt;span class="note2"&gt;(%1% samo)&lt;/span&gt;</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/descriptionUpdatesSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="868">
+        <source>Published</source>
+        <target>Objavljeno</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="877">
+        <source>RAD template</source>
+        <target>Predloga RAD</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="878">
+        <source>RAD, July 2008 version. Canadian Council of Archives</source>
+        <target>RAD, verzija iz julija 2008, Kanadski arhivski svet (Canadian Council of Archives)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsDefaultTemplateForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="879">
+        <source>RT %1%</source>
+        <target>RT %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="882">
+        <source>Recent changes</source>
+        <target>Nedavne spremembe</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/rightsholder/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="907">
+        <source>Reference code</source>
+        <target>Signatura</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/browseTermSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="908">
+        <source>Reference code separator</source>
+        <target>Ločilnik signatur</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="909">
+        <source>Region</source>
+        <target>Regija</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
+      </trans-unit>
+      <trans-unit id="910">
+        <source>Region/province</source>
+        <target>Regija/provinca</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="914">
+        <source>Related contact information</source>
+        <target>Soroden kontaktni podatek</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="925">
+        <source>Related resources</source>
+        <target>Sorodni viri</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/physicalobject/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="926">
+        <source>Related right</source>
+        <target>Sorodna pravica</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="927">
+        <source>Related term(s)</source>
+        <target>Soroden/-ni izraz/-i</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="933">
+        <source>Relationships</source>
+        <target>Povezave</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="936">
+        <source>Replace</source>
+        <target>Zamenjaj</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_advancedSearch.php</note>
+      </trans-unit>
+      <trans-unit id="938">
+        <source>Reports</source>
+        <target>Poročila</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_actionIcons.php</note>
+      </trans-unit>
+      <trans-unit id="940">
+        <source>Repository</source>
+        <target>Skladišče</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/browseTermSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="942">
+        <source>Repository browse options</source>
+        <target>Možnosti brskanja po podatkih o skladišču</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="945">
+        <source>Require SSL for all administrator funcionality</source>
+        <target>Zahtevaj protokol SSL za vse skrbnikove dejavnosti</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="946">
+        <source>Require SSL for all administrator functionality</source>
+        <target>Zahtevaj protokol SSL za vse skrbnikove dejavnosti</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsSecurityForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="947">
+        <source>Require strong passwords</source>
+        <target>Zahtevaj varna gesla</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="949">
+        <source>Reset password</source>
+        <target>Ponastavi geslo</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="951">
+        <source>Restricted</source>
+        <target>Omejeno</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_metadata.php</note>
+      </trans-unit>
+      <trans-unit id="952">
+        <source>Restriction</source>
+        <target>Omejitev</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="954">
+        <source>Results</source>
+        <target>Rezultati</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="955">
+        <source>Results %1% to %2% of %3%</source>
+        <target>Rezultati %1% do %2% od %3%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_imageflow.php</note>
+      </trans-unit>
+      <trans-unit id="956">
+        <source>Results per page</source>
+        <target>Rezultati na stran</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="957">
+        <source>Resumption token limit</source>
+        <target>Omejitev obnovitvenih žetonov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsOaiRepositoryForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="958">
+        <source>Retrieval information</source>
+        <target>Priklic</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/actions/itemListAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="961">
+        <source>Rights</source>
+        <target>Pravice</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="965">
+        <source>Rights holder</source>
+        <target>Imetnik pravic</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="966">
+        <source>Rights holder browse options</source>
+        <target>Možnosti brskanja po podatkih o imetniku pravic</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/rightsholder/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="968">
+        <source>Rights note(s)</source>
+        <target>Opomba/-e glede pravic</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="969">
+        <source>Rights records</source>
+        <target>Zapisi o pravicah</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="970">
+        <source>Role/event</source>
+        <target>Vloga/dogodek</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_relatedEvents.php</note>
+      </trans-unit>
+      <trans-unit id="972">
+        <source>Rules or conventions</source>
+        <target>Pravila ali dogovori</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/sfRadPlugin/modules/sfRadPlugin/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="973">
+        <source>SKOS</source>
+        <target>SKOS</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/_format.php</note>
+      </trans-unit>
+      <trans-unit id="974">
+        <source>SWORD deposit directory</source>
+        <target>Imenik depozitov SWORD</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="975">
+        <source>Sample OAI identifier</source>
+        <target>Vzorčni identifikator OAI</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsOaiRepositoryForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="976">
+        <source>Save</source>
+        <target>Shrani</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="980">
+        <source>Scope and content</source>
+        <target>Obseg in vsebina</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchFields.php</note>
+      </trans-unit>
+      <trans-unit id="982">
+        <source>Scope note</source>
+        <target>Opomba o obsegu</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/taxonomy/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="983">
+        <source>Scope note(s)</source>
+        <target>Opomba/-e o obsegu</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="984">
+        <source>Script</source>
+        <target>Pisava</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/sfRadPlugin/modules/sfRadPlugin/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="987">
+        <source>Script(s)</source>
+        <target>Pisava/-e</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/sfIsdiahPlugin/modules/sfIsdiahPlugin/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="988">
+        <source>Search</source>
+        <target>Išči</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/moveSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="989">
+        <source>Search %1%</source>
+        <target>Išči %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="992">
+        <source>Search for</source>
+        <target>Išči</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_printAdvancedSearchTerms.php</note>
+      </trans-unit>
+      <trans-unit id="993">
+        <source>Search for [%1%]</source>
+        <target>Išči [%1%]</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/indexAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="996">
+        <source>Search for an existing term in the places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
+        <target>Poiščite obstoječ izraz v taksonomiji Kraji, tako da vnesete prvih nekaj črk izraza, lahko pa vnesete nov izraz in ustvarite povezavo do novega kraja.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/actions/eventComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="997">
+        <source>Search function</source>
+        <target>Išči funkcijo</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/function/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="998">
+        <source>Search results</source>
+        <target>Rezultati iskanja</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="999">
+        <source>Search rights holder</source>
+        <target>Išči imetnika pravic</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/rightsholder/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1000">
+        <source>Security</source>
+        <target>Varnost</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1002">
+        <source>See all</source>
+        <target>Glej vse</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_imageflow.php</note>
+      </trans-unit>
+      <trans-unit id="1006">
+        <source>Select a digital object to upload</source>
+        <target>Izberite digitalni predmet za nalaganje</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1007">
+        <source>Select a file to import</source>
+        <target>Izberite datoteko za uvoz</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/object/templates/importSelectSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1011">
+        <source>Select report</source>
+        <target>Izberi poročilo</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/reportsSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1028">
+        <source>Set the upload limit for this %1%</source>
+        <target>Nastavi omejitev nalaganja za to %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/_uploadLimit.php</note>
+      </trans-unit>
+      <trans-unit id="1031">
+        <source>Show active only</source>
+        <target>Prikaži samo aktivne</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1032">
+        <source>Show inactive only</source>
+        <target>Prikaži samo neaktivne</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1033">
+        <source>Show tooltips</source>
+        <target>Prikaži nasvete za orodja</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1034">
+        <source>Showing %1% results</source>
+        <target>Prikaz %1% rezultatov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/storageLocationsSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1035">
+        <source>Showing %1% to %2% of %3% results</source>
+        <target>Prikaz %1% do %2% od %3% rezultatov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/fileListSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1036">
+        <source>Showing results %1% to %2% of %3% (%4% seconds)</source>
+        <target>Prikaz rezultatov %1% do %2% od %3% (%4% sekund)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchResults.php</note>
+      </trans-unit>
+      <trans-unit id="1037">
+        <source>Site description</source>
+        <target>Opis strani</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsSiteInformationForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1038">
+        <source>Site information</source>
+        <target>Podatki o strani</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1039">
+        <source>Site menu list</source>
+        <target>Seznam menijev na strani</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1040">
+        <source>Site settings</source>
+        <target>Nastavitve strani</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1041">
+        <source>Site title</source>
+        <target>Naslov strani</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsSiteInformationForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1042">
+        <source>Slug</source>
+        <target>Slug</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/staticpage/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1043">
+        <source>Sorry, OAI harvesting is disabled for this system.</source>
+        <target>Zajemanje OAI je za ta sistem žal onemogočeno.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/admin/templates/oaiDisabledSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1044">
+        <source>Sorry, page not found</source>
+        <target>Strani žal ni bilo mogoče najti</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/admin/templates/error404Success.php</note>
+      </trans-unit>
+      <trans-unit id="1045">
+        <source>Sorry, this Term is locked</source>
+        <target>Ta izraz je žal zaklenjen</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/admin/templates/termPermissionSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1046">
+        <source>Sorry, this Term is locked and cannot be deleted</source>
+        <target>Ta izraz je žal zaklenjen in se ga ne da izbrisati</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/admin/templates/termPermissionSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1048">
+        <source>Sorry, you do not have permission to access that page</source>
+        <target>Žal nimate pravice dostopati do te strani</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/admin/templates/secureSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1049">
+        <source>Sorry, you do not have permission to make %1% language translations</source>
+        <target>Žal nimate pravice do %1% jezikovnih prevodov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/admin/templates/translatePermissionSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1050">
+        <source>Sort</source>
+        <target>Razvrsti</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/taxonomy/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1051">
+        <source>Sort browser (anonymous)</source>
+        <target>Razvrsti brskljalnik (anonimno)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1052">
+        <source>Sort browser (users)</source>
+        <target>Razvrsti brskljalnik (uporabniki)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1053">
+        <source>Sort by</source>
+        <target>Razvrsti po</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/fileListCriteria.php</note>
+      </trans-unit>
+      <trans-unit id="1054">
+        <source>Sort treeview (information object)</source>
+        <target>Razvrsti drevesni pogled (informacijski objekt)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1057">
+        <source>Source language</source>
+        <target>Izvorni jezik</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_adminInfo.php</note>
+      </trans-unit>
+      <trans-unit id="1059">
+        <source>Source note(s)</source>
+        <target>Opomba/-e o viru</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1062">
+        <source>Sources</source>
+        <target>Viri</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/sfIsdiahPlugin/modules/sfIsdiahPlugin/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1063">
+        <source>Specific Gearman job server options can be found in config/gearman.yml.</source>
+        <target>Specifične možnosti delovnega strežnika Gearman lahko najdete v config/gearman.yml.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1071">
+        <source>Start</source>
+        <target>Začetek</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/relation/actions/editComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="1072">
+        <source>Start date</source>
+        <target>Začetni datum</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="1086">
+        <source>Status</source>
+        <target>Status</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/sfIsdiahPlugin/modules/sfIsdiahPlugin/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1089">
+        <source>Statute citation</source>
+        <target>Navedba statuta</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="1090">
+        <source>Statute determination date</source>
+        <target>Datum določitve statuta</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="1091">
+        <source>Statute information</source>
+        <target>Podatki o statutu</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="1092">
+        <source>Statute jurisdiction</source>
+        <target>Zakonodaja v statutu</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="1093">
+        <source>Statute note</source>
+        <target>Opomba v zvezi s statutom</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_right.php</note>
+      </trans-unit>
+      <trans-unit id="1094">
+        <source>Street address</source>
+        <target>Ulica</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
+      </trans-unit>
+      <trans-unit id="1097">
+        <source>Subject</source>
+        <target>Tematika</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_nameAccessPoints.php</note>
+      </trans-unit>
+      <trans-unit id="1098">
+        <source>Subject access points</source>
+        <target>Nesnovna gesla</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_subjectAccessPoints.php</note>
+      </trans-unit>
+      <trans-unit id="1099">
+        <source>Subject of</source>
+        <target>Subjekt</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/actor/templates/_contextMenu.php</note>
+      </trans-unit>
+      <trans-unit id="1105">
+        <source>Taxonomy</source>
+        <target>Taksonomija</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1106">
+        <source>Taxonomy hierarchy</source>
+        <target>Taksonomska hierarhija</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/_contextMenu.php</note>
+      </trans-unit>
+      <trans-unit id="1109">
+        <source>Taxonomy: %1%</source>
+        <target>Taksonomija: %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/indexTermAclSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1111">
+        <source>Telephone</source>
+        <target>Telefon</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
+      </trans-unit>
+      <trans-unit id="1119">
+        <source>Text describing the license or agreement by which permission was granted or link to full-text hosted online. This can contain the actual text of the license or agreement or a paraphrase or summary.</source>
+        <target>Besedilo, ki opisuje licenco ali dogovor, s katerim se je podelilo dovoljenje, ali povezava do celotnega besedila na spletu. Na tem mestu je lahko navedeno dejansko besedilo licence ali dogovora, parafraza ali povzetek.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="1121">
+        <source>The "&lt;strong&gt;%dd%&lt;/strong&gt;" placeholder will be replaced with a incremental number (e.g. 'image &lt;strong&gt;01&lt;/strong&gt;', 'image &lt;strong&gt;02&lt;/strong&gt;')</source>
+        <target>"&lt;strong&gt;%dd%&lt;/strong&gt;" Označba mesta bo zamenjana z zaporedno številko (npr. 'image &lt;strong&gt;01&lt;/strong&gt;', 'image &lt;strong&gt;02&lt;/strong&gt;')</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1122">
+        <source>The action which is permitted or restricted.</source>
+        <target>Dejanje, ki je dovoljeno ali omejeno.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="1123">
+        <source>The beginning date of the permission granted.</source>
+        <target>Začetni datum podeljenega dovoljenja.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="1124">
+        <source>The character separating hierarchical elements in a reference code</source>
+        <target>Znak, ki ločuje hierarhične elemente v signaturi</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1125">
+        <source>The code can only contain letters and numbers</source>
+        <target>Koda lahko vsebuje samo črke in številke</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsOaiRepositoryForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1126">
+        <source>The country or other political body that has enacted the statute.</source>
+        <target>Država ali drugo politično telo, ki je uzakonilo statut.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="1127">
+        <source>The country whose copyright laws apply.</source>
+        <target>Država, katere zakoni s področja avtorskih pravic veljajo.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="1128">
+        <source>The current version of the application</source>
+        <target>Trenutna verzija programa</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1129">
+        <source>The ending date of the permission granted. Omit end date if the ending date is unknown.</source>
+        <target>Končni datum podeljenega dovoljenja. Prezrite končni datum, če je ta neznan.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/right/templates/_edit.php</note>
+      </trans-unit>
+      <trans-unit id="1130">
+        <source>The existing term values are required by the application to operate correctly</source>
+        <target>Za pravilno delovanje programa so potrebne obstoječe vrednosti izrazov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/admin/templates/termPermissionSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1131">
+        <source>The maximum width for derived reference images</source>
+        <target>Največja širina za izpeljane referenčne slike</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1134">
+        <source>The name of the website for display in the header</source>
+        <target>Ime spletne strani za izpis v glavi</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1135">
+        <source>The number of entities to include in a single OAI response list before inserting a resumption token</source>
+        <target>Število subjektov, ki naj se vključijo v en sam odzivni seznam OAI pred ustavljanjem obnovitvenega žetona</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsOaiRepositoryForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1136">
+        <source>The number of records shown per page on list pages</source>
+        <target>Število prikazanih zapisov na stran</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1143">
+        <source>The related object(s) will &lt;strong&gt;not&lt;/strong&gt; be deleted</source>
+        <target>Soroden/-i objekt/-i (objekti) &lt;strong&gt;ne bo/-do&lt;/strong&gt; izbrisan/-i</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/deleteSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1145">
+        <source>The system is currently in read-only mode. Please try again later.</source>
+        <target>Način, v katerem se sistem trenutno nahaja, omogoča le branje. Prosimo, poskusite pozneje.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/readOnlySuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1149">
+        <source>The upload limit of %1% GB for &lt;a href="%2%"&gt;%3%&lt;/a&gt; has been exceeded (%4% GB currently used)</source>
+        <target>Omejitev nalaganja v %1% GB za &lt;a href="%2%"&gt;%3%&lt;/a&gt; je bila prekoračena (trenutno je uporabljenih %4% GB)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/uploadLimitExceededSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1150">
+        <source>The username or e-mail address you entered is already in use</source>
+        <target>Uporabniško ime in e-naslov, ki ste ju vnesli, sta že v uporabi</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="1152">
+        <source>This action cannot be undone!</source>
+        <target>Tega dejanja ni mogoče rezveljaviti!</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/globalReplaceSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1156">
+        <source>This field is required</source>
+        <target>To polje je zahtevano</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1157">
+        <source>This file couldn\\'t be uploaded because of file size upload limits</source>
+        <target>Te datoteke\\ zaradi omejitve velikosti ni bilo mogoče naložiti</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1162">
+        <source>This is a mandatory element.</source>
+        <target>Vnos tega elementa je obvezen.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="1163">
+        <source>This is a non-preferred term and cannot be edited - please use &lt;a href="%1%"&gt;%2%&lt;/a&gt;.</source>
+        <target>To je nezaželen izraz in se ga ne da urejati. Prosim, uporabite &lt;a href="%1%"&gt;%2%&lt;/a&gt;.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/admin/templates/termPermissionSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1165">
+        <source>This isn't a valid email address</source>
+        <target>To ni veljaven e-poštni naslov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/actions/loginAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="1166">
+        <source>This page is valid XHTML 1.0</source>
+        <target>Ta stran je veljavna XHTML 1.0</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/templates/_footer.php</note>
+      </trans-unit>
+      <trans-unit id="1167">
+        <source>This term is used in %1% descriptions. The term will be deleted from these descriptions.</source>
+        <target>Ta izraz je uporabljen v %1% popisih. Izraz bo iz teh popisov izbrisan.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/deleteSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1168">
+        <source>This user has %1% notes in the system and therefore it cannot be removed</source>
+        <target>Ta uporabnik ima %1% opomb v sistemu, zato ga ni mogoče odstraniti</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1169">
+        <source>This user is inactive</source>
+        <target>Ta uporabnik ni aktiven</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1170">
+        <source>This value can not be greater than %max% pixels</source>
+        <target>Ta vrednost ne more biti večja kot %max% slikovnih točk</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1171">
+        <source>This value cannot be more than %max%</source>
+        <target>Ta vrednost ne more biti večja od %max%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsOaiRepositoryForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1172">
+        <source>This value must be at least %min%</source>
+        <target>Ta vrednost mora biti najmanj %min%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsOaiRepositoryForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1173">
+        <source>This value must be at least %min% pixels</source>
+        <target>Ta vrednost ne sme biti manjša od %min% slikovnih točk</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1174">
+        <source>This will permanently modify %1% records.</source>
+        <target>To bo trajno spremenilo %1% zapisov.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/globalReplaceSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1175">
+        <source>Thumbnail</source>
+        <target>Predogledna sličica</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/itemListSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1176">
+        <source>Title</source>
+        <target>Naslov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/staticpage/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1185">
+        <source>To make your password stronger:</source>
+        <target>Za varnejše geslo:</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1186">
+        <source>To upload a new %1%</source>
+        <target>Za nalaganje novega %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/uploadLimitExceededSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1187">
+        <source>Top</source>
+        <target>Vrh</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="1192">
+        <source>Type</source>
+        <target>Vrsta</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/object/templates/importSelectSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1196">
+        <source>UF %1%</source>
+        <target>UF %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1197">
+        <source>URL</source>
+        <target>URL</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_metadata.php</note>
+      </trans-unit>
+      <trans-unit id="1202">
+        <source>Untitled</source>
+        <target>Neimenovan</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="1203">
+        <source>Update successful</source>
+        <target>Posodobitev uspešna</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/_uploadLimit.php</note>
+      </trans-unit>
+      <trans-unit id="1204">
+        <source>Updated</source>
+        <target>Posodobljeno</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/rightsholder/templates/browseSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1205">
+        <source>Upload a digital object</source>
+        <target>Naloži digitalen predmet</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/addDigitalObjectSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1206">
+        <source>Upload digital objects</source>
+        <target>Naložite digitalne predmete</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/addDigitalObjectSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1207">
+        <source>Upload error, retry?</source>
+        <target>Napaka pri nalaganju, poskusim ponovno?</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1208">
+        <source>Upload is disabled</source>
+        <target>Nalaganje je onemogočeno</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/_uploadLimit.php</note>
+      </trans-unit>
+      <trans-unit id="1209">
+        <source>Upload limit</source>
+        <target>Omejitev velikosti datoteke, ki se nalaga</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/_uploadLimit.php</note>
+      </trans-unit>
+      <trans-unit id="1210">
+        <source>Upload limit exceeded</source>
+        <target>Presežena velikost datoteke, ki se nalaga</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/uploadLimitExceededSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1211">
+        <source>Upload multi-page files as multiple descriptions</source>
+        <target>Naloži večstranske datoteke kot večkratne popise</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1212">
+        <source>Uploaded</source>
+        <target>Naloženo</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_metadata.php</note>
+      </trans-unit>
+      <trans-unit id="1213">
+        <source>Uploading...</source>
+        <target>Nalaganje ...</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1214">
+        <source>Use regular expression syntax</source>
+        <target>Uporabi običajno sintakso</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_advancedSearch.php</note>
+      </trans-unit>
+      <trans-unit id="1215">
+        <source>Use the actor name field to link an authority record to this description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target>Uporabite polje ime delovalca za povezavo med zapisom o ustvarjalcu in tem popisom. Poiščite obstoječe ime v zapisih o ustvarjalcu, tako da vnesete prvih nekaj črk imena, lahko pa vnesete tudi novo ime in ustvarite povezavo do novega zapisa o ustvarjalcu.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/actions/eventComponent.class.php</note>
+      </trans-unit>
+      <trans-unit id="1217">
+        <source>User ACL menu</source>
+        <target>Uporabniški ACL-meni</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/_aclMenu.php</note>
+      </trans-unit>
+      <trans-unit id="1218">
+        <source>User List Options</source>
+        <target>Možnosti uporabniškega seznama</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1219">
+        <source>User groups</source>
+        <target>Uporabniške skupine</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1220">
+        <source>User interface label</source>
+        <target>Oznaka uporabniškega vmesnika</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1221">
+        <source>User menu</source>
+        <target>Uporabniški meni</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/_quickLinks.php</note>
+      </trans-unit>
+      <trans-unit id="1222">
+        <source>User name</source>
+        <target>Uporabniško ime</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1224">
+        <source>Value</source>
+        <target>Vrednost</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1228">
+        <source>View %1%</source>
+        <target>Ogled %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/object/templates/importSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1233">
+        <source>View children as a compound digital object?</source>
+        <target>Ogled otrok kot sestavljen digitalni objekt?</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/editSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1236">
+        <source>View full size</source>
+        <target>Ogled v polni velikosti</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_showCompound.php</note>
+      </trans-unit>
+      <trans-unit id="1238">
+        <source>View permissions</source>
+        <target>Ogled dovoljenj</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/indexTermAclSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1240">
+        <source>View rights holder</source>
+        <target>Ogled imetnika pravic</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/rightsholder/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1241">
+        <source>View term</source>
+        <target>Ogled izraza</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1242">
+        <source>View user profile</source>
+        <target>Ogled uporabniškega profila</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1244">
+        <source>Visible elements</source>
+        <target>Vidni elementi</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1245">
+        <source>Waiting...</source>
+        <target>Čakanje ...</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1246">
+        <source>Warning: duplicate of %1%</source>
+        <target>Opozorilo: dvojnik %1%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1247">
+        <source>When set to &amp;quot;no&amp;quot;, the repository name is excluded from certain displays because it will be too repetitive</source>
+        <target>Pri nastavitvi "ne" je ime skladišča izključeno iz nekaterih prikazov, saj bi se prevečkrat ponavljalo</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1248">
+        <source>When set to &amp;quot;yes&amp;quot;, the reference code string will be built using the information object identifier plus the identifiers of all its ancestors</source>
+        <target>Pri nastavitvi "da" bo niz signatur sestavljen z uporabo identifikatorja o informacijskem objektu in identifikatorjev vseh njegovih prednikov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1249">
+        <source>When set to &amp;quot;yes&amp;quot;, this system will act as an OAI repository and respond to OAI harvesting requests</source>
+        <target>Pri nastavitvi "da" bo ta sistem deloval kot skladišče OAI in bo odgovarjal na zahteve zajemanja OAI</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsOaiRepositoryForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1251">
+        <source>With</source>
+        <target>S/z</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_advancedSearch.php</note>
+      </trans-unit>
+      <trans-unit id="1253">
+        <source>Yes</source>
+        <target>Da</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="1254">
+        <source>You are here</source>
+        <target>Nahajate se tukaj</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/moveSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1255">
+        <source>You cannot show more than %max% hits per page</source>
+        <target>Ne morete prikazati več kot%max% zadetkov na stran</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1256">
+        <source>You must enter your email address</source>
+        <target>Vnesti morate svoj e-poštni naslov</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/actions/loginAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="1257">
+        <source>You must enter your password</source>
+        <target>Vnesti morate svoje geslo</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/actions/loginAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="1258">
+        <source>You must show at least %min% hits per page</source>
+        <target>Prikazati morate vsaj %min% zadetkov na stran</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsGlobalForm.class.php</note>
+      </trans-unit>
+      <trans-unit id="1259">
+        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="http://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
+        <target>Nimate nameščenega vtičnika Flash player. Za uvoz digitalnih objektov, prosimo, &lt;a href="http://get.adobe.com/flashplayer/"&gt;prenesite Adobe Flash Player&lt;/a&gt; (različica 9.0.45 ali višja)</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1260">
+        <source>Your browser does not support JavaScript. See %1%minimum requirements%2%.</source>
+        <target>Vaš brskalnik ne podpira programa JavaScript. Preverite %1% minimalne sistemske zahteve%2%.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1262">
+        <source>Your password is not strong enough (too short).</source>
+        <target>Vaše geslo ni dovolj zapleteno (prekratko je).</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="1263">
+        <source>Your password is not strong enough.</source>
+        <target>Vaše geslo ni dovolj zapleteno.</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/actions/editAction.class.php</note>
+      </trans-unit>
+      <trans-unit id="1266">
+        <source>and</source>
+        <target>in</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchFields.php</note>
+      </trans-unit>
+      <trans-unit id="1279">
+        <source>for %repo%</source>
+        <target>za %repo%</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/_uploadLimit.php</note>
+      </trans-unit>
+      <trans-unit id="1283">
+        <source>in</source>
+        <target>v</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchFields.php</note>
+      </trans-unit>
+      <trans-unit id="1284">
+        <source>inactive</source>
+        <target>neaktiven</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/listSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1286">
+        <source>keyword</source>
+        <target>ključna beseda</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchFields.php</note>
+      </trans-unit>
+      <trans-unit id="1290">
+        <source>not</source>
+        <target>ne</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchFields.php</note>
+      </trans-unit>
+      <trans-unit id="1292">
+        <source>or</source>
+        <target>ali</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchFields.php</note>
+      </trans-unit>
+      <trans-unit id="1293">
+        <source>phrase</source>
+        <target>fraza</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchFields.php</note>
+      </trans-unit>
+      <trans-unit id="1309">
+        <source>using</source>
+        <target>uporabljaj</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchFields.php</note>
+      </trans-unit>
+      <trans-unit id="1310">
+        <source>you</source>
+        <target>ti</target>
+        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/indexSuccess.php</note>
+      </trans-unit>
+      <trans-unit id="1311">
+        <source>Object UUID</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1312">
+        <source>AIP UUID</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1313">
+        <source>Your password confirmation did not match your password.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1314">
+        <source>Repository affiliation</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1315">
+        <source>Show all</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1316">
+        <source>Appraisal, destruction and scheduling information</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1317">
+        <source>General note(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1318">
+        <source>Conservation note(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1319">
+        <source>Digital object metadata area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1320">
+        <source>File name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1321">
+        <source>MIME type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1322">
+        <source>File size</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1323">
+        <source> in %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1324">
+        <source>PHP Zip extension could not be found.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1325">
+        <source>Unable to import selected file: unknown file extension.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1326">
+        <source>Import a XML file</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1327">
+        <source>Accession</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1328">
+        <source>XML</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1329">
+        <source>CSV</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

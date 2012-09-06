@@ -1,0 +1,159 @@
+<?php
+// $Id: poll.install,v 1.28 2009/12/04 16:49:47 dries Exp $
+
+/**
+ * @file
+ * Install, update and uninstall functions for the poll module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function poll_schema() {
+  $schema['poll'] = array(
+    'description' => 'Stores poll-specific information for poll nodes.',
+    'fields' => array(
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "The poll's {node}.nid.",
+      ),
+      'runtime' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The number of seconds past {node}.created during which the poll is open.',
+      ),
+      'active' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Boolean indicating whether or not the poll is open.',
+      ),
+    ),
+    'primary key' => array('nid'),
+    'foreign keys' => array(
+      'nid' => array('node' => 'nid'),
+    ),
+  );
+
+  $schema['poll_choice'] = array(
+    'description' => 'Stores information about all choices for all {poll}s.',
+    'fields' => array(
+      'chid' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Unique identifier for a poll choice.',
+      ),
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {node}.nid this choice belongs to.',
+      ),
+      'chtext' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The text for this choice.',
+        'translatable' => TRUE,
+      ),
+      'chvotes' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The total number of votes this choice has received by all users.',
+      ),
+      'weight' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The sort order of this choice among all choices for the same node.',
+      ),
+    ),
+    'indexes' => array(
+      'nid' => array('nid'),
+    ),
+    'primary key' => array('chid'),
+    'foreign keys' => array(
+      'nid' => array('node' => 'nid'),
+    ),
+  );
+
+  $schema['poll_vote'] = array(
+    'description' => 'Stores per-{users} votes for each {poll}.',
+    'fields' => array(
+      'chid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => "The {users}'s vote for this poll.",
+      ),
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The {poll} node this vote is for.',
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {users}.uid this vote is from unless the voter was anonymous.',
+      ),
+      'hostname' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The IP address this vote is from unless the voter was logged in.',
+      ),
+      'timestamp' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The timestamp of the vote creation.',
+      ),
+    ),
+    'primary key' => array('nid', 'uid', 'hostname'),
+    'foreign keys' => array(
+      'nid' => array('node' => 'nid'),
+      'uid' => array('users' => 'uid'),
+    ),
+    'indexes' => array(
+      'chid'     => array('chid'),
+      'hostname' => array('hostname'),
+      'uid' => array('uid'),
+    ),
+  );
+
+  return $schema;
+}
+
+/**
+ * Rename {poll_choices} table to {poll_choice} and {poll_votes} to {poll_vote}.
+ */
+function poll_update_7001() {
+  db_rename_table('poll_choices', 'poll_choice');
+  db_rename_table('poll_votes', 'poll_vote');
+}
+
+/**
+ * Add timestamp field to {poll_votes}.
+ */
+function poll_update_7002() {
+  $field = array(
+    'type' => 'int',
+    'not null' => TRUE,
+    'default' => 0,
+  );
+  db_add_field('poll_votes', 'timestamp', $field);
+}

@@ -1,0 +1,233 @@
+# This file is part of Qubit Toolkit.
+#
+# Qubit Toolkit is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# Qubit Toolkit is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
+# for more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# Qubit Toolkit; if not, write to the Free Software Foundation, Inc., 51
+# Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+# EAD XML (2002) IMPORT FILTER MAPPINGS
+#
+# @package qubit
+# @subpackage object import
+# @author MJ Suhonos <mj@suhonos.ca>
+# @author Peter Van Garderen <peter@artefactual.com>
+# @version svn: $Id:$
+
+information_object:
+  XPath:  "//archdesc | //c | //c01 | //c02 | //c03 | //c04 | //c05 | //c06 | //c07 | //c08 | //c09 | //c10 | //c11 | //c12"
+  Object:  InformationObject
+  # define an axis for the parent object; if no node is matched here, the object is rooted if possible
+  Parent:  "ancestor::archdesc | ancestor::c | ancestor::c01 | ancestor::c02 | ancestor::c03 | ancestor::c04 | ancestor::c05 | ancestor::c06 | ancestor::c07 | ancestor::c08 | ancestor::c09 | ancestor::c10 | ancestor::c11 | ancestor::c12"
+  Methods:
+    collection_type:
+      XPath:   "."    # not really a match, just use self
+      Method:  setCollectionTypeId
+      Parameters: [QubitTerm::ARCHIVAL_MATERIAL_ID]
+
+    sourceStandard:
+      XPath:   "."    # not really a match, just use self
+      Method:  setSourceStandard
+      Parameters: ["'http://www.loc.gov/ead/ead.xsd'"]
+
+    publicationStatus:
+      XPath:   "."    # not really a match, just use self
+      Method:  setStatus
+      Parameters: ["array('typeId' => QubitTerm::STATUS_TYPE_PUBLICATION_ID, 'statusId' => sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID))"]
+
+    # each of the following XPath expressions are relative to the current matched node:
+
+    level:
+      XPath:  "@level"
+      Method: SetLevelOfDescriptionByName
+
+    other_level:
+      XPath:  "@otherlevel"
+      Method: SetLevelOfDescriptionByName
+
+    creator:
+      XPath:  "did/origination/name"
+      Method:  setActorByName
+      Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID)"]
+
+    creator_person:
+      XPath:   "did/origination/persname"
+      Method:  setActorByName
+      Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID, 'entity_type_id' => QubitTerm::PERSON_ID)"]
+
+    creator_corporate_body:
+      XPath:   "did/origination/corpname"
+      Method:  setActorByName
+      Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID, 'entity_type_id' => QubitTerm::CORPORATE_BODY_ID)"]
+
+    creator_family:
+      XPath:   "did/origination/famname"
+      Method:  setActorByName
+      Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID, 'entity_type_id' => QubitTerm::FAMILY_ID)"]
+
+    title:
+      XPath:   "did/unittitle"
+      Method:  setTitle
+
+    dates:
+      XPath:   "did/unitdate"
+      Method:  setDates
+      Parameters: [$nodeValue, "$options = array('normalized_dates' => $importDOM->xpath->query('@normal', $domNode2)->item(0)->nodeValue, 'date_type' => $importDOM->xpath->query('@datechar', $domNode2)->item(0)->nodeValue)"]
+
+    extent:
+      XPath:   "did/physdesc"
+      Method:  setExtentAndMedium
+
+    abstract:
+      XPath:   "did/abstract"
+      Method:  setScopeAndContent
+
+  ##physloc
+    ##if no container is given, save as a 'location' note, otherwise save to the container's location information
+    ##Xpath:  "did/physloc"
+
+    container:
+      XPath:  "did/container"
+      Method:  setPhysicalObjectByName
+      Parameters: [$nodeValue, "$options = array('type' => $importDOM->xpath->query('@type', $domNode2)->item(0)->nodeValue)"]
+      ## to do: check for @parent and create parentId link for physical object, if present
+
+    repository:
+      XPath:   "(did/repository/corpname | did/repository/name)[1]"
+      Method:  setRepositoryByName
+
+    repositoryAddress:
+      XPath:   "(did/repository/address)"
+      Method:  setRepositoryAddress
+
+    identifier:
+      XPath:   "did/unitid"
+      Method:  setIdentifierWithCodes
+      Parameters: [$nodeValue, "$options = array('countrycode' => $importDOM->xpath->query('@countrycode', $domNode2)->item(0)->nodeValue, 'repositorycode' => $importDOM->xpath->query('@repositorycode', $domNode2)->item(0)->nodeValue)"]
+
+    languages:
+      XPath:   "did/langmaterial/language/@langcode"
+      Method:  setLangcode
+
+    phystech:
+      XPath:  "(phystech | descgrp/phystech)"
+      Method: setPhysicalCharacteristics
+
+    originalsloc:
+      XPath:  "(originalsloc | descgrp/originalsloc)"
+      Method: setLocationOfOriginals
+
+    #TODO: check for @type attribute and pass it as note type
+    note:
+      XPath:  "(note | descgrp/note | did/note)"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::GENERAL_NOTE_ID)"]
+
+    bioghist:
+      XPath:  "(bioghist | descgrp/bioghist)"
+      Method: setHistoryByOrigination
+
+    # this will overwrite any values entered for <abstract>
+    scopeAndContent:
+      XPath:   "(scopecontent | descgrp/bioghist)"
+      Method:  setScopeAndContent
+
+    arrangement:
+      XPath:   "(arrangement | descgrp/arrangement)"
+      Method:  setArrangement
+
+    controlaccess_corpname:
+      XPath:   "(controlaccess/corpname | controlaccess/controlaccess/corpname)"
+      Method:  setActorByName
+      Parameters: [$nodeValue, "$options = array('relation_type_id' => QubitTerm::NAME_ACCESS_POINT_ID, 'entity_type_id' => QubitTerm::CORPORATE_BODY_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'rules' => $importDOM->xpath->query('@rules', $domNode2)->item(0)->nodeValue)"]
+
+    controlaccess_persname:
+      XPath:   "(controlaccess/persname | controlaccess/controlaccess/persname)"
+      Method:  setActorByName
+      Parameters: [$nodeValue, "$options = array('relation_type_id' => QubitTerm::NAME_ACCESS_POINT_ID, 'entity_type_id' => QubitTerm::PERSON_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'rules' => $importDOM->xpath->query('@rules', $domNode2)->item(0)->nodeValue)"]
+
+    controlaccess_famname:
+      XPath:   "(controlaccess/famname | controlaccess/controlaccess/famname)"
+      Method:  setActorByName
+      Parameters: [$nodeValue, "$options = array('relation_type_id' => QubitTerm::NAME_ACCESS_POINT_ID, 'entity_type_id' => QubitTerm::FAMILY_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'rules' => $importDOM->xpath->query('@rules', $domNode2)->item(0)->nodeValue)"]
+
+    controlaccess_geogname:
+      XPath:   "(controlaccess/geogname | controlaccess/controlaccess/geogname)"
+      Method:  setTermRelationByName
+      Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::PLACE_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue)"]
+
+    controlaccess_subject:
+      XPath:   "(controlaccess/subject | controlaccess/controlaccess/subject)"
+      Method:  setTermRelationByName
+      Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue)"]
+
+    controlaccess_genreform:
+      XPath:   "(controlaccess/genreform | controlaccess/controlaccess/genreform)"
+      Method:  setTermRelationByName
+      Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::MATERIAL_TYPE_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue)"]
+
+    accessrestrict:
+      XPath:   "(accessrestrict | descgrp/accessrestrict)"
+      Method:  setAccessConditions
+
+    accruals:
+      XPath:   "(accruals | descgrp/accruals)"
+      Method:  setAccruals
+
+    acqinfor:
+      XPath:   "(acqinfo | descgrp/acqinfo)"
+      Method:  setAcquisition
+
+    altformavail:
+      XPath:  "(altformavail | descgrp/altformavail)"
+      Method: setLocationOfCopies
+
+    appraisal:
+      XPath:   "(appraisal | descgrp/appraisal)"
+      Method:  setAppraisal
+
+    custodhist:
+      XPath:   "(custodhist | descgrp/custodhist)"
+      Method:  setArchivalHistory
+
+    #prefercite:
+
+    processinfo:
+      XPath:  "(processinfo | descgrp/processinfo)"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)"]
+
+    userestrict:
+      XPath:   "(userestrict | descgrp/userestrict)"
+      Method:  setReproductionConditions
+
+    seperatedmaterial:
+      XPath:   "(seperatedmaterial | descgrp/separatedmaterial)"
+      Method:  setRelatedUnitsOfDescription
+
+    # to fix: don't overwrite any values entered for seperated materials
+    relatedmaterial:
+      XPath:   "(relatedmaterial | descgrp/relatedmaterial)"
+      Method:  setRelatedUnitsOfDescription
+
+    otherfindaid:
+      XPath:   "(otherfindaid | descgrp/otherfindaid)"
+      Method:  setFindingAids
+
+    bibliography:
+      XPath:   "(bibliography | descgrp/bibliography)"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)"]
+
+    odd:
+      XPath:  "odd"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::OTHER_DESCRIPTIVE_DATA_ID)"]

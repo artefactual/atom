@@ -1,0 +1,614 @@
+QubitSetting:
+  version:
+    name: version
+    editable: 0
+    deleteable: 0
+    value: 92
+  QubitSetting_2:
+    name: upload_dir
+    editable: 0
+    deleteable: 0
+    value: uploads
+  QubitSetting_3:
+    name: reference_image_maxwidth
+    editable: 1
+    deleteable: 0
+    value: 480
+  QubitSetting_4:
+    name: hits_per_page
+    editable: 1
+    deleteable: 0
+    value: 10
+  QubitSetting_5:
+    name: multi_repository
+    editable: 1
+    deleteable: 0
+    value: 1
+  QubitSetting_sort_treeview:
+    name: sort_treeview_informationobject
+    editable: 1
+    deleteable: 0
+    value: none
+  QubitSetting_sort_browser_user:
+    name: sort_browser_user
+    editable: 1
+    deleteable: 0
+    value: lastUpdated
+  QubitSetting_sort_browser_anonymous:
+    name: sort_browser_anonymous
+    editable: 1
+    deleteable: 0
+    value: alphabetic
+  QubitSetting_default_pub_status:
+    name: defaultPubStatus
+    editable: 1
+    deleteable: 0
+    value: 159
+  QubitSetting_8:
+    name: informationobject
+    scope: default_template
+    editable: 1
+    deleteable: 0
+    value: isad
+  QubitSetting_9:
+    name: actor
+    scope: default_template
+    editable: 1
+    deleteable: 0
+    value: isaar
+  QubitSetting_10:
+    name: repository
+    scope: default_template
+    editable: 1
+    deleteable: 0
+    value: isdiah
+  QubitSetting_11:
+    name: informationobject
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'Information object'
+      es: 'Information object'
+      fr: 'Description archivistique'
+      gl: 'Obxecto de información'
+      it: 'Oggetto informativo'
+      ja: 情報オブジェクト
+      ka: 'საინფორმაციო ობიექტი'
+      nl: 'Informatie object'
+      pt: 'Objeto informacional'
+      sl: 'Informacijski objekt'
+      th: วัตถุข้อมูล(ข้อมูลวัตถุ)
+  QubitSetting_12:
+    name: actor
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      de: Person/Einrichtung
+      en: Person/organization
+      es: Persona/organización
+      fr: Personne/organisme
+      gl: Persoa/organización
+      it: Persona/organizzazione
+      ja: 個人/機関
+      ka: პიროვნება/ორგანიზაცია
+      nl: Persoon/organisatie
+      pt: Pessoa/organizaÃ§Ã£o
+      sl: Oseba/organizacija
+      th: 'บุคคล / องค์การ'
+  QubitSetting_13:
+    name: creator
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      de: Urheber/Bestandsbildner
+      en: Creator
+      es: Productor
+      fr: Producteur
+      gl: Creador
+      id: Pencipta
+      it: 'Soggetto produttore'
+      ja: 作成者
+      ka: შემოქმედი
+      nl: Archiefvormer
+      pl: Twórca
+      pt: Produtor
+      sl: Ustvarjalec
+      th: ผู้ผลิตเอกสาร
+  QubitSetting_14:
+    name: repository
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      de: Aufbewahrungsort
+      en: Repository
+      es: 'Institución archivística'
+      fa: منبع
+      fr: 'Institution de conservation'
+      gl: Repositorio
+      id: Repositori
+      it: 'Soggetto conservatore'
+      ja: リポジトリ
+      ka: საცავი
+      ko: 기록보존소
+      nl: archiefbewaarplaats
+      pl: Repozytorium
+      pt: 'Entidade detentora'
+      pt_BR: 'Entidade custodiadora'
+      sl: Skladišče
+      th: คลังเก็บ
+  QubitSetting_15:
+    name: function
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: Function
+      es: Función
+      fr: Fonction
+      gl: Función
+      id: Fungsi
+      ja: 機能
+      ka: ფუნქცია
+      nl: Functie
+      pl: Funkcja
+      pt: Função
+      sl: Funkcija
+      th: ฟังก์ชั่น
+  QubitSetting_16:
+    name: term
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      de: Begriff
+      en: Term
+      es: Término
+      fr: Terme
+      gl: Termo
+      id: Istilah
+      it: Termine
+      ja: 用語
+      ka: ვადა
+      nl: Term
+      pl: Termin
+      pt: Termo
+      sl: Izraz
+      th: คำศัพท์
+  QubitSetting_17:
+    name: subject
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      de: Gegenstand
+      en: Subject
+      es: Materia
+      fr: Sujet
+      gl: Tema
+      id: Subjek
+      it: Soggetto
+      ja: 主題
+      ka: 'სუბიექტი (თემა, საგანი, სათაური)'
+      nl: Onderwerp
+      pl: Temat
+      pt: Assunto
+      pt_BR: Assunto
+      sl: Tematika
+      th: หัวข้อ
+  QubitSetting_18:
+    name: collection
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: Collection
+      es: Colección
+      fr: Collection
+      gl: Colección
+      id: Koleksi
+      it: Collezione
+      ja: コレクション
+      ka: კოლექცია
+      nl: Collectie
+      pl: Kolekcja
+      pt: Coleção
+      sl: Zbirka
+      th: คอลเลกชัน
+  QubitSetting_19:
+    name: holdings
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      de: Bestand
+      en: Holdings
+      es: 'Fondos y colecciones'
+      fr: Fonds
+      gl: Fondos
+      it: Patrimoni
+      ja: 所蔵
+      ka: ანაბრები
+      nl: Bestanden
+      pl: 'Zasoby posiadane'
+      pt: Acervo
+      sl: 'Arhivsko gradivo'
+      th: สถานที่เก็บเอกสาร
+  QubitSetting_20:
+    name: place
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      de: Ort
+      en: Place
+      es: Lugar
+      fa: مكان
+      fr: Lieu
+      gl: Lugar
+      id: Tempat
+      it: Luogo
+      ja: 場所
+      ka: ადგილი
+      ko: 장소
+      nl: Plaats
+      pl: Miejsce
+      pt: Local
+      pt_BR: local
+      sl: Kraj
+      th: จัด
+  QubitSetting_21:
+    name: name
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      de: Name
+      en: Name
+      es: Nombre
+      fa: نام
+      fr: Nom
+      gl: Nome
+      id: Nama
+      it: Nome
+      ja: 名称
+      ka: სახელი
+      ko: 이름
+      nl: Naam
+      pl: Nazwa
+      pt: Nome
+      pt_BR: nome
+      sl: Ime
+      th: ชื่อ
+  QubitSetting_22:
+    name: digitalobject
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      de: 'Digitales Objekt'
+      en: 'Digital object'
+      es: 'Objeto digital'
+      fr: 'Objet numérique'
+      id: 'Objek Digital'
+      it: 'Oggetto digitale'
+      ja: ディジタルオブジェクト
+      ka: 'ციფრული ობიექტი'
+      nl: 'Digitaal object'
+      pl: 'Obiekt cyfrowy'
+      pt: 'Objeto digital'
+      sl: 'Digitalni objekt'
+      th: วัตถุดิจิตอล
+  QubitSetting_23:
+    name: physicalobject
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      de: 'Physisches Objekt'
+      en: 'Physical storage'
+      es: 'Unidad de almacenaje'
+      fr: 'Localisation physique'
+      gl: 'Almacenamento físico'
+      id: 'Penyimpanan Fisik'
+      it: 'Oggetto fisico'
+      ja: 物理的記憶
+      ka: 'ფიზიკური საცავი'
+      nl: 'Fysieke opslag'
+      pl: 'Fizyczne miejsce przechowywania'
+      pt: 'Depósito físico'
+      sl: 'Fizična hramba'
+      th: การเก็บเอกสารทางกายภาพ
+  QubitSetting_24:
+    name: mediatype
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      de: Medienart
+      en: 'Media type'
+      es: 'Tipo de soporte'
+      fa: 'نوع رسانه'
+      fr: 'Type de support'
+      gl: 'Tipo de medio'
+      it: 'Tipo di media'
+      ja: メディア種別
+      ka: 'მედია ტიპი'
+      nl: mediatype
+      pl: 'Typ medium'
+      pt: 'Tipo de suporte'
+      pt_BR: Tipo
+      sl: 'Vrsta medija'
+      th: ประเภทสื่อ
+  QubitSetting_25:
+    name: materialtype
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      de: Materialart
+      en: 'Material type'
+      es: 'Tipo de material'
+      fr: 'Type de document'
+      gl: 'Tipo de material'
+      it: 'Tipo di materiale'
+      ja: 資料種別
+      ka: 'მასალის ტიპი'
+      nl: 'Soort materiaal'
+      pl: 'Typ materiału'
+      pt: 'Tipo de material'
+      sl: 'Vrsta gradiva'
+      th: ประเภทเอกสาร
+  QubitSetting_26:
+    name: en
+    scope: i18n_languages
+    editable: 1
+    deleteable: 0
+    value: en
+  QubitSetting_27:
+    name: fr
+    scope: i18n_languages
+    editable: 1
+    deleteable: 1
+    value: fr
+  QubitSetting_28:
+    name: es
+    scope: i18n_languages
+    editable: 1
+    deleteable: 1
+    value: es
+  QubitSetting_29:
+    name: nl
+    scope: i18n_languages
+    editable: 1
+    deleteable: 1
+    value: nl
+  QubitSetting_30:
+    name: pt
+    scope: i18n_languages
+    editable: 1
+    deleteable: 1
+    value: pt
+  QubitSetting_oai_enabled:
+    name: oai_enabled
+    scope: oai
+    editable: 1
+    deleteable: 0
+    value: 0
+  QubitSetting_oai_repository_code:
+    name: oai_repository_code
+    scope: oai
+    editable: 1
+    deleteable: 0
+    value: ''
+  QubitSetting_resumption_token_limit:
+    name: resumption_token_limit
+    scope: oai
+    editable: 1
+    deleteable: 0
+    value: 100
+  QubitSetting_inherit_code_informationobject:
+    name: inherit_code_informationobject
+    editable: 1
+    deleteable: 0
+    value: 1
+  toggleDescription:
+    name: toggleDescription
+    value: 1
+  toggleLogo:
+    name: toggleLogo
+    value: 1
+  toggleTitle:
+    name: toggleTitle
+    value: 1
+  QubitSetting_checkForUpdates:
+    name: check_for_updates
+    value: 1
+  QubitSetting_explodeMultipageFiles:
+    name: explode_multipage_files
+    value: 0
+  QubitSetting_showTooltips:
+    name: show_tooltips
+    value: 1
+  QubitSetting_accessionMask:
+    name: accession_mask
+    value: '%Y-%m-%d/#i'
+  QubitSetting_accessionCounter:
+    name: accession_counter
+    value: 0
+  QubitSetting_separatorCharacter:
+    name: separator_character
+    value: -
+  QubitSetting_repositoryQuota:
+    name: repository_quota
+    value: -1
+    editable: 1
+  QubitSetting_useJobScheduler:
+    name: use_job_scheduler
+    value: 0
+  QubitSetting_swordDepositDir:
+    name: sword_deposit_dir
+    value: /tmp
+  QubitSetting_requireSslAdmin:
+    name: require_ssl_admin
+    value: 0
+  QubitSetting_requireStrongPasswords:
+    name: require_strong_passwords
+    value: 0
+  QubitSetting_limitAdminIp:
+    name: limit_admin_ip
+    value: ''
+  Qubit_Settings_visibleElements_IsadImmediateSource:
+    name: isad_immediate_source
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_IsadAppraisalDestruction:
+    name: isad_appraisal_destruction
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_IsadNotes:
+    name: isad_notes
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_IsadPhysicalCondition:
+    name: isad_physical_condition
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_IsadControlDescriptionIdentifier:
+    name: isad_control_description_identifier
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_IsadControlInstitutionIdentifier:
+    name: isad_control_institution_identifier
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_IsadControlRulesConventions:
+    name: isad_control_rules_conventions
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_IsadControlStatus:
+    name: isad_control_status
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_IsadControlLevelOfDetail:
+    name: isad_control_level_of_detail
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_IsadControlDates:
+    name: isad_control_dates
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_IsadControlLanguages:
+    name: isad_control_languages
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_IsadControlScripts:
+    name: isad_control_scripts
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_IsadControlSources:
+    name: isad_control_sources
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_IsadControlArchivistsNotes:
+    name: isad_control_archivists_notes
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_RadGeneralNotes:
+    name: rad_general_notes
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_RadConservationNotes:
+    name: rad_conservation_notes
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_RadPhysicalCondition:
+    name: rad_physical_condition
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_RadImmediateSource:
+    name: rad_immediate_source
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_RadControlDescriptionIdentifier:
+    name: rad_control_description_identifier
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_RadControlInstitutionIdentifier:
+    name: rad_control_institution_identifier
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_RadControlRulesConventions:
+    name: rad_control_rules_conventions
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_RadControlStatus:
+    name: rad_control_status
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_RadControlLevelOfDetail:
+    name: rad_control_level_of_detail
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_RadControlDates:
+    name: rad_control_dates
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_RadControlLanguage:
+    name: rad_control_language
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_RadControlScript:
+    name: rad_control_script
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_RadControlSources:
+    name: rad_control_sources
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectUrl:
+    name: digital_object_url
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectFileName:
+    name: digital_object_file_name
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectMediaType:
+    name: digital_object_media_type
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectMimeType:
+    name: digital_object_mime_type
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectFilesize:
+    name: digital_object_file_size
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_digitalObjectUploaded:
+    name: digital_object_uploaded
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_physicalStorage:
+    name: physical_storage
+    scope: element_visibility
+    value: 1

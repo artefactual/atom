@@ -1,0 +1,80 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/05-Factories
+
+prod:
+  logger:
+    class:   sfNoLogger
+    param:
+      level:   err
+      loggers: ~
+
+  storage:
+    class: QubitSessionStorage
+    param:
+      session_name: symfony
+
+test:
+  storage:
+    class: sfSessionTestStorage
+    param:
+      session_path: %SF_TEST_CACHE_DIR%/sessions
+
+  response:
+    class: sfWebResponse
+    param:
+      send_http_headers: false
+
+  mailer:
+    param:
+      delivery_strategy: none
+
+dev:
+  mailer:
+    param:
+      delivery_strategy: none
+
+  storage:
+    class: QubitSessionStorage
+    param:
+      session_name: symfony
+
+all:
+  i18n:
+    class: sfTranslateI18N
+    param:
+      cache:
+        # class: sfAPCCache
+        class: sfFileCache
+        param:
+          automatic_cleaning_factor: 0
+          cache_dir: %SF_TEMPLATE_CACHE_DIR%
+          lifetime: 86400
+          prefix: %SF_APP_DIR%/template
+
+  routing:
+    class: QubitPatternRouting
+    param:
+      generate_shortest_url:            true
+      extra_parameters_as_query_string: true
+      # class: sfAPCCache
+      cache: ~
+
+  view_cache_manager:
+    class: sfViewCacheManager
+    param:
+      cache_key_use_vary_headers: true
+      cache_key_use_host_name:    true
+
+  view_cache:
+    # class: sfAPCCache
+    class: sfFileCache
+    param:
+      automatic_cleaning_factor: 0
+      cache_dir: %SF_TEMPLATE_CACHE_DIR%
+      lifetime: 86400
+      prefix: %SF_APP_DIR%/template
+
+  user:
+    class: myUser
+    param:
+      timeout: 1800 # Session timeout in seconds

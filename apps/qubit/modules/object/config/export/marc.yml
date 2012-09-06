@@ -1,0 +1,18 @@
+#
+# MARC21 XML EXPORT FILTER CONFIGURATION
+#
+# This file is part of the Qubit Toolkit.
+# Copyright (C) 2006-2008 Peter Van Garderen <peter@artefactual.com>
+#
+
+# Default XML schema (optional to use an alternative schema)
+# NB: BE CAREFUL that both schemas use the same kind of baseObject
+templateXML: ead.xml
+
+# XSLT filters are applied to the XML mapping (eg. for crosswalks)
+# NB: these are from different sources/dates, so not your mileage may vary
+processXSLT:
+  - EAD2MARCXML.xsl
+#  - EADlitetoMARC21slimXML.xsl
+#  - EADlitetoMARC21slimXML2.xsl
+#  - EADtoMARC21slimXML.xsl

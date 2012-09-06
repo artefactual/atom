@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2012-08-15T11:37:03Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new archival description</source>
+        <target>ახალი აღწერის დამატება</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target> უსათაურო</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>რედაქტირება %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>"Give the date(s) of creation of the unit being described either as a single date, or range of dates (for inclusive dates and/or predominant dates). Always give the inclusive dates. When providing predominant dates, specify them as such, preceded by the word predominant..." (RAD 1.4B2) Record probable and uncertain dates in square brackets, using the conventions described in 1.4B5.</source>
+        <target>"შეიყვანეთ საარქივო მასალის შექმნის თარიღი (ან თარიღები). შეგიძლიათ მიუთითოდ ერთი კონკრეტული თარიღი ან პერიოდი." (RAD 1.4B2) დაუზუსტებელი თარიღები 1.4B5-ის მიხედვით ჩასვით ოთხკუთხედ ფრჩხილებში.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>"Make notes on dates and any details pertaining to the dates of creation, publication, or distribution, of the unit being described that are not included in the Date(s) of creation, including publication, distribution, etc., area and that are considered to be important." (RAD 1.8B8) "Make notes on the date(s) of accumulation or collection of the unit being described." (RAD 1.8B8a)</source>
+        <target>"მიუთითეთ თარიღები საარქივო მასალის შექმნის, გამოცემისა და გავრცელების შესახებ, რომელიც არ მიუთითედ შესაბამის არეებში მაგრამ თვლით, რომ მნიშვნელოვანი ინფორმაციაა." (RAD 1.8B8) "ასევე მიუთითეთ ინფორმაცია მასალის შეგროვებისა და შემოტანის შესახებ." (RAD 1.8B8a)</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Select the type of activity that established the relation between the authority record and the archival description (e.g. creation, accumulation, collection, publication, etc.)</source>
+        <target>აირჩიეთ  საქმიანობის ტიპი, რომელიც ადგენს ურთიერთობას ავტორიტეტულ  ჩანაწერსა და საარქივო აღწერას შორის.(შექმნა, აკუმულაცია, შეგროვება, გამოქვეყნება და სხვ.)</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>This archival description requires at least one date.</source>
+        <target> ეს საარქივო აღწერა მოითხოვს მინიმუმ ერთ თარიღს</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Date(s) - are not consistent with %1%higher levels%2%.</source>
+        <target>თარიღები(ვადები) არაა შეთავსებადი %1% მაღალ დონეებთან %2%</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Physical description - This is a mandatory element.</source>
+        <target>ფიზიკური აღწერა -ესაა სავალდებულო ელემენტი </target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Scope and content - This is a mandatory element.</source>
+        <target>მოცულობა და შინაარსი - ესაა სავალდებულო ელემენტი</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Title - This is a mandatory element.</source>
+        <target>სათაური, ესაა სავალდებულო ელემენტი</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Level of description - Value "%value%" is not consistent with higher levels.</source>
+        <target>აღწერის დონე - ფასეულობა "%value%" არ უთავსდება უფრო მაღალ დონეებს </target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Level of description - This is a mandatory element.</source>
+        <target>აღწერის დონე- ესაა სავალდებულო ელემენტი</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Statement of scale (architectural) - This is a mandatory element for architectural drawing.</source>
+        <target>განცხადება სკალისა (არქიტექტურული) ესაა, სავალდებულო ელემნტი არქიტექტურულ ნახაზთან ( ნახატთან ). </target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Statement of coordinates (cartographic) - This is a mandatory element for cartographic material.</source>
+        <target>განცხადება კოორდინატების (კარტოგრაფიული)- ესაა სავალდებულო ელემენტი კარტოგრაფიული მასალების</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Statement of projection (cartographic) - This is a mandatory element for cartographic material.</source>
+        <target>განცხადება დაპროექტების (კარტოგრაფიული)-ესაა სავალდებულო ელემენტი კარტოგრაფიული მასალების</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Statement of scale (cartographic) - This is a mandatory element for cartographic material.</source>
+        <target>განცხადება სკალისა (კარტოგრაფიული)- ესაა სავალდებულო ელემენტი კარტოგრაფიული მასალების.</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
+        <target>იურისდიქციის და დასახელების წარმოქმნა, გამომდინარეობა (ფილატელისტური)- ესაა სავალდებულო ელემენტი ფილატელისტური ჩანაწერისთვის.</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Edition statement - This is a mandatory element for published items.</source>
+        <target>გამოშვების ცნობა, უწყება - ესაა სავალდებულო ელემენტი გამოცემული ნივთების </target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Standard number - This is a mandatory element for published items.</source>
+        <target> სტანდარტული ნომერი - ესაა სავალდებულო ელემენტი პუნქტების გამოსაქვეყნებლად</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>View archival description</source>
+        <target> საარქივო აღწერის ნახვა</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Edit archival description</source>
+        <target>საარქივო აღწერის დამატება</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Part of %1%</source>
+        <target>%1%ის ნაწილი </target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Title and statement of responsibility area</source>
+        <target> სათაური და ცნობა პასუხისმგებლობის არეალის.</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Edit title and statement of responsibility area</source>
+        <target>სათაურის და პასუხისმგებლობის არეალის განცხადების დამატება </target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Title proper</source>
+        <target>სათაურის მახასიათებელი</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>General material designation</source>
+        <target>ძირითადი მასალის აღნიშვნები </target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Parallel title</source>
+        <target>პარალელური სათაური </target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Other title information</source>
+        <target> სხვა სათაურის ინფორმაცია (ან სხვა ინფორმაციის სათაური)</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Title statements of responsibility</source>
+        <target>სათაურის ცნობა პასუხისმგებლობაზე</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Title notes</source>
+        <target> სათაურის შენიშვნები</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Level of description</source>
+        <target>აღწერის დონე </target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Repository</source>
+        <target>საცავი</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Reference code</source>
+        <target>რეკომენდირებული კოდი</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Edition area</source>
+        <target>გამოშვების არეალი</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Edit edition area</source>
+        <target>გამოშვების, გამოცემის არეალის დამატება </target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Edition statement</source>
+        <target> გამოშვების ცნობა, უწყება </target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Edition statement of responsibility</source>
+        <target>გამოშვების ცნობა, უწყება პასუხისმგებლობისა</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Class of material specific details area</source>
+        <target>მასალების კლასი, სპეციალური დეტალების არეალი</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Edit class of material specific details area</source>
+        <target>მასალების სპეციფიური დეტალების არეალის კლასის დამატება</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Statement of scale (cartographic)</source>
+        <target>განცხადება სკალისა (კარტოგრაფიული)</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Statement of projection (cartographic)</source>
+        <target>განცხადება დაპროექტების (კარტოგრაფიული)</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Statement of coordinates (cartographic)</source>
+        <target>განცხადება კოორდინატების (კარტოგრაფიული)</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Statement of scale (architectural)</source>
+        <target> განცხადება სკალისა (არქიტექტურული)</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Issuing jurisdiction and denomination (philatelic)</source>
+        <target> იურისდიქციის და დასახელების წარმოქმნა, გამომდინარეობა (ფილატელისტური)</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Dates of creation area</source>
+        <target>შექმნის არეალის თარიღები, ვადები</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Edit dates of creation area</source>
+        <target>შემოქმედების არეალის ტარიღის (ვადების) დამატება </target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Physical description area</source>
+        <target>ფიზიკური აღწერის არეალი </target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Edit physical description area</source>
+        <target>ფიზიკური აღწერის არეალის დამატება </target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Physical description</source>
+        <target> ფიზიკური აღწერა </target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Publisher's series area</source>
+        <target>გამომცემელთა სერიის არეალი </target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Edit publisher's series area</source>
+        <target>გამომქვეყნებლის სერიების არეალის დამატება</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Title proper of publisher's series</source>
+        <target> სათაურის მახასიათებელი გამომცემლის სერიებთან </target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Parallel titles of publisher's series</source>
+        <target>პარალელური სათაურები გამომცემლის სერიის</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Other title information of publisher's series</source>
+        <target>გამომქვეყნებლის სერიის სხვა სათაურის ინფორმაცია </target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Statement of responsibility relating to publisher's series</source>
+        <target>განცხადება პასუხისმგებლობისა დაკავშირებული, გამომქვეყნებლებთა სერიასთან</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Numbering within publisher's series</source>
+        <target>ნუმერაციის ფარგლებში გამოცემლის სერია </target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Note on publisher's series</source>
+        <target> შენიშვნა გამომცემლის სერიაზე </target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Archival description area</source>
+        <target>აღწერის არე</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Edit archival description area</source>
+        <target>საარქივო აღწერის არეალის დამატება</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Custodial history</source>
+        <target>საცავის ისტორია </target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Scope and content</source>
+        <target>სკოპი და შინაარსი </target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Notes area</source>
+        <target>შენიშვნების არეალი </target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Edit notes area</source>
+        <target>შენიშვნების არეალის დამატება </target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Physical condition</source>
+        <target>ფიზიკური მდგომარეობა </target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Immediate source of acquisition</source>
+        <target>შენაძენის უშუალო წყარო </target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Arrangement</source>
+        <target>დამუშავება</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Language of material</source>
+        <target> მასალის ენა </target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Script of material</source>
+        <target> ნაწერი (ხელნაწერი)მასალა</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Language and script note</source>
+        <target>ენა და ნაწერის შენიშვნა </target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Location of originals</source>
+        <target>ორიგინალების ადგილმდებარეობა </target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Availability of other formats</source>
+        <target>სხვა ფორმატების ვარგისიანობა</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Restrictions on access</source>
+        <target>შეზღუდვები დანამატზე, დამატებაზე</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Terms governing use, reproduction, and publication</source>
+        <target>ვადების მართვის გამოყენება, რეპროდუქცია და პუბლიკაცია</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Finding aids</source>
+        <target>დახმარების პოვნა </target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Associated / related material</source>
+        <target>დაკავშირებული/ასოციაციური მასალა</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Accruals</source>
+        <target>დანამატი</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Other notes</source>
+        <target>სხვა შენიშვნები </target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Standard number area</source>
+        <target>სტანდარტული ნომრის არეალი</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Edit standard number area</source>
+        <target>სტანდარტული ნომრის(რაოდენობის) არეალის დამატება </target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Standard number</source>
+        <target>სტანდარტული ნომერი</target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Access points</source>
+        <target>მიღწევადობის წერტილები</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Edit access points</source>
+        <target>წვდომის წერტილის რედაქტირება</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Control area</source>
+        <target>საკონტროლო არეალი</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Edit control area</source>
+        <target>საკონტროლო არეალის დამატება </target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Description record identifier</source>
+        <target>ჩანაწერების იდენტიფიცირების აღწერა</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Institution identifier</source>
+        <target>დაწესებულების იდენტიფიკატორი </target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Rules or conventions</source>
+        <target>წესები ან კონვენციები</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Status</source>
+        <target>სტატუსი</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Level of detail</source>
+        <target> დეტალის დონე </target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Dates of creation, revision and deletion</source>
+        <target>შექმნის გადასინჯვის და წაშლის თარიღები, ვადები</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Language of description</source>
+        <target>აღწერის ენა </target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Script of description</source>
+        <target> ნაწერი (ხელნაწერი) აღწერა </target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Sources</source>
+        <target> წყაროები</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Rights area</source>
+        <target>უფლებების არეალი </target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Edit rights area</source>
+        <target>უფლებების არეალის დამატება </target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Accession area</source>
+        <target>დაშვების არე</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Edit archival description - RAD</source>
+        <target>საარქივო აღწერის დამატება - RAD </target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>This is a duplicate of record %1%</source>
+        <target> ეს არის დუბლიკატი %!% იანი ჩანაწერისთვის</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
+        <target> შეიყვანეთ სწორი სათაური, ან გადაწერილი, გადმოცემული ან  მოწოდებული. (RAD 1.1B)</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>This is a mandatory element.</source>
+        <target>ესაა სავალდებულო ელემენტი</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
+        <target> აირჩიეთ ზოგადი მასალის დანიშნულების უმაღლეს დონეზე აღწერა. თუ სამზე მეტია  ამოირჩიეთ "მრავალჯერადი მედია" (Rad 1.1C)</target>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>"[W]hen applicable, transcribe parallel titles that appear in conjunction with the formal title proper..." (RAD 1.1D)</source>
+        <target>ოფიციალური დასახელების პარალელურად მიუთითეთ სხვა დასახელებებიც მათი არსებობის შემთხვევაში." (RAD 1.1D)</target>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Parallel titles</source>
+        <target>პარალელური სათაურები </target>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>"Transcribe other title information that appears in conjunction with the formal title proper..." (RAD 1.1E)</source>
+        <target>"შეიყვანეთ მონაცემი სხვა დასახელების შესახებ თუ არსებობს ოფიციალური დასახელების პარალელურად." (RAD 1.1E)</target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)</source>
+        <target>"საქმის დონეზე აღწერისას მიუთითენ ზუსტი ინფორმაცია პასუხისმგებლობის საკითხების შესახებ ოფიციალურ წყაროებზე დაყრდნობით" (RAD 1.1F)</target>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Statement of responsibility</source>
+        <target>განცხადება პასუხისმგებლობისა</target>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Note type</source>
+        <target>შენიშვნის ტიპი </target>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Select a note type from the drop-down menu and enter note text in accordance with RAD 1.8B1 through 1.8B6.</source>
+        <target> აირჩიეთ შენიშვნის ტიპი drop- down მენიუში და შეიყვანეთ შენიშვნის ტექსტი  Rad 1.8B1-ის შესაბამისად,1.8B6 მეშვეობით </target>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
+        <target> აირჩიეთ აღწერის დონე  drop-down მენიუში. იხილეთ Rad 1.0A -ს წესებისთვის  და კონვენციების შერჩევისთვის შესაბამისი აღწერის დონე </target>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Enter an unambiguous code used to uniquely identify the description.&lt;br/&gt;&lt;strong&gt;Level:&lt;/strong&gt; Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
+        <target>&lt;strong&gt;იდენტიფიკატორი:&lt;/strong&gt; შეიყვანეთ საარქივო მასალის იდენტიფიკატორი.&lt;br/&gt;&lt;strong&gt;დონე:&lt;/strong&gt; აირჩიეთ აღწერის დონე RAD 1.0-ის მიხედვით.&lt;br/&gt;&lt;strong&gt;დასახელება:&lt;/strong&gt; მიუთითეთ დასახელება. (RAD 1.1B)</target>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
+        <target>აირჩიეთ საცავი, რომელიც მეურვეობს და აკონტროლებს საარქივო მასალას.ფასეულობების ამ სფეროში წარმოდგენილია სახელის  საწყისი  ფორმა  საარქივო დაწესებულების ჩანაწერები.. ძიება ხდება  არსებული სახელის პირველი რამდენიმე ასოს აკრეფით. გარდა ამისა, აკრიფეთ ახალი სახელი, რომ  შეიქმნას ლინკი  ახალი საარქივო ინსტიტუტისთვის.</target>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Enter an unambiguous code used to uniquely identify the description.</source>
+        <target> შეიყვანეთ ცალსახა კოდი , რათა ცალსახად განსაზღვროს აღწერა</target>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>"Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
+        <target>"შეიყვანეთ ინფორმაცია გამომცემლობის შესახებ." (RAD 1.2B1) "იმ შემთხვევაში თუ არ მოიპოვება ინფორმაცია გამოცემის შესახებ მაგრამ ცნობილია მნიშვნელოვანი განსხვავება სხვა გამოცემებისაგან მაშინ მიუთით ეს ინფორმაცია იმავე ენით რაც სათაურშია." (RAD 1.2B3)</target>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
+        <target>"მიუთითეთ ინფორმაცია უფლებამოსილებათა შესახებ, რომელიც დაკავშირებულია რომელიმე გამოცემასთან, მაგრამ არა ყველასთან."" (RAD 1.2.C1) "პირველივე გამოცემის აღწერისას შეავსეთ უფლებამოსილებათა არის ყველა ველი." (RAD 1.2C2)</target>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Statement of responsibility relating to the edition</source>
+        <target>განცხადება პასუხისმგებლობისა დაკავშირებული გამომცემლობასთან,( ან გამოცემასთან)</target>
+      </trans-unit>
+      <trans-unit id="117">
+        <source>"Give the scale of the unit being described...as a representative fraction (RF) expressed as a ratio (1: ). Precede the ratio by Scale. Give the scale even if it is already recorded as part of the title proper or other title information." (RAD 5.3B1)</source>
+        <target>"შეიყვანეთ ინფორმაცია საარქივო მასალის ზომების შესახებ." (RAD 5.3B1)</target>
+      </trans-unit>
+      <trans-unit id="118">
+        <source>"Give the statement of projection if it is found on the prescribed source(s) of information." (RAD 5.3C1)</source>
+        <target>"შეიყვანეთ ინფორმაცია ნახაზების შესახებ თუკი ასეთი არსებობს საარქივო მასალაში." (RAD 5.3C1)</target>
+      </trans-unit>
+      <trans-unit id="119">
+        <source>"At the fonds, series or file levels, record coordinates for the maximum coverage provided by the materials in the unit, as long as they are reasonably contiguous." (RAD 5.3D)</source>
+        <target>"ფონდების, ანაწერების თუ საქმეების დონეზე მიუთითეთ კოორდინატები მაქსიმალური მოცვით რადგან ისინი შესაძლოა იყვნენ განგრძობითი." (RAD 5.3D)</target>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>"Give in English the scale in the units of measure found on the unit being described. If there is no English equivalent for the name of the unit of measure, give the name, within quotation marks, as found on the unit being described." (RAD 6.3B)</source>
+        <target>"მიუთითედ აღსაწერი საარქივო ერთეულის საზომი ერთეული." (RAD 6.3B)</target>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
+        <target>"მიუთითედ ოფიციალური პირი, რომელიც პასუხისმგებელია ფილატელისტური დოკუმენტების გამოქვეყნებაზე." (RAD 12.3B1) </target>
+      </trans-unit>
+      <trans-unit id="122">
+        <source>Add new name and/or date(s)</source>
+        <target>ახალი სახელის ან/და თარიღის(ების) დამატება</target>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
+        <target>"აღსაწერ საარქივო ერთეულს, ნებისმიერ დონეზე მიუთითეთ ფიზიკური დოკუმენტების ნომრები არაბული ციფრებით და მასალის სხვა სპეციალური მიმათითებელი ნიშნები იმ წესების მიხედვით, რომელიც გაწერილია აღსაწერი მასალის შესაბამის პუნქტებში." (RAD 1.5B1) აგრეთვე მიუთითეთ სხვა ფიზიკური დეტალები RAD 1.5C და 1.5D პუნქტებში განსაზღვრული წესების მიხედვით. სხვადასხვა ჩანაწერი გამოყავით ერთმანეთისაგან (მაგალითად "Enter" ღილაკის მეშვეობით).</target>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>"At the item level of description, transcribe a title proper of the publisher's series as instructed in 1.1B1." (RAD 1.6B)</source>
+        <target>"საქმის დონეზე აღწერისას მიუთითეთ გამომცემლის ანაწერში დაფიქსირებული დასახელება 1.1B1 პუნქტის მიხედვით." (RAD 1.6B)</target>
+      </trans-unit>
+      <trans-unit id="125">
+        <source>"Transcribe parallel titles of a publisher's series as instructed in 1.1D." (RAD 1.6C1)</source>
+        <target>"შეიყვანეთ მონაცემი გამომქვეყნებელის სერიების პარალელური დასახელებების შესახებ 1.1D-ის მიხედვით." (RAD 1.6C1)</target>
+      </trans-unit>
+      <trans-unit id="126">
+        <source>Parallel title of publisher's series</source>
+        <target>პარალელური სათაური გამომცემლის სერიის </target>
+      </trans-unit>
+      <trans-unit id="127">
+        <source>"Transcribe other title information of a publisher's series as instructed in 1.1E and only if considered necessary for identifying the publisher's series." (RAD 1.6D1)</source>
+        <target>"მიუთითეთ სხვა ინფორმაცია დასახელების გარშემო 1.1E-ის ინსტრუქტაჟის მიხედვით." (RAD 1.6D1)</target>
+      </trans-unit>
+      <trans-unit id="128">
+        <source>"Transcribe explicit statements of responsibility appearing in conjunction with a formal title proper of a publisher's series as instructed in 1.1F and only if considered necessary for identifying the publisher's series." (RAD 1.6E1)</source>
+        <target>"მიუთითეთ ზუსტი ინფორმაცია უფლებამოსილებათა გარშემო გამომცემლის მიხედვით 1.1F-ის ინსტრუქტაჟის თანახმად." (RAD 1.6E1)</target>
+      </trans-unit>
+      <trans-unit id="129">
+        <source>"Give the numbering of the item within a publisher's series in the terms given in the item." (RAD 1.6F1)</source>
+        <target>"შეიყვანეთ ინფორმაცია ნუმერაციის შესახებ." (RAD 1.6F1)</target>
+      </trans-unit>
+      <trans-unit id="130">
+        <source>"Make notes on important details of publisher's series that are not included in the Publisher's series area, including variant series titles, incomplete series, and of numbers or letters that imply a series." (RAD 1.8B10)</source>
+        <target>"მიუთითეთ ინფორმაცია გამომცემელთა სერიების შესახებ, მათ შორის სათაურები და სხვა." (RAD 1.8B10)</target>
+      </trans-unit>
+      <trans-unit id="131">
+        <source>Administrative history</source>
+        <target>ადმინისტრაციული ისტორია</target>
+      </trans-unit>
+      <trans-unit id="132">
+        <source>Biographical sketch</source>
+        <target>ბიოგრაფიული ესკიზი(სკეტჩი)</target>
+      </trans-unit>
+      <trans-unit id="133">
+        <source>Edit authority record</source>
+        <target>ავტორიტეტული ჩანაწერის დამატება </target>
+      </trans-unit>
+      <trans-unit id="134">
+        <source>"Give the history of the custody of the unit being described, i.e., the successive transfers of ownership and custody or control of the material, along with the dates thereof, insofar as it can be ascertained." (RAD 1.7C)</source>
+        <target>"შეიყვანეთ საარქივო მასალის საცავში დაცვის ისტორია დაწყებული მისი მფლობელიდან საცავში შემოტანიდან მისი ყოველგვარი ფიზიკური მიგრაციის და შესაბამისი თარიღების ჩათვლით." (RAD 1.7C)</target>
+      </trans-unit>
+      <trans-unit id="135">
+        <source>"At the fonds, series, and collection levels of description, and when necessary at the file and the item levels of description, indicate the level being described and give information about the scope and the internal structure of or arrangement of the records, and about their contents." (RAD 1.7D) "For the scope of the unit being described, give information about the functions and/or kinds of activities generating the records, the period of time, the subject matter, and the geographical area to which they pertain. For the content of the unit being described, give information about its internal structure by indicating its arrangement, organization, and/or enumerating its next lowest level of description. Summarize the principal documentary forms (e.g., reports, minutes, correspondence, drawings, speeches)." (RAD 1.7D1)</source>
+        <target>"ფონდების, ანაწერების და კოლექსიების დონეზე, და საჭიროების შემთხვევაში საქმეების დონეზე აღწერისას მიუთითეთ აღწერის დონე და საარქივო ერთეულის დამუშავების სტრუქტურა და შემადგენლობა." (RAD 1.7D) "შემადგენლობის მითითებისას შეიყვანეთ ინფორმაცია იმ ფუნქციებისა და აქტივობების შესახებ რომლებმაც განაპირობეს დოკუმენტების შექმნა. აგრეთვე მიუთითეთ შექმნის პერიოდი და გეოგრაფიული მონაცემები. აგრეთვე მიუთითედ დოკუმენტის ფორმა (მაგალითად ანგარიში, კორესპონდენცია, ნახაზები და ა.შ.)." (RAD 1.7D1)</target>
+      </trans-unit>
+      <trans-unit id="136">
+        <source>"Make notes on the physical condition of the unit being described if that condition materially affects the clarity or legibility of the records." (RAD 1.8B9a)</source>
+        <target>გააკეთეთ შენიშვნები, მიმდინარე აღწერილი ერთეულის ფიზიკურ ვითარებაზე. თუ ეს გარემოება მატერიალურად ახდენს გავლენას(მოქმედებს ) ჩანაწერის მკაფიოობაზე." (RAD 1.8B9a) </target>
+      </trans-unit>
+      <trans-unit id="137">
+        <source>"Record the donor or source (i.e., the immediate prior custodian) from whom the unit being described was acquired, and the date and method of acquisition, as well as the source/donor's relationship to the material, if any or all of this information is not confidential. If the source/donor is unknown, record that information." (RAD 1.8B12)</source>
+        <target>ჩაწერეთ დონორი ან წყარო საიდანაც აღწერილ ობიექტი იყო შეძენილი  და შეძენის თარიღი და მეთოდი, ისევე როგორც დონორის ურთიერთობა მასალასთან თუ რომელიმე ან ყველა ამ ინფორმაციათაგან არაა კონფიდენციალური (RAD 1.8B12)</target>
+      </trans-unit>
+      <trans-unit id="138">
+        <source>"Make notes on the arrangement of the unit being described which contribute significantly to its understanding but cannot be put in the Scope and content (see 1.7D), e.g., about reorganisation(s) by the creator, arrangement by the archivist, changes in the classification scheme, or reconstitution of original order." (RAD 1.8B13)</source>
+        <target>გააკეთეთ შენიშვნები მიმიდინარე აღწერის წესრიგში მოყვანაზე, რომელიც მრავალმნიშვნელოვნად უწყობს ხელს გაგებას(გაანალიზებას) მაგრამ ვერ იქნება მოთავსებული შინაარსში. (იხილეთ1.7D ),  რეორგანიზაციის შესახებ შემქმნელის მიერ, მოწესრიგების-არქივისტის მიერ, ცვლილებები კლასიფიკაციის სქემაში ან ორიგინალური წესრიგის რეკონსტიტუცია." (RAD 1.8B13) </target>
+      </trans-unit>
+      <trans-unit id="139">
+        <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target>"მიუთითეთ ერთი ან რამოდენიმე ენა თუ ის სხვაგან არ ყოფილა მითითებული." (RAD 1.8.B14)</target>
+      </trans-unit>
+      <trans-unit id="140">
+        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target>"შეიყვანეთ აბრევიატურები და სხვადასხვა გარკვეული სიმბოლოები რომელიც გამოყენებულია მასალაში." (RAD 1.8.B14) შრიფტის შესაძლო ვარიანტები აირჩიეთ ჩამოსაშლელ მენიუში.</target>
+      </trans-unit>
+      <trans-unit id="141">
+        <source>Language and script notes</source>
+        <target>ენა და ნაწერის შენიშვნები</target>
+      </trans-unit>
+      <trans-unit id="142">
+        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).</source>
+        <target>"მონიშნეთ ყველა სახის გამოყენებული აბრევიატურა თუ სიმბოლო." (RAD 1.8.B14)</target>
+      </trans-unit>
+      <trans-unit id="143">
+        <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
+        <target>"იმ შემთხვევაში თუ საარქივო მასალა, რომლის აღწერაც ხდება არის რეპროდუქცია, ასლი მაშინ მიუთითედ ინფორმაცია ორიგინალის არსებობის და მდებარეობის შესახებ." (RAD 1.8B15a)</target>
+      </trans-unit>
+      <trans-unit id="144">
+        <source>"If all or part of the unit being described is available (either in the institution or elsewhere) in another format(s), e.g., if the text being described is also available on microfilm; or if a film is also available on videocassette, make a note indicating the other format(s) in which the unit being described is available and its location, if that information is known. If only a part of the unit being described is available in another format(s), indicate which parts." (RAD 1.8B15b)</source>
+        <target>"თუ საარქივო მასალა, რომლის აღწერა ხდება, არსებობს სხვა ფორმატშიც (მაგალითად თუ ნაწილი საქმეებისა არის ტექსტური ხოლო ნაწილი მიკროფილმებზე) მიუთითედ ინფორმაცია მათ არსებობისა და მდებარეობის შესახებ." (RAD 1.8B15b)</target>
+      </trans-unit>
+      <trans-unit id="145">
+        <source>"Give information about any restrictions placed on access to the unit (or parts of the unit) being described." (RAD 1.8B16a)</source>
+        <target>"მიუთითეთ საარქივო ერთეულზე ან მის ნაწილზე არსებული შეზღუდვების შესახებ ინფორმაცია (ასეთის არსებობის შემთხვევაში)." (RAD 1.8B16a)</target>
+      </trans-unit>
+      <trans-unit id="146">
+        <source>"Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c)</source>
+        <target>"მითითედ ინფორმაცია იმ შეზღუდვების შესახებ, რომლებიც დადგენილია საკანონმდებლო ბაზაში ან თავად მომწოდებლის მიერ საარქივო მასალის გაცნობასა და გამოყენებაზე." (RAD 1.8B16c)</target>
+      </trans-unit>
+      <trans-unit id="147">
+        <source>"Give information regarding the existence of any finding aids. Include appropriate administrative and/or intellectual control tools over the material in existence at the time the unit is described, such as card catalogues, box lists, series lists, inventories, indexes, etc." (RAD 1.8B17)</source>
+        <target>"მიუთითედ ინფორმაცია რომელიმე საძიებო-მიმათითებელი საშუალების შესახებ. მათ შორის შესაძლოა იყოს თემატური კატალოგები, გზამკვლევები, ტოპოგრაფიული რუკები და ა.შ." (RAD 1.8B17)</target>
+      </trans-unit>
+      <trans-unit id="148">
+        <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
+        <target>დაკავშირებული მასალისთის , თუ ჩანაწერები სხვა დაწესებულებაში  დაკავშირებულია მიმდინარე აღწერასთან იმ ფაქტის საფუძველზე რომ აქვთ ერთნაირი წარმოშობა , ამოწმებს წარმოშობილ მასალას ფონდსთან სერიასთან ან თავმოყრილ  დონესთან ან ცალკეულ პუნქტთან ადგილის მითითებით თუ ცნობილია.(RAD 1.8B18) დაკავშირებული მასალისთვის „განსაზღვრავს ჩანაწერების ჯგუფებს რამდენიმე მნიშვნელოვანი უღტიერთობის ქონა საერთო პასუხისმგებლობის მიზეზთან ან საერთო საქმიანობის სფეროსთან გარეგანი მასალის ერთი ან მეტი ერთეული რომელიც აღწერილია "(RAD 1.8B20) </target>
+      </trans-unit>
+      <trans-unit id="149">
+        <source>Associated/related material</source>
+        <target>დაკავშირებული/ასოციაციური მასალა</target>
+      </trans-unit>
+      <trans-unit id="150">
+        <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
+        <target>"მიუთითეთ ინფორმაცია დახულია თუ არა საარქივო მასალა, ანუ მოსალოდნელია თუ არა მისი სევსება." (RAD 1.8B19)</target>
+      </trans-unit>
+      <trans-unit id="151">
+        <source>Select a note type from the drop-down menu and enter note text in accordance with the following sections in RAD: 1.5E (Accompanying material); 1.8 B11 (Alpha-numeric designations); 1.8B9b (Conservation); 1.8B7 (Edition); 1.8B9 (Physical Description); 1.8B16b (Rights); 1.8B21 (General note).</source>
+        <target>/&gt; აირჩიეთ შენიშვნის ტიპი drop- down მენიუში და შეიყვანეთ შენიშვნის ტექსტი  RAD: 1.5E -ის შესაბამისად (თანმხლები მასალა);1.8 B11(Alpha-ნუმერაციის აღნიშვნა);1.8B9b  (კონსერვაცია);1.8B7(გამოქვეყნება, გამოცემა);1.8B9(ფიზიკური აღწერა); 1.8B16b(უფლებები);1.8B21(ზოგადი შენიშვნა)</target>
+      </trans-unit>
+      <trans-unit id="152">
+        <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
+        <target>"მიუთიეთ ინფორმაცია საარქივო ერთეულის ისეთ საერთაშორისო სტანდარებით მაიდენტიფიცირებელ კოდზე როგორიცაა International Standard Book Number (ISBN), International Standard Serial Number (ISSN) და სხვა." (RAD 1.9B1)</target>
+      </trans-unit>
+      <trans-unit id="153">
+        <source>Subject access points</source>
+        <target>სუბიექტის წვდომის წერტილები</target>
+      </trans-unit>
+      <trans-unit id="154">
+        <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
+        <target>/&gt;არსებული ტერმინის ძებნა სუბიექტის  ტაქსონომში ტერმინის  პირველი რამდენიმე სიმბოლოს აკრეფით. ალტერნატიულად, აკრიფეთ ახალი ტერმინი რომ შეიქმნას და დაუკავშირდეს ახალი სუბიექტის ტერმინს.</target>
+      </trans-unit>
+      <trans-unit id="155">
+        <source>Place access points</source>
+        <target> დამატებული პუნქტების ადგილი </target>
+      </trans-unit>
+      <trans-unit id="156">
+        <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
+        <target>არსებული ტერმინის ძებნა ადგილის ტაქსონომში ტერმინის სახელის პირველი რამდენიმე სიმბოლოს აკრეფით. ალტერნატიულად, აკრიფეთ ახალი ტერმინი რომ შეიქმნას და დაუკავშირდეს ახალი ადგილის ტერმინს.</target>
+      </trans-unit>
+      <trans-unit id="157">
+        <source>Name access points (subjects)</source>
+        <target>სახელის წვდომის წერტილები (სუბიექტები)</target>
+      </trans-unit>
+      <trans-unit id="158">
+        <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target>"შეძლებისდაგვარად მიუთითედ ინფორმაცია დოკუმენტის წარმოშობის, ავტორის და სხვა საძიებო ინდექსების შესახებ. ყველა მითითებული საძიებო ინდექსი ნათლად უნდა უკავშირდებოდეს იმ მასალას, რომლის აღწერასაც ის ეხება." (RAD 21.0B) მოცემულ ველში მიეთითება მონაცემი კერძო თუ ფიზიკური პირების ჩანაწერებიდან. აირჩიეთ საჭირო ფიზიკური თუ იურიდიული პირი პირველივე სიმბოლოების აკრეფისთანავე ან შეიყვანეთ ახალი ჩანაწერი, რომელიც პარალელურად დაემატება არსებულ პირთა ჩამონათვალს.</target>
+      </trans-unit>
+      <trans-unit id="159">
+        <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
+        <target> ჩაიწერეთ უნიკალური აღწერის იდენტიფიკატორი ადგილობრივი ან/და ეროვნული ცონვენციების შესაბამისად თუ აღწერა გამოყენებულ უნდა იქნეს საერთაშორისოდ, ჩაწერეთ ქვეყნის კოდი, რომელშიც აღწერა შეიქმნა უახლესი ISO 3166 ვერსიის შესაბამისად კოდები წარმოდგენილი ქვეყნები სახელებისთვის. სადაც აღწერის შემქმნელი საერთაშორისო ორგანიზაციაა, ჩაწერეთ საორგანიზაციო ინდიფიკატორი ქვეყნის კოდის ადგილზე.</target>
+      </trans-unit>
+      <trans-unit id="160">
+        <source>Description identifier</source>
+        <target>აღწერის იდენტიფიკატორი, ან იდენტოფიკატორის აღწერა</target>
+      </trans-unit>
+      <trans-unit id="161">
+        <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
+        <target>ჩაწერეთ სახელის(ების) სრული ავტორიზებული ფორმა დაწესებულების(ების) პასუხისმგებლობის შესაქმნელად,აღწერის  სახეცვლილებისთვის,  მიმოფანტვისთვის , ან ალტერნატიულად ჩაწერეთ კოდი ორგანიზაციისთვის,  ეროვნული ან საერთაშორისო ორგანიზაციის ცოდის სტანდარტის შესაბამისად. </target>
+      </trans-unit>
+      <trans-unit id="162">
+        <source>Record the international, national and/or local rules or conventions followed in preparing the description.</source>
+        <target>ჩაწერეთ საერთაშორისო, ეროვნული, ან/და ადგილობრივი წესები ან კონვენციები რომელიც მოყვა აღწერის მომზადებას </target>
+      </trans-unit>
+      <trans-unit id="163">
+        <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
+        <target>ჩაწერეთ აღწერის მიმდინარე სტატუსი , რაც მიუთითებს არის თუ არა დრაფტი დასრულდა შესწორდა თუ წაიშალა </target>
+      </trans-unit>
+      <trans-unit id="164">
+        <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
+        <target>ჩაწერს თუ არა აღწერას შედგება მინიმალური,ნაწილობრივი ან სრულ დეტალების დონეზე, თანახმად შესაბამისი საერთაშორისო სახელმძღვანელოებისა და/ან  წესებისა.</target>
+      </trans-unit>
+      <trans-unit id="165">
+        <source>Record the date(s) the entry was prepared and/or revised.</source>
+        <target>ჩაწერეთ შესვლის  ვადები  მომზადდა და/ან შესწორდა</target>
+      </trans-unit>
+      <trans-unit id="166">
+        <source>Indicate the language(s) used to create the description of the archival material.</source>
+        <target>მიუთითეთ  საარქივო მასალის აღწერის შესაქმნელად გამოყენებული ენა(ები) </target>
+      </trans-unit>
+      <trans-unit id="167">
+        <source>Language</source>
+        <target>ენა </target>
+      </trans-unit>
+      <trans-unit id="168">
+        <source>Indicate the script(s) used to create the description of the archival material.</source>
+        <target>მიუთითეთ  საარქივო მასალის აღწერის შესაქმნელად გამოყენებული ნაწერი(აბი)</target>
+      </trans-unit>
+      <trans-unit id="169">
+        <source>Script</source>
+        <target>ნაწერი (ხელნაწერი)</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

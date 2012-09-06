@@ -1,0 +1,9 @@
+browseSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
+
+listSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:

@@ -1,0 +1,462 @@
+/* Color palette
+ *
+ * LightGrey (non-standard css color): #D3D3D3
+ */
+
+.actions,
+.column.sidebar,
+.itemsPerPage,
+.no-print,
+.pager,
+.section.search,
+.section.browse,
+.element-invisible,
+div.messages,
+h1,
+#footer,
+#header,
+#navigation,
+#preview-message,
+#sfWebDebug,
+#page-wrapper #page #main-wrapper #main #sidebar-first,
+#action-icons
+{
+  /* Hide */
+
+  display: none;
+}
+
+/* Hide description "areas" */
+#content .section .section > a, /* logged in */
+#content .section .section > span /* logged out */
+{
+  display: none;
+}
+
+@page
+{
+  font-size: 9pt;
+
+  @bottom
+  {
+    content: string(site-name);
+  }
+
+  @top
+  {
+    content: string(label);
+  }
+}
+
+html,
+body
+{
+  color: black;
+  background-color: #fff;
+  background-image: none;
+  margin: 0;
+  width: auto;
+}
+
+body,
+input,
+textarea,
+select
+{
+  font: 12pt/14pt "Times New Roman", serif;
+}
+
+body.index #content .section > .field
+{
+  overflow: visible;
+  text-align: justify;
+  margin-top: 1em;
+  border: none;
+}
+
+body.index #content .section .field > h3
+{
+  color: black;
+  float: none;
+  text-align: left;
+  font: inherit;
+  font-weight: bold;
+  padding: 2px 0;
+  margin-bottom: 0;
+  width: auto;
+  border-right: none;
+}
+
+body.index #content .section > .field > div
+{
+  float: none;
+  margin: 0;
+  padding: 2px 4px;
+}
+
+body.index #content .section .field .field
+{
+  margin-top: 16px;
+  padding: 0;
+}
+
+body.index #content .section .field .field h3
+{
+  line-height: normal;
+  padding: 2px 0;
+  margin: 0;
+}
+
+body.index #content .section .field .field div
+{
+  padding: 2px 0;
+}
+
+body.index #content .section .section
+{
+  margin: auto;
+  margin-top: 18px;
+  min-width: 8in;
+}
+
+a:link,
+a:visited
+{
+  text-decoration: underline;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+{
+  page-break-after: avoid;
+  color: black;
+}
+
+h1
+{
+  prince-bookmark-level: none;
+  font: bold 12pt/14pt Lucida Grande, Verdana, sans-serif;
+  text-align: left;
+  padding: 2px 4px;
+  letter-spacing: normal;
+}
+
+/* DO print this h1 */
+h1.do-print
+{
+  display: block;
+}
+
+h1.label
+{
+  color: black;
+  font-size: 14pt;
+  display: block;
+  margin: auto;
+}
+
+h1 + h1.label
+{
+  margin-top: 0;
+}
+
+/* Show 'Part of' for context in archival descriptions */
+h1.part-of
+{
+  display: block;
+  font: inherit;
+  margin-top: 2px;
+}
+
+h1.small
+{
+  /* Reset Trillium values */
+
+  font-size: 12pt;
+  line-height: normal;
+  margin-bottom: inherit;
+}
+
+h2,
+.search #content h2
+{
+  font: bold 12pt/14pt Lucida Grande, Verdana, sans-serif;
+  text-align: left;
+  padding: 2px 4px;
+}
+
+ul, li.leaf
+{
+  list-style-image: none;
+}
+
+ul,
+.block ul,
+.field ul,
+ol,
+.block ol,
+.field ol
+{
+  margin: 0;
+  margin-left: 1em;
+  padding: 0;
+}
+
+ol li,
+ul li,
+ul.menu li,
+.item-list ul li,
+ul li,
+li.leaf
+{
+  /* Reset */
+  margin: 0;
+}
+
+li
+{
+  /* Reset (Trillium) */
+
+  color: inherit;
+  line-height: normal;
+}
+
+table
+{
+  /* Reset (Trillium) */
+
+  font-size: inherit;
+  border: 0;
+  margin: 16px 0;
+  border-collapse: collapse;
+}
+
+.odd,
+tr.info
+{
+  /* Reset */
+
+  background-color: #FFF;
+}
+
+tr.even,
+tr.odd
+{
+  /* Reset */
+
+  border-bottom: 1px solid #D3D3D3;
+}
+
+tr:hover,
+.zebra-striped tbody tr:hover td,
+#content tbody tr:hover
+{
+  background: none;
+}
+
+tr
+{
+  border-bottom: 1px #D3D3D3 solid;
+}
+
+thead th
+{
+  text-align: left;
+  vertical-align: bottom;
+  border: 0;
+  border-bottom: medium solid;
+}
+
+thead th,
+.field > h3,
+.label,
+.sidebar > .section > div > h2,
+.sidebar > .section > div > h3
+{
+  background: transparent;
+}
+
+table th,
+table td
+{
+  /* Reset (Trillium) */
+
+  line-height: normal;
+  padding: 2px 4px;
+}
+
+table td
+{
+  vertical-align: top;
+}
+
+.field .field
+{
+  margin-bottom: 0;
+}
+
+.label
+{
+  string-set: label content();
+}
+
+.resource-hierarchy ul
+{
+  margin-top: 1.5em;
+  margin-left: 0;
+  list-style-type: none;
+}
+
+.resource-hierarchy ul li
+{
+  padding: 2px 4px;
+  margin: 0;
+}
+
+.resource-hierarchy ul h3
+{
+  line-height: normal;
+  margin: 0;
+}
+
+.result-count
+{
+  text-align: center;
+  color: #D3D3D3;
+}
+
+.row-number
+{
+  color: #D3D3D3;
+}
+
+.search-results
+{
+  margin: 0;
+  padding: 0 0 2px 0;
+  border-top: 1px solid #D3D3D3;
+  border-bottom: 0 none;
+  page-break-inside: avoid;
+}
+
+.search-results a,
+.search-results a:hover,
+.search-results a:visited
+{
+  text-decoration: none;
+  color: black;
+}
+
+.search #content .search-results > a > img
+{
+    background-color: white;
+    box-shadow: none;
+    float: right;
+    margin: 0 0 10px 10px;
+}
+
+.search-results .field
+{
+  padding: 0 4px;
+  margin-left: 0;
+}
+
+.search-results .field h3
+{
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  display: inline;
+}
+
+.search-results .field h3:after
+{
+  content: ":";
+}
+
+.search-results .field > div
+{
+  margin-left: 0;
+  padding: 0;
+  display: inline;
+}
+
+.search-results h2
+{
+  border-bottom: 0 none;
+  margin: 0;
+}
+
+#search-stats
+{
+  padding: 2px 4px;
+}
+
+body.search.advanced #content .section .search-terms
+{
+  padding: 2px 4px;
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+#page,
+#page-wrapper
+{
+  /* Header hidden */
+
+  margin: 0;
+  padding: 0;
+
+  /* Reset */
+
+  width: auto;
+}
+
+#page-wrapper #page #main-wrapper,
+#page-wrapper #page #main-wrapper #main #content
+{
+  /* Reset */
+
+  margin: 0;
+  width: auto;
+}
+
+#content
+{
+  width: 100%;
+}
+
+#print-date
+{
+  padding: 2px 4px;
+  float: right;
+  display: block;
+}
+
+#result-count
+{
+  text-align: center;
+  color: #D3D3D3;
+}
+
+#main
+{
+  /* Reset */
+  margin: 0;
+  width: auto;
+}
+
+#site-name
+{
+  string-set: site-name content();
+}
+
+table.item-list img
+{
+  float: left;
+  margin: 2px 4px;
+}

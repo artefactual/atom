@@ -1,0 +1,346 @@
+#header {
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow: visible;
+
+  > div {
+
+    > #first-level {
+
+      height: 30px;
+      background: #222;
+      #gradient > .vertical(#222, #444);
+      @shadow: 0 1px 3px rgba(0,0,0,.25), inset 0 -1px 0 rgba(0,0,0,.1);
+      .box-shadow(@shadow);
+
+    }
+
+    > #second-level {
+
+      height: 72px;
+      #gradient > .vertical(#fff, #f4f4f4);
+      @shadow: 0 1px 3px rgba(0,0,0,.25), inset 0 -1px 0 rgba(0,0,0,.1);
+      .box-shadow(@shadow);
+      border-bottom: 1px solid #666;
+
+      > div {
+
+        .clearfix();
+
+        #logo-and-name {
+
+          * {
+
+            margin: 0;
+            padding: 0;
+            border: 0;
+
+          }
+
+          h1 {
+
+            line-height: 1.1em;
+            font-size: 24px;
+
+            a {
+
+              color: @trilliumGreen;
+              text-shadow: 1px 1px 1px #999;
+
+            }
+
+          }
+
+          img {
+
+            margin-right: 12px;
+
+          }
+
+          > table {
+
+            width: 280px;
+            height: 72px;
+            float: left;
+
+            td {
+
+              vertical-align: middle;
+
+            }
+
+          }
+
+        }
+
+        .search {
+
+          float: left;
+          margin: 20px 0 0 40px;
+
+          .content > div {
+
+            float: right;
+            font-size: 11px;
+
+          }
+
+          form {
+
+            margin: 0;
+
+            input[name="query"] {
+
+              background-color: #fff;
+              #font > .sans-serif(normal, 14px, 1);
+              width: 480px;
+              padding: 6px 9px;
+              color: @gray;
+              border: 1px solid @grayLight;
+              .border-radius(4px);
+              @shadow: inset 0 1px 2px rgba(0,0,0,.1), 0 1px 0px rgba(255,255,255,.25);
+              .box-shadow(@shadow);
+              .transition(none);
+
+              display: block;
+              float: left;
+
+              &:-moz-placeholder {
+
+                color: @grayLighter;
+
+              }
+
+              &::-webkit-input-placeholder {
+
+                color: @grayLighter;
+
+              }
+
+
+              &:hover {
+
+                background-color: #f0f0f0;
+
+              }
+
+              &:focus,
+              &.focused {
+
+                outline: none;
+                background-color: #f0f0f0;
+                color: @grayDark;
+
+              }
+
+            }
+
+            input[type=submit] {
+
+              margin: 0px 0 0 10px;
+              padding: 0 20px;
+              display: block;
+              float: left;
+              border: 1px solid #333;
+              /* #gradient > .horizontal(#00b500, #00b500); */
+              background-color: #008800;
+              background-image: url(../../../sfCaribouPlugin/images/search.png);
+              background-repeat: no-repeat;
+              background-position: 50% 50%;
+              .border-radius(4px);
+              font-size: 0px;
+              height: 30px;
+              width: 26px;
+
+              &:hover {
+
+                #gradient > .horizontal(darken(#4d90fe, 5%), darken(#4787ed, 5%));
+                background-image: url(../../../sfCaribouPlugin/images/search.png);
+                background-repeat: no-repeat;
+                background-position: 50% 50%;
+
+              }
+
+            }
+
+            .advanced-search {
+
+              float: right;
+              clear: left;
+              font-size: 11px;
+              line-height: @baseline;
+              margin-right: 54px;
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  /*
+   * Header menu
+   */
+
+  ul {
+
+    display: block;
+    float: left;
+    margin: 0 0 0 0;
+    position: relative;
+
+    &#options-menu {
+
+      float: right;
+
+      > li > ul {
+
+        right: 0;
+
+      }
+
+    }
+
+    li {
+
+      display: block;
+      float: left;
+      font-size: 13px;
+
+      a {
+
+        display: block;
+        float: none;
+        padding: 5px 10px 6px;
+        line-height: 19px;
+        text-decoration: none;
+        color: @grayLight;
+        text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+
+        &:hover {
+
+          text-decoration: none;
+          background-color: #333;
+          background-color: rgba(255,255,255,.05);
+          color: @white;
+
+        }
+
+        &.active {
+
+          background-color: #222;
+          background-color: rgba(0,0,0,.5);
+
+        }
+
+      }
+
+      &.menu {
+
+        position: relative;
+
+        > a {
+
+          background: transparent url(../../../../images/down.gif) no-repeat 100% 50%;
+          border-right: 8px solid transparent;
+          padding-right: 16px;
+
+          &:hover {
+
+            background-color: #333;
+            background-color: rgba(255,255,255,.05);
+
+          }
+
+        }
+
+      }
+
+      &.open {
+
+        a.menu,
+        a:hover {
+
+          background-color: #444;
+          background-color: rgba(255,255,255,.1);
+          color: #fff;
+
+        }
+
+        ul {
+
+          display: block;
+
+        }
+
+      }
+
+      ul {
+
+        background-color: #333;
+        float: left;
+        display: none;
+        position: absolute;
+        z-index: 1;
+        top: 30px;
+        min-width: 160px;
+        max-width: 220px;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding: 0;
+        text-align: left;
+        border: 0;
+        zoom: 1;
+        .border-radius(0 0 5px 5px);
+        .box-shadow(0 1px 2px rgba(0,0,0,0.6));
+
+        li {
+
+          float: none;
+          clear: both;
+          display: block;
+          background: none;
+          font-size: 12px;
+
+          > ul {
+
+            display: none !important;
+
+          }
+
+          a {
+
+            display: block;
+            padding: 6px 15px;
+            clear: both;
+            font-weight: normal;
+            line-height: 19px;
+            color: #bbb;
+
+            &:hover {
+
+              background-color: #333;
+              background-color: rgba(255,255,255,.25);
+              color: #fff;
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}

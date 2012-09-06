@@ -1,0 +1,14 @@
+all:
+  .settings:
+    IdentifyAllowed:               [verb]
+    IdentifyMandatory:             []
+    ListIdentifiersAllowed:        [verb, metadataPrefix, from, until, set, resumptionToken]
+    ListIdentifiersMandatory:      [metadataPrefix]
+    GetRecordAllowed:              [verb, identifier, metadataPrefix]
+    GetRecordMandatory:            [identifier, metadataPrefix]
+    ListMetadataFormatsAllowed:    [verb, identifier]
+    ListMetadataFormatsMandatory:  []
+    ListRecordsAllowed:            [verb, metadataPrefix, from, until, set, resumptionToken]
+    ListRecordsMandatory:          [metadataPrefix]
+    ListSetsAllowed:               [verb, resumptionToken]
+    ListSetsMandatory:             []

@@ -1,0 +1,64 @@
+<?php
+
+/*
+ * This file is part of Qubit Toolkit.
+ *
+ * Qubit Toolkit is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Qubit Toolkit is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+class EventIndexAction extends sfAction
+{
+  public function execute($request)
+  {
+    $this->resource = $this->getRoute()->resource;
+
+    $value = array();
+
+    if (isset($this->resource->actor))
+    {
+      $value['actor'] = $this->context->routing->generate(null, array($this->resource->actor, 'module' => 'actor'));
+    }
+
+    if (isset($this->resource->date))
+    {
+      $value['date'] = $this->resource->date;
+    }
+
+    $value['endDate'] = Qubit::renderDate($this->resource->endDate);
+    $value['startDate'] = Qubit::renderDate($this->resource->startDate);
+
+    if (isset($this->resource->description))
+    {
+      $value['description'] = $this->resource->description;
+    }
+
+    if (isset($this->resource->informationObject))
+    {
+      $value['informationObject'] = $this->context->routing->generate(null, array($this->resource->informationObject, 'module' => 'informationobject'));
+    }
+
+    $place = $this->resource->getPlace();
+    if (isset($place))
+    {
+      $value['place'] = $this->context->routing->generate(null, array($place, 'module' => 'term'));
+    }
+
+    if (isset($this->resource->type))
+    {
+      $value['type'] = $this->context->routing->generate(null, array($this->resource->type, 'module' => 'term'));
+    }
+
+    return $this->renderText(json_encode($value));
+  }
+}

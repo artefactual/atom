@@ -1,0 +1,11 @@
+delete:
+  credentials: administrator
+  is_secure: true
+
+edit:
+  credentials: [[ administrator, translator ]]
+  is_secure: true
+
+list:
+  credentials: [[ administrator, translator ]]
+  is_secure: true

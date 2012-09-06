@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2012-08-15T12:05:58Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Are you sure you want to delete %1%?</source>
+        <target>Apakah anda yakin akan menghapus %1%?</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Actions</source>
+        <target>Tindakan</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Cancel</source>
+        <target>Batal</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Confirm</source>
+        <target>Konfirmasi</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>All %1%</source>
+        <target>Semua %1%</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Action</source>
+        <target>Tindakan</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Permission</source>
+        <target>Perijinan</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Grant</source>
+        <target>Ijinkan</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Deny</source>
+        <target>Larang</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Inherit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Groups ACL</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>View permissions</source>
+        <target>Perlihatkan Perijinan</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Edit group</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>%1%: %2%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>All privileges</source>
+        <target>Semua Hak Istimewa</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Permissions for all %1%</source>
+        <target>Perijinan untuk semua %1%</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Permissions by taxonomy</source>
+        <target>Perijinan Taksonomi</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Permissions</source>
+        <target>Perijinan</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Taxonomy name</source>
+        <target>Nama Taksonomi</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Add permissions by taxonomy</source>
+        <target>Tambahkan izin berdasar Taksonomi</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Add taxonomy</source>
+        <target>Tambahkan Taksonomi</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Save</source>
+        <target>Simpan</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>View group</source>
+        <target>Perlihatkan Group</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Name</source>
+        <target>Nama</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Description</source>
+        <target>Deskripsi</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Translate</source>
+        <target>Terjemah</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Edit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Delete</source>
+        <target>Hapus</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Add new</source>
+        <target>Tambah baru</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Add new group</source>
+        <target>Tambahkan Grup</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Create</source>
+        <target>Ciptakan</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>List groups</source>
+        <target>Daftar Group</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Group</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Members</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Add %1%</source>
+        <target>Tambah %1%</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>%1% name</source>
+        <target>%1% nama</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Sorry, this group is locked and cannot be deleted</source>
+        <target>Maaf, Grup ini dikunci dan tidak dapat dihapus</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>This group is required by the application to operate correctly</source>
+        <target>Group ini diperlukan oleh aplikasi agar dapat mengoperasikannya dengan baik</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Back to previous page</source>
+        <target>kembali ke halaman sebelumnya</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Edit %1% permissions</source>
+        <target>Edit %1% kewenangan</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Permissions by %1%</source>
+        <target>Perijinan dengan %1%</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Add permissions by %1%</source>
+        <target>Tambahkan Izin</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Taxonomy: %1%</source>
+        <target>Taksonomi: %1%</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

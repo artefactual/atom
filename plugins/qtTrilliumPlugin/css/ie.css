@@ -1,0 +1,8 @@
+html.js fieldset.collapsible legend { margin-bottom: 10px; }
+html.js fieldset.collapsed legend { margin-bottom: 0px; }
+
+#header > div > #second-level > div .search form input[name=query],
+.sidebar .search input[name=query],
+#content .search input[name=subquery] { height: 30px; }
+
+#header a { outline: none !important; }

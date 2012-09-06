@@ -1,0 +1,19 @@
+/* $Id: ie6.css 5047 2010-01-27 01:19:02Z jablko $ */
+
+ul.menu li,
+ul.menu li a,
+ul.links li,
+ul.links li a,
+#page {
+  height: 1%;
+}
+
+#block-system-main ul.node-type-list li a, #block-system-main ul.admin-list li a {
+  height: 1px;
+  position: relative;
+  display: block;
+}
+
+#block-system-main ul.node-type-list li div.description a, #block-system-main ul.admin-list li div.description a {
+  display: inline;
+}

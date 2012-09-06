@@ -1,0 +1,35 @@
+generator:
+  class:              xfGeneratorInterface
+  param:
+    index_class:      TestSearch
+
+#    simple:                                 # configuration for the simple interface
+#      controls:                             # when search controls are displayed
+#        title: Search                       # title for search controls
+#        heading: Search                     # heading for search controls
+#
+#      results:                              # when search results are displayed
+#        title: |                            # title for search results
+#         Results %start_pos% to %end_pos%
+#        heading: Search Results             # heading for search controls
+#        per_page: 10                        # how many results per page
+#        pager_links: 5                      # how many pager links to display
+#
+#      no_results:                           # when no results are found
+#        title: No Search Results            # title for no results found
+#        heading: No Results Results         # heading for no results found
+#
+#      form:                                 # the form to use
+#        class: xfSimpleForm                 # the form class (must inherit xfForm)
+#
+#      services:                             # special service definitions
+#        default:                            # if service name does not match any of these
+#          title: getTitle                   # default title retort
+#          description: getDescription       # default description retort
+#          route: getRoute                   # default route retort
+#
+#       propel-User:                         # add other services like so
+#         title: getUsername
+#         description: getShoutout
+#         route: getProfileRoute
+

@@ -1,0 +1,39 @@
+= Introduction =
+Searching is complicated!  There are too many variables to easily create a search engine, index all your content, and then display accurate results to your users.  If not maintained properly, a search index can quickly get out dated and start returning old results.  Slight spelling variations can also confuse your search engine and create radically different results for two nearly identical queries.  And accomplishing all of this while maintaining optimal performance can be quite a daunting task! Introducing sfSearch.
+
+sfSearch makes integrating a search engine into your web-application quick and easy.  It simplifies the indexing process with a centralized place to configure how to index your data.  It provides powerful backend engines to return useful search results.  Its search engine abstraction layer (SEAL) allows you to scale the search engine depending on your requirements.
+
+== Featueres ==
+  * Flexible and extensible to allow for almost every use-case.
+  * Built directly into sfSearch is a search engine abstraction layer, allowing the backend engine to be swapped out at any time with miminal code changes.
+  * Every class, every method, and every line of code is unit tested to produce working and well documented code.
+  * Integrated with symfony to produce seamless search results
+  * Miminal coupling with symfony allows integrating with non-symfony applications.
+
+== Requirements ==
+sfSearch has very few requirements:
+
+  * PHP 5.2 or better
+  * symfony 1.1
+
+== Installation ==
+sfSearch is currently only available from symfony's Subversion repository:
+
+  * Change directory to your symfony project root:
+{{{
+cd /path/to/symfony/project
+}}}
+  * Checkout sfSearch:
+{{{
+svn co http://svn.symfony-project.com/plugins/sfSearchPlugin/trunk/core plugins/sfSearchPlugin
+}}}
+  * Clear symfony's internal cache:
+{{{
+./symfony cache:clear
+}}}
+
+== Development Status ==
+sfSearch is pre-alpha software and is rapidly changing.  As a result, sfSearch may not be suitable for a critical production environment at this time. 
+
+== License ==
+sfSearch is released under the MIT License and is free, open source software. By using sfSearch, you agree to the terms in the {{{ LICENSE }}} file included in the sfSearch package.

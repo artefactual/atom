@@ -1,0 +1,142 @@
+<?php
+// $Id: registry.test,v 1.16 2009/08/24 00:14:21 webchick Exp $
+
+class RegistryParseFileTestCase extends DrupalWebTestCase {
+  public static function getInfo() {
+    return array(
+      'name' => 'Registry parse file test',
+      'description' => 'Parse a simple file and check that its resources are saved to the database.',
+      'group' => 'System'
+    );
+  }
+
+  function setUp() {
+    $this->fileName = 'registry_test_' . md5(rand());
+    $this->className = 'registry_test_class' . md5(rand());
+    $this->interfaceName = 'registry_test_interface' . md5(rand());
+    parent::setUp();
+  }
+
+  /**
+   * testRegistryParseFile
+   */
+  function testRegistryParseFile() {
+    _registry_parse_file($this->fileName, $this->getFileContents());
+    foreach (array('className', 'interfaceName') as $resource) {
+      $foundName = db_query('SELECT name FROM {registry} WHERE name = :name', array(':name' => $this->$resource))->fetchField();
+      $this->assertTrue($this->$resource == $foundName, t('Resource "@resource" found.', array('@resource' => $this->$resource)));
+    }
+  }
+
+  /**
+   * getFileContents
+   */
+  function getFileContents() {
+    $file_contents = <<<CONTENTS
+<?php
+
+class {$this->className} {}
+
+interface {$this->interfaceName} {}
+
+CONTENTS;
+    return $file_contents;
+  }
+
+}
+
+class RegistryParseFilesTestCase extends DrupalWebTestCase {
+  protected $fileTypes = array('new', 'existing_changed');
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Registry parse files test',
+      'description' => 'Read two a simple files from disc, and check that their resources are saved to the database.',
+      'group' => 'System'
+    );
+  }
+
+  function setUp() {
+    parent::setUp();
+    // Create files with some php to parse - one 'new', one 'existing' so
+    // we test all the important code paths in _registry_parse_files.
+    foreach ($this->fileTypes as $fileType) {
+      $this->$fileType = new stdClass();
+      $this->$fileType->fileName = file_directory_path() . '/registry_test_' . md5(rand());
+      $this->$fileType->className = 'registry_test_class' . md5(rand());
+      $this->$fileType->interfaceName = 'registry_test_interface' . md5(rand());
+      $this->$fileType->contents = $this->getFileContents($fileType);
+      file_save_data($this->$fileType->contents, $this->$fileType->fileName);
+
+      if ($fileType == 'existing_changed') {
+        db_insert('registry_file')
+          ->fields(array(
+            'filectime' => rand(1, 1000000),
+            'filemtime' => rand(1, 1000000),
+            'filename' => $this->$fileType->fileName,
+          ))
+          ->execute();
+
+        // Insert some fake resource records.
+        foreach (array('class', 'interface') as $type) {
+          db_insert('registry')
+            ->fields(array(
+              'name' => $type . md5(rand()),
+              'type' => $type,
+              'filename' => $this->$fileType->fileName,
+            ))
+            ->execute();
+        }
+      }
+    }
+  }
+
+  /**
+   * testRegistryParseFiles
+   */
+  function testRegistryParseFiles() {
+    _registry_parse_files($this->getFiles());
+    foreach ($this->fileTypes as $fileType) {
+      // Test that we have all the right resources.
+      foreach (array('className', 'interfaceName') as $resource) {
+        $foundName = db_query('SELECT name FROM {registry} WHERE name = :name', array(':name' => $this->$fileType->$resource))->fetchField();
+        $this->assertTrue($this->$fileType->$resource == $foundName, t('Resource "@resource" found.', array('@resource' => $this->$fileType->$resource)));
+      }
+      // Test that we have the right file creation and modification dates.
+      $dates = db_query('SELECT filectime, filemtime FROM {registry_file} WHERE filename = :filename', array(':filename' => $this->$fileType->fileName))->fetchObject();
+      $this->assertEqual($dates->filectime, filectime($this->$fileType->fileName), t('File creation date matches for %filename.', array('%filename' => $this->$fileType->fileName)));
+      $this->assertEqual($dates->filemtime, filemtime($this->$fileType->fileName), t('File modification date matches for %filename.', array('%filename' => $this->$fileType->fileName)));
+    }
+  }
+
+  /**
+   * getFiles
+   */
+  function getFiles() {
+    $files = array();
+    foreach ($this->fileTypes as $fileType) {
+      $files[$this->$fileType->fileName] = array('module' => '', 'weight' => 0);
+      if ($fileType == 'existing_changed') {
+        $files[$this->$fileType->fileName]['filectime'] = rand(1, 1000000);
+        $files[$this->$fileType->fileName]['filemtime'] = rand(1, 1000000);
+      }
+    }
+    return $files;
+  }
+
+  /**
+   * getFileContents
+   */
+  function getFileContents($fileType) {
+    $file_contents = <<<CONTENTS
+<?php
+
+class {$this->$fileType->className} {}
+
+interface {$this->$fileType->interfaceName} {}
+
+CONTENTS;
+    return $file_contents;
+  }
+
+}

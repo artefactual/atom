@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="th" datatype="plaintext" original="messages" date="2012-08-15T12:06:02Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new archival description</source>
+        <target>เพิ่มคําอธิบายจดหมายเหตุใหม่</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>ไม่ระบุชื่อเรื่อง</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>แก้ไข%1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>"Give the date(s) of creation of the unit being described either as a single date, or range of dates (for inclusive dates and/or predominant dates). Always give the inclusive dates. When providing predominant dates, specify them as such, preceded by the word predominant..." (RAD 1.4B2) Record probable and uncertain dates in square brackets, using the conventions described in 1.4B5.</source>
+        <target>กรอกวันที่สร้างหน่วยที่ถูกอธิบายแบบวันเดียวหรือแบบช่วงของวันที่ (สำหรับวันที่รวมและ / หรือวันที่สำคัญ) กรุณากรอกวันที่รวม ในกรณีที่มีวันสำคัญให้ระบุให้ชัดเจน เช่น เขียนนำหน้าด้วยคำว่าสำคัญ "(RAD 1.4B2) ในกรณีที่ไม่แน่ใจให้ใส่วงเล็บใหญี่ครอบเอาไว้ตามข้อกำหนดใน 1.4B5</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>"Make notes on dates and any details pertaining to the dates of creation, publication, or distribution, of the unit being described that are not included in the Date(s) of creation, including publication, distribution, etc., area and that are considered to be important." (RAD 1.8B8) "Make notes on the date(s) of accumulation or collection of the unit being described." (RAD 1.8B8a)</source>
+        <target>"บันทึกวันที่และรายละเอียดใด ๆ ที่เกี่ยวข้องกับการสร้าง, การตีพิมพ์ หรือการแจกจ่ายของหน่วยที่ถูกอธิบายที่ไม่ได้ระบุอยู่ในวันที่ ของการสร้าง การตีพิมพ์ หรือการแจกจ่าย ฯลฯ ที่คิดว่ามีความสำคัญ. "(RAD 1.8B8)" "บันทึกวันที่สะสมหรือรวบรวมของหน่วยที่ถูกอธิบาย."(RAD 1.8B8a)</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Select the type of activity that established the relation between the authority record and the archival description (e.g. creation, accumulation, collection, publication, etc.)</source>
+        <target>เลือกประเภทของกิจกรรมที่สร้างความสัมพันธ์ระหว่างรายการควบคุมและคำอธิบายจดหมายเหตุ(เช่น การสร้าง,การสะสม,การรวบรวม,การตีพิมพ์, ฯลฯ)</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>This archival description requires at least one date.</source>
+        <target>คำอธิบายจดหมายเหตุต้องมีหนึ่งอย่างน้อย.</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Date(s) - are not consistent with %1%higher levels%2%.</source>
+        <target>วันที่ - ไม่สอดคล้องกับ%1%ระดับ%2%..</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Physical description - This is a mandatory element.</source>
+        <target>คำอธิบายทางกายภาพ - นี่เป็นองค์ประกอบที่จำเป็น.</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Scope and content - This is a mandatory element.</source>
+        <target>ขอบเขตและเนื้อหา - นี่เป็นองค์ประกอบที่จำเป็น.</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Title - This is a mandatory element.</source>
+        <target>ชื่อเรื่อง - นี่คือองค์ประกอบที่จำเป็น.</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Level of description - Value "%value%" is not consistent with higher levels.</source>
+        <target>&gt;%1%ระดับของคําอธิบาย%2% "%ค่า%" คุ้มค่าไม่สอดคล้องกับระดับที่สูงขึ้น.</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Level of description - This is a mandatory element.</source>
+        <target>ระดับของคำอธิบาย - นี้เป็นองค์ประกอบที่บังคับใช้.</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Statement of scale (architectural) - This is a mandatory element for architectural drawing.</source>
+        <target>คำชี้แจงของขนาด(สถาปัตยกรรม) - นี่คือองค์ประกอบที่จำเป็นสำหรับการวาดภาพทางสถาปัตยกรรม.</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Statement of coordinates (cartographic) - This is a mandatory element for cartographic material.</source>
+        <target>คำชี้แจงของพิกัด (ทำแผนที่) - นี่คือองค์ประกอบที่จำเป็นสำหรับวัสดุทำแผนที่.</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Statement of projection (cartographic) - This is a mandatory element for cartographic material.</source>
+        <target>คำชี้แจงขอ projection(ทำแผนที่) - นี่คือองค์ประกอบที่จำเป็นสำหรับวัสดุที่ทำแผนที่.</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Statement of scale (cartographic) - This is a mandatory element for cartographic material.</source>
+        <target>คำชี้แจงของขนาด(ทำแผนที่) - นี่คือองค์ประกอบที่จำเป็นสำหรับวัสดุทำแผนที่.</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
+        <target>ที่ออกภายใต้อำนาจและนิกาย(ตราไปรษณียากร) - นี่คือองค์ประกอบที่จำเป็นสำหรับการบันทึกตราไปรษณียากร.</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Edition statement - This is a mandatory element for published items.</source>
+        <target>การแจ้งฉบับพิมพ์ - นี่เป็นองค์ประกอบที่จำเป็น.</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Standard number - This is a mandatory element for published items.</source>
+        <target>หมายเลขมาตรฐาน - นี่คือองค์ประกอบที่จำเป็นสำหรับเอกสารที่จะตีพิมพ์</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>View archival description</source>
+        <target>ดูคำอธิบายจดหมายเหตุ</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Edit archival description</source>
+        <target>แก้ไขคำอธิบายจดหมายเหตุ</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Part of %1%</source>
+        <target>บางส่วนของ%1%</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Title and statement of responsibility area</source>
+        <target>พื้นที่แสดงชื่อเรื่องและคำชี้แจงของความรับผิดชอบ</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Edit title and statement of responsibility area</source>
+        <target>แก้ไขพื้นที่ชื่อเรื่องข้อความรับผิดชอบ</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Title proper</source>
+        <target>ชื่อเรื่องจริง</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>General material designation</source>
+        <target>การตั้งชื่อเอกสารทั่วไป</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Parallel title</source>
+        <target>ชื่อเอกสารเทียบเคียง</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Other title information</source>
+        <target>ข้อมูลชื่อเอกสารอื่นๆ</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Title statements of responsibility</source>
+        <target>ชื่อเรื่องคำชี้แจงของความรับผิดชอบ</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Title notes</source>
+        <target>หมายเหตชื่อเรื่อง</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Level of description</source>
+        <target>ระดับlของคำอธิบาย</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Repository</source>
+        <target>คลังเก็บ</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Reference code</source>
+        <target>รหัสอ้างอิง</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Edition area</source>
+        <target>การแจ้งฉบับพิมพ์</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Edit edition area</source>
+        <target>แก้ไขพื้นที่ครั้งที่พิมพ์ </target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Edition statement</source>
+        <target>การแจ้งฉบับพิมพ์</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Edition statement of responsibility</source>
+        <target>การแจ้งฉบับพิมพ์ของความรับผิดชอบ</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Class of material specific details area</source>
+        <target>พื้นที่คลาสของของเอกสารเฉพาะ</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Edit class of material specific details area</source>
+        <target>แก้ไข class of material specific พื้นที่รายละเอียด</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Statement of scale (cartographic)</source>
+        <target>คำชี้แจงของขนาด(ทำแผนที่)</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Statement of projection (cartographic)</source>
+        <target>คำชี้แจงขอ projection(ทำแผนที่)</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Statement of coordinates (cartographic)</source>
+        <target>คำชี้แจงของพิกัด(ทำแผนที่)</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Statement of scale (architectural)</source>
+        <target>คำชี้แจงของขนาด(สถาปัตยกรรม)</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Issuing jurisdiction and denomination (philatelic)</source>
+        <target>ที่ออกภายใต้อำนาจและนิกาย(ตราไปรษณียากร)</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Dates of creation area</source>
+        <target>พื้นที่วันที่ของพื้นที่สร้าง</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Edit dates of creation area</source>
+        <target>แก้ไขพื้นที่วันที่ของการสร้าง</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Physical description area</source>
+        <target>พื้นที่คำอธิบายทางกายภาพ</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Edit physical description area</source>
+        <target>แก้ไขพื้นที่อธิบายทางกายภาพ</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Physical description</source>
+        <target>คำอธิบายทางกายภาพ</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Publisher's series area</source>
+        <target>พื้นที่ซีรี่ย์ของผู้ตีพิมพ์</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Edit publisher's series area</source>
+        <target>แก้ไขพื้นที่รื่องซีรี่ย์ของผู้ตีพิมพ์</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Title proper of publisher's series</source>
+        <target>ชื่อเรื่องซีรีย์สำนักพิมพ์</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Parallel titles of publisher's series</source>
+        <target>ชื่อเอกสารเทียบเคียงซีรี่ย์ของผู้ตีพิมพ์</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Other title information of publisher's series</source>
+        <target>ข้อมูลชื่อเอกสารอื่นๆของซีรีส์ผู้จัดพิมพ์</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Statement of responsibility relating to publisher's series</source>
+        <target>คำชี้แจงความรับผิดชอบที่เกี่ยวข้องกับซีรี่ของผู้ตีพิมพ์</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Numbering within publisher's series</source>
+        <target>หมายเลขภายในในซีรีย์ของผู้พิมพ์</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Note on publisher's series</source>
+        <target>บันทึกในซีรีย์ของผู้พิมพ์</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Archival description area</source>
+        <target>พื้นที่คำอธิบายจดหมายเหตุ</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Edit archival description area</source>
+        <target>แก้ไขพื้นที่คำอธิบายจดหมายเหต</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Custodial history</source>
+        <target>ประวัติการครอบครอง</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Scope and content</source>
+        <target>ขอบเขตและเนื้อหา</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Notes area</source>
+        <target>ส่วนหมายเหตุ</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Edit notes area</source>
+        <target>แก้ไขพื้นที่หมายเหตุ</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Physical condition</source>
+        <target>สภาพทางกายภาพ</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Immediate source of acquisition</source>
+        <target>แหล่งเอกสารหรือหน่วยงานหรือผู้มอบหรือโอนย้ายเอกสารn</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Arrangement</source>
+        <target>การจัดเรียงเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Language of material</source>
+        <target>ภาษาของเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Script of material</source>
+        <target>สคริปเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Language and script note</source>
+        <target>หมายเหตุภาษาและตัวอักษร(script)</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Location of originals</source>
+        <target>ตำแหน่งของเอกสารต้นฉบับ</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Availability of other formats</source>
+        <target>รูปแบบอื่นๆที่สามารถใช้ได้</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Restrictions on access</source>
+        <target>ข้อจำกัดในการเข้าถึง</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Terms governing use, reproduction, and publication</source>
+        <target>การใช้ระบบควบคุมคำศัพท์ การทำสำเนาและการตีพิมพ์</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Finding aids</source>
+        <target>เครื่องมือช่วยค้นเอกสารจดหมายเหตุ</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Associated / related material</source>
+        <target>เอกสาร allied  / related</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Accruals</source>
+        <target>การเพิ่มขึ้นของเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Other notes</source>
+        <target>หมายเหตุอื่นๆ</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Standard number area</source>
+        <target>พื้นที่หมายเลขมาตรฐาน</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Edit standard number area</source>
+        <target>แก้ไขพื้นที่หมายเลขมาตรฐาน</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Standard number</source>
+        <target>เลขมาตรฐาน</target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Access points</source>
+        <target>จุดเชื่อมต่อ</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Edit access points</source>
+        <target>แก้ไขจุดเข้าถึง</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Control area</source>
+        <target>ข้อมูลเกี่ยวกับควบคุม</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Edit control area</source>
+        <target>แก้ไขพื้นที่ควบคุม</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Description record identifier</source>
+        <target>รายงานคำอธิบายidentifier</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Institution identifier</source>
+        <target>identifierของหน่วยงาน</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Rules or conventions</source>
+        <target>กฎระเบียบหรือข้อตกลง</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Status</source>
+        <target>สถานะ</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Level of detail</source>
+        <target>ระดับของคําอธิบาย</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Dates of creation, revision and deletion</source>
+        <target>วันที่สร้าง/แก้ไข/ลบ</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Language of description</source>
+        <target>คำอธิบายภาษา</target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Script of description</source>
+        <target>สคริปคำอธิบาย</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Sources</source>
+        <target>แหล่ง</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Rights area</source>
+        <target>พื้นที่สิทธ</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Edit rights area</source>
+        <target>แก้ไขพื้นที่สิทธิ</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Accession area</source>
+        <target>พื้นที่การเข้าถึงเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Edit archival description - RAD</source>
+        <target>แก้ไขคำอธิบายจดหมายเหตุ - RAD</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>This is a duplicate of record %1%</source>
+        <target>นี่ซ้ำกับระเบียน% 1%</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
+        <target>ป้อนชื่อเรื่อง โดยการคัดลอกหรือsupplied (RAD 1.1B) </target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>This is a mandatory element.</source>
+        <target>นี่คือองค์ประกอบที่จำเป็น.</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
+        <target>เลือกGeneral Material Designation ที่ระดับคำอธิบายสูงสุด หากมีมากกว่าสาม เลือก "multiple media"</target>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>"[W]hen applicable, transcribe parallel titles that appear in conjunction with the formal title proper..." (RAD 1.1D)</source>
+        <target>""ในกรณีที่จำเป็น กรุณาคัดลอกชื่อเรื่องเทียบเคียงต่อท้ายชื่อเรื่องหลักด้วย" (RAD 1.1D)</target>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Parallel titles</source>
+        <target>ชื่อเอกสารเทียบเคียง</target>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>"Transcribe other title information that appears in conjunction with the formal title proper..." (RAD 1.1E)</source>
+        <target>"คัดลอกข้อมูลอื่นๆที่เกี่ยวกับชื่อเรื่อง ที่ปรากฏร่วมกับชื่อเรื่อง"(RAD 1.1E)</target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)</source>
+        <target>"ในคำอธิบายระดับเรื่อง กรุณาคัดลอกคำชี้แจงเกี่ยวกับความรับผิดชอบที่ปรากฏร่วมกับชื่อเรื่องในแหล่งที่มาหลักของข้อมูล ... "(RAD 1.1F)</target>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Statement of responsibility</source>
+        <target>แสดงชื่อเรื่องและคำชี้แจงของความรับผิดชอบ</target>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Note type</source>
+        <target>ประเภทของหมายเหตุ</target>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Select a note type from the drop-down menu and enter note text in accordance with RAD 1.8B1 through 1.8B6.</source>
+        <target>เลือกประเภทของหมายเหตุจากdrop-down menuและใส่ข้อความหมายเหตุตามRAD 1.8B1ผ่าน 1.8B6.</target>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
+        <target>เลือกระดับของคำอธิบายจากdrop-down menu ดูRAD 1.0Aสำหรับกฎระเบียบและข้อตกลงเกี่ยวกับการเลือกระดับของคำอธิบาย.</target>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Enter an unambiguous code used to uniquely identify the description.&lt;br/&gt;&lt;strong&gt;Level:&lt;/strong&gt; Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
+        <target>&lt;strong&gt;Identifier:&lt;/strong&gt; ป้อนรหัสที่ชัดเจนเพื่อนำมาใช้ในการระบุคำอธิบาย&lt;br/&gt;&lt;strong&gt;Level:&lt;/strong&gt;เลือกระดับของรายละเอียดจากdrop-down menu ดูราด RAD 1.0A สำหรับกฎและข้อกำหนดเกี่ยวกับการเลือกระดับของคำอธิบาย&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; ป้อนชื่อที่เหมาะสม, ทับศัพท์หรือจำหน่ายกรอกชื่อเรื่องโดยการคัดลอกหรือsupplied (RAD 1.1B)</target>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
+        <target>เลือกคลังเก็บที่ทำการดูแลและการควบคุมวัสดุจดหมายเหตุ ค่าใน เขตข้อมูลนี้ถูกดึงออกมาจากรูปแบบAuthorizedใน เขตข้อมูลชื่อในระเบียนหน่วยงานที่เก็บจดหมายเหตุ ค้นหาชื่อที่มีอยู่โดยการพิมพ์ตัวอักษรบางตัว หรือพิมพ์ชื่อใหม่เพื่อสร้างและเชื่อมโยงไปยังหน่วยงานที่เก็บจดหมายเหตุใหม่.</target>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Enter an unambiguous code used to uniquely identify the description.</source>
+        <target>ป้อนรหัสที่ชัดเจนเพื่อนำมาใช้ระบุคำอธิบาย.</target>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>"Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
+        <target>"คัดลอกคำชี้แจงของeditonที่เกี่ยวข้องกับเอกสารที่ถูกอธิบาย" (RAD 1.2B1) "หากไม่พบคำชี้แจงของeditonของเอกสารที่ถูกอธิบาย แต่เป็นที่รู้กันว่ามีการเปลี่ยนแปลงอย่างมีนัยสำคัญจากครั้งที่พิมพ์อื่น ๆ ให้กรอกคำชี้แจงสั้นๆในภาษาและสคริปต์ที่เหมาะสมและในวงเล็บ" (RAD 1.2B3) </target>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
+        <target>"ถ่ายทอดคำสั่งของความรับผิดชอบที่เกี่ยวข้องกับการหนึ่งหรือหลายรุ่น แต่ไม่ทุกรุ่นของรายงานที่ถูกอธิบายไว้ดังต่อไปนี้คำสั่งฉบับหากมีหนึ่ง. "(RAD 1.2.C1)" เมื่ออธิบายฉบับพิมพ์ครั้งแรกให้งบทั้งหมดจาก ความรับผิดชอบในหัวข้อและคำสั่งของพื้นที่รับผิดชอบ" (RAD 1.2C2)</target>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Statement of responsibility relating to the edition</source>
+        <target>ครั้งที่พิมพ์คำชี้แจงความรับผิดชอบเกี่ยวข้องกับ</target>
+      </trans-unit>
+      <trans-unit id="117">
+        <source>"Give the scale of the unit being described...as a representative fraction (RF) expressed as a ratio (1: ). Precede the ratio by Scale. Give the scale even if it is already recorded as part of the title proper or other title information." (RAD 5.3B1)</source>
+        <target>""กรอกขนาดของหน่วยที่ถูกอธิบายโดยใช้representative fraction (RF) แสดงเป็นอัตราส่วน (1) โดยเรียงตามลำดับขนาด แม้ว่าขนาดจะถูกบันทึกแล้วในส่วนของชื่อเรื่องก๊ตาม" (RAD 5.3B1).</target>
+      </trans-unit>
+      <trans-unit id="118">
+        <source>"Give the statement of projection if it is found on the prescribed source(s) of information." (RAD 5.3C1)</source>
+        <target>"กรอกคำชี้แจงของprojection ในกรณีที่พบในprescribed source(s) of information." (RAD 5.3C1).</target>
+      </trans-unit>
+      <trans-unit id="119">
+        <source>"At the fonds, series or file levels, record coordinates for the maximum coverage provided by the materials in the unit, as long as they are reasonably contiguous." (RAD 5.3D)</source>
+        <target>"ที่เอกสารระดับกลุ่มชุดหรือแฟ้มบันทึกพิกัดสำหรับความคุ้มครองสูงสุดที่มีให้โดยใช้วัสดุในหน่วยตราบใดที่พวกเขาจะมีเหตุผลที่ต่อเนื่องกัน." (RAD 5.3D)</target>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>"Give in English the scale in the units of measure found on the unit being described. If there is no English equivalent for the name of the unit of measure, give the name, within quotation marks, as found on the unit being described." (RAD 6.3B)</source>
+        <target>"กรอกหน่วยของการวัดที่พบในหน่วยที่ถูกอธิบายเป็นภาษาอังกฤษ ถ้าไม่สามารถกรอกเป็นภาษาอังกฤษได้ให้เขียนตามที่เห็นในหน่วยทีถูกอธิบายในเครื่องหมายคำพูด" (RAD 6.3B)</target>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
+        <target>"กรอกชื่อของเขตอำนาจ (เช่นรัฐบาล) ที่รับผิดชอบในการออกระเบียนตราไปรษณียากร"(RAD 12.3B1) " สำหรับหน่วยที่มีการระบุราคา (เช่น แสตมป์, revenue stamps, postal stationery items) ให้กรอกตามรูปแบบมาตรฐาน โดยบันทึกจำนวนเงินในเลขอารบิคตามด้วยชื่อของหน่วยเงินตรา แม้ว่าราคาจะถูกบันทึกแล้วในส่วนของชื่อเรื่องก๊ตาม"(RAD 12.3C1)</target>
+      </trans-unit>
+      <trans-unit id="122">
+        <source>Add new name and/or date(s)</source>
+        <target>เพิ่มชื่อใหมและวันที่ใหม่</target>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
+        <target>"ในทุกระดับของบันทึก กรุณาแจ้งจำนวนหน่วยที่ใช้ในการอธิบายโดยการบอกจำนวนตามหน่วยทางกายภาพเป็นเลขอารบิคและ กรุณาระบุลักษณะของเอกสารตามที่กำหนดใน subrule .5B" ในบทที่เกี่ยวข้องbroad classในเอกสารซึ่งหน่วยถูกอธิบายสังกัด. "(RAD 1.5B1)กำหนดลักษณะทางกายภาพอื่นๆหรือขนาดเพิ่มเติมที่RAD 1.5C และ1.5Dกรณีที่ต้องการบันทึกหลายเอนทรี่ กรุณาขึ้นบรรทัดใหม่ (กด Enter key บนคีบอร์ท) .</target>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>"At the item level of description, transcribe a title proper of the publisher's series as instructed in 1.1B1." (RAD 1.6B)</source>
+        <target>"ในคำอธิบายระดับเรื่อง กรุณาคัดลอกชื่อเรื่องซีรี่ย์ของผู้ตีพิมพ์ตามที่กำหนดใน1.1B1" (RAD 1.6B)</target>
+      </trans-unit>
+      <trans-unit id="125">
+        <source>"Transcribe parallel titles of a publisher's series as instructed in 1.1D." (RAD 1.6C1)</source>
+        <target>"คัดเลือกชื่อเรื่องเทียบเคียงของซีรีย์ของผู้ตีพิมพ์ตามคำสั่งใน 1.1D."(RAD 1.6C1)</target>
+      </trans-unit>
+      <trans-unit id="126">
+        <source>Parallel title of publisher's series</source>
+        <target>ชื่อเอกสารเทียบเคียงซีรี่ย์ของผู้ตีพิมพ์</target>
+      </trans-unit>
+      <trans-unit id="127">
+        <source>"Transcribe other title information of a publisher's series as instructed in 1.1E and only if considered necessary for identifying the publisher's series." (RAD 1.6D1)</source>
+        <target>"คัดเลือกข้อมูบอื่นๆที่เกี่ยวกับชื่อเรื่องของซีรีย์ของผู้ตีพิมพ์ตามคำสั่งใน 1.1E เฉพาะในกรณีที่พิจารณาว่าจำเป็นสำหรับการระบุซีรีย์ของผู้ตีพิมพ์"(RAD 1.6D1)</target>
+      </trans-unit>
+      <trans-unit id="128">
+        <source>"Transcribe explicit statements of responsibility appearing in conjunction with a formal title proper of a publisher's series as instructed in 1.1F and only if considered necessary for identifying the publisher's series." (RAD 1.6E1)</source>
+        <target>"คัดลอกคำชี้แจงของความรับผิดชอบที่ปรากฏร่วมกับชื่อเรื่องอย่างเป็นทางการของซีรีย์ของผู้ตีพิมพ์ตามคำสั่งใน1.1F เฉพาะในกรณีที่พิจารณาว่าจำเป็นสำหรับการระบุซีรีย์ของผู้ตีพิมพ์"(RAD 1.6E1)</target>
+      </trans-unit>
+      <trans-unit id="129">
+        <source>"Give the numbering of the item within a publisher's series in the terms given in the item." (RAD 1.6F1)</source>
+        <target>"กรอกหมายเลขของหน่วยในซีรี่ย์ของผู้ตีพิมพ์ ตามทีระบุไว้ในเอกสาร". (RAD 1.6F1)</target>
+      </trans-unit>
+      <trans-unit id="130">
+        <source>"Make notes on important details of publisher's series that are not included in the Publisher's series area, including variant series titles, incomplete series, and of numbers or letters that imply a series." (RAD 1.8B10)</source>
+        <target>""บันทึกรายละเอียดที่สำคัญเกี่ยวกับซีรีส์ของผู้ตีพิม์ที่ไม่ได้รวมอยู่ในพื้นที่ของซีรีส์ของผู้ตีพิมพ์ ซึ่งประกอบด้วย variant series ชื่อเรื่อง, incomplete series และตัวเลขหรือตัวอักษรที่บ่งบอกถึงซีรีย์"(RAD 1.8B10)</target>
+      </trans-unit>
+      <trans-unit id="131">
+        <source>Administrative history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="132">
+        <source>Biographical sketch</source>
+        <target>เค้าโครงชีวประวัติ</target>
+      </trans-unit>
+      <trans-unit id="133">
+        <source>Edit authority record</source>
+        <target>แก้ไขรายการควบคุม</target>
+      </trans-unit>
+      <trans-unit id="134">
+        <source>"Give the history of the custody of the unit being described, i.e., the successive transfers of ownership and custody or control of the material, along with the dates thereof, insofar as it can be ascertained." (RAD 1.7C)</source>
+        <target>"กรอกประวัติศาสตร์ของการดูแลของหน่วยที่ถูกอธิบาย เช่น การถ่ายโอนความเป็นเจ้าของ และ การดูแลหรือการควบคุมเอกสาร พร้อมกับวันที่ที่เกี่ยวข้องเท่าที่สามารถหาได้"</target>
+      </trans-unit>
+      <trans-unit id="135">
+        <source>"At the fonds, series, and collection levels of description, and when necessary at the file and the item levels of description, indicate the level being described and give information about the scope and the internal structure of or arrangement of the records, and about their contents." (RAD 1.7D) "For the scope of the unit being described, give information about the functions and/or kinds of activities generating the records, the period of time, the subject matter, and the geographical area to which they pertain. For the content of the unit being described, give information about its internal structure by indicating its arrangement, organization, and/or enumerating its next lowest level of description. Summarize the principal documentary forms (e.g., reports, minutes, correspondence, drawings, speeches)." (RAD 1.7D1)</source>
+        <target>"ชุดและระดับคอลเลกชันของรายละเอียดและเมื่อมีความจำเป็นที่ไฟล์และระดับของรายละเอียดรายงานที่ระบุระดับการอธิบายและให้ข้อมูลเกี่ยวกับขอบเขตและโครงสร้างภายในของหรือการจัดเรียงของระเบียนและเกี่ยวกับ เนื้อหาของพวกเขา."(RAD 1.7D) "สำหรับขอบเขตของหน่วยการอธิบายให้ข้อมูลเกี่ยวกับฟังก์ชั่นและ / หรือชนิดของกิจกรรมการสร้างระเบียนระยะเวลาของเวลาที่เรื่องและพื้นที่ทางภูมิศาสตร์ที่พวกเขาเกี่ยวข้อง. สำหรับ เนื้อหาของหน่วยการอธิบายให้ข้อมูลเกี่ยวกับโครงสร้างภายในของตนโดยระบุการจัดองค์กรของตนและ / หรือแจงระดับต่ำสุดของรายละเอียดต่อไป.สรุปรูปแบบสารคดีเงินต้น (เช่นรายงานนาทีที่สอดคล้องวาดสุนทรพจน์)" (RAD 1.7D1)</target>
+      </trans-unit>
+      <trans-unit id="136">
+        <source>"Make notes on the physical condition of the unit being described if that condition materially affects the clarity or legibility of the records." (RAD 1.8B9a)</source>
+        <target>"บันทึกเกี่ยวกับสภาพทางกายภาพของหน่วยที่ถูกอธิบายในกรณีที่มีผลต่อความคมชัดหรือความชัดเจนในการอ่าน" (RAD 1.8B9a)</target>
+      </trans-unit>
+      <trans-unit id="137">
+        <source>"Record the donor or source (i.e., the immediate prior custodian) from whom the unit being described was acquired, and the date and method of acquisition, as well as the source/donor's relationship to the material, if any or all of this information is not confidential. If the source/donor is unknown, record that information." (RAD 1.8B12)</source>
+        <target>"ในกรณีที่ข้อมูลไม่เป็นความลับ กรุณาบันทึกชื่อผู้บริจาคหรือแหล่งที่มา (เช่น ผู้ครอบครองดูแลคนก่อนหน้า)  วันที่ วิธีการในการได้มา(รับซื้อ) และความสัมพันธ์ระหว่างแหล่งที่มา / ผู้บริจาคกับวเอกสาร  ถ้าไม่ทราบแหล่งที่มา / ผู้บริจาค ให้กรอกรายละเอียดด้วย"(RAD 1.8B12)</target>
+      </trans-unit>
+      <trans-unit id="138">
+        <source>"Make notes on the arrangement of the unit being described which contribute significantly to its understanding but cannot be put in the Scope and content (see 1.7D), e.g., about reorganisation(s) by the creator, arrangement by the archivist, changes in the classification scheme, or reconstitution of original order." (RAD 1.8B13)</source>
+        <target>""บันทึกเกี่ยวกับการจัดเรียกหน่วยที่ถูกอธิบาตามลำดับความสำคัญที่มีส่วนช่วยในการเข้าใจ แต่ไม่สามารถใส่ในขอบเขตและเนื้อหา (ดู 1.7D) เช่น การปรับเปลี่ยนโครงสร้างโดยผู้สร้าง การเรียงลำดับเอกสารโดยผู้จัดจดหมายเหตุ การเปลี่ยนแปลงการจัดหมวดหมู่ หรือ การแก้ไขต้นฉบับ" (RAD 1.8B13)</target>
+      </trans-unit>
+      <trans-unit id="139">
+        <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target>"ในกรณีที่ใช้ตัวอักษรหรือสัญลักษณ์พิเศษ กรุณากำหนดลงในหมายเหตุ"(RAD 1.8.B14) เลือกสคริปจากdrop-down menu; ป้อนตัวอักษรบางตัวเพื่อจำกัดตัวเลือก</target>
+      </trans-unit>
+      <trans-unit id="140">
+        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target>"ในกรณีที่ใช้ตัวอักษรหรือสัญลักษณ์พิเศษ กรุณากำหนดลงในหมายเหตุ"(RAD 1.8.B14) เลือกสคริปจากdrop-down menu; ป้อนตัวอักษรบางตัวเพื่อจำกัดตัวเลือก."</target>
+      </trans-unit>
+      <trans-unit id="141">
+        <source>Language and script notes</source>
+        <target>หมายเหตุภาษาและตัวอักษร</target>
+      </trans-unit>
+      <trans-unit id="142">
+        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).</source>
+        <target>"ในกรณีที่ใช้ตัวอักษรหรือสัญลักษณ์พิเศษ กรุณากำหนดลงในหมายเหตุ"(RAD 1.8.B14) </target>
+      </trans-unit>
+      <trans-unit id="143">
+        <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
+        <target>""ในกรณีที่หน่วยที่ถูกอธิบายเป็นเสาเนาเอกสาร และทราบที่อยู่ของวัสดุต้นฉบับ กรุณากรอกidentifying numbersใดที่อาจจะช่วยในการระบุที่อยู่ของวัสดุต้นฉบับ ในกรณีที่ทราบว่าต้นฉบับไม่หลงเหลืออยู่แล้ว กรุณากรอกรายละเอียดนั้น "(RAD 1.8B15a)</target>
+      </trans-unit>
+      <trans-unit id="144">
+        <source>"If all or part of the unit being described is available (either in the institution or elsewhere) in another format(s), e.g., if the text being described is also available on microfilm; or if a film is also available on videocassette, make a note indicating the other format(s) in which the unit being described is available and its location, if that information is known. If only a part of the unit being described is available in another format(s), indicate which parts." (RAD 1.8B15b)</source>
+        <target>"ในกรณีที่บางส่วนหรือทั้งหมดของหน่วยที่ถูกอธิบายสามารถใช้ได้ (ทั้งในสถาบัหรือที่อื่น ๆ ) ในรูปแบบอื่น (s) เช่น ถ้าข้อความถูกอธิบายสามารถดูได้ในรูปแบบของmicrofilm หรือ ถ้าfilmมยังมีในรูปแบบ videocassette กรุณาบันทึกการแสดงรูปแบบอื่น ๆ (s) ซึ่งหน่วยที่ถูกอธิบายสามารถใช้ได้ พร้อมที่ตั้งของมัน ในกรณีที่เป็นแค่ส่วนหนึ่งของหน่วยที่ถูกอธิบายให้ระบุส่วนให้ชัดเจน"(RAD 1.8B15b)</target>
+      </trans-unit>
+      <trans-unit id="145">
+        <source>"Give information about any restrictions placed on access to the unit (or parts of the unit) being described." (RAD 1.8B16a)</source>
+        <target>"กรอกข้อมูลเกี่ยวกับข้อจำกัดใดๆเกี่ยวกับการเข้าถึงหน่วย (หรือบางส่วนของหน่วย) ที่ถูกอธิบาย. "(RAD 1.8B16a)</target>
+      </trans-unit>
+      <trans-unit id="146">
+        <source>"Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c)</source>
+        <target>"กรอกข้อมูลเกี่ยวกับกฏหมาย และข้อจำกัดจากทางผู้บริจาค ที่อาจส่งผลกระทบต่อการใช้หรือการทำสำเนาเอกสาร "(RAD 1.8B16c)</target>
+      </trans-unit>
+      <trans-unit id="147">
+        <source>"Give information regarding the existence of any finding aids. Include appropriate administrative and/or intellectual control tools over the material in existence at the time the unit is described, such as card catalogues, box lists, series lists, inventories, indexes, etc." (RAD 1.8B17)</source>
+        <target>"กรอกข้อมูลเกี่ยวกับการช่วยเหลือในการค้นหาที่มีอยู่ใดๆ โดยประกอบไปด้วยการบริหารที่เหมาะสมและ / หรือเครื่องมือในการควบคุมทางปัญญาเหนือเอกสารที่มีอยู่ในเวลาที่หน่วยได้รับการอธิบาย เช่น card catalogues, box lists, series lists, inventories, indexes  ฯลฯ "(RAD 1.8B17)</target>
+      </trans-unit>
+      <trans-unit id="148">
+        <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
+        <target>สำหรับวัสดุที่เกี่ยวข้อง "หากระเบียนในสถาบันการศึกษาอื่นที่เกี่ยวข้องกับหน่วยถูกอธิบายโดยอาศัยอำนาจตามความเป็นจริงที่พวกเขาร่วมกันรากเดียวกันให้อ้างอิงถึงวัสดุที่เกี่ยวข้องในระดับกลุ่ม,ชุดหรือคอลเลกชันหรือสำหรับรายงานที่ไม่ต่อเนื่อง, แสดงตำแหน่งของมันถ้าทราบ. "(RAD 1.8B18) สำหรับวัสดุที่เกี่ยวข้องกับ "ระบุกลุ่มของระเบียนที่มีความสัมพันธ์อย่างมีนัยสำคัญบางอย่างที่โดยเหตุผลแห่งความรับผิดชอบร่วมกันหรือทรงกลมที่ใช้ร่วมกันของกิจกรรมในหนึ่งหรือมากกว่าหนึ่งหน่วยของวัสดุภายนอกหน่วยถูกอธิบาย." (RAD 1.8B20)</target>
+      </trans-unit>
+      <trans-unit id="149">
+        <source>Associated/related material</source>
+        <target>เอกสาร Associated /related</target>
+      </trans-unit>
+      <trans-unit id="150">
+        <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
+        <target>"เมื่อหน่วยที่ถูกอธิบายยังไม่สมบูรณ์ เช่น เอกสารระดับกลุ่มหรือซีรให้หมายเหตุอธิบายไว้ว่าหน่วยนั้นอาจจะได้รับการบันทึกต่อ ... ถ้าคาดว่าไม่มีการบันทึกต่อแล้วให้ระบุว่าหน่วยบันทึกสิ้นสุดแล้ว"(RAD 1.8B19)</target>
+      </trans-unit>
+      <trans-unit id="151">
+        <source>Select a note type from the drop-down menu and enter note text in accordance with the following sections in RAD: 1.5E (Accompanying material); 1.8 B11 (Alpha-numeric designations); 1.8B9b (Conservation); 1.8B7 (Edition); 1.8B9 (Physical Description); 1.8B16b (Rights); 1.8B21 (General note).</source>
+        <target>เลือกประเภทของหมายเหตุจากdrop-down menuและใส่ข้อความหมายเหตุตามส่วนต่อไปนี้ใน RAD: 1.5E (Accompanying material); 1.8 B11 (Alpha-numeric designations Alpha-ตัวเลข); 1.8B9b (Conservation); 1.8B7 (Edition) ; 1.8B9 (Physical Edition); 1.8B16b (Rights); ​​1.8B21 (General note).</target>
+      </trans-unit>
+      <trans-unit id="152">
+        <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
+        <target>"กรอกInternational Standard Book Number (ISBN), International Standard Serial Number (ISSN) หรือ หมายเลยมาตรฐานในระดับสากลอื่นๆสำหรับรายงานที่ถูกอธิบาย กรอกหมายเลขดังกล่าวโดยใช้ตัวย่อตามข้อตกลง(เช่น การเว้นวรรค การใช้เครื่องหมายไฮเฟน)"(RAD 1.9B1)</target>
+      </trans-unit>
+      <trans-unit id="153">
+        <source>Subject access points</source>
+        <target>จุดเชื่อมเรื่อง</target>
+      </trans-unit>
+      <trans-unit id="154">
+        <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
+        <target>ค้นหาคำที่มีอยู่ในอนุกรมวิธานวิชาโดยการพิมพ์ตัวอักษรบางตัว หรือพิมพ์คำใหม่เพื่อสร้างและเชื่อมโยงไปยังหัวข้อคำศัพท์ใหม่.</target>
+      </trans-unit>
+      <trans-unit id="155">
+        <source>Place access points</source>
+        <target>จัดจุดเข้าถึง</target>
+      </trans-unit>
+      <trans-unit id="156">
+        <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
+        <target>ค้นหาคำที่มีอยู่ในอนุกรมวิธานสถานที่ด้วยการพิมพ์ตัวอักษรบางตัวหรือพิมพ์คำใหม่เพื่อสร้างและเชื่อมโยงไปยังสถานที่คำศัพท์ใหม่.</target>
+      </trans-unit>
+      <trans-unit id="157">
+        <source>Name access points (subjects)</source>
+        <target>ชื่อจุดเข้าถึง(หัวเรื่อง)</target>
+      </trans-unit>
+      <trans-unit id="158">
+        <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target>ิิ"เลือกแหล่งที่มาของเอกสาร ผู้เขียนและnon-subject access pontอื่นๆ จากคำอธิบายจดหมายเหตุตามความเหมาะสมจุดเข้าถึงเอกสารที่เกียวข้องทั้งหมดจะต้องเห็นได้ชัดในคำอธิบายจดหมายเหตุ "(RAD 21.0B) ค่าในfieldนี้ถูกดึงออกมาจากใบมอบฉันทะในfiledชื่อในauthority records ค้นหาชื่อที่มีอยู่โดยการพิมพ์ตัวอักษรบางตัวหรือพิมพ์ชื่อใหม่เพื่อสร้างและเชื่อมโยงไปยังauthority recordใหม่</target>
+      </trans-unit>
+      <trans-unit id="159">
+        <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
+        <target>"บันทึกdescription identifierเฉพาะที่สอดคล้องกับข้อตกลงในระดับท้องถิ่นและ / หรือระดับชาติ ในกรณีทีคำอธิบายถูกใช้ในระดับสากลกรุณาบันทึกรหัสประเทศของประเทศที่คำอธิบายถูกสร้างขึ้นโดยให้สอดคล้องกับเวอร์ชันล่าสุดของ ISO 3166 Codes รหัสสำหรับแทนชื่อของประเทศ ในกรณีที่ผู้สร้างคำอธิบาย recordเป็นองค์กรระหว่างประเทศให้ระบุorganizational identifierแทนรหัสประเทศ".</target>
+      </trans-unit>
+      <trans-unit id="160">
+        <source>Description identifier</source>
+        <target>การทำคำอธิบายเอกสารidentifier</target>
+      </trans-unit>
+      <trans-unit id="161">
+        <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
+        <target>"บันทึกfullรูปแบบช่ือที่กําหนดใหใชไดของหน่วยงานที่รับผิดชอบในการสร้าง การปรับเปลี่ยน หรือเผยแพร่คำอธิบายหรือบันทึกรหัสของหน่วยงานตามมาตรฐานระดับชาติหรือระดับนานาชาติ ".</target>
+      </trans-unit>
+      <trans-unit id="162">
+        <source>Record the international, national and/or local rules or conventions followed in preparing the description.</source>
+        <target>บันทึกกฎหรือข้อกำหนดระหว่างประเทศ ระดับชาติ และ/หรือ ระดับท้องถิ่นตามการจัดทำคำอธิบาย.</target>
+      </trans-unit>
+      <trans-unit id="163">
+        <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
+        <target>บันทึกสถานะปัจจุบันของคำอธิบาย ระบุว่าเป็นการเขียนร่าง การตรวจสอบครี้งสุดท้าย และ /หรือ การแก้ไขหรือลบ.</target>
+      </trans-unit>
+      <trans-unit id="164">
+        <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
+        <target>บันทึกคำอธิบายไม่ว่าคำอธิบายจะประกอบด้วยระดับเนื้อหาบางส่วนในระดับน้อยที่สุด หรือ รายละเอียดทั้งหมด ที่สอดคล้องกับความสัมพันธ์ระหว่างประเทศ และ/หรือ แนวทางปฏิบัติระดับชาติ และ/หรือ กฎ.</target>
+      </trans-unit>
+      <trans-unit id="165">
+        <source>Record the date(s) the entry was prepared and/or revised.</source>
+        <target>บันทึกวันที่ที่เอกวสนถูกจัดทำขึ้นและ/ หรือปรับปรุง.</target>
+      </trans-unit>
+      <trans-unit id="166">
+        <source>Indicate the language(s) used to create the description of the archival material.</source>
+        <target>ระบุภาษาที่ใช้ในการสร้างคำอธิบายของวัสดุจดหมายเหตุ.</target>
+      </trans-unit>
+      <trans-unit id="167">
+        <source>Language</source>
+        <target>ภาษา</target>
+      </trans-unit>
+      <trans-unit id="168">
+        <source>Indicate the script(s) used to create the description of the archival material.</source>
+        <target>ระบุสคริปต์ที่ใช้ในการสร้างคำอธิบายของวัสดุจดหมายเหตุ.</target>
+      </trans-unit>
+      <trans-unit id="169">
+        <source>Script</source>
+        <target>ตัวอักษร</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

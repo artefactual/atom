@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="pl" datatype="plaintext" original="messages" date="2011-11-04T15:08:38Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new function</source>
+        <target>Dodaj nową funkcję</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>Bez tytułu</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>Edytuj %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>%1%Type%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Typ%2% - To jest %3%wymagany%4% element.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Autoryzowana forma nazwy%2% - To jest  %3%wymagany%4% element.</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Identyfikator opisu%2% - To jest element %3%wymagany%4%.</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Edit %1% - ISDF</source>
+        <target>Edytuj %1% - ISDF</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Identity area</source>
+        <target>Blok identyfikacyjny</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>"Specify whether the description is a function or one of its subdivisions." (ISDF 5.1.1) Select the type from the drop-down menu; these values are drawn from the ISDF Function Types taxonomy.</source>
+        <target>"Określ, czy opis jest funkcją lub jednym z jej podzbiorów." (ISDF 5.1.1) Wybierz typ z rozwijanego menu, wartości te są zaczerpnięte z Typów Funkcji taksonomii ISDF </target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Type</source>
+        <target>Typ</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>This is a mandatory element.</source>
+        <target>To jest element wymagany.</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>"Record the authorised name of the function being described. In cases where the name is not enough, add qualifiers to make it unique such as the territorial or administrative scope, or the name of the institution which performs it. This element is to be used in conjunction with the Function description identifier element (5.4.1)." (ISDF 5.1.2)</source>
+        <target>"Podać autoryzowaną nazwę opisywanej funkcji. W przypadkach, gdy nazwa nie wystarczy, dodać kwalifikatory unikalności, takie jak zasięg terytorialnego lub zakresu administracyjnego, lub nazwę instytucji, która ją realizuje. Element ten ma być stosowany w połączeniu z identyfikatorem opisu funkcji (5.4.1). " (ISDF 5.1.2)</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Authorized form of name</source>
+        <target>Autoryzowana forma nazwy</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>"Purpose: To indicate the various forms in which the authorized form(s) of name occurs in other languages or script forms. Rule: Record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions element (5.4.3.) which rules have been applied." (ISDF 5.1.3)</source>
+        <target>"Cel: wskazać różne postaci, w których autoryzowana forma nazwy występuje w innych językach lub w postaci skrótu(ów). Reguła: podać równoległą(e) nazwy zgodnie ze stosownymi konwencjami narodowymi lub międzynarodowymi lub zasady stosowane przez oddział, twórcy opisu, w tym wszelkie konieczne, podgrupy i / lub kwalifikatory wymagane na mocy tych konwencji i zasad "Określić w Regulaminie i / lub elementach konwencji (5.4.3.) Które przepisy zostały zastosowane. " (ISDF 5.1.3)</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Parallel form(s) of name</source>
+        <target>Równoważna forma(y) nazwy</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>"Record any other names for the function being described." (ISDF 5.1.4)</source>
+        <target>Podaj pozostałe nazwy opisywanej funkcji (ISDF 5.1.4)</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Other form(s) of name</source>
+        <target>Inne formy nazwy</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>"Record any term and/or code from a classification scheme of functions. Record the classification scheme used in the element Rules and/or conventions used (5.4.3)." (ISDF 5.1.5)</source>
+        <target>"Podaj każdy termin i / lub kod z systemu klasyfikacji funkcji. Podaj system klasyfikacji stosowany w Regulaminie  i / lub konwencjach  (5.4.3). " (ISDF 5.1.5) </target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Context area</source>
+        <target>Blok kontekstu</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>"Provide a date or date span which covers the dates when the function was started and when it finished. If a function is ongoing, no end date is needed." (ISDF 5.2.1)</source>
+        <target>"Podaj zakres dat lub datę, która obejmuje terminy, gdy funkcja rozpoczęła się i kiedy zakończyła. Jeśli funkcja jest w toku, data zakończenia nie jest potrzebna." (ISDF 5.2.1) </target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>"Record a narrative description of the purpose of the function." (ISDF 5.2.2)</source>
+        <target>"Podaj w formie opisowej cel tej funkcji". (ISDF 5.2.2)</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>"Record in narrative form or as a chronology the main events relating to the function." (ISDF 5.2.3)</source>
+        <target>"Podaj w formie opisowej lub jako chronologię najważniejsze wydarzenia odnoszące się do funkcji". (ISDF 5.2.3)</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>"Record any law, directive or charter which creates, changes or ends the function." (ISDF 5.2.4)</source>
+        <target>Podaj przepis, dyrektywę lub inne dokumenty statutowe - które tworzą, zmieniają lub kończą funkcję. (ISDF 5.2.4)</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Relationships area</source>
+        <target>Blok powiązań</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Control area</source>
+        <target>Blok kontroli</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISDF 5.4.1)</source>
+        <target>"Podaj unikalny identyfikator opisu zgodnie z konwencjami lokalnymi i / lub  narodowymi. Jeśli opis jest do wykorzystania na arenie międzynarodowej, Podaj kod kraju, w którym opis został stworzony zgodnie z ostatnią wersją normy ISO 3166 Codes for representation of countries. Jeżeli twórca opis jest organizacją międzynarodową, należy podać identyfikator organizacyjnych w miejsce kodu kraju. " (ISDF 5.4.1)</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Description identifier</source>
+        <target>Identyfikator opisu</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>"Record the full authorised form of name(s) of agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a recognized code for the agency." (ISDF 5.4.2)</source>
+        <target>"Podać pełną postać autoryzowanej formy nazwy oddziału (-ów) odpowiedzialnego za tworzenie, modyfikowanie lub rozpowszechnianie opisu lub, alternatywnie, podać ustalony kod oddziału." (ISDF 5.4.2) </target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Institution identifier</source>
+        <target>Identyfikator instytucji</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival description. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied." (ISDF 5.4.3)</source>
+        <target>"Cel: zidentyfikowanie krajowych lub międzynarodowych przepisów mających zastosowanie w tworzeniu opisu archiwalnego. Reguła: podać nazwy i gdzie to przydatne wydania lub daty publikacji, stosowane reguły i zasady " (ISDF 5.4.3)</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Rules and/or conventions used</source>
+        <target>Stosowane reguły i/lub zwyczaje</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDF 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
+        <target>Celem pola jest określenie poziomu opracowania dla hasła wzorcowego - tak aby użytkownicy mogli poznać jego bieżący status.  (ISDF 5.4.4). Wybierz: ostateczny, przejrzany, szkic z rozwijanego menu.</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Status</source>
+        <target>Status opracowania</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimum records are those that consist only of the three essential elements of an ISDF compliant record (see 4.7), while full records are those that convey information for all relevant ISDF elements of description." (ISDF 5.4.5)</source>
+        <target>Wybierz z rozwijanego menu czy opis jest pełny, czesciowy czy minimalny. W przypadku braku narodowych wskazówek lub zasad - opis minimalny to taki, który zawiera trzy fundamentalne elementy zgodnego rekordu ISDF, gdzie rekord pełny dostarcza informacji dla wszystkich elementów opisu zgodnego z ISDF.</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Level of detail</source>
+        <target>Poziom szczegółowości</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>"Record the date the description was created and the dates of any revisions to the description." (ISDF 5.4.6)</source>
+        <target>"Podać datę utworzenia opisu jak również daty ewentualnych jego rewizji" (ISDF 5.4.6)</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Dates of creation, revision or deletion</source>
+        <target>Daty utworzenia, aktualizacji lub usunięcia</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)</source>
+        <target>Wybierz język rekordu z rozwijanego menu. Wpisz pierwsze litery.</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Language(s)</source>
+        <target>Język(i)</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)</source>
+        <target>Wybierz opis rekordu z rozwijanego menu; wpisz pierwsze litery nazwy.</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Script(s)</source>
+        <target>Skrót(y)/skrypty</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>"Record the sources consulted in establishing the function description." (ISDF 5.4.8)</source>
+        <target>"Podać źródła konsultacji realizowanych podczas tworzenia opisu funkcji" (ISDF 5.4.8)</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>"Record notes pertinent to the creation and maintenance of the description." (ISDF 5.4.9)</source>
+        <target>"Podać uwagi istotne dla tworzenia i utrzymania opisu." (ISDF 5.4.9)</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Actions</source>
+        <target>Działania</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Cancel</source>
+        <target>Anuluj</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Save</source>
+        <target>Zapisz</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Create</source>
+        <target>Utwórz</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>View ISDF function</source>
+        <target>Zobacz funkcję ISDF</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Edit function</source>
+        <target>Edycja funkcji</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Edit identity area</source>
+        <target>Edycja bloku identyfikacji</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Classification</source>
+        <target>Klasyfikacja</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Edit context area</source>
+        <target>Edycja bloku prowieniencji i archiwizacji</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Dates</source>
+        <target>Daty</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Description</source>
+        <target>Opis</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>History</source>
+        <target>Historia</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Legislation</source>
+        <target>Prawodawstwo</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Edit relationships area</source>
+        <target>Edycja obszaru relacji</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Related function</source>
+        <target>Powiązana funkcja</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Identifier</source>
+        <target>Identyfikator</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Category of relationship</source>
+        <target>Kategoria powiązania</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Description of relationship</source>
+        <target>Opis relacji/powiązania</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Dates of relationship</source>
+        <target>Daty powiązania</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Related authority record</source>
+        <target>Powiązane hasło wzorcowe</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Nature of relationship</source>
+        <target>Typ powiązania</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Dates of the relationship</source>
+        <target>Daty tego powiązania</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Related resource</source>
+        <target>Powiązany zasób</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Title</source>
+        <target>Tytuł</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Edit control area</source>
+        <target>Edycja bloku kontroli</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Sources</source>
+        <target>Źródła</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Maintenance notes</source>
+        <target>Uwagi o stanie </target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Edit</source>
+        <target>Edytuj</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Delete</source>
+        <target>Usuń</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Add new</source>
+        <target>Dodaj nowy</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Related authority records</source>
+        <target>Powiązane hasła wzorcowe</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Identifier/name</source>
+        <target>Identyfikator/nazwa</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Select the name from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
+        <target>Wybierz nazwę z rozwijanego menu, wpisz identyfikator lub pierwsze litery.</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Related functions</source>
+        <target>Powiązane funkcje</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Name</source>
+        <target>Nazwa</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Category</source>
+        <target>Kategoria</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>"Record the authorised form of name and any unique identifier of the related function." (ISDF 5.3.1)</source>
+        <target>"Podać autoryzowaną formę nazwy oraz unikatowy identyfikator powiązanej funkcji." (ISDF 5.3.1)</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>"Record a general category into which the relationship being described falls." (ISDF 5.3.2) Select a category from the drop-down menu: hierarchical, temporal or associative.</source>
+        <target>"Podać ogólną kategorię, do której opisywane powiązanie przynależy." (ISDF 5.3.2) Wybierz kategorię z menu rozwijanego:. Hierarchiczne, czasowe lub skojarzeniowe.</target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>"Record a precise description of the nature of the relationship between the function being described and the related function." (ISDF 5.3.3) Note that the text entered in this field will also appear in the related function.</source>
+        <target>"Podaj dokładny opis charakteru stosunków między funkcją opisywaną oraz funkcją powiązaną". (ISDF 5.3.3) Zauważ, że tekst wpisany w tym polu pojawi się także w związanych z nim funkcjach.</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Related resources</source>
+        <target>Powiązane zasoby</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Identifier/title</source>
+        <target>Identyfikator/tytuł</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
+        <target>Wybierz tytuł z rozwijanego menu - identyfikator i/lub autoryzowana forma nazwy. (ISDF 6.1)</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+/* These are just the general site styles. 
+   It has nothing to do with ImageFlow
+========================================== */
+@media screen, projection, print {
+	* { 
+		font-family:verdana, arial, helvetica, sans-serif;
+		font-size:100.01%;
+	}
+	html {
+		height:100%;
+		width:100%;
+	}
+	body {
+		color:#fff;
+		background-color:#000;
+		font-size:0.8em;
+		line-height:1.4em;
+		padding:1em 0;
+		margin:0;
+	}
+	a {
+		color:#fff;
+	}
+	h1 {
+		font-size:2.2em;
+		text-align:center;
+		margin:0.4em 0 1.3em 0;
+	}
+}

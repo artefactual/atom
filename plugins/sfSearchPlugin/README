@@ -1,0 +1,23 @@
+# Welcome to sfSearch
+sfSearch is a flexible search engine platform written for symfony. It simplifies the indexing process with a centralized place to configure how to index your data, and provides powerful backend engines to return useful search results.  Its search engine abstraction layer (SEAL) allows you to scale the search engine depending on your requirements. But, most importantly, it is flexible and extensible and allows every component to be changed to match your requirements.
+
+sfSearch requires PHP 5.2+ and symfony 1.1+ at this time.
+
+## Warning!
+sfSearch is alpha software and is **unsuitable for production applications** at this time. This is alpha software in the strictest sense.  It means it may or may not work, but more likely not to work right now. Use at your own risk.
+
+## Documentation 
+Consult the documentation to explore sfSearch and its features. If you are anxious to get started right away, see Quick Start guide in the `doc/recipes/` directory to implement a search engine in less than 10 minutes.
+
+### Book
+
+The book is contained in four chapters:
+
+1. Introduction
+2. Creating An Index
+3. Using The Index
+4. Generating An Interface:
+
+<!--
+vim:ft=mkd
+-->

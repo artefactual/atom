@@ -1,0 +1,41 @@
+propel:
+  _attributes: { package: plugins.qtAccessionPlugin.lib.model }
+
+  accession:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    acquisition_type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    date: bu_date
+    identifier: { type: varchar(255), index: unique }
+    processing_priority_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    processing_status_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    resource_type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    created_at:
+    updated_at:
+
+  accession_i18n:
+    appraisal: longvarchar
+    archival_history: longvarchar
+    location_information: longvarchar
+    physical_characteristics: longvarchar
+    processing_notes: longvarchar
+    received_extent_units: longvarchar
+    scope_and_content: longvarchar
+    source_of_acquisition: longvarchar
+    title: varchar(255)
+
+  deaccession:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    accession_id: { type: integer, foreignTable: accession, foreignReference: id, onDelete: cascade }
+    date: bu_date
+    identifier: varchar(255)
+    scope_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    created_at:
+    updated_at:
+
+  deaccession_i18n:
+    description: longvarchar
+    extent: longvarchar
+    reason: longvarchar
+
+  donor:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: actor, foreignReference: id, onDelete: cascade, inheritanceKey: true }

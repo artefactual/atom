@@ -1,0 +1,49 @@
+form .section,
+.form-item
+{
+  position: relative;
+}
+
+.description-left,
+.description-right
+{
+  background: #def;
+
+  border-radius: 1em;
+  -moz-border-radius: 1em;
+  -webkit-border-radius: 1em;
+
+  color: #000;
+  display: none;
+  padding: 1em;
+  position: absolute;
+  top: 0;
+  width: 156px;
+  z-index: 1;
+}
+
+.description-left
+{
+  margin-right: 3em;
+  right: 100%;
+}
+
+.description-right
+{
+  left: 100%;
+  margin-left: 3em;
+}
+
+div.description-dialog {
+
+  position: absolute;
+  color: #444;
+  left: -200px;
+  width: 156px;
+  padding: 4px 8px;
+  background-color: #def;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  z-index: 10750;
+}

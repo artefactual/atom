@@ -1,0 +1,11 @@
+/* $Id: poll-rtl.css,v 1.2 2007/05/30 18:28:13 goba Exp $ */
+
+.poll .bar .foreground {
+  float: right;
+}
+.poll .percent {
+  text-align: left;
+}
+.poll .vote-form .choices {
+  text-align: right;
+}

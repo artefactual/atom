@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2012-08-15T11:37:10Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Password strength:</source>
+        <target>Dimensão da senha:</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>To make your password stronger:</source>
+        <target>Para tornar a sua senha forte:</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Make it at least six characters</source>
+        <target>Pelo menos 6 caracteres</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Add lowercase letters</source>
+        <target>Adicionar letras minúsculas</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Add uppercase letters</source>
+        <target>Adicionar letras maiúsculas</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Add numbers</source>
+        <target>Adicionar números</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Add punctuation</source>
+        <target>Adicionar pontuação</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Make it different from your username</source>
+        <target>Tornar diferente do nome de utilizador</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Passwords match:</source>
+        <target>Senhas confirmadas:</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Yes</source>
+        <target>Sim</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>No</source>
+        <target>Não</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

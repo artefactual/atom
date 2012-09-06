@@ -1,0 +1,94 @@
+/*!
+ *
+ * qtTrilliumPlugin
+ *
+ *
+*/
+
+/*
+ * Twitter bootstrap
+ */
+@import "less/reset"; 
+@import "less/preboot";
+@import "less/scaffolding";
+@import "less/type";
+@import "less/forms";
+@import "less/tables";
+@import "less/patterns";
+
+/*
+ * qtTrilliumPlugin
+ */
+@import "less/_scaffolding";
+@import "less/_header";
+@import "less/_misc";
+
+/*
+ * Colors
+ */
+@trilliumGreen: #008800;
+
+/*
+ * z-index tree
+ * --------------------------------------------------
+ * imageflow         10000, 10001, 10002... 2, 3, 4, 5...
+ * yui dialog        20000
+ * autocomplete      20100, 20099...
+ * sidebar overlay   10500
+ * tooltips          10750
+ * header            11000
+ * sfwebdebug        50000
+ */
+
+#sfWebDebug {
+
+  position: fixed;
+  z-index: 50000;
+
+}
+
+#header {
+
+  z-index: 11000;
+
+}
+
+/*
+ * ...
+ */
+
+.nowrap {
+  white-space: nowrap;
+}
+
+html.js .js-hide {
+
+  display: none;
+
+}
+
+.element-hidden {
+
+  display: none;
+
+}
+
+.element-invisible {
+
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+
+}
+
+.element-visible {
+
+  height: auto;
+  overflow: visible;
+  position: static;
+
+}
+
+#action-icons {
+  display: inline;
+}

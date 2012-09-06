@@ -1,0 +1,12 @@
+/* $Id: book-rtl.css,v 1.2 2008/12/19 15:42:26 dries Exp $ */
+
+.book-navigation .menu {
+  padding: 1em 3em 0 0;
+}
+
+.book-navigation .page-previous {
+  float: right;
+}
+.book-navigation .page-up {
+  float: right;
+}

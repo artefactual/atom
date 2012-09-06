@@ -1,0 +1,78 @@
+QubitInformationObject:
+  A:
+    id: 19
+
+  mu:
+    id: 16
+    parent_id: A
+
+  B:
+    id: 6
+    parent_id: A
+
+  lambda:
+    id: 76
+    parent_id: B
+
+  E:
+    id: 29
+    parent_id: B
+
+  alpha:
+    id: 87
+    parent_id: E
+
+  beta:
+    id: 90
+    parent_id: E
+
+  F:
+    id: 98
+    parent_id: B
+
+  C:
+    id: 9
+    parent_id: A
+
+  D:
+    id: 94
+    parent_id: A
+
+  gamma:
+    id: 34
+    parent_id: D
+
+  G:
+    id: 42
+    parent_id: D
+
+  pi:
+    id: 99
+    parent_id: G
+
+  rho:
+    id: 97
+    parent_id: G
+
+  tau:
+    id: 55
+    parent_id: G
+
+  H:
+    id: 37
+    parent_id: D
+
+  chi:
+    id: 56
+    parent_id: H
+
+  psi:
+    id: 51
+    parent_id: H
+
+  omega:
+    id: 92
+    parent_id: H
+
+  iota:
+    id: 28

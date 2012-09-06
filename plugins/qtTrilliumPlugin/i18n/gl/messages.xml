@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2012-08-15T12:05:58Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Search</source>
+        <target>Búsqueda</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Advanced search</source>
+        <target>Pesquisa avanzada</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Language</source>
+        <target>Idioma</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Quick links</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Results %1% to %2% of %3%</source>
+        <target>Resultados %1% a %2% de %3%</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>No results</source>
+        <target>Sen resultados</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Pages</source>
+        <target>Páxinas</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>&amp;laquo; Previous</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Next &amp;raquo;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Go to previous page</source>
+        <target>Ir á páxina previa</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Go to page %1%</source>
+        <target>Ir á páxina %1%</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Go to next page</source>
+        <target>Ir á páxina seguinte</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>%1% results per page</source>
+        <target>%1% resultados por páxina</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

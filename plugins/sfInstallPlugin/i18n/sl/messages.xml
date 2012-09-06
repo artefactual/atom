@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2012-08-17T14:35:11Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Password strength:</source>
+        <target>Varnost gesla:</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>To make your password stronger:</source>
+        <target>Naredite vaše geslo varnejše:</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Make it at least six characters</source>
+        <target>Vnesite najmanj 6 znakov</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Add lowercase letters</source>
+        <target>Dodaj male tiskane črke</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Add uppercase letters</source>
+        <target>Dodaj velike črke</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Add numbers</source>
+        <target>Dodaj številke</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Add punctuation</source>
+        <target>Dodaj ločila</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Make it different from your username</source>
+        <target>Vnesite ime, drugačno od vašega uporabniškega imena</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Yes</source>
+        <target>Potrdi</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>No</source>
+        <target>Ne</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Passwords match:</source>
+        <target>Ujemanje gesel:</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

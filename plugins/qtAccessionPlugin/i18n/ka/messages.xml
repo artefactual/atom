@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2012-08-17T14:34:18Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new deaccession record</source>
+        <target>ახალი შეზღუდვის დამატება</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target> უსათაურო</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>რედაქტირება %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Identifier - This is a mandatory element.</source>
+        <target>იდენტიფიკატორი-ესაა სავალდებულო ელემენტი </target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Date of acquisition - This is a mandatory element.</source>
+        <target>შეძენილის, მონაპოვარის თარიღი- ესაა სამანდატო ელემენტი</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Scope - This is a mandatory element.</source>
+        <target>სკოპი- ესაა სავალდებულო ელემენტი</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Description - This is a mandatory element.</source>
+        <target>აღწერა- ესაა, სავალდებულო ელემენტი</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>View deaccession record</source>
+        <target> გაცემული ჩანაწერის ნახვა. </target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Edit accession record</source>
+        <target>დამატებითი ჩანაწერის დამატება</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Deaccession number</source>
+        <target>შეზღუდვის ნომერი</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Scope</source>
+        <target>მოცულობა</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Date</source>
+        <target>თარიღი</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Description</source>
+        <target>აღწერა</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Extent</source>
+        <target>მანძილი, სიგრძე , სივრცე </target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Reason</source>
+        <target>მიზეზი</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Actions</source>
+        <target>ქმედებები</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Edit</source>
+        <target>რედაქტირება</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Delete</source>
+        <target>წაშლა</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Are you sure you want to delete %1%?</source>
+        <target>დარწმუნებული ხართ, რომ გსურთ %1%-ის წაშლა?</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Cancel</source>
+        <target>გაუქმება </target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Confirm</source>
+        <target>დადასტურება </target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Edit deaccession record</source>
+        <target> deaccession ჩანაწერის დამატება </target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>This is a mandatory element.</source>
+        <target>ესაა სავალდებულო ელემენტი</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.</source>
+        <target>მიუთითეთ, დაადგინეთ  მთლიანი მიერთება მიმდინარეობს თუ მხოლოდ ნაწილის. </target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Date of deaccession</source>
+        <target> განადგურების თარიღი</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Identify what materials are being deaccessioned.</source>
+        <target> განსაზღვრეთ, დაადგინეთ რა მასალები მიმიდინარეობს </target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>The number of units as a whole number and the measurement of the records to be deaccessioned.</source>
+        <target>ერთეულთა რაოდენობა როგორც მთელი რაოდენობა და ჩანაწერების გაზომვა რომ იყოს დამატებული</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Provide a reason why the records are being deaccessioned.</source>
+        <target> უზრუნველყოფს მიზეზე, რატომ არიან ჩანაწერები </target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Save</source>
+        <target>შენახვა </target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Create</source>
+        <target>შექმნა</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Add new donor</source>
+        <target>ახალი დონორის დამატება</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Authorized form of name - This is a mandatory element.</source>
+        <target>სახელის ავტორიზირებული ფორმა-ესაა სამანდატო ელემენტი</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>View donor</source>
+        <target>დონორის(შემომწირველის) ნახვა </target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Edit donor</source>
+        <target>დონორის დამატება </target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Authorized form of name</source>
+        <target>სახელის ავტორიზირებული ფორმა</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Contact area</source>
+        <target>საკონტაქტო არეალი</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Add new</source>
+        <target>ახლის დამატება</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Identity area</source>
+        <target>იდენტიფიცირების არე </target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Donor browse options</source>
+        <target>დონორის დათვალიერები პარამეტრები</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Recent changes</source>
+        <target>თანამედროვე, ახალი  მომხდარი ცვლილებები</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Sort</source>
+        <target> სორტირება.</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Alphabetic</source>
+        <target>ანბანური</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Browse donor</source>
+        <target>დონორის არჩევა</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Name</source>
+        <target>სახელი </target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Updated</source>
+        <target> განახლებული</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Search donor</source>
+        <target> დონორის ძებნა </target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>List donor</source>
+        <target>დონორის ჩამონათვალი</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Add new accession record</source>
+        <target>შემონატანის შესახებ ახალი ჩანაწერის დამატება</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Acquisition date - This is a mandatory element.</source>
+        <target>მოძიების თარიღი - სავალდებულო ელემენტი.</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Source of acquisition - This is a mandatory element.</source>
+        <target>შეძენის წყარო - ესაა სავალდებულო ელემენტი</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Location information - This is a mandatory element.</source>
+        <target>ადგილობრივი ინფორმაცია- ესაა სავალდებულო ელემენტი </target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Related donors</source>
+        <target>დაკავშირებული დონორები</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Related donor record</source>
+        <target>დაკავშირებული დონორ ჩანაწერი</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
+        <target>ეს არის სამართლებრივი მხარე და უზრუნველყოფს საკონტაქტო ინფორმაციას პერსონ(ებ)ისთვის ან ორგანიზაციებისთვის, რომელი მასალებიც გადმოცემულია ან ნაჩუქარია(შემოწირულია) მას აქვს არჩევანი სხვადასხვა ინსტანციაში და უზრუნველყოფს შექმნას ერთზე მეტი  საკონტაქტო ჩანაწერი ერთი ფორმის გამოყენებით.</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Primary contact information</source>
+        <target>ძირითადი საკონტაქტო ინფორმაცია </target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Region/province</source>
+        <target>რეგიონი/პროვინცია</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Country</source>
+        <target>ქვეყანა</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>View accession record</source>
+        <target> დამატებული ჩანაწერის ნახვა</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Accession number</source>
+        <target>დაშვების ნომერი</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Acquisition date</source>
+        <target>მოძიების თარიღი</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Immediate source of acquisition</source>
+        <target>შენაძენის უშუალო წყარო </target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Location information</source>
+        <target> ადგილობრივი ინფორმაცია </target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Donor/Transferring body area</source>
+        <target>დონორის/ტრანსფერის გადაცემის ორგანოს არეალი</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Edit donor/transferring body area</source>
+        <target> დონორის/ტრანსფერის ორგანოს არეალის დამატება </target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Related donor</source>
+        <target>დაკავშირებული დონორი</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Administrative area</source>
+        <target>ადმინისტრაციული არე</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Edit administrative area</source>
+        <target>ადმინისტრაციული არეალის დამატება</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Acquisition type</source>
+        <target>მოძიების ტიპი</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Resource type</source>
+        <target>რესურსის აკრეფა</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Title</source>
+        <target>სათაური </target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Creators</source>
+        <target>შემქმნელები</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Archival/Custodial history</source>
+        <target>საარქივო/სასაწყობო ისტორია</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Scope and content</source>
+        <target>სკოპი და შინაარსი </target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Appraisal, destruction and scheduling</source>
+        <target>დამუშავება, განადგურება და დაგეგმარება</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Physical condition</source>
+        <target>ფიზიკური მდგომარეობა </target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Received extent units</source>
+        <target>მიღებული ერთეულების ზომა </target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Processing status</source>
+        <target>დამუშავების სტატუსი </target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Processing priority</source>
+        <target>დამუშავების პრიორიტეტი</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Processing notes</source>
+        <target> დამუშავების  შენიშვნები </target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Rights area</source>
+        <target>უფლებების არეალი </target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Edit rights area</source>
+        <target>უფლებების არეალის დამატება </target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Information object area</source>
+        <target>საინფორმაციო ობიექტის არეალი</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Deaccession area</source>
+        <target>შეზღუდვის არეალი</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Deaccession</source>
+        <target>შეზღუდვა</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Create %1%</source>
+        <target>%1% ის შექმნა </target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>It has %1% deaccessions that will also be deleted:</source>
+        <target> ამას აქვს %1% deaccession-ები რომელიც აგრეთვე წაიშლება </target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
+        <target>დაშვების ნომერი. უნდა იყოს უნიკალური</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
+        <target>დაშვების თარიღი ემთხვევა მასალის შემოტანას.</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.</source>
+        <target>ტრანსფერის ან შენაძენის უშუალო წყაროს იდენტიფიცირება , შენაძენის თარიღი და მეთოდი, თუ ინფორმაცია არაკონფიენციალურია. </target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>A description of the physical location in the repository where the accession can be found.</source>
+        <target>შემოსატანი მასალის განთავსების ადგილსამყოფელი.</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Term describing the type of accession transaction and referring to the way in which the accession was acquired.</source>
+        <target> ვადა აღიწერება  მიერთების ტრანზაქციის ტიპით და გულისხმობს გზას რომლითაც გაწევრიანება იქნა შეძენილი.</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Select the type of resource represented in the accession, either public or private.</source>
+        <target> აირჩიეთ  რესურსის ტიპი წარმოდგენილია მიერთებით, ან საჯარო ან კერძო</target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>The title of the accession, usually the creator name and term describing the format of the accession materials.</source>
+        <target>დანამატის  სათაური ჩვეულებრივ აღწერს ფორმატს, შემქმნელის სახელს და ვადას დანამატის  მასალებისა </target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>The name of the creator of the accession or the name of the department that created the accession.</source>
+        <target>მიერთებისთვის შექმნილი სახელი ან დეპარტამენტის სახელი რომელმაც შექმნა დანამატი</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Information on the history of the accession. When the accession is acquired directly from the creator, do not record an archival history but record the information as the Immediate Source of Acquisition.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>A description of the intellectual content and document types represented in the accession.</source>
+        <target>მასალის შემოტანისას მისი ინტელექტუალური შინაარსის აღწერა.</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
+        <target>ჩაწერეთ შეფასება , განადგურება და  დაგეგმვა აღწერის ერთეულისთვის განსაკუთრებით თუ ისინი ახდენენ ეფექტს  მასალის ინტერპრეტაციას.</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
+        <target>შემოსატანი მასალის ფიზიკური მდგომარეობის დახასიათება და შენახვის განსაკუთრებული პირობების აღწერა.</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>The number of units as a whole number and the measurement of the received volume of records in the accession.</source>
+        <target> ერთეულთა რაოდენობა როგორც მთელი რაოდენობა და მიღებული  ჩანაწერების მოცულობის გაზომვა დანამატში</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>An indicator of the accessioning process.</source>
+        <target>შემოტანის პროცესის ინდიკატორი</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>Indicates the priority the repository assigns to completing the processing of the accession.</source>
+        <target> მიუთითებს პრიორიტეტს საცავს,რომ დაასრულოს დანამატის დამუშავება  </target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>Notes about the processing plan, describing what needs to be done for the accession to be processed completely.</source>
+        <target>შენიშვნები დამუშავებულ გეგმის შესახებ , აღწერს რა სჭირდება, რომ იყოს გაკეთებული დანამატისთვის რომ იყოს სრულად დამუშავებული </target>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Accession browse options</source>
+        <target>დაშვების ოპციები</target>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Browse accession</source>
+        <target>დანამატის არჩევა</target>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Search accession</source>
+        <target>დამატების (დანამატის) ძებნა </target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>List accession record</source>
+        <target>დამატებული ჩანაწერის ჩამონათვალი </target>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Identifier</source>
+        <target>იდენტიფიკატორი </target>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Accession area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Related accession(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Accruals</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Accrual to</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Information object</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Add accrual</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>It has %1% accruals. They will not be deleted.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>You are creating an accrual to accession %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Information objects</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

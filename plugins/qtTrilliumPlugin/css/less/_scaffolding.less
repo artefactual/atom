@@ -1,0 +1,128 @@
+html, body {
+
+  background-color: White;
+  background-image: url(../../images/bg.png);
+  background-repeat: repeat-y;
+  background-position: 50% 0%;
+
+}
+
+#page-wrapper {
+
+  margin-top: 103 + 10px;
+
+  #page {
+
+    #header {
+
+      min-width: 940px;
+
+      #second-level > div {
+
+        width: 940px;
+        margin: 0 auto;
+
+      }
+
+    }
+
+    #main-wrapper {
+
+      width: 940px;
+      margin: 0 auto 0 auto;
+
+      #main {
+
+        .column {
+
+          float: left;
+          display: inline;
+
+        }
+
+        .sidebar,
+        #sidebar-first { // w=280
+
+          .columns(5);
+
+        }
+
+        #content { // w=640
+
+          .columns(11);
+          margin-left: 20px;
+
+        }
+
+      }
+
+    }
+
+    #footer {
+
+    }
+
+  }
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 940px) {
+
+  html, body {
+
+    background-position: -60px 0%;
+
+  }
+
+  #header,
+  #main-wrapper { min-width: 768px !important; }
+  #second-level input[name=query] { width: 340px !important; }
+  #logo-and-name { margin-left: 20px; }
+  #main-wrapper { width: 768px; }
+  .sidebar, #sidebar_first { width: 220px !important; }
+  #content { width: 528px !important; }
+  #content input[name=query] { width: 380px !important; }
+
+}
+
+@media only screen and (max-width: 767px) {
+
+  html, body {
+
+    background-position: 200px 0%;
+
+  }
+
+  #header,
+  #main-wrapper { min-width: 480px !important; }
+  #page-wrapper { margin-top: 103 + 10 + 103px; }
+  #first-level { height: 60px !important; }
+  #second-level { height: 144px !important; }
+  #second-level .search { clear: both; }
+  #second-level input[name=query] { width: 326px !important; }
+  #options-menu { float: left !important; }
+  #logo-and-name { margin-left: 10px; }
+  .sidebar, #sidebar_first { width: 480px !important; clear: both; }
+  #content { width: 440px !important; clear: both; margin-right: 20px; }
+  #content input[name=query] { width: 280px !important; }
+
+}
+
+/*
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+}
+
+@media
+
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min-device-pixel-ratio: 2) {
+
+  body {
+
+  }
+
+}
+
+*/

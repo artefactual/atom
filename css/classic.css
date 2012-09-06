@@ -1,0 +1,1031 @@
+body
+{
+  margin: 1em;
+  word-wrap: break-word;
+}
+
+form h3,
+.form-item label
+{
+  font: inherit;
+  font-weight: bold;
+}
+
+form thead th
+{
+  /* Reset thead th */
+
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid #d3e7f4;
+  color: #494949;
+}
+
+form .field
+{
+  /* Reset .field */
+
+  border: 0;
+}
+
+form .field > div
+{
+  /* Reset .field > div */
+
+  margin: 0;
+  padding: 0;
+}
+
+form .field > h3
+{
+  /* Reset h3 */
+
+  font-family: inherit;
+
+  /* Reset .field */
+
+  background: transparent;
+  color: inherit;
+  float: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  width: auto;
+}
+
+/* e.g. RAD administrative history */
+
+form .field :link h3,
+form .field :visited h3
+{
+  background-image: url(../images/pencil.png);
+  background-position: right;
+  background-repeat: no-repeat;
+  padding-right: 16px;
+}
+
+h1
+{
+  color: #ccc;
+  font: bold 200% Lucida Grande, Verdana, sans-serif;
+  letter-spacing: -.1em;
+  text-align: right;
+}
+
+h2
+{
+  color: #069;
+  font-size: 120%;
+}
+
+/* Reset system-behavior.css, http://qubit-toolkit.org/wiki/index.php?title=Autocomplete_overflow */
+
+html.js fieldset.collapsible .fieldset-wrapper
+{
+  overflow: visible;
+}
+
+/* Form input border, etc. */
+
+input,
+select,
+textarea,
+.yui-skin-sam .yui-ac-input
+{
+  background: #fff;
+  border: 1px solid #ccc;
+  border-top-color: #999;
+
+  /* Use consistent box model if possible */
+
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+
+  padding: 2px;
+  width: 100%;
+}
+
+input[type=radio],
+input[type=checkbox]
+{
+  width: auto;
+}
+
+input:focus,
+select:focus,
+textarea:focus
+{
+  border-color: #ace;
+  color: #000;
+}
+
+table
+{
+  clear: both;
+}
+
+thead th
+{
+  border: 1px solid #999;
+  color: #000;
+}
+
+/* Orange background */
+
+thead th,
+.actions,
+.label,
+#content .search
+{
+  background: #f93;
+}
+
+/* Fixed position elements: button and search blocks */
+
+.actions,
+#content .search
+{
+  border: 3px solid #999;
+  line-height: 2.4em;
+  padding: 4px;
+}
+
+.actions ul li
+{
+  padding: 0;
+}
+
+/* Buttons, include :focus to override blue border */
+
+.actions :link,
+.actions :visited,
+.form-submit,
+.form-submit:focus
+{
+  background: #000;
+  border: 0;
+  border-bottom: 3px solid #999;
+  border-right: 3px solid #999;
+  color: #fff;
+  font-size: 110%;
+  padding: 2px 1em;
+  text-shadow: 1px 1px rgba(0, 0, 0, .2);
+  white-space: nowrap;
+  width: auto;
+}
+
+.actions .form-submit,
+.actions :link,
+.actions :visited
+{
+  margin: 0;
+}
+
+.actions :link:focus,
+.actions :link:hover,
+.actions :visited:focus,
+.actions :visited:hover,
+.form-submit:focus,
+.form-submit:hover
+{
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+}
+
+/* Name, value pairs */
+
+.field
+{
+  border-bottom: .1px solid #ccc;
+  border-top: .1px solid #ccc;
+
+  /* Reset */
+
+  text-align: left;
+}
+
+.field h3
+{
+  font-size: 110%;
+  font-weight: bold;
+}
+
+/* Subtle rounded corners */
+
+.browse .field > h3,
+.browseTerm .field > h3,
+.field h3,
+.field .field > h3,
+.label,
+.page h1,
+.search .field > h3,
+.sidebar > .section > div > h2,
+.sidebar > .section > div > h3
+{
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+
+  color: #000;
+}
+
+.browse .field,
+.browseTerm .field,
+.field .field,
+.search .field
+{
+  /* Reset .field */
+
+  border: 0;
+}
+
+.browse .field > h3,
+.browseTerm .field > h3,
+.field .field > h3,
+.search .field > h3
+{
+  /* Reset .field > h3 */
+
+  background: transparent;
+}
+
+.browse .field > div,
+.browseTerm .field > div,
+.field .field > div,
+.search .field > div
+{
+  /* Reset .field */
+
+  margin: 0;
+}
+
+.browse .field > h3,
+.browseTerm .field > h3,
+.field .field > h3,
+.search .field > h3
+{
+  /* Reset .field */
+
+  float: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  width: auto;
+}
+
+/* Hyperlinked headings, repository contact information is one example of
+ * hyperlinked field heading */
+
+.field :link:focus h3,
+.field :link:hover h3,
+.field :visited:focus h3,
+.field :visited:hover h3,
+.page :link:focus h1,
+.page :link:hover h1,
+.page :visited:focus h1,
+.page :visited:hover h1,
+:link:focus h2,
+:link:hover h2,
+:visited:focus h2,
+:visited:hover h2,
+:link:focus .label,
+:link:hover .label,
+:visited:focus .label,
+:visited:hover .label
+{
+  background-color: #000;
+  color: #fff;
+}
+
+.field > div
+{
+  margin-left: 30%;
+  padding: 2px 4px;
+}
+
+.field > h3
+{
+  background: #999;
+  color: #fff;
+  float: left;
+  font-size: inherit;
+  padding: 2px 1%;
+  text-align: right;
+
+  /* 30% - 2 x 1% = 28%, must specify both width and padding as pixels or
+   * percentages, or add nested element : P */
+
+  width: 28%;
+
+  /* Reset .field h3 */
+
+  border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+}
+
+/* http://positioniseverything.net/articles/onetruelayout/equalheight */
+
+.field
+{
+  overflow: hidden;
+}
+
+.field > h3
+{
+  margin-bottom: -32767px;
+  padding-bottom: 32767px;
+}
+
+.field + .field
+{
+  border-top: 0;
+}
+
+.imageflow .caption
+{
+  white-space: nowrap;
+}
+
+.imageflow .slider
+{
+  background-image: url(../vendor/imageflow/slider_dark.png);
+}
+
+/* Solid background headings */
+
+.label,
+.page h1,
+.sidebar > .section > div > h2,
+.sidebar > .section > div > h3
+{
+  font-size: 140%;
+  padding: 2px 4px;
+}
+
+/* Specific <h1> */
+
+.label,
+.page h1,
+#site-name
+{
+  /* Reset h1 */
+
+  letter-spacing: 0;
+  text-align: left;
+}
+
+h1.label
+{
+  position: relative;
+}
+
+.itemsPerPage,
+.pager
+{
+  margin: 1em 0;
+  text-align: center;
+}
+
+.pager [rel~=next]:link,
+.pager [rel~=next]:visited
+{
+  background-image: url(../images/next.png);
+  background-position: right;
+  background-repeat: no-repeat;
+  padding-right: 16px;
+}
+
+.pager [rel~=prev]:link,
+.pager [rel~=prev]:visited
+{
+  background-image: url(../images/prev.png);
+  background-position: left;
+  background-repeat: no-repeat;
+  padding-left: 16px;
+}
+
+.itemsPerPage li,
+.pager li
+{
+  display: inline;
+  margin: 0;
+}
+
+.itemsPerPage ol,
+.pager ol
+{
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.itemsPerPage .active,
+.pager .active
+{
+  font-weight: bold;
+}
+
+.itemsPerPage :link,
+.itemsPerPage :visited,
+.pager :link,
+.pager :visited
+{
+  border: 1px solid #ccc;
+  padding: 2px 4px;
+}
+
+.publicationStatus
+{
+  color: #999;
+}
+
+.publicationStatus:after
+{
+  content: ')';
+}
+
+.publicationStatus:before
+{
+  content: '(';
+}
+
+body .readOnly
+{
+  background-image: url(../images/lock.png);
+  background-position: right;
+  background-repeat: no-repeat;
+  padding-right: 20px;
+}
+
+.resizable-textarea
+{
+  width: 100%;
+}
+
+/* hCard */
+
+.vcard > div
+{
+  border-bottom: 1px solid #bbb;
+}
+
+.vcard .adr .field > div
+{
+  margin: 0;
+}
+
+.vcard .adr .field > h3
+{
+  display: none;
+}
+
+.vcard .url
+{
+  word-wrap: break-word;
+}
+
+.yui-dialog
+{
+  opacity: 1;
+
+  transition-duration: .5s;
+  transition-property: opacity visibility;
+  -moz-transition-duration: .5s;
+  -moz-transition-property: opacity visibility;
+  -o-transition-duration: .5s;
+  -o-transition-property: opacity visibility;
+  -webkit-transition-duration: .5s;
+  -webkit-transition-property: opacity visibility;
+
+  width: 480px;
+  z-index: 100;
+}
+
+.yui-dialog .form-item
+{
+  clear: left;
+  margin-top: 0;
+}
+
+.yui-dialog .form-item-date,
+.yui-dialog #resourceRelation .form-item-type,
+.yui-dialog #updateEvent .form-item-type
+{
+  float: left;
+  width: 50%;
+}
+
+.yui-dialog .form-item-endDate,
+.yui-dialog .form-item-startDate
+{
+  clear: none;
+  float: left;
+  margin-left: 1%;
+  width: 24%;
+}
+
+.yui-dialog .form-item-place,
+.yui-dialog .form-item-resourceType
+{
+  clear: none;
+  float: left;
+  margin-left: 1%;
+  width: 49%;
+}
+
+.yui-overlay-hidden
+{
+  opacity: 0;
+}
+
+#breadcrumb li
+{
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+/* FIXME */
+
+#breadcrumb li + li:before
+{
+  content: '»';
+  margin-right: .3em;
+}
+
+#breadcrumb ol
+{
+  margin: 0;
+  padding: 0;
+}
+
+#content
+{
+  width: 540px;
+}
+
+#content,
+#sidebar-first
+{
+  display: inline; /* IE 5/6 doubled float margin bug */
+  float: left;
+  position: relative;
+}
+
+/* Search block */
+
+#content .search
+{
+  /* Reset ul.actions */
+
+  position: static;
+}
+
+#content .search input
+{
+  float: left;
+  width: 50%;
+}
+
+#content .search .form-submit
+{
+  display: block;
+  float: none;
+  margin: 0;
+  margin-left: auto;
+  width: auto;
+}
+
+/* Link :focus and :hover */
+
+#languageMenu :link:focus,
+#languageMenu :link:hover,
+#languageMenu :visited:focus,
+#languageMenu :visited:hover,
+#navigation :link:focus,
+#navigation :link:hover,
+#navigation :visited:focus,
+#navigation :visited:hover,
+#userMenu :link:focus,
+#userMenu :link:hover,
+#userMenu :visited:focus,
+#userMenu :visited:hover,
+.browse :link:focus,
+.browse :link:hover,
+.browse :visited:focus,
+.browse :visited:hover,
+{
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+}
+
+#logo
+{
+  margin-right: 1em;
+}
+
+#logo,
+#name-and-slogan
+{
+  float: left;
+}
+
+#main
+{
+  margin: 3em 0;
+}
+
+#page
+{
+  margin: 0 auto;
+  padding-top: 2em;
+  position: relative;
+  width: 770px;
+}
+
+#sidebar-first
+{
+  float: right;
+  width: 210px;
+}
+
+/* Horizontal menus */
+
+.tabs,
+#languageMenu,
+#userMenu
+{
+  font-size: 90%;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+}
+
+.tabs
+{
+  position: static;
+}
+
+.tabs :link,
+.tabs :visited,
+#languageMenu :link,
+#languageMenu :visited,
+#userMenu :link,
+#userMenu :visited
+{
+  color: #999;
+  margin: 0 4px;
+}
+
+.tabs ul.links li,
+#languageMenu li,
+#userMenu li
+{
+  float: left;
+  padding: 0;
+}
+
+.tabs li + li,
+#languageMenu li + li,
+#userMenu li + li
+{
+  border-left: 1px solid #999;
+}
+
+.tabs .active :link,
+.tabs .active :visited,
+#languageMenu .active :link,
+#languageMenu .active :visited,
+#userMenu .active :link,
+#userMenu .active :visited
+{
+  text-decoration: underline;
+}
+
+#userMenu
+{
+  right: 0;
+  text-transform: lowercase;
+}
+
+#site-name
+{
+  font-size: 320%;
+}
+
+#site-name > a,
+#site-name > a:link
+#site-name > a:visited
+{
+  background: transparent;
+  color: #f60;
+}
+
+/* Delete and edit pages */
+
+.delete #navigation,
+.delete #sidebar-first,
+.move #navigation,
+.move #sidebar-first,
+.overlay #footer,
+.overlay #navigation,
+.overlay #sidebar-first
+{
+  display: none;
+}
+
+/* Digital object browse page */
+
+.digitalobject.browse #content td
+{
+  text-align: center;
+  vertical-align: top;
+}
+
+/* Login page */
+
+.login .actions
+{
+  /* Reset .actions */
+
+  background: transparent;
+  border: 0;
+  padding: 0;
+  position: static;
+  width: auto;
+}
+
+.login #content > *
+{
+  font: 160% Georgia, serif;
+  margin: 0 5%;
+}
+
+.login #content input
+{
+  font-size: 140%;
+  font-weight: bold;
+}
+
+.login #content .form-submit
+{
+  font-size: 62.5%; /* 100/160% */
+  font-weight: normal;
+}
+
+.move #content .search
+{
+  background: transparent;
+  border: 0;
+  float: right;
+  position: static;
+  width: auto;
+}
+
+body.overlay
+{
+  margin: 1em;
+}
+
+.overlay #content
+{
+  float: none;
+  width: auto;
+}
+
+/* Blue background */
+
+.page h1,
+.sidebar > .section > div > h2,
+.sidebar > .section > div > h3
+{
+  background: #069;
+  color: #fff;
+  font-size: 160%;
+}
+
+/* Search page */
+
+.search #content h2
+{
+  font-size: 1.2em;
+}
+
+.search #content .search-results img
+{
+  float: right;
+  margin: .5em;
+}
+
+.sidebar > .section > div
+{
+  margin: 2px;
+
+  /* Reset .field */
+
+  border: 0;
+}
+
+.sidebar > .section > div > div
+{
+  /* Reset .field */
+
+  margin: 0;
+}
+
+.sidebar > .section > div > h2,
+.sidebar > .section > div > h3
+{
+  font-size: inherit;
+  font-weight: bold;
+  line-height: inherit;
+
+  /* Reset .field */
+
+  float: none;
+  margin: 0;
+  text-align: left;
+  width: auto;
+}
+
+.sidebar
+{
+  margin: 31px 0 0;
+}
+
+.sidebar .field ul
+{
+  margin: 0;
+}
+
+.imageflow
+{
+  padding: 10px 0;
+}
+
+/* Radio button lists */
+
+ul.radio
+{
+  padding-left: 2px;
+}
+
+ul.radio li
+{
+  list-style: none;
+}
+
+/* Inline lists */
+/* Note: Override Garland css to add "display: inline" */
+
+ul.inline
+{
+  margin: 0;
+}
+
+ul.inline li
+{
+  background: none;
+  margin: 0;
+  padding: 0 1em 0 0; /* LTR */
+  display: inline;
+}
+
+ul.inline li label
+{
+  background: none;
+  margin: 0;
+  display: inline;
+}
+
+ul li label,
+ul.inline li label,
+.form-item li label
+{
+  font-weight: normal;
+}
+
+/* table caption */
+
+table caption
+{
+  text-align: left;
+  font-weight: bold;
+  margin: 20px 0 0 0;
+  padding: 0 3px;
+}
+
+.section caption {
+  margin-top: .5em;
+}
+
+.search-results
+{
+  margin: 1em 0;
+}
+
+.sfPluginAdminPlugin #content img
+{
+  float: right;
+  margin-left: 0.6em;
+}
+
+#page .sidebar .search
+{
+  padding: 0.3em 0.2em;
+  width: auto;
+}
+
+#page .sidebar .search form
+{
+  position: relative;
+  width: auto;
+}
+
+#page .sidebar .search .form-submit
+{
+  background: #bcd url(../images/search-16px.png) no-repeat center;
+  border: 0;
+
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+
+  margin: 2px;
+  padding: 1px;
+  position: absolute;
+  right: 0;
+  text-indent: -32767px;
+  height: 18px;
+  width: 18px;
+}
+
+#page .sidebar .search .form-submit:focus,
+#page .sidebar .search .form-submit:hover
+{
+  background-color: #abc;
+}
+
+#page .sidebar .search input[name=query]
+{
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+
+  margin: 0; /* Only needed in WebKit */
+  font:1em/100% Verdana,sans-serif;
+}
+
+#uploadLimitDisplay > div
+{
+  margin: 5px 2px
+}
+
+#uploadLimitDisplay .usageBar
+{
+  background-color: #CCCCCC;
+  height: 10px;
+  padding: 1px;
+  width: 200px;
+}
+
+/* From https://github.com/twitter/bootstrap */
+.alert-message.block-message {
+  background-image: none;
+  background-color: #fdf5d9;
+  padding: 14px;
+  border-color: #fceec1;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/* From https://github.com/twitter/bootstrap */
+.alert-message.block-message.success {
+  background-color: #d1eed1;
+  border-color: #bfe7bf;
+}
+
+.sidebar .alert-message.block-message {
+  padding: 5px;
+}
+
+#action-icons
+{
+  position: absolute;
+  display: inline;
+  right: 2px;
+}
+
+#action-icons img
+{
+  position: relative;
+  margin-top: 2px;
+}

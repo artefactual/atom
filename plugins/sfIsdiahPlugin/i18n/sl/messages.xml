@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2012-08-15T11:37:12Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new archival institution</source>
+        <target>Dodaj nov arhiv</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>Neimenovan</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>Uredi %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>See ISDIAH 5.2 for contact area information and examples.</source>
+        <target>Glejte ISDIAH 5.2 za podatke o področju kontaktov in primere.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Uradno odobrena oblika imena%2% - Vnos tega elementa je %3%obvezen %4%.</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Identifikator%2% - vnos tega elementa je %3%obvezen%4%.</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.</source>
+        <target>%1%Kontaktni podatki %1% - vključiti %3%morate%4% vsaj eno od naslednjih polj v zvezi z lokacijo ali naslovom: kraj, država, poštna številka, regija ali naslov.</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>%1%Contact information%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Kontaktni podatki%2% - vnos tega elementa je %3%obvezen %4%.</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Edit %1% - ISDIAH</source>
+        <target>Uredi %1% - ISDIAH</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Identity area</source>
+        <target>Področje o identiteti</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)</source>
+        <target>"Zabeležite numerično ali alfanumerično kodo za identificiranje institucije v skladu z ustreznimi mednarodnimi in narodnimi standardi." (ISDIAH 5.1.1)</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Identifier</source>
+        <target>Identifikator</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>This is a mandatory element.</source>
+        <target>Vnos tega elementa je obvezen.</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
+        <target>"Zabeležite standardizirano obliko imena institucije in, če je potrebno, dodajte ustrezne kvalifikatorje (npr. datume, kraje itn). Ločeno v elementu Uporabljena pravila in/ali dogovori (5.6.3) navedite tudi, katera pravila so bila uporabljena za ta element." (ISDIAH 5.1.2)</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Authorized form of name</source>
+        <target>Uradno odobrena oblika imena</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>This is a mandatory element</source>
+        <target>Vnos tega elementa je obvezen</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)</source>
+        <target>"Namen: za prikaz različnih oblik, v katerih se uradno odobrena oblika (oblike) imena institucije pojavlja v drugih jezikih ali sistemih pisave. Pravilo: zabeležite vzporedne oblike imena institucije v skladu z vsemi pomembnimi narodnimi in mednarodnimi dogovori ali pravili, ki jih je uporabila ustanova, pri kateri so nastali zapisi, vključno z vsemi potrebnimi podelementi in/ali kvalifikatorji, ki jih zahtevajo omenjeni dogovori ali pravila." (ISDIAH 5.1.3)</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>"Record any other name(s) by which the institution may be known. This could include other forms of the same name, acronyms, other institutional names, or changes of name over time, including, if possible, relevant dates." (ISDIAH 5.1.4)</source>
+        <target>"Zabeležite katera koli druga imena, po katerih je institucija znana. Vključite lahko druge oblike istega imena, kratice, druga uradna imena ali spremembe imena skozi čas in, če je le mogoče, pomembne datume." (ISDIAH 5.1.4)</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired from the drop-down menu; these values are drawn from the Repository Types taxonomy.</source>
+        <target>Navedite vrsto institucije. (ISDIAH 5.1.5) Iz spustnega menija izberite poljubno število vrst; te vrednosti se črpajo iz taksonomije Vrste skladišč.</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Contact area</source>
+        <target>Področje kontaktov</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Description area</source>
+        <target>Področje opisa</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>"Record any relevant information about the history of the institution. This element may include information on dates of establishment, changes of names, changes of legislative mandates, or of any other sources of authority for the institution." (ISDIAH 5.3.1)</source>
+        <target>"Zabeležite vsak pomemben podatek o zgodovini institucije. Ta element lahko vključuje podatke o datumih ustanovitve, spremembah imen ali zakonodajnih mandatov ali o katerih koli drugih virih avtoritete za institucijo."(ISDIAH 5.3.1)</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>"Identify the geographical area the institution belongs to. Record any other relevant information about the cultural context of the institution." (ISDIAH 5.3.2)</source>
+        <target>"Navedite geografsko območje, h kateremu spada institucija. Zabeležite kakršnokoli drugo pomembno informacijo o kulturnem kontekstu institucije." (ISDIAH 5.3.2)</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Geographical and cultural context</source>
+        <target>Zemljepisni in kulturni kontekst</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the institution, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISDIAH 5.3.3)</source>
+        <target>"Navedite vsak dokument, zakon, direktivo ali listino, ki za institucijo predstavlja vir avtoritete na področju oblasti, funkcij in odgovornosti, skupaj z podatki o zakonodaji/-jah in datumih uveljavitve ali spremembe mandata/-ov." (ISDIAH 5.3.3)</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Mandates/Sources of authority</source>
+        <target>Mandati/Viri</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>"Describe, in narrative form or using organisational charts, the current administrative structure of the institution." (ISDIAH 5.3.4)</source>
+        <target>"Opišite, v obliki pripovedi ali z uporabo organigrama, trenutno upravno strukturo institucije. "(ISDIAH 5.3.4) </target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Administrative structure</source>
+        <target>Administrativna struktura</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>"Record information about the records management and collecting policies of the institution. Define the scope and nature of material which the institution accessions. Indicate whether the repository seeks to acquire archival materials by transfer, gift, purchase and/or loan. If the policy includes active survey and/or rescue work, this might be spelt out." (ISDIAH 5.3.5)</source>
+        <target>"Zapišite podatke o tem, kako institucija ureja zapise in kakšna so njena pravila zbiranja. Definirajte obseg in vrsto gradiva, ki ga institucija prevzema. Navedite, ali arhivsko gradivo pridobiva s pomočjo prenosa, nakupa in/ali izposoje ali kot darilo. Omenite lahko tudi podatek, da pravila zbiranja vključujejo aktivno raziskovanje in/ali zavarovanje gradiva." (ISDIAH 5.3.5)</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Records management and collecting policies</source>
+        <target>Politika upravljanja zapisov in zbiranja gradiva</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>"Record information on the building(s) of the institution (general and architectural characteristics of the building, capacity of storage areas, etc). Where possible, provide information which can be used for generating statistics." (ISDIAH 5.3.6)</source>
+        <target>"Zabeležite podatke o stavbi/-ah institucije (splošne in arhitekturne značilnosti stavbe, velikost prostorov za hrambo itd.). Kjer je le mogoče, zagotovite podatke, koristne za izdelavo statistike. (ISDIAH 5.3.6)</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>"Record a short description of the holdings of the institution, describing how and when they were formed. Provide information on volume of holdings, media formats, thematic coverage, etc." (ISDIAH 5.3.7)</source>
+        <target>"Na kratko opišite arhivsko gradivo, ki ga hrani institucija, in omenite, kdaj in kako ga je pridobila. Navedite podatke o obsegu arhivskega gradiva, nosilcih zapisa, tematski pokritosti itd." (ISDIAH 5.3.7)</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Archival and other holdings</source>
+        <target>Arhivsko in drugo gradivo</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>"Record the title and other pertinent details of the published and/or unpublished finding aids and guides prepared by the institution and of any other relevant publications. Use ISO 690 Information and documentation – Bibliographic references and other national or international cataloguing rules." (ISDIAH 5.3.8)</source>
+        <target>"Zabeležite naslov in druge pripadajoče podrobnosti o objavljenih in/ali neobjavljenih pripomočkih za uporabo in vodičih, ki jih je pripravila institucija in omenite še morebitne druge pomembne izdaje. Uporabite mednarodni standard ISO 690 Podatki in dokumentacija – seznami literature (Information and documentation – Bibliographic references) in druga narodna in mednarodna pravila katalogizacije." (ISDIAH 5.3.8)</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Finding aids, guides and publications</source>
+        <target>Pripomočki za uporabo, vodniki in publikacije</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Access area</source>
+        <target>Območje dostopanja</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>"Record the opening hours of the institution and annual, seasonal and public holidays, and any other planned closures. Record times associated with the availability and/or delivery of services (for example, exhibition spaces, reference services, etc.)." (ISDIAH 5.4.1)</source>
+        <target>"Zabeležite odpiralni čas institucije ter morebitne kolektivne dopuste, dela proste dneve ali katere koli druge načrtovane datume, ko bo institucija zaprta. Zabeležite čas, ko bodo različne storitve na voljo  (npr. prostor za razstave, pomoč uporabnikom itn.)." (ISDIAH 5.4.1)</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
+        <target>"Opišite pravila dostopanja, vključno z morebitnimi omejitvami in/ali predpisi v zvezi z uporabo gradiva in objektov. Beležite podatke o registraciji, sestankih, uporabniških karticah, predstavitvenih pismih, vstopninah itd. Kjer je potrebno, se sklicujte na ustrezno zakonodajo." (ISDIAH 5.4.2)</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Conditions and requirements</source>
+        <target>Pogoji in zahteve</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>"Record information about travelling to the institution and details for users with disabilities, including building features, specialised equipment or tools, parking or lifts." (ISDIAH 5.4.3)</source>
+        <target>"Navedite podatke o poti do institucije in omenite pomembne podrobnosti za invalide, vključno z lastnostmi stavbe, specializirano opremo in orodji, parkirnimi mesti ali dvigali." (ISDIAH 5.4.3)</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Accessibility</source>
+        <target>Dostopnost</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Services area</source>
+        <target>Področje storitev</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>"Record information about the onsite services provided by the institution such as languages spoken by staff, research and consultation rooms, enquiry services, internal libraries, map, microfiches, audio-visual, computer rooms, etc. Record as well any relevant information about research services, such as research undertaken by the institution, and the fee charge if applicable." (ISDIAH 5.5.1)</source>
+        <target>"Zabeležite podatke o storitvah, ki jih nudi institucija na kraju samem, npr. jeziki, ki jih govori osebje, raziskovalni in posvetovalni prostori, storitve v zvezi s povpraševanjem, interne knjižnice, zemljevidi, mikrofiši, avdiovizualno gradivo, računalniške sobe itd. Zabeležite tudi vse pomembne podatke o raziskovalnih storitvah, npr. raziskave, ki jih opravlja institucija, in morebitne prostojbine." (ISDIAH 5.5.1)</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>"Record information about reproduction services available to the public (microfilms, photocopies, photographs, digitised copies). Specify general conditions and restrictions to the services, including applicable fees and publication rules." (ISDIAH 5.5.2)</source>
+        <target>"Zapišite podatke o možnostih reprodukcije, ki so na voljo javnosti (mikrofilmi, fotokopije, digitalizirane kopije). Opredelite splošne pogoje in omejitve možnosti reprodukcije, vključno s veljavnimi pristojbinami in pravili objave. " (ISDIAH 5.5.2)</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>"Record information about spaces available for public use (permanent or temporary exhibitions, free or charged internet connection, cash machines, cafeterias, restaurants, shops, etc.)." (ISDIAH 5.5.3)</source>
+        <target>"Zabeležite podatke o prostorih, namenjenih javni uporabi (stalne ali začasne razstave, brezplačna ali plačljiva internetna povezava, bankomati, kavarne, restavracije, trgovine itd.) " (ISDIAH 5.5.3)</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Public areas</source>
+        <target>Področja za javnost</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Control area</source>
+        <target>Področje nadzora</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISIAH 5.6.1)</source>
+        <target>"Navedite enoten identifikator popisa, ki je v skladu s krajevnimi in/ali narodnimi dogovori. Če se bo popis uporabljal na mednarodni ravni, zapišite kodo države, v kateri je popis nastal, v skladu z najnovejšo različico kod ISO 3166 za predstavitev imen držav. Če je popisovalec mednarodna organizacija, navedite indentifikator organizacije namesto kode države." (ISIAH 5.6.1)</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Description identifier</source>
+        <target>Identifikator opisa</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>"Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard." (ISDIAH 5.6.2)</source>
+        <target>"Zabeležite popolno uradno odobreno obliko imena (imen) ustanove (ustanov), ki je odgovorna za nastanek, spreminjanje in razširjanje arhivskega popisa ali zabeležite kodo ustanove, ki je v skladu z narodnim in mednarodnim standardom na področju kod ustanov." (ISDIAH 5.6.2)</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Institution identifier</source>
+        <target>identifikator institucije</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>"Record the names, and, where useful, the editions or publication dates of the conventions or rules applied. Specify, separately, which rules have been applied for creating the Authorised form(s) of name. Include reference to any system(s) of dating used to identify dates in this description (e.g. ISO 8601)." (ISDIAH 5.6.3)</source>
+        <target>"Zabeležite imena ter, kjer je to koristno, izdaje in datume objave uporabljenih dogovorov in pravil. Ločeno navedite tudi, katera pravila so bila uporabljena za oblikovanje uradno odobrene oblike imena. Omenite še morebitne uporabljene sisteme datiranja za identificiranje datumov v tem arhivskem popisu (npr. ISO 8601)." (ISDIAH 5.6.3)</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Rules and/or conventions used</source>
+        <target>Uporabljena pravila in/ali dogovori</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDIAH 5.6.4). Select Final, Revised or Draft from the drop-down menu.</source>
+        <target>Namen tega polja je "[p]rikaz stanja popisa, da uporabniki lažje razumejo trenutni status popisa." (ISDIAH 5.6.4). Iz spustnega menija izberite končna verzija, pregledana verzija ali osnutek.</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal descriptions are those that consist only of the three essential elements of an ISIAH compliant description (see 4.7), while full records are those that convey information for all relevant ISDIAH elements of description." (ISDIAH 5.6.5)</source>
+        <target>Iz spustnega menija izberite popoln, delen ali minimalen. "Če smernic in pravil na državni ravni ni, so minimalni popisi tisti, ki so sestavljeni le iz treh bistvenih elementov popisa po ISIAH-u (glejte 4.7), medtem ko so popolni zapisi tisti, ki nudijo informacije za vse pomembne elemente popisa po ISDIAH-u." (ISDIAH 5.6.5)</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>"Record the date the description was created and the dates of any revisions to the description." (ISDIAH 5.6.6)</source>
+        <target>"Zabeležite, kdaj je nastal popis in omenite datume morebitnih revizij popisa." (ISDIAH 5.6.6)</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Dates of creation, revision and deletion</source>
+        <target>Datumi nastanka, popravljanja in izbrisa</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
+        <target>Iz spustnega menija izberite jezik/-e tega zapisa; vnesite prvih nekaj črk za omejitev izbire. (ISDIAH 5.6.7)</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
+        <target>Iz spustnega menija izberite pisavo/-e, v kateri je napisan zapis o ustvarjalcu; vnesite prvih nekaj črk za omejitev izbire. (ISDIAH 5.6.7)</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>"Record the sources consulted in establishing the description of the institution." (ISDIAH 5.6.8)</source>
+        <target>"Zabeležite vire, ki so vam bili v pomoč pri preučevanju opisa institucije." (ISDIAH 5.6.8)</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Sources</source>
+        <target>viri</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>"Record notes pertinent to the creation and maintenance of the description." (ISDIAH 5.6.9)</source>
+        <target>"Zabeležite podatke, povezane z nastankom in vzdrževanjem arhivskega popisa." (ISDIAH 5.6.9)</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Actions</source>
+        <target>Dejanja</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Cancel</source>
+        <target>Prekliči</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Save</source>
+        <target>Shrani</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Create</source>
+        <target>Ustvari</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>View %1%</source>
+        <target>Ogled %1%</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Edit repository</source>
+        <target>Uredi skladišče</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Edit identity area</source>
+        <target>Uredi področje o identiteti</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Parallel form(s) of name</source>
+        <target>Vzporedna/-e oblika/-e imena</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Other form(s) of name</source>
+        <target>Druga/-e oblika/-e imena</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Type</source>
+        <target>Vrsta</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Edit contact area</source>
+        <target>Uredi področje kontaktov</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Edit description area</source>
+        <target>Uredi področje popisa</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>History</source>
+        <target>Zgodovina</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Buildings</source>
+        <target>Stavbe</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Holdings</source>
+        <target>Arhivsko gradivo</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Edit access area</source>
+        <target>Uredi področje dostopa</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Opening times</source>
+        <target>Delovni čas</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Access conditions and requirements</source>
+        <target>Zahteve in pogoji dostopanja</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Edit services area</source>
+        <target>Uredi področje storitev</target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Research services</source>
+        <target>Raziskovalne storitve</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Reproduction services</source>
+        <target>Storitve v zvezi z reprodukcijo</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Edit control area</source>
+        <target>Uredi področje o nadzoru</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Status</source>
+        <target>status</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Level of detail</source>
+        <target>Nivo podrobnosti</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Language(s)</source>
+        <target>Jezik/-i</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Script(s)</source>
+        <target>Pisava/-e</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Maintenance notes</source>
+        <target>Obvestila o vzdrževanju</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Edit</source>
+        <target>Uredi</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Delete</source>
+        <target>Izbriši</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Add new</source>
+        <target>Dodaj novo</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

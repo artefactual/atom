@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2011-11-08T09:54:20Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Not found</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>The supplied format is not supported by this server</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>The supplied content type is not supported by this server</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Checksum sent does not match the calculated checksum</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Not implemented</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Bad request</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Forbidden</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

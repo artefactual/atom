@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2012-08-15T12:05:57Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new authority record</source>
+        <target>Engadir novo rexistro de autoridade</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>Sen título</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>Editar</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%forma autorizada do nome%2% - Este éche un elemento %3%obrigatorio%4%.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Dates of existence%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Datas de existencia%2% - Este éche un elemento %3%obrigatorio%4%.</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Identificador de descrición%2% - Este éche un elemento %3%obrigatorio%4%.</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>%1%Type of entity%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Tipo de Entidade%2% - Este éche un elemento %3%obrigatorio%4%.</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Related resources</source>
+        <target>Recursos relacionados</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Title</source>
+        <target>Título</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Relationship</source>
+        <target>Relación</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Dates</source>
+        <target>Datas</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Title of related resource</source>
+        <target>Título do recurso relacionado</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>"Provide the unique identifiers/reference codes and/or titles for the related resources." (ISAAR 6.1) Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices.</source>
+        <target>"Achegue os códigos identificadores/referencia únicos e/ou títulos para os recursos relacionados." (ISAAR 6.1) Seleccione o título dende o menú despregable; ingrese o identificador ou as primeiras letras para reducir as opcións.</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>"Describe the nature of the relationships between the corporate body, person or family and the related resource." (ISAAR 6.3) Select the type of relationship from the drop-down menu; these values are drawn from the Event Types taxonomy.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Nature of relationship</source>
+        <target>Natureza da relación</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>"Identify the type of related resources, e.g. Archival materials (fonds, record series, etc), archival description, finding aid, monograph, journal article, web site, photograph, museum collection, documentary film, oral history recording." (ISAAR 6.2) In the current version of the software, Archival material is provided as the only default value.</source>
+        <target>"Identificar os tipos de recursos relacionados, ex. documentos de arquivo (fondos, series, etc), descrición de arquivo, instrumentos de descrición, monografías, artigos de prensa, páxinas web, fotografía, colección de museo, filme documental, rexistro de historia oral.</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Type of related resource</source>
+        <target>Tipo de recurso relacionado</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>"Provide any relevant dates for the related resources and/or the relationship between the corporate body, person or family and the related resource." (ISAAR 6.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>View authority record</source>
+        <target>Ver rexistro de autoridade</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Edit authority record</source>
+        <target>Editar rexistro de autoridade</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Identity area</source>
+        <target>Área de identidade</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Edit identity area</source>
+        <target>Editar área de identidade</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Type of entity</source>
+        <target>Tipo de entidade</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Authorized form of name</source>
+        <target>Forma(s) autorizada(s) do nome</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Parallel form(s) of name</source>
+        <target>Forma(s) paralea(s) do nome</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Standardized form(s) of name according to other rules</source>
+        <target>Forma(s) normalizada do nome, dacordo a outras regras</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Other form(s) of name</source>
+        <target>Outra(s) forma(s) de nome</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Identifiers for corporate bodies</source>
+        <target>Identificadores para institucións</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Description area</source>
+        <target>Área de descrición</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Edit description area</source>
+        <target>Editar área de descrición</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Dates of existence</source>
+        <target>Datas de existencia</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>History</source>
+        <target>Historia</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Places</source>
+        <target>Lugares</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Legal status</source>
+        <target>Estatuto xurídico</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Functions, occupations and activities</source>
+        <target>Funcións, ocupacións e actividades</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Mandates/sources of authority</source>
+        <target>Mandatos/fontes de autoridade</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Internal structures/genealogy</source>
+        <target>Estructura/xenealoxía interna</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>General context</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Relationships area</source>
+        <target>Área de relacións</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Edit relationships area</source>
+        <target>Editar área de relacións</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Related entity</source>
+        <target>Entidade relacionada</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Identifier of the related entity</source>
+        <target>Identificador da entidade relacionada</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Category of the relationship</source>
+        <target>Categoría da relación</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Dates of the relationship</source>
+        <target>Datas da relación</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Description of relationship</source>
+        <target>Descrición da relación</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Related function</source>
+        <target>Función relacionada</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Control area</source>
+        <target>Área de control</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Edit control area</source>
+        <target>Editar área de control</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Description identifier</source>
+        <target>Identificador da descrición</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Institution identifier</source>
+        <target>Identificador da institución</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Rules and/or conventions used</source>
+        <target>Regras e/ou convencións usadas</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Status</source>
+        <target>Estado de elaboración</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Level of detail</source>
+        <target>Nivel de detalle</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Dates of creation, revision and deletion</source>
+        <target>Datas de creación, revisión ou eliminación</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Language(s)</source>
+        <target>Idioma(s)</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Script(s)</source>
+        <target>Escritura(s)</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Sources</source>
+        <target>Fontes</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Maintenance notes</source>
+        <target>Notas de mantención</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Actions</source>
+        <target>Accións</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Edit</source>
+        <target>Editar</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Delete</source>
+        <target>Borrar</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Add new</source>
+        <target>Engadir novo</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Edit %1% - ISAAR</source>
+        <target>Editar %1% - ISAAR</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>"Specify the type of entity that is being described in this authority record." (ISAAR 5.1.1) Select Corporate body, Family or Person from the drop-down menu.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>This is a mandatory element.</source>
+        <target>Este é un termo obrigatorio.</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>"Record the standardized form of name for the entity being described in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record. Use dates, place, jurisdiction, occupation, epithet and other qualifiers as appropriate to distinguish the authorized form of name from those of other entities with similar names." (ISAAR 5.1.2)</source>
+        <target>Rexistrar a forma normalizada do nome da entidade que se está describindo, seguindo as normas ou convencións nacionais ou internacionais que haxa utilizado o servizo de arquivos responsable do rexistro de autoridade. Utilizar todos os calificadores necesarios - Datas, lugar, Xurisdicción, ocupación, epíteto, etc. - para distinguir a forma autorizada do nome dos de outras entidades que Teñan nomes similares." (ISAAR 5.1.2)</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>"Purpose: To indicate the various forms in which the Authorized form of name occurs in other languages or script form(s). Rule: record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record, including any necessary sub elements and/or qualifiers required by those conventions or rules." (ISAAR 5.1.3)</source>
+        <target>"Propósito: Indicar as varias formas nas cales a forma autorizada do nome aparece noutros idiomas ou forma(s) de escritura. Regra: Rexistre a forma(s) paralela do nome dacordo acalquer convencións o regras nacionais o internacionais empregadas por ágencia que creó o rexistro de autoridade, incluíndocalquer sub elemento necesario e/ou calificadores obrigatorios por aquelas convencións o regras." (ISAAR 5.1.3)</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>"Record the standardized form of name for the entity being described in accordance with other conventions or rules. Specify the rules and/or if appropriate the name of the agency by which these standardized forms of name have been constructed." (ISAAR 5.1.4)</source>
+        <target>"Rexistrar a forma normalizada do nome da entidade que se está describindo, dacordo con outras convencións o regras. Especificar estas regras e/ou, se ha lugar a ello, o nome do servizo responsable de su elaboración." (ISAAR 5.1.4)</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>The purpose of this field is to "indicate any other name(s) for the corporate body, person or family not used elsewhere in the Identity Area." Examples are acronyms, previous names, pseudonyms, maiden names and titles of nobility or honour. (ISAAR 5.1.5)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>"Record where possible any official number or other identifier (e.g. a company registration number) for the corporate body and reference the jurisdiction and scheme under which it has been allocated." (ISAAR 5.1.6)</source>
+        <target>"Rexistre, cando sexa posible,calquer número oficial ou outro tipo de identificador (ex., número de rexistro da compañía) da institución descrita e precisar a Xurisdicción e disposición bajo a cal ha sido asignado." (ISAAR 5.1.6)</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>"Record the dates of existence of the entity being described. For corporate bodies include the date of establishment/foundation/enabling legislation and dissolution. For persons include the dates or approximate dates of birth and death or, when these dates are not known, floruit dates. Where parallel systems of dating are used, equivalences may be recorded according to relevant conventions or rules. Specify in the Rules and/or conventions element (5.4.3) the system(s) of dating used, e.g. ISO 8601." (ISAAR 5.2.1)</source>
+        <target>"Rexistrar as datas de existencia da entidade que se está a describir. No caso das institucións, incluír a data de establecemento, fundación, lexislación sobre as súas competencias e disolución. No caso das persoas, hai que incluír as datas, reais ou aproximadas, de nacemento e falecemento ou cando estas datas non se coñezan precisar as datas de actividade. Cando se empreguen sistemas paralelos de datación, pódese indicar as equivalencias entre Istos según as convencións ou regras pertinentes. Especificar no elemento regras e/ou convencións (5.4.3) o/os sistema(s) de datación utilizados, por exemplo ISO 8601." (ISAAR 5.2.1)</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>"Record in narrative form or as a chronology the main life events, activities, achievements and/or roles of the entity being described. This may include information on gender, nationality, family and religious or political affiliations. Wherever possible, supply dates as an integral component of the narrative description." (ISAAR 5.2.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>"Purpose: to indicate the predominant places and/or jurisdictions where the corporate body, person or family was based, lived or resided or had some other connection. Rule: record the name of the predominant place(s)/jurisdiction(s), together with the nature and covering dates of the relationship with the entity." (ISAAR 5.2.3)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>"Record the legal status and where appropriate the type of corporate body together with the covering dates when this status applied." (ISAAR 5.2.4)</source>
+        <target>"Rexistrar o estatus legal e cando sexa apropiado, o tipo de institución xunto con os períodos cando este estatus foi aplicado." (ISAAR 5.2.4)</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>"Record the functions, occupations and activities performed by the entity being described, together with the covering dates when useful. If necessary, describe the nature of the function, occupation or activity." (ISAAR 5.2.5)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the entity being described, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISAAR 5.2.6)</source>
+        <target>"Rexistrar calquer documento, lei, directriz ou carta que actúe como fonte legal para exercer as competencias, Funcións e responsabilidadees da entidade que se está describindo, xunto coa información sobre a Xurisdicción o xurisdiccións competentes e Datas cando se aplicaron o modificaron sus atribuciones." (ISAAR 5.2.6)</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>"Describe the internal structure of a corporate body and the dates of any changes to that structure that are significant to the understanding of the way that corporate body conducted its affairs (e.g. by means of dated organization charts). Describe the genealogy of a family (e.g. by means of a family tree) in a way that demonstrates the inter-relationships of its members with covering dates." (ISAAR 5.2.7)</source>
+        <target>"Describa a estructura interna dunha institución e as datas de calquera cambio a esa estructura que sexa importante para entender a forma en que a institución conduce os seus negocios (ex. por medio de organigramas antigos). Describa a xenealoxía dunha familia (ex. por medio dunha árbore xenealóxica) dun xeito que se demostre as inter-relacións dos seus membros con datas de cuberta." (ISAAR 5.2.7)</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>"Provide any significant information on the social, cultural, economic, political and/or historical context in which the entity being described operated." (ISAAR 5.2.8)</source>
+        <target>"Achegue calquera información relevante no contexto social, cultural, económico, político e/ou histórico no cal operou a entidade que se describe." (ISAAR 5.2.8)</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>"Record a unique authority record identifier in accordance with local and/or national conventions. If the authority record is to be used internationally, record the country code of the country in which the authority record was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the authority record is an international organization, give the organizational identifier in place of the country code." (ISAAR 5.4.1)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>"Record the full authorized form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the authority record or, alternatively, record a code for the agency in accordance with the national or international agency code standard. Include reference to any systems of identification used to identify the institutions (e.g. ISO 15511)." (ISAAR 5.4.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival authority record. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied. Specify separately which rules have been applied for creating the Authorized form of name. Include reference to any system(s) of dating used to identify dates in this authority record (e.g. ISO 8601)." (ISAAR 5.4.3)</source>
+        <target>"Propósito: Identificar os nomes das convencións ou regras empregadas na creación do rexistro de autoridade arquivística. Regra: Rexistre os nomes, e onde sexa necesario, as edicións ou Datas de publicación das regras ou convencións empregadas. Especifique separadamente que regras aplicáronse pará creación das formas autorizadas do nome. Facer referenciá calquer sistema(s) de datación utilizado para identificar as datas neste rexistro de autoridade (p.e. ISO 8601)." (ISAAR 5.4.3)</target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>The purpose of this field is "[t]o indicate the drafting status of the authority record so that users can understand the current status of the authority record." (ISAAR 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
+        <target>O propósito deste campo é "Indicar o estado de borrador do rexistro de autoridade de tal maneira que os usuarios coñezan o estado actual do rexistro de autoridade." (ISAAR 5.4.4). Sleccione Final, Revisado o Borrador dende o menú despregable.</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal records are those that consist only of the four essential elements of an ISAAR(CPF) compliant authority record (see 4.8), while full records are those that convey information for all relevant ISAAR(CPF) elements of description." (ISAAR 5.4.5)</source>
+        <target>Seleccione Completo, Parcial ou Mínimo dende o menú despregable. "En ausencia de liñamentos o regras nacionais, os rexistros mínimos son aquellos que consisten solo de cuatro elementos esenciales de un rexistro compatible con ISAAR(CPF) (ver 4.8), mientras que rexistros completos son aquellos que llevan infomación para todos os elementos ISAAR(CPF) relevantes dunha descrición."(ISAAR 5.4.5)</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>"Record the date the authority record was created and the dates of any revisions to the record." (ISAAR 5.4.6)</source>
+        <target>"Rexistrar a data en que o rexistro de autoridade se creou e as datas de calquera revisión do rexistro." (ISAAR 5.4.6)</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Select the language(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
+        <target>Seleccione o idioma(s) deste rexistro de autoridade dende o menú despregable; ingrese as primeiras letras para reducir as opcións. (ISAAR 5.4.7)</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Select the script(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
+        <target>Seleccione a escritura(s) deste rexistro de autoridade dende o menú despregable; ingrese as primeiras letras para reducir as opcións. (ISAAR 5.4.7)</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>"Record the sources consulted in establishing the authority record." (ISAAR 5.4.8)</source>
+        <target>"Rexistrar as fontes consultadas no establecemento do rexistro de autoridade." (ISAAR 5.4.8)</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>"Record notes pertinent to the creation and maintenance of the authority record. The names of persons responsible for creating the authority record may be recorded here." (ISAAR 5.4.9)</source>
+        <target>"Rexistrar notas pertinentes á creación e mantención do rexistro de autoridade. Os nomes das persoas responsables da creación do rexistro de autoridade poden ser rexistradas aquí." (ISAAR 5.4.9)</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Cancel</source>
+        <target>Cancelar</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Save</source>
+        <target>Gardar</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Create</source>
+        <target>Crear</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Related corporate bodies, persons or families</source>
+        <target>Institucións, persoas ou familias relacionadas</target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Name</source>
+        <target>Nome</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Type</source>
+        <target>Tipo</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Description</source>
+        <target>Descrición</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Related corporate body, person or family</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>"Record the authorized form of name and any relevant unique identifiers, including the authority record identifier, for the related entity." (ISAAR 5.3.1) Select the name from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target>"Rexistre a forma autorizada do nome e calquer identificador único relevante, incluíndo o identificador do rexistro de autoridade, para entidade relacionada." (ISAAR 5.3.1) Seleccionar o nome dende o menú despregable; ingrese as primeiras letras para reducir as alternativas.</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>"Purpose: To identify the general category of relationship between the entity being described and another corporate body, person or family." (ISAAR 5.3.2). Select a category from the drop-down menu: hierarchical, temporal, family or associative.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Category of relationship</source>
+        <target>Categoría da relación</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>"Record a precise description of the nature of the relationship between the entity described in this authority record and the other related entity....Record in the Rules and/or conventions element (5.4.3) any classification scheme used as a source of controlled vocabulary terms to describe the relationship. A narrative description of the history and/or nature of the relationship may also be provided here." (ISAAR 5.3.3). Note that the text entered in this field will also appear in the related authority record.</source>
+        <target>"Rexistre unha descipción precisa da natureza da relación entre a entidade descrita neste rexistro de autoridade e a outra entidade relacionada... Rexistre no elemento de regras e/ou convencións (5.4.3)calquer esquema de clasificación usado como unha fonte de termos de vocabulario controlado para describir a relación. unha descrición narrativa da historia e/ou natureza da relación tamén podería consignarse aquí." (ISAAR 5.3.3). Notar que o texto ingresado neste campo tamén aparecerá no rexistro de autoridade relacionado.</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>"Record when relevant the commencement date of the relationship or succession date and, when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target>"Rexistre, cando sexa relevante, a data concerniente á relación ou Data de sucesión e, cando sexa relevante, a data de cesasión da relación." (ISAAR 5.3.4) Ingrese a data como le gustaría que apareciera na páxina do rexistro de autoridade, usando calificadores e/ou símbolos tipográfico para expresar incerteza se se desea.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,152 @@
+<h1><?php echo __('Edit accession record') ?></h1>
+
+<h1 class="label"><?php echo render_title($resource) ?></h1>
+
+<?php if (isset($accession)): ?>
+  <div class="messages status">
+    <?php echo __('You are creating an accrual to accession %1%', array('%1%' => $accession)) ?>
+  </div>
+<?php endif; ?>
+
+<?php echo $form->renderGlobalErrors() ?>
+
+<?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
+  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'accession', 'action' => 'edit')), array('id' => 'editForm')) ?>
+<?php else: ?>
+  <?php echo $form->renderFormTag(url_for(array('module' => 'accession', 'action' => 'add')), array('id' => 'editForm')) ?>
+<?php endif; ?>
+
+  <?php echo $form->renderHiddenFields() ?>
+
+  <?php echo $form->identifier
+    ->help(__('Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository'))
+    ->label(__('Accession number'))
+    ->renderRow() ?>
+
+  <?php echo $form->date
+    ->help(__('Accession date represents the date of receipt of the materials and is added during the donation process.'))
+    ->label(__('Acquisition date').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
+    ->renderRow(array('class' => 'date-widget', 'icon' => image_path('calendar.png'))) ?>
+
+  <?php echo render_field($form->sourceOfAcquisition
+    ->help(__('Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.'))
+    ->label(__('Immediate source of acquisition').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource, array('class' => 'resizable')) ?>
+
+  <?php echo render_field($form->locationInformation
+    ->help(__('A description of the physical location in the repository where the accession can be found.'))
+    ->label(__('Location information').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource, array('class' => 'resizable')) ?>
+
+  <fieldset class="collapsible collapsed" id="donorArea">
+
+    <legend><?php echo __('Donor/Transferring body area') ?></legend>
+
+    <?php echo get_partial('relatedDonor', $relatedDonorComponent->getVarHolder()->getAll()) ?>
+
+  </fieldset>
+
+  <fieldset class="collapsible collapsed" id="administrativeArea">
+
+    <legend><?php echo __('Administrative area') ?></legend>
+
+    <?php echo $form->acquisitionType
+      ->help(__('Term describing the type of accession transaction and referring to the way in which the accession was acquired.'))
+      ->renderRow() ?>
+
+    <?php echo $form->resourceType
+      ->help(__('Select the type of resource represented in the accession, either public or private.'))
+      ->renderRow() ?>
+
+    <?php echo render_field($form->title
+      ->help(__('The title of the accession, usually the creator name and term describing the format of the accession materials.')), $resource) ?>
+
+    <div class="form-item">
+      <?php echo $form->creators
+        ->label(__('Creators'))
+        ->renderLabel() ?>
+      <?php echo $form->creators->render(array('class' => 'form-autocomplete')) ?>
+      <?php echo $form->creators
+        ->help(__('The name of the creator of the accession or the name of the department that created the accession.'))
+        ->renderHelp() ?>
+      <?php if (QubitAcl::check(QubitActor::getRoot(), 'create')): ?>
+        <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'add')) ?> #authorizedFormOfName"/>
+      <?php endif; ?>
+      <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'autocomplete', 'showOnlyActors' => 'true')) ?>"/>
+    </div>
+
+    <?php echo render_field($form->archivalHistory
+      ->help(__('Information on the history of the accession. When the accession is acquired directly from the creator, do not record an archival history but record the information as the Immediate Source of Acquisition.'))
+      ->label(__('Archival/Custodial history')), $resource, array('class' => 'resizable')) ?>
+
+    <?php echo render_field($form->scopeAndContent
+      ->help(__('A description of the intellectual content and document types represented in the accession.')), $resource, array('class' => 'resizable')) ?>
+
+    <?php echo render_field($form->appraisal
+      ->help(__('Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.'))
+      ->label(__('Appraisal, destruction and scheduling')), $resource, array('class' => 'resizable')) ?>
+
+    <?php echo render_field($form->physicalCharacteristics
+      ->help(__('A description of the physical condition of the accession and if any preservation or special handling is required.'))
+      ->label(__('Physical condition')), $resource, array('class' => 'resizable')) ?>
+
+    <?php echo render_field($form->receivedExtentUnits
+      ->help(__('The number of units as a whole number and the measurement of the received volume of records in the accession.')), $resource) ?>
+
+    <?php echo $form->processingStatus
+      ->help(__('An indicator of the accessioning process.'))
+      ->renderRow() ?>
+
+    <?php echo $form->processingPriority
+      ->help(__('Indicates the priority the repository assigns to completing the processing of the accession.'))
+      ->renderRow() ?>
+
+    <?php echo render_field($form->processingNotes
+      ->help(__('Notes about the processing plan, describing what needs to be done for the accession to be processed completely.')), $resource, array('class' => 'resizable')) ?>
+
+  </fieldset>
+
+  <fieldset class="collapsible collapsed" id="rightsArea">
+
+    <legend><?php echo __('Rights area') ?></legend>
+
+    <?php echo get_partial('right/edit', $rightEditComponent->getVarHolder()->getAll()) ?>
+
+  </fieldset>
+
+  <fieldset class="collapsible collapsed" id="informationObjectArea">
+
+    <legend><?php echo __('%1% area', array('%1%' => sfConfig::get('app_ui_label_informationobject'))) ?></legend>
+
+    <div class="form-item">
+      <?php echo $form->informationObjects
+        ->label(sfConfig::get('app_ui_label_informationobject'))
+        ->renderLabel() ?>
+      <?php echo $form->informationObjects->render(array('class' => 'form-autocomplete')) ?>
+      <?php if (QubitAcl::check(QubitActor::getRoot(), 'create')): ?>
+        <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'add')) ?> #title"/>
+      <?php endif; ?>
+      <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'autocomplete')) ?>"/>
+    </div>
+
+  </fieldset>
+
+  <div class="actions section">
+
+    <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+
+    <div class="content">
+      <ul class="clearfix links">
+
+        <?php if (isset($resource->id)): ?>
+          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'accession')) ?></li>
+          <li><input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
+        <?php else: ?>
+          <li><?php echo link_to(__('Cancel'), array('module' => 'accession', 'action' => 'list')) ?></li>
+          <li><input class="form-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
+        <?php endif; ?>
+
+      </ul>
+    </div>
+
+  </div>
+
+</form>

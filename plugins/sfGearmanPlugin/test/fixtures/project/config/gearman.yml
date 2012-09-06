@@ -1,0 +1,26 @@
+all:
+  
+  server:
+    default: 127.0.0.1
+    test1: 192.168.0.1
+    test2: {host: 192.168.0.1}
+    test3: {host: 127.0.0.1, port: 1111}
+    test4:
+      - {host: 192.168.0.1}
+      - {host: 192.168.0.2}
+    test5:
+      - 192.168.0.1:1111
+      - 192.168.0.2:2222
+      - {host: 192.168.0.3, port: 3333}
+
+# doctrine record/table worker configuration
+  doctrine:
+    test:
+      TestArticle: [publish, ~]
+
+# standard php worker configuration
+  worker:
+    test:
+      md5: [TestWorker, md5]
+
+# vim: set ft=yaml et ts=2 sw=2:

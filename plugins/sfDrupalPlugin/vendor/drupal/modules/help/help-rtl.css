@@ -1,0 +1,11 @@
+/* $Id: help-rtl.css,v 1.2 2007/11/27 12:09:26 goba Exp $ */
+
+.help-items {
+  float: right;
+  padding-right: 0;
+  padding-left: 3%;
+}
+.help-items-last {
+  padding-right: 0;
+  padding-left: 0;
+}

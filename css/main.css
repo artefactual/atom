@@ -1,0 +1,348 @@
+/* Override Drupal's background */
+
+body,
+#wrapper,
+#wrapper #container #center #squeeze,
+#wrapper #container #center .right-corner,
+#wrapper #container #center .right-corner .left-corner
+{
+  background: white;
+}
+
+/* Position logo to the right of title */
+
+#wrapper #container #header h1 img
+{
+  float: right;
+
+  /* This is the width of the logo image.  Otherwise its right margin is
+   * aligned with the right margin of the title. */
+  left: 80px;
+
+  position: relative;
+}
+
+/* Add style to Qubit logo text */
+
+#wrapper #container #header h1 div
+{
+  color: #FC6E3C;
+  font-family: Verdana, serif;
+  font-size: 4em;
+  font-weight: bold;
+  letter-spacing: -0.1ex;
+}
+
+#wrapper #container #header h1 div:first-letter
+{
+  color: #CC3204;
+  font-size: 115%;
+}
+
+/* Drop decoration, margin, and padding from lists in YUI autocomplete widgets (IE6/IE7) */
+
+.yui-ac ul
+{
+  list-style-image: none;
+}
+
+/* Drop decoration, margin, and padding from lists in the context menu */
+
+.contextMenu ul
+{
+  margin: 0;
+  padding: 0;
+  list-style-image: none;
+}
+
+.contextMenu ul li
+{
+  background: none;
+  margin: 2px;
+  padding: 0;
+  border-top: 1px dotted #999;
+}
+
+.contextMenu ul li:first-child
+{
+  border-top: 0;
+}
+
+/* Fixes for Drupal and YUI to play together */
+
+.ygtvitem table
+{
+  margin: 0;
+}
+
+.ygtvitem tbody
+{
+  border: 0;
+}
+
+.ygtvitem td,
+.ygtvitem th
+{
+  padding: 0;
+}
+
+/* Drop decoration, margin, and padding from lists in YUI menus */
+
+.yuimenu ul
+{
+  margin: 0;
+  padding: 0;
+}
+
+.yuimenu ul li
+{
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Translation interface customizations */
+
+#l10n-client
+{
+  border-top: 2px solid #000;
+}
+
+#l10n-client .label
+{
+  /* Reset .label */
+
+  background: transparent;
+  font-size: inherit;
+  padding: 0;
+}
+
+#l10n-client .labels
+{
+  background: #fd0;
+}
+
+#l10n-client .string-list li.translated
+{
+  background: transparent;
+  border-bottom-color: #ddd;
+  color: #000;
+}
+
+#l10n-client .string-list li.translated:hover
+{
+  background: #ace;
+}
+
+#l10n-client .string-list li.translated:active
+{
+  background: #8ac;
+}
+
+#l10n-client .string-list li.untranslated
+{
+  background: #ffd;
+  border-bottom-color: #fd0;
+  color: #000;
+}
+
+#l10n-client .string-list li.untranslated:hover
+{
+  background: #ace;
+}
+
+#l10n-client .string-list li.untranslated:active
+{
+  background: #ffd;
+}
+
+#l10n-client-form .source textarea
+{
+  background: #ffd;
+  border: 1px dashed #fd0;
+  color: #000;
+}
+
+/* Lowercase menus */
+
+#menu-main,
+.menu-quick-links,
+.menu-secondary
+{
+  text-transform: lowercase;
+}
+
+/* Fix YUI autocomplete, consistent style for autocomplete labels */
+
+.yui-skin-sam .yui-ac
+{
+  font-family: inherit;
+}
+
+.yui-skin-sam .yui-ac-input
+{
+  position: static;
+}
+
+/* Flowplayer width and height */
+
+.flowplayer
+{
+  display: block;
+  height: 300px;
+  width: 435px;
+}
+
+.audio
+{
+  height: 24px;
+}
+
+/* odd&even divs */
+.odd {
+  background-color: #edf5fa;
+  border-bottom: 1px solid #ccc;
+  padding: 0.2em 0.6em;
+}
+
+.even {
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  padding: 0.2em 0.6em;
+}
+
+/* Override Drupal's default list style for Symfony .radio-list */
+ul.radio_list,
+ul.radio_list li,
+ul.radio_list li:hover,
+ul.checkbox_list,
+ul.checkbox_list li,
+ul.checkbox_list li:hover
+{
+  list-style: none;
+}
+
+ul.radio_list,
+ul.checkbox_list
+{
+  padding-left: 0;
+}
+
+ul.radio_list label,
+ul.checkbox_list label
+{
+  display: inline;
+  float: none;
+}
+
+/* Digital object browser */
+
+.digital-object-browser {
+
+  zoom: 1;
+}
+
+.digital-object-browser:before,
+.digital-object-browser:after {
+  display: table;
+  content: '';
+}
+
+.digital-object-browser:after {
+  clear: both;
+}
+
+.digital-object-browser ul {
+
+  margin-left: -10px;
+
+}
+
+.digital-object-browser li {
+  display: inline;
+  float: left;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  position: relative;
+  text-align: center;
+  background-color: #eee;
+  padding: 4px;
+  box-shadow: 2px 2px 2px #bbb;
+  -moz-box-shadow: 2px 2px 2px #bbb;
+  -webkit-box-shadow: 2px 2px 2px #bbb;
+  border: 1px solid #999;
+}
+
+.digital-object-browser a {
+
+  display: block;
+
+}
+
+.digital-object-detail {
+
+  position: absolute;
+  background-color: White;
+  width: 180px;
+  height: auto;
+  z-index: 15000;
+  text-align: center;
+  padding: 0 10px;
+
+  border: 1px solid #666;
+  box-shadow: 0px 0px 2px #999;
+  -moz-box-shadow: 0px 0px 2px #999;
+  -webkit-box-shadow: 0px 0px 2px #999;
+
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.digital-object-detail > .img {
+
+  margin: 0 -10px 10px -10px;
+  background-color: #eee;
+  padding: 10px 0;
+  border: 1px solid #d6d6d6;
+
+}
+
+.digital-object-detail > h2 {
+
+  margin-bottom: 10px;
+
+}
+
+.digital-object-detail > h2 > a {
+
+  display: inline;
+
+}
+
+.digital-object-detail > .field {
+
+  margin-bottom: 10px;
+
+}
+
+.digital-object-detail * {
+
+  position: static;
+  font-size: 12px;
+  line-height: 1em;
+  margin: 0;
+  padding: 0;
+
+}
+
+/* Hide printables */
+#print-date
+{
+  display: none;
+}
+
+h1.part-of
+{
+  display: none;
+}

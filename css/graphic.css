@@ -1,0 +1,542 @@
+/*********************************************************
+                ABOUT: graphic.css
+**********************************************************/
+  /* This stylesheet is used to assign styles to all graphic elements except for:
+- menu.css, which is used to structure and style menus
+- form.css, which is used to structure and style forms
+- layout.css, which is used to structure and style the physical page layout */
+
+/*********************************************************
+                GENERAL TEXT STYLING
+**********************************************************/
+
+/* sub-lists in the UI translation list */
+.translationList ul {
+  padding: 0;
+  margin: 0 0 10px 20px;
+}
+
+/* Giving hovered-over anchors a solid background does not play nice with YUI's
+ * menu because YUI does not override our hovered-over anchor style.  Instead
+ * it styles a .yuimenuitem-selected class.  So make an exception for YUI menu
+ * items.  Ideally we would make an exception in the above selector, but CSS
+ * does not support a "parent" selector.  See discussion on css-discuss list. */
+.yuimenuitem a:hover {
+  background: transparent;
+}
+
+/*disabled element*/
+.disabled {
+  background-color: #CCC;
+  color: #666;
+}
+
+button.delete-small {
+  background: transparent url('../images/delete.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: scroll;
+  width: 16px;
+  height: 16px;
+  border: none;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+/*********************************************************
+              NOTE SPAN
+**********************************************************/
+span.note {
+  font-size: 9px;
+  font-style: italic;
+  margin-left: 10px;
+}
+
+span.note2 {
+  color: #999;
+}
+
+/*********************************************************
+               TABLE FILTER
+**********************************************************/
+
+div.table-control {
+  border: 1px #aaa solid;
+  margin: 3px 0px;
+  padding: 3px 10px;
+  background: #eee;
+}
+
+/*********************************************************
+             DIGITAL OBJECT THUMBS
+**********************************************************/
+.digitalobject.browse #content tbody
+{
+  background: #eee;
+  border: 1px solid #000;
+}
+
+div.digitalObject {
+  float: left;
+  margin: 5px;
+  padding: 5px;
+  height: auto;
+  width: 102px;
+  text-align: center;
+  color: black;
+  display: table-cell;
+  background-color: #eee;
+}
+
+div.digitalObjectRep {
+  height: 102px;
+  width: 102px;
+  vertical-align: middle;
+  text-align: center;
+  background-color: white;
+  border: 1px black solid;
+  display: table-cell;
+}
+
+.digitalObjectDesc {
+  height: auto;
+}
+
+div.digitalObjectDesc img {
+  float: right;
+}
+
+/*********************************************************
+             PAGER
+**********************************************************/
+.result-count {
+  text-align: center;
+  color: #999999;
+  margin-top: 10px;
+}
+
+/* Style modifications for compound digital object pager */
+.pager.compound_digiobj {
+  margin-top: 0;
+}
+
+.result-count.compound_digiobj {
+  margin: 0 0 5px 0;
+}
+
+/* Modifications to pager for display in context menus */
+.contextMenu .pager
+{
+  border-top: 1px dotted #999;
+  margin: 0;
+  padding: 10px 2px;
+  font-size: 10px;
+}
+
+/*********************************************************
+             COMPOUND DIGITAL OBJECT TABLE
+**********************************************************/
+
+table.compound_digiobj {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0px;
+}
+
+table.compound_digiobj td {
+  border: 1px solid black;
+  width: 50%;
+  padding: 0;
+  vertical-align: middle;
+  text-align: center;
+  background: #666;
+}
+
+table.compound_digiobj td.download_link {
+  border: none;
+  background: white;
+  padding: 2px;
+}
+
+/*********************************************************
+             LOGOS
+**********************************************************/
+
+#footer a
+{
+  bottom: 1em;
+  position: fixed;
+  right: 1em;
+}
+
+/*********************************************************
+             MULTIUPLOADER
+  TODO: Apply default markup, .section, h3, etc...
+**********************************************************/
+
+div.multiFileUploadItem {
+  border: 1px solid #bbb;
+  padding: 2px;
+  margin: 2px 2px 12px 2px;
+  overflow: auto;
+}
+
+div.multiFileUploadWarning {
+  color: #222200;
+  background-color: #FFFFDD;
+}
+
+div.multiFileUploadWarning p {
+  margin: 5px 8px;
+}
+
+div.multiFileUploadThumbItem {
+  float: left;
+  margin: 5px;
+  padding: 5px;
+  height: auto;
+  text-align: center;
+  display: table-cell;
+  background-color: #eee;
+}
+
+div.multiFileUploadInfo {
+  float: left;
+  margin: 0 0 0 5px;
+  height: auto;
+}
+
+div.multiFileUploadInfo .title {
+  font-weight: bold;
+  margin: 0 4px 0 0;
+}
+
+div.multiFileUploadInfoActions a {
+  margin-right: 6px;
+}
+
+
+/*********************************************************
+             CHECK FOR UPDATES
+**********************************************************/
+
+#update-check
+{
+  display: none;
+
+  background-color: #def;
+
+  padding: 4px 8px;
+  margin: 8px 10px 0 0;
+
+  border-radius: .5em;
+  -moz-border-radius: .5em;
+  -webkit-border-radius: .5em;
+
+  position: absolute;
+  right: 0;
+}
+
+#update-check span
+{
+  background: transparent url('../images/bell_error.png');
+  background-repeat: no-repeat;
+  background-position: left center;
+
+  padding: 0 0 0 20px;
+
+  font-weight: bold;
+}
+
+/*********************************************************
+             TREEVIEW
+**********************************************************/
+
+#treeview
+{
+  max-height: 480px;
+  margin-bottom: 10px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+#treeview ul,
+#treeview li
+{
+  margin: 0;
+  padding: 0;
+}
+
+#treeview li
+{
+  padding: 5px 0 5px 20px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  background-color: white;
+  position: relative;
+}
+
+#treeview .ancestor,
+#treeview .back
+{
+  background-color: #f5f5f5;
+}
+
+#treeview .back
+{
+  cursor: pointer;
+}
+
+#treeview .back:hover a
+{
+  text-decoration: underline;
+}
+
+#treeview .expand,
+#treeview .ancestor,
+#treeview .back
+{
+  padding-left: 0px;
+}
+
+#treeview .immediate-ancestor
+{
+  border-bottom: 1px solid #ccc;
+}
+
+#treeview .active
+{
+  background-color: #F1E6D4;
+  -webkit-border-radius: 2px 0 0 2px;
+     -moz-border-radius: 2px 0 0 2px;
+          border-radius: 2px 0 0 2px;
+  -webkit-box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, .3), inset 3px 3px 5px 0 rgba(100, 100, 100, 0.1), inset 0 -1px 1px 0 rgba(100, 100, 100, .2);
+     -moz-box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, .3), inset 3px 3px 5px 0 rgba(100, 100, 100, 0.1), inset 0 -1px 1px 0 rgba(100, 100, 100, .2);
+          box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, .3), inset 3px 3px 5px 0 rgba(100, 100, 100, 0.1), inset 0 -1px 1px 0 rgba(100, 100, 100, .2);
+}
+
+#treeview .placeholder
+{
+  background-color: #f0f0f0;
+}
+
+#treeview .more a
+{
+  background-color: #ccc;
+  padding: 0 8px;
+  font-weight: bold;
+  color: white !important;
+  text-decoration: none !important;
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+}
+
+#treeview i
+{
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  vertical-align: middle;
+  margin-right: 2px;
+  margin-left: 5px;
+  background-color: transparent;
+  background-image: url(../images/arrow-sprites.png);
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+#treeview .ancestor i { background-position: -10px 0px; } /* left arrow */
+#treeview .immediate-ancestor i { background-position: 0px 0px; } /* down arrow */
+#treeview .back i { background-position: -10px 0px; } /* left arrow */
+#treeview .expand i { background-position: -20px 0px; } /* right arrow */
+
+#treeview a:hover
+{
+  color: #0069d6;
+}
+
+#treeview .ui-sortable-helper
+{
+  background-color: White;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ccc;
+  -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+}
+
+#treeview.loading li
+{
+  cursor: wait !important;
+}
+
+#treeview li .loading
+{
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url(../images/loading.small.gif);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  position: absolute;
+  left: 0px;
+}
+
+#treeview .levelOfDescription
+{
+  margin-right: 4px;
+}
+
+#treeview .pubStatus
+{
+  color: #bbb;
+  margin-left: 4px;
+}
+
+#treeview .grip
+{
+  visibility: hidden;
+  float: right;
+  width: 9px;
+  height: 11px;
+  margin-right: 4px;
+  margin-top: 4px;
+  display: inline-block;
+  vertical-align: middle;
+  background-color: transparent;
+  background-image: url(../images/grip.png);
+  background-repeat: no-repeat;
+}
+
+#treeview li:hover .grip
+{
+  visibility: visible;
+}
+
+/*********************************************************
+             POPOVER
+**********************************************************/
+
+.popover
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1010;
+  display: none;
+  padding: 5px;
+}
+
+.popover.top
+{
+  margin-top: -5px;
+}
+
+.popover.right
+{
+  margin-left: 5px;
+}
+
+.popover.bottom
+{
+  margin-top: 5px;
+}
+
+.popover.left
+{
+  margin-left: -5px;
+}
+
+.popover.top .arrow
+{
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-top: 5px solid #000000;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+}
+
+.popover.right .arrow
+{
+  top: 50%;
+  left: 0;
+  margin-top: -5px;
+  border-top: 5px solid transparent;
+  border-right: 5px solid #000000;
+  border-bottom: 5px solid transparent;
+}
+
+.popover.bottom .arrow
+{
+  top: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #000000;
+  border-left: 5px solid transparent;
+}
+
+.popover.left .arrow
+{
+  top: 50%;
+  right: 0;
+  margin-top: -5px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #000000;
+}
+
+.popover .arrow
+{
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.popover-inner
+{
+  width: 280px;
+  padding: 3px;
+  overflow: hidden;
+  background: #000000;
+  background: rgba(0, 0, 0, 0.8);
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+     -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+.popover-title
+{
+  padding: 9px 15px;
+  line-height: 1;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #eee;
+  -webkit-border-radius: 3px 3px 0 0;
+     -moz-border-radius: 3px 3px 0 0;
+          border-radius: 3px 3px 0 0;
+}
+
+.popover-content
+{
+  padding: 14px;
+  background-color: #ffffff;
+  -webkit-border-radius: 0 0 3px 3px;
+     -moz-border-radius: 0 0 3px 3px;
+          border-radius: 0 0 3px 3px;
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding-box;
+          background-clip: padding-box;
+}
+
+.popover-content p,
+.popover-content ul,
+.popover-content ol
+{
+  margin-bottom: 0;
+}

@@ -1,0 +1,35 @@
+# This file is part of Qubit Toolkit.
+#
+# Qubit Toolkit is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# Qubit Toolkit is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
+# for more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# Qubit Toolkit; if not, write to the Free Software Foundation, Inc., 51
+# Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+# MODS XML IMPORT FILTER MAPPINGS
+#
+# @package qubit
+# @subpackage object import
+# @author Peter Van Garderen <peter@artefactual.com>
+# @version svn: $Id:$
+
+information_object:
+  XPath:  "//mods"
+  Object:  InformationObject
+  # define an axis for the parent object; if no node is matched here, the object is rooted if possible
+
+  Methods:
+    collection_type:
+      XPath:   "."    # not really a match, just use self
+      Method:  setCollectionTypeId
+      Parameters: [QubitTerm::PUBLISHED_MATERIAL_ID]
+
+    # each of the following XPath expressions are relative to the current matched node:

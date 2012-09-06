@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2012-08-15T11:36:55Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>View permissions</source>
+        <target>Ver permisos</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Edit group</source>
+        <target>Editar grupo</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>All %1%</source>
+        <target>Todos %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>All privileges</source>
+        <target>Todos los privilegios</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Actions</source>
+        <target>Acciones</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Edit</source>
+        <target>Editar</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Delete</source>
+        <target>Borrar</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Add new</source>
+        <target>Agregar nuevo</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Permissions for all %1%</source>
+        <target>Permisos para todo %1%</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Action</source>
+        <target>Acción</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Permission</source>
+        <target>Permiso</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Grant</source>
+        <target>Conceder</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Deny</source>
+        <target>Negar</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Inherit</source>
+        <target>Heredar</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Permissions by taxonomy</source>
+        <target>Permisos por taxonomía</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Permissions</source>
+        <target>Permisos</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Taxonomy name</source>
+        <target>Nombre de taxonomía</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Add permissions by taxonomy</source>
+        <target>Agregar permisos por taxonomía</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Add taxonomy</source>
+        <target>Agregar taxonomía</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Cancel</source>
+        <target>Cancelar</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Save</source>
+        <target>Guardar</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>%1%: %2%</source>
+        <target>%1%: %2%</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Are you sure you want to delete %1%?</source>
+        <target>¿Está seguro que quiere borrar %1%?</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Confirm</source>
+        <target>Confirmar</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Add new group</source>
+        <target>Agregar nuevo grupo</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Create</source>
+        <target>Crear</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Edit %1% permissions</source>
+        <target>Editar %1% permisos</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Permissions by %1%</source>
+        <target>Permisos por %1%</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>%1% name</source>
+        <target>%1% nombre</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Add permissions by %1%</source>
+        <target>Agregar permisos por %1%</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Add %1%</source>
+        <target>Agregar %1%</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>View group</source>
+        <target>Ver grupo</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Name</source>
+        <target>Nombre</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Description</source>
+        <target>Descripción</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Translate</source>
+        <target>Traducir</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Sorry, this group is locked and cannot be deleted</source>
+        <target>Lo siento, este grupo está bloqueado y no puede ser eliminado</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>This group is required by the application to operate correctly</source>
+        <target>Este grupo es requerido por la aplicación para operar correctamente</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Back to previous page</source>
+        <target>Vuelva a la página anterior</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>List groups</source>
+        <target>Listar grupos</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Groups ACL</source>
+        <target>Grupos ACL</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Group</source>
+        <target>Grupo</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Members</source>
+        <target>Miembros</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Taxonomy: %1%</source>
+        <target>Taxonomía: %1%</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

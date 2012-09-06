@@ -1,0 +1,116 @@
+#
+# MARC21 XML IMPORT FILTER MAPPINGS
+#
+# This file is part of the Qubit Toolkit.
+# Copyright (C) 2006-2008 Peter Van Garderen <peter@artefactual.com>
+#
+# All XPath expressions should be absolute to the root node, if possible
+#
+
+# Base Object is the type of object we're importing
+BaseObject: InformationObject
+
+# XSLT filters are applied to the XML mapping (eg. for crosswalks)
+processXSLT:
+  - MARC21slim2EAD.xsl
+
+#
+# === BASE OBJECT ATTRIBUTES ===
+#
+
+#levelofdescription:
+#  XPath:   /ead/archdesc/@level
+#  Method:  addLevelofDescription    # use the taxonomy for this?
+
+#repository:
+#  XPath:   /ead/archdesc/did/repository/corpname | /ead/archdesc/did/repository/name
+#  Object:  InformationObject
+#  Method:  addRepositoryByName
+
+#creators:
+#  XPath:   /ead/archdesc/did/origination/persname | /ead/archdesc/did/origination/corpname | /ead/archdesc/did/origination/famname | /ead/archdesc/did/origination/name
+#  Object:  InformationObject
+#  Method:  addCreatorByName
+
+title:
+  XPath:   /ead/filedesc/titlestmt/titleproper | /ead/archdesc/did/unittitle
+  Method:  setTitle
+
+alternateTitle:
+  XPath:   /ead/filedesc/titlestmt/subtitle
+  Method:  setAlternateTitle
+
+institutionResponsibleIdentifier:
+  XPath:   /ead/filedesc/publicationstmt/publisher
+  Method:  setInstitutionResponsibleIdentifier
+
+identifier:
+  XPath:   /ead/archdesc/did/unitid
+  Method:  setIdentifier
+
+# this should probably map to creators, above
+#createdAt:
+#  XPath:   /ead/archdesc/did/unitdate
+#  Method:  setCreatedAt
+
+extentAndMedium:
+  XPath:   /ead/archdesc/did/physdesc | /ead/archdesc/did/physdesc/extent
+  Method:  setExtentAndMedium
+
+languages:
+  XPath:   /ead/archdesc/did/langmaterial/language/@langcode
+  Method:  setProperty
+  Parameters: [$nodeValue, $name = 'language_of_information_object_description', $scope = 'languages']
+
+#notes:
+#  XPath:   /ead/archdesc/note
+#  Method:  setInformationObjectNote
+#  Parameters:  [$this->getUser()->getAttribute('user_id'), $nodeValue, 1134]    # FIXME: 1134 is a hardcoded general note
+
+# bioghist
+
+accessConditions:
+  XPath:   /ead/archdesc/accessrestrict
+  Method:  setAccessConditions
+
+appraisal:
+  XPath:   /ead/archdesc/appraisal
+  Method:  setAppraisal
+
+accruals:
+  XPath:   /ead/archdesc/accruals
+  Method:  setAccruals
+
+acquisition:
+  XPath:   /ead/archdesc/acqinfo
+  Method:  setAcquisition
+
+arrangement:
+  XPath:   /ead/archdesc/arrangement
+  Method:  setArrangement
+
+archivalHistory:
+  XPath:   /ead/archdesc/custodhist
+  Method:  setArchivalHistory
+
+#controlaccess
+
+findingAids:
+  XPath:   /ead/archdesc/otherfindaid
+  Method:  setFindingAids
+
+revisionHistory:
+  XPath:   /ead/archdesc/processinfo
+  Method:  setFindingAids
+
+relatedUnitsOfDescription:
+  XPath:   /ead/archdesc/relatedmaterial | /ead/archdesc/separatedmaterial
+  Method:  setRelatedUnitsOfDescription
+
+scopeAndContent:
+  XPath:   /ead/archdesc/scopecontent
+  Method:  setScopeAndContent
+
+reproductionConditions:
+  XPath:   /ead/archdesc/userestrict
+  Method:  setReproductionConditions

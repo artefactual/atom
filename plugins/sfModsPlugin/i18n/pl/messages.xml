@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="pl" datatype="plaintext" original="messages" date="2011-11-04T15:08:39Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new resource</source>
+        <target>Dodaj nowy zasób</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>Bez tytułu</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>Edytuj %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Select the type of activity that established the relation between the authority record and the resource.</source>
+        <target>Wybierz typ działania, które stworzyło powiązanie pomiędzy hasłem wzorcowym a zasobem.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Edit resource metadata - MODS</source>
+        <target>Edycja metadanych zasobu - MODS</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>This is a duplicate of record %1%</source>
+        <target>To jest duplikat wpisu %1%</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Contains a unique standard number or code that distinctively identifies a resource.</source>
+        <target>Zawiera unikalny numer standardowy lub kod jednoznacznie idntyfikujący zasób.</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it. Choice and format of titles should be governed by a content standard such as the Anglo-American Cataloging Rules, 2nd edition (AACR2), Cataloguing Cultural Objects (CCO), or Describing Archives: A Content Standard (DACS). Details such as capitalization, choosing among the forms of titles presented on an item, and use of abbreviations should be determined based on the rules in a content standard. One standard should be chosen and used consistently for all records in a set.</source>
+        <target>Słowo, fraza, litera lub grupa liter standardowo pojawiająca się w zasobie określająca go lub zawartą w nim pracę.  Stosuje się standardy AACR2, CCO lub DACS. Zastosowany standard powinien być stosowany konsekwentnie w każdym  zbiorze dokumentów.</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Names and origin info</source>
+        <target>Nazwa i źródło nazwy</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Add new name and/or origin info</source>
+        <target>Dodaj nową nazwę lub/i informację o pochodzeniu</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
+        <target>Termin określający charakterystykę i ogólny typ treści zasobu. Należy powiązać tyle typów ile to możliwe.  </target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Type of resource</source>
+        <target>Typ zasobu</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Add new child levels (if describing a collection)</source>
+        <target>Dodaj niższy poziom opisu (jeśli opisujesz kolekcję)</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Identifier</source>
+        <target>Identyfikator</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Title</source>
+        <target>Tytuł</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <target>Użyj tych dwóch pól aby dodać niższe poziomy opisu na poziomie kolekcji. Kliknij dodaj nowy aby dodać tyle poziomów dziedziczonych - ile potrzeba. Identyfikator: wprowadź unikalny numer standardowy lub kod jednoznacznie opisujący zasób. Tytuł: wprowadź słowo, frazę, literę lub grupę liter pojawiające się w zasobie i mogące go identyfikować.</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>A designation of the language in which the content of a resource is expressed. Select as many languages as required.</source>
+        <target>Określenie języka treści zasobu. Można wybrać większą ilość.</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Subject</source>
+        <target>Temat</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>A term or phrase representing the primary topic(s) on which a work is focused. Search for an existing term in the Subjects taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
+        <target>Termin lub fraza reprezentujaca główny temat,  na którym skupia się opracowanie. Można przeszukiwać oprzez taksonomię tematów wpisując kilka pierwszych liter. Ewentualnie stworzyć nową nazwę i połączyć z nowym terminem tematycznym.</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
+        <target>Informacje o ograniczeniach nałożonych na dostęp do zasobu. Zobacz  warunki dostępu MODS (Metadata Object Description Schema) dla elementów najwyższego poziomu aby uzyskać więcej informacji na temat używania tego pola.</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.</source>
+        <target>Określenie instytucji lub repozytorium posiadającego zasób. Szukaj nazwy istniejącego repozytorium, wpisując kilka pierwszych liter nazwy. Alternatywnie, wpisz nową nazwę, aby utworzyć i połączyć do nowego rekordu repozytorium.</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Rights area</source>
+        <target>Blok praw</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>View resource metadata</source>
+        <target>Zobacz metadane zasobu</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Edit resource metadata</source>
+        <target>Edycja metadanych zasobu</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Language</source>
+        <target>Język</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Internet media type</source>
+        <target>Typ medium internetowego</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Access condition</source>
+        <target>Warunki dostępu</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>URL</source>
+        <target>adres URL</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Physical location</source>
+        <target>Lokalizacja fizyczna</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Edit rights area</source>
+        <target>Blok edycji praw</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Accession area</source>
+        <target>Blok nabytków</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

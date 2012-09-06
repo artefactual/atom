@@ -1,0 +1,7 @@
+_browseMenu:
+  enabled: on
+  contextual: false
+
+_mainMenu:
+  enabled: on
+  contextual: false

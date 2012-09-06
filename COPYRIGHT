@@ -1,0 +1,148 @@
+COPYRIGHTS
+==========
+
+Qubit Toolkit
+-------------
+Url:       http://qubit-toolkit.org/
+Copyright: 2006-2012, Artefactual Systems Inc. <info@artefactual.com>
+License:   Affero GPL version 3 or any later version - see LICENSE file
+
+Qubit Logo
+----------
+The blue circle in the logo is derived from a Blochsphere representation of a
+Qubit (quantum bit) that was made available as a vector graphic under a GNU
+Free Documentation License.  As such, the derived circle used in the logo is
+also made available under the GFDL.
+
+URL:       http://commons.wikimedia.org/wiki/Image:Blochsphere.svg
+Copyright: http://en.wikipedia.org/wiki/User:MuncherOfSpleens
+License:   GNU Free Documentation License
+
+symfony
+-------
+Qubit Toolkit is based on the symfony framework
+
+Url:       http://www.symfony-project.org/
+Copyright: Fabien Potencier <fabien.potencier@symfony-project.com>
+License:   MIT - see vendor/symfony/LICENSE
+
+symfony contains additional software.  See vendor/symfony/COPYRIGHT and
+vendor/symfony/licenses
+
+Qubit Toolkit also uses the following symfony plugins:
+
+sfLucenePlugin
+--------------
+Copyright: Carl Vondrick
+License:   MIT
+
+sfSearchPlugin
+--------------
+Copyright: Carl Vondrick
+License:   MIT
+
+sfThumbnailPlugin
+-----------------
+Copyright: Fabien Potencer
+License:   MIT
+
+sfWebBrowserPlugin
+--------------
+Copyright: Francois Zaninotto
+License:   MIT
+
+Qubit Toolkit also uses:
+
+Drupal
+------
+Url:       http://drupal.org/
+Copyright: Original authors - see http://association.drupal.org/about/copyright
+License:   GPL version 2 - see LICENSE.txt file
+
+Flowplayer
+----------
+Url:       http://flowplayer.org/
+Copyright: Copyright (c) 2012 Flowplayer Ltd
+License:   GPL version 3
+
+FluentDOM
+---------
+Url:       http://fluentdom.org/
+Copyright: 2009 Bastian Feder, Thomas Weinert
+License:   MIT - see licence.txt file
+
+FreeBeer ISO639 Map
+-------------------
+Url:       http://sourceforge.net/projects/freebeer/
+Copyright: 2002-2004, Ross Smith
+License:   BSD or LGPL
+
+ImageFlow
+---------
+Url:       http://imageflow.finnrudolph.de/
+Copyright: Finn Rudolph
+License:   Creative Commons Attribution-NonCommercial 3.0 Unported
+
+jQuery
+------
+Url:       http://jquery.com/
+Copyright: John Resig <jeresig@gmail.com>
+License:   Dual licensed under the MIT and GPL version 2 - see MIT-LICENSE.txt
+           and GPL-LICENSE.txt
+
+hoverIntent jQuery Plug-in
+--------------------------
+Url:       http://cherne.net/brian/resources/jquery.hoverIntent.html
+Copyright: Brian Cherne <brian@cherne.net>
+License:   MIT or GPL
+
+jQuery Expander Plugin
+----------------------
+Url:       http://plugins.learningjquery.com/expander/
+Copyright: Karl Swedberg
+License:   MIT or GPL
+
+Silk Icons
+----------
+Url:       http://famfamfam.com/lab/icons/silk/
+Copyright: Mark James <mjames@gmail.com>
+License:   Creative Commons Attribution 2.5
+
+Yahoo! User Interface Library
+-----------------------------
+Url:       http://developer.yahoo.com/yui/
+Copyright: Yahoo! Inc.
+License:   BSD
+
+Zend Framework
+--------------
+Qubit Toolkit uses the Zend Search component
+
+Url:       http://framework.zend.com/
+Copyright: Zend Technologies USA Inc.
+License:   New BSD
+
+printer-icon.png
+----------------
+Url: http://www.fatcow.com/free-icons
+Copyright: Fatcow Web Hosting
+License: CC Attribution 3.0
+
+Twitter Bootstrap
+-----------------
+Url: http://twitter.github.com/bootstrap/
+Copyright: Twitter, Inc.
+License: Apache 2.0
+
+Less CSS
+--------
+Url: http://lesscss.org/
+Copyright: 2009-2011 Alexis Sellier
+License: Apache 2.0
+
+The last PDO library you will ever need
+--------
+Url: http://leftnode.com/entry/the-last-php-pdo-library-you-will-ever-need
+Copyright: Vic Cherubini
+License: Public domain? Code listed at Url above with statement that "You are
+         free to take it and use it for your projects"

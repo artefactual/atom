@@ -1,0 +1,257 @@
+<?php
+// $Id: forum.install,v 1.41 2010/01/08 15:58:43 dries Exp $
+
+/**
+ * @file
+ * Install, update and uninstall functions for the forum module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function forum_install() {
+  // Set the weight of the forum.module to 1 so it is loaded after the taxonomy.module.
+  db_update('system')
+    ->fields(array('weight' => 1))
+    ->condition('name', 'forum')
+    ->execute();
+  // Forum topics are published by default, but do not have any other default
+  // options set (for example, they are not promoted to the front page).
+  variable_set('node_options_forum', array('status'));
+}
+
+function forum_enable() {
+  // Get info on the field "taxonomy_forums".
+  $field_check = field_info_field("taxonomy_forums");
+  if ($vocabulary = taxonomy_vocabulary_load(variable_get('forum_nav_vocabulary', 0))) {
+    // Save the vocabulary to create the default field instance.
+    taxonomy_vocabulary_save($vocabulary);
+  }
+  // Create fields if info on "taxonomy_forums" field turns out empty.
+  elseif (empty($field_check)) {
+    // Create the forum vocabulary if it does not exist. Assign the vocabulary
+    // a low weight so it will appear first in forum topic create and edit
+    // forms.
+    $edit = array(
+      'name' => t('Forums'),
+      'machine_name' => 'forums',
+      'description' => t('Forum navigation vocabulary'),
+      'hierarchy' => 1,
+      'module' => 'forum',
+      'weight' => -10,
+    );
+    $vocabulary = (object) $edit;
+    taxonomy_vocabulary_save($vocabulary);
+
+    $instance = array(
+      'field_name' => 'taxonomy_' . $vocabulary->machine_name,
+      'object_type' => 'node',
+      'label' => $vocabulary->name,
+      'bundle' => 'forum',
+      'widget' => array(
+        'type' => 'options_select',
+      ),
+    );
+    field_create_instance($instance);
+
+    variable_set('forum_nav_vocabulary', $vocabulary->vid);
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function forum_uninstall() {
+  // Load the dependent Taxonomy module, in case it has been disabled.
+  drupal_load('module', 'taxonomy');
+
+  variable_del('forum_containers');
+  variable_del('forum_hot_topic');
+  variable_del('forum_per_page');
+  variable_del('forum_order');
+  variable_del('forum_block_num_active');
+  variable_del('forum_block_num_new');
+  variable_del('node_options_forum');
+}
+
+/**
+ * Implements hook_schema().
+ */
+function forum_schema() {
+  $schema['forum'] = array(
+    'description' => 'Stores the relationship of nodes to forum terms.',
+    'fields' => array(
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {node}.nid of the node.',
+      ),
+      'vid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Primary Key: The {node}.vid of the node.',
+      ),
+      'tid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The {taxonomy_term_data}.tid of the forum term assigned to the node.',
+      ),
+    ),
+    'indexes' => array(
+      'forum_topic' => array('nid', 'tid'),
+      'tid' => array('tid'),
+    ),
+    'primary key' => array('vid'),
+    'foreign keys' => array(
+      'nid' => array('node' => 'nid'),
+      'vid' => array('node' => 'vid'),
+    ),
+  );
+
+  $schema['forum_index'] = array(
+    'description' => 'Maintains denormalized information about node/term relationships.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The {node}.nid this record tracks.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'title' => array(
+        'description' => 'The title of this node, always treated as non-markup plain text.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'tid' => array(
+         'description' => 'The term ID.',
+         'type' => 'int',
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+         'default' => 0,
+      ),
+      'sticky' => array(
+        'description' => 'Boolean indicating whether the node is sticky.',
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
+        'size' => 'tiny',
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the node was created.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default'=> 0,
+      ),
+      'last_comment_timestamp' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The Unix timestamp of the last comment that was posted within this node, from {comment}.timestamp.',
+      ),
+      'comment_count' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The total number of comments on this node.',
+      ),
+    ),
+    'indexes' => array(
+      'forum_topics' => array('tid', 'sticky', 'last_comment_timestamp'),
+    ),
+    'foreign keys' => array(
+      'node' => 'nid',
+      'taxonomy_term_data' => 'tid',
+    ),
+  );
+
+
+  return $schema;
+}
+
+/**
+ * Add new index to forum table.
+ */
+function forum_update_7000() {
+  db_drop_index('forum', 'nid');
+  db_add_index('forum', 'forum_topic', array('nid', 'tid'));
+}
+
+/**
+ * Create new {forum_index} table.
+ */
+function forum_update_7001() {
+  $forum_index = array(
+    'description' => 'Maintains denormalized information about node/term relationships.',
+    'fields' => array(
+      'nid' => array(
+        'description' => 'The {node}.nid this record tracks.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'title' => array(
+        'description' => 'The title of this node, always treated as non-markup plain text.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'tid' => array(
+         'description' => 'The term ID.',
+         'type' => 'int',
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+         'default' => 0,
+      ),
+      'sticky' => array(
+        'description' => 'Boolean indicating whether the node is sticky.',
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
+        'size' => 'tiny',
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the node was created.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default'=> 0,
+      ),
+      'last_comment_timestamp' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The Unix timestamp of the last comment that was posted within this node, from {comment}.timestamp.',
+      ),
+      'comment_count' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The total number of comments on this node.',
+      ),
+    ),
+    'indexes' => array(
+      'forum_topics' => array('tid', 'sticky', 'last_comment_timestamp'),
+    ),
+    'foreign keys' => array(
+      'node' => 'nid',
+      'taxonomy_term_data' => 'tid',
+    ),
+  );
+  db_create_table('forum_index', $forum_index);
+
+  db_query('INSERT INTO {forum_index} (SELECT n.nid, n.title, f.tid, n.sticky, n.created, ncs.last_comment_timestamp, ncs.comment_count FROM {node} n INNER JOIN {forum} f on n.vid = f.vid INNER JOIN {node_comment_statistics} ncs ON n.nid = ncs.nid)');
+}

@@ -1,0 +1,36 @@
+# Project files
+/cache/*
+/log/*
+/web/*_dev.php
+/web/uploads/*
+
+/apps/qubit/config/
+/data/index/
+/config/
+/log/
+/cache/
+/uploads/
+/patches
+/test
+
+/.htaccess
+/index.php
+/config/ProjectConfiguration.class.php
+/apps/qubit/config/qubitConfiguration.class.php
+/images/logo.png
+
+# security hardening / cleanup
+/COPYRIGHT
+/LICENSE
+/qubit_dev.php
+/README
+
+# SCM files
+.arch-params
+.bzr
+_darcs
+.git
+.hg
+.monotone
+.svn
+CVS

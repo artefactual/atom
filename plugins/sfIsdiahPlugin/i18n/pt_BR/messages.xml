@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2012-08-15T11:37:10Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new archival institution</source>
+        <target>Adicionar nova instituição arquivística</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>Sem título</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>editar %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1% Forma autorizada do nome %2% - Este é um %3%elemento%4% obrigatório.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Identificador%2% - É um  %3%elemento%4% obrigatório.</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.</source>
+        <target>%1Informação de contacto%2% - %3%Deverá%4% incluir pelo menos um dos seguintes campos: cidade, país, código postal, região ou endereço.</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>%1%Contact information%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Informações de contato%2% - Este é um %3%elemento%4% obrigatório.</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Edit %1% - ISDIAH</source>
+        <target>Editar %1%</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Identity area</source>
+        <target>Área de identificação</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)</source>
+        <target>"Registre o código numérico ou alfanumérico específico que identifica a instituição com acervo arquivístico de acordo com as normas nacionais e internacionais relevantes." (ISDIAH 5.1.1)</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Identifier</source>
+        <target>Código de referência</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>This is a mandatory element.</source>
+        <target>É um elemento obrigatório.</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
+        <target>"Registre a forma normalizada do nome da instituição com acervo arquivístico, acrescentando, se necessário, os qualificadores apropriados (por exemplo, datas, local etc.). Especifique, separadamente, no elemento Regras e/ou convenções utilizadas (5.6.3), o conjunto de regras aplicado neste elemento." (ISDIAH 5.1.2)</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Authorized form of name</source>
+        <target>forma autorizada do nome</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>This is a mandatory element</source>
+        <target>É um elemento obrigatório.</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)</source>
+        <target>"Registre a(s) forma(s) paralela(s) do nome da instituição com acervo arquivístico de acordo com quaisquer convenções ou regras nacionais ou internacionais relevantes aplicadas pela instituição que criou a descrição, incluindo quaisquer subelementos e/ou qualificadores necessários, requeridos por essas convenções ou regras. Especifique no elemento Regras e/ou convenções utilizadas (5.6.3) as regras aplicadas." (ISDIAH 5.1.3)</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>"Record any other name(s) by which the institution may be known. This could include other forms of the same name, acronyms, other institutional names, or changes of name over time, including, if possible, relevant dates." (ISDIAH 5.1.4)</source>
+        <target>"Registre qualquer outro nome pelo qual a instituição com acervo arquivístico possa ser conhecida. Incluem-se aqui outras formas do mesmo nome, acrônimos, outros nomes institucionais ou mudanças de nome ao longo do tempo, acrescentando, se possível, datas relevantes." (ISDIAH 5.1.4)</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired from the drop-down menu; these values are drawn from the Repository Types taxonomy.</source>
+        <target>Indicar o tipo de instituição (ISDIAH 5.1.5). Selecccionar na lista de opções, obtida a partir da taxonomia de entidades detentoras.</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Contact area</source>
+        <target>área de contato</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>See ISDIAH 5.2 for contact area information and examples.</source>
+        <target>Ver ISDIAH 5.2 relativamente à zona de informação e exemplos.</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Description area</source>
+        <target>área de descrição</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>"Record any relevant information about the history of the institution. This element may include information on dates of establishment, changes of names, changes of legislative mandates, or of any other sources of authority for the institution." (ISDIAH 5.3.1)</source>
+        <target>"Registre qualquer informação relevante sobre a história da instituição com acervo arquivístico. Este elemento pode incluir data de criação, informação acerca de mudanças de nome, mudanças de mandato legal ou de quaisquer outras fontes de autoridade da instituição arquivística." (ISDIAH 5.3.1)</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>"Identify the geographical area the institution belongs to. Record any other relevant information about the cultural context of the institution." (ISDIAH 5.3.2)</source>
+        <target>"Identifique a área geográfica à qual pertence a instituição com acervo arquivístico. Registre quaisquer outras informações relevantes sobre o contexto cultural." (ISDIAH 5.3.2)</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Geographical and cultural context</source>
+        <target>contexto cultural e geográfico </target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the institution, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISDIAH 5.3.3)</source>
+        <target>"Registre qualquer documento, lei, diretiva ou diploma que funcione como fonte de autoridade para os poderes, funções ou responsabilidades da instituição com acervo arquivístico,juntamente com informações sobre jurisdição e datas de vigência ou alteração do(s) mandato(s)." (ISDIAH 5.3.3)</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Mandates/Sources of authority</source>
+        <target>Mandatos/Fontes de autoridade</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>"Describe, in narrative form or using organisational charts, the current administrative structure of the institution." (ISDIAH 5.3.4)</source>
+        <target>"Descreva, usando uma forma narrativa ou organogramas, a atual estrutura administrativa da instituição com acervo arquivístico." (ISDIAH 5.3.4)</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Administrative structure</source>
+        <target>estrutura administrativa</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>"Record information about the records management and collecting policies of the institution. Define the scope and nature of material which the institution accessions. Indicate whether the repository seeks to acquire archival materials by transfer, gift, purchase and/or loan. If the policy includes active survey and/or rescue work, this might be spelt out." (ISDIAH 5.3.5)</source>
+        <target>"Registre informação sobre as políticas de gestão e de entrada de documentos da instituição com acervo arquivístico. Defina o âmbito e a natureza do material que a instituição com acervo arquivístico recebe. Indique se a instituição procura adquirir materiais arquivísticos por transferência, doação, compra e/ou comodato. Se a política incluir pesquisa aplicada e/ou ações de salvamento, isso deve ser afirmado." (ISDIAH 5.3.5</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Records management and collecting policies</source>
+        <target>Políticas de gestão e entrada de documentos</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>"Record information on the building(s) of the institution (general and architectural characteristics of the building, capacity of storage areas, etc). Where possible, provide information which can be used for generating statistics." (ISDIAH 5.3.6)</source>
+        <target>"Registre informação sobre o(s) prédio(s) da instituição com acervo arquivístico (características gerais e arquitetônicas do prédio, capacidade das áreas de armazenamento etc). Quandopossível, forneça informação que possa ser usada para gerar estatísticas." (ISDIAH 5.3.6)</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>"Record a short description of the holdings of the institution, describing how and when they were formed. Provide information on volume of holdings, media formats, thematic coverage, etc." (ISDIAH 5.3.7)</source>
+        <target>"Registre uma breve descrição do acervo da instituição, narrando como e quando foi formado. Forneça informação sobre o volume do acervo, suportes, temáticas etc." (ISDIAH 5.3.7)</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Archival and other holdings</source>
+        <target>acervos arquivísticos e outros</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>"Record the title and other pertinent details of the published and/or unpublished finding aids and guides prepared by the institution and of any other relevant publications. Use ISO 690 Information and documentation – Bibliographic references and other national or international cataloguing rules." (ISDIAH 5.3.8)</source>
+        <target>"Registre o título e os outros dados pertinentes dos instrumentos de pesquisa, impressos ou não, e guias preparados pela instituição com acervo arquivístico, bem como quaisquer outras publicações relevantes. Use a ISO 690 Information and documentation – Bibliographic references ou outras regras, nacionais ou internacionais, de catalogação." (ISDIAH 5.3.8)</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Finding aids, guides and publications</source>
+        <target>Instrumentos de pesquisa, guias e publicações</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Access area</source>
+        <target>área de acesso</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>"Record the opening hours of the institution and annual, seasonal and public holidays, and any other planned closures. Record times associated with the availability and/or delivery of services (for example, exhibition spaces, reference services, etc.)." (ISDIAH 5.4.1)</source>
+        <target>"Registre os horários de funcionamento da instituição com acervo arquivístico e os feriados anuais, sazonais e públicos, e quaisquer outros dias previstos em que não funcione. Registre os horários de funcionamento associados à disponibilidade e/ou prestação de serviços (salas de exposição, serviços de referência etc.)." (ISDIAH 5.4.1)</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Conditions and requirements</source>
+        <target>condições e requisitos</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>"Record information about travelling to the institution and details for users with disabilities, including building features, specialised equipment or tools, parking or lifts." (ISDIAH 5.4.3)</source>
+        <target>"Registre quaisquer informações sobre a ida à instituição e dados para usuários com necessidades especiais, incluindo características do prédio, equipamento ou instrumentos especializados, estacionamento ou elevadores." (ISDIAH 5.4.3)</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Accessibility</source>
+        <target>Acessibilidade</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Services area</source>
+        <target>área de serviços</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>"Record information about the onsite services provided by the institution such as languages spoken by staff, research and consultation rooms, enquiry services, internal libraries, map, microfiches, audio-visual, computer rooms, etc. Record as well any relevant information about research services, such as research undertaken by the institution, and the fee charge if applicable." (ISDIAH 5.5.1)</source>
+        <target>"Registre informação sobre os serviços oferecidos no local pela instituição com acervo arquivístico, tais como idiomas falados pela equipe, salas de pesquisa e consulta, serviços de informação, bibliotecas próprias, salas de mapas, de microfichas, de audiovisual, de computadores etc. Registre também qualquer informação relevante sobre os serviços depesquisa à distância realizados pela instituição arquivística e, se for o caso, as taxas aplicáveis." (ISDIAH 5.5.1)</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>"Record information about reproduction services available to the public (microfilms, photocopies, photographs, digitised copies). Specify general conditions and restrictions to the services, including applicable fees and publication rules." (ISDIAH 5.5.2)</source>
+        <target>"Registre informação sobre serviços de reprodução disponíveis ao público (microfilmes, fotocópias, fotografias, cópias digitais). Especifique as condições e restrições gerais dos serviços, inclusive as taxas aplicáveis e as normas de publicação." (ISDIAH 5.5.2)</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>"Record information about spaces available for public use (permanent or temporary exhibitions, free or charged internet connection, cash machines, cafeterias, restaurants, shops, etc.)." (ISDIAH 5.5.3)</source>
+        <target>"Registre informação sobre espaços disponíveis ao uso público (exposições permanentes ou temporárias, conexão grátis ou paga à internet, caixas automáticos, cafeterias, restaurantes, lojas etc.)." (ISDIAH 5.5.3)</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Public areas</source>
+        <target>Áreas públicas</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Control area</source>
+        <target>área de controle</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISIAH 5.6.1)</source>
+        <target>"Registe um identificador específico da descrição de acordo com convenções locais e/ou nacionais. Se a descrição é para uso internacional, registre o código do país no qual o a descrição foi produzida, de acordo com a última versão da ISO
+3166 - Codes for the representation of names of countries. Quando o produtor da descrição for uma organização internacional, forneça o identificador da organização em lugar do código do país." (ISIAH 5.6.1)</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Description identifier</source>
+        <target>identificador da descrição</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>"Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard." (ISDIAH 5.6.2)</source>
+        <target>"Registre de maneira completa a(s) forma(s) autorizada(s) do nome da(s) instituição(ões) responsável(eis) pela produção, modificação ou disseminação da descrição ou, como alternativa, registre um código para a instituição de acordo com a norma nacional ou internacional para códigos de instituição."(ISDIAH 5.6.2)</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Institution identifier</source>
+        <target>identificador da instituição</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>"Record the names, and, where useful, the editions or publication dates of the conventions or rules applied. Specify, separately, which rules have been applied for creating the Authorised form(s) of name. Include reference to any system(s) of dating used to identify dates in this description (e.g. ISO 8601)." (ISDIAH 5.6.3)</source>
+        <target>"Registre os nomes e, quando útil, as edições ou datas de publicação das convenções ou regras aplicadas. Especifique, separadamente, quais regras foram aplicadas para criar aforma autorizada do nome. Inclua referências a quaisquer sistemas de datação usados para identificar as datas nesta descrição (por exemplo, ISO 8601)." (ISDIAH 5.6.3)</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Rules and/or conventions used</source>
+        <target>Regras ou convenções utilizadas</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDIAH 5.6.4). Select Final, Revised or Draft from the drop-down menu.</source>
+        <target>O objetivo deste campo é "indicar a situação de redação da descrição, de maneira que os usuários possam compreender o atual status da descrição." (ISDIAH 5.6.4) Selecionar Final, Revisado ou Preliminar no menu drop-down.</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal descriptions are those that consist only of the three essential elements of an ISIAH compliant description (see 4.7), while full records are those that convey information for all relevant ISDIAH elements of description." (ISDIAH 5.6.5)</source>
+        <target>Seleccionar Completo, Parcial ou Minimos da lista de opções. "Na ausência de regras ou diretrizes nacionais, as descrições mínimas são aquelas que consistem somente dos três elementos essenciais de um registo conforme à ISDIAH, enquanto
+registos completos são os que fornecem informação para todos os elementos de descrição da ISDIAH pertinentes. (ISDIAH 5.4.5)</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>"Record the date the description was created and the dates of any revisions to the description." (ISDIAH 5.6.6)</source>
+        <target>"Registre a data em que a descrição foi criada e as datas de quaisquer revisões. Especifique no elemento Regras e/ou convenções utilizadas (5.6.3) o(s) sistema(s) de datação a que se recorreu, por exemplo, ISO 8601." (ISDIAH 5.6.6)</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Dates of creation, revision and deletion</source>
+        <target>datas das descrições (criação, revisão e remoção)</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
+        <target>Selecione o(s) idioma(s) deste documento no menu drop down; entrar com iniciais para restringir a opções. (ISDIAH 5.6.7)</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
+        <target>Selecionar o(s) sistema(s) de escrita deste documento no menu dorp down; entrar com as iniciais para restringir as opçoes. (ISDIAH 5.6.7)</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>"Record the sources consulted in establishing the description of the institution." (ISDIAH 5.6.8)</source>
+        <target>"Registre as fontes consultadas para o estabelecimento da descrição da instituição com acervo arquivístico." (ISDIAH 5.6.8)</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Sources</source>
+        <target>fontes</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>"Record notes pertinent to the creation and maintenance of the description." (ISDIAH 5.6.9)</source>
+        <target>"Registre notas pertinentes à criação e manutenção da descrição. Por exemplo, os nomes das pessoas responsáveis pela criação e/ou revisão da descrição podem ser registrados aqui." (ISDIAH 5.6.9)</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Actions</source>
+        <target>Ações</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Cancel</source>
+        <target>cancelar</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Save</source>
+        <target>salvar</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Create</source>
+        <target>criar</target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>View %1%</source>
+        <target>visualizar %1%</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Edit repository</source>
+        <target>Editar entidade detentora</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Parallel form(s) of name</source>
+        <target>Forma(s) paralela(s) de nome</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Other form(s) of name</source>
+        <target>Outra(s) forma(s) do nome</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Type</source>
+        <target>tipo</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>History</source>
+        <target>história</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Buildings</source>
+        <target>Prédios</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Holdings</source>
+        <target>Acervo</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Opening times</source>
+        <target>horário de funcionamento</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Access conditions and requirements</source>
+        <target>Condição de acesso e uso</target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Research services</source>
+        <target>serviços de pesquisa</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Reproduction services</source>
+        <target>serviços de reprodução</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Level of detail</source>
+        <target>nível de detalhamento</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Language(s)</source>
+        <target>Idioma(s)</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Script(s)</source>
+        <target>Script(s)</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Maintenance notes</source>
+        <target>Notas de manutenção</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Edit</source>
+        <target>editar</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>Delete</source>
+        <target>apagar</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>Add new</source>
+        <target>Adicionar</target>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Edit identity area</source>
+        <target>Editar zona de identificação</target>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Edit contact area</source>
+        <target>Editar zona de contactos</target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Edit description area</source>
+        <target>Editar zona da descrição</target>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Edit access area</source>
+        <target>Editar zona de acesso</target>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Edit services area</source>
+        <target>Editar serviços</target>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Edit control area</source>
+        <target>Editar zona de controlo</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

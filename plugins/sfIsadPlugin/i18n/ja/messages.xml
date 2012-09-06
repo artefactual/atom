@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2012-08-17T14:34:06Z" product-name="messages">
+    <body>
+      <trans-unit id="43">
+        <source>Identity area</source>
+        <target>確認のエリア</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Reference code</source>
+        <target>レファレンスコード</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Identifier</source>
+        <target>識別子</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Title</source>
+        <target>タイトル</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Level of description</source>
+        <target>記述のレベル</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Context area</source>
+        <target>コンテキストのエリア</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Repository</source>
+        <target>リポジトリ</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Conditions governing access</source>
+        <target>アクセスの条件</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Note</source>
+        <target>注記</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Subject access points</source>
+        <target>主題アクセスポイント</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Place access points</source>
+        <target>場所のアクセスポイント</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Institution identifier</source>
+        <target>機関識別子</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Status</source>
+        <target>ステータス</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Level of detail</source>
+        <target>詳細レベル</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Dates of creation, revision and deletion</source>
+        <target>作成　訂正　削除の日付</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Sources</source>
+        <target>情報源</target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Date</source>
+        <target>日付</target>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Type</source>
+        <target>種別</target>
+      </trans-unit>
+      <trans-unit id="133">
+        <source>Description identifier</source>
+        <target>記述の識別子</target>
+      </trans-unit>
+      <trans-unit id="403">
+        <source>Date(s)</source>
+        <target>日付</target>
+      </trans-unit>
+      <trans-unit id="697">
+        <source>Edit identity area</source>
+        <target>アイデンティティのエリアを編集する</target>
+      </trans-unit>
+      <trans-unit id="698">
+        <source>Edit context area</source>
+        <target>コンテキストのエリアを編集する</target>
+      </trans-unit>
+      <trans-unit id="732">
+        <source>Rules or conventions</source>
+        <target>ルールまたは規則</target>
+      </trans-unit>
+      <trans-unit id="747">
+        <source>Appraisal, destruction and scheduling</source>
+        <target>評価選別、廃棄、スケジュール</target>
+      </trans-unit>
+      <trans-unit id="750">
+        <source>System of arrangement</source>
+        <target>編成システム</target>
+      </trans-unit>
+      <trans-unit id="754">
+        <source>Conditions governing reproduction</source>
+        <target>複製の条件</target>
+      </trans-unit>
+      <trans-unit id="756">
+        <source>Physical characteristics and technical requirements</source>
+        <target>物理的特徴と技術的必要性</target>
+      </trans-unit>
+      <trans-unit id="759">
+        <source>Existence and location of originals</source>
+        <target>原本の存在と所在</target>
+      </trans-unit>
+      <trans-unit id="761">
+        <source>Existence and location of copies</source>
+        <target>コピーの存在と所在</target>
+      </trans-unit>
+      <trans-unit id="763">
+        <source>Related units of description</source>
+        <target>関連する記述記述単位</target>
+      </trans-unit>
+      <trans-unit id="828">
+        <source>Untitled</source>
+        <target>無題の</target>
+      </trans-unit>
+      <trans-unit id="829">
+        <source>This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.</source>
+        <target>このアーカイブ記述、あるいはその高度なレベルには少なくとも１人の%3%作成者%4%が%1%必要です%2%。</target>
+      </trans-unit>
+      <trans-unit id="830">
+        <source>%1%Date(s)%2% - are not consistent with %3%higher levels%2%.</source>
+        <target>%1%%1%日付%2% - %3%上位レベル%2% と一致しない。</target>
+      </trans-unit>
+      <trans-unit id="831">
+        <source>%1%Date(s)%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%日付%2% - %3%必須項目%4% </target>
+      </trans-unit>
+      <trans-unit id="832">
+        <source>%1%Extent and medium%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%規模と媒体%2%  - %3%必須項目%4%</target>
+      </trans-unit>
+      <trans-unit id="833">
+        <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%識別子%2%  - %3%必須項目%4%</target>
+      </trans-unit>
+      <trans-unit id="834">
+        <source>%1%Level of description%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%記述のレベル%2%  - %3%必須項目%4%</target>
+      </trans-unit>
+      <trans-unit id="835">
+        <source>%1%Title%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%タイトル%2%  - %3%必須項目%4%</target>
+      </trans-unit>
+      <trans-unit id="836">
+        <source>%1%Level of description%2% - Value "%value%" is not consistent with higher levels.</source>
+        <target>%1%記述のレベル%2% - 値 "%value%" は上位階層と一致しない。</target>
+      </trans-unit>
+      <trans-unit id="838">
+        <source>File list</source>
+        <target>ファイルリスト</target>
+      </trans-unit>
+      <trans-unit id="839">
+        <source>View archival description</source>
+        <target>アーカイブ記述を見る</target>
+      </trans-unit>
+      <trans-unit id="840">
+        <source>Edit archival description</source>
+        <target>アーカイブ記述を編集する</target>
+      </trans-unit>
+      <trans-unit id="841">
+        <source>Extent and medium</source>
+        <target>規模と媒体</target>
+      </trans-unit>
+      <trans-unit id="842">
+        <source>Related function</source>
+        <target>関連する機能</target>
+      </trans-unit>
+      <trans-unit id="843">
+        <source>Archival history</source>
+        <target>アーカイブズ履歴</target>
+      </trans-unit>
+      <trans-unit id="844">
+        <source>Immediate source of acquisition or transfer</source>
+        <target>取得や移転の直接情報源</target>
+      </trans-unit>
+      <trans-unit id="845">
+        <source>Content and structure area</source>
+        <target>内容と構造のエリア</target>
+      </trans-unit>
+      <trans-unit id="846">
+        <source>Edit content and structure area</source>
+        <target>内容と構造のエリアを編集する</target>
+      </trans-unit>
+      <trans-unit id="847">
+        <source>Scope and content</source>
+        <target>範囲と内容</target>
+      </trans-unit>
+      <trans-unit id="848">
+        <source>Accruals</source>
+        <target>追加資料</target>
+      </trans-unit>
+      <trans-unit id="849">
+        <source>Conditions of access and use area</source>
+        <target>アクセスの条件のエリア</target>
+      </trans-unit>
+      <trans-unit id="850">
+        <source>Edit conditions of access and use area</source>
+        <target>アクセスと利用のエリアの条件を編集する</target>
+      </trans-unit>
+      <trans-unit id="851">
+        <source>Language of material</source>
+        <target>言語資料</target>
+      </trans-unit>
+      <trans-unit id="852">
+        <source>Script of material</source>
+        <target>資料のスクリプト</target>
+      </trans-unit>
+      <trans-unit id="853">
+        <source>Finding aids</source>
+        <target>検索手段</target>
+      </trans-unit>
+      <trans-unit id="854">
+        <source>Allied materials area</source>
+        <target>関連資料エリア</target>
+      </trans-unit>
+      <trans-unit id="855">
+        <source>Edit alied materials area</source>
+        <target>関連する資料のエリアを編集する</target>
+      </trans-unit>
+      <trans-unit id="856">
+        <source>Publication note</source>
+        <target>出版物の注記</target>
+      </trans-unit>
+      <trans-unit id="857">
+        <source>Notes area</source>
+        <target>注記のエリア</target>
+      </trans-unit>
+      <trans-unit id="858">
+        <source>Edit notes area</source>
+        <target>注記のエリアを編集する</target>
+      </trans-unit>
+      <trans-unit id="859">
+        <source>Access points</source>
+        <target>アクセスポイント</target>
+      </trans-unit>
+      <trans-unit id="860">
+        <source>Edit access points</source>
+        <target>アクセスポイントを編集する</target>
+      </trans-unit>
+      <trans-unit id="861">
+        <source>Description control area</source>
+        <target>記述をコントロールするエリア</target>
+      </trans-unit>
+      <trans-unit id="862">
+        <source>Edit description control area</source>
+        <target>記述のコントロールのエリアを編集する</target>
+      </trans-unit>
+      <trans-unit id="863">
+        <source>Rules and/or conventions used</source>
+        <target>ルールおよび使用した規則</target>
+      </trans-unit>
+      <trans-unit id="864">
+        <source>Dates of creation revision deletion</source>
+        <target>日付の作成　訂正　削除</target>
+      </trans-unit>
+      <trans-unit id="865">
+        <source>Language(s)</source>
+        <target>言語</target>
+      </trans-unit>
+      <trans-unit id="866">
+        <source>Script(s)</source>
+        <target>スクリプト</target>
+      </trans-unit>
+      <trans-unit id="867">
+        <source>Archivist's note</source>
+        <target>アーキビストの注記</target>
+      </trans-unit>
+      <trans-unit id="869">
+        <source>This is a duplicate of record %1%</source>
+        <target>これは記録の複製です%1%</target>
+      </trans-unit>
+      <trans-unit id="870">
+        <source>This is a mandatory element.</source>
+        <target>必須項目。</target>
+      </trans-unit>
+      <trans-unit id="875">
+        <source>Name of creator(s)</source>
+        <target>作成者名</target>
+      </trans-unit>
+      <trans-unit id="876">
+        <source>This archival description, or one of its higher levels, requires at least one creator.</source>
+        <target>このアーカイブ記述、あるいはその高度なレベルには少なくとも１人の作成者が必要です。</target>
+      </trans-unit>
+      <trans-unit id="886">
+        <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.</source>
+        <target>記述の記述単位の使用に影響を与える保存の要件などの主要な物理的条件を表示する。
+記述の記述単位へのアクセスに必要なソフトウエアおよび/またはハードウエアを注記する</target>
+      </trans-unit>
+      <trans-unit id="891">
+        <source>Publication notes</source>
+        <target>出版物の注記</target>
+      </trans-unit>
+      <trans-unit id="892">
+        <source>Notes</source>
+        <target>注記</target>
+      </trans-unit>
+      <trans-unit id="895">
+        <source>Add new archival description</source>
+        <target>新規のアーカイブ記述を追加</target>
+      </trans-unit>
+      <trans-unit id="896">
+        <source>Edit %1%</source>
+        <target>編集する %1%</target>
+      </trans-unit>
+      <trans-unit id="897">
+        <source>Start</source>
+        <target>開始</target>
+      </trans-unit>
+      <trans-unit id="898">
+        <source>End</source>
+        <target>終了</target>
+      </trans-unit>
+      <trans-unit id="900">
+        <source>Edit archival description - ISAD</source>
+        <target>アーカイブ記述を編集する - ISAD</target>
+      </trans-unit>
+      <trans-unit id="902">
+        <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Provide a specific local reference code, control number, or other unique identifier.&lt;br/&gt;&lt;strong&gt;Level of description:&lt;/strong&gt; Record the level of this unit of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
+        <target>&lt;strong&gt;識別子：&lt;/strong&gt; 特別な場所の、参照コード、整理番号、そのほかの一義的な識別子を提供します。&lt;br/&gt;&lt;strong&gt;記述階層：&lt;/strong&gt; この記述単位の階層を記録します。&lt;br/&gt;&lt;strong&gt;タイトル：&lt;/strong&gt; マルチレベル記述のルールと国際的な慣例にしたがって、正式タイトルか簡潔な支給されたタイトルを提供します。</target>
+      </trans-unit>
+      <trans-unit id="905">
+        <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
+        <target>アーカイブズ資料のリポジトリを持つ組織の名称を入力する。名称の冒頭の文字を入力してアーカイブズ機関レコードから実在する名称を検索する。あるいは新しく名称を入力し新しくアーカイブズ機関レコードを作成してリンクさせる。</target>
+      </trans-unit>
+      <trans-unit id="910">
+        <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
+        <target>"ローカルな、あるいは国レベルの規則に従い、記述ID（固有の値）を記載してください。記述が国際的に使用される可能性がある場合は、記述が作成された国の国名コードを、ISO3166の最新版に従って記入してください。記述作成者が国際機関である場合、国名コードの代わりに機関IDを記載してください。"</target>
+      </trans-unit>
+      <trans-unit id="911">
+        <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
+        <target>その記述を作成、修正、広めた責任のある機関のオーソライズされた完全な名称を記録する。または国内、国際的な機関コードj標準に基づいて機関のコードを代わりに記録してもよい。</target>
+      </trans-unit>
+      <trans-unit id="912">
+        <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
+        <target>現在の記述の状態について記録し、それが現行のものであるか確定されたものであるか修正されたものであるか削除されたものかどうかを示す。</target>
+      </trans-unit>
+      <trans-unit id="913">
+        <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
+        <target>記述が国際的や国内のガイドラインやルールと関連性に従い、最低限や部分的か、全部記述かの詳細のレベルを記録する。</target>
+      </trans-unit>
+      <trans-unit id="914">
+        <source>Record the date(s) the entry was prepared and/or revised.</source>
+        <target>準備または登録された日付を記録する。</target>
+      </trans-unit>
+      <trans-unit id="915">
+        <source>Indicate the language(s) used to create the description of the archival material.</source>
+        <target>アーカイブズ史料の記述を作成するのに使用する言語を表示する。</target>
+      </trans-unit>
+      <trans-unit id="916">
+        <source>Indicate the script(s) used to create the description of the archival material.</source>
+        <target>アーカイブズ史料の記述を作成するのに使用するスクリプトを表示する。</target>
+      </trans-unit>
+      <trans-unit id="917">
+        <source>Archivist's notes</source>
+        <target>アーキビストの注記</target>
+      </trans-unit>
+      <trans-unit id="919">
+        <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)</source>
+        <target>特定のローカルなレファレンスコード、コントロール番号、他の特定の識別子を提供する。国とリポジトリコードは完全なレファレンスコードを形成するために自動的にリンクされたリポジトリの記録に追加される。 (ISAD 3.1.1)</target>
+      </trans-unit>
+      <trans-unit id="920">
+        <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)</source>
+        <target>アルチレベルの記述規則と国家的な慣例に従って正式名称や簡潔に供給されたタイトルを供給する。 (ISAD 3.1.2)</target>
+      </trans-unit>
+      <trans-unit id="921">
+        <source>Record the level of this unit of description. (ISAD 3.1.4)</source>
+        <target>この記述単位の階層を記録する。(ISAD 3.1.4)</target>
+      </trans-unit>
+      <trans-unit id="922">
+        <source>Record the extent of the unit of description by giving the number of physical or logical units in arabic numerals and the unit of measurement. Give the specific medium (media) of the unit of description. Separate multiple extents with a linebreak. (ISAD 3.1.5)</source>
+        <target>物理的、論理的な単位にアラビア数字と測定の単位を付与して記述単位の幅を記録する。記述単位について特定の媒体を与える。複数の媒体は線引きして分ける。(ISAD 3.1.5)</target>
+      </trans-unit>
+      <trans-unit id="923">
+        <source>Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)</source>
+        <target>記述単位について、記録の作成、収集、維持に責任のある組織や個人の名称を記録する。名称の冒頭の数文字を入力して典拠レコードから実在する名称を検索します。あるいは新しく名称を入力し新しく典拠レコードを作成してリンクさせます。(ISAD 3.2.1)</target>
+      </trans-unit>
+      <trans-unit id="924">
+        <source>Record the successive transfers of ownership, responsibility and/or custody of the unit of description and indicate those actions, such as history of the arrangement, production of contemporary finding aids, re-use of the records for other purposes or software migrations, that have contributed to its present structure and arrangement. Give the dates of these actions, insofar as they can be ascertained. If the archival history is unknown, record that information. (ISAD 3.2.3)</source>
+        <target>記述単位の継続的な所有権、責任、保管の譲渡を記録し、それらの編成の歴史や現在利用できる検索手段、別の目的によるレコードの再利用やソフトウェアのマイグレーションなど構造と編成に関係する活動を示す。確かめられる範囲でそれらの活動の日付を付す。アーカイブズの歴史が不明であれば、その情報を記録する。(ISAD 3.2.3)</target>
+      </trans-unit>
+      <trans-unit id="925">
+        <source>Record the source from which the unit of description was acquired and the date and/or method of acquisition if any or all of this information is not confidential. If the source is unknown, record that information. Optionally, add accession numbers or codes. (ISAD 3.2.4)</source>
+        <target>記述の単位の受入日と方法の情報源を、情報の一部、あるいは全てが秘密情報でなければ記録する。その情報が不明な場合はその情報を記録する。任意に受入ナンバーやコードを付け加える。(ISAD 3.2.4)</target>
+      </trans-unit>
+      <trans-unit id="926">
+        <source>Give a summary of the scope (such as, time periods, geography) and content, (such as documentary forms, subject matter, administrative processes) of the unit of description, appropriate to the level of description. (ISAD 3.3.1)</source>
+        <target>（期間、地理などの）範囲、記述のレベルに適合した記述の記述単位の（文書の形式、主題、行政のプロセスなどの）内容について要約をしてください</target>
+      </trans-unit>
+      <trans-unit id="927">
+        <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material. (ISAD 3.3.2)</source>
+        <target>その記述単位がとられる、あるいは予定されている評価、処分と決められたアクションを記録する。特に物質の解釈に影響を与えるものについて。 (ISAD 3.3.2)</target>
+      </trans-unit>
+      <trans-unit id="928">
+        <source>Indicate if accruals are expected. Where appropriate, give an estimate of their quantity and frequency. (ISAD 3.3.3)</source>
+        <target>もし追加が予想される場合には表示してください。必要に応じ、量と頻度の予測を与えてください。 (ISAD 3.3.3)</target>
+      </trans-unit>
+      <trans-unit id="929">
+        <source>Specify the internal structure, order and/or the system of classification of the unit of description. Note how these have been treated by the archivist. For electronic records, record or reference information on system design. (ISAD 3.3.4)</source>
+        <target>内部構造、順序および/または記述の単位の分類のシステムを指定します。アーキビストにどのように扱われたかを記してください。電子記録についてはシステム設計の情報を記録または参照してください(ISAD 3.3.4)</target>
+      </trans-unit>
+      <trans-unit id="930">
+        <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
+        <target>法律または法的地位、契約、規制または説明の記述単位へのアクセスに影響するポリシーを指定します。非公開の期間と範囲、その資料が適切に公開される日付を示します(ISAD 3.4.1)</target>
+      </trans-unit>
+      <trans-unit id="931">
+        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.3)</source>
+        <target>著作権など、アクセスが供給された後の記述の記述単位の複製を統御する条件に関する情報を提供してください(ISAD 3.4.3)</target>
+      </trans-unit>
+      <trans-unit id="932">
+        <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
+        <target>記述単位に含まれる資料の言語を記録する。(ISAD 3.4.3)</target>
+      </trans-unit>
+      <trans-unit id="934">
+        <source>Give information about any finding aids that the repository or records creator may have that provide information relating to the context and contents of the unit of description. If appropriate, include information on where to obtain a copy. (ISAD 3.4.5)</source>
+        <target>リポジトリやレコードの作成者がコンテキストおよび記述の記述単位に関する情報を供給するかもしれない検索手段に関する情報を提供してください。(ISAD 3.4.5)</target>
+      </trans-unit>
+      <trans-unit id="935">
+        <source>If the original of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. If the originals no longer exist, or their location is unknown, give that information. (ISAD 3.5.1)</source>
+        <target>（機関や他で）記述の記述単位のコピーが利用できるなら重要なコントロール・ナンバーと共にその所在を記録する。オリジナルがもはや存在しないか、その所在が不明なら、その情報を与えてください。(ISAD 3.5.1)</target>
+      </trans-unit>
+      <trans-unit id="936">
+        <source>If the copy of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. (ISAD 3.5.2)</source>
+        <target>（機関や他で）記述の記述単位のコピーが利用できるなら重要なコントロール・ナンバーと共にその所在を記録する。(ISAD 3.5.2)</target>
+      </trans-unit>
+      <trans-unit id="937">
+        <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
+        <target>出所か他の団体によって関係づけられる同じリポジトリかほかの場所での記述の記述単位の情報を記録する。適切な紹介の表現を使用してその関係の本質を説明する。その関係する記述単位が検索手段であれば、検索手段の記述の要素を用いて、記述単位のレファレンスに供する。</target>
+      </trans-unit>
+      <trans-unit id="938">
+        <source>Record a citation to, and/or information about a publication that is about or based on the use, study, or analysis of the unit of description. Include references to published facsimiles or transcriptions. (ISAD 3.5.4)</source>
+        <target>記述単位の使用、研究、分析に関して、あるいは礎にした出版物の情報、引用文を記録する。出版された複製や転写物の参照も含む。(ISAD 3.5.4)</target>
+      </trans-unit>
+      <trans-unit id="939">
+        <source>Record specialized or other important information not accommodated by any of the defined elements of description. (ISAD 3.6.1)</source>
+        <target>記述の要素に定義されていない特別な、他の重要な情報を記録する。(ISAD 3.6.1)</target>
+      </trans-unit>
+      <trans-unit id="940">
+        <source>Name access points (subjects)</source>
+        <target>名称アクセスポイント(主題)</target>
+      </trans-unit>
+      <trans-unit id="941">
+        <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
+        <target>記述の準備として国際的、国内または地域のルールや規則を記録する。(ISAD 3.7.2)</target>
+      </trans-unit>
+      <trans-unit id="942">
+        <source>Record notes on sources consulted in preparing the description and who prepared it. (ISAD 3.7.1)</source>
+        <target>記述の準備に助言を与えた、または準備した人間の情報源を記録する。(ISAD 3.7.1)</target>
+      </trans-unit>
+      <trans-unit id="943">
+        <source>Rights area</source>
+        <target>権利のエリア</target>
+      </trans-unit>
+      <trans-unit id="944">
+        <source>Edit rights area</source>
+        <target>権利のエリアを編集する</target>
+      </trans-unit>
+      <trans-unit id="945">
+        <source>Accession area</source>
+        <target>受入資料エリア</target>
+      </trans-unit>
+      <trans-unit id="946">
+        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. Use YYYY-MM-DD format for the &lt;em&gt;Date&lt;/em&gt; field. The &lt;em&gt;End date&lt;/em&gt; field can be used to indicate a date range. The &lt;em&gt;Date display&lt;/em&gt; field can be used to enter free-text date information. (ISAD 3.1.3)</source>
+        <target>記述の記述単位の日付を識別し記録する。特定の日付のタイプを識別する。単一の日付あるいは適切な一連の日付を記録する。
+フイールドは日付の範囲を示すのに使用される。
+The &lt;em&gt;日付の表示&lt;/em&gt;フイールドはフリーのテキストの日付情報を入力するのに使用される。lt;em&gt;Date display&lt;/em&gt; field can be used to enter free-text date information. (ISAD 3.1.3)</target>
+      </trans-unit>
+      <trans-unit id="947">
+        <source>Part of %1%</source>
+        <target>%1%の一部</target>
+      </trans-unit>
+      <trans-unit id="949">
+        <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
+        <target>記述単位に含まれる物質の文字を記録する。(ISAD 3.4.3)</target>
+      </trans-unit>
+      <trans-unit id="950">
+        <source>Language and script notes</source>
+        <target>言語とスクリプトの注記</target>
+      </trans-unit>
+      <trans-unit id="951">
+        <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
+        <target>特徴的な文字、スクリプト、シンボルや略字を使用してください。(ISAD 3.4.3)</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

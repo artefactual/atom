@@ -1,0 +1,110 @@
+# This file is part of Qubit Toolkit.
+#
+# Qubit Toolkit is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2 of the License, or (at your option)
+# any later version.
+#
+# Qubit Toolkit is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
+# for more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# Qubit Toolkit; if not, write to the Free Software Foundation, Inc., 51
+# Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+# OAI Record IMPORT FILTER MAPPINGS
+#
+# @package qubit
+# @subpackage object import
+# @author Peter Van Garderen <peter@artefactual.com>
+# @version svn: $Id:$
+#
+# filter for importing OAI records which contain both a <header> and <oai_dc:dc> section
+
+information_object:
+  XPath:  "/record"
+  Object:  InformationObject
+  # define an axis for the parent object; if no node is matched here, the object is rooted if possible
+  Parent:  "ancestor::record"
+  Methods:
+    collection_type:
+      XPath:   "."    # not really a match, just use self
+      Method:  setCollectionTypeId
+      Parameters: [QubitTerm::PUBLISHED_MATERIAL_ID]
+
+    # each of the following XPath expressions are relative to the current matched node:
+
+    source_oai_identifier:
+      XPath:  "header/identifier"
+      Method: setSourceOaiIdentifier
+
+    title:
+      XPath:   "metadata/oai_dc:dc/dc:title"
+      Method:  setTitle
+
+    creator:
+      XPath:  "metadata/oai_dc:dc/dc:creator"
+      Method:  setActorByName
+      Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID)"]
+
+    subject:
+      XPath:   "metadata/oai_dc:dc/dc:subject"
+      Method:  setTermRelationByName
+      Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID)"]
+
+    description:
+      XPath:   "metadata/oai_dc:dc/dc:description"
+      Method:  setScopeAndContent
+
+    publisher:
+      XPath:  "metadata/oai_dc:dc/dc:publisher"
+      Method:  setActorByName
+      Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::PUBLICATION_ID)"]
+
+    contributor:
+      XPath:  "metadata/oai_dc:dc/dc:contributor"
+      Method:  setActorByName
+      Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CONTRIBUTION_ID)"]
+
+    date:
+      XPath:   "metadata/oai_dc:dc/dc:date"
+      Method:  setDates
+      Parameters: [$nodeValue, "$options = array('normalized_dates' => $nodeValue)"]
+
+    type:
+      XPath:  "metadata/oai_dc:dc/dc:type"
+      Method:  setTermRelationByName
+      Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::MATERIAL_TYPE_ID)"]
+
+    format:
+      XPath:  "metadata/oai_dc:dc/dc:format"
+      Method:  setExtentAndMedium
+
+    identifier:
+      XPath:  "metadata/oai_dc:dc/dc:identifier"
+      Method: setIdentifier
+
+    source:
+      XPath:  "metadata/oai_dc:dc/dc:source"
+      Method:  setLocationOfOriginals
+
+    language:
+      XPath:  "metadata/oai_dc:dc/dc:language"
+      Method:  addProperty
+      Parameters: [$name = 'information_object_language', $nodeValue, "$options = array('scope' => 'languages', 'sourceCulture' => true)"]
+
+    relation:
+      XPath:  "metadata/oai_dc:dc/dc:relation"
+      Method:  addProperty
+      Parameters: [$name = 'information_object_relation', $nodeValue, "$options = array('scope' => 'dc', 'sourceCulture' => true)"]
+
+    coverage:
+      XPath:  "metadata/oai_dc:dc/dc:coverage"
+      Method:  setTermRelationByName
+      Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::PLACE_ID)"]
+
+    rights:
+      XPath:  "metadata/oai_dc:dc/dc:rights"
+      Method:  setAccessConditions

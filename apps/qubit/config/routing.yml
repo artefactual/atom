@@ -1,0 +1,406 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+
+homepage:
+  url:   /
+  class: QubitResourceRoute
+  param:
+    module: staticpage
+    action: index
+    slug: home
+
+slug:
+  url: /:slug
+  class: QubitResourceRoute
+  param:
+    module: staticpage
+    action: index
+    slug: { pattern: '[^;]+' }
+
+dc:
+  url: /:slug;dc
+  class: QubitResourceRoute
+  param:
+    module: sfDcPlugin
+    action: index
+    informationobject_template: dc
+
+add/dc:
+  url: /;add/dc
+  param:
+    module: sfDcPlugin
+    action: edit
+    informationobject_template: dc
+
+copy/dc:
+  url: /;copy/dc
+  param:
+    module: sfDcPlugin
+    action: edit
+    informationobject_template: dc
+
+edit/dc:
+  url: /:slug;edit/dc
+  class: QubitResourceRoute
+  param:
+    module: sfDcPlugin
+    action: edit
+    informationobject_template: dc
+
+eac:
+  url: /:slug;eac
+  class: QubitResourceRoute
+  param:
+    module: sfEacPlugin
+    action: index
+    actor_template: eac
+
+ead:
+  url: /:slug;ead
+  class: QubitResourceRoute
+  param:
+    module: sfEadPlugin
+    action: index
+    informationobject_template: ead
+
+isaar:
+  url: /:slug;isaar
+  class: QubitResourceRoute
+  param:
+    module: sfIsaarPlugin
+    action: index
+    actor_template: isaar
+
+add/isaar:
+  url: /;add/isaar
+  param:
+    module: sfIsaarPlugin
+    action: edit
+    actor_template: isaar
+
+edit/isaar:
+  url: /:slug;edit/isaar
+  class: QubitResourceRoute
+  param:
+    module: sfIsaarPlugin
+    action: edit
+    actor_template: isaar
+
+isad:
+  url: /:slug;isad
+  class: QubitResourceRoute
+  param:
+    module: sfIsadPlugin
+    action: index
+    informationobject_template: isad
+
+add/isad:
+  url: /;add/isad
+  param:
+    module: sfIsadPlugin
+    action: edit
+    informationobject_template: isad
+
+copy/isad:
+  url: /;copy/isad
+  param:
+    module: sfIsadPlugin
+    action: edit
+    informationobject_template: isad
+
+edit/isad:
+  url: /:slug;edit/isad
+  class: QubitResourceRoute
+  param:
+    module: sfIsadPlugin
+    action: edit
+    informationobject_template: isad
+
+isdf:
+  url: /:slug;isdf
+  class: QubitResourceRoute
+  param:
+    module: sfIsdfPlugin
+    action: index
+
+add/isdf:
+  url: /;add/isdf
+  param:
+    module: sfIsdfPlugin
+    action: edit
+
+edit/isdf:
+  url: /:slug;edit/isdf
+  class: QubitResourceRoute
+  param:
+    module: sfIsdfPlugin
+    action: edit
+
+isdiah:
+  url: /:slug;isdiah
+  class: QubitResourceRoute
+  param:
+    module: sfIsdiahPlugin
+    action: index
+    repository_template: isdiah
+
+add/isdiah:
+  url: /;add/isdiah
+  param:
+    module: sfIsdiahPlugin
+    action: edit
+    repository_template: isdiah
+
+edit/isdiah:
+  url: /:slug;edit/isdiah
+  class: QubitResourceRoute
+  param:
+    module: sfIsdiahPlugin
+    action: edit
+    repository_template: isdiah
+
+mods:
+  url: /:slug;mods
+  class: QubitResourceRoute
+  param:
+    module: sfModsPlugin
+    action: index
+    informationobject_template: mods
+
+add/mods:
+  url: /;add/mods
+  param:
+    module: sfModsPlugin
+    action: edit
+    informationobject_template: mods
+
+copy/mods:
+  url: /;copy/mods
+  param:
+    module: sfModsPlugin
+    action: edit
+    informationobject_template: mods
+
+edit/mods:
+  url: /:slug;edit/mods
+  class: QubitResourceRoute
+  param:
+    module: sfModsPlugin
+    action: edit
+    informationobject_template: mods
+
+rad:
+  url: /:slug;rad
+  class: QubitResourceRoute
+  param:
+    module: sfRadPlugin
+    action: index
+    informationobject_template: rad
+
+add/rad:
+  url: /;add/rad
+  param:
+    module: sfRadPlugin
+    action: edit
+    informationobject_template: rad
+
+copy/rad:
+  url: /;copy/rad
+  param:
+    module: sfRadPlugin
+    action: edit
+    informationobject_template: rad
+
+edit/rad:
+  url: /:slug;edit/rad
+  class: QubitResourceRoute
+  param:
+    module: sfRadPlugin
+    action: edit
+    informationobject_template: rad
+
+# These routes used only to *generate* not *parse* URLs
+actor:
+  url: /:slug;:actor_template
+  class: QubitResourceRoute
+  param:
+    module: actor
+    action: index
+    actor_template: { pattern: 'eac|isaar' }
+
+actor/add:
+  url: /;add/:actor_template
+  param:
+    module: actor
+    action: add
+
+actor/edit:
+  url: /:slug;edit/:actor_template
+  class: QubitResourceRoute
+  param:
+    module: actor
+    action: edit
+
+function:
+  url: /:slug;isdf
+  class: QubitResourceRoute
+  param:
+    module: function
+    action: index
+
+function/add:
+  url: /;add/isdf
+  param:
+    module: function
+    action: add
+
+function/edit:
+  url: /:slug;edit/isdf
+  class: QubitResourceRoute
+  param:
+    module: function
+    action: edit
+
+repository:
+  url: /:slug;isdiah
+  class: QubitResourceRoute
+  param:
+    module: repository
+    action: index
+
+repository/add:
+  url: /;add/isdiah
+  param:
+    module: repository
+    action: add
+
+repository/edit:
+  url: /:slug;edit/isdiah
+  class: QubitResourceRoute
+  param:
+    module: repository
+    action: edit
+
+oai_harvester_harvest_all_sets:
+  url: /oai/harvest/:type/:id/*
+  param:
+    module: qtOaiPlugin
+    action: harvesterHarvest
+    id: { pattern: \d+ }
+
+oai_harvester_delete:
+  url: /oai/deleteRepository/:repositoryId/*
+  param:
+    module: qtOaiPlugin
+    action: harvesterDelete
+    repositoryId: { pattern: \d+ }
+
+oai_requests:
+  url: /;oai/request
+  param:
+    module: qtOaiPlugin
+    action: oai
+
+informationObject:
+  url: /:slug;:informationobject_template
+  class: QubitResourceRoute
+  param:
+    module: informationobject
+    action: index
+    informationobject_template: { pattern: 'dc|ead|isad|mods|rad' }
+
+informationObject/add:
+  url: /;add/:informationobject_template
+  param:
+    module: informationobject
+    action: add
+
+informationObject/copy:
+  url: /;copy/:informationobject_template
+  param:
+    module: informationobject
+    action: copy
+
+informationObject/edit:
+  url: /:slug;edit/:informationobject_template
+  class: QubitResourceRoute
+  param:
+    module: informationobject
+    action: edit
+
+# After *all* information object routes to avoid hijacking
+informationobject/addDigitalObject:
+  url: /:slug;addDigitalObject
+  class: QubitResourceRoute
+  param:
+    module: informationobject
+    action: addDigitalObject
+
+informationobject/fileList:
+  url: /:slug;fileList
+  class: QubitResourceRoute
+  param:
+    module: informationobject
+    action: fileList
+    slug: { pattern: '[^;]+' }
+
+informationobject/multiFileUpload:
+  url: /:slug;multiFileUpload
+  class: QubitResourceRoute
+  param:
+    module: informationobject
+    action: multiFileUpload
+
+informationobject/reports:
+  url: /:slug;reports
+  class: QubitResourceRoute
+  param:
+    module: informationobject
+    action: reports
+
+sword/action/slug:
+  url: /;sword/:action/:slug
+  class: QubitResourceRoute
+  param:
+    module: qtSwordPlugin
+    slug: { pattern: '[^;]+' }
+    throw404: false
+
+sword:
+  url: /;sword/:action
+  param:
+    module: qtSwordPlugin
+
+slug;default_index:
+  url:   /:slug;:module
+  class: QubitResourceRoute
+  param:
+    action: index
+
+slug;default:
+  url: /:slug;:module/:action
+  class: QubitResourceRoute
+
+id;default:
+  url: /;:module/:action/:id
+  class: QubitRoute
+
+default_index:
+  url:   /;:module
+  param:
+    action: index
+
+# After slug;default to avoid matching array($object, 'module' => 'foo', 'action', => 'edit')
+edit:
+  url: /;:module/add
+  param:
+    action: edit
+
+# After edit to avoid matching /;foo/add
+add:
+  url: /;:module/add
+  param:
+    action: add
+
+default:
+  url:   /;:module/:action

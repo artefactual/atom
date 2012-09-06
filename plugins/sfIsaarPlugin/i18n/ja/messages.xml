@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2012-08-15T11:37:00Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new authority record</source>
+        <target>新規の典拠レコ－ドを追加</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>無題の</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>編集する %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%正式名称%2% - %3%必須項目%4% </target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Dates of existence%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%実在期間%2%  - %3%必須項目%4% </target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%記述識別子%2%  - %3%必須項目%4% </target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>%1%Type of entity%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%エンティティの種別 - %3%必須項目%4</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Related resources</source>
+        <target>関連する資料</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Title</source>
+        <target>タイトル</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Relationship</source>
+        <target>関係</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Dates</source>
+        <target>日付</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Title of related resource</source>
+        <target>関連資料のタイトル</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>"Provide the unique identifiers/reference codes and/or titles for the related resources." (ISAAR 6.1) Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices.</source>
+        <target>""関連資料について、ID、レファレンスコード、タイトル等の情報を記載してください。" (ISAAR 6.1) ドロップダウンメニューからタイトルを選択してください; 絞り込みが必要な場合は、IDを入力するか、冒頭の数文字を入力してください。</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>"Describe the nature of the relationships between the corporate body, person or family and the related resource." (ISAAR 6.3) Select the type of relationship from the drop-down menu; these values are drawn from the Event Types taxonomy.</source>
+        <target>"組織体、個人、あるいは家族と、関連する資料の関係がどのような性質のものかについて記述してください。" (ISAAR 6.3) 関係のタイプについてはドロップダウンメニューから選択してください。これらの値はイベント・タイプ分類からとったものです。</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Nature of relationship</source>
+        <target>関係性</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>"Identify the type of related resources, e.g. Archival materials (fonds, record series, etc), archival description, finding aid, monograph, journal article, web site, photograph, museum collection, documentary film, oral history recording." (ISAAR 6.2) In the current version of the software, Archival material is provided as the only default value.</source>
+        <target>"関連する資料のタイプ―例えばアーカイブズ資料（フォンド、レコード・シリーズなど）、アーカイブズ記述、検索手段、モノグラフ、専門誌掲載論文、ウェブサイト、写真、博物館コレクション、ドキュメンタリー映画、オーラル・ヒストリーの録音テープなど―を明記してください。" (ISAAR 6.2) 現行のバージョンでは、アーカイブズ資料のみがデフォルトの値となっています。</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Type of related resource</source>
+        <target>関連資料のリソース</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>"Provide any relevant dates for the related resources and/or the relationship between the corporate body, person or family and the related resource." (ISAAR 6.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target>"関連資料について重要な日付、あるいは組織体、個人、家族と、関連資料との関係について重要な日付があれば、入力してください。" (ISAAR 6.4) 典拠レコードのページでこう見えてほしいと思うような形式を用い、不確定な部分がある場合は必要であれば限定詞や記述用の記号などを用いてください。.</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Related corporate bodies, persons or families</source>
+        <target>関連する組織体、個人、家族</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Name</source>
+        <target>名称</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Type</source>
+        <target>種別</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Description</source>
+        <target>記述</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Related corporate body, person or family</source>
+        <target>関連する組織体、個人、家族</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Authorized form of name</source>
+        <target>正式名称</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>"Record the authorized form of name and any relevant unique identifiers, including the authority record identifier, for the related entity." (ISAAR 5.3.1) Select the name from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target>"関連するエンティティの正式名称その他関連のある固有のID（典拠レコードIDを含む）を記入してください。" (ISAAR 5.3.1) ドロップダウンメニューから正式名称を選択してください; 絞り込みのためには冒頭の数文字を入力してください。</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>"Purpose: To identify the general category of relationship between the entity being described and another corporate body, person or family." (ISAAR 5.3.2). Select a category from the drop-down menu: hierarchical, temporal, family or associative.</source>
+        <target>"目的：記述対象と、他の組織体・個人・家族との関係の一般的カテゴリを特定すること。" (ISAAR 5.3.2).ドロップダウンメニューからカテゴリを選択してください; 階層的関係/経時的関係/家族関係/連合的関係</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Category of relationship</source>
+        <target>関係のカテゴリー</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>"Record a precise description of the nature of the relationship between the entity described in this authority record and the other related entity....Record in the Rules and/or conventions element (5.4.3) any classification scheme used as a source of controlled vocabulary terms to describe the relationship. A narrative description of the history and/or nature of the relationship may also be provided here." (ISAAR 5.3.3). Note that the text entered in this field will also appear in the related authority record.</source>
+        <target>"この典拠レコードで記述されるエンティティと、他の関連するエンティティとの関係がいかなる性質のものかを、正確に記述して下さい…関係の記述に用いた統制語彙の根拠とした分類スキームがあれば、記述要素「規則等」（5.4.3)に記載してください。関係の歴史、and/or 性質についての文章による記述も、ここに記載可能です。" (ISAAR 5.3.3)。 警告：このフィールドに入力したテキストは、関連する典拠レコードにも表示されます。</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Description of relationship</source>
+        <target>関係の記述</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>"Record when relevant the commencement date of the relationship or succession date and, when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target>"必要に応じ、関係の開始日、あるいは継承日、または休止・中断日を記入してください。" (ISAAR 5.3.4) 典拠レコードのページで、そう見えてほしいような形式で日付を入力し、不確定な部分があれば、必要に応じて限定しや記述用の記号を使用してください。.</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Edit %1% - ISAAR</source>
+        <target>編集する %1% - ISAAR</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Identity area</source>
+        <target>確認のエリア</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>"Specify the type of entity that is being described in this authority record." (ISAAR 5.1.1) Select Corporate body, Family or Person from the drop-down menu.</source>
+        <target>"この典拠レコードで記述しているエンティティのタイプを特定してください。" (ISAAR 5.1.1) ドロップダウンメニューから「組織体」「家族」「個人」のいずれかを選択してください。</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Type of entity</source>
+        <target>エンテｨティの種別</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>This is a mandatory element.</source>
+        <target>必須項目。</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>"Record the standardized form of name for the entity being described in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record. Use dates, place, jurisdiction, occupation, epithet and other qualifiers as appropriate to distinguish the authorized form of name from those of other entities with similar names." (ISAAR 5.1.2)</source>
+        <target>典拠レコード作成機関が使用する国内・国際規則に従い、記述するエンティティの正式な名称を記載してください。日付、場所、管轄権、職業、別称などの限定詞を必要に応じて用い、似通った名称を有する他のエンティティの正式名称と区別できるようにしてください。" (ISAAR 5.1.2)</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>"Purpose: To indicate the various forms in which the Authorized form of name occurs in other languages or script form(s). Rule: record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record, including any necessary sub elements and/or qualifiers required by those conventions or rules." (ISAAR 5.1.3)</source>
+        <target>"目的： 正式名称の、外国語や異なる文字による表記を示すこと。典拠レコード作成機関が使用する国内・国際規則等に準じた、名称の異なる表記を記載してください。その場合、適用した規則が要求するサブエレメントや限定詞があればそれも記載してください。" (ISAAR 5.1.3)</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Parallel form(s) of name</source>
+        <target>名称の異なる表記</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>"Record the standardized form of name for the entity being described in accordance with other conventions or rules. Specify the rules and/or if appropriate the name of the agency by which these standardized forms of name have been constructed." (ISAAR 5.1.4)</source>
+        <target>"記述中のエンティティにつき、標準化された名称を、他の標準や規則にのっとって記載してください。記述に用いたルール、そして必要であれば、当該名称を標準のものとした機関等の名称を明らかにしてください。" (ISAAR 5.1.4) (ISAAR 5.1.4)</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Standardized form(s) of name according to other rules</source>
+        <target>他の規則に従って標準化された名称の形式</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>The purpose of this field is to "indicate any other name(s) for the corporate body, person or family not used elsewhere in the Identity Area." Examples are acronyms, previous names, pseudonyms, maiden names and titles of nobility or honour. (ISAAR 5.1.5)</source>
+        <target>このフィールドの目的は"確認のエリアで他に使用されていない組織体、個人、家族の他の名称を表示することである。" 頭字語、旧名、仮名、結婚前の名称や貴族、勲章の名称などである。(ISAAR 5.1.5)</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Other form(s) of name</source>
+        <target>他の名称のフォーム</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>"Record where possible any official number or other identifier (e.g. a company registration number) for the corporate body and reference the jurisdiction and scheme under which it has been allocated." (ISAAR 5.1.6)</source>
+        <target>"組織体について、公的な番号やID等が付与されている場合はそれを記載し、そうした番号を付与する権限やスキームへの参照情報を付してください。" (ISAAR 5.1.6)</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Identifiers for corporate bodies</source>
+        <target>組織体用識別子</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Description area</source>
+        <target>記述のエリア</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>"Record the dates of existence of the entity being described. For corporate bodies include the date of establishment/foundation/enabling legislation and dissolution. For persons include the dates or approximate dates of birth and death or, when these dates are not known, floruit dates. Where parallel systems of dating are used, equivalences may be recorded according to relevant conventions or rules. Specify in the Rules and/or conventions element (5.4.3) the system(s) of dating used, e.g. ISO 8601." (ISAAR 5.2.1)</source>
+        <target>"記述するエンティティの存在に関する日付を入力してください。組織体については、設立・権限付与と解散に関わる立法の日付を含めてください。 個人については、出生と死亡の日付（推測も可）、またはこうした日付が分からない場合は、活動の最盛期を記載してください。二つ以上の異なる日付システムを使用するときは、関連する規則等に従い等価性を示してください。また使用した日付システムを、記述要素「規則等」（5.4.3)に記載してください。例：ISO8601。" (ISAAR 5.2.1)(ISAAR 5.2.1)</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Dates of existence</source>
+        <target>実在期間</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>"Record in narrative form or as a chronology the main life events, activities, achievements and/or roles of the entity being described. This may include information on gender, nationality, family and religious or political affiliations. Wherever possible, supply dates as an integral component of the narrative description." (ISAAR 5.2.2)</source>
+        <target>"記述するエンティティについて、主たる経歴上の出来事、活動、達成事項および/また役割等について、文章あるいは年表形式で記載してください。ここには、ジェンダー、国籍、家族関係、宗教、政治的所属等の情報を含みます。文章形式で記述する場合、その不可欠な要素として、可能な限り日付を示してください。" (ISAAR 5.2.2)</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>"Purpose: to indicate the predominant places and/or jurisdictions where the corporate body, person or family was based, lived or resided or had some other connection. Rule: record the name of the predominant place(s)/jurisdiction(s), together with the nature and covering dates of the relationship with the entity." (ISAAR 5.2.3)</source>
+        <target>"目的：組織体・個人・家族が本拠とする、居住する、あるいはその他の関係のある主たる場所あるいは管轄地を示すこと。記述規則：主たる場所または管轄地（いずれも複数可）を、そうした場所とエンティティの関係がいかなる性質のものかを、関連する日付とともに記載してください。 (ISAAR 5.2.3)</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>"Record the legal status and where appropriate the type of corporate body together with the covering dates when this status applied." (ISAAR 5.2.4)</source>
+        <target>"組織体の法的地位と、必要であれば組織体の種別を、そうした法的地位にあった期間に関する情報と合わせて記載してください。" (ISAAR 5.2.4)</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>"Record the functions, occupations and activities performed by the entity being described, together with the covering dates when useful. If necessary, describe the nature of the function, occupation or activity." (ISAAR 5.2.5)</source>
+        <target>"記述しているエンティティの機能、職業、活動について記載してください。関連の日付が役立つなら、それも記入してください。必要であれば、機能、職業、活動の内容を記述してください。" (ISAAR 5.2.5)</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Functions, occupations and activities</source>
+        <target>機能、職業と行動</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the entity being described, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISAAR 5.2.6)</source>
+        <target>"記述するエンティティの権限、機能、責任の根拠となる文書、法律、命令、憲章等があれば全て記載してください。そうした法規等が適用となる地理的範囲、および施行日、改正日など時間的な範囲についての情報も添えて下さい。" (ISAAR 5.2.6)</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Mandates/sources of authority</source>
+        <target>要求（命令）/オーソリティの情報源</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>"Describe the internal structure of a corporate body and the dates of any changes to that structure that are significant to the understanding of the way that corporate body conducted its affairs (e.g. by means of dated organization charts). Describe the genealogy of a family (e.g. by means of a family tree) in a way that demonstrates the inter-relationships of its members with covering dates." (ISAAR 5.2.7)</source>
+        <target>"組織体の内部構造、そして当該組織体の業務遂行の理解に重要と思われるような組織変遷の日付を記述してください（例えば日付入りの組織図を用いて）。家族については、関連する時代における、家族構成員の内的な関係が見えるような形で、系図を示してください（例えばツリー表示を用いて）。" (ISAAR 5.2.7)</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Internal structures/genealogy</source>
+        <target>内部構造/系図</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>"Provide any significant information on the social, cultural, economic, political and/or historical context in which the entity being described operated." (ISAAR 5.2.8)</source>
+        <target>"記述対象であるエンティティの活動に関わる、社会的、文化的、経済的、政治的、歴史的コンテキストについて何か重要な情報があれば記載してください。" (ISAAR 5.2.8)(ISAAR 5.2.8)</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Relationships area</source>
+        <target>関係エリア</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Control area</source>
+        <target>管理のエリア</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>"Record a unique authority record identifier in accordance with local and/or national conventions. If the authority record is to be used internationally, record the country code of the country in which the authority record was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the authority record is an international organization, give the organizational identifier in place of the country code." (ISAAR 5.4.1)</source>
+        <target>ローカルな、あるいは国レベルの規則に従い、典拠レコードIDを記載してください。典拠レコードが国際的に使用される可能性がある場合は、典拠レコードが作成された国の国名コードを、ISO3166の最新版に従って記入してください。典拠レコード作成者が国際機関である場合は、国名コードの代わりに機関IDを記載してください。" (ISAAR 5.4.1)</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Description identifier</source>
+        <target>記述の識別子</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>"Record the full authorized form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the authority record or, alternatively, record a code for the agency in accordance with the national or international agency code standard. Include reference to any systems of identification used to identify the institutions (e.g. ISO 15511)." (ISAAR 5.4.2)</source>
+        <target>"典拠レコードの作成・訂正・発信について責任を負う機関の正式名称、あるいは国内・国際規則に従い付与された公認されたコードを記入してください。機関同定のための何らかのシステムを用いた場合は、それに関する情報を記載してください。(例： ISO 15511)" (ISAAR 5.4.2)</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Institution identifier</source>
+        <target>機関識別子</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival authority record. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied. Specify separately which rules have been applied for creating the Authorized form of name. Include reference to any system(s) of dating used to identify dates in this authority record (e.g. ISO 8601)." (ISAAR 5.4.3)</source>
+        <target>"目的：典拠レコード作成の際に適用される国内・国際規則等を特定すること。記述規則：適用した規約や規則の名称、そしてそれが役立つ場合には版や出版日を記載してください。正式名称を作成した場合には、いかなる規則を用いたかを別に記載してください。この典拠レコードの作成にあたり日付の同定に用いたシステムの参照情報も明記してください。 (例： ISO 8601)" (ISAAR 5.4.3)</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Rules and/or conventions used</source>
+        <target>ルールおよび使用した規則</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>The purpose of this field is "[t]o indicate the drafting status of the authority record so that users can understand the current status of the authority record." (ISAAR 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
+        <target>このフィールドの目的は"ユーザーが現在の典拠レコードのステータスを理解できるように典拠レコードの当初のステータスを表示することである。" (ISAAR 5.4.4). Select Final, Revised or Draft from the drop-down menu.</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal records are those that consist only of the four essential elements of an ISAAR(CPF) compliant authority record (see 4.8), while full records are those that convey information for all relevant ISAAR(CPF) elements of description." (ISAAR 5.4.5)</source>
+        <target>."ドロップダウンメニューから全部、一部、最低限を選択してください。”もし国内の基準やルールが無ければ、最低限の記述はISAAR（CPF）の典拠レコードに関する4つの絶対不可欠な要素だけで構成され（4.7を見よ）全部記述はISAAR(CPF）の全ての記述要素と関連する情報を転用する" (ISAAR 5.4.5)</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>"Record the date the authority record was created and the dates of any revisions to the record." (ISAAR 5.4.6)</source>
+        <target>"典拠レコードの作成日、および訂正日を記入してください。" (ISAAR 5.4.6)</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Dates of creation, revision and deletion</source>
+        <target>作成　訂正　削除の日付</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Select the language(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
+        <target>ドロップダウンメニューから典拠レコードの言語を選択してください。：選択を狭めるために冒頭の数文字を入力してください。(ISAAR 5.4.7</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Select the script(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
+        <target>ドロップダウンメニューから典拠レコードのスクリプトを選択してください。：選択を狭めるために冒頭の数文字を入力してください。(ISAAR 5.4.7)</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>"Record the sources consulted in establishing the authority record." (ISAAR 5.4.8)</source>
+        <target>"典拠レコードの作成にあたり参照した文献等を記載してください。" (ISAAR 5.4.8)</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>"Record notes pertinent to the creation and maintenance of the authority record. The names of persons responsible for creating the authority record may be recorded here." (ISAAR 5.4.9)</source>
+        <target>"典拠レコードの作成とメンテナンスに関連する情報を記入してください。レコード作成者の氏名（複数可）をここに記載してもかまいません。" (ISAAR 5.4.9) (ISAAR 5.4.9)</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Actions</source>
+        <target>行動</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Cancel</source>
+        <target>キャンセル</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Save</source>
+        <target>保存</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Create</source>
+        <target>作成する</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>View authority record</source>
+        <target>典拠レコードを見る</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Edit authority record</source>
+        <target>典拠レコードを編集する</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>History</source>
+        <target>歴史</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Places</source>
+        <target>場所</target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Legal status</source>
+        <target>法的ステータス</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>General context</source>
+        <target>一般コンテキスト</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Related entity</source>
+        <target>関連するエンティティ</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Identifier of the related entity</source>
+        <target>関連エンティティの識別子</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Category of the relationship</source>
+        <target>関係のカテゴリー</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Dates of the relationship</source>
+        <target>関連する日付</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Related function</source>
+        <target>関連する機能</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Status</source>
+        <target>ステータス</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Level of detail</source>
+        <target>詳細レベル</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Language(s)</source>
+        <target>言語</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Script(s)</source>
+        <target>スクリプト</target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Sources</source>
+        <target>情報源</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Maintenance notes</source>
+        <target>メンテナンス注記</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Edit</source>
+        <target>編集する</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Delete</source>
+        <target>削除</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Add new</source>
+        <target>新規追加</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Edit identity area</source>
+        <target>アイデンティティのエリアを編集する</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Edit description area</source>
+        <target>記述のエリアを編集する</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Edit relationships area</source>
+        <target>関係のエリアを編集する</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>Edit control area</source>
+        <target>コントロールのエリアを編集する</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,10 @@
+editSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/textarea:
+
+listSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:

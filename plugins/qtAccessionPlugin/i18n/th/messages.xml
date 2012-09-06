@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="th" datatype="plaintext" original="messages" date="2012-08-15T12:06:00Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new deaccession record</source>
+        <target>เพิ่มรายงานทิ้ง</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>ไม่ระบุชื่อเรื่อง</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>แก้ไข%1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Identifier - This is a mandatory element.</source>
+        <target>ตัวระบุ - นี่เป็นองค์ประกอบที่จำเป็น.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Date of acquisition - This is a mandatory element.</source>
+        <target>วันที่จัดหา / รวบรวมเอกสาร - นี่เป็นองค์ประกอบที่จำเป็น.</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Scope - This is a mandatory element.</source>
+        <target>ขอบเขต - นี่คือองค์ประกอบที่จำเป็น.</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Description - This is a mandatory element.</source>
+        <target>คำอธิบาย - นี่คือองค์ประกอบที่จำเป็น.</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Are you sure you want to delete %1%?</source>
+        <target>คุณแน่ใจหรือไม่ว่าต้องการทำการลบ%1%?</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Actions</source>
+        <target>แอคชัน</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Cancel</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Confirm</source>
+        <target>ยืนยัน</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>View deaccession record</source>
+        <target>ดูรายการทำให้เอกสารออกไปจากคอลเลกชันุ</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Edit accession record</source>
+        <target>แก้ไขรายงานเข้าถึง</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Deaccession number</source>
+        <target>หมายเลขการทิ้งเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Scope</source>
+        <target>ขอบเขต</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Date</source>
+        <target>วันที่</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Description</source>
+        <target>คำอธิบาย</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Extent</source>
+        <target>ขนาด</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Reason</source>
+        <target>เหตุผล</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Edit</source>
+        <target>แก้ไข</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Delete</source>
+        <target>ลบ</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Edit deaccession record</source>
+        <target>แก้ไขรายงานทำให้เอกสารออกไปจากคอลเลกชัน</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>This is a mandatory element.</source>
+        <target>นี่คือองค์ประกอบที่จำเป็น.</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.</source>
+        <target>ระบุการเข้าถึงทั้งถูกลบข้อมูลการลงทะเบียนหรือเพียงแค่บางส่วนถูกลบ.</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Date of deaccession</source>
+        <target>ช่วงของวันที่</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Identify what materials are being deaccessioned.</source>
+        <target>ระบุแเอกสารไหนทำให้ออกไปจากคอลเลกชัน.</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>The number of units as a whole number and the measurement of the records to be deaccessioned.</source>
+        <target>ตัวเลขหน่วยซึ่งเป็นเลขทั้งหมดและหน่วยของการวัดของรายการทำให้เอกสารออกไปจากคอลเลกชัน.</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Provide a reason why the records are being deaccessioned.</source>
+        <target>ระบุเหตุผลทำให้เอกสารออกไปจากคอลเลกชัน.</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Save</source>
+        <target>บันทึก</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Create</source>
+        <target>สร้าง</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Add new donor</source>
+        <target>เพิ่มผู้บริจาคใหม่</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Authorized form of name - This is a mandatory element.</source>
+        <target>รูปแบบช่ือที่กําหนดใหใช้ได - นี่เป็นองค์ประกอบที่จำเป็นนี่เป็นองค์ประกอบที่จำเป็น.</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>View donor</source>
+        <target>ดูผู้บริจาค</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Edit donor</source>
+        <target>แก้ไขผู้บริจาค</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Authorized form of name</source>
+        <target>รูปแบบช่ือที่กําหนดใหใชได</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Contact area</source>
+        <target>พื้นที่ติดต่อ</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Accession area</source>
+        <target>พื้นที่การเข้าถึงเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Related accession(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Add new</source>
+        <target>เพิ่มใหม</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Identity area</source>
+        <target>พื้นที่Identity</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>List donor</source>
+        <target>บันทึกผู้บริจาค</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Name</source>
+        <target>ชื่อ</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Search donor</source>
+        <target>ค้นหาผู้บริจาค</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Donor browse options</source>
+        <target>ผู้บริจาค browse options</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Recent changes</source>
+        <target>การเปลี่ยนแปลงล่าสุด</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Sort</source>
+        <target>เรียงลำดับ</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Alphabetic</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Browse donor</source>
+        <target>Browseผู้บริจาค</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Updated</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Add new accession record</source>
+        <target>เพิ่มรายงานทะเบียนเอกสารุุใหม่</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Acquisition date - This is a mandatory element.</source>
+        <target>วันที่จัดหา /รวบรวมเอกสาร - นี่เป็นองค์ประกอบที่จำเป็น.</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Source of acquisition - This is a mandatory element.</source>
+        <target>ที่มาจากการเข้าซื้อ - นี่เป็นองค์ประกอบที่จำเป็น.</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Location information - This is a mandatory element.</source>
+        <target>ข้อมูลตำแหน่ง - นี่คือองค์ประกอบที่จำเป็น</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>It has %1% deaccessions that will also be deleted:</source>
+        <target>มีเอกสาร%1%ทำให้ออกจากคอลเลกชันที่จะถูกลบไปด้วย:</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>It has %1% accruals. They will not be deleted.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>View accession record</source>
+        <target>ดูรายการเข้าถึง</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Accession number</source>
+        <target>เลขการเข้าถึงเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Acquisition date</source>
+        <target>วันที่จัดหา /รวบรวมเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Immediate source of acquisition</source>
+        <target>แหล่งเอกสารหรือหน่วยงานหรือผู้มอบหรือโอนย้ายเอกสารn</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Location information</source>
+        <target>ข้อมูลตำแหน่ง(Location information)</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Donor/Transferring body area</source>
+        <target>ผู้บริจาค / Transferring body area</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Edit donor/transferring body area</source>
+        <target>แก้ไขผู้บริจาค / น่วยงานที่โอนย้ายหเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Related donor</source>
+        <target>ผู้บริจาคที่เกี่ยวข้อง</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Administrative area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Edit administrative area</source>
+        <target>แก้ไขพื้นที่administrative</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Acquisition type</source>
+        <target>ประเภทของการรวบรวมเอกสารุ</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Resource type</source>
+        <target>ประเภททรัพยากร</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Title</source>
+        <target>ชื่อเรื่อง</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Creators</source>
+        <target>ผู้ผลิตเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Archival/Custodial history</source>
+        <target>ประวัติจดหมายเหตุ / การเก็บเข้าคลัง</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Scope and content</source>
+        <target>ขอบเขตและเนื้อหา</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Appraisal, destruction and scheduling</source>
+        <target>การประเมินคุณค่าการทำลายและการกำหนดอายุการเก็บเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Physical condition</source>
+        <target>สภาพทางกายภาพ</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Received extent units</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Processing status</source>
+        <target>สถานภาพดำเนินการ</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Processing priority</source>
+        <target>ลำดับความสำคัญ(priority)ดำเนินการ</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Processing notes</source>
+        <target>ดำเนินการ(Processing)</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Accruals</source>
+        <target>การเพิ่มขึ้นของเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Accrual to</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Rights area</source>
+        <target>พื้นที่สิทธ</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Edit rights area</source>
+        <target>แก้ไขพื้นที่สิทธิ</target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Information object area</source>
+        <target>พื้นที่วัตถุข้อมูล</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Information object</source>
+        <target>วัตถุข้อมูล(ข้อมูลวัตถุ)</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Deaccession area</source>
+        <target>พื้นที่การทิ้งเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Deaccession</source>
+        <target>การทิ้งเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Add accrual</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Create %1%</source>
+        <target>ผลิต%1%</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>You are creating an accrual to accession %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
+        <target>เลขการเข้าถึงเอกสารต้องประกอบด้วยค่าในเขตข้อมูลและต้องเป็นเลขการเข้าถึงเอกสารพิเศษสำหรับคลังเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
+        <target>วันที่การเข้าถึงเอกสารที่แสดงให้เห็นวันที่ได้รับเอกสารและวันที่เพิ่มเติมในเวลาดำเนินการบริจาค.</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.</source>
+        <target>ระบุแหล่งเอกสารหรือหน่วยงานหรือผู้มอบหรือโอนย้ายเอกสารและวันและวิธีการรวบรวมเอกสารถ้าข้อมูลไม่ได้เป็นความลับ.</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>A description of the physical location in the repository where the accession can be found.</source>
+        <target>A คำอธิบาย of the physical location in the คลังเก็บ where the accession can be found.</target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Term describing the type of accession transaction and referring to the way in which the accession was acquired.</source>
+        <target>คำศัพท์อธิบายประเภทธุรกรรมการเข้าถึงและอ้างถึงวิธีถูกรวบรวมเอกสารเข้าถึง.</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Select the type of resource represented in the accession, either public or private.</source>
+        <target>เลือกประเภททรัพยากรที่แสดงให้เห็นในการเข้าถึง,  สาธารณะ และ/หรือ เอกชน.</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>The title of the accession, usually the creator name and term describing the format of the accession materials.</source>
+        <target>หมายเหตุเกี่ยวกับแผนในดำเนินการ, อธิบายสิ่งที่ต้องทำสำหรับการเข้าถึง ที่ต้องดำเนินการอย่างสมบูรณ์
+
+ชื่อเรื่องของการเข้าถึง,ชื่อผู้ผลิตเอกสารและ คำศัพท์อธิบายรูปแบบของเอกสารที่เข้าถึง</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>The name of the creator of the accession or the name of the department that created the accession.</source>
+        <target>ชื่อผู้ผลิตเอกสารของการเข้าถึงหรือชื่อแผนกู้ผลิตการเข้าถึง.</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Information on the history of the accession. When the accession is acquired directly from the creator, do not record an archival history but record the information as the Immediate Source of Acquisition.</source>
+        <target>ข้อมูลเกี่ยวกับประวัติ.เมื่อเอกสารเข้าถึงได้รับจากผู้ผลิตเอกสารโดยตรง,ไมบันทึกประวัติของเอกสารจดหมายเหตุ,บันทึกข้อมูลแหล่งทันทีรวบรวมเอกสาร.</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>A description of the intellectual content and document types represented in the accession.</source>
+        <target>คำอธิบายของเนื้อหาเชิงปัญญาและประเภทของเอกสารที่แสดงให้เห็นในการเข้าถึงเอกสาร.</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
+        <target>บันทึกการประเมิน การทำลาย และการวางกำหนดการในactionหรือการวางแผนสำหรับหน่วยของคำอธิบาย โดยเฉพาะอย่างยิ่งในกรณีที่ส่งผลต่อการแปลเอกสาร.</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
+        <target>คำอธิบายของเงื่อนไขทางกายภาพการเข้าถึง and if any การปฏิบัติการอนุรักษ์ or special handling is required.</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>The number of units as a whole number and the measurement of the received volume of records in the accession.</source>
+        <target>จำนวนของหน่วยงานเป็นจำนวนเต็มที่และการวัดของปริมาณรายการที่ได้รับในเอกสารเข้าถึง</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>An indicator of the accessioning process.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Indicates the priority the repository assigns to completing the processing of the accession.</source>
+        <target>ระบุลำดับความสำคัญที่คลังเก็บกำหนดสำหรับทำดำเนินการเข้าถึงใหเสร็จ.</target>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Notes about the processing plan, describing what needs to be done for the accession to be processed completely.</source>
+        <target>หมายเหตุเกี่ยวกับแผนในดำเนินการ,อธิบายสิ่งที่ต้องทำสำหรับการเข้าถึง ที่ต้องดำเนินการอย่างสมบูรณ์.</target>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Information objects</source>
+        <target>วัตถุข้อมูล</target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Related donors</source>
+        <target>ผู้บริจาคที่เกี่ยวข้อง</target>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Related donor record</source>
+        <target>รายงานผู้บริจาคที่เกี่ยวข้อง</target>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
+        <target>นี้เป็นเขตข้อมูลentityตามกฎหมายและให้ข้อมูลที่ติดต่อสำหรับบุคคลหรือหน่วยงานที่มอบหรือโอนเอกสารIt has the option of multiple instances and provides the option of creating more than one contact record using the same form.</target>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Primary contact information</source>
+        <target>ข้อมูลนี่คือการติดต่อครั้งแรก</target>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Region/province</source>
+        <target>บริเวณ / จังหวัด</target>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Country</source>
+        <target>ประเทศ</target>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>List accession record</source>
+        <target>บันทึกรายงานของการเข้าถึง(Accession Record)</target>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Identifier</source>
+        <target>ตัวระบุ</target>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>Search accession</source>
+        <target>ค้นหาการเข้าถึงเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>Accession browse options</source>
+        <target>การเข้าถึงเอกสาร browse options</target>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Browse accession</source>
+        <target>Browseการทะเบียนเอกสาร</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2012-08-17T14:34:06Z" product-name="messages">
+    <body>
+      <trans-unit id="45">
+        <source>Identifier</source>
+        <target>識別子</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Title</source>
+        <target>タイトル</target>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Format</source>
+        <target>フォーマット</target>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Type</source>
+        <target>種別</target>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>Description</source>
+        <target>記述</target>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>Language</source>
+        <target>言語</target>
+      </trans-unit>
+      <trans-unit id="537">
+        <source>Subject</source>
+        <target>主題</target>
+      </trans-unit>
+      <trans-unit id="776">
+        <source>Source</source>
+        <target>情報源</target>
+      </trans-unit>
+      <trans-unit id="777">
+        <source>Rights</source>
+        <target>権利</target>
+      </trans-unit>
+      <trans-unit id="828">
+        <source>%1%Identifier%2% - This is a mandatory element.</source>
+        <target>%1%識別子%2%  - %3%必須項目%4%</target>
+      </trans-unit>
+      <trans-unit id="829">
+        <source>%1%Title%2% - This is a mandatory element.</source>
+        <target>%1%タイトル%2%  - %3%必須項目%4%￥・</target>
+      </trans-unit>
+      <trans-unit id="832">
+        <source>View resource metadata</source>
+        <target>資料メタデータを見る</target>
+      </trans-unit>
+      <trans-unit id="833">
+        <source>Edit resource metadata</source>
+        <target>資料メタデータを編集する</target>
+      </trans-unit>
+      <trans-unit id="834">
+        <source>Creator</source>
+        <target>作成者</target>
+      </trans-unit>
+      <trans-unit id="835">
+        <source>Publisher</source>
+        <target>出版社</target>
+      </trans-unit>
+      <trans-unit id="836">
+        <source>Contributor</source>
+        <target>貢献者</target>
+      </trans-unit>
+      <trans-unit id="837">
+        <source>Relation (isLocatedAt)</source>
+        <target>関係(isLocatedAt)</target>
+      </trans-unit>
+      <trans-unit id="838">
+        <source>Coverage (spatial)</source>
+        <target>範囲 (空間)</target>
+      </trans-unit>
+      <trans-unit id="839">
+        <source>Edit resource metadata - Dublin Core</source>
+        <target>資料メタデータを編集する - Dublin Core</target>
+      </trans-unit>
+      <trans-unit id="840">
+        <source>This is a duplicate of record %1%</source>
+        <target>これは記録の複製です%1%</target>
+      </trans-unit>
+      <trans-unit id="841">
+        <source>The unambiguous reference code used to uniquely identify this resource.</source>
+        <target>この資料を特定するために明確なレファレンスコードを使用してください。</target>
+      </trans-unit>
+      <trans-unit id="842">
+        <source>This is a mandatory element.</source>
+        <target>必須項目。</target>
+      </trans-unit>
+      <trans-unit id="843">
+        <source>The name given to this resource.</source>
+        <target>この資料に与えられた名称。</target>
+      </trans-unit>
+      <trans-unit id="844">
+        <source>Names and dates</source>
+        <target>名称と日付</target>
+      </trans-unit>
+      <trans-unit id="846">
+        <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
+        <target>資料の主題。冒頭の数文字を入力して主題分類の既存の用語を検索してください。または作成する新規名称を入力し新規の主題用語へリンクさせてください。</target>
+      </trans-unit>
+      <trans-unit id="849">
+        <source>Child levels (if describing a collection)</source>
+        <target>下位階層を新規追加（コレクションを記述する場合）</target>
+      </trans-unit>
+      <trans-unit id="852">
+        <source>Related material(s) from which this resource is derived.</source>
+        <target>この資料が由来する関連資料。</target>
+      </trans-unit>
+      <trans-unit id="853">
+        <source>Language(s) of this resource.</source>
+        <target>この資料の言語。</target>
+      </trans-unit>
+      <trans-unit id="857">
+        <source>Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).</source>
+        <target>（著作権、アクセス条件などの）資料に関する権利についての情報。</target>
+      </trans-unit>
+      <trans-unit id="858">
+        <source>Add new resource</source>
+        <target>新規資料を追加</target>
+      </trans-unit>
+      <trans-unit id="859">
+        <source>Untitled</source>
+        <target>無題の</target>
+      </trans-unit>
+      <trans-unit id="860">
+        <source>Select the type of activity (creation, publication or contribution) that established the relation between the authority record and the archival description.</source>
+        <target>典拠レコードとアーカイブズの記述の関連性を示す活動（作成、出版、寄贈）の種別を選択してください。</target>
+      </trans-unit>
+      <trans-unit id="861">
+        <source>An abstract, table of contents or description of the resource's scope and contents.</source>
+        <target>要約、内容のリスト、資料の内容の記述</target>
+      </trans-unit>
+      <trans-unit id="862">
+        <source>&lt;p&gt;The nature or genre of the resource.&lt;/p&gt;&lt;p&gt;Assign as many types as applicable. The &lt;em&gt;Type&lt;/em&gt; options are limited to the DCMI Type vocabulary.&lt;/p&gt;&lt;p&gt;Assign the &lt;em&gt;Collection&lt;/em&gt; value if this resource is the top-level for a set of lower-level (child) resources.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the &lt;em&gt;image&lt;/em&gt;, &lt;em&gt;text&lt;/em&gt;, &lt;em&gt;sound&lt;/em&gt; or &lt;em&gt;moving image&lt;/em&gt; types are added automatically upon output, so do not duplicate those values here.&lt;/p&gt;</source>
+        <target>&gt;&lt;p&gt;資料の特徴や分野。&lt;/p&gt;&lt;p&gt;適当なタイプを当てはめてください。&lt;em&gt;タイプ&lt;/em&gt; の選択はDCMIタイプの言葉に限定されています。&lt;/p&gt;&lt;p&gt; もしこの資料がより低い（下位）階層単位にとって最上階層の場合は、 &lt;em&gt;コレクション&lt;/em&gt; の数値を当てはめてください。 &lt;/p&gt;&lt;p&gt;警告：この資料がデジタル・オブジェクトにリンクしている場合は、the &lt;em&gt;画像&lt;/em&gt;, &lt;em&gt;テキスト&lt;/em&gt;, &lt;em&gt;音&lt;/em&gt; or &lt;em&gt;動画&lt;/em&gt; のタイプが自動的に制作物へ付与されるので、その数値についてここでは触れない。&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="863">
+        <source>&lt;p&gt;&lt;strong&gt;Child levels&lt;/strong&gt;&lt;br/&gt;Use these two fields to add lower levels to a collection level description. Click &lt;em&gt;Add new&lt;/em&gt; to create as many child levels as necessary.&lt;/p&gt;&lt;p&gt;These fields can also be used to add any number of intermediate levels of description (e.g. series, file, etc) between the top and bottom levels in a descriptive hierarchy. Use the hierarchy treeview to re-order hierarchy levels as necessary.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Identifier&lt;/em&gt;: The unambiguous reference code used to uniquely identify the child-level resource.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Title&lt;/em&gt;: The name given to the child-level resource.&lt;/p&gt;</source>
+        <target>&lt;p&gt;&lt;strong&gt;下位階層&lt;/strong&gt;&lt;br/&gt;コレクションの階層記述へより低位の階層を加えるためには、これらの二つのフィールドを使用してください。必要なだけ下位階層をつくるために、 &lt;em&gt;新規作成&lt;/em&gt; をクリックしてください。&lt;/p&gt;&lt;p&gt;これらのフィールドは、記述序列のなかの最上と最下の階層のあいだの中間記述階層（シリーズやファイルなど）を加えるためにも使用される。序列階層を並べ替えるために、必要に応じて階層的なツリー表示を使ってください。&lt;/p&gt;&lt;p&gt;&lt;em&gt;識別子&lt;/em&gt;: 独自に下位階層の資料を識別するために使用される、一義的な参照コード&lt;/p&gt;&lt;p&gt;&lt;em&gt;タイトル&lt;/em&gt;: 下位階層の資料へ与えられた名称 &lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="864">
+        <source>&lt;p&gt;The file format, physical medium, or dimensions of the resource.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the Internet Media Types (MIME) will be added automatically upon output, so don't duplicate those values here.&lt;/p&gt;</source>
+        <target>&lt;p&gt;ファイル形式、物理メディア、資料の大きさ.&lt;/p&gt;&lt;p&gt;警告：もしこの資料がデジタルオブジェクトへリンクされていたら、インターネット・メディア・タイプ（MIME）が、自動的にアウトプットへ付加されるので、ここでは同じ価値を再現しない。&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="865">
+        <source>&lt;p&gt;The name of the organization which has custody of the resource.&lt;/p&gt;&lt;p&gt;Search for an existing name in the organization records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new organization record.&lt;/p&gt;</source>
+        <target>"必要に応じ、アーカイブズ記述から出所、著者、その他件名（主題キーワード）以外のアクセス・ポイントを選択してください。アクセス・ポイントは、それが関連付けられるアーカイブズ記述において一見して明らかでなければなりません。" (RAD 21.0B) このフィールドの値は、典拠レコードの名称フィールドに入力された正式名称をそのまま用います。名称の冒頭の数文字を入力して、既存の名称を検索してください。あるいは、新しい名称を入力し、新しい典拠レコードにリンクしてください。</target>
+      </trans-unit>
+      <trans-unit id="866">
+        <source>&lt;p&gt;The name of a place or geographic area which is a topic of the resource or relevant to its jurisdiction.&lt;/p&gt;&lt;p&gt;Search for an existing term in the Place taxonomy by typing the first few characters of the place name. Alternatively, type a new name to create and link to a new place.&lt;/p&gt;&lt;p&gt;Please note: if you entered a place of creation, publication or contribution that will be output automatically, so don’t repeat that place name here.&lt;/p&gt;</source>
+        <target>&lt;p&gt;資料の話題や関連のある所轄場所となる、場所や地理的地域の名称 。&lt;/p&gt;&lt;p&gt;地名の冒頭の数文字を入力することで場所の分類として存在している言葉を検索する。あるいは、新しい場所をつくったりリンクするために新しい名称 を入力してください。&lt;/p&gt;&lt;p&gt;警告：自動的に制作される創造、出版、提案のための場所に入るなら, ここではその場所の名称 は繰り返さない。&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="867">
+        <source>Rights area</source>
+        <target>権利のエリア</target>
+      </trans-unit>
+      <trans-unit id="868">
+        <source>Edit rights area</source>
+        <target>権利のエリアを編集する</target>
+      </trans-unit>
+      <trans-unit id="869">
+        <source>Accession area</source>
+        <target>受入資料エリア</target>
+      </trans-unit>
+      <trans-unit id="870">
+        <source>%1%Relation%2% (%3%isLocatedAt%4%) - This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="871">
+        <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

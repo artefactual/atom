@@ -1,0 +1,58 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/04-Settings
+
+prod:
+  .settings:
+    no_script_name:         false
+    logging_enabled:        false
+    cache:                  true
+
+dev:
+  .settings:
+    error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
+    web_debug:              true
+    cache:                  false
+    no_script_name:         false
+    etag:                   false
+
+test:
+  .settings:
+    error_reporting:        <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
+    cache:                  false
+    web_debug:              false
+    no_script_name:         false
+    etag:                   false
+
+all:
+  .settings:
+    # Form security secret (CSRF protection)
+    csrf_secret:            false
+
+    enabled_modules:        [default, aclGroup]
+
+    # Output escaping settings
+    escaping_strategy:      false
+    escaping_method:        ESC_SPECIALCHARS
+
+    i18n:                   true
+    standard_helpers:       [Partial, Cache, I18N, Qubit]
+
+    # Enable the database manager
+    use_database:           true
+
+    # The language is coded in two lowercase characters,
+    # according to the ISO 639-1 standard, and the country
+    # is coded in two uppercase characters, according to
+    # the ISO 3166-1 standard.
+    # Examples: en, en_US, es_ES, fr...
+    default_culture:        en
+
+    # List of supported timezones
+    # http://www.php.net/manual/en/timezones.php
+    default_timezone:       America/Vancouver
+
+  .actions:
+    error_404_module:       admin
+    login_module:           user
+    module_disabled_module: admin
+    secure_module:          admin

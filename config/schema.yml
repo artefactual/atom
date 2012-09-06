@@ -1,0 +1,351 @@
+propel:
+
+  actor:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    corporate_body_identifiers: varchar(1024)
+    entity_type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    description_status_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    description_detail_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    description_identifier: varchar(1024)
+    source_standard: varchar(1024)
+    parent_id: { type: integer, foreignTable: actor, foreignReference: id }
+    lft: { type: integer, required: true, nestedSetLeftKey: true }
+    rgt: { type: integer, required: true, nestedSetRightKey: true }
+
+  actor_i18n:
+    authorized_form_of_name: varchar(1024)
+    dates_of_existence: varchar(1024)
+    history: longvarchar
+    places: longvarchar
+    legal_status: longvarchar
+    functions: longvarchar
+    mandates: longvarchar
+    internal_structures: longvarchar
+    general_context: longvarchar
+    institution_responsible_identifier: varchar(1024)
+    rules: longvarchar
+    sources: longvarchar
+    revision_history: longvarchar
+
+  contact_information:
+    actor_id: { type: integer, required: true, foreignTable: actor, foreignReference: id, onDelete: cascade }
+    primary_contact: boolean
+    contact_person: varchar(1024)
+    street_address: longvarchar
+    website: varchar(1024)
+    email: varchar(255)
+    telephone: varchar(255)
+    fax: varchar(255)
+    postal_code: varchar(255)
+    country_code: varchar(255)
+    longitude: float
+    latitude: float
+    created_at:
+    updated_at:
+
+  contact_information_i18n:
+    contact_type: varchar(1024)
+    city: varchar(1024)
+    region: varchar(1024)
+    note: longvarchar
+
+  digital_object:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    information_object_id:
+    usage_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    mime_type: varchar(255)
+    media_type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    name: { type: varchar(1024), required: true }
+    path: { type: varchar(1024), required: true }
+    sequence: integer
+    byte_size: integer
+    checksum: varchar(255)
+    checksum_type: type: varchar(50)
+    parent_id: { type: integer, foreignTable: digital_object, foreignReference: id }
+    lft: { type: integer, required: true, nestedSetLeftKey: true }
+    rgt: { type: integer, required: true, nestedSetRightKey: true }
+
+  event:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    start_date: bu_date
+    start_time: time
+    end_date: bu_date
+    end_time: time
+    type_id: { type: integer, required: true, foreignTable: term, foreignReference: id, onDelete: cascade }
+    information_object_id: { type: integer, foreignTable: information_object, foreignReference: id, onDelete: cascade }
+    actor_id:
+
+  event_i18n:
+    name: varchar(1024)
+    description: longvarchar
+    date: varchar(1024)
+
+  function:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    type_id: { type: integer, foreignTable: term, foreignReference: id }
+    parent_id: { type: integer, foreignTable: function, foreignReference: id }
+    description_status_id: { type: integer, foreignTable: term, foreignReference: id }
+    description_detail_id: { type: integer, foreignTable: term, foreignReference: id }
+    description_identifier: varchar(1024)
+    source_standard: varchar(1024)
+    lft: integer
+    rgt: integer
+
+  function_i18n:
+    authorized_form_of_name: varchar(1024)
+    classification: varchar(1024)
+    dates: varchar(1024)
+    description: longvarchar
+    history: longvarchar
+    legislation: longvarchar
+    institution_identifier: longvarchar
+    revision_history: longvarchar
+    rules: longvarchar
+    sources: longvarchar
+
+  information_object:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    identifier: varchar(1024)
+    oai_local_identifier: { type: integer, index: unique, required: true, autoIncrement: true }
+    level_of_description_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    collection_type_id: { type: integer, foreignTable: term, foreignReference: id }
+    repository_id:
+    parent_id: { type: integer, foreignTable: information_object, foreignReference: id }
+    description_status_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    description_detail_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    description_identifier: varchar(1024)
+    source_standard: varchar(1024)
+    lft: { type: integer, required: true, nestedSetLeftKey: true }
+    rgt: { type: integer, required: true, nestedSetRightKey: true }
+
+  information_object_i18n:
+    title: varchar(1024)
+    alternate_title: varchar(1024)
+    edition: varchar(1024)
+    extent_and_medium: longvarchar
+    archival_history: longvarchar
+    acquisition: longvarchar
+    scope_and_content: longvarchar
+    appraisal: longvarchar
+    accruals: longvarchar
+    arrangement: longvarchar
+    access_conditions: longvarchar
+    reproduction_conditions: longvarchar
+    physical_characteristics: longvarchar
+    finding_aids: longvarchar
+    location_of_originals: longvarchar
+    location_of_copies: longvarchar
+    related_units_of_description: longvarchar
+    institution_responsible_identifier: varchar(1024)
+    rules: longvarchar
+    sources: longvarchar
+    revision_history: longvarchar
+
+  keymap:
+    source_id: longvarchar
+    target_id: integer
+    source_name: longvarchar
+    target_name: longvarchar
+
+  menu:
+    parent_id: { type: integer, foreignTable: menu, foreignReference: id, onDelete: cascade }
+    name: varchar(255)
+    path: varchar(255)
+    lft: { type: integer, required: true, nestedSetLeftKey: true }
+    rgt: { type: integer, required: true, nestedSetRightKey: true }
+    created_at:
+    updated_at:
+
+  menu_i18n:
+    label: varchar(255)
+    description: longvarchar
+
+  note:
+    object_id: { type: integer, required: true, foreignTable: object, foreignReference: id, onDelete: cascade }
+    type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    scope: varchar(1024)
+    user_id:
+
+  note_i18n:
+    content: longvarchar
+
+  oai_harvest:
+    id:
+    oai_repository_id: { type: integer, required: true, foreignTable: oai_repository, foreignReference: id, onDelete: cascade }
+    start_timestamp: timestamp
+    end_timestamp: timestamp
+    last_harvest: timestamp
+    last_harvest_attempt: timestamp
+    metadataPrefix: varchar(255)
+    set: varchar(1024)
+    created_at:
+
+  oai_repository:
+    id:
+    name: varchar(1024)
+    uri: varchar(1024)
+    admin_email: varchar(255)
+    earliest_timestamp: timestamp
+    created_at:
+    updated_at:
+
+  object:
+    class_name: varchar(255)
+    created_at:
+    updated_at:
+
+  object_term_relation:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    object_id: { type: integer, required: true, foreignTable: object, foreignReference: id, onDelete: cascade }
+    term_id: { type: integer, required: true, foreignTable: term, foreignReference: id, onDelete: cascade }
+    start_date: bu_date
+    end_date: bu_date
+
+  other_name:
+    object_id: { type: integer, required: true, foreignTable: object, foreignReference: id, onDelete: cascade }
+    type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    start_date: bu_date 
+    end_date: bu_date
+
+  other_name_i18n:
+    name: varchar(1024)
+    note: varchar(1024)
+    dates: longvarchar
+
+  physical_object:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    parent_id: { type: integer, foreignTable: physical_object, foreignReference: id }
+    lft: { type: integer, required: true, nestedSetLeftKey: true }
+    rgt: { type: integer, required: true, nestedSetRightKey: true }
+
+  physical_object_i18n:
+    name: varchar(1024)
+    description: longvarchar
+    location: longvarchar
+
+  property:
+    object_id: { type: integer, required: true, foreignTable: object, foreignReference: id, onDelete: cascade }
+    scope: varchar(1024)
+    name: varchar(1024)
+
+  property_i18n:
+    value: longvarchar
+
+  relation:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    subject_id: { type: integer, required: true, foreignTable: object, foreignReference: id }
+    object_id: { type: integer, required: true, foreignTable: object, foreignReference: id }
+    type_id: { type: integer, foreignTable: term, foreignReference: id }
+    start_date: bu_date
+    end_date: bu_date
+
+  relation_i18n:
+    description: longvarchar
+    date: varchar(1024)
+
+  repository:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: actor, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    identifier: varchar(1024)
+    desc_status_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    desc_detail_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    desc_identifier: varchar(1024)
+    upload_limit: { type: float }
+
+  repository_i18n:
+    geocultural_context: longvarchar
+    collecting_policies: longvarchar
+    buildings: longvarchar
+    holdings: longvarchar
+    finding_aids: longvarchar
+    opening_times: longvarchar
+    access_conditions: longvarchar
+    disabled_access: longvarchar
+    research_services: longvarchar
+    reproduction_services: longvarchar
+    public_facilities: longvarchar
+    desc_institution_identifier: varchar(1024)
+    desc_rules: longvarchar
+    desc_sources: longvarchar
+    desc_revision_history: longvarchar
+
+  rights:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    start_date: bu_date
+    end_date: bu_date
+    restriction: { type: boolean, default: true }
+    basis_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    act_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    rights_holder_id: { type: integer, foreignTable: actor, foreignReference: id, onDelete: setnull }
+    copyright_status_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }i
+    copyright_status_date: bu_date
+    copyright_jurisdiction: varchar(1024)
+    statute_determination_date: bu_date
+
+  rights_i18n:
+    rights_note: longvarchar
+    copyright_note: longvarchar
+    license_identifier: longvarchar
+    license_terms: longvarchar
+    license_note: longvarchar
+    statute_jurisdiction: longvarchar
+    statute_citation: longvarchar
+    statute_note: longvarchar
+
+  rights_holder:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: actor, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+
+  setting:
+    name: varchar(255)
+    scope: varchar(255)
+    editable: { type: boolean, default: false }
+    deleteable: { type: boolean, default: false }
+
+  setting_i18n:
+    value: longvarchar
+
+  slug:
+    object_id: { type: integer, index: unique, required: true, foreignTable: object, foreignReference: id, onDelete: cascade }
+    slug: { index: unique, required: true }
+
+  static_page:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+
+  static_page_i18n:
+    title: varchar(1024)
+    content: longvarchar
+
+  status:
+    object_id: { type: integer, required: true, foreignTable: object, foreignReference: id, onDelete: cascade }
+    type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: cascade }
+    status_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: cascade }
+
+  taxonomy:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    usage: varchar(1024)
+    parent_id: { type: integer, foreignTable: taxonomy, foreignReference: id }
+    lft: { type: integer, required: true, nestedSetLeftKey: true }
+    rgt: { type: integer, required: true, nestedSetRightKey: true }
+
+  taxonomy_i18n:
+    name: varchar(1024)
+    note: longvarchar
+
+  term:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    taxonomy_id: { type: integer, required: true, foreignTable: taxonomy, foreignReference: id, onDelete: cascade }
+    code: varchar(1024)
+    parent_id: { type: integer, foreignTable: term, foreignReference: id }
+    lft: { type: integer, required: true, nestedSetLeftKey: true }
+    rgt: { type: integer, required: true, nestedSetRightKey: true }
+
+  term_i18n:
+    name: varchar(1024)
+
+  user:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: actor, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    username: varchar(255)
+    email: varchar(255)
+    sha1_password: varchar(255)
+    salt: varchar(255)
+    active: { type: boolean, default: true }

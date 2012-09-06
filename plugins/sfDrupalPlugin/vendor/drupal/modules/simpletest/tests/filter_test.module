@@ -1,0 +1,41 @@
+<?php
+// $Id: filter_test.module,v 1.4 2009/12/04 16:49:47 dries Exp $
+
+/**
+ * @file
+ * Test module for Filter module hooks and functions not used in core.
+ */
+
+/**
+ * Implements hook_filter_format_insert().
+ */
+function filter_test_filter_format_insert($format) {
+  drupal_set_message('hook_filter_format_insert invoked.');
+}
+
+/**
+ * Implements hook_filter_format_update().
+ */
+function filter_test_filter_format_update($format) {
+  drupal_set_message('hook_filter_format_update invoked.');
+}
+
+/**
+ * Implements hook_filter_format_delete().
+ */
+function filter_test_filter_format_delete($format, $default) {
+  drupal_set_message('hook_filter_format_delete invoked.');
+}
+
+/**
+ * Implements hook_filter_info().
+ */
+function filter_test_filter_info() {
+  $filters['filter_test_uncacheable'] = array(
+    'title' => 'Uncacheable filter',
+    'description' => 'Does nothing, but makes a text format uncacheable.',
+    'cache' => FALSE,
+  );
+  return $filters;
+}
+

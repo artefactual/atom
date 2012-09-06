@@ -1,0 +1,35 @@
+propel:
+  _attributes:      { package: plugins.qbAclPlugin.lib.model }
+
+  acl_group:
+    _attributes:    { phpName: aclGroup }
+    id:             ~
+    parent_id:      { type: integer, foreignTable: acl_group, foreignReference: id, onDelete: cascade }
+    lft:            { type: integer, required: true, nestedSetLeftKey: true }
+    rgt:            { type: integer, required: true, nestedSetRightKey: true }
+    created_at:
+    updated_at:
+
+  acl_group_i18n:
+    _attributes:    { phpName: aclGroupI18n }
+    name:           { type: varchar, size: 255 }
+    description:    { type: longvarchar }
+
+  acl_permission:
+    _attributes:    { phpName: aclPermission }
+    id:             ~
+    user_id:        { type: integer, foreignTable: user, foreignReference: id, onDelete: cascade }
+    group_id:       { type: integer, foreignTable: acl_group, foreignReference: id, onDelete: cascade }
+    object_id:      { type: integer, foreignTable: object, foreignReference: id, onDelete: cascade }
+    action:         { type: varchar }
+    grant_deny:     { type: integer, required: true, default: 0 }
+    conditional:    { type: longvarchar }
+    constants:      { type: longvarchar }
+    created_at:
+    updated_at:
+
+  acl_user_group:
+    _attributes:    { phpName: aclUserGroup }
+    id:             ~
+    user_id:        { type: integer, required: true, foreignTable: user, foreignReference: id, onDelete: cascade }
+    group_id:       { type: integer, required: true, foreignTable: acl_group, foreignReference: id, onDelete: cascade }

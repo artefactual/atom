@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2012-08-15T12:06:00Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new archival description</source>
+        <target>Tambahkan Deskripsi Arsip</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>tanpa judul</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>"Give the date(s) of creation of the unit being described either as a single date, or range of dates (for inclusive dates and/or predominant dates). Always give the inclusive dates. When providing predominant dates, specify them as such, preceded by the word predominant..." (RAD 1.4B2) Record probable and uncertain dates in square brackets, using the conventions described in 1.4B5.</source>
+        <target>"Berikan tanggal penciptaan berkas tersebut, baik berupa sebuah tanggal tersendiri atau jangka waktu antara beberapa periode waktu. Apabila sebuah tanggal lebih utama dari tanggal yang lain, berikan tanda spesifik seperti, menambahkan diawalnya kata utama... atau 'predominant...' (RAD 1.4B2) arsip dengan tanggal yang diragukan berikan tanda kurung siku [], berdasarkan konvensi pada 1.4B5.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>"Make notes on dates and any details pertaining to the dates of creation, publication, or distribution, of the unit being described that are not included in the Date(s) of creation, including publication, distribution, etc., area and that are considered to be important." (RAD 1.8B8) "Make notes on the date(s) of accumulation or collection of the unit being described." (RAD 1.8B8a)</source>
+        <target>"Buat catatan berupa tanggal dan deskripsi detail lain yang menjelaskan tentang tanggal penciptaan, publikasi, atau distribusi, dari berkas yang sedang dideksripsikan apabila tidak tercantum pada deskripsi yang menjelaskan tanggal penciptaan arsip, dan deskripsi ini dianggap penting untuk arsip." (RAD 1.8B8) "Buat catatan pada tanggal akumulasi atau koleksi berkas yang sedang dideskripsikan." (RAD 1.8B8a)</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Select the type of activity that established the relation between the authority record and the archival description (e.g. creation, accumulation, collection, publication, etc.)</source>
+        <target>Pilih tipe aktivitas yang menjelaskan hubungan antara pencipta arsip dan deskripsi arsip (contoh. penciptaan, akumulasi, koleksi, publikasi, dll)</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>This archival description requires at least one date.</source>
+        <target>Deskripsi arsip ini membutuhkan minimal satu deskripsi tanggal</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Date(s) - are not consistent with %1%higher levels%2%.</source>
+        <target>Tanggal - tidak konsisten dengan %1%level yang lebih tinggi%2%</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Physical description - This is a mandatory element.</source>
+        <target>Deskripsi fisik - Bagian ini merupakan elemen yang harus diisi.</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Scope and content - This is a mandatory element.</source>
+        <target>Cakupan dan isi - Bagian ini merupakan elemen yang harus diisi.</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Title - This is a mandatory element.</source>
+        <target>Judul - Bagian ini merupakan elemen yang harus diisi.</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Level of description - Value "%value%" is not consistent with higher levels.</source>
+        <target>Level Deskripsi - Nilai "%value%" tidak konsisten dengan level yang lebih tinggi.</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Level of description - This is a mandatory element.</source>
+        <target>Level Deskripsi - Bagian ini merupakan elemen yang harus diidi.</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Statement of scale (architectural) - This is a mandatory element for architectural drawing.</source>
+        <target>Pernyataan skala (arsitektur) - bagian ini merupakan elemen yagn harus diisi untuk gambar teknik arsitektur.</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Statement of coordinates (cartographic) - This is a mandatory element for cartographic material.</source>
+        <target>Pernyataan Koordinat (Peta) - Bagian ini merupakan elemen yang harus diisi.</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Statement of projection (cartographic) - This is a mandatory element for cartographic material.</source>
+        <target>Pernyataan Proyeksi (Peta) - Bagian ini merupakan elemen yang harus diisi untuk arsip peta.</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Statement of scale (cartographic) - This is a mandatory element for cartographic material.</source>
+        <target>Pernyataan skala (peta) - Bagian ini merupakan elemen yang harus diisi untuk material peta.</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
+        <target>Issuing jurisdiction and denomination (philatelic) - Bagian ini merupakan elemen yang harus diisi.</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Edition statement - This is a mandatory element for published items.</source>
+        <target>Pernyataan edisi - Bagian ini merupakan elemen yang harus diisi untuk item yang sudah dipublikasikan.</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Standard number - This is a mandatory element for published items.</source>
+        <target>Standard number - Bagian ini merupakan elemen yang harus diisi.</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>View archival description</source>
+        <target>Perlihatkan Deskripsi Arsip</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Edit archival description</source>
+        <target>Edit deskripsi arsip</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Part of %1%</source>
+        <target>Bagian dari %1%</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Title and statement of responsibility area</source>
+        <target>Area Judul dan Pernyataan Penanggungjawab</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Edit title and statement of responsibility area</source>
+        <target>Edit area judul dan pernyataan tanggungjawab</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Title proper</source>
+        <target>Judul yang sesuai</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>General material designation</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Parallel title</source>
+        <target>Judul paralel</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Other title information</source>
+        <target>Informasi judul lain</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Title statements of responsibility</source>
+        <target>Pernyataan Judul Penanggungjawab</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Title notes</source>
+        <target>Catatan Judul</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Level of description</source>
+        <target>Level Deskripsi</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Repository</source>
+        <target>Repositori</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Reference code</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Edition area</source>
+        <target>Area edisi</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Edit edition area</source>
+        <target>Edit area edisi</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Edition statement</source>
+        <target>Pernyataan edisi</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Edition statement of responsibility</source>
+        <target>Pernyataan penanggungjawab edisi</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Class of material specific details area</source>
+        <target>Area detail materi spesifik</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Edit class of material specific details area</source>
+        <target>Edit area detail material spesifik</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Statement of scale (cartographic)</source>
+        <target>Pernyataan skala (peta)</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Statement of projection (cartographic)</source>
+        <target>Pernyataan Proyeksi (Peta)</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Statement of coordinates (cartographic)</source>
+        <target>Pernyataan Koordinat (Peta)</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Statement of scale (architectural)</source>
+        <target>Pernyataan skala (arsitektur)</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Issuing jurisdiction and denomination (philatelic)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Dates of creation area</source>
+        <target>Tanggal Area Penciptaan</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Edit dates of creation area</source>
+        <target>Edit area tanggal penciptaan</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Physical description area</source>
+        <target>Area deskripsi fisik</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Edit physical description area</source>
+        <target>Edit area deskripsi fisik</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Physical description</source>
+        <target>Deskripsi fisik</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Publisher's series area</source>
+        <target>Area Series Penerbit</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Edit publisher's series area</source>
+        <target>Edit area series penerbit</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Title proper of publisher's series</source>
+        <target>Judul dari series penerbit</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Parallel titles of publisher's series</source>
+        <target>Judul paralel dari series penerbit</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Other title information of publisher's series</source>
+        <target>Informasi judul lain dari series penerbit</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Statement of responsibility relating to publisher's series</source>
+        <target>Pernyataan Penanggungjawab yang berkaitan dengan series penerbit</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Numbering within publisher's series</source>
+        <target>Nomor seperti pada series penerbit</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Note on publisher's series</source>
+        <target>Catat pada layanan penerbit</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Archival description area</source>
+        <target>Area Deskripsi Arsip</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Edit archival description area</source>
+        <target>Edit area deskripsi arsip</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Custodial history</source>
+        <target>Sejarah Pemeliharaan Arsip</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Scope and content</source>
+        <target>Cakupan dan isi</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Notes area</source>
+        <target>Area Catatan</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Edit notes area</source>
+        <target>Edit area catatan</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Physical condition</source>
+        <target>Kondisi fisik</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Immediate source of acquisition</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Arrangement</source>
+        <target>Penataan</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Language of material</source>
+        <target>Bahasa dari material</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Script of material</source>
+        <target>Naskah Material Arsip</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Language and script note</source>
+        <target>Catatan Bahasan dan Naskah</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Location of originals</source>
+        <target>Lokasi berkas original</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Availability of other formats</source>
+        <target>Ketersediaan dalam format lain</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Restrictions on access</source>
+        <target>Pembatasan Akses</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Terms governing use, reproduction, and publication</source>
+        <target>Istilah yang mengatur penggunaan, reproduksi, dan publikasi</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Finding aids</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Associated / related material</source>
+        <target>Asosiasi/ materi yang berkaitan</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Accruals</source>
+        <target>Akrual</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Other notes</source>
+        <target>Catatan lain</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Standard number area</source>
+        <target>Area Standard Number</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Edit standard number area</source>
+        <target>Edit area standar nomor</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Standard number</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Access points</source>
+        <target>Titik Temu</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Edit access points</source>
+        <target>Edit titik temu</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Control area</source>
+        <target>Area Kontrol</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Edit control area</source>
+        <target>Edit area kontrol</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Description record identifier</source>
+        <target>Deskripsi identifier arsip</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Institution identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Rules or conventions</source>
+        <target>Peraturan atau Konvensi</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Status</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Level of detail</source>
+        <target>Level tingkat kedetailan</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Dates of creation, revision and deletion</source>
+        <target>Tanggal untuk penciptaan, revisi, dan pemusnahan</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Language of description</source>
+        <target>Bahasa dari deskripsi</target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Script of description</source>
+        <target>Naskah Deskripsi Arsip</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Sources</source>
+        <target>Sumber</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Rights area</source>
+        <target>Area Pemegang Hak</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Edit rights area</source>
+        <target>Edit area pemegang hak</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Accession area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Edit archival description - RAD</source>
+        <target>Edit deskripsi arsip - RAD</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>This is a duplicate of record %1%</source>
+        <target>Ini adalah duplikasi dari arsip %1%</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
+        <target>Masukkkan judul yang sesuai, baik dituliskan langsung atau dicantumkan. (RAD 1.1B)</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>This is a mandatory element.</source>
+        <target>Bagian ini merupakan elemen yang harus diisi.</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
+        <target>Pilih GMD pada level deskripsi yang lebih tinggi. Jika Jika terdiri lebih dari 3 GMD, maka pilih "miltiple media" (RAD 1.1C)</target>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>"[W]hen applicable, transcribe parallel titles that appear in conjunction with the formal title proper..." (RAD 1.1D)</source>
+        <target>"Jika bisa diterapkan, tuliskan judul paralel yang ada pada judul formal berkas..." (RAD 1.1D)</target>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Parallel titles</source>
+        <target>Judul paralel</target>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>"Transcribe other title information that appears in conjunction with the formal title proper..." (RAD 1.1E)</source>
+        <target>"Tuliskan informasi lain mengenai judul yang berkaitan dengan judul formal..." (RAD 1.1E)</target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)</source>
+        <target>"Pada level item, tuliskan pernyataan penanggungjawab secara jelas yang terdapat pada judul arsip atau pada sumber informasi utama arsip..." (RAD 1.1F)</target>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Statement of responsibility</source>
+        <target>Pernyataan penanggungjawab</target>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Note type</source>
+        <target>Tipe Catatan</target>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Select a note type from the drop-down menu and enter note text in accordance with RAD 1.8B1 through 1.8B6.</source>
+        <target>Pilih tipe catatan dari daftar dan berikan teks catatan sesuai dengan RAD 1.8B1 sampai 1.8B6.</target>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
+        <target>Pilih level deskripsi dari daftar. Lihat RAD 1.0A untuk bagaimana aturan dan konvensi dalam pemilihan level deskripsi arsip.</target>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Enter an unambiguous code used to uniquely identify the description.&lt;br/&gt;&lt;strong&gt;Level:&lt;/strong&gt; Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
+        <target>&lt;strong&gt;Identifier:&lt;/strong&gt; Masukkan kode yang digunakan sebagai identifikasi untuk deskripsi arsip, unik dan tidak membingungkan.&lt;br/&gt;&lt;strong&gt;Level:&lt;/strong&gt; pilih level deskripsi dari daftar. lihat RAD 1.0A untuk aturan dan konvensi pada level deskripsi yang anda pilih.&lt;br/&gt;&lt;strong&gt;Judul:&lt;/strong&gt; Masukkan judul yang sesuai , tuliskan atau cantumkan secara jelas. (RAD 1.1B)</target>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
+        <target>Pilih repositori yang menyimpan dan mengkontrol materi arsip. Nilai dari bagian ini berdasar pada nama institusi arsip dari data institusi arsip. Cari nama yang sudah tersedia di daftar dengan ketik beberapa kata. Atau, ketik nama baru untuk menciptakan institusi arsip baru.</target>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Enter an unambiguous code used to uniquely identify the description.</source>
+        <target>Berikan kode yang jelas dan tidak ambigu yang bisa digunakan secara unik untuk mengidentifikasi deskripsi ini.</target>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>"Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
+        <target>"Tuliskan pernyataan edisi yang berkaitan dengan item yang sedang dideskripsikan." (RAD 1.2B1) "jika item yang sedang dideskripsikan tidak terdapat pernyataan edisi akan tetapi diketahui terdapat perubahan cukup besar dari edisi sebelumnya, berikan pernyataan ringkas mengenai hal tersebut dengan kurung siku." (RAD 1.2B3)</target>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
+        <target>"Tuliskan pernyataan penanggungjawab yang berhubungan dengan satu atau lebih edisi, akan tetapi tidak semua edisi, dari item yang sedang dideskripsikan jika ada." (RAD 1.2.C1) "Saat mendeskripsikan edisi perdana, berikan seluruh pernyataan dari penanggungjawab pada judul dan area pernyataan penanggung jawab." (RAD 1.2C2)</target>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Statement of responsibility relating to the edition</source>
+        <target>Pernyataan penanggunjawab berkaitan dengan edisi</target>
+      </trans-unit>
+      <trans-unit id="117">
+        <source>"Give the scale of the unit being described...as a representative fraction (RF) expressed as a ratio (1: ). Precede the ratio by Scale. Give the scale even if it is already recorded as part of the title proper or other title information." (RAD 5.3B1)</source>
+        <target>"Berikan Skala dari berkas arsip yang sedang dideksripsikan... sebagai perwakilan dari beberapa potongan (representative fraction-RF) dengan rasio (1: ). Utamakan penggunaan rasio dengan Skala. Berikan skala walaupun sudah diberikan pada bagian judul atau judul informasi lain dari arsip." (RAD 5.3B1)</target>
+      </trans-unit>
+      <trans-unit id="118">
+        <source>"Give the statement of projection if it is found on the prescribed source(s) of information." (RAD 5.3C1)</source>
+        <target>"Berikan pernyataan yang menjelaskan proyeksi berkas arsip apabila ditemukan dari informasi yang terdapat pada arsip." (RAD 5.3C1)</target>
+      </trans-unit>
+      <trans-unit id="119">
+        <source>"At the fonds, series or file levels, record coordinates for the maximum coverage provided by the materials in the unit, as long as they are reasonably contiguous." (RAD 5.3D)</source>
+        <target>"Pada level fonds, series atau file, berikan informasi mengenai koordinat yang terdapat atau tertera pada material rekod tersebut, selama batas koordinat tersebut bisa dipertanggungjawabkan." (RAD 5.3D)</target>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>"Give in English the scale in the units of measure found on the unit being described. If there is no English equivalent for the name of the unit of measure, give the name, within quotation marks, as found on the unit being described." (RAD 6.3B)</source>
+        <target>"Berikan skala sebagaimana terdapat dalam berkas. Jika tidak ada ukuran yang sesuai atau sama dengan satuan secara umum, tuliskan skala yang tertera dan gunakan tanda petik ("), sebagaimana ditemukan dalam berkas." (RAD 6.3B)</target>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>"Give the name of the jurisdiction (e.g., government) responsible for issuing the philatelic records." (RAD 12.3B1) "For all units possessing a denomination (e.g., postage stamps, revenue stamps, postal stationery items), give the denomination in a standardized format, recording the denomination number in arabic numerals followed by the name of the currency unit. Include a denomination statement even if the denomination is already recorded as part of the title proper or other title information." (RAD 12.3C1)</source>
+        <target>"Berikan nama pemegang kewenangan (mis. badan pemerintah A) yang bertanggung jawab terhadap arsip yang disertai perangko." (RAD 12.3B1)" Untuk berkas yang menggunakan satuan pos tertentu (mis. Stampel Pos, Cap Pos, Perangko, dan berbagai item pos), berikan satuannya dalam sebuah standar yang baku, catat satuan pos dalam nomor arab diikuti dengan nama dari mata uang yang berlaku. Termasuk pernyataan satuan pos baik pada judul atau informasi lain dari berkas arsip." (RAD 12.3C1)</target>
+      </trans-unit>
+      <trans-unit id="122">
+        <source>Add new name and/or date(s)</source>
+        <target>Tambahkan nama dan/ atau tanggal</target>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>"At all levels record the extent of the unit being described by giving the number of physical units in arabic numerals and the specific material designation as instructed in subrule .5B in the chapter(s) dealing with the broad class(es) of material to which the unit being described belongs." (RAD 1.5B1) Include other physical details and dimensions as specified in RAD 1.5C and 1.5D. Separate multiple entries in this field with a carriage return (i.e. press the Enter key on your keyboard).</source>
+        <target>"Pada semua level arsip satuan luas, lebar, atau panjang dari sebuah berkas dideskripsikan dengan memberikan nomor yang menjelaskan berapa banyak jumlah fisik suatu berkas menggunakan nomor arab dan simbol atau penunjukkan khusus sebagaimana di instruksikan pada bagian .5B "(RAD 1.5B1) termasuk detail fisik dan dimensi yang dijelaskan pada RAD 1.5C dan 1.5D. Memisahkan beberapa entri yang berbeda pada deskripsi ini agar memudahkan penerjemahan deskripsi(mis. tekan tombol Enter pada keyboard anda).</target>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>"At the item level of description, transcribe a title proper of the publisher's series as instructed in 1.1B1." (RAD 1.6B)</source>
+        <target>"Pada level deskripsi item, tuliskan judul yang sesuai dengan series yang dibuat oleh penerbit arsip sebagaimana di instruksikan pada 1.1B1." (RAD 1.6B)</target>
+      </trans-unit>
+      <trans-unit id="125">
+        <source>"Transcribe parallel titles of a publisher's series as instructed in 1.1D." (RAD 1.6C1)</source>
+        <target>"Tuliskan judul paralel dari series penerbitan sebagaimana diinstruksikan pada 1.1D." (RAD 1.6C1)</target>
+      </trans-unit>
+      <trans-unit id="126">
+        <source>Parallel title of publisher's series</source>
+        <target>Judul paralel dari series penerbit</target>
+      </trans-unit>
+      <trans-unit id="127">
+        <source>"Transcribe other title information of a publisher's series as instructed in 1.1E and only if considered necessary for identifying the publisher's series." (RAD 1.6D1)</source>
+        <target>"Tuliskan informasi lain mengenai judul dari series penerbit sebagaimana diinstruksikan pada 1.1E dan hanya jika diperlukan untuk identifikasi series penerbitan." (RAD 1.6D1)</target>
+      </trans-unit>
+      <trans-unit id="128">
+        <source>"Transcribe explicit statements of responsibility appearing in conjunction with a formal title proper of a publisher's series as instructed in 1.1F and only if considered necessary for identifying the publisher's series." (RAD 1.6E1)</source>
+        <target>"Tuliskan secara tegas pernyataan mengenai penggungjawab yang berhubungan dengan judul formal dari suatu series penerbit sebagaimana diinstruksikan di 1.1F dan jika hanya diperlukan untuk mengidentifikasi series penerbit." (RAD 1.6E1)</target>
+      </trans-unit>
+      <trans-unit id="129">
+        <source>"Give the numbering of the item within a publisher's series in the terms given in the item." (RAD 1.6F1)</source>
+        <target>"Berikan nomor series yang ada pada berkas arsip seperti seri penerbit." (RAD 1.6F1)</target>
+      </trans-unit>
+      <trans-unit id="130">
+        <source>"Make notes on important details of publisher's series that are not included in the Publisher's series area, including variant series titles, incomplete series, and of numbers or letters that imply a series." (RAD 1.8B10)</source>
+        <target>"Buat catatan detail series penerbit yang tidak tertulis pada area/ field series penerbit, termasuk jika ada variasi judul series, series yang belum selesai penulisannya, dan nomor atau kalimat yang menegaskan suatu series." (RAD 1.8B10)</target>
+      </trans-unit>
+      <trans-unit id="131">
+        <source>Administrative history</source>
+        <target>Sejarah Administratif</target>
+      </trans-unit>
+      <trans-unit id="132">
+        <source>Biographical sketch</source>
+        <target>Sketsa Biografi</target>
+      </trans-unit>
+      <trans-unit id="133">
+        <source>Edit authority record</source>
+        <target>Edit Pencipta Arsip</target>
+      </trans-unit>
+      <trans-unit id="134">
+        <source>"Give the history of the custody of the unit being described, i.e., the successive transfers of ownership and custody or control of the material, along with the dates thereof, insofar as it can be ascertained." (RAD 1.7C)</source>
+        <target>"Berikan penjelasan sejarah dari tempat penyimpanan arsip dimana arsip yang sedang dideskripsikan disimpan, mis., proses transfer antara pemilik arsip dan unit kearsipan atau kontrol material arsip, disertai dengan tanggal berkas arsip tersebut dipindahkan, selama segala penjelasan arsip tersebut dipastikan dengan jelas." (RAD 1.7C)</target>
+      </trans-unit>
+      <trans-unit id="135">
+        <source>"At the fonds, series, and collection levels of description, and when necessary at the file and the item levels of description, indicate the level being described and give information about the scope and the internal structure of or arrangement of the records, and about their contents." (RAD 1.7D) "For the scope of the unit being described, give information about the functions and/or kinds of activities generating the records, the period of time, the subject matter, and the geographical area to which they pertain. For the content of the unit being described, give information about its internal structure by indicating its arrangement, organization, and/or enumerating its next lowest level of description. Summarize the principal documentary forms (e.g., reports, minutes, correspondence, drawings, speeches)." (RAD 1.7D1)</source>
+        <target>"Pada Level Fonds, Series, dan Koleksi, dan juga terhadap level deskripsi file dan item, indikasikan level yang sedang dideksripsikan dan berikan informasi tentang cakupan dan stuktur internal untuk penataan arsip, dan tentang konten isinya." (RAD 1.7D) "Untuk Cakupan dari berkas yang sedang dideskripsikan, berikan informasi tentang fungsi atau aktivitas bisnis yang menghasilkan arsip tersebut, periode waktu, subjek masalah, dan area atau wilayah geografis yang berkaitan didalam informasinya. Untuk Konten atau isi dari berkas yang sedang dideskripsikan, berikan informasi tentang penataan fisik arsip, struktur organisasi, dan/ atau menjelaskan bagian lebih dalam dari level deskripsi arsipnya. Berikan penjelasan ringkas tentang format arsip yang sedang dideskripsikan (mis., laporan, pidato, korespondensi, peta, gambar teknik/ blueprint)." (RAD 1.7D1)</target>
+      </trans-unit>
+      <trans-unit id="136">
+        <source>"Make notes on the physical condition of the unit being described if that condition materially affects the clarity or legibility of the records." (RAD 1.8B9a)</source>
+        <target>"Buat catatan tentang kondisi fisik berkas arsip yang sedang dideskripsikan jika kondisi material arsip mempengaruhi kejelasan isi dan kemudahan dalam membacanya." (RAD 1.8B9a)</target>
+      </trans-unit>
+      <trans-unit id="137">
+        <source>"Record the donor or source (i.e., the immediate prior custodian) from whom the unit being described was acquired, and the date and method of acquisition, as well as the source/donor's relationship to the material, if any or all of this information is not confidential. If the source/donor is unknown, record that information." (RAD 1.8B12)</source>
+        <target>"Berikan informasi pendonor atau sumber arsip (mis. tempat penyimpanan) tempat berkas arsip tersebut berasal, dan tanggal serta metode dalam akuisisi, juga relasi antara organisasi pendonor atau sumber arsip dengan material arsip. Jika pendonor atau sumber arsip tidak diketahui, catat informasi tersebut." (RAD 1.8B12)</target>
+      </trans-unit>
+      <trans-unit id="138">
+        <source>"Make notes on the arrangement of the unit being described which contribute significantly to its understanding but cannot be put in the Scope and content (see 1.7D), e.g., about reorganisation(s) by the creator, arrangement by the archivist, changes in the classification scheme, or reconstitution of original order." (RAD 1.8B13)</source>
+        <target>"Buat catatan mengenai penataan berkas arsip yang sedang dideskripsikan apabila hal tersebut penting akan tetapi tidak cocok jika ditempatkan pada area Cakupan dan Isi arsip (lihat 1.7D), mis. tentang pengorganisasian kembali oleh pencipta arsip, penataan ulang oleh arsiparis, perubahan skema klasifikasi, atau perubahan dasar penyusunan dalam original order." (RAD 1.8B13)</target>
+      </trans-unit>
+      <trans-unit id="139">
+        <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target>"Catat penggunaan bahasa atau informasi mengenai bahasa yang digunakan oleh berkas arsip, kecuali sudah dijelaskan pada field lain." (RAD 1.8.B14). Pilih bahasa dari daftar; ketik beberapa kata untuk mempersempit pilihan.</target>
+      </trans-unit>
+      <trans-unit id="140">
+        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target>"Berikan karakter istimewa berupa alfabet atau simbol dari sistem yang digunakan." (RAD 1.8.B14) Pilih naskah dari daftar; masukkan beberapa huruf pertama untuk mempersempit pilihan.</target>
+      </trans-unit>
+      <trans-unit id="141">
+        <source>Language and script notes</source>
+        <target>Catatan Bahasan dan Naskah</target>
+      </trans-unit>
+      <trans-unit id="142">
+        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).</source>
+        <target>"Berikan karakter istimewa berupa alfabet atau simbol sari sistem yang digunakan." (RAD 1.8.B14)</target>
+      </trans-unit>
+      <trans-unit id="143">
+        <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
+        <target>"JIka berkas arsip yang sedang dideksripsikan adalah sebuah produksi ulang dan lokasi fisik berkas original diketahui, maka tuliskan lokasi tersebut. Berikan, berupa tambahan, nomor yang mengindentifikasikan atau menjelaskan dimana letak dari berkas original/ asli dari arsip yang dimaksud. JIka berkas original diketahui tidak lagi tersedia, jelaskan informasi tersebut." (RAD 1.8B15a)</target>
+      </trans-unit>
+      <trans-unit id="144">
+        <source>"If all or part of the unit being described is available (either in the institution or elsewhere) in another format(s), e.g., if the text being described is also available on microfilm; or if a film is also available on videocassette, make a note indicating the other format(s) in which the unit being described is available and its location, if that information is known. If only a part of the unit being described is available in another format(s), indicate which parts." (RAD 1.8B15b)</source>
+        <target>"Jika semua atau beberapa bagian dari berkas arsip yang sedang dideksripsikan tersedia (baik di institusi tersebut atau ditempat lain) dalam format yang berbeda, mis. apabila teks suatu berkas arsip juga tersedia dalam format mikrofilm; atau sebuah film ternyata juga tersedia formatnya dalam kaset video, buatkan catatan yang mengindikasikan format yang berbeda tersebut bagian mana dari berkas arsip tersebut yang tersedia dan lokasinya, jika informasi tersebut diketahui. Jika hanya beberapa bagian yang tersedia dalam format yang berbeda, jelaskan bagian mana dan dalam format apa arsip tersebut dapat terbaca." (RAD 1.8B15b)</target>
+      </trans-unit>
+      <trans-unit id="145">
+        <source>"Give information about any restrictions placed on access to the unit (or parts of the unit) being described." (RAD 1.8B16a)</source>
+        <target>"Berikan informasi tentang batasan akses untuk berkas (atau beberapa bagian dari berkas) yang sedang dideskripsikan." (RAD 1.8B16a)</target>
+      </trans-unit>
+      <trans-unit id="146">
+        <source>"Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c)</source>
+        <target>"Berikan informasi tentang legalitas atau batasan hak dari pendonor yang mepengerahui dalam penggunaan atau reproduksi dari material arsip." (RAD 1.8B16c)</target>
+      </trans-unit>
+      <trans-unit id="147">
+        <source>"Give information regarding the existence of any finding aids. Include appropriate administrative and/or intellectual control tools over the material in existence at the time the unit is described, such as card catalogues, box lists, series lists, inventories, indexes, etc." (RAD 1.8B17)</source>
+        <target>"Berikan informasi mengenai keberadaan daftar pencarian arsip. Termasuk kontrol administratif atau suatu kontrol intelektual yang digunakan untuk material arsip tersebut, contoh kartu katalog, daftar boks, daftar series, daftar inventori, indeks, dll." (RAD 1.8B17)</target>
+      </trans-unit>
+      <trans-unit id="148">
+        <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
+        <target>Untuk material yang berasosiasi, "Jika arsip pada institusi lain berkaitan dengan unit yang sedang dideskripsikan untuk kebaikan dan keterjagaan informasi kedua arsip memiliki prinsip provenance yang sama, maka buatkan sitasi untuk material arsip yang berkaitan tersebut pada level fonds, series atau koleksi atau item yang terpisah, indikasikan lokasinya jika diketahui." (RAD 1.8B18). Untuk material arsip yang berrelasi, "Indikasikan kelompok kerja dari arsip tersebut yang memiliki relasi dengan alasan pembagian tanggungjawab atau pembagian lingkungan kerja dari suatu aktivitas pada satu atau lebih unit dari material eksternal kepada berkas yang sedang dideskripsikan." (RAD 1.8B20)</target>
+      </trans-unit>
+      <trans-unit id="149">
+        <source>Associated/related material</source>
+        <target>Asosiasi/ materi yang berkaitan</target>
+      </trans-unit>
+      <trans-unit id="150">
+        <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
+        <target>"Apabila berkas yang sedang dideskripsikan belum selesai, mis. sebuah kumpulan series yang sedang berjalan, buat catatan yang menjelaskan bahwa akan terdapat akumulasi selanjutnya dari berkas tersebut... jika diperkirakan tidak terdapat akumulasi tambahan terhadap berkas tersebut maka dianggap series sudah selesai." (RAD 1.8B19)</target>
+      </trans-unit>
+      <trans-unit id="151">
+        <source>Select a note type from the drop-down menu and enter note text in accordance with the following sections in RAD: 1.5E (Accompanying material); 1.8 B11 (Alpha-numeric designations); 1.8B9b (Conservation); 1.8B7 (Edition); 1.8B9 (Physical Description); 1.8B16b (Rights); 1.8B21 (General note).</source>
+        <target>Pilih tipe catatan dari daftar dan berikan teks informasi sesuai dengan bagian RAD: 1.5E (Accomapnying material); 1.8 B11 (Alpha-numeric designations); 1.8B9b (Conservation); 1.8B7 (Edition); 1.8B9 (Physical Description); 1.8B16b (rights); 1.8B21 (general note).</target>
+      </trans-unit>
+      <trans-unit id="152">
+        <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
+        <target>"Berikan ISBN atau 'International Standard Book Number', ISSN atau 'International Standard Serial Number', atau standar nomor internasional lain untuk arsip yang sedang dideskripsikan. Berikan nomor dengan singkatan, spasi, dan kata sambung yang dikenal secara umum." (RAD 1.9B1)</target>
+      </trans-unit>
+      <trans-unit id="153">
+        <source>Subject access points</source>
+        <target>Akses Poin Subjek</target>
+      </trans-unit>
+      <trans-unit id="154">
+        <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
+        <target>Cari nama subjek yang sudah tersedia dalam daftar taksonomi dengan ketik beberapa kata dari istilah yang diinginkan. Atau, ketik istilah baru untuk menciptakan dan hubungkan istilah subjek baru.</target>
+      </trans-unit>
+      <trans-unit id="155">
+        <source>Place access points</source>
+        <target>Tempat akses poin</target>
+      </trans-unit>
+      <trans-unit id="156">
+        <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
+        <target>Cari nama tempat yang sudah ada pada daftar taksonomi dengan ketik beberapa huruf awal dari nama tempat. Atau, ketik istilah baru untuk menciptakan nama tempat yang sesuai.</target>
+      </trans-unit>
+      <trans-unit id="157">
+        <source>Name access points (subjects)</source>
+        <target>Nama Akses Poin (subjek)</target>
+      </trans-unit>
+      <trans-unit id="158">
+        <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target>"Pilihlah provenance, pencipta, dan non-subjek lainnya yang digunakan sebagai akses poin dari arsip yang sedang dideskripsikan, setepat mungkin." (RAD 21.0B) Field ini merupakan penjelasan penanggung jawab dari authority record/ pencipta arsip. Cari untuk beberapa nama yang sudah ada dengan ketik beberapa kata, atau ketik nama baru untuk membuat dan menghubungkan dengan pencipta arsip yang baru.</target>
+      </trans-unit>
+      <trans-unit id="159">
+        <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
+        <target>Berikan deskripsi identifier yang unik sesuai dengan konvensi lokal dan/ atau nasional. Jika deskripsi akan digunakan secara internasional, berikan kode negara pada deskripsi dengan mengikuti versi terakhir ISO 3166 - 'Codes for the representation of names of countries'. Jika pencipta berkas arsip adalah organisasi internasional, berikan identifier organisasi pada bagian kode negara.</target>
+      </trans-unit>
+      <trans-unit id="160">
+        <source>Description identifier</source>
+        <target>Deskripsi Identifier</target>
+      </trans-unit>
+      <trans-unit id="161">
+        <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
+        <target>Berikan informasi mengenai nama agensi/ unit yang bertanggung jawab dalam penciptaan, modifikasi atau penyebaran deskripsi, atau berikan kode agensi atau unit yang dimaksud sesuai standar kode nasional atau internasional untuk agensi/ unit tersebut.</target>
+      </trans-unit>
+      <trans-unit id="162">
+        <source>Record the international, national and/or local rules or conventions followed in preparing the description.</source>
+        <target>Berikan informasi mengenai konvensi yang digunakan dalam proses pendeskripsian berkas arsip baik peraturan internsional, nasional, dan/ atau lokal.</target>
+      </trans-unit>
+      <trans-unit id="163">
+        <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
+        <target>Berikan informasi terkini mengenai status deskripsi arsip, indikasikan apakah draft, final, dan/ atau revisi atau dihapus.</target>
+      </trans-unit>
+      <trans-unit id="164">
+        <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
+        <target>Cantumkan apakah deskripsi memberikan informasi secara minimal, partial atau full berdasarkan pedoman dan/ atau aturan internasional dan/ atau nasional.</target>
+      </trans-unit>
+      <trans-unit id="165">
+        <source>Record the date(s) the entry was prepared and/or revised.</source>
+        <target>Berikan informasi mengenai tanggal yang menjelaskan saat data disiapkan dan/ atau revisi.</target>
+      </trans-unit>
+      <trans-unit id="166">
+        <source>Indicate the language(s) used to create the description of the archival material.</source>
+        <target>bahasa yang digunakan untuk menciptakan deskripsi arsip.</target>
+      </trans-unit>
+      <trans-unit id="167">
+        <source>Language</source>
+        <target>Bahasa</target>
+      </trans-unit>
+      <trans-unit id="168">
+        <source>Indicate the script(s) used to create the description of the archival material.</source>
+        <target>Tulisan atau naskah yang digunakan untuk mendeskripsikan arsip.</target>
+      </trans-unit>
+      <trans-unit id="169">
+        <source>Script</source>
+        <target>Naskah</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

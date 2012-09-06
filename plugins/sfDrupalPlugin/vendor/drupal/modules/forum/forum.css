@@ -1,0 +1,22 @@
+/* $Id: forum.css,v 1.7 2009/08/22 15:26:04 dries Exp $ */
+
+#forum .description {
+  font-size: 0.9em;
+  margin: 0.5em;
+}
+#forum td.created, #forum td.posts, #forum td.topics, #forum td.last-reply, #forum td.replies, #forum td.pager {
+  white-space: nowrap;
+}
+#forum tr td.forum {
+  padding-left: 25px; /* LTR */
+  background-position: 2px 2px; /* LTR */
+  background-image: url(../../misc/forum-default.png);
+  background-repeat: no-repeat;
+}
+#forum tr.new-topics td.forum {
+  background-image: url(../../misc/forum-new.png);
+}
+#forum div.indent {
+  margin-left: 20px;
+}
+

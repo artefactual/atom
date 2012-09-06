@@ -1,0 +1,27 @@
+create:
+  credentials: administrator
+  is_secure: true
+
+delete:
+  credentials: administrator
+  is_secure: true
+
+edit:
+  credentials: [[ administrator, translator ]]
+  is_secure: true
+
+index:
+  credentials: [[ researcher, contributor, editor, administrator, translator, authenticated ]]
+  is_secure: true
+
+list:
+  credentials: administrator
+  is_secure: true
+
+passwordEdit:
+  credentials: [[ researcher, contributor, editor, administrator, translator, authenticated ]]
+  is_secure: true
+
+update:
+  credentials: administrator
+  is_secure: true

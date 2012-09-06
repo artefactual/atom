@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2012-08-15T11:36:56Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Import %1% (SKOS)</source>
+        <target>Importer %1% (SKOS)</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Select a file to import</source>
+        <target>Sélectionner un fichier à importer</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Actions</source>
+        <target>Actions</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Import</source>
+        <target>Importer</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Import successful</source>
+        <target>Import réussi</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1% terms imported in %2%s</source>
+        <target>%1% terme(s) importé(s) en %2% s.</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>View %1%</source>
+        <target>Afficher %1%</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Import more %1%</source>
+        <target>Importer plus %1%</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

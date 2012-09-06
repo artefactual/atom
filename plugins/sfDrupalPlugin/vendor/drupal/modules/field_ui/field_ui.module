@@ -1,0 +1,341 @@
+<?php
+// $Id: field_ui.module,v 1.22 2010/01/03 21:01:04 webchick Exp $
+
+/**
+ * @file
+ * Allows administrators to associate custom fields to fieldable types.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function field_ui_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#field_ui':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Field UI module provides an administrative user interface (UI) for adding custom fields to content types, users, comments, and other types of data. The field types are defined by other modules, and collected and managed by the <a href="@field">Field module</a>. For more information, see the online handbook entry for <a href="@field-ui">Field UI module</a>.', array('@field-ui' => 'http://drupal.org/handbook/modules/field-ui', '@field' => url('admin/help/field'))) . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<dl>';
+      $output .= '<dt>' . t('Defining custom fields') . '</dt>';
+      $output .= '<dd>' . t('When adding a custom field, you need to determine whether the field type will contain text, numbers, lists, etc., as well as how it will be input (as a text field, text area, select box, checkboxes, radio buttons, etc.). A field may have a single value or multiple values. For example, an employee field might have a single employee identification number, whereas a phone number field might have multiple phone numbers.') . '</dd>';
+      $output .= '<dt>' . t('Adding fields to content types') . '</dt>';
+      $output .= '<dd>' . t("Some fields are provided by default when you create a content type, such as the Title and Body fields. The Field UI module lets administrators edit or delete the default fields attached to content, as well as create new fields for storing any additional information. Field configuration is accessible through tabs on each specific content type's configuration page, listed on the <a href='@content-types'>Content types administration page</a>. See the <a href='@node-help'>Node module help page</a> for more information about content types.", array('@content-types' => url('admin/structure/types'), '@node-help' => url('admin/help/node'))) . '</dd>';
+      $output .= '</dl>';
+      return $output;
+
+    case 'admin/reports/fields':
+      return '<p>' . t('This list shows all fields currently in use for easy reference.') . '</p>';
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function field_ui_menu() {
+  $items['admin/reports/fields'] = array(
+    'title' => 'Field list',
+    'description' => 'Overview of fields on all object types.',
+    'page callback' => 'field_ui_fields_list',
+    'access arguments' => array('administer content types'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'field_ui.admin.inc',
+  );
+
+  // Ensure the following is not executed until field_bundles is working and
+  // tables are updated. Needed to avoid errors on initial installation.
+  if (defined('MAINTENANCE_MODE')) {
+    return $items;
+  }
+  // Create tabs for all possible bundles.
+  foreach (entity_get_info() as $obj_type => $info) {
+    if ($info['fieldable']) {
+      foreach ($info['bundles'] as $bundle_name => $bundle_info) {
+        if (isset($bundle_info['admin'])) {
+          // Extract informations from the bundle description.
+          $path = $bundle_info['admin']['path'];
+          $bundle_arg = isset($bundle_info['admin']['bundle argument']) ? $bundle_info['admin']['bundle argument'] : $bundle_name;
+          $access = array_intersect_key($bundle_info['admin'], drupal_map_assoc(array('access callback', 'access arguments')));
+          $instance_position = count(explode('/', $path)) + 1;
+
+          $items["$path/fields"] = array(
+            'title' => 'Manage fields',
+            'page callback' => 'drupal_get_form',
+            'page arguments' => array('field_ui_field_overview_form', $obj_type, $bundle_arg),
+            'type' => MENU_LOCAL_TASK,
+            'weight' => 1,
+            'file' => 'field_ui.admin.inc',
+          ) + $access;
+          $items["$path/fields/%field_ui_menu"] = array(
+            'title callback' => 'field_ui_menu_label',
+            'title arguments' => array($instance_position),
+            'load arguments' => array($obj_type, $bundle_arg),
+            'page callback' => 'drupal_get_form',
+            'page arguments' => array('field_ui_field_edit_form', $obj_type, $bundle_arg, $instance_position),
+            'type' => MENU_LOCAL_TASK,
+            'file' => 'field_ui.admin.inc',
+          ) + $access;
+          $items["$path/fields/%field_ui_menu/edit"] = array(
+            'title' => 'Edit instance settings',
+            'load arguments' => array($obj_type, $bundle_arg),
+            'page callback' => 'drupal_get_form',
+            'page arguments' => array('field_ui_field_edit_form', $obj_type, $bundle_arg, $instance_position),
+            'type' => MENU_DEFAULT_LOCAL_TASK,
+            'file' => 'field_ui.admin.inc',
+          ) + $access;
+          $items["$path/fields/%field_ui_menu/field-settings"] = array(
+            'title' => 'Edit field settings',
+            'load arguments' => array($obj_type, $bundle_arg),
+            'page callback' => 'drupal_get_form',
+            'page arguments' => array('field_ui_field_settings_form', $obj_type, $bundle_arg, $instance_position),
+            'type' => MENU_LOCAL_TASK,
+            'file' => 'field_ui.admin.inc',
+          ) + $access;
+          $items["$path/fields/%field_ui_menu/widget-type"] = array(
+            'title' => 'Change widget type',
+            'load arguments' => array($obj_type, $bundle_arg),
+            'page callback' => 'drupal_get_form',
+            'page arguments' => array('field_ui_widget_type_form', $obj_type, $bundle_arg, $instance_position),
+            'type' => MENU_LOCAL_TASK,
+            'file' => 'field_ui.admin.inc',
+          ) + $access;
+          $items["$path/fields/%field_ui_menu/delete"] = array(
+            'title' => 'Delete instance',
+            'load arguments' => array($obj_type, $bundle_arg),
+            'page callback' => 'drupal_get_form',
+            'page arguments' => array('field_ui_field_delete_form', $obj_type, $bundle_arg, $instance_position),
+            'type' => MENU_LOCAL_TASK,
+            'file' => 'field_ui.admin.inc',
+          ) + $access;
+
+          // 'Manage display' tab and context secondary tabs.
+          $items["$path/display"] = array(
+            'title' => 'Manage display',
+            'page callback' => 'drupal_get_form',
+            'page arguments' => array('field_ui_display_overview_form', $obj_type, $bundle_arg),
+            'type' => MENU_LOCAL_TASK,
+            'weight' => 2,
+            'file' => 'field_ui.admin.inc',
+          ) + $access;
+          $tabs = field_ui_view_modes_tabs($obj_type);
+          foreach ($tabs as $key => $tab) {
+            $items["$path/display/$key"] = array(
+              'title' => $tab['title'],
+              'page arguments' => array('field_ui_display_overview_form', $obj_type, $bundle_arg, $key),
+              'type' => $key == 'basic' ? MENU_DEFAULT_LOCAL_TASK : MENU_LOCAL_TASK,
+              'weight' => $key == 'basic' ? 0 : 1,
+              'file' => 'field_ui.admin.inc',
+            ) + $access;
+          }
+        }
+      }
+    }
+  }
+  return $items;
+}
+
+/**
+ * Menu loader; Load a field instance based on its name.
+ */
+function field_ui_menu_load($field_name, $obj_type, $bundle_name) {
+  $bundle_name = strtr($bundle_name, array('-' => '_'));
+  if ($instance = field_info_instance($obj_type, $field_name, $bundle_name)) {
+    return $instance;
+  }
+  return FALSE;
+}
+
+/**
+ * Menu title callback; Return a field label based on its instance.
+ */
+function field_ui_menu_label($instance) {
+  return t($instance['label']);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function field_ui_theme() {
+  return array(
+    'field_ui_field_overview_form' => array(
+      'render element' => 'form',
+      'file' => 'field_ui.admin.inc',
+      'template' => 'field_ui-field-overview-form',
+    ),
+    'field_ui_display_overview_form' => array(
+      'render element' => 'form',
+      'file' => 'field_ui.admin.inc',
+      'template' => 'field_ui-display-overview-form',
+    ),
+  );
+}
+
+/**
+ * Group available view modes on tabs on the 'Manage display' page.
+ *
+ * @todo Remove this completely and use vertical tabs?
+ */
+function field_ui_view_modes_tabs($obj_type, $tab_selector = NULL) {
+  $info = &drupal_static(__FUNCTION__);
+
+  if (!isset($info[$obj_type])) {
+    $info[$obj_type] = module_invoke_all('field_ui_view_modes_tabs', $obj_type);
+    // Filter out inactive modes.
+    $entity_info = entity_get_info($obj_type);
+    foreach ($info[$obj_type] as $tab => $values) {
+      $modes = array();
+      foreach ($info[$obj_type][$tab]['view modes'] as $mode) {
+        if (isset($entity_info['view modes'][$mode])) {
+          $modes[] = $mode;
+        }
+      }
+      if ($modes) {
+        $info[$obj_type][$tab]['view modes'] = $modes;
+      }
+      else {
+        unset($info[$obj_type][$tab]);
+      }
+    }
+  }
+  if ($tab_selector) {
+    return isset($info[$obj_type][$tab_selector]) ? $info[$obj_type][$tab_selector]['view modes'] : array();
+  }
+  return $info[$obj_type];
+}
+
+/**
+ * Implements hook_field_ui_view_modes_tabs() on behalf of other core modules.
+ *
+ * @return
+ *   An array describing the view modes defined by the module, grouped by tabs.
+ *
+ * A module can add its render modes to a tab defined by another module.
+ * Expected format:
+ * @code
+ *   array(
+ *     'tab1' => array(
+ *       'title' => t('The human-readable title of the tab'),
+ *       'view modes' => array('mymodule_mode1', 'mymodule_mode2'),
+ *     ),
+ *     'tab2' => array(
+ *       // ...
+ *     ),
+ *   );
+ * @endcode
+ */
+function field_ui_field_ui_view_modes_tabs() {
+  $modes = array(
+    'basic' => array(
+      'title' => t('Basic'),
+      'view modes' => array('teaser', 'full'),
+    ),
+    'rss' => array(
+      'title' => t('RSS'),
+      'view modes' => array('rss'),
+    ),
+    'print' => array(
+      'title' => t('Print'),
+      'view modes' => array('print'),
+    ),
+    'search' => array(
+      'title' => t('Search'),
+      'view modes' => array('search_index', 'search_result'),
+    ),
+  );
+  return $modes;
+}
+
+/**
+ * Implements hook_field_attach_create_bundle().
+ */
+function field_ui_field_attach_create_bundle($obj_type, $bundle) {
+  // When a new bundle is created, the menu needs to be rebuilt to add our
+  // menu item tabs.
+  variable_set('menu_rebuild_needed', TRUE);
+}
+
+/**
+ * Implements hook_field_attach_rename_bundle().
+ */
+function field_ui_field_attach_rename_bundle($obj_type, $bundle_old, $bundle_new) {
+  if ($bundle_old !== $bundle_new) {
+    $extra_weights = variable_get('field_extra_weights', array());
+    if (isset($info[$obj_type][$bundle_old])) {
+      $extra_weights[$obj_type][$bundle_new] = $extra_weights[$obj_type][$bundle_old];
+      unset($extra_weights[$obj_type][$bundle_old]);
+      variable_set('field_extra_weights', $extra_weights);
+    }
+  }
+}
+
+/**
+ * Implements hook_field_attach_delete_bundle().
+ */
+function field_ui_field_attach_delete_bundle($obj_type, $bundle) {
+  $extra_weights = variable_get('field_extra_weights', array());
+  if (isset($extra_weights[$obj_type][$bundle])) {
+    unset($extra_weights[$obj_type][$bundle]);
+    variable_set('field_extra_weights', $extra_weights);
+  }
+}
+
+/**
+ * Helper function to create the right administration path for a bundle.
+ */
+function _field_ui_bundle_admin_path($obj_type, $bundle_name) {
+  $bundles = field_info_bundles($obj_type);
+  $bundle_info = $bundles[$bundle_name];
+  return isset($bundle_info['admin']['real path']) ? $bundle_info['admin']['real path'] : $bundle_info['admin']['path'];
+}
+
+/**
+ * Helper function to identify inactive fields within a bundle.
+ */
+function field_ui_inactive_instances($obj_type, $bundle_name = NULL) {
+  if (!empty($bundle_name)) {
+    $inactive = array($bundle_name => array());
+    $params = array('bundle' => $bundle_name);
+  }
+  else {
+    $inactive = array();
+    $params = array();
+  }
+  $params['object_type'] = $obj_type;
+
+  $active_instances = field_info_instances($obj_type);
+  $all_instances = field_read_instances($params, array('include_inactive' => TRUE));
+  foreach ($all_instances as $instance) {
+    if (!isset($active_instances[$instance['bundle']][$instance['field_name']])) {
+      $inactive[$instance['bundle']][$instance['field_name']] = $instance;
+    }
+  }
+  if (!empty($bundle_name)) {
+    return $inactive[$bundle_name];
+  }
+  return $inactive;
+}
+
+/**
+ * Add a button Save and add fields to Create content type form.
+ */
+function field_ui_form_node_type_form_alter(&$form, $form_state) {
+  // We want to display the button only on add page.
+  if (empty($form['#node_type']->type)) {
+    $form['actions']['save_continue'] = array(
+      '#type' => 'submit',
+      '#value' => t('Save and add fields'),
+      '#weight' => 45,
+    );
+    $form['#submit'][] = 'field_ui_form_node_type_form_submit';
+  }
+}
+
+/**
+ * Redirect to manage fields form.
+ */
+function field_ui_form_node_type_form_submit($form, &$form_state) {
+  if ($form_state['clicked_button']['#parents'][0] === 'save_continue') {
+    $form_state['redirect'] = _field_ui_bundle_admin_path('node', $form_state['values']['type']) .'/fields';
+  }
+}
+

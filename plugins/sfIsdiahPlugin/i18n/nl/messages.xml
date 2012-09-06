@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2012-08-17T14:31:19Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new archival institution</source>
+        <target>Voeg nieuwe archiefinstelling toe</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>Zonder titel</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>Bewerken %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>See ISDIAH 5.2 for contact area information and examples.</source>
+        <target>Zie ISDIAH 5.2 voor contact gegevens en voorbeelden</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>%1%Contact information%2% - This is a %3%mandatory%4% element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Edit %1% - ISDIAH</source>
+        <target>Bewerken %1% - ISDIAH</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Identity area</source>
+        <target>Identificatie</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)</source>
+        <target>Leg de nummerieke of alfanumerieke code vast die de instellin identificeert, in overeenstemming met de betreffende internationale en nationale standaarden." (ISIAH 5.1.1)</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Identifier</source>
+        <target>Bestandsidentificatie </target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>This is a mandatory element.</source>
+        <target>Dit is een verplicht veld.</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
+        <target>"Leg de gestandaardiseerde naam van de beschreven entiteit vast. Gebruik, waar nodig, datering, plaats, juridische context, beroep, bijnaam en andere kwalificaties teneinde de geautoriseerde naam te onderscheiden van die van andere entiteiten met dezelfde naam. Specificeer apart in het element Regels en/of afspraken (5.6.3) welke set van regels voor dit element gebruikt werd." (ISDIAH 5.1.2)</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Authorized form of name</source>
+        <target>Geauthoriseerde naam</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>This is a mandatory element</source>
+        <target>Dit is een verplicht veld.</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)</source>
+        <target>"Leg de parallelle naam (namen) vast van de instelling in overeenstemming met relevante nationale of internationale afspraken of regels gebruikt door de instantie die de geautoriseerde beschrijving creëert, met inbegrip van de nodige subelementen en kwalificaties die door die afspraken of regels vereist worden. Specificeer in het element Regels en/of afspraken (5.6.3) welke regels werden toegepast." (ISDIAH 5.1.3)</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>"Record any other name(s) by which the institution may be known. This could include other forms of the same name, acronyms, other institutional names, or changes of name over time, including, if possible, relevant dates." (ISDIAH 5.1.4)</source>
+        <target>"Leg alle andere namen vast waaronder de instelling bekend is. Hieronder andere vormen van dezelfde naam, acroniemen, andere instellingsnamen, of veranderingen van de naam in de tijd; met, voor zover mogelijk, de betreffende datums." (ISDIAH) 5.1.4)</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired from the drop-down menu; these values are drawn from the Repository Types taxonomy.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Contact area</source>
+        <target>Contact</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Description area</source>
+        <target>Beschrijving</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>"Record any relevant information about the history of the institution. This element may include information on dates of establishment, changes of names, changes of legislative mandates, or of any other sources of authority for the institution." (ISDIAH 5.3.1)</source>
+        <target>"Leg relevante informatie over de geschiedenis van de instelling vast: datum instelling, veranderingen in de naam, mandaat, or enige andere bron voor de instelling." (ISDIAH 5.3.1)</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>"Identify the geographical area the institution belongs to. Record any other relevant information about the cultural context of the institution." (ISDIAH 5.3.2)</source>
+        <target>"Stel vast tot welk geografisch gebied de instelling behoort. Leg relevante informatie over de culturele context van de instelling vast." (ISIAH 5.3.2)</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Geographical and cultural context</source>
+        <target>Geografische en culturele context</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the institution, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISDIAH 5.3.3)</source>
+        <target>Leg alle documenten, wetten, richtlijnen of handvesten vast die gelden als een gezagsbron voor de bevoegdheden, functies en verantwoordelijkheden van de instelling, samen met informatie over het rechtsgebied en het tijdsbestek waarbinnen het mandaat van toepassing was of werd gewijzigd." (ISDIAH 5.3.3)</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Mandates/Sources of authority</source>
+        <target>Mandaat/bronnen van bevoegdheid</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>"Describe, in narrative form or using organisational charts, the current administrative structure of the institution." (ISDIAH 5.3.4)</source>
+        <target>"Beschrijf in lopende tekst, of door gebruik te maken van organogrammen, de huidige administratieve structuur van de instelling."</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Administrative structure</source>
+        <target>Organisatie structuur</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>"Record information about the records management and collecting policies of the institution. Define the scope and nature of material which the institution accessions. Indicate whether the repository seeks to acquire archival materials by transfer, gift, purchase and/or loan. If the policy includes active survey and/or rescue work, this might be spelt out." (ISDIAH 5.3.5)</source>
+        <target>"Geef informatie over archiefbeheer en acquisitiebeleid van de instelling. Geef onderwerp en aard van het materiaal dat de instelling verwerft. Vermeld of de instelling materiaal verwerft door overbrenging, schenking, aankoop en/of bruikleen. Als het beleid actieve informatieverzameling of vangnetfunctie omvat, vermeld dat dan ook." (ISDIAH 5.3.5)</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Records management and collecting policies</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>"Record information on the building(s) of the institution (general and architectural characteristics of the building, capacity of storage areas, etc). Where possible, provide information which can be used for generating statistics." (ISDIAH 5.3.6)</source>
+        <target>"Geef informatie over het gebouw (gebouwen) van de instellingen (algemene en bouwkundige karakteristieken, capaciteit van de depots enz). Indien mogelijk geef dan informatie die voor statistieken gebruikt kan worden." (ISDIAH 5.3.6)</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>"Record a short description of the holdings of the institution, describing how and when they were formed. Provide information on volume of holdings, media formats, thematic coverage, etc." (ISDIAH 5.3.7)</source>
+        <target>"Maak een korte beschrijving van de bestanden van de instelling, hoe en wanneer deze is ontstaan. Geef informatie over de omvang van het totale bestand, soorten media, onderwerpen enz." (ISDIAH 5.3.7)</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Archival and other holdings</source>
+        <target>Archief- en andere bestanden</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>"Record the title and other pertinent details of the published and/or unpublished finding aids and guides prepared by the institution and of any other relevant publications. Use ISO 690 Information and documentation – Bibliographic references and other national or international cataloguing rules." (ISDIAH 5.3.8)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Finding aids, guides and publications</source>
+        <target>Toegangen, gidsen en publicaties</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Access area</source>
+        <target>Toegang</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>"Record the opening hours of the institution and annual, seasonal and public holidays, and any other planned closures. Record times associated with the availability and/or delivery of services (for example, exhibition spaces, reference services, etc.)." (ISDIAH 5.4.1)</source>
+        <target>"Leg de openingsuren van de instelling vast, alsmede de jaarlijkse en andere voorziene sluitingsdagen. Vermeld de tijden waarop bepaalde voorzieningen beschikbaar zijn (zoals tentoonstellingsruimten, studiezaal enz." (ISDIAH 5.4.1)</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
+        <target>"Beschrijving de regels over raadpleging, inclusief de beperkingen in/of regels ten aanzien van het gebruik van materiaal en faciliteiten. Leg informatie vast over registratie, afspraken, gebruikerspassen, brieven van aanbeveling, toegangstarief, enz. Voor zover van toepassing verwijs naar relevante wetgeving."(ISDIAH 5.4.2)</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Conditions and requirements</source>
+        <target>Voorwaarden en eisen</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>"Record information about travelling to the institution and details for users with disabilities, including building features, specialised equipment or tools, parking or lifts." (ISDIAH 5.4.3)</source>
+        <target>"Geef informatie over hoe de instelling bereikbaar is, met de mogelijkheden voor gehandicapten; inclusief bijzonderheden van het gebouw, bijzondere uitrusting of mddelen, parkeerplaats of liften." (ISDIAH 5.4.3)</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Accessibility</source>
+        <target>Toegankelijkheid</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Services area</source>
+        <target>dienstverlening</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>"Record information about the onsite services provided by the institution such as languages spoken by staff, research and consultation rooms, enquiry services, internal libraries, map, microfiches, audio-visual, computer rooms, etc. Record as well any relevant information about research services, such as research undertaken by the institution, and the fee charge if applicable." (ISDIAH 5.5.1)</source>
+        <target>"Geef informatie over services ter plaatse, zoals talen die gesproken worden, onderzoeksruimten, onderzoeksdiensten, interne bibliotheek, ruimtes voor de raadpleging van kaarten, microfiches, audio-visueel materaal, computerruimtes. Geef ook relevante informatie over onderzoek dat door de instelling wordt verricht en de tarieven, indien van toepassing." (ISDIAH 5.5.1)</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>"Record information about reproduction services available to the public (microfilms, photocopies, photographs, digitised copies). Specify general conditions and restrictions to the services, including applicable fees and publication rules." (ISDIAH 5.5.2)</source>
+        <target>"Verschaf informatie over reproductie mogelijkheden voor gebruikers (microfilm, fotokopie, digitaal). Specificeer algemene voorwaarden en beperkingen tot deze dienstverlening, tarieven en regels voor publicatie." (ISDIAH 5.5.2)</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>"Record information about spaces available for public use (permanent or temporary exhibitions, free or charged internet connection, cash machines, cafeterias, restaurants, shops, etc.)." (ISDIAH 5.5.3)</source>
+        <target>"Geef informatie over publieksruimten (tijdelijke of permanente tentoonstellingen, internetverbindingen, geldautomaten, cafetarias, restaurants, winkels, enz)." (ISDIAH 5.5.3)</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Public areas</source>
+        <target>Publiekruimten</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Control area</source>
+        <target>Beheer</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISIAH 5.6.1)</source>
+        <target>"Leg een unieke identificatiecode voor de geautoriseerde beschrijving vast volgens lokale en/of nationale afspraken. Indien de beschrijving internationaal gebruikt gaat worden, leg dan de landcode vast van het land waar de geautoriseerde beschrijving werd gemaakt, in overeenstemming met de laatste versie van ISO 3166 Codes for the representation of names of countries." (ISIAH 5.6.1)</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Description identifier</source>
+        <target>Identificatie van de beschrijving</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>"Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard." (ISDIAH 5.6.2)</source>
+        <target>"Leg de volledige gestandaardiseerde naam (namen) van de instantie(s) vast die verantwoordelijk is (zijn) of was (waren) voor het maken, veranderen of verspreiden van de beschrijving, of leg als alternatief de erkende code voor de instantie vast in overeenstemming met de nationale of internationale standaard voor organisatie codes." (ISDIAH 5.6.2)</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Institution identifier</source>
+        <target>Identificatiecode van de instelling</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>"Record the names, and, where useful, the editions or publication dates of the conventions or rules applied. Specify, separately, which rules have been applied for creating the Authorised form(s) of name. Include reference to any system(s) of dating used to identify dates in this description (e.g. ISO 8601)." (ISDIAH 5.6.3)</source>
+        <target>"Leg de namen en, waar van nut, de uitgaven of publicatiedatums vast van de toegepaste afspraken of regels. Specificeer afzonderlijk de regels die zijn toegepast voor het bepalen van de geautoriseerde naam. Verwijs naar de dateringssystemen die gebruikt zijn om datums in deze geautoriseerde beschrijving vast te stellen (bijvoorbeeld ISO 8601)." (ISDIAH 5.6.3)</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Rules and/or conventions used</source>
+        <target>Toegepaste regels en/of conventies</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDIAH 5.6.4). Select Final, Revised or Draft from the drop-down menu.</source>
+        <target>Het doel van dit veld is "de status van de beschrijving te tonen, zodat gebruikers weten wat de huidge status van de beschrijving is." (ISDIAH 5.6.4).Selecteer Definitie, Herzien, of Concept uit het drop-down menu.</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal descriptions are those that consist only of the three essential elements of an ISIAH compliant description (see 4.7), while full records are those that convey information for all relevant ISDIAH elements of description." (ISDIAH 5.6.5)</source>
+        <target>Selecteer Volledig, Gedeeltelijk of Minimaal uit het drop-down menu. "Bij ontbreken van nationale richtlijnen of regels zijn minimale beschrijvingen die beschrijvingen die slechts drie essentiele elementen van een ISDIAH conforme beschrijving bevatten, terwijl volledige beschrijvingen alle relevante elementen hebben." (ISDIAH 5.6.5)</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>"Record the date the description was created and the dates of any revisions to the description." (ISDIAH 5.6.6)</source>
+        <target>"Leg de datum vast waarop de geautoriseerde beschrijving werd gemaakt en de datums van eventuele herzieningen van de beschrijving." (ISDIAH 5.6.6)</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Dates of creation, revision and deletion</source>
+        <target>Datering van aanmaak, herziening of verwijdering</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
+        <target>Select de taal (talen) uit het drop-down menu, type de eerste paar letters om de keuze te beperken. (ISDIAH 5.6.7)</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
+        <target>Select het schrift of de schriften van deze beschrijving uit het drop-down menu, typ de eerste paar letters om de keuze te beperken. (ISDIAH 5.6.7)</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>"Record the sources consulted in establishing the description of the institution." (ISDIAH 5.6.8)</source>
+        <target>"Leg de bronnen vast die zijn geraadpleegd bij het opstellen van de beschrijving van de instelling." (ISDIAH 5.6.8)</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Sources</source>
+        <target>bronnen</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>"Record notes pertinent to the creation and maintenance of the description." (ISDIAH 5.6.9)</source>
+        <target>"Maak aantekeningen over de creatie en het onderhoud van de beschrijving." (ISDIAH 5.6.9)</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Actions</source>
+        <target>Handelingen</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Cancel</source>
+        <target>Verwijderen</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Save</source>
+        <target>bewaren</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Create</source>
+        <target>Aanmaken</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>View %1%</source>
+        <target>Bekijk %1%</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Edit repository</source>
+        <target>Bewerken bewaarplaats</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Edit identity area</source>
+        <target>Bewerken identiteit area</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Parallel form(s) of name</source>
+        <target>Parallelle vormen van de naam</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Other form(s) of name</source>
+        <target>Aandere naamsvormen</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Type</source>
+        <target>Soort</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Edit contact area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Edit description area</source>
+        <target>Bewerken beschrijvings area</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>History</source>
+        <target>Geschiedenis</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Buildings</source>
+        <target>Gebouwen</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Holdings</source>
+        <target>Bestanden</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Edit access area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Opening times</source>
+        <target>Openingstijden</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Access conditions and requirements</source>
+        <target>Raadpleegvoorwaarden en -eisen</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Edit services area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Research services</source>
+        <target>onderzoeksdienstverlening</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Reproduction services</source>
+        <target>reproduktiedienstverlening</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Edit control area</source>
+        <target>Bewerken beheer area</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Status</source>
+        <target>Status</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Level of detail</source>
+        <target>Niveau van detaillering</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Language(s)</source>
+        <target>Taal (talen)</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Script(s)</source>
+        <target>Schrift(en)</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Maintenance notes</source>
+        <target>Onderhoudsaantekeningen</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Edit</source>
+        <target>Bewerken</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Delete</source>
+        <target>Verwijderen</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Add new</source>
+        <target>Nieuw toevoegen</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

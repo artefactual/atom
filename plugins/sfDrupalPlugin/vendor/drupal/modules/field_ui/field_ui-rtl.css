@@ -1,0 +1,8 @@
+/* $Id: field_ui-rtl.css 5047 2010-01-27 01:19:02Z jablko $ */
+
+/* 'Manage fields' overview */
+#field-overview .label-add-new-field,
+#field-overview .label-add-existing-field {
+  float: right;
+}
+

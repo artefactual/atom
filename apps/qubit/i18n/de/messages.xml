@@ -1,0 +1,2287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2012-08-27T09:00:31Z" product-name="messages">
+    <body>
+      <trans-unit id="3">
+        <source>Log in</source>
+        <target>Anmelden</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Title</source>
+        <target>Titel</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Taxonomy</source>
+        <target>Systematik</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Scope note</source>
+        <target>Anmerkung zum Umfang</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Delete</source>
+        <target>Löschen</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Cancel</source>
+        <target>Abbrechen</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Save</source>
+        <target>Speichern</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>View term</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Edit</source>
+        <target>Bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>%1% term</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Add new</source>
+        <target>Neu hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Edit %1%</source>
+        <target>%1% bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Reference code</source>
+        <target>Signatur</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Note</source>
+        <target>Anmerkung</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Level of description</source>
+        <target>Beschreibungsebene</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Repository</source>
+        <target>Aufbewahrungsort</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Conditions governing access</source>
+        <target>Benutzungsbedingungen</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Subject access points</source>
+        <target>Zugriffspunkt (Thema)</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Place access points</source>
+        <target>Zugriffspunkt (Ort)</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>List %1%</source>
+        <target>Übersicht %1% </target>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Language</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>Identifier</source>
+        <target>Signatur</target>
+      </trans-unit>
+      <trans-unit id="125">
+        <source>View %1%</source>
+        <target>Ansicht %1%</target>
+      </trans-unit>
+      <trans-unit id="129">
+        <source>Select a file to import</source>
+        <target>Datei für Import auswählen</target>
+      </trans-unit>
+      <trans-unit id="138">
+        <source>Updated</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="143">
+        <source>Place</source>
+        <target>Ort</target>
+      </trans-unit>
+      <trans-unit id="144">
+        <source>Description</source>
+        <target>Beschreibung</target>
+      </trans-unit>
+      <trans-unit id="146">
+        <source>Country</source>
+        <target>Staat</target>
+      </trans-unit>
+      <trans-unit id="150">
+        <source>Back</source>
+        <target>zurück</target>
+      </trans-unit>
+      <trans-unit id="173">
+        <source>View user profile</source>
+        <target>Benutzerprofil ansehen</target>
+      </trans-unit>
+      <trans-unit id="175">
+        <source>Reset password</source>
+        <target>Passwort neu setzen</target>
+      </trans-unit>
+      <trans-unit id="182">
+        <source>Site settings</source>
+        <target>Seiteneinstellungen</target>
+      </trans-unit>
+      <trans-unit id="198">
+        <source>Advanced search</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="200">
+        <source>Search</source>
+        <target>Suchen</target>
+      </trans-unit>
+      <trans-unit id="207">
+        <source>Type</source>
+        <target>Art</target>
+      </trans-unit>
+      <trans-unit id="227">
+        <source>Street address</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="230">
+        <source>Country</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="234">
+        <source>Telephone</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="235">
+        <source>Fax</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="236">
+        <source>Email</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="238">
+        <source>Note</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="253">
+        <source>Edit this page</source>
+        <target>diese Seite bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="255">
+        <source>Value</source>
+        <target>Wert</target>
+      </trans-unit>
+      <trans-unit id="257">
+        <source>User name</source>
+        <target>Name des Benutzers</target>
+      </trans-unit>
+      <trans-unit id="258">
+        <source>Email</source>
+        <target>E-Mail</target>
+      </trans-unit>
+      <trans-unit id="259">
+        <source>Password</source>
+        <target>Passwort</target>
+      </trans-unit>
+      <trans-unit id="262">
+        <source>List users</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="308">
+        <source>Street address</source>
+        <target>Postadresse</target>
+      </trans-unit>
+      <trans-unit id="310">
+        <source>Region/province</source>
+        <target>Bundesland/Kanton</target>
+      </trans-unit>
+      <trans-unit id="311">
+        <source>Postal code</source>
+        <target>Postleitzahl</target>
+      </trans-unit>
+      <trans-unit id="312">
+        <source>Telephone</source>
+        <target>Telefon</target>
+      </trans-unit>
+      <trans-unit id="313">
+        <source>Fax</source>
+        <target>Fax</target>
+      </trans-unit>
+      <trans-unit id="323">
+        <source>Sorry, you do not have permission to access that page</source>
+        <target>Sie haben keine Zugangserlaubnis für diese Seite</target>
+      </trans-unit>
+      <trans-unit id="324">
+        <source>Back to previous page</source>
+        <target>zurück zur vorigen Seite</target>
+      </trans-unit>
+      <trans-unit id="325">
+        <source>Go to homepage</source>
+        <target>Homepage</target>
+      </trans-unit>
+      <trans-unit id="326">
+        <source>Sorry, page not found</source>
+        <target>Seite nicht gefunden</target>
+      </trans-unit>
+      <trans-unit id="328">
+        <source>Did you type the URL correctly?</source>
+        <target>Schreibfehler bei URL?</target>
+      </trans-unit>
+      <trans-unit id="329">
+        <source>Did you follow a broken link?</source>
+        <target>Fehler beim Link?</target>
+      </trans-unit>
+      <trans-unit id="331">
+        <source>The existing term values are required by the application to operate correctly</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="348">
+        <source>Sorry, you do not have permission to make %1% language translations</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="353">
+        <source>Browse all %1%</source>
+        <target>Blättere alle %1% durch</target>
+      </trans-unit>
+      <trans-unit id="354">
+        <source>Create</source>
+        <target>Erstellen</target>
+      </trans-unit>
+      <trans-unit id="357">
+        <source>Results</source>
+        <target>Ergebnisse</target>
+      </trans-unit>
+      <trans-unit id="365">
+        <source>Name access points</source>
+        <target>Zugriffspunkt (Name)</target>
+      </trans-unit>
+      <trans-unit id="376">
+        <source>Export</source>
+        <target>Exportieren</target>
+      </trans-unit>
+      <trans-unit id="378">
+        <source>Download movie</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="380">
+        <source>Mime-type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="381">
+        <source>Media type</source>
+        <target>Medienart</target>
+      </trans-unit>
+      <trans-unit id="382">
+        <source>Filesize</source>
+        <target>Dateigröße</target>
+      </trans-unit>
+      <trans-unit id="383">
+        <source>Uploaded</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="390">
+        <source>Part of</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="392">
+        <source>Filename</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="396">
+        <source>Location</source>
+        <target>Aufbewahrungsort</target>
+      </trans-unit>
+      <trans-unit id="400">
+        <source>Or, create a new container</source>
+        <target>oder schaffe ein neues Behältnis</target>
+      </trans-unit>
+      <trans-unit id="402">
+        <source>Add</source>
+        <target>Hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="418">
+        <source>Containers</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="423">
+        <source>Previous</source>
+        <target>vorheriger</target>
+      </trans-unit>
+      <trans-unit id="424">
+        <source>Next</source>
+        <target>nächster</target>
+      </trans-unit>
+      <trans-unit id="426">
+        <source>Code</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="433">
+        <source>Add container links (duplicate links will be ignored)</source>
+        <target>Link zu Behältnis hinzufügen (doppelte Angaben werden nicht beachtet)</target>
+      </trans-unit>
+      <trans-unit id="442">
+        <source>%1% of</source>
+        <target>%1% von</target>
+      </trans-unit>
+      <trans-unit id="445">
+        <source>Place</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="446">
+        <source>Name of creator</source>
+        <target>Name des Bestandsbildners</target>
+      </trans-unit>
+      <trans-unit id="467">
+        <source>Name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="469">
+        <source>Event</source>
+        <target>Ereignis</target>
+      </trans-unit>
+      <trans-unit id="470">
+        <source>Date(s)</source>
+        <target>Datum/Daten</target>
+      </trans-unit>
+      <trans-unit id="473">
+        <source>Event type</source>
+        <target>Art des Ereignisses (Vorgangs?)</target>
+      </trans-unit>
+      <trans-unit id="475">
+        <source>Administrative history</source>
+        <target>Verwaltungsgeschichte</target>
+      </trans-unit>
+      <trans-unit id="499">
+        <source>Creator(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="511">
+        <source>Global</source>
+        <target>Allgemein</target>
+      </trans-unit>
+      <trans-unit id="512">
+        <source>Site information</source>
+        <target>Seiteninformation</target>
+      </trans-unit>
+      <trans-unit id="513">
+        <source>The name of the website for display in the header</source>
+        <target>Bezeichnung der Website für die Anzeige in der Kopfzeile</target>
+      </trans-unit>
+      <trans-unit id="514">
+        <source>A brief site description or &amp;quot;tagline&amp;quot; for the header</source>
+        <target>Kurze Beschreibung der Seite oder "Inhaltsangabe" für die Kopfzeile</target>
+      </trans-unit>
+      <trans-unit id="515">
+        <source>Default template</source>
+        <target>vorgegebene Maske</target>
+      </trans-unit>
+      <trans-unit id="516">
+        <source>User interface label</source>
+        <target>Benutzeroberfläche</target>
+      </trans-unit>
+      <trans-unit id="517">
+        <source>I18n languages</source>
+        <target>i18n Sprachen</target>
+      </trans-unit>
+      <trans-unit id="520">
+        <source>Change language</source>
+        <target>Sprache wechseln</target>
+      </trans-unit>
+      <trans-unit id="521">
+        <source>Site title</source>
+        <target>Seitentitel</target>
+      </trans-unit>
+      <trans-unit id="522">
+        <source>Site description</source>
+        <target>Beschreibung der Seite</target>
+      </trans-unit>
+      <trans-unit id="523">
+        <source>Top</source>
+        <target>Anfang</target>
+      </trans-unit>
+      <trans-unit id="524">
+        <source>Label</source>
+        <target>Bezeichnung</target>
+      </trans-unit>
+      <trans-unit id="525">
+        <source>Path</source>
+        <target>Pfad</target>
+      </trans-unit>
+      <trans-unit id="528">
+        <source>Application version</source>
+        <target>Programmversion</target>
+      </trans-unit>
+      <trans-unit id="530">
+        <source>Maximum image width (pixels)</source>
+        <target>Maximale Bildbreite (Pixel)</target>
+      </trans-unit>
+      <trans-unit id="531">
+        <source>Results per page</source>
+        <target>Treffer pro Seite</target>
+      </trans-unit>
+      <trans-unit id="532">
+        <source>Inherit reference code (information object)</source>
+        <target>Referenzcode vererben (Informationsobjekt)</target>
+      </trans-unit>
+      <trans-unit id="533">
+        <source>Multiple repositories</source>
+        <target>Mehrfache Aufbewahrungsorte</target>
+      </trans-unit>
+      <trans-unit id="534">
+        <source>The current version of the application</source>
+        <target>Aktuelle Version des Programms</target>
+      </trans-unit>
+      <trans-unit id="536">
+        <source>The maximum width for derived reference images</source>
+        <target>Maximale Breite der abgeleiteten Referenzbilder</target>
+      </trans-unit>
+      <trans-unit id="537">
+        <source>The number of records shown per page on list pages</source>
+        <target>Anzahl der Einträge je Seiite in der Übersicht</target>
+      </trans-unit>
+      <trans-unit id="538">
+        <source>When set to &amp;quot;yes&amp;quot;, the reference code string will be built using the information object identifier plus the identifiers of all its ancestors</source>
+        <target>Wenn auf "Ja" gesetzt, wird der Reference Code String aus dem Information Object Identifier und sämtlichen Identifiern seiner Vorfahren zusammengesetzt</target>
+      </trans-unit>
+      <trans-unit id="539">
+        <source>When set to &amp;quot;no&amp;quot;, the repository name is excluded from certain displays because it will be too repetitive</source>
+        <target>Wenn auf "nein" gesetzt, wird die Bezeichnung des Repositories bei bestimmten Ergebnisanzeigen ausgeschlossen, weil es zu häufig vorkommt.</target>
+      </trans-unit>
+      <trans-unit id="540">
+        <source>This field is required</source>
+        <target>Pflichtfeld</target>
+      </trans-unit>
+      <trans-unit id="541">
+        <source>This value must be at least %min% pixels</source>
+        <target>Diese Wert muss zumindest %min% Pixel sein</target>
+      </trans-unit>
+      <trans-unit id="542">
+        <source>This value can not be greater than %max% pixels</source>
+        <target>Der Wert darf nicht größer als %max% Pixels sein</target>
+      </trans-unit>
+      <trans-unit id="543">
+        <source>You must show at least %min% hits per page</source>
+        <target>Sie müssen zumindest %min% Treffer je Seite anzeigen</target>
+      </trans-unit>
+      <trans-unit id="544">
+        <source>You cannot show more than %max% hits per page</source>
+        <target>Sie können nicht mehr als %max% Treffer je Seite anzeigen</target>
+      </trans-unit>
+      <trans-unit id="545">
+        <source>Enable OAI</source>
+        <target>OAI einschalten</target>
+      </trans-unit>
+      <trans-unit id="546">
+        <source>OAI repository code</source>
+        <target>OAI Repository Code</target>
+      </trans-unit>
+      <trans-unit id="547">
+        <source>OAI repository identifier</source>
+        <target>OAI Repository Identifier</target>
+      </trans-unit>
+      <trans-unit id="548">
+        <source>Sample OAI identifier</source>
+        <target>Beispiel für OAI Identifier</target>
+      </trans-unit>
+      <trans-unit id="549">
+        <source>Resumption token limit</source>
+        <target>Höchstzahl für Fortsetzungs-Token</target>
+      </trans-unit>
+      <trans-unit id="551">
+        <source>Add an alpha-numeric code to uniquely identify this particular OAI repository within its network domain to create a unique, OAI-compliant identifier, e.g. oai:foo.org:repositorycode_10001</source>
+        <target>Geben Sie einen alphanumerischen Code an, um dieses spezielle OAI Repository innerhalb seiner Netzwerk-Domäne zu identifizieren und einen einmalige OAi-konformen Identifier zu erstellen, z.B. oai:foo.org:repositorycode_10001</target>
+      </trans-unit>
+      <trans-unit id="552">
+        <source>The number of entities to include in a single OAI response list before inserting a resumption token</source>
+        <target>Anzahl von Entitäten die in einer einzelnen OAI Antwortliste angezeigt werden soll, bevor ein Fortsetzungs-Token eingefügt wird.</target>
+      </trans-unit>
+      <trans-unit id="553">
+        <source>This value must be at least %min%</source>
+        <target>Der Wert muss zumindest %min% sein</target>
+      </trans-unit>
+      <trans-unit id="554">
+        <source>This value cannot be more than %max%</source>
+        <target>Der Wert darf nicht größer als %max% sein</target>
+      </trans-unit>
+      <trans-unit id="555">
+        <source>The code can only contain letters and numbers</source>
+        <target>Der Code darf nur Buchstaben und Ziffern enthalten</target>
+      </trans-unit>
+      <trans-unit id="556">
+        <source>ISAD(G), 2nd ed. International Council on Archives</source>
+        <target>ISAD(G), 2. Ausg. hg. Internationaler Archivrat</target>
+      </trans-unit>
+      <trans-unit id="557">
+        <source>RAD, July 2008 version. Canadian Council of Archives</source>
+        <target>RAD, July 2008 version. Canadian Council of Archives</target>
+      </trans-unit>
+      <trans-unit id="558">
+        <source>Dublin Core, Version 1.1. Dublin Core Metadata Initiative</source>
+        <target>Dublin Core, Version 1.1. Dublin Core Metadata Initiative</target>
+      </trans-unit>
+      <trans-unit id="559">
+        <source>ISAAR(CPF), 2nd ed. International Council on Archives</source>
+        <target>ISAAR(CPF), 2. Ausg. hg. Internationaler Archivrat</target>
+      </trans-unit>
+      <trans-unit id="560">
+        <source>ISDIAH, 1st ed. International Council on Archives</source>
+        <target>ISDIAH, 1. Ausg. hg. Internationaler Archivrat</target>
+      </trans-unit>
+      <trans-unit id="563">
+        <source>Max. size ~%1%</source>
+        <target>max. Größe ~%1%</target>
+      </trans-unit>
+      <trans-unit id="564">
+        <source>View full size</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="565">
+        <source>Download %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="568">
+        <source>%1% representation</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="569">
+        <source>View children as a compound digital object?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="570">
+        <source>Yes</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="571">
+        <source>No</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="582">
+        <source>Digital object metadata</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="613">
+        <source>Edit menu</source>
+        <target>Menü bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="614">
+        <source>Site menu list</source>
+        <target>Überblick</target>
+      </trans-unit>
+      <trans-unit id="628">
+        <source>Hierarchical list of menus for the site, first column</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="629">
+        <source>Move up</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="630">
+        <source>Move item up in list</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="631">
+        <source>Move down</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="632">
+        <source>Move item down in list</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="635">
+        <source>Sorry, OAI harvesting is disabled for this system.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="637">
+        <source>MODS, Version 3.3. U.S. Library of Congress</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="651">
+        <source>URL</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="654">
+        <source>Date(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="682">
+        <source>Repository</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="701">
+        <source>When set to &amp;quot;yes&amp;quot;, this system will act as an OAI repository and respond to OAI harvesting requests</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="702">
+        <source>Sort treeview (information object)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="703">
+        <source>Determines whether to sort siblings in the information object treeview control and, if so, what sort criteria to use</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="711">
+        <source>Edit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="713">
+        <source>Delete</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="714">
+        <source>Add new</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="727">
+        <source>Related resources</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="734">
+        <source>Cancel</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="735">
+        <source>Save</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="736">
+        <source>Create</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="737">
+        <source>Are you sure you want to delete %1%?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="739">
+        <source>User groups</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="740">
+        <source>Edit user</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="743">
+        <source>Basic info</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="744">
+        <source>Change password</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="745">
+        <source>Confirm password</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="749">
+        <source>Action</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="751">
+        <source>Grant</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="752">
+        <source>Deny</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="755">
+        <source>Sorry, this Term is locked and cannot be deleted</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="756">
+        <source>Import</source>
+        <target>importieren</target>
+      </trans-unit>
+      <trans-unit id="757">
+        <source>Import completed</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="758">
+        <source>Elapsed time: %1% seconds.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="759">
+        <source>Actor name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="761">
+        <source>Type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="762">
+        <source>Link physical storage</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="781">
+        <source>Add new child levels</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="782">
+        <source>Level</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="804">
+        <source>Source language</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="819">
+        <source>Conditions governing access</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="835">
+        <source>Dublin Core 1.1 XML</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="836">
+        <source>EAD 2002 XML</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="837">
+        <source>MODS 3.3 XML</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="838">
+        <source>Edit digital object</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="841">
+        <source>Description</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="848">
+        <source>File %1% could not be moved to %2%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="849">
+        <source>File %1% could not be thumbnailed</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="850">
+        <source>Import multiple digital objects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="853">
+        <source>Digital objects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="854">
+        <source>Uploading...</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="859">
+        <source>Browse %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="860">
+        <source>Select a digital object to upload</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="862">
+        <source>Master</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="864">
+        <source>Download audio</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="866">
+        <source>%1% (use: %2%)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="870">
+        <source>Scope note(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="871">
+        <source>Source note(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="872">
+        <source>Display note(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="873">
+        <source>Hierarchical terms</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="874">
+        <source>BT %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="875">
+        <source>NT %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="876">
+        <source>Equivalent terms</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="877">
+        <source>UF %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="879">
+        <source>Associated terms</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="880">
+        <source>RT %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="885">
+        <source>List taxonomies</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="887">
+        <source>Taxonomy hierarchy</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="890">
+        <source>Relationships</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="891">
+        <source>Broad term</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="894">
+        <source>OAI Repository</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="895">
+        <source>This page is valid XHTML 1.0</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="896">
+        <source>Home</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="897">
+        <source>Main menu</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="898">
+        <source>User menu</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="899">
+        <source>Add new menu</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="900">
+        <source>Provide an internal menu name.  This is not visible to users.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="901">
+        <source>Provide a menu label for users.  For menu items that are not visible (i.e. are organizational only) this should be left blank.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="902">
+        <source>Provide a link to an external website or an internal, symfony path (module/action).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="903">
+        <source>Provide a brief description of the menu and it's purpose.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="904">
+        <source>Actions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="905">
+        <source>You are here</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="906">
+        <source>Move %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="907">
+        <source>Move here</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="908">
+        <source>Results %1% to %2% of %3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="909">
+        <source>No results</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="910">
+        <source>Pages</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="911">
+        <source>Go to previous page</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="912">
+        <source>Go to page %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="913">
+        <source>Go to next page</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="914">
+        <source>%1% results per page</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="915">
+        <source>Access</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="916">
+        <source>Restricted</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="917">
+        <source>Are you sure you want to delete this reference/thumbnail representation?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="918">
+        <source>Are you sure you want to delete the digital object linked to %1%?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="919">
+        <source>See all</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="920">
+        <source>Browse %1% - %2%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="921">
+        <source>Upload digital objects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="922">
+        <source>Upload a digital object</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="923">
+        <source>Link to an external digital object</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="925">
+        <source>Loading preview...</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="926">
+        <source>Waiting...</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="927">
+        <source>Upload error, retry?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="928">
+        <source>Start</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="931">
+        <source>This term is used in %1% descriptions. The term will be deleted from these descriptions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="932">
+        <source>The related object(s) will &lt;strong&gt;not&lt;/strong&gt; be deleted</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="933">
+        <source>It's used in %1% events that will also be deleted</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="934">
+        <source>It has %1% descendants that will also be deleted</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="935">
+        <source>Edit term</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="936">
+        <source>Related term(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="938">
+        <source>Sorry, this Term is locked</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="939">
+        <source>This is a non-preferred term and cannot be edited - please use &lt;a href="%1%"&gt;%2%&lt;/a&gt;.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="940">
+        <source>Biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="941">
+        <source>Duplicate</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="942">
+        <source>Move</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="943">
+        <source>Link digital object</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="944">
+        <source>Import digital objects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="945">
+        <source>Role/event</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="946">
+        <source>It has %1% descendants that will also be deleted:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="947">
+        <source>Physical storage</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="948">
+        <source>Information Object Browse Options</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="949">
+        <source>Alphabetic</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="950">
+        <source>Search %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="951">
+        <source>Event note</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="952">
+        <source>Publication status</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="958">
+        <source>This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="989">
+        <source>Click Confirm to delete this physical storage from the system. This will also remove the physical storage location from the following records:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="991">
+        <source>You must enter your email address</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="992">
+        <source>This isn't a valid email address</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="993">
+        <source>You must enter your password</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="994">
+        <source>Please log in to access that page</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="995">
+        <source>Edit %1% permissions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="996">
+        <source>User ACL menu</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="997">
+        <source>Are you sure you want to delete user %1%?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="999">
+        <source>View permissions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1000">
+        <source>All %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1001">
+        <source>Taxonomy: %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1002">
+        <source>All privileges</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1005">
+        <source>Access control</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1006">
+        <source>Allowed languages for translation</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1007">
+        <source>Permissions for all %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1009">
+        <source>Inherit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1010">
+        <source>Permissions by %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1011">
+        <source>Permissions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1012">
+        <source>%1% name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1013">
+        <source>Add permissions by %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1014">
+        <source>Add %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1023">
+        <source>Locality</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1024">
+        <source>Region</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1025">
+        <source>Country name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1029">
+        <source>Default page elements</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1030">
+        <source>Enable or disable the display of certain page elements. Unless they have been overridden by a specific theme, these settings will be used site wide.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1038">
+        <source>Draft</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1039">
+        <source>Published</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1040">
+        <source>Check for updates</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1041">
+        <source>Upload multi-page files as multiple descriptions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1042">
+        <source>Show tooltips</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1043">
+        <source>Default publication status</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1044">
+        <source>Enable automatic update notification</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1045">
+        <source>Default publication status for newly created or imported %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1046">
+        <source>EAC</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1047">
+        <source>Actor browse options</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1048">
+        <source>Recent changes</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1049">
+        <source>Sort</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1053">
+        <source>The "&lt;strong&gt;%dd%&lt;/strong&gt;" placeholder will be replaced with a incremental number (e.g. 'image &lt;strong&gt;01&lt;/strong&gt;', 'image &lt;strong&gt;02&lt;/strong&gt;')</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1054">
+        <source>Warning: duplicate of %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1055">
+        <source>This file couldn\\'t be uploaded because of file size upload limits</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1056">
+        <source>Enter free-text information, including qualifiers or typographical symbols to express uncertainty, to change the way the date displays. If this field is not used, the default will be the start and end years only.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1057">
+        <source>Enter the end year. Do not use any qualifiers or typographical symbols to express uncertainty. If the start and end years are the same, enter data only in the "Date" field and leave the "End date" blank.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1058">
+        <source>End</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1059">
+        <source>Enter the start year. Do not use any qualifiers or typographical symbols to express uncertainty.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1060">
+        <source>Function Browse Options</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1061">
+        <source>Search function</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1062">
+        <source>Use the actor name field to link an authority record to this description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1063">
+        <source>Search for an existing term in the places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1065">
+        <source>Inherited from %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1066">
+        <source>Are you sure you want to delete %1% and all its descendants?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1071">
+        <source>Error encountered</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1072">
+        <source>Add new physical storage</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1073">
+        <source>"Record, when relevant, the start and the end date of the relationship." (ISDF 6.3) Enter the date as you would like it to appear in the show page for the function, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1074">
+        <source>Describe the nature of the relationship between the function and the related resource. (ISDF 6.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1075">
+        <source>Repository browse options</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1076">
+        <source>Invalid start date</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1077">
+        <source>Invalid end date</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1078">
+        <source>Search for [%1%]</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1079">
+        <source>Description updates</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1080">
+        <source>Date range</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1081">
+        <source>%1% to %2%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1082">
+        <source>Publication status &lt;span class="note2"&gt;(%1% only)&lt;/span&gt;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1083">
+        <source>Created</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1084">
+        <source>Add new page</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1085">
+        <source>Mustn't contain ";"</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1086">
+        <source>Edit page</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1087">
+        <source>List pages</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1088">
+        <source>Slug</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1089">
+        <source>Add new term</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1090">
+        <source>Name - A term with this name already exists.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1091">
+        <source>SKOS</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1092">
+        <source>Add new narrow terms</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1094">
+        <source>Add new user</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1095">
+        <source>Password strength:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1096">
+        <source>To make your password stronger:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1097">
+        <source>Make it at least six characters</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1098">
+        <source>Add lowercase letters</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1099">
+        <source>Add uppercase letters</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1100">
+        <source>Add numbers</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1101">
+        <source>Add punctuation</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1102">
+        <source>Make it different from your username</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1105">
+        <source>Passwords match:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1106">
+        <source>New password</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1107">
+        <source>The system is currently in read-only mode. Please try again later.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1108">
+        <source>Untitled</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1109">
+        <source>Accession mask</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1110">
+        <source>Accession counter</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1111">
+        <source>Reference code separator</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1112">
+        <source>Default upload limit (GB)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1113">
+        <source>The character separating hierarchical elements in a reference code</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1114">
+        <source>Default %1% upload limit for a new %2%.  A value of &amp;quot;0&amp;quot; (zero) disables file upload.  A value of &amp;quot;-1&amp;quot; allows unlimited uploads</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1115">
+        <source>Minimum value is "%min%"</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1117">
+        <source>%du% of %limit% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; (%percent%%)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1118">
+        <source>Upload is disabled</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1119">
+        <source>%du% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; of &lt;em&gt;Unlimited&lt;/em&gt;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1121">
+        <source>Edit upload limit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1122">
+        <source>Set the upload limit for this %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1123">
+        <source>Disable uploads</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1124">
+        <source>Limit uploads to %1% GB</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1125">
+        <source>Allow unlimited uploads</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1126">
+        <source>Update successful</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1127">
+        <source>Upload limit exceeded</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1128">
+        <source>The upload limit of %1% GB for &lt;a href="%2%"&gt;%3%&lt;/a&gt; has been exceeded (%4% GB currently used)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1129">
+        <source>To upload a new %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1130">
+        <source>Email your &lt;a href="mailto:%1%"&gt;system administrator&lt;/a&gt; and request a larger upload limit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1131">
+        <source>Delete an &lt;a href="%1%"&gt;existing %2%&lt;/a&gt; to reduce disk usage</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1132">
+        <source>Subject</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1133">
+        <source>Rights records</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1134">
+        <source>Act</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1135">
+        <source>Rights</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1136">
+        <source>Copyright information</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1137">
+        <source>License information</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1138">
+        <source>Statute information</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1139">
+        <source>Related right</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1140">
+        <source>Restriction</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1141">
+        <source>Start date</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1142">
+        <source>End date</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1143">
+        <source>Rights holder</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1145">
+        <source>Basis</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1146">
+        <source>Copyright status</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1147">
+        <source>Copyright status date</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1148">
+        <source>Copyright jurisdiction</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1149">
+        <source>Copyright note</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1150">
+        <source>License identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1151">
+        <source>License terms</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1152">
+        <source>License note</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1153">
+        <source>Statute jurisdiction</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1154">
+        <source>Statute citation</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1155">
+        <source>Statute determination date</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1156">
+        <source>Statute note</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1157">
+        <source>Add new rights holder</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1158">
+        <source>Authorized form of name - This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1159">
+        <source>Rights holder browse options</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1160">
+        <source>Browse rights holder</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1162">
+        <source>Edit rights holder</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1163">
+        <source>Identity area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1164">
+        <source>Authorized form of name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1165">
+        <source>Contact area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1166">
+        <source>View rights holder</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1167">
+        <source>Contact information</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1168">
+        <source>Primary contact</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1169">
+        <source>Search rights holder</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1170">
+        <source>Subject of</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1171">
+        <source>%1% upload limit of %2% GB exceeded for %3%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1172">
+        <source>Digital object (%1%) rights area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1174">
+        <source>Import a CSV file</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1177">
+        <source>Do not index imported items</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1179">
+        <source>Contact person</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1180">
+        <source>Primary</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1181">
+        <source>Related contact information</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1182">
+        <source>Main</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1183">
+        <source>Physical location</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1184">
+        <source>Other details</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1191">
+        <source>Printed: %d%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1192">
+        <source>Upload limit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1193">
+        <source>for %repo%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1194">
+        <source>Date (based on start date)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1195">
+        <source>Retrieval information</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1196">
+        <source>File list</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1197">
+        <source>Item list</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1198">
+        <source>Physical storage locations</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1199">
+        <source>Print preview</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1200">
+        <source>Reports</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1201">
+        <source>Oops, we couldn't find any file level descriptions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1202">
+        <source>%1% hierarchy</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1203">
+        <source>#</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1204">
+        <source>Thumbnail</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1205">
+        <source>Dates</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1206">
+        <source>Access restrictions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1207">
+        <source>N/A</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1208">
+        <source>None</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1209">
+        <source>Showing %1% to %2% of %3% results</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1210">
+        <source>Item list - report criteria</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1211">
+        <source>Sort by</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1212">
+        <source>Include thumbnails</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1213">
+        <source>Continue</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1214">
+        <source>Select report</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1215">
+        <source>Oops, we couldn't find any physical storage locations for the current resource</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1216">
+        <source>File list - report criteria</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1217">
+        <source>Your browser does not support JavaScript. See %1%minimum requirements%2%.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1218">
+        <source>Your browser does not have Flash player installed. To import digital objects, please &lt;a href="http://get.adobe.com/flashplayer/"&gt;Download Adobe Flash Player&lt;/a&gt; (requires version 9.0.45 or higher)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1219">
+        <source>Oops, we couldn't find any item level descriptions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1220">
+        <source>Administration area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1221">
+        <source>Showing %1% results</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1222">
+        <source>Allow</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1223">
+        <source>Disallow</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1224">
+        <source>The action which is permitted or restricted.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1225">
+        <source>A condition or limitation on the act.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1226">
+        <source>The beginning date of the permission granted.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1227">
+        <source>The ending date of the permission granted. Omit end date if the ending date is unknown.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1228">
+        <source>Name of the person(s) or organization(s) which has the authority to grant permissions or set rights restrictions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1229">
+        <source>Rights note(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1230">
+        <source>Basis for the permissions granted or for the restriction of rights</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1231">
+        <source>A coded designation for the copyright status of the object at the time the rights statement is recorded.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1232">
+        <source>The country whose copyright laws apply.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1233">
+        <source>Additional information about the copyright status.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1234">
+        <source>Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses). Used to identify the granting agreement uniquely within the repository system.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1235">
+        <source>Text describing the license or agreement by which permission was granted or link to full-text hosted online. This can contain the actual text of the license or agreement or a paraphrase or summary.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1236">
+        <source>Additional information about the license, such as contact persons, action dates, or interpretations. The note may also indicated the location of the license, if it is available online or embedded in the object itself.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1237">
+        <source>The country or other political body that has enacted the statute.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1238">
+        <source>An identifying designation for the statute. Use standard citation form when applicable, e.g. bibliographic citation.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1239">
+        <source>Date that the decision to ascribe the right to this statute was made. As context for any future review/re-interpretation.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1240">
+        <source>Additional information about the statute.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1241">
+        <source>Print</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1242">
+        <source>Phrase</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1243">
+        <source>Keyword(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1244">
+        <source>Digital object is available</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1245">
+        <source>No digital object is available</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1246">
+        <source>No results found.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1247">
+        <source> in %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1248">
+        <source>Global search/replace</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1249">
+        <source>Both source and replacement fields are required.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1250">
+        <source>Are you sure you want to replace "%1%" with "%2%" in %3%?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1251">
+        <source>This will permanently modify %1% records.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1252">
+        <source>This action cannot be undone!</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1253">
+        <source>Search for</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1254">
+        <source>Showing results %1% to %2% of %3% (%4% seconds)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1255">
+        <source>(Only showing first %1% results for performance reasons)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1256">
+        <source>Filter/Limit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1258">
+        <source>Digital object available</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1259">
+        <source>Replace</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1260">
+        <source>With</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1261">
+        <source>in</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1262">
+        <source>Case-sensitive</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1263">
+        <source>Use regular expression syntax</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1264">
+        <source>Search results</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1265">
+        <source>and</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1266">
+        <source>or</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1267">
+        <source>not</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1268">
+        <source>Any field</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1269">
+        <source>Admin/biographical history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1270">
+        <source>Archival history</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1271">
+        <source>Scope and content</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1272">
+        <source>Extent and medium</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1273">
+        <source>using</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1274">
+        <source>keyword</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1275">
+        <source>phrase</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1276">
+        <source>Address</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1277">
+        <source>A %1%release %2%%3% upgrade is available.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1278">
+        <source>Sort browser (users)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1279">
+        <source>Sort browser (anonymous)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1280">
+        <source>SWORD deposit directory</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1281">
+        <source>Require SSL for all administrator funcionality</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1282">
+        <source>Require strong passwords</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1283">
+        <source>Enable job scheduler</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1284">
+        <source/>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1285">
+        <source>Limit administrator functionality to a static IP address or range</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1286">
+        <source>Require SSL for all administrator functionality</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1287">
+        <source>Browse options</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1288">
+        <source>Your password is not strong enough.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1289">
+        <source>Your password is not strong enough (too short).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1290">
+        <source>The username or e-mail address you entered is already in use</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1291">
+        <source>This user has %1% notes in the system and therefore it cannot be removed</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1292">
+        <source>This user is inactive</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1293">
+        <source>you</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1294">
+        <source>Active</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1295">
+        <source>User List Options</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1296">
+        <source>Show active only</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1297">
+        <source>Show inactive only</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1298">
+        <source>inactive</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1299">
+        <source>Visible elements</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1300">
+        <source>ISAD template</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1302">
+        <source>RAD template</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1305">
+        <source>Job scheduling</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1306">
+        <source>Specific Gearman job server options can be found in config/gearman.yml.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1307">
+        <source>Security</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1308">
+        <source>General material designation</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1309">
+        <source>Object UUID</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1310">
+        <source>AIP UUID</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1311">
+        <source>Your password confirmation did not match your password.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1312">
+        <source>Repository affiliation</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1313">
+        <source>Show all</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1314">
+        <source>Immediate source of acquisition or transfer</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1315">
+        <source>Appraisal, destruction and scheduling information</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1316">
+        <source>Notes</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1317">
+        <source>Physical characteristics and technical requirements</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1318">
+        <source>Description identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1319">
+        <source>Institution identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1320">
+        <source>Rules or conventions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1321">
+        <source>Status</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1322">
+        <source>Level of detail</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1323">
+        <source>Dates of creation, revision and deletion</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1324">
+        <source>Language(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1325">
+        <source>Script(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1326">
+        <source>Sources</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1327">
+        <source>Archivist's notes</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1328">
+        <source>Physical condition</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1329">
+        <source>Immediate source of acquisition</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1330">
+        <source>General note(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1331">
+        <source>Conservation note(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1332">
+        <source>Script</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1333">
+        <source>Digital object metadata area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1334">
+        <source>File name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1335">
+        <source>MIME type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1336">
+        <source>File size</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1337">
+        <source>PHP Zip extension could not be found.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1338">
+        <source>Unable to import selected file: unknown file extension.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1339">
+        <source>Import a XML file</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1340">
+        <source>Accession</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1341">
+        <source>XML</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1342">
+        <source>CSV</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

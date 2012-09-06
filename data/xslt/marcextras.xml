@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+
+To import additional MARC fields not mapped from the EAD document (such as static 
+repository information, etc.), you can include those MARC fields here.  These    
+additional fields must follow this format:                                       
+                                                                                 
+1. To insert a field, add the new field anywhere between the <document> tags     
+below (AFTER the text "PUT YOUR ADDITIONAL FIELDS HERE").  The new field must begin 
+with the letters MARC follow by the MARC field number (e.g. MARC852).                                                           
+
+2. The data must be in one of the following two formats:                                        
+
+a. Subfields embedded within the text.  The subfield indicators are indicated in the
+"ind1" and "ind2" attributes as below.  The "fullstop" attribute tells the stylesheet
+whether to add a fullstop to the end of the field.  Implicitly encoding of subfield "a"
+is optional:
+
+<MARC852 ind1="1" ind2="2" fullstop="no">
+University of Washington Libraries$bSpecial Collections$eBox 352900, Seattle, WA, 98195-2900
+</MARC852>          
+
+b. In MARCXML syntax.  In this case, the entire contents of the new field are inserted
+as is into the stylesheet.  If you want a fullstop, you need to encode it in the data for this
+field.  Be sure to follow this format exactly:
+     
+<MARC910>
+<marc:datafield tag="910" ind1="" ind2="">
+<marc:subfield code="a">MCM</marc:subfield>
+</marc:datafield>
+</MARC910>
+
+-->
+<document xmlns:marc="http://www.loc.gov/MARC21/slim">
+
+
+<!-- PUT YOUR ADDITIONAL FIELDS HERE -->
+
+
+<MARC555 ind1="0" ind2="" fullstop="no">Finding aid available in the repository and on the World Wide Web.</MARC555>
+<MARC852 ind1="1" ind2="2" fullstop="no">
+University of Washington Libraries$bSpecial Collections$eBox 352900, Seattle, WA, 98195-2900
+</MARC852>
+<MARC910 ind1="" ind2="" fullstop="no">MCM</MARC910>
+
+</document>

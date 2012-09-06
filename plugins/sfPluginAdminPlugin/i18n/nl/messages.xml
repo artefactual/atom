@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2011-11-04T15:08:31Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>List themes</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Name</source>
+        <target>Naam</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Version</source>
+        <target>Versie</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Enabled</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Actions</source>
+        <target>Handelingen</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Save</source>
+        <target>bewaren</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>List plugins</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

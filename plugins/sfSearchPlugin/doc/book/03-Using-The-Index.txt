@@ -1,0 +1,365 @@
+= Using The Index =
+After we have created an index as described in Chapter 2, we can use the search API to search the index.  The public search API is simple but powerful and accomdates most use cases.
+
+== The Task System ==
+sfSearch ships with a powerful task system to help you matain your index.  You already used one of the tasks to generate a search index skeleton.  We will now use two more tasks to populate and optimize the search index.
+
+=== Populating ===
+Even though we have configured our index, we have not populated it -- that is to say index all the data.
+
+To launch the indexing process, we run the symfony command:
+{{{
+./symfony search:populate SiteSearch 
+}}}
+
+Depending on how much data you index, this command may take from a few seconds to a few hours.  The console will keep you informed on its process.
+
+Note: If you give the {{{ search:populate }}} command a group, it will populate all child indices.
+
+=== Optimizing ===
+You should optimize your index every so often to keep searches fast and efficient.  Optimizing depends on the underlying engine implementation, so the time it takes to complete varies. 
+
+To optimize an index, simply run:
+{{{
+./symfony search:optimize SiteSearch
+}}}
+
+The optimization process will modify the index to make searching more efficient. You may consider optimizing your index every month.
+
+== Opening an Index ==
+Now that the index is populated and optimized, we can begin to use it in our code:
+{{{
+#!php
+<?php
+$index = new SiteSearch();
+}}}
+
+That's it!  We've already setup the index in the its {{{ ->configure() }}} so we are all ready to begin using the index.  We can now run a variety of commands.
+
+In fact, all of the tasks described above are simply wrappers for index commands. We can populate the index using {{{ ->populate() }}}:
+{{{
+#!php
+<?php
+$index = new SiteSearch();
+$index->populate();
+$index->optimize();
+}}}
+
+But, we are using sfSearch to provide search results, so why don't we match some queries?
+
+== Searching ==
+All indices have a {{{ ->find() }}} method that take a criterion object and return result objects. We will explain these objects in detail here.
+
+=== Criterions ===
+A criterion tells sfSearch what to search on, how to match it, and the importance of the term.  sfSearch ships with a large set of criterions to accomodate most searching needs.
+
+Before we continue, we need to explain how sfSearch handles a criterion.  A criterion in itself is just a recommendation for matching a result.  It tells the search engine that this criterion probably should match to be useful, but it is not required to match. This recommendation is the reason why sometimes results will be returned that did not match a criterion. There is a way to require a criterion to match, which is explained later in this chapter.
+
+The criterions match data in the index and provide a framework to find exactly what you are looking for:
+|| '''Criterion'''      || '''Function'''                                         || '''Example'''            ||
+|| xfCriterionTerm      || Matches a single term or word                          || foo                      ||
+|| xfCriterionPhrase    || Matches an entire phrase                               || "the quick brown fox"    ||
+|| xfCriterionRange     || Matches a range of values                              || 1 to 50                  ||
+|| xfCriterionWildcard  || Matches a wildcard                                     || m*n or m?n               ||
+|| xfCriteria           || Combines multiple criterions to create a complex query || foo AND bar              ||
+|| xfCriterionEmpty     || Signifies an empty query and matches nothing           || NULL                     ||
+
+==== xfCriterionTerm ====
+xfCriterionTerm matches a single word in the index and finds all records that contain this term:
+{{{
+#!php
+<?php
+$c = new xfCriterionTerm('foo');
+}}}
+
+==== xfCriterionPhrase ====
+xfCriterionPhrase is similar to xfCriterionTerm except it looks for an entire phrase of words:
+{{{
+#!php
+<?php
+$c = new xfCriterionPhrase('foo bar baz');
+}}}
+
+Additionally, you can set a slop for the phrase:
+{{{
+#!php
+<?php
+$c = new xfCriterionPhrase('foo bar baz', 2); // slop of 2
+// OR
+$c->setSlop(2);
+}}}
+A high slop value allows words to appear out of order or have other words injected between them.  By default, the slop is 0, indicating an exact match.
+
+==== xfCriterionRange ====
+xfCriterionRange looks for a range of values:
+{{{
+#!php
+<?php
+$c = new xfCriterionRange(1, 42);
+}}}
+
+By default, the range is inclusive, meaning it will match all numbers between 1 and 42, including the numbers 1 and 42. However, you can force them to be exclusive:
+{{{
+#!php
+<?php
+$c = new xfCriterionRange(1, 42, false, false); // match 1 to 42, not including 1 or 42
+$c = new xfCriterionRange(1, 42, true, false); // match 1 to 42, including 1 but not 42
+$c = new xfCriterionRange(1, 42, false, true); // match 1 to 42, including 42 but not 1
+}}}
+
+==== xfCriterionWildcard ====
+xfCriterionWildcard allows to search for a wildcard:
+{{{
+#!php
+<?php
+$c = new xfCriterionWildcard('the m*n s?t');
+}}}
+
+There are two wildcards:
+|| '''Wildcard''' || '''Function'''                               || '''Example'''       ||
+|| *              || Matches any character any number of times    || man, moon, moooooon ||
+|| ?              || Matches any character only once              || sit, sat, set       ||
+
+==== xfCriteria ====
+xfCriteria combines multiple criterions together and allows the developer to create complex queries:
+{{{
+#!php
+<?php
+$c = new xfCriteria;
+$c->add(new xfCriterionTerm('baz'));
+$c->add(new xfCriterionPhrase('foo bar'));
+}}}
+
+==== xfCriterionEmpty ====
+xfCriterionEmpty signifies an empty criterion and will not match anything. This criterion used internally for optimization purposes.
+
+==== Decorating Criterions ====
+The criterions described above were the fundamental criterions. There exists a second type: the decorating criterions. Decorating criterions add additional requirements and properties to criterions.  There are currently four decorating criterions:
+|| '''Criterion''         || '''Function'''                                         ||
+|| xfCriterionBoost       || Makes a criterion more or less important               ||
+|| xfCriterionField       || Makes a criterion to only match on a specific field    ||
+|| xfCriterionRequired    || Forces a criterion to match                            ||
+|| xfCriterionProhibited  || Forces a criterion not to match                        ||
+
+All decorators wrap a criterion object.
+
+====== xfCriterionBoost ======
+xfCriterionBoost makes a criterion more or less important:
+{{{
+#!php
+<?php
+$c = new xfCriterionBoost(new xfCriterionTerm('foo'), 2.0); // gives xfCriterionTerm a boost of 2.0
+$c = new xfCriterionBoost(new xfCriterionTerm('bar'), 0.5); // gives xfCriterionTerm a boost of 0.5
+}}}
+
+By default, every criterion has a boost of 1.  If the boost is greater than 1, it is more important.  If the boost is less than 1, it is less important.  A boost can never be negative.
+
+====== xfCriterionField ======
+xfCriterionField makes a criterion only match on a specific field:
+{{{
+#!php
+<?php
+$c = new xfCriterionField(new xfCriterionTerm('cvondrick'), 'author'); // the "author" field must contain "cvondrick"
+}}}
+
+====== xfCriterionRequired ======
+xfCriterionRequird makes a field required to match:
+{{{
+#!php
+<?php
+$c = new xfCriterionRequired(new xfCriterionTerm('foo'));
+}}}
+
+Remember that criterions are simply recommendations to match documents.  the xfCriterionRequired decorator requires that this criterion match.
+
+====== xfCriterionProhibited ======
+xfCriterionProhibited requires that the criterion not match for the result to be returned:
+{{{
+#!php
+<?php
+$c = new xfCriterionProhibited(new xfCriterionTerm('foo'));
+}}}
+
+xfCriterionProhibited is the opposite of xfCriterionRequirement.
+
+=== Parsers ===
+Most search implementations give the user an input box to type their query and the application magically returns results.  How do we translate the user query into the criterion objects above?  We use a query parser.
+
+sfSearch ships with 3 dedicated query parsers to convert a query string into a criterion:
+  1. '''xfParserSimple''' is a simple parser that acts much like SQL's LIKE clause.
+  2. '''xfParserLucene''' follows the Apache Lucene query syntax to allow complex queries. See the Apache Lucene project for the syntax: http://lucene.apache.org/java/docs/queryparsersyntax.html
+  3. '''xfParserGoogle''' tries to match Google's syntax (''coming soon'').
+
+Using the parsers to create criterions is simple:
+{{{
+#!php
+<?php
+// Simple
+$parser = new xfParserSimple;
+$criterion = $parser->parse($query);
+
+// Lucene
+$parser = new xfParserLucene;
+$criterion = $parser->parse($query);
+
+// Google (coming soon)
+$parser = new xfParserGoogle;
+$criterion = $parser->parse($query);
+}}}
+
+In the three examples above, the {{{ $criterion }}} object is a fully functional criterion composed of the criterions described in the above section.
+
+However, be aware that query parsers can throw exceptions if the query is malformed.  For example, what happens if you feed the Lucene parser the Google syntax? It will likely throw an xfParserException.  Unless you catch this exception, the user will see an error page.
+
+sfSearch has a fourth parser designed to circumvent this problem. '''xfParserSilent''' will catch any exceptions and parse it using other means to force a criterion to be created.  Like before, usage is simple:
+{{{
+#!php
+<?php
+$parser = new xfParserSilent(new xfParserLucene);
+$criterion = $parser->parse($query);
+}}}
+
+Further, it is also possible to combine queries created using the criterion API and the parser API.  Consult the example:
+{{{
+#!php
+<?php
+$parser = new xfParserSilent(new xfParserLucene);
+
+$criteria = new xfCriteria;
+$criteria->add($parser->parse($query));
+$criteria->add(new xfCriterionField(new xfCriterionPhrase('Carl'), 'author'));
+}}}
+
+=== Results ===
+The {{{ ->find() }}} method returns a result object that we can iterate over and display the results to the user:
+
+{{{
+#!php
+<?php
+$parser = new xfParserSilent(new xfParserLucene);
+
+$index = new SiteSearch;
+$results = $index->find($parser->parse($query));
+
+foreach ($results as $result)
+{
+  echo 'Title: ' . $result->getTitle() . '<br />';
+  echo 'Description: ' . $result->getDescription() . '<hr />';
+}
+}}}
+
+Remember back to Chapter 2 where you configured retorts into your search configuration.  The {{{ $result }}} object returned from the {{{ $results }}} iterator implements the retorts to provide quick access to information.  The above example assumes that each result has a retort that will respond to {{{ getTitle }}} and {{{ getDescription }}}.  If no retort is defined for an event, an exception will be thrown.
+
+=== Integrating with MVC ===
+But, sfSearch is not complete without allowing a simple implementation to the MVC pattern. sfSearch was designed to easily fit into MVC.
+
+For example, we can create a symfony action to search:
+{{{
+#!php
+<?php
+// in apps/frontend/modules/search/actions/actions.php
+
+class searchActions extends sfActions
+{
+  public function executeSearch($request)
+  {
+    $parser = new xfParserSilent(new xfParserLucene);
+    $c = $parser->parse($request->getParameter('query'));
+
+    if (!$c instanceof xfCriterionEmpty) // do we have a query to search on?
+    {
+      // user entered query, display search results
+
+      $index = new SiteSearch;
+      $this->results = $index->find($c);
+
+      if (count($this->results) > 0) // were there any results?
+      {
+        return 'Results';
+      }
+      else
+      {
+        return 'NoResults'; // no results found
+      }
+    }
+    else
+    {
+      return 'Controls';
+    }
+  }
+}
+}}}
+
+The above action checks to see if the user entered a query. If they did not enter a query, display the search form.  If they did enter a query and there are results, display the results, otherwise show a warning that no results were found.
+
+We can then create the results template:
+{{{
+#!php
+<!-- in apps/frontend/modules/search/templates/searchResults.php -->
+
+<ol>
+  <?php foreach ($results as $result): ?>
+    <li>
+      <strong><?php echo $result->getTitle() ?></strong><br />
+      <p><?php echo $result->getDescription() ?></p>
+    </li>
+  <?php endforeach ?>
+</ol>
+}}}
+
+The above will loop through all results found and display them to the user, as long as retorts for {{{ getTitle }}} and {{{ getDescription }}} exist.
+
+However, indices can get very large and can return thousands of results.  What if Google returned every webpage on the web that mentioned "symfony"?  There would be thousands, if not millions, of results!
+
+We can restrict our results by using a pager.  sfSearch ships with a pager designed to operate on result iterators.  The API is very similar to sfPager and sfPropelPager, so you should feel right at home.
+
+Consider the following modified snippet from the above action:
+{{{
+#!php
+<?php
+// user entered query, display search results
+
+$index = new SiteSearch;
+$this->results = $index->find($c);
+
+if (count($this->results) > 0) // were there any results?
+{
+  $this->pager = new xfPager($this->results);
+  $this->pager->setPerPage(15);
+  $this->pager->setPage($request->getParameter('page', 1));
+
+  return 'Results';
+}
+else
+{
+  return 'NoResults'; // no results found
+}
+}}}
+
+If results are found, we set a pager object that displays 15 results per page and jump to the page specified in the query string. 
+
+Now we need the corresponding template:
+{{{
+#!php
+<ol start="<?php echo $pager->getStartPosition() ?>">
+  <?php foreach ($pager->getResults() as $result): ?>
+    <li>
+      <strong><?php echo $result->getTitle() ?></strong><br />
+      <p><?php echo $result->getDescription() ?></p>
+    </li>
+  <?php endforeach ?>
+</ol>
+
+<div class="page-numbers">
+  <?php foreach ($pager->getLinks() as $page): ?>
+    <a href="<?php echo url_for('search/search?query=' . $query . '&page=' . $page) ?>"><?php echo $page ?></a>
+  <?php endforeach ?>
+</div>
+}}}
+
+The first page of the template is a modified order list to accomdate the pager, while the second part gives the user links to move between pages. Consult the {{{ xfPager }}} API documentation for even more possibilities.
+
+== Summary ==
+sfSearch provides a powerful API to find and display search results while still fitting into the MVC pattern.  By using retorts, we are able to create easy to use methods to gain quick access to information.
+
+In the next chapter, we will learn to use the generator which optionally automates this entire process.

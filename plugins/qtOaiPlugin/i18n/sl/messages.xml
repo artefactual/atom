@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2011-11-04T15:08:33Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Repository Deletion</source>
+        <target>Izbris skladišča</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Deleted</source>
+        <target>Izbrisano</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Click here to return to harvester main page</source>
+        <target>Kliknite tukaj za vrnitev zajemanja glavne strani</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>OAI-PMH - harvested sites</source>
+        <target>OAI-PMH - zajete strani</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Repository</source>
+        <target>skladišče</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Harvest</source>
+        <target>Zajemanje</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Delete</source>
+        <target>Izbriši</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Add new repository</source>
+        <target>Dodaj novo skladišče</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Enter a valid URI (e.g. http://www.example.com/oai) for an OAI-PMH repository</source>
+        <target>Vnesite veljaven URI (enotni označevalnik vira) (npr. http://www.example.com/oai)za skladišče OAI-PHM</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Save</source>
+        <target>Shrani</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Repository Insertion</source>
+        <target>Vrivanje skladišča</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Repository could not be added because it already exists.</source>
+        <target>Skladišča ni bilo mogoče dodati, ker že obstaja.</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Errors while trying to add Repository</source>
+        <target>Napake med dodajanjem Skladišča</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Repository harvest</source>
+        <target>Zajemanje skladišča</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Repository: %name%</source>
+        <target>Skladišče: %name%</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Repository harvested successfuly</source>
+        <target>Skladišče je bilo uspešno zajeto</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>No new records</source>
+        <target>Ni novih vnosov</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>%count% records imported</source>
+        <target>%count% uvožene zapise</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Error found in record</source>
+        <target>Napaka v arhivskem zapisu</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>An error occured during harvest</source>
+        <target>Prišlo je do napake med zajemanjem</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Return to harvester main page</source>
+        <target>Vrnitev k zajemanju glavne strani</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

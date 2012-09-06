@@ -1,0 +1,13 @@
+/* $Id: menu.css 5047 2010-01-27 01:19:02Z jablko $ */
+
+.menu-operations {
+  width: 100px;
+}
+
+.menu-enabled {
+  width: 70px;
+}
+
+.menu-enabled input {
+  margin-left:25px;
+}

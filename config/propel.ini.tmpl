@@ -1,0 +1,52 @@
+propel.targetPackage       = lib.model
+propel.packageObjectModel  = true
+propel.project             = qubit
+propel.database            = mysql
+propel.database.driver     = mysql
+propel.database.url        = mysql:dbname=qubit;host=localhost
+propel.database.creole.url = ${propel.database.url}
+propel.database.user       = root
+propel.database.password   =
+propel.database.encoding   = utf8
+
+; mysql options
+propel.mysql.tableType     = InnoDB
+
+propel.addVendorInfo       = true
+propel.addGenericAccessors = false
+propel.addGenericMutators  = false
+propel.addTimeStamp        = false
+propel.addValidators       = false
+propel.addIncludes         = false
+
+propel.useDateTimeClass       = true
+propel.defaultTimeStampFormat = Y-m-d H:i:s
+propel.defaultTimeFormat      = H:i:s
+propel.defaultDateFormat      = Y-m-d
+
+propel.schema.validate        = false
+propel.samePhpName            = false
+propel.disableIdentifierQuoting     = false
+propel.emulateForeignKeyConstraints = true
+
+; directories
+propel.home                    = .
+propel.schema.dir              = ${propel.output.dir}/config
+propel.conf.dir                = ${propel.output.dir}/config
+propel.phpconf.dir             = ${propel.output.dir}/config
+propel.sql.dir                 = ${propel.output.dir}/data/sql
+propel.runtime.conf.file       = runtime-conf.xml
+propel.php.dir                 = ${propel.output.dir}
+propel.default.schema.basename = schema
+propel.datadump.mapper.from    = *schema.xml
+propel.datadump.mapper.to      = *data.xml
+
+; builder settings
+propel.builder.object.class            = lib.propel.builder.QubitObjectBuilder
+propel.builder.objectstub.class        = lib.propel.builder.QubitExtensionObjectBuilder
+propel.builder.peer.class              = lib.propel.builder.QubitObjectBuilder
+propel.builder.peerstub.class          = lib.propel.builder.QubitExtensionObjectBuilder
+propel.builder.tablemap.class          = lib.propel.builder.QubitTableMapBuilder
+
+propel.builder.addComments  = false
+propel.builder.addBehaviors = false

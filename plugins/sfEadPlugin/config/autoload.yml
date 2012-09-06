@@ -1,0 +1,3 @@
+autoload:
+  vendor_iso639:
+    path: %SF_PLUGINS_DIR%/sfEadPlugin/lib/vendor/FreeBeerIso639Map.php

@@ -1,0 +1,9 @@
+Article:
+  actAs:
+    Gearmanable:
+      events:  [insert, update] # trigger a gearman job for those events
+      server:  default          # gearman.yml server config key name
+      trigger: event            # method for trigger : 'event' (doctrine way) or 'mysql' (udf way)
+  columns:
+
+# vim: set ft=yaml et ts=2 sw=2:

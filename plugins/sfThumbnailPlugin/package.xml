@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.6.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>sfThumbnailPlugin</name>
+ <channel>pear.symfony-project.com</channel>
+ <summary>symfony thumbnail generation support.</summary>
+ <description>symfony thumbnail generation support.</description>
+ <lead>
+  <name>Fabien POTENCIER</name>
+  <user>fabpot</user>
+  <email>fabien.potencier@symfony-project.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-09-09</date>
+ <time>08:48:00</time>
+ <version>
+  <release>1.5.4</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.symfony-project.com/license">MIT license</license>
+ <notes>-</notes>
+ <contents>
+  <dir name="/">
+   <file md5sum="ade44239bce430f61f7c0c8cd1ce89b0" name="lib/sfThumbnail.class.php" role="data" />
+   <file md5sum="ea7aec8b4be6212af8434f65efa85a69" name="lib/sfGDAdapter.class.php" role="data" />
+   <file md5sum="add9e55ed76cc8d607b11bf2a4704aea" name="lib/sfImageMagickAdapter.class.php" role="data" />
+   <file md5sum="c5de5dccc5785beae22f92424d51cad6" name="README" role="data" />
+   <file md5sum="c0ab88a4687e9ff8e0fb6c95ca49ed74" name="LICENSE" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.1</min>
+   </pearinstaller>
+   <package>
+    <name>symfony</name>
+    <channel>pear.symfony-project.com</channel>
+    <min>1.0.0</min>
+    <max>1.2.0</max>
+    <exclude>1.2.0</exclude>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog />
+</package>

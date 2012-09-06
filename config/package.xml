@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<package version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+  <name>qubit</name>
+  <channel>pear.qubit-toolkit.org</channel>
+  <summary>Open information management toolkit</summary>
+  <description>
+Qubit is a fully web-based toolkit that will allow institutions such as archives, libraries, museums, and art galleries to manage and host collections of information resources. Qubit supports multilingual and multi-repository collections.
+
+The goal is to provide an easy-to-use, flexible toolkit that complies with open standards (e.g. Dublin Core, ICA-ISAD, MODS, EAD, METS) and is developed using an open architecture that takes advantage of emerging web-based tools and practices.
+  </description>
+  <lead>
+    <name>Jack Bates</name>
+    <user>jablko</user>
+    <email>ms419@freezone.co.uk</email>
+    <active>no</active>
+  </lead>
+  <lead>
+    <name>David Juhasz</name>
+    <user>david</user>
+    <email>david@artefactual.com</email>
+    <active>yes</active>
+  </lead>
+  <lead>
+    <name>Jesús Garcia Crespo</name>
+    <user>sevein</user>
+    <email>correo@sevein.com</email>
+    <active>yes</active>
+  </lead>
+  <version>
+    <api>1.0.0</api>
+  </version>
+  <license>GPL</license>
+  <notes>-</notes>
+  <contents>
+    <file name="apps/qubit//*" role="php"/>
+    <file name="config//*" role="data"/>
+    <file name="COPYRIGHT" role="doc"/>
+    <file name="css//*" role="data"/>
+    <file name="data//*" role="data"/>
+    <file name="ead.dtd" role="data"/>
+    <file name="favicon.ico" role="data"/>
+    <file name="images//*" role="data"/>
+    <file name="index.php" role="php"/>
+    <file name="js//*" role="data"/>
+    <file name="lib//*" role="php"/>
+    <file name="LICENSE" role="doc"/>
+    <file name="plugins//*" role="php"/>
+    <file name="qubit_dev.php" role="php"/>
+    <file name="README" role="doc"/>
+    <file name="symfony" role="script"/>
+    <file name="test//*" role="test"/>
+    <file name="uploads//*" role="data"/>
+    <file name="vendor//*" role="php"/>
+    <file name="vendor/symfony/data//*" role="data"/>
+  </contents>
+  <dependencies>
+    <required>
+      <php>
+        <min>5.3</min>
+      </php>
+      <pearinstaller>
+        <min>1.4.1</min>
+      </pearinstaller>
+    </required>
+    <optional>
+      <extension>
+        <name>mbstring</name>
+      </extension>
+    </optional>
+  </dependencies>
+  <phprelease/>
+</package>

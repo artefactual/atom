@@ -1,0 +1,15 @@
+/* $Id: vertical-tabs-rtl.css 5047 2010-01-27 01:19:02Z jablko $ */
+
+.vertical-tabs {
+  margin-left: 0;
+  margin-right: 15em;
+}
+.vertical-tabs-list {
+  margin-right: -15em;
+  right: 0;
+  float: right;
+}
+.vertical-tabs-list li.selected {
+  border-left-width: 0;
+  border-right-width: 1px;
+}

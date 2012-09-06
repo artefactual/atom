@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2012-08-17T14:34:31Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new donor</source>
+        <target>Voeg nieuwe schenker/bruikleengever toe</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>Zonder titel</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>Bewerken %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Authorized form of name - This is a mandatory element.</source>
+        <target>Geauthoriseerde naam - Dit is een verplicht veld.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Donor browse options</source>
+        <target>Opties voor het bladeren door schenkers/bruikleengevers</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Recent changes</source>
+        <target>Recente wijzigingen</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Sort</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Alphabetic</source>
+        <target>Alfabetisch</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Browse donor</source>
+        <target>Blader door schenkers/bruikleengevers</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Name</source>
+        <target>Naam</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Updated</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Search donor</source>
+        <target>Zoek schenker/bruikleengever</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Are you sure you want to delete %1%?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Actions</source>
+        <target>Handelingen</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Cancel</source>
+        <target>Verwijderen</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Confirm</source>
+        <target>Bevestig</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Edit donor</source>
+        <target>Bewerken schenker/bruikleengever</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Identity area</source>
+        <target>Identificatie</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Authorized form of name</source>
+        <target>Geauthoriseerde naam</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>This is a mandatory element.</source>
+        <target>Dit is een verplicht veld.</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Contact area</source>
+        <target>Contact</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Save</source>
+        <target>bewaren</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Create</source>
+        <target>Aanmaken</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>View donor</source>
+        <target>Bekijk schenker</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Edit</source>
+        <target>Bewerken</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Delete</source>
+        <target>Verwijderen</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Add new</source>
+        <target>Nieuw toevoegen</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>List donor</source>
+        <target>Lijst van schenkers en bruikleengevers</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Add new deaccession record</source>
+        <target>Voeg nieuwe gegevens over verwijdering toe</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Identifier - This is a mandatory element.</source>
+        <target>Bestandsidentificatie - dit is een verplicht veld.</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Date of acquisition - This is a mandatory element.</source>
+        <target>Datum verwerving - Dit is een verplicht veld.</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Scope - This is a mandatory element.</source>
+        <target>Dit is een verplicht veld</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Description - This is a mandatory element.</source>
+        <target>Beschrijving - Dit is een verplicht veld.</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Edit deaccession record</source>
+        <target>Bewerken gegevens over afstoten</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Deaccession number</source>
+        <target>Nummer verwijdering</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.</source>
+        <target>Bepaal of de hele aanwinst wordt afgestoten of slechts een deel ervan</target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Scope</source>
+        <target>Bereik</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Date of deaccession</source>
+        <target>Datum van verwijdering</target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Date</source>
+        <target>Datum</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Identify what materials are being deaccessioned.</source>
+        <target>Bepaal welk materiaal afgestoten gaat worden</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Description</source>
+        <target>Beschrijving</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>The number of units as a whole number and the measurement of the records to be deaccessioned.</source>
+        <target>Het aantal eenheden en de omvang van de bestanddelen van het verlies.</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Provide a reason why the records are being deaccessioned.</source>
+        <target>Geef een reden waarom de bestanddelen worden afgestoten</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>View deaccession record</source>
+        <target>Bekijk gegevens over afstoten</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Edit accession record</source>
+        <target>Bewerk aanwinst record</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Extent</source>
+        <target>Omvang</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Reason</source>
+        <target>Reden</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Add new accession record</source>
+        <target>Voeg nieuwe verwervingsgegevens toe</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Acquisition date - This is a mandatory element.</source>
+        <target>Datum verwerving - Dit is een verplicht veld.</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Source of acquisition - This is a mandatory element.</source>
+        <target>ron van de verwerving - dit is een verplicht veld</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Location information - This is a mandatory element.</source>
+        <target>Plaatsingsgegevens - dit is een verplicht veld</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Accession browse options</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Browse accession</source>
+        <target>Blader door aanwinsten</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Search accession</source>
+        <target>Zoek aanwinst</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Related donors</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Related donor record</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Primary contact information</source>
+        <target>Primaire contactgegevens</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Region/province</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Country</source>
+        <target>Land</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>It has %1% deaccessions that will also be deleted:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Accession number</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Acquisition date</source>
+        <target>Datum verwerving</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.</source>
+        <target>Bepaal de directe bron van de aanwinst over overdracht, en de datum en methode van verwerving. Voor zover de informatie niet vertrouwelijk is.</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>A description of the physical location in the repository where the accession can be found.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Location information</source>
+        <target>Plaatsingsgegevens</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Donor/Transferring body area</source>
+        <target>Schenkers/Bruikleengevers/overbrenging</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Administrative area</source>
+        <target>Beheer</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Term describing the type of accession transaction and referring to the way in which the accession was acquired.</source>
+        <target>Term die de soort aanwinst transactie eschrijft en verwijst naar de manier waarop de aanwinst is verworven</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>Select the type of resource represented in the accession, either public or private.</source>
+        <target>Selecteer het soort materiaal van de aanwinst, overheid of particulier</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>The title of the accession, usually the creator name and term describing the format of the accession materials.</source>
+        <target>De titel van de aanwinst, doorgaans de naam van de archiefvormer en de term die het formaat van het verworven materiaal beschrijft.</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Creators</source>
+        <target>Archiefvormers</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>The name of the creator of the accession or the name of the department that created the accession.</source>
+        <target>De naam van de archiefvormer van de aanwinst, of de naam van de afdeling dat de aanwinst heeft gevormd.</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>A description of the intellectual content and document types represented in the accession.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
+        <target>Leg (voorgenomen) waarderings-, vernietigings- en selectieactiviteiten vast, vooral wanneer deze de interpretatie van het materiaal beïnvloeden.</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Appraisal, destruction and scheduling</source>
+        <target>Waardering, vernietiging en slectie</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Physical condition</source>
+        <target>Materiële staat</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>The number of units as a whole number and the measurement of the received volume of records in the accession.</source>
+        <target>Het aantal eenheden en de omvang van de bestanddelen van de aanwinst.</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>An indicator of the accessioning process.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Indicates the priority the repository assigns to completing the processing of the accession.</source>
+        <target>Geef de prioriteit aan die de bewaarplaats toekent aan de verwerking van de aanwinst.</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Notes about the processing plan, describing what needs to be done for the accession to be processed completely.</source>
+        <target>Aantekeningen over het bewerkingsplan, beschrijvend wat gedaan moet worden om de aanwinst volledig te verwerken.</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Rights area</source>
+        <target>Rechten</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>View accession record</source>
+        <target>Bekijk gegevens over verwerving</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Edit donor/transferring body area</source>
+        <target>Bewerken schenker/bruikleengever/overbrengende instantie area</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Related donor</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Edit administrative area</source>
+        <target>Bewerken Beheer area</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Acquisition type</source>
+        <target>Soort verwerving</target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Resource type</source>
+        <target>Soort bron</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Title</source>
+        <target>Titel</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Scope and content</source>
+        <target>Bereik en inhoud</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Received extent units</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Processing status</source>
+        <target>Bewerkingstatus</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Processing priority</source>
+        <target>Bewerkings prioriteit</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Processing notes</source>
+        <target>Bewerkings aantekeningen</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>Edit rights area</source>
+        <target>Bewerken rechten area</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>Information object area</source>
+        <target>Informatie object</target>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Deaccession area</source>
+        <target>Verwijdering</target>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Deaccession</source>
+        <target>Afstoting</target>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Create %1%</source>
+        <target>Aanmaken %1%</target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>List accession record</source>
+        <target>Aanwinstenlijst</target>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Identifier</source>
+        <target>Bestandsidentificatie </target>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Immediate source of acquisition</source>
+        <target>Directe bron van verwerving</target>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Archival/Custodial history</source>
+        <target>Geschiedenis van het archiefbeheer</target>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Information on the history of the accession. When the accession is acquired directly from the creator, do not record an archival history but record the information as the Immediate Source of Acquisition.</source>
+        <target>Informatie over de geschiedenis van de aanwinst. Wanneer de aanwinst direct van de archiefvormer afkomstig is, beschrijf hier dan niet de geschiedenis van het archief, maar alleen de direct verwerving.</target>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Accession area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Related accession(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Accruals</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>Accrual to</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>Information object</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="116">
+        <source>Add accrual</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="117">
+        <source>It has %1% accruals. They will not be deleted.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="118">
+        <source>You are creating an accrual to accession %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="119">
+        <source>Information objects</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

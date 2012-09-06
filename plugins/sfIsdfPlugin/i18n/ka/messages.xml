@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2012-08-15T11:37:02Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new function</source>
+        <target>ახალი ფუნქციის დამატება</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target> უსათაურო</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>რედაქტირება %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>%1%Type%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%ტიპი%2% - ეს არის %3% სავალდებულო %4% ელემენტი.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1% ოფიციალური დასახელება %2%-ის. ეს არის %3% სავალდებულო %4% ელემენტი.</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%აღწერის იდენტიფიკატორი%2% - ეს არის %3% სავალდებულო %4% ელემენტი.</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Related authority records</source>
+        <target>დაკავშირებული ავტორიტეტული ჩანაწერები</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Identifier/name</source>
+        <target>იდენტიფიკატორი/სახელი </target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Nature of relationship</source>
+        <target>ურთიერთობის არსი</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Dates</source>
+        <target> თარიღები, ვადები</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Related authority record</source>
+        <target>დაკავშირებული ავტორიტეტული ჩანაწერი</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Authorized form of name</source>
+        <target>სახელის ავტორიზირებული ფორმა</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Select the name from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
+        <target>აირჩიეთ   სახელი  drop-down  მენიუში, შეიყვანეთ იდენტიფიკატორები ან პირველი რამდენიმე წერილი მცირე არჩევანით.(ISDF 6.1)</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>View ISDF function</source>
+        <target> ISDF ფუნქციის ნახვა</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Edit function</source>
+        <target>ფუნქციის დამატება </target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Identity area</source>
+        <target>იდენტიფიცირების არე </target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Edit identity area</source>
+        <target>იდენტური არეალის დამატება </target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Type</source>
+        <target> ტიპი </target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Parallel form(s) of name</source>
+        <target>სახელის პარალელური ფორმა(ები)</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Other form(s) of name</source>
+        <target> სახელის სხვა ფორმა(ები)</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Classification</source>
+        <target>კლასიფიკაცია</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Context area</source>
+        <target>კონტექსტის არეალი</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Edit context area</source>
+        <target>კონტექსტის არეალის დამატება </target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Description</source>
+        <target>აღწერა</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>History</source>
+        <target>ისტორია </target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Legislation</source>
+        <target>კანონმდებლობა </target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Relationships area</source>
+        <target>ურთიერთობების კავშირების არეალი</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Edit relationships area</source>
+        <target>ურთიერთობების არეალის დამატება </target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Related function</source>
+        <target>დაკავშირებული ფუნქცია </target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Identifier</source>
+        <target>იდენტიფიკატორი </target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Category of relationship</source>
+        <target>ურთიერთობების კატეგორია</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Description of relationship</source>
+        <target>ურთიერთობების აღწერა</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Dates of relationship</source>
+        <target> ურთიერთობების ვადები</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Dates of the relationship</source>
+        <target> ურთიერთობების ვადები </target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Related resource</source>
+        <target>დაკავშირებული რესურსი</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Title</source>
+        <target>სათაური </target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Control area</source>
+        <target>საკონტროლო არეალი</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Edit control area</source>
+        <target>საკონტროლო არეალის დამატება </target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Description identifier</source>
+        <target>აღწერის იდენტიფიკატორი, ან იდენტოფიკატორის აღწერა</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Institution identifier</source>
+        <target>დაწესებულების იდენტიფიკატორი </target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Rules and/or conventions used</source>
+        <target>გამოყენებული წესები და/ან კონვენციები</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Status</source>
+        <target>სტატუსი</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Level of detail</source>
+        <target> დეტალის დონე </target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Dates of creation, revision or deletion</source>
+        <target>შექმნის გადასინჯვის ან  წაშლის თარიღები, ვადები</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Language(s)</source>
+        <target>ენა(ები)</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Script(s)</source>
+        <target>ნაწერი (ხელნაწერი (ები))</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Sources</source>
+        <target> წყაროები</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Maintenance notes</source>
+        <target>მომსახურე, დამხმარე შენიშვნები </target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Actions</source>
+        <target>ქმედებები</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Edit</source>
+        <target>რედაქტირება</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Delete</source>
+        <target>წაშლა</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Add new</source>
+        <target>ახლის დამატება</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Edit %1% - ISDF</source>
+        <target>რედაქტირება %1% ISDF</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>"Specify whether the description is a function or one of its subdivisions." (ISDF 5.1.1) Select the type from the drop-down menu; these values are drawn from the ISDF Function Types taxonomy.</source>
+        <target>"მიუთითეთ აღწერის ერთეული ფუნქცია არის თუ რომელიმე მისი ქვედანაყოფი." (ISDF 5.1.1)</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>This is a mandatory element.</source>
+        <target>ესაა სავალდებულო ელემენტი</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>"Record the authorised name of the function being described. In cases where the name is not enough, add qualifiers to make it unique such as the territorial or administrative scope, or the name of the institution which performs it. This element is to be used in conjunction with the Function description identifier element (5.4.1)." (ISDF 5.1.2)</source>
+        <target>ჩაწერეთ აღწერილი ფუნქციის ავტორიზებული ჩანაწერი. იმ შემთხვევაში სადაც სახელი არაა საკმარისი, დაამატეთ ქვალიფიკატორი რომ გახდეს ეს უნიკალური როგორც ტერიტორიული ან ადმინისტრაციული სივრცე, ან დაწესებულების სახელი რომელსაც ის წარმოადგენს. ეს ელემენტი არის , რომ იქნეს გამოყენებული შეერთებაში ფუნქციის აღწერის იდენტიფიკატორ ელემენთთან ერთად.  (5.4.1)." (ISDF 5.1.2)</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>"Purpose: To indicate the various forms in which the authorized form(s) of name occurs in other languages or script forms. Rule: Record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions element (5.4.3.) which rules have been applied." (ISDF 5.1.3)</source>
+        <target>მიზანი: განსაზღვროს სხვადასხვა ფორმები, რომელშიც დაწესებულების  სახელის ავტორიზებული ფორმა ხდება სხვა ენაზე ან ნაწერის ფორმით. (შეიძლება იყოს სცენარის ფორმით) წესი:დაწესებულების სახელის პარალელური ფორმის(ები)  ჩაწერა  შესაბამისად ეროვნული და საერთაშორისო კონვენციებისა და წესებისა გამოყენებული სააგენტოს მიერ, რომელმაც შექმნა აღწერა , მათ შორის აუცილებელი ქვე ელემენტი(5.4.3.) რომელი წესებიც იქნა გამოყენებული. (ISDF 5.1.3)</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>"Record any other names for the function being described." (ISDF 5.1.4)</source>
+        <target>ჩაწერეთ ნებისმიერი სხვა სახელები ფუნქციის აღსაწერად (ISDF 5.1.4)</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>"Record any term and/or code from a classification scheme of functions. Record the classification scheme used in the element Rules and/or conventions used (5.4.3)." (ISDF 5.1.5)</source>
+        <target>ჩაწერეთ ნებისმიერი ტერმინი და /ან კოდი ფუნქციების კლასიფიკაციის სქემიდან. ჩაწერეთ კლასიფიუკაციის სქემა გამოყენებული ელემენტის კანონებში და/ან კონვენციებში.   (5.4.3)." (ISDF 5.1.5)</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>"Provide a date or date span which covers the dates when the function was started and when it finished. If a function is ongoing, no end date is needed." (ISDF 5.2.1)</source>
+        <target>გაითვალისწინეთ (უზრუნველყავით) ვადა ან ვადის მოკლე მონაკვეთი, რომელიც უზრუნველყოფს ვადებს როდესაც ფუნქცია დაიწყოდა დასრულდა. თუ ფუნქცია მიმდინარე, დასრულების ვადა არაა საჭირო.(ISDF 5.2.1)</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>"Record a narrative description of the purpose of the function." (ISDF 5.2.2)</source>
+        <target>ჩაწერეთ თხრობითი აღწერა ფუნქციის მიზნისა. (ISDF 5.2.2)</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>"Record in narrative form or as a chronology the main events relating to the function." (ISDF 5.2.3)</source>
+        <target>ჩაწერეთ თხრობით ფორმაში, ან როგორც  ქრონოლოგია ფუნქციათა მთავარ მოვლენებთან დაკავშირებულისა. (ISDF 5.2.3)</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>"Record any law, directive or charter which creates, changes or ends the function." (ISDF 5.2.4)</source>
+        <target>ჩაწერეთ კანონი დირექტივა ან ქარტია რომელიც ქმნის, ცვლის ან ამთავრებს ფუნქციას.(ISDF 5.2.4)</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISDF 5.4.1)</source>
+        <target>ჩაწერეთ უნიკალური აღწერის იდენტიფიკატორი ადგილობრივი და/ან ეროვნული კონვენციების შესაბამისად. თუ აღწერა არის საერთაშორისოდ გამოყენებადი, ჩაწერეთ კოდი იმ ქვეყნის, რომელშიც აღწერა შეიქმნა უახლესი ვერსია „ISO 3166 -კოდები ქვეყნების სახელების გამოსახატად“ შესაბამისად.  შესაბამისად.  სადაც აღწერის შემქმნელი საერთაშორისო ორგანიზაციაა, მიუთითეთ ორგანიზაციის იდენტიფიკატორი ქვეყნის კოდის ადგილზე(ველში). </target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>"Record the full authorised form of name(s) of agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a recognized code for the agency." (ISDF 5.4.2)</source>
+        <target> ჩაწერეთ სააგენტოების სახელების სრული ავტორიზებული ფორმა პასუხისმგებლობისთვის-,  აღწერის შეიქმისთვის , შეცვლისთვის ან გავრცელებისთვის, ალტერნატიულად , ჩაწერეთ აღიარებული კოდი სააგენტოსთვის.  (ISDF 5.4.2)</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival description. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied." (ISDF 5.4.3)</source>
+        <target>მიზანი: რომ განისაზღვროს ეროვნული ან საერთაშრისო კონვენციები ან წესები საარქივო აღწერაში. წესი: ჩაწერეთ სახელები და სადაც შესაძლებელია გამოცემები ან პუბლიკაციის ვადები კონვენციებისა, ან გამოყენებული(გამოყენებადი) წესებისა.</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDF 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
+        <target> ამ ველის მიზანი არის მიუთითოს draft  სტატუსი აღწერისა .ასე რომ იმ მომხმარებლებს შეუძლიათ გაიგონ მიმდინარე სტატუსი ავტორიტეტული ჩანაწერისა (ISDF 5.4.4).აირჩიეთ საბოლოო, უკვე შესწორებული  ან Draft,  drop-down მენიუდან.</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimum records are those that consist only of the three essential elements of an ISDF compliant record (see 4.7), while full records are those that convey information for all relevant ISDF elements of description." (ISDF 5.4.5)</source>
+        <target>აირჩიეთ სრული, ნაწილობრივი ან მინიმალური drop-down მენიუდან. ეროვნული დირექტივების ან წესების შემთხვევაში, მინიმალური ჩანაწერებიდან  არიან ისინი, რომლებიც ISDF-ში შემავალი ჩანაწერებიდან  შედგებიან  მხოლოდ სამი ძირითადი ელემენტისგან.(იხ.4.7) ხოლო სრული ჩანაწერები, არიან ისინი,  რომლებმაც გადასცეს ინფორმაცია ყველა შესაბამის ISDF -ის ელემენტების აღწერილობებს." (ISDF 5.4.5)</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>"Record the date the description was created and the dates of any revisions to the description." (ISDF 5.4.6)</source>
+        <target>ჩაწერეთ აღწერის შექმნის ვადა და ვადები აღწერისნებისმიერი რევიზიისა (ISDF 5.4.6)</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)</source>
+        <target>აირჩიეთ   ჩანაწერის ენა (ები)  drop-down  მენიუში, შეიყვანეთ პირველი რამდენიმე წერილი მცირე არჩევანით. (ISDF 5.4.7)</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDF 5.4.7)</source>
+        <target>აირჩიეთ  ჩანაწერის ნაწერი(ხელნაწერი) (ები)  drop-down  მენიუში, შეიყვანეთ პირველი რამდენიმე წერილი მცირე არჩევანით.( ISDF 5.4.7)</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>"Record the sources consulted in establishing the function description." (ISDF 5.4.8)</source>
+        <target>"მიუთითეთ ის წყაროები, რომლებიც გამოყენებულ იქნა ფუნქციის აღწერისას." (ISDF 5.4.8)</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>"Record notes pertinent to the creation and maintenance of the description." (ISDF 5.4.9)</source>
+        <target>ჩაწერეთ სათანადო შენიშვნები რომ შეიქმნას და შენარჩუნდეს აღწერა.  (ISDF 5.4.9)</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Cancel</source>
+        <target>გაუქმება </target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Save</source>
+        <target>შენახვა </target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Create</source>
+        <target>შექმნა</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Related resources</source>
+        <target>დაკავშირებული რესურსები</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Identifier/title</source>
+        <target>იდენტიფიკატორი/სათაური </target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices. (ISDF 6.1)</source>
+        <target>აირჩიეთ   სათაური  drop-down  მენიუში, შეიყვანეთ იდენტიფიკატორები ან პირველი რამდენიმე წერილი მცირე არჩევანით.(ISDF 6.1)</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Related functions</source>
+        <target>დაკავშირებული ფუნქციები</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Name</source>
+        <target>სახელი </target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Category</source>
+        <target>კატეგორია</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>"Record the authorised form of name and any unique identifier of the related function." (ISDF 5.3.1)</source>
+        <target>ჩაწერეთ  სახელის ავტორიზებული ფორმა და ნებისმიერი უნიკალური იდენტიფიკატორი დაკავშირებული ფუნქციისა.(ISDF 5.3.1)</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>"Record a general category into which the relationship being described falls." (ISDF 5.3.2) Select a category from the drop-down menu: hierarchical, temporal or associative.</source>
+        <target>ჩაწერეთ გენერალური კატეგორია რომელშიც ასახავს(აღწერს) დაცემას. აირჩიეთ კატეგორია drop-down მენიუდან: იერარქიული დროებითი, ან ასოცირებული. (ISDF 5.3.2)</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>"Record a precise description of the nature of the relationship between the function being described and the related function." (ISDF 5.3.3) Note that the text entered in this field will also appear in the related function.</source>
+        <target>ჩაწერეთ ზუსტი აღწერა ურთიერთობის არსისა ფუნქციის აღწერასა და დაკავშირებულ ფუნქციას შორის.  (ISDF 5.3.3) შენიშნეთ, რომ ამ ველში შეყვანილი ტექსტი აგრეთვე გამოჩნდება დაკავშირებულ ფუნქციაში .</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

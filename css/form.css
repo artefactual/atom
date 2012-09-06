@@ -1,0 +1,90 @@
+/*********************************************************
+                ABOUT: form.css
+**********************************************************/
+
+/* This stylesheet is used to assign styles to all input form elements
+- layout.css is used to structure and style the physical page layout
+- menu.css is used to structure and style menus
+- all other graphical elements are handled by graphic.css */
+
+/*********************************************************
+                LANGUAGE - SELECTBOX
+**********************************************************/
+
+#language-selector table {
+  border: 0;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+}
+
+#language-selector td {
+  border: 0;
+  vertical-align: center;
+}
+
+#language-selector select {
+  background-color: #FFFFFF;
+  border: 1px solid #a3a3a3;
+  width: 153px;
+  padding: 0 2px 2px 2px;
+  margin: 5px 0 0 2px;
+  font: normal 12px Verdana, Arial, Sans-Serif;
+  float: left;
+  color: #000000;
+}
+
+#language-selector select:focus {
+  background: #cccccc;
+}
+
+#language-selector .form-submit {
+  font: 11px Verdana, Arial, Sans-Serif;
+  margin: 5px 0 0 5px;
+  width: auto;
+  min-width: 130px;
+}
+
+#language-selector .form-submit:hover {
+  font: 11px Verdana, Arial, Sans-Serif;
+  margin: 5px 0 0 5px;
+  width: auto;
+  min-width: 130px;
+}
+
+/*********************************************************
+               EDIT FORM TRANSLATION BOXES
+**********************************************************/
+
+.default-translation {
+  padding: 0.2em;
+  margin-bottom: 1em;
+  margin-right: 1em;
+  color: #000000;
+  background: #FFFFE0;
+  border: 1px dashed #FFD700;
+}
+
+.form-item li:hover {
+  list-style-image: url(../images/delete.png);
+}
+
+span.form-required {
+  /* Reset garland style */
+
+  color: #f00;
+}
+
+/*********************************************************
+                FIELDSETS UNDER YUI PANELS
+**********************************************************/
+
+.yui-panel fieldset {
+  background: none;
+  border: 1px solid #ccc;
+}
+
+.form-item-checkbox > label {
+  display: inline !important;
+  margin-left: 4px;
+}

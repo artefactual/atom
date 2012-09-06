@@ -1,0 +1,19 @@
+indexSuccess:
+  javascripts:
+    blank:
+
+advancedSuccess:
+  stylesheets:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+    multiRow:
+
+globalReplaceSuccess:
+  stylesheets:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+    multiRow:

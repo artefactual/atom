@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2012-08-15T11:37:00Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>List plugins</source>
+        <target>プラグインをリストアップする</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>List themes</source>
+        <target>テーマをリストアップ</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Name</source>
+        <target>名称</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Version</source>
+        <target>バージョン</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Enabled</source>
+        <target>有効になった</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Actions</source>
+        <target>行動</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Save</source>
+        <target>保存</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2011-11-08T09:43:00Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new resource</source>
+        <target>Ajouter une ressource</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>Sans titre</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>Modifier %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Select the type of activity that established the relation between the authority record and the resource.</source>
+        <target>Sélectionner le type d'activité à l'origine de la relation entre la notice d'autorité et la ressource.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Edit resource metadata - MODS</source>
+        <target>Modifier les métadonnées de la ressource - MODS</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>This is a duplicate of record %1%</source>
+        <target>Il s'agit d'une copie de la notice %1%</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Contains a unique standard number or code that distinctively identifies a resource.</source>
+        <target>Contient un nombre standard ou un code uniques pour l'identification univoque d'une ressource.</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it. Choice and format of titles should be governed by a content standard such as the Anglo-American Cataloging Rules, 2nd edition (AACR2), Cataloguing Cultural Objects (CCO), or Describing Archives: A Content Standard (DACS). Details such as capitalization, choosing among the forms of titles presented on an item, and use of abbreviations should be determined based on the rules in a content standard. One standard should be chosen and used consistently for all records in a set.</source>
+        <target>Mot, expression, caractère ou groupe de caractères figurant normalement dans une ressource, qui identifie cette ressource ou l'activité qu'elle reflète. Le choix et les formats de titres doivent être régis par une forme normalisée, telle que les "Règles de catalogage anglo-américaines", 2e version (AACR2), le "Catalogage des objets culturels" (CCO) ou la norme "Décrire les archives : une norme de contenu" (DACS). Des détails tels que l'usage des majuscules, le choix parmi les formes de titres présentes sur un article et l'usage d'abréviations doivent être déterminés en partant des règles d'une norme de contenu. Une seule norme doit être choisie et utilisée de manière cohérente pour tous les documents d'un ensemble.</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Names and origin info</source>
+        <target>Noms et Information sur les origines</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Add new name and/or origin info</source>
+        <target>Ajouter un nom et/ou une information de provenance</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
+        <target>Terme exprimant les caractéristiques et le type général de contenu d'une ressource. Assigner autant de types qu'il convient. Les choix du Type de ressource sont limités aux valeurs des éléments de haut niveau du référentiel des types de ressource de MODS.</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Type of resource</source>
+        <target>Type de ressource</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Add new child levels (if describing a collection)</source>
+        <target>Ajouter des niveaux inférieurs (pour la description d'une collection)</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Identifier</source>
+        <target>Identifiant</target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Title</source>
+        <target>Intitulé</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
+        <target>Utiliser ces deux champs pour ajouter les niveaux inférieurs d'une description de niveau collection. Cliquer sur Ajouter pour créer autant de niveaux enfants que nécessaire. Identifiant : saisir un numéro ou un code normalisé unique qui identifie la ressource distinctement. Intitulé : saisir un mot, une phrase, un caractère ou un groupe de caractères apparaissant normalement dans une ressource, qui dénomme cette ressource ou son contenu.</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>A designation of the language in which the content of a resource is expressed. Select as many languages as required.</source>
+        <target>Indication de la langue dans laquelle le contenu d'une ressource est exprimé. Sélectionner autant de langues que nécessaire.</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Subject</source>
+        <target>Sujet</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>A term or phrase representing the primary topic(s) on which a work is focused. Search for an existing term in the Subjects taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
+        <target>Terme ou expression exprimant le(s) sujet(s) primaire(s) sur lequel se concentre une activité. Rechercher un terme existant dans le Référentiel des sujets en saisissant les premières lettres du mot-matière. Sinon, saisir un nouveau terme pour créer ce mot-matière et établir une relation vers ce mot-matière.</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
+        <target>Informations sur les restrictions d'accès à une ressource. Voir l'élément de haut niveau MODS accessCondition pour plus d'informations sur l'utilisation de ce champ.</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.</source>
+        <target>Identifie l'institution de conservation de la ressource. Rechercher un nom d'institution existant en saisissant les premières lettres du nom. Sinon saisir un nouveau nom pour créer une notice d'institution de conservation et établir un lien vers cette notice.</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Rights area</source>
+        <target>Zone des droits</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>View resource metadata</source>
+        <target>Afficher les métadonnées de la ressource</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Edit resource metadata</source>
+        <target>Modifier les métadonnées de la ressource</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Language</source>
+        <target>Langue</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Internet media type</source>
+        <target>Type Mime (Internet Media Type)</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Access condition</source>
+        <target>Conditions d'accès</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>URL</source>
+        <target>URL</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Physical location</source>
+        <target>Localisation physique</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Edit rights area</source>
+        <target>Modifier la zone des droits</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Accession area</source>
+        <target>Zone des entrées</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
