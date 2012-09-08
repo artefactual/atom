@@ -1043,11 +1043,8 @@ function setupEventDateData(&$self, &$eventData, $index)
 
   // add dates if specified
   if (
-    isset($self->rowStatusVars['creatorDatesStart'][$index])
-    || (
-      isset($self->rowStatusVars['creatorDatesStart'][$index])
-      && isset($self->rowStatusVars['creatorDatesEnd'][$index])
-    )
+    isset($self->rowStatusVars['creatorDates'][$index])
+    || isset($self->rowStatusVars['creatorDatesStart'][$index])
   )
   {
     // Start and end date

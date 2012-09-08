@@ -68,7 +68,7 @@ License:   GPL version 3
 FluentDOM
 ---------
 Url:       http://fluentdom.org/
-Copyright: 2009 Bastian Feder, Thomas Weinert
+Copyright: 2009-2011 Bastian Feder, Thomas Weinert
 License:   MIT - see licence.txt file
 
 FreeBeer ISO639 Map
@@ -86,7 +86,7 @@ License:   Creative Commons Attribution-NonCommercial 3.0 Unported
 jQuery
 ------
 Url:       http://jquery.com/
-Copyright: John Resig <jeresig@gmail.com>
+Copyright: 2012 jQuery Foundation
 License:   Dual licensed under the MIT and GPL version 2 - see MIT-LICENSE.txt
            and GPL-LICENSE.txt
 
@@ -137,7 +137,7 @@ License: Apache 2.0
 Less CSS
 --------
 Url: http://lesscss.org/
-Copyright: 2009-2011 Alexis Sellier
+Copyright: Alexis Sellier 2010-2012
 License: Apache 2.0
 
 The last PDO library you will ever need
