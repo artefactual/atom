@@ -1,0 +1,120 @@
+/*
+ * This file is part of Qubit Toolkit.
+ *
+ * Qubit Toolkit is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Qubit Toolkit is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+// .pager = for quick previous and next links
+// -----------------------------------------------------------------------------
+
+.pager {
+
+  // .widebtn(); ?
+  a {
+
+    padding-left: 40px;
+    padding-right: 40px;
+    border: 2px solid @white;
+    .border-radius(5px);
+    background-color: transparent;
+    color: @white;
+      font-size: @baseFontSize + 5px;
+
+    &:hover {
+
+      background-color: white;
+      color: @orange;
+
+    }
+
+  }
+
+}
+
+// .pagination
+// -----------------------------------------------------------------------------
+
+.pagination {
+
+  a {
+
+    border: 2px solid @white;
+    border-left-width: 0;
+    color: @white;
+
+    &:hover {
+
+      background-color: white;
+      color: @orange;
+
+    }
+
+  }
+
+  li:first-child a {
+
+    border-left-width: 2px;
+
+  }
+
+  .active a {
+
+    background-color: @white;
+    color: @orange;
+
+  }
+
+}
+
+.result-count {
+
+  text-align: center;
+  color: @white;
+
+}
+
+// Other stuff
+// -----------------------------------------------------------------------------
+
+#content {
+
+  .pagination a,
+  .pager a {
+
+    color: @grayDark;
+    border-color: @grayDark;
+
+    &:hover {
+
+      background-color: @grayDark;
+      color: @white;
+
+    }
+
+  }
+
+  .result-count {
+
+    color: @grayDark;
+
+  }
+
+  .active a {
+
+    background-color: @grayDark;
+    color: @white;
+
+  }
+
+}

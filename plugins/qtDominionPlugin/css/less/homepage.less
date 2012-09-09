@@ -1,0 +1,129 @@
+/*
+ * This file is part of Qubit Toolkit.
+ *
+ * Qubit Toolkit is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Qubit Toolkit is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#homepagehero {
+  background: url(../../images/homepage-bg.jpg) no-repeat @black;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -moz-background-size: cover;
+  height: 420px;
+  padding-top: 80px;
+  text-shadow: 2px 0 2px rgba(0,0,0,.6);
+  margin: 0 auto;
+
+  h1, h2, p, li, a {
+    color:@white;
+    line-height: 110%;
+    font-weight: normal;
+  }
+
+  h1 {
+    font-size: 25px;
+  }
+
+  h2 {
+    font-style: oblique;
+    font-size: 25px;
+    margin-bottom: 5px;
+  }
+
+  p {
+    font-size: 15px;
+  }
+
+  #mainnav {
+    p {
+      font-style: oblique;
+      font-size: 25px;
+    }
+    ul {
+      .nav;
+
+      li {
+        margin: 10px 0;
+        .clearfix;
+
+        a {
+          font-size: 20px;
+          display:block;
+
+          img {
+            margin-right:10px;
+            display: inline;
+          vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
+}
+
+#homepage {
+  margin-top: 30px;
+
+  h3 {
+    color: @white;
+    line-height: 110%;
+    margin-bottom: 10px;
+
+    span {
+      font-style: oblique;
+    }
+  }
+
+  p, li {
+    margin-bottom: 5px;
+    margin-right: 10px;
+  }
+
+  #charts, #virtualexhibit {
+    border-right: 1px solid @white;
+    margin-right: -1px;
+  }
+
+  #charts, #virtualexhibit, #about {
+    height: 300px;
+  }
+
+  #virtualexhibit img {
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .homepage-wrapper {
+    margin-top:10px !important;
+  }
+
+  #homepagehero {
+    background: none;
+    padding-top:0;
+
+    #intro {
+      .hide;
+    }
+
+    #mainnav {
+      margin-left: 30px;
+    }
+  }
+
+  #homepage {
+    .hide;
+  }
+}

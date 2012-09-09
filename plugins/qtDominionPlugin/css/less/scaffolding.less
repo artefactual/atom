@@ -1,0 +1,295 @@
+/*
+ * This file is part of Qubit Toolkit.
+ *
+ * Qubit Toolkit is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Qubit Toolkit is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+html, body {
+  background-color: @white;
+  background-image: url(../../images/background.png);
+}
+
+#wrapper {
+  margin-top:100px !important;
+}
+
+#content {
+
+    background-color: @white;
+    padding-bottom:20px;
+
+    > .section {
+
+      margin: 20px;
+
+    }
+
+}
+
+a:hover { text-decoration: none; }
+
+.well {
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: @baseLineHeight  !important;
+  margin-top: @baseLineHeight  !important;
+  background-color: @grayDark;
+  #translucent > .background(@black, .2);
+  border: 1px solid rgba(0,0,0,.05);
+  .border-radius(4px);
+  .box-shadow(inset 0 1px 1px rgba(0,0,0,.05));
+}
+
+.level {
+  color: @gray;
+  text-transform: uppercase;
+  font-family: @smallFontFamily;
+  font-size: 11px;
+  padding-left: 5px;
+}
+
+
+.indent {
+    margin: auto 10px !important;
+}
+
+#print-date { .hide; }
+
+#sfWebDebug {
+  position: fixed;
+  z-index: 50000;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.element-hidden, html.js .js-hide {
+  .hide;
+}
+
+.element-invisible {
+  .hide;
+}
+
+.element-visible {
+  .show;
+}
+
+#footer {
+  margin-bottom: 30px;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: normal;
+}
+
+#wrapper h1 {
+  color:@white;
+  font-size: 30px;
+  margin-top:20px;
+  margin-bottom: 10px;
+
+  img {
+    margin-right:10px;
+    display: inline;
+    vertical-align: middle;
+  }
+}
+
+em { // used exclusively for DRAFT label
+  font-size: 11px;
+  font-family: @smallFontFamily;
+  font-style: oblique;
+  color: @red;
+  text-transform: uppercase;
+}
+
+strong { // used exclusively for FONDS, SERIES, etc labels
+  font-size: 11px;
+  font-family: @smallFontFamily;
+  color: @grayDark;
+  text-transform: uppercase;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+#overview .done { color: @orange; }
+
+
+
+
+
+// The square institution blocks in mini and maxi
+
+.institution, .subject {
+  float:left;
+  padding: 0;
+  display:block;
+
+  h2 {
+    text-align: left;
+    font-weight: normal;
+    font-family: @smallFontFamily;
+    padding: 5px;
+    margin: 0;
+    line-height: 110%;
+
+    a {
+      text-decoration: none;
+      display: inline;
+      line-height: 110%;
+      color: @white;
+
+    }      &:hover {
+        background-color: @white;
+        text-decoration: none;
+        a {
+
+        color: @orange;
+        }
+      }
+
+  }
+
+  h2.active {
+    background-color: @white;
+    a {
+      color: @orange;
+    }
+  }
+}
+
+.maxi {
+  border:8px solid @white;
+  height:142px;
+  width:142px;
+  margin: 0 15px 15px 0;
+
+  h2 {
+    font-size: 21px;
+    height:134px;
+    width:134px;
+
+    a {
+      width: 134px;
+      //padding:7px;
+    }
+  }
+}
+
+.mini {
+  border:5px solid @white;
+  height:95px;
+  width:95px;
+  margin: 0 5px 0 0;
+
+  h2 {
+    font-size: 11px;
+    height: 88px;
+    width: 88px;
+    padding: 4px;
+
+    a {
+      width: 85px;
+    }
+  }
+}
+
+.img {
+  background-color: @white;
+
+  h2:first-child { .hide; }
+  h2:last-child {
+    background-color: @white;
+
+    a {
+      padding:0;
+      height: 144px;
+    }
+  }
+}
+
+.subject {
+  background-color:@white;
+  h2 {
+    background-color:@white;
+
+    a {
+      color: @grayDark;
+
+      &:hover {
+        color: @orange;
+      }
+    }
+  }
+
+  h2.active {
+    background-color: @white !important;
+    a {
+      color: @orange;
+    }
+  }
+}
+
+
+// Breadcrumbs in search results and archival descriptions
+ul.breadcrumb {
+  border:none;
+  background:none !important;
+  margin:0;
+  padding: 0;
+  text-shadow: none;
+  .box-shadow(none);
+
+  li {
+    a {
+      font-family: @smallFontFamily;
+      color: @grayDark;
+      font-size: 10px;
+      margin-left:0;
+
+      &:hover {
+        text-decoration: none;
+        color: @orange;
+      }
+    }
+  }
+
+  li:after {
+    content: " › ";
+  }
+
+  li:last-child:after {
+    content:" ";
+  }
+}
+
+
+
+.nav-tabs {
+  font-family: @smallFontFamily;
+
+  li a {
+    color: @white;
+
+    &:hover {
+      color:@orange;
+    }
+  }
+
+  li.active a {
+    color: @orange;
+  }
+}

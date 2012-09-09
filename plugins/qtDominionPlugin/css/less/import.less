@@ -1,0 +1,53 @@
+/*
+ * This file is part of Qubit Toolkit.
+ *
+ * Qubit Toolkit is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Qubit Toolkit is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#new-import, #past-imports, #import-progress {
+  margin:20px;
+}
+
+#new-importx {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 18px;
+  background-color: #grayLight;
+  border: 1px solid @gray;
+  .border-radius (4px);
+}
+
+#import-progress {
+  .row .span4 {
+    width: 200px;
+    float: left;
+    margin-left: 20px;
+    background-color: @grayDark;
+    padding: 10px;
+    .border-radius (4px);
+    text-shadow: none;
+
+    ul {
+      margin-top: 0 !important;
+      li {
+        color: @white;
+      }
+    }
+
+  }
+  .row .span7 {
+    width: 350px;
+    float: left;
+    margin-left: 20px;
+  }
+}

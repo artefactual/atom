@@ -1,0 +1,110 @@
+/*
+ * This file is part of Qubit Toolkit.
+ *
+ * Qubit Toolkit is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Qubit Toolkit is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#treeview {
+
+  white-space: nowrap;
+
+  ul {
+
+    li {
+
+      padding: 5px 0 5px 17px;
+      #translucent > .background(@black, .2);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+
+      a {
+
+        color: @white;
+        font-family: @smallFontFamily;
+        text-overflow: ellipsis;
+
+      }
+
+      &:hover {
+
+        #translucent > .background(@white, .2);
+        text-decoration: none;
+
+      }
+
+      &.more {
+        padding-top: 0px;
+        padding-bottom: 0px;
+      }
+
+      &.expand {
+
+        padding-left: 2px !important;
+
+      }
+
+      &.ancestor {
+
+        border-bottom: 1px solid @white;
+        padding-left: 2px !important;
+        background: none;
+
+      }
+
+      &.back {
+
+        border-bottom: 1px solid @white;
+        padding-left:2px !important;
+        background:none;
+
+      }
+
+      &.active {
+
+        background-color: @white !important;
+        color: @orange;
+
+      }
+
+      .hidden {
+
+        display: none;
+
+      }
+
+      i {
+
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        vertical-align: middle;
+        margin-right: 3px;
+        background-image: url(../../images/arrow-sprites.png);
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        .ie7-restore-right-whitespace();
+
+      }
+
+      &.ancestor i { background-position: 0 -10px; }
+      &.back i { background-position: -10px -10px; }
+      &.expand i { background-position: -20px -10px; }
+      &.active i { background-position-y: 0px; }
+
+    }
+
+  }
+
+}
