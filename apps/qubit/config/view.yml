@@ -27,17 +27,17 @@ default:
     # print: { media: print, position: last }
 
   javascripts:
-    # /plugins/sfDrupalPlugin/vendor/drupal/misc/drupal:
-    # /vendor/yui/yahoo-dom-event/yahoo-dom-event:
-    # /vendor/yui/element/element-min:
-    # /vendor/yui/button/button-min:
-    # /vendor/yui/container/container_core-min:
-    # /vendor/yui/menu/menu-min:
     /vendor/jquery:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/drupal:
+    /vendor/yui/yahoo-dom-event/yahoo-dom-event:
+    /vendor/yui/element/element-min:
+    /vendor/yui/button/button-min:
+    /vendor/yui/container/container_core-min:
+    /vendor/yui/menu/menu-min:
     /vendor/modernizr:
     /vendor/jquery-ui:
     /vendor/jquery.expander.js:
-    /vendor/bootstrap:
+    /vendor/bootstrap/js/bootstrap:
     /vendor/chosen/chosen.jquery:
     qubit:
     dominion: { position: last }
