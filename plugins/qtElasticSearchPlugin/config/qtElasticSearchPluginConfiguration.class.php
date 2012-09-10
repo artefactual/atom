@@ -24,7 +24,7 @@ class qtElasticSearchPluginConfiguration extends sfPluginConfiguration
     $version = '1.0.0',
 
     // this is the name of the index; must be unique within the server
-    $index = 'qubit',
+    $index = 'atom',
 
     // default number of documents to include in a batch (bulk) request
     $batchSize = 500,
