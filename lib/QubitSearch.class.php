@@ -35,7 +35,15 @@ class QubitSearch extends xfIndexSingle
   {
     if (null === self::$_instance)
     {
-      self::$_instance = new self();
+      // If the ElasticSearch plugin is enabled, use that instead
+      if (in_array('qtElasticSearchPlugin', sfConfig::get('sf_enabled_modules')))
+      {
+        self::$_instance = new qtElasticSearchPlugin();
+      }
+      else
+      {
+        self::$_instance = new self();
+      }
     }
 
     return self::$_instance;
@@ -66,6 +74,11 @@ class QubitSearch extends xfIndexSingle
    */
   protected function initialize()
   {
+    if (self::$_instance instanceof qtElasticSearchPlugin)
+    {
+      return;
+    }
+
     $this->setEngine(new xfLuceneEngine(sfConfig::get('sf_data_dir').'/index'));
     $this->getEngine()->open();
 
@@ -81,6 +94,13 @@ class QubitSearch extends xfIndexSingle
    */
   public function qubitPopulate($options)
   {
+    if (self::getInstance() instanceof qtElasticSearchPlugin)
+    {
+      self::getInstance()->logger = $this->getLogger();
+      self::getInstance()->qubitPopulate($options);
+      return;
+    }
+
     if (!isset(self::$conn))
     {
       self::$conn = Propel::getConnection();
@@ -161,6 +181,11 @@ class QubitSearch extends xfIndexSingle
 
   public function optimize()
   {
+    if (self::getInstance() instanceof qtElasticSearchPlugin)
+    {
+      return;
+    }
+
     $timer = new QubitTimer;
     $this->getLogger()->log('Optimizing index...', $this->getName());
     $this->getEngine()->optimize();
