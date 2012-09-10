@@ -5,4 +5,5 @@ config/databases.yml
 config/propel.ini
 data/index/
 log/
+sf
 uploads/
