@@ -1,66 +1,87 @@
 <?php use_helper('Text') ?>
 
-<h1><?php echo render_title($resource->taxonomy) ?> - <?php echo render_title($resource) ?></h1>
+<div id="search-results">
 
-<div class="section">
-  <?php foreach ($informationObjects as $item): ?>
-    <div class="clearfix <?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
-    
-      <?php if (isset($item->digitalObjects[0]) && null !== $item->digitalObjects[0]->thumbnail): ?>
-        <?php echo link_to(image_tag(public_path($item->digitalObjects[0]->thumbnail->getFullPath()), array('alt' => render_title($item))), array($item, 'module' => 'informationobject')) ?>
-      <?php endif; ?>
+  <div class="row">
 
-      <h2><?php echo link_to(render_title($item), array($item, 'module' => 'informationobject')) ?><?php if (QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $item->getPublicationStatus()->status->id): ?> <span class="publicationStatus"><?php echo $item->getPublicationStatus()->status ?></span><?php endif; ?></h2>
+    <div class="span12">
+      <h1>
+        <?php if (isset($icon)): ?>
+          <?php echo image_tag('/plugins/qtDominionPlugin/images/icons-large/icon-'.$icon.'.png', array('width' => '42', 'height' => '42')) ?>
+        <?php endif; ?>
+        <?php echo render_title($resource->taxonomy) ?> - <?php echo render_title($resource) ?>
+        <strong class="hidden-phone">
+          <?php echo __('%1% search results', array('%1%' => $pager->getNbResults())) ?>
+          <?php if (sfConfig::get('app_multi_repository')): ?>
+            <?php echo __('in %1% institutions', array('%1%' => count($pager->facets['repository_id']['terms']))) ?>
+          <?php endif; ?>
+        </strong>
+      </h1>
+    </div>
 
-      <div>
-        <?php echo truncate_text($item->scopeAndContent, 250) ?>
-      </div>
+    <div id="phone-filter" class="span12 visible-phone">
+      <h2 class="widebtn btn-huge" data-toggle="collapse" data-target="#facets, #top-facet"><?php echo __('Filter %1% Results', array(
+        '%1%' => $pager->getNbResults())) ?></h2>
+    </div>
 
-      <?php $isad = new sfIsadPlugin($item); echo render_show(__('Reference code'), render_value($isad->referenceCode)) ?>
+  </div>
 
-      <div class="field">
-        <h3><?php echo __('Date(s)') ?></h3>
-        <div>
-          <ul>
-            <?php foreach ($item->getDates() as $date): ?>
-              <li>
+  <div class="row">
 
-                <?php echo Qubit::renderDateStartEnd($date->getDate(array('cultureFallback' => true)), $date->startDate, $date->endDate) ?> (<?php echo $date->getType(array('cultureFallback' => true)) ?>)
+    <div class="span3" id="facets">
 
-                <?php if (isset($date->actor)): ?>
-                  <?php echo link_to(render_title($date->actor), array($date->actor, 'module' => 'actor')) ?>
-                <?php endif; ?>
-
-              </li>
-            <?php endforeach; ?>
-          </ul>
+      <?php if (isset($pager->facets['digitalObject_mediaTypeId'])): ?>
+        <div class="section">
+          <h2 class="visible-phone widebtn btn-huge" data-toggle="collapse" data-target="#mediatypes"><?php echo __('Media Type') ?></h2>
+          <h2 class="hidden-phone"><?php echo __('Media Type') ?></h2>
+          <div class="scrollable" id="mediatypes">
+            <ul>
+              <li <?php if ('' == $sf_request->getParameter('digitalObject_mediaTypeId')) echo 'class="active"' ?>><?php echo link_to(__('All'), array('digitalObject_mediaTypeId' => null, 'page' => null) + $sf_request->getParameterHolder()->getAll()) ?></li>
+              <?php foreach($pager->facets['digitalObject_mediaTypeId']['terms'] as $id => $term): ?>
+                <li <?php if (in_array($id, @$filters['digitalObject_mediaTypeId'])) echo 'class="active"' ?>><?php echo link_to(__($term['term']).'<span>'.$term['count'].'</span>', array('digitalObject_mediaTypeId' => (@$filters['digitalObject_mediaTypeId'] ? implode(',', array_diff(array_merge(@$filters['digitalObject_mediaTypeId'], array($id)), array_intersect(@$filters['digitalObject_mediaTypeId'], array($id)))) : $id), 'page' => null) + $sf_request->getParameterHolder()->getAll()) ?></li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
         </div>
+      <?php endif; ?>
+
+      <div class="section">
+
+        <h2 class="visible-phone widebtn btn-huge" data-toggle="collapse" data-target="#dates"><?php echo __('Creation date') ?></h2>
+        <h2 class="hidden-phone"><?php echo __('Creation date') ?></h2>
+
+        <div class="scrollable dates" id="dates">
+          <input type="text" value="<?php echo $pager->facets['dates_startDate']['min'] ?>" name="from" /> - <input type="text" value="<?php echo $pager->facets['dates_startDate']['max'] ?>" name="to" />
+        </div>
+
       </div>
 
-      <?php echo render_show(__('Level of description'), render_value($item->levelOfDescription)) ?>
+      <hr />
 
-      <?php if (sfConfig::get('app_multi_repository') && isset($item->repository)): ?>
-        <?php echo render_show(__('Repository'), link_to(render_title($item->repository), array($item->repository, 'module' => 'repository'))) ?>
-      <?php endif; ?>
-
-      <?php if ($item->getCollectionRoot() !== $item): ?>
-        <?php echo render_show(__('Part of'), link_to(render_title($item->getCollectionRoot()), array($item->getCollectionRoot(), 'module' => 'informationobject'))) ?>
-      <?php endif; ?>
+      <?php echo link_to(__('Show all %1%', array('%1%' => $resource->taxonomy->__toString())),
+        array('module' => 'taxonomy', 'action' => 'browse', 'id' => $resource->taxonomyId),
+        array('class' => 'widebtn')) // HACK Use id deliberately because "Subjects" and "Places" menus still use id ?>
 
     </div>
-  <?php endforeach; ?>
-</div>
 
-<?php echo get_partial('default/pager', array('pager' => $pager)) ?>
+    <div class="span9" id="content">
 
-<div class="actions section">
+      <div class="listings">
 
-  <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+        <?php foreach ($pager->getResults() as $item): ?>
 
-  <div class="content">
-    <ul class="clearfix links">
-      <li><?php echo link_to(__('Browse all %1%', array('%1%' => render_title($resource->taxonomy))), array('module' => 'taxonomy', 'action' => 'browse', 'id' => $resource->taxonomy->id)) // HACK Use id deliberately because "Subjects" and "Places" menus still use id ?></li>
-    </ul>
+          <?php $doc = build_i18n_doc($item, array('creators')) ?>
+          <?php echo include_partial('search/searchResult', array('doc' => $doc, 'pager' => $pager)) ?>
+
+        <?php endforeach; ?>
+
+        <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
+
+      </div>
+
+    </div>
+
   </div>
 
 </div>
+

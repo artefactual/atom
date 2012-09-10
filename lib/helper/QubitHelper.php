@@ -271,3 +271,38 @@ function check_field_visibility($fieldName)
 {
   return sfContext::getInstance()->user->isAuthenticated() || sfConfig::get($fieldName, false);
 }
+
+function build_i18n_doc(Elastica_Result $hit, array $objects = array())
+{
+  $doc = $hit->getData();
+
+  if (isset($doc['i18n']))
+  {
+    foreach ($doc['i18n'] as $i18n)
+    {
+      $doc[$i18n['culture']] = $i18n;
+    }
+
+    unset($doc['i18n']);
+  }
+
+  if (0 < count($objects))
+  {
+    foreach ($objects as $item)
+    {
+      if (!isset($doc[$item]))
+      {
+        continue;
+      }
+
+      foreach ($doc[$item] as $key => $i18n)
+      {
+        $doc[$item][$i18n['culture']] = $i18n;
+
+        unset($doc[$item][$key]);
+      }
+    }
+  }
+
+  return $doc;
+}

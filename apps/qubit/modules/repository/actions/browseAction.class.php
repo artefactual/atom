@@ -18,11 +18,10 @@
  */
 
 /**
- * @package    qubit
+ * @package    qtDominionPlugin
  * @subpackage repository
- * @author     Peter Van Garderen <peter@artefactual.com>
- * @author     Wu Liu <wu.liu@usask.ca>
- * @version    svn:$Id: browseAction.class.php 11008 2012-03-01 19:07:08Z sevein $
+ * @author     MJ Suhonos <mj@artefactual.com>
+ * @version    svn:$Id: browseAction.class.php 11669 2012-05-14 17:34:20Z sevein $
  */
 class RepositoryBrowseAction extends sfAction
 {
@@ -33,57 +32,110 @@ class RepositoryBrowseAction extends sfAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
-    if ($this->getUser()->isAuthenticated())
+    $queryBool = new Elastica_Query_Bool();
+    $queryBool->addShould(new Elastica_Query_MatchAll());
+
+    $this->filters = array();
+    foreach ($this->request->getGetParameters() as $param => $value)
     {
-      $this->sortSetting = sfConfig::get('app_sort_browser_user');
-    }
-    else
-    {
-      $this->sortSetting = sfConfig::get('app_sort_browser_anonymous');
-    }
-
-    $criteria = new Criteria;
-
-    // Do source culture fallback
-    $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitActor');
-
-    switch ($request->sort)
-    {
-      case 'nameDown':
-        $criteria->addDescendingOrderByColumn('authorized_form_of_name');
-
-        break;
-
-      case 'nameUp':
-        $criteria->addAscendingOrderByColumn('authorized_form_of_name');
-
-        break;
-
-      case 'updatedDown':
-        $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
-
-        break;
-
-      case 'updatedUp':
-        $criteria->addAscendingOrderByColumn(QubitObject::UPDATED_AT);
-
-        break;
-
-      default:
-        if ('alphabetic' == $this->sortSetting)
+      if (in_array(strtr($param, '_', '.'), self::$FACETS))
+      {
+        foreach (explode(',', $value) as $facetValue)
         {
-          $criteria->addAscendingOrderByColumn('authorized_form_of_name');
+          // don't include empty filters (querystring sanitization)
+          if ('' != preg_replace('/[\s\t\r\n]*/', '', $facetValue))
+          {
+            $this->filters[$param][] = $facetValue;
+
+            $queryBool->addMust(new Elastica_Query_Term(
+              array(strtr($param, '_', '.') => $facetValue)));
+          }
         }
-        else if ('lastUpdated' == $this->sortSetting)
-        {
-          $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
-        }
+      }
     }
 
-    // Page results
-    $this->pager = new QubitPager('QubitRepository');
-    $this->pager->setCriteria($criteria);
+    $query = new Elastica_Query();
+    $query->setSort(array('_score' => 'desc', 'slug' => 'asc'));
+    $query->setLimit($request->limit);
+    $query->setQuery($queryBool);
+
+    if (!empty($request->page))
+    {
+      $query->setFrom(($request->page - 1) * $request->limit);
+    }
+
+    foreach (self::$FACETS as $item)
+    {
+      $facet = new Elastica_Facet_Terms($item);
+      $facet->setField($item);
+      $facet->setSize(50);
+      $query->addFacet($facet);
+    }
+
+    try
+    {
+      $resultSet = QubitSearch::getInstance()->index->getType('QubitRepository')->search($query);
+    }
+    catch (Exception $e)
+    {
+      $this->error = $e->getMessage();
+
+      return;
+    }
+
+    $this->pager = new QubitSearchPager($resultSet);
+    $this->pager->setPage($request->page ? $request->page : 1);
     $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
+
+    if ($this->pager->hasResults())
+    {
+      $facets = array();
+
+      foreach ($this->pager->getFacets() as $name => $facet)
+      {
+        if (isset($facet['terms']))
+        {
+          $ids = array();
+          foreach ($facet['terms'] as $item)
+          {
+            $ids[$item['term']] = $item['count'];
+          }
+        }
+
+        switch ($name)
+        {
+          case 'types':
+            $criteria = new Criteria;
+            $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
+            $types = QubitTerm::get($criteria);
+
+            foreach ($types as $item)
+            {
+              $typeNames[$item->id] = $item->name;
+            }
+
+            foreach ($facet['terms'] as $item)
+            {
+              $facets[strtr($name, '.', '_')]['terms'][$item['term']] = array(
+                'count' => $item['count'],
+                'term' => $typeNames[$item['term']]);
+            }
+
+            break;
+
+          case 'contact.i18n.region':
+            foreach ($facet['terms'] as $item)
+            {
+              $facets[strtr($name, '.', '_')]['terms'][$item['term']] = array(
+                'count' => $item['count'],
+                'term' => $item['term']);
+            }
+
+            break;
+        }
+      }
+
+      $this->pager->facets = $facets;
+    }
   }
 }

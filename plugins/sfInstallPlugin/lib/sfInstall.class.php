@@ -555,10 +555,11 @@ modRewriteContents;
     $object = new QubitSetting;
     $object->name = 'plugins';
     $object->value = serialize(array(
-      'qtTrilliumPlugin',
       'sfDcPlugin',
+      'qtDominionPlugin',
       'sfEacPlugin',
       'sfEadPlugin',
+      'qtElasticSearchPlugin',
       'sfIsaarPlugin',
       'sfIsadPlugin',
       'sfIsdfPlugin',

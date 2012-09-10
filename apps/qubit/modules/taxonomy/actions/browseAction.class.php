@@ -34,12 +34,23 @@ class TaxonomyBrowseAction extends sfAction
       $this->forward404();
     }
 
+    switch ($this->resource->id)
+    {
+      case QubitTaxonomy::PLACE_ID:
+        $this->icon = 'places';
+
+        break;
+
+      case QubitTaxonomy::SUBJECT_ID:
+        $this->icon = 'subjects';
+
+        break;
+    }
+
     $criteria = new Criteria;
     $criteria->add(QubitTerm::TAXONOMY_ID, $this->resource->id);
-
     $criteria->addJoin(QubitTerm::ID, QubitObjectTermRelation::TERM_ID);
     $criteria->addJoin(QubitObjectTermRelation::OBJECT_ID, QubitInformationObject::ID);
-
     $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
 
     // Do culture fallback

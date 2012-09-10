@@ -19,10 +19,302 @@
 
 class SearchIndexAction extends sfAction
 {
+  public static
+    $NAMES = array(
+      );
+
+  public static
+    $FACETS = array(
+      'repository.id',
+      'subjects.id',
+      'digitalObject.mediaTypeId',
+      'places.id',
+      'names.id');
+
+  protected function addField($name)
+  {
+  }
+
+  protected function parseQuery()
+  {
+    // if querystring is empty, use match_all
+    if ('' == preg_replace('/[\s\t\r\n]*/', '', $this->request->query))
+    {
+      return new Elastica_Query_MatchAll();
+    }
+
+    try
+    {
+      // Parse query string, Elastica_Query_QueryString
+      $query = QubitSearch::getInstance()->parse($this->request->query);
+    }
+    catch (Exception $e)
+    {
+      $this->error = $e->getMessage();
+
+      return null;
+    }
+
+    return $query;
+  }
+
+  protected function filterQuery($query)
+  {
+    $this->filters = array();
+
+    $queryTerm = new Elastica_Query_Term();
+    $queryBool = new Elastica_Query_Bool();
+
+    if ($query instanceof Elastica_Query_QueryString)
+    {
+      $queryBool->addMust($query);
+    }
+
+    foreach ($this->request->getGetParameters() as $param => $value)
+    {
+      if (in_array(strtr($param, '_', '.'), self::$FACETS))
+      {
+        foreach (explode(',', $value) as $facetValue)
+        {
+          // don't include empty filters (querystring sanitization)
+          if ('' != preg_replace('/[\s\t\r\n]*/', '', $facetValue))
+          {
+            $this->filters[$param][] = $facetValue;
+            $query = $queryBool->addMust($queryTerm->setTerm(strtr($param, '_', '.'), $facetValue));
+          }
+        }
+      }
+    }
+
+    return $query;
+  }
+
+  protected function facetQuery($query)
+  {
+    foreach (self::$FACETS as $field)
+    {
+      $facet = new Elastica_Facet_Terms($field);
+      $facet->setField($field);
+      $facet->setSize(50);
+      $query->addFacet($facet);
+    }
+
+    $facet = new Elastica_Facet_Range('dates.startDate');
+    $facet->setField('dates.startDate');
+    $facet->addRange(null, null);
+    $query->addFacet($facet);
+
+    $facet = new Elastica_Facet_Range('dates.endDate');
+    $facet->setField('dates.endDate');
+    $facet->addRange(null, null);
+    $query->addFacet($facet);
+
+    return $query;
+  }
+
+  protected function buildQuery()
+  {
+    // Parse query string - Elastica_Query_{MatchAll,QueryString}
+    $query = $this->parseQuery();
+
+    // Filter by selected facets - Elastica_Query_Bool
+    $query = $this->filterQuery($query);
+
+    // Elastica_Query
+    $query = new Elastica_Query($query);
+
+    // Add facets - Elastica_Query
+    $query = $this->facetQuery($query);
+
+    $query->setSort(array('_score' => 'desc', 'slug' => 'asc'));
+    $query->setLimit($request->limit);
+
+    if (!empty($request->page))
+    {
+      $query->setFrom(($request->page - 1) * $request->limit);
+    }
+
+    if (isset($request->realm) && is_int($request->realm))
+    {
+      $query->setQuery(new Elastica_Query_Term(array('repository._id' => $request->realm)));
+    }
+
+    return $query;
+  }
+
+  protected function populateFacets()
+  {
+    if (!$this->pager->hasFacets())
+    {
+      return false;
+    }
+
+    $facets = array();
+
+    foreach ($this->pager->getFacets() as $name => $facet)
+    {
+      if (isset($facet['terms']))
+      {
+        $ids = array();
+        foreach ($facet['terms'] as $term)
+        {
+          $ids[$term['term']] = $term['count'];
+        }
+      }
+
+      switch ($name)
+      {
+        case 'repository.id':
+          $criteria = new Criteria;
+          $criteria->add(QubitRepository::ID, array_keys($ids), Criteria::IN);
+
+          $repos = QubitRepository::get($criteria);
+
+          foreach ($repos as $repo)
+          {
+            $reponames[$repo->id] = $repo->getAuthorizedFormOfName(array('cultureFallback' => true, 'culture' => $this->context->user->getCulture()));
+          }
+
+          foreach ($facet['terms'] as $term)
+          {
+            $facets[strtr($name, '.', '_')]['terms'][$term['term']] = array(
+              'count' => $term['count'],
+              'term' => $reponames[$term['term']]);
+          }
+
+          break;
+
+        case 'subjects.id':
+          $criteria = new Criteria;
+          $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
+
+          $subjectAPs = QubitTerm::get($criteria);
+
+          foreach ($subjectAPs as $subjectAP)
+          {
+            $subjectAPnames[$subjectAP->id] = $subjectAP->getName(array('cultureFallback' => true, 'culture' => $this->context->user->getCulture()));
+          }
+
+          foreach ($facet['terms'] as &$term)
+          {
+            $facets[strtr($name, '.', '_')]['terms'][$term['term']] = array(
+              'count' => $term['count'],
+              'term' => $subjectAPnames[$term['term']]);
+          }
+
+          break;
+
+        case 'digitalObject.mediaTypeId':
+          $criteria = new Criteria;
+          $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
+
+          $mediaTypes = QubitTerm::get($criteria);
+
+          foreach ($mediaTypes as $mediaType)
+          {
+            $mediaTypeNames[$mediaType->id] = $mediaType->getName(array('cultureFallback' => true, 'culture' => $this->context->user->getCulture()));
+          }
+
+          foreach ($facet['terms'] as $term)
+          {
+            $facets[strtr($name, '.', '_')]['terms'][$term['term']] = array(
+              'count' => $term['count'],
+              'term' => $mediaTypeNames[$term['term']]);
+          }
+
+          break;
+
+        case 'dates.startDate':
+          $facets[strtr($name, '.', '_')] = $facet['ranges'][0];  // FIXME: is this the best way?
+
+          break;
+
+        case 'places.id':
+          $criteria = new Criteria;
+          $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
+
+          $placeAPs = QubitTerm::get($criteria);
+
+          foreach ($placeAPs as $placeAP)
+          {
+            $placeAPnames[$placeAP->id] = $placeAP->getName(array('cultureFallback' => true, 'culture' => $this->context->user->getCulture()));
+          }
+
+          foreach ($facet['terms'] as &$term)
+          {
+            $facets[strtr($name, '.', '_')]['terms'][$term['term']] = array(
+              'count' => $term['count'],
+              'term' => $placeAPnames[$term['term']]);
+          }
+
+          break;
+
+        case 'names.id':
+          $criteria = new Criteria;
+          $criteria->add(QubitActor::ID, array_keys($ids), Criteria::IN);
+
+          $nameAPs = QubitActor::get($criteria);
+
+          foreach ($nameAPs as $nameAP)
+          {
+            $nameAPnames[$nameAP->id] = $nameAP->getAuthorizedFormOfName(array('cultureFallback' => true, 'culture' => $this->context->user->getCulture()));
+          }
+
+          foreach ($facet['terms'] as &$term)
+          {
+            $facets[strtr($name, '.', '_')]['terms'][$term['term']] = array(
+              'count' => $term['count'],
+              'term' => $nameAPnames[$term['term']]);
+          }
+
+          break;
+
+      }
+
+      $this->pager->facets = $facets;
+    }
+
+    // Populate level of descriptions
+    $this->pager->levelsOfDescription = array();
+    foreach (QubitTerm::getLevelsOfDescription() as $lod)
+    {
+      $this->pager->levelsOfDescription[$lod->id] = $lod->getName(array('cultureFallback' => true, 'culture' => $this->context->user->getCulture()));
+    }
+
+    // Populate ancestors
+    $ancestorsIds = array();
+    foreach ($this->pager->getResults() as $hit)
+    {
+      $doc = $hit->getData();
+      foreach ($doc['ancestors'] as $item)
+      {
+        if (in_array($item, $ancestorsIds))
+        {
+          continue;
+        }
+
+        $ancestorsIds[] = $item;
+      }
+    }
+
+    $sql = 'SELECT
+        io.id,
+        o.slug,
+        io.title
+      FROM '.QubitInformationObjectI18n::TABLE_NAME.' AS io
+      LEFT JOIN '.QubitSlug::TABLE_NAME.' AS o ON (o.object_id = io.id AND io.culture = ?)
+      WHERE o.object_id IN ('.implode(',', $ancestorsIds).')';
+    $this->pager->ancestors = array();
+    foreach (QubitPdo::fetchAll($sql, array($this->context->user->getCulture())) as $ancestor)
+    {
+      $this->pager->ancestors[$ancestor->id] = array(
+        'slug' => $ancestor->slug,
+        'title' => $ancestor->title);
+    }
+  }
+
   public function execute($request)
   {
-    $this->timer = new QubitTimer;
-
     if ('print' == $request->getGetParameter('media'))
     {
       $this->getResponse()->addStylesheet('print-preview', 'last');
@@ -33,35 +325,34 @@ class SearchIndexAction extends sfAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
-    // Simple search
-    if (isset($request->query))
+    $this->form = new sfForm;
+    $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
+
+    foreach ($this::$NAMES as $name)
     {
-      $this->title = $this->context->i18n->__('Search for [%1%]', array('%1%' => $request->query));
-      $this->response->setTitle("{$this->title} - {$this->response->getTitle()}");
+      $this->addField($name);
     }
 
-    $query = $this->parseQuery();
+    $this->form->bind($request->getGetParameters());
 
-    if (!empty($this->error))
+    if ($this->form->isValid())
     {
-      return;
-    }
+      try
+      {
+        $query = $this->buildQuery();
 
-    $query = $this->filterQuery($query);
+        $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+      }
+      catch (Exception $e)
+      {
+        $this->error = $e->getMessage();
 
-    try
-    {
-      $hits = QubitSearch::getInstance()->getEngine()->getIndex()->find($query);
-    }
-    catch (Exception $e)
-    {
-      $this->error = $e->getMessage();
+        return;
+      }
 
-      return;
-    }
-    if (!empty($hits))
-    {
-      $this->pager = new QubitArrayPager;
+      // Build pager
+      $this->pager = new QubitSearchPager($resultSet);
+      $this->pager->setPage($request->page ? $request->page : 1);
 
       if ('print' != $request->getGetParameter('media'))
       {
@@ -69,60 +360,18 @@ class SearchIndexAction extends sfAction
       }
       else
       {
-        $this->pager->setMaxPerPage(500); // force for print
+        $this->pager->setMaxPerPage(500);
       }
 
-      $this->pager->hits = $hits;
-      $this->pager->setPage($request->page);
-    }
-    else if (empty($this->error))
-    {
-      // no error, must be empty result set
-      $this->error = $this->context->i18n->__('No results found.');
-    }
-  }
-
-  public function parseQuery()
-  {
-    try
-    {
-      // Parse query string
-      $queryParsed = QubitSearch::getInstance()->parse($this->request->query);
-    }
-    catch (Exception $e)
-    {
-      if (false !== strstr($e->getMessage(), 'fopen'))
+      if ($this->pager->hasResults())
       {
-        throw $e;
+        // Populate facets
+        $this->populateFacets();
       }
-
-      $this->error = $e->getMessage();
-
-      return null;
+      else if (empty($this->error))
+      {
+        $this->error = $this->context->i18n->__('No results found.');
+      }
     }
-
-    $query = new Zend_Search_Lucene_Search_Query_Boolean();
-    $query->addSubquery($queryParsed, true);
-
-    return $query;
-  }
-
-  public function filterQuery($query)
-  {
-    // Limit search to current culture and info. objects
-    $query->addSubquery(QubitSearch::getInstance()->addTerm('QubitInformationObject', 'className'), true);
-    $query->addSubquery(QubitSearch::getInstance()->addTerm($this->context->user->getCulture(), 'culture'), true);
-
-    $query = QubitAcl::searchFilterByRepository($query, 'read');
-    $query = QubitAcl::searchFilterDrafts($query);
-
-    // Limit to a repository if in context
-    if (isset($this->getRoute()->resource) && $this->getRoute()->resource instanceof QubitRepository)
-    {
-      $query->addSubquery(QubitSearch::getInstance()->addTerm($this->getRoute()->resource->id, 'repositoryId'), true);
-      $this->title .= $this->context->i18n->__(' in %1%', array('%1%' => $this->getRoute()->resource->authorizedFormOfName));
-    }
-
-    return $query;
   }
 }
