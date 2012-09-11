@@ -15,9 +15,6 @@
 <?php endforeach; ?>
 <?php endif; ?>
     </titlestmt>
-<?php if (0 < strlen($value = $resource->alternateTitle)): ?>
-      <unittitle type="parallel"><?php echo esc_specialchars($value) ?></unittitle>
-<?php endif; ?>
 <?php if (0 < strlen($value = $resource->getEdition(array('cultureFallback' => true)))): ?>
     <editionstmt>
       <edition><?php echo esc_specialchars($value) ?></edition>
@@ -77,6 +74,9 @@
   <did>
 <?php if (0 < strlen($value = $resource->getTitle(array('cultureFallback' => true)))): ?>
     <unittitle encodinganalog="3.1.2"><?php echo esc_specialchars($value) ?></unittitle>
+<?php endif; ?>
+<?php if (0 < strlen($value = $resource->alternateTitle)): ?>
+      <unittitle type="parallel"><?php echo esc_specialchars($value) ?></unittitle>
 <?php endif; ?>
 <?php if (0 < strlen($resource->getIdentifier())): ?>
     <unitid <?php if ($resource->getRepository()): ?><?php if ($repocode = $resource->getRepository()->getIdentifier()): ?><?php echo 'repositorycode="'.esc_specialchars($repocode).'" ' ?><?php endif; ?><?php if ($countrycode = $resource->getRepository()->getCountryCode()): ?><?php echo 'countrycode="'.$countrycode.'"' ?><?php endif;?><?php endif; ?> encodinganalog="3.1.1"><?php echo esc_specialchars($ead->referenceCode) ?></unitid>
