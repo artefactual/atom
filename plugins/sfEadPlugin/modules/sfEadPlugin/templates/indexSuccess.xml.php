@@ -15,6 +15,9 @@
 <?php endforeach; ?>
 <?php endif; ?>
     </titlestmt>
+<?php if (0 < strlen($value = $resource->alternateTitle)): ?>
+      <unittitle type="parallel"><?php echo esc_specialchars($value) ?></unittitle>
+<?php endif; ?>
 <?php if (0 < strlen($value = $resource->getEdition(array('cultureFallback' => true)))): ?>
     <editionstmt>
       <edition><?php echo esc_specialchars($value) ?></edition>
