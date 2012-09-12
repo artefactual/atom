@@ -38,7 +38,7 @@ default:
     /vendor/jquery-ui:
     /vendor/jquery.expander.js:
     /vendor/bootstrap/js/bootstrap:
-    /vendor/chosen/chosen.jquery:
+    /vendor/chosen/chosen.jquery.js:
     qubit:
     dominion: { position: last }
 
