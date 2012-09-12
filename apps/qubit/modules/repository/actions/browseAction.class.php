@@ -25,6 +25,12 @@
  */
 class RepositoryBrowseAction extends sfAction
 {
+  // Arrays not allowed in class constants
+  public static
+    $FACETS = array(
+      'types',
+      'contact.i18n.region');
+
   public function execute($request)
   {
     if (!isset($request->limit))
