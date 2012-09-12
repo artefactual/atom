@@ -232,11 +232,11 @@ class QubitFlatfileImport
 
     if (is_numeric($columnIndex))
     {
-      if ($value)
+      if ($value === false)
       {
-        $this->status['row'][$columnIndex] = $value;
-      } else {
         return $this->status['row'][$columnIndex];
+      } else {
+        $this->status['row'][$columnIndex] = $value;
       }
     } else {
       throw new sfException('Invalid column "'. $column .'".');
