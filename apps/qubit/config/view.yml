@@ -5,6 +5,7 @@ default:
   http_metas:
     # content-type: text/html
     X-UA-Compatible: IE=edge,chrome=1
+    viewport: width=device-width, initial-scale=1.0
 
   metas:
     title: AtoM
@@ -13,7 +14,7 @@ default:
     # language: en
     # robots: index, follow
 
-  # stylesheets:
+  stylesheets:
     # /plugins/sfDrupalPlugin/vendor/drupal/modules/system/system: { media: all, position: first }
     # /plugins/sfDrupalPlugin/vendor/drupal/modules/system/system-behavior: { media: all, position: first }
     # /plugins/sfDrupalPlugin/vendor/drupal/modules/system/system-menus: { media: all, position: first }
@@ -25,6 +26,7 @@ default:
     # graphic:
     # main:
     # print: { media: print, position: last }
+    http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic,700,700italic: { position: last }
 
   javascripts:
     /vendor/jquery:

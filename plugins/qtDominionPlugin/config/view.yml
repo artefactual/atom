@@ -1,7 +1,0 @@
-all:
-
-  metas:
-    viewport: width=device-width, initial-scale=1.0, user-scalable=no
-
-  stylesheets:
-    http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic,700,700italic: { position: last }
