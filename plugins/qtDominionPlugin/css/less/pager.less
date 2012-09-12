@@ -15,106 +15,74 @@
  * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// .pager = for quick previous and next links
-// -----------------------------------------------------------------------------
-
-.pager {
-
-  // .widebtn(); ?
-  a {
-
-    padding-left: 40px;
-    padding-right: 40px;
-    border: 2px solid @white;
-    .border-radius(5px);
-    background-color: transparent;
-    color: @white;
-      font-size: @baseFontSize + 5px;
-
-    &:hover {
-
-      background-color: white;
-      color: @orange;
-
-    }
-
-  }
-
-}
-
-// .pagination
-// -----------------------------------------------------------------------------
-
-.pagination {
-
-  a {
-
-    border: 2px solid @white;
-    border-left-width: 0;
-    color: @white;
-
-    &:hover {
-
-      background-color: white;
-      color: @orange;
-
-    }
-
-  }
-
-  li:first-child a {
-
-    border-left-width: 2px;
-
-  }
-
-  .active a {
-
-    background-color: @white;
-    color: @orange;
-
-  }
-
-}
+// Result count
 
 .result-count {
-
   text-align: center;
   color: @white;
-
 }
 
-// Other stuff
-// -----------------------------------------------------------------------------
+// Result counter under #content
 
-#content {
+#content .result-count {
+  color: @grayDark;
+}
 
-  .pagination a,
-  .pager a {
+// Pagination
 
-    color: @grayDark;
-    border-color: @grayDark;
+.pagination ul > li > a,
+.pagination ul > li > span {
+  background-color: transparent;
+  border: 2px solid @white; // @paginationBorder;
+  border-left-width: 0;
+  color: @white;
+}
 
-    &:hover {
+.pagination ul > li > a:hover,
+.pagination ul > .active > a,
+.pagination ul > .active > span {
+  color: @orange;
+  background-color: @white;
+}
 
-      background-color: @grayDark;
-      color: @white;
+.pagination ul > li:first-child > a,
+.pagination ul > li:first-child > span {
+  border-left-width: 2px;
+}
 
-    }
+// Pager
 
-  }
+.pager a,
+.pager span {
+  background-color: transparent;
+  border: 2px solid @white;
+  color: @white;
+}
 
-  .result-count {
+.pager a:hover {
+  background-color: @white;
+  color: @orange;
+}
 
-    color: @grayDark;
+// Pagination and pager under #content
 
-  }
+#content .pagination ul > li > a,
+#content .pagination ul > li > span,
+#content .pager a,
+#content .pager span {
+  border-color: @grayDark;
+  color: @grayDark;
+}
 
-  .active a {
+#content .pagination ul > li > a:hover,
+#content .pagination ul > .active > a,
+#content .pagination ul > .active > span,
+#content .pager a:hover {
+  background-color: @grayDark;
+  color: @white;
+}
 
-    background-color: @grayDark;
-    color: @white;
-
-  }
-
+#content .pager {
+  margin-left: 18px;
+  margin-right: 18px;
 }
