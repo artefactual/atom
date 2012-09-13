@@ -86,6 +86,11 @@ information_object:
       Method:  addProperty
       Parameters: ["otherTitleInformation", $nodeValue]
 
+    statement_of_responsibility:
+      XPath:   "did/unittitle[@type='statrep']"
+      Method:  addProperty
+      Parameters: ["titleStatementOfResponsibility", $nodeValue]
+
     dates:
       XPath:   "did/unitdate"
       Method:  setDates
