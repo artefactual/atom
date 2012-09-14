@@ -10,8 +10,6 @@
 
   <div id="filters" class="row-fluid">
 
-    <button class="btn" data-toggle="button"><?php echo __('Filter/Limit') ?></button>
-
     <div class="row-fluid">
 
       <div class="span6 left">

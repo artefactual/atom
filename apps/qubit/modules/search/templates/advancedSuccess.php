@@ -9,7 +9,7 @@
     </div>
   <?php endif; ?>
 
-  <h1 class="label">
+  <h1>
     <?php echo ('Advanced search') ?>
     <div id="action-icons">
       <?php echo link_to(
