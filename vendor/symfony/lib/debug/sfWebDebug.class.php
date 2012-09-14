@@ -230,7 +230,7 @@ class sfWebDebug
         <div id="sfWebDebugBar">
           <a href="#" onclick="sfWebDebugToggleMenu(); return false;"><img src="'.$this->options['image_root_path'].'/sf.png" alt="Debug toolbar" /></a>
 
-          <ul id="sfWebDebugDetails" class="sfWebDebugMenu">
+          <ul id="sfWebDebugDetails" class="sfWebDebugMenu" style="display: none;">
             '.implode("\n", $titles).'
             <li class="last">
               <a href="#" onclick="document.getElementById(\'sfWebDebug\').style.display=\'none\'; return false;"><img src="'.$this->options['image_root_path'].'/close.png" alt="Close" /></a>
