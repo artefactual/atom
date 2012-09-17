@@ -102,6 +102,12 @@ Url:       http://plugins.learningjquery.com/expander/
 Copyright: Karl Swedberg
 License:   MIT or GPL
 
+jQuery imagesLoaded
+-------------------
+Url:       http://desandro.github.com/imagesloaded/
+Copyright: Paul Irish et al.
+License:   MIT
+
 jQuery Masonry
 --------------
 Url:       http://masonry.desandro.com/
