@@ -1,5 +1,3 @@
-// $Id: flowplayer.js 12267 2012-09-05 02:12:40Z sevein $
-
 (function ($)
   {
     Drupal.behaviors.flowplayer = {

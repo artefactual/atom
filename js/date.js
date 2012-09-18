@@ -1,5 +1,3 @@
-// $Id: date.js 9249 2011-07-06 18:05:17Z sevein $
-
 (function ($)
   {
     Drupal.behaviors.date = {

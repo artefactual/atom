@@ -1,5 +1,3 @@
-// $Id: imageflow.js 6303 2010-04-15 18:21:32Z jablko $
-
 (function ($)
   {
     Drupal.behaviors.imageflow = {

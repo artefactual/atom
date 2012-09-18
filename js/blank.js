@@ -1,5 +1,3 @@
-// $Id: select.js 3583 2009-09-29 00:42:32Z jablko $
-
 (function ($)
   {
     Drupal.behaviors.blank = {

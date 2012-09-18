@@ -1,5 +1,3 @@
-// $Id: multiRow.js 10016 2011-10-11 18:02:25Z sevein $
-
 (function ($)
   {
     Qubit.multiRow = Qubit.multiRow || {};

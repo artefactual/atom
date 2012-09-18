@@ -1,5 +1,3 @@
-// $Id: updateCheck.js 9698 2011-09-12 22:11:17Z sevein $
-
 (function ($)
   {
     Qubit.updateCheck = Qubit.updateCheck || {};

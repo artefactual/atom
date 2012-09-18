@@ -1,5 +1,3 @@
-// $Id: multiInstanceInput.js 8337 2010-10-20 23:03:38Z jablko $
-
 (function ($) {
     // Add string method for removing trailing numeric characters
     String.prototype.trimTrailingDigits = function ()

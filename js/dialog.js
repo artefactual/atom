@@ -1,5 +1,3 @@
-// $Id: dialog.js 12027 2012-08-01 22:11:19Z sevein $
-
 (function ($)
   {
     QubitDialog = function (table, options)
