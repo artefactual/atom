@@ -17,113 +17,135 @@
 
 #homepagehero {
   background: url(../../images/homepage-bg.jpg) no-repeat @black;
-  background-repeat: no-repeat;
-  background-size: cover;
-  -moz-background-size: cover;
+  .background-size(cover);
   height: 420px;
   padding-top: 80px;
-  text-shadow: 2px 0 2px rgba(0,0,0,.6);
+  text-shadow: 2px 0 2px rgba(0, 0, 0, .6);
   margin: 0 auto;
+}
 
-  h1, h2, p, li, a {
-    color:@white;
-    line-height: 110%;
-    font-weight: normal;
-  }
+#homepagehero h1,
+#homepagehero h2,
+#homepagehero p,
+#homepagehero li,
+#homepagehero a {
+  color:@white;
+  line-height: 110%;
+  font-weight: normal;
+}
 
-  h1 {
-    font-size: 25px;
-  }
+#homepagehero h1 {
+  font-size: 25px;
+}
 
-  h2 {
-    font-style: oblique;
-    font-size: 25px;
-    margin-bottom: 5px;
-  }
+#homepagehero h2 {
+  font-style: oblique;
+  font-size: 25px;
+  margin-bottom: 5px;
+}
 
-  p {
-    font-size: 15px;
-  }
+#homepagehero p {
+  font-size: 15px;
+}
 
-  #mainnav {
-    p {
-      font-style: oblique;
-      font-size: 25px;
-    }
-    ul {
-      .nav;
+#homepagehero #mainnav p {
+  font-style: oblique;
+  font-size: 25px;
+}
 
-      li {
-        margin: 10px 0;
-        .clearfix;
+#homepagehero #mainnav ul {
+  .nav();
+}
 
-        a {
-          font-size: 20px;
-          display:block;
+#homepagehero #mainnav li {
+  margin: 10px 0;
+  .clearfix();
+}
 
-          img {
-            margin-right:10px;
-            display: inline;
-          vertical-align: middle;
-          }
-        }
-      }
-    }
-  }
+#homepagehero #mainnav li a {
+  font-size: 20px;
+  display: block;
+}
+
+#homepagehero #mainnav li a img {
+  margin-right:10px;
+  display: inline;
+  vertical-align: middle;
 }
 
 #homepage {
   margin-top: 30px;
+}
 
-  h3 {
-    color: @white;
-    line-height: 110%;
-    margin-bottom: 10px;
+#homepage * {
+  .box-sizing(border-box);
+}
 
-    span {
-      font-style: oblique;
-    }
-  }
+#homepage h3 {
+  color: @white;
+  line-height: 110%;
+  margin-bottom: 10px;
+}
 
-  p, li {
-    margin-bottom: 5px;
-    margin-right: 10px;
-  }
+#homepage h3 span {
+  font-style: oblique;
+}
 
-  #charts, #virtualexhibit {
-    border-right: 1px solid @white;
-    margin-right: -1px;
-  }
+#homepage p,
+#homepage li {
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
 
-  #charts, #virtualexhibit, #about {
-    height: 300px;
-  }
+#homepage > div:first-child {
+  border-right: 1px solid @white;
+}
 
-  #virtualexhibit img {
-  }
+#homepage #virtualexhibit {
+  position: relative;
+}
 
+#homepage #virtualexhibit > div {
+  background-image: url(http://lorempixel.com/800/300/);
+  background-repeat: none;
+  background-position: 0 0;
+  background-size: cover;
+  width: 100%;
+  display: block;
+  height: 237px;
+}
+
+#homepage #virtualexhibit > h3 {
+  position: absolute;
+  top: -9px;
+  left: 0;
+  width: 100%;
+  padding: 8px;
+  background-color: #000;
+  background-color: rgba(0, 0, 0, .4);
 }
 
 @media (max-width: 768px) {
 
   .homepage-wrapper {
-    margin-top:10px !important;
+    margin-top: 10px !important;
   }
 
   #homepagehero {
     background: none;
     padding-top:0;
+  }
 
-    #intro {
-      .hide;
-    }
+  #homepagehero #intro {
+    .hide();
+  }
 
-    #mainnav {
-      margin-left: 30px;
-    }
+  #homepagehero #mainnav {
+    margin-left: 30px;
   }
 
   #homepage {
     .hide;
   }
+
 }

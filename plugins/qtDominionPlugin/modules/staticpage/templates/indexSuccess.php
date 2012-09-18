@@ -26,11 +26,10 @@
 
   <div id="homepage" class="row">
 
-    <div class="span4" id="charts">
-
+    <div class="span4">
       <h3>Popular <br/><span>this week</span></h3>
       <ol>
-        <li><a href="#">Popular description</a></li>
+        <li><a href="http://www.archeion.ca/art-gallery-of-ontario-research-library-and-archives;isdiah">Art Gallery of Ontario</a></li>
         <li><a href="#">Popular description with a long title</a></li>
         <li><a href="#">Popular description</a></li>
         <li><a href="#">Popular description</a></li>
@@ -38,39 +37,11 @@
         <li><a href="#">Very Popular description</a></li>
         <li><a href="#">Popular description</a></li>
       </ol>
-
     </div>
 
-    <div class="span4" id="virtualexhibit">
-
+    <div class="span8" id="virtualexhibit">
       <h3>Virtual Exhibits <br/><span>Exploring the Frasier Canyon</span></h3>
-
-      <div class="row">
-        <div class="span4">
-          <?php echo link_to(image_tag('/plugins/qtDominionPlugin/images/icons-large/icon-archive.png', array('width' => '168', 'height' => '168')), '@homepage') ?>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="span4">
-          <p><a href="#">More virtual exhibits</a></p>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="span4" id="about">
-
-      <h3>About <br/><span>Archives Canada</span></h3>
-      <ul class="unstyled">
-        <li><a href="#">About us</a></li>
-        <li><a href="#">Networks</a></li>
-        <li><a href="#">Contributors</a></li>
-        <li><a href="#">Links</a></li>
-        <li><a href="#">Contact us</a></li>
-        <li><a href="#">francais</a></li>
-      </ul>
-
+      <div>&nbsp;</div>
     </div>
 
   </div>
