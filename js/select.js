@@ -1,5 +1,3 @@
-// $Id: select.js 7120 2010-07-06 17:56:17Z sevein $
-
 (function ($)
   {
     Drupal.behaviors.select = {

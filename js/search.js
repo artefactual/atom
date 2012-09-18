@@ -1,5 +1,3 @@
-// $Id: search.js 5112 2010-01-29 17:05:18Z sevein $
-
 Drupal.behaviors.search = {
   attach: function (context)
     {

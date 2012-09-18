@@ -1,5 +1,3 @@
-// $Id: multiFileUpload.js 10923 2012-02-16 22:40:05Z sevein $
-
 (function ($)
   {
     Qubit.multiFileUpload = Qubit.multiFileUpload || {};

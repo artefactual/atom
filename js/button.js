@@ -1,5 +1,3 @@
-// $Id: button.js 1908 2009-02-09 22:11:49Z jablko $
-
 Drupal.behaviors.button = {
   attach: function (context)
     {

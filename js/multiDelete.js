@@ -1,5 +1,3 @@
-// $Id: multiDelete.js 8802 2010-11-08 19:49:18Z sevein $
-
 (function ($)
   {
     /**

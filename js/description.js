@@ -1,5 +1,3 @@
-// $Id: description.js 10773 2012-01-30 18:11:49Z sevein $
-
 (function ($)
   {
     Drupal.behaviors.description = {

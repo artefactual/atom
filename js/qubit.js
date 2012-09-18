@@ -1,5 +1,3 @@
-// $Id: qubit.js 10999 2012-02-29 18:38:15Z sevein $
-
 var Qubit = Qubit || {};
 
 // Usage: log('inside coolFunc',this,arguments);
