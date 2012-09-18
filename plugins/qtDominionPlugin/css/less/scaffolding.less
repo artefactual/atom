@@ -123,9 +123,6 @@ strong { // used exclusively for FONDS, SERIES, etc labels
 #overview .done { color: @orange; }
 
 
-
-
-
 // The square institution blocks in mini and maxi
 
 .institution, .subject {
@@ -287,4 +284,36 @@ ul.breadcrumb {
   li.active a {
     color: @orange;
   }
+}
+
+// jQuery Masonry bricks
+
+.masonry .item {
+  float: left;
+  text-align: center;
+  width: 160px;
+  padding: 10px;
+  margin: 10px;
+  border: 8px solid @white;
+}
+
+.masonry .item.image {
+  background-color: White;
+}
+
+.masonry .item.text a {
+  text-rendering: optimizelegibility; // Fix the character spacing for headings
+  font-family: @headingsFontFamily;
+  font-size: 24px;
+  line-height: 40px;
+  text-overflow: ellipsis;
+  color: @white;
+}
+
+.masonry .item:hover {
+  background-color: @white;
+}
+
+.masonry .item:hover a {
+  color: @orange;
 }

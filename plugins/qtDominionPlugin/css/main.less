@@ -16,11 +16,10 @@
  */
 
 // Load bootstrap files
-// Ralf didn't like wells, pagination and pager, why?
 @import "../../../vendor/bootstrap/less/bootstrap";
 @import "../../../vendor/bootstrap/less/responsive";
 
-// Archives Canada brand colors
+// Dominion
 @blue: #0a3e94;
 @orange: #f6ac00;
 @gray: #6d6d6d;
@@ -39,16 +38,14 @@
 @baseLineHeight: 18px;
 @textColor: @grayDark;
 
-// Archives Canada CSS files (written in LESS)
+// Include files
 @import "less/mixins";
 @import "less/scaffolding";
-@import "less/buttons";
+@import "less/pager";
+@import "less/search";
 @import "less/header";
 @import "less/treeview";
 @import "less/popovers";
-@import "less/search";
-@import "less/advancedSearch";
 @import "less/homepage";
 @import "less/archivalDescription";
 @import "less/import";
-@import "less/pager";

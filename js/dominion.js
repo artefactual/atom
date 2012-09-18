@@ -37,6 +37,23 @@
 
   /****
    ****
+   ****  jQuery Masonry
+   ****
+   ****/
+
+  $(function ()
+    {
+      var $container = $('.masonry');
+      $container.imagesLoaded(function() {
+        $container.masonry({
+          itemSelector: '.item',
+          isAnimated: true
+        });
+      });
+    });
+
+  /****
+   ****
    ****  Autocomplete plugin
    ****
    ****/
