@@ -1,5 +1,3 @@
-// $Id: actions.js 6855 2010-05-12 19:25:00Z jablko $
-
 Drupal.behaviors.actions = {
   attach: function (context)
     {

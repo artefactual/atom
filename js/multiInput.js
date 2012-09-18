@@ -1,5 +1,3 @@
-// $Id: multiInput.js 9881 2011-09-30 17:46:54Z sevein $
-
 (function ($)
   {
     Drupal.behaviors.multiInput = {

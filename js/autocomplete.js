@@ -1,5 +1,3 @@
-// $Id: autocomplete.js 11782 2012-06-20 19:17:07Z sevein $
-
 (function ($)
   {
     Drupal.behaviors.autocomplete = {

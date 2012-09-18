@@ -1,5 +1,3 @@
-/* svn: $Id: aclDialog.js 9877 2011-09-29 20:44:17Z sevein $ */
-
 function QubitAclDialog(dialogId, tableTemplate, $)
 {
   thisDialog = this;
