@@ -39,13 +39,19 @@
 
     <div class="span9">
 
-      <div class="section">
+      <div class="section masonry">
 
         <?php foreach ($pager->getResults() as $hit): ?>
           <?php $doc = build_i18n_doc($hit, array('actor')) ?>
-          <div class="institution maxi">
-            <h2><?php echo link_to($doc['actor'][$sf_user->getCulture()]['authorizedFormOfName'], array('module' => 'repository', 'slug' => $doc['slug'])) ?></h2>
-          </div>
+          <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$doc['slug'].'/.conf/logo.png')): ?>
+            <div class="item image">
+              <?php echo link_to(image_tag('/uploads/r/'.$doc['slug'].'/.conf/logo.png'), array('module' => 'repository', 'slug' => $doc['slug'])) ?>
+            </div>
+          <?php else: ?>
+            <div class="item text">
+              <?php echo link_to($doc['actor'][$sf_user->getCulture()]['authorizedFormOfName'], array('module' => 'repository', 'slug' => $doc['slug'])) ?>
+            </div>
+          <?php endif; ?>
         <?php endforeach; ?>
 
       </div>
