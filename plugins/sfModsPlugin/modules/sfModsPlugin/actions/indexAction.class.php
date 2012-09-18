@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage informationObject - initialize a showMods template for displaying an information object
  * @author     Peter Van Garderen <peter@artefactual.com>
- * @version    SVN: $Id: indexAction.class.php 10370 2011-12-07 00:09:27Z sevein $
  */
 
 class sfModsPluginIndexAction extends InformationObjectIndexAction

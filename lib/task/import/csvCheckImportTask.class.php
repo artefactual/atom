@@ -23,7 +23,6 @@
  * @package    symfony
  * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
- * @version    SVN: $Id: csvCheckImportTask.class.php 12050 2012-08-07 20:57:13Z sevein $
  */
 class csvCheckImportTask extends csvImportBaseTask
 {

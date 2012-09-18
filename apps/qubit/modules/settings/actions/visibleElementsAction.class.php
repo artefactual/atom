@@ -22,7 +22,6 @@
  *
  * @package    qubit
  * @subpackage settings
- * @version    svn: $Id: visibleElementsAction.class.php 11967 2012-07-24 05:40:06Z sevein $
  * @author     Wu liu <wu.liu@usask.ca>
  */
 

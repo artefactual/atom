@@ -26,7 +26,6 @@
  * @package    symfony
  * @subpackage task
  * @author     David Juhasz <david@artefactual.com>
- * @version    SVN: $Id$
  */
 class i18nDiffTask extends sfBaseTask
 {

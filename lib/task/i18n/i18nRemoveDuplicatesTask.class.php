@@ -24,7 +24,6 @@
  * @package    symfony
  * @subpackage task
  * @author     David Juhasz <david@artefactual.com>
- * @version    SVN: $Id: i18nRemoveDuplicatesTask.class.php 10378 2011-12-08 17:28:49Z david $
  */
 class I18nRemoveDuplicatesTask extends sfBaseTask
 {

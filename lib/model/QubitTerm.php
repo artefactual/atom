@@ -24,7 +24,6 @@
  * @subpackage model
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     David Juhasz <david@artefactual.com>
- * @version    SVN: $Id: QubitTerm.php 12213 2012-08-27 18:24:20Z sevein $
  */
 class QubitTerm extends BaseTerm
 {

@@ -21,7 +21,6 @@
  * @package    qubit
  * @subpackage sfEadPlugin
  * @author     David Juhasz <david@artefactual.com>
- * @version    svn: $Id: sfEadPlugin.class.php 11168 2012-03-14 18:18:01Z david $
  */
 class sfEadPlugin
 {

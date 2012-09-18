@@ -6,7 +6,6 @@
  * @package     sfPluginAdminPlugin
  * @subpackage  config
  * @author      Your name here
- * @version     SVN: $Id: sfPluginAdminPluginConfiguration.class.php 6897 2010-05-14 18:34:53Z jablko $
  */
 class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
 {

@@ -24,7 +24,6 @@ ProjectConfiguration::getActive()->loadHelpers('I18N');
  *
  * @package    qubit
  * @subpackage settings
- * @version    svn: $Id$
  */
 class SettingsJobSchedulingForm extends sfForm
 {

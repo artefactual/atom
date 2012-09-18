@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage informationObject - initialize an editDc template for updating an information object
  * @author     Peter Van Garderen <peter@artefactual.com>
- * @version    SVN: $Id: editAction.class.php 10371 2011-12-07 00:14:22Z sevein $
  */
 
 class sfDcPluginEditAction extends InformationObjectEditAction

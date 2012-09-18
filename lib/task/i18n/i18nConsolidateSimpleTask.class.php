@@ -25,7 +25,6 @@
  * @package    symfony
  * @subpackage task
  * @author     David Juhasz <david@artefactual.com>
- * @version    SVN: $Id: i18nConsolidateSimpleTask.class.php 11573 2012-04-30 23:13:55Z david $
  */
 class i18nConsolidateSimpleTask extends sfBaseTask
 {

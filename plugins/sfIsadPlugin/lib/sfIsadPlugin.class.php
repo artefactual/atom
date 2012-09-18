@@ -24,7 +24,6 @@
  *
  * @package    Qubit
  * @author     Peter Van Garderen <peter@artefactual.com>
- * @version    svn:$Id: sfIsadPlugin.class.php 12103 2012-08-14 20:43:47Z sevein $
  */
 
 class sfIsadPlugin implements ArrayAccess

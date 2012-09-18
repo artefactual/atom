@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage digital object
  * @author     David Juhasz <david@artefactual.com>
- * @version    SVN: $Id: showImageComponent.class.php 10288 2011-11-08 21:25:05Z mj $
  */
 class DigitalObjectShowImageComponent extends sfComponent
 {

@@ -6,7 +6,6 @@
  * @package     sfInstallPlugin
  * @subpackage  config
  * @author      Your name here
- * @version     SVN: $Id: sfInstallPluginConfiguration.class.php 11140 2012-03-11 00:27:19Z sevein $
  */
 class sfInstallPluginConfiguration extends sfPluginConfiguration
 {

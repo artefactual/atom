@@ -22,7 +22,6 @@
  *
  * @package    qubit
  * @subpackage import/export
- * @version    svn: $Id: importAction.class.php 12159 2012-08-22 15:20:53Z sevein $
  * @author     David Juhasz <david@artefactual.com>
  * @author     MJ Suhonos <mj@artefactual.com>
  */

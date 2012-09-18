@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage informationObject - initialize a showDc template for displaying an information object
  * @author     Peter Van Garderen <peter@artefactual.com>
- * @version    SVN: $Id: indexAction.class.php 11695 2012-05-19 04:41:22Z sevein $
  */
 
 class sfDcPluginIndexAction extends InformationObjectIndexAction

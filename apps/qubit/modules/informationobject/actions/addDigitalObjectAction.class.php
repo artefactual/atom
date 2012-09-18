@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage digital object
  * @author     david juhasz <david@artefactual.com>
- * @version    SVN: $Id: addDigitalObjectAction.class.php 11677 2012-05-14 23:04:49Z david $
  */
 class InformationObjectAddDigitalObjectAction extends sfAction
 {

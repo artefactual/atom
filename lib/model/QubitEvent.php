@@ -22,7 +22,6 @@
  *
  * @package    qubit
  * @subpackage event
- * @version    svn: $Id: QubitEvent.php 10288 2011-11-08 21:25:05Z mj $
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     Jack Bates <jack@artefactual.com>
  * @author     David Juhasz <david@artefactual.com>

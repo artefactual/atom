@@ -23,7 +23,6 @@
  * @package    qbAclPlugin
  * @subpackage acl
  * @author     David Juhasz <david@artefactual.com>
- * @version    svn:$Id: QubitAcl.class.php 11808 2012-06-26 19:34:33Z sevein $
  */
 class QubitAcl
 {

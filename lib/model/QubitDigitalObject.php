@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage model
  * @author     David Juhasz <david@artefactual.com>
- * @version    SVN: $Id: QubitDigitalObject.php 12201 2012-08-24 17:31:01Z david $
  */
 class QubitDigitalObject extends BaseDigitalObject
 {

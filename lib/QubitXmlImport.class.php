@@ -24,7 +24,6 @@
  * @subpackage library
  * @author     MJ Suhonos <mj@artefactual.com>
  * @author     Peter Van Garderen <peter@artefactual.com>
- * @version    svn:$Id: QubitXmlImport.class.php 12161 2012-08-22 15:24:14Z sevein $
  */
 class QubitXmlImport
 {
