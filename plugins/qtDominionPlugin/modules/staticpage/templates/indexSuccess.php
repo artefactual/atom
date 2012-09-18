@@ -26,21 +26,28 @@
 
   <div id="homepage" class="row">
 
-    <div class="span4">
+    <div class="span4" id="popular">
       <h3>Popular <br/><span>this week</span></h3>
       <ol>
-        <li><a href="http://www.archeion.ca/art-gallery-of-ontario-research-library-and-archives;isdiah">Art Gallery of Ontario</a></li>
-        <li><a href="#">Popular description with a long title</a></li>
-        <li><a href="#">Popular description</a></li>
-        <li><a href="#">Popular description</a></li>
-        <li><a href="#">Popular description</a></li>
-        <li><a href="#">Very Popular description</a></li>
-        <li><a href="#">Popular description</a></li>
+        <?php foreach (array(
+          "Playwrights' Workshop Montreal fonds" => 'playwrights-workshop-montreal-fonds',
+          "Kantokoski (Koski), Koivula & Korpela Family" => 'kantokoski-koski-koivula-korpela-family-3',
+          "Caledon Mountain Trout Club fonds" => 'caledon-mountain-trout-club-fonds',
+          "Toronto Psychiatric Hospital/Clarke Institute of Psychiatry fonds" => 'toronto-psychiatric-hospital-clarke-institute-of-psychiatry-fonds',
+          "Ann Eva Chisholm (nee Kantokoski/Koski)" => 'ann-eva-chisholm-nee-kantokoski-koski-2',
+          "Soroptimist Club of the Sudbury Nickel District" => 'soroptimist-club-of-sudbury-nickel-district-3',
+          "St. James' Church (Anglican), Carp, Ontario fonds" => 'st-james-church-anglican-carp-ontario-fonds',
+          "Kantokoski (Koski), Koivula & Korpela Family" => 'church-records-from-finnish-congregation') as $title => $slug): ?>
+          <li><?php echo link_to($title, url_for(array('module' => 'informationobject', 'slug' => $slug))) ?></li>
+        <?php endforeach; ?>
       </ol>
     </div>
 
     <div class="span8" id="virtualexhibit">
-      <h3>Virtual Exhibits <br/><span>Exploring the Frasier Canyon</span></h3>
+      <h3>
+        Virtual Exhibits<br />
+        <span>Kantokoski (Koski), Koivula & Korpela Family</span>
+      </h3>
       <div>&nbsp;</div>
     </div>
 
