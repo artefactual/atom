@@ -22,7 +22,6 @@
  *
  * @package    qtElasticSearchPlugin
  * @author     MJ Suhonos <mj@artefactual.com>
- * @version    SVN: $Id: QubitPdoActor.class.php 11309 2012-03-29 20:46:14Z mj $
  */
 class QubitPdoActor
 {

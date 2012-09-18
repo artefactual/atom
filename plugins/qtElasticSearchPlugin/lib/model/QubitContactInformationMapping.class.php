@@ -23,7 +23,6 @@
  *
  * @package    qtElasticSearchPlugin
  * @author     MJ Suhonos <mj@artefactual.com>
- * @version    svn:$Id: QubitContactInformation.class.php 10316 2011-11-14 22:40:18Z mj $
  */
 class QubitContactInformationMapping extends QubitMapping
 {

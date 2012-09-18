@@ -22,7 +22,6 @@
  *
  * @package    qtElasticSearchPlugin
  * @author     MJ Suhonos <mj@artefactual.com>
- * @version    SVN: $Id: QubitPdoInformationObject.class.php 11728 2012-06-05 03:13:10Z sevein $
  */
 class QubitPdoInformationObject
 {
