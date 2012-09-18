@@ -26,7 +26,6 @@
  * @author Peter Van Garderen <peter@artefactual.com>
  * @author David Juhasz <david@artefactual.com>
  * @author Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
- * @version svn: $Id: QubitInformationObject.php 12179 2012-08-23 21:26:11Z david $
  */
 class QubitInformationObject extends BaseInformationObject
 {

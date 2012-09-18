@@ -22,7 +22,6 @@
  *
  * @package qubit
  * @subpackage default
- * @version svn: $Id: updateCheckComponent.class.php 12020 2012-07-31 21:59:35Z sevein $
  * @author Jesús García Crespo <correo@sevein.com>
  */
 class DefaultUpdateCheckComponent extends sfComponent

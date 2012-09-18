@@ -24,7 +24,6 @@
  * @subpackage informationObject - initialize an editRad template for updating an information object
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     David Juhasz <david@artefactual.com>
- * @version    SVN: $Id: editAction.class.php 12164 2012-08-22 19:27:05Z sevein $
  */
 class sfRadPluginEditAction extends InformationObjectEditAction
 {

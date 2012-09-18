@@ -6,7 +6,6 @@
  * @package     sfTranslatePlugin
  * @subpackage  config
  * @author      Your name here
- * @version     SVN: $Id: sfTranslatePluginConfiguration.class.php 12081 2012-08-13 17:51:25Z sevein $
  */
 class sfTranslatePluginConfiguration extends sfPluginConfiguration
 {

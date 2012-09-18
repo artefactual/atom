@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage repository
  * @author     david juhasz <david@artefactual.com>
- * @version    SVN: $Id: uploadLimitExceededAction.class.php 10288 2011-11-08 21:25:05Z mj $
  */
 class RepositoryUploadLimitExceededAction extends sfAction
 {

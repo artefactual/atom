@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage informationObject - initialize a showIsad template for displaying an information object
  * @author     Peter Van Garderen <peter@artefactual.com>
- * @version    SVN: $Id: indexAction.class.php 11113 2012-03-08 21:18:02Z david $
  */
 
 class sfIsadPluginIndexAction extends InformationObjectIndexAction

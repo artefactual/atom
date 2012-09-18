@@ -24,7 +24,6 @@ ProjectConfiguration::getActive()->loadHelpers('I18N');
  *
  * @package    qubit
  * @subpackage settings
- * @version    svn: $Id: SettingsGlobalForm.class.php 12006 2012-07-30 16:47:28Z sevein $
  * @author     David Juhasz <david@artefactual.com>
  */
 class SettingsGlobalForm extends sfForm

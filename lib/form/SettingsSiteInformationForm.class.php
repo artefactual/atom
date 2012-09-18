@@ -24,7 +24,6 @@ ProjectConfiguration::getActive()->loadHelpers('I18N');
  *
  * @package    qubit
  * @subpackage settings
- * @version    svn: $Id: SettingsSiteInformationForm.class.php 10288 2011-11-08 21:25:05Z mj $
  * @author     David Juhasz <david@artefactual.com>
  */
 class SettingsSiteInformationForm extends sfForm

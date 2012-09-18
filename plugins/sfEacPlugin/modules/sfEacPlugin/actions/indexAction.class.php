@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage sfEacPlugin
  * @author     Jack Bates <jack@artefactual.com>
- * @version    SVN: $Id: indexAction.class.php 10288 2011-11-08 21:25:05Z mj $
  */
 
 class sfEacPluginIndexAction extends ActorIndexAction

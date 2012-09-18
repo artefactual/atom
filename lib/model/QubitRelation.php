@@ -23,7 +23,6 @@
  *
  * @package    qubit
  * @subpackage relation
- * @version    svn: $Id: QubitRelation.php 10288 2011-11-08 21:25:05Z mj $
  * @author     Jack Bates <jack@artefactual.com>
  * @author     David Juhasz <david@artefactual.com>
  */

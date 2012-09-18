@@ -23,7 +23,6 @@
  * @package    symfony
  * @subpackage library
  * @author     Mike Cantelon <mike@artefactual.com>
- * @version    SVN: $Id: csvImportTask.class.php 10508 2012-01-02 19:43:11Z mcantelon $
  */
 class QubitFlatfileImport
 {

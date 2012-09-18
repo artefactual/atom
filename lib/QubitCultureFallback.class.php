@@ -21,7 +21,6 @@
  * @package    qubit
  * @subpackage lib
  * @author     David Juhasz <david@artefactual.com>
- * @version    $Id: QubitCultureFallback.class.php 10288 2011-11-08 21:25:05Z mj $
  */
 class QubitCultureFallback
 {

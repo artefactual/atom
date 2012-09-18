@@ -23,7 +23,6 @@
  *
  * @package    Qubit
  * @author     Peter Van Garderen <peter@artefactual.com>
- * @version    svn:$Id: sfModsPlugin.class.php 11493 2012-04-22 00:02:15Z sevein $
  */
 
 class sfModsPlugin implements ArrayAccess

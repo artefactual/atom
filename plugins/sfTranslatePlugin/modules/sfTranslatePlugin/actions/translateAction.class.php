@@ -14,7 +14,6 @@
  * @package    symfony
  * @subpackage i18n
  * @author     Your name here
- * @version    SVN: $Id: translateAction.class.php 8609 2010-10-28 07:57:38Z jablko $
  */
 class sfTranslatePluginTranslateAction extends sfAction
 {

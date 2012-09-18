@@ -24,7 +24,6 @@
  * @subpackage informationobject
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     David Juhasz <david@artefactual.com>
- * @version    svn:$Id: fileListAction.class.php 11156 2012-03-12 23:22:44Z david $
  */
 class InformationObjectFileListAction extends sfAction
 {

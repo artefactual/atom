@@ -22,7 +22,6 @@
  *
  * @package qubit
  * @subpackage physicalobject
- * @version svn: $Id: contextMenuComponent.class.php 10288 2011-11-08 21:25:05Z mj $
  * @author david juhasz <david@artefactual.com>
  */
 class PhysicalObjectContextMenuComponent extends sfComponent

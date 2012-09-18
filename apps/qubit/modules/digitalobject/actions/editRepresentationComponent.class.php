@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage digitalObject
  * @author     david juhasz <david@artefactual.com>
- * @version    SVN: $Id
  */
 class DigitalObjectEditRepresentationComponent extends sfComponent
 {

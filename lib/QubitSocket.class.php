@@ -22,7 +22,6 @@
  *
  * @package    qubit
  * @subpackage lib
- * @version    svn: $Id: QubitSocket.class.php 12050 2012-08-07 20:57:13Z sevein $
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
 class QubitSocket

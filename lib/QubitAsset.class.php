@@ -23,7 +23,6 @@
  * @package    Qubit
  * @subpackage libraries
  * @author     David Juhasz <david@artefactual.com>
- * @version    svn:$Id: QubitAsset.class.php 10377 2011-12-08 11:21:16Z sevein $
  */
 class QubitAsset
 {

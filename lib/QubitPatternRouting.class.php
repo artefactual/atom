@@ -24,7 +24,6 @@
  * @package    qubit
  * @subpackage routing
  * @author     David Juhasz <david@artefactual.com>
- * @version    SVN: $Id$
  */
 class QubitPatternRouting extends sfPatternRouting
 {

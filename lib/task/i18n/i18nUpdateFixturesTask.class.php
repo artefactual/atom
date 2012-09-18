@@ -24,7 +24,6 @@
  * @package    symfony
  * @subpackage task
  * @author     David Juhasz <david@artefactual.com>
- * @version    SVN: $Id: i18nUpdateFixturesTask.class.php 12132 2012-08-17 21:27:56Z david $
  */
 class I18nUpdateFixturesTask extends sfBaseTask
 {

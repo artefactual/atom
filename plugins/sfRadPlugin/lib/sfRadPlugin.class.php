@@ -23,7 +23,6 @@
  *
  * @package    Qubit
  * @author     Peter Van Garderen <peter@artefactual.com>
- * @version    svn:$Id: sfRadPlugin.class.php 12164 2012-08-22 19:27:05Z sevein $
  */
 
 class sfRadPlugin implements ArrayAccess

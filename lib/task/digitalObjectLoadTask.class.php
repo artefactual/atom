@@ -23,7 +23,6 @@
  * @package    symfony
  * @subpackage task
  * @author     David Juhasz <david@artefactual.com>
- * @version    SVN: $Id: digitalObjectLoadTask.class.php 11770 2012-06-14 05:04:56Z david $
  */
 class digitalObjectLoadTask extends sfBaseTask
 {

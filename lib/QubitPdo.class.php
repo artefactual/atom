@@ -25,7 +25,6 @@
  * @package    Qubit
  * @author     Vic Cheubini
  * @author     David Juhasz <david@artefactual.com>
- * @version    SVN: $Id: QubitPdo.class.php 11953 2012-07-23 01:00:23Z sevein $
  */
 class QubitPdo
 {

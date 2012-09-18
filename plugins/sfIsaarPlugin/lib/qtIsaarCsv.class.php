@@ -22,7 +22,6 @@
  *
  * @package    qubit
  * @subpackage sfIsaarPlugin
- * @version    svn: $Id: qtIsaarCsv.class.php 10630 2012-01-10 22:44:14Z david $
  * @author     David Juhasz <david@artefactual.com>
  */
 class qtIsaarCsv extends sfIsaarPlugin

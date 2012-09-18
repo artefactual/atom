@@ -25,7 +25,6 @@
  * @author Jack Bates <jack@artefactual.com>
  * @author Peter Van Garderen <peter@artefactual.com>
  * @author David Juhasz <david@artefactual.com>
- * @version $Id: QubitProperty.php 10575 2012-01-05 21:40:58Z sevein $
  */
 class QubitProperty extends BaseProperty
 {

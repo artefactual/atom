@@ -22,7 +22,6 @@
  *
  * @package Qubit
  * @author  David Juhasz <david@artefactual.com>
- * @version svn:$Id: QubitPager.class.php 10288 2011-11-08 21:25:05Z mj $
  */
 class QubitPager extends sfPropelPager
 {

@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage informationObject - initialize an editMods template for updating an information object
  * @author     Peter Van Garderen <peter@artefactual.com>
- * @version    SVN: $Id: editAction.class.php 10288 2011-11-08 21:25:05Z mj $
  */
 
 class sfModsPluginEditAction extends InformationObjectEditAction

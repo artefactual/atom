@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage menu
  * @author     David Juhasz <david@artefactual.com>
- * @version    svn:$Id: listAction.class.php 10337 2011-11-18 19:41:36Z david $
  */
 class MenuListAction extends sfAction
 {

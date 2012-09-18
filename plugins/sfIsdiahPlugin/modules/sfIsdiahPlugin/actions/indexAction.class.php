@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage Actor - initialize a showIDIAH template for displaying a repository
  * @author     Peter Van Garderen <peter@artefactual.com>
- * @version    SVN: $Id: indexAction.class.php 10767 2012-01-29 00:32:36Z sevein $
  */
 
 class sfIsdiahPluginIndexAction extends RepositoryIndexAction
