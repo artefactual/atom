@@ -22,7 +22,6 @@
  *
  * @package    qubit
  * @subpackage migration
- * @version    svn: $Id: QubitMigrate105.class.php 10288 2011-11-08 21:25:05Z mj $
  * @author     David Juhasz <david@artefactual.com
  */
 class QubitMigrate105 extends QubitMigrate

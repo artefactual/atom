@@ -22,7 +22,6 @@
  *
  * @package qubit
  * @subpackage actor
- * @version svn: $Id: contextMenuComponent.class.php 10296 2011-11-09 21:48:33Z david $
  * @author Peter Van Garderen <peter@artefactual.com>
  * @author David Juhasz <david@artefactual.com>
  */

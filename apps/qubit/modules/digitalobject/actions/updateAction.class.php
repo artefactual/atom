@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage digitalobject
  * @author     david juhasz <david@artefactual.com>
- * @version    SVN: $Id
  *
  */
 class DigitalObjectUpdateAction extends sfAction

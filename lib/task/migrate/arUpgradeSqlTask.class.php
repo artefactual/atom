@@ -22,7 +22,6 @@
  *
  * @package    qubit
  * @subpackage migration
- * @version    svn: $Id: arUpgradeSqlTask.class.php 11979 2012-07-25 23:27:32Z sevein $
  * @author     David Juhasz <david@artefactual.com>
  */
 class QubitUpgradeSqlTask extends sfBaseTask

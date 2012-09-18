@@ -22,7 +22,6 @@
  *
  * @package    qubit
  * @subpackage oai
- * @version    svn: $Id: getRecordComponent.class.php 10288 2011-11-08 21:25:05Z mj $
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */

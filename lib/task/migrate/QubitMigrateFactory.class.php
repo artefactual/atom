@@ -22,7 +22,6 @@
  *
  * @package    qubit
  * @subpackage migration
- * @version    svn: $Id: QubitMigrateFactory.class.php 11614 2012-05-03 22:21:13Z david $
  * @author     David Juhasz <david@artefactual.com>
  */
 class QubitMigrateFactory

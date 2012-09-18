@@ -21,7 +21,8 @@
  * @package    qtDominionPlugin
  * @subpackage repository
  * @author     MJ Suhonos <mj@artefactual.com>
- * @version    svn:$Id: browseAction.class.php 11669 2012-05-14 17:34:20Z sevein $
+ * @author     Peter Van Garderen <peter@artefactual.com>
+ * @author     Wu Liu <wu.liu@usask.ca>
  */
 class RepositoryBrowseAction extends sfAction
 {

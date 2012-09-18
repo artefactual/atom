@@ -24,7 +24,6 @@
  *
  * @package    Qubit
  * @subpackage library
- * @version    svn:$Id: QubitCsvImport.class.php 9112 2011-05-20 01:35:23Z mj $
  */
 class QubitCsvImport
 {

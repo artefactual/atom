@@ -23,7 +23,6 @@
  * @package    Qubit
  * @subpackage QubitSearch
  * @author     David Juhasz <david@artefactual.com>
- * @version    SVN: $Id: QubitSearchInformationObject.class.php 12195 2012-08-23 23:56:03Z david $
  */
 class QubitSearchInformationObject
 {

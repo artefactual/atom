@@ -22,7 +22,6 @@
  *
  * @package    qubit
  * @subpackage model
- * @version    svn: $Id: QubitSetting.php 11992 2012-07-26 22:08:56Z david $
  * @author     MJ Suhonos
  * @author     Jack Bates <jack@artefactual.com>
  */

@@ -22,7 +22,6 @@
  *
  * @package    qubit
  * @subpackage settings
- * @version    svn: $Id: listAction.class.php 11992 2012-07-26 22:08:56Z david $
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     Jack Bates <jack@artefactual.com>
  * @author     David Juhasz <david@artefactual.com>

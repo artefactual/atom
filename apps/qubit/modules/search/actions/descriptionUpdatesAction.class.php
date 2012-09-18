@@ -22,7 +22,6 @@
  *
  * @package qubit
  * @subpackage search
- * @version SVN: $Id: descriptionUpdatesAction.class.php 10288 2011-11-08 21:25:05Z mj $
  * @author David Juhasz <david@artefactual.com>
  */
 class SearchDescriptionUpdatesAction extends sfAction

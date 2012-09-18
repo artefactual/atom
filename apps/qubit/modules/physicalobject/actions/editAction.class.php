@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage physicalobject
  * @author     David Juhasz <david@artefactual.com>
- * @version    SVN: $Id
  */
 class PhysicalObjectEditAction extends DefaultEditAction
 {

@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage digitalObject
  * @author     David Juhasz <david@artefactual.com>
- * @version    SVN: $Id
  */
 class DigitalObjectShowVideoComponent extends sfComponent
 {

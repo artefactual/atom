@@ -25,7 +25,6 @@
  * @package    Qubit
  * @subpackage widget
  * @author     David Juhasz <david@artefactual.com>
- * @version    SVN: $Id: QubitWidgetFormInputMany.php 11275 2012-03-26 18:44:41Z david $
  */
 class QubitWidgetFormInputMany extends sfWidgetFormInput
 {

@@ -22,7 +22,6 @@
  *
  * @package    qubit
  * @subpackage digitalobject
- * @version    SVN: $Id: imageflowComponent.class.php 11107 2012-03-07 19:50:08Z sevein $
  * @author     david juhasz <david@artefactual.com>
  */
 class DigitalObjectImageflowComponent extends sfComponent

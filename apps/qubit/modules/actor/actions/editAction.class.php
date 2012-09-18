@@ -22,7 +22,6 @@
  *
  * @package    qubit
  * @subpackage actor
- * @version    svn: $Id: editAction.class.php 11684 2012-05-17 21:49:42Z sevein $
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     Jack Bates <jack@artefactual.com>
  * @author     David Juhasz <david@artefactual.com>

@@ -22,7 +22,6 @@
  *
  * @package    qubit
  * @subpackage migration
- * @version    svn: $Id: MigrateTask.class.php 12119 2012-08-16 16:31:49Z david $
  * @author     David Juhasz <david@artefactual.com>
  */
 class MigrateTask extends sfBaseTask

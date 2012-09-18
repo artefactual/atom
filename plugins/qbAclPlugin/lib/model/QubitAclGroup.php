@@ -22,7 +22,6 @@
  *
  * @package    qubit
  * @subpackage acl
- * @version    svn: $Id: QubitAclGroup.php 10288 2011-11-08 21:25:05Z mj $
  * @author     David Juhasz <david@artefactual.com>
  */
 class QubitAclGroup extends BaseAclGroup implements Zend_Acl_Role_Interface

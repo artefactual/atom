@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage menu
  * @author     David Juhasz <david@artefactual.com>
- * @version    svn:$Id: editAction.class.php 11052 2012-03-04 02:33:19Z sevein $
  */
 class MenuEditAction extends sfAction
 {

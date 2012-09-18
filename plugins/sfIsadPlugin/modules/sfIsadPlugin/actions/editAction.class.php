@@ -24,7 +24,6 @@
  * @subpackage informationObject - initialize an editIsad template for updating an information object
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     Jesús García Crespo <correo@sevein.com>
- * @version    SVN: $Id: editAction.class.php 12103 2012-08-14 20:43:47Z sevein $
  */
 class sfIsadPluginEditAction extends InformationObjectEditAction
 {

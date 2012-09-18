@@ -74,7 +74,7 @@ information_object:
       Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID, 'entity_type_id' => QubitTerm::FAMILY_ID)"]
 
     title:
-      XPath:   "did/unittitle[not(@type)]"
+      XPath:   "did/unittitle[not(@type) and not(*)]"
       Method:  setTitle
 
     alternate_title:
@@ -87,9 +87,18 @@ information_object:
       Parameters: ["otherTitleInformation", $nodeValue]
 
     statement_of_responsibility:
-      XPath:   "did/unittitle[@type='statrep']"
+      XPath:   "did/unittitle[@type='statrep' and not(*)]"
       Method:  addProperty
       Parameters: ["titleStatementOfResponsibility", $nodeValue]
+
+    edition:
+      XPath:   "did/unittitle[not(@type)]/edition"
+      Method:  setEdition
+
+    edition_statement_of_responsibility:
+      XPath:   "did/unittitle[@type='statrep']/edition"
+      Method: addProperty
+      Parameters: ["editionStatementOfResponsibility", $nodeValue]
 
     dates:
       XPath:   "did/unitdate"

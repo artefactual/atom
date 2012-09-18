@@ -25,7 +25,6 @@
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     David Juhasz <david@artefactual.com>
  * @author     Wu Liu <wu.liu@usask.ca>
- * @version    svn:$Id: browseAction.class.php 11008 2012-03-01 19:07:08Z sevein $
  */
 class ActorBrowseAction extends DefaultBrowseAction
 {

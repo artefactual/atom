@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage function
  * @author     David Juhasz <david@artefactual.com>
- * @version    svn:$Id: autocompleteAction.class.php 10288 2011-11-08 21:25:05Z mj $
  */
 class FunctionAutocompleteAction extends sfAction
 {

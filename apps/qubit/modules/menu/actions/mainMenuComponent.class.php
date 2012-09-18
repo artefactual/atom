@@ -23,7 +23,6 @@
  *
  * @package    qubit
  * @subpackage menu
- * @version    svn: $Id: mainMenuComponent.class.php 10288 2011-11-08 21:25:05Z mj $
  * @author     David Juhasz <david@artefactual.com>
  */
 class MenuMainMenuComponent extends sfComponent

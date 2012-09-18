@@ -23,7 +23,6 @@
  * @package    qubit
  * @subpackage resource
  * @author     Jesús García Crespo <correo@sevein.com>
- * @version    SVN: $Id
  */
 class DigitalObjectShowAudioComponent extends sfComponent
 {
