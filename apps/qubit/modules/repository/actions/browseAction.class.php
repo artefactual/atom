@@ -39,6 +39,9 @@ class RepositoryBrowseAction extends sfAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
+    // Force limit temporary
+    $request->limit = 250;
+
     $queryBool = new Elastica_Query_Bool();
     $queryBool->addShould(new Elastica_Query_MatchAll());
 
