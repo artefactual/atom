@@ -2,11 +2,25 @@
 
   <div class="row">
 
-    <div class="span12 hidden-phone">
-      <h1>
-        <?php echo image_tag('/plugins/qtDominionPlugin/images/icons-large/icon-institutions.png', array('width' => '42', 'height' => '42')) ?>
-        <?php echo __('%1% institutions', array('%1%' => $pager->getNbResults(), '%2%' => sfConfig::get('app_ui_label_repository'))) ?>
-      </h1>
+    <div class="hidden-phone">
+      <div class="span8">
+        <h1>
+          <?php echo image_tag('/plugins/qtDominionPlugin/images/icons-large/icon-institutions.png', array('width' => '42', 'height' => '42')) ?>
+          <?php echo __('%1% institutions', array('%1%' => $pager->getNbResults(), '%2%' => sfConfig::get('app_ui_label_repository'))) ?>
+        </h1>
+      </div>
+      <div class="span4">
+        <div class="btn-group">
+          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <?php echo __('Sort') ?>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#"><?php echo __('Alphabetical') ?></a></li>
+            <li><a href="#"><?php echo __('Last updated') ?></a></li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <div id="filter" class="span12 visible-phone">
