@@ -163,9 +163,14 @@ information_object:
       Method:  setRepositoryAddress
 
     identifier:
-      XPath:   "archdesc/did/unitid"
+      XPath:   "archdesc/did/unitid[not(@type)]"
       Method:  setIdentifierWithCodes
       Parameters: [$nodeValue, "$options = array('countrycode' => $importDOM->xpath->query('@countrycode', $domNode2)->item(0)->nodeValue, 'repositorycode' => $importDOM->xpath->query('@repositorycode', $domNode2)->item(0)->nodeValue)"]
+
+    standard_number:
+      XPath:  "archdesc/did/unitid[@type='standard']"
+      Method:  addProperty
+      Parameters: ["standardNumber", $nodeValue]
 
     languages:
       XPath:   "archdesc/did/langmaterial/language/@langcode"

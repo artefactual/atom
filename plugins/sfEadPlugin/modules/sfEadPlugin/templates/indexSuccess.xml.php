@@ -111,6 +111,9 @@
 <?php if (0 < strlen($resource->getIdentifier())): ?>
     <unitid <?php if ($resource->getRepository()): ?><?php if ($repocode = $resource->getRepository()->getIdentifier()): ?><?php echo 'repositorycode="'.esc_specialchars($repocode).'" ' ?><?php endif; ?><?php if ($countrycode = $resource->getRepository()->getCountryCode()): ?><?php echo 'countrycode="'.$countrycode.'"' ?><?php endif;?><?php endif; ?> encodinganalog="3.1.1"><?php echo esc_specialchars($ead->referenceCode) ?></unitid>
 <?php endif; ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('standardNumber')->__toString())): ?>
+    <unitid type="standard"><?php echo esc_specialchars($value) ?></unitid>
+<?php endif; ?>
 <?php foreach ($resource->getDates() as $date): ?>
     <unitdate <?php if ($type = $date->getType()->__toString()): ?><?php echo 'datechar="'.strtolower($type).'" ' ?><?php endif; ?><?php if ($startdate = $date->getStartDate()): ?><?php echo 'normal="'?><?php echo Qubit::renderDate($startdate) ?><?php if (0 < strlen($enddate = $date->getEndDate())): ?><?php echo '/'?><?php echo Qubit::renderDate($enddate) ?><?php endif; ?><?php echo '"' ?><?php endif; ?> encodinganalog="3.1.3"><?php echo esc_specialchars(Qubit::renderDateStartEnd($date->getDate(array('cultureFallback' => true)), $date->startDate, $date->endDate)) ?></unitdate>
 <?php endforeach; // dates ?>
