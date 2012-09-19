@@ -177,21 +177,21 @@ information_object:
       Method:  setLangcode
 
     phystech:
-      XPath:  "archdesc/(phystech | descgrp/phystech)"
+      XPath:  "(archdesc/phystech | archdesc/descgrp/phystech)"
       Method: setPhysicalCharacteristics
 
     originalsloc:
-      XPath:  "archdesc/(originalsloc | descgrp/originalsloc)"
+      XPath:  "(archdesc/originalsloc | archdesc/descgrp/originalsloc)"
       Method: setLocationOfOriginals
 
     #TODO: check for @type attribute and pass it as note type
     note:
-      XPath:  "archdesc/(note | descgrp/note | did/note)"
+      XPath:  "(archdesc/note | archdesc/descgrp/note | archdesc/did/note)"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::GENERAL_NOTE_ID)"]
 
     bioghist:
-      XPath:  "archdesc/(bioghist | descgrp/bioghist)"
+      XPath:  "(archdesc/bioghist | archdesc/descgrp/bioghist)"
       Method: setHistoryByOrigination
 
     # this will overwrite any values entered for <abstract>
