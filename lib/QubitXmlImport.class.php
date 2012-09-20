@@ -24,6 +24,7 @@
  * @subpackage library
  * @author     MJ Suhonos <mj@artefactual.com>
  * @author     Peter Van Garderen <peter@artefactual.com>
+ * @author     Mike Cantelon <mike@artefactual.com>
  */
 class QubitXmlImport
 {
@@ -301,130 +302,7 @@ class QubitXmlImport
         }
 
         // go through methods and populate properties
-        foreach ($mapping['Methods'] as $name => $methodMap)
-        {
-          // if method is not defined, we can't process this mapping
-          if (empty($methodMap['Method']) || !is_callable(array($currentObject, $methodMap['Method'])))
-          {
-            $this->errors[] = sfContext::getInstance()->i18n->__('Non-existent method defined in import mapping: "%method%"', array('%method%' => $methodMap['Method']));
-            continue;
-          }
-
-          // get a list of XML nodes to process
-          $nodeList2 = $importDOM->xpath->query($methodMap['XPath'], $domNode);
-
-          if (is_object($nodeList2))
-          {
-            switch($name)
-            {
-              // hack: some multi-value elements (e.g. 'languages') need to get passed as one array instead of individual nodes values
-              case 'languages':
-                $langCodeConvertor = new fbISO639_Map;
-                $value = array();
-                foreach ($nodeList2 as $nodeee)
-                {
-                  if ($twoCharCode = $langCodeConvertor->getID2($nodeee->nodeValue))
-                  {
-                    $value[] = strtolower($twoCharCode);
-                  }
-                  else
-                  {
-                    $value[] = $nodeee->nodeValue;
-                  }
-                }
-                $currentObject->language = $value;
-
-                break;
-
-              case 'flocat':
-                $resources = array();
-                foreach ($nodeList2 as $nodeee)
-                {
-                  $resources[] = $nodeee->nodeValue;
-                }
-
-                if (0 < count($resources))
-                {
-                  $currentObject->importDigitalObjectFromUri($resources);
-                }
-
-                break;
-
-              default:
-                foreach ($nodeList2 as $domNode2)
-                {
-                  // normalize the node text (trim whitespace manually); NB: this will strip any child elements, eg. HTML tags
-                  $nodeValue = trim(preg_replace('/[\n\r\s]+/', ' ', $domNode2->nodeValue));
-
-                  // if you want the full XML from the node, use this
-                  $nodeXML = $domNode2->ownerDocument->saveXML($domNode2);
-                  // set the parameters for the method call
-                  if (empty($methodMap['Parameters']))
-                  {
-                    $parameters = array($nodeValue);
-                  }
-                  else
-                  {
-                    $parameters = array();
-                    foreach ((array) $methodMap['Parameters'] as $parameter)
-                    {
-                      // if the parameter begins with %, evaluate it as an XPath expression relative to the current node
-                      if ('%' == substr($parameter, 0, 1))
-                      {
-                        // evaluate the XPath expression
-                        $xPath = substr($parameter, 1);
-                        $result = $importDOM->xpath->query($xPath, $domNode2);
-
-                        if ($result->length > 1)
-                        {
-                          // convert nodelist into an array
-                          foreach ($result as $element)
-                          {
-                            $resultArray[] = $element->nodeValue;
-                          }
-                          $parameters[] = $resultArray;
-                        }
-                        else
-                        {
-                          // pass the node value unaltered; this provides an alternative to $nodeValue above
-                          $parameters[] = $result->item(0)->nodeValue;
-                        }
-                      }
-                      else
-                      {
-                        // Confirm DOMXML node exists to avoid warnings at run-time
-                        if (false !== preg_match_all('/\$importDOM->xpath->query\(\'@\w+\', \$domNode2\)->item\(0\)->nodeValue/', $parameter, $matches))
-                        {
-                          foreach ($matches[0] as $match)
-                          {
-                            $str = str_replace('->nodeValue', '', $match);
-
-                            if (null !== ($node = eval('return '.$str.';')))
-                            {
-                              // Substitute node value for search string
-                              $parameter = str_replace($match, '\''.$node->nodeValue.'\'', $parameter);
-                            }
-                            else
-                            {
-                              // Replace empty nodes with null in parameter string
-                              $parameter = str_replace($match, 'null', $parameter);
-                            }
-                          }
-                        }
-
-                        eval('$parameters[] = '.$parameter.';');
-                      }
-                    }
-                  }
-
-                  // invoke the object and method defined in the schema map
-                  call_user_func_array(array( & $currentObject, $methodMap['Method']), $parameters);
-                }
-            }
-
-            unset($nodeList2);
-          }
-        }
+        $this->processMethods($importDOM, $mapping['Methods'], $currentObject);
 
         // make sure we have a publication status set before indexing
         if ($currentObject instanceof QubitInformationObject && count($currentObject->statuss) == 0)
@@ -441,6 +319,140 @@ class QubitXmlImport
     }
 
     return $this;
+  }
+
+  /*
+   * Cycle through methods and populate object based on relevant data
+   *
+   * @return  null
+   */
+  private function processMethods(&$importDOM, $methods, &$currentObject)
+  {
+    // go through methods and populate properties
+    foreach ($methods as $name => $methodMap)
+    {
+      // if method is not defined, we can't process this mapping
+      if (empty($methodMap['Method']) || !is_callable(array($currentObject, $methodMap['Method'])))
+      {
+        $this->errors[] = sfContext::getInstance()->i18n->__('Non-existent method defined in import mapping: "%method%"', array('%method%' => $methodMap['Method']));
+        continue;
+      }
+
+      // get a list of XML nodes to process
+      $nodeList2 = $importDOM->xpath->query($methodMap['XPath'], $domNode);
+
+      if (is_object($nodeList2))
+      {
+        switch($name)
+        {
+          // hack: some multi-value elements (e.g. 'languages') need to get passed as one array instead of individual nodes values
+          case 'languages':
+            $langCodeConvertor = new fbISO639_Map;
+            $value = array();
+            foreach ($nodeList2 as $nodeee)
+            {
+              if ($twoCharCode = $langCodeConvertor->getID2($nodeee->nodeValue))
+              {
+                $value[] = strtolower($twoCharCode);
+              }
+              else
+              {
+                $value[] = $nodeee->nodeValue;
+              }
+            }
+            $currentObject->language = $value;
+
+            break;
+
+          case 'flocat':
+            $resources = array();
+            foreach ($nodeList2 as $nodeee)
+            {
+              $resources[] = $nodeee->nodeValue;
+            }
+
+            if (0 < count($resources))
+            {
+              $currentObject->importDigitalObjectFromUri($resources);
+            }
+
+            break;
+
+          default:
+            foreach ($nodeList2 as $domNode2)
+            {
+              // normalize the node text (trim whitespace manually); NB: this will strip any child elements, eg. HTML tags
+              $nodeValue = trim(preg_replace('/[\n\r\s]+/', ' ', $domNode2->nodeValue));
+
+              // if you want the full XML from the node, use this
+              $nodeXML = $domNode2->ownerDocument->saveXML($domNode2);
+              // set the parameters for the method call
+              if (empty($methodMap['Parameters']))
+              {
+                $parameters = array($nodeValue);
+              }
+              else
+              {
+                $parameters = array();
+                foreach ((array) $methodMap['Parameters'] as $parameter)
+                {
+                  // if the parameter begins with %, evaluate it as an XPath expression relative to the current node
+                  if ('%' == substr($parameter, 0, 1))
+                  {
+                    // evaluate the XPath expression
+                    $xPath = substr($parameter, 1);
+                    $result = $importDOM->xpath->query($xPath, $domNode2);
+
+                    if ($result->length > 1)
+                    {
+                      // convert nodelist into an array
+                      foreach ($result as $element)
+                      {
+                        $resultArray[] = $element->nodeValue;
+                      }
+                      $parameters[] = $resultArray;
+                    }
+                    else
+                    {
+                      // pass the node value unaltered; this provides an alternative to $nodeValue above
+                      $parameters[] = $result->item(0)->nodeValue;
+                    }
+                  }
+                  else
+                  {
+                    // Confirm DOMXML node exists to avoid warnings at run-time
+                    if (false !== preg_match_all('/\$importDOM->xpath->query\(\'@\w+\', \$domNode2\)->item\(0\)->nodeValue/', $parameter, $matches))
+                    {
+                      foreach ($matches[0] as $match)
+                      {
+                        $str = str_replace('->nodeValue', '', $match);
+
+                        if (null !== ($node = eval('return '.$str.';')))
+                        {
+                          // Substitute node value for search string
+                          $parameter = str_replace($match, '\''.$node->nodeValue.'\'', $parameter);
+                        }
+                        else
+                        {
+                          // Replace empty nodes with null in parameter string
+                          $parameter = str_replace($match, 'null', $parameter);
+                        }
+                      }
+                    }
+
+                    eval('$parameters[] = '.$parameter.';');
+                  }
+                }
+              }
+
+              // invoke the object and method defined in the schema map
+              call_user_func_array(array( & $currentObject, $methodMap['Method']), $parameters);
+            }
+        }
+
+        unset($nodeList2);
+      }
+    }
   }
 
   /**
