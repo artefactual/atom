@@ -221,41 +221,6 @@ strong { // used exclusively for FONDS, SERIES, etc labels
   }
 }
 
-
-// Breadcrumbs in search results and archival descriptions
-ul.breadcrumb {
-  border:none;
-  background:none !important;
-  margin:0;
-  padding: 0;
-  text-shadow: none;
-  .box-shadow(none);
-
-  li {
-    a {
-      font-family: @smallFontFamily;
-      color: @grayDark;
-      font-size: 10px;
-      margin-left:0;
-
-      &:hover {
-        text-decoration: none;
-        color: @orange;
-      }
-    }
-  }
-
-  li:after {
-    content: " › ";
-  }
-
-  li:last-child:after {
-    content:" ";
-  }
-}
-
-
-
 .nav-tabs {
   font-family: @smallFontFamily;
 
@@ -270,6 +235,37 @@ ul.breadcrumb {
   li.active a {
     color: @orange;
   }
+}
+
+// Breadcrumbs
+
+.breadcrumb {
+  border:none;
+  background:none !important;
+  margin:0;
+  padding: 0;
+  text-shadow: none;
+  .box-shadow(none);
+}
+
+.breadcrumb li:after {
+  content: " › ";
+}
+
+.braedcrumb li:last-child:after {
+  content:" ";
+}
+
+.breadcrumb a {
+  font-family: @smallFontFamily;
+  color: @grayDark;
+  font-size: 10px;
+  margin-left:0;
+}
+
+.breadcrumb a:hover {
+  text-decoration: none;
+  color: @orange;
 }
 
 // Wells
