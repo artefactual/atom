@@ -292,32 +292,67 @@ ul.breadcrumb {
 
 // jQuery Masonry bricks
 
-.masonry .item {
-  float: left;
-  text-align: center;
+.brick {
   width: 160px;
-  padding: 10px;
   margin: 10px;
-  border: 8px solid @white;
+  float: left;
+  padding: 15px 15px 0;
+  background-color: @white;
+  @shadow: 0 1px 3px rgba(25, 25, 25, 0.4);
+  .box-shadow(@shadow);
+  .box-sizing(border-box);
+  font-size: 11px;
 }
 
-.masonry .item.image {
-  background-color: White;
+.brick .preview {
+  position: relative;
 }
 
-.masonry .item.text a {
-  text-rendering: optimizelegibility; // Fix the character spacing for headings
+.brick .preview img {
+  width: 160px;
+}
+
+.bick .preview h4 {
+  text-rendering: optimizelegibility;
   font-family: @headingsFontFamily;
   font-size: 24px;
   line-height: 40px;
   text-overflow: ellipsis;
-  color: @white;
+  margin: 0;
 }
 
-.masonry .item:hover {
-  background-color: @white;
+.brick .preview a:hover h4 {
+  color: orange;
 }
 
-.masonry .item:hover a {
-  color: @orange;
+.brick .details {
+  color: #ad9c9c;
+  margin: 17px -15px 0 -15px;
+  padding: 10px 15px;
+  background-color: #F2F0F0;
+  .clearfix;
+}
+
+.brick .details p {
+  margin: 0;
+}
+
+.brick .name {
+  color: @grayDarker;
+}
+
+.brick .date {
+
+}
+
+@media (max-width: 767px) {
+
+  .brick {
+    padding-bottom: 15px;
+  }
+
+  .brick .details {
+    .hide;
+  }
+
 }

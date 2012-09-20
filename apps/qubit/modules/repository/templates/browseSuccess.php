@@ -1,3 +1,5 @@
+<?php use_helper('Date') ?>
+
 <div id="search-results">
 
   <div class="row">
@@ -57,15 +59,25 @@
 
         <?php foreach ($pager->getResults() as $hit): ?>
           <?php $doc = build_i18n_doc($hit, array('actor')) ?>
-          <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$doc['slug'].'/.conf/logo.png')): ?>
-            <div class="item image">
-              <?php echo link_to(image_tag('/uploads/r/'.$doc['slug'].'/.conf/logo.png'), array('module' => 'repository', 'slug' => $doc['slug'])) ?>
+          <div class="brick">
+            <div class="preview">
+              <a href="<?php echo url_for(array('module' => 'repository', 'slug' => $doc['slug'])) ?>">
+                <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$doc['slug'].'/.conf/logo.png')): ?>
+                  <?php echo image_tag('/uploads/r/'.$doc['slug'].'/.conf/logo.png') ?>
+                <?php else: ?>
+                  <h4><?php echo $doc['actor'][$sf_user->getCulture()]['authorizedFormOfName'] ?></h4>
+                <?php endif; ?>
+              </a>
             </div>
-          <?php else: ?>
-            <div class="item text">
-              <?php echo link_to($doc['actor'][$sf_user->getCulture()]['authorizedFormOfName'], array('module' => 'repository', 'slug' => $doc['slug'])) ?>
+            <div class="details">
+              <?php if (isset($doc['actor'][$sf_user->getCulture()]['authorizedFormOfName'])): ?>
+                <p><span class="name"><?php echo $doc['actor'][$sf_user->getCulture()]['authorizedFormOfName'] ?></span></p>
+              <?php endif; ?>
+              <?php if ('lastUpdated' == $sortSetting): ?>
+                <p><span class="date"><?php echo format_date($doc['updatedAt'], 'f') ?></span></p>
+              <?php endif; ?>
             </div>
-          <?php endif; ?>
+          </div>
         <?php endforeach; ?>
 
       </div>

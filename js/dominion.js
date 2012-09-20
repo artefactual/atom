@@ -46,7 +46,7 @@
       var $container = $('.masonry');
       $container.imagesLoaded(function() {
         $container.masonry({
-          itemSelector: '.item',
+          itemSelector: '.brick',
           isAnimated: true
         });
       });
