@@ -10,7 +10,7 @@
         </h1>
       </div>
       <div class="span4">
-        <div class="btn-group">
+        <div id="sort-options" class="btn-group">
           <?php echo link_to(
             __('Alphabetic'),
             array('sort' => 'alphabetic') + $sf_request->getParameterHolder()->getAll(),
