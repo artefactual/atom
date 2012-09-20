@@ -2,21 +2,13 @@
 
   <div class="container">
 
-    <?php // echo get_component('i18n', 'changeLanguageList') ?>
-    <?php // echo get_component('menu', 'quickLinks') ?>
     <?php // echo get_component('menu', 'browseMenu', array('sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID())) ?>
     <?php // echo get_component_slot('header') ?>
 
     <?php if ($sf_user->isAuthenticated()): ?>
       <div class="row" id="header-admin">
         <div class="span12">
-          <div class="navbar navbar-fixed-top navbar-inverse">
-            <div class="navbar-inner">
-              <ul class="nav">
-                <?php echo get_component('menu', 'mainMenu') ?>
-              </ul>
-            </div>
-          </div>
+          <?php echo get_component('menu', 'mainMenu') ?>
         </div>
       </div>
     <?php endif; ?>
@@ -25,16 +17,26 @@
       <div class="span12">
         <a id="header-council" href="http://www.cdncouncilarchives.ca/"><?php echo image_tag('/plugins/qtDominionPlugin/images/council.png', array('width' => '156', 'height' => '42')) ?></a>
         <ul id="header-nav" class="nav nav-pills">
+
+          <?php // echo get_component('menu', 'quickLinks') ?>
           <li><?php echo link_to(__('Home'), '@homepage') ?></li>
           <li><?php echo link_to(__('Sitemap'), array('module' => 'staticpage', 'slug' => 'sitemap')) ?></li>
           <li><?php echo link_to(__('Contact us'), array('module' => 'staticpage', 'slug' => 'contact')) ?></li>
-          <li><?php echo link_to(__('Log in'), array('module' => 'user', 'action' => 'login')) ?></li>
+
+          <?php if ($sf_user->isAuthenticated()): ?>
+            <li><?php echo link_to(__('Log out'), array('module' => 'user', 'action' => 'logout')) ?></li>
+          <?php else: ?>
+            <li><?php echo link_to(__('Log in'), array('module' => 'user', 'action' => 'login')) ?></li>
+          <?php endif; ?>
+
+          <?php // echo get_component('i18n', 'changeLanguageList') ?>
           <?php foreach (array('en', 'fr') as $item): ?>
             <?php if ($sf_user->getCulture() != $item): ?>
               <li><?php echo link_to(format_language($item, $item), array('sf_culture' => $item) + $sf_request->getParameterHolder()->getAll()) ?></li>
               <?php break; ?>
             <?php endif; ?>
           <?php endforeach; ?>
+
         </ul>
       </div>
     </div>
