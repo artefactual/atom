@@ -372,11 +372,31 @@ class QubitMenu extends BaseMenu
         $class[] = 'active';
       }
 
-      $a = link_to($child->getLabel(array('cultureFallback' => true)), $child->getPath(array('getUrl' => true, 'resolveAlias' => true)));
+      // Build anchor label
+      $anchorLabel = $child->getLabel(array('cultureFallback' => true));
+      if ($child->hasChildren())
+      {
+        $anchorLabel .= ' <b class="caret"></b>';
+      }
+
+      // Build anchor path
+      $anchorPath = $child->getPath(array('getUrl' => true, 'resolveAlias' => true));
+
+      // Build anchor options
+      $anchorOptions = array();
+      if ($child->hasChildren())
+      {
+        $anchorOptions['class'] = 'dropdown-toggle';
+        $anchorOptions['data-toggle'] = 'dropdown';
+      }
+
+
+      $a = link_to($anchorLabel, $anchorPath, $anchorOptions);
 
       if ($child->hasChildren())
       {
-        $a .= self::displayHierarchyAsList($child, $depth + 1, $options);
+        $a .= self::displayHierarchyAsList($child, $depth + 1, array_merge($options, array('ulWrap' => true, 'ulClass' => 'dropdown-menu')));
+        $class[] = 'dropdown';
       }
       else
       {
@@ -394,12 +414,18 @@ class QubitMenu extends BaseMenu
       $li[] = '<li'.$class.$id.'>'.$a.'</li>';
     }
 
-    if (!empty($options['ulClass']))
+    if (isset($options['ulWrap']))
     {
-      return '<ul class="'.$options['ulClass'].'">'.implode($li).'</ul>';
+      if (!empty($options['ulClass']))
+      {
+        return '<ul class="'.$options['ulClass'].'">'.implode($li).'</ul>';
+      }
+      else
+      {
+        return '<ul class="clearfix links">'.implode($li).'</ul>';
+      }
     }
-    else{
-      return '<ul class="clearfix links">'.implode($li).'</ul>';
-    }
+
+    return implode($li);
   }
 }
