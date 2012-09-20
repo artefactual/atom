@@ -1,39 +1,38 @@
 <?php use_helper('Javascript') ?>
 
-<h1><?php echo __('Log in') ?></h1>
+<div class="row">
 
-<?php if ('user' != $sf_request->module || 'login' != $sf_request->action): ?>
-  <div class="messages status">
-    <?php echo __('Please log in to access that page') ?>
-  </div>
-<?php endif; ?>
+  <div class="span4 offset4 well">
 
-<?php echo $form->renderGlobalErrors() ?>
+    <?php if ('user' != $sf_request->module || 'login' != $sf_request->action): ?>
+      <div class="messages status">
+        <?php echo __('Please log in to access that page') ?>
+      </div>
+    <?php endif; ?>
 
-<?php echo $form->renderFormTag(url_for(array('module' => 'user', 'action' => 'login'))) ?>
+    <legend><?php echo _('Sign in') ?></legend>
 
-  <?php echo $form->renderHiddenFields() ?>
+    <?php if ($form->hasErrors()): ?>
+      <div class="alert alert-error">
+        <a class="close" data-dismiss="alert" href="#">×</a>
+        <?php echo $form->renderGlobalErrors() ?>
+      </div>
+    <?php endif; ?>
 
-  <fieldset>
+    <?php echo $form->renderFormTag(url_for(array('module' => 'user', 'action' => 'login'))) ?>
 
-    <?php echo $form->email->renderRow() ?>
+      <?php echo $form->renderHiddenFields() ?>
 
-    <?php echo $form->password->renderRow() ?>
+      <?php echo $form->email->renderRow(array('autofocus' => 'autofocus')) ?>
 
-    <div class="actions section">
+      <?php echo $form->password->renderRow() ?>
 
-      <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
-
-      <div class="content">
-        <ul class="clearfix links">
-          <li><input class="form-submit" type="submit" value="<?php echo __('Log in') ?>"/></li>
-        </ul>
+      <div class="control-group">
+        <div class="controls">
+          <button type="submit" class="btn"><?php echo _('Sign in') ?></button>
+        </div>
       </div>
 
-    </div>
-
-  </fieldset>
-
-</form>
-
-<?php echo javascript_tag('jQuery("[name=email]").select();') ?>
+    </form>
+  </div>
+</div>
