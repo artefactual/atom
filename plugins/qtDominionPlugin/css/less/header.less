@@ -15,120 +15,135 @@
  * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#header-admin {
-  font-family: @sansFontFamily;
-}
+/*
+ * H    #header > .container
+ * E     |- #header-admin.row > span12 > .navbar > ...
+ * A     |- #header-lvl1.row > span12 > { #header-nav, #header-council }
+ * D     |- #header-lvl2.row > span12
+ * E          |- #logo-and-name
+ * R          |- #heade-rsearch
+ */
 
 #header {
-
   position: fixed;
   z-index: 1000;
   top: 0;
   left: 0;
   right: 0;
   border-bottom: 1px solid @blue;
-  #gradient > .vertical-three-colors(@white, @white, 30%, lighten(@orange, 10%));
-  @shadow: 0 3px 3px rgba(0,0,0,.25);
+  background-color: @white;
+  #gradient > .vertical-three-colors(@white, @white, 20%, lighten(@orange, 10%));
+  @shadow: 0 3px 3px rgba(0, 0 , 0, .25);
   .box-shadow(@shadow);
+}
 
-  .container {
+#header .container {
+  margin: 0 auto;
+}
 
-    margin-left: auto;
-    margin-right: auto;
+#header-admin {
+  font-family: @sansFontFamily;
+}
 
-  }
+#header-lvl1 {
+}
+
+#header-lvl2 {
 }
 
 #header-nav {
-
-  .pull-right;
+  .pull-right();
   margin-bottom: 0;
+}
 
-  > li > a {
+#header-nav > li > a {
+  .border-radius(0);
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-family: @smallFontFamily;
+  font-size: 16px;
+  font-variant: small-caps;
+  text-transform: lowercase;
+  font-weight: bold;
+  color: @grayLight;
+}
 
-    .border-radius(0);
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-family: @smallFontFamily;
-    font-size: 16px;
-    font-variant: small-caps;
-    text-transform: lowercase;
-    font-weight: bold;
-    color: @grayLight;
-
-    &:hover {
-
-      color: @orange;
-      background-color: @grayDark;
-
-    }
-
-  }
-
+#header-nav > li > a:hover {
+  color: @orange;
+  background-color: @grayDark;
 }
 
 #header-council {
-
   .pull-right;
-
 }
 
 #logo-and-name h1 {
-
   margin-left: 10px;
   margin-top: -6px;
-
 }
 
 #header-search {
-
   overflow: hidden;
   margin-top: 10px;
-
-  form input[name="query"] {
-
-    color: @grayLight;
-    font-size: 19px;
-    padding: 6px 8px 2px 8px;
-    border: none;
-    border-bottom: 2px solid @grayLight;
-
-    .box-shadow(none);
-    display: block;
-    .border-radius(0);
-
-    .box-sizing(border-box);
-    width: 100%;
-    height: 30px;
-
-    &:hover {
-
-     border-bottom: 2px solid @grayDark;
-
-    }
-
-    &:focus,
-    &.focused {
-
-     border-bottom: 2px solid @grayDark;
-     color: @grayDark;
-
-    }
-
-  }
-
 }
+
+#header-search form {
+  margin: 0 0 8px 0;
+}
+
+#header-search input[type=text] {
+  font-size: 14px;
+  line-height: 1.2;
+  @shadow: rgba(255, 255, 255, 0.5) 0 1px 0;
+  .box-shadow(@shadow);
+  border: 1px solid #999;
+  .border-radius(3px);
+  padding: 14px 8px;
+  .box-sizing(border-box);
+  outline: none;
+  width: 100%;
+  .placeholder(#999);
+  color: #333;
+}
+
+/*
+#header-search form > input {
+  color: @grayLight;
+  font-size: 19px;
+  padding: 6px 8px 2px 8px;
+  border: none;
+  border-bottom: 2px solid @grayLight;
+  .box-shadow(none);
+  display: block;
+  .border-radius(0);
+  .box-sizing(border-box);
+  width: 100%;
+  height: 30px;
+}
+
+#header-search form > input:hover {
+  border-bottom: 2px solid @grayDark;
+}
+
+#header-search form > input:focus,
+#header-search form > input:focused, {
+  border-bottom: 2px solid @grayDark;
+  color: @grayDark;
+}
+*/
 
 // For #search-suggestions and #search-realm
 .search-popover {
-
   position: fixed;
   z-index: @zindexPopover;
   .box-shadow(0 1px 3px rgba(0, 0, 0, .5));
   #gradient > .vertical-three-colors(@white, @white, 70%, lighten(@grayLight, 10%));
-  .border-radius(0 0 4px 4px);
+  .border-radius(4px);
   .box-sizing(border-box);
   .hide();
+}
+
+.search-popover {
 
   div {
 
@@ -231,40 +246,31 @@ body.user-logged {
   margin-top: 141px;
 }
 
+// Responsive design
+
 @media (max-width: 768px) {
 
   #header {
-
     margin-left: -20px;
     margin-right: -20px;
-
     position: static;
+  }
 
-    .container > .row:first-child {
-
-      .hide;
-
-    }
-
+  #header .container > .row:first-child {
+    .hide;
   }
 
   #logo-and-name h1 {
-
     margin: 10px 0 0 0;
     text-align: center;
-
   }
 
   #header-search {
-
     margin: 20px 10px 0 10px;
+  }
 
-    input[name="query"] {
-
-      border: 2px solid @grayLight !important;
-
-    }
-
+  #header-search input[name="query"] {
+    border: 2px solid @grayLight !important;
   }
 
 }
