@@ -234,12 +234,9 @@ class qtElasticSearchPlugin
         if ($options['verbose'])
         {
           $this->logger->log('QubitRepository "'.$repository->__toString().'" inserted ('.$this->timer->elapsed().'s) ('.($key + 1).'/'.count($repositories).')', 'qtElasticSearch');
-          $this->logger->log($repository->id);
         }
       }
     }
-
-    die();
 
     // information objects
     if (!in_array('ios', $skips))
