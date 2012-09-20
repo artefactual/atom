@@ -61,8 +61,8 @@ class QubitRepositoryMapping extends QubitMapping
     {
       $serialized['contact'] = QubitContactInformationMapping::serialize($contact);
     }
-/*
     // TODO: additional contact points if none are primary
+    /*
     elseif (count($contacts = $object->getContactInformation()) > 0)
     {
       foreach ($contacts as $contact)
@@ -70,7 +70,7 @@ class QubitRepositoryMapping extends QubitMapping
 
       }
     }
-*/
+    */
 
     $serialized['sourceCulture'] = $object->sourceCulture;
 
@@ -80,6 +80,9 @@ class QubitRepositoryMapping extends QubitMapping
 
     $objectI18ns = $object->repositoryI18ns->indexBy('culture');
     $serialized['i18n'] = self::serializeI18ns($object, $objectI18ns);
+
+    $serialized['createdAt'] = Elastica_Util::convertDate($object->createdAt);
+    $serialized['updatedAt'] = Elastica_Util::convertDate($object->updatedAt);
 
     return $serialized;
   }

@@ -47,10 +47,9 @@ class QubitMapping
   {
     return array(
       'createdAt' => array(
-          'type' => 'date'
-        ),
+        'type' => 'date'),
       'updatedAt' => array(
-          'type' => 'date'));
+        'type' => 'date'));
   }
 
   public static function getI18nFields($class)
