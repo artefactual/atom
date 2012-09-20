@@ -30,29 +30,10 @@ class DigitalObjectBrowseAction extends sfAction
   {
     if (!isset($request->limit))
     {
-      $request->limit = 25;
+      $request->limit = sfConfig::get('app_hits_per_page');
     }
 
-    $this->mediaType = QubitTerm::getById($request->mediatype);
-    if (!$this->mediaType instanceOf QubitTerm)
-    {
-      $this->forward404();
-    }
-
-    $criteria = new Criteria;
-    $criteria->add(QubitDigitalObject::MEDIA_TYPE_ID, $this->mediaType->id);
-    $criteria->add(QubitDigitalObject::SEQUENCE);
-    $criteria->addJoin(QubitDigitalObject::INFORMATION_OBJECT_ID, QubitInformationObject::ID);
-
-    // Sort by name ascending
-    $criteria->addAscendingOrderByColumn(QubitDigitalObject::NAME);
-
-    // Filter draft descriptions
-    $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
-
-    $this->pager = new QubitPager('QubitDigitalObject');
-    $this->pager->setCriteria($criteria);
-    $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
+    // Force limit temporary
+    $request->limit = 250;
   }
 }
