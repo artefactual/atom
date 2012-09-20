@@ -18,6 +18,15 @@
   <?php endif; ?>
   -->
 
+  <?php if (isset($latitude) && isset($longitude)): ?>
+    <div class="row" id="front-map">
+      <div class="span7">
+        <?php echo image_tag(sprintf('http://maps.googleapis.com/maps/api/staticmap?zoom=16&size=720x180&maptype=roadmap&sensor=false&markers=color:red|label:S|%s,%s', $latitude, $longitude)) ?>
+        <?php // echo image_tag(sprintf('http://ojw.dev.openstreetmap.org/StaticMap/?lat=%s&lon=%s&z=10&w=720&h=200&mode=Export&show=1', $latitude, $longitude)) ?>
+      </div>
+    </div>
+  <?php endif; ?>
+
   <div class="row">
 
     <div class="span7" id="content">

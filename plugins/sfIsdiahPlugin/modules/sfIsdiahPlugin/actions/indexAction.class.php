@@ -86,5 +86,14 @@ class sfIsdiahPluginIndexAction extends RepositoryIndexAction
         $this->errorSchema = $e;
       }
     }
+
+    if (null !== $contact = $this->resource->getPrimaryContact())
+    {
+      if (isset($contact->latitude) && isset($contact->longitude))
+      {
+        $this->latitude = $contact->latitude;
+        $this->longitude = $contact->longitude;
+      }
+    }
   }
 }
