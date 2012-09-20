@@ -42,6 +42,15 @@ class RepositoryBrowseAction extends sfAction
     // Force limit temporary
     $request->limit = 250;
 
+    if ($this->getUser()->isAuthenticated())
+    {
+      $this->sortSetting = sfConfig::get('app_sort_browser_user');
+    }
+    else
+    {
+      $this->sortSetting = sfConfig::get('app_sort_browser_anonymous');
+    }
+
     $queryBool = new Elastica_Query_Bool();
     $queryBool->addShould(new Elastica_Query_MatchAll());
 
@@ -65,7 +74,32 @@ class RepositoryBrowseAction extends sfAction
     }
 
     $query = new Elastica_Query();
-    $query->setSort(array('_score' => 'desc', 'slug' => 'asc'));
+
+    switch ($request->sort)
+    {
+      case 'alphabetic':
+        $query->setSort(array('_score' => 'desc', 'slug' => 'asc'));
+        $this->sortSetting = 'alphabetic';
+
+        break;
+
+      case 'lastUpdated':
+        $query->setSort(array('_score' => 'desc', 'updatedAt' => 'asc'));
+        $this->sortSetting = 'lastUpdated';
+
+        break;
+
+      default:
+        if ('alphabetic' == $this->sortSetting)
+        {
+          $query->setSort(array('_score' => 'desc', 'slug' => 'asc'));
+        }
+        else if ('lastUpdated' == $this->sortSetting)
+        {
+          $query->setSort(array('_score' => 'desc', 'updatedAt' => 'asc'));
+        }
+    }
+
     $query->setLimit($request->limit);
     $query->setQuery($queryBool);
 
