@@ -84,17 +84,19 @@ class qtElasticSearchPlugin
 
   protected function initialize()
   {
-    try {
+    try
+    {
       $this->index->open();
-
-    } catch (Exception $e) {
-
-      // if the index has not been initialized, create it
-      if ($e instanceof Elastica_Exception_Response) {
+    }
+    catch (Exception $e)
+    {
+      // If the index has not been initialized, create it
+      if ($e instanceof Elastica_Exception_Response)
+      {
         $this->index->create(array(), true);
       }
 
-      // apply type mappings for each indexed object type
+      // Apply type mappings for each indexed object type
       // TODO: can load these dynamically from the ./model directory
       foreach (array('QubitInformationObject', 'QubitActor', 'QubitTerm', 'QubitRepository') as $type)
       {
@@ -222,7 +224,6 @@ class qtElasticSearchPlugin
 
       $criteria = new Criteria;
       $criteria->add(QubitRepository::ID, QubitRepository::ROOT_ID, Criteria::NOT_EQUAL);
-
       $repositories = QubitRepository::get($criteria);
       $total = $total + count($repositories);
 
@@ -232,10 +233,13 @@ class qtElasticSearchPlugin
 
         if ($options['verbose'])
         {
-          $this->logger->log('QubitRepository "'.$repository->__toString().'" inserted ('.$this->timer->elapsed().'s) ('.($key+1).'/'.count($repositories).')', 'qtElasticSearch');
+          $this->logger->log('QubitRepository "'.$repository->__toString().'" inserted ('.$this->timer->elapsed().'s) ('.($key + 1).'/'.count($repositories).')', 'qtElasticSearch');
+          $this->logger->log($repository->id);
         }
       }
     }
+
+    die();
 
     // information objects
     if (!in_array('ios', $skips))
@@ -482,36 +486,53 @@ class qtElasticSearchPlugin
     return $numRows;
   }
 
-  public function array_compare($array1, $array2) {
+  public function array_compare($array1, $array2)
+  {
     $diff = false;
+
     // Left-to-right
-    foreach ($array1 as $key => $value) {
-      if (!array_key_exists($key,$array2)) {
+    foreach ($array1 as $key => $value)
+    {
+      if (!array_key_exists($key,$array2))
+      {
         $diff[0][$key] = $value;
-      } elseif (is_array($value)) {
-        if (!is_array($array2[$key])) {
+      }
+      else if (is_array($value))
+      {
+        if (!is_array($array2[$key]))
+        {
           $diff[0][$key] = $value;
           $diff[1][$key] = $array2[$key];
-        } else {
+        }
+        else
+        {
           $new = $this->array_compare($value, $array2[$key]);
-          if ($new !== false) {
+          if ($new !== false)
+          {
             if (isset($new[0])) $diff[0][$key] = $new[0];
             if (isset($new[1])) $diff[1][$key] = $new[1];
-          };
-        };
-      } elseif ($array2[$key] !== $value) {
+          }
+        }
+      }
+      else if ($array2[$key] !== $value)
+      {
         $diff[0][$key] = $value;
         $diff[1][$key] = $array2[$key];
-      };
-    };
+      }
+    }
+
     // Right-to-left
-    foreach ($array2 as $key => $value) {
-      if (!array_key_exists($key,$array1)) {
+    foreach ($array2 as $key => $value)
+    {
+      if (!array_key_exists($key,$array1))
+      {
         $diff[1][$key] = $value;
-      };
+      }
+
       // No direct comparsion because matching keys were compared in the
       // left-to-right loop earlier, recursively.
-    };
+    }
+
     return $diff;
   }
 }
