@@ -19,7 +19,14 @@
             <?php echo link_to(
               __($term['term']).'<span>'.$term['count'].'</span>',
               array(
-                $facet => (@$filters[$facet] ? implode(',', array_diff(array_merge(@$filters[$facet], array($id)), array_intersect(@$filters[$facet], array($id)))) : $id),
+                $facet => (
+                  @$filters[$facet]
+                    ?
+                      implode(',', array_diff(
+                        array_merge(@$filters[$facet], array($id)),
+                        array_intersect(@$filters[$facet], array($id))))
+                    :
+                      $id),
                 'page' => null) + $sf_request->getParameterHolder()->getAll()) ?>
           </li>
         <?php endforeach; ?>
