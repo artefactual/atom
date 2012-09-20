@@ -2,7 +2,7 @@
 
 <div class="row">
 
-  <div class="span4 offset4 well">
+  <div class="span4 offset4 well well-white">
 
     <?php if ('user' != $sf_request->module || 'login' != $sf_request->action): ?>
       <div class="messages status">
