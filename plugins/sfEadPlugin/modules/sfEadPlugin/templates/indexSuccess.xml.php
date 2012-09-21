@@ -72,9 +72,21 @@
 <?php endif; ?>
   </profiledesc>
 </eadheader>
-<!-- TODO <frontmatter/> -->
+<!--
+<frontmatter>
+  <titlepage>
+<?php if (0 < strlen($value = $resource->getPropertyByName('titleProperOfPublishersSeries')->__toString())): ?>
+    <bibseries><title><?php echo esc_specialchars($value) ?></title></bibseries>
+<?php endif; ?>
+
+  </titlepage>
+</frontmatter>
+-->
 <archdesc <?php if ($resource->levelOfDescriptionId):?>level="<?php if (in_array(strtolower($levelOfDescription = $resource->getLevelOfDescription()->getName(array('culture' => 'en'))), $eadLevels)): ?><?php echo strtolower($levelOfDescription).'"' ?><?php else: ?><?php echo 'otherlevel" otherlevel="'.$levelOfDescription.'"' ?><?php endif; ?><?php endif; ?> relatedencoding="ISAD(G)v2">
   <did>
+<?php if (0 < strlen($value = $resource->getPropertyByName('titleProperOfPublishersSeries')->__toString())): ?>
+    <unittitle><bibseries><title><?php echo esc_specialchars($value) ?></title></bibseries></unittitle>
+<?php endif; ?>
 <?php if (0 < strlen($value = $resource->getTitle(array('cultureFallback' => true)))): ?>
     <unittitle encodinganalog="3.1.2"><?php echo esc_specialchars($value) ?></unittitle>
 <?php endif; ?>

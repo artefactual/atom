@@ -86,6 +86,11 @@ information_object:
       Method:  addProperty
       Parameters: ["otherTitleInformation", $nodeValue]
 
+    publishers_series_title:
+      XPath:   "did/unittitle/bibseries/title"
+      Method:  addProperty
+      Parameters: ["titleProperOfPublishersSeries", $nodeValue]
+
     statement_of_responsibility:
       XPath:   "did/unittitle[@type='statrep' and not(*)]"
       Method:  addProperty
