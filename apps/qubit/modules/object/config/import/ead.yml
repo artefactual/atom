@@ -87,9 +87,14 @@ information_object:
       Parameters: ["otherTitleInformation", $nodeValue]
 
     publishers_series_title:
-      XPath:   "did/unittitle/bibseries/title"
+      XPath:   "did/unittitle/bibseries/title[not(@type)]"
       Method:  addProperty
       Parameters: ["titleProperOfPublishersSeries", $nodeValue]
+
+    publishers_series_title_parallel:
+      XPath:   "did/unittitle/bibseries/title[@type='parallel']"
+      Method:  addProperty
+      Parameters: ["parallelTitleOfPublishersSeries", $nodeValue]
 
     statement_of_responsibility:
       XPath:   "did/unittitle[@type='statrep' and not(*)]"
