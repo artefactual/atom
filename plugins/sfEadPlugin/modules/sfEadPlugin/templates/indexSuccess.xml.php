@@ -72,16 +72,7 @@
 <?php endif; ?>
   </profiledesc>
 </eadheader>
-<!--
-<frontmatter>
-  <titlepage>
-<?php if (0 < strlen($value = $resource->getPropertyByName('titleProperOfPublishersSeries')->__toString())): ?>
-    <bibseries><title><?php echo esc_specialchars($value) ?></title></bibseries>
-<?php endif; ?>
-
-  </titlepage>
-</frontmatter>
--->
+<!-- TODO: <frontmatter></frontmatter> -->
 <archdesc <?php if ($resource->levelOfDescriptionId):?>level="<?php if (in_array(strtolower($levelOfDescription = $resource->getLevelOfDescription()->getName(array('culture' => 'en'))), $eadLevels)): ?><?php echo strtolower($levelOfDescription).'"' ?><?php else: ?><?php echo 'otherlevel" otherlevel="'.$levelOfDescription.'"' ?><?php endif; ?><?php endif; ?> relatedencoding="ISAD(G)v2">
   <did>
 <?php if (0 < strlen($value = $resource->getPropertyByName('titleProperOfPublishersSeries')->__toString())): ?>
