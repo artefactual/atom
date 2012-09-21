@@ -25,12 +25,10 @@
         <?php $doc = build_i18n_doc($hit) ?>
         <div class="brick">
           <div class="preview">
-            <a href="#">
-              <?php echo image_tag($doc['digitalObject']['thumbnail_FullPath']) ?>
-            </a>
+            <?php echo link_to(image_tag($doc['digitalObject']['thumbnail_FullPath']), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
           </div>
           <div class="details">
-
+            <?php echo $doc[$sf_user->getCulture()]['title'] ?>
           </div>
         </div>
       <?php endforeach; ?>
