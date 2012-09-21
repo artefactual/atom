@@ -31,7 +31,7 @@ class qtDominionPluginConfiguration extends sfPluginConfiguration
     // Remember to avoid localStorage caching when dev machine is not localhost
     if ($context->getConfiguration()->isDebug())
     {
-      $context->response->addJavaScript('/vendor/less/dist/less-1.3.0.js');
+      $context->response->addJavaScript('/vendor/less.js');
       $context->response->addStylesheet('/plugins/qtDominionPlugin/css/main.less', 'last', array('rel' => 'stylesheet/less', 'type' => 'text/css'));
     }
     else
