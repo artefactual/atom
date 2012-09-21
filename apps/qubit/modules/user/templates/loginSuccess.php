@@ -23,14 +23,12 @@
 
       <?php echo $form->renderHiddenFields() ?>
 
-      <?php echo $form->email->renderRow(array('autofocus' => 'autofocus')) ?>
+      <?php echo $form->email->renderRow(array('autofocus' => 'autofocus', 'class' => 'input-block-level')) ?>
 
-      <?php echo $form->password->renderRow() ?>
+      <?php echo $form->password->renderRow(array('class' => 'input-block-level')) ?>
 
-      <div class="control-group">
-        <div class="controls">
-          <button type="submit" class="btn"><?php echo _('Sign in') ?></button>
-        </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary btn-block btn-large"><?php echo _('Sign in') ?></button>
       </div>
 
     </form>
