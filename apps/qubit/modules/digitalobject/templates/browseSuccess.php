@@ -24,7 +24,7 @@
       <?php foreach ($pager->getResults() as $hit): ?>
         <?php $doc = build_i18n_doc($hit) ?>
         <div class="brick">
-          <div class="preview">
+          <div class="preview zoom">
             <?php echo link_to(image_tag($doc['digitalObject']['thumbnail_FullPath']), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
           </div>
           <div class="details">
