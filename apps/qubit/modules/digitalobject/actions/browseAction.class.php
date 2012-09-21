@@ -35,5 +35,89 @@ class DigitalObjectBrowseAction extends sfAction
 
     // Force limit temporary
     $request->limit = 250;
+
+    $queryBool = new Elastica_Query_Bool();
+    $queryBool->addShould(new Elastica_Query_MatchAll());
+    $queryBool->addMust(new Elastica_Query_Term(array('hasDigitalObject' => true)));
+
+    $query = new Elastica_Query();
+    $query->setLimit($request->limit);
+    $query->setQuery($queryBool);
+
+    $facet = new Elastica_Facet_Terms('mediaTypeId');
+    $facet->setField('mediaTypeId');
+    $facet->setSize(50);
+    $query->addFacet($facet);
+
+    if (!empty($request->page))
+    {
+      $query->setFrom(($request->page - 1) * $request->limit);
+    }
+
+    try
+    {
+      $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+    }
+    catch (Exception $e)
+    {
+      $this->error = $e->getMessage();
+
+      return;
+    }
+
+    $this->pager = new QubitSearchPager($resultSet);
+    $this->pager->setPage($request->page ? $request->page : 1);
+    $this->pager->setMaxPerPage($request->limit);
+
+    if ($this->pager->hasResults())
+    {
+      $facets = array();
+
+      foreach ($this->pager->getFacets() as $name => $facet)
+      {
+        if (isset($facet['terms']))
+        {
+          $ids = array();
+          foreach ($facet['terms'] as $item)
+          {
+            $ids[$item['term']] = $item['count'];
+          }
+        }
+
+        switch ($name)
+        {
+          case 'types':
+            $criteria = new Criteria;
+            $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
+            $types = QubitTerm::get($criteria);
+
+            foreach ($types as $item)
+            {
+              $typeNames[$item->id] = $item->name;
+            }
+
+            foreach ($facet['terms'] as $item)
+            {
+              $facets[strtr($name, '.', '_')]['terms'][$item['term']] = array(
+                'count' => $item['count'],
+                'term' => $typeNames[$item['term']]);
+            }
+
+            break;
+
+          case 'contact.i18n.region':
+            foreach ($facet['terms'] as $item)
+            {
+              $facets[strtr($name, '.', '_')]['terms'][$item['term']] = array(
+                'count' => $item['count'],
+                'term' => $item['term']);
+            }
+
+            break;
+        }
+      }
+
+      $this->pager->facets = $facets;
+    }
   }
 }
