@@ -59,7 +59,7 @@
 
         <?php foreach ($pager->getResults() as $hit): ?>
           <?php $doc = build_i18n_doc($hit, array('actor')) ?>
-          <div class="brick">
+          <div class="brick brick-small">
             <div class="preview">
               <a href="<?php echo url_for(array('module' => 'repository', 'slug' => $doc['slug'])) ?>">
                 <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$doc['slug'].'/conf/logo.png')): ?>

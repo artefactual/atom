@@ -292,15 +292,19 @@ strong { // used exclusively for FONDS, SERIES, etc labels
   margin-left: -10px;
 }
 
+@brickWidth: 192px;
+@brickSmallWidth: 160px;
+@brickPadding: 15px;
+
 .brick {
-  width: 160px;
+  .box-sizing(border-box);
+  padding: @brickPadding @brickPadding 0;
+  width: @brickWidth + @brickPadding * 2;
   margin: 10px;
   float: left;
-  padding: 15px 15px 0;
   background-color: @white;
   @shadow: 0 1px 3px rgba(25, 25, 25, 0.4);
   .box-shadow(@shadow);
-  .box-sizing(border-box);
   font-size: 11px;
 }
 
@@ -309,7 +313,7 @@ strong { // used exclusively for FONDS, SERIES, etc labels
 }
 
 .brick .preview img {
-  width: 160px;
+  width: @brickWidth;
 }
 
 .brick .preview h4 {
@@ -344,6 +348,11 @@ strong { // used exclusively for FONDS, SERIES, etc labels
 
 .brick .date {
 
+}
+
+.brick-small,
+.brick-small .preview img {
+  width: @brickSmallWidth + @brickPadding * 2;
 }
 
 @media (max-width: 767px) {
