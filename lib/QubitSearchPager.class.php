@@ -89,6 +89,18 @@ class QubitSearchPager extends sfPager
     return $this->resultSet->getFacets();
   }
 
+  public function getFacet($facet)
+  {
+    $facets = $this->resultSet->getFacets();
+
+    if (!isset($facets[$facet]))
+    {
+      return null;
+    }
+
+    return $facets[$facet];
+  }
+
   public function hasFacets()
   {
     return $this->resultSet->hasFacets();
