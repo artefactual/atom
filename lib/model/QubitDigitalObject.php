@@ -1379,8 +1379,8 @@ class QubitDigitalObject extends BaseDigitalObject
         $maxheight = $maxwidth;
         break;
       case QubitTerm::THUMBNAIL_ID:
-        $maxwidth = 100;
-        $maxheight = 100;
+        $maxwidth = 192;
+        $maxheight = 1024;
         break;
       case QubitTerm::COMPOUND_ID:
         if (!$maxwidth = sfConfig::get('app_reference_image_maxwidth'))
