@@ -20,7 +20,6 @@
 
           <?php // echo get_component('menu', 'quickLinks') ?>
           <li><?php echo link_to(__('Home'), '@homepage') ?></li>
-          <li><?php echo link_to(__('Sitemap'), array('module' => 'staticpage', 'slug' => 'sitemap')) ?></li>
           <li><?php echo link_to(__('Contact us'), array('module' => 'staticpage', 'slug' => 'contact')) ?></li>
 
           <?php if ($sf_user->isAuthenticated()): ?>
