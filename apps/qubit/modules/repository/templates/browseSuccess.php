@@ -62,8 +62,8 @@
           <div class="brick">
             <div class="preview">
               <a href="<?php echo url_for(array('module' => 'repository', 'slug' => $doc['slug'])) ?>">
-                <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$doc['slug'].'/.conf/logo.png')): ?>
-                  <?php echo image_tag('/uploads/r/'.$doc['slug'].'/.conf/logo.png') ?>
+                <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$doc['slug'].'/conf/logo.png')): ?>
+                  <?php echo image_tag('/uploads/r/'.$doc['slug'].'/conf/logo.png') ?>
                 <?php else: ?>
                   <h4><?php echo $doc['actor'][$sf_user->getCulture()]['authorizedFormOfName'] ?></h4>
                 <?php endif; ?>
