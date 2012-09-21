@@ -81,16 +81,16 @@
 <?php if (0 < strlen($value = $resource->alternateTitle)): ?>
       <unittitle type="parallel"><?php echo esc_specialchars($value) ?></unittitle>
 <?php endif; ?>
-<?php if (0 < strlen($value = $resource->getPropertyByName('otherTitleInformation'))): ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('otherTitleInformation')->__toString())): ?>
       <unittitle type="otherinfo"><?php echo esc_specialchars($value) ?></unittitle>
 <?php endif; ?>
-<?php if (0 < strlen($value = $resource->getPropertyByName('titleStatementOfResponsibility'))): ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('titleStatementOfResponsibility')->__toString())): ?>
       <unittitle type="statrep"><?php echo esc_specialchars($value) ?></unittitle>
 <?php endif; ?>
 <?php if (0 < strlen($value = $resource->getEdition(array('cultureFallback' => true)))): ?>
       <unittitle><edition><?php echo esc_specialchars($value) ?></edition></unittitle>
 <?php endif; ?>
-<?php if (0 < strlen($value = $resource->getPropertyByName('editionStatementOfResponsibility'))): ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('editionStatementOfResponsibility')->__toString())): ?>
       <unittitle type="statrep"><edition><?php echo esc_specialchars($value) ?></edition></unittitle>
 <?php endif; ?>
 <?php if (0 < strlen($resource->getIdentifier())): ?>
