@@ -45,7 +45,7 @@
       <div id="logo-and-name" class="span6">
         <h1><?php echo link_to(image_tag('/plugins/qtDominionPlugin/images/logo'), '@homepage', array('rel' => 'home', 'title' => __('Home'))) ?></h1>
       </div>
-      <div id="header-search">
+      <div id="header-search" class="span6">
         <?php echo get_component('search', 'box') ?>
       </div>
     </div>

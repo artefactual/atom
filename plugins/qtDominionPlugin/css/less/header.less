@@ -21,7 +21,7 @@
  * A     |- #header-lvl1.row > span12 > { #header-nav, #header-council }
  * D     |- #header-lvl2.row > span12
  * E          |- #logo-and-name
- * R          |- #heade-rsearch
+ * R          |- #header-search
  */
 
 #header {
@@ -82,57 +82,29 @@
   margin-top: -6px;
 }
 
+// Header search form
+
 #header-search {
-  overflow: hidden;
   margin-top: 10px;
 }
 
-#header-search form {
-  margin: 0 0 8px 0;
-}
-
 #header-search input[type=text] {
-  font-size: 14px;
-  line-height: 1.2;
+  .pull-right;
+  .box-sizing(border-box);
+  width: 100%;
+  #font > .shorthand(14px, normal, 16px);
+  height: 28px;
+  color: #333;
   @shadow: rgba(255, 255, 255, 0.5) 0 1px 0;
   .box-shadow(@shadow);
   border: 1px solid #999;
   .border-radius(3px);
-  padding: 14px 8px;
-  .box-sizing(border-box);
   outline: none;
-  width: 100%;
   .placeholder(#999);
-  color: #333;
 }
-
-/*
-#header-search form > input {
-  color: @grayLight;
-  font-size: 19px;
-  padding: 6px 8px 2px 8px;
-  border: none;
-  border-bottom: 2px solid @grayLight;
-  .box-shadow(none);
-  display: block;
-  .border-radius(0);
-  .box-sizing(border-box);
-  width: 100%;
-  height: 30px;
-}
-
-#header-search form > input:hover {
-  border-bottom: 2px solid @grayDark;
-}
-
-#header-search form > input:focus,
-#header-search form > input:focused, {
-  border-bottom: 2px solid @grayDark;
-  color: @grayDark;
-}
-*/
 
 // For #search-suggestions and #search-realm
+
 .search-popover {
   position: fixed;
   z-index: @zindexPopover;
@@ -266,11 +238,8 @@ body.user-logged {
   }
 
   #header-search {
-    margin: 20px 10px 0 10px;
-  }
-
-  #header-search input[name="query"] {
-    border: 2px solid @grayLight !important;
+    margin: 0 auto;
+    padding: 0 20px;
   }
 
 }
