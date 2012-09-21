@@ -181,6 +181,16 @@
   </langmaterial><?php endif; ?>
 <?php if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID)))): ?><?php foreach ($notes as $note): ?><note type="<?php echo esc_specialchars($note->getType(array('cultureFallback' => true))) ?>" encodinganalog="3.6.1"><p><?php echo esc_specialchars($note->getContent(array('cultureFallback' => true))) ?></p></note><?php endforeach; ?><?php endif; ?>
   </did>
+<?php
+$variationNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
+  QubitTaxonomy::RAD_TITLE_NOTE_ID,
+  'Variations in title'
+);
+if (0 < count($variationNotes = $resource->getNotesByType(array('noteTypeId' => $variationNoteTypeId)))): ?>
+<?php foreach ($variationNotes as $note): ?>
+  <odd type="variation"><p><?php echo esc_specialchars($note) ?></p></odd>
+<?php endforeach; ?>
+<?php endif; ?>
 <?php foreach ($resource->getCreators() as $creator): ?>
 <?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
   <bioghist encodinganalog="3.2.2"><p><?php echo esc_specialchars($value) ?></p></bioghist><?php endif; ?><?php endforeach; ?>

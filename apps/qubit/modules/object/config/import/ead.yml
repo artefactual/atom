@@ -125,6 +125,11 @@ information_object:
       Method: addProperty
       Parameters: ["editionStatementOfResponsibility", $nodeValue]
 
+    title_variation_notes:
+      XPath:  "odd[@type='variation']/p"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $variationNoteTypeId)"]
+
     dates:
       XPath:   "did/unitdate"
       Method:  setDates

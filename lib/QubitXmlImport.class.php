@@ -148,6 +148,11 @@ class QubitXmlImport
         break;
     }
 
+    $variationNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
+      QubitTaxonomy::RAD_TITLE_NOTE_ID,
+      'Variations in title'
+    );
+
     $importMap = sfConfig::get('sf_app_module_dir').DIRECTORY_SEPARATOR.'object'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'import'.DIRECTORY_SEPARATOR.$importSchema.'.yml';
     if (!file_exists($importMap))
     {
