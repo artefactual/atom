@@ -2,4 +2,4 @@ all: less
 
 less:
 	@echo "Running LESS compiler..."
-	../../vendor/less/bin/lessc --compress css/main.less > css/compiled/main.css
+	lessc --compress css/main.less > css/compiled/main.css
