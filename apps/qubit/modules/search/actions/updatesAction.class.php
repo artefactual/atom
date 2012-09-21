@@ -24,7 +24,7 @@
  * @subpackage search
  * @author David Juhasz <david@artefactual.com>
  */
-class SearchDescriptionUpdatesAction extends sfAction
+class SearchUpdatesAction extends sfAction
 {
   public static
     $NAMES = array(
