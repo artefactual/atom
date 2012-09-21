@@ -87,6 +87,9 @@
 <?php if (0 < strlen($value = $resource->getPropertyByName('statementOfResponsibilityRelatingToPublishersSeries')->__toString())): ?>
     <unittitle><bibseries><title type="statrep"><?php echo esc_specialchars($value) ?></title></bibseries></unittitle>
 <?php endif; ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('numberingWithinPublishersSeries')->__toString())): ?>
+    <unittitle><bibseries><num><?php echo esc_specialchars($value) ?></num></bibseries></unittitle>
+<?php endif; ?>
 <?php if (0 < strlen($value = $resource->getTitle(array('cultureFallback' => true)))): ?>
     <unittitle encodinganalog="3.1.2"><?php echo esc_specialchars($value) ?></unittitle>
 <?php endif; ?>
