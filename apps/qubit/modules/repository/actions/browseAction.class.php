@@ -39,9 +39,6 @@ class RepositoryBrowseAction extends sfAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
-    // Force limit temporary
-    $request->limit = 250;
-
     if ($this->getUser()->isAuthenticated())
     {
       $this->sortSetting = sfConfig::get('app_sort_browser_user');
