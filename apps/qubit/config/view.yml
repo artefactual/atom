@@ -5,11 +5,11 @@ default:
   http_metas:
     # content-type: text/html
     X-UA-Compatible: IE=edge,chrome=1
-    viewport: width=device-width, initial-scale=1.0
 
   metas:
     title: AtoM
     description: Access to memory - Open information management toolkit
+    viewport: initial-scale=1.0, user-scalable=no
     # keywords: symfony, project
     # language: en
     # robots: index, follow
