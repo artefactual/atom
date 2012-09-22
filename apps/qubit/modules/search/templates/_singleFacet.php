@@ -14,7 +14,7 @@
       <?php $active = in_array($id, (array)@$filters[$facet]) ? true : false; ?>
 
       <?php echo link_to(
-        __($term['term']).'<span class="count">'.$term['count'].'</span>',
+        __($term['term']).'<span class="badge">'.$term['count'].'</span>',
         array(
           $facet => (
             @$filters[$facet]
