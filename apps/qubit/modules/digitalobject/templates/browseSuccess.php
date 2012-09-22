@@ -2,17 +2,23 @@
 
 <div class="row">
   <div class="span6">
-    <h1><?php echo __('Media') ?></h1>
+    <h1>
+      <?php echo image_tag('/plugins/qtDominionPlugin/images/icons-large/icon-institutions.png', array('width' => '42', 'height' => '42')) ?>
+      <?php echo __('Media') ?>
+    </h1>
   </div>
-  <?php if (null !== $facet = $pager->getFacet('mediaTypeId')): ?>
-    <div class="span6">
-      <div class="btn-group top-options">
-        <?php foreach ($facet['terms'] as $item): ?>
-          <button type="button" class="btn"><?php echo $item['term'] ?></button>
-        <?php endforeach; ?>
-      </div>
-    </div>
-  <?php endif; ?>
+  <div class="span6">
+
+    <?php if (isset($pager->facets['digitalObject_mediaTypeId'])): ?>
+      <?php echo get_partial('search/singleFacet', array(
+        'target' => '#facet-mediatype',
+        'label' => __('Media type'),
+        'facet' => 'digitalObject_mediaTypeId',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+    <?php endif; ?>
+
+  </div>
 </div>
 
 <div class="row">
