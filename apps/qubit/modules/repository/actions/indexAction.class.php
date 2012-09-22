@@ -22,5 +22,10 @@ class RepositoryIndexAction extends sfAction
   public function execute($request)
   {
     $this->resource = $this->getRoute()->resource;
+
+    if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$this->resource->slug.'/conf/style.css'))
+    {
+      $this->response->addStyleSheet('/uploads/r/'.$this->resource->slug.'/conf/style.css', 'last', array('media' => 'all'));
+    }
   }
 }
