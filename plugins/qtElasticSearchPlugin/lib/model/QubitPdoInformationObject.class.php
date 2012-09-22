@@ -101,6 +101,8 @@ class QubitPdoInformationObject
          pubstat.status_id as publication_status_id,
          do.id as digital_object_id,
          do.media_type_id as media_type_id,
+         do.usage_id as usage_id,
+         do.path as path,
          object.created_at,
          object.updated_at
        FROM '.QubitInformationObject::TABLE_NAME.' io
@@ -770,7 +772,17 @@ class QubitPdoInformationObject
     if ($this->media_type_id)
     {
       $serialized['digitalObject']['mediaTypeId'] = $this->media_type_id;
-      $serialized['digitalObject']['thumbnail_FullPath'] = $this->getThumbnailPath();
+      $serialized['digitalObject']['usageId'] = $this->usage_id;
+
+      if (QubitTerm::EXTERNAL_URI_ID == $this->usage_id)
+      {
+        $serialized['digitalObject']['thumbnail_FullPath'] = $this->path;
+      }
+      else
+      {
+        $serialized['digitalObject']['thumbnail_FullPath'] = $this->getThumbnailPath();
+      }
+
       $serialized['hasDigitalObject'] = true;
     }
     else
