@@ -31,7 +31,11 @@
         <?php $doc = build_i18n_doc($hit) ?>
         <div class="brick">
           <div class="preview zoom">
-            <?php echo link_to(image_tag($doc['digitalObject']['thumbnail_FullPath']), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
+            <?php if (QubitTerm::EXTERNAL_URI_ID == $doc['digitalObject']['usageId']): ?>
+              <a href="<?php echo $doc['digitalObject']['path'] ?>" class="btn"><?php echo __('External resource') ?></a>
+            <?php else: ?>
+              <?php echo link_to(image_tag($doc['digitalObject']['thumbnail_FullPath']), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
+            <?php endif; ?>
           </div>
           <div class="details">
             <?php echo $doc[$sf_user->getCulture()]['title'] ?>
