@@ -1,4 +1,7 @@
-<h1><?php echo __('Description updates') ?></h1>
+<h1>
+  <?php echo image_tag('/plugins/qtDominionPlugin/images/icons-large/icon-new.png', array('width' => '42', 'height' => '42')) ?>
+  <?php echo __('Newest additions') ?>
+</h1>
 
 <?php echo $form->renderFormTag(url_for(array('module' => 'search', 'action' => 'descriptionUpdates')), array('method' => 'get')) ?>
 
