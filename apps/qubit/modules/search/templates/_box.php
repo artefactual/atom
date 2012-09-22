@@ -23,7 +23,7 @@
       </label>
     </div>
 
-    <div>
+    <div id="search-bottom">
       <?php echo link_to(__('Advanced search'), array('module' => 'search', 'action' => 'advanced')) ?>
     </div>
 
