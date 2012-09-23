@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?php echo $sf_user->getCulture() ?>"<?php if ('rtl' == sfCultureInfo::getInstance($sf_user->getCulture())->direction): ?> dir="rtl"<?php endif; ?>>
+<html lang="<?php echo $sf_user->getCulture() ?>" dir="<?php echo sfCultureInfo::getInstance($sf_user->getCulture())->direction ?>">
   <head>
     <?php include_http_metas() ?>
     <?php include_metas() ?>
