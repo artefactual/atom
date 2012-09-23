@@ -1,14 +1,15 @@
 <?php use_helper('Javascript') ?>
 
 <div class="row">
+
   <div class="span6">
     <h1>
       <?php echo image_tag('/plugins/qtDominionPlugin/images/icons-large/icon-institutions.png', array('width' => '42', 'height' => '42')) ?>
       <?php echo __('Media') ?>
     </h1>
   </div>
-  <div class="span6">
 
+  <div class="span6">
     <?php if (isset($pager->facets['digitalObject_mediaTypeId'])): ?>
       <?php echo get_partial('search/singleFacet', array(
         'target' => '#facet-mediatype',
@@ -17,8 +18,8 @@
         'pager' => $pager,
         'filters' => $filters)) ?>
     <?php endif; ?>
-
   </div>
+
 </div>
 
 <div class="row">

@@ -36,7 +36,7 @@ class qtDominionPluginConfiguration extends sfPluginConfiguration
     }
     else
     {
-      $context->response->addStylesheet('/plugins/qtDominionPlugin/css/compiled/main.css', 'last', array('media' => 'all'));
+      $context->response->addStylesheet('/plugins/qtDominionPlugin/css/compiled/main.css', 'last', array('media' => 'screen'));
     }
   }
 

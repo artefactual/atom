@@ -10,8 +10,10 @@
 
     <div class="search">
       <form action="<?php echo url_for(array($resource, 'module' => 'search')) ?>">
-        <input type="text" name="query" value="<?php echo esc_entities($sf_request->query) ?>">
-        <input type="submit" value="<?php echo __('Search') ?>" class="form-submit"/>
+        <div class="input-append">
+          <input type="text" name="query" value="<?php echo esc_entities($sf_request->query) ?>">
+          <button class="btn" type="submit"><i class="icon-search"></i></button>
+        </div>
       </form>
     </div>
 

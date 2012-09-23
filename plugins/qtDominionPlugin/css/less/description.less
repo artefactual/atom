@@ -15,6 +15,153 @@
  * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Left column
+
+#left-column {
+  margin-top: 20px;
+}
+
+#left-column h3 {
+  color: @white;
+}
+
+// Main column
+
+#main-column h1 strong {
+  font-size: 17px;
+  color: @grayLight;
+}
+
+#main-column .bradcrumb {
+  margin-bottom: 10px;
+}
+
+#main-column .breadcrumb li a {
+  color: @white;
+  text-shadow: none;
+}
+
+#main-column .media {
+  background-color: @white;
+  margin-bottom: 10px;
+  padding: 15px;
+  .clearfix;
+}
+
+#main-column .media h3 a {
+  color: @orange;
+}
+
+#main-column .media div {
+  float: left;
+  margin-right: 17px;
+  margin-bottom: 20px;
+}
+
+#main-column .media div a {
+  height: 100%;
+}
+
+#main-column .media div a img {
+  max-width: auto;
+  width: auto;
+  height: auto;
+}
+
+#main-column > .nav.nav-tabs {
+  margin-bottom: 0;
+  border-bottom: 4px solid @grayDark;
+}
+
+#main-column > .nav.nav-tabs > li {
+  margin-bottom: 0;
+}
+
+// Right column
+
+#right-column h3 {
+  color: @white;
+  margin-top: 15px;
+  font-style: oblique;
+}
+
+#right-column {
+  color: @white;
+  font-size: smaller;
+}
+
+#right-column {
+  margin-bottom: 10px;
+}
+
+// Content
+
+#content {
+  overflow: auto;
+}
+
+#content > .section {
+  font-family: @smallFontFamily;
+  padding: 0;
+  font-size: 13px;
+  line-height: 140%;
+}
+
+#content .field {
+  .clearfix;
+  margin-bottom: 10px;
+}
+
+#content .field > h3 {
+  float: left;
+  width: 140px;
+  padding: 0;
+  margin: 1px 20px 0 0;
+  text-align: right;
+  color: darken(@grayLight, 20%);
+  font-size: 13px;
+  line-height: 130%;
+  font-weight: normal;
+}
+
+#content .field > div {
+}
+
+#content h2, p {
+  margin: 0 10px;
+}
+
+#content h2 {
+  color: @orange;
+  font-size: 18px;
+  line-height: 110%;
+  padding-top: 10px;
+  font-weight: normal;
+  margin-bottom: 8px;
+}
+
+#content h2 > .c {
+  margin: 20px;
+}
+
+#content .editlink {
+  float: right;
+  margin-top: 2px;
+}
+
+#content ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#content li {
+  margin: 0 0 5px 0;
+  line-height: 140%;
+}
+
+// Navigation
+
 #navigation {
 
   position: fixed;
@@ -53,83 +200,14 @@
 
 }
 
-#treeview {
-  white-space: nowrap;
-
-  ul {
-    li {
-      padding:5px 0 5px 17px;
-      #translucent > .background(@black, .2);
-
-      a {
-        color: @white;
-        font-family: @smallFontFamily;
-
-      }
-
-      &:hover {
-        #translucent > .background(@white, .2);
-        text-decoration: none;
-      }
-
-      .adminbuttons a:hover {
-        color: @black !important;
-      }
-    }
-
-    .expand {
-      padding-left:2px !important;
-    }
-
-    .up {
-      border-bottom: 1px solid @white;
-      padding-left:2px !important;
-      background:none;
-    }
-
-    .back {
-      border-bottom: 1px solid @white;
-      padding-left:2px !important;
-      background:none;
-    }
-
-    .active {
-      background-color: @white;
-
-      a {
-        color: @orange;
-      }
-    }
-  }
-}
+// Export
 
 #export {
   margin-left: 10px;
   margin-top: 20px;
 }
 
-// Arrow Icons for Tree
-[class^="arrow-"] {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  vertical-align: middle;
-  margin-right:3px;
-  background-image: url(../../images/arrow-sprites.png);
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  .ie7-restore-right-whitespace();
-}
-
-.arrow-down               { background-position: 0 -10px; }
-.arrow-left               { background-position: -10px -10px; }
-.arrow-right              { background-position: -20px -10px; }
-
-#treeview .active a {
-  .arrow-down               { background-position: 0 0; }
-  .arrow-left               { background-position: -10px 0; }
-  .arrow-right              { background-position: -20px 0; }
-}
+// Media display
 
 #mediadisplay {
   background-color: @black;
@@ -194,154 +272,6 @@
 
 }
 
-
-#main-column {
-  padding:10px inherit inherit inherit;
-
-  h1 {
-    margin-bottom: 0;
-    strong {
-      font-size: 17px;
-      color: @grayLight;
-    }
-  }
-  .breadcrumb {
-    margin-bottom:10px;
-
-    li a {
-      color: @white;
-      text-shadow:none;
-    }
-  }
-
-  .media {
-    background-color: @white;
-    margin-bottom: 10px;
-    padding:15px;
-    .clearfix;
-
-    h3 a { color: @orange; }
-
-    div {
-      float:left;
-      margin-right: 17px;
-      margin-bottom: 20px;
-
-      a {
-        height: 100%;
-
-        img {
-          max-width: auto;
-          width:auto;
-          height:auto;
-        }
-      }
-    }
-  }
-}
-
-#main-column {
-
-  > .nav.nav-tabs {
-
-    margin-bottom: 0;
-    border-bottom: 4px solid @grayDark;
-
-    > li {
-
-      margin-bottom: 0;
-
-    }
-
-  }
-
-}
-
-#main-column #content {
-
-  overflow: auto;
-
-  h2, p {
-    margin: 0 10px;
-  }
-
-  h2 {
-    color:@orange;
-    font-size:18px;
-    line-height: 110%;
-    padding-top:10px;
-    font-weight: normal;
-    margin-bottom:5px;
-  }
-
-  > .c {
-
-    margin: 20px;
-
-  }
-
-  .editlink {
-    float:right;
-    margin-top:2px;
-  }
-
-  .field {
-    .clearfix;
-    margin-bottom: 10px;
-
-    h3 {
-      float: left;
-      width: 140px;
-      padding: 0;
-      margin: 1px 0 0 0;
-      text-align: right;
-      color:darken(@grayLight, 20%);
-      font-size:13px;
-      line-height: 130%;
-      font-weight: normal;
-    }
-    div {
-      margin: 0 10px 0 148px;
-      font-family:@smallFontFamily;
-      padding:0;
-      font-size: 13px;
-      line-height: 140%;
-
-      ul {
-        list-style: none;
-        margin:0;
-        padding:0;
-
-        li {
-          margin: 0 0 5px 0;
-          line-height: 140%;
-        }
-      }
-    }
-  }
-}
-
-#right-column {
-  h3 {
-    color: @white;
-    margin-top:15px;
-    font-style: oblique;
-  }
-
-  p {
-    color: @white;
-    font-size: smaller;
-  }
-
-  div {
-    margin-bottom: 10px;
-
-    a {
-
-    }
-  }
-}
-
 // Front map
 
 #front-map > div {
@@ -374,9 +304,8 @@
     }
   }
 
-
   #wrapper, #left-column {
-    margin-top:0 !important;
+    margin-top: 0 !important;
   }
 
   h1 {
@@ -409,9 +338,6 @@
 
 }
 
-
-
-
 @media (min-width: 768px) and (max-width: 980px) {
 
   #navigation { width: 184px !important; }
@@ -423,4 +349,3 @@
   #navigation { width: 310px !important; }
 
 }
-
