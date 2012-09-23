@@ -460,6 +460,14 @@ class QubitXmlImport
               $titleParallelNoteTypeId             = array_search('Parallel titles and other title information', $termData['titleNoteTypes']);
               $titleSourceNoteTypeId               = array_search('Source of title proper', $termData['titleNoteTypes']);
               $alphaNumericaDesignationsNoteTypeId = array_search('Alpha-numeric designations', $termData['radNoteTypes']);
+              $physDescNoteTypeId                  = array_search('Physical description', $termData['radNoteTypes']);
+              $editionNoteTypeId                   = array_search('Edition', $termData['radNoteTypes']);
+              $conservationNoteTypeId              = array_search('Conservation', $termData['radNoteTypes']);
+              
+              $pubSeriesNoteTypeId                 = array_search("Publisher's series", $termData['radNoteTypes']);
+              $rightsNoteTypeId                    = array_search("Rights", $termData['radNoteTypes']);
+              $materialNoteTypeId                  = array_search("Accompanying material", $termData['radNoteTypes']);
+              $generalNoteTypeId                   = array_search("General note", $termData['radNoteTypes']);
 
               // invoke the object and method defined in the schema map
               call_user_func_array(array( & $currentObject, $methodMap['Method']), $parameters);

@@ -230,18 +230,29 @@ foreach($radTitleNotes as $name => $xmlType)
 
 <?php
 
-$alphaNumericaDesignationsNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
-  QubitTaxonomy::RAD_NOTE_ID,
-  'Alpha-numeric designations'
+$radNotes = array(
+  'Edition'                    => 'edition',
+  'Physical description'       => 'physdesc',
+  'Conservation'               => 'conservation',
+  'Accompanying material'      => 'material',
+  'Alpha-numeric designations' => 'alphanumericdesignation',
+  "Publisher's series"         => 'bibseries',
+  'Rights'                     => 'rights',
+  'General note'               => 'general'
 );
 
-if (0 < count($alphaNotes = $resource->getNotesByType(array('noteTypeId' => $alphaNumericaDesignationsNoteTypeId)))): ?>
-<?php foreach ($alphaNotes as $note): ?>
-  <odd type="alphanumericdesignation"><p><?php echo esc_specialchars($note) ?></p></odd>
-<?php endforeach; ?>
-<?php endif; ?>
+foreach($radNotes as $name => $xmlType)
+{
+  $noteTypeId = array_search($name, $termData['radNoteTypes']);
+
+  if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => $noteTypeId)))):
+    foreach ($notes as $note): ?>
+  <odd type="<?php echo $xmlType ?>"><p><?php echo esc_specialchars($note) ?></p></odd>
+    <?php endforeach;
+  endif;
+} ?>
 <?php if (0 < strlen($value = $resource->getPropertyByName('noteOnPublishersSeries')->__toString())): ?>
-  <odd type='publisherseries'><p><?php echo esc_specialchars($value) ?></p></odd>
+  <odd type='bibseries'><p><?php echo esc_specialchars($value) ?></p></odd>
 <?php endif; ?>
 <?php foreach ($resource->getCreators() as $creator): ?>
 <?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
