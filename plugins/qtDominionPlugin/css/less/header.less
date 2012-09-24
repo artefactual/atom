@@ -32,7 +32,7 @@
   right: 0;
   border-bottom: 1px solid @blue;
   background-color: @white;
-  #gradient > .vertical-three-colors(@white, @white, 20%, lighten(@orange, 10%));
+  #gradient > .vertical(@white, lighten(@orange, 10%));
   @shadow: 0 3px 3px rgba(0, 0 , 0, .25);
   .box-shadow(@shadow);
 }
@@ -65,7 +65,7 @@
   font-variant: small-caps;
   text-transform: lowercase;
   font-weight: bold;
-  color: @grayLight;
+  color: @gray;
 }
 
 #header-nav > li > a:hover {
