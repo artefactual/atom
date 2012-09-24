@@ -21,8 +21,26 @@
   margin-top: 20px;
 }
 
+#left-column h2,
 #left-column h3 {
   color: @white;
+}
+
+#left-column .logo {
+  margin-bottom: 10px;
+}
+
+#left-column .logo h2,
+#left-column .logo img {
+  border: 8px solid @white;
+  max-width: 270px;
+  .box-sizing(border-box);
+}
+
+#left-column .logo h2 {
+  padding: 8px;
+  font-size: 18px;
+  line-height: 20px;
 }
 
 // Main column
@@ -282,6 +300,46 @@
   .border-radius(8px 8px 0 0);
   border: 6px solid @white;
   border-bottom: 0;
+}
+
+// Holdings
+
+#holdings h3 {
+  margin: 0;
+  padding: 4px 0;
+  font-size: 18px;
+  line-height: 20px;
+  border-bottom: 1px solid @white;
+}
+
+#holdings > ul {
+  background-color: rgba(50, 50, 50, 0.2)
+}
+
+#holdings > ul,
+#holdings > ul li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#holdings > ul li {
+
+}
+
+#holdings > ul li a {
+  display: block;
+  color: @white;
+  font-family: @smallFontFamily;
+  padding: 2px 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#holdings > ul li a:hover {
+  background-color: @white;
+  color: @orange;
 }
 
 // Responsive design
