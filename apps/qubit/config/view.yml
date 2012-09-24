@@ -3,7 +3,8 @@
 
 default:
   http_metas:
-    # content-type: text/html
+    # This is XHTML5 compatible but new declaration is: <meta charset="UTF-8">
+    content-type: text/html # Symfony appends the charset
     X-UA-Compatible: IE=edge,chrome=1
 
   metas:
