@@ -1,10 +1,11 @@
 <div class="field">
 
-  <h3><?php echo __('Contact information') ?></h3>
-
   <div class="vcard">
 
-    <h3><?php echo $contactInformation->getContactType(array('cultureFallback' => true)) ?><?php if ($contactInformation->primaryContact): ?> (<?php echo __('Primary contact') ?>)<?php endif; ?></h3>
+    <h3>
+      <?php echo __('Contact information') ?>
+      <span class="type"><?php echo $contactInformation->getContactType(array('cultureFallback' => true)) ?><?php if ($contactInformation->primaryContact): ?><?php echo __('Primary contact') ?><?php endif; ?></span>
+    </h3>
 
     <div class="agent">
       <?php echo render_value($contactInformation->contactPerson) ?>
@@ -62,9 +63,9 @@
       </div>
     </div>
 
-    <div class="field tel">
+    <div class="field">
       <h3 class="type"><?php echo __('Fax') ?></h3>
-      <div>
+      <div class="fax">
         <?php echo render_value($contactInformation->fax) ?>
       </div>
     </div>
