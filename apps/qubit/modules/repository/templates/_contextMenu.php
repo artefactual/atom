@@ -2,29 +2,17 @@
   <?php include_component('repository', 'uploadLimit', array('resource' => $resource)) ?>
 <?php endif; ?>
 
-<div class="section">
+<div class="section" id="holdings">
 
   <h3><?php echo sfConfig::get('app_ui_label_holdings') ?></h3>
 
-  <div>
+  <ul>
+    <?php foreach ($pager->getResults() as $hit): ?>
+      <?php $doc = build_i18n_doc($hit) ?>
+      <li><?php echo link_to($doc[$sf_user->getCulture()]['title'], array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></li>
+    <?php endforeach; ?>
+  </ul>
 
-    <div class="search">
-      <form action="<?php echo url_for(array($resource, 'module' => 'search')) ?>">
-        <div class="input-append">
-          <input type="text" name="query" value="<?php echo esc_entities($sf_request->query) ?>">
-          <button class="btn" type="submit"><i class="icon-search"></i></button>
-        </div>
-      </form>
-    </div>
-
-    <ul>
-      <?php foreach ($holdings as $item): ?>
-        <li><?php echo link_to(render_title($item), array($item, 'module' => 'informationobject')) ?><?php if (QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $item->getPublicationStatus()->status->id): ?> <span class="publicationStatus"><?php echo $item->getPublicationStatus()->status ?></span><?php endif; ?></li>
-      <?php endforeach; ?>
-    </ul>
-
-    <?php echo get_partial('default/pager', array('pager' => $pager, 'small' => true)) ?>
-
-  </div>
+  <?php echo get_partial('default/pager', array('pager' => $pager, 'small' => true)) ?>
 
 </div>
