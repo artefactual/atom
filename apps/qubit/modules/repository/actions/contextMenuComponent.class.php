@@ -32,23 +32,30 @@ class RepositoryContextMenuComponent extends sfComponent
       return sfView::NONE;
     }
 
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitInformationObject::ID, QubitObject::ID);
-    $criteria->add(QubitInformationObject::REPOSITORY_ID, $this->resource->id);
-    $criteria->addAscendingOrderByColumn('title');
+    // TODO: filter drafts
+    $queryBool = new Elastica_Query_Bool();
+    $queryBool->addShould(new Elastica_Query_MatchAll());
+    $queryBool->addMust(new Elastica_Query_Term(array('parentId' => QubitInformationObject::ROOT_ID)));
+    $queryBool->addMust(new Elastica_Query_Term(array('repository.id' => $this->resource->id)));
 
-    // Sort holdings alphabetically (w/ fallback)
-    $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitInformationObject');
+    $query = new Elastica_Query($queryBool);
+    $query->setLimit($request->limit);
+    $query->setSort(array('slug' => 'asc', '_score' => 'desc'));
 
-    // Filter draft descriptions
-    $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
+    if (!empty($request->page))
+    {
+      $query->setFrom(($request->page - 1) * $request->limit);
+    }
 
-    // Paginate holdings list
-    $this->pager = new QubitPager('QubitInformationObject');
-    $this->pager->setCriteria($criteria);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+
+    $this->pager = new QubitSearchPager($resultSet);
+    $this->pager->setPage($request->page ? $request->page : 1);
     $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
 
-    $this->holdings = $this->pager->getResults();
+    if (!$this->pager->hasResults())
+    {
+      return sfView::NONE;
+    }
   }
 }
