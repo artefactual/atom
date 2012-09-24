@@ -47,11 +47,11 @@ information_object:
     # each of the following XPath expressions are relative to the current matched node:
 
     level:
-      XPath:  "@level"
+      XPath:  "archdesc/@level"
       Method: SetLevelOfDescriptionByName
 
     other_level:
-      XPath:  "archdesc[@otherlevel]"
+      XPath:  "archdesc/@otherlevel"
       Method: SetLevelOfDescriptionByName
 
     creator:
