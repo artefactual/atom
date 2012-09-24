@@ -2,8 +2,12 @@
 
   <div class="span3" id="left-column">
 
-    <div class="institution maxi">
-      <h2><?php echo render_title($resource) ?></h2>
+    <div class="logo">
+      <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$resource->slug.'/conf/logo.png')): ?>
+        <?php echo image_tag('/uploads/r/'.$resource->slug.'/conf/logo.png') ?>
+      <?php else: ?>
+        <h2><?php echo render_title($resource) ?></h2>
+      <?php endif; ?>
     </div>
 
     <?php include_component('repository', 'contextMenu') ?>
@@ -183,17 +187,24 @@
 
       <div class="span2" id="right-column">
 
-        <h3><?php echo __('Primary contact') ?></h3>
-        <p>Charles Xavier<br>1293 West Broadway<br>Vancouver, BC, V6X 3X3<br>Canada</p>
-        <div><a href="#" class="widebtn">Send Email</a></div>
-        <div><a href="#" class="widebtn">Website</a></div>
+        <h4><?php echo __('Primary contact') ?></h4>
+        Charles Xavier<br />
+        1293 West Broadway<br />
+        Vancouver, BC, V6X 3X3<br />
+        Canada
 
-        <h3><?php echo __('Opening times') ?></h3>
-        <p>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
+        <a href="#" class="widebtn">Send Email</a>
 
-        <h3><?php echo __('Services') ?></h3>
-        <p>Research Services: sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
-      </div>
+        <a href="#" class="widebtn">Website</a>
+
+        <h4><?php echo __('Opening times') ?></h4>
+        Monday to Friday<br />
+        9:00am to 5:00pm<br />
+        Staff assistance<br />
+        10:00am to 4:45pm
+
+        <h4><?php echo __('Services') ?></h4>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla mauris, hendrerit vitae aliquam eget, pretium quis tortor. Maecenas sit amet nunc ullamcorper urna ornare pretium ac ac neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
       </div>
 
