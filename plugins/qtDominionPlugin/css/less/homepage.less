@@ -96,26 +96,23 @@
   margin-right: 10px;
 }
 
+// Virtual exhibits
+
 #homepage #virtualexhibit {
   position: relative;
 }
 
-#homepage #virtualexhibit > div {
-  background-image: url(http://lorempixel.com/800/280/);
+#homepage #virtualexhibit div {
+  background-image: url(http://scaa.usask.ca/gallery/northern/dommasch/images/600px/hans60_017.jpg);
   background-repeat: none;
-  background-position: 0 0;
+  background-position: 0 100%;
   background-size: cover;
   width: 100%;
   display: block;
   height: 280px;
 }
 
-#homepage #popular > h3 {
-  padding: 8px;
-  margin-top: 0;
-}
-
-#homepage #virtualexhibit > h3 {
+#homepage #virtualexhibit h3 {
   position: absolute;
   top: -9px;
   left: 0;
@@ -123,6 +120,31 @@
   padding: 8px;
   background-color: #000;
   background-color: rgba(0, 0, 0, .4);
+}
+
+#homepage #virtualexhibit .small {
+  display: block;
+  font-size: 14px;
+  line-height: 16px;
+  color: @grayLight;
+}
+
+#homepage #virtualexhibit a h3 {
+  .transition(all 0.2s ease-in-out);
+  min-height: 84px;
+}
+
+#homepage #virtualexhibit a:hover h3 {
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
+}
+
+// Popular this week
+
+#homepage #popular h3 {
+  padding: 8px;
+  margin-top: 0;
 }
 
 @media (max-width: 768px) {

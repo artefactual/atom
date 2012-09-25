@@ -44,11 +44,14 @@
     </div>
 
     <div class="span8" id="virtualexhibit">
-      <h3>
-        Virtual Exhibits<br />
-        <span>Kantokoski (Koski), Koivula & Korpela Family</span>
-      </h3>
-      <div>&nbsp;</div>
+      <a href="http://scaa.usask.ca/gallery/northern/dommasch/">
+        <h3>
+          Virtual Exhibits<br />
+          <span class="title">Hans S. Dommasch: Canada North of 60</span>
+          <span class="small">University of Saskatchewan Archives</span>
+        </h3>
+        <div>&nbsp;</div>
+      </a>
     </div>
 
   </div>
