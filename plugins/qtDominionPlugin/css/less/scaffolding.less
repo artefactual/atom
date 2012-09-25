@@ -366,6 +366,17 @@ strong { // used exclusively for FONDS, SERIES, etc labels
   width: @brickSmallWidth + @brickPadding * 2;
 }
 
+// Read more link
+
+.read-more a,
+.read-less a {
+  color: @gray;
+  .buttonBackground(@btnBackground, @btnBackgroundHighlight, @grayDark, 0 1px 1px rgba(255,255,255,.75));
+  padding: 1px 4px;
+  .border-radius(4px);
+  border: 1px solid @grayLight;
+}
+
 @media (max-width: 767px) {
 
   .brick {
