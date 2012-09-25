@@ -131,23 +131,38 @@
 }
 
 #content .field {
-  .clearfix;
-  margin-bottom: 10px;
+  overflow: hidden;
 }
 
 #content .field > h3 {
   float: left;
-  width: 140px;
-  padding: 0;
-  margin: 1px 20px 0 0;
+  width: 28%;
+  padding: 2px 1% 32767px 1%;
+  margin: 1px 0 -32767px 0;
   text-align: right;
-  color: darken(@grayLight, 20%);
+  color: @grayDarker;
+  font-weight: bold;
   font-size: 13px;
   line-height: 130%;
   font-weight: normal;
+  margin-bottom: -32767px;
+  padding-bottom: 32767px;
+  border-right: 1px solid #E6E6E6;
+  line-height: 20px;
+}
+
+#content .field + .field {
+  border-top: 0;
 }
 
 #content .field > div {
+  margin-left: 30%;
+  padding: 2px 4px 2px 8px;
+  line-height: 20px;
+}
+
+#content .field p {
+  margin: 0 0 3px 0;
 }
 
 #content h2, p {
@@ -345,6 +360,55 @@
 #holdings > ul li a:hover {
   background-color: @white;
   color: @orange;
+}
+
+// Contact information
+
+.vcard {
+  margin-left: 0 !important;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  .border-radius(4px);
+  @shadow: 1px 1px 1px rgba(25, 25, 25, .1);
+  .box-shadow(@shadow);
+}
+
+.vcard > h3 {
+  font-size: 12px;
+  line-height: 20px;
+  float: right;
+  margin-top: -20px;
+  margin: -20px 0 0 0;
+  padding: 0 10px 0 0;
+  color: @grayLight;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.vcard > h3 .type {
+  text-transform: lowercase;
+}
+
+.vcard > h3 .type:before {
+  content: '(';
+}
+
+.vcard > h3 .type:after {
+  content: ')';
+}
+
+.vcard .field {
+
+}
+
+.vcard .field.adr {
+}
+
+.vcard .field.tel {
+}
+
+.vcard .field h3 {
+  border-right: 1px solid @grayDark;
 }
 
 // Responsive design
