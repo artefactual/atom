@@ -199,10 +199,10 @@
             <?php echo $primaryContact->getContactInformationString(array('simple' => true)) ?>
             <div>
               <?php if (null !== $website = $primaryContact->getWebsite()): ?>
-                <?php echo link_to(__('Website'), url_for($website), array('class' => 'btn')) ?>
+                <a class="btn" href="<?php echo esc_entities($website) ?>"><?php echo __('Website') ?></a>
               <?php endif; ?>
               <?php if (null !== $email = $primaryContact->email): ?>
-                <?php echo mail_to($email, __('Email'), array('class' => 'btn')) ?>
+                <a class="btn" href="mailto:<?php echo esc_entities($email) ?>"><?php echo __('Email') ?></a>
               <?php endif; ?>
             </div>
           </section>
