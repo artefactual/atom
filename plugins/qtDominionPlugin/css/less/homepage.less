@@ -106,8 +106,8 @@
 
 #homepage #virtualexhibit div {
   background-image: url(http://scaa.usask.ca/gallery/northern/dommasch/images/600px/hans60_017.jpg);
-  background-repeat: none;
-  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-position: 0 80%;
   background-size: cover;
   width: 100%;
   display: block;
@@ -132,14 +132,22 @@
 }
 
 #homepage #virtualexhibit a h3 {
-  .transition(all 0.2s ease-in-out);
   min-height: 84px;
+}
+
+#homepage #virtualexhibit a h3,
+#homepage #virtualexhibit a div {
+  .transition(all 0.2s ease-in-out);
 }
 
 #homepage #virtualexhibit a:hover h3 {
   height: 100%;
   background-color: rgba(0, 0, 0, .5);
   text-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
+}
+
+#homepage #virtualexhibit a:hover div {
+  background-position-y: 90%;
 }
 
 #homepage #virtualexhibit a:hover div:after {

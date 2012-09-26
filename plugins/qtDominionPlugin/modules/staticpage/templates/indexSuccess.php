@@ -17,7 +17,6 @@
     </div>
 
     <div class="span3" id="intro">
-      <h1>Archives Canada</h1>
       <h2>The Gateway to Canada's Past</h2>
       <p>This is the national database with <?php echo QubitSearch::getInstance()->index->getType('QubitRepository')->search(new Elastica_Query(new Elastica_Query_MatchAll()))->getTotalHits(); ?> archival repositories across the country and <?php echo QubitSearch::getInstance()->index->getType('QubitInformationObject')->search(new Elastica_Query(new Elastica_Query_MatchAll()))->getTotalHits(); ?> records. You can access these holdings and so much more. </p>
     </div>
