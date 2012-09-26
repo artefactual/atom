@@ -72,29 +72,47 @@
 <?php endif; ?>
   </profiledesc>
 </eadheader>
-<!-- TODO <frontmatter/> -->
+<!-- TODO: <frontmatter></frontmatter> -->
 <archdesc <?php if ($resource->levelOfDescriptionId):?>level="<?php if (in_array(strtolower($levelOfDescription = $resource->getLevelOfDescription()->getName(array('culture' => 'en'))), $eadLevels)): ?><?php echo strtolower($levelOfDescription).'"' ?><?php else: ?><?php echo 'otherlevel" otherlevel="'.$levelOfDescription.'"' ?><?php endif; ?><?php endif; ?> relatedencoding="ISAD(G)v2">
   <did>
+<?php if (0 < strlen($value = $resource->getPropertyByName('titleProperOfPublishersSeries')->__toString())): ?>
+    <unittitle><bibseries><title><?php echo esc_specialchars($value) ?></title></bibseries></unittitle>
+<?php endif; ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('parallelTitleOfPublishersSeries')->__toString())): ?>
+    <unittitle><bibseries><title type="parallel"><?php echo esc_specialchars($value) ?></title></bibseries></unittitle>
+<?php endif; ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('otherTitleInformationOfPublishersSeries')->__toString())): ?>
+    <unittitle><bibseries><title type="otherinfo"><?php echo esc_specialchars($value) ?></title></bibseries></unittitle>
+<?php endif; ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('statementOfResponsibilityRelatingToPublishersSeries')->__toString())): ?>
+    <unittitle><bibseries><title type="statrep"><?php echo esc_specialchars($value) ?></title></bibseries></unittitle>
+<?php endif; ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('numberingWithinPublishersSeries')->__toString())): ?>
+    <unittitle><bibseries><num><?php echo esc_specialchars($value) ?></num></bibseries></unittitle>
+<?php endif; ?>
 <?php if (0 < strlen($value = $resource->getTitle(array('cultureFallback' => true)))): ?>
     <unittitle encodinganalog="3.1.2"><?php echo esc_specialchars($value) ?></unittitle>
 <?php endif; ?>
 <?php if (0 < strlen($value = $resource->alternateTitle)): ?>
       <unittitle type="parallel"><?php echo esc_specialchars($value) ?></unittitle>
 <?php endif; ?>
-<?php if (0 < strlen($value = $resource->getPropertyByName('otherTitleInformation'))): ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('otherTitleInformation')->__toString())): ?>
       <unittitle type="otherinfo"><?php echo esc_specialchars($value) ?></unittitle>
 <?php endif; ?>
-<?php if (0 < strlen($value = $resource->getPropertyByName('titleStatementOfResponsibility'))): ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('titleStatementOfResponsibility')->__toString())): ?>
       <unittitle type="statrep"><?php echo esc_specialchars($value) ?></unittitle>
 <?php endif; ?>
 <?php if (0 < strlen($value = $resource->getEdition(array('cultureFallback' => true)))): ?>
       <unittitle><edition><?php echo esc_specialchars($value) ?></edition></unittitle>
 <?php endif; ?>
-<?php if (0 < strlen($value = $resource->getPropertyByName('editionStatementOfResponsibility'))): ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('editionStatementOfResponsibility')->__toString())): ?>
       <unittitle type="statrep"><edition><?php echo esc_specialchars($value) ?></edition></unittitle>
 <?php endif; ?>
 <?php if (0 < strlen($resource->getIdentifier())): ?>
     <unitid <?php if ($resource->getRepository()): ?><?php if ($repocode = $resource->getRepository()->getIdentifier()): ?><?php echo 'repositorycode="'.esc_specialchars($repocode).'" ' ?><?php endif; ?><?php if ($countrycode = $resource->getRepository()->getCountryCode()): ?><?php echo 'countrycode="'.$countrycode.'"' ?><?php endif;?><?php endif; ?> encodinganalog="3.1.1"><?php echo esc_specialchars($ead->referenceCode) ?></unitid>
+<?php endif; ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('standardNumber')->__toString())): ?>
+    <unitid type="standard"><?php echo esc_specialchars($value) ?></unitid>
 <?php endif; ?>
 <?php foreach ($resource->getDates() as $date): ?>
     <unitdate <?php if ($type = $date->getType()->__toString()): ?><?php echo 'datechar="'.strtolower($type).'" ' ?><?php endif; ?><?php if ($startdate = $date->getStartDate()): ?><?php echo 'normal="'?><?php echo Qubit::renderDate($startdate) ?><?php if (0 < strlen($enddate = $date->getEndDate())): ?><?php echo '/'?><?php echo Qubit::renderDate($enddate) ?><?php endif; ?><?php echo '"' ?><?php endif; ?> encodinganalog="3.1.3"><?php echo esc_specialchars(Qubit::renderDateStartEnd($date->getDate(array('cultureFallback' => true)), $date->startDate, $date->endDate)) ?></unitdate>
@@ -166,6 +184,16 @@
   </langmaterial><?php endif; ?>
 <?php if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID)))): ?><?php foreach ($notes as $note): ?><note type="<?php echo esc_specialchars($note->getType(array('cultureFallback' => true))) ?>" encodinganalog="3.6.1"><p><?php echo esc_specialchars($note->getContent(array('cultureFallback' => true))) ?></p></note><?php endforeach; ?><?php endif; ?>
   </did>
+<?php
+$variationNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
+  QubitTaxonomy::RAD_TITLE_NOTE_ID,
+  'Variations in title'
+);
+if (0 < count($variationNotes = $resource->getNotesByType(array('noteTypeId' => $variationNoteTypeId)))): ?>
+<?php foreach ($variationNotes as $note): ?>
+  <odd type="variation"><p><?php echo esc_specialchars($note) ?></p></odd>
+<?php endforeach; ?>
+<?php endif; ?>
 <?php foreach ($resource->getCreators() as $creator): ?>
 <?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
   <bioghist encodinganalog="3.2.2"><p><?php echo esc_specialchars($value) ?></p></bioghist><?php endif; ?><?php endforeach; ?>
