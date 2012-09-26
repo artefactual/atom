@@ -68,9 +68,9 @@ class SearchDescriptionUpdatesAction extends sfAction
 
       case 'dateOf':
         $choices = array(
-          'CREATED_AT' => 'Creation',
-          'UPDATED_AT' => 'Revision',
-          'both' => 'Both'
+          'CREATED_AT' => $this->context->i18n->__('Creation'),
+          'UPDATED_AT' => $this->context->i18n->__('Revision'),
+          'both' => $this->context->i18n->__('Both')
         );
 
         $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
@@ -82,7 +82,7 @@ class SearchDescriptionUpdatesAction extends sfAction
         $choices = array(
           QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID => QubitTerm::getById(QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)->name,
           QubitTerm::PUBLICATION_STATUS_DRAFT_ID => QubitTerm::getById(QubitTerm::PUBLICATION_STATUS_DRAFT_ID)->name,
-          'all' => 'All'
+          'all' => $this->context->i18n->__('All')
         );
 
         $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
@@ -232,13 +232,19 @@ class SearchDescriptionUpdatesAction extends sfAction
     {
       case 'nameDown':
         $criteria->addDescendingOrderByColumn($nameColumn);
+
         break;
+
       case 'nameUp':
         $criteria->addAscendingOrderByColumn($nameColumn);
+
         break;
+
       case 'updatedUp':
         $criteria->addAscendingOrderByColumn(QubitObject::UPDATED_AT);
+
         break;
+
       case 'updatedDown':
       default:
        $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
