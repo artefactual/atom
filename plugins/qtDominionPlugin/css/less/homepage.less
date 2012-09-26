@@ -140,6 +140,19 @@
   text-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
 }
 
+#homepage #virtualexhibit a:hover div:after {
+  content: "›"; // "»";
+  position: absolute;
+  font-size: 128px;
+  bottom: 50px;
+  right: 50px;
+  padding: 18px 20px 40px 22px;
+  .border-radius(60px);
+  @white: rgba(255, 255, 255, .4);
+  border: 12px solid @white;
+  color: @white;
+}
+
 // Popular this week
 
 #homepage #popular h3 {
