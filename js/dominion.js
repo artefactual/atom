@@ -54,7 +54,7 @@
               panControl: false,
               mapTypeControl: true,
               zoomControl: true,
-              scaleControl: true,
+              scaleControl: false,
               streetViewControl: false,
               mapTypeControlOptions: { style: google.maps.MapTypeControlStyle.DROPDOWN_MENU },
               mapTypeId: google.maps.MapTypeId.ROADMAP,
