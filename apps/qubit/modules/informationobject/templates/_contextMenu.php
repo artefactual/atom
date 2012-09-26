@@ -1,11 +1,11 @@
 <div id="navigation">
 
-  <?php if (sfConfig::get('app_multi_repository')): ?>
+  <?php if (sfConfig::get('app_multi_repository') && null !== $repository = $resource->getRepository(array('inherit' => true))): ?>
     <div class="logo">
-      <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$resource->slug.'/conf/logo.png')): ?>
-        <?php echo image_tag('/uploads/r/'.$resource->slug.'/conf/logo.png') ?>
+      <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$repository->slug.'/conf/logo.png')): ?>
+        <?php echo image_tag('/uploads/r/'.$repository->slug.'/conf/logo.png') ?>
       <?php else: ?>
-        <h2><?php echo render_title($resource->getRepository(array('inherit' => true))) ?></h2>
+        <h2><?php echo render_title($repository) ?></h2>
       <?php endif; ?>
     </div>
   <?php endif; ?>
