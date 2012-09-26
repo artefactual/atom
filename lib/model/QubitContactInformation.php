@@ -45,17 +45,21 @@ class QubitContactInformation extends BaseContactInformation
     }
   }
 
-  public function getContactInformationString()
+  public function getContactInformationString(array $options = array())
   {
     $string = ($this->getStreetAddress()) ? $this->getStreetAddress().'<br/>' : '';
     $string .= ($this->getCity()) ? $this->getCity() : '';
     $string .= ($this->getRegion()) ? ', '.$this->getRegion() : '';
     $string .= ($this->getCountryCode()) ? '<br/>'.$this->getCountryCode().'' : '';
     $string .= ($this->getPostalCode()) ? '   '.$this->getPostalCode(): '';
-    $string .= ($this->getTelephone()) ? '<p>telephone number: '.$this->getTelephone().'<br/>' : '';
-    $string .= ($this->getFax()) ? 'fax number: '.$this->getFax().'<br/>' : '';
-    $string .= ($this->getEmail()) ? 'email: '.$this->getEmail().'<br/>' : '';
-    $string .= ($this->getWebsite()) ? 'website: <a href="'.$this->getWebsite().'">'.$this->getWebsite().'</a>' : '';
+
+    if (!isset($options['simple']))
+    {
+      $string .= ($this->getTelephone()) ? '<p>telephone number: '.$this->getTelephone().'<br/>' : '';
+      $string .= ($this->getFax()) ? 'fax number: '.$this->getFax().'<br/>' : '';
+      $string .= ($this->getEmail()) ? 'email: '.$this->getEmail().'<br/>' : '';
+      $string .= ($this->getWebsite()) ? 'website: <a href="'.$this->getWebsite().'">'.$this->getWebsite().'</a>' : '';
+    }
 
     return $string;
   }
