@@ -242,32 +242,31 @@ strong { // used exclusively for FONDS, SERIES, etc labels
 // Breadcrumbs
 
 .breadcrumb {
-  border:none;
-  background:none !important;
-  margin:0;
   padding: 0;
-  text-shadow: none;
-  .box-shadow(none);
-}
-
-.breadcrumb li:after {
-  content: " › ";
-}
-
-.braedcrumb li:last-child:after {
-  content:" ";
-}
-
-.breadcrumb a {
+  margin: 2px 0 6px 0;
+  background: none;
+  border: none;
   font-family: @smallFontFamily;
-  color: @grayDark;
-  font-size: 10px;
-  margin-left:0;
+  font-size: 11px;
+}
+
+.breadcrumb li {
+  text-shadow: none;
+}
+
+.breadcrumb a:after {
+  content: " › ";
+  color: @black;
+  text-shadow: 1px 1px 0px @white;
 }
 
 .breadcrumb a:hover {
   text-decoration: none;
-  color: @orange;
+  color: @orange !important;
+}
+
+.breadcrumb .active {
+  color: @grayLighter;
 }
 
 // Wells
