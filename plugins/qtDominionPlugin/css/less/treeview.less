@@ -15,96 +15,178 @@
  * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#treeview {
+#treeview
+{
+  max-height: 480px;
+  margin-bottom: 10px;
+  overflow: auto;
+  overflow-x: hidden;
+  font-family: @smallFontFamily;
+}
 
+#treeview ul,
+#treeview li
+{
+  margin: 0;
+  padding: 0;
+}
+
+#treeview li
+{
+  padding: 5px 0 5px 20px;
   white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  position: relative;
+  background-color: rgba(50, 50, 50, .2);
+}
 
-  ul {
+#treeview a {
+  color: @white;
+}
 
-    li {
+#treeview a:hover {
 
-      padding: 5px 0 5px 17px;
-      #translucent > .background(@black, .2);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      cursor: pointer;
+}
 
-      a {
+// Node classes
 
-        color: @white;
-        font-family: @smallFontFamily;
-        text-overflow: ellipsis;
+#treeview li:hover {
+  background-color: rgba(255, 255, 255, .3);
+}
 
-      }
+#treeview .ancestor,
+#treeview .back,
+#treeview .more
+{
+  background-color: transparent;
+  border-bottom: 1px solid @white;
+  cursor: pointer;
+}
 
-      &:hover {
+#treeview .expand,
+#treeview .ancestor,
+#treeview .back
+{
+  padding-left: 0px;
+}
 
-        #translucent > .background(@white, .2);
-        text-decoration: none;
+#treeview .immediate-ancestor
+{
+  border-bottom: 1px solid #ccc;
+}
 
-      }
+#treeview .placeholder
+{
+  background-color: #f0f0f0;
+}
 
-      &.more {
-        padding-top: 0px;
-        padding-bottom: 0px;
-      }
+#treeview .more a
+{
+  background-color: #ccc;
+  padding: 0 8px;
+  font-weight: bold;
+  color: white !important;
+  text-decoration: none !important;
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+}
 
-      &.expand {
+// Active node
 
-        padding-left: 2px !important;
+#treeview .active
+{
+  background-color: @white !important;
+}
 
-      }
+#treeview .active a {
+  color: @orange;
+}
 
-      &.ancestor {
+// Icon (arrow)
 
-        border-bottom: 1px solid @white;
-        padding-left: 2px !important;
-        background: none;
+#treeview i
+{
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  vertical-align: middle;
+  margin-right: 2px;
+  margin-left: 5px;
+  background-color: transparent;
+  background-image: url(../../../../images/arrow-sprites.png);
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
 
-      }
+#treeview .ancestor i { background-position: -10px -10px; } /* left arrow */
+#treeview .immediate-ancestor i { background-position: 0px -10px; } /* down arrow */
+#treeview .back i { background-position: -10px -10px; } /* left arrow */
+#treeview .expand i { background-position: -20px -10px; } /* right arrow */
 
-      &.back {
+// Loading icon
 
-        border-bottom: 1px solid @white;
-        padding-left:2px !important;
-        background:none;
+#treeview.loading li
+{
+  cursor: wait !important;
+}
 
-      }
+#treeview li .loading
+{
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url(../../../../images/loading.small.gif);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  position: absolute;
+  left: 0px;
+}
 
-      &.active {
+// Node subelements
 
-        background-color: @white !important;
-        color: @orange;
+#treeview .levelOfDescription
+{
+  text-transform: uppercase;
+  margin-right: 6px;
+  font-size: smaller;
+}
 
-      }
+#treeview .pubStatus
+{
+  color: #bbb;
+  margin-left: 4px;
+}
 
-      .hidden {
+// Sorting
 
-        display: none;
+#treeview .ui-sortable-helper
+{
+  background-color: White;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ccc;
+  -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+}
 
-      }
+#treeview .grip
+{
+  visibility: hidden;
+  float: right;
+  width: 9px;
+  height: 11px;
+  margin-right: 4px;
+  margin-top: 4px;
+  display: inline-block;
+  vertical-align: middle;
+  background-color: transparent;
+  background-image: url(../images/grip.png);
+  background-repeat: no-repeat;
+}
 
-      i {
-
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        vertical-align: middle;
-        margin-right: 3px;
-        background-image: url(../../images/arrow-sprites.png);
-        background-position: 10px 10px;
-        background-repeat: no-repeat;
-        .ie7-restore-right-whitespace();
-
-      }
-
-      &.ancestor i { background-position: 0 -10px; }
-      &.back i { background-position: -10px -10px; }
-      &.expand i { background-position: -20px -10px; }
-      &.active i { background-position-y: 0px; }
-
-    }
-
-  }
-
+#treeview li:hover .grip
+{
+  visibility: visible;
 }
