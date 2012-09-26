@@ -1,6 +1,6 @@
 <div class="section">
 
-  <h2><?php echo __('Export') ?></h2>
+  <h3><?php echo __('Export') ?></h3>
 
   <div class="content">
     <ul class="clearfix">

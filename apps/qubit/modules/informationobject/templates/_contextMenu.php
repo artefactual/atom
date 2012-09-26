@@ -21,28 +21,22 @@
     </div>
  </div>
 
-</div>
-
-<?php if (false): ?>
-
-<div>
-
   <?php echo get_component('informationobject', 'creator', array('resource' => $resource)) ?>
 
   <?php echo get_component('digitalobject', 'imageflow', array('resource' => $resource)) ?>
 
   <div>
-    <h3>
+    <h4>
       <?php if (isset($resource->getCollectionRoot()->levelOfDescription)): ?>
         <?php echo $resource->getCollectionRoot()->levelOfDescription ?>
       <?php else: ?>
         <?php echo sfConfig::get('app_ui_label_collection') ?>
       <?php endif; ?>
-    </h3>
+    </h4>
   </div>
 
   <div class="section">
-    <h2><?php echo __('Import') ?></h2>
+    <h3><?php echo __('Import') ?></h3>
     <div class="content">
       <ul class="clearfix">
         <li><?php echo link_to(__('XML'), array($resource, 'module' => 'object', 'action' => 'importSelect', 'type' => 'xml')) ?></li>
@@ -58,9 +52,3 @@
   <?php endif; ?>
 
 </div>
-
-<?php endif; ?>
-
-
-
-
