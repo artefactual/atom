@@ -74,7 +74,7 @@ class SearchUpdatesAction extends sfAction
         );
 
         $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
-        $this->form->setWidget($name, new sfWidgetFormSelectRadio(array('choices' => $choices, 'class' => 'radio inline')));
+        $this->form->setWidget($name, new qtWidgetFormSelectRadio(array('choices' => $choices, 'class' => 'radio inline')));
 
         break;
 
@@ -86,7 +86,7 @@ class SearchUpdatesAction extends sfAction
         );
 
         $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
-        $this->form->setWidget($name, new sfWidgetFormSelectRadio(array('choices' => $choices, 'class' => 'radio inline')));
+        $this->form->setWidget($name, new qtWidgetFormSelectRadio(array('choices' => $choices, 'class' => 'radio inline')));
 
         break;
 

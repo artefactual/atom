@@ -15,8 +15,51 @@
  * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Form items
+
+.form-item {
+  margin-bottom: @baseLineHeight / 2;
+}
+
+.form-item label .note2 {
+  display: block;
+  font-style: italic;
+}
+
+// Form actions
+
 .form-actions {
   padding: 0;
   background-color: transparent;
   border-top: 0;
+}
+
+// Description updates form
+
+#search-updates-form {
+  background-color: none;
+  background-color: rgba(0, 0, 0, .2);
+  padding: 16px 16px 8px 16px;
+  margin-top: -20px;
+  color: @white;
+  .border-radius(4px);
+  .box-shadow(1px 1px 1px rgba(25, 25, 25, .4));
+}
+
+#search-updates-form,
+#search-updates-form * {
+  font-family: @smallFontFamily;
+  font-size: 13px;
+}
+
+#search-updates-form .form-item > label {
+  font-weight: bold;
+}
+
+#search-updates-form .btn {
+  border: 1px solid @grayDark;
+}
+
+#search-updates-form .radio {
+  padding-top: 0;
 }
