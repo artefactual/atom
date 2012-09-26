@@ -11,7 +11,7 @@
     <h1><?php echo link_to_if(QubitAcl::check($resource, 'update'), render_title($resource), array($resource, 'module' => 'actor', 'action' => 'edit'), array('title' => __('Edit authority record'))) ?></h1>
 
     <ul class="breadcrumb">
-      <li><?php echo link_to(__('Institutions'), array('module' => 'repository', 'action' => 'browse')) ?></li>
+      <li><?php echo link_to(__('People and Organizations'), array('module' => 'actor', 'action' => 'browse')) ?></li>
       <li class="active"><?php echo render_title($resource) ?></li>
     </ul>
 
