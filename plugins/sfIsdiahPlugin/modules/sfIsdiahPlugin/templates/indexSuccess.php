@@ -21,7 +21,7 @@
     </div>
 
     <ul class="breadcrumb">
-      <li><a href="#"><?php echo __('Institutions') ?></a></li>
+      <li><?php echo link_to(__('Institutions'), array('module' => 'repository', 'action' => 'browse')) ?></li>
       <li class="active"><?php echo render_title($resource) ?></li>
     </ul>
 
@@ -39,10 +39,11 @@
     <?php endif; ?>
     -->
 
-    <?php if (isset($latitude) && isset($longitude)): ?>
-      <div class="row" id="front-map">
+    <?php if (isset($latitude) && isset($longitude) && null !== $key = sfConfig::get('app_google_api_key')): ?>
+      <div class="row">
         <div class="span7">
-          <?php echo image_tag(sprintf('http://maps.googleapis.com/maps/api/staticmap?zoom=16&size=720x180&maptype=roadmap&sensor=false&markers=color:red|label:S|%s,%s', $latitude, $longitude)) ?>
+          <div id="front-map" class="simple-map" data-key="<?php echo $key ?>" data-latitude="<?php echo $latitude ?>" data-longitude="<?php echo $longitude ?>"></div>
+          <?php // echo image_tag(sprintf('http://maps.googleapis.com/maps/api/staticmap?zoom=16&size=720x180&maptype=roadmap&sensor=false&markers=color:red|label:S|%s,%s', $latitude, $longitude)) ?>
           <?php // echo image_tag(sprintf('http://ojw.dev.openstreetmap.org/StaticMap/?lat=%s&lon=%s&z=10&w=720&h=200&mode=Export&show=1', $latitude, $longitude)) ?>
         </div>
       </div>
@@ -192,24 +193,27 @@
 
       <div class="span2" id="right-column">
 
-        <h4><?php echo __('Primary contact') ?></h4>
-        Charles Xavier<br />
-        1293 West Broadway<br />
-        Vancouver, BC, V6X 3X3<br />
-        Canada
+        <?php if (isset($primaryContact)): ?>
+          <section id="primary-contact">
+            <h4><?php echo __('Primary contact') ?></h4>
+            <?php echo $primaryContact->getContactInformationString(array('simple' => true)) ?>
+            <div>
+              <?php if (null !== $website = $primaryContact->getWebsite()): ?>
+                <?php echo link_to(__('Website'), url_for($website), array('class' => 'btn')) ?>
+              <?php endif; ?>
+              <?php if (null !== $email = $primaryContact->email): ?>
+                <?php echo mail_to($email, __('Email'), array('class' => 'btn')) ?>
+              <?php endif; ?>
+            </div>
+          </section>
+        <?php endif; ?>
 
-        <a href="#" class="widebtn">Send Email</a>
-
-        <a href="#" class="widebtn">Website</a>
-
-        <h4><?php echo __('Opening times') ?></h4>
-        Monday to Friday<br />
-        9:00am to 5:00pm<br />
-        Staff assistance<br />
-        10:00am to 4:45pm
-
-        <h4><?php echo __('Services') ?></h4>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla mauris, hendrerit vitae aliquam eget, pretium quis tortor. Maecenas sit amet nunc ullamcorper urna ornare pretium ac ac neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        <?php if (null !== $openingTimes = $resource->getOpeningTimes(array('cultureFallback' => true))): ?>
+          <section>
+            <h4><?php echo __('Opening times') ?></h4>
+            <?php echo render_value($openingTimes) ?>
+          </section>
+        <?php endif; ?>
 
       </div>
 

@@ -23,9 +23,13 @@ class RepositoryIndexAction extends sfAction
   {
     $this->resource = $this->getRoute()->resource;
 
+    // Per-institution stylesheet
     if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$this->resource->slug.'/conf/style.css'))
     {
       $this->response->addStyleSheet('/uploads/r/'.$this->resource->slug.'/conf/style.css', 'last', array('media' => 'all'));
     }
+
+    // Primary contact
+    $this->primaryContact = $this->resource->getPrimaryContact();
   }
 }
