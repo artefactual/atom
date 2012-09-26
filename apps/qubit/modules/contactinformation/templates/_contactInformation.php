@@ -4,7 +4,10 @@
 
     <h3>
       <?php echo __('Contact information') ?>
-      <span class="type"><?php echo $contactInformation->getContactType(array('cultureFallback' => true)) ?><?php if ($contactInformation->primaryContact): ?><?php echo __('Primary contact') ?><?php endif; ?></span>
+      <span class="type">
+        <?php echo $contactInformation->getContactType(array('cultureFallback' => true)) ?>
+        <?php if ($contactInformation->primaryContact): ?>(<?php echo __('Primary contact') ?>)<?php endif; ?>
+      </span>
     </h3>
 
     <div class="agent">
