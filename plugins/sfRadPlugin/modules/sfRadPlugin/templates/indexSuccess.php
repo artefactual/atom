@@ -1,6 +1,10 @@
 <div class="row">
 
-  <?php echo get_component('informationobject', 'contextMenu') ?>
+  <div id="left-column">
+
+    <?php echo get_component('informationobject', 'contextMenu') ?>
+
+  </div>
 
   <!--
 
@@ -15,17 +19,6 @@
   <h1 class="part-of"><?php echo __('Part of %1%', array('%1%' => $resource->getCollectionRoot()->__toString())) ?></h1>
   <?php endif; ?>
 
-  <h1><?php echo __('View archival description') ?></h1>
-
-  <?php if (isset($errorSchema)): ?>
-    <div class="messages error">
-      <ul>
-        <?php foreach ($errorSchema as $error): ?>
-          <li><?php echo $error ?></li>
-        <?php endforeach; ?>
-      </ul>
-    </div>
-  <?php endif; ?>
 
   <?php if (0 < count($resource->digitalObjects)): ?>
     <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjects[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
@@ -36,6 +29,18 @@
   <div id="main-column" class="span9 offset3">
 
     <h1><?php echo render_title($rad) ?> <strong><?php echo $resource->levelOfDescription ?></strong></h1>
+
+    <!--
+    <?php if (isset($errorSchema)): ?>
+      <div class="messages error">
+        <ul>
+          <?php foreach ($errorSchema as $error): ?>
+            <li><?php echo $error ?></li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
+    <?php endif; ?>
+    -->
 
     <ul class="breadcrumb">
       <li><a href="#">Breadcumb</a></li>

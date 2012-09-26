@@ -1,25 +1,16 @@
 <div id="navigation">
 
-  <?php if (true || sfConfig::get('app_multi_repository')): ?>
-    <div id="institution">
-      <div class="institution maxi">
-        <h2><?php echo render_show_repository(sfConfig::get('app_ui_label_repository'), $resource) ?></h2>
-      </div>
+  <?php if (sfConfig::get('app_multi_repository')): ?>
+    <div class="logo">
+      <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$resource->slug.'/conf/logo.png')): ?>
+        <?php echo image_tag('/uploads/r/'.$resource->slug.'/conf/logo.png') ?>
+      <?php else: ?>
+        <h2><?php echo render_title($resource->getRepository(array('inherit' => true))) ?></h2>
+      <?php endif; ?>
     </div>
   <?php endif; ?>
 
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#treeview" data-toggle="tab">Treeview</a></li>
-    <li><a href="#facets" data-toggle="tab">Browse</a></li>
-  </ul>
-
-  <div class="tab-content">
-    <h2 class="visible-phone widebtn btn-huge indent" data-toggle="collapse" data-target="#treeview">Treeview</h2>
-    <?php echo get_component('informationobject', 'treeView') ?>
-    <div class="span5 tree tab-pane" id="facets">
-      <p>Working in progress...</p>
-    </div>
- </div>
+  <?php echo get_component('informationobject', 'treeView') ?>
 
   <?php echo get_component('informationobject', 'creator', array('resource' => $resource)) ?>
 
