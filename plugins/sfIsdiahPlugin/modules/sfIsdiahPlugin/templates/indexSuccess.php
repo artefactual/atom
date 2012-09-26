@@ -20,6 +20,11 @@
       <h1><?php echo render_title($resource) ?></h1>
     </div>
 
+    <ul class="breadcrumb">
+      <li><a href="#"><?php echo __('Institutions') ?></a></li>
+      <li class="active"><?php echo render_title($resource) ?></li>
+    </ul>
+
     <!--
     <?php if (isset($errorSchema)): ?>
       <div class="alert alert-info">
