@@ -538,15 +538,38 @@ class QubitFlatfileImport
         )
       )
       {
-        // Lookup existing object
+        // attempt to look up existing object
         $this->object = QubitInformationObject::getById($mapEntry->target_id);
 
-        // Log error if object exists with current culture
-        if ($this->object->sourceCulture == $this->columnValue('culture'))
+        // was the keymap entry invalid?
+        if ($this->object === NULL)
         {
-          print $this->logError(sprintf('Duplicate entry for information object id:%s, culture: %s',
-            $this->object->id,
-            $this->object->sourceCulture));
+          // delete invalid keymap entry
+          $query = "DELETE FROM keymap \r
+            WHERE source_id = ? \r
+            AND target_id = ? \r
+            AND source_name = ? \r
+            AND target_name = ?";
+
+          $statement = self::sqlQuery(
+            $query, array(
+              $this->columnValue('legacyId'),
+              $mapEntry->target_id,
+              $this->status['sourceName'],
+              $tableName
+            )
+          );
+
+          // create new object
+          $this->object = new $this->className;
+        } else {
+          // log error if object exists with current culture
+          if ($this->object->sourceCulture == $this->columnValue('culture'))
+          {
+            print $this->logError(sprintf('Duplicate entry for information object id:%s, culture: %s',
+              $this->object->id,
+              $this->object->sourceCulture));
+          }
         }
       }
       else
