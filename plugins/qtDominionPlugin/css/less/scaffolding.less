@@ -21,7 +21,7 @@ html, body {
 }
 
 #wrapper {
-  margin-top: 100px !important;
+  margin-top: 100px;
 }
 
 #content {
@@ -368,6 +368,12 @@ strong { // used exclusively for FONDS, SERIES, etc labels
   width: @brickSmallWidth + @brickPadding * 2;
 }
 
+// Table
+
+.table thead th {
+  background-color: @grayLighter;
+}
+
 // Read more link
 
 .read-more a,
@@ -379,14 +385,38 @@ strong { // used exclusively for FONDS, SERIES, etc labels
   border: 1px solid @grayLight;
 }
 
+// Responsive design
+
+@media (min-width: 1200px) {
+
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+
+}
+
 @media (max-width: 767px) {
 
-  .brick {
-    padding-bottom: 15px;
+  #wrapper {
+    margin-top: 0;
   }
 
-  .brick .details {
-    .hide;
+}
+
+@media (max-width: 480px) {
+
+  .top-options {
+    margin-bottom: @baseLineHeight;
+  }
+
+  .brick {
+    width: 100%;
+    padding-bottom: 0;
+  }
+
+  .brick .preview {
+    width: 192px;
+    margin: 0 auto;
   }
 
 }

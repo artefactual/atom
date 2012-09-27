@@ -39,15 +39,17 @@
       <?php endif; ?>
 
       <li class="search">
-        <div class="search">
-          <form method="get" action="<?php echo url_for(array('module' => 'actor', 'action' => 'browse')) ?>">
-            <?php foreach ($sf_request->getGetParameters() as $key => $value): ?>
-              <input type="hidden" name="<?php echo esc_entities($key) ?>" value="<?php echo esc_entities($value) ?>"/>
-            <?php endforeach; ?>
-            <input class="subquery" name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>" placeholder="<?php echo __('Search %1%', array('%1%' => sfConfig::get('app_ui_label_actor'))) ?>"/>
-            <input class="form-submit" type="submit" value="<?php echo __('Search %1%', array('%1%' => sfConfig::get('app_ui_label_actor'))) ?>"/>
-          </form>
-        </div>
+        <form method="get" action="<?php echo url_for(array('module' => 'actor', 'action' => 'browse')) ?>">
+          <?php foreach ($sf_request->getGetParameters() as $key => $value): ?>
+            <input type="hidden" name="<?php echo esc_entities($key) ?>" value="<?php echo esc_entities($value) ?>"/>
+          <?php endforeach; ?>
+          <div class="input-append">
+            <input type="text" class="span3" name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>" placeholder="<?php echo __('Search') ?>" />
+            <span class="add-on">
+              <input type="submit" value="<?php echo __('Search %1%', array('%1%' => sfConfig::get('app_ui_label_actor'))) ?>"/>
+            </span>
+          </div>
+        </form>
       </li>
 
     </ul>

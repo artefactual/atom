@@ -15,39 +15,33 @@
  * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// When the search box is inside the nav tabs
+// Search box in .nav-tabs
 .nav-tabs li.search {
+  .pull-right;
+}
 
-  float: right;
+.nav-tabs li.search form {
+  margin: 0;
+}
 
-  form {
+.nav-tabs li.search .input-append {
+  margin: 0;
+}
 
-    margin: 0;
-    position: relative;
+.nav-tabs li.search input[type=text] {
+}
 
-  }
+.nav-tabs li.search input[type=submit] {
 
-  .subquery {
-
-    padding-right: 26px;
-
-  }
-
-  .form-submit {
-
-    .hide-text();
-    .square(24px);
-    background-color: Yellow;
-    background: url(../../images/search.png);
-    background-repeat: no-repeat;
-    border: 0;
-    .box-shadow(none);
-    position: absolute;
-    top: 2px;
-    right: 2px;
-
-  }
-
+  .hide-text;
+  background-image: url(../../../../vendor/bootstrap/img/glyphicons-halflings.png);
+  background-repeat: no-repeat;
+  display: inline-block;
+  .square(14px);
+  margin-top: 1px;
+  line-height: 14px;
+  vertical-align: text-top;
+  .icon-search;
 }
 
 #search-results #phone-filter {

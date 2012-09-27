@@ -230,41 +230,26 @@
 // Navigation
 
 #navigation {
-
   position: fixed;
   top: 0;
   width: 240px;
-  height:100%;
+  height: 100%;
   overflow-y: hidden;
   overflow-x: hidden;
   z-index: 100;
-  // clip: rect(auto, 220px, auto, auto);
+}
 
-  .nav-tabs {
+#navigation.expanded {
+  overflow-y: auto !important;
+  width: 400px !important;
+  background-image: url(../../images/background.png);
+  border-right: 2px solid white;
+  @shadow: 8px 0px 10px rgba(0, 0, 0, .25);
+  .box-shadow(@shadow);
+}
 
-    margin-bottom: 0 !important;
-    clear: both;
-
-  }
-
-  &.expanded {
-
-    overflow-y: auto !important;
-    width: 400px !important;
-    // clip:auto !important;
-    background-image: url(../../images/background.png);
-    border-right: 2px solid white;
-    @shadow: 8px 0px 10px rgba(0, 0, 0, .25);
-    .box-shadow(@shadow);
-
-  }
-
-  > div:first-child {
-
-    margin-top: 125px;
-
-  }
-
+#navigation > div:first-child {
+  margin-top: 125px;
 }
 
 // Export
@@ -343,6 +328,10 @@
 
 #front-map {
   height: 200px;
+  .border-radius(4px 4px 0 0);
+  border-style: solid;
+  border-color: @white;
+  border-width: 8px 8px 0 8px;
 }
 
 // Holdings
@@ -434,60 +423,6 @@
 
 // Responsive design
 
-@media (max-width: 768px) {
-
-  #institution,
-  .nav-tabs,
-  .breadcrumb {
-
-    .hide;
-
-  }
-
-  .img {
-    h2:last-child {
-      a {
-        height: 90px;
-      }
-    }
-  }
-
-  #wrapper, #left-column {
-    margin-top: 0 !important;
-  }
-
-  h1 {
-    font-size: 20px !important;
-    line-height: 110%;
-    margin: auto 10px;
-  }
-
-  #navigation {
-    position: static;
-    width:100% !important;
-  }
-
-  #right-column {
-    margin: auto 10px !important;
-  }
-
-  #holdings {
-    margin: auto 10px !important;
-    white-space: normal;
-  }
-  .indent {
-      margin: auto 10px !important;
-  }
-  #arrow-right, #arrow-left {
-    margin:5px !important;
-  }
-
-  .tab-content h2, #headline2 { display:block !important; }
-
-}
-
-// Responsive design
-
 @media (min-width: 1200px) {
 
   #left-column .logo h2,
@@ -519,6 +454,15 @@
   #left-column .logo h2,
   #left-column .logo img {
     max-width: 166px;
+  }
+
+  .breadcrumb {
+    .hide;
+  }
+
+  #navigation {
+    position: static;
+    width: 100%;
   }
 
 }
