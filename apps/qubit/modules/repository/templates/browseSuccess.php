@@ -8,7 +8,7 @@
       <div class="span8">
         <h1>
           <?php echo image_tag('/plugins/qtDominionPlugin/images/icons-large/icon-institutions.png', array('width' => '42', 'height' => '42')) ?>
-          <?php echo __('%1% institutions', array('%1%' => $pager->getNbResults(), '%2%' => sfConfig::get('app_ui_label_repository'))) ?>
+          <?php echo __('Browse %1% institutions', array('%1%' => $pager->getNbResults(), '%2%' => sfConfig::get('app_ui_label_repository'))) ?>
         </h1>
       </div>
       <div class="span4">

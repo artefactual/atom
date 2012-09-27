@@ -1,6 +1,6 @@
 <h1>
   <?php echo image_tag('/plugins/qtDominionPlugin/images/icons-large/icon-new.png', array('width' => '42', 'height' => '42')) ?>
-  <?php echo __('Newest additions') ?>
+  <?php echo __('Browse newest additions') ?>
 </h1>
 
 <div class="row">
