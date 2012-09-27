@@ -358,13 +358,13 @@
       <div class="span2" id="right-column">
 
         <section>
-          <h3>How to access this content?</h3>
+          <h4>How to access this content?</h4>
           <div><a href="#">Contact the archivist at Vancouver Maritime Museum Library</a></div>
           <div><a href="#" class="widebtn">Send this page</a></div>
         </section>
 
         <section>
-          <h3>Related Subjects</h3>
+          <h4>Related Subjects</h4>
           <ul class="unstyled">
             <li><a href="#">Agriculture</a></li>
             <li><a href="#">Arts &amp; Culture</a></li>
@@ -373,7 +373,7 @@
         </section>
 
         <section>
-          <h3>Related People &amp; Organizations</h3>
+          <h4>Related People &amp; Organizations</h4>
           <ul class="unstyled">
             <li><a href="#">Commodore J.T. Kirk</a></li>
             <li><a href="#">Mike Michaels</a></li>
@@ -381,7 +381,7 @@
         </section>
 
         <section>
-          <h3>Related Places</h3>
+          <h4>Related Places</h4>
           <ul class="unstyled">
             <li><a href="#">Comox, BC</a></li>
             <li><a href="#">Windsor, ON</a></li>
@@ -390,7 +390,6 @@
 
         <section>
           <?php if (false): ?>
-          <div>
             <h4>
               <?php if (isset($resource->getCollectionRoot()->levelOfDescription)): ?>
                 <?php echo $resource->getCollectionRoot()->levelOfDescription ?>
@@ -398,12 +397,11 @@
                 <?php echo sfConfig::get('app_ui_label_collection') ?>
               <?php endif; ?>
             </h4>
-          </div>
           <?php endif; ?>
         </section>
 
         <section>
-          <h3><?php echo __('Import') ?></h3>
+          <h4><?php echo __('Import') ?></h4>
           <div class="content">
             <ul>
               <li><?php echo link_to(__('XML'), array($resource, 'module' => 'object', 'action' => 'importSelect', 'type' => 'xml')) ?></li>
