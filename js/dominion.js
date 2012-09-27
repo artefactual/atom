@@ -45,6 +45,11 @@
     {
       var $container = $('.simple-map');
 
+      if (!$container.length)
+      {
+        return;
+      }
+
       window.initializeSimpleMap = function()
         {
           var location = new google.maps.LatLng($container.data('latitude'), $container.data('longitude'));
