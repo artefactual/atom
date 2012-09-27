@@ -1,4 +1,4 @@
-<div class="section">
+<section>
 
   <h3><?php echo __('Export') ?></h3>
 
@@ -8,4 +8,4 @@
     </ul>
   </div>
 
-</div>
+</section>

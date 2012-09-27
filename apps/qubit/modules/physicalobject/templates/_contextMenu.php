@@ -1,7 +1,10 @@
-<div>
+<section>
+
   <h3><?php echo sfConfig::get('app_ui_label_physicalobject') ?></h3>
-  <div>
+
+  <div class="content">
     <ul>
+
       <?php foreach ($physicalObjects as $item): ?>
         <li>
 
@@ -17,6 +20,8 @@
 
         </li>
       <?php endforeach; ?>
+
     </ul>
   </div>
-</div>
+
+</section>

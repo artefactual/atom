@@ -357,42 +357,52 @@
 
       <div class="span2" id="right-column">
 
-        <h3>How to access this content?</h3>
-        <div><a href="#">Contact the archivist at Vancouver Maritime Museum Library</a></div>
-        <div><a href="#" class="widebtn">Send this page</a></div>
+        <section>
+          <h3>How to access this content?</h3>
+          <div><a href="#">Contact the archivist at Vancouver Maritime Museum Library</a></div>
+          <div><a href="#" class="widebtn">Send this page</a></div>
+        </section>
 
-        <h3>Related Subjects</h3>
-        <ul class="unstyled">
-          <li><a href="#">Agriculture</a></li>
-          <li><a href="#">Arts &amp; Culture</a></li>
-          <li><a href="#">Business</a></li>
-        </ul>
+        <section>
+          <h3>Related Subjects</h3>
+          <ul class="unstyled">
+            <li><a href="#">Agriculture</a></li>
+            <li><a href="#">Arts &amp; Culture</a></li>
+            <li><a href="#">Business</a></li>
+          </ul>
+        </section>
 
-        <h3>Related People &amp; Organizations</h3>
-        <ul class="unstyled">
-          <li><a href="#">Commodore J.T. Kirk</a></li>
-          <li><a href="#">Mike Michaels</a></li>
-        </ul>
+        <section>
+          <h3>Related People &amp; Organizations</h3>
+          <ul class="unstyled">
+            <li><a href="#">Commodore J.T. Kirk</a></li>
+            <li><a href="#">Mike Michaels</a></li>
+          </ul>
+        </section>
 
-        <h3>Related Places</h3>
-        <ul class="unstyled">
-          <li><a href="#">Comox, BC</a></li>
-          <li><a href="#">Windsor, ON</a></li>
-        </ul>
+        <section>
+          <h3>Related Places</h3>
+          <ul class="unstyled">
+            <li><a href="#">Comox, BC</a></li>
+            <li><a href="#">Windsor, ON</a></li>
+          </ul>
+        </section>
 
-        <?php if (false): ?>
-        <div>
-          <h4>
-            <?php if (isset($resource->getCollectionRoot()->levelOfDescription)): ?>
-              <?php echo $resource->getCollectionRoot()->levelOfDescription ?>
-            <?php else: ?>
-              <?php echo sfConfig::get('app_ui_label_collection') ?>
-            <?php endif; ?>
-          </h4>
-        </div>
-        <?php endif; ?>
+        <section>
+          <?php if (false): ?>
+          <div>
+            <h4>
+              <?php if (isset($resource->getCollectionRoot()->levelOfDescription)): ?>
+                <?php echo $resource->getCollectionRoot()->levelOfDescription ?>
+              <?php else: ?>
+                <?php echo sfConfig::get('app_ui_label_collection') ?>
+              <?php endif; ?>
+            </h4>
+          </div>
+          <?php endif; ?>
+        </section>
 
-        <div class="section">
+        <section>
           <h3><?php echo __('Import') ?></h3>
           <div class="content">
             <ul>
@@ -400,7 +410,7 @@
               <li><?php echo link_to(__('CSV'), array($resource, 'module' => 'object', 'action' => 'importSelect', 'type' => 'csv')) ?></li>
             </ul>
           </div>
-        </div>
+        </section>
 
         <?php echo get_partial('informationobject/format', array('resource' => $resource)) ?>
 
