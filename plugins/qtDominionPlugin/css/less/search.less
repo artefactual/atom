@@ -16,6 +16,7 @@
  */
 
 // Search box in .nav-tabs
+
 .nav-tabs li.search {
   .pull-right;
 }
@@ -32,7 +33,6 @@
 }
 
 .nav-tabs li.search input[type=submit] {
-
   .hide-text;
   background-image: url(../../../../vendor/bootstrap/img/glyphicons-halflings.png);
   background-repeat: no-repeat;
@@ -43,6 +43,8 @@
   vertical-align: text-top;
   .icon-search;
 }
+
+// Search results
 
 #search-results #phone-filter {
   margin: 10px;
@@ -158,27 +160,7 @@
 
 }
 
-#top-facet {
-
-  #institutions {
-
-    overflow: hidden;
-
-  }
-
-  .nav-tabs {
-
-    margin-top:20px;
-
-  }
-
-  #more-institutions {
-
-    margin-bottom: 10px;
-
-  }
-
-}
+// Facets
 
 #facets {
 
@@ -339,69 +321,53 @@
 
 }
 
+// Advanced search
+
+#advanced-search #content {
+  overflow: auto;
+}
+
+#advanced-search p.headline {
+  font-size: 18px;
+  margin: 20px;
+}
+
+#advanced-search .criteria {
+  margin: 10px;
+}
+
+#advanced-search .criterion {
+  margin: 5px inherit;
+  .well();
+}
+
+#advanced-search .criterion span {
+  color: @white;
+  margin: auto 10px;
+  display: inline-block;
+}
+
+#advanced-search .criterion .in {
+  display: inline;
+}
+
+#advanced-search .actions {
+  margin: 20px;
+}
+
+#advanced-search #filters {
+}
+
+#advanced-search #filters .row-fluid .left {
+}
+
+#advanced-search #filters .row-fluid .right {
+}
+
+#advanced-search #filters select {
+}
+
 #advanced-search {
-
-  #content {
-
-    overflow: auto;
-
-  }
-
-  #add-criteria {
-
-  }
-
-  p.headline {
-
-    font-size: 18px;
-    margin: 20px;
-
-  }
-
-  .criteria {
-
-    margin: 10px;
-
-    .criterion {
-
-      margin: 5px inherit;
-      .well();
-
-      span {
-
-        color: @white;
-        margin: auto 10px;
-        display: inline-block;
-
-      }
-
-      .in {
-
-        display: inline;
-
-      }
-
-    }
-
-    .boolean {
-
-      margin-left: 30px;
-
-      select {
-
-        width: 70px;
-
-      }
-
-    }
-
-  }
-
-  .actions {
-
-    margin: 20px;
-
-  }
 
   #filters {
 

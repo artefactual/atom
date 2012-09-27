@@ -344,22 +344,18 @@
   border-bottom: 1px solid @white;
 }
 
-#left-column .section ul {
+#left-column .section > ul {
   background-color: rgba(50, 50, 50, 0.2)
 }
 
-#left-column .section ul,
-#left-column .section ul li {
+#left-column .section > ul,
+#left-column .section > ul li {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-#left-column .section ul li {
-
-}
-
-#left-column .section ul li a {
+#left-column .section > ul li a {
   display: block;
   color: @white;
   font-family: @smallFontFamily;
@@ -369,7 +365,7 @@
   text-overflow: ellipsis;
 }
 
-#left-column .section ul li a:hover {
+#left-column .section > ul li a:hover {
   background-color: @white;
   color: @orange;
 }
