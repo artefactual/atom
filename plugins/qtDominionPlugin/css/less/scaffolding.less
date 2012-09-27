@@ -247,27 +247,50 @@ strong { // used exclusively for FONDS, SERIES, etc labels
   background: none;
   border: none;
   font-family: @smallFontFamily;
-  font-size: 11px;
+  font-size: 12px;
+  .clearfix;
 }
 
 .breadcrumb li {
   text-shadow: none;
+  float: left;
+  max-width: 120px;
+  margin-right: 16px;
+  position: relative;
 }
 
-.breadcrumb a:after {
+.breadcrumb li:after {
   content: "›";
   margin: 0 4px 0 4px;
   color: @black;
   text-shadow: 1px 1px 0px @white;
+  position: absolute;
+  top: 1px;
+  right: -13px;
+}
+
+.breadcrumb li:last-child:after {
+  display: none;
+}
+
+.breadcrumb a,
+.breadcrumb span {
+  padding: 2px 4px;
+  display: block;
+  color: @white;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.breadcrumb a {
+  background-color: rgba(50, 50, 50, .2);
+  .border-radius(4px);
 }
 
 .breadcrumb a:hover {
   text-decoration: none;
-  color: @orange !important;
-}
-
-.breadcrumb .active {
-  color: @white;
+  color: @orange;
 }
 
 // Wells
