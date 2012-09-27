@@ -268,6 +268,10 @@ information_object:
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)"]
 
+    revision_history:
+      XPath:  "(archdesc/processinfo/p/date | archdesc/descgrp/processinfo/p/date)"
+      Method:  setRevisionHistory
+
     userestrict:
       XPath:   "(archdesc/userestrict | archdesc/descgrp/userestrict)"
       Method:  setReproductionConditions

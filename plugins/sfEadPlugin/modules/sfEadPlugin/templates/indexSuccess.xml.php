@@ -237,7 +237,7 @@ if (0 < count($variationNotes = $resource->getNotesByType(array('noteTypeId' => 
 <?php if (0 < strlen($value = $resource->getArchivalHistory(array('cultureFallback' => true)))): ?>
   <custodhist encodinganalog="3.2.3"><p><?php echo esc_specialchars($value) ?></p></custodhist><?php endif; ?>
 <?php if (0 < strlen($value = $resource->getRevisionHistory(array('cultureFallback' => true)))): ?>
-  <processinfo><p><?php echo esc_specialchars($value) ?></p></processinfo><?php endif; ?>
+  <processinfo><p><date><?php echo esc_specialchars($value) ?></date></p></processinfo><?php endif; ?>
 <?php if (0 < strlen($value = $resource->getLocationOfOriginals(array('cultureFallback' => true)))): ?>
   <originalsloc encodinganalog="3.5.1"><p><?php echo esc_specialchars($value) ?></p></originalsloc><?php endif; ?>
 <?php if (0 < strlen($value = $resource->getLocationOfCopies(array('cultureFallback' => true)))): ?>
@@ -385,7 +385,7 @@ if (0 < count($variationNotes = $resource->getNotesByType(array('noteTypeId' => 
       <custodhist encodinganalog="3.2.3"><p><?php echo esc_specialchars($value) ?></p></custodhist>
 <?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getRevisionHistory(array('cultureFallback' => true)))): ?>
-    <processinfo><p><?php echo esc_specialchars($value) ?></p></processinfo>
+    <processinfo><p><date><?php echo esc_specialchars($value) ?></date></p></processinfo>
 <?php endif; ?>
 <?php if (0 < count($archivistsNotes = $descendant->getNotesByType(array('noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)))): ?><?php foreach ($archivistsNotes as $note): ?><processinfo><p><?php echo esc_specialchars($note) ?></p></processinfo><?php endforeach; ?>
 <?php endif; ?>
