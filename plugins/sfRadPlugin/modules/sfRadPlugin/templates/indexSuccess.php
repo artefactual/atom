@@ -360,7 +360,6 @@
         <section>
           <h4>How to access this content?</h4>
           <div><a href="#">Contact the archivist at Vancouver Maritime Museum Library</a></div>
-          <div><a href="#" class="widebtn">Send this page</a></div>
         </section>
 
         <section>
