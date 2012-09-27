@@ -21,6 +21,7 @@
   overflow: auto;
   overflow-x: hidden;
   font-family: @smallFontFamily;
+  border-top: 1px solid @white;
 }
 
 #treeview ul,
@@ -54,8 +55,15 @@
   cursor: pointer;
 }
 
+#treeview .back,
+#treeview .ancestor,
 #treeview .more {
   background-color: transparent;
+}
+
+#treeview .back,
+#treeview .ancestor {
+  border-bottom: 1px solid @white;
 }
 
 #treeview .expand,
