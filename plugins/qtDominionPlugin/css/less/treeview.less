@@ -17,11 +17,10 @@
 
 #treeview {
   max-height: 480px;
-  margin-bottom: 10px;
+  margin: @baseLineHeight*2 0 0 0;
   overflow: auto;
   overflow-x: hidden;
   font-family: @smallFontFamily;
-  border-top: 1px solid @white;
 }
 
 #treeview ul,
@@ -59,6 +58,10 @@
 #treeview .ancestor,
 #treeview .more {
   background-color: transparent;
+}
+
+#treeview .back {
+  border-top: 1px solid black;
 }
 
 #treeview .back,
