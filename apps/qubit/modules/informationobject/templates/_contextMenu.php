@@ -12,10 +12,11 @@
 
   <?php echo get_component('informationobject', 'treeView') ?>
 
-  <?php echo get_component('informationobject', 'creator', array('resource' => $resource)) ?>
+  <?php // echo get_component('informationobject', 'creator', array('resource' => $resource)) ?>
 
-  <?php echo get_component('digitalobject', 'imageflow', array('resource' => $resource)) ?>
+  <?php // echo get_component('digitalobject', 'imageflow', array('resource' => $resource)) ?>
 
+  <?php if (false): ?>
   <div>
     <h4>
       <?php if (isset($resource->getCollectionRoot()->levelOfDescription)): ?>
@@ -25,6 +26,7 @@
       <?php endif; ?>
     </h4>
   </div>
+  <?php endif; ?>
 
   <div class="section">
     <h3><?php echo __('Import') ?></h3>
