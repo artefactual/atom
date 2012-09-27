@@ -22,7 +22,7 @@
 
     <ul class="breadcrumb">
       <li><?php echo link_to(__('Institutions'), array('module' => 'repository', 'action' => 'browse')) ?></li>
-      <li class="active"><?php echo render_title($resource) ?></li>
+      <li><span><?php echo render_title($resource) ?></span></li>
     </ul>
 
     <!--
