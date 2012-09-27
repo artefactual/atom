@@ -40,13 +40,13 @@
 
     <?php echo include_partial('default/breadcrumb', array('resource' => $resource, 'objects' => $resource->getAncestors()->andSelf()->orderBy('lft'))) ?>
 
-    <?php if (0 < count($resource->digitalObjects)): ?>
-      <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjects[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
-    <?php endif; ?>
-
     <div class="row">
 
       <div class="span7" id="content">
+
+        <?php if (0 < count($resource->digitalObjects)): ?>
+          <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjects[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
+        <?php endif; ?>
 
         <div class="section" id="titleAndStatementOfResponsibilityArea">
 
