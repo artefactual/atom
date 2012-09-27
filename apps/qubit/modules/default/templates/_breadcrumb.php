@@ -1,15 +1,17 @@
 <div id="breadcrumb">
 
-  <h2 class="element-invisible"><?php echo __('You are here') ?></h2>
-
   <div class="content">
-    <ol>
+    <ul class="breadcrumb">
       <?php foreach ($objects as $object): ?>
         <?php if (isset($object->parent)): // FIXME Implement something like ->slice(1) or [1:] ?>
-          <li><?php echo link_to(render_title($object), array($object, 'module' => 'informationobject')) ?></li>
+          <?php if (isset($resource) && $object == $resource): ?>
+            <li class="active"><?php echo render_title($object) ?></li>
+          <?php else: ?>
+            <li><?php echo link_to(render_title($object), array($object, 'module' => 'informationobject')) ?></li>
+          <?php endif; ?>
         <?php endif; ?>
       <?php endforeach; ?>
-    </ol>
+    </ul>
   </div>
 
 </div>

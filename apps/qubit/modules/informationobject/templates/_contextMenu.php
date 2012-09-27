@@ -2,11 +2,13 @@
 
   <?php if (sfConfig::get('app_multi_repository') && null !== $repository = $resource->getRepository(array('inherit' => true))): ?>
     <div class="logo">
-      <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$repository->slug.'/conf/logo.png')): ?>
-        <?php echo image_tag('/uploads/r/'.$repository->slug.'/conf/logo.png') ?>
-      <?php else: ?>
-        <h2><?php echo render_title($repository) ?></h2>
-      <?php endif; ?>
+      <a href="<?php echo url_for(array($repository, 'module' => 'repository')) ?>">
+        <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$repository->slug.'/conf/logo.png')): ?>
+          <?php echo image_tag('/uploads/r/'.$repository->slug.'/conf/logo.png') ?>
+        <?php else: ?>
+          <h2><?php echo render_title($repository) ?></h2>
+        <?php endif; ?>
+      </a>
     </div>
   <?php endif; ?>
 
@@ -31,7 +33,7 @@
   <div class="section">
     <h3><?php echo __('Import') ?></h3>
     <div class="content">
-      <ul class="clearfix">
+      <ul>
         <li><?php echo link_to(__('XML'), array($resource, 'module' => 'object', 'action' => 'importSelect', 'type' => 'xml')) ?></li>
         <li><?php echo link_to(__('CSV'), array($resource, 'module' => 'object', 'action' => 'importSelect', 'type' => 'csv')) ?></li>
       </ul>
