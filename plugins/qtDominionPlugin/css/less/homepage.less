@@ -170,22 +170,41 @@
   margin-top: 0;
 }
 
-@media (max-width: 768px) {
+// Responsive deisgn
+
+@media (max-width: 767px) {
 
   #homepagehero {
     background: none;
     padding-top: 20px;
-    margin-left: 20px;
   }
 
   #homepagehero #intro {
     .hide();
   }
 
+  #homepagehero #mainnav ul {
+    background-color: rgba(50, 50, 50, .3);
+    .border-radius(4px);
+  }
+
+  #homepagehero #mainnav li {
+    margin: 0;
+  }
+
+  #homepagehero #mainnav li:hover a {
+    background-color: rgba(255, 255, 255, .4);
+  }
+
+  #homepagehero #mainnav a {
+    padding: 6px 8px;
+    display: block;
+  }
+
   #homepage {
+    margin-top: -20px;
+    padding-top: 20px;
     border-top: 1px solid @white;
-    margin-top: -40px;
-    padding-top: 30px;
   }
 
   #homepage > div:first-child {
