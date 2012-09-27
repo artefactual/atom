@@ -20,10 +20,6 @@
   <?php endif; ?>
 
 
-  <?php if (0 < count($resource->digitalObjects)): ?>
-    <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjects[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
-  <?php endif; ?>
-
   -->
 
   <div id="main-column" class="span9 offset3">
@@ -42,11 +38,11 @@
     <?php endif; ?>
     -->
 
-    <ul class="breadcrumb">
-      <li><a href="#">Breadcumb</a></li>
-      <li><a href="#">Breadcumb</a></li>
-      <li><a href="#">Breadcumb</a></li>
-    </ul>
+    <?php echo include_partial('default/breadcrumb', array('resource' => $resource, 'objects' => $resource->getAncestors()->andSelf()->orderBy('lft'))) ?>
+
+    <?php if (0 < count($resource->digitalObjects)): ?>
+      <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjects[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
+    <?php endif; ?>
 
     <div class="row">
 
