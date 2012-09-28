@@ -98,10 +98,6 @@
   font-size: smaller;
 }
 
-#right-column section {
-  margin-bottom: @baseLineHeight;
-}
-
 #right-column h3 {
   font-style: oblique;
 }
@@ -111,8 +107,21 @@
   margin-right: 0;
 }
 
-#right-column #primary-contact .btn {
-  margin-top: 6px;
+#right-column ul {
+  margin-left: 0;
+  list-style: none;
+}
+
+#right-column .btn {
+  margin-top: 4px;
+}
+
+#right-column section {
+  margin-bottom: @baseLineHeight;
+}
+
+#right-column section > .field > h3 {
+  display: none;
 }
 
 // Content
@@ -362,8 +371,9 @@
 }
 
 // Contact information
+// Scope: #content, .vcard is also used in .modal
 
-.vcard {
+#content .vcard {
   margin-left: 0 !important;
   margin-bottom: @baseLineHeight;
   padding: 0 !important;
@@ -374,7 +384,7 @@
   .box-shadow(@shadow);
 }
 
-.vcard > h3 {
+#content .vcard > h3 {
   font-size: 12px;
   line-height: 20px;
   margin: 0 0 0 0;
@@ -384,11 +394,11 @@
   .pull-right;
 }
 
-.vcard > h3 .type {
+#content .vcard > h3 .type {
   text-transform: lowercase;
 }
 
-.vcard .agent {
+#content .vcard .agent {
   padding-left: 8px;
   font-weight: bold;
   color: @grayDark;
@@ -398,14 +408,41 @@
   min-height: 20px;
 }
 
-.vcard .field.adr {
+#content .vcard .field.adr {
 }
 
-.vcard .field.tel {
+#content .vcard .field.tel {
 }
 
-.vcard .field h3 {
+#content .vcard .field h3 {
   border-right: 1px solid @grayDark;
+}
+
+// Contact information under .modal
+
+.modal-body > .field {
+  margin-bottom: @baseLineHeight;
+}
+
+.modal .vcard div {
+  margin: 0;
+  line-height: 1.3em;
+  font-size: 14px;
+}
+
+.modal .vcard .agent {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: @baseLineHeight/2;
+  background-color: @grayLighter;
+  padding: 4px 8px;
+  .box-shadow(1px 1px 1px rgba(25, 25, 25, .3));
+}
+
+.modal .vcard > h3,
+.modal .vcard .field > h3,
+.modal .vcard .adr > h3 {
+  display: none;
 }
 
 // Digital object reference
