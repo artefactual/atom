@@ -12,7 +12,7 @@
 
     <?php if (!empty($contactInformation->contactPerson)): ?>
       <div class="agent">
-        <?php echo render_value($contactPerson) ?>
+        <?php echo render_value($contactInformation->contactPerson) ?>
       </div>
     <?php endif; ?>
 
