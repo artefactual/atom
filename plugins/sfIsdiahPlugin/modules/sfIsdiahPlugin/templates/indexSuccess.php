@@ -25,7 +25,6 @@
       <li><span><?php echo render_title($resource) ?></span></li>
     </ul>
 
-    <!--
     <?php if (isset($errorSchema)): ?>
       <div class="alert alert-info">
         <a class="close" data-dismiss="alert" href="#">×</a>
@@ -37,14 +36,11 @@
         </ul>
       </div>
     <?php endif; ?>
-    -->
 
     <?php if (isset($latitude) && isset($longitude) && null !== $key = sfConfig::get('app_google_api_key')): ?>
       <div class="row">
         <div class="span7">
           <div id="front-map" class="simple-map" data-key="<?php echo $key ?>" data-latitude="<?php echo $latitude ?>" data-longitude="<?php echo $longitude ?>"></div>
-          <?php // echo image_tag(sprintf('http://maps.googleapis.com/maps/api/staticmap?zoom=16&size=720x180&maptype=roadmap&sensor=false&markers=color:red|label:S|%s,%s', $latitude, $longitude)) ?>
-          <?php // echo image_tag(sprintf('http://ojw.dev.openstreetmap.org/StaticMap/?lat=%s&lon=%s&z=10&w=720&h=200&mode=Export&show=1', $latitude, $longitude)) ?>
         </div>
       </div>
     <?php endif; ?>
