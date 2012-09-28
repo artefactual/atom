@@ -1,5 +1,5 @@
-<div class="section">
-  <h3><?php echo __('Subject of') ?></h3>
+<section>
+  <h4><?php echo __('Subject of') ?></h4>
   <div class="content">
     <ul>
       <?php foreach ($subjectInfoObjects as $item): ?>
@@ -7,11 +7,11 @@
       <?php endforeach; ?>
     </ul>
   </div>
-</div>
+</section>
 
 <?php foreach ($relatedInfoObjects as $role => $informationObjects): ?>
-  <div class="section">
-    <h3><?php echo __('%1% of', array('%1%' => $role)) ?></h3>
+  <section>
+    <h4><?php echo __('%1% of', array('%1%' => $role)) ?></h4>
     <div class="content">
       <ul>
         <?php foreach ($informationObjects as $informationObject): ?>
@@ -19,7 +19,7 @@
         <?php endforeach; ?>
       </ul>
     </div>
-  </div>
+  </section>
 <?php endforeach; ?>
 
 <?php echo get_partial('actor/format', array('resource' => $resource)) ?>

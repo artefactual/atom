@@ -1,21 +1,14 @@
 <div class="row">
 
-  <div class="span3" id="left-column">
-
-    <?php include_component('actor', 'contextMenu') ?>
-
-  </div>
-
-  <div class="span9" id="main-column">
+  <div class="span9 offset3">
 
     <h1><?php echo link_to_if(QubitAcl::check($resource, 'update'), render_title($resource), array($resource, 'module' => 'actor', 'action' => 'edit'), array('title' => __('Edit authority record'))) ?></h1>
 
     <ul class="breadcrumb">
       <li><?php echo link_to(__('People and Organizations'), array('module' => 'actor', 'action' => 'browse')) ?></li>
-      <li class="active"><?php echo render_title($resource) ?></li>
+      <li><span><?php echo render_title($resource) ?></span></li>
     </ul>
 
-    <!--
     <?php if (isset($errorSchema)): ?>
       <div class="messages error">
         <ul>
@@ -25,7 +18,20 @@
         </ul>
       </div>
     <?php endif; ?>
-    -->
+
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="span3" id="right-column">
+
+    <?php include_component('actor', 'contextMenu') ?>
+
+  </div>
+
+  <div class="span9" id="main-column">
 
     <div class="row">
 

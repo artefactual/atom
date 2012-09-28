@@ -10,9 +10,11 @@
       </span>
     </h3>
 
-    <div class="agent">
-      <?php echo render_value($contactInformation->contactPerson) ?>
-    </div>
+    <?php if (!empty($contactInformation->contactPerson)): ?>
+      <div class="agent">
+        <?php echo render_value($contactPerson) ?>
+      </div>
+    <?php endif; ?>
 
     <div class="field adr">
 
