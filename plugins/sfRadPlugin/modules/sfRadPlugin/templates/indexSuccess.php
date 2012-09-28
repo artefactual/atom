@@ -6,27 +6,10 @@
 
   </div>
 
-  <!--
-
-  <?php echo get_partial('informationobject/printPreviewBar', array('resource' => $resource)) ?>
-
-  <h1 class="label printable">
-    <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_title($rad), array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('title' => __('Edit archival description'))) ?>
-    <?php echo get_partial('informationobject/actionIcons') ?>
-  </h1>
-
-  <?php if (QubitInformationObject::ROOT_ID != $resource->parentId): ?>
-  <h1 class="part-of"><?php echo __('Part of %1%', array('%1%' => $resource->getCollectionRoot()->__toString())) ?></h1>
-  <?php endif; ?>
-
-
-  -->
-
   <div id="main-column" class="span9 offset3">
 
     <h1><?php echo render_title($rad) ?> <strong><?php echo $resource->levelOfDescription ?></strong></h1>
 
-    <!--
     <?php if (isset($errorSchema)): ?>
       <div class="messages error">
         <ul>
@@ -36,7 +19,14 @@
         </ul>
       </div>
     <?php endif; ?>
-    -->
+
+    <?php if (false): ?>
+      <?php echo get_partial('informationobject/printPreviewBar', array('resource' => $resource)) ?>
+      <h1 class="label printable">
+        <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_title($rad), array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('title' => __('Edit archival description'))) ?>
+        <?php echo get_partial('informationobject/actionIcons') ?>
+      </h1>
+    <?php endif; ?>
 
     <?php if (QubitInformationObject::ROOT_ID != $resource->parentId): ?>
       <?php echo include_partial('default/breadcrumb', array('resource' => $resource, 'objects' => $resource->getAncestors()->andSelf()->orderBy('lft'))) ?>
@@ -357,34 +347,47 @@
 
       <div class="span2" id="right-column">
 
+        <?php if (null !== ($contactInformations = $resource->repository->contactInformations)): ?>
+          <section>
+
+            <h4><?php echo __('How to access to this content?') ?></h4>
+
+            <div class="content">
+              <?php echo __('Contact the archivist at %1%', array('%1%' => $resource->repository->__toString())) ?>
+              <a href="#contact-modal" class="btn btn-small" role="button" data-target="#contact-modal" data-backdrop="true" data-toggle="modal"><?php echo __('Show details') ?></a>
+            </div>
+
+            <div class="modal hide fade" id="contact-modal" tabindex="-1" role="dialog" aria-labelledby="contact-modal-label" aria-hidden="true">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 id="contact-modal-label"><?php echo __('How to access to this content?') ?></h3>
+              </div>
+              <div class="modal-body">
+               <?php foreach ($contactInformations as $contactItem): ?>
+                  <?php echo get_partial('contactinformation/contactInformation', array('contactInformation' => $contactItem)) ?>
+                <?php endforeach; ?>
+              </div>
+              <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo __('Close') ?></button>
+              </div>
+            </div>
+
+          </section>
+        <?php endif; ?>
+
         <section>
-          <h4>How to access this content?</h4>
-          <div><a href="#">Contact the archivist at Vancouver Maritime Museum Library</a></div>
+          <h4><?php echo __('Related subjects') ?></h4>
+          <?php echo get_partial('informationobject/subjectAccessPoints', array('resource' => $resource)) ?>
         </section>
 
         <section>
-          <h4>Related Subjects</h4>
-          <ul class="unstyled">
-            <li><a href="#">Agriculture</a></li>
-            <li><a href="#">Arts &amp; Culture</a></li>
-            <li><a href="#">Business</a></li>
-          </ul>
+          <h4><?php echo __('Related people and organizations') ?></h4>
+          <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource)) ?>
         </section>
 
         <section>
-          <h4>Related People &amp; Organizations</h4>
-          <ul class="unstyled">
-            <li><a href="#">Commodore J.T. Kirk</a></li>
-            <li><a href="#">Mike Michaels</a></li>
-          </ul>
-        </section>
-
-        <section>
-          <h4>Related Places</h4>
-          <ul class="unstyled">
-            <li><a href="#">Comox, BC</a></li>
-            <li><a href="#">Windsor, ON</a></li>
-          </ul>
+          <h4><?php echo __('Related places') ?></h4>
+          <?php echo get_partial('informationobject/placeAccessPoints', array('resource' => $resource)) ?>
         </section>
 
         <section>
