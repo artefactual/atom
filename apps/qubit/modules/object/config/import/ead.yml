@@ -24,7 +24,7 @@
 # @version svn: $Id:$
 
 information_object:
-  XPath:  "."
+  XPath:  "/ead"
   Object:  InformationObject
   # define an axis for the parent object; if no node is matched here, the object is rooted if possible
   Parent:  "ancestor::archdesc | ancestor::c | ancestor::c01 | ancestor::c02 | ancestor::c03 | ancestor::c04 | ancestor::c05 | ancestor::c06 | ancestor::c07 | ancestor::c08 | ancestor::c09 | ancestor::c10 | ancestor::c11 | ancestor::c12"
