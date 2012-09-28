@@ -1,6 +1,6 @@
 <section>
 
-  <h3><?php echo sfConfig::get('app_ui_label_physicalobject') ?></h3>
+  <h4><?php echo sfConfig::get('app_ui_label_physicalobject') ?></h4>
 
   <div class="content">
     <ul>
