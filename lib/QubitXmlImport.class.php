@@ -263,62 +263,68 @@ class QubitXmlImport
 
         // set the rootObject to use for initial display in successful import
         if (!$this->rootObject)
-        {
+        {   
           $this->rootObject = $currentObject;
-        }
+        }   
 
-        // if a parent path is specified, try to parent the node
-        if (empty($mapping['Parent']))
-        {
-          $parentNodes = new DOMNodeList;
-        }
-        else
-        {
-          $parentNodes = $importDOM->xpath->query('('.$mapping['Parent'].')', $domNode);
-        }
-
-        if ($parentNodes->length > 0)
-        {
-          // parent ID comes from last node in the list because XPath forces forward document order
-          $parentId = $parentNodes->item($parentNodes->length - 1)->getAttribute('xml:id');
-          unset($parentNodes);
-
-          if (!empty($parentId) && is_callable(array($currentObject, 'setParentId')))
-          {
-            $currentObject->parentId = $parentId;
-          }
-        }
-        else
-        {
-          // orphaned object, set root if possible
-          if (isset($this->parent))
-          {
-            $currentObject->parentId = $this->parent->id;
-          }
-          else if (is_callable(array($currentObject, 'setRoot')))
-          {
-            $currentObject->setRoot();
-          }
-        }
-
-        // go through methods and populate properties
-        $this->processMethods($importDOM, $mapping['Methods'], $currentObject);
-
-        // make sure we have a publication status set before indexing
-        if ($currentObject instanceof QubitInformationObject && count($currentObject->statuss) == 0)
-        {
-          $currentObject->setPublicationStatus(sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID));
-        }
-
-        // save the object after it's fully-populated
-        $currentObject->save();
-
-        // write the ID onto the current XML node for tracking
-        $domNode->setAttribute('xml:id', $currentObject->id);
+        // use DOM to populate object
+        $this->populateObject($domNode, $importDOM, $mapping, $currentObject);
       }
     }
 
     return $this;
+  }
+
+  private function populateObject(&$domNode, &$importDOM, &$mapping, &$currentObject)
+  {
+    // if a parent path is specified, try to parent the node
+    if (empty($mapping['Parent']))
+    {
+      $parentNodes = new DOMNodeList;
+    }
+    else
+    {
+      $parentNodes = $importDOM->xpath->query('('.$mapping['Parent'].')', $domNode);
+    }
+
+    if ($parentNodes->length > 0)
+    {
+      // parent ID comes from last node in the list because XPath forces forward document order
+      $parentId = $parentNodes->item($parentNodes->length - 1)->getAttribute('xml:id');
+      unset($parentNodes);
+
+      if (!empty($parentId) && is_callable(array($currentObject, 'setParentId')))
+      {
+        $currentObject->parentId = $parentId;
+      }
+    }
+    else
+    {
+      // orphaned object, set root if possible
+      if (isset($this->parent))
+      {
+        $currentObject->parentId = $this->parent->id;
+      }
+      else if (is_callable(array($currentObject, 'setRoot')))
+      {
+        $currentObject->setRoot();
+      }
+    }
+
+    // go through methods and populate properties
+    $this->processMethods($importDOM, $mapping['Methods'], $currentObject);
+
+    // make sure we have a publication status set before indexing
+    if ($currentObject instanceof QubitInformationObject && count($currentObject->statuss) == 0)
+    {
+      $currentObject->setPublicationStatus(sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID));
+    }
+
+    // save the object after it's fully-populated
+    $currentObject->save();
+
+    // write the ID onto the current XML node for tracking
+    $domNode->setAttribute('xml:id', $currentObject->id);
   }
 
   /*
