@@ -385,27 +385,27 @@ if (0 < count($variationNotes = $resource->getNotesByType(array('noteTypeId' => 
       <custodhist encodinganalog="3.2.3"><p><?php echo esc_specialchars($value) ?></p></custodhist>
 <?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getRevisionHistory(array('cultureFallback' => true)))): ?>
-    <processinfo><p><date><?php echo esc_specialchars($value) ?></date></p></processinfo>
+      <processinfo><p><date><?php echo esc_specialchars($value) ?></date></p></processinfo>
 <?php endif; ?>
 <?php if (0 < count($archivistsNotes = $descendant->getNotesByType(array('noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)))): ?><?php foreach ($archivistsNotes as $note): ?><processinfo><p><?php echo esc_specialchars($note) ?></p></processinfo><?php endforeach; ?>
 <?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getLocationOfOriginals(array('cultureFallback' => true)))): ?>
-    <originalsloc encodinganalog="3.5.1"><p><?php echo esc_specialchars($value) ?></p></originalsloc>
+      <originalsloc encodinganalog="3.5.1"><p><?php echo esc_specialchars($value) ?></p></originalsloc>
 <?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getLocationOfCopies(array('cultureFallback' => true)))): ?>
-    <altformavail encodinganalog="3.5.2"><p><?php echo esc_specialchars($value) ?></p></altformavail>
+      <altformavail encodinganalog="3.5.2"><p><?php echo esc_specialchars($value) ?></p></altformavail>
 <?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getRelatedUnitsOfDescription(array('cultureFallback' => true)))): ?>
-    <relatedmaterial encodinganalog="3.5.3"><p><?php echo esc_specialchars($value) ?></p></relatedmaterial>
+      <relatedmaterial encodinganalog="3.5.3"><p><?php echo esc_specialchars($value) ?></p></relatedmaterial>
 <?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getAccessConditions(array('cultureFallback' => true)))): ?>
-    <accessrestrict encodinganalog="3.4.1"><p><?php echo esc_specialchars($value) ?></p></accessrestrict>
+      <accessrestrict encodinganalog="3.4.1"><p><?php echo esc_specialchars($value) ?></p></accessrestrict>
 <?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getReproductionConditions(array('cultureFallback' => true)))): ?>
-    <userestrict encodinganalog="3.4.2"><p><?php echo esc_specialchars($value)  ?></p></userestrict>
+      <userestrict encodinganalog="3.4.2"><p><?php echo esc_specialchars($value)  ?></p></userestrict>
 <?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getFindingAids(array('cultureFallback' => true)))): ?>
-    <otherfindaid encodinganalog="3.4.5"><p><?php echo esc_specialchars($value) ?></p></otherfindaid>
+      <otherfindaid encodinganalog="3.4.5"><p><?php echo esc_specialchars($value) ?></p></otherfindaid>
 <?php endif; ?>
 <?php if (0 < count($publicationNotes = $descendant->getNotesByType(array('noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)))): ?><?php foreach ($publicationNotes as $note): ?><bibliography encodinganalog="3.5.4"><p><?php echo esc_specialchars($note) ?></p></bibliography><?php endforeach; ?>
 <?php endif; ?>
