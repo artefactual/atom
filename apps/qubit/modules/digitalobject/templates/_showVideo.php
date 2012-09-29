@@ -20,7 +20,7 @@
 
   <!-- link to download master -->
   <?php if ($link != null): ?>
-    <?php echo link_to(__('Download movie'), $link) ?>
+    <?php echo link_to(__('Download movie'), $link, array('class' => 'download')) ?>
   <?php endif; ?>
 
 <?php elseif (QubitTerm::THUMBNAIL_ID == $usageType): ?>

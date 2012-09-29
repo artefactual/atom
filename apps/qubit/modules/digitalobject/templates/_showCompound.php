@@ -16,7 +16,7 @@
     <?php if (SecurityPriviliges::editCredentials($sf_user, 'informationObject')): ?>
       <tr>
         <td colspan="2" class="download_link">
-          <?php echo link_to(__('Download %1%', array('%1%' => $resource)), public_path($resource->getFullPath())) ?>
+          <?php echo link_to(__('Download %1%', array('%1%' => $resource)), public_path($resource->getFullPath()), array('class' => 'download')) ?>
         </td>
       </tr>
     <?php endif; ?>

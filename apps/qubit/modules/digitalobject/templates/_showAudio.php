@@ -11,7 +11,7 @@
   <?php endif;?>
 
   <?php if (isset($link) && QubitAcl::check($resource->informationObject, 'readMaster')): ?>
-    <?php echo link_to(__('Download audio'), $link) ?>
+    <?php echo link_to(__('Download audio'), $link, array('class' => 'download')) ?>
   <?php endif; ?>
 
 <?php elseif (QubitTerm::THUMBNAIL_ID == $usageType): ?>
