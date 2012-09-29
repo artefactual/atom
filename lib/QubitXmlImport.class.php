@@ -149,11 +149,6 @@ class QubitXmlImport
         break;
     }
 
-    $variationNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
-      QubitTaxonomy::RAD_TITLE_NOTE_ID,
-      'Variations in title'
-    );
-
     $importMap = sfConfig::get('sf_app_module_dir').DIRECTORY_SEPARATOR.'object'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'import'.DIRECTORY_SEPARATOR.$importSchema.'.yml';
     if (!file_exists($importMap))
     {
@@ -450,6 +445,12 @@ class QubitXmlImport
                   }
                 }
               }
+
+              // dynamically pull value rather than use magic number
+              $variationNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
+                QubitTaxonomy::RAD_TITLE_NOTE_ID,
+                'Variations in title'
+              );
 
               // invoke the object and method defined in the schema map
               call_user_func_array(array( & $currentObject, $methodMap['Method']), $parameters);
