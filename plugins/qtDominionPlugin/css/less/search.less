@@ -15,35 +15,6 @@
  * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Search box in .nav-tabs
-
-.nav-tabs li.search {
-  .pull-right;
-}
-
-.nav-tabs li.search form {
-  margin: 0;
-}
-
-.nav-tabs li.search .input-append {
-  margin: 0;
-}
-
-.nav-tabs li.search input[type=text] {
-}
-
-.nav-tabs li.search input[type=submit] {
-  .hide-text;
-  background-image: url(../../../../vendor/bootstrap/img/glyphicons-halflings.png);
-  background-repeat: no-repeat;
-  display: inline-block;
-  .square(14px);
-  margin-top: 1px;
-  line-height: 14px;
-  vertical-align: text-top;
-  .icon-search;
-}
-
 // Search results
 
 #search-results #phone-filter {
@@ -244,9 +215,108 @@
 
 }
 
-@media (max-width: 768px) {
+// Search box in .nav-tabs
 
-  #search-results {
+.nav-tabs li.search {
+  .pull-right;
+}
+
+.nav-tabs li.search form {
+  margin: 0;
+}
+
+.nav-tabs li.search .input-append {
+  margin: 0;
+}
+
+.nav-tabs li.search input[type=text] {
+}
+
+.nav-tabs li.search input[type=submit] {
+  .hide-text;
+  background-image: url(../../../../vendor/bootstrap/img/glyphicons-halflings.png);
+  background-repeat: no-repeat;
+  display: inline-block;
+  .square(14px);
+  margin-top: 1px;
+  line-height: 14px;
+  vertical-align: text-top;
+  .icon-search;
+}
+
+// Advanced search
+
+#advanced-search #content {
+  overflow: auto;
+}
+
+#advanced-search p.headline {
+  font-size: 18px;
+  margin: 20px;
+}
+
+#advanced-search .criteria {
+  margin: 10px;
+}
+
+#advanced-search .criterion {
+  margin: 5px inherit;
+  .well();
+}
+
+#advanced-search .criterion span {
+  color: @white;
+  margin: auto 10px;
+  display: inline-block;
+}
+
+#advanced-search .criterion .in {
+  display: inline;
+}
+
+#advanced-search .actions {
+  margin: 20px;
+}
+
+// Advanced search filters
+
+#advanced-search-filters {
+  background-color: @grayLighter;
+  padding: 10px 0 14px 0;
+  border-top: 1px solid @grayLight;
+  border-bottom: 1px solid @grayLight;
+  @shadow: inset 0  4px 4px -4px @grayLight, inset 0 -4px 4px -4px @grayLight;
+  .box-shadow(@shadow);
+}
+
+#advanced-search-filters select {
+  width: 100%;
+  .box-sizing(border-box);
+}
+
+// Horizontal top facet
+
+.top-options {
+  .pull-right;
+  margin-top: 24px;
+}
+
+.top-options a {
+  border: 1px solid #666;
+}
+
+// Responsive design
+
+@media (max-width: 767px) {
+
+  .in {
+
+    display: block !important;
+    margin-top: 1em;
+
+  }
+
+#search-results {
 
     #top-facet {
 
@@ -319,115 +389,4 @@
 
   }
 
-}
-
-// Advanced search
-
-#advanced-search #content {
-  overflow: auto;
-}
-
-#advanced-search p.headline {
-  font-size: 18px;
-  margin: 20px;
-}
-
-#advanced-search .criteria {
-  margin: 10px;
-}
-
-#advanced-search .criterion {
-  margin: 5px inherit;
-  .well();
-}
-
-#advanced-search .criterion span {
-  color: @white;
-  margin: auto 10px;
-  display: inline-block;
-}
-
-#advanced-search .criterion .in {
-  display: inline;
-}
-
-#advanced-search .actions {
-  margin: 20px;
-}
-
-#advanced-search #filters {
-}
-
-#advanced-search #filters .row-fluid .left {
-}
-
-#advanced-search #filters .row-fluid .right {
-}
-
-#advanced-search #filters select {
-}
-
-#advanced-search {
-
-  #filters {
-
-    background-color: @grayLighter;
-    padding: 10px 0 14px 0;
-    border-top: 1px solid @grayLight;
-    border-bottom: 1px solid @grayLight;
-    @shadow: inset 0  4px 4px -4px @grayLight, inset 0 -4px 4px -4px @grayLight;
-    .box-shadow(@shadow);
-
-    .row-fluid {
-
-      .left {
-
-        padding: 10px 10px 0 20px;
-
-      }
-
-      .right {
-
-        padding: 10px 20px 0 0;
-
-      }
-
-    }
-
-    select {
-
-      width: 100%;
-      .box-sizing(border-box);
-
-    }
-
-  }
-
-}
-
-@media (max-width: 767px) {
-
-  .in {
-
-    display: block !important;
-    margin-top: 1em;
-
-  }
-
-  .row-fluid .left,
-  .row-fluid .right {
-
-    padding: 0 20px !important;
-
-  }
-
-}
-
-.top-options {
-  .pull-right;
-  margin-top: 24px;
-}
-
-.top-options a {
-  border: 1px solid #666;
 }
