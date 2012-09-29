@@ -156,6 +156,11 @@ information_object:
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $variationNoteTypeId)"]
 
+    publisher_series_note:
+      XPath:  "odd[@type='publisherseries']/p"
+      Method:  addProperty
+      Parameters: ["noteOnPublishersSeries", $nodeValue]
+
     dates:
       XPath:  "did/unitdate"
       Method: setDates

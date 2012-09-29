@@ -209,6 +209,9 @@ if (0 < count($variationNotes = $resource->getNotesByType(array('noteTypeId' => 
   <odd type="variation"><p><?php echo esc_specialchars($note) ?></p></odd>
 <?php endforeach; ?>
 <?php endif; ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('noteOnPublishersSeries')->__toString())): ?>
+    <odd type='publisherseries'><p><?php echo esc_specialchars($value) ?></p></odd>
+<?php endif; ?>
 <?php foreach ($resource->getCreators() as $creator): ?>
 <?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
   <bioghist encodinganalog="3.2.2"><p><?php echo esc_specialchars($value) ?></p></bioghist><?php endif; ?><?php endforeach; ?>
