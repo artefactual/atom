@@ -131,6 +131,11 @@ information_object:
       Method:  addProperty
       Parameters: ["statementOfScaleCartographic", $nodeValue]
 
+    projection:
+      XPath:   "did/materialspec[@type='projection']"
+      Method:  addProperty
+      Parameters: ["statementOfProjection", $nodeValue]
+
     title_variation_notes:
       XPath:  "odd[@type='variation']/p"
       Method: importEadNote
