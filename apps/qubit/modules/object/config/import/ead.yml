@@ -146,6 +146,11 @@ information_object:
       Method:  addProperty
       Parameters: ["statementOfScaleArchitectural", $nodeValue]
 
+    philatelic:
+      XPath:   "did/materialspec[@type='philatelic']"
+      Method:  addProperty
+      Parameters: ["issuingJurisdictionAndDenomination", $nodeValue]
+
     title_variation_notes:
       XPath:  "odd[@type='variation']/p"
       Method: importEadNote
