@@ -34,9 +34,9 @@
   border-top: 0;
 }
 
-// Description updates form
+// Aside form
 
-#search-updates-form {
+.aside-form {
   background-color: none;
   background-color: rgba(0, 0, 0, .2);
   padding: 16px 16px 8px 16px;
@@ -45,25 +45,31 @@
   .box-shadow(1px 1px 1px rgba(25, 25, 25, .4));
 }
 
-#search-updates-form,
-#search-updates-form * {
+.aside-form h4 {
+  margin-top: -4px;
+  margin-bottom: @baseLineHeight;
+}
+
+.aside-form,
+.aside-form input,
+.aside-form select {
   font-family: @smallFontFamily;
   font-size: 13px;
 }
 
-#search-updates-form select {
+.aside-form select {
   width: 100%;
   .box-sizing(border-box);
 }
 
-#search-updates-form .form-item > label {
-  font-weight: bold;
+.aside-form .form-item > label {
+  font-weight: normal;
 }
 
-#search-updates-form .btn {
+.aside-form .btn {
   border: 1px solid @grayDark;
 }
 
-#search-updates-form .radio {
+.aside-form .radio {
   padding-top: 0;
 }

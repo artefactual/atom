@@ -7,7 +7,7 @@
 
   <div class="span3" id="left-column">
 
-    <div class="section" id="search-updates-form">
+    <div class="section aside-form">
 
       <?php echo $form->renderFormTag(url_for(array('module' => 'search', 'action' => 'updates')), array('method' => 'get')) ?>
 
