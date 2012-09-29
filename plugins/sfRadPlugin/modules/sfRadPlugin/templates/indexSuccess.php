@@ -347,13 +347,14 @@
 
       <div class="span2" id="right-column">
 
-        <?php if (null !== ($contactInformations = $resource->repository->contactInformations)): ?>
+        <?php $repository = $resource->getRepository(array('inherit' => true)) ?>
+        <?php if (null !== $repository && null !== ($contactInformations = $repository->contactInformations)): ?>
           <section>
 
             <h4><?php echo __('How to access to this content?') ?></h4>
 
             <div class="content">
-              <?php echo __('Contact the archivist at %1%', array('%1%' => $resource->repository->__toString())) ?>
+              <?php echo __('Contact the archivist at %1%', array('%1%' => $repository->__toString())) ?>
               <a href="#contact-modal" class="btn btn-small" role="button" data-target="#contact-modal" data-backdrop="true" data-toggle="modal"><?php echo __('Show details') ?></a>
             </div>
 
