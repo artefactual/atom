@@ -189,6 +189,9 @@
 <?php if (0 < strlen($value = $resource->getPropertyByName('statementOfProjection')->__toString())): ?>
     <materialspec type='projection'><?php echo esc_specialchars($value) ?></materialspec>
 <?php endif; ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('statementOfCoordinates')->__toString())): ?>
+    <materialspec type='coordinates'><?php echo esc_specialchars($value) ?></materialspec>
+<?php endif; ?>
   </did>
 <?php
 $variationNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
