@@ -126,6 +126,11 @@ information_object:
       Method: addProperty
       Parameters: ["editionStatementOfResponsibility", $nodeValue]
 
+    cartographic:
+      XPath:   "did/materialspec[@type='cartographic']"
+      Method:  addProperty
+      Parameters: ["statementOfScaleCartographic", $nodeValue]
+
     title_variation_notes:
       XPath:  "odd[@type='variation']/p"
       Method: importEadNote
