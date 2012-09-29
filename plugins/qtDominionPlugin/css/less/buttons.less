@@ -80,3 +80,14 @@
 .btn-group .btn.active span {
   background-color: @orange;
 }
+
+// I can't remember why I am using the properties above
+// But it breaks .caret, temporary solution below:
+
+.btn-group .btn .caret {
+  padding: 0;
+}
+
+.btn-group .btn:hover .caret {
+  background: none;
+}
