@@ -141,6 +141,11 @@ information_object:
       Method:  addProperty
       Parameters: ["statementOfCoordinates", $nodeValue]
 
+    architectural:
+      XPath:   "did/materialspec[@type='architectural']"
+      Method:  addProperty
+      Parameters: ["statementOfScaleArchitectural", $nodeValue]
+
     title_variation_notes:
       XPath:  "odd[@type='variation']/p"
       Method: importEadNote
