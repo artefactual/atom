@@ -209,8 +209,18 @@ if (0 < count($variationNotes = $resource->getNotesByType(array('noteTypeId' => 
   <odd type="variation"><p><?php echo esc_specialchars($note) ?></p></odd>
 <?php endforeach; ?>
 <?php endif; ?>
+<?php
+$alphaNumericaDesignationsNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
+  QubitTaxonomy::RAD_NOTE_ID,
+  'Alpha-numeric designations'
+);
+if (0 < count($alphaNotes = $resource->getNotesByType(array('noteTypeId' => $alphaNumericaDesignationsNoteTypeId)))): ?>
+<?php foreach ($alphaNotes as $note): ?>
+  <odd type="alphanumericdesignation"><p><?php echo esc_specialchars($note) ?></p></odd>
+<?php endforeach; ?>
+<?php endif; ?>
 <?php if (0 < strlen($value = $resource->getPropertyByName('noteOnPublishersSeries')->__toString())): ?>
-    <odd type='publisherseries'><p><?php echo esc_specialchars($value) ?></p></odd>
+  <odd type='publisherseries'><p><?php echo esc_specialchars($value) ?></p></odd>
 <?php endif; ?>
 <?php foreach ($resource->getCreators() as $creator): ?>
 <?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>

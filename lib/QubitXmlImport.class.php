@@ -452,6 +452,11 @@ class QubitXmlImport
                 'Variations in title'
               );
 
+              $alphaNumericaDesignationsNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
+                QubitTaxonomy::RAD_NOTE_ID,
+                'Alpha-numeric designations'
+              );
+
               // invoke the object and method defined in the schema map
               call_user_func_array(array( & $currentObject, $methodMap['Method']), $parameters);
             }
