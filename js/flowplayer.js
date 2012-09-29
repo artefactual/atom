@@ -13,14 +13,17 @@
                 // Flash configuration
                 {
                   src: Qubit.relativeUrlRoot + '/vendor/flowplayer/flowplayer-3.1.5.swf',
-                  wmode: 'transparent'
+                  wmode: 'transparent',
+                  width: 320,
+                  height: 240
                 },
 
                 // Flowplayer configuration
                 {
                   clip:
                     {
-                      autoPlay: false
+                      autoPlay: false,
+                      scale: 'orig'
                     },
                   canvas:
                     {
