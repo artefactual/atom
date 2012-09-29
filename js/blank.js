@@ -6,7 +6,7 @@
           $('section, .section, .field', context)
             .filter(function ()
               {
-                return !$('input, #treeView, > .search-results, #imageflow, .institution', this).length
+                return !$('input, #treeView, > .search-results, #imageflow', this).length
                   && !jQuery.trim($(':not(h2, h2 *, h3, h3 *, h4, h4 *)', this)
                     .contents()
                     .filter(function ()
