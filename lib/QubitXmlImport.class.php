@@ -312,7 +312,7 @@ class QubitXmlImport
     }
 
     // go through methods and populate properties
-    $this->processMethods($importDOM, $mapping['Methods'], $currentObject);
+    $this->processMethods($domNode, $importDOM, $mapping['Methods'], $currentObject);
 
     // make sure we have a publication status set before indexing
     if ($currentObject instanceof QubitInformationObject && count($currentObject->statuss) == 0)
@@ -332,7 +332,7 @@ class QubitXmlImport
    *
    * @return  null
    */
-  private function processMethods(&$importDOM, $methods, &$currentObject)
+  private function processMethods(&$domNode, &$importDOM, $methods, &$currentObject)
   {
     // go through methods and populate properties
     foreach ($methods as $name => $methodMap)
