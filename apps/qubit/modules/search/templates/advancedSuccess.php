@@ -20,15 +20,63 @@
   </h1>
 
   <div class="row">
-    <div class="span12">
+
+    <div class="span3">
+
+      <div class="section aside-form">
+
+        <h4><?php echo __('Search filters') ?></h4>
+
+        <div class="filter">
+          <?php if (sfConfig::get('app_multi_repository')): ?>
+            <?php echo $form->repository
+              ->label(__('Repository'))
+              ->renderRow() ?>
+          <?php endif; ?>
+        </div>
+
+        <div class="filter">
+          <?php echo $form->materialType
+            ->label(__('General material designation'))
+            ->renderRow() ?>
+        </div>
+
+        <div class="filter">
+          <?php echo $form->mediaType
+            ->label(__('Media type'))
+            ->renderRow() ?>
+        </div>
+
+        <div class="filter">
+          <?php echo $form->hasDigitalObject
+            ->label(__('Digital object available'))
+            ->renderRow() ?>
+        </div>
+
+        <div class="filter">
+          <?php echo $form->levelOfDescription->renderRow() ?>
+        </div>
+
+        <div class="filter">
+          <?php echo $form->copyrightStatus
+            ->label(__('Copyright status'))
+            ->renderRow() ?>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="span9">
       <div id="content">
         <?php if ('print' != $sf_request->getParameter('media')): ?>
-          <?php echo get_partial('search/advancedSearch', array('form' => $form, 'action' => 'advanced', 'hasFilters' => $hasFilters)) ?>
+          <?php echo get_partial('search/advancedSearch', array('form' => $form, 'action' => 'advanced')) ?>
         <?php else: ?>
           <?php echo get_partial('search/printAdvancedSearchTerms', array('queryTerms' => $queryTerms)) ?>
         <?php endif; ?>
       </div>
     </div>
+
   </div>
 
   <?php if (isset($error)): ?>

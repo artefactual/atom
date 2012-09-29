@@ -31,10 +31,6 @@ class SearchIndexAction extends sfAction
       'places.id',
       'names.id');
 
-  protected function addField($name)
-  {
-  }
-
   protected function parseQuery()
   {
     // if querystring is empty, use match_all
@@ -127,16 +123,16 @@ class SearchIndexAction extends sfAction
     $query = $this->facetQuery($query);
 
     $query->setSort(array('_score' => 'desc', 'slug' => 'asc'));
-    $query->setLimit($request->limit);
+    $query->setLimit($this->request->limit);
 
-    if (!empty($request->page))
+    if (!empty($this->request->page))
     {
-      $query->setFrom(($request->page - 1) * $request->limit);
+      $query->setFrom(($this->request->page - 1) * $this->request->limit);
     }
 
-    if (isset($request->realm) && is_int($request->realm))
+    if (isset($this->request->realm) && is_int($this->request->realm))
     {
-      $query->setQuery(new Elastica_Query_Term(array('repository._id' => $request->realm)));
+      $query->setQuery(new Elastica_Query_Term(array('repository._id' => $this->request->realm)));
     }
 
     return $query;

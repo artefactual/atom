@@ -26,39 +26,8 @@ class SearchAdvancedAction extends SearchIndexAction
       'levelOfDescription',
       'materialType',
       'mediaType',
-      'repository',
-      'searchFields'
+      'repository'
     );
-
-  public function execute($request)
-  {
-    if ('print' == $request->getGetParameter('media'))
-    {
-      $this->getResponse()->addStylesheet('print-preview', 'last');
-    }
-
-    $this->form = new sfForm;
-    $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
-
-    foreach ($this::$NAMES as $name)
-    {
-      $this->addField($name);
-    }
-
-    $this->form->bind($request->getRequestParameters() + $request->getGetParameters() + $request->getPostParameters());
-
-    if ($this->form->isValid())
-    {
-      if (isset($request->searchFields))
-      {
-        $this->queryTerms = array();
-
-        // we are handling a search request
-        parent::execute($request);
-      }
-    }
-
-  }
 
   protected function addField($name)
   {
@@ -167,132 +136,177 @@ class SearchAdvancedAction extends SearchIndexAction
         $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
 
         break;
+    }
+  }
 
-      case 'searchFields':
+  protected function processField($field, $queryBool)
+  {
+    if (null === $value = $this->form->getValue($field->getName()))
+    {
+      return;
+    }
+
+    $this->hasFilters = true;
+
+    switch ($field->getName())
+    {
+      case 'copyrightStatus':
+        $query = new Elastica_Query_Term;
+        $query->setTerm('copyrightStatusId', $value);
+        $queryBool->addMust($query);
+        break;
+
+      case 'hasDigitalObject':
+        $query = new Elastica_Query_Term;
+        $query->setTerm('hasDigitalObject', $value);
+        $queryBool->addMust($query);
+
+        break;
+
+      case 'levelOfDescription':
+        $query = new Elastica_Query_Term;
+        $query->setTerm('levelOfDescriptionId', $value);
+        $queryBool->addMust($query);
+
+        break;
+
+      case 'materialType':
+        $query = new Elastica_Query_Term;
+        $query->setTerm('materialTypeId', $value);
+        $queryBool->addMust($query);
+
+        break;
+
+      case 'mediaType':
+        $query = new Elastica_Query_Term;
+        $query->setTerm('digitalObject.mediaTypeId', $value);
+        $queryBool->addMust($query);
+
+        break;
+
+      case 'repository':
+        $query = new Elastica_Query_Term;
+        $query->setTerm('repositoryId', $value);
+        $queryBool->addMust($query);
 
         break;
     }
   }
 
-  public function parseQuery()
+  protected function parseQuery()
   {
-    QubitSearch::getInstance();
-    $queryBuilt = new Zend_Search_Lucene_Search_Query_Boolean();
+    $queryBool = new Elastica_Query_Bool();
 
-    foreach ($this->request->searchFields as $searchField)
+    if (!isset($this->request->searchFields))
     {
-      // if no terms for this field, skip it
-      if (empty($searchField['query']))
+      throw new Exception('Search is empty');
+    }
+
+    // Iterate over search fields
+    foreach ($this->request->searchFields as $key => $item)
+    {
+      if (empty($item['query']))
       {
         continue;
       }
 
-      // enclose phrase searches in quotes (strip existing ones)
-      if ('phrase' == $searchField['match'])
+      $hasAnySearchField = true;
+
+      $queryText = new Elastica_Query_Text();
+
+      switch ($item['field'])
       {
-        $term = '"'.str_replace(array('"', "'"), '', strtolower($searchField['query'])).'"';
-      }
-      else
-      {
-        $term = strtolower($searchField['query']);
+        case 'identifier':
+          $queryText->setFieldQuery('identifier', $item['query']);
+
+          break;
+
+        case 'title':
+          $queryText->setFieldQuery('i18n.title', $item['query']);
+
+          break;
+
+        case 'scopeAndContent':
+          $queryText->setFieldQuery('i18n.scopeAndContet', $item['query']);
+
+          break;
+
+        case 'archivalHistory':
+          $queryText->setFieldQuery('i18n.archivalHistory', $item['query']);
+
+          break;
+
+        case 'extentAndMedium':
+          $queryText->setFieldQuery('i18n.extentAndMedium', $item['query']);
+
+          break;
+
+        case 'creatorHistory':
+          $queryText->setFieldQuery('', $item['query']);
+
+          break;
+
+        case 'subject':
+          $queryText->setFieldQuery('', $item['query']);
+
+          break;
+
+        case 'name':
+          $queryText->setFieldQuery('', $item['query']);
+
+          break;
+
+        case 'place':
+          $queryText->setFieldQuery('', $item['query']);
+
+          break;
+
+        default:
+          $queryText->setFieldQuery('_all', $item['query']);
+
+          break;
       }
 
-      $matchString = $term;
-
-      // limit to specified field
-      if (!empty($searchField['field']))
+      if (0 == $key)
       {
-        $term = $searchField['field'] . ':' . $term;
+        $item['operator'] == 'add';
       }
 
-      if (!empty($searchField['field']))
-      {
-        $field = ucfirst($searchField['field']);
-      }
-      else
-      {
-        $field = ('phrase' == $searchField['match']) ? $this->context->i18n->__('Phrase') : $this->context->i18n->__('Keyword(s)');
-      }
-
-      $this->queryTerms[] = array('term' => $field.': '.$matchString, 'operator' => $searchField['operator']);
-
-      // select which boolean operator to use
-      if (!isset($searchField['operator'])) $searchField['operator'] = null;
-      switch ($searchField['operator'])
+      switch ($item['operator'])
       {
         case 'not':
-          $token = false;
+          $queryBool->addMustNot($queryText);
+
           break;
 
         case 'or':
-          $token = null;
+          $queryBool->addShould($queryText);
+
           break;
 
-        case 'and':
+        case 'add':
         default:
-          $token = true;
+          $queryBool->addMust($queryText);
+
           break;
       }
-
-      $queryBuilt->addSubquery(QubitSearch::getInstance()->parse($term), $token);
     }
 
-    $query = new Zend_Search_Lucene_Search_Query_Boolean();
-    $query->addSubquery($queryBuilt, true);
+    // Process filters passing $queryBool
+    $this->hasFilters = false;
+    foreach ($this->form as $field)
+    {
+      if (isset($this->request[$field->getName()]))
+      {
+        $this->processField($field, $queryBool);
+      }
+    }
 
-    return $query;
+    return $queryBool;
   }
 
-  public function filterQuery($query)
+  public function execute($request)
   {
-    // limit to a repository if selected
-    if (!empty($this->request->repository))
-    {
-      $query->addSubquery(QubitSearch::getInstance()->addTerm($this->request->repository, 'repositoryId'), true);
-      $this->queryTerms[] = array('term' => $this->context->i18n->__('Repository').': '.QubitRepository::getById($this->request->repository)->__toString(), 'operator' => 'and');
-    }
-
-    // digital object filters
-    if ('true' == $this->request->hasDigitalObject)
-    {
-      $query->addSubquery(QubitSearch::getInstance()->addTerm('true', 'hasDigitalObject'), true);
-      $this->queryTerms[] = array('term' => $this->context->i18n->__('Digital object is available'), 'operator' => 'and');
-    }
-    else if ('false' == $this->request->hasDigitalObject)
-    {
-      $query->addSubquery(QubitSearch::getInstance()->addTerm('false', 'hasDigitalObject'), true);
-      $this->queryTerms[] = array('term' => $this->context->i18n->__('No digital object is available'), 'operator' => 'and');
-    }
-
-    // limit to a media type if selected
-    if (!empty($this->request->mediaType))
-    {
-      $query->addSubquery(QubitSearch::getInstance()->addTerm($this->request->mediaType, 'mediaTypeId'), true);
-      $this->queryTerms[] = array('term' => 'mediaType: '.QubitTerm::getById($this->request->mediaType)->__toString(), 'operator' => 'and');
-    }
-
-    // limit to a material type if selected
-    if (!empty($this->request->materialType))
-    {
-      $query->addSubquery(QubitSearch::getInstance()->addTerm($this->request->materialType, 'materialTypeId'), true);
-      $this->queryTerms[] = array('term' => 'materialType: '.QubitTerm::getById($this->request->materialType)->__toString(), 'operator' => 'and');
-    }
-
-    if (!empty($this->request->levelOfDescription))
-    {
-      $query->addSubquery(QubitSearch::getInstance()->addTerm($this->request->levelOfDescription, 'levelOfDescriptionId'), true);
-      $this->queryTerms[] = array('term' => $this->context->i18n->__('Level of description').': '.$this->request->levelOfDescription, 'operator' => 'and');
-    }
-
-    // Copyright status
-    if (!empty($this->request->copyrightStatus))
-    {
-      $query->addSubquery(QubitSearch::getInstance()->addTerm($this->request->copyrightStatus, 'copyrightStatusId'), true);
-      $this->queryTerms[] = array('term' => 'copyrightStatus: '.QubitTerm::getById($this->request->copyrightStatus)->__toString(), 'operator' => 'and');
-    }
-
-    $query = parent::filterQuery($query);
-
-    return $query;
+    parent::execute($request);
   }
 }

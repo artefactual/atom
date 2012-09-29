@@ -22,7 +22,7 @@
 
       <div class="criterion form-inline">
 
-        <input type="text" class="span6" placeholder="<?php echo __('Search') ?>" name="searchFields[<?php echo $key ?>][query]" value="<?php echo esc_entities($item['query']) ?>"/>
+        <input type="text" class="span4" placeholder="<?php echo __('Search') ?>" name="searchFields[<?php echo $key ?>][query]" value="<?php echo esc_entities($item['query']) ?>"/>
 
         <div class="in">
 
@@ -67,7 +67,7 @@
 
   <div class="criterion form-inline">
 
-    <input type="text" class="span6" placeholder="<?php echo __('Search') ?>" name="searchFields[<?php echo $count?>][query]"/>
+    <input type="text" class="span4" placeholder="<?php echo __('Search') ?>" name="searchFields[<?php echo $count?>][query]"/>
 
     <div class="in">
 
@@ -93,7 +93,7 @@
 </div>
 
 <div class="actions">
-  <div class="btn-group" style="display: inline-block">
+  <div class="btn-group">
     <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
       <?php echo __('Add new criteria') ?>
       <span class="caret"></span>
