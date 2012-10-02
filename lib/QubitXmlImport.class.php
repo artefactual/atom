@@ -446,21 +446,16 @@ class QubitXmlImport
                 }
               }
 
-              // dynamically pull value rather than use magic number
-              $titleVariationNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
-                QubitTaxonomy::RAD_TITLE_NOTE_ID,
-                'Variations in title'
-              );
+              // Load taxonomies into variables to avoid use of magic numbers
+              $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
+                QubitTaxonomy::NOTE_TYPE_ID                => 'noteTypes',
+                QubitTaxonomy::RAD_NOTE_ID                 => 'radNoteTypes',
+                QubitTaxonomy::RAD_TITLE_NOTE_ID           => 'titleNoteTypes'
+              ));
 
-              $titleAttributionsNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
-                QubitTaxonomy::RAD_TITLE_NOTE_ID,
-                'Attributions and conjectures'
-              );
-
-              $alphaNumericaDesignationsNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
-                QubitTaxonomy::RAD_NOTE_ID,
-                'Alpha-numeric designations'
-              );
+              $titleVariationNoteTypeId            = array_search('Variations in title', $termData['titleNoteTypes']);
+              $titleAttributionsNoteTypeId         = array_search('Attributions and conjectures', $termData['titleNoteTypes']);
+              $alphaNumericaDesignationsNoteTypeId = array_search('Alpha-numeric designations', $termData['radNoteTypes']);
 
               // invoke the object and method defined in the schema map
               call_user_func_array(array( & $currentObject, $methodMap['Method']), $parameters);
