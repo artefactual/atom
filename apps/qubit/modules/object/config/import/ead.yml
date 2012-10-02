@@ -161,6 +161,26 @@ information_object:
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $titleAttributionsNoteTypeId)"]
 
+    title_continuation_notes:
+      XPath:  "odd[@type='titlecontinuation']/p"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $titleContinuationNoteTypeId)"]
+
+    title_statement_of_responsibility_notes:
+      XPath:  "odd[@type='titlestatrep']/p"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $titleStatRepNoteTypeId)"]
+
+    title_parallel_notes:
+      XPath:  "odd[@type='titleparallel']/p"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $titleParallelNoteTypeId)"]
+
+    title_source_notes:
+      XPath:  "odd[@type='titlesource']/p"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $titleSourceNoteTypeId)"]
+
     alphanumeric_designation_notes:
       XPath:  "odd[@type='alphanumericdesignation']/p"
       Method: importEadNote

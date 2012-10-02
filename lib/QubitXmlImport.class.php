@@ -455,6 +455,10 @@ class QubitXmlImport
 
               $titleVariationNoteTypeId            = array_search('Variations in title', $termData['titleNoteTypes']);
               $titleAttributionsNoteTypeId         = array_search('Attributions and conjectures', $termData['titleNoteTypes']);
+              $titleContinuationNoteTypeId         = array_search('Continuation of title', $termData['titleNoteTypes']);
+              $titleStatRepNoteTypeId              = array_search('Statements of responsibility', $termData['titleNoteTypes']);
+              $titleParallelNoteTypeId             = array_search('Parallel titles and other title information', $termData['titleNoteTypes']);
+              $titleSourceNoteTypeId               = array_search('Source of title proper', $termData['titleNoteTypes']);
               $alphaNumericaDesignationsNoteTypeId = array_search('Alpha-numeric designations', $termData['radNoteTypes']);
 
               // invoke the object and method defined in the schema map

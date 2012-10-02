@@ -209,8 +209,12 @@ $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
 ));
 
 $radTitleNotes = array(
-  'Variations in title'          => 'titlevariation',
-  'Attributions and conjectures' => 'titleattributions'
+  'Variations in title'                         => 'titlevariation',
+  'Attributions and conjectures'                => 'titleattributions',
+  'Continuation of title'                       => 'titlecontinuation',
+  'Statements of responsibility'                => 'titlestatrep',
+  'Parallel titles and other title information' => 'titleparallel',
+  'Source of title proper'                      => 'titlesource'
 );
 
 foreach($radTitleNotes as $name => $xmlType)
