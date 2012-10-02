@@ -208,23 +208,22 @@ $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
   QubitTaxonomy::RAD_TITLE_NOTE_ID           => 'titleNoteTypes'
 ));
 
-$titleVariationNoteTypeId = array_search('Variations in title', $termData['titleNoteTypes']);
+$radTitleNotes = array(
+  'Variations in title'          => 'titlevariation',
+  'Attributions and conjectures' => 'titleattributions'
+);
 
-if (0 < count($titleVariationNotes = $resource->getNotesByType(array('noteTypeId' => $titleVariationNoteTypeId)))): ?>
-<?php foreach ($titleVariationNotes as $note): ?>
-  <odd type="titlevariation"><p><?php echo esc_specialchars($note) ?></p></odd>
-<?php endforeach; ?>
-<?php endif; ?>
+foreach($radTitleNotes as $name => $xmlType)
+{
+  $noteTypeId = array_search($name, $termData['titleNoteTypes']);
 
-<?php
+  if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => $noteTypeId)))):
+    foreach ($notes as $note): ?>
+  <odd type="<?php echo $xmlType ?>"><p><?php echo esc_specialchars($note) ?></p></odd>
+    <?php endforeach;
+  endif;
+} ?>
 
-$titleAttributionsNoteTypeId = array_search('Attributions and conjectures', $termData['titleNoteTypes']);
-
-if (0 < count($titleAttributionsNotes = $resource->getNotesByType(array('noteTypeId' => $titleAttributionsNoteTypeId)))): ?>
-<?php foreach ($titleAttributionsNotes as $note): ?>
-  <odd type="titleattributions"><p><?php echo esc_specialchars($note) ?></p></odd>
-<?php endforeach; ?>
-<?php endif; ?>
 <?php
 
 $alphaNumericaDesignationsNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
