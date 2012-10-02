@@ -447,9 +447,14 @@ class QubitXmlImport
               }
 
               // dynamically pull value rather than use magic number
-              $variationNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
+              $titleVariationNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
                 QubitTaxonomy::RAD_TITLE_NOTE_ID,
                 'Variations in title'
+              );
+
+              $titleAttributionsNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
+                QubitTaxonomy::RAD_TITLE_NOTE_ID,
+                'Attributions and conjectures'
               );
 
               $alphaNumericaDesignationsNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(

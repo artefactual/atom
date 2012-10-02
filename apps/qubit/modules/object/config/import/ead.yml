@@ -152,9 +152,14 @@ information_object:
       Parameters: ["issuingJurisdictionAndDenomination", $nodeValue]
 
     title_variation_notes:
-      XPath:  "odd[@type='variation']/p"
+      XPath:  "odd[@type='titlevariation']/p"
       Method: importEadNote
-      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $variationNoteTypeId)"]
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $titleVariationNoteTypeId)"]
+
+    title_attributions_notes:
+      XPath:  "odd[@type='titleattributions']/p"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $titleAttributionsNoteTypeId)"]
 
     alphanumeric_designation_notes:
       XPath:  "odd[@type='alphanumericdesignation']/p"
