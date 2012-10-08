@@ -183,16 +183,76 @@
     <language langcode="<?php echo ($iso6392 = $iso639convertor->getID3($languageCode)) ? strtolower($iso6392) : $languageCode ?>"><?php echo format_language($languageCode) ?></language><?php endforeach; ?>
   </langmaterial><?php endif; ?>
 <?php if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID)))): ?><?php foreach ($notes as $note): ?><note type="<?php echo esc_specialchars($note->getType(array('cultureFallback' => true))) ?>" encodinganalog="3.6.1"><p><?php echo esc_specialchars($note->getContent(array('cultureFallback' => true))) ?></p></note><?php endforeach; ?><?php endif; ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('statementOfScaleCartographic')->__toString())): ?>
+    <materialspec type='cartographic'><?php echo esc_specialchars($value) ?></materialspec>
+<?php endif; ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('statementOfProjection')->__toString())): ?>
+    <materialspec type='projection'><?php echo esc_specialchars($value) ?></materialspec>
+<?php endif; ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('statementOfCoordinates')->__toString())): ?>
+    <materialspec type='coordinates'><?php echo esc_specialchars($value) ?></materialspec>
+<?php endif; ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('statementOfScaleArchitectural')->__toString())): ?>
+    <materialspec type='architectural'><?php echo esc_specialchars($value) ?></materialspec>
+<?php endif; ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('issuingJurisdictionAndDenomination')->__toString())): ?>
+    <materialspec type='philatelic'><?php echo esc_specialchars($value) ?></materialspec>
+<?php endif; ?>
   </did>
 <?php
-$variationNoteTypeId = QubitFlatfileImport::getTaxonomyTermIdUsingName(
-  QubitTaxonomy::RAD_TITLE_NOTE_ID,
-  'Variations in title'
+
+// Load taxonomies into variables to avoid use of magic numbers
+$termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
+  QubitTaxonomy::NOTE_TYPE_ID                => 'noteTypes',
+  QubitTaxonomy::RAD_NOTE_ID                 => 'radNoteTypes',
+  QubitTaxonomy::RAD_TITLE_NOTE_ID           => 'titleNoteTypes'
+));
+
+$radTitleNotes = array(
+  'Variations in title'                         => 'titlevariation',
+  'Attributions and conjectures'                => 'titleattributions',
+  'Continuation of title'                       => 'titlecontinuation',
+  'Statements of responsibility'                => 'titlestatrep',
+  'Parallel titles and other title information' => 'titleparallel',
+  'Source of title proper'                      => 'titlesource'
 );
-if (0 < count($variationNotes = $resource->getNotesByType(array('noteTypeId' => $variationNoteTypeId)))): ?>
-<?php foreach ($variationNotes as $note): ?>
-  <odd type="variation"><p><?php echo esc_specialchars($note) ?></p></odd>
-<?php endforeach; ?>
+
+foreach($radTitleNotes as $name => $xmlType)
+{
+  $noteTypeId = array_search($name, $termData['titleNoteTypes']);
+
+  if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => $noteTypeId)))):
+    foreach ($notes as $note): ?>
+  <odd type="<?php echo $xmlType ?>"><p><?php echo esc_specialchars($note) ?></p></odd>
+    <?php endforeach;
+  endif;
+} ?>
+
+<?php
+
+$radNotes = array(
+  'Edition'                    => 'edition',
+  'Physical description'       => 'physdesc',
+  'Conservation'               => 'conservation',
+  'Accompanying material'      => 'material',
+  'Alpha-numeric designations' => 'alphanumericdesignation',
+  "Publisher's series"         => 'bibseries',
+  'Rights'                     => 'rights',
+  'General note'               => 'general'
+);
+
+foreach($radNotes as $name => $xmlType)
+{
+  $noteTypeId = array_search($name, $termData['radNoteTypes']);
+
+  if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => $noteTypeId)))):
+    foreach ($notes as $note): ?>
+  <odd type="<?php echo $xmlType ?>"><p><?php echo esc_specialchars($note) ?></p></odd>
+    <?php endforeach;
+  endif;
+} ?>
+<?php if (0 < strlen($value = $resource->getPropertyByName('noteOnPublishersSeries')->__toString())): ?>
+  <odd type='bibseries'><p><?php echo esc_specialchars($value) ?></p></odd>
 <?php endif; ?>
 <?php foreach ($resource->getCreators() as $creator): ?>
 <?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
@@ -237,7 +297,7 @@ if (0 < count($variationNotes = $resource->getNotesByType(array('noteTypeId' => 
 <?php if (0 < strlen($value = $resource->getArchivalHistory(array('cultureFallback' => true)))): ?>
   <custodhist encodinganalog="3.2.3"><p><?php echo esc_specialchars($value) ?></p></custodhist><?php endif; ?>
 <?php if (0 < strlen($value = $resource->getRevisionHistory(array('cultureFallback' => true)))): ?>
-  <processinfo><p><?php echo esc_specialchars($value) ?></p></processinfo><?php endif; ?>
+  <processinfo><p><date><?php echo esc_specialchars($value) ?></date></p></processinfo><?php endif; ?>
 <?php if (0 < strlen($value = $resource->getLocationOfOriginals(array('cultureFallback' => true)))): ?>
   <originalsloc encodinganalog="3.5.1"><p><?php echo esc_specialchars($value) ?></p></originalsloc><?php endif; ?>
 <?php if (0 < strlen($value = $resource->getLocationOfCopies(array('cultureFallback' => true)))): ?>
@@ -385,27 +445,27 @@ if (0 < count($variationNotes = $resource->getNotesByType(array('noteTypeId' => 
       <custodhist encodinganalog="3.2.3"><p><?php echo esc_specialchars($value) ?></p></custodhist>
 <?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getRevisionHistory(array('cultureFallback' => true)))): ?>
-    <processinfo><p><?php echo esc_specialchars($value) ?></p></processinfo>
+      <processinfo><p><date><?php echo esc_specialchars($value) ?></date></p></processinfo>
 <?php endif; ?>
 <?php if (0 < count($archivistsNotes = $descendant->getNotesByType(array('noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)))): ?><?php foreach ($archivistsNotes as $note): ?><processinfo><p><?php echo esc_specialchars($note) ?></p></processinfo><?php endforeach; ?>
 <?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getLocationOfOriginals(array('cultureFallback' => true)))): ?>
-    <originalsloc encodinganalog="3.5.1"><p><?php echo esc_specialchars($value) ?></p></originalsloc>
+      <originalsloc encodinganalog="3.5.1"><p><?php echo esc_specialchars($value) ?></p></originalsloc>
 <?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getLocationOfCopies(array('cultureFallback' => true)))): ?>
-    <altformavail encodinganalog="3.5.2"><p><?php echo esc_specialchars($value) ?></p></altformavail>
+      <altformavail encodinganalog="3.5.2"><p><?php echo esc_specialchars($value) ?></p></altformavail>
 <?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getRelatedUnitsOfDescription(array('cultureFallback' => true)))): ?>
-    <relatedmaterial encodinganalog="3.5.3"><p><?php echo esc_specialchars($value) ?></p></relatedmaterial>
+      <relatedmaterial encodinganalog="3.5.3"><p><?php echo esc_specialchars($value) ?></p></relatedmaterial>
 <?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getAccessConditions(array('cultureFallback' => true)))): ?>
-    <accessrestrict encodinganalog="3.4.1"><p><?php echo esc_specialchars($value) ?></p></accessrestrict>
+      <accessrestrict encodinganalog="3.4.1"><p><?php echo esc_specialchars($value) ?></p></accessrestrict>
 <?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getReproductionConditions(array('cultureFallback' => true)))): ?>
-    <userestrict encodinganalog="3.4.2"><p><?php echo esc_specialchars($value)  ?></p></userestrict>
+      <userestrict encodinganalog="3.4.2"><p><?php echo esc_specialchars($value)  ?></p></userestrict>
 <?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getFindingAids(array('cultureFallback' => true)))): ?>
-    <otherfindaid encodinganalog="3.4.5"><p><?php echo esc_specialchars($value) ?></p></otherfindaid>
+      <otherfindaid encodinganalog="3.4.5"><p><?php echo esc_specialchars($value) ?></p></otherfindaid>
 <?php endif; ?>
 <?php if (0 < count($publicationNotes = $descendant->getNotesByType(array('noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)))): ?><?php foreach ($publicationNotes as $note): ?><bibliography encodinganalog="3.5.4"><p><?php echo esc_specialchars($note) ?></p></bibliography><?php endforeach; ?>
 <?php endif; ?>

@@ -243,10 +243,10 @@ function render_treeview_node($item, array $classes = array(), array $options = 
       {
         $title = $item->identifier . "&nbsp;-&nbsp;";
       }
-      $title .= $item->title;
+      $title .= render_title($item);
 
       // Add link
-      $node .= link_to(render_title($title), array($item, 'module' => 'informationobject'), array('title' => null));
+      $node .= link_to($title, array($item, 'module' => 'informationobject'), array('title' => null));
 
       // Publication status
       if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId)
