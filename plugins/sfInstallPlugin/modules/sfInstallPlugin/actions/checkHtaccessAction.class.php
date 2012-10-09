@@ -22,7 +22,7 @@ class sfInstallPluginCheckHtaccessAction extends sfAction
   public function execute($request)
   {
     $this->htaccess = sfInstall::checkHtaccess();
-    $this->settingsYml = sfInstall::checkSettingsYml(count($htaccess) < 1);
+    $this->settingsYml = sfInstall::checkSettingsYml(count($this->htaccess) < 1);
 
     if (0 == count($this->htaccess) && 0 == count($this->settingsYml))
     {
