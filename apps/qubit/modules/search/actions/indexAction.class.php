@@ -59,6 +59,7 @@ class SearchIndexAction extends sfAction
 
       return;
     }
+
     if (!empty($hits))
     {
       $this->pager = new QubitArrayPager;

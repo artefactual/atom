@@ -30,7 +30,8 @@ class QubitSearchInformationObject
     $ancestors,
     $index,
     $doc,
-    $repository;
+    $repository,
+    $sourceCulture;
 
   protected
     $data = array(),
@@ -102,7 +103,7 @@ class QubitSearchInformationObject
   /**
    * METHODS
    */
-  public function __construct($id, $culture, $options = array())
+  public function __construct($id, $options = array())
   {
     if (isset($options['conn']))
     {
@@ -114,7 +115,7 @@ class QubitSearchInformationObject
       self::$conn = Propel::getConnection();
     }
 
-    $this->loadData($id, $culture, $options);
+    $this->loadData($id, $options);
 
     // Get inherited ancestors
     if (isset($options['ancestors']))
@@ -129,33 +130,52 @@ class QubitSearchInformationObject
     }
 
     $this->index = QubitSearch::getInstance()->getEngine()->getIndex();
-    $this->doc = new Zend_Search_Lucene_Document;
+  }
+
+  private function func_get_culture($args)
+  {
+    if (1 < count($args))
+    {
+      $culture = $args[1];
+    }
+    else
+    {
+      $culture = $this->sourceCulture;
+    }
+
+    return $culture;
   }
 
   public function __isset($name)
   {
-    return isset($this->data[$name]);
+    $culture = $this->func_get_culture(func_get_args());
+
+    return isset($this->data[$culture][$name]);
   }
 
   public function __get($name)
   {
+    $culture = $this->func_get_culture(func_get_args());
+
     if ('events' == $name && !isset($this->data[$name]))
     {
-      $this->data[$name] = $this->getEvents();
+      $this->data['events'] = $this->getEvents();
     }
 
-    if (isset($this->data[$name]))
+    if (isset($this->data[$culture][$name]))
     {
-      return $this->data[$name];
+      return $this->data[$culture][$name];
     }
   }
 
   public function __set($name, $value)
   {
-    $this->data[$name] = $value;
+    $culture = $this->func_get_culture(func_get_args());
+
+    $this->data[$culture][$name] = $value;
   }
 
-  protected function loadData($id, $culture, $options = array())
+  protected function loadData($id, $options = array())
   {
     if (!isset(self::$statements['informationObject']))
     {
@@ -176,26 +196,33 @@ class QubitSearchInformationObject
          ON io.id = pubstat.object_id
        LEFT JOIN '.QubitDigitalObject::TABLE_NAME.' do
          ON io.id = do.information_object_id
-       WHERE io.id = :id
-         AND i18n.culture = :culture';
+       WHERE io.id = :id';
 
       self::$statements['informationObject'] = self::$conn->prepare($sql);
     }
 
     // Do select
-    self::$statements['informationObject']->execute(array(
-      ':id' => $id,
-      ':culture' => $culture));
+    self::$statements['informationObject']->execute(array(':id' => $id));
 
-    // Get first result
-    $this->data = self::$statements['informationObject']->fetch(PDO::FETCH_ASSOC);
+    // Get all rows (one per culture)
+    $results = self::$statements['informationObject']->fetchAll(PDO::FETCH_ASSOC);
 
-    if (false === $this->data)
+    if (false === $results)
     {
       throw new sfException("Couldn't find information object (id: $id)");
     }
 
-    self::$statements['informationObject']->closeCursor();
+    // Key by culture
+    foreach ($results as $item)
+    {
+      $this->data[$item['culture']] = $item;
+
+      // Set source culture
+      if (!isset($this->sourceCulture))
+      {
+        $this->sourceCulture = $item['source_culture'];
+      }
+    }
 
     return $this;
   }
@@ -208,12 +235,17 @@ class QubitSearchInformationObject
     $this->getLanguagesAndScripts();
 
     // Add fields
-    foreach (self::$fields as $name)
+    foreach (array_keys($this->data) as $culture)
     {
-      $this->addField($name);
-    }
+      $this->doc = new Zend_Search_Lucene_Document;
 
-    $this->addDocument();
+      foreach (self::$fields as $name)
+      {
+        $this->addField($name, $culture);
+      }
+
+      $this->addDocument();
+    }
   }
 
   public function addDocument()
@@ -221,7 +253,7 @@ class QubitSearchInformationObject
     $this->index->addDocument($this->doc);
   }
 
-  protected function addField($name)
+  protected function addField($name, $culture)
   {
     $camelName = lcfirst(sfInflector::camelize($name));
     $field = $value = null;
@@ -299,6 +331,11 @@ class QubitSearchInformationObject
 
         break;
 
+      case 'culture':
+        $field = Zend_Search_Lucene_Field::Keyword($camelName, $culture);
+
+        break;
+
       // Serialized date array for display in search results
       case 'date_serialized':
         $field = Zend_Search_Lucene_Field::UnIndexed($camelName, serialize($this->getDates('array')));
@@ -364,7 +401,7 @@ class QubitSearchInformationObject
         break;
 
       case 'part_of':
-        $field = Zend_Search_Lucene_Field::Text($camelName, $this->getCollectionRoot()->getTitle(array('culture' => $this->__get('culture'))));
+        $field = Zend_Search_Lucene_Field::Text($camelName, $this->getCollectionRoot()->getTitle(array('culture' => $culture)));
 
         break;
 
@@ -387,7 +424,7 @@ class QubitSearchInformationObject
       case 'repository':
         if (isset($this->repository))
         {
-          $value = $this->repository->getAuthorizedFormOfName(array('culture' => $this->__get('culture'), 'fallback' => true));
+          $value = $this->repository->getAuthorizedFormOfName(array('culture' => $culture, 'fallback' => true));
         }
 
         $field = Zend_Search_Lucene_Field::Text($camelName, $value);
@@ -431,7 +468,7 @@ class QubitSearchInformationObject
         break;
 
       case 'title':
-        $value = $this->__get('title');
+        $value = $this->__get('title', $culture);
         if (0 == strlen($value))
         {
           // Include an i18n fallback for proper search result display in case the
@@ -454,13 +491,13 @@ class QubitSearchInformationObject
       case 'start_date':
       case 'end_date':
       case 'date':
-        $this->doc->addField(Zend_Search_Lucene_Field::Unstored($camelName, implode(' ', $this->getDates($name))));
+        $field = Zend_Search_Lucene_Field::Unstored($camelName, implode(' ', $this->getDates($name)));
 
         break;
 
       // TEXT fields
       case 'scope_and_content':
-        $field = Zend_Search_Lucene_Field::Text($camelName, $this->__get($name));
+        $field = Zend_Search_Lucene_Field::Text($camelName, $this->__get($name, $culture));
 
         break;
 
@@ -472,7 +509,7 @@ class QubitSearchInformationObject
       case 'slug':
         if ($this->__isset($name))
         {
-          $field = Zend_Search_Lucene_Field::Keyword($camelName, $this->__get($name));
+          $field = Zend_Search_Lucene_Field::Keyword($camelName, $this->__get($name, $culture));
         }
 
         break;
@@ -481,7 +518,7 @@ class QubitSearchInformationObject
       default:
         if ($this->__isset($name))
         {
-          $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->__get($name));
+          $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->__get($name, $culture));
         }
     }
 
