@@ -741,7 +741,7 @@ class QubitSearchInformationObject
           $events[$item['id']] = $event;
         }
 
-        $events[$item['id']]->dates[$item['culture']]= $item['date'];
+        $events[$item['id']]->dates[$item['culture']] = $item['date'];
       }
 
       $this->data['events'] = $events;
