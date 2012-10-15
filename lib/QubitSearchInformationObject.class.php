@@ -378,7 +378,7 @@ class QubitSearchInformationObject
         break;
 
       case 'media_type':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getMediaTypeName($culture));
+        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getMediaTypeName());
 
         break;
 
@@ -394,7 +394,7 @@ class QubitSearchInformationObject
         break;
 
       case 'notes':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getNotes());
+        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getNotes($culture));
 
         break;
 
@@ -988,7 +988,7 @@ class QubitSearchInformationObject
     return $this;
   }
 
-  public function getNotes()
+  public function getNotes($culture)
   {
     $notes = array();
 
@@ -1008,7 +1008,7 @@ class QubitSearchInformationObject
 
     self::$statements['note']->execute(array(
       $this->__get('id'),
-      $this->__get('culture')));
+      $culture));
 
     foreach (self::$statements['note']->fetchAll(PDO::FETCH_OBJ) as $item)
     {
