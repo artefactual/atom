@@ -378,7 +378,7 @@ class QubitSearchInformationObject
         break;
 
       case 'media_type':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getMediaTypeName());
+        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getMediaTypeName($culture));
 
         break;
 
@@ -633,7 +633,7 @@ class QubitSearchInformationObject
     }
   }
 
-  public function getMediaTypeName()
+  public function getMediaTypeName($culture)
   {
     if (!$this->__isset('media_type_id'))
     {
@@ -653,7 +653,7 @@ class QubitSearchInformationObject
     if (isset(self::$lookups['mediaType'][$this->__get('media_type_id')]))
     {
       return self::$lookups['mediaType'][$this->__get('media_type_id')]->getName(array(
-        'culture' => $this->__get('culture'),
+        'culture' => $culture,
         'fallback' => true));
     }
   }
