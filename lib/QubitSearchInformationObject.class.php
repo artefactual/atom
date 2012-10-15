@@ -368,7 +368,7 @@ class QubitSearchInformationObject
         break;
 
       case 'level_of_description':
-        $field = Zend_Search_Lucene_Field::Text($camelName, $this->getLevelOfDescription());
+        $field = Zend_Search_Lucene_Field::Text($camelName, $this->getLevelOfDescription($culture));
 
         break;
 
@@ -613,7 +613,7 @@ class QubitSearchInformationObject
     return QubitPdo::fetchOne($sql, array($this->__get('id')))->title;
   }
 
-  public function getLevelOfDescription()
+  public function getLevelOfDescription($culture)
   {
     if (!isset(self::$lookups['levelOfDescription']))
     {
@@ -628,7 +628,7 @@ class QubitSearchInformationObject
     if (isset(self::$lookups['levelOfDescription'][$this->__get('level_of_description_id')]))
     {
       return self::$lookups['levelOfDescription'][$this->__get('level_of_description_id')]->getName(array(
-        'culture' => $this->__get('culture'),
+        'culture' => $culture,
         'fallback' => true));
     }
   }
