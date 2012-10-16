@@ -546,30 +546,9 @@ class QubitSearch extends xfIndexSingle
       return;
     }
 
-    if (0 < count($languages = self::getTranslatedLanguages($informationObject)))
-    {
-      foreach ($languages as $language)
-      {
-        self::updateInformationObjectIndex($informationObject, $language, $options);
-      }
-    }
-  }
+    self::deleteById($informationObject->id);
 
-  public static function updateInformationObjectIndex(QubitInformationObject $informationObject, $language, $options = array())
-  {
-    if (self::getInstance()->disabled)
-    {
-      return;
-    }
-    else if (null === $informationObject->parent)
-    {
-      // Only ROOT node should have no parent, don't index
-      return;
-    }
-
-    self::deleteByIdLanguage($informationObject->id, $language);
-
-    $node = new QubitSearchInformationObject($informationObject->id, $language, $options);
+    $node = new QubitSearchInformationObject($informationObject->id, $options);
     $node->addToIndex();
   }
 
@@ -599,12 +578,8 @@ class QubitSearch extends xfIndexSingle
       $sql  = 'SELECT
                   io.id,
                   io.lft,
-                  io.rgt,
-                  i18n.culture,
-                  i18n.title';
+                  io.rgt';
       $sql .= ' FROM '.QubitInformationObject::TABLE_NAME.' io';
-      $sql .= ' JOIN '.QubitInformationObjectI18n::TABLE_NAME.' i18n
-                  ON io.id = i18n.id';
       $sql .= ' WHERE io.parent_id = ?';
       $sql .= ' ORDER BY io.lft';
 
@@ -617,12 +592,12 @@ class QubitSearch extends xfIndexSingle
     foreach (self::$statements['getChildren']->fetchAll(PDO::FETCH_OBJ) as $item)
     {
       // Add resource to index
-      $node = new QubitSearchInformationObject($item->id, $item->culture, $options);
+      $node = new QubitSearchInformationObject($item->id, $options);
       $node->addToIndex();
 
       // Log it
       self::$counter++;
-      $this->getLogger()->log('QubitInformationObject - "'.$item->title.'" inserted ('.$this->timer->elapsed().'s) ('.self::$counter.'/'.$totalRows.')');
+      $this->getLogger()->log('QubitInformationObject - "'.$node->title.'" inserted ('.$this->timer->elapsed().'s) ('.self::$counter.'/'.$totalRows.')');
 
       // Descend hierarchy
       if (1 < ($item->rgt - $item->lft))

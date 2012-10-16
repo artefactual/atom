@@ -30,7 +30,8 @@ class QubitSearchInformationObject
     $ancestors,
     $index,
     $doc,
-    $repository;
+    $repository,
+    $sourceCulture;
 
   protected
     $data = array(),
@@ -102,7 +103,7 @@ class QubitSearchInformationObject
   /**
    * METHODS
    */
-  public function __construct($id, $culture, $options = array())
+  public function __construct($id, $options = array())
   {
     if (isset($options['conn']))
     {
@@ -114,7 +115,7 @@ class QubitSearchInformationObject
       self::$conn = Propel::getConnection();
     }
 
-    $this->loadData($id, $culture, $options);
+    $this->loadData($id, $options);
 
     // Get inherited ancestors
     if (isset($options['ancestors']))
@@ -129,33 +130,57 @@ class QubitSearchInformationObject
     }
 
     $this->index = QubitSearch::getInstance()->getEngine()->getIndex();
-    $this->doc = new Zend_Search_Lucene_Document;
+  }
+
+  private function func_get_culture($args)
+  {
+    if (1 < count($args))
+    {
+      $culture = $args[1];
+    }
+    else
+    {
+      $culture = $this->sourceCulture;
+    }
+
+    return $culture;
   }
 
   public function __isset($name)
   {
-    return isset($this->data[$name]);
+    $culture = $this->func_get_culture(func_get_args());
+
+    if ('events' == $name)
+    {
+      return isset($this->data['events']);
+    }
+
+    return isset($this->data[$culture][$name]);
   }
 
   public function __get($name)
   {
-    if ('events' == $name && !isset($this->data[$name]))
+    $culture = $this->func_get_culture(func_get_args());
+
+    if ('events' == $name)
     {
-      $this->data[$name] = $this->getEvents();
+      return $this->data['events'];
     }
 
-    if (isset($this->data[$name]))
+    if (isset($this->data[$culture][$name]))
     {
-      return $this->data[$name];
+      return $this->data[$culture][$name];
     }
   }
 
   public function __set($name, $value)
   {
-    $this->data[$name] = $value;
+    $culture = $this->func_get_culture(func_get_args());
+
+    $this->data[$culture][$name] = $value;
   }
 
-  protected function loadData($id, $culture, $options = array())
+  protected function loadData($id, $options = array())
   {
     if (!isset(self::$statements['informationObject']))
     {
@@ -176,26 +201,36 @@ class QubitSearchInformationObject
          ON io.id = pubstat.object_id
        LEFT JOIN '.QubitDigitalObject::TABLE_NAME.' do
          ON io.id = do.information_object_id
-       WHERE io.id = :id
-         AND i18n.culture = :culture';
+       WHERE io.id = :id';
 
       self::$statements['informationObject'] = self::$conn->prepare($sql);
     }
 
     // Do select
-    self::$statements['informationObject']->execute(array(
-      ':id' => $id,
-      ':culture' => $culture));
+    self::$statements['informationObject']->execute(array(':id' => $id));
 
-    // Get first result
-    $this->data = self::$statements['informationObject']->fetch(PDO::FETCH_ASSOC);
+    // Get all rows (one per culture)
+    $results = self::$statements['informationObject']->fetchAll(PDO::FETCH_ASSOC);
 
-    if (false === $this->data)
+    if (false === $results)
     {
       throw new sfException("Couldn't find information object (id: $id)");
     }
 
-    self::$statements['informationObject']->closeCursor();
+    // Key by culture
+    foreach ($results as $item)
+    {
+      $this->data[$item['culture']] = $item;
+
+      // Set source culture
+      if (!isset($this->sourceCulture))
+      {
+        $this->sourceCulture = $item['source_culture'];
+      }
+    }
+
+    // Load event data
+    $this->loadEvents();
 
     return $this;
   }
@@ -208,12 +243,17 @@ class QubitSearchInformationObject
     $this->getLanguagesAndScripts();
 
     // Add fields
-    foreach (self::$fields as $name)
+    foreach (array_keys($this->data) as $culture)
     {
-      $this->addField($name);
-    }
+      $this->doc = new Zend_Search_Lucene_Document;
 
-    $this->addDocument();
+      foreach (self::$fields as $name)
+      {
+        $this->addField($name, $culture);
+      }
+
+      $this->addDocument();
+    }
   }
 
   public function addDocument()
@@ -221,7 +261,7 @@ class QubitSearchInformationObject
     $this->index->addDocument($this->doc);
   }
 
-  protected function addField($name)
+  protected function addField($name, $culture)
   {
     $camelName = lcfirst(sfInflector::camelize($name));
     $field = $value = null;
@@ -242,10 +282,7 @@ class QubitSearchInformationObject
         $names = array();
         foreach ($this->getActors(array('typeId' => QubitTerm::CREATION_ID)) as $item)
         {
-          if (isset($item->authorized_form_of_name))
-          {
-            $names[] = $item->authorized_form_of_name;
-          }
+          $names[] = $item->getAuthorizedFormOfName(array('culture' => $culture));
         }
 
         // Add field
@@ -258,10 +295,7 @@ class QubitSearchInformationObject
         $histories = array();
         foreach ($this->getActors(array('typeId' => QubitTerm::CREATION_ID)) as $item)
         {
-          if (isset($item->history))
-          {
-            $histories[] = $item->history;
-          }
+          $histories[] = $item->getHistory(array('culture' => $culture));
         }
 
         $field = Zend_Search_Lucene_Field::Unstored($camelName, implode(' ', $histories));
@@ -274,7 +308,9 @@ class QubitSearchInformationObject
         foreach ($this->getActors(array('typeId' => QubitTerm::CREATION_ID)) as $item)
         {
           $creators[] = array(
-            'name' => $item->authorized_form_of_name,
+            'name' => $item->getAuthorizedFormOfName(array(
+              'culture' => $culture,
+              'fallback' => true)),
             'slug' => $item->slug
           );
         }
@@ -299,9 +335,14 @@ class QubitSearchInformationObject
 
         break;
 
+      case 'culture':
+        $field = Zend_Search_Lucene_Field::Keyword($camelName, $culture);
+
+        break;
+
       // Serialized date array for display in search results
       case 'date_serialized':
-        $field = Zend_Search_Lucene_Field::UnIndexed($camelName, serialize($this->getDates('array')));
+        $field = Zend_Search_Lucene_Field::UnIndexed($camelName, serialize($this->getDates('array', $culture)));
 
         break;
 
@@ -327,7 +368,7 @@ class QubitSearchInformationObject
         break;
 
       case 'level_of_description':
-        $field = Zend_Search_Lucene_Field::Text($camelName, $this->getLevelOfDescription());
+        $field = Zend_Search_Lucene_Field::Text($camelName, $this->getLevelOfDescription($culture));
 
         break;
 
@@ -347,13 +388,13 @@ class QubitSearchInformationObject
         break;
 
       case 'name':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getNameAccessPoints());
+        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getNameAccessPoints($culture));
         $field->boost = 3;
 
         break;
 
       case 'notes':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getNotes());
+        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getNotes($culture));
 
         break;
 
@@ -364,17 +405,17 @@ class QubitSearchInformationObject
         break;
 
       case 'part_of':
-        $field = Zend_Search_Lucene_Field::Text($camelName, $this->getCollectionRoot()->getTitle(array('culture' => $this->__get('culture'))));
+        $field = Zend_Search_Lucene_Field::Text($camelName, $this->getCollectionRoot()->getTitle(array('culture' => $culture)));
 
         break;
 
       case 'physical_storage':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getStorageNames());
+        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getStorageNames($culture));
 
         break;
 
       case 'place':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getPlaceAccessPoints());
+        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getPlaceAccessPoints($culture));
         $field->boost = 3;
 
         break;
@@ -387,7 +428,7 @@ class QubitSearchInformationObject
       case 'repository':
         if (isset($this->repository))
         {
-          $value = $this->repository->getAuthorizedFormOfName(array('culture' => $this->__get('culture'), 'fallback' => true));
+          $value = $this->repository->getAuthorizedFormOfName(array('culture' => $culture, 'fallback' => true));
         }
 
         $field = Zend_Search_Lucene_Field::Text($camelName, $value);
@@ -415,7 +456,7 @@ class QubitSearchInformationObject
         break;
 
       case 'subject':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getSubjectAccessPoints());
+        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getSubjectAccessPoints($culture));
         $field->boost = 5;
 
         break;
@@ -431,7 +472,7 @@ class QubitSearchInformationObject
         break;
 
       case 'title':
-        $value = $this->__get('title');
+        $value = $this->__get('title', $culture);
         if (0 == strlen($value))
         {
           // Include an i18n fallback for proper search result display in case the
@@ -454,13 +495,13 @@ class QubitSearchInformationObject
       case 'start_date':
       case 'end_date':
       case 'date':
-        $this->doc->addField(Zend_Search_Lucene_Field::Unstored($camelName, implode(' ', $this->getDates($name))));
+        $field = Zend_Search_Lucene_Field::Unstored($camelName, implode(' ', $this->getDates($name, $culture)));
 
         break;
 
       // TEXT fields
       case 'scope_and_content':
-        $field = Zend_Search_Lucene_Field::Text($camelName, $this->__get($name));
+        $field = Zend_Search_Lucene_Field::Text($camelName, $this->__get($name, $culture));
 
         break;
 
@@ -472,7 +513,7 @@ class QubitSearchInformationObject
       case 'slug':
         if ($this->__isset($name))
         {
-          $field = Zend_Search_Lucene_Field::Keyword($camelName, $this->__get($name));
+          $field = Zend_Search_Lucene_Field::Keyword($camelName, $this->__get($name, $culture));
         }
 
         break;
@@ -481,7 +522,7 @@ class QubitSearchInformationObject
       default:
         if ($this->__isset($name))
         {
-          $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->__get($name));
+          $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->__get($name, $culture));
         }
     }
 
@@ -572,7 +613,7 @@ class QubitSearchInformationObject
     return QubitPdo::fetchOne($sql, array($this->__get('id')))->title;
   }
 
-  public function getLevelOfDescription()
+  public function getLevelOfDescription($culture)
   {
     if (!isset(self::$lookups['levelOfDescription']))
     {
@@ -587,12 +628,12 @@ class QubitSearchInformationObject
     if (isset(self::$lookups['levelOfDescription'][$this->__get('level_of_description_id')]))
     {
       return self::$lookups['levelOfDescription'][$this->__get('level_of_description_id')]->getName(array(
-        'culture' => $this->__get('culture'),
+        'culture' => $culture,
         'fallback' => true));
     }
   }
 
-  public function getMediaTypeName()
+  public function getMediaTypeName($culture)
   {
     if (!$this->__isset('media_type_id'))
     {
@@ -612,7 +653,7 @@ class QubitSearchInformationObject
     if (isset(self::$lookups['mediaType'][$this->__get('media_type_id')]))
     {
       return self::$lookups['mediaType'][$this->__get('media_type_id')]->getName(array(
-        'culture' => $this->__get('culture'),
+        'culture' => $culture,
         'fallback' => true));
     }
   }
@@ -660,49 +701,64 @@ class QubitSearchInformationObject
     return $refcode;
   }
 
-  protected function getEvents()
+  protected function loadEvents()
   {
-    if (!isset(self::$statements['event']))
+    if (!isset($this->data['events']))
     {
-      $sql  = 'SELECT
-                  event.id,
-                  event.start_date,
-                  event.end_date,
-                  event.actor_id,
-                  event.type_id,
-                  act_slug.slug,
-                  act_i18n.authorized_form_of_name,
-                  act_i18n.history,
-                  i18n.date';
-      $sql .= ' FROM '.QubitEvent::TABLE_NAME.' event';
-      $sql .= ' JOIN '.QubitEventI18n::TABLE_NAME.' i18n
-                  ON event.id = i18n.id';
-      $sql .= ' LEFT JOIN '.QubitActorI18n::TABLE_NAME.' act_i18n
-                  ON event.actor_id = act_i18n.id';
-      $sql .= ' LEFT JOIN '.QubitSlug::TABLE_NAME.' act_slug
-                  ON event.actor_id = act_slug.object_id';
-      $sql .= ' WHERE event.information_object_id = ?
-                  AND i18n.culture = ?
-                  AND (act_i18n.id IS NULL OR act_i18n.culture = ?)';
+      $events = array();
 
-      self::$statements['event'] = self::$conn->prepare($sql);
+      if (!isset(self::$statements['event']))
+      {
+        $sql  = 'SELECT
+                    event.id,
+                    event.start_date,
+                    event.end_date,
+                    event.actor_id,
+                    event.type_id,
+                    i18n.date,
+                    i18n.culture';
+        $sql .= ' FROM '.QubitEvent::TABLE_NAME.' event';
+        $sql .= ' JOIN '.QubitEventI18n::TABLE_NAME.' i18n
+                    ON event.id = i18n.id';
+        $sql .= ' WHERE event.information_object_id = ?';
+
+        self::$statements['event'] = self::$conn->prepare($sql);
+      }
+
+      self::$statements['event']->execute(array($this->__get('id')));
+
+      foreach (self::$statements['event']->fetchAll() as $item)
+      {
+        if (!isset($events[$id]))
+        {
+          $event = new stdClass;
+          $event->id = $item['id'];
+          $event->start_date = $item['start_date'];
+          $event->end_date = $item['end_date'];
+          $event->actor_id = $item['actor_id'];
+          $event->type_id = $item['type_id'];
+
+          $events[$item['id']] = $event;
+        }
+
+        $events[$item['id']]->dates[$item['culture']] = $item['date'];
+      }
+
+      $this->data['events'] = $events;
     }
 
-    self::$statements['event']->execute(array(
-      $this->__get('id'),
-      $this->__get('culture'),
-      $this->__get('culture')));
-
-    return self::$statements['event']->fetchAll(PDO::FETCH_OBJ);
+    return $this->data['events'];
   }
 
-  protected function getDates($field)
+  protected function getDates($field, $culture)
   {
     $dates = array();
 
-    if (0 < count($this->__get('events')))
+    $events = $this->__get('events');
+
+    if (is_array($events) && 0 < count($events))
     {
-      foreach ($this->__get('events') as $item)
+      foreach ($events as $item)
       {
         switch($field)
         {
@@ -717,9 +773,9 @@ class QubitSearchInformationObject
             break;
 
           case 'date':
-            if (isset($item->date) || isset($item->start_date) || isset($item->end_date))
+            if (isset($item->dates[$culture]) || isset($item->start_date) || isset($item->end_date))
             {
-              $dates[] = Qubit::renderDateStartEnd($item->date, $item->start_date, $item->end_date);
+              $dates[] = Qubit::renderDateStartEnd($item->dates[$culture], $item->start_date, $item->end_date);
             }
 
             break;
@@ -728,7 +784,7 @@ class QubitSearchInformationObject
             if (isset($item->date) || isset($item->start_date) || isset($item->end_date))
             {
               $dates[] = array(
-                'date' => $item->date,
+                'date' => $item->dates[$culture],
                 'start_date' => $item->start_date,
                 'end_date' => $item->end_date,
                 'type_id' => $item->type_id);
@@ -758,12 +814,7 @@ class QubitSearchInformationObject
             continue;
           }
 
-          $actor = new stdClass();
-
-          $actor->authorized_form_of_name = $item->authorized_form_of_name;
-          $actor->slug = $item->slug;
-          $actor->history = $item->history;
-          $actor->type_id = $item->type_id;
+          $actor = QubitActor::getById($item->actor_id);
 
           $actors[] = $actor;
         }
@@ -773,7 +824,7 @@ class QubitSearchInformationObject
     return $actors;
   }
 
-  public function getNameAccessPoints()
+  public function getNameAccessPoints($culture)
   {
     $names = array();
 
@@ -795,7 +846,7 @@ class QubitSearchInformationObject
     }
 
     self::$statements['actorRelation']->execute(array(
-      ':culture' => $this->__get('culture'),
+      ':culture' => $culture,
       ':resourceId' => $this->__get('id'),
       ':typeId' => QubitTerm::NAME_ACCESS_POINT_ID));
 
@@ -810,9 +861,11 @@ class QubitSearchInformationObject
     // Get actors linked via the "event" table (e.g. creators)
     foreach ($this->getActors() as $item)
     {
-      if (!in_array($item->authorized_form_of_name, $names))
+      $name = $item->getAuthorizedFormOfName(array('culture' => $culture));
+
+      if (!in_array($name, $names))
       {
-        $names[] = $item->authorized_form_of_name;
+        $names[] = $name;
       }
     }
 
@@ -822,17 +875,17 @@ class QubitSearchInformationObject
     }
   }
 
-  public function getSubjectAccessPoints()
+  public function getSubjectAccessPoints($culture)
   {
-    return $this->getRelatedTerms(QubitTaxonomy::SUBJECT_ID);
+    return $this->getRelatedTerms(QubitTaxonomy::SUBJECT_ID, $culture);
   }
 
-  public function getPlaceAccessPoints()
+  public function getPlaceAccessPoints($culture)
   {
-    return $this->getRelatedTerms(QubitTaxonomy::PLACE_ID);
+    return $this->getRelatedTerms(QubitTaxonomy::PLACE_ID, $culture);
   }
 
-  protected function getRelatedTerms($typeId)
+  protected function getRelatedTerms($typeId, $culture)
   {
     $terms = array();
 
@@ -855,7 +908,7 @@ class QubitSearchInformationObject
 
     self::$statements['relatedTerms']->execute(array(
       $this->__get('id'),
-      $this->__get('culture'),
+      $culture,
       $typeId
     ));
 
@@ -935,7 +988,7 @@ class QubitSearchInformationObject
     return $this;
   }
 
-  public function getNotes()
+  public function getNotes($culture)
   {
     $notes = array();
 
@@ -955,7 +1008,7 @@ class QubitSearchInformationObject
 
     self::$statements['note']->execute(array(
       $this->__get('id'),
-      $this->__get('culture')));
+      $culture));
 
     foreach (self::$statements['note']->fetchAll(PDO::FETCH_OBJ) as $item)
     {
@@ -1008,7 +1061,7 @@ class QubitSearchInformationObject
     return self::$statements['materialType']->fetchColumn(0);
   }
 
-  public function getStorageNames()
+  public function getStorageNames($culture)
   {
     $names = array();
 
@@ -1029,7 +1082,7 @@ class QubitSearchInformationObject
     self::$statements['storageName']->execute(array(
       ':resource_id' => $this->__get('id'),
       ':type_id' => QubitTerm::HAS_PHYSICAL_OBJECT_ID,
-      ':culture' => $this->__get('culture')));
+      ':culture' => $culture));
 
     foreach (self::$statements['storageName']->fetchAll(PDO::FETCH_OBJ) as $item)
     {
