@@ -415,7 +415,7 @@ class QubitSearchInformationObject
         break;
 
       case 'place':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getPlaceAccessPoints());
+        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getPlaceAccessPoints($culture));
         $field->boost = 3;
 
         break;
@@ -456,7 +456,7 @@ class QubitSearchInformationObject
         break;
 
       case 'subject':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getSubjectAccessPoints());
+        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getSubjectAccessPoints($culture));
         $field->boost = 5;
 
         break;
@@ -875,17 +875,17 @@ class QubitSearchInformationObject
     }
   }
 
-  public function getSubjectAccessPoints()
+  public function getSubjectAccessPoints($culture)
   {
-    return $this->getRelatedTerms(QubitTaxonomy::SUBJECT_ID);
+    return $this->getRelatedTerms(QubitTaxonomy::SUBJECT_ID, $culture);
   }
 
-  public function getPlaceAccessPoints()
+  public function getPlaceAccessPoints($culture)
   {
-    return $this->getRelatedTerms(QubitTaxonomy::PLACE_ID);
+    return $this->getRelatedTerms(QubitTaxonomy::PLACE_ID, $culture);
   }
 
-  protected function getRelatedTerms($typeId)
+  protected function getRelatedTerms($typeId, $culture)
   {
     $terms = array();
 
@@ -908,7 +908,7 @@ class QubitSearchInformationObject
 
     self::$statements['relatedTerms']->execute(array(
       $this->__get('id'),
-      $this->__get('culture'),
+      $culture,
       $typeId
     ));
 
