@@ -410,7 +410,7 @@ class QubitSearchInformationObject
         break;
 
       case 'physical_storage':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getStorageNames());
+        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getStorageNames($culture));
 
         break;
 
@@ -1061,7 +1061,7 @@ class QubitSearchInformationObject
     return self::$statements['materialType']->fetchColumn(0);
   }
 
-  public function getStorageNames()
+  public function getStorageNames($culture)
   {
     $names = array();
 
@@ -1082,7 +1082,7 @@ class QubitSearchInformationObject
     self::$statements['storageName']->execute(array(
       ':resource_id' => $this->__get('id'),
       ':type_id' => QubitTerm::HAS_PHYSICAL_OBJECT_ID,
-      ':culture' => $this->__get('culture')));
+      ':culture' => $culture));
 
     foreach (self::$statements['storageName']->fetchAll(PDO::FETCH_OBJ) as $item)
     {
