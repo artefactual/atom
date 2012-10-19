@@ -378,7 +378,7 @@ class QubitSearchInformationObject
         break;
 
       case 'media_type':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getMediaTypeName());
+        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getMediaTypeName($culture));
 
         break;
 
