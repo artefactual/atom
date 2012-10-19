@@ -556,6 +556,11 @@ class QubitSearchInformationObject
       $this->ancestors = QubitPdo::fetchAll($sql, array($this->__get('lft'), $this->__get('rgt')));
     }
 
+    if (!isset($this->ancestors) || 0 == count($this->ancestors))
+    {
+      throw new sfException(sprintf("%s: Couldn't find ancestors, please make sure lft and rgt values are correct", get_class($this)));
+    }
+
     return $this->ancestors;
   }
 
@@ -591,6 +596,7 @@ class QubitSearchInformationObject
 
   public function getCollectionRoot()
   {
+    var_dump($this->__get('id'), $this->__get('parent_id'));
     if (QubitInformationObject::ROOT_ID == $this->__get('parent_id'))
     {
       return QubitInformationObject::getById($this->__get('id'));
