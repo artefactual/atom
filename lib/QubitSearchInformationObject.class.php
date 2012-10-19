@@ -596,7 +596,6 @@ class QubitSearchInformationObject
 
   public function getCollectionRoot()
   {
-    var_dump($this->__get('id'), $this->__get('parent_id'));
     if (QubitInformationObject::ROOT_ID == $this->__get('parent_id'))
     {
       return QubitInformationObject::getById($this->__get('id'));
@@ -735,7 +734,7 @@ class QubitSearchInformationObject
 
       foreach (self::$statements['event']->fetchAll() as $item)
       {
-        if (!isset($events['id']))
+        if (!isset($events[$item['id']]))
         {
           $event = new stdClass;
           $event->id = $item['id'];
