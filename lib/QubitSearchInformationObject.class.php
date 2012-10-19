@@ -787,8 +787,8 @@ class QubitSearchInformationObject
           case 'array':
             if (isset($item->date) || isset($item->start_date) || isset($item->end_date))
             {
-              $dates[] = array(
-                'date' => $item->dates[$culture],
+              $dates = array(
+                'date' => isset($item->dates[$culture]) ? $item->dates[$culture] : null,
                 'start_date' => $item->start_date,
                 'end_date' => $item->end_date,
                 'type_id' => $item->type_id);
