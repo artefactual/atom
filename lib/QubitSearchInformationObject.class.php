@@ -773,9 +773,13 @@ class QubitSearchInformationObject
             break;
 
           case 'date':
-            if (isset($item->dates[$culture]) || isset($item->start_date) || isset($item->end_date))
+            if (isset($item->dates[$culture]))
             {
-              $dates[] = Qubit::renderDateStartEnd($item->dates[$culture], $item->start_date, $item->end_date);
+              $dates[] = $item->dates[$culture];
+            }
+            else if (isset($item->start_date) || isset($item->end_date))
+            {
+              $dates[] = Qubit::renderDateStartEnd(null, $item->start_date, $item->end_date);
             }
 
             break;
