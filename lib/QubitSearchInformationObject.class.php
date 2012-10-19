@@ -126,7 +126,7 @@ class QubitSearchInformationObject
     // Get inherited repository, unless a repository is set at current level
     if (isset($options['repository']) && !$this->__isset('repository_id'))
     {
-      $resource->repository = $options['repository'];
+      $this->repository = $options['repository'];
     }
 
     $this->index = QubitSearch::getInstance()->getEngine()->getIndex();
