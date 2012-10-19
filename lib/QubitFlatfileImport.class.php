@@ -586,10 +586,11 @@ class QubitFlatfileImport
         $this->context->getUser()->setCulture($this->columnValue('culture'));
       }
 
-      // disable nested set updating, if applicable to object type
+      // determine whether nested set should be updated, if applicable to object type
       if (property_exists(get_class($this->object), 'disableNestedSetUpdating'))
       {
-        $this->object->disableNestedSetUpdating = true;
+        // enable nested set updating if search indexing is enabled
+        $this->object->disableNestedSetUpdating = (!$this->searchIndexingDisabled) ? true : false;
       }
     } else {
       // execute ad-hoc row initialization logic (which can make objects, load
