@@ -889,7 +889,7 @@ class QubitFlatfileImport
    *
    * @return object  database statement object
    */
-  public function sqlQuery($query, $params = array())
+  public static function sqlQuery($query, $params = array())
   {
     $connection = Propel::getConnection();
     $statement = $connection->prepare($query);
