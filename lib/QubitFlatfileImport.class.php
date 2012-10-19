@@ -32,6 +32,8 @@ class QubitFlatfileImport
   public $displayProgress = true;    // display progress by default
   public $rowsUntilProgressDisplay;  // optional display progress every n rows
 
+  public $searchIndexingDisabled = true; // disable per-object search indexing by default
+
   public $status          = array(); // place to store data related to overall import
   public $rowStatusVars   = array(); // place to store data related to current row
 
@@ -454,8 +456,8 @@ class QubitFlatfileImport
       $this->columnNames[] = $column;
     }
 
-    // disable search indexing to imrpove import speed
-    QubitSearch::getInstance()->disabled = true;
+    // disabling search indexing improves import speed
+    QubitSearch::getInstance()->disabled = $this->searchIndexingDisabled;
 
     if ($skipRows) print "Skipped ". $skipRows ." rows...\n";
 
