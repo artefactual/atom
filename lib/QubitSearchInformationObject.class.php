@@ -729,7 +729,7 @@ class QubitSearchInformationObject
 
       foreach (self::$statements['event']->fetchAll() as $item)
       {
-        if (!isset($events[$id]))
+        if (!isset($events['id']))
         {
           $event = new stdClass;
           $event->id = $item['id'];
