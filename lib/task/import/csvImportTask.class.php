@@ -65,6 +65,12 @@ EOF;
         null,
         sfCommandOption::PARAMETER_NONE,
         "Don't build the nested set upon import completion."
+      ),
+      new sfCommandOption(
+        'index',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        "Index for search during import."
       )
     ));
   }
@@ -987,6 +993,9 @@ EOF;
         }
       }
     ));
+
+    // allow search indexing to be enabled via a CLI option
+    $import->searchIndexingDisabled = ($options['index']) ? false : true;
 
     // convert content with | characters to a bulleted list
     $import->contentFilterLogic = function($text)
