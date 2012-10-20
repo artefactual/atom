@@ -35,7 +35,7 @@ class QubitSearchInformationObject
 
   protected
     $data = array(),
-    $events = array(),
+    $events,
     $languages = array(),
     $scripts = array();
 
@@ -178,7 +178,7 @@ class QubitSearchInformationObject
   {
     if ('events' == $name)
     {
-      return;
+      $this->events = $value;
     }
 
     $culture = $this->func_get_culture(func_get_args());
@@ -781,11 +781,9 @@ class QubitSearchInformationObject
   {
     $dates = array();
 
-    $events = $this->__get('events');
-
-    if (is_array($events) && 0 < count($events))
+    if (0 < count($this->events))
     {
-      foreach ($events as $item)
+      foreach ($this->events as $item)
       {
         switch($field)
         {
@@ -833,9 +831,9 @@ class QubitSearchInformationObject
   {
     $actors = array();
 
-    if (0 < count($this->__get('events')))
+    if (0 < count($this->events))
     {
-      foreach ($this->__get('events') as $item)
+      foreach ($this->events as $item)
       {
         if (isset($item->actor_id))
         {
