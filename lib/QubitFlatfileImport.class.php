@@ -32,6 +32,8 @@ class QubitFlatfileImport
   public $displayProgress = true;    // display progress by default
   public $rowsUntilProgressDisplay;  // optional display progress every n rows
 
+  public $searchIndexingDisabled = true; // disable per-object search indexing by default
+
   public $status          = array(); // place to store data related to overall import
   public $rowStatusVars   = array(); // place to store data related to current row
 
@@ -454,8 +456,8 @@ class QubitFlatfileImport
       $this->columnNames[] = $column;
     }
 
-    // disable search indexing to imrpove import speed
-    QubitSearch::getInstance()->disabled = true;
+    // disabling search indexing improves import speed
+    QubitSearch::getInstance()->disabled = $this->searchIndexingDisabled;
 
     if ($skipRows) print "Skipped ". $skipRows ." rows...\n";
 
@@ -584,10 +586,11 @@ class QubitFlatfileImport
         $this->context->getUser()->setCulture($this->columnValue('culture'));
       }
 
-      // disable nested set updating, if applicable to object type
+      // determine whether nested set should be updated, if applicable to object type
       if (property_exists(get_class($this->object), 'disableNestedSetUpdating'))
       {
-        $this->object->disableNestedSetUpdating = true;
+        // enable nested set updating if search indexing is enabled
+        $this->object->disableNestedSetUpdating = (!$this->searchIndexingDisabled) ? true : false;
       }
     } else {
       // execute ad-hoc row initialization logic (which can make objects, load
@@ -887,7 +890,7 @@ class QubitFlatfileImport
    *
    * @return object  database statement object
    */
-  public function sqlQuery($query, $params = array())
+  public static function sqlQuery($query, $params = array())
   {
     $connection = Propel::getConnection();
     $statement = $connection->prepare($query);

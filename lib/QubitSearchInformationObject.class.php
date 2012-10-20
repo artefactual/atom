@@ -35,8 +35,9 @@ class QubitSearchInformationObject
 
   protected
     $data = array(),
-    $languages,
-    $scripts;
+    $events = array(),
+    $languages = array(),
+    $scripts = array();
 
   protected static
     $conn,
@@ -126,7 +127,7 @@ class QubitSearchInformationObject
     // Get inherited repository, unless a repository is set at current level
     if (isset($options['repository']) && !$this->__isset('repository_id'))
     {
-      $resource->repository = $options['repository'];
+      $this->repository = $options['repository'];
     }
 
     $this->index = QubitSearch::getInstance()->getEngine()->getIndex();
@@ -148,24 +149,24 @@ class QubitSearchInformationObject
 
   public function __isset($name)
   {
-    $culture = $this->func_get_culture(func_get_args());
-
     if ('events' == $name)
     {
-      return isset($this->data['events']);
+      return isset($this->events);
     }
+
+    $culture = $this->func_get_culture(func_get_args());
 
     return isset($this->data[$culture][$name]);
   }
 
   public function __get($name)
   {
-    $culture = $this->func_get_culture(func_get_args());
-
     if ('events' == $name)
     {
-      return $this->data['events'];
+      return $this->events;
     }
+
+    $culture = $this->func_get_culture(func_get_args());
 
     if (isset($this->data[$culture][$name]))
     {
@@ -175,6 +176,11 @@ class QubitSearchInformationObject
 
   public function __set($name, $value)
   {
+    if ('events' == $name)
+    {
+      return;
+    }
+
     $culture = $this->func_get_culture(func_get_args());
 
     $this->data[$culture][$name] = $value;
@@ -360,7 +366,15 @@ class QubitSearchInformationObject
       case 'language':
         if (0 < count($this->languages))
         {
-          $value = implode(' ', $this->languages);
+          $lookup = sfCultureInfo::getInstance($culture)->getLanguages();
+
+          $languages = array();
+          foreach ($this->languages as $code)
+          {
+            $languages[] = $lookup[$code];
+          }
+
+          $value = implode(' ', $languages);
         }
 
         $field = Zend_Search_Lucene_Field::Unstored($camelName, $value);
@@ -378,7 +392,7 @@ class QubitSearchInformationObject
         break;
 
       case 'media_type':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getMediaTypeName());
+        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getMediaTypeName($culture));
 
         break;
 
@@ -464,7 +478,15 @@ class QubitSearchInformationObject
       case 'script':
         if (0 < count($this->scripts))
         {
-          $value = implode(' ', $this->scripts);
+          $lookup = sfCultureInfo::getInstance($culture)->getScripts();
+
+          $scripts = array();
+          foreach ($this->scripts as $code)
+          {
+            $scripts[] = $lookup[$code];
+          }
+
+          $value = implode(' ', $scripts);
         }
 
         $field = Zend_Search_Lucene_Field::Unstored($camelName, $value);
@@ -554,6 +576,11 @@ class QubitSearchInformationObject
       $sql .= ' ORDER BY lft';
 
       $this->ancestors = QubitPdo::fetchAll($sql, array($this->__get('lft'), $this->__get('rgt')));
+    }
+
+    if (!isset($this->ancestors) || 0 == count($this->ancestors))
+    {
+      throw new sfException(sprintf("%s: Couldn't find ancestors, please make sure lft and rgt values are correct", get_class($this)));
     }
 
     return $this->ancestors;
@@ -703,7 +730,7 @@ class QubitSearchInformationObject
 
   protected function loadEvents()
   {
-    if (!isset($this->data['events']))
+    if (!isset($this->events))
     {
       $events = array();
 
@@ -729,7 +756,7 @@ class QubitSearchInformationObject
 
       foreach (self::$statements['event']->fetchAll() as $item)
       {
-        if (!isset($events[$id]))
+        if (!isset($events[$item['id']]))
         {
           $event = new stdClass;
           $event->id = $item['id'];
@@ -744,10 +771,10 @@ class QubitSearchInformationObject
         $events[$item['id']]->dates[$item['culture']] = $item['date'];
       }
 
-      $this->data['events'] = $events;
+      $this->events = $events;
     }
 
-    return $this->data['events'];
+    return $this->events;
   }
 
   protected function getDates($field, $culture)
@@ -773,9 +800,13 @@ class QubitSearchInformationObject
             break;
 
           case 'date':
-            if (isset($item->dates[$culture]) || isset($item->start_date) || isset($item->end_date))
+            if (isset($item->dates[$culture]))
             {
-              $dates[] = Qubit::renderDateStartEnd($item->dates[$culture], $item->start_date, $item->end_date);
+              $dates[] = $item->dates[$culture];
+            }
+            else if (isset($item->start_date) || isset($item->end_date))
+            {
+              $dates[] = Qubit::renderDateStartEnd(null, $item->start_date, $item->end_date);
             }
 
             break;
@@ -783,8 +814,8 @@ class QubitSearchInformationObject
           case 'array':
             if (isset($item->date) || isset($item->start_date) || isset($item->end_date))
             {
-              $dates[] = array(
-                'date' => $item->dates[$culture],
+              $dates = array(
+                'date' => isset($item->dates[$culture]) ? $item->dates[$culture] : null,
                 'start_date' => $item->start_date,
                 'end_date' => $item->end_date,
                 'type_id' => $item->type_id);
@@ -925,17 +956,6 @@ class QubitSearchInformationObject
 
   protected function getLanguagesAndScripts()
   {
-    // Get lookup tables
-    if (!isset(self::$lookups['languages'][$this->__get('culture')]))
-    {
-      self::$lookups['languages'][$this->__get('culture')] = sfCultureInfo::getInstance($this->__get('culture'))->getLanguages();
-    }
-
-    if (!isset(self::$lookups['scripts'][$this->__get('culture')]))
-    {
-      self::$lookups['scripts'][$this->__get('culture')] = sfCultureInfo::getInstance($this->__get('culture'))->getScripts();
-    }
-
     // Find langs and scripts
     if (!isset(self::$statements['langAndScript']))
     {
@@ -967,18 +987,12 @@ class QubitSearchInformationObject
         switch ($item->name)
         {
           case 'language':
-            foreach ($codes as $code)
-            {
-              $this->languages[] = self::$lookups['languages'][$this->__get('culture')][$code];
-            }
+            $this->languages = $codes;
 
             break;
 
           case 'script':
-            foreach ($codes as $code)
-            {
-              $this->scripts[] = self::$lookups['scripts'][$this->__get('culture')][$code];
-            }
+            $this->scripts = $codes;
 
             break;
         }
