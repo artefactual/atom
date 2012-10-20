@@ -590,7 +590,7 @@ class QubitFlatfileImport
       if (property_exists(get_class($this->object), 'disableNestedSetUpdating'))
       {
         // enable nested set updating if search indexing is enabled
-        $this->object->disableNestedSetUpdating = (!$this->searchIndexingDisabled) ? true : false;
+        $this->object->disableNestedSetUpdating = ($this->searchIndexingDisabled) ? true : false;
       }
     } else {
       // execute ad-hoc row initialization logic (which can make objects, load
