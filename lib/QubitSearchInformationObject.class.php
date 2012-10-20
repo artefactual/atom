@@ -35,8 +35,8 @@ class QubitSearchInformationObject
 
   protected
     $data = array(),
-    $languages,
-    $scripts;
+    $languages = array(),
+    $scripts = array();
 
   protected static
     $conn,
@@ -360,7 +360,15 @@ class QubitSearchInformationObject
       case 'language':
         if (0 < count($this->languages))
         {
-          $value = implode(' ', $this->languages);
+          $lookup = sfCultureInfo::getInstance($culture)->getLanguages();
+
+          $languages = array();
+          foreach ($this->languages as $code)
+          {
+            $languages[] = $lookup[$code];
+          }
+
+          $value = implode(' ', $languages);
         }
 
         $field = Zend_Search_Lucene_Field::Unstored($camelName, $value);
@@ -464,7 +472,15 @@ class QubitSearchInformationObject
       case 'script':
         if (0 < count($this->scripts))
         {
-          $value = implode(' ', $this->scripts);
+          $lookup = sfCultureInfo::getInstance($culture)->getScripts();
+
+          $scripts = array();
+          foreach ($this->scripts as $code)
+          {
+            $scripts[] = $lookup[$code];
+          }
+
+          $value = implode(' ', $scripts);
         }
 
         $field = Zend_Search_Lucene_Field::Unstored($camelName, $value);
@@ -934,17 +950,6 @@ class QubitSearchInformationObject
 
   protected function getLanguagesAndScripts()
   {
-    // Get lookup tables
-    if (!isset(self::$lookups['languages'][$this->__get('culture')]))
-    {
-      self::$lookups['languages'][$this->__get('culture')] = sfCultureInfo::getInstance($this->__get('culture'))->getLanguages();
-    }
-
-    if (!isset(self::$lookups['scripts'][$this->__get('culture')]))
-    {
-      self::$lookups['scripts'][$this->__get('culture')] = sfCultureInfo::getInstance($this->__get('culture'))->getScripts();
-    }
-
     // Find langs and scripts
     if (!isset(self::$statements['langAndScript']))
     {
@@ -976,18 +981,12 @@ class QubitSearchInformationObject
         switch ($item->name)
         {
           case 'language':
-            foreach ($codes as $code)
-            {
-              $this->languages[] = self::$lookups['languages'][$this->__get('culture')][$code];
-            }
+            $this->languages = $codes;
 
             break;
 
           case 'script':
-            foreach ($codes as $code)
-            {
-              $this->scripts[] = self::$lookups['scripts'][$this->__get('culture')][$code];
-            }
+            $this->scripts = $codes;
 
             break;
         }
