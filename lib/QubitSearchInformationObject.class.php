@@ -286,9 +286,9 @@ class QubitSearchInformationObject
 
       case 'creator':
         $names = array();
-        foreach ($this->getActors(array('typeId' => QubitTerm::CREATION_ID)) as $item)
+        foreach ($this->getActors($culture, array('typeId' => QubitTerm::CREATION_ID)) as $item)
         {
-          $names[] = $item->getAuthorizedFormOfName(array('culture' => $culture));
+          $names[] = $item->authorized_form_of_name;
         }
 
         // Add field
@@ -299,9 +299,9 @@ class QubitSearchInformationObject
 
       case 'creator_history':
         $histories = array();
-        foreach ($this->getActors(array('typeId' => QubitTerm::CREATION_ID)) as $item)
+        foreach ($this->getActors($culture, array('typeId' => QubitTerm::CREATION_ID)) as $item)
         {
-          $histories[] = $item->getHistory(array('culture' => $culture));
+          $histories[] = $item->history;
         }
 
         $field = Zend_Search_Lucene_Field::Unstored($camelName, implode(' ', $histories));
@@ -311,12 +311,10 @@ class QubitSearchInformationObject
       // Serialized creator data for creating links in search results
       case 'creator_serialized':
         $creators = array();
-        foreach ($this->getActors(array('typeId' => QubitTerm::CREATION_ID)) as $item)
+        foreach ($this->getActors($culture, array('typeId' => QubitTerm::CREATION_ID)) as $item)
         {
           $creators[] = array(
-            'name' => $item->getAuthorizedFormOfName(array(
-              'culture' => $culture,
-              'fallback' => true)),
+            'name' => $item->authorized_form_of_name,
             'slug' => $item->slug
           );
         }
@@ -812,7 +810,7 @@ class QubitSearchInformationObject
           case 'array':
             if (isset($item->date) || isset($item->start_date) || isset($item->end_date))
             {
-              $dates = array(
+              $dates[] = array(
                 'date' => isset($item->dates[$culture]) ? $item->dates[$culture] : null,
                 'start_date' => $item->start_date,
                 'end_date' => $item->end_date,
@@ -827,9 +825,28 @@ class QubitSearchInformationObject
     return $dates;
   }
 
-  public function getActors($options = array())
+  public function getActors($culture, $options = array())
   {
     $actors = array();
+
+    if (!isset(self::$statements['actor']))
+    {
+      $sql  = 'SELECT
+                  actor.id,
+                  slug.slug,
+                  i18n.authorized_form_of_name,
+                  i18n.history,
+                  i18n.culture';
+      $sql .= ' FROM '.QubitActor::TABLE_NAME.' actor';
+      $sql .= ' JOIN '.QubitSlug::TABLE_NAME.' slug
+                  ON actor.id = slug.object_id';
+      $sql .= ' JOIN '.QubitActorI18n::TABLE_NAME.' i18n
+                  ON actor.id = i18n.id';
+      $sql .= ' WHERE actor.id = ?
+                  AND i18n.culture = ?;';
+
+      self::$statements['actor'] = self::$conn->prepare($sql);
+    }
 
     if (0 < count($this->events))
     {
@@ -843,9 +860,16 @@ class QubitSearchInformationObject
             continue;
           }
 
-          $actor = QubitActor::getById($item->actor_id);
+          self::$statements['actor']->execute(array(
+            $item->actor_id,
+            $culture));
 
-          $actors[] = $actor;
+          $results = self::$statements['actor']->fetchAll(PDO::FETCH_OBJ);
+
+          if ($results && 0 < count($results))
+          {
+            $actors = array_merge($actors, $results);
+          }
         }
       }
     }
@@ -888,9 +912,9 @@ class QubitSearchInformationObject
     }
 
     // Get actors linked via the "event" table (e.g. creators)
-    foreach ($this->getActors() as $item)
+    foreach ($this->getActors($culture) as $item)
     {
-      $name = $item->getAuthorizedFormOfName(array('culture' => $culture));
+      $name = $item->authorized_form_of_name;
 
       if (!in_array($name, $names))
       {
