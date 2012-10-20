@@ -35,6 +35,7 @@ class QubitSearchInformationObject
 
   protected
     $data = array(),
+    $events = array(),
     $languages = array(),
     $scripts = array();
 
@@ -148,24 +149,24 @@ class QubitSearchInformationObject
 
   public function __isset($name)
   {
-    $culture = $this->func_get_culture(func_get_args());
-
     if ('events' == $name)
     {
-      return isset($this->data['events']);
+      return isset($this->events);
     }
+
+    $culture = $this->func_get_culture(func_get_args());
 
     return isset($this->data[$culture][$name]);
   }
 
   public function __get($name)
   {
-    $culture = $this->func_get_culture(func_get_args());
-
     if ('events' == $name)
     {
-      return $this->data['events'];
+      return $this->events;
     }
+
+    $culture = $this->func_get_culture(func_get_args());
 
     if (isset($this->data[$culture][$name]))
     {
@@ -175,6 +176,11 @@ class QubitSearchInformationObject
 
   public function __set($name, $value)
   {
+    if ('events' == $name)
+    {
+      return;
+    }
+
     $culture = $this->func_get_culture(func_get_args());
 
     $this->data[$culture][$name] = $value;
@@ -724,7 +730,7 @@ class QubitSearchInformationObject
 
   protected function loadEvents()
   {
-    if (!isset($this->data['events']))
+    if (!isset($this->events))
     {
       $events = array();
 
@@ -765,10 +771,10 @@ class QubitSearchInformationObject
         $events[$item['id']]->dates[$item['culture']] = $item['date'];
       }
 
-      $this->data['events'] = $events;
+      $this->events = $events;
     }
 
-    return $this->data['events'];
+    return $this->events;
   }
 
   protected function getDates($field, $culture)
