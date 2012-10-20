@@ -864,11 +864,9 @@ class QubitSearchInformationObject
             $item->actor_id,
             $culture));
 
-          $results = self::$statements['actor']->fetchAll(PDO::FETCH_OBJ);
-
-          if ($results && 0 < count($results))
+          if ($actor = self::$statements['actor']->fetch(PDO::FETCH_OBJ))
           {
-            $actors = array_merge($actors, $results);
+            $actors[] = $actor;
           }
         }
       }
