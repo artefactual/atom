@@ -32,6 +32,8 @@ class QubitCsvImport
     $rootObject = null,
     $parent = null;
 
+  public $indexDuringImport = false;
+
   public function import($csvFile, $type = null)
   {
     // Find the proper task
@@ -59,13 +61,17 @@ class QubitCsvImport
         break;
     }
 
+    // Figure out whether indexing flag should be added to command
+    $commandIndexFlag = ($this->indexDuringImport) ? '--index' : '';
+
     // Build command string
     if (isset($this->parent))
     {
       // Example: php symfony csv:import --default-parent-slug="$sourceName" /tmp/foobar
-      $command = sprintf('php %s %s --quiet --source-name=%s --default-parent-slug=%s %s',
+      $command = sprintf('php %s %s %s --quiet --source-name=%s --default-parent-slug=%s %s',
         escapeshellarg(sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'symfony'),
         escapeshellarg($taskClassName),
+        $commandIndexFlag,
         escapeshellarg($csvFile),
         escapeshellarg($this->parent->slug),
         escapeshellarg($csvFile));
@@ -73,9 +79,10 @@ class QubitCsvImport
     else
     {
       // Example: php symfony csv:import /tmp/foobar
-      $command = sprintf('php %s %s --quiet --source-name=%s %s',
+      $command = sprintf('php %s %s %s --quiet --source-name=%s %s',
         escapeshellarg(sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'symfony'),
         escapeshellarg($taskClassName),
+        $commandIndexFlag,
         escapeshellarg($csvFile),
         escapeshellarg($csvFile));
     }

@@ -122,6 +122,7 @@ class ObjectImportAction extends sfAction
         {
           case 'csv':
             $importer = new QubitCsvImport;
+            $importer->indexDuringImport = ($request->getParameter('noindex') == 'on') ? false : true;
             if (isset($this->getRoute()->resource)) $importer->setParent($this->getRoute()->resource);
             $importer->import($file['tmp_name'], $request->csvObjectType);
 
