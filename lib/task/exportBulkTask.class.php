@@ -81,7 +81,7 @@ class eadExportTask extends sfBaseTask
     $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
     $sf_context = sfContext::createInstance($configuration);
 
-    $sql = "SELECT id FROM information_object";
+    $sql = "SELECT id FROM information_object WHERE parent_id=1";
 
     include('plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccessHeader.xml.php');
     foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row)
