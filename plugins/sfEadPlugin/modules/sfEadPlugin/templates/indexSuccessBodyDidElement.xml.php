@@ -33,7 +33,7 @@
       <unittitle type="statrep"><edition><?php echo esc_specialchars($value) ?></edition></unittitle>
 <?php endif; ?>
 <?php if (0 < strlen($$resourceVar->getIdentifier())): ?>
-    <unitid <?php if ($$resourceVar->getRepository()): ?><?php if ($repocode = $resource->getRepository()->getIdentifier()): ?><?php echo 'repositorycode="'.esc_specialchars($repocode).'" ' ?><?php endif; ?><?php if ($countrycode = $resource->getRepository()->getCountryCode()): ?><?php echo 'countrycode="'.$countrycode.'"' ?><?php endif;?><?php endif; ?> encodinganalog="3.1.1"><?php echo esc_specialchars($$resourceVar->getIdentifier()) ?></unitid>
+    <unitid <?php if ($$resourceVar->getRepository()): ?><?php if ($repocode = $$resourceVar->getRepository()->getIdentifier()): ?><?php echo 'repositorycode="'.esc_specialchars($repocode).'" ' ?><?php endif; ?><?php if ($countrycode = $$resourceVar->getRepository()->getCountryCode()): ?><?php echo 'countrycode="'.$countrycode.'"' ?><?php endif;?><?php endif; ?> encodinganalog="3.1.1"><?php echo esc_specialchars($$resourceVar->getIdentifier()) ?></unitid>
 <?php endif; ?>
 <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('standardNumber')->__toString())): ?>
     <unitid type="standard"><?php echo esc_specialchars($value) ?></unitid>
