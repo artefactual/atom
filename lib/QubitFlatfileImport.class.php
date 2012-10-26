@@ -1387,7 +1387,7 @@ class QubitFlatfileImport
    *
    * @return array  array of term IDs and their respective names
    */
-  public function getTaxonomyTerms($taxonomyId, $culture = 'en')
+  public static function getTaxonomyTerms($taxonomyId, $culture = 'en')
   {
     $terms = array();
 
@@ -1445,7 +1445,7 @@ class QubitFlatfileImport
    *
    * @return array  array of arrays containing taxonomy terms
    */
-  public function loadTermsFromTaxonomies($taxonomies)
+  public static function loadTermsFromTaxonomies($taxonomies)
   {
     $taxonomyTerms = array();
 
