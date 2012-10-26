@@ -67,12 +67,28 @@ class eadExportTask extends sfBaseTask
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
+    $appRoot = dirname(__FILE__) .'/../..';
+    include($appRoot .'/plugins/sfEadPlugin/lib/sfEadPlugin.class.php');
+    include($appRoot .'/vendor/symfony/lib/helper/UrlHelper.php');
+    include($appRoot .'/vendor/symfony/lib/helper/I18NHelper.php');
+    include($appRoot .'/plugins/sfEadPlugin/lib/vendor/FreeBeerIso639Map.php');
+    include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
+    include($appRoot .'/lib/helper/QubitHelper.php');
+
+    $iso639convertor = new fbISO639_Map;
+    $eadLevels = array('class', 'collection', 'file', 'fonds', 'item', 'otherlevel', 'recordgrp', 'series', 'subfonds', 'subgrp', 'subseries');
+
+    $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
+    $sf_context = sfContext::createInstance($configuration);
+
     $sql = "SELECT id FROM information_object";
 
     foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row)
     {
-      $resource = QubitInformationObject::getOne($row['id']);
-      include('../../../plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccess.xml.php');
+      $resource = QubitInformationObject::getById($row['id']);
+
+      $ead = new sfEadPlugin($resource);
+      include('plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccess.xml.php');
     }
   }
 }
