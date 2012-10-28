@@ -29,7 +29,12 @@ class QubitSetting extends BaseSetting
 {
   public function __toString()
   {
-    return (string) $this->value;
+    if (null == $value = $this->value)
+    {
+      $value = $this->getValue(array('sourceCulture' => true));
+    }
+
+    return (string) $value;
   }
 
   // wrapper convenience methods
