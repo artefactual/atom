@@ -4,7 +4,7 @@
 
 	export-postprocess.xsl - Stylesheet to normalize XML for export
 
-	This file is part of the Qubit Toolkit.
+	This file is part of the AccesstoMemory (AtoM).
 	Copyright (C) 2006-2008 Peter Van Garderen <peter@artefactual.com>
 
 ==============================================-->
