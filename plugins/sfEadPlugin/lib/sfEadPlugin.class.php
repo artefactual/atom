@@ -37,6 +37,22 @@ class sfEadPlugin
     return $this->resource->$name;
   }
 
+  public function subjectHasNonBlankSourceNotes(&$subject)
+  {
+    $hasNonBlankNotes = false;
+
+    $notes = $subject->getTerm()->getSourceNotes();
+    foreach($notes as $note)
+    {
+      if ($note != '')
+      {
+        $hasNonBlankNotes = true;
+      }
+    }
+
+    return $hasNonBlankNotes;
+  }
+
   public function renderEadId()
   {
     $countryCode = $mainAgencyCode = '';
