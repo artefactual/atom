@@ -134,9 +134,14 @@ foreach($radNotes as $name => $xmlType)
   <scopecontent encodinganalog="3.3.1"><p><?php echo esc_specialchars($value) ?></p></scopecontent><?php endif; ?>
 <?php if (0 < strlen($value = $resource->getArrangement(array('cultureFallback' => true)))): ?>
   <arrangement encodinganalog="3.3.4"><p><?php echo esc_specialchars($value) ?></p></arrangement><?php endif; ?>
-<?php if ((0 < count($materialtypes = $resource->getMaterialTypes())) ||
-            (0 < count($subjects = $resource->getSubjectAccessPoints())) ||
-            (0 < count($places = $resource->getPlaceAccessPoints())) ||
+<?php
+$materialtypes = $resource->getMaterialTypes();
+$subjects = $resource->getSubjectAccessPoints();
+$places = $resource->getPlaceAccessPoints();
+
+ if ((0 < count($materialtypes)) ||
+            (0 < count($subjects)) ||
+            (0 < count($places)) ||
             (0 < count($resource->getActors()))): ?>
   <controlaccess>
 <?php foreach ($resource->getActorEvents() as $event): ?>
