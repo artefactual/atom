@@ -204,9 +204,14 @@ $places = $resource->getPlaceAccessPoints();
       <scopecontent encodinganalog="3.3.1"><p><?php echo esc_specialchars($value) ?></p></scopecontent><?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getArrangement(array('cultureFallback' => true)))): ?>
       <arrangement encodinganalog="3.3.4"><p><?php echo esc_specialchars($value) ?></p></arrangement><?php endif; ?>
-<?php if ((0 < count($materialtypes = $descendant->getMaterialTypes())) ||
-            (0 < count($subjects = $descendant->getSubjectAccessPoints())) ||
-            (0 < count($places = $descendant->getPlaceAccessPoints())) ||
+<?php
+$materialtypes = $descendant->getMaterialTypes();
+$subjects = $descendant->getSubjectAccessPoints();
+$places = $descendant->getPlaceAccessPoints();
+
+ if ((0 < count($materialtypes)) ||
+            (0 < count($subjects)) ||
+            (0 < count($places)) ||
             (0 < count($descendant->getActors()))): ?>
       <controlaccess>
 <?php foreach ($descendant->getActorEvents() as $event): ?>
