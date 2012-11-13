@@ -5,10 +5,15 @@
 
   <title><?php echo render_title($informationObject, false) ?></title>
 
-  <id><?php echo $informationObject->id.' / ' . $informationObject->createdAt->format('c') ?></id>
+  <?php
+    // For unknown reasons the type of the createdAt property is not always a DateTime but a string
+    // This is a workaround to retrieve the same result if the property returns a string
+    $creationDate = $informationObject->createdAt instanceof DateTime ? $informationObject->createdAt->format('c') : format_date($informationObject->createdAt, 's')
+  ?>
 
-  <updated><?php echo $informationObject->createdAt->format('c') ?></updated>
+  <id><?php echo $informationObject->id.' / ' . $creationDate ?></id>
 
+  <updated><?php echo $creationDate ?></updated>
   <author>
     <name><?php echo $user->user ?></name>
   </author>
