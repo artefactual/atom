@@ -517,7 +517,14 @@ class QubitFlatfileImport
       }
     }
 
-    // Default culture to English
+    // add blank culture field if not present in import
+    if (!in_array('culture', $this->columnNames))
+    {
+      $this->columnNames[] = 'culture';
+      $this->addColumns[]  = 'culture';
+    }
+
+    // default culture to English
     if (0 == strlen($this->columnValue('culture')))
     {
       $this->columnValue('culture', 'en');
