@@ -456,6 +456,17 @@ class QubitFlatfileImport
       $this->columnNames[] = $column;
     }
 
+    // warn if column names contain whitespace
+    foreach($this->columnNames as $column)
+    {
+      if ($column != trim($column))
+      {
+        print $this->logError(
+          sprintf("WARNING: Column '%s' has whitespace before or after its name.", $column)
+        );
+      }
+    }
+
     // disabling search indexing improves import speed
     QubitSearch::getInstance()->disabled = $this->searchIndexingDisabled;
 
