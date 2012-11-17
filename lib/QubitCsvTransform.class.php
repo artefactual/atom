@@ -3,6 +3,7 @@
 class QubitCsvTransform extends QubitFlatfileImport {
 
   public
+    $setupLogic,
     $transformLogic,
     $levelsOfDescription = array(
       'fonds',
@@ -14,7 +15,6 @@ class QubitCsvTransform extends QubitFlatfileImport {
       'file',
       'item'
     );
-
 
   public function __construct($options = array())
   {
@@ -37,6 +37,11 @@ class QubitCsvTransform extends QubitFlatfileImport {
     // call parent class constructor
     parent::__construct($options);
 
+    if (isset($options['setupLogic']))
+    {
+      $this->setupLogic = $options['setupLogic'];
+    }
+
     if (isset($options['transformLogic']))
     {
       $this->transformLogic = $options['transformLogic'];
@@ -46,7 +51,6 @@ class QubitCsvTransform extends QubitFlatfileImport {
       $this->status['finalOutputFile'] = $cliOptions['output-file'];
       $this->status['ignoreBadLod'] = $cliOptions['ignore-bad-lod'];
     }
-
     $this->status['headersWritten']  = false;
   }
 
@@ -57,14 +61,20 @@ class QubitCsvTransform extends QubitFlatfileImport {
       throw new sfException('You must specifiy the output-file option.');
     }
 
-    if (!getenv("MYSQL_PASSWORD"))
+    if (!getEnv("MYSQL_PASSWORD"))
     {
-      //throw new sfException('You must set the MYSQL_PASSWORD environmental variable. This script will use the "root" user and a database called "import".');
+      throw new sfException('You must set the MYSQL_PASSWORD environmental variable. This script will use the "root" user and a database called "import".');
     }
   }
 
   function writeHeadersOnFirstPass()
   {
+    // execute setup logic, if any
+    if (isset($this->setupLogic))
+    {
+      $this->executeClosurePropertyIfSet('setupLogic');
+    }
+
     if (!$this->status['headersWritten'])
     {
       fputcsv($this->status['outFh'], $this->columnNames);
