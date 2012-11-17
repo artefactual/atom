@@ -8,6 +8,7 @@ class QubitCsvTransformFactory {
   public $renameColumns;
   public $parentKeyLogic;
   public $rowParentKeyLookupLogic;
+  public $setupLogic;
   public $transformLogic;
 
   public function __construct($options = array())
@@ -19,6 +20,7 @@ class QubitCsvTransformFactory {
       'renameColumns',
       'parentKeyLogic',
       'rowParentKeyLookupLogic',
+      'setupLogic',
       'transformLogic'
     );
 
@@ -50,6 +52,8 @@ class QubitCsvTransformFactory {
         'parentKeyLogic'          => $this->parentKeyLogic,
         'rowParentKeyLookupLogic' => $this->rowParentKeyLookupLogic
       ),
+
+      'setupLogic' => $this->setupLogic,
 
       'transformLogic' => $this->transformLogic,
 
@@ -110,11 +114,16 @@ class QubitCsvTransformFactory {
             if (isset($self->status['rowParentKeyLookupLogic']))
             {
               $keyOfRowParent = trim($self->status['rowParentKeyLookupLogic']($self));
+
+              // if this row has a parent key and the parent key exists, set
+              // the "parentId" column
               if ($keyOfRowParent && isset($self->status['parentKeys'][$keyOfRowParent])) {
                 $parentId = $self->status['parentKeys'][$keyOfRowParent];
                 print "Found parent ID ". $parentId ."\n";
                 $self->columnValue('parentId', $parentId);
-              } else {
+              } else if ($keyOfRowParent) {
+                // ...otherwise if the parent key didn't exist, note that it's bad
+                print "Bad parent found: ". $keyOfRowParent ." (row ". ($self->getStatus('rows') + 1) .")\n";
                 $self->status['badParents']++;
               }
             }
