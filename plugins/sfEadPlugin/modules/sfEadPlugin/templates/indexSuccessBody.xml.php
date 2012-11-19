@@ -137,10 +137,12 @@ foreach($radNotes as $name => $xmlType)
 <?php
 $materialtypes = $resource->getMaterialTypes();
 $subjects = $resource->getSubjectAccessPoints();
+$names = $resource->getNameAccessPoints();
 $places = $resource->getPlaceAccessPoints();
 
  if ((0 < count($materialtypes)) ||
             (0 < count($subjects)) ||
+            (0 < count($names)) ||
             (0 < count($places)) ||
             (0 < count($resource->getActors()))): ?>
   <controlaccess>
@@ -152,6 +154,9 @@ $places = $resource->getPlaceAccessPoints();
 <?php else: ?>
     <corpname role="<?php echo $event->getType()->getRole(array('cultureFallback' => true)) ?>"><?php echo esc_specialchars(render_title($event->getActor())) ?></corpname>
 <?php endif; ?>
+<?php endforeach; ?>
+<?php foreach ($names as $name): ?>
+  <persname role="subject"><?php echo esc_specialchars($name->getObject()) ?></persname>
 <?php endforeach; ?>
 <?php foreach ($materialtypes as $materialtype): ?>
     <genreform><?php echo esc_specialchars($materialtype->getTerm()) ?></genreform>
