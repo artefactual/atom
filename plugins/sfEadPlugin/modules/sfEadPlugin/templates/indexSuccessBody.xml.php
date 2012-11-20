@@ -212,10 +212,12 @@ $places = $resource->getPlaceAccessPoints();
 <?php
 $materialtypes = $descendant->getMaterialTypes();
 $subjects = $descendant->getSubjectAccessPoints();
+$names = $descendant->getNameAccessPoints();
 $places = $descendant->getPlaceAccessPoints();
 
  if ((0 < count($materialtypes)) ||
             (0 < count($subjects)) ||
+            (0 < count($names)) ||
             (0 < count($places)) ||
             (0 < count($descendant->getActors()))): ?>
       <controlaccess>
@@ -227,6 +229,9 @@ $places = $descendant->getPlaceAccessPoints();
 <?php else: ?>
         <corpname role="<?php echo $event->getType()->getRole() ?>"><?php echo esc_specialchars(render_title($event->getActor(array('cultureFallback' => true)))) ?> </corpname>
 <?php endif; ?>
+<?php endforeach; ?>
+<?php foreach ($names as $name): ?>
+  <persname role="subject"><?php echo esc_specialchars($name->getObject()) ?></persname>
 <?php endforeach; ?>
 <?php foreach ($materialtypes as $materialtype): ?>
         <genreform><?php echo esc_specialchars($materialtype->getTerm()) ?></genreform>
