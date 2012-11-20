@@ -106,6 +106,9 @@
 <?php foreach ($langmaterial as $languageCode): ?>
     <language langcode="<?php echo ($iso6392 = $iso639convertor->getID3($languageCode)) ? strtolower($iso6392) : $languageCode ?>"><?php echo format_language($languageCode) ?></language><?php endforeach; ?>
   </langmaterial><?php endif; ?>
+<?php if ($$resourceVar->sources): ?>
+  <note type="sourcesDescription"><?php echo esc_specialchars($$resourceVar->sources) ?></note>
+<?php endif; ?>
 <?php if (0 < count($notes = $$resourceVar->getNotesByType(array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID)))): ?><?php foreach ($notes as $note): ?><note type="<?php echo esc_specialchars($note->getType(array('cultureFallback' => true))) ?>" encodinganalog="3.6.1"><p><?php echo esc_specialchars($note->getContent(array('cultureFallback' => true))) ?></p></note><?php endforeach; ?><?php endif; ?>
 <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('statementOfScaleCartographic')->__toString())): ?>
     <materialspec type='cartographic'><?php echo esc_specialchars($value) ?></materialspec>
