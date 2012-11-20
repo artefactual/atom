@@ -280,6 +280,10 @@ information_object:
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::GENERAL_NOTE_ID)"]
 
+    sources:
+      XPath:  "did/note[@type='sourcesDescription']"
+      Method: setSources
+
     bioghist:
       XPath:  "(bioghist | descgrp/bioghist)"
       Method: setHistoryByOrigination
