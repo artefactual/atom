@@ -1,4 +1,9 @@
   <did>
+<?php $objects = $$resourceVar->getPhysicalObjects() ?>
+<?php foreach($objects as $object): ?>
+  <physloc><?php echo $object ?></physloc>
+  <goat></goat>
+<?php endforeach; ?>
 <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('titleProperOfPublishersSeries')->__toString())): ?>
     <unittitle><bibseries><title><?php echo esc_specialchars($value) ?></title></bibseries></unittitle>
 <?php endif; ?>
