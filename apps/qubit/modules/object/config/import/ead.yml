@@ -238,6 +238,11 @@ information_object:
     ##if no container is given, save as a 'location' note, otherwise save to the container's location information
     ##Xpath:  "did/physloc"
 
+    physloc:
+      XPath:  "did/physloc"
+      Method: importEadPhysLoc
+      Parameters: ["%p", "%container", "%container/@type"]
+
     container:
       XPath:  "did/container"
       Method:  setPhysicalObjectByName

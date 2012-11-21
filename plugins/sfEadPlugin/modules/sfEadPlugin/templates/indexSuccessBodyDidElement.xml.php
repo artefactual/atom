@@ -1,7 +1,14 @@
   <did>
 <?php $objects = $$resourceVar->getPhysicalObjects() ?>
 <?php foreach($objects as $object): ?>
-  <physloc><?php echo $object ?></physloc>
+  <physloc>
+  <?php if($object->location): ?>
+    <p><?php echo esc_specialchars($object->location) ?></p>
+  <?php endif; ?>
+    <container type="<?php echo $object->type ?>">
+      <?php echo esc_specialchars($object->name) ?>
+    </container>
+  </physloc>
 <?php endforeach; ?>
 <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('titleProperOfPublishersSeries')->__toString())): ?>
     <unittitle><bibseries><title><?php echo esc_specialchars($value) ?></title></bibseries></unittitle>
