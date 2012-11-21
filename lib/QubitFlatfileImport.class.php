@@ -1236,7 +1236,7 @@ class QubitFlatfileImport
    *
    * @return object  created term or fetched object containing term data
    */
-  public function createOrFetchTerm($taxonomyId, $name, $culture = 'en')
+  public static function createOrFetchTerm($taxonomyId, $name, $culture = 'en')
   {
     $query = "SELECT t.id FROM term t LEFT JOIN term_i18n ti ON t.id=ti.id \r
       WHERE t.taxonomy_id=? AND ti.name=? AND ti.culture=?";
@@ -1262,7 +1262,7 @@ class QubitFlatfileImport
    *
    * @return QubitTerm  created term
    */
-  public function createTerm($taxonomyId, $name, $culture = 'en')
+  public static function createTerm($taxonomyId, $name, $culture = 'en')
   {
     $term = new QubitTerm;
     $term->name = $name;
