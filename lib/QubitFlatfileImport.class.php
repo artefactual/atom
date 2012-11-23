@@ -240,7 +240,7 @@ class QubitFlatfileImport
         $this->status['row'][$columnIndex] = $value;
       }
     } else {
-      throw new sfException('Invalid column "'. $column .'".');
+      throw new sfException('Missing column "'. $column .'".');
     }
   }
 
