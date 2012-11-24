@@ -5,6 +5,7 @@ class QubitCsvTransform extends QubitFlatfileImport {
   public
     $setupLogic,
     $transformLogic,
+    $rowsPerFile = 1000,
     $levelsOfDescription = array(
       'fonds',
       'collection',
@@ -153,7 +154,7 @@ class QubitCsvTransform extends QubitFlatfileImport {
     while($row = mysql_fetch_assoc($result))
     {
       // if starting a new chunk, write CSV headers
-      if (($currentRow % 1000) == 0)
+      if (($currentRow % $this->rowsPerFile) == 0)
       {
         $chunk++;
         $chunkFilePath = $this->numberedFilePathVariation($filepath, $chunk);
