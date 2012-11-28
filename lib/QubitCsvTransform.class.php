@@ -176,6 +176,6 @@ class QubitCsvTransform extends QubitFlatfileImport {
 
   function levelOfDescriptionToSortorder($level)
   {
-    return array_search(strtolower($level), strtolower($this->levelsOfDescription));
+    return array_search(strtolower($level), $this->levelsOfDescription);
   }
 }
