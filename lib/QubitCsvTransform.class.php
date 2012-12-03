@@ -14,7 +14,8 @@ class QubitCsvTransform extends QubitFlatfileImport {
       'series',
       'subseries',
       'file',
-      'item'
+      'item',
+      'serial'
     );
 
   public function __construct($options = array())

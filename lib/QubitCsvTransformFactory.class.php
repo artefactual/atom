@@ -70,7 +70,7 @@ class QubitCsvTransformFactory {
           $parentKey = trim($self->status['parentKeyLogic']($self));
           if ($parentKey)
           {
-            print "Stored parent key...\n";
+            //print "Stored parent key...\n";
             $self->status['parentKeys'][$parentKey] = $self->columnValue('legacyId');
           }
         }
@@ -119,7 +119,7 @@ class QubitCsvTransformFactory {
               // the "parentId" column
               if ($keyOfRowParent && isset($self->status['parentKeys'][$keyOfRowParent])) {
                 $parentId = $self->status['parentKeys'][$keyOfRowParent];
-                print "Found parent ID ". $parentId ."\n";
+                //print "Found parent ID ". $parentId ."\n";
                 $self->columnValue('parentId', $parentId);
               } else if ($keyOfRowParent) {
                 // ...otherwise if the parent key didn't exist, note that it's bad
@@ -132,19 +132,19 @@ class QubitCsvTransformFactory {
 
             if ($levelOfDescriptionAvailable)
             {
-              print "Found a level of description...\n";
+             // print "Found a level of description...\n";
 
               $sortorder = $self->levelOfDescriptionToSortorder($self->columnValue('levelOfDescription'));
 
               if (is_numeric($sortorder))
               {
-                print "Description sort order is ". $sortorder .".\n";
+              //  print "Description sort order is ". $sortorder .".\n";
                 $self->addRowToMySQL($sortorder);
               }
               else if (isset($self->status['ignoreBadLod']) && $self->status['ignoreBadLod'])
               {
                 $sortorder = count($self->levelsOfDescription);
-                print "Description sort order is ". $sortorder .".\n";
+              //  print "Description sort order is ". $sortorder .".\n";
                 $self->addRowToMySQL($sortorder);
               } else {
                 $self->status['badLevelOfDescription']++;
