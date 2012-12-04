@@ -120,11 +120,21 @@ EOF;
         // If more than one digital object linked to this information object
         for ($i=0; $i < count($item); $i++)
         {
+          $parent = QubitInformationObject::getById($key);
+
           // Create new information objects, to maintain one-to-one
           // relationship with digital objects
           $informationObject = new QubitInformationObject;
-          $informationObject->parent = QubitInformationObject::getById($key);
+          $informationObject->parent = $parent;
           $informationObject->title = basename($item[$i]);
+
+          // Set publication status
+          if (null != $status = $parent->getPublicationStatus())
+          {
+            // Copy parent status, if possible
+            $informationObject->setPublicationStatus($status->statusId);
+          }
+
           $informationObject->save($options['conn']);
 
           self::addDigitalObject($informationObject, $item[$i], $options);
