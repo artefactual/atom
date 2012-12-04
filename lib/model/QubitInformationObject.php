@@ -1321,6 +1321,44 @@ class QubitInformationObject extends BaseInformationObject
   }
 
   /**
+   * Import creation-related data from an <bioghist> tag in EAD2002
+   *
+   * @param $history string actor history
+   */
+  public function importBioghistEadData($biogHistNode)
+  {
+    // get chronlist element in bioghist element
+    $chronlistNodeList = $biogHistNode->getElementsByTagName('chronlist');
+    if ($chronlistNodeList->length)
+    {
+      foreach($chronlistNodeList as $chronlistNode)
+      {
+        // get chronitem elements in chronlist element
+        $chronitemNodeList = $chronlistNode->getElementsByTagName('chronitem');
+        foreach($chronitemNodeList as $chronitemNode)
+        {
+          // get date element contents
+          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/date[@type='creation']");
+          foreach($dateNodeList as $dateNode) {
+            $date = $dateNode->nodeValue;
+          }
+
+          // get name element contents
+          $nameNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/origination/name");
+          foreach($nameNodeList as $nameNode) {
+            $name = $nameNode->nodeValue;
+          }
+
+          $this->setActorByName($name, array(
+            'event_type_id' => QubitTerm::CREATION_ID,
+            'dates'         => $date
+          ));
+        }
+      }
+    }
+  }
+
+  /**
    * Import actor history from on <bioghist> tag in EAD2002
    *
    * @param $history string actor history

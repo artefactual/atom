@@ -291,11 +291,12 @@ information_object:
 
     bioghist:
       XPath:  "(bioghist | descgrp/bioghist)"
-      Method: setHistoryByOrigination
+      Method: importBioghistEadData
+      Parameters: ["$domNode2"]
 
     # this will overwrite any values entered for <abstract>
     scopeAndContent:
-      XPath:   "(scopecontent | descgrp/bioghist)"
+      XPath:   "(scopecontent)"
       Method:  setScopeAndContent
 
     arrangement:
