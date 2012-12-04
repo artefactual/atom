@@ -293,14 +293,32 @@ class QubitInformationObject extends BaseInformationObject
     }
 
     // Save updated Status
+    $hasPubStatus = false;
     foreach ($this->statuss as $item)
     {
+      if (QubitTerm::STATUS_TYPE_PUBLICATION_ID == $item->typeId)
+      {
+        $hasPubStatus = true;
+      }
+
       $item->setIndexOnSave(false);
 
       // TODO Needed if $this is new, should be transparent
       $item->object = $this;
 
       $item->save($connection);
+    }
+
+    // Force a publication status
+    if ($this->id != QubitInformationObject::ROOT_ID && !$hasPubStatus)
+    {
+      $status = new QubitStatus;
+      $status->objectId = $this->id;
+      $status->typeId = QubitTerm::STATUS_TYPE_PUBLICATION_ID;
+      $status->statusId = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
+      $status->setIndexOnSave(false);
+
+      $status->save($connection);
     }
 
     QubitSearch::updateInformationObject($this);
