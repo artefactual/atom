@@ -128,10 +128,9 @@ EOF;
           $informationObject->parent = $parent;
           $informationObject->title = basename($item[$i]);
 
-          // Set publication status
+          // Copy parent publication status
           if (null != $status = $parent->getPublicationStatus())
           {
-            // Copy parent status, if possible
             $informationObject->setPublicationStatus($status->statusId);
           }
 
