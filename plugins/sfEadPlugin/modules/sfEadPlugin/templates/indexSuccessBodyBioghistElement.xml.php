@@ -8,6 +8,8 @@
 <?php endif; ?>
         <chronitem>
           <date type="creation"><?php echo $date->date; ?></date>
+          <date type="creation_start"><?php echo $date->startDate; ?></date>
+          <date type="creation_end"><?php echo $date->endDate; ?></date>
           <eventgrp>
             <event>
               <origination encodinganalog="3.2.1">
