@@ -1,12 +1,13 @@
 <?php if (0 < count($creators = $$resourceVar->getCreators())): ?>
     <bioghist encodinganalog="3.2.2">
       <chronlist>
-<?php foreach ($creators as $creator): ?>
+<?php foreach($$resourceVar->getDates(array('type_id' => QubitTerm::CREATION_ID)) as $date): ?>
+<?php $creator = QubitActor::getById($date->actorId); ?>
 <?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
         <p><?php echo esc_specialchars($value) ?></p>
 <?php endif; ?>
         <chronitem>
-          <date type="creation" normal="20030101">2003</date>
+          <date type="creation"><?php echo $date->date; ?></date>
           <eventgrp>
             <event>
               <origination encodinganalog="3.2.1">
