@@ -71,8 +71,11 @@
 </eadheader>
 <!-- TODO: <frontmatter></frontmatter> -->
 <archdesc <?php if ($resource->levelOfDescriptionId):?>level="<?php if (in_array(strtolower($levelOfDescription = $resource->getLevelOfDescription()->getName(array('culture' => 'en'))), $eadLevels)): ?><?php echo strtolower($levelOfDescription).'"' ?><?php else: ?><?php echo 'otherlevel" otherlevel="'.$levelOfDescription.'"' ?><?php endif; ?><?php endif; ?> relatedencoding="ISAD(G)v2">
-  <?php $resourceVar = 'resource'; include('indexSuccessBodyDidElement.xml.php'); ?>
 <?php
+
+$resourceVar = 'resource';
+include('indexSuccessBodyDidElement.xml.php');
+include('indexSuccessBodyBioghistElement.xml.php');
 
 // Load taxonomies into variables to avoid use of magic numbers
 $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
@@ -127,9 +130,6 @@ foreach($radNotes as $name => $xmlType)
 <?php if (0 < strlen($value = $resource->getPropertyByName('noteOnPublishersSeries')->__toString())): ?>
   <odd type='bibseries'><p><?php echo esc_specialchars($value) ?></p></odd>
 <?php endif; ?>
-<?php foreach ($resource->getCreators() as $creator): ?>
-<?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
-  <bioghist encodinganalog="3.2.2"><p><?php echo esc_specialchars($value) ?></p></bioghist><?php endif; ?><?php endforeach; ?>
 <?php if (0 < strlen($value = $resource->getScopeAndContent(array('cultureFallback' => true)))): ?>
   <scopecontent encodinganalog="3.3.1"><p><?php echo esc_specialchars($value) ?></p></scopecontent><?php endif; ?>
 <?php if (0 < strlen($value = $resource->getArrangement(array('cultureFallback' => true)))): ?>
@@ -199,12 +199,13 @@ $places = $resource->getPlaceAccessPoints();
 <?php $nestedRgt = array() ?>
 <?php foreach ($resource->getDescendants()->orderBy('lft') as $descendant): ?>
     <c <?php if ($descendant->levelOfDescriptionId):?>level="<?php if (in_array(strtolower($levelOfDescription = $descendant->getLevelOfDescription()->getName(array('culture' => 'en'))), $eadLevels)): ?><?php echo strtolower($levelOfDescription).'"' ?><?php else: ?><?php echo 'otherlevel" otherlevel="'.$levelOfDescription.'"' ?><?php endif; ?><?php endif; ?>>
-      <?php $resourceVar = 'descendant'; include('indexSuccessBodyDidElement.xml.php'); ?>
-<?php foreach ($descendant->getCreators() as $creator): ?>
-<?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
-      <bioghist encodinganalog="3.2.2"><p><?php echo esc_specialchars($value) ?></p></bioghist>
-<?php endif; ?>
-<?php endforeach; ?>
+<?php
+
+$resourceVar = 'descendant';
+include('indexSuccessBodyDidElement.xml.php');
+include('indexSuccessBodyBioghistElement.xml.php');
+
+?>
 <?php if (0 < strlen($value = $descendant->getScopeAndContent(array('cultureFallback' => true)))): ?>
       <scopecontent encodinganalog="3.3.1"><p><?php echo esc_specialchars($value) ?></p></scopecontent><?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getArrangement(array('cultureFallback' => true)))): ?>
