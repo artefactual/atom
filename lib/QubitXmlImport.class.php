@@ -589,6 +589,20 @@ class QubitXmlImport
   }
 
   /**
+   *
+   *
+   * @return DOMNodeList
+   */
+  public static function queryDomNode($node, $xpathQuery)
+  {
+    $doc = new DOMDocument();
+    $doc->loadXML('<xml></xml>');
+    $doc->documentElement->appendChild($doc->importNode($node, true));
+    $xpath = new DOMXPath($doc);
+    return $xpath->query($xpathQuery);
+  }
+
+  /**
    * Return true if import had errors
    *
    * @return boolean
