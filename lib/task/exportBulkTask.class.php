@@ -45,7 +45,7 @@ class eadExportTask extends sfBaseTask
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
       new sfCommandOption('rows-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Output total rows imported every n rows.'),
       new sfCommandOption('skip-rows', null, sfCommandOption::PARAMETER_OPTIONAL, 'Skip n rows before importing.'),
-      new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria', '1=1')
+      new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria')
     ));
   }
 
@@ -81,26 +81,40 @@ class eadExportTask extends sfBaseTask
     $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
     $sf_context = sfContext::createInstance($configuration);
 
-    $sql = "SELECT id FROM information_object WHERE parent_id=1";
+    $whereClause = "parent_id=1";
 
-    echo "Exporting...\n";
-
-    foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row)
+    if ($options['criteria'])
     {
-      $resource = QubitInformationObject::getById($row['id']);
+      $whereClause .= ' AND '. $options['criteria'];
+    }
 
-      $ead = new sfEadPlugin($resource);
+    $sql = "SELECT COUNT(1) AS total FROM information_object WHERE ". $whereClause;
 
-      ob_start();
-      include('plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccess.xml.php');
-      $output = ob_get_contents();
-      ob_end_clean();
+    $rows = $conn->query($sql, PDO::FETCH_ASSOC);
 
-      $filename = 'ead_'. $row['id'] .'.xml';
-      $filePath = $arguments['folder'] .'/'. $filename;
-      file_put_contents($filePath, $output);
+    foreach($rows as $row)
+    {
+      $sql = "SELECT * FROM information_object i INNER JOIN information_object_i18n i18n ON i.id=i18n.id WHERE ". $whereClause;
 
-      print '.';
+      echo "Exporting ". $row['total'] . " descriptions.\n";
+
+      foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row)
+      {
+        $resource = QubitInformationObject::getById($row['id']);
+
+        $ead = new sfEadPlugin($resource);
+
+        ob_start();
+        include('plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccess.xml.php');
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        $filename = 'ead_'. $row['id'] .'.xml';
+        $filePath = $arguments['folder'] .'/'. $filename;
+        file_put_contents($filePath, $output);
+
+        print '.';
+      }
     }
   }
 }
