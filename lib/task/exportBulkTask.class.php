@@ -83,13 +83,24 @@ class eadExportTask extends sfBaseTask
 
     $sql = "SELECT id FROM information_object WHERE parent_id=1";
 
-    include('plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccessHeader.xml.php');
+    echo "Exporting...\n";
+
     foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row)
     {
       $resource = QubitInformationObject::getById($row['id']);
 
       $ead = new sfEadPlugin($resource);
-      include('plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccessBody.xml.php');
+
+      ob_start();
+      include('plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccess.xml.php');
+      $output = ob_get_contents();
+      ob_end_clean();
+
+      $filename = 'ead_'. $row['id'] .'.xml';
+      $filePath = $arguments['folder'] .'/'. $filename;
+      file_put_contents($filePath, $output);
+
+      print '.';
     }
   }
 }
