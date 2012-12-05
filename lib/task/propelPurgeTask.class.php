@@ -62,7 +62,7 @@ EOF;
     $insertSql->setConfiguration($this->configuration);
     $insertSql->run();
 
-    $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
+    $configuration = ProjectConfiguration::getApplicationConfiguration($options['application'], $options['env'], false);
     $sf_context = sfContext::createInstance($configuration);
     sfInstall::loadData();
 
