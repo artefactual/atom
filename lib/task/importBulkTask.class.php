@@ -100,6 +100,8 @@ EOF;
         continue;
       }
 
+print '.';
+
       // Try to free up memory
       unset($importer);
 
