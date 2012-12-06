@@ -295,8 +295,8 @@ information_object:
       Parameters: ["$domNode2"]
 
     # this will overwrite any values entered for <abstract>
-    scopeAndContent:
-      XPath:   "(scopecontent)"
+    scopeandcontent:
+      XPath:   "scopecontent/p"
       Method:  setScopeAndContent
 
     arrangement:
