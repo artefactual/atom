@@ -64,6 +64,19 @@ EOF;
 
     if (!$stopExecution)
     {
+      // attempt to provide default user admin name and email
+      if ($_SERVER['HOME'])
+      {
+        $gitConfigFile = $_SERVER['HOME'] .'/.gitconfig';
+        if (file_exists($gitConfigFile))
+        {
+          $gitConfig = parse_ini_file($gitConfigFile);
+
+          $defaultUser = strtolower(strtok($gitConfig['name'], ' '));
+          $defaultEmail = $gitConfig['email'];
+        }
+      }
+
       $configuration = ProjectConfiguration::getApplicationConfiguration($options['application'], $options['env'], false);
       $sf_context = sfContext::createInstance($configuration);
       sfInstall::loadData();
@@ -71,7 +84,8 @@ EOF;
       // ask for basic site configuration information
       $siteTitle       = readline("Site title [Qubit]: ");
       $siteTitle       = ($siteTitle) ? $siteTitle : 'Qubit';
-      $siteDescription = readline("Site description: ");
+      $siteDescription = readline("Site description [Test site]: ");
+      $siteDescription = ($sitedescription) ? $siteDescription : 'Test site';
 
       // set site title
       $setting = new QubitSetting();
@@ -88,8 +102,18 @@ EOF;
       print "\n";
 
       // ask for admin user information
-      $username = readline("Admin username: ");
-      $email    = readline("Admin email: ");
+      $usernamePrompt = 'Admin username';
+      $usernamePrompt .= ($defaultUser) ? ' ['. $defaultUser .']' : '';
+      $usernamePrompt .= ': ';
+      $username = readline($usernamePrompt);
+      $username = ($username) ? $username : $defaultUser;
+
+      $emailPrompt = 'Admin email';
+      $emailPrompt .= ($defaultEmail) ? ' ['. $defaultEmail .']' : '';
+      $emailPrompt .= ': ';
+      $email    = readline($emailPrompt);
+      $email = ($email) ? $email : $defaultEmail;
+
       $password = trim(readline("Admin password: "));
 
       // create user
