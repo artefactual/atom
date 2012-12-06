@@ -18,13 +18,13 @@
  */
 
 /**
- * Regenerate nested set column values
+ * Purge Qubit data
  *
  * @package    symfony
  * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
-class propelBuildNestedSetTask extends sfBaseTask
+class propelPurgeTask extends sfBaseTask
 {
   /**
    * @see sfTask
