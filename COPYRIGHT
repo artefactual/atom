@@ -134,6 +134,14 @@ Url:       http://framework.zend.com/
 Copyright: Zend Technologies USA Inc.
 License:   New BSD
 
+Elastica
+--------
+Used in plugins/arElasticSearchPlugin
+
+Url:       http://ruflin.github.com/Elastica/
+Copyright: Nicolas Ruflin <spam@ruflin.com>
+License:   Apache 2.0
+
 printer-icon.png
 ----------------
 Url: http://www.fatcow.com/free-icons
