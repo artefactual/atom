@@ -60,30 +60,53 @@ EOF;
     $insertSql = new sfPropelInsertSqlTask($this->dispatcher, $this->formatter);
     $insertSql->setCommandApplication($this->commandApplication);
     $insertSql->setConfiguration($this->configuration);
-    $insertSql->run();
+    $stopExecution = $insertSql->run();
 
-    $configuration = ProjectConfiguration::getApplicationConfiguration($options['application'], $options['env'], false);
-    $sf_context = sfContext::createInstance($configuration);
-    sfInstall::loadData();
+    if (!$stopExecution)
+    {
+      $configuration = ProjectConfiguration::getApplicationConfiguration($options['application'], $options['env'], false);
+      $sf_context = sfContext::createInstance($configuration);
+      sfInstall::loadData();
 
-    $username = readline("Admin username: ");
-    $email    = readline("Admin email: ");
-    $password = trim(readline("Admin password: "));
+      // ask for basic site configuration information
+      $siteTitle       = readline("Site title [Qubit]: ");
+      $siteTitle       = ($siteTitle) ? $siteTitle : 'Qubit';
+      $siteDescription = readline("Site description: ");
 
-    $user = new QubitUser();
-    $user->username = $username;
-    $user->email = $email;
-    $user->setPassword($password);
-    $user->active = true;
-    $user->save();
+      // set site title
+      $setting = new QubitSetting();
+      $setting->name = 'siteTitle';
+      $setting->value = $siteTitle;
+      $setting->save();
 
-print 'U:'. $user->id ."\n";
-$group = new QubitAclUserGroup();
-$group->userId = $user->id;
-$group->groupId = 100;
-$group->save();
+      // set site description
+      $setting = new QubitSetting();
+      $setting->name = 'siteDescription';
+      $setting->value = $siteDescription;
+      $setting->save();
 
+      print "\n";
 
-    $this->logSection('propel', 'Done!');
+      // ask for admin user information
+      $username = readline("Admin username: ");
+      $email    = readline("Admin email: ");
+      $password = trim(readline("Admin password: "));
+
+      // create user
+      $user = new QubitUser();
+      $user->username = $username;
+      $user->email = $email;
+      $user->setPassword($password);
+      $user->active = true;
+      $user->save();
+
+      // give user admin capability
+      $group = new QubitAclUserGroup();
+      $group->userId = $user->id;
+      $group->groupId = 100;
+      $group->save();
+
+      $this->logSection('propel', 'Purge complete!');
+    }
   }
 }
