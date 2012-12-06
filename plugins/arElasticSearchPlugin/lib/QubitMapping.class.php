@@ -21,7 +21,7 @@
  * Parent class to provide global model mapping methods for storing objects
  * within an ElasticSearch document index.
  *
- * @package    qtElasticSearchPlugin
+ * @package    arElasticSearchPlugin
  * @author     MJ Suhonos <mj@artefactual.com>
  */
 class QubitMapping

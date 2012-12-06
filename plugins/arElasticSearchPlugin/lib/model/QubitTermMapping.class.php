@@ -18,13 +18,13 @@
 */
 
 /**
- * This class is used to provide a model mapping for storing QubitRepository objects
+ * This class is used to provide a model mapping for storing QubitTerm objects
  * within an ElasticSearch document index.
  *
- * @package    qtElasticSearchPlugin
+ * @package    arElasticSearchPlugin
  * @author     MJ Suhonos <mj@artefactual.com>
  */
-class QubitRepositoryMapping extends QubitMapping
+class QubitTermMapping extends QubitMapping
 {
   static function getProperties()
   {
@@ -32,16 +32,10 @@ class QubitRepositoryMapping extends QubitMapping
       'slug' => array(
         'type' => 'string',
         'index' => 'not_analyzed'),
-      'identifier' => array(
-        'type' => 'string',
-        'index' => 'not_analyzed'),
-      'types' => array(
+      'taxonomyId' => array(
         'type' => 'integer',
         'index' => 'not_analyzed',
-        'include_in_all' => false),
-      'contact' => array(
-        'type' => 'object',
-        'properties' => QubitContactInformationMapping::getProperties()))
+        'include_in_all' => false))
       + self::getI18nProperties()
       + self::getTimestampProperties();
   }
@@ -50,35 +44,10 @@ class QubitRepositoryMapping extends QubitMapping
   {
     $serialized = array();
     $serialized['slug'] = $object->slug;
-    $serialized['identifier'] = $object->identifier;
-
-    foreach ($object->getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $relation)
-    {
-      $serialized['types'][] = $relation->termId;
-    }
-
-    if ($contact = $object->getPrimaryContact())
-    {
-      $serialized['contact'] = QubitContactInformationMapping::serialize($contact);
-    }
-    // TODO: additional contact points if none are primary
-    /*
-    elseif (count($contacts = $object->getContactInformation()) > 0)
-    {
-      foreach ($contacts as $contact)
-      {
-
-      }
-    }
-    */
+    $serialized['taxonomyId'] = $object->taxonomyId;
 
     $serialized['sourceCulture'] = $object->sourceCulture;
-
-    // FIXME: actor properties should be merged on the same culture
-    $actorI18ns = $object->actorI18ns->indexBy('culture');
-    $serialized['actor'] = self::serializeI18ns(new QubitActor(), $actorI18ns);
-
-    $objectI18ns = $object->repositoryI18ns->indexBy('culture');
+    $objectI18ns = $object->termI18ns->indexBy('culture');
     $serialized['i18n'] = self::serializeI18ns($object, $objectI18ns);
 
     $serialized['createdAt'] = Elastica_Util::convertDate($object->createdAt);

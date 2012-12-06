@@ -20,7 +20,7 @@
 /**
  * Lightweight version of QubitInformationObject which uses PDO directly instead of the Propel ORM
  *
- * @package    qtElasticSearchPlugin
+ * @package    arElasticSearchPlugin
  * @author     MJ Suhonos <mj@artefactual.com>
  */
 class QubitPdoInformationObject

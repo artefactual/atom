@@ -20,7 +20,7 @@
 /**
  * Lightweight version of QubitActor which uses PDO directly instead of the Propel ORM
  *
- * @package    qtElasticSearchPlugin
+ * @package    arElasticSearchPlugin
  * @author     MJ Suhonos <mj@artefactual.com>
  */
 class QubitPdoActor

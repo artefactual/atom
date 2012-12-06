@@ -17,7 +17,7 @@
  * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class qtElasticSearchPluginConfiguration extends sfPluginConfiguration
+class arElasticSearchPluginConfiguration extends sfPluginConfiguration
 {
   public static
     $summary = 'Search index plugin. Uses an ElasticSearch instance to provide advanced search features such as faceting, fuzzy search, etc.',
@@ -43,7 +43,7 @@ class qtElasticSearchPluginConfiguration extends sfPluginConfiguration
   public function initialize()
   {
     $enabledModules = sfConfig::get('sf_enabled_modules');
-    $enabledModules[] = 'qtElasticSearchPlugin';
+    $enabledModules[] = 'arElasticSearchPlugin';
     sfConfig::set('sf_enabled_modules', $enabledModules);
   }
 }

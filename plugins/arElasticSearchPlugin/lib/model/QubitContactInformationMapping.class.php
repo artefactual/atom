@@ -21,7 +21,7 @@
  * This class is used to provide a model mapping for storing QubitContactInformation objects
  * within an ElasticSearch document index.
  *
- * @package    qtElasticSearchPlugin
+ * @package    arElasticSearchPlugin
  * @author     MJ Suhonos <mj@artefactual.com>
  */
 class QubitContactInformationMapping extends QubitMapping

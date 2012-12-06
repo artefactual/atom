@@ -21,10 +21,10 @@
  * This class is used to provide a singleton object that uses an ElasticSearch instance for
  * application indexing, querying, faceting, etc.
  *
- * @package    qtElasticSearchPlugin
+ * @package    arElasticSearchPlugin
  * @author     MJ Suhonos <mj@artefactual.com>
  */
-class qtElasticSearchPlugin
+class arElasticSearchPlugin
 {
   // allow disabling search index via boolean flag
   public $disabled = false;
@@ -57,12 +57,12 @@ class qtElasticSearchPlugin
   // constructor
   public function __construct()
   {
-    $this->batchSize = qtElasticSearchPluginConfiguration::$batchSize;
+    $this->batchSize = arElasticSearchPluginConfiguration::$batchSize;
 
     // I don't understand how a heart is a spade
     // But somehow the vital connection is made
-    $client = new Elastica_Client(qtElasticSearchPluginConfiguration::$server);
-    $this->index = $client->getIndex(qtElasticSearchPluginConfiguration::$index);
+    $client = new Elastica_Client(arElasticSearchPluginConfiguration::$server);
+    $this->index = $client->getIndex(arElasticSearchPluginConfiguration::$index);
 
     $this->initialize();
   }
@@ -201,7 +201,7 @@ class qtElasticSearchPlugin
     {
       $this->index->delete();
       $this->initialize();
-      $this->logger->log('Index erased.', 'qtElasticSearch');
+      $this->logger->log('Index erased.', 'arElasticSearch');
     }
     else
     {
@@ -213,14 +213,14 @@ class qtElasticSearchPlugin
     $this->enableBatch();
 
     $this->timer = new QubitTimer;
-    $this->logger->log('Populating index...', 'qtElasticSearch');
+    $this->logger->log('Populating index...', 'arElasticSearch');
     $total = 0;
 
     // repositories
     if (!in_array('repos', $skips))
     {
       self::$counter = 0;
-      $this->logger->log('Indexing Repositories...', 'qtElasticSearch');
+      $this->logger->log('Indexing Repositories...', 'arElasticSearch');
 
       $criteria = new Criteria;
       $criteria->add(QubitRepository::ID, QubitRepository::ROOT_ID, Criteria::NOT_EQUAL);
@@ -233,7 +233,7 @@ class qtElasticSearchPlugin
 
         if ($options['verbose'])
         {
-          $this->logger->log('QubitRepository "'.$repository->__toString().'" inserted ('.$this->timer->elapsed().'s) ('.($key + 1).'/'.count($repositories).')', 'qtElasticSearch');
+          $this->logger->log('QubitRepository "'.$repository->__toString().'" inserted ('.$this->timer->elapsed().'s) ('.($key + 1).'/'.count($repositories).')', 'arElasticSearch');
         }
       }
     }
@@ -242,7 +242,7 @@ class qtElasticSearchPlugin
     if (!in_array('ios', $skips))
     {
       self::$counter = 0;
-      $this->logger->log('Indexing Information Objects...', 'qtElasticSearch');
+      $this->logger->log('Indexing Information Objects...', 'arElasticSearch');
       $total = $total + $this->populateInformationObjects($options);
     }
 
@@ -250,7 +250,7 @@ class qtElasticSearchPlugin
     if (!in_array('terms', $skips))
     {
       self::$counter = 0;
-      $this->logger->log('Indexing Terms...', 'qtElasticSearch');
+      $this->logger->log('Indexing Terms...', 'arElasticSearch');
       $total = $total + $this->addTerms($options);
     }
 
@@ -258,7 +258,7 @@ class qtElasticSearchPlugin
     if (!in_array('actors', $skips))
     {
       self::$counter = 0;
-      $this->logger->log('Indexing Actors...', 'qtElasticSearch');
+      $this->logger->log('Indexing Actors...', 'arElasticSearch');
       $total = $total + $this->addActors($options);
     }
 
@@ -270,7 +270,7 @@ class qtElasticSearchPlugin
       $this->batchDocs = array();
     }
 
-    $this->logger->log('Index populated with "'.($total).'" documents in "'.$this->timer->elapsed().'" seconds.', 'qtElasticSearch');
+    $this->logger->log('Index populated with "'.($total).'" documents in "'.$this->timer->elapsed().'" seconds.', 'arElasticSearch');
   }
 
   /*
@@ -369,7 +369,7 @@ class qtElasticSearchPlugin
 
       if ($options['verbose'])
       {
-        $this->logger->log('QubitInformationObject "#'.$item->id.'" inserted ('.$this->timer->elapsed().'s) ('.self::$counter.'/'.$totalRows.')', 'qtElasticSearch');
+        $this->logger->log('QubitInformationObject "#'.$item->id.'" inserted ('.$this->timer->elapsed().'s) ('.self::$counter.'/'.$totalRows.')', 'arElasticSearch');
       }
 
       // Descend hierarchy
@@ -414,7 +414,7 @@ class qtElasticSearchPlugin
 
       if ($options['verbose'])
       {
-        $this->logger->log('QubitTerm "#'.$item->id.'" inserted ('.$this->timer->elapsed().'s) ('.self::$counter.'/'.$numRows.')', 'qtElasticSearch');
+        $this->logger->log('QubitTerm "#'.$item->id.'" inserted ('.$this->timer->elapsed().'s) ('.self::$counter.'/'.$numRows.')', 'arElasticSearch');
       }
     }
 
@@ -476,7 +476,7 @@ class qtElasticSearchPlugin
 
       if ($options['verbose'])
       {
-        $this->logger->log('QubitActor "#'.$item->id.'" inserted ('.$this->timer->elapsed().'s) ('.self::$counter.'/'.$numRows.')', 'qtElasticSearch');
+        $this->logger->log('QubitActor "#'.$item->id.'" inserted ('.$this->timer->elapsed().'s) ('.self::$counter.'/'.$numRows.')', 'arElasticSearch');
       }
     }
 
