@@ -66,6 +66,17 @@ EOF;
     $sf_context = sfContext::createInstance($configuration);
     sfInstall::loadData();
 
+    $username = readline("Admin username: ");
+    $email    = readline("Admin email: ");
+    $password = trim(readline("Admin password: "));
+
+    $user = new QubitUser();
+    $user->username = $username;
+    $user->email = $email;
+    $user->setPassword($password);
+    $user->active = true;
+    $user->save();
+
     $this->logSection('propel', 'Done!');
   }
 }
