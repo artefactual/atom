@@ -77,6 +77,13 @@ EOF;
     $user->active = true;
     $user->save();
 
+print 'U:'. $user->id ."\n";
+$group = new QubitAclUserGroup();
+$group->userId = $user->id;
+$group->groupId = 100;
+$group->save();
+
+
     $this->logSection('propel', 'Done!');
   }
 }
