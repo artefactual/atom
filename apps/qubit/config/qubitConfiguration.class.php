@@ -20,7 +20,7 @@
 class qubitConfiguration extends sfApplicationConfiguration
 {
   const
-    VERSION = '1.3';
+    VERSION = '2.0';
 
   public function responseFilterContent(sfEvent $event, $content)
   {
