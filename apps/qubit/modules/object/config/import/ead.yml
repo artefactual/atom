@@ -227,7 +227,7 @@ information_object:
       Parameters: [$nodeValue, "$options = array('normalized_dates' => $importDOM->xpath->query('@normal', $domNode2)->item(0)->nodeValue, 'date_type' => $importDOM->xpath->query('@datechar', $domNode2)->item(0)->nodeValue)"]
 
     extent:
-      XPath:  "did/physdesc"
+      XPath:  "did/physdesc/extent"
       Method: setExtentAndMedium
 
     abstract:
