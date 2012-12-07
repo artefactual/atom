@@ -559,7 +559,6 @@ modRewriteContents;
       'qtDominionPlugin',
       'sfEacPlugin',
       'sfEadPlugin',
-      'qtElasticSearchPlugin',
       'sfIsaarPlugin',
       'sfIsadPlugin',
       'sfIsdfPlugin',

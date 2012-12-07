@@ -31,7 +31,7 @@ class ProjectConfiguration extends sfProjectConfiguration
       'sfDrupalPlugin',
       'sfFormExtraPlugin',
       'sfHistoryPlugin',
-      'sfLucenePlugin',
+      'arElasticSearchPlugin',
       'sfPropelPlugin',
       'sfSearchPlugin',
       'sfThemePlugin',
