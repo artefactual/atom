@@ -33,7 +33,7 @@ class MigrateTask extends sfBaseTask
 Notice: This migration script will only migrate your data to version Release 1.1 v%s.
 To migrate to Release 1.2 or later, please see the upgrading documentation:
 
-http://qubit-toolkit.org/wiki/index.php?title=Upgrading
+http://accesstomemory.org/wiki/index.php?title=Upgrading
 
 EOL;
 

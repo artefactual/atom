@@ -341,7 +341,7 @@ class QubitMigrate104 extends QubitMigrate
       'source_culture' => 'en',
       'name' => 'help',
       'label' => array('de' => 'Hilfe', 'en' => 'help', 'es' => 'ayuda', 'fa' => 'راهنما', 'fr' => 'aide', 'it' => 'aiuto', 'nl' => 'help', 'pt' => 'ajuda', 'sl' => 'pomoč'),
-      'path' => 'http://qubit-toolkit.org'
+      'path' => 'http://accesstomemory.org'
     );
     $this->data['QubitMenu']['QubitMenu_quicklinks_myProfile'] = array(
       'parent_id' => 'QubitMenu_quicklinks',

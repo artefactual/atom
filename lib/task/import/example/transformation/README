@@ -4,4 +4,4 @@ Run the example transformation using the following command:
       --import-definition=lib/task/import/example/transformation/example.transform.php \
       --output-file=/tmp/transformed.csv lib/task/import/example/transformation/example.csv
 
-Please see https://www.qubit-toolkit.org/wiki/CSV_transformation for more details.
+Please see https://www.accesstomemory.org/wiki/CSV_transformation for more details.

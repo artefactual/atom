@@ -62,7 +62,6 @@ class sfDatabaseManager
    */
   public function loadConfiguration()
   {
-// http://qubit-toolkit.org/wiki/index.php?title=Config
 $config = include sfConfig::get('sf_config_dir').'/config.php';
 $config = sfYamlConfigHandler::flattenConfigurationWithEnvironment($config);
 

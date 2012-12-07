@@ -630,8 +630,7 @@ class QubitMigrate110 extends QubitMigrate
   }
 
   /**
-   * Move digital objects to repository specific paths like
-   * http://code.google.com/p/qubit-toolkit/source/detail?r=9503
+   * Move digital objects to repository specific paths like (SVN r9503)
    *
    * @return QubitMigrate110 SELF
    */

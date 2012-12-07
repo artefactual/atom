@@ -21,8 +21,8 @@
 
   <div class="content">
     <ul class="clearfix links">
-      <li><a href="http://www.qubit-toolkit.org/wiki/Administrator_manual">Administrator manual</a></li>
-      <li><a href="http://www.qubit-toolkit.org/wiki/FAQ">Frequently asked questions</a></li>
+      <li><a href="http://www.accesstomemory.org/wiki/Administrator_manual">Administrator manual</a></li>
+      <li><a href="http://www.accesstomemory.org/wiki/FAQ">Frequently asked questions</a></li>
     </ul>
   </div>
 

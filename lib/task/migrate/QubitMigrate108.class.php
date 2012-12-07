@@ -1303,7 +1303,7 @@ class QubitMigrate108 extends QubitMigrate
 
   /**
    * Ver 36: Remove Actor::ROOT_ID parent from QubitRepository and QubitUser
-   * rows (See http://code.google.com/p/qubit-toolkit/issues/detail?id=1509)
+   * rows (See https://projects.artefactual.com/issues/3459)
    *
    * @return QubitMigrate108 this object
    */

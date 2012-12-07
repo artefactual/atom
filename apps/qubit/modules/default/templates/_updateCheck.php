@@ -1,4 +1,4 @@
-<?php $notificationMessage = __('A %1%release %2%%3% upgrade is available.', array('%1%' => '<a href="http://www.qubit-toolkit.org/wiki/index.php?title=Release_%1%" target="_blank">', '%2%' => '%1%', '%3%' => '</a>')) ?>
+<?php $notificationMessage = __('A %1%release %2%%3% upgrade is available.', array('%1%' => '<a href="http://www.accesstomemory.org/wiki/index.php?title=Release_%1%" target="_blank">', '%2%' => '%1%', '%3%' => '</a>')) ?>
 
 <?php if ($sf_request->getCookie('has_js')): ?>
 
