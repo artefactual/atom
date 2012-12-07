@@ -1430,6 +1430,23 @@ class QubitInformationObject extends BaseInformationObject
     }
   }
 
+  /**
+   * Set publication status using a status name
+   *
+   * @param $name  valid publication status name
+   */
+  public function setPublicationStatusByName($name)
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::PUBLICATION_STATUS_ID);
+    $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+    $criteria->add(QubitTermI18n::NAME, $name);
+    if ($term = QubitTermI18n::getOne($criteria))
+    {
+      $this->setStatus(array('typeId' => QubitTerm::STATUS_TYPE_PUBLICATION_ID, 'statusId' => $term->id));
+    }
+  }
+
   public function setDates($date, $options = array())
   {
     // parse the normalized dates into an Event start and end date

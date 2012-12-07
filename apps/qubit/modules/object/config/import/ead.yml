@@ -151,6 +151,10 @@ information_object:
       Method:  addProperty
       Parameters: ["issuingJurisdictionAndDenomination", $nodeValue]
 
+    publicationStatus:
+      XPath:  "odd[@type='publicationstatus']"
+      Method: setPublicationStatusByName
+
     title_variation_notes:
       XPath:  "odd[@type='titlevariation']/p"
       Method: importEadNote
