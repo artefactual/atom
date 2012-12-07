@@ -10,20 +10,24 @@
  */
 class Elastica_Filter_Not extends Elastica_Filter_Abstract
 {
-	/**
-	 * Creates Not filter query
-	 *
-	 * @param Elastica_Filter_Abstract $filter Filter object
-	 */
-	public function __construct(Elastica_Filter_Abstract $filter) {
-		$this->setFilter($filter);
-	}
+    /**
+     * Creates Not filter query
+     *
+     * @param Elastica_Filter_Abstract $filter Filter object
+     */
+    public function __construct(Elastica_Filter_Abstract $filter)
+    {
+        $this->setFilter($filter);
+    }
 
-	/**
-	 * @param Elastica_Filter_Abstract $filter
-	 * @return Elastica_Filter_Not
-	 */
-	public function setFilter(Elastica_Filter_Abstract $filter) {
-		return $this->setParam('filter', $filter->toArray());
-	}
+    /**
+     * Set filter
+     *
+     * @param  Elastica_Filter_Abstract $filter
+     * @return Elastica_Filter_Not
+     */
+    public function setFilter(Elastica_Filter_Abstract $filter)
+    {
+        return $this->setParam('filter', $filter->toArray());
+    }
 }
