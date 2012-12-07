@@ -19,7 +19,7 @@ class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
   {
     // Project classes, e.g. QubitSetting, not loaded unless
     // sfApplicationConfiguration,
-    // http://qubit-toolkit.org/wiki/index.php?title=Autoload#Plugins
+    // http://accesstomemory.org/wiki/index.php?title=Autoload#Plugins
     if (!$this->configuration instanceof sfApplicationConfiguration)
     {
       return;
@@ -43,7 +43,7 @@ class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
     {
       if (1 == count($query = QubitSetting::get($criteria)))
       {
-        // http://qubit-toolkit.org/wiki/index.php?title=Autoload
+        // http://accesstomemory.org/wiki/index.php?title=Autoload
         $this->dispatcher->disconnect('autoload.filter_config', array($this->configuration, 'filterAutoloadConfig'));
 
         $pluginNames = unserialize($query[0]->__get('value', array('sourceCulture' => true)));

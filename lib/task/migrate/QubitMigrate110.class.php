@@ -1,26 +1,26 @@
 <?php
 
 /*
- * This file is part of Qubit Toolkit.
+ * This file is part of the Access to Memory (AtoM) software.
  *
- * Qubit Toolkit is free software: you can redistribute it and/or modify
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Qubit Toolkit is distributed in the hope that it will be useful,
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
  * Upgrade qubit version 1.1 data for version 1.2 schema
  *
- * @package    qubit
+ * @package    AccesstoMemory
  * @subpackage migration
  * @author     David Juhasz <david@artefactual.com>
  */
@@ -630,8 +630,7 @@ class QubitMigrate110 extends QubitMigrate
   }
 
   /**
-   * Move digital objects to repository specific paths like
-   * http://code.google.com/p/qubit-toolkit/source/detail?r=9503
+   * Move digital objects to repository specific paths like (SVN r9503)
    *
    * @return QubitMigrate110 SELF
    */

@@ -1,0 +1,7 @@
+Run the example transformation using the following command:
+
+    ./symfony csv:custom-import \
+      --import-definition=lib/task/import/example/transformation/example.transform.php \
+      --output-file=/tmp/transformed.csv lib/task/import/example/transformation/example.csv
+
+Please see https://www.accesstomemory.org/wiki/CSV_transformation for more details.

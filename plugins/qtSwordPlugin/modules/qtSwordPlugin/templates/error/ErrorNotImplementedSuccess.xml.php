@@ -15,6 +15,6 @@
 
   <sword:userAgent><?php echo $_SERVER['HTTP_USER_AGENT'] ?></sword:userAgent>
 
-  <link rel="alternate" href="http://www.qubit-toolkit.org/wiki/index.php?title=SWORD" type="text/html"/>
+  <link rel="alternate" href="http://www.accesstomemory.org/wiki/index.php?title=SWORD" type="text/html"/>
 
 </sword:error>

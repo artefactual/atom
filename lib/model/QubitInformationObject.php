@@ -1,26 +1,26 @@
 <?php
 
 /*
- * This file is part of Qubit Toolkit.
+ * This file is part of the Access to Memory (AtoM) software.
  *
- * Qubit Toolkit is free software: you can redistribute it and/or modify
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Qubit Toolkit is distributed in the hope that it will be useful,
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
  * Extended methods for Information object model
  *
- * @package qubit
+ * @package AccesstoMemory
  * @subpackage model
  * @author Jack Bates <jack@artefactual.com>
  * @author Peter Van Garderen <peter@artefactual.com>
@@ -293,14 +293,32 @@ class QubitInformationObject extends BaseInformationObject
     }
 
     // Save updated Status
+    $hasPubStatus = false;
     foreach ($this->statuss as $item)
     {
+      if (QubitTerm::STATUS_TYPE_PUBLICATION_ID == $item->typeId)
+      {
+        $hasPubStatus = true;
+      }
+
       $item->setIndexOnSave(false);
 
       // TODO Needed if $this is new, should be transparent
       $item->object = $this;
 
       $item->save($connection);
+    }
+
+    // Force a publication status
+    if ($this->id != QubitInformationObject::ROOT_ID && !$hasPubStatus)
+    {
+      $status = new QubitStatus;
+      $status->objectId = $this->id;
+      $status->typeId = QubitTerm::STATUS_TYPE_PUBLICATION_ID;
+      $status->statusId = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
+      $status->setIndexOnSave(false);
+
+      $status->save($connection);
     }
 
     QubitSearch::updateInformationObject($this);
@@ -1274,6 +1292,14 @@ class QubitInformationObject extends BaseInformationObject
       {
         $event->setDate($options['dates']);
       }
+      if (isset($options['date_start']))
+      {
+        $event->setStartDate($options['date_start']);
+      }
+      if (isset($options['date_end']))
+      {
+        $event->setEndDate($options['date_end']);
+      }
 
       $this->events[] = $event;
     }
@@ -1298,6 +1324,58 @@ class QubitInformationObject extends BaseInformationObject
         $relation->typeId = QubitTerm::NAME_ACCESS_POINT_ID;
 
         $this->relationsRelatedBysubjectId[] = $relation;
+      }
+    }
+  }
+
+  /**
+   * Import creation-related data from an <bioghist> tag in EAD2002
+   *
+   * @param $history string actor history
+   */
+  public function importBioghistEadData($biogHistNode)
+  {
+    // get chronlist element in bioghist element
+    $chronlistNodeList = $biogHistNode->getElementsByTagName('chronlist');
+    if ($chronlistNodeList->length)
+    {
+      foreach($chronlistNodeList as $chronlistNode)
+      {
+        // get chronitem elements in chronlist element
+        $chronitemNodeList = $chronlistNode->getElementsByTagName('chronitem');
+        foreach($chronitemNodeList as $chronitemNode)
+        {
+          // get creation date element contents
+          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/date[@type='creation']");
+          foreach($dateNodeList as $dateNode) {
+            $date = $dateNode->nodeValue;
+          }
+
+          // get creation start date element contents
+          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/date[@type='creation_start']");
+          foreach($dateNodeList as $dateNode) {
+            $date_start = $dateNode->nodeValue;
+          }
+
+          // get creation end date element contents
+          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/date[@type='creation_end']");
+          foreach($dateNodeList as $dateNode) {
+            $date_end = $dateNode->nodeValue;
+          }
+
+          // get name element contents
+          $nameNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/origination/name");
+          foreach($nameNodeList as $nameNode) {
+            $name = $nameNode->nodeValue;
+          }
+
+          $this->setActorByName($name, array(
+            'event_type_id' => QubitTerm::CREATION_ID,
+            'dates'         => $date,
+            'date_start'    => $date_start,
+            'date_end'      => $date_end
+          ));
+        }
       }
     }
   }
@@ -1349,6 +1427,23 @@ class QubitInformationObject extends BaseInformationObject
         $term->save();
         $this->levelOfDescriptionId = $term->id;
       }
+    }
+  }
+
+  /**
+   * Set publication status using a status name
+   *
+   * @param $name  valid publication status name
+   */
+  public function setPublicationStatusByName($name)
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::PUBLICATION_STATUS_ID);
+    $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+    $criteria->add(QubitTermI18n::NAME, $name);
+    if ($term = QubitTermI18n::getOne($criteria))
+    {
+      $this->setStatus(array('typeId' => QubitTerm::STATUS_TYPE_PUBLICATION_ID, 'statusId' => $term->id));
     }
   }
 
@@ -1544,6 +1639,30 @@ class QubitInformationObject extends BaseInformationObject
       $newPhysicalObject->save();
       $this->addPhysicalObject($newPhysicalObject);
     }
+  }
+
+  public function importEadPhysloc($location, $name = false, $type = false)
+  {
+    // if a type has been provided, look it up
+    $term = ($type)
+      ? QubitFlatfileImport::createOrFetchTerm(
+          QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID,
+          $type
+        )
+      : false;
+
+    $object = new QubitPhysicalObject();
+    $object->location = trim($location);
+    $object->name = trim($name);
+
+    if ($term)
+    {
+      $object->typeId = $term->id;
+    }
+
+    $object->save();
+
+    $this->addPhysicalObject($object);
   }
 
   public function importEadNote(array $options = array())

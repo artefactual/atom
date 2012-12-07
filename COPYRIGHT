@@ -1,9 +1,9 @@
 COPYRIGHTS
 ==========
 
-Qubit Toolkit
--------------
-Url:       http://qubit-toolkit.org/
+Access to Memory (AtoM)
+-----------------------
+Url:       http://www.accesstomemory.org/
 Copyright: 2006-2012, Artefactual Systems Inc. <info@artefactual.com>
 License:   Affero GPL version 3 or any later version - see LICENSE file
 
@@ -20,7 +20,7 @@ License:   GNU Free Documentation License
 
 symfony
 -------
-Qubit Toolkit is based on the symfony framework
+Access to Memory (AtoM) is based on the symfony framework
 
 Url:       http://www.symfony-project.org/
 Copyright: Fabien Potencier <fabien.potencier@symfony-project.com>
@@ -29,7 +29,7 @@ License:   MIT - see vendor/symfony/LICENSE
 symfony contains additional software.  See vendor/symfony/COPYRIGHT and
 vendor/symfony/licenses
 
-Qubit Toolkit also uses the following symfony plugins:
+Access to Memory (AtoM) also uses the following symfony plugins:
 
 sfLucenePlugin
 --------------
@@ -51,7 +51,7 @@ sfWebBrowserPlugin
 Copyright: Francois Zaninotto
 License:   MIT
 
-Qubit Toolkit also uses:
+Access to Memory (AtoM) also uses:
 
 Drupal
 ------
@@ -128,7 +128,7 @@ License:   BSD
 
 Zend Framework
 --------------
-Qubit Toolkit uses the Zend Search component
+Access to Memory (AtoM) uses the Zend Search component
 
 Url:       http://framework.zend.com/
 Copyright: Zend Technologies USA Inc.

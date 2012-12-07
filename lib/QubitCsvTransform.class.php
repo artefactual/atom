@@ -3,7 +3,9 @@
 class QubitCsvTransform extends QubitFlatfileImport {
 
   public
+    $setupLogic,
     $transformLogic,
+    $rowsPerFile = 1000,
     $levelsOfDescription = array(
       'fonds',
       'collection',
@@ -12,9 +14,9 @@ class QubitCsvTransform extends QubitFlatfileImport {
       'series',
       'subseries',
       'file',
-      'item'
+      'item',
+      'serial'
     );
-
 
   public function __construct($options = array())
   {
@@ -37,6 +39,11 @@ class QubitCsvTransform extends QubitFlatfileImport {
     // call parent class constructor
     parent::__construct($options);
 
+    if (isset($options['setupLogic']))
+    {
+      $this->setupLogic = $options['setupLogic'];
+    }
+
     if (isset($options['transformLogic']))
     {
       $this->transformLogic = $options['transformLogic'];
@@ -46,7 +53,6 @@ class QubitCsvTransform extends QubitFlatfileImport {
       $this->status['finalOutputFile'] = $cliOptions['output-file'];
       $this->status['ignoreBadLod'] = $cliOptions['ignore-bad-lod'];
     }
-
     $this->status['headersWritten']  = false;
   }
 
@@ -57,14 +63,20 @@ class QubitCsvTransform extends QubitFlatfileImport {
       throw new sfException('You must specifiy the output-file option.');
     }
 
-    if (!getenv("MYSQL_PASSWORD"))
+    if (!getEnv("MYSQL_PASSWORD"))
     {
-      //throw new sfException('You must set the MYSQL_PASSWORD environmental variable. This script will use the "root" user and a database called "import".');
+      throw new sfException('You must set the MYSQL_PASSWORD environmental variable. This script will use the "root" user and a database called "import".');
     }
   }
 
   function writeHeadersOnFirstPass()
   {
+    // execute setup logic, if any
+    if (isset($this->setupLogic))
+    {
+      $this->executeClosurePropertyIfSet('setupLogic');
+    }
+
     if (!$this->status['headersWritten'])
     {
       fputcsv($this->status['outFh'], $this->columnNames);
@@ -143,7 +155,7 @@ class QubitCsvTransform extends QubitFlatfileImport {
     while($row = mysql_fetch_assoc($result))
     {
       // if starting a new chunk, write CSV headers
-      if (($currentRow % 1000) == 0)
+      if (($currentRow % $this->rowsPerFile) == 0)
       {
         $chunk++;
         $chunkFilePath = $this->numberedFilePathVariation($filepath, $chunk);

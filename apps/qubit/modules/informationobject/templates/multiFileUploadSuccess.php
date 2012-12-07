@@ -6,7 +6,7 @@
 
 <noscript>
   <div class="messages warning">
-    <?php echo __('Your browser does not support JavaScript. See %1%minimum requirements%2%.', array('%1%' => '<a href="http://qubit-toolkit.org/wiki/index.php?title=Minimum_requirements">', '%2%' => '</a>')) ?>
+    <?php echo __('Your browser does not support JavaScript. See %1%minimum requirements%2%.', array('%1%' => '<a href="http://accesstomemory.org/wiki/index.php?title=Minimum_requirements">', '%2%' => '</a>')) ?>
   </div>
 
   <ul class="actions links">

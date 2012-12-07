@@ -1,20 +1,20 @@
 <?php
 
 /*
- * This file is part of Qubit Toolkit.
+ * This file is part of the Access to Memory (AtoM) software.
  *
- * Qubit Toolkit is free software: you can redistribute it and/or modify
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Qubit Toolkit is distributed in the hope that it will be useful,
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
@@ -240,7 +240,7 @@ class QubitFlatfileImport
         $this->status['row'][$columnIndex] = $value;
       }
     } else {
-      throw new sfException('Invalid column "'. $column .'".');
+      throw new sfException('Missing column "'. $column .'".');
     }
   }
 
@@ -456,6 +456,17 @@ class QubitFlatfileImport
       $this->columnNames[] = $column;
     }
 
+    // warn if column names contain whitespace
+    foreach($this->columnNames as $column)
+    {
+      if ($column != trim($column))
+      {
+        print $this->logError(
+          sprintf("WARNING: Column '%s' has whitespace before or after its name.", $column)
+        );
+      }
+    }
+
     // disabling search indexing improves import speed
     QubitSearch::getInstance()->disabled = $this->searchIndexingDisabled;
 
@@ -517,7 +528,14 @@ class QubitFlatfileImport
       }
     }
 
-    // Default culture to English
+    // add blank culture field if not present in import
+    if (!in_array('culture', $this->columnNames))
+    {
+      $this->columnNames[] = 'culture';
+      $this->addColumns[]  = 'culture';
+    }
+
+    // default culture to English
     if (0 == strlen($this->columnValue('culture')))
     {
       $this->columnValue('culture', 'en');
@@ -1218,7 +1236,7 @@ class QubitFlatfileImport
    *
    * @return object  created term or fetched object containing term data
    */
-  public function createOrFetchTerm($taxonomyId, $name, $culture = 'en')
+  public static function createOrFetchTerm($taxonomyId, $name, $culture = 'en')
   {
     $query = "SELECT t.id FROM term t LEFT JOIN term_i18n ti ON t.id=ti.id \r
       WHERE t.taxonomy_id=? AND ti.name=? AND ti.culture=?";
@@ -1244,7 +1262,7 @@ class QubitFlatfileImport
    *
    * @return QubitTerm  created term
    */
-  public function createTerm($taxonomyId, $name, $culture = 'en')
+  public static function createTerm($taxonomyId, $name, $culture = 'en')
   {
     $term = new QubitTerm;
     $term->name = $name;
@@ -1387,7 +1405,7 @@ class QubitFlatfileImport
    *
    * @return array  array of term IDs and their respective names
    */
-  public function getTaxonomyTerms($taxonomyId, $culture = 'en')
+  public static function getTaxonomyTerms($taxonomyId, $culture = 'en')
   {
     $terms = array();
 
@@ -1445,7 +1463,7 @@ class QubitFlatfileImport
    *
    * @return array  array of arrays containing taxonomy terms
    */
-  public function loadTermsFromTaxonomies($taxonomies)
+  public static function loadTermsFromTaxonomies($taxonomies)
   {
     $taxonomyTerms = array();
 

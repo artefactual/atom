@@ -1,20 +1,20 @@
 <?php
 
 /*
- * This file is part of Qubit Toolkit.
+ * This file is part of the Access to Memory (AtoM) software.
  *
- * Qubit Toolkit is free software: you can redistribute it and/or modify
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Qubit Toolkit is distributed in the hope that it will be useful,
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
@@ -120,11 +120,20 @@ EOF;
         // If more than one digital object linked to this information object
         for ($i=0; $i < count($item); $i++)
         {
+          $parent = QubitInformationObject::getById($key);
+
           // Create new information objects, to maintain one-to-one
           // relationship with digital objects
           $informationObject = new QubitInformationObject;
-          $informationObject->parent = QubitInformationObject::getById($key);
+          $informationObject->parent = $parent;
           $informationObject->title = basename($item[$i]);
+
+          // Copy parent publication status
+          if (null != $status = $parent->getPublicationStatus())
+          {
+            $informationObject->setPublicationStatus($status->statusId);
+          }
+
           $informationObject->save($options['conn']);
 
           self::addDigitalObject($informationObject, $item[$i], $options);

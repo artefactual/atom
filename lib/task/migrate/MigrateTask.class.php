@@ -1,26 +1,26 @@
 <?php
 
 /*
- * This file is part of Qubit Toolkit.
+ * This file is part of the Access to Memory (AtoM) software.
  *
- * Qubit Toolkit is free software: you can redistribute it and/or modify
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Qubit Toolkit is distributed in the hope that it will be useful,
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
  * Migrate qubit data model
  *
- * @package    qubit
+ * @package    AccesstoMemory
  * @subpackage migration
  * @author     David Juhasz <david@artefactual.com>
  */
@@ -33,7 +33,7 @@ class MigrateTask extends sfBaseTask
 Notice: This migration script will only migrate your data to version Release 1.1 v%s.
 To migrate to Release 1.2 or later, please see the upgrading documentation:
 
-http://qubit-toolkit.org/wiki/index.php?title=Upgrading
+http://accesstomemory.org/wiki/index.php?title=Upgrading
 
 EOL;
 

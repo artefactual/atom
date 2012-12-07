@@ -1,22 +1,22 @@
-# This file is part of Qubit Toolkit.
+# This file is part of Access to Memory (AtoM).
 #
-# Qubit Toolkit is free software; you can redistribute it and/or modify it
+# Access to Memory (AtoM) is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the Free
 # Software Foundation; either version 2 of the License, or (at your option)
 # any later version.
 #
-# Qubit Toolkit is distributed in the hope that it will be useful, but WITHOUT
+# Access to Memory (AtoM) is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
 # FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
 # for more details.
 #
 # You should have received a copy of the GNU General Public License along with
-# Qubit Toolkit; if not, write to the Free Software Foundation, Inc., 51
+# Access to Memory (AtoM); if not, write to the Free Software Foundation, Inc., 51
 # Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 # EAD XML (2002) IMPORT FILTER MAPPINGS
 #
-# @package qubit
+# @package AccesstoMemory
 # @subpackage object import
 # @author MJ Suhonos <mj@suhonos.ca>
 # @author Peter Van Garderen <peter@artefactual.com>
@@ -151,6 +151,10 @@ information_object:
       Method:  addProperty
       Parameters: ["issuingJurisdictionAndDenomination", $nodeValue]
 
+    publicationStatus:
+      XPath:  "odd[@type='publicationstatus']"
+      Method: setPublicationStatusByName
+
     title_variation_notes:
       XPath:  "odd[@type='titlevariation']/p"
       Method: importEadNote
@@ -227,7 +231,7 @@ information_object:
       Parameters: [$nodeValue, "$options = array('normalized_dates' => $importDOM->xpath->query('@normal', $domNode2)->item(0)->nodeValue, 'date_type' => $importDOM->xpath->query('@datechar', $domNode2)->item(0)->nodeValue)"]
 
     extent:
-      XPath:  "did/physdesc"
+      XPath:  "did/physdesc/extent"
       Method: setExtentAndMedium
 
     abstract:
@@ -237,6 +241,11 @@ information_object:
   ##physloc
     ##if no container is given, save as a 'location' note, otherwise save to the container's location information
     ##Xpath:  "did/physloc"
+
+    physloc:
+      XPath:  "did/physloc"
+      Method: importEadPhysLoc
+      Parameters: ["%p", "%container", "%container/@type"]
 
     container:
       XPath:  "did/container"
@@ -280,13 +289,18 @@ information_object:
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::GENERAL_NOTE_ID)"]
 
+    sources:
+      XPath:  "did/note[@type='sourcesDescription']"
+      Method: setSources
+
     bioghist:
       XPath:  "(bioghist | descgrp/bioghist)"
-      Method: setHistoryByOrigination
+      Method: importBioghistEadData
+      Parameters: ["$domNode2"]
 
     # this will overwrite any values entered for <abstract>
-    scopeAndContent:
-      XPath:   "(scopecontent | descgrp/bioghist)"
+    scopeandcontent:
+      XPath:   "scopecontent/p"
       Method:  setScopeAndContent
 
     arrangement:

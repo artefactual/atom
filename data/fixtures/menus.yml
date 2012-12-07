@@ -678,7 +678,7 @@ QubitMenu:
       pl: Pomoc
       pt: Ajuda
       sl: Pomoč
-    path: 'http://qubit-toolkit.org/'
+    path: 'http://accesstomemory.org/'
   QubitMenu_quicklinks_myProfile:
     parent_id: QubitMenu_quicklinks
     source_culture: en

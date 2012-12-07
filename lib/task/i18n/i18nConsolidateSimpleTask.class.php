@@ -1,20 +1,20 @@
 <?php
 
 /*
- * This file is part of Qubit Toolkit.
+ * This file is part of the Access to Memory (AtoM) software.
  *
- * Qubit Toolkit is free software: you can redistribute it and/or modify
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Qubit Toolkit is distributed in the hope that it will be useful,
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
@@ -22,7 +22,7 @@
  * the source files.  However, there is no way currently to record the source
  * file for XLIFF strings. :(
  *
- * @package    symfony
+ * @package    AccesstoMemory
  * @subpackage task
  * @author     David Juhasz <david@artefactual.com>
  */
@@ -217,7 +217,7 @@ class i18nConsolidated
           $translations[$values['en']] = array(
             $target,
             null,
-            str_replace(sfConfig::get('sf_web_dir'), 'http://code.google.com/p/qubit-toolkit/source/browse/trunk', $file));
+            str_replace(sfConfig::get('sf_web_dir'), 'https://github.com/artefactual/atom/blob/master', $file));
         }
       }
     }

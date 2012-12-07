@@ -1,20 +1,20 @@
 <?php
 
 /*
- * This file is part of Qubit Toolkit.
+ * This file is part of the Access to Memory (AtoM) software.
  *
- * Qubit Toolkit is free software: you can redistribute it and/or modify
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Qubit Toolkit is distributed in the hope that it will be useful,
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
@@ -45,7 +45,7 @@ class eadExportTask extends sfBaseTask
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
       new sfCommandOption('rows-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Output total rows imported every n rows.'),
       new sfCommandOption('skip-rows', null, sfCommandOption::PARAMETER_OPTIONAL, 'Skip n rows before importing.'),
-      new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria', '1=1')
+      new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria')
     ));
   }
 
@@ -67,12 +67,54 @@ class eadExportTask extends sfBaseTask
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-    $sql = "SELECT id FROM information_object";
+    $appRoot = dirname(__FILE__) .'/../..';
+    include($appRoot .'/plugins/sfEadPlugin/lib/sfEadPlugin.class.php');
+    include($appRoot .'/vendor/symfony/lib/helper/UrlHelper.php');
+    include($appRoot .'/vendor/symfony/lib/helper/I18NHelper.php');
+    include($appRoot .'/plugins/sfEadPlugin/lib/vendor/FreeBeerIso639Map.php');
+    include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
+    include($appRoot .'/lib/helper/QubitHelper.php');
 
-    foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row)
+    $iso639convertor = new fbISO639_Map;
+    $eadLevels = array('class', 'collection', 'file', 'fonds', 'item', 'otherlevel', 'recordgrp', 'series', 'subfonds', 'subgrp', 'subseries');
+
+    $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
+    $sf_context = sfContext::createInstance($configuration);
+
+    $whereClause = "parent_id=1";
+
+    if ($options['criteria'])
     {
-      $resource = QubitInformationObject::getOne($row['id']);
-      include('../../../plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccess.xml.php');
+      $whereClause .= ' AND '. $options['criteria'];
+    }
+
+    $sql = "SELECT COUNT(1) AS total FROM information_object WHERE ". $whereClause;
+
+    $rows = $conn->query($sql, PDO::FETCH_ASSOC);
+
+    foreach($rows as $row)
+    {
+      $sql = "SELECT * FROM information_object i INNER JOIN information_object_i18n i18n ON i.id=i18n.id WHERE ". $whereClause;
+
+      echo "Exporting ". $row['total'] . " descriptions.\n";
+
+      foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row)
+      {
+        $resource = QubitInformationObject::getById($row['id']);
+
+        $ead = new sfEadPlugin($resource);
+
+        ob_start();
+        include('plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccess.xml.php');
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        $filename = 'ead_'. $row['id'] .'.xml';
+        $filePath = $arguments['folder'] .'/'. $filename;
+        file_put_contents($filePath, $output);
+
+        print '.';
+      }
     }
   }
 }
