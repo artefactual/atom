@@ -21,7 +21,7 @@
  * Restore i18n strings lost when XLIFF files were broken into plugin-specific
  * directories
  *
- * @package    symfony
+ * @package    AccesstoMemory
  * @subpackage task
  * @author     David Juhasz <david@artefactual.com>
  */
@@ -212,7 +212,7 @@ class sfI18nConsolidatedExtract extends sfI18nApplicationExtract
         if (!isset($this->sourceFiles[$message]))
         {
           // Link to file in googlecode repository
-          $this->sourceFiles[$message] = str_replace(sfConfig::get('sf_web_dir'), 'http://code.google.com/p/qubit-toolkit/source/browse/trunk', $file);
+          $this->sourceFiles[$message] = str_replace(sfConfig::get('sf_web_dir'), 'https://github.com/artefactual/atom/blob/master', $file);
         }
       }
     }
@@ -289,7 +289,7 @@ class sfI18nConsolidatedExtract extends sfI18nApplicationExtract
           $translations[$values['en']] = array(
             $target,
             null,
-            str_replace(sfConfig::get('sf_web_dir'), 'http://code.google.com/p/qubit-toolkit/source/browse/trunk', $file));
+            str_replace(sfConfig::get('sf_web_dir'), 'https://github.com/artefactual/atom/blob/master', $file));
         }
       }
     }

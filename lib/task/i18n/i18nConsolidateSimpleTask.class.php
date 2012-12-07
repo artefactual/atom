@@ -22,7 +22,7 @@
  * the source files.  However, there is no way currently to record the source
  * file for XLIFF strings. :(
  *
- * @package    symfony
+ * @package    AccesstoMemory
  * @subpackage task
  * @author     David Juhasz <david@artefactual.com>
  */
@@ -217,7 +217,7 @@ class i18nConsolidated
           $translations[$values['en']] = array(
             $target,
             null,
-            str_replace(sfConfig::get('sf_web_dir'), 'http://code.google.com/p/qubit-toolkit/source/browse/trunk', $file));
+            str_replace(sfConfig::get('sf_web_dir'), 'https://github.com/artefactual/atom/blob/master', $file));
         }
       }
     }

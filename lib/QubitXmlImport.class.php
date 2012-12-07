@@ -537,8 +537,8 @@ class QubitXmlImport
     error_reporting($err_level);
 
     // look through the entire document for namespaces
-    // FIXME: Issue 837
-    // http://code.google.com/p/qubit-toolkit/issues/detail?id=837
+    // FIXME: #2787
+    // https://projects.artefactual.com/issues/2787
     //
     // THIS SHOULD ONLY INSPECT THE ROOT NODE NAMESPACES
     // Consider: http://www.php.net/manual/en/book.dom.php#73793

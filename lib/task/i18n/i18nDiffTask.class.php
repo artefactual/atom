@@ -23,7 +23,7 @@
  * Output formats currrently include csv and tab to allow easy import into a
  * spreadsheet application.
  *
- * @package    symfony
+ * @package    AccesstoMemory
  * @subpackage task
  * @author     David Juhasz <david@artefactual.com>
  */
