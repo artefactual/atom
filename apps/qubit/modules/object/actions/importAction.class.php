@@ -23,7 +23,7 @@
  * @package    AccesstoMemory
  * @subpackage import/export
  * @author     David Juhasz <david@artefactual.com>
- * @author     MJ Suhonos <mj@artefactual.com>
+ * @author     MJ Suhonos <mj@suhonos.ca>
  */
 class ObjectImportAction extends sfAction
 {

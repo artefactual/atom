@@ -22,7 +22,7 @@
  * application indexing, querying, faceting, etc.
  *
  * @package    arElasticSearchPlugin
- * @author     MJ Suhonos <mj@artefactual.com>
+ * @author     MJ Suhonos <mj@suhonos.ca>
  */
 class arElasticSearchPlugin
 {
