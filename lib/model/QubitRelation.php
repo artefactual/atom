@@ -23,7 +23,7 @@
  *
  * @package    AccesstoMemory
  * @subpackage relation
- * @author     Jack Bates <jack@artefactual.com>
+ * @author     Jack Bates <jack@nottheoilrig.com>
  * @author     David Juhasz <david@artefactual.com>
  */
 class QubitRelation extends BaseRelation

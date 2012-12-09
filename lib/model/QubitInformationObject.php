@@ -22,7 +22,7 @@
  *
  * @package AccesstoMemory
  * @subpackage model
- * @author Jack Bates <jack@artefactual.com>
+ * @author Jack Bates <jack@nottheoilrig.com>
  * @author Peter Van Garderen <peter@artefactual.com>
  * @author David Juhasz <david@artefactual.com>
  * @author Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>

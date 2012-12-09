@@ -22,7 +22,7 @@
  *
  * @package    AccesstoMemory
  * @subpackage sfEacPlugin
- * @author     Jack Bates <jack@artefactual.com>
+ * @author     Jack Bates <jack@nottheoilrig.com>
  */
 
 class sfEacPluginIndexAction extends ActorIndexAction
