@@ -22,7 +22,7 @@
  *
  * @package    AccesstoMemory
  * @subpackage library
- * @author     MJ Suhonos <mj@artefactual.com>
+ * @author     MJ Suhonos <mj@suhonos.ca>
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     Mike Cantelon <mike@artefactual.com>
  */
