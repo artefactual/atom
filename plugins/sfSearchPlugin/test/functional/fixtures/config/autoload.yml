@@ -1,5 +1,0 @@
-autoload:
-  search:
-    name: search
-    path: %SF_ROOT_DIR%/../../../lib
-    recursive: on
