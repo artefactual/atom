@@ -26,26 +26,6 @@
  */
 class QubitRepositoryMapping extends QubitMapping
 {
-  static function getProperties()
-  {
-    return array(
-      'slug' => array(
-        'type' => 'string',
-        'index' => 'not_analyzed'),
-      'identifier' => array(
-        'type' => 'string',
-        'index' => 'not_analyzed'),
-      'types' => array(
-        'type' => 'integer',
-        'index' => 'not_analyzed',
-        'include_in_all' => false),
-      'contact' => array(
-        'type' => 'object',
-        'properties' => QubitContactInformationMapping::getProperties()))
-      + self::getI18nProperties()
-      + self::getTimestampProperties();
-  }
-
   static function serialize($object)
   {
     $serialized = array();

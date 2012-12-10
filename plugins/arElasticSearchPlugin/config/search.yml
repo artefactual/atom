@@ -1,0 +1,28 @@
+all:
+
+  batch_mode: true
+  batch_size: 500
+
+  server:
+    # Server defaults to localhost:9200 if omitted
+    # It can also be used to configure a cluster of ElasticSearch nodes
+    # See more info at: http://ruflin.github.com/Elastica/
+    host: localhost
+    port: 9200
+
+    # This will write the JSON request in the file given
+    # log: '/tmp/elastica.log'
+
+    # List of available settings 
+    # https://github.com/ruflin/Elastica/blob/master/lib/Elastica/Client.php#L39
+
+  index:
+    name: atom # This is the name of the index; must be unique
+    configuration: 
+
+      # List of settings: http://goo.gl/EjQx4
+      number_of_shards: 4
+      number_of_replicas: 1
+
+      # Module settings:
+      # http://www.elasticsearch.org/guide/reference/index-modules/

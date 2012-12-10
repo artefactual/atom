@@ -21,37 +21,11 @@
  * Parent class to provide global model mapping methods for storing objects
  * within an ElasticSearch document index.
  *
- * @package    arElasticSearchPlugin
- * @author     MJ Suhonos <mj@artefactual.com>
+ * @package arElasticSearchPlugin
+ * @author MJ Suhonos <mj@suhonos.ca>
  */
 class QubitMapping
 {
-  public static function getI18nProperties()
-  {
-    return array(
-      'sourceCulture' => array(
-        'type' => 'string',
-        'index' => 'not_analyzed',
-        'include_in_all' => false),
-     'i18n' => array(
-      'type' => 'object',
-      'include_in_root' => true,
-      'properties' => array(
-        'culture' => array(
-          'type' => 'string',
-          'index' => 'not_analyzed',
-          'include_in_all' => false))));
-  }
-
-  public static function getTimestampProperties()
-  {
-    return array(
-      'createdAt' => array(
-        'type' => 'date'),
-      'updatedAt' => array(
-        'type' => 'date'));
-  }
-
   public static function getI18nFields($class)
   {
     // use reflection on i18n object to get property list from class constants

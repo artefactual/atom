@@ -26,27 +26,6 @@
  */
 class QubitContactInformationMapping extends QubitMapping
 {
-  static function getProperties()
-  {
-    return array(
-      'contactPerson' => array(
-        'type' => 'string',
-        'index' => 'no'),
-      'streetAddress' => array(
-        'type' => 'string',
-        'index' => 'no'),
-      'postalCode' => array(
-        'type' => 'string',
-        'include_in_all' => false),
-      'countryCode' => array(
-        'type' => 'string',
-        'index' => 'not_analyzed',
-        'include_in_all' => false),
-      'location' => array(
-        'type' => 'geo_point'))
-      + self::getI18nProperties();
-  }
-
   static function serialize($object)
   {
     $serialized = array();

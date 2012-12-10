@@ -26,17 +26,5 @@
  */
 class QubitActorMapping extends QubitMapping
 {
-  static function getProperties()
-  {
-    return array(
-      'slug' => array(
-        'type' => 'string',
-        'index' => 'not_analyzed'),
-      'entityTypeId' => array(
-        'type' => 'integer',
-        'index' => 'not_analyzed',
-        'include_in_all' => false))
-      + self::getI18nProperties()
-      + self::getTimestampProperties();
-  }
+
 }

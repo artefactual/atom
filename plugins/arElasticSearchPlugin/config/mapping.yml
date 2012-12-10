@@ -1,0 +1,72 @@
+# Mapping types
+# http://www.elasticsearch.org/guide/reference/mapping/
+mappings:
+
+  actor:
+    _attributes: { i18n: true, timestamp: true }
+    slug: { type: string, index: not_analyzed }
+    entity_type_id: { type: integer, index: not_analyzed, include_in_all: false }
+
+  contact_information:
+    _attributes: { i18n: true, timestamp: true }
+    contact_person: { type: string, index: no }
+    street_address: { type: string, index: no }
+    postal_code: { type: string, include_in_all: false }
+    country_code: { type: string, index: not_analyzed, include_in_all: false }
+    location: { type: geo_point }
+
+  information_object:
+    _attributes: { i18n: true, timestamp: true }
+    slug: { type: string, index: not_analyzed }
+    reference_code: { type: string, index: not_analyzed }
+    identifier: { type: string, index: not_analyzed }
+    level_of_description_id: { type: integer, index: not_analyzed }
+    publication_status_id: { type: integer, index: not_analyzed }
+    parent_id: { type: integer, index: not_analyzed, include_in_all: false }
+    ancestors: { type: integer, index: not_analyzed, include_in_all: false }
+    children: { type: integer, index: not_analyzed, include_in_all: false }
+    publication_status_id: { type: integer, index: not_analyzed }
+    material_type_id: { type: integer, index: not_analyzed, include_in_all: false }
+    copyright_status_id: { type: integer, index: not_analyzed, include_in_all: false }
+    dates:
+      type: object
+      properties:
+        start_date: { type: integer, index: not_analyzed }
+        end_date: { type: integer, index: not_analyzed }
+        type_id: { type: string, index: not_analyzed, include_in_all: false }
+        actor: { type: string }
+    has_digital_object: { type: boolean, index: not_analyzed, include_in_all: false }
+    digital_object:
+      type: object
+      properties:
+        media_type_id: { type: integer, index: not_analyzed, include_in_all: false }
+        thumbnail_path: { type: string, index: not_analyzed }
+    repository:
+      _attributes: { i18n: true }
+      type: object
+    subjects:
+      _attributes: { i18n: true }
+      type: object
+    places:
+      _attributes: { i18n: true }
+      type: object
+    names:
+      _attributes: { i18n: true }
+      type: object
+    creators:
+      _attributes: { i18n: true }
+      type: object
+
+  repository:
+    _attributes: { i18n: true, timestamp: true }
+    slug: { type: string, index: not_analyzed }
+    identifier: { type: string, index: not_analyzed }
+    media_type_id: { type: integer, index: not_analyzed, include_in_all: false }
+    contact:
+      _attributes: { foreignType: contact_information }
+      type: object
+
+  term:
+    _attributes: { i18n: true, timestamp: true }
+    slug: { type: string, index: not_analyzed }
+    taxonomy_id: { type: integer, index: not_analyzed, include_in_all: false }
