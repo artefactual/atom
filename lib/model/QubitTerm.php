@@ -233,7 +233,7 @@ class QubitTerm extends BaseTerm
   {
     parent::save($connection);
 
-    QubitSearch::updateTermIndex($this);
+    QubitSearch::updateTerm($this);
 
     // Save related terms
     foreach ($this->termsRelatedByparentId as $child)

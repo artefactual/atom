@@ -167,7 +167,7 @@ class QubitActor extends BaseActor
       }
     }
 
-    QubitSearch::updateActorIndex($this);
+    QubitSearch::updateActor($this);
 
     return $this;
   }

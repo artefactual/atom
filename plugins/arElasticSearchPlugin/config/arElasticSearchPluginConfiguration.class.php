@@ -22,8 +22,12 @@ class arElasticSearchPluginConfiguration extends sfPluginConfiguration
   public static
     $summary = 'Search index plugin. Uses an ElasticSearch instance to provide advanced search features such as faceting, fuzzy search, etc.',
     $version = '1.0.0',
+
     $configPath = 'config/search.yml',
-    $config = null;
+    $config = null,
+
+    $mappingPath = 'config/mapping.yml',
+    $mapping = null;
 
   public function initialize()
   {
@@ -38,12 +42,19 @@ class arElasticSearchPluginConfiguration extends sfPluginConfiguration
       $configCache = $this->configuration->getConfigCache();
       $configCache->registerConfigHandler(self::$configPath, 'arElasticSearchConfigHandler');
       self::$config = include $configCache->checkConfig(self::$configPath);
+
+      $mappingCache = $this->configuration->getConfigCache();
+      $mappingCache->registerConfigHandler(self::$mappingPath, 'arElasticSearchConfigHandler');
+      self::$mapping = include $mappingCache->checkConfig(self::$mappingPath);
     }
     else
     {
       // Live parsing (task context)
       $configPaths = $this->configuration->getConfigPaths(self::$configPath);
       self::$config = arElasticSearchConfigHandler::getConfiguration($configPaths);
+
+      $mappingPaths = $this->configuration->getConfigPaths(self::$mappingPath);
+      self::$mapping = arElasticSearchConfigHandler::getConfiguration($mappingPaths);
     }
   }
 }

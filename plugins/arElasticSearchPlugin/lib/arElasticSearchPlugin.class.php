@@ -25,7 +25,7 @@
  * @author      MJ Suhonos <mj@suhonos.ca>
  * @author      Jesús García Crepso <jesus@sevein.com>
  */
-class arElasticSearchPlugin
+class arElasticSearchPlugin extends QubitSearchEngine
 {
   /**
    * Elastic_Client object

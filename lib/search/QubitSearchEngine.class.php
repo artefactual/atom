@@ -18,23 +18,44 @@
  */
 
 /**
+ * Designed to be extended by arElasticSearchPlugin
+ *
  * @package AccesstoMemory
+ * @subpackage search
  */
-class QubitSearch
+class QubitSearchEngine
 {
-  protected static $instance = null;
-
-  // I don't know if I need this
-  // protected function __construct() { }
-  // protected function __clone() { }
-
-  public static function getInstance()
+  public function deleteById($id)
   {
-    if (!isset(self::$instance))
-    {
-      self::$instance = new arElasticSearchPlugin();
-    }
+  }
 
-    return self::$instance;
+  // Actor
+
+  public function addActor(QubitActor $actor)
+  {
+  }
+
+  public function updateActor(QubitActor $actor)
+  {
+  }
+
+  // Information object
+
+  public function addInformationObject(QubitInformationObject $informationObject)
+  {
+  }
+
+  public function updateInformationObject(QubitInformationObject $informationObject)
+  {
+  }
+
+  // Term
+
+  public function addTerm(QubitTerm $term)
+  {
+  }
+
+  public function updateTerm(QubitTerm $term)
+  {
   }
 }

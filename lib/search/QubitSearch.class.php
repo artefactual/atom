@@ -18,15 +18,32 @@
  */
 
 /**
- * arElasticSearchMapping
+ * Singleton factory class for QubitSearchEngine and subclasses
  *
- * @package     AccesstoMemory
- * @subpackage  arElasticSearchPlugin
+ * @package AccesstoMemory
+ * @subpackage search
  */
-class arElasticSearchMapping
+class QubitSearch
 {
-  public static function initialize($index)
-  {
+  protected static $instance = null;
 
+  // protected function __construct() { }
+  // protected function __clone() { }
+
+  public static function getInstance()
+  {
+    if (!isset(self::$instance))
+    {
+      // Using arElasticSearchPlugin but other classes could be
+      // implemented, for example: arSphinxSearchPlugin
+      self::$instance = new arElasticSearchPlugin();
+    }
+
+    return self::$instance;
+  }
+
+  public static function __callStatic($name, $arguments)
+  {
+    return call_user_func_array(array(self::getInstance(), $name), $arguments);
   }
 }
