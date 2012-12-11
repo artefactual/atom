@@ -1,6 +1,6 @@
 # Mapping types
 # http://www.elasticsearch.org/guide/reference/mapping/
-mappings:
+mapping:
 
   actor:
     _attributes: { i18n: true, timestamp: true }

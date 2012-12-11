@@ -42,14 +42,23 @@ class arElasticSearchPlugin extends QubitSearchEngine
   protected $index = null;
 
   /**
+   * elasticsearch bulk API makes it possible to perform many index/delete
+   * operations in a single call. This can greatly increase the indexing speed.
+   * This array will be used to store documents in batches.
+   *
+   * @var array
+   */
+  private $batchDocs = array();
+
+  /**
    * Constructor
    */
   public function __construct()
   {
     $this->config = arElasticSearchPluginConfiguration::$config;
+    $this->mapping = arElasticSearchPluginConfiguration::$mapping;
 
     $this->client = new Elastica_Client($this->config['server']);
-
     $this->index = $this->client->getIndex($this->config['index']['name']);
 
     $this->initialize();
@@ -57,7 +66,16 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
   public function __destruct()
   {
+    // If there are still documents in the batch queue, send them
+    if ($this->config['batch_mode'] && count($this->batchDocs) > 0)
+    {
+      $this->index->addDocuments($this->batchDocs);
 
+      // I don't think that this is necessary
+      // $this->index->flush();
+    }
+
+    $this->index->refresh();
   }
 
   /**
@@ -68,7 +86,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
     try
     {
       // Uncomment if you want to delete the index and create it again
-      // $this->index->delete();
+      $this->index->delete();
 
       $this->index->open();
     }
@@ -80,18 +98,16 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $this->index->create($this->config['index']['configuration'], true);
       }
 
-      foreach ($this->config['mappings'] as $typeName => $typeProperties)
+      // Iterate over types (actor, information_object, ...)
+      foreach ($this->mapping['mapping'] as $typeName => $typeProperties)
       {
-        // If _attributes is set, parse and delete it
-        if ('__attributes' == $typeName)
+        // Look for special attributes like i18n or timestamp and update the
+        // mapping accordingly. For example, 'timestamp' adds the created_at
+        // and updated_at fields each time is used.
+        if (isset($typeProperties['_attributes']))
         {
-          foreach ($typeProperties as $attributeName => $attributeValue)
+          foreach ($typeProperties['_attributes'] as $attributeName => $attributeValue)
           {
-            if (!$attributeValue)
-            {
-              continue;
-            }
-
             switch ($attributeName)
             {
               case 'i18n':
@@ -130,5 +146,25 @@ class arElasticSearchPlugin extends QubitSearchEngine
   public function optimize($args = array())
   {
     return $this->client->optimizeAll($args);
+  }
+
+  public function populate()
+  {
+    $timer = new QubitTimer;
+
+    // Delete index and initialize again
+    $this->index->delete();
+    $this->initialize();
+    $this->log('Index erased');
+
+    // Populate
+    $this->log('Populating index...');
+
+    // TODO
+
+    $this->log(sprintf('Index populated with %s documents in %s seconds',
+      array(
+        $total,
+        $timer->elapsed())));
   }
 }

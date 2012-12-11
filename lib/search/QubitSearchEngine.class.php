@@ -25,11 +25,42 @@
  */
 class QubitSearchEngine
 {
-  public function deleteById($id)
+  private
+    $timer;
+
+  protected
+    $logger;
+
+
+  /**
+   * Constructor
+   */
+  public function __construct()
   {
+    parent::__construct();
   }
 
-  // Actor
+  /**
+   * Log message
+   */
+  public function log($message)
+  {
+    // TODO
+    // $this->logger->log($message);
+    echo "$message \n";
+  }
+
+  /**
+   * Populate results
+   */
+  // public function populate() { }
+
+  /**
+   * Optimize index
+   */
+  // public function optimize() { }
+
+  // ---------------------------------------------------------------------------
 
   public function addActor(QubitActor $actor)
   {
@@ -39,8 +70,6 @@ class QubitSearchEngine
   {
   }
 
-  // Information object
-
   public function addInformationObject(QubitInformationObject $informationObject)
   {
   }
@@ -49,13 +78,15 @@ class QubitSearchEngine
   {
   }
 
-  // Term
-
   public function addTerm(QubitTerm $term)
   {
   }
 
   public function updateTerm(QubitTerm $term)
+  {
+  }
+
+  public function deleteById($id)
   {
   }
 }
