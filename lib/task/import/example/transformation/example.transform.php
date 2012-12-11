@@ -33,7 +33,7 @@ $transformLogic = function(&$self)
 };
 
 $parentKeyLogic = function(&$self) {
-  // if row is a parent, return its key... otherwise return FALSE
+  // if row is a parent, return its key... otherwise return false
 
   // if row doesn't have a parent in our example, then it itself is a parent
   if (
@@ -41,13 +41,13 @@ $parentKeyLogic = function(&$self) {
   ) {
     return $self->columnValue('title');
   } else {
-    return FALSE;
+    return false;
   } 
 };
 
 $rowParentKeyLookupLogic = function(&$self) {
   // if row has a parent, figure out the key for it and return it... otherwise
-  // return FALSE
+  // return false
   $parentKey = trim($self->columnValue('PARENT'));
   if ($parentKey)
   {

@@ -33,7 +33,7 @@ class QubitInformationObject extends BaseInformationObject
     ROOT_ID = 1;
 
   // allow per-object disabling of nested set updating during bulk imports
-  public $disableNestedSetUpdating = FALSE;
+  public $disableNestedSetUpdating = false;
 
   /**
    * When cast as a string, return i18n-ized object title with fallback to
