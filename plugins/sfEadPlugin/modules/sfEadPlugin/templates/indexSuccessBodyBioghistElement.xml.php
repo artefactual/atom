@@ -4,9 +4,15 @@
 <?php foreach($$resourceVar->getDates(array('type_id' => QubitTerm::CREATION_ID)) as $date): ?>
 <?php $creator = QubitActor::getById($date->actorId); ?>
         <chronitem>
+<?php if ($date->date): ?>
           <date type="creation"><?php echo $date->date; ?></date>
+<?php endif; ?>
+<?php if ($date->startDate): ?>
           <date type="creation_start"><?php echo $date->startDate; ?></date>
+<?php endif; ?>
+<?php if ($data->endDate): ?>
           <date type="creation_end"><?php echo $date->endDate; ?></date>
+<?php endif; ?>
           <eventgrp>
             <event>
               <?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
