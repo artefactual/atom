@@ -1363,10 +1363,27 @@ class QubitInformationObject extends BaseInformationObject
             $date_end = $dateNode->nodeValue;
           }
 
-          // get name element contents
-          $nameNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/origination/name");
-          foreach($nameNodeList as $nameNode) {
-            $name = $nameNode->nodeValue;
+          $possibleNameFields = array(
+            'name'     => QubitTerm::PERSON_ID,
+            'persname' => QubitTerm::PERSON_ID,
+            'famname'  => QubitTerm::FAMILY_ID,
+            'corpname' => QubitTerm::CORPORATE_BODY_ID
+          );
+
+          $typeId = QubitTerm::PERSON_ID;
+          $name   = '';
+          foreach($possibleNameFields as $fieldName => $fieldTypeId)
+          {
+            $fieldValue = '';
+            $nameNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/origination/". $fieldName);
+            foreach($nameNodeList as $nameNode) {
+              $fieldValue = $nameNode->nodeValue;
+            }
+            if ($fieldValue != '')
+            {
+              $name   = $fieldValue;
+              $typeId = $fieldTypeId;
+            }
           }
 
           $this->setActorByName($name, array(
