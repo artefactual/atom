@@ -38,6 +38,7 @@ class propelPurgeTask extends sfBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+      new sfCommandOption('use-gitconfig', null, sfCommandOption::PARAMETER_NONE, 'Get username and email from $HOME/.gitconfig'),
       new sfCommandOption('title', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired site title'),
       new sfCommandOption('description', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired site description'),
       new sfCommandOption('username', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired admin username'),
@@ -69,16 +70,19 @@ EOF;
 
     if (!$stopExecution)
     {
-      // attempt to provide default user admin name and email
-      if ($_SERVER['HOME'])
+      if ($options['use-gitconfig'])
       {
-        $gitConfigFile = $_SERVER['HOME'] .'/.gitconfig';
-        if (file_exists($gitConfigFile))
+        // attempt to provide default user admin name and email
+        if ($_SERVER['HOME'])
         {
-          $gitConfig = parse_ini_file($gitConfigFile);
+          $gitConfigFile = $_SERVER['HOME'] .'/.gitconfig';
+          if (file_exists($gitConfigFile))
+          {
+            $gitConfig = parse_ini_file($gitConfigFile);
 
-          $defaultUser = strtolower(strtok($gitConfig['name'], ' '));
-          $defaultEmail = $gitConfig['email'];
+            $defaultUser = strtolower(strtok($gitConfig['name'], ' '));
+            $defaultEmail = $gitConfig['email'];
+          }
         }
       }
 
