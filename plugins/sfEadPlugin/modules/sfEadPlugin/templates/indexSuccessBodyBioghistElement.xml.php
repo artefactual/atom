@@ -3,15 +3,15 @@
       <chronlist>
 <?php foreach($$resourceVar->getDates(array('type_id' => QubitTerm::CREATION_ID)) as $date): ?>
 <?php $creator = QubitActor::getById($date->actorId); ?>
-<?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
-        <p><?php echo esc_specialchars($value) ?></p>
-<?php endif; ?>
         <chronitem>
           <date type="creation"><?php echo $date->date; ?></date>
           <date type="creation_start"><?php echo $date->startDate; ?></date>
           <date type="creation_end"><?php echo $date->endDate; ?></date>
           <eventgrp>
             <event>
+              <?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
+                <note><?php echo esc_specialchars($value) ?></note>
+              <?php endif; ?>
               <origination encodinganalog="3.2.1">
 <?php if ($type = $creator->getEntityTypeId()): ?>
   <?php if ($type == QubitTerm::PERSON_ID): ?>

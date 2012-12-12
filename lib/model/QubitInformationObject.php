@@ -1363,6 +1363,13 @@ class QubitInformationObject extends BaseInformationObject
             $date_end = $dateNode->nodeValue;
           }
 
+          // get creation end date element contents
+          $history = '';
+          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/note");
+          foreach($dateNodeList as $noteNode) {
+            $history = $noteNode->nodeValue;
+          }
+
           $possibleNameFields = array(
             'name'     => QubitTerm::PERSON_ID,
             'persname' => QubitTerm::PERSON_ID,
@@ -1390,7 +1397,8 @@ class QubitInformationObject extends BaseInformationObject
             'event_type_id' => QubitTerm::CREATION_ID,
             'dates'         => $date,
             'date_start'    => $date_start,
-            'date_end'      => $date_end
+            'date_end'      => $date_end,
+            'history'       => $history
           ));
         }
       }
