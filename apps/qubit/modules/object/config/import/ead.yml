@@ -283,9 +283,14 @@ information_object:
       Method:  addProperty
       Parameters: ["standardNumber", $nodeValue]
 
-    languages:
-      XPath:   "did/langmaterial/language/@langcode"
+    language:
+      XPath:   "../eadheader/profiledesc/langusage/language[@encodinganalog='Language']/@langcode"
       Method:  setLangcode
+
+    languageOfDescription:
+      XPath:   "../eadheader/profiledesc/langusage/language[@encodinganalog='Language of Description']/@langcode"
+      Method:  addProperty
+      Parameters: ["languageOfDescription", "serialize(array($nodeValue))"]
 
     phystech:
       XPath:  "(phystech | descgrp/phystech)"

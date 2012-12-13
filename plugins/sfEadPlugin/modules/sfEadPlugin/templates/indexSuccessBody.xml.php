@@ -63,6 +63,9 @@
 <?php if ($exportLanguage != $sourceLanguage): ?>
       <language langcode="<?php echo ($iso6392 = $iso639convertor->getID3($exportLanguage)) ? strtolower($iso6392) : $exportLanguage ?>" encodinganalog="Language"><?php echo format_language($exportLanguage) ?></language><?php endif; ?>
       <language langcode="<?php echo ($iso6392 = $iso639convertor->getID3($sourceLanguage)) ? strtolower($iso6392) : $sourceLanguage ?>" encodinganalog="Language"><?php echo format_language($sourceLanguage) ?></language>
+<?php if (0 < strlen($languageOfDescription = $resource->getPropertyByName('languageOfDescription')->__toString())): ?>
+      <language langcode="<?php echo ($iso6392 = $iso639convertor->getID3($languageOfDescription)) ? strtolower($iso6392) : $value ?>" encodinganalog="Language Of Description"><?php echo format_language($languageOfDescription) ?></language>
+<?php endif; ?>
     </langusage>
 <?php if (0 < strlen($rules = $resource->getRules(array('cultureFallback' => true)))): ?>
     <descrules encodinganalog="3.7.2"><?php echo esc_specialchars($rules) ?></descrules>
