@@ -1472,6 +1472,16 @@ class QubitInformationObject extends BaseInformationObject
     }
   }
 
+  /**
+   * Set description status using a status name
+   *
+   * @param $name  valid publication status name
+   */
+  public function setDescriptionStatusByName($name)
+  {
+    // todo: add this functionality
+  }
+
   public function setDates($date, $options = array())
   {
     // parse the normalized dates into an Event start and end date
