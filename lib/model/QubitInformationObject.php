@@ -1479,7 +1479,23 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function setDescriptionStatusByName($name)
   {
-    // todo: add this functionality
+    static $statusTermNames;
+
+    if (!isset($statusTermNames))
+    {
+      $statusTermNames = array();
+      $statusTerms = QubitTaxonomy::getTaxonomyTerms(
+        QubitTaxonomy::DESCRIPTION_STATUS_ID
+      );
+      foreach($statusTerms as $term) {
+        $statusTermNames[strtolower($term->name)] = $term->id;
+      }
+    }
+
+    if (isset($statusTermNames[strtolower($name)]))
+    {
+      $this->descriptionStatusId = $statusTermNames[strtolower($name)];
+    }
   }
 
   public function setDates($date, $options = array())
