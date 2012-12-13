@@ -159,6 +159,10 @@ information_object:
       XPath:  "odd[@type='draftingstatus']"
       Method: setDescriptionStatusByName
 
+    descriptionIdentifier:
+      XPath:  "odd[@type='descriptionidentifier']"
+      Method: setDescriptionIdentifier
+
     title_variation_notes:
       XPath:  "odd[@type='titlevariation']/p"
       Method: importEadNote

@@ -78,6 +78,9 @@
 <?php if ($descriptionStatus): ?>
 <odd type="draftingstatus"><?php echo $descriptionStatus ?></odd>
 <?php endif; ?>
+<?php if ($resource->descriptionIdentifier): ?>
+<odd type="descriptionidentifier"><?php echo $resource->descriptionIdentifier ?></odd>
+<?php endif; ?>
 <?php
 
 $resourceVar = 'resource';
