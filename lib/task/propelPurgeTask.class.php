@@ -165,8 +165,8 @@ EOF;
   protected function createSetting($name, $value)
   {
     $setting = new QubitSetting();
-    $setting->name = 'siteTitle';
-    $setting->value = $siteTitle;
+    $setting->name = $name;
+    $setting->value = $value;
     $setting->save();
   }
 }
