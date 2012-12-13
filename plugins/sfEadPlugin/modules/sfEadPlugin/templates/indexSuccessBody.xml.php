@@ -81,6 +81,9 @@
 <?php if ($resource->descriptionIdentifier): ?>
 <odd type="descriptionidentifier"><?php echo $resource->descriptionIdentifier ?></odd>
 <?php endif; ?>
+<?php if ($resource->institutionResponsibleIdentifier): ?>
+<odd type="institutionidentifier"><?php echo $resource->institutionResponsibleIdentifier ?></odd>
+<?php endif; ?>
 <?php
 
 $resourceVar = 'resource';

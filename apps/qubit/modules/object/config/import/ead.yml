@@ -163,6 +163,10 @@ information_object:
       XPath:  "odd[@type='descriptionidentifier']"
       Method: setDescriptionIdentifier
 
+    institutionIdentifier:
+      XPath:  "odd[@type='institutionidentifier']"
+      Method: setInstitutionResponsibleIdentifier
+
     title_variation_notes:
       XPath:  "odd[@type='titlevariation']/p"
       Method: importEadNote
