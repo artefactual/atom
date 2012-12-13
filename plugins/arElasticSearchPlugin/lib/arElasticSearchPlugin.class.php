@@ -56,8 +56,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
   public function __construct()
   {
     $this->config = arElasticSearchPluginConfiguration::$config;
-    $this->mapping = arElasticSearchPluginConfiguration::$mapping;
-
     $this->client = new Elastica_Client($this->config['server']);
     $this->index = $this->client->getIndex($this->config['index']['name']);
 
@@ -86,7 +84,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
     try
     {
       // Uncomment if you want to delete the index and create it again
-      $this->index->delete();
+      // $this->index->delete();
 
       $this->index->open();
     }
@@ -98,39 +96,24 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $this->index->create($this->config['index']['configuration'], true);
       }
 
-      // Iterate over types (actor, information_object, ...)
-      foreach ($this->mapping['mapping'] as $typeName => $typeProperties)
+      // Find mapping.yml
+      $finder = sfFinder::type('file')->name('mapping.yml');
+      $mappings = array_unique(array_merge(
+        $finder->in(sfConfig::get('sf_config_dir')),
+        $finder->in(ProjectConfiguration::getActive()->getPluginSubPaths('/config'))));
+
+      if (!count($mappings))
       {
-        // Look for special attributes like i18n or timestamp and update the
-        // mapping accordingly. For example, 'timestamp' adds the created_at
-        // and updated_at fields each time is used.
-        if (isset($typeProperties['_attributes']))
-        {
-          foreach ($typeProperties['_attributes'] as $attributeName => $attributeValue)
-          {
-            switch ($attributeName)
-            {
-              case 'i18n':
-                $typeProperties['source_culture'] = array('type' => 'string', 'index' => 'not_analyzed', 'include_in_all' => false);
-                $typeProperties['i18n'] = array(
-                  'type' => 'object',
-                  'include_in_root' => true,
-                  'properties' => array(
-                    'culture' => array('type' => 'string', 'index' => 'not_analyzed', 'include_in_all' => false)));
+        throw new sfException('You must create a mapping.xml file.');
+      }
 
-                break;
+      // Load first mapping.yml file found
+      $esMapping = new arElasticSearchMapping();
+      $esMapping->loadYAML(array_shift($mappings));
 
-              case 'timestamp':
-                $typeProperties['created_at'] = array('type' => 'date');
-                $typeProperties['updated_at'] = array('type' => 'date');
-
-                break;
-            }
-          }
-
-          unset($typeProperties['_attributes']);
-        }
-
+      // Iterate over types (actor, information_object, ...)
+      foreach ($esMapping->asArray() as $typeName => $typeProperties)
+      {
         // Define mapping in elasticsearch
         $mapping = new Elastica_Type_Mapping();
         $mapping->setType($this->index->getType($typeName));
@@ -141,13 +124,16 @@ class arElasticSearchPlugin extends QubitSearchEngine
   }
 
   /**
-   * Optimize ES index
+   * Optimize index
    */
   public function optimize($args = array())
   {
     return $this->client->optimizeAll($args);
   }
 
+  /**
+   * Populate index
+   */
   public function populate()
   {
     $timer = new QubitTimer;

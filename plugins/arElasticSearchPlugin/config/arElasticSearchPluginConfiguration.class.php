@@ -40,22 +40,16 @@ class arElasticSearchPluginConfiguration extends sfPluginConfiguration
     {
       // Use config cache in application context
       $configCache = $this->configuration->getConfigCache();
-
       $configCache->registerConfigHandler(self::$configPath, 'arElasticSearchConfigHandler');
-      self::$config = include $configCache->checkConfig(self::$configPath);
 
-      # TODO
-      # $configCache->registerConfigHandler(self::$mappingPath, 'sfYamlConfigHandler');
-      # self::$mapping = include $configCache->checkConfig(self::$mappingPath);
+      self::$config = include $configCache->checkConfig(self::$configPath);
     }
     else
     {
       // Live parsing (task context)
       $configPaths = $this->configuration->getConfigPaths(self::$configPath);
-      self::$config = arElasticSearchConfigHandler::getConfiguration($configPaths);
 
-      $mappingPaths = $this->configuration->getConfigPaths(self::$mappingPath);
-      self::$mapping = sfYamlConfigHandler::parseYamls($mappingPaths);
+      self::$config = arElasticSearchConfigHandler::getConfiguration($configPaths);
     }
   }
 }
