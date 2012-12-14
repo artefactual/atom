@@ -1725,8 +1725,10 @@ class QubitInformationObject extends BaseInformationObject
     }
   }
 
-  public function importEadPhysloc($location, $name = false, $type = false)
+  public function importPhysicalObject($textInstances, $name = false, $type = false)
   {
+    $location = (is_array($textInstances)) ? $textInstances[0] : '';
+
     // if a type has been provided, look it up
     $term = ($type)
       ? QubitFlatfileImport::createOrFetchTerm(

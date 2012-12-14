@@ -258,16 +258,16 @@ information_object:
     ##if no container is given, save as a 'location' note, otherwise save to the container's location information
     ##Xpath:  "did/physloc"
 
-    physloc:
-      XPath:  "did/physloc"
-      Method: importEadPhysLoc
-      Parameters: ["%title", "%container", "%container/@type"]
-
     container:
       XPath:  "did/container"
-      Method:  setPhysicalObjectByName
-      Parameters: [$nodeValue, "$options = array('type' => $importDOM->xpath->query('@type', $domNode2)->item(0)->nodeValue)"]
-      ## to do: check for @parent and create parentId link for physical object, if present
+      Method: importPhysicalObject
+      Parameters: ["%text()", "%title", "%@type"]
+
+    #container:
+    #  XPath:  "did/container"
+    #  Method:  setPhysicalObjectByName
+    #  Parameters: [$nodeValue, "$options = array('type' => $importDOM->xpath->query('@type', $domNode2)->item(0)->nodeValue)"]
+    #  ## to do: check for @parent and create parentId link for physical object, if present
 
     repository:
       XPath:   "(did/repository/corpname | did/repository/name)[1]"
