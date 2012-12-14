@@ -189,6 +189,10 @@
 
       <div class="span2" id="right-column">
 
+        <div id="theming-link">
+          <?php echo link_to(__('Edit theme'), array($resource, 'module' => 'repository', 'action' => 'editTheme'), array('class' => 'btn')) ?>
+        </div>
+
         <?php if (isset($primaryContact)): ?>
           <section id="primary-contact">
             <h4><?php echo __('Primary contact') ?></h4>
