@@ -80,6 +80,9 @@
   <?php if ($resource->getPublicationStatus()): ?>
   <odd type="publicationstatus"><?php echo $resource->getPublicationStatus() ?></odd>
   <?php endif; ?>
+  <?php if ($resource->descriptionDetailId): ?>
+  <odd type="levelofdetail"><?php echo QubitTerm::getById($resource->descriptionDetailId) ?></odd>
+  <?php endif; ?>
   <?php $descriptionStatus = ($resource->descriptionStatusId) ? QubitTerm::getById($resource->descriptionStatusId) : ''; ?>
   <?php if ($descriptionStatus): ?>
   <odd type="draftingstatus"><?php echo $descriptionStatus ?></odd>

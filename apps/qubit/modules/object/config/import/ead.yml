@@ -155,9 +155,13 @@ information_object:
       XPath:  "odd[@type='publicationstatus']"
       Method: setPublicationStatusByName
 
-    publicationStatus:
+    draftingStatus:
       XPath:  "odd[@type='draftingstatus']"
       Method: setDescriptionStatusByName
+
+    levelOfDetail:
+      XPath:  "odd[@type='levelofdetail']"
+      Method: setDescriptionLevelOfDetailByName
 
     descriptionIdentifier:
       XPath:  "odd[@type='descriptionidentifier']"

@@ -1473,28 +1473,61 @@ class QubitInformationObject extends BaseInformationObject
   }
 
   /**
+   * Set description level of detail using a name
+   *
+   * @param $name  valid description detail level name
+   */
+  public function setDescriptionLevelOfDetailByName($name)
+  {
+    $this->setTermIdPropertyUsingTermName(
+      'descriptionDetailId',
+      $name,
+      QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID
+    );
+  }
+
+  /**
    * Set description status using a status name
    *
    * @param $name  valid publication status name
    */
   public function setDescriptionStatusByName($name)
   {
-    static $statusTermNames;
+    $this->setTermIdPropertyUsingTermName(
+      'descriptionStatusId',
+      $name,
+      QubitTaxonomy::DESCRIPTION_STATUS_ID
+    );
+  }
 
-    if (!isset($statusTermNames))
+  /**
+   * Set term ID property using term name
+   *
+   * @param $property  object property to set
+   * @param $name  valid term name
+   * @param $taxonomyId  taxonomy ID
+   */
+  public function setTermIdPropertyUsingTermName($property, $name, $taxonomyId)
+  {
+    static $termNames;
+
+    if (!isset($termNames))
     {
-      $statusTermNames = array();
-      $statusTerms = QubitTaxonomy::getTaxonomyTerms(
-        QubitTaxonomy::DESCRIPTION_STATUS_ID
-      );
-      foreach($statusTerms as $term) {
-        $statusTermNames[strtolower($term->name)] = $term->id;
+      $termNames = array();
+    }
+
+    if (!isset($termNames[$taxonomyId]))
+    {
+      $termNames[$taxonomyId] = array();
+      $terms = QubitTaxonomy::getTaxonomyTerms($taxonomyId);
+      foreach($terms as $term) {
+        $termNames[$taxonomyId][strtolower($term->name)] = $term->id;
       }
     }
 
-    if (isset($statusTermNames[strtolower($name)]))
+    if (isset($termNames[$taxonomyId][strtolower($name)]))
     {
-      $this->descriptionStatusId = $statusTermNames[strtolower($name)];
+      $this->$property = $termNames[$taxonomyId][strtolower($name)];
     }
   }
 
