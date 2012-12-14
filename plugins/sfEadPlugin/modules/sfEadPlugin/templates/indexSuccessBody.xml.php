@@ -78,20 +78,20 @@
 <!-- TODO: <frontmatter></frontmatter> -->
 <archdesc <?php if ($resource->levelOfDescriptionId):?>level="<?php if (in_array(strtolower($levelOfDescription = $resource->getLevelOfDescription()->getName(array('culture' => 'en'))), $eadLevels)): ?><?php echo strtolower($levelOfDescription).'"' ?><?php else: ?><?php echo 'otherlevel" otherlevel="'.$levelOfDescription.'"' ?><?php endif; ?><?php endif; ?> relatedencoding="ISAD(G)v2">
   <?php if ($resource->getPublicationStatus()): ?>
-  <odd type="publicationstatus"><?php echo $resource->getPublicationStatus() ?></odd>
+  <odd type="publicationstatus"><p><?php echo $resource->getPublicationStatus() ?></p></odd>
   <?php endif; ?>
   <?php if ($resource->descriptionDetailId): ?>
-  <odd type="levelofdetail"><?php echo QubitTerm::getById($resource->descriptionDetailId) ?></odd>
+  <odd type="levelofdetail"><p><?php echo QubitTerm::getById($resource->descriptionDetailId) ?></p></odd>
   <?php endif; ?>
   <?php $descriptionStatus = ($resource->descriptionStatusId) ? QubitTerm::getById($resource->descriptionStatusId) : ''; ?>
   <?php if ($descriptionStatus): ?>
-  <odd type="draftingstatus"><?php echo $descriptionStatus ?></odd>
+  <odd type="draftingstatus"><p><?php echo $descriptionStatus ?></p></odd>
   <?php endif; ?>
   <?php if ($resource->descriptionIdentifier): ?>
-  <odd type="descriptionidentifier"><?php echo $resource->descriptionIdentifier ?></odd>
+  <odd type="descriptionidentifier"><p><?php echo $resource->descriptionIdentifier ?></p></odd>
   <?php endif; ?>
   <?php if ($resource->institutionResponsibleIdentifier): ?>
-  <odd type="institutionidentifier"><?php echo $resource->institutionResponsibleIdentifier ?></odd>
+  <odd type="institutionidentifier"><p><?php echo $resource->institutionResponsibleIdentifier ?></p></odd>
   <?php endif; ?>
   <?php
 

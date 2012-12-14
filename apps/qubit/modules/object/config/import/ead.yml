@@ -152,23 +152,23 @@ information_object:
       Parameters: ["issuingJurisdictionAndDenomination", $nodeValue]
 
     publicationStatus:
-      XPath:  "odd[@type='publicationstatus']"
+      XPath:  "odd[@type='publicationstatus']/p"
       Method: setPublicationStatusByName
 
     draftingStatus:
-      XPath:  "odd[@type='draftingstatus']"
+      XPath:  "odd[@type='draftingstatus']/p"
       Method: setDescriptionStatusByName
 
     levelOfDetail:
-      XPath:  "odd[@type='levelofdetail']"
+      XPath:  "odd[@type='levelofdetail']/p"
       Method: setDescriptionLevelOfDetailByName
 
     descriptionIdentifier:
-      XPath:  "odd[@type='descriptionidentifier']"
+      XPath:  "odd[@type='descriptionidentifier']/p"
       Method: setDescriptionIdentifier
 
     institutionIdentifier:
-      XPath:  "odd[@type='institutionidentifier']"
+      XPath:  "odd[@type='institutionidentifier']/p"
       Method: setInstitutionResponsibleIdentifier
 
     title_variation_notes:
@@ -261,7 +261,7 @@ information_object:
     physloc:
       XPath:  "did/physloc"
       Method: importEadPhysLoc
-      Parameters: ["%p", "%container", "%container/@type"]
+      Parameters: ["%title", "%container", "%container/@type"]
 
     container:
       XPath:  "did/container"

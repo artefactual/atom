@@ -3,7 +3,7 @@
     <?php foreach($objects as $object): ?>
     <physloc>
       <?php if($object->location): ?>
-      <p><?php echo esc_specialchars($object->location) ?></p>
+      <title><?php echo esc_specialchars($object->location) ?></title>
       <?php endif; ?>
       <container type="<?php echo $object->type ?>">
       <?php echo esc_specialchars($object->name) ?>
