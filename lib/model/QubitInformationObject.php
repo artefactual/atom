@@ -1351,16 +1351,17 @@ class QubitInformationObject extends BaseInformationObject
             $date = $dateNode->nodeValue;
           }
 
-          // get creation start date element contents
-          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/date[@type='creation_start']");
-          foreach($dateNodeList as $dateNode) {
-            $date_start = $dateNode->nodeValue;
-          }
+          // get creation start and end date from "normal" attribute
+          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/date[@type='creation']/@normal");
+          foreach($dateNodeList as $dateNormalAttr) {
+            $normalizedDates = sfEadPlugin::parseEadDenormalizedDateData($dateNormalAttr->value);
 
-          // get creation end date element contents
-          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/date[@type='creation_end']");
-          foreach($dateNodeList as $dateNode) {
-            $date_end = $dateNode->nodeValue;
+            $date_start = $normalizedDates['start'];
+
+            if ($normalizedDates['end'])
+            {
+              $date_end = $normalizedDates['end'];
+            }
           }
 
           // get creation end date element contents

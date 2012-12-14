@@ -79,4 +79,65 @@ class sfEadPlugin
 
     return "<eadid$countryCode$mainAgencyCode url=\"$url\" encodinganalog=\"Identifier\">{$this->resource->identifier}</eadid>";
   }
+
+  public function renderEadNormalizedDate($date)
+  {
+    return str_replace('-', '', $date);
+  }
+
+  public static function renderEadDenormalizedDate($date)
+  {
+    $dateData   = date_parse($date);
+
+    $dateOutput = $dateData['year'];
+
+    if ($dataData['month'])
+    {
+      $dateOutput .= '-'. $dateData['month'] .'-';
+
+      // if a month is specified, add day specification as well
+      $dateOutput .= ($dateData['day']) ? $dateData['day'] : '01';
+    }
+
+    return $dateOutput;
+  }
+
+  public static function parseEadDenormalizedDateData($date)
+  {
+    $parsedData = array();
+    $dates = explode('/', $date);
+
+    $parsedData['start'] = sfEadPlugin::renderEadDenormalizedDate($dates[0]);
+
+    if (count($dates) > 1)
+    {
+      $parsedData['end'] = sfEadPlugin::renderEadDenormalizedDate($dates[1]);
+    }
+
+    return $parsedData;
+  }
+
+  public function renderEadDateFromEvent($eventType, $event)
+  {
+    $output = '<date type="'. $eventType .'" ';
+
+    // create normalized date/date range
+    if ($event->startDate || $event->endDate)
+    {
+      $normalized = ($event->startDate) ? $this->renderEadNormalizedDate($event->startDate) : '';
+
+      if ($event->endDate)
+      {
+        $normalized .= ($event->startDate) ? '/' : '';
+        $normalized .= $this->renderEadNormalizedDate($event->endDate);
+      }
+    }
+
+    // add normalized portion of date tag if it exists
+    $output .= (isset($normalized)) ? 'normal="'. $normalized .'" ' : '';
+
+    $output .= '>'. $event->date .'</date>';
+
+    return $output;
+  }
 }
