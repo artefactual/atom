@@ -8,7 +8,7 @@
         <eventgrp>
           <event>
             <?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
-            <note><?php echo esc_specialchars($value) ?></note>
+            <note><p><?php echo esc_specialchars($value) ?></p></note>
             <?php endif; ?>
             <origination encodinganalog="3.2.1">
               <?php if ($type = $creator->getEntityTypeId()): ?>

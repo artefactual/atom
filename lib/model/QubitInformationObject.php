@@ -1366,7 +1366,7 @@ class QubitInformationObject extends BaseInformationObject
 
           // get creation end date element contents
           $history = '';
-          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/note");
+          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/note/p");
           foreach($dateNodeList as $noteNode) {
             $history = $noteNode->nodeValue;
           }
