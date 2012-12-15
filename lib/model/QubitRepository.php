@@ -238,4 +238,24 @@ class QubitRepository extends BaseRepository
 
     $this->objectTermRelationsRelatedByobjectId[] = $relation;
   }
+
+  /**
+   * Get the current repository uploads directory
+   *
+   * @return string
+   */
+  public function getUploadsPath($absolute = false)
+  {
+    return ($absolute ? sfConfig::get('sf_upload_dir') : '/uploads').'/r/'.$this->slug;
+  }
+
+  /**
+   * Get logo image path within the repository uploads directory
+   *
+   * @return string
+   */
+  public function getLogoPath($absolute = false)
+  {
+    return $this->getUploadsPath($absolute).'/logo.png';
+  }
 }
