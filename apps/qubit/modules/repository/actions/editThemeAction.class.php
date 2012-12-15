@@ -24,7 +24,80 @@ class RepositoryEditThemeAction extends sfAction
       'background',
       'banner',
       'content',
-      'logo');
+      'logo',
+      'logo_delete');
+
+  protected function addField($name)
+  {
+    switch ($name)
+    {
+      case 'background':
+
+        break;
+
+      case 'banner':
+
+        break;
+
+      case 'content':
+
+        break;
+
+      case 'logo':
+        $this->form->setValidator($name, new sfValidatorFile(array(
+          'max_size' => '262144',
+          'mime_types' => 'web_images',
+          'path' => $this->resource->getUploadsPath(true),
+          'required' => false)));
+
+        sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
+
+        $this->form->setWidget($name, new sfWidgetFormInputFileEditable(array(
+          'file_src' => public_path($this->resource->getLogoPath()),
+          'edit_mode' => true,
+          'is_image' => true,
+          'with_delete' => true)));
+
+        break;
+
+      case 'logo_delete':
+        $this->form->setValidator($name, new sfValidatorBoolean);
+        $this->form->setWidget($name, new sfWidgetFormInputCheckbox);
+
+        break;
+    }
+  }
+
+  protected function processField($field)
+  {
+    switch ($name = $field->getName())
+    {
+      case 'background':
+
+        break;
+
+      case 'banner':
+
+        break;
+
+      case 'content':
+
+        break;
+    }
+  }
+
+  public function processForm()
+  {
+    foreach ($this->form as $field)
+    {
+      if (isset($this->request[$field->getName()]))
+      {
+        $this->processField($field);
+      }
+    }
+
+    return $this;
+  }
 
   public function execute($request)
   {
@@ -37,5 +110,33 @@ class RepositoryEditThemeAction extends sfAction
     }
 
     $this->form = new sfForm;
+
+    foreach ($this::$NAMES as $name)
+    {
+      $this->addField($name);
+    }
+
+    if ($request->isMethod('post'))
+    {
+      $this->form->bind($request->getPostParameters(), $request->getFiles());
+
+      if ($this->form->isValid())
+      {
+        $this->processForm();
+
+        // Process logo and logo_delete since they are related
+        if (null !== $this->form->getValue('logo_delete'))
+        {
+          unlink($this->resource->getLogoPath(true));
+        }
+        else if (null !== $logo = $this->form->getValue('logo'))
+        {
+          // Call save() method found in sfValidatedFile
+          $logo->save($this->resource->getLogoPath(true));
+        }
+
+        $this->redirect(array($this->resource, 'module' => 'repository'));
+      }
+    }
   }
 }
