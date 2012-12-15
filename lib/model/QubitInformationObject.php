@@ -585,7 +585,7 @@ class QubitInformationObject extends BaseInformationObject
 
   public function getCreators($options = array())
   {
-    return $this->getActors($options + array('eventTypeId' => QubitTerm::CREATION_ID));
+    return $this->getActors($options = array('eventTypeId' => QubitTerm::CREATION_ID));
   }
 
   public function getPublishers()
