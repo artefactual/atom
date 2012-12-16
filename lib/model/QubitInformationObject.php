@@ -1329,9 +1329,55 @@ class QubitInformationObject extends BaseInformationObject
   }
 
   /**
+   * Import language-related data from a <langusage> tag in EAD2002
+   *
+   * @param $langusageNode  DOMNode  EAD langusage DOM node
+   */
+  public function importLangusageEadData($langusageNode)
+  {
+    // get language nodes
+    $langNodeList = QubitXmlImport::queryDomNode($langusageNode, "/xml/langusage/language");
+
+    $languagesOfDescription = array();
+
+    // amalgamate language data
+    foreach($langNodeList as $langNode)
+    {
+      if ($langNode->hasAttributes())
+      {
+        if ($langNode->attributes->getNamedItem('langcode'))
+        {
+          $langType = $langNode->getAttribute('encodinganalog'); 
+          $langCode = substr($langNode->getAttribute('langcode'), 0, 2);
+
+          switch($langType)
+          {
+            case 'Language':
+              $this->setLangcode($langCode);
+              break;
+
+            case 'Language Of Description':
+              array_push($languagesOfDescription, $langCode);
+              break;
+          }
+        }
+      }
+    }
+
+    // add language(s) of description, if any
+    if (count($languagesOfDescription))
+    {
+      $this->addProperty(
+        'languageOfDescription',
+        serialize($languagesOfDescription)
+      );
+    }
+  }
+
+  /**
    * Import creation-related data from an <bioghist> tag in EAD2002
    *
-   * @param $history string actor history
+   * @param $biogHistNode  DOMNode  EAD bioghist DOM node
    */
   public function importBioghistEadData($biogHistNode)
   {

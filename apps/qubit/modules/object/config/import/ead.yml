@@ -287,14 +287,10 @@ information_object:
       Method:  addProperty
       Parameters: ["standardNumber", $nodeValue]
 
-    language:
-      XPath:   "../eadheader/profiledesc/langusage/language[@encodinganalog='Language']/@langcode"
-      Method:  setLangcode
-
-    languageOfDescription:
-      XPath:   "../eadheader/profiledesc/langusage/language[@encodinganalog='Language of Description']/@langcode"
-      Method:  addProperty
-      Parameters: ["languageOfDescription", "serialize(array($nodeValue))"]
+    langusage:
+      XPath:  "../eadheader/profiledesc/langusage"
+      Method: importLangusageEadData
+      Parameters: ["$domNode2"]
 
     phystech:
       XPath:  "(phystech | descgrp/phystech)"
