@@ -77,6 +77,13 @@
 </eadheader>
 <!-- TODO: <frontmatter></frontmatter> -->
 <archdesc <?php if ($resource->levelOfDescriptionId):?>level="<?php if (in_array(strtolower($levelOfDescription = $resource->getLevelOfDescription()->getName(array('culture' => 'en'))), $eadLevels)): ?><?php echo strtolower($levelOfDescription).'"' ?><?php else: ?><?php echo 'otherlevel" otherlevel="'.$levelOfDescription.'"' ?><?php endif; ?><?php endif; ?> relatedencoding="ISAD(G)v2">
+  <?php
+
+  $resourceVar = 'resource';
+  include('indexSuccessBodyDidElement.xml.php');
+  include('indexSuccessBodyBioghistElement.xml.php');
+  ?>
+
   <?php if ($resource->getPublicationStatus()): ?>
   <odd type="publicationstatus"><p><?php echo $resource->getPublicationStatus() ?></p></odd>
   <?php endif; ?>
@@ -93,12 +100,8 @@
   <?php if ($resource->institutionResponsibleIdentifier): ?>
   <odd type="institutionidentifier"><p><?php echo $resource->institutionResponsibleIdentifier ?></p></odd>
   <?php endif; ?>
+
   <?php
-
-  $resourceVar = 'resource';
-  include('indexSuccessBodyDidElement.xml.php');
-  include('indexSuccessBodyBioghistElement.xml.php');
-
   // Load taxonomies into variables to avoid use of magic numbers
   $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
     QubitTaxonomy::NOTE_TYPE_ID                => 'noteTypes',
