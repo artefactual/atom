@@ -1,7 +1,10 @@
-  <?php if (0 < count($creators = $$resourceVar->getCreators())): ?>
+  <?php
+  $creators = $$resourceVar->getCreators();
+  $events = $$resourceVar->getActorEvents(array('eventTypeId' => QubitTerm::CREATION_ID));
+  if (0 < count($creators)): ?>
   <bioghist encodinganalog="3.2.2">
     <chronlist>
-      <?php foreach($$resourceVar->getDates(array('type_id' => QubitTerm::CREATION_ID)) as $date): ?>
+      <?php foreach($events as $date): ?>
       <?php $creator = QubitActor::getById($date->actorId); ?>
       <chronitem>
         <?php echo $ead->renderEadDateFromEvent('creation', $date) ?>

@@ -1394,13 +1394,24 @@ class QubitInformationObject extends BaseInformationObject
             }
           }
 
-          $this->setActorByName($name, array(
+          $eventSpec = array(
             'event_type_id' => QubitTerm::CREATION_ID,
-            'dates'         => $date,
-            'date_start'    => $date_start,
-            'date_end'      => $date_end,
             'history'       => $history
-          ));
+          );
+
+          if ($date) {
+            $eventSpec['dates'] = $date;
+          }
+
+          if ($date_start) {
+            $eventSpec['date_start'] = $date_start;
+          }
+
+          if ($date_end) {
+            $eventSpec['date_end'] = $date_end;
+          }
+
+          $this->setActorByName($name, $eventSpec);
         }
       }
     }
