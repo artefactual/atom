@@ -1,20 +1,20 @@
 <?php
 
 /*
- * This file is part of the AccesstoMemory (AtoM) software.
+ * This file is part of the Access to Memory (AtoM) software.
  *
- * AccesstoMemory (AtoM) is free software: you can redistribute it and/or modify
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * AccesstoMemory (AtoM) is distributed in the hope that it will be useful,
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with AccesstoMemory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
@@ -45,7 +45,7 @@ class eadExportTask extends sfBaseTask
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
       new sfCommandOption('rows-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Output total rows imported every n rows.'),
       new sfCommandOption('skip-rows', null, sfCommandOption::PARAMETER_OPTIONAL, 'Skip n rows before importing.'),
-      new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria', '1=1')
+      new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria')
     ));
   }
 
@@ -81,15 +81,44 @@ class eadExportTask extends sfBaseTask
     $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
     $sf_context = sfContext::createInstance($configuration);
 
-    $sql = "SELECT id FROM information_object WHERE parent_id=1";
+    $whereClause = "parent_id=1";
 
-    include('plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccessHeader.xml.php');
-    foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row)
+    if ($options['criteria'])
     {
-      $resource = QubitInformationObject::getById($row['id']);
+      $whereClause .= ' AND '. $options['criteria'];
+    }
 
-      $ead = new sfEadPlugin($resource);
-      include('plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccessBody.xml.php');
+    $sql = "SELECT COUNT(1) AS total FROM information_object WHERE ". $whereClause;
+
+    $rows = $conn->query($sql, PDO::FETCH_ASSOC);
+
+    foreach($rows as $row)
+    {
+      $sql = "SELECT * FROM information_object i INNER JOIN information_object_i18n i18n ON i.id=i18n.id WHERE ". $whereClause;
+
+      echo "Exporting ". $row['total'] . " descriptions.\n";
+
+      foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row)
+      {
+        $resource = QubitInformationObject::getById($row['id']);
+
+        // Determine language(s) used in the export
+        $exportLanguage = sfContext::getInstance()->user->getCulture();
+        $sourceLanguage = $resource->getSourceCulture();
+
+        $ead = new sfEadPlugin($resource);
+
+        ob_start();
+        include('plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccess.xml.php');
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        $filename = 'ead_'. $row['id'] .'.xml';
+        $filePath = $arguments['folder'] .'/'. $filename;
+        file_put_contents($filePath, $output);
+
+        print '.';
+      }
     }
   }
 }

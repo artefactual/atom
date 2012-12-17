@@ -1,22 +1,22 @@
-# This file is part of AccesstoMemory (AtoM).
+# This file is part of Access to Memory (AtoM).
 #
-# AccesstoMemory (AtoM) is free software; you can redistribute it and/or modify it
+# Access to Memory (AtoM) is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the Free
 # Software Foundation; either version 2 of the License, or (at your option)
 # any later version.
 #
-# AccesstoMemory (AtoM) is distributed in the hope that it will be useful, but WITHOUT
+# Access to Memory (AtoM) is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
 # FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
 # for more details.
 #
 # You should have received a copy of the GNU General Public License along with
-# AccesstoMemory (AtoM); if not, write to the Free Software Foundation, Inc., 51
+# Access to Memory (AtoM); if not, write to the Free Software Foundation, Inc., 51
 # Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 # EAD XML (2002) IMPORT FILTER MAPPINGS
 #
-# @package qubit
+# @package AccesstoMemory
 # @subpackage object import
 # @author MJ Suhonos <mj@suhonos.ca>
 # @author Peter Van Garderen <peter@artefactual.com>
@@ -151,6 +151,26 @@ information_object:
       Method:  addProperty
       Parameters: ["issuingJurisdictionAndDenomination", $nodeValue]
 
+    publicationStatus:
+      XPath:  "odd[@type='publicationstatus']/p"
+      Method: setPublicationStatusByName
+
+    draftingStatus:
+      XPath:  "odd[@type='draftingstatus']/p"
+      Method: setDescriptionStatusByName
+
+    levelOfDetail:
+      XPath:  "odd[@type='levelofdetail']/p"
+      Method: setDescriptionLevelOfDetailByName
+
+    descriptionIdentifier:
+      XPath:  "odd[@type='descriptionidentifier']/p"
+      Method: setDescriptionIdentifier
+
+    institutionIdentifier:
+      XPath:  "odd[@type='institutionidentifier']/p"
+      Method: setInstitutionResponsibleIdentifier
+
     title_variation_notes:
       XPath:  "odd[@type='titlevariation']/p"
       Method: importEadNote
@@ -227,7 +247,7 @@ information_object:
       Parameters: [$nodeValue, "$options = array('normalized_dates' => $importDOM->xpath->query('@normal', $domNode2)->item(0)->nodeValue, 'date_type' => $importDOM->xpath->query('@datechar', $domNode2)->item(0)->nodeValue)"]
 
     extent:
-      XPath:  "did/physdesc"
+      XPath:  "did/physdesc/extent"
       Method: setExtentAndMedium
 
     abstract:
@@ -238,16 +258,16 @@ information_object:
     ##if no container is given, save as a 'location' note, otherwise save to the container's location information
     ##Xpath:  "did/physloc"
 
-    physloc:
-      XPath:  "did/physloc"
-      Method: importEadPhysLoc
-      Parameters: ["%p", "%container", "%container/@type"]
-
     container:
       XPath:  "did/container"
-      Method:  setPhysicalObjectByName
-      Parameters: [$nodeValue, "$options = array('type' => $importDOM->xpath->query('@type', $domNode2)->item(0)->nodeValue)"]
-      ## to do: check for @parent and create parentId link for physical object, if present
+      Method: importPhysicalObject
+      Parameters: ["%text()", "%title", "%@type"]
+
+    #container:
+    #  XPath:  "did/container"
+    #  Method:  setPhysicalObjectByName
+    #  Parameters: [$nodeValue, "$options = array('type' => $importDOM->xpath->query('@type', $domNode2)->item(0)->nodeValue)"]
+    #  ## to do: check for @parent and create parentId link for physical object, if present
 
     repository:
       XPath:   "(did/repository/corpname | did/repository/name)[1]"
@@ -267,9 +287,14 @@ information_object:
       Method:  addProperty
       Parameters: ["standardNumber", $nodeValue]
 
-    languages:
-      XPath:   "did/langmaterial/language/@langcode"
+    language:
+      XPath:   "../eadheader/profiledesc/langusage/language[@encodinganalog='Language']/@langcode"
       Method:  setLangcode
+
+    languageOfDescription:
+      XPath:   "../eadheader/profiledesc/langusage/language[@encodinganalog='Language of Description']/@langcode"
+      Method:  addProperty
+      Parameters: ["languageOfDescription", "serialize(array($nodeValue))"]
 
     phystech:
       XPath:  "(phystech | descgrp/phystech)"
@@ -291,11 +316,12 @@ information_object:
 
     bioghist:
       XPath:  "(bioghist | descgrp/bioghist)"
-      Method: setHistoryByOrigination
+      Method: importBioghistEadData
+      Parameters: ["$domNode2"]
 
     # this will overwrite any values entered for <abstract>
-    scopeAndContent:
-      XPath:   "(scopecontent | descgrp/bioghist)"
+    scopeandcontent:
+      XPath:   "scopecontent/p"
       Method:  setScopeAndContent
 
     arrangement:

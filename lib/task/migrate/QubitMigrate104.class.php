@@ -1,26 +1,26 @@
 <?php
 
 /*
- * This file is part of the AccesstoMemory (AtoM) software.
+ * This file is part of the Access to Memory (AtoM) software.
  *
- * AccesstoMemory (AtoM) is free software: you can redistribute it and/or modify
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * AccesstoMemory (AtoM) is distributed in the hope that it will be useful,
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with AccesstoMemory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
  * Upgrade qubit data from version 1.0.4 to 1.0.5 schema
  *
- * @package    AtoM
+ * @package    AccesstoMemory
  * @subpackage migration
  * @author     David Juhasz <david@artefactual.com
  */
@@ -341,7 +341,7 @@ class QubitMigrate104 extends QubitMigrate
       'source_culture' => 'en',
       'name' => 'help',
       'label' => array('de' => 'Hilfe', 'en' => 'help', 'es' => 'ayuda', 'fa' => 'راهنما', 'fr' => 'aide', 'it' => 'aiuto', 'nl' => 'help', 'pt' => 'ajuda', 'sl' => 'pomoč'),
-      'path' => 'http://qubit-toolkit.org'
+      'path' => 'http://accesstomemory.org'
     );
     $this->data['QubitMenu']['QubitMenu_quicklinks_myProfile'] = array(
       'parent_id' => 'QubitMenu_quicklinks',

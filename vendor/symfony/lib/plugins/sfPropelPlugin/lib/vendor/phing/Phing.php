@@ -1252,7 +1252,7 @@ class Phing {
 		self::$origIniSettings['track_errors'] = ini_set('track_errors', 1);
 
 
-		/* See *http://code.google.com/p/qubit-toolkit/issues/detail?id=1627
+                /* See https://projects.artefactual.com/issues/3576
 		// should return memory limit in MB
 		$mem_limit = (int) ini_get('memory_limit');
 		if ($mem_limit < 32) {

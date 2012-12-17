@@ -1,28 +1,28 @@
 <?php
 
 /*
- * This file is part of the AccesstoMemory (AtoM) software.
+ * This file is part of the Access to Memory (AtoM) software.
  *
- * AccesstoMemory (AtoM) is free software: you can redistribute it and/or modify
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * AccesstoMemory (AtoM) is distributed in the hope that it will be useful,
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with AccesstoMemory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
  * Import an XML document into Qubit.
  *
- * @package    AtoM
+ * @package    AccesstoMemory
  * @subpackage library
- * @author     MJ Suhonos <mj@artefactual.com>
+ * @author     MJ Suhonos <mj@suhonos.ca>
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     Mike Cantelon <mike@artefactual.com>
  */
@@ -537,8 +537,8 @@ class QubitXmlImport
     error_reporting($err_level);
 
     // look through the entire document for namespaces
-    // FIXME: Issue 837
-    // http://code.google.com/p/qubit-toolkit/issues/detail?id=837
+    // FIXME: #2787
+    // https://projects.artefactual.com/issues/2787
     //
     // THIS SHOULD ONLY INSPECT THE ROOT NODE NAMESPACES
     // Consider: http://www.php.net/manual/en/book.dom.php#73793
@@ -586,6 +586,20 @@ class QubitXmlImport
     }
 */
     return $doc;
+  }
+
+  /**
+   *
+   *
+   * @return DOMNodeList
+   */
+  public static function queryDomNode($node, $xpathQuery)
+  {
+    $doc = new DOMDocument();
+    $doc->loadXML('<xml></xml>');
+    $doc->documentElement->appendChild($doc->importNode($node, true));
+    $xpath = new DOMXPath($doc);
+    return $xpath->query($xpathQuery);
   }
 
   /**
