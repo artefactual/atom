@@ -123,10 +123,10 @@ EOF;
           $informationObject->title = basename($item[$i]);
 		  // Create new information objects, to maintain one-to-one
           // relationship with digital objects
-          //$informationObject = new QubitInformationObject;
-          //$informationObject->parent = QubitInformationObject::getById($key);
-          //$informationObject->title = basename($item[$i]);
-          //$informationObject->save($options['conn']);
+          $informationObject = new QubitInformationObject;
+          $informationObject->parent = QubitInformationObject::getById($key);
+          $informationObject->title = basename($item[$i]);
+          $informationObject->save($options['conn']);
 
           self::addDigitalObject($informationObject, $item[$i], $options);
         }
