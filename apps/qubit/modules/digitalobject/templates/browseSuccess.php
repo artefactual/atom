@@ -58,8 +58,8 @@ echo javascript_tag(<<<content
                   .css({
                     'top': (\$layer.height() - \$this.height()) / -2,
                     'left': (\$layer.width() - \$this.width()) / -2
-                   });
-
+                   })
+                  .show();
               },
             timeout: 500,
             out: function()
@@ -101,7 +101,6 @@ echo javascript_tag(<<<content
         // Set maxWidth
         $('.digital-object-browser li').height(maxHeight);
 
-        // 
         $('.digital-object-browser li').each(function()
           {
             \$anchor = \$(this).find('> a');
