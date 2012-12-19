@@ -136,7 +136,7 @@ class sfEadPlugin
     // add normalized portion of date tag if it exists
     $output .= (isset($normalized)) ? 'normal="'. $normalized .'" ' : '';
 
-    $output .= '>'. $event->date .'</date>';
+    $output .= '>'. $event->actor->datesOfExistence .'</date>';
 
     return $output;
   }
