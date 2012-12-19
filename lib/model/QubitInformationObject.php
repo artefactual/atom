@@ -1279,6 +1279,10 @@ class QubitInformationObject extends BaseInformationObject
       {
         $actor->setHistory($options['history']);
       }
+      if (isset($options['dates_of_existence']))
+      {
+        $actor->datesOfExistence = $options['dates_of_existence'];
+      }
       $actor->save();
     }
 
@@ -1432,11 +1436,13 @@ class QubitInformationObject extends BaseInformationObject
             $nameNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/origination/". $fieldName);
             foreach($nameNodeList as $nameNode) {
               $fieldValue = $nameNode->nodeValue;
+              $datesValue = $nameNode->getAttribute('source');
             }
             if ($fieldValue != '')
             {
-              $name   = $fieldValue;
-              $typeId = $fieldTypeId;
+              $name             = $fieldValue;
+              $typeId           = $fieldTypeId;
+              $datesOfExistence = $datesValue;
             }
           }
 
@@ -1445,15 +1451,23 @@ class QubitInformationObject extends BaseInformationObject
             'history'       => $history
           );
 
-          if ($date) {
+          if ($date)
+          {
             $eventSpec['dates'] = $date;
           }
 
-          if ($date_start) {
+          if ($datesOfExistence)
+          {
+            $eventSpec['dates_of_existence'] = $datesOfExistence;
+          }
+
+          if ($date_start)
+          {
             $eventSpec['date_start'] = $date_start;
           }
 
-          if ($date_end) {
+          if ($date_end)
+          {
             $eventSpec['date_end'] = $date_end;
           }
 

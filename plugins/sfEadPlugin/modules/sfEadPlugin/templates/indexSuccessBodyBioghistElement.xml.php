@@ -16,16 +16,16 @@
             <origination encodinganalog="3.2.1">
               <?php if ($type = $creator->getEntityTypeId()): ?>
               <?php if ($type == QubitTerm::PERSON_ID): ?>
-              <persname><?php echo esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true))) ?></persname>
+              <persname source="<?php echo esc_specialchars($creator->datesOfExistence) ?>"><?php echo esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true))) ?></persname>
               <?php endif; ?>
               <?php if ($type == QubitTerm::FAMILY_ID): ?>
-              <famname><?php echo esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true))) ?></famname>
+              <famname source="<?php echo esc_specialchars($creator->datesOfExistence) ?>"><?php echo esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true))) ?></famname>
               <?php endif; ?>
               <?php if ($type == QubitTerm::CORPORATE_BODY_ID): ?>
-              <corpname><?php echo esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true))) ?></corpname>
+              <corpname source="<?php echo esc_specialchars($creator->datesOfExistence) ?>"><?php echo esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true))) ?></corpname>
               <?php endif; ?>
               <?php else: ?>
-              <name><?php echo esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true))) ?></name>
+              <name source="<?php echo esc_specialchars($creator->datesOfExistence) ?>"><?php echo esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true))) ?></name>
               <?php endif; ?>
             </origination>
           </event>
