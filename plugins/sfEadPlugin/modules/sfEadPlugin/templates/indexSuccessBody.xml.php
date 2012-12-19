@@ -68,9 +68,11 @@
       <language langcode="<?php echo ($iso6392 = $iso639convertor->getID3($sourceLanguage)) ? strtolower($iso6392) : $sourceLanguage ?>" encodinganalog="Language"><?php echo format_language($sourceLanguage) ?></language>
       <?php if (0 < strlen($languageOfDescription = $resource->getPropertyByName('languageOfDescription')->__toString())): ?>
       <?php $langsOfDesc = unserialize($languageOfDescription); ?>
+      <?php if (is_array($langsOfDesc)): ?>
       <?php foreach($langsOfDesc as $langcode): ?>
       <language langcode="<?php echo ($iso6392 = $iso639convertor->getID3($langcode)) ? strtolower($iso6392) : $value ?>" encodinganalog="Language Of Description"><?php echo format_language($langcode) ?></language>
       <?php endforeach; ?>
+      <?php endif; ?>
       <?php endif; ?>
     </langusage>
     <?php if (0 < strlen($rules = $resource->getRules(array('cultureFallback' => true)))): ?>
