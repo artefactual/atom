@@ -90,6 +90,22 @@
 
   /****
    ****
+   ****  jQuery miniColors
+   ****
+   ****/
+
+  $(function ()
+    {
+      $('input.color-picker').miniColors({
+          opacity: false,
+          readonly: false,
+          letterCase: 'lowercase',
+          disabled: false
+        });
+    });
+
+  /****
+   ****
    ****  Autocomplete plugin
    ****
    ****/
