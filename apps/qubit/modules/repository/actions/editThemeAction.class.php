@@ -21,7 +21,7 @@ class RepositoryEditThemeAction extends sfAction
 {
   public static
     $NAMES = array(
-      'background',
+      'backgroundColor',
       'banner',
       'banner_delete',
       'htmlSnippet',
@@ -32,10 +32,10 @@ class RepositoryEditThemeAction extends sfAction
   {
     switch ($name)
     {
-      case 'background':
-        $this->form->setDefault('background', $this->resource->background);
-        $this->form->setValidator('background', new sfValidatorString);
-        $this->form->setWidget('background', new sfWidgetFormInput(array(), array('class' => 'color-picker')));
+      case 'backgroundColor':
+        $this->form->setDefault('backgroundColor', $this->resource->backgroundColor);
+        $this->form->setValidator('backgroundColor', new sfValidatorString);
+        $this->form->setWidget('backgroundColor', new sfWidgetFormInput(array(), array('class' => 'color-picker')));
 
         break;
 
@@ -103,8 +103,8 @@ class RepositoryEditThemeAction extends sfAction
   {
     switch ($name = $field->getName())
     {
-      case 'background':
-        $this->resource->setBackground($this->form->getValue($field->getName()), array('sourceCulture' => true));
+      case 'backgroundColor':
+        $this->resource->setBackgroundColor($this->form->getValue($field->getName()), array('sourceCulture' => true));
 
       case 'htmlSnippet':
         $this->resource->setHtmlSnippet($this->form->getValue($field->getName()));

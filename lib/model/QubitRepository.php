@@ -36,7 +36,7 @@ class QubitRepository extends BaseRepository
 
     switch ($name)
     {
-      case 'background':
+      case 'backgroundColor':
       case 'htmlSnippet':
 
         if (!isset($this->values[$name]))
@@ -76,7 +76,7 @@ class QubitRepository extends BaseRepository
 
     switch ($name)
     {
-      case 'background':
+      case 'backgroundColor':
       case 'htmlSnippet':
 
         if (!isset($this->values[$name]))

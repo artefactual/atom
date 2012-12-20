@@ -23,9 +23,9 @@
           <legend><?php echo __('Style') ?></legend>
 
           <div class="control-group">
-            <label class="control-label" for="html"><?php echo __('Background') ?></label>
+            <label class="control-label" for="html"><?php echo __('Background color') ?></label>
             <div class="controls">
-              <?php echo $form->background ?>
+              <?php echo $form->backgroundColor ?>
             </div>
           </div>
 
