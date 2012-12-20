@@ -104,8 +104,10 @@ class RepositoryEditThemeAction extends sfAction
     switch ($name = $field->getName())
     {
       case 'background':
+        $this->resource->setBackground($this->form->getValue($field->getName()), array('sourceCulture' => true));
+
       case 'htmlSnippet':
-        $this->resource[$field->getName()] = $this->form->getValue($field->getName());
+        $this->resource->setHtmlSnippet($this->form->getValue($field->getName()));
 
         break;
     }
@@ -176,6 +178,8 @@ class RepositoryEditThemeAction extends sfAction
           // TODO: force conversion to png
           $logo->save($this->resource->getBannerPath(true));
         }
+
+        $this->resource->save();
 
         $this->redirect(array($this->resource, 'module' => 'repository'));
       }

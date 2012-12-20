@@ -97,7 +97,7 @@ class QubitRepository extends BaseRepository
           }
         }
 
-        $this->values[$name]->__set('value', $value, $options + array('sourceCulture' => true));
+        $this->values[$name]->__set('value', $value, $options);
 
         return $this;
 
