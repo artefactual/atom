@@ -572,6 +572,8 @@ class InformationObjectEditAction extends DefaultEditAction
         $this->redirect(array($this->resource, 'module' => 'informationobject'));
       }
     }
+
+    QubitDescription::addAssets($this->response);
   }
 
   /**

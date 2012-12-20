@@ -11,7 +11,6 @@ editSuccess:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/autocomplete/autocomplete-min:
     autocomplete:
-    description:
     multiInput:
     select:
 

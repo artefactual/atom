@@ -389,5 +389,7 @@ class AccessionEditAction extends DefaultEditAction
         $this->redirect(array($this->resource, 'module' => 'accession'));
       }
     }
+
+    QubitDescription::addAssets($this->response);
   }
 }

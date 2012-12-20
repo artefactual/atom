@@ -158,5 +158,7 @@ class MenuEditAction extends sfAction
         $this->redirect(array('module' => 'menu', 'action' => 'list'));
       }
     }
+
+    QubitDescription::addAssets($this->response);
   }
 }
