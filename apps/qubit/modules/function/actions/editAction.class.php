@@ -58,5 +58,7 @@ class FunctionEditAction extends DefaultEditAction
         $this->redirect(array($this->resource, 'module' => 'function'));
       }
     }
+
+    QubitDescription::addAssets($this->response);
   }
 }

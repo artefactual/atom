@@ -173,5 +173,7 @@ class ActorEditAction extends DefaultEditAction
         $this->redirect(array($this->resource, 'module' => 'actor'));
       }
     }
+
+    QubitDescription::addAssets($this->response);
   }
 }

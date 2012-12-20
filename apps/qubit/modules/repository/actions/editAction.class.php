@@ -284,5 +284,7 @@ class RepositoryEditAction extends DefaultEditAction
         $this->redirect(array($this->resource, 'module' => 'repository'));
       }
     }
+
+    QubitDescription::addAssets($this->response);
   }
 }
