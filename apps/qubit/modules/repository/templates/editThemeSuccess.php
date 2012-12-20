@@ -23,16 +23,16 @@
           <legend><?php echo __('Style') ?></legend>
 
           <div class="control-group">
-            <label class="control-label" for="html"><?php echo __('Banner') ?></label>
+            <label class="control-label" for="html"><?php echo __('Background') ?></label>
             <div class="controls">
-              <textarea id="banner"></textarea>
+              <?php echo $form->background ?>
             </div>
           </div>
 
           <div class="control-group">
-            <label class="control-label" for="html"><?php echo __('Background') ?></label>
+            <label class="control-label" for="html"><?php echo __('Banner') ?></label>
             <div class="controls">
-              <textarea id="background"></textarea>
+              <?php echo $form->banner ?>
             </div>
           </div>
 
@@ -50,9 +50,9 @@
           <legend><?php echo __('Page content') ?></legend>
 
           <div class="control-group">
-            <label class="control-label" for="html"><?php echo __('Content') ?></label>
+            <label class="control-label" for="html"><?php echo __('HTML snippet') ?></label>
             <div class="controls">
-              <textarea class="span6" id="content"></textarea>
+              <?php echo $form->htmlSnippet ?>
             </div>
           </div>
 
