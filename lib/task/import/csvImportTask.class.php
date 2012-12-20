@@ -189,6 +189,8 @@ EOF;
 
       /* import columns that map directory to QubitInformationObject properties */
       'standardColumns' => array(
+        'updatedAt',
+        'createdAt',
         'accessConditions',
         'accruals',
         'acquisition',
