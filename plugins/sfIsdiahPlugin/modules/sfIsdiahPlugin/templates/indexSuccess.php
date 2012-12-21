@@ -54,6 +54,14 @@
       </style>
     <?php endif; ?>
 
+    <?php if ($resource->existsBanner()): ?>
+      <div class="row" id="repository-html-snippet">
+        <div class="span7">
+          <?php echo image_tag($resource->getBannerPath()) ?>
+        </div>
+      </div>
+    <?php endif; ?>
+
     <?php if (null !== $htmlSnippet = $resource->htmlSnippet): ?>
       <div class="row" id="repository-html-snippet">
         <div class="span7">
