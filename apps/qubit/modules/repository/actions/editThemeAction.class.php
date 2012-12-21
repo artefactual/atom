@@ -34,7 +34,7 @@ class RepositoryEditThemeAction extends sfAction
     {
       case 'backgroundColor':
         $this->form->setDefault('backgroundColor', $this->resource->backgroundColor);
-        $this->form->setValidator('backgroundColor', new sfValidatorString);
+        $this->form->setValidator('backgroundColor', new sfValidatorRegex(array('pattern' => '/^#(?:[0-9a-fA-F]{3}){1,2}$/'), array('invalid' => $this->context->i18n->__('Only hexadecimal color value'))));
         $this->form->setWidget('backgroundColor', new sfWidgetFormInput(array(), array('class' => 'color-picker')));
 
         break;
