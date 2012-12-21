@@ -45,6 +45,23 @@
       </div>
     <?php endif; ?>
 
+    <?php if (null !== $backgroundColor = $resource->backgroundColor): ?>
+      <style type="text/css">
+        html, body {
+          background-image: none;
+          background-color: <?php echo $backgroundColor ?>;
+        }
+      </style>
+    <?php endif; ?>
+
+    <?php if (null !== $htmlSnippet = $resource->htmlSnippet): ?>
+      <div class="row" id="repository-html-snippet">
+        <div class="span7">
+          <?php echo $resource->htmlSnippet ?>
+        </div>
+      </div>
+    <?php endif; ?>
+
     <div class="row">
 
       <div class="span7" id="content">
