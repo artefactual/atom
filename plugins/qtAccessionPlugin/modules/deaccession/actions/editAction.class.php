@@ -91,7 +91,7 @@ class DeaccessionEditAction extends DefaultEditAction
 
         $this->form->setWidget('scope', new sfWidgetFormSelect(array('choices' => $choices)));
 
-        break;    
+        break;
 
       case 'description':
       case 'extent':
@@ -166,5 +166,7 @@ class DeaccessionEditAction extends DefaultEditAction
         $this->redirect(array($this->resource->accession, 'module' => 'accession'));
       }
     }
+
+    QubitDescription::addAssets($this->response);
   }
 }
