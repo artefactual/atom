@@ -51,7 +51,8 @@ class RepositoryEditThemeAction extends sfAction
 
         $this->form->setValidator($name, new sfValidatorFile(array(
           'max_size' => '262144', // 256K
-          'mime_types' => 'web_images',
+          'mime_types' => array('image/png'),
+          'validated_file_class' => 'arRepositoryThemeCropValidatedFile',
           'path' => $this->resource->getUploadsPath(true),
           'required' => false)));
 
@@ -76,7 +77,8 @@ class RepositoryEditThemeAction extends sfAction
 
         $this->form->setValidator($name, new sfValidatorFile(array(
           'max_size' => '262144', // 256K
-          'mime_types' => 'web_images',
+          'mime_types' => array('image/png'),
+          'validated_file_class' => 'arRepositoryThemeCropValidatedFile',
           'path' => $this->resource->getUploadsPath(true),
           'required' => false)));
 
