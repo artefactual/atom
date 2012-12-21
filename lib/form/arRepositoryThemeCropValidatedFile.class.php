@@ -36,9 +36,45 @@ class arRepositoryThemeCropValidatedFile extends sfValidatedFile
 
   public function save($file = null, $fileMode = 0666, $create = true, $dirMode = 0777)
   {
-    parent::save($file, $fileMode, $create, $dirMode);
+    $file = parent::save($file, $fileMode, $create, $dirMode);
 
-    // Crop image, final destination is $this->savedName
-    // ...
+    // Check if mogrify is available in the system
+    exec('which mogrify', $output, $status);
+    if (0 < $status)
+    {
+      return $file;
+    }
+
+    // Figure out necessary dimensions from the filename
+    $pathInfo = pathinfo($this->savedName);
+    switch ($pathInfo['filename'])
+    {
+      case 'logo':
+        $width = self::LOGO_MAX_WIDTH;
+        $height = self::LOGO_MAX_HEIGHT;
+
+        break;
+
+      case 'banner':
+        $width = self::BANNER_MAX_WIDTH;
+        $height = self::BANNER_MAX_HEIGHT;
+
+        break;
+    }
+
+    // Stop execution if dimensions were not set
+    if (!isset($width, $height))
+    {
+      return $file;
+    }
+
+    // mogrify overwrites the original image file
+    $command = sprintf('mogrify -crop %sx%s+0+0 %s',
+      $width,
+      $height,
+      $this->savedName);
+    exec($command, $output, $status);
+
+    return $file;
   }
 }
