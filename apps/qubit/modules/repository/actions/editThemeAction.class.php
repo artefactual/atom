@@ -52,6 +52,7 @@ class RepositoryEditThemeAction extends sfAction
         $this->form->setValidator($name, new sfValidatorFile(array(
           'max_size' => '262144', // 256K
           'mime_types' => array('image/png'),
+          // Crop image, it is synchronous but it should be fast
           'validated_file_class' => 'arRepositoryThemeCropValidatedFile',
           'path' => $this->resource->getUploadsPath(true),
           'required' => false)));
@@ -78,6 +79,7 @@ class RepositoryEditThemeAction extends sfAction
         $this->form->setValidator($name, new sfValidatorFile(array(
           'max_size' => '262144', // 256K
           'mime_types' => array('image/png'),
+          // Crop image, it is synchronous but it should be fast
           'validated_file_class' => 'arRepositoryThemeCropValidatedFile',
           'path' => $this->resource->getUploadsPath(true),
           'required' => false)));

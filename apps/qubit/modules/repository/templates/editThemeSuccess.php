@@ -33,6 +33,7 @@
             <label class="control-label" for="html"><?php echo __('Banner') ?></label>
             <div class="controls">
               <?php echo $form->banner ?>
+              <span class="help-block"><?php echo __('Requirements: PNG format, 256K max. size. Recommended dimensions of 630x120px, it will be cropped if ImageMagick is installed.') ?></span>
             </div>
           </div>
 
@@ -40,6 +41,7 @@
             <label class="control-label" for="html"><?php echo __('Logo') ?></label>
             <div class="controls">
               <?php echo $form->logo ?>
+              <span class="help-block"><?php echo __('Requirements: PNG format, 256K max. size. Recommended dimensions of 270x270px, it will be cropped if ImageMagick is installed.') ?></span>
             </div>
           </div>
 
