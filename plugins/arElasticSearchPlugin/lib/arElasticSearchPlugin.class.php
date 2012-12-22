@@ -51,6 +51,13 @@ class arElasticSearchPlugin extends QubitSearchEngine
   private $batchDocs = array();
 
   /**
+   * Mappings configuration, mapping.yml
+   *
+   * @var mixed Defaults to null.
+   */
+  protected $mappings = null;
+
+  /**
    * Constructor
    */
   public function __construct()
@@ -96,23 +103,11 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $this->index->create($this->config['index']['configuration'], true);
       }
 
-      // Find mapping.yml
-      $finder = sfFinder::type('file')->name('mapping.yml');
-      $mappings = array_unique(array_merge(
-        $finder->in(sfConfig::get('sf_config_dir')),
-        $finder->in(ProjectConfiguration::getActive()->getPluginSubPaths('/config'))));
-
-      if (!count($mappings))
-      {
-        throw new sfException('You must create a mapping.xml file.');
-      }
-
-      // Load first mapping.yml file found
-      $esMapping = new arElasticSearchMapping();
-      $esMapping->loadYAML(array_shift($mappings));
+      // Load mappings
+      $this->loadMappings();
 
       // Iterate over types (actor, information_object, ...)
-      foreach ($esMapping->asArray() as $typeName => $typeProperties)
+      foreach ($this->mappings as $typeName => $typeProperties)
       {
         // Define mapping in elasticsearch
         $mapping = new Elastica_Type_Mapping();
@@ -121,6 +116,32 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $mapping->send();
       }
     }
+  }
+
+  protected function loadMappings()
+  {
+    // Avoid reload
+    if (null !== $this->mappings)
+    {
+      return $this->mappings;
+    }
+
+    // Find mapping.yml
+    $finder = sfFinder::type('file')->name('mapping.yml');
+    $files = array_unique(array_merge(
+      $finder->in(sfConfig::get('sf_config_dir')),
+      $finder->in(ProjectConfiguration::getActive()->getPluginSubPaths('/config'))));
+
+    if (!count($files))
+    {
+      throw new sfException('You must create a mapping.xml file.');
+    }
+
+    // Load first mapping.yml file found
+    $esMapping = new arElasticSearchMapping();
+    $esMapping->loadYAML(array_shift($files));
+
+    $this->mappings = $esMapping->asArray();
   }
 
   /**
@@ -136,19 +157,28 @@ class arElasticSearchPlugin extends QubitSearchEngine
    */
   public function populate()
   {
-    $timer = new QubitTimer;
-
     // Delete index and initialize again
     $this->index->delete();
     $this->initialize();
     $this->log('Index erased');
 
-    // Populate
     $this->log('Populating index...');
 
-    // TODO
+    // Document counter and timer
+    $total = 0;
+    $timer = new QubitTimer;
 
-    $this->log(sprintf('Index populated with %s documents in %s seconds',
+    $this->loadMappings();
+
+    foreach ($this->mappings as $typeName => $typeProperties)
+    {
+      $className = 'arElasticSearch'.sfInflector::camelize($typeName);
+      $class = new $className;
+
+      $class->populate();
+    }
+
+    $this->log(vsprintf('Index populated with %s documents in %s seconds',
       array(
         $total,
         $timer->elapsed())));
