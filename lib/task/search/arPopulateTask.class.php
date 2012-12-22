@@ -25,16 +25,12 @@
  */
 class arSearchPopulateTask extends sfBaseTask
 {
-  /**
-   * Configures the task.
-   */
   protected function configure()
   {
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-      new sfCommandOption('verbose', 'v', sfCommandOption::PARAMETER_NONE, 'If passed, progress is displayed for each object indexed'),
-      new sfCommandOption('skip', 'k', sfCommandOption::PARAMETER_REQUIRED, 'Only skip "actors" or "io" (information objects)')));
+      new sfCommandOption('verbose', 'v', sfCommandOption::PARAMETER_NONE, 'If passed, progress is displayed for each object indexed')));
 
     $this->namespace = 'search';
     $this->name = 'populate';
@@ -46,12 +42,6 @@ in the current project. It may take quite a while to run.
 EOF;
   }
 
-  /**
-   * Populates an index.
-   *
-   * @param array $arguments
-   * @param array $options
-   */
   public function execute($arguments = array(), $options = array())
   {
     new sfDatabaseManager($this->configuration);
