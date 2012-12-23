@@ -23,14 +23,13 @@
  * @package AccesstoMemory
  * @subpackage search
  */
-class QubitSearchEngine
+abstract class QubitSearchEngine
 {
   private
     $timer;
 
   protected
     $logger;
-
 
   /**
    * Constructor
@@ -48,45 +47,5 @@ class QubitSearchEngine
     // TODO
     // $this->logger->log($message);
     echo "$message \n";
-  }
-
-  /**
-   * Populate results
-   */
-  // public function populate() { }
-
-  /**
-   * Optimize index
-   */
-  // public function optimize() { }
-
-  // ---------------------------------------------------------------------------
-
-  public function addActor(QubitActor $actor)
-  {
-  }
-
-  public function updateActor(QubitActor $actor)
-  {
-  }
-
-  public function addInformationObject(QubitInformationObject $informationObject)
-  {
-  }
-
-  public function updateInformationObject(QubitInformationObject $informationObject)
-  {
-  }
-
-  public function addTerm(QubitTerm $term)
-  {
-  }
-
-  public function updateTerm(QubitTerm $term)
-  {
-  }
-
-  public function deleteById($id)
-  {
   }
 }
