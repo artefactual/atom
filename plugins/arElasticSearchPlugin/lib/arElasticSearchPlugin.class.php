@@ -39,7 +39,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
    *
    * @var mixed Defaults to null.
    */
-  protected $index = null;
+  public $index = null;
 
   /**
    * elasticsearch bulk API makes it possible to perform many index/delete
