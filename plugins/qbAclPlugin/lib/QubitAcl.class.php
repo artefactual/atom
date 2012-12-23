@@ -20,8 +20,8 @@
 /**
  * Access Control List (ACL) functionality
  *
- * @package    qbAclPlugin
- * @subpackage acl
+ * @package    AccesstoMemory
+ * @subpackage qbAclPlugin
  * @author     David Juhasz <david@artefactual.com>
  */
 class QubitAcl
@@ -390,7 +390,7 @@ class QubitAcl
             $roleId,
             $permission->objectId,
             $permission->action,
-            new ConditionalAssert($permission)
+            new QubitAclConditionalAssert($permission)
           ));
         }
         else
@@ -590,86 +590,6 @@ class QubitAcl
     throw new sfStopException();
   }
 
-  public static function searchFilterByRepository($query, $action)
-  {
-    $repositoryAccess = QubitAcl::getRepositoryAccess($action);
-    if (1 == count($repositoryAccess))
-    {
-      // If all repositories are denied access, re-route user to login
-      if (QubitAcl::DENY == $repositoryAccess[0]['access'])
-      {
-        QubitAcl::forwardUnauthorized();
-      }
-    }
-    else
-    {
-      while ($repo = array_shift($repositoryAccess))
-      {
-        if ('*' == $repo['id'])
-        {
-          if (QubitAcl::DENY == $repo['access'])
-          {
-            // Require repos to be specifically allowed (all others prohibited)
-            $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
-          }
-          else
-          {
-            // Prohibit specified repos (all others allowed)
-            $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), false);
-          }
-        }
-      }
-    }
-
-    return $query;
-  }
-
-  public static function searchFilterDrafts($query)
-  {
-    // Filter out 'draft' items by repository
-    $repositoryViewDrafts = QubitAcl::getRepositoryAccess('viewDraft');
-    if (1 == count($repositoryViewDrafts))
-    {
-      if (QubitAcl::DENY == $repositoryViewDrafts[0]['access'])
-      {
-        // Don't show *any* draft info objects
-        $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID, 'publicationStatusId'), true);
-      }
-    }
-    else
-    {
-      // Get last rule in list, it will be the global rule with the opposite
-      // access of the preceeding rules (e.g. if last rule is "DENY ALL" then
-      // preceeding rules will be "ALLOW" rules)
-      $globalRule = array_pop($repositoryViewDrafts);
-
-      // If global rule is GRANT, then listed repos are exceptions so remove
-      // from results
-      if (QubitAcl::GRANT == $globalRule['access'])
-      {
-        while ($repo = array_shift($repositoryViewDrafts))
-        {
-          $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
-          $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_DRAFT_ID, 'publicationStatusId'), true);
-        }
-      }
-
-      // If global rule is DENY, then only show the listed repo drafts
-      else
-      {
-        while ($repo = array_shift($repositoryViewDrafts))
-        {
-          $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
-        }
-
-        // Filter rule should look like "+(id:(356 357 358) status:published)"
-        $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID, 'publicationStatusId'), null);
-      }
-    }
-
-    return $query;
-  }
-
   /**
    * Get a list of user permissions by action and class of resource
    *
@@ -720,69 +640,6 @@ class QubitAcl
     $criteria->add($c1);
 
     return QubitAclPermission::get($criteria);
-  }
-
-  /**
-   * Filter search query by resource specific ACL
-   *
-   * @param $query
-   * @param mixed $root - root object for list
-   * @return query
-   */
-  public static function searchFilterByResource($query, $root)
-  {
-    $user = sfContext::getInstance()->user;
-
-    $permissions = self::getUserPermissionsByAction($user, get_class($root), 'read');
-
-    // Build access control list
-    $grants = 0;
-    if (0 < count($permissions))
-    {
-      foreach ($permissions as $permission)
-      {
-        if (!isset($resourceAccess[$permission->objectId]))
-        {
-          $resourceAccess[$permission->objectId] = self::isAllowed($user, $permission->objectId, 'read');
-
-          if ($resourceAccess[$permission->objectId])
-          {
-            $grants++;
-          }
-        }
-      }
-    }
-
-    // If no grants then user can't see anything
-    if (0 == $grants)
-    {
-      self::forwardUnauthorized();
-    }
-
-    // If global deny is default, then list allowed resources
-    else if (!self::isAllowed($user, $root->id, 'read'))
-    {
-      $allows = array_keys($resourceAccess, true, true);
-
-      while ($resourceId = array_shift($allows))
-      {
-        $query->addSubquery(QubitSearch::getInstance()->addTerm($resourceId, 'id'), true);
-      }
-    }
-
-    // Otherwise, build a list of banned resources
-    else
-    {
-      $bans = array_keys($resourceAccess, false, true);
-
-      while ($resourceId = array_shift($bans))
-      {
-        $query->addSubquery(QubitSearch::getInstance()->addTerm($resourceId, 'id'), false);
-
-      }
-    }
-
-    return $query;
   }
 
   public static function addFilterDraftsCriteria($criteria)
@@ -975,69 +832,5 @@ class QubitAcl
     }
 
     return $criterion;
-  }
-}
-
-require_once 'Zend/Acl/Assert/Interface.php';
-
-class ConditionalAssert implements Zend_Acl_Assert_Interface
-{
-  public function __construct($permission)
-  {
-    $this->permission = $permission;
-  }
-
-  public function assert(Zend_Acl $acl,
-                         Zend_Acl_Role_Interface $role = null,
-                         Zend_Acl_Resource_Interface $resource = null,
-                         $privilege = null
-                         )
-  {
-    // Translate permissions are global to all objects
-    if ('translate' == $privilege)
-    {
-      // If source language is the current language, then we aren't translating
-      if (method_exists($resource, 'getSourceCulture') && $resource->sourceCulture == sfContext::getInstance()->user->getCulture())
-      {
-        return false;
-      }
-
-      // Test that user can translate into current language
-      if (!$this->permission->evaluateConditional(array('language' => sfContext::getInstance()->user->getCulture())))
-      {
-        return false;
-      }
-    }
-
-    // No update if source language != current language (requires translate)
-    else if ('update' == $privilege && $resource->sourceCulture != sfContext::getInstance()->user->getCulture())
-    {
-      return false;
-    }
-
-    if ($resource instanceof QubitInformationObject)
-    {
-      $repositorySlug = null;
-      if (null !== $repository = $resource->getRepository(array('inherit' => true)))
-      {
-        $repositorySlug = $repository->slug;
-      }
-
-      // Test repository conditional
-      if (!$this->permission->evaluateConditional(array('repository' => $repositorySlug)))
-      {
-        return false;
-      }
-    }
-    else if ($resource instanceof QubitTerm)
-    {
-      // Test taxonomy conditional
-      if (!$this->permission->evaluateConditional(array('taxonomy' => $resource->taxonomy->slug)))
-      {
-        return false;
-      }
-    }
-
-    return true;
   }
 }
