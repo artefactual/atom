@@ -18,7 +18,7 @@
 
     <div class="span3" id="intro">
       <h2>The Gateway to Canada's Past</h2>
-      <p>This is the national database with <?php echo QubitSearch::getInstance()->index->getType('QubitRepository')->search(new Elastica_Query(new Elastica_Query_MatchAll()))->getTotalHits(); ?> archival repositories across the country and <?php echo QubitSearch::getInstance()->index->getType('QubitInformationObject')->search(new Elastica_Query(new Elastica_Query_MatchAll()))->getTotalHits(); ?> records. You can access these holdings and so much more. </p>
+      <p>Praesent mollis, lorem ornare rhoncus luctus, tortor felis sagittis dolor, vel sodales velit nulla at justo. Praesent in posuere dui. Suspendisse eu malesuada augue. Nullam urna tortor, ultrices sed adipiscing et, dictum ac est. Cras et justo eu tellus porta eleifend. Nulla at arcu vel arcu congue pellentesque. Fusce id leo odio, non tincidunt dui.</p>
     </div>
 
   </div>
