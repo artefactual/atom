@@ -109,6 +109,8 @@ class arElasticSearchPlugin extends QubitSearchEngine
       // Iterate over types (actor, information_object, ...)
       foreach ($this->mappings as $typeName => $typeProperties)
       {
+        $typeName = 'Qubit'.sfInflector::camelize($typeName);
+
         // Define mapping in elasticsearch
         $mapping = new Elastica_Type_Mapping();
         $mapping->setType($this->index->getType($typeName));
@@ -182,5 +184,85 @@ class arElasticSearchPlugin extends QubitSearchEngine
       array(
         $total,
         $timer->elapsed())));
+  }
+
+  // ---------------------------------------------------------------------------
+
+  /**
+   * Centralize document addition to keep control of the batch queue
+   * It may be better to extend Elastica?
+   */
+  public function addDocument($data, $type)
+  {
+    $document = new Elastica_Document($data['id'], $data);
+    $document->setType($type);
+
+    if ($this->batchMode)
+    {
+      // Add this document to the batch queue
+      $this->batchDocs[] = $document;
+
+      // If we have a full batch, send in bulk
+      if (count($this->batchDocs) >= $this->batchSize)
+      {
+        $this->index->addDocuments($this->batchDocs);
+        $this->index->flush();
+
+        $this->batchDocs = array();
+      }
+    }
+    else
+    {
+      $this->index->getType($type)->addDocument($document);
+      $this->index->flush();
+    }
+  }
+
+  /**
+   * Function helper to parse query strings
+   */
+  public function parse(string $query)
+  {
+    if (empty($query))
+    {
+      throw new Exception('No search terms specified.');
+    }
+
+    $query = new Elastica_Query_QueryString($query);
+    $query->setDefaultOperator('AND');
+
+    return $query;
+  }
+
+  // ---------------------------------------------------------------------------
+
+  public function delete($object)
+  {
+    $this->index->getType(get_class($object))->deleteById($object->id);
+  }
+
+  public function updateAccession(QubitAccession $object)
+  {
+    return arElasticSearchAccession::update($object);
+  }
+
+  public function updateActor(QubitActor $object)
+  {
+    return arElasticSearchActor::update($object);
+  }
+
+  public function updateContactInformation(QubitContactInformation $object)
+  {
+    return arElasticSearchContactInformation::update($object);
+  }
+
+  public function updateInformationObject(QubitInformationObject $object)
+  {
+    return arElasticSearchInformationObject::update($object);
+  }
+
+  public function updateTerm(QubitTerm $term)
+  {
+    return arElasticSearchTerm::update($object);
   }
 }

@@ -21,6 +21,6 @@ class arElasticSearchModelBase
 {
   public function __construct()
   {
-    echo "Loading ".get_class($this)."...\n";
+
   }
 }
