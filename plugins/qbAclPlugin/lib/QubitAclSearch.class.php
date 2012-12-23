@@ -118,15 +118,19 @@ class QubitAclSearch
     {
       $allows = array_keys($resourceAccess, true, true);
 
-      $filter = new Elastica_Filter_Ids;
-
+      $ids = array();
       while ($resourceId = array_shift($allows))
       {
         // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($resourceId, 'id'), true);
-        $filter->addId($resourceId);
+        $ids[] = $resourceId;
       }
 
-      $query->setFilter($filter);
+      if (0 < count($ids))
+      {
+        $filter = new Elastica_Filter_Ids;
+        $filter->setIds($ids);
+        $query->setFilter($filter);
+      }
     }
 
     // Otherwise, build a list of banned resources
@@ -134,16 +138,21 @@ class QubitAclSearch
     {
       $bans = array_keys($resourceAccess, false, true);
 
-      $filterIds = new Elastica_Filter_Ids;
-
+      $ids = array();
       while ($resourceId = array_shift($bans))
       {
         // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($resourceId, 'id'), false);
-        $filterIds->addId($resourceId);
+        $ids[] = $resourceId;
       }
 
-      $filter = new Elastica_Filter_Not($filterIds);
-      $query->setFilter($filter);
+      if (0 < count($ids))
+      {
+        $filterIds = new Elastica_Filter_Ids;
+        $filterIds->setIds($ids);
+        $filter = new Elastica_Filter_Not($filterIds);
+
+        $query->setFilter($filter);
+      }
     }
 
     return $query;
