@@ -2,6 +2,10 @@
 # http://www.elasticsearch.org/guide/reference/mapping/
 mapping:
 
+  accession:
+    _attributes: { i18n: true, timestamp: true }
+    identifier: { type: string, index: not_analyzed }
+
   actor:
     _attributes: { i18n: true, timestamp: true }
     slug: { type: string, index: not_analyzed }
