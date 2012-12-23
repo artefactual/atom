@@ -35,9 +35,6 @@ class ActorBrowseAction extends DefaultBrowseAction
 
   public function execute($request)
   {
-    // TODO
-    // ??? $query = QubitAcl::searchFilterByResource($query, QubitActor::getById(QubitActor::ROOT_ID));
-
     if (!isset($request->limit))
     {
       $request->limit = sfConfig::get('app_hits_per_page');
@@ -88,6 +85,8 @@ class ActorBrowseAction extends DefaultBrowseAction
     $query = new Elastica_Query();
     $query->setLimit($request->limit);
     $query->setQuery($queryBool);
+
+    $query = QubitAclSearch::filterByResource($query, QubitActor::getById(QubitActor::ROOT_ID));
 
     switch ($request->sort)
     {
