@@ -43,14 +43,14 @@ class QubitAccession extends BaseAccession
   {
     parent::save($connection);
 
-    QubitSearch::updateAccessionIndex($this);
+    QubitSearch::updateAccession($this);
 
     return $this;
   }
 
   public function delete($connection = null)
   {
-    QubitSearch::deleteById($this->id);
+    QubitSearch::delete($this);
 
     return parent::delete($connection);
   }

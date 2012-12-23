@@ -337,7 +337,7 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function delete($connection = null)
   {
-    QubitSearch::deleteInformationObject($this);
+    QubitSearch::delete($this);
 
     $this->deletePhysicalObjectRelations();
 

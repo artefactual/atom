@@ -174,7 +174,7 @@ class QubitActor extends BaseActor
 
   public function delete($connection = null)
   {
-    QubitSearch::deleteById($this->id);
+    QubitSearch::delete($this);
 
     return parent::delete($connection);
   }
