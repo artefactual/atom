@@ -55,13 +55,20 @@ class QubitAclSearch
           if (QubitAcl::DENY == $repo['access'])
           {
             // Require repos to be specifically allowed (all others prohibited)
-            // TODO $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
+            // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
+            $filter = new Elastica_Filter_Term;
+            $filter->setTerm('repositoryId', $repo['id']);
           }
           else
           {
             // Prohibit specified repos (all others allowed)
-            // TODO $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), false);
+            // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), false);
+            $filterTerm = new Elastica_Filter_Term;
+            $filterTerm->setTerm('repositoryId', $repo['id']);
+            $filter = new Elastica_Filter_Not($filterTerm);
           }
+
+          $query->setFilter($filter);
         }
       }
     }
@@ -111,10 +118,15 @@ class QubitAclSearch
     {
       $allows = array_keys($resourceAccess, true, true);
 
+      $filter = new Elastica_Filter_Ids;
+
       while ($resourceId = array_shift($allows))
       {
-        // TODO $query->addSubquery(QubitSearch::getInstance()->addTerm($resourceId, 'id'), true);
+        // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($resourceId, 'id'), true);
+        $filter->addId($resourceId);
       }
+
+      $query->setFilter($filter);
     }
 
     // Otherwise, build a list of banned resources
@@ -122,10 +134,16 @@ class QubitAclSearch
     {
       $bans = array_keys($resourceAccess, false, true);
 
+      $filterIds = new Elastica_Filter_Ids;
+
       while ($resourceId = array_shift($bans))
       {
-        // TODO $query->addSubquery(QubitSearch::getInstance()->addTerm($resourceId, 'id'), false);
+        // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($resourceId, 'id'), false);
+        $filterIds->addId($resourceId);
       }
+
+      $filter = new Elastica_Filter_Not($filterIds);
+      $query->setFilter($filter);
     }
 
     return $query;
@@ -146,7 +164,10 @@ class QubitAclSearch
       if (QubitAcl::DENY == $repositoryViewDrafts[0]['access'])
       {
         // Don't show *any* draft info objects
-        // TODO $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID, 'publicationStatusId'), true);
+        // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID, 'publicationStatusId'), true);
+        $filter = new Elastica_Filter_Term();
+        $filter->setTerm('publicationStatusId', QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
+        $query->setFilter($filter);
       }
     }
     else
@@ -160,24 +181,35 @@ class QubitAclSearch
       // from results
       if (QubitAcl::GRANT == $globalRule['access'])
       {
+        $filterBool = new Elastica_Filter_Bool;
+
         while ($repo = array_shift($repositoryViewDrafts))
         {
-          // TODO $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
-          // TODO $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_DRAFT_ID, 'publicationStatusId'), true);
+          // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
+          // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_DRAFT_ID, 'publicationStatusId'), true);
+          $filterBool->addShould(new Elastica_Filter_Term(array('repositoryId', $repo['id'])));
         }
+
+        $filter = new Elastica_Filter_Not($filterBool);
       }
 
       // If global rule is DENY, then only show the listed repo drafts
       else
       {
+        $filter = new Elastica_Filter_Bool;
+
         while ($repo = array_shift($repositoryViewDrafts))
         {
-          // TODO $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
+          // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
+          $filter->addShould(new Elastica_Filter_Term(array('repositoryId', $repo['id'])));
         }
 
         // Filter rule should look like "+(id:(356 357 358) status:published)"
-        // TODO $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID, 'publicationStatusId'), null);
+        // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID, 'publicationStatusId'), null);
+        $filter->addShould(new Elastica_Filter_Term(array('publicationStatusId', QubitTerm::PUBLICATION_STATUS_DRAFT_ID)));
       }
+
+      $query->setFilter($filter);
     }
 
     return $query;
