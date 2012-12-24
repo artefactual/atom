@@ -2,6 +2,12 @@
 # http://www.elasticsearch.org/guide/reference/mapping/
 mapping:
 
+  # Special attributes:
+  # - i18n: $tablename_i18n.* properties will be added
+  # - timestamp: adds created_at and updated_at properties
+  # - nested: they are ignored as types, only embedded as nested objetcts when required
+  # - nestable: make sure to use this if you are also embedding this type somewhere else
+
   accession:
     _attributes: { i18n: true, timestamp: true }
     identifier: { type: string, index: not_analyzed }
@@ -12,7 +18,7 @@ mapping:
     entity_type_id: { type: integer, index: not_analyzed, include_in_all: false }
 
   contact_information:
-    _attributes: { i18n: true, timestamp: true }
+    _attributes: { i18n: true, timestamp: true, nested: true }
     contact_person: { type: string, index: no }
     street_address: { type: string, index: no }
     postal_code: { type: string, include_in_all: false }
@@ -46,31 +52,26 @@ mapping:
         media_type_id: { type: integer, index: not_analyzed, include_in_all: false }
         thumbnail_path: { type: string, index: not_analyzed }
     repository:
-      _attributes: { i18n: true }
-      type: object
+      _attributes: { foreignType: repository }
     subjects:
-      _attributes: { i18n: true }
-      type: object
+      _attributes: { foreignType: term }
     places:
-      _attributes: { i18n: true }
-      type: object
+      _attributes: { foreignType: term }
     names:
-      _attributes: { i18n: true }
-      type: object
+      _attributes: { foreignType: term }
     creators:
-      _attributes: { i18n: true }
-      type: object
+      _attributes: { foreignType: term }
 
   repository:
-    _attributes: { i18n: true, timestamp: true }
+    _attributes: { i18n: true, timestamp: true, nestable: true }
     slug: { type: string, index: not_analyzed }
     identifier: { type: string, index: not_analyzed }
     media_type_id: { type: integer, index: not_analyzed, include_in_all: false }
-    contact:
-      _attributes: { foreignType: contact_information }
-      type: object
+    # TODO Upgrade arElasticSearchMapping so nestable objects include its own tested objects
+    # contact:
+    #   _attributes: { foreignType: contact_information }
 
   term:
-    _attributes: { i18n: true, timestamp: true }
+    _attributes: { i18n: true, timestamp: true, nested: true }
     slug: { type: string, index: not_analyzed }
     taxonomy_id: { type: integer, index: not_analyzed, include_in_all: false }

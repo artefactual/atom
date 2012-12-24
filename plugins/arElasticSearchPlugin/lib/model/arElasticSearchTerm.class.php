@@ -21,6 +21,7 @@ class arElasticSearchTerm extends arElasticSearchModelBase
 {
   public function populate()
   {
-
+    // We don't populate this type
+    return;
   }
 }

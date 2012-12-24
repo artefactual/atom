@@ -19,6 +19,8 @@
 
 class arElasticSearchMapping
 {
+  protected $nestedTypes = null;
+
   /**
    * Dumps schema as array
    *
@@ -71,39 +73,100 @@ class arElasticSearchMapping
    */
   protected function fixYamlShorthands()
   {
+    // Collect nested types since some of them are intended to be only nested
+    // as properties of other types, so we are excluding them as main types
+    foreach ($this->mapping as $typeName => &$typeProperties)
+    {
+      $nested = isset($typeProperties['_attributes']['nested']);
+      $nestable = isset($typeProperties['_attributes']['nestable']);
+
+      if (!$nested && !$nestable)
+      {
+        continue;
+      }
+
+      // Unset the attribute since we are already processing it
+      if ($nested) unset($typeProperties['_attributes']['nested']);
+      if ($nestable) unset($typeProperties['_attributes']['nestable']);
+
+      // Store it and parse other attributes (i18n, timestamp, etc...)
+      $this->nestedTypes[$typeName] = array('type' => 'object', 'properties' => $this->processPropertyAttributes($typeProperties));
+
+      // Avoid this nested type to be mapped as a regular type
+      if (!$nestable)
+      {
+        unset($this->mapping[$typeName]);
+      }
+    }
+
     // Iterate over types (actor, information_object, ...)
     foreach ($this->mapping as $typeName => &$typeProperties)
     {
-      // Look for special attributes like i18n or timestamp and update the
-      // mapping accordingly. For example, 'timestamp' adds the created_at
-      // and updated_at fields each time is used.
-      if (isset($typeProperties['_attributes']))
+      // Parse attributes
+      $typeProperties = $this->processPropertyAttributes($typeProperties);
+
+      // Nest foreign types
+      foreach ($typeProperties as $propertyName => &$propertyValue)
       {
-        foreach ($typeProperties['_attributes'] as $attributeName => $attributeValue)
+        if (isset($propertyValue['_attributes']['foreignType']))
         {
-          switch ($attributeName)
-          {
-            case 'i18n':
-              $this->setIfNotSet($typeProperties, 'source_culture', array('type' => 'string', 'index' => 'not_analyzed', 'include_in_all' => false));
-              $this->setIfNotSet($typeProperties, 'i18n', array(
-                'type' => 'object',
-                'include_in_root' => true,
-                'properties' => array(
-                  'culture' => array('type' => 'string', 'index' => 'not_analyzed', 'include_in_all' => false))));
+          $foreignType = $propertyValue['_attributes']['foreignType'];
 
-              break;
-
-            case 'timestamp':
-              $this->setIfNotSet($typeProperties, 'created_at', array('type' => 'date'));
-              $this->setIfNotSet($typeProperties, 'updated_at', array('type' => 'date'));
-
-              break;
-          }
+          $typeProperties[$propertyName] = $this->nestedTypes[$foreignType];
         }
-
-        unset($typeProperties['_attributes']);
       }
     }
+  }
+
+  protected function processPropertyAttributes(array $typeProperties)
+  {
+    // Stop execution if any special attribute was set
+    if (!isset($typeProperties['_attributes']))
+    {
+      return;
+    }
+
+    // Look for special attributes like i18n or timestamp and update the
+    // mapping accordingly. For example, 'timestamp' adds the created_at
+    // and updated_at fields each time is used.
+    foreach ($typeProperties['_attributes'] as $attributeName => $attributeValue)
+    {
+      switch ($attributeName)
+      {
+        case 'i18n':
+          $this->setIfNotSet($typeProperties, 'source_culture', array('type' => 'string', 'index' => 'not_analyzed', 'include_in_all' => false));
+
+          // For each culture, map an object. This is how it will look like:
+          // i18n{object}:
+          //   en{object}: ... (title, etc... dynamically built)
+          //   fr{object}: ... (title, etc... dynamically built)
+          $nestedI18nObjects = array();
+          foreach (QubitSetting::getByScope('i18n_languages') as $setting)
+          {
+            $culture = $setting->getValue(array('sourceCulture' => true));
+            $nestedI18nObjects[$culture] = array(
+              'type' => 'object',
+              'include_in_parent' => false);
+          }
+
+          $this->setIfNotSet($typeProperties, 'i18n', array(
+            'type' => 'object',
+            'include_in_root' => true,
+            'properties' => $nestedI18nObjects));
+
+          break;
+
+        case 'timestamp':
+          $this->setIfNotSet($typeProperties, 'created_at', array('type' => 'date'));
+          $this->setIfNotSet($typeProperties, 'updated_at', array('type' => 'date'));
+
+          break;
+      }
+    }
+
+    unset($typeProperties['_attributes']);
+
+    return $typeProperties;
   }
 
   /**

@@ -21,6 +21,60 @@ class arElasticSearchRepository extends arElasticSearchModelBase
 {
   public function populate()
   {
+    $criteria = new Criteria;
+    $criteria->add(QubitRepository::ID, QubitRepository::ROOT_ID, Criteria::NOT_EQUAL);
 
+    foreach (QubitRepository::get($criteria) as $repository)
+    {
+      $data = self::serialize($repository);
+
+      QubitSearch::getInstance()->addDocument($data, 'QubitRepository');
+
+      if ($options['verbose'])
+      {
+        $this->logger->log('QubitRepository "'.$repository->__toString().'" inserted ('.$this->timer->elapsed().'s) ('.($key + 1).'/'.count($repositories).')', 'arElasticSearch');
+      }
+    }
+  }
+
+  public static function serialize($object)
+  {
+    $serialized = array();
+
+    $serialized['id'] = $object->id;
+
+    $serialized['slug'] = $object->slug;
+    $serialized['identifier'] = $object->identifier;
+
+    foreach ($object->getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $relation)
+    {
+      $serialized['types'][] = $relation->termId;
+    }
+
+    /*
+    if ($contact = $object->getPrimaryContact())
+    {
+      $serialized['contact'] = QubitContactInformationMapping::serialize($contact);
+    }
+    */
+
+    // TODO: additional contact points if none are primary
+    /*
+    elseif (count($contacts = $object->getContactInformation()) > 0)
+    {
+      foreach ($contacts as $contact)
+      {
+
+      }
+    }
+    */
+
+    $serialized['created_at'] = Elastica_Util::convertDate($object->createdAt);
+    $serialized['updated_at'] = Elastica_Util::convertDate($object->updatedAt);
+
+    $serialized['sourceCulture'] = $object->sourceCulture;
+    $serialized['i18n'] = self::serializeI18ns($object, array('QubitActor'));
+
+    return $serialized;
   }
 }

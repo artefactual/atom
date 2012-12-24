@@ -23,7 +23,7 @@
  * @package     AccesstoMemory
  * @subpackage  arElasticSearchPlugin
  * @author      MJ Suhonos <mj@suhonos.ca>
- * @author      Jesús García Crepso <jesus@sevein.com>
+ * @author      Jesús García Crespo <jesus@sevein.com>
  */
 class arElasticSearchPlugin extends QubitSearchEngine
 {
@@ -90,9 +90,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
   {
     try
     {
-      // Uncomment if you want to delete the index and create it again
-      // $this->index->delete();
-
       $this->index->open();
     }
     catch (Exception $e)
@@ -115,6 +112,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $mapping = new Elastica_Type_Mapping();
         $mapping->setType($this->index->getType($typeName));
         $mapping->setProperties($typeProperties);
+
         $mapping->send();
       }
     }
@@ -169,8 +167,6 @@ class arElasticSearchPlugin extends QubitSearchEngine
     // Document counter and timer
     $total = 0;
     $timer = new QubitTimer;
-
-    $this->loadMappings();
 
     foreach ($this->mappings as $typeName => $typeProperties)
     {
