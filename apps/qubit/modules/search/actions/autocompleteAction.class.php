@@ -16,27 +16,61 @@
  * along with Qubit Toolkit.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Use _msearch to query ES multiple times at once, using query_string.
+ *
+ * @package AccesstoMemory
+ * @subpackage search
+ */
 class SearchAutocompleteAction extends sfAction
 {
   public function execute($request)
   {
-    // Store user query string
+    // Store user query string, erase wildcards
     $this->queryString = strtr($request->query, array('*' => '', '?' => ''));
 
     // If the query is empty, don't query
     if ('' == preg_replace('/[\s\t\r\n]*/', '', $this->queryString))
     {
-      return sfView::NONE;
+      $this->forward404();
     }
+
+    // Add wildcard
+    $this->queryString .= '*';
+
     // Current culture
     $this->culture = $this->context->user->getCulture();
 
     // Build ES multi query
     $this->queries = array();
-    $this->buildQuery('atom', 'QubitInformationObject', 'i18n.%s.title', 3, array('_score' => 'desc'));
-    $this->buildQuery('atom', 'QubitRepository', 'i18n.%s.authorizedFormOfName', 3, array('_score' => 'desc'));
-    $this->buildQuery('atom', 'QubitActor', 'i18n.%s.authorizedFormOfName', 3, array('_score' => 'desc'));
-    $this->buildQuery('atom', 'QubitTerm', 'i18n.%s.name', 3, array('_score' => 'desc'));
+
+    $this->buildQuery(
+      'atom',
+      'QubitInformationObject',
+      'i18n.%s.title',
+      array('slug', 'i18n', 'levelOfDescriptionId'),
+      array('_score' => 'desc'));
+
+    $this->buildQuery(
+      'atom',
+      'QubitRepository',
+      'i18n.%s.authorizedFormOfName',
+      array('slug', 'i18n'),
+      array('_score' => 'desc'));
+
+    $this->buildQuery(
+      'atom',
+      'QubitActor',
+      'i18n.%s.authorizedFormOfName',
+      array('slug', 'i18n'),
+      array('_score' => 'desc'));
+
+    $this->buildQuery(
+      'atom',
+      'QubitTerm',
+      'i18n.%s.name',
+      array('slug', 'i18n'),
+      array('_score' => 'desc'));
 
     // Get a list of result sets
     $resultSets = $this->sendMultiQuery();
@@ -46,9 +80,35 @@ class SearchAutocompleteAction extends sfAction
     $this->repositories = $resultSets[1];
     $this->actors = $resultSets[2];
     $this->subjects = $resultSets[3];
+
+    // Return a 404 response if there are no results
+    if (0 == $this->descriptions->getTotalHits() + $this->repositories->getTotalHits() + $this->actors->getTotalHits() + $this->subjects->getTotalHits())
+    {
+      $this->forward404();
+    }
+
+    // Preload levels of descriptions
+    if (0 < $this->descriptions->getTotalHits())
+    {
+      $sql = '
+        SELECT
+          t.id,
+          ti18n.name
+        FROM
+          '.QubitTerm::TABLE_NAME.' AS t
+        LEFT JOIN '.QubitTermI18n::TABLE_NAME.' AS ti18n ON (t.id = ti18n.id AND ti18n.culture = ?)
+        WHERE
+          t.taxonomy_id = ?';
+
+      $this->levelsOfDescription = array();
+      foreach (QubitPdo::fetchAll($sql, array($this->context->user->getCulture(), QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID)) as $item)
+      {
+        $this->levelsOfDescription[$item->id] = $item->name;
+      }
+    }
   }
 
-  protected function buildQuery($index, $type, $field, $size, $sort)
+  protected function buildQuery($index, $type, $field, $fields, $sort)
   {
     $fieldName = sprintf($field, $this->culture);
 
@@ -63,7 +123,8 @@ class SearchAutocompleteAction extends sfAction
           'default_field' => $fieldName,
           'default_operator' => 'AND',
           'query' => $this->queryString)),
-      'size' => $size,
+      'fields' => $fields,
+      'size' => 3,
       'sort' => $sort);
   }
 
