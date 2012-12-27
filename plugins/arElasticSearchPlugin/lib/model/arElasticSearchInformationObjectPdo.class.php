@@ -953,7 +953,7 @@ class arElasticSearchInformationObjectPdo
     $serialized['createdAt'] = Elastica_Util::convertDate($this->created_at);
     $serialized['updatedAt'] = Elastica_Util::convertDate($this->updated_at);
 
-    $serialized['source_culture'] = $this->source_culture;
+    $serialized['sourceCulture'] = $this->source_culture;
     $serialized['i18n'] = array();
 
     // Get all i18n-ized versions of this object
