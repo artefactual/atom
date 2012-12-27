@@ -21,14 +21,13 @@
  * Manage information objects in search index
  *
  * @package    AccesstoMemory
- * @subpackage QubitSearch
+ * @subpackage arElasticSearchPlugin
  * @author     David Juhasz <david@artefactual.com>
  */
-class QubitSearchInformationObject
+class arElasticSearchInformationObjectPdo
 {
   public
     $ancestors,
-    $index,
     $doc,
     $repository,
     $sourceCulture;
@@ -42,68 +41,8 @@ class QubitSearchInformationObject
   protected static
     $conn,
     $lookups,
-    $statements,
-    $fields = array(
-      'id',
-      'access_conditions',
-      'accruals',
-      'acquisition',
-      'creator_history',
-      'alternate_title',
-      'appraisal',
-      'archival_history',
-      'arrangement',
-      'creator',
-      'creator_serialized',
-      'date',
-      'date_serialized',
-      'edition',
-      'end_date',
-      'extent_and_medium',
-      'class_name',
-      'collection_root_slug',
-      'copyright_status_id',
-      'culture',
-      'filename',
-      'finding_aids',
-      'has_digital_object',
-      'identifier',
-      'language',
-      'level_of_description',
-      'level_of_description_id',
-      'location_of_copies',
-      'location_of_originals',
-      'material_type_id',
-      'media_type',
-      'media_type_id',
-      'name',
-      'notes',
-      'parent',
-      'part_of',
-      'physical_characteristics',
-      'physical_storage',
-      'place',
-      'publication_status_id',
-      'reference_code',
-      'related_units_of_description',
-      'repository',
-      'repository_id',
-      'repository_slug',
-      'reproduction_conditions',
-      'script',
-      'scope_and_content',
-      'slug',
-      'sources',
-      'start_date',
-      'subject',
-      'thumbnail_path',
-      'title',
-      'transcript'
-    );
+    $statements;
 
-  /**
-   * METHODS
-   */
   public function __construct($id, $options = array())
   {
     if (isset($options['conn']))
@@ -129,22 +68,6 @@ class QubitSearchInformationObject
     {
       $this->repository = $options['repository'];
     }
-
-    $this->index = QubitSearch::getInstance()->getEngine()->getIndex();
-  }
-
-  private function func_get_culture($args)
-  {
-    if (1 < count($args))
-    {
-      $culture = $args[1];
-    }
-    else
-    {
-      $culture = $this->sourceCulture;
-    }
-
-    return $culture;
   }
 
   public function __isset($name)
@@ -154,9 +77,7 @@ class QubitSearchInformationObject
       return isset($this->events);
     }
 
-    $culture = $this->func_get_culture(func_get_args());
-
-    return isset($this->data[$culture][$name]);
+    return isset($this->data[$name]);
   }
 
   public function __get($name)
@@ -166,11 +87,9 @@ class QubitSearchInformationObject
       return $this->events;
     }
 
-    $culture = $this->func_get_culture(func_get_args());
-
-    if (isset($this->data[$culture][$name]))
+    if (isset($this->data[$name]))
     {
-      return $this->data[$culture][$name];
+      return $this->data[$name];
     }
   }
 
@@ -179,11 +98,11 @@ class QubitSearchInformationObject
     if ('events' == $name)
     {
       $this->events = $value;
+
+      return;
     }
 
-    $culture = $this->func_get_culture(func_get_args());
-
-    $this->data[$culture][$name] = $value;
+    $this->data[$name] = $value;
   }
 
   protected function loadData($id, $options = array())
@@ -192,15 +111,12 @@ class QubitSearchInformationObject
     {
       $sql = 'SELECT
          io.*,
-         i18n.*,
          slug.slug,
          pubstat.status_id as publication_status_id,
          do.id as digital_object_id,
          do.media_type_id as media_type_id,
          do.name as filename
        FROM '.QubitInformationObject::TABLE_NAME.' io
-       JOIN '.QubitInformationObjectI18n::TABLE_NAME.' i18n
-         ON io.id = i18n.id
        JOIN '.QubitSlug::TABLE_NAME.' slug
          ON io.id = slug.object_id
        JOIN '.QubitStatus::TABLE_NAME.' pubstat
@@ -215,24 +131,12 @@ class QubitSearchInformationObject
     // Do select
     self::$statements['informationObject']->execute(array(':id' => $id));
 
-    // Get all rows (one per culture)
-    $results = self::$statements['informationObject']->fetchAll(PDO::FETCH_ASSOC);
+    // Get first result
+    $this->data = self::$statements['informationObject']->fetch(PDO::FETCH_ASSOC);
 
-    if (false === $results)
+    if (false === $this->data)
     {
       throw new sfException("Couldn't find information object (id: $id)");
-    }
-
-    // Key by culture
-    foreach ($results as $item)
-    {
-      $this->data[$item['culture']] = $item;
-
-      // Set source culture
-      if (!isset($this->sourceCulture))
-      {
-        $this->sourceCulture = $item['source_culture'];
-      }
     }
 
     // Load event data
@@ -241,315 +145,26 @@ class QubitSearchInformationObject
     return $this;
   }
 
-  public function addToIndex()
+  /**
+   * Return an array of i18n arrays
+   *
+   * @return array of i18n arrays
+   */
+  public function getI18ns()
   {
-    // Pre-populate
-    $this->getAncestors();
-    $this->getRepository();
-    $this->getLanguagesAndScripts();
-
-    // Add fields
-    foreach (array_keys($this->data) as $culture)
+    if (!isset($this->i18ns))
     {
-      $this->doc = new Zend_Search_Lucene_Document;
-
-      foreach (self::$fields as $name)
-      {
-        $this->addField($name, $culture);
-      }
-
-      $this->addDocument();
-    }
-  }
-
-  public function addDocument()
-  {
-    $this->index->addDocument($this->doc);
-  }
-
-  protected function addField($name, $culture)
-  {
-    $camelName = lcfirst(sfInflector::camelize($name));
-    $field = $value = null;
-
-    switch ($name)
-    {
-      case 'class_name':
-        $field = Zend_Search_Lucene_Field::Keyword($camelName, 'QubitInformationObject');
-
-        break;
-
-      case 'collection_root_slug':
-        $field = Zend_Search_Lucene_Field::Keyword($camelName, $this->getCollectionRoot()->slug);
-
-        break;
-
-      case 'creator':
-        $names = array();
-        foreach ($this->getActors($culture, array('typeId' => QubitTerm::CREATION_ID)) as $item)
-        {
-          $names[] = $item->authorized_form_of_name;
-        }
-
-        // Add field
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, implode(' ', $names));
-        $field->boost = 8; // Boost the relevance
-
-        break;
-
-      case 'creator_history':
-        $histories = array();
-        foreach ($this->getActors($culture, array('typeId' => QubitTerm::CREATION_ID)) as $item)
-        {
-          $histories[] = $item->history;
-        }
-
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, implode(' ', $histories));
-
-        break;
-
-      // Serialized creator data for creating links in search results
-      case 'creator_serialized':
-        $creators = array();
-        foreach ($this->getActors($culture, array('typeId' => QubitTerm::CREATION_ID)) as $item)
-        {
-          $creators[] = array(
-            'name' => $item->authorized_form_of_name,
-            'slug' => $item->slug
-          );
-        }
-
-        $field = Zend_Search_Lucene_Field::UnIndexed($camelName, serialize($creators));
-
-        break;
-
-      case 'copyright_status_id':
-        $statusId = null;
-        foreach ($this->getRights() as $item)
-        {
-          if (isset($item->copyright_status_id))
-          {
-            $statusId = $item->copyright_status_id;
-
-            break;
-          }
-        }
-
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $statusId);
-
-        break;
-
-      case 'culture':
-        $field = Zend_Search_Lucene_Field::Keyword($camelName, $culture);
-
-        break;
-
-      // Serialized date array for display in search results
-      case 'date_serialized':
-        $field = Zend_Search_Lucene_Field::UnIndexed($camelName, serialize($this->getDates('array', $culture)));
-
-        break;
-
-      case 'has_digital_object':
-        $field = Zend_Search_Lucene_Field::Keyword($camelName, $this->__isset('digital_object_id') ? 'true' : 'false');
-
-        break;
-
-      case 'identifier':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->__get('identifier'));
-        $field->boost = 5;
-
-        break;
-
-      case 'language':
-        if (0 < count($this->languages))
-        {
-          $lookup = sfCultureInfo::getInstance($culture)->getLanguages();
-
-          $languages = array();
-          foreach ($this->languages as $code)
-          {
-            $languages[] = $lookup[$code];
-          }
-
-          $value = implode(' ', $languages);
-        }
-
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $value);
-
-        break;
-
-      case 'level_of_description':
-        $field = Zend_Search_Lucene_Field::Text($camelName, $this->getLevelOfDescription($culture));
-
-        break;
-
-      case 'material_type_id':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getMaterialTypeId());
-
-        break;
-
-      case 'media_type':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getMediaTypeName($culture));
-
-        break;
-
-      case 'thumbnail_path':
-        $field = Zend_Search_Lucene_Field::UnIndexed($camelName, $this->getThumbnailPath());
-
-        break;
-
-      case 'name':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getNameAccessPoints($culture));
-        $field->boost = 3;
-
-        break;
-
-      case 'notes':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getNotes($culture));
-
-        break;
-
-      case 'parent':
-        // Use "Keyword" so value is no broken on hyphens by tokenizer
-        $field = Zend_Search_Lucene_Field::Keyword($camelName, $this->ancestors[count($this->ancestors)-1]->slug);
-
-        break;
-
-      case 'part_of':
-        $field = Zend_Search_Lucene_Field::Text($camelName, $this->getCollectionRoot()->getTitle(array('culture' => $culture)));
-
-        break;
-
-      case 'physical_storage':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getStorageNames($culture));
-
-        break;
-
-      case 'place':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getPlaceAccessPoints($culture));
-        $field->boost = 3;
-
-        break;
-
-      case 'reference_code':
-        $field = Zend_Search_Lucene_Field::Text($camelName, $this->getReferenceCode());
-
-        break;
-
-      case 'repository':
-        if (isset($this->repository))
-        {
-          $value = $this->repository->getAuthorizedFormOfName(array('culture' => $culture, 'fallback' => true));
-        }
-
-        $field = Zend_Search_Lucene_Field::Text($camelName, $value);
-
-        break;
-
-      case 'repository_id':
-        if (isset($this->repository))
-        {
-          $value = $this->repository->id;
-        }
-
-        $field = Zend_Search_Lucene_Field::Keyword($camelName, $value);
-
-        break;
-
-      case 'repository_slug':
-        if (isset($this->repository))
-        {
-          $value = $this->repository->slug;
-        }
-
-        $field = Zend_Search_Lucene_Field::Keyword($camelName, $value);
-
-        break;
-
-      case 'subject':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getSubjectAccessPoints($culture));
-        $field->boost = 5;
-
-        break;
-
-      case 'script':
-        if (0 < count($this->scripts))
-        {
-          $lookup = sfCultureInfo::getInstance($culture)->getScripts();
-
-          $scripts = array();
-          foreach ($this->scripts as $code)
-          {
-            $scripts[] = $lookup[$code];
-          }
-
-          $value = implode(' ', $scripts);
-        }
-
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $value);
-
-        break;
-
-      case 'title':
-        $value = $this->__get('title', $culture);
-        if (0 == strlen($value))
-        {
-          // Include an i18n fallback for proper search result display in case the
-          // title field was not translated
-          $value = $this->getFallbackTitle();
-        }
-
-        $field = Zend_Search_Lucene_Field::Text($camelName, $value);
-        $field->boost = 10;
-
-        break;
-
-      case 'transcript':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getTranscript());
-        $field->boost = 0.5;
-
-        break;
-
-      // DATES
-      case 'start_date':
-      case 'end_date':
-      case 'date':
-        $field = Zend_Search_Lucene_Field::Unstored($camelName, implode(' ', $this->getDates($name, $culture)));
-
-        break;
-
-      // TEXT fields
-      case 'scope_and_content':
-        $field = Zend_Search_Lucene_Field::Text($camelName, $this->__get($name, $culture));
-
-        break;
-
-      // KEYWORD fields (internal ids, slugs, etc.)
-      case 'culture':
-      case 'id':
-      case 'media_type_id':
-      case 'publication_status_id':
-      case 'slug':
-        if ($this->__isset($name))
-        {
-          $field = Zend_Search_Lucene_Field::Keyword($camelName, $this->__get($name, $culture));
-        }
-
-        break;
-
-      // UNSTORED fields
-      default:
-        if ($this->__isset($name))
-        {
-          $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->__get($name, $culture));
-        }
+      // Find i18ns
+      $sql = 'SELECT
+                  i18n.*
+              FROM '.QubitInformationObjectI18n::TABLE_NAME.' i18n
+              WHERE i18n.id = ?
+              ORDER BY i18n.culture';
+
+      $this->i18ns = QubitPdo::fetchAll($sql, array($this->id));
     }
 
-    if (isset($field))
-    {
-      $this->doc->addField($field);
-    }
+    return $this->i18ns;
   }
 
   /**
@@ -582,6 +197,28 @@ class QubitSearchInformationObject
     }
 
     return $this->ancestors;
+  }
+
+  /**
+   * Return an array of children
+   *
+   * @return array of children
+   */
+  public function getChildren()
+  {
+    if (!isset($this->children))
+    {
+      // Find children
+      $sql  = 'SELECT
+                  node.id';
+      $sql .= ' FROM '.QubitInformationObject::TABLE_NAME.' node';
+      $sql .= ' WHERE node.parent_id = :id';
+      $sql .= ' ORDER BY lft';
+
+      $this->children = QubitPdo::fetchAll($sql, array(':id' => $this->id));
+    }
+
+    return $this->children;
   }
 
   /**
@@ -624,18 +261,6 @@ class QubitSearchInformationObject
     {
       return QubitInformationObject::getById($this->ancestors[1]->id);
     }
-  }
-
-  protected function getFallbackTitle()
-  {
-    $sql  = 'SELECT i18n.title';
-    $sql .= ' FROM '.QubitInformationObject::TABLE_NAME.' node';
-    $sql .= ' JOIN '.QubitInformationObjectI18n::TABLE_NAME.' i18n
-                ON node.id = i18n.id';
-    $sql .= ' WHERE node.id = ?';
-    $sql .= ' AND node.source_culture = i18n.culture';
-
-    return QubitPdo::fetchOne($sql, array($this->__get('id')))->title;
   }
 
   public function getLevelOfDescription($culture)
@@ -1183,5 +808,176 @@ class QubitSearchInformationObject
     self::$statements['transcript']->execute(array($this->__get('digital_object_id')));
 
     return self::$statements['transcript']->fetchColumn();
+  }
+
+  public function serialize()
+  {
+    $serialized = array();
+
+    $serialized['id'] = $this->id;
+
+    $serialized['slug'] = $this->slug;
+    $serialized['identifier'] = $this->identifier;
+    $serialized['referenceCode'] = $this->getReferenceCode();
+    $serialized['levelOfDescriptionId'] = $this->level_of_description_id;
+    $serialized['publicationStatusId'] = $this->publication_status_id;
+    $serialized['parentId'] = $this->ancestors[count($this->ancestors)-1]->id;
+
+    // NB: this will include the ROOT_ID
+    foreach ($this->getAncestors() as $ancestor)
+    {
+      $serialized['ancestors'][] = $ancestor->id;
+    }
+
+    // NB: this should be an ordered array
+    foreach ($this->getChildren() as $child)
+    {
+      $serialized['children'][] = $child->id;
+    }
+
+    // Copyright status
+    $statusId = null;
+    foreach ($this->getRights() as $item)
+    {
+      if (isset($item->copyright_status_id))
+      {
+        $statusId = $item->copyright_status_id;
+        break;
+      }
+    }
+    if (null !== $statusId)
+    {
+      $serialized['copyrightStatusId'] = $statusId;
+    }
+
+    // Material type
+    if (null !== ($materialTypeId = $this->getMaterialTypeId))
+    {
+      $serialized['materialTypeId'] = $materialTypeId;
+    }
+
+    if ($this->media_type_id)
+    {
+      $serialized['digitalObject']['mediaTypeId'] = $this->media_type_id;
+      $serialized['digitalObject']['usageId'] = $this->usage_id;
+
+      if (QubitTerm::EXTERNAL_URI_ID == $this->usage_id)
+      {
+        $serialized['digitalObject']['thumbnailFullPath'] = $this->path;
+      }
+      else
+      {
+        $serialized['digitalObject']['thumbnailFullPath'] = $this->getThumbnailPath();
+      }
+
+      $serialized['hasDigitalObject'] = true;
+    }
+    else
+    {
+      $serialized['hasDigitalObject'] = false;
+    }
+
+    /*
+    $dates = $this->getDates('array');
+    if (0 < count($dates))
+    {
+      $serialized['dates'] = $dates;
+    }
+    */
+
+/*
+
+    // Repository (actor)
+    if ($repository = $this->getRepository())
+    {
+      $repoI18ns = $repository->actorI18ns->indexBy('culture');
+      $serializedI18ns = QubitMapping::serializeI18ns(new QubitActor(), $repoI18ns);
+
+      $serialized['repository'] = array('id' => $repository->id, 'i18n' => $serializedI18ns);
+    }
+
+    // Subject access points (terms)
+    foreach ($this->getSubjectAccessPoints() as $subject)
+    {
+      $term = QubitTerm::getById($subject->id);
+
+      $serializedI18ns = QubitMapping::serializeI18ns(new QubitTerm(), $term->termI18ns->indexBy('culture'));
+      $serialized['subjects'][] = array('id' => $subject->id, 'i18n' => $serializedI18ns);
+    }
+
+    // Place access points (terms)
+    foreach ($this->getPlaceAccessPoints() as $place)
+    {
+      $term = QubitTerm::getById($place->id);
+
+      $serializedI18ns = QubitMapping::serializeI18ns(new QubitTerm(), $term->termI18ns->indexBy('culture'));
+      $serialized['places'][] = array('id' => $place->id, 'i18n' => $serializedI18ns);
+    }
+
+    // Name access points (actors)
+    // TODO use QubitPdoActor class?
+    foreach ($this->getNameAccessPoints() as $name)
+    {
+      $nameSerialized = $name->serialize();
+      $nameSerialized['id'] = $name->id;
+      unset($nameSerialized['slug']);
+      unset($nameSerialized['sourceCulture']);
+
+      $serialized['names'][] = $nameSerialized;
+    }
+
+    // Creators (actors)
+    // TODO use QubitPdoActor class?
+    foreach ($this->getCreators() as $creator)
+    {
+      $i18n = array();
+      if (!empty($creator['name'])) $i18n['authorizedFormOfName'] = $creator['name'];
+      if (!empty($creator['history'])) $i18n['history'] = $creator['history'];
+      if (!empty($creator['culture'])) $i18n['culture'] = $creator['culture'];
+
+      $serialized['creators'][] = array('id' => $creator['id'], 'i18n' => array($i18n));
+    }
+
+    // Notes
+    foreach ($this->getNotes() as $note)
+    {
+      $i18n = array();
+      if (!empty($note->content)) $i18n['content'] = $note->content;
+      if (!empty($note->culture)) $i18n['culture'] = $note->culture;
+
+      $serialized['notes'][] = array('id' => $note->id, 'i18n' => array($i18n));
+    }
+
+    */
+
+    $serialized['createdAt'] = Elastica_Util::convertDate($this->created_at);
+    $serialized['updatedAt'] = Elastica_Util::convertDate($this->updated_at);
+
+    $serialized['source_culture'] = $this->source_culture;
+    $serialized['i18n'] = array();
+
+    // Get all i18n-ized versions of this object
+    $this->getI18ns();
+    foreach ($this->i18ns as $item)
+    {
+      $serialized['i18n'][$item->culture] = array();
+
+      foreach (get_object_vars($item) as $columnName => $columnValue)
+      {
+        if (in_array($columnName, array('id', 'culture')))
+        {
+          continue;
+        }
+
+        $columnName = lcfirst(sfInflector::camelize($columnName));
+
+        if (null !== $columnValue)
+        {
+          $serialized['i18n'][$item->culture][$columnName] = $columnValue;
+        }
+      }
+    }
+
+    return $serialized;
   }
 }
