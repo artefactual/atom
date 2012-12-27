@@ -66,6 +66,10 @@ class arElasticSearchPlugin extends QubitSearchEngine
     $this->client = new Elastica_Client($this->config['server']);
     $this->index = $this->client->getIndex($this->config['index']['name']);
 
+    // Load batch mode configuration
+    $this->batchMode = true === $this->config['batch_mode'];
+    $this->batchSize = $this->config['batch_size'];
+
     $this->initialize();
   }
 
@@ -75,9 +79,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
     if ($this->config['batch_mode'] && count($this->batchDocs) > 0)
     {
       $this->index->addDocuments($this->batchDocs);
-
-      // I don't think that this is necessary
-      // $this->index->flush();
+      $this->index->flush();
     }
 
     $this->index->refresh();
@@ -111,7 +113,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         // Define mapping in elasticsearch
         $mapping = new Elastica_Type_Mapping();
         $mapping->setType($this->index->getType($typeName));
-        $mapping->setProperties($typeProperties);
+        $mapping->setProperties($typeProperties['properties']);
 
         $mapping->send();
       }
@@ -138,10 +140,11 @@ class arElasticSearchPlugin extends QubitSearchEngine
     }
 
     // Load first mapping.yml file found
-    $esMapping = new arElasticSearchMapping();
+    $esMapping = new arElasticSearchMapping;
     $esMapping->loadYAML(array_shift($files));
 
     $this->mappings = $esMapping->asArray();
+
   }
 
   /**
@@ -171,8 +174,8 @@ class arElasticSearchPlugin extends QubitSearchEngine
     foreach ($this->mappings as $typeName => $typeProperties)
     {
       $className = 'arElasticSearch'.sfInflector::camelize($typeName);
-      $class = new $className;
 
+      $class = new $className;
       $class->populate();
     }
 
@@ -202,6 +205,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
       if (count($this->batchDocs) >= $this->batchSize)
       {
         $this->index->addDocuments($this->batchDocs);
+
         $this->index->flush();
 
         $this->batchDocs = array();
