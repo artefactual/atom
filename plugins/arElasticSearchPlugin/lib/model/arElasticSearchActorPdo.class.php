@@ -153,7 +153,9 @@ class arElasticSearchActorPdo
   {
     $serialized = array();
 
+    $serialized['id'] = $this->id;
     $serialized['slug'] = $this->slug;
+
     $serialized['entityTypeId'] = $this->entity_type_id;
 
     $serialized['createdAt'] = Elastica_Util::convertDate($this->created_at);

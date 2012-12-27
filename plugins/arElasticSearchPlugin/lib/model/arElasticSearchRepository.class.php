@@ -38,8 +38,8 @@ class arElasticSearchRepository extends arElasticSearchModelBase
     $serialized = array();
 
     $serialized['id'] = $object->id;
-
     $serialized['slug'] = $object->slug;
+
     $serialized['identifier'] = $object->identifier;
 
     foreach ($object->getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $relation)
