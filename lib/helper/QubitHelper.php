@@ -272,6 +272,16 @@ function check_field_visibility($fieldName)
   return sfContext::getInstance()->user->isAuthenticated() || sfConfig::get($fieldName, false);
 }
 
+function get_search_i18n($hit, $fieldName)
+{
+  if ($hit instanceof Elastica_Result)
+  {
+    $hit = $hit->getData();
+  }
+
+  return $hit['i18n'][sfContext::getInstance()->user->getCulture()][$fieldName];
+}
+
 function build_i18n_doc(Elastica_Result $hit, array $objects = array())
 {
   $doc = $hit->getData();
