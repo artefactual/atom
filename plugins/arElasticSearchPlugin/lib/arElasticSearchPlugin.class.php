@@ -115,6 +115,13 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $mapping->setType($this->index->getType($typeName));
         $mapping->setProperties($typeProperties['properties']);
 
+        // Parse other parameters
+        unset($typeProperties['properties']);
+        foreach ($typeProperties as $key => $value)
+        {
+          $mapping->setParam($key, $value);
+        }
+
         $mapping->send();
       }
     }
@@ -189,11 +196,20 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
   /**
    * Centralize document addition to keep control of the batch queue
-   * It may be better to extend Elastica?
    */
   public function addDocument($data, $type)
   {
-    $document = new Elastica_Document($data['id'], $data);
+    if (!isset($data['id']))
+    {
+      throw new sfException('Failed to parse id field.');
+    }
+
+    // Pass the id value to the Elastica_Document constructor instead of as
+    // part of the document body. ES _id field id
+    $id = $data['id'];
+    unset($data['id']);
+
+    $document = new Elastica_Document($id, $data);
     $document->setType($type);
 
     if ($this->batchMode)
