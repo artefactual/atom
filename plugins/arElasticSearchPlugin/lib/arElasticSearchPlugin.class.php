@@ -32,7 +32,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
    *
    * @var mixed Defaults to null.
    */
-  protected $client = null;
+  public $client = null;
 
   /**
    * Elastic_Index object
