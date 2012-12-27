@@ -173,19 +173,25 @@ class arElasticSearchMapping
           $this->setIfNotSet($typeProperties['properties'], 'sourceCulture', array('type' => 'string', 'index' => 'not_analyzed', 'include_in_all' => false));
 
           // We are using the same mapping for all the i18n fields
-          $i18nFieldMapping = array('type' => 'string', 'index' => 'analyzed', 'include_in_all' => false);
-
           $nestedI18nFields = array();
           foreach ($this->getI18nFields(lcfirst(sfInflector::camelize($typeName))) as $fieldName)
           {
-            $nestedI18nFields[$fieldName] = $i18nFieldMapping;
+            $nestedI18nFields[$fieldName] = array(
+              'type' => 'multi_field',
+              'fields' => array(
+                $fieldName => array('type' => 'string', 'index' => 'analyzed', 'include_in_all' => false),
+                'untouched' => array('type' => 'string', 'index' => 'not_analyzed', 'include_in_all' => false)));
           }
 
           if (isset($typeProperties['_attributes']['i18nExtra']))
           {
             foreach ($this->getI18nFields(lcfirst(sfInflector::camelize($typeProperties['_attributes']['i18nExtra']))) as $fieldName)
             {
-              $nestedI18nFields[$fieldName] = $i18nFieldMapping;
+              $nestedI18nFields[$fieldName] = array(
+                'type' => 'multi_field',
+                'fields' => array(
+                  $fieldName => array('type' => 'string', 'index' => 'analyzed', 'include_in_all' => false),
+                  'untouched' => array('type' => 'string', 'index' => 'not_analyzed', 'include_in_all' => false)));
             }
           }
 
