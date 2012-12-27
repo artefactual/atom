@@ -244,35 +244,6 @@ class QubitPdoInformationObject
     }
   }
 
-// TODO: FIX/REMOVE THESE METHODS
-  protected function getFallbackTitle()
-  {
-    $sql  = 'SELECT i18n.title';
-    $sql .= ' FROM '.QubitInformationObject::TABLE_NAME.' node';
-    $sql .= ' JOIN '.QubitInformationObjectI18n::TABLE_NAME.' i18n
-                ON node.id = i18n.id';
-    $sql .= ' WHERE node.id = ?';
-    $sql .= ' AND node.source_culture = i18n.culture';
-
-    return QubitPdo::fetchOne($sql, array($this->__get('id')));
-  }
-
-  public function getCreators()
-  {
-    $creators = array();
-
-    foreach ($this->getActors(array('typeId' => QubitTerm::CREATION_ID)) as $item)
-    {
-      $creators[] = array(
-        'id' => $item->id,
-        'culture' => $item->culture,
-        'name' => $item->authorized_form_of_name,
-        'history' => $item->history
-      );
-    }
-    return $creators;
-  }
-
   public function getLevelOfDescription()
   {
     if (!isset(self::$lookups['levelOfDescription']))
@@ -291,6 +262,22 @@ class QubitPdoInformationObject
         'culture' => $this->__get('culture'),
         'fallback' => true));
     }
+  }
+
+  public function getCreators()
+  {
+    $creators = array();
+
+    foreach ($this->getActors(array('typeId' => QubitTerm::CREATION_ID)) as $item)
+    {
+      $creators[] = array(
+        'id' => $item->id,
+        'culture' => $item->culture,
+        'name' => $item->authorized_form_of_name,
+        'history' => $item->history
+      );
+    }
+    return $creators;
   }
 
   public function getMediaTypeName()
@@ -904,5 +891,4 @@ class QubitPdoInformationObject
 
     return $serialized;
   }
-
 }

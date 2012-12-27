@@ -23,17 +23,13 @@ class arElasticSearchRepository extends arElasticSearchModelBase
   {
     $criteria = new Criteria;
     $criteria->add(QubitRepository::ID, QubitRepository::ROOT_ID, Criteria::NOT_EQUAL);
+    $repositories = QubitRepository::get($criteria);
 
-    foreach (QubitRepository::get($criteria) as $repository)
+    foreach ($repositories as $repository)
     {
       $data = self::serialize($repository);
 
       QubitSearch::getInstance()->addDocument($data, 'QubitRepository');
-
-      if ($options['verbose'])
-      {
-        $this->logger->log('QubitRepository "'.$repository->__toString().'" inserted ('.$this->timer->elapsed().'s) ('.($key + 1).'/'.count($repositories).')', 'arElasticSearch');
-      }
     }
   }
 
@@ -69,8 +65,8 @@ class arElasticSearchRepository extends arElasticSearchModelBase
     }
     */
 
-    $serialized['created_at'] = Elastica_Util::convertDate($object->createdAt);
-    $serialized['updated_at'] = Elastica_Util::convertDate($object->updatedAt);
+    $serialized['createdAt'] = Elastica_Util::convertDate($object->createdAt);
+    $serialized['updatedAt'] = Elastica_Util::convertDate($object->updatedAt);
 
     $serialized['sourceCulture'] = $object->sourceCulture;
     $serialized['i18n'] = self::serializeI18ns($object, array('QubitActor'));

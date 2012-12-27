@@ -24,4 +24,20 @@ class arElasticSearchTerm extends arElasticSearchModelBase
     // We don't populate this type
     return;
   }
+
+  public static function serialize($object)
+  {
+    $serialized = array();
+
+    $serialized['slug'] = $object->slug;
+    $serialized['taxonomyId'] = $object->taxonomyId;
+
+    $serialized['createdAt'] = Elastica_Util::convertDate($object->createdAt);
+    $serialized['updatedAt'] = Elastica_Util::convertDate($object->updatedAt);
+
+    $serialized['sourceCulture'] = $object->sourceCulture;
+    $serialized['i18n'] = self::serializeI18ns($object);
+
+    return $serialized;
+  }
 }

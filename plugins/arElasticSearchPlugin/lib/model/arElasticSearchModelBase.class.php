@@ -24,12 +24,17 @@ abstract class arElasticSearchModelBase
     // $this->logger ...
     // $this->count ...
     // $this->verbose
+
+    echo " - " . get_class($this) . "...\n";
   }
 
   # abstract public function populate();
   # abstract public function serialize($object);
   # abstract public function update($object);
 
+  /*
+   *
+   */
   public static function serializeI18ns($object, array $parentClasses = array())
   {
     // Build list of classes to get i18n fields
@@ -47,20 +52,11 @@ abstract class arElasticSearchModelBase
 
       foreach ($classes as $class)
       {
-        // Use table maps to find existing i18n columns
-        $className = str_replace('Qubit', '', $class) . 'I18nTableMap';
-        $map = new $className;
-
-        foreach ($map->getColumns() as $column)
+        foreach (arElasticSearchMapping::getI18nFields($class) as $colName)
         {
-          if (!$column->isPrimaryKey() && !$column->isForeignKey())
+          if (null !== $colValue = $object->__get($colName))
           {
-            $colName = $column->getPhpName();
-
-            if (null !== $colValue = $object->__get($colName))
-            {
-              $i18ns[$culture][$colName] = $object->__get($colName, array('cultureFallback' => false));
-            }
+            $i18ns[$culture][$colName] = $object->__get($colName, array('culture' => $culture, 'fallback' => false));
           }
         }
       }

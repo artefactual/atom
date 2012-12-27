@@ -24,4 +24,21 @@ class arElasticSearchContactInformation extends arElasticSearchModelBase
     // We don't populate this type
     return;
   }
+
+  public static function serialize($object)
+  {
+    $serialized = array();
+
+    $serialized['contactPerson'] = $object->contactPerson;
+    $serialized['streetcAddress'] = $object->streetAddress;
+    $serialized['postalCode'] = $object->postalCode;
+    $serialized['countryCode'] = $object->countryCode;
+    $serialized['location']['lat'] = $object->latitude;
+    $serialized['location']['lon'] = $object->longitude;
+
+    $serialized['sourceCulture'] = $object->sourceCulture;
+    $serialized['i18n'] = self::serializeI18ns($object, 'QubitActor');
+
+    return $serialized;
+  }
 }
