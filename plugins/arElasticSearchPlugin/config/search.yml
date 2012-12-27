@@ -30,5 +30,9 @@ all:
       number_of_shards: 4
       number_of_replicas: 1
 
+      # Disable dynamic creation of mappings for unmapped types
+      mapper:
+        dynamic: false
+
       # Module settings:
       # http://www.elasticsearch.org/guide/reference/index-modules/
