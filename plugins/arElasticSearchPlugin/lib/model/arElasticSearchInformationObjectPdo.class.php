@@ -815,8 +815,8 @@ class arElasticSearchInformationObjectPdo
     $serialized = array();
 
     $serialized['id'] = $this->id;
-
     $serialized['slug'] = $this->slug;
+
     $serialized['identifier'] = $this->identifier;
     $serialized['referenceCode'] = $this->getReferenceCode();
     $serialized['levelOfDescriptionId'] = $this->level_of_description_id;
@@ -863,11 +863,11 @@ class arElasticSearchInformationObjectPdo
 
       if (QubitTerm::EXTERNAL_URI_ID == $this->usage_id)
       {
-        $serialized['digitalObject']['thumbnailFullPath'] = $this->path;
+        $serialized['digitalObject']['thumbnailPath'] = $this->path;
       }
       else
       {
-        $serialized['digitalObject']['thumbnailFullPath'] = $this->getThumbnailPath();
+        $serialized['digitalObject']['thumbnailPath'] = $this->getThumbnailPath();
       }
 
       $serialized['hasDigitalObject'] = true;
@@ -885,8 +885,7 @@ class arElasticSearchInformationObjectPdo
     }
     */
 
-/*
-
+    /*
     // Repository (actor)
     if ($repository = $this->getRepository())
     {
