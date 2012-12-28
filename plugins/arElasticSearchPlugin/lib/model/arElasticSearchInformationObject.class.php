@@ -21,7 +21,8 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 {
   protected static
     $conn,
-    $statements;
+    $statements,
+    $counter = 0;
 
   public function populate()
   {
@@ -35,12 +36,10 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     $sql .= ' FROM '.QubitInformationObject::TABLE_NAME;
     $sql .= ' WHERE id > ?';
 
-    $totalRows = QubitPdo::fetchColumn($sql, array(QubitInformationObject::ROOT_ID));
+    $this->count = QubitPdo::fetchColumn($sql, array(QubitInformationObject::ROOT_ID));
 
     // Recursively descend down hierarchy
-    $this->recursivelyAddInformationObjects(QubitInformationObject::ROOT_ID, $totalRows);
-
-    return $totalRows;
+    $this->recursivelyAddInformationObjects(QubitInformationObject::ROOT_ID, $this->count);
   }
 
   public function recursivelyAddInformationObjects($parentId, $totalRows, $options = array())
@@ -64,13 +63,14 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     // Loop through results, and add to search index
     foreach (self::$statements['getChildren']->fetchAll(PDO::FETCH_OBJ) as $item)
     {
-      // Add resource to index
       $node = new arElasticSearchInformationObjectPdo($item->id, $options);
-      QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitInformationObject');
+      $data = $node->serialize();
 
-      // Log it
-      // self::$counter++;
-      // $this->getLogger()->log('QubitInformationObject - "'.$node->title.'" inserted ('.$this->timer->elapsed().'s) ('.self::$counter.'/'.$totalRows.')');
+      QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
+
+      self::$counter++;
+
+      $this->logEntry($data['i18n'][$data['sourceCulture']]['title'], self::$counter);
 
       // Descend hierarchy
       if (1 < ($item->rgt - $item->lft))

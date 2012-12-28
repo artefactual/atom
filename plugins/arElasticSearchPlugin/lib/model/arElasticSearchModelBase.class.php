@@ -19,22 +19,52 @@
 
 abstract class arElasticSearchModelBase
 {
-  public function __construct()
-  {
-    // $this->logger ...
-    // $this->count ...
-    // $this->verbose
+  protected
+    $timer = null,
+    $count = 0;
 
-    echo " - " . get_class($this) . "...\n";
-  }
+  protected static
+    $conn;
 
-  # abstract public function populate();
-  # abstract public function serialize($object);
   # abstract public function update($object);
 
-  /*
-   *
-   */
+  public function __construct()
+  {
+    if (!isset(self::$conn))
+    {
+      self::$conn = Propel::getConnection();
+    }
+
+    $this->search = QubitSearch::getInstance();
+
+    $this->log(" - Loading " . get_class($this) . "...");
+  }
+
+  public function getCount($object)
+  {
+    return $this->count;
+  }
+
+  public function setTimer($timer)
+  {
+    $this->timer = $timer;
+  }
+
+  protected function log($message)
+  {
+    $this->search->log($message);
+  }
+
+  protected function logEntry($title, $count)
+  {
+    $this->log(sprintf('    [%s] %s inserted (%ss) (%s/%s)',
+      str_replace('arElasticSearch', '', get_class($this)),
+      $title,
+      $this->timer->elapsed(),
+      $count,
+      $this->getCount()));
+  }
+
   public static function serializeI18ns($object, array $parentClasses = array())
   {
     // Build list of classes to get i18n fields

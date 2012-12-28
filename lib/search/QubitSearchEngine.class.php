@@ -25,27 +25,30 @@
  */
 abstract class QubitSearchEngine
 {
-  private
-    $timer;
-
-  protected
-    $logger;
-
   /**
    * Constructor
    */
   public function __construct()
   {
-    parent::__construct();
+    $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
+
+    if (sfContext::getInstance()->getController()->inCLI())
+    {
+      $this->event = 'command.log';
+    }
+    else
+    {
+      $this->event = 'search.log';
+    }
   }
 
   /**
-   * Log message
+   * Log a message
+   *
+   * @param string $message Log message
    */
   public function log($message)
   {
-    // TODO
-    // $this->logger->log($message);
-    echo "$message \n";
+    $this->dispatcher->notify(new sfEvent($this, $this->event, array($message)));
   }
 }

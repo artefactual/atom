@@ -25,11 +25,15 @@ class arElasticSearchRepository extends arElasticSearchModelBase
     $criteria->add(QubitRepository::ID, QubitRepository::ROOT_ID, Criteria::NOT_EQUAL);
     $repositories = QubitRepository::get($criteria);
 
-    foreach ($repositories as $repository)
+    $this->count = count($repositories);
+
+    foreach ($repositories as $key => $repository)
     {
       $data = self::serialize($repository);
 
-      QubitSearch::getInstance()->addDocument($data, 'QubitRepository');
+      $this->search->addDocument($data, 'QubitRepository');
+
+      $this->logEntry($repository->__toString(), $key + 1);
     }
   }
 

@@ -19,16 +19,8 @@
 
 class arElasticSearchActor extends arElasticSearchModelBase
 {
-  protected static
-    $conn;
-
   public function populate()
   {
-    if (!isset(self::$conn))
-    {
-      self::$conn = Propel::getConnection();
-    }
-
     $sql  = 'SELECT actor.id';
     $sql .= ' FROM '.QubitActor::TABLE_NAME.' actor';
     $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON actor.id = object.id';
@@ -37,13 +29,17 @@ class arElasticSearchActor extends arElasticSearchModelBase
 
     $actors = QubitPdo::fetchAll($sql, array(QubitActor::ROOT_ID, 'QubitActor'));
 
+    $this->count = count($actors);
+
     // Loop through results, and add to search index
-    foreach ($actors as $item)
+    foreach ($actors as $key => $item)
     {
       $node = new arElasticSearchActorPdo($item->id);
-      QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitActor');
-    }
+      $data = $node->serialize();
 
-    return count($actors);
+      QubitSearch::getInstance()->addDocument($data, 'QubitActor');
+
+      $this->logEntry($data['i18n'][$data['sourceCulture']]['authorizedFormOfName'], $key + 1);
+    }
   }
 }

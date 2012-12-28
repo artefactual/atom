@@ -22,11 +22,16 @@ class arElasticSearchAccession extends arElasticSearchModelBase
   public function populate()
   {
     $accessions = QubitAccession::getAll();
-    foreach ($accessions as $accession)
+
+    $this->count = count($accessions);
+
+    foreach ($accessions as $key => $accession)
     {
       $data = self::serialize($accession);
 
-      QubitSearch::getInstance()->addDocument($data, 'QubitRepository');
+      $this->search->addDocument($data, 'QubitAccession');
+
+      $this->logEntry($accession->__toString(), $key + 1);
     }
   }
 
@@ -34,7 +39,10 @@ class arElasticSearchAccession extends arElasticSearchModelBase
   {
     $serialized = array();
 
-    $serialized['identifier'] = $object->slug;
+    $serialized['id'] = $object->id;
+    $serialized['slug'] = $object->slug;
+
+    $serialized['identifier'] = $object->identifier;
 
     $serialized['createdAt'] = Elastica_Util::convertDate($object->createdAt);
     $serialized['updatedAt'] = Elastica_Util::convertDate($object->updatedAt);

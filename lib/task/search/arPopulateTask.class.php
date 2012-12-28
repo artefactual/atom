@@ -44,6 +44,8 @@ EOF;
 
   public function execute($arguments = array(), $options = array())
   {
+    sfContext::createInstance($this->configuration);
+
     new sfDatabaseManager($this->configuration);
 
     QubitSearch::getInstance()->populate();

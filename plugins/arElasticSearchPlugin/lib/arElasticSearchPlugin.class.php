@@ -62,6 +62,8 @@ class arElasticSearchPlugin extends QubitSearchEngine
    */
   public function __construct()
   {
+    parent::__construct();
+
     $this->config = arElasticSearchPluginConfiguration::$config;
     $this->client = new Elastica_Client($this->config['server']);
     $this->index = $this->client->getIndex($this->config['index']['name']);
@@ -170,7 +172,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
     // Delete index and initialize again
     $this->index->delete();
     $this->initialize();
-    $this->log('Index erased');
+    $this->log('Index erased.');
 
     $this->log('Populating index...');
 
@@ -183,10 +185,13 @@ class arElasticSearchPlugin extends QubitSearchEngine
       $className = 'arElasticSearch'.sfInflector::camelize($typeName);
 
       $class = new $className;
+      $class->setTimer($timer);
       $class->populate();
+
+      $total += $class->getCount();
     }
 
-    $this->log(vsprintf('Index populated with %s documents in %s seconds',
+    $this->log(vsprintf('Index populated with %s documents in %s seconds.',
       array(
         $total,
         $timer->elapsed())));

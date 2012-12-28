@@ -21,15 +21,40 @@ class arElasticSearchTerm extends arElasticSearchModelBase
 {
   public function populate()
   {
-    // We don't populate this type
-    return;
+    if (!isset(self::$conn))
+    {
+      self::$conn = Propel::getConnection();
+    }
+
+    $sql  = 'SELECT term.id';
+    $sql .= ' FROM '.QubitTerm::TABLE_NAME.' term';
+    $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON (term.id = object.id)';
+    $sql .= ' WHERE term.taxonomy_id IN (:subject, :place)';
+    $sql .= ' AND term.id != '.QubitTerm::ROOT_ID;
+
+    $terms = QubitPdo::fetchAll($sql, array(
+      ':subject' => QubitTaxonomy::SUBJECT_ID,
+      ':place' => QubitTaxonomy::PLACE_ID));
+
+    $this->count = count($terms);
+
+    foreach ($terms as $key => $item)
+    {
+      $data = self::serialize($item);
+
+      $this->search->addDocument($data, 'QubitTerm');
+
+      $this->logEntry($data['i18n'][$data['sourceCulture']]['name'], $key + 1);
+    }
   }
 
   public static function serialize($object)
   {
     $serialized = array();
 
+    $serialized['id'] = $object->id;
     $serialized['slug'] = $object->slug;
+
     $serialized['taxonomyId'] = $object->taxonomyId;
 
     $serialized['createdAt'] = Elastica_Util::convertDate($object->createdAt);
