@@ -31,7 +31,7 @@ class arElasticSearchContactInformation extends arElasticSearchModelBase
     $serialized['location']['lon'] = $object->longitude;
 
     $serialized['sourceCulture'] = $object->sourceCulture;
-    $serialized['i18n'] = self::serializeI18ns($object, 'QubitActor');
+    $serialized['i18n'] = self::serializeI18ns($object->id, array('QubitContactInformation', 'QubitActor'));
 
     return $serialized;
   }

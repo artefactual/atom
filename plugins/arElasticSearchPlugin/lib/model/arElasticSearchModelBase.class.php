@@ -65,30 +65,63 @@ abstract class arElasticSearchModelBase
       $this->getCount()));
   }
 
-  public static function serializeI18ns($object, array $parentClasses = array())
+  public static function serializeI18ns($id, array $classes)
   {
-    // Build list of classes to get i18n fields
-    // For example: Repository -> Actor, User -> Actor, etc...
-    $classes = array_merge(array(get_class($object)), $parentClasses);
+    if (1 > count($classes))
+    {
+      throw new sfException('At least one class name must be passed.');
+    }
 
-    // This is the array that we are building and returning
-    $i18ns = array();
+    // Tableize names
+    foreach ($classes as &$class)
+    {
+      $class = str_replace('Qubit', '', $class);
+      $class = sfInflector::tableize($class);
+      $class .= '_i18n';
+    }
 
+    // Shift the first element off the array
+    $mainClass = array_shift($classes);
+
+    // Build SQL query
+    $sql = sprintf('SELECT * FROM %s', $mainClass);
+    foreach ($classes as $class)
+    {
+      $sql .= sprintf(' LEFT JOIN %s ON (%s.id = %s.id)',
+        $class, $class, $mainClass);
+    }
+
+    $sql .= sprintf(' WHERE %s.id = ?', $mainClass);
+    $sql .= sprintf(' ORDER BY %s.culture', $mainClass);
+
+    // Build an array of i18n languages
+    $allowedLanguages = array();
     foreach (QubitSetting::getByScope('i18n_languages') as $setting)
     {
-      $culture = $setting->getValue(array('sourceCulture' => true));
+      $allowedLanguages[] = $setting->getValue(array('sourceCulture' => true));
+    }
 
-      $i18ns[$culture] = array();
-
-      foreach ($classes as $class)
+    $i18ns = array();
+    foreach (QubitPdo::fetchAll($sql, array($id)) as $item)
+    {
+      // Any i18n record within a culture previously not configured will
+      // be ignored since the search engine will only accept known languages
+      if (!in_array($item->culture, $allowedLanguages))
       {
-        foreach (arElasticSearchMapping::getI18nFields($class) as $colName)
+        continue;
+      }
+
+      foreach (get_object_vars($item) as $key => $value)
+      {
+        // Pass if the column is unneeded or null
+        if (in_array($key, array('id', 'culture')) || is_null($value))
         {
-          if (null !== $colValue = $object->__get($colName))
-          {
-            $i18ns[$culture][$colName] = $object->__get($colName, array('culture' => $culture, 'fallback' => false));
-          }
+          continue;
         }
+
+        $camelized = lcfirst(sfInflector::camelize($key));
+
+        $i18ns[$item->culture][$camelized] = $value;
       }
     }
 

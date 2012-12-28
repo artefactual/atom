@@ -26,9 +26,10 @@ class arElasticSearchTerm extends arElasticSearchModelBase
       self::$conn = Propel::getConnection();
     }
 
-    $sql  = 'SELECT term.id';
+    $sql  = 'SELECT term.id, term.source_culture, slug, taxonomy_id, created_at, updated_at';
     $sql .= ' FROM '.QubitTerm::TABLE_NAME.' term';
     $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON (term.id = object.id)';
+    $sql .= ' JOIN '.QubitSlug::TABLE_NAME.' slug ON (term.id = slug.object_id)';
     $sql .= ' WHERE term.taxonomy_id IN (:subject, :place)';
     $sql .= ' AND term.id != '.QubitTerm::ROOT_ID;
 
@@ -55,13 +56,13 @@ class arElasticSearchTerm extends arElasticSearchModelBase
     $serialized['id'] = $object->id;
     $serialized['slug'] = $object->slug;
 
-    $serialized['taxonomyId'] = $object->taxonomyId;
+    $serialized['taxonomyId'] = $object->taxonomy_id;
 
     $serialized['createdAt'] = Elastica_Util::convertDate($object->createdAt);
     $serialized['updatedAt'] = Elastica_Util::convertDate($object->updatedAt);
 
-    $serialized['sourceCulture'] = $object->sourceCulture;
-    $serialized['i18n'] = self::serializeI18ns($object);
+    $serialized['sourceCulture'] = $object->source_culture;
+    $serialized['i18n'] = self::serializeI18ns($object->id, array('QubitTerm'));
 
     return $serialized;
   }

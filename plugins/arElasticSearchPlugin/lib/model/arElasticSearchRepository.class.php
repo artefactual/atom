@@ -73,7 +73,7 @@ class arElasticSearchRepository extends arElasticSearchModelBase
     $serialized['updatedAt'] = Elastica_Util::convertDate($object->updatedAt);
 
     $serialized['sourceCulture'] = $object->sourceCulture;
-    $serialized['i18n'] = self::serializeI18ns($object, array('QubitActor'));
+    $serialized['i18n'] = self::serializeI18ns($object->id, array('QubitRepository', 'QubitActor'));
 
     return $serialized;
   }

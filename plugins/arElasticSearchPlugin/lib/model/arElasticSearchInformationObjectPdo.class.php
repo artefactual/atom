@@ -146,28 +146,6 @@ class arElasticSearchInformationObjectPdo
   }
 
   /**
-   * Return an array of i18n arrays
-   *
-   * @return array of i18n arrays
-   */
-  public function getI18ns()
-  {
-    if (!isset($this->i18ns))
-    {
-      // Find i18ns
-      $sql = 'SELECT
-                  i18n.*
-              FROM '.QubitInformationObjectI18n::TABLE_NAME.' i18n
-              WHERE i18n.id = ?
-              ORDER BY i18n.culture';
-
-      $this->i18ns = QubitPdo::fetchAll($sql, array($this->id));
-    }
-
-    return $this->i18ns;
-  }
-
-  /**
    * Return an array of ancestors
    *
    * @return array of ancestors
@@ -953,29 +931,7 @@ class arElasticSearchInformationObjectPdo
     $serialized['updatedAt'] = Elastica_Util::convertDate($this->updated_at);
 
     $serialized['sourceCulture'] = $this->source_culture;
-    $serialized['i18n'] = array();
-
-    // Get all i18n-ized versions of this object
-    $this->getI18ns();
-    foreach ($this->i18ns as $item)
-    {
-      $serialized['i18n'][$item->culture] = array();
-
-      foreach (get_object_vars($item) as $columnName => $columnValue)
-      {
-        if (in_array($columnName, array('id', 'culture')))
-        {
-          continue;
-        }
-
-        $columnName = lcfirst(sfInflector::camelize($columnName));
-
-        if (null !== $columnValue)
-        {
-          $serialized['i18n'][$item->culture][$columnName] = $columnValue;
-        }
-      }
-    }
+    $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($this->id, array('QubitInformationObject'));
 
     return $serialized;
   }
