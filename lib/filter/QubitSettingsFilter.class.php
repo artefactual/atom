@@ -20,7 +20,9 @@
 class QubitSettingsFilter extends sfFilter
 {
   /*
-   * Execute this filter on every request in case some params have changed since the last page load
+   * Execute this filter on every request in case some params have
+   * changed since the last page load. Remember that filters are not
+   * loaded in the CLI.
    */
   public function execute($filterChain)
   {
