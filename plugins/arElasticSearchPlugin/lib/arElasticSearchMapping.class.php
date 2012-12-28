@@ -50,7 +50,7 @@ class arElasticSearchMapping
         throw new sfException('A mapping.yml must only contain 1 entry.');
       }
 
-      // Get rid of first level (mapping:)
+      // Direct access to mapping
       $this->mapping = $mapping_array['mapping'];
 
       $this->camelizeFieldNames();
@@ -59,7 +59,7 @@ class arElasticSearchMapping
 
       $this->excludeNestedOnlyTypes();
 
-      $this->cleanYamlShorthands($this->mapping);
+      $this->cleanYamlShorthands();
     }
   }
 
@@ -81,28 +81,36 @@ class arElasticSearchMapping
   }
 
   /**
-   * Camelize field names by moving array items
+   * Camelize field names by creating and unsetting array items recursively.
+   * Only properties are camelized, other attributes are ignored.
    */
-  protected function camelizeFieldNames()
+  protected function camelizeFieldNames(&$mapping = null)
   {
-    // Iterate over types (actor, information_object, ...)
-    foreach ($this->mapping as $typeName => $typeProperties)
+    // If no parameter is passed, $this->mapping will be used
+    if (null === $mapping)
     {
-      foreach ($typeProperties['properties'] as $propertyName => &$propertyValue)
+      $mapping =& $this->mapping;
+    }
+
+    foreach ($mapping as $key => &$value)
+    {
+      $camelized = lcfirst(sfInflector::camelize($key));
+
+      // Rename only if the camelized version is different
+      // Also, omit first recursion (type names)
+      if ($camelized != $key)
       {
-        $camelized = lcfirst(sfInflector::camelize($propertyName));
+        // Create new item with the camelized version of the key
+        $mapping[$camelized] = $value;
 
-        // Abort field change if the name matches with its original version
-        if ($camelized == $propertyName)
-        {
-          continue;
-        }
+        // Drop the old item from the array
+        unset($mapping[$key]);
+      }
 
-        // Create new item with the new camelized key
-        $this->mapping[$typeName]['properties'][$camelized] = $propertyValue;
-
-        // Unset the old one
-        unset($this->mapping[$typeName]['properties'][$propertyName]);
+      // Recurse this function over narrow items if available
+      if (isset($value['properties']))
+      {
+        $this->camelizeFieldNames($value['properties']);
       }
     }
   }
@@ -126,17 +134,23 @@ class arElasticSearchMapping
   }
 
   /**
-   * Clean YAML shorthands
+   * Clean YAML shorthands recursively
    */
-  protected function cleanYamlShorthands(array &$typeProperties)
+  protected function cleanYamlShorthands(&$mapping = null)
   {
-    foreach ($typeProperties as $key => &$value)
+    // If no parameter is passed, $this->mapping will be used
+    if (null === $mapping)
+    {
+      $mapping =& $this->mapping;
+    }
+
+    foreach ($mapping as $key => &$value)
     {
       switch ($key)
       {
         case '_attributes':
         case '_foreign_types':
-          unset($typeProperties[$key]);
+          unset($mapping[$key]);
 
           break;
 
@@ -262,7 +276,15 @@ class arElasticSearchMapping
 
     foreach ($typeProperties['_foreign_types'] as $fieldName => $foreignTypeName)
     {
-      $typeProperties['properties'][$fieldName] = $this->mapping[$foreignTypeName];
+      $fieldNameCamelized = lcfirst(sfInflector::camelize($fieldName));
+      $foreignTypeNameCamelized = lcfirst(sfInflector::camelize($foreignTypeName));
+
+      if (!isset($this->mapping[$foreignTypeNameCamelized]))
+      {
+        throw new sfException("$foreignTypeName could not be found within the mappings.");
+      }
+
+      $typeProperties['properties'][$fieldNameCamelized] = $this->mapping[$foreignTypeNameCamelized];
     }
   }
 
