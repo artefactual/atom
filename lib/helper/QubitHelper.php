@@ -272,22 +272,24 @@ function check_field_visibility($fieldName)
   return sfContext::getInstance()->user->isAuthenticated() || sfConfig::get($fieldName, false);
 }
 
-function get_search_i18n($hit, $fieldName, $cultureFallback = true)
+function get_search_i18n($hit, $fieldName, $cultureFallback = true, $allowEmpty = true)
 {
   if ($hit instanceof Elastica_Result)
   {
     $hit = $hit->getData();
   }
 
+  $value = null;
+
   if (isset($hit['i18n'][sfContext::getInstance()->user->getCulture()][$fieldName]))
   {
     $value = $hit['i18n'][sfContext::getInstance()->user->getCulture()][$fieldName];
   }
-  else if ($cultureFallback)
+  else if ($cultureFallback && isset($hit['i18n'][$hit['sourceCulture']][$fieldName]))
   {
     $value = $hit['i18n'][$hit['sourceCulture']][$fieldName];
   }
-  else
+  else if (!$allowEmpty)
   {
     $value = sfContext::getInstance()->i18n->__('Untitled');
   }
