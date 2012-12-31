@@ -33,161 +33,86 @@ class ActorBrowseAction extends DefaultBrowseAction
     $FACETS = array(
       'entityTypeId');
 
+  protected function populateFacet($name, $ids)
+  {
+    switch ($name)
+    {
+      case 'entityTypeId':
+        $criteria = new Criteria;
+        $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
+
+        foreach (QubitTerm::get($criteria) as $item)
+        {
+          $this->types[$item->id] = $item->name;
+        }
+
+        break;
+    }
+  }
+
   public function execute($request)
   {
-    if (!isset($request->limit))
-    {
-      $request->limit = sfConfig::get('app_hits_per_page');
-    }
-
-    if ($this->getUser()->isAuthenticated())
-    {
-      $this->sortSetting = sfConfig::get('app_sort_browser_user');
-    }
-    else
-    {
-      $this->sortSetting = sfConfig::get('app_sort_browser_anonymous');
-    }
-
-    $queryBool = new Elastica_Query_Bool();
+    parent::execute($request);
 
     if ('' == preg_replace('/[\s\t\r\n]*/', '', $request->subquery))
     {
-      $queryBool->addMust(new Elastica_Query_MatchAll());
+      $this->queryBool->addMust(new Elastica_Query_MatchAll());
     }
     else
     {
       $queryText = new Elastica_Query_QueryString($request->subquery);
       $queryText->setDefaultOperator('AND');
-      $queryText->setDefaultField('i18n.authorizedFormOfName');
-      $queryBool->addMust($queryText);
+      $queryText->setDefaultField(sprintf('i18n.%s.authorizedFormOfName', $this->context->user->getCulture()));
+
+      $this->queryBool->addMust($queryText);
     }
 
-    $this->filters = array();
-    foreach ($this->request->getGetParameters() as $param => $value)
-    {
-      if (in_array(strtr($param, '_', '.'), self::$FACETS))
-      {
-        foreach (explode(',', $value) as $facetValue)
-        {
-          // don't include empty filters (querystring sanitization)
-          if ('' != preg_replace('/[\s\t\r\n]*/', '', $facetValue))
-          {
-            $this->filters[$param][] = $facetValue;
+    $this->query = QubitAclSearch::filterByResource($this->query, QubitActor::getById(QubitActor::ROOT_ID));
 
-            $queryBool->addMust(new Elastica_Query_Term(array(
-              strtr($param, '_', '.') => $facetValue)));
-          }
-        }
-      }
-    }
-
-    $query = new Elastica_Query();
-    $query->setLimit($request->limit);
-    $query->setQuery($queryBool);
-
-    $query = QubitAclSearch::filterByResource($query, QubitActor::getById(QubitActor::ROOT_ID));
+    $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->context->user->getCulture());
 
     switch ($request->sort)
     {
       case 'nameDown':
-        $query->setSort(array('slug' => 'desc', '_score' => 'desc'));
+        $this->query->setSort(array($field => 'desc', '_score' => 'desc'));
 
         break;
 
       case 'nameUp':
-        $query->setSort(array('slug' => 'asc', '_score' => 'desc'));
+        $this->query->setSort(array($field => 'asc', '_score' => 'desc'));
 
       break;
 
       case 'updatedDown':
-        $query->setSort(array('updatedAt' => 'desc', '_score' => 'desc'));
+        $this->query->setSort(array('updatedAt' => 'desc', '_score' => 'desc'));
 
         break;
 
       case 'updatedUp':
-        $query->setSort(array('updatedAt' => 'asc', '_score' => 'desc'));
+        $this->query->setSort(array('updatedAt' => 'asc', '_score' => 'desc'));
 
         break;
 
       default:
         if ('alphabetic' == $this->sortSetting)
         {
-          $query->setSort(array('slug' => 'asc', '_score' => 'desc'));
+          $this->query->setSort(array($field => 'asc', '_score' => 'desc'));
         }
         else if ('lastUpdated' == $this->sortSetting)
         {
-          // $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
+          $this->query->setSort(array('updatedAt' => 'desc', '_score' => 'desc'));
         }
     }
 
-    if (!empty($request->page))
-    {
-      $query->setFrom(($request->page - 1) * $request->limit);
-    }
+    $this->query->setQuery($this->queryBool);
+    $this->query->setFields(array('slug', 'sourceCulture', 'i18n', 'entityTypeId', 'updatedAt'));
 
-    foreach (self::$FACETS as $item)
-    {
-      $facet = new Elastica_Facet_Terms($item);
-      $facet->setField($item);
-      $facet->setSize(50);
-      $query->addFacet($facet);
-    }
-
-    try
-    {
-      $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($query);
-    }
-    catch (Exception $e)
-    {
-      $this->error = $e->getMessage();
-
-      return;
-    }
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($this->query);
 
     $this->pager = new QubitSearchPager($resultSet);
     $this->pager->setPage($request->page ? $request->page : 1);
     $this->pager->setMaxPerPage($request->limit);
 
-    if ($this->pager->hasResults())
-    {
-      $this->types = array();
-
-      $facets = array();
-      foreach ($resultSet->getFacets() as $name => $facet)
-      {
-        if (isset($facet['terms']))
-        {
-          $ids = array();
-          foreach ($facet['terms'] as $item)
-          {
-            $ids[$item['term']] = $item['count'];
-          }
-        }
-
-        switch ($name)
-        {
-          case 'entityTypeId':
-            $criteria = new Criteria;
-            $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
-
-            foreach (QubitTerm::get($criteria) as $item)
-            {
-              $this->types[$item->id] = $item->name;
-            }
-
-            foreach ($facet['terms'] as $term)
-            {
-              $facets[strtr($name, '.', '_')]['terms'][$term['term']] = array(
-                'count' => $term['count'],
-                'term' => $this->types[$term['term']]);
-            }
-
-            break;
-        }
-      }
-
-      $this->pager->facets = $facets;
-    }
+    $this->populateFacets($resultSet);
   }
 }
