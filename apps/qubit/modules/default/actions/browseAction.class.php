@@ -19,26 +19,117 @@
 
 class DefaultBrowseAction extends sfAction
 {
-  protected $query;
-
-  protected function addFacet($name)
+  protected function addFacets()
   {
-    $facet = new Elastica_Facet_Terms($name);
-    $facet->setField($name);
-    $facet->setSize(50);
+    foreach ($this::$FACETS as $item)
+    {
+      if (!is_array($item))
+      {
+        $facet = new Elastica_Facet_Terms($item);
+        $facet->setField($item);
+        $facet->setSize(50);
+      }
+      else
+      {
+        switch ($item['type'])
+        {
+          case 'range':
+            $facet = new Elastica_Facet_Range($item['name']);
+            $facet->setField($item['name']);
+            $facet->addRange($item['from'], $item['to']);
+        }
+      }
 
-    $this->query->addFacet($facet);
+      $this->query->addFacet($facet);
+    }
+  }
+
+  protected function addFilters()
+  {
+    $this->filters = array();
+
+    foreach ($this->request->getGetParameters() as $param => $value)
+    {
+      if (!in_array(strtr($param, '_', '.'), $this::$FACETS))
+      {
+        continue;
+      }
+
+      foreach (explode(',', $value) as $facetValue)
+      {
+        // Don't include empty filters
+        if ('' == preg_replace('/[\s\t\r\n]*/', '', $facetValue))
+        {
+          continue;
+        }
+
+        $this->filters[$param][] = $facetValue;
+
+        $term = new Elastica_Query_Term(array(strtr($param, '_', '.') => $facetValue));
+
+        $this->queryBool->addMust($term);
+      }
+    }
+  }
+
+  protected function populateFacets($resultSet)
+  {
+    // Stop if no facets available
+    if (!$resultSet->hasFacets())
+    {
+      return;
+    }
+
+    // Create a map of facets containing the id and its string representation
+    $this->types = array();
+
+    $facets = array();
+
+    foreach ($resultSet->getFacets() as $name => $facet)
+    {
+      // Pass if the facet is empty
+      if (!isset($facet['terms']))
+      {
+        continue;
+      }
+
+      // Build a map of facet results
+      $ids = array();
+      foreach ($facet['terms'] as $item)
+      {
+        $ids[$item['term']] = $item['count'];
+      }
+
+      $this->populateFacet($name, $ids);
+
+      foreach ($facet['terms'] as $term)
+      {
+        $facets[strtr($name, '.', '_')]['terms'][$term['term']] = array(
+          'count' => $term['count'],
+          'term' => $this->types[$term['term']]);
+      }
+    }
+
+    $this->pager->facets = $facets;
   }
 
   public function execute($request)
   {
-    $this->earlyExecute();
-
-    if (empty($request->limit))
+    if (!empty($request->limit))
     {
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
+    if ($this->getUser()->isAuthenticated())
+    {
+      $this->sortSetting = sfConfig::get('app_sort_browser_user');
+    }
+    else
+    {
+      $this->sortSetting = sfConfig::get('app_sort_browser_anonymous');
+    }
+
+    $this->query = new Elastica_Query();
     $this->query->setLimit($request->limit);
 
     if (!empty($request->page))
@@ -46,9 +137,13 @@ class DefaultBrowseAction extends sfAction
       $this->query->setFrom(($request->page - 1) * $request->limit);
     }
 
-    foreach ($this::$FACETS as $name)
+    $this->queryBool = new Elastica_Query_Bool();
+
+    if (isset($this::$FACETS))
     {
-      $this->addFacet($name);
+      $this->addFacets();
+
+      $this->addFilters();
     }
   }
 }
