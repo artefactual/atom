@@ -2,11 +2,16 @@
 
 <div class="result">
 
-  <?php if (isset($doc['digitalObject']['thumbnail_FullPath'])): ?>
-    <?php echo link_to(image_tag($doc['digitalObject']['thumbnail_FullPath'], array('alt' => 'image-thumb', 'width' => '150', 'height' => '150')), array('module' => 'informationobject', 'slug' => $doc['slug']), array('title' => $doc[$sf_user->getCulture()]['title'] ?: $doc[$doc['sourceCulture']]['title'])) ?>
+  <?php if (isset($doc['digitalObject']['thumbnailPath'])): ?>
+    <?php echo link_to(
+      image_tag(
+        $doc['digitalObject']['thumbnailPath'],
+        array('alt' => 'image-thumb', 'width' => '150', 'height' => '150')),
+      array('module' => 'informationobject', 'slug' => $doc['slug']),
+      array('title' => get_search_i18n($doc, 'title'))) ?>
   <?php endif; ?>
 
-  <h3><?php echo link_to($doc[$sf_user->getCulture()]['title'].' <strong> '.$pager->levelsOfDescription[$doc['levelOfDescriptionId']].'</strong>', array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></h3>
+  <h3><?php echo link_to(get_search_i18n($doc, 'title'), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></h3>
 
   <ul class="breadcrumb">
     <?php foreach($doc['ancestors'] as $id): ?>
@@ -15,8 +20,8 @@
     <?php endforeach; ?>
   </ul>
 
-  <?php if (isset($doc[$sf_user->getCulture()]['scopeAndContent'])): ?>
-    <p><?php echo truncate_text($doc[$sf_user->getCulture()]['scopeAndContent'], 250) ?></p>
+  <?php if (null !== $scopeAndContent = get_search_i18n($doc, 'scopeAndContent')): ?>
+    <p><?php echo truncate_text($scopeAndContent, 250) ?></p>
   <?php endif; ?>
 
   <p>
