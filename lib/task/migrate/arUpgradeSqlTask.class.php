@@ -222,8 +222,13 @@ EOF;
         }
       }
 
-      // Run migration and bump database version
-      $class::up();
+      // Run migration
+      if (true !== $class::up())
+      {
+        throw new sfException('Failed to apply upgrade '.get_class($class));
+      }
+
+      // Bump database version
       $this->updateDatabaseVersion(++$version);
     }
 
@@ -234,6 +239,8 @@ EOF;
     else
     {
       $this->logSection('upgrade-sql', sprintf('Successfully upgraded to Release %s v%s', qubitConfiguration::VERSION, $version));
+
+      $this->updateMilestone();
     }
   }
 
@@ -264,9 +271,9 @@ EOF;
   }
 
   /**
-   * Figure out what's the last milestone used
+   * Update the settings with the latest database version
    *
-   * @return int Previous milestone, e.g. 1 for 1.x or 2 for 2.x
+   * @param int New database version
    */
   protected function updateDatabaseVersion($version)
   {
@@ -274,8 +281,16 @@ EOF;
     QubitPdo::modify($sql, array($version, 'version'));
   }
 
-  protected function updateMilestone($milestone)
+  /**
+   * Update the settings with the latest milestone
+   */
+  protected function updateMilestone()
   {
+    // Get current codebase milestone
+    $substrings = preg_split('/\./', qubitConfiguration::VERSION);
+    $milestone = array_shift($substrings);
+
+    // Run SQL query
     $sql = 'UPDATE setting_i18n SET value = ? WHERE id = (SELECT id FROM setting WHERE name = ?);';
     QubitPdo::modify($sql, array($milestone, 'milestone'));
   }
