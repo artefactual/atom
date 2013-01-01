@@ -18,8 +18,7 @@
  */
 
 /*
- * Add the milestone setting to the database. This is the first database upgrade
- * after the fork happened.
+ * Add the milestone setting to the database.
  *
  * @package    AccesstoMemory
  * @subpackage migration
