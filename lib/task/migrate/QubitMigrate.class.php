@@ -606,6 +606,11 @@ class QubitMigrate
 
   public static function addColumn($table, $column, array $options = array())
   {
+    $connection = Propel::getConnection();
+    $connection->beginTransaction();
+
+    $queries = array();
+
     $sql = "ALTER TABLE $table ADD $column";
 
     // Position of the new column
@@ -622,26 +627,49 @@ class QubitMigrate
       $sql .= " FIRST";
     }
 
-    // Foreign key
-    if (isset($options['fk']))
-    {
-    }
+    $queries[] = $sql;
+
+    // "columnName INT NULL" => "columnName"
+    $column = array_shift(preg_split('/ /', $column));
 
     // Index
     if (isset($options['idx']))
     {
+      $queries[] = "ALTER TABLE $table ADD INDEX ($column);";
     }
 
-    $connection = Propel::getConnection();
+    // Foreign key
+    if (isset($options['fk']))
+    {
+      $sql = sprintf("ALTER TABLE %s ADD FOREIGN KEY (%s) REFERENCES %s (%s)",
+        $table,
+        $column,
+        $options['fk']['referenceTable'],
+        $options['fk']['referenceColumn']);
 
-    $connection->beginTransaction();
+      if (isset($options['fk']['onDelete']))
+      {
+        $sql .= ' ON DELETE ' . $options['fk']['onDelete'];
+      }
+
+      if (isset($options['fk']['onUpdate']))
+      {
+        $sql .= ' ON UPDATE ' . $options['fk']['onUpdate'];
+      }
+
+      $queries[] = $sql;
+    }
 
     try
     {
-      $connection->exec($sql);
+      foreach ($queries as $query)
+      {
+        $connection->exec($query);
+      }
     }
     catch (Exception $e)
     {
+
       $connection->rollback();
 
       throw $e;
