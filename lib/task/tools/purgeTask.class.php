@@ -24,7 +24,7 @@
  * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
-class propelPurgeTask extends sfBaseTask
+class purgeTask extends sfBaseTask
 {
   /**
    * @see sfTask
@@ -46,7 +46,7 @@ class propelPurgeTask extends sfBaseTask
       new sfCommandOption('password', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired admin password')
     ));
 
-    $this->namespace = 'propel';
+    $this->namespace = 'tools';
     $this->name = 'purge';
     $this->briefDescription = 'Purge all data.';
 
