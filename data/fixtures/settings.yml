@@ -8,7 +8,7 @@ QubitSetting:
     name: milestone
     editable: 0
     deleteable: 0
-    value: 1
+    value: 2
   QubitSetting_2:
     name: upload_dir
     editable: 0
