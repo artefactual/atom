@@ -36,6 +36,7 @@ class arMigration0094
    */
   public function up()
   {
+    // Add extra column, information_object.source_metadata_id
     QubitMigrate::addColumn(
       QubitInformationObject::TABLE_NAME,
       'source_metadata_id INT NULL',
@@ -48,7 +49,30 @@ class arMigration0094
           'onDelete' => 'SET NULL',
           'onUpdate' => 'RESTRICT')));
 
-    // TODO: add "Information Object Source Standard Taxonomy" and its terms
+
+    // Add the "Information object templates" taxonomy
+    QubitMigrate::bumpTaxonomy(QubitTaxonomy::INFORMATION_OBJECT_TEMPLATE_ID, $configuration);
+    $taxonomy = new QubitTaxonomy;
+    $taxonomy->id = QubitTaxonomy::INFORMATION_OBJECT_TEMPLATE_ID;
+    $taxonomy->name = 'Information object templates';
+    $taxonomy->culture = 'en';
+    $taxonomy->save();
+
+    // Add also the available templates
+    foreach (array(
+      'isad' => 'ISAD(G), 2nd ed. International Council on Archives',
+      'dc' => 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative',
+      'mods' => 'MODS, Version 3.3. U.S. Library of Congress',
+      'rad' => 'RAD, July 2008 version. Canadian Council of Archives') as $key => $value)
+    {
+      $term = new QubitTerm;
+      $term->parentId = QubitTerm::ROOT_ID;
+      $term->taxonomyId = QubitTaxonomy::INFORMATION_OBJECT_TEMPLATE_ID;
+      $term->code = $key;
+      $term->name = $value;
+      $term->culture = 'en';
+      $term->save();
+    }
 
     return true;
   }
