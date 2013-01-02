@@ -115,6 +115,7 @@ propel:
     description_detail_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     description_identifier: varchar(1024)
     source_standard: varchar(1024)
+    source_metadata_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     lft: { type: integer, required: true, nestedSetLeftKey: true }
     rgt: { type: integer, required: true, nestedSetRightKey: true }
 
@@ -204,7 +205,7 @@ propel:
   other_name:
     object_id: { type: integer, required: true, foreignTable: object, foreignReference: id, onDelete: cascade }
     type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
-    start_date: bu_date 
+    start_date: bu_date
     end_date: bu_date
 
   other_name_i18n:
