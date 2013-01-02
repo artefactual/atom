@@ -47,6 +47,7 @@ class InformationObjectReportsAction extends sfAction
         if ($this->getUser()->isAuthenticated())
         {
           $choices[$this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'storageLocations'))] = $this->context->i18n->__('Physical storage locations');
+          $choices[$this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'boxLabelCsv'))] = $this->context->i18n->__('Box label CSV');
         }
 
         $this->form->setDefault($name, $this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'fileList')));

@@ -102,6 +102,10 @@ class eadExportTask extends sfBaseTask
       {
         $resource = QubitInformationObject::getById($row['id']);
 
+        // Determine language(s) used in the export
+        $exportLanguage = sfContext::getInstance()->user->getCulture();
+        $sourceLanguage = $resource->getSourceCulture();
+
         $ead = new sfEadPlugin($resource);
 
         ob_start();

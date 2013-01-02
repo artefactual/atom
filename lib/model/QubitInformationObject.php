@@ -22,7 +22,7 @@
  *
  * @package AccesstoMemory
  * @subpackage model
- * @author Jack Bates <jack@artefactual.com>
+ * @author Jack Bates <jack@nottheoilrig.com>
  * @author Peter Van Garderen <peter@artefactual.com>
  * @author David Juhasz <david@artefactual.com>
  * @author Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
@@ -33,7 +33,7 @@ class QubitInformationObject extends BaseInformationObject
     ROOT_ID = 1;
 
   // allow per-object disabling of nested set updating during bulk imports
-  public $disableNestedSetUpdating = FALSE;
+  public $disableNestedSetUpdating = false;
 
   /**
    * When cast as a string, return i18n-ized object title with fallback to
@@ -585,7 +585,7 @@ class QubitInformationObject extends BaseInformationObject
 
   public function getCreators($options = array())
   {
-    return $this->getActors($options + array('eventTypeId' => QubitTerm::CREATION_ID));
+    return $this->getActors($options = array('eventTypeId' => QubitTerm::CREATION_ID));
   }
 
   public function getPublishers()
@@ -1279,6 +1279,10 @@ class QubitInformationObject extends BaseInformationObject
       {
         $actor->setHistory($options['history']);
       }
+      if (isset($options['dates_of_existence']))
+      {
+        $actor->datesOfExistence = $options['dates_of_existence'];
+      }
       $actor->save();
     }
 
@@ -1329,9 +1333,55 @@ class QubitInformationObject extends BaseInformationObject
   }
 
   /**
+   * Import language-related data from a <langusage> tag in EAD2002
+   *
+   * @param $langusageNode  DOMNode  EAD langusage DOM node
+   */
+  public function importLangusageEadData($langusageNode)
+  {
+    // get language nodes
+    $langNodeList = QubitXmlImport::queryDomNode($langusageNode, "/xml/langusage/language");
+
+    $languagesOfDescription = array();
+
+    // amalgamate language data
+    foreach($langNodeList as $langNode)
+    {
+      if ($langNode->hasAttributes())
+      {
+        if ($langNode->attributes->getNamedItem('langcode'))
+        {
+          $langType = $langNode->getAttribute('encodinganalog'); 
+          $langCode = substr($langNode->getAttribute('langcode'), 0, 2);
+
+          switch($langType)
+          {
+            case 'Language':
+              $this->setLangcode($langCode);
+              break;
+
+            case 'Language Of Description':
+              array_push($languagesOfDescription, $langCode);
+              break;
+          }
+        }
+      }
+    }
+
+    // add language(s) of description, if any
+    if (count($languagesOfDescription))
+    {
+      $this->addProperty(
+        'languageOfDescription',
+        serialize($languagesOfDescription)
+      );
+    }
+  }
+
+  /**
    * Import creation-related data from an <bioghist> tag in EAD2002
    *
-   * @param $history string actor history
+   * @param $biogHistNode  DOMNode  EAD bioghist DOM node
    */
   public function importBioghistEadData($biogHistNode)
   {
@@ -1351,30 +1401,77 @@ class QubitInformationObject extends BaseInformationObject
             $date = $dateNode->nodeValue;
           }
 
-          // get creation start date element contents
-          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/date[@type='creation_start']");
-          foreach($dateNodeList as $dateNode) {
-            $date_start = $dateNode->nodeValue;
+          // get creation start and end date from "normal" attribute
+          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/date[@type='creation']/@normal");
+          foreach($dateNodeList as $dateNormalAttr) {
+            $normalizedDates = sfEadPlugin::parseEadDenormalizedDateData($dateNormalAttr->value);
+
+            $date_start = $normalizedDates['start'];
+
+            if ($normalizedDates['end'])
+            {
+              $date_end = $normalizedDates['end'];
+            }
           }
 
           // get creation end date element contents
-          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/date[@type='creation_end']");
-          foreach($dateNodeList as $dateNode) {
-            $date_end = $dateNode->nodeValue;
+          $history = '';
+          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/note/p");
+          foreach($dateNodeList as $noteNode) {
+            $history = $noteNode->nodeValue;
           }
 
-          // get name element contents
-          $nameNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/origination/name");
-          foreach($nameNodeList as $nameNode) {
-            $name = $nameNode->nodeValue;
+          $possibleNameFields = array(
+            'name'     => QubitTerm::PERSON_ID,
+            'persname' => QubitTerm::PERSON_ID,
+            'famname'  => QubitTerm::FAMILY_ID,
+            'corpname' => QubitTerm::CORPORATE_BODY_ID
+          );
+
+          $typeId = QubitTerm::PERSON_ID;
+          $name   = '';
+          foreach($possibleNameFields as $fieldName => $fieldTypeId)
+          {
+            $fieldValue = '';
+            $nameNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/origination/". $fieldName);
+            foreach($nameNodeList as $nameNode) {
+              $fieldValue = $nameNode->nodeValue;
+              $datesValue = $nameNode->getAttribute('source');
+            }
+            if ($fieldValue != '')
+            {
+              $name             = $fieldValue;
+              $typeId           = $fieldTypeId;
+              $datesOfExistence = $datesValue;
+            }
           }
 
-          $this->setActorByName($name, array(
+          $eventSpec = array(
             'event_type_id' => QubitTerm::CREATION_ID,
-            'dates'         => $date,
-            'date_start'    => $date_start,
-            'date_end'      => $date_end
-          ));
+            'history'       => $history
+          );
+
+          if ($date)
+          {
+            $eventSpec['dates'] = $date;
+          }
+
+          if ($datesOfExistence)
+          {
+            $eventSpec['dates_of_existence'] = $datesOfExistence;
+          }
+
+          if ($date_start)
+          {
+            $eventSpec['date_start'] = $date_start;
+          }
+
+          if ($date_end)
+          {
+            $eventSpec['date_end'] = $date_end;
+          }
+
+          $this->setActorByName($name, $eventSpec);
         }
       }
     }
@@ -1444,6 +1541,65 @@ class QubitInformationObject extends BaseInformationObject
     if ($term = QubitTermI18n::getOne($criteria))
     {
       $this->setStatus(array('typeId' => QubitTerm::STATUS_TYPE_PUBLICATION_ID, 'statusId' => $term->id));
+    }
+  }
+
+  /**
+   * Set description level of detail using a name
+   *
+   * @param $name  valid description detail level name
+   */
+  public function setDescriptionLevelOfDetailByName($name)
+  {
+    $this->setTermIdPropertyUsingTermName(
+      'descriptionDetailId',
+      $name,
+      QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID
+    );
+  }
+
+  /**
+   * Set description status using a status name
+   *
+   * @param $name  valid publication status name
+   */
+  public function setDescriptionStatusByName($name)
+  {
+    $this->setTermIdPropertyUsingTermName(
+      'descriptionStatusId',
+      $name,
+      QubitTaxonomy::DESCRIPTION_STATUS_ID
+    );
+  }
+
+  /**
+   * Set term ID property using term name
+   *
+   * @param $property  object property to set
+   * @param $name  valid term name
+   * @param $taxonomyId  taxonomy ID
+   */
+  public function setTermIdPropertyUsingTermName($property, $name, $taxonomyId)
+  {
+    static $termNames;
+
+    if (!isset($termNames))
+    {
+      $termNames = array();
+    }
+
+    if (!isset($termNames[$taxonomyId]))
+    {
+      $termNames[$taxonomyId] = array();
+      $terms = QubitTaxonomy::getTaxonomyTerms($taxonomyId);
+      foreach($terms as $term) {
+        $termNames[$taxonomyId][strtolower($term->name)] = $term->id;
+      }
+    }
+
+    if (isset($termNames[$taxonomyId][strtolower($name)]))
+    {
+      $this->$property = $termNames[$taxonomyId][strtolower($name)];
     }
   }
 
@@ -1641,8 +1797,10 @@ class QubitInformationObject extends BaseInformationObject
     }
   }
 
-  public function importEadPhysloc($location, $name = false, $type = false)
+  public function importPhysicalObject($textInstances, $name = false, $type = false)
   {
+    $location = (is_array($textInstances)) ? $textInstances[0] : '';
+
     // if a type has been provided, look it up
     $term = ($type)
       ? QubitFlatfileImport::createOrFetchTerm(

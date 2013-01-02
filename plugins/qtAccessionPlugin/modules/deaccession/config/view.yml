@@ -8,7 +8,6 @@ editSuccess:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /vendor/yui/calendar/calendar-min:
     date:
-    description:
 
 indexSuccess:
   javascripts:

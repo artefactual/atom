@@ -17,32 +17,17 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * EAC representation of an Actor
- *
- * @package    AccesstoMemory
- * @subpackage sfEacPlugin
- * @author     Jack Bates <jack@nottheoilrig.com>
- */
-
-class sfEacPluginIndexAction extends ActorIndexAction
+class QubitDescription
 {
-  public function responseFilterContent(sfEvent $event, $content)
+  public static function addAssets(sfWebResponse $response)
   {
-    require_once sfConfig::get('sf_root_dir').'/vendor/FluentDOM/FluentDOM.php';
-
-    return FluentDOM($content)
-      ->namespaces(array('eac' => 'urn:isbn:1-931666-33-4'))
-      ->find('//eac:languageDeclaration[not(*)]')
-      ->remove();
-  }
-
-  public function execute($request)
-  {
-    parent::execute($request);
-
-    $this->eac = new sfEacPlugin($this->resource);
-
-    $this->dispatcher->connect('response.filter_content', array($this, 'responseFilterContent'));
+    if (sfConfig::get('app_show_tooltips'))
+    {
+      $response->addJavaScript('description', 'last');
+    }
+    else
+    {
+      $response->addStylesheet('hide_tooltips', 'last');
+    }
   }
 }

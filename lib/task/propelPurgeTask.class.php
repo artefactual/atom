@@ -38,6 +38,12 @@ class propelPurgeTask extends sfBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+      new sfCommandOption('use-gitconfig', null, sfCommandOption::PARAMETER_NONE, 'Get username and email from $HOME/.gitconfig'),
+      new sfCommandOption('title', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired site title'),
+      new sfCommandOption('description', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired site description'),
+      new sfCommandOption('username', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired admin username'),
+      new sfCommandOption('email', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired admin email address'),
+      new sfCommandOption('password', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired admin password')
     ));
 
     $this->namespace = 'propel';
@@ -64,16 +70,19 @@ EOF;
 
     if (!$stopExecution)
     {
-      // attempt to provide default user admin name and email
-      if ($_SERVER['HOME'])
+      if ($options['use-gitconfig'])
       {
-        $gitConfigFile = $_SERVER['HOME'] .'/.gitconfig';
-        if (file_exists($gitConfigFile))
+        // attempt to provide default user admin name and email
+        if ($_SERVER['HOME'])
         {
-          $gitConfig = parse_ini_file($gitConfigFile);
+          $gitConfigFile = $_SERVER['HOME'] .'/.gitconfig';
+          if (file_exists($gitConfigFile))
+          {
+            $gitConfig = parse_ini_file($gitConfigFile);
 
-          $defaultUser = strtolower(strtok($gitConfig['name'], ' '));
-          $defaultEmail = $gitConfig['email'];
+            $defaultUser = strtolower(strtok($gitConfig['name'], ' '));
+            $defaultEmail = $gitConfig['email'];
+          }
         }
       }
 
@@ -81,40 +90,53 @@ EOF;
       $sf_context = sfContext::createInstance($configuration);
       sfInstall::loadData();
 
-      // ask for basic site configuration information
-      $siteTitle       = readline("Site title [Qubit]: ");
-      $siteTitle       = ($siteTitle) ? $siteTitle : 'Qubit';
-      $siteDescription = readline("Site description [Test site]: ");
-      $siteDescription = ($sitedescription) ? $siteDescription : 'Test site';
+      // set, or prompt for, site title configuration information
+      $siteTitle = ($options['title']) ? $options['title'] : '';
+      if (!$siteTitle)
+      {
+        $siteTitle       = readline("Site title [Qubit]: ");
+        $siteTitle       = ($siteTitle) ? $siteTitle : 'Qubit';
+      }
 
-      // set site title
-      $setting = new QubitSetting();
-      $setting->name = 'siteTitle';
-      $setting->value = $siteTitle;
-      $setting->save();
+      // set, or prompt for, site description information
+      $siteDescription = ($options['description']) ? $options['description'] : '';
+      if (!$siteDescription)
+      {
+        $siteDescription = readline("Site description [Test site]: ");
+        $siteDescription = ($sitedescription) ? $siteDescription : 'Test site';
+      }
 
-      // set site description
-      $setting = new QubitSetting();
-      $setting->name = 'siteDescription';
-      $setting->value = $siteDescription;
-      $setting->save();
+      $this->createSetting('siteTitle', $siteTitle);
+      $this->createSetting('siteDescription', $siteDescription);
 
       print "\n";
 
       // ask for admin user information
-      $usernamePrompt = 'Admin username';
-      $usernamePrompt .= ($defaultUser) ? ' ['. $defaultUser .']' : '';
-      $usernamePrompt .= ': ';
-      $username = readline($usernamePrompt);
-      $username = ($username) ? $username : $defaultUser;
+      $username = ($options['username']) ? $options['username'] : '';
+      if (!$username)
+      {
+        $usernamePrompt = 'Admin username';
+        $usernamePrompt .= ($defaultUser) ? ' ['. $defaultUser .']' : '';
+        $usernamePrompt .= ': ';
+        $username = readline($usernamePrompt);
+        $username = ($username) ? $username : $defaultUser;
+      }
 
-      $emailPrompt = 'Admin email';
-      $emailPrompt .= ($defaultEmail) ? ' ['. $defaultEmail .']' : '';
-      $emailPrompt .= ': ';
-      $email    = readline($emailPrompt);
-      $email = ($email) ? $email : $defaultEmail;
+      $email = ($options['email']) ? $options['email'] : '';
+      if (!$email)
+      {
+        $emailPrompt = 'Admin email';
+        $emailPrompt .= ($defaultEmail) ? ' ['. $defaultEmail .']' : '';
+        $emailPrompt .= ': ';
+        $email    = readline($emailPrompt);
+        $email = ($email) ? $email : $defaultEmail;
+      }
 
-      $password = trim(readline("Admin password: "));
+      $password = ($options['password']) ? $options['password'] : '';
+      if (!$password)
+      {
+        $password = trim(readline("Admin password: "));
+      }
 
       // create user
       $user = new QubitUser();
@@ -132,5 +154,19 @@ EOF;
 
       $this->logSection('propel', 'Purge complete!');
     }
+  }
+
+  /*
+   * Helper to create a system setting
+   *
+   * @param string $name  Name of setting
+   * @param string $value  Value of setting
+   */
+  protected function createSetting($name, $value)
+  {
+    $setting = new QubitSetting();
+    $setting->name = $name;
+    $setting->value = $value;
+    $setting->save();
   }
 }

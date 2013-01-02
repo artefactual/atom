@@ -152,8 +152,24 @@ information_object:
       Parameters: ["issuingJurisdictionAndDenomination", $nodeValue]
 
     publicationStatus:
-      XPath:  "odd[@type='publicationstatus']"
+      XPath:  "odd[@type='publicationstatus']/p"
       Method: setPublicationStatusByName
+
+    draftingStatus:
+      XPath:  "odd[@type='draftingstatus']/p"
+      Method: setDescriptionStatusByName
+
+    levelOfDetail:
+      XPath:  "odd[@type='levelofdetail']/p"
+      Method: setDescriptionLevelOfDetailByName
+
+    descriptionIdentifier:
+      XPath:  "odd[@type='descriptionidentifier']/p"
+      Method: setDescriptionIdentifier
+
+    institutionIdentifier:
+      XPath:  "odd[@type='institutionidentifier']/p"
+      Method: setInstitutionResponsibleIdentifier
 
     title_variation_notes:
       XPath:  "odd[@type='titlevariation']/p"
@@ -242,16 +258,16 @@ information_object:
     ##if no container is given, save as a 'location' note, otherwise save to the container's location information
     ##Xpath:  "did/physloc"
 
-    physloc:
-      XPath:  "did/physloc"
-      Method: importEadPhysLoc
-      Parameters: ["%p", "%container", "%container/@type"]
-
     container:
       XPath:  "did/container"
-      Method:  setPhysicalObjectByName
-      Parameters: [$nodeValue, "$options = array('type' => $importDOM->xpath->query('@type', $domNode2)->item(0)->nodeValue)"]
-      ## to do: check for @parent and create parentId link for physical object, if present
+      Method: importPhysicalObject
+      Parameters: ["%text()", "%title", "%@type"]
+
+    #container:
+    #  XPath:  "did/container"
+    #  Method:  setPhysicalObjectByName
+    #  Parameters: [$nodeValue, "$options = array('type' => $importDOM->xpath->query('@type', $domNode2)->item(0)->nodeValue)"]
+    #  ## to do: check for @parent and create parentId link for physical object, if present
 
     repository:
       XPath:   "(did/repository/corpname | did/repository/name)[1]"
@@ -271,9 +287,10 @@ information_object:
       Method:  addProperty
       Parameters: ["standardNumber", $nodeValue]
 
-    languages:
-      XPath:   "did/langmaterial/language/@langcode"
-      Method:  setLangcode
+    langusage:
+      XPath:  "../eadheader/profiledesc/langusage"
+      Method: importLangusageEadData
+      Parameters: ["$domNode2"]
 
     phystech:
       XPath:  "(phystech | descgrp/phystech)"

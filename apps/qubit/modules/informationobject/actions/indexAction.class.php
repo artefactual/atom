@@ -23,7 +23,7 @@
  * @package    AccesstoMemory
  * @subpackage information object
  * @author     Peter Van Garderen <peter@artefactual.com>
- * @author     Jack Bates <jack@artefactual.com>
+ * @author     Jack Bates <jack@nottheoilrig.com>
  * @author     David Juhasz <david@artefactual.com>
  */
 class InformationObjectIndexAction extends sfAction

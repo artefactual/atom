@@ -476,7 +476,7 @@ class QubitDigitalObject extends BaseDigitalObject
       unlink($filePathName);
       rmdir($infoObjectPath);
 
-      throw new sfException('Checksum values did not validate.');
+      throw new sfException('Checksum values did not validate: '. $filePathName);
     }
 
     // set file permissions

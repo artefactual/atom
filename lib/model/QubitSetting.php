@@ -23,7 +23,7 @@
  * @package    AccesstoMemory
  * @subpackage model
  * @author     MJ Suhonos
- * @author     Jack Bates <jack@artefactual.com>
+ * @author     Jack Bates <jack@nottheoilrig.com>
  */
 class QubitSetting extends BaseSetting
 {
