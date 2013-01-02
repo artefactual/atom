@@ -3,7 +3,12 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 92
+    value: 94
+  milestone:
+    name: milestone
+    editable: 0
+    deleteable: 0
+    value: 1
   QubitSetting_2:
     name: upload_dir
     editable: 0

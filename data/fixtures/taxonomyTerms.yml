@@ -633,6 +633,12 @@ QubitTaxonomy:
       pt: 'Direitos de autor'
       sl: 'Status avtorskih pravic'
       th: สถานภาพลิขสิทธิ์
+  QubitTaxonomy_information_object_templates:
+    source_culture: en
+    id: 70
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'Information object templates'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
@@ -4015,6 +4021,34 @@ QubitTerm:
       pt: Desconhecido
       sl: Neznan
       th: ที่ไม่รู้
+  QubitTerm_template_isad:
+    taxonomy_id: 70
+    parent_id: QubitTerm_110
+    source_culture: en
+    code: isad
+    name:
+      en: 'ISAD(G), 2nd ed. International Council on Archives'
+  QubitTerm_template_dc:
+    taxonomy_id: 70
+    parent_id: QubitTerm_110
+    source_culture: en
+    code: dc
+    name:
+      en: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
+  QubitTerm_template_mods:
+    taxonomy_id: 70
+    parent_id: QubitTerm_110
+    source_culture: en
+    code: mods
+    name:
+      en: 'MODS, Version 3.3. U.S. Library of Congress'
+  QubitTerm_template_rad:
+    taxonomy_id: 70
+    parent_id: QubitTerm_110
+    source_culture: en
+    code: rad
+    name:
+      en: 'RAD, July 2008 version. Canadian Council of Archives'
 QubitNote:
   QubitNote_1:
     object_id: QubitTerm_111
