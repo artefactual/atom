@@ -146,8 +146,7 @@ EOF;
         while ($class->up($version, $this->configuration, $options))
         {
           // Update version in database
-          $sql = 'UPDATE setting_i18n SET value = ? WHERE id = (SELECT id FROM setting WHERE name = ?);';
-          QubitPdo::modify($sql, array(++$version, 'version'));
+          $this->updateDatabaseVersion(++$version);
         }
       }
       catch (Exception $e)
@@ -158,14 +157,142 @@ EOF;
       }
     }
 
+    // The database version in Release 1.3 was v92. After that, AtoM was forked
+    // in two different versions: 1.x and 2.x. Both will be maintained for now.
+    // This task selectively upgrades the user to the latest database version
+    // available for its milestone. In order to keep things simpler, db upgrades
+    // won't be able to target 1.x only. Upgrades targetting only 2.x won't be
+    // applied to 1.x users until they decide to migrate to AtoM 2.x.
+    // See #4494 for more details.
+
+    // Since some db upgrades are applied to both 1.x and 2.x releases, we need
+    // the previous milestone used. This value has been stored in the database
+    // since the fork happened.
+    $previousMilestone = $this->getPreviousMilestone();
+
+    // Upgrades post to Release 1.3 (v92) are located under
+    // task/migrate/migrations and named using the following format:
+    // "arMigration%04d.class.php" (the first one is arMigration0093.class.php)
+    foreach (sfFinder::type('file')
+      ->maxdepth(0)
+      ->sort_by_name()
+      ->name('arMigration*.class.php')
+      ->in(sfConfig::get('sf_lib_dir').'/task/migrate/migrations') as $filename)
+    {
+      // Initialize migration class
+      $className = preg_replace('/.*(arMigration\d+).*/', '$1', $filename);
+      $class = new $className;
+
+      // The following piece of code decides whether the different database
+      // upgrades under task/migrate/migrations should be applied or not:
+
+      // Upgrading to 1.x. The safest way I've found to get this value is
+      // looking at the qubitConfiguration class, which is part of the codebase.
+      if (version_compare(qubitConfiguration::VERSION, '2.0', '<'))
+      {
+        // Ignore upgrades that have already been applied.
+        // Also, ignore upgrades that target only 2.x.
+        if ($class::VERSION <= $version || 1 < $class::MIN_MILESTONE)
+        {
+          continue;
+        }
+      }
+      // Upgrading from 1.x to 2.x
+      else if (1 == $previousMilestone)
+      {
+        // Ignore previous 1.x/2.x because they have been already applied
+        if ($class::VERSION < $version && 1 == $class::MIN_MILESTONE)
+        {
+          continue;
+        }
+
+        // Ignore the current version for the same reason
+        if ($class::VERSION == $version)
+        {
+          continue;
+        }
+      }
+      // Upgrading from 2.x to 2.x
+      else
+      {
+        // Ignore previous upgrades
+        if ($class::VERSION <= $version)
+        {
+          continue;
+        }
+      }
+
+      // Run migration
+      if (true !== $class::up())
+      {
+        throw new sfException('Failed to apply upgrade '.get_class($class));
+      }
+
+      // Bump database version
+      $this->updateDatabaseVersion(++$version);
+    }
+
     if ($this->initialVersion == $version)
     {
       $this->logSection('upgrade-sql', sprintf('Already at latest version (%s), no upgrades done', $version));
     }
     else
     {
-      $this->logSection('upgrade-sql', sprintf('Successfully upgraded to Release %s v%s', $class::MILESTONE, $version));
+      $this->logSection('upgrade-sql', sprintf('Successfully upgraded to Release %s v%s', qubitConfiguration::VERSION, $version));
+
+      $this->updateMilestone();
     }
+  }
+
+  /**
+   * Figure out what's the last milestone used
+   *
+   * @return int Previous milestone (e.g. 1, 2)
+   */
+  protected function getPreviousMilestone()
+  {
+    // There is no doubt that the user is running 1.x if the initial database
+    // version was 92 or lower (before the fork happened)
+    if ($this->initialVersion <= 92)
+    {
+      $previousMilestone = 1;
+    }
+    // Otherwise, we'll look for the milestone in the database
+    else
+    {
+      $sql = 'SELECT value
+        FROM setting JOIN setting_i18n ON setting.id = setting_i18n.id
+        WHERE name = "milestone";';
+
+      $previousMilestone = QubitPdo::fetchColumn($sql);
+    }
+
+    return $previousMilestone;
+  }
+
+  /**
+   * Update the settings with the latest database version
+   *
+   * @param int New database version
+   */
+  protected function updateDatabaseVersion($version)
+  {
+    $sql = 'UPDATE setting_i18n SET value = ? WHERE id = (SELECT id FROM setting WHERE name = ?);';
+    QubitPdo::modify($sql, array($version, 'version'));
+  }
+
+  /**
+   * Update the settings with the latest milestone
+   */
+  protected function updateMilestone()
+  {
+    // Get current codebase milestone
+    $substrings = preg_split('/\./', qubitConfiguration::VERSION);
+    $milestone = array_shift($substrings);
+
+    // Run SQL query
+    $sql = 'UPDATE setting_i18n SET value = ? WHERE id = (SELECT id FROM setting WHERE name = ?);';
+    QubitPdo::modify($sql, array($milestone, 'milestone'));
   }
 
   protected function parseDsn($dsn)

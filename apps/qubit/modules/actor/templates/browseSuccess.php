@@ -90,6 +90,7 @@
                   <?php endif; ?>
                 </th>
               <?php endif; ?>
+              <th><?php echo __('Dates') ?></th>
             </tr>
           </thead><tbody>
 
@@ -109,6 +110,8 @@
                   <?php else: ?>
                     <?php echo format_date($item->updatedAt, 'f') ?>
                   <?php endif; ?>
+                </td><td>
+                  <?php echo $doc['datesOfExistence'] ?>
                 </td>
               </tr>
 

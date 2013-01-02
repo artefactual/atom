@@ -18,6 +18,7 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
     DESCRIPTION_DETAIL_ID = 'information_object.DESCRIPTION_DETAIL_ID',
     DESCRIPTION_IDENTIFIER = 'information_object.DESCRIPTION_IDENTIFIER',
     SOURCE_STANDARD = 'information_object.SOURCE_STANDARD',
+    SOURCE_METADATA_ID = 'information_object.SOURCE_METADATA_ID',
     LFT = 'information_object.LFT',
     RGT = 'information_object.RGT',
     SOURCE_CULTURE = 'information_object.SOURCE_CULTURE';
@@ -39,6 +40,7 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
     $criteria->addSelectColumn(QubitInformationObject::DESCRIPTION_DETAIL_ID);
     $criteria->addSelectColumn(QubitInformationObject::DESCRIPTION_IDENTIFIER);
     $criteria->addSelectColumn(QubitInformationObject::SOURCE_STANDARD);
+    $criteria->addSelectColumn(QubitInformationObject::SOURCE_METADATA_ID);
     $criteria->addSelectColumn(QubitInformationObject::LFT);
     $criteria->addSelectColumn(QubitInformationObject::RGT);
     $criteria->addSelectColumn(QubitInformationObject::SOURCE_CULTURE);
@@ -504,6 +506,13 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
   public static function addJoindescriptionDetailCriteria(Criteria $criteria)
   {
     $criteria->addJoin(QubitInformationObject::DESCRIPTION_DETAIL_ID, QubitTerm::ID);
+
+    return $criteria;
+  }
+
+  public static function addJoinsourceMetadataCriteria(Criteria $criteria)
+  {
+    $criteria->addJoin(QubitInformationObject::SOURCE_METADATA_ID, QubitTerm::ID);
 
     return $criteria;
   }

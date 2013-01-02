@@ -17,32 +17,34 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Upgrade Qubit data from Release 1.3
+/*
+ * Add the milestone setting to the database.
  *
  * @package    AccesstoMemory
  * @subpackage migration
  */
-class arUpgrader130
+class arMigration0093
 {
   const
-    MILESTONE = '1.3',
-    INIT_VERSION = 92;
+    VERSION = 93, // The new database version
+    MIN_MILESTONE = 1; // The minimum milestone required
 
-  public function up($version, $configuration, $options)
+  /**
+   * Upgrade the database schema
+   *
+   * @return bool True if the upgrade succeeded, False otherwise
+   */
+  public function up()
   {
-    if ($options['verbose'])
-    {
-      echo "up($version)\n";
-    }
+    // Get current codebase milestone
+    $substrings = preg_split('/\./', qubitConfiguration::VERSION);
+    $milestone = array_shift($substrings);
 
-    switch ($version)
-    {
-      // Return false if no upgrade available
-      default:
-
-        return false;
-    }
+    // Store it
+    $setting = new QubitSetting;
+    $setting->name = 'milestone';
+    $setting->setValue($milestone, array('sourceCulture' => true));
+    $setting->save();
 
     return true;
   }
