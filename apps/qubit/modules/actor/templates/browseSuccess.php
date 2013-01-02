@@ -12,7 +12,7 @@
       <?php else: ?>
         <li<?php if ('updatedDown' == $sf_request->sort || 'updatedUp' == $sf_request->sort): ?> class="active"<?php endif; ?>><?php echo link_to(__('Recent changes'), array('sort' => 'updatedDown') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?></li>
         <li<?php if ('updatedDown' != $sf_request->sort && 'updatedUp' != $sf_request->sort): ?> class="active"<?php endif; ?>><?php echo link_to(__('Alphabetic'), array('sort' => 'nameUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?></li>
-      <?php endif; ?> 
+      <?php endif; ?>
     </ul>
   </div>
 
@@ -38,7 +38,7 @@
           <?php if ('nameDown' == $sf_request->sort): ?>
             <?php echo link_to(image_tag('up.gif'), array('sort' => 'nameUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?>
           <?php endif; ?>
-        <?php endif; ?> 
+        <?php endif; ?>
       </th><th>
         <?php if ('nameDown' == $sf_request->sort || 'nameUp' == $sf_request->sort || ('lastUpdated' != $sortSetting && 'updatedDown' != $sf_request->sort && 'updatedUp' != $sf_request->sort)): ?>
           <?php echo __('Type') ?>
@@ -55,6 +55,8 @@
             <?php echo link_to(image_tag('down.gif'), array('sort' => 'updatedUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?>
           <?php endif; ?>
         <?php endif; ?>
+      </th><th>
+        <?php echo __('Dates') ?>
       </th>
     </tr>
   </thead><tbody>
@@ -68,6 +70,8 @@
           <?php else: ?>
             <?php echo format_date($item->updatedAt, 'f') ?>
           <?php endif; ?>
+        </td><td>
+          <?php echo $item->datesOfExistence ?>
         </td>
       </tr>
     <?php endforeach; ?>
