@@ -34,7 +34,7 @@ class arMigration0093
    *
    * @return bool True if the upgrade succeeded, False otherwise
    */
-  public function up()
+  public function up($configuration)
   {
     // Get current codebase milestone
     $substrings = preg_split('/\./', qubitConfiguration::VERSION);

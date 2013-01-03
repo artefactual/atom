@@ -34,7 +34,7 @@ class arMigration0094
    *
    * @return bool True if the upgrade succeeded, False otherwise
    */
-  public function up()
+  public function up($configuration)
   {
     // Add extra column, information_object.source_metadata_id
     QubitMigrate::addColumn(

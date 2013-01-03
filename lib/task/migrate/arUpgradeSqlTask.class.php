@@ -222,8 +222,13 @@ EOF;
         }
       }
 
+      if ($options['verbose'])
+      {
+        echo "up($version)\n";
+      }
+
       // Run migration
-      if (true !== $class::up())
+      if (true !== $class::up($this->configuration))
       {
         throw new sfException('Failed to apply upgrade '.get_class($class));
       }
