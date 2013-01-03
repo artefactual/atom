@@ -18,7 +18,8 @@
  */
 
 /*
- *
+ * Add source_metadata_id column to information object and information object
+ * templates taxonomy and terms
  *
  * @package    AccesstoMemory
  * @subpackage migration
@@ -27,14 +28,14 @@ class arMigration0094
 {
   const
     VERSION = 94, // The new database version
-    MIN_MILESTONE = 1; // The minimum milestone required
+    MIN_MILESTONE = 2; // The minimum milestone required
 
   /**
    * Upgrade the database schema
    *
    * @return bool True if the upgrade succeeded, False otherwise
    */
-  public function up()
+  public function up($configuration)
   {
     // Add extra column, information_object.source_metadata_id
     QubitMigrate::addColumn(
