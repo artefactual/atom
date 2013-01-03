@@ -90,6 +90,10 @@ EOF;
       $sf_context = sfContext::createInstance($configuration);
       sfInstall::loadData();
 
+      // Flush search index
+      QubitSearch::getInstance()->flush();
+      $this->logSection('purge', 'The search index has been deleted.');
+
       // set, or prompt for, site title configuration information
       $siteTitle = ($options['title']) ? $options['title'] : '';
       if (!$siteTitle)
