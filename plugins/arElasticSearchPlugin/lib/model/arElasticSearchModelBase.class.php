@@ -127,4 +127,9 @@ abstract class arElasticSearchModelBase
 
     return $i18ns;
   }
+
+  public function update($object)
+  {
+    return true;
+  }
 }

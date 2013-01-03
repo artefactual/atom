@@ -262,28 +262,10 @@ class arElasticSearchPlugin extends QubitSearchEngine
     $this->index->getType(get_class($object))->deleteById($object->id);
   }
 
-  public function updateAccession(QubitAccession $object)
+  public function update($object)
   {
-    return arElasticSearchAccession::update($object);
-  }
+    $className = 'arElasticSearch'.str_replace('Qubit', '', get_class($class));
 
-  public function updateActor(QubitActor $object)
-  {
-    return arElasticSearchActor::update($object);
-  }
-
-  public function updateContactInformation(QubitContactInformation $object)
-  {
-    return arElasticSearchContactInformation::update($object);
-  }
-
-  public function updateInformationObject(QubitInformationObject $object)
-  {
-    return arElasticSearchInformationObject::update($object);
-  }
-
-  public function updateTerm(QubitTerm $term)
-  {
-    return arElasticSearchTerm::update($object);
+    return call_user_func(array($className, 'update'));
   }
 }
