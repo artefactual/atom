@@ -124,6 +124,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
           $mapping->setParam($key, $value);
         }
 
+        $this->log(sprintf('Defining mapping %s...', $typeName));
         $mapping->send();
       }
     }
@@ -164,14 +165,19 @@ class arElasticSearchPlugin extends QubitSearchEngine
     return $this->client->optimizeAll($args);
   }
 
+  public function flush()
+  {
+    $this->index->delete();
+    $this->initialize();
+  }
+
   /**
    * Populate index
    */
   public function populate()
   {
     // Delete index and initialize again
-    $this->index->delete();
-    $this->initialize();
+    $this->flush();
     $this->log('Index erased.');
 
     $this->log('Populating index...');
