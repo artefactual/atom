@@ -94,12 +94,11 @@
             </tr>
           </thead><tbody>
 
-            <?php foreach ($pager->getResults() as $item): ?>
-
-              <?php $doc = build_i18n_doc($item) ?>
+            <?php foreach ($pager->getResults() as $hit): ?>
+              <?php $doc = $hit->getData() ?>
               <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
                 <td>
-                  <?php echo link_to($doc[$sf_user->getCulture()]['authorizedFormOfName'], array('module' => 'actor', 'slug' => $doc['slug'])) ?>
+                  <?php echo link_to(get_search_i18n($doc, 'authorizedFormOfName'), array('module' => 'actor', 'slug' => $doc['slug'])) ?>
                 </td><td>
                   <?php if ('nameDown' == $sf_request->sort || 'nameUp' == $sf_request->sort || ('lastUpdated' != $sortSetting && 'updatedDown' != $sf_request->sort && 'updatedUp' != $sf_request->sort) ): ?>
                     <?php if (isset($doc['entityTypeId']) && isset($types[$doc['entityTypeId']])): ?>
@@ -108,13 +107,12 @@
                       <?php echo __('N/A') ?>
                     <?php endif; ?>
                   <?php else: ?>
-                    <?php echo format_date($item->updatedAt, 'f') ?>
+                    <?php echo format_date($doc['updatedAt'], 'f') ?>
                   <?php endif; ?>
                 </td><td>
                   <?php echo $doc['datesOfExistence'] ?>
                 </td>
               </tr>
-
             <?php endforeach; ?>
 
           </tbody>

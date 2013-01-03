@@ -17,19 +17,22 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitSettingsFilter extends sfFilter
+class arElasticSearchContactInformation extends arElasticSearchModelBase
 {
-  /*
-   * Execute this filter on every request in case some params have
-   * changed since the last page load. Remember that filters are not
-   * loaded in the CLI.
-   */
-  public function execute($filterChain)
+  public static function serialize($object)
   {
-    // Overwrite/populate settings into sfConfig object
-    sfConfig::add(QubitSetting::getSettingsArray());
+    $serialized = array();
 
-    // Execute next filter
-    $filterChain->execute();
+    $serialized['contactPerson'] = $object->contactPerson;
+    $serialized['streetcAddress'] = $object->streetAddress;
+    $serialized['postalCode'] = $object->postalCode;
+    $serialized['countryCode'] = $object->countryCode;
+    $serialized['location']['lat'] = $object->latitude;
+    $serialized['location']['lon'] = $object->longitude;
+
+    $serialized['sourceCulture'] = $object->sourceCulture;
+    $serialized['i18n'] = self::serializeI18ns($object->id, array('QubitContactInformation', 'QubitActor'));
+
+    return $serialized;
   }
 }

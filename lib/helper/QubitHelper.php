@@ -272,37 +272,27 @@ function check_field_visibility($fieldName)
   return sfContext::getInstance()->user->isAuthenticated() || sfConfig::get($fieldName, false);
 }
 
-function build_i18n_doc(Elastica_Result $hit, array $objects = array())
+function get_search_i18n($hit, $fieldName, $cultureFallback = true, $allowEmpty = true)
 {
-  $doc = $hit->getData();
-
-  if (isset($doc['i18n']))
+  if ($hit instanceof Elastica_Result)
   {
-    foreach ($doc['i18n'] as $i18n)
-    {
-      $doc[$i18n['culture']] = $i18n;
-    }
-
-    unset($doc['i18n']);
+    $hit = $hit->getData();
   }
 
-  if (0 < count($objects))
+  $value = null;
+
+  if (isset($hit['i18n'][sfContext::getInstance()->user->getCulture()][$fieldName]))
   {
-    foreach ($objects as $item)
-    {
-      if (!isset($doc[$item]))
-      {
-        continue;
-      }
-
-      foreach ($doc[$item] as $key => $i18n)
-      {
-        $doc[$item][$i18n['culture']] = $i18n;
-
-        unset($doc[$item][$key]);
-      }
-    }
+    $value = $hit['i18n'][sfContext::getInstance()->user->getCulture()][$fieldName];
+  }
+  else if ($cultureFallback && isset($hit['i18n'][$hit['sourceCulture']][$fieldName]))
+  {
+    $value = $hit['i18n'][$hit['sourceCulture']][$fieldName];
+  }
+  else if (!$allowEmpty)
+  {
+    $value = sfContext::getInstance()->i18n->__('Untitled');
   }
 
-  return $doc;
+  return $value;
 }

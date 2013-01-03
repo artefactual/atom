@@ -17,19 +17,33 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitSettingsFilter extends sfFilter
+/**
+ * Singleton factory class for QubitSearchEngine and subclasses
+ *
+ * @package AccesstoMemory
+ * @subpackage search
+ */
+class QubitSearch
 {
-  /*
-   * Execute this filter on every request in case some params have
-   * changed since the last page load. Remember that filters are not
-   * loaded in the CLI.
-   */
-  public function execute($filterChain)
-  {
-    // Overwrite/populate settings into sfConfig object
-    sfConfig::add(QubitSetting::getSettingsArray());
+  protected static $instance = null;
 
-    // Execute next filter
-    $filterChain->execute();
+  // protected function __construct() { }
+  // protected function __clone() { }
+
+  public static function getInstance()
+  {
+    if (!isset(self::$instance))
+    {
+      // Using arElasticSearchPlugin but other classes could be
+      // implemented, for example: arSphinxSearchPlugin
+      self::$instance = new arElasticSearchPlugin();
+    }
+
+    return self::$instance;
+  }
+
+  public static function __callStatic($name, $arguments)
+  {
+    return call_user_func_array(array(self::getInstance(), $name), $arguments);
   }
 }

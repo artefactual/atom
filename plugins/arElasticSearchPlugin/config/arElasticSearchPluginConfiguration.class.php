@@ -23,27 +23,33 @@ class arElasticSearchPluginConfiguration extends sfPluginConfiguration
     $summary = 'Search index plugin. Uses an ElasticSearch instance to provide advanced search features such as faceting, fuzzy search, etc.',
     $version = '1.0.0',
 
-    // this is the name of the index; must be unique within the server
-    $index = 'atom',
+    $configPath = 'config/search.yml',
+    $config = null,
 
-    // default number of documents to include in a batch (bulk) request
-    $batchSize = 500,
-
-    // server defaults to localhost:9200 if omitted
-    // can also be used to configure a cluster of ElasticSearch nodes
-    // see more info at: http://ruflin.github.com/Elastica/
-    $server = array(
-      'host' => 'localhost',
-      'port' => '9200',
-      // This will write the JSON request in the file given
-      // Very useful when the Elastica API behavior is unclear
-      // 'log' => '/tmp/elastica.log'
-    );
+    $mappingPath = 'config/mapping.yml',
+    $mapping = null;
 
   public function initialize()
   {
-    $enabledModules = sfConfig::get('sf_enabled_modules');
-    $enabledModules[] = 'arElasticSearchPlugin';
-    sfConfig::set('sf_enabled_modules', $enabledModules);
+    if (!extension_loaded('curl'))
+    {
+      throw new sfInitializationException('arElasticSearchPlugin needs cURL PHP extension');
+    }
+
+    if ($this->configuration instanceof sfApplicationConfiguration)
+    {
+      // Use config cache in application context
+      $configCache = $this->configuration->getConfigCache();
+      $configCache->registerConfigHandler(self::$configPath, 'arElasticSearchConfigHandler');
+
+      self::$config = include $configCache->checkConfig(self::$configPath);
+    }
+    else
+    {
+      // Live parsing (task context)
+      $configPaths = $this->configuration->getConfigPaths(self::$configPath);
+
+      self::$config = arElasticSearchConfigHandler::getConfiguration($configPaths);
+    }
   }
 }

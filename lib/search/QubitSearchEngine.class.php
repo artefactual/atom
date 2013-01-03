@@ -17,19 +17,38 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitSettingsFilter extends sfFilter
+/**
+ * Designed to be extended by arElasticSearchPlugin
+ *
+ * @package AccesstoMemory
+ * @subpackage search
+ */
+abstract class QubitSearchEngine
 {
-  /*
-   * Execute this filter on every request in case some params have
-   * changed since the last page load. Remember that filters are not
-   * loaded in the CLI.
+  /**
+   * Constructor
    */
-  public function execute($filterChain)
+  public function __construct()
   {
-    // Overwrite/populate settings into sfConfig object
-    sfConfig::add(QubitSetting::getSettingsArray());
+    $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
 
-    // Execute next filter
-    $filterChain->execute();
+    if (sfContext::getInstance()->getController()->inCLI())
+    {
+      $this->event = 'command.log';
+    }
+    else
+    {
+      $this->event = 'search.log';
+    }
+  }
+
+  /**
+   * Log a message
+   *
+   * @param string $message Log message
+   */
+  public function log($message)
+  {
+    $this->dispatcher->notify(new sfEvent($this, $this->event, array($message)));
   }
 }

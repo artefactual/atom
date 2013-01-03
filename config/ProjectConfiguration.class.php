@@ -33,7 +33,6 @@ class ProjectConfiguration extends sfProjectConfiguration
       'sfHistoryPlugin',
       'arElasticSearchPlugin',
       'sfPropelPlugin',
-      'sfSearchPlugin',
       'sfThemePlugin',
       'sfThumbnailPlugin',
       'sfTranslatePlugin',

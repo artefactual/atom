@@ -18,70 +18,78 @@
  */
 
 /**
- * This class is used to provide a singleton object that uses an ElasticSearch instance for
- * application indexing, querying, faceting, etc.
+ * arElasticSearchPlugin main class
  *
- * @package    arElasticSearchPlugin
- * @author     MJ Suhonos <mj@suhonos.ca>
+ * @package     AccesstoMemory
+ * @subpackage  arElasticSearchPlugin
+ * @author      MJ Suhonos <mj@suhonos.ca>
+ * @author      Jesús García Crespo <jesus@sevein.com>
  */
-class arElasticSearchPlugin
+class arElasticSearchPlugin extends QubitSearchEngine
 {
-  // allow disabling search index via boolean flag
-  public $disabled = false;
+  /**
+   * Elastic_Client object
+   *
+   * @var mixed Defaults to null.
+   */
+  public $client = null;
 
-  // allow modifying the batch size
-  public $batchSize;
-
-  private $batchMode = false;
-  private $batchDocs = array();
-
+  /**
+   * Elastic_Index object
+   *
+   * @var mixed Defaults to null.
+   */
   public $index = null;
 
-  // Enable singleton creation via getInstance()
-  protected static
-    $_instance,
-    $conn,
-    $statements,
-    $counter = 0;
+  /**
+   * elasticsearch bulk API makes it possible to perform many index/delete
+   * operations in a single call. This can greatly increase the indexing speed.
+   * This array will be used to store documents in batches.
+   *
+   * @var array
+   */
+  private $batchDocs = array();
 
-  public static function getInstance()
-  {
-    if (null === self::$_instance)
-    {
-      self::$_instance = new self();
-    }
+  /**
+   * Mappings configuration, mapping.yml
+   *
+   * @var mixed Defaults to null.
+   */
+  protected $mappings = null;
 
-    return self::$_instance;
-  }
-
-  // constructor
+  /**
+   * Constructor
+   */
   public function __construct()
   {
-    $this->batchSize = arElasticSearchPluginConfiguration::$batchSize;
+    parent::__construct();
 
-    // I don't understand how a heart is a spade
-    // But somehow the vital connection is made
-    $client = new Elastica_Client(arElasticSearchPluginConfiguration::$server);
-    $this->index = $client->getIndex(arElasticSearchPluginConfiguration::$index);
+    $this->config = arElasticSearchPluginConfiguration::$config;
+    $this->client = new Elastica_Client($this->config['server']);
+    $this->index = $this->client->getIndex($this->config['index']['name']);
+
+    // Load batch mode configuration
+    $this->batchMode = true === $this->config['batch_mode'];
+    $this->batchSize = $this->config['batch_size'];
 
     $this->initialize();
   }
 
-  // destructor
   public function __destruct()
   {
-    // if there are still documents in the batch queue, send them
-    if ($this->batchMode && count($this->batchDocs) > 0)
+    // If there are still documents in the batch queue, send them
+    if ($this->config['batch_mode'] && count($this->batchDocs) > 0)
     {
       $this->index->addDocuments($this->batchDocs);
       $this->index->flush();
     }
 
-    // I don't understand how the last card is played
-    // But somehow the vital connection is made
     $this->index->refresh();
   }
 
+  /**
+   * Initialize ES index if it does not exist
+   */
   protected function initialize()
   {
     try
@@ -93,47 +101,132 @@ class arElasticSearchPlugin
       // If the index has not been initialized, create it
       if ($e instanceof Elastica_Exception_Response)
       {
-        $this->index->create(array(), true);
+        $this->index->create($this->config['index']['configuration'], true);
       }
 
-      // Apply type mappings for each indexed object type
-      // TODO: can load these dynamically from the ./model directory
-      foreach (array('QubitInformationObject', 'QubitActor', 'QubitTerm', 'QubitRepository') as $type)
-      {
-        $mapping = new Elastica_Type_Mapping();
+      // Load mappings
+      $this->loadMappings();
 
-        $mapping->setType($this->index->getType($type));
-        $mapping->setProperties(call_user_func(array($type . 'Mapping', 'getProperties')));
+      // Iterate over types (actor, information_object, ...)
+      foreach ($this->mappings as $typeName => $typeProperties)
+      {
+        $typeName = 'Qubit'.sfInflector::camelize($typeName);
+
+        // Define mapping in elasticsearch
+        $mapping = new Elastica_Type_Mapping();
+        $mapping->setType($this->index->getType($typeName));
+        $mapping->setProperties($typeProperties['properties']);
+
+        // Parse other parameters
+        unset($typeProperties['properties']);
+        foreach ($typeProperties as $key => $value)
+        {
+          $mapping->setParam($key, $value);
+        }
 
         $mapping->send();
       }
     }
   }
 
-  /*
-   * Elastica methods
-   */
-  public function save($object)
+  protected function loadMappings()
   {
-    $type = get_class($object);
-
-    if (!class_exists($type . 'Mapping'))
+    // Avoid reload
+    if (null !== $this->mappings)
     {
-      return;
+      return $this->mappings;
     }
 
-    $document = new Elastica_Document($object->id, $this->serialize($object));
+    // Find mapping.yml
+    $finder = sfFinder::type('file')->name('mapping.yml');
+    $files = array_unique(array_merge(
+      $finder->in(sfConfig::get('sf_config_dir')),
+      $finder->in(ProjectConfiguration::getActive()->getPluginSubPaths('/config'))));
+
+    if (!count($files))
+    {
+      throw new sfException('You must create a mapping.xml file.');
+    }
+
+    // Load first mapping.yml file found
+    $esMapping = new arElasticSearchMapping;
+    $esMapping->loadYAML(array_shift($files));
+
+    $this->mappings = $esMapping->asArray();
+
+  }
+
+  /**
+   * Optimize index
+   */
+  public function optimize($args = array())
+  {
+    return $this->client->optimizeAll($args);
+  }
+
+  /**
+   * Populate index
+   */
+  public function populate()
+  {
+    // Delete index and initialize again
+    $this->index->delete();
+    $this->initialize();
+    $this->log('Index erased.');
+
+    $this->log('Populating index...');
+
+    // Document counter and timer
+    $total = 0;
+    $timer = new QubitTimer;
+
+    foreach ($this->mappings as $typeName => $typeProperties)
+    {
+      $className = 'arElasticSearch'.sfInflector::camelize($typeName);
+
+      $class = new $className;
+      $class->setTimer($timer);
+      $class->populate();
+
+      $total += $class->getCount();
+    }
+
+    $this->log(vsprintf('Index populated with %s documents in %s seconds.',
+      array(
+        $total,
+        $timer->elapsed())));
+  }
+
+  // ---------------------------------------------------------------------------
+
+  /**
+   * Centralize document addition to keep control of the batch queue
+   */
+  public function addDocument($data, $type)
+  {
+    if (!isset($data['id']))
+    {
+      throw new sfException('Failed to parse id field.');
+    }
+
+    // Pass the id value to the Elastica_Document constructor instead of as
+    // part of the document body. ES _id field id
+    $id = $data['id'];
+    unset($data['id']);
+
+    $document = new Elastica_Document($id, $data);
     $document->setType($type);
 
     if ($this->batchMode)
     {
-      // add this document to the batch queue
+      // Add this document to the batch queue
       $this->batchDocs[] = $document;
 
-      // if we have a full batch, send in bulk
+      // If we have a full batch, send in bulk
       if (count($this->batchDocs) >= $this->batchSize)
       {
         $this->index->addDocuments($this->batchDocs);
+
         $this->index->flush();
 
         $this->batchDocs = array();
@@ -146,390 +239,51 @@ class arElasticSearchPlugin
     }
   }
 
-  public function delete($object)
+  /**
+   * Function helper to parse query strings
+   */
+  public function parse(string $query)
   {
-    $this->index->getType(get_class($object))->deleteById($object->id);
-  }
-
-  public function parse($querystring)
-  {
-    if (empty($querystring))
+    if (empty($query))
     {
-      throw new Exception(sfContext::getInstance()->i18n->__('No search terms specified.'));
+      throw new Exception('No search terms specified.');
     }
 
-    $query = new Elastica_Query_QueryString($querystring);
+    $query = new Elastica_Query_QueryString($query);
     $query->setDefaultOperator('AND');
 
     return $query;
   }
 
-  /*
-   * ZSL compatibility methods
-   */
-  public function optimize()
+  // ---------------------------------------------------------------------------
+
+  public function delete($object)
   {
-    $this->index->optimize();
+    $this->index->getType(get_class($object))->deleteById($object->id);
   }
 
-  public function enableBatch()
+  public function updateAccession(QubitAccession $object)
   {
-    $this->batchMode = true;
+    return arElasticSearchAccession::update($object);
   }
 
-  public function disableBatch()
+  public function updateActor(QubitActor $object)
   {
-    $this->batchMode = false;
+    return arElasticSearchActor::update($object);
   }
 
-  public function deleteById($id)
+  public function updateContactInformation(QubitContactInformation $object)
   {
-    // TODO: handle QubitInformationObject objects?
-    $this->index->getType('QubitActor')->deleteById($id);
+    return arElasticSearchContactInformation::update($object);
   }
 
-  /*
-   * ======= END ZSL compatibility methods
-   */
-
-  public function qubitPopulate($options)
+  public function updateInformationObject(QubitInformationObject $object)
   {
-    sfContext::createInstance(sfProjectConfiguration::getApplicationConfiguration('qubit', 'cli', true));
-
-    // if we are skipping existing objects, optimize the index instead of deleting
-    if (!isset($options['skip']))
-    {
-      $this->index->delete();
-      $this->initialize();
-      $this->logger->log('Index erased.', 'arElasticSearch');
-    }
-    else
-    {
-      $skips = explode(',', $options['skip']);
-      $this->optimize();
-    }
-
-    // set buffering and updates to be batched for better performance
-    $this->enableBatch();
-
-    $this->timer = new QubitTimer;
-    $this->logger->log('Populating index...', 'arElasticSearch');
-    $total = 0;
-
-    // repositories
-    if (!in_array('repos', $skips))
-    {
-      self::$counter = 0;
-      $this->logger->log('Indexing Repositories...', 'arElasticSearch');
-
-      $criteria = new Criteria;
-      $criteria->add(QubitRepository::ID, QubitRepository::ROOT_ID, Criteria::NOT_EQUAL);
-      $repositories = QubitRepository::get($criteria);
-      $total = $total + count($repositories);
-
-      foreach ($repositories as $key => $repository)
-      {
-        $this->save($repository);
-
-        if ($options['verbose'])
-        {
-          $this->logger->log('QubitRepository "'.$repository->__toString().'" inserted ('.$this->timer->elapsed().'s) ('.($key + 1).'/'.count($repositories).')', 'arElasticSearch');
-        }
-      }
-    }
-
-    // information objects
-    if (!in_array('ios', $skips))
-    {
-      self::$counter = 0;
-      $this->logger->log('Indexing Information Objects...', 'arElasticSearch');
-      $total = $total + $this->populateInformationObjects($options);
-    }
-
-    // terms
-    if (!in_array('terms', $skips))
-    {
-      self::$counter = 0;
-      $this->logger->log('Indexing Terms...', 'arElasticSearch');
-      $total = $total + $this->addTerms($options);
-    }
-
-    // actors
-    if (!in_array('actors', $skips))
-    {
-      self::$counter = 0;
-      $this->logger->log('Indexing Actors...', 'arElasticSearch');
-      $total = $total + $this->addActors($options);
-    }
-
-    // if there are still documents in the batch queue, send them
-    if ($this->batchMode && count($this->batchDocs) > 0)
-    {
-      $this->index->addDocuments($this->batchDocs);
-      $this->index->flush();
-      $this->batchDocs = array();
-    }
-
-    $this->logger->log('Index populated with "'.($total).'" documents in "'.$this->timer->elapsed().'" seconds.', 'arElasticSearch');
+    return arElasticSearchInformationObject::update($object);
   }
 
-  /*
-  * NB: object classes should implement a static ::serialize() method, which returns a
-  * JSON-encoded string of the multi-array compatible with the PHP Serializable interface
-  *
-  * http://php.net/manual/en/class.serializable.php
-  */
-  public function serialize($object)
+  public function updateTerm(QubitTerm $term)
   {
-    // take an object and return an associative multidimensional array of properties
-    if (class_exists(get_class($object) . 'Mapping'))
-    {
-      $serialized = call_user_func_array(array(get_class($object) . 'Mapping', 'serialize'), array($object));
-
-      // TODO: trim empty/null/blank elements in the array
-      return $serialized;
-    }
-  }
-
-  /*
-   * PORTED FROM QUBITSEARCH CLASS
-   */
-
-  public function populateInformationObjects($options = array())
-  {
-    if (!isset(self::$conn))
-    {
-      self::$conn = Propel::getConnection();
-    }
-
-    // Get count of all information objects
-    $sql  = 'SELECT COUNT(*)';
-    $sql .= ' FROM '.QubitInformationObject::TABLE_NAME;
-    $sql .= ' WHERE id > ?';
-
-    $totalRows = QubitPdo::fetchColumn($sql, array(QubitInformationObject::ROOT_ID));
-
-    // Recursively descend down hierarchy
-    $this->recursivelyAddInformationObjects(QubitInformationObject::ROOT_ID, $totalRows, $options);
-
-    return $totalRows;
-  }
-
-  public function recursivelyAddInformationObjects($parentId, $totalRows, $options = array())
-  {
-    // Get information objects
-    if (!isset(self::$statements['getChildren']))
-    {
-      $sql  = 'SELECT
-                  io.id,
-                  io.lft,
-                  io.rgt';
-      $sql .= ' FROM '.QubitInformationObject::TABLE_NAME.' io';
-      $sql .= ' WHERE io.parent_id = ?';
-      $sql .= ' ORDER BY io.lft';
-
-      self::$statements['getChildren'] = self::$conn->prepare($sql);
-    }
-
-    self::$statements['getChildren']->execute(array($parentId));
-
-    // Loop through results, and add to search index
-    foreach (self::$statements['getChildren']->fetchAll(PDO::FETCH_OBJ) as $item)
-    {
-      $object = new QubitPdoInformationObject($item->id, $options);
-
-      $serialized = $object->serialize();
-/*
-      if ($comp = $this->array_compare($this->serialize(QubitInformationObject::getById($item->id)), $serialized))
-      {
-        // WARNING: PDO object is not serialized correctly
-        echo '=== QubitInformationObject #'.$item->id.': '."\n";
-        echo var_dump($comp[0]);
-        echo '=== QubitPdoInformationObject #'.$item->id.': '."\n";
-        echo var_dump($comp[1]);
-      }
-*/
-      $document = new Elastica_Document($item->id, $serialized);
-      $document->setType('QubitInformationObject');
-
-      // add this document to the batch queue
-      $this->batchDocs[] = $document;
-
-      // if we have a full batch, send in bulk
-      if (count($this->batchDocs) >= $this->batchSize)
-      {
-        $this->index->addDocuments($this->batchDocs);
-        $this->index->flush();
-
-        $this->batchDocs = array();
-      }
-
-      // Log it
-      self::$counter++;
-
-      if ($options['verbose'])
-      {
-        $this->logger->log('QubitInformationObject "#'.$item->id.'" inserted ('.$this->timer->elapsed().'s) ('.self::$counter.'/'.$totalRows.')', 'arElasticSearch');
-      }
-
-      // Descend hierarchy
-      if (1 < ($item->rgt - $item->lft))
-      {
-        // Pass ancestors and repository down to descendants
-        $this->recursivelyAddInformationObjects($item->id, $totalRows, array(
-          'ancestors'  => array_merge($object->getAncestors(), array($object)),
-          'repository' => $object->getRepository(),
-          'verbose' => $options['verbose']));
-      }
-
-    }
-  }
-
-  public function addTerms($options = array())
-  {
-    if (!isset(self::$conn))
-    {
-      self::$conn = Propel::getConnection();
-    }
-
-    $sql  = 'SELECT term.id';
-    $sql .= ' FROM '.QubitTerm::TABLE_NAME.' term';
-    $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON (term.id = object.id)';
-    $sql .= ' WHERE term.taxonomy_id IN (:subject, :place)';
-    $sql .= ' AND term.id != '.QubitTerm::ROOT_ID;
-
-    $terms = QubitPdo::fetchAll($sql, array(
-      ':subject' => QubitTaxonomy::SUBJECT_ID,
-      ':place' => QubitTaxonomy::PLACE_ID));
-    $numRows = count($terms);
-
-    // Loop through results, and add to search index
-    foreach ($terms as $item)
-    {
-      $term = QubitTerm::getById($item->id);
-      $this->save($term);
-
-      // Log it
-      self::$counter++;
-
-      if ($options['verbose'])
-      {
-        $this->logger->log('QubitTerm "#'.$item->id.'" inserted ('.$this->timer->elapsed().'s) ('.self::$counter.'/'.$numRows.')', 'arElasticSearch');
-      }
-    }
-
-    return $numRows;
-  }
-
-  public function addActors($options = array())
-  {
-    if (!isset(self::$conn))
-    {
-      self::$conn = Propel::getConnection();
-    }
-
-    $sql  = 'SELECT
-                  actor.id';
-    $sql .= ' FROM '.QubitActor::TABLE_NAME.' actor';
-    $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object';
-    $sql .= ' ON actor.id = object.id';
-    $sql .= ' WHERE actor.id != ?';
-    $sql .= ' AND object.class_name = ?';
-    $sql .= ' ORDER BY actor.lft';
-
-    $actors = QubitPdo::fetchAll($sql, array(QubitActor::ROOT_ID, 'QubitActor'));
-    $numRows = count($actors);
-
-    // Loop through results, and add to search index
-    foreach ($actors as $item)
-    {
-      $object = new QubitPdoActor($item->id);
-
-      $serialized = $object->serialize();
-/*
-      if ($comp = $this->array_compare($this->serialize(QubitActor::getById($item->id)), $serialized))
-      {
-        // WARNING: PDO object is not serialized correctly
-        echo '=== QubitActor #'.$item->id.': '."\n";
-        echo var_dump($comp[0]);
-        echo '=== QubitPdoActor #'.$item->id.': '."\n";
-        echo var_dump($comp[1]);
-      }
-*/
-      $document = new Elastica_Document($item->id, $serialized);
-      $document->setType('QubitActor');
-
-      // add this document to the batch queue
-      $this->batchDocs[] = $document;
-
-      // if we have a full batch, send in bulk
-      if (count($this->batchDocs) >= $this->batchSize)
-      {
-        $this->index->addDocuments($this->batchDocs);
-        $this->index->flush();
-
-        $this->batchDocs = array();
-      }
-
-      // Log it
-      self::$counter++;
-
-      if ($options['verbose'])
-      {
-        $this->logger->log('QubitActor "#'.$item->id.'" inserted ('.$this->timer->elapsed().'s) ('.self::$counter.'/'.$numRows.')', 'arElasticSearch');
-      }
-    }
-
-    return $numRows;
-  }
-
-  public function array_compare($array1, $array2)
-  {
-    $diff = false;
-
-    // Left-to-right
-    foreach ($array1 as $key => $value)
-    {
-      if (!array_key_exists($key,$array2))
-      {
-        $diff[0][$key] = $value;
-      }
-      else if (is_array($value))
-      {
-        if (!is_array($array2[$key]))
-        {
-          $diff[0][$key] = $value;
-          $diff[1][$key] = $array2[$key];
-        }
-        else
-        {
-          $new = $this->array_compare($value, $array2[$key]);
-          if ($new !== false)
-          {
-            if (isset($new[0])) $diff[0][$key] = $new[0];
-            if (isset($new[1])) $diff[1][$key] = $new[1];
-          }
-        }
-      }
-      else if ($array2[$key] !== $value)
-      {
-        $diff[0][$key] = $value;
-        $diff[1][$key] = $array2[$key];
-      }
-    }
-
-    // Right-to-left
-    foreach ($array2 as $key => $value)
-    {
-      if (!array_key_exists($key,$array1))
-      {
-        $diff[1][$key] = $value;
-      }
-
-      // No direct comparsion because matching keys were compared in the
-      // left-to-right loop earlier, recursively.
-    }
-
-    return $diff;
+    return arElasticSearchTerm::update($object);
   }
 }

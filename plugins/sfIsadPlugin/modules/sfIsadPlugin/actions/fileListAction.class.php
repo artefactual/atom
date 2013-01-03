@@ -41,8 +41,8 @@ class sfIsadPluginFileListAction extends sfAction
       $query = $request->query;
     }
 
-    $query = QubitAcl::searchFilterByRepository($query, 'read');
-    $query = QubitAcl::searchFilterDrafts($query);
+    $query = QubitAclSearch::filterByRepository($query, 'read');
+    $query = QubitAclSearch::filterDrafts($query);
 
     $this->pager = new QubitArrayPager;
     $this->pager->hits = QubitSearch::getInstance()->getEngine()->getIndex()->find($query);

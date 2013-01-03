@@ -138,7 +138,7 @@
         <?php endif; ?>
 
         <?php foreach ($pager->getResults() as $hit): ?>
-          <?php $doc = build_i18n_doc($hit, array('creators')) ?>
+          <?php $doc = $hit->getData() ?>
           <?php echo include_partial('search/searchResult', array('doc' => $doc, 'pager' => $pager)) ?>
         <?php endforeach; ?>
 

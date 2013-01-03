@@ -17,51 +17,79 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Use _msearch to query ES multiple times at once, using query_string.
+ *
+ * @package AccesstoMemory
+ * @subpackage search
+ */
 class SearchAutocompleteAction extends sfAction
 {
   public function execute($request)
   {
-    // remove wildcard characters so we have a clean term query
-    $querystring = strtr($this->request->query, array('*' => '', '?' => ''));
+    // Store user query string, erase wildcards
+    $this->queryString = strtr($request->query, array('*' => '', '?' => ''));
 
-    // if querystring is empty, don't query
-    if ('' == preg_replace('/[\s\t\r\n]*/', '', $querystring))
+    // If the query is empty, don't query
+    if ('' == preg_replace('/[\s\t\r\n]*/', '', $this->queryString))
     {
-      return sfView::NONE;
+      $this->forward404();
     }
 
-    $query = new Elastica_Query();
-    $query->setLimit(3);
-    $query->setSort(array('_score' => 'desc', 'slug' => 'asc'));
+    // Add wildcard
+    $this->queryString .= '*';
 
-    $queryString = new Elastica_Query_QueryString($querystring . '*');
-    $queryString->setDefaultOperator('AND');
+    // Current culture
+    $this->culture = $this->context->user->getCulture();
 
-    // repositories
-    $queryString->setFields(array('actor.authorizedFormOfName'));
-    $query->setFields(array('slug', 'actor'));
-    $query->setQuery($queryString);
+    // Build ES multi query
+    $this->queries = array();
 
-    $this->repositories = QubitSearch::getInstance()->index->getType('QubitRepository')->search($query);
-    $this->repositoriesHits = $this->repositories->getTotalHits();
+    $this->buildQuery(
+      'atom',
+      'QubitInformationObject',
+      'i18n.%s.title',
+      array('slug', 'i18n', 'levelOfDescriptionId'),
+      array('_score' => 'desc'));
 
-    // actors
-    $queryString->setFields(array('i18n.authorizedFormOfName'));
-    $query->setFields(array('slug', 'i18n'));
-    $query->setQuery($queryString);
+    $this->buildQuery(
+      'atom',
+      'QubitRepository',
+      'i18n.%s.authorizedFormOfName',
+      array('slug', 'i18n'),
+      array('_score' => 'desc'));
 
-    $this->actors = QubitSearch::getInstance()->index->getType('QubitActor')->search($query);
-    $this->actorsHits = $this->actors->getTotalHits();
+    $this->buildQuery(
+      'atom',
+      'QubitActor',
+      'i18n.%s.authorizedFormOfName',
+      array('slug', 'i18n'),
+      array('_score' => 'desc'));
 
-    // information objects
-    $queryString->setFields(array('i18n.title'));
-    $query->setFields(array('slug', 'levelOfDescriptionId', 'i18n'));
-    $query->setQuery($queryString);
+    $this->buildQuery(
+      'atom',
+      'QubitTerm',
+      'i18n.%s.name',
+      array('slug', 'i18n'),
+      array('_score' => 'desc'));
 
-    $this->descriptions = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
-    $this->descriptionsHits = $this->descriptions->getTotalHits();
+    // Get a list of result sets
+    $resultSets = $this->sendMultiQuery();
 
-    if (0 < $this->descriptionsHits)
+    // Direct access to result set objects
+    $this->descriptions = $resultSets[0];
+    $this->repositories = $resultSets[1];
+    $this->actors = $resultSets[2];
+    $this->subjects = $resultSets[3];
+
+    // Return a 404 response if there are no results
+    if (0 == $this->descriptions->getTotalHits() + $this->repositories->getTotalHits() + $this->actors->getTotalHits() + $this->subjects->getTotalHits())
+    {
+      $this->forward404();
+    }
+
+    // Preload levels of descriptions
+    if (0 < $this->descriptions->getTotalHits())
     {
       $sql = '
         SELECT
@@ -79,19 +107,58 @@ class SearchAutocompleteAction extends sfAction
         $this->levelsOfDescription[$item->id] = $item->name;
       }
     }
+  }
 
-    // terms
-    $queryString->setFields(array('i18n.name'));
-    $query->setFields(array('slug', 'i18n', 'taxonomyId'));
-    $query->setQuery($queryString);
+  protected function buildQuery($index, $type, $field, $fields, $sort)
+  {
+    $fieldName = sprintf($field, $this->culture);
 
-    $filter = new Elastica_Filter_Term();
-    $this->subjects = QubitSearch::getInstance()->index->getType('QubitTerm')->search($query->setFilter($filter->setTerm('taxonomyId', QubitTaxonomy::SUBJECT_ID)));
-    $this->subjectsHits = $this->subjects->getTotalHits();
+    // Header
+    $this->queries[] = array(
+      'index' => $index,
+      'type' => $type);
 
-    if (0 == $this->descriptionsHits && 0 == $this->actorsHits && 0 == $this->repositoriesHits && 0 == $this->subjectsHits)
+    $this->queries[] = array(
+      'query' => array(
+        'query_string' => array(
+          'default_field' => $fieldName,
+          'default_operator' => 'AND',
+          'query' => $this->queryString)),
+      'fields' => $fields,
+      'size' => 3,
+      'sort' => $sort);
+  }
+
+  /**
+   * Elastica does not support _msearch yet. This method sends the query using
+   * Elastica_Client::request(). Multiple Elastica_Response objects are build
+   * but json_encode has to be called. I wonder if it could be avoided some way.
+   *
+   * @return array
+   */
+  protected function sendMultiQuery()
+  {
+    $rawQuery = '';
+    foreach ($this->queries as $query)
     {
-      return sfView::NONE;
+      $rawQuery .= (is_array($query) ? json_encode($query) : $query) . PHP_EOL;
     }
+
+    $response = QubitSearch::getInstance()->client->request('_msearch', Elastica_Request::GET, $rawQuery);
+    $responseData = $response->getData();
+
+    $resultSets = array();
+
+    if (isset($responseData['responses']) && is_array($responseData['responses']))
+    {
+      foreach ($responseData['responses'] as $key => $responseData)
+      {
+        $response = new Elastica_Response(json_encode($responseData));
+
+        $resultSets[] = new Elastica_ResultSet($response);
+      }
+    }
+
+    return $resultSets;
   }
 }
