@@ -47,7 +47,6 @@ class InformationObjectTableMap extends TableMap {
 		$this->addForeignKey('DESCRIPTION_DETAIL_ID', 'descriptionDetailId', 'INTEGER', 'term', 'ID', false, null, null);
 		$this->addColumn('DESCRIPTION_IDENTIFIER', 'descriptionIdentifier', 'VARCHAR', false, 1024, null);
 		$this->addColumn('SOURCE_STANDARD', 'sourceStandard', 'VARCHAR', false, 1024, null);
-		$this->addForeignKey('SOURCE_METADATA_ID', 'sourceMetadataId', 'INTEGER', 'term', 'ID', false, null, null);
 		$this->addColumn('LFT', 'lft', 'INTEGER', true, null, null);
 		$this->addColumn('RGT', 'rgt', 'INTEGER', true, null, null);
 		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 7, null);
@@ -66,7 +65,6 @@ class InformationObjectTableMap extends TableMap {
     $this->addRelation('informationObjectRelatedByparentId', 'informationObject', RelationMap::MANY_TO_ONE, array('parent_id' => 'id', ), null, null);
     $this->addRelation('termRelatedBydescriptionStatusId', 'term', RelationMap::MANY_TO_ONE, array('description_status_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('termRelatedBydescriptionDetailId', 'term', RelationMap::MANY_TO_ONE, array('description_detail_id' => 'id', ), 'SET NULL', null);
-    $this->addRelation('termRelatedBysourceMetadataId', 'term', RelationMap::MANY_TO_ONE, array('source_metadata_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('digitalObject', 'digitalObject', RelationMap::ONE_TO_MANY, array('id' => 'information_object_id', ), null, null);
     $this->addRelation('event', 'event', RelationMap::ONE_TO_MANY, array('id' => 'information_object_id', ), 'CASCADE', null);
     $this->addRelation('informationObjectRelatedByparentId', 'informationObject', RelationMap::ONE_TO_MANY, array('id' => 'parent_id', ), null, null);

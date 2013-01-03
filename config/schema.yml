@@ -115,7 +115,6 @@ propel:
     description_detail_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     description_identifier: varchar(1024)
     source_standard: varchar(1024)
-    source_metadata_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     lft: { type: integer, required: true, nestedSetLeftKey: true }
     rgt: { type: integer, required: true, nestedSetRightKey: true }
 

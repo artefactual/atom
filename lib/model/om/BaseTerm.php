@@ -199,11 +199,6 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       return true;
     }
 
-    if ('informationObjectsRelatedBysourceMetadataId' == $name)
-    {
-      return true;
-    }
-
     if ('notes' == $name)
     {
       return true;
@@ -622,23 +617,6 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       }
 
       return $this->refFkValues['informationObjectsRelatedBydescriptionDetailId'];
-    }
-
-    if ('informationObjectsRelatedBysourceMetadataId' == $name)
-    {
-      if (!isset($this->refFkValues['informationObjectsRelatedBysourceMetadataId']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['informationObjectsRelatedBysourceMetadataId'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['informationObjectsRelatedBysourceMetadataId'] = self::getinformationObjectsRelatedBysourceMetadataIdById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['informationObjectsRelatedBysourceMetadataId'];
     }
 
     if ('notes' == $name)
@@ -1462,26 +1440,6 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
   public function addinformationObjectsRelatedBydescriptionDetailIdCriteria(Criteria $criteria)
   {
     return self::addinformationObjectsRelatedBydescriptionDetailIdCriteriaById($criteria, $this->id);
-  }
-
-  public static function addinformationObjectsRelatedBysourceMetadataIdCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitInformationObject::SOURCE_METADATA_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getinformationObjectsRelatedBysourceMetadataIdById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addinformationObjectsRelatedBysourceMetadataIdCriteriaById($criteria, $id);
-
-    return QubitInformationObject::get($criteria, $options);
-  }
-
-  public function addinformationObjectsRelatedBysourceMetadataIdCriteria(Criteria $criteria)
-  {
-    return self::addinformationObjectsRelatedBysourceMetadataIdCriteriaById($criteria, $this->id);
   }
 
   public static function addnotesCriteriaById(Criteria $criteria, $id)
