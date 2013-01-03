@@ -90,6 +90,10 @@ EOF;
       $sf_context = sfContext::createInstance($configuration);
       sfInstall::loadData();
 
+      // Clear the search index
+      QubitSearch::getInstance()->getEngine()->erase();
+      QubitSearch::getInstance()->optimize();
+
       // set, or prompt for, site title configuration information
       $siteTitle = ($options['title']) ? $options['title'] : '';
       if (!$siteTitle)
