@@ -111,46 +111,7 @@ EOF;
 
       print "\n";
 
-      // ask for admin user information
-      $username = ($options['username']) ? $options['username'] : '';
-      if (!$username)
-      {
-        $usernamePrompt = 'Admin username';
-        $usernamePrompt .= ($defaultUser) ? ' ['. $defaultUser .']' : '';
-        $usernamePrompt .= ': ';
-        $username = readline($usernamePrompt);
-        $username = ($username) ? $username : $defaultUser;
-      }
-
-      $email = ($options['email']) ? $options['email'] : '';
-      if (!$email)
-      {
-        $emailPrompt = 'Admin email';
-        $emailPrompt .= ($defaultEmail) ? ' ['. $defaultEmail .']' : '';
-        $emailPrompt .= ': ';
-        $email    = readline($emailPrompt);
-        $email = ($email) ? $email : $defaultEmail;
-      }
-
-      $password = ($options['password']) ? $options['password'] : '';
-      if (!$password)
-      {
-        $password = trim(readline("Admin password: "));
-      }
-
-      // create user
-      $user = new QubitUser();
-      $user->username = $username;
-      $user->email = $email;
-      $user->setPassword($password);
-      $user->active = true;
-      $user->save();
-
-      // give user admin capability
-      $group = new QubitAclUserGroup();
-      $group->userId = $user->id;
-      $group->groupId = 100;
-      $group->save();
+      addSuperuserTask::addSuperUser($options['username'], $options);
 
       $this->logSection('propel', 'Purge complete!');
     }
