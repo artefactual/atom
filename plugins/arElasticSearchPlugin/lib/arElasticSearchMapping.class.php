@@ -184,6 +184,12 @@ class arElasticSearchMapping
       switch ($attributeName)
       {
         case 'i18n':
+          $languages = QubitSetting::getByScope('i18n_languages');
+          if (1 > count($languages))
+          {
+            throw new sfException('The database settings don\'t content any language.');
+          }
+
           $this->setIfNotSet($typeProperties['properties'], 'sourceCulture', array('type' => 'string', 'index' => 'not_analyzed', 'include_in_all' => false));
 
           // We are using the same mapping for all the i18n fields
@@ -211,7 +217,7 @@ class arElasticSearchMapping
 
           // i18n documents (one per culture)
           $nestedI18nObjects = array();
-          foreach (QubitSetting::getByScope('i18n_languages') as $setting)
+          foreach ($languages as $setting)
           {
             $culture = $setting->getValue(array('sourceCulture' => true));
             $nestedI18nObjects[$culture] = array(
