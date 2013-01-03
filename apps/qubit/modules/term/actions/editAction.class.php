@@ -37,7 +37,7 @@ class TermEditAction extends DefaultEditAction
       'sourceNote',
       'useFor');
 
-  protected 
+  protected
     $updatedLabel = false;
 
   protected function earlyExecute()
@@ -453,7 +453,7 @@ class TermEditAction extends DefaultEditAction
     {
       if ($item->object instanceof QubitInformationObject)
       {
-        QubitSearch::updateInformationObject($item->object);
+        QubitSearch::getInstance()->update($item->object);
       }
     }
 

@@ -167,14 +167,14 @@ class QubitActor extends BaseActor
       }
     }
 
-    QubitSearch::updateActor($this);
+    QubitSearch::getInstance()->update($this);
 
     return $this;
   }
 
   public function delete($connection = null)
   {
-    QubitSearch::delete($this);
+    QubitSearch::getInstance()->delete($this);
 
     return parent::delete($connection);
   }

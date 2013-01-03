@@ -48,12 +48,12 @@ class QubitEvent extends BaseEvent
     {
       if ($this->informationObjectId != $cleanInformationObjectId && null !== QubitInformationObject::getById($cleanInformationObjectId))
       {
-        QubitSearch::updateInformationObject(QubitInformationObject::getById($cleanInformationObjectId));
+        QubitSearch::getInstance()->update(QubitInformationObject::getById($cleanInformationObjectId));
       }
 
       if (isset($this->informationObject))
       {
-        QubitSearch::updateInformationObject($this->informationObject);
+        QubitSearch::getInstance()->update($this->informationObject);
       }
     }
 
@@ -93,7 +93,7 @@ class QubitEvent extends BaseEvent
 
     if (isset($this->informationObject))
     {
-      QubitSearch::updateInformationObject($this->getInformationObject());
+      QubitSearch::getInstance()->update($this->getInformationObject());
     }
   }
 

@@ -51,22 +51,22 @@ class QubitRelation extends BaseRelation
     {
       if ($this->objectId != $cleanObjectId && null !== QubitInformationObject::getById($cleanObjectId))
       {
-        QubitSearch::updateInformationObject(QubitInformationObject::getById($cleanObjectId));
+        QubitSearch::getInstance()->update(QubitInformationObject::getById($cleanObjectId));
       }
 
       if ($this->subjectId != $cleanSubjectId && null != QubitInformationObject::getById($cleanSubjectId))
       {
-        QubitSearch::updateInformationObject(QubitInformationObject::getById($cleanSubjectId));
+        QubitSearch::getInstance()->update(QubitInformationObject::getById($cleanSubjectId));
       }
 
       if ($this->object instanceof QubitInformationObject)
       {
-        QubitSearch::updateInformationObject($this->object);
+        QubitSearch::getInstance()->update($this->object);
       }
 
       if ($this->subject instanceof QubitInformationObject)
       {
-        QubitSearch::updateInformationObject($this->subject);
+        QubitSearch::getInstance()->update($this->subject);
       }
     }
 
@@ -116,12 +116,12 @@ class QubitRelation extends BaseRelation
 
     if ($this->object instanceof QubitInformationObject)
     {
-      QubitSearch::updateInformationObject($this->object);
+      QubitSearch::getInstance()->update($this->object);
     }
 
     if ($this->subject instanceof QubitInformationObject)
     {
-      QubitSearch::updateInformationObject($this->subject);
+      QubitSearch::getInstance()->update($this->delete);
     }
   }
 

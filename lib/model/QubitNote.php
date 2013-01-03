@@ -42,12 +42,12 @@ class QubitNote extends BaseNote
     {
       if ($this->objectId != $cleanObjectId && null !== QubitInformationObject::getById($cleanObjectId))
       {
-        QubitSearch::updateInformationObject(QubitInformationObject::getById($cleanObjectId));
+        QubitSearch::getInstance()->update(QubitInformationObject::getById($cleanObjectId));
       }
 
       if ($this->object instanceof QubitInformationObject)
       {
-        QubitSearch::updateInformationObject($this->object);
+        QubitSearch::getInstance()->update($this->object);
       }
     }
 
@@ -80,7 +80,7 @@ class QubitNote extends BaseNote
 
     if ($this->getObject() instanceof QubitInformationObject)
     {
-      QubitSearch::updateInformationObject($this->getObject());
+      QubitSearch::getInstance()->update($this->getObject());
     }
   }
 }

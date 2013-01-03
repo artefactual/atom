@@ -321,7 +321,7 @@ class QubitInformationObject extends BaseInformationObject
       $status->save($connection);
     }
 
-    QubitSearch::updateInformationObject($this);
+    QubitSearch::getInstance()->update($this);
 
     return $this;
   }
@@ -337,7 +337,7 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function delete($connection = null)
   {
-    QubitSearch::delete($this);
+    QubitSearch::getInstance()->delete($this);
 
     $this->deletePhysicalObjectRelations();
 
@@ -1351,7 +1351,7 @@ class QubitInformationObject extends BaseInformationObject
       {
         if ($langNode->attributes->getNamedItem('langcode'))
         {
-          $langType = $langNode->getAttribute('encodinganalog'); 
+          $langType = $langNode->getAttribute('encodinganalog');
           $langCode = substr($langNode->getAttribute('langcode'), 0, 2);
 
           switch($langType)

@@ -350,12 +350,12 @@ class QubitDigitalObject extends BaseDigitalObject
     {
       if ($this->informationObjectId != $cleanInformationObjectId && null !== QubitInformationObject::getById($cleanInformationObjectId))
       {
-        QubitSearch::updateInformationObject(QubitInformationObject::getById($cleanInformationObjectId));
+        QubitSearch::getInstance()->update(QubitInformationObject::getById($cleanInformationObjectId));
       }
 
       if (isset($this->informationObject))
       {
-        QubitSearch::updateInformationObject($this->informationObject);
+        QubitSearch::getInstance()->update($this->informationObject);
       }
     }
 
@@ -403,7 +403,7 @@ class QubitDigitalObject extends BaseDigitalObject
     // Update search index before deleting self
     if (!empty($this->informationObjectId))
     {
-      QubitSearch::updateInformationObject($this->getInformationObject());
+      QubitSearch::getInstance()->update($this->getInformationObject());
     }
 
     // Delete self
