@@ -9,19 +9,25 @@ homepage:
     action: index
     slug: home
 
-slug_index_template:
+slug;template:
   url: /:slug;:template
   class: QubitMetadataRoute
   param:
     action: index
-    slug: { pattern: '[^;/]+' }
+    slug: { pattern: '[^;]+' }
 
-slug_index:
+slug:
   url: /:slug
   class: QubitMetadataRoute
   param:
     action: index
-    slug: { pattern: '[^;/]+' }
+
+informationobject/action:
+  url: /:slug/:action
+  class: QubitResourceRoute
+  param:
+    module: informationobject
+    action: { pattern: 'addDigitalObject|fileList|multiFileUpload|reports' }
 
 oai_harvester_harvest_all_sets:
   url: /oai/harvest/:type/:id
@@ -43,19 +49,11 @@ oai_requests:
     module: qtOaiPlugin
     action: oai
 
-informationobject/action:
-  url: /:slug/:action
-  class: QubitResourceRoute
-  param:
-    module: informationobject
-    action: { pattern: 'addDigitalObject|fileList|multiFileUpload|reports' }
-
 sword/action/slug:
   url: /sword/:action/:slug
   class: QubitResourceRoute
   param:
     module: qtSwordPlugin
-    slug: { pattern: '[^;]+' }
     throw404: false
 
 sword:
@@ -63,34 +61,17 @@ sword:
   param:
     module: qtSwordPlugin
 
-slug;default_index:
-  url:   /:slug;:module
-  class: QubitResourceRoute
-  param:
-    action: index
-
-slug;default:
-  url: /:slug;:module/:action
-  class: QubitResourceRoute
-
-id;default:
+id/default:
   url: /:module/:action/:id
-  class: QubitRoute
-
-default_index:
-  url:   /:module
   param:
-    action: index
+    id: { pattern: '\d+' }
 
-# After slug;default to avoid matching array($object, 'module' => 'foo', 'action', => 'edit')
 edit:
   url: /:slug/edit
   class: QubitMetadataRoute
   param:
     action: edit
-    slug: { pattern: '[^;/]+' }
 
-# After edit to avoid matching /;foo/add
 add:
   url: /:module/add
   class: QubitMetadataRoute
@@ -101,7 +82,16 @@ copy:
   url: /:module/copy
   class: QubitMetadataRoute
   param:
-    action: copy
+    action: edit
+
+slug/default:
+  url: /:slug/:module/:action
+  class: QubitResourceRoute
+
+default_index:
+  url:   /:module
+  param:
+    action: index
 
 default:
   url:   /:module/:action
