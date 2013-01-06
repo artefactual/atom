@@ -43,35 +43,12 @@ oai_requests:
     module: qtOaiPlugin
     action: oai
 
-# After *all* information object routes to avoid hijacking
-informationobject/addDigitalObject:
-  url: /:slug/addDigitalObject
+informationobject/action:
+  url: /:slug/:action
   class: QubitResourceRoute
   param:
     module: informationobject
-    action: addDigitalObject
-
-informationobject/fileList:
-  url: /:slug/fileList
-  class: QubitResourceRoute
-  param:
-    module: informationobject
-    action: fileList
-    slug: { pattern: '[^;]+' }
-
-informationobject/multiFileUpload:
-  url: /:slug/multiFileUpload
-  class: QubitResourceRoute
-  param:
-    module: informationobject
-    action: multiFileUpload
-
-informationobject/reports:
-  url: /:slug/reports
-  class: QubitResourceRoute
-  param:
-    module: informationobject
-    action: reports
+    action: { pattern: 'addDigitalObject|fileList|multiFileUpload|reports' }
 
 sword/action/slug:
   url: /sword/:action/:slug
