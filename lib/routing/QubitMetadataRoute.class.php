@@ -17,9 +17,10 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitMetadataRoute extends QubitRoute
+class QubitMetadataRoute extends sfRoute
 {
   public static
+
     $METADATA_PLUGINS = array(
       'isaar' => 'sfIsaarPlugin',
       'eac'   => 'sfEacPlugin',
@@ -29,9 +30,26 @@ class QubitMetadataRoute extends QubitRoute
       'skos'  => 'sfSkosPlugin',
       'rad'   => 'sfRadPlugin',
       'mods'  => 'sfModsPlugin',
-      'isdf'  => 'sfIsdfPlugin');
+      'isdf'  => 'sfIsdfPlugin'),
+
+    $DEFAULT_MODULES = array( // informationobject not needed
+      'actor'      => 'sfIsaarPlugin',
+      'repository' => 'sfIsdiahPlugin',
+      'function'   => 'sfIsdfPlugin');
 
   /**
+   * After parent::matches() does all the important stuff, find the module
+   * that fits with the object (if a slug is given). If the slug is missing,
+   * update the module to corresponding plugin module.
+   *
+   * Case 1: e.g. uri "/peanut-12345" (QubitInformationObject)
+   *     -> Add module 'sfIsadPlugin' since that is the module that corresponds
+   *        with that description (it looks at the record settings and the
+   *        default application template).
+   * Case 2: e.g. uri "/repository/add"
+   *     -> Replace module "repository" with "sfIsdiahPlugin". The relation
+   *        is descrbied in self::$DEFAULT_MODULES
+   *
    * @see sfRoute
    */
   public function matchesUrl($url, $context = array())
@@ -49,7 +67,7 @@ class QubitMetadataRoute extends QubitRoute
 
       if (null === $this->resource = QubitObject::get($criteria)->__get(0))
       {
-        throw new sfError404Exception(sprintf('Unable to find the object with the following slug "%s".', $parameters['slug']));
+        return false;
       }
 
       // Find the Symfony module to be used based in the object class.
@@ -140,17 +158,26 @@ class QubitMetadataRoute extends QubitRoute
     // to be used
     else if (isset($parameters['module']))
     {
-      if (false !== $code = $this->getDefaultTemplate($parameters['module']))
+      switch ($parameters['module'])
       {
-        $parameters['module'] = self::$METADATA_PLUGINS[$code];
+        case 'informationobject':
+          if (false !== $code = $this->getDefaultTemplate($parameters['module']))
+          {
+            $parameters['module'] = self::$METADATA_PLUGINS[$code];
+          }
+
+          break;
+
+        case 'actor':
+        case 'repository':
+        case 'function':
+          $module = $parameters['module'];
+          $parameters['module'] = self::$DEFAULT_MODULES[$module];
+
+          break;
+
       }
     }
-
-    # echo "QubitMetadataRoute";
-    # var_dump($parameters);
-    # echo $this->regex;
-    # $parameters['module'] = 'staticpage';
-    # $parameters['action'] = 'index';
 
     return $parameters;
   }
@@ -160,7 +187,9 @@ class QubitMetadataRoute extends QubitRoute
    */
   public function matchesParameters($params, $context = array())
   {
-    return parent::matchesParameters($this->parseParameters($params), $context);
+    $params = $this->parseParameters($params);
+
+    return parent::matchesParameters($params, $context);
   }
 
   /**
@@ -168,7 +197,9 @@ class QubitMetadataRoute extends QubitRoute
    */
   public function generate($params, $context = array(), $absolute = false)
   {
-    return parent::generate($this->parseParameters($params), $context, $absolute);
+    $params = $this->parseParameters($params);
+
+    return parent::generate($params, $context, $absolute);
   }
 
   protected function parseParameters($params)
