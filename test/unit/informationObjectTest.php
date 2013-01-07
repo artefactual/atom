@@ -19,11 +19,11 @@
 
 require_once dirname(__FILE__).'/../bootstrap/unit.php';
 
-$configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', true);
-
-new sfDatabaseManager($configuration);
-
 $t = new lime_test(3, new lime_output_color);
+
+$t->diag('Initializing configuration.');
+$configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', true);
+sfContext::createInstance($configuration);
 
 $informationObject = new QubitInformationObject;
 $t->isa_ok($informationObject->__toString(), 'string',
