@@ -270,8 +270,8 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
   public function update($object)
   {
-    $className = 'arElasticSearch'.str_replace('Qubit', '', get_class($class));
+    $className = 'arElasticSearch'.str_replace('Qubit', '', get_class($object));
 
-    return call_user_func(array($className, 'update'));
+    return call_user_func(array($className, 'update'), $object);
   }
 }

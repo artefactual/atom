@@ -26,8 +26,6 @@ abstract class arElasticSearchModelBase
   protected static
     $conn;
 
-  # abstract public function update($object);
-
   public function __construct()
   {
     if (!isset(self::$conn))
@@ -128,7 +126,8 @@ abstract class arElasticSearchModelBase
     return $i18ns;
   }
 
-  public function update($object)
+  # abstract public function update($object);
+  public static function update($object)
   {
     return true;
   }
