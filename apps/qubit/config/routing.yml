@@ -9,6 +9,10 @@ homepage:
     action: index
     slug: home
 
+# ------------------------------------------------------ <QubitMetadataResource>
+# QubitMetadataResource objects will generate and match URL to integrate the
+# multiple metadata standards available.
+
 slug;template:
   url: /:slug;:template
   class: QubitMetadataRoute
@@ -21,6 +25,26 @@ slug:
   class: QubitMetadataRoute
   param:
     action: index
+
+edit:
+  url: /:slug/edit
+  class: QubitMetadataRoute
+  param:
+    action: edit
+
+copy:
+  url: /:slug/copy
+  class: QubitMetadataRoute
+  param:
+    action: copy
+
+add:
+  url: /:module/add
+  class: QubitMetadataRoute
+  param:
+    action: edit
+
+# ----------------------------------------------------- </QubitMetadataResource>
 
 informationobject/action:
   url: /:slug/:action
@@ -65,24 +89,6 @@ id/default:
   url: /:module/:action/:id
   param:
     id: { pattern: '\d+' }
-
-edit:
-  url: /:slug/edit
-  class: QubitMetadataRoute
-  param:
-    action: edit
-
-add:
-  url: /:module/add
-  class: QubitMetadataRoute
-  param:
-    action: edit
-
-copy:
-  url: /:module/copy
-  class: QubitMetadataRoute
-  param:
-    action: edit
 
 slug/default:
   url: /:slug/:module/:action

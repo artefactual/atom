@@ -32,10 +32,11 @@ class QubitMetadataRoute extends sfRoute
       'mods'  => 'sfModsPlugin',
       'isdf'  => 'sfIsdfPlugin'),
 
-    $DEFAULT_MODULES = array( // informationobject not needed
-      'actor'      => 'sfIsaarPlugin',
-      'repository' => 'sfIsdiahPlugin',
-      'function'   => 'sfIsdfPlugin');
+    $DEFAULT_MODULES = array(
+      'informationobject' => false,
+      'actor'             => 'sfIsaarPlugin',
+      'repository'        => 'sfIsdiahPlugin',
+      'function'          => 'sfIsdfPlugin');
 
   /**
    * After parent::matches() does all the important stuff, find the module
@@ -57,6 +58,12 @@ class QubitMetadataRoute extends sfRoute
     if (false === $parameters = parent::matchesUrl($url, $context))
     {
       return false;
+    }
+
+    // Rewrite action add/copy to edit
+    if (in_array($parameters['action'], array('add', 'copy')))
+    {
+      $parameters['action'] = 'edit';
     }
 
     if (isset($parameters['slug']))
@@ -189,6 +196,14 @@ class QubitMetadataRoute extends sfRoute
   {
     $params = $this->parseParameters($params);
 
+    if (!isset($params['slug']))
+    {
+      if (!isset(self::$DEFAULT_MODULES[$module]) && !isset(self::$METADATA_PLUGINS[$template]))
+      {
+        return false;
+      }
+    }
+
     return parent::matchesParameters($params, $context);
   }
 
@@ -204,14 +219,17 @@ class QubitMetadataRoute extends sfRoute
 
   protected function parseParameters($params)
   {
-    // When an object is passed, replace it with its slug
-    if (isset($params[0]) && is_object($params[0]))
+    // Look for the slug property if an object is passed
+    if (true === $isObject = (isset($params[0]) && is_object($params[0])))
     {
-      // Extract the slug property and pass it to generate()
+      // Extract the slug and unset
       $params['slug'] = $params[0]->slug;
+      unset($params[0]);
+    }
 
-      // Don't show the module in the URL but analyze it so we can assing a
-      // template in case that we know its associated plugin (module) name
+    if (isset($params['slug']))
+    {
+      // Set the metadata template
       if (isset($params['module']))
       {
         if (false !== $key = array_search($params['module'], self::$METADATA_PLUGINS))
@@ -219,11 +237,9 @@ class QubitMetadataRoute extends sfRoute
           $params['template'] = $key;
         }
 
+        // Hide the module because it is hip!
         unset($params['module']);
       }
-
-      // Unset the object
-      unset($params[0]);
     }
 
     return $params;
