@@ -198,7 +198,8 @@ class QubitMetadataRoute extends sfRoute
 
     if (!isset($params['slug']))
     {
-      if (!isset(self::$DEFAULT_MODULES[$module]) && !isset(self::$METADATA_PLUGINS[$template]))
+      $module = $params['module'];
+      if (!isset(self::$DEFAULT_MODULES[$module]))
       {
         return false;
       }

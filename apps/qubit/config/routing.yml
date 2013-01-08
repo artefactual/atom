@@ -9,8 +9,8 @@ homepage:
     action: index
     slug: home
 
-# ------------------------------------------------------ <QubitMetadataResource>
-# QubitMetadataResource objects will generate and match URL to integrate the
+# --------------------------------------------------------- <QubitMetadataRoute>
+# QubitMetadataRoute objects will generate and match URL to integrate the
 # multiple metadata standards available.
 
 slug;template:
@@ -44,7 +44,7 @@ add:
   param:
     action: edit
 
-# ----------------------------------------------------- </QubitMetadataResource>
+# -------------------------------------------------------- </QubitMetadataRoute>
 
 informationobject/action:
   url: /:slug/:action
