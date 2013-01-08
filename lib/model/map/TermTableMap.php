@@ -72,7 +72,7 @@ class TermTableMap extends TableMap {
     $this->addRelation('informationObjectRelatedBycollectionTypeId', 'informationObject', RelationMap::ONE_TO_MANY, array('id' => 'collection_type_id', ), null, null);
     $this->addRelation('informationObjectRelatedBydescriptionStatusId', 'informationObject', RelationMap::ONE_TO_MANY, array('id' => 'description_status_id', ), 'SET NULL', null);
     $this->addRelation('informationObjectRelatedBydescriptionDetailId', 'informationObject', RelationMap::ONE_TO_MANY, array('id' => 'description_detail_id', ), 'SET NULL', null);
-    $this->addRelation('informationObjectRelatedBysourceMetadataId', 'informationObject', RelationMap::ONE_TO_MANY, array('id' => 'source_metadata_id', ), 'SET NULL', null);
+    $this->addRelation('informationObjectRelatedBydisplayStandardId', 'informationObject', RelationMap::ONE_TO_MANY, array('id' => 'display_standard_id', ), 'SET NULL', null);
     $this->addRelation('note', 'note', RelationMap::ONE_TO_MANY, array('id' => 'type_id', ), 'SET NULL', null);
     $this->addRelation('objectTermRelation', 'objectTermRelation', RelationMap::ONE_TO_MANY, array('id' => 'term_id', ), 'CASCADE', null);
     $this->addRelation('otherName', 'otherName', RelationMap::ONE_TO_MANY, array('id' => 'type_id', ), 'SET NULL', null);

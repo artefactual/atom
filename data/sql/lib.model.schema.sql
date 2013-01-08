@@ -334,7 +334,7 @@ CREATE TABLE `information_object`
 	`description_detail_id` INTEGER,
 	`description_identifier` VARCHAR(1024),
 	`source_standard` VARCHAR(1024),
-	`source_metadata_id` INTEGER,
+	`display_standard_id` INTEGER,
 	`lft` INTEGER  NOT NULL,
 	`rgt` INTEGER  NOT NULL,
 	`source_culture` VARCHAR(7)  NOT NULL,
@@ -371,9 +371,9 @@ CREATE TABLE `information_object`
 		FOREIGN KEY (`description_detail_id`)
 		REFERENCES `term` (`id`)
 		ON DELETE SET NULL,
-	INDEX `information_object_FI_8` (`source_metadata_id`),
+	INDEX `information_object_FI_8` (`display_standard_id`),
 	CONSTRAINT `information_object_FK_8`
-		FOREIGN KEY (`source_metadata_id`)
+		FOREIGN KEY (`display_standard_id`)
 		REFERENCES `term` (`id`)
 		ON DELETE SET NULL
 )Engine=InnoDB;

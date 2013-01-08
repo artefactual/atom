@@ -199,7 +199,7 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       return true;
     }
 
-    if ('informationObjectsRelatedBysourceMetadataId' == $name)
+    if ('informationObjectsRelatedBydisplayStandardId' == $name)
     {
       return true;
     }
@@ -624,21 +624,21 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       return $this->refFkValues['informationObjectsRelatedBydescriptionDetailId'];
     }
 
-    if ('informationObjectsRelatedBysourceMetadataId' == $name)
+    if ('informationObjectsRelatedBydisplayStandardId' == $name)
     {
-      if (!isset($this->refFkValues['informationObjectsRelatedBysourceMetadataId']))
+      if (!isset($this->refFkValues['informationObjectsRelatedBydisplayStandardId']))
       {
         if (!isset($this->id))
         {
-          $this->refFkValues['informationObjectsRelatedBysourceMetadataId'] = QubitQuery::create();
+          $this->refFkValues['informationObjectsRelatedBydisplayStandardId'] = QubitQuery::create();
         }
         else
         {
-          $this->refFkValues['informationObjectsRelatedBysourceMetadataId'] = self::getinformationObjectsRelatedBysourceMetadataIdById($this->id, array('self' => $this) + $options);
+          $this->refFkValues['informationObjectsRelatedBydisplayStandardId'] = self::getinformationObjectsRelatedBydisplayStandardIdById($this->id, array('self' => $this) + $options);
         }
       }
 
-      return $this->refFkValues['informationObjectsRelatedBysourceMetadataId'];
+      return $this->refFkValues['informationObjectsRelatedBydisplayStandardId'];
     }
 
     if ('notes' == $name)
@@ -1464,24 +1464,24 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
     return self::addinformationObjectsRelatedBydescriptionDetailIdCriteriaById($criteria, $this->id);
   }
 
-  public static function addinformationObjectsRelatedBysourceMetadataIdCriteriaById(Criteria $criteria, $id)
+  public static function addinformationObjectsRelatedBydisplayStandardIdCriteriaById(Criteria $criteria, $id)
   {
-    $criteria->add(QubitInformationObject::SOURCE_METADATA_ID, $id);
+    $criteria->add(QubitInformationObject::DISPLAY_STANDARD_ID, $id);
 
     return $criteria;
   }
 
-  public static function getinformationObjectsRelatedBysourceMetadataIdById($id, array $options = array())
+  public static function getinformationObjectsRelatedBydisplayStandardIdById($id, array $options = array())
   {
     $criteria = new Criteria;
-    self::addinformationObjectsRelatedBysourceMetadataIdCriteriaById($criteria, $id);
+    self::addinformationObjectsRelatedBydisplayStandardIdCriteriaById($criteria, $id);
 
     return QubitInformationObject::get($criteria, $options);
   }
 
-  public function addinformationObjectsRelatedBysourceMetadataIdCriteria(Criteria $criteria)
+  public function addinformationObjectsRelatedBydisplayStandardIdCriteria(Criteria $criteria)
   {
-    return self::addinformationObjectsRelatedBysourceMetadataIdCriteriaById($criteria, $this->id);
+    return self::addinformationObjectsRelatedBydisplayStandardIdCriteriaById($criteria, $this->id);
   }
 
   public static function addnotesCriteriaById(Criteria $criteria, $id)
