@@ -30,7 +30,7 @@ class arMigration0093
     MIN_MILESTONE = 1; // The minimum milestone required
 
   /**
-   * Upgrade the database schema
+   * Upgrade
    *
    * @return bool True if the upgrade succeeded, False otherwise
    */
