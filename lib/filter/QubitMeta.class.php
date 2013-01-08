@@ -26,18 +26,6 @@ class QubitMeta extends sfFilter
     $context->response->addMeta('title', sfConfig::get('app_siteTitle'));
     $context->response->addMeta('description', sfConfig::get('app_siteDescription'));
 
-    foreach (array('actor_template', 'informationobject_template', 'repository_template') as $name)
-    {
-      if (isset($context->request[$name]))
-      {
-        $context->routing->setDefaultParameter($name, $context->request[$name]);
-      }
-      else
-      {
-        $context->routing->setDefaultParameter($name, sfConfig::get('app_default_template_'.substr($name, 0, -9)));
-      }
-    }
-
     $filterChain->execute();
   }
 }
