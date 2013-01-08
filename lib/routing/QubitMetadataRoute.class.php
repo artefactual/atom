@@ -119,7 +119,7 @@ class QubitMetadataRoute extends sfRoute
 
           // See if there is a template assigned in the database for this record
           $sql = 'SELECT code
-            FROM information_object JOIN term ON information_object.source_metadata_id = term.id
+            FROM information_object JOIN term ON information_object.display_standard_id = term.id
             WHERE information_object.id = ? AND taxonomy_id = ?';
 
           if (false !== $defaultSetting = QubitPdo::fetchColumn($sql, array($this->resource->id, QubitTaxonomy::INFORMATION_OBJECT_TEMPLATE_ID)))
