@@ -18,16 +18,16 @@
  */
 
 /*
- * Add the milestone setting to the database.
+ * Activate Dominion theme
  *
  * @package    AccesstoMemory
  * @subpackage migration
  */
-class arMigration0093
+class arMigration0095
 {
   const
-    VERSION = 93, // The new database version
-    MIN_MILESTONE = 1; // The minimum milestone required
+    VERSION = 95, // The new database version
+    MIN_MILESTONE = 2; // The minimum milestone required
 
   /**
    * Upgrade
@@ -36,14 +36,28 @@ class arMigration0093
    */
   public function up($configuration)
   {
-    // Get current codebase milestone
-    $substrings = preg_split('/\./', qubitConfiguration::VERSION);
-    $milestone = array_shift($substrings);
+    // Retrieve QubitSetting object
+    $criteria = new Criteria;
+    $criteria->add(QubitSetting::NAME, 'plugins');
+    if (null === $setting = QubitSetting::getOne($criteria))
+    {
+      return false;
+    }
 
-    // Store it
-    $setting = new QubitSetting;
-    $setting->name = 'milestone';
-    $setting->setValue($milestone, array('sourceCulture' => true));
+    // Unserialize
+    $plugins = array_values(unserialize($setting->getValue(array('sourceCulture' => true))));
+
+    // Define list of plugins that will be disabled
+    $disable = array('qtTrilliumPlugin', 'sfAlouettePlugin', 'sfCaribouPlugin', 'sfColumbiaPlugin');
+
+    // Remove them
+    $plugins = array_diff($plugins, $disable);
+
+    // Add arDominionPlugin
+    $plugins[] = 'arDominionPlugin';
+
+    // Save
+    $setting->setValue(serialize(array_unique($plugins)), array('sourceCulture' => true));
     $setting->save();
 
     return true;

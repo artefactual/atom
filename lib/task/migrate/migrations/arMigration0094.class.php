@@ -18,7 +18,7 @@
  */
 
 /*
- * Add source_metadata_id column to information object and information object
+ * Add display_standard_id column to information object and information object
  * templates taxonomy and terms
  *
  * @package    AccesstoMemory
@@ -31,16 +31,16 @@ class arMigration0094
     MIN_MILESTONE = 2; // The minimum milestone required
 
   /**
-   * Upgrade the database schema
+   * Upgrade
    *
    * @return bool True if the upgrade succeeded, False otherwise
    */
   public function up($configuration)
   {
-    // Add extra column, information_object.source_metadata_id
+    // Add extra column, information_object.display_standard_id
     QubitMigrate::addColumn(
       QubitInformationObject::TABLE_NAME,
-      'source_metadata_id INT NULL',
+      'display_standard_id INT NULL',
       array(
         'after' => 'source_standard',
         'idx' => true,
@@ -61,10 +61,10 @@ class arMigration0094
 
     // Add also the available templates
     foreach (array(
-      'isad' => 'ISAD(G), 2nd ed. International Council on Archives',
-      'dc' => 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative',
-      'mods' => 'MODS, Version 3.3. U.S. Library of Congress',
-      'rad' => 'RAD, July 2008 version. Canadian Council of Archives') as $key => $value)
+      'isad'  => 'ISAD(G), 2nd ed. International Council on Archives',
+      'dc'    => 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative',
+      'mods'  => 'MODS, Version 3.3. U.S. Library of Congress',
+      'rad'   => 'RAD, July 2008 version. Canadian Council of Archives') as $key => $value)
     {
       $term = new QubitTerm;
       $term->parentId = QubitTerm::ROOT_ID;

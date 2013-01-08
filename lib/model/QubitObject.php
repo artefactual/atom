@@ -233,6 +233,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
 
       // Compute unique slug adding contiguous numeric suffix
       $suffix = 2;
+      $triedQuery = false;
       do
       {
         try
@@ -243,16 +244,32 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
         // Collision? Try next suffix
         catch (PDOException $e)
         {
-          if (2 == $suffix)
+          $stem = preg_replace('/-\d+$/', '', $this->slug, 1);
+
+          if (!$triedQuery)
           {
-            $this->slug .= "-$suffix";
+            $triedQuery = true;
+
+            // Try getting value of last suffix for this slug in database to
+            // avoid long loops trying to find next suffix
+            $query = 'SELECT slug FROM slug WHERE slug LIKE \''.$stem.'-%\' ORDER BY id DESC LIMIT 1;';
+            $stmt2 = $connection->query($query);
+
+            if ($lastSlugInSet = $stmt2->fetchColumn())
+            {
+              if (preg_match('/-(\d+)$/', $lastSlugInSet, $matches))
+              {
+                $suffix = intval($matches[1]) + 1;
+              }
+            }
           }
           else
           {
-            $this->slug = preg_replace('/-\d+$/', '', $this->slug, 1)."-$suffix";
+            // Simple increment in case SQL query doesn't work for some reason
+            $suffix++;
           }
 
-          $suffix++;
+          $this->slug = "$stem-$suffix";
         }
       }
       while (isset($suffix));

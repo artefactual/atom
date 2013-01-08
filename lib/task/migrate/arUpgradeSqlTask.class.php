@@ -66,6 +66,8 @@ EOF;
     $dbManager = new sfDatabaseManager($this->configuration);
     $database = $dbManager->getDatabase($options['connection']);
 
+    sfContext::createInstance($this->configuration);
+
     // Deactivate search index, must be rebuilt later anyways
     QubitSearch::getInstance()->disabled = true;
 
