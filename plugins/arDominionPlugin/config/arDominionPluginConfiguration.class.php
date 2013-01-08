@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class qtDominionPluginConfiguration extends sfPluginConfiguration
+class arDominionPluginConfiguration extends sfPluginConfiguration
 {
   public static
     $summary = 'Theme plugin made from scratch with some JavaScript magic. Cross-browser compatibility tested. Based in Twitter Bootstrap 2.0, 940px two-column layout, slightly responsive.',
@@ -32,11 +32,11 @@ class qtDominionPluginConfiguration extends sfPluginConfiguration
     if ($context->getConfiguration()->isDebug())
     {
       $context->response->addJavaScript('/vendor/less.js');
-      $context->response->addStylesheet('/plugins/qtDominionPlugin/css/main.less', 'last', array('rel' => 'stylesheet/less', 'type' => 'text/css'));
+      $context->response->addStylesheet('/plugins/arDominionPlugin/css/main.less', 'last', array('rel' => 'stylesheet/less', 'type' => 'text/css'));
     }
     else
     {
-      $context->response->addStylesheet('/plugins/qtDominionPlugin/css/compiled/main.css', 'last', array('media' => 'screen'));
+      $context->response->addStylesheet('/plugins/arDominionPlugin/css/compiled/main.css', 'last', array('media' => 'screen'));
     }
   }
 

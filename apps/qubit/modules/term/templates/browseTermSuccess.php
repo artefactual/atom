@@ -7,7 +7,7 @@
     <div class="span12">
       <h1>
         <?php if (isset($icon)): ?>
-          <?php echo image_tag('/plugins/qtDominionPlugin/images/icons-large/icon-'.$icon.'.png', array('width' => '42', 'height' => '42')) ?>
+          <?php echo image_tag('/plugins/arDominionPlugin/images/icons-large/icon-'.$icon.'.png', array('width' => '42', 'height' => '42')) ?>
         <?php endif; ?>
         <?php echo render_title($resource->taxonomy) ?> - <?php echo render_title($resource) ?>
         <strong class="hidden-phone">
