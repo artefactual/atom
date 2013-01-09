@@ -176,16 +176,16 @@ foreach ($ioTemplates as $code => $module)
 foreach (QubitTaxonomy::getTaxonomyTerms(QubitTaxonomy::INFORMATION_OBJECT_TEMPLATE_ID) as $term)
 {
   // Update object
-  $io->sourceMetadataId = $term->id; $io->save();
-  $t->diag('/peanut-12345 ' . '(sourceMetadataId points to '.$term->code.')');
+  $io->displayStandardId = $term->id; $io->save();
+  $t->diag('/peanut-12345 ' . '(displayStandardId points to '.$term->code.')');
   $info = $routing->parse('/peanut-12345');
   $t->is($routing->getCurrentRouteName(), 'slug');
   $t->is($info['module'], $ioTemplates[$term->code], $ioTemplates[$term->code]);
   $t->is($info['action'], 'index');
 }
 
-$io->sourceMetadataId = null; $io->save();
-$t->diag('/peanut-12345 ' . '(sourceMetadataId is NULL, default application template is '.$defaultIoTemplateCode.')');
+$io->displayStandardId = null; $io->save();
+$t->diag('/peanut-12345 ' . '(displayStandardId is NULL, default application template is '.$defaultIoTemplateCode.')');
 $info = $routing->parse('/peanut-12345');
 $t->is($routing->getCurrentRouteName(), 'slug');
 $t->is($info['module'], $defaultIoTemplateModule, $defaultIoTemplateModule);
@@ -196,7 +196,7 @@ $uri = $routing->generate(null, array($io, 'module' => 'informationobject', 'act
 $t->is($uri, '/peanut-12345/edit');
 $info = $routing->parse('/peanut-12345/edit');
 $t->is($routing->getCurrentRouteName(), 'edit');
-$t->is($info['module'], $defaultIoTemplateModule); // We know now that sourceMetadataId is NULL
+$t->is($info['module'], $defaultIoTemplateModule); // We know now that displayStandardId is NULL
 $t->is($info['action'], 'edit');
 
 $t->diag('/peanut-12345/copy');
@@ -204,7 +204,7 @@ $uri = $routing->generate(null, array($io, 'module' => 'informationobject', 'act
 $t->is($uri, '/peanut-12345/copy');
 $info = $routing->parse('/peanut-12345/copy');
 $t->is($routing->getCurrentRouteName(), 'copy');
-$t->is($info['module'], $defaultIoTemplateModule); // We know now that sourceMetadataId is NULL
+$t->is($info['module'], $defaultIoTemplateModule); // We know now that displayStandardId is NULL
 $t->is($info['action'], 'edit'); // Reusing edit template
 
 $t->diag('/informationobject/add');
@@ -212,7 +212,7 @@ $uri = $routing->generate(null, array('module' => 'informationobject', 'action' 
 $t->is($uri, '/informationobject/add');
 $info = $routing->parse('/informationobject/add');
 $t->is($routing->getCurrentRouteName(), 'add');
-$t->is($info['module'], $defaultIoTemplateModule); // We know now that sourceMetadataId is NULL
+$t->is($info['module'], $defaultIoTemplateModule); // We know now that displayStandardId is NULL
 $t->is($info['action'], 'edit'); // Reusing edit template
 
 $t->diag('/repository/add');
