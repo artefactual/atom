@@ -4,6 +4,8 @@
 
   <?php echo $form->publicationStatus->label(__('Publication status'))->renderRow() ?>
 
+  <?php echo $form->displayStandard->label(__('Display standard'))->renderRow() ?>
+
   <div class="field">
     <h3><?php echo __('Source language') ?></h3>
     <div>
@@ -17,7 +19,7 @@
         <?php endif; ?>
       <?php else: ?>
         <?php echo format_language($sf_user->getCulture()) ?>
-      <?php endif; ?>    
+      <?php endif; ?>
     </div>
   </div>
 

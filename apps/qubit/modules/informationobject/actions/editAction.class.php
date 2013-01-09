@@ -182,6 +182,21 @@ class InformationObjectEditAction extends DefaultEditAction
 
         break;
 
+      case 'displayStandard':
+          $this->form->setDefault('displayStandard', $this->resource->displayStandardId);
+          $this->form->setValidator('displayStandard', new sfValidatorString);
+
+          $choices = array();
+          $choices[null] = null;
+          foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::INFORMATION_OBJECT_TEMPLATE_ID) as $item)
+          {
+            $choices[$item->id] = $item;
+          }
+
+          $this->form->setWidget('displayStandard', new sfWidgetFormSelect(array('choices' => $choices)));
+
+        break;
+
       case 'repository':
         $this->form->setDefault('repository', $this->context->routing->generate(null, array($this->resource->repository, 'module' => 'repository')));
         $this->form->setValidator('repository', new sfValidatorString);
@@ -369,6 +384,27 @@ class InformationObjectEditAction extends DefaultEditAction
 
           $this->resource->relationsRelatedBysubjectId[] = $relation;
         }
+
+        break;
+
+      case 'displayStandard':
+
+        // TODO: Should be this logic in QubitInformationObject?
+        // ^ It could be implemented __set() along with displayTemplateId
+        // Also, it should override all the values or just NULL values?
+
+        $selectCriteria = new Criteria;
+        $selectCriteria->add(QubitInformationObject::LFT, $this->resource->lft, Criteria::GREATER_EQUAL);
+        $selectCriteria->add(QubitInformationObject::RGT, $this->resource->rgt, Criteria::LESS_EQUAL);
+        $selectCriteria->add(QubitInformationObject::ID, $this->resource->id);
+
+        $updateCriteria = new Criteria;
+        $updateCriteria->add(QubitInformationObject::DISPLAY_STANDARD_ID, $this->form->getValue('displayStandard'));
+
+        BasePeer::doUpdate(
+          $selectCriteria,
+          $updateCriteria,
+          Propel::getConnection(QubitObject::DATABASE_NAME));
 
         break;
 

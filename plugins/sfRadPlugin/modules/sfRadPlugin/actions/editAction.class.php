@@ -80,7 +80,8 @@ class sfRadPluginEditAction extends InformationObjectEditAction
       'titleStatementOfResponsibility',
       'titleProperOfPublishersSeries',
       'type',
-      'publicationStatus');
+      'publicationStatus',
+      'displayStandard');
 
   public function earlyExecute()
   {
