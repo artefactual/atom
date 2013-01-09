@@ -49,19 +49,6 @@ $preambleExceptions = '/'.implode('|', array(
 global $preamble;
 $preamble = preg_replace('/\*\/.*$/s', '*/', file_get_contents(__FILE__));
 
-global $subversionProps;
-$subversionProps = array();
-$subversionProps['/\.css$/']['svn:eol-style'] = 'native';
-$subversionProps['/\.css$/']['svn:keywords'] = 'Author Id Revision';
-$subversionProps['/\.gif$/']['svn:mime-type'] = 'image/gif';
-$subversionProps['/\.html$/']['svn:eol-style'] = 'native';
-$subversionProps['/\.html$/']['svn:keywords'] = 'Author Id Revision';
-$subversionProps['/\.jpg$/']['svn:mime-type'] = 'image/jpeg';
-$subversionProps['/\.php$/']['svn:eol-style'] = 'native';
-$subversionProps['/\.php$/']['svn:keywords'] = 'Author Id Revision';
-$subversionProps['/\.png$/']['svn:mime-type'] = 'image/png';
-$subversionProps['/\.txt$/']['svn:eol-style'] = 'native';
-
 _readDir(SF_ROOT_DIR, $filePaths);
 
 global $t;
@@ -70,7 +57,6 @@ $t = new lime_test(2 * count($filePaths), new lime_output_color);
 foreach ($filePaths as $filePath)
 {
   checkPreamble($filePath);
-  checkSubversion($filePath);
 }
 
 $snifferExceptions = array(
@@ -153,56 +139,4 @@ function checkPreamble($filePath)
 
   global $preamble;
   $t->like($fileContents, '/^'.preg_quote($preamble, '/').'/', $filePath.' starts with preamble');
-}
-
-function checkSubversion($filePath)
-{
-  global $t;
-
-  // Find expected Subversion properties
-  global $subversionProps;
-  foreach ($subversionProps as $pattern => $expectedProps)
-  {
-    if (preg_match($pattern, $filePath))
-    {
-      break;
-    }
-  }
-
-  // Check that we didn't fall of the end of the above loop
-  if (!preg_match($pattern, $filePath))
-  {
-    $t->skip("$filePath Subversion properties skipped");
-    return;
-  }
-
-  // Working properties file only exists if local property changes are made
-  $propsFilePath = dirname($filePath).'/.svn/props/'.basename($filePath).'.svn-work';
-  if (!file_exists($propsFilePath))
-  {
-    $propsFilePath = dirname($filePath).'/.svn/prop-base/'.basename($filePath).'.svn-base';
-  }
-
-  // The format of a dumped hash table is:
-  //
-  // K <nlength>
-  // name (a string of <nlength> bytes, followed by a newline)
-  // V <vlength>
-  // val (a string of <vlength> bytes, followed by a newline)
-  // [... etc, etc ...]
-  // END
-  //
-  // @see libsvn_subr/hash.c
-  //
-  // $match[1] is the key
-  // $match[2] is the value
-  preg_match_all('/K \d+\n([^\n]*)\nV \d+\n([^\n]*)\n/', file_get_contents($propsFilePath), $matches, PREG_SET_ORDER);
-
-  $props = array();
-  foreach ($matches as $match)
-  {
-    $props[$match[1]] = $match[2];
-  }
-
-  $t->is($props, $expectedProps, $filePath.' has expected Subversion properties');
 }
