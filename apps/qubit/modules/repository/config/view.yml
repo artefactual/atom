@@ -7,3 +7,9 @@ listSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
+
+editThemeSuccess:
+  stylesheets:
+    /vendor/jquery-miniColors/jquery.miniColors.css:
+  javascripts:
+    /vendor/jquery-miniColors/jquery.miniColors.js:

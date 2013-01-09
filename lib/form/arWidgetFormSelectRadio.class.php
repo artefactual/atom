@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class qtWidgetFormSelectRadio extends sfWidgetFormSelectRadio
+class arWidgetFormInputFileEditable extends sfWidgetFormInputFileEditable
 {
   protected function configure($options = array(), $attributes = array())
   {

@@ -45,6 +45,31 @@
       </div>
     <?php endif; ?>
 
+    <?php if (null !== $backgroundColor = $resource->backgroundColor): ?>
+      <style type="text/css">
+        html, body {
+          background-image: none;
+          background-color: <?php echo $backgroundColor ?>;
+        }
+      </style>
+    <?php endif; ?>
+
+    <?php if ($resource->existsBanner()): ?>
+      <div class="row" id="repository-html-snippet">
+        <div class="span7">
+          <?php echo image_tag($resource->getBannerPath()) ?>
+        </div>
+      </div>
+    <?php endif; ?>
+
+    <?php if (null !== $htmlSnippet = $resource->htmlSnippet): ?>
+      <div class="row" id="repository-html-snippet">
+        <div class="span7">
+          <?php echo $resource->htmlSnippet ?>
+        </div>
+      </div>
+    <?php endif; ?>
+
     <div class="row">
 
       <div class="span7" id="content">
@@ -188,6 +213,12 @@
       </div>
 
       <div class="span2" id="right-column">
+
+        <?php if (QubitAcl::check($resource, 'update')): ?>
+          <div id="theming-link">
+            <?php echo link_to(__('Edit theme'), array($resource, 'module' => 'repository', 'action' => 'editTheme'), array('class' => 'btn')) ?>
+          </div>
+        <?php endif; ?>
 
         <?php if (isset($primaryContact)): ?>
           <section id="primary-contact">

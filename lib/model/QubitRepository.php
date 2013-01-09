@@ -24,6 +24,89 @@
  */
 class QubitRepository extends BaseRepository
 {
+  public function __get($name)
+  {
+    $args = func_get_args();
+
+    $options = array();
+    if (1 < count($args))
+    {
+      $options = $args[1];
+    }
+
+    switch ($name)
+    {
+      case 'backgroundColor':
+      case 'htmlSnippet':
+
+        if (!isset($this->values[$name]))
+        {
+          $criteria = new Criteria;
+          $this->addPropertysCriteria($criteria);
+          $criteria->add(QubitProperty::NAME, $name);
+
+          if (1 == count($query = QubitProperty::get($criteria)))
+          {
+            $this->values[$name] = $query[0];
+          }
+        }
+
+        if (isset($this->values[$name]))
+        {
+          return $this->values[$name];
+        }
+
+        break;
+
+      default:
+
+        return call_user_func_array(array($this, 'BaseRepository::__get'), $args);
+    }
+  }
+
+  public function __set($name, $value)
+  {
+    $args = func_get_args();
+
+    $options = array();
+    if (2 < count($args))
+    {
+      $options = $args[2];
+    }
+
+    switch ($name)
+    {
+      case 'backgroundColor':
+      case 'htmlSnippet':
+
+        if (!isset($this->values[$name]))
+        {
+          $criteria = new Criteria;
+          $this->addPropertysCriteria($criteria);
+          $criteria->add(QubitProperty::NAME, $name);
+
+          if (1 == count($query = QubitProperty::get($criteria)))
+          {
+            $this->values[$name] = $query[0];
+          }
+          else
+          {
+            $this->values[$name] = new QubitProperty;
+            $this->values[$name]->name = $name;
+            $this->propertys[] = $this->values[$name];
+          }
+        }
+
+        $this->values[$name]->__set('value', $value, $options);
+
+        return $this;
+
+      default:
+
+        return call_user_func_array(array($this, 'BaseRepository::__set'), $args);
+    }
+  }
+
   /**
    * Add repository specific logic to the insert action
    *
@@ -237,5 +320,55 @@ class QubitRepository extends BaseRepository
     $relation->term = $term;
 
     $this->objectTermRelationsRelatedByobjectId[] = $relation;
+  }
+
+  /**
+   * Get the current repository uploads directory
+   *
+   * @return string
+   */
+  public function getUploadsPath($absolute = false)
+  {
+    return ($absolute ? sfConfig::get('sf_upload_dir') : '/uploads').'/r/'.$this->slug;
+  }
+
+  /**
+   * Get logo image path within the repository uploads directory
+   *
+   * @return string
+   */
+  public function getLogoPath($absolute = false)
+  {
+    return $this->getUploadsPath($absolute).'/logo.png';
+  }
+
+  /**
+   * Get banner image path within the repository uploads directory
+   *
+   * @return string
+   */
+  public function getBannerPath($absolute = false)
+  {
+    return $this->getUploadsPath($absolute).'/banner.png';
+  }
+
+  /**
+   * Check if the logo asset exists
+   *
+   * @return boolean
+   */
+  public function existsLogo()
+  {
+    return is_file($this->getLogoPath(true));
+  }
+
+  /**
+   * Check if the banner asset exists
+   *
+   * @return boolean
+   */
+  public function existsBanner()
+  {
+    return is_file($this->getBannerPath(true));
   }
 }
