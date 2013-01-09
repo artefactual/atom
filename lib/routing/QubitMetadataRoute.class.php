@@ -157,7 +157,8 @@ class QubitMetadataRoute extends sfRoute
           break;
 
         default:
-          $this->forward404();
+
+          return false;
       }
     }
 
