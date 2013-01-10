@@ -158,7 +158,7 @@
 
     locate: function ($item)
       {
-        var pos = $.extend({}, this.$element.position(), {
+        var pos = $.extend({}, this.$element.offset(), {
           height: this.$element[0].offsetHeight,
           width: this.$element.outerWidth()
         });
