@@ -246,28 +246,30 @@
 
     </div>
 
-  </div>
+    <div class="row">
 
-  <?php if (QubitAcl::check($resource, array('update', 'delete', 'create'))): ?>
-    <div class="actions section">
+      <div class="span9">
 
-      <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+        <?php if (QubitAcl::check($resource, array('update', 'delete', 'create'))): ?>
+          <section class="actions">
+            <ul>
+              <?php if (QubitAcl::check($resource, 'update')): ?>
+                <li><?php echo link_to(__('Edit'), array($resource, 'module' => 'repository', 'action' => 'edit'), array('class' => 'c-btn', 'title' => __('Edit'))) ?></li>
+              <?php endif; ?>
+              <?php if (QubitAcl::check($resource, 'delete')): ?>
+                <li><?php echo link_to(__('Delete'), array($resource, 'module' => 'repository', 'action' => 'delete'), array('class' => 'c-btn', 'title' => __('Delete'))) ?></li>
+              <?php endif; ?>
+              <?php if (QubitAcl::check($resource, 'create')): ?>
+                <li><?php echo link_to(__('Add new'), array('module' => 'repository', 'action' => 'add'), array('class' => 'c-btn', 'title' => __('Add new'))) ?></li>
+              <?php endif; ?>
+            </ul>
+          </section>
+        <?php endif; ?>
 
-      <div class="content">
-        <ul class="clearfix links">
-          <?php if (QubitAcl::check($resource, 'update')): ?>
-          <li><?php echo link_to(__('Edit'), array($resource, 'module' => 'repository', 'action' => 'edit'), array('title' => __('Edit'))) ?></li>
-          <?php endif; ?>
-          <?php if (QubitAcl::check($resource, 'delete')): ?>
-          <li><?php echo link_to(__('Delete'), array($resource, 'module' => 'repository', 'action' => 'delete'), array('class' => 'delete', 'title' => __('Delete'))) ?></li>
-          <?php endif; ?>
-          <?php if (QubitAcl::check($resource, 'create')): ?>
-          <li><?php echo link_to(__('Add new'), array('module' => 'repository', 'action' => 'add'), array('title' => __('Add new'))) ?></li>
-          <?php endif; ?>
-        </ul>
       </div>
 
     </div>
-  <?php endif; ?>
+
+  </div>
 
 </div>
