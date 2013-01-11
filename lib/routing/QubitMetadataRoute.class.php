@@ -39,9 +39,7 @@ class QubitMetadataRoute extends sfRoute
       'function'          => 'sfIsdfPlugin');
 
   /**
-   * After parent::matches() does all the important stuff, find the module
-   * that fits with the object (if a slug is given). If the slug is missing,
-   * update the module to corresponding plugin module.
+   * Rewrite $parameters to use the app module that fits better
    *
    * Case 1: e.g. uri "/peanut-12345" (QubitInformationObject)
    *     -> Add module 'sfIsadPlugin' since that is the module that corresponds
@@ -222,10 +220,17 @@ class QubitMetadataRoute extends sfRoute
   protected function parseParameters($params)
   {
     // Look for the slug property if an object is passed
-    if (true === $isObject = (isset($params[0]) && is_object($params[0])))
+    if (isset($params[0]) && is_object($params[0]))
     {
-      // Extract the slug and unset
-      $params['slug'] = $params[0]->slug;
+      // Extract slug if exists (some objects don't have a slug, like
+      // QubitContactInformation
+      try
+      {
+        $params['slug'] = $params[0]->slug;
+      }
+      catch (Exception $e) { }
+
+      // Unset the object
       unset($params[0]);
     }
 
