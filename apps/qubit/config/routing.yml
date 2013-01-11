@@ -2,7 +2,7 @@
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 
 homepage:
-  url:   /
+  url: /
   class: QubitResourceRoute
   param:
     module: staticpage
@@ -85,19 +85,26 @@ sword:
   param:
     module: qtSwordPlugin
 
-id/default:
-  url: /:module/:action/:id
+# ------------------------------------------------------------------------------
+
+slug;default_index:
+  url:   /:slug;:module
+  class: QubitResourceRoute
   param:
-    id: { pattern: '\d+' }
+    action: index
 
 slug/default:
   url: /:slug/:module/:action
   class: QubitResourceRoute
 
+id/default:
+  url: /:module/:action/id/:id
+  class: QubitRoute
+
 default_index:
-  url:   /:module
+  url: /:module
   param:
     action: index
 
 default:
-  url:   /:module/:action
+  url: /:module/:action
