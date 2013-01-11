@@ -90,25 +90,6 @@
 
   /****
    ****
-   ****  jQuery miniColors
-   ****
-   ****/
-
-  $(function ()
-    {
-      if ($.isFunction($.fn.miniColors))
-      {
-        $('input.color-picker').miniColors({
-            opacity: false,
-            readonly: false,
-            letterCase: 'lowercase',
-            disabled: false
-          });
-      }
-    });
-
-  /****
-   ****
    ****  Autocomplete plugin
    ****
    ****/
