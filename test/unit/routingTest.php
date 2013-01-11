@@ -19,7 +19,7 @@
 
 require_once dirname(__FILE__).'/../bootstrap/unit.php';
 
-$t = new lime_test(119, new lime_output_color);
+$t = new lime_test(125, new lime_output_color);
 
 $t->diag('Initializing configuration.');
 $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', true);
@@ -53,6 +53,9 @@ $function = new QubitFunction; $function->slug = 'function-12345'; $function->sa
 $t->diag('Create QubitTaxonomy "taxonomy-12345"');
 if (null !== $taxonomy = QubitObject::getBySlug('taxonomy-12345')) $taxonomy->delete();
 $taxonomy = new QubitTaxonomy; $taxonomy->slug = 'taxonomy-12345'; $taxonomy->save();
+
+$t->diag('Create QubitContactInformation');
+$contactInformation = new QubitContactInformation; $contactInformation->actor = $actor; $contactInformation->save();
 
 // Test generation of routes
 $t->diag('Test suite intended to check behaviour of ->generate()');
@@ -122,12 +125,22 @@ $t->is($info['module'], 'qtSwordPlugin');
 $t->is($info['action'], 'servicedocument');
 
 $t->diag('Test route id/default');
-$uri = $routing->generate(null, array('module' => 'informationobject', 'action' => 'action', 'id' => '12345'));
-$t->is($uri, '/informationobject/action/12345');
-$info = $routing->parse('/informationobject/action/1234');
+$uri = $routing->generate(null, array('module' => 'informationobject', 'action' => 'foobar', 'id' => '12345'));
+$t->is($uri, '/informationobject/foobar/id/12345');
+$info = $routing->parse('/informationobject/foobar/id/12345');
 $t->is($routing->getCurrentRouteName(), 'id/default');
 $t->is($info['module'], 'informationobject');
-$t->is($info['action'], 'action');
+$t->is($info['action'], 'foobar');
+$t->is($info['id'], '12345');
+
+$t->diag('Test route id/default passing contactinformation');
+$uri = $routing->generate(null, array($contactInformation, 'module' => 'contactinformation'));
+$t->is($uri, '/contactinformation/index/id/'.$contactInformation->id);
+$info = $routing->parse('/contactinformation/index/id/'.$contactInformation->id);
+$t->is($routing->getCurrentRouteName(), 'id/default');
+$t->is($info['module'], 'contactinformation');
+$t->is($info['action'], 'index');
+$t->is($info['id'], $contactInformation->id);
 
 $t->diag('Test route slug/default');
 $uri = $routing->generate(null, array($io, 'module' => 'foo', 'action' => 'bar'));
@@ -153,9 +166,9 @@ $t->is($routing->getCurrentRouteName(), 'default');
 $t->is($info['module'], 'foo');
 $t->is($info['action'], 'bar');
 
-/**
- * QubitMetadataResource
- */
+##
+# QubitMetadataResource
+#
 
 $ioTemplates = array('dc' => 'sfDcPlugin', 'isad' => 'sfIsadPlugin', 'mods' => 'sfModsPlugin', 'rad' => 'sfRadPlugin');
 
@@ -239,7 +252,7 @@ $t->is($routing->getCurrentRouteName(), 'add');
 $t->is($info['module'], 'sfIsdfPlugin', 'sfIsdfPlugin');
 $t->is($info['action'], 'edit');
 
-$t->diag('/peanut-12345/foo/bar and /foo/bar with ->generate()');
+$t->diag('/foo/bar/peanut-12345 and /foo/bar with ->generate()');
 $uri = $routing->generate(null, array($io, 'module' => 'foo', 'action' => 'bar'));
 $t->is($uri, '/peanut-12345/foo/bar');
 $uri = $routing->generate(null, array('module' => 'foo', 'action' => 'bar'));
