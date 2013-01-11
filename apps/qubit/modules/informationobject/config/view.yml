@@ -36,8 +36,6 @@ addDigitalObjectSuccess:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/container/container-min:
     blank:
-  components:
-    sidebar: [repository, uploadLimit]
 
 multiFileUploadSuccess:
   stylesheets:
@@ -49,8 +47,6 @@ multiFileUploadSuccess:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/container/container-min:
     blank:
-  components:
-    sidebar: [repository, uploadLimit]
 
 storageLocationsSuccess:
   stylesheets:

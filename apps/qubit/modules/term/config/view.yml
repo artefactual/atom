@@ -12,12 +12,8 @@ editSuccess:
     multiInput:
     multiRow:
     treeView:
-  components:
-    sidebar: [term, contextMenu]
 
 indexSuccess:
-  components:
-    sidebar: [term, contextMenu]
   javascripts:
     blank:
     treeView:

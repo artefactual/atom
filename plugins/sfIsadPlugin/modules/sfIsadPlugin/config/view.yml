@@ -34,7 +34,3 @@ indexSuccess:
     blank:
     imageflow:
     treeView:
-
-all:
-  components:
-    sidebar: [informationobject, contextMenu]

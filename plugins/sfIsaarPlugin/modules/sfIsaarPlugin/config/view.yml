@@ -16,5 +16,3 @@ editSuccess:
 indexSuccess:
   javascripts:
     blank:
-  components:
-    sidebar: [actor, contextMenu]

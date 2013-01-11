@@ -52,5 +52,4 @@ default:
 
   components:
     header:       []
-    sidebar:      []
     footer:       []

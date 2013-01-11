@@ -23,5 +23,3 @@ indexSuccess:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/container/container-min:
     blank:
-  components:
-    sidebar: [repository, contextMenu]
