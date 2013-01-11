@@ -60,8 +60,6 @@ $rowTemplate = json_encode(<<<value
 value
 );
 
-$url = url_for($resource);
-
 echo javascript_tag(<<<content
 
 Drupal.behaviors.contactInformation = {
