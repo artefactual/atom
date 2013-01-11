@@ -214,12 +214,6 @@
 
       <div class="span2" id="right-column">
 
-        <?php if (QubitAcl::check($resource, 'update')): ?>
-          <div id="theming-link">
-            <?php echo link_to(__('Edit theme'), array($resource, 'module' => 'repository', 'action' => 'editTheme'), array('class' => 'btn')) ?>
-          </div>
-        <?php endif; ?>
-
         <?php if (isset($primaryContact)): ?>
           <section id="primary-contact">
             <h4><?php echo __('Primary contact') ?></h4>
@@ -261,6 +255,10 @@
               <?php endif; ?>
               <?php if (QubitAcl::check($resource, 'create')): ?>
                 <li><?php echo link_to(__('Add new'), array('module' => 'repository', 'action' => 'add'), array('class' => 'c-btn', 'title' => __('Add new'))) ?></li>
+              <?php endif; ?>
+              <li class="divider"></li>
+              <?php if (QubitAcl::check($resource, 'update')): ?>
+                <li><?php echo link_to(__('Edit theme'), array($resource, 'module' => 'repository', 'action' => 'editTheme'), array('class' => 'c-btn', 'title' => 'Edit theme')) ?>
               <?php endif; ?>
             </ul>
           </section>
