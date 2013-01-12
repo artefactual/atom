@@ -1,10 +1,4 @@
-<div class="logo">
-  <?php if ($resource->existsLogo()): ?>
-    <?php echo image_tag($resource->getLogoPath()) ?>
-  <?php else: ?>
-    <h2><?php echo render_title($resource) ?></h2>
-  <?php endif; ?>
-</div>
+<?php echo get_component('repository', 'logo') ?>
 
 <?php if (QubitAcl::check($resource, 'update')): ?>
   <?php include_component('repository', 'uploadLimit', array('resource' => $resource)) ?>
