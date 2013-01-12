@@ -51,23 +51,10 @@ class arElasticSearchRepository extends arElasticSearchModelBase
       $serialized['types'][] = $relation->termId;
     }
 
-    /*
-    if ($contact = $object->getPrimaryContact())
+    foreach ($object->contactInformations as $contactInformation)
     {
-      $serialized['contact'] = QubitContactInformationMapping::serialize($contact);
+      $serialized['contactInformations'][] = arElasticSearchContactInformation::serialize($contactInformation);  
     }
-    */
-
-    // TODO: additional contact points if none are primary
-    /*
-    elseif (count($contacts = $object->getContactInformation()) > 0)
-    {
-      foreach ($contacts as $contact)
-      {
-
-      }
-    }
-    */
 
     $serialized['createdAt'] = Elastica_Util::convertDate($object->createdAt);
     $serialized['updatedAt'] = Elastica_Util::convertDate($object->updatedAt);

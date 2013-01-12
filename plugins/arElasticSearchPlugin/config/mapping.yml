@@ -53,7 +53,7 @@ mapping:
 
   repository:
     _attributes: { i18n: true, i18nExtra: actor, timestamp: true }
-    _foreign_types: { contact_information: contact_information }
+    _foreign_types: { contact_informations: contact_information }
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }
