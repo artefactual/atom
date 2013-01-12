@@ -52,10 +52,5 @@ class RepositoryContextMenuComponent extends sfComponent
     $this->pager = new QubitSearchPager($resultSet);
     $this->pager->setPage($request->page ? $request->page : 1);
     $this->pager->setMaxPerPage($request->limit);
-
-    if (!$this->pager->hasResults())
-    {
-      return sfView::NONE;
-    }
   }
 }
