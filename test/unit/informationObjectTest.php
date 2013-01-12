@@ -39,4 +39,7 @@ $t->is($informationObject->language, array('en', 'fr'),
 
 $informationObject->save();
 
+$t->is(get_class($informationObject->updatedAt), 'DateTime', '"->updatedAt" returns DateTime');
+$t->is(get_class($informationObject->createdAt), 'DateTime', '"->createdAt" returns DateTime');
+
 $informationObject->delete();
