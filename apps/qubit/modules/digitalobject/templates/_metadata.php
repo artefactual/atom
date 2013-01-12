@@ -1,6 +1,6 @@
 <?php use_helper('Date') ?>
 
-<div class="section">
+<section>
 
   <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Digital object metadata').'</h2>', array($resource, 'module' => 'digitalobject', 'action' => 'edit'), array('title' => __('Edit digital object'))) ?>
 
@@ -41,4 +41,4 @@
     <?php echo render_show(__('AIP UUID'), $resource->informationObject->aipUUID) ?>
   <?php endif; ?>
 
-</div>
+</section>

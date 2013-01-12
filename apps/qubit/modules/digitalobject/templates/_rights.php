@@ -1,4 +1,4 @@
-<div class="section" style="margin-left: 2em;">
+<section>
 
   <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Digital object (%1%) rights area', array('%1%' => $resource->usage)).'</h2>', array($resource, 'module' => 'digitalobject', 'action' => 'edit'), array('title' => __('Edit digital object'))) ?>
 
@@ -8,9 +8,9 @@
 
   <?php endforeach; ?>
 
-</div>
+</section>
 
-<div class="section" style="margin-left: 2em;">
+<section>
 
   <?php if ($child = $resource->getChildByUsageId(QubitTerm::REFERENCE_ID)): ?>
 
@@ -24,9 +24,9 @@
 
   <?php endif; ?>
 
-</div>
+</section>
 
-<div class="section" style="margin-left: 2em;">
+<section>
 
   <?php if ($child = $resource->getChildByUsageId(QubitTerm::THUMBNAIL_ID)): ?>
 
@@ -40,4 +40,4 @@
 
   <?php endif; ?>
 
-</div>
+</section>
