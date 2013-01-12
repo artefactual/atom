@@ -193,7 +193,7 @@
               <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'repository'), array('class' => 'c-btn', 'title' => __('Cancel'))) ?></li>
             <?php else: ?>
               <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
-              <li><?php echo link_to(__('Cancel'), array('module' => 'repository', 'action' => 'list'), array('class' => 'c-btn', 'title' => __('Cancel'))) ?></li>
+              <li><?php echo link_to(__('Cancel'), array('module' => 'repository', 'action' => 'browse'), array('class' => 'c-btn', 'title' => __('Cancel'))) ?></li>
             <?php endif; ?>
           </ul>
         </section>

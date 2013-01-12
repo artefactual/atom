@@ -72,7 +72,7 @@
 
           <div id="content">
 
-            <div class="section" id="identifyArea">
+            <section id="identifyArea">
 
               <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'repository'), '<h2>'.__('Identity area').'</h2>', array($resource, 'module' => 'repository', 'action' => 'edit'), array('anchor' => 'identityArea', 'title' => __('Edit identity area'))) ?>
 
@@ -106,9 +106,9 @@
                 <?php echo render_show(__('Type'), render_value($item->term)) ?>
               <?php endforeach; ?>
 
-            </div>
+            </section>
 
-            <div class="section" id="contactArea">
+            <section id="contactArea">
 
               <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'repository'), '<h2>'.__('Contact area').'</h2>', array($resource, 'module' => 'repository', 'action' => 'edit'), array('anchor' => 'contactArea', 'title' => __('Edit contact area'))) ?>
 
@@ -116,9 +116,9 @@
                 <?php echo get_partial('contactinformation/contactInformation', array('contactInformation' => $contactItem)) ?>
               <?php endforeach; ?>
 
-            </div>
+            </section>
 
-            <div class="section" id="descriptionArea">
+            <section id="descriptionArea">
 
               <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'repository'), '<h2>'.__('Description area').'</h2>', array($resource, 'module' => 'repository', 'action' => 'edit'), array('anchor' => 'descriptionArea', 'title' => __('Edit description area'))) ?>
 
@@ -138,9 +138,9 @@
 
               <?php echo render_show(__('Finding aids, guides and publications'), render_value($resource->getFindingAids(array('cultureFallback' => true)))) ?>
 
-            </div>
+            </section>
 
-            <div class="section" id="accessArea">
+            <section id="accessArea">
 
               <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'repository'), '<h2>'.__('Access area').'</h2>', array($resource, 'module' => 'repository', 'action' => 'edit'), array('anchor' => 'accessArea', 'title' => __('Edit access area'))) ?>
 
@@ -150,9 +150,9 @@
 
               <?php echo render_show(__('Accessibility'), render_value($resource->getDisabledAccess(array('cultureFallback' => true)))) ?>
 
-            </div>
+            </section>
 
-            <div class="section" id="servicesArea">
+            <section id="servicesArea">
 
               <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'repository'), '<h2>'.__('Services area').'</h2>', array($resource, 'module' => 'repository', 'action' => 'edit'), array('anchor' => 'servicesArea', 'title' => __('Edit services area'))) ?>
 
@@ -162,9 +162,9 @@
 
               <?php echo render_show(__('Public areas'), render_value($resource->getPublicFacilities(array('cultureFallback' => true)))) ?>
 
-            </div>
+            </section>
 
-            <div class="section" id="controlArea">
+            <section id="controlArea">
 
               <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'repository'), '<h2>'.__('Control area').'</h2>', array($resource, 'module' => 'repository', 'action' => 'edit'), array('anchor' => 'controlArea', 'title' => __('Edit control area'))) ?>
 
@@ -206,7 +206,7 @@
 
               <?php echo render_show(__('Maintenance notes'), render_value($isdiah->maintenanceNotes)) ?>
 
-            </div>
+            </section>
 
           </div>
 
