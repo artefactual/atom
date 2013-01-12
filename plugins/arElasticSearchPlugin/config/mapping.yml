@@ -58,7 +58,7 @@ mapping:
     properties:
       slug: { type: string, index: not_analyzed }
       identifier: { type: string, index: not_analyzed }
-      media_type_id: { type: integer, index: not_analyzed, include_in_all: false }
+      types: { type: integer, index: not_analyzed, include_in_all: false }
 
   information_object:
     _attributes: { i18n: true, timestamp: true }
