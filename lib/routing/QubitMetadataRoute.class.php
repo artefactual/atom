@@ -112,6 +112,11 @@ class QubitMetadataRoute extends sfRoute
 
           break;
 
+        case $this->resource instanceof QubitDigitalObject:
+          $parameters['module'] = 'digitalobject';
+
+          break;
+
         case $this->resource instanceof QubitInformationObject:
           $default = $this->getDefaultTemplate('informationobject');
 
