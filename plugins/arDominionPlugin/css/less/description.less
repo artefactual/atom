@@ -69,26 +69,30 @@
   color: @white;
 }
 
-#left-column .logo {
+#left-column .repository-logo {
   margin-bottom: 10px;
 }
 
-#left-column .logo h2,
-#left-column .logo img {
+#left-column .repository-logo h2,
+#left-column .repository-logo img {
   max-width: 220px;
   .box-sizing(border-box);
   padding: 8px;
   .box-shadow(2px 2px 1px rgba(25, 25, 25, .2));
 }
 
-#left-column .logo h2 {
+#left-column .repository-logo h2 {
   border: 8px solid @white;
   font-size: 18px;
   line-height: 20px;
 }
 
-#left-column .logo img {
+#left-column .repository-logo img {
   background-color: @white;
+}
+
+#left-column .repository-logo-text h2 {
+  min-height: 220px;
 }
 
 // Right column
@@ -447,7 +451,7 @@
   margin-right: 6px;
 }
 
-.actions .divider {
+.actions > ul > .divider {
   height: 1px;
   margin-right: 6px;
   background: none;
