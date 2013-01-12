@@ -24,7 +24,7 @@ class arElasticSearchContactInformation extends arElasticSearchModelBase
     $serialized = array();
 
     $serialized['contactPerson'] = $object->contactPerson;
-    $serialized['streetcAddress'] = $object->streetAddress;
+    $serialized['streetAddress'] = $object->streetAddress;
     $serialized['postalCode'] = $object->postalCode;
     $serialized['countryCode'] = $object->countryCode;
     $serialized['location']['lat'] = $object->latitude;
