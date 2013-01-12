@@ -49,7 +49,7 @@
   &:active {
     background-image: none;
     outline: 0;
-    .box-shadow(~"inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)");
+    // .box-shadow(~"inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)");
   }
 
   // Disabled state
@@ -62,89 +62,34 @@
   }
 }
 
+// Alternate .c-btn
+
 .c-btn-submit {
   background-color: transparent;
   background-color: rgba(50, 90, 150, 0.25);
 }
+
 .c-btn-delete {
   background-color: transparent;
   background-color: rgba(150, 50, 50, 0.25);
 }
 
-// Alternative to .btn
+// Integrate caret
 
-.widebtn {
-  display: block;
-  padding: 4px 10px 4px;
-  margin-bottom: 0; // For input.btn
-  font-size: @baseFontSize;
-  font-family: @baseFontFamily; // ?
-  line-height: @baseLineHeight;
-  *line-height: 20px;
-  color: @white;
-  text-align: center;
-  text-transform: capitalize;
-  vertical-align: middle;
-  cursor: pointer;
-  border: 2px solid @white;
-  *border: 0; // Remove the border to prevent IE7's black border on input:focus
-  .border-radius(5px);
-  margin: 0;
-  .ie7-restore-left-whitespace(); // Give IE7 some love
-}
-
-.btn-huge {
-  padding: 11px 28px;
-  font-size: @baseFontSize + 5px;
-  line-height: normal;
-  .border-radius(5px);
-}
-
-.gray {
-  color: @grayDark;
-  border-color: @grayDark;
-}
-
-.gray:hover {
-  color: @white;
-  text-decoration: none !important;
-  background-color: @grayDark;
-  .transition(background-position .1s linear);
-}
-
-.orange {
-  color:@orange;
-  border-color: @orange;
-}
-
-.orange:hover {
-  color: @white !important;
-  text-decoration: none !important;
-  background-color: @orange;
-  .transition(background-position .1s linear);
-}
-
-// Group of buttons
-
-.btn-group .btn span {
+.c-btn .caret {
+  border-top-color: @white;
+  border-bottom-color: @white;
+  margin-top: 7px;
   margin-left: 4px;
-  padding: 2px 8px;
-  @shadow: inset 1px 3px 4px rgba(25, 25, 25, .1);
-  .box-shadow(@shadow);
 }
 
-.btn-group .btn:hover span,
-.btn-group .btn.active span {
-  background-color: @orange;
+.c-btn:hover .caret,
+.open .c-btn .caret {
+  border-top-color: @grayDarker;
+  border-bottom-color: @grayDarker;
 }
 
-// I can't remember why I am using the properties above
-// But it breaks .caret, temporary solution below:
-
-.btn-group .btn .caret {
-  padding: 0;
-}
-
-.btn-group .btn:hover .caret {
-  background: none;
+.open .c-btn {
+  background-color: @white;
+  color: @black;
 }
