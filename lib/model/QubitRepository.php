@@ -339,7 +339,7 @@ class QubitRepository extends BaseRepository
    */
   public function getLogoPath($absolute = false)
   {
-    return $this->getUploadsPath($absolute).'/logo.png';
+    return $this->getUploadsPath($absolute).'/conf/logo.png';
   }
 
   /**
@@ -349,7 +349,7 @@ class QubitRepository extends BaseRepository
    */
   public function getBannerPath($absolute = false)
   {
-    return $this->getUploadsPath($absolute).'/banner.png';
+    return $this->getUploadsPath($absolute).'/conf/banner.png';
   }
 
   /**
