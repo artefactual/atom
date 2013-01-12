@@ -22,9 +22,7 @@
       </ul>
 
       <?php if (isset($errorSchema)): ?>
-        <div class="alert alert-info">
-          <a class="close" data-dismiss="alert" href="#">×</a>
-          <h4 class="alert-heading"><?php echo __('Warning!') ?></h4>
+        <div class="messages error">
           <ul>
             <?php foreach ($errorSchema as $error): ?>
               <li><?php echo $error ?></li>
@@ -212,29 +210,33 @@
 
         </div>
 
-        <div class="span2" id="right-column">
+        <div class="span2">
 
-          <?php if (isset($primaryContact)): ?>
-            <section id="primary-contact">
-              <h4><?php echo __('Primary contact') ?></h4>
-              <?php echo $primaryContact->getContactInformationString(array('simple' => true)) ?>
-              <div>
-                <?php if (null !== $website = $primaryContact->getWebsite()): ?>
-                  <a class="btn btn-small" href="<?php echo esc_entities($website) ?>"><?php echo __('Website') ?></a>
-                <?php endif; ?>
-                <?php if (null !== $email = $primaryContact->email): ?>
-                  <a class="btn btn-small" href="mailto:<?php echo esc_entities($email) ?>"><?php echo __('Email') ?></a>
-                <?php endif; ?>
-              </div>
-            </section>
-          <?php endif; ?>
+          <div id="right-column">
 
-          <?php if (null !== $openingTimes = $resource->getOpeningTimes(array('cultureFallback' => true))): ?>
-            <section>
-              <h4><?php echo __('Opening times') ?></h4>
-              <?php echo render_value($openingTimes) ?>
-            </section>
-          <?php endif; ?>
+            <?php if (isset($primaryContact)): ?>
+              <section id="primary-contact">
+                <h4><?php echo __('Primary contact') ?></h4>
+                <?php echo $primaryContact->getContactInformationString(array('simple' => true)) ?>
+                <div>
+                  <?php if (null !== $website = $primaryContact->getWebsite()): ?>
+                    <a class="btn btn-small" href="<?php echo esc_entities($website) ?>"><?php echo __('Website') ?></a>
+                  <?php endif; ?>
+                  <?php if (null !== $email = $primaryContact->email): ?>
+                    <a class="btn btn-small" href="mailto:<?php echo esc_entities($email) ?>"><?php echo __('Email') ?></a>
+                  <?php endif; ?>
+                </div>
+              </section>
+            <?php endif; ?>
+
+            <?php if (null !== $openingTimes = $resource->getOpeningTimes(array('cultureFallback' => true))): ?>
+              <section>
+                <h4><?php echo __('Opening times') ?></h4>
+                <?php echo render_value($openingTimes) ?>
+              </section>
+            <?php endif; ?>
+
+          </div>
 
         </div>
 
