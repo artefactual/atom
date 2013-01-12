@@ -15,7 +15,8 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// See .btn
+// Alternative to .btn for action buttons
+
 .c-btn {
   display: inline-block;
   .ie7-inline-block();
@@ -59,10 +60,19 @@
     .opacity(65);
     .box-shadow(none);
   }
+}
 
+.c-btn-submit {
+  background-color: transparent;
+  background-color: rgba(50, 90, 150, 0.25);
+}
+.c-btn-delete {
+  background-color: transparent;
+  background-color: rgba(150, 50, 50, 0.25);
 }
 
 // Alternative to .btn
+
 .widebtn {
   display: block;
   padding: 4px 10px 4px;

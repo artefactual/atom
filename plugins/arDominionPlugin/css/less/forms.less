@@ -15,6 +15,19 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Apply a natural box layout model to all elements within the form
+
+input,
+select,
+textarea,
+.yui-skin-sam .yui-ac-input {
+  .input-block-level();
+}
+
+fieldset {
+  margin-bottom: @baseLineHeight * 2;
+}
+
 // Form items
 
 .form-item {
@@ -72,4 +85,10 @@
 
 .aside-form .radio {
   padding-top: 0;
+}
+
+// miniColors plugin
+
+.miniColors-triggerWrap {
+  margin-left: 4px;
 }
