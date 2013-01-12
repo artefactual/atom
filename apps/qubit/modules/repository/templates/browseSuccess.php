@@ -59,19 +59,20 @@
 
         <?php foreach ($pager->getResults() as $hit): ?>
           <?php $doc = $hit->getData() ?>
+          <?php $authorizedFormOfName = get_search_i18n($doc, 'authorizedFormOfName') ?>
           <div class="brick brick-small">
             <div class="preview">
               <a href="<?php echo url_for(array('module' => 'repository', 'slug' => $doc['slug'])) ?>">
                 <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$doc['slug'].'/conf/logo.png')): ?>
                   <?php echo image_tag('/uploads/r/'.$doc['slug'].'/conf/logo.png') ?>
                 <?php else: ?>
-                  <h4><?php echo get_search_i18n($doc, 'authorizedFormOfName') ?></h4>
+                  <h4><?php echo $authorizedFormOfName ?></h4>
                 <?php endif; ?>
               </a>
             </div>
             <div class="details">
-              <?php if (isset($doc['actor'][$sf_user->getCulture()]['authorizedFormOfName'])): ?>
-                <p><span class="name"><?php echo get_search_i18n($doc, 'authorizedFormOfName') ?></span></p>
+              <?php if (!empty($authorizedFormOfName)): ?>
+                <p><span class="name"><?php echo $authorizedFormOfName ?></span></p>
               <?php endif; ?>
               <?php if ('lastUpdated' == $sortSetting): ?>
                 <p><span class="date"><?php echo format_date($doc['updatedAt'], 'f') ?></span></p>
