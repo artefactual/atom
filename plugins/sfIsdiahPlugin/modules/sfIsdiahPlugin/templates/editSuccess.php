@@ -18,6 +18,16 @@
 
       <h1 class="label"><?php echo render_title($resource) ?></h1>
 
+      <ul class="breadcrumb">
+        <li><?php echo link_to(__('Institutions'), array('module' => 'repository', 'action' => 'browse')) ?></li>
+        <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
+          <li><?php echo link_to(render_title($resource), url_for(array($resource, 'module' => 'repository'))) ?></li>
+          <li><span><?php echo __('Edit') ?></span></li>
+        <?php else: ?>
+          <li><span><?php echo __('Add new') ?></span></li>
+        <?php endif; ?>
+      </ul>
+
       <?php echo $form->renderGlobalErrors() ?>
 
       <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
