@@ -6,7 +6,7 @@ homepage:
   class: QubitResourceRoute
   param:
     module: staticpage
-    action: index
+    action: home
     slug: home
 
 # --------------------------------------------------------- <QubitMetadataRoute>
