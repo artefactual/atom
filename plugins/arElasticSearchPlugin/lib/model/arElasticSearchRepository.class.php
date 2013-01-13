@@ -53,11 +53,11 @@ class arElasticSearchRepository extends arElasticSearchModelBase
 
     foreach ($object->contactInformations as $contactInformation)
     {
-      $serialized['contactInformations'][] = arElasticSearchContactInformation::serialize($contactInformation);  
+      $serialized['contactInformations'][] = arElasticSearchContactInformation::serialize($contactInformation);
     }
 
-    $serialized['createdAt'] = Elastica_Util::convertDate($object->createdAt);
-    $serialized['updatedAt'] = Elastica_Util::convertDate($object->updatedAt);
+    $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($object->createdAt);
+    $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($object->updatedAt);
 
     $serialized['sourceCulture'] = $object->sourceCulture;
     $serialized['i18n'] = self::serializeI18ns($object->id, array('QubitRepository', 'QubitActor'));

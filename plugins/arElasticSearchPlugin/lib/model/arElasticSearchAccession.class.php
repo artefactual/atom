@@ -44,8 +44,8 @@ class arElasticSearchAccession extends arElasticSearchModelBase
 
     $serialized['identifier'] = $object->identifier;
 
-    $serialized['createdAt'] = Elastica_Util::convertDate($object->createdAt);
-    $serialized['updatedAt'] = Elastica_Util::convertDate($object->updatedAt);
+    $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($object->createdAt);
+    $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($object->updatedAt);
 
     $serialized['sourceCulture'] = $object->sourceCulture;
     $serialized['i18n'] = self::serializeI18ns($object->id, array('QubitAccession'));

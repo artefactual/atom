@@ -136,8 +136,8 @@ class arElasticSearchActorPdo
 
     $serialized['entityTypeId'] = $this->entity_type_id;
 
-    $serialized['createdAt'] = Elastica_Util::convertDate($this->created_at);
-    $serialized['updatedAt'] = Elastica_Util::convertDate($this->updated_at);
+    $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($object->createdAt);
+    $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($object->updatedAt);
 
     $serialized['sourceCulture'] = $this->source_culture;
     $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($this->id, array('QubitActor'));
