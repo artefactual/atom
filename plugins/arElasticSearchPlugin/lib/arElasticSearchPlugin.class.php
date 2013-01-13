@@ -265,11 +265,21 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
   public function delete($object)
   {
+    if ($object instanceof QubitUser)
+    {
+      return;
+    }
+
     $this->index->getType(get_class($object))->deleteById($object->id);
   }
 
   public function update($object)
   {
+    if ($object instanceof QubitUser)
+    {
+      return;
+    }
+
     $className = 'arElasticSearch'.str_replace('Qubit', '', get_class($object));
 
     return call_user_func(array($className, 'update'), $object);
