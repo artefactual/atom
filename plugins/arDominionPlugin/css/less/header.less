@@ -16,8 +16,8 @@
  */
 
 /*
+* E     #header-admin > .navbar > ...
  * H    #header > .container
- * E     |- #header-admin.row > span12 > .navbar > ...
  * A     |- #header-lvl1.row > span12 > { #header-nav, #header-council }
  * D     |- #header-lvl2.row > span12
  * E          |- #logo-and-name
@@ -233,14 +233,14 @@
 
 // Responsive design
 
-@media (min-width: 980px) {
+@media (min-width: @navbarCollapseDesktopWidth) {
 
   body.user-logged #header { top: 41px; }
   body.user-logged { margin-top: 141px; }
 
 }
 
-@media (min-width: 768px) and (max-width: 979px) {
+@media (min-width: 768px) and (max-width: @navbarCollapseWidth) {
 
   body.user-logged #header { top: 51px; }
   body.user-logged { margin-top: 0px; }
