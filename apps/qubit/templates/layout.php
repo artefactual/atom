@@ -25,10 +25,6 @@
 
     <?php echo get_partial('footer') ?>
 
-    <div id="update-check">
-      <?php echo get_component('default', 'updateCheck') ?>
-    </div>
-
     <div id="print-date">
       <?php echo __('Printed: %d%', array('%d%' => date('Y-m-d'))) ?>
     </div>

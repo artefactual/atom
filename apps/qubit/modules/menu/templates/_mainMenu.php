@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top" id="header-admin">
   <div class="navbar-inner">
     <ul class="nav">
       <?php // Using $sf_user->hasGroup() since it relies on database,

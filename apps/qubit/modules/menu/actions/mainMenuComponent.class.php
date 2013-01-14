@@ -29,6 +29,11 @@ class MenuMainMenuComponent extends sfComponent
 {
   public function execute($request)
   {
+    if (!$this->context->user->isAuthenticated())
+    {
+      return sfView::NONE;
+    }
+
     // Get menu objects
     $this->mainMenu = QubitMenu::getById(QubitMenu::MAIN_MENU_ID);
 

@@ -1,17 +1,10 @@
+<?php echo get_component_slot('header') ?>
+
+<?php echo get_component('menu', 'mainMenu') ?>
+
 <div id="header">
 
   <div class="container">
-
-    <?php // echo get_component('menu', 'browseMenu', array('sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID())) ?>
-    <?php // echo get_component_slot('header') ?>
-
-    <?php if ($sf_user->isAuthenticated()): ?>
-      <div class="row" id="header-admin">
-        <div class="span12">
-          <?php echo get_component('menu', 'mainMenu') ?>
-        </div>
-      </div>
-    <?php endif; ?>
 
     <div class="row" id="header-lvl1">
       <div class="span12">
@@ -19,6 +12,7 @@
         <ul id="header-nav" class="nav nav-pills">
 
           <?php // echo get_component('menu', 'quickLinks') ?>
+
           <li><?php echo link_to(__('Home'), '@homepage') ?></li>
           <li><?php echo link_to(__('Contact us'), array('module' => 'staticpage', 'slug' => 'contact')) ?></li>
 
@@ -36,6 +30,7 @@
             <?php endif; ?>
           <?php endforeach; ?>
 
+          <?php // echo get_component('menu', 'browseMenu', array('sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID())) ?>
           <li id="header-browser">
             <div class="btn-group">
               <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><?php echo __('Browse') ?></a>
