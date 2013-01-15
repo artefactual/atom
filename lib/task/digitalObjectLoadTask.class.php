@@ -29,6 +29,9 @@ class digitalObjectLoadTask extends sfBaseTask
   protected static
     $count = 0;
 
+  private $curObjNum = 0;
+  private $totalObjCount = 0;
+
   /**
    * @see sfTask
    */
@@ -103,11 +106,15 @@ EOF;
       }
     }
 
+    $this->curObjNum = 0;
+    $this->totalObjCount = count($digitalObjects);
+
     // Loop through $digitalObject hash and add digital objects to db
     foreach ($digitalObjects as $key => $item)
     {
       if (null === $informationObject = QubitInformationObject::getById($key))
       {
+        $this->curObjNum++;
         $this->log("Invalid information_object id $key");
 
         continue;
@@ -140,6 +147,8 @@ EOF;
 
   protected function addDigitalObject($informationObject, $path, $options = array())
   {
+    $this->curObjNum++;
+
     if (isset($options['path']))
     {
       $path = $options['path'].$path;
@@ -163,7 +172,7 @@ EOF;
     }
 
     $filename = basename($path);
-    $this->log("Loading '$filename'");
+    $this->log("(" . strftime("%h %m, %r") . ") Loading '$filename' " . "({$this->curObjNum} of {$this->totalObjCount})");
 
     // Create digital object
     $do = new QubitDigitalObject;
