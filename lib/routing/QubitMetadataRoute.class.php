@@ -200,7 +200,7 @@ class QubitMetadataRoute extends sfRoute
   {
     $params = $this->parseParameters($params);
 
-    if (!isset($params['slug']))
+    if (!isset($params['slug']) && isset($params['module']))
     {
       $module = $params['module'];
       if (!isset(self::$DEFAULT_MODULES[$module]))
@@ -224,6 +224,12 @@ class QubitMetadataRoute extends sfRoute
 
   protected function parseParameters($params)
   {
+    // Fill in missing parameters with attributes of $params[0]
+    if (!is_array($params))
+    {
+      $params = array($params);
+    }
+
     // Look for the slug property if an object is passed
     if (isset($params[0]) && is_object($params[0]))
     {
