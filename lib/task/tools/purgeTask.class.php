@@ -117,7 +117,7 @@ EOF;
 
       addSuperuserTask::addSuperUser($options['username'], $options);
 
-      $this->logSection('propel', 'Purge complete!');
+      $this->logSection('purge', 'Purge complete!');
     }
   }
 
