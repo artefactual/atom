@@ -25,8 +25,6 @@
  * @author     David Juhasz <david@artefactual.com>
  */
 
-require_once 'Zend/Acl/Assert/Interface.php';
-
 class QubitAclConditionalAssert implements Zend_Acl_Assert_Interface
 {
   public function __construct($permission)

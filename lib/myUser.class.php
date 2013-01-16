@@ -17,8 +17,6 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once 'Zend/Acl/Role/Interface.php';
-
 class myUser extends sfBasicSecurityUser implements Zend_Acl_Role_Interface
 {
   public $user = null;
