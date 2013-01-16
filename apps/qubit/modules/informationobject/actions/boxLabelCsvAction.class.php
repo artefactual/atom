@@ -28,8 +28,11 @@ class InformationObjectBoxLabelCsvAction extends sfAction
       $this->forward404();
     }
 
-    // CSV header
-    $data = "referenceCode,physicalObjectName,title,creationDates\n";
+    // Use php://temp stream, max 2M
+    $csv = fopen('php://temp/maxmemory:'. (2*1024*1024), 'r+');
+
+    // Write CSV header
+    fputcsv($csv, array('referenceCode', 'physicalObjectName', 'title', 'creationDates'));
 
     foreach ($this->resource->descendants->andSelf()->orderBy('rgt') as $informationObject)
     {
@@ -40,23 +43,26 @@ class InformationObjectBoxLabelCsvAction extends sfAction
       }
 
       // Creation dates
-      foreach ($informationObject->getDates(array('type_id' => QubitTerm::CREATION_ID)) as $event)
+      foreach ($informationObject->getDates(array('type_id' => QubitTerm::CREATION_ID)) as $item)
       {
-        $creationDates[] = $event->startDate;
+        $creationDates[] = $item->startDate;
       }
 
-      // Reference code, container name, title, creation dates
+      // Write reference code, container name, title, creation dates
       foreach ($informationObject->getPhysicalObjects() as $item)
       {
-        $data .= sprintf("%s,%s,%s,%s\n",
+        fputcsv($csv, array(
           $informationObject->referenceCode,
           $item->__toString(),
           $informationObject->__toString(),
-          implode($creationDates, '|'));
+          implode($creationDates, '|')));
       }
 
       unset($creationDates);
     }
+
+    // Rewind the position of the pointer
+    rewind($csv);
 
     // Disable layout
     $this->setLayout(false);
@@ -64,8 +70,8 @@ class InformationObjectBoxLabelCsvAction extends sfAction
     // Set the file name
     $this->getResponse()->setHttpHeader('Content-Disposition', "attachment; filename=report.csv");
 
-    // Send $data as the response body
-    $this->getResponse()->setContent($data);
+    // Send $csv content as the response body
+    $this->getResponse()->setContent(stream_get_contents($csv));
 
     return sfView::NONE;
   }

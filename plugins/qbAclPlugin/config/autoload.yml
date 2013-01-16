@@ -1,0 +1,4 @@
+autoload:
+  vendor_zend_acl_lib:
+    path:      %SF_PLUGINS_DIR%/qbAclPlugin/lib/vendor/Zend
+    recursive: on

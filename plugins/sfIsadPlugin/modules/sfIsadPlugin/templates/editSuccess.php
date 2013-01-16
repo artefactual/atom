@@ -112,7 +112,7 @@
       ->label(__('Conditions governing access')), $resource, array('class' => 'resizable')) ?>
 
     <?php echo render_field($form->reproductionConditions
-      ->help(__('Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.3)'))
+      ->help(__('Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)'))
       ->label(__('Conditions governing reproduction')), $resource, array('class' => 'resizable')) ?>
 
     <?php echo $form->language
