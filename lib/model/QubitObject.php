@@ -17,8 +17,6 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once 'Zend/Acl/Resource/Interface.php';
-
 class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
 {
   public function __isset($name)

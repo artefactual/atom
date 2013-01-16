@@ -19,13 +19,6 @@
  * @version    $Id: Resource.php 20096 2010-01-06 02:05:09Z bkarwin $
  */
 
-
-/**
- * @see Zend_Acl_Resource_Interface
- */
-require_once 'Zend/Acl/Resource/Interface.php';
-
-
 /**
  * @category   Zend
  * @package    Zend_Acl

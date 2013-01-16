@@ -978,8 +978,6 @@ class QubitAcl
   }
 }
 
-require_once 'Zend/Acl/Assert/Interface.php';
-
 class ConditionalAssert implements Zend_Acl_Assert_Interface
 {
   public function __construct($permission)
