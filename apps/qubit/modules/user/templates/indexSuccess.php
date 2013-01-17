@@ -4,11 +4,11 @@
 
 <h1 class="label"><?php echo link_to_if(SecurityCheck::HasPermission($sf_user, array('module' => 'user', 'action' => 'edit')), render_title($resource), array($resource, 'module' => 'user', 'action' => 'edit'), array('title' => __('Edit user'))) ?></h1>
 
-<?php if (0 < $amountOfNotes || !$resource->active): ?>
+<?php if (0 < $notesCount || !$resource->active): ?>
   <div class="messages error">
     <ul>
-      <?php if (0 < $amountOfNotes): ?>
-        <li><?php echo __('This user has %1% notes in the system and therefore it cannot be removed', array('%1%' => $amountOfNotes)) ?></li>
+      <?php if (0 < $notesCount): ?>
+        <li><?php echo __('This user has %1% notes in the system and therefore it cannot be removed', array('%1%' => $notesCount)) ?></li>
       <?php endif; ?>
       <?php if (!$resource->active): ?>
         <li><?php echo __('This user is inactive') ?></li>

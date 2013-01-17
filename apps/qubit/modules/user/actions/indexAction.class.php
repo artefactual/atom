@@ -32,6 +32,6 @@ class UserIndexAction extends sfAction
       }
     }
 
-    $this->amountOfNotes = count($this->resource->getNotes());
+    $this->notesCount = count($this->resource->getNotes());
   }
 }
