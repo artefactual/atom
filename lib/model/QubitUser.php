@@ -27,40 +27,6 @@ class QubitUser extends BaseUser
     return (string) $this->username;
   }
 
-  public function __get($name)
-  {
-    $args = func_get_args();
-
-    $options = array();
-    if (1 < count($args))
-    {
-      $options = $args[1];
-    }
-
-    switch ($name)
-    {
-      // Return QubitNote objects that matches USER_ID with this resource
-      // BaseUser relies in BaseObject, which looks up QubitUser.OBJECT_ID column
-      case 'notes':
-
-      if (!isset($this->refFkValues['notes']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['notes'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['notes'] = self::getnotesById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['notes'];
-    }
-
-    return call_user_func_array(array($this, 'BaseUser::__get'), $args);
-  }
-
   public function save($connection = null)
   {
     parent::save($connection);
@@ -222,6 +188,14 @@ class QubitUser extends BaseUser
         return $user;
       }
     }
+  }
+
+  public function getNotes()
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitNote::USER_ID, $this->id);
+
+    return QubitNote::get($criteria);
   }
 
   /**
