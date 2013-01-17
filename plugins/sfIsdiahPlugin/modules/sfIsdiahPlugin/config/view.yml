@@ -23,3 +23,8 @@ indexSuccess:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/container/container-min:
     blank:
+
+all:
+  components:
+    css:
+      [repository, stylesheet]

@@ -6,6 +6,7 @@
     <?php include_title() ?>
     <link rel="shortcut icon" href="<?php echo public_path('favicon.ico') ?>"/>
     <?php include_stylesheets() ?>
+    <?php include_component_slot('css') ?>
     <?php if ($sf_context->getConfiguration()->isDebug()): ?>
       <script type="text/javascript" charset="utf-8">
         less = { env: 'development', optimize: 0 };

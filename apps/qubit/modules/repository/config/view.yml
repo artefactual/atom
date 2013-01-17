@@ -13,3 +13,8 @@ editThemeSuccess:
     /vendor/jquery-miniColors/jquery.miniColors.css:
   javascripts:
     /vendor/jquery-miniColors/jquery.miniColors.js:
+
+all:
+  components:
+    css:
+      [repository, stylesheet]

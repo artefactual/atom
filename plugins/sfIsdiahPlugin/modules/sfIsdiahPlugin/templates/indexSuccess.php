@@ -39,15 +39,6 @@
         </div>
       <?php endif; ?>
 
-      <?php if (null !== $resource->backgroundColor && null !== $resource->backgroundColor->getValue()): ?>
-        <style type="text/css">
-          html, body {
-            background-image: none;
-            background-color: <?php echo $resource->backgroundColor ?>;
-          }
-        </style>
-      <?php endif; ?>
-
       <?php if ($resource->existsBanner()): ?>
         <div class="row" id="repository-html-snippet">
           <div class="span7">

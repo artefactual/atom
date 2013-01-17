@@ -29,3 +29,8 @@ indexSuccess:
     blank:
     imageflow:
     treeView:
+
+all:
+  components:
+    css:
+      [repository, stylesheet]
