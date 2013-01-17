@@ -38,7 +38,8 @@ class sfModsPluginEditAction extends InformationObjectEditAction
       'type',
       'repository',
       'publicationStatus',
-      'displayStandard');
+      'displayStandard',
+      'displayStandardUpdateDescendants');
 
   protected function earlyExecute()
   {

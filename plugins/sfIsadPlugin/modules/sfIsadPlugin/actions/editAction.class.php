@@ -65,6 +65,7 @@ class sfIsadPluginEditAction extends InformationObjectEditAction
       'descriptionStatus',
       'publicationStatus',
       'displayStandard',
+      'displayStandardUpdateDescendants',
       'title');
 
   protected function earlyExecute()

@@ -197,6 +197,12 @@ class InformationObjectEditAction extends DefaultEditAction
 
         break;
 
+      case 'displayStandardUpdateDescendants':
+        $this->form->setValidator('displayStandardUpdateDescendants', new sfValidatorBoolean);
+        $this->form->setWidget('displayStandardUpdateDescendants', new sfWidgetFormInputCheckbox);
+
+        break;
+
       case 'repository':
         $this->form->setDefault('repository', $this->context->routing->generate(null, array($this->resource->repository, 'module' => 'repository')));
         $this->form->setValidator('repository', new sfValidatorString);
@@ -389,17 +395,25 @@ class InformationObjectEditAction extends DefaultEditAction
 
       case 'displayStandard':
 
-        // TODO: Should be this logic in QubitInformationObject?
-        // ^ It could be implemented __set() along with displayTemplateId
-        // Also, it should override all the values or just NULL values?
+        // Ignore if no display standard was chosen
+        if (null === $displayStandardId = $this->form->getValue('displayStandard'))
+        {
+          break;
+        }
 
         $selectCriteria = new Criteria;
-        $selectCriteria->add(QubitInformationObject::LFT, $this->resource->lft, Criteria::GREATER_EQUAL);
-        $selectCriteria->add(QubitInformationObject::RGT, $this->resource->rgt, Criteria::LESS_EQUAL);
-        $selectCriteria->add(QubitInformationObject::ID, $this->resource->id);
+        if (true === $this->form->getValue('displayStandardUpdateDescendants'))
+        {
+          $selectCriteria->add(QubitInformationObject::LFT, $this->resource->lft, Criteria::GREATER_EQUAL);
+          $selectCriteria->add(QubitInformationObject::RGT, $this->resource->rgt, Criteria::LESS_EQUAL);
+        }
+        else
+        {
+          $selectCriteria->add(QubitInformationObject::ID, $this->resource->id);
+        }
 
         $updateCriteria = new Criteria;
-        $updateCriteria->add(QubitInformationObject::DISPLAY_STANDARD_ID, $this->form->getValue('displayStandard'));
+        $updateCriteria->add(QubitInformationObject::DISPLAY_STANDARD_ID, $displayStandardId);
 
         BasePeer::doUpdate(
           $selectCriteria,

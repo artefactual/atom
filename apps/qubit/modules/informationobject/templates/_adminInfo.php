@@ -6,6 +6,8 @@
 
   <?php echo $form->displayStandard->label(__('Display standard'))->renderRow() ?>
 
+  <?php echo $form->displayStandardUpdateDescendants->label(__('Assign the new display standard to all its descendants'))->renderRow() ?>
+
   <div class="field">
     <h3><?php echo __('Source language') ?></h3>
     <div>
