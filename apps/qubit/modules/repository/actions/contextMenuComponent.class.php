@@ -26,11 +26,12 @@ class RepositoryContextMenuComponent extends sfComponent
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
-    $this->resource = $request->getAttribute('sf_route')->resource;
-    if (!isset($this->resource))
+    if (!isset($request->getAttribute('sf_route')->resource))
     {
       return sfView::NONE;
     }
+
+    $this->resource = $request->getAttribute('sf_route')->resource;
 
     // TODO: filter drafts
     $queryBool = new Elastica_Query_Bool();
