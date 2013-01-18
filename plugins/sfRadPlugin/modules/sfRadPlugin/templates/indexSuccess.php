@@ -1,12 +1,16 @@
 <div class="row">
 
-  <div id="left-column">
+  <div class="span3">
 
-    <?php echo get_component('informationobject', 'contextMenu') ?>
+    <div id="left-column">
+
+      <?php echo get_component('informationobject', 'contextMenu') ?>
+
+    </div>
 
   </div>
 
-  <div class="span9 offset3">
+  <div class="span9">
 
     <div id="main-column">
 

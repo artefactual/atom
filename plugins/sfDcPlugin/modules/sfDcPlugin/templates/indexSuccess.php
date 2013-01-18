@@ -1,12 +1,16 @@
 <div class="row">
 
-  <div id="left-column">
+  <div class="span3">
 
-    <?php echo get_component('informationobject', 'contextMenu') ?>
+    <div id="left-column">
+
+      <?php echo get_component('informationobject', 'contextMenu') ?>
+
+    </div>
 
   </div>
 
-  <div class="span9 offset3">
+  <div class="span9">
 
     <div id="main-column">
 
@@ -43,7 +47,7 @@
               <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjects[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
             <?php endif; ?>
 
-            <section id="descriptionArea">
+            <section id="mainArea">
 
               <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Main area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'mainArea', 'title' => __('Edit main area'))) ?>
 
