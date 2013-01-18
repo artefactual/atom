@@ -45,7 +45,15 @@ class RepositoryStylesheetComponent extends sfComponent
         return sfView::NONE;
     }
 
-    if (null === $repository || null === $this->backgroundColor = $repository->backgroundColor)
+    if (null === $repository || null === $repository->backgroundColor)
+    {
+      return sfView::NONE;
+    }
+
+    // Get value
+    $this->backgroundColor = $repository->backgroundColor->__toString();
+
+    if (0 == strlen($this->backgroundColor))
     {
       return sfView::NONE;
     }
