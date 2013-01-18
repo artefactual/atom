@@ -4,7 +4,7 @@
 
     <div id="left-column">
 
-      <?php # include_component('repository', 'contextMenu') ?>
+      <?php include_component('repository', 'contextMenu') ?>
 
     </div>
 
