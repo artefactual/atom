@@ -16,27 +16,6 @@
 
   /****
    ****
-   ****  Generic
-   ****
-   ****/
-
-  $(function ()
-    {
-      var $navigation = $('#navigation');
-      $navigation.hover(
-        function()
-          {
-            $navigation.addClass('expanded');
-          },
-        function()
-          {
-            $navigation.removeClass('expanded');
-          });
-
-    });
-
-  /****
-   ****
    ****  Google Maps
    ****
    ****/
