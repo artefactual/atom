@@ -70,28 +70,6 @@ abstract class arElasticSearchModelBase
       throw new sfException('At least one class name must be passed.');
     }
 
-    // Tableize names
-    foreach ($classes as &$class)
-    {
-      $class = str_replace('Qubit', '', $class);
-      $class = sfInflector::tableize($class);
-      $class .= '_i18n';
-    }
-
-    // Shift the first element off the array
-    $mainClass = array_shift($classes);
-
-    // Build SQL query
-    $sql = sprintf('SELECT * FROM %s', $mainClass);
-    foreach ($classes as $class)
-    {
-      $sql .= sprintf(' LEFT JOIN %s ON (%s.id = %s.id)',
-        $class, $class, $mainClass);
-    }
-
-    $sql .= sprintf(' WHERE %s.id = ?', $mainClass);
-    $sql .= sprintf(' ORDER BY %s.culture', $mainClass);
-
     // Build an array of i18n languages
     $allowedLanguages = array();
     foreach (QubitSetting::getByScope('i18n_languages') as $setting)
@@ -99,27 +77,41 @@ abstract class arElasticSearchModelBase
       $allowedLanguages[] = $setting->getValue(array('sourceCulture' => true));
     }
 
+    // Properties
     $i18ns = array();
-    foreach (QubitPdo::fetchAll($sql, array($id)) as $item)
-    {
-      // Any i18n record within a culture previously not configured will
-      // be ignored since the search engine will only accept known languages
-      if (!in_array($item->culture, $allowedLanguages))
-      {
-        continue;
-      }
 
-      foreach (get_object_vars($item) as $key => $value)
+    // Tableize class name
+    foreach ($classes as &$class)
+    {
+      $class = str_replace('Qubit', '', $class);
+      $class = sfInflector::tableize($class);
+      $class .= '_i18n';
+
+      // Build SQL query per table. I tried with joins but for some reason the
+      // culture value appears empty although it workes in the command line
+      $sql  = sprintf('SELECT * FROM %s WHERE id = ? ORDER BY culture ASC', $class);
+
+      foreach (QubitPdo::fetchAll($sql, array($id)) as $item)
       {
-        // Pass if the column is unneeded or null
-        if (in_array($key, array('id', 'culture')) || is_null($value))
+        // Any i18n record within a culture previously not configured will
+        // be ignored since the search engine will only accept known languages
+        if (!in_array($item->culture, $allowedLanguages))
         {
           continue;
         }
 
-        $camelized = lcfirst(sfInflector::camelize($key));
+        foreach (get_object_vars($item) as $key => $value)
+        {
+          // Pass if the column is unneeded or null
+          if (in_array($key, array('id', 'culture')) || is_null($value))
+          {
+            continue;
+          }
 
-        $i18ns[$item->culture][$camelized] = $value;
+          $camelized = lcfirst(sfInflector::camelize($key));
+
+          $i18ns[$item->culture][$camelized] = $value;
+        }
       }
     }
 
