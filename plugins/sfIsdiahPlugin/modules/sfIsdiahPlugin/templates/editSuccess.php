@@ -199,11 +199,11 @@
         <section class="actions">
           <ul>
             <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
-              <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
               <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'repository'), array('class' => 'c-btn', 'title' => __('Cancel'))) ?></li>
+              <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
             <?php else: ?>
-              <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
               <li><?php echo link_to(__('Cancel'), array('module' => 'repository', 'action' => 'browse'), array('class' => 'c-btn', 'title' => __('Cancel'))) ?></li>
+              <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
             <?php endif; ?>
           </ul>
         </section>

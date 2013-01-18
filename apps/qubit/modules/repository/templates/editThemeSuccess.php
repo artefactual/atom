@@ -74,8 +74,8 @@
 
         <section class="actions">
           <ul>
-            <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
             <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'repository'), array('class' => 'c-btn', 'title' => __('Edit'))) ?></li>
+            <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
           </ul>
         </section>
 
