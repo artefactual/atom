@@ -42,4 +42,14 @@ class arElasticSearchActor extends arElasticSearchModelBase
       $this->logEntry($data['i18n'][$data['sourceCulture']]['authorizedFormOfName'], $key + 1);
     }
   }
+
+  public static function update($object)
+  {
+    $node = new arElasticSearchActorPdo($object->id);
+    $data = $node->serialize();
+
+    QubitSearch::getInstance()->addDocument($data, 'QubitActor');
+
+    return true;
+  }
 }

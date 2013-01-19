@@ -66,4 +66,13 @@ class arElasticSearchTerm extends arElasticSearchModelBase
 
     return $serialized;
   }
+
+  public static function update($object)
+  {
+    $data = self::serialize($object);
+
+    QubitSearch::getInstance()->addDocument($data, 'QubitTerm');
+
+    return true;
+  }
 }
