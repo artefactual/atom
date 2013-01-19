@@ -290,7 +290,12 @@ class arElasticSearchMapping
         throw new sfException("$foreignTypeName could not be found within the mappings.");
       }
 
-      $typeProperties['properties'][$fieldNameCamelized] = $this->mapping[$foreignTypeNameCamelized];
+      $mapping = $this->mapping[$foreignTypeNameCamelized];
+
+      // Add id of the foreign resource
+      $mapping['properties']['id'] = array('type' => 'integer', 'index' => 'not_analyzed', 'include_in_all' => 'false');
+
+      $typeProperties['properties'][$fieldNameCamelized] = $mapping;
     }
   }
 
