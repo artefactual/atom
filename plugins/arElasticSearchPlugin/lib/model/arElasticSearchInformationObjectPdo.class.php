@@ -863,15 +863,19 @@ class arElasticSearchInformationObjectPdo
     }
     */
 
-    /*
     // Repository (actor)
-    if ($repository = $this->getRepository())
+    if (null !== $repository = $this->getRepository())
     {
-      $repoI18ns = $repository->actorI18ns->indexBy('culture');
-      $serializedI18ns = QubitMapping::serializeI18ns(new QubitActor(), $repoI18ns);
+      // $repoI18ns = $repository->actorI18ns->indexBy('culture');
+      // $serializedI18ns = QubitMapping::serializeI18ns(new QubitActor(), $repoI18ns);
 
-      $serialized['repository'] = array('id' => $repository->id, 'i18n' => $serializedI18ns);
+      $serialized['repository'] = array(
+        'id' => $repository->id,
+        //'i18n' => $serializedI18ns
+      );
     }
+
+    /*
 
     // Subject access points (terms)
     foreach ($this->getSubjectAccessPoints() as $subject)
