@@ -43,7 +43,7 @@ class QubitAccession extends BaseAccession
   {
     parent::save($connection);
 
-    QubitSearch::updateAccession($this);
+    QubitSearch::getInstance()->update($this);
 
     return $this;
   }
