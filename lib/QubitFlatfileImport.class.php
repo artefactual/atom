@@ -468,7 +468,7 @@ class QubitFlatfileImport
     }
 
     // disabling search indexing improves import speed
-    QubitSearch::getInstance()->disabled = $this->searchIndexingDisabled;
+    $this->searchIndexingDisabled ? QubitSearch::getInstance()->disable() : QubitSearch::getInstance()->enable();
 
     if ($skipRows) print "Skipped ". $skipRows ." rows...\n";
 

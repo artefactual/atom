@@ -56,7 +56,7 @@ EOF;
     // Set indexing preference
     if ($options['noindex'])
     {
-      QubitSearch::getInstance()->disabled = true;
+      QubitSearch::getInstance()->disable();
     }
     else
     {

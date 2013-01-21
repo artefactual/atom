@@ -58,6 +58,13 @@ class arElasticSearchPlugin extends QubitSearchEngine
   protected $mappings = null;
 
   /**
+   * If false, this plugin will perform a trial run with no changes made
+   *
+   * @var mixed Defaults to true.
+   */
+  protected $enabled = true;
+
+  /**
    * Constructor
    */
   public function __construct()
@@ -203,6 +210,19 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $timer->elapsed())));
   }
 
+  /**
+   * Populate index
+   */
+  public function enable()
+  {
+    $this->enabled = true;
+  }
+
+  public function disable()
+  {
+    $this->enabled = false;
+  }
+
   // ---------------------------------------------------------------------------
 
   /**
@@ -265,6 +285,11 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
   public function delete($object)
   {
+    if (!$this->enabled)
+    {
+      return;
+    }
+
     if ($object instanceof QubitUser)
     {
       return;
@@ -275,6 +300,11 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
   public function update($object)
   {
+    if (!$this->enabled)
+    {
+      return;
+    }
+
     if ($object instanceof QubitUser)
     {
       return;

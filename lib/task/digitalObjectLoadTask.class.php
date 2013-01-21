@@ -73,7 +73,7 @@ EOF;
       throw new sfException('You must specify a valid filename');
     }
 
-    QubitSearch::getInstance()->disabled = true;
+    QubitSearch::getInstance()->disable();
 
     $this->logSection("Load digital objects from {$arguments['filename']}...");
 
