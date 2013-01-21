@@ -10,8 +10,8 @@
 
   <ul>
     <?php foreach ($pager->getResults() as $hit): ?>
-      <?php $doc = build_i18n_doc($hit) ?>
-      <li><?php echo link_to($doc[$sf_user->getCulture()]['title'], array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></li>
+      <?php $doc = $hit->getData() ?>
+      <li><?php echo link_to(get_search_i18n($doc, 'title'), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></li>
     <?php endforeach; ?>
   </ul>
 
