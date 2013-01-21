@@ -799,13 +799,14 @@ class arElasticSearchInformationObjectPdo
     $serialized['referenceCode'] = $this->getReferenceCode();
     $serialized['levelOfDescriptionId'] = $this->level_of_description_id;
     $serialized['publicationStatusId'] = $this->publication_status_id;
-    $serialized['parentId'] = $this->ancestors[count($this->ancestors)-1]->id;
 
     // NB: this will include the ROOT_ID
     foreach ($this->getAncestors() as $ancestor)
     {
       $serialized['ancestors'][] = $ancestor->id;
     }
+
+    $serialized['parentId'] = $this->ancestors[count($this->ancestors)-1]->id;
 
     // NB: this should be an ordered array
     foreach ($this->getChildren() as $child)
