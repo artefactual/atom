@@ -33,13 +33,15 @@ class RepositoryContextMenuComponent extends sfComponent
 
     $this->resource = $request->getAttribute('sf_route')->resource;
 
-    // TODO: filter drafts
     $queryBool = new Elastica_Query_Bool();
     $queryBool->addShould(new Elastica_Query_MatchAll());
     $queryBool->addMust(new Elastica_Query_Term(array('parentId' => QubitInformationObject::ROOT_ID)));
     $queryBool->addMust(new Elastica_Query_Term(array('repository.id' => $this->resource->id)));
 
     $query = new Elastica_Query($queryBool);
+
+    QubitAclSearch::filterDrafts($query);
+
     $query->setLimit($request->limit);
     $query->setSort(array('slug' => 'asc', '_score' => 'desc'));
 
