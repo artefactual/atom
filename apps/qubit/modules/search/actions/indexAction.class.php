@@ -39,7 +39,7 @@ class SearchIndexAction extends DefaultBrowseAction
 
         foreach (QubitRepository::get($criteria) as $item)
         {
-          $this->types[$item->id] = $item->getName(array('cultureFallback' => true));
+          $this->types[$item->id] = $item->getAuthorizedFormOfName(array('cultureFallback' => true));
         }
 
         break;
@@ -109,7 +109,15 @@ class SearchIndexAction extends DefaultBrowseAction
     # _all? $queryText->setDefaultField(sprintf('i18n.%s.authorizedFormOfName', $this->context->user->getCulture()));
     $this->queryBool->addMust($queryText);
 
-    // ACL check
+    // Realm filter
+    if (isset($this->request->realm) && is_int($this->request->realm))
+    {
+      $this->queryBool->addMust(new Elastica_Query_Term(array('repository.id' => $this->request->realm)));
+    }
+
+    $this->query->setQuery($this->queryBool);
+
+    QubitAclSearch::filterDrafts($this->query);
 
     // Sort, From, Limit
     $this->query->setSort(array('_score' => 'desc'));
@@ -118,14 +126,6 @@ class SearchIndexAction extends DefaultBrowseAction
     {
       $query->setFrom(($this->request->page - 1) * $this->request->limit);
     }
-
-    // Realm filter
-    if (isset($this->request->realm) && is_int($this->request->realm))
-    {
-      $this->queryBool->addMust(new Elastica_Query_Term(array('repository._id' => $this->request->realm)));
-    }
-
-    $this->query->setQuery($this->queryBool);
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
 
