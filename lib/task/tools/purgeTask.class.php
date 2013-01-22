@@ -99,8 +99,8 @@ EOF;
     $siteTitle = ($options['title']) ? $options['title'] : '';
     if (!$siteTitle)
     {
-      $siteTitle       = readline("Site title [Qubit]: ");
-      $siteTitle       = ($siteTitle) ? $siteTitle : 'Qubit';
+      $siteTitle       = readline("Site title [AtoM]: ");
+      $siteTitle       = ($siteTitle) ? $siteTitle : 'AtoM';
     }
 
     // set, or prompt for, site description information
