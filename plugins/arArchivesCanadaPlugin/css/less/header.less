@@ -1,0 +1,276 @@
+/*
+ * This file is part of the Access to Memory (AtoM) software.
+ *
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+* E     #header-admin > .navbar > ...
+ * H    #header > .container
+ * A     |- #header-lvl1.row > span12 > { #header-nav, #header-council }
+ * D     |- #header-lvl2.row > span12
+ * E          |- #logo-and-name
+ * R          |- #header-search
+ */
+
+#header {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  // border-bottom: 1px solid @blue;
+  border-bottom: 1px solid @grayDark;
+  background-color: @white;
+  // #gradient > .vertical(@white, lighten(@orange, 10%));
+  #gradient > .vertical(@white, @grayLight);
+
+  @shadow: 0 3px 3px rgba(0, 0 , 0, .25);
+  .box-shadow(@shadow);
+}
+
+#header .container {
+  margin: 0 auto;
+}
+
+#header-admin {
+  font-family: @sansFontFamily;
+}
+
+#header-lvl1 {
+}
+
+#header-lvl2 {
+}
+
+#header-nav {
+  .pull-right();
+  margin-bottom: 0;
+}
+
+#header-nav > li > a {
+  .border-radius(0);
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-family: @smallFontFamily;
+  font-size: 16px;
+  font-variant: small-caps;
+  text-transform: lowercase;
+  font-weight: bold;
+  color: @gray;
+}
+
+#header-nav > li > a:hover {
+  color: @orange;
+  background-color: @grayDark;
+}
+
+#header-browser .btn-group > a {
+  margin: 4px 8px 0 0;
+}
+
+#header-browser li a {
+  padding: 3px 12px;
+  font-size: 16px;
+}
+
+#header-browser li a img {
+  margin-right: 6px;
+}
+
+#header-council {
+  .pull-right;
+}
+
+#logo-and-name h1 {
+  margin-left: 10px;
+  margin-top: -6px;
+}
+
+// Header search form
+
+#header-search {
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+
+#header-search input[type=text] {
+  .pull-right;
+  .box-sizing(border-box);
+  width: 100%;
+  #font > .shorthand(16px, normal, 21px);
+  height: 30px;
+  color: #333;
+  @shadow: rgba(255, 255, 255, 0.5) 0 1px 0;
+  .box-shadow(@shadow);
+  border: 1px solid #999;
+  .border-radius(3px);
+  outline: none;
+  .placeholder(#999);
+}
+
+// For #search-suggestions and #search-realm
+
+.search-popover {
+  position: fixed;
+  z-index: @zindexPopover;
+  .box-shadow(0 1px 3px rgba(0, 0, 0, .5));
+  #gradient > .vertical-three-colors(@white, @white, 70%, lighten(@grayLight, 10%));
+  .border-radius(4px);
+  .box-sizing(border-box);
+  .hide();
+}
+
+.search-popover {
+
+  div {
+
+    border-bottom: 1px solid @grayLight;
+    padding: 5px 0 5px 6px;
+    .clearfix;
+
+    // Advanced search link
+    &:last-child {
+
+      padding-left: 12px;
+      border-bottom: none;
+      text-transform: lowercase;
+      font-variant: small-caps;
+      font-size: 15px;
+
+    }
+
+    &#search-realm {
+
+
+    }
+
+    &#search-suggestions {
+
+
+    }
+
+    label {
+
+      input {
+
+        display: inline;
+        margin: 0 4px;
+
+      }
+
+    }
+
+    img {
+
+      float: left;
+      margin: 5px;
+
+    }
+
+    ul {
+
+      padding: 4px 4px 0 18px;
+      margin-bottom: 0;
+
+      li {
+
+        display: block;
+        float: none;
+        margin: 0 0 4px 0;
+        padding: 0;
+
+        a {
+
+          text-transform: none;
+          font-variant: normal;
+          color: @blue;
+          padding: 2px 0;
+          font-size: 14px;
+
+          span {
+
+            font-family: @smallFontFamily;
+            text-transform: uppercase;
+            color: @gray;
+            font-size: 10px;
+            padding: 0 10px;
+
+          }
+
+        }
+
+        &.showall a {
+
+          font-style: oblique;
+          color: @grayDark !important;
+
+        }
+
+      }
+
+    }
+
+  }
+
+  #search-bottom {
+    background-color: @white;
+    .border-radius(0 0 4px 4px);
+  }
+
+}
+
+// Responsive design
+
+@media (min-width: @navbarCollapseDesktopWidth) {
+
+  body.user-logged #header { top: 41px; }
+  body.user-logged { margin-top: 141px; }
+
+}
+
+@media (min-width: 768px) and (max-width: @navbarCollapseWidth) {
+
+  body.user-logged #header { top: 51px; }
+  body.user-logged { margin-top: 0px; }
+
+}
+
+@media (max-width: 767px) {
+
+  /* Hide mainMenu */
+  #header-admin { .hide; }
+
+  /* Hide the other menu */
+  #header .container > .row:first-child {
+    .hide;
+  }
+
+  #header {
+    margin-left: -20px;
+    margin-right: -20px;
+    position: static;
+  }
+
+  #logo-and-name h1 {
+    margin: 10px 0 0 0;
+    text-align: center;
+  }
+
+  #header-search {
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+}

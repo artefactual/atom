@@ -4,7 +4,7 @@
 
   <div class="span12">
     <h1>
-      <?php echo image_tag('/plugins/arDominionPlugin/images/icons-large/icon-people.png', array('width' => '42', 'height' => '42')) ?>
+      <?php echo image_tag('/images/icons-large/icon-people.png', array('width' => '42', 'height' => '42')) ?>
       <?php echo __('Browse %1% %2%', array(
         '%1%' => $pager->getNbResults(),
         '%2%' => sfConfig::get('app_ui_label_actor'))) ?>

@@ -3,7 +3,7 @@
   <div class="span12">
     <h1>
       <?php if (isset($icon)): ?>
-        <?php echo image_tag('/plugins/arDominionPlugin/images/icons-large/icon-'.$icon.'.png', array('width' => '42', 'height' => '42')) ?>
+        <?php echo image_tag('/images/icons-large/icon-'.$icon.'.png', array('width' => '42', 'height' => '42')) ?>
       <?php endif; ?>
       <?php echo __('Browse %1% %2%', array(
         '%1%' => $pager->getNbResults(),
