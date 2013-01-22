@@ -19,6 +19,7 @@ all:
     graphic:
     main:
     /plugins/qtTrilliumPlugin/css/ie: { condition: IE, position: last }
+    /plugins/qtTrilliumPlugin/css/ie9: { condition: IE 9, position: last }
 
   javascripts:
     /plugins/qtTrilliumPlugin/js/trillium: { position: last }
