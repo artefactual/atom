@@ -18,7 +18,7 @@
  */
 
 /**
- * Purge Qubit data
+ * Purge AtoM data
  *
  * @package    symfony
  * @subpackage task
@@ -63,62 +63,65 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
+    $configuration = ProjectConfiguration::getApplicationConfiguration($options['application'], $options['env'], false);
+    $sf_context = sfContext::createInstance($configuration);
+
+    QubitSearch::getInstance()->disable();
+
     $insertSql = new sfPropelInsertSqlTask($this->dispatcher, $this->formatter);
     $insertSql->setCommandApplication($this->commandApplication);
     $insertSql->setConfiguration($this->configuration);
-    $stopExecution = $insertSql->run();
-
-    if (!$stopExecution)
+    if (!$insertSql->run())
     {
-      if ($options['use-gitconfig'])
-      {
-        // attempt to provide default user admin name and email
-        if ($_SERVER['HOME'])
-        {
-          $gitConfigFile = $_SERVER['HOME'] .'/.gitconfig';
-          if (file_exists($gitConfigFile))
-          {
-            $gitConfig = parse_ini_file($gitConfigFile);
+      return;
+    }
 
-            $defaultUser = strtolower(strtok($gitConfig['name'], ' '));
-            $defaultEmail = $gitConfig['email'];
-          }
+    if ($options['use-gitconfig'])
+    {
+      // attempt to provide default user admin name and email
+      if ($_SERVER['HOME'])
+      {
+        $gitConfigFile = $_SERVER['HOME'] .'/.gitconfig';
+        if (file_exists($gitConfigFile))
+        {
+          $gitConfig = parse_ini_file($gitConfigFile);
+
+          $defaultUser = strtolower(strtok($gitConfig['name'], ' '));
+          $defaultEmail = $gitConfig['email'];
         }
       }
-
-      $configuration = ProjectConfiguration::getApplicationConfiguration($options['application'], $options['env'], false);
-      $sf_context = sfContext::createInstance($configuration);
-      sfInstall::loadData();
-
-      // Flush search index
-      QubitSearch::getInstance()->flush();
-      $this->logSection('purge', 'The search index has been deleted.');
-
-      // set, or prompt for, site title configuration information
-      $siteTitle = ($options['title']) ? $options['title'] : '';
-      if (!$siteTitle)
-      {
-        $siteTitle       = readline("Site title [Qubit]: ");
-        $siteTitle       = ($siteTitle) ? $siteTitle : 'Qubit';
-      }
-
-      // set, or prompt for, site description information
-      $siteDescription = ($options['description']) ? $options['description'] : '';
-      if (!$siteDescription)
-      {
-        $siteDescription = readline("Site description [Test site]: ");
-        $siteDescription = ($sitedescription) ? $siteDescription : 'Test site';
-      }
-
-      $this->createSetting('siteTitle', $siteTitle);
-      $this->createSetting('siteDescription', $siteDescription);
-
-      print "\n";
-
-      addSuperuserTask::addSuperUser($options['username'], $options);
-
-      $this->logSection('propel', 'Purge complete!');
     }
+
+    sfInstall::loadData();
+
+    // Flush search index
+    QubitSearch::getInstance()->flush();
+    $this->logSection('purge', 'The search index has been deleted.');
+
+    // set, or prompt for, site title configuration information
+    $siteTitle = ($options['title']) ? $options['title'] : '';
+    if (!$siteTitle)
+    {
+      $siteTitle       = readline("Site title [Qubit]: ");
+      $siteTitle       = ($siteTitle) ? $siteTitle : 'Qubit';
+    }
+
+    // set, or prompt for, site description information
+    $siteDescription = ($options['description']) ? $options['description'] : '';
+    if (!$siteDescription)
+    {
+      $siteDescription = readline("Site description [Test site]: ");
+      $siteDescription = ($sitedescription) ? $siteDescription : 'Test site';
+    }
+
+    $this->createSetting('siteTitle', $siteTitle);
+    $this->createSetting('siteDescription', $siteDescription);
+
+    print "\n";
+
+    addSuperuserTask::addSuperUser($options['username'], $options);
+
+    $this->logSection('propel', 'Purge complete!');
   }
 
   /*
