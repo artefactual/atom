@@ -482,13 +482,19 @@ modRewriteContents;
     {
       case 'k':
         $memoryLimit = round(intval(substr($memoryLimit, 0, -1)) / 1024, 3);
+
         break;
+
       case 'm':
         $memoryLimit = intval(substr($memoryLimit, 0, -1));
+
         break;
+
       case 'g':
         $memoryLimit = intval(substr($memoryLimit, 0, -1)) * 1024;
+
         break;
+
       default:
         // If suffix is not K, M, or G (case-insensitive), then value is assumed to be bytes
         $memoryLimit = round(intval($memoryLimit) / 1048576, 3);
