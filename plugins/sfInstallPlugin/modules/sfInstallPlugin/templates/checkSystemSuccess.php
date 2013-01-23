@@ -2,24 +2,6 @@
 
 <h2>System checks</h2>
 
-<div id="progress"></div>
-<?php $checkHtaccessUrl = json_encode(url_for(array('module' => 'sfInstallPlugin', 'action' =>  'checkHtaccess'))) ?>
-<?php echo javascript_tag(<<<EOF
-var progress = new Drupal.progressBar('checkSystem');
-progress.setProgress(-1, 'Check system');
-jQuery('#progress').append(progress.element);
-progress.setProgress(0, 'Check .htaccess');
-jQuery.ajax({
-  url: $checkHtaccessUrl,
-  complete: function (request)
-    {
-      jQuery('#progress').after(request.responseText);
-      progress.setProgress(100, 'Check system');
-    } });
-EOF
-) ?>
-<!-- TODO We currently do this logic in the template instead of the action to give the user more immediate feedback, but symfony apparently buffers output and does not start sending it to the user until it is finished being generated : ( -->
-
 <!-- TODO Consider using array keys for wiki anchors -->
 <?php $error = false ?>
 
@@ -82,6 +64,15 @@ EOF
     <p>
       <?php echo link_to('Your current PHP memory limit is '.$memoryLimit.' MB which is less than the minimum limit of '.sfInstall::$MINIMUM_MEMORY_LIMIT_MB.' MB.',
         array('module' => 'sfInstallPlugin', 'action' => 'help'), array('anchor' => 'PHP_memory_limit')) ?>
+    </p>
+  </div>
+<?php endif; ?>
+
+<?php $error |= count($settingsYml = sfInstall::checkSettingsYml(false)) > 0 ?>
+<?php if (isset($settingsYml['notWritable'])): ?>
+  <div class="messages error">
+    <p>
+      <?php echo link_to('settings.yml not writable', array('module' => 'sfInstallPlugin', 'action' => 'help'), array('anchor' => 'settings.yml_not_writable')) ?>
     </p>
   </div>
 <?php endif; ?>
