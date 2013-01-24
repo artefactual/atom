@@ -36,8 +36,10 @@ class arArchivesCanadaPluginConfiguration extends sfPluginConfiguration
     }
     else
     {
-      $context->response->addStylesheet('/plugins/arArchivesCanadaPlugin/css/min/main.css', 'last', array('media' => 'screen'));
+      $context->response->addStylesheet('/plugins/arArchivesCanadaPlugin/css/min.css', 'last', array('media' => 'screen'));
     }
+
+    // TODO http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic,700,700italic: { position: last }
   }
 
   public function initialize()

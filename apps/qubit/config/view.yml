@@ -27,7 +27,6 @@ default:
     # graphic:
     # main:
     # print: { media: print, position: last }
-    http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic,700,700italic: { position: last }
 
   javascripts:
     /vendor/jquery:
