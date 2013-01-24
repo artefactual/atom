@@ -1,5 +1,5 @@
 <!-- upload limit display with usage bar -->
-<div class="section" id="uploadLimitDisplay">
+<section id="uploadLimitDisplay">
 
   <h3><?php echo __('Upload limit') ?></h3>
 
@@ -26,7 +26,7 @@
 
   </div>
 
-</div>
+</section>
 
 <?php if ($sf_user->hasCredential('administrator')  && !$noedit): ?>
 

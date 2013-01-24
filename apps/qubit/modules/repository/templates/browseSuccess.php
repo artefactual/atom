@@ -35,21 +35,25 @@
 
   <div class="row">
 
-    <div class="span3" id="facets">
+    <div class="span3">
 
-      <?php echo get_partial('search/facet', array(
-        'target' => '#facet-archivetype',
-        'label' => __('Archive type'),
-        'facet' => 'types',
-        'pager' => $pager,
-        'filters' => $filters)) ?>
+      <div id="facets">
 
-      <?php echo get_partial('search/facet', array(
-        'target' => '#facet-province',
-        'label' => __('Region'),
-        'facet' => 'contact_i18n_region',
-        'pager' => $pager,
-        'filters' => $filters)) ?>
+        <?php echo get_partial('search/facet', array(
+          'target' => '#facet-archivetype',
+          'label' => __('Archive type'),
+          'facet' => 'types',
+          'pager' => $pager,
+          'filters' => $filters)) ?>
+
+        <?php echo get_partial('search/facet', array(
+          'target' => '#facet-province',
+          'label' => __('Region'),
+          'facet' => 'contact_i18n_region',
+          'pager' => $pager,
+          'filters' => $filters)) ?>
+
+      </div>
 
     </div>
 

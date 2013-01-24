@@ -1,9 +1,18 @@
-<div class="section">
+<section>
 
-  <h2 class="visible-phone widebtn btn-huge" data-toggle="collapse" data-target="<?php echo $target ?>"><?php echo $label ?></h2>
-  <h2 class="hidden-phone"><?php echo $label ?></h2>
+  <div class="facet-header">
 
-  <div class="scrollable" id="<?php echo $target ?>">
+    <div class="hidden-phone">
+      <p><?php echo $label ?></p>
+    </div>
+
+    <div class="visible-phone">
+      <button class="w-btn" data-toggle="collapse" data-target="<?php echo $target ?>"><?php echo $label ?></button>
+    </div>
+
+  </div>
+
+  <div class="facet-body" id="<?php echo $target ?>">
 
     <ul>
 
@@ -17,7 +26,7 @@
         <?php foreach ($pager->facets[$facet]['terms'] as $id => $term): ?>
           <li <?php if (in_array($id, (array)@$filters[$facet])) echo 'class="active"' ?>>
             <?php echo link_to(
-              __($term['term']).'<span>'.$term['count'].'</span>',
+              __($term['term']),
               array(
                 $facet => (
                   @$filters[$facet]
@@ -28,6 +37,7 @@
                     :
                       $id),
                 'page' => null) + $sf_request->getParameterHolder()->getAll()) ?>
+            <span><?php echo $term['count'] ?></span>
           </li>
         <?php endforeach; ?>
       <?php endif; ?>
@@ -36,4 +46,4 @@
 
   </div>
 
-</div>
+</section>
