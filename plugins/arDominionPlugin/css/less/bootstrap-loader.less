@@ -1,16 +1,31 @@
 /*
+ * This file is part of the Access to Memory (AtoM) software.
+ *
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
  * Loader for Bootstrap v2.2.2
  *
  * Note: in less, variables in import statements are not supported
  * yet, see https://github.com/cloudhead/less.js/issues/410
  *
+ * CSS Reset and variables must be loaded manually
+ *
  */
 
-// CSS Reset
-@import "../../../../vendor/bootstrap/less/reset.less";
-
-// Core variables and mixins
-@import "../../../../vendor/bootstrap/less/variables.less"; // Modify this for custom colors, font-sizes, etc
+// Mixins
 @import "../../../../vendor/bootstrap/less/mixins.less";
 
 // Grid system and page structure
@@ -60,7 +75,37 @@
 // Utility classes
 @import "../../../../vendor/bootstrap/less/utilities.less"; // Has to be last to override when necessary
 
-// Responsive.less
+// Responsive
 // For phone and tablet devices
 // -------------------------------------------------------------
-@import "../../../../vendor/bootstrap/less/responsive.less";
+
+// IE10 Metro responsive
+// Required for Windows 8 Metro split-screen snapping with IE10
+// Source: http://timkadlec.com/2012/10/ie10-snap-mode-and-responsive-design/
+
+@-ms-viewport{
+  width: device-width;
+}
+
+// RESPONSIVE CLASSES
+// ------------------
+
+@import "../../../../vendor/bootstrap/less/responsive-utilities.less";
+
+// MEDIA QUERIES
+// ------------------
+
+// Large desktops
+@import "../../../../vendor/bootstrap/less/responsive-1200px-min.less";
+
+// Tablets to regular desktops
+@import "../../../../vendor/bootstrap/less/responsive-768px-979px.less";
+
+// Phones to portrait tablets and narrow desktops
+@import "../../../../vendor/bootstrap/less/responsive-767px-max.less";
+
+// RESPONSIVE NAVBAR
+// ------------------
+
+// From 979px and below, show a button to toggle navbar contents
+@import "../../../../vendor/bootstrap/less/responsive-navbar.less";

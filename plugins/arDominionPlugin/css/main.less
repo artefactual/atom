@@ -15,40 +15,39 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Load bootstrap files
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../vendor/fonts/open-sans/OpenSans-Regular-webfont.eot');
+  src: url('../vendor/fonts/open-sans/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../vendor/fonts/open-sans/OpenSans-Regular-webfont.woff') format('woff'),
+    url('../vendor/fonts/open-sans/OpenSans-Regular-webfont.ttf') format('truetype'),
+    url('../vendor/fonts/open-sans/OpenSans-Regular-webfont.svg#OpenSansRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*
+ * Load Twitter Bootstrap v2.2.2
+ * -----------------------------------------------------------------------------
+ * I can't just load their bootstrap.less and responsive.less files because
+ * there are some limitations: 1) less @variables can't be overriden, 2) for
+ * some reason responsive.less imports the vendor variables.less again
+ */
+@import "../../../vendor/bootstrap/less/reset.less";
+@import "less/variables.less";
 @import "less/bootstrap-loader.less";
 
-// Dominion
-@blue: #0a3e94;
-@orange: #f60;
-@gray: #6d6d6d;
-@grayLight: #c2c2c2;
-@grayDark: #3b3b3b;
-@red: #8f0000;
-
-// Links
-@linkColor: @blue;
-@linkColorHover: lighten(@linkColor, 15%);
-
-// Typography
-@baseFontSize: 13px;
-@baseFontFamily: 'Droid Serif', 'Georgia', 'Times', serif;
-@smallFontFamily: Arial, Verdana, sans-serif;
-@baseLineHeight: 18px;
-@textColor: @grayDark;
-
-// Misc
-@backgroundColor: #f8f8f8;
-
 // Include files
-@import "less/mixins";
-@import "less/scaffolding";
-@import "less/pager";
-@import "less/search";
-@import "less/header";
-@import "less/treeview";
-@import "less/popovers";
-@import "less/description";
-@import "less/import";
-@import "less/forms";
-@import "less/buttons";
+@import "less/mixins.less";
+@import "less/scaffolding.less";
+@import "less/type.less";
+@import "less/pager.less";
+@import "less/search.less";
+@import "less/header.less";
+@import "less/treeview.less";
+@import "less/popovers.less";
+@import "less/description.less";
+@import "less/import.less";
+@import "less/forms.less";
+@import "less/buttons.less";
+@import "less/legacy.less";

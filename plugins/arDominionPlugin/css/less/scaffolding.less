@@ -15,16 +15,6 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Main layers
-
-html, body {
-  background-color: @backgroundColor;
-}
-
-#wrapper {
-  margin-top: 100px;
-}
-
 #content {
   background-color: @white;
   padding-bottom: 20px;
@@ -37,31 +27,13 @@ html, body {
   margin: 20px;
 }
 
-#footer {
-  margin-bottom: 30px;
+#wrapper {
+}
+
+footer {
 }
 
 // Main componentes like headers
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-weight: normal;
-}
-
-#wrapper h1 {
-  margin-top: 0 0 10px 0;
-  color: @white;
-  font-size: 30px;
-}
-
-#wrapper h1 img {
-  margin-right: 10px;
-  display: inline;
-  vertical-align: middle;
-}
 
 a:hover {
   text-decoration: none;
@@ -93,6 +65,7 @@ strong { // used exclusively for FONDS, SERIES, etc labels
 // Breadcrumbs
 
 .breadcrumb {
+
   padding: 0;
   margin: 2px 0 6px 0;
   background: none;
@@ -100,63 +73,60 @@ strong { // used exclusively for FONDS, SERIES, etc labels
   font-family: @smallFontFamily;
   font-size: 12px;
   .clearfix;
-}
 
-.breadcrumb li {
-  text-shadow: none;
-  float: left;
-  max-width: 120px;
-  margin-right: 10px;
-  position: relative;
-}
+  li {
+    text-shadow: none;
+    float: left;
+    max-width: 120px;
+    margin-right: 10px;
+    position: relative;
+  }
 
-.breadcrumb li:after {
-  content: "›";
-  margin: 0 4px 0 4px;
-  color: @black;
-  text-shadow: 1px 1px 0px @white;
-  position: absolute;
-  top: 1px;
-  right: -10px;
-}
+  li:after {
+    content: "›";
+    margin: 0 4px 0 4px;
+    color: @black;
+    text-shadow: 1px 1px 0px @white;
+    position: absolute;
+    top: 1px;
+    right: -10px;
+  }
 
-.breadcrumb li:last-child:after {
-  display: none;
-}
+  li:last-child:after {
+    display: none;
+  }
 
-.breadcrumb a,
-.breadcrumb span {
-  padding: 2px 4px;
-  display: block;
-  color: @white;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
+  a,
+  span {
+    padding: 2px 4px;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 
-.breadcrumb a {
-  background-color: rgba(50, 50, 50, .2);
-  .border-radius(4px);
-}
+  a {
+    background-color: rgba(50, 50, 50, .2);
+    .border-radius(4px);
+  }
 
-.breadcrumb a:hover {
-  text-decoration: none;
-  color: @orange;
+  a:hover {
+    text-decoration: none;
+    color: @orange;
+  }
+
 }
 
 // Search result breadcrumb
 
-.result .breadcrumb a {
-  color: @black;
-}
-
-.result .breadcrumb li {
-  margin: -3px 8px 0 0 !important;
-}
-
-.result .breadcrumb a {
-  background: none;
-  color: @grayLight;
+.result .breadcrumb {
+  a {
+    background: none;
+    color: @grayLight;
+  }
+  li {
+    margin: -3px 8px 0 0 !important;
+  }
 }
 
 // Wells
@@ -217,8 +187,12 @@ strong { // used exclusively for FONDS, SERIES, etc labels
   margin: 0;
 }
 
+.brick .preview a {
+  color: @grayDark;
+}
+
 .brick .preview a:hover h4 {
-  color: orange;
+
 }
 
 .brick .preview.zoom a {
@@ -231,7 +205,7 @@ strong { // used exclusively for FONDS, SERIES, etc labels
   color: #ad9c9c;
   margin: 17px -15px 0 -15px;
   padding: 10px 15px;
-  background-color: #F2F0F0;
+  background-color: #f2f0f0;
   .clearfix;
 }
 
@@ -311,6 +285,153 @@ strong { // used exclusively for FONDS, SERIES, etc labels
   margin: 0;
 }
 
+// Facets
+
+#facets {
+
+  section {
+    margin-bottom: @baseLineHeight;
+    border-bottom: 1px solid @grayLighter;
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  .facet-header {
+
+  }
+
+  // Scrollable ?
+  .facet-body {
+    margin: 4px 0 0 0;
+  }
+
+  // Only for desktops
+  p {
+    text-transform: lowercase;
+    font-variant: small-caps;
+    font-weight: normal;
+    font-size: 20px;
+    border:none;
+    margin: 0;
+    padding: 0;
+  }
+
+  // Only for mobile
+  button {
+  }
+
+  ul {
+    .nav;
+    font-family: @smallFontFamily;
+  }
+
+  li {
+
+    a {
+
+    }
+
+    span {
+      padding-left: 4px;
+      color: @grayLight;
+    }
+
+    &.active a {
+      text-decoration: underline;
+      color: @grayDarker;
+    }
+
+  }
+
+  .dates {
+    color: @white;
+    font-size: 30px;
+    input {
+      width: 35%;
+    }
+  }
+}
+
+// Repository box
+
+.repository-logo {
+
+  margin-bottom: 10px;
+
+  a {
+    color: @gray;
+  }
+
+  h2, img {
+    max-width: 220px;
+    padding: 8px;
+    .box-sizing(border-box);
+    @shadow: 2px 2px 1px rgba(25, 25, 25, .2);
+    .box-shadow(@shadow);
+    background-color: @white;
+  }
+
+  h2 {
+    border: 8px solid @gray;
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  img {
+    background-color: @gray;
+  }
+
+}
+
+.repository-logo-text h2 {
+  min-height: 180px;
+}
+
+// Actions section
+
+.actions {
+
+  min-height: 28px;
+  padding: 14px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: @grayDark;
+  #translucent > .background(@black, .2);
+  .border-radius(4px);
+  .box-shadow(inset 0 1px 1px rgba(0, 0, 0, .15));
+
+  & ul {
+    margin: 0;
+    list-style: none;
+  }
+
+  & > ul > li {
+  float: left;
+  }
+
+  & ul > li > * {
+    margin-right: 6px;
+  }
+
+  & ul > .divider {
+    height: 1px;
+    margin-right: 6px;
+    background: none;
+  }
+
+}
+
+// Front map
+
+#front-map {
+  height: 200px;
+  .border-radius(4px 4px 0 0);
+  border-style: solid;
+  border-color: @white;
+  border-width: 8px 8px 0 8px;
+}
+
 // Responsive design
 
 @media (min-width: 1200px) {
@@ -323,8 +444,8 @@ strong { // used exclusively for FONDS, SERIES, etc labels
 
 @media (max-width: 767px) {
 
-  #wrapper {
-    margin-top: 0;
+  .breadcrumb {
+    .hide;
   }
 
 }

@@ -7,3 +7,5 @@ data/index/
 log/
 /sf
 uploads/
+plugins/arDominionPlugin/css/min.css
+plugins/arArchivesCanadaPlugin/css/min.css

@@ -15,8 +15,29 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Load arDominionPlugin
-@import "../../arDominionPlugin/css/main.less";
+/*
+ * Load Twitter Bootstrap v2.2.2
+ * -----------------------------------------------------------------------------
+ * I can't just load their bootstrap.less and responsive.less files because
+ * there are some limitations: 1) less @variables can't be overriden, 2) for
+ * some reason responsive.less imports the vendor variables.less again
+ */
+@import "../../../vendor/bootstrap/less/reset.less";
+@import "less/variables.less";
+@import "../../arDominionPlugin/css/less/bootstrap-loader";
+
+// Load arDominionPlugin files
+@import "../../arDominionPlugin/css/less/mixins.less";
+@import "../../arDominionPlugin/css/less/scaffolding.less";
+@import "../../arDominionPlugin/css/less/pager.less";
+@import "../../arDominionPlugin/css/less/search.less";
+// @import "../../arDominionPlugin/css/less/header.less";
+@import "../../arDominionPlugin/css/less/treeview.less";
+@import "../../arDominionPlugin/css/less/popovers.less";
+@import "../../arDominionPlugin/css/less/description.less";
+@import "../../arDominionPlugin/css/less/import.less";
+@import "../../arDominionPlugin/css/less/forms.less";
+@import "../../arDominionPlugin/css/less/buttons.less";
 
 // Customizations
 @import "less/main.less";

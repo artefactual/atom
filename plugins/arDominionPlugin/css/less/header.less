@@ -18,13 +18,12 @@
 #top-bar {
   height: 50px;
   background-color: rgb(22, 21, 20);
-  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
 #logo {
 	display: block;
 	float: left;
-	margin: 2px 0 0 4px;
+	margin: 0 0 0 8px;
 }
 
 #site-name {
@@ -50,7 +49,7 @@
 	display: block;
 	float: right;
 	margin: 12px 11px 0 0;
-	background-color: #2d2c2a;
+	background-color: @grayDark;
 	.border-radius(4px);
 	font-size: 13px;
 	line-height: 14px;
@@ -62,7 +61,7 @@ a.top-button:link,
 a.top-button:visited,
 a.top-button:active  {
 	padding: 5px 15px 7px 15px;
-	color: #c0c0be;
+	color: lighten(@gray, 40%);
 }
 
 a.top-button:hover {
@@ -79,14 +78,14 @@ a.top-dropdown:link,
 a.top-dropdown:visited,
 a.top-dropdown:active {
 	padding: 5px 29px 6px 17px;
-	background-image: url(gray_arrow.png);
+	background-image: url(../images/gray_arrow.png);
 	background-position: right center;
 	background-repeat: no-repeat;
-	color: #c0c0be;
+	color: lighten(@gray, 40%);
 }
 
 a.top-dropdown:hover {
 	background-color: @orange;
-	background-image: url(white_arrow.png);
+	background-image: url(../images/white_arrow.png);
 	color: @white;
 }
