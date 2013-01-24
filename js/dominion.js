@@ -62,7 +62,7 @@
       $container.imagesLoaded(function() {
         $container.masonry({
           itemSelector: '.brick',
-          isAnimated: true
+          isAnimated: false
         });
       });
     });
