@@ -1,4 +1,4 @@
-<div id="footer">
+<footer>
 
   <?php if (QubitAcl::check('userInterface', 'translate')): ?>
     <?php echo get_component('sfTranslatePlugin', 'translate') ?>
@@ -6,4 +6,4 @@
 
   <?php echo get_component_slot('footer') ?>
 
-</div>
+</footer>
