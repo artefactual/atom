@@ -9,7 +9,7 @@
     <?php include_component_slot('css') ?>
     <?php if ($sf_context->getConfiguration()->isDebug()): ?>
       <script type="text/javascript" charset="utf-8">
-        less = { env: 'development', optimize: 0 };
+        less = { env: 'development', optimize: 0, relativeUrls: true };
       </script>
     <?php endif; ?>
     <?php include_javascripts() ?>
