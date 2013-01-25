@@ -529,7 +529,15 @@ a:hover {
 }
 
 // Contact information
-// Scope: #content, .vcard is also used in .modal
+// Based in .field
+
+// Add bottom border when multiple contacts
+.vcard > .field:last-child > div {
+  border-bottom: 1px solid @borderLineColor;
+  &:last-child > .field:last-child > div {
+    border-bottom: 0;
+  }
+}
 
 .vcard .agent {
   color: @orange;
