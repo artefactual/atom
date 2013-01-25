@@ -533,7 +533,7 @@ return;
     // <placeEntry/>
     $this->resource->mandates = $fd->find('eac:cpfDescription/eac:description/eac:mandate/eac:term|eac:cpfDescription/eac:description/eac:mandates/eac:mandate/eac:term')->text();
 
-    $this->internalStructures = $fd->find('eac:cpfDescription/eac:description/eac:structureOrGenealogy');
+    $this->structureOrGenealogy = $fd->find('eac:cpfDescription/eac:description/eac:structureOrGenealogy');
 
     $this->generalContext = $fd->find('eac:cpfDescription/eac:description/eac:generalContext');
 
