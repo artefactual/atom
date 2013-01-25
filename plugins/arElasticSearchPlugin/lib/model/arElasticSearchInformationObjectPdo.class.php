@@ -871,7 +871,7 @@ class arElasticSearchInformationObjectPdo
       // $serializedI18ns = QubitMapping::serializeI18ns(new QubitActor(), $repoI18ns);
 
       $serialized['repository'] = array(
-        'id' => $repository->id,
+        'id' => $repository->id
         //'i18n' => $serializedI18ns
       );
     }
