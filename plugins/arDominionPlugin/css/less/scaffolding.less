@@ -409,11 +409,12 @@ a:hover {
 
 // Content
 
+@borderLineColor: lighten(@grayLight, 25%);
+
 #content {
 
-  // overflow: auto;
   background-color: @white;
-  padding-bottom: 20px;
+  border: 1px solid @borderLineColor;
   .border-radius(0 0 4px 4px);
   .box-shadow(0 1px 1px rgba(0, 0, 0, .2));
 
@@ -422,87 +423,94 @@ a:hover {
     // margin: 20px;
   }
 
+  // Section title
+  h2 {
+    font-size: @baseFontSize * 1.50;
+    color: @orange;
+    border-top: 1px solid @borderLineColor;
+    border-bottom: 1px solid @borderLineColor;
+    margin: 0;
+    padding: 5px 10px;
+  }
+
+  // Cancel first border
+  section:first-child h2 {
+    border-top: none;
+  }
+
 }
 
+/*
 #content > .section {
   font-family: @smallFontFamily;
   padding: 0;
   font-size: 13px;
   line-height: 140%;
 }
+*/
 
-#content .field {
+// Fields
+
+.field {
   overflow: hidden;
   margin-top: -1px;
 }
 
-#content .field > h3 {
-  float: left;
-  width: 28%;
-  padding: 1px 1% 32767px 1%;
-  margin: 1px 0 -32767px 0;
-  text-align: right;
-  color: @grayDarker;
-  font-weight: bold;
-  font-size: 13px;
-  line-height: 130%;
-  font-weight: normal;
-  border-right: 1px solid @grayLighter;
-  line-height: 20px;
-}
-
-#content .field + .field {
+.field + .field {
   border-top: 0;
 }
 
-#content .field > div {
+.field > h3 {
+
+  float: left;
+  width: 28%;
+  padding: 1px 1% 32767px 1%; // I wish I could understand this!
+  margin: 1px 0 -32767px 0;
+  text-align: right;
+  line-height: 20px;
+
+  font-weight: normal;
+  font-size: 13px;
+  color: @grayLight;
+  border-right: 1px solid @borderLineColor;
+
+}
+
+.field > div {
   margin-left: 30%;
   padding: 2px 4px 2px 8px;
   line-height: 20px;
 }
 
-#content .field p {
-  margin: 0 0 3px 0;
+// Fields within fields
+
+.field .field {
+
+  > h3 {
+    float: none;
+    width: auto;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    display: inline-block;
+    border: 0;
+    &:after {
+      content: ': ';
+    }
+  }
+
+  > div {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+  }
+
 }
 
-#content .field .field .field > h3 {
-  float: none;
-  width: auto;
-  padding: 0;
-  margin: 0;
-  text-align: left;
-  border: none;
-  line-height: auto;
-  display: inline;
-  font-weight: bold;
-}
+// Misc
 
-#content .field .field .field > h3:after {
-  content: ':';
-}
-
-#content .field .field .field > div {
-  margin: 0;
-  padding: 0;
-  line-height: auto;
-  display: inline;
-}
-
-#content h2, p {
+#content p {
   margin: 0 10px;
-}
-
-#content h2 {
-  color: @orange;
-  font-size: 18px;
-  line-height: 110%;
-  padding-top: 10px;
-  font-weight: normal;
-  margin-bottom: 8px;
-}
-
-#content h2 > .c {
-  margin: 20px;
 }
 
 #content .editlink {
@@ -517,56 +525,21 @@ a:hover {
 }
 
 #content li {
-  margin: 0 0 5px 0;
-  line-height: 140%;
+  margin: 0;
 }
 
 // Contact information
 // Scope: #content, .vcard is also used in .modal
 
-#content .vcard {
-  margin-left: 0 !important;
-  margin-bottom: @baseLineHeight;
-  padding: 0 !important;
-  background-color: #eee;
-  border: 1px solid #ccc;
-  .border-radius(4px);
-  @shadow: 1px 1px 1px rgba(25, 25, 25, .1);
-  .box-shadow(@shadow);
+.vcard .agent {
+  color: @orange;
 }
 
-#content .vcard > h3 {
-  font-size: 12px;
-  line-height: 20px;
-  margin: 0 0 0 0;
-  padding: 0 10px 0 0;
+.vcard .primaryContact {
   color: @grayDarker;
-  font-style: italic;
-  .pull-right;
-}
-
-#content .vcard > h3 .type {
   text-transform: lowercase;
-}
-
-#content .vcard .agent {
+  font-variant: small-caps;
   padding-left: 8px;
-  font-weight: bold;
-  color: @grayDark;
-  border-bottom: 1px solid #ccc;
-  background-color: @white;
-  .border-radius(4px 4px 0 0);
-  min-height: 20px;
-}
-
-#content .vcard .field.adr {
-}
-
-#content .vcard .field.tel {
-}
-
-#content .vcard .field h3 {
-  border-right: 1px solid @grayLight;
 }
 
 // Responsive design
