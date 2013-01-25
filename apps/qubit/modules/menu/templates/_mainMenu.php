@@ -12,6 +12,10 @@
 
     <div class="top-dropdown-container">
 
+      <div class="top-dropdown-arrow">
+        <div class="arrow"></div>
+      </div>
+
       <div class="top-dropdown-header">
         <?php echo $menu->getLabel(array('cultureFallback' => true)) ?>
       </div>
