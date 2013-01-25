@@ -109,7 +109,7 @@
 
       <function>
 
-        <descriptiveNote><?php echo esc_specialchars($resource->functions) ?></descriptiveNote>
+        <term><?php echo esc_specialchars($resource->functions) ?></term>
 
       </function>
 
