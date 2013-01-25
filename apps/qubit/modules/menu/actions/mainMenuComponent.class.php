@@ -34,6 +34,7 @@ class MenuMainMenuComponent extends sfComponent
       return sfView::NONE;
     }
 
+    /*
     // Get menu objects
     $this->mainMenu = QubitMenu::getById(QubitMenu::MAIN_MENU_ID);
 
@@ -41,5 +42,11 @@ class MenuMainMenuComponent extends sfComponent
     {
       return sfView::NONE;
     }
+    */
+
+    $this->addMenu = QubitMenu::getById(QubitMenu::ADD_EDIT_ID);
+    $this->manageMenu = QubitMenu::getById(QubitMenu::MANAGE_ID);
+    $this->importMenu = QubitMenu::getById(QubitMenu::IMPORT_ID);
+    $this->adminMenu = QubitMenu::getById(QubitMenu::ADMIN_ID);
   }
 }
