@@ -4,7 +4,7 @@
   <?php include_component('repository', 'uploadLimit', array('resource' => $resource)) ?>
 <?php endif; ?>
 
-<div class="section" id="holdings">
+<section id="holdings">
 
   <h3><?php echo sfConfig::get('app_ui_label_holdings') ?></h3>
 
@@ -17,4 +17,4 @@
 
   <?php echo get_partial('default/pager', array('pager' => $pager, 'small' => true)) ?>
 
-</div>
+</section>
