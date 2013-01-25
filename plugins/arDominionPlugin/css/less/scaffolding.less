@@ -415,13 +415,8 @@ a:hover {
 
   background-color: @white;
   border: 1px solid @borderLineColor;
-  .border-radius(0 0 4px 4px);
+  .border-radius(4px);
   .box-shadow(0 1px 1px rgba(0, 0, 0, .2));
-
-  > section,
-  > fieldset {
-    // margin: 20px;
-  }
 
   // Section title
   h2 {
@@ -433,53 +428,83 @@ a:hover {
     padding: 5px 10px;
   }
 
+  // Title with link
+  section > a {
+    display: block;
+    position: relative;
+    &:after {
+      content: "»";
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      font-size: 30px;
+      color: @grayLight;
+      transition-property: right;
+      transition-duration: 200ms;
+    }
+    &:hover {
+      background-color: @grayLighter;
+      &:after {
+        color: @gray;
+        text-shadow: 1px 1px 2px rgba(50, 50, 50, .25);
+      }
+    }
+  }
+
   // Cancel first border
   section:first-child h2 {
     border-top: none;
   }
 
-}
+  p {
+    margin: 0 0 10px 0;
+  }
 
-/*
-#content > .section {
-  font-family: @smallFontFamily;
-  padding: 0;
-  font-size: 13px;
-  line-height: 140%;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    margin: 0;
+  }
+
 }
-*/
 
 // Fields
 
 .field {
+
   overflow: hidden;
   margin-top: -1px;
-}
 
-.field + .field {
-  border-top: 0;
-}
+  + .field {
+    border-top: 0;
+  }
 
-.field > h3 {
+  > h3 {
 
-  float: left;
-  width: 28%;
-  padding: 1px 1% 32767px 1%; // I wish I could understand this!
-  margin: 1px 0 -32767px 0;
-  text-align: right;
-  line-height: 20px;
+    float: left;
+    width: 28%;
+    padding: 1px 1% 32767px 1%; // I wish I could understand this!
+    margin: 1px 0 -32767px 0;
+    text-align: right;
+    line-height: 20px;
 
-  font-weight: normal;
-  font-size: 13px;
-  color: @grayLight;
-  border-right: 1px solid @borderLineColor;
+    font-weight: normal;
+    font-size: 13px;
+    color: @grayLight;
+    border-right: 1px solid @borderLineColor;
 
-}
+  }
 
-.field > div {
-  margin-left: 30%;
-  padding: 2px 4px 2px 8px;
-  line-height: 20px;
+  > div {
+    margin-left: 30%;
+    padding: 2px 4px 2px 8px;
+    line-height: 20px;
+  }
+
 }
 
 // Fields within fields
@@ -507,36 +532,15 @@ a:hover {
 
 }
 
-// Misc
+// Contact information (.field)
 
-#content p {
-  margin: 0 10px;
-}
-
-#content .editlink {
-  float: right;
-  margin-top: 2px;
-}
-
-#content ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-#content li {
-  margin: 0;
-}
-
-// Contact information
-// Based in .field
-
-// Add bottom border when multiple contacts
 .vcard > .field:last-child > div {
+  // Add bottom border when multiple contacts
   border-bottom: 1px solid @borderLineColor;
-  &:last-child > .field:last-child > div {
-    border-bottom: 0;
-  }
+}
+
+section .vcard:last-child > .field:last-child > div {
+  border-bottom: 0;
 }
 
 .vcard .agent {
