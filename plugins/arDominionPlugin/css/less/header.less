@@ -15,6 +15,8 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
+ @topBarTextColor: lighten(@gray, 40%);
+
 #top-bar {
   height: 50px;
   background-color: rgb(22, 21, 20);
@@ -61,7 +63,7 @@ a.top-button:link,
 a.top-button:visited,
 a.top-button:active  {
 	padding: 5px 15px 7px 15px;
-	color: lighten(@gray, 40%);
+	color: @topBarTextColor;
 }
 
 a.top-button:hover {
@@ -69,8 +71,11 @@ a.top-button:hover {
 	color: @white;
 }
 
-.top-dropdown-container {
-	display: none;
+// Dropdown button
+
+.top-dropdown {
+  position: relative;
+  cursor: pointer; // no href
 }
 
 .top-dropdown,
@@ -78,14 +83,210 @@ a.top-dropdown:link,
 a.top-dropdown:visited,
 a.top-dropdown:active {
 	padding: 5px 29px 6px 17px;
-	background-image: url(../images/gray-arrow.png);
+	background-image: url(../../images/gray-arrow.png);
 	background-position: right center;
 	background-repeat: no-repeat;
-	color: lighten(@gray, 40%);
+	color: @topBarTextColor;
 }
 
+.open > a.top-dropdown,
 a.top-dropdown:hover {
 	background-color: @orange;
-	background-image: url(../images/white-arrow.png);
+	background-image: url(../../images/white-arrow.png);
 	color: @white;
+}
+
+// Dropdown container
+
+.open > .top-dropdown-container {
+  display: block;
+}
+
+.top-dropdown-container {
+
+  .hide();
+  position: absolute;
+  top: 50px;
+  right: 0px;
+  min-width: 240px;
+  @shadow: 0 2px 2px rgba(25, 25, 25, .25);
+  .box-shadow(@shadow);
+
+  .top-dropdown-header {
+    background-color: @white;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .top-dropdown-body {
+
+    background-image: url('../../images/separator.png');
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-color: @graySilver;
+    background-color: rgba(75, 75, 75, 0.05);
+    font-size: 14px;
+
+    ul {
+      list-style: none;
+      margin-bottom: 0;
+      margin-left: 0;
+      a {
+        display: block;
+        padding: 4px 8px;
+        line-height: 24px;
+        // border-bottom: 1px solid rgb(220, 220, 220);
+        &:hover {
+          color: @orange;
+        }
+      }
+      // li:last-child a {
+      //     border-bottom: none;
+      // }
+    }
+
+  }
+
+  .top-dropdown-bottom {
+    background-color: @white;
+    height: 12px;
+  }
+
+}
+
+// Top search bar
+
+#top-bar-search {
+
+	float: right;
+
+	// Use form to margin top
+	// And cancel default margin bottom
+	form {
+		margin: 12px 11px 0 0;
+		width: 240px;
+		.transition(width 0.2s ease-in-out);
+
+		&.active {
+			width: 400px;
+		}
+
+	}
+
+	input {
+
+		// Reset border
+		border: none;
+
+		// See .top-item
+		background-color: @grayDark;
+		.border-radius(4px);
+		margin-right: 11px;
+		color: @topBarTextColor;
+
+		// Overrides defaults for [type=text]
+		// Some of this default like box-model are set by AtoM, not only Bootstrap
+		width: 100%;
+		min-height: 0;
+		margin-bottom: 0;
+    // .box-sizing(content-box);
+
+		// Define height (box-model is content-box here)
+		padding: 0 8px;
+		height: 25px;
+
+		&:focus {
+			background-color: @white;
+			color: @gray;
+			.placeholder(@grayLight);
+		}
+
+	}
+
+	.search-popover {
+
+	  position: absolute;
+	  z-index: @zindexPopover;
+	  background-color: @white;
+	  .box-shadow(0 1px 3px rgba(0, 0, 0, .5));
+	  .border-radius(4px);
+	  .box-sizing(border-box);
+	  .hide();
+
+		#search-bottom {
+    	background-color: @white;
+    	.border-radius(0 0 4px 4px);
+  	}
+
+    border-bottom: 1px solid @grayLight;
+    padding: 5px 0 5px 6px;
+    .clearfix;
+
+    // Advanced search link
+    &:last-child {
+      padding-left: 12px;
+      border-bottom: none;
+      text-transform: lowercase;
+      font-variant: small-caps;
+      font-size: 15px;
+    }
+
+    &#search-realm {
+
+    }
+
+    &#search-suggestions {
+
+    }
+
+    label input {
+      display: inline;
+      margin: 0 4px;
+    }
+
+    img {
+      float: left;
+      margin: 5px;
+    }
+
+    ul {
+
+      padding: 4px 4px 0 18px;
+      margin-bottom: 0;
+
+      li {
+
+        display: block;
+        float: none;
+        margin: 0 0 4px 0;
+        padding: 0;
+
+        a {
+
+          text-transform: none;
+          font-variant: normal;
+          color: @blue;
+          padding: 2px 0;
+          font-size: 14px;
+
+          span {
+            font-family: @smallFontFamily;
+            text-transform: uppercase;
+            color: @gray;
+            font-size: 10px;
+            padding: 0 10px;
+          }
+
+        }
+
+        &.showall a {
+          font-style: oblique;
+          color: @grayDark !important;
+        }
+
+      }
+
+    }
+  }
+
 }

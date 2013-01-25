@@ -1,6 +1,6 @@
-<div>
+<div id="browse-menu">
 
-	<a href="javascript:void(0);" class="top-item top-dropdown"><?php echo $browseMenu->getLabel(array('cultureFallback' => true)) ?></a>
+	<a class="top-item top-dropdown" data-toggle="dropdown" data-target="#"><?php echo $browseMenu->getLabel(array('cultureFallback' => true)) ?></a>
 
 	<div class="top-dropdown-container">
 
@@ -14,9 +14,7 @@
 		  </ul>
 		</div>
 
-		<div class="top-dropdown-bottom">
-			<p>Bottom</p>
-		</div>
+		<div class="top-dropdown-bottom"></div>
 
 	</div>
 

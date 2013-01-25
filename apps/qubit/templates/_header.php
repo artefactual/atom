@@ -10,7 +10,7 @@
     </h1>
   <?php endif; ?>
 
-  <?php // echo get_component('search', 'box') ?>
+  <?php echo get_component('default', 'updateCheck') ?>
 
   <nav>
 
@@ -21,13 +21,19 @@
       <?php echo link_to(__('Log in'), array('module' => 'user', 'action' => 'login'), array('class' => 'top-item top-button')) ?>
     <?php endif; ?>
 
-    <?php // echo get_component('i18n', 'changeLanguageList') ?>
+    <?php echo get_component('i18n', 'changeLanguageList') ?>
 
     <?php // echo get_component('menu', 'quickLinks') ?>
 
     <?php echo get_component('menu', 'browseMenu', array('sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID())) ?>
 
+    <?php if ($sf_user->isAuthenticated()): ?>
+      <?php echo get_component('menu', 'mainMenu', array('sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID())) ?>
+    <?php endif; ?>
+
   </nav>
+
+  <?php echo get_component('search', 'box') ?>
 
   <?php echo get_component_slot('header') ?>
 

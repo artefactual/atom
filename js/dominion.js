@@ -78,6 +78,7 @@
       this.$element = element;
       this.$menu = $('<div id="search-suggestions" class="search-popover"></div>').appendTo('body');
       this.$realm = this.$element.parent().find('#search-realm');
+      this.$form = this.$element.parent('form');
 
       this.source = this.$element.closest('form').data('autocomplete');
       this.shown = false;
@@ -276,12 +277,16 @@
             self.$realm.hide();
             self.$element.val('');
           }, 150);
+
+        this.$form.removeClass('active');
       },
 
     focus: function (e)
       {
         this.$element.val('');
         this.showRealm();
+
+        this.$form.addClass('active');
 
         return this;
       },
@@ -307,7 +312,7 @@
 
   $(function ()
     {
-      $('body').on('focus.qubit', '#header-search input[name="query"]', function(e)
+      $('body').on('focus.qubit', '#top-bar-search input[name="query"]', function(e)
         {
           var $this = $(this);
 
