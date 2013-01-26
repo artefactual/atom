@@ -272,16 +272,20 @@ nav > div {
 	.search-popover {
 
 	  background-color: @white;
-	  .box-shadow(0 1px 3px rgba(0, 0, 0, .5));
-	  .border-radius(0 0 4px 4px);
+    @shadow:  0   1px 1px rgba(0, 0, 0, .7),
+              2px 1px 1px rgba(0, 0, 0, .7),
+             -2px 1px 1px rgba(0, 0, 0, .7);
+	  .box-shadow(@shadow);
+	  .border-radius(4px);
     border-bottom: 1px solid @grayLight;
 	  .box-sizing(border-box);
-    padding: 5px 0 5px 6px;
 
     width: 100%;
     position: absolute;
     z-index: @zindexPopover;
-    top: 38px;
+    top: 28px;
+
+    .hide();
 
     // Advanced search link
     #advanced-search {
@@ -293,30 +297,28 @@ nav > div {
     }
 
     &#search-realm {
-
+      padding: 5px 0 5px 6px;
+      label {
+        font-size: 12px;
+        input[type=radio] {
+          width: auto;
+          margin: -4px 4px 0 4px;
+        }
+      }
     }
 
     &#search-suggestions {
-
-    }
-
-    label {
-      font-size: 12px;
-    }
-
-    input[type=radio] {
-      width: auto;
-      margin: -4px 4px 0 4px;
     }
 
     img {
       float: left;
       margin: 5px;
+      padding-top: 2px;
     }
 
     ul {
 
-      padding: 4px 4px 0 18px;
+      padding: 4px 4px 0 10px;
       margin-bottom: 0;
 
       li {
@@ -326,23 +328,10 @@ nav > div {
         margin: 0 0 4px 0;
         padding: 0;
 
-        a {
-
-          text-transform: none;
-          font-variant: normal;
-          color: @blue;
-          padding: 2px 0;
-          font-size: 14px;
-
-          span {
-            font-family: @smallFontFamily;
-            text-transform: uppercase;
-            color: @gray;
-            font-size: 10px;
-            padding: 0 10px;
-          }
-
-        }
+        white-space: nowrap;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         &.showall a {
           font-style: oblique;

@@ -1,6 +1,6 @@
 <?php if ($descriptions->getTotalHits() > 0): ?>
-  <div>
-    <?php echo image_tag('/images/icons-small/icon-archival-small.png', array('width' => '32', 'height' => '32')) ?>
+  <section>
+    <?php echo image_tag('/images/icons-small/icon-archival-small.png', array('width' => '24', 'height' => '24')) ?>
     <ul>
       <?php foreach ($descriptions->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
@@ -13,12 +13,12 @@
         <li class="showall"><?php echo link_to(__('all matching descriptions'), array('module' => 'search', 'action' => 'index') + $sf_request->getParameterHolder()->getAll()) ?></li>
       <?php endif; ?>
     </ul>
-  </div>
+  <section>
 <?php endif; ?>
 
 <?php if ($subjects->getTotalHits() > 0): ?>
-  <div>
-    <?php echo image_tag('/images/icons-small/icon-subjects-small.png', array('width' => '32', 'height' => '32')) ?>
+  <section>
+    <?php echo image_tag('/images/icons-small/icon-subjects-small.png', array('width' => '24', 'height' => '24')) ?>
     <ul>
       <?php foreach ($subjects->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
@@ -28,12 +28,12 @@
         <li class="showall"><?php echo link_to(__('all matching subjects'), array('module' => 'search', 'action' => 'index') + $sf_request->getParameterHolder()->getAll()) ?></li>
       <?php endif; ?>
     </ul>
-  </div>
+  <section>
 <?php endif; ?>
 
 <?php if ($repositories->getTotalHits() > 0): ?>
-  <div>
-    <?php echo image_tag('/images/icons-small/icon-institutions-small.png', array('width' => '32', 'height' => '32')) ?>
+  <section>
+    <?php echo image_tag('/images/icons-small/icon-institutions-small.png', array('width' => '24', 'height' => '24')) ?>
     <ul>
       <?php foreach ($repositories->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
@@ -43,12 +43,12 @@
         <li class="showall"><?php echo link_to(__('all matching institutions'), array('module' => 'search', 'action' => 'index') + $sf_request->getParameterHolder()->getAll()) ?></li>
       <?php endif; ?>
     </ul>
-  </div>
+  <section>
 <?php endif; ?>
 
 <?php if ($actors->getTotalHits() > 0): ?>
-  <div>
-    <?php echo image_tag('/images/icons-small/icon-people-small.png', array('width' => '32', 'height' => '32')) ?>
+  <section>
+    <?php echo image_tag('/images/icons-small/icon-people-small.png', array('width' => '24', 'height' => '24')) ?>
     <ul>
       <?php foreach ($actors->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
@@ -58,9 +58,9 @@
         <li class="showall"><?php echo link_to(__('all matching people & organizations'), array('module' => 'search', 'action' => 'index') + $sf_request->getParameterHolder()->getAll()) ?></li>
       <?php endif; ?>
     </ul>
-  </div>
+  <section>
 <?php endif; ?>
 
-<div id="search-bottom">
+<div id="advanced-search">
   <?php echo link_to(__('Advanced search'), array('module' => 'search', 'action' => 'advanced')) ?>
 </div>

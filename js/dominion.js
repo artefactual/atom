@@ -76,9 +76,9 @@
   var Autocomplete = function (element)
     {
       this.$element = element;
-      this.$menu = $('<div id="search-suggestions" class="search-popover"></div>').appendTo('body');
       this.$realm = this.$element.parent().find('#search-realm');
       this.$form = this.$element.parent('form');
+      this.$menu = $('<div id="search-suggestions" class="search-popover"></div>').appendTo(this.$form);
 
       this.source = this.$element.closest('form').data('autocomplete');
       this.shown = false;
@@ -117,23 +117,10 @@
         this.hideRealm();
       },
 
-    locate: function ($item)
-      {
-        var pos = $.extend({}, this.$element.offset(), {
-          height: this.$element[0].offsetHeight,
-          width: this.$element.outerWidth()
-        });
-
-        return $item.css({
-          width: pos.width,
-          top: pos.top + pos.height,
-          left: pos.left });
-      },
-
     show: function()
       {
         this.hideRealm();
-        this.locate(this.$menu).show();
+        this.$menu.show();
         this.shown = true;
 
         return this;
@@ -142,7 +129,7 @@
     showRealm: function (e)
       {
         this.hide();
-        this.locate(this.$realm).show();
+        this.$realm.show();
 
         return this;
       },
