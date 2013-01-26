@@ -1,6 +1,6 @@
 <?php if ($descriptions->getTotalHits() > 0): ?>
   <div>
-    <?php echo image_tag('/plugins/arDominionPlugin/images/icons-small/icon-archival-small.png', array('width' => '32', 'height' => '32')) ?>
+    <?php echo image_tag('/images/icons-small/icon-archival-small.png', array('width' => '32', 'height' => '32')) ?>
     <ul>
       <?php foreach ($descriptions->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
@@ -18,7 +18,7 @@
 
 <?php if ($subjects->getTotalHits() > 0): ?>
   <div>
-    <?php echo image_tag('/plugins/arDominionPlugin/images/icons-small/icon-subjects-small.png', array('width' => '32', 'height' => '32')) ?>
+    <?php echo image_tag('/images/icons-small/icon-subjects-small.png', array('width' => '32', 'height' => '32')) ?>
     <ul>
       <?php foreach ($subjects->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
@@ -33,7 +33,7 @@
 
 <?php if ($repositories->getTotalHits() > 0): ?>
   <div>
-    <?php echo image_tag('/plugins/arDominionPlugin/images/icons-small/icon-institutions-small.png', array('width' => '32', 'height' => '32')) ?>
+    <?php echo image_tag('/images/icons-small/icon-institutions-small.png', array('width' => '32', 'height' => '32')) ?>
     <ul>
       <?php foreach ($repositories->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
@@ -48,7 +48,7 @@
 
 <?php if ($actors->getTotalHits() > 0): ?>
   <div>
-    <?php echo image_tag('/plugins/arDominionPlugin/images/icons-small/icon-people-small.png', array('width' => '32', 'height' => '32')) ?>
+    <?php echo image_tag('/images/icons-small/icon-people-small.png', array('width' => '32', 'height' => '32')) ?>
     <ul>
       <?php foreach ($actors->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
