@@ -1,6 +1,6 @@
 <div id="language-menu">
 
-  <a class="top-item top-dropdown" data-toggle="dropdown" data-target="#"><?php echo __('Language') ?></a>
+  <a class="top-item top-dropdown icon" data-toggle="dropdown" data-target="#"><?php echo __('Language') ?></a>
 
   <div class="top-dropdown-container">
 

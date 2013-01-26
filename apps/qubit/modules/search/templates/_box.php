@@ -4,7 +4,7 @@
 
     <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo esc_entities($sf_request->query) ?>" placeholder="<?php echo __('Search') ?>"/>
 
-    <div id="search-realm" class="search-popover" style="display: none;">
+    <div id="search-realm" class="search-popover">
 
       <?php $sf_route = $sf_request->getAttribute('sf_route') ?>
       <?php if (isset($sf_route->resource)): ?>
@@ -25,7 +25,7 @@
         </label>
       </div>
 
-      <div id="search-bottom">
+      <div id="advanced-search">
         <?php echo link_to(__('Advanced search'), array('module' => 'search', 'action' => 'advanced')) ?>
       </div>
 

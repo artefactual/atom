@@ -25,7 +25,7 @@
 #logo {
 	display: block;
 	float: left;
-	margin: 0 0 0 8px;
+	margin: 0 20px 0 8px;
 }
 
 #site-name {
@@ -95,7 +95,22 @@ a.top-dropdown:hover {
 	color: @white;
 }
 
+.top-dropdown.icon {
+  padding: 12px 0 !important;
+  .hide-text();
+  width: 28px;
+}
+
+
 // Dropdown container
+
+nav.left > div {
+  float: left;
+}
+
+nav.right > div {
+  float: right;
+}
 
 nav > div {
   float: right;
@@ -174,24 +189,54 @@ nav > div {
 
 }
 
+// Language menu
+
+#language-menu > a {
+  background-image: url(../../images/token-icons/language.png);
+  background-position: 2px 0;
+  background-repeat: no-repeat;
+}
+
+#admin-menu > a {
+  background-image: url(../../images/token-icons/gear.png);
+  background-position: 2px 0;
+  background-repeat: no-repeat;
+}
+
+#import-menu > a {
+  background-image: url(../../images/token-icons/import.png);
+  background-position: 2px 0;
+  background-repeat: no-repeat;
+}
+
+#manage-menu > a {
+  background-image: url(../../images/token-icons/manage.png);
+  background-position: 2px 0;
+  background-repeat: no-repeat;
+}
+
+#add-menu > a {
+  background-image: url(../../images/token-icons/add.png);
+  background-position: 2px 0;
+  background-repeat: no-repeat;
+}
+
 // Top search bar
 
 #top-bar-search {
 
 	float: left;
-    margin-left: 10px;
 
 	// Use form to margin top
 	// And cancel default margin bottom
 	form {
+    position: relative;
 		margin: 12px 11px 0 0;
 		width: 240px;
 		.transition(width 0.2s ease-in-out);
-
 		&.active {
 			width: 400px;
 		}
-
 	}
 
 	input {
@@ -226,30 +271,25 @@ nav > div {
 
 	.search-popover {
 
-	  position: absolute;
-	  z-index: @zindexPopover;
 	  background-color: @white;
 	  .box-shadow(0 1px 3px rgba(0, 0, 0, .5));
-	  .border-radius(4px);
-	  .box-sizing(border-box);
-	  .hide();
-
-		#search-bottom {
-    	background-color: @white;
-    	.border-radius(0 0 4px 4px);
-  	}
-
+	  .border-radius(0 0 4px 4px);
     border-bottom: 1px solid @grayLight;
+	  .box-sizing(border-box);
     padding: 5px 0 5px 6px;
-    .clearfix;
+
+    width: 100%;
+    position: absolute;
+    z-index: @zindexPopover;
+    top: 38px;
 
     // Advanced search link
-    &:last-child {
+    #advanced-search {
       padding-left: 12px;
       border-bottom: none;
       text-transform: lowercase;
       font-variant: small-caps;
-      font-size: 15px;
+      .border-radius(0 0 4px 4px);
     }
 
     &#search-realm {
@@ -260,9 +300,13 @@ nav > div {
 
     }
 
-    label input {
-      display: inline;
-      margin: 0 4px;
+    label {
+      font-size: 12px;
+    }
+
+    input[type=radio] {
+      width: auto;
+      margin: -4px 4px 0 4px;
     }
 
     img {

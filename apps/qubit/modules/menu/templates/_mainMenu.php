@@ -4,11 +4,11 @@
       // See also issue 2266
       $isAdministrator = $sf_user->hasGroup(QubitAclGroup::ADMINISTRATOR_ID) ?>
 
-<?php foreach (array($addMenu, $manageMenu, $importMenu, $adminMenu) as $menu): ?>
+<?php foreach (array($adminMenu, $importMenu, $manageMenu, $addMenu) as $menu): ?>
 
-  <div id="main-menu">
+  <div id="<?php echo $menu->getName() ?>-menu">
 
-    <a class="top-item top-dropdown" data-toggle="dropdown" data-target="#"><?php echo $menu->getLabel(array('cultureFallback' => true)) ?></a>
+    <a class="top-item top-dropdown icon" data-toggle="dropdown" data-target="#"><?php echo $menu->getLabel(array('cultureFallback' => true)) ?></a>
 
     <div class="top-dropdown-container">
 
