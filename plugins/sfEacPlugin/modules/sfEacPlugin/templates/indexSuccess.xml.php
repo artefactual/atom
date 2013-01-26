@@ -79,7 +79,7 @@
 
       </nameEntry>
 
-      <?php foreach ($resource->otherNames as $item): ?>
+      <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::OTHER_FORM_OF_NAME_ID)) as $item): ?>
         <nameEntry>
 
           <part><?php echo esc_specialchars($item->name) ?></part>
@@ -87,6 +87,16 @@
           <alternativeForm>conventionDeclaration</alternativeForm>
 
         </nameEntry>
+      <?php endforeach; ?>
+
+      <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::PARALLEL_FORM_OF_NAME_ID)) as $item): ?>
+        <nameEntryParallel>
+          <nameEntry>
+            <part><?php echo esc_specialchars($item->name) ?></part>
+
+            <authorizedForm>conventionDeclaration</authorizedForm>
+          </nameEntry>
+        </nameEntryParallel>
       <?php endforeach; ?>
 
     </identity>

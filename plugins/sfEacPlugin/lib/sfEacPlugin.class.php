@@ -501,6 +501,14 @@ return;
       $this->resource->otherNames[] = $item;
     }
 
+    foreach ($fd->find('eac:cpfDescription/eac:identity/eac:nameEntryParallel/eac:nameEntry') as $node)
+    {
+      $item = new QubitOtherName;
+      $item->name = $fd->spawn()->add($node)->find('eac:part')->text();
+      $item->typeId = QubitTerm::PARALLEL_FORM_OF_NAME_ID;
+
+      $this->resource->otherNames[] = $item;
+    }
     //$fd->find('eac:cpfDescription/eac:identity/eac:nameEntry/eac:authorizedForm');
     //$fd->find('eac:cpfDescription/eac:identity/eac:nameEntry/eac:alternativeForm');
     //$fd->find('eac:cpfDescription/eac:identity/eac:nameEntry/eac:preferredForm');
