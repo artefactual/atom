@@ -1,5 +1,3 @@
-<?php $sf_response->addStylesheet('/vendor/yui/container/assets/skins/sam/container', 'first') ?>
-
 <?php $sf_response->addJavaScript('date') ?>
 <?php $sf_response->addJavaScript('/vendor/yui/datasource/datasource-min') ?>
 <?php $sf_response->addJavaScript('/vendor/yui/container/container-min') ?>
@@ -75,7 +73,7 @@ Drupal.behaviors.relatedResource = {
         'relationTableMap': function (response)
           {
             response.resource = response.object;
-            
+
             return response;
           } });
 

@@ -18,11 +18,6 @@
 
       <?php echo get_partial('informationobject/printPreviewBar', array('resource' => $resource)) ?>
 
-      <h1 class="label printable">
-        <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_title($dc), array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('title' => __('Edit resource metadata'))) ?>
-        <?php echo get_partial('informationobject/actionIcons') ?>
-      </h1>
-
       <?php if (isset($errorSchema)): ?>
         <div class="messages error">
           <ul>
@@ -149,6 +144,9 @@
         <div class="span2">
 
           <div id="right-column">
+
+            <?php echo get_partial('informationobject/actionIcons') ?>
+
           </div>
 
         </div>

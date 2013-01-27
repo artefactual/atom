@@ -15,84 +15,85 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Apply a natural box layout model to all elements within the form
 
-input[type=text], // This won't work in IE8
+.fieldset-wrapper {
+
+  padding: 20px;
+  border-bottom: 1px solid #e5e5e5;
+  background-color: darken(@graySilver, 2%);
+
+}
+
+legend {
+
+  padding: 0 10px;
+  margin-bottom: 0px;
+  .box-sizing(border-box);
+  font-size: @baseFontSize * 1.10;
+
+  a {
+    display: block;
+  }
+
+}
+
+// Collapsible fieldsets
+
+.collapsed {
+  .fieldset-wrapper {
+    .hide();
+  }
+}
+
+// Delete button
+
+.button-delete {
+  background-color: Green;
+}
+
+// Required field (asterisk)
+
+.form-required {
+  color: @orange;
+}
+
+// Form fields
+
 select,
 textarea,
-.yui-skin-sam .yui-ac-input {
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
   .input-block-level();
 }
 
-fieldset {
-  margin-bottom: @baseLineHeight * 2;
-}
+// Form tables
 
-fieldset > legend {
-  margin-bottom: 0;
-}
+fieldset table {
 
-// Form items
+  background-color: @white;
 
-.form-item {
-  margin-bottom: @baseLineHeight / 2;
-}
+  caption {
 
-.form-item label .note2 {
-  display: block;
-  font-style: italic;
-}
+    width: 33%;
+    margin-left: 12px;
+    border: 1px solid @borderOutlineColor;
+    background-color: @white;
+    border-bottom: 0;
+    .border-radius(4px 4px 0 0);
 
-// Form actions
+  }
 
-.form-actions {
-  padding: 0;
-  background-color: transparent;
-  border-top: 0;
-}
-
-// Aside form
-
-.aside-form {
-  background-color: none;
-  background-color: rgba(0, 0, 0, .2);
-  padding: 16px 16px 8px 16px;
-  color: @white;
-  .border-radius(4px);
-  .box-shadow(1px 1px 1px rgba(25, 25, 25, .4));
-}
-
-.aside-form h4 {
-  margin-top: -4px;
-  margin-bottom: @baseLineHeight;
-}
-
-.aside-form,
-.aside-form input,
-.aside-form select {
-  font-family: @smallFontFamily;
-  font-size: 13px;
-}
-
-.aside-form select {
-  width: 100%;
-  .box-sizing(border-box);
-}
-
-.aside-form .form-item > label {
-  font-weight: normal;
-}
-
-.aside-form .btn {
-  border: 1px solid @grayDark;
-}
-
-.aside-form .radio {
-  padding-top: 0;
-}
-
-// miniColors plugin
-
-.miniColors-triggerWrap {
-  margin-left: 4px;
 }

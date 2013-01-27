@@ -1,5 +1,3 @@
-<?php $sf_response->addStylesheet('/vendor/yui/container/assets/skins/sam/container', 'first') ?>
-
 <?php $sf_response->addJavaScript('/vendor/yui/container/container-min') ?>
 
 <!-- form for yui dialog -->

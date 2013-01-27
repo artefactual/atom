@@ -299,7 +299,7 @@
 
   $(function ()
     {
-      $('body').on('focus.qubit', '#top-bar-search input[name="query"]', function(e)
+      $('body').on('focus.qubit', '#search-form-wrapper input[name="query"]', function(e)
         {
           var $this = $(this);
 

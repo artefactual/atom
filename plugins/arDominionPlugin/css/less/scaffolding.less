@@ -96,6 +96,32 @@ a:hover {
   }
 }
 
+// Action icons (e.g. print reports)
+
+#action-icons {
+
+  font-size: 12px;
+
+  ul {
+    list-style: none;
+  }
+
+  img {
+    margin-right: 4px;
+    margin-top: -2px;
+  }
+
+  a {
+    color: @grayDark;
+    display: block;
+    padding: 4px 8px;
+    &:hover {
+      background-color: @grayLighter;
+    }
+  }
+
+}
+
 // jQuery Masonry bricks
 
 .masonry {
@@ -306,7 +332,7 @@ a:hover {
 
 .repository-logo {
 
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 
   a {
     color: @gray;
@@ -395,7 +421,8 @@ a:hover {
   a {
     display: block;
     font-family: @smallFontFamily;
-    padding: 2px 4px;
+    padding: 2px 4px 2px 4px;
+    margin-left: -4px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -556,11 +583,27 @@ section .vcard:last-child > .field:last-child > div {
   color: @orange;
 }
 
-.vcard .primaryContact {
+.vcard .primary-contact {
   color: @grayDarker;
   text-transform: lowercase;
   font-variant: small-caps;
   padding-left: 8px;
+}
+
+// Upload quota
+
+#uploadLimitDisplay {
+  .usageBar {
+    width: 200px;
+    background-color: @grayLighter;
+    border: 1px solid darken(@grayLighter, 20%);
+  }
+  .usageBar,
+  .usageBar > div {
+    .box-shadow(inset 0 -2px 3px rgba(50, 50, 50, .25));
+    height: 12px;
+    .border-radius(4px);
+  }
 }
 
 // Responsive design

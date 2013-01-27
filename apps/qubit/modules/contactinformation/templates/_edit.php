@@ -1,6 +1,3 @@
-<?php $sf_response->addStylesheet('/vendor/yui/tabview/assets/skins/sam/tabview', 'first') ?>
-<?php $sf_response->addStylesheet('/vendor/yui/container/assets/skins/sam/container', 'first') ?>
-
 <?php $sf_response->addJavaScript('/vendor/yui/connection/connection-min') ?>
 <?php $sf_response->addJavaScript('/vendor/yui/datasource/datasource-min') ?>
 <?php $sf_response->addJavaScript('/vendor/yui/container/container-min') ?>
@@ -12,7 +9,7 @@
 
 <div class="section">
 
-  <table id="contactInformations">
+  <table class="table table-bordered" id="contactInformations">
     <caption>
       <?php echo __('Related contact information') ?>
     </caption><thead>

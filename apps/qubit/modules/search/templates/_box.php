@@ -1,4 +1,4 @@
-<div id="top-bar-search">
+<div id="search-form-wrapper">
 
   <form action="<?php echo url_for(array('module' => 'search')) ?>" data-autocomplete="<?php echo url_for(array('module' => 'search', 'action' => 'autocomplete')) ?>" autocomplete="off">
 

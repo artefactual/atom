@@ -6,7 +6,7 @@
       <div class="agent">
         <?php echo render_value($contactInformation->contactPerson) ?>
         <?php if ($contactInformation->primaryContact): ?>
-          <span class="primaryContact">
+          <span class="primary-contact">
             <?php echo __('Primary contact') ?>
           </span>
         <?php endif; ?>

@@ -980,19 +980,6 @@ table caption
   font:1em/100% Verdana,sans-serif;
 }
 
-#uploadLimitDisplay > div
-{
-  margin: 5px 2px
-}
-
-#uploadLimitDisplay .usageBar
-{
-  background-color: #CCCCCC;
-  height: 10px;
-  padding: 1px;
-  width: 200px;
-}
-
 /* From https://github.com/twitter/bootstrap */
 .alert-message.block-message {
   background-image: none;

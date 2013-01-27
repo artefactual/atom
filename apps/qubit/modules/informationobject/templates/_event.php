@@ -1,7 +1,5 @@
 <?php
 
-$sf_response->addStylesheet('/vendor/yui/container/assets/skins/sam/container', 'first');
-
 $sf_response->addJavaScript('date');
 $sf_response->addJavaScript('/vendor/yui/datasource/datasource-min');
 $sf_response->addJavaScript('/vendor/yui/container/container-min');

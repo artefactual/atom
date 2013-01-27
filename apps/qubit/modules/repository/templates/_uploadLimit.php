@@ -11,7 +11,7 @@
 
     <?php if ('limited' == $quotaType): ?>
       <div class="usageBar">
-        <div style="height: 10px; width: <?php echo $usageBarPixels ?>px; background-color: <?php echo $usageBarColor ?>;"></div>
+        <div style="width: <?php echo $usageBarPixels ?>px; background-color: <?php echo $usageBarColor ?>;"></div>
       </div>
       <?php echo __('%du% of %limit% <abbr title="1 GB = 1 000 000 000 bytes">GB</abbr> (%percent%%)', array('%du%' => $diskUsage, '%limit%' => $uploadLimit, '%percent%' => $diskUsagePercent)) ?>
     <?php elseif ('disabled' == $quotaType): ?>
