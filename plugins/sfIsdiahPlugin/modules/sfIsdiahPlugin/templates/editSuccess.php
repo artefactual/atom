@@ -14,15 +14,13 @@
 
     <div id="main-column">
 
-      <h1><?php echo __('Edit %1% - ISDIAH', array('%1%' => sfConfig::get('app_ui_label_repository'))) ?></h1>
-
-      <h1 class="label"><?php echo render_title($resource) ?></h1>
+      <h1><?php echo render_title($resource) ?></h1>
 
       <ul class="breadcrumb">
         <li><?php echo link_to(__('Institutions'), array('module' => 'repository', 'action' => 'browse')) ?></li>
         <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
           <li><?php echo link_to(render_title($resource), url_for(array($resource, 'module' => 'repository'))) ?></li>
-          <li><span><?php echo __('Edit') ?></span></li>
+          <li><span><?php echo __('Edit %1% - ISDIAH', array('%1%' => strtolower(sfConfig::get('app_ui_label_repository')))) ?></span></li>
         <?php else: ?>
           <li><span><?php echo __('Add new') ?></span></li>
         <?php endif; ?>
