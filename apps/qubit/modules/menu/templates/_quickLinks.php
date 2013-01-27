@@ -4,6 +4,10 @@
 
   <div class="top-dropdown-container">
 
+    <div class="top-dropdown-arrow">
+      <div class="arrow"></div>
+    </div>
+
     <div class="top-dropdown-header">
       <?php echo __('Quick links') ?>
     </div>
@@ -22,9 +26,7 @@
       </ul>
     </div>
 
-    <div class="top-dropdown-bottom">
-      <p>Bottom</p>
-    </div>
+    <div class="top-dropdown-bottom"></div>
 
   </div>
 

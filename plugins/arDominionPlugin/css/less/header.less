@@ -16,10 +16,12 @@
  */
 
  @topBarTextColor: lighten(@gray, 40%);
+ @topBarBackgroundColor: rgb(22, 21, 20);
+ @topBarButtonHoverColor: @orange;
 
 #top-bar {
   height: 50px;
-  background-color: rgb(22, 21, 20);
+  background-color: @topBarBackgroundColor;
 }
 
 #logo {
@@ -38,7 +40,7 @@
 }
 
 #site-slogan {
-	background-color: rgb(22, 21, 20);
+	background-color: @topBarBackgroundColor;
 	background-color: rgba(22, 21, 20, .75);
 	height: 24px;
 	color: @white;
@@ -46,6 +48,8 @@
 		line-height: 24px;
 	}
 }
+
+// Shared class for buttons and dropdowns
 
 .top-item {
 	display: block;
@@ -58,6 +62,8 @@
 	text-decoration: none;
 }
 
+// Button
+
 .top-button,
 a.top-button:link,
 a.top-button:visited,
@@ -67,7 +73,7 @@ a.top-button:active  {
 }
 
 a.top-button:hover {
-	background-color: @orange;
+	background-color: @topBarButtonHoverColor !important;
 	color: @white;
 }
 
@@ -90,7 +96,7 @@ a.top-dropdown:active {
 
 .open > a.top-dropdown,
 a.top-dropdown:hover {
-	background-color: @orange;
+	background-color: @topBarButtonHoverColor !important;
 	background-image: url(../../images/white-arrow.png);
 	color: @white;
 }
@@ -101,21 +107,16 @@ a.top-dropdown:hover {
   width: 28px;
 }
 
-
 // Dropdown container
 
-nav.left > div {
-  float: left;
-}
-
-nav.right > div {
-  float: right;
+nav > div {
+  // Positionate nested dropdowns
+  position: relative;
 }
 
 nav > div {
   float: right;
   height: 50px;
-  position: relative;
 }
 
 .open > .top-dropdown-container {
@@ -171,7 +172,7 @@ nav > div {
         line-height: 24px;
         // border-bottom: 1px solid rgb(220, 220, 220);
         &:hover {
-          color: @orange;
+          color: @topBarButtonHoverColor;
         }
       }
       // li:last-child a {
@@ -189,7 +190,16 @@ nav > div {
 
 }
 
-// Language menu
+// Menu customizations
+
+#browse-menu {
+  float: left;
+  > a {
+    .border-radius(0 4px 4px 0);
+    background-color: lighten(@grayDark, 5%);
+    border-left: 1px solid @topBarBackgroundColor;
+  }
+}
 
 #language-menu > a {
   background-image: url(../../images/token-icons/language.png);
@@ -223,20 +233,27 @@ nav > div {
 
 // Top search bar
 
-#top-bar-search {
+#search-bar {
+  white-space: nowrap;
+  position: relative;
+  > div {
+    // Positionate nested dropdowns
+    position: relative;
+  }
+}
 
+#search-bar > div {
 	float: left;
+}
+
+#search-form-wrapper {
 
 	// Use form to margin top
 	// And cancel default margin bottom
 	form {
-    position: relative;
+    position: relative; // Positionate search autocomplete
 		margin: 12px 11px 0 0;
-		width: 240px;
-		.transition(width 0.2s ease-in-out);
-		&.active {
-			width: 400px;
-		}
+		width: 300px;
 	}
 
 	input {
@@ -246,7 +263,7 @@ nav > div {
 
 		// See .top-item
 		background-color: @grayDark;
-		.border-radius(4px);
+		.border-radius(4px 0 0 4px);
 		margin-right: 11px;
 		color: @topBarTextColor;
 
@@ -262,7 +279,7 @@ nav > div {
 		height: 25px;
 
 		&:focus {
-			background-color: @white;
+			background-color: @graySilver;
 			color: @gray;
 			.placeholder(@grayLight);
 		}
@@ -271,7 +288,7 @@ nav > div {
 
 	.search-popover {
 
-	  background-color: @white;
+	  background-color: @graySilver;
     @shadow:  0   1px 1px rgba(0, 0, 0, .7),
               2px 1px 1px rgba(0, 0, 0, .7),
              -2px 1px 1px rgba(0, 0, 0, .7);
@@ -344,3 +361,71 @@ nav > div {
   }
 
 }
+
+// Responsive desgin
+
+@media (min-width: 1200px) { }
+
+@media (max-width: 979px) {
+
+  // Double height of the bar
+  #top-bar {
+    height: 100px;
+  }
+
+  // Hide buttons
+  nav {
+    .hide();
+  }
+
+  // Fist row: logo
+  #logo {
+    float: none;
+    text-align: center;
+  }
+
+  // Second row: search bar
+  #search-bar {
+
+    .clearfix();
+    margin: 0 auto;
+    padding: 0 20px;
+
+    #search-form-wrapper {
+      width: 80%;
+      float: left;
+      form {
+        width: auto;
+        margin-right: 0;
+      }
+      input {
+        .input-block-level();
+        min-height: 25px;
+      }
+    }
+
+    #browse-menu {
+      width: 20%;
+      > a {
+        .box-sizing(border-box);
+        width: 100%;
+        min-width: 90px;
+        margin-right: 0px;
+        float: left;
+      }
+    }
+
+  }
+
+}
+
+@media (max-width: 767px) {
+
+  // Cancel default responsive body margin
+  #top-bar {
+    margin: 0 -20px;
+  }
+
+}
+
+@media (max-width: 480px) { }

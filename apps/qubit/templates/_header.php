@@ -12,25 +12,27 @@
 
   <?php echo get_component('default', 'updateCheck') ?>
 
-  <nav class="right">
+  <nav>
 
     <?php echo get_component('user', 'menu') ?>
 
-    <?php echo get_component('i18n', 'changeLanguageList') ?>
-
     <?php // echo get_component('menu', 'quickLinks') ?>
+
+    <?php echo get_component('i18n', 'changeLanguageList') ?>
 
     <?php echo get_component('menu', 'mainMenu', array('sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID())) ?>
 
   </nav>
 
-  <?php echo get_component('search', 'box') ?>
+  <div id="search-bar">
 
-  <nav class="left">
+    <?php echo get_component('search', 'box') ?>
 
     <?php echo get_component('menu', 'browseMenu', array('sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID())) ?>
 
-  </nav>
+  </div>
+
+  </section>
 
   <?php echo get_component_slot('header') ?>
 
