@@ -1,6 +1,5 @@
 editSuccess:
   stylesheets:
-    /vendor/yui/autocomplete/assets/skins/sam/autocomplete: { position: first }
     /vendor/imageflow/imageflow.packed.css: { position: first }
     edit:
   javascripts:

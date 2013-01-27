@@ -1,6 +1,5 @@
 editSuccess:
   stylesheets:
-    /vendor/yui/autocomplete/assets/skins/sam/autocomplete: { position: first }
     /vendor/imageflow/imageflow.packed.css: { position: first }
     edit:
   javascripts:
@@ -22,7 +21,6 @@ editSuccess:
 indexSuccess:
   stylesheets:
     /vendor/imageflow/imageflow.packed.css: { position: first }
-    yui/treeview/assets/skins/qubit/treeview-skin: { position: first }
   javascripts:
     /vendor/imageflow/imageflow.packed.js:
     blank:

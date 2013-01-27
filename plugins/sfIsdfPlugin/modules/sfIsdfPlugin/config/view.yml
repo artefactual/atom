@@ -1,6 +1,5 @@
 editSuccess:
   stylesheets:
-    /vendor/yui/autocomplete/assets/skins/sam/autocomplete: { position: first }
     edit:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
