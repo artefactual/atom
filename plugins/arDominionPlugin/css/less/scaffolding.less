@@ -409,23 +409,25 @@ a:hover {
 
 // Content
 
-@borderLineColor: lighten(@grayLight, 25%);
+@borderOutlineColor: lighten(@grayLight, 25%);
+@borderLineColor: lighten(@grayLight, 35%);
 
 #content {
 
   background-color: @white;
-  border: 1px solid @borderLineColor;
+  border: 1px solid @borderOutlineColor;
   .border-radius(4px);
   .box-shadow(0 1px 1px rgba(0, 0, 0, .2));
 
   // Section title
   h2 {
-    font-size: @baseFontSize * 1.50;
+    font-size: @baseFontSize * 1.10;
+    line-height: 38px;
     color: @orange;
     border-top: 1px solid @borderLineColor;
     border-bottom: 1px solid @borderLineColor;
     margin: 0;
-    padding: 5px 10px;
+    padding: 0 10px;
   }
 
   // Title with link
@@ -435,9 +437,9 @@ a:hover {
     &:after {
       content: "»";
       position: absolute;
-      bottom: 20px;
+      top: 8px;
       right: 20px;
-      font-size: 30px;
+      font-size: @baseFontSize * 1.75;
       color: @grayLight;
       transition-property: right;
       transition-duration: 200ms;
@@ -468,6 +470,13 @@ a:hover {
 
   li {
     margin: 0;
+  }
+
+  // Add padding to last .field
+  > section .field:last-child {
+    h3, div {
+      padding-bottom: 4px;
+    }
   }
 
 }
