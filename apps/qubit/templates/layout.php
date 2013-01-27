@@ -14,7 +14,7 @@
     <?php endif; ?>
     <?php include_javascripts() ?>
   </head>
-  <body class="<?php echo $sf_context->getModuleName() ?> <?php echo $sf_context->getActionName() ?> user-<?php echo $sf_user->isAuthenticated() ? 'logged' : 'anonymous' ?>">
+  <body class="yui-skin-sam <?php echo $sf_context->getModuleName() ?> <?php echo $sf_context->getActionName() ?>">
 
     <?php echo get_partial('header') ?>
 
