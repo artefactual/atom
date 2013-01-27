@@ -615,12 +615,6 @@
         this.$filters.hide();
       }
 
-      var $results = $('#search-results');
-      if ($results.length)
-      {
-        window.scroll(0, $results.offset().top - $('#header').height());
-      }
-
       // Bind events
       this.$element.on('click', $.proxy(this.click, this));
     },
