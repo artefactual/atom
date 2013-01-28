@@ -58,7 +58,7 @@
           });
 
         // Bind click event to "Add" link
-        $('<a href="#">Add new</a>')
+        $('<a class="btn btn-small" href="#">Add new</a>')
           .click(function (event)
             {
               // Prevent default action, "go to top of page"
