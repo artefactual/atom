@@ -91,9 +91,16 @@
                 </div>
               </div>
 
-              <?php foreach ($resource->getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $item): ?>
-                <?php echo render_show(__('Type'), render_value($item->term)) ?>
-              <?php endforeach; ?>
+              <div class="field">
+                <h3><?php echo __('Type') ?></h3>
+                <div>
+                  <ul>
+                    <?php foreach ($resource->getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $item): ?>
+                      <li><?php echo render_value($item->term->__toString()) ?></li>
+                    <?php endforeach; ?>
+                  </ul>
+                </div>
+              </div>
 
             </section>
 
