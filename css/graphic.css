@@ -31,18 +31,6 @@
   color: #666;
 }
 
-button.delete-small {
-  background: transparent url('../images/delete.png');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-attachment: scroll;
-  width: 16px;
-  height: 16px;
-  border: none;
-  vertical-align: top;
-  cursor: pointer;
-}
-
 /*********************************************************
               NOTE SPAN
 **********************************************************/
@@ -156,17 +144,6 @@ table.compound_digiobj td.download_link {
   border: none;
   background: white;
   padding: 2px;
-}
-
-/*********************************************************
-             LOGOS
-**********************************************************/
-
-#footer a
-{
-  bottom: 1em;
-  position: fixed;
-  right: 1em;
 }
 
 /*********************************************************

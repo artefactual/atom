@@ -97,3 +97,149 @@ fieldset table {
   }
 
 }
+
+// Autocomplete
+// Old /vendor/yui/autocomplete/assets/skins/sam/autocomplete.css
+
+.yui-skin-sam {
+
+  .yui-ac {
+
+    position: relative;
+
+    iframe {
+      .opacity(0);
+      padding-right: .3em;
+      padding-bottom: .3em; /* Bug 2026798: extend iframe to shim the shadow */
+    }
+
+    > ul {
+      list-style-type: disc !important;
+      margin: 0 0 10px 20px !important;
+      li {
+        cursor: pointer;
+        &:hover {
+          list-style-image: url(../../../../images/delete.png);
+        }
+      }
+    }
+
+  }
+
+  .yui-ac-input {
+
+    // I don't think that we need this and it is causing some problems
+    // position: absolute;
+
+    width: 100%;
+
+  }
+
+  .yui-ac-container {
+
+    position: absolute;
+    top: 1.6em;
+    width: 100%;
+
+  }
+
+  .yui-ac-content {
+
+    .box-sizing(border-box);
+    position: absolute;
+    width: 100%;
+    border: 1px solid @grayLight;
+    background: #fff;
+    overflow: hidden;
+    z-index: 9050;
+    .border-radius(4px);
+
+    ul {
+
+      margin: 0;
+      padding: 0;
+      width: 100%;
+
+    }
+
+    li {
+
+      margin: 0;
+      padding: 2px 5px;
+      cursor: default;
+      white-space: nowrap;
+      list-style: none;
+      cursor: pointer;
+      zoom: 1; /* For IE to trigger mouse events on LI */
+
+      .yui-ac-prehighlight {
+        background: #b3d4ff;
+      }
+
+      .yui-ac-highlight {
+        background: #426fd9;
+        color: @white;
+      }
+
+      &:hover {
+        background-color: @grayLighter;
+      }
+
+    }
+
+  }
+
+  .yui-ac-shadow {
+
+    position: absolute;
+    margin: .3em;
+    width: 100%;
+    background: @black;
+    .opacity(10); // 10/100
+    z-index:9049;
+
+  }
+
+}
+
+// Resizable textarea
+
+.resizable-textarea {
+
+  margin-bottom: 10px;
+
+  .grippie {
+
+    height: 9px;
+    overflow: hidden;
+    background: #eee url(../../../sfDrupalPlugin/vendor/drupal/misc/grippie.png) no-repeat center 2px;
+    border: 1px solid #ddd;
+    border-top-width: 0;
+    cursor: s-resize;
+
+  }
+
+}
+
+html.js .resizable-textarea textarea {
+
+  margin-bottom: 0;
+  display: block;
+  resize: none;
+
+}
+
+// Delete buttons (e.g. ISDIAH edit form, contact area)
+
+button.delete-small {
+  background: transparent url('../../../../images/delete.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: scroll;
+  width: 16px;
+  height: 16px;
+  border: none;
+  vertical-align: top;
+  cursor: pointer;
+  content: '.';
+}

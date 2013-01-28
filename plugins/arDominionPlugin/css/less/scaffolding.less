@@ -606,6 +606,32 @@ section .vcard:last-child > .field:last-child > div {
   }
 }
 
+// Messages (metadata validation box)
+// Pretty much like Twitter Bootstrap .alert plus .alert-*
+
+.messages {
+
+  background-color: @white;
+  border: 1px solid @grayLighter;
+  padding: @baseLineHeight / 2;
+  margin-bottom: @baseLineHeight;
+  .border-radius(4px);
+  font-size: 12px;
+
+  ul {
+    margin-bottom: 0;
+    margin-left: 0;
+    list-style: none;
+  }
+
+  &.error {
+    background-color: rgb(255, 237, 237);
+    border: 1px solid #eed3d7;
+  }
+
+}
+
+
 // Responsive design
 
 @media (min-width: 1200px) {

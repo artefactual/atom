@@ -39,11 +39,11 @@
 
 // Load YUI
 @import "../../../vendor/yui/container/assets/skins/sam/container.css";
-@import "../../../vendor/yui/autocomplete/assets/skins/sam/autocomplete.css";
 @import "../../../vendor/yui/tabview/assets/skins/sam/tabview.css";
 @import "../../../vendor/yui/calendar/assets/skins/sam/calendar.css";
 @import "../../../vendor/yui/button/assets/skins/sam/button.css";
 @import "../../../vendor/yui/menu/assets/skins/sam/menu.css";
+// @import "../../../vendor/yui/autocomplete/assets/skins/sam/autocomplete.css"; (merged into less/forms.less)
 
 // Include files
 @import "less/mixins.less";
@@ -60,4 +60,8 @@
 @import "less/buttons.less";
 @import "less/legacy.less";
 
-// TODO: edit.css, imageflow...
+// TODO
+// Merge css/* (including classic)
+// Use html.js if possible
+// Review Caribou and Trillium code in case I forgot something
+//   - Like .throbbing
