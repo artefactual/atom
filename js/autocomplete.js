@@ -32,7 +32,7 @@
 
                   // Make autocomplete <input/>, copy @class from <select/>, copy
                   // @id from <select/> so <label for="..."/> is correct
-                  var $input = $('<input class="' + $(this).attr('class') + '" id="' + $(this).attr('id') + '"/>').insertAfter(this);
+                  var $input = $('<input type="text" class="' + $(this).attr('class') + '" id="' + $(this).attr('id') + '"/>').insertAfter(this);
 
                   if ($(this).attr('multiple'))
                   {
