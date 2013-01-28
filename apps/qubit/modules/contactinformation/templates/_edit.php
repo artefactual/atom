@@ -40,7 +40,7 @@
 <?php
 
 // Template for new display table rows
-$editHtml = image_tag('pencil', array('alt' => 'edit', 'style' => 'align: top'));
+$editHtml = '<a href="#">' . image_tag('pencil', array('alt' => 'edit', 'style' => 'align: top')) . '</a>';
 
 $rowTemplate = json_encode(<<<value
 <tr id="{{$form->getWidgetSchema()->generateName('id')}}">
