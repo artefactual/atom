@@ -12,7 +12,7 @@
 
 <div class="section">
 
-  <table id="rightsDisplay<?php echo $suffix ?>">
+  <table class="table table-bordered" id="rightsDisplay<?php echo $suffix ?>">
     <caption>
       <?php echo __('Rights records') ?>
     </caption><thead>
