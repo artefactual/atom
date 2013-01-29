@@ -291,7 +291,7 @@
       ->label(__('Restrictions on access')), $resource, array('class' => 'resizable')) ?>
 
     <?php echo render_field($form->reproductionConditions
-      ->help(__('"Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c)'))
+      ->help(__('For terms governing use and reproduction, "Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c). For terms governing publication, "Give information on legal or donor restrictions that may affect publication of the material." (RAD 1.8B16d)'))
       ->label(__('Terms governing use, reproduction, and publication')), $resource, array('class' => 'resizable')) ?>
 
     <?php echo render_field($form->findingAids
