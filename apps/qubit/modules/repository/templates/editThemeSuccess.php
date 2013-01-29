@@ -4,7 +4,7 @@
 
     <div id="left-column">
 
-      <?php include_component('repository', 'contextMenu') ?>
+      <?php echo get_component('repository', 'contextMenu') ?>
 
     </div>
 
@@ -32,11 +32,9 @@
 
             <legend><?php echo __('Style') ?></legend>
 
-            <div class="control-group">
+            <div class="form-item">
               <label class="control-label" for="html"><?php echo __('Background color') ?></label>
-              <div class="controls">
-                <?php echo $form->backgroundColor ?>
-              </div>
+              <?php echo $form->backgroundColor ?>
             </div>
 
             <div class="control-group">
@@ -61,12 +59,9 @@
 
             <legend><?php echo __('Page content') ?></legend>
 
-            <div class="control-group">
-              <label class="control-label" for="html"><?php echo __('HTML snippet') ?></label>
-              <div class="controls">
-                <?php echo $form->htmlSnippet ?>
-              </div>
-            </div>
+            <?php echo render_field($form->htmlSnippet
+              ->help(__('An abstract, table of contents or description of the resource\'s scope and contents.'))
+              ->label(__('Description')), $resource, array('class' => 'resizable')) ?>
 
           </fieldset>
 
