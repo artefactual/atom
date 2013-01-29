@@ -10,7 +10,7 @@
               {
                 var $this = $(this);
                 var $description = $('.description', this);
-                var $sidebar = $('#sidebar-first');
+                var $sidebar = $('#left-column');
                 var $content = $('#content');
 
                 // Specific case for tooltips in YUI dialogs
@@ -45,7 +45,7 @@
                 // document
                 // - Bottom (class description): when right and left sides
                 // don't work */
-                if ($this.offset().top <= $sidebar.offset().top + $sidebar.height())
+                if (0 == $sidebar.height() || ($this.offset().top <= $sidebar.offset().top + $sidebar.height()))
                 {
                   // I have to render the tooltip to get tooltipWidth value
                   $description.addClass('description-left').show().css('visibility', 'hidden');
