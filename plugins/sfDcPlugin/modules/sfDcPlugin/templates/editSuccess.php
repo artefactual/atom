@@ -21,7 +21,7 @@
           <li><?php echo link_to(render_title($resource), url_for(array($resource, 'module' => 'repository'))) ?></li>
           <li><span><?php echo __('Edit %1% - Dublin Core', array('%1%' => strtolower(sfConfig::get('app_ui_label_informationobject')))) ?></span></li>
         <?php else: ?>
-          <li><span><?php echo __('Add new') ?></span></li>
+          <li><span><?php echo __('Add new %1% - Dublin Core', array('%1%' => strtolower(sfConfig::get('app_ui_label_informationobject')))) ?></span></li>
         <?php endif; ?>
       </ul>
 
@@ -44,6 +44,8 @@
         <div id="content">
 
           <fieldset class="collapsible" id="pageContentArea">
+
+            <legend><?php echo __('Elements area') ?></legend>
 
             <?php echo $form->identifier
               ->help(__('The unambiguous reference code used to uniquely identify this resource.'))
