@@ -115,7 +115,7 @@
 
   <?php echo render_show(__('Title proper of publisher\'s series'), render_value($rad->titleProperOfPublishersSeries)) ?>
 
-  <?php echo render_show(__('Parallel titles of publisher\'s series'), render_value($rad->parallelTitlesOfPublishersSeries)) ?>
+  <?php echo render_show(__('Parallel titles of publisher\'s series'), render_value($rad->parallelTitleOfPublishersSeries)) ?>
 
   <?php echo render_show(__('Other title information of publisher\'s series'), render_value($rad->otherTitleInformationOfPublishersSeries)) ?>
 
