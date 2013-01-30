@@ -141,7 +141,7 @@
           <?php echo sfEacPlugin::renderDates($item) ?>
           <?php if (isset($item->description)): ?>
             <descriptiveNote>
-              <?php echo '<p>'.render_value($item->description).'</p>' ?>
+              <?php echo render_value('<p>'.$item->description).'</p>' ?>
             </descriptiveNote>
           <?php endif; ?>
         </cpfRelation>
