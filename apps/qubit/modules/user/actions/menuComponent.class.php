@@ -21,6 +21,23 @@ class userMenuComponent extends sfComponent
 {
   public function execute($request)
   {
+    $this->form = new sfForm;
 
+    $this->form->setValidator('email', new sfValidatorEmail(array('required' => true), array(
+      'required' => $this->context->i18n->__('You must enter your email address'),
+      'invalid' => $this->context->i18n->__('This isn\'t a valid email address'))));
+    $this->form->setWidget('email', new sfWidgetFormInput);
+
+    $this->form->setValidator('password', new sfValidatorString(array('required' => true), array(
+      'required' => $this->context->i18n->__('You must enter your password'))));
+    $this->form->setWidget('password', new sfWidgetFormInputPassword);
+
+    if ($this->context->user->isAuthenticated())
+    {
+      $this->gravatar = sprintf('https://www.gravatar.com/avatar/%s?s=%s',
+        md5(strtolower(trim($this->context->user->user->email))),
+        25,
+        urlencode(public_path('/images/gravatar-anonymous.png', false)));
+    }
   }
 }

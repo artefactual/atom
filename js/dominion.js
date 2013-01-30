@@ -16,6 +16,32 @@
 
   /****
    ****
+   ****  Dropdown menus
+   ****
+   ****/
+
+  $(function ()
+    {
+      // Stop propagation of dropdown menus so they don't get closed
+      $('#user-menu .top-dropdown-container').click(
+        function (e)
+          {
+            e.stopPropagation();
+          });
+
+      // TODO: focus() doesn't work
+      $('#user-menu').on('click.dropdown.data-api', function(e)
+        { 
+          var $menu = $(e.target).parent();
+          if (!$menu.hasClass('open'))
+          {
+            $menu.find('#email').focus();
+          }
+        });
+    });
+
+  /****
+   ****
    ****  Google Maps
    ****
    ****/

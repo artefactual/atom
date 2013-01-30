@@ -63,7 +63,7 @@
 
         <?php foreach ($pager->getResults() as $hit): ?>
           <?php $doc = $hit->getData() ?>
-          <?php $authorizedFormOfName = get_search_i18n($doc, 'authorizedFormOfName') ?>
+          <?php $authorizedFormOfName = render_title(get_search_i18n($doc, 'authorizedFormOfName')) ?>
           <div class="brick brick-small">
             <div class="preview">
               <a href="<?php echo url_for(array('module' => 'repository', 'slug' => $doc['slug'])) ?>">

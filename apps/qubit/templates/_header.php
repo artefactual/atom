@@ -40,12 +40,12 @@
 
 <?php if (sfConfig::get('app_toggleDescription')): ?>
   <div id="site-slogan">
-  	<div class="container">
-  		<div class="row">
-  			<div class="span12">
-	        <span><?php echo sfConfig::get('app_siteDescription') ?></span>
-	    	</div>
-	  	</div>
-	  </div>
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <span><?php echo sfConfig::get('app_siteDescription') ?></span>
+        </div>
+      </div>
+    </div>
   </div>
 <?php endif; ?>

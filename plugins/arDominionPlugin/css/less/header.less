@@ -25,41 +25,41 @@
 }
 
 #logo {
-	display: block;
-	float: left;
-	margin: 0 20px 0 8px;
+  display: block;
+  float: left;
+  margin: 0 20px 0 8px;
 }
 
 #site-name {
-	margin: 0;
-	float: left;
-	margin: 6px 0 0 4px;
-	a {
-		color: @white;
-	}
+  margin: 0;
+  float: left;
+  margin: 6px 0 0 4px;
+  a {
+    color: @white;
+  }
 }
 
 #site-slogan {
-	background-color: @topBarBackgroundColor;
-	background-color: rgba(22, 21, 20, .75);
-	height: 24px;
-	color: @white;
-	span {
-		line-height: 24px;
-	}
+  background-color: @topBarBackgroundColor;
+  background-color: rgba(22, 21, 20, .75);
+  height: 24px;
+  color: @white;
+  span {
+    line-height: 24px;
+  }
 }
 
 // Shared class for buttons and dropdowns
 
 .top-item {
-	display: block;
-	float: right;
-	margin: 12px 11px 0 0;
-	background-color: @grayDark;
-	.border-radius(4px);
-	font-size: 13px;
-	line-height: 14px;
-	text-decoration: none;
+  display: block;
+  float: right;
+  margin: 12px 11px 0 0;
+  background-color: @grayDark;
+  .border-radius(4px);
+  font-size: 13px;
+  line-height: 14px;
+  text-decoration: none;
 }
 
 // Button
@@ -68,13 +68,13 @@
 a.top-button:link,
 a.top-button:visited,
 a.top-button:active  {
-	padding: 5px 15px 7px 15px;
-	color: @topBarTextColor;
+  padding: 5px 15px 7px 15px;
+  color: @topBarTextColor;
 }
 
 a.top-button:hover {
-	background-color: @topBarButtonHoverColor !important;
-	color: @white;
+  background-color: @topBarButtonHoverColor !important;
+  color: @white;
 }
 
 // Dropdown button
@@ -87,18 +87,18 @@ a.top-button:hover {
 a.top-dropdown:link,
 a.top-dropdown:visited,
 a.top-dropdown:active {
-	padding: 5px 29px 6px 17px;
-	background-image: url(../../images/gray-arrow.png);
-	background-position: right center;
-	background-repeat: no-repeat;
-	color: @topBarTextColor;
+  padding: 5px 29px 6px 17px;
+  background-image: url(../../images/gray-arrow.png);
+  background-position: right center;
+  background-repeat: no-repeat;
+  color: @topBarTextColor;
 }
 
 .open > a.top-dropdown,
 a.top-dropdown:hover {
-	background-color: @topBarButtonHoverColor !important;
-	background-image: url(../../images/white-arrow.png);
-	color: @white;
+  background-color: @topBarButtonHoverColor !important;
+  background-image: url(../../images/white-arrow.png);
+  color: @white;
 }
 
 .top-dropdown.icon {
@@ -161,6 +161,7 @@ nav > div {
     background-color: @graySilver;
     background-color: rgba(255, 255, 255, 0.95);
     font-size: 14px;
+    .clearfix();
 
     ul {
       list-style: none;
@@ -197,6 +198,17 @@ nav > div {
   > a {
     .border-radius(0 4px 4px 0);
     background-color: lighten(@grayDark, 5%);
+  }
+}
+
+#user-menu {
+  form {
+    background: none;
+    padding: 10px 20px;
+    margin-bottom: 4px;
+    input {
+      .input-block-level();
+    }
   }
 }
 
@@ -242,58 +254,58 @@ nav > div {
 }
 
 #search-bar > div {
-	float: left;
+  float: left;
 }
 
 #search-form-wrapper {
 
-	// Use form to margin top
-	// And cancel default margin bottom
-	form {
+  // Use form to margin top
+  // And cancel default margin bottom
+  form {
     position: relative; // Positionate search autocomplete
-		margin: 12px 0 0 0;
-		width: 300px;
-	}
+    margin: 12px 0 0 0;
+    width: 300px;
+  }
 
-	input {
+  input {
 
-		// Reset border
-		border: none;
+    // Reset border
+    border: none;
 
-		// See .top-item
-		background-color: @grayDark;
-		.border-radius(4px 0 0 4px);
-		color: @topBarTextColor;
+    // See .top-item
+    background-color: @grayDark;
+    .border-radius(4px 0 0 4px);
+    color: @topBarTextColor;
 
-		// Overrides defaults for [type=text]
-		// Some of this default like box-model are set by AtoM, not only Bootstrap
-		width: 100%;
-		min-height: 0;
-		margin-bottom: 0;
+    // Overrides defaults for [type=text]
+    // Some of this default like box-model are set by AtoM, not only Bootstrap
+    width: 100%;
+    min-height: 0;
+    margin-bottom: 0;
     // .box-sizing(content-box);
 
-		// Define height (box-model is content-box here)
-		padding: 0 8px;
-		height: 25px;
+    // Define height (box-model is content-box here)
+    padding: 0 8px;
+    height: 25px;
 
-		&:focus {
-			background-color: @graySilver;
-			color: @gray;
-			.placeholder(@grayLight);
-		}
+    &:focus {
+      background-color: @graySilver;
+      color: @gray;
+      .placeholder(@grayLight);
+    }
 
-	}
+  }
 
-	.search-popover {
+  .search-popover {
 
-	  background-color: @graySilver;
+    background-color: @graySilver;
     @shadow:  0   1px 1px rgba(0, 0, 0, .7),
               2px 1px 1px rgba(0, 0, 0, .7),
              -2px 1px 1px rgba(0, 0, 0, .7);
-	  .box-shadow(@shadow);
-	  .border-radius(4px);
+    .box-shadow(@shadow);
+    .border-radius(4px);
     border-bottom: 1px solid @grayLight;
-	  .box-sizing(border-box);
+    .box-sizing(border-box);
 
     width: 100%;
     position: absolute;
