@@ -463,7 +463,7 @@ return;
 
     foreach ($fd->find('eac:control/eac:languageDeclaration/eac:script') as $node)
     {
-      $$this->resource->script[] = $this->from6392($node->attributes->getNamedItem("scriptCode")->textContent);
+      $this->resource->script[] = $this->from6392($node->attributes->getNamedItem("scriptCode")->textContent);
     }
 
     // conventionDeclaration/abbreviation is an identifier, referenced by e.g.
