@@ -139,11 +139,11 @@
         <cpfRelation cpfRelationType="<?php echo sfEacPlugin::toCpfRelationType($item->type->id) ?>" xlink:href="<?php echo url_for(array($item->getOpposedObject($resource), 'module' => 'actor'), true) ?>" xlink:type="simple">
           <relationEntry><?php echo render_title($item->getOpposedObject($resource)) ?></relationEntry>
           <?php echo sfEacPlugin::renderDates($item) ?>
-<?php if (isset($item->description)): ?>
-          <descriptiveNote>
-            <?php echo '<p>'.render_value($item->description).'</p>' ?>
-          </descriptiveNote>
-<?php endif; ?>
+          <?php if (isset($item->description)): ?>
+            <descriptiveNote>
+              <?php echo '<p>'.render_value($item->description).'</p>' ?>
+            </descriptiveNote>
+          <?php endif; ?>
         </cpfRelation>
       <?php endforeach; ?>
 
@@ -151,11 +151,11 @@
         <resourceRelation resourceRelationType="<?php echo sfEacPlugin::toResourceRelationType($item->type->id) ?>" xlink:href="<?php echo url_for(array($item->informationObject, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
           <relationEntry><?php echo render_title($item->informationObject) ?></relationEntry>
           <?php echo sfEacPlugin::renderDates($item) ?>
-<?php if (isset($item->date)): ?>
-          <descriptiveNote>
-            <?php echo render_value('<p>'.$item->date).'</p>' ?>
-          </descriptiveNote>
-<?php endif; ?>
+          <?php if (isset($item->date)): ?>
+            <descriptiveNote>
+              <?php echo render_value('<p>'.$item->date).'</p>' ?>
+            </descriptiveNote>
+          <?php endif; ?>
         </resourceRelation>
       <?php endforeach; ?>
 
@@ -163,11 +163,11 @@
         <functionRelation xlink:href="<?php echo url_for(array($item, 'module' => 'function'), true) ?>" xlink:type="simple">
           <relationEntry><?php echo render_title($item->subject) ?></relationEntry>
           <?php echo sfEacPlugin::renderDates($item) ?>
-<?php if (0 < count($date = $item->getNotesByType(array('noteTypeId' => QubitTerm::RELATION_NOTE_DATE_ID)))): ?>
-          <descriptiveNote>
-            <?php echo render_value('<p>'.$date[0]).'</p>' ?>
-          </descriptiveNote>
-<?php endif; ?>
+          <?php if (0 < count($date = $item->getNotesByType(array('noteTypeId' => QubitTerm::RELATION_NOTE_DATE_ID)))): ?>
+            <descriptiveNote>
+              <?php echo render_value('<p>'.$date[0]).'</p>' ?>
+            </descriptiveNote>
+          <?php endif; ?>
         </functionRelation>
       <?php endforeach; ?>
 
