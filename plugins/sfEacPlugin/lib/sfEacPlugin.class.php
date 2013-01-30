@@ -587,6 +587,8 @@ return;
         $relation->notes[] = $note;
       }
 
+      $relation->description = trim($fd->spawn()->add($node)->find('eac:descriptiveNote')->text());
+
       $this->resource->relationsRelatedBysubjectId[] = $relation;
     }
 
