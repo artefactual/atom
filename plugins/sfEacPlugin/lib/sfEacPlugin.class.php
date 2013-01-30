@@ -456,14 +456,14 @@ return;
 
     // TODO <descriptiveNote/>
 
-    foreach ($fd->find('eac:control/eac:languageDeclaration/eac:language/@languageCode') as $node)
+    foreach ($fd->find('eac:control/eac:languageDeclaration/eac:language') as $node)
     {
-      $this->resource->language[] = $node->textContent;
+      $this->resource->language[] = $this->from6392($node->attributes->getNamedItem("languageCode")->textContent);
     }
 
-    foreach ($fd->find('eac:control/eac:languageDeclaration/eac:script/@scriptCode') as $node)
+    foreach ($fd->find('eac:control/eac:languageDeclaration/eac:script') as $node)
     {
-      $this->resource->script[] = $node->textContent;
+      $$this->resource->script[] = $this->from6392($node->attributes->getNamedItem("scriptCode")->textContent);
     }
 
     // conventionDeclaration/abbreviation is an identifier, referenced by e.g.
