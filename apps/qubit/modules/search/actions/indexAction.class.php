@@ -168,19 +168,22 @@ class SearchIndexAction extends DefaultBrowseAction
       }
     }
 
-    $sql = 'SELECT
-        io.id,
-        o.slug,
-        io.title
-      FROM '.QubitInformationObjectI18n::TABLE_NAME.' AS io
-      LEFT JOIN '.QubitSlug::TABLE_NAME.' AS o ON (o.object_id = io.id AND io.culture = ?)
-      WHERE o.object_id IN ('.implode(',', $ancestorsIds).')';
-    $this->pager->ancestors = array();
-    foreach (QubitPdo::fetchAll($sql, array($this->context->user->getCulture())) as $ancestor)
+    if (count($ancestorsIds))
     {
-      $this->pager->ancestors[$ancestor->id] = array(
-        'slug' => $ancestor->slug,
-        'title' => $ancestor->title);
+      $sql = 'SELECT
+          io.id,
+          o.slug,
+          io.title
+        FROM '.QubitInformationObjectI18n::TABLE_NAME.' AS io
+        LEFT JOIN '.QubitSlug::TABLE_NAME.' AS o ON (o.object_id = io.id AND io.culture = ?)
+        WHERE o.object_id IN ('.implode(',', $ancestorsIds).')';
+      $this->pager->ancestors = array();
+      foreach (QubitPdo::fetchAll($sql, array($this->context->user->getCulture())) as $ancestor)
+      {
+        $this->pager->ancestors[$ancestor->id] = array(
+          'slug' => $ancestor->slug,
+          'title' => $ancestor->title);
+      }
     }
   }
 }
