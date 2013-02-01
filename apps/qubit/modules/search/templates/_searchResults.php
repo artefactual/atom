@@ -1,98 +1,66 @@
-<div id="search-results">
+<div class="row">
 
-  <div class="row">
-
-    <div class="span12 hidden-phone">
-      <h1>
-        <?php echo __('%1% search results', array('%1%' => $pager->getNbResults())) ?>
-        <?php if (sfConfig::get('app_multi_repository') && isset($pager->facets['repository_id'])): ?>
-          <?php echo __('in %1% institutions', array('%1%' => count($pager->facets['repository_id']['terms']))) ?>
-        <?php endif; ?>
-      </h1>
-    </div>
-
-    <div id="phone-filter" class="span12 visible-phone">
-      <h2 class="widebtn btn-huge" data-toggle="collapse" data-target="#facets, #top-facet">
-        <?php echo __('Filter %1% Results', array('%1%' => $pager->getNbResults())) ?>
-      </h2>
-    </div>
-
+  <div class="span12 hidden-phone">
+    <h1>
+      <?php echo __('%1% search results', array('%1%' => $pager->getNbResults())) ?>
+      <?php if (sfConfig::get('app_multi_repository') && isset($pager->facets['repository_id'])): ?>
+        <?php echo __('in %1% institutions', array('%1%' => count($pager->facets['repository_id']['terms']))) ?>
+      <?php endif; ?>
+    </h1>
   </div>
 
-  <?php if (sfConfig::get('app_multi_repository') && isset($pager->facets['repository_id'])): ?>
+  <div id="phone-filter" class="span12 visible-phone">
+    <h2 class="widebtn btn-huge" data-toggle="collapse" data-target="#facets, #top-facet">
+      <?php echo __('Filter %1% Results', array('%1%' => $pager->getNbResults())) ?>
+    </h2>
+  </div>
 
-    <div class="row">
+</div>
 
-      <div class="span12" id="top-facet">
+<div class="row">
 
-        <h2 class="visible-phone widebtn btn-huge" data-toggle="collapse" data-target="#institutions"><?php echo __('Institutions') ?></h2>
+  <div class="span3">
 
-        <div id="more-institutions" class="pull-right">
-
-          <select>
-            <option value=""><?php echo __('All institutions') ?></option>
-            <?php foreach ($pager->facets['repository_id']['terms'] as $id => $term): ?>
-              <option value="<?php echo $id; ?>"><?php echo __($term['term']) ?></option>
-            <?php endforeach; ?>
-          </select>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  <?php endif; ?>
-
-  <div class="row">
-
-    <div class="span3" id="facets">
+    <div id="facets">
 
       <?php if (isset($pager->facets['subjects_id'])): ?>
-
         <?php echo get_partial('search/facet', array(
           'target' => '#facet-subject',
           'label' => __('Subject'),
           'facet' => 'subjects_id',
           'pager' => $pager,
           'filters' => $filters)) ?>
-
       <?php endif; ?>
 
       <?php if (isset($pager->facets['digitalObject_mediaTypeId'])): ?>
-
         <?php echo get_partial('search/facet', array(
           'target' => '#facet-mediatype',
           'label' => __('Media type'),
           'facet' => 'digitalObject_mediaTypeId',
           'pager' => $pager,
           'filters' => $filters)) ?>
-
       <?php endif; ?>
 
       <?php if (isset($pager->facets['places_id'])): ?>
-
         <?php echo get_partial('search/facet', array(
           'target' => '#facet-place',
           'label' => __('Place'),
           'facet' => 'places_id',
           'pager' => $pager,
           'filters' => $filters)) ?>
-
       <?php endif; ?>
 
       <?php if (isset($pager->facets['names_id'])): ?>
-
         <?php echo get_partial('search/facet', array(
           'target' => '#facet-name',
           'label' => __('Name'),
           'facet' => 'names_id',
           'pager' => $pager,
           'filters' => $filters)) ?>
-
       <?php endif; ?>
 
-      <div class="section">
+      <?php if (false): ?>
+      <section>
 
         <h2 class="visible-phone widebtn btn-huge" data-toggle="collapse" data-target="#dates"><?php echo __('Creation date') ?></h2>
         <h2 class="hidden-phone"><?php echo __('Creation date') ?></h2>
@@ -114,41 +82,58 @@
 
         </div>
 
-      </div>
+      </section>
+      <?php endif; ?>
 
     </div>
 
-    <div class="span9" id="content">
+  </div>
 
-      <div class="listings">
+  <div class="span9">
 
-        <?php if (isset($pager->facets['digitalObject_mediaTypeId'])): ?>
+    <?php if (sfConfig::get('app_multi_repository') && isset($pager->facets['repository_id'])): ?>
 
-          <?php $numResults = 0 ?>
-          <?php foreach ($pager->facets['digitalObject_mediaTypeId']['terms'] as $mediaType): ?>
-            <?php $numResults += $mediaType['count']; ?>
-          <?php endforeach; ?>
+      <div id="top-facet">
+        <h2 class="visible-phone widebtn btn-huge" data-toggle="collapse" data-target="#institutions"><?php echo __('Institutions') ?></h2>
+        <div id="more-institutions" class="pull-right">
+          <select>
+            <option value=""><?php echo __('All institutions') ?></option>
+            <?php foreach ($pager->facets['repository_id']['terms'] as $id => $term): ?>
+              <option value="<?php echo $id; ?>"><?php echo __($term['term']) ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+      </div>
 
-          <?php if ($numResults > 0): ?>
-            <div class="result media">
-              <h3><a href="#"><?php echo __('%1% results with digital media', array('%1%' => $numResults)) ?> <strong><?php echo __('Show all') ?></strong></a></h3>
-            </div>
-          <?php endif; ?>
+    <?php endif; ?>
 
-        <?php endif; ?>
+    <div id="content">
 
-        <?php foreach ($pager->getResults() as $hit): ?>
-          <?php $doc = $hit->getData() ?>
-          <?php echo include_partial('search/searchResult', array('doc' => $doc, 'pager' => $pager)) ?>
+      <?php if (isset($pager->facets['digitalObject_mediaTypeId'])): ?>
+
+        <?php $numResults = 0 ?>
+        <?php foreach ($pager->facets['digitalObject_mediaTypeId']['terms'] as $mediaType): ?>
+          <?php $numResults += $mediaType['count']; ?>
         <?php endforeach; ?>
 
-        <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
+        <?php if ($numResults > 0): ?>
+          <div class="search-result media">
+            <p class="title"><?php echo __('%1% results with digital media', array('%1%' => $numResults)) ?></p>
+            <a href="#"><strong><?php echo __('Show all') ?></strong></a>
+          </div>
+        <?php endif; ?>
 
-      </div>
+      <?php endif; ?>
+
+      <?php foreach ($pager->getResults() as $hit): ?>
+        <?php $doc = $hit->getData() ?>
+        <?php echo include_partial('search/searchResult', array('doc' => $doc, 'pager' => $pager)) ?>
+      <?php endforeach; ?>
+
+      <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
 
     </div>
 
   </div>
 
 </div>
-

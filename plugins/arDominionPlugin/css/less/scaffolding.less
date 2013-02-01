@@ -68,9 +68,7 @@ a:hover {
     padding: 2px 4px;
     border: 1px solid transparent;
     display: block;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    .text-overflow();
   }
 
   a {
@@ -92,7 +90,7 @@ a:hover {
     color: @grayLight;
   }
   li {
-    margin: -3px 8px 0 0 !important;
+    margin: -4px 8px 0 0 !important;
   }
 }
 
@@ -156,7 +154,6 @@ a:hover {
   font-family: "Open Sans Regular";
   font-size: 20px;
   line-height: 1.4em;
-  text-overflow: ellipsis;
   text-align: center;
   margin: 0;
 }
@@ -422,9 +419,7 @@ a:hover {
     font-family: @smallFontFamily;
     padding: 2px 4px 2px 4px;
     margin-left: -4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    .text-overflow();
     &:hover {
       background-color: @grayLight;
       color: @white;
@@ -611,9 +606,7 @@ div.description-dialog {
   width: 156px;
   padding: 4px 8px;
   background-color: #def;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
+  .border-radius(4px);
   z-index: 10750;
 }
 
@@ -680,6 +673,98 @@ section .vcard:last-child > .field:last-child > div {
 
 }
 
+// Search result
+
+.search-result {
+
+  padding: 10px;
+  border-bottom: 1px solid @grayLighter;
+  .clearfix();
+
+  .title,
+  .title a {
+    color: @linkColor;
+  }
+
+  /*
+   * TODO: !important needed since to override #content { ... } props
+   * Make #content { ul, p, ... } less generic (for view descriptions)
+   */
+
+  .title {
+    font-size: @baseFontSize * 1.25; // Cancel #content p
+    margin-bottom: 0 !important;
+    .text-overflow();
+  }
+
+  .breadcrumb {
+    margin: -2px 0 0 -4px !important;
+  }
+
+  p:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  // First result with digital objects
+
+  &.media {
+    .title,
+    .title a {
+      color: @gray;
+    }
+  }
+
+  // List of details
+
+  .result-details {
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: @grayLight;
+    font-size: 90%;
+
+    li {
+
+      float: left;
+
+      &:after {
+        content: '·';
+        padding: 0px 4px;
+        #font > #family > .sans-serif();
+      }
+
+      &.publication-status {
+        color: @orange;
+      }
+
+      &:last-child:after {
+        content: none;
+      }
+
+      &.reference-code {
+        #font > #family > .monospace();
+      }
+
+      /* I'm not sure about this, it highlights the reference code nicely but I
+       * don't know if it worth so much attention
+      &.reference-code {
+        #font > #family > .monospace();
+        background-color: @grayLighter;
+        color: @black;
+        .border-radius(3px);
+        padding: 0 6px;
+        margin-right: 8px !important;
+        &:after {
+          content: none;
+        }
+      } */
+
+    }
+
+  }
+
+}
 
 // Responsive design
 
