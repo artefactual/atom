@@ -89,6 +89,11 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
   public function __destruct()
   {
+    if (!$this->enabled)
+    {
+      return;
+    }
+
     // If there are still documents in the batch queue, send them
     if ($this->config['batch_mode'] && count($this->batchDocs) > 0)
     {
@@ -179,7 +184,15 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
   public function flush()
   {
-    $this->index->delete();
+    try
+    {
+      $this->index->delete();
+    }
+    catch (Exception $e)
+    {
+
+    }
+
     $this->initialize();
   }
 
