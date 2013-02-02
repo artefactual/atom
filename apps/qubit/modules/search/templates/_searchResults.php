@@ -1,18 +1,34 @@
 <div class="row">
 
-  <div class="span12 hidden-phone">
-    <h1>
-      <?php echo __('%1% search results', array('%1%' => $pager->getNbResults())) ?>
-      <?php if (sfConfig::get('app_multi_repository') && isset($pager->facets['repository_id'])): ?>
-        <?php echo __('in %1% institutions', array('%1%' => count($pager->facets['repository_id']['terms']))) ?>
-      <?php endif; ?>
-    </h1>
-  </div>
+  <div class="span9 offset3">
 
-  <div id="phone-filter" class="span12 visible-phone">
-    <h2 class="widebtn btn-huge" data-toggle="collapse" data-target="#facets, #top-facet">
-      <?php echo __('Filter %1% Results', array('%1%' => $pager->getNbResults())) ?>
-    </h2>
+    <div class="hidden-phone">
+      <h1>
+        <span class="search"><?php echo esc_entities($sf_request->query) ?></span>
+        <span class="count"><?php echo __('%1% results', array('%1%' => $pager->getNbResults())) ?></span>
+      </h1>
+    </div>
+
+    <?php if (sfConfig::get('app_multi_repository') && isset($pager->facets['repository_id'])): ?>
+
+      <?php if (sfConfig::get('app_multi_repository') && isset($pager->facets['repository_id'])): ?>
+        <?php // echo __('in %1% institutions', array('%1%' => count($pager->facets['repository_id']['terms']))) ?>
+      <?php endif; ?>
+
+      <div id="top-facet">
+        <h2 class="visible-phone widebtn btn-huge" data-toggle="collapse" data-target="#institutions"><?php echo __('Institutions') ?></h2>
+        <div id="more-instistutions" class="pull-right">
+          <select>
+            <option value=""><?php echo __('All institutions') ?></option>
+            <?php foreach ($pager->facets['repository_id']['terms'] as $id => $term): ?>
+              <option value="<?php echo $id; ?>"><?php echo __($term['term']) ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+      </div>
+
+    <?php endif; ?>
+
   </div>
 
 </div>
@@ -20,6 +36,12 @@
 <div class="row">
 
   <div class="span3">
+
+    <div id="phone-filter" class="span12 visible-phone">
+      <h2 class="widebtn btn-huge" data-toggle="collapse" data-target="#facets, #top-facet">
+        <?php echo __('Filter %1% Results', array('%1%' => $pager->getNbResults())) ?>
+      </h2>
+    </div>
 
     <div id="facets">
 
@@ -59,53 +81,61 @@
           'filters' => $filters)) ?>
       <?php endif; ?>
 
-      <?php if (false): ?>
-      <section>
+      <section id="facet-dates">
 
-        <h2 class="visible-phone widebtn btn-huge" data-toggle="collapse" data-target="#dates"><?php echo __('Creation date') ?></h2>
-        <h2 class="hidden-phone"><?php echo __('Creation date') ?></h2>
+        <div class="facet-header">
 
-        <div class="scrollable dates" id="dates">
+          <div class="hidden-phone">
+            <p><?php echo __('Dates') ?></p>
+          </div>
 
-          <form method="get" action="<?php echo url_for($sf_request->getParameterHolder()->getAll()) ?>">
-            <input type="hidden" name="query" value="<?php echo esc_entities($sf_request->query) ?>" />
-            <input type="hidden" name="realm" value="<?php echo esc_entities($sf_request->realm) ?>" />
-            <input type="text" value="<?php echo $pager->facets['dates_startDate']['min'] ?>" name="creationDate_from" />
-            <span>-</span>
-            <?php if (isset($pager->facets['dates_endDate'])): ?>
-              <input type="text" value="<?php echo $pager->facets['dates_endDate']['max'] ?>" name="creationDate_to" />
-            <?php else: ?>
-              <input type="text" value="<?php echo $pager->facets['dates_startDate']['max'] ?>" name="creationDate_to" />
-            <?php endif; ?>
+          <div class="visible-phone">
+            <button class="w-btn" data-toggle="collapse" data-target="<?php echo $target ?>"><?php echo __('Dates') ?></button>
+          </div>
+
+        </div>
+
+        <div class="facet-body" id="dates">
+
+          <form name="dates" class="form">
+
+            <ul>
+
+              <li>
+                <label>
+                  <input type="radio" name="dates" value="all">
+                  <?php echo __('All dates') ?>
+                </label>
+              </li>
+
+              <li>
+                <label>
+                  <input type="radio" name="dates" value="range">
+                  <span class="date-input">
+                    <span><?php echo __('From') ?></span>
+                    <input type="text" name="from" />
+                  </span>
+                  <span class="date-input">
+                    <span><?php echo __('to') ?></span>
+                    <input type="text" name="to" />
+                  </span>
+                  <input type="button" class="btn btn-small" value="Go" />
+                </label>
+              </li>
+
+            </ul>
 
           </form>
 
         </div>
 
       </section>
-      <?php endif; ?>
 
     </div>
 
   </div>
 
   <div class="span9">
-
-    <?php if (sfConfig::get('app_multi_repository') && isset($pager->facets['repository_id'])): ?>
-
-      <div id="top-facet">
-        <h2 class="visible-phone widebtn btn-huge" data-toggle="collapse" data-target="#institutions"><?php echo __('Institutions') ?></h2>
-        <div id="more-institutions" class="pull-right">
-          <select>
-            <option value=""><?php echo __('All institutions') ?></option>
-            <?php foreach ($pager->facets['repository_id']['terms'] as $id => $term): ?>
-              <option value="<?php echo $id; ?>"><?php echo __($term['term']) ?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
-      </div>
-
-    <?php endif; ?>
 
     <div id="content">
 
@@ -119,7 +149,7 @@
         <?php if ($numResults > 0): ?>
           <div class="search-result media">
             <p class="title"><?php echo __('%1% results with digital media', array('%1%' => $numResults)) ?></p>
-            <a href="#"><strong><?php echo __('Show all') ?></strong></a>
+            <a href="#"><?php echo __('Show all') ?>&nbsp;&raquo;</a>
           </div>
         <?php endif; ?>
 

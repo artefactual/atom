@@ -293,9 +293,10 @@ a:hover {
   }
 
   ul {
-    .nav;
-    font-family: @smallFontFamily;
+    .nav();
   }
+
+  /*
 
   li {
 
@@ -315,13 +316,38 @@ a:hover {
 
   }
 
-  .dates {
-    color: @white;
-    font-size: 30px;
-    input {
-      width: 35%;
+  */
+
+  #facet-dates {
+
+    label,
+    span {
+      color: @black;
     }
+
+    input[type=text] {
+      width: 44px;
+      padding: 0 4px;
+      display: inline;
+      height: 24px;
+      min-height: 24px;
+      top: 0;
+      margin-bottom: 3px;
+    }
+
+    input[type=radio] {
+      height: 13px;
+      width: 13px;
+      margin-top: -2px;
+    }
+
+    input[type=button] {
+      margin-left: 4px;
+      margin-top: -3px;
+    }
+
   }
+
 }
 
 // Repository box
@@ -681,6 +707,39 @@ section .vcard:last-child > .field:last-child > div {
   border-bottom: 1px solid @grayLighter;
   .clearfix();
 
+  // First result with digital objects
+
+  &.media {
+    .title,
+    .title a {
+      color: @gray;
+    }
+  }
+
+  // Each search result has an optional preview and the description block
+
+  &.has-preview {
+
+    .search-result-preview {
+      display: inline-block;
+      width: 17.8%;
+      margin-right: 10px;
+      vertical-align: top;
+      img {
+        width: 100%;
+      }
+    }
+
+    .search-result-description {
+      width: 77%;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+  }
+
+  // Title
+
   .title,
   .title a {
     color: @linkColor;
@@ -697,32 +756,29 @@ section .vcard:last-child > .field:last-child > div {
     .text-overflow();
   }
 
-  .breadcrumb {
-    margin: -2px 0 0 -4px !important;
-  }
+  // Cancel last pharagraph margin
 
   p:last-child {
     margin-bottom: 0 !important;
   }
 
-  // First result with digital objects
 
-  &.media {
-    .title,
-    .title a {
-      color: @gray;
-    }
-  }
+  // Lists
 
-  // List of details
-
-  .result-details {
-
+  ul.breadcrumb,
+  ul.result-details {
     list-style: none;
     margin: 0;
     padding: 0;
     color: @grayLight;
     font-size: 90%;
+    float: left;
+    width: 100%;
+  }
+
+  // List of details
+
+  .result-details {
 
     li {
 
@@ -743,7 +799,7 @@ section .vcard:last-child > .field:last-child > div {
       }
 
       &.reference-code {
-        #font > #family > .monospace();
+        color: @green;
       }
 
       /* I'm not sure about this, it highlights the reference code nicely but I

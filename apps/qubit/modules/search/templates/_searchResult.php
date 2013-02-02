@@ -1,6 +1,10 @@
 <?php use_helper('Text') ?>
 
-<article class="search-result">
+<?php if (isset($doc['hasDigitalObject']) && true === $doc['hasDigitalObject']): ?>
+  <article class="search-result has-preview">
+<?php else: ?>
+  <article class="search-result">
+<?php endif; ?>
 
   <?php if (isset($doc['hasDigitalObject'])): ?>
 
@@ -8,9 +12,7 @@
 
       <?php if (isset($doc['digitalObject']['thumbnailPath'])): ?>
         <?php echo link_to(
-          image_tag(
-            $doc['digitalObject']['thumbnailPath'],
-            array('alt' => 'image-thumb', 'width' => '150', 'height' => '150')),
+          image_tag($doc['digitalObject']['thumbnailPath']),
           array('module' => 'informationobject', 'slug' => $doc['slug']),
           array('title' => get_search_i18n($doc, 'title'))) ?>
       <?php endif; ?>
@@ -21,8 +23,6 @@
 
   <div class="search-result-description">
 
-    <!-- TODO: show level of description -->
-    <!-- TODO: show publication status -->
     <p class="title"><?php echo link_to(render_title(get_search_i18n($doc, 'title')), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></p>
 
     <ul class="result-details">
@@ -32,36 +32,30 @@
       <?php endif; ?>
 
       <?php if (isset($doc['levelOfDescriptionId'])): ?>
-        <li class="level-description"><?php echo $doc['levelOfDescriptionId'] ?></li>
+        <li class="level-description"><?php echo $pager->levelsOfDescription[$doc['levelOfDescriptionId']] ?></li>
       <?php endif; ?>
 
-      <li class="publication-status">Draft</li>
+      <?php if (QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $doc['publicationStatusId']): ?>
+        <li class="publication-status"><?php echo $doc['publicationStatusId'] ?></li>
+      <?php endif; ?>
 
-      <!-- TODO: show dates -->
-      <?php if (false): ?>
-      <li class="dates">
-        <?php if (isset($doc['dates'])): ?>
-          <?php echo Qubit::renderDateStartEnd(null, $doc['dates'][0]['startDate'], $doc['dates'][0]['endDate']) ?>
-        <?php endif; ?>
-        <?php if (isset($doc['creators'][$sf_user->getCulture()])): ?>
-          <?php echo __('by %1%', array('%1%' => $doc['creators'][$sf_user->getCulture()]['i18n'][0]['authorizedFormOfName'])) ?>
-        <?php endif; ?>
-      </li>
+      <?php if (isset($doc['dates'])): ?>
+        <li class="dates"><?php echo Qubit::renderDateStartEnd(null, $doc['dates'][0]['startDate'], $doc['dates'][0]['endDate']) ?></li>
       <?php endif; ?>
 
     </ul>
 
-    <!-- TODO: show repo if multirepo -->
+    <?php if (null !== $scopeAndContent = get_search_i18n($doc, 'scopeAndContent')): ?>
+      <p><?php echo truncate_text($scopeAndContent, 250) ?></p>
+    <?php endif; ?>
+
+    <!-- TODO: show repo if multirepo and fix breadcrumb style -->
     <ul class="breadcrumb">
       <?php foreach($doc['ancestors'] as $id): ?>
         <?php if ($id == QubitInformationObject::ROOT_ID) continue ?>
         <li><?php echo link_to($pager->ancestors[$id]['title'], array('module' => 'informationobject', 'slug' => $pager->ancestors[$id]['slug']), array('title' => $pager->ancestors[$id]['title'])) ?></li>
       <?php endforeach; ?>
     </ul>
-
-    <?php if (null !== $scopeAndContent = get_search_i18n($doc, 'scopeAndContent')): ?>
-      <p><?php echo truncate_text($scopeAndContent, 250) ?></p>
-    <?php endif; ?>
 
   </div>
 
