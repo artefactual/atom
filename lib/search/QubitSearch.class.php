@@ -49,6 +49,11 @@ class QubitSearch
       self::$instance = self::getInstance(array('initialize' => false));
     }
 
-    self::$instance->disable();    
+    self::$instance->disable();
+  }
+
+  public static function enable()
+  {
+    self::$instance->enable();
   }
 }
