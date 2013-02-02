@@ -13,7 +13,7 @@
         <li class="showall"><?php echo link_to(__('all matching descriptions'), array('module' => 'search', 'action' => 'index') + $sf_request->getParameterHolder()->getAll()) ?></li>
       <?php endif; ?>
     </ul>
-  <section>
+  </section>
 <?php endif; ?>
 
 <?php if ($subjects->getTotalHits() > 0): ?>
@@ -28,7 +28,7 @@
         <li class="showall"><?php echo link_to(__('all matching subjects'), array('module' => 'search', 'action' => 'index') + $sf_request->getParameterHolder()->getAll()) ?></li>
       <?php endif; ?>
     </ul>
-  <section>
+  </section>
 <?php endif; ?>
 
 <?php if ($repositories->getTotalHits() > 0): ?>
@@ -43,7 +43,7 @@
         <li class="showall"><?php echo link_to(__('all matching institutions'), array('module' => 'search', 'action' => 'index') + $sf_request->getParameterHolder()->getAll()) ?></li>
       <?php endif; ?>
     </ul>
-  <section>
+  </section>
 <?php endif; ?>
 
 <?php if ($actors->getTotalHits() > 0): ?>
@@ -58,7 +58,7 @@
         <li class="showall"><?php echo link_to(__('all matching people & organizations'), array('module' => 'search', 'action' => 'index') + $sf_request->getParameterHolder()->getAll()) ?></li>
       <?php endif; ?>
     </ul>
-  <section>
+  </section>
 <?php endif; ?>
 
 <div id="advanced-search">
