@@ -30,15 +30,25 @@ class QubitSearch
   // protected function __construct() { }
   // protected function __clone() { }
 
-  public static function getInstance()
+  public static function getInstance(array $options = array())
   {
     if (!isset(self::$instance))
     {
       // Using arElasticSearchPlugin but other classes could be
       // implemented, for example: arSphinxSearchPlugin
-      self::$instance = new arElasticSearchPlugin();
+      self::$instance = new arElasticSearchPlugin($options);
     }
 
     return self::$instance;
+  }
+
+  public static function disable()
+  {
+    if (!isset(self::$instance))
+    {
+      self::$instance = self::getInstance(array('initialize' => false));
+    }
+
+    self::$instance->disable();    
   }
 }

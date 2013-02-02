@@ -67,7 +67,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
   /**
    * Constructor
    */
-  public function __construct()
+  public function __construct(array $options = array())
   {
     parent::__construct();
 
@@ -78,6 +78,11 @@ class arElasticSearchPlugin extends QubitSearchEngine
     // Load batch mode configuration
     $this->batchMode = true === $this->config['batch_mode'];
     $this->batchSize = $this->config['batch_size'];
+
+    if (isset($options['initialize']) && $options['initialize'] === false)
+    {
+      return;
+    }
 
     $this->initialize();
   }
