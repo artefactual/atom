@@ -411,14 +411,27 @@ class arElasticSearchInformationObjectPdo
             break;
 
           case 'array':
-            if (isset($item->date) || isset($item->start_date) || isset($item->end_date))
+
+            $tmp = array();
+
+            if (isset($item->date) && isset($item->dates[$culture]))
             {
-              $dates[] = array(
-                'date' => isset($item->dates[$culture]) ? $item->dates[$culture] : null,
-                'start_date' => $item->start_date,
-                'end_date' => $item->end_date,
-                'type_id' => $item->type_id);
+              $tmp['date'] = $item->dates[$culture];
             }
+
+            if (isset($item->start_date) && '0000-00-00' != $item->start_date)
+            {
+              $tmp['startDate'] = $item->start_date;
+            }
+
+            if (isset($item->end_date) && '0000-00-00' != $item->end_date)
+            {
+              $tmp['endDate'] = $item->end_date;
+            }
+
+            $tmp['typeId'] = $item->type_id; 
+
+            $dates[] = $tmp;
 
             break;
         }
@@ -835,6 +848,7 @@ class arElasticSearchInformationObjectPdo
       $serialized['materialTypeId'] = $materialTypeId;
     }
 
+    // Media
     if ($this->media_type_id)
     {
       $serialized['digitalObject']['mediaTypeId'] = $this->media_type_id;
@@ -856,13 +870,12 @@ class arElasticSearchInformationObjectPdo
       $serialized['hasDigitalObject'] = false;
     }
 
-    /*
+    // Dates
     $dates = $this->getDates('array');
     if (0 < count($dates))
     {
       $serialized['dates'] = $dates;
     }
-    */
 
     // Repository (actor)
     if (null !== $repository = $this->getRepository())
