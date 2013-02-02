@@ -63,18 +63,10 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-    $configuration = ProjectConfiguration::getApplicationConfiguration($options['application'], $options['env'], false);
-    $sf_context = sfContext::createInstance($configuration);
-
-    QubitSearch::getInstance()->disable();
-
     $insertSql = new sfPropelInsertSqlTask($this->dispatcher, $this->formatter);
     $insertSql->setCommandApplication($this->commandApplication);
     $insertSql->setConfiguration($this->configuration);
-    if (!$insertSql->run())
-    {
-      return;
-    }
+    $insertSql->run();
 
     if ($options['use-gitconfig'])
     {
@@ -92,7 +84,14 @@ EOF;
       }
     }
 
+    $configuration = ProjectConfiguration::getApplicationConfiguration($options['application'], $options['env'], false);
+    $sf_context = sfContext::createInstance($configuration);
+
+    QubitSearch::disable();
+
     sfInstall::loadData();
+
+    QubitSearch::enable();
 
     // Flush search index
     QubitSearch::getInstance()->flush();
