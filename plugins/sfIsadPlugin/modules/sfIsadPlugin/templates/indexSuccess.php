@@ -14,12 +14,9 @@
 
     <div id="main-column">
 
-      <?php echo get_partial('informationobject/printPreviewBar', array('resource' => $resource)) ?>
+      <h1><?php echo render_title($isad) ?></h1>
 
-      <h1 class="label">
-        <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_title($isad), array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('title' => __('Edit archival description'))) ?>
-        <?php echo get_partial('informationobject/actionIcons') ?>
-      </h1>
+      <?php echo get_partial('informationobject/printPreviewBar', array('resource' => $resource)) ?>
 
       <?php if (isset($errorSchema)): ?>
         <div class="messages error">
@@ -298,6 +295,7 @@
 
           <div id="right-column">
 
+            <?php echo get_partial('informationobject/actionIcons', array('resource' => $resource)) ?>
 
           </div>
 

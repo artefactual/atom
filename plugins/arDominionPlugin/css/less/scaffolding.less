@@ -102,6 +102,11 @@ a:hover {
 
   ul {
     list-style: none;
+    .separator {
+      font-family: @monoFontFamily;
+      color: @grayLight;
+      margin: 12px 0 0 36px;
+    }
   }
 
   img {
@@ -586,6 +591,29 @@ a:hover {
     display: inline-block;
   }
 
+}
+
+// .fields in forms
+
+form .field {
+  overflow: auto !important;
+  margin: 0 !important;
+  h3 {
+    float: none !important;
+    width: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    text-align: left !important;
+    border-right: 0 !important;
+    font-weight: normal !important;
+    color: @textColor !important;
+    font-family: @sansFontFamily !important;
+  }
+  > div {
+    margin: 0 0 @baseLineHeight/2 0 !important;
+    padding: 0 !important;
+    color: @grayLight;
+  }
 }
 
 // Tooltips

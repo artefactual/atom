@@ -37,6 +37,15 @@ legend {
 
 }
 
+// Adjust checkbox position, for some reason the default position is misaligned
+// with the text, e.g.: _adminInfo (displayStandardUpdateDescendants checkbox)
+
+input[type=radio],
+input[type=checkbox] {
+  margin-top: -4px;
+  margin-right: 6px;
+}
+
 // Collapsible fieldsets
 
 .collapsed {

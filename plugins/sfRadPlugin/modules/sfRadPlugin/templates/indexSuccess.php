@@ -14,14 +14,9 @@
 
     <div id="main-column">
 
-      <h1><?php echo render_title($rad) ?> <strong><?php echo $resource->levelOfDescription ?></strong></h1>
+      <h1><?php echo render_title($rad) ?></h1>
 
       <?php echo get_partial('informationobject/printPreviewBar', array('resource' => $resource)) ?>
-
-      <h1 class="label printable">
-        <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_title($rad), array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('title' => __('Edit archival description'))) ?>
-        <?php echo get_partial('informationobject/actionIcons') ?>
-      </h1>
 
       <?php if (isset($errorSchema)): ?>
         <div class="messages error">
@@ -356,6 +351,8 @@
 
           <div id="right-column">
 
+            <?php echo get_partial('informationobject/actionIcons', array('resource' => $resource)) ?>
+
             <?php $repository = $resource->getRepository(array('inherit' => true)) ?>
             <?php if (null !== $repository && null !== ($contactInformations = $repository->contactInformations)): ?>
               <section>
@@ -411,18 +408,6 @@
                 </h4>
               <?php endif; ?>
             </section>
-
-            <section>
-              <h4><?php echo __('Import') ?></h4>
-              <div class="content">
-                <ul>
-                  <li><?php echo link_to(__('XML'), array($resource, 'module' => 'object', 'action' => 'importSelect', 'type' => 'xml')) ?></li>
-                  <li><?php echo link_to(__('CSV'), array($resource, 'module' => 'object', 'action' => 'importSelect', 'type' => 'csv')) ?></li>
-                </ul>
-              </div>
-            </section>
-
-            <?php echo get_partial('informationobject/format', array('resource' => $resource)) ?>
 
             <?php if (check_field_visibility('app_element_visibility_physical_storage')): ?>
               <?php echo get_component('physicalobject', 'contextMenu', array('resource' => $resource)) ?>

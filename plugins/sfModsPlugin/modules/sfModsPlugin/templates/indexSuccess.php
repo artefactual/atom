@@ -14,12 +14,19 @@
 
     <div id="main-column">
 
+      <h1><?php echo render_title($mods) ?></h1>
+
       <?php echo get_partial('informationobject/printPreviewBar', array('resource' => $resource)) ?>
 
-      <h1 class="label printable">
-        <?php echo link_to_if(QubitAcl::check($resource, 'update'), render_title($mods), array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('title' => __('Edit resource metadata'))) ?>
-        <?php echo get_partial('informationobject/actionIcons') ?>
-      </h1>
+      <?php if (isset($errorSchema)): ?>
+        <div class="messages error">
+          <ul>
+            <?php foreach ($errorSchema as $error): ?>
+              <li><?php echo $error ?></li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      <?php endif; ?>
 
       <?php if (QubitInformationObject::ROOT_ID != $resource->parentId): ?>
         <?php echo include_partial('default/breadcrumb', array('resource' => $resource, 'objects' => $resource->getAncestors()->andSelf()->orderBy('lft'))) ?>
@@ -31,9 +38,9 @@
 
           <div id="content">
 
-            <section id="mainArea">
+            <section id="elementsArea">
 
-              <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Main area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'mainArea', 'title' => __('Edit main area'))) ?>
+              <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Elements area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'mainArea', 'title' => __('Edit elements area'))) ?>
 
               <?php if (0 < count($resource->digitalObjects)): ?>
                 <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjects[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
@@ -124,15 +131,15 @@
 
               <?php endif; ?>
 
-              <section id="accessionArea">
+            </section> <!-- /section#elementsArea -->
 
-                <h2><?php echo __('Accession area') ?></h2>
+            <section id="accessionArea">
 
-                <?php echo get_component('informationobject', 'accessions', array('resource' => $resource)) ?>
+              <h2><?php echo __('Accession area') ?></h2>
 
-              </section <!-- /section#accessionArea -->
+              <?php echo get_component('informationobject', 'accessions', array('resource' => $resource)) ?>
 
-            </div>
+            </section> <!-- /section#accessionArea -->
 
           </div>
 
@@ -141,6 +148,8 @@
         <div class="span2">
 
           <div id="right-column">
+
+            <?php echo get_partial('informationobject/actionIcons', array('resource' => $resource)) ?>
 
           </div>
 

@@ -43,7 +43,7 @@
 
         <div id="content">
 
-          <fieldset class="collapsible" id="pageContentArea">
+          <fieldset class="collapsible" id="elementsArea">
 
             <legend><?php echo __('Elements area') ?></legend>
 
@@ -160,7 +160,7 @@
               ->help(__('Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).'))
               ->label(__('Rights')), $resource, array('class' => 'resizable')) ?>
 
-          </fieldset>
+          </fieldset> <!-- #elementsArea -->
 
           <fieldset class="collapsible collapsed" id="rightsArea">
 
@@ -168,7 +168,7 @@
 
             <?php echo get_partial('right/edit', $rightEditComponent->getVarHolder()->getAll()) ?>
 
-          </fieldset>
+          </fieldset> <!-- #rightsArea -->
 
           <?php echo get_partial('informationobject/adminInfo', array('form' => $form, 'resource' => $resource)) ?>
 
@@ -183,13 +183,3 @@
   </div>
 
 </div>
-
-
-
-
-
-
-
-
-
-

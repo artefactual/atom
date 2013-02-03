@@ -14,7 +14,7 @@
 
     <div id="main-column">
 
-      <h1><?php echo render_title($dc) ?> <strong><?php echo $resource->levelOfDescription ?></strong></h1>
+      <h1><?php echo render_title($dc) ?></h1>
 
       <?php echo get_partial('informationobject/printPreviewBar', array('resource' => $resource)) ?>
 
@@ -42,9 +42,9 @@
               <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjects[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
             <?php endif; ?>
 
-            <section id="mainArea">
+            <section id="elementsArea">
 
-              <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Elements area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'mainArea', 'title' => __('Edit main area'))) ?>
+              <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Elements area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'mainArea', 'title' => __('Edit elements area'))) ?>
 
               <?php echo render_show(__('Identifier'), render_value($resource->identifier)) ?>
 
@@ -107,7 +107,7 @@
 
               <?php echo render_show(__('Rights'), render_value($resource->getAccessConditions(array('cultureFallback' => true)))) ?>
 
-            </section> <!-- /section#mainArea -->
+            </section> <!-- /section#elementsArea -->
 
             <?php if ($sf_user->isAuthenticated()): ?>
 
@@ -145,7 +145,7 @@
 
           <div id="right-column">
 
-            <?php echo get_partial('informationobject/actionIcons') ?>
+            <?php echo get_partial('informationobject/actionIcons', array('resource' => $resource)) ?>
 
           </div>
 
