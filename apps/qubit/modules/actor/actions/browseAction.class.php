@@ -112,6 +112,7 @@ class ActorBrowseAction extends DefaultBrowseAction
     $this->pager = new QubitSearchPager($resultSet);
     $this->pager->setPage($request->page ? $request->page : 1);
     $this->pager->setMaxPerPage($request->limit);
+    $this->pager->init();
 
     $this->populateFacets($resultSet);
   }
