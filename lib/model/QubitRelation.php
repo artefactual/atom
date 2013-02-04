@@ -121,7 +121,7 @@ class QubitRelation extends BaseRelation
 
     if ($this->subject instanceof QubitInformationObject)
     {
-      QubitSearch::getInstance()->update($this->delete);
+      QubitSearch::getInstance()->update($this->subject);
     }
   }
 
