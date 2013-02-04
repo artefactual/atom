@@ -535,60 +535,64 @@ a:hover {
 
 // Fields
 
-.field {
+#content {
 
-  overflow: hidden;
-  margin-top: -1px;
+  .field {
 
-  + .field {
-    border-top: 0;
-  }
+    overflow: hidden;
+    margin-top: -1px;
 
-  > h3 {
-
-    float: left;
-    width: 28%;
-    padding: 1px 1% 32767px 1%; // I wish I could understand this!
-    margin: 1px 0 -32767px 0;
-    text-align: right;
-    line-height: 20px;
-
-    font-weight: normal;
-    font-size: 13px;
-    color: @grayLight;
-    border-right: 1px solid @borderLineColor;
-
-  }
-
-  > div {
-    margin-left: 30%;
-    padding: 2px 4px 2px 8px;
-    line-height: 20px;
-  }
-
-}
-
-// Fields within fields
-
-.field .field {
-
-  > h3 {
-    float: none;
-    width: auto;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-    display: inline-block;
-    border: 0;
-    &:after {
-      content: ': ';
+    + .field {
+      border-top: 0;
     }
+
+    > h3 {
+
+      float: left;
+      width: 28%;
+      padding: 1px 1% 32767px 1%; // I wish I could understand this!
+      margin: 1px 0 -32767px 0;
+      text-align: right;
+      line-height: 20px;
+
+      font-weight: normal;
+      font-size: 13px;
+      color: @grayLight;
+      border-right: 1px solid @borderLineColor;
+
+    }
+
+    > div {
+      margin-left: 30%;
+      padding: 2px 4px 2px 8px;
+      line-height: 20px;
+    }
+
   }
 
-  > div {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
+  // Fields within fields
+
+  .field .field {
+
+    > h3 {
+      float: none;
+      width: auto;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+      display: inline-block;
+      border: 0;
+      &:after {
+        content: ': ';
+      }
+    }
+
+    > div {
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+    }
+
   }
 
 }

@@ -115,7 +115,7 @@ class DefaultBrowseAction extends sfAction
 
   public function execute($request)
   {
-    if (!empty($request->limit))
+    if (empty($request->limit))
     {
       $request->limit = sfConfig::get('app_hits_per_page');
     }

@@ -32,26 +32,25 @@
 
             <legend><?php echo __('Style') ?></legend>
 
-            <div class="form-item">
-              <label class="control-label" for="html"><?php echo __('Background color') ?></label>
-              <?php echo $form->backgroundColor ?>
-            </div>
+            <?php echo $form->backgroundColor
+              ->label(__('Background color'))
+              ->renderRow() ?>
 
-            <div class="control-group">
-              <label class="control-label" for="html"><?php echo __('Banner') ?></label>
-              <div class="controls">
-                <?php echo $form->banner ?>
-                <span class="help-block"><?php echo __('Requirements: PNG format, 256K max. size. Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.', array('%1%' => arRepositoryThemeCropValidatedFile::BANNER_MAX_WIDTH, '%2%' => arRepositoryThemeCropValidatedFile::BANNER_MAX_HEIGHT)) ?></span>
-              </div>
-            </div>
+            <?php echo $form->banner
+              ->help(__('Requirements: PNG format, 256K max. size. Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.',
+                  array(
+                    '%1%' => arRepositoryThemeCropValidatedFile::BANNER_MAX_WIDTH,
+                    '%2%' => arRepositoryThemeCropValidatedFile::BANNER_MAX_HEIGHT)))
+              ->label(__('Banner'))
+              ->renderRow() ?>
 
-            <div class="control-group">
-              <label class="control-label" for="html"><?php echo __('Logo') ?></label>
-              <div class="controls">
-                <?php echo $form->logo ?>
-                <span class="help-block"><?php echo __('Requirements: PNG format, 256K max. size. Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.', array('%1%' => arRepositoryThemeCropValidatedFile::LOGO_MAX_WIDTH, '%2%' => arRepositoryThemeCropValidatedFile::LOGO_MAX_HEIGHT)) ?></span>
-              </div>
-            </div>
+            <?php echo $form->logo
+              ->help(__('Requirements: PNG format, 256K max. size. Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.',
+                array(
+                  '%1%' => arRepositoryThemeCropValidatedFile::LOGO_MAX_WIDTH,
+                  '%2%' => arRepositoryThemeCropValidatedFile::LOGO_MAX_HEIGHT)))
+              ->label(__('Logo'))
+              ->renderRow() ?>
 
           </fieldset>
 

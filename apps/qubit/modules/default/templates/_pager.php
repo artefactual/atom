@@ -1,59 +1,63 @@
 <?php if ($pager->haveToPaginate()): ?>
 
-  <div class="result-count">
-    <?php if (0 < $pager->getNbResults()): ?>
-      <?php echo __('Results %1% to %2% of %3%', array('%1%' => $pager->getFirstIndice(), '%2%' => $pager->getLastIndice(), '%3%' => $pager->getNbResults())) ?>
-    <?php else: ?>
-      <?php echo __('No results') ?>
-    <?php endif; ?>
-  </div>
+  <section>
 
-  <div class="visible-phone">
-    <div class="pager">
-      <ul>
-
-        <?php if (1 < $pager->getPage()): ?>
-          <li class="previous">
-            <?php echo link_to('&laquo; '. __('Previous'), array('page' => $pager->getPage() - 1) + $sf_request->getParameterHolder()->getAll()) ?>
-          </li>
-        <?php endif; ?>
-
-        <?php if ($pager->getLastPage() > $pager->getPage()): ?>
-          <li class="next">
-            <?php echo link_to(__('Next'). ' &raquo;', array('page' => $pager->getPage() + 1) + $sf_request->getParameterHolder()->getAll()) ?>
-          </li>
-        <?php endif; ?>
-
-      </ul>
+    <div class="result-count">
+      <?php if (0 < $pager->getNbResults()): ?>
+        <?php echo __('Results %1% to %2% of %3%', array('%1%' => $pager->getFirstIndice(), '%2%' => $pager->getLastIndice(), '%3%' => $pager->getNbResults())) ?>
+      <?php else: ?>
+        <?php echo __('No results') ?>
+      <?php endif; ?>
     </div>
-  </div>
 
-  <div class="hidden-phone">
-    <div class="pagination pagination-centered">
-      <ul>
+    <div class="visible-phone">
+      <div class="pager">
+        <ul>
 
-        <?php if (1 < $pager->getPage()): ?>
-          <li class="previous">
-            <?php echo link_to('&laquo; '. __('Previous'), array('page' => $pager->getPage() - 1) + $sf_request->getParameterHolder()->getAll()) ?>
-          </li>
-        <?php endif; ?>
-
-        <?php foreach ($pager->getLinks(10) as $page): ?>
-          <?php if ($pager->getPage() == $page): ?>
-            <li class="active"><a href="#"><?php echo $page ?></a></li>
-          <?php else: ?>
-            <li><?php echo link_to($page, array('page' => $page) + $sf_request->getParameterHolder()->getAll(), array('title' => __('Go to page %1%', array('%1%' => $page)))) ?></li>
+          <?php if (1 < $pager->getPage()): ?>
+            <li class="previous">
+              <?php echo link_to('&laquo; '. __('Previous'), array('page' => $pager->getPage() - 1) + $sf_request->getParameterHolder()->getAll()) ?>
+            </li>
           <?php endif; ?>
-        <?php endforeach ?>
 
-        <?php if ($pager->getLastPage() > $pager->getPage()): ?>
-          <li class="next">
-            <?php echo link_to(__('Next'). ' &raquo;', array('page' => $pager->getPage() + 1) + $sf_request->getParameterHolder()->getAll()) ?>
-          </li>
-        <?php endif; ?>
+          <?php if ($pager->getLastPage() > $pager->getPage()): ?>
+            <li class="next">
+              <?php echo link_to(__('Next'). ' &raquo;', array('page' => $pager->getPage() + 1) + $sf_request->getParameterHolder()->getAll()) ?>
+            </li>
+          <?php endif; ?>
 
-      </ul>
+        </ul>
+      </div>
     </div>
-  </div>
+
+    <div class="hidden-phone">
+      <div class="pagination pagination-centered">
+        <ul>
+
+          <?php if (1 < $pager->getPage()): ?>
+            <li class="previous">
+              <?php echo link_to('&laquo; '. __('Previous'), array('page' => $pager->getPage() - 1) + $sf_request->getParameterHolder()->getAll()) ?>
+            </li>
+          <?php endif; ?>
+
+          <?php foreach ($pager->getLinks(10) as $page): ?>
+            <?php if ($pager->getPage() == $page): ?>
+              <li class="active"><a href="#"><?php echo $page ?></a></li>
+            <?php else: ?>
+              <li><?php echo link_to($page, array('page' => $page) + $sf_request->getParameterHolder()->getAll(), array('title' => __('Go to page %1%', array('%1%' => $page)))) ?></li>
+            <?php endif; ?>
+          <?php endforeach ?>
+
+          <?php if ($pager->getLastPage() > $pager->getPage()): ?>
+            <li class="next">
+              <?php echo link_to(__('Next'). ' &raquo;', array('page' => $pager->getPage() + 1) + $sf_request->getParameterHolder()->getAll()) ?>
+            </li>
+          <?php endif; ?>
+
+        </ul>
+      </div>
+    </div>
+
+  </section>
 
 <?php endif; ?>

@@ -297,6 +297,25 @@
 
             <?php echo get_partial('informationobject/actionIcons', array('resource' => $resource)) ?>
 
+            <section>
+              <h4><?php echo __('Related subjects') ?></h4>
+              <?php echo get_partial('informationobject/subjectAccessPoints', array('resource' => $resource)) ?>
+            </section>
+
+            <section>
+              <h4><?php echo __('Related people and organizations') ?></h4>
+              <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource)) ?>
+            </section>
+
+            <section>
+              <h4><?php echo __('Related places') ?></h4>
+              <?php echo get_partial('informationobject/placeAccessPoints', array('resource' => $resource)) ?>
+            </section>
+
+            <?php if (check_field_visibility('app_element_visibility_physical_storage')): ?>
+              <?php echo get_component('physicalobject', 'contextMenu', array('resource' => $resource)) ?>
+            <?php endif; ?>
+
           </div>
 
         </div>

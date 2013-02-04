@@ -15,6 +15,16 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
+@treeviewNodeBg: inherit;
+@treeviewNodeFg: @linkColor;
+@treeviewSelectedNodeBg: @gray;
+@treeviewSelectedNodeFg: @white;
+@treeviewHoverNodeBg: @gray;
+@treeviewHoverNodeFg: @white;
+@treeviewPlaceholderBg: #f0f0f0;
+@treeviewStatusFg: @grayLight;
+@treeviewLevelFg: @orange;
+
 #treeview {
   margin: @baseLineHeight*2 0 0 0;
   overflow: auto;
@@ -34,17 +44,21 @@
   text-overflow: ellipsis;
   overflow: hidden;
   position: relative;
-  background-color: rgba(50, 50, 50, .2);
+  color: @treeviewNodeBg;
 }
 
 #treeview a {
-  color: @white;
+  color: @treeviewNodeFg;
 }
 
 // Node classes
 
 #treeview li:hover {
-  background-color: rgba(255, 255, 255, .3);
+  background: @treeviewHoverNodeBg !important;
+  color: @treeviewHoverNodeFg !important;
+  a {
+    color: @treeviewHoverNodeFg !important;
+  }
 }
 
 #treeview .ancestor,
@@ -59,27 +73,14 @@
   background-color: transparent;
 }
 
-#treeview .back {
-  border-top: 1px solid @white;
-}
-
-#treeview .back,
-#treeview .ancestor {
-  border-bottom: 1px solid @white;
-}
-
 #treeview .expand,
 #treeview .ancestor,
 #treeview .back {
   padding-left: 0px;
 }
 
-#treeview .immediate-ancestor {
-  border-bottom: 1px solid #ccc;
-}
-
 #treeview .placeholder {
-  background-color: #f0f0f0;
+  background-color: @treeviewPlaceholderBg;
 }
 
 // More button
@@ -96,14 +97,15 @@
 // Active node
 
 #treeview .active {
-  background-color: @white !important;
+  background-color: @treeviewSelectedNodeBg !important;
 }
 
 #treeview .active a {
-  color: @orange;
+  color: @treeviewSelectedNodeFg;
 }
 
-#treeview .active i { background-position-y: 0 !important; }
+#treeview .active i,
+#treeview .hover i { background-position-y: -10px !important; }
 
 // Arrow icon
 
@@ -120,10 +122,10 @@
   cursor: pointer;
 }
 
-#treeview .ancestor i { background-position: -10px -10px; } /* left arrow */
-#treeview .immediate-ancestor i { background-position: 0px -10px; } /* down arrow */
-#treeview .back i { background-position: -10px -10px; } /* left arrow */
-#treeview .expand i { background-position: -20px -10px; } /* right arrow */
+#treeview .ancestor i { background-position: -10px 0px; } /* left arrow */
+#treeview .immediate-ancestor i { background-position: 0px 0px; } /* down arrow */
+#treeview .back i { background-position: -10px 0px; } /* left arrow */
+#treeview .expand i { background-position: -20px 0px; } /* right arrow */
 
 // Loading icon
 
@@ -148,11 +150,12 @@
   text-transform: uppercase;
   margin-right: 6px;
   font-size: smaller;
+  color: @treeviewLevelFg;
 }
 
 #treeview .pubStatus {
-  color: #bbb;
   margin-left: 4px;
+  color: @treeviewStatusFg;
 }
 
 // Sorting

@@ -353,6 +353,7 @@
 
             <?php echo get_partial('informationobject/actionIcons', array('resource' => $resource)) ?>
 
+            <?php if (false): ?>
             <?php $repository = $resource->getRepository(array('inherit' => true)) ?>
             <?php if (null !== $repository && null !== ($contactInformations = $repository->contactInformations)): ?>
               <section>
@@ -381,6 +382,7 @@
 
               </section>
             <?php endif; ?>
+            <?php endif; ?>
 
             <section>
               <h4><?php echo __('Related subjects') ?></h4>
@@ -395,18 +397,6 @@
             <section>
               <h4><?php echo __('Related places') ?></h4>
               <?php echo get_partial('informationobject/placeAccessPoints', array('resource' => $resource)) ?>
-            </section>
-
-            <section>
-              <?php if (false): ?>
-                <h4>
-                  <?php if (isset($resource->getCollectionRoot()->levelOfDescription)): ?>
-                    <?php echo $resource->getCollectionRoot()->levelOfDescription ?>
-                  <?php else: ?>
-                    <?php echo sfConfig::get('app_ui_label_collection') ?>
-                  <?php endif; ?>
-                </h4>
-              <?php endif; ?>
             </section>
 
             <?php if (check_field_visibility('app_element_visibility_physical_storage')): ?>

@@ -110,9 +110,9 @@ class SearchIndexAction extends DefaultBrowseAction
     $this->queryBool->addMust($queryText);
 
     // Realm filter
-    if (isset($this->request->realm) && is_int($this->request->realm))
+    if (isset($request->realm) && is_int($request->realm))
     {
-      $this->queryBool->addMust(new Elastica_Query_Term(array('repository.id' => $this->request->realm)));
+      $this->queryBool->addMust(new Elastica_Query_Term(array('repository.id' => $request->realm)));
     }
 
     $this->query->setQuery($this->queryBool);
@@ -121,10 +121,10 @@ class SearchIndexAction extends DefaultBrowseAction
 
     // Sort, From, Limit
     $this->query->setSort(array('_score' => 'desc'));
-    $this->query->setLimit($this->request->limit);
-    if (!empty($this->request->page))
+    $this->query->setLimit($request->limit);
+    if (!empty($request->page))
     {
-      $query->setFrom(($this->request->page - 1) * $this->request->limit);
+      $this->query->setFrom(($request->page - 1) * $request->limit);
     }
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
