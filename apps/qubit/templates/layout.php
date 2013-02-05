@@ -26,9 +26,5 @@
 
     <?php echo get_partial('footer') ?>
 
-    <div id="print-date">
-      <?php echo __('Printed: %d%', array('%d%' => date('Y-m-d'))) ?>
-    </div>
-
   </body>
 </html>

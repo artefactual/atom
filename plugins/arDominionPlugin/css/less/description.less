@@ -15,92 +15,29 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Main column
+// Context menu
 
-#main-column h1 strong {
-  font-size: 17px;
-  color: @grayLight;
-}
+#context-menu {
 
-#main-column .media {
-  background-color: @white;
-  margin-bottom: 10px;
-  padding: 15px;
-  .clearfix;
-}
+  h3,
+  h4 {
+    font-style: oblique;
+  }
 
-#main-column .media h3 a {
-  color: @orange;
-}
+  p {
+    margin-left: 0;
+    margin-right: 0;
+  }
 
-#main-column .media div {
-  float: left;
-  margin-right: 17px;
-  margin-bottom: 20px;
-}
+  ul {
+    margin-left: 0;
+    list-style: none;
+  }
 
-#main-column .media div a {
-  height: 100%;
-}
+  section {
+    margin-bottom: @baseLineHeight;
+  }
 
-#main-column .media div a img {
-  max-width: auto;
-  width: auto;
-  height: auto;
-}
-
-#main-column > .nav.nav-tabs {
-  margin-bottom: 0;
-  border-bottom: 4px solid @grayDark;
-}
-
-#main-column > .nav.nav-tabs > li {
-  margin-bottom: 0;
-}
-
-// Left column
-
-#left-column {
-  margin-top: 20px;
-}
-
-// Right column
-
-#right-column h3,
-#right-column h4 {
-  font-style: oblique;
-}
-
-#right-column p {
-  margin-left: 0;
-  margin-right: 0;
-}
-
-#right-column ul {
-  margin-left: 0;
-  list-style: none;
-}
-
-#right-column .btn {
-  margin-top: 4px;
-  color: @grayDark;
-  display: block;
-  border: 1px solid @gray;
-}
-
-#right-column section {
-  margin-bottom: @baseLineHeight;
-}
-
-#right-column section > .field > h3 {
-  display: none;
-}
-
-// Export
-
-#export {
-  margin-left: 10px;
-  margin-top: 20px;
 }
 
 // Contact information under .modal
@@ -128,87 +65,4 @@
 .modal .vcard .field > h3,
 .modal .vcard .adr > h3 {
   display: none;
-}
-
-// Digital object reference
-
-.digital-object-reference {
-  background-color: @grayDarker;
-  text-align: center;
-  padding: @baseLineHeight;
-}
-
-.digital-object-reference > * {
-  .cursor-zoom;
-}
-
-.digital-object-reference .flowplayer {
-  display: block;
-}
-
-.digital-object-reference .download {
-  background-color: transparent;
-  color: @white;
-  border: 2px solid @white;
-  padding: 4px 8px;
-  .border-radius(8px);
-  cursor: pointer;
-  display: inline-block;
-  margin-top: 8px;
-}
-
-.digital-object-reference .download:hover {
-  background-color: @white;
-  color: @black;
-}
-
-// Responsive design
-
-@media (min-width: 1200px) {
-
-  #left-column .logo h2,
-  #left-column .logo img {
-    max-width: 270px;
-  }
-
-  #navigation {
-    width: 310px !important;
-  }
-
-}
-
-@media (min-width: 768px) and (max-width: 979px) {
-
-  #left-column .logo h2,
-  #left-column .logo img {
-    max-width: 166px;
-  }
-
-  #navigation {
-    width: 184px !important;
-  }
-
-}
-
-@media (max-width: 767px) {
-
-  #left-column .logo h2,
-  #left-column .logo img {
-    max-width: 166px;
-  }
-
-  #navigation {
-    position: static;
-    width: 100%;
-  }
-
-}
-
-@media (max-width: 480px) {
-
-  #left-column .logo h2,
-  #left-column .logo img {
-    max-width: none;
-  }
-
 }

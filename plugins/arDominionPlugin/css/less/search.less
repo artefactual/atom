@@ -15,33 +15,39 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Search box in .nav-tabs
+// Search box in the navigation bar
+// e.g. actor/browse
 
 .nav-tabs li.search {
+
   .pull-right;
-}
 
-.nav-tabs li.search form {
-  margin: 0;
-}
+  margin-right: 28px;
 
-.nav-tabs li.search .input-append {
-  margin: 0;
-}
+  form {
+    margin: 0;
+  }
 
-.nav-tabs li.search input[type=text] {
-}
+  .input-append {
+    margin: 0;
+  }
 
-.nav-tabs li.search input[type=submit] {
-  .hide-text;
-  background-image: url(../../../../vendor/bootstrap/img/glyphicons-halflings.png);
-  background-repeat: no-repeat;
-  display: inline-block;
-  .square(14px);
-  margin-top: 1px;
-  line-height: 14px;
-  vertical-align: text-top;
-  .icon-search;
+  input[type=text] {
+
+  }
+
+  input[type=submit] {
+    .hide-text;
+    .icon-search;
+    background-image: url(../../../../vendor/bootstrap/img/glyphicons-halflings.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+    .square(14px);
+    margin-top: 1px;
+    line-height: 14px;
+    vertical-align: text-top;
+  }
+
 }
 
 // Advanced search
@@ -98,23 +104,17 @@
   .box-sizing(border-box);
 }
 
-// Horizontal top facet
-
-.top-options {
-  .pull-right;
-  margin-top: 24px;
-}
-
-.top-options a {
-  border: 1px solid #666;
-}
+//
 
 h1 {
+
   .search {
 
   }
+
   .count {
     color: @grayLight;
     font-size: @baseFontSize * 1.25;
   }
+
 }
