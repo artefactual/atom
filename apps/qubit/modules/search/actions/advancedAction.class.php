@@ -27,7 +27,9 @@ class SearchAdvancedAction extends SearchIndexAction
       'materialType',
       'mediaType',
       'repository',
-      'searchFields'
+      'searchFields',
+      'startDate',
+      'endDate'
     );
 
   public function execute($request)
@@ -168,6 +170,15 @@ class SearchAdvancedAction extends SearchIndexAction
 
         break;
 
+      case 'startDate':
+      case 'endDate':
+        $this->form->setValidator($name, new sfValidatorString);
+
+        $placeholder = ($name == 'startDate' ? 'e.g. 19820000' : 'e.g. 19840516');
+        $this->form->setWidget($name, new sfWidgetFormInput(array(), array('placeholder' => $placeholder)));
+
+        break;
+
       case 'searchFields':
 
         break;
@@ -289,6 +300,48 @@ class SearchAdvancedAction extends SearchIndexAction
     {
       $query->addSubquery(QubitSearch::getInstance()->addTerm($this->request->copyrightStatus, 'copyrightStatusId'), true);
       $this->queryTerms[] = array('term' => 'copyrightStatus: '.QubitTerm::getById($this->request->copyrightStatus)->__toString(), 'operator' => 'and');
+    }
+
+    // Date range search
+    $startDate = $this->form->getValue('startDate');
+    $endDate = $this->form->getValue('endDate');
+    if (null !== $startDate && null !== $endDate)
+    {
+      $dateQuery = new Zend_Search_Lucene_Search_Query_Boolean();
+
+      // Inner range query
+      $innerQuery = new Zend_Search_Lucene_Search_Query_Boolean();
+      $startDateQuery = new Zend_Search_Lucene_Search_Query_Range(
+         new Zend_Search_Lucene_Index_Term($startDate, 'startDate'),
+         new Zend_Search_Lucene_Index_Term($endDate, 'startDate'),
+         true);
+      $innerQuery->addSubquery($startDateQuery, null);
+      $endDateQuery = new Zend_Search_Lucene_Search_Query_Range(
+         new Zend_Search_Lucene_Index_Term($startDate, 'endDate'),
+         new Zend_Search_Lucene_Index_Term($endDate, 'endDate'),
+         true);
+      $innerQuery->addSubquery($endDateQuery, null);
+
+      // This query matches the case where the information object creation
+      // interval is a superset of the interval being search (containment)
+      $outerQuery = new Zend_Search_Lucene_Search_Query_Boolean();
+      $startDateQuery = new Zend_Search_Lucene_Search_Query_Range(
+         new Zend_Search_Lucene_Index_Term('00000000', 'startDate'),
+         new Zend_Search_Lucene_Index_Term($startDate, 'startDate'),
+         true);
+      $outerQuery->addSubquery($startDateQuery, true);
+      $endDateQuery = new Zend_Search_Lucene_Search_Query_Range(
+         new Zend_Search_Lucene_Index_Term($endDate, 'endDate'),
+         new Zend_Search_Lucene_Index_Term(date('Ymd'), 'endDate'),
+         true);
+      $outerQuery->addSubquery($endDateQuery, true);
+
+      // Build query: innerQuery OR outerQuery
+      $dateQuery->addSubquery($innerQuery, null);
+      $dateQuery->addSubquery($outerQuery, null);
+
+      // Add condition to general query
+      $query->addSubquery($dateQuery, true);
     }
 
     $query = parent::filterQuery($query);

@@ -13,9 +13,30 @@
   </tbody>
 </table>
 
-<fieldset class="collapsible <?php echo ($form->getValue('repository') . $form->getValue('media') . $form->getValue('hasDigitalObject') . $form->getValue('levelOfDescription') ? '' : 'collapsed') ?>" id="filterLimit">
+<fieldset class="collapsible <?php echo ($form->getValue('repository') . $form->getValue('media') . $form->getValue('hasDigitalObject') . $form->getValue('levelOfDescription') . $form->getValue('startDate') . $form->getValue('endDate') ? '' : 'collapsed') ?>" id="filterLimit">
 
   <legend><?php echo __('Filter/Limit') ?></legend>
+
+  <div class="form-item">
+    <label><?php echo __('Date range search') ?></label>
+    <table>
+      <tr>
+        <td>
+          <?php echo $form->startDate
+            ->label(__('Start date'))
+            ->renderRow() ?>
+        </td>
+        <td>
+          <?php echo $form->endDate
+            ->label(__('End date'))
+            ->renderRow() ?>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2"><?php echo __('Date format required: YYYYMMDD') ?></td>
+      </tr>
+    </table>
+  </div>
 
   <?php if (sfConfig::get('app_multi_repository')): ?>
 
