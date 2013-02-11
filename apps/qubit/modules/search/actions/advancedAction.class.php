@@ -305,47 +305,74 @@ class SearchAdvancedAction extends SearchIndexAction
     // Date range search
     $startDate = $this->form->getValue('startDate');
     $endDate = $this->form->getValue('endDate');
+
     if (null !== $startDate && null !== $endDate)
     {
       $dateQuery = new Zend_Search_Lucene_Search_Query_Boolean();
 
       // Inner range query
-      $innerQuery = new Zend_Search_Lucene_Search_Query_Boolean();
-      $startDateQuery = new Zend_Search_Lucene_Search_Query_Range(
-         new Zend_Search_Lucene_Index_Term($startDate, 'startDate'),
-         new Zend_Search_Lucene_Index_Term($endDate, 'startDate'),
-         true);
-      $innerQuery->addSubquery($startDateQuery, null);
-      $endDateQuery = new Zend_Search_Lucene_Search_Query_Range(
-         new Zend_Search_Lucene_Index_Term($startDate, 'endDate'),
-         new Zend_Search_Lucene_Index_Term($endDate, 'endDate'),
-         true);
-      $innerQuery->addSubquery($endDateQuery, null);
+      $innerQuery = $this->buildMultiRangeQuery(array(
+        array('fieldName' => 'startDate', 'start' => $startDate, 'end' => $endDate, 'inclusive' => true, 'operator' => null),
+        array('fieldName' => 'endDate', 'start' => $startDate, 'end' => $endDate, 'inclusive' => true, 'operator' => null)));
 
       // This query matches the case where the information object creation
       // interval is a superset of the interval being search (containment)
-      $outerQuery = new Zend_Search_Lucene_Search_Query_Boolean();
-      $startDateQuery = new Zend_Search_Lucene_Search_Query_Range(
-         new Zend_Search_Lucene_Index_Term('00000000', 'startDate'),
-         new Zend_Search_Lucene_Index_Term($startDate, 'startDate'),
-         true);
-      $outerQuery->addSubquery($startDateQuery, true);
-      $endDateQuery = new Zend_Search_Lucene_Search_Query_Range(
-         new Zend_Search_Lucene_Index_Term($endDate, 'endDate'),
-         new Zend_Search_Lucene_Index_Term(date('Ymd'), 'endDate'),
-         true);
-      $outerQuery->addSubquery($endDateQuery, true);
+      $outerQuery = $this->buildMultiRangeQuery(array(
+        array('fieldName' => 'startDate', 'start' => '00000000', 'end' => $startDate, 'inclusive' => true, 'operator' => true),
+        array('fieldName' => 'endDate', 'start' => $endDate, 'end' => date('Ymd'), 'inclusive' => true, 'operator' => true)));
 
-      // Build query: innerQuery OR outerQuery
+      // innerQuery OR outerQuery
       $dateQuery->addSubquery($innerQuery, null);
       $dateQuery->addSubquery($outerQuery, null);
 
-      // Add condition to general query
       $query->addSubquery($dateQuery, true);
+    }
+    // Only startDate field is used
+    else if (null !== $startDate)
+    {
+      $multiRangeQuery = $this->buildMultiRangeQuery(array(
+        array('fieldName' => 'startDate', 'start' => '00000000', 'end' => $startDate, 'inclusive' => true, 'operator' => true),
+        array('fieldName' => 'endDate', 'start' => $startDate, 'end' => date('Ymd'), 'inclusive' => true, 'operator' => true)));
+
+      $query->addSubquery($multiRangeQuery, true);
+    }
+    // Only endDate field is used
+    else if (null !== $endDate)
+    {
+      $multiRangeQuery = $this->buildMultiRangeQuery(array(
+        array('fieldName' => 'startDate', 'start' => '00000000', 'end' => $endDate, 'inclusive' => true, 'operator' => true),
+        array('fieldName' => 'endDate', 'start' => $endDate, 'end' => date('Ymd'), 'inclusive' => true, 'operator' => true)));
+
+      $query->addSubquery($multiRangeQuery, true);
     }
 
     $query = parent::filterQuery($query);
 
     return $query;
+  }
+
+  /**
+   * Build multirange query
+   *
+   * @param  array $options Options to build teh query
+   * @return Zend_Search_Lucene_Search_Query_Boolean
+   */
+  protected function buildMultiRangeQuery(array $options = array())
+  {
+    $dateQuery = new Zend_Search_Lucene_Search_Query_Boolean;
+
+    $q1 = new Zend_Search_Lucene_Search_Query_Range(
+      new Zend_Search_Lucene_Index_Term($options[0]['start'], $options[0]['fieldName']),
+      new Zend_Search_Lucene_Index_Term($options[0]['end'],   $options[0]['fieldName']),
+      $options[0]['inclusive']);
+    $dateQuery->addSubquery($q1, $options[0]['operator']);
+
+    $q2 = new Zend_Search_Lucene_Search_Query_Range(
+      new Zend_Search_Lucene_Index_Term($options[1]['start'], $options[1]['fieldName']),
+      new Zend_Search_Lucene_Index_Term($options[1]['end'],   $options[1]['fieldName']),
+      $options[1]['inclusive']);
+    $dateQuery->addSubquery($q2, $options[1]['operator']);
+
+    return $dateQuery;
   }
 }

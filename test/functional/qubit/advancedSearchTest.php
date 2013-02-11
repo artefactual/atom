@@ -9,19 +9,25 @@ $browser = new sfTestFunctional(new sfBrowser);
 
 $rand = rand(1, 9999999);
 
-// Search
+// Search dates
 $t1 = '1100-04-05';
 $t2 = '1700-09-18';
 
 // Information objects
-// Properties: title, startDate, endDate, shoudlMatchSearch
+// Properties: title, startDate, endDate, shoudlMatchSearch, filter
 $cases = array(
-  array('Foobar1-'.$rand, '0500-02-03', '1100-04-04', false),  // Case 1
-  array('Foobar2-'.$rand, '1125-08-02', '1229-11-17', true),   // Case 2
-  array('Foobar3-'.$rand, '1712-01-02', '1992-04-22', false),  // Case 3
-  array('Foobar4-'.$rand, '0500-02-03', '1125-08-02', true),   // Case 4
-  array('Foobar5-'.$rand, '0500-02-03', '1992-04-22', true),   // Case 5
-  array('Foobar6-'.$rand, '1229-11-17', '1992-04-22', true));  // Case 6
+  array('Foobar1-'.$rand,  '0500-02-03', '1100-04-04', false, array('t1', 't2')),  // Case 1
+  array('Foobar2-'.$rand,  '1125-08-02', '1229-11-17', true,  array('t1', 't2')),  // Case 2
+  array('Foobar3-'.$rand,  '1712-01-02', '1992-04-22', false, array('t1', 't2')),  // Case 3
+  array('Foobar4-'.$rand,  '0500-02-03', '1125-08-02', true,  array('t1', 't2')),  // Case 4
+  array('Foobar5-'.$rand,  '0500-02-03', '1992-04-22', true,  array('t1', 't2')),  // Case 5
+  array('Foobar6-'.$rand,  '1229-11-17', '1992-04-22', true,  array('t1', 't2')),  // Case 6
+  array('Foobar7-'.$rand,  '0500-02-03', '1100-04-04', false, array('t1')),        // Case 7
+  array('Foobar8-'.$rand,  '0500-02-03', '1125-08-02', true,  array('t1')),        // Case 8
+  array('Foobar9-'.$rand,  '1125-08-02', '1229-11-17', false, array('t1')),        // Case 9
+  array('Foobar10-'.$rand, '1125-08-02', '1229-11-17', false, array('t2')),        // Case 10
+  array('Foobar11-'.$rand, '1229-11-17', '1992-04-22', true,  array('t2')),        // Case 11
+  array('Foobar12-'.$rand, '1712-01-02', '1992-04-22', false, array('t2')));       // Case 12
 
 // Create information objects
 foreach ($cases as $item)
@@ -40,10 +46,13 @@ foreach ($cases as $item)
 }
 
 // Search and test
-foreach ($cases as $item)
+foreach ($cases as $key => $item)
 {
+  $tmp1 = (false !== array_search('t1', $item[4])) ? $t1 : null;
+  $tmp2 = (false !== array_search('t2', $item[4])) ? $t2 : null;
+
   $browser
-    ->get(getUrl($t1, $t2, $item[0]))
+    ->get(getUrl($tmp1, $tmp2, $item[0]))
     ->with('response')->begin()
       ->checkElement('#search-stats', $item[3] ? 1 : 0)
     ->end();
@@ -51,8 +60,9 @@ foreach ($cases as $item)
 
 function getUrl($startDate, $endDate, $title)
 {
-  return sprintf(';search/advanced?startDate=%s&endDate=%s&searchFields[0][query]=%s&searchFields[0][operator]=and&searchFields[0][match]=phrase&searchFields[0][field]=title',
-    preg_replace('/[\/-]/', '', $startDate),
-    preg_replace('/[\/-]/', '', $endDate),
-    $title);
+  return sprintf('%s?searchFields[0][query]=%s&searchFields[0][operator]=and&searchFields[0][match]=phrase&searchFields[0][field]=title%s%s',
+    ';search/advanced',
+    $title,
+    null === $startDate ? '' : '&startDate='.preg_replace('/[\/-]/', '', $startDate),
+    null === $endDate ? '' : '&endDate='.preg_replace('/[\/-]/', '', $endDate));
 }
