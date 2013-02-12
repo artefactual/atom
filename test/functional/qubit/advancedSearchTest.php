@@ -24,8 +24,8 @@ $cases = array(
   array('Foobar6-'.$rand,  '1229-11-17', '1992-04-22', true,  array('t1', 't2')),  // Case 6
   array('Foobar7-'.$rand,  '0500-02-03', '1100-04-04', false, array('t1')),        // Case 7
   array('Foobar8-'.$rand,  '0500-02-03', '1125-08-02', true,  array('t1')),        // Case 8
-  array('Foobar9-'.$rand,  '1125-08-02', '1229-11-17', false, array('t1')),        // Case 9
-  array('Foobar10-'.$rand, '1125-08-02', '1229-11-17', false, array('t2')),        // Case 10
+  array('Foobar9-'.$rand,  '1125-08-02', '1229-11-17', true, array('t1')),        // Case 9
+  array('Foobar10-'.$rand, '1125-08-02', '1229-11-17', true, array('t2')),        // Case 10
   array('Foobar11-'.$rand, '1229-11-17', '1992-04-22', true,  array('t2')),        // Case 11
   array('Foobar12-'.$rand, '1712-01-02', '1992-04-22', false, array('t2')));       // Case 12
 
