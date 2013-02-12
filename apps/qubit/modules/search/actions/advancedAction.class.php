@@ -305,28 +305,29 @@ class SearchAdvancedAction extends SearchIndexAction
     // Date range search
     $startDate = $this->form->getValue('startDate');
     $endDate = $this->form->getValue('endDate');
-  
-  
-     $myLogger =  sfContext::getInstance()->getLogger();
-    $myLogger->log("doing a date search " . $startDate . " to " . $endDate);
+
+    $this->context->getLogger()->log('Doing a date search '.$startDate.' to '.$endDate);
 
     if (null !== $startDate || null !== $endDate)
     {
       $dateQuery = new Zend_Search_Lucene_Search_Query_Boolean();
 
-      if (null !== $startDate = $this->form->getValue('startDate'))
+      if (null !== $startDate)
       {
         if (null !== $endDate)
         {
           $startTerm = '00000000';
           $endTerm = $endDate;
           $searchField = 'startDate';
-        } else {
+        }
+        else
+        {
           $startTerm = $startDate;
           $endTerm = date('Ymd');
           $searchField = 'endDate';
         }
-        $myLogger->log("start date search uses " . $startTerm . " " . $endTerm . " " . $searchField);
+
+        $this->context->getLogger()->log('Start date search uses '.$startTerm.' '.$endTerm.' '.$searchField);
 
         $startDateQuery = new Zend_Search_Lucene_Search_Query_Range(
           new Zend_Search_Lucene_Index_Term($startTerm, $searchField),
@@ -336,41 +337,48 @@ class SearchAdvancedAction extends SearchIndexAction
         $dateQuery->addSubquery($startDateQuery, true);
       }
 
-      if (null !== $endDate = $this->form->getValue('endDate'))
+      if (null !== $endDate)
       {
-        if (null !==$startDate)
+        if (null !== $startDate)
         {
           $startTerm = $startDate;
           $endTerm =  date('Ymd');
           $searchField = 'endDate';
-        } else {
+        }
+        else
+        {
           $startTerm = '00000000';
           $endTerm = $endDate;
           $searchField = 'startDate';
         }
-        $myLogger->log("end date search uses " . $startTerm . " " . $endTerm . " " . $searchField);
+
+        $this->context->getLogger()->log('End date search uses '.$startTerm.' '.$endTerm.' '.$searchField);
+
         $endDateQuery = new Zend_Search_Lucene_Search_Query_Range(
           new Zend_Search_Lucene_Index_Term($startTerm, $searchField),
           new Zend_Search_Lucene_Index_Term($endTerm, $searchField),
           true);
-	 
-	    if (null !== $startDate)
+
+	      if (null !== $startDate)
         {
           $endDateQueryWrapper = new Zend_Search_Lucene_Search_Query_Boolean();
           $endDateQueryWrapper->addSubquery($endDateQuery, null);
           $endDateQueryWrapper->addSubquery(QubitSearch::getInstance()->addTerm('true', 'hasEndDate'), null);
 
           $dateQuery->addSubquery($endDateQueryWrapper, true);
-        } else {
+        }
+        else
+        {
           $dateQuery->addSubquery($endDateQuery, true);
         }
       }
+
       // Filter with $dateQuery
       $query->addSubquery($dateQuery, true); // Required
     }
-	 
+
     $query = parent::filterQuery($query);
+
     return $query;
   }
-
 }
