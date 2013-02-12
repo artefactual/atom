@@ -131,7 +131,7 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['check_for_updates'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['accession_mask'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['separator_character'] = new sfValidatorString(array('required' => false));
-    $this->validatorSchema['accession_counter'] = new sfValidatorInteger(array('required' => false));
+    $this->validatorSchema['accession_counter'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['inherit_code_informationobject'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['sort_treeview_informationobject'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['sort_browser_user'] = new sfValidatorString(array('required' => false));

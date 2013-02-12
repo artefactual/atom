@@ -313,7 +313,7 @@ class SettingsListAction extends sfAction
     // Accession counter
     if (null !== $accessionCounter = $thisForm->getValue('accession_counter'))
     {
-      if (intval($accessionCounter) && $accessionCounter > -1)
+      if (ctype_digit($accessionCounter) && $accessionCounter > -1)
       {
         $setting = QubitSetting::getByName('accession_counter');
 
