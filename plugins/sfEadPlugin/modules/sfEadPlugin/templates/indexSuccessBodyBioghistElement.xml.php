@@ -10,6 +10,9 @@
         <?php echo $ead->renderEadDateFromEvent('creation', $date) ?>
         <eventgrp>
           <event>
+            <?php if ($value = $date->getDescription(array('cultureFallback' => true))): ?>
+            <note type="eventNote"><p><?php echo esc_specialchars($value) ?></p></note>
+            <?php endif; ?>
             <?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
             <note><p><?php echo esc_specialchars($value) ?></p></note>
             <?php endif; ?>
