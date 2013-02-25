@@ -15,6 +15,52 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// TODO http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic,700,700italic: { position: last }
+
+@font-face {
+  font-family: 'Droid Serif Regular';
+  src: url('../vendor/fonts/droid-serif/DroidSerif-Regular-webfont.eot');
+  src: url('../vendor/fonts/droid-serif/DroidSerif-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../vendor/fonts/droid-serif/DroidSerif-Regular-webfont.woff') format('woff'),
+    url('../vendor/fonts/droid-serif/DroidSerif-Regular-webfont.ttf') format('truetype'),
+    url('../vendor/fonts/droid-serif/DroidSerif-Regular-webfont.svg#DroidSerifRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Droid Serif Italic';
+  src: url('../vendor/fonts/droid-serif/DroidSerif-Italic-webfont.eot');
+  src: url('../vendor/fonts/droid-serif/DroidSerif-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../vendor/fonts/droid-serif/DroidSerif-Italic-webfont.woff') format('woff'),
+    url('../vendor/fonts/droid-serif/DroidSerif-Italic-webfont.ttf') format('truetype'),
+    url('../vendor/fonts/droid-serif/DroidSerif-Italic-webfont.svg#DroidSerifItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Droid Serif Bold';
+  src: url('../vendor/fonts/droid-serif/DroidSerif-Bold-webfont.eot');
+  src: url('../vendor/fonts/droid-serif/DroidSerif-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../vendor/fonts/droid-serif/DroidSerif-Bold-webfont.woff') format('woff'),
+    url('../vendor/fonts/droid-serif/DroidSerif-Bold-webfont.ttf') format('truetype'),
+    url('../vendor/fonts/droid-serif/DroidSerif-Bold-webfont.svg#DroidSerifBold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Droid Serif Bold Italic';
+  src: url('../vendor/fonts/droid-serif/DroidSerif-BoldItalic-webfont.eot');
+  src: url('../vendor/fonts/droid-serif/DroidSerif-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../vendor/fonts/droid-serif/DroidSerif-BoldItalic-webfont.woff') format('woff'),
+    url('../vendor/fonts/droid-serif/DroidSerif-BoldItalic-webfont.ttf') format('truetype'),
+    url('../vendor/fonts/droid-serif/DroidSerif-BoldItalic-webfont.svg#DroidSerifBoldItalic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /*
  * Load Twitter Bootstrap v2.2.2
  * -----------------------------------------------------------------------------
@@ -24,20 +70,23 @@
  */
 @import "../../../vendor/bootstrap/less/reset.less";
 @import "less/variables.less";
-@import "../../arDominionPlugin/css/less/bootstrap-loader";
+@import "../../arDominionPlugin/css/less/loader-bootstrap";
+@import "../../arDominionPlugin/css/less/loader-yui";
 
 // Load arDominionPlugin files
 @import "../../arDominionPlugin/css/less/mixins.less";
 @import "../../arDominionPlugin/css/less/scaffolding.less";
+@import "../../arDominionPlugin/css/less/type.less";
 @import "../../arDominionPlugin/css/less/pager.less";
 @import "../../arDominionPlugin/css/less/search.less";
-// @import "../../arDominionPlugin/css/less/header.less";
+@import "../../arDominionPlugin/css/less/header.less";
 @import "../../arDominionPlugin/css/less/treeview.less";
 @import "../../arDominionPlugin/css/less/popovers.less";
 @import "../../arDominionPlugin/css/less/description.less";
 @import "../../arDominionPlugin/css/less/import.less";
 @import "../../arDominionPlugin/css/less/forms.less";
 @import "../../arDominionPlugin/css/less/buttons.less";
+@import "../../arDominionPlugin/css/less/legacy.less";
 
 // Customizations
 @import "less/main.less";

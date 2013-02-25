@@ -15,10 +15,6 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * Like /vendor/bootstrap/less/variables.less plus some custom values
- */
-
 //
 // Variables
 // --------------------------------------------------
@@ -36,8 +32,8 @@
 @gray:                  #555;
 @grayLight:             #999;
 @grayLighter:           #eee;
+@graySilver:            #f8f8f8;
 @white:                 #fff;
-
 
 // Accent colors
 // -------------------------
@@ -46,14 +42,14 @@
 @green:                 #46a546;
 @red:                   #9d261d;
 @yellow:                #ffc40d;
-@orange:                #f89406;
+@orange:                #ff8800;
 @pink:                  #c3325f;
 @purple:                #7a43b6;
 
 
 // Scaffolding
 // -------------------------
-@bodyBackground:        @white;
+@bodyBackground:        @graySilver;
 @textColor:             @grayDark;
 
 
@@ -65,16 +61,15 @@
 
 // Typography
 // -------------------------
+
 @sansFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif;
-@serifFontFamily:       Georgia, "Times New Roman", Times, serif;
+@serifFontFamily:       "Droid Sans Serif", Georgia, "Times New Roman", Times, serif;
 @monoFontFamily:        Monaco, Menlo, Consolas, "Courier New", monospace;
 
-@baseFontSize:          14px;
-@baseFontFamily:        @sansFontFamily;
+@baseFontSize:          13px;
+@baseFontFamily:        @serifFontFamily;
 @baseLineHeight:        20px;
-@altFontFamily:         @serifFontFamily;
-
-@smallFontFamily:       @sansFontFamily;
+@altFontFamily:         @sansFontFamily;
 
 @headingsFontFamily:    inherit; // empty to use BS default, @baseFontFamily
 @headingsFontWeight:    bold;    // instead of browser default, bold
