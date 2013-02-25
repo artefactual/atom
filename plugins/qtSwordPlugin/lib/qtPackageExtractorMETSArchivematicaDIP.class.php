@@ -161,13 +161,19 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     // AIP UUID
     $aipUUID = $this->getUUID($this->filename);
 
+    $publicationStatus = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
+
+    $this->createParent = TRUE;
     // Main object
     if ($this->createParent && null != ($dmdSec = $this->getMainDmdSec()))
     {
-      $this->resource = $this->processDmdSec($dmdSec, $this->resource);
+      $parent = new QubitInformationObject;
+      $parent = $this->processDmdSec($dmdSec, $parent);
+
+      $this->resource->informationObjectsRelatedByparentId[] = $parent;
     }
 
-    $publicationStatus = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
+    $mapping = $this->getStructMapFileToDmdSecMapping();
 
     foreach ($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects') as $item)
     {
@@ -185,7 +191,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $child->title = substr($filename, 37);
 
       // Process metatadata from METS file
-      if (null !== ($dmdSec = $this->searchFileDmdSec($objectUUID)))
+      if (null !== ($dmdSec = $this->searchFileDmdSec($objectUUID, $mapping)))
       {
         $child = $this->processDmdSec($dmdSec, $child);
       }
@@ -200,7 +206,12 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $digitalObject->usageId = QubitTerm::MASTER_ID;
       $child->digitalObjects[] = $digitalObject;
 
-      $this->resource->informationObjectsRelatedByparentId[] = $child;
+      if (isset($parent))
+      {
+        $parent->informationObjectsRelatedByparentId[] = $child;
+      } else {
+        $this->resource->informationObjectsRelatedByparentId[] = $child;
+      }
     }
 
     $this->resource->save();
@@ -208,20 +219,46 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     parent::process();
   }
 
+  protected function getStructMapFileToDmdSecMapping()
+  {
+    $mapping = array();
+
+    $items = $this->document->xpath('//m:structMap[@LABEL="Hierarchical arrangement"]/m:div/m:div');
+
+    foreach($items as $item)
+    {
+      $attributes = $item->attributes();
+      $dmdId = (string)$attributes['DMDID'];
+
+      if ($dmdId)
+      {
+        $fptrAttributes = $item->fptr->attributes();
+        $fileId = (string)$fptrAttributes['FILEID'];
+
+        if ($fileId)
+        {
+          $mapping[$fileId] = $dmdId;
+        }
+      }
+    }
+
+    return $mapping;
+  }
+
   protected function getMainDmdSec()
   {
-    $items = $this->document->xpath('//m:mets/m:structMap/m:div/m:div');
+    $items = $this->document->xpath('//m:structMap[@LABEL="Hierarchical arrangement"]/m:div');
 
     $id = $items[0]['DMDID'];
 
-    $dmdSec = $this->document->xpath('//m:mets/m:dmdSec[@ID="'.$id.'"]');
+    $dmdSec = $this->document->xpath('//m:dmdSec[@ID="'.$id.'"]');
     if (0 < count($dmdSec))
     {
       return $dmdSec[0];
     }
   }
 
-  protected function searchFileDmdSec($uuid)
+  protected function searchFileDmdSec($uuid, $mapping)
   {
     $node = $this->document->xpath('//m:mets/m:fileSec/m:fileGrp[@USE="original"]');
 
@@ -234,10 +271,17 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     {
       if (false !== strstr($item['ID'], $uuid))
       {
-        $dmdSec = $this->document->xpath('//m:mets/m:dmdSec[@ID="'.$item['DMDID'].'"]');
-        if (0 < count($dmdSec))
+        $id = (string)$item['ID'];
+
+        if (isset($mapping[$id]))
         {
-          return $dmdSec[0];
+          $dmdId = $mapping[$id];
+
+          $dmdSec = $this->document->xpath('//m:mets/m:dmdSec[@ID="'.$dmdId.'"]');
+          if (0 < count($dmdSec))
+          {
+            return $dmdSec[0];
+          }
         }
       }
     }
