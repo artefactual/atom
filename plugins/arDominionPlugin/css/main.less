@@ -38,7 +38,7 @@
 }
 
 /*
- * Load Twitter Bootstrap v2.2.2
+ * Load Twitter Bootstrap
  * -----------------------------------------------------------------------------
  * I can't just load their bootstrap.less and responsive.less files because
  * there are some limitations: 1) less @variables can't be overriden, 2) for
@@ -46,15 +46,8 @@
  */
 @import "../../../vendor/bootstrap/less/reset.less";
 @import "less/variables.less";
-@import "less/bootstrap-loader.less";
-
-// Load YUI
-@import "../../../vendor/yui/container/assets/skins/sam/container.css";
-@import "../../../vendor/yui/tabview/assets/skins/sam/tabview.css";
-@import "../../../vendor/yui/calendar/assets/skins/sam/calendar.css";
-@import "../../../vendor/yui/button/assets/skins/sam/button.css";
-@import "../../../vendor/yui/menu/assets/skins/sam/menu.css";
-// @import "../../../vendor/yui/autocomplete/assets/skins/sam/autocomplete.css"; (merged into less/forms.less)
+@import "less/loader-bootstrap.less";
+@import "less/loader-yui.less";
 
 // Include files
 @import "less/mixins.less";
