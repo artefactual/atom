@@ -18,7 +18,7 @@ mapping:
   #
 
   contact_information:
-    _attributes: { i18n: true, timestamp: true, nested_only: true }
+    _attributes: { i18n: true, i18nExtra: actor, timestamp: true, nested_only: true }
     dynamic: strict
     properties:
       contact_person: { type: string, index: no }
