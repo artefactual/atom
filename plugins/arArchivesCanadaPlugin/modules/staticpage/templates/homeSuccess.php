@@ -26,16 +26,12 @@
   <div class="span4" id="popular">
     <h3>Popular <br/><span>this week</span></h3>
     <ol>
-      <?php foreach (array(
-        "Playwrights' Workshop Montreal fonds" => 'playwrights-workshop-montreal-fonds',
-        "Kantokoski (Koski), Koivula & Korpela Family" => 'kantokoski-koski-koivula-korpela-family-3',
-        "Caledon Mountain Trout Club fonds" => 'caledon-mountain-trout-club-fonds',
-        "Toronto Psychiatric Hospital/Clarke Institute of Psychiatry fonds" => 'toronto-psychiatric-hospital-clarke-institute-of-psychiatry-fonds',
-        "Ann Eva Chisholm (nee Kantokoski/Koski)" => 'ann-eva-chisholm-nee-kantokoski-koski-2',
-        "Soroptimist Club of the Sudbury Nickel District" => 'soroptimist-club-of-sudbury-nickel-district-3',
-        "St. James' Church (Anglican), Carp, Ontario fonds" => 'st-james-church-anglican-carp-ontario-fonds',
-        "Kantokoski (Koski), Koivula & Korpela Family" => 'church-records-from-finnish-congregation') as $title => $slug): ?>
-        <li><?php echo link_to($title, url_for(array('module' => 'informationobject', 'slug' => $slug))) ?></li>
+      <?php foreach ($popularLastWeek as $item): ?>
+        <?php $object = QubitObject::getById($item[0]); ?>
+        <li>
+          <?php echo link_to(render_title($object), url_for(array($object))) ?>
+          <strong><?php echo __('%1% visits', array('%1%' => $item[1])) ?></strong>
+        </li>
       <?php endforeach; ?>
     </ol>
   </div>
