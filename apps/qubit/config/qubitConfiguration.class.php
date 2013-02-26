@@ -32,6 +32,8 @@ class qubitConfiguration extends sfApplicationConfiguration
   public function configure()
   {
     $this->dispatcher->connect('response.filter_content', array($this, 'responseFilterContent'));
+
+    $this->dispatcher->connect('access_log.view', array('QubitAccessLogObserver', 'view'));
   }
 
   /**
