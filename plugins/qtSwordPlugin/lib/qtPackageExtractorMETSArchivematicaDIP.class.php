@@ -176,6 +176,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     {
       $parent = new QubitInformationObject;
       $parent = $this->processDmdSec($dmdSec, $parent);
+      $parent->setLevelOfDescriptionByName('file');
 
       $this->resource->informationObjectsRelatedByparentId[] = $parent;
     }
@@ -193,6 +194,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       // Create child
       $child = new QubitInformationObject;
       $child->setPublicationStatus($publicationStatus);
+      $child->setLevelOfDescriptionByName('item');
 
       // Get title from filename, remove UUID (36 + hyphen)
       $child->title = substr($filename, 37);
