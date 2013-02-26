@@ -35,6 +35,8 @@ class ActorIndexAction extends sfAction
       QubitAcl::forwardUnauthorized();
     }
 
+    $this->dispatcher->notify(new sfEvent($this, 'access_log.view', array('object' => $this->resource)));
+
     $criteria = new Criteria;
     $criteria->add(QubitRelation::OBJECT_ID, $this->resource->id);
     $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitFunction::ID);

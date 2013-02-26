@@ -23,6 +23,8 @@ class RepositoryIndexAction extends sfAction
   {
     $this->resource = $this->getRoute()->resource;
 
+    $this->dispatcher->notify(new sfEvent($this, 'access_log.view', array('object' => $this->resource)));
+
     // Per-institution stylesheet
     if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$this->resource->slug.'/conf/style.css'))
     {

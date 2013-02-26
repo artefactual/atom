@@ -22,5 +22,7 @@ class FunctionIndexAction extends sfAction
   public function execute($request)
   {
     $this->resource = $this->getRoute()->resource;
+
+    $this->dispatcher->notify(new sfEvent($this, 'access_log.view', array('object' => $this->resource)));
   }
 }
