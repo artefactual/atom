@@ -4,6 +4,26 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
 #-----------------------------------------------------------------------------
+#-- access_log
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `access_log`;
+
+
+CREATE TABLE `access_log`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`object_id` INTEGER  NOT NULL,
+	`access_date` DATETIME,
+	PRIMARY KEY (`id`),
+	KEY `1`(`access_date`, `object_id`),
+	INDEX `access_log_FI_1` (`object_id`),
+	CONSTRAINT `access_log_FK_1`
+		FOREIGN KEY (`object_id`)
+		REFERENCES `object` (`id`)
+)Engine=InnoDB;
+
+#-----------------------------------------------------------------------------
 #-- actor
 #-----------------------------------------------------------------------------
 

@@ -1,5 +1,12 @@
 propel:
 
+  access_log:
+    id: { type: integer, primaryKey: true, autoIncrement: true, inheritanceKey: false }
+    object_id: { type: integer, required: true, foreignTable: object, foreignReference: id }
+    access_date: { type: timestamp }
+    _indexes:
+      1: [access_date, object_id]
+
   actor:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     corporate_body_identifiers: varchar(1024)
