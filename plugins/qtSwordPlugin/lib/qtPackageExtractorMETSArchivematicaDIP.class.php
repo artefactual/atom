@@ -1,9 +1,5 @@
 <?php
 
-function mikelog(text) {
-  file_put_contents($text ."\n", FILE_APPEND);
-}
-
 /*
  * This file is part of the Access to Memory (AtoM) software.
  *
