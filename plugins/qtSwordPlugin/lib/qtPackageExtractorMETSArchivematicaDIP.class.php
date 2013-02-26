@@ -78,6 +78,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           break;
 
         case 'date':
+          $value = str_replace('T', ' ', $value);
           $informationObject->setDates($value);
 
           break;
