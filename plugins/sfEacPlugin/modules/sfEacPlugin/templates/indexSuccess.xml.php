@@ -139,7 +139,7 @@
 
       <generalContext><?php echo $eac->generalContext ?></generalContext>
 
-      <biogHist><?php echo $eac->biogHist ?></biogHist>
+      <biogHist id="<?php echo url_for(array($resource, 'module' => 'actor'), true) ?>"><?php echo $eac->biogHist ?></biogHist>
 
     </description>
 
