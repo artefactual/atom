@@ -1,5 +1,9 @@
 <?php
 
+function mikelog(text) {
+  file_put_contents($text ."\n", FILE_APPEND);
+}
+
 /*
  * This file is part of the Access to Memory (AtoM) software.
  *
@@ -44,6 +48,11 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
         case 'creator':
           $informationObject->setActorByName($value, array('event_type_id' => QubitTerm::CREATION_ID));
+
+          break;
+
+        case 'provenance':
+          $informationObject->acquisition = $value;
 
           break;
 
@@ -93,6 +102,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
           break;
 
+        case 'extent':
         case 'format':
           $informationObject->extentAndMedium = $value;
 
