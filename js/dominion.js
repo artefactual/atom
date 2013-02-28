@@ -31,7 +31,7 @@
 
       // TODO: focus() doesn't work
       $('#user-menu').on('click.dropdown.data-api', function(e)
-        { 
+        {
           var $menu = $(e.target).parent();
           if (!$menu.hasClass('open'))
           {
@@ -82,7 +82,7 @@
    ****
    ****/
 
-  $(function ()
+  $(document).ready(function()
     {
       var $container = $('.masonry');
       $container.imagesLoaded(function() {
