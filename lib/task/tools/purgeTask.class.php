@@ -66,10 +66,8 @@ EOF;
     $insertSql = new sfPropelInsertSqlTask($this->dispatcher, $this->formatter);
     $insertSql->setCommandApplication($this->commandApplication);
     $insertSql->setConfiguration($this->configuration);
-    if ($insertSql->run())
-    {
-      return;
-    }
+
+    $insertSql->run();
 
     if ($options['use-gitconfig'])
     {
