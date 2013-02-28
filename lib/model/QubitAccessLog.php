@@ -28,16 +28,19 @@ class QubitAccessLog extends BaseAccessLog
 
     if (isset($options['limit']))
     {
-      $sql .= ' LIMIT 0,?';
-      $parameters = array($options['limit']);
+      $sql .= ' LIMIT :skip, :max';
     }
-    else
+
+    $stmt = QubitPdo::prepare($sql);
+
+    if (isset($options['limit']))
     {
-      $parameters = array();
+      $stmt->bindValue(':skip', 0, PDO::PARAM_INT);
+      $stmt->bindValue(':max', (int) $options['limit'], PDO::PARAM_INT);
     }
 
-    $statement = QubitPdo::prepareAndExecute($sql, $parameters);
+    $stmt->execute();
 
-    return $statement->fetchAll();
+    return $stmt->fetchAll();
   }
 }

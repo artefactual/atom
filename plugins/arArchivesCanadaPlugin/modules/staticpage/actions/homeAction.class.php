@@ -23,6 +23,6 @@ class StaticPageHomeAction extends StaticPageIndexAction
   {
     parent::execute($request);
 
-    $this->popularLastWeek = QubitAccessLog::getPopularLastWeek();
+    $this->popularLastWeek = QubitAccessLog::getPopularLastWeek(array('limit' => 10));
   }
 }
