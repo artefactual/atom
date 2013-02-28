@@ -166,7 +166,7 @@ class QubitFlatfileImport
    *
    * @return string  date in YYYY-MM-DD format
    */
-  public function parseDate($dateText)
+  public static function parseDate($dateText)
   {
     $dateText = trim($dateText);
     if (is_numeric($dateText))
