@@ -68,6 +68,19 @@ class QubitXmlImport
 
       $this->rootObject->save();
 
+      if (isset($eac->itemsSubjectOf))
+      {
+        foreach ($eac->itemsSubjectOf as $item)
+        {
+          $relation = new QubitRelation;
+          $relation->object = $this->rootObject;
+          $relation->typeId = QubitTerm::NAME_ACCESS_POINT_ID;
+
+          $item->relationsRelatedBysubjectId[] = $relation;
+          $item->save();
+        }
+      }
+
       return $this;
     }
 
@@ -258,9 +271,9 @@ class QubitXmlImport
 
         // set the rootObject to use for initial display in successful import
         if (!$this->rootObject)
-        {   
+        {
           $this->rootObject = $currentObject;
-        }   
+        }
 
         // use DOM to populate object
         $this->populateObject($domNode, $importDOM, $mapping, $currentObject);
@@ -463,7 +476,7 @@ class QubitXmlImport
               $physDescNoteTypeId                  = array_search('Physical description', $termData['radNoteTypes']);
               $editionNoteTypeId                   = array_search('Edition', $termData['radNoteTypes']);
               $conservationNoteTypeId              = array_search('Conservation', $termData['radNoteTypes']);
-              
+
               $pubSeriesNoteTypeId                 = array_search("Publisher's series", $termData['radNoteTypes']);
               $rightsNoteTypeId                    = array_search("Rights", $termData['radNoteTypes']);
               $materialNoteTypeId                  = array_search("Accompanying material", $termData['radNoteTypes']);

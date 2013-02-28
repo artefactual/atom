@@ -149,16 +149,22 @@
         <cpfRelation cpfRelationType="<?php echo sfEacPlugin::toCpfRelationType($item->type->id) ?>" xlink:href="<?php echo url_for(array($item->getOpposedObject($resource), 'module' => 'actor'), true) ?>" xlink:type="simple">
           <relationEntry><?php echo render_title($item->getOpposedObject($resource)) ?></relationEntry>
           <?php echo sfEacPlugin::renderDates($item) ?>
-          <?php if (isset($item->description)): ?>
+          <?php if (0 < count($date = $item->getNotesByType(array('noteTypeId' => QubitTerm::RELATION_NOTE_DATE_ID)))): ?>
             <descriptiveNote>
-              <?php echo render_value('<p>'.$item->description).'</p>' ?>
+              <?php echo render_value('<p>'.$date[0]).'</p>' ?>
             </descriptiveNote>
           <?php endif; ?>
         </cpfRelation>
       <?php endforeach; ?>
 
+      <?php foreach ($eac->subjectOf as $item): ?>
+        <resourceRelation resourceRelationType="subjectOf" xlink:href="<?php echo url_for(array($item->subject, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
+          <relationEntry><?php echo render_title($item->subject) ?></relationEntry>
+        </resourceRelation>
+      <?php endforeach; ?>
+
       <?php foreach ($eac->resourceRelation as $item): ?>
-        <resourceRelation resourceRelationType="<?php echo sfEacPlugin::toResourceRelationType($item->type->id) ?>" xlink:href="<?php echo url_for(array($item->informationObject, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
+        <resourceRelation <?php echo sfEacPlugin::toResourceRelationTypeAndXlinkRole($item->type) ?> xlink:href="<?php echo url_for(array($item->informationObject, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
           <relationEntry><?php echo render_title($item->informationObject) ?></relationEntry>
           <?php echo sfEacPlugin::renderDates($item) ?>
           <?php if (isset($item->date)): ?>

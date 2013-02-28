@@ -327,6 +327,13 @@ return;
       case 'structureOrGenealogy':
 
         return self::toDiscursiveSet($this->resource->internalStructures);
+
+      case 'subjectOf':
+        $criteria = new Criteria;
+        $criteria->add(QubitRelation::OBJECT_ID, $this->resource->id);
+        $criteria->add(QubitRelation::TYPE_ID, QubitTerm::NAME_ACCESS_POINT_ID);
+
+        return QubitRelation::get($criteria);
     }
   }
 
@@ -416,6 +423,11 @@ return;
 
       case 'structureOrGenealogy':
         $this->resource->internalStructures = self::fromDiscursiveSet($value);
+
+        return $this;
+
+      default:
+        $this->$name = $value;
 
         return $this;
     }
@@ -603,6 +615,7 @@ return;
       $this->resource->relationsRelatedBysubjectId[] = $relation;
     }
 
+    $this->itemsSubjectOf = array();
     // TODO @lastDateTimeVerified, <date/>, <dateRange/>, <dateSet/>,
     // <descriptiveNote/>, <placeEntry/>
     foreach ($fd->find('eac:cpfDescription/eac:relations/eac:resourceRelation') as $node)
@@ -625,28 +638,35 @@ return;
         $item->save();
       }
 
-      $event = new QubitEvent;
-      $event->informationObject = $item;
-      $event->typeId = self::fromResourceRelationType($node->getAttribute('resourceRelationType'));
-
-      if (0 < count($date = self::parseDates($node)))
+      if($node->getAttribute('resourceRelationType') == "subjectOf")
       {
-        $event->startDate = $date[0][0];
-        $event->endDate = $date[count($date) - 1][1];
+         $this->itemsSubjectOf[] = $item;
       }
-
-      // Multiple, non-contiguous dates
-      if (1 < count($date))
+      else
       {
-        foreach ($date as $key => $value)
+        $event = new QubitEvent;
+        $event->informationObject = $item;
+        $event->typeId = self::fromResourceRelationType($node->getAttribute('resourceRelationType'), $node->getAttribute('xlink:role'));
+
+        if (0 < count($date = self::parseDates($node)))
         {
-          $date[$key] = Qubit::renderDate($value[0]).' - '.Qubit::renderDate($value[1]);
+          $event->startDate = $date[0][0];
+          $event->endDate = $date[count($date) - 1][1];
         }
 
-        $event->date = implode(', ', $date);
-      }
+        // Multiple, non-contiguous dates
+        if (1 < count($date))
+        {
+          foreach ($date as $key => $value)
+          {
+            $date[$key] = Qubit::renderDate($value[0]).' - '.Qubit::renderDate($value[1]);
+          }
 
-      $this->resource->events[] = $event;
+          $event->date = implode(', ', $date);
+        }
+
+        $this->resource->events[] = $event;
+      }
     }
 
     // TODO <date/>, <dateRange/>, <dateSet/>, <descriptiveNote/>,
@@ -789,28 +809,67 @@ return;
     return $value;
   }
 
-  public static function fromResourceRelationType($value)
+  public function fromResourceRelationType($resourceRelationType, $xlinkRole)
   {
-    switch ($value)
+    switch ($resourceRelationType)
     {
       case 'creatorOf':
 
         return QubitTerm::CREATION_ID;
 
       case 'other':
+
+        if (!isset($this->eventTypes))
+        {
+          $this->eventTypes = QubitTaxonomy::getTermsById(QubitTaxonomy::EVENT_TYPE_ID);
+        }
+
+        if (strlen($xlinkRole) > 0)
+        {
+          foreach ($this->eventTypes as $item)
+          {
+            if($item->__toString() == $xlinkRole)
+            {
+              return $item->id;
+            }
+          }
+
+          $term = new QubitTerm;
+          $term->taxonomyId = QubitTaxonomy::EVENT_TYPE_ID;
+          $term->parentId = QubitTerm::ROOT_ID;
+          $term->name = $xlinkRole;
+          $term->save();
+
+          return $term->id;
+        }
+        else
+        {
+          $term = new QubitTerm;
+          $term->taxonomyId = QubitTaxonomy::EVENT_TYPE_ID;
+          $term->parentId = QubitTerm::ROOT_ID;
+          $term->name = $resourceRelationType;
+          $term->save();
+
+          return $term->id;
+        }
+
       case 'subjectOf':
 
         return;
     }
   }
 
-  public static function toResourceRelationType($value)
+  public static function toResourceRelationTypeAndXlinkRole($type)
   {
-    switch ($value)
+    switch ($type->id)
     {
       case QubitTerm::CREATION_ID:
 
-        return 'creatorOf';
+        return 'resourceRelationType="creatorOf"';
+
+      default:
+
+        return 'resourceRelationType="other" xlink:role="'.$type.'"';
     }
   }
 
