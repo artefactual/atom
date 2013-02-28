@@ -124,4 +124,18 @@
     <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('issuingJurisdictionAndDenomination')->__toString())): ?>
     <materialspec type='philatelic'><?php echo esc_specialchars($value) ?></materialspec>
     <?php endif; ?>
+    <?php if (0 < count($$resourceVar->digitalObjects)): ?>
+      <?php $digitalObject = $$resourceVar->digitalObjects[0] ?>
+      <daogrp linktype="extended">
+        <daodesc>
+          <p><?php echo $$resourceVar->getTitle(array('cultureFallback' => true)) ?> digital objects</p>
+        </daodesc>
+        <resource linktype="resource" label="start"/>
+        <daoloc href="<?php echo QubitTerm::EXTERNAL_URI_ID == $digitalObject->usageId ? esc_specialchars($digitalObject->path) : esc_specialchars($digitalObject->path . $digitalObject) ?>" linktype="locator" role="<?php echo esc_specialchars($digitalObject->mimeType) ?>" id="<?php echo $digitalObject->id ?>" label="object"/>
+        <daoloc href="<?php echo esc_specialchars($digitalObject->thumbnail->path . $digitalObject->thumbnail) ?>" linktype="locator" role="<?php echo esc_specialchars($digitalObject->thumbnail->mimeType) ?>" id="<?php echo $digitalObject->thumbnail->id ?>" label="thumb"/>
+        <daoloc href="<?php echo esc_specialchars($digitalObject->reference->path . $digitalObject->reference) ?>" linktype="locator" role="<?php echo esc_specialchars($digitalObject->reference->mimeType) ?>" id="<?php echo $digitalObject->reference->id ?>" label="reference"/>
+        <arc linktype="arc" show="embed" actuate="onload" from="start" to="thumb"/>
+        <arc linktype="arc" show="new" actuate="onrequest" from="thumb" to="reference"/>
+      </daogrp>
+    <?php endif; ?>
   </did>
