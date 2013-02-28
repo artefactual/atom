@@ -2,7 +2,7 @@ all:
 
   # See http://www.elasticsearch.org/guide/reference/api/bulk.html
   batch_mode: true
-  batch_size: 500
+  batch_size: 5000
 
   # Elastica API options
   # Full list of available options:
