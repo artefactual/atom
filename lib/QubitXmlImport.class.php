@@ -276,14 +276,14 @@ class QubitXmlImport
         }
 
         // use DOM to populate object
-        $this->populateObject($domNode, $importDOM, $mapping, $currentObject);
+        $this->populateObject($domNode, $importDOM, $mapping, $currentObject, $importSchema);
       }
     }
 
     return $this;
   }
 
-  private function populateObject(&$domNode, &$importDOM, &$mapping, &$currentObject)
+  private function populateObject(&$domNode, &$importDOM, &$mapping, &$currentObject, $importSchema)
   {
     // if a parent path is specified, try to parent the node
     if (empty($mapping['Parent']))
@@ -320,7 +320,7 @@ class QubitXmlImport
     }
 
     // go through methods and populate properties
-    $this->processMethods($domNode, $importDOM, $mapping['Methods'], $currentObject);
+    $this->processMethods($domNode, $importDOM, $mapping['Methods'], $currentObject, $importSchema);
 
     // make sure we have a publication status set before indexing
     if ($currentObject instanceof QubitInformationObject && count($currentObject->statuss) == 0)
@@ -340,7 +340,7 @@ class QubitXmlImport
    *
    * @return  null
    */
-  private function processMethods(&$domNode, &$importDOM, $methods, &$currentObject)
+  private function processMethods(&$domNode, &$importDOM, $methods, &$currentObject, $importSchema)
   {
     // go through methods and populate properties
     foreach ($methods as $name => $methodMap)
@@ -352,8 +352,17 @@ class QubitXmlImport
         continue;
       }
 
-      // get a list of XML nodes to process
-      $nodeList2 = $importDOM->xpath->query($methodMap['XPath'], $domNode);
+      // Get a list of XML nodes to process
+      // This condition mitigates a problem where the XPath query wasn't working
+      // as expected, see #4302 for more details
+      if ($importSchema == "dc" && $methodMap['XPath'] != ".")
+      {
+        $nodeList2 = $importDOM->getElementsByTagName($methodMap['XPath']);
+      }
+      else
+      {
+        $nodeList2 = $importDOM->xpath->query($methodMap['XPath'], $domNode);
+      }
 
       if (is_object($nodeList2))
       {
@@ -361,6 +370,7 @@ class QubitXmlImport
         {
           // hack: some multi-value elements (e.g. 'languages') need to get passed as one array instead of individual nodes values
           case 'languages':
+          case 'language':
             $langCodeConvertor = new fbISO639_Map;
             $value = array();
             foreach ($nodeList2 as $nodeee)
