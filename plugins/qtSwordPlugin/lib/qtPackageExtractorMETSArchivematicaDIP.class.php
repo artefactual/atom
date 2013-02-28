@@ -21,6 +21,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 {
   protected function processDmdSec($xml, $informationObject)
   {
+    $creation = array();
+
     $xml->registerXPathNamespace("m", "http://www.loc.gov/METS/");
 
     $dublincore = $xml->xpath('.//m:mdWrap/m:xmlData/*');
@@ -43,8 +45,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           break;
 
         case 'creator':
-          $informationObject->setActorByName($value, array('event_type_id' => QubitTerm::CREATION_ID));
-
+          $creation['actorName'] = $value;
           break;
 
         case 'provenance':
@@ -78,8 +79,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           break;
 
         case 'date':
-          $value = str_replace('T', ' ', $value);
-          $informationObject->setDates($value);
+          $creation['date'] = $value;
 
           break;
 
@@ -133,7 +133,55 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       }
     }
 
-    return $informationObject;
+    return array($informationObject, $creation);
+  }
+
+  protected function addCreationEvent($informationObject, $options)
+  {
+    $event = new QubitEvent;
+    $event->informationObjectId = $informationObject->id;
+    $event->typeId = QubitTerm::CREATION_ID;
+
+    if ($options['actorName'])
+    {
+      $actor = QubitFlatfileImport::createOrFetchActor($options['actorName']);
+      $event->actorId = $actor->id;
+    }
+
+    if ($options['date'])
+    {
+      $date = $options['date'];
+
+      // normalize expression of date range
+      $date = str_replace(' - ', '/', $date);
+
+      if (substr_count($date, '/'))
+      {
+        // date is a range
+        $dates = explode('/', $date);
+
+        // if date is a range, set start/end dates
+        if (count($dates) == 2)
+        {
+          $parsedDates = array();
+
+          // parse each component date
+          foreach($dates as $dateItem)
+          {
+            array_push($parsedDates, QubitFlatfileImport::parseDate($dateItem));
+          }
+
+          $event->startDate = $parsedDates[0];
+          $event->endDate   = $parsedDates[1];
+        }
+        $event->date = $date;
+      } else {
+        // date isn't a range
+        $event->date = QubitFlatfileImport::parseDate($date);
+      }
+    }
+
+    $event->save();
   }
 
   protected function process()
@@ -175,10 +223,15 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     if ($this->createParent && null != ($dmdSec = $this->getMainDmdSec()))
     {
       $parent = new QubitInformationObject;
-      $parent = $this->processDmdSec($dmdSec, $parent);
+      list($parent, $creation) = $this->processDmdSec($dmdSec, $parent);
       $parent->setLevelOfDescriptionByName('file');
 
       $this->resource->informationObjectsRelatedByparentId[] = $parent;
+      $parent->save();
+
+      if (count($creation)) {
+        $this->addCreationEvent($parent, $creation);
+      }
     }
 
     $mapping = $this->getStructMapFileToDmdSecMapping();
@@ -202,7 +255,13 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       // Process metatadata from METS file
       if (null !== ($dmdSec = $this->searchFileDmdSec($objectUUID, $mapping)))
       {
-        $child = $this->processDmdSec($dmdSec, $child);
+        list($child, $creation) = $this->processDmdSec($dmdSec, $child);
+        $child->save();
+
+        if (count($creation))
+        {
+          $this->addCreationEvent($child, $creation);
+        }
       }
 
       // Storage UUIDs
