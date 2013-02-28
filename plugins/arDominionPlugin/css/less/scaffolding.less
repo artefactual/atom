@@ -130,6 +130,7 @@ a:hover {
 }
 
 // jQuery Masonry bricks
+// It's not working well with text, use images
 
 .masonry {
   margin-left: -4px;
@@ -140,75 +141,66 @@ a:hover {
 @brickPadding: 15px;
 
 .brick {
-  .box-sizing(border-box);
-  padding: @brickPadding @brickPadding 0;
-  width: @brickWidth + @brickPadding * 2;
-  margin: 6px;
+
   float: left;
   background-color: @white;
   @shadow: 0 1px 3px rgba(25, 25, 25, 0.4);
   .box-shadow(@shadow);
   font-size: 11px;
-}
 
-.brick .preview {
-  position: relative;
-}
-
-.brick .preview img {
+  .box-sizing(border-box);
   width: @brickWidth;
-}
+  margin: 6px;
 
-.brick .preview h4 {
-  font-family: "Open Sans Regular";
-  font-size: 20px;
-  line-height: 1.4em;
-  text-align: center;
-  margin: 0;
-}
+  .brick-small,
+  .brick-small .preview img {
+    width: @brickSmallWidth + @brickPadding * 2;
+  }
 
-.brick .preview a {
-  color: @grayDark;
-}
+  .preview {
 
-.brick .preview a:hover h4 {
+    padding: 10px 0;
+    position: relative;
+    min-height: 120px;
 
-}
+    img {
+      width: @brickWidth;
+    }
 
-.brick .preview.zoom a {
-  cursor: -moz-zoom-in;
-  cursor: -webkit-zoom-in;
-  cursor: zoom-in;
-}
+    h4 {
+      font-size: 20px;
+      line-height: 1.4em;
+      text-align: center;
+      margin: 0 10px;
+    }
 
-.brick .details {
-  color: #ad9c9c;
-  margin: 17px -15px 0 -15px;
-  padding: 10px 15px;
-  background-color: #f2f0f0;
-  .clearfix;
-}
+  }
 
-.brick .details p {
-  margin: 0;
-}
+  .details {
 
-.brick .details .btn {
-  margin-top: 2px;
-  display: block;
-}
+    color: @grayDarker;
+    background-color: @grayLighter;
 
-.brick .name {
-  color: @grayDarker;
-}
+    p {
+      margin: 0 8px;
+      line-height: 32px;
+      overflow: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-.brick .date {
+    .btn {
+      margin-top: 2px;
+      display: block;
+    }
 
-}
+    .name {
+      color: @grayDarker;
+    }
 
-.brick-small,
-.brick-small .preview img {
-  width: @brickSmallWidth + @brickPadding * 2;
+  }
+
 }
 
 // Table
