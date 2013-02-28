@@ -273,19 +273,20 @@ class sfEacPlugin implements ArrayAccess
         $createdDisplay = format_date($this->resource->createdAt, 'F');
         $updatedDisplay = format_date($this->resource->updatedAt, 'F');
 
+        $isaar = new sfIsaarPlugin($this->resource);
+
+        $revisionHistory = $this->resource->getRevisionHistory(array('cultureFallback' => true));
+        $maintenanceNotes = $isaar->maintenanceNotes;
+
         return <<<return
-<maintenanceEvent>
-  <eventType>created</eventType>
+<maintenanceEvent id="5.4.6">
+  <eventDescription>$revisionHistory</eventDescription>
   <eventDateTime standardDateTime="$createdAt">$createdDisplay</eventDateTime>
-  <agentType>human</agentType>
-  <agent/>
 </maintenanceEvent>
 
-<maintenanceEvent>
-  <eventType>revised</eventType>
+<maintenanceEvent id="5.4.9">
+  <eventDescription>$maintenanceNotes</eventDescription>
   <eventDateTime standardDateTime="$updatedAt">$updatedDisplay</eventDateTime>
-  <agentType>human</agentType>
-  <agent/>
 </maintenanceEvent>
 
 return;
@@ -478,7 +479,9 @@ return;
     // TODO <date/>, <dateRange/>, <term/>
     //$this->resource->descriptionDetail = $fd->find('eac:control/eac:localControl')->text();
 
-    $this->maintenanceHistory = $fd->find('eac:control/eac:maintenanceHistory');
+    $this->resource->revisionHistory = $fd->find('eac:control/eac:maintenanceHistory/eac:maintenanceEvent[@id="5.4.6"]/eac:eventDescription')->text();;
+
+    $this->maintenanceHistory = $fd->find('eac:control/eac:maintenanceHistory/eac:maintenanceEvent[@id="5.4.9"]/eac:eventDescription');
 
     // TODO <descriptiveNote/>, @lastDateTimeVerified
     $this->resource->sources = $fd->find('eac:control/eac:sources/eac:source/eac:sourceEntry')->text();
