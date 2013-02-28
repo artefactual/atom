@@ -78,14 +78,19 @@ class QubitPdo
     return $modifyStmt->rowCount();
   }
 
-  public static function prepareAndExecute($query, $parameters = array())
+  public static function prepare($query)
   {
     if (!isset(self::$conn))
     {
       self::$conn = Propel::getConnection();
     }
 
-    $prepStmt = self::$conn->prepare($query);
+    return self::$conn->prepare($query);
+  }
+
+  public static function prepareAndExecute($query, $parameters = array())
+  {
+    $prepStmt = self::prepare($query);
     $prepStmt->execute($parameters);
 
     return $prepStmt;
