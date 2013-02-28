@@ -1138,7 +1138,11 @@ class QubitFlatfileImport
 
     if ($result)
     {
-      return QubitActor::getById($result->id);
+      $actor = QubitActor::getById($result->id);
+      $allowedProperties = array('history', 'entityTypeId');
+      $this->setPropertiesFromArray($actor, $options, $allowedProperties);
+      $actor->save();
+      return $actor;
     } else {
       return $this->createActor($name, $options);
     }

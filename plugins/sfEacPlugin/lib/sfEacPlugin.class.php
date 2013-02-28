@@ -1,6 +1,20 @@
 <?php
 
 /*
+ * This file is part of the Access to Memory (AtoM) software.
+ *
+ * Access to Memory (AtoM) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Access to Memory (AtoM) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
 class sfEacPlugin implements ArrayAccess
@@ -442,14 +456,14 @@ return;
 
     // TODO <descriptiveNote/>
 
-    foreach ($fd->find('eac:control/eac:languageDeclaration/eac:language/@languageCode') as $node)
+    foreach ($fd->find('eac:control/eac:languageDeclaration/eac:language') as $node)
     {
-      $this->resource->language[] = $node->textContent;
+      $this->resource->language[] = $this->from6392($node->attributes->getNamedItem("languageCode")->textContent);
     }
 
-    foreach ($fd->find('eac:control/eac:languageDeclaration/eac:script/@scriptCode') as $node)
+    foreach ($fd->find('eac:control/eac:languageDeclaration/eac:script') as $node)
     {
-      $this->resource->script[] = $node->textContent;
+      $this->resource->script[] = $this->from6392($node->attributes->getNamedItem("scriptCode")->textContent);
     }
 
     // conventionDeclaration/abbreviation is an identifier, referenced by e.g.
@@ -487,6 +501,14 @@ return;
       $this->resource->otherNames[] = $item;
     }
 
+    foreach ($fd->find('eac:cpfDescription/eac:identity/eac:nameEntryParallel/eac:nameEntry') as $node)
+    {
+      $item = new QubitOtherName;
+      $item->name = $fd->spawn()->add($node)->find('eac:part')->text();
+      $item->typeId = QubitTerm::PARALLEL_FORM_OF_NAME_ID;
+
+      $this->resource->otherNames[] = $item;
+    }
     //$fd->find('eac:cpfDescription/eac:identity/eac:nameEntry/eac:authorizedForm');
     //$fd->find('eac:cpfDescription/eac:identity/eac:nameEntry/eac:alternativeForm');
     //$fd->find('eac:cpfDescription/eac:identity/eac:nameEntry/eac:preferredForm');
@@ -519,7 +541,7 @@ return;
     // <placeEntry/>
     $this->resource->mandates = $fd->find('eac:cpfDescription/eac:description/eac:mandate/eac:term|eac:cpfDescription/eac:description/eac:mandates/eac:mandate/eac:term')->text();
 
-    $this->internalStructures = $fd->find('eac:cpfDescription/eac:description/eac:structureOrGenealogy');
+    $this->structureOrGenealogy = $fd->find('eac:cpfDescription/eac:description/eac:structureOrGenealogy');
 
     $this->generalContext = $fd->find('eac:cpfDescription/eac:description/eac:generalContext');
 
@@ -572,6 +594,8 @@ return;
 
         $relation->notes[] = $note;
       }
+
+      $relation->description = trim($fd->spawn()->add($node)->find('eac:descriptiveNote')->text());
 
       $this->resource->relationsRelatedBysubjectId[] = $relation;
     }

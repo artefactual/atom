@@ -27,6 +27,10 @@ class SearchAdvancedAction extends SearchIndexAction
       'materialType',
       'mediaType',
       'repository'
+      'repository',
+      'searchFields',
+      'startDate',
+      'endDate'
     );
 
   protected function addField($name)

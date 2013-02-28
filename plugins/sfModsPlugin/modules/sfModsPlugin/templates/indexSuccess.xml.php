@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.loc.gov/standards/mods/v3/mods-3-3.xsd">
 
   <titleInfo>
-    <title><?php echo esc_specialchars($resource) ?></title>
+    <title><?php echo esc_specialchars($resource->title) ?></title>
   </titleInfo>
 
   <?php foreach ($mods->name as $item): ?>

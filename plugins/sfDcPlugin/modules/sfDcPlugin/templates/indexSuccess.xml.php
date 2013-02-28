@@ -5,7 +5,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
 
-  <title><?php echo esc_specialchars($resource) ?></title>
+  <title><?php echo esc_specialchars($resource->title) ?></title>
 
   <?php foreach ($resource->getCreators() as $item): ?>
     <creator><?php echo esc_specialchars($item) ?></creator>
