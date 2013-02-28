@@ -1129,7 +1129,7 @@ class QubitFlatfileImport
    *
    * @return QubitActor  created or fetched actor
    */
-  public function createOrFetchActor($name, $options = array())
+  public static function createOrFetchActor($name, $options = array())
   {
     $query = "SELECT id FROM actor_i18n WHERE authorized_form_of_name=?";
 
@@ -1140,11 +1140,11 @@ class QubitFlatfileImport
     {
       $actor = QubitActor::getById($result->id);
       $allowedProperties = array('history', 'entityTypeId');
-      $this->setPropertiesFromArray($actor, $options, $allowedProperties);
+      QubitFlatfileImport::setPropertiesFromArray($actor, $options, $allowedProperties);
       $actor->save();
       return $actor;
     } else {
-      return $this->createActor($name, $options);
+      return QubitFlatfileImport::createActor($name, $options);
     }
   }
 
