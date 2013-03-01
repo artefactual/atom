@@ -178,7 +178,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
         // make ISO 8601 dates easier to read
         $event->date = str_replace('T', ' ', $date);
-        $event->date = str_replace('|', ' - ', $date);
+        $event->date = str_replace('|', ' - ', $event->date);
       } else {
         // date isn't a range
         $event->date = QubitFlatfileImport::parseDate($date);
