@@ -153,12 +153,13 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $date = $options['date'];
 
       // normalize expression of date range
-      $date = str_replace(' - ', '/', $date);
+      $date = str_replace('/', '|', $date);
+      $date = str_replace(' - ', '|', $date);
 
-      if (substr_count($date, '/'))
+      if (substr_count($date, '|'))
       {
         // date is a range
-        $dates = explode('/', $date);
+        $dates = explode('|', $date);
 
         // if date is a range, set start/end dates
         if (count($dates) == 2)
@@ -177,6 +178,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
         // make ISO 8601 dates easier to read
         $event->date = str_replace('T', ' ', $date);
+        $event->date = str_replace('|', ' - ', $date);
       } else {
         // date isn't a range
         $event->date = QubitFlatfileImport::parseDate($date);
