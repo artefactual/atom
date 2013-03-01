@@ -174,10 +174,21 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
           $event->startDate = $parsedDates[0];
           $event->endDate   = $parsedDates[1];
+
+          // if date range is ISO 8601 then make it a normal date range
+          if ($this->validateISO8601Date(trim($dates[0])))
+          {
+            $event->date = $event->startDate .'|'. $event->endDate;
+          }
         }
 
-        // make ISO 8601 dates easier to read
-        $event->date = str_replace('T', ' ', $date);
+        // if date is a single ISO 8601 date then truncate off time
+        if ($this->validateISO8601Date(trim($event->date)))
+        {
+          $event->date = substr(trim($event->date), 0, 10);
+        }
+
+        // make date range indicator friendly
         $event->date = str_replace('|', ' - ', $event->date);
       } else {
         // date isn't a range
@@ -186,6 +197,20 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     }
 
     $event->save();
+  }
+
+  protected function validateISO8601Date($date)
+  {
+    if (preg_match('/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z$/', $date, $parts) == true) { 
+      $time = gmmktime($parts[4], $parts[5], $parts[6], $parts[2], $parts[3], $parts[1]);
+
+      $input_time = strtotime($date);
+      if ($input_time === false) return false;
+
+      return $input_time == $time;
+    } else {
+      return false;
+    }
   }
 
   protected function process()
