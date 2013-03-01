@@ -1,9 +1,9 @@
-apps/qubit/config/settings.yml
-cache/
-config/config.php
-config/databases.yml
-config/propel.ini
-data/index/
-log/
+/apps/qubit/config/settings.yml
+/cache/
+/config/config.php
+/config/databases.yml
+/config/propel.ini
+/data/index/
+/log/
 /sf
-uploads/
+/uploads/
