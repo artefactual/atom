@@ -295,9 +295,17 @@ return;
 
         switch (strtolower($this->resource->descriptionStatus))
         {
+          case 'draft':
+
+            return 'new';
+
           case 'revised':
 
             return 'revised';
+
+          case 'final':
+
+            return 'deleted';
 
           default:
 
@@ -413,7 +421,29 @@ return;
 
       case 'maintenanceStatus':
 
-        // TODO Set $this->resource->descriptionStatus
+        $descriptionStatusMap = array();
+        foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::DESCRIPTION_STATUS_ID) as $item)
+        {
+          $descriptionStatusMap[$item->name] = $item->id;
+        }
+
+        switch ($value)
+        {
+          case 'revised':
+            $this->resource->descriptionStatusId = $descriptionStatusMap['Revised'];
+
+            break;
+
+          case 'deleted':
+            $this->resource->descriptionStatusId = $descriptionStatusMap['Final'];
+
+            break;
+
+          case 'new':
+          default:
+            $this->resource->descriptionStatusId = $descriptionStatusMap['Draft'];
+        }
+
         return $this;
 
       case 'publicationStatus':
@@ -426,8 +456,17 @@ return;
 
         return $this;
 
-      default:
-        $this->$name = $value;
+      case 'descriptionDetail':
+
+        foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID) as $item)
+        {
+          if($item == trim($value))
+          {
+            $this->resource->descriptionDetailId = $item->id;
+
+            break;
+          }
+        }
 
         return $this;
     }
@@ -469,15 +508,19 @@ return;
 
     // TODO <descriptiveNote/>
 
+    $languages = array();
     foreach ($fd->find('eac:control/eac:languageDeclaration/eac:language') as $node)
     {
-      $this->resource->language[] = $this->from6392($node->attributes->getNamedItem("languageCode")->textContent);
+      $languages[] = $this->from6392($node->attributes->getNamedItem("languageCode")->textContent);
     }
+    $this->resource->language = $languages;
 
+    $scripts = array();
     foreach ($fd->find('eac:control/eac:languageDeclaration/eac:script') as $node)
     {
-      $this->resource->script[] = $this->from6392($node->attributes->getNamedItem("scriptCode")->textContent);
+      $scripts[] = $this->from6392($node->attributes->getNamedItem("scriptCode")->textContent);
     }
+    $this->resource->script = $scripts;
 
     // conventionDeclaration/abbreviation is an identifier, referenced by e.g.
     // <authorizedForm/> and <alternativeForm/>
@@ -489,7 +532,7 @@ return;
     //$fd->find('eac:control/eac:localTypeDeclaration');
 
     // TODO <date/>, <dateRange/>, <term/>
-    //$this->resource->descriptionDetail = $fd->find('eac:control/eac:localControl')->text();
+    $this->descriptionDetail = $fd->find('eac:control/eac:localControl[@localType="detailLevel"]/eac:term')->text();
 
     $this->resource->revisionHistory = $fd->find('eac:control/eac:maintenanceHistory/eac:maintenanceEvent[@id="5.4.6"]/eac:eventDescription')->text();;
 
