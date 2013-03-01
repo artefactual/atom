@@ -60,11 +60,6 @@ class sfRadPluginIndexAction extends InformationObjectIndexAction
         'required' => $this->context->i18n->__('Physical description - This is a mandatory element.')));
       $values['extentAndMedium'] = $this->resource->getExtentAndMedium(array('cultureFallback' => true));
 
-      $validatorSchema->scopeAndContent = new sfValidatorString(array(
-        'required' => true), array(
-        'required' => $this->context->i18n->__('Scope and content - This is a mandatory element.')));
-      $values['scopeAndContent'] = $this->resource->getScopeAndContent(array('cultureFallback' => true));
-
       $validatorSchema->title = new sfValidatorString(array(
         'required' => true), array(
         'required' => $this->context->i18n->__('Title - This is a mandatory element.')));
@@ -139,6 +134,19 @@ class sfRadPluginIndexAction extends InformationObjectIndexAction
             break;
           */
 
+          case 'Series':
+          case 'Fonds':
+          case 'Collection':
+          case 'Subseries':
+          case 'Subfonds':
+
+            $validatorSchema->scopeAndContent = new sfValidatorString(array(
+              'required' => true), array(
+              'required' => $this->context->i18n->__('Scope and content - This is a mandatory element.')));
+            $values['scopeAndContent'] = $this->resource->getScopeAndContent(array('cultureFallback' => true));
+
+            break;
+
           case 'Item':
 
             // No publication events?
@@ -157,13 +165,8 @@ class sfRadPluginIndexAction extends InformationObjectIndexAction
             {
               $validatorSchema->edition = new sfValidatorString(array(
                 'required' => true), array(
-                'required' => $this->context->i18n->__('Edition statement - This is a mandatory element for published items.')));
+                'required' => $this->context->i18n->__('Edition statement - This is a mandatory element for published items if there are multiple editions.')));
               $values['edition'] = $this->resource->getEdition(array('cultureFallback' => true));
-
-              $validatorSchema->standardNumber = new sfValidatorString(array(
-                'required' => true), array(
-                'required' => $this->context->i18n->__('Standard number - This is a mandatory element for published items.')));
-              $values['standardNumber'] = $this->resource->getPropertyByName('standardNumber', array('scope' => 'rad'))->getValue(array('cultureFallback' => true));
             }
         }
       }
