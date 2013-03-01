@@ -175,21 +175,26 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           $event->startDate = $parsedDates[0];
           $event->endDate   = $parsedDates[1];
 
-          // if date range is ISO 8601 then make it a normal date range
-          if ($this->validateISO8601Date(trim($dates[0])))
+          // if date range is similar to ISO 8601 then make it a normal date range
+          if ($this->likeISO8601Date(trim($dates[0])))
           {
-            $event->date = $event->startDate .'|'. $event->endDate;
+            if ($event->startDate == $event->endDate)
+            {
+              $date = $event->startDate;
+            } else {
+              $date = $event->startDate .'|'. $event->endDate;
+            }
           }
         }
 
         // if date is a single ISO 8601 date then truncate off time
-        if ($this->validateISO8601Date(trim($event->date)))
+        if ($this->likeISO8601Date(trim($event->date)))
         {
-          $event->date = substr(trim($event->date), 0, 10);
+          $date = substr(trim($event->date), 0, 10);
         }
 
         // make date range indicator friendly
-        $event->date = str_replace('|', ' - ', $event->date);
+        $event->date = str_replace('|', ' - ', $date);
       } else {
         // date isn't a range
         $event->date = QubitFlatfileImport::parseDate($date);
@@ -199,8 +204,10 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     $event->save();
   }
 
-  protected function validateISO8601Date($date)
+  protected function likeISO8601Date($date)
   {
+    $date = substr($date, 0, 19) .'Z';
+
     if (preg_match('/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z$/', $date, $parts) == true) { 
       $time = gmmktime($parts[4], $parts[5], $parts[6], $parts[2], $parts[3], $parts[1]);
 
