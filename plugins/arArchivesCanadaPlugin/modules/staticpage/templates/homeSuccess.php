@@ -1,6 +1,6 @@
-<div id="homepagehero" class="row">
+<div id="homepage-hero" class="row">
 
-  <div class="span8" id="mainnav">
+  <div class="span8" id="homepage-nav">
 
     <p><?php echo __('Browse by') ?></p>
     <ul>
@@ -9,7 +9,6 @@
       <li><?php echo link_to(image_tag('/images/icons-large/icon-subjects.png', array('width' => '42', 'height' => '42')).' '.__('Subjects'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 35)) ?></li>
       <li><?php echo link_to(image_tag('/images/icons-large/icon-people.png', array('width' => '42', 'height' => '42')).' '.__('People &amp; Organizations'), array('module' => 'actor', 'action' => 'browse')) ?></li>
       <li><?php echo link_to(image_tag('/images/icons-large/icon-places.png', array('width' => '42', 'height' => '42')).' '.__('Places'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 42)) ?></li>
-      <li><?php echo link_to(image_tag('/images/icons-large/icon-media.png', array('width' => '42', 'height' => '42')).' '.__('Media'), array('module' => 'digitalobject', 'action' => 'browse')) ?></li>
       <li><?php echo link_to(image_tag('/images/icons-large/icon-new.png', array('width' => '42', 'height' => '42')).' '.__('Newest additions'), array('module' => 'search', 'action' => 'updates')) ?></li>
     </ul>
 
@@ -24,9 +23,9 @@
 
 <div id="homepage" class="row">
 
-  <div class="span4" id="popular">
+  <div class="span4" id="popular-this-week">
     <h3>Popular <br/><span>this week</span></h3>
-    <ol>
+    <ul>
       <?php foreach ($popularLastWeek as $item): ?>
         <?php $object = QubitObject::getById($item[0]); ?>
         <li>
@@ -34,10 +33,10 @@
           <strong><?php echo __('%1% visits', array('%1%' => $item[1])) ?></strong>
         </li>
       <?php endforeach; ?>
-    </ol>
+    </ul>
   </div>
 
-  <div class="span8" id="virtualexhibit">
+  <div class="span8" id="virtual-exhibit">
     <a href="http://scaa.usask.ca/gallery/northern/dommasch/">
       <h3>
         Virtual Exhibits<br />

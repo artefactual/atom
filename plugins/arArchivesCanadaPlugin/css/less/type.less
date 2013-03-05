@@ -15,14 +15,20 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-html {
-  margin-top: 100px;
-}
+h1 { font-size: @baseFontSize * 1.75; }
+h2 { font-size: @baseFontSize * 1.50; }
+h3 { font-size: @baseFontSize * 1.25; }
+h4 { font-size: @baseFontSize * 1.00; }
+h5 { font-size: @baseFontSize; }
+h6 { font-size: @baseFontSize * 0.80; }
 
-html, body {
-  background-image: url(../../images/background.png);
-}
-
-#wrapper {
-  background-image: none;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: @white;
+  font-family: 'Droid Serif Bold';
+  font-weight: normal;
 }

@@ -15,191 +15,195 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#homepagehero {
+#homepage-hero {
+
   background: url(../../images/homepage-bg.jpg) no-repeat @black;
   .background-size(cover);
   height: 420px;
-  padding-top: 80px;
+  padding-top: 40px;
+  padding-bottom: 40px;
   text-shadow: 2px 0 2px rgba(25, 25, 25, .7);
   margin: 0 auto;
+
+  h1,
+  h2,
+  p,
+  li,
+  a {
+    color: @white;
+    line-height: 120%;
+  }
+
+  h2 {
+    font-size: 25px;
+    font-style: oblique;
+    margin-bottom: 5px;
+  }
+
+  p {
+    font-size: 15px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
 }
 
-#homepagehero h1,
-#homepagehero h2,
-#homepagehero p,
-#homepagehero li,
-#homepagehero a {
-  color: @white;
-  line-height: 120%;
-  font-weight: normal;
-}
+#homepage-nav {
 
-#homepagehero h1 {
-  font-size: 25px;
-}
+  p {
+    font-style: oblique;
+    font-size: 25px;
+  }
 
-#homepagehero h2 {
-  font-style: oblique;
-  font-size: 25px;
-  margin-bottom: 5px;
-}
+  ul {
+    .nav();
+  }
 
-#homepagehero p {
-  font-size: 15px;
-  margin-left: 0;
-  margin-right: 0;
-}
+  li {
 
-#homepagehero #mainnav p {
-  font-style: oblique;
-  font-size: 25px;
-}
+    margin: 10px 0;
+    .clearfix();
 
-#homepagehero #mainnav ul {
-  .nav();
-}
+    a {
+      font-size: 20px;
+    }
 
-#homepagehero #mainnav li {
-  margin: 10px 0;
-  .clearfix();
-}
+    img {
+      margin-right: 10px;
+      display: inline;
+      vertical-align: middle;
+    }
 
-#homepagehero #mainnav li a {
-  font-size: 20px;
-}
+  }
 
-#homepagehero #mainnav li a img {
-  margin-right: 10px;
-  display: inline;
-  vertical-align: middle;
 }
 
 #homepage {
+
   margin-top: 30px;
-}
 
-#homepage * {
-  .box-sizing(border-box);
-}
+  * {
+    .box-sizing(border-box);
+  }
 
-#homepage h3 {
-  color: @white;
-  line-height: 110%;
-  margin-bottom: 10px;
-}
+  h3 {
+    color: @white;
+    line-height: 110%;
+    margin-bottom: 10px;
+  }
 
-#homepage h3 span {
-  font-style: oblique;
-}
+  h3 span {
+    font-style: oblique;
+  }
 
-#homepage p,
-#homepage li {
-  margin-bottom: 5px;
-  margin-right: 10px;
+  p,
+  li {
+    margin-bottom: 5px;
+    margin-right: 10px;
+  }
+
 }
 
 // Virtual exhibits
 
-#homepage #virtualexhibit {
+#virtual-exhibit {
+
   position: relative;
-}
 
-#homepage #virtualexhibit div {
-  background-image: url(http://scaa.usask.ca/gallery/northern/dommasch/images/600px/hans60_017.jpg);
-  background-repeat: no-repeat;
-  background-position: 0 80%;
-  background-size: cover;
-  width: 100%;
-  display: block;
-  height: 280px;
-}
+  div {
+    background-image: url(http://scaa.usask.ca/gallery/northern/dommasch/images/600px/hans60_017.jpg);
+    background-repeat: no-repeat;
+    background-position: 0 80%;
+    background-size: cover;
+    width: 100%;
+    display: block;
+    height: 280px;
+  }
 
-#homepage #virtualexhibit h3 {
-  position: absolute;
-  top: -9px;
-  left: 0;
-  width: 100%;
-  padding: 8px;
-  background-color: #000;
-  background-color: rgba(0, 0, 0, .4);
-}
+  h3 {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    padding: 8px;
+    background-color: #000;
+    background-color: rgba(0, 0, 0, .4);
+  }
 
-#homepage #virtualexhibit .small {
-  display: block;
-  font-size: 14px;
-  line-height: 16px;
-  color: @grayLight;
-}
+  .small {
+    display: block;
+    font-size: 14px;
+    line-height: 16px;
+    color: lighten(@grayLight, 10%);
+  }
 
-#homepage #virtualexhibit a h3 {
-  min-height: 84px;
-}
+  a h3 {
+    min-height: 84px;
+  }
 
-#homepage #virtualexhibit a h3,
-#homepage #virtualexhibit a div {
-  .transition(all 0.2s ease-in-out);
-}
+  a h3,
+  a div {
+    .transition(all 0.2s ease-in-out);
+  }
 
-#homepage #virtualexhibit a:hover h3 {
-  height: 100%;
-  background-color: rgba(0, 0, 0, .5);
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
-}
+  a:hover h3 {
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
+  }
 
-#homepage #virtualexhibit a:hover div {
-  background-position-y: 90%;
-}
+  a:hover div {
+    background-position-y: 90%;
+  }
 
-#homepage #virtualexhibit a:hover div:after {
-  content: "›"; // "»";
-  position: absolute;
-  font-size: 128px;
-  bottom: 50px;
-  right: 50px;
-  padding: 18px 20px 40px 22px;
-  .border-radius(60px);
-  @white: rgba(255, 255, 255, .4);
-  border: 12px solid @white;
-  color: @white;
+  a:hover div:after {
+    content: "›"; // "»";
+    position: absolute;
+    font-size: 128px;
+    bottom: 50px;
+    right: 50px;
+    padding: 18px 20px 40px 22px;
+    .border-radius(60px);
+    @white: rgba(255, 255, 255, .4);
+    border: 12px solid @white;
+    color: @white;
+  }
+
 }
 
 // Popular this week
 
-#homepage #popular h3 {
-  padding: 8px;
-  margin-top: 0;
+#popular-this-week {
+
+  color: @white;
+
+  h3 {
+    padding: 8px;
+    margin-top: 0;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
+  }
+
+  a {
+    color: @white;
+  }
+
+  ul {
+    list-style: none;
+    margin-left: 0;
+  }
+
+  strong {
+    color: @gray;
+    padding-left: 4px;
+    font-weight: normal;
+    font-style: oblique;
+  }
+
 }
 
 // Responsive deisgn
 
 @media (max-width: 767px) {
-
-  #homepagehero {
-    background: none;
-    padding-top: 20px;
-  }
-
-  #homepagehero #intro {
-    .hide();
-  }
-
-  #homepagehero #mainnav ul {
-    background-color: rgba(50, 50, 50, .3);
-    .border-radius(4px);
-  }
-
-  #homepagehero #mainnav li {
-    margin: 0;
-  }
-
-  #homepagehero #mainnav li:hover a {
-    background-color: rgba(255, 255, 255, .4);
-  }
-
-  #homepagehero #mainnav a {
-    padding: 6px 8px;
-    display: block;
-  }
 
   #homepage {
     margin-top: -20px;
@@ -209,6 +213,39 @@
 
   #homepage > div:first-child {
     margin-bottom: 30px;
+  }
+
+  #homepage-hero {
+
+    background: none;
+    padding-top: 20px;
+
+  }
+
+  #homepage-nav {
+
+    ul {
+      background-color: rgba(50, 50, 50, .3);
+      .border-radius(4px);
+    }
+
+    li {
+      margin: 0;
+    }
+
+    li:hover a {
+      background-color: rgba(255, 255, 255, .4);
+    }
+
+    a {
+      padding: 6px 8px;
+      display: block;
+    }
+
+  }
+
+  #intro {
+    .hide();
   }
 
 }

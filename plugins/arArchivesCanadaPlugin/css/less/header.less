@@ -85,20 +85,12 @@
 
 // Header search form
 
-#header-search,
-#header-browser {
-  display: inline;
-}
-
 #header-search {
 
   margin-top: 12px;
-  margin-bottom: 6px;
 
-  #header-search input[type=text] {
-    .pull-right;
+  input[type=text] {
     .box-sizing(border-box);
-    width: 100%;
     #font > .shorthand(16px, normal, 21px);
     height: 30px;
     color: #333;
@@ -110,17 +102,27 @@
     .placeholder(#999);
   }
 
-  #search-form-wrapper,
+  text-align: right;
+
+  #search-form-wrapper {
+    width: 80%;
+    display: inline-block;
+  }
+
   #browse-menu {
     display: inline-block;
   }
 
+  #browse-menu {
+    margin-top: -3px;
+  }
 
 }
 
 // For #search-suggestions and #search-realm
 
 .search-popover {
+
   position: fixed;
   z-index: @zindexPopover;
   .box-shadow(0 1px 3px rgba(0, 0, 0, .5));
@@ -128,9 +130,6 @@
   .border-radius(4px);
   .box-sizing(border-box);
   .hide();
-}
-
-.search-popover {
 
   div {
 
