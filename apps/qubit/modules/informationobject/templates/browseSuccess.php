@@ -12,42 +12,38 @@
 
 <?php slot('sidebar') ?>
   <div id="facets">
+
     ...
+
   </div>
 <?php end_slot() ?>
 
 <?php slot('before-content') ?>
-  <div class="section tabs">
+  <ul class="nav nav-tabs">
 
-    <h2 class="element-invisible"><?php echo __('Information Object Browse Options') ?></h2>
+    <?php if ('lastUpdated' == $sortSetting): ?>
+      <li<?php if ('titleDown' != $sf_request->sort && 'titleUp' != $sf_request->sort): ?> class="active"<?php endif; ?>><?php echo link_to(__('Recent changes'), array('sort' => 'updatedDown') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?></li>
+      <li<?php if ('titleDown' == $sf_request->sort || 'titleUp' == $sf_request->sort): ?> class="active"<?php endif; ?>><?php echo link_to(__('Alphabetic'), array('sort' => 'titleUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?></li>
+    <?php else: ?>
+      <li<?php if ('updatedDown' == $sf_request->sort || 'updatedUp' == $sf_request->sort): ?> class="active"<?php endif; ?>><?php echo link_to(__('Recent changes'), array('sort' => 'updatedDown') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?></li>
+      <li<?php if ('updatedDown' != $sf_request->sort && 'updatedUp' != $sf_request->sort): ?> class="active"<?php endif; ?>><?php echo link_to(__('Alphabetic'), array('sort' => 'titleUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?></li>
+    <?php endif; ?>
 
-    <ul class="nav nav-tabs">
+    <li class="search">
+      <form method="get" action="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse')) ?>">
+        <?php foreach ($sf_request->getGetParameters() as $key => $value): ?>
+          <input type="hidden" name="<?php echo esc_entities($key) ?>" value="<?php echo esc_entities($value) ?>"/>
+        <?php endforeach; ?>
+        <div class="input-append">
+          <input type="text" class="span3" name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>" placeholder="<?php echo __('Search') ?>" />
+          <span class="add-on">
+            <input type="submit" value="<?php echo __('Search %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))) ?>"/>
+          </span>
+        </div>
+      </form>
+    </li>
 
-      <?php if ('lastUpdated' == $sortSetting): ?>
-        <li<?php if ('titleDown' != $sf_request->sort && 'titleUp' != $sf_request->sort): ?> class="active"<?php endif; ?>><?php echo link_to(__('Recent changes'), array('sort' => 'updatedDown') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?></li>
-        <li<?php if ('titleDown' == $sf_request->sort || 'titleUp' == $sf_request->sort): ?> class="active"<?php endif; ?>><?php echo link_to(__('Alphabetic'), array('sort' => 'titleUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?></li>
-      <?php else: ?>
-        <li<?php if ('updatedDown' == $sf_request->sort || 'updatedUp' == $sf_request->sort): ?> class="active"<?php endif; ?>><?php echo link_to(__('Recent changes'), array('sort' => 'updatedDown') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?></li>
-        <li<?php if ('updatedDown' != $sf_request->sort && 'updatedUp' != $sf_request->sort): ?> class="active"<?php endif; ?>><?php echo link_to(__('Alphabetic'), array('sort' => 'titleUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?></li>
-      <?php endif; ?>
-
-      <li class="search">
-        <form method="get" action="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse')) ?>">
-          <?php foreach ($sf_request->getGetParameters() as $key => $value): ?>
-            <input type="hidden" name="<?php echo esc_entities($key) ?>" value="<?php echo esc_entities($value) ?>"/>
-          <?php endforeach; ?>
-          <div class="input-append">
-            <input type="text" class="span3" name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>" placeholder="<?php echo __('Search') ?>" />
-            <span class="add-on">
-              <input type="submit" value="<?php echo __('Search %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))) ?>"/>
-            </span>
-          </div>
-        </form>
-      </li>
-
-    </ul>
-
-  </div>
+  </ul>
 <?php end_slot() ?>
 
 <table class="table table-bordered">
@@ -117,11 +113,13 @@
       </th>
     </tr>
   </thead><tbody>
-    <?php foreach ($pager->getResults() as $item): ?>
+    <?php foreach ($pager->getResults() as $hit): ?>
+      <?php $doc = $hit->getData() ?>
       <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
         <td>
-          <?php echo link_to(render_title($item), array($item, 'module' => 'informationobject')) ?><?php if (QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $item->getPublicationStatus()->status->id): ?> <span class="publicationStatus"><?php echo $item->getPublicationStatus()->status ?></span><?php endif; ?>
-        </td><td>
+          <?php echo link_to(get_search_i18n($doc, 'title'), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
+        </td>
+        <td>
           <?php if ('lastUpdated' == $sortSetting): ?>
             <?php if ('titleUp' == $sf_request->sort || 'titleDown' == $sf_request->sort): ?>
               <?php echo $item->levelOfDescription ?>
@@ -147,7 +145,9 @@
               <?php echo $item->levelOfDescription ?>
             <?php endif; ?>
           <?php endif; ?>
-        </td><td>
+        </td>
+        <?php if (false): ?>
+        <td>
           <?php if ('titleDown' == $sf_request->sort || 'titleUp' == $sf_request->sort): ?>
             <?php if (sfConfig::get('app_multi_repository')): ?>
               <?php if (null !== $repository = $item->getRepository(array('inherit' => true))): ?>
@@ -178,7 +178,7 @@
             <?php endif; ?>
           <?php endif; ?>
         </td>
-      </tr>
+        <?php endif; ?>
     <?php endforeach; ?>
   </tbody>
 </table>

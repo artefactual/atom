@@ -121,11 +121,6 @@ class SearchIndexAction extends DefaultBrowseAction
 
     // Sort, From, Limit
     $this->query->setSort(array('_score' => 'desc'));
-    $this->query->setLimit($request->limit);
-    if (!empty($request->page))
-    {
-      $this->query->setFrom(($request->page - 1) * $request->limit);
-    }
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
 

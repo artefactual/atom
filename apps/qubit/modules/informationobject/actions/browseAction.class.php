@@ -23,106 +23,76 @@
  * @author     Peter Van Garderen <peter@artefactual.com>
  * @author     Wu Liu <wu.liu@usask.ca>
  */
-class InformationObjectBrowseAction extends sfAction
+class InformationObjectBrowseAction extends DefaultBrowseAction
 {
   public function execute($request)
   {
-    if (!isset($request->limit))
-    {
-      $request->limit = sfConfig::get('app_hits_per_page');
-    }
+    parent::execute($request);
 
-    if ($this->getUser()->isAuthenticated())
+    if ('' == preg_replace('/[\s\t\r\n]*/', '', $request->subquery))
     {
-      $this->sortSetting = sfConfig::get('app_sort_browser_user');
+      $this->queryBool->addMust(new Elastica_Query_MatchAll());
     }
     else
     {
-      $this->sortSetting = sfConfig::get('app_sort_browser_anonymous');
+      $queryText = new Elastica_Query_QueryString($request->subquery);
+      $queryText->setDefaultOperator('AND');
+      $queryText->setDefaultField(sprintf('i18n.%s.title', $this->context->user->getCulture()));
+
+      $this->queryBool->addMust($queryText);
     }
 
-    $criteria = new Criteria;
+    // Filter drafts
+    $this->query = QubitAclSearch::filterDrafts($this->query);
 
-    if (isset($this->getRoute()->resource))
-    {
-      $this->resource = $this->getRoute()->resource;
+    $field = sprintf('i18n.%s.title.untouched', $this->context->user->getCulture());
 
-      $criteria->add(QubitInformationObject::PARENT_ID, $this->resource->id);
-    }
-    else
-    {
-      $criteria->add(QubitInformationObject::PARENT_ID, QubitInformationObject::ROOT_ID);
-    }
-
-    if (isset($request->repositoryId))
-    {
-      $criteria->add(QubitInformationObject::REPOSITORY_ID, $request->repositoryId);
-    }
-
-    if (isset($request->collectionType))
-    {
-      $criteria->add(QubitInformationObject::COLLECTION_TYPE_ID, $request->collectionType);
-    }
-
-    $fallbackTable = 'QubitInformationObject';
-
+    // Sort
     switch ($request->sort)
     {
       case 'repositoryDown':
-        $fallbackTable = 'QubitActor';
-        $criteria->addJoin(QubitInformationObject::REPOSITORY_ID, QubitActor::ID, Criteria::LEFT_JOIN);
-        $criteria->addDescendingOrderByColumn('authorized_form_of_name');
 
         break;
 
       case 'repositoryUp':
-        $fallbackTable = 'QubitActor';
-        $criteria->addJoin(QubitInformationObject::REPOSITORY_ID, QubitActor::ID, Criteria::LEFT_JOIN);
-        $criteria->addAscendingOrderByColumn('authorized_form_of_name');
 
         break;
 
       case 'titleDown':
-        $criteria->addDescendingOrderByColumn('title');
+        $this->query->setSort(array($field => 'desc'));
 
         break;
 
       case 'titleUp':
-        $criteria->addAscendingOrderByColumn('title');
+        $this->query->setSort(array($field => 'asc'));
 
         break;
 
       case 'updatedDown':
-        $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
 
         break;
 
       case 'updatedUp':
-        $criteria->addAscendingOrderByColumn(QubitObject::UPDATED_AT);
 
         break;
 
       default:
         if ('alphabetic' == $this->sortSetting)
         {
-          $criteria->addAscendingOrderByColumn('title');
+
         }
         else if ('lastUpdated' == $this->sortSetting)
         {
-          $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
+
         }
     }
 
-    // Do source culture fallback
-    $criteria = QubitCultureFallback::addFallbackCriteria($criteria, $fallbackTable);
-
-    // Filter drafts
-    $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
 
     // Page results
-    $this->pager = new QubitPager('QubitInformationObject');
-    $this->pager->setCriteria($criteria);
+    $this->pager = new QubitSearchPager($resultSet);
+    $this->pager->setPage($request->page ? $request->page : 1);
     $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
+    $this->pager->init();
   }
 }
