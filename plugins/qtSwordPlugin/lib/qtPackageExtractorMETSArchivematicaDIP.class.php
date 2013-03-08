@@ -152,28 +152,28 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     {
       $date = $options['date'];
 
-      // normalize expression of date range
+      // Normalize expression of date range
       $date = str_replace('/', '|', $date);
       $date = str_replace(' - ', '|', $date);
 
       if (substr_count($date, '|'))
       {
-        // date is a range
+        // Date is a range
         $dates = explode('|', $date);
 
-        // if date is a range, set start/end dates
+        // If date is a range, set start/end dates
         if (count($dates) == 2)
         {
           $parsedDates = array();
 
-          // parse each component date
+          // Parse each component date
           foreach($dates as $dateItem)
           {
             array_push($parsedDates, QubitFlatfileImport::parseDate($dateItem));
           }
 
           $event->startDate = $parsedDates[0];
-          $event->endDate   = $parsedDates[1];
+          $event->endDate = $parsedDates[1];
 
           // if date range is similar to ISO 8601 then make it a normal date range
           if ($this->likeISO8601Date(trim($dates[0])))
@@ -181,22 +181,26 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
             if ($event->startDate == $event->endDate)
             {
               $date = $event->startDate;
-            } else {
-              $date = $event->startDate .'|'. $event->endDate;
+            }
+            else
+            {
+              $date = $event->startDate.'|'.$event->endDate;
             }
           }
         }
 
-        // if date is a single ISO 8601 date then truncate off time
+        // If date is a single ISO 8601 date then truncate off time
         if ($this->likeISO8601Date(trim($event->date)))
         {
           $date = substr(trim($event->date), 0, 10);
         }
 
-        // make date range indicator friendly
+        // Make date range indicator friendly
         $event->date = str_replace('|', ' - ', $date);
-      } else {
-        // date isn't a range
+      }
+      else
+      {
+        // Date isn't a range
         $event->date = QubitFlatfileImport::parseDate($date);
       }
     }
@@ -206,16 +210,23 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
   protected function likeISO8601Date($date)
   {
-    $date = substr($date, 0, 19) .'Z';
+    $date = substr($date, 0, 19).'Z';
 
-    if (preg_match('/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z$/', $date, $parts) == true) { 
+    if (preg_match('/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z$/', $date, $parts) == true)
+    {
       $time = gmmktime($parts[4], $parts[5], $parts[6], $parts[2], $parts[3], $parts[1]);
 
       $input_time = strtotime($date);
-      if ($input_time === false) return false;
+
+      if ($input_time === false)
+      {
+        return false;
+      }
 
       return $input_time == $time;
-    } else {
+    }
+    else
+    {
       return false;
     }
   }
@@ -265,7 +276,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $this->resource->informationObjectsRelatedByparentId[] = $parent;
       $parent->save();
 
-      if (count($creation)) {
+      if (count($creation))
+      {
         $this->addCreationEvent($parent, $creation);
       }
     }
@@ -313,7 +325,9 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       if (isset($parent))
       {
         $parent->informationObjectsRelatedByparentId[] = $child;
-      } else {
+      }
+      else
+      {
         $this->resource->informationObjectsRelatedByparentId[] = $child;
       }
     }
