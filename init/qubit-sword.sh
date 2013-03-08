@@ -16,15 +16,9 @@
 # along with Archivematica. If not, see <http://www.gnu.org/licenses/>.
 
 USER="www-data"
-LOCATION="/var/www/ica-atom"
+LOCATION="/var/www/atom"
 
 sudo -u ${USER} php \
      -d memory_limit=-1 \
      -d error_reporting="E_ALL" \
-         ${LOCATION}/symfony \
-             gearman:worker \
-                 --config=sword \
-                 --application=qubit \
-                 --connection=propel \
-                 --timeout=-1 \
-                 --count=0
+         ${LOCATION}/symfony tools:gearman-worker

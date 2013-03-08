@@ -1,0 +1,6 @@
+<?php
+$path = ini_get('include_path');
+ini_set('include_path', realpath('../') . PATH_SEPARATOR . $path);
+
+// The Gearman servers to use for the various tests
+$servers = array('localhost:4730');

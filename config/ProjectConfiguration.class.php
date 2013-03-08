@@ -44,11 +44,6 @@ class ProjectConfiguration extends sfProjectConfiguration
       'sfInstallPlugin',
       'sfPluginAdminPlugin');
 
-    if (extension_loaded('gearman'))
-    {
-      $plugins[] = 'sfGearmanPlugin';
-    }
-
     $this->enablePlugins($plugins);
   }
 }
