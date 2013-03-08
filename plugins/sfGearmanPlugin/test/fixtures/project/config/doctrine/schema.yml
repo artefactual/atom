@@ -1,5 +1,0 @@
-TestArticle:
-  actAs:
-    Gearmanable: {events: [insert, update, delete]}
-  columns:
-    title: string(100)

@@ -1,5 +1,0 @@
-all:
-  doctrine:
-    class:    sfDoctrineDatabase
-    param:
-      dsn:    sqlite:%SF_DATA_DIR%/doctrine.db

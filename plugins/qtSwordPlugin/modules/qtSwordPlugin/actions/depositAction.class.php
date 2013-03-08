@@ -109,8 +109,10 @@ class qtSwordPluginDepositAction extends sfAction
         // Put the job in the background if the queue support is enabled
         if (sfConfig::get('app_use_job_scheduler', true))
         {
-          sfGearmanClient::getInstance()->background('depositSwordPackage',
-            $this->package + array('information_object_id' => $this->informationObject->id));
+          $data = $this->package + array('information_object_id' => $this->informationObject->id);
+
+          $client = new Net_Gearman_Client('localhost:4730');
+          $handle = $client->qtSwordPluginWorker($data);
 
           // Job accepted!
           return $this->generateResponse(202, 'deposit',
@@ -143,7 +145,7 @@ class qtSwordPluginDepositAction extends sfAction
       }
       catch (Exception $e)
       {
-        return $this->generateResponse(415, 'error/ErrorContent', array('summary' => $e->getMessage())); 
+        return $this->generateResponse(415, 'error/ErrorContent', array('summary' => $e->getMessage()));
       }
     }
     else if ($request->isMethod('put') || $request->isMethod('delete'))
