@@ -48,7 +48,7 @@
     <?php break; ?>
     <?php endif; ?>
     <?php endforeach; ?>
-    <unitid encodinganalog="3.1.1" <?php if (isset($repository)): ?><?php if ($countrycode = $repository->getCountryCode()): ?><?php echo 'countrycode="'.$countrycode.'" ' ?><?php endif;?><?php endif; ?><?php if ($repocode = $repository->getIdentifier()): ?><?php echo 'repositorycode="'.esc_specialchars($repocode).'" ' ?><?php endif; ?>><?php echo esc_specialchars($$resourceVar->getIdentifier()) ?></unitid>
+    <unitid encodinganalog="3.1.1" <?php if (isset($repository)): ?><?php if ($countrycode = $repository->getCountryCode()): ?><?php echo 'countrycode="'.$countrycode.'" ' ?><?php endif;?><?php if ($repocode = $repository->getIdentifier()): ?><?php echo 'repositorycode="'.esc_specialchars($repocode).'" ' ?><?php endif; ?><?php endif; ?>><?php echo esc_specialchars($$resourceVar->getIdentifier()) ?></unitid>
     <?php endif; ?>
     <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('standardNumber')->__toString())): ?>
     <unitid type="standard"><?php echo esc_specialchars($value) ?></unitid>
