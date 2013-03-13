@@ -1351,7 +1351,7 @@ class QubitInformationObject extends BaseInformationObject
       {
         if ($langNode->attributes->getNamedItem('langcode'))
         {
-          $langType = $langNode->getAttribute('encodinganalog'); 
+          $langType = $langNode->getAttribute('encodinganalog');
           $langCode = substr($langNode->getAttribute('langcode'), 0, 2);
 
           switch($langType)

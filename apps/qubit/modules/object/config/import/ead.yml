@@ -164,7 +164,7 @@ information_object:
       Method: setDescriptionLevelOfDetailByName
 
     descriptionIdentifier:
-      XPath:  "odd[@type='descriptionidentifier']/p"
+      XPath:  "../eadheader/eadid/@identifier"
       Method: setDescriptionIdentifier
 
     institutionIdentifier:
