@@ -151,6 +151,10 @@ information_object:
       Method:  addProperty
       Parameters: ["issuingJurisdictionAndDenomination", $nodeValue]
 
+    digital_object:
+      XPath:   "(did/dao[1]/@href | did/daogrp[1]/daoloc[1]/@href)[1]"
+      Method:  importDigitalObjectFromUri
+
     publicationStatus:
       XPath:  "odd[@type='publicationstatus']/p"
       Method: setPublicationStatusByName
