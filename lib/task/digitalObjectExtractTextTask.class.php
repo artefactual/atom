@@ -19,12 +19,8 @@
 
 class digitalObjectExtractTextTask extends sfBaseTask
 {
-
-  function configure()
+  protected function configure()
   {
-    $this->addArguments(array(
-    ));
-
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
@@ -47,7 +43,7 @@ class digitalObjectExtractTextTask extends sfBaseTask
     $this->logSection('digital object', 'Extracting text for the digital objects...');
 
     // Get all master digital objects
-    $query = 'SELECT id from digital_object where parent_id is NULL and mime_type = \'application/pdf\'';
+    $query = 'SELECT id FROM digital_object WHERE parent_id IS NULL AND mime_type = \'application/pdf\'';
 
     // Do work
     foreach (QubitPdo::fetchAll($query) as $item)
@@ -63,7 +59,6 @@ class digitalObjectExtractTextTask extends sfBaseTask
         $do->name, $timer->elapsed()));
 
       $do->extractText($conn);
-
     }
 
     $this->logSection('digital object', 'Done extracting text for the digital objects!');
