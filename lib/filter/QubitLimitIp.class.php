@@ -54,20 +54,9 @@ class QubitLimitIpFilter extends sfFilter
 
   protected function getRemoteAddress()
   {
-    $this->pathInfo = $this->request->getPathInfoArray();
+    $pathInfo = $this->request->getPathInfoArray();
 
-    if (!empty($this->pathInfo["HTTP_CLIENT_IP"]))
-    {
-      return $this->pathInfo["HTTP_CLIENT_IP"];
-    }
-    else if (!empty($this->pathInfo["HTTP_X_FORWARDED_FOR"]))
-    {
-      return $this->pathInfo["HTTP_X_FORWARDED_FOR"];
-    }
-    else
-    {
-      return $this->pathInfo["REMOTE_ADDR"];
-    }
+    return $pathInfo["REMOTE_ADDR"];
   }
 
   protected function isAllowed()
