@@ -53,7 +53,9 @@
       <?php endif; ?>
 
       <?php if (QubitTerm::ROOT_ID != $term->parentId): ?>
-        <skos:broader rdf:resource="<?php echo url_for(array($term->parent, 'module' => 'term'), true) ?>"/>
+        <?php if (!(isset($selectedTerm) && $selectedTerm->id == $term->id)): ?>
+          <skos:broader rdf:resource="<?php echo url_for(array($term->parent, 'module' => 'term'), true) ?>"/>
+        <?php endif; ?>
       <?php endif; ?>
 
       <?php foreach ($term->getChildren() as $child): ?>
