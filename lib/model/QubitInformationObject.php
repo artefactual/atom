@@ -1624,11 +1624,11 @@ class QubitInformationObject extends BaseInformationObject
     $normalizedDate = array();
     if (isset($options['normalized_dates']))
     {
-      preg_match('/(?P<start>\d{4}(-\d{2})?(-\d{2})?)\/?(?P<end>\d{4}(-\d{2})?(-\d{2})?)?/', $options['normalized_dates'], $matches);
-      $normalizedDate['start'] = new DateTime($this->getDefaultDateValue($matches['start']));
+      preg_match('/(?P<start>(\d{4}|\d{3}|\d{2}|\d{1})(-\d{2}|-\d{1})?(-\d{2}|-\d{1})?)\/?(?P<end>(\d{4}|\d{3}|\d{2}|\d{1})(-\d{2}|-\d{1})?(-\d{2}|-\d{1})?)?/', $options['normalized_dates'], $matches);
+      $normalizedDate['start'] = $this->getDefaultDateValue($matches['start']);
       if (isset($matches['end']))
       {
-        $normalizedDate['end'] = new DateTime($this->getDefaultDateValue($matches['end']));
+        $normalizedDate['end'] = $this->getDefaultDateValue($matches['end']);
       }
       else
       {
@@ -1684,16 +1684,21 @@ class QubitInformationObject extends BaseInformationObject
 
   protected function getDefaultDateValue($date)
   {
-    if (strlen($date) == 4)
+    $dateArray = explode("-", $date);
+
+    $defaultDateValue = str_pad($dateArray[0], 4, "0", STR_PAD_LEFT);
+
+    if (isset($dateArray[1]))
     {
-      return $date.'-01-01';
-    }
-    else if (strlen($date) == 7)
-    {
-      return $date.'-01';
+      $defaultDateValue .= "-".str_pad($dateArray[1], 2, "0", STR_PAD_LEFT);
     }
 
-    return $date;
+    if (isset($dateArray[2]))
+    {
+      $defaultDateValue .= "-".str_pad($dateArray[2], 2, "0", STR_PAD_LEFT);
+    }
+
+    return $defaultDateValue;
   }
 
   public function setIdentifierWithCodes($identifier, $options)
