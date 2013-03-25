@@ -1304,6 +1304,10 @@ class QubitInformationObject extends BaseInformationObject
       {
         $event->setEndDate($options['date_end']);
       }
+      if (isset($options['event_note']))
+      {
+        $event->setDescription($options['event_note']);
+      }
 
       $this->events[] = $event;
     }
@@ -1416,7 +1420,7 @@ class QubitInformationObject extends BaseInformationObject
 
           // get creation end date element contents
           $history = '';
-          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/note/p");
+          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, '/xml/chronitem/eventgrp/event/note[not(@type="eventNote")]/p');
           foreach($dateNodeList as $noteNode) {
             $history = $noteNode->nodeValue;
           }
@@ -1446,6 +1450,12 @@ class QubitInformationObject extends BaseInformationObject
             }
           }
 
+          $eventNote = '';
+          $eventNoteList = QubitXmlImport::queryDomNode($chronitemNode, '/xml/chronitem/eventgrp/event/note[@type="eventNote"]/p');
+          foreach($eventNoteList as $eventNoteNode) {
+            $eventNote = $eventNoteNode->nodeValue;
+          }
+
           $eventSpec = array(
             'event_type_id' => QubitTerm::CREATION_ID,
             'history'       => $history
@@ -1469,6 +1479,11 @@ class QubitInformationObject extends BaseInformationObject
           if ($date_end)
           {
             $eventSpec['date_end'] = $date_end;
+          }
+
+          if (0 < strlen($eventNote))
+          {
+            $eventSpec['event_note'] = $eventNote;
           }
 
           $this->setActorByName($name, $eventSpec);
