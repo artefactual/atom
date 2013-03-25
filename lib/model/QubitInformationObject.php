@@ -1690,12 +1690,12 @@ class QubitInformationObject extends BaseInformationObject
 
     if (isset($dateArray[1]))
     {
-      $defaultDateValue .= "-".str_pad($dateArray[1], 2, "0", STR_PAD_LEFT);
+      $defaultDateValue .= '-'.str_pad($dateArray[1], 2, '0', STR_PAD_LEFT);
     }
 
     if (isset($dateArray[2]))
     {
-      $defaultDateValue .= "-".str_pad($dateArray[2], 2, "0", STR_PAD_LEFT);
+      $defaultDateValue .= '-'.str_pad($dateArray[2], 2, '0', STR_PAD_LEFT);
     }
 
     return $defaultDateValue;
