@@ -79,7 +79,7 @@ class sfEadPlugin
 
     if (null === $identifier = $this->resource->descriptionIdentifier)
     {
-      $identifier = $this->resource->slug;
+      $identifier = url_for($this->resource, $absolute = true);
     }
 
     return "<eadid identifier=\"$identifier\"$countryCode$mainAgencyCode url=\"$url\" encodinganalog=\"Identifier\">{$this->resource->identifier}</eadid>";
