@@ -79,6 +79,16 @@
 
       </nameEntry>
 
+      <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::STANDARDIZED_FORM_OF_NAME_ID)) as $item): ?>
+        <nameEntry localType="standardized">
+
+          <part><?php echo esc_specialchars($item->name) ?></part>
+
+          <alternativeForm>conventionDeclaration</alternativeForm>
+
+        </nameEntry>
+      <?php endforeach; ?>
+
       <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::OTHER_FORM_OF_NAME_ID)) as $item): ?>
         <nameEntry>
 
@@ -91,11 +101,22 @@
 
       <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::PARALLEL_FORM_OF_NAME_ID)) as $item): ?>
         <nameEntryParallel>
-          <nameEntry>
-            <part><?php echo esc_specialchars($item->name) ?></part>
+        <?php foreach ($item->otherNameI18ns as $otherName): ?>
+          <?php if (sfContext::getInstance()->getUser()->getCulture() == $otherName->culture): ?>
+            <nameEntry xml:lang="<?php echo sfEacPlugin::to6392($otherName->culture) ?>" scriptCode="Latn">
+              <part><?php echo esc_specialchars($item->name) ?></part>
 
-            <authorizedForm>conventionDeclaration</authorizedForm>
-          </nameEntry>
+              <preferredForm>conventionDeclaration</preferredForm>
+            </nameEntry>
+          <?php else: ?>
+            <nameEntry xml:lang="<?php echo sfEacPlugin::to6392($otherName->culture) ?>" scriptCode="Latn">
+              <part><?php echo esc_specialchars($otherName->name) ?></part>
+            </nameEntry>
+          <?php endif; ?>
+        <?php endforeach; ?>
+
+        <authorizedForm>conventionDeclaration</authorizedForm>
+
         </nameEntryParallel>
       <?php endforeach; ?>
 

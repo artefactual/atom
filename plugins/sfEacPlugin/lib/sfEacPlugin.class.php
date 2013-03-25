@@ -550,7 +550,7 @@ return;
     // TODO <nameEntryParallel/>, <useDates/>
     $this->resource->authorizedFormOfName = $fd->find('eac:cpfDescription/eac:identity/eac:nameEntry[eac:authorizedForm]/eac:part')->text();
 
-    foreach ($fd->find('eac:cpfDescription/eac:identity/eac:nameEntry[not(eac:authorizedForm)]') as $node)
+    foreach ($fd->find('eac:cpfDescription/eac:identity/eac:nameEntry[not(eac:authorizedForm) and not(@localType="standardized")]') as $node)
     {
       $item = new QubitOtherName;
       $item->name = $fd->spawn()->add($node)->find('eac:part')->text();
@@ -559,11 +559,24 @@ return;
       $this->resource->otherNames[] = $item;
     }
 
-    foreach ($fd->find('eac:cpfDescription/eac:identity/eac:nameEntryParallel/eac:nameEntry') as $node)
+    foreach ($fd->find('eac:cpfDescription/eac:identity/eac:nameEntryParallel') as $node)
+    {
+      $item = new QubitOtherName;
+      $item->typeId = QubitTerm::PARALLEL_FORM_OF_NAME_ID;
+
+      foreach ($fd->spawn()->add($node)->find('eac:nameEntry[@xml:lang]') as $node2)
+      {
+        $item->setName($fd->spawn()->add($node2)->find('eac:part')->text(), array('culture' => $this->from6392($node2->getAttribute('xml:lang'))));
+      }
+
+      $this->resource->otherNames[] = $item;
+    }
+
+    foreach ($fd->find('eac:cpfDescription/eac:identity/eac:nameEntry[@localType="standardized"]') as $node)
     {
       $item = new QubitOtherName;
       $item->name = $fd->spawn()->add($node)->find('eac:part')->text();
-      $item->typeId = QubitTerm::PARALLEL_FORM_OF_NAME_ID;
+      $item->typeId = QubitTerm::STANDARDIZED_FORM_OF_NAME_ID;
 
       $this->resource->otherNames[] = $item;
     }
