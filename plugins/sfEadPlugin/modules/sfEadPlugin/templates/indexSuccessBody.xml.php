@@ -74,6 +74,12 @@
           <?php endforeach; ?>
         <?php endif; ?>
       <?php endif; ?>
+      <?php foreach ($resource->script as $code): ?>
+        <language scriptcode="<?php echo $code ?>" encodinganalog="Script"><?php echo format_script($code) ?></language>
+      <?php endforeach; ?>
+      <?php foreach ($resource->scriptOfDescription as $code): ?>
+        <language scriptcode="<?php echo $code ?>" encodinganalog="Script Of Description"><?php echo format_script($code) ?></language>
+      <?php endforeach; ?>
     </langusage>
     <?php if (0 < strlen($rules = $resource->getRules(array('cultureFallback' => true)))): ?>
       <descrules encodinganalog="3.7.2"><?php echo escape_dc(esc_specialchars($rules)) ?></descrules>

@@ -1343,12 +1343,14 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function importLangusageEadData($langusageNode)
   {
-    // get language nodes
+    // get language and script nodes
     $langNodeList = QubitXmlImport::queryDomNode($langusageNode, "/xml/langusage/language");
 
     $languagesOfDescription = array();
+    $scriptsOfDescription = array();
+    $scripts = array();
 
-    // amalgamate language data
+    // amalgamate language and script data
     foreach($langNodeList as $langNode)
     {
       if ($langNode->hasAttributes())
@@ -1369,6 +1371,23 @@ class QubitInformationObject extends BaseInformationObject
               break;
           }
         }
+
+        if ($langNode->attributes->getNamedItem('scriptcode'))
+        {
+          $scriptType = $langNode->getAttribute('encodinganalog');
+          $scriptCode = $langNode->getAttribute('scriptcode');
+
+          switch($scriptType)
+          {
+            case 'Script':
+              array_push($scripts, $scriptCode);
+              break;
+
+            case 'Script Of Description':
+              array_push($scriptsOfDescription, $scriptCode);
+              break;
+          }
+        }
       }
     }
 
@@ -1378,6 +1397,24 @@ class QubitInformationObject extends BaseInformationObject
       $this->addProperty(
         'languageOfDescription',
         serialize($languagesOfDescription)
+      );
+    }
+
+    // add script(s) of description, if any
+    if (count($scriptsOfDescription))
+    {
+      $this->addProperty(
+        'scriptOfDescription',
+        serialize($scriptsOfDescription)
+      );
+    }
+
+    // add script(s), if any
+    if (count($scripts))
+    {
+      $this->addProperty(
+        'script',
+        serialize($scripts)
       );
     }
   }
