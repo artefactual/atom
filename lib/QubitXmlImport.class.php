@@ -403,10 +403,26 @@ class QubitXmlImport
             break;
 
           default:
-            foreach ($nodeList2 as $domNode2)
+            foreach ($nodeList2 as $domNode2Original)
             {
-              // normalize the node text (trim whitespace manually); NB: this will strip any child elements, eg. HTML tags
-              $nodeValue = trim(preg_replace('/[\n\r\s]+/', ' ', $domNode2->nodeValue));
+              // normalize the node text (trim whitespace manually and replace lb tag for \n); NB: this will strip any child elements, eg. HTML tags
+              // clone node to avoid saving changes in the DomDocument, which would affect others fields import
+              $domNode2 = $domNode2Original->cloneNode(TRUE);
+              $nodeList3 = $importDOM->xpath->query('.//lb', $domNode2);
+              if (0 < $nodeList3->length)
+              {
+                foreach ($nodeList3 as $lbNode)
+                {
+                  $lbNodeParent = $importDOM->xpath->query('..', $lbNode);
+                  $lbNodeParent->item(0)->replaceChild(new DomText("\n"), $lbNode);
+                }
+
+                 $nodeValue = trim(preg_replace('/[\h]+/', ' ', $domNode2->nodeValue));
+              }
+              else
+              {
+                $nodeValue = trim(preg_replace('/[\n\r\s]+/', ' ', $domNode2->nodeValue));
+              }
 
               // if you want the full XML from the node, use this
               $nodeXML = $domNode2->ownerDocument->saveXML($domNode2);

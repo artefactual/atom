@@ -13,24 +13,24 @@
             <eventgrp>
               <event>
                 <?php if ($value = $date->getDescription(array('cultureFallback' => true))): ?>
-                  <note type="eventNote"><p><?php echo esc_specialchars($value) ?></p></note>
+                  <note type="eventNote"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></note>
                 <?php endif; ?>
                 <?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
-                  <note><p><?php echo esc_specialchars($value) ?></p></note>
+                  <note><p><?php echo escape_dc(esc_specialchars($value)) ?></p></note>
                 <?php endif; ?>
                 <origination encodinganalog="3.2.1">
                   <?php if ($type = $creator->getEntityTypeId()): ?>
                     <?php if ($type == QubitTerm::PERSON_ID): ?>
-                      <persname source="<?php echo esc_specialchars($creator->datesOfExistence) ?>"><?php echo esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true))) ?></persname>
+                      <persname source="<?php echo escape_dc(esc_specialchars($creator->datesOfExistence)) ?>"><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></persname>
                     <?php endif; ?>
                     <?php if ($type == QubitTerm::FAMILY_ID): ?>
-                      <famname source="<?php echo esc_specialchars($creator->datesOfExistence) ?>"><?php echo esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true))) ?></famname>
+                      <famname source="<?php echo escape_dc(esc_specialchars($creator->datesOfExistence)) ?>"><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></famname>
                     <?php endif; ?>
                     <?php if ($type == QubitTerm::CORPORATE_BODY_ID): ?>
-                      <corpname source="<?php echo esc_specialchars($creator->datesOfExistence) ?>"><?php echo esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true))) ?></corpname>
+                      <corpname source="<?php echo escape_dc(esc_specialchars($creator->datesOfExistence)) ?>"><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></corpname>
                     <?php endif; ?>
                   <?php else: ?>
-                    <name source="<?php echo esc_specialchars($creator->datesOfExistence) ?>"><?php echo esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true))) ?></name>
+                    <name source="<?php echo escape_dc(esc_specialchars($creator->datesOfExistence)) ?>"><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></name>
                   <?php endif; ?>
                 </origination>
               </event>

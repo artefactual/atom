@@ -271,3 +271,8 @@ function check_field_visibility($fieldName)
 {
   return sfContext::getInstance()->user->isAuthenticated() || sfConfig::get($fieldName, false);
 }
+
+function escape_dc($text)
+{
+  return preg_replace('/\n/', '<lb/>', $text);
+}
