@@ -8,7 +8,7 @@
 <?php endif; ?>
 
 <h1 class="label">
-  <?php echo ('Advanced search') ?>
+  <?php echo __('Advanced search') ?>
 
   <div id="action-icons">
     <?php echo link_to(
