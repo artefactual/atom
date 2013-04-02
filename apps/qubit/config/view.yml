@@ -6,7 +6,7 @@ default:
     content-type: text/html
 
   metas:
-    title: Qubit
+    title: ICA-AtoM
     description: Open information management toolkit
     # keywords: symfony, project
     # language: en
