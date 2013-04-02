@@ -18,6 +18,10 @@ class ReleaseTask extends sfBaseTask
     $this->addArguments(array(
       new sfCommandArgument('version', sfCommandArgument::REQUIRED, 'FIXME'),
       new sfCommandArgument('stability', sfCommandArgument::REQUIRED, 'FIXME')));
+
+    $this->addOptions(array(
+      new sfCommandOption('no-confirmation', null, sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation'),
+    ));
   }
 
   /**
@@ -25,16 +29,19 @@ class ReleaseTask extends sfBaseTask
    */
   protected function execute($arguments = array(), $options = array())
   {
-    if (($arguments['stability'] == 'beta' || $arguments['stability'] == 'alpha') && count(explode('.', $arguments['version'])) < 2)
+    // Confirmation
+    if (
+      !$options['no-confirmation']
+      &&
+      !$this->askConfirmation(array(
+          'WARNING: Your changes in your local index and your working tree will',
+          'be lost, including ignored files. Are you sure you want to proceed? (y/N)',
+        ), 'QUESTION_LARGE', false)
+    )
     {
-      list ($stdout, $stderr) = $this->getFilesystem()->execute('svn status -u '.sfConfig::get('sf_root_dir'));
-      if (0 < strlen($stderr) || preg_match('/Status against revision\:\s+(\d+)\s*$/im', $stdout, $matches) < 1)
-      {
-        throw new Exception('Unable to find last svn revision');
-      }
+      $this->logSection('release', 'Task aborted.');
 
-      // make a PEAR compatible version
-      $arguments['version'] .= $matches[1];
+      return 1;
     }
 
     $doc = new DOMDocument;
@@ -46,16 +53,10 @@ class ReleaseTask extends sfBaseTask
     $name = $xpath->evaluate('string(p:name)', $doc->documentElement);
     print 'Releasing '.$name.' version "'.$arguments['version']."\"\n";
 
-    // All lines which start with a character other than 'P' ('Performing...'),
-    // 'S' ('Status...'), or 'X' (externals definition) are local changes.
-    list($stdout, $stderr) = $this->getFilesystem()->execute('svn status --no-ignore -u '.sfConfig::get('sf_root_dir'));
+    list($stdout, $stderr) = $this->getFilesystem()->execute('chdir '.sfConfig::get('sf_root_dir').' && git reset --hard HEAD && git clean -fdx');
     if (0 < strlen($stderr))
     {
-      throw new Exception("svn error: $stderr");
-    }
-    else if (preg_match('/^[^PSX\n]/m', $stdout) > 0)
-    {
-      throw new Exception('Local modifications. Release process aborted!');
+      throw new Exception("git error: $stderr");
     }
 
     if (!$xpath->evaluate('boolean(p:date)', $doc->documentElement))
