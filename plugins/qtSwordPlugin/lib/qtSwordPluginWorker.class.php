@@ -31,76 +31,49 @@ class qtSwordPluginWorker extends Net_Gearman_Job_Common
   {
     $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
 
+    // Start the index (a previous job may have closed it)
+    QubitSearch::getInstance()->initialize();
+
     $this->log('A new job has started to being processed.');
 
-    // Close any database resource available before the process is forked
-    // to solve the issue "MySQL server has gone away"
-    Propel::close();
-
-    // Fork process
-    $pid = pcntl_fork();
-
-    if ($pid == -1)
+    if (!is_writable(sfConfig::get('sf_data_dir').DIRECTORY_SEPARATOR.'index') ||
+        !is_writable(sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.sfConfig::get('app_upload_dir')))
     {
-      $this->log('Fork request failed.');
+      throw new sfException('ERROR: Read-write access needed in {sf_data_dir}/index and {sf_web_dir}/{app_upload_dir}, sudo-me! (example: sudo -u www-data ...)?');
     }
-    else if ($pid)
+
+    if (isset($package['location']))
     {
-      $this->log('Fork request, waiting...');
-      pcntl_wait($status);
+      $this->log(sprintf('A package was deposited by reference.'));
+      $this->log(sprintf('Location: %s', $package['location']));
     }
-    else
+    else if (isset($package['filename']))
     {
-      $pid = getmypid();
+      $this->log(sprintf('A package was deposited by upload.'));
+    }
 
-      $this->log(sprintf('[%s] Running new fork...', $pid));
+    $this->log(sprintf('Processing...'));
 
-      // QubitSetting are not available for tasks? See lib/SiteSettingsFilter.class.php
-      sfConfig::add(QubitSetting::getSettingsArray());
+    try
+    {
+      $resource = QubitInformationObject::getById($package['information_object_id']);
 
-      if (!is_writable(sfConfig::get('sf_data_dir').DIRECTORY_SEPARATOR.'index') ||
-          !is_writable(sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.sfConfig::get('app_upload_dir')))
-      {
-        throw new sfException('ERROR: Read-write access needed in {sf_data_dir}/index and {sf_web_dir}/{app_upload_dir}, sudo-me! (example: sudo -u www-data ...)?');
-      }
+      $this->log(sprintf('Object slug: %s', $resource->slug));
 
-      if (isset($package['location']))
-      {
-        $this->log(sprintf('[%s] A package was deposited by reference.', $pid));
-        $this->log(sprintf('[%s] Location: %s', $pid, $package['location']));
-      }
-      else if (isset($package['filename']))
-      {
-        $this->log(sprintf('[%s] A package was deposited by upload.', $pid));
-      }
+      $extractor = qtPackageExtractorFactory::build($package['format'],
+        $package + array('resource' => $resource, 'job' => $job));
 
-      $this->log(sprintf('[%s] Processing...', $pid));
+      $extractor->run();
+    }
+    catch (Exception $e)
+    {
+      $this->log(sprintf('Exception: %s', $e));
+    }
 
-      try
-      {
-        $resource = QubitInformationObject::getById($package['information_object_id']);
+    $this->log(sprintf('Job finished.'));
 
-        $this->log(sprintf('[%s] Object slug: %s', $pid, $resource->slug));
-
-        $extractor = qtPackageExtractorFactory::build($package['format'],
-          $package + array('resource' => $resource, 'job' => $job));
-
-        $extractor->run();
-
-        # Simulating a exception for testing fork behavior
-        # throw new Exception('Foobar');
-      }
-      catch (Exception $e)
-      {
-        $this->log(sprintf('[%s] Exception: %s', $pid, $e));
-      }
-
-      Propel::close();
-
-      $this->log(sprintf('[%s] Fork finished.', $pid));
-    } // Fork ends
-
-    $this->log(sprintf('[%s] Job finished.', $pid));
+    // Free the index lock
+    QubitSearch::getInstance()->getEngine()->close();
 
     return true;
   }

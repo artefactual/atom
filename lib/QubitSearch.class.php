@@ -64,7 +64,7 @@ class QubitSearch extends xfIndexSingle
   /**
    * @see xfIndex
    */
-  protected function initialize()
+  public function initialize()
   {
     $this->setEngine(new xfLuceneEngine(sfConfig::get('sf_data_dir').'/index'));
     $this->getEngine()->open();
