@@ -69,17 +69,20 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      en: 'Information object'
-      es: 'Information object'
+      de: 'Archivische Beschreibung'
+      en: 'Archival description'
+      es: 'Descripción archivística'
       fr: 'Description archivistique'
-      gl: 'Obxecto de información'
-      it: 'Oggetto informativo'
-      ja: 情報オブジェクト
-      ka: 'საინფორმაციო ობიექტი'
-      nl: 'Informatie object'
-      pt: 'Objeto informacional'
-      sl: 'Informacijski objekt'
-      th: วัตถุข้อมูล(ข้อมูลวัตถุ)
+      gl: 'Descrición arquivística'
+      id: 'Deskripsi Arsip'
+      it: 'Descrizione archivistica'
+      ja: アーカイブズ記述
+      ka: 'საარქივო აღწერა'
+      nl: 'Archivistische beschrijving'
+      pl: 'Opis archiwalny'
+      pt: 'Descrição arquivística'
+      sl: 'Arhivski popis'
+      th: คำอธิบายจดหมายเหตุ
   QubitSetting_12:
     name: actor
     scope: ui_label
@@ -87,18 +90,18 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      de: Person/Einrichtung
-      en: Person/organization
-      es: Persona/organización
-      fr: Personne/organisme
-      gl: Persoa/organización
-      it: Persona/organizzazione
-      ja: 個人/機関
-      ka: პიროვნება/ორგანიზაცია
-      nl: Persoon/organisatie
-      pt: Pessoa/organizaÃ§Ã£o
-      sl: Oseba/organizacija
-      th: 'บุคคล / องค์การ'
+      en: 'Authority record'
+      es: 'Registro de autoridad'
+      fr: 'Notice d''autorité'
+      gl: 'Rexistro de autoridade'
+      id: 'Pencipta Arsip'
+      ja: 典拠レコード
+      ka: 'ავტორიტეტული ჩანაწერი'
+      nl: 'Geauthoriseerde beschrijving'
+      pl: 'Hasło wzorcowe'
+      pt: 'Registro de autoridade'
+      sl: 'Zapis o ustvarjalcu'
+      th: รายการควบคุม
   QubitSetting_13:
     name: creator
     scope: ui_label
@@ -127,23 +130,23 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      de: Aufbewahrungsort
-      en: Repository
+      de: Archiv
+      en: 'Archival institution'
       es: 'Institución archivística'
       fa: منبع
-      fr: 'Institution de conservation'
-      gl: Repositorio
-      id: Repositori
-      it: 'Soggetto conservatore'
-      ja: リポジトリ
-      ka: საცავი
+      fr: 'Service d''archives'
+      gl: 'Institución arquivística'
+      id: 'Institusi Arsip'
+      it: 'Istituzione archivistica'
+      ja: アーカイブズ機関
+      ka: 'საარქივო ინსტიტუცია'
       ko: 기록보존소
-      nl: archiefbewaarplaats
-      pl: Repozytorium
-      pt: 'Entidade detentora'
+      nl: Archiefinstelling
+      pl: 'Instytucja archiwalna'
+      pt: 'Instituição de arquivo'
       pt_BR: 'Entidade custodiadora'
-      sl: Skladišče
-      th: คลังเก็บ
+      sl: 'Arhivska ustanova'
+      th: สถาบันจดหมายเหตุ
   QubitSetting_15:
     name: function
     scope: ui_label
@@ -213,19 +216,19 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      en: Collection
-      es: Colección
-      fr: Collection
-      gl: Colección
-      id: Koleksi
-      it: Collezione
-      ja: コレクション
-      ka: კოლექცია
-      nl: Collectie
-      pl: Kolekcja
-      pt: Coleção
-      sl: Zbirka
-      th: คอลเลกชัน
+      de: Sammlung
+      en: Fonds
+      es: Fondo
+      fr: collection
+      gl: Fondos
+      it: collezione
+      ja: フォンド
+      ka: ფონდები
+      nl: Archief
+      pl: Zespoły
+      pt: Fundos
+      sl: Fondi
+      th: เอกสารระดับกลุ่ม
   QubitSetting_19:
     name: holdings
     scope: ui_label

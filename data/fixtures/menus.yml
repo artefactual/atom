@@ -222,51 +222,44 @@ QubitMenu:
     source_culture: en
     name: addInformationObject
     label:
-      en: 'Information objects'
-      es: 'Information objects'
-      fr: 'Descriptions archivistiques'
-      it: 'oggetto informativo'
-      ja: 情報オブジェクト
-      ka: 'საინფორმაციო ობიექტები'
-      nl: 'information object'
-      pt: 'Objeto informacional'
-      sl: 'Informacijski objekti'
-      th: วัตถุข้อมูล
+      de: 'Archivische Beschreibung'
+      en: 'Archival descriptions'
+      es: 'Descripción archivística'
+      fr: 'Description archivistique'
+      it: 'Descrizione archivistica'
+      nl: 'Archivistische beschrijving'
+      pl: 'Opis archiwalny'
+      pt: 'Descrição arquivística'
+      sl: 'Arhivski opisi'
     path: informationobject/add
   QubitMenu_mainmenu_addedit_actor:
     parent_id: QubitMenu_mainmenu_addedit
     source_culture: en
     name: addActor
     label:
-      en: Persons/organizations
-      es: Personas/organizaciones
-      fr: Personnes/organismes
-      gl: Persoas/organizacións
-      it: persona/organizzazione
-      ja: 個人/機関
-      ka: 'პერსონები/ ორგანიზაციები'
-      nl: personen/organisaties
-      pt: Pessoas/organizações
-      sl: Osebe/organizacije
-      th: 'บุคคล / องค์การ'
+      en: 'Authority records'
+      es: 'Registro de autoridad'
+      fr: 'Notice d''autorité'
+      it: 'Record di autorità'
+      nl: 'Geautoriseerd bestand'
+      pl: 'Hasło wzorcowe'
+      pt: 'Registro de autoridade'
+      sl: 'Zapis o ustvarjalcu'
     path: actor/add
   QubitMenu_mainmenu_addedit_repository:
     parent_id: QubitMenu_mainmenu_addedit
     source_culture: en
     name: addRepository
     label:
-      en: Repositories
-      es: 'Instituciones archivísticas'
-      fr: 'Institution de conservation'
-      gl: Repositorios
-      id: Repositori
-      it: 'soggetto conservatore'
-      ja: リポジトリ
-      ka: საცავები
-      nl: depot
-      pt: Custódias
-      sl: Skladišča
-      th: คลังเก็บ
+      de: Archiv
+      en: 'Archival institutions'
+      es: 'Institución archivística'
+      fr: 'Service d''archives'
+      it: 'Istituzione archivistica'
+      nl: Archiefinstelling
+      pl: 'Instytucja archiwalna'
+      pt: 'Instituição arquivística'
+      sl: 'Arhivske ustanove'
     path: repository/add
   QubitMenu_mainmenu_addedit_term:
     parent_id: QubitMenu_mainmenu_addedit
@@ -292,18 +285,18 @@ QubitMenu:
     source_culture: en
     name: addFunction
     label:
-      de: Funktionen
-      en: Functions
-      es: Funciones
+      de: Funktion
+      en: Function
+      es: Función
       fr: Fonctions
-      gl: Funcións
+      gl: Función
       id: Fungsi
       ja: 機能
-      ka: ფუნქციები
-      nl: Functies
+      ka: ფუნქცია
+      nl: Functie
       pl: Funkcja
-      pt: Funções
-      sl: Funkcije
+      pt: Função
+      sl: Funkcija
       th: ฟังก์ชั่น
     path: function/add
   QubitMenu_mainmenu_import_xml:
@@ -376,7 +369,7 @@ QubitMenu:
     path: 'user/indexInformationObjectAcl?slug=%currentSlug%'
     source_culture: en
     label:
-      en: 'Information object permissions'
+      en: 'Archival description permissions'
       es: 'Information object permissions'
       fr: 'Droits sur la description archivistique'
       ja: 情報オブジェクト許可
@@ -390,7 +383,7 @@ QubitMenu:
     path: 'user/indexActorAcl?slug=%currentSlug%'
     source_culture: en
     label:
-      en: 'Actor permissions'
+      en: 'Authority record permissions'
       es: 'Permisos del actor'
       fr: 'Permissions de l''utilisateur'
       gl: 'Permisos de actor'
@@ -458,7 +451,7 @@ QubitMenu:
     path: 'aclGroup/indexInformationObjectAcl?id=%currentId%'
     source_culture: en
     label:
-      en: 'Information object permissions'
+      en: 'Archival description permissions'
       es: 'Information object permissions'
       fr: 'Droits sur la description archivistique'
       ja: 情報オブジェクト許可
@@ -472,7 +465,7 @@ QubitMenu:
     path: 'aclGroup/indexActorAcl?id=%currentId%'
     source_culture: en
     label:
-      en: 'Actor permissions'
+      en: 'Authority record permissions'
       es: 'Permisos del actor'
       fr: 'Permissions de l''utilisateur'
       gl: 'Permisos de actor'
@@ -678,7 +671,7 @@ QubitMenu:
       pl: Pomoc
       pt: Ajuda
       sl: Pomoč
-    path: 'http://qubit-toolkit.org/'
+    path: 'http://docs.accesstomemory.org/'
   QubitMenu_quicklinks_myProfile:
     parent_id: QubitMenu_quicklinks
     source_culture: en
@@ -741,40 +734,33 @@ QubitMenu:
     source_culture: en
     name: browseInformationObjects
     label:
-      en: 'Information objects'
-      es: 'Information objects'
-      fr: 'Descriptions archivistiques'
-      it: 'oggetto informativo'
-      ja: 情報オブジェクト
-      ka: 'საინფორმაციო ობიექტები'
-      nl: 'information object'
-      pt: 'Objeto informacional'
-      sl: 'Informacijski objekti'
-      th: วัตถุข้อมูล
+      en: 'Archival descriptions'
+      es: 'Descripción archivística'
+      fr: 'description archivistique'
+      it: 'descrizione archivistica'
+      nl: 'archivistische beschrijving'
+      pt: 'descrição arquivística'
+      sl: 'arhivski opisi'
     path: informationobject/browse
   QubitMenu_browse_actors:
     parent_id: QubitMenu_browse
     source_culture: en
     name: browseActors
     label:
-      en: Persons/organizations
-      es: Personas/organizaciones
-      fr: Personnes/organismes
-      gl: Persoas/organizacións
-      it: persona/organizzazione
-      ja: 個人/機関
-      ka: 'პერსონები/ ორგანიზაციები'
-      nl: personen/organisaties
-      pt: Pessoas/organizações
-      sl: Osebe/organizacije
-      th: 'บุคคล / องค์การ'
+      en: 'Authority records'
+      es: 'Registro de autoridad'
+      fr: 'fichier d''autorité'
+      it: 'record di autorità'
+      nl: 'geautoriseerd bestand'
+      pt: 'registro de autoridade'
+      sl: 'normativni zapisi'
     path: actor/browse
   QubitMenu_browse_repositories:
     parent_id: QubitMenu_browse
     source_culture: en
     name: browseRepositories
     label:
-      en: Repositories
+      en: 'Archival institutions'
       es: 'Instituciones archivísticas'
       fr: 'Institution de conservation'
       gl: Repositorios
@@ -782,9 +768,9 @@ QubitMenu:
       it: 'soggetto conservatore'
       ja: リポジトリ
       ka: საცავები
-      nl: depot
-      pt: Custódias
-      sl: Skladišča
+      nl: archiefinstelling
+      pt: 'instituição arquivística'
+      sl: 'arhivske ustanove'
       th: คลังเก็บ
     path: repository/browse
   QubitMenu_browse_functions:
