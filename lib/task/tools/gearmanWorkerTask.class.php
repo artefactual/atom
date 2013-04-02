@@ -43,8 +43,6 @@ Call it with:
 EOF;
   }
 
-  private $counter = 0;
-
   protected function execute($arguments = array(), $options = array())
   {
     $configuration = ProjectConfiguration::getApplicationConfiguration($options['application'], $options['env'], false);
@@ -75,6 +73,8 @@ EOF;
       $this->logSection('gearman-worker', 'Running worker...');
       $this->logSection('gearman-worker', 'PID '.getmypid());
 
+      $counter = 0;
+
       // The worker loop!
       $worker->beginWork(
         // Pass a callback that pings the database every ~30 seconds
@@ -83,11 +83,11 @@ EOF;
         // Another option would be to catch the ProperException from the worker
         // and restablish the connection when needed. Also, the persistent mode
         // could be disabled for this worker. See issue #4182.
-        function()
+        function() use (&$counter)
         {
-          if (30 == $this->counter++)
+          if (30 == $counter++)
           {
-            $this->counter = 0;
+            $counter = 0;
 
             QubitPdo::prepareAndExecute('SELECT 1');
           }
