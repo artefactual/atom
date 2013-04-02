@@ -43,6 +43,8 @@ Call it with:
 EOF;
   }
 
+  private $counter = 0;
+
   protected function execute($arguments = array(), $options = array())
   {
     $configuration = ProjectConfiguration::getApplicationConfiguration($options['application'], $options['env'], false);
@@ -50,6 +52,9 @@ EOF;
 
     // Using the current context, get the event dispatcher and suscribe an event in it
     $context->getEventDispatcher()->connect('gearman.worker.log', array($this, 'gearmanWorkerLogger'));
+
+    // QubitSetting are not available for tasks? See lib/SiteSettingsFilter.class.php
+    sfConfig::add(QubitSetting::getSettingsArray());
 
     // Unset default net_gearman prefix for jobs
     define('NET_GEARMAN_JOB_CLASS_PREFIX', '');
@@ -68,9 +73,25 @@ EOF;
       }
 
       $this->logSection('gearman-worker', 'Running worker...');
+      $this->logSection('gearman-worker', 'PID '.getmypid());
 
-      // Loop!
-      $worker->beginWork();
+      // The worker loop!
+      $worker->beginWork(
+        // Pass a callback that pings the database every ~30 seconds
+        // in order to keep the connection alive. AtoM connects to MySQL in a
+        // persistent way that timeouts when running the worker for a long time.
+        // Another option would be to catch the ProperException from the worker
+        // and restablish the connection when needed. Also, the persistent mode
+        // could be disabled for this worker. See issue #4182.
+        function()
+        {
+          if (30 == $this->counter++)
+          {
+            $this->counter = 0;
+
+            QubitPdo::prepareAndExecute('SELECT 1');
+          }
+        });
     }
     catch (Net_Gearman_Exception $e)
     {
