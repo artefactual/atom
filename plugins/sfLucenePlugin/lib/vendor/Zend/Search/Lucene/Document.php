@@ -65,6 +65,16 @@ class Zend_Search_Lucene_Document
         return $this->getFieldValue($offset);
     }
 
+    /**
+     * Returns true if the field exists
+     *
+     * @param  string $name The name of the field
+     * @return Boolean true if the field exists, false otherwise
+     */
+    public function __isset($name)
+    {
+        return array_key_exists($name, $this->_fields);
+    }
 
     /**
      * Add a field object to this document.
