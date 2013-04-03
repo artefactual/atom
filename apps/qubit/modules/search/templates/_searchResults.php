@@ -20,7 +20,7 @@
     <?php $doc = $hit->getDocument(); ?>
     <div class="clearfix search-results <?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
 
-      <?php if ('true' == $doc->hasDigitalaObject): ?>
+      <?php if ('true' == $doc->hasDigitalObject): ?>
         <?php if (isset($doc->mediaTypeId)): ?>
           <?php if (QubitTerm::AUDIO_ID == $doc->mediaTypeId): ?>
             <?php echo link_to(image_tag('play.png', array('alt' => $doc->title)), array('slug' => $doc->slug, 'module' => 'informationobject')) ?>
