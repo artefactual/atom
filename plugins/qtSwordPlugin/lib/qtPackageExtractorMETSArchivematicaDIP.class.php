@@ -21,6 +21,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 {
   protected function processDmdSec($xml, $informationObject)
   {
+    $creation = array();
+
     $xml->registerXPathNamespace("m", "http://www.loc.gov/METS/");
 
     $dublincore = $xml->xpath('.//m:mdWrap/m:xmlData/*');
@@ -43,7 +45,11 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           break;
 
         case 'creator':
-          $informationObject->setActorByName($value, array('event_type_id' => QubitTerm::CREATION_ID));
+          $creation['actorName'] = $value;
+          break;
+
+        case 'provenance':
+          $informationObject->acquisition = $value;
 
           break;
 
@@ -73,7 +79,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           break;
 
         case 'date':
-          $informationObject->setDates($value);
+          $creation['date'] = $value;
 
           break;
 
@@ -93,6 +99,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
           break;
 
+        case 'extent':
         case 'format':
           $informationObject->extentAndMedium = $value;
 
@@ -126,7 +133,102 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       }
     }
 
-    return $informationObject;
+    return array($informationObject, $creation);
+  }
+
+  protected function addCreationEvent($informationObject, $options)
+  {
+    $event = new QubitEvent;
+    $event->informationObjectId = $informationObject->id;
+    $event->typeId = QubitTerm::CREATION_ID;
+
+    if ($options['actorName'])
+    {
+      $actor = QubitFlatfileImport::createOrFetchActor($options['actorName']);
+      $event->actorId = $actor->id;
+    }
+
+    if ($options['date'])
+    {
+      $date = $options['date'];
+
+      // Normalize expression of date range
+      $date = str_replace('/', '|', $date);
+      $date = str_replace(' - ', '|', $date);
+
+      if (substr_count($date, '|'))
+      {
+        // Date is a range
+        $dates = explode('|', $date);
+
+        // If date is a range, set start/end dates
+        if (count($dates) == 2)
+        {
+          $parsedDates = array();
+
+          // Parse each component date
+          foreach($dates as $dateItem)
+          {
+            array_push($parsedDates, QubitFlatfileImport::parseDate($dateItem));
+          }
+
+          $event->startDate = $parsedDates[0];
+          $event->endDate = $parsedDates[1];
+
+          // if date range is similar to ISO 8601 then make it a normal date range
+          if ($this->likeISO8601Date(trim($dates[0])))
+          {
+            if ($event->startDate == $event->endDate)
+            {
+              $date = $event->startDate;
+            }
+            else
+            {
+              $date = $event->startDate.'|'.$event->endDate;
+            }
+          }
+        }
+
+        // If date is a single ISO 8601 date then truncate off time
+        if ($this->likeISO8601Date(trim($event->date)))
+        {
+          $date = substr(trim($event->date), 0, 10);
+        }
+
+        // Make date range indicator friendly
+        $event->date = str_replace('|', ' - ', $date);
+      }
+      else
+      {
+        // Date isn't a range
+        $event->date = QubitFlatfileImport::parseDate($date);
+      }
+    }
+
+    $event->save();
+  }
+
+  protected function likeISO8601Date($date)
+  {
+    $date = substr($date, 0, 19).'Z';
+
+    if (preg_match('/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z$/', $date, $parts) == true)
+    {
+      $time = gmmktime($parts[4], $parts[5], $parts[6], $parts[2], $parts[3], $parts[1]);
+
+      $input_time = strtotime($date);
+
+      if ($input_time === false)
+      {
+        return false;
+      }
+
+      return $input_time == $time;
+    }
+    else
+    {
+      return false;
+    }
   }
 
   protected function process()
@@ -161,13 +263,26 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     // AIP UUID
     $aipUUID = $this->getUUID($this->filename);
 
+    $publicationStatus = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
+
+    $this->createParent = true;
     // Main object
     if ($this->createParent && null != ($dmdSec = $this->getMainDmdSec()))
     {
-      $this->resource = $this->processDmdSec($dmdSec, $this->resource);
+      $parent = new QubitInformationObject;
+      list($parent, $creation) = $this->processDmdSec($dmdSec, $parent);
+      $parent->setLevelOfDescriptionByName('file');
+
+      $this->resource->informationObjectsRelatedByparentId[] = $parent;
+      $parent->save();
+
+      if (count($creation))
+      {
+        $this->addCreationEvent($parent, $creation);
+      }
     }
 
-    $publicationStatus = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
+    $mapping = $this->getStructMapFileToDmdSecMapping();
 
     foreach ($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects') as $item)
     {
@@ -180,14 +295,21 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       // Create child
       $child = new QubitInformationObject;
       $child->setPublicationStatus($publicationStatus);
+      $child->setLevelOfDescriptionByName('item');
 
       // Get title from filename, remove UUID (36 + hyphen)
       $child->title = substr($filename, 37);
 
       // Process metatadata from METS file
-      if (null !== ($dmdSec = $this->searchFileDmdSec($objectUUID)))
+      if (null !== ($dmdSec = $this->searchFileDmdSec($objectUUID, $mapping)))
       {
-        $child = $this->processDmdSec($dmdSec, $child);
+        list($child, $creation) = $this->processDmdSec($dmdSec, $child);
+        $child->save();
+
+        if (count($creation))
+        {
+          $this->addCreationEvent($child, $creation);
+        }
       }
 
       // Storage UUIDs
@@ -200,7 +322,14 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $digitalObject->usageId = QubitTerm::MASTER_ID;
       $child->digitalObjects[] = $digitalObject;
 
-      $this->resource->informationObjectsRelatedByparentId[] = $child;
+      if (isset($parent))
+      {
+        $parent->informationObjectsRelatedByparentId[] = $child;
+      }
+      else
+      {
+        $this->resource->informationObjectsRelatedByparentId[] = $child;
+      }
     }
 
     $this->resource->save();
@@ -208,20 +337,46 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     parent::process();
   }
 
+  protected function getStructMapFileToDmdSecMapping()
+  {
+    $mapping = array();
+
+    $items = $this->document->xpath('//m:structMap[@LABEL="Hierarchical arrangement"]/m:div/m:div');
+
+    foreach($items as $item)
+    {
+      $attributes = $item->attributes();
+      $dmdId = (string)$attributes['DMDID'];
+
+      if ($dmdId)
+      {
+        $fptrAttributes = $item->fptr->attributes();
+        $fileId = (string)$fptrAttributes['FILEID'];
+
+        if ($fileId)
+        {
+          $mapping[$fileId] = $dmdId;
+        }
+      }
+    }
+
+    return $mapping;
+  }
+
   protected function getMainDmdSec()
   {
-    $items = $this->document->xpath('//m:mets/m:structMap/m:div/m:div');
+    $items = $this->document->xpath('//m:structMap[@LABEL="Hierarchical arrangement"]/m:div');
 
     $id = $items[0]['DMDID'];
 
-    $dmdSec = $this->document->xpath('//m:mets/m:dmdSec[@ID="'.$id.'"]');
+    $dmdSec = $this->document->xpath('//m:dmdSec[@ID="'.$id.'"]');
     if (0 < count($dmdSec))
     {
       return $dmdSec[0];
     }
   }
 
-  protected function searchFileDmdSec($uuid)
+  protected function searchFileDmdSec($uuid, $mapping)
   {
     $node = $this->document->xpath('//m:mets/m:fileSec/m:fileGrp[@USE="original"]');
 
@@ -234,10 +389,17 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     {
       if (false !== strstr($item['ID'], $uuid))
       {
-        $dmdSec = $this->document->xpath('//m:mets/m:dmdSec[@ID="'.$item['DMDID'].'"]');
-        if (0 < count($dmdSec))
+        $id = (string)$item['ID'];
+
+        if (isset($mapping[$id]))
         {
-          return $dmdSec[0];
+          $dmdId = $mapping[$id];
+
+          $dmdSec = $this->document->xpath('//m:mets/m:dmdSec[@ID="'.$dmdId.'"]');
+          if (0 < count($dmdSec))
+          {
+            return $dmdSec[0];
+          }
         }
       }
     }
