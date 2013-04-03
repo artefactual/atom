@@ -67,7 +67,7 @@ class qtSwordPluginWorker extends Net_Gearman_Job_Common
     }
     catch (Exception $e)
     {
-      $this->log(sprintf('Exception: %s', $e));
+      $this->log(sprintf('Exception: %s', $e->getMessage()));
     }
 
     $this->log(sprintf('Job finished.'));
