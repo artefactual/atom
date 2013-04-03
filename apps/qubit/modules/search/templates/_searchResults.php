@@ -20,14 +20,16 @@
     <?php $doc = $hit->getDocument(); ?>
     <div class="clearfix search-results <?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
 
-      <?php if ('true' == $doc->hasDigitalObject): ?>
-        <?php if (null == $doc->mediaTypeId): ?>
-          <?php echo link_to(image_tag(QubitDigitalObject::getGenericRepresentation($doc->mediaTypeId, QubitTerm::THUMBNAIL_ID)->getFullPath(), array('alt' => $doc->title)), array('slug' => $doc->slug, 'module' => 'informationobject')) ?>
-        <?php elseif (QubitTerm::AUDIO_ID == $doc->mediaTypeId): ?>
-          <?php echo link_to(image_tag('play.png', array('alt' => $doc->title)), array('slug' => $doc->slug, 'module' => 'informationobject')) ?>
-        <?php elseif (null !== $doc->thumbnailPath): ?>
-          <?php echo link_to(image_tag(public_path($doc->thumbnailPath), array('alt' => $doc->title)), array('slug' => $doc->slug, 'module' => 'informationobject')) ?>
-        <?php endif;?>
+      <?php if ('true' == $doc->hasDigitalaObject): ?>
+        <?php if (isset($doc->mediaTypeId)): ?>
+          <?php if (QubitTerm::AUDIO_ID == $doc->mediaTypeId): ?>
+            <?php echo link_to(image_tag('play.png', array('alt' => $doc->title)), array('slug' => $doc->slug, 'module' => 'informationobject')) ?>
+          <?php elseif (null !== $doc->thumbnailPath): ?>
+            <?php echo link_to(image_tag(public_path($doc->thumbnailPath), array('alt' => $doc->title)), array('slug' => $doc->slug, 'module' => 'informationobject')) ?>
+          <?php endif; ?>
+        <?php else: ?>
+          <?php echo link_to(image_tag(QubitDigitalObject::getGenericRepresentation(null, QubitTerm::THUMBNAIL_ID)->getFullPath(), array('alt' => $doc->title)), array('slug' => $doc->slug, 'module' => 'informationobject')) ?>
+        <?php endif; ?>
       <?php endif; ?>
 
       <h2><?php echo link_to(render_title($doc->title), array('slug' => $doc->slug, 'module' => 'informationobject')) ?><?php if (QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $doc->publicationStatusId): ?> <span class="publicationStatus">draft</span><?php endif; ?></h2>
