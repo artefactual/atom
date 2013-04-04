@@ -21,13 +21,13 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 {
   protected function processDmdSec($xml, $informationObject)
   {
-    $creation = array();
-
-    $xml->registerXPathNamespace("m", "http://www.loc.gov/METS/");
+    $xml->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
 
     $dublincore = $xml->xpath('.//m:mdWrap/m:xmlData/*');
     $dublincore = end($dublincore);
-    $dublincore->registerXPathNamespace("dc", "http://purl.org/dc/terms/");
+    $dublincore->registerXPathNamespace('dc', 'http://purl.org/dc/terms/');
+
+    $creation = array();
 
     foreach ($dublincore as $item)
     {
@@ -240,6 +240,10 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       {
         if (0 < preg_match('/^METS\..*\.xml$/', $entry))
         {
+          $path = $this->filename.DIRECTORY_SEPARATOR.$entry;
+
+          sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Opening '.$path);
+
           $this->document = new SimpleXMLElement(@file_get_contents($this->filename.DIRECTORY_SEPARATOR.$entry));
 
           break;
@@ -263,9 +267,10 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     // AIP UUID
     $aipUUID = $this->getUUID($this->filename);
 
+    sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - aipUUID: '.$aipUUID);
+
     $publicationStatus = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
 
-    $this->createParent = true;
     // Main object
     if ($this->createParent && null != ($dmdSec = $this->getMainDmdSec()))
     {
@@ -292,13 +297,22 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       // Object UUID
       $objectUUID = $this->getUUID($filename);
 
+      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - objectUUID: '.$objectUUID);
+
       // Create child
       $child = new QubitInformationObject;
       $child->setPublicationStatus($publicationStatus);
       $child->setLevelOfDescriptionByName('item');
 
-      // Get title from filename, remove UUID (36 + hyphen)
+      // TODO: use UUID as unique key in the array
       $child->title = substr($filename, 37);
+      foreach ($mapping as $k => $v)
+      {
+        if ($objectUUID == $this->getUUID($k))
+        {
+          $child->title = $this->getOriginalName($k);
+        }
+      }
 
       // Process metatadata from METS file
       if (null !== ($dmdSec = $this->searchFileDmdSec($objectUUID, $mapping)))
@@ -339,41 +353,113 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
   protected function getStructMapFileToDmdSecMapping()
   {
-    $mapping = array();
-
-    $items = $this->document->xpath('//m:structMap[@LABEL="Hierarchical arrangement"]/m:div/m:div');
-
-    foreach($items as $item)
+    switch ((string)$this->structMap['TYPE'])
     {
-      $attributes = $item->attributes();
-      $dmdId = (string)$attributes['DMDID'];
+      case 'logical':
+        $items = $this->structMap->div->div;
 
-      if ($dmdId)
+        break;
+
+      case 'physical':
+        $items = $this->structMap->div->div->div;
+
+        break;
+    }
+
+    $explore = function(&$items, &$mapping = array()) use (&$explore)
+    {
+      foreach ($items as $item)
       {
-        $fptrAttributes = $item->fptr->attributes();
-        $fileId = (string)$fptrAttributes['FILEID'];
-
-        if ($fileId)
+        switch ((string)$item['TYPE'])
         {
-          $mapping[$fileId] = $dmdId;
+          case 'Directory':
+            if (in_array((string)$item['LABEL'], array('metadata', 'submissionDocumentation')))
+            {
+              continue;
+            }
+
+            $explore($item, $mapping);
+
+          case 'Item':
+            if (null !== $fileId = $item->fptr['FILEID'])
+            {
+              // DMDID may be empty but that's okay, we need the mapping anyways
+              $mapping[(string)$fileId] = (string)$item->fptr['DMDID'];
+            }
+        }
+      }
+
+      return $mapping;
+    };
+
+    return $explore($items);
+  }
+
+  /**
+   * Find the original filename
+   * simple_load_string() is used to make xpath queries faster
+   */
+  protected function getOriginalFilename($fileid)
+  {
+    if (false !== $file = $this->document->xpath('//m:fileSec/m:fileGrp[@USE="original"]/m:file[@ID="'.$fileid.'"]'))
+    {
+      if (null !== $admId = $file[0]['ADMID'])
+      {
+        $fileData = $file[0];
+        $fileData = simplexml_load_string($fileData->asXML());
+
+        if (false !== $xmlData = $this->document->xpath('//m:amdSec[@ID="'.(string)$admId.'"]/m:techMD/m:mdWrap/m:xmlData'))
+        {
+          $xmlData = $xmlData[0];
+          $xmlData = simplexml_load_string($xmlData->asXML());
+
+          $xmlData->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
+          if (false !== $originalName = $xmlData->xpath('//s:object//s:originalName'))
+          {
+            return end(explode('/', (string)$originalName[0]));
+          }
         }
       }
     }
-
-    return $mapping;
   }
 
   protected function getMainDmdSec()
   {
-    $items = $this->document->xpath('//m:structMap[@LABEL="Hierarchical arrangement"]/m:div');
-
-    $id = $items[0]['DMDID'];
-
-    $dmdSec = $this->document->xpath('//m:dmdSec[@ID="'.$id.'"]');
-    if (0 < count($dmdSec))
+    foreach ($this->document->xpath('//m:structMap[@TYPE="logical" or @TYPE="physical"]') as $item)
     {
-      return $dmdSec[0];
+      switch ((string)$item['TYPE'])
+      {
+        case 'logical':
+          $dmdId = $item->div['DMDID'];
+
+          break;
+
+        case 'physical':
+          $dmdId = $item->div->div['DMDID'];
+
+          break;
+
+        default:
+          throw new sfException('Unrecognized structMap layout: '.$item['TYPE']);
+      }
+
+      if (null === $dmdId)
+      {
+        continue;
+      }
+
+      $this->structMap = $item;
+
+      $dmdSec = $this->document->xpath('//m:dmdSec[@ID="'.(string)$dmdId.'"]');
+      if (0 < count($dmdSec))
+      {
+        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - dmdSec found!');
+
+        return $dmdSec[0];
+      }
     }
+
+    sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - dmdSec not found!');
   }
 
   protected function searchFileDmdSec($uuid, $mapping)
