@@ -310,7 +310,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       {
         if ($objectUUID == $this->getUUID($k))
         {
-          $child->title = $this->getOriginalName($k);
+          $child->title = $this->getOriginalFilename($k);
         }
       }
 
