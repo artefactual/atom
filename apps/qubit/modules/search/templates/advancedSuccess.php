@@ -10,7 +10,7 @@
   <?php endif; ?>
 
   <h1>
-    <?php echo ('Advanced search') ?>
+    <?php echo __('Advanced search') ?>
     <div id="action-icons">
       <?php echo link_to(
         image_tag('printer-icon.png', array('alt' => __('Print'))),

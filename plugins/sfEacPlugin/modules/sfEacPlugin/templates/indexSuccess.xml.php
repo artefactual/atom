@@ -79,6 +79,16 @@
 
       </nameEntry>
 
+      <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::STANDARDIZED_FORM_OF_NAME_ID)) as $item): ?>
+        <nameEntry localType="standardized">
+
+          <part><?php echo esc_specialchars($item->name) ?></part>
+
+          <alternativeForm>conventionDeclaration</alternativeForm>
+
+        </nameEntry>
+      <?php endforeach; ?>
+
       <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::OTHER_FORM_OF_NAME_ID)) as $item): ?>
         <nameEntry>
 
@@ -91,11 +101,22 @@
 
       <?php foreach ($resource->getOtherNames(array('typeId' => QubitTerm::PARALLEL_FORM_OF_NAME_ID)) as $item): ?>
         <nameEntryParallel>
-          <nameEntry>
-            <part><?php echo esc_specialchars($item->name) ?></part>
+        <?php foreach ($item->otherNameI18ns as $otherName): ?>
+          <?php if (sfContext::getInstance()->getUser()->getCulture() == $otherName->culture): ?>
+            <nameEntry xml:lang="<?php echo sfEacPlugin::to6392($otherName->culture) ?>" scriptCode="Latn">
+              <part><?php echo esc_specialchars($item->name) ?></part>
 
-            <authorizedForm>conventionDeclaration</authorizedForm>
-          </nameEntry>
+              <preferredForm>conventionDeclaration</preferredForm>
+            </nameEntry>
+          <?php else: ?>
+            <nameEntry xml:lang="<?php echo sfEacPlugin::to6392($otherName->culture) ?>" scriptCode="Latn">
+              <part><?php echo esc_specialchars($otherName->name) ?></part>
+            </nameEntry>
+          <?php endif; ?>
+        <?php endforeach; ?>
+
+        <authorizedForm>conventionDeclaration</authorizedForm>
+
         </nameEntryParallel>
       <?php endforeach; ?>
 
@@ -139,7 +160,7 @@
 
       <generalContext><?php echo $eac->generalContext ?></generalContext>
 
-      <biogHist><?php echo $eac->biogHist ?></biogHist>
+      <biogHist id="<?php echo url_for(array($resource, 'module' => 'actor'), true) ?>"><?php echo $eac->biogHist ?></biogHist>
 
     </description>
 
@@ -157,8 +178,14 @@
         </cpfRelation>
       <?php endforeach; ?>
 
+      <?php foreach ($eac->subjectOf as $item): ?>
+        <resourceRelation resourceRelationType="subjectOf" xlink:href="<?php echo url_for(array($item->subject, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
+          <relationEntry><?php echo render_title($item->subject) ?></relationEntry>
+        </resourceRelation>
+      <?php endforeach; ?>
+
       <?php foreach ($eac->resourceRelation as $item): ?>
-        <resourceRelation resourceRelationType="<?php echo sfEacPlugin::toResourceRelationType($item->type->id) ?>" xlink:href="<?php echo url_for(array($item->informationObject, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
+        <resourceRelation <?php echo sfEacPlugin::toResourceRelationTypeAndXlinkRole($item->type) ?> xlink:href="<?php echo url_for(array($item->informationObject, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
           <relationEntry><?php echo render_title($item->informationObject) ?></relationEntry>
           <?php echo sfEacPlugin::renderDates($item) ?>
           <?php if (isset($item->date)): ?>

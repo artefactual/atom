@@ -77,7 +77,12 @@ class sfEadPlugin
 
     $url = url_for(array($this->resource, 'module' => 'informationobject', 'sf_format' => 'xml'), $absolute = true);
 
-    return "<eadid$countryCode$mainAgencyCode url=\"$url\" encodinganalog=\"Identifier\">{$this->resource->identifier}</eadid>";
+    if (null === $identifier = $this->resource->descriptionIdentifier)
+    {
+      $identifier = url_for($this->resource, $absolute = true);
+    }
+
+    return "<eadid identifier=\"$identifier\"$countryCode$mainAgencyCode url=\"$url\" encodinganalog=\"Identifier\">{$this->resource->identifier}</eadid>";
   }
 
   public function renderEadNormalizedDate($date)

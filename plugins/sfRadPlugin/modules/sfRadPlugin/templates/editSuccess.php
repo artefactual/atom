@@ -151,7 +151,7 @@
           ->label(__('Edition statement')), $resource) ?>
 
         <?php echo render_field($form->editionStatementOfResponsibility
-          ->help(__('"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)'))
+          ->help(__('"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)'))
           ->label(__('Statement of responsibility relating to the edition')), $rad) ?>
 
       </fieldset> <!-- #editionArea -->

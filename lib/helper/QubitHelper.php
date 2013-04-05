@@ -296,3 +296,8 @@ function get_search_i18n($hit, $fieldName, $cultureFallback = true, $allowEmpty 
 
   return $value;
 }
+
+function escape_dc($text)
+{
+  return preg_replace('/\n/', '<lb/>', $text);
+}

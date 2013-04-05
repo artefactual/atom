@@ -1,0 +1,3 @@
+tests/tests-config.php
+tests/report*
+tests/run-tests.log

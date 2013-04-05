@@ -269,6 +269,19 @@ class QubitDigitalObject extends BaseDigitalObject
         }
 
         return $this->values['thumbnail'];
+
+      case 'reference':
+
+        if (!isset($this->values['reference']))
+        {
+          $criteria = new Criteria;
+          $criteria->add(QubitDigitalObject::PARENT_ID, $this->__get('id'));
+          $criteria->add(QubitDigitalObject::USAGE_ID, QubitTerm::REFERENCE_ID);
+
+          $this->values['reference'] = QubitDigitalObject::get($criteria)->offsetGet(0);
+        }
+
+        return $this->values['reference'];
     }
 
     return call_user_func_array(array($this, 'BaseDigitalObject::__get'), $args);

@@ -273,19 +273,20 @@ class sfEacPlugin implements ArrayAccess
         $createdDisplay = format_date($this->resource->createdAt, 'F');
         $updatedDisplay = format_date($this->resource->updatedAt, 'F');
 
+        $isaar = new sfIsaarPlugin($this->resource);
+
+        $revisionHistory = $this->resource->getRevisionHistory(array('cultureFallback' => true));
+        $maintenanceNotes = $isaar->maintenanceNotes;
+
         return <<<return
-<maintenanceEvent>
-  <eventType>created</eventType>
+<maintenanceEvent id="5.4.6">
+  <eventDescription>$revisionHistory</eventDescription>
   <eventDateTime standardDateTime="$createdAt">$createdDisplay</eventDateTime>
-  <agentType>human</agentType>
-  <agent/>
 </maintenanceEvent>
 
-<maintenanceEvent>
-  <eventType>revised</eventType>
+<maintenanceEvent id="5.4.9">
+  <eventDescription>$maintenanceNotes</eventDescription>
   <eventDateTime standardDateTime="$updatedAt">$updatedDisplay</eventDateTime>
-  <agentType>human</agentType>
-  <agent/>
 </maintenanceEvent>
 
 return;
@@ -294,9 +295,17 @@ return;
 
         switch (strtolower($this->resource->descriptionStatus))
         {
+          case 'draft':
+
+            return 'new';
+
           case 'revised':
 
             return 'revised';
+
+          case 'final':
+
+            return 'deleted';
 
           default:
 
@@ -326,6 +335,13 @@ return;
       case 'structureOrGenealogy':
 
         return self::toDiscursiveSet($this->resource->internalStructures);
+
+      case 'subjectOf':
+        $criteria = new Criteria;
+        $criteria->add(QubitRelation::OBJECT_ID, $this->resource->id);
+        $criteria->add(QubitRelation::TYPE_ID, QubitTerm::NAME_ACCESS_POINT_ID);
+
+        return QubitRelation::get($criteria);
     }
   }
 
@@ -405,7 +421,29 @@ return;
 
       case 'maintenanceStatus':
 
-        // TODO Set $this->resource->descriptionStatus
+        $descriptionStatusMap = array();
+        foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::DESCRIPTION_STATUS_ID) as $item)
+        {
+          $descriptionStatusMap[$item->name] = $item->id;
+        }
+
+        switch ($value)
+        {
+          case 'revised':
+            $this->resource->descriptionStatusId = $descriptionStatusMap['Revised'];
+
+            break;
+
+          case 'deleted':
+            $this->resource->descriptionStatusId = $descriptionStatusMap['Final'];
+
+            break;
+
+          case 'new':
+          default:
+            $this->resource->descriptionStatusId = $descriptionStatusMap['Draft'];
+        }
+
         return $this;
 
       case 'publicationStatus':
@@ -415,6 +453,20 @@ return;
 
       case 'structureOrGenealogy':
         $this->resource->internalStructures = self::fromDiscursiveSet($value);
+
+        return $this;
+
+      case 'descriptionDetail':
+
+        foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID) as $item)
+        {
+          if($item == trim($value))
+          {
+            $this->resource->descriptionDetailId = $item->id;
+
+            break;
+          }
+        }
 
         return $this;
     }
@@ -456,15 +508,19 @@ return;
 
     // TODO <descriptiveNote/>
 
+    $languages = array();
     foreach ($fd->find('eac:control/eac:languageDeclaration/eac:language') as $node)
     {
-      $this->resource->language[] = $this->from6392($node->attributes->getNamedItem("languageCode")->textContent);
+      $languages[] = $this->from6392($node->attributes->getNamedItem("languageCode")->textContent);
     }
+    $this->resource->language = $languages;
 
+    $scripts = array();
     foreach ($fd->find('eac:control/eac:languageDeclaration/eac:script') as $node)
     {
-      $this->resource->script[] = $this->from6392($node->attributes->getNamedItem("scriptCode")->textContent);
+      $scripts[] = $this->from6392($node->attributes->getNamedItem("scriptCode")->textContent);
     }
+    $this->resource->script = $scripts;
 
     // conventionDeclaration/abbreviation is an identifier, referenced by e.g.
     // <authorizedForm/> and <alternativeForm/>
@@ -476,9 +532,11 @@ return;
     //$fd->find('eac:control/eac:localTypeDeclaration');
 
     // TODO <date/>, <dateRange/>, <term/>
-    //$this->resource->descriptionDetail = $fd->find('eac:control/eac:localControl')->text();
+    $this->descriptionDetail = $fd->find('eac:control/eac:localControl[@localType="detailLevel"]/eac:term')->text();
 
-    $this->maintenanceHistory = $fd->find('eac:control/eac:maintenanceHistory');
+    $this->resource->revisionHistory = $fd->find('eac:control/eac:maintenanceHistory/eac:maintenanceEvent[@id="5.4.6"]/eac:eventDescription')->text();;
+
+    $this->maintenanceHistory = $fd->find('eac:control/eac:maintenanceHistory/eac:maintenanceEvent[@id="5.4.9"]/eac:eventDescription');
 
     // TODO <descriptiveNote/>, @lastDateTimeVerified
     $this->resource->sources = $fd->find('eac:control/eac:sources/eac:source/eac:sourceEntry')->text();
@@ -492,7 +550,7 @@ return;
     // TODO <nameEntryParallel/>, <useDates/>
     $this->resource->authorizedFormOfName = $fd->find('eac:cpfDescription/eac:identity/eac:nameEntry[eac:authorizedForm]/eac:part')->text();
 
-    foreach ($fd->find('eac:cpfDescription/eac:identity/eac:nameEntry[not(eac:authorizedForm)]') as $node)
+    foreach ($fd->find('eac:cpfDescription/eac:identity/eac:nameEntry[not(eac:authorizedForm) and not(@localType="standardized")]') as $node)
     {
       $item = new QubitOtherName;
       $item->name = $fd->spawn()->add($node)->find('eac:part')->text();
@@ -501,11 +559,24 @@ return;
       $this->resource->otherNames[] = $item;
     }
 
-    foreach ($fd->find('eac:cpfDescription/eac:identity/eac:nameEntryParallel/eac:nameEntry') as $node)
+    foreach ($fd->find('eac:cpfDescription/eac:identity/eac:nameEntryParallel') as $node)
+    {
+      $item = new QubitOtherName;
+      $item->typeId = QubitTerm::PARALLEL_FORM_OF_NAME_ID;
+
+      foreach ($fd->spawn()->add($node)->find('eac:nameEntry[@xml:lang]') as $node2)
+      {
+        $item->setName($fd->spawn()->add($node2)->find('eac:part')->text(), array('culture' => $this->from6392($node2->getAttribute('xml:lang'))));
+      }
+
+      $this->resource->otherNames[] = $item;
+    }
+
+    foreach ($fd->find('eac:cpfDescription/eac:identity/eac:nameEntry[@localType="standardized"]') as $node)
     {
       $item = new QubitOtherName;
       $item->name = $fd->spawn()->add($node)->find('eac:part')->text();
-      $item->typeId = QubitTerm::PARALLEL_FORM_OF_NAME_ID;
+      $item->typeId = QubitTerm::STANDARDIZED_FORM_OF_NAME_ID;
 
       $this->resource->otherNames[] = $item;
     }
@@ -600,6 +671,7 @@ return;
       $this->resource->relationsRelatedBysubjectId[] = $relation;
     }
 
+    $this->itemsSubjectOf = array();
     // TODO @lastDateTimeVerified, <date/>, <dateRange/>, <dateSet/>,
     // <descriptiveNote/>, <placeEntry/>
     foreach ($fd->find('eac:cpfDescription/eac:relations/eac:resourceRelation') as $node)
@@ -622,28 +694,35 @@ return;
         $item->save();
       }
 
-      $event = new QubitEvent;
-      $event->informationObject = $item;
-      $event->typeId = self::fromResourceRelationType($node->getAttribute('resourceRelationType'));
-
-      if (0 < count($date = self::parseDates($node)))
+      if($node->getAttribute('resourceRelationType') == "subjectOf")
       {
-        $event->startDate = $date[0][0];
-        $event->endDate = $date[count($date) - 1][1];
+         $this->itemsSubjectOf[] = $item;
       }
-
-      // Multiple, non-contiguous dates
-      if (1 < count($date))
+      else
       {
-        foreach ($date as $key => $value)
+        $event = new QubitEvent;
+        $event->informationObject = $item;
+        $event->typeId = self::fromResourceRelationType($node->getAttribute('resourceRelationType'), $node->getAttribute('xlink:role'));
+
+        if (0 < count($date = self::parseDates($node)))
         {
-          $date[$key] = Qubit::renderDate($value[0]).' - '.Qubit::renderDate($value[1]);
+          $event->startDate = $date[0][0];
+          $event->endDate = $date[count($date) - 1][1];
         }
 
-        $event->date = implode(', ', $date);
-      }
+        // Multiple, non-contiguous dates
+        if (1 < count($date))
+        {
+          foreach ($date as $key => $value)
+          {
+            $date[$key] = Qubit::renderDate($value[0]).' - '.Qubit::renderDate($value[1]);
+          }
 
-      $this->resource->events[] = $event;
+          $event->date = implode(', ', $date);
+        }
+
+        $this->resource->events[] = $event;
+      }
     }
 
     // TODO <date/>, <dateRange/>, <dateSet/>, <descriptiveNote/>,
@@ -786,28 +865,67 @@ return;
     return $value;
   }
 
-  public static function fromResourceRelationType($value)
+  public function fromResourceRelationType($resourceRelationType, $xlinkRole)
   {
-    switch ($value)
+    switch ($resourceRelationType)
     {
       case 'creatorOf':
 
         return QubitTerm::CREATION_ID;
 
       case 'other':
+
+        if (!isset($this->eventTypes))
+        {
+          $this->eventTypes = QubitTaxonomy::getTermsById(QubitTaxonomy::EVENT_TYPE_ID);
+        }
+
+        if (strlen($xlinkRole) > 0)
+        {
+          foreach ($this->eventTypes as $item)
+          {
+            if($item->__toString() == $xlinkRole)
+            {
+              return $item->id;
+            }
+          }
+
+          $term = new QubitTerm;
+          $term->taxonomyId = QubitTaxonomy::EVENT_TYPE_ID;
+          $term->parentId = QubitTerm::ROOT_ID;
+          $term->name = $xlinkRole;
+          $term->save();
+
+          return $term->id;
+        }
+        else
+        {
+          $term = new QubitTerm;
+          $term->taxonomyId = QubitTaxonomy::EVENT_TYPE_ID;
+          $term->parentId = QubitTerm::ROOT_ID;
+          $term->name = $resourceRelationType;
+          $term->save();
+
+          return $term->id;
+        }
+
       case 'subjectOf':
 
         return;
     }
   }
 
-  public static function toResourceRelationType($value)
+  public static function toResourceRelationTypeAndXlinkRole($type)
   {
-    switch ($value)
+    switch ($type->id)
     {
       case QubitTerm::CREATION_ID:
 
-        return 'creatorOf';
+        return 'resourceRelationType="creatorOf"';
+
+      default:
+
+        return 'resourceRelationType="other" xlink:role="'.$type.'"';
     }
   }
 

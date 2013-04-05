@@ -47,69 +47,69 @@ information_object:
     # each of the following XPath expressions are relative to the current matched node:
 
     title:
-      XPath:   "(dc:title | title)"
+      XPath:  title
       Method:  setTitle
 
     creator:
-      XPath:  "(dc:creator | creator)"
+      XPath:  creator
       Method:  setActorByName
       Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID)"]
 
     subject:
-      XPath:   "(dc:subject | subject)"
+      XPath:  subject
       Method:  setTermRelationByName
       Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID)"]
 
     description:
-      XPath:   "(dc:description | description)"
+      XPath:  description
       Method:  setScopeAndContent
 
     publisher:
-      XPath:  "(dc:publisher | publisher)"
+      XPath:  publisher
       Method:  setActorByName
       Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::PUBLICATION_ID)"]
 
     contributor:
-      XPath:  "(dc:contributor | contributor)"
+      XPath:  contributor
       Method:  setActorByName
       Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CONTRIBUTION_ID)"]
 
     date:
-      XPath:   "(dc:date | date)"
+      XPath:  date
       Method:  setDates
       Parameters: [$nodeValue, "$options = array('normalized_dates' => $nodeValue)"]
 
     type:
-      XPath:  "(dc:type | type)"
+      XPath:  type
       Method:  setTermRelationByName
       Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::DC_TYPE_ID)"]
 
     format:
-      XPath:  "(dc:format | format)"
+      XPath:  format
       Method:  setExtentAndMedium
 
     identifier:
-      XPath:  "(dc:identifier | identifier)"
+      XPath:  identifier
       Method: setIdentifier
 
     source:
-      XPath:  "(dc:source | source)"
+      XPath:  source
       Method:  setLocationOfOriginals
 
     language:
-      XPath:  "(dc:language | language)"
+      XPath:  language
       Method:  addProperty
       Parameters: [$name = 'information_object_language', $nodeValue, "$options = array('scope' => 'languages', 'sourceCulture' => true)"]
 
     relation:
-      XPath:  "(dc:relation | relation)"
+      XPath:  relation
       Method:  setRepositoryByName
 
     coverage:
-      XPath:  "(dc:coverage | coverage)"
+      XPath:  coverage
       Method:  setTermRelationByName
       Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::PLACE_ID)"]
 
     rights:
-      XPath:  "(dc:rights | rights)"
+      XPath:  rights
       Method:  setAccessConditions

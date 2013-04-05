@@ -1304,6 +1304,10 @@ class QubitInformationObject extends BaseInformationObject
       {
         $event->setEndDate($options['date_end']);
       }
+      if (isset($options['event_note']))
+      {
+        $event->setDescription($options['event_note']);
+      }
 
       $this->events[] = $event;
     }
@@ -1339,12 +1343,14 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function importLangusageEadData($langusageNode)
   {
-    // get language nodes
+    // get language and script nodes
     $langNodeList = QubitXmlImport::queryDomNode($langusageNode, "/xml/langusage/language");
 
     $languagesOfDescription = array();
+    $scriptsOfDescription = array();
+    $scripts = array();
 
-    // amalgamate language data
+    // amalgamate language and script data
     foreach($langNodeList as $langNode)
     {
       if ($langNode->hasAttributes())
@@ -1365,6 +1371,23 @@ class QubitInformationObject extends BaseInformationObject
               break;
           }
         }
+
+        if ($langNode->attributes->getNamedItem('scriptcode'))
+        {
+          $scriptType = $langNode->getAttribute('encodinganalog');
+          $scriptCode = $langNode->getAttribute('scriptcode');
+
+          switch($scriptType)
+          {
+            case 'Script':
+              array_push($scripts, $scriptCode);
+              break;
+
+            case 'Script Of Description':
+              array_push($scriptsOfDescription, $scriptCode);
+              break;
+          }
+        }
       }
     }
 
@@ -1374,6 +1397,24 @@ class QubitInformationObject extends BaseInformationObject
       $this->addProperty(
         'languageOfDescription',
         serialize($languagesOfDescription)
+      );
+    }
+
+    // add script(s) of description, if any
+    if (count($scriptsOfDescription))
+    {
+      $this->addProperty(
+        'scriptOfDescription',
+        serialize($scriptsOfDescription)
+      );
+    }
+
+    // add script(s), if any
+    if (count($scripts))
+    {
+      $this->addProperty(
+        'script',
+        serialize($scripts)
       );
     }
   }
@@ -1416,7 +1457,7 @@ class QubitInformationObject extends BaseInformationObject
 
           // get creation end date element contents
           $history = '';
-          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/note/p");
+          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, '/xml/chronitem/eventgrp/event/note[not(@type="eventNote")]/p');
           foreach($dateNodeList as $noteNode) {
             $history = $noteNode->nodeValue;
           }
@@ -1446,6 +1487,12 @@ class QubitInformationObject extends BaseInformationObject
             }
           }
 
+          $eventNote = '';
+          $eventNoteList = QubitXmlImport::queryDomNode($chronitemNode, '/xml/chronitem/eventgrp/event/note[@type="eventNote"]/p');
+          foreach($eventNoteList as $eventNoteNode) {
+            $eventNote = $eventNoteNode->nodeValue;
+          }
+
           $eventSpec = array(
             'event_type_id' => QubitTerm::CREATION_ID,
             'history'       => $history
@@ -1469,6 +1516,11 @@ class QubitInformationObject extends BaseInformationObject
           if ($date_end)
           {
             $eventSpec['date_end'] = $date_end;
+          }
+
+          if (0 < strlen($eventNote))
+          {
+            $eventSpec['event_note'] = $eventNote;
           }
 
           $this->setActorByName($name, $eventSpec);
@@ -1609,11 +1661,11 @@ class QubitInformationObject extends BaseInformationObject
     $normalizedDate = array();
     if (isset($options['normalized_dates']))
     {
-      preg_match('/(?P<start>\d{4}(-\d{2})?(-\d{2})?)\/?(?P<end>\d{4}(-\d{2})?(-\d{2})?)?/', $options['normalized_dates'], $matches);
-      $normalizedDate['start'] = new DateTime($this->getDefaultDateValue($matches['start']));
+      preg_match('/(?P<start>(\d{4}|\d{3}|\d{2}|\d{1})(-\d{2}|-\d{1})?(-\d{2}|-\d{1})?)\/?(?P<end>(\d{4}|\d{3}|\d{2}|\d{1})(-\d{2}|-\d{1})?(-\d{2}|-\d{1})?)?/', $options['normalized_dates'], $matches);
+      $normalizedDate['start'] = $this->getDefaultDateValue($matches['start']);
       if (isset($matches['end']))
       {
-        $normalizedDate['end'] = new DateTime($this->getDefaultDateValue($matches['end']));
+        $normalizedDate['end'] = $this->getDefaultDateValue($matches['end']);
       }
       else
       {
@@ -1669,16 +1721,21 @@ class QubitInformationObject extends BaseInformationObject
 
   protected function getDefaultDateValue($date)
   {
-    if (strlen($date) == 4)
+    $dateArray = explode("-", $date);
+
+    $defaultDateValue = str_pad($dateArray[0], 4, "0", STR_PAD_LEFT);
+
+    if (isset($dateArray[1]))
     {
-      return $date.'-01-01';
-    }
-    else if (strlen($date) == 7)
-    {
-      return $date.'-01';
+      $defaultDateValue .= '-'.str_pad($dateArray[1], 2, '0', STR_PAD_LEFT);
     }
 
-    return $date;
+    if (isset($dateArray[2]))
+    {
+      $defaultDateValue .= '-'.str_pad($dateArray[2], 2, '0', STR_PAD_LEFT);
+    }
+
+    return $defaultDateValue;
   }
 
   public function setIdentifierWithCodes($identifier, $options)

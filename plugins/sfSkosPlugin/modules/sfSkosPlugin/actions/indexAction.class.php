@@ -38,10 +38,10 @@ class sfSkosPluginIndexAction extends sfAction
 
     if ('QubitTerm' == $resource->className)
     {
-      $term = QubitTerm::getById($resource->id);
-      $this->terms = $term->descendants->andSelf()->orderBy('lft');
-      $this->taxonomy = $term->taxonomy;
-      $this->topLevelTerms = array($term);
+      $this->selectedTerm = QubitTerm::getById($resource->id);
+      $this->terms = $this->selectedTerm->descendants->andSelf()->orderBy('lft');
+      $this->taxonomy = $this->selectedTerm->taxonomy;
+      $this->topLevelTerms = array($this->selectedTerm);
     }
     else
     {
