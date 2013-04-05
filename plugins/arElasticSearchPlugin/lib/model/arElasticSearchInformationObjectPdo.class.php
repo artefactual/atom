@@ -419,17 +419,17 @@ class arElasticSearchInformationObjectPdo
               $tmp['date'] = $item->dates[$culture];
             }
 
-            if (isset($item->start_date) && '0000-00-00' != $item->start_date)
+            if (isset($item->start_date))
             {
-              $tmp['startDate'] = $item->start_date;
+              $tmp['startDate'] = arElasticSearchPluginUtil::convertDate($item->start_date);
             }
 
-            if (isset($item->end_date) && '0000-00-00' != $item->end_date)
+            if (isset($item->end_date))
             {
-              $tmp['endDate'] = $item->end_date;
+              $tmp['endDate'] = arElasticSearchPluginUtil::convertDate($item->end_date);
             }
 
-            $tmp['typeId'] = $item->type_id; 
+            $tmp['typeId'] = $item->type_id;
 
             $dates[] = $tmp;
 
