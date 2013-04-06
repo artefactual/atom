@@ -39,6 +39,7 @@ class AccessionAddInformationObjectAction extends sfAction
     $informationObject->physicalCharacteristics = $this->resource->physicalCharacteristics;
     $informationObject->scopeAndContent = $this->resource->scopeAndContent;
     $informationObject->archivalHistory = $this->resource->archivalHistory;
+    $informationObject->appraisal = $this->resource->appraisal;
 
     // Copy (not link) rights
     foreach (QubitRelation::getRelationsBySubjectId($this->resource->id, array('typeId' => QubitTerm::RIGHT_ID)) as $item)
