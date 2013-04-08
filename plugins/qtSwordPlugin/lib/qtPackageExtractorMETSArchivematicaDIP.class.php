@@ -272,7 +272,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     $publicationStatus = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
 
     // Main object
-    if ($this->createParent && null != ($dmdSec = $this->getMainDmdSec()))
+    if (null != ($dmdSec = $this->getMainDmdSec()))
     {
       $parent = new QubitInformationObject;
       list($parent, $creation) = $this->processDmdSec($dmdSec, $parent);
