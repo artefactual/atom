@@ -89,20 +89,7 @@ class qtSwordPluginDepositAction extends sfAction
         $this->package['checksum_md5'] = $request->getHttpHeader('Content-MD5');
       }
 
-      if ('true' == $request->getHttpHeader('Create-Parent'))
-      {
-        // New information object container
-        $this->informationObject = new QubitInformationObject;
-        $this->informationObject->parentId = $this->resource->id;
-        $this->informationObject->setPublicationStatus(sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID));
-        $this->informationObject->save();
-
-        $this->package['create_parent'] = true;
-      }
-      else
-      {
-        $this->informationObject = $this->resource;
-      }
+      $this->informationObject = $this->resource;
 
       try
       {
