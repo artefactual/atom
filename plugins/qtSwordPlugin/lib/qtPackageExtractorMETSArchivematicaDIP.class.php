@@ -381,11 +381,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
             $explore($item, $mapping);
 
           case 'Item':
-            if (null !== $fileId = $item->fptr['FILEID'])
-            {
-              // DMDID may be empty but that's okay, we need the mapping anyways
-              $mapping[(string)$fileId] = (string)$item->fptr['DMDID'];
-            }
+            $mapping[(string)$item->fptr['FILEID']] = (string)$item['DMDID'];
+            sfContext::getInstance()->getLogger()->info('BOO '.$item['DMDID']);
         }
       }
 
