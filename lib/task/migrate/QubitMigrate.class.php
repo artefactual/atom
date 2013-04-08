@@ -427,9 +427,18 @@ class QubitMigrate
           }
 
           $className = 'Qubit'.$classKey;
+          $tableName = $className::TABLE_NAME;
+
+          // Ignore table if it's not available yet in the db
+          $query = QubitPdo::prepare('SHOW TABLES LIKE :table');
+          $query->bindParam(':table', $tableName, PDO::PARAM_STR);
+          if ($query->execute() && false === $query->fetch(PDO::FETCH_NUM))
+          {
+            continue;
+          }
 
           $columns[] = array(
-            'table' => $className::TABLE_NAME,
+            'table' => $tableName,
             'column' => $columnKey);
         }
       }
