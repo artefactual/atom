@@ -380,9 +380,12 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
             $explore($item, $mapping);
 
+            break;
+
           case 'Item':
             $mapping[(string)$item->fptr['FILEID']] = (string)$item['DMDID'];
-            sfContext::getInstance()->getLogger()->info('BOO '.$item['DMDID']);
+
+            break;
         }
       }
 
