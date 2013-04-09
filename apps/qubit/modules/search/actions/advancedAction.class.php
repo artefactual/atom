@@ -26,7 +26,6 @@ class SearchAdvancedAction extends SearchIndexAction
       'levelOfDescription',
       'materialType',
       'mediaType',
-      'repository'
       'repository',
       'searchFields',
       'startDate',
