@@ -24,7 +24,7 @@
         <?php if (isset($doc->mediaTypeId)): ?>
           <?php if (QubitTerm::AUDIO_ID == $doc->mediaTypeId): ?>
             <?php echo link_to(image_tag('play.png', array('alt' => $doc->title)), array('slug' => $doc->slug, 'module' => 'informationobject')) ?>
-          <?php elseif (null !== $doc->thumbnailPath): ?>
+          <?php elseif (!empty($doc->thumbnailPath)): ?>
             <?php echo link_to(image_tag(public_path($doc->thumbnailPath), array('alt' => $doc->title)), array('slug' => $doc->slug, 'module' => 'informationobject')) ?>
           <?php endif; ?>
         <?php else: ?>
