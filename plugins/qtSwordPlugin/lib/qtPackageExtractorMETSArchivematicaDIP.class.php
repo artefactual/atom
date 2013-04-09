@@ -443,12 +443,13 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           throw new sfException('Unrecognized structMap layout: '.$item['TYPE']);
       }
 
+      // We're going to need this later
+      $this->structMap = $item;
+
       if (null === $dmdId)
       {
         continue;
       }
-
-      $this->structMap = $item;
 
       $dmdSec = $this->document->xpath('//m:dmdSec[@ID="'.(string)$dmdId.'"]');
       if (0 < count($dmdSec))
