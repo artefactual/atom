@@ -27,7 +27,7 @@ class DefaultBrowseAction extends sfAction
       {
         $facet = new Elastica_Facet_Terms($item);
         $facet->setField($item);
-        $facet->setSize(50);
+        $facet->setSize(20);
       }
       else
       {
