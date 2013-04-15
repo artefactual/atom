@@ -21,23 +21,54 @@ class DefaultBrowseAction extends sfAction
 {
   protected function addFacets()
   {
-    foreach ($this::$FACETS as $item)
+    foreach ($this::$FACETS as $name => $item)
     {
       if (!is_array($item))
       {
         $facet = new Elastica_Facet_Terms($item);
         $facet->setField($item);
-        $facet->setSize(20);
+        $facet->setSize(10);
+
+        $this->query->addFacet($facet);
+
+        continue;
       }
-      else
+
+      switch ($item['type'])
       {
-        switch ($item['type'])
+        case 'range':
+          $facet = new Elastica_Facet_Range($name);
+          $facet->setField($name);
+          $facet->addRange($item['from'], $item['to']);
+
+          break;
+
+        case 'term':
+          $facet = new Elastica_Facet_Terms($name);
+          $facet->setField($name);
+
+          break;
+      }
+
+      // Sets the amount of terms to be returned
+      if (isset($item['size']))
+      {
+        $facet->setSize($item['size']);
+      }
+
+      // Sets a filter for this facet
+      if (isset($item['filter']))
+      {
+        switch ($item['filter']['type'])
         {
-          case 'range':
-            $facet = new Elastica_Facet_Range($item['name']);
-            $facet->setField($item['name']);
-            $facet->addRange($item['from'], $item['to']);
+          case 'terms':
+            $filter = new Elastica_Filter_Terms();
+            $filter->setTerms($item['filter']['key'], $item['filter']['terms']);
+
+          break;
         }
+
+        $facet->setFilter($filter);
       }
 
       $this->query->addFacet($facet);

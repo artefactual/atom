@@ -26,8 +26,8 @@ class SearchIndexAction extends DefaultBrowseAction
       'digitalObject.mediaTypeId',
       'places.id',
       'names.id',
-      array('type' => 'range', 'name' => 'dates.startDate', 'from' => null, 'to' => null),
-      array('type' => 'range', 'name' => 'dates.endDate', 'from' => null, 'to' => null));
+      'dates.startDate' => array('type' => 'range', 'from' => null, 'to' => null),
+      'dates.endDate' => array('type' => 'range', 'from' => null, 'to' => null));
 
   protected function populateFacet($name, $ids)
   {

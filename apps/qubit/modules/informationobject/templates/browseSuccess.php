@@ -13,7 +13,26 @@
 <?php slot('sidebar') ?>
   <div id="facets">
 
-    ...
+    <?php echo get_partial('search/facet', array(
+      'target' => '#facet-levelOfDescription',
+      'label' => __('Level of description'),
+      'facet' => 'levelOfDescriptionId',
+      'pager' => $pager,
+      'filters' => $filters)) ?>
+
+    <?php echo get_partial('search/facet', array(
+      'target' => '#facet-repository',
+      'label' => __('Institution'),
+      'facet' => 'repository_id',
+      'pager' => $pager,
+      'filters' => $filters)) ?>
+
+    <?php echo get_partial('search/facet', array(
+      'target' => '#facet-terms',
+      'label' => __('Places'),
+      'facet' => 'terms_id',
+      'pager' => $pager,
+      'filters' => $filters)) ?>
 
   </div>
 <?php end_slot() ?>
@@ -117,68 +136,71 @@
       <?php $doc = $hit->getData() ?>
       <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
         <td>
+
           <?php echo link_to(get_search_i18n($doc, 'title'), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
-        </td>
-        <td>
+
+        </td><td>
+
           <?php if ('lastUpdated' == $sortSetting): ?>
+
             <?php if ('titleUp' == $sf_request->sort || 'titleDown' == $sf_request->sort): ?>
-              <?php echo $item->levelOfDescription ?>
+              <?php echo QubitTerm::getById($doc['levelOfDescriptionId'])->__toString() ?>
             <?php else: ?>
-              <?php if (sfConfig::get('app_multi_repository')): ?>
-                <?php if (null !== $repository = $item->getRepository(array('inherit' => true))): ?>
-                  <?php echo link_to(render_title($repository), array($repository, 'module' => 'repository')) ?>
-                <?php endif; ?>
+              <?php if (sfConfig::get('app_multi_repository') && isset($doc['repository'])): ?>
+                <?php echo link_to(render_title(get_search_i18n($doc['repository'], 'authorizedFormOfName')), array('module' => 'repository', 'slug' => $doc['repository']['slug'])) ?>
               <?php else: ?>
-                <?php echo $item->levelOfDescription ?>
+                <?php echo $types[$doc['levelOfDescriptionId']] ?>
               <?php endif; ?>
             <?php endif; ?>
+
           <?php else: ?>
+
             <?php if ('updatedUp' == $sf_request->sort || 'updatedDown' == $sf_request->sort): ?>
-              <?php if (sfConfig::get('app_multi_repository')): ?>
-                <?php if (null !== $repository = $item->getRepository(array('inherit' => true))): ?>
-                  <?php echo link_to(render_title($repository), array($repository, 'module' => 'repository')) ?>
-                <?php endif; ?>
+              <?php if (sfConfig::get('app_multi_repository') && isset($doc['repository'])): ?>
+                <?php echo link_to(render_title(get_search_i18n($doc['repository'], 'authorizedFormOfName')), array('module' => 'repository', 'slug' => $doc['repository']['slug'])) ?>
               <?php else: ?>
-               <?php echo $item->levelOfDescription ?>
+                <?php echo $types[$doc['levelOfDescriptionId']] ?>
               <?php endif; ?>
             <?php else: ?>
-              <?php echo $item->levelOfDescription ?>
+              <?php echo $types[$doc['levelOfDescriptionId']] ?>
             <?php endif; ?>
+
           <?php endif; ?>
-        </td>
-        <?php if (false): ?>
-        <td>
+
+        </td><td>
+
           <?php if ('titleDown' == $sf_request->sort || 'titleUp' == $sf_request->sort): ?>
-            <?php if (sfConfig::get('app_multi_repository')): ?>
-              <?php if (null !== $repository = $item->getRepository(array('inherit' => true))): ?>
-                <?php echo link_to(render_title($repository), array($repository, 'module' => 'repository')) ?>
-              <?php endif; ?>
+
+            <?php if (sfConfig::get('app_multi_repository') && isset($doc['repository'])): ?>
+              <?php echo link_to(render_title(get_search_i18n($doc['repository'], 'authorizedFormOfName')), array('module' => 'repository', 'slug' => $doc['repository']['slug'])) ?>
             <?php else: ?>
               <ul>
-                <?php foreach ($item->getCreators(array('inherit' => true)) as $creator): ?>
-                  <li><?php echo link_to(render_title($creator), array($creator, 'module' => 'actor')) ?></li>
+                <?php foreach ($doc['creators'] as $item): ?>
+                  <li><?php echo link_to(render_title(get_search_i18n($item, 'authorizedFormOfName')), array('module' => 'actor', $item['slug'])) ?></li>
                 <?php endforeach; ?>
               </ul>
             <?php endif; ?>
+
           <?php else: ?>
+
             <?php if ('updatedDown' == $sf_request->sort || 'updatedUp' == $sf_request->sort || 'lastUpdated' == $sortSetting): ?>
-              <?php echo format_date($item->updatedAt, 'f') ?>
+              <?php echo format_date($doc['updatedAt'], 'f') ?>
             <?php else: ?>
-              <?php if (sfConfig::get('app_multi_repository')): ?>
-                <?php if (null !== $repository = $item->getRepository(array('inherit' => true))): ?>
-                  <?php echo link_to(render_title($repository), array($repository, 'module' => 'repository')) ?>
-                <?php endif; ?>
+              <?php if (sfConfig::get('app_multi_repository') && isset($doc['repository'])): ?>
+                <?php echo link_to(render_title(get_search_i18n($doc['repository'], 'authorizedFormOfName')), array('module' => 'repository', 'slug' => $doc['repository']['slug'])) ?>
               <?php else: ?>
                 <ul>
-                  <?php foreach ($item->getCreators(array('inherit' => true)) as $creator): ?>
-                    <li><?php echo link_to(render_title($creator), array($creator, 'module' => 'actor')) ?></li>
+                  <?php foreach ($doc['creators'] as $item): ?>
+                    <li><?php echo link_to(render_title(get_search_i18n($item, 'authorizedFormOfName')), array('module' => 'actor', $item['slug'])) ?></li>
                   <?php endforeach; ?>
                 </ul>
               <?php endif; ?>
             <?php endif; ?>
+
           <?php endif; ?>
+
         </td>
-        <?php endif; ?>
+      </tr>
     <?php endforeach; ?>
   </tbody>
 </table>

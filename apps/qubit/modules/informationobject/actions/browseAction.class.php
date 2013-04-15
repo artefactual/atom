@@ -25,6 +25,58 @@
  */
 class InformationObjectBrowseAction extends DefaultBrowseAction
 {
+  // Arrays not allowed in class constants
+  public static
+    $FACETS = array(
+      'levelOfDescriptionId',
+      'repository.id',
+      'terms.id' => array('type'   => 'term',
+                          'size'   => 10,
+                          'filter' => array(
+                            'type' => 'terms',
+                            'key' => 'terms.taxonomyId',
+                            'terms' => array(QubitTaxonomy::PLACE_ID))));
+
+  protected function populateFacet($name, $ids)
+  {
+    switch ($name)
+    {
+      case 'levelOfDescriptionId':
+        $criteria = new Criteria;
+        $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
+
+        foreach (QubitTerm::get($criteria) as $item)
+        {
+          $this->types[$item->id] = $item->__toString();
+        }
+
+        break;
+
+      case 'repository.id':
+        $criteria = new Criteria;
+        $criteria->add(QubitRepository::ID, array_keys($ids), Criteria::IN);
+
+        foreach (QubitRepository::get($criteria) as $item)
+        {
+          $this->types[$item->id] = $item->__toString();
+        }
+
+
+        break;
+
+      case 'terms.id':
+        $criteria = new Criteria;
+        $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
+
+        foreach (QubitTerm::get($criteria) as $item)
+        {
+          $this->types[$item->id] = $item->name;
+        }
+
+        break;
+    }
+  }
+
   public function execute($request)
   {
     parent::execute($request);
@@ -69,10 +121,12 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         break;
 
       case 'updatedDown':
+        $this->query->setSort(array('updatedAt' => 'desc'));
 
         break;
 
       case 'updatedUp':
+        $this->query->setSort(array('updatedAt' => 'asc'));
 
         break;
 
@@ -87,6 +141,8 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         }
     }
 
+    $this->query->setQuery($this->queryBool);
+
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
 
     // Page results
@@ -94,5 +150,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     $this->pager->setPage($request->page ? $request->page : 1);
     $this->pager->setMaxPerPage($request->limit);
     $this->pager->init();
+
+    $this->populateFacets($resultSet);
   }
 }
