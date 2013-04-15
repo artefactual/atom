@@ -542,52 +542,29 @@ class arElasticSearchInformationObjectPdo
     }
   }
 
-  public function getSubjectAccessPoints($culture)
-  {
-    return $this->getRelatedTerms(QubitTaxonomy::SUBJECT_ID, $culture);
-  }
-
-  public function getPlaceAccessPoints($culture)
-  {
-    return $this->getRelatedTerms(QubitTaxonomy::PLACE_ID, $culture);
-  }
-
-  protected function getRelatedTerms($typeId, $culture)
+  protected function getRelatedTerms()
   {
     $terms = array();
 
-    if (!isset(self::$statements['relatedTerms']))
-    {
-      $sql  = 'SELECT
-                  term.taxonomy_id,
-                  i18n.name';
-      $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' otr';
-      $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' term
-                  ON otr.term_id = term.id';
-      $sql .= ' JOIN '.QubitTermI18n::TABLE_NAME.' i18n
-                  ON term.id = i18n.id';
-      $sql .= ' WHERE otr.object_id = ?
-                  AND i18n.culture = ?
-                  AND term.taxonomy_id = ?';
+    $sql  = 'SELECT
+                term.id,
+                term.taxonomy_id,
+                term.source_culture,
+                slug.slug,
+                i18n.name';
+    $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' otr';
+    $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' term
+                ON otr.term_id = term.id';
+    $sql .= ' JOIN '.QubitTermI18n::TABLE_NAME.' i18n
+                ON term.id = i18n.id';
+    $sql .= ' JOIN '.QubitSlug::TABLE_NAME.' slug
+                ON term.id = slug.object_id';
+    $sql .= ' WHERE otr.object_id = ?';
 
-      self::$statements['relatedTerms'] = self::$conn->prepare($sql);
-    }
+    self::$statements['relatedTerms'] = self::$conn->prepare($sql);
+    self::$statements['relatedTerms']->execute(array($this->__get('id')));
 
-    self::$statements['relatedTerms']->execute(array(
-      $this->__get('id'),
-      $culture,
-      $typeId
-    ));
-
-    foreach (self::$statements['relatedTerms']->fetchAll(PDO::FETCH_OBJ) as $item)
-    {
-      $terms[] = $item->name;
-    }
-
-    if (0 < count($terms))
-    {
-      return implode(' ', $terms);
-    }
+    return self::$statements['relatedTerms']->fetchAll(PDO::FETCH_OBJ);
   }
 
   protected function getLanguagesAndScripts()
@@ -944,6 +921,11 @@ class arElasticSearchInformationObjectPdo
     }
 
     */
+
+    foreach ($this->getRelatedTerms() as $item)
+    {
+      $serialized['terms'] = arElasticSearchTerm::serialize($item);
+    }
 
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($object->createdAt);
     $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($object->updatedAt);
