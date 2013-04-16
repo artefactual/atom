@@ -73,13 +73,12 @@
   var Treeview = function (element)
     {
       this.$element = element;
-      this.$showAllButton = this.$element.find('li:first');
 
       // Used to control loading status and block interface if needed
       this.setLoading(false);
 
       // Regular nodes selector
-      this.nodesSelector = 'li:not(.back, .ancestor, .more)';
+      this.nodesSelector = 'li:not(.ancestor, .more)';
 
       // Store the current resource id to highlight it
       // during the treeview browsing
@@ -98,11 +97,10 @@
     init: function()
       {
         this.$element
-          .on('click.treeview.qubit', 'li', $.proxy(this.click, this))
-          .on('mousedown.treeview.qubit', 'li', $.proxy(this.mousedownup, this))
-          .on('mouseup.treeview.qubit', 'li', $.proxy(this.mousedownup, this))
-          .on('mouseenter.treeview.qubit', 'li', $.proxy(this.mouseenter, this))
-          // .on('mouseleave.treeview.qubit', 'li', $.proxy(this.mouseleave, this))
+          .on('click.treeview.atom', 'li', $.proxy(this.click, this))
+          .on('mousedown.treeview.atom', 'li', $.proxy(this.mousedownup, this))
+          .on('mouseup.treeview.atom', 'li', $.proxy(this.mousedownup, this))
+          .on('mouseenter.treeview.atom', 'li', $.proxy(this.mouseenter, this))
           .bind('scroll', $.proxy(this.scroll, this))
           .bind('scroll-debounced', $.proxy(this.debouncedScroll, this));
 
@@ -119,8 +117,6 @@
           });
 
         this.installSortableBehavior();
-
-        this.highlightLastAncestor();
       },
 
     setLoading: function (status, $node)
@@ -234,14 +230,14 @@
         return this;
       },
 
-    // mouseleave: function (e) { return this; },
-
     mousedownup: function (e)
       {
         if (this.loading)
         {
           killEvent(e);
         }
+
+        return this;
       },
 
     drag: function (e, ui)
@@ -264,7 +260,7 @@
 
         var data = {};
 
-        if ($prev.is('.back, .ancestor'))
+        if ($prev.is('.ancestor'))
         {
           data = { move: 'moveBefore', target: $next.data('xhr-location') };
         }
@@ -370,166 +366,74 @@
           return;
         }
 
-        // Expand button
+        // When the [...] button is clicked
         if ($li.hasClass('more'))
         {
           killEvent(e);
 
           return this.showMore($li);
         }
-        // Back to an ancestor
-        else if ($li.hasClass('back'))
-        {
-          killEvent(e);
-
-          return this.showAll($li);
-        }
+        // When the arrow is clicked
         else if ('I' === e.target.tagName)
         {
-          if ($li.hasClass('immediate-ancestor'))
+          if ($li.hasClass('ancestor') && !$li.next().hasClass('ancestor'))
           {
-            $li.prev().find('i').trigger('click');
-          }
-          else if ($li.hasClass('ancestor'))
-          {
-            if (!$li.next().hasClass('ancestor'))
-            {
-              return this;
-            }
+            killEvent(e);
 
-            return this.showAncestor($li);
+            return this;
           }
-          else if ($li.hasClass('expand'))
-          {
-            return this.showItem($li);
-          }
+
+          return this.showItem($li);
         }
-
-        return this;
-      },
-
-    showAll: function ($element)
-      {
-        $.ajax({
-          url: $element.data('xhr-location'),
-          context: this,
-          dataType: 'html',
-          data: { show: 'all', resourceId: this.resourceId },
-          beforeSend: function ()
-            {
-              this.setLoading(true, $element);
-            },
-          success: function (data)
-            {
-              $element
-                .hide()
-                .nextAll().remove().end()
-                .after(data);
-
-              this.refreshSortableBehavior();
-
-              this.highlightLastAncestor();
-            },
-          complete: function ()
-            {
-              this.setLoading(false, $element);
-            },
-          error: function ()
-            {
-            }
-          });
 
         return this;
       },
 
     showItem: function($element)
       {
+        this.setLoading(true, $element);
+
         $.ajax({
           url: $element.data('xhr-location'),
           context: this,
           dataType: 'html',
-          data: { show: 'item', resourceId: this.resourceId },
-          beforeSend: function ()
+          data: { show: 'item', resourceId: this.resourceId }})
+
+          .fail(function (fail)
             {
-              this.setLoading(true, $element);
-            },
-          success: function (data)
-            {
-              this.$showAllButton
-
-                // Show "Show all" button
-                .show()
-
-                // Move cursor to last ancestor
-                .nextAll(':not(.ancestor,.showall):first').prev()
-
-                // Remove all siblings below
-                .nextAll().remove().end()
-
-                // Add new nodes
-                .after(data)
-
-                // Expanded node becomes now an ancestor
-                .after($element).next()
-                .removeClass('expand').addClass('ancestor');
-
-              this.refreshSortableBehavior();
-
-              this.highlightLastAncestor();
-            },
-          complete: function ()
-            {
-              this.setLoading(false, $element);
-            },
-          error: function (fail)
-            {
-              // Rare situation where any children is visible
-              // Hide the expand icon
+              // Hide the expand icon if not found
               if (404 == fail.status)
               {
                 $element
                   .removeClass('expand')
                   .children('i').remove();
               }
-            }
-          });
+            })
 
-        return this;
-      },
-
-    showAncestor: function($element)
-      {
-        $.ajax({
-          url: $element.data('xhr-location'),
-          context: this,
-          dataType: 'html',
-          data: { show: 'item', resourceId: this.resourceId },
-          beforeSend: function ()
+          .done(function (data)
             {
-              this.setLoading(true, $element);
-            },
-          success: function (data)
-            {
-              $element
+              if ($element.hasClass('ancestor'))
+              {
+                $element.nextAll().remove();
+                $element.after(data);
+              }
+              else
+              {
+                var nodes = this.$element.find(this.nodesSelector);
+                var lastAncestor = nodes.eq(0).prev();
 
-                // Remove all the nodes below
-                .nextAll().remove().end()
-
-                // Add new nodes
-                .after(data);
+                nodes.remove();
+                this.$element.find('.more').remove();
+                lastAncestor.after($element).next().addClass('ancestor').removeClass('expand').after(data);
+              }
 
               this.refreshSortableBehavior();
+            })
 
-              this.highlightLastAncestor();
-            },
-          complete: function ()
+          .always(function (data)
             {
               this.setLoading(false, $element);
-            },
-          error: function ()
-            {
-            }
-          });
+            });
 
         return this;
       },
@@ -556,8 +460,6 @@
               $element.replaceWith(data);
 
               this.refreshSortableBehavior();
-
-              this.highlightLastAncestor();
             },
           complete: function ()
             {
@@ -569,14 +471,6 @@
             {
             }
           });
-      },
-
-    highlightLastAncestor: function()
-      {
-        // Unfortunately I couldn't do this with CSS
-        this.$element
-          .find('.ancestor').removeClass('immediate-ancestor')
-          .last().addClass('immediate-ancestor');
       }
   };
 

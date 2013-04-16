@@ -218,7 +218,7 @@ function render_treeview_node($item, array $classes = array(), array $options = 
   $node .= '>';
 
   // Add <i> tag if the node is expandable
-  if (isset($_classes['expand']) || isset($_classes['back']) || isset($_classes['ancestor']))
+  if (isset($_classes['expand']) || isset($_classes['ancestor']))
   {
     $node .= '<i></i>&nbsp;';
   }

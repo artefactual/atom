@@ -21,14 +21,7 @@ class InformationObjectTreeViewAction extends sfAction
 {
   public function execute($request)
   {
-    if ('all' == $request->show)
-    {
-      $this->resource = QubitInformationObject::getRoot();
-    }
-    else
-    {
-      $this->resource = $this->getRoute()->resource;
-    }
+    $this->resource = $this->getRoute()->resource;
 
     // Number of siblings that we are showing above and below the current node
     // It's good to keep this number small since getTreeViewSiblings can be very
@@ -64,44 +57,10 @@ class InformationObjectTreeViewAction extends sfAction
 
         break;
 
-      case 'all':
       case 'item':
       default:
 
-        // Find first child visible
-        $criteria = new Criteria;
-        $criteria->add(QubitInformationObject::PARENT_ID, $this->resource->id);
-        $criteria = QubitInformationObject::addTreeViewSortCriteria($criteria);
-        foreach (QubitInformationObject::get($criteria) as $item)
-        {
-          // ACL checks
-          if (QubitAcl::check($item, 'read'))
-          {
-            $firstChild = $item;
-
-            break;
-          }
-        }
-
-        if (isset($firstChild))
-        {
-          // Merge the first chlid found and its potential siblings
-          $this->items = array_merge(array($firstChild), $firstChild->getTreeViewSiblings(array('limit' => $numberOfPreviousOrNextSiblings + 2, 'position' => 'next')));
-
-          $this->hasNextSiblings = count($this->items) > $numberOfPreviousOrNextSiblings;
-          if ($this->hasNextSiblings)
-          {
-            array_pop($this->items);
-          }
-        }
-        else
-        {
-          // This is a rare case where a node looked expandable
-          // and then we realized that any children was visible for the user
-          $this->forward404();
-        }
-
-        break;
+        list($this->items, $this->hasNextSiblings) = $this->resource->getTreeViewChildren(array('numberOfPreviousOrNextSiblings' => $numberOfPreviousOrNextSiblings));
     }
   }
 }
