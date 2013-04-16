@@ -1664,6 +1664,45 @@ class QubitInformationObject extends BaseInformationObject
    TreeView
   *****************************************************/
 
+  public function getTreeViewChildren(array $options = array())
+  {
+    $numberOfPreviousOrNextSiblings = 4;
+    if (isset($options['numberOfPreviousOrNextSiblings']))
+    {
+      $numberOfPreviousOrNextSiblings = $options['numberOfPreviousOrNextSiblings'];
+    }
+
+    // Find first child visible
+    $criteria = new Criteria;
+    $criteria->add(QubitInformationObject::PARENT_ID, $this->id);
+    $criteria = QubitInformationObject::addTreeViewSortCriteria($criteria);
+    foreach (QubitInformationObject::get($criteria) as $item)
+    {
+      // ACL checks
+      if (QubitAcl::check($item, 'read'))
+      {
+        $firstChild = $item;
+
+        break;
+      }
+    }
+
+    $items = array();
+    if (isset($firstChild))
+    {
+      // Merge the first child found and its potential siblings
+      $items = array_merge(array($firstChild), $firstChild->getTreeViewSiblings(array('limit' => $numberOfPreviousOrNextSiblings + 2, 'position' => 'next')));
+
+      $hasNextSiblings = count($items) > $numberOfPreviousOrNextSiblings;
+      if ($hasNextSiblings)
+      {
+        array_pop($items);
+      }
+    }
+
+    return array($items, $hasNextSiblings);
+  }
+
   public function getTreeViewSiblings(array $options = array())
   {
     // The max number of items that will be shown
