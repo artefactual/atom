@@ -7,7 +7,7 @@
 <?php slot('sidebar') ?>
 
   <section>
-    <p><?php echo __('Browse by') ?></p>
+    <h3><?php echo __('Browse by') ?></h3>
     <ul>
       <li><?php echo link_to(__('Archival descriptions'), array('module' => 'informationobject', 'action' => 'browse')) ?></li>
       <li><?php echo link_to(__('Institutions'), array('module' => 'repository', 'action' => 'browse')) ?></li>
