@@ -68,7 +68,7 @@
 
           <?php endforeach ?>
 
-          <?php if (0  < ($pager->getLastPage() - $pager->getPage())): ?>
+          <?php if (floor($items/2)  < ($pager->getLastPage() - $pager->getPage())): ?>
             <li class="dots"><span>...</span></li>
             <li class="last">
               <?php echo link_to($pager->getLastPage(), array('page' => $pager->getLastPage()) + $sf_request->getParameterHolder()->getAll()) ?>
