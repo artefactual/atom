@@ -23,17 +23,8 @@
 
 <div id="homepage" class="row">
 
-  <div class="span4" id="popular-this-week">
-    <h3>Popular <br/><span>this week</span></h3>
-    <ul>
-      <?php foreach ($popularLastWeek as $item): ?>
-        <?php $object = QubitObject::getById($item[0]); ?>
-        <li>
-          <?php echo link_to(render_title($object), url_for(array($object))) ?>
-          <strong><?php echo __('%1% visits', array('%1%' => $item[1])) ?></strong>
-        </li>
-      <?php endforeach; ?>
-    </ul>
+  <div class="span4">
+    <?php echo get_component('default', 'popular', array('limit' => 10)) ?>
   </div>
 
   <div class="span8" id="virtual-exhibit">

@@ -17,12 +17,21 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class StaticPageHomeAction extends StaticPageIndexAction
+/**
+ * Check for updates component
+ *
+ * @package AccesstoMemory
+ * @subpackage default
+ */
+class DefaultPopularComponent extends sfComponent
 {
   public function execute($request)
   {
-    parent::execute($request);
+    $this->popularThisWeek = QubitAccessLog::getPopularThisWeek(array('limit' => isset($this->limit) ? $this->limit : 10));
 
-    $this->popularLastWeek = QubitAccessLog::getPopularLastWeek(array('limit' => 10));
+    if (0 == count($this->popularThisWeek))
+    {
+      return sfView::NONE;
+    }
   }
 }

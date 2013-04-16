@@ -1,7 +1,25 @@
-<?php decorate_with('layout_1col') ?>
+<?php decorate_with('layout_2col') ?>
 
 <?php slot('title') ?>
   <h1><?php echo render_title($resource->getTitle(array('cultureFallback' => true))) ?></h1>
+<?php end_slot() ?>
+
+<?php slot('sidebar') ?>
+
+  <section>
+    <p><?php echo __('Browse by') ?></p>
+    <ul>
+      <li><?php echo link_to(__('Archival descriptions'), array('module' => 'informationobject', 'action' => 'browse')) ?></li>
+      <li><?php echo link_to(__('Institutions'), array('module' => 'repository', 'action' => 'browse')) ?></li>
+      <li><?php echo link_to(__('Subjects'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 35)) ?></li>
+      <li><?php echo link_to(__('People &amp; Organizations'), array('module' => 'actor', 'action' => 'browse')) ?></li>
+      <li><?php echo link_to(__('Places'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 42)) ?></li>
+      <li><?php echo link_to(__('Newest additions'), array('module' => 'search', 'action' => 'updates')) ?></li>
+    </ul>
+  </section>
+
+  <?php echo get_component('default', 'popular') ?>
+
 <?php end_slot() ?>
 
 <div class="page">
