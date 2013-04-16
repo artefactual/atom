@@ -857,37 +857,12 @@ class arElasticSearchInformationObjectPdo
     // Repository (actor)
     if (null !== $repository = $this->getRepository())
     {
-      // $repoI18ns = $repository->actorI18ns->indexBy('culture');
-      // $serializedI18ns = QubitMapping::serializeI18ns(new QubitActor(), $repoI18ns);
-
-      $serialized['repository'] = array(
-        'id' => $repository->id
-        //'i18n' => $serializedI18ns
-      );
+      $serialized['repository'] = arElasticSearchRepository::serialize($repository);
     }
 
     /*
 
-    // Subject access points (terms)
-    foreach ($this->getSubjectAccessPoints() as $subject)
-    {
-      $term = QubitTerm::getById($subject->id);
-
-      $serializedI18ns = QubitMapping::serializeI18ns(new QubitTerm(), $term->termI18ns->indexBy('culture'));
-      $serialized['subjects'][] = array('id' => $subject->id, 'i18n' => $serializedI18ns);
-    }
-
-    // Place access points (terms)
-    foreach ($this->getPlaceAccessPoints() as $place)
-    {
-      $term = QubitTerm::getById($place->id);
-
-      $serializedI18ns = QubitMapping::serializeI18ns(new QubitTerm(), $term->termI18ns->indexBy('culture'));
-      $serialized['places'][] = array('id' => $place->id, 'i18n' => $serializedI18ns);
-    }
-
     // Name access points (actors)
-    // TODO use QubitPdoActor class?
     foreach ($this->getNameAccessPoints() as $name)
     {
       $nameSerialized = $name->serialize();
