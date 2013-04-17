@@ -19,7 +19,9 @@
 
 class QubitNote extends BaseNote
 {
-  public $indexOnSave = true;
+  // Flag for updating search index on save or delete
+  public
+    $indexOnSave = true;
 
   public function __toString()
   {
@@ -49,26 +51,6 @@ class QubitNote extends BaseNote
       {
         QubitSearch::updateInformationObject($this->object);
       }
-    }
-
-    return $this;
-  }
-
-  /**
-   * Flag whether to update the search index when saving this object
-   *
-   * @param boolean $bool flag value
-   * @return QubitNote self-reference
-   */
-  public function setIndexOnSave($bool)
-  {
-    if ($bool)
-    {
-      $this->indexOnSave = true;
-    }
-    else
-    {
-      $this->indexOnSave = false;
     }
 
     return $this;

@@ -101,7 +101,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     // Save updated objectTermRelations
     foreach ($this->objectTermRelationsRelatedByobjectId as $relation)
     {
-      $relation->setIndexOnSave(false);
+      $relation->indexOnSave = false;
       $relation->object = $this;
 
       try
@@ -116,7 +116,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     // Save updated notes
     foreach ($this->notes as $note)
     {
-      $note->setIndexOnSave(false);
+      $note->indexOnSave = false;
       $note->object = $this;
 
       try
@@ -131,7 +131,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     // Save updated properties
     foreach ($this->propertys as $property)
     {
-      $property->setIndexOnSave(false);
+      $property->indexOnSave = false;
       $property->object = $this;
 
       try
@@ -146,7 +146,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     // Save updated object relations
     foreach ($this->relationsRelatedByobjectId as $relation)
     {
-      $relation->setIndexOnSave(false);
+      $relation->indexOnSave = false;
       $relation->object = $this;
 
       try
@@ -161,7 +161,7 @@ class QubitObject extends BaseObject implements Zend_Acl_Resource_Interface
     // Save updated subject relations
     foreach ($this->relationsRelatedBysubjectId as $relation)
     {
-      $relation->setIndexOnSave(false);
+      $relation->indexOnSave = false;
       $relation->subject = $this;
 
       try

@@ -258,7 +258,7 @@ class QubitInformationObject extends BaseInformationObject
     // related objects that are included in the index document)
     foreach ($this->events as $item)
     {
-      $item->setIndexOnSave(false);
+      $item->indexOnSave = false;
 
       // TODO Needed if $this is new, should be transparent
       $item->informationObject = $this;
@@ -301,7 +301,7 @@ class QubitInformationObject extends BaseInformationObject
         $hasPubStatus = true;
       }
 
-      $item->setIndexOnSave(false);
+      $item->indexOnSave = false;
 
       // TODO Needed if $this is new, should be transparent
       $item->object = $this;
@@ -316,7 +316,7 @@ class QubitInformationObject extends BaseInformationObject
       $status->objectId = $this->id;
       $status->typeId = QubitTerm::STATUS_TYPE_PUBLICATION_ID;
       $status->statusId = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
-      $status->setIndexOnSave(false);
+      $status->indexOnSave = false;
 
       $status->save($connection);
     }

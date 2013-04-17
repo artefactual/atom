@@ -28,7 +28,9 @@
  */
 class QubitProperty extends BaseProperty
 {
-  public $indexOnSave = true;
+  // Flag for updating search index on save or delete
+  public
+    $indexOnSave = true;
 
   public function __toString()
   {
@@ -59,26 +61,6 @@ class QubitProperty extends BaseProperty
       {
         QubitSearch::updateInformationObject($this->object);
       }
-    }
-
-    return $this;
-  }
-
-  /**
-   * Flag whether to update the search index when saving this object
-   *
-   * @param boolean $bool flag value
-   * @return QubitProperty self-reference
-   */
-  public function setIndexOnSave($bool)
-  {
-    if ($bool)
-    {
-      $this->indexOnSave = true;
-    }
-    else
-    {
-      $this->indexOnSave = false;
     }
 
     return $this;
