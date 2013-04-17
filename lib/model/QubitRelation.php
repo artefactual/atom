@@ -28,7 +28,8 @@
  */
 class QubitRelation extends BaseRelation
 {
-  protected
+  // Flag for updating search index on save or delete
+  public
     $indexOnSave = true;
 
   /**
@@ -47,7 +48,7 @@ class QubitRelation extends BaseRelation
 
     parent::save($connection);
 
-    if ($this->indexOnSave())
+    if ($this->indexOnSave)
     {
       if ($this->objectId != $cleanObjectId && null !== QubitInformationObject::getById($cleanObjectId))
       {
@@ -78,36 +79,6 @@ class QubitRelation extends BaseRelation
     $this->slug = QubitSlug::slugify($this->slug);
 
     return parent::insert($connection);
-  }
-
-  /**
-   * Flag whether to update the search index when saving this object
-   *
-   * @param boolean $bool flag value
-   * @return QubitInformationObject self-reference
-   */
-  public function setIndexOnSave($bool)
-  {
-    if ($bool)
-    {
-      $this->indexOnSave = true;
-    }
-    else
-    {
-      $this->indexOnSave = false;
-    }
-
-    return $this;
-  }
-
-  /**
-   * Update search index on save?
-   *
-   * @return boolean current flag
-   */
-  public function indexOnSave()
-  {
-    return $this->indexOnSave;
   }
 
   public function delete($connection = null)

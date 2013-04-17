@@ -141,7 +141,7 @@ class QubitActor extends BaseActor
     foreach ($this->events as $event)
     {
       // Update search index for related info object
-      $event->setIndexOnSave(true);
+      $event->indexOnSave = true;
       $event->actor = $this;
 
       try
