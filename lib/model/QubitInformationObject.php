@@ -337,33 +337,39 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function delete($connection = null)
   {
-    QubitSearch::deleteInformationObject($this);
-
-    $this->deletePhysicalObjectRelations();
+    // Physical object relations
+    $relations = QubitRelation::getRelationsByObjectId($this->id, array('typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID));
+    foreach ($relations as $item)
+    {
+      $item->indexObjectOnDelete = false;
+      $item->delete();
+    }
 
     // Delete subject relations
     $criteria = new Criteria;
     $criteria = $this->addrelationsRelatedBysubjectIdCriteria($criteria);
-
     if ($subjectRelations = QubitRelation::get($criteria))
     {
-      foreach ($subjectRelations as $subjectRelation)
+      foreach ($subjectRelations as $item)
       {
-        $subjectRelation->delete();
+        $item->indexSubjectOnDelete = false;
+        $item->delete();
       }
     }
 
     // Delete object relations
     $criteria = new Criteria;
     $criteria = $this->addrelationsRelatedByobjectIdCriteria($criteria);
-
     if ($objectRelations = QubitRelation::get($criteria))
     {
-      foreach ($objectRelations as $objectRelation)
+      foreach ($objectRelations as $item)
       {
-        $objectRelation->delete();
+        $item->indexObjectOnDelete = false;
+        $item->delete();
       }
     }
+
+    QubitSearch::deleteInformationObject($this);
 
     parent::delete($connection);
   }
@@ -1035,19 +1041,6 @@ class QubitInformationObject extends BaseInformationObject
     return $relatedPhysicalObjects;
   }
 
-  /**
-   * Cascade delete child records in q_relation
-   *
-   */
-  protected function deletePhysicalObjectRelations()
-  {
-    $relations = QubitRelation::getRelationsByObjectId($this->id, array('typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID));
-
-    foreach ($relations as $relation)
-    {
-      $relation->delete();
-    }
-  }
 
   /******************
     Digital Objects

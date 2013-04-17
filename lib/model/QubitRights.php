@@ -55,6 +55,7 @@ class QubitRights extends BaseRights
     // Make sure that the associated QubitRelation object is removed before
     foreach (QubitRelation::getRelationsByObjectId($this->id, array('typeId' => QubitTerm::RIGHT_ID)) as $item)
     {
+      $item->indexObjectOnDelete = false;
       $item->delete();
     }
 

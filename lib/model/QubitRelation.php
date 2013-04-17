@@ -28,9 +28,11 @@
  */
 class QubitRelation extends BaseRelation
 {
-  // Flag for updating search index on save or delete
+  // Flags for updating search index on save or delete
   public
-    $indexOnSave = true;
+    $indexOnSave = true,
+    $indexSubjectOnDelete = true,
+    $indexObjectOnDelete = true;
 
   /**
    * Additional save functionality (e.g. update search index)
@@ -85,12 +87,12 @@ class QubitRelation extends BaseRelation
   {
     parent::delete($connection);
 
-    if ($this->object instanceof QubitInformationObject)
+    if ($this->indexObjectOnDelete && $this->object instanceof QubitInformationObject)
     {
       QubitSearch::updateInformationObject($this->object);
     }
 
-    if ($this->subject instanceof QubitInformationObject)
+    if ($this->indexSubjectOnDelete && $this->subject instanceof QubitInformationObject)
     {
       QubitSearch::updateInformationObject($this->subject);
     }
