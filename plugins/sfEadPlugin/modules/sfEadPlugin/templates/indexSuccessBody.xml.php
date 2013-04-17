@@ -103,7 +103,7 @@
   <?php endif; ?>
   <?php $descriptionStatus = ($resource->descriptionStatusId) ? QubitTerm::getById($resource->descriptionStatusId) : ''; ?>
   <?php if ($descriptionStatus): ?>
-  <odd type="draftingstatus"><p><?php echo $descriptionStatus ?></p></odd>
+  <odd type="statusDescription"><p><?php echo $descriptionStatus ?></p></odd>
   <?php endif; ?>
   <?php if ($resource->descriptionIdentifier): ?>
   <odd type="descriptionidentifier"><p><?php echo $resource->descriptionIdentifier ?></p></odd>
