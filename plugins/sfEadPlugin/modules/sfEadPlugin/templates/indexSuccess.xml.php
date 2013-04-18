@@ -211,6 +211,7 @@
 <?php foreach ($resource->getDescendants()->orderBy('lft') as $descendant): ?>
     <c <?php if ($descendant->levelOfDescriptionId):?>level="<?php if (in_array(strtolower($levelOfDescription = $descendant->getLevelOfDescription()->getName(array('culture' => 'en'))), $eadLevels)): ?><?php echo strtolower($levelOfDescription).'"' ?><?php else: ?><?php echo 'otherlevel" otherlevel="'.$levelOfDescription.'"' ?><?php endif; ?><?php endif; ?>>
       <did>
+<?php if (check_field_visibility('app_element_visibility_physical_storage')): ?>
 <?php foreach ($descendant->getPhysicalObjects() as $physicalObject): ?>
 <?php if ($physicalObject->getLocation(array('cultureFallback' => true))): ?>
         <physloc><?php echo esc_specialchars($physicalObject->getLocation(array('cultureFallback' => true))) ?></physloc>
@@ -219,6 +220,7 @@
         <container <?php if ($type = $physicalObject->getType()): ?><?php echo 'type="'.str_replace(' ', '', $physicalObject->getType()).'" ' ?><?php endif; ?>><?php echo esc_specialchars($physicalObject->getName(array('cultureFallback' => true))) ?></container>
 <?php endif; ?>
 <?php endforeach; ?>
+<?php endif; ?>
 <?php if (0 < strlen($value = $descendant->getTitle(array('cultureFallback' => true)))): ?>
         <unittitle encodinganalog="3.1.2"><?php echo esc_specialchars($value) ?></unittitle>
 <?php endif; ?>
