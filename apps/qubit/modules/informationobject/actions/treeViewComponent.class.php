@@ -42,6 +42,7 @@ class InformationObjectTreeViewComponent extends sfComponent
     {
       list($this->children, $this->hasNextSiblings) = $this->resource->getTreeViewChildren(array('numberOfPreviousOrNextSiblings' => $numberOfPreviousOrNextSiblings));
     }
+    // Show siblings if there's no children, but not for root descriptions
     else if (QubitInformationObject::ROOT_ID != $this->resource->parentId)
     {
       // Previous siblings
