@@ -857,7 +857,7 @@ class QubitAcl
             {
               $criteria2 = new Criteria;
               $criteria2->add(QubitSlug::SLUG, $repository);
-              $criteria2->addJoin(QubitSlug::OBJECT_ID, QubitInformationObject::REPOSITORY_ID)
+              $criteria2->addJoin(QubitSlug::OBJECT_ID, QubitInformationObject::REPOSITORY_ID);
 
               if (0 < count($results = QubitInformationObject::get($criteria2)))
               {
