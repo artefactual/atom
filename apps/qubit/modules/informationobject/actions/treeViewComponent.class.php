@@ -34,14 +34,15 @@ class InformationObjectTreeViewComponent extends sfComponent
     // slow (when sorting by title or identifierTitle)
     $numberOfPreviousOrNextSiblings = 4;
 
+    $this->hasPrevSiblings = false;
+    $this->hasNextSiblings = false;
+
     // Child descriptions
     if ($this->resource->hasChildren())
     {
       list($this->children, $this->hasNextSiblings) = $this->resource->getTreeViewChildren(array('numberOfPreviousOrNextSiblings' => $numberOfPreviousOrNextSiblings));
-
-      $this->hasPrevSiblings = false;
     }
-    else
+    else if (QubitInformationObject::ROOT_ID != $this->resource->parentId)
     {
       // Previous siblings
       // Get an extra sibling just to know if the + button is necessary
