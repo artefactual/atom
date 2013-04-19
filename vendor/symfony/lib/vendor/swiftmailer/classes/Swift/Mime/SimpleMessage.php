@@ -8,11 +8,6 @@
  * file that was distributed with this source code.
  */
 
-//@require 'Swift/Mime/Message.php';
-//@require 'Swift/Mime/MimePart.php';
-//@require 'Swift/Mime/MimeEntity.php';
-//@require 'Swift/Mime/HeaderSet.php';
-//@require 'Swift/Mime/ContentEncoder.php';
 
 /**
  * The default email message class.
@@ -29,12 +24,13 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    * @param Swift_Mime_HeaderSet $headers
    * @param Swift_Mime_ContentEncoder $encoder
    * @param Swift_KeyCache $cache
+   * @param Swift_Mime_Grammar $grammar
    * @param string $charset
    */
   public function __construct(Swift_Mime_HeaderSet $headers,
-    Swift_Mime_ContentEncoder $encoder, Swift_KeyCache $cache, $charset = null)
+    Swift_Mime_ContentEncoder $encoder, Swift_KeyCache $cache, Swift_Mime_Grammar $grammar, $charset = null)
   {
-    parent::__construct($headers, $encoder, $cache, $charset);
+    parent::__construct($headers, $encoder, $cache, $grammar, $charset);
     $this->getHeaders()->defineOrdering(array(
       'Return-Path',
       'Sender',
@@ -71,6 +67,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
   /**
    * Set the subject of this message.
    * @param string $subject
+   * @return Swift_Mime_SimpleMessage
    */
   public function setSubject($subject)
   {
@@ -93,6 +90,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
   /**
    * Set the date at which this message was created.
    * @param int $date
+   * @return Swift_Mime_SimpleMessage
    */
   public function setDate($date)
   {
@@ -115,6 +113,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
   /**
    * Set the return-path (the bounce address) of this message.
    * @param string $address
+   * @return Swift_Mime_SimpleMessage
    */
   public function setReturnPath($address)
   {
@@ -139,6 +138,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    * This does not override the From field, but it has a higher significance.
    * @param string $sender
    * @param string $name optional
+   * @return Swift_Mime_SimpleMessage
    */
   public function setSender($address, $name = null)
   {
@@ -188,6 +188,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    * 
    * @param string $addresses
    * @param string $name optional
+   * @return Swift_Mime_SimpleMessage
    */
   public function setFrom($addresses, $name = null)
   {
@@ -220,6 +221,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    * 
    * @param string $address
    * @param string $name optional
+   * @return Swift_Mime_SimpleMessage
    */
   public function addReplyTo($address, $name = null)
   {
@@ -238,6 +240,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    *
    * @param string $addresses
    * @param string $name optional
+   * @return Swift_Mime_SimpleMessage
    */
   public function setReplyTo($addresses, $name = null)
   {
@@ -270,6 +273,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    * 
    * @param string $address
    * @param string $name optional
+   * @return Swift_Mime_SimpleMessage
    */
   public function addTo($address, $name = null)
   {
@@ -288,6 +292,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    * 
    * @param array $addresses
    * @param string $name optional
+   * @return Swift_Mime_SimpleMessage
    */
   public function setTo($addresses, $name = null)
   {
@@ -320,6 +325,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    * 
    * @param string $address
    * @param string $name optional
+   * @return Swift_Mime_SimpleMessage
    */
   public function addCc($address, $name = null)
   {
@@ -336,6 +342,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    *
    * @param array $addresses
    * @param string $name optional
+   * @return Swift_Mime_SimpleMessage
    */
   public function setCc($addresses, $name = null)
   {
@@ -368,6 +375,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    * 
    * @param string $address
    * @param string $name optional
+   * @return Swift_Mime_SimpleMessage
    */
   public function addBcc($address, $name = null)
   {
@@ -384,6 +392,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    * 
    * @param array $addresses
    * @param string $name optional
+   * @return Swift_Mime_SimpleMessage
    */
   public function setBcc($addresses, $name = null)
   {
@@ -413,6 +422,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    * Set the priority of this message.
    * The value is an integer where 1 is the highest priority and 5 is the lowest.
    * @param int $priority
+   * @return Swift_Mime_SimpleMessage
    */
   public function setPriority($priority)
   {
@@ -458,6 +468,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
   /**
    * Ask for a delivery receipt from the recipient to be sent to $addresses
    * @param array $addresses
+   * @return Swift_Mime_SimpleMessage
    */
   public function setReadReceiptTo($addresses)
   {
@@ -481,6 +492,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
   /**
    * Attach a {@link Swift_Mime_MimeEntity} such as an Attachment or MimePart.
    * @param Swift_Mime_MimeEntity $entity
+   * @return Swift_Mime_SimpleMessage
    */
   public function attach(Swift_Mime_MimeEntity $entity)
   {
@@ -491,6 +503,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
   /**
    * Remove an already attached entity.
    * @param Swift_Mime_MimeEntity $entity
+   * @return Swift_Mime_SimpleMessage
    */
   public function detach(Swift_Mime_MimeEntity $entity)
   {
@@ -581,7 +594,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
   private function _becomeMimePart()
   {
     $part = new parent($this->getHeaders()->newInstance(), $this->getEncoder(),
-      $this->_getCache(), $this->_userCharset
+      $this->_getCache(), $this->_getGrammar(), $this->_userCharset
       );
     $part->setContentType($this->_userContentType);
     $part->setBody($this->getBody());

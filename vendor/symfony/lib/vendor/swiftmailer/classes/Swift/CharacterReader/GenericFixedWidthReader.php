@@ -8,7 +8,6 @@
  * file that was distributed with this source code.
  */
 
-//@require 'Swift/CharacterReader.php';
 
 /**
  * Provides fixed-width byte sizes for reading fixed-width character sets.
@@ -20,14 +19,13 @@
 class Swift_CharacterReader_GenericFixedWidthReader
   implements Swift_CharacterReader
 {
-   
   /**
    * The number of bytes in a single character.
    * @var int
    * @access private
    */
   private $_width;
-	
+
   /**
    * Creates a new GenericFixedWidthReader using $width bytes per character.
    * @param int $width
@@ -48,22 +46,22 @@ class Swift_CharacterReader_GenericFixedWidthReader
    */
   public function getCharPositions($string, $startOffset, &$currentMap, &$ignoredChars)
   {
-  	$strlen = strlen($string);
-  	// % and / are CPU intensive, so, maybe find a better way
-  	$ignored = $strlen%$this->_width;
-  	$ignoredChars = substr($string, - $ignored);
-  	$currentMap = $this->_width;
-  	return ($strlen - $ignored)/$this->_width;
-  	
+    $strlen = strlen($string);
+    // % and / are CPU intensive, so, maybe find a better way
+    $ignored = $strlen%$this->_width;
+    $ignoredChars = substr($string, - $ignored);
+    $currentMap = $this->_width;
+
+    return ($strlen - $ignored)/$this->_width;
   }
   
   /**
    * Returns mapType
-   * @int mapType
+   * @return int mapType
    */
   public function getMapType()
   {
-  	return self::MAP_TYPE_FIXED_LEN;
+    return self::MAP_TYPE_FIXED_LEN;
   }
 
   /**
@@ -78,10 +76,8 @@ class Swift_CharacterReader_GenericFixedWidthReader
   public function validateByteSequence($bytes, $size)
   {
     $needed = $this->_width - $size;
-    return ($needed > -1)
-      ? $needed
-      : -1
-      ;
+
+    return ($needed > -1) ? $needed : -1;
   }
 
   /**
@@ -92,5 +88,4 @@ class Swift_CharacterReader_GenericFixedWidthReader
   {
     return $this->_width;
   }
-
 }

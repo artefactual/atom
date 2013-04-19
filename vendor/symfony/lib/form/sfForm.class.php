@@ -23,7 +23,7 @@
  * @package    symfony
  * @subpackage form
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
- * @version    SVN: $Id: sfForm.class.php 29678 2010-05-30 14:38:42Z Kris.Wallsmith $
+ * @version    SVN: $Id: sfForm.class.php 33598 2012-11-25 09:57:29Z fabien $
  */
 class sfForm implements ArrayAccess, Iterator, Countable
 {
@@ -229,6 +229,8 @@ $this->widgetSchema->setFormFormatterName($name);
 
       $this->taintedFiles = array();
     }
+
+    $this->checkTaintedValues($this->taintedValues);
 
     try
     {
@@ -1367,5 +1369,25 @@ $this->widgetSchema->setFormFormatterName($name);
     }
 
     return $array1;
+  }
+
+  /**
+   * Checks that the $_POST values do not contain something that
+   * looks like a file upload (coming from $_FILE).
+   */
+  protected function checkTaintedValues($values)
+  {
+    foreach ($values as $name => $value)
+    {
+      if (!is_array($value)) {
+        continue;
+      }
+
+      if (isset($value['tmp_name'])) {
+        throw new InvalidArgumentException('Do not try to fake a file upload.');
+      }
+
+      $this->checkTaintedValues($value);
+    }
   }
 }
