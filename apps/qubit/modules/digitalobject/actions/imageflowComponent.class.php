@@ -41,10 +41,14 @@ class DigitalObjectImageflowComponent extends sfComponent
     $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::INFORMATION_OBJECT_ID);
     $criteria->add(QubitInformationObject::LFT, $this->resource->lft, Criteria::GREATER_THAN);
     $criteria->add(QubitInformationObject::RGT, $this->resource->rgt, Criteria::LESS_THAN);
+
     if (isset($this->limit))
     {
       $criteria->setLimit($this->limit);
     }
+
+    // Hide drafts
+    $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
 
     foreach (QubitDigitalObject::get($criteria) as $item)
     {
@@ -67,6 +71,9 @@ class DigitalObjectImageflowComponent extends sfComponent
       $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::INFORMATION_OBJECT_ID);
       $criteria->add(QubitInformationObject::LFT, $this->resource->lft, Criteria::GREATER_THAN);
       $criteria->add(QubitInformationObject::RGT, $this->resource->rgt, Criteria::LESS_THAN);
+
+      // Hide drafts
+      $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
 
       $this->total = BasePeer::doCount($criteria)->fetchColumn(0);
     }
