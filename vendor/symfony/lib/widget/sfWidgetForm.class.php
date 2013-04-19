@@ -14,7 +14,7 @@
  * @package    symfony
  * @subpackage widget
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
- * @version    SVN: $Id: sfWidgetForm.class.php 33388 2012-03-15 15:01:41Z fabien $
+ * @version    SVN: $Id: sfWidgetForm.class.php 33596 2012-11-21 14:14:21Z fabien $
  */
 abstract class sfWidgetForm extends sfWidget
 {
@@ -267,7 +267,7 @@ abstract class sfWidgetForm extends sfWidget
     // check to see if we have an array variable for a field name
     if (strstr($name, '['))
     {
-      $name = str_replace(array('[]', '][', '[', ']'), array((null !== $value ? '_'.$value : ''), '_', '_', ''), $name);
+      $name = str_replace(array('[]', '][', '[', ']'), array(((null !== $value) && !is_array($value) ? '_'.$value : ''), '_', '_', ''), $name);
     }
 
     if (false !== strpos($this->getOption('id_format'), '%s'))

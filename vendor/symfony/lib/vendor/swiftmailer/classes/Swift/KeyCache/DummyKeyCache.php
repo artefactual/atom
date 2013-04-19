@@ -1,23 +1,31 @@
 <?php
 
 /*
- * This file is part of SwiftMailer.
- * (c) 2004-2009 Chris Corbyn
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+ A dummy KeyCache used to exclude cache layer from problems
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ */
 
 /**
- * A null KeyCache that does not cache at all.
+ * A basic KeyCache backed by an array.
  * @package Swift
  * @subpackage KeyCache
- * @author Chris Corbyn
+ * @author Xavier De Cock <xdecock@gmail.com>
  */
-class Swift_KeyCache_NullKeyCache implements Swift_KeyCache
+class Swift_KeyCache_DummyKeyCache implements Swift_KeyCache
 {
-  
   /**
    * Set a string into the cache under $itemKey for the namespace $nsKey.
    * @param string $nsKey
@@ -27,8 +35,7 @@ class Swift_KeyCache_NullKeyCache implements Swift_KeyCache
    * @see MODE_WRITE, MODE_APPEND
    */
   public function setString($nsKey, $itemKey, $string, $mode)
-  {
-  }
+  {}
   
   /**
    * Set a ByteStream into the cache under $itemKey for the namespace $nsKey.
@@ -40,8 +47,7 @@ class Swift_KeyCache_NullKeyCache implements Swift_KeyCache
    */
   public function importFromByteStream($nsKey, $itemKey, Swift_OutputByteStream $os,
     $mode)
-  {
-  }
+  {}
   
   /**
    * Provides a ByteStream which when written to, writes data to $itemKey.
@@ -53,6 +59,7 @@ class Swift_KeyCache_NullKeyCache implements Swift_KeyCache
   public function getInputByteStream($nsKey, $itemKey,
     Swift_InputByteStream $writeThrough = null)
   {
+    return false;
   }
   
   /**
@@ -63,6 +70,7 @@ class Swift_KeyCache_NullKeyCache implements Swift_KeyCache
    */
   public function getString($nsKey, $itemKey)
   {
+    return false;
   }
   
   /**
@@ -73,6 +81,7 @@ class Swift_KeyCache_NullKeyCache implements Swift_KeyCache
    */
   public function exportToByteStream($nsKey, $itemKey, Swift_InputByteStream $is)
   {
+    return false;
   }
   
   /**
@@ -92,15 +101,12 @@ class Swift_KeyCache_NullKeyCache implements Swift_KeyCache
    * @param string $itemKey
    */
   public function clearKey($nsKey, $itemKey)
-  {
-  }
+  {}
   
   /**
    * Clear all data in the namespace $nsKey if it exists.
    * @param string $nsKey
    */
   public function clearAll($nsKey)
-  {
-  }
-  
+  {}
 }

@@ -8,9 +8,6 @@
  * file that was distributed with this source code.
  */
 
-//@require 'Swift/InputByteStream.php';
-//@require 'Swift/Filterable.php';
-//@require 'Swift/StreamFilter.php';
 
 /**
  * Provides the base functionality for an InputStream supporting filters.
@@ -23,7 +20,7 @@ abstract class Swift_ByteStream_AbstractFilterableInputStream
 {
   
   /** Write sequence */
-  private $_sequence = 0;
+  protected $_sequence = 0;
   
   /** StreamFilters */
   private $_filters = array();

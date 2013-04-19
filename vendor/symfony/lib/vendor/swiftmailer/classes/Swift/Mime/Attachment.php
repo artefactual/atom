@@ -8,11 +8,6 @@
  * file that was distributed with this source code.
  */
 
-//@require 'Swift/Mime/SimpleMimeEntity.php';
-//@require 'Swift/Mime/ContentEncoder.php';
-//@require 'Swift/Mime/HeaderSet.php';
-//@require 'Swift/FileStream.php';
-//@require 'Swift/KeyCache.php';
 
 /**
  * An attachment, in a multipart message.
@@ -31,13 +26,14 @@ class Swift_Mime_Attachment extends Swift_Mime_SimpleMimeEntity
    * @param Swift_Mime_HeaderSet $headers
    * @param Swift_Mime_ContentEncoder $encoder
    * @param Swift_KeyCache $cache
+   * @param Swift_Mime_Grammar $grammar
    * @param array $mimeTypes optional
    */
   public function __construct(Swift_Mime_HeaderSet $headers,
     Swift_Mime_ContentEncoder $encoder, Swift_KeyCache $cache,
-    $mimeTypes = array())
+    Swift_Mime_Grammar $grammar, $mimeTypes = array())
   {
-    parent::__construct($headers, $encoder, $cache);
+    parent::__construct($headers, $encoder, $cache, $grammar);
     $this->setDisposition('attachment');
     $this->setContentType('application/octet-stream');
     $this->_mimeTypes = $mimeTypes;
@@ -66,6 +62,7 @@ class Swift_Mime_Attachment extends Swift_Mime_SimpleMimeEntity
   /**
    * Set the Content-Disposition of this attachment.
    * @param string $disposition
+   * @return Swift_Mime_Attachment
    */
   public function setDisposition($disposition)
   {
@@ -90,6 +87,7 @@ class Swift_Mime_Attachment extends Swift_Mime_SimpleMimeEntity
   /**
    * Set the filename of this attachment.
    * @param string $filename
+   * @return Swift_Mime_Attachment
    */
   public function setFilename($filename)
   {
@@ -110,6 +108,7 @@ class Swift_Mime_Attachment extends Swift_Mime_SimpleMimeEntity
   /**
    * Set the file size of this attachment.
    * @param int $size
+   * @return Swift_Mime_Attachment
    */
   public function setSize($size)
   {
@@ -121,6 +120,7 @@ class Swift_Mime_Attachment extends Swift_Mime_SimpleMimeEntity
    * Set the file that this attachment is for.
    * @param Swift_FileStream $file
    * @param string $contentType optional
+   * @return Swift_Mime_Attachment
    */
   public function setFile(Swift_FileStream $file, $contentType = null)
   {

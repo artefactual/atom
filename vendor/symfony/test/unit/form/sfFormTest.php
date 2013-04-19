@@ -10,7 +10,7 @@
 
 require_once(dirname(__FILE__).'/../../bootstrap/unit.php');
 
-$t = new lime_test(163);
+$t = new lime_test(165);
 
 class FormTest extends sfForm
 {
@@ -979,3 +979,46 @@ $f = new NumericFieldsForm(array('5' => 'default'));
 $t->is_deeply($f->getFormFieldSchema()->getValue(), array('5' => 'default'), '->getFormFieldSchema() includes default numeric fields');
 $f->bind(array('5' => 'bound'));
 $t->is_deeply($f->getFormFieldSchema()->getValue(), array('5' => 'bound'), '->getFormFieldSchema() includes bound numeric fields');
+
+// bind with a simulated file upload in the POST array
+$f = new FormTest();
+try
+{
+  $f->bind(array(
+    'file' => array(
+      'name' => 'foo.txt',
+      'type' => 'text/plain',
+      'tmp_name' => 'somefile',
+      'error' => 0,
+      'size' => 10,
+     ),
+  ));
+  $t->fail('Cannot fake a file upload with a POST');
+}
+catch (InvalidArgumentException $e)
+{
+  $t->pass('Cannot fake a file upload with a POST');
+}
+
+$f = new FormTest();
+try
+{
+  $f->bind(array(
+      'foo' => array(
+        'bar' => array(
+          'file' => array(
+            'name' => 'foo.txt',
+            'type' => 'text/plain',
+            'tmp_name' => 'somefile',
+            'error' => 0,
+            'size' => 10,
+          ),
+        ),
+      ),
+  ));
+  $t->fail('Cannot fake a file upload with a POST');
+}
+catch (InvalidArgumentException $e)
+{
+  $t->pass('Cannot fake a file upload with a POST');
+}

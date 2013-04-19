@@ -8,8 +8,6 @@
  * file that was distributed with this source code.
  */
 
-//@require 'Swift/Transport/LoadBalancedTransport.php';
-//@require 'Swift/Mime/Message.php';
 
 /**
  * Contains a list of redundant Transports so when one fails, the next is used.
@@ -38,7 +36,7 @@ class Swift_Transport_FailoverTransport
   
   /**
    * Send the given Message.
-   * Recipient/sender data will be retreived from the Message API.
+   * Recipient/sender data will be retrieved from the Message API.
    * The return value is the number of recipients who were accepted for delivery.
    * @param Swift_Mime_Message $message
    * @param string[] &$failedRecipients to collect failures by-reference
