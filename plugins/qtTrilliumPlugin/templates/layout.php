@@ -6,6 +6,11 @@
     <?php include_title() ?>
     <link rel="shortcut icon" href="<?php echo public_path('favicon.ico') ?>"/>
     <?php include_stylesheets() ?>
+    <?php if ($sf_context->getConfiguration()->isDebug()): ?>
+      <script type="text/javascript" charset="utf-8">
+        less = { env: 'development' };
+      </script>
+    <?php endif; ?>
     <?php include_javascripts() ?>
   </head>
   <body class="yui-skin-sam <?php echo $sf_context->getModuleName() ?> <?php echo $sf_context->getActionName() ?>">
