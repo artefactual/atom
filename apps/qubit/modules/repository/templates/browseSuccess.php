@@ -45,7 +45,7 @@
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-province',
       'label' => __('Region'),
-      'facet' => 'contact_i18n_region',
+      'facet' => 'regions',
       'pager' => $pager,
       'filters' => $filters)) ?>
 

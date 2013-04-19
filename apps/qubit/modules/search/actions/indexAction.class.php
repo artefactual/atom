@@ -19,76 +19,93 @@
 
 class SearchIndexAction extends DefaultBrowseAction
 {
+  // Arrays not allowed in class constants
   public static
     $FACETS = array(
-      'repository.id',
-      'subjects.id',
-      'digitalObject.mediaTypeId',
-      'places.id',
-      'names.id',
-      'dates.startDate' => array('type' => 'range', 'from' => null, 'to' => null),
-      'dates.endDate' => array('type' => 'range', 'from' => null, 'to' => null));
+      'levels' =>
+        array('type' => 'term',
+              'field' => 'levelOfDescriptionId',
+              'size' => 10),
+      'mediatypes' =>
+        array('type' => 'term',
+              'field' => 'digitalObject.mediaTypeId',
+              'size' => 10,
+              'populate' => false),
+      'repos' =>
+        array('type' => 'term',
+              'field' => 'repository.id',
+              'size' => 10),
+      'places' =>
+        array('type'   => 'term',
+              'field'  => 'terms.id',
+              'size'   => 10,
+              'filter' => array(
+                'type' => 'terms',
+                'key' => 'terms.taxonomyId',
+                'terms' => array(QubitTaxonomy::PLACE_ID))),
+      'subjects' =>
+        array('type'   => 'term',
+              'field'  => 'terms.id',
+              'size'   => 10,
+              'filter' => array(
+                'type' => 'terms',
+                'key' => 'terms.taxonomyId',
+                'terms' => array(QubitTaxonomy::SUBJECT_ID))),
+      'creators' =>
+        array('type'   => 'term',
+              'field'  => 'creators.id',
+              'size'   => 10),
+      'names' =>
+        array('type'   => 'term',
+              'field'  => 'names.id',
+              'size'   => 10));
 
   protected function populateFacet($name, $ids)
   {
     switch ($name)
     {
-      case 'repository.id':
+      case 'levels':
+        $criteria = new Criteria;
+        $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
+
+        foreach (QubitTerm::get($criteria) as $item)
+        {
+          $this->types[$item->id] = $item->__toString();
+        }
+
+        break;
+
+      case 'repos':
         $criteria = new Criteria;
         $criteria->add(QubitRepository::ID, array_keys($ids), Criteria::IN);
 
         foreach (QubitRepository::get($criteria) as $item)
         {
-          $this->types[$item->id] = $item->getAuthorizedFormOfName(array('cultureFallback' => true));
+          $this->types[$item->id] = $item->__toString();
         }
 
         break;
 
-      case 'subjects.id':
+      case 'places':
+      case 'subjects':
         $criteria = new Criteria;
         $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
 
         foreach (QubitTerm::get($criteria) as $item)
         {
-          $this->types[$item->id] = $item->getName(array('cultureFallback' => true));
+          $this->types[$item->id] = $item->name;
         }
 
         break;
 
-      case 'digitalObject.mediaTypeId':
-        $criteria = new Criteria;
-        $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
-
-        foreach (QubitTerm::get($criteria) as $item)
-        {
-          $this->types[$item->id] = $item->getName(array('cultureFallback' => true));
-        }
-
-        break;
-
-      case 'dates.startDate':
-        $facets[strtr($name, '.', '_')] = $facet['ranges'][0];  // FIXME: is this the best way?
-
-        break;
-
-      case 'places.id':
-        $criteria = new Criteria;
-        $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
-
-        foreach (QubitTerm::get($criteria) as $item)
-        {
-          $this->types[$item->id] = $item->getName(array('cultureFallback' => true));
-        }
-
-        break;
-
-      case 'names.id':
+      case 'creators':
+      case 'names':
         $criteria = new Criteria;
         $criteria->add(QubitActor::ID, array_keys($ids), Criteria::IN);
 
         foreach (QubitActor::get($criteria) as $item)
         {
-          $this->types[$item->id] = $item->getAuthorizedFormOfName(array('cultureFallback' => true));
+          $this->types[$item->id] = $item->authorizedFormOfName;
         }
 
         break;

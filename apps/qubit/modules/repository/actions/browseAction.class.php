@@ -28,8 +28,12 @@ class RepositoryBrowseAction extends DefaultBrowseAction
   // Arrays not allowed in class constants
   public static
     $FACETS = array(
-      'types',
-      'contact.i18n.region');
+      'types' => array('type' => 'term',
+                       'field' => 'types',
+                         'size' => 10),
+      'regions' => array('type' => 'term',
+                         'field' => 'contactInformations.i18n.en.region',
+                         'size' => 10));
 
   protected function populateFacet($name, $ids)
   {
@@ -44,18 +48,13 @@ class RepositoryBrowseAction extends DefaultBrowseAction
           $this->types[$item->id] = $item->name;
         }
 
-
         break;
 
-      case 'contact.i18n.region':
-        /*
-        foreach ($facet['terms'] as $item)
+      case 'regions':
+        foreach ($ids as $key => $count)
         {
-          $facets[strtr($name, '.', '_')]['terms'][$item['term']] = array(
-            'count' => $item['count'],
-            'term' => $item['term']);
+          $this->types['ontario'] = 'ontario';
         }
-        */
 
         break;
     }

@@ -86,9 +86,8 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
   public static function update($object)
   {
     $node = new arElasticSearchInformationObjectPdo($object->id);
-    $data = $node->serialize();
 
-    QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
+    QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitInformationObject');
 
     return true;
   }

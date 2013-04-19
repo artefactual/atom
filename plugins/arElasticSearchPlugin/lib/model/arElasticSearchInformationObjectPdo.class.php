@@ -441,7 +441,7 @@ class arElasticSearchInformationObjectPdo
     return $dates;
   }
 
-  public function getActors($culture, $options = array())
+  public function getActors($options = array())
   {
     $actors = array();
 
@@ -449,17 +449,12 @@ class arElasticSearchInformationObjectPdo
     {
       $sql  = 'SELECT
                   actor.id,
-                  slug.slug,
-                  i18n.authorized_form_of_name,
-                  i18n.history,
-                  i18n.culture';
+                  actor.entity_type_id,
+                  slug.slug';
       $sql .= ' FROM '.QubitActor::TABLE_NAME.' actor';
       $sql .= ' JOIN '.QubitSlug::TABLE_NAME.' slug
                   ON actor.id = slug.object_id';
-      $sql .= ' JOIN '.QubitActorI18n::TABLE_NAME.' i18n
-                  ON actor.id = i18n.id';
-      $sql .= ' WHERE actor.id = ?
-                  AND i18n.culture = ?;';
+      $sql .= ' WHERE actor.id = ?';
 
       self::$statements['actor'] = self::$conn->prepare($sql);
     }
@@ -476,9 +471,7 @@ class arElasticSearchInformationObjectPdo
             continue;
           }
 
-          self::$statements['actor']->execute(array(
-            $item->actor_id,
-            $culture));
+          self::$statements['actor']->execute(array($item->actor_id));
 
           if ($actor = self::$statements['actor']->fetch(PDO::FETCH_OBJ))
           {
@@ -491,7 +484,7 @@ class arElasticSearchInformationObjectPdo
     return $actors;
   }
 
-  public function getNameAccessPoints($culture)
+  public function getNameAccessPoints()
   {
     $names = array();
 
@@ -499,21 +492,21 @@ class arElasticSearchInformationObjectPdo
     if (!isset(self::$statements['actorRelation']))
     {
       $sql  = 'SELECT
-                  i18n.authorized_form_of_name';
+                  actor.id,
+                  actor.entity_type_id,
+                  slug.slug';
       $sql .= ' FROM '.QubitActor::TABLE_NAME.' actor';
-      $sql .= ' JOIN '.QubitActorI18n::TABLE_NAME.' i18n
-                  ON actor.id = i18n.id';
+      $sql .= ' JOIN '.QubitSlug::TABLE_NAME.' slug
+                  ON actor.id = slug.object_id';
       $sql .= ' JOIN '.QubitRelation::TABLE_NAME.' relation
                   ON actor.id = relation.object_id';
-      $sql .= ' WHERE i18n.culture = :culture
-                  AND relation.subject_id = :resourceId
+      $sql .= ' WHERE relation.subject_id = :resourceId
                   AND relation.type_id = :typeId';
 
       self::$statements['actorRelation'] = self::$conn->prepare($sql);
     }
 
     self::$statements['actorRelation']->execute(array(
-      ':culture' => $culture,
       ':resourceId' => $this->__get('id'),
       ':typeId' => QubitTerm::NAME_ACCESS_POINT_ID));
 
@@ -526,7 +519,7 @@ class arElasticSearchInformationObjectPdo
     }
 
     // Get actors linked via the "event" table (e.g. creators)
-    foreach ($this->getActors($culture) as $item)
+    foreach ($this->getActors() as $item)
     {
       $name = $item->authorized_form_of_name;
 
@@ -615,7 +608,7 @@ class arElasticSearchInformationObjectPdo
     return $this;
   }
 
-  public function getNotes($culture)
+  public function getNotes()
   {
     $notes = array();
 
@@ -625,17 +618,13 @@ class arElasticSearchInformationObjectPdo
       $sql  = 'SELECT
                   i18n.content';
       $sql .= ' FROM '.QubitNote::TABLE_NAME.' note';
-      $sql .= ' JOIN '.QubitNoteI18n::TABLE_NAME.' i18n
-                  ON note.id = i18n.id';
-      $sql .= ' WHERE note.object_id = ?
-                  AND i18n.culture = ?';
+      $sql .= ' WHERE note.object_id = ?';
 
       self::$statements['note'] = self::$conn->prepare($sql);
     }
 
     self::$statements['note']->execute(array(
-      $this->__get('id'),
-      $culture));
+      $this->__get('id')));
 
     foreach (self::$statements['note']->fetchAll(PDO::FETCH_OBJ) as $item)
     {
@@ -688,7 +677,7 @@ class arElasticSearchInformationObjectPdo
     return self::$statements['materialType']->fetchColumn(0);
   }
 
-  public function getStorageNames($culture)
+  public function getStorageNames()
   {
     $names = array();
 
@@ -697,19 +686,15 @@ class arElasticSearchInformationObjectPdo
     {
       $sql  = 'SELECT i18n.name';
       $sql .= ' FROM '.QubitRelation::TABLE_NAME.' rel';
-      $sql .= ' JOIN '.QubitPhysicalObjectI18n::TABLE_NAME.' i18n
-                  ON rel.subject_id = i18n.id';
       $sql .= ' WHERE rel.object_id = :resource_id';
       $sql .= '   AND rel.type_id = :type_id';
-      $sql .= '   AND i18n.culture = :culture';
 
       self::$statements['storageName'] = self::$conn->prepare($sql);
     }
 
     self::$statements['storageName']->execute(array(
       ':resource_id' => $this->__get('id'),
-      ':type_id' => QubitTerm::HAS_PHYSICAL_OBJECT_ID,
-      ':culture' => $culture));
+      ':type_id' => QubitTerm::HAS_PHYSICAL_OBJECT_ID));
 
     foreach (self::$statements['storageName']->fetchAll(PDO::FETCH_OBJ) as $item)
     {
@@ -854,56 +839,34 @@ class arElasticSearchInformationObjectPdo
       $serialized['dates'] = $dates;
     }
 
-    // Repository (actor)
+    // Repository
     if (null !== $repository = $this->getRepository())
     {
       $serialized['repository'] = arElasticSearchRepository::serialize($repository);
     }
 
-    /*
-
-    // Name access points (actors)
-    foreach ($this->getNameAccessPoints() as $name)
-    {
-      $nameSerialized = $name->serialize();
-      $nameSerialized['id'] = $name->id;
-      unset($nameSerialized['slug']);
-      unset($nameSerialized['sourceCulture']);
-
-      $serialized['names'][] = $nameSerialized;
-    }
-
-    // Creators (actors)
-    // TODO use QubitPdoActor class?
-    foreach ($this->getCreators() as $creator)
-    {
-      $i18n = array();
-      if (!empty($creator['name'])) $i18n['authorizedFormOfName'] = $creator['name'];
-      if (!empty($creator['history'])) $i18n['history'] = $creator['history'];
-      if (!empty($creator['culture'])) $i18n['culture'] = $creator['culture'];
-
-      $serialized['creators'][] = array('id' => $creator['id'], 'i18n' => array($i18n));
-    }
-
-    // Notes
-    foreach ($this->getNotes() as $note)
-    {
-      $i18n = array();
-      if (!empty($note->content)) $i18n['content'] = $note->content;
-      if (!empty($note->culture)) $i18n['culture'] = $note->culture;
-
-      $serialized['notes'][] = array('id' => $note->id, 'i18n' => array($i18n));
-    }
-
-    */
-
+    // Subjects, places, (etc...?)
     foreach ($this->getRelatedTerms() as $item)
     {
-      $serialized['terms'] = arElasticSearchTerm::serialize($item);
+      $serialized['terms'][] = arElasticSearchTerm::serialize($item);
     }
 
-    $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($object->createdAt);
-    $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($object->updatedAt);
+    // Name access points
+    foreach ($this->getNameAccessPoints() as $item)
+    {
+      $node = new arElasticSearchActorPdo($item->id);
+      $serialized['names'][] = $node->serialize();
+    }
+
+    // Creators
+    foreach ($this->getActors(array('typeId' => QubitTerm::CREATION_ID)) as $item)
+    {
+      $node = new arElasticSearchActorPdo($item->id);
+      $serialized['creators'][] = $node->serialize();
+    }
+
+    $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->createdAt);
+    $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($this->updatedAt);
 
     $serialized['sourceCulture'] = $this->source_culture;
     $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($this->id, array('QubitInformationObject'));

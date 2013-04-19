@@ -46,9 +46,8 @@ class arElasticSearchActor extends arElasticSearchModelBase
   public static function update($object)
   {
     $node = new arElasticSearchActorPdo($object->id);
-    $data = $node->serialize();
 
-    QubitSearch::getInstance()->addDocument($data, 'QubitActor');
+    QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitActor');
 
     return true;
   }

@@ -28,20 +28,49 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
   // Arrays not allowed in class constants
   public static
     $FACETS = array(
-      'levelOfDescriptionId',
-      'repository.id',
-      'terms.id' => array('type'   => 'term',
-                          'size'   => 10,
-                          'filter' => array(
-                            'type' => 'terms',
-                            'key' => 'terms.taxonomyId',
-                            'terms' => array(QubitTaxonomy::PLACE_ID))));
+      'levels' =>
+        array('type' => 'term',
+              'field' => 'levelOfDescriptionId',
+              'size' => 10),
+      'mediatypes' =>
+        array('type' => 'term',
+              'field' => 'digitalObject.mediaTypeId',
+              'size' => 10,
+              'populate' => false),
+      'repos' =>
+        array('type' => 'term',
+              'field' => 'repository.id',
+              'size' => 10),
+      'places' =>
+        array('type'   => 'term',
+              'field'  => 'terms.id',
+              'size'   => 10,
+              'filter' => array(
+                'type' => 'terms',
+                'key' => 'terms.taxonomyId',
+                'terms' => array(QubitTaxonomy::PLACE_ID))),
+      'subjects' =>
+        array('type'   => 'term',
+              'field'  => 'terms.id',
+              'size'   => 10,
+              'filter' => array(
+                'type' => 'terms',
+                'key' => 'terms.taxonomyId',
+                'terms' => array(QubitTaxonomy::SUBJECT_ID))),
+      'creators' =>
+        array('type'   => 'term',
+              'field'  => 'creators.id',
+              'size'   => 10),
+      'names' =>
+        array('type'   => 'term',
+              'field'  => 'names.id',
+              'size'   => 10));
 
   protected function populateFacet($name, $ids)
   {
     switch ($name)
     {
-      case 'levelOfDescriptionId':
+      case 'levels':
         $criteria = new Criteria;
         $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
 
@@ -52,7 +81,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
         break;
 
-      case 'repository.id':
+      case 'repos':
         $criteria = new Criteria;
         $criteria->add(QubitRepository::ID, array_keys($ids), Criteria::IN);
 
@@ -64,13 +93,26 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
         break;
 
-      case 'terms.id':
+      case 'places':
+      case 'subjects':
         $criteria = new Criteria;
         $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
 
         foreach (QubitTerm::get($criteria) as $item)
         {
           $this->types[$item->id] = $item->name;
+        }
+
+        break;
+
+      case 'creators':
+      case 'names':
+        $criteria = new Criteria;
+        $criteria->add(QubitActor::ID, array_keys($ids), Criteria::IN);
+
+        foreach (QubitActor::get($criteria) as $item)
+        {
+          $this->types[$item->id] = $item->authorizedFormOfName;
         }
 
         break;

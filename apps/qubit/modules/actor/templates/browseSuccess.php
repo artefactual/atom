@@ -13,12 +13,41 @@
 <?php slot('sidebar') ?>
   <div id="facets">
 
-    <?php echo get_partial('search/facet', array(
-      'target' => '#facet-type',
-      'label' => __('Type'),
-      'facet' => 'entityTypeId',
-      'pager' => $pager,
-      'filters' => $filters)) ?>
+    <?php if (isset($pager->facets['subjects_id'])): ?>
+      <?php echo get_partial('search/facet', array(
+        'target' => '#facet-subject',
+        'label' => __('Subject'),
+        'facet' => 'subjects_id',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+    <?php endif; ?>
+
+    <?php if (isset($pager->facets['digitalObject_mediaTypeId'])): ?>
+      <?php echo get_partial('search/facet', array(
+        'target' => '#facet-mediatype',
+        'label' => __('Media type'),
+        'facet' => 'digitalObject_mediaTypeId',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+    <?php endif; ?>
+
+    <?php if (isset($pager->facets['places_id'])): ?>
+      <?php echo get_partial('search/facet', array(
+        'target' => '#facet-place',
+        'label' => __('Place'),
+        'facet' => 'places_id',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+    <?php endif; ?>
+
+    <?php if (isset($pager->facets['names_id'])): ?>
+      <?php echo get_partial('search/facet', array(
+        'target' => '#facet-name',
+        'label' => __('Name'),
+        'facet' => 'names_id',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+    <?php endif; ?>
 
   </div>
 <?php end_slot() ?>

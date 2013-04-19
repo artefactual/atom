@@ -40,7 +40,7 @@
       <?php endif; ?>
 
       <?php if (isset($doc['dates'])): ?>
-        <li class="dates"><?php echo Qubit::renderDateStartEnd(null, $doc['dates'][0]['startDate'], $doc['dates'][0]['endDate']) ?></li>
+        <li class="dates"><?php # echo Qubit::renderDateStartEnd(null, $doc['dates'][0]['startDate'], $doc['dates'][0]['endDate']) ?></li>
       <?php endif; ?>
 
     </ul>
@@ -50,12 +50,14 @@
     <?php endif; ?>
 
     <!-- TODO: show repo if multirepo and fix breadcrumb style -->
+    <?php if (false): ?>
     <ul class="breadcrumb">
       <?php foreach($doc['ancestors'] as $id): ?>
         <?php if ($id == QubitInformationObject::ROOT_ID) continue ?>
         <li><?php echo link_to($pager->ancestors[$id]['title'], array('module' => 'informationobject', 'slug' => $pager->ancestors[$id]['slug']), array('title' => $pager->ancestors[$id]['title'])) ?></li>
       <?php endforeach; ?>
     </ul>
+  <?php endif; ?>
 
   </div>
 

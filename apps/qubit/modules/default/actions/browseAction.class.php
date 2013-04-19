@@ -38,14 +38,14 @@ class DefaultBrowseAction extends sfAction
       {
         case 'range':
           $facet = new Elastica_Facet_Range($name);
-          $facet->setField($name);
+          $facet->setField($item['field']);
           $facet->addRange($item['from'], $item['to']);
 
           break;
 
         case 'term':
           $facet = new Elastica_Facet_Terms($name);
-          $facet->setField($name);
+          $facet->setField($item['field']);
 
           break;
       }
@@ -81,7 +81,7 @@ class DefaultBrowseAction extends sfAction
 
     foreach ($this->request->getGetParameters() as $param => $value)
     {
-      if (!in_array(strtr($param, '_', '.'), $this::$FACETS))
+      if (!array_key_exists($param, $this::$FACETS))
       {
         continue;
       }
@@ -96,7 +96,7 @@ class DefaultBrowseAction extends sfAction
 
         $this->filters[$param][] = $facetValue;
 
-        $term = new Elastica_Query_Term(array(strtr($param, '_', '.') => $facetValue));
+        $term = new Elastica_Query_Term(array($this::$FACETS[$param]['field'] => $facetValue));
 
         $this->queryBool->addMust($term);
       }
@@ -124,6 +124,11 @@ class DefaultBrowseAction extends sfAction
         continue;
       }
 
+      if (isset($this::$FACETS[$name]['populate']) && false === $this::$FACETS[$name]['populate'])
+      {
+        continue;
+      }
+
       // Build a map of facet results
       $ids = array();
       foreach ($facet['terms'] as $item)
@@ -135,7 +140,7 @@ class DefaultBrowseAction extends sfAction
 
       foreach ($facet['terms'] as $term)
       {
-        $facets[strtr($name, '.', '_')]['terms'][$term['term']] = array(
+        $facets[$name]['terms'][$term['term']] = array(
           'count' => $term['count'],
           'term' => $this->types[$term['term']]);
       }

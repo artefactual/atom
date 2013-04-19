@@ -31,13 +31,15 @@ class ActorBrowseAction extends DefaultBrowseAction
   // Arrays not allowed in class constants
   public static
     $FACETS = array(
-      'entityTypeId');
+      'types' => array('type' => 'term',
+                       'field' => 'entityTypeId',
+                         'size' => 10));
 
   protected function populateFacet($name, $ids)
   {
     switch ($name)
     {
-      case 'entityTypeId':
+      case 'types':
         $criteria = new Criteria;
         $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
 

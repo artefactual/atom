@@ -11,30 +11,88 @@
 <?php end_slot() ?>
 
 <?php slot('sidebar') ?>
-  <div id="facets">
+  <section id="facets">
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-levelOfDescription',
       'label' => __('Level of description'),
-      'facet' => 'levelOfDescriptionId',
+      'facet' => 'levels',
       'pager' => $pager,
       'filters' => $filters)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-repository',
       'label' => __('Institution'),
-      'facet' => 'repository_id',
+      'facet' => 'repos',
       'pager' => $pager,
       'filters' => $filters)) ?>
 
     <?php echo get_partial('search/facet', array(
-      'target' => '#facet-terms',
-      'label' => __('Places'),
-      'facet' => 'terms_id',
+      'target' => '#facet-names',
+      'label' => __('Creators'),
+      'facet' => 'creators',
       'pager' => $pager,
       'filters' => $filters)) ?>
 
-  </div>
+    <?php echo get_partial('search/facet', array(
+      'target' => '#facet-names',
+      'label' => __('Names'),
+      'facet' => 'names',
+      'pager' => $pager,
+      'filters' => $filters)) ?>
+
+    <?php echo get_partial('search/facet', array(
+      'target' => '#facet-places',
+      'label' => __('Places'),
+      'facet' => 'places',
+      'pager' => $pager,
+      'filters' => $filters)) ?>
+
+    <?php echo get_partial('search/facet', array(
+      'target' => '#facet-subjects',
+      'label' => __('Subjects'),
+      'facet' => 'subjects',
+      'pager' => $pager,
+      'filters' => $filters)) ?>
+
+    <section id="facet-dates">
+      <div class="facet-header">
+        <div class="hidden-phone">
+          <p><?php echo __('Dates') ?></p>
+        </div>
+        <div class="visible-phone">
+          <button class="w-btn" data-toggle="collapse" data-target="<?php echo $target ?>"><?php echo __('Dates') ?></button>
+        </div>
+      </div>
+      <div class="facet-body" id="dates">
+        <form name="dates" class="form">
+          <ul>
+            <li>
+              <label>
+                <input type="radio" name="dates" value="all">
+                <?php echo __('All dates') ?>
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="dates" value="range">
+                <span class="date-input">
+                  <span><?php echo __('From') ?></span>
+                  <input type="text" name="from" />
+                </span>
+                <span class="date-input">
+                  <span><?php echo __('to') ?></span>
+                  <input type="text" name="to" />
+                </span>
+                <input type="button" class="btn btn-small" value="Go" />
+              </label>
+            </li>
+          </ul>
+        </form>
+      </div>
+    </section>
+
+  </section>
 <?php end_slot() ?>
 
 <?php slot('before-content') ?>
