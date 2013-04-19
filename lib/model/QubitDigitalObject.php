@@ -39,7 +39,7 @@ class QubitDigitalObject extends BaseDigitalObject
   // Variables for save actions
   public
     $assets = array(),
-    $indexOnSave = true,
+    $indexOnSave = true, // Flag for updating search index on save or delete
     $createDerivatives = true;
 
   /*

@@ -19,8 +19,9 @@
 
 class QubitStatus extends BaseStatus
 {
-  // Flag for updating search index on save of Status
-  protected $indexOnSave = true;
+  // Flag for updating search index on save or delete
+  public
+    $indexOnSave = true;
 
   public function __toString()
   {
@@ -34,7 +35,7 @@ class QubitStatus extends BaseStatus
 
     parent::save($connection);
 
-    if ($this->indexOnSave())
+    if ($this->indexOnSave)
     {
       if ($this->objectId != $cleanObjectId && null !== QubitInformationObject::getById($cleanObjectId))
       {
@@ -48,36 +49,6 @@ class QubitStatus extends BaseStatus
     }
 
     return $this;
-  }
-
-  /**
-   * Flag whether to update the search index when saving this object
-   *
-   * @param boolean $bool flag value
-   * @return QubitInformationObject self-reference
-   */
-  public function setIndexOnSave($bool)
-  {
-    if ($bool)
-    {
-      $this->indexOnSave = true;
-    }
-    else
-    {
-      $this->indexOnSave = false;
-    }
-
-    return $this;
-  }
-
-  /**
-   * Update search index on save?
-   *
-   * @return boolean current flag
-   */
-  public function indexOnSave()
-  {
-    return $this->indexOnSave;
   }
 
   public function delete($connection = null)

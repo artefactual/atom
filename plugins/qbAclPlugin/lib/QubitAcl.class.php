@@ -644,33 +644,28 @@ class QubitAcl
 
   public static function addFilterDraftsCriteria($criteria)
   {
-    $criteria->addJoin(QubitInformationObject::ID, QubitStatus::OBJECT_ID, Criteria::LEFT_JOIN);
+    // Draft permissions criteria
+    $filterCriteria = self::getFilterCriterion($criteria, QubitInformationObject::getRoot(), 'viewDraft');
+
+    // Avoid to add criteria if not needed
+    if (true === $filterCriteria)
+    {
+      return $criteria;
+    }
 
     // Either object must be published, or
     $ct1 = $criteria->getNewCriterion(QubitStatus::TYPE_ID, QubitTerm::STATUS_TYPE_PUBLICATION_ID);
     $ct2 = $criteria->getNewCriterion(QubitStatus::STATUS_ID, QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
     $ct1->addAnd($ct2);
 
-    // The user has view drafts permission
-    $ct3 = self::getFilterCriterion($criteria, QubitInformationObject::getRoot(), 'viewDraft');
+    // Show a limited set of draft descriptions + all published descriptions
+    // Otherwise, show only published descriptions
+    if (true === $filterCriteria)
+    {
+      $ct1->addOr($filterCriteria);
+    }
 
-    if (!isset($ct3) || false === $ct3)
-    {
-      // Show ONLY published descriptions
-      return $criteria->addAnd($ct1);
-    }
-    else if (true === $ct3)
-    {
-      // Show ALL drafts and published descriptions (don't add to criteria)
-      return $criteria;
-    }
-    else
-    {
-      // Show a limited set of draft descriptions + all published descriptions
-      $ct1->addOr($ct3);
-
-      return $criteria->addAnd($ct1);
-    }
+    return $criteria->addAnd($ct1);
   }
 
   /**

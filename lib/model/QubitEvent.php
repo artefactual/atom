@@ -28,6 +28,7 @@
  */
 class QubitEvent extends BaseEvent
 {
+  // Flag for updating search index on save or delete
   public
     $indexOnSave = true;
 
@@ -65,26 +66,6 @@ class QubitEvent extends BaseEvent
     $this->slug = QubitSlug::slugify($this->slug);
 
     return parent::insert($connection);
-  }
-
-  /**
-   * Flag whether to update the search index when saving this object
-   *
-   * @param boolean $bool flag value
-   * @return QubitEvent self-reference
-   */
-  public function setIndexOnSave($bool)
-  {
-    if ($bool)
-    {
-      $this->indexOnSave = true;
-    }
-    else
-    {
-      $this->indexOnSave = false;
-    }
-
-    return $this;
   }
 
   public function delete($connection = null)

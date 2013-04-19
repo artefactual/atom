@@ -258,7 +258,7 @@ class QubitInformationObject extends BaseInformationObject
     // related objects that are included in the index document)
     foreach ($this->events as $item)
     {
-      $item->setIndexOnSave(false);
+      $item->indexOnSave = false;
 
       // TODO Needed if $this is new, should be transparent
       $item->informationObject = $this;
@@ -301,7 +301,7 @@ class QubitInformationObject extends BaseInformationObject
         $hasPubStatus = true;
       }
 
-      $item->setIndexOnSave(false);
+      $item->indexOnSave = false;
 
       // TODO Needed if $this is new, should be transparent
       $item->object = $this;
@@ -316,7 +316,7 @@ class QubitInformationObject extends BaseInformationObject
       $status->objectId = $this->id;
       $status->typeId = QubitTerm::STATUS_TYPE_PUBLICATION_ID;
       $status->statusId = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
-      $status->setIndexOnSave(false);
+      $status->indexOnSave = false;
 
       $status->save($connection);
     }
@@ -337,33 +337,39 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function delete($connection = null)
   {
-    QubitSearch::getInstance()->delete($this);
-
-    $this->deletePhysicalObjectRelations();
+    // Physical object relations
+    $relations = QubitRelation::getRelationsByObjectId($this->id, array('typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID));
+    foreach ($relations as $item)
+    {
+      $item->indexObjectOnDelete = false;
+      $item->delete();
+    }
 
     // Delete subject relations
     $criteria = new Criteria;
     $criteria = $this->addrelationsRelatedBysubjectIdCriteria($criteria);
-
     if ($subjectRelations = QubitRelation::get($criteria))
     {
-      foreach ($subjectRelations as $subjectRelation)
+      foreach ($subjectRelations as $item)
       {
-        $subjectRelation->delete();
+        $item->indexSubjectOnDelete = false;
+        $item->delete();
       }
     }
 
     // Delete object relations
     $criteria = new Criteria;
     $criteria = $this->addrelationsRelatedByobjectIdCriteria($criteria);
-
     if ($objectRelations = QubitRelation::get($criteria))
     {
-      foreach ($objectRelations as $objectRelation)
+      foreach ($objectRelations as $item)
       {
-        $objectRelation->delete();
+        $item->indexObjectOnDelete = false;
+        $item->delete();
       }
     }
+
+    QubitSearch::getInstance()->delete($this);
 
     parent::delete($connection);
   }
@@ -1035,19 +1041,6 @@ class QubitInformationObject extends BaseInformationObject
     return $relatedPhysicalObjects;
   }
 
-  /**
-   * Cascade delete child records in q_relation
-   *
-   */
-  protected function deletePhysicalObjectRelations()
-  {
-    $relations = QubitRelation::getRelationsByObjectId($this->id, array('typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID));
-
-    foreach ($relations as $relation)
-    {
-      $relation->delete();
-    }
-  }
 
   /******************
     Digital Objects
@@ -1979,6 +1972,45 @@ class QubitInformationObject extends BaseInformationObject
   /*****************************************************
    TreeView
   *****************************************************/
+
+  public function getTreeViewChildren(array $options = array())
+  {
+    $numberOfPreviousOrNextSiblings = 4;
+    if (isset($options['numberOfPreviousOrNextSiblings']))
+    {
+      $numberOfPreviousOrNextSiblings = $options['numberOfPreviousOrNextSiblings'];
+    }
+
+    // Find first child visible
+    $criteria = new Criteria;
+    $criteria->add(QubitInformationObject::PARENT_ID, $this->id);
+    $criteria = QubitInformationObject::addTreeViewSortCriteria($criteria);
+    foreach (QubitInformationObject::get($criteria) as $item)
+    {
+      // ACL checks
+      if (QubitAcl::check($item, 'read'))
+      {
+        $firstChild = $item;
+
+        break;
+      }
+    }
+
+    $items = array();
+    if (isset($firstChild))
+    {
+      // Merge the first child found and its potential siblings
+      $items = array_merge(array($firstChild), $firstChild->getTreeViewSiblings(array('limit' => $numberOfPreviousOrNextSiblings + 2, 'position' => 'next')));
+
+      $hasNextSiblings = count($items) > $numberOfPreviousOrNextSiblings;
+      if ($hasNextSiblings)
+      {
+        array_pop($items);
+      }
+    }
+
+    return array($items, $hasNextSiblings);
+  }
 
   public function getTreeViewSiblings(array $options = array())
   {

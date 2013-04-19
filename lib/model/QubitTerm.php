@@ -238,7 +238,7 @@ class QubitTerm extends BaseTerm
     // Save related terms
     foreach ($this->termsRelatedByparentId as $child)
     {
-      $child->setIndexOnSave(false);
+      $child->indexOnSave = false;
       $child->parentId = $this->id;
 
       try

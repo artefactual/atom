@@ -1,13 +1,17 @@
   <did>
-    <?php $objects = $$resourceVar->getPhysicalObjects() ?>
-    <?php foreach($objects as $object): ?>
-    <container type="<?php echo $object->type ?>">
-      <?php echo escape_dc(esc_specialchars($object->location)) ?>
-      <?php if($object->name): ?>
-      <title><?php echo escape_dc(esc_specialchars($object->name)) ?></title>
-      <?php endif; ?>
-    </container>
-    <?php endforeach; ?>
+
+    <?php if (check_field_visibility('app_element_visibility_physical_storage')): ?>
+      <?php $objects = $$resourceVar->getPhysicalObjects() ?>
+        <?php foreach ($objects as $object): ?>
+        <container type="<?php echo $object->type ?>">
+          <?php echo escape_dc(esc_specialchars($object->location)) ?>
+          <?php if ($object->name): ?>
+            <title><?php echo escape_dc(esc_specialchars($object->name)) ?></title>
+          <?php endif; ?>
+        </container>
+      <?php endforeach; ?>
+    <?php endif; ?>
+
     <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('titleProperOfPublishersSeries')->__toString())): ?>
     <unittitle><bibseries><title><?php echo escape_dc(esc_specialchars($value)) ?></title></bibseries></unittitle>
     <?php endif; ?>
@@ -124,18 +128,11 @@
     <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('issuingJurisdictionAndDenomination')->__toString())): ?>
     <materialspec type='philatelic'><?php echo escape_dc(esc_specialchars($value)) ?></materialspec>
     <?php endif; ?>
-    <?php if (0 < count($$resourceVar->digitalObjects)): ?>
-      <?php $digitalObject = $$resourceVar->digitalObjects[0] ?>
-      <daogrp linktype="extended">
-        <daodesc>
-          <p><?php echo $$resourceVar->getTitle(array('cultureFallback' => true)) ?> digital objects</p>
-        </daodesc>
-        <resource linktype="resource" label="start"/>
-        <daoloc href="<?php echo QubitTerm::EXTERNAL_URI_ID == $digitalObject->usageId ? esc_specialchars($digitalObject->path) : esc_specialchars($digitalObject->path . $digitalObject) ?>" linktype="locator" role="<?php echo esc_specialchars($digitalObject->mimeType) ?>" id="<?php echo $digitalObject->id ?>" label="object"/>
-        <daoloc href="<?php echo esc_specialchars($digitalObject->thumbnail->path . $digitalObject->thumbnail) ?>" linktype="locator" role="<?php echo esc_specialchars($digitalObject->thumbnail->mimeType) ?>" id="<?php echo $digitalObject->thumbnail->id ?>" label="thumb"/>
-        <daoloc href="<?php echo esc_specialchars($digitalObject->reference->path . $digitalObject->reference) ?>" linktype="locator" role="<?php echo esc_specialchars($digitalObject->reference->mimeType) ?>" id="<?php echo $digitalObject->reference->id ?>" label="reference"/>
-        <arc linktype="arc" show="embed" actuate="onload" from="start" to="thumb"/>
-        <arc linktype="arc" show="new" actuate="onrequest" from="thumb" to="reference"/>
-      </daogrp>
+    <?php if (null !== $digitalObject = $$resourceVar->digitalObjects[0]): ?>
+      <?php if (QubitAcl::check($$resourceVar, 'readMaster') && 0 < strlen($url = QubitTerm::EXTERNAL_URI_ID == $digitalObject->usageId ? $digitalObject->getPath() : public_path($digitalObject->getFullPath(), true))): ?>
+        <dao linktype="simple" href="<?php echo $url ?>" role="master" actuate="onrequest" show="embed"/>
+      <?php elseif (QubitAcl::check($$resourceVar, 'readReference') && 0 < strlen($url = public_path($digitalObject->reference->getFullPath(), true))): ?>
+        <dao linktype="simple" href="<?php echo $url ?>" role="reference" actuate="onrequest" show="embed"/>
+      <?php endif; ?>
     <?php endif; ?>
   </did>

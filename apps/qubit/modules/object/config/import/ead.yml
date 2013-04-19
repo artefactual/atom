@@ -160,7 +160,7 @@ information_object:
       Method: setPublicationStatusByName
 
     draftingStatus:
-      XPath:  "odd[@type='draftingstatus']/p"
+      XPath:  "odd[@type='statusDescription']/p"
       Method: setDescriptionStatusByName
 
     levelOfDetail:
@@ -306,7 +306,7 @@ information_object:
 
     #TODO: check for @type attribute and pass it as note type
     note:
-      XPath:  "(note | descgrp/note | did/note)"
+      XPath:  "(note | descgrp/note | did/note[not(@type='sourcesDescription')])"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::GENERAL_NOTE_ID)"]
 
@@ -390,6 +390,11 @@ information_object:
 
     processinfo:
       XPath:  "(processinfo/p/not(*)] | descgrp/processinfo/p/not(*)])"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)"]
+
+    archivistnote:
+      XPath:  "../eadheader/filedesc/titlestmt/author[@encodinganalog='Creator']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)"]
 

@@ -61,8 +61,6 @@ class qtPackageExtractorBase
     {
       $this->checksumMd5 = $options['checksum_md5'];
     }
-
-    $this->createParent = isset($options['create_parent']) && $options['create_parent'] === true;
   }
 
   public function run()

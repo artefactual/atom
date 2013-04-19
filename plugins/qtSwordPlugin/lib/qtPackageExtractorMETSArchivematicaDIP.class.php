@@ -272,7 +272,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     $publicationStatus = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
 
     // Main object
-    if ($this->createParent && null != ($dmdSec = $this->getMainDmdSec()))
+    if (null != ($dmdSec = $this->getMainDmdSec()))
     {
       $parent = new QubitInformationObject;
       list($parent, $creation) = $this->processDmdSec($dmdSec, $parent);
@@ -380,12 +380,12 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
             $explore($item, $mapping);
 
+            break;
+
           case 'Item':
-            if (null !== $fileId = $item->fptr['FILEID'])
-            {
-              // DMDID may be empty but that's okay, we need the mapping anyways
-              $mapping[(string)$fileId] = (string)$item->fptr['DMDID'];
-            }
+            $mapping[(string)$item->fptr['FILEID']] = (string)$item['DMDID'];
+
+            break;
         }
       }
 
@@ -443,12 +443,13 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           throw new sfException('Unrecognized structMap layout: '.$item['TYPE']);
       }
 
+      // We're going to need this later
+      $this->structMap = $item;
+
       if (null === $dmdId)
       {
         continue;
       }
-
-      $this->structMap = $item;
 
       $dmdSec = $this->document->xpath('//m:dmdSec[@ID="'.(string)$dmdId.'"]');
       if (0 < count($dmdSec))
