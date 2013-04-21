@@ -1828,6 +1828,13 @@ class QubitInformationObject extends BaseInformationObject
       // Iterate over results and store them in the $results array
       foreach (QubitInformationObject::get($criteria) as $item)
       {
+        // Avoid to add the same element, this may happen when sorting by title
+        // or identifierTitle for unknown reasons
+        if ($item->id == $this->id)
+        {
+          continue;
+        }
+
         // We will need this later to control the loop
         $last = $item;
 
