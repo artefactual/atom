@@ -64,9 +64,11 @@ class arUpgrader110
         $setting->save();
 
         // Update add button, accession is now the default action
-        $node = QubitMenu::getByName('add');
-        $node->path = 'accession/add';
-        $node->save();
+        if (null !== $node = QubitMenu::getByName('add'))
+        {
+          $node->path = 'accession/add';
+          $node->save();
+        }
 
         // Create accession menu node
         $node = new QubitMenu;
@@ -128,9 +130,11 @@ class arUpgrader110
         }
 
         // Move taxonomies under "Manage"
-        $node = QubitMenu::getByName('taxonomies');
-        $node->parentId = QubitMenu::MANAGE_ID;
-        $node->save();
+        if (null !== $node = QubitMenu::getByName('taxonomies'))
+        {
+          $node->parentId = QubitMenu::MANAGE_ID;
+          $node->save();
+        }
 
         // Create manage accession menu node
         $node = new QubitMenu;
