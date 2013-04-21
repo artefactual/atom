@@ -772,7 +772,7 @@ class arUpgrader110
     $sql = "ALTER TABLE `slug`
               DROP FOREIGN KEY `slug_FK_1`,
               ADD FOREIGN KEY (`object_id`)
-                REFERENCES  `qubit`.`object` (`id`)
+                REFERENCES  `object` (`id`)
                 ON DELETE CASCADE
                 ON UPDATE RESTRICT;";
     $connection->exec($sql);
