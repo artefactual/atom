@@ -260,6 +260,8 @@ div.multiFileUploadInfoActions a {
   overflow-x: hidden;
 }
 
+/* List elements */
+
 #treeview ul,
 #treeview li
 {
@@ -277,89 +279,7 @@ div.multiFileUploadInfoActions a {
   position: relative;
 }
 
-#treeview .ancestor,
-#treeview .back
-{
-  background-color: #f5f5f5;
-  cursor: pointer;
-}
-
-#treeview .back:hover a
-{
-  text-decoration: underline;
-}
-
-#treeview .expand,
-#treeview .ancestor,
-#treeview .back
-{
-  padding-left: 0px;
-}
-
-#treeview .immediate-ancestor
-{
-  border-bottom: 1px solid #ccc;
-}
-
-#treeview .active
-{
-  background-color: #F1E6D4;
-  -webkit-border-radius: 2px 0 0 2px;
-     -moz-border-radius: 2px 0 0 2px;
-          border-radius: 2px 0 0 2px;
-  -webkit-box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, .3), inset 3px 3px 5px 0 rgba(100, 100, 100, 0.1), inset 0 -1px 1px 0 rgba(100, 100, 100, .2);
-     -moz-box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, .3), inset 3px 3px 5px 0 rgba(100, 100, 100, 0.1), inset 0 -1px 1px 0 rgba(100, 100, 100, .2);
-          box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, .3), inset 3px 3px 5px 0 rgba(100, 100, 100, 0.1), inset 0 -1px 1px 0 rgba(100, 100, 100, .2);
-}
-
-#treeview .placeholder
-{
-  background-color: #f0f0f0;
-}
-
-#treeview .more a
-{
-  background-color: #ccc;
-  padding: 0 8px;
-  font-weight: bold;
-  color: white !important;
-  text-decoration: none !important;
-  -webkit-border-radius: 2px;
-     -moz-border-radius: 2px;
-          border-radius: 2px;
-}
-
-#treeview i
-{
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  vertical-align: middle;
-  margin-right: 2px;
-  margin-left: 5px;
-  background-color: transparent;
-  background-image: url(../images/arrow-sprites.png);
-  background-repeat: no-repeat;
-}
-
-#treeview .ancestor i,
-#treeview .expand i
-{
-  cursor: pointer;
-}
-
-#treeview .ancestor i { background-position: 0px 0px; } /* down arrow */
-#treeview .expand i { background-position: -20px 0px; } /* right arrow */
-
-#treeview .ui-sortable-helper
-{
-  background-color: White;
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid #ccc;
-  -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
-  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
-}
+/* Loading status */
 
 #treeview.loading li
 {
@@ -378,16 +298,35 @@ div.multiFileUploadInfoActions a {
   left: 0px;
 }
 
-#treeview .levelOfDescription
+/* Tree node properties */
+
+#treeview .active
 {
-  margin-right: 4px;
+  background-color: #F1E6D4 !important;
+  -webkit-border-radius: 2px 0 0 2px;
+     -moz-border-radius: 2px 0 0 2px;
+          border-radius: 2px 0 0 2px;
+  -webkit-box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, .3), inset 3px 3px 5px 0 rgba(100, 100, 100, 0.1), inset 0 -1px 1px 0 rgba(100, 100, 100, .2);
+     -moz-box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, .3), inset 3px 3px 5px 0 rgba(100, 100, 100, 0.1), inset 0 -1px 1px 0 rgba(100, 100, 100, .2);
+          box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, .3), inset 3px 3px 5px 0 rgba(100, 100, 100, 0.1), inset 0 -1px 1px 0 rgba(100, 100, 100, .2);
 }
 
-#treeview .pubStatus
+#treeview .expand,
+#treeview .ancestor
 {
-  color: #bbb;
-  margin-left: 4px;
+  padding-left: 0px;
 }
+
+#treeview .ancestor
+{
+  background-color: #f5f5f5;
+}
+
+#treeview .root
+{
+}
+
+/* Treeview drag-n-drop */
 
 #treeview .grip
 {
@@ -407,6 +346,79 @@ div.multiFileUploadInfoActions a {
 #treeview li:hover .grip
 {
   visibility: visible;
+}
+
+#treeview .placeholder
+{
+  background-color: #f0f0f0;
+}
+
+/* Show siblings button */
+
+#treeview .more a
+{
+  background-color: #ccc;
+  padding: 0 8px;
+  font-weight: bold;
+  color: white !important;
+  text-decoration: none !important;
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+}
+
+/* Node arrows */
+
+#treeview i
+{
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  vertical-align: middle;
+  margin-right: 2px;
+  margin-left: 5px;
+  background-color: transparent;
+  background-image: url(../images/arrow-sprites.png);
+  background-repeat: no-repeat;
+}
+
+#treeview .root i
+{
+  cursor: default !important;
+}
+
+#treeview .ancestor i,
+#treeview .expand i
+{
+  cursor: pointer;
+}
+
+#treeview .ancestor i { background-position: 0px 0px; } /* down arrow */
+#treeview .ancestor:hover i { background-position: -10px 0px; } /* left arrow */
+#treeview .expand i { background-position: -20px 0px; } /* right arrow */
+#treeview .expand:hover i { background-position: 0px 0px; } /* down arrow */
+#treeview .root:hover i { background-position: 0px 0px; } /* down arrow */
+
+#treeview .ui-sortable-helper
+{
+  background-color: White;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ccc;
+  -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+}
+
+
+#treeview .levelOfDescription
+{
+  margin-right: 4px;
+}
+
+#treeview .pubStatus
+{
+  color: #bbb;
+  margin-left: 4px;
 }
 
 /*********************************************************

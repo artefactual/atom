@@ -376,7 +376,7 @@
         // When the arrow is clicked
         else if ('I' === e.target.tagName)
         {
-          if ($li.hasClass('ancestor') && !$li.next().hasClass('ancestor'))
+          if ($li.hasClass('root'))
           {
             killEvent(e);
 
@@ -393,8 +393,11 @@
       {
         this.setLoading(true, $element);
 
+        // Figure out if the user is try to collapse looking at the ancestor class
+        var collapse = $element.hasClass('ancestor');
+
         $.ajax({
-          url: $element.data('xhr-location'),
+          url: collapse ? $element.prev().data('xhr-location') : $element.data('xhr-location'),
           context: this,
           dataType: 'html',
           data: { show: 'item', resourceId: this.resourceId }})
@@ -412,10 +415,11 @@
 
           .done(function (data)
             {
-              if ($element.hasClass('ancestor'))
+              if (collapse)
               {
-                $element.nextAll().remove();
-                $element.after(data);
+                $element.nextAll().andSelf().remove();
+
+                this.$element.find('.ancestor:last-child').after(data);
               }
               else
               {
