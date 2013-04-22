@@ -12,7 +12,7 @@
       <?php else: ?>
         <li<?php if ('updatedDown' == $sf_request->sort || 'updatedUp' == $sf_request->sort): ?> class="active"<?php endif; ?>><?php echo link_to(__('Recent changes'), array('sort' => 'updatedDown') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?></li>
         <li<?php if ('updatedDown' != $sf_request->sort && 'updatedUp' != $sf_request->sort): ?> class="active"<?php endif; ?>><?php echo link_to(__('Alphabetic'), array('sort' => 'titleUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?></li>
-      <?php endif; ?> 
+      <?php endif; ?>
     </ul>
   </div>
 
@@ -38,7 +38,7 @@
           <?php if ('titleDown' == $sf_request->sort): ?>
             <?php echo link_to(image_tag('up.gif'), array('sort' => 'titleUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?>
           <?php endif; ?>
-        <?php endif; ?> 
+        <?php endif; ?>
       </th><th>
         <?php if ('lastUpdated' == $sortSetting): ?>
           <?php if ('titleUp' == $sf_request->sort || 'titleDown' == $sf_request->sort): ?>

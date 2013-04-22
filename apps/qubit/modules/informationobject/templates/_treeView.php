@@ -5,7 +5,8 @@
     <?php // Ancestors ?>
     <?php foreach ($ancestors as $ancestor): ?>
       <?php if (QubitInformationObject::ROOT_ID == $ancestor->id) continue; ?>
-      <?php echo render_treeview_node($ancestor,
+      <?php echo render_treeview_node(
+        $ancestor,
         array('ancestor' => true),
         array('xhr-location' => url_for(array($ancestor, 'module' => 'informationobject', 'action' => 'treeView')))); ?>
     <?php endforeach; ?>
