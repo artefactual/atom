@@ -784,6 +784,40 @@ class QubitTerm extends BaseTerm
     return QubitTerm::get($criteria, $options);
   }
 
+  public function getTreeViewChildren(array $options = array())
+  {
+    $numberOfPreviousOrNextSiblings = 4;
+    if (isset($options['numberOfPreviousOrNextSiblings']))
+    {
+      $numberOfPreviousOrNextSiblings = $options['numberOfPreviousOrNextSiblings'];
+    }
+
+    // Get first child
+    $criteria = new Criteria;
+    $criteria->add(QubitTerm::PARENT_ID, $this->id);
+    $criteria->add(QubitTerm::TAXONOMY_ID, $this->taxonomyId);
+    $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitTerm');
+    $criteria->addAscendingOrderByColumn('name');
+    $criteria->addAscendingOrderByColumn('lft');
+    $criteria->setLimit(1);
+    $first = QubitTerm::getOne($criteria);
+
+    // Create array
+    $items = array();
+    $items[] = $first;
+
+    // Merge following siblings to the array
+    $items = array_merge($items, $first->getTreeViewSiblings(array('limit' => $numberOfPreviousOrNextSiblings + 2, 'position' => 'next')));
+
+    $hasNextSiblings = count($items) > $numberOfPreviousOrNextSiblings;
+    if ($hasNextSiblings)
+    {
+      array_pop($items);
+    }
+
+    return array($items, $hasNextSiblings);
+  }
+
   public function getTreeViewSiblings(array $options = array())
   {
     // The max number of items that will be shown

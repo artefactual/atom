@@ -21,17 +21,10 @@ class TermTreeViewAction extends sfAction
 {
   public function execute($request)
   {
+    $this->resource = $this->getRoute()->resource;
+
     // Number of siblings that we are showing above and below the current node
     $numberOfPreviousOrNextSiblings = 4;
-
-    if ('all' == $request->show)
-    {
-      $taxonomyId = QubitTerm::getById($request->resourceId)->taxonomyId;
-    }
-    else
-    {
-      $this->resource = $this->getRoute()->resource;
-    }
 
     switch ($request->show)
     {
@@ -62,58 +55,10 @@ class TermTreeViewAction extends sfAction
 
         break;
 
-      case 'all':
-
-        // Get first child
-        $criteria = new Criteria;
-        $criteria->add(QubitTerm::PARENT_ID, QubitTerm::ROOT_ID);
-        $criteria->add(QubitTerm::TAXONOMY_ID, $taxonomyId);
-        $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitTerm');
-        $criteria->addAscendingOrderByColumn('name');
-        $criteria->addAscendingOrderByColumn('lft');
-        $criteria->setLimit(1);
-        $first = QubitTerm::getOne($criteria);
-
-        // Create array
-        $this->items = array();
-        $this->items[] = $first;
-
-        // Merge following siblings to the array
-        $this->items = array_merge($this->items, $first->getTreeViewSiblings(array('limit' => $numberOfPreviousOrNextSiblings + 2, 'position' => 'next')));
-
-        $this->hasNextSiblings = count($this->items) > $numberOfPreviousOrNextSiblings;
-        if ($this->hasNextSiblings)
-        {
-          array_pop($this->items);
-        }
-
-        break;
-
       case 'item':
       default:
 
-        // Get first child
-        $criteria = new Criteria;
-        $criteria->add(QubitTerm::PARENT_ID, $this->resource->id);
-        $criteria->add(QubitTerm::TAXONOMY_ID, $this->resource->taxonomyId);
-        $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitTerm');
-        $criteria->addAscendingOrderByColumn('name');
-        $criteria->addAscendingOrderByColumn('lft');
-        $criteria->setLimit(1);
-        $first = QubitTerm::getOne($criteria);
-
-        // Create array
-        $this->items = array();
-        $this->items[] = $first;
-
-        // Merge following siblings to the array
-        $this->items = array_merge($this->items, $first->getTreeViewSiblings(array('limit' => $numberOfPreviousOrNextSiblings + 2, 'position' => 'next')));
-
-        $this->hasNextSiblings = count($this->items) > $numberOfPreviousOrNextSiblings;
-        if ($this->hasNextSiblings)
-        {
-          array_pop($this->items);
-        }
+        list($this->items, $this->hasNextSiblings) = $this->resource->getTreeViewChildren(array('numberOfPreviousOrNextSiblings' => $numberOfPreviousOrNextSiblings));
 
         break;
     }
