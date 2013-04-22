@@ -7,7 +7,7 @@
       <?php if (QubitTerm::ROOT_ID == $ancestor->id) continue; ?>
       <?php echo render_treeview_node(
         $ancestor,
-        array('ancestor' => true),
+        array('ancestor' => true, 'root' => QubitTerm::ROOT_ID == $ancestor->parentId),
         array('xhr-location' => url_for(array($ancestor, 'module' => 'term', 'action' => 'treeView')))); ?>
     <?php endforeach; ?>
 
@@ -37,7 +37,7 @@
     <?php // Current ?>
     <?php echo render_treeview_node(
       $resource,
-      array('ancestor' => $resource->hasChildren(), 'active' => true),
+      array('ancestor' => $resource->hasChildren(), 'active' => true, 'root' => QubitTerm::ROOT_ID == $resource->parentId),
       array('xhr-location' => url_for(array($resource, 'module' => 'term', 'action' => 'treeView')))); ?>
 
     <?php // Children ?>
