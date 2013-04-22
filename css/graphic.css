@@ -394,7 +394,7 @@ div.multiFileUploadInfoActions a {
 }
 
 #treeview .ancestor i { background-position: 0px 0px; } /* down arrow */
-#treeview .ancestor:hover i { background-position: -10px 0px; } /* left arrow */
+#treeview .ancestor:hover i { background-position: -20px 0px; } /* right arrow */
 #treeview .expand i { background-position: -20px 0px; } /* right arrow */
 #treeview .expand:hover i { background-position: 0px 0px; } /* down arrow */
 #treeview .root:hover i { background-position: 0px 0px; } /* down arrow */
