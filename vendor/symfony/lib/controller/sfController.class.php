@@ -16,7 +16,7 @@
  * @subpackage controller
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
  * @author     Sean Kerr <sean@code-box.org>
- * @version    SVN: $Id: sfController.class.php 30912 2010-09-15 11:10:46Z fabien $
+ * @version    SVN: $Id: sfController.class.php 33539 2012-09-19 05:36:02Z fabien $
  */
 abstract class sfController
 {
@@ -489,7 +489,7 @@ abstract class sfController
    */
   public function inCLI()
   {
-    return 0 == strncasecmp(PHP_SAPI, 'cli', 3);
+    return 'cli' == PHP_SAPI;
   }
 
   /**

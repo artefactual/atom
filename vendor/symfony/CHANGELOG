@@ -1,6 +1,23 @@
 CHANGELOG
 =========
 
+11/25/12: Versions 1.4.20
+-------------------------
+
+ * [33598] fixed the possibility to fake a file upload
+ * [33545] fixed sfPDOSessionStorage for Oracle (closes #10022)
+ * [33544] fixed sfWebRequest::splitHttpAcceptHeader incorrect result order (closes #10069, patch by Keri Henare)
+ * [33539] fixed exception format when using the PHP 5.4 built-in server (closes #10067, based on a patch from jgskin)
+ * [33486] fixed sfPDODatabase::call() method (closes #10044)
+
+10/09/12: Versions 1.4.19
+-------------------------
+
+ * [33545] fixed sfPDOSessionStorage for Oracle (closes #10022)
+ * [33544] fixed sfWebRequest::splitHttpAcceptHeader incorrect result order (closes #10069, patch by Keri Henare)
+ * [33539] fixed exception format when using the PHP 5.4 built-in server (closes #10067, based on a patch from jgskin)
+ * [33486] fixed sfPDODatabase::call() method (closes #10044)
+
 05/30/12: Versions 1.4.18
 -------------------------
 

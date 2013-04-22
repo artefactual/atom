@@ -64,9 +64,11 @@ class arUpgrader110
         $setting->save();
 
         // Update add button, accession is now the default action
-        $node = QubitMenu::getByName('add');
-        $node->path = 'accession/add';
-        $node->save();
+        if (null !== $node = QubitMenu::getByName('add'))
+        {
+          $node->path = 'accession/add';
+          $node->save();
+        }
 
         // Create accession menu node
         $node = new QubitMenu;
@@ -128,9 +130,11 @@ class arUpgrader110
         }
 
         // Move taxonomies under "Manage"
-        $node = QubitMenu::getByName('taxonomies');
-        $node->parentId = QubitMenu::MANAGE_ID;
-        $node->save();
+        if (null !== $node = QubitMenu::getByName('taxonomies'))
+        {
+          $node->parentId = QubitMenu::MANAGE_ID;
+          $node->save();
+        }
 
         // Create manage accession menu node
         $node = new QubitMenu;
@@ -772,7 +776,7 @@ class arUpgrader110
     $sql = "ALTER TABLE `slug`
               DROP FOREIGN KEY `slug_FK_1`,
               ADD FOREIGN KEY (`object_id`)
-                REFERENCES  `qubit`.`object` (`id`)
+                REFERENCES  `object` (`id`)
                 ON DELETE CASCADE
                 ON UPDATE RESTRICT;";
     $connection->exec($sql);

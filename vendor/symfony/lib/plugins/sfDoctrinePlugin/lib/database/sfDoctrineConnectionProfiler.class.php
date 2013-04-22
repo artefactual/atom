@@ -6,7 +6,7 @@
  * @package    sfDoctrinePlugin
  * @subpackage database
  * @author     Kris Wallsmith <kris.wallsmith@symfony-project.com>
- * @version    SVN: $Id: sfDoctrineConnectionProfiler.class.php 20157 2009-07-13 17:00:12Z Kris.Wallsmith $
+ * @version    SVN: $Id: sfDoctrineConnectionProfiler.class.php 33570 2012-10-25 09:44:55Z fabien $
  */
 class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
 {
@@ -82,7 +82,7 @@ class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
    */
   public function postQuery(Doctrine_Event $event)
   {
-    sfTimerManager::getTimer('Database (Doctrine)')->addTime();
+    sfTimerManager::getTimer('Database (Doctrine)',false)->addTime();
 
     $args = func_get_args();
     $this->__call(__FUNCTION__, $args);
@@ -118,7 +118,7 @@ class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
    */
   public function postExec(Doctrine_Event $event)
   {
-    sfTimerManager::getTimer('Database (Doctrine)')->addTime();
+    sfTimerManager::getTimer('Database (Doctrine)',false)->addTime();
 
     $args = func_get_args();
     $this->__call(__FUNCTION__, $args);
@@ -154,7 +154,7 @@ class sfDoctrineConnectionProfiler extends Doctrine_Connection_Profiler
    */
   public function postStmtExecute(Doctrine_Event $event)
   {
-    sfTimerManager::getTimer('Database (Doctrine)')->addTime();
+    sfTimerManager::getTimer('Database (Doctrine)',false)->addTime();
 
     $args = func_get_args();
     $this->__call(__FUNCTION__, $args);

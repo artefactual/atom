@@ -8,8 +8,6 @@
  * file that was distributed with this source code.
  */
 
-//@require 'Swift/Encoder.php';
-//@require 'Swift/CharacterStream.php';
 
 /**
  * Handles Quoted Printable (QP) Encoding in Swift Mailer.
@@ -95,12 +93,14 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
     255 => '=FF'
     );
 
+  protected static $_safeMapShare = array();
+
   /**
    * A map of non-encoded ascii characters.
    * @var string[]
    * @access protected
    */
-  protected static $_safeMap = array();
+  protected $_safeMap = array();
 
   /**
    * Creates a new QpEncoder for the given CharacterStream.
@@ -111,15 +111,48 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
     Swift_StreamFilter $filter = null)
   {
     $this->_charStream = $charStream;
-    if (empty(self::$_safeMap))
+    if(!isset(self::$_safeMapShare[$this->getSafeMapShareId()]))
     {
-      foreach (array_merge(
-        array(0x09, 0x20), range(0x21, 0x3C), range(0x3E, 0x7E)) as $byte)
-      {
-        self::$_safeMap[$byte] = chr($byte);
-      }
+      $this->initSafeMap();
+      self::$_safeMapShare[$this->getSafeMapShareId()] = $this->_safeMap;
+    }
+    else
+    {
+      $this->_safeMap = self::$_safeMapShare[$this->getSafeMapShareId()];
     }
     $this->_filter = $filter;
+  }
+
+  public function __sleep()
+  {
+    return array('_charStream', '_filter');
+  }
+
+  public function __wakeup()
+  {
+    if(!isset(self::$_safeMapShare[$this->getSafeMapShareId()]))
+    {
+      $this->initSafeMap();
+      self::$_safeMapShare[$this->getSafeMapShareId()] = $this->_safeMap;
+    }
+    else
+    {
+      $this->_safeMap = self::$_safeMapShare[$this->getSafeMapShareId()];
+    }
+  }
+
+  protected function getSafeMapShareId()
+  {
+    return get_class($this);
+  }
+
+  protected function initSafeMap()
+  {
+    foreach (array_merge(
+      array(0x09, 0x20), range(0x21, 0x3C), range(0x3E, 0x7E)) as $byte)
+    {
+      $this->_safeMap[$byte] = chr($byte);
+    }
   }
 
   /**
@@ -215,9 +248,9 @@ class Swift_Encoder_QpEncoder implements Swift_Encoder
     $size=0;
     foreach ($bytes as $b)
     {
-      if (isset(self::$_safeMap[$b]))
+      if (isset($this->_safeMap[$b]))
       {
-        $ret .= self::$_safeMap[$b];
+        $ret .= $this->_safeMap[$b];
         ++$size;
       }
       else

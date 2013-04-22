@@ -8,11 +8,6 @@
  * file that was distributed with this source code.
  */
 
-//@require 'Swift/Mime/ContentEncoder.php';
-//@require 'Swift/Encoder/QpEncoder.php';
-//@require 'Swift/InputByteStrean.php';
-//@require 'Swift/OutputByteStream.php';
-//@require 'Swift/CharacterStream.php';
 
 /**
  * Handles Quoted Printable (QP) Transfer Encoding in Swift Mailer.
@@ -24,15 +19,38 @@ class Swift_Mime_ContentEncoder_QpContentEncoder extends Swift_Encoder_QpEncoder
   implements Swift_Mime_ContentEncoder
 {
 
+  protected $_dotEscape;
+
   /**
    * Creates a new QpContentEncoder for the given CharacterStream.
    * @param Swift_CharacterStream $charStream to use for reading characters
    * @param Swift_StreamFilter $filter if canonicalization should occur
+   * @param boolean $dotEscape if dot stuffing workaround must be enabled
    */
   public function __construct(Swift_CharacterStream $charStream,
-    Swift_StreamFilter $filter = null)
+    Swift_StreamFilter $filter = null, $dotEscape=false)
   {
+    $this->_dotEscape = $dotEscape;
     parent::__construct($charStream, $filter);
+  }
+
+  public function __sleep()
+  {
+    return array('_charStream', '_filter', '_dotEscape');
+  }
+
+  protected function getSafeMapShareId()
+  {
+    return get_class($this).($this->_dotEscape ? '.dotEscape' : '');
+  }
+
+  protected function initSafeMap()
+  {
+    parent::initSafeMap();
+    if ($this->_dotEscape) {
+      /* Encode . as =2e for buggy remote servers */
+      unset($this->_safeMap[0x2e]);
+    }    
   }
 
   /**

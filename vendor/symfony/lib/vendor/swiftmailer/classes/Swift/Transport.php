@@ -8,8 +8,6 @@
  * file that was distributed with this source code.
  */
 
-//@require 'Swift/Mime/Message.php';
-//@require 'Swift/Events/EventListener.php';
 
 /**
  * Sends Messages via an abstract Transport subsystem.
@@ -41,7 +39,7 @@ interface Swift_Transport
   /**
    * Send the given Message.
    * 
-   * Recipient/sender data will be retreived from the Message API.
+   * Recipient/sender data will be retrieved from the Message API.
    * The return value is the number of recipients who were accepted for delivery.
    * 
    * @param Swift_Mime_Message $message

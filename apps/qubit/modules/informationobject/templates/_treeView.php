@@ -3,13 +3,15 @@
   <ul class="unstyled">
 
     <?php // Ancestors ?>
-    <?php foreach ($ancestors as $item): ?>
-      <?php if (QubitInformationObject::ROOT_ID == $item->id) continue; ?>
-      <?php echo render_treeview_node($item,
+    <?php foreach ($ancestors as $ancestor): ?>
+      <?php if (QubitInformationObject::ROOT_ID == $ancestor->id) continue; ?>
+      <?php echo render_treeview_node(
+        $ancestor,
         array('ancestor' => true),
-        array('xhr-location' => url_for(array($item, 'module' => 'informationobject', 'action' => 'treeView')))); ?>
+        array('xhr-location' => url_for(array($ancestor, 'module' => 'informationobject', 'action' => 'treeView')))); ?>
     <?php endforeach; ?>
 
+    <?php // Prev siblings (if there's no children) ?>
     <?php if (!isset($children)): ?>
 
       <?php // More button ?>
@@ -40,13 +42,25 @@
 
     <?php // Children ?>
     <?php if (isset($children)): ?>
-      <?php foreach ($children as $item): ?>
+
+      <?php foreach ($children as $child): ?>
         <?php echo render_treeview_node(
-          $item,
-          array('expand' => $item->hasChildren()),
-          array('xhr-location' => url_for(array($item, 'module' => 'informationobject', 'action' => 'treeView')))); ?>
+          $child,
+          array('expand' => $child->hasChildren()),
+          array('xhr-location' => url_for(array($child, 'module' => 'informationobject', 'action' => 'treeView')))); ?>
       <?php endforeach; ?>
-    <?php elseif (isset($nextSibligns)): ?>
+
+      <?php // More button ?>
+      <?php $last = isset($child) ? $child : $resource ?>
+      <?php if ($hasNextSiblings): ?>
+        <?php echo render_treeview_node(
+          null,
+          array('more' => true),
+          array('xhr-location' => url_for(array($child, 'module' => 'informationobject', 'action' => 'treeView')))); ?>
+      <?php endif; ?>
+
+    <?php // Or siblings ?>
+    <?php elseif (isset($nextSiblings)): ?>
 
       <?php // N next items ?>
       <?php foreach ($nextSiblings as $next): ?>

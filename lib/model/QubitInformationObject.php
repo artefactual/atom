@@ -1348,37 +1348,49 @@ class QubitInformationObject extends BaseInformationObject
     {
       if ($langNode->hasAttributes())
       {
-        if ($langNode->attributes->getNamedItem('langcode'))
+        if (null !== $langCode = substr($langNode->getAttribute('langcode'), 0, 2))
         {
-          $langType = $langNode->getAttribute('encodinganalog');
-          $langCode = substr($langNode->getAttribute('langcode'), 0, 2);
-
-          switch($langType)
+          if (null !== $langType = $langNode->getAttribute('encodinganalog'))
           {
-            case 'Language':
-              $this->setLangcode($langCode);
-              break;
+            switch($langType)
+            {
+              case 'Language':
+                $this->setLangcode($langCode);
 
-            case 'Language Of Description':
-              array_push($languagesOfDescription, $langCode);
-              break;
+                break;
+
+              case 'Language Of Description':
+                array_push($languagesOfDescription, $langCode);
+
+                break;
+            }
+          }
+          else
+          {
+            $this->setLangcode($langCode);
           }
         }
 
-        if ($langNode->attributes->getNamedItem('scriptcode'))
+        if (null !== $scriptCode = $langNode->getAttribute('scriptcode'))
         {
-          $scriptType = $langNode->getAttribute('encodinganalog');
-          $scriptCode = $langNode->getAttribute('scriptcode');
-
-          switch($scriptType)
+          if (null !== $scriptType = $langNode->getAttribute('encodinganalog'))
           {
-            case 'Script':
-              array_push($scripts, $scriptCode);
-              break;
+            switch($scriptType)
+            {
+              case 'Script':
+                array_push($scripts, $scriptCode);
 
-            case 'Script Of Description':
-              array_push($scriptsOfDescription, $scriptCode);
-              break;
+                break;
+
+              case 'Script Of Description':
+                array_push($scriptsOfDescription, $scriptCode);
+
+                break;
+            }
+          }
+          else
+          {
+            array_push($scripts, $scriptCode);
           }
         }
       }
@@ -2144,6 +2156,13 @@ class QubitInformationObject extends BaseInformationObject
       // Iterate over results and store them in the $results array
       foreach (QubitInformationObject::get($criteria) as $item)
       {
+        // Avoid to add the same element, this may happen when sorting by title
+        // or identifierTitle for unknown reasons
+        if ($item->id == $this->id)
+        {
+          continue;
+        }
+
         // We will need this later to control the loop
         $last = $item;
 

@@ -10,7 +10,7 @@
 
 require_once(dirname(__FILE__).'/../../bootstrap/unit.php');
 
-$t = new lime_test(32);
+$t = new lime_test(33);
 
 class MyWidget extends sfWidget
 {
@@ -133,6 +133,7 @@ $t->diag('::escapeOnce()');
 $t->is(sfWidget::escapeOnce('This a > text to "escape"'), 'This a &gt; text to &quot;escape&quot;', '::escapeOnce() escapes an HTML strings');
 $t->is(sfWidget::escapeOnce(sfWidget::escapeOnce('This a > text to "escape"')), 'This a &gt; text to &quot;escape&quot;', '::escapeOnce() does not escape an already escaped string');
 $t->is(sfWidget::escapeOnce('This a &gt; text to "escape"'), 'This a &gt; text to &quot;escape&quot;', '::escapeOnce() does not escape an already escaped string');
+$t->is(sfWidget::escapeOnce(array()), null, '::escapeOnce() accepts array as argument and returns null');
 
 class MyClass
 {

@@ -648,19 +648,22 @@ class QubitAcl
     $filterCriteria = self::getFilterCriterion($criteria, QubitInformationObject::getRoot(), 'viewDraft');
 
     // Avoid to add criteria if not needed
+    // Show ALL drafts and published descriptions (don't add to criteria)
     if (true === $filterCriteria)
     {
       return $criteria;
     }
 
-    // Either object must be published, or
+    $criteria->addJoin(QubitInformationObject::ID, QubitStatus::OBJECT_ID, Criteria::LEFT_JOIN);
+
+    // Either object must be published, or...
     $ct1 = $criteria->getNewCriterion(QubitStatus::TYPE_ID, QubitTerm::STATUS_TYPE_PUBLICATION_ID);
     $ct2 = $criteria->getNewCriterion(QubitStatus::STATUS_ID, QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
     $ct1->addAnd($ct2);
 
     // Show a limited set of draft descriptions + all published descriptions
     // Otherwise, show only published descriptions
-    if (true === $filterCriteria)
+    if (!is_bool($filterCriteria))
     {
       $ct1->addOr($filterCriteria);
     }
@@ -710,7 +713,8 @@ class QubitAcl
             if (null !== $repository = $permission->getConstants(array('name' => 'repository')))
             {
               $criteria2 = new Criteria;
-              $criteria2->add(QubitInformationObject::REPOSITORY_ID, $repository);
+              $criteria2->add(QubitSlug::SLUG, $repository);
+              $criteria2->addJoin(QubitSlug::OBJECT_ID, QubitInformationObject::REPOSITORY_ID);
 
               if (0 < count($results = QubitInformationObject::get($criteria2)))
               {
