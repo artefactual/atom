@@ -54,6 +54,10 @@ information_object:
       XPath:  "@otherlevel"
       Method: SetLevelOfDescriptionByName
 
+    repository:
+      XPath:   "(did/repository/corpname | did/repository/name)[1]"
+      Method:  setRepositoryByName
+
     creator:
       XPath:  "did/origination/name"
       Method:  setActorByName
@@ -272,10 +276,6 @@ information_object:
     #  Method:  setPhysicalObjectByName
     #  Parameters: [$nodeValue, "$options = array('type' => $importDOM->xpath->query('@type', $domNode2)->item(0)->nodeValue)"]
     #  ## to do: check for @parent and create parentId link for physical object, if present
-
-    repository:
-      XPath:   "(did/repository/corpname | did/repository/name)[1]"
-      Method:  setRepositoryByName
 
     repositoryAddress:
       XPath:   "did/repository/address"
