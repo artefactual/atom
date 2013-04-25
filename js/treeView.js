@@ -87,6 +87,9 @@
       // Check if the treeview is sortable
       this.sortable = undefined !== this.$element.data('sortable') && !!this.$element.data('sortable');
 
+      // Check if the treeview is used in the browser page
+      this.browser = undefined !== this.$element.data('browser') && !!this.$element.data('browser');
+
       this.init();
     };
 
@@ -397,7 +400,7 @@
           url: $element.data('xhr-location'),
           context: this,
           dataType: 'html',
-          data: { show: 'item', resourceId: this.resourceId }})
+          data: { show: 'item', resourceId: this.resourceId, browser: this.browser }})
 
           .fail(function (fail)
             {
@@ -450,7 +453,7 @@
           url: $element.data('xhr-location'),
           context: this,
           dataType: 'html',
-          data: { show: !$element.next().length ? 'nextSiblings' : 'prevSiblings', resourceId: this.resourceId },
+          data: { show: !$element.next().length ? 'nextSiblings' : 'prevSiblings', resourceId: this.resourceId, browser: this.browser },
           beforeSend: function()
             {
               this.setLoading(true, $element);

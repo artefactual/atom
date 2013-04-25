@@ -20,7 +20,7 @@
 .result-count {
   margin-top: 14px;
   text-align: center;
-  color: @white;
+  color: @grayDark;
 }
 
 // Result counter under #content
@@ -35,12 +35,16 @@
   margin-top: 12px;
 }
 
+.pagination ul {
+  .box-shadow(1px 1px 1px rgba(25, 25, 25, .15));
+}
+
 .pagination ul > li > a,
 .pagination ul > li > span {
-  background-color: transparent;
-  border: 2px solid @white; // @paginationBorder;
+  background-color: @grayLighter;
+  border: 1px solid @grayLight; // @paginationBorder;
   border-left-width: 0;
-  color: @white;
+  color: @gray;
 }
 
 .pagination ul > li > a:hover,
@@ -50,18 +54,13 @@
   background-color: @white;
 }
 
-.pagination ul > li:first-child > a,
-.pagination ul > li:first-child > span {
-  border-left-width: 2px;
-}
-
 // Pager
 
 .pager a,
 .pager span {
-  background-color: transparent;
-  border: 2px solid @white;
-  color: @white;
+  background-color: @grayLighter;
+  border: 2px solid @grayLight;
+  color: @gray;
 }
 
 .pager a:hover {

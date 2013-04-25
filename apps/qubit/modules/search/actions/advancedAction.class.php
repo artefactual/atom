@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class SearchAdvancedAction extends SearchIndexAction
+class SearchAdvancedAction extends DefaultBrowseAction
 {
   public static
     $NAMES = array(
@@ -311,5 +311,25 @@ class SearchAdvancedAction extends SearchIndexAction
   public function execute($request)
   {
     parent::execute($request);
+
+    $this->form = new sfForm;
+
+    foreach ($this::$NAMES as $name)
+    {
+      $this->addField($name);
+    }
+
+    if ('print' == $request->getGetParameter('media'))
+    {
+      $this->getResponse()->addStylesheet('print-preview', 'last');
+    }
+
+    foreach ($this->form as $field)
+    {
+      if (isset($this->request[$field->getName()]))
+      {
+        $this->processField($field);
+      }
+    }
   }
 }

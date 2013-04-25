@@ -112,6 +112,50 @@ class SearchIndexAction extends DefaultBrowseAction
     }
   }
 
+  protected function populateData()
+  {
+    // Populate level of descriptions
+    $this->pager->levelsOfDescription = array();
+    foreach (QubitTerm::getLevelsOfDescription() as $lod)
+    {
+      $this->pager->levelsOfDescription[$lod->id] = $lod->getName(array('cultureFallback' => true, 'culture' => $this->context->user->getCulture()));
+    }
+
+    // Populate ancestors
+    $ancestorsIds = array();
+    foreach ($this->pager->getResults() as $hit)
+    {
+      $doc = $hit->getData();
+      foreach ($doc['ancestors'] as $item)
+      {
+        if (in_array($item, $ancestorsIds))
+        {
+          continue;
+        }
+
+        $ancestorsIds[] = $item;
+      }
+    }
+
+    if (count($ancestorsIds))
+    {
+      $sql = 'SELECT
+          io.id,
+          o.slug,
+          io.title
+        FROM '.QubitInformationObjectI18n::TABLE_NAME.' AS io
+        LEFT JOIN '.QubitSlug::TABLE_NAME.' AS o ON (o.object_id = io.id AND io.culture = ?)
+        WHERE o.object_id IN ('.implode(',', $ancestorsIds).')';
+      $this->pager->ancestors = array();
+      foreach (QubitPdo::fetchAll($sql, array($this->context->user->getCulture())) as $ancestor)
+      {
+        $this->pager->ancestors[$ancestor->id] = array(
+          'slug' => $ancestor->slug,
+          'title' => $ancestor->title);
+      }
+    }
+  }
+
   public function execute($request)
   {
     parent::execute($request);
@@ -155,47 +199,6 @@ class SearchIndexAction extends DefaultBrowseAction
 
     $this->populateFacets($resultSet);
 
-    // -------------------------------------------------------------------------
-
-    // Populate level of descriptions
-    $this->pager->levelsOfDescription = array();
-    foreach (QubitTerm::getLevelsOfDescription() as $lod)
-    {
-      $this->pager->levelsOfDescription[$lod->id] = $lod->getName(array('cultureFallback' => true, 'culture' => $this->context->user->getCulture()));
-    }
-
-    // Populate ancestors
-    $ancestorsIds = array();
-    foreach ($this->pager->getResults() as $hit)
-    {
-      $doc = $hit->getData();
-      foreach ($doc['ancestors'] as $item)
-      {
-        if (in_array($item, $ancestorsIds))
-        {
-          continue;
-        }
-
-        $ancestorsIds[] = $item;
-      }
-    }
-
-    if (count($ancestorsIds))
-    {
-      $sql = 'SELECT
-          io.id,
-          o.slug,
-          io.title
-        FROM '.QubitInformationObjectI18n::TABLE_NAME.' AS io
-        LEFT JOIN '.QubitSlug::TABLE_NAME.' AS o ON (o.object_id = io.id AND io.culture = ?)
-        WHERE o.object_id IN ('.implode(',', $ancestorsIds).')';
-      $this->pager->ancestors = array();
-      foreach (QubitPdo::fetchAll($sql, array($this->context->user->getCulture())) as $ancestor)
-      {
-        $this->pager->ancestors[$ancestor->id] = array(
-          'slug' => $ancestor->slug,
-          'title' => $ancestor->title);
-      }
-    }
+    $this->populateData();
   }
 }

@@ -1,4 +1,4 @@
-<div id="treeview" data-current-id="<?php echo $resource->id ?>">
+<div id="treeview" data-current-id="<?php echo $resource->id ?>" data-browser="<?php echo $browser ? 'true' : 'false' ?>">
 
   <ul class="unstyled">
 
@@ -8,7 +8,7 @@
       <?php echo render_treeview_node(
         $ancestor,
         array('ancestor' => true),
-        array('xhr-location' => url_for(array($ancestor, 'module' => 'term', 'action' => 'treeView')))); ?>
+        array('browser' => $browser, 'xhr-location' => url_for(array($ancestor, 'module' => 'term', 'action' => 'treeView')))); ?>
     <?php endforeach; ?>
 
     <?php // Prev siblings (if there's no children) ?>
@@ -19,7 +19,7 @@
         <?php echo render_treeview_node(
           null,
           array('more' => true),
-          array('xhr-location' => url_for(array($prevSiblings[0], 'module' => 'term', 'action' => 'treeView')))); ?>
+          array('browser' => $browser, 'xhr-location' => url_for(array($prevSiblings[0], 'module' => 'term', 'action' => 'treeView')))); ?>
       <?php endif; ?>
 
       <?php // N prev items ?>
@@ -28,7 +28,7 @@
           <?php echo render_treeview_node(
             $prev,
             array('expand' => 1 < $prev->rgt - $prev->lft),
-            array('xhr-location' => url_for(array($prev, 'module' => 'term', 'action' => 'treeView')))); ?>
+            array('browser' => $browser, 'xhr-location' => url_for(array($prev, 'module' => 'term', 'action' => 'treeView')))); ?>
         <?php endforeach; ?>
       <?php endif; ?>
 
@@ -38,7 +38,7 @@
     <?php echo render_treeview_node(
       $resource,
       array('ancestor' => $resource->hasChildren(), 'active' => true),
-      array('xhr-location' => url_for(array($resource, 'module' => 'term', 'action' => 'treeView')))); ?>
+      array('browser' => $browser, 'xhr-location' => url_for(array($resource, 'module' => 'term', 'action' => 'treeView')))); ?>
 
     <?php // Children ?>
     <?php if (isset($children)): ?>
@@ -47,7 +47,7 @@
         <?php echo render_treeview_node(
           $child,
           array('expand' => $child->hasChildren()),
-          array('xhr-location' => url_for(array($child, 'module' => 'term', 'action' => 'treeView')))); ?>
+          array('browser' => $browser, 'xhr-location' => url_for(array($child, 'module' => 'term', 'action' => 'treeView')))); ?>
       <?php endforeach; ?>
 
       <?php // More button ?>
@@ -56,7 +56,7 @@
         <?php echo render_treeview_node(
           null,
           array('more' => true),
-          array('xhr-location' => url_for(array($child, 'module' => 'term', 'action' => 'treeView')))); ?>
+          array('browser' => $browser, 'xhr-location' => url_for(array($child, 'module' => 'term', 'action' => 'treeView')))); ?>
       <?php endif; ?>
 
     <?php // Or siblings ?>
@@ -68,7 +68,7 @@
           <?php echo render_treeview_node(
             $next,
             array('expand' => 1 < $next->rgt - $next->lft),
-            array('xhr-location' => url_for(array('module' => 'term', 'action' => 'treeView', 'slug' => $next->slug)))); ?>
+            array('browser' => $browser, 'xhr-location' => url_for(array('module' => 'term', 'action' => 'treeView', 'slug' => $next->slug)))); ?>
         <?php endforeach; ?>
       <?php endif; ?>
 
@@ -78,7 +78,7 @@
         <?php echo render_treeview_node(
           null,
           array('more' => true),
-          array('xhr-location' => url_for(array('module' => 'term', 'action' => 'treeView', 'slug' => $last->slug)))); ?>
+          array('browser' => $browser, 'xhr-location' => url_for(array('module' => 'term', 'action' => 'treeView', 'slug' => $last->slug)))); ?>
       <?php endif; ?>
 
     <?php endif; ?>

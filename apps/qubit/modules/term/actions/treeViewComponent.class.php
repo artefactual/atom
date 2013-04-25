@@ -25,6 +25,8 @@ class TermTreeViewComponent extends sfComponent
 
     $this->ancestors = $this->resource->getAncestors()->orderBy('lft');
 
+    $this->browser = isset($this->browser) && true === $this->browser;
+
     // Number of siblings that we are showing above and below the current node
     $numberOfPreviousOrNextSiblings = 4;
 
@@ -37,7 +39,7 @@ class TermTreeViewComponent extends sfComponent
       list($this->children, $this->hasNextSiblings) = $this->resource->getTreeViewChildren(array('numberOfPreviousOrNextSiblings' => $numberOfPreviousOrNextSiblings));
     }
     // Show siblings if there's no children, but not for root descriptions
-    else if (QubitTerm::ROOT_ID != $this->resource->parentId)
+    else if ($this->browser || QubitTerm::ROOT_ID != $this->resource->parentId)
     {
       // Previous siblings
       // Get an extra sibling just to know if the + button is necessary

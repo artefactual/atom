@@ -15,22 +15,21 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-@treeviewNodeBg: inherit;
+@treeviewNodeBg: transparent;
 @treeviewNodeFg: @linkColor;
-@treeviewSelectedNodeBg: @gray;
-@treeviewSelectedNodeFg: @white;
-@treeviewHoverNodeBg: @gray;
-@treeviewHoverNodeFg: @white;
+@treeviewActiveNodeBg: @grayLight;
+@treeviewActiveNodeFg: @white;
+@treeviewAncestorNodeBg: darken(@grayLighter, 5%);
 @treeviewPlaceholderBg: #f0f0f0;
-@treeviewStatusFg: @grayLight;
-@treeviewLevelFg: @orange;
 
 #treeview {
-  margin: @baseLineHeight*2 0 0 0;
+  max-height: 480px;
+  margin-bottom: 10px;
   overflow: auto;
   overflow-x: hidden;
-  font-family: @altFontFamily;
 }
+
+/* List elements */
 
 #treeview ul,
 #treeview li {
@@ -44,93 +43,10 @@
   text-overflow: ellipsis;
   overflow: hidden;
   position: relative;
-  color: @treeviewNodeBg;
+  background-color: @treeviewNodeBg;
 }
 
-#treeview a {
-  color: @treeviewNodeFg;
-}
-
-// Node classes
-
-#treeview li:hover {
-  background: @treeviewHoverNodeBg !important;
-  color: @treeviewHoverNodeFg !important;
-  a {
-    color: @treeviewHoverNodeFg !important;
-  }
-}
-
-#treeview .ancestor,
-#treeview .back,
-#treeview .more {
-  cursor: pointer;
-}
-
-#treeview .back,
-#treeview .ancestor,
-#treeview .more {
-  background-color: transparent;
-}
-
-#treeview .expand,
-#treeview .ancestor,
-#treeview .back {
-  padding-left: 0px;
-}
-
-#treeview .placeholder {
-  background-color: @treeviewPlaceholderBg;
-}
-
-// More button
-
-#treeview .more a {
-  padding: 0 8px;
-  font-weight: bold;
-  .border-radius(2px);
-  border: 1px solid @gray;
-  background-color: #aaa;
-  background-color: rgba(50, 50, 50, .2);
-}
-
-// Active node
-
-#treeview .active {
-  background-color: @treeviewSelectedNodeBg !important;
-}
-
-#treeview .active a {
-  color: @treeviewSelectedNodeFg;
-}
-
-#treeview .active i,
-#treeview .hover i { background-position-y: -10px !important; }
-
-// Arrow icon
-
-#treeview i {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  vertical-align: middle;
-  margin-right: 2px;
-  margin-left: 5px;
-  background-color: transparent;
-  background-image: url(../../../../images/arrow-sprites.png);
-  background-repeat: no-repeat;
-}
-
-#treeview .ancestor i,
-#treeview .expand i
-{
-  cursor: pointer;
-}
-
-#treeview .ancestor i { background-position: 0px 0px; } /* down arrow */
-#treeview .expand i { background-position: -20px 0px; } /* right arrow */
-
-// Loading icon
+/* Loading status */
 
 #treeview.loading li {
   cursor: wait !important;
@@ -147,28 +63,25 @@
   left: 0px;
 }
 
-// Node subelements
+/* Tree node properties */
 
-#treeview .levelOfDescription {
-  text-transform: uppercase;
-  margin-right: 6px;
-  font-size: smaller;
-  color: @treeviewLevelFg;
+#treeview .active {
+  background-color: @treeviewActiveNodeBg !important;
+  a {
+    color: @treeviewActiveNodeFg;
+  }
 }
 
-#treeview .pubStatus {
-  margin-left: 4px;
-  color: @treeviewStatusFg;
+#treeview .expand,
+#treeview .ancestor {
+  padding-left: 0px;
 }
 
-// Sorting
-
-#treeview .ui-sortable-helper {
-  background-color: White;
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid #ccc;
-  .box-shadow(2px 2px 2px rgba(0, 0, 0, .2));
+#treeview .ancestor {
+  background-color: @treeviewAncestorNodeBg;
 }
+
+/* Treeview drag-n-drop */
 
 #treeview .grip {
   visibility: hidden;
@@ -186,4 +99,64 @@
 
 #treeview li:hover .grip {
   visibility: visible;
+}
+
+#treeview .placeholder {
+  background-color: @treeviewPlaceholderBg;
+}
+
+#treeview .ui-sortable-helper {
+  background-color: @white;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid @grayLight;
+  @shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+  .box-shadow(@shadow);
+}
+
+/* Show siblings button */
+
+#treeview .more a {
+  padding: 0 8px;
+  font-weight: bold;
+  background-color: @grayLight;
+  color: @white !important;
+  text-decoration: none !important;
+}
+
+/* Node arrows */
+
+#treeview i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  vertical-align: middle;
+  margin-right: 2px;
+  margin-left: 5px;
+  background-color: transparent;
+  background-image: url(../../../../images/arrow-sprites.png);
+  background-repeat: no-repeat;
+}
+
+#treeview .root i {
+  cursor: default !important;
+}
+
+#treeview .ancestor i,
+#treeview .expand i {
+  cursor: pointer;
+}
+
+#treeview .ancestor i { background-position: 0px 0px; } /* down arrow */
+#treeview .ancestor:hover i { background-position: -20px 0px; } /* right arrow */
+#treeview .expand i { background-position: -20px 0px; } /* right arrow */
+#treeview .expand:hover i { background-position: 0px 0px; } /* down arrow */
+#treeview .root:hover i { background-position: 0px 0px; } /* down arrow */
+
+#treeview .levelOfDescription {
+  margin-right: 4px;
+}
+
+#treeview .pubStatus {
+  color: #bbb;
+  margin-left: 4px;
 }

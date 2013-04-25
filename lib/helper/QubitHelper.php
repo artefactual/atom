@@ -256,8 +256,10 @@ function render_treeview_node($item, array $classes = array(), array $options = 
     }
     else if ($item instanceof QubitTerm)
     {
+      $action = isset($options['browser']) && true === $options['browser'] ? 'browseTerm' : 'index';
+
       // Add link
-      $node .= link_to(render_title($item), array($item, 'module' => 'term'));
+      $node .= link_to(render_title($item), array($item, 'module' => 'term', 'action' => $action));
     }
   }
 

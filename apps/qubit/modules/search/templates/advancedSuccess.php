@@ -1,6 +1,6 @@
-<?php use_helper('Text') ?>
+<?php decorate_with('layout_2col') ?>
 
-<div id="advanced-search">
+<?php slot('title') ?>
 
   <?php if ('print' == $sf_request->getParameter('media')): ?>
     <div id="preview-message">
@@ -19,76 +19,57 @@
     </div>
   </h1>
 
-  <div class="row">
+<?php end_slot() ?>
 
-    <div class="span3">
+<?php slot('sidebar') ?>
 
-      <div class="section aside-form">
+  <section id="advance-search-filters">
 
-        <h4><?php echo __('Search filters') ?></h4>
+    <h4><?php echo __('Search filters') ?></h4>
 
-        <div class="filter">
-          <?php if (sfConfig::get('app_multi_repository')): ?>
-            <?php echo $form->repository
-              ->label(__('Repository'))
-              ->renderRow() ?>
-          <?php endif; ?>
-        </div>
-
-        <div class="filter">
-          <?php echo $form->materialType
-            ->label(__('General material designation'))
-            ->renderRow() ?>
-        </div>
-
-        <div class="filter">
-          <?php echo $form->mediaType
-            ->label(__('Media type'))
-            ->renderRow() ?>
-        </div>
-
-        <div class="filter">
-          <?php echo $form->hasDigitalObject
-            ->label(__('Digital object available'))
-            ->renderRow() ?>
-        </div>
-
-        <div class="filter">
-          <?php echo $form->levelOfDescription->renderRow() ?>
-        </div>
-
-        <div class="filter">
-          <?php echo $form->copyrightStatus
-            ->label(__('Copyright status'))
-            ->renderRow() ?>
-        </div>
-
-      </div>
-
+    <div class="filter">
+      <?php if (sfConfig::get('app_multi_repository')): ?>
+        <?php echo $form->repository
+          ->label(__('Repository'))
+          ->renderRow() ?>
+      <?php endif; ?>
+    </div>
+    <div class="filter">
+      <?php echo $form->materialType
+        ->label(__('General material designation'))
+        ->renderRow() ?>
+    </div>
+    <div class="filter">
+      <?php echo $form->mediaType
+        ->label(__('Media type'))
+        ->renderRow() ?>
+    </div>
+    <div class="filter">
+      <?php echo $form->hasDigitalObject
+        ->label(__('Digital object available'))
+        ->renderRow() ?>
+    </div>
+    <div class="filter">
+      <?php echo $form->levelOfDescription->renderRow() ?>
+    </div>
+    <div class="filter">
+      <?php echo $form->copyrightStatus
+        ->label(__('Copyright status'))
+        ->renderRow() ?>
     </div>
 
-    <div class="span9">
-      <div id="content">
-        <?php if ('print' != $sf_request->getParameter('media')): ?>
-          <?php echo get_partial('search/advancedSearch', array('form' => $form, 'action' => 'advanced')) ?>
-        <?php else: ?>
-          <?php echo get_partial('search/printAdvancedSearchTerms', array('queryTerms' => $queryTerms)) ?>
-        <?php endif; ?>
-      </div>
-    </div>
+  </section>
 
+<?php end_slot() ?>
+
+<?php echo $form->renderFormTag(url_for(array('module' => 'search', 'action' => 'advanced')), array('name' => 'form', 'method' => 'get')) ?>
+
+  <?php echo $form->renderHiddenFields() ?>
+
+  <?php echo get_partial('search/searchFields') ?>
+
+  <div class="actions">
+    <button type="submit" class="gray btn-large"><?php echo __('Search') ?></button>
   </div>
 
-  <?php if (isset($error)): ?>
-    <div class="error">
-      <ul>
-        <li><?php echo $error ?></li>
-      </ul>
-    </div>
-  <?php endif; ?>
-
-  <?php if (isset($pager) && $pager->hasResults()): ?>
-    <?php # echo get_partial('search/searchResults', array('pager' => $pager, 'filters' => $filters)) ?>
-  <?php endif; ?>
-
-</div>
+</form>

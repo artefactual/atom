@@ -17,29 +17,19 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitSettingsFilter extends sfFilter
+class QubitCache
 {
-  public function execute($filterChain)
+  protected static $instance = null;
+
+  public static function getInstance(array $options = array())
   {
-    $cache = QubitCache::getInstance();
-    $cacheKey = 'settings_'.sfContext::getInstance()->getUser()->getCulture();
-
-    // Get settings (from cache if exists)
-    if ($cache->has($cacheKey))
+    if (!isset(self::$instance))
     {
-      $settings = unserialize($cache->get($cacheKey));
-    }
-    else
-    {
-      $settings = QubitSetting::getSettingsArray();
+      $cacheClass = sfConfig::get('app_qubit_cache_class');
 
-      $cache->set($cacheKey, serialize($settings));
+      self::$instance = new $cacheClass;
     }
 
-    // Overwrite/populate settings into sfConfig object
-    sfConfig::add($settings);
-
-    // Execute next filter
-    $filterChain->execute();
+    return self::$instance;
   }
 }

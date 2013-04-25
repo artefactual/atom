@@ -42,6 +42,7 @@ default:
     /vendor/bootstrap/js/bootstrap:
     /vendor/chosen/chosen.jquery.js:
     qubit:
+    treeView:
     dominion: { position: last }
 
   has_layout:     true

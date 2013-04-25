@@ -23,6 +23,8 @@ class TermTreeViewAction extends sfAction
   {
     $this->resource = $this->getRoute()->resource;
 
+    $this->browser = isset($request->browser) && 'true' === $request->browser;
+
     // Number of siblings that we are showing above and below the current node
     $numberOfPreviousOrNextSiblings = 4;
 

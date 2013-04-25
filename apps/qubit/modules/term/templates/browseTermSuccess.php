@@ -18,16 +18,11 @@
 
 <?php slot('sidebar') ?>
 
-  <div id="facets">
-
-  </div>
+  <?php echo get_component('term', 'treeView', array('browser' => true)) ?>
 
 <?php end_slot() ?>
 
-<?php foreach ($pager->getResults() as $hit): ?>
-  <?php $doc = $hit->getData() ?>
-  <?php echo include_partial('search/searchResult', array('doc' => $doc, 'pager' => $pager)) ?>
-<?php endforeach; ?>
+<?php echo get_partial('search/searchResults', array('pager' => $pager)) ?>
 
 <?php slot('after-content') ?>
   <?php echo get_partial('default/pager', array('pager' => $pager)) ?>

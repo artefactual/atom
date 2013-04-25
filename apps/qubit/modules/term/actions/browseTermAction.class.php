@@ -76,5 +76,8 @@ class TermBrowseTermAction extends DefaultBrowseAction
     $this->pager->init();
 
     $this->populateFacets($resultSet);
+
+    // Load the list of termss
+    $this->terms = QubitTaxonomy::getTaxonomyTerms($this->resource->taxonomyId);
   }
 }
