@@ -53,7 +53,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
       case 'regions':
         foreach ($ids as $key => $count)
         {
-          $this->types['ontario'] = 'ontario';
+          $this->types[$key] = $key;
         }
 
         break;
