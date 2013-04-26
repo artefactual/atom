@@ -1859,21 +1859,36 @@ class QubitInformationObject extends BaseInformationObject
     }
   }
 
-  public function importPhysicalObject($textInstances, $name = false, $type = false)
+  public function importPhysicalObject($location, $name = false, $type = false, $label = false)
   {
-    $location = (is_array($textInstances)) ? $textInstances[0] : '';
+    if ($label && $type)
+    {
+      $fullType = ucfirst($label).' '.$type;
+    }
+    else if ($type)
+    {
+      $fullType = ucfirst($type);
+    }
+    else if ($label)
+    {
+      $fullType = ucfirst($label);
+    }
 
     // if a type has been provided, look it up
-    $term = ($type)
+    $term = ($fullType)
       ? QubitFlatfileImport::createOrFetchTerm(
           QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID,
-          $type
+          $fullType
         )
       : false;
 
     $object = new QubitPhysicalObject();
-    $object->location = trim($location);
     $object->name = trim($name);
+
+    if($location)
+    {
+      $object->location = trim($location);
+    }
 
     if ($term)
     {

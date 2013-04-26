@@ -2,6 +2,22 @@
 
   <?php if (check_field_visibility('app_element_visibility_physical_storage')): ?>
     <?php $objects = $$resourceVar->getPhysicalObjects() ?>
+    <?php $counter = 0 ?>
+    <?php foreach ($objects as $object): ?>
+      <?php if($object->location): ?>
+        <?php $counter++ ?>
+        <physloc id="<?php echo 'physloc'.str_pad($counter, 4, '0', STR_PAD_LEFT) ?>"><?php echo escape_dc(esc_specialchars($object->location)) ?></physloc>
+      <?php endif; ?>
+      <container <?php echo $object->getEadContainerAttributes() ?><?php if($object->location): ?> parent="<?php echo 'physloc'.str_pad($counter, 4, '0', STR_PAD_LEFT) ?>"<?php endif; ?>>
+        <?php if($object->name): ?>
+          <?php echo escape_dc(esc_specialchars($object->name)) ?>
+        <?php endif; ?>
+      </container>
+    <?php endforeach; ?>
+  <?php endif; ?>
+
+  <?php if (check_field_visibility('app_element_visibility_physical_storage')): ?>
+    <?php $objects = $$resourceVar->getPhysicalObjects() ?>
       <?php foreach ($objects as $object): ?>
       <container type="<?php echo $object->type ?>">
         <?php echo escape_dc(esc_specialchars($object->location)) ?>

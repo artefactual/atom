@@ -402,6 +402,20 @@ class QubitXmlImport
 
             break;
 
+          case 'container':
+            foreach ($nodeList2 as $nodeee)
+            {
+              $container = $nodeee->nodeValue;
+              $type = $importDOM->xpath->query('@type', $nodeee)->item(0)->nodeValue;
+              $label = $importDOM->xpath->query('@label', $nodeee)->item(0)->nodeValue;
+              $parent = $importDOM->xpath->query('@parent', $nodeee)->item(0)->nodeValue;
+              $location = $importDOM->xpath->query('did/physloc[@id="'.$parent.'"]', $domNode)->item(0)->nodeValue;
+
+              $currentObject->importPhysicalObject($location, $container, $type, $label);
+            }
+
+            break;
+
           default:
             foreach ($nodeList2 as $domNode2Original)
             {

@@ -269,7 +269,6 @@ information_object:
     container:
       XPath:  "did/container"
       Method: importPhysicalObject
-      Parameters: ["%text()", "%title", "%@type"]
 
     #container:
     #  XPath:  "did/container"
