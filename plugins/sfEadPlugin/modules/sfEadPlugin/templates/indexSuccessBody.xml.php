@@ -202,7 +202,7 @@
         <genreform><?php echo escape_dc(escape_dc(esc_specialchars($materialtype->getTerm()))) ?></genreform>
       <?php endforeach; ?>
       <?php foreach ($subjects as $subject): ?>
-        <subject<?php if ($subject->getTerm()->code):?> authfilenumber="<?php echo $subject->getTerm()->code ?>"<?php endif; ?><?php if ($ead->subjectHasNonBlankSourceNotes($subject)):?> source="<?php foreach ($subject->getTerm()->getSourceNotes() as $note): ?><?php echo $note ?><?php endforeach; ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($subject->getTerm())) ?></subject>
+        <subject<?php if ($subject->getTerm()->code):?> authfilenumber="<?php echo $subject->getTerm()->code ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($subject->getTerm())) ?></subject>
       <?php endforeach; ?>
       <?php foreach ($places as $place): ?>
         <geogname><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>

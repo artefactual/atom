@@ -1460,6 +1460,12 @@ class QubitInformationObject extends BaseInformationObject
             }
           }
 
+          // get dates of existence element contents
+          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/date[@type='existence']");
+          foreach($dateNodeList as $dateNode) {
+            $datesValue = $dateNode->nodeValue;
+          }
+
           // get creation end date element contents
           $history = '';
           $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, '/xml/chronitem/eventgrp/event/note[not(@type="eventNote")]/p');
@@ -1482,7 +1488,6 @@ class QubitInformationObject extends BaseInformationObject
             $nameNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/origination/". $fieldName);
             foreach($nameNodeList as $nameNode) {
               $fieldValue = $nameNode->nodeValue;
-              $datesValue = $nameNode->getAttribute('source');
             }
             if ($fieldValue != '')
             {

@@ -21,18 +21,21 @@
               <origination encodinganalog="3.2.1">
                 <?php if ($type = $creator->getEntityTypeId()): ?>
                   <?php if (QubitTerm::PERSON_ID == $type): ?>
-                    <persname source="<?php echo escape_dc(esc_specialchars($creator->datesOfExistence)) ?>"><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></persname>
+                    <persname><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></persname>
                   <?php endif; ?>
                   <?php if (QubitTerm::FAMILY_ID == $type): ?>
-                    <famname source="<?php echo escape_dc(esc_specialchars($creator->datesOfExistence)) ?>"><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></famname>
+                    <famname><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></famname>
                   <?php endif; ?>
                   <?php if (QubitTerm::CORPORATE_BODY_ID == $type): ?>
-                    <corpname source="<?php echo escape_dc(esc_specialchars($creator->datesOfExistence)) ?>"><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></corpname>
+                    <corpname><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></corpname>
                   <?php endif; ?>
                 <?php else: ?>
-                  <name source="<?php echo escape_dc(esc_specialchars($creator->datesOfExistence)) ?>"><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></name>
+                  <name><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></name>
                 <?php endif; ?>
               </origination>
+              <?php if ($creator->datesOfExistence): ?>
+                <date type="existence"><?php echo escape_dc(esc_specialchars($creator->datesOfExistence)) ?></date>
+              <?php endif; ?>
             </event>
           </eventgrp>
         </chronitem>
