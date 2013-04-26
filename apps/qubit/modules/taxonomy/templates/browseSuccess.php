@@ -51,15 +51,5 @@
 </table>
 
 <?php slot('after-content') ?>
-
   <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
-
-  <section class="actions">
-    <ul>
-      <?php if (QubitAcl::check($resource, array('edit', 'createTerm'))): ?>
-        <li><?php echo link_to(__('Add new'), array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array($resource, 'module' => 'taxonomy'))), array('class' => 'c-btn')) ?></li>
-      <?php endif; ?>
-    </ul>
-  </div>
-
 <?php end_slot() ?>

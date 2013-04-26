@@ -535,7 +535,7 @@ class arElasticSearchInformationObjectPdo
     }
   }
 
-  protected function getRelatedTerms()
+  protected function getRelatedTerms($typeId)
   {
     $terms = array();
 
@@ -552,10 +552,11 @@ class arElasticSearchInformationObjectPdo
                 ON term.id = i18n.id';
     $sql .= ' JOIN '.QubitSlug::TABLE_NAME.' slug
                 ON term.id = slug.object_id';
-    $sql .= ' WHERE otr.object_id = ?';
+    $sql .= ' WHERE otr.object_id = ?
+               AND term.taxonomy_id = ?';
 
     self::$statements['relatedTerms'] = self::$conn->prepare($sql);
-    self::$statements['relatedTerms']->execute(array($this->__get('id')));
+    self::$statements['relatedTerms']->execute(array($this->__get('id'), $typeId));
 
     return self::$statements['relatedTerms']->fetchAll(PDO::FETCH_OBJ);
   }
@@ -845,10 +846,16 @@ class arElasticSearchInformationObjectPdo
       $serialized['repository'] = arElasticSearchRepository::serialize($repository);
     }
 
-    // Subjects, places, (etc...?)
-    foreach ($this->getRelatedTerms() as $item)
+    // Places
+    foreach ($this->getRelatedTerms(QubitTaxonomy::PLACE_ID) as $item)
     {
-      $serialized['terms'][] = arElasticSearchTerm::serialize($item);
+      $serialized['places'][] = arElasticSearchTerm::serialize($item);
+    }
+
+    // Subjects
+    foreach ($this->getRelatedTerms(QubitTaxonomy::SUBJECT_ID) as $item)
+    {
+      $serialized['subjects'][] = arElasticSearchTerm::serialize($item);
     }
 
     // Name access points

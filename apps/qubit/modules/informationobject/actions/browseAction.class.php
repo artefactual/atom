@@ -43,20 +43,12 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
               'size' => 10),
       'places' =>
         array('type'   => 'term',
-              'field'  => 'terms.id',
-              'size'   => 10,
-              'filter' => array(
-                'type' => 'terms',
-                'key' => 'terms.taxonomyId',
-                'terms' => array(QubitTaxonomy::PLACE_ID))),
+              'field'  => 'places.id',
+              'size'   => 10),
       'subjects' =>
         array('type'   => 'term',
-              'field'  => 'terms.id',
-              'size'   => 10,
-              'filter' => array(
-                'type' => 'terms',
-                'key' => 'terms.taxonomyId',
-                'terms' => array(QubitTaxonomy::SUBJECT_ID))),
+              'field'  => 'subjects.id',
+              'size'   => 10),
       'creators' =>
         array('type'   => 'term',
               'field'  => 'creators.id',
@@ -89,7 +81,6 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         {
           $this->types[$item->id] = $item->__toString();
         }
-
 
         break;
 

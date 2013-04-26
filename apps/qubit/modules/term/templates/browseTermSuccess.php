@@ -20,6 +20,30 @@
 
   <?php echo get_component('term', 'treeView', array('browser' => true)) ?>
 
+  <section id="facets">
+
+    <?php if (QubitTaxonomy::PLACE_ID == $resource->taxonomyId): ?>
+
+      <?php echo get_partial('search/facet', array(
+        'target' => '#facet-subjects',
+        'label' => __('Subjects'),
+        'facet' => 'subjects',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+
+    <?php elseif (QubitTaxonomy::SUBJECT_ID == $resource->taxonomyId): ?>
+
+      <?php echo get_partial('search/facet', array(
+        'target' => '#facet-places',
+        'label' => __('Places'),
+        'facet' => 'places',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+
+    <?php endif; ?>
+
+  </section>
+
 <?php end_slot() ?>
 
 <?php echo get_partial('search/searchResults', array('pager' => $pager)) ?>

@@ -63,7 +63,7 @@ mapping:
 
   information_object:
     _attributes: { i18n: true, timestamp: true }
-    _foreign_types: { repository: repository, names: actor, creators: actor, terms: term }
+    _foreign_types: { repository: repository, names: actor, creators: actor, subjects: term, places: term }
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }

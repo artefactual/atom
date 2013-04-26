@@ -21,7 +21,33 @@ class TermBrowseTermAction extends DefaultBrowseAction
 {
   // Arrays not allowed in class constants
   public static
-    $FACETS = array();
+    $FACETS = array(
+      'places' =>
+        array('type'   => 'term',
+              'field'  => 'places.id',
+              'size'   => 10),
+      'subjects' =>
+        array('type'   => 'term',
+              'field'  => 'subjects.id',
+              'size'   => 10));
+
+  protected function populateFacet($name, $ids)
+  {
+    switch ($name)
+    {
+      case 'places':
+      case 'subjects':
+        $criteria = new Criteria;
+        $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
+
+        foreach (QubitTerm::get($criteria) as $item)
+        {
+          $this->types[$item->id] = $item->name;
+        }
+
+        break;
+    }
+  }
 
   public function execute($request)
   {
@@ -39,19 +65,17 @@ class TermBrowseTermAction extends DefaultBrowseAction
 
     parent::execute($request);
 
-    $this->queryBool->addMust(new Elastica_Query_Terms('terms.id', array($this->resource->id)));
-
     switch ($this->resource->taxonomyId)
     {
       case QubitTaxonomy::PLACE_ID:
         $this->icon = 'places';
-        $this->queryBool->addMust(new Elastica_Query_Terms('terms.taxonomyId', array(QubitTaxonomy::PLACE_ID)));
+        $this->queryBool->addMust(new Elastica_Query_Terms('places.id', array($this->resource->id)));
 
         break;
 
       case QubitTaxonomy::SUBJECT_ID:
         $this->icon = 'subjects';
-        $this->queryBool->addMust(new Elastica_Query_Terms('terms.taxonomyId', array(QubitTaxonomy::SUBJECT_ID)));
+        $this->queryBool->addMust(new Elastica_Query_Terms('subjects.id', array($this->resource->id)));
 
         break;
 
