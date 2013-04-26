@@ -26,7 +26,7 @@
                   <?php if (QubitTerm::FAMILY_ID == $type): ?>
                     <famname source="<?php echo escape_dc(esc_specialchars($creator->datesOfExistence)) ?>"><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></famname>
                   <?php endif; ?>
-                  <?php if (QubitTerm::CORPORATE_BODY_IDe == $typ): ?>
+                  <?php if (QubitTerm::CORPORATE_BODY_ID == $type): ?>
                     <corpname source="<?php echo escape_dc(esc_specialchars($creator->datesOfExistence)) ?>"><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></corpname>
                   <?php endif; ?>
                 <?php else: ?>

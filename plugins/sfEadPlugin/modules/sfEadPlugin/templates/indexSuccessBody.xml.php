@@ -88,7 +88,7 @@
   </profiledesc>
 </eadheader>
 
-<!-- TODO: <frontmatter></frontmatter> -->
+<?php // TODO: <frontmatter></frontmatter> ?>
 
 <archdesc <?php if ($resource->levelOfDescriptionId):?>level="<?php if (in_array(strtolower($levelOfDescription = $resource->getLevelOfDescription()->getName(array('culture' => 'en'))), $eadLevels)): ?><?php echo strtolower($levelOfDescription).'"' ?><?php else: ?><?php echo 'otherlevel" otherlevel="'.$levelOfDescription.'"' ?><?php endif; ?><?php endif; ?> relatedencoding="ISAD(G)v2">
   <?php
