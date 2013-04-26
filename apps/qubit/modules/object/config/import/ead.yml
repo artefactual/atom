@@ -295,6 +295,11 @@ information_object:
       Method: importLangusageEadData
       Parameters: ["$domNode2"]
 
+    langmaterial:
+      XPath:  "did/langmaterial"
+      Method: importLangmaterialEadData
+      Parameters: ["$domNode2"]
+
     phystech:
       XPath:  "(phystech | descgrp/phystech)"
       Method: setPhysicalCharacteristics
