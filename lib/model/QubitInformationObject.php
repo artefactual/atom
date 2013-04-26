@@ -1885,7 +1885,7 @@ class QubitInformationObject extends BaseInformationObject
     $object = new QubitPhysicalObject();
     $object->name = trim($name);
 
-    if($location)
+    if ($location)
     {
       $object->location = trim($location);
     }

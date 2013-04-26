@@ -117,25 +117,29 @@ class QubitPhysicalObject extends BasePhysicalObject
     switch ($this->type)
     {
       case 'Cardboard box':
+        $result = 'type="box" label="cardboard"';
 
-        return 'type="box" label="cardboard"';
+        break;
 
       case 'Hollinger box':
+        $result = 'type="box" label="hollinger"';
 
-        return 'type="box" label="hollinger"';
+        break;
 
       case 'Filing cabinet':
+        $result = 'type="cabinet" label="filing"';
 
-        return 'type="cabinet" label="filing"';
+        break;
 
       case 'Map cabinet':
+        $result = 'type="cabinet" label="map"';
 
-        return 'type="cabinet" label="map"';
+        break;
 
       default:
-
-        return 'type="'.strtolower($this->type).'"';
+        $result = 'type="'.strtolower($this->type).'"';
     }
-  }
 
+    return $result;
+  }
 }
