@@ -145,4 +145,35 @@ class sfEadPlugin
 
     return $output;
   }
+
+  public function getEadContainerAttributes($physcalObject)
+  {
+    switch ($physcalObject->type)
+    {
+      case 'Cardboard box':
+        $result = 'type="box" label="cardboard"';
+
+        break;
+
+      case 'Hollinger box':
+        $result = 'type="box" label="hollinger"';
+
+        break;
+
+      case 'Filing cabinet':
+        $result = 'type="cabinet" label="filing"';
+
+        break;
+
+      case 'Map cabinet':
+        $result = 'type="cabinet" label="map"';
+
+        break;
+
+      default:
+        $result = 'type="'.strtolower($physcalObject->type).'"';
+    }
+
+    return $result;
+  }
 }

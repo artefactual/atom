@@ -8,7 +8,7 @@
         <?php $counter++ ?>
         <physloc id="<?php echo 'physloc'.str_pad($counter, 4, '0', STR_PAD_LEFT) ?>"><?php echo escape_dc(esc_specialchars($object->location)) ?></physloc>
       <?php endif; ?>
-      <container <?php echo $object->getEadContainerAttributes() ?><?php if($object->location): ?> parent="<?php echo 'physloc'.str_pad($counter, 4, '0', STR_PAD_LEFT) ?>"<?php endif; ?>>
+      <container <?php echo $ead->getEadContainerAttributes($object) ?><?php if($object->location): ?> parent="<?php echo 'physloc'.str_pad($counter, 4, '0', STR_PAD_LEFT) ?>"<?php endif; ?>>
         <?php if($object->name): ?>
           <?php echo escape_dc(esc_specialchars($object->name)) ?>
         <?php endif; ?>
