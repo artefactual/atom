@@ -16,18 +16,6 @@
     <?php endforeach; ?>
   <?php endif; ?>
 
-  <?php if (check_field_visibility('app_element_visibility_physical_storage')): ?>
-    <?php $objects = $$resourceVar->getPhysicalObjects() ?>
-      <?php foreach ($objects as $object): ?>
-      <container type="<?php echo $object->type ?>">
-        <?php echo escape_dc(esc_specialchars($object->location)) ?>
-        <?php if ($object->name): ?>
-          <title><?php echo escape_dc(esc_specialchars($object->name)) ?></title>
-        <?php endif; ?>
-      </container>
-    <?php endforeach; ?>
-  <?php endif; ?>
-
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('titleProperOfPublishersSeries')->__toString())): ?>
     <unittitle>
       <bibseries>
