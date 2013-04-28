@@ -57,6 +57,11 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
+    if (!function_exists('readline'))
+    {
+      throw new Exception('This tasks needs the PHP readline extension.');
+    }
+
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
