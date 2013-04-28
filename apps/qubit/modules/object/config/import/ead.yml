@@ -54,6 +54,10 @@ information_object:
       XPath:  "@otherlevel"
       Method: SetLevelOfDescriptionByName
 
+    repository:
+      XPath:   "(did/repository/corpname | did/repository/name)[1]"
+      Method:  setRepositoryByName
+
     creator:
       XPath:  "did/origination/name"
       Method:  setActorByName
@@ -265,17 +269,12 @@ information_object:
     container:
       XPath:  "did/container"
       Method: importPhysicalObject
-      Parameters: ["%text()", "%title", "%@type"]
 
     #container:
     #  XPath:  "did/container"
     #  Method:  setPhysicalObjectByName
     #  Parameters: [$nodeValue, "$options = array('type' => $importDOM->xpath->query('@type', $domNode2)->item(0)->nodeValue)"]
     #  ## to do: check for @parent and create parentId link for physical object, if present
-
-    repository:
-      XPath:   "(did/repository/corpname | did/repository/name)[1]"
-      Method:  setRepositoryByName
 
     repositoryAddress:
       XPath:   "did/repository/address"
@@ -294,6 +293,11 @@ information_object:
     langusage:
       XPath:  "../eadheader/profiledesc/langusage"
       Method: importLangusageEadData
+      Parameters: ["$domNode2"]
+
+    langmaterial:
+      XPath:  "did/langmaterial"
+      Method: importLangmaterialEadData
       Parameters: ["$domNode2"]
 
     phystech:

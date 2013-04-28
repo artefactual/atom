@@ -111,4 +111,35 @@ class QubitPhysicalObject extends BasePhysicalObject
 
     return QubitQuery::createFromCriteria($criteria, 'QubitInformationObject', $options);
   }
+
+  public function getEadContainerAttributes()
+  {
+    switch ($this->type)
+    {
+      case 'Cardboard box':
+        $result = 'type="box" label="cardboard"';
+
+        break;
+
+      case 'Hollinger box':
+        $result = 'type="box" label="hollinger"';
+
+        break;
+
+      case 'Filing cabinet':
+        $result = 'type="cabinet" label="filing"';
+
+        break;
+
+      case 'Map cabinet':
+        $result = 'type="cabinet" label="map"';
+
+        break;
+
+      default:
+        $result = 'type="'.strtolower($this->type).'"';
+    }
+
+    return $result;
+  }
 }

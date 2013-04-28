@@ -43,7 +43,8 @@ class purgeTask extends sfBaseTask
       new sfCommandOption('description', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired site description'),
       new sfCommandOption('username', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired admin username'),
       new sfCommandOption('email', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired admin email address'),
-      new sfCommandOption('password', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired admin password')
+      new sfCommandOption('password', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired admin password'),
+      new sfCommandOption('no-confirmation', null, sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation')
     ));
 
     $this->namespace = 'tools';
@@ -60,6 +61,11 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
+    if (!function_exists('readline'))
+    {
+      throw new Exception('This tasks needs the PHP readline extension.');
+    }
+
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
@@ -67,7 +73,10 @@ EOF;
     $insertSql->setCommandApplication($this->commandApplication);
     $insertSql->setConfiguration($this->configuration);
 
-    $insertSql->run();
+    $insertSqlArguments = array();
+    $insertSqlOptions = array('no-confirmation' => $options['no-confirmation']);
+
+    $insertSql->run($insertSqlArguments, $insertSqlOptions);
 
     if ($options['use-gitconfig'])
     {

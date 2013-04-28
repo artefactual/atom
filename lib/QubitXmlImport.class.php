@@ -373,15 +373,15 @@ class QubitXmlImport
           case 'language':
             $langCodeConvertor = new fbISO639_Map;
             $value = array();
-            foreach ($nodeList2 as $nodeee)
+            foreach ($nodeList2 as $item)
             {
-              if ($twoCharCode = $langCodeConvertor->getID2($nodeee->nodeValue))
+              if ($twoCharCode = $langCodeConvertor->getID2($item->nodeValue))
               {
                 $value[] = strtolower($twoCharCode);
               }
               else
               {
-                $value[] = $nodeee->nodeValue;
+                $value[] = $item->nodeValue;
               }
             }
             $currentObject->language = $value;
@@ -390,14 +390,28 @@ class QubitXmlImport
 
           case 'flocat':
             $resources = array();
-            foreach ($nodeList2 as $nodeee)
+            foreach ($nodeList2 as $item)
             {
-              $resources[] = $nodeee->nodeValue;
+              $resources[] = $item->nodeValue;
             }
 
             if (0 < count($resources))
             {
               $currentObject->importDigitalObjectFromUri($resources);
+            }
+
+            break;
+
+          case 'container':
+            foreach ($nodeList2 as $item)
+            {
+              $container = $item->nodeValue;
+              $type = $importDOM->xpath->query('@type', $item)->item(0)->nodeValue;
+              $label = $importDOM->xpath->query('@label', $item)->item(0)->nodeValue;
+              $parent = $importDOM->xpath->query('@parent', $item)->item(0)->nodeValue;
+              $location = $importDOM->xpath->query('did/physloc[@id="'.$parent.'"]', $domNode)->item(0)->nodeValue;
+
+              $currentObject->importPhysicalObject($location, $container, $type, $label);
             }
 
             break;

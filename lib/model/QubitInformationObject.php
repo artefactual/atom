@@ -1336,64 +1336,29 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function importLangusageEadData($langusageNode)
   {
-    // get language and script nodes
-    $langNodeList = QubitXmlImport::queryDomNode($langusageNode, "/xml/langusage/language");
-
     $languagesOfDescription = array();
     $scriptsOfDescription = array();
-    $scripts = array();
 
-    // amalgamate language and script data
-    foreach($langNodeList as $langNode)
+    // get language nodes
+    if (0 < count($langNodeList = QubitXmlImport::queryDomNode($langusageNode, "/xml/langusage/language/@langcode")))
     {
-      if ($langNode->hasAttributes())
+      // set first language as source culture
+      $this->setLangcode(substr($langNodeList->item(0)->nodeValue, 0, 2));
+
+      // get all as language(s) of description
+      foreach($langNodeList as $langNode)
       {
-        if (null !== $langCode = substr($langNode->getAttribute('langcode'), 0, 2))
-        {
-          if (null !== $langType = $langNode->getAttribute('encodinganalog'))
-          {
-            switch($langType)
-            {
-              case 'Language':
-                $this->setLangcode($langCode);
-
-                break;
-
-              case 'Language Of Description':
-                array_push($languagesOfDescription, $langCode);
-
-                break;
-            }
-          }
-          else
-          {
-            $this->setLangcode($langCode);
-          }
-        }
-
-        if (null !== $scriptCode = $langNode->getAttribute('scriptcode'))
-        {
-          if (null !== $scriptType = $langNode->getAttribute('encodinganalog'))
-          {
-            switch($scriptType)
-            {
-              case 'Script':
-                array_push($scripts, $scriptCode);
-
-                break;
-
-              case 'Script Of Description':
-                array_push($scriptsOfDescription, $scriptCode);
-
-                break;
-            }
-          }
-          else
-          {
-            array_push($scripts, $scriptCode);
-          }
-        }
+        array_push($languagesOfDescription, substr($langNode->nodeValue, 0, 2));
       }
+    }
+
+    // get script nodes
+    $scriptNodeList = QubitXmlImport::queryDomNode($langusageNode, "/xml/langusage/language/@scriptcode");
+
+    // get scripts (s) of description
+    foreach($scriptNodeList as $scriptNode)
+    {
+      array_push($scriptsOfDescription, $scriptNode->nodeValue);
     }
 
     // add language(s) of description, if any
@@ -1413,14 +1378,69 @@ class QubitInformationObject extends BaseInformationObject
         serialize($scriptsOfDescription)
       );
     }
+  }
+
+/**
+   * Import language-related data from a <langmaterial> tag in EAD2002
+   *
+   * @param $langmaterialNode  DOMNode  EAD langmaterial DOM node
+   */
+  public function importLangmaterialEadData($langmaterialNode)
+  {
+    // get language and script nodes
+    $langNodeList = QubitXmlImport::queryDomNode($langmaterialNode, "/xml/langmaterial/language");
+
+    $languages = array();
+    $scripts = array();
+
+    // amalgamate language and script data
+    foreach($langNodeList as $langNode)
+    {
+      if ($langNode->hasAttributes())
+      {
+        if (0 < strlen($langCode = substr($langNode->getAttribute('langcode'), 0, 2)))
+        {
+          array_push($languages, $langCode);
+        }
+
+        if (0 < strlen($scriptCode = $langNode->getAttribute('scriptcode')))
+        {
+          array_push($scripts, $scriptCode);
+        }
+      }
+    }
+
+    // add language(s), if any
+    if (count($languages))
+    {
+      $this->addProperty('language', serialize($languages));
+    }
 
     // add script(s), if any
     if (count($scripts))
     {
-      $this->addProperty(
-        'script',
-        serialize($scripts)
-      );
+      $this->addProperty('script', serialize($scripts));
+    }
+
+    // get language and script note
+    $noteContent = '';
+    foreach($langmaterialNode->childNodes as $child)
+    {
+      if ($child->nodeType == XML_TEXT_NODE)
+      {
+        $noteContent .= trim($child->textContent);
+      }
+    }
+
+    // add language and script note, if so
+    if (0 < strlen($noteContent))
+    {
+      $newNote = new QubitNote;
+      $newNote->setScope('QubitInformationObject');
+      $newNote->setContent(trim($noteContent));
+      $newNote->setTypeId(QubitTerm::LANGUAGE_NOTE_ID);
+
+      $this->notes[] = $newNote;
     }
   }
 
@@ -1460,6 +1480,12 @@ class QubitInformationObject extends BaseInformationObject
             }
           }
 
+          // get dates of existence element contents
+          $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/date[@type='existence']");
+          foreach($dateNodeList as $dateNode) {
+            $datesValue = $dateNode->nodeValue;
+          }
+
           // get creation end date element contents
           $history = '';
           $dateNodeList = QubitXmlImport::queryDomNode($chronitemNode, '/xml/chronitem/eventgrp/event/note[not(@type="eventNote")]/p');
@@ -1482,7 +1508,6 @@ class QubitInformationObject extends BaseInformationObject
             $nameNodeList = QubitXmlImport::queryDomNode($chronitemNode, "/xml/chronitem/eventgrp/event/origination/". $fieldName);
             foreach($nameNodeList as $nameNode) {
               $fieldValue = $nameNode->nodeValue;
-              $datesValue = $nameNode->getAttribute('source');
             }
             if ($fieldValue != '')
             {
@@ -1859,21 +1884,36 @@ class QubitInformationObject extends BaseInformationObject
     }
   }
 
-  public function importPhysicalObject($textInstances, $name = false, $type = false)
+  public function importPhysicalObject($location, $name = false, $type = false, $label = false)
   {
-    $location = (is_array($textInstances)) ? $textInstances[0] : '';
+    if ($label && $type)
+    {
+      $fullType = ucfirst($label).' '.$type;
+    }
+    else if ($type)
+    {
+      $fullType = ucfirst($type);
+    }
+    else if ($label)
+    {
+      $fullType = ucfirst($label);
+    }
 
     // if a type has been provided, look it up
-    $term = ($type)
+    $term = ($fullType)
       ? QubitFlatfileImport::createOrFetchTerm(
           QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID,
-          $type
+          $fullType
         )
       : false;
 
     $object = new QubitPhysicalObject();
-    $object->location = trim($location);
     $object->name = trim($name);
+
+    if ($location)
+    {
+      $object->location = trim($location);
+    }
 
     if ($term)
     {
