@@ -106,20 +106,20 @@ EOF;
     if (!$options['no-backup'])
     {
       $backupName = $this->backupDatabase($database);
-    }
 
-    // If backup failed, warn user to backup database manually
-    if (!isset($backupName) && !$this->askConfirmation(array(
-      'WARNING: Your database has not been backed up!',
-      'Please back-up your database manually before you proceed.',
-      '',
-      'Have you done a manual backup and wish to proceed? (y/N)'),
-      'QUESTION_LARGE',
-      false))
-    {
-      $this->logSection('upgrade-sql', 'Upgrade aborted.');
+      // If backup failed, warn user to backup database manually
+      if (!isset($backupName) && !$this->askConfirmation(array(
+        'WARNING: Your database has not been backed up!',
+        'Please back-up your database manually before you proceed.',
+        '',
+        'Have you done a manual backup and wish to proceed? (y/N)'),
+        'QUESTION_LARGE',
+        false))
+      {
+        $this->logSection('upgrade-sql', 'Upgrade aborted.');
 
-      return 1;
+        return 1;
+      }
     }
 
     // Find all the upgrade classes in lib/task/migrate
