@@ -52,69 +52,61 @@
 
 // Advanced search
 
-#advanced-search #content {
-  overflow: auto;
-}
+#advanced-search-fields {
 
-#advanced-search p.headline {
-  font-size: 18px;
-  margin: 20px;
-}
-
-#advanced-search .criteria {
-  margin: 10px;
-}
-
-#advanced-search .criteria select:first-child {
-  margin-left: @baseLineHeight;
-}
-
-#advanced-search .criterion {
-  margin: 5px inherit;
-  .well();
-}
-
-#advanced-search .criterion span {
-  color: @white;
-  margin: auto 10px;
-  display: inline-block;
-}
-
-#advanced-search .criterion .in {
-  display: inline;
-}
-
-#advanced-search .actions {
-  margin: 20px;
-}
-
-// Advanced search filters
-
-#advanced-search-filters {
-  background-color: @grayLighter;
-  padding: 10px 0 14px 0;
-  border-top: 1px solid @grayLight;
-  border-bottom: 1px solid @grayLight;
-  @shadow: inset 0  4px 4px -4px @grayLight, inset 0 -4px 4px -4px @grayLight;
-  .box-shadow(@shadow);
-}
-
-#advanced-search-filters select {
-  width: 100%;
-  .box-sizing(border-box);
-}
-
-//
-
-h1 {
-
-  .search {
-
+  // Text introduction
+  p {
+    margin: 20px 20px 10px 20px;
   }
 
-  .count {
-    color: @grayLight;
-    font-size: @baseFontSize * 1.25;
+  // Cancel default margin
+  input,
+  select {
+    margin-bottom: 0;
+  }
+
+  // Add new criteria button
+  #add-new-criteria {
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+
+  .criteria {
+    margin: 10px;
+  }
+
+  .boolean {
+    margin-bottom: 10px;
+    select {
+      margin: 0 auto 0 auto;
+      width: auto;
+    }
+  }
+
+  .criterion {
+    .well();
+    margin: 5px inherit;
+    .in {
+      display: inline;
+      line-height: @baseLineHeight * 1.5;
+      span {
+        color: @grayDark;
+        margin: auto 10px;
+        display: inline-block;
+      }
+    }
+  }
+
+}
+
+#advanced-search-fields ~ .actions {
+
+  .border-radius(0px);
+  padding-left: 20px;
+  text-align: center;
+
+  input {
+    width: 50%;
   }
 
 }
