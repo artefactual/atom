@@ -452,7 +452,7 @@
 
   $(function ()
     {
-      var $advancedSearch = $('#advanced-search');
+      var $advancedSearch = $('body.search.advanced');
       if (0 < $advancedSearch.length)
       {
         new AdvancedSearch($advancedSearch.get(0));
