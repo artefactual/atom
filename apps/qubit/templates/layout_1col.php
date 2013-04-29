@@ -18,6 +18,8 @@
 
     <?php echo get_partial('header') ?>
 
+    <?php include_slot('pre') ?>
+
     <div id="wrapper" class="container">
 
       <?php include_slot('title') ?>
@@ -33,6 +35,8 @@
       <?php include_slot('after-content') ?>
 
     </div>
+
+    <?php include_slot('post') ?>
 
     <?php echo get_partial('footer') ?>
 
