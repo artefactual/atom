@@ -1,25 +1,4 @@
-<?php decorate_with('layout_2col') ?>
-
-<?php slot('title') ?>
-
-  <?php if ('print' == $sf_request->getParameter('media')): ?>
-    <div id="preview-message">
-      <?php echo __('Print preview') ?>
-      <?php echo link_to('Close', array_diff($sf_request->getParameterHolder()->getAll(), array('media' => 'print'))) ?>
-    </div>
-  <?php endif; ?>
-
-  <h1>
-    <?php echo __('Advanced search') ?>
-    <div id="action-icons">
-      <?php echo link_to(
-        image_tag('printer-icon.png', array('alt' => __('Print'))),
-          array_merge($sf_request->getParameterHolder()->getAll(), array('media' => 'print')),
-          array('title' => __('Print'))) ?>
-    </div>
-  </h1>
-
-<?php end_slot() ?>
+<?php decorate_with('layout_3col') ?>
 
 <?php slot('sidebar') ?>
 
@@ -62,14 +41,48 @@
 
 <?php end_slot() ?>
 
-<?php echo $form->renderFormTag(url_for(array('module' => 'search', 'action' => 'advanced')), array('name' => 'form', 'method' => 'get')) ?>
+<?php slot('title') ?>
+  <?php if ('print' == $sf_request->getParameter('media')): ?>
+    <div id="preview-message">
+      <?php echo __('Print preview') ?>
+      <?php echo link_to('Close', array_diff($sf_request->getParameterHolder()->getAll(), array('media' => 'print'))) ?>
+    </div>
+  <?php endif; ?>
+  <h1><?php echo __('Advanced search') ?></h1>
+<?php end_slot() ?>
 
-  <?php echo $form->renderHiddenFields() ?>
+<?php slot('context-menu') ?>
+  <section id="action-icons">
+    <ul>
+      <li><?php echo link_to(
+            image_tag('printer-icon.png', array('alt' => __('Print'))),
+            array_merge($sf_request->getParameterHolder()->getAll(), array('media' => 'print')),
+            array('title' => __('Print'))) ?>
+      </li>
+    </ul>
+  </section>
+<?php end_slot() ?>
 
-  <?php echo get_partial('search/searchFields') ?>
+<?php echo get_partial('search/searchFields') ?>
 
-  <div class="actions">
-    <button type="submit" class="gray btn-large"><?php echo __('Search') ?></button>
-  </div>
+<section class="actions">
+  <input type="submit" class="c-btn c-btn-submit" value="<?php echo __('Search') ?>"/>
+</section>
 
-</form>
+<?php foreach ($pager->getResults() as $hit): ?>
+  <?php $doc = $hit->getData() ?>
+  <?php echo include_partial('search/searchResult', array('doc' => $doc, 'pager' => $pager)) ?>
+<?php endforeach; ?>
+
+<?php slot('after-content') ?>
+  <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
+<?php end_slot() ?>
+
+<?php slot('pre') ?>
+  <?php echo $form->renderFormTag(url_for(array('module' => 'search', 'action' => 'advanced')), array('name' => 'form', 'method' => 'get')) ?>
+    <?php echo $form->renderHiddenFields() ?>
+<?php end_slot() ?>
+
+<?php slot('post') ?>
+  </form>
+<?php end_slot() ?>

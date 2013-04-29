@@ -142,7 +142,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
     }
   }
 
-  protected function processField($field, $queryBool)
+  protected function processField($field)
   {
     if (null === $value = $this->form->getValue($field->getName()))
     {
@@ -156,41 +156,42 @@ class SearchAdvancedAction extends DefaultBrowseAction
       case 'copyrightStatus':
         $query = new Elastica_Query_Term;
         $query->setTerm('copyrightStatusId', $value);
-        $queryBool->addMust($query);
+        $this->queryBool->addMust($query);
+
         break;
 
       case 'hasDigitalObject':
         $query = new Elastica_Query_Term;
         $query->setTerm('hasDigitalObject', $value);
-        $queryBool->addMust($query);
+        $this->queryBool->addMust($query);
 
         break;
 
       case 'levelOfDescription':
         $query = new Elastica_Query_Term;
         $query->setTerm('levelOfDescriptionId', $value);
-        $queryBool->addMust($query);
+        $this->queryBool->addMust($query);
 
         break;
 
       case 'materialType':
         $query = new Elastica_Query_Term;
         $query->setTerm('materialTypeId', $value);
-        $queryBool->addMust($query);
+        $this->queryBool->addMust($query);
 
         break;
 
       case 'mediaType':
         $query = new Elastica_Query_Term;
         $query->setTerm('digitalObject.mediaTypeId', $value);
-        $queryBool->addMust($query);
+        $this->queryBool->addMust($query);
 
         break;
 
       case 'repository':
         $query = new Elastica_Query_Term;
-        $query->setTerm('repositoryId', $value);
-        $queryBool->addMust($query);
+        $query->setTerm('repository.id', $value);
+        $this->queryBool->addMust($query);
 
         break;
     }
@@ -202,8 +203,10 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
     if (!isset($this->request->searchFields))
     {
-      throw new Exception('Search is empty');
+      return;
     }
+
+    $culture = $this->context->user->getCulture();
 
     // Iterate over search fields
     foreach ($this->request->searchFields as $key => $item)
@@ -212,8 +215,6 @@ class SearchAdvancedAction extends DefaultBrowseAction
       {
         continue;
       }
-
-      $hasAnySearchField = true;
 
       $queryText = new Elastica_Query_Text();
 
@@ -225,22 +226,22 @@ class SearchAdvancedAction extends DefaultBrowseAction
           break;
 
         case 'title':
-          $queryText->setFieldQuery('i18n.title', $item['query']);
+          $queryText->setFieldQuery('i18n.'.$culture.'.title', $item['query']);
 
           break;
 
         case 'scopeAndContent':
-          $queryText->setFieldQuery('i18n.scopeAndContet', $item['query']);
+          $queryText->setFieldQuery('i18n.'.$culture.'.scopeAndContet', $item['query']);
 
           break;
 
         case 'archivalHistory':
-          $queryText->setFieldQuery('i18n.archivalHistory', $item['query']);
+          $queryText->setFieldQuery('i18n.'.$culture.'.archivalHistory', $item['query']);
 
           break;
 
         case 'extentAndMedium':
-          $queryText->setFieldQuery('i18n.extentAndMedium', $item['query']);
+          $queryText->setFieldQuery('i18n.'.$culture.'.extentAndMedium', $item['query']);
 
           break;
 
@@ -295,16 +296,6 @@ class SearchAdvancedAction extends DefaultBrowseAction
       }
     }
 
-    // Process filters passing $queryBool
-    $this->hasFilters = false;
-    foreach ($this->form as $field)
-    {
-      if (isset($this->request[$field->getName()]))
-      {
-        $this->processField($field, $queryBool);
-      }
-    }
-
     return $queryBool;
   }
 
@@ -312,18 +303,36 @@ class SearchAdvancedAction extends DefaultBrowseAction
   {
     parent::execute($request);
 
+    if ('print' == $request->getGetParameter('media'))
+    {
+      $this->getResponse()->addStylesheet('print-preview', 'last');
+    }
+
     $this->form = new sfForm;
+    $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
 
     foreach ($this::$NAMES as $name)
     {
       $this->addField($name);
     }
 
-    if ('print' == $request->getGetParameter('media'))
+    // Stop if the input is not valid
+    $this->form->bind($request->getRequestParameters() + $request->getGetParameters() + $request->getPostParameters());
+    if (!$this->form->isValid())
     {
-      $this->getResponse()->addStylesheet('print-preview', 'last');
+      die(" ERROR FORM ");
     }
 
+    if (null !== $advancedSearchCriteriaQueryBool = $this->parseQuery())
+    {
+      $this->queryBool->addMust($advancedSearchCriteriaQueryBool);
+    }
+    else
+    {
+      $this->queryBool->addMust(new Elastica_Query_MatchAll());
+    }
+
+    // Process form fields
     foreach ($this->form as $field)
     {
       if (isset($this->request[$field->getName()]))
@@ -331,5 +340,21 @@ class SearchAdvancedAction extends DefaultBrowseAction
         $this->processField($field);
       }
     }
+
+    // Filter drafts
+    $this->query = QubitAclSearch::filterDrafts($this->query);
+
+    // Sort
+    # $this->query->setSort(array($field => 'desc'));
+
+    $this->query->setQuery($this->queryBool);
+
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
+
+    // Page results
+    $this->pager = new QubitSearchPager($resultSet);
+    $this->pager->setPage($request->page ? $request->page : 1);
+    $this->pager->setMaxPerPage($request->limit);
+    $this->pager->init();
   }
 }
