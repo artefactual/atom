@@ -104,6 +104,7 @@
           .on('mousedown.treeview.atom', 'li', $.proxy(this.mousedownup, this))
           .on('mouseup.treeview.atom', 'li', $.proxy(this.mousedownup, this))
           .on('mouseenter.treeview.atom', 'li', $.proxy(this.mouseenter, this))
+          .on('mouseleave.treeview.atom', 'li', $.proxy(this.mouseleave, this))
           .bind('scroll', $.proxy(this.scroll, this))
           .bind('scroll-debounced', $.proxy(this.debouncedScroll, this));
 
@@ -239,6 +240,15 @@
         {
           killEvent(e);
         }
+
+        return this;
+      },
+
+    mouseleave: function (e)
+      {
+        var $li = 'LI' === e.target.tagName ? $(e.target) : $(e.target).closest('li');
+
+        $li.popover('hide');
 
         return this;
       },
