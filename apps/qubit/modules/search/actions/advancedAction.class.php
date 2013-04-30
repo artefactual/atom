@@ -292,7 +292,7 @@ class SearchAdvancedAction extends SearchIndexAction
     if (!empty($this->request->levelOfDescription))
     {
       $query->addSubquery(QubitSearch::getInstance()->addTerm($this->request->levelOfDescription, 'levelOfDescriptionId'), true);
-      $this->queryTerms[] = array('term' => $this->context->i18n->__('Level of description').': '.$this->request->levelOfDescription, 'operator' => 'and');
+      $this->queryTerms[] = array('term' => $this->context->i18n->__('Level of description').': '.QubitTerm::getById($this->request->levelOfDescription)->__toString(), 'operator' => 'and');
     }
 
     // Copyright status
