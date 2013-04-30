@@ -99,6 +99,12 @@ class sfPluginAdminPluginPluginsAction extends sfAction
         $setting->setValue(serialize(array_unique($settings)), array('sourceCulture' => true));
         $setting->save();
 
+        QubitCache::getInstance()->removePattern('settings:i18n:*');
+
+        // Clear cache
+        $cacheClear = new sfCacheClearTask(sfContext::getInstance()->getEventDispatcher(), new sfFormatter());
+        $cacheClear->run();
+
         $this->redirect(array('module' => 'sfPluginAdminPlugin', 'action' => 'plugins'));
       }
     }

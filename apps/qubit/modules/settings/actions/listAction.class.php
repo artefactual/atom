@@ -74,6 +74,8 @@ class SettingsListAction extends sfAction
         $this->context->getViewCacheManager()->remove('@sf_cache_partial?module=menu&action=_mainMenu&sf_cache_key=*');
       }
 
+      QubitCache::getInstance()->removePattern('settings:i18n:*');
+
       // Global settings form submission
       if (null !== $request->global_settings)
       {

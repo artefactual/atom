@@ -85,6 +85,8 @@ class SettingsVisibleElementsAction extends sfAction
     {
       $this->processForm();
 
+      QubitCache::getInstance()->removePattern('settings:i18n:*');
+
       $this->redirect('settings/visibleElements');
     }
   }

@@ -93,6 +93,8 @@ class sfThemePluginIndexAction extends sfAction
         $toggleTitleSetting->__set('value', $this->form->getValue('toggleTitle'), array('sourceCulture' => true));
         $toggleTitleSetting->save();
 
+        QubitCache::getInstance()->removePattern('settings:i18n:*');
+
         $this->redirect(array('module' => 'settings', 'action' => 'list'));
       }
     }

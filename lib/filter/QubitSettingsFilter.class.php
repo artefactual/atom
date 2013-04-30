@@ -22,7 +22,7 @@ class QubitSettingsFilter extends sfFilter
   public function execute($filterChain)
   {
     $cache = QubitCache::getInstance();
-    $cacheKey = 'settings_'.sfContext::getInstance()->getUser()->getCulture();
+    $cacheKey = 'settings:i18n:'.sfContext::getInstance()->getUser()->getCulture();
 
     // Get settings (from cache if exists)
     if ($cache->has($cacheKey))
