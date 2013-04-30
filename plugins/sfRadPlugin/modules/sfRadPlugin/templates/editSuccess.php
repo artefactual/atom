@@ -125,7 +125,7 @@
     <legend><?php echo __('Edition area') ?></legend>
 
     <?php echo render_field($form->edition
-      ->help(__('"Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)'))
+      ->help(__('"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)'))
       ->label(__('Edition statement')), $resource) ?>
 
     <?php echo render_field($form->editionStatementOfResponsibility
