@@ -281,6 +281,12 @@ repository/edit:
     module: repository
     action: edit
 
+oai:
+  url: /;oai
+  param:
+    module: qtOaiPlugin
+    action: index
+
 oai_harvester_harvest_all_sets:
   url: /oai/harvest/:type/:id/*
   param:
