@@ -1392,7 +1392,7 @@ class QubitDigitalObject extends BaseDigitalObject
         $maxheight = $maxwidth;
         break;
       case QubitTerm::THUMBNAIL_ID:
-        $maxwidth = 192;
+        $maxwidth = 270;
         $maxheight = 1024;
         break;
       case QubitTerm::COMPOUND_ID:
