@@ -28,6 +28,7 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
   <contents>
     <file name="apps/qubit//*" role="php"/>
     <file name="config//*" role="data"/>
+    <file name="CONTRIBUTING" role="doc"/>
     <file name="COPYRIGHT" role="doc"/>
     <file name="css//*" role="data"/>
     <file name="data//*" role="data"/>
@@ -41,6 +42,7 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
     <file name="plugins//*" role="php"/>
     <file name="qubit_dev.php" role="php"/>
     <file name="README" role="doc"/>
+    <file name="robots.txt" role="doc"/>
     <file name="symfony" role="script"/>
     <file name="test//*" role="test"/>
     <file name="uploads//*" role="data"/>
