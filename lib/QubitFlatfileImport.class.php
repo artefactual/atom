@@ -1223,6 +1223,7 @@ class QubitFlatfileImport
     $term = new QubitTerm;
     $term->name = $name;
     $term->taxonomyId = $taxonomyId;
+    $term->parentId = QubitTerm::ROOT_ID;
     $term->culture = $culture;
     $term->save();
 
