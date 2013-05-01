@@ -467,7 +467,7 @@
           url: $element.data('xhr-location'),
           context: this,
           dataType: 'html',
-          data: { show: !$element.next().length ? 'nextSiblings' : 'prevSiblings', resourceId: this.resourceId, browser: this.browser },
+          data: { show: $element.next().is('LI') ? 'prevSiblings' : 'nextSiblings', resourceId: this.resourceId, browser: this.browser },
           beforeSend: function()
             {
               this.setLoading(true, $element);
