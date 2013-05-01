@@ -29,15 +29,15 @@
     <div class="section masonry">
 
       <?php foreach ($pager->getResults() as $hit): ?>
-        <?php $doc = build_i18n_doc($hit) ?>
+        <?php $doc = $hit->getData() ?>
         <div class="brick">
           <div class="preview zoom">
-            <?php echo link_to(image_tag($doc['digitalObject']['thumbnail_FullPath']), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
+            <?php echo link_to(image_tag($doc['digitalObject']['thumbnailPath']), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
           </div>
           <div class="details">
-            <?php echo $doc[$sf_user->getCulture()]['title'] ?>
+            <?php echo render_title(get_search_i18n($doc, 'title')) ?>
             <?php if (QubitTerm::EXTERNAL_URI_ID == $doc['digitalObject']['usageId']): ?>
-              <?php echo link_to(__('External resource'), url_for($doc['digitalObject']['thumbnail_FullPath']), array('class' => 'btn btn-small')) ?>
+              <?php echo link_to(__('External resource'), url_for($doc['digitalObject']['thumbnailPath']), array('class' => 'btn btn-small')) ?>
             <?php endif; ?>
           </div>
         </div>
