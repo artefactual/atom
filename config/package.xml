@@ -36,6 +36,7 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
     <file name="favicon.ico" role="data"/>
     <file name="images//*" role="data"/>
     <file name="index.php" role="php"/>
+    <file name="init//*" role="script"/>
     <file name="js//*" role="data"/>
     <file name="lib//*" role="php"/>
     <file name="LICENSE" role="doc"/>
