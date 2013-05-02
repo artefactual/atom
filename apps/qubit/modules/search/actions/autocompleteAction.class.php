@@ -45,29 +45,31 @@ class SearchAutocompleteAction extends sfAction
     // Build ES multi query
     $this->queries = array();
 
+    $index = QubitSearch::getInstance()->index->getName();
+
     $this->buildQuery(
-      'atom',
+      $index,
       'QubitInformationObject',
       'i18n.%s.title',
       array('slug', 'i18n', 'levelOfDescriptionId'),
       array('_score' => 'desc'));
 
     $this->buildQuery(
-      'atom',
+      $index,
       'QubitRepository',
       'i18n.%s.authorizedFormOfName',
       array('slug', 'i18n'),
       array('_score' => 'desc'));
 
     $this->buildQuery(
-      'atom',
+      $index,
       'QubitActor',
       'i18n.%s.authorizedFormOfName',
       array('slug', 'i18n'),
       array('_score' => 'desc'));
 
     $this->buildQuery(
-      'atom',
+      $index,
       'QubitTerm',
       'i18n.%s.name',
       array('slug', 'i18n'),
