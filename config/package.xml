@@ -41,6 +41,11 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
     <file name="lib//*" role="php"/>
     <file name="LICENSE" role="doc"/>
     <file name="plugins//*" role="php"/>
+    <file name="plugins/sfAuditPlugin/lib/vendor/PHP/CodeSniffer/Standards/Squiz/Tests/Commenting/ClassCommentUnitTest.inc" role="data"/>
+    <file name="plugins/sfAuditPlugin/lib/vendor/PHP/CodeSniffer/Standards/PEAR/Tests/Commenting/ClassCommentUnitTest.inc" role="data"/>
+    <file name="plugins/sfDrupalPlugin/vendor/drupal/includes/database/database.inc" role="data"/>
+    <file name="plugins/sfLucenePlugin/README" role="doc"/>
+    <file name="plugins/sfSearchPlugin/doc/recipes/Quick-Start.txt" role="doc"/>
     <file name="qubit_dev.php" role="php"/>
     <file name="README" role="doc"/>
     <file name="robots.txt" role="doc"/>
@@ -48,6 +53,7 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
     <file name="test//*" role="test"/>
     <file name="uploads//*" role="data"/>
     <file name="vendor//*" role="php"/>
+    <file name="vendor/yui//*" role="script"/>
     <file name="vendor/symfony/data//*" role="data"/>
   </contents>
   <dependencies>
