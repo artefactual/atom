@@ -104,12 +104,24 @@ a:hover {
 
   font-size: 12px;
 
+  // Icons
+  i {
+    font-size: 14px;
+    color: @gray;
+  }
+
+  a:hover i {
+    color: @orange;
+  }
+
   ul {
+    margin: 0;
     list-style: none;
     .separator {
-      font-family: @monoFontFamily;
-      color: @grayLight;
-      margin: 12px 0 0 36px;
+      margin: 6px 0;
+      h4 {
+        margin: 0;
+      }
     }
   }
 
@@ -121,7 +133,7 @@ a:hover {
   a {
     color: @grayDark;
     display: block;
-    padding: 4px 8px;
+    padding: 2px 4px;
     &:hover {
       background-color: @grayLighter;
     }
@@ -249,8 +261,10 @@ a:hover {
 
 #facets {
 
+  margin-top: 20px;
+
   section {
-    margin-bottom: @baseLineHeight;
+    margin-bottom: @baseLineHeight/2;
     border-bottom: 1px solid @grayLighter;
     &:last-child {
       border-bottom: 0;
@@ -289,20 +303,22 @@ a:hover {
 
   ul {
     .nav();
+    margin-bottom: @baseLineHeight/2;
   }
 
   li {
 
-    a {
-
+    &.active {
+      a {
+        color: @black;
+        text-decoration: underline;
+      }
     }
 
     span {
       padding-left: 4px;
       color: @grayLight;
     }
-
-
 
   }
 
@@ -335,6 +351,21 @@ a:hover {
       margin-top: -3px;
     }
 
+  }
+
+}
+
+// Top facets
+
+#header-facets {
+
+  .top-facet {
+    margin-top: @baseLineHeight;
+    .badge {
+      margin-left: 8px;
+      font-size: 9px;
+      background-color: lighten(@grayLight, 10%);
+    }
   }
 
 }
@@ -869,18 +900,5 @@ section .vcard:last-child > .field:last-child > div {
 
 @media (max-width: 480px) {
 
-  .top-options {
-    margin-bottom: @baseLineHeight;
-  }
-
-  .brick {
-    width: 100%;
-    padding-bottom: 0;
-  }
-
-  .brick .preview {
-    width: 192px;
-    margin: 0 auto;
-  }
 
 }
