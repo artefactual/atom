@@ -59,23 +59,18 @@
     <?php foreach ($pager->getResults() as $hit): ?>
       <?php $doc = $hit->getData() ?>
       <?php $authorizedFormOfName = render_title(get_search_i18n($doc, 'authorizedFormOfName')) ?>
-      <div class="brick brick-small">
-        <div class="preview">
-          <a href="<?php echo url_for(array('module' => 'repository', 'slug' => $doc['slug'])) ?>">
-            <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$doc['slug'].'/conf/logo.png')): ?>
+      <div class="brick">
+        <a href="<?php echo url_for(array('module' => 'repository', 'slug' => $doc['slug'])) ?>">
+          <?php if (file_exists(sfConfig::get('sf_upload_dir').'/r/'.$doc['slug'].'/conf/logo.png')): ?>
+            <div class="preview">
               <?php echo image_tag('/uploads/r/'.$doc['slug'].'/conf/logo.png') ?>
-            <?php else: ?>
-              <h4><?php echo $authorizedFormOfName ?></h4>
-            <?php endif; ?>
-          </a>
-        </div>
-        <div class="details">
-          <?php if (!empty($authorizedFormOfName)): ?>
-            <p><span class="name"><?php echo $authorizedFormOfName ?></span></p>
+            </div>
+          <?php else: ?>
+            <h4><?php echo $authorizedFormOfName ?></h4>
           <?php endif; ?>
-          <?php if ('lastUpdated' == $sortSetting): ?>
-            <p><span class="date"><?php echo format_date($doc['updatedAt'], 'f') ?></span></p>
-          <?php endif; ?>
+        </a>
+        <div class="bottom">
+          <p><?php echo $authorizedFormOfName ?></p>
         </div>
       </div>
     <?php endforeach; ?>
