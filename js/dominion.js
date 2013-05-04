@@ -88,7 +88,9 @@
       $container.imagesLoaded(function() {
         $container.masonry({
           itemSelector: '.brick',
-          isAnimated: false
+          isAnimated: false,
+          gutterWidth: 15,
+          isFitWidth: $container.hasClass('centered')
         });
       });
     });

@@ -132,73 +132,61 @@ a:hover {
 // jQuery Masonry bricks
 // It's not working well with text, use images
 
-.masonry {
-  margin-left: -4px;
-}
-
-@brickWidth: 192px;
-@brickSmallWidth: 160px;
+@brickWidth: 270px;
+@brickSmallWidth: 170px;
 @brickPadding: 15px;
+@brickBg: @white;
+
+.masonry {
+
+  margin-left: -4px;
+
+  &.centered {
+    margin: 0 auto;
+  }
+
+}
 
 .brick {
 
-  float: left;
-  background-color: @white;
+  background-color: @brickBg;
   @shadow: 0 1px 3px rgba(25, 25, 25, 0.4);
   .box-shadow(@shadow);
-  font-size: 11px;
 
-  .box-sizing(border-box);
+  // Dimensions
   width: @brickWidth;
-  margin: 6px;
+  padding: @brickPadding;
+  margin-bottom: @brickPadding;
 
-  .brick-small,
-  .brick-small .preview img {
-    width: @brickSmallWidth + @brickPadding * 2;
+  font-size: 11px;
+  line-height: 1.5em;
+
+  h4 {
+    font-size: 22px;
+    margin: -@baseLineHeight*.25 0 @brickPadding 0;
+    line-height: @baseLineHeight * 2;
+    text-align: center;
   }
 
   .preview {
-
-    padding: 10px 0;
-    position: relative;
-    min-height: 120px;
-
-    img {
-      width: @brickWidth;
-    }
-
-    h4 {
-      font-size: 20px;
-      line-height: 1.4em;
-      text-align: center;
-      margin: 0 10px;
-    }
-
+    background-color: #f2f0f0;
   }
 
-  .details {
+  .description {
+    margin: 8px 0;
+    .text-overflow();
+  }
 
-    color: @grayDarker;
-    background-color: @grayLighter;
-
+  .bottom {
+    margin: 0 -15px -15px -15px;
+    padding: 8px 15px;
+    background-color: #f2f0f0;
+    .clearfix();
     p {
-      margin: 0 8px;
-      line-height: 32px;
-      overflow: none;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      margin: 0;
+      color: #666;
+      .text-overflow();
     }
-
-    .btn {
-      margin-top: 2px;
-      display: block;
-    }
-
-    .name {
-      color: @grayDarker;
-    }
-
   }
 
 }

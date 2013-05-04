@@ -1,15 +1,13 @@
-<?php use_helper('Javascript') ?>
+<?php decorate_with('layout_wide') ?>
 
-<div class="row">
-
-  <div class="span6">
+<div class="row-fluid">
+  <div class="offset1 span6">
     <h1>
       <?php echo image_tag('/images/icons-large/icon-institutions.png', array('width' => '42', 'height' => '42')) ?>
       <?php echo __('Browse %1% digital objects', array('%1%' => $pager->getNbResults())) ?>
     </h1>
   </div>
-
-  <div class="span6">
+  <div class="offset3 span2">
     <?php if (isset($pager->facets['digitalObject_mediaTypeId'])): ?>
       <?php echo get_partial('search/singleFacet', array(
         'target' => '#facet-mediatype',
@@ -19,38 +17,23 @@
         'filters' => $filters)) ?>
     <?php endif; ?>
   </div>
-
 </div>
 
-<div class="row">
-
-  <div class="span12">
-
-    <div class="section masonry">
-
-      <?php foreach ($pager->getResults() as $hit): ?>
-        <?php $doc = $hit->getData() ?>
-        <div class="brick">
-          <div class="preview zoom">
-            <?php echo link_to(image_tag($doc['digitalObject']['thumbnailPath']), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
-          </div>
-          <div class="details">
-            <?php echo render_title(get_search_i18n($doc, 'title')) ?>
-            <?php if (QubitTerm::EXTERNAL_URI_ID == $doc['digitalObject']['usageId']): ?>
-              <?php echo link_to(__('External resource'), url_for($doc['digitalObject']['thumbnailPath']), array('class' => 'btn btn-small')) ?>
-            <?php endif; ?>
-          </div>
-        </div>
-      <?php endforeach; ?>
-
+<section class="masonry centered">
+  <?php foreach ($pager->getResults() as $hit): ?>
+    <?php $doc = $hit->getData() ?>
+    <div class="brick">
+      <div class="preview">
+        <?php echo link_to(image_tag($doc['digitalObject']['thumbnailPath']), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
+      </div>
+      <p class="description"><?php echo render_title(get_search_i18n($doc, 'title')) ?></p>
+      <div class="bottom">
+        <p><?php echo $doc['referenceCode'] ?></p>
+      </div>
     </div>
+  <?php endforeach; ?>
+</section>
 
-    <div class="section">
-
-      <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
-
-    </div>
-
-  </div>
-
-</div>
+<section>
+  <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
+</section>
