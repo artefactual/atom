@@ -157,7 +157,7 @@ QubitMenu:
       pt: Taxonomias
       sl: Taksonomije
       th: อนุกรมวิธาน
-    path: taxonomy/list
+    path: taxonomy/browse
   QubitMenu_mainmenu_import:
     id: 7
     parent_id: QubitMenu_mainmenu
@@ -850,7 +850,7 @@ QubitMenu:
       pt: 'Objeto digital'
       sl: 'Digitalni predmeti'
       th: วัตถุดิจิตอล
-    path: digitalobject/list
+    path: digitalobject/browse
   QubitMenu_mainmenu_admin_visibleElements:
     parent_id: QubitMenu_mainmenu_admin
     source_culture: en
