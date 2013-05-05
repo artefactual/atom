@@ -101,13 +101,13 @@ class InformationObjectIndexAction extends sfAction
       $this->forward404();
     }
 
-    $this->dispatcher->notify(new sfEvent($this, 'access_log.view', array('object' => $this->resource)));
-
     // Check user authorization
     if (!QubitAcl::check($this->resource, 'read'))
     {
       QubitAcl::forwardToSecureAction();
     }
+
+    $this->dispatcher->notify(new sfEvent($this, 'access_log.view', array('object' => $this->resource)));
 
     if ('print' == $request->getGetParameter('media', 'screen'))
     {
