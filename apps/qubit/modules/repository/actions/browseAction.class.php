@@ -30,7 +30,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     $FACETS = array(
       'types' => array('type' => 'term',
                        'field' => 'types',
-                         'size' => 10),
+                       'size' => 10),
       'regions' => array('type' => 'term',
                          'field' => 'contactInformations.i18n.en.region',
                          'size' => 10));
