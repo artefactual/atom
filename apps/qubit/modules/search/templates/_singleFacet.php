@@ -1,4 +1,4 @@
-<div class="btn-group top-options">
+<div class="btn-group top-facet">
 
   <?php echo link_to(
     __('All'),
