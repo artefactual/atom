@@ -2,20 +2,24 @@
 
 <div class="row-fluid">
   <div class="offset1 span6">
+
     <h1>
       <?php echo image_tag('/images/icons-large/icon-institutions.png', array('width' => '42', 'height' => '42')) ?>
       <?php echo __('Browse %1% digital objects', array('%1%' => $pager->getNbResults())) ?>
     </h1>
+
   </div>
   <div class="offset3 span2">
-    <?php if (isset($pager->facets['digitalObject_mediaTypeId'])): ?>
+
+    <div id="header-facets">
       <?php echo get_partial('search/singleFacet', array(
         'target' => '#facet-mediatype',
         'label' => __('Media type'),
-        'facet' => 'digitalObject_mediaTypeId',
+        'facet' => 'mediatypes',
         'pager' => $pager,
         'filters' => $filters)) ?>
-    <?php endif; ?>
+    </div>
+
   </div>
 </div>
 

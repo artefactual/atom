@@ -26,13 +26,13 @@
  */
 class DigitalObjectBrowseAction extends DefaultBrowseAction
 {
+  // Arrays not allowed in class constants
   public static
     $FACETS = array(
       'mediatypes' =>
         array('type' => 'term',
               'field' => 'digitalObject.mediaTypeId',
-              'size' => 10,
-              'populate' => false));
+              'size' => 10));
 
   protected function populateFacet($name, $ids)
   {
