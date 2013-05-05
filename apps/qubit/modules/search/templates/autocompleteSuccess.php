@@ -22,7 +22,7 @@
     <ul>
       <?php foreach ($subjects->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
-        <li><?php echo link_to(get_search_i18n($doc, 'name'), array('module' => 'search', 'action' => 'index', 'subjects_id' => $hit->getId())) ?></li>
+        <li><?php echo link_to(get_search_i18n($doc, 'name'), array('module' => 'term', 'action' => 'browseTerm', 'slug' => $hit->slug)) ?></li>
       <?php endforeach; ?>
       <?php if ($subjects->getTotalHits() > 3): ?>
         <li class="showall"><?php echo link_to(__('all matching subjects'), array('module' => 'search', 'action' => 'index') + $sf_request->getParameterHolder()->getAll()) ?></li>
