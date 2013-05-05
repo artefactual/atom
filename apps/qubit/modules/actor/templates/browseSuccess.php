@@ -70,7 +70,7 @@
         <?php endforeach; ?>
         <div class="input-append">
           <input type="text" class="span3" name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>" placeholder="<?php echo __('Search') ?>" />
-          <span class="add-on">
+          <span class="add-on icon-search">
             <input type="submit" value="<?php echo __('Search %1%', array('%1%' => sfConfig::get('app_ui_label_actor'))) ?>"/>
           </span>
         </div>
