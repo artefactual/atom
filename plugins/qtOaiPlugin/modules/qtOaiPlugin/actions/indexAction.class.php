@@ -62,7 +62,7 @@ class qtOaiPluginIndexAction extends sfAction
     {
       $request->setParameter('errorCode', 'badArgument');
       $request->setParameter('errorMsg', $this->oaiErrorArray{'badArgument'});
-      $this->forward('oai', 'error');
+      $this->forward('qtOaiPlugin', 'error');
     }*/
     $this->date = QubitOai::getDate();
     $this->path = $this->request->getUriPrefix().$this->request->getPathInfo();
@@ -90,7 +90,7 @@ class qtOaiPluginIndexAction extends sfAction
       {
         $request->setParameter('errorCode', 'badVerb');
         $request->setParameter('errorMsg', 'Value of the verb argument is not a legal OAI-PMH verb, the verb argument is missing, or the verb argument is repeated.');
-        $this->forward('oai', 'error');
+        $this->forward('qtOaiPlugin', 'error');
       }
 
       /**
@@ -102,7 +102,7 @@ class qtOaiPluginIndexAction extends sfAction
       {
         $request->setParameter('errorCode', 'badArgument');
         $request->setParameter('errorMsg', 'The request includes illegal arguments, is missing required arguments, includes a repeated argument, or values for arguments have an illegal syntax.');
-        $this->forward('oai', 'error');
+        $this->forward('qtOaiPlugin', 'error');
       }
 
       // For now, if there is a metadataPrefix requested other than oai_dc, fail the request
@@ -111,7 +111,7 @@ class qtOaiPluginIndexAction extends sfAction
       {
         $request->setParameter('errorCode', 'badVerb');
         $request->setParameter('errorMsg', 'The metadata format identified by the value given for the metadataPrefix argument is not supported by the item or by the repository.');
-        $this->forward('oai', 'error');
+        $this->forward('qtOaiPlugin', 'error');
       }
 
       switch($this->request->verb)
