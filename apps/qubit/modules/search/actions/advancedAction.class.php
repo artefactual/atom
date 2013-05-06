@@ -359,7 +359,7 @@ class SearchAdvancedAction extends SearchIndexAction
           new Zend_Search_Lucene_Index_Term($endTerm, $searchField),
           true);
 
-	      if (null !== $startDate)
+        if (null !== $startDate)
         {
           $endDateQueryWrapper = new Zend_Search_Lucene_Search_Query_Boolean();
           $endDateQueryWrapper->addSubquery($endDateQuery, null);
