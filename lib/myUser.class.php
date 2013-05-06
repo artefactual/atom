@@ -192,4 +192,16 @@ class myUser extends sfBasicSecurityUser implements Zend_Acl_Role_Interface
       return QubitAclGroup::getById(QubitAclGroup::ANONYMOUS_ID);
     }
   }
+
+  /**
+   * Using $sf_user->hasGroup() since it relies on database,
+   * $sf_user->hasCredential('administrator') relies on session storage
+   * See 4214.
+   *
+   * @return Boolean
+   */
+  public function isAdministrator()
+  {
+    return $this->hasGroup(QubitAclGroup::ADMINISTRATOR_ID);
+  }
 }
