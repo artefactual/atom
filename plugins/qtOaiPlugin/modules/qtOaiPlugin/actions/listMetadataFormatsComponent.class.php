@@ -39,17 +39,5 @@ class qtOaiPluginListMetadataFormatsComponent extends sfComponent
     {
       $this->requestAttributes .= ' '.$key.'="'.$this->attributes[$key].'"';
     }
-
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitUser::ID, QubitUserRoleRelation::USER_ID);
-    $criteria->addJoin(QubitUserRoleRelation::ROLE_ID, QubitRole::ID);
-    $criteria->add(QubitRole::NAME, 'administrator');
-
-    $users = QubitUser::get($criteria);
-    $this->adminEmail = array();
-    foreach ($users as $user)
-    {
-      $this->adminEmail[] = $user->getEmail()."\n";
-    }
   }
 }
