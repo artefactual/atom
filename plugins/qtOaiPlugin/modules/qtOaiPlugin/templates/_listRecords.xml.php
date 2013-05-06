@@ -12,9 +12,7 @@
       <setSpec><?php echo QubitOai::getSetSpec($record->getLft(), $collectionsTable)?></setSpec>
     </header>
     <metadata>
-      <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
-          <?php echo get_partial('sfDcPlugin/dc', array('dc' => $dc, 'resource' => $record)) ?>
-      </oai_dc:dc>
+      <?php echo get_partial('sfDcPlugin/dc', array('dc' => $dc, 'resource' => $record)) ?>
     </metadata>
    </record>
 <?php endforeach ?>
