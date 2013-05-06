@@ -19,20 +19,22 @@
   </div>
 </div>
 
-<div class="section">
+<?php if ($sf_user->isAdministrator()): ?>
+  <div class="section">
 
-  <h2><?php echo __('Import') ?></h2>
+    <h2><?php echo __('Import') ?></h2>
 
-  <div class="content">
-    <ul class="clearfix">
+    <div class="content">
+      <ul class="clearfix">
 
-      <li><?php echo link_to(__('XML'), array($resource, 'module' => 'object', 'action' => 'importSelect', 'type' => 'xml')) ?></li>
-      <li><?php echo link_to(__('CSV'), array($resource, 'module' => 'object', 'action' => 'importSelect', 'type' => 'csv')) ?></li>
+        <li><?php echo link_to(__('XML'), array($resource, 'module' => 'object', 'action' => 'importSelect', 'type' => 'xml')) ?></li>
+        <li><?php echo link_to(__('CSV'), array($resource, 'module' => 'object', 'action' => 'importSelect', 'type' => 'csv')) ?></li>
 
-    </ul>
+      </ul>
+    </div>
+
   </div>
-
-</div>
+<?php endif; ?>
 
 <?php echo get_partial('informationobject/format', array('resource' => $resource)) ?>
 
