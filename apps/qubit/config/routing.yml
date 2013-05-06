@@ -287,26 +287,6 @@ oai:
     module: qtOaiPlugin
     action: index
 
-oai_harvester_harvest_all_sets:
-  url: /oai/harvest/:type/:id/*
-  param:
-    module: qtOaiPlugin
-    action: harvesterHarvest
-    id: { pattern: \d+ }
-
-oai_harvester_delete:
-  url: /oai/deleteRepository/:repositoryId/*
-  param:
-    module: qtOaiPlugin
-    action: harvesterDelete
-    repositoryId: { pattern: \d+ }
-
-oai_requests:
-  url: /;oai/request
-  param:
-    module: qtOaiPlugin
-    action: oai
-
 informationObject:
   url: /:slug;:informationobject_template
   class: QubitResourceRoute
