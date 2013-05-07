@@ -54,12 +54,11 @@ class QubitOai
   public static function getAdminEmail()
   {
     $criteria = new Criteria;
-    $criteria->addJoin(QubitUser::ID, QubitUserRoleRelation::USER_ID);
-    $criteria->addJoin(QubitUserRoleRelation::ROLE_ID, QubitRole::ID);
-    $criteria->add(QubitRole::NAME, 'administrator');
+    $criteria->addJoin(QubitUser::ID, QubitAclUserGroup::USER_ID);
+    $criteria->add(QubitAclUserGroup::GROUP_ID, QubitAclGroup::ADMINISTRATOR_ID);
+    $user = QubitUser::getOne($criteria);
     $criteria->addAscendingOrderByColumn(QubitUser::ID);
-    $users = QubitUser::get($criteria);
-    return trim($users[0]->getEmail());
+    return trim($user->getEmail());
   }
 
   /**
