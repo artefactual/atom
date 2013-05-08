@@ -44,23 +44,3 @@
 
   </div>
 <?php endif; ?>
-
-<?php if (10 < $pager->getNbResults()): ?>
-  <div class="itemsPerPage section">
-    <?php ob_start() ?>
-      <ul>
-        <?php foreach (array(10, 50, 100, 500) as $limit): ?>
-
-          <?php if ($sf_request->limit == $limit): ?>
-            <li class="active"><?php echo $limit ?></li>
-          <?php else: ?>
-            <li><?php echo link_to($limit, array('limit' => $limit) + $sf_request->getParameterHolder()->getAll(), array('title' => __('%1% results per page', array('%1%' => $limit)))) ?></li>
-          <?php endif; ?>
-
-          <?php if ($pager->getNbResults() < $limit) break; ?>
-
-        <?php endforeach; ?>
-      </ul>
-    <?php echo __('%1% results per page', array('%1%' => ob_get_clean())) ?>
-  </div>
-<?php endif; ?>
