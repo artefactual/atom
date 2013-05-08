@@ -24,7 +24,7 @@
  * @subpackage oai
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
-class qtOaiPluginlistSetsComponent extends sfComponent
+class arOaiPluginlistSetsComponent extends sfComponent
 {
   /**
    * Executes action

@@ -24,7 +24,7 @@
  * @subpackage oai
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
-class qtOaiPluginListMetadataFormatsComponent extends sfComponent
+class arOaiPluginListMetadataFormatsComponent extends sfComponent
 {
   public function execute($request)
   {

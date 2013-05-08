@@ -24,7 +24,7 @@
  * @subpackage oai
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
-class qtOaiPluginBadVerbComponent extends sfComponent
+class arOaiPluginBadVerbComponent extends sfComponent
 {
   public function execute($request)
   {

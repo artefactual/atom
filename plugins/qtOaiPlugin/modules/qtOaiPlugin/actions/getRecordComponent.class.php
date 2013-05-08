@@ -26,7 +26,7 @@
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
 
-class qtOaiPluginGetRecordComponent extends sfComponents
+class arOaiPluginGetRecordComponent extends sfComponents
 {
   public function execute($request)
   {

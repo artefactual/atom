@@ -284,7 +284,7 @@ repository/edit:
 oai:
   url: /;oai
   param:
-    module: qtOaiPlugin
+    module: arOaiPlugin
     action: index
 
 informationObject:

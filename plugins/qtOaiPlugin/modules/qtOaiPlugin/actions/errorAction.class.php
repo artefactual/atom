@@ -24,7 +24,7 @@
  * @subpackage oai
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
-class qtOaiPluginErrorAction extends sfAction
+class arOaiPluginErrorAction extends sfAction
 {
   /**
    * Executes action

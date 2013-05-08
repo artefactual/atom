@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class qtOaiPluginConfiguration extends sfPluginConfiguration
+class arOaiPluginConfiguration extends sfPluginConfiguration
 {
   public static
     $summary = 'OAI plugin.',
@@ -26,7 +26,7 @@ class qtOaiPluginConfiguration extends sfPluginConfiguration
   public function initialize()
   {
     $enabledModules = sfConfig::get('sf_enabled_modules');
-    $enabledModules[] = 'qtOaiPlugin';
+    $enabledModules[] = 'arOaiPlugin';
     sfConfig::set('sf_enabled_modules', $enabledModules);
   }
 }
