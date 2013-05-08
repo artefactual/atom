@@ -1337,8 +1337,12 @@ class QubitFlatfileImport
    *
    * @return void
    */
-  public function createAccessPoint($taxonomyId, $name, $culture)
+  public function createAccessPoint($taxonomyId, $name, $culture = null)
   {
+    if (null === $culture)
+    {
+      $culture = sfContext::getInstance()->user->getCulture();
+    }
 
     $query = "SELECT t.id FROM term t \r
       LEFT JOIN term_i18n ti ON t.id=ti.id \r
