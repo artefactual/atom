@@ -22,5 +22,8 @@ QubitSslRequirement:
 QubitMeta:
   class: QubitMeta
 
+QubitLimitResults:
+  class: QubitLimitResults
+
 cache: ~
 execution: ~

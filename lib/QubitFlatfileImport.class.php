@@ -1386,7 +1386,7 @@ class QubitFlatfileImport
    *
    * @return void
    */
-  public function createAccessPoint($taxonomyId, $name, $culture = 'en')
+  public function createAccessPoint($taxonomyId, $name, $culture)
   {
 
     $query = "SELECT t.id FROM term t \r
