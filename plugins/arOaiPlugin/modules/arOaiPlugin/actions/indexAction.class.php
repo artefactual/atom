@@ -96,8 +96,8 @@ class arOaiPluginIndexAction extends sfAction
       /**
        * Validate that attributes are valid
       */
-      $allowedKeys = sfConfig::get('mod_qtoaiplugin_'.$this->request->verb.'Allowed');
-      $mandatoryKeys = sfConfig::get('mod_qtoaiplugin_'.$this->request->verb.'Mandatory');
+      $allowedKeys = sfConfig::get('mod_aroaiplugin_'.$this->request->verb.'Allowed');
+      $mandatoryKeys = sfConfig::get('mod_aroaiplugin_'.$this->request->verb.'Mandatory');
       if (!QubitOai::checkBadArgument($this->attributesKeys, $allowedKeys, $mandatoryKeys))
       {
         $request->setParameter('errorCode', 'badArgument');
