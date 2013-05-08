@@ -42,7 +42,7 @@
   <source><?php echo esc_specialchars($resource->locationOfOriginals) ?></source>
 
   <?php foreach ($resource->language as $code): ?>
-    <language><?php echo format_language($code) ?></language>
+    <language xsi:type="dcterms:ISO639-3"><?php echo strtolower($iso639convertor->getID3($code)) ?></language>
   <?php endforeach; ?>
 
   <?php if (isset($resource->repository)): ?>

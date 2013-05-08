@@ -133,7 +133,7 @@
   <?php if (0 < count($$resourceVar->language) || 0 < count($$resourceVar->script) || 0 < strlen($value = $$resourceVar->getNotesByType(array('noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID))->offsetGet(0))): ?>
     <langmaterial encodinganalog="3.4.3">
     <?php foreach ($$resourceVar->language as $languageCode): ?>
-      <language langcode="<?php echo ($iso6392 = $iso639convertor->getID3($languageCode)) ? strtolower($iso6392) : $languageCode ?>"><?php echo format_language($languageCode) ?></language>
+      <language langcode="<?php echo strtolower($iso639convertor->getID2($languageCode)) ?>"><?php echo format_language($languageCode) ?></language>
     <?php endforeach; ?>
     <?php foreach ($$resourceVar->script as $scriptCode): ?>
       <language scriptcode="<?php echo $scriptCode ?>"><?php echo format_script($scriptCode) ?></language>

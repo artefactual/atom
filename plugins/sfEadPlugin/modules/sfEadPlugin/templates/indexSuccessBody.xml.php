@@ -63,13 +63,13 @@
       <date normal="<?php echo gmdate('o-m-d') ?>"><?php echo gmdate('o-m-d H:s:e') ?></date>
     </creation>
     <langusage>
-      <language langcode="<?php echo ($iso6392 = $iso639convertor->getID3($exportLanguage)) ? strtolower($iso6392) : $exportLanguage ?>"><?php echo format_language($exportLanguage) ?></language>
+      <language langcode="<?php echo strtolower($iso639convertor->getID2($exportLanguage)) ?>"><?php echo format_language($exportLanguage) ?></language>
       <?php if (0 < strlen($languageOfDescription = $resource->getPropertyByName('languageOfDescription')->__toString())): ?>
         <?php $langsOfDesc = unserialize($languageOfDescription); ?>
         <?php if (is_array($langsOfDesc)): ?>
           <?php foreach($langsOfDesc as $langcode): ?>
             <?php if ($langcode != $exportLanguage): ?>
-              <language langcode="<?php echo ($iso6392 = $iso639convertor->getID3($langcode)) ? strtolower($iso6392) : $value ?>"><?php echo format_language($langcode) ?></language>
+              <language langcode="<?php echo strtolower($iso639convertor->getID2($langcode))?>"><?php echo format_language($langcode) ?></language>
             <?php endif; ?>
           <?php endforeach; ?>
         <?php endif; ?>

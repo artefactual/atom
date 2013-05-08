@@ -3,7 +3,6 @@
 <?php else:?>
   <ListRecords>
 <?php foreach($publishedRecords as $record): ?>
-<?php $dc = new sfDcPlugin($record) ?>
 <?php $requestname->setAttribute('informationObject', $record) ?>
    <record>
     <header>
@@ -12,7 +11,7 @@
       <setSpec><?php echo QubitOai::getSetSpec($record->getLft(), $collectionsTable)?></setSpec>
     </header>
     <metadata>
-      <?php echo get_partial('sfDcPlugin/dc', array('dc' => $dc, 'resource' => $record)) ?>
+      <?php echo include_component('sfDcPlugin', 'dc', array('resource' => $record)) ?>
     </metadata>
    </record>
 <?php endforeach ?>

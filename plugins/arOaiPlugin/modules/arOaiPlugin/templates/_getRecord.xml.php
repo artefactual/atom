@@ -6,8 +6,7 @@
       <setSpec><?php echo QubitOai::getSetSpec($informationObject->getLft(), $collectionsTable)?></setSpec>
     </header>
     <metadata>
-      <?php $dc = new sfDcPlugin($informationObject) ?>
-      <?php echo get_partial('sfDcPlugin/dc', array('dc' => $dc, 'resource' => $informationObject)) ?>
+      <?php echo include_component('sfDcPlugin', 'dc', array('resource' => $record)) ?>
     </metadata>
   </record>
  </GetRecord>

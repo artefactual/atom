@@ -218,7 +218,7 @@ class QubitXmlImport
         {
           $isocode = trim(preg_replace('/[\n\r\s]+/', ' ', $language->nodeValue));
           // convert to Symfony culture code
-          if (!$twoCharCode = strtolower($langCodeConvertor->getID2($isocode)))
+          if (!$twoCharCode = strtolower($langCodeConvertor->getID1($isocode, false)))
           {
             $twoCharCode = $isocode;
           }
@@ -355,7 +355,7 @@ class QubitXmlImport
       // Get a list of XML nodes to process
       // This condition mitigates a problem where the XPath query wasn't working
       // as expected, see #4302 for more details
-      if ($importSchema == "dc" && $methodMap['XPath'] != ".")
+      if ($importSchema == 'dc' && $methodMap['XPath'] != '.')
       {
         $nodeList2 = $importDOM->getElementsByTagName($methodMap['XPath']);
       }
@@ -372,10 +372,12 @@ class QubitXmlImport
           case 'languages':
           case 'language':
             $langCodeConvertor = new fbISO639_Map;
+            $isID3 = ($importSchhema == 'dc') ? true : false;
+
             $value = array();
             foreach ($nodeList2 as $item)
             {
-              if ($twoCharCode = $langCodeConvertor->getID2($item->nodeValue))
+              if ($twoCharCode = $langCodeConvertor->getID1($item->nodeValue, $isID3))
               {
                 $value[] = strtolower($twoCharCode);
               }
