@@ -9,3 +9,6 @@ autoload:
   net_gearman:
     path: %SF_ROOT_DIR%/vendor/net_gearman/Net/Gearman
     recursive: on
+
+  fbiso639:
+    path: %SF_ROOT_DIR%/vendor/FreeBeerIso639Map.php
