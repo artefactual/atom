@@ -378,7 +378,7 @@ EOF;
         if (isset($self->rowStatusVars['levelOfDetail']))
         {
           $levelOfDetailTermId = array_search(
-            $self->rowStatusVars['levelOfDetail'],
+            ($self->rowStatusVars['levelOfDetail']) ? $self->rowStatusVars['levelOfDetail'] : 'Full',
             $self->status['levelOfDetailTypes']
           );
 
@@ -413,6 +413,7 @@ EOF;
             $self->rowStatusVars['descriptionStatus'],
             $self->status['descriptionStatusTypes']
           );
+print 'T:'. $statusTermId ."\n";
 
           $self->object->descriptionStatusId = $statusTermId;
         }
