@@ -569,9 +569,9 @@ EOF;
                 );
               }
             } else {
-              $error = 'Both physicalObjectName and physicalObjectLocation '
-                     + 'required to create a physical object.';
-              print $self->logError($error);
+              throw new sfException('Both physicalObjectName and physicalObjectLocation '
+                     . 'required to create a physical object. (physicalObjectName: "'. $self->rowStatusVars['physicalObjectName']
+                     . '", physicalObjectLocation: "'. $self->rowStatusVars['physicalObjectLocation'] .'")');
             }
           }
 
