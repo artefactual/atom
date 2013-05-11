@@ -950,11 +950,24 @@ EOF;
           ) {
             foreach($self->rowStatusVars['creatorDatesStart'] as $index => $date)
             {
-               $eventData = array();
+              $eventData = array();
 
-               setupEventDateData($self, $eventData, $index);
+              setupEventDateData($self, $eventData, $index);
 
-               array_push($createEvents, $eventData);
+              array_push($createEvents, $eventData);
+            }
+          }
+          else if(
+            isset($self->rowStatusVars['creatorDates'])
+            || isset($self->rowStatusVars['creatorDates'])
+          ) {
+            foreach($self->rowStatusVars['creatorDates'] as $index => $date)
+            {
+              $eventData = array();
+
+              setupEventDateData($self, $eventData, $index);
+
+              array_push($createEvents, $eventData);
             }
           }
 
