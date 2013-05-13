@@ -100,7 +100,7 @@ EOF;
       // No information_object_id specified, try looking up id via identifier
       if (strlen($id) < 1 && strlen($identifier) > 0)
       {
-        if (null !== $ret = self::getIdFromIdentifier($identifier))
+        if (null !== $ret = $this->getIdFromIdentifier($identifier))
         {
           $id = $ret;
         }
@@ -160,7 +160,7 @@ EOF;
     $this->logSection('Successfully Loaded '.self::$count.' digital objects.');
   }
 
-  private function getIdFromIdentifier($identifier)
+  protected function getIdFromIdentifier($identifier)
   {
     $sql = 'SELECT id from information_object where identifier = ?';
     $id = QubitPdo::fetchColumn($sql, array($identifier));
