@@ -87,27 +87,42 @@ EOF;
 
     $idKey = array_search('information_object_id', $header);
     $fileKey = array_search('filename', $header);
+    $identifierKey = array_search('identifier', $header);
 
     // Build hash on information_object.id, with array value if information
     // object has multiple digital objects attached 
     while ($item = fgetcsv($fh, 1000))
     {
-      if (!isset($digitalObjects[$item[$idKey]]))
+      $id = $item[$idKey];
+      $identifier = $item[$identifierKey];
+      $filename = $item[$fileKey];
+
+      // No information_object_id specified, try looking up id via identifier
+      if (strlen($id) < 1 && strlen($identifier) > 0)
       {
-        $digitalObjects[$item[$idKey]] = $item[$fileKey];
+        $ret = self::getIdFromIdentifier($identifier);
+        if ($ret !== null)
+          $id = $ret;
       }
-      else if (!is_array($digitalObjects[$item[$idKey]]))
+
+      if (!isset($digitalObjects[$id]))
       {
-        $digitalObjects[$item[$idKey]] = array($digitalObjects[$item[$idKey]], $item[$fileKey]);
+        $digitalObjects[$id] = $filename;
+        $this->totalObjCount++;
+      }
+      else if (!is_array($digitalObjects[$id]))
+      {
+        $digitalObjects[$id] = array($digitalObjects[$id], $filename);
+        $this->totalObjCount++;
       }
       else
       {
-        $digitalObjects[$item[$idKey]][] = $item[$fileKey];
+        $digitalObjects[$id][] = $filename;
+        $this->totalObjCount++;
       }
     }
 
     $this->curObjNum = 0;
-    $this->totalObjCount = count($digitalObjects);
 
     // Loop through $digitalObject hash and add digital objects to db
     foreach ($digitalObjects as $key => $item)
@@ -145,6 +160,17 @@ EOF;
     $this->logSection('Successfully Loaded '.self::$count.' digital objects.');
   }
 
+  private function getIdFromIdentifier($identifier)
+  {
+    $sql = 'SELECT id from information_object where identifier = ?';
+    $id = QubitPdo::fetchColumn($sql, array($identifier));
+
+    if ($id)
+      return $id;
+
+    return null;
+  }
+
   protected function addDigitalObject($informationObject, $path, $options = array())
   {
     $this->curObjNum++;
@@ -172,7 +198,7 @@ EOF;
     }
 
     $filename = basename($path);
-    $this->log("(" . strftime("%h %m, %r") . ") Loading '$filename' " . "({$this->curObjNum} of {$this->totalObjCount})");
+    $this->log("(" . strftime("%h %d, %r") . ") Loading '$filename' " . "({$this->curObjNum} of {$this->totalObjCount})");
 
     // Create digital object
     $do = new QubitDigitalObject;
