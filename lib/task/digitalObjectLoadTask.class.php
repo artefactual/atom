@@ -90,7 +90,7 @@ EOF;
     $identifierKey = array_search('identifier', $header);
 
     // Build hash on information_object.id, with array value if information
-    // object has multiple digital objects attached 
+    // object has multiple digital objects attached
     while ($item = fgetcsv($fh, 1000))
     {
       $id = $item[$idKey];
@@ -100,26 +100,26 @@ EOF;
       // No information_object_id specified, try looking up id via identifier
       if (strlen($id) < 1 && strlen($identifier) > 0)
       {
-        $ret = self::getIdFromIdentifier($identifier);
-        if ($ret !== null)
+        if (null !== $ret = self::getIdFromIdentifier($identifier))
+        {
           $id = $ret;
+        }
       }
 
       if (!isset($digitalObjects[$id]))
       {
         $digitalObjects[$id] = $filename;
-        $this->totalObjCount++;
       }
       else if (!is_array($digitalObjects[$id]))
       {
         $digitalObjects[$id] = array($digitalObjects[$id], $filename);
-        $this->totalObjCount++;
       }
       else
       {
         $digitalObjects[$id][] = $filename;
-        $this->totalObjCount++;
       }
+
+      $this->totalObjCount++;
     }
 
     $this->curObjNum = 0;
@@ -166,9 +166,9 @@ EOF;
     $id = QubitPdo::fetchColumn($sql, array($identifier));
 
     if ($id)
+    {
       return $id;
-
-    return null;
+    }
   }
 
   protected function addDigitalObject($informationObject, $path, $options = array())
