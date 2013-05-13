@@ -29,6 +29,9 @@ class digitalObjectLoadTask extends sfBaseTask
   protected static
     $count = 0;
 
+  private $curObjNum = 0;
+  private $totalObjCount = 0;
+
   /**
    * @see sfTask
    */
@@ -70,6 +73,8 @@ EOF;
       throw new sfException('You must specify a valid filename');
     }
 
+    QubitSearch::getInstance()->disabled = true;
+
     $this->logSection("Load digital objects from {$arguments['filename']}...");
 
     // Get header (first) row
@@ -82,30 +87,49 @@ EOF;
 
     $idKey = array_search('information_object_id', $header);
     $fileKey = array_search('filename', $header);
+    $identifierKey = array_search('identifier', $header);
 
     // Build hash on information_object.id, with array value if information
-    // object has multiple digital objects attached 
+    // object has multiple digital objects attached
     while ($item = fgetcsv($fh, 1000))
     {
-      if (!isset($digitalObjects[$item[$idKey]]))
+      $id = $item[$idKey];
+      $identifier = $item[$identifierKey];
+      $filename = $item[$fileKey];
+
+      // No information_object_id specified, try looking up id via identifier
+      if (strlen($id) < 1 && strlen($identifier) > 0)
       {
-        $digitalObjects[$item[$idKey]] = $item[$fileKey];
+        if (null !== $ret = $this->getIdFromIdentifier($identifier))
+        {
+          $id = $ret;
+        }
       }
-      else if (!is_array($digitalObjects[$item[$idKey]]))
+
+      if (!isset($digitalObjects[$id]))
       {
-        $digitalObjects[$item[$idKey]] = array($digitalObjects[$item[$idKey]], $item[$fileKey]);
+        $digitalObjects[$id] = $filename;
+      }
+      else if (!is_array($digitalObjects[$id]))
+      {
+        $digitalObjects[$id] = array($digitalObjects[$id], $filename);
       }
       else
       {
-        $digitalObjects[$item[$idKey]][] = $item[$fileKey];
+        $digitalObjects[$id][] = $filename;
       }
+
+      $this->totalObjCount++;
     }
+
+    $this->curObjNum = 0;
 
     // Loop through $digitalObject hash and add digital objects to db
     foreach ($digitalObjects as $key => $item)
     {
       if (null === $informationObject = QubitInformationObject::getById($key))
       {
+        $this->curObjNum++;
         $this->log("Invalid information_object id $key");
 
         continue;
@@ -120,6 +144,7 @@ EOF;
         // If more than one digital object linked to this information object
         for ($i=0; $i < count($item); $i++)
         {
+          $informationObject->title = basename($item[$i]);
           // Create new information objects, to maintain one-to-one
           // relationship with digital objects
           $informationObject = new QubitInformationObject;
@@ -135,8 +160,21 @@ EOF;
     $this->logSection('Successfully Loaded '.self::$count.' digital objects.');
   }
 
+  protected function getIdFromIdentifier($identifier)
+  {
+    $sql = 'SELECT id from information_object where identifier = ?';
+    $id = QubitPdo::fetchColumn($sql, array($identifier));
+
+    if ($id)
+    {
+      return $id;
+    }
+  }
+
   protected function addDigitalObject($informationObject, $path, $options = array())
   {
+    $this->curObjNum++;
+
     if (isset($options['path']))
     {
       $path = $options['path'].$path;
@@ -160,7 +198,7 @@ EOF;
     }
 
     $filename = basename($path);
-    $this->log("Loading '$filename'");
+    $this->log("(" . strftime("%h %d, %r") . ") Loading '$filename' " . "({$this->curObjNum} of {$this->totalObjCount})");
 
     // Create digital object
     $do = new QubitDigitalObject;
