@@ -21,7 +21,7 @@ class RepositoryEditUploadLimitAction extends sfAction
 {
   public function execute($request)
   {
-    if (!$this->getUser()->hasCredential('administrator'))
+    if (!$this->context->user->isAdministrator())
     {
       // 403 - Forbidden
       $this->getResponse()->setStatusCode(403);

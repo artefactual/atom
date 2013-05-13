@@ -24,7 +24,7 @@ class UserIndexTermAclAction extends sfAction
     $this->resource = $this->getRoute()->resource;
 
     // Except for administrators, only allow users to see their own profile
-    if (!$this->context->user->hasCredential('administrator'))
+    if (!$this->context->user->isAdministrator())
     {
       if ($this->resource->id != $this->context->user->getAttribute('user_id'))
       {

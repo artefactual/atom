@@ -23,7 +23,7 @@
 
   <?php echo render_show(__('Email'), $resource->email) ?>
 
-  <?php if (!$sf_user->hasCredential('administrator')): ?>
+  <?php if (!$sf_user->isAdministrator()): ?>
     <div class="field">
       <h3><?php echo __('Password') ?></h3>
       <div><?php echo link_to(__('Reset password'), array($resource, 'module' => 'user', 'action' => 'passwordEdit')) ?></div>
