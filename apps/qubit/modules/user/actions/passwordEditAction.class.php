@@ -40,7 +40,7 @@ class UserPasswordEditAction extends DefaultEditAction
     }
 
     // Except for administrators, only allow users to reset their own password
-    if (!$this->context->user->hasCredential('administrator'))
+    if (!$this->context->user->isAdministrator())
     {
       if ($this->resource->id != $this->context->user->getAttribute('user_id'))
       {

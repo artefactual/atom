@@ -23,7 +23,7 @@ class sfPluginAdminPluginThemesAction extends sfAction
   {
     $this->form = new sfForm;
 
-    if (!$this->context->user->hasCredential('administrator'))
+    if (!$this->context->user->isAdministrator())
     {
       QubitAcl::forwardUnauthorized();
     }
