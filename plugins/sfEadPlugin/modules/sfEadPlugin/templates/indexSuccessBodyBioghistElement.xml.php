@@ -6,7 +6,7 @@
 <?php if (0 < count($creators)): ?>
   <?php foreach($events as $date): ?>
     <?php $creator = QubitActor::getById($date->actorId); ?>
-    <bioghist id="<?php echo url_for(array($creator, 'module' => 'actor'), true) ?>" encodinganalog="3.2.2">
+    <bioghist id="<?php echo url_for(array($creator, 'module' => 'actor'), true) ?>" encodinganalog="<?php echo $ead->getMetadataParameter('bioghist') ?>">
       <chronlist>
         <chronitem>
           <?php echo $ead->renderEadDateFromEvent('creation', $date) ?>
@@ -18,7 +18,7 @@
               <?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
                 <note><p><?php echo escape_dc(esc_specialchars($value)) ?></p></note>
               <?php endif; ?>
-              <origination encodinganalog="3.2.1">
+              <origination encodinganalog="<?php echo $ead->getMetadataParameter('origination') ?>">
                 <?php if ($type = $creator->getEntityTypeId()): ?>
                   <?php if (QubitTerm::PERSON_ID == $type): ?>
                     <persname><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></persname>

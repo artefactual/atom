@@ -45,7 +45,7 @@
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getTitle(array('cultureFallback' => true)))): ?>
-    <unittitle encodinganalog="3.1.2"><?php echo escape_dc(esc_specialchars($value)) ?></unittitle>
+    <unittitle encodinganalog="<?php echo $ead->getMetadataParameter('unittitle') ?>"><?php echo escape_dc(esc_specialchars($value)) ?></unittitle>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->alternateTitle)): ?>
@@ -76,7 +76,7 @@
         <?php break; ?>
       <?php endif; ?>
     <?php endforeach; ?>
-    <unitid encodinganalog="3.1.1" <?php if (isset($repository)): ?><?php if ($countrycode = $repository->getCountryCode()): ?><?php echo 'countrycode="'.$countrycode.'" ' ?><?php endif;?><?php if ($repocode = $repository->getIdentifier()): ?><?php echo 'repositorycode="'.escape_dc(esc_specialchars($repocode)).'" ' ?><?php endif; ?><?php endif; ?>><?php echo escape_dc(esc_specialchars($$resourceVar->getIdentifier())) ?></unitid>
+    <unitid encodinganalog="<?php echo $ead->getMetadataParameter('unitid') ?>" <?php if (isset($repository)): ?><?php if ($countrycode = $repository->getCountryCode()): ?><?php echo 'countrycode="'.$countrycode.'" ' ?><?php endif;?><?php if ($repocode = $repository->getIdentifier()): ?><?php echo 'repositorycode="'.escape_dc(esc_specialchars($repocode)).'" ' ?><?php endif; ?><?php endif; ?>><?php echo escape_dc(esc_specialchars($$resourceVar->getIdentifier())) ?></unitid>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('standardNumber')->__toString())): ?>
@@ -89,7 +89,7 @@
 
   <?php if (0 < strlen($value = $$resourceVar->getExtentAndMedium(array('cultureFallback' => true)))): ?>
     <physdesc>
-      <extent encodinganalog="3.1.5"><?php echo escape_dc(esc_specialchars($value)) ?></extent>
+      <extent encodinganalog="<?php echo $ead->getMetadataParameter('extent') ?>"><?php echo escape_dc(esc_specialchars($value)) ?></extent>
     </physdesc>
   <?php endif; ?>
 
@@ -131,7 +131,7 @@
   <?php endif; ?>
 
   <?php if (0 < count($$resourceVar->language) || 0 < count($$resourceVar->script) || 0 < strlen($value = $$resourceVar->getNotesByType(array('noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID))->offsetGet(0))): ?>
-    <langmaterial encodinganalog="3.4.3">
+    <langmaterial encodinganalog="<?php echo $ead->getMetadataParameter('langmaterial') ?>">
     <?php foreach ($$resourceVar->language as $languageCode): ?>
       <language langcode="<?php echo strtolower($iso639convertor->getID2($languageCode)) ?>"><?php echo format_language($languageCode) ?></language>
     <?php endforeach; ?>

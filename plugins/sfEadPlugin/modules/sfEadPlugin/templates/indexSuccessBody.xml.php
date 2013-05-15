@@ -4,11 +4,11 @@
   <filedesc>
     <titlestmt>
       <?php if (0 < strlen($value = $resource->getTitle(array('cultureFallback' => true)))): ?>
-        <titleproper encodinganalog="Title"><?php echo escape_dc(esc_specialchars($value)) ?></titleproper>
+        <titleproper encodinganalog="<?php echo $ead->getMetadataParameter('titleproper') ?>"><?php echo escape_dc(esc_specialchars($value)) ?></titleproper>
       <?php endif; ?>
       <?php if (0 < count($archivistsNotes = $resource->getNotesByType(array('noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)))): ?>
         <?php foreach ($archivistsNotes as $note): ?>
-          <author encodinganalog="Creator"><?php echo escape_dc(esc_specialchars($note)) ?></author>
+          <author encodinganalog="<?php echo $ead->getMetadataParameter('author') ?>"><?php echo escape_dc(esc_specialchars($note)) ?></author>
         <?php endforeach; ?>
       <?php endif; ?>
     </titlestmt>
@@ -21,7 +21,7 @@
     <?php endif; ?>
     <?php if ($value = $resource->getRepository()): ?>
       <publicationstmt>
-        <publisher encodinganalog="Publisher"><?php echo escape_dc(esc_specialchars($value->__toString())) ?></publisher>
+        <publisher encodinganalog="<?php echo $ead->getMetadataParameter('publisher') ?>"><?php echo escape_dc(esc_specialchars($value->__toString())) ?></publisher>
         <?php if ($address = $value->getPrimaryContact()): ?>
           <address>
             <?php if (0 < strlen($addressline = $address->getStreetAddress())): ?>
@@ -53,7 +53,7 @@
             <?php endif; ?>
           </address>
         <?php endif; ?>
-        <date normal="<?php echo $publicationDate ?>" encodinganalog="Date"><?php echo escape_dc(esc_specialchars($publicationDate)) ?></date>
+        <date normal="<?php echo $publicationDate ?>" encodinganalog="<?php echo $ead->getMetadataParameter('date') ?>"><?php echo escape_dc(esc_specialchars($publicationDate)) ?></date>
       </publicationstmt>
     <?php endif; ?>
   </filedesc>
@@ -79,14 +79,14 @@
       <?php endforeach; ?>
     </langusage>
     <?php if (0 < strlen($rules = $resource->getRules(array('cultureFallback' => true)))): ?>
-      <descrules encodinganalog="3.7.2"><?php echo escape_dc(esc_specialchars($rules)) ?></descrules>
+      <descrules <?php if (0 < strlen($value = $ead->getMetadataParameter('descrules'))): ?>encodinganalog="<?php echo $value ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($rules)) ?></descrules>
     <?php endif; ?>
   </profiledesc>
 </eadheader>
 
 <?php // TODO: <frontmatter></frontmatter> ?>
 
-<archdesc <?php if ($resource->levelOfDescriptionId):?>level="<?php if (in_array(strtolower($levelOfDescription = $resource->getLevelOfDescription()->getName(array('culture' => 'en'))), $eadLevels)): ?><?php echo strtolower($levelOfDescription).'"' ?><?php else: ?><?php echo 'otherlevel" otherlevel="'.$levelOfDescription.'"' ?><?php endif; ?><?php endif; ?> relatedencoding="ISAD(G)v2">
+<archdesc <?php if ($resource->levelOfDescriptionId):?>level="<?php if (in_array(strtolower($levelOfDescription = $resource->getLevelOfDescription()->getName(array('culture' => 'en'))), $eadLevels)): ?><?php echo strtolower($levelOfDescription).'"' ?><?php else: ?><?php echo 'otherlevel" otherlevel="'.$levelOfDescription.'"' ?><?php endif; ?><?php endif; ?> relatedencoding="<?php echo $ead->getMetadataParameter('relatedencoding') ?>">
   <?php
 
   $resourceVar = 'resource';
@@ -165,9 +165,9 @@
     <odd type='bibseries'><p><?php echo escape_dc(esc_specialchars($value)) ?></p></odd>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getScopeAndContent(array('cultureFallback' => true)))): ?>
-    <scopecontent encodinganalog="3.3.1"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></scopecontent><?php endif; ?>
+    <scopecontent encodinganalog="<?php echo $ead->getMetadataParameter('scopecontent') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></scopecontent><?php endif; ?>
   <?php if (0 < strlen($value = $resource->getArrangement(array('cultureFallback' => true)))): ?>
-    <arrangement encodinganalog="3.3.4"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></arrangement><?php endif; ?>
+    <arrangement encodinganalog="<?php echo $ead->getMetadataParameter('arrangement') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></arrangement><?php endif; ?>
   <?php
   $materialtypes = $resource->getMaterialTypes();
   $subjects = $resource->getSubjectAccessPoints();
@@ -206,44 +206,44 @@
     </controlaccess>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getPhysicalCharacteristics(array('cultureFallback' => true)))): ?>
-    <phystech encodinganalog="3.4.3"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></phystech>
+    <phystech encodinganalog="<?php echo $ead->getMetadataParameter('phystech') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></phystech>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getAppraisal(array('cultureFallback' => true)))): ?>
-    <appraisal encodinganalog="3.3.2"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></appraisal>
+    <appraisal <?php if (0 < strlen($value = $ead->getMetadataParameter('appraisal'))): ?>encodinganalog="<?php echo $value ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($value)) ?></p></appraisal>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getAcquisition(array('cultureFallback' => true)))): ?>
-    <acqinfo encodinganalog="3.2.4"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></acqinfo>
+    <acqinfo encodinganalog="<?php echo $ead->getMetadataParameter('acqinfo') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></acqinfo>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getAccruals(array('cultureFallback' => true)))): ?>
-    <accruals encodinganalog="3.3.3"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></accruals>
+    <accruals encodinganalog="<?php echo $ead->getMetadataParameter('accruals') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></accruals>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getArchivalHistory(array('cultureFallback' => true)))): ?>
-    <custodhist encodinganalog="3.2.3"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></custodhist>
+    <custodhist encodinganalog="<?php echo $ead->getMetadataParameter('custodhist') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></custodhist>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getRevisionHistory(array('cultureFallback' => true)))): ?>
     <processinfo><p><date><?php echo escape_dc(esc_specialchars($value)) ?></date></p></processinfo>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getLocationOfOriginals(array('cultureFallback' => true)))): ?>
-    <originalsloc encodinganalog="3.5.1"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></originalsloc>
+    <originalsloc encodinganalog="<?php echo $ead->getMetadataParameter('originalsloc') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></originalsloc>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getLocationOfCopies(array('cultureFallback' => true)))): ?>
-    <altformavail encodinganalog="3.5.2"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></altformavail>
+    <altformavail encodinganalog="<?php echo $ead->getMetadataParameter('altformavail') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></altformavail>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getRelatedUnitsOfDescription(array('cultureFallback' => true)))): ?>
-    <relatedmaterial encodinganalog="3.5.3"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></relatedmaterial>
+    <relatedmaterial encodinganalog="<?php echo $ead->getMetadataParameter('relatedmaterial') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></relatedmaterial>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getAccessConditions(array('cultureFallback' => true)))): ?>
-    <accessrestrict encodinganalog="3.4.1"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></accessrestrict>
+    <accessrestrict encodinganalog="<?php echo $ead->getMetadataParameter('accessrestrict') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></accessrestrict>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getReproductionConditions(array('cultureFallback' => true)))): ?>
-    <userestrict encodinganalog="3.4.2"><p><?php echo escape_dc(esc_specialchars($value))  ?></p></userestrict>
+    <userestrict encodinganalog="<?php echo $ead->getMetadataParameter('userestrict') ?>"><p><?php echo escape_dc(esc_specialchars($value))  ?></p></userestrict>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getFindingAids(array('cultureFallback' => true)))): ?>
-    <otherfindaid encodinganalog="3.4.5"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></otherfindaid>
+    <otherfindaid encodinganalog="<?php echo $ead->getMetadataParameter('otherfindaid') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></otherfindaid>
   <?php endif; ?>
   <?php if (0 < count($publicationNotes = $resource->getNotesByType(array('noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)))): ?>
     <?php foreach ($publicationNotes as $note): ?>
-      <bibliography encodinganalog="3.5.4"><p><?php echo escape_dc(esc_specialchars($note)) ?></p></bibliography>
+      <bibliography <?php if (0 < strlen($value = $ead->getMetadataParameter('bibliography'))): ?>encodinganalog="<?php echo $value ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></bibliography>
     <?php endforeach; ?>
   <?php endif; ?>
 
@@ -261,11 +261,11 @@
       ?>
 
       <?php if (0 < strlen($value = $descendant->getScopeAndContent(array('cultureFallback' => true)))): ?>
-        <scopecontent encodinganalog="3.3.1"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></scopecontent>
+        <scopecontent encodinganalog="<?php echo $ead->getMetadataParameter('scopecontent') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></scopecontent>
       <?php endif; ?>
 
       <?php if (0 < strlen($value = $descendant->getArrangement(array('cultureFallback' => true)))): ?>
-        <arrangement encodinganalog="3.3.4"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></arrangement>
+        <arrangement encodinganalog="<?php echo $ead->getMetadataParameter('arrangement') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></arrangement>
       <?php endif; ?>
 
       <?php
@@ -314,23 +314,23 @@
         <?php endif; ?>
 
         <?php if (0 < strlen($value = $descendant->getPhysicalCharacteristics(array('cultureFallback' => true)))): ?>
-          <phystech encodinganalog="3.4.4"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></phystech>
+          <phystech encodinganalog="<?php echo $ead->getMetadataParameter('phystech') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></phystech>
         <?php endif; ?>
 
         <?php if (0 < strlen($value = $descendant->getAppraisal(array('cultureFallback' => true)))): ?>
-          <appraisal encodinganalog="3.3.2"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></appraisal>
+          <appraisal <?php if (0 < strlen($value = $ead->getMetadataParameter('appraisal'))): ?>encodinganalog="<?php echo $value ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($value)) ?></p></appraisal>
         <?php endif; ?>
 
         <?php if (0 < strlen($value = $descendant->getAcquisition(array('cultureFallback' => true)))): ?>
-          <acqinfo encodinganalog="3.2.4"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></acqinfo>
+          <acqinfo encodinganalog="<?php echo $ead->getMetadataParameter('acqinfo') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></acqinfo>
         <?php endif; ?>
 
         <?php if (0 < strlen($value = $descendant->getAccruals(array('cultureFallback' => true)))): ?>
-          <accruals encodinganalog="3.3.3"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></accruals>
+          <accruals encodinganalog="<?php echo $ead->getMetadataParameter('accruals') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></accruals>
         <?php endif; ?>
 
         <?php if (0 < strlen($value = $descendant->getArchivalHistory(array('cultureFallback' => true)))): ?>
-          <custodhist encodinganalog="3.2.3"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></custodhist>
+          <custodhist encodinganalog="<?php echo $ead->getMetadataParameter('custodhist') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></custodhist>
         <?php endif; ?>
 
         <?php if (0 < strlen($value = $descendant->getRevisionHistory(array('cultureFallback' => true)))): ?>
@@ -344,34 +344,34 @@
         <?php endif; ?>
 
         <?php if (0 < strlen($value = $descendant->getLocationOfOriginals(array('cultureFallback' => true)))): ?>
-          <originalsloc encodinganalog="3.5.1"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></originalsloc>
+          <originalsloc encodinganalog="<?php echo $ead->getMetadataParameter('originalsloc') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></originalsloc>
         <?php endif; ?>
 
         <?php if (0 < strlen($value = $descendant->getLocationOfCopies(array('cultureFallback' => true)))): ?>
-          <altformavail encodinganalog="3.5.2"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></altformavail>
+          <altformavail encodinganalog="<?php echo $ead->getMetadataParameter('altformavail') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></altformavail>
         <?php endif; ?>
 
         <?php if (0 < strlen($value = $descendant->getRelatedUnitsOfDescription(array('cultureFallback' => true)))): ?>
-          <relatedmaterial encodinganalog="3.5.3"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></relatedmaterial>
+          <relatedmaterial encodinganalog="<?php echo $ead->getMetadataParameter('relatedmaterial') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></relatedmaterial>
         <?php endif; ?>
 
         <?php if (0 < strlen($value = $descendant->getAccessConditions(array('cultureFallback' => true)))): ?>
-          <accessrestrict encodinganalog="3.4.1"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></accessrestrict>
+          <accessrestrict encodinganalog="<?php echo $ead->getMetadataParameter('accessrestrict') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></accessrestrict>
         <?php endif; ?>
 
         <?php if (0 < strlen($value = $descendant->getReproductionConditions(array('cultureFallback' => true)))): ?>
-          <userestrict encodinganalog="3.4.2"><p><?php echo escape_dc(esc_specialchars($value))  ?></p></userestrict>
+          <userestrict encodinganalog="<?php echo $ead->getMetadataParameter('userestrict') ?>"><p><?php echo escape_dc(esc_specialchars($value))  ?></p></userestrict>
         <?php endif; ?>
 
         <?php if (0 < strlen($value = $descendant->getFindingAids(array('cultureFallback' => true)))): ?>
-          <otherfindaid encodinganalog="3.4.5"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></otherfindaid>
+          <otherfindaid encodinganalog="<?php echo $ead->getMetadataParameter('otherfindaid') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></otherfindaid>
         <?php endif; ?>
 
-        <?php if (0 < count($publicationNotes = $descendant->getNotesByType(array('noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)))): ?><?php foreach ($publicationNotes as $note): ?>
-          <bibliography encodinganalog="3.5.4"><p><?php echo escape_dc(esc_specialchars($note)) ?></p></bibliography>
-        <?php endforeach; ?>
-
-      <?php endif; ?>
+        <?php if (0 < count($publicationNotes = $descendant->getNotesByType(array('noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)))): ?>
+          <?php foreach ($publicationNotes as $note): ?>
+            <bibliography <?php if (0 < strlen($value = $ead->getMetadataParameter('bibliography'))): ?>encodinganalog="<?php echo $value ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></bibliography>
+          <?php endforeach; ?>
+        <?php endif; ?>
 
       <?php if ($descendant->rgt == $descendant->lft + 1): ?>
         </c>
