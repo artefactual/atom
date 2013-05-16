@@ -46,6 +46,9 @@ class arOaiPluginIndexAction extends sfAction
    */
   public function execute($request)
   {
+    $appRoot = dirname(__FILE__) .'/../../../../..';
+    include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
+
     // only respond to OAI requests if the feature has been enabled
     if (sfConfig::get('app_oai_oai_enabled') == 0)
     {
@@ -68,11 +71,53 @@ class arOaiPluginIndexAction extends sfAction
     $this->path = $this->request->getUriPrefix().$this->request->getPathInfo();
     $this->attributes = $this->request->getGetParameters();
 
+    /* allow resumption token to set attributes */
+    if (isset($this->attributes['resumptionToken']))
+    {
+      $stateChange = explode('&', $this->attributes['resumptionToken']);
+      foreach($stateChange as $keyValuePair)
+      {
+        $resumptionTokenError = False;
+
+        if (substr_count($keyValuePair, '='))
+        {
+          list($attribute, $value) = explode('=', $keyValuePair);
+
+          switch ($attribute)
+          {
+            case 'from':
+              $request->from = $value;
+              break;
+
+            case 'until':
+              $request->until = $value;
+              break;
+
+            case 'cursor':
+              $request->cursor = $value;
+              break;
+
+            default:
+              $resumptionTokenError = True;
+          }
+        } else {
+          $resumptionTokenError = True;
+        }
+
+        if ($resumptionTokenError)
+        {
+          $request->setParameter('errorCode', 'badResumptionToken');
+          $request->setParameter('errorMsg', 'Value of the resumptionToken argument is invalid.');
+          $this->forward('arOaiPlugin', 'error');
+        }
+      }
+    }
+
     $this->attributesKeys = array_keys($this->attributes);
     $this->requestAttributes = '';
     foreach ($this->attributesKeys as $key)
     {
-      $this->requestAttributes .= ' '.$key.'="'.$this->attributes[$key].'"';
+      $this->requestAttributes .= ' '.$key.'="'.esc_specialchars($this->attributes[$key]).'"';
     }
     $this->sets = array();
 

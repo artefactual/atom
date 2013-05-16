@@ -380,7 +380,7 @@ class QubitInformationObject extends BaseInformationObject
    * @date util, the superior limit date
    * @return QubitQuery collection of QubitInformationObjects
    */
-  public static function getUpdatedRecords($from = '', $until = '', $set = '')
+  public static function getUpdatedRecords($from = '', $until = '', $offset = 0, $set = '')
   {
     $criteria = new Criteria;
 
@@ -401,6 +401,9 @@ class QubitInformationObject extends BaseInformationObject
     }
     $criteria->add(QubitInformationObject::PARENT_ID, null, Criteria::ISNOTNULL);
     $criteria->addAscendingOrderByColumn(QubitObject::UPDATED_AT);
+
+    $criteria->setOffset($offset);
+
     return QubitInformationObject::get($criteria);
   }
 

@@ -53,6 +53,17 @@ class arOaiPluginListIdentifiersComponent extends sfComponent
       $this->until = $request->until;
     }
 
+    /*
+     * If cursor not supplied, define as 0
+     */
+    if (!isset($request->cursor))
+    {
+      $this->cursor = 0;
+    }
+    else {
+      $this->cursor = $request->cursor;
+    }
+
     $this->collectionsTable = QubitOai::getCollectionArray();
 
     /*
@@ -68,7 +79,7 @@ class arOaiPluginListIdentifiersComponent extends sfComponent
     }
 
     //Get the records according to the limit dates and collection
-    $this->records = QubitInformationObject::getUpdatedRecords($this->from, $this->until, $collection);
+    $this->records = QubitInformationObject::getUpdatedRecords($this->from, $this->until, $this->cursor, $collection);
     $this->publishedRecords = array();
     foreach ($this->records as $record)
     {

@@ -149,7 +149,7 @@ class QubitOai
    * Validates OaiKey
    *
    * @param string    $key the oai key
-   * @return bool true if the date is valid
+   * @return bool true if the key is valid
    */
   public static function isValidOaiKey($key)
   {
