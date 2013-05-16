@@ -68,7 +68,7 @@ class sfPropelPluginConfiguration extends sfPluginConfiguration
     foreach ($finder->in($this->configuration->getModelDirs()) as $file)
     {
       $omClass = basename($file, 'TableMap.php');
-      if (class_exists($omClass) && is_subclass_of($omClass, 'BaseObject'))
+      if (class_exists($omClass) && is_subclass_of($omClass, 'BasePropelObject'))
       {
         $peer = constant($omClass.'::PEER');
         call_user_func(array($peer, 'clearInstancePool'));

@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: BaseObject.php 1262 2009-10-26 20:54:39Z francois $
+ *  $Id: BasePropelObject.php 1262 2009-10-26 20:54:39Z francois $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +30,7 @@
  * @version    $Revision: 1262 $
  * @package    propel.om
  */
-abstract class BaseObject {
+abstract class BasePropelObject {
 
 	/**
 	 * attribute to determine if this object has previously been saved.
@@ -52,7 +52,7 @@ abstract class BaseObject {
 	protected $modifiedColumns = array();
 
 	/**
-	 * Empty constructor (this allows people with their own BaseObject implementation to use its constructor)
+	 * Empty constructor (this allows people with their own BasePropelObject implementation to use its constructor)
 	 */
 	public function __construct() {
 
@@ -213,9 +213,9 @@ abstract class BaseObject {
 	}
 
 	/**
-	 * Compares this with another <code>BaseObject</code> instance.  If
-	 * <code>obj</code> is an instance of <code>BaseObject</code>, delegates to
-	 * <code>equals(BaseObject)</code>.  Otherwise, returns <code>false</code>.
+	 * Compares this with another <code>BasePropelObject</code> instance.  If
+	 * <code>obj</code> is an instance of <code>BasePropelObject</code>, delegates to
+	 * <code>equals(BasePropelObject)</code>.  Otherwise, returns <code>false</code>.
 	 *
 	 * @param      obj The object to compare to.
 	 * @return     Whether equal to the object specified.

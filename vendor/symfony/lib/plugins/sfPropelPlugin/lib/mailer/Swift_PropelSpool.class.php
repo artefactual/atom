@@ -76,9 +76,9 @@ class Swift_PropelSpool extends Swift_ConfigurableSpool
   {
     $object = new $this->model;
 
-    if (!$object instanceof BaseObject)
+    if (!$object instanceof BasePropelObject)
     {
-      throw new InvalidArgumentException('The mailer message object must be a BaseObject object.');
+      throw new InvalidArgumentException('The mailer message object must be a BasePropelObject object.');
     }
 
     $model = constant($this->model.'::PEER');

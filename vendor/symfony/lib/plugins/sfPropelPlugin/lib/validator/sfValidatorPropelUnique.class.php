@@ -121,12 +121,12 @@ class sfValidatorPropelUnique extends sfValidatorSchema
   /**
    * Returns whether the object is being updated.
    *
-   * @param BaseObject  $object   A Propel object
-   * @param array       $values   An array of values
+   * @param BasePropelObject  $object   A Propel object
+   * @param array             $values   An array of values
    *
    * @return Boolean     true if the object is being updated, false otherwise
    */
-  protected function isUpdate(BaseObject $object, $values)
+  protected function isUpdate(BasePropelObject $object, $values)
   {
     // check each primary key column
     foreach ($this->getPrimaryKeys() as $column)

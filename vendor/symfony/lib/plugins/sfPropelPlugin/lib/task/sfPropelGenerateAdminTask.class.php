@@ -92,7 +92,7 @@ EOF;
     }
 
     $r = new ReflectionClass($arguments['route_or_model']);
-    if (!$r->isSubclassOf('BaseObject'))
+    if (!$r->isSubclassOf('BasePropelObject'))
     {
       throw new sfCommandException(sprintf('"%s" is not a Propel class.', $arguments['route_or_model']));
     }
