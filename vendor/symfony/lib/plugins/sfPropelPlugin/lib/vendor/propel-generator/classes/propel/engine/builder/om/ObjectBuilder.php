@@ -102,13 +102,13 @@ abstract class ObjectBuilder extends OMBuilder {
 
 	/**
 	 * Gets the baseClass path if specified for table/db.
-	 * If not, will return 'propel.om.BaseObject'
+	 * If not, will return 'propel.om.BasePropelObject'
 	 * @return     string
 	 */
 	protected function getBaseClass() {
 		$class = $this->getTable()->getBaseClass();
 		if ($class === null) {
-			$class = "propel.om.BaseObject";
+			$class = "propel.om.BasePropelObject";
 		}
 		return $class;
 	}

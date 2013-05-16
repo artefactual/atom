@@ -513,7 +513,7 @@ class sfPropelFormGenerator extends sfGenerator
     foreach ($classes as $class)
     {
       $omClass = basename($class, 'TableMap.php');
-      if (class_exists($omClass) && is_subclass_of($omClass, 'BaseObject') && constant($omClass.'Peer::DATABASE_NAME') == $this->params['connection'])
+      if (class_exists($omClass) && is_subclass_of($omClass, 'BasePropelObject') && constant($omClass.'Peer::DATABASE_NAME') == $this->params['connection'])
       {
         $tableMapClass = basename($class, '.php');
         $this->dbMap->addTableFromMapClass($tableMapClass);
