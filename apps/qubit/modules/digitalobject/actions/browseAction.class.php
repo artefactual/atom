@@ -59,7 +59,7 @@ class DigitalObjectBrowseAction extends DefaultBrowseAction
     parent::execute($request);
 
     // Create query object
-    $this->queryBool->addMust(new Elastica_Query_Term(array('hasDigitalObject' => true)));
+    $this->queryBool->addMust(new \Elastica\Query\Term(array('hasDigitalObject' => true)));
 
     // Filter drafts
     $this->query = QubitAclSearch::filterDrafts($this->query);

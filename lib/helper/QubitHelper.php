@@ -276,7 +276,7 @@ function check_field_visibility($fieldName)
 
 function get_search_i18n($hit, $fieldName, $cultureFallback = true, $allowEmpty = true)
 {
-  if ($hit instanceof Elastica_Result)
+  if ($hit instanceof \Elastica\Result)
   {
     $hit = $hit->getData();
   }

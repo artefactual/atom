@@ -64,7 +64,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
   {
     parent::execute($request);
 
-    $this->queryBool->addMust(new Elastica_Query_MatchAll());
+    $this->queryBool->addMust(new \Elastica\Query\MatchAll());
 
     // TODO, ACL filter
     // $this->query = QubitAclSearch::filterBy...

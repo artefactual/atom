@@ -154,42 +154,42 @@ class SearchAdvancedAction extends DefaultBrowseAction
     switch ($field->getName())
     {
       case 'copyrightStatus':
-        $query = new Elastica_Query_Term;
+        $query = new \Elastica\Query\Term;
         $query->setTerm('copyrightStatusId', $value);
         $this->queryBool->addMust($query);
 
         break;
 
       case 'hasDigitalObject':
-        $query = new Elastica_Query_Term;
+        $query = new \Elastica\Query\Term;
         $query->setTerm('hasDigitalObject', $value);
         $this->queryBool->addMust($query);
 
         break;
 
       case 'levelOfDescription':
-        $query = new Elastica_Query_Term;
+        $query = new \Elastica\Query\Term;
         $query->setTerm('levelOfDescriptionId', $value);
         $this->queryBool->addMust($query);
 
         break;
 
       case 'materialType':
-        $query = new Elastica_Query_Term;
+        $query = new \Elastica\Query\Term;
         $query->setTerm('materialTypeId', $value);
         $this->queryBool->addMust($query);
 
         break;
 
       case 'mediaType':
-        $query = new Elastica_Query_Term;
+        $query = new \Elastica\Query\Term;
         $query->setTerm('digitalObject.mediaTypeId', $value);
         $this->queryBool->addMust($query);
 
         break;
 
       case 'repository':
-        $query = new Elastica_Query_Term;
+        $query = new \Elastica\Query\Term;
         $query->setTerm('repository.id', $value);
         $this->queryBool->addMust($query);
 
@@ -199,7 +199,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
   protected function parseQuery()
   {
-    $queryBool = new Elastica_Query_Bool();
+    $queryBool = new \Elastica\Query\Bool();
 
     if (!isset($this->request->searchFields))
     {
@@ -216,7 +216,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
         continue;
       }
 
-      $queryText = new Elastica_Query_Text();
+      $queryText = new \Elastica\Query\Text();
 
       switch ($item['field'])
       {
@@ -329,7 +329,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
     }
     else
     {
-      $this->queryBool->addMust(new Elastica_Query_MatchAll());
+      $this->queryBool->addMust(new \Elastica\Query\MatchAll());
     }
 
     // Process form fields

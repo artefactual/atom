@@ -72,7 +72,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
     parent::__construct();
 
     $this->config = arElasticSearchPluginConfiguration::$config;
-    $this->client = new Elastica_Client($this->config['server']);
+    $this->client = new \Elastica\Client($this->config['server']);
     $this->index = $this->client->getIndex($this->config['index']['name']);
 
     // Load batch mode configuration
@@ -88,7 +88,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
   }
 
   public function __destruct()
-  {
+  { return;
     if (!$this->enabled)
     {
       return;
@@ -116,7 +116,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
     catch (Exception $e)
     {
       // If the index has not been initialized, create it
-      if ($e instanceof Elastica_Exception_Response)
+      if ($e instanceof \Elastica\Exception\ResponseException)
       {
         $this->index->create($this->config['index']['configuration'], true);
       }
@@ -130,7 +130,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
         $typeName = 'Qubit'.sfInflector::camelize($typeName);
 
         // Define mapping in elasticsearch
-        $mapping = new Elastica_Type_Mapping();
+        $mapping = new \Elastica\Type\Mapping();
         $mapping->setType($this->index->getType($typeName));
         $mapping->setProperties($typeProperties['properties']);
 
@@ -253,12 +253,12 @@ class arElasticSearchPlugin extends QubitSearchEngine
       throw new sfException('Failed to parse id field.');
     }
 
-    // Pass the id value to the Elastica_Document constructor instead of as
+    // Pass the id value to the \Elastica\Document constructor instead of as
     // part of the document body. ES _id field id
     $id = $data['id'];
     unset($data['id']);
 
-    $document = new Elastica_Document($id, $data);
+    $document = new \Elastica\Document($id, $data);
     $document->setType($type);
 
     if ($this->batchMode)
@@ -293,7 +293,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
       throw new Exception('No search terms specified.');
     }
 
-    $query = new Elastica_Query_QueryString($query);
+    $query = new \Elastica\Query\QueryString($query);
     $query->setDefaultOperator('AND');
 
     return $query;

@@ -130,7 +130,7 @@ class QubitMetadataRoute extends sfRoute
             $default = $defaultSetting;
           }
 
-          $parameters['module'] = $this->getActionParameter(array('isad', 'dc', 'mods', 'rad'), $default, $parameters);
+          $parameters['module'] = $this->getActionParameter(array('isad', 'dc', 'mods', 'rad', 'ead'), $default, $parameters);
 
           break;
 

@@ -157,7 +157,7 @@ class SearchIndexAction extends DefaultBrowseAction
       $this->getResponse()->addStylesheet('print-preview', 'last');
     }
 
-    $queryText = new Elastica_Query_QueryString($request->query);
+    $queryText = new \Elastica\Query\QueryString($request->query);
     $queryText->setDefaultOperator('AND');
     # _all? $queryText->setDefaultField(sprintf('i18n.%s.authorizedFormOfName', $this->context->user->getCulture()));
     $this->queryBool->addMust($queryText);
@@ -165,7 +165,7 @@ class SearchIndexAction extends DefaultBrowseAction
     // Realm filter
     if (isset($request->realm) && is_int($request->realm))
     {
-      $this->queryBool->addMust(new Elastica_Query_Term(array('repository.id' => $request->realm)));
+      $this->queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $request->realm)));
     }
 
     $this->query->setQuery($this->queryBool);

@@ -33,7 +33,7 @@ class arElasticSearchPluginUtil
     }
     else
     {
-      $value = Elastica_Util::convertDate($date);
+      $value = \Elastica\Util::convertDate($date);
     }
 
     return $value;

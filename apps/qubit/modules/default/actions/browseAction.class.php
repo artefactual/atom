@@ -25,7 +25,7 @@ class DefaultBrowseAction extends sfAction
     {
       if (!is_array($item))
       {
-        $facet = new Elastica_Facet_Terms($item);
+        $facet = new \Elastica\Facet\Terms($item);
         $facet->setField($item);
         $facet->setSize(10);
 
@@ -37,14 +37,14 @@ class DefaultBrowseAction extends sfAction
       switch ($item['type'])
       {
         case 'range':
-          $facet = new Elastica_Facet_Range($name);
+          $facet = new \Elastica\Facet\Range($name);
           $facet->setField($item['field']);
           $facet->addRange($item['from'], $item['to']);
 
           break;
 
         case 'term':
-          $facet = new Elastica_Facet_Terms($name);
+          $facet = new \Elastica\Facet\Terms($name);
           $facet->setField($item['field']);
 
           break;
@@ -62,7 +62,7 @@ class DefaultBrowseAction extends sfAction
         switch ($item['filter']['type'])
         {
           case 'terms':
-            $filter = new Elastica_Filter_Terms();
+            $filter = new \Elastica\Filter\Terms();
             $filter->setTerms($item['filter']['key'], $item['filter']['terms']);
 
           break;
@@ -96,7 +96,7 @@ class DefaultBrowseAction extends sfAction
 
         $this->filters[$param][] = $facetValue;
 
-        $term = new Elastica_Query_Term(array($this::$FACETS[$param]['field'] => $facetValue));
+        $term = new \Elastica\Query\Term(array($this::$FACETS[$param]['field'] => $facetValue));
 
         $this->queryBool->addMust($term);
       }
@@ -165,7 +165,7 @@ class DefaultBrowseAction extends sfAction
       $this->sortSetting = sfConfig::get('app_sort_browser_anonymous');
     }
 
-    $this->query = new Elastica_Query();
+    $this->query = new \Elastica\Query();
     $this->query->setLimit($request->limit);
 
     if (!empty($request->page))
@@ -173,7 +173,7 @@ class DefaultBrowseAction extends sfAction
       $this->query->setFrom(($request->page - 1) * $request->limit);
     }
 
-    $this->queryBool = new Elastica_Query_Bool();
+    $this->queryBool = new \Elastica\Query\Bool();
 
     if (isset($this::$FACETS))
     {

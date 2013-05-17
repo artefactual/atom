@@ -69,19 +69,19 @@ class TermBrowseTermAction extends DefaultBrowseAction
     {
       case QubitTaxonomy::PLACE_ID:
         $this->icon = 'places';
-        $this->queryBool->addMust(new Elastica_Query_Terms('places.id', array($this->resource->id)));
+        $this->queryBool->addMust(new \Elastica\Query\Terms('places.id', array($this->resource->id)));
 
         break;
 
       case QubitTaxonomy::SUBJECT_ID:
         $this->icon = 'subjects';
-        $this->queryBool->addMust(new Elastica_Query_Terms('subjects.id', array($this->resource->id)));
+        $this->queryBool->addMust(new \Elastica\Query\Terms('subjects.id', array($this->resource->id)));
 
         break;
 
       default:
         // pass
-        $queryFilter = new Elastica_Query_MatchAll();
+        $queryFilter = new \Elastica\Query\MatchAll();
 
         break;
     }

@@ -133,7 +133,7 @@ class SearchAutocompleteAction extends sfAction
 
   /**
    * Elastica does not support _msearch yet. This method sends the query using
-   * Elastica_Client::request(). Multiple Elastica_Response objects are build
+   * \Elastica\Client::request(). Multiple \Elastica\Response objects are build
    * but json_encode has to be called. I wonder if it could be avoided some way.
    *
    * @return array
@@ -146,7 +146,7 @@ class SearchAutocompleteAction extends sfAction
       $rawQuery .= (is_array($query) ? json_encode($query) : $query) . PHP_EOL;
     }
 
-    $response = QubitSearch::getInstance()->client->request('_msearch', Elastica_Request::GET, $rawQuery);
+    $response = QubitSearch::getInstance()->client->request('_msearch', \Elastica\Request::GET, $rawQuery);
     $responseData = $response->getData();
 
     $resultSets = array();
@@ -155,9 +155,9 @@ class SearchAutocompleteAction extends sfAction
     {
       foreach ($responseData['responses'] as $key => $responseData)
       {
-        $response = new Elastica_Response(json_encode($responseData));
+        $response = new \Elastica\Response(json_encode($responseData));
 
-        $resultSets[] = new Elastica_ResultSet($response);
+        $resultSets[] = new \Elastica\ResultSet($response);
       }
     }
 

@@ -33,12 +33,12 @@ class RepositoryContextMenuComponent extends sfComponent
 
     $this->resource = $request->getAttribute('sf_route')->resource;
 
-    $queryBool = new Elastica_Query_Bool();
-    $queryBool->addShould(new Elastica_Query_MatchAll());
-    $queryBool->addMust(new Elastica_Query_Term(array('parentId' => QubitInformationObject::ROOT_ID)));
-    $queryBool->addMust(new Elastica_Query_Term(array('repository.id' => $this->resource->id)));
+    $queryBool = new \Elastica\Query\Bool();
+    $queryBool->addShould(new \Elastica\Query\MatchAll());
+    $queryBool->addMust(new \Elastica\Query\Term(array('parentId' => QubitInformationObject::ROOT_ID)));
+    $queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $this->resource->id)));
 
-    $query = new Elastica_Query($queryBool);
+    $query = new \Elastica\Query($queryBool);
 
     QubitAclSearch::filterDrafts($query);
 

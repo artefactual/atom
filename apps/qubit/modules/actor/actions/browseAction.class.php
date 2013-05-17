@@ -58,11 +58,11 @@ class ActorBrowseAction extends DefaultBrowseAction
 
     if ('' == preg_replace('/[\s\t\r\n]*/', '', $request->subquery))
     {
-      $this->queryBool->addMust(new Elastica_Query_MatchAll());
+      $this->queryBool->addMust(new \Elastica\Query\MatchAll());
     }
     else
     {
-      $queryText = new Elastica_Query_QueryString($request->subquery);
+      $queryText = new \Elastica\Query\QueryString($request->subquery);
       $queryText->setDefaultOperator('AND');
       $queryText->setDefaultField(sprintf('i18n.%s.authorizedFormOfName', $this->context->user->getCulture()));
 

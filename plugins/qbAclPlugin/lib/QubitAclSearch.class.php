@@ -19,8 +19,8 @@
 
 /**
  * Filter search query objects based in the access lists. The queries are
- * instances of the Elastica_Query class and they will be filtered using
- * Elastica_Filter. Filters can be much faster compared to queries since they
+ * instances of the \Elastica\Query class and they will be filtered using
+ * \Elastica\Filter. Filters can be much faster compared to queries since they
  * don’t perform any scoring, especially when they are cached.
  *
  * @package    AccesstoMemory
@@ -31,11 +31,11 @@ class QubitAclSearch
   /**
    * Filter search query by repository
    *
-   * @param  Elastica_Query $query Search query object
+   * @param  \Elastica\Query $query Search query object
    * @param  string         $action Action
-   * @return Elastica_Query Filtered query
+   * @return \Elastica\Query Filtered query
    */
-  public static function filterByRepository(Elastica_Query $query, $action)
+  public static function filterByRepository(\Elastica\Query $query, $action)
   {
     $repositoryAccess = QubitAcl::getRepositoryAccess($action);
     if (1 == count($repositoryAccess))
@@ -56,16 +56,16 @@ class QubitAclSearch
           {
             // Require repos to be specifically allowed (all others prohibited)
             // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
-            $filter = new Elastica_Filter_Term;
+            $filter = new \Elastica\Filter\Term;
             $filter->setTerm('repositoryId', $repo['id']);
           }
           else
           {
             // Prohibit specified repos (all others allowed)
             // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), false);
-            $filterTerm = new Elastica_Filter_Term;
+            $filterTerm = new \Elastica\Filter\Term;
             $filterTerm->setTerm('repositoryId', $repo['id']);
-            $filter = new Elastica_Filter_Not($filterTerm);
+            $filter = new \Elastica\Filter\Not($filterTerm);
           }
 
           $query->setFilter($filter);
@@ -79,11 +79,11 @@ class QubitAclSearch
   /**
    * Filter search query by resource specific ACL
    *
-   * @param  Elastica_Query $query Search query object
+   * @param  \Elastica\Query $query Search query object
    * @param  mixed          $root Root object for list
-   * @return Elastica_Query Filtered query
+   * @return \Elastica\Query Filtered query
    */
-  public static function filterByResource(Elastica_Query $query, $root)
+  public static function filterByResource(\Elastica\Query $query, $root)
   {
     $user = sfContext::getInstance()->user;
 
@@ -127,7 +127,7 @@ class QubitAclSearch
 
       if (0 < count($ids))
       {
-        $filter = new Elastica_Filter_Ids;
+        $filter = new \Elastica\Filter\Ids;
         $filter->setIds($ids);
         $query->setFilter($filter);
       }
@@ -147,9 +147,9 @@ class QubitAclSearch
 
       if (0 < count($ids))
       {
-        $filterIds = new Elastica_Filter_Ids;
+        $filterIds = new \Elastica\Filter\Ids;
         $filterIds->setIds($ids);
-        $filter = new Elastica_Filter_Not($filterIds);
+        $filter = new \Elastica\Filter\Not($filterIds);
 
         $query->setFilter($filter);
       }
@@ -161,10 +161,10 @@ class QubitAclSearch
   /**
    * Filter search query by resource specific ACL
    *
-   * @param  Elastica_Query $query Search query object
-   * @return Elastica_Query Filtered query
+   * @param  \Elastica\Query $query Search query object
+   * @return \Elastica\Query Filtered query
    */
-  public static function filterDrafts(Elastica_Query $query)
+  public static function filterDrafts(\Elastica\Query $query)
   {
     // Filter out 'draft' items by repository
     $repositoryViewDrafts = QubitAcl::getRepositoryAccess('viewDraft');
@@ -174,7 +174,7 @@ class QubitAclSearch
       {
         // Don't show *any* draft info objects
         // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID, 'publicationStatusId'), true);
-        $filter = new Elastica_Filter_Term();
+        $filter = new \Elastica\Filter\Term();
         $filter->setTerm('publicationStatusId', QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
         $query->setFilter($filter);
       }
@@ -190,32 +190,32 @@ class QubitAclSearch
       // from results
       if (QubitAcl::GRANT == $globalRule['access'])
       {
-        $filterBool = new Elastica_Filter_Bool;
+        $filterBool = new \Elastica\Filter\Bool;
 
         while ($repo = array_shift($repositoryViewDrafts))
         {
           // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
           // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_DRAFT_ID, 'publicationStatusId'), true);
-          $filterBool->addShould(new Elastica_Filter_Term(array('repositoryId', $repo['id'])));
+          $filterBool->addShould(new \Elastica\Filter\Term(array('repositoryId', $repo['id'])));
         }
 
-        $filter = new Elastica_Filter_Not($filterBool);
+        $filter = new \Elastica\Filter\Not($filterBool);
       }
 
       // If global rule is DENY, then only show the listed repo drafts
       else
       {
-        $filter = new Elastica_Filter_Bool;
+        $filter = new \Elastica\Filter\Bool;
 
         while ($repo = array_shift($repositoryViewDrafts))
         {
           // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
-          $filter->addShould(new Elastica_Filter_Term(array('repositoryId', $repo['id'])));
+          $filter->addShould(new \Elastica\Filter\Term(array('repositoryId', $repo['id'])));
         }
 
         // Filter rule should look like "+(id:(356 357 358) status:published)"
         // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID, 'publicationStatusId'), null);
-        $filter->addShould(new Elastica_Filter_Term(array('publicationStatusId', QubitTerm::PUBLICATION_STATUS_DRAFT_ID)));
+        $filter->addShould(new \Elastica\Filter\Term(array('publicationStatusId', QubitTerm::PUBLICATION_STATUS_DRAFT_ID)));
       }
 
       $query->setFilter($filter);
