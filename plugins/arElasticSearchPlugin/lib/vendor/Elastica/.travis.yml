@@ -1,0 +1,19 @@
+language: php
+
+php:
+  - 5.3
+  - 5.4
+
+env:
+  global:
+    - ES_VER=0.20.5
+    - ES_MAPPER_ATTACHMENTS_VER=1.6.0
+    - ES_TRANSPORT_THRIFT_VER=1.4.0
+
+before_script:
+  - composer self-update
+  - composer --dev --prefer-source install
+  - ./test/bin/install_php_memcache.sh
+  - ./test/bin/run_elasticsearch.sh
+
+script: phpunit -c test/
