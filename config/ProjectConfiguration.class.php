@@ -20,10 +20,18 @@
 require_once dirname(__FILE__).'/../vendor/symfony/lib/autoload/sfCoreAutoload.class.php';
 sfCoreAutoload::register();
 
+require_once __DIR__.'/../vendor/symfony2/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
+require_once __DIR__.'/../vendor/symfony2/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
+
+use Symfony\Component\ClassLoader\UniversalClassLoader;
+use Symfony\Component\ClassLoader\ApcUniversalClassLoader;
+
 class ProjectConfiguration extends sfProjectConfiguration
 {
   public function setup()
   {
+    $this->namespacesClassLoader();
+
     $plugins = array(
       'qbAclPlugin',
       'qtAccessionPlugin',
@@ -44,5 +52,22 @@ class ProjectConfiguration extends sfProjectConfiguration
       'sfPluginAdminPlugin');
 
     $this->enablePlugins($plugins);
+  }
+
+  protected function namespacesClassLoader()
+  {
+    if (extension_loaded('apc'))
+    {
+      $loader = new ApcUniversalClassLoader('atom');
+    }
+    else
+    {
+      $loader = new UniversalClassLoader();
+    }
+
+    $loader->registerNamespaces(array(
+      'Elastica' => __DIR__.'/../plugins/arElasticSearchPlugin/lib/vendor/Elastica/lib'));
+
+    $loader->register();
   }
 }
