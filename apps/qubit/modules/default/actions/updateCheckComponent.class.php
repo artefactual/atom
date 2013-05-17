@@ -28,7 +28,7 @@ class DefaultUpdateCheckComponent extends sfComponent
 {
   public function execute($request)
   {
-    if (!$this->context->user->hasCredential('administrator') || !sfConfig::get('app_check_for_updates'))
+    if (!$this->context->user->isAdministrator() || !sfConfig::get('app_check_for_updates'))
     {
       return sfView::NONE;
     }

@@ -1989,8 +1989,8 @@ abstract class ".$this->getClassname()." extends ".ClassTools::classname($this->
 	 * @param      PropelPDO \$con
 	 * @return     void
 	 * @throws     PropelException
-	 * @see        BaseObject::setDeleted()
-	 * @see        BaseObject::isDeleted()
+	 * @see        BasePropelObject::setDeleted()
+	 * @see        BasePropelObject::isDeleted()
 	 */";
 	}
 

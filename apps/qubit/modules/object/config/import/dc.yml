@@ -98,8 +98,7 @@ information_object:
 
     language:
       XPath:  language
-      Method:  addProperty
-      Parameters: [$name = 'information_object_language', $nodeValue, "$options = array('scope' => 'languages', 'sourceCulture' => true)"]
+      Method:  importDCLanguage
 
     relation:
       XPath:  relation

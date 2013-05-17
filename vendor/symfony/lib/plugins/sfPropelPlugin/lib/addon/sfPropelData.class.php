@@ -148,9 +148,9 @@ class sfPropelData extends sfData
   /**
    * Loads many to many objects.
    *
-   * @param BaseObject $obj               A Propel object
-   * @param string     $middleTableName   The middle table name
-   * @param array      $values            An array of values
+   * @param BasePropelObject $obj             A Propel object
+   * @param string           $middleTableName The middle table name
+   * @param array            $values          An array of values
    */
   protected function loadMany2Many($obj, $middleTableName, $values)
   {
@@ -249,7 +249,7 @@ class sfPropelData extends sfData
     foreach ($files as $file)
     {
       $omClass = basename($file, 'TableMap.php');
-      if (class_exists($omClass) && is_subclass_of($omClass, 'BaseObject') && constant($omClass.'Peer::DATABASE_NAME') == $connectionName)
+      if (class_exists($omClass) && is_subclass_of($omClass, 'BasePropelObject') && constant($omClass.'Peer::DATABASE_NAME') == $connectionName)
       {
         $tableMapClass = basename($file, '.php');
         $dbMap->addTableFromMapClass($tableMapClass);

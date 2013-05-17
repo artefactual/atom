@@ -4,25 +4,13 @@
     <?php $objects = $$resourceVar->getPhysicalObjects() ?>
     <?php $counter = 0 ?>
     <?php foreach ($objects as $object): ?>
-      <?php if($object->location): ?>
+      <?php if (0 < strlen($object->location)): ?>
         <?php $counter++ ?>
         <physloc id="<?php echo 'physloc'.str_pad($counter, 4, '0', STR_PAD_LEFT) ?>"><?php echo escape_dc(esc_specialchars($object->location)) ?></physloc>
       <?php endif; ?>
-      <container <?php echo $object->getEadContainerAttributes() ?><?php if($object->location): ?> parent="<?php echo 'physloc'.str_pad($counter, 4, '0', STR_PAD_LEFT) ?>"<?php endif; ?>>
-        <?php if($object->name): ?>
+      <container <?php echo $ead->getEadContainerAttributes($object) ?><?php if (0 < strlen($object->location)): ?> parent="<?php echo 'physloc'.str_pad($counter, 4, '0', STR_PAD_LEFT) ?>"<?php endif; ?>>
+        <?php if (0 < strlen($object->name)): ?>
           <?php echo escape_dc(esc_specialchars($object->name)) ?>
-        <?php endif; ?>
-      </container>
-    <?php endforeach; ?>
-  <?php endif; ?>
-
-  <?php if (check_field_visibility('app_element_visibility_physical_storage')): ?>
-    <?php $objects = $$resourceVar->getPhysicalObjects() ?>
-      <?php foreach ($objects as $object): ?>
-      <container type="<?php echo $object->type ?>">
-        <?php echo escape_dc(esc_specialchars($object->location)) ?>
-        <?php if ($object->name): ?>
-          <title><?php echo escape_dc(esc_specialchars($object->name)) ?></title>
         <?php endif; ?>
       </container>
     <?php endforeach; ?>
@@ -57,7 +45,7 @@
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getTitle(array('cultureFallback' => true)))): ?>
-    <unittitle encodinganalog="3.1.2"><?php echo escape_dc(esc_specialchars($value)) ?></unittitle>
+    <unittitle encodinganalog="<?php echo $ead->getMetadataParameter('unittitle') ?>"><?php echo escape_dc(esc_specialchars($value)) ?></unittitle>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->alternateTitle)): ?>
@@ -88,7 +76,7 @@
         <?php break; ?>
       <?php endif; ?>
     <?php endforeach; ?>
-    <unitid encodinganalog="3.1.1" <?php if (isset($repository)): ?><?php if ($countrycode = $repository->getCountryCode()): ?><?php echo 'countrycode="'.$countrycode.'" ' ?><?php endif;?><?php if ($repocode = $repository->getIdentifier()): ?><?php echo 'repositorycode="'.escape_dc(esc_specialchars($repocode)).'" ' ?><?php endif; ?><?php endif; ?>><?php echo escape_dc(esc_specialchars($$resourceVar->getIdentifier())) ?></unitid>
+    <unitid encodinganalog="<?php echo $ead->getMetadataParameter('unitid') ?>" <?php if (isset($repository)): ?><?php if ($countrycode = $repository->getCountryCode()): ?><?php echo 'countrycode="'.$countrycode.'" ' ?><?php endif;?><?php if ($repocode = $repository->getIdentifier()): ?><?php echo 'repositorycode="'.escape_dc(esc_specialchars($repocode)).'" ' ?><?php endif; ?><?php endif; ?>><?php echo escape_dc(esc_specialchars($$resourceVar->getIdentifier())) ?></unitid>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('standardNumber')->__toString())): ?>
@@ -101,7 +89,7 @@
 
   <?php if (0 < strlen($value = $$resourceVar->getExtentAndMedium(array('cultureFallback' => true)))): ?>
     <physdesc>
-      <extent encodinganalog="3.1.5"><?php echo escape_dc(esc_specialchars($value)) ?></extent>
+      <extent encodinganalog="<?php echo $ead->getMetadataParameter('extent') ?>"><?php echo escape_dc(esc_specialchars($value)) ?></extent>
     </physdesc>
   <?php endif; ?>
 
@@ -143,9 +131,9 @@
   <?php endif; ?>
 
   <?php if (0 < count($$resourceVar->language) || 0 < count($$resourceVar->script) || 0 < strlen($value = $$resourceVar->getNotesByType(array('noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID))->offsetGet(0))): ?>
-    <langmaterial encodinganalog="3.4.3">
+    <langmaterial encodinganalog="<?php echo $ead->getMetadataParameter('langmaterial') ?>">
     <?php foreach ($$resourceVar->language as $languageCode): ?>
-      <language langcode="<?php echo ($iso6392 = $iso639convertor->getID3($languageCode)) ? strtolower($iso6392) : $languageCode ?>"><?php echo format_language($languageCode) ?></language>
+      <language langcode="<?php echo strtolower($iso639convertor->getID2($languageCode)) ?>"><?php echo format_language($languageCode) ?></language>
     <?php endforeach; ?>
     <?php foreach ($$resourceVar->script as $scriptCode): ?>
       <language scriptcode="<?php echo $scriptCode ?>"><?php echo format_script($scriptCode) ?></language>

@@ -15,5 +15,8 @@ QubitSslRequirement:
 QubitMeta:
   enabled: false
 
+QubitLimitResults:
+  enabled: false
+
 cache: ~
 execution: ~

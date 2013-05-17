@@ -11,5 +11,6 @@ settings: ~
 QubitLimitIp: ~
 QubitSslRequirement: ~
 QubitMeta: ~
+QubitLimitResults: ~
 cache: ~
 execution: ~

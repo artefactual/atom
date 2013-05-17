@@ -34,6 +34,20 @@ class RepositoryDeleteAction extends sfAction
         $item->save();
       }
 
+      foreach ($this->resource->events as $item)
+      {
+        if (isset($item->informationObject) && isset($item->type))
+        {
+          unset($item->actor);
+
+          $item->save();
+        }
+        else
+        {
+          $item->delete();
+        }
+      }
+
       foreach (QubitRelation::getBySubjectOrObjectId($this->resource->id) as $item)
       {
         $item->delete();

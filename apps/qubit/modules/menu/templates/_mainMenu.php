@@ -1,9 +1,3 @@
-<?php // Using $sf_user->hasGroup() since it relies on database,
-      // $sf_user->hasCredential('administrator') relies on session storage
-      // This adds more db access but we are caching anyways
-      // See also issue 2266
-      $isAdministrator = $sf_user->hasGroup(QubitAclGroup::ADMINISTRATOR_ID) ?>
-
 <?php foreach (array($adminMenu, $importMenu, $manageMenu, $addMenu) as $menu): ?>
 
   <div id="<?php echo $menu->getName() ?>-menu">
@@ -22,7 +16,7 @@
 
       <div class="top-dropdown-body">
         <ul>
-          <?php echo QubitMenu::displayHierarchyAsList($menu, 0, array('overrideVisibility' => array('admin' => $isAdministrator))) ?>
+          <?php echo QubitMenu::displayHierarchyAsList($menu, 0, array('overrideVisibility' => array('admin' => $sf_user->isAdministrator()))) ?>
         </ul>
       </div>
 

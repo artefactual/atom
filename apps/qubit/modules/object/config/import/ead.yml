@@ -398,7 +398,7 @@ information_object:
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)"]
 
     archivistnote:
-      XPath:  "../eadheader/filedesc/titlestmt/author[@encodinganalog='Creator']"
+      XPath:  "../eadheader/filedesc/titlestmt/author[@encodinganalog='creator']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)"]
 

@@ -4,7 +4,7 @@
   <channel>pear.qubit-toolkit.org</channel>
   <summary>Open information management toolkit</summary>
   <description>
-Access to Memory (AtoM) is a fully web-based toolkit that will allow institutions such as archives, libraries, museums, and art galleries to manage and host collections of information resources. Qubit supports multilingual and multi-repository collections.
+Access to Memory (AtoM) is a fully web-based toolkit that will allow institutions such as archives, libraries, museums, and art galleries to manage and host collections of information resources. AtoM supports multilingual and multi-repository collections.
 
 The goal is to provide an easy-to-use, flexible toolkit that complies with open standards (e.g. Dublin Core, ICA-ISAD, MODS, EAD, METS) and is developed using an open architecture that takes advantage of emerging web-based tools and practices.
   </description>
@@ -20,20 +20,15 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
     <email>jesus@sevein.com</email>
     <active>yes</active>
   </lead>
-  <lead>
-    <name>Jack Bates</name>
-    <user>jablko</user>
-    <email>jack@nottheoilrig.com</email>
-    <active>no</active>
-  </lead>
   <version>
     <api>1.0.0</api>
   </version>
-  <license>GPL</license>
+  <license filesource="LICENSE">AGPLv3</license>
   <notes>-</notes>
   <contents>
     <file name="apps/qubit//*" role="php"/>
     <file name="config//*" role="data"/>
+    <file name="CONTRIBUTING" role="doc"/>
     <file name="COPYRIGHT" role="doc"/>
     <file name="css//*" role="data"/>
     <file name="data//*" role="data"/>
@@ -41,16 +36,24 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
     <file name="favicon.ico" role="data"/>
     <file name="images//*" role="data"/>
     <file name="index.php" role="php"/>
+    <file name="init//*" role="script"/>
     <file name="js//*" role="data"/>
     <file name="lib//*" role="php"/>
     <file name="LICENSE" role="doc"/>
     <file name="plugins//*" role="php"/>
+    <file name="plugins/sfAuditPlugin/lib/vendor/PHP/CodeSniffer/Standards/Squiz/Tests/Commenting/ClassCommentUnitTest.inc" role="data"/>
+    <file name="plugins/sfAuditPlugin/lib/vendor/PHP/CodeSniffer/Standards/PEAR/Tests/Commenting/ClassCommentUnitTest.inc" role="data"/>
+    <file name="plugins/sfDrupalPlugin/vendor/drupal/includes/database/database.inc" role="data"/>
+    <file name="plugins/sfLucenePlugin/README" role="doc"/>
+    <file name="plugins/sfSearchPlugin/doc/recipes/Quick-Start.txt" role="doc"/>
     <file name="qubit_dev.php" role="php"/>
     <file name="README" role="doc"/>
+    <file name="robots.txt" role="doc"/>
     <file name="symfony" role="script"/>
     <file name="test//*" role="test"/>
     <file name="uploads//*" role="data"/>
     <file name="vendor//*" role="php"/>
+    <file name="vendor/yui//*" role="script"/>
     <file name="vendor/symfony/data//*" role="data"/>
   </contents>
   <dependencies>
@@ -65,6 +68,12 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
     <optional>
       <extension>
         <name>mbstring</name>
+      </extension>
+      <extension>
+        <name>pdo</name>
+      </extension>
+      <extension>
+        <name>xsl</name>
       </extension>
     </optional>
   </dependencies>

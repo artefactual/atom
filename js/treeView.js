@@ -214,8 +214,8 @@
         var $li = 'LI' === e.target.tagName ? $(e.target) : $(e.target).closest('li');
         var $anchor = $li.children('a');
 
-        // For code simplicity we always show the popup in IE8 (see #561)
-        if (!($.browser.msie && $.browser.version == 8.0))
+        // For code simplicity we always show the popup in IE8 and IE10 (see #561 and #4910)
+        if (!($.browser.msie && ($.browser.version == 8.0 || $.browser.version == 10.0)))
         {
           // Stop execution if the popover is not worth it
           if (($li.offset().left + $li.width()) >= ($anchor.offset().left + $anchor.width()))

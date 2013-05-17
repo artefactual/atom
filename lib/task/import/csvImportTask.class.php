@@ -386,7 +386,7 @@ EOF;
         if (isset($self->rowStatusVars['levelOfDetail']))
         {
           $levelOfDetailTermId = array_search(
-            $self->rowStatusVars['levelOfDetail'],
+            (trim($self->rowStatusVars['levelOfDetail'])) ? $self->rowStatusVars['levelOfDetail'] : 'Full',
             $self->status['levelOfDetailTypes']
           );
 
@@ -418,7 +418,7 @@ EOF;
         if (isset($self->rowStatusVars['descriptionStatus']))
         {
           $statusTermId = array_search(
-            $self->rowStatusVars['descriptionStatus'],
+            (trim($self->rowStatusVars['descriptionStatus'])) ? $self->rowStatusVars['descriptionStatus'] : 'Final',
             $self->status['descriptionStatusTypes']
           );
 
@@ -577,9 +577,9 @@ EOF;
                 );
               }
             } else {
-              $error = 'Both physicalObjectName and physicalObjectLocation '
-                     + 'required to create a physical object.';
-              print $self->logError($error);
+              throw new sfException('Both physicalObjectName and physicalObjectLocation '
+                     . 'required to create a physical object. (physicalObjectName: "'. $self->rowStatusVars['physicalObjectName']
+                     . '", physicalObjectLocation: "'. $self->rowStatusVars['physicalObjectLocation'] .'")');
             }
           }
 
@@ -958,11 +958,24 @@ EOF;
           ) {
             foreach($self->rowStatusVars['creatorDatesStart'] as $index => $date)
             {
-               $eventData = array();
+              $eventData = array();
 
-               setupEventDateData($self, $eventData, $index);
+              setupEventDateData($self, $eventData, $index);
 
-               array_push($createEvents, $eventData);
+              array_push($createEvents, $eventData);
+            }
+          }
+          else if(
+            isset($self->rowStatusVars['creatorDates'])
+            || isset($self->rowStatusVars['creatorDates'])
+          ) {
+            foreach($self->rowStatusVars['creatorDates'] as $index => $date)
+            {
+              $eventData = array();
+
+              setupEventDateData($self, $eventData, $index);
+
+              array_push($createEvents, $eventData);
             }
           }
 

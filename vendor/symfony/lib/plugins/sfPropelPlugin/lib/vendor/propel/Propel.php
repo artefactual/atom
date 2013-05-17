@@ -176,7 +176,7 @@ class Propel
 		'DBAdapter'       => 'propel/adapter/DBAdapter.php',
 		'DBMSSQL'         => 'propel/adapter/DBMSSQL.php',
 		'MssqlPropelPDO'  => 'propel/adapter/MSSQL/MssqlPropelPDO.php',
-		'MssqlDebugPDO'   => 'propel/adapter/MSSQL/MssqlDebugPDO.php',	
+		'MssqlDebugPDO'   => 'propel/adapter/MSSQL/MssqlDebugPDO.php',
 		'MssqlDateTime'   => 'propel/adapter/MSSQL/MssqlDateTime.class.php',
 		'DBMySQL'         => 'propel/adapter/DBMySQL.php',
 		'DBMySQLi'        => 'propel/adapter/DBMySQLi.php',
@@ -195,7 +195,7 @@ class Propel
 		'RelationMap'  => 'propel/map/RelationMap.php',
 		'ValidatorMap' => 'propel/map/ValidatorMap.php',
 
-		'BaseObject'                    => 'propel/om/BaseObject.php',
+		'BasePropelObject'              => 'propel/om/BasePropelObject.php',
 		'NodeObject'                    => 'propel/om/NodeObject.php',
 		'Persistent'                    => 'propel/om/Persistent.php',
 		'PreOrderNodeIterator'          => 'propel/om/PreOrderNodeIterator.php',
@@ -246,11 +246,11 @@ class Propel
 
 		// reset the connection map (this should enable runtime changes of connection params)
 		self::$connectionMap = array();
-		
+
 		if (isset(self::$configuration['classmap']) && is_array(self::$configuration['classmap'])) {
 		  self::$autoloadMap = array_merge(self::$configuration['classmap'], self::$autoloadMap);
 	  }
-		
+
 		self::$isInit = true;
 	}
 

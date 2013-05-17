@@ -53,25 +53,11 @@ informationobject/action:
     module: informationobject
     action: { pattern: 'addDigitalObject|fileList|multiFileUpload|reports' }
 
-oai_harvester_harvest_all_sets:
-  url: /oai/harvest/:type/:id
+oai:
+  url: /;oai
   param:
-    module: qtOaiPlugin
-    action: harvesterHarvest
-    id: { pattern: \d+ }
-
-oai_harvester_delete:
-  url: /oai/deleteRepository/:repositoryId
-  param:
-    module: qtOaiPlugin
-    action: harvesterDelete
-    repositoryId: { pattern: \d+ }
-
-oai_requests:
-  url: /oai/request
-  param:
-    module: qtOaiPlugin
-    action: oai
+    module: arOaiPlugin
+    action: index
 
 sword/action/slug:
   url: /sword/:action/:slug

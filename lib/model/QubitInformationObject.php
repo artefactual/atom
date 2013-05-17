@@ -380,7 +380,7 @@ class QubitInformationObject extends BaseInformationObject
    * @date util, the superior limit date
    * @return QubitQuery collection of QubitInformationObjects
    */
-  public static function getUpdatedRecords($from = '', $until = '', $set = '')
+  public static function getUpdatedRecords($from = '', $until = '', $offset = 0, $set = '')
   {
     $criteria = new Criteria;
 
@@ -401,6 +401,9 @@ class QubitInformationObject extends BaseInformationObject
     }
     $criteria->add(QubitInformationObject::PARENT_ID, null, Criteria::ISNOTNULL);
     $criteria->addAscendingOrderByColumn(QubitObject::UPDATED_AT);
+
+    $criteria->setOffset($offset);
+
     return QubitInformationObject::get($criteria);
   }
 
@@ -1339,16 +1342,32 @@ class QubitInformationObject extends BaseInformationObject
     $languagesOfDescription = array();
     $scriptsOfDescription = array();
 
+    $langCodeConvertor = new fbISO639_Map;
+
     // get language nodes
     if (0 < count($langNodeList = QubitXmlImport::queryDomNode($langusageNode, "/xml/langusage/language/@langcode")))
     {
       // set first language as source culture
-      $this->setLangcode(substr($langNodeList->item(0)->nodeValue, 0, 2));
+      if ($langCode = $langCodeConvertor->getID1($langNodeList->item(0)->nodeValue, false))
+      {
+        $this->setLangcode(strtolower($langCode));
+      }
+      else
+      {
+        $this->setLangcode(strtolower($langNodeList->item(0)->nodeValue));
+      }
 
       // get all as language(s) of description
       foreach($langNodeList as $langNode)
       {
-        array_push($languagesOfDescription, substr($langNode->nodeValue, 0, 2));
+        if ($langCode = $langCodeConvertor->getID1($langNode->nodeValue, false))
+        {
+          array_push($languagesOfDescription, strtolower($langCode));
+        }
+        else
+        {
+          array_push($languagesOfDescription, strtolower($langNode->nodeValue));
+        }
       }
     }
 
@@ -1390,6 +1409,8 @@ class QubitInformationObject extends BaseInformationObject
     // get language and script nodes
     $langNodeList = QubitXmlImport::queryDomNode($langmaterialNode, "/xml/langmaterial/language");
 
+    $langCodeConvertor = new fbISO639_Map;
+
     $languages = array();
     $scripts = array();
 
@@ -1398,9 +1419,16 @@ class QubitInformationObject extends BaseInformationObject
     {
       if ($langNode->hasAttributes())
       {
-        if (0 < strlen($langCode = substr($langNode->getAttribute('langcode'), 0, 2)))
+        if (0 < strlen($lang = $langNode->getAttribute('langcode')))
         {
-          array_push($languages, $langCode);
+          if ($langCode = $langCodeConvertor->getID1($lang, false))
+          {
+            array_push($languages, strtolower($langCode));
+          }
+          else
+          {
+            array_push($languages, strtolower($lang));
+          }
         }
 
         if (0 < strlen($scriptCode = $langNode->getAttribute('scriptcode')))
@@ -1442,6 +1470,18 @@ class QubitInformationObject extends BaseInformationObject
 
       $this->notes[] = $newNote;
     }
+  }
+
+  public function importDCLanguage($code)
+  {
+    $langCodeConvertor = new fbISO639_Map;
+
+    if ($langCodeConvertor->getID1($code, true))
+    {
+      $code = strtolower($langCode);
+    }
+
+    $this->language[] = $code;
   }
 
   /**

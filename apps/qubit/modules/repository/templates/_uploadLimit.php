@@ -20,7 +20,7 @@
       <?php echo __('%du% <abbr title="1 GB = 1 000 000 000 bytes">GB</abbr> of <em>Unlimited</em>', array('%du%' => $diskUsage)) ?>
     <?php endif; ?>
 
-    <?php if ($sf_user->hasCredential('administrator')): ?>
+    <?php if ($sf_user->isAdministrator()): ?>
       (<a href="#" id="editUlLink"><?php echo __('Edit') ?></a>)
     <?php endif; ?>
 
@@ -28,7 +28,7 @@
 
 </section>
 
-<?php if ($sf_user->hasCredential('administrator')  && !$noedit): ?>
+<?php if ($sf_user->isAdministrator() && !$noedit): ?>
 
 <!-- Edit upload limit -->
 <!-- Note: YUI dialog hides this entire div -->

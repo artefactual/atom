@@ -27,6 +27,77 @@ class sfEadPlugin
   public
     $resource;
 
+  public static
+    $ENCODING_MAP = array(
+      'isad' => array(
+        'relatedencoding'       => 'ISAD(G)v2',
+        'eadid'                 => 'identifier',
+        'titleproper'           => 'title',
+        'author'                => 'creator',
+        'publisher'             => 'publisher',
+        'date'                  => 'date',
+        'language'              => 'language',
+        'languageOfDescription' => 'languageOfDescription',
+        'script'                => 'script',
+        'scriptOfDescription'   => 'scriptOfDescription',
+        'descrules'             => '3.7.2',
+        'scopecontent'          => '3.3.1',
+        'arrangement'           => '3.3.4',
+        'phystech'              => '3.4.3',
+        'appraisal'             => '3.3.2',
+        'acqinfo'               => '3.2.4',
+        'accruals'              => '3.3.3',
+        'custodhist'            => '3.2.3',
+        'originalsloc'          => '3.5.1',
+        'altformavail'          => '3.5.2',
+        'relatedmaterial'       => '3.5.3',
+        'accessrestrict'        => '3.4.1',
+        'userestrict'           => '3.4.2',
+        'otherfindaid'          => '3.4.5',
+        'bibliography'          => '3.5.4',
+        'unittitle'             => '3.1.2',
+        'unitid'                => '3.1.1',
+        'unitdate'              => '3.1.3',
+        'extent'                => '3.1.5',
+        'langmaterial'          => '3.4.3',
+        'note'                  => '3.6.1',
+        'bioghist'              => '3.2.2',
+        'origination'           => '3.2.1'),
+      'rad' => array(
+        'relatedencoding'       => 'RAD',
+        'eadid'                 => 'identifier',
+        'titleproper'           => 'title',
+        'author'                => 'creator',
+        'publisher'             => 'publisher',
+        'date'                  => 'date',
+        'language'              => 'language',
+        'languageOfDescription' => 'languageOfDescription',
+        'script'                => 'script',
+        'scriptOfDescription'   => 'scriptOfDescription',
+        'descrules'             => '',
+        'scopecontent'          => '1.7D',
+        'arrangement'           => '1.8B13',
+        'phystech'              => '1.8B14',
+        'appraisal'             => '',
+        'acqinfo'               => '1.8B12',
+        'accruals'              => '1.8B19',
+        'custodhist'            => '1.7C',
+        'originalsloc'          => '1.8B15a',
+        'altformavail'          => '1.8B15b',
+        'relatedmaterial'       => '1.8B18',
+        'accessrestrict'        => '1.8B16a',
+        'userestrict'           => '1.8B16c',
+        'otherfindaid'          => '1.8B17',
+        'bibliography'          => '',
+        'unittitle'             => '1.1B',
+        'unitid'                => '1.8B11',
+        'unitdate'              => '1.4B2',
+        'extent'                => '1.5B1',
+        'langmaterial'          => '1.8B9a',
+        'note'                  => '1.8B21',
+        'bioghist'              => '1.7B',
+        'origination'           => '1.7C'));
+
   public function __construct(QubitInformationObject $resource)
   {
     $this->resource = $resource;
@@ -82,7 +153,9 @@ class sfEadPlugin
       $identifier = url_for($this->resource, $absolute = true);
     }
 
-    return "<eadid identifier=\"$identifier\"$countryCode$mainAgencyCode url=\"$url\" encodinganalog=\"Identifier\">{$this->resource->identifier}</eadid>";
+    $encodinganalog = $this->getMetadataParameter('eadid');
+
+    return "<eadid identifier=\"$identifier\"$countryCode$mainAgencyCode url=\"$url\" encodinganalog=\"$encodinganalog\">{$this->resource->identifier}</eadid>";
   }
 
   public function renderEadNormalizedDate($date)
@@ -144,5 +217,48 @@ class sfEadPlugin
     $output .= '>'. $event->date .'</date>';
 
     return $output;
+  }
+
+  public function getMetadataParameter($param)
+  {
+    $metadataStandard = sfConfig::get('app_default_template_informationobject');
+
+    if (isset(self::$ENCODING_MAP[$metadataStandard][$param]))
+    {
+      return self::$ENCODING_MAP[$metadataStandard][$param];
+    }
+
+    return self::$ENCODING_MAP['isad'][$param];
+  }
+
+  public function getEadContainerAttributes($physcalObject)
+  {
+    switch ($physcalObject->type)
+    {
+      case 'Cardboard box':
+        $result = 'type="box" label="cardboard"';
+
+        break;
+
+      case 'Hollinger box':
+        $result = 'type="box" label="hollinger"';
+
+        break;
+
+      case 'Filing cabinet':
+        $result = 'type="cabinet" label="filing"';
+
+        break;
+
+      case 'Map cabinet':
+        $result = 'type="cabinet" label="map"';
+
+        break;
+
+      default:
+        $result = 'type="'.strtolower($physcalObject->type).'"';
+    }
+
+    return $result;
   }
 }

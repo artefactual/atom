@@ -84,13 +84,13 @@ class ClassTools {
 
 	/**
 	 * Gets the baseClass path if specified for table/db.
-	 * If not, will return 'propel.om.BaseObject'
+	 * If not, will return 'propel.om.BasePropelObject'
 	 * @return     string
 	 */
 	public static function getBaseClass(Table $table) {
 		$class = $table->getBaseClass();
 		if ($class === null) {
-			$class = "propel.om.BaseObject";
+			$class = "propel.om.BasePropelObject";
 		}
 		return $class;
 	}
