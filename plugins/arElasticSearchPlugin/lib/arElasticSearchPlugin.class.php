@@ -88,7 +88,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
   }
 
   public function __destruct()
-  { return;
+  {
     if (!$this->enabled)
     {
       return;
