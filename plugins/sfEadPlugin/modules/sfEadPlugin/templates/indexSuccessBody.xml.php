@@ -90,6 +90,9 @@
   <?php
 
   $resourceVar = 'resource';
+  $counter = 0;
+  $counterVar = 'counter';
+
   include('indexSuccessBodyDidElement.xml.php');
   include('indexSuccessBodyBioghistElement.xml.php');
   ?>
