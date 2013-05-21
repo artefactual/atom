@@ -380,11 +380,15 @@ class QubitInformationObject extends BaseInformationObject
    * @date util, the superior limit date
    * @return QubitQuery collection of QubitInformationObjects
    */
-  public static function getUpdatedRecords($from = '', $until = '', $offset = 0, $set = '')
+  public static function getUpdatedRecords($from = '', $until = '', $offset = 0, $limit = 10, $set = '')
   {
     $criteria = new Criteria;
 
+    $criteria->addJoin(QubitInformationObject::ID, QubitStatus::OBJECT_ID);
+    $criteria->add(QubitStatus::STATUS_ID, QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
+
     $criteria->addJoin(QubitInformationObject::ID, QubitObject::ID);
+
     if ($from != '')
     {
       $criteria->add(QubitObject::UPDATED_AT, $from, Criteria::GREATER_EQUAL);
@@ -394,15 +398,18 @@ class QubitInformationObject extends BaseInformationObject
     {
       $criteria->add(QubitObject::UPDATED_AT, $until, Criteria::LESS_EQUAL);
     }
+
     if ($set != '')
     {
       $criteria->add(QubitInformationObject::LFT, $set['lft'], Criteria::GREATER_EQUAL);
       $criteria->add(QubitInformationObject::RGT, $set['rgt'], Criteria::LESS_EQUAL);
     }
-    $criteria->add(QubitInformationObject::PARENT_ID, null, Criteria::ISNOTNULL);
-    $criteria->addAscendingOrderByColumn(QubitObject::UPDATED_AT);
 
+    $criteria->add(QubitInformationObject::PARENT_ID, null, Criteria::ISNOTNULL);
+
+    $criteria->addAscendingOrderByColumn(QubitObject::UPDATED_AT);
     $criteria->setOffset($offset);
+    $criteria->setLimit($limit);
 
     return QubitInformationObject::get($criteria);
   }
