@@ -24,7 +24,7 @@
  * @subpackage oai
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
-class arOaiPluginIdentifyComponent extends sfComponent
+class arOaiPluginIdentifyComponent extends arOaiPluginComponent
 {
   public function execute($request)
   {
@@ -40,14 +40,8 @@ class arOaiPluginIdentifyComponent extends sfComponent
     $this->deletedRecord = 'no';
     $this->compression = 'gzip';
     $this->path = url_for('oai/oaiAction');
-    $this->attributes = $this->request->getGetParameters();
 
-    $this->attributesKeys = array_keys($this->attributes);
-    $this->requestAttributes = '';
-    foreach ($this->attributesKeys as $key)
-    {
-      $this->requestAttributes .= ' '.$key.'="'.$this->attributes[$key].'"';
-    }
+    $this->setRequestAttributes($request);
 
     $criteria = new Criteria;
     $criteria->add(QubitAclUserGroup::GROUP_ID, QubitAclGroup::ADMINISTRATOR_ID);
