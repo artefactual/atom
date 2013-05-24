@@ -118,7 +118,8 @@ class arElasticSearchPlugin extends QubitSearchEngine
       // If the index has not been initialized, create it
       if ($e instanceof \Elastica\Exception\ResponseException)
       {
-        $this->index->create($this->config['index']['configuration'], true);
+        $this->index->create($this->config['index']['configuration'],
+          array('recreate' => true));
       }
 
       // Load mappings

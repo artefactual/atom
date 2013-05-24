@@ -24,11 +24,23 @@ all:
     # This is the name of the index; must be unique
     name: atom
 
+    # List of settings: http://goo.gl/EjQx4
     configuration:
 
-      # List of settings: http://goo.gl/EjQx4
       number_of_shards: 4
       number_of_replicas: 1
+
+      analysis:
+        analyzer:
+          autocomplete:
+            tokenizer: keyword
+            filter: [lowercase, engram]
+        filter:
+          engram:
+            type: edgeNGram
+            min_gram: 1
+            max_gram: 20
+            side: front
 
       # Disable dynamic creation of mappings for unmapped types
       mapper:

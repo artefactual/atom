@@ -199,8 +199,22 @@ class arElasticSearchMapping
             $nestedI18nFields[$fieldName] = array(
               'type' => 'multi_field',
               'fields' => array(
-                $fieldName => array('type' => 'string', 'index' => 'analyzed', 'include_in_all' => false),
-                'untouched' => array('type' => 'string', 'index' => 'not_analyzed', 'include_in_all' => false)));
+                $fieldName => array(
+                  'type' => 'string',
+                  'index' => 'analyzed',
+                  'include_in_all' => false),
+                'autocomplete' => array(
+                  'type' => 'string',
+                  'index' => 'analyzed',
+                  'index_analyzer' => 'autocomplete',
+                  'search_analyzer' => 'standard',
+                  'store' => 'yes',
+                  'term_vector' => 'with_positions_offsets',
+                  'include_in_all' => false),
+                'untouched' => array(
+                  'type' => 'string',
+                  'index' => 'not_analyzed',
+                  'include_in_all' => false)));
           }
 
           if (isset($typeProperties['_attributes']['i18nExtra']))
@@ -210,8 +224,22 @@ class arElasticSearchMapping
               $nestedI18nFields[$fieldName] = array(
                 'type' => 'multi_field',
                 'fields' => array(
-                  $fieldName => array('type' => 'string', 'index' => 'analyzed', 'include_in_all' => false),
-                  'untouched' => array('type' => 'string', 'index' => 'not_analyzed', 'include_in_all' => false)));
+                  $fieldName => array(
+                    'type' => 'string',
+                    'index' => 'analyzed',
+                    'include_in_all' => false),
+                  'autocomplete' => array(
+                    'type' => 'string',
+                    'index' => 'analyzed',
+                    'index_analyzer' => 'autocomplete',
+                    'search_analyzer' => 'standard',
+                    'store' => 'yes',
+                    'term_vector' => 'with_positions_offsets',
+                    'include_in_all' => false),
+                  'untouched' => array(
+                    'type' => 'string',
+                    'index' => 'not_analyzed',
+                    'include_in_all' => false)));
             }
           }
 
