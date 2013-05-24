@@ -10,4 +10,7 @@
     </header>
 <?php endforeach; ?>
   </ListIdentifiers>
+  <?php if($remaining > 0):?>
+    <resumptionToken><?php echo $resumptionToken?></resumptionToken>
+  <?php endif?>
 <?php endif?>

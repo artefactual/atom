@@ -79,23 +79,19 @@ class arOaiPluginListIdentifiersComponent extends sfComponent
     }
 
     //Get the records according to the limit dates and collection
-    $this->records = QubitInformationObject::getUpdatedRecords(
+    $update = QubitInformationObject::getUpdatedRecords(
       $this->from,
       $this->until,
       $this->cursor,
-      QubitSetting::getByName('resumption_token_limit'),
+      QubitSetting::getByName('resumption_token_limit')->__toString(),
       $collection
     );
+    $this->publishedRecords = $update['data'];
+    $this->remaining        = $update['remaining'];
+    $this->recordsCount     = count($this->publishedRecords);
+    $resumptionCursor       = $this->cursor + QubitSetting::getByName('resumption_token_limit')->__toString();
+    $this->resumptionToken  = 'from='. $this->from .'&amp;until='. $this->until .'&amp;cursor='. $resumptionCursor;
 
-    $this->publishedRecords = array();
-    foreach ($this->records as $record)
-    {
-      if ($record->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)
-      {
-        $this->publishedRecords[] = $record;
-      }
-    }
-    $this->recordsCount = count($this->publishedRecords);
     $this->path = $request->getUriPrefix().$request->getPathInfo();
 
     $this->attributesKeys = array_keys($this->attributes);
