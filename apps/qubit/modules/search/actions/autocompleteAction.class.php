@@ -78,7 +78,14 @@ class SearchAutocompleteAction extends sfAction
       $query
         ->setQuery($queryTerm)
         ->setSize(3)
-        ->setFields($item['fields']);
+        ->setFields($item['fields'])
+        ->setHighlight(array(
+            'require_field_match' => true, // Restrict highlighting to matched fields
+            'fields' => array(
+              $item['field'].'.autocomplete' => array(
+                  'fragment_size' => 100, // Size limit for the highlighted fragmetns
+                  'number_of_fragments' => 0, // Request the entire field
+              ))));
       $search->setQuery($query);
 
       $mSearch->addSearch($search);

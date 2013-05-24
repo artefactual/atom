@@ -5,7 +5,7 @@
       <?php foreach ($descriptions->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
         <li>
-          <?php echo link_to(get_search_i18n($doc, 'title'), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
+          <?php echo link_to(get_search_i18n_highlight($hit, 'title.autocomplete'), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
           <strong><?php echo $levelsOfDescription[$doc['levelOfDescriptionId']] ?></strong>
         </li>
       <?php endforeach; ?>
@@ -22,7 +22,7 @@
     <ul>
       <?php foreach ($subjects->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
-        <li><?php echo link_to(get_search_i18n($doc, 'name'), array('module' => 'term', 'action' => 'browseTerm', 'slug' => $hit->slug)) ?></li>
+        <li><?php echo link_to(get_search_i18n_highlight($hit, 'name.autocomplete'), array('module' => 'term', 'action' => 'browseTerm', 'slug' => $hit->slug)) ?></li>
       <?php endforeach; ?>
       <?php if ($subjects->getTotalHits() > 3): ?>
         <li class="showall"><?php echo link_to(__('all matching subjects'), array('module' => 'search', 'action' => 'index') + $sf_request->getParameterHolder()->getAll()) ?></li>
@@ -37,7 +37,7 @@
     <ul>
       <?php foreach ($repositories->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
-        <li><?php echo link_to(get_search_i18n($doc, 'authorizedFormOfName'), array('module' => 'repository', 'slug' => $doc['slug'])) ?></li>
+        <li><?php echo link_to(get_search_i18n_highlight($hit, 'authorizedFormOfName.autocomplete'), array('module' => 'repository', 'slug' => $doc['slug'])) ?></li>
       <?php endforeach; ?>
       <?php if ($repositories->getTotalHits() > 3): ?>
         <li class="showall"><?php echo link_to(__('all matching institutions'), array('module' => 'search', 'action' => 'index') + $sf_request->getParameterHolder()->getAll()) ?></li>
@@ -52,7 +52,7 @@
     <ul>
       <?php foreach ($actors->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
-        <li><?php echo link_to(get_search_i18n($doc, 'authorizedFormOfName'), array('module' => 'search', 'action' => 'index', 'names_id' => $hit->getId())) ?></li>
+        <li><?php echo link_to(get_search_i18n_highlight($hit, 'authorizedFormOfName.autocomplete'), array('module' => 'search', 'action' => 'index', 'names_id' => $hit->getId())) ?></li>
       <?php endforeach; ?>
       <?php if ($actors->getTotalHits() > 3): ?>
         <li class="showall"><?php echo link_to(__('all matching people & organizations'), array('module' => 'search', 'action' => 'index') + $sf_request->getParameterHolder()->getAll()) ?></li>
