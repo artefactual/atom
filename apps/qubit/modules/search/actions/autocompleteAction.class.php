@@ -36,49 +36,56 @@ class SearchAutocompleteAction extends sfAction
       $this->forward404();
     }
 
-    // Add wildcard
-    $this->queryString .= '*';
+    // Should I be doing this in ES with search_analyzer?
+    $this->queryString = mb_strtolower($this->queryString);
 
     // Current culture
-    $this->culture = $this->context->user->getCulture();
+    $culture = $this->context->user->getCulture();
 
-    // Build ES multi query
-    $this->queries = array();
+    $client = QubitSearch::getInstance()->client;
+    $index = QubitSearch::getInstance()->index;
 
-    $index = QubitSearch::getInstance()->index->getName();
+    // Multisearch object
+    $mSearch = new \Elastica\Multi\Search($client);
 
-    $this->buildQuery(
-      $index,
-      'QubitInformationObject',
-      'i18n.%s.title',
-      array('slug', 'i18n', 'levelOfDescriptionId'),
-      array('_score' => 'desc'));
+    foreach (array(
+      array(
+        'type' => 'QubitInformationObject',
+        'field' => sprintf('i18n.%s.title', $culture),
+        'fields' => array('slug', sprintf('i18n.%s.title', $culture), 'levelOfDescriptionId')),
+      array(
+        'type' => 'QubitRepository',
+        'field' => sprintf('i18n.%s.authorizedFormOfName', $culture),
+        'fields' => array('slug', sprintf('i18n.%s.title', $culture))),
+      array(
+        'type' => 'QubitActor',
+        'field' => sprintf('i18n.%s.authorizedFormOfName', $culture),
+        'fields' => array('slug', sprintf('i18n.%s.title', $culture))),
+      array(
+        'type' => 'QubitTerm',
+        'field' => sprintf('i18n.%s.name', $culture),
+        'fields' => array('slug', sprintf('i18n.%s.title', $culture)))) as $item)
+    {
+      $search = new \Elastica\Search($client);
+      $search
+        ->addIndex($index)
+        ->addType($index->getType($item['type']));
 
-    $this->buildQuery(
-      $index,
-      'QubitRepository',
-      'i18n.%s.authorizedFormOfName',
-      array('slug', 'i18n'),
-      array('_score' => 'desc'));
+      $queryTerm = new \Elastica\Query\Term;
+      $queryTerm->setTerm($item['field'].'.autocomplete', $this->queryString);
 
-    $this->buildQuery(
-      $index,
-      'QubitActor',
-      'i18n.%s.authorizedFormOfName',
-      array('slug', 'i18n'),
-      array('_score' => 'desc'));
+      $query = new \Elastica\Query();
+      $query
+        ->setQuery($queryTerm)
+        ->setSize(3)
+        ->setFields($item['fields']);
+      $search->setQuery($query);
 
-    $this->buildQuery(
-      $index,
-      'QubitTerm',
-      'i18n.%s.name',
-      array('slug', 'i18n'),
-      array('_score' => 'desc'));
+      $mSearch->addSearch($search);
+    }
 
-    // Get a list of result sets
-    $resultSets = $this->sendMultiQuery();
+    $resultSets = $mSearch->search();
 
-    // Direct access to result set objects
     $this->descriptions = $resultSets[0];
     $this->repositories = $resultSets[1];
     $this->actors = $resultSets[2];
@@ -109,58 +116,5 @@ class SearchAutocompleteAction extends sfAction
         $this->levelsOfDescription[$item->id] = $item->name;
       }
     }
-  }
-
-  protected function buildQuery($index, $type, $field, $fields, $sort)
-  {
-    $fieldName = sprintf($field, $this->culture);
-
-    // Header
-    $this->queries[] = array(
-      'index' => $index,
-      'type' => $type);
-
-    $this->queries[] = array(
-      'query' => array(
-        'query_string' => array(
-          'default_field' => $fieldName,
-          'default_operator' => 'AND',
-          'query' => $this->queryString)),
-      'fields' => $fields,
-      'size' => 3,
-      'sort' => $sort);
-  }
-
-  /**
-   * Elastica does not support _msearch yet. This method sends the query using
-   * \Elastica\Client::request(). Multiple \Elastica\Response objects are build
-   * but json_encode has to be called. I wonder if it could be avoided some way.
-   *
-   * @return array
-   */
-  protected function sendMultiQuery()
-  {
-    $rawQuery = '';
-    foreach ($this->queries as $query)
-    {
-      $rawQuery .= (is_array($query) ? json_encode($query) : $query) . PHP_EOL;
-    }
-
-    $response = QubitSearch::getInstance()->client->request('_msearch', \Elastica\Request::GET, $rawQuery);
-    $responseData = $response->getData();
-
-    $resultSets = array();
-
-    if (isset($responseData['responses']) && is_array($responseData['responses']))
-    {
-      foreach ($responseData['responses'] as $key => $responseData)
-      {
-        $response = new \Elastica\Response(json_encode($responseData));
-
-        $resultSets[] = new \Elastica\ResultSet($response);
-      }
-    }
-
-    return $resultSets;
   }
 }
