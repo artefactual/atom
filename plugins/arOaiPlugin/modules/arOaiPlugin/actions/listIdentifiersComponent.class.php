@@ -24,81 +24,19 @@
  * @subpackage oai
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
-class arOaiPluginListIdentifiersComponent extends sfComponent
+class arOaiPluginListIdentifiersComponent extends arOaiPluginComponent
 {
   public function execute($request)
   {
     $request->setRequestFormat('xml');
     $this->date = gmdate('Y-m-d\TH:i:s\Z');
-    $this->attributes = $request->getGetParameters();
 
-    /*
-     * If limit dates are not supplied, define them as ''
-     */
-    if (!isset($request->from))
-    {
-      $this->from = '';
-    }
-    else
-    {
-      $this->from = $request->from;
-    }
+    $this->setUpdateParametersFromRequest($request);
 
-    if (!isset($request->until))
-    {
-      $this->until = '';
-    }
-    else
-    {
-      $this->until = $request->until;
-    }
-
-    /*
-     * If cursor not supplied, define as 0
-     */
-    if (!isset($request->cursor))
-    {
-      $this->cursor = 0;
-    }
-    else {
-      $this->cursor = $request->cursor;
-    }
-
-    $this->collectionsTable = QubitOai::getCollectionArray();
-
-    /*
-     * If set is not supplied, define it as ''
-     */
-    if (!isset($request->set))
-    {
-      $collection = '';
-    }
-    else
-    {
-      $collection = QubitOai::getCollectionInfo($request->set, $this->collectionsTable);
-    }
-
-    //Get the records according to the limit dates and collection
-    $update = QubitInformationObject::getUpdatedRecords(
-      $this->from,
-      $this->until,
-      $this->cursor,
-      QubitSetting::getByName('resumption_token_limit')->__toString(),
-      $collection
-    );
-    $this->publishedRecords = $update['data'];
-    $this->remaining        = $update['remaining'];
-    $this->recordsCount     = count($this->publishedRecords);
-    $resumptionCursor       = $this->cursor + QubitSetting::getByName('resumption_token_limit')->__toString();
-    $this->resumptionToken  = 'from='. $this->from .'&amp;until='. $this->until .'&amp;cursor='. $resumptionCursor;
+    $this->getUpdates();
 
     $this->path = $request->getUriPrefix().$request->getPathInfo();
 
-    $this->attributesKeys = array_keys($this->attributes);
-    $this->requestAttributes = '';
-    foreach ($this->attributesKeys as $key)
-    {
-      $this->requestAttributes .= ' '.$key.'="'.$this->attributes[$key].'"';
-    }
+    $this->setRequestAttributes($request);
   }
 }
