@@ -408,10 +408,18 @@ class QubitInformationObject extends BaseInformationObject
     $criteria->add(QubitInformationObject::PARENT_ID, null, Criteria::ISNOTNULL);
 
     $criteria->addAscendingOrderByColumn(QubitObject::UPDATED_AT);
+
+    $c2 = clone $criteria;
+    $count = BasePeer::doCount($c2)->fetchColumn(0);
+    $remaining = $count - ($offset + $limit);
+
     $criteria->setOffset($offset);
     $criteria->setLimit($limit);
 
-    return QubitInformationObject::get($criteria);
+    return array(
+      'data'      => QubitInformationObject::get($criteria),
+      'remaining' => $remaining
+    );
   }
 
   public function setMaterialType($materialType)
