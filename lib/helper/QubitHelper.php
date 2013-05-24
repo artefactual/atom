@@ -299,6 +299,17 @@ function get_search_i18n($hit, $fieldName, $cultureFallback = true, $allowEmpty 
   return $value;
 }
 
+function get_search_i18n_highlight(\Elastica\Result $hit, $fieldName)
+{
+  $highlights = $hit->getHighlights();
+  $field = 'i18n.'.sfContext::getInstance()->user->getCulture().'.'.$fieldName;
+
+  if (isset($highlights[$field]))
+  {
+    return $highlights[$field][0];
+  }
+}
+
 function escape_dc($text)
 {
   return preg_replace('/\n/', '<lb/>', $text);
