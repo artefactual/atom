@@ -175,7 +175,34 @@ class SearchIndexAction extends DefaultBrowseAction
     // Sort, From, Limit
     $this->query->setSort(array('_score' => 'desc'));
 
+    // Add suggestion
+    // Using setParam since Elastica does not support the suggest API yet
+    $this->query->setParam('suggest', array(
+      'text' => $request->query,
+      'suggestions' => array(
+        'term' => array(
+          'size' => 1,
+          'field' => sprintf('i18n.%s.title', $this->context->user->getCulture())))));
+
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
+
+    // Capture best suggestion
+    $esResponse = $resultSet->getResponse()->getData();
+    if (isset($esResponse['suggest'])
+        && isset($esResponse['suggest']['suggestions'])
+        && 0 < count($esResponse['suggest']['suggestions']))
+    {
+      $firstSuggestion = array_pop($esResponse['suggest']['suggestions']);
+
+      $this->suggestion = array_pop($firstSuggestion['options']);
+    }
+
+    if (0 == $resultSet->getTotalHits())
+    {
+      $this->setTemplate('noResults');
+
+      return sfView::SUCCESS;
+    }
 
     $this->pager = new QubitSearchPager($resultSet);
     $this->pager->setPage($request->page ? $request->page : 1);
