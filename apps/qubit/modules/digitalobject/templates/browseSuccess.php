@@ -4,7 +4,7 @@
   <div class="offset1 span6">
 
     <h1>
-      <?php echo image_tag('/images/icons-large/icon-institutions.png', array('width' => '42', 'height' => '42')) ?>
+      <?php echo image_tag('/images/icons-large/icon-media.png', array('width' => '42', 'height' => '42')) ?>
       <?php echo __('Browse %1% digital objects', array('%1%' => $pager->getNbResults())) ?>
     </h1>
 
