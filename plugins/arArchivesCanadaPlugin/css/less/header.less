@@ -25,11 +25,6 @@
  */
 
 #header {
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  right: 0;
   height: 99px;
   border-bottom: 1px solid @grayDark;
   background-color: @white;
@@ -229,20 +224,6 @@
 }
 
 // Responsive design
-
-@media (min-width: @navbarCollapseDesktopWidth) {
-
-  body.user-logged #header { top: 41px; }
-  body.user-logged { margin-top: 141px; }
-
-}
-
-@media (min-width: 768px) and (max-width: @navbarCollapseWidth) {
-
-  body.user-logged #header { top: 51px; }
-  body.user-logged { margin-top: 0px; }
-
-}
 
 @media (max-width: 767px) {
 
