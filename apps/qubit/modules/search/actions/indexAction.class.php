@@ -157,6 +157,14 @@ class SearchIndexAction extends DefaultBrowseAction
       $this->getResponse()->addStylesheet('print-preview', 'last');
     }
 
+    // Print noResults template if query is empty
+    if (empty($request->query))
+    {
+      $this->setTemplate('noResults');
+
+      return sfView::SUCCESS;
+    }
+
     $queryText = new \Elastica\Query\QueryString($request->query);
     $queryText->setDefaultOperator('AND');
     # _all? $queryText->setDefaultField(sprintf('i18n.%s.authorizedFormOfName', $this->context->user->getCulture()));
