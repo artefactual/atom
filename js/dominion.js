@@ -104,8 +104,8 @@
   var Autocomplete = function (element)
     {
       this.$element = element;
-      this.$realm = this.$element.parent().find('#search-realm');
-      this.$form = this.$element.parent('form');
+      this.$realm = this.$element.parents('#search-form-wrapper').find('#search-realm');
+      this.$form = this.$element.parents('form');
       this.$menu = $('<div id="search-suggestions" class="search-popover"></div>').appendTo(this.$form);
 
       this.source = this.$element.closest('form').data('autocomplete');
@@ -149,15 +149,8 @@
       {
         this.hideRealm();
         this.$menu.show();
+
         this.shown = true;
-
-        return this;
-      },
-
-    showRealm: function (e)
-      {
-        this.hide();
-        this.$realm.show();
 
         return this;
       },
@@ -170,9 +163,34 @@
         return this;
       },
 
+    showRealm: function (e)
+      {
+        this.hide();
+        this.$realm.css('display', 'block');
+
+        // Remove radius when the realm is shown
+        this.$element.css('border-bottom-left-radius', 0);
+
+        if (undefined === this.$realm.positioned)
+        {
+          var position = this.$element.offset();
+          this.$realm.css('left', position.left);
+          this.$realm.width(this.$element.innerWidth());
+
+          this.$realm.positioned = true;
+        }
+
+        return this;
+      },
+
     hideRealm: function (e)
       {
-        this.$realm.hide();
+        this.$realm.css('display', 'none');
+
+        // Use radius again
+        this.$element.css('border-bottom-left-radius', '4px');
+
+        return this;
       },
 
     lookup: function (e)
@@ -209,6 +227,15 @@
     render: function (html)
       {
         this.$menu.html(html);
+
+        if (undefined === this.$menu.positioned)
+        {
+          var position = this.$element.offset();
+          this.$menu.css('left', position.left);
+          this.$menu.width(this.$element.innerWidth());
+
+          this.$menu.positioned = true;
+        }
 
         return this;
       },
@@ -261,18 +288,22 @@
         {
           e.preventDefault();
           e.stopPropagation();
-        }
 
-        if (!this.shown)
-        {
           return;
         }
+
+        // if (!this.shown) return;
 
         switch (e.keyCode)
         {
           case 9: // Tab
           case 27: // Escape
             e.preventDefault();
+            break;
+
+          case 13:
+            e.preventDefault();
+            $(e.target).closest('form').get(0).submit();
             break;
 
           case 38: // Up arrow
@@ -295,7 +326,7 @@
         setTimeout(function ()
           {
             self.hide();
-            self.$realm.hide();
+            self.hideRealm();
             self.$element.val('');
           }, 150);
 
