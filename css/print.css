@@ -37,12 +37,12 @@ h1,
 {
   font-size: 9pt;
 
-  @bottom
+  @bottom-center
   {
     content: string(site-name);
   }
 
-  @top
+  @top-center
   {
     content: string(label);
   }
