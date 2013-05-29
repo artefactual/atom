@@ -16,8 +16,8 @@
  */
 
 /*
-* E     #header-admin > .navbar > ...
- * H    #header > .container
+ * H    #header-admin > .navbar > ...
+ * E    #header > .container
  * A     |- #header-lvl1.row > span12 > { #header-nav, #header-council }
  * D     |- #header-lvl2.row > span12
  * E          |- #logo-and-name
@@ -84,32 +84,67 @@
 
   margin-top: 12px;
 
+  // Use sans
+  input[type=text],
+  .dropdown-menu {
+    font-family: @sansFontFamily;
+  }
+
+  // Make the border darker
+  input[type=text],
+  .btn-group,
+  .btn {
+    border-color: #9a9a9a;
+  }
+
+  // Cancel some Dominion and Bootstrap defaults
   input[type=text] {
-    .box-sizing(border-box);
+
+    display: inline-block;
     #font > .shorthand(16px, normal, 21px);
-    height: 30px;
     color: #333;
-    @shadow: rgba(255, 255, 255, 0.5) 0 1px 0;
-    .box-shadow(@shadow);
-    border: 1px solid #999;
-    .border-radius(3px);
     outline: none;
     .placeholder(#999);
+
+    .transition(width .5s);
+
+    &:focus {
+      border: 1px solid #999;
+      @shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+      .box-shadow(@shadow);
+      outline: 0 none;
+    }
+
   }
 
-  text-align: right;
-
-  #search-form-wrapper {
-    width: 80%;
-    display: inline-block;
+  .input-append {
+    text-align: right;
   }
 
-  #browse-menu {
-    display: inline-block;
+  // Customize browse menu
+  .dropdown-menu {
+
+    text-align: left;
+    border: 2px solid #333;
+    @shadow:  2px  2px 0px rgba(255, 255, 255, .5),
+             -2px  2px 0px rgba(255, 255, 255, .5),
+             -2px -2px 0px rgba(255, 255, 255, .5),
+              2px -2px 0px rgba(255, 255, 255, .5);
+    .box-shadow(@shadow);
+
+    li > a {
+      padding: 3px 20px 3px 10px;
+    }
+
+    img {
+      margin-right: 4px;
+    }
+
   }
 
-  #browse-menu {
-    margin-top: -3px;
+  // Integrate middle button
+  #btn-advanced-search {
+    .border-radius(0);
   }
 
 }
@@ -132,16 +167,6 @@
     padding: 5px 0 5px 6px;
     .clearfix;
 
-    // Advanced search link
-    &:last-child {
-
-      padding-left: 12px;
-      border-bottom: none;
-      text-transform: lowercase;
-      font-variant: small-caps;
-      font-size: 15px;
-
-    }
 
     &#search-realm {
 
@@ -225,30 +250,47 @@
 
 // Responsive design
 
+@media (min-width: 1215px) {
+  #header-search input[type=text] {
+    width: 500px;
+  }
+}
+
+@media (min-width: 980px) and (max-width: 1214px) {
+  #header-search input[type=text] {
+    width: 390px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  #header-search input[type=text] {
+    width: 290px;
+  }
+}
+
 @media (max-width: 767px) {
-
-  /* Hide mainMenu */
-  #header-admin { .hide; }
-
-  /* Hide the other menu */
-  #header .container > .row:first-child {
-    .hide;
+  #header-search input[type=text] {
+    width: auto;
   }
-
-  #header {
-    margin-left: -20px;
-    margin-right: -20px;
-    position: static;
+  #header-admin,
+  #header-lvl1 {
+    .hide();
   }
-
   #logo-and-name h1 {
     margin: 10px 0 0 0;
     text-align: center;
   }
-
-  #header-search {
-    margin: 0 auto;
-    padding: 0 20px;
+  #header {
+    margin-left: -20px;
+    margin-right: -20px;
   }
-
+  #header-search {
+    margin: 10px auto 0 auto;
+    .input-append {
+      text-align: center;
+    }
+    input[type=text] {
+      width: 70%;
+    }
+  }
 }
