@@ -257,6 +257,12 @@
 
     keypress: function (e)
       {
+        if (13 == e.keyCode && !e.target.value.length)
+        {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+
         if (!this.shown)
         {
           return;
