@@ -182,6 +182,7 @@ class SearchIndexAction extends DefaultBrowseAction
       'suggestions' => array(
         'term' => array(
           'size' => 1,
+          'sort' => 'frequency',
           'field' => sprintf('i18n.%s.title', $this->context->user->getCulture())))));
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
