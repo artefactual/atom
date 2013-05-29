@@ -1,6 +1,6 @@
 <div id="search-form-wrapper">
 
-  <form action="<?php echo url_for(array('module' => 'search')) ?>" data-autocomplete="<?php echo url_for(array('module' => 'search', 'action' => 'autocomplete')) ?>" autocomplete="off">
+  <form action="<?php echo url_for(array('module' => 'search')) ?>" data-autocomplete="<?php echo url_for(array('module' => 'search', 'action' => 'autocomplete')) ?>">
 
     <div class="input-append">
 
@@ -8,9 +8,7 @@
 
       <div class="btn-group">
 
-        <button id="btn-advanced-search" class="btn">
-          <span class="icon-cog"></span>
-        </button>
+        <?php echo link_to('<span class="icon-cog"></span>', array('module' => 'search', 'action' => 'advanced'), array('id' => 'btn-advanced-search', 'class' => 'btn')) ?>
 
         <button class="btn dropdown-toggle" data-toggle="dropdown">
           <span class="caret"></span>

@@ -152,6 +152,9 @@
 
         this.shown = true;
 
+        // Remove radius when the realm is shown
+        this.$element.css('border-bottom-left-radius', 0);
+
         return this;
       },
 
@@ -159,6 +162,9 @@
       {
         this.$menu.hide();
         this.shown = false;
+
+        // Use radius again
+        this.$element.css('border-bottom-left-radius', '4px');
 
         return this;
       },

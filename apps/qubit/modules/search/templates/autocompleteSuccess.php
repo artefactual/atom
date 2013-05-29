@@ -60,7 +60,3 @@
     </ul>
   </section>
 <?php endif; ?>
-
-<div id="advanced-search">
-  <?php echo link_to(__('Advanced search'), array('module' => 'search', 'action' => 'advanced')) ?>
-</div>

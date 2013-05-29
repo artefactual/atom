@@ -78,11 +78,12 @@
   margin-top: -6px;
 }
 
-// Header search form
+#search-form-wrapper {
 
-#header-search {
-
-  margin-top: 12px;
+  form {
+    position: relative; // Positiionate search autocomplete;
+    margin: 12px 0 0 0;
+  }
 
   // Use sans
   input[type=text],
@@ -105,7 +106,6 @@
     color: #333;
     outline: none;
     .placeholder(#999);
-
     .transition(width .5s);
 
     &:focus {
@@ -119,6 +119,7 @@
 
   .input-append {
     text-align: right;
+    margin-bottom: 0;
   }
 
   // Customize browse menu
@@ -145,105 +146,6 @@
   // Integrate middle button
   #btn-advanced-search {
     .border-radius(0);
-  }
-
-}
-
-// For #search-suggestions and #search-realm
-
-.search-popover {
-
-  position: fixed;
-  z-index: @zindexPopover;
-  .box-shadow(0 1px 3px rgba(0, 0, 0, .5));
-  #gradient > .vertical-three-colors(@white, @white, 70%, lighten(@grayLight, 10%));
-  .border-radius(4px);
-  .box-sizing(border-box);
-  .hide();
-
-  div {
-
-    border-bottom: 1px solid @grayLight;
-    padding: 5px 0 5px 6px;
-    .clearfix;
-
-
-    &#search-realm {
-
-
-    }
-
-    &#search-suggestions {
-
-
-    }
-
-    label {
-
-      input {
-
-        display: inline;
-        margin: 0 4px;
-
-      }
-
-    }
-
-    img {
-
-      float: left;
-      margin: 5px;
-
-    }
-
-    ul {
-
-      padding: 4px 4px 0 18px;
-      margin-bottom: 0;
-
-      li {
-
-        display: block;
-        float: none;
-        margin: 0 0 4px 0;
-        padding: 0;
-
-        a {
-
-          text-transform: none;
-          font-variant: normal;
-          color: @blue;
-          padding: 2px 0;
-          font-size: 14px;
-
-          span {
-
-            font-family: @altFontFamily;
-            text-transform: uppercase;
-            color: @gray;
-            font-size: 10px;
-            padding: 0 10px;
-
-          }
-
-        }
-
-        &.showall a {
-
-          font-style: oblique;
-          color: @grayDark !important;
-
-        }
-
-      }
-
-    }
-
-  }
-
-  #search-bottom {
-    background-color: @white;
-    .border-radius(0 0 4px 4px);
   }
 
 }

@@ -35,7 +35,7 @@
       <div class="row">
 
         <div id="logo-and-name" class="span6">
-          <h1><?php echo link_to(image_tag('/plugins/arArchivesCanadaPlugin/images/logo'), '@homepage', array('rel' => 'home')) ?></h1>
+          <h1><?php echo link_to(image_tag('/plugins/arArchivesCanadaPlugin/images/logo.png'), '@homepage', array('rel' => 'home')) ?></h1>
         </div>
 
         <div id="header-search" class="span6">
