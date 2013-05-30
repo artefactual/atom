@@ -37,7 +37,7 @@
                     :
                       $id),
                 'page' => null) + $sf_request->getParameterHolder()->getAll()) ?>
-            <span><?php echo $term['count'] ?></span>
+            <span class="facet-count"><?php echo $term['count'] ?></span>
           </li>
         <?php endforeach; ?>
       <?php endif; ?>

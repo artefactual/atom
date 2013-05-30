@@ -310,47 +310,67 @@ a:hover {
 
     &.active {
       a {
-        color: @black;
         text-decoration: underline;
       }
     }
 
-    span {
+    .facet-count {
       padding-left: 4px;
-      color: @grayLight;
     }
 
   }
 
+}
 
-  #facet-dates {
+// Date picker in facets
 
-    label,
-    span {
-      color: @black;
+#facet-dates {
+
+  label,
+  ul,
+  li {
+    display: inline;
+  }
+
+  form,
+  label,
+  ul,
+  li {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  li:not(:first-child) {
+    margin: 0 1px;
+  }
+
+  input[type=text] {
+    width: 44px;
+    padding: 0 4px;
+    display: inline;
+    height: 24px;
+    min-height: 24px;
+    margin-bottom: 3px;
+    text-align: center;
+  }
+
+  button {
+    height: 24px;
+    min-height: 24px;
+    margin: 0 0 3px 4px;
+    padding: 3px 10px 0 9px;
+    i {
+      font-size: 16px;
+      color: @gray;
     }
+  }
 
-    input[type=text] {
-      width: 44px;
-      padding: 0 4px;
-      display: inline;
-      height: 24px;
-      min-height: 24px;
-      top: 0;
-      margin-bottom: 3px;
-    }
-
-    input[type=radio] {
-      height: 13px;
-      width: 13px;
-      margin-top: -2px;
-    }
-
-    input[type=button] {
-      margin-left: 4px;
-      margin-top: -3px;
-    }
-
+  #facet-dates-clear {
+    display: block;
   }
 
 }

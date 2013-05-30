@@ -41,6 +41,7 @@ default:
     /vendor/jquery.masonry.js:
     /vendor/bootstrap/js/bootstrap:
     /vendor/chosen/chosen.jquery.js:
+    /vendor/URI.js:
     qubit:
     treeView:
     dominion: { position: last }

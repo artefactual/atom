@@ -127,6 +127,27 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       $this->queryBool->addMust($queryText);
     }
 
+    if ((isset($request->from) && false !== ctype_digit($request->from))
+        || (isset($request->to) && false !== ctype_digit($request->to)))
+    {
+      $rangeFilterOptions = array();
+
+      if (isset($request->from) && false !== ctype_digit($request->from))
+      {
+        $rangeFilterOptions['gte'] = $request->from;
+      }
+
+      if (isset($request->to) && false !== ctype_digit($request->to))
+      {
+        $rangeFilterOptions['gte'] = $request->to;
+      }
+
+      $queryRange = new \Elastica\Query\Range;
+      $queryRange->addField('dates.startDate', $rangeFilterOptions);
+
+      $this->queryBool->addMust($queryRange);
+    }
+
     // Filter drafts
     $this->query = QubitAclSearch::filterDrafts($this->query);
 

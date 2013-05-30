@@ -97,6 +97,57 @@
 
   /****
    ****
+   ****  jQuery Masonry
+   ****
+   ****/
+
+  $(document).ready(function()
+    {
+      var $form = $('#facet-dates').find('form');
+
+      $form.submit(function (e)
+        {
+          var $from = $(e.target.from);
+          var $to = $(e.target.to);
+
+          // Don't submit if empty
+          if (!$from.get(0).value && !$to.get(0).value)
+          {
+            e.preventDefault();
+
+            return;
+          }
+
+          // Parse document location and add current parameters to the form
+          var uri = new URI();
+          var uriParameters = uri.search(true);
+          console.log(uriParameters);
+          for (var key in uriParameters)
+          {
+            if (key == 'from' || key == 'to')
+            {
+              continue;
+            }
+
+            $('<input />')
+              .attr('type', 'hidden')
+              .attr('name', key)
+              .attr('value', uriParameters[key])
+              .appendTo($form);
+          }
+        });
+
+      $form.find('#facet-dates-clear').click(function (event)
+        {
+          event.preventDefault();
+
+          $form.find('input').attr('value', '');
+          $form.get(0).submit();
+        });
+    });
+
+  /****
+   ****
    ****  Autocomplete plugin
    ****
    ****/
