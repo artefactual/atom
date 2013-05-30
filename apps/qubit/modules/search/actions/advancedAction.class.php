@@ -296,6 +296,11 @@ class SearchAdvancedAction extends DefaultBrowseAction
       }
     }
 
+    if (0 == count($queryBool->getParams()))
+    {
+      return;
+    }
+
     return $queryBool;
   }
 
@@ -320,16 +325,13 @@ class SearchAdvancedAction extends DefaultBrowseAction
     $this->form->bind($request->getRequestParameters() + $request->getGetParameters() + $request->getPostParameters());
     if (!$this->form->isValid())
     {
-      die(" ERROR FORM ");
+      throw new sfException;
     }
 
-    if (null !== $advancedSearchCriteriaQueryBool = $this->parseQuery())
+    // Bulding a \Elastica\Query\Bool object from the search criterias
+    if (null !== $criterias = $this->parseQuery())
     {
-      $this->queryBool->addMust($advancedSearchCriteriaQueryBool);
-    }
-    else
-    {
-      $this->queryBool->addMust(new \Elastica\Query\MatchAll());
+      $this->queryBool->addMust($criterias);
     }
 
     // Process form fields

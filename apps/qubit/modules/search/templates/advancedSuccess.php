@@ -54,10 +54,11 @@
 <?php slot('context-menu') ?>
   <section id="action-icons">
     <ul>
-      <li><?php echo link_to(
-            image_tag('printer-icon.png', array('alt' => __('Print'))),
-            array_merge($sf_request->getParameterHolder()->getAll(), array('media' => 'print')),
-            array('title' => __('Print'))) ?>
+      <li>
+        <a href="<?php echo url_for(array_merge($sf_request->getParameterHolder()->getAll(), array('media' => 'print'))) ?>">
+          <i class="icon-print"></i>
+          <?php echo __('Print') ?>
+        </a>
       </li>
     </ul>
   </section>
@@ -69,10 +70,17 @@
   <input type="submit" class="c-btn c-btn-submit" value="<?php echo __('Search') ?>"/>
 </section>
 
-<?php foreach ($pager->getResults() as $hit): ?>
-  <?php $doc = $hit->getData() ?>
-  <?php echo include_partial('search/searchResult', array('doc' => $doc, 'pager' => $pager)) ?>
-<?php endforeach; ?>
+<?php if ($pager->hasResults()): ?>
+  <?php foreach ($pager->getResults() as $hit): ?>
+    <?php $doc = $hit->getData() ?>
+    <?php echo include_partial('search/searchResult', array('doc' => $doc, 'pager' => $pager)) ?>
+  <?php endforeach; ?>
+<?php else: ?>
+  <section id="no-search-results">
+    <i class="icon-search"></i>
+    <p class="no-results-found"><?php echo __('No results found.') ?></p>
+  </section>
+<?php endif; ?>
 
 <?php slot('after-content') ?>
   <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
