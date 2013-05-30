@@ -8,7 +8,7 @@
     <?php include_stylesheets() ?>
     <?php if ($sf_context->getConfiguration()->isDebug()): ?>
       <script type="text/javascript" charset="utf-8">
-        less = { env: 'development' };
+        less = { env: 'development', optimize: 0, relativeUrls: true };
       </script>
     <?php endif; ?>
     <?php include_javascripts() ?>
