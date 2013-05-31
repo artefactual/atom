@@ -8,7 +8,7 @@
 
       <div class="btn-group">
 
-        <?php echo link_to('<span class="icon-cog"></span>', array('module' => 'search', 'action' => 'advanced'), array('id' => 'btn-advanced-search', 'class' => 'btn')) ?>
+        <?php echo link_to('<span class="icon-search"></span>', array('module' => 'search', 'action' => 'advanced'), array('id' => 'btn-advanced-search', 'class' => 'btn')) ?>
 
         <button class="btn dropdown-toggle" data-toggle="dropdown">
           <span class="caret"></span>
