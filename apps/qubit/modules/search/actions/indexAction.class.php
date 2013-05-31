@@ -185,6 +185,9 @@ class SearchIndexAction extends DefaultBrowseAction
 
     // Add suggestion
     // Using setParam since Elastica does not support the suggest API yet
+    /*
+      TEMPORARY DISABLED, IT'S NOT WORKING FOR ME NOW
+      Parse Failure: "No parser for element [suggest]"
     $this->query->setParam('suggest', array(
       'text' => $request->query,
       'suggestions' => array(
@@ -192,6 +195,7 @@ class SearchIndexAction extends DefaultBrowseAction
           'size' => 1,
           'sort' => 'frequency',
           'field' => sprintf('i18n.%s.title', $this->context->user->getCulture())))));
+    */
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
 
