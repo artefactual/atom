@@ -188,6 +188,17 @@
         }
 
         this.$menu.on('mouseenter', 'li', $.proxy(this.mouseenter, this));
+
+        // Validate form
+        this.$form.submit(function (e)
+          {
+            // Forbid empty
+            if (1 > e.target.query.value.length)
+            {
+              e.preventDefault();
+              e.target.focus();
+            }
+          });
       },
 
     resize: function()

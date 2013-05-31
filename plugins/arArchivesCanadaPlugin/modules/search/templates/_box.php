@@ -8,7 +8,9 @@
 
       <div class="btn-group">
 
-        <?php echo link_to('<span class="icon-search"></span>', array('module' => 'search', 'action' => 'advanced'), array('id' => 'btn-advanced-search', 'class' => 'btn')) ?>
+        <button type="submit" class="btn" id="btn-advanced-search">
+          <span class="icon-search"></span>
+        </button>
 
         <button class="btn dropdown-toggle" data-toggle="dropdown">
           <span class="caret"></span>
@@ -21,6 +23,13 @@
           <li><?php echo link_to(image_tag('/images/icons-large/icon-places.png', array('width' => '24', 'height' => '24')).' '.__('Places'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 42)) ?></li>
           <li><?php echo link_to(image_tag('/images/icons-large/icon-media.png', array('width' => '24', 'height' => '24')).' '.__('Media'), array('module' => 'digitalobject', 'action' => 'browse')) ?></li>
           <li><?php echo link_to(image_tag('/images/icons-large/icon-new.png', array('width' => '24', 'height' => '24')).' '.__('Newest additions'), array('module' => 'search', 'action' => 'updates')) ?></li>
+          <li class="divider"></li>
+          <li class="advanced-search">
+            <a href="<?php echo url_for(array('module' => 'search', 'action' => 'advanced')) ?>">
+              <i class="icon-zoom-in"></i>
+              <?php echo __('Advanced search') ?>
+            </a>
+          </li>
         </ul>
 
       </div>
@@ -46,6 +55,12 @@
           <input name="realm" type="radio" value="all" checked="checked">
           <?php echo __('Global search') ?>
         </label>
+      </div>
+
+      <div class="search-realm-advanced">
+        <a href="<?php echo url_for(array('module' => 'search', 'action' => 'advanced')) ?>">
+          <?php echo __('Advanced search') ?>&nbsp;&raquo;
+        </a>
       </div>
 
     </div>
