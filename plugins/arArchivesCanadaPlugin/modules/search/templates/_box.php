@@ -16,13 +16,13 @@
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu pull-right">
-          <li><?php echo link_to(image_tag('/images/icons-large/icon-archival.png', array('width' => '24', 'height' => '24')).' '.__('Archival descriptions'), array('module' => 'informationobject', 'action' => 'browse')) ?></li>
-          <li><?php echo link_to(image_tag('/images/icons-large/icon-institutions.png', array('width' => '24', 'height' => '24')).' '.__('Institutions'), array('module' => 'repository', 'action' => 'browse')) ?></li>
-          <li><?php echo link_to(image_tag('/images/icons-large/icon-subjects.png', array('width' => '24', 'height' => '24')).' '.__('Subjects'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 35)) ?></li>
-          <li><?php echo link_to(image_tag('/images/icons-large/icon-people.png', array('width' => '24', 'height' => '24')).' '.__('People &amp; Organizations'), array('module' => 'actor', 'action' => 'browse')) ?></li>
-          <li><?php echo link_to(image_tag('/images/icons-large/icon-places.png', array('width' => '24', 'height' => '24')).' '.__('Places'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 42)) ?></li>
-          <li><?php echo link_to(image_tag('/images/icons-large/icon-media.png', array('width' => '24', 'height' => '24')).' '.__('Media'), array('module' => 'digitalobject', 'action' => 'browse')) ?></li>
-          <li><?php echo link_to(image_tag('/images/icons-large/icon-new.png', array('width' => '24', 'height' => '24')).' '.__('Newest additions'), array('module' => 'search', 'action' => 'updates')) ?></li>
+          <li><?php echo link_to(image_tag('/images/icons-small/icon-archival-small.png').' '.__('Archival descriptions'), array('module' => 'informationobject', 'action' => 'browse')) ?></li>
+          <li><?php echo link_to(image_tag('/images/icons-small/icon-institutions-small.png').' '.__('Institutions'), array('module' => 'repository', 'action' => 'browse')) ?></li>
+          <li><?php echo link_to(image_tag('/images/icons-small/icon-subjects-small.png').' '.__('Subjects'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 35)) ?></li>
+          <li><?php echo link_to(image_tag('/images/icons-small/icon-people-small.png').' '.__('People &amp; Organizations'), array('module' => 'actor', 'action' => 'browse')) ?></li>
+          <li><?php echo link_to(image_tag('/images/icons-small/icon-places-small.png').' '.__('Places'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 42)) ?></li>
+          <li><?php echo link_to(image_tag('/images/icons-small/icon-media-small.png').' '.__('Media'), array('module' => 'digitalobject', 'action' => 'browse')) ?></li>
+          <li><?php echo link_to(image_tag('/images/icons-small/icon-new-small.png').' '.__('Newest additions'), array('module' => 'search', 'action' => 'updates')) ?></li>
           <li class="divider"></li>
           <li class="advanced-search">
             <a href="<?php echo url_for(array('module' => 'search', 'action' => 'advanced')) ?>">
