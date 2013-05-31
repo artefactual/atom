@@ -29,7 +29,8 @@ class digitalObjectRegenDerivativesTask extends sfBaseTask
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
       new sfCommandOption('slug', 'l', sfCommandOption::PARAMETER_OPTIONAL, 'Information object slug', null),
       new sfCommandOption('index', 'i', sfCommandOption::PARAMETER_NONE, 'Update search index (defaults to false)', null),
-      new sfCommandOption('force', 'f', sfCommandOption::PARAMETER_NONE, 'No confirmation message', null)
+      new sfCommandOption('force', 'f', sfCommandOption::PARAMETER_NONE, 'No confirmation message', null),
+      new sfCommandOption('only-externals', 'o', sfCommandOption::PARAMETER_NONE, 'Only external objects', null)
     ));
 
     $this->namespace = 'digitalobject';
@@ -77,6 +78,11 @@ EOF;
       }
 
       $query .= ' WHERE io.lft >= '.$row->lft.' and io.rgt <= '.$row->rgt;
+    }
+
+    if ($options['only-externals'])
+    {
+      $query .= ' AND do.usage_id = '.QubitTerm::EXTERNAL_URI_ID;
     }
 
     // Final confirmation
