@@ -43,3 +43,50 @@ h6 {
   font-family: 'Droid Serif';
   font-weight: normal;
 }
+
+// Color changes
+
+h1, h2, h3, h4, h5, h6,
+#action-icons a,
+#action-icons a:hover,
+#action-icons a:hover i,
+#left-column a,
+#right-column a,
+#breadcrumb a,
+#breadcrumb span,
+#sort-header label,
+#sort-header .dropdown-selected:after,
+#facets .facet-header p,
+#facets .facet-header p:after,
+.result-count,
+#sort-header .dropdown-selected span {
+  color: @white;
+}
+
+#action-icons i {
+  color: @orange;
+}
+
+#facets .open .facet-body,
+.pagination ul > li > a,
+.pagination ul > li > span {
+  background-color: @white;
+}
+
+.pagination ul > li > a:hover,
+.pagination ul > .active > a,
+.pagination ul > .active > span {
+  background-color: @grayLighter;
+  color: @black;
+}
+
+#action-icons a:hover {
+  background-color: @orange;
+}
+
+// Sort header
+
+#sort-header .sort-options label,
+#sort-header .dropdown-selected span {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .25);
+}
