@@ -11,12 +11,12 @@
     <div class="search-result-preview">
 
       <?php if (isset($doc['digitalObject']['thumbnailPath'])): ?>
-        <?php echo link_to(
-          image_tag($doc['digitalObject']['thumbnailPath']),
-          array('module' => 'informationobject', 'slug' => $doc['slug']),
-          array('title' => get_search_i18n($doc, 'title'))) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>">
+          <div class="preview-container">
+            <?php echo image_tag($doc['digitalObject']['thumbnailPath']) ?>
+          </div>
+        </a>
       <?php endif; ?>
-
     </div>
 
   <?php endif; ?>
