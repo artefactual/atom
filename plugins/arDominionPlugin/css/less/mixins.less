@@ -21,3 +21,38 @@
   cursor: -o-zoom-in;
   cursor: zoom-in;
 }
+
+.animation(@animation, @time) {
+  -webkit-animation: @animation @time;
+     -moz-animation: @animation @time;
+      -ms-animation: @animation @time;
+       -o-animation: @animation @time;
+          animation: @animation @time;
+}
+
+/*
+ * Animations
+ *
+ */
+
+// fadeInDown
+
+@-webkit-keyframes fadeInDown {
+  0% { opacity: 0; -webkit-transform: translateY(-5px); }
+  100% { opacity: 1; -webkit-transform: translateY(0); }
+}
+
+@-moz-keyframes fadeInDown {
+  0% { opacity: 0; -moz-transform: translateY(-5px); }
+  100% { opacity: 1; -moz-transform: translateY(0); }
+}
+
+@-o-keyframes fadeInDown {
+  0% { opacity: 0; -o-transform: translateY(-5px); }
+  100% { opacity: 1; -o-transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  0% { opacity: 0; transform: translateY(-5px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
