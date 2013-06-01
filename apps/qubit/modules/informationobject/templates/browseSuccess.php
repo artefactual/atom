@@ -13,7 +13,7 @@
 <?php slot('sidebar') ?>
   <section id="facets">
 
-    <section id="facet-dates">
+    <section class="facet facet-date">
       <div class="facet-header">
         <p><?php echo __('Dates') ?></p>
       </div>
@@ -23,7 +23,7 @@
           <?php if (
             (isset($sf_request->from) && false !== ctype_digit($sf_request->from))
             || (isset($sf_request->to) && false !== ctype_digit($sf_request->to))): ?>
-            <a href="#" id="facet-dates-clear"><?php echo __('Clear') ?></a>
+            <a href="#" class="facet-dates-clear"><?php echo __('Clear') ?></a>
           <?php endif; ?>
 
           <ul>

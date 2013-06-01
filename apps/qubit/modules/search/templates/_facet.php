@@ -1,4 +1,8 @@
-<section>
+<?php if (isset($sf_request->$facet)): ?>
+  <section class="facet open">
+<?php else: ?>
+  <section class="facet">
+<?php endif; ?>
 
   <div class="facet-header">
 

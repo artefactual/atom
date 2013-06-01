@@ -34,7 +34,7 @@
 <?php slot('sidebar') ?>
   <section id="facets">
 
-    <section id="facet-dates">
+    <section class="facet facet-date">
       <div class="facet-header">
         <p><?php echo __('Dates') ?></p>
       </div>

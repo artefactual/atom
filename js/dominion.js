@@ -97,13 +97,29 @@
 
   /****
    ****
-   ****  jQuery Masonry
+   ****  Facets
    ****
    ****/
 
   $(document).ready(function()
     {
-      var $form = $('#facet-dates').find('form');
+      var $facet = $('.facet');
+
+      $facet.on('click', '.facet-header p', function (e)
+        {
+          $(e.target).parents('.facet').toggleClass('open');
+        });
+    });
+
+  /****
+   ****
+   ****  Date facets
+   ****
+   ****/
+
+  $(document).ready(function()
+    {
+      var $form = $('.facet-date').find('form');
 
       $form.submit(function (e)
         {
@@ -137,7 +153,7 @@
           }
         });
 
-      $form.find('#facet-dates-clear').click(function (event)
+      $form.find('.facet-dates-clear').click(function (event)
         {
           event.preventDefault();
 

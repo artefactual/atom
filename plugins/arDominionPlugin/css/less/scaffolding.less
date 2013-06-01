@@ -260,71 +260,107 @@ a:hover {
 // Facets
 
 #facets {
-
   margin-top: 20px;
+}
 
-  section {
+.facet {
+
+  .facet-header {
+    font-family: @sansFontFamily;
+  }
+
+  .facet-body {
+    display: none;
+    border-top: 1px solid @grayLight;
+    background-color: #eee;
     margin-bottom: @baseLineHeight/2;
-    border-bottom: 1px solid @grayLighter;
-    &:last-child {
-      border-bottom: 0;
+  }
+
+  // Content of .facet-header for desktops
+  p {
+    text-transform: lowercase;
+    font-variant: small-caps;
+    font-weight: normal;
+    font-size: 20px;
+    margin: 0 0 0 0;
+    padding: 4px 4px 6px 6px;
+    position: relative;
+    cursor: pointer;
+    &:after {
+      position: absolute;
+      right: 8px;
+      content: "\f107";
+      font-family: "FontAwesome";
+      color: @gray;
+    }
+    &:hover {
+      background-color: @grayLight;
+      color: @white;
+      &:after {
+        color: @white;
+      }
     }
   }
 
-  .facet-header {
+  // Content of .facet-header for mobile
+  button {
+  }
+
+  // Open state of a facet
+  &.open {
+
+    // Change arrow icon
+    p:after {
+      content: "\f106";
+    }
+
+    .facet-header p {
+      background-color: @grayLight;
+      color: @white;
+      &:after {
+        color: @white;
+      }
+    }
+
+    // Show body with fadeInDown
+    .facet-body {
+      display: block;
+      .animation(fadeInDown, .2s);
+    }
 
   }
 
-  // Scrollable ?
-  .facet-body {
-    margin: 4px 0 0 0;
-  }
-
+  // Active facet item
   .active {
     a {
       color: @black;
     }
   }
 
-  // Only for desktops
-  p {
-    text-transform: lowercase;
-    font-variant: small-caps;
-    font-weight: normal;
-    font-size: 20px;
-    border:none;
-    margin: 0;
-    padding: 0;
-  }
-
-  // Only for mobile
-  button {
-  }
-
   ul {
     .nav();
-    margin-bottom: @baseLineHeight/2;
+    margin-bottom: 0;
   }
 
   li {
+    padding: 2px 4px;
+  }
 
-    &.active {
-      a {
-        text-decoration: underline;
-      }
-    }
+  // Selected facet results
+  .active a {
+    text-decoration: underline;
+  }
 
-    .facet-count {
-      padding-left: 4px;
-    }
-
+  // Facet counter
+  .facet-count {
+    padding-left: 4px;
   }
 
 }
 
 // Date picker in facets
 
-#facet-dates {
+.facet-dates {
 
   label,
   ul,
@@ -369,7 +405,7 @@ a:hover {
     }
   }
 
-  #facet-dates-clear {
+  .facet-dates-clear {
     display: block;
   }
 
