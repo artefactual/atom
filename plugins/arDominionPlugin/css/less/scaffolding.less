@@ -945,6 +945,118 @@ section .vcard:last-child > .field:last-child > div {
 
 }
 
+// Horizontal space that takes the sort dropdown or a search bar in a browser
+
+.header-options {
+  .clearfix();
+  margin-bottom: @baseLineHeight / 2;
+}
+
+// Form
+
+.header-form {
+  input[type=text] {
+    width: 50%;
+    display: inline;
+  }
+}
+
+// Sort header
+
+#sort-header {
+
+  float: right;
+  text-align: right;
+  margin-top: 2px;
+
+  label {
+    float: left;
+    color: #666;
+    margin-right: 6px;
+  }
+
+  // This is the item selected and shown, e.g. "Sort by: [Most recent]"
+  .dropdown-selected {
+    color: @blue;
+    &:after {
+      margin-left: 6px;
+      margin-right: 4px;
+      color: @gray;
+      content: "\f0d7"; // icon-caret-down
+      font-family: 'FontAwesome';
+    }
+  }
+
+  .dropdown {
+
+    float: left;
+    vertical-align: middle;
+    margin-left: 1px;
+    position: relative;
+    text-align: left;
+    cursor: pointer;
+    padding: 5px;
+    margin: -5px;
+
+    ul {
+      list-style-type: none;
+      position: absolute;
+      right: 2px;
+      top: 10px;
+      border-bottom: 1px solid #ddd;
+      z-index: 2;
+      background: transparent;
+      display: none;
+      padding-top: 17px;
+    }
+
+    li {
+      padding: 6px 12px;
+      width: auto;
+      white-space: nowrap;
+      border: 1px solid #ddd;
+      border-bottom: 0 none;
+      background: #fff;
+    }
+
+    &:hover ul {
+      display: block;
+      z-index: 2;
+    }
+
+    .selected {
+      text-decoration: none;
+      cursor: normal;
+      span {
+        color: #000;
+      }
+    }
+
+    .pointer {
+      padding: 0;
+      margin: 0;
+      position: absolute;
+      top: -6px;
+      right: 0;
+      display: block;
+      width: 18px;
+      height: 22px;
+      background: @white;
+      border: 1px solid #ddd;
+      border-bottom: 1px solid #fff;
+      .border-radius(2px 2px 0 0);
+      &:after {
+        margin-left: 5px;
+        color: @gray;
+        content: "\f0d7"; // icon-caret-down
+        font-family: 'FontAwesome';
+      }
+    }
+
+  }
+
+}
+
 // Responsive design
 
 @media (min-width: 1200px) {

@@ -71,25 +71,21 @@ class RepositoryBrowseAction extends DefaultBrowseAction
 
     switch ($request->sort)
     {
+      case 'mostRecent':
+        $this->query->setSort(array('updatedAt' => 'asc'));
+
+        break;
+
+      // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
-        $this->query->setSort(array('_score' => 'desc', 'slug' => 'asc'));
+        $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->context->user->getCulture());
+        $this->query->setSort(array($field => 'asc'));
 
         break;
 
-      case 'lastUpdated':
-        $this->query->setSort(array('_score' => 'desc', 'updatedAt' => 'asc'));
-
-        break;
-
+      case 'relevancy':
       default:
-        if ('alphabetic' == $this->sortSetting)
-        {
-          $this->query->setSort(array('_score' => 'desc', 'slug' => 'asc'));
-        }
-        else if ('lastUpdated' == $this->sortSetting)
-        {
-          $this->query->setSort(array('_score' => 'desc', 'updatedAt' => 'asc'));
-        }
+        $this->query->setSort(array('_score' => 'asc'));
     }
 
     $this->query->setQuery($this->queryBool);

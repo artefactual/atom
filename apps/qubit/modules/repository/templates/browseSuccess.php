@@ -24,17 +24,6 @@
 
   <div id="facets">
 
-    <div class="btn-group top-options">
-      <?php echo link_to(
-        __('Alphabetic'),
-        array('sort' => 'alphabetic') + $sf_request->getParameterHolder()->getAll(),
-        array('class' => 'btn' . ('alphabetic' == $sortSetting ? ' active' : ''))) ?>
-      <?php echo link_to(
-        __('Last updated'),
-        array('sort' => 'lastUpdated') + $sf_request->getParameterHolder()->getAll(),
-        array('class' => 'btn' . ('lastUpdated' == $sortSetting ? ' active' : ''))) ?>
-    </div>
-
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-archivetype',
       'label' => __('Archive type'),
@@ -50,6 +39,21 @@
       'filters' => $filters)) ?>
 
   </div>
+
+<?php end_slot() ?>
+
+<?php slot('before-content') ?>
+
+  <section class="header-options">
+
+    <?php echo get_partial('default/sortPicker',
+      array(
+        'options' => array(
+          'relevancy' => __('Relevancy'),
+          'mostRecent' => __('Most recent'),
+          'alphabetic' => __('Alphabetic')))) ?>
+
+  </section>
 
 <?php end_slot() ?>
 

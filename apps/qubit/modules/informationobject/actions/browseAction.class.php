@@ -127,6 +127,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       $this->queryBool->addMust($queryText);
     }
 
+    // Filter by dates
     if ((isset($request->from) && false !== ctype_digit($request->from))
         || (isset($request->to) && false !== ctype_digit($request->to)))
     {
@@ -151,48 +152,24 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     // Filter drafts
     $this->query = QubitAclSearch::filterDrafts($this->query);
 
-    $field = sprintf('i18n.%s.title.untouched', $this->context->user->getCulture());
-
     // Sort
     switch ($request->sort)
     {
-      case 'repositoryDown':
-
-        break;
-
-      case 'repositoryUp':
-
-        break;
-
-      case 'titleDown':
-        $this->query->setSort(array($field => 'desc'));
-
-        break;
-
-      case 'titleUp':
-        $this->query->setSort(array($field => 'asc'));
-
-        break;
-
-      case 'updatedDown':
-        $this->query->setSort(array('updatedAt' => 'desc'));
-
-        break;
-
-      case 'updatedUp':
+      case 'mostRecent':
         $this->query->setSort(array('updatedAt' => 'asc'));
 
         break;
 
+      // I don't think that this is going to scale, but let's leave it for now
+      case 'alphabetic':
+        $field = sprintf('i18n.%s.title.untouched', $this->context->user->getCulture());
+        $this->query->setSort(array($field => 'asc'));
+
+        break;
+
+      case 'relevancy':
       default:
-        if ('alphabetic' == $this->sortSetting)
-        {
-
-        }
-        else if ('lastUpdated' == $this->sortSetting)
-        {
-
-        }
+        $this->query->setSort(array('_score' => 'asc'));
     }
 
     $this->query->setQuery($this->queryBool);
