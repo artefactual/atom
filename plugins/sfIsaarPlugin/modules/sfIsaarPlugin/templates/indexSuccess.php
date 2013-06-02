@@ -18,18 +18,17 @@
     </div>
   <?php endif; ?>
 
-  <?php if (QubitInformationObject::ROOT_ID != $resource->parentId): ?>
-    <?php echo include_partial('default/breadcrumb', array('resource' => $resource, 'objects' => $resource->getAncestors()->andSelf()->orderBy('lft'))) ?>
-  <?php endif; ?>
-
-  <ul class="breadcrumb">
-    <li><?php echo link_to(__('People & Organizations'), array('module' => 'actor', 'action' => 'browse')) ?></li>
-    <li><span><?php echo render_title($resource) ?></span></li>
-  </ul>
+  <section class="breadcrumb">
+    <ul>
+      <li><?php echo link_to(__('People & Organizations'), array('module' => 'actor', 'action' => 'browse')) ?></li>
+      <li><span><?php echo render_title($resource) ?></span></li>
+    </ul>
+  </section>
 
 <?php end_slot() ?>
 
 <?php slot('context-menu') ?>
+
 <?php end_slot() ?>
 
 <section id="identityArea">
