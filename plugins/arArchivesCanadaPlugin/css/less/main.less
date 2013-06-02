@@ -52,8 +52,8 @@ h1, h2, h3, h4, h5, h6,
 #action-icons a:hover i,
 #left-column a,
 #right-column a,
-#breadcrumb a,
-#breadcrumb span,
+.breadcrumb a,
+.breadcrumb span,
 #sort-header label,
 #sort-header .dropdown-selected:after,
 #facets .facet-header p,
@@ -63,7 +63,8 @@ h1, h2, h3, h4, h5, h6,
   color: @white;
 }
 
-#action-icons i {
+#action-icons i,
+#action-icons a:hover {
   color: @orange;
 }
 
@@ -80,8 +81,8 @@ h1, h2, h3, h4, h5, h6,
   color: @black;
 }
 
-#action-icons a:hover {
-  background-color: @orange;
+.brick h4 {
+  color: @blue;
 }
 
 // Sort header
