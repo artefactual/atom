@@ -11,15 +11,6 @@
 
   <h1><?php echo render_title($rad) ?></h1>
 
-  <ul class="breadcrumb">
-    <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
-      <li><?php echo link_to(render_title($resource), url_for(array($resource, 'module' => 'repository'))) ?></li>
-      <li><span><?php echo __('Edit %1% - RAD', array('%1%' => strtolower(sfConfig::get('app_ui_label_informationobject')))) ?></span></li>
-    <?php else: ?>
-      <li><span><?php echo __('Add new %1% - RAD', array('%1%' => strtolower(sfConfig::get('app_ui_label_informationobject')))) ?></span></li>
-    <?php endif; ?>
-  </ul>
-
   <?php if (isset($sf_request->source)): ?>
     <div class="messages status">
       <?php echo __('This is a duplicate of record %1%', array('%1%' => $sourceInformationObjectLabel)) ?>
