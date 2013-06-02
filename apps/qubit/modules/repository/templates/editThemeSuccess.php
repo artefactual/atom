@@ -6,12 +6,6 @@
 
 <?php slot('title') ?>
   <h1><?php echo render_title($resource) ?></h1>
-
-  <ul class="breadcrumb">
-    <li><?php echo link_to(__('Institutions'), array('module' => 'repository', 'action' => 'browse')) ?></li>
-    <li><?php echo link_to(render_title($resource), array($resource, 'module' => 'repository')) ?></li>
-    <li><span><?php echo __('Edit theme') ?></span></li>
-  </ul>
 <?php end_slot() ?>
 
 <?php slot('content') ?>
