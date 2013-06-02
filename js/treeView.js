@@ -463,11 +463,13 @@
             $a.append('.');
           }, 125);
 
+        var showAction = $element.nextAll(':not(.popover):first').is('LI') ? 'prevSiblings' : 'nextSiblings';
+
         $.ajax({
           url: $element.data('xhr-location'),
           context: this,
           dataType: 'html',
-          data: { show: $element.next().is('LI') ? 'prevSiblings' : 'nextSiblings', resourceId: this.resourceId, browser: this.browser },
+          data: { show: showAction, resourceId: this.resourceId, browser: this.browser },
           beforeSend: function()
             {
               this.setLoading(true, $element);
