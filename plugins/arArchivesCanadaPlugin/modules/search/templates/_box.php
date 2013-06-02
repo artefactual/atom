@@ -22,7 +22,6 @@
           <li><?php echo link_to(image_tag('/images/icons-small/icon-people-small.png').' '.__('People &amp; Organizations'), array('module' => 'actor', 'action' => 'browse')) ?></li>
           <li><?php echo link_to(image_tag('/images/icons-small/icon-places-small.png').' '.__('Places'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 42)) ?></li>
           <li><?php echo link_to(image_tag('/images/icons-small/icon-media-small.png').' '.__('Media'), array('module' => 'digitalobject', 'action' => 'browse')) ?></li>
-          <li><?php echo link_to(image_tag('/images/icons-small/icon-new-small.png').' '.__('Newest additions'), array('module' => 'search', 'action' => 'updates')) ?></li>
           <li class="divider"></li>
           <li class="advanced-search">
             <a href="<?php echo url_for(array('module' => 'search', 'action' => 'advanced')) ?>">

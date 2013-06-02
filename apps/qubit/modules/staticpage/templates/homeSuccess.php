@@ -14,7 +14,6 @@
       <li><?php echo link_to(__('Subjects'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 35)) ?></li>
       <li><?php echo link_to(__('People &amp; Organizations'), array('module' => 'actor', 'action' => 'browse')) ?></li>
       <li><?php echo link_to(__('Places'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 42)) ?></li>
-      <li><?php echo link_to(__('Newest additions'), array('module' => 'search', 'action' => 'updates')) ?></li>
     </ul>
   </section>
 
