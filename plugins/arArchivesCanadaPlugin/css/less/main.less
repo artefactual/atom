@@ -49,7 +49,6 @@ h6 {
 h1, h2, h3, h4, h5, h6,
 #action-icons a,
 #action-icons a:hover,
-#action-icons a:hover i,
 #left-column a,
 #right-column a,
 .breadcrumb a,
@@ -63,11 +62,12 @@ h1, h2, h3, h4, h5, h6,
   color: @white;
 }
 
-#action-icons i,
-#action-icons a:hover {
+#action-icons i {
   color: @orange;
 }
 
+#treeview .ancestor,
+#treeview .more a,
 #facets .open .facet-body,
 .pagination ul > li > a,
 .pagination ul > li > span {
@@ -81,8 +81,15 @@ h1, h2, h3, h4, h5, h6,
   color: @black;
 }
 
-.brick h4 {
+#treeview .ancestor a,
+#treeview .more a,
+.brick h4,
+#action-icons a:hover {
   color: @blue;
+}
+
+#action-icons a:hover i {
+  color: @grayDark;
 }
 
 // Sort header
@@ -90,4 +97,18 @@ h1, h2, h3, h4, h5, h6,
 #sort-header .sort-options label,
 #sort-header .dropdown-selected span {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, .25);
+}
+
+// Treeview
+
+#treeview .active a {
+  color: @orange !important;
+}
+
+#treeview .active {
+  background-color: transparent !important;
+}
+
+#treeview .active.parent {
+  background-color: @white !important;
 }
