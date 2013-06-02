@@ -58,7 +58,8 @@ h1, h2, h3, h4, h5, h6,
 #facets .facet-header p,
 #facets .facet-header p:after,
 .result-count,
-#sort-header .dropdown-selected span {
+#sort-header .dropdown-selected span,
+#context-menu li a {
   color: @white;
 }
 
@@ -66,8 +67,6 @@ h1, h2, h3, h4, h5, h6,
   color: @orange;
 }
 
-#treeview .ancestor,
-#treeview .more a,
 #facets .open .facet-body,
 .pagination ul > li > a,
 .pagination ul > li > span {
@@ -81,14 +80,13 @@ h1, h2, h3, h4, h5, h6,
   color: @black;
 }
 
-#treeview .ancestor a,
-#treeview .more a,
 .brick h4,
 #action-icons a:hover {
   color: @blue;
 }
 
-#action-icons a:hover i {
+#action-icons a:hover i,
+.note2 {
   color: @grayDark;
 }
 
@@ -101,6 +99,24 @@ h1, h2, h3, h4, h5, h6,
 
 // Treeview
 
+#treeview li a {
+  color: @white;
+}
+
+#treeview .more a {
+  color: @gray;
+  background-color: @grayLighter;
+  background-color: rgba(255, 255, 255, .50);
+}
+
+#treeview .ancestor {
+  background-color: @white;
+}
+
+#treeview .ancestor a {
+  color: @black;
+}
+
 #treeview .active a {
   color: @orange !important;
 }
@@ -109,6 +125,15 @@ h1, h2, h3, h4, h5, h6,
   background-color: transparent !important;
 }
 
-#treeview .active.parent {
+#treeview .active.ancestor {
   background-color: @white !important;
+}
+
+#treeview .ui-sortable-helper a {
+  color: @grayDark;
+}
+
+#treeview .placeholder {
+  background-color: @grayDark;
+  background-color: rgba(255, 255, 255, .50);
 }
