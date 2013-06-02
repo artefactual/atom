@@ -7,27 +7,23 @@
   </form>
 </div>
 
-<div id="breadcrumb">
+<section class="breadcrumb">
 
-  <h2 class="element-invisible"><?php echo __('You are here') ?></h2>
+  <ul>
 
-  <div class="content">
-    <ol>
-
-      <?php foreach ($parent->ancestors as $item): ?>
-        <?php if (isset($item->parent)): ?>
-          <li><?php echo link_to(render_title($item), array($resource, 'module' => 'default', 'action' => 'move', 'parent' => $item->slug)) ?></li>
-        <?php endif; ?>
-      <?php endforeach; ?>
-
-      <?php if (isset($parent->parent)): ?>
-        <li><?php echo render_title($parent) ?></li>
+    <?php foreach ($parent->ancestors as $item): ?>
+      <?php if (isset($item->parent)): ?>
+        <li><?php echo link_to(render_title($item), array($resource, 'module' => 'default', 'action' => 'move', 'parent' => $item->slug)) ?></li>
       <?php endif; ?>
+    <?php endforeach; ?>
 
-    </ol>
-  </div>
+    <?php if (isset($parent->parent)): ?>
+      <li><?php echo render_title($parent) ?></li>
+    <?php endif; ?>
 
-</div>
+  </ul>
+
+</section>
 
 <table class="sticky-enabled">
   <thead>
