@@ -21,5 +21,3 @@
     </div>
   </section>
 <?php endforeach; ?>
-
-<?php echo get_partial('actor/format', array('resource' => $resource)) ?>

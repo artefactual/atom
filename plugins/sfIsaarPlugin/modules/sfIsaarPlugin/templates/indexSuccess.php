@@ -29,6 +29,21 @@
 
 <?php slot('context-menu') ?>
 
+  <section id="action-icons">
+    <ul>
+
+      <li class="separator"><h4><?php echo __('Export') ?></h4></li>
+
+      <li>
+        <a href="<?php echo url_for(array($resource, 'module' => 'sfEacPlugin', 'sf_format' => 'xml')) ?>">
+          <i class="icon-upload-alt"></i>
+          <?php echo __('EAC') ?>
+        </a>
+      </li>
+
+    </ul>
+  </section>
+
 <?php end_slot() ?>
 
 <section id="identityArea">
