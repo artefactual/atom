@@ -61,6 +61,7 @@ h1, h2, h3, h4, h5, h6,
 #sort-header .dropdown-selected:after,
 #facets .facet-header p,
 #facets .facet-header p:after,
+#facets .facet-body li a,
 .result-count,
 #sort-header .dropdown-selected span,
 #sidebar li a,
@@ -72,7 +73,6 @@ h1, h2, h3, h4, h5, h6,
   color: @orange;
 }
 
-#facets .open .facet-body,
 .pagination ul > li > a,
 .pagination ul > li > span {
   background-color: @white;
@@ -86,7 +86,6 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .brick h4,
-#facets .facet-body li a,
 #action-icons a:hover {
   color: @blue;
 }
@@ -101,13 +100,14 @@ h1, h2, h3, h4, h5, h6,
   color: @grayDark;
 }
 
+#facets .open .facet-body,
 #facets .facet-header p {
   background-color: rgba(255, 255, 255, .25);
 }
 
 #facets .facet.open .facet-header p,
 #facets .facet-header p:hover {
-  background-color: rgba(255, 255, 255, .75);
+  background-color: #f2f0f0;
 }
 
 // Sort header
