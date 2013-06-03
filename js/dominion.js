@@ -255,15 +255,6 @@
         // Remove radius when the realm is shown
         this.$element.css('border-bottom-left-radius', 0);
 
-        if (undefined === this.$realm.positioned)
-        {
-          var position = this.$element.offset();
-          this.$realm.css('left', position.left);
-          this.$realm.width(this.$element.innerWidth());
-
-          this.$realm.positioned = true;
-        }
-
         return this;
       },
 
@@ -311,15 +302,6 @@
     render: function (html)
       {
         this.$menu.html(html);
-
-        if (undefined === this.$menu.positioned)
-        {
-          var position = this.$element.offset();
-          this.$menu.css('left', position.left);
-          this.$menu.width(this.$element.innerWidth());
-
-          this.$menu.positioned = true;
-        }
 
         return this;
       },
