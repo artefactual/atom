@@ -33,7 +33,7 @@ all:
       analysis:
         analyzer:
           autocomplete:
-            tokenizer: keyword
+            tokenizer: whitespace
             filter: [lowercase, engram]
         filter:
           engram:
