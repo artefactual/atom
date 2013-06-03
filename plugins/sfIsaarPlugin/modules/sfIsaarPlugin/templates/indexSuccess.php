@@ -6,7 +6,7 @@
 
 <?php slot('title') ?>
 
-  <h1><?php echo link_to_if(QubitAcl::check($resource, 'update'), render_title($resource), array($resource, 'module' => 'actor', 'action' => 'edit'), array('title' => __('Edit authority record'))) ?></h1>
+  <h1><?php echo render_title($resource) ?></h1>
 
   <?php if (isset($errorSchema)): ?>
     <div class="messages error">
