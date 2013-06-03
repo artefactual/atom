@@ -143,7 +143,7 @@ a:hover {
 // jQuery Masonry bricks
 // It's not working well with text, use images
 
-@brickWidth: 270px;
+@brickWidth: 250px;
 @brickSmallWidth: 170px;
 @brickPadding: 15px;
 @brickBg: @white;
@@ -171,6 +171,13 @@ a:hover {
     display: block;
   }
 
+  &.brick-only-text {
+    width: @brickWidth - 100;
+    h4 {
+      min-height: 100px;
+    }
+  }
+
   background-color: @brickBg;
   @shadow: 0 1px 3px rgba(25, 25, 25, 0.4);
   .box-shadow(@shadow);
@@ -186,7 +193,7 @@ a:hover {
   h4 {
     font-size: 22px;
     margin: -@baseLineHeight*.25 0 @brickPadding 0;
-    line-height: @baseLineHeight * 2;
+    line-height: @baseLineHeight * 1.5;
     text-align: center;
   }
 
@@ -448,6 +455,7 @@ a:hover {
 
 .repository-logo {
 
+  margin-top: 10px;
   margin-bottom: 20px;
 
   a {
@@ -461,6 +469,7 @@ a:hover {
     @shadow: 2px 2px 1px rgba(25, 25, 25, .2);
     .box-shadow(@shadow);
     background-color: @white;
+    margin: 0;
   }
 
   h2 {
