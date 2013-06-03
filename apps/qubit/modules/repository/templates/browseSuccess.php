@@ -2,22 +2,12 @@
 <?php use_helper('Date') ?>
 
 <?php slot('title') ?>
-
-  <div class="hidden-phone">
-    <h1>
-      <?php echo image_tag('/images/icons-large/icon-institutions.png') ?>
-      <?php echo __('Browse %1% %2%', array(
-        '%1%' => $pager->getNbResults(),
-        '%2%' => sfConfig::get('app_ui_label_repository'))) ?>
-    </h1>
-  </div>
-
-  <div id="filter" class="visible-phone">
-    <h2 class="widebtn btn-huge" data-toggle="collapse" data-target="#facets">
-      <?php echo __('Filter %1% institutions', array('%1%' => $pager->getNbResults(), '%2%' => sfConfig::get('app_ui_label_repository'))) ?>
-    </h2>
-  </div>
-
+  <h1>
+    <?php echo image_tag('/images/icons-large/icon-institutions.png') ?>
+    <?php echo __('Browse %1% %2%', array(
+      '%1%' => $pager->getNbResults(),
+      '%2%' => sfConfig::get('app_ui_label_repository'))) ?>
+  </h1>
 <?php end_slot() ?>
 
 <?php slot('sidebar') ?>
@@ -45,14 +35,12 @@
 <?php slot('before-content') ?>
 
   <section class="header-options">
-
     <?php echo get_partial('default/sortPicker',
       array(
         'options' => array(
           'relevancy' => __('Relevancy'),
           'mostRecent' => __('Most recent'),
           'alphabetic' => __('Alphabetic')))) ?>
-
   </section>
 
 <?php end_slot() ?>

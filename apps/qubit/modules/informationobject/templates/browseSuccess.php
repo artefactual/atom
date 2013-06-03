@@ -63,14 +63,12 @@
 <?php slot('before-content') ?>
 
   <section class="header-options">
-
     <?php echo get_partial('default/sortPicker',
       array(
         'options' => array(
           'relevancy' => __('Relevancy'),
           'mostRecent' => __('Most recent'),
           'alphabetic' => __('Alphabetic')))) ?>
-
   </section>
 
 <?php end_slot() ?>
