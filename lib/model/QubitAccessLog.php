@@ -22,7 +22,7 @@ class QubitAccessLog extends BaseAccessLog
   {
     $sql  = 'SELECT object_id, COUNT(object_id) AS count';
     $sql .= ' FROM access_log';
-    $sql .= ' WHERE access_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 WEEK) AND NOW()';
+    $sql .= ' WHERE access_date BETWEEN DATE_SUB(:now, INTERVAL 1 WEEK) AND :now';
     $sql .= ' GROUP BY (object_id)';
     $sql .= ' ORDER BY count DESC';
 
@@ -32,6 +32,9 @@ class QubitAccessLog extends BaseAccessLog
     }
 
     $stmt = QubitPdo::prepare($sql);
+
+    // As we don't store dates in UTC
+    $stmt->bindValue(':now', date('Y-m-d H:i:s'), PDO::PARAM_STR);
 
     if (isset($options['limit']))
     {
