@@ -8,10 +8,6 @@
 
       <div class="btn-group">
 
-        <button type="submit" class="btn" id="btn-advanced-search">
-          <span class="icon-search"></span>
-        </button>
-
         <button class="btn dropdown-toggle" data-toggle="dropdown">
           <span class="caret"></span>
         </button>
