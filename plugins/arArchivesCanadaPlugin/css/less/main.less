@@ -25,15 +25,6 @@ html, body {
   background-image: none;
 }
 
-// Fonts in headers
-
-h1 { font-size: @baseFontSize * 1.75; }
-h2 { font-size: @baseFontSize * 1.50; }
-h3 { font-size: @baseFontSize * 1.25; }
-h4 { font-size: @baseFontSize * 1.00; }
-h5 { font-size: @baseFontSize; }
-h6 { font-size: @baseFontSize * 0.80; }
-
 h1,
 h2,
 h3,
@@ -44,15 +35,27 @@ h6 {
   font-weight: normal;
 }
 
-h1 {
-  text-shadow: 1px 1px 1px @grayDark;
+// Fonts in headers
+
+h1 { font-size: 22px; }
+h2 { font-size: 20px; }
+h3 { font-size: 19px; }
+h4 { font-size: 18px; }
+
+#content h2 {
+  font-size: 18px;
+}
+
+#content .field > h3 {
+  font-size: 14px;
 }
 
 // Color changes
 
 h1, h2, h3, h4, h5, h6,
+#action-icons i,
 #action-icons a,
-#action-icons a:hover,
+#action-icons a:hover i,
 #left-column a,
 #right-column a,
 .breadcrumb a,
@@ -69,10 +72,6 @@ h1, h2, h3, h4, h5, h6,
   color: @white;
 }
 
-#action-icons i {
-  color: @orange;
-}
-
 .pagination ul > li > a,
 .pagination ul > li > span {
   background-color: @white;
@@ -85,8 +84,7 @@ h1, h2, h3, h4, h5, h6,
   color: @black;
 }
 
-.brick h4,
-#action-icons a:hover {
+.brick h4 {
   color: @blue;
 }
 
@@ -95,14 +93,14 @@ h1, h2, h3, h4, h5, h6,
 #facets .facet.open .facet-header p:after,
 #facets .facet-header p:hover,
 #facets .facet-header p:hover:after,
-#action-icons a:hover i,
 .note2 {
   color: @grayDark;
 }
 
+#action-icons a:hover,
 #facets .open .facet-body,
 #facets .facet-header p {
-  background-color: rgba(255, 255, 255, .25);
+  background-color: rgba(0, 0, 0, 0.10);
 }
 
 #facets .facet.open .facet-header p,
@@ -110,50 +108,66 @@ h1, h2, h3, h4, h5, h6,
   background-color: #f2f0f0;
 }
 
-// Sort header
-
+#action-icons i,
 #sort-header .sort-options label,
 #sort-header .dropdown-selected span {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, .25);
 }
 
+h1,
+#context-menu h4 {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .75);
+}
+
 // Treeview
 
-#treeview li a {
-  color: @white;
-}
+#treeview {
 
-#treeview .more a {
-  color: @gray;
-  background-color: @grayLighter;
-  background-color: rgba(255, 255, 255, .50);
-}
+  li:hover {
+    background-color: rgba(255, 255, 255, .25);
+  }
 
-#treeview .ancestor {
-  background-color: @white;
-}
+  li a {
+    color: @white;
+  }
 
-#treeview .ancestor a {
-  color: @black;
-}
+  .more a {
+    color: @gray;
+    background-color: @grayLighter;
+    background-color: rgba(255, 255, 255, .50);
+  }
 
-#treeview .active a {
-  color: @orange !important;
-}
+  .ancestor {
+    background-color: @white;
+  }
 
-#treeview .active {
-  background-color: transparent !important;
-}
+  .ancestor a {
+    color: @black;
+  }
 
-#treeview .active.ancestor {
-  background-color: @white !important;
-}
+  .active a {
+    color: @orange !important;
+  }
 
-#treeview .ui-sortable-helper a {
-  color: @grayDark;
-}
+  .active {
+    background-color: transparent !important;
+  }
 
-#treeview .placeholder {
-  background-color: @grayDark;
-  background-color: rgba(255, 255, 255, .50);
+  .active.ancestor {
+    background-color: @white !important;
+  }
+
+  .ui-sortable-helper {
+    background-color: rgba(255, 255, 255, .85);
+  }
+
+  .ui-sortable-helper a {
+    color: @grayDark;
+  }
+
+  .placeholder {
+    background-color: @grayDark;
+    background-color: rgba(0, 0, 0, 0.10);
+  }
+
 }
