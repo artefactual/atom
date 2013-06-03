@@ -26,28 +26,21 @@
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
 
-class arOaiPluginGetRecordComponent extends sfComponents
+class arOaiPluginGetRecordComponent extends arOaiPluginComponent
 {
   public function execute($request)
   {
     $request->setRequestFormat('xml');
+    $this->date = gmdate('Y-m-d\TH:i:s\Z');
 
-    $oai_local_identifier_value = $request->identifier; //TODO: strip the trailing integer value from the full OAI Identifier to get the OaiLocalIdentifier
-    $oai_local_identifier_id = QubitOai::getOaiIdNumber($oai_local_identifier_value);
+    $oai_local_identifier_id = QubitOai::getOaiIdNumber($request->identifier);
     $this->informationObject = QubitInformationObject::getRecordByOaiID($oai_local_identifier_id);
     $request->setAttribute('informationObject', $this->informationObject);
 
-    // just cut-and-paste from OaiIdentify action for now
-    $this->date = gmdate('Y-m-d\TH:i:s\Z');
     $this->collectionsTable = QubitOai::getCollectionArray();
-    $this->path = $request->getUriPrefix().$request->getPathInfo();
-    $this->attributes = $this->request->getGetParameters();
 
-    $this->attributesKeys = array_keys($this->attributes);
-    $this->requestAttributes = '';
-    foreach ($this->attributesKeys as $key)
-    {
-      $this->requestAttributes .= ' '.$key.'="'.$this->attributes[$key].'"';
-    }
+    $this->path = $request->getUriPrefix().$request->getPathInfo();
+
+    $this->setRequestAttributes($request);
   }
 }

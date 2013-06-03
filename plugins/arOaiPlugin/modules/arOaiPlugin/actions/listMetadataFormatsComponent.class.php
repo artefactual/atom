@@ -24,20 +24,15 @@
  * @subpackage oai
  * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
  */
-class arOaiPluginListMetadataFormatsComponent extends sfComponent
+class arOaiPluginListMetadataFormatsComponent extends arOaiPluginComponent
 {
   public function execute($request)
   {
     $request->setRequestFormat('xml');
     $this->date = gmdate('Y-m-d\TH:i:s\Z');
-    $this->path = $this->request->getUriPrefix().$this->request->getPathInfo();
-    $this->attributes = $this->request->getGetParameters();
 
-    $this->attributesKeys = array_keys($this->attributes);
-    $this->requestAttributes = '';
-    foreach ($this->attributesKeys as $key)
-    {
-      $this->requestAttributes .= ' '.$key.'="'.$this->attributes[$key].'"';
-    }
+    $this->path = $this->request->getUriPrefix().$this->request->getPathInfo();
+
+    $this->setRequestAttributes($request);
   }
 }

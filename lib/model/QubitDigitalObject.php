@@ -516,6 +516,29 @@ class QubitDigitalObject extends BaseDigitalObject
   }
 
   /**
+   * Download external file via sfWebBrowser and return its temporary location
+   *
+   * @param string URI
+   * @return mixed FALSE if error, array otherwise
+   */
+  private function downloadExternalObject($uri)
+  {
+    // Parse URL into components and get file/base name
+    $uriComponents = parse_url($uri);
+
+    // Initialize web browser
+    $browser = new sfWebBrowser(array(), null, array('Timeout' => 10));
+    $browser->get($uri);
+
+    if ($browser->get($uri)->responseIsError() || 1 > strlen(($filename = basename($uriComponents['path']))))
+    {
+      return false;
+    }
+
+    return array($filename, $browser->getResponseText());
+  }
+
+  /**
    * Populate a digital object from a resource pointed to by a URI
    * This is for, eg. importing encoded digital objects from XML
    *
@@ -524,35 +547,23 @@ class QubitDigitalObject extends BaseDigitalObject
    */
   public function importFromURI($uri, $options = array())
   {
-    // Parse URL into components and get file/base name
-    $uriComponents = parse_url($uri);
-
-    // Initialize web browser
-    $browser = new sfWebBrowser(array(), null, array('Timeout' => 10));
-
-    // Add asset to digital object assets array
-    if (true !== $browser->get($uri)->responseIsError() && 0 < strlen(($filename = basename($uriComponents['path']))))
-    {
-      $asset = new QubitAsset($uri, $browser->getResponseText());
-
-      $this->assets[] = $asset;
-    }
-    else
+    list($filename, $contents) = $this->downloadExternalObject($uri);
+    if (false === $this->localPath = Qubit::saveTemporaryFile($filename, $contents))
     {
       throw new sfException('Encountered error fetching external resource.');
     }
 
+    $asset = new QubitAsset($uri, $contents);
+    $this->assets[] = $asset;
+
     // Set digital object as external URI
     $this->usageId = QubitTerm::EXTERNAL_URI_ID;
-
-    // Save filestream temporary, because sfImageMagickAdapter does not support load data from streams
-    $this->localPath = Qubit::saveTemporaryFile($filename, $asset->getContents());
 
     $this->name = $filename;
     $this->path = $uri;
     $this->checksum = $asset->getChecksum();
     $this->checksumType = $asset->getChecksumAlgorithm();
-    $this->byteSize = strlen($browser->getResponseText());
+    $this->byteSize = strlen($contents);
     $this->setMimeAndMediaType();
   }
 
@@ -1019,7 +1030,7 @@ class QubitDigitalObject extends BaseDigitalObject
     {
       if (QubitTerm::EXTERNAL_URI_ID == $this->usageId)
       {
-        $command = 'identify '.$this->localPath;
+        $command = 'identify '.$this->getLocalPath();
       }
       else
       {
@@ -1281,6 +1292,17 @@ class QubitDigitalObject extends BaseDigitalObject
     return $derivative;
   }
 
+  private function getLocalPath()
+  {
+    if (null === $this->localPath && QubitTerm::EXTERNAL_URI_ID == $this->usageId)
+    {
+      list($filename, $contents) = $this->downloadExternalObject($this->path);
+      $this->localPath = Qubit::saveTemporaryFile($filename, $contents);
+    }
+
+    return $this->localPath;
+  }
+
   /**
    * Create an derivative of an image (a smaller image ;)
    *
@@ -1295,7 +1317,7 @@ class QubitDigitalObject extends BaseDigitalObject
     // Build new filename and path
     if (QubitTerm::EXTERNAL_URI_ID == $this->usageId)
     {
-      $originalFullPath = $this->localPath;
+      $originalFullPath = $this->getLocalPath();
     }
     else
     {
@@ -1587,12 +1609,12 @@ class QubitDigitalObject extends BaseDigitalObject
 
     if (QubitTerm::EXTERNAL_URI_ID == $this->usageId)
     {
-      $originalFullPath = $this->localPath;
+      $originalFullPath = $this->getLocalPath();
 
       list($originalNameNoExtension) = explode('.', $this->getName());
       $derivativeName = $originalNameNoExtension.'_'.$usageId.'.mp3';
 
-      $pathParts = pathinfo($this->localPath);
+      $pathParts = pathinfo($this->getLocalPath());
 
       $derivativeFullPath = $pathParts['dirname'].'/'.$derivativeName;
 
