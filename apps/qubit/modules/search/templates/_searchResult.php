@@ -57,7 +57,7 @@
         <li><?php echo link_to($pager->ancestors[$id]['title'], array('module' => 'informationobject', 'slug' => $pager->ancestors[$id]['slug']), array('title' => $pager->ancestors[$id]['title'])) ?></li>
       <?php endforeach; ?>
     </ul>
-  <?php endif; ?>
+    <?php endif; ?>
 
   </div>
 
