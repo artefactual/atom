@@ -43,10 +43,13 @@ a:hover {
   border: none;
   font-family: @altFontFamily;
   font-size: 12px;
-  .clearfix;
+  .clearfix();
+
+  ul {
+    margin: 0;
+  }
 
   li {
-    text-shadow: none;
     float: left;
     max-width: 240px;
     margin-right: 10px;
@@ -54,13 +57,13 @@ a:hover {
   }
 
   li:after {
-    content: "›";
-    margin: 0 4px 0 4px;
-    color: @black;
-    text-shadow: 1px 1px 0px @white;
+    content: "\f101";
+    font-family: 'FontAwesome';
+    color: @orange;
     position: absolute;
-    top: 1px;
+    top: 3px;
     right: -10px;
+    padding-right: 1px;
   }
 
   li:last-child:after {
@@ -77,11 +80,6 @@ a:hover {
 
   a {
     .border-radius(4px);
-    &:hover {
-      border-color: @grayLight;
-      color: @blue;
-      .box-shadow(1px 1px 1px rgba(25, 25, 25, .15));
-    }
   }
 
 }
@@ -271,8 +269,16 @@ a:hover {
 
   .facet-body {
     display: none;
-    border-top: 1px solid @grayLight;
     background-color: #eee;
+    margin-bottom: @baseLineHeight/2;
+  }
+
+  form {
+    margin: 0;
+  }
+
+  &.open {
+    margin-top: @baseLineHeight/2;
     margin-bottom: @baseLineHeight/2;
   }
 
@@ -878,9 +884,8 @@ section .vcard:last-child > .field:last-child > div {
 
   // Lists
 
-  ul.breadcrumb,
   ul.result-details {
-    list-style: none;
+    list-style-type: none;
     margin: 0;
     padding: 0;
     color: @grayLight;
