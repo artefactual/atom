@@ -109,6 +109,11 @@
         {
           $(e.target).parents('.facet').toggleClass('open');
         });
+
+      if (1 == $facet.length)
+      {
+        $facet.addClass('open');
+      }
     });
 
   /****
