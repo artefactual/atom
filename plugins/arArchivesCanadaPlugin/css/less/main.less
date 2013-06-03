@@ -59,6 +59,7 @@ h1, h2, h3, h4, h5, h6,
 #facets .facet-header p:after,
 .result-count,
 #sort-header .dropdown-selected span,
+#sidebar li a,
 #context-menu li a {
   color: @white;
 }
@@ -81,13 +82,28 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .brick h4,
+#facets .facet-body li a,
 #action-icons a:hover {
   color: @blue;
 }
 
+#facets .facet-body .active a,
+#facets .facet.open .facet-header p,
+#facets .facet.open .facet-header p:after,
+#facets .facet-header p:hover,
+#facets .facet-header p:hover:after,
 #action-icons a:hover i,
 .note2 {
   color: @grayDark;
+}
+
+#facets .facet-header p {
+  background-color: rgba(255, 255, 255, .25);
+}
+
+#facets .facet.open .facet-header p,
+#facets .facet-header p:hover {
+  background-color: rgba(255, 255, 255, .75);
 }
 
 // Sort header
