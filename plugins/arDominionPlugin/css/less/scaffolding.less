@@ -158,7 +158,18 @@ a:hover {
 
 }
 
+.masonry-brick {
+  display: block !important;
+}
+
 .brick {
+
+  // Hide them until Masonry finish the rendering
+  display: none;
+
+  &.masonry-brick {
+    display: block;
+  }
 
   background-color: @brickBg;
   @shadow: 0 1px 3px rgba(25, 25, 25, 0.4);
