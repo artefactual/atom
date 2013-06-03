@@ -203,14 +203,6 @@ class arElasticSearchMapping
                   'type' => 'string',
                   'index' => 'analyzed',
                   'include_in_all' => false),
-                'autocomplete' => array(
-                  'type' => 'string',
-                  'index' => 'analyzed',
-                  'index_analyzer' => 'autocomplete',
-                  'search_analyzer' => 'standard',
-                  'store' => 'yes',
-                  'term_vector' => 'with_positions_offsets',
-                  'include_in_all' => false),
                 'untouched' => array(
                   'type' => 'string',
                   'index' => 'not_analyzed',
@@ -228,18 +220,25 @@ class arElasticSearchMapping
                     'type' => 'string',
                     'index' => 'analyzed',
                     'include_in_all' => false),
-                  'autocomplete' => array(
-                    'type' => 'string',
-                    'index' => 'analyzed',
-                    'index_analyzer' => 'autocomplete',
-                    'search_analyzer' => 'standard',
-                    'store' => 'yes',
-                    'term_vector' => 'with_positions_offsets',
-                    'include_in_all' => false),
                   'untouched' => array(
                     'type' => 'string',
                     'index' => 'not_analyzed',
                     'include_in_all' => false)));
+            }
+          }
+
+          if (isset($typeProperties['_attributes']['autocompleteFields']))
+          {
+            foreach ($typeProperties['_attributes']['autocompleteFields'] as $item)
+            {
+              $nestedI18nFields[$item]['fields']['autocomplete'] = array(
+                'type' => 'string',
+                'index' => 'analyzed',
+                'index_analyzer' => 'autocomplete',
+                'search_analyzer' => 'standard',
+                'store' => 'yes',
+                'term_vector' => 'with_positions_offsets',
+                'include_in_all' => false);
             }
           }
 
