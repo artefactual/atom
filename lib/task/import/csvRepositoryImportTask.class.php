@@ -41,6 +41,13 @@ EOF;
     protected function configure()
     {
         parent::configure();
+
+        $this->addOptions(array(new sfCommandOption(
+          'merge-existing',
+          null,
+          sfCommandOption::PARAMETER_OPTIONAL,
+          "Don't create a new repository if there's already one with the same authorizedFormOfName in the db."
+        )));
     }
 
     /**
@@ -85,6 +92,7 @@ EOF;
             /* the status array is a place to put data that should be accessible
                from closure logic using the getStatus method */
             'status' => array(
+                'options'                => $options
             ),
 
             /* import columns that map directory to QubitInformationObject properties */
