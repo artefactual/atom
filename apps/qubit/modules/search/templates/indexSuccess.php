@@ -1,35 +1,44 @@
 <?php decorate_with('layout_2col') ?>
 
 <?php slot('title') ?>
-
-    <div class="hidden-phone">
-      <h1>
-        <span class="search"><?php echo esc_entities($sf_request->query) ?></span>
-        <span class="count"><?php echo __('%1% results', array('%1%' => $pager->getNbResults())) ?></span>
-      </h1>
-    </div>
-
-    <?php if (sfConfig::get('app_multi_repository') && isset($pager->facets['repository_id'])): ?>
-
-      <?php if (sfConfig::get('app_multi_repository') && isset($pager->facets['repository_id'])): ?>
-        <?php // echo __('in %1% institutions', array('%1%' => count($pager->facets['repository_id']['terms']))) ?>
-      <?php endif; ?>
-
-      <div id="top-facet">
-        <h2 class="visible-phone widebtn btn-huge" data-toggle="collapse" data-target="#institutions"><?php echo __('Institutions') ?></h2>
-        <div id="more-instistutions" class="pull-right">
-          <select>
-            <option value=""><?php echo __('All institutions') ?></option>
-            <?php foreach ($pager->facets['repository_id']['terms'] as $id => $term): ?>
-              <option value="<?php echo $id; ?>"><?php echo __($term['term']) ?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
-      </div>
-
-    <?php endif; ?>
-
+  <h1>
+    <span class="search"><?php echo esc_entities($sf_request->query) ?></span>
+    <span class="count"><?php echo __('%1% results', array('%1%' => $pager->getNbResults())) ?></span>
+  </h1>
 <?php end_slot() ?>
+
+<?php slot('before-content') ?>
+  <?php if (isset($realm)): ?>
+    <section class="header-options">
+      <span class="search-filter">
+        <?php echo render_title($realm) ?>
+        <?php $params = $sf_request->getGetParameters() ?>
+        <?php unset($params['realm']) ?>
+        <a href="<?php echo url_for(array('module' => 'search') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    </section>
+  <?php endif; ?>
+<?php end_slot() ?>
+
+<?php if (sfConfig::get('app_multi_repository') && isset($pager->facets['repository_id'])): ?>
+
+  <?php if (sfConfig::get('app_multi_repository') && isset($pager->facets['repository_id'])): ?>
+    <?php // echo __('in %1% institutions', array('%1%' => count($pager->facets['repository_id']['terms']))) ?>
+  <?php endif; ?>
+
+  <div id="top-facet">
+    <h2 class="visible-phone widebtn btn-huge" data-toggle="collapse" data-target="#institutions"><?php echo __('Institutions') ?></h2>
+    <div id="more-instistutions" class="pull-right">
+      <select>
+        <option value=""><?php echo __('All institutions') ?></option>
+        <?php foreach ($pager->facets['repository_id']['terms'] as $id => $term): ?>
+          <option value="<?php echo $id; ?>"><?php echo __($term['term']) ?></option>
+        <?php endforeach; ?>
+      </select>
+    </div>
+  </div>
+
+<?php endif; ?>
 
 <?php slot('sidebar') ?>
   <section id="facets">
