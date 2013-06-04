@@ -210,6 +210,8 @@
 
         this.$menu.on('mouseenter', 'li', $.proxy(this.mouseenter, this));
 
+        this.$realm.on('change', 'input[type=radio]', $.proxy(this.changeRealm, this));
+
         // Validate form
         this.$form.submit(function (e)
           {
@@ -252,6 +254,20 @@
         return this;
       },
 
+    changeRealm: function (e)
+      {
+        var $radio = $(e.target);
+        if (undefined !== $radio.data('placeholder'))
+        {
+          this.$element.attr('placeholder', $radio.data('placeholder'))
+        }
+        else
+        {
+          var label = $(e.target).parent().text().trim();
+          this.$element.attr('placeholder', label);
+        }
+      },
+
     showRealm: function (e)
       {
         this.hide();
@@ -285,6 +301,8 @@
           return this;
         }
 
+        this.$element.addClass('loading');
+
         $.ajax(this.source,
           {
             context: this,
@@ -301,6 +319,14 @@
               {
                 this.hide();
               }
+            })
+          .error(function()
+            {
+              this.$menu.slideUp('fast');
+            })
+          .always(function()
+            {
+              this.$element.removeClass('loading');
             });
       },
 

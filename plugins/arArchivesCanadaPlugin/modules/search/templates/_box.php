@@ -7,7 +7,6 @@
       <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo esc_entities($sf_request->query) ?>" placeholder="<?php echo __('Search') ?>"/>
 
       <div class="btn-group">
-
         <button class="btn dropdown-toggle" data-toggle="dropdown">
           <span class="caret"></span>
         </button>
@@ -26,31 +25,27 @@
             </a>
           </li>
         </ul>
-
       </div>
 
     </div>
 
     <div id="search-realm" class="search-popover">
 
-      <?php $sf_route = $sf_request->getAttribute('sf_route') ?>
-      <?php if (isset($sf_route->resource)): ?>
-        <?php if ($sf_route->resource instanceof QubitRepository): ?>
-          <div>
-            <label>
-              <input name="realm" type="radio" value="<?php echo $sf_route->resource->id ?>"/>
-              <?php echo __('Search <strong>%1%</strong>', array('%1%' => render_title($sf_route->resource))) ?>
-            </label>
-          </div>
-        <?php endif; ?>
-      <?php endif; ?>
-
       <div>
         <label>
-          <input name="realm" type="radio" value="all" checked="checked">
+          <input name="realm" type="radio" value="all" checked="checked" data-placeholder="<?php echo __('Search') ?>">
           <?php echo __('Global search') ?>
         </label>
       </div>
+
+      <?php if (isset($repository)): ?>
+        <div>
+          <label>
+            <input name="realm" type="radio" value="<?php echo $repository->id ?>"/>
+            <?php echo __('Search <strong>%1%</strong>', array('%1%' => render_title($repository))) ?>
+          </label>
+        </div>
+      <?php endif; ?>
 
       <div class="search-realm-advanced">
         <a href="<?php echo url_for(array('module' => 'search', 'action' => 'advanced')) ?>">

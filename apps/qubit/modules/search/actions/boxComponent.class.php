@@ -21,5 +21,17 @@ class SearchBoxComponent extends sfComponent
 {
   public function execute($request)
   {
+    $route = $request->getAttribute('sf_route');
+    if (isset($route->resource))
+    {
+      if ($route->resource instanceof QubitRepository)
+      {
+        $this->repository = $route->resource;
+      }
+      elseif ($route->resource instanceof QubitInformationObject)
+      {
+        $this->repository = $route->resource->repository;
+      }
+    }
   }
 }
