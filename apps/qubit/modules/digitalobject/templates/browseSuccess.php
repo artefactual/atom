@@ -1,7 +1,7 @@
 <?php decorate_with('layout_wide') ?>
 
 <div class="row-fluid">
-  <div class="offset1 span6">
+  <div class="span6">
 
     <h1>
       <?php echo image_tag('/images/icons-large/icon-media.png', array('width' => '42', 'height' => '42')) ?>
@@ -9,9 +9,9 @@
     </h1>
 
   </div>
-  <div class="offset3 span2">
+  <div class="span6">
 
-    <div id="header-facets">
+    <div id="header-facets" class="pull-right">
       <?php echo get_partial('search/singleFacet', array(
         'target' => '#facet-mediatype',
         'label' => __('Media type'),
