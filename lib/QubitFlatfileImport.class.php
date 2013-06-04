@@ -548,7 +548,11 @@ class QubitFlatfileImport
     {
       $tableName = sfInflector::underscore(substr($this->className, 5));
 
-      if (
+      if ($this->className == 'QubitRepository' && $this->status['options']['merge-existing'] == 1)
+      {
+        $this->object = $this->createOrFetchRepository($this->columnValue('authorizedFormOfName'));
+      }
+      else if (
         $this->columnExists('legacyId')
         && trim($this->columnValue('legacyId'))
         && $mapEntry = $this->fetchKeymapEntryBySourceAndTargetName(
@@ -1113,10 +1117,12 @@ class QubitFlatfileImport
     $statement = QubitFlatfileImport::sqlQuery($query, array($name));
     $result = $statement->fetch(PDO::FETCH_OBJ);
 
-    if ($result)
+    if ($result && strlen($name) > 0)
     {
       return QubitRepository::getById($result->id);
-    } else {
+    }
+    else
+    {
       return $this->createRepository($name);
     }
   }

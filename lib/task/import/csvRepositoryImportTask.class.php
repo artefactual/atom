@@ -35,13 +35,20 @@ class csvRepositoryImportTask extends csvImportBaseTask
 Import CSV data
 EOF;
 
-  /**
-   * @see csvImportBaseTask
-   */
-  protected function configure()
-  {
-    parent::configure();
-  }
+    /**
+     * @see csvImportBaseTask
+     */
+    protected function configure()
+    {
+      parent::configure();
+
+      $this->addOptions(array(new sfCommandOption(
+        'merge-existing',
+        null,
+        sfCommandOption::PARAMETER_OPTIONAL,
+        "Don't create a new repository if there's already one with the same authorizedFormOfName in the db."
+      )));
+    }
 
     /**
      * @see sfTask
@@ -73,22 +80,22 @@ EOF;
 
       // Define import
       $import = new QubitFlatfileImport(array(
-
-        // What type of object are we importing?
+        /* What type of object are we importing? */
         'className' => 'QubitRepository',
 
-        // How many rows should import until we display an import status update?
+        /* How many rows should import until we display an import status update? */
         'rowsUntilProgressDisplay' => $options['rows-until-update'],
 
-        // Where to log errors to
+        /* Where to log errors to */
         'errorLog' => $options['error-log'],
 
-        // The status array is a place to put data that should be accessible
-        // from closure logic using the getStatus method
+        /* the status array is a place to put data that should be accessible
+           from closure logic using the getStatus method */
         'status' => array(
+          'options'                => $options
         ),
 
-        // Import columns that map directory to QubitInformationObject properties
+        /* import columns that map directory to QubitInformationObject properties */
         'standardColumns' => array(
           'authorizedFormOfName',
           'identifier',
@@ -99,29 +106,40 @@ EOF;
           'internalStructures'
         ),
 
-        /*
-          Import columns that should be redirected to QubitInformationObject
-          properties (and optionally transformed)
+        /* import columns that should be redirected to QubitInformationObject
+           properties (and optionally transformed)
 
-          Example:
-            'columnMap' => array(
-              'Archival History' => 'archivalHistory',
-              'Revision history' => array(
-                'column' => 'revision',
-                'transformationLogic' => function(&$self, $text)
-                {
-                  return $self->appendWithLineBreakIfNeeded(
-                    $self->object->revision,
-                    $text);
-                }
-              )
-            ),
+           Example:
+           'columnMap' => array(
+             'Archival History' => 'archivalHistory',
+             'Revision history' => array(
+               'column' => 'revision',
+               'transformationLogic' => function(&$self, $text)
+               {
+                 return $self->appendWithLineBreakIfNeeded(
+                   $self->object->revision,
+                   $text
+                 );
+               }
+             )
+           ),
         */
-
-        'columnMap' => array(),
+        'columnMap' => array(
+          'Archival History' => 'archivalHistory',
+          'Revision history' => array(
+            'column' => 'revision',
+            'transformationLogic' => function(&$self, $text)
+            {
+              return $self->appendWithLineBreakIfNeeded(
+                $self->object->revision,
+                $text);
+            }
+          )
+        ),
 
         // Import columns that can be added as QubitNote objects
-        'noteMap' => array(),
+        'noteMap' => array(
+        ),
 
         // These values get stored to the rowStatusVars array
         'variableColumns' => array(
@@ -160,7 +178,6 @@ EOF;
 
           $note->save();
         }
-
       ));
 
       $import->csv($fh, $skipRows);
