@@ -178,7 +178,7 @@ class SearchIndexAction extends DefaultBrowseAction
       $this->queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $request->realm)));
 
       // Store realm in user session
-      $this->context->user->setAttribute('search-realm' = $request->realm);
+      $this->context->user->setAttribute('search-realm', $request->realm);
     }
 
     $this->query->setQuery($this->queryBool);
