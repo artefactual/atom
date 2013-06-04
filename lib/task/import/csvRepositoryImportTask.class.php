@@ -28,10 +28,10 @@
 
 class csvRepositoryImportTask extends csvImportBaseTask
 {
-    protected $namespace           = 'csv';
-    protected $name                = 'repository-import';
-    protected $briefDescription    = 'Import csv repository data';
-    protected $detailedDescription = <<<EOF
+  protected $namespace           = 'csv';
+  protected $name                = 'repository-import';
+  protected $briefDescription    = 'Import csv repository data';
+  protected $detailedDescription = <<<EOF
 Import CSV data
 EOF;
 
@@ -40,14 +40,14 @@ EOF;
      */
     protected function configure()
     {
-        parent::configure();
+      parent::configure();
 
-        $this->addOptions(array(new sfCommandOption(
-          'merge-existing',
-          null,
-          sfCommandOption::PARAMETER_OPTIONAL,
-          "Don't create a new repository if there's already one with the same authorizedFormOfName in the db."
-        )));
+      $this->addOptions(array(new sfCommandOption(
+        'merge-existing',
+        null,
+        sfCommandOption::PARAMETER_OPTIONAL,
+        "Don't create a new repository if there's already one with the same authorizedFormOfName in the db."
+      )));
     }
 
     /**
@@ -55,125 +55,125 @@ EOF;
      */
     public function execute($arguments = array(), $options = array())
     {
-        $this->validateOptions($options);
+      $this->validateOptions($options);
 
-        $this->logSection("Importing repository objects from CSV to AtoM");
+      $this->logSection("Importing repository objects from CSV to AtoM");
 
-        $skipRows = ($options['skip-rows']) ? $options['skip-rows'] : 0;
+      $skipRows = ($options['skip-rows']) ? $options['skip-rows'] : 0;
 
-        if (false === $fh = fopen($arguments['filename'], 'rb'))
+      if (false === $fh = fopen($arguments['filename'], 'rb'))
+      {
+        throw new sfException('You must specify a valid filename');
+      }
+
+      $databaseManager = new sfDatabaseManager($this->configuration);
+      $conn = $databaseManager->getDatabase('propel')->getConnection();
+
+      // Load taxonomies into variables to avoid use of magic numbers
+      $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
+        QubitTaxonomy::NOTE_TYPE_ID                => 'noteTypes',
+        QubitTaxonomy::ACTOR_ENTITY_TYPE_ID        => 'actorTypes',
+        QubitTaxonomy::ACTOR_RELATION_TYPE_ID      => 'actorRelationTypes',
+        QubitTaxonomy::DESCRIPTION_STATUS_ID       => 'descriptionStatusTypes',
+        QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID => 'detailLevelTypes'
+      ));
+
+      // Define import
+      $import = new QubitFlatfileImport(array(
+        /* What type of object are we importing? */
+        'className' => 'QubitRepository',
+
+        /* How many rows should import until we display an import status update? */
+        'rowsUntilProgressDisplay' => $options['rows-until-update'],
+
+        /* Where to log errors to */
+        'errorLog' => $options['error-log'],
+
+        /* the status array is a place to put data that should be accessible
+           from closure logic using the getStatus method */
+        'status' => array(
+          'options'                => $options
+        ),
+
+        /* import columns that map directory to QubitInformationObject properties */
+        'standardColumns' => array(
+          'authorizedFormOfName',
+          'identifier',
+          'openingTimes',
+          'geoculturalContext',
+          'holdings',
+          'findingAids',
+          'internalStructures'
+        ),
+
+        /* import columns that should be redirected to QubitInformationObject
+           properties (and optionally transformed)
+
+           Example:
+           'columnMap' => array(
+             'Archival History' => 'archivalHistory',
+             'Revision history' => array(
+               'column' => 'revision',
+               'transformationLogic' => function(&$self, $text)
+               {
+                 return $self->appendWithLineBreakIfNeeded(
+                   $self->object->revision,
+                   $text
+                 );
+               }
+             )
+           ),
+        */
+        'columnMap' => array(
+        ),
+
+        /* import columns that can be added as QubitNote objects */
+        'noteMap' => array(
+        ),
+
+        /* these values get stored to the rowStatusVars array */
+        'variableColumns' => array(
+          'contactPerson',
+          'streetAddress',
+          'phone',
+          'email',
+          'fax',
+          'website',
+          'notes'
+        ),
+
+        /* import logic to execute before saving actor */
+        'preSaveLogic' => function(&$self)
         {
-            throw new sfException('You must specify a valid filename');
+        },
+
+        /* import logic to execute after saving actor */
+        'postSaveLogic' => function(&$self)
+        {
+          // add contact information
+          $info = new QubitContactInformation();
+          $info->actorId = $self->object->id;
+
+          $info->contactPerson = $self->rowStatusVars['contactPerson'];
+          $info->streetAddress = $self->rowStatusVars['streetAddress'];
+          $info->phone = $self->rowStatusVars['phone'];
+          $info->email = $self->rowStatusVars['email'];
+          $info->fax = $self->rowStatusVars['fax'];
+          $info->website = $self->rowStatusVars['website'];
+
+          $info->save();
+
+          // Add note
+          $note = new QubitNote();
+          $note->content = $self->rowStatusVars['notes'];
+          $note->objectId = $self->object->id;
+
+          $note->save();
         }
 
-        $databaseManager = new sfDatabaseManager($this->configuration);
-        $conn = $databaseManager->getDatabase('propel')->getConnection();
+    ));
 
-        // Load taxonomies into variables to avoid use of magic numbers
-        $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
-            QubitTaxonomy::NOTE_TYPE_ID                => 'noteTypes',
-            QubitTaxonomy::ACTOR_ENTITY_TYPE_ID        => 'actorTypes',
-            QubitTaxonomy::ACTOR_RELATION_TYPE_ID      => 'actorRelationTypes',
-            QubitTaxonomy::DESCRIPTION_STATUS_ID       => 'descriptionStatusTypes',
-            QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID => 'detailLevelTypes'
-        ));
-
-        // Define import
-        $import = new QubitFlatfileImport(array(
-            /* What type of object are we importing? */
-            'className' => 'QubitRepository',
-
-            /* How many rows should import until we display an import status update? */
-            'rowsUntilProgressDisplay' => $options['rows-until-update'],
-
-            /* Where to log errors to */
-            'errorLog' => $options['error-log'],
-
-            /* the status array is a place to put data that should be accessible
-               from closure logic using the getStatus method */
-            'status' => array(
-                'options'                => $options
-            ),
-
-            /* import columns that map directory to QubitInformationObject properties */
-            'standardColumns' => array(
-                'authorizedFormOfName',
-                'identifier',
-                'openingTimes',
-                'geoculturalContext',
-                'holdings',
-                'findingAids',
-                'internalStructures'
-            ),
-
-            /* import columns that should be redirected to QubitInformationObject
-               properties (and optionally transformed)
-
-               Example:
-               'columnMap' => array(
-                 'Archival History' => 'archivalHistory',
-                 'Revision history' => array(
-                   'column' => 'revision',
-                   'transformationLogic' => function(&$self, $text)
-                   {
-                     return $self->appendWithLineBreakIfNeeded(
-                       $self->object->revision,
-                       $text
-                     );
-                   }
-                 )
-               ),
-            */
-            'columnMap' => array(
-            ),
-
-            /* import columns that can be added as QubitNote objects */
-            'noteMap' => array(
-            ),
-
-            /* these values get stored to the rowStatusVars array */
-            'variableColumns' => array(
-                'contactPerson',
-                'streetAddress',
-                'phone',
-                'email',
-                'fax',
-                'website',
-                'notes'
-            ),
-
-            /* import logic to execute before saving actor */
-            'preSaveLogic' => function(&$self)
-            {
-            },
-
-            /* import logic to execute after saving actor */
-            'postSaveLogic' => function(&$self)
-            {
-                // add contact information
-                $info = new QubitContactInformation();
-                $info->actorId = $self->object->id;
-
-                $info->contactPerson = $self->rowStatusVars['contactPerson'];
-                $info->streetAddress = $self->rowStatusVars['streetAddress'];
-                $info->phone = $self->rowStatusVars['phone'];
-                $info->email = $self->rowStatusVars['email'];
-                $info->fax = $self->rowStatusVars['fax'];
-                $info->website = $self->rowStatusVars['website'];
-
-                $info->save();
-
-                // Add note
-                $note = new QubitNote();
-                $note->content = $self->rowStatusVars['notes'];
-                $note->objectId = $self->object->id;
-
-                $note->save();
-            }
-
-        ));
-
-        $import->csv($fh, $skipRows);
-        $this->logSection("Imported repositories successfully!");
-    }
+    $import->csv($fh, $skipRows);
+    $this->logSection("Imported repositories successfully!");
+  }
 }
