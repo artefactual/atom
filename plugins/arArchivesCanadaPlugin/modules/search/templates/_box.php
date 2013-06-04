@@ -4,7 +4,11 @@
 
     <div class="input-append">
 
-      <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo esc_entities($sf_request->query) ?>" placeholder="<?php echo __('Search') ?>"/>
+      <?php if (isset($repository)): ?>
+        <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo esc_entities($sf_request->query) ?>" placeholder="<?php echo __('Search %1%', array('%1%' => render_title($repository))) ?>"/>
+      <?php else: ?>
+        <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo esc_entities($sf_request->query) ?>" placeholder="<?php echo __('Search') ?>"/>
+      <?php endif; ?>
 
       <div class="btn-group">
         <button class="btn dropdown-toggle" data-toggle="dropdown">
@@ -33,7 +37,11 @@
 
       <div>
         <label>
-          <input name="realm" type="radio" value="all" checked="checked" data-placeholder="<?php echo __('Search') ?>">
+          <?php if (isset($repository)): ?>
+            <input name="realm" type="radio" value="all" data-placeholder="<?php echo __('Search') ?>">
+          <?php else: ?>
+            <input name="realm" type="radio" value="all" checked="checked" data-placeholder="<?php echo __('Search') ?>">
+          <?php endif; ?>
           <?php echo __('Global search') ?>
         </label>
       </div>
@@ -41,7 +49,7 @@
       <?php if (isset($repository)): ?>
         <div>
           <label>
-            <input name="realm" type="radio" value="<?php echo $repository->id ?>"/>
+            <input name="realm" checked="checked" type="radio" value="<?php echo $repository->id ?>"/>
             <?php echo __('Search <strong>%1%</strong>', array('%1%' => render_title($repository))) ?>
           </label>
         </div>
