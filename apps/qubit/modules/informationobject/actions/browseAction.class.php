@@ -174,6 +174,10 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
     $this->query->setQuery($this->queryBool);
 
+    // Filter out descriptions without title
+    $filterExists = new \Elastica\Filter\Exists(sprintf('i18n.%s.title', $this->context->user->getCulture()));
+    $this->query->setfilter($filterExists);
+
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
 
     // Page results

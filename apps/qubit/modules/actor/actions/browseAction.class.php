@@ -109,6 +109,10 @@ class ActorBrowseAction extends DefaultBrowseAction
     $this->query->setQuery($this->queryBool);
     $this->query->setFields(array('slug', 'sourceCulture', 'i18n', 'entityTypeId', 'updatedAt'));
 
+    // Filter out descriptions without authorizedFormOfName
+    $filterExists = new \Elastica\Filter\Exists(sprintf('i18n.%s.authorizedFormOfName', $this->context->user->getCulture()));
+    $this->query->setfilter($filterExists);
+
     $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($this->query);
 
     $this->pager = new QubitSearchPager($resultSet);

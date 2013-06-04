@@ -185,9 +185,6 @@ class SearchIndexAction extends DefaultBrowseAction
 
     QubitAclSearch::filterDrafts($this->query);
 
-    // Sort, From, Limit
-    $this->query->setSort(array('_score' => 'desc'));
-
     // Add suggestion
     // Using setParam since Elastica does not support the suggest API yet
     $this->query->setParam('suggest', array(
