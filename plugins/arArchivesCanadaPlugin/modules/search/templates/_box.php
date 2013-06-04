@@ -50,7 +50,7 @@
       <?php if (isset($altRepository)): ?>
         <div>
           <label>
-            <input name="realm" type="radio" value="<?php echo $repository->id ?>"/>
+            <input name="realm" type="radio" value="<?php echo $altRepository->id ?>"/>
             <?php echo __('Search <strong>%1%</strong>', array('%1%' => render_title($altRepository))) ?>
           </label>
         </div>
