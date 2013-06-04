@@ -86,7 +86,7 @@ class SearchAutocompleteAction extends sfAction
       $queryTerm = new \Elastica\Query\Term;
       $queryTerm->setTerm($item['field'].'.autocomplete', $this->queryString);
 
-      if (isset($request->realm) && false !== ctype_digit($request->realm) && 'QubitInformationObject' == $item['type'])
+      if (isset($request->realm) && ctype_digit($request->realm) && 'QubitInformationObject' == $item['type'])
       {
         $queryBool = new \Elastica\Query\Bool;
         $queryBool->addMust($queryTerm);

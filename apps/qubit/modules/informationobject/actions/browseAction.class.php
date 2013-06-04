@@ -128,17 +128,17 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     }
 
     // Filter by dates
-    if ((isset($request->from) && false !== ctype_digit($request->from))
-        || (isset($request->to) && false !== ctype_digit($request->to)))
+    if ((isset($request->from) && ctype_digit($request->from))
+        || (isset($request->to) && ctype_digit($request->to)))
     {
       $rangeFilterOptions = array();
 
-      if (isset($request->from) && false !== ctype_digit($request->from))
+      if (isset($request->from) && ctype_digit($request->from))
       {
         $rangeFilterOptions['gte'] = $request->from;
       }
 
-      if (isset($request->to) && false !== ctype_digit($request->to))
+      if (isset($request->to) && ctype_digit($request->to))
       {
         $rangeFilterOptions['gte'] = $request->to;
       }

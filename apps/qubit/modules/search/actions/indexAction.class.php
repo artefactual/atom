@@ -173,7 +173,7 @@ class SearchIndexAction extends DefaultBrowseAction
     $this->queryBool->addMust($queryText);
 
     // Realm filter
-    if (isset($request->realm) && false == ctype_digit($request->realm))
+    if (isset($request->realm) && ctype_digit($request->realm))
     {
       $this->queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $request->realm)));
 
