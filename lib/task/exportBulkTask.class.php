@@ -90,7 +90,6 @@ class eadExportTask extends sfBaseTask
     }
 
     $sql = "SELECT * FROM information_object i INNER JOIN information_object_i18n i18n ON i.id=i18n.id WHERE ". $whereClause;
-    print $sql;
 
     foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row)
     {
