@@ -266,6 +266,8 @@
           var label = $(e.target).parent().text().trim();
           this.$element.attr('placeholder', label);
         }
+
+        this.$element.focus();
       },
 
     showRealm: function (e)
@@ -306,7 +308,7 @@
         $.ajax(this.source,
           {
             context: this,
-            data: { query: query },
+            data: { query: query, realm: this.$form.find('[type=radio]:checked').get(0).value },
             dataType: 'html'
           })
           .done(function(html)

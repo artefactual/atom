@@ -165,15 +165,20 @@ class SearchIndexAction extends DefaultBrowseAction
       return sfView::SUCCESS;
     }
 
+
+
     $queryText = new \Elastica\Query\QueryString($request->query);
     $queryText->setDefaultOperator('AND');
     # _all? $queryText->setDefaultField(sprintf('i18n.%s.authorizedFormOfName', $this->context->user->getCulture()));
     $this->queryBool->addMust($queryText);
 
     // Realm filter
-    if (isset($request->realm) && is_int($request->realm))
+    if (isset($request->realm) && false == ctype_digit($request->realm))
     {
       $this->queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $request->realm)));
+
+      // Store realm in user session
+      $this->context->user->setAttribute('search-realm' => $request->realm);
     }
 
     $this->query->setQuery($this->queryBool);
@@ -185,9 +190,6 @@ class SearchIndexAction extends DefaultBrowseAction
 
     // Add suggestion
     // Using setParam since Elastica does not support the suggest API yet
-    /*
-      TEMPORARY DISABLED, IT'S NOT WORKING FOR ME NOW
-      Parse Failure: "No parser for element [suggest]"
     $this->query->setParam('suggest', array(
       'text' => $request->query,
       'suggestions' => array(
@@ -195,7 +197,6 @@ class SearchIndexAction extends DefaultBrowseAction
           'size' => 1,
           'sort' => 'frequency',
           'field' => sprintf('i18n.%s.title', $this->context->user->getCulture())))));
-    */
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
 

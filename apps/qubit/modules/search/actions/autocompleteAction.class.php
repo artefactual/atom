@@ -71,12 +71,8 @@ class SearchAutocompleteAction extends sfAction
         ->addIndex($index)
         ->addType($index->getType($item['type']));
 
-      $queryTerm = new \Elastica\Query\Term;
-      $queryTerm->setTerm($item['field'].'.autocomplete', $this->queryString);
-
       $query = new \Elastica\Query();
       $query
-        ->setQuery($queryTerm)
         ->setSize(3)
         ->setFields($item['fields'])
         ->setHighlight(array(
@@ -86,6 +82,25 @@ class SearchAutocompleteAction extends sfAction
                   'fragment_size' => 100, // Size limit for the highlighted fragmetns
                   'number_of_fragments' => 0, // Request the entire field
               ))));
+
+      $queryTerm = new \Elastica\Query\Term;
+      $queryTerm->setTerm($item['field'].'.autocomplete', $this->queryString);
+
+      if (isset($request->realm) && false !== ctype_digit($request->realm) && 'QubitInformationObject' == $item['type'])
+      {
+        $queryBool = new \Elastica\Query\Bool;
+        $queryBool->addMust($queryTerm);
+        $queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $request->realm)));
+        $query->setQuery($queryBool);
+
+        // Store realm in user session
+        $this->context->user->setAttribute('search-realm', $request->realm);
+      }
+      else
+      {
+        $query->setQuery($queryTerm);
+      }
+
       $search->setQuery($query);
 
       $mSearch->addSearch($search);

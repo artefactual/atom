@@ -47,6 +47,15 @@
         </div>
       <?php endif; ?>
 
+      <?php if (isset($altRepository)): ?>
+        <div>
+          <label>
+            <input name="realm" type="radio" value="<?php echo $repository->id ?>"/>
+            <?php echo __('Search <strong>%1%</strong>', array('%1%' => render_title($altRepository))) ?>
+          </label>
+        </div>
+      <?php endif; ?>
+
       <div class="search-realm-advanced">
         <a href="<?php echo url_for(array('module' => 'search', 'action' => 'advanced')) ?>">
           <?php echo __('Advanced search') ?>&nbsp;&raquo;

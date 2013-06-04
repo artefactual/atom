@@ -21,6 +21,7 @@ class SearchBoxComponent extends sfComponent
 {
   public function execute($request)
   {
+    // Check if the user is browsing a repo
     $route = $request->getAttribute('sf_route');
     if (isset($route->resource))
     {
@@ -32,6 +33,16 @@ class SearchBoxComponent extends sfComponent
       {
         $this->repository = $route->resource->repository;
       }
+    }
+
+    if (null !== $realmId = $this->context->user->getAttribute('search-realm'))
+    {
+      if (isset($this->repository) && $realmId == $this->repository->id)
+      {
+        return;
+      }
+
+      $this->altRepository = QubitRepository::getById($realmId);
     }
   }
 }
