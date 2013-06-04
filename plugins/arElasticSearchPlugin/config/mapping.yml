@@ -5,6 +5,7 @@ mapping:
   # Special attributes (_attributes):
   # - i18n: the i18n fields will be added automatically (it is optional)
   # - i18nExtra: to inherit i18n fields from other table
+  # - autocompleteFields: a list of fields that will be analyzed with edgengram
   # - timestamp: adds created_at and updated_at properties
   # - nested_only: the type will be ignored but embedded within other objects
 
