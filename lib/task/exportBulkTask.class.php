@@ -68,10 +68,11 @@ class eadExportTask extends sfBaseTask
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
     $appRoot = dirname(__FILE__) .'/../..';
+
     include($appRoot .'/plugins/sfEadPlugin/lib/sfEadPlugin.class.php');
     include($appRoot .'/vendor/symfony/lib/helper/UrlHelper.php');
     include($appRoot .'/vendor/symfony/lib/helper/I18NHelper.php');
-    include($appRoot .'/plugins/sfEadPlugin/lib/vendor/FreeBeerIso639Map.php');
+    include($appRoot .'/vendor/FreeBeerIso639Map.php');
     include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
     include($appRoot .'/lib/helper/QubitHelper.php');
 
@@ -88,37 +89,29 @@ class eadExportTask extends sfBaseTask
       $whereClause .= ' AND '. $options['criteria'];
     }
 
-    $sql = "SELECT COUNT(1) AS total FROM information_object WHERE ". $whereClause;
+    $sql = "SELECT * FROM information_object i INNER JOIN information_object_i18n i18n ON i.id=i18n.id WHERE ". $whereClause;
+    print $sql;
 
-    $rows = $conn->query($sql, PDO::FETCH_ASSOC);
-
-    foreach($rows as $row)
+    foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row)
     {
-      $sql = "SELECT * FROM information_object i INNER JOIN information_object_i18n i18n ON i.id=i18n.id WHERE ". $whereClause;
+      $resource = QubitInformationObject::getById($row['id']);
 
-      echo "Exporting ". $row['total'] . " descriptions.\n";
+      // Determine language(s) used in the export
+      $exportLanguage = sfContext::getInstance()->user->getCulture();
+      $sourceLanguage = $resource->getSourceCulture();
 
-      foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row)
-      {
-        $resource = QubitInformationObject::getById($row['id']);
+      $ead = new sfEadPlugin($resource);
 
-        // Determine language(s) used in the export
-        $exportLanguage = sfContext::getInstance()->user->getCulture();
-        $sourceLanguage = $resource->getSourceCulture();
+      ob_start();
+      include('plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccess.xml.php');
+      $output = ob_get_contents();
+      ob_end_clean();
 
-        $ead = new sfEadPlugin($resource);
+      $filename = 'ead_'. $row['id'] .'.xml';
+      $filePath = $arguments['folder'] .'/'. $filename;
+      file_put_contents($filePath, $output);
 
-        ob_start();
-        include('plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccess.xml.php');
-        $output = ob_get_contents();
-        ob_end_clean();
-
-        $filename = 'ead_'. $row['id'] .'.xml';
-        $filePath = $arguments['folder'] .'/'. $filename;
-        file_put_contents($filePath, $output);
-
-        print '.';
-      }
+      print '.';
     }
   }
 }
