@@ -34,8 +34,6 @@
 <?php slot('sidebar') ?>
   <section id="facets">
 
-    <?php echo get_partial('search/datesFacet') ?>
-
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-levelOfDescription',
       'label' => __('Level of description'),
