@@ -229,6 +229,7 @@ class SearchIndexAction extends DefaultBrowseAction
     {
       $this->pager->setMaxPerPage(500);
     }
+    $this->pager->init();
 
     $this->populateFacets($resultSet);
 
