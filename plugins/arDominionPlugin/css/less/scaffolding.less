@@ -988,6 +988,25 @@ section .vcard:last-child > .field:last-child > div {
   }
 }
 
+.search-filter {
+  display: inline-block;
+  padding: 3px 20px 3px 6px;
+  max-width: 240px;
+  .text-overflow();
+  position: relative;
+  background-color: @white;
+  color: @orange;
+  border: 1px solid #d9d9d9;
+  .box-shadow(1px 1px 1px rgba(0, 0, 0, .1));
+  .border-radius(2px);
+  a {
+    position: absolute;
+    right: 6px;
+    color: @grayLight;
+    font-size: 10px;
+  }
+}
+
 // Sort header
 
 #sort-header {
