@@ -2,37 +2,39 @@
 
 <?php slot('sidebar') ?>
 
-  <section id="advance-search-filters">
+  <section id="advanced-search-filters">
 
     <h4><?php echo __('Search filters') ?></h4>
 
     <div class="filter">
       <?php if (sfConfig::get('app_multi_repository')): ?>
-        <?php echo $form->repository
+        <?php echo $form->r
           ->label(__('Repository'))
           ->renderRow() ?>
       <?php endif; ?>
     </div>
     <div class="filter">
-      <?php echo $form->materialType
+      <?php echo $form->m
         ->label(__('General material designation'))
         ->renderRow() ?>
     </div>
     <div class="filter">
-      <?php echo $form->mediaType
+      <?php echo $form->t
         ->label(__('Media type'))
         ->renderRow() ?>
     </div>
     <div class="filter">
-      <?php echo $form->hasDigitalObject
+      <?php echo $form->h
         ->label(__('Digital object available'))
         ->renderRow() ?>
     </div>
     <div class="filter">
-      <?php echo $form->levelOfDescription->renderRow() ?>
+      <?php echo $form->l
+        ->label(__('Level of description'))
+        ->renderRow() ?>
     </div>
     <div class="filter">
-      <?php echo $form->copyrightStatus
+      <?php echo $form->c
         ->label(__('Copyright status'))
         ->renderRow() ?>
     </div>
@@ -68,6 +70,7 @@
 
 <section class="actions">
   <input type="submit" class="c-btn c-btn-submit" value="<?php echo __('Search') ?>"/>
+  <input type="reset" class="c-btn c-btn-delete" value="<?php echo __('Reset') ?>"/>
 </section>
 
 <?php if ($pager->hasResults()): ?>

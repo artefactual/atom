@@ -496,6 +496,7 @@
 
     listen: function()
     {
+      this.$form = this.$element.find('form');
       this.$criteria = this.$element.find('.criteria');
       this.$filters = this.$element.find('#filters');
 
@@ -513,6 +514,26 @@
       {
         this.$filters.hide();
       }
+
+      this.$form
+        .on('click', 'input[type=reset]', $.proxy(function (event)
+          {
+            this.$element.find('.search-result').remove();
+            this.$element.find('.criteria:not(:first)').remove();
+            this.$element.find('.result-count').parent().remove();
+          }, this))
+        .on('submit', $.proxy(function (event)
+          {
+
+            $('#advanced-search-filters select').each(function (index, element)
+              {
+                if (!element.value)
+                {
+                  element.removeAttribute('name');
+                }
+              });
+
+          }, this));
 
       // Bind events
       this.$element.on('click', $.proxy(this.click, this));

@@ -21,23 +21,21 @@ class SearchAdvancedAction extends DefaultBrowseAction
 {
   public static
     $NAMES = array(
-      'copyrightStatus',
-      'hasDigitalObject',
-      'levelOfDescription',
-      'materialType',
-      'mediaType',
-      'repository',
-      'searchFields',
-      'startDate',
-      'endDate'
+      'c', // 'copyrightStatus',
+      'h', // 'hasDigitalObject',
+      'l', // 'levelOfDescription',
+      'm', // 'materialType',
+      't', // 'mediaType',
+      'r', // 'repository',
+      's'  // 'searchFields'
     );
 
   protected function addField($name)
   {
     switch ($name)
     {
-      case 'copyrightStatus':
-        $this->form->setValidator('copyrightStatus', new sfValidatorString);
+      case 'c':
+        $this->form->setValidator('c', new sfValidatorString);
 
         $choices = array();
         $choices[null] = null;
@@ -46,12 +44,12 @@ class SearchAdvancedAction extends DefaultBrowseAction
           $choices[$item->id] = $item->__toString();
         }
 
-        $this->form->setValidator('copyrightStatus', new sfValidatorString);
-        $this->form->setWidget('copyrightStatus', new sfWidgetFormSelect(array('choices' => $choices)));
+        $this->form->setValidator('c', new sfValidatorString);
+        $this->form->setWidget('c', new sfWidgetFormSelect(array('choices' => $choices)));
 
         break;
 
-      case 'hasDigitalObject':
+      case 'h':
         $choices = array(
           '' => '',
           'true' => $this->context->i18n->__('Yes'),
@@ -63,8 +61,8 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
         break;
 
-      case 'levelOfDescription':
-        $this->form->setValidator('levelOfDescription', new sfValidatorString);
+      case 'l':
+        $this->form->setValidator('l', new sfValidatorString);
 
         $choices = array();
         $choices[null] = null;
@@ -73,12 +71,12 @@ class SearchAdvancedAction extends DefaultBrowseAction
           $choices[$item->id] = $item->__toString();
         }
 
-        $this->form->setValidator('levelOfDescription', new sfValidatorString);
-        $this->form->setWidget('levelOfDescription', new sfWidgetFormSelect(array('choices' => $choices)));
+        $this->form->setValidator('l', new sfValidatorString);
+        $this->form->setWidget('l', new sfWidgetFormSelect(array('choices' => $choices)));
 
         break;
 
-      case 'materialType':
+      case 'm':
         $criteria = new Criteria;
         $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::MATERIAL_TYPE_ID);
 
@@ -98,7 +96,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
         break;
 
-      case 'mediaType':
+      case 't':
         // Get list of media types
         $criteria = new Criteria;
         $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::MEDIA_TYPE_ID);
@@ -119,7 +117,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
         break;
 
-      case 'repository':
+      case 'r':
         // Get list of repositories
         $criteria = new Criteria;
 
@@ -153,42 +151,42 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
     switch ($field->getName())
     {
-      case 'copyrightStatus':
+      case 'c':
         $query = new \Elastica\Query\Term;
         $query->setTerm('copyrightStatusId', $value);
         $this->queryBool->addMust($query);
 
         break;
 
-      case 'hasDigitalObject':
+      case 'h':
         $query = new \Elastica\Query\Term;
         $query->setTerm('hasDigitalObject', $value);
         $this->queryBool->addMust($query);
 
         break;
 
-      case 'levelOfDescription':
+      case 'l':
         $query = new \Elastica\Query\Term;
         $query->setTerm('levelOfDescriptionId', $value);
         $this->queryBool->addMust($query);
 
         break;
 
-      case 'materialType':
+      case 'm':
         $query = new \Elastica\Query\Term;
         $query->setTerm('materialTypeId', $value);
         $this->queryBool->addMust($query);
 
         break;
 
-      case 'mediaType':
+      case 'm':
         $query = new \Elastica\Query\Term;
         $query->setTerm('digitalObject.mediaTypeId', $value);
         $this->queryBool->addMust($query);
 
         break;
 
-      case 'repository':
+      case 'r':
         $query = new \Elastica\Query\Term;
         $query->setTerm('repository.id', $value);
         $this->queryBool->addMust($query);
@@ -201,7 +199,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
   {
     $queryBool = new \Elastica\Query\Bool();
 
-    if (!isset($this->request->searchFields))
+    if (!isset($this->request->s))
     {
       return;
     }
@@ -209,7 +207,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
     $culture = $this->context->user->getCulture();
 
     // Iterate over search fields
-    foreach ($this->request->searchFields as $key => $item)
+    foreach ($this->request->s as $key => $item)
     {
       if (empty($item['query']))
       {
@@ -273,10 +271,10 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
       if (0 == $key)
       {
-        $item['operator'] == 'add';
+        $item['o'] == 'add';
       }
 
-      switch ($item['operator'])
+      switch ($item['o'])
       {
         case 'not':
           $queryBool->addMustNot($queryText);
@@ -306,6 +304,9 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
   public function execute($request)
   {
+    # echo "<pre>";
+    # var_dump($_GET);
+    # die();
     parent::execute($request);
 
     if ('print' == $request->getGetParameter('media'))
