@@ -72,10 +72,12 @@
 <?php end_slot() ?>
 
 <?php if (isset($pager->facets['digitalobjects'])): ?>
-  <p>
-    <?php echo __('There are %1% digital objects', array(
-      '%1%' => $pager->facets['digitalobjects']['count'])) ?>
-  </p>
+  <div class="search-result media-summary">
+    <p>
+      <?php echo __('%1% results with digital objects', array(
+        '%1%' => $pager->facets['digitalobjects']['count'])) ?>
+    </p>
+  </div>
 <?php endif; ?>
 
 <?php foreach ($pager->getResults() as $hit): ?>
