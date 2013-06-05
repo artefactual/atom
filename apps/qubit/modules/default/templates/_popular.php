@@ -5,8 +5,10 @@
     <?php foreach ($popularThisWeek as $item): ?>
       <?php $object = QubitObject::getById($item[0]); ?>
       <li>
-        <?php echo link_to(render_title($object), url_for(array($object))) ?>
-        <strong><?php echo __('%1% visits', array('%1%' => $item[1])) ?></strong>
+        <a href="url_for(array($object))">
+          <?php echo render_title($object) ?>
+          <strong><?php echo __('%1% visits', array('%1%' => $item[1])) ?></strong>
+        </a>
       </li>
     <?php endforeach; ?>
   </ul>

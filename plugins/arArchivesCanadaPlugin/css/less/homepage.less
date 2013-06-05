@@ -176,23 +176,40 @@
 #popular-this-week {
 
   color: @white;
+  background-color: rgba(0, 0, 0, .10);
 
   h3 {
     padding: 8px;
-    margin-top: 0;
+    margin: 0;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
+    background-color: rgba(0, 0, 0, .10);
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 4px 0;
+  }
+
+  li {
+    position: relative;
+    padding: 0;
+    margin: 0;
   }
 
   a {
     color: @white;
-  }
-
-  ul {
-    list-style: none;
-    margin-left: 0;
+    display: block;
+    padding: 3px 72px 3px 8px;
+    .text-overflow();
+    &:hover {
+      background-color: rgba(0, 0, 0, .10);
+    }
   }
 
   strong {
+    position: absolute;
+    right: 4px;
     color: @gray;
     padding-left: 4px;
     font-weight: normal;
