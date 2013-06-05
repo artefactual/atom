@@ -49,7 +49,7 @@
     <ul>
       <?php foreach ($actors->getResults() as $hit): ?>
         <?php $doc = $hit->getData() ?>
-        <li><?php echo link_to(get_search_i18n_highlight($hit, 'authorizedFormOfName.autocomplete'), array('module' => 'search', 'action' => 'index', 'names_id' => $hit->getId())) ?></li>
+        <li><?php echo link_to(get_search_i18n_highlight($hit, 'authorizedFormOfName.autocomplete'), array('module' => 'actor', 'slug' => $hit->slug)) ?></li>
       <?php endforeach; ?>
       <?php if ($actors->getTotalHits() > 3): ?>
         <li class="showall"><?php echo link_to(__('all matching people & organizations'), array('module' => 'actor', 'action' => 'browse') + $sf_request->getParameterHolder()->getAll()) ?></li>
