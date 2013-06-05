@@ -35,12 +35,23 @@
 <?php slot('before-content') ?>
 
   <section class="header-options">
+
+    <?php if (isset($sf_request->query)): ?>
+      <span class="search-filter">
+        <?php echo esc_entities($sf_request->query) ?>
+        <?php $params = $sf_request->getGetParameters() ?>
+        <?php unset($params['query']) ?>
+        <a href="<?php echo url_for(array('module' => 'repository', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
+
     <?php echo get_partial('default/sortPicker',
       array(
         'options' => array(
           'relevancy' => __('Relevancy'),
           'mostRecent' => __('Most recent'),
           'alphabetic' => __('Alphabetic')))) ?>
+
   </section>
 
 <?php end_slot() ?>

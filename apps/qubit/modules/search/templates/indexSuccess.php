@@ -8,16 +8,22 @@
 <?php end_slot() ?>
 
 <?php slot('before-content') ?>
+
   <?php if (isset($realm)): ?>
+
     <section class="header-options">
+
       <span class="search-filter">
         <?php echo render_title($realm) ?>
         <?php $params = $sf_request->getGetParameters() ?>
         <?php unset($params['realm']) ?>
         <a href="<?php echo url_for(array('module' => 'search') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
       </span>
+
     </section>
+
   <?php endif; ?>
+
 <?php end_slot() ?>
 
 <?php if (sfConfig::get('app_multi_repository') && isset($pager->facets['repository_id'])): ?>

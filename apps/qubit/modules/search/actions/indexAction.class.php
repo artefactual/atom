@@ -165,11 +165,8 @@ class SearchIndexAction extends DefaultBrowseAction
       return sfView::SUCCESS;
     }
 
-
-
     $queryText = new \Elastica\Query\QueryString($request->query);
     $queryText->setDefaultOperator('AND');
-    # _all? $queryText->setDefaultField(sprintf('i18n.%s.authorizedFormOfName', $this->context->user->getCulture()));
     $this->queryBool->addMust($queryText);
 
     // Realm filter
