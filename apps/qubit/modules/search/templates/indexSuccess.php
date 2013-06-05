@@ -98,6 +98,13 @@
       'pager' => $pager,
       'filters' => $filters)) ?>
 
+    <?php echo get_partial('search/facet', array(
+      'target' => '#facet-mediaTypes',
+      'label' => __('Media types'),
+      'facet' => 'mediatypes',
+      'pager' => $pager,
+      'filters' => $filters)) ?>
+
   </section>
 <?php end_slot() ?>
 
