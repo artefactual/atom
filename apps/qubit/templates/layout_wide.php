@@ -18,7 +18,7 @@
 
     <?php echo get_partial('header') ?>
 
-    <?php include_slot('pre') ?>
+    <?php include_slot('before-content') ?>
 
     <?php if (!include_slot('content')): ?>
       <div class="container-fluid">
@@ -26,7 +26,7 @@
       </div>
     <?php endif; ?>
 
-    <?php include_slot('post') ?>
+    <?php include_slot('after-content') ?>
 
     <?php echo get_partial('footer') ?>
 
