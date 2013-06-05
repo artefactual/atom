@@ -20,6 +20,15 @@
         <a href="<?php echo url_for(array('module' => 'search') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
       </span>
 
+      <?php if (isset($sf_request->onlyMedia)): ?>
+        <span class="search-filter">
+          <?php echo __('Only digital objects') ?>
+          <?php $params = $sf_request->getGetParameters() ?>
+          <?php unset($params['onlyMedia']) ?>
+          <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        </span>
+      <?php endif; ?>
+
     </section>
 
   <?php endif; ?>
@@ -108,20 +117,17 @@
   </section>
 <?php end_slot() ?>
 
-<?php if (isset($pager->facets['digitalObject_mediaTypeId'])): ?>
-
-  <?php $numResults = 0 ?>
-  <?php foreach ($pager->facets['digitalObject_mediaTypeId']['terms'] as $mediaType): ?>
-    <?php $numResults += $mediaType['count']; ?>
-  <?php endforeach; ?>
-
-  <?php if ($numResults > 0): ?>
-    <div class="search-result media">
-      <p class="title"><?php echo __('%1% results with digital media', array('%1%' => $numResults)) ?></p>
-      <a href="#"><?php echo __('Show all') ?>&nbsp;&raquo;</a>
-    </div>
-  <?php endif; ?>
-
+<?php if (isset($pager->facets['digitalobjects']) && !isset($sf_request->onlyMedia)): ?>
+  <div class="search-result media-summary">
+    <p>
+      <?php echo __('%1% results with digital objects', array(
+        '%1%' => $pager->facets['digitalobjects']['count'])) ?>
+      <a href="<?php echo url_for(array('module' => 'search') + $sf_request->getGetParameters() + array('onlyMedia' => true)) ?>">
+        <i class="icon-search"></i>
+        <?php echo __('Show all') ?>
+      </a>
+    </p>
+  </div>
 <?php endif; ?>
 
 <?php foreach ($pager->getResults() as $hit): ?>

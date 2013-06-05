@@ -30,6 +30,10 @@ class SearchIndexAction extends DefaultBrowseAction
         array('type' => 'term',
               'field' => 'digitalObject.mediaTypeId',
               'size' => 10),
+      'digitalobjects' =>
+        array('type' => 'query',
+              'field' => array('hasDigitalObject' => true),
+              'populate' => false),
       'repos' =>
         array('type' => 'term',
               'field' => 'repository.id',
@@ -176,6 +180,11 @@ class SearchIndexAction extends DefaultBrowseAction
 
       // Store realm in user session
       $this->context->user->setAttribute('search-realm', $request->realm);
+    }
+
+    if (isset($request->onlyMedia))
+    {
+      $this->queryBool->addMust(new \Elastica\Query\Term(array('hasDigitalObject' => true)));
     }
 
     $this->query->setQuery($this->queryBool);

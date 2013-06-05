@@ -153,6 +153,11 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       $this->queryBool->addMust($queryRange);
     }
 
+    if (isset($request->onlyMedia))
+    {
+      $this->queryBool->addMust(new \Elastica\Query\Term(array('hasDigitalObject' => true)));
+    }
+
     // Filter drafts
     $this->query = QubitAclSearch::filterDrafts($this->query);
 
