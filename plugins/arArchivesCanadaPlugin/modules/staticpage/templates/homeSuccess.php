@@ -16,7 +16,11 @@
 
   <div class="span3" id="intro">
     <h2>The Gateway to Canada's Past</h2>
-    <p>Praesent mollis, lorem ornare rhoncus luctus, tortor felis sagittis dolor, vel sodales velit nulla at justo. Praesent in posuere dui. Suspendisse eu malesuada augue. Nullam urna tortor, ultrices sed adipiscing et, dictum ac est. Cras et justo eu tellus porta eleifend. Nulla at arcu vel arcu congue pellentesque. Fusce id leo odio, non tincidunt dui.</p>
+    <?php if ('fr' == $sf_user->getCulture()): ?>
+      <p>Through this gateway, search for details (descriptions) about archival materials, find digital images, visit virtual exhibits, browse information about archives in every province and territory, and discover the archives with the information you need. ArchivesCanada.ca is your national portal to Canada's documentary heritage, found in over 800 archives.</p>
+    <?php else: ?>
+      <p>Through this gateway, search for details (descriptions) about archival materials, find digital images, visit virtual exhibits, browse information about archives in every province and territory, and discover the archives with the information you need. ArchivesCanada.ca is your national portal to Canada's documentary heritage, found in over 800 archives.</p>
+    <?php endif; ?>
   </div>
 
 </div>
