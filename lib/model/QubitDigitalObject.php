@@ -1836,7 +1836,7 @@ class QubitDigitalObject extends BaseDigitalObject
     }
 
     // Do conversion to jpeg
-    $command = 'ffmpeg -itsoffset -30 -i '.$originalPath.' -vframes 1 -an -f image2 -s '.$width.'x'.$height.' '.$newPath;
+    $command = "ffmpeg -itsoffset -30 -i $originalPath -vframes 1 -vf \"scale='min($width,iw):-1'\" $newPath";
     exec($command.' 2>&1', $output, $status);
 
     chmod($newPath, 0644);
