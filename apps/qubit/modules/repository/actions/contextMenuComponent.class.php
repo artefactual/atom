@@ -19,17 +19,16 @@
 
 class RepositoryContextMenuComponent extends sfComponent
 {
+  const LIMIT = 10;
+
   public function execute($request)
   {
-    if (!isset($request->limit))
-    {
-      $request->limit = sfConfig::get('app_hits_per_page');
-    }
-
     if (!isset($request->getAttribute('sf_route')->resource))
     {
       return sfView::NONE;
     }
+
+    $this->limit = self::LIMIT;
 
     $this->resource = $request->getAttribute('sf_route')->resource;
 
@@ -42,18 +41,13 @@ class RepositoryContextMenuComponent extends sfComponent
 
     QubitAclSearch::filterDrafts($query);
 
-    $query->setLimit($request->limit);
-    $query->setSort(array('slug' => 'asc', '_score' => 'desc'));
+    $query->setLimit($this->limit);
+    $query->setSort(array(sprintf('i18n.%s.title', $this->context->user->getCulture()) => 'asc'));
 
-    if (!empty($request->page))
-    {
-      $query->setFrom(($request->page - 1) * $request->limit);
-    }
+    // Filter out descriptions without title
+    $filterExists = new \Elastica\Filter\Exists(sprintf('i18n.%s.title', $this->context->user->getCulture()));
+    $query->setfilter($filterExists);
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
-
-    $this->pager = new QubitSearchPager($resultSet);
-    $this->pager->setPage($request->page ? $request->page : 1);
-    $this->pager->setMaxPerPage($request->limit);
+    $this->resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
   }
 }

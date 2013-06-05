@@ -538,25 +538,39 @@ a:hover {
 
 // Holdings list (repository/index)
 
-#holdings {
+.list-menu {
 
   ul {
-    margin-left: 0;
-    list-style: none;
+
+    border-top: 1px solid @white;
+    margin: 0;
+    list-style-type: none;
+    background-color: rgba(0, 0, 0, .10);
+
+    a {
+      display: block;
+      font-family: @altFontFamily;
+      padding: 4px;
+      .text-overflow();
+      &:hover {
+        background-color: rgba(0, 0, 0, .20);
+      }
+    }
+
   }
 
-  a {
-    display: block;
-    font-family: @altFontFamily;
-    padding: 2px 4px 2px 4px;
-    margin-left: -4px;
-    .text-overflow();
-    &:hover {
-      background-color: @grayLight;
+  .more {
+    padding: 4px;
+    border-top: 1px solid @white;
+    i {
+      margin-right: 4px;
+    }
+    a {
+      text-align: center;
+      display: block;
       color: @white;
     }
   }
-
 }
 
 // Content
