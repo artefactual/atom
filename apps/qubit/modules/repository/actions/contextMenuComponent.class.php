@@ -42,7 +42,7 @@ class RepositoryContextMenuComponent extends sfComponent
     QubitAclSearch::filterDrafts($query);
 
     $query->setLimit($this->limit);
-    $query->setSort(array(sprintf('i18n.%s.title', $this->context->user->getCulture()) => 'asc'));
+    $query->setSort(array(sprintf('i18n.%s.title.untouched', $this->context->user->getCulture()) => 'asc'));
 
     // Filter out descriptions without title
     $filterExists = new \Elastica\Filter\Exists(sprintf('i18n.%s.title', $this->context->user->getCulture()));
