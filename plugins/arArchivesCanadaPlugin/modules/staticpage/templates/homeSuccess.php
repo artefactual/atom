@@ -15,7 +15,10 @@
   </div>
 
   <div class="span3" id="intro">
-    <h2>The Gateway to Canada's Past</h2>
+    <h2>
+      <span class="title"ArchivesCanada</span>
+      The Gateway to Canada's Past
+    </h2>
     <?php if ('fr' == $sf_user->getCulture()): ?>
       <p>Through this gateway, search for details (descriptions) about archival materials, find digital images, visit virtual exhibits, browse information about archives in every province and territory, and discover the archives with the information you need. ArchivesCanada.ca is your national portal to Canada's documentary heritage, found in over 800 archives.</p>
     <?php else: ?>
