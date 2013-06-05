@@ -862,6 +862,11 @@ section .vcard:last-child > .field:last-child > div {
   &.media-summary {
     color: @orange;
     font-size: 16px;
+    a {
+      font-size: 12px;
+      margin-left: 8px;
+      color: @gray;
+    }
   }
 
   // Each search result has an optional preview and the description block
@@ -1003,6 +1008,7 @@ section .vcard:last-child > .field:last-child > div {
 .search-filter {
   display: inline-block;
   padding: 3px 20px 3px 6px;
+  margin-right: 4px;
   max-width: 240px;
   .text-overflow();
   position: relative;
