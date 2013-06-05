@@ -61,6 +61,12 @@ class DigitalObjectBrowseAction extends DefaultBrowseAction
     // Create query object
     $this->queryBool->addMust(new \Elastica\Query\Term(array('hasDigitalObject' => true)));
 
+    if (isset($this->getRoute()->resource))
+    {
+      $this->resource = $this->getRoute()->resource;
+      $this->queryBool->addMust(new \Elastica\Query\Term(array('ancestors' => $this->resource->id)));
+    }
+
     // Filter drafts
     $this->query = QubitAclSearch::filterDrafts($this->query);
 

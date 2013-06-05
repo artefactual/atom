@@ -73,6 +73,12 @@
 
 <?php end_slot() ?>
 
+<?php slot('before-content') ?>
+
+  <?php echo get_component('digitalobject', 'imageflow', array('resource' => $resource)) ?>
+
+<?php end_slot() ?>
+
 <?php if (0 < count($resource->digitalObjects)): ?>
   <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjects[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
 <?php endif; ?>

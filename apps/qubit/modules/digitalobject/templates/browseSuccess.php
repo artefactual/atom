@@ -5,7 +5,7 @@
 
     <h1>
       <?php echo image_tag('/images/icons-large/icon-media.png', array('width' => '42', 'height' => '42')) ?>
-      <?php echo __('Browse %1% digital objects', array('%1%' => $pager->getNbResults())) ?>
+      <?php echo __('Browse %1% %2%', array('%1%' => $pager->getNbResults(), '%2%' => sfConfig::get('app_ui_label_digitalobject'))) ?>
     </h1>
 
   </div>
@@ -19,6 +19,23 @@
         'pager' => $pager,
         'filters' => $filters)) ?>
     </div>
+
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span12">
+
+    <section class="header-options">
+
+      <?php if (isset($resource)): ?>
+        <span class="search-filter">
+          <?php echo render_title($resource) ?>
+          <a href="<?php echo url_for(array('module' => 'digitalobject', 'action' => 'browse') + $sf_request->getGetParameters()) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        </span>
+      <?php endif; ?>
+
+    </section>
 
   </div>
 </div>

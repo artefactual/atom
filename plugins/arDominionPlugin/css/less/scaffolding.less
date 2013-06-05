@@ -1121,6 +1121,39 @@ section .vcard:last-child > .field:last-child > div {
 
 }
 
+// Coverflow
+// Overrides imageflow.css
+
+#coverflow {
+  background-color: @black;
+  background-color: rgba(0, 0, 0, .75);
+  #imageflow_caption {
+    color: @white;
+  }
+  .imageflow .caption {
+    font-weight: normal;
+    font-family: @sansBoldFontFamily;
+  }
+  img {
+    cursor: pointer !important
+  }
+  .result-count {
+    margin: 0 0 10px 0;
+    a {
+      border: 2px solid @white;
+      margin-left: 8px;
+      padding: 4px;
+      .border-radius(4px);
+      color: @white;
+      font-size: 10px;
+      &:hover {
+        background-color: @white;
+        color: @black;
+      }
+    }
+  }
+}
+
 // Responsive design
 
 @media (min-width: 1200px) {
