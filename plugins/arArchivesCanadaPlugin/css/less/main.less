@@ -25,17 +25,28 @@ html, body {
   background-image: none;
 }
 
+// Font sizes and families
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: 'Droid Serif';
+  font-family: @serifFontFamily;
   font-weight: normal;
 }
 
-// Fonts in headers
+#content {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: @sansFontFamily;
+  }
+}
 
 h1 { font-size: 22px; }
 h2 { font-size: 20px; }
