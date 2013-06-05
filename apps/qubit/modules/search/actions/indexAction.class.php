@@ -29,8 +29,7 @@ class SearchIndexAction extends DefaultBrowseAction
       'mediatypes' =>
         array('type' => 'term',
               'field' => 'digitalObject.mediaTypeId',
-              'size' => 10,
-              'populate' => false),
+              'size' => 10),
       'repos' =>
         array('type' => 'term',
               'field' => 'repository.id',
@@ -78,6 +77,7 @@ class SearchIndexAction extends DefaultBrowseAction
 
         break;
 
+      case 'mediatypes':
       case 'places':
       case 'subjects':
         $criteria = new Criteria;

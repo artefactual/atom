@@ -71,6 +71,13 @@
 
 <?php end_slot() ?>
 
+<?php if (isset($pager->facets['digitalobjects'])): ?>
+  <p>
+    <?php echo __('There are %1% digital objects', array(
+      '%1%' => $pager->facets['digitalobjects']['count'])) ?>
+  </p>
+<?php endif; ?>
+
 <?php foreach ($pager->getResults() as $hit): ?>
   <?php $doc = $hit->getData() ?>
   <?php echo include_partial('search/searchResult', array('doc' => $doc, 'pager' => $pager)) ?>

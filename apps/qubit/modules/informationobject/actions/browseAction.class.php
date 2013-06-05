@@ -35,7 +35,10 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       'mediatypes' =>
         array('type' => 'term',
               'field' => 'digitalObject.mediaTypeId',
-              'size' => 10,
+              'size' => 10),
+      'digitalobjects' =>
+        array('type' => 'query',
+              'field' => array('hasDigitalObject' => true),
               'populate' => false),
       'repos' =>
         array('type' => 'term',
@@ -84,6 +87,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
         break;
 
+      case 'mediatypes':
       case 'places':
       case 'subjects':
         $criteria = new Criteria;

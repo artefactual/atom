@@ -48,6 +48,12 @@ class DefaultBrowseAction extends sfAction
           $facet->setField($item['field']);
 
           break;
+
+        case 'query':
+          $facet = new \Elastica\Facet\Query($name);
+          $facet->setQuery(new \Elastica\Query\Term($item['field']));
+
+          break;
       }
 
       // Sets the amount of terms to be returned
@@ -119,13 +125,15 @@ class DefaultBrowseAction extends sfAction
     foreach ($resultSet->getFacets() as $name => $facet)
     {
       // Pass if the facet is empty
-      if (!isset($facet['terms']))
+      if (!isset($facet['terms']) && !isset($facet['count']))
       {
         continue;
       }
 
       if (isset($this::$FACETS[$name]['populate']) && false === $this::$FACETS[$name]['populate'])
       {
+        $facets[$name] = $facet;
+
         continue;
       }
 
