@@ -226,6 +226,14 @@
 
   }
 
+  .list-menu {
+    .animation(fadeInDown, .2s);
+    display: none;
+    &.open {
+      display: block;
+    }
+  }
+
   .no-results {
     border-top: 1px solid @white;
     background-color: rgba(0, 0, 0, .2);

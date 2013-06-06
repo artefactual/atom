@@ -557,7 +557,7 @@
             {
               // Add new .list-menu
               this.$search.find('.list-menu, .no-results').remove();
-              this.$search.append('<div class="list-menu" display="none"><ul></ul></div>');
+              this.$search.append('<div class="list-menu"><ul></ul></div>');
 
               // Inject results, can we avoid .each()
               var $list = this.$search.find('.list-menu ul');
@@ -569,13 +569,12 @@
               }
 
               // Show more
-              console.log(data);
               if (undefined !== data.more)
               {
                 $list.after(data.more);
               }
 
-              $list.show();
+              this.$search.find('.list-menu').addClass('open');
             })
 
           .always(function (data)
