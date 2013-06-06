@@ -117,7 +117,7 @@
   </section>
 <?php end_slot() ?>
 
-<?php if (isset($pager->facets['digitalobjects']) && !isset($sf_request->onlyMedia)): ?>
+<?php if (!isset($sf_request->onlyMedia) && isset($pager->facets['digitalobjects']) && 0 < $pager->facets['digitalobjects']['count']): ?>
   <div class="search-result media-summary">
     <p>
       <?php echo __('%1% results with digital objects', array(
