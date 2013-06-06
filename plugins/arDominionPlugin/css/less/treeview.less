@@ -161,3 +161,47 @@
   color: #bbb;
   margin-left: 4px;
 }
+
+#treeview-menu {
+
+  margin-bottom: 0;
+  border-bottom: 1px solid @gray;
+
+  li {
+    margin-bottom: 0;
+  }
+
+  li > a {
+    padding: 4px 6px;
+    background-color: @grayLighter;
+    color: lighten(@black, 50%);
+  }
+
+  .active > a {
+    background-color: transparent;
+    color: @black;
+  }
+
+  i {
+    margin-right: 4px;
+  }
+
+}
+
+#treeview-search {
+
+  .hide();
+
+  .search-box {
+    padding: 14px 10px;
+    background-color: rgba(0, 0, 0, .1);
+    input {
+      border: 0;
+      background-color: rgba(0, 0, 0, .2);
+      .placeholder(#bbb);
+      color: @white;
+      margin: 0;
+    }
+  }
+
+}

@@ -90,6 +90,10 @@
       // Check if the treeview is used in the browser page
       this.browser = undefined !== this.$element.data('browser') && !!this.$element.data('browser');
 
+      // Menu (tabs) and search box
+      this.$menu = this.$element.prev('#treeview-menu');
+      this.$search = this.$element.next('#treeview-search');
+
       this.init();
     };
 
@@ -107,6 +111,9 @@
           .on('mouseleave.treeview.atom', 'li', $.proxy(this.mouseleave, this))
           .bind('scroll', $.proxy(this.scroll, this))
           .bind('scroll-debounced', $.proxy(this.debouncedScroll, this));
+
+        this.$menu
+          .on('click.treeviewMenu.atom', 'a', $.proxy(this.clickMenu, this));
 
         // Prevent out-of-bounds scrollings via mousewheel
         if ($.fn.mousewheel)
@@ -490,6 +497,23 @@
             {
             }
           });
+      },
+
+    clickMenu: function (event)
+      {
+        event.stopPropagation();
+        event.preventDefault();
+
+        var $link = $(event.target);
+
+        // Toggle .active class
+        this.$menu.find('li').toggleClass('active');
+
+        this.$element.hide();
+        this.$search.hide();
+
+        var target = $link.data('toggle');
+        $(target).show();
       }
   };
 

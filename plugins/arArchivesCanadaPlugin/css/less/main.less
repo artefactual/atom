@@ -39,12 +39,7 @@ h6 {
 
 #content {
   h1,
-  h2 {
-    font-family: @sansBoldFontFamily;
-  }
-}
-
-#content {
+  h2,
   h3,
   h4,
   h5,
@@ -59,7 +54,7 @@ h3 { font-size: 19px; }
 h4 { font-size: 18px; }
 
 #content h2 {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 #content .field > h3 {
@@ -158,51 +153,87 @@ h1 .count {
 
 #treeview {
 
-  li:hover {
-    background-color: rgba(255, 255, 255, .25);
+  font-size: 12px;
+
+  li {
+    background-color: rgba(0, 0, 0, 0.1);
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
   }
 
-  li a {
-    color: @white;
+  .ancestor {
+    background-color: transparent;
+    border-bottom: 1px solid @white;
+  }
+
+  .active {
+    background-color: @white !important;
+    a {
+      color: @orange;
+    }
+  }
+
+  .ui-sortable-helper {
+    background-color: rgba(255, 255, 255, 0.8);
+    a {
+      color: @black;
+    }
+  }
+
+  .levelOfDescription {
+    text-transform: uppercase;
+    font-family: @sansBoldFontFamily;
+    font-size: 10px;
+    margin-right: 6px;
+    color: @black;
+    max-width: 40px;
+    display: inline-block;
+    .text-overflow();
   }
 
   .more a {
     color: @gray;
     background-color: @grayLighter;
-    background-color: rgba(255, 255, 255, .50);
-  }
-
-  .ancestor {
-    background-color: @white;
-  }
-
-  .ancestor a {
-    color: @black;
-  }
-
-  .active a {
-    color: @orange !important;
-  }
-
-  .active {
-    background-color: transparent !important;
-  }
-
-  .active.ancestor {
-    background-color: @white !important;
-  }
-
-  .ui-sortable-helper {
-    background-color: rgba(255, 255, 255, .85);
-  }
-
-  .ui-sortable-helper a {
-    color: @grayDark;
+    background-color: rgba(255, 255, 255, .3);
   }
 
   .placeholder {
     background-color: @grayDark;
-    background-color: rgba(0, 0, 0, 0.10);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .ancestor i { background-position: 0px -10px; } /* down arrow */
+  .ancestor:hover i { background-position: -20px -10px; } /* right arrow */
+  .expand i { background-position: -20px -10px; } /* right arrow */
+  .expand:hover i { background-position: 0px -10px; } /* down arrow */
+  .root:hover i { background-position: 0px -10px; } /* down arrow */
+
+}
+
+#treeview-menu {
+
+  border-bottom: 1px solid @white;
+
+  li > a {
+    background-color: rgba(0, 0, 0, .1);
+    color: @grayLighter;
+  }
+
+  .active {
+    a {
+      border-color: @white;
+      background-color: @white !important;
+      color: @orange !important;
+    }
+    i {
+      color: @black;
+    }
+  }
+
+  a:hover {
+    background-color: rgba(255, 255, 255, .1);
+    border-color: transparent;
   }
 
 }

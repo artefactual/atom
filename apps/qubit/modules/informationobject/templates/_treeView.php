@@ -1,3 +1,16 @@
+<ul id="treeview-menu" class="nav nav-tabs">
+  <li class="active">
+    <a href="#treeview" data-toggle="#treeview">
+      <?php echo __('Holdings') ?>
+    </a>
+  </li>
+  <li>
+    <a href="#treeview-search" data-toggle="#treeview-search">
+      <?php echo __('Search') ?>
+    </a>
+  </li>
+</ul>
+
 <div id="treeview" data-current-id="<?php echo $resource->id ?>" data-sortable="<?php echo $sortable ? 'true' : 'false' ?>">
 
   <ul class="unstyled">
@@ -82,5 +95,13 @@
     <?php endif; ?>
 
   </ul>
+
+</div>
+
+<div id="treeview-search">
+
+  <div class="search-box">
+    <input type="text" placeholder="<?php echo __('e.g. National defence') ?>" />
+  </div>
 
 </div>
