@@ -113,7 +113,11 @@
           .bind('scroll-debounced', $.proxy(this.debouncedScroll, this));
 
         this.$menu
-          .on('click.treeviewMenu.atom', 'a', $.proxy(this.clickMenu, this));
+          .on('click.treeview.atom', 'a', $.proxy(this.clickMenu, this));
+
+        this.$search
+          .on('submit.treeview.atom', 'form', $.proxy(this.search, this))
+          .on('keydown.treeview.atom', 'input', $.proxy(this.searchChange, this));
 
         // Prevent out-of-bounds scrollings via mousewheel
         if ($.fn.mousewheel)
@@ -505,15 +509,95 @@
         event.preventDefault();
 
         var $link = $(event.target);
+        var $li = $link.parent();
 
-        // Toggle .active class
-        this.$menu.find('li').toggleClass('active');
+        if (!$li.hasClass('active'))
+        {
+          this.$menu.find('li').toggleClass('active');
+          this.$element.hide();
+          this.$search.hide();
 
-        this.$element.hide();
-        this.$search.hide();
+          $($link.data('toggle')).show();
 
-        var target = $link.data('toggle');
-        $(target).show();
+          if ($link.data('toggle') == '#treeview-search')
+          {
+            this.$search.find('input').focus();
+          }
+        }
+      },
+
+    search: function (event)
+      {
+        event.preventDefault();
+
+        var query = event.target.query.value;
+        if (1 > query.length || this.loading)
+        {
+          return this;
+        }
+
+        this.setLoading(true);
+
+        $.ajax({
+          url: event.target.action,
+          context: this,
+          dataType: 'json',
+          data: { query: query }})
+
+          .fail(function (fail)
+            {
+              if (404 == fail.status)
+              {
+                this.$search.find('.list-menu, .no-results').remove();
+                this.$search.append('<div class="no-results">' + event.target.getAttribute('data-not-found') + '</div>');
+              }
+            })
+
+          .done(function (data)
+            {
+              // Add new .list-menu
+              this.$search.find('.list-menu, .no-results').remove();
+              this.$search.append('<div class="list-menu" display="none"><ul></ul></div>');
+
+              // Inject results, can we avoid .each()
+              var $list = this.$search.find('.list-menu ul');
+              for (var i in data.results)
+              {
+                var item = data.results[i];
+                var link = '<li><a href="' + item.url + '">' + item.title + '</a></li>';
+                $list.append('<li></li>').children(':last-child').append(link);
+              }
+
+              // Show more
+              console.log(data);
+              if (undefined !== data.more)
+              {
+                $list.after(data.more);
+              }
+
+              $list.show();
+            })
+
+          .always(function (data)
+            {
+              var self = this;
+              window.setTimeout(function()
+              {
+                self.setLoading(false);
+              }, 250);
+            });
+
+        return this;
+      },
+
+    searchChange: function (event)
+      {
+        switch (event.which)
+        {
+          case 27:
+            this.$search.find('.list-menu, .no-results').remove();
+            $(event.target).attr('value', '');
+        }
       }
   };
 

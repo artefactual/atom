@@ -17,6 +17,9 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * Notice that his is also used in XHR context (see treeview search)
+ */
 class SearchIndexAction extends DefaultBrowseAction
 {
   // Arrays not allowed in class constants
@@ -182,6 +185,11 @@ class SearchIndexAction extends DefaultBrowseAction
       $this->context->user->setAttribute('search-realm', $request->realm);
     }
 
+    if (isset($request->collection) && ctype_digit($request->collection))
+    {
+      $this->queryBool->addMust(new \Elastica\Query\Term(array('ancestors' => $request->collection)));
+    }
+
     if (isset($request->onlyMedia))
     {
       $this->queryBool->addMust(new \Elastica\Query\Term(array('hasDigitalObject' => true)));
@@ -202,6 +210,49 @@ class SearchIndexAction extends DefaultBrowseAction
           'field' => sprintf('i18n.%s.title', $this->context->user->getCulture())))));
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
+
+    // Return special response in JSON for XHR requests
+    if ($request->isXmlHttpRequest() && ctype_digit($request->collection))
+    {
+      $total = $resultSet->getTotalHits();
+      if (1 > $total)
+      {
+        $this->forward404();
+
+        return;
+      }
+
+      sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
+
+      $response = array('results' => array());
+      foreach ($resultSet->getResults() as $item)
+      {
+        $data = $item->getData();
+        $result = array(
+          'url' => url_for(array('module' => 'informationobject', 'slug' => $data['slug'])),
+          'title' => $data['i18n'][$this->context->user->getCulture()]['title']);
+
+        $response['results'][] = $result;
+      }
+
+      if ($resultSet->getTotalHits() > $resultSet->count())
+      {
+        $url = url_for(array('module' => 'informationobject', 'action' => 'browse', 'collection' =>  $request->collection));
+        $link = $this->context->i18n->__('Browse %1% holdings', array('%1%' => $resultSet->getTotalHits()));
+        $response['more'] = <<<EOF
+<div class="more">
+  <a href="$url">
+    <i class="icon-search"></i>
+    $link
+  </a>
+</div>
+EOF;
+      }
+
+      $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
+
+      return $this->renderText(json_encode($response));
+    }
 
     // Capture best suggestion
     $esResponse = $resultSet->getResponse()->getData();

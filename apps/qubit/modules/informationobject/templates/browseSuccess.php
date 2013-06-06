@@ -69,6 +69,15 @@
 
   <section class="header-options">
 
+    <?php if (isset($collectionFilter)): ?>
+      <span class="search-filter">
+        <?php echo $collectionFilter->__toString() ?>
+        <?php $params = $sf_request->getGetParameters() ?>
+        <?php unset($params['collection']) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
+
     <?php if (isset($sf_request->onlyMedia)): ?>
       <span class="search-filter">
         <?php echo __('Only digital objects') ?>

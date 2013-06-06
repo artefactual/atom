@@ -100,8 +100,11 @@
 
 <div id="treeview-search">
 
-  <div class="search-box">
-    <input type="text" placeholder="<?php echo __('e.g. National defence') ?>" />
-  </div>
+  <form method="get" action="<?php echo url_for(array('module' => 'search', 'action' => 'index', 'collection' => $resource->getCollectionRoot()->id)) ?>" data-not-found="<?php echo __('No results found.') ?>">
+    <div class="search-box">
+      <input type="text" name="query" placeholder="<?php echo __('e.g. National defence') ?>" />
+      <button type="submit"><i class="icon-search"></i></button>
+    </div>
+  </form>
 
 </div>
