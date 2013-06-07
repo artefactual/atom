@@ -32,4 +32,34 @@ class QubitCache
 
     return self::$instance;
   }
+
+  public static function getLabel($id, $className, $ttl = 600)
+  {
+    // I should make this a property of the class instead
+    $cache = self::getInstance();
+
+    // Cache key
+    $cacheKey = sprintf('label:%s:%s',
+      $id,
+      sfContext::getInstance()->user->getCulture());
+
+    if ($cache->has($cacheKey))
+    {
+      $label = $cache->get($cacheKey);
+    }
+    else
+    {
+      // Avoid caching non-existing records
+      if (null === $object = $className::getById($id))
+      {
+        return;
+      }
+
+      $label = $className::getById($id)->__toString();
+
+      $cache->set($cacheKey, $label, $ttl);
+    }
+
+    return $label;
+  }
 }
