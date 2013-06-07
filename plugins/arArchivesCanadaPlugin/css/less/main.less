@@ -75,6 +75,9 @@ h1, h2, h3, h4, h5, h6,
 #sort-header .dropdown-selected:after,
 #facets .facet-header p,
 #facets .facet-header p:after,
+#facets .facet-header p:hover,
+#facets .open .facet-header p,
+#facets .open .facet-header p:after
 #facets .facet-body li a,
 .result-count,
 #sort-header .dropdown-selected span,
@@ -101,31 +104,36 @@ h1, h2, h3, h4, h5, h6,
   color: @blue;
 }
 
-#facets .facet-body .active a,
-#facets .facet.open .facet-header p,
-#facets .facet.open .facet-header p:after,
-#facets .facet-header p:hover,
-#facets .facet-header p:hover:after,
 .note2 {
   color: @grayDark;
+}
+
+#facets .facet-body li.active a,
+#facets .facet-header p:hover:after {
+  color: @orange;
 }
 
 .search-filter,
 #action-icons a:hover,
 #facets .open .facet-body,
-#facets .facet-header p {
+#facets .facet-header p,
+#facets .facet.open .facet-header p,
+#facets .facet-header p:hover {
   background-color: rgba(0, 0, 0, 0.10);
 }
 
-#facets .facet.open .facet-header p,
-#facets .facet-header p:hover {
-  background-color: #f2f0f0;
+#facets .open .facet-header p {
+  background-color: rgba(0, 0, 0, 0.20);
 }
 
 #action-icons i,
 #sort-header .sort-options label,
 #sort-header .dropdown-selected span {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, .25);
+}
+
+#facets .open .facet-header {
+  border-bottom: 1px solid @white;
 }
 
 h1,

@@ -366,7 +366,9 @@ a:hover {
   }
 
   li {
-    padding: 2px 4px;
+    padding: 2px 32px 2px 4px;
+    .text-overflow();
+    position: relative;
   }
 
   // Selected facet results
@@ -377,6 +379,8 @@ a:hover {
   // Facet counter
   .facet-count {
     padding-left: 4px;
+    position: absolute;
+    right: 5px;
   }
 
 }
