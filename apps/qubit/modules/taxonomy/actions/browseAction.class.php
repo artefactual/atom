@@ -61,22 +61,10 @@ class TaxonomyBrowseAction extends sfAction
 
     switch ($request->sort)
     {
-      case 'hitsDown':
+      case 'relevancy':
         $criteria->addDescendingOrderByColumn('hits');
 
-        break;
-
-      case 'hitsUp':
-        $criteria->addAscendingOrderByColumn('hits');
-
-        break;
-
-      case 'termNameDown':
-        $criteria->addDescendingOrderByColumn('name');
-
-        break;
-
-      case 'termNameUp':
+      case 'alphabetic':
       default:
         $criteria->addAscendingOrderByColumn('name');
 

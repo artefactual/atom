@@ -12,43 +12,44 @@
 <?php end_slot() ?>
 
 <?php slot('before-content') ?>
-  <ul class="nav nav-tabs">
-    <li<?php if ('hitsUp' == $sf_request->sort || 'hitsDown' == $sf_request->sort): ?> class="active"<?php endif; ?>><?php echo link_to(__('Results'), array('sort' => 'hitsUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?></li>
-    <li<?php if ('hitsUp' != $sf_request->sort && 'hitsDown' != $sf_request->sort): ?> class="active"<?php endif; ?>><?php echo link_to(__('Alphabetic'), array('sort' => 'termNameUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?></li>
-  </ul>
+
+  <section class="header-options">
+
+    <?php echo get_partial('default/sortPicker',
+      array(
+        'options' => array(
+          'relevancy' => __('Relevancy'),
+          'alphabetic' => __('Alphabetic')))) ?>
+
+  </section>
+
 <?php end_slot() ?>
 
-<table class="table table-bordered sticky-enabled">
-  <thead>
-    <tr>
-      <th>
-        <?php echo render_title($resource) ?>
-        <?php if ('termNameDown' == $sf_request->sort): ?>
-          <?php echo link_to(image_tag('up.gif'), array('sort' => 'termNameUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?>
-        <?php elseif ('termNameUp' == $sf_request->sort || !in_array($sf_request->sort, array('hitsDown', 'hitsUp'))): ?>
-          <?php echo link_to(image_tag('down.gif'), array('sort' => 'termNameDown') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?>
-        <?php endif; ?>
-      </th><th>
-        <?php echo __('Results') ?>
-        <?php if ('hitsDown' == $sf_request->sort): ?>
-          <?php echo link_to(image_tag('up.gif'), array('sort' => 'hitsUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?>
-        <?php elseif ('hitsUp' == $sf_request->sort): ?>
-          <?php echo link_to(image_tag('down.gif'), array('sort' => 'hitsDown') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?>
-        <?php endif; ?>
-      </th>
-    </tr>
-  </thead><tbody>
-    <?php foreach ($terms as $item): ?>
-      <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
-        <td>
-          <?php echo link_to(render_title($item), array($item, 'module' => 'term', 'action' => 'browseTerm')) ?>
-        </td><td>
-          <?php echo $item->countRelatedInformationObjects() ?>
-        </td>
+<?php slot('content') ?>
+
+  <table class="table table-bordered sticky-enabled">
+    <thead>
+      <tr>
+        <th>
+          <?php echo render_title($resource) ?>
+        </th><th>
+          <?php echo __('Results') ?>
+        </th>
       </tr>
-    <?php endforeach; ?>
-  </tbody>
-</table>
+    </thead><tbody>
+      <?php foreach ($terms as $item): ?>
+        <tr>
+          <td>
+            <?php echo link_to(render_title($item), array($item, 'module' => 'term', 'action' => 'browseTerm')) ?>
+          </td><td>
+            <?php echo $item->countRelatedInformationObjects() ?>
+          </td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+
+<?php end_slot() ?>
 
 <?php slot('after-content') ?>
   <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
