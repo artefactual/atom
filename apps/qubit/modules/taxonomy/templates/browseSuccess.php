@@ -18,8 +18,8 @@
     <?php echo get_partial('default/sortPicker',
       array(
         'options' => array(
-          'relevancy' => __('Relevancy'),
-          'alphabetic' => __('Alphabetic')))) ?>
+          'alphabetic' => __('Alphabetic'),
+          'relevancy' => __('Relevancy')))) ?>
 
   </section>
 
