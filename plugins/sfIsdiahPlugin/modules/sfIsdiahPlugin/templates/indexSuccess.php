@@ -25,14 +25,6 @@
     </ul>
   </section>
 
-  <?php if (isset($latitude) && isset($longitude) && null !== $key = sfConfig::get('app_google_api_key')): ?>
-    <div class="row">
-      <div class="span7">
-        <div id="front-map" class="simple-map" data-key="<?php echo $key ?>" data-latitude="<?php echo $latitude ?>" data-longitude="<?php echo $longitude ?>"></div>
-      </div>
-    </div>
-  <?php endif; ?>
-
   <?php if ($resource->existsBanner()): ?>
     <div class="row" id="repository-html-snippet">
       <div class="span7">
@@ -76,6 +68,10 @@
   <?php endif; ?>
 
 <?php end_slot() ?>
+
+<?php if (isset($latitude) && isset($longitude) && null !== $key = sfConfig::get('app_google_api_key')): ?>
+  <div id="front-map" class="simple-map" data-key="<?php echo $key ?>" data-latitude="<?php echo $latitude ?>" data-longitude="<?php echo $longitude ?>"></div>
+<?php endif; ?>
 
 <section id="identifyArea">
 
