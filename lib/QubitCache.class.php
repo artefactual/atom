@@ -33,7 +33,7 @@ class QubitCache
     return self::$instance;
   }
 
-  public static function getLabel($id, $className, $ttl = 600)
+  public static function getLabel($id, $className, $ttl = 3600)
   {
     // I should make this a property of the class instead
     $cache = self::getInstance();
