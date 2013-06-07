@@ -31,7 +31,7 @@
 <div id="homepage" class="row">
 
   <div class="span4">
-    <?php echo get_component('default', 'popular', array('limit' => 10)) ?>
+    <?php echo get_component('default', 'popular', array('limit' => 10, 'sf_cache_key' => $sf_user->getCulture())) ?>
   </div>
 
   <div class="span8" id="virtual-exhibit">

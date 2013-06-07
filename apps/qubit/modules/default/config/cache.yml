@@ -1,0 +1,4 @@
+_popular:
+  enabled: true
+  contextual: false
+  lifetime: 300
