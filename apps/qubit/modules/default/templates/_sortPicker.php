@@ -26,7 +26,7 @@
             <?php $urlParams = array(
               'module' => $sf_request->module,
               'action' => $sf_request->action,
-              'sort' => $key) + $sf_request->getGetParameters() ?>
+              'sort' => $key) + $sf_request->getParameterHolder()->getAll() ?>
             <a href="<?php echo url_for($urlParams) ?>" data-order="<?php echo $key ?>">
               <span><?php echo $value ?></span>
             </a>
