@@ -3,7 +3,7 @@
 <?php if (QubitTerm::MASTER_ID == $usageType || QubitTerm::REFERENCE_ID == $usageType): ?>
 
   <?php if (isset($link)): ?>
-    <?php echo link_to(image_tag($representation->getFullPath()), $link) ?>
+    <?php echo link_to(image_tag($representation->getFullPath()), $link, array('target' => '_blank')) ?>
   <?php else: ?>
     <?php echo image_tag($representation->getFullPath()) ?>
   <?php endif; ?>
