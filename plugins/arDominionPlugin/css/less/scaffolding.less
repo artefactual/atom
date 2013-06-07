@@ -931,34 +931,34 @@ section .vcard:last-child > .field:last-child > div {
     margin-bottom: 0 !important;
   }
 
-
-  // Lists
-
-  ul.result-details {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  .creation-details {
     color: @grayLight;
-    font-size: 90%;
-    float: left;
-    width: 100%;
+    font-size: @baseFontSize * 0.90;
+    margin-top: -10px !important;
   }
 
   // List of details
 
   .result-details {
 
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    color: @grayLight;
+    font-size: 90%;
+
     li {
 
-      float: left;
+      display: inline-block;
 
       &:after {
         content: '·';
         padding: 0px 4px;
+        color: @black;
         #font > #family > .sans-serif();
       }
 
-      &.publication-status {
+      &.reference-code {
         color: @orange;
       }
 
@@ -966,23 +966,9 @@ section .vcard:last-child > .field:last-child > div {
         content: none;
       }
 
-      &.reference-code {
-        color: @green;
+      .publication-status {
+        color: @orange;
       }
-
-      /* I'm not sure about this, it highlights the reference code nicely but I
-       * don't know if it worth so much attention
-      &.reference-code {
-        #font > #family > .monospace();
-        background-color: @grayLighter;
-        color: @black;
-        .border-radius(3px);
-        padding: 0 6px;
-        margin-right: 8px !important;
-        &:after {
-          content: none;
-        }
-      } */
 
     }
 

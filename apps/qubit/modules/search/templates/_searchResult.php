@@ -27,20 +27,16 @@
 
     <ul class="result-details">
 
-      <?php if (isset($doc['referenceCode'])): ?>
+      <?php if (isset($doc['referenceCode']) && !empty($doc['referenceCode'])): ?>
         <li class="reference-code"><?php echo $doc['referenceCode'] ?></li>
       <?php endif; ?>
 
-      <?php if (isset($doc['levelOfDescriptionId'])): ?>
-        <li class="level-description"><?php echo $pager->levelsOfDescription[$doc['levelOfDescriptionId']] ?></li>
+      <?php if (isset($doc['levelOfDescriptionId']) && !empty($doc['levelOfDescriptionId'])): ?>
+        <li class="level-description"><?php echo QubitCache::getLabel($doc['levelOfDescriptionId'], 'QubitTerm') ?></li>
       <?php endif; ?>
 
-      <?php if (QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $doc['publicationStatusId']): ?>
-        <li class="publication-status"><?php echo $doc['publicationStatusId'] ?></li>
-      <?php endif; ?>
-
-      <?php if (isset($doc['dates'])): ?>
-        <li class="dates"><?php # echo Qubit::renderDateStartEnd(null, $doc['dates'][0]['startDate'], $doc['dates'][0]['endDate']) ?></li>
+      <?php if (isset($doc['publicationStatusId']) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $doc['publicationStatusId']): ?>
+        <li class="publication-status"><?php echo QubitCache::getLabel($doc['publicationStatusId'], 'QubitTerm') ?></li>
       <?php endif; ?>
 
     </ul>
@@ -49,16 +45,8 @@
       <p><?php echo truncate_text($scopeAndContent, 250) ?></p>
     <?php endif; ?>
 
-    <!-- TODO: show repo if multirepo and fix breadcrumb style -->
-    <?php if (false): ?>
-    <section class="breadcrumb">
-      <ul>
-        <?php foreach($doc['ancestors'] as $id): ?>
-          <?php if ($id == QubitInformationObject::ROOT_ID) continue ?>
-          <li><?php echo link_to($pager->ancestors[$id]['title'], array('module' => 'informationobject', 'slug' => $pager->ancestors[$id]['slug']), array('title' => $pager->ancestors[$id]['title'])) ?></li>
-        <?php endforeach; ?>
-      </ul>
-    </section>
+    <?php if (null !== $creationDetails = get_search_creation_details($doc)): ?>
+      <p class="creation-details"><?php echo $creationDetails ?></p>
     <?php endif; ?>
 
   </div>

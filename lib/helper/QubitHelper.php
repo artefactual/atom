@@ -310,6 +310,54 @@ function get_search_i18n_highlight(\Elastica\Result $hit, $fieldName)
   }
 }
 
+function get_search_creation_details($hit)
+{
+  if ($hit instanceof \Elastica\Result)
+  {
+    $hit = $hit->getData();
+  }
+
+  $details = array();
+
+  // Get creator
+  if (isset($hit['creators']) && 0 < count($hit['creators']))
+  {
+    $creator = array_pop($hit['creators']);
+
+    $details[] = get_search_i18n($creator, 'authorizedFormOfName');
+  }
+
+  ProjectConfiguration::getActive()->loadHelpers('Date');
+
+  // Get dates
+  foreach ($hit['dates'] as $item)
+  {
+    if (QubitTerm::CREATION_ID == $item['typeId'])
+    {
+      if (isset($item['date']))
+      {
+        $details[] = $item['date'];
+      }
+      elseif (isset($item['startDate']) && isset($item['endDate']))
+      {
+        $details[] = Qubit::renderDateStartEnd(null,
+          format_date(strtotime($item['startDate']), 'yyyy-M-dd'),
+          format_date(strtotime($item['endDate']), 'yyyy-M-dd'));
+      }
+    }
+
+    // For now let's just print the first match
+    break;
+  }
+
+  if (0 == count($details))
+  {
+    return null;
+  }
+
+  return implode(', ', $details);
+}
+
 function escape_dc($text)
 {
   return preg_replace('/\n/', '<lb/>', $text);
