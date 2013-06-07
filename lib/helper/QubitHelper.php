@@ -330,24 +330,27 @@ function get_search_creation_details($hit)
   ProjectConfiguration::getActive()->loadHelpers('Date');
 
   // Get dates
-  foreach ($hit['dates'] as $item)
+  if (isset($hit['dates']))
   {
-    if (QubitTerm::CREATION_ID == $item['typeId'])
+    foreach ($hit['dates'] as $item)
     {
-      if (isset($item['date']))
+      if (QubitTerm::CREATION_ID == $item['typeId'])
       {
-        $details[] = $item['date'];
+        if (isset($item['date']))
+        {
+          $details[] = $item['date'];
+        }
+        elseif (isset($item['startDate']) && isset($item['endDate']))
+        {
+          $details[] = Qubit::renderDateStartEnd(null,
+            format_date(strtotime($item['startDate']), 'yyyy-M-dd'),
+            format_date(strtotime($item['endDate']), 'yyyy-M-dd'));
+        }
       }
-      elseif (isset($item['startDate']) && isset($item['endDate']))
-      {
-        $details[] = Qubit::renderDateStartEnd(null,
-          format_date(strtotime($item['startDate']), 'yyyy-M-dd'),
-          format_date(strtotime($item['endDate']), 'yyyy-M-dd'));
-      }
-    }
 
-    // For now let's just print the first match
-    break;
+      // For now let's just print the first match
+      break;
+    }
   }
 
   if (0 == count($details))
