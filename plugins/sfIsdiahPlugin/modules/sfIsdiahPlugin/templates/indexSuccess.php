@@ -49,7 +49,7 @@
     <section id="primary-contact">
       <h4><?php echo __('Primary contact') ?></h4>
       <?php echo $primaryContact->getContactInformationString(array('simple' => true)) ?>
-      <div>
+      <div class="context-actions">
         <?php if (null !== $website = $primaryContact->getWebsite()): ?>
           <a class="btn btn-small" href="<?php echo esc_entities($website) ?>"><?php echo __('Website') ?></a>
         <?php endif; ?>
@@ -61,7 +61,7 @@
   <?php endif; ?>
 
   <?php if (null !== $openingTimes = $resource->getOpeningTimes(array('cultureFallback' => true))): ?>
-    <section>
+    <section id="opening-times">
       <h4><?php echo __('Opening times') ?></h4>
       <?php echo render_value($openingTimes) ?>
     </section>
