@@ -19,6 +19,8 @@
 
 class findRepositoryLatLngTask extends sfBaseTask
 {
+  protected $errorCount = 0;
+
   protected function configure()
   {
     $this->addArguments(array(
@@ -59,15 +61,24 @@ EOF;
       {
         list($lat, $lng) = $this->getLatLng(implode(', ', $address));
 
-        if (false && $lat && $lng)
+        if (!is_null($lat) && !is_null($lng))
         {
           $item->latitude = $lat;
           $item->longitude = $lng;
 
           $item->save();
+
+          $this->logSection('latlng', 'Saved!');
+          $this->logSection('latlng', ' ');
+        }
+        else
+        {
+          $this->errorCount++;
         }
       }
     }
+
+    $this->logSection('latlng', sprintf('Summary: %s errors.', $this->errorCount));
   }
 
   protected function getLatLng($address)
@@ -81,6 +92,7 @@ EOF;
     {
       $data = json_decode($response);
       $data = array_pop($data->results);
+
       $lat = $data->geometry->location->lat;
       $lng = $data->geometry->location->lng;
 
@@ -88,19 +100,18 @@ EOF;
       $address = preg_replace('/[\n\r\f]+/m', ', ', $address);
 
       $this->logSection('latlng', sprintf('Address: %s', $address));
-      if (is_float($lat) && is_float($lng))
+      if (!is_float($lat) || !is_float($lng))
       {
-        $this->logSection('latlng', sprintf('Latitude: %s. Longitude: %s.', $lat, $lng));
+        $this->logSection('latlng', 'ERROR!');
         $this->logSection('latlng', ' ');
-      }
-      else
-      {
-        $this->logSection('latlng', sprintf('ERROR!'));
-        $this->logSection('latlng', ' ');
-      }
-    }
 
-    return array($lat, $lng);
+        return;
+      }
+
+      $this->logSection('latlng', sprintf('Latitude: %s. Longitude: %s.', $lat, $lng));
+
+      return array($lat, $lng);
+    }
   }
 
   protected function wordLimiter($str, $limit = 100, $end_char = '...')
