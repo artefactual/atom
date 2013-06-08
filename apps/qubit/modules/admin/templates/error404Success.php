@@ -1,15 +1,20 @@
-<div class="section" style="text-align: center;">
+<section class="admin-message" id="error-404">
 
-  <?php echo image_tag('cancel48') ?>
+  <h2>
+    <i class="icon-remove"></i>
+    <?php echo __('Sorry, page not found') ?>
+  </h2>
 
-  <h2 class="capitalize" style="font-size: 20px"><?php echo __('Sorry, page not found') ?></h2>
+  <p>
+    <?php echo __('Did you type the URL correctly?') ?><br />
+    <?php echo __('Did you follow a broken link?') ?>
+  </p>
 
-  <h4><?php echo __('Did you type the URL correctly?') ?></h4>
+  <div class="tips">
+    <p>
+      <a href="javascript:history.go(-1)"><?php echo __('Back to previous page') ?></a><br />
+      <?php echo link_to(__('Go to homepage'), '@homepage') ?>
+    </p>
+  </div>
 
-  <h4><?php echo __('Did you follow a broken link?') ?></h4>
-
-  <a href="javascript:history.go(-1)"><?php echo __('Back to previous page') ?></a>
-
-  <br/><?php echo link_to(__('Go to homepage'), '@homepage') ?>
-
-</div>
+</section>

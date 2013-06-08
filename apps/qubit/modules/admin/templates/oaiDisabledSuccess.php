@@ -1,6 +1,10 @@
-<div style="text-align: center;">
-  <?php echo image_tag('cancel48') ?>
+<section class="admin-message" id="error-oai-disabled">
 
-    <h2 style="font-size: 20px;"><?php echo __('Sorry, OAI harvesting is disabled for this system.'); ?></h2>
+  <h2><?php echo __('Sorry, OAI harvesting is disabled for this system.') ?></h2>
 
-</div>
+  <div class="tips">
+    <p><a href="javascript:history.go(-1)"><?php echo __('Back to previous page') ?></a></p>
+    <p><?php echo link_to(__('Go to homepage'), '@homepage') ?></p>
+  </div>
+
+</section>

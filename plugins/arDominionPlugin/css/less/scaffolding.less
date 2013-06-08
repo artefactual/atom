@@ -1168,6 +1168,36 @@ section .vcard:last-child > .field:last-child > div {
   }
 }
 
+// Admin pages with erros
+
+.admin-message {
+
+  width: 50%;
+  margin: @baseLineHeight*2 auto 0 auto;
+  background-color: @white;
+  padding: 0 20px 20px 20px;
+  .border-radius(4px);
+  border: 1px solid @gray;
+
+  h2, h3 {
+    color: @grayDark;
+  }
+
+  h2 {
+    border-bottom: 1px solid @grayLighter;
+    margin: 0 -20px 20px -20px;
+    padding: 0 20px 0 20px;
+  }
+
+  i {
+    margin-right: 8px;
+  }
+
+  &#error-404 i {
+    color: @red;
+  }
+}
+
 // Responsive design
 
 @media (min-width: 1200px) {

@@ -1,12 +1,10 @@
-<div class="section" style="text-align: center;">
+<section class="admin-message" id="error-secure">
 
-  <?php echo image_tag('lock48') ?>
+  <h2><?php echo __('Sorry, you do not have permission to access that page') ?></h2>
 
-  <h2 style="font-size: 20px;"><?php echo __('Sorry, you do not have permission to access that page'); ?></h2>
+  <div class="tips">
+    <p><a href="javascript:history.go(-1)"><?php echo __('Back to previous page') ?></a></p>
+    <p><?php echo link_to(__('Go to homepage'), '@homepage') ?></p>
+  </div>
 
-  <a href="javascript:history.go(-1)"><?php echo __('Back to previous page'); ?></a>
-
-  <br/>
-  <?php echo link_to(__('Go to homepage'), '@homepage') ?>
-
-</div>
+</section>
