@@ -57,8 +57,8 @@ class RepositoryEditThemeAction extends sfAction
           'path' => $this->resource->getUploadsPath(true),
           'required' => false)));
 
-        $this->form->setWidget($name, new sfWidgetFormInputFileEditable(array(
-          'file_src' => $this->existsBanner ? public_path($this->resource->getBannerPath()) : null,
+        $this->form->setWidget($name, new arWidgetFormInputFileEditable(array(
+          'file_src' => $this->existsBanner ? public_path($this->resource->getBannerPath()) : false,
           'edit_mode' => true,
           'is_image' => true,
           'with_delete' => $this->existsBanner)));
@@ -84,8 +84,8 @@ class RepositoryEditThemeAction extends sfAction
           'path' => $this->resource->getUploadsPath(true),
           'required' => false)));
 
-        $this->form->setWidget($name, new sfWidgetFormInputFileEditable(array(
-          'file_src' => $this->existsLogo ? public_path($this->resource->getLogoPath()) : null,
+        $this->form->setWidget($name, new arWidgetFormInputFileEditable(array(
+          'file_src' => $this->existsLogo ? public_path($this->resource->getLogoPath()) : false,
           'edit_mode' => true,
           'is_image' => true,
           'with_delete' => $this->existsLogo)));
