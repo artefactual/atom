@@ -1,4 +1,4 @@
-<section>
+<section id="physical-objects">
 
   <h4><?php echo sfConfig::get('app_ui_label_physicalobject') ?></h4>
 
