@@ -48,9 +48,9 @@
     <?php echo get_partial('default/sortPicker',
       array(
         'options' => array(
+          'alphabetic' => __('Alphabetic'),
           'relevancy' => __('Relevancy'),
-          'mostRecent' => __('Most recent'),
-          'alphabetic' => __('Alphabetic')))) ?>
+          'mostRecent' => __('Most recent')))) ?>
 
   </section>
 

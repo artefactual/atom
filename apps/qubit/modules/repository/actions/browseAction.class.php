@@ -87,16 +87,17 @@ class RepositoryBrowseAction extends DefaultBrowseAction
 
         break;
 
-      // I don't think that this is going to scale, but let's leave it for now
-      case 'alphabetic':
-        $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->context->user->getCulture());
-        $this->query->setSort(array($field => 'asc'));
+      case 'relevancy':
+        $this->query->setSort(array('_score' => 'asc'));
 
         break;
 
-      case 'relevancy':
+      // Most of the times the institutions set is small so we can afford
+      // alphabetic sorting without much memory consumption in ElasticSearch
+      case 'alphabetic':
       default:
-        $this->query->setSort(array('_score' => 'asc'));
+        $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->context->user->getCulture());
+        $this->query->setSort(array($field => 'asc'));
     }
 
     $this->query->setQuery($this->queryBool);
