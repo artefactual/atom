@@ -24,7 +24,7 @@
           ->renderRow() ?>
 
         <?php echo $form->banner
-          ->help(__('Requirements: PNG format, 256K max. size. Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.',
+          ->help(__('Requirements: PNG format, 256K max. size.<br />Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.',
               array(
                 '%1%' => arRepositoryThemeCropValidatedFile::BANNER_MAX_WIDTH,
                 '%2%' => arRepositoryThemeCropValidatedFile::BANNER_MAX_HEIGHT)))
@@ -32,7 +32,7 @@
           ->renderRow() ?>
 
         <?php echo $form->logo
-          ->help(__('Requirements: PNG format, 256K max. size. Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.',
+          ->help(__('Requirements: PNG format, 256K max. size.<br />Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.',
             array(
               '%1%' => arRepositoryThemeCropValidatedFile::LOGO_MAX_WIDTH,
               '%2%' => arRepositoryThemeCropValidatedFile::LOGO_MAX_HEIGHT)))
