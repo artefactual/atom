@@ -203,9 +203,15 @@ function render_treeview_node($item, array $classes = array(), array $options = 
       $dataTitle .= ' - ';
     }
 
-    $dataTitle .= $item->getPublicationStatus()->__toString();
+    if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId)
+    {
+      $dataTitle .= $item->getPublicationStatus()->__toString();
+    }
 
-    $node .= ' data-title="'.esc_entities($dataTitle).'"';
+    if (0 < strlen($dataTitle))
+    {
+      $node .= ' data-title="'.esc_entities($dataTitle).'"';
+    }
   }
   else if ($item instanceof QubitTerm)
   {
