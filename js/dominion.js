@@ -110,10 +110,8 @@
           $(e.target).parents('.facet').toggleClass('open');
         });
 
-      if (1 == $facet.length)
-      {
-        $facet.addClass('open');
-      }
+      // Open first two facets
+      $facet.slice(0, 2).addClass('open');
     });
 
   /****
