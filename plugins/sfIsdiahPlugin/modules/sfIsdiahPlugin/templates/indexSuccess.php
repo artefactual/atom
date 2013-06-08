@@ -26,7 +26,7 @@
   </section>
 
   <?php if ($resource->existsBanner()): ?>
-    <div class="row" id="repository-html-snippet">
+    <div class="row" id="repository-banner">
       <div class="span7">
         <?php echo image_tag($resource->getBannerPath()) ?>
       </div>
