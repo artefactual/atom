@@ -227,6 +227,13 @@
 
         $li.popover('show');
 
+        // Hide title if empty
+        var $title = $li.data('popover').$tip.find('h3');
+        if (!$title.text().length)
+        {
+          $title.remove();
+        }
+
         return this;
       },
 
