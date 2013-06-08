@@ -191,26 +191,21 @@ function render_treeview_node($item, array $classes = array(), array $options = 
 
   if ($item instanceof QubitInformationObject)
   {
-    $dataTitle = '';
+    $dataTitle = array();
 
     if (isset($item->levelOfDescription))
     {
-      $dataTitle .= $item->levelOfDescription->__toString();
-    }
-
-    if (0 < strlen($dataTitle))
-    {
-      $dataTitle .= ' - ';
+      $dataTitle[] = $item->levelOfDescription->__toString();
     }
 
     if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId)
     {
-      $dataTitle .= $item->getPublicationStatus()->__toString();
+      $dataTitle[] = $item->getPublicationStatus()->__toString();
     }
 
-    if (0 < strlen($dataTitle))
+    if (0 < count($dataTitle))
     {
-      $node .= ' data-title="'.esc_entities($dataTitle).'"';
+      $node .= ' data-title="'.esc_entities(implode(' - ', $dataTitle)).'"';
     }
   }
   else if ($item instanceof QubitTerm)
