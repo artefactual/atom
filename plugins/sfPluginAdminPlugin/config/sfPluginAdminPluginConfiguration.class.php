@@ -47,6 +47,16 @@ class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
         $this->dispatcher->disconnect('autoload.filter_config', array($this->configuration, 'filterAutoloadConfig'));
 
         $pluginNames = unserialize($query[0]->__get('value', array('sourceCulture' => true)));
+
+        if (isset($_GET['t']))
+        {
+          if (false !== $key = array_search('arArchivesCanadaPlugin', $pluginNames))
+          {
+            unset($pluginNames[$key]);
+            $pluginNames[] = 'arDominionPlugin';
+          }
+        }
+
         $this->configuration->enablePlugins($pluginNames);
 
         $pluginPaths = $this->configuration->getAllPluginPaths();

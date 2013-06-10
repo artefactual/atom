@@ -4,8 +4,9 @@
   <div class="span6">
 
     <h1>
-      <?php echo image_tag('/images/icons-large/icon-media.png', array('width' => '42', 'height' => '42')) ?>
-      <?php echo __('Browse %1% %2%', array('%1%' => $pager->getNbResults(), '%2%' => sfConfig::get('app_ui_label_digitalobject'))) ?>
+      <?php echo image_tag('/images/icons-large/icon-media.png') ?>
+      <?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?>
+      <span class="sub"><?php echo sfConfig::get('app_ui_label_digitalobject') ?></span>
     </h1>
 
   </div>

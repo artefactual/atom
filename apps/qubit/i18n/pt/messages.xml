@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-06-09T19:07:50Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-06-09T20:17:34Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -2616,18 +2616,6 @@
         <source>More</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1344">
-        <source>Institution</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1345">
-        <source>Creators</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1346">
-        <source>Names</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1347">
         <source>Media types</source>
         <target/>
@@ -2814,10 +2802,6 @@
       </trans-unit>
       <trans-unit id="1393">
         <source>Quick links</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1394">
-        <source>Sort by:</source>
         <target/>
       </trans-unit>
       <trans-unit id="1395">

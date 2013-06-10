@@ -1,18 +1,32 @@
 <div id="homepage-hero" class="row">
 
-  <div class="span8" id="homepage-nav">
-
-    <p><?php echo __('Browse by') ?></p>
-    <ul>
-      <li><?php echo link_to(image_tag('/images/icons-large/icon-archival.png', array('width' => '42', 'height' => '42')).' '.sfConfig::get('app_ui_label_informationobject'), array('module' => 'informationobject', 'action' => 'browse')) ?></li>
-      <li><?php echo link_to(image_tag('/images/icons-large/icon-institutions.png', array('width' => '42', 'height' => '42')).' '.sfConfig::get('app_ui_label_repository'), array('module' => 'repository', 'action' => 'browse')) ?></li>
-      <li><?php echo link_to(image_tag('/images/icons-large/icon-subjects.png', array('width' => '42', 'height' => '42')).' '.sfConfig::get('app_ui_label_subject'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 35)) ?></li>
-      <li><?php echo link_to(image_tag('/images/icons-large/icon-people.png', array('width' => '42', 'height' => '42')).' '.sfConfig::get('app_ui_label_actor'), array('module' => 'actor', 'action' => 'browse')) ?></li>
-      <li><?php echo link_to(image_tag('/images/icons-large/icon-places.png', array('width' => '42', 'height' => '42')).' '.sfConfig::get('app_ui_label_place'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 42)) ?></li>
-      <li><?php echo link_to(image_tag('/images/icons-large/icon-media.png', array('width' => '42', 'height' => '42')).' '.sfConfig::get('app_ui_label_digitalobject'), array('module' => 'digitalobject', 'action' => 'browse')) ?></li>
-    </ul>
-
-  </div>
+  <?php $cacheKey = 'homepage-nav-'.$sf_user->getCulture() ?>
+  <?php if (!cache($cacheKey)): ?>
+    <div class="span8" id="homepage-nav">
+      <p><?php echo __('Browse by') ?></p>
+      <ul>
+        <?php $icons = array(
+          'browseInformationObjects' => '/images/icons-large/icon-archival.png',
+          'browseActors' => '/images/icons-large/icon-people.png',
+          'browseRepositories' => '/images/icons-large/icon-institutions.png',
+          'browseSubjects' => '/images/icons-large/icon-subjects.png',
+          'browsePlaces' => '/images/icons-large/icon-places.png',
+          'browseDigitalObjects' => '/images/icons-large/icon-media.png') ?>
+        <?php $browseMenu = QubitMenu::getById(QubitMenu::BROWSE_ID) ?>
+        <?php if ($browseMenu->hasChildren()): ?>
+          <?php foreach ($browseMenu->getChildren() as $item): ?>
+            <li>
+              <a href="<?php echo url_for($item->getPath(array('getUrl' => true, 'resolveAlias' => true))) ?>">
+                <?php echo image_tag($icons[$item->name], array('width' => 42, 'height' => 42)) ?>
+                <?php echo $item->getLabel(array('cultureFallback' => true)) ?>
+              </a>
+            </li>
+          <?php endforeach; ?>
+        <?php endif; ?>
+      </ul>
+    </div>
+    <?php cache_save($cacheKey) ?>
+  <?php endif; ?>
 
   <div class="span3" id="intro">
     <?php if ('fr' == $sf_user->getCulture()): ?>

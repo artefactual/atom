@@ -20,7 +20,7 @@
 
   <section class="breadcrumb">
     <ul>
-      <li><?php echo link_to(__('People & Organizations'), array('module' => 'actor', 'action' => 'browse')) ?></li>
+      <li><?php echo link_to(sfConfig::get('app_ui_label_actor'), array('module' => 'actor', 'action' => 'browse')) ?></li>
       <li><span><?php echo render_title($resource) ?></span></li>
     </ul>
   </section>

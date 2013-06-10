@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2013-06-09T19:06:44Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2013-06-09T20:17:04Z" product-name="messages">
     <body>
       <trans-unit id="3">
         <source>Log in</source>
@@ -2190,18 +2190,6 @@
         <source>More</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1358">
-        <source>Institution</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1359">
-        <source>Creators</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1360">
-        <source>Names</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1361">
         <source>Media types</source>
         <target/>
@@ -2388,10 +2376,6 @@
       </trans-unit>
       <trans-unit id="1407">
         <source>Quick links</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1408">
-        <source>Sort by:</source>
         <target/>
       </trans-unit>
       <trans-unit id="1409">

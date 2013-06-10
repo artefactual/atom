@@ -2,11 +2,10 @@
 <?php use_helper('Date') ?>
 
 <?php slot('title') ?>
-  <h1>
+  <h1 class="multiline">
     <?php echo image_tag('/images/icons-large/icon-institutions.png') ?>
-    <?php echo __('Browse %1% %2%', array(
-      '%1%' => $pager->getNbResults(),
-      '%2%' => sfConfig::get('app_ui_label_repository'))) ?>
+    <?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?>
+    <span class="sub"><?php echo sfConfig::get('app_ui_label_repository') ?></span>
   </h1>
 <?php end_slot() ?>
 

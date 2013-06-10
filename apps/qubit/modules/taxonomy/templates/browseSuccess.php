@@ -1,13 +1,12 @@
 <?php decorate_with('layout_1col') ?>
 
 <?php slot('title') ?>
-  <h1>
+  <h1 class="multiline">
     <?php if (isset($icon)): ?>
       <?php echo image_tag('/images/icons-large/icon-'.$icon.'.png') ?>
     <?php endif; ?>
-    <?php echo __('Browse %1% %2%', array(
-      '%1%' => $pager->getNbResults(),
-      '%2%' => strtolower(render_title($resource)))) ?>
+    <?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?>
+    <span class="sub"><?php echo render_title($resource) ?></span>
   </h1>
 <?php end_slot() ?>
 

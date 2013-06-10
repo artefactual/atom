@@ -67,43 +67,36 @@
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-repository',
-      'label' => __('Institution'),
+      'label' => sfConfig::get('app_ui_label_repository'),
       'facet' => 'repos',
       'pager' => $pager,
       'filters' => $filters)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-names',
-      'label' => __('Creators'),
+      'label' => sfConfig::get('app_ui_label_creator'),
       'facet' => 'creators',
       'pager' => $pager,
       'filters' => $filters)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-names',
-      'label' => __('Names'),
+      'label' => sfConfig::get('app_ui_label_name'),
       'facet' => 'names',
       'pager' => $pager,
       'filters' => $filters)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-places',
-      'label' => __('Places'),
+      'label' => sfConfig::get('app_ui_label_place'),
       'facet' => 'places',
       'pager' => $pager,
       'filters' => $filters)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-subjects',
-      'label' => __('Subjects'),
+      'label' => sfConfig::get('app_ui_label_subject'),
       'facet' => 'subjects',
-      'pager' => $pager,
-      'filters' => $filters)) ?>
-
-    <?php echo get_partial('search/facet', array(
-      'target' => '#facet-levelOfDescription',
-      'label' => __('Level of description'),
-      'facet' => 'levels',
       'pager' => $pager,
       'filters' => $filters)) ?>
 

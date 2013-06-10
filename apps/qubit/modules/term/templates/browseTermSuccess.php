@@ -26,7 +26,7 @@
 
       <?php echo get_partial('search/facet', array(
         'target' => '#facet-subjects',
-        'label' => __('Subjects'),
+        'label' => sfConfig::get('app_ui_label_subject'),
         'facet' => 'subjects',
         'pager' => $pager,
         'filters' => $filters)) ?>
@@ -34,7 +34,7 @@
     <?php elseif (QubitTaxonomy::SUBJECT_ID == $resource->taxonomyId): ?>
 
       <?php echo get_partial('search/facet', array(
-        'target' => '#facet-places',
+        'target' => sfConfig::get('app_ui_label_place'),
         'label' => __('Places'),
         'facet' => 'places',
         'pager' => $pager,

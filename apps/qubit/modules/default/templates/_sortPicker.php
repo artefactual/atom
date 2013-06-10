@@ -2,7 +2,7 @@
 
   <div class="sort-options">
 
-    <label><?php echo __('Sort by:') ?></label>
+    <label><?php echo __('Sort by') ?>:</label>
 
     <div class="dropdown">
 

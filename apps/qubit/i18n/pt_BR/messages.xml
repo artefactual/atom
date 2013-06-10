@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2013-06-09T19:07:53Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2013-06-09T20:17:37Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="93">
@@ -1947,11 +1947,6 @@
         <source>Media type</source>
         <target>Tipo de mídia</target>
         <note>User interface label</note>
-      </trans-unit>
-      <trans-unit id="995">
-        <source>Description updates</source>
-        <target>Atualização da descrição</target>
-        <note>Menu label</note>
       </trans-unit>
     </body>
   </file>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2013-06-09T19:07:29Z" product-name="messages">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2013-06-09T20:17:18Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -399,10 +399,6 @@
       <trans-unit id="101">
         <source>"Record when relevant the commencement date of the relationship or succession date and, when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
         <target>"Berikan informasi mengenai tanggal permulaan dari suatu kerjasama atau suatu rangkaian kegiatan dan, jika relevan, kapan kerjasama berakhir. "(ISAAR 5.3.4) Berikan informasi tanggal sebagaimana anda menginginkannya tampil bersama informasi unit/ agensi pencipta arsip, gunakan penanda/ simbol dan/ atau tipografi untuk menjelaskan informasi yang belum jelas (mis. kurung siku [1990]).</target>
-      </trans-unit>
-      <trans-unit id="102">
-        <source>People &amp; Organizations</source>
-        <target/>
       </trans-unit>
       <trans-unit id="103">
         <source>Export</source>

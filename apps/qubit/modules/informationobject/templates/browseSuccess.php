@@ -2,11 +2,10 @@
 <?php use_helper('Date') ?>
 
 <?php slot('title') ?>
-  <h1>
+  <h1 class="multiline">
     <?php echo image_tag('/images/icons-large/icon-archival.png') ?>
-    <?php echo __('Browse %1% %2%', array(
-      '%1%' => $pager->getNbResults(),
-      '%2%' => sfConfig::get('app_ui_label_informationobject'))) ?>
+    <?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?>
+    <span class="sub"><?php echo sfConfig::get('app_ui_label_informationobject') ?></span>
   </h1>
 <?php end_slot() ?>
 
@@ -15,35 +14,35 @@
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-repository',
-      'label' => __('Institution'),
+      'label' => sfConfig::get('app_ui_label_repository'),
       'facet' => 'repos',
       'pager' => $pager,
       'filters' => $filters)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-names',
-      'label' => __('Creators'),
+      'label' => sfConfig::get('app_ui_label_creator'),
       'facet' => 'creators',
       'pager' => $pager,
       'filters' => $filters)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-names',
-      'label' => __('Names'),
+      'label' => sfConfig::get('app_ui_label_name'),
       'facet' => 'names',
       'pager' => $pager,
       'filters' => $filters)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-places',
-      'label' => __('Places'),
+      'label' => sfConfig::get('app_ui_label_place'),
       'facet' => 'places',
       'pager' => $pager,
       'filters' => $filters)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-subjects',
-      'label' => __('Subjects'),
+      'label' => sfConfig::get('app_ui_label_subject'),
       'facet' => 'subjects',
       'pager' => $pager,
       'filters' => $filters)) ?>
@@ -57,7 +56,7 @@
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-mediaTypes',
-      'label' => __('Media types'),
+      'label' => sfConfig::get('app_ui_label_mediatype'),
       'facet' => 'mediatypes',
       'pager' => $pager,
       'filters' => $filters)) ?>

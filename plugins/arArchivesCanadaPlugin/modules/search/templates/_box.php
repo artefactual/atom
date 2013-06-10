@@ -14,21 +14,37 @@
         <button class="btn dropdown-toggle" data-toggle="dropdown">
           <span class="caret"></span>
         </button>
-        <ul class="dropdown-menu pull-right">
-          <li><?php echo link_to(image_tag('/images/icons-small/icon-archival-small.png').' '.__('Archival descriptions'), array('module' => 'informationobject', 'action' => 'browse')) ?></li>
-          <li><?php echo link_to(image_tag('/images/icons-small/icon-institutions-small.png').' '.__('Institutions'), array('module' => 'repository', 'action' => 'browse')) ?></li>
-          <li><?php echo link_to(image_tag('/images/icons-small/icon-subjects-small.png').' '.__('Subjects'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 35)) ?></li>
-          <li><?php echo link_to(image_tag('/images/icons-small/icon-people-small.png').' '.__('People &amp; Organizations'), array('module' => 'actor', 'action' => 'browse')) ?></li>
-          <li><?php echo link_to(image_tag('/images/icons-small/icon-places-small.png').' '.__('Places'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 42)) ?></li>
-          <li><?php echo link_to(image_tag('/images/icons-small/icon-media-small.png').' '.__('Media'), array('module' => 'digitalobject', 'action' => 'browse')) ?></li>
-          <li class="divider"></li>
-          <li class="advanced-search">
-            <a href="<?php echo url_for(array('module' => 'search', 'action' => 'advanced')) ?>">
-              <i class="icon-zoom-in"></i>
-              <?php echo __('Advanced search') ?>
-            </a>
-          </li>
-        </ul>
+        <?php $cacheKey = 'search-box-nav-'.$sf_user->getCulture() ?>
+        <?php if (!cache($cacheKey)): ?>
+          <ul class="dropdown-menu pull-right">
+            <?php $icons = array(
+              'browseInformationObjects' => '/images/icons-large/icon-archival.png',
+              'browseActors' => '/images/icons-large/icon-people.png',
+              'browseRepositories' => '/images/icons-large/icon-institutions.png',
+              'browseSubjects' => '/images/icons-large/icon-subjects.png',
+              'browsePlaces' => '/images/icons-large/icon-places.png',
+              'browseDigitalObjects' => '/images/icons-large/icon-media.png') ?>
+            <?php $browseMenu = QubitMenu::getById(QubitMenu::BROWSE_ID) ?>
+            <?php if ($browseMenu->hasChildren()): ?>
+              <?php foreach ($browseMenu->getChildren() as $item): ?>
+                <li>
+                  <a href="<?php echo url_for($item->getPath(array('getUrl' => true, 'resolveAlias' => true))) ?>">
+                    <?php echo image_tag($icons[$item->name], array('width' => 42, 'height' => 42)) ?>
+                    <?php echo $item->getLabel(array('cultureFallback' => true)) ?>
+                  </a>
+                </li>
+              <?php endforeach; ?>
+            <?php endif; ?>
+            <li class="divider"></li>
+            <li class="advanced-search">
+              <a href="<?php echo url_for(array('module' => 'search', 'action' => 'advanced')) ?>">
+                <i class="icon-zoom-in"></i>
+                <?php echo __('Advanced search') ?>
+              </a>
+            </li>
+          </ul>
+          <?php cache_save($cacheKey) ?>
+        <?php endif; ?>
       </div>
 
     </div>
