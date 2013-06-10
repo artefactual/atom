@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2012-08-15T12:05:59Z" product-name="messages">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2013-06-09T19:07:29Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -27,14 +27,6 @@
       <trans-unit id="6">
         <source>%1%Relation%2% (%3%isLocatedAt%4%) - This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
         <target/>
-      </trans-unit>
-      <trans-unit id="7">
-        <source>View resource metadata</source>
-        <target>Perlihatkan Sumber Metadata</target>
-      </trans-unit>
-      <trans-unit id="8">
-        <source>Edit resource metadata</source>
-        <target>Edit metadata sumber informasi</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Identifier</source>
@@ -104,10 +96,6 @@
         <source>Accession area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="26">
-        <source>Edit resource metadata - Dublin Core</source>
-        <target>Edit metadata sumber informasi - Dublin Core</target>
-      </trans-unit>
       <trans-unit id="27">
         <source>This is a duplicate of record %1%</source>
         <target>Ini adalah duplikasi dari arsip %1%</target>
@@ -175,6 +163,30 @@
       <trans-unit id="43">
         <source>Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).</source>
         <target>Informasi mengenai pemegang hak terhadap maupun diluar sumber informasi (mis. hak cipta, akses, dll).</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Elements area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>How to access to this content?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Contact the archivist at %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Show details</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Close</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Edit elements area</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

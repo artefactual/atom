@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2012-08-15T12:06:00Z" product-name="messages">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2013-06-09T19:07:29Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -75,26 +75,6 @@
       <trans-unit id="18">
         <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
         <target>Issuing jurisdiction and denomination (philatelic) - Bagian ini merupakan elemen yang harus diisi.</target>
-      </trans-unit>
-      <trans-unit id="19">
-        <source>Edition statement - This is a mandatory element for published items.</source>
-        <target>Pernyataan edisi - Bagian ini merupakan elemen yang harus diisi untuk item yang sudah dipublikasikan.</target>
-      </trans-unit>
-      <trans-unit id="20">
-        <source>Standard number - This is a mandatory element for published items.</source>
-        <target>Standard number - Bagian ini merupakan elemen yang harus diisi.</target>
-      </trans-unit>
-      <trans-unit id="21">
-        <source>View archival description</source>
-        <target>Perlihatkan Deskripsi Arsip</target>
-      </trans-unit>
-      <trans-unit id="22">
-        <source>Edit archival description</source>
-        <target>Edit deskripsi arsip</target>
-      </trans-unit>
-      <trans-unit id="23">
-        <source>Part of %1%</source>
-        <target>Bagian dari %1%</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Title and statement of responsibility area</source>
@@ -392,10 +372,6 @@
         <source>Accession area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="98">
-        <source>Edit archival description - RAD</source>
-        <target>Edit deskripsi arsip - RAD</target>
-      </trans-unit>
       <trans-unit id="99">
         <source>This is a duplicate of record %1%</source>
         <target>Ini adalah duplikasi dari arsip %1%</target>
@@ -455,10 +431,6 @@
       <trans-unit id="113">
         <source>Enter an unambiguous code used to uniquely identify the description.</source>
         <target>Berikan kode yang jelas dan tidak ambigu yang bisa digunakan secara unik untuk mengidentifikasi deskripsi ini.</target>
-      </trans-unit>
-      <trans-unit id="114">
-        <source>"Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
-        <target>"Tuliskan pernyataan edisi yang berkaitan dengan item yang sedang dideskripsikan." (RAD 1.2B1) "jika item yang sedang dideskripsikan tidak terdapat pernyataan edisi akan tetapi diketahui terdapat perubahan cukup besar dari edisi sebelumnya, berikan pernyataan ringkas mengenai hal tersebut dengan kurung siku." (RAD 1.2B3)</target>
       </trans-unit>
       <trans-unit id="115">
         <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
@@ -560,17 +532,9 @@
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
         <target>"Catat penggunaan bahasa atau informasi mengenai bahasa yang digunakan oleh berkas arsip, kecuali sudah dijelaskan pada field lain." (RAD 1.8.B14). Pilih bahasa dari daftar; ketik beberapa kata untuk mempersempit pilihan.</target>
       </trans-unit>
-      <trans-unit id="140">
-        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target>"Berikan karakter istimewa berupa alfabet atau simbol dari sistem yang digunakan." (RAD 1.8.B14) Pilih naskah dari daftar; masukkan beberapa huruf pertama untuk mempersempit pilihan.</target>
-      </trans-unit>
       <trans-unit id="141">
         <source>Language and script notes</source>
         <target>Catatan Bahasan dan Naskah</target>
-      </trans-unit>
-      <trans-unit id="142">
-        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).</source>
-        <target>"Berikan karakter istimewa berupa alfabet atau simbol sari sistem yang digunakan." (RAD 1.8.B14)</target>
       </trans-unit>
       <trans-unit id="143">
         <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
@@ -679,6 +643,38 @@
       <trans-unit id="169">
         <source>Script</source>
         <target>Naskah</target>
+      </trans-unit>
+      <trans-unit id="170">
+        <source>Edition statement - This is a mandatory element for published items if there are multiple editions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="171">
+        <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="172">
+        <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="173">
+        <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="174">
+        <source>How to access to this content?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="175">
+        <source>Contact the archivist at %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="176">
+        <source>Show details</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="177">
+        <source>Close</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

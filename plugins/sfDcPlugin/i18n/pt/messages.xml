@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2012-08-17T14:34:54Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-06-09T19:07:51Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -46,14 +46,6 @@
         <source>%1%Title%2% - This is a mandatory element.</source>
         <target>%1%Título%2% - é uma elemento obrigatório.</target>
       </trans-unit>
-      <trans-unit id="900">
-        <source>View resource metadata</source>
-        <target>Ver metadados do recurso</target>
-      </trans-unit>
-      <trans-unit id="901">
-        <source>Edit resource metadata</source>
-        <target>Editar metadados de recursos</target>
-      </trans-unit>
       <trans-unit id="902">
         <source>Creator</source>
         <target>Produtor</target>
@@ -73,10 +65,6 @@
       <trans-unit id="906">
         <source>Coverage (spatial)</source>
         <target>Cobertura (espacial)</target>
-      </trans-unit>
-      <trans-unit id="907">
-        <source>Edit resource metadata - Dublin Core</source>
-        <target>Editar metadados de recursos - Dublin Core</target>
       </trans-unit>
       <trans-unit id="908">
         <source>This is a duplicate of record %1%</source>
@@ -172,6 +160,30 @@
       </trans-unit>
       <trans-unit id="939">
         <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="940">
+        <source>Elements area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="941">
+        <source>How to access to this content?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="942">
+        <source>Contact the archivist at %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="943">
+        <source>Show details</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="944">
+        <source>Close</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="945">
+        <source>Edit elements area</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2012-08-17T14:33:15Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2013-06-09T19:07:23Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -46,14 +46,6 @@
         <source>%1%Title%2% - This is a mandatory element.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="825">
-        <source>View resource metadata</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="826">
-        <source>Edit resource metadata</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="827">
         <source>Creator</source>
         <target/>
@@ -72,10 +64,6 @@
       </trans-unit>
       <trans-unit id="831">
         <source>Coverage (spatial)</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="832">
-        <source>Edit resource metadata - Dublin Core</source>
         <target/>
       </trans-unit>
       <trans-unit id="833">
@@ -172,6 +160,30 @@
       </trans-unit>
       <trans-unit id="864">
         <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="865">
+        <source>Elements area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="866">
+        <source>How to access to this content?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="867">
+        <source>Contact the archivist at %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="868">
+        <source>Show details</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="869">
+        <source>Close</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="870">
+        <source>Edit elements area</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2012-08-15T11:36:55Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2013-06-09T19:07:20Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -75,18 +75,6 @@
       <trans-unit id="18">
         <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
         <target>Jurisdicción de emisión y denominación (filatélico) - Este es un elemento obligatorio para un registro filatélico</target>
-      </trans-unit>
-      <trans-unit id="19">
-        <source>Edition statement - This is a mandatory element for published items.</source>
-        <target>Declaración de edición - Este es un elemento obligatorio para ítems publicados.</target>
-      </trans-unit>
-      <trans-unit id="20">
-        <source>Standard number - This is a mandatory element for published items.</source>
-        <target>Número estándar - Este es un elemento obligatorio para ítems publicados.</target>
-      </trans-unit>
-      <trans-unit id="21">
-        <source>Edit archival description - RAD</source>
-        <target>Editar descripción archivística - RAD</target>
       </trans-unit>
       <trans-unit id="22">
         <source>This is a duplicate of record %1%</source>
@@ -179,10 +167,6 @@
       <trans-unit id="44">
         <source>Edition area</source>
         <target>Área de edición</target>
-      </trans-unit>
-      <trans-unit id="45">
-        <source>"Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
-        <target>"Transcriba la declaración de edición relativa al ítem que se describe." (RAD 1.2B1) "Si el ítem que se describe carece de una declaración de edición, pero se sabe que contiene cambios significativos desde otras ediciones, entregue una breve declaración que sea adecuada en el idioma y escritura del título apropiado, y enciérrelo en corchetes cuadrados.</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Edition statement</source>
@@ -372,10 +356,6 @@
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
         <target>"Registre el idioma o idiomas de la unidad que se describe, a menos que haya sido anotado en otra parte o sea aparenete desde otros elementos de la descripción." (RAD 1.8.B14). Seleccione el idioma desde el menú desplegable; ingrese las primeras letras para reducir las alternativas.</target>
       </trans-unit>
-      <trans-unit id="93">
-        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target>Anotar cualquier alfabeto distintivo o sistemas de símbolos empleado." (RAD 1.8.B14) Seleccione la escritura desde el menú desplegable; ingrese las primeras letras para reducir la lista de opciones.</target>
-      </trans-unit>
       <trans-unit id="94">
         <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
         <target>"Si la unidad que se describe es una reproducción y la localización del material original es conocida, entregue esa localización. Entregue, además, cualquier número identificatorio que pueda ayudar a localizar el materia original en la citada localización. Si se sabe que los originales ya no son existentes, entregue esa información." (RAD 1.8B15a)</target>
@@ -536,18 +516,6 @@
         <source>Rights area</source>
         <target>Área de derechos</target>
       </trans-unit>
-      <trans-unit id="134">
-        <source>View archival description</source>
-        <target>Ver descripción archivística</target>
-      </trans-unit>
-      <trans-unit id="135">
-        <source>Edit archival description</source>
-        <target>Editar descripción archivística</target>
-      </trans-unit>
-      <trans-unit id="136">
-        <source>Part of %1%</source>
-        <target>Parte de %1%</target>
-      </trans-unit>
       <trans-unit id="137">
         <source>Edit title and statement of responsibility area</source>
         <target>Editar área de título y declaración de responsabilidad</target>
@@ -676,9 +644,37 @@
         <source>Language and script notes</source>
         <target>Notas sobre las lenguas y escrituras</target>
       </trans-unit>
-      <trans-unit id="169">
-        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).</source>
-        <target>Indique todo alfabeto o sistema de símbolos distintivo que pueda haber sido utilizado. (RAD 1.8.B14)</target>
+      <trans-unit id="170">
+        <source>Edition statement - This is a mandatory element for published items if there are multiple editions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="171">
+        <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="172">
+        <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="173">
+        <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="174">
+        <source>How to access to this content?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="175">
+        <source>Contact the archivist at %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="176">
+        <source>Show details</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="177">
+        <source>Close</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

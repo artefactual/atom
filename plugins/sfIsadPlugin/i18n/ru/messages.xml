@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ru" datatype="plaintext" original="messages" date="2012-08-17T14:34:59Z" product-name="messages">
+  <file source-language="EN" target-language="ru" datatype="plaintext" original="messages" date="2013-06-09T19:07:57Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -162,14 +162,6 @@
         <source>File list</source>
         <target/>
       </trans-unit>
-      <trans-unit id="820">
-        <source>View archival description</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="821">
-        <source>Edit archival description</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="822">
         <source>Extent and medium</source>
         <target/>
@@ -322,10 +314,6 @@
         <source>End</source>
         <target/>
       </trans-unit>
-      <trans-unit id="881">
-        <source>Edit archival description - ISAD</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="883">
         <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Provide a specific local reference code, control number, or other unique identifier.&lt;br/&gt;&lt;strong&gt;Level of description:&lt;/strong&gt; Record the level of this unit of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
         <target/>
@@ -414,10 +402,6 @@
         <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
         <target/>
       </trans-unit>
-      <trans-unit id="912">
-        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.3)</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="913">
         <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
         <target/>
@@ -474,10 +458,6 @@
         <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. Use YYYY-MM-DD format for the &lt;em&gt;Date&lt;/em&gt; field. The &lt;em&gt;End date&lt;/em&gt; field can be used to indicate a date range. The &lt;em&gt;Date display&lt;/em&gt; field can be used to enter free-text date information. (ISAD 3.1.3)</source>
         <target/>
       </trans-unit>
-      <trans-unit id="928">
-        <source>Part of %1%</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="930">
         <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
         <target/>
@@ -488,6 +468,26 @@
       </trans-unit>
       <trans-unit id="932">
         <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="933">
+        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="934">
+        <source>How to access to this content?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="935">
+        <source>Contact the archivist at %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="936">
+        <source>Show details</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="937">
+        <source>Close</source>
         <target/>
       </trans-unit>
     </body>

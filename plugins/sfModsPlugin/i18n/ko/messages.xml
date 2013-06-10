@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2011-09-13T13:14:35Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2013-06-09T19:07:43Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -26,14 +26,6 @@
         <source>Type of resource</source>
         <target/>
       </trans-unit>
-      <trans-unit id="828">
-        <source>View resource metadata</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="829">
-        <source>Edit resource metadata</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="830">
         <source>Internet media type</source>
         <target/>
@@ -44,10 +36,6 @@
       </trans-unit>
       <trans-unit id="832">
         <source>Physical location</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="833">
-        <source>Edit resource metadata - MODS</source>
         <target/>
       </trans-unit>
       <trans-unit id="834">
@@ -124,6 +112,30 @@
       </trans-unit>
       <trans-unit id="852">
         <source>Accession area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="853">
+        <source>Elements area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="854">
+        <source>How to access to this content?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="855">
+        <source>Contact the archivist at %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="856">
+        <source>Show details</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="857">
+        <source>Close</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="858">
+        <source>Edit elements area</source>
         <target/>
       </trans-unit>
     </body>

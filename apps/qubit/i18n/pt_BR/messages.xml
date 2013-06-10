@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2012-08-27T09:01:16Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2013-06-09T19:07:53Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="93">
@@ -77,11 +77,6 @@
         <source>Actions</source>
         <target>Ações</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/deleteSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="170">
-        <source>Actor browse options</source>
-        <target>Listar registros de autoridade</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/actor/templates/browseSuccess.php</note>
       </trans-unit>
       <trans-unit id="171">
         <source>Actor name</source>
@@ -303,16 +298,6 @@
         <target>Listar %1%</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/browseSuccess.php</note>
       </trans-unit>
-      <trans-unit id="247">
-        <source>Browse %1% - %2%</source>
-        <target/>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/browseSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="249">
-        <source>Browse all %1%</source>
-        <target/>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/browseTermSuccess.php</note>
-      </trans-unit>
       <trans-unit id="251">
         <source>Browse rights holder</source>
         <target/>
@@ -362,11 +347,6 @@
         <source>Contact area</source>
         <target>área de contato</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/rightsholder/templates/editSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="274">
-        <source>Contact information</source>
-        <target>informação de contato</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/rightsholder/templates/indexSuccess.php</note>
       </trans-unit>
       <trans-unit id="275">
         <source>Contact person</source>
@@ -498,11 +478,6 @@
         <target>descrição</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/editSuccess.php</note>
       </trans-unit>
-      <trans-unit id="331">
-        <source>Description updates</source>
-        <target>Atualizações da descrição</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/descriptionUpdatesSuccess.php</note>
-      </trans-unit>
       <trans-unit id="332">
         <source>Determines whether to sort siblings in the information object treeview control and, if so, what sort criteria to use</source>
         <target>Determinar se devem ser classificados os relacionados na árvore de visualização da  descrição arquivística e, em caso afirmativo, quais os critérios a serem usados</target>
@@ -582,11 +557,6 @@
         <source>Duplicate</source>
         <target/>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_actions.php</note>
-      </trans-unit>
-      <trans-unit id="350">
-        <source>EAC</source>
-        <target/>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/actor/templates/_format.php</note>
       </trans-unit>
       <trans-unit id="351">
         <source>EAD 2002 XML</source>
@@ -768,11 +738,6 @@
         <target>tamanho do arquivo</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/editSuccess.php</note>
       </trans-unit>
-      <trans-unit id="445">
-        <source>Function Browse Options</source>
-        <target>Listar funções</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/function/templates/browseSuccess.php</note>
-      </trans-unit>
       <trans-unit id="448">
         <source>General material designation</source>
         <target/>
@@ -788,19 +753,9 @@
         <target>ir à página inicial</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/readOnlySuccess.php</note>
       </trans-unit>
-      <trans-unit id="456">
-        <source>Go to next page</source>
-        <target>Ir para a próxima página</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
-      </trans-unit>
       <trans-unit id="457">
         <source>Go to page %1%</source>
         <target>Ir para a página %1%</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
-      </trans-unit>
-      <trans-unit id="458">
-        <source>Go to previous page</source>
-        <target>Vá para a página anterior</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
       </trans-unit>
       <trans-unit id="459">
@@ -877,11 +832,6 @@
         <source>Import multiple digital objects</source>
         <target/>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/multiFileUploadSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="500">
-        <source>Information Object Browse Options</source>
-        <target>Listar descrições arquivísticas</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/browseSuccess.php</note>
       </trans-unit>
       <trans-unit id="504">
         <source>Inherit</source>
@@ -1037,11 +987,6 @@
         <source>Main</source>
         <target/>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_edit.php</note>
-      </trans-unit>
-      <trans-unit id="559">
-        <source>Main menu</source>
-        <target>Menu principal</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/_mainMenu.php</note>
       </trans-unit>
       <trans-unit id="561">
         <source>Make it at least six characters</source>
@@ -1202,11 +1147,6 @@
         <source>Other details</source>
         <target/>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_edit.php</note>
-      </trans-unit>
-      <trans-unit id="614">
-        <source>Pages</source>
-        <target>Páginas</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
       </trans-unit>
       <trans-unit id="620">
         <source>Part of</source>
@@ -1393,11 +1333,6 @@
         <target>Entidade custodiadora</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/oai/templates/harvesterListSuccess.php</note>
       </trans-unit>
-      <trans-unit id="719">
-        <source>Repository browse options</source>
-        <target>Listar entidades custodiadoras</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/browseSuccess.php</note>
-      </trans-unit>
       <trans-unit id="726">
         <source>Reset password</source>
         <target>Alterar senha</target>
@@ -1493,16 +1428,6 @@
         <target>Buscar</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/descriptionUpdatesSuccess.php</note>
       </trans-unit>
-      <trans-unit id="760">
-        <source>Search %1%</source>
-        <target>Buscar %1%</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/browseSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="763">
-        <source>Search for [%1%]</source>
-        <target/>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/indexAction.class.php</note>
-      </trans-unit>
       <trans-unit id="766">
         <source>Search for an existing term in the places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
         <target/>
@@ -1517,11 +1442,6 @@
         <source>Search rights holder</source>
         <target/>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/rightsholder/templates/listSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="771">
-        <source>See all</source>
-        <target/>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_imageflow.php</note>
       </trans-unit>
       <trans-unit id="775">
         <source>Select a digital object to upload</source>
@@ -1778,11 +1698,6 @@
         <target>Este não é um e-mail válido</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/actions/loginAction.class.php</note>
       </trans-unit>
-      <trans-unit id="887">
-        <source>This page is valid XHTML 1.0</source>
-        <target>Esta é uma página XHTML 1 válida .</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/templates/_footer.php</note>
-      </trans-unit>
       <trans-unit id="888">
         <source>This term is used in %1% descriptions. The term will be deleted from these descriptions.</source>
         <target>Este termo é usado em descrições% a 1%. O termo será excluído essas descrições.</target>
@@ -1918,11 +1833,6 @@
         <target>Etiqueta de interface do usuário</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
       </trans-unit>
-      <trans-unit id="929">
-        <source>User menu</source>
-        <target>Menu do usuário</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/_quickLinks.php</note>
-      </trans-unit>
       <trans-unit id="930">
         <source>User name</source>
         <target>Nome do usuário</target>
@@ -1997,11 +1907,6 @@
         <source>Yes</source>
         <target>Sim</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="954">
-        <source>You are here</source>
-        <target>Você está aqui</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/moveSuccess.php</note>
       </trans-unit>
       <trans-unit id="955">
         <source>You cannot show more than %max% hits per page</source>

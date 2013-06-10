@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2012-08-15T11:37:09Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-06-09T19:07:50Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -26,14 +26,6 @@
         <source>Type of resource</source>
         <target>Tipo de recurso</target>
       </trans-unit>
-      <trans-unit id="896">
-        <source>View resource metadata</source>
-        <target>Ver metadados do recurso</target>
-      </trans-unit>
-      <trans-unit id="897">
-        <source>Edit resource metadata</source>
-        <target>Editar metadados de recursos</target>
-      </trans-unit>
       <trans-unit id="898">
         <source>Internet media type</source>
         <target>Tipo de suporte Internet</target>
@@ -45,10 +37,6 @@
       <trans-unit id="900">
         <source>Physical location</source>
         <target>Localização física</target>
-      </trans-unit>
-      <trans-unit id="901">
-        <source>Edit resource metadata - MODS</source>
-        <target>Editar metadados de recursos - MODS</target>
       </trans-unit>
       <trans-unit id="902">
         <source>This is a duplicate of record %1%</source>
@@ -125,6 +113,30 @@
       <trans-unit id="920">
         <source>Accession area</source>
         <target>Zona da incorporação</target>
+      </trans-unit>
+      <trans-unit id="921">
+        <source>Elements area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="922">
+        <source>How to access to this content?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="923">
+        <source>Contact the archivist at %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="924">
+        <source>Show details</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="925">
+        <source>Close</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="926">
+        <source>Edit elements area</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

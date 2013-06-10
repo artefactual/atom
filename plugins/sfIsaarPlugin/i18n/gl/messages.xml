@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2012-08-15T12:05:57Z" product-name="messages">
+  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2013-06-09T19:07:27Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -75,14 +75,6 @@
       <trans-unit id="18">
         <source>"Provide any relevant dates for the related resources and/or the relationship between the corporate body, person or family and the related resource." (ISAAR 6.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
         <target/>
-      </trans-unit>
-      <trans-unit id="19">
-        <source>View authority record</source>
-        <target>Ver rexistro de autoridade</target>
-      </trans-unit>
-      <trans-unit id="20">
-        <source>Edit authority record</source>
-        <target>Editar rexistro de autoridade</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Identity area</source>
@@ -407,6 +399,18 @@
       <trans-unit id="101">
         <source>"Record when relevant the commencement date of the relationship or succession date and, when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
         <target>"Rexistre, cando sexa relevante, a data concerniente á relación ou Data de sucesión e, cando sexa relevante, a data de cesasión da relación." (ISAAR 5.3.4) Ingrese a data como le gustaría que apareciera na páxina do rexistro de autoridade, usando calificadores e/ou símbolos tipográfico para expresar incerteza se se desea.</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>People &amp; Organizations</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Export</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>EAC</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

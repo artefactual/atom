@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2012-08-27T09:00:31Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2013-06-09T19:06:44Z" product-name="messages">
     <body>
       <trans-unit id="3">
         <source>Log in</source>
@@ -245,10 +245,6 @@
       <trans-unit id="348">
         <source>Sorry, you do not have permission to make %1% language translations</source>
         <target/>
-      </trans-unit>
-      <trans-unit id="353">
-        <source>Browse all %1%</source>
-        <target>Blättere alle %1% durch</target>
       </trans-unit>
       <trans-unit id="354">
         <source>Create</source>
@@ -854,20 +850,8 @@
         <source>OAI Repository</source>
         <target/>
       </trans-unit>
-      <trans-unit id="895">
-        <source>This page is valid XHTML 1.0</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="896">
         <source>Home</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="897">
-        <source>Main menu</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="898">
-        <source>User menu</source>
         <target/>
       </trans-unit>
       <trans-unit id="899">
@@ -894,10 +878,6 @@
         <source>Actions</source>
         <target/>
       </trans-unit>
-      <trans-unit id="905">
-        <source>You are here</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="906">
         <source>Move %1%</source>
         <target/>
@@ -914,24 +894,8 @@
         <source>No results</source>
         <target/>
       </trans-unit>
-      <trans-unit id="910">
-        <source>Pages</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="911">
-        <source>Go to previous page</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="912">
         <source>Go to page %1%</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="913">
-        <source>Go to next page</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="914">
-        <source>%1% results per page</source>
         <target/>
       </trans-unit>
       <trans-unit id="915">
@@ -948,14 +912,6 @@
       </trans-unit>
       <trans-unit id="918">
         <source>Are you sure you want to delete the digital object linked to %1%?</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="919">
-        <source>See all</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="920">
-        <source>Browse %1% - %2%</source>
         <target/>
       </trans-unit>
       <trans-unit id="921">
@@ -1050,16 +1006,8 @@
         <source>Physical storage</source>
         <target/>
       </trans-unit>
-      <trans-unit id="948">
-        <source>Information Object Browse Options</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="949">
         <source>Alphabetic</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="950">
-        <source>Search %1%</source>
         <target/>
       </trans-unit>
       <trans-unit id="951">
@@ -1210,14 +1158,6 @@
         <source>Default publication status for newly created or imported %1%</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1046">
-        <source>EAC</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1047">
-        <source>Actor browse options</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1048">
         <source>Recent changes</source>
         <target/>
@@ -1252,10 +1192,6 @@
       </trans-unit>
       <trans-unit id="1059">
         <source>Enter the start year. Do not use any qualifiers or typographical symbols to express uncertainty.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1060">
-        <source>Function Browse Options</source>
         <target/>
       </trans-unit>
       <trans-unit id="1061">
@@ -1294,24 +1230,12 @@
         <source>Describe the nature of the relationship between the function and the related resource. (ISDF 6.2)</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1075">
-        <source>Repository browse options</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1076">
         <source>Invalid start date</source>
         <target/>
       </trans-unit>
       <trans-unit id="1077">
         <source>Invalid end date</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1078">
-        <source>Search for [%1%]</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1079">
-        <source>Description updates</source>
         <target/>
       </trans-unit>
       <trans-unit id="1080">
@@ -1634,10 +1558,6 @@
         <source>View rights holder</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1167">
-        <source>Contact information</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1168">
         <source>Primary contact</source>
         <target/>
@@ -1786,10 +1706,6 @@
         <source>Select report</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1215">
-        <source>Oops, we couldn't find any physical storage locations for the current resource</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1216">
         <source>File list - report criteria</source>
         <target/>
@@ -1894,28 +1810,8 @@
         <source>Print</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1242">
-        <source>Phrase</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1243">
-        <source>Keyword(s)</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1244">
-        <source>Digital object is available</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1245">
-        <source>No digital object is available</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1246">
         <source>No results found.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1247">
-        <source> in %1%</source>
         <target/>
       </trans-unit>
       <trans-unit id="1248">
@@ -1942,44 +1838,12 @@
         <source>Search for</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1254">
-        <source>Showing results %1% to %2% of %3% (%4% seconds)</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1255">
-        <source>(Only showing first %1% results for performance reasons)</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1256">
-        <source>Filter/Limit</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1258">
         <source>Digital object available</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1259">
-        <source>Replace</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1260">
-        <source>With</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1261">
         <source>in</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1262">
-        <source>Case-sensitive</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1263">
-        <source>Use regular expression syntax</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1264">
-        <source>Search results</source>
         <target/>
       </trans-unit>
       <trans-unit id="1265">
@@ -2012,18 +1876,6 @@
       </trans-unit>
       <trans-unit id="1272">
         <source>Extent and medium</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1273">
-        <source>using</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1274">
-        <source>keyword</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1275">
-        <source>phrase</source>
         <target/>
       </trans-unit>
       <trans-unit id="1276">
@@ -2068,10 +1920,6 @@
       </trans-unit>
       <trans-unit id="1286">
         <source>Require SSL for all administrator functionality</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1287">
-        <source>Browse options</source>
         <target/>
       </trans-unit>
       <trans-unit id="1288">
@@ -2280,6 +2128,278 @@
       </trans-unit>
       <trans-unit id="1342">
         <source>CSV</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1343">
+        <source>Browse by</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1344">
+        <source>Archival descriptions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1345">
+        <source>Institutions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1346">
+        <source>Subjects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1347">
+        <source>People &amp;amp; Organizations</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1348">
+        <source>Places</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1349">
+        <source>Have an account?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1350">
+        <source>Hi, %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1351">
+        <source>Profile</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1352">
+        <source>Log out</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1353">
+        <source>Browse %1% %2%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1354">
+        <source>Relevancy</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1355">
+        <source>Box label CSV</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1356">
+        <source>Close</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1357">
+        <source>More</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1358">
+        <source>Institution</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1359">
+        <source>Creators</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1360">
+        <source>Names</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1361">
+        <source>Media types</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1362">
+        <source>Only digital objects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1363">
+        <source>Most recent</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1364">
+        <source>%1% results with digital objects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1365">
+        <source>Display standard</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1366">
+        <source>Assign the new display standard to all its descendants</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1367">
+        <source>Related people and organizations</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1368">
+        <source>Holdings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1369">
+        <source>Search within the entire collection</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1370">
+        <source>Oops, we couldn't find any physical storage locations for the current resource.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1371">
+        <source>Related subjects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1372">
+        <source>Only hexadecimal color value</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1373">
+        <source>Style</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1374">
+        <source>Background color</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1375">
+        <source>Requirements: PNG format, 256K max. size.&lt;br /&gt;Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1376">
+        <source>Banner</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1377">
+        <source>Logo</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1378">
+        <source>Page content</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1379">
+        <source>An abstract, table of contents or description of the resource's scope and contents.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1380">
+        <source>Archive type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1381">
+        <source>Browse %1% holdings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1382">
+        <source>Entity type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1383">
+        <source>Creation</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1384">
+        <source>Revision</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1385">
+        <source>Both</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1386">
+        <source>All</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1387">
+        <source>Did you mean %1%?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1388">
+        <source>Search &lt;strong&gt;%1%&lt;/strong&gt;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1389">
+        <source>Global search</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1390">
+        <source>Narrow down your search results.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1391">
+        <source>Add new criteria</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1392">
+        <source>And</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1393">
+        <source>Or</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1394">
+        <source>Not</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1395">
+        <source>all matching descriptions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1396">
+        <source>all matching institutions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1397">
+        <source>all matching people &amp; organizations</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1398">
+        <source>Browse newest additions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1399">
+        <source>We couldn't find any results matching your search.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1400">
+        <source>Search filters</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1401">
+        <source>Reset</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1402">
+        <source>%1% results</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1403">
+        <source>All institutions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1404">
+        <source>Clear</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1405">
+        <source>From</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1406">
+        <source>to</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1407">
+        <source>Quick links</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1408">
+        <source>Sort by:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1409">
+        <source>Popular this week</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1410">
+        <source>%1% visits</source>
         <target/>
       </trans-unit>
     </body>

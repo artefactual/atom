@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2012-08-17T14:34:06Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2013-06-09T19:07:37Z" product-name="messages">
     <body>
       <trans-unit id="43">
         <source>Identity area</source>
@@ -162,14 +162,6 @@
         <source>File list</source>
         <target>ファイルリスト</target>
       </trans-unit>
-      <trans-unit id="839">
-        <source>View archival description</source>
-        <target>アーカイブ記述を見る</target>
-      </trans-unit>
-      <trans-unit id="840">
-        <source>Edit archival description</source>
-        <target>アーカイブ記述を編集する</target>
-      </trans-unit>
       <trans-unit id="841">
         <source>Extent and medium</source>
         <target>規模と媒体</target>
@@ -323,10 +315,6 @@
         <source>End</source>
         <target>終了</target>
       </trans-unit>
-      <trans-unit id="900">
-        <source>Edit archival description - ISAD</source>
-        <target>アーカイブ記述を編集する - ISAD</target>
-      </trans-unit>
       <trans-unit id="902">
         <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Provide a specific local reference code, control number, or other unique identifier.&lt;br/&gt;&lt;strong&gt;Level of description:&lt;/strong&gt; Record the level of this unit of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
         <target>&lt;strong&gt;識別子：&lt;/strong&gt; 特別な場所の、参照コード、整理番号、そのほかの一義的な識別子を提供します。&lt;br/&gt;&lt;strong&gt;記述階層：&lt;/strong&gt; この記述単位の階層を記録します。&lt;br/&gt;&lt;strong&gt;タイトル：&lt;/strong&gt; マルチレベル記述のルールと国際的な慣例にしたがって、正式タイトルか簡潔な支給されたタイトルを提供します。</target>
@@ -415,10 +403,6 @@
         <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
         <target>法律または法的地位、契約、規制または説明の記述単位へのアクセスに影響するポリシーを指定します。非公開の期間と範囲、その資料が適切に公開される日付を示します(ISAD 3.4.1)</target>
       </trans-unit>
-      <trans-unit id="931">
-        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.3)</source>
-        <target>著作権など、アクセスが供給された後の記述の記述単位の複製を統御する条件に関する情報を提供してください(ISAD 3.4.3)</target>
-      </trans-unit>
       <trans-unit id="932">
         <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
         <target>記述単位に含まれる資料の言語を記録する。(ISAD 3.4.3)</target>
@@ -477,10 +461,6 @@
 フイールドは日付の範囲を示すのに使用される。
 The &lt;em&gt;日付の表示&lt;/em&gt;フイールドはフリーのテキストの日付情報を入力するのに使用される。lt;em&gt;Date display&lt;/em&gt; field can be used to enter free-text date information. (ISAD 3.1.3)</target>
       </trans-unit>
-      <trans-unit id="947">
-        <source>Part of %1%</source>
-        <target>%1%の一部</target>
-      </trans-unit>
       <trans-unit id="949">
         <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
         <target>記述単位に含まれる物質の文字を記録する。(ISAD 3.4.3)</target>
@@ -492,6 +472,26 @@ The &lt;em&gt;日付の表示&lt;/em&gt;フイールドはフリーのテキス�
       <trans-unit id="951">
         <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
         <target>特徴的な文字、スクリプト、シンボルや略字を使用してください。(ISAD 3.4.3)</target>
+      </trans-unit>
+      <trans-unit id="952">
+        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="953">
+        <source>How to access to this content?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="954">
+        <source>Contact the archivist at %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="955">
+        <source>Show details</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="956">
+        <source>Close</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

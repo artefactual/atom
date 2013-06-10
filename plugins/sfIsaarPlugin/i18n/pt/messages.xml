@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2012-08-15T11:37:07Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-06-09T19:07:51Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -316,14 +316,6 @@ registos completos são os que fornecem informação para todos os elementos de 
         <source>Create</source>
         <target>criar</target>
       </trans-unit>
-      <trans-unit id="78">
-        <source>View authority record</source>
-        <target>Visualizar registro de autoridade</target>
-      </trans-unit>
-      <trans-unit id="79">
-        <source>Edit authority record</source>
-        <target>Editar registo de autoridade</target>
-      </trans-unit>
       <trans-unit id="80">
         <source>History</source>
         <target>história</target>
@@ -411,6 +403,18 @@ registos completos são os que fornecem informação para todos os elementos de 
       <trans-unit id="101">
         <source>Edit control area</source>
         <target>Editar zona de controlo</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>People &amp; Organizations</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Export</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>EAC</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

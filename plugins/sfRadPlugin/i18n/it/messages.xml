@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2012-04-30T14:48:12Z" product-name="messages">
+  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2013-06-09T19:07:34Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -22,14 +22,6 @@
       </trans-unit>
       <trans-unit id="10">
         <source>Scope and content - This is a mandatory element.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="12">
-        <source>View archival description</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="13">
-        <source>Edit archival description</source>
         <target/>
       </trans-unit>
       <trans-unit id="14">
@@ -308,10 +300,6 @@
         <source>Sources</source>
         <target/>
       </trans-unit>
-      <trans-unit id="85">
-        <source>Edit archival description - RAD</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="86">
         <source>This is a duplicate of record %1%</source>
         <target/>
@@ -408,14 +396,6 @@
         <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="114">
-        <source>Edition statement - This is a mandatory element for published items.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="115">
-        <source>Standard number - This is a mandatory element for published items.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="116">
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
         <target/>
@@ -462,10 +442,6 @@
       </trans-unit>
       <trans-unit id="127">
         <source>Enter an unambiguous code used to uniquely identify the description.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="128">
-        <source>"Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
         <target/>
       </trans-unit>
       <trans-unit id="129">
@@ -550,10 +526,6 @@
       </trans-unit>
       <trans-unit id="149">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="150">
-        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
         <target/>
       </trans-unit>
       <trans-unit id="151">
@@ -664,10 +636,6 @@
         <source>Accession area</source>
         <target/>
       </trans-unit>
-      <trans-unit id="178">
-        <source>Part of %1%</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="179">
         <source>Language and script note</source>
         <target/>
@@ -676,8 +644,36 @@
         <source>Language and script notes</source>
         <target/>
       </trans-unit>
-      <trans-unit id="181">
-        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).</source>
+      <trans-unit id="182">
+        <source>Edition statement - This is a mandatory element for published items if there are multiple editions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="183">
+        <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="184">
+        <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="185">
+        <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="186">
+        <source>How to access to this content?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="187">
+        <source>Contact the archivist at %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="188">
+        <source>Show details</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="189">
+        <source>Close</source>
         <target/>
       </trans-unit>
     </body>

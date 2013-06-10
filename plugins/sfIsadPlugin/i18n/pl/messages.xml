@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pl" datatype="plaintext" original="messages" date="2012-08-17T14:34:43Z" product-name="messages">
+  <file source-language="EN" target-language="pl" datatype="plaintext" original="messages" date="2013-06-09T19:07:48Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -47,10 +47,6 @@
       <trans-unit id="11">
         <source>%1%Title%2% - This is a %3%mandatory%4% element.</source>
         <target>%1%Tytuł%2% - To jest  %3%wymagany%4% element.</target>
-      </trans-unit>
-      <trans-unit id="12">
-        <source>Edit archival description - ISAD</source>
-        <target>Edycja opisu archiwalnego - ISAD</target>
       </trans-unit>
       <trans-unit id="13">
         <source>This is a duplicate of record %1%</source>
@@ -175,10 +171,6 @@
       <trans-unit id="43">
         <source>Conditions governing access</source>
         <target>Warunki dostępu</target>
-      </trans-unit>
-      <trans-unit id="44">
-        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.3)</source>
-        <target>Język / pismo dokumentów - Language/scripts of material Cel: Określenie języka (języków), pisma (pism) i systemu zapisu zastosowanego w opisywanym obiekcie. Reguła: Należy podać język (języki) i/lub pismo (pisma) występujące w materiałach wchodzących w skład opisywanego obiektu. Należy odnotowywać odrębne alfabety, pisma, systemy zapisu i stosowane skróty. Alternatywnie, także zastosowanie właściwego kodu ISO dla języka narodowego (języków narodowych) (ISO 639-1 i ISO 639-2: International Standards for Language Codes) lub pisma (pism) (ISO 15924: International Standard for Names of Scripts). (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Conditions governing reproduction</source>
@@ -340,18 +332,6 @@
         <source>Rights area</source>
         <target>Blok praw</target>
       </trans-unit>
-      <trans-unit id="87">
-        <source>View archival description</source>
-        <target>Zobacz opis archiwalny</target>
-      </trans-unit>
-      <trans-unit id="88">
-        <source>Edit archival description</source>
-        <target>Edycja opisu archiwalny</target>
-      </trans-unit>
-      <trans-unit id="89">
-        <source>Part of %1%</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="90">
         <source>Edit identity area</source>
         <target>Edycja bloku identyfikacji</target>
@@ -490,6 +470,26 @@
       </trans-unit>
       <trans-unit id="125">
         <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="126">
+        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="127">
+        <source>How to access to this content?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="128">
+        <source>Contact the archivist at %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="129">
+        <source>Show details</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="130">
+        <source>Close</source>
         <target/>
       </trans-unit>
     </body>

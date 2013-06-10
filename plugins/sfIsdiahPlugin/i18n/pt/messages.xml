@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2012-08-15T11:37:07Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-06-09T19:07:50Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -256,10 +256,6 @@ registos completos são os que fornecem informação para todos os elementos de 
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDIAH 5.6.9)</source>
         <target>"Registe notas pertinentes à criação e manutenção da descrição. Por exemplo, os nomes das pessoas responsáveis pela criação e/ou revisão da descrição podem ser registados aqui." (ISDIAH 5.6.9)</target>
       </trans-unit>
-      <trans-unit id="78">
-        <source>Actions</source>
-        <target>Acções</target>
-      </trans-unit>
       <trans-unit id="79">
         <source>Cancel</source>
         <target>cancelar</target>
@@ -271,14 +267,6 @@ registos completos são os que fornecem informação para todos os elementos de 
       <trans-unit id="81">
         <source>Create</source>
         <target>criar</target>
-      </trans-unit>
-      <trans-unit id="82">
-        <source>View %1%</source>
-        <target>visualizar %1%</target>
-      </trans-unit>
-      <trans-unit id="83">
-        <source>Edit repository</source>
-        <target>Editar entidade detentora</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Parallel form(s) of name</source>
@@ -375,6 +363,26 @@ registos completos são os que fornecem informação para todos os elementos de 
       <trans-unit id="109">
         <source>Edit control area</source>
         <target>Editar zona de controlo</target>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Institutions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="111">
+        <source>Primary contact</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="112">
+        <source>Website</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="113">
+        <source>Email</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="114">
+        <source>Edit theme</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

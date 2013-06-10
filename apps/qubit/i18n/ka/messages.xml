@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2012-08-27T09:01:02Z" product-name="messages">
+  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2013-06-09T19:07:39Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source/>
         <target/>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsJobSchedulingForm.class.php</note>
-      </trans-unit>
-      <trans-unit id="2">
-        <source> in %1%</source>
-        <target> %1% ში </target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/indexAction.class.php</note>
       </trans-unit>
       <trans-unit id="95">
         <source>"Record, when relevant, the start and the end date of the relationship." (ISDF 6.3) Enter the date as you would like it to appear in the show page for the function, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
@@ -49,11 +44,6 @@
         <target>%1% წარმომადგენლობა</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/editSuccess.php</note>
       </trans-unit>
-      <trans-unit id="114">
-        <source>%1% results per page</source>
-        <target>%1% შედეგი თითო გვერდზე</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
-      </trans-unit>
       <trans-unit id="115">
         <source>%1% term</source>
         <target>%1%  ელემენტი</target>
@@ -78,11 +68,6 @@
         <source>%du% of %limit% &lt;abbr title="1 GB = 1 000 000 000 bytes"&gt;GB&lt;/abbr&gt; (%percent%%)</source>
         <target>%du% of %limit% &lt;abbr title="1 GB = 1 000 000 000 ბიტი"&gt;GB&lt;/abbr&gt; (%percent%%)</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/_uploadLimit.php</note>
-      </trans-unit>
-      <trans-unit id="140">
-        <source>(Only showing first %1% results for performance reasons)</source>
-        <target>(მხოლოდ პირველი %1% შედეგის გამოტანა დემონსტრაციისათვის)</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchResults.php</note>
       </trans-unit>
       <trans-unit id="148">
         <source>A %1%release %2%%3% upgrade is available.</source>
@@ -148,11 +133,6 @@
         <source>Active</source>
         <target>აქტიური</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="197">
-        <source>Actor browse options</source>
-        <target>მონაწილის არჩევის ოპციები</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/actor/templates/browseSuccess.php</note>
       </trans-unit>
       <trans-unit id="198">
         <source>Actor name</source>
@@ -439,21 +419,6 @@
         <target>%1%ის ამორჩევა</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/listSuccess.php</note>
       </trans-unit>
-      <trans-unit id="300">
-        <source>Browse %1% - %2%</source>
-        <target>%1% - %2%-ის ამორჩევა</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/browseSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="302">
-        <source>Browse all %1%</source>
-        <target>ყველა %1%ის არჩევა</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/browseTermSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="304">
-        <source>Browse options</source>
-        <target>პარამეტრების არჩევა</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/taxonomy/templates/browseSuccess.php</note>
-      </trans-unit>
       <trans-unit id="305">
         <source>Browse rights holder</source>
         <target>უფლებების მფლობელის არჩევა</target>
@@ -468,11 +433,6 @@
         <source>Cancel</source>
         <target>გაუქმება </target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/deleteSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="313">
-        <source>Case-sensitive</source>
-        <target>მგრძნობიარე რეგისტრის მიმართ</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_advancedSearch.php</note>
       </trans-unit>
       <trans-unit id="317">
         <source>Change language</source>
@@ -513,11 +473,6 @@
         <source>Contact area</source>
         <target>საკონტაქტო არეალი</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/rightsholder/templates/indexSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="340">
-        <source>Contact information</source>
-        <target>საკონტაქტო ინფორმაცია</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_contactInformation.php</note>
       </trans-unit>
       <trans-unit id="341">
         <source>Contact person</source>
@@ -674,11 +629,6 @@
         <target>აღწერის იდენტიფიკატორი, ან იდენტოფიკატორის აღწერა</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/plugins/sfIsdiahPlugin/modules/sfIsdiahPlugin/templates/indexSuccess.php</note>
       </trans-unit>
-      <trans-unit id="411">
-        <source>Description updates</source>
-        <target>განახლებების აღწერა, ან აღწერის განახლებები</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/descriptionUpdatesSuccess.php</note>
-      </trans-unit>
       <trans-unit id="412">
         <source>Determines whether to sort siblings in the information object treeview control and, if so, what sort criteria to use</source>
         <target>განსაზღვრავს თუ არა ნათესაურ კლასს ინფორმაციის ობიექტის ხისმაგვარი   კონტროლში , და თუ კი, რა კლასის კრიტერიუმი გამოიყენება</target>
@@ -703,11 +653,6 @@
         <source>Digital object available</source>
         <target>ციფრული ობიექტი შესაძლებელია </target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_advancedSearch.php</note>
-      </trans-unit>
-      <trans-unit id="419">
-        <source>Digital object is available</source>
-        <target>ციფრული ობიექტი შესაძლებელია</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/advancedAction.class.php</note>
       </trans-unit>
       <trans-unit id="420">
         <source>Digital object metadata</source>
@@ -773,11 +718,6 @@
         <source>Duplicate</source>
         <target>დუბლიკატი</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/_actions.php</note>
-      </trans-unit>
-      <trans-unit id="443">
-        <source>EAC</source>
-        <target> EAC</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/actor/templates/_format.php</note>
       </trans-unit>
       <trans-unit id="444">
         <source>EAD 2002 XML</source>
@@ -969,16 +909,6 @@
         <target>ფაილის ზომა </target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_editRepresentation.php</note>
       </trans-unit>
-      <trans-unit id="545">
-        <source>Filter/Limit</source>
-        <target>ფილტრი, ლიმიტი </target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_advancedSearch.php</note>
-      </trans-unit>
-      <trans-unit id="555">
-        <source>Function Browse Options</source>
-        <target>ფუნქციის დათვალიერების პარამეტრები </target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/function/templates/browseSuccess.php</note>
-      </trans-unit>
       <trans-unit id="560">
         <source>General material designation</source>
         <target>ძირითადი მასალის აღნიშვნები </target>
@@ -999,19 +929,9 @@
         <target>საწყის გვერდზე დაბრუნება </target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/admin/templates/termPermissionSuccess.php</note>
       </trans-unit>
-      <trans-unit id="571">
-        <source>Go to next page</source>
-        <target>შემდეგ გვერდზე გადასვლა </target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
-      </trans-unit>
       <trans-unit id="572">
         <source>Go to page %1%</source>
         <target>გადასვლა %1% გვერდზე</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
-      </trans-unit>
-      <trans-unit id="573">
-        <source>Go to previous page</source>
-        <target>წინა, გასულ გვერდზე გადასვლა </target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
       </trans-unit>
       <trans-unit id="574">
@@ -1109,11 +1029,6 @@
         <target>ფრჩხილებში ჩასმა </target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/itemListCriteria.php</note>
       </trans-unit>
-      <trans-unit id="629">
-        <source>Information Object Browse Options</source>
-        <target> საინფორმაციო ობიექტების დათვალიერების პარამეტრები </target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/browseSuccess.php</note>
-      </trans-unit>
       <trans-unit id="637">
         <source>Inherit</source>
         <target>მემკვიდრეობითი </target>
@@ -1173,11 +1088,6 @@
         <source>Job scheduling</source>
         <target>სამუშაოს დაგეგმვა </target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="656">
-        <source>Keyword(s)</source>
-        <target>სიტყვა გასაგები (ები)</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/advancedAction.class.php</note>
       </trans-unit>
       <trans-unit id="657">
         <source>Label</source>
@@ -1308,11 +1218,6 @@
         <source>Main</source>
         <target>მთავარი</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_edit.php</note>
-      </trans-unit>
-      <trans-unit id="707">
-        <source>Main menu</source>
-        <target>მთავარი მენიუ </target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/_mainMenu.php</note>
       </trans-unit>
       <trans-unit id="710">
         <source>Make it at least six characters</source>
@@ -1449,11 +1354,6 @@
         <target>უარყოფა </target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/actions/editAction.class.php</note>
       </trans-unit>
-      <trans-unit id="763">
-        <source>No digital object is available</source>
-        <target> არაციფრული ობიექტი შესაძლებელია </target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/advancedAction.class.php</note>
-      </trans-unit>
       <trans-unit id="764">
         <source>No results</source>
         <target>შედეგების არ ქონა </target>
@@ -1504,11 +1404,6 @@
         <target>ჩვენ არ შეგვეძლო გვეპოვა აღწერის დონის ნებისმიერი ფაილი </target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/itemListError.php</note>
       </trans-unit>
-      <trans-unit id="782">
-        <source>Oops, we couldn't find any physical storage locations for the current resource</source>
-        <target>ჩვენ ვერ ვიპოვეთ ვერც ერთი ფიზიკური საცავის ადგილი მიმდინარე რესურსისთვის </target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/storageLocationsError.php</note>
-      </trans-unit>
       <trans-unit id="785">
         <source>Or, create a new container</source>
         <target>შექმენით ახალი კონტეინერი </target>
@@ -1518,11 +1413,6 @@
         <source>Other details</source>
         <target>სხვა დეტალები </target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/contactinformation/templates/_edit.php</note>
-      </trans-unit>
-      <trans-unit id="795">
-        <source>Pages</source>
-        <target>გვერდები </target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/_pager.php</note>
       </trans-unit>
       <trans-unit id="804">
         <source>Part of</source>
@@ -1563,11 +1453,6 @@
         <source>Permissions for all %1%</source>
         <target>ნებართვა ყვე %1% თვის </target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/editInformationObjectAclSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="820">
-        <source>Phrase</source>
-        <target>ფრაზა</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/advancedAction.class.php</note>
       </trans-unit>
       <trans-unit id="822">
         <source>Physical characteristics and technical requirements</source>
@@ -1743,11 +1628,6 @@
         <target>ურთიერთობები, კავშირები</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/editSuccess.php</note>
       </trans-unit>
-      <trans-unit id="936">
-        <source>Replace</source>
-        <target>შეცვლა, შენაცვლება, მაგივრობის გაწევა</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_advancedSearch.php</note>
-      </trans-unit>
       <trans-unit id="938">
         <source>Reports</source>
         <target>რეპორტები, ანგარიშები</target>
@@ -1757,11 +1637,6 @@
         <source>Repository</source>
         <target>საცავი</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/term/templates/browseTermSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="942">
-        <source>Repository browse options</source>
-        <target>საცავის დათვალიერების პარამეტრები</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/repository/templates/browseSuccess.php</note>
       </trans-unit>
       <trans-unit id="945">
         <source>Require SSL for all administrator funcionality</source>
@@ -1903,20 +1778,10 @@
         <target>ძებნა </target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/moveSuccess.php</note>
       </trans-unit>
-      <trans-unit id="989">
-        <source>Search %1%</source>
-        <target>%1% ის ძებნა </target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/browseSuccess.php</note>
-      </trans-unit>
       <trans-unit id="992">
         <source>Search for</source>
         <target>ძებნა (ძებნის წარმოება)</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_printAdvancedSearchTerms.php</note>
-      </trans-unit>
-      <trans-unit id="993">
-        <source>Search for [%1%]</source>
-        <target>[%1%]-ის ძებნა</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/actions/indexAction.class.php</note>
       </trans-unit>
       <trans-unit id="996">
         <source>Search for an existing term in the places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
@@ -1928,11 +1793,6 @@
         <target>ფუნქციის ძებნა</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/function/templates/browseSuccess.php</note>
       </trans-unit>
-      <trans-unit id="998">
-        <source>Search results</source>
-        <target> შედეგების ძებნა</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/indexSuccess.php</note>
-      </trans-unit>
       <trans-unit id="999">
         <source>Search rights holder</source>
         <target> უფლებებების მქონის ძებნა</target>
@@ -1942,11 +1802,6 @@
         <source>Security</source>
         <target> უსაფრთხოება</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="1002">
-        <source>See all</source>
-        <target> იხილეთ ყველა  წყარო</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/templates/_imageflow.php</note>
       </trans-unit>
       <trans-unit id="1006">
         <source>Select a digital object to upload</source>
@@ -1992,11 +1847,6 @@
         <source>Showing %1% to %2% of %3% results</source>
         <target>%1% to %2% of %3% იანი შედეგების ჩვენება.</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/fileListSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="1036">
-        <source>Showing results %1% to %2% of %3% (%4% seconds)</source>
-        <target>%1% to %2% of %3% (%4% წამები)შედეგების ჩვენება</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchResults.php</note>
       </trans-unit>
       <trans-unit id="1037">
         <source>Site description</source>
@@ -2308,11 +2158,6 @@
         <target> ეს არაა სწორი მეილის მისამართი</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/actions/loginAction.class.php</note>
       </trans-unit>
-      <trans-unit id="1166">
-        <source>This page is valid XHTML 1.0</source>
-        <target>ეს გვერდი სწორია XHTML 1.0</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/templates/_footer.php</note>
-      </trans-unit>
       <trans-unit id="1167">
         <source>This term is used in %1% descriptions. The term will be deleted from these descriptions.</source>
         <target> ეს ტერმინი გამოყებნებულია %!%იან აღწერაში, ეს ტერმინი წაიშლება ამ აღწერიდან</target>
@@ -2453,11 +2298,6 @@
         <target>განახლების პროცესშია</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/informationobject/templates/multiFileUploadSuccess.php</note>
       </trans-unit>
-      <trans-unit id="1214">
-        <source>Use regular expression syntax</source>
-        <target> რეგულარული გამოხატვის სინტაქსის გამოყენება</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_advancedSearch.php</note>
-      </trans-unit>
       <trans-unit id="1215">
         <source>Use the actor name field to link an authority record to this description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
         <target> აქტიორის (მსახიობი?) სახელის ველის გამოყენება , ავტორიტეტული ჩანაწერის და აღწერის დასაკავშირებლად. ძიება არსებული სახელის ავტორიტეტულ ჩანაწერში სახელის პირველი რამდენიმე სიმბოლოს აკრეფით. ალტერნატიულად ახალი სახელის აკრეფა რომ შეიქმნას კავშირი ახალ ავტორიტეტულ ჩანაწერთან</target>
@@ -2482,11 +2322,6 @@
         <source>User interface label</source>
         <target>მომხმარებლის ინტერფეისის(ზედაპირი?) იარლიყი, ეტიკეტი</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/settings/templates/listSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="1221">
-        <source>User menu</source>
-        <target> მომხმარებლის მენიუ</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/menu/templates/_quickLinks.php</note>
       </trans-unit>
       <trans-unit id="1222">
         <source>User name</source>
@@ -2563,20 +2398,10 @@
         <target>როცა დადებ &amp;quot;yes&amp;quot, ეს სისტემა იმოქმედებს როგორც OAI საცავი და პასუხობს OAI დალაგების მოთხოვნას</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/lib/form/SettingsOaiRepositoryForm.class.php</note>
       </trans-unit>
-      <trans-unit id="1251">
-        <source>With</source>
-        <target> თან </target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_advancedSearch.php</note>
-      </trans-unit>
       <trans-unit id="1253">
         <source>Yes</source>
         <target>თანხმობა</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/digitalobject/actions/editAction.class.php</note>
-      </trans-unit>
-      <trans-unit id="1254">
-        <source>You are here</source>
-        <target> შენ ხარ აქ</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/default/templates/moveSuccess.php</note>
       </trans-unit>
       <trans-unit id="1255">
         <source>You cannot show more than %max% hits per page</source>
@@ -2638,11 +2463,6 @@
         <target>არააქტიური</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/user/templates/listSuccess.php</note>
       </trans-unit>
-      <trans-unit id="1286">
-        <source>keyword</source>
-        <target>სიტყვა გასაღები</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchFields.php</note>
-      </trans-unit>
       <trans-unit id="1290">
         <source>not</source>
         <target>უარყოფა</target>
@@ -2651,16 +2471,6 @@
       <trans-unit id="1292">
         <source>or</source>
         <target> ან</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchFields.php</note>
-      </trans-unit>
-      <trans-unit id="1293">
-        <source>phrase</source>
-        <target>ფრაზა</target>
-        <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchFields.php</note>
-      </trans-unit>
-      <trans-unit id="1309">
-        <source>using</source>
-        <target> გამოყენება</target>
         <note>http://code.google.com/p/qubit-toolkit/source/browse/trunk/apps/qubit/modules/search/templates/_searchFields.php</note>
       </trans-unit>
       <trans-unit id="1310">
@@ -2738,6 +2548,278 @@
       </trans-unit>
       <trans-unit id="1328">
         <source>CSV</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1329">
+        <source>Browse by</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1330">
+        <source>Archival descriptions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1331">
+        <source>Institutions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1332">
+        <source>Subjects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1333">
+        <source>People &amp;amp; Organizations</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1334">
+        <source>Places</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1335">
+        <source>Have an account?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1336">
+        <source>Hi, %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1337">
+        <source>Profile</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1338">
+        <source>Log out</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1339">
+        <source>Browse %1% %2%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1340">
+        <source>Relevancy</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1341">
+        <source>Box label CSV</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1342">
+        <source>Close</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1343">
+        <source>More</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1344">
+        <source>Institution</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1345">
+        <source>Creators</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1346">
+        <source>Names</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1347">
+        <source>Media types</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1348">
+        <source>Only digital objects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1349">
+        <source>Most recent</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1350">
+        <source>%1% results with digital objects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1351">
+        <source>Display standard</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1352">
+        <source>Assign the new display standard to all its descendants</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1353">
+        <source>Related people and organizations</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1354">
+        <source>Holdings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1355">
+        <source>Search within the entire collection</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1356">
+        <source>Oops, we couldn't find any physical storage locations for the current resource.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1357">
+        <source>Related subjects</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1358">
+        <source>Only hexadecimal color value</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1359">
+        <source>Style</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1360">
+        <source>Background color</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1361">
+        <source>Requirements: PNG format, 256K max. size.&lt;br /&gt;Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1362">
+        <source>Banner</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1363">
+        <source>Logo</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1364">
+        <source>Page content</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1365">
+        <source>An abstract, table of contents or description of the resource's scope and contents.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1366">
+        <source>Archive type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1367">
+        <source>Browse %1% holdings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1368">
+        <source>Entity type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1369">
+        <source>Creation</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1370">
+        <source>Revision</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1371">
+        <source>Both</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1372">
+        <source>All</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1373">
+        <source>Did you mean %1%?</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1374">
+        <source>Search &lt;strong&gt;%1%&lt;/strong&gt;</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1375">
+        <source>Global search</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1376">
+        <source>Narrow down your search results.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1377">
+        <source>Add new criteria</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1378">
+        <source>And</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1379">
+        <source>Or</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1380">
+        <source>Not</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1381">
+        <source>all matching descriptions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1382">
+        <source>all matching institutions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1383">
+        <source>all matching people &amp; organizations</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1384">
+        <source>Browse newest additions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1385">
+        <source>We couldn't find any results matching your search.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1386">
+        <source>Search filters</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1387">
+        <source>Reset</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1388">
+        <source>%1% results</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1389">
+        <source>All institutions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1390">
+        <source>Clear</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1391">
+        <source>From</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1392">
+        <source>to</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1393">
+        <source>Quick links</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1394">
+        <source>Sort by:</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1395">
+        <source>Popular this week</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1396">
+        <source>%1% visits</source>
         <target/>
       </trans-unit>
     </body>

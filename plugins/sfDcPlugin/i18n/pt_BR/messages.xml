@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2012-08-17T14:34:57Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2013-06-09T19:07:54Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -46,14 +46,6 @@
         <source>%1%Title%2% - This is a mandatory element.</source>
         <target>%1%Título%2% - É um elemento obrigatório.</target>
       </trans-unit>
-      <trans-unit id="900">
-        <source>View resource metadata</source>
-        <target>Visualizar metadados</target>
-      </trans-unit>
-      <trans-unit id="901">
-        <source>Edit resource metadata</source>
-        <target>Editar metadados de recursos</target>
-      </trans-unit>
       <trans-unit id="902">
         <source>Creator</source>
         <target>Produtor</target>
@@ -73,10 +65,6 @@
       <trans-unit id="906">
         <source>Coverage (spatial)</source>
         <target>Cobertura (espacial)</target>
-      </trans-unit>
-      <trans-unit id="907">
-        <source>Edit resource metadata - Dublin Core</source>
-        <target>Editar metadados de recursos - Dublin Core</target>
       </trans-unit>
       <trans-unit id="908">
         <source>This is a duplicate of record %1%</source>

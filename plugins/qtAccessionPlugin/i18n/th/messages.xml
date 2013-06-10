@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="th" datatype="plaintext" original="messages" date="2012-08-15T12:06:00Z" product-name="messages">
+  <file source-language="EN" target-language="th" datatype="plaintext" original="messages" date="2013-06-09T19:08:02Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -328,14 +328,6 @@
         <source>Edit rights area</source>
         <target>แก้ไขพื้นที่สิทธิ</target>
       </trans-unit>
-      <trans-unit id="82">
-        <source>Information object area</source>
-        <target>พื้นที่วัตถุข้อมูล</target>
-      </trans-unit>
-      <trans-unit id="83">
-        <source>Information object</source>
-        <target>วัตถุข้อมูล(ข้อมูลวัตถุ)</target>
-      </trans-unit>
       <trans-unit id="84">
         <source>Deaccession area</source>
         <target>พื้นที่การทิ้งเอกสาร</target>
@@ -422,10 +414,6 @@
         <source>Notes about the processing plan, describing what needs to be done for the accession to be processed completely.</source>
         <target>หมายเหตุเกี่ยวกับแผนในดำเนินการ,อธิบายสิ่งที่ต้องทำสำหรับการเข้าถึง ที่ต้องดำเนินการอย่างสมบูรณ์.</target>
       </trans-unit>
-      <trans-unit id="105">
-        <source>Information objects</source>
-        <target>วัตถุข้อมูล</target>
-      </trans-unit>
       <trans-unit id="106">
         <source>Related donors</source>
         <target>ผู้บริจาคที่เกี่ยวข้อง</target>
@@ -469,6 +457,10 @@
       <trans-unit id="116">
         <source>Browse accession</source>
         <target>Browseการทะเบียนเอกสาร</target>
+      </trans-unit>
+      <trans-unit id="117">
+        <source>%1% area</source>
+        <target/>
       </trans-unit>
     </body>
   </file>
