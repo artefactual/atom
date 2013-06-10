@@ -160,10 +160,8 @@ a:hover {
 // jQuery Masonry bricks
 // It's not working well with text, use images
 
-@brickWidth: 250px;
-@brickSmallWidth: 170px;
+@brickWidth: 170px;
 @brickPadding: 15px;
-@brickBg: @white;
 
 .masonry {
 
@@ -189,13 +187,13 @@ a:hover {
   }
 
   &.brick-only-text {
-    width: @brickWidth - 100;
+    width: @brickWidth;
     h4 {
       min-height: 100px;
     }
   }
 
-  background-color: @brickBg;
+  background-color: @white;
   @shadow: 0 1px 3px rgba(25, 25, 25, 0.4);
   .box-shadow(@shadow);
 
@@ -1217,23 +1215,25 @@ section .vcard:last-child > .field:last-child > div {
 
 // Responsive design
 
-@media (min-width: 1200px) {
-
-}
-
-@media (min-width: 768px) and (max-width: 979px) {
-
-}
-
 @media (max-width: 767px) {
 
   .breadcrumb {
     .hide;
   }
 
-}
+  #context-menu {
 
-@media (max-width: 480px) {
+    margin-top: 20px;
 
+    a {
+      display: block;
+      padding: 10px;
+      border: 2px solid @white;
+      .border-radius(4px);
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+  }
 
 }
