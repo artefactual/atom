@@ -1,6 +1,6 @@
 <h1><?php echo __('List pages') ?></h1>
 
-<table class="sticky-enabled">
+<table class="table sticky-enabled">
   <thead>
     <tr>
       <th>
@@ -24,14 +24,10 @@
 
 <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
 
-<div class="actions section">
+<section class="actions">
 
-  <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+ <ul>
+    <li><?php echo link_to(__('Add new'), array('module' => 'staticpage', 'action' => 'add'), array('class' => 'c-btn c-btn-submit')) ?></li>
+ </ul>
 
-  <div class="content">
-    <ul class="clearfix links">
-      <li><?php echo link_to(__('Add new'), array('module' => 'staticpage', 'action' => 'add')) ?></li>
-    </ul>
-  </div>
-
-</div>
+</section>
