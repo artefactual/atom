@@ -328,6 +328,10 @@ function get_search_creation_details($hit)
     $details[] = get_search_i18n($creator, 'authorizedFormOfName');
   }
 
+  // WIP, we are not showing labels for now. See #5202.
+  if (0 == count($details)) return null;
+  return implode(', ', $details);
+
   ProjectConfiguration::getActive()->loadHelpers('Date');
 
   // Get dates
