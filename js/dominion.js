@@ -103,11 +103,18 @@
 
   $(document).ready(function()
     {
-      var $facet = $('.facet');
+      var $facets = $('#facets');
+      var $facet = $facets.find('.facet');
 
       $facet.on('click', '.facet-header p', function (e)
         {
           $(e.target).parents('.facet').toggleClass('open');
+        });
+
+      $facets.find('.facets-header a').click(function (e)
+        {
+          $(e.target).toggleClass('open');
+          $facets.find('.content').toggle();
         });
 
       // Open first two facets

@@ -10,16 +10,27 @@
 <?php end_slot() ?>
 
 <?php slot('sidebar') ?>
-  <div id="facets">
+  <section id="facets">
 
-    <?php echo get_partial('search/facet', array(
-      'target' => '#facet-entitytype',
-      'label' => __('Entity type'),
-      'facet' => 'types',
-      'pager' => $pager,
-      'filters' => $filters)) ?>
+    <div class="visible-phone facets-header">
+      <a class="x-btn btn-wide">
+        <i class="icon-filter"></i>
+        <?php echo __('Filters') ?>
+      </a>
+    </div>
 
-  </div>
+    <div class="content">
+
+      <?php echo get_partial('search/facet', array(
+        'target' => '#facet-entitytype',
+        'label' => __('Entity type'),
+        'facet' => 'types',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+
+    </div>
+
+  </section>
 <?php end_slot() ?>
 
 <?php slot('before-content') ?>

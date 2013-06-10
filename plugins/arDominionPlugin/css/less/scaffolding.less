@@ -177,6 +177,10 @@ a:hover {
   display: block !important;
 }
 
+.digitalobject .brick {
+  width: @brickWidth*1.25;
+}
+
 .brick {
 
   // Hide them until Masonry finish the rendering
@@ -1215,6 +1219,16 @@ section .vcard:last-child > .field:last-child > div {
 
 // Responsive design
 
+@media (min-width: 768px) {
+
+  #facets {
+    .content {
+      display: block !important;
+    }
+  }
+
+}
+
 @media (max-width: 767px) {
 
   .breadcrumb {
@@ -1234,6 +1248,13 @@ section .vcard:last-child > .field:last-child > div {
       font-size: 18px;
     }
 
+  }
+
+  #facets {
+    margin-bottom: @baseLineHeight;
+    .content {
+      .hide();
+    }
   }
 
 }

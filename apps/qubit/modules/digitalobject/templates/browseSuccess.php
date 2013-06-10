@@ -3,7 +3,7 @@
 <div class="row-fluid">
   <div class="span6">
 
-    <h1>
+    <h1 class="multiline">
       <?php echo image_tag('/images/icons-large/icon-media.png') ?>
       <?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?>
       <span class="sub"><?php echo sfConfig::get('app_ui_label_digitalobject') ?></span>

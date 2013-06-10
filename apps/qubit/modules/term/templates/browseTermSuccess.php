@@ -22,25 +22,36 @@
 
   <section id="facets">
 
-    <?php if (QubitTaxonomy::PLACE_ID == $resource->taxonomyId): ?>
+    <div class="visible-phone facets-header">
+      <a class="x-btn btn-wide">
+        <i class="icon-filter"></i>
+        <?php echo __('Filters') ?>
+      </a>
+    </div>
 
-      <?php echo get_partial('search/facet', array(
-        'target' => '#facet-subjects',
-        'label' => sfConfig::get('app_ui_label_subject'),
-        'facet' => 'subjects',
-        'pager' => $pager,
-        'filters' => $filters)) ?>
+    <div class="content">
 
-    <?php elseif (QubitTaxonomy::SUBJECT_ID == $resource->taxonomyId): ?>
+      <?php if (QubitTaxonomy::PLACE_ID == $resource->taxonomyId): ?>
 
-      <?php echo get_partial('search/facet', array(
-        'target' => sfConfig::get('app_ui_label_place'),
-        'label' => __('Places'),
-        'facet' => 'places',
-        'pager' => $pager,
-        'filters' => $filters)) ?>
+        <?php echo get_partial('search/facet', array(
+          'target' => '#facet-subjects',
+          'label' => sfConfig::get('app_ui_label_subject'),
+          'facet' => 'subjects',
+          'pager' => $pager,
+          'filters' => $filters)) ?>
 
-    <?php endif; ?>
+      <?php elseif (QubitTaxonomy::SUBJECT_ID == $resource->taxonomyId): ?>
+
+        <?php echo get_partial('search/facet', array(
+          'target' => sfConfig::get('app_ui_label_place'),
+          'label' => __('Places'),
+          'facet' => 'places',
+          'pager' => $pager,
+          'filters' => $filters)) ?>
+
+      <?php endif; ?>
+
+    </div>
 
   </section>
 

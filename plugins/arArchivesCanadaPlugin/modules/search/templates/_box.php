@@ -29,7 +29,9 @@
               <?php foreach ($browseMenu->getChildren() as $item): ?>
                 <li>
                   <a href="<?php echo url_for($item->getPath(array('getUrl' => true, 'resolveAlias' => true))) ?>">
-                    <?php echo image_tag($icons[$item->name], array('width' => 42, 'height' => 42)) ?>
+                    <?php if (isset($icons[$item->name])): ?>
+                      <?php echo image_tag($icons[$item->name], array('width' => 42, 'height' => 42)) ?>
+                    <?php endif; ?>
                     <?php echo $item->getLabel(array('cultureFallback' => true)) ?>
                   </a>
                 </li>

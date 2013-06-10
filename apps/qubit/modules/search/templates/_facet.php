@@ -5,15 +5,7 @@
 <?php endif; ?>
 
   <div class="facet-header">
-
-    <div class="hidden-phone">
-      <p><?php echo $label ?></p>
-    </div>
-
-    <div class="visible-phone">
-      <button class="w-btn" data-toggle="collapse" data-target="<?php echo $target ?>"><?php echo $label ?></button>
-    </div>
-
+    <p><?php echo $label ?></p>
   </div>
 
   <div class="facet-body" id="<?php echo $target ?>">
