@@ -31,12 +31,26 @@ class SettingsDefaultTemplateForm extends sfForm
   public function configure()
   {
     // Available templates
-    $informationObjectTemplates = array(
-      'isad' => __('ISAD(G), 2nd ed. International Council on Archives'),
-      'dc' => __('Dublin Core, Version 1.1. Dublin Core Metadata Initiative'),
-      'mods' => __('MODS, Version 3.3. U.S. Library of Congress'),
-      'rad' => __('RAD, July 2008 version. Canadian Council of Archives'),
-    );
+    $configuration = ProjectConfiguration::getActive();
+
+    $informationObjectTemplates = array();
+
+    if ($configuration->isPluginEnabled('sfIsadPlugin'))
+    {
+      $informationObjectTemplates['isad'] = __('ISAD(G), 2nd ed. International Council on Archives');
+    }
+    if ($configuration->isPluginEnabled('sfDcPlugin'))
+    {
+      $informationObjectTemplates['dc'] = __('Dublin Core, Version 1.1. Dublin Core Metadata Initiative');
+    }
+    if ($configuration->isPluginEnabled('sfModsPlugin'))
+    {
+      $informationObjectTemplates['mods'] = __('MODS, Version 3.3. U.S. Library of Congress');
+    }
+    if ($configuration->isPluginEnabled('sfRadPlugin'))
+    {
+      $informationObjectTemplates['rad'] = __('RAD, July 2008 version. Canadian Council of Archives');
+    }
 
     $actorTemplates = array(
       'isaar' => __('ISAAR(CPF), 2nd ed. International Council on Archives')

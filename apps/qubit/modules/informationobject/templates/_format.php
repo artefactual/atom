@@ -5,10 +5,15 @@
   <div class="content">
     <ul class="clearfix">
 
-      <li><?php echo link_to(__('Dublin Core 1.1 XML'), array($resource, 'module' => 'sfDcPlugin', 'sf_format' => 'xml')) ?></li>
-      <li><?php echo link_to(__('EAD 2002 XML'), array($resource, 'module' => 'sfEadPlugin', 'sf_format' => 'xml')) ?></li>
+      <?php if ($sf_context->getConfiguration()->isPluginEnabled('sfDcPlugin')): ?>
+        <li><?php echo link_to(__('Dublin Core 1.1 XML'), array($resource, 'module' => 'sfDcPlugin', 'sf_format' => 'xml')) ?></li>
+      <?php endif; ?>
 
-      <?php if ('sfModsPlugin' == $sf_context->getModuleName()): ?>
+      <?php if ($sf_context->getConfiguration()->isPluginEnabled('sfEadPlugin')): ?>
+        <li><?php echo link_to(__('EAD 2002 XML'), array($resource, 'module' => 'sfEadPlugin', 'sf_format' => 'xml')) ?></li>
+      <?php endif; ?>
+
+      <?php if ('sfModsPlugin' == $sf_context->getModuleName() && $sf_context->getConfiguration()->isPluginEnabled('sfModsPlugin')): ?>
         <li><?php echo link_to(__('MODS 3.3 XML'), array($resource, 'module' => 'sfModsPlugin', 'sf_format' => 'xml')) ?></li>
       <?php endif; ?>
 

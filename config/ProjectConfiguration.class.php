@@ -46,4 +46,9 @@ class ProjectConfiguration extends sfProjectConfiguration
 
     $this->enablePlugins($plugins);
   }
+
+  public function isPluginEnabled($pluginName)
+  {
+    return false !== array_search($pluginName, $this->plugins);
+  }
 }

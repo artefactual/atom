@@ -4,7 +4,9 @@
 
   <div class="content">
     <ul class="clearfix">
-      <li><?php echo link_to(__('EAC'), array($resource, 'module' => 'sfEacPlugin', 'sf_format' => 'xml')) ?></li>
+      <?php if ($sf_context->getConfiguration()->isPluginEnabled('sfEacPlugin')): ?>
+        <li><?php echo link_to(__('EAC'), array($resource, 'module' => 'sfEacPlugin', 'sf_format' => 'xml')) ?></li>
+      <?php endif; ?>
     </ul>
   </div>
 
