@@ -79,7 +79,7 @@
       <?php endforeach; ?>
     </langusage>
     <?php if (0 < strlen($rules = $resource->getRules(array('cultureFallback' => true)))): ?>
-      <descrules <?php if (0 < strlen($value = $ead->getMetadataParameter('descrules'))): ?>encodinganalog="<?php echo $value ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($rules)) ?></descrules>
+      <descrules <?php if (0 < strlen($encoding = $ead->getMetadataParameter('descrules'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($rules)) ?></descrules>
     <?php endif; ?>
   </profiledesc>
 </eadheader>
@@ -134,7 +134,7 @@
 
     if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => $noteTypeId)))):
       foreach ($notes as $note): ?>
-        <odd type="<?php echo $xmlType ?>"><p><?php echo escape_dc(esc_specialchars($note)) ?></p></odd>
+        <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></odd>
       <?php endforeach;
     endif;
   }
@@ -156,7 +156,7 @@
 
     if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => $noteTypeId)))):
       foreach ($notes as $note): ?>
-        <odd type="<?php echo $xmlType ?>"><p><?php echo escape_dc(esc_specialchars($note)) ?></p></odd>
+        <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></odd>
       <?php endforeach;
     endif;
   } ?>
@@ -195,7 +195,7 @@
         <persname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></persname>
       <?php endforeach; ?>
       <?php foreach ($materialtypes as $materialtype): ?>
-        <genreform><?php echo escape_dc(escape_dc(esc_specialchars($materialtype->getTerm()))) ?></genreform>
+        <genreform <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars($materialtype->getTerm()))) ?></genreform>
       <?php endforeach; ?>
       <?php foreach ($subjects as $subject): ?>
         <subject<?php if ($subject->getTerm()->code):?> authfilenumber="<?php echo $subject->getTerm()->code ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($subject->getTerm())) ?></subject>
@@ -209,7 +209,7 @@
     <phystech encodinganalog="<?php echo $ead->getMetadataParameter('phystech') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></phystech>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getAppraisal(array('cultureFallback' => true)))): ?>
-    <appraisal <?php if (0 < strlen($value = $ead->getMetadataParameter('appraisal'))): ?>encodinganalog="<?php echo $value ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($value)) ?></p></appraisal>
+    <appraisal <?php if (0 < strlen($encoding = $ead->getMetadataParameter('appraisal'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($value)) ?></p></appraisal>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getAcquisition(array('cultureFallback' => true)))): ?>
     <acqinfo encodinganalog="<?php echo $ead->getMetadataParameter('acqinfo') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></acqinfo>
@@ -243,7 +243,7 @@
   <?php endif; ?>
   <?php if (0 < count($publicationNotes = $resource->getNotesByType(array('noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)))): ?>
     <?php foreach ($publicationNotes as $note): ?>
-      <bibliography <?php if (0 < strlen($value = $ead->getMetadataParameter('bibliography'))): ?>encodinganalog="<?php echo $value ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></bibliography>
+      <bibliography <?php if (0 < strlen($encoding = $ead->getMetadataParameter('bibliography'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></bibliography>
     <?php endforeach; ?>
   <?php endif; ?>
 
@@ -285,11 +285,11 @@
 
             <?php foreach ($descendant->getActorEvents() as $event): ?>
               <?php if ($event->getActor()->getEntityTypeId() == QubitTerm::PERSON_ID): ?>
-                <persname role="<?php echo $event->getType()->getRole() ?>"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </persname>
+                <persname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('actorEventsName'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </persname>
               <?php elseif ($event->getActor()->getEntityTypeId() == QubitTerm::FAMILY_ID): ?>
-                <famname role="<?php echo $event->getType()->getRole() ?>"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </famname>
+                <famname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('actorEventsName'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </famname>
               <?php else: ?>
-                <corpname role="<?php echo $event->getType()->getRole() ?>"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </corpname>
+                <corpname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('actorEventsName'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </corpname>
               <?php endif; ?>
             <?php endforeach; ?>
 
@@ -298,7 +298,7 @@
             <?php endforeach; ?>
 
             <?php foreach ($materialtypes as $materialtype): ?>
-              <genreform><?php echo escape_dc(esc_specialchars($materialtype->getTerm())) ?></genreform>
+              <genreform <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($materialtype->getTerm())) ?></genreform>
             <?php endforeach; ?>
 
             <?php foreach ($subjects as $subject): ?>
@@ -318,7 +318,7 @@
         <?php endif; ?>
 
         <?php if (0 < strlen($value = $descendant->getAppraisal(array('cultureFallback' => true)))): ?>
-          <appraisal <?php if (0 < strlen($value = $ead->getMetadataParameter('appraisal'))): ?>encodinganalog="<?php echo $value ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($value)) ?></p></appraisal>
+          <appraisal <?php if (0 < strlen($encoding = $ead->getMetadataParameter('appraisal'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($value)) ?></p></appraisal>
         <?php endif; ?>
 
         <?php if (0 < strlen($value = $descendant->getAcquisition(array('cultureFallback' => true)))): ?>
@@ -369,7 +369,7 @@
 
         <?php if (0 < count($publicationNotes = $descendant->getNotesByType(array('noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)))): ?>
           <?php foreach ($publicationNotes as $note): ?>
-            <bibliography <?php if (0 < strlen($value = $ead->getMetadataParameter('bibliography'))): ?>encodinganalog="<?php echo $value ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></bibliography>
+            <bibliography <?php if (0 < strlen($encoding = $ead->getMetadataParameter('bibliography'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></bibliography>
           <?php endforeach; ?>
         <?php endif; ?>
 

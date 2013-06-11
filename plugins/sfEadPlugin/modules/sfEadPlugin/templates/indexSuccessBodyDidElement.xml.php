@@ -19,7 +19,7 @@
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('titleProperOfPublishersSeries')->__toString())): ?>
     <unittitle>
       <bibseries>
-        <title><?php echo escape_dc(esc_specialchars($value)) ?></title>
+        <title <?php if (0 < strlen($encoding = $ead->getMetadataParameter('titleProperOfPublishersSeries'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></title>
       </bibseries>
     </unittitle>
   <?php endif; ?>
@@ -27,21 +27,21 @@
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('parallelTitleOfPublishersSeries')->__toString())): ?>
     <unittitle>
       <bibseries>
-        <title type="parallel"><?php echo escape_dc(esc_specialchars($value)) ?></title>
+        <title type="parallel" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('parallelTitleOfPublishersSeries'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></title>
       </bibseries>
     </unittitle>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('otherTitleInformationOfPublishersSeries')->__toString())): ?>
-    <unittitle><bibseries><title type="otherinfo"><?php echo escape_dc(esc_specialchars($value)) ?></title></bibseries></unittitle>
+    <unittitle><bibseries><title type="otherinfo" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('otherTitleInformationOfPublishersSeries'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></title></bibseries></unittitle>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('statementOfResponsibilityRelatingToPublishersSeries')->__toString())): ?>
-    <unittitle><bibseries><title type="statrep"><?php echo escape_dc(esc_specialchars($value)) ?></title></bibseries></unittitle>
+    <unittitle><bibseries><title type="statrep" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('statementOfResponsibilityRelatingToPublishersSeries'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></title></bibseries></unittitle>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('numberingWithinPublishersSeries')->__toString())): ?>
-    <unittitle><bibseries><num><?php echo escape_dc(esc_specialchars($value)) ?></num></bibseries></unittitle>
+    <unittitle><bibseries><num <?php if (0 < strlen($encoding = $ead->getMetadataParameter('numberingWithinPublishersSeries'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></num></bibseries></unittitle>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getTitle(array('cultureFallback' => true)))): ?>
@@ -49,23 +49,23 @@
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->alternateTitle)): ?>
-    <unittitle type="parallel"><?php echo escape_dc(esc_specialchars($value)) ?></unittitle>
+    <unittitle type="parallel" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('parallel'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></unittitle>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('otherTitleInformation')->__toString())): ?>
-    <unittitle type="otherinfo"><?php echo escape_dc(esc_specialchars($value)) ?></unittitle>
+    <unittitle type="otherinfo" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('otherinfo'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></unittitle>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('titleStatementOfResponsibility')->__toString())): ?>
-    <unittitle type="statrep"><?php echo escape_dc(esc_specialchars($value)) ?></unittitle>
+    <unittitle type="statrep" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('statrep'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></unittitle>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getEdition(array('cultureFallback' => true)))): ?>
-    <unittitle><edition><?php echo escape_dc(esc_specialchars($value)) ?></edition></unittitle>
+    <unittitle <?php if (0 < strlen($encoding = $ead->getMetadataParameter('editionstatement'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><edition><?php echo escape_dc(esc_specialchars($value)) ?></edition></unittitle>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('editionStatementOfResponsibility')->__toString())): ?>
-    <unittitle type="statrep"><edition><?php echo escape_dc(esc_specialchars($value)) ?></edition></unittitle>
+    <unittitle type="statrep" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('statementofresp'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><edition><?php echo escape_dc(esc_specialchars($value)) ?></edition></unittitle>
   <?php endif; ?>
 
   <?php $repository = null; ?>
@@ -80,11 +80,11 @@
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('standardNumber')->__toString())): ?>
-    <unitid type="standard"><?php echo escape_dc(esc_specialchars($value)) ?></unitid>
+    <unitid type="standard" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('standardNumber'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></unitid>
   <?php endif; ?>
 
   <?php foreach ($$resourceVar->getDates() as $date): ?>
-    <unitdate <?php if ($date->typeId != QubitTerm::CREATION_ID): ?><?php if ($type = $date->getType()->__toString()): ?><?php echo 'datechar="'.strtolower($type).'" ' ?><?php endif; ?><?php endif; ?><?php if ($startdate = $date->getStartDate()): ?><?php echo 'normal="'?><?php echo Qubit::renderDate($startdate) ?><?php if (0 < strlen($enddate = $date->getEndDate())): ?><?php echo '/'?><?php echo Qubit::renderDate($enddate) ?><?php endif; ?><?php echo '"' ?><?php endif; ?> encodinganalog="3.1.3"><?php echo escape_dc(esc_specialchars(Qubit::renderDateStartEnd($date->getDate(array('cultureFallback' => true)), $date->startDate, $date->endDate))) ?></unitdate>
+    <unitdate <?php if ($date->typeId != QubitTerm::CREATION_ID): ?><?php if ($type = $date->getType()->__toString()): ?><?php echo 'datechar="'.strtolower($type).'" ' ?><?php endif; ?><?php endif; ?><?php if ($startdate = $date->getStartDate()): ?><?php echo 'normal="'?><?php echo Qubit::renderDate($startdate) ?><?php if (0 < strlen($enddate = $date->getEndDate())): ?><?php echo '/'?><?php echo Qubit::renderDate($enddate) ?><?php endif; ?><?php echo '"' ?><?php endif; ?> encodinganalog="<?php echo $ead->getMetadataParameter('unitdate') ?>"><?php echo escape_dc(esc_specialchars(Qubit::renderDateStartEnd($date->getDate(array('cultureFallback' => true)), $date->startDate, $date->endDate))) ?></unitdate>
   <?php endforeach; // dates ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getExtentAndMedium(array('cultureFallback' => true)))): ?>
@@ -148,26 +148,32 @@
     <note type="sourcesDescription"><p><?php echo escape_dc(esc_specialchars($$resourceVar->sources)) ?></p></note>
   <?php endif; ?>
 
-  <?php if (0 < count($notes = $$resourceVar->getNotesByType(array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID)))): ?><?php foreach ($notes as $note): ?><note type="<?php echo escape_dc(esc_specialchars($note->getType(array('cultureFallback' => true)))) ?>" encodinganalog="3.6.1"><p><?php echo escape_dc(esc_specialchars($note->getContent(array('cultureFallback' => true)))) ?></p></note><?php endforeach; ?><?php endif; ?>
+  <?php if (0 < count($notes = $$resourceVar->getNotesByType(array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID)))): ?>
+    <?php foreach ($notes as $note): ?>
+      <note type="<?php echo escape_dc(esc_specialchars($note->getType(array('cultureFallback' => true)))) ?>">
+        <p><?php echo escape_dc(esc_specialchars($note->getContent(array('cultureFallback' => true)))) ?></p>
+      </note>
+    <?php endforeach; ?>
+  <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('statementOfScaleCartographic')->__toString())): ?>
-    <materialspec type='cartographic'><?php echo escape_dc(esc_specialchars($value)) ?></materialspec>
+    <materialspec type='cartographic'  <?php if (0 < strlen($encoding = $ead->getMetadataParameter('cartographic'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></materialspec>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('statementOfProjection')->__toString())): ?>
-     <materialspec type='projection'><?php echo escape_dc(esc_specialchars($value)) ?></materialspec>
+     <materialspec type='projection' <?php if (0 < strlen($encoding = $ead->getMetadataParameter('projection'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></materialspec>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('statementOfCoordinates')->__toString())): ?>
-    <materialspec type='coordinates'><?php echo escape_dc(esc_specialchars($value)) ?></materialspec>
+    <materialspec type='coordinates' <?php if (0 < strlen($encoding = $ead->getMetadataParameter('coordinates'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></materialspec>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('statementOfScaleArchitectural')->__toString())): ?>
-    <materialspec type='architectural'><?php echo escape_dc(esc_specialchars($value)) ?></materialspec>
+    <materialspec type='architectural' <?php if (0 < strlen($encoding = $ead->getMetadataParameter('architectural'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></materialspec>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('issuingJurisdictionAndDenomination')->__toString())): ?>
-    <materialspec type='philatelic'><?php echo escape_dc(esc_specialchars($value)) ?></materialspec>
+    <materialspec type='philatelic' <?php if (0 < strlen($encoding = $ead->getMetadataParameter('philatelic'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></materialspec>
   <?php endif; ?>
 
   <?php if (null !== $digitalObject = $$resourceVar->digitalObjects[0]): ?>
