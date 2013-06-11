@@ -1172,22 +1172,24 @@ body.login {
 
 div.description {
 
-  position: absolute;
-  top: 18px;
-  left: -299px;
-  width: 260px;
-  #gradient > .horizontal(#def, #fff);
-  padding: 10px;
-  line-height: 1.3em;
+  font-size: 12px;
 
-  .border-radius(4px 0 0 4px);
-  border: 1px solid #e6e6e6;
-  border-right: 0;
-
-  @shadow: -3px 3px 4px rgba(50, 50, 50, .1);
-  .box-shadow(@shadow);
-
-  z-index: 10750;
+  &.open {
+    display: block;
+    position: absolute;
+    top: 18px;
+    left: -299px;
+    width: 260px;
+    #gradient > .horizontal(#def, #fff);
+    padding: 10px;
+    line-height: 1.3em;
+    .border-radius(4px 0 0 4px);
+    border: 1px solid #e6e6e6;
+    border-right: 0;
+    @shadow: -3px 3px 4px rgba(50, 50, 50, .1);
+    .box-shadow(@shadow);
+    z-index: 10750;
+  }
 
 }
 

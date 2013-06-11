@@ -30,7 +30,7 @@
         }
         else
         {
-          $description.show();
+          $description.addClass('open').show();
 
           $sidebar
             .css('position', 'relative')
@@ -40,7 +40,7 @@
 
     window.description_focusout = function()
       {
-        $('.description', this).hide();
+        $('.description', this).removeClass('open').hide();
         $('#sidebar-first').find('.description-overlay').remove();
         $('div.yui-panel > .description-dialog').remove();
       };
