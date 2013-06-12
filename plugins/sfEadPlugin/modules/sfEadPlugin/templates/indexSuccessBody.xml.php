@@ -98,20 +98,20 @@
   ?>
 
   <?php if ($resource->getPublicationStatus()): ?>
-    <odd type="publicationstatus"><p><?php echo $resource->getPublicationStatus() ?></p></odd>
+    <odd type="publicationStatus"><p><?php echo $resource->getPublicationStatus() ?></p></odd>
   <?php endif; ?>
   <?php if ($resource->descriptionDetailId): ?>
-    <odd type="levelofdetail"><p><?php echo QubitTerm::getById($resource->descriptionDetailId) ?></p></odd>
+    <odd type="levelOfDetail"><p><?php echo QubitTerm::getById($resource->descriptionDetailId) ?></p></odd>
   <?php endif; ?>
   <?php $descriptionStatus = ($resource->descriptionStatusId) ? QubitTerm::getById($resource->descriptionStatusId) : ''; ?>
   <?php if ($descriptionStatus): ?>
     <odd type="statusDescription"><p><?php echo $descriptionStatus ?></p></odd>
   <?php endif; ?>
   <?php if ($resource->descriptionIdentifier): ?>
-    <odd type="descriptionidentifier"><p><?php echo $resource->descriptionIdentifier ?></p></odd>
+    <odd type="descriptionIdentifier"><p><?php echo $resource->descriptionIdentifier ?></p></odd>
   <?php endif; ?>
   <?php if ($resource->institutionResponsibleIdentifier): ?>
-    <odd type="institutionidentifier"><p><?php echo $resource->institutionResponsibleIdentifier ?></p></odd>
+    <odd type="institutionIdentifier"><p><?php echo $resource->institutionResponsibleIdentifier ?></p></odd>
   <?php endif; ?>
 
   <?php
@@ -123,12 +123,12 @@
   ));
 
   $radTitleNotes = array(
-    'Variations in title'                         => 'titlevariation',
-    'Attributions and conjectures'                => 'titleattributions',
-    'Continuation of title'                       => 'titlecontinuation',
-    'Statements of responsibility'                => 'titlestatrep',
-    'Parallel titles and other title information' => 'titleparallel',
-    'Source of title proper'                      => 'titlesource'
+    'Variations in title'                         => 'titleVariation',
+    'Attributions and conjectures'                => 'titleAttributions',
+    'Continuation of title'                       => 'titleContinuation',
+    'Statements of responsibility'                => 'titleStatRep',
+    'Parallel titles and other title information' => 'titleParallel',
+    'Source of title proper'                      => 'titleSource'
   );
 
   foreach ($radTitleNotes as $name => $xmlType)
@@ -144,11 +144,11 @@
 
   $radNotes = array(
     'Edition'                    => 'edition',
-    'Physical description'       => 'physdesc',
+    'Physical description'       => 'physDesc',
     'Conservation'               => 'conservation',
     'Accompanying material'      => 'material',
-    'Alpha-numeric designations' => 'alphanumericdesignation',
-    "Publisher's series"         => 'bibseries',
+    'Alpha-numeric designations' => 'alphanumericDesignation',
+    "Publisher's series"         => 'bibSeries',
     'Rights'                     => 'rights',
     'General note'               => 'general'
   );
@@ -165,7 +165,7 @@
   } ?>
 
   <?php if (0 < strlen($value = $resource->getPropertyByName('noteOnPublishersSeries')->__toString())): ?>
-    <odd type='bibseries'><p><?php echo escape_dc(esc_specialchars($value)) ?></p></odd>
+    <odd type='bibSeries'><p><?php echo escape_dc(esc_specialchars($value)) ?></p></odd>
   <?php endif; ?>
   <?php if (0 < strlen($value = $resource->getScopeAndContent(array('cultureFallback' => true)))): ?>
     <scopecontent encodinganalog="<?php echo $ead->getMetadataParameter('scopecontent') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></scopecontent><?php endif; ?>

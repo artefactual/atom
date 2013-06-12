@@ -14,32 +14,34 @@
     <?php endforeach; ?>
   <?php endif; ?>
 
-  <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('titleProperOfPublishersSeries')->__toString())): ?>
+  <?php if (0 < strlen($$resourceVar->getPropertyByName('titleProperOfPublishersSeries')->__toString())
+    || 0 < strlen($$resourceVar->getPropertyByName('parallelTitleOfPublishersSeries')->__toString())
+      || 0 < strlen($$resourceVar->getPropertyByName('otherTitleInformationOfPublishersSeries')->__toString())
+        || 0 < strlen($$resourceVar->getPropertyByName('statementOfResponsibilityRelatingToPublishersSeries')->__toString())
+          || 0 < strlen($$resourceVar->getPropertyByName('numberingWithinPublishersSeries')->__toString())): ?>
+
     <unittitle>
       <bibseries>
-        <title <?php if (0 < strlen($encoding = $ead->getMetadataParameter('titleProperOfPublishersSeries'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></title>
+
+        <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('titleProperOfPublishersSeries')->__toString())): ?>
+          <title><?php echo escape_dc(esc_specialchars($value)) ?></title>
+        <?php endif; ?>
+        <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('parallelTitleOfPublishersSeries')->__toString())): ?>
+          <title type="parallel"><?php echo escape_dc(esc_specialchars($value)) ?></title>
+        <?php endif; ?>
+        <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('otherTitleInformationOfPublishersSeries')->__toString())): ?>
+          <title type="otherInfo"><?php echo escape_dc(esc_specialchars($value)) ?></title>
+        <?php endif; ?>
+        <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('statementOfResponsibilityRelatingToPublishersSeries')->__toString())): ?>
+          <title type="statRep"><?php echo escape_dc(esc_specialchars($value)) ?></title>
+        <?php endif; ?>
+        <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('numberingWithinPublishersSeries')->__toString())): ?>
+          <num><?php echo escape_dc(esc_specialchars($value)) ?></num>
+        <?php endif; ?>
+
       </bibseries>
     </unittitle>
-  <?php endif; ?>
 
-  <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('parallelTitleOfPublishersSeries')->__toString())): ?>
-    <unittitle>
-      <bibseries>
-        <title type="parallel" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('parallelTitleOfPublishersSeries'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></title>
-      </bibseries>
-    </unittitle>
-  <?php endif; ?>
-
-  <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('otherTitleInformationOfPublishersSeries')->__toString())): ?>
-    <unittitle><bibseries><title type="otherinfo" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('otherTitleInformationOfPublishersSeries'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></title></bibseries></unittitle>
-  <?php endif; ?>
-
-  <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('statementOfResponsibilityRelatingToPublishersSeries')->__toString())): ?>
-    <unittitle><bibseries><title type="statrep" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('statementOfResponsibilityRelatingToPublishersSeries'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></title></bibseries></unittitle>
-  <?php endif; ?>
-
-  <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('numberingWithinPublishersSeries')->__toString())): ?>
-    <unittitle><bibseries><num <?php if (0 < strlen($encoding = $ead->getMetadataParameter('numberingWithinPublishersSeries'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></num></bibseries></unittitle>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getTitle(array('cultureFallback' => true)))): ?>
@@ -51,11 +53,11 @@
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('otherTitleInformation')->__toString())): ?>
-    <unittitle type="otherinfo" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('otherinfo'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></unittitle>
+    <unittitle type="otherInfo" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('otherinfo'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></unittitle>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('titleStatementOfResponsibility')->__toString())): ?>
-    <unittitle type="statrep" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('statrep'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></unittitle>
+    <unittitle type="statRep" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('statrep'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></unittitle>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getEdition(array('cultureFallback' => true)))): ?>
@@ -63,7 +65,7 @@
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('editionStatementOfResponsibility')->__toString())): ?>
-    <unittitle type="statrep" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('statementofresp'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><edition><?php echo escape_dc(esc_specialchars($value)) ?></edition></unittitle>
+    <unittitle type="statRep" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('statementofresp'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><edition><?php echo escape_dc(esc_specialchars($value)) ?></edition></unittitle>
   <?php endif; ?>
 
   <?php $repository = null; ?>
@@ -176,9 +178,9 @@
 
   <?php if (null !== $digitalObject = $$resourceVar->digitalObjects[0]): ?>
     <?php if (QubitAcl::check($$resourceVar, 'readMaster') && 0 < strlen($url = QubitTerm::EXTERNAL_URI_ID == $digitalObject->usageId ? $digitalObject->getPath() : public_path($digitalObject->getFullPath(), true))): ?>
-      <dao linktype="simple" href="<?php echo $url ?>" role="master" actuate="onrequest" show="embed"/>
+      <dao linktype="simple" href="<?php echo $url ?>" role="master" actuate="onRequest" show="embed"/>
     <?php elseif (QubitAcl::check($$resourceVar, 'readReference') && 0 < strlen($url = public_path($digitalObject->reference->getFullPath(), true))): ?>
-      <dao linktype="simple" href="<?php echo $url ?>" role="reference" actuate="onrequest" show="embed"/>
+      <dao linktype="simple" href="<?php echo $url ?>" role="reference" actuate="onRequest" show="embed"/>
     <?php endif; ?>
   <?php endif; ?>
 
