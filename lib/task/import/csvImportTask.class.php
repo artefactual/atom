@@ -375,7 +375,8 @@ EOF;
         }
 
         // set level of detail
-        if (isset($self->rowStatusVars['levelOfDetail']) && 0 < strlen($self->rowStatusVars['levelOfDetail']))
+        if (isset($self->rowStatusVars['levelOfDetail'])
+          && 0 < strlen($self->rowStatusVars['levelOfDetail']))
         {
           $levelOfDetailTermId = array_search(
             (trim($self->rowStatusVars['levelOfDetail'])) ? $self->rowStatusVars['levelOfDetail'] : 'Full',
