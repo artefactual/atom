@@ -31,34 +31,42 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       'levels' =>
         array('type' => 'term',
               'field' => 'levelOfDescriptionId',
+              'filter' => 'hideDrafts',
               'size' => 10),
       'mediatypes' =>
         array('type' => 'term',
               'field' => 'digitalObject.mediaTypeId',
+              'filter' => 'hideDrafts',
               'size' => 10),
       'digitalobjects' =>
         array('type' => 'query',
               'field' => array('hasDigitalObject' => true),
+              'filter' => 'hideDrafts',
               'populate' => false),
       'repos' =>
         array('type' => 'term',
               'field' => 'repository.id',
+              'filter' => 'hideDrafts',
               'size' => 10),
       'places' =>
         array('type'   => 'term',
               'field'  => 'places.id',
+              'filter' => 'hideDrafts',
               'size'   => 10),
       'subjects' =>
         array('type'   => 'term',
               'field'  => 'subjects.id',
+              'filter' => 'hideDrafts',
               'size'   => 10),
       'creators' =>
         array('type'   => 'term',
               'field'  => 'creators.id',
+              'filter' => 'hideDrafts',
               'size'   => 10),
       'names' =>
         array('type'   => 'term',
               'field'  => 'names.id',
+              'filter' => 'hideDrafts',
               'size'   => 10));
 
   protected function populateFacet($name, $ids)

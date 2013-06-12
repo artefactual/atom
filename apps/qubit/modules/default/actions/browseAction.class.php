@@ -65,23 +65,15 @@ class DefaultBrowseAction extends sfAction
       // Sets a filter for this facet
       if (isset($item['filter']))
       {
-        switch ($item['filter']['type'])
+        switch ($item['filter'])
         {
-          case 'terms':
-            $filter = new \Elastica\Filter\Terms();
-            $filter->setTerms($item['filter']['key'], $item['filter']['terms']);
+          case 'hideDrafts':
+            $filter = new \Elastica\Filter\Bool;
+            QubitAclSearch::filterDrafts($filter);
+            $facet->setFilter($filter);
 
           break;
         }
-
-        $facet->setFilter($filter);
-      }
-      else
-      {
-        $filter = new \Elastica\Filter\Bool;
-
-        // Filter drafts
-        QubitAclSearch::filterDrafts($filter);
 
         $facet->setFilter($filter);
       }
