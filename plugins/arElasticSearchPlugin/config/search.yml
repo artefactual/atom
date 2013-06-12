@@ -16,7 +16,7 @@ all:
     port: 9200
 
     # This will write the JSON request in the file given
-    log: '/tmp/elastica.log'
+    # log: '/tmp/elastica.log'
 
   # elasticsearch options
   index:
