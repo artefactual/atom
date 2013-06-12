@@ -93,11 +93,19 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-    // set default publishing status
-    $defaultStatusId = sfConfig::get(
-      'app_defaultPubStatus',
-      QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID
-    );
+    // set default publication status
+    $results = $conn->query('SELECT i18n.value
+      FROM setting INNER JOIN setting_i18n i18n ON setting.id = i18n.id
+      WHERE setting.name=\'defaultPubStatus\'');
+
+    if ($results)
+    {
+      $defaultStatusId = $results->fetchColumn();
+    }
+    else
+    {
+      $defaultStatusId = QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID;
+    }
 
     // TODO: this may be unnecessary as it may now be part of Qubit trunk
     // create note term if it doesn't yet exist
