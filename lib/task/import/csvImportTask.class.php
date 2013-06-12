@@ -391,7 +391,7 @@ EOF;
         }
 
         // set level of detail
-        if (isset($self->rowStatusVars['levelOfDetail']))
+        if (isset($self->rowStatusVars['levelOfDetail']) && 0 < strlen($self->rowStatusVars['levelOfDetail']))
         {
           $levelOfDetailTermId = array_search(
             (trim($self->rowStatusVars['levelOfDetail'])) ? $self->rowStatusVars['levelOfDetail'] : 'Full',
@@ -411,7 +411,8 @@ EOF;
 
         foreach($languageProperties as $serializeProperty)
         {
-          if (isset($self->rowStatusVars[$serializeProperty]) && 0 < strlen($self->rowStatusVars[$serializeProperty]))
+          if (isset($self->rowStatusVars[$serializeProperty])
+            && 0 < strlen($self->rowStatusVars[$serializeProperty]))
           {
             $data = explode('|', $self->rowStatusVars[$serializeProperty]);
 
@@ -423,7 +424,8 @@ EOF;
         }
 
         // set description status
-        if (isset($self->rowStatusVars['descriptionStatus']))
+        if (isset($self->rowStatusVars['descriptionStatus'])
+          && 0 < strlen($self->rowStatusVars['descriptionStatus']))
         {
           $statusTermId = array_search(
             (trim($self->rowStatusVars['descriptionStatus'])) ? $self->rowStatusVars['descriptionStatus'] : 'Final',
@@ -434,7 +436,8 @@ EOF;
         }
 
         // set publication status
-        if (isset($self->rowStatusVars['publicationStatus']))
+        if (isset($self->rowStatusVars['publicationStatus'])
+          && 0 < strlen($self->rowStatusVars['publicationStatus']))
         {
           $pubStatusTermId = array_search(
             ucwords($self->rowStatusVars['publicationStatus']),
