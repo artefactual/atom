@@ -1,7 +1,7 @@
 <div class="field">
 
   <?php if (isset($sidebar)): ?>
-    <h4><?php echo __('Related people and organizations') ?></h4>
+    <h4><?php echo __('Related places') ?></h4>
   <?php else: ?>
     <h3><?php echo __('Place access points') ?></h3>
   <?php endif; ?>
