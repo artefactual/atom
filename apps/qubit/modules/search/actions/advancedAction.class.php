@@ -344,13 +344,23 @@ class SearchAdvancedAction extends DefaultBrowseAction
       }
     }
 
+    if (0 < count($this->queryBool->getParams()))
+    {
+      $this->query->setQuery($this->queryBool);
+    }
+    else
+    {
+      $this->query->setQuery(new \Elastica\Query\MatchAll);
+    }
+
+    // Filter
+    $filter = new \Elastica\Filter\Bool;
+
     // Filter drafts
-    $this->query = QubitAclSearch::filterDrafts($this->query);
+    QubitAclSearch::filterDrafts($filter);
 
-    // Sort
-    # $this->query->setSort(array($field => 'desc'));
-
-    $this->query->setQuery($this->queryBool);
+    // Set filter
+    $this->query->setFilter($filter);
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
 

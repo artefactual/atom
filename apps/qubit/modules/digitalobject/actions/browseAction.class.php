@@ -67,13 +67,19 @@ class DigitalObjectBrowseAction extends DefaultBrowseAction
       $this->queryBool->addMust(new \Elastica\Query\Term(array('ancestors' => $this->resource->id)));
     }
 
-    // Filter drafts
-    $this->query = QubitAclSearch::filterDrafts($this->query);
-
     // Set sort and limit
     $this->query->setSort(array('updatedAt' => 'desc'));
 
     $this->query->setQuery($this->queryBool);
+
+    // Filter
+    $filter = new \Elastica\Filter\Bool;
+
+    // Filter drafts
+    QubitAclSearch::filterDrafts($filter);
+
+    // Set filter
+    $this->query->setFilter($filter);
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
 

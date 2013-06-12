@@ -103,6 +103,18 @@ class SearchAutocompleteAction extends sfAction
 
       $search->setQuery($query);
 
+      if ('QubitInformationObject' == $item['type'])
+      {
+        // Filter
+        $filter = new \Elastica\Filter\Bool;
+
+        // Filter drafts
+        QubitAclSearch::filterDrafts($filter);
+
+        // Set filter
+        $query->setFilter($filter);
+      }
+
       $mSearch->addSearch($search);
     }
 

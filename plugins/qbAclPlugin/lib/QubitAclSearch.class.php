@@ -161,10 +161,9 @@ class QubitAclSearch
   /**
    * Filter search query by resource specific ACL
    *
-   * @param  \Elastica\Query $query Search query object
-   * @return \Elastica\Query Filtered query
+   * @param  \Elastica\Filter\Bool $filterBool Search query object
    */
-  public static function filterDrafts(\Elastica\Query $query)
+  public static function filterDrafts(\Elastica\Filter\Bool $filterBool)
   {
     // Filter out 'draft' items by repository
     $repositoryViewDrafts = QubitAcl::getRepositoryAccess('viewDraft');
@@ -176,7 +175,7 @@ class QubitAclSearch
         // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID, 'publicationStatusId'), true);
         $filter = new \Elastica\Filter\Term();
         $filter->setTerm('publicationStatusId', QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
-        $query->setFilter($filter);
+        $filterBool->addMust($filter);
       }
     }
     else
@@ -186,41 +185,37 @@ class QubitAclSearch
       // preceeding rules will be "ALLOW" rules)
       $globalRule = array_pop($repositoryViewDrafts);
 
+      $fb = new \Elastica\Filter\Bool;
+
       // If global rule is GRANT, then listed repos are exceptions so remove
       // from results
       if (QubitAcl::GRANT == $globalRule['access'])
       {
-        $filterBool = new \Elastica\Filter\Bool;
-
         while ($repo = array_shift($repositoryViewDrafts))
         {
           // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
           // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_DRAFT_ID, 'publicationStatusId'), true);
-          $filterBool->addShould(new \Elastica\Filter\Term(array('repositoryId', $repo['id'])));
+          $fb->addShould(new \Elastica\Filter\Term(array('repositoryId', $repo['id'])));
         }
 
-        $filter = new \Elastica\Filter\Not($filterBool);
+        $filter = new \Elastica\Filter\Not($fb);
       }
 
       // If global rule is DENY, then only show the listed repo drafts
       else
       {
-        $filter = new \Elastica\Filter\Bool;
-
         while ($repo = array_shift($repositoryViewDrafts))
         {
           // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
-          $filter->addShould(new \Elastica\Filter\Term(array('repositoryId', $repo['id'])));
+          $fb->addShould(new \Elastica\Filter\Term(array('repositoryId', $repo['id'])));
         }
 
         // Filter rule should look like "+(id:(356 357 358) status:published)"
         // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID, 'publicationStatusId'), null);
-        $filter->addShould(new \Elastica\Filter\Term(array('publicationStatusId', QubitTerm::PUBLICATION_STATUS_DRAFT_ID)));
+        $fb->addShould(new \Elastica\Filter\Term(array('publicationStatusId', QubitTerm::PUBLICATION_STATUS_DRAFT_ID)));
       }
 
-      $query->setFilter($filter);
+      $filterBool->addMust($filter);
     }
-
-    return $query;
   }
 }

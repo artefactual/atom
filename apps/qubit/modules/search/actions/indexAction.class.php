@@ -153,8 +153,6 @@ class SearchIndexAction extends DefaultBrowseAction
 
     $this->query->setQuery($this->queryBool);
 
-    QubitAclSearch::filterDrafts($this->query);
-
     // Add suggestion
     // Using setParam since Elastica does not support the suggest API yet
     $this->query->setParam('suggest', array(
@@ -164,6 +162,19 @@ class SearchIndexAction extends DefaultBrowseAction
           'size' => 1,
           'sort' => 'frequency',
           'field' => sprintf('i18n.%s.title', $this->context->user->getCulture())))));
+
+    // Filter
+    $filter = new \Elastica\Filter\Bool;
+
+    // Filter out descriptions without title
+    $filterExists = new \Elastica\Filter\Exists(sprintf('i18n.%s.title', $this->context->user->getCulture()));
+    $filter->addMust($filterExists);
+
+    // Filter drafts
+    QubitAclSearch::filterDrafts($filter);
+
+    // Set filter
+    $this->query->setFilter($filter);
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
 

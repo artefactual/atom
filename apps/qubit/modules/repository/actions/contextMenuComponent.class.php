@@ -39,14 +39,21 @@ class RepositoryContextMenuComponent extends sfComponent
 
     $query = new \Elastica\Query($queryBool);
 
-    QubitAclSearch::filterDrafts($query);
-
     $query->setLimit($this->limit);
     $query->setSort(array(sprintf('i18n.%s.title.untouched', $this->context->user->getCulture()) => 'asc'));
 
+    // Filter
+    $filter = new \Elastica\Filter\Bool;
+
     // Filter out descriptions without title
     $filterExists = new \Elastica\Filter\Exists(sprintf('i18n.%s.title', $this->context->user->getCulture()));
-    $query->setfilter($filterExists);
+    $filter->addMust($filterExists);
+
+    // Filter drafts
+    QubitAclSearch::filterDrafts($filter);
+
+    // Set filter
+    $query->setFilter($filter);
 
     $this->resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
   }

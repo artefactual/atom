@@ -86,10 +86,20 @@ class TermBrowseTermAction extends DefaultBrowseAction
         break;
     }
 
-    // Filter drafts
-    $this->query = QubitAclSearch::filterDrafts($this->query);
-
     $this->query->setQuery($this->queryBool);
+
+    // Filter
+    $filter = new \Elastica\Filter\Bool;
+
+    // Filter out descriptions without title
+    $filterExists = new \Elastica\Filter\Exists(sprintf('i18n.%s.title', $this->context->user->getCulture()));
+    $filter->addMust($filterExists);
+
+    // Filter drafts
+    QubitAclSearch::filterDrafts($filter);
+
+    // Set filter
+    $this->query->setFilter($filter);
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
 
