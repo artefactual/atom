@@ -39,7 +39,7 @@ EOF;
   {
     $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
     $sf_context = sfContext::createInstance($configuration);
-    
+
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
@@ -48,7 +48,7 @@ EOF;
                  " AND s.status_id = " . QubitTerm::PUBLICATION_STATUS_DRAFT_ID .
                  " AND i.id <> 1"; // Don't delete root node!
 
-    $this->logSection("Deleting all information objects marked as draft...");
+    $this->logSection("Delete drafts", "Deleting all information objects marked as draft...");
     
     $choice = strtolower(trim(readline("Are you SURE you want to do this (y/n)? ")));
     $choice = ($choice) ? $choice : 'n';
@@ -71,10 +71,25 @@ EOF;
         foreach ($item->digitalObjects as $digitalObject)
         {
           $digitalObject->informationObjectId = null;
-          $digitalObject->delete();
+          
+          try
+          {
+            $digitalObject->delete();
+          }
+          catch (Exception $e)
+          {
+            $this->log("Warning: got error while deleting: " . $e->getMessage());
+          }
         }
 
-        $item->delete();
+        try
+        {
+          $item->delete();
+        }
+        catch (Exception $e)
+        {
+          $this->log("Warning: got error while deleting: " . $e->getMessage());
+        }
 
         if (++$n % 10 == 0)
         {
@@ -84,6 +99,6 @@ EOF;
       }
     }
 
-    $this->logSection("Finished! {$n} items deleted.");
+    $this->logSection("Delete drafts", "Finished! {$n} items deleted.");
   }
 }
