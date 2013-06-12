@@ -37,6 +37,9 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
+    $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
+    $sf_context = sfContext::createInstance($configuration);
+    
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
