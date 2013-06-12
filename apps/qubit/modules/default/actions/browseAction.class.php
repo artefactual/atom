@@ -76,6 +76,15 @@ class DefaultBrowseAction extends sfAction
 
         $facet->setFilter($filter);
       }
+      else
+      {
+        $filter = new \Elastica\Filter\Bool;
+
+        // Filter drafts
+        QubitAclSearch::filterDrafts($filter);
+
+        $facet->setFilter($filter);
+      }
 
       $this->query->addFacet($facet);
     }
