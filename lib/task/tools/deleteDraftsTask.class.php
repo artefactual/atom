@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class getVersionTask extends sfBaseTask
+class deleteDraftsTask extends sfBaseTask
 {
   protected function configure()
   {
@@ -48,7 +48,7 @@ EOF;
                  " AND s.status_id = " . QubitTerm::PUBLICATION_STATUS_DRAFT_ID .
                  " AND i.id <> 1"; // Don't delete root node!
 
-    $this->logSection("Delete drafts", "Deleting all information objects marked as draft...");
+    $this->logSection("delete-drafts", "Deleting all information objects marked as draft...");
     
     $choice = strtolower(trim(readline("Are you SURE you want to do this (y/n)? ")));
     $choice = ($choice) ? $choice : 'n';
@@ -99,6 +99,6 @@ EOF;
       }
     }
 
-    $this->logSection("Delete drafts", "Finished! {$n} items deleted.");
+    $this->logSection("delete-drafts", "Finished! {$n} items deleted.");
   }
 }
