@@ -126,11 +126,22 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
         $criteria->addAscendingOrderByColumn('authorized_form_of_name');
 
-        $choices = array();
-        $choices[null] = null;
-        foreach (QubitRepository::get($criteria) as $repository)
+        $cache = QubitCache::getInstance();
+        $cacheKey = 'advanced-search:list-of-repositories:'.$this->context->user->getCulture();
+        if ($cache->has($cacheKey))
         {
-          $choices[$repository->id] = $repository->__toString();
+          $choices = $cache->get($cacheKey);
+        }
+        else
+        {
+          $choices = array();
+          $choices[null] = null;
+          foreach (QubitRepository::get($criteria) as $repository)
+          {
+            $choices[$repository->id] = $repository->__toString();
+          }
+
+          $cache->set($cacheKey, $choices, 3600);
         }
 
         $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
@@ -146,8 +157,6 @@ class SearchAdvancedAction extends DefaultBrowseAction
     {
       return;
     }
-
-    $this->hasFilters = true;
 
     switch ($field->getName())
     {
@@ -198,83 +207,69 @@ class SearchAdvancedAction extends DefaultBrowseAction
   protected function parseQuery()
   {
     $queryBool = new \Elastica\Query\Bool();
-
-    if (!isset($this->request->s))
-    {
-      return;
-    }
-
     $culture = $this->context->user->getCulture();
 
-    // Iterate over search fields
-    foreach ($this->request->s as $key => $item)
+    $count = -1;
+    $this->criterias = array();
+    while (null !== $query = $this->request->getParameter('sq'.++$count))
     {
-      if (empty($item['query']))
-      {
-        continue;
-      }
+      if (empty($query)) continue;
+
+      $field = $this->request->getParameter('sf'.$count, '_all');
+      $operator = $this->request->getParameter('so'.$count, 'or');
 
       $queryText = new \Elastica\Query\Text();
 
-      switch ($item['field'])
+      switch ($field)
       {
         case 'identifier':
-          $queryText->setFieldQuery('identifier', $item['query']);
+          $queryText->setFieldQuery('identifier', $query);
 
           break;
 
         case 'title':
-          $queryText->setFieldQuery('i18n.'.$culture.'.title', $item['query']);
+          $queryText->setFieldQuery('i18n.'.$culture.'.title', $query);
 
           break;
 
         case 'scopeAndContent':
-          $queryText->setFieldQuery('i18n.'.$culture.'.scopeAndContet', $item['query']);
+          $queryText->setFieldQuery('i18n.'.$culture.'.scopeAndContet', $query);
 
           break;
 
         case 'archivalHistory':
-          $queryText->setFieldQuery('i18n.'.$culture.'.archivalHistory', $item['query']);
+          $queryText->setFieldQuery('i18n.'.$culture.'.archivalHistory', $query);
 
           break;
 
         case 'extentAndMedium':
-          $queryText->setFieldQuery('i18n.'.$culture.'.extentAndMedium', $item['query']);
-
-          break;
-
-        case 'creatorHistory':
-          $queryText->setFieldQuery('', $item['query']);
+          $queryText->setFieldQuery('i18n.'.$culture.'.extentAndMedium', $query);
 
           break;
 
         case 'subject':
-          $queryText->setFieldQuery('', $item['query']);
+          $queryText->setFieldQuery('subjects.i18n.'.$culture.'.name', $query);
 
           break;
 
         case 'name':
-          $queryText->setFieldQuery('', $item['query']);
+          $queryText->setFieldQuery('names.i18n.'.$culture.'.name', $query);
 
           break;
 
         case 'place':
-          $queryText->setFieldQuery('', $item['query']);
+          $queryText->setFieldQuery('places.i18n.'.$culture.'.name', $query);
 
           break;
 
+        case '_all':
         default:
-          $queryText->setFieldQuery('_all', $item['query']);
+          $queryText->setFieldQuery('_all', $query);
 
           break;
       }
 
-      if (0 == $key)
-      {
-        $item['o'] == 'add';
-      }
-
-      switch ($item['o'])
+      switch ($operator)
       {
         case 'not':
           $queryBool->addMustNot($queryText);
@@ -287,11 +282,16 @@ class SearchAdvancedAction extends DefaultBrowseAction
           break;
 
         case 'add':
-        default:
+        default: // First criteria falls here
           $queryBool->addMust($queryText);
 
           break;
       }
+
+      $this->criterias[] = array(
+        'query' => $query,
+        'field' => $field,
+        'operator' => $operator);
     }
 
     if (0 == count($queryBool->getParams()))
@@ -304,9 +304,6 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
   public function execute($request)
   {
-    # echo "<pre>";
-    # var_dump($_GET);
-    # die();
     parent::execute($request);
 
     if ('print' == $request->getGetParameter('media'))
@@ -323,7 +320,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
     }
 
     // Stop if the input is not valid
-    $this->form->bind($request->getRequestParameters() + $request->getGetParameters() + $request->getPostParameters());
+    $this->form->bind($request->getRequestParameters() + $request->getGetParameters());
     if (!$this->form->isValid())
     {
       throw new sfException;
@@ -335,7 +332,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
       $this->queryBool->addMust($criterias);
     }
 
-    // Process form fields
+    // Process sidebar filters (as sfForm fields)
     foreach ($this->form as $field)
     {
       if (isset($this->request[$field->getName()]))
@@ -344,14 +341,13 @@ class SearchAdvancedAction extends DefaultBrowseAction
       }
     }
 
-    if (0 < count($this->queryBool->getParams()))
+    // Stop execution if zero results
+    if (1 > count($this->queryBool->getParams()))
     {
-      $this->query->setQuery($this->queryBool);
+      return;
     }
-    else
-    {
-      $this->query->setQuery(new \Elastica\Query\MatchAll);
-    }
+
+    $this->query->setQuery($this->queryBool);
 
     // Filter
     $filter = new \Elastica\Filter\Bool;

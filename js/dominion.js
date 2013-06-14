@@ -491,7 +491,11 @@
   var AdvancedSearch = function (element)
     {
       this.$element = $(element);
+      this.$form = this.$element.find('form');
+      this.$criteria = this.$element.find('.criteria');
+      this.$filters = this.$element.find('#advanced-search-filters');
 
+      this.init();
       this.listen();
     };
 
@@ -499,73 +503,67 @@
 
     constructor: AdvancedSearch,
 
-    listen: function()
+    init: function()
     {
-      this.$form = this.$element.find('form');
-      this.$criteria = this.$element.find('.criteria');
-      this.$filters = this.$element.find('#filters');
-
       // Hide first boolean
       this.$criteria.first().find('.boolean').hide();
 
       // Hide last criteria if more than once
       if (1 < this.$criteria.length)
       {
-        this.$criteria.last().hide();
+        this.$criteria.last().remove();
       }
 
-      // Hide filters if not being used
-      if (!this.$element.find('#toggle-filters').hasClass('active'))
+      // Autoscroll to results
+      var $article = this.$element.find('article');
+      if ($article.length)
       {
-        this.$filters.hide();
+        var pos = $article.first().offset().top;
+        window.scrollTo(0, pos);
       }
+    },
 
+    listen: function()
+    {
       this.$form
-        .on('click', 'input[type=reset]', $.proxy(function (event)
-          {
-            this.$element.find('.search-result').remove();
-            this.$element.find('.criteria:not(:first)').remove();
-            this.$element.find('.result-count').parent().remove();
-          }, this))
-        .on('submit', $.proxy(function (event)
-          {
-
-            $('#advanced-search-filters select').each(function (index, element)
-              {
-                if (!element.value)
-                {
-                  element.removeAttribute('name');
-                }
-              });
-
-          }, this));
+        .on('click', 'input[type=reset]', $.proxy(this.reset, this))
+        .on('submit', $.proxy(this.submit, this));
 
       // Bind events
       this.$element.on('click', $.proxy(this.click, this));
     },
 
+    submit: function (event)
+    {
+      this.$filters.find('select').filter(function()
+        {
+          if (!this.value)
+          {
+            this.removeAttribute('name');
+          }
+        });
+    },
+
+    reset: function (event)
+    {
+      clearFormFields(this.$form);
+
+      this.$element.find('.search-result').remove();
+      this.$element.find('.criteria:not(:first)').remove();
+      this.$element.find('.result-count').parent().remove();
+    },
+
     click: function (event)
     {
-      var $target = $(event.target);
-      var id = $target.attr('id');
-
-      switch (id)
+      switch (event.target.id)
       {
         case 'add-criteria-and':
         case 'add-criteria-or':
         case 'add-criteria-not':
           event.preventDefault();
-          this.addCriteria(id.replace('add-criteria-', ''));
-          break;
 
-        case 'toggle-filters':
-          event.preventDefault();
-          this.$filters.slideToggle('fast');
-          $target.toggleClass('active');
-          if (!$target.hasClass('active'))
-          {
-            clearFormFields(this.$filters);
-          }
+          this.addCriteria(event.target.  id.replace('add-criteria-', ''));
+
           break;
       }
     },
@@ -592,25 +590,16 @@
       var nextNumber = parseInt($clone.find('input:first').attr('name').match(/\d+/).shift()) + 1;
 
       $clone
-        .find('input, select').each(function()
+        .find('input, select').each(function(index, element)
           {
-            var $this = $(this);
-            $this.attr('name', $this.attr('name').replace(/\[\d+\]/, '[' + nextNumber +']'));
+            var name = this.getAttribute('name').replace(/[\d+]/, nextNumber);
+            this.setAttribute('name', name);
           }).end()
         .find('.boolean').show();
 
-      return this.resetFormFields($clone);
-    },
+      clearFormFields($clone);
 
-    resetFormFields: function($sender)
-    {
-      return $sender
-        .find('input:text, input:password, input:file, select')
-          .val('')
-          .end()
-        .find('input:radio, input:checkbox')
-          .removeAttr('checked').removeAttr('selected')
-          .end();
+      return $clone;
     }
   };
 

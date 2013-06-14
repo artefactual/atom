@@ -66,28 +66,32 @@
   </section>
 <?php end_slot() ?>
 
-<?php echo get_partial('search/searchFields') ?>
+<?php echo get_partial('search/searchFields', array('criterias' => $criterias)) ?>
 
 <section class="actions">
   <input type="submit" class="c-btn c-btn-submit" value="<?php echo __('Search') ?>"/>
   <input type="reset" class="c-btn c-btn-delete" value="<?php echo __('Reset') ?>"/>
 </section>
 
-<?php if ($pager->hasResults()): ?>
-  <?php foreach ($pager->getResults() as $hit): ?>
-    <?php $doc = $hit->getData() ?>
-    <?php echo include_partial('search/searchResult', array('doc' => $doc, 'pager' => $pager)) ?>
-  <?php endforeach; ?>
-<?php else: ?>
-  <section id="no-search-results">
-    <i class="icon-search"></i>
-    <p class="no-results-found"><?php echo __('No results found.') ?></p>
-  </section>
-<?php endif; ?>
+<?php if (isset($pager)): ?>
 
-<?php slot('after-content') ?>
-  <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
-<?php end_slot() ?>
+  <?php if ($pager->hasResults()): ?>
+    <?php foreach ($pager->getResults() as $hit): ?>
+      <?php $doc = $hit->getData() ?>
+      <?php echo include_partial('search/searchResult', array('doc' => $doc, 'pager' => $pager)) ?>
+    <?php endforeach; ?>
+  <?php else: ?>
+    <section id="no-search-results">
+      <i class="icon-search"></i>
+      <p class="no-results-found"><?php echo __('No results found.') ?></p>
+    </section>
+  <?php endif; ?>
+
+  <?php slot('after-content') ?>
+    <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
+  <?php end_slot() ?>
+
+<?php endif; ?>
 
 <?php slot('pre') ?>
   <?php echo $form->renderFormTag(url_for(array('module' => 'search', 'action' => 'advanced')), array('name' => 'form', 'method' => 'get')) ?>

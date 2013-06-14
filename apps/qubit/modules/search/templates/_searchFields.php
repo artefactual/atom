@@ -2,46 +2,39 @@
 
   <p><?php echo __('Narrow down your search results.') ?></p>
 
-  <?php $count = 0 ?>
+  <?php if (isset($criterias)): ?>
 
-  <?php if (isset($sf_request->s)): ?>
-
-    <?php foreach ($sf_request->s as $key => $item): ?>
-
-      <?php if (empty($item['q'])) continue ?>
+    <?php foreach ($criterias as $key => $item): ?>
 
       <div class="criteria">
 
         <div class="boolean">
-          <select name="s[<?php echo $count ?>][o]">
-            <option value="and"<?php echo $item['o'] == 'and' ? ' selected="selected"' : '' ?>><?php echo __('and') ?></option>
-            <option value="or"<?php echo $item['o'] == 'or' ? ' selected="selected"' : '' ?>><?php echo __('or') ?></option>
-            <option value="not"<?php echo $item['o'] == 'not' ? ' selected="selected"' : '' ?>><?php echo __('not') ?></option>
+          <select name="so<?php echo $key ?>">
+            <option value="and"<?php echo $item['operator'] == 'and' ? ' selected="selected"' : '' ?>><?php echo __('and') ?></option>
+            <option value="or"<?php echo $item['operator'] == 'or' ? ' selected="selected"' : '' ?>><?php echo __('or') ?></option>
+            <option value="not"<?php echo $item['operator'] == 'not' ? ' selected="selected"' : '' ?>><?php echo __('not') ?></option>
           </select>
         </div>
 
         <div class="criterion">
-          <input type="text" placeholder="<?php echo __('Search') ?>" name="s[<?php echo $key ?>][q]" value="<?php echo esc_entities($item['q']) ?>"/>
+          <input type="text" placeholder="<?php echo __('Search') ?>" name="sq<?php echo $key ?>" value="<?php echo esc_entities($item['query']) ?>"/>
           <div class="in">
             <span><?php echo __('in') ?></span>
-            <select name="s[<?php echo $key ?>][f]">
-              <option value=""<?php echo $item['f'] == '' ? ' selected="selected"' : '' ?>><?php echo __('Any field') ?></option>
-              <option value="title"<?php echo $item['f'] == 'title' ? ' selected="selected"' : '' ?>><?php echo __('Title') ?></option>
-              <option value="creatorHistory"<?php echo $item['f'] == 'creatorHistory' ? ' selected="selected"' : '' ?>><?php echo __('Admin/biographical history') ?></option>
-              <option value="archivalHistory"<?php echo $item['f'] == 'archivalHistory' ? ' selected="selected"' : '' ?>><?php echo __('Archival history') ?></option>
-              <option value="scopeAndContent"<?php echo $item['f'] == 'scopeAndContent' ? ' selected="selected"' : '' ?>><?php echo __('Scope and content') ?></option>
-              <option value="extentAndMedium"<?php echo $item['f'] == 'extentAndMedium' ? ' selected="selected"' : '' ?>><?php echo __('Extent and medium') ?></option>
-              <option value="subject"<?php echo $item['f'] == 'subject' ? ' selected="selected"' : '' ?>><?php echo __('Subject access points') ?></option>
-              <option value="name"<?php echo $item['f'] == 'name' ? ' selected="selected"' : '' ?>><?php echo __('Name access points') ?></option>
-              <option value="place"<?php echo $item['f'] == 'place' ? ' selected="selected"' : '' ?>><?php echo __('Place access points') ?></option>
-              <option value="identifier"<?php echo $item['f'] == 'identifier' ? ' selected="selected"' : '' ?>><?php echo __('Identifier') ?></option>
+            <select name="sf<?php echo $key ?>">
+              <option value=""<?php echo $item['field'] == '' ? ' selected="selected"' : '' ?>><?php echo __('Any field') ?></option>
+              <option value="title"<?php echo $item['field'] == 'title' ? ' selected="selected"' : '' ?>><?php echo __('Title') ?></option>
+              <option value="archivalHistory"<?php echo $item['field'] == 'archivalHistory' ? ' selected="selected"' : '' ?>><?php echo __('Archival history') ?></option>
+              <option value="scopeAndContent"<?php echo $item['field'] == 'scopeAndContent' ? ' selected="selected"' : '' ?>><?php echo __('Scope and content') ?></option>
+              <option value="extentAndMedium"<?php echo $item['field'] == 'extentAndMedium' ? ' selected="selected"' : '' ?>><?php echo __('Extent and medium') ?></option>
+              <option value="subject"<?php echo $item['field'] == 'subject' ? ' selected="selected"' : '' ?>><?php echo __('Subject access points') ?></option>
+              <option value="name"<?php echo $item['field'] == 'name' ? ' selected="selected"' : '' ?>><?php echo __('Name access points') ?></option>
+              <option value="place"<?php echo $item['field'] == 'place' ? ' selected="selected"' : '' ?>><?php echo __('Place access points') ?></option>
+              <option value="identifier"<?php echo $item['field'] == 'identifier' ? ' selected="selected"' : '' ?>><?php echo __('Identifier') ?></option>
             </select>
           </div>
         </div>
 
       </div>
-
-      <?php $count++ ?>
 
     <?php endforeach; ?>
 
@@ -49,8 +42,10 @@
 
   <div class="criteria">
 
+    <?php $count = isset($key) ? $key++ : 0 ?>
+
     <div class="boolean">
-      <select name="s[<?php echo $count ?>][o]">
+      <select name="so<?php echo $count ?>">
         <option value="and"><?php echo __('and') ?></option>
         <option value="or"><?php echo __('or') ?></option>
         <option value="not"><?php echo __('not') ?></option>
@@ -58,13 +53,12 @@
     </div>
 
     <div class="criterion">
-      <input type="text" placeholder="<?php echo __('Search') ?>" name="s[<?php echo $count?>][q]"/>
+      <input type="text" placeholder="<?php echo __('Search') ?>" name="sq<?php echo $count?>"/>
       <div class="in">
         <span><?php echo __('in') ?></span>
-        <select name="s[<?php echo $count ?>][f]">
+        <select name="sf<?php echo $count ?>">
           <option value=""><?php echo __('Any field') ?></option>
           <option value="title"><?php echo __('Title') ?></option>
-          <option value="creatorHistory"><?php echo __('Admin/biographical history') ?></option>
           <option value="archivalHistory"><?php echo __('Archival history') ?></option>
           <option value="scopeAndContent"><?php echo __('Scope and content') ?></option>
           <option value="extentAndMedium"><?php echo __('Extent and medium') ?></option>
