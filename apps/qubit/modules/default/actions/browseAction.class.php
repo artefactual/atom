@@ -21,6 +21,13 @@ class DefaultBrowseAction extends sfAction
 {
   protected function addFacets()
   {
+    // This facet is added by default to aggregate the different languages found
+    $this::$FACETS['languages'] = array(
+      'type' => 'term',
+      'field' => 'i18n.languages',
+      'filter' => 'hideDrafts',
+      'size' => 10);
+
     foreach ($this::$FACETS as $name => $item)
     {
       if (!is_array($item))
@@ -62,19 +69,30 @@ class DefaultBrowseAction extends sfAction
         $facet->setSize($item['size']);
       }
 
+      $filter = new \Elastica\Filter\Bool;
+
       // Sets a filter for this facet
       if (isset($item['filter']))
       {
         switch ($item['filter'])
         {
           case 'hideDrafts':
-            $filter = new \Elastica\Filter\Bool;
             QubitAclSearch::filterDrafts($filter);
-            $facet->setFilter($filter);
 
           break;
         }
+      }
 
+      if ($name != 'languages')
+      {
+        $code = $this->request->getParameter('languages', sfConfig::get('sf_default_culture'));
+        $term = new \Elastica\Filter\Term(array('i18n.languages' => $code));
+        $filter->addMust($term);
+      }
+
+      // Apply facet filter if exists
+      if (0 < count($filter->toArray()))
+      {
         $facet->setFilter($filter);
       }
 
@@ -86,9 +104,15 @@ class DefaultBrowseAction extends sfAction
   {
     $this->filters = array();
 
+    // Filter language
+    $code = $this->request->getParameter('languages', sfConfig::get('sf_default_culture'));
+    $this->filters['languages'] = $code;
+    $term = new \Elastica\Filter\Term(array($this::$FACETS['languages']['field'] => $code));
+    $this->filterBool->addMust($term);
+
     foreach ($this->request->getGetParameters() as $param => $value)
     {
-      if (!array_key_exists($param, $this::$FACETS))
+      if ('languages' == $param || !array_key_exists($param, $this::$FACETS))
       {
         continue;
       }
@@ -158,6 +182,20 @@ class DefaultBrowseAction extends sfAction
     $this->pager->facets = $facets;
   }
 
+  protected function populateFacet($name, $ids)
+  {
+    switch ($name)
+    {
+      case 'languages':
+        foreach ($ids as $code => $count)
+        {
+          $this->types[$code] = sfCultureInfo::getInstance(sfContext::getInstance()->user->getCulture())->getLanguage($code);
+        }
+
+        break;
+    }
+  }
+
   public function execute($request)
   {
     if (empty($request->limit))
@@ -183,6 +221,7 @@ class DefaultBrowseAction extends sfAction
     }
 
     $this->queryBool = new \Elastica\Query\Bool();
+    $this->filterBool = new \Elastica\Filter\Bool;
 
     if (isset($this::$FACETS))
     {

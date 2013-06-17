@@ -254,6 +254,11 @@ class arElasticSearchMapping
               'properties' => $nestedI18nFields);
           }
 
+          // Create a list of languages for faceting
+          $nestedI18nObjects['languages'] = array(
+            'type' => 'string',
+            'index' => 'not_analyzed');
+
           // Main i18n object
           $this->setIfNotSet($typeProperties['properties'], 'i18n', array(
             'type' => 'object',

@@ -115,6 +115,8 @@ abstract class arElasticSearchModelBase
       }
     }
 
+    $i18ns['languages'] = array_keys($i18ns);
+
     return $i18ns;
   }
 

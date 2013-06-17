@@ -49,6 +49,9 @@ class ActorBrowseAction extends DefaultBrowseAction
         }
 
         break;
+
+      default:
+        parent::populateFacet($name, $ids);
     }
   }
 
@@ -109,9 +112,11 @@ class ActorBrowseAction extends DefaultBrowseAction
     $this->query->setQuery($this->queryBool);
     $this->query->setFields(array('slug', 'sourceCulture', 'i18n', 'entityTypeId', 'updatedAt'));
 
-    // Filter out descriptions without authorizedFormOfName
-    $filterExists = new \Elastica\Filter\Exists(sprintf('i18n.%s.authorizedFormOfName', $this->context->user->getCulture()));
-    $this->query->setfilter($filterExists);
+    // Set filter
+    if (0 < count($this->filterBool->toArray()))
+    {
+      $this->query->setFilter($this->filterBool);
+    }
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitActor')->search($this->query);
 

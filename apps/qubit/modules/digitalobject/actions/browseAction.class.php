@@ -48,6 +48,9 @@ class DigitalObjectBrowseAction extends DefaultBrowseAction
         }
 
         break;
+
+      default:
+        parent::populateFacet($name, $ids);
     }
   }
 
@@ -72,14 +75,14 @@ class DigitalObjectBrowseAction extends DefaultBrowseAction
 
     $this->query->setQuery($this->queryBool);
 
-    // Filter
-    $filter = new \Elastica\Filter\Bool;
-
     // Filter drafts
-    QubitAclSearch::filterDrafts($filter);
+    QubitAclSearch::filterDrafts($this->filterBool);
 
     // Set filter
-    $this->query->setFilter($filter);
+    if (0 < count($this->filterBool->toArray()))
+    {
+      $this->query->setFilter($this->filterBool);
+    }
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
 

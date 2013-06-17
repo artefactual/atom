@@ -51,6 +51,13 @@
 
       <?php endif; ?>
 
+      <?php echo get_partial('search/facetLanguage', array(
+        'target' => '#facet-languages',
+        'label' => __('Language'),
+        'facet' => 'languages',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+
     </div>
 
   </section>

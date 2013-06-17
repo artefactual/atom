@@ -22,6 +22,13 @@
 
     <div class="content">
 
+      <?php echo get_partial('search/facetLanguage', array(
+        'target' => '#facet-languages',
+        'label' => __('Language'),
+        'facet' => 'languages',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+
       <?php echo get_partial('search/facet', array(
         'target' => '#facet-archivetype',
         'label' => __('Archive type'),

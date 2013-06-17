@@ -12,7 +12,11 @@
 
     <ul>
 
-      <li <?php if ('' == $sf_request->getParameter($facet)) echo 'class="active"' ?>>
+      <?php if (!isset($filters[$facet])): ?>
+        <li class="active">
+      <?php else: ?>
+        <li>
+      <?php endif; ?>
         <?php echo link_to(__('All'), array(
           $facet => null,
           'page' => null) + $sf_request->getParameterHolder()->getAll()) ?>

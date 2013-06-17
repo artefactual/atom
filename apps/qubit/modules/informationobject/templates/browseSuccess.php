@@ -21,6 +21,13 @@
 
     <div class="content">
 
+      <?php echo get_partial('search/facetLanguage', array(
+        'target' => '#facet-languages',
+        'label' => __('Language'),
+        'facet' => 'languages',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+
       <?php echo get_partial('search/facet', array(
         'target' => '#facet-repository',
         'label' => sfConfig::get('app_ui_label_repository'),
