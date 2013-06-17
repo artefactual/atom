@@ -118,7 +118,10 @@
         });
 
       // Open first two facets
-      $facet.slice(0, 2).addClass('open');
+      $facet.slice(0, 2).filter(function(index, element)
+        {
+          return 0 < $(element).find('li').length;
+        }).addClass('open');
     });
 
   /****
