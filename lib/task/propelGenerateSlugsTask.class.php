@@ -61,7 +61,8 @@ EOF;
       'actor' => 'QubitActor',
       'information_object' => 'QubitInformationObject',
       'term' => 'QubitTerm',
-      'event' => 'QubitEvent'
+      'event' => 'QubitEvent',
+      'accession' => 'QubitAccession'
     );
 
     // Create hash of slugs already in database
@@ -84,6 +85,10 @@ EOF;
 
         case 'information_object':
           $sql = 'SELECT base.id, i18n.title';
+          break;
+
+        case 'accession':
+          $sql = 'SELECT base.id, base.identifier';
           break;
 
         default:
