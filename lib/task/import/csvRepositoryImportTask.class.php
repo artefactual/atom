@@ -42,12 +42,11 @@ EOF;
   {
     parent::configure();
 
-    $this->addOptions(array(new sfCommandOption(
-      'merge-existing',
-      null,
-      sfCommandOption::PARAMETER_OPTIONAL,
-      "Don't create a new repository if there's already one with the same authorizedFormOfName in the db."
-    )));
+    $this->addOptions(array(new sfCommandOption('merge-existing', null, sfCommandOption::PARAMETER_OPTIONAL,
+      "Don't create a new repository if there's already one with the same authorizedFormOfName in the db.")));
+
+    $this->addOptions(array(new sfCommandOption('upload-limit', null, sfCommandOption::PARAMETER_OPTIONAL,
+      "Set the upload limit for repositories getting imported (default: disable uploads)")));
   }
 
   /**
@@ -95,7 +94,7 @@ EOF;
         'options'                => $options
       ),
 
-      /* import columns that map directory to QubitInformationObject properties */
+      /* import columns that map directory to QubitRepository properties */
       'standardColumns' => array(
         'authorizedFormOfName',
         'identifier',
@@ -106,24 +105,6 @@ EOF;
         'internalStructures'
       ),
 
-      /* import columns that should be redirected to QubitInformationObject
-         properties (and optionally transformed)
-
-         Example:
-         'columnMap' => array(
-           'Archival History' => 'archivalHistory',
-           'Revision history' => array(
-             'column' => 'revision',
-             'transformationLogic' => function(&$self, $text)
-             {
-               return $self->appendWithLineBreakIfNeeded(
-                 $self->object->revision,
-                 $text
-               );
-             }
-           )
-         ),
-      */
       'columnMap' => array(
       ),
 
@@ -142,12 +123,14 @@ EOF;
         'notes'
       ),
 
-      /* import logic to execute before saving actor */
+      /* import logic to execute before saving QubitRepository */
       'preSaveLogic' => function(&$self)
       {
+        if (isset($self->getStatus('options')['upload-limit']))
+          $self->object->uploadLimit = $self->getStatus('options')['upload-limit'];
       },
 
-      /* import logic to execute after saving actor */
+      /* import logic to execute after saving QubitRepository */
       'postSaveLogic' => function(&$self)
       {
         // add contact information
