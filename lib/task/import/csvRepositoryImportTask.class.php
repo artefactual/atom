@@ -102,7 +102,8 @@ EOF;
         'geoculturalContext',
         'holdings',
         'findingAids',
-        'internalStructures'
+        'internalStructures',
+        'uploadLimit'
       ),
 
       'columnMap' => array(
@@ -126,7 +127,7 @@ EOF;
       /* import logic to execute before saving QubitRepository */
       'preSaveLogic' => function(&$self)
       {
-        if (isset($self->getStatus('options')['upload-limit']))
+        if (isset($self->getStatus('options')['upload-limit']) && !isset($self->object->uploadLimit)) 
           $self->object->uploadLimit = $self->getStatus('options')['upload-limit'];
       },
 
