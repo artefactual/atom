@@ -977,10 +977,7 @@ EOF;
               array_push($createEvents, $eventData);
             }
           }
-          else if(
-            isset($self->rowStatusVars['creatorDates'])
-            || isset($self->rowStatusVars['creatorDates'])
-          ) {
+          else if(isset($self->rowStatusVars['creatorDates'])) {
             foreach($self->rowStatusVars['creatorDates'] as $index => $date)
             {
               $eventData = array();
