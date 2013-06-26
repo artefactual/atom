@@ -127,8 +127,9 @@ EOF;
       /* import logic to execute before saving QubitRepository */
       'preSaveLogic' => function(&$self)
       {
-        if (isset($self->getStatus('options')['upload-limit']) && !isset($self->object->uploadLimit)) 
-          $self->object->uploadLimit = $self->getStatus('options')['upload-limit'];
+        $opts = $self->getStatus('options');
+        if (isset($opts['upload-limit']) && !isset($self->object->uploadLimit)) 
+          $self->object->uploadLimit = $opts['upload-limit'];
       },
 
       /* import logic to execute after saving QubitRepository */
