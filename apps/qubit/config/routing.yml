@@ -24,6 +24,7 @@ dc:
     module: sfDcPlugin
     action: index
     informationobject_template: dc
+    sf_format: xml
 
 add/dc:
   url: /;add/dc
@@ -63,6 +64,7 @@ ead:
     module: sfEadPlugin
     action: index
     informationobject_template: ead
+    sf_format: xml
 
 isaar:
   url: /:slug;isaar
