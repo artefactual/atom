@@ -54,6 +54,7 @@ eac:
     module: sfEacPlugin
     action: index
     actor_template: eac
+    sf_format: xml
 
 ead:
   url: /:slug;ead
