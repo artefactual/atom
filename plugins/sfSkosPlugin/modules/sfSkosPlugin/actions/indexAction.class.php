@@ -49,5 +49,7 @@ class sfSkosPluginIndexAction extends sfAction
       $this->taxonomy = QubitTaxonomy::getById($resource->id);
       $this->topLevelTerms = QubitTaxonomy::getTaxonomyTerms($resource->id, array('level' => 'top'));
     }
+
+    $request->setRequestFormat('xml');
   }
 }
