@@ -24,19 +24,19 @@
       <bibseries>
 
         <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('titleProperOfPublishersSeries')->__toString())): ?>
-          <title><?php echo escape_dc(esc_specialchars($value)) ?></title>
+          <title <?php if (0 < strlen($encoding = $ead->getMetadataParameter('titleProperOfPublishersSeries'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></title>
         <?php endif; ?>
         <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('parallelTitleOfPublishersSeries')->__toString())): ?>
-          <title type="parallel"><?php echo escape_dc(esc_specialchars($value)) ?></title>
+          <title type="parallel" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('parallelTitleOfPublishersSeries'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></title>
         <?php endif; ?>
         <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('otherTitleInformationOfPublishersSeries')->__toString())): ?>
-          <title type="otherInfo"><?php echo escape_dc(esc_specialchars($value)) ?></title>
+          <title type="otherInfo" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('otherTitleInformationOfPublishersSeries'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></title>
         <?php endif; ?>
         <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('statementOfResponsibilityRelatingToPublishersSeries')->__toString())): ?>
-          <title type="statRep"><?php echo escape_dc(esc_specialchars($value)) ?></title>
+          <title type="statRep" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('statementOfResponsibilityRelatingToPublishersSeries'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></title>
         <?php endif; ?>
         <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('numberingWithinPublishersSeries')->__toString())): ?>
-          <num><?php echo escape_dc(esc_specialchars($value)) ?></num>
+          <num <?php if (0 < strlen($encoding = $ead->getMetadataParameter('numberingWithinPublishersSeries'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></num>
         <?php endif; ?>
 
       </bibseries>
@@ -89,7 +89,7 @@
 
   <?php if (0 < strlen($value = $$resourceVar->getExtentAndMedium(array('cultureFallback' => true)))): ?>
     <physdesc>
-      <extent encodinganalog="<?php echo $ead->getMetadataParameter('extent') ?>"><?php echo escape_dc(esc_specialchars($value)) ?></extent>
+        <?php echo $ead->renderEadPhysDesc($value) ?>
     </physdesc>
   <?php endif; ?>
 

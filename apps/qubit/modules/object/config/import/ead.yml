@@ -160,15 +160,15 @@ information_object:
       Method:  importDigitalObjectFromUri
 
     publicationStatus:
-      XPath:  "odd[@type='publicationStatus']/p"
+      XPath:  "odd[@type='publicationStatus']"
       Method: setPublicationStatusByName
 
     draftingStatus:
-      XPath:  "odd[@type='statusDescription']/p"
+      XPath:  "odd[@type='statusDescription']"
       Method: setDescriptionStatusByName
 
     levelOfDetail:
-      XPath:  "odd[@type='levelOfDetail']/p"
+      XPath:  "odd[@type='levelOfDetail']"
       Method: setDescriptionLevelOfDetailByName
 
     descriptionIdentifier:
@@ -176,76 +176,76 @@ information_object:
       Method: setDescriptionIdentifier
 
     institutionIdentifier:
-      XPath:  "odd[@type='institutionIdentifier']/p"
+      XPath:  "odd[@type='institutionIdentifier']"
       Method: setInstitutionResponsibleIdentifier
 
     title_variation_notes:
-      XPath:  "odd[@type='titleVariation']/p"
+      XPath:  "odd[@type='titleVariation']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $titleVariationNoteTypeId)"]
 
     title_attributions_notes:
-      XPath:  "odd[@type='titleAttributions']/p"
+      XPath:  "odd[@type='titleAttributions']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $titleAttributionsNoteTypeId)"]
 
     title_continuation_notes:
-      XPath:  "odd[@type='titleContinuation']/p"
+      XPath:  "odd[@type='titleContinuation']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $titleContinuationNoteTypeId)"]
 
     title_statement_of_responsibility_notes:
-      XPath:  "odd[@type='titleStatRep']/p"
+      XPath:  "odd[@type='titleStatRep']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $titleStatRepNoteTypeId)"]
 
     title_parallel_notes:
-      XPath:  "odd[@type='titleParallel']/p"
+      XPath:  "odd[@type='titleParallel']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $titleParallelNoteTypeId)"]
 
     title_source_notes:
-      XPath:  "odd[@type='titleSource']/p"
+      XPath:  "odd[@type='titleSource']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $titleSourceNoteTypeId)"]
 
     alphanumeric_designation_notes:
-      XPath:  "odd[@type='alphanumericDesignation']/p"
+      XPath:  "odd[@type='alphanumericDesignation']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $alphaNumericaDesignationsNoteTypeId)"]
 
     edition_note:
-      XPath:  "odd[@type='edition']/p"
+      XPath:  "odd[@type='edition']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $editionNoteTypeId)"]
 
     conservation_note:
-      XPath:  "odd[@type='conservation']/p"
+      XPath:  "odd[@type='conservation']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $conservationNoteTypeId)"]
 
     physical_description_note:
-      XPath:  "odd[@type='physDesc']/p"
+      XPath:  "odd[@type='physDesc']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $physDescNoteTypeId)"]
 
     publisher_series_note:
-      XPath:  "odd[@type='bibSeries']/p"
+      XPath:  "odd[@type='bibSeries']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $pubSeriesNoteTypeId)"]
 
     rights_note:
-      XPath:  "odd[@type='rights']/p"
+      XPath:  "odd[@type='rights']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $rightsNoteTypeId)"]
 
     material_note:
-      XPath:  "odd[@type='material']/p"
+      XPath:  "odd[@type='material']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $materialNoteTypeId)"]
 
     general_note:
-      XPath:  "odd[@type='general']/p"
+      XPath:  "odd[@type='general']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => $generalNoteTypeId)"]
 
@@ -254,9 +254,10 @@ information_object:
       Method: setDates
       Parameters: [$nodeValue, "$options = array('normalized_dates' => $importDOM->xpath->query('@normal', $domNode2)->item(0)->nodeValue, 'date_type' => $importDOM->xpath->query('@datechar', $domNode2)->item(0)->nodeValue)"]
 
-    extent:
-      XPath:  "did/physdesc/extent"
-      Method: setExtentAndMedium
+    physdesc:
+      XPath:  "did/physdesc"
+      Method: importPhysDescEadData
+      Parameters: ["$domNode2"]
 
     abstract:
       XPath:   "did/abstract"
@@ -325,7 +326,7 @@ information_object:
 
     # this will overwrite any values entered for <abstract>
     scopeandcontent:
-      XPath:   "scopecontent/p"
+      XPath:   "scopecontent"
       Method:  setScopeAndContent
 
     arrangement:
@@ -410,13 +411,8 @@ information_object:
       XPath:   "(userestrict | descgrp/userestrict)"
       Method:  setReproductionConditions
 
-    seperatedmaterial:
-      XPath:   "(seperatedmaterial | descgrp/separatedmaterial)"
-      Method:  setRelatedUnitsOfDescription
-
-    # to fix: don't overwrite any values entered for seperated materials
-    relatedmaterial:
-      XPath:   "(relatedmaterial | descgrp/relatedmaterial)"
+    relatedunitsofdescription:
+      XPath:   "(relatedmaterial | descgrp/relatedmaterial | separatedmaterial | descgrp/separatedmaterial)"
       Method:  setRelatedUnitsOfDescription
 
     otherfindaid:
