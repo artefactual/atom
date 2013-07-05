@@ -3,9 +3,6 @@ all:
   http_metas:
     X-UA-Compatible: IE=edge
 
-  metas:
-    viewport: width=device-width, initial-scale=1.0, user-scalable=no
-
   stylesheets:
     # -*
     -/plugins/sfDrupalPlugin/vendor/drupal/modules/system/system:
