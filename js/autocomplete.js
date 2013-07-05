@@ -388,6 +388,12 @@
                       autoComplete.itemSelectEvent.subscribe(function ()
                         {
                           $(form).unbind('submit', submit);
+
+                          // Trigger event to load item data if it's needed
+                          $input.trigger({
+                            type: 'itemSelected',
+                            itemValue: $hidden.attr('value')
+                          });
                         });
                     }
 
