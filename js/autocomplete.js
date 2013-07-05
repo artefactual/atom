@@ -149,16 +149,6 @@
                   $input.keydown(function ()
                     {
                       event = arguments[0];
-
-                      // Tab key down
-                      if (9 == event.keyCode)
-                      {
-                        autoComplete._onTextboxKeyDown(event, autoComplete);
-
-                        // Call _onTextboxBlur() to trigger item select or
-                        // unmatched item select custom YUI events
-                        autoComplete._onTextboxBlur(event, autoComplete);
-                      }
                     })
 
                   var autoComplete = new YAHOO.widget.AutoComplete($input[0], $('<div/>').insertAfter(this)[0], dataSource);
