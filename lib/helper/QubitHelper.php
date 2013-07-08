@@ -268,9 +268,14 @@ function render_treeview_node($item, array $classes = array(), array $options = 
   return $node;
 }
 
+function is_using_cli()
+{
+  return php_sapi_name() === 'cli';
+}
+
 function check_field_visibility($fieldName)
 {
-  return sfContext::getInstance()->user->isAuthenticated() || sfConfig::get($fieldName, false);
+  return (is_using_cli() || sfContext::getInstance()->user->isAuthenticated()) || sfConfig::get($fieldName, false);
 }
 
 function escape_dc($text)
