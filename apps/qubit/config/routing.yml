@@ -47,6 +47,14 @@ edit/dc:
     action: edit
     informationobject_template: dc
 
+skos:
+  url: /:slug;skos
+  class: QubitResourceRoute
+  param:
+    module: sfSkosPlugin
+    action: index
+    sf_format: xml
+
 eac:
   url: /:slug;eac
   class: QubitResourceRoute
