@@ -39,9 +39,8 @@ function render_field($field, $resource, array $options = array())
   $culture = sfContext::getInstance()->user->getCulture();
 
   if (isset($resource)
-    && property_exists($resource, $options['name'])
-      && $culture != $resource->sourceCulture
-        && 0 < strlen($source = $resource->__get($options['name'], array('sourceCulture' => true))))
+    && $culture != $resource->sourceCulture
+      && 0 < strlen($source = $resource->__get($options['name'], array('sourceCulture' => true))))
   {
     // TODO Are there cases where the direction of this <div/>'s containing
     // block isn't the direction of the current culture?

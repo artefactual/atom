@@ -274,10 +274,9 @@
       ->label(__('Script of material'))
       ->renderRow(array('class' => 'form-autocomplete')) ?>
 
-    <?php echo $form->languageNotes
+    <?php echo render_field($form->languageNotes
       ->help(__('"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).'))
-      ->label(__('Language and script notes'))
-      ->renderRow() ?>
+      ->label(__('Language and script notes')), $rad, array('class' => 'resizable')) ?>
 
     <?php echo render_field($form->locationOfOriginals
       ->help(__('"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)')), $resource, array('class' => 'resizable')) ?>

@@ -127,7 +127,7 @@
 
     <?php echo render_field($form->languageNotes
       ->help(__('Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)'))
-      ->label(__('Language and script notes')), $resource, array('class' => 'resizable')) ?>
+      ->label(__('Language and script notes')), $isad, array('class' => 'resizable')) ?>
 
     <?php echo render_field($form->physicalCharacteristics
       ->help(__('Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.'))
