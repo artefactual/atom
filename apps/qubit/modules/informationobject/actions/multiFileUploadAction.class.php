@@ -37,6 +37,12 @@ class InformationObjectMultiFileUploadAction extends sfAction
       QubitAcl::forwardUnauthorized();
     }
 
+    // Check if uploads are allowed
+    if (!QubitDigitalObject::isUploadAllowed())
+    {
+      QubitAcl::forwardToSecureAction();
+    }
+
     // Add javascript libraries
     $this->response->addJavaScript('/vendor/yui/logger/logger', 'last');
     $this->response->addJavaScript('/vendor/yui/uploader/uploader-min', 'last');

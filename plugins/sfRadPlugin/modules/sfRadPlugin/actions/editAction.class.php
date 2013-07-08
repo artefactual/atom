@@ -113,6 +113,14 @@ class sfRadPluginEditAction extends InformationObjectEditAction
     $this->rightEditComponent = new RightEditComponent($this->context, 'right', 'edit');
     $this->rightEditComponent->resource = $this->resource;
     $this->rightEditComponent->execute($this->request);
+
+    $this->titleNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+    $this->titleNotesComponent->resource = $this->resource;
+    $this->titleNotesComponent->execute($this->request, $options = array('type' => 'radTitleNotes'));
+
+    $this->otherNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+    $this->otherNotesComponent->resource = $this->resource;
+    $this->otherNotesComponent->execute($this->request, $options = array('type' => 'radOtherNotes'));
   }
 
   protected function addField($name)
@@ -255,7 +263,9 @@ class sfRadPluginEditAction extends InformationObjectEditAction
 
     $this->rightEditComponent->processForm();
 
-    $this->updateNotes();
+    $this->titleNotesComponent->processForm();
+
+    $this->otherNotesComponent->processForm();
 
     return parent::processForm();
   }

@@ -146,7 +146,7 @@
 
   <?php echo render_show(__('Sources'), render_value($resource->getDescSources(array('cultureFallback' => true)))) ?>
 
-  <?php echo render_show(__('Maintenance notes'), render_value($isdiah->maintenanceNotes)) ?>
+  <?php echo render_show(__('Maintenance notes'), render_value($isdiah->_maintenanceNote)) ?>
 
 </div>
 

@@ -22,18 +22,7 @@ class QubitCsvTransform extends QubitFlatfileImport
   public
     $setupLogic,
     $transformLogic,
-    $rowsPerFile = 1000,
-    $levelsOfDescription = array(
-      'fonds',
-      'collection',
-      'sousfonds',
-      'sous-fonds',
-      'series',
-      'subseries',
-      'file',
-      'item',
-      'serial'
-    );
+    $rowsPerFile = 1000;
 
   public function __construct($options = array())
   {

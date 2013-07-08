@@ -25,7 +25,13 @@
                 }
               }
 
-              $('select.form-autocomplete', this).each(function ()
+              $('select.form-autocomplete', this).each(createYuiDiv);
+
+              // Use $(document).on('loadFunctions') to add function in new rows created with multiRow.js
+              $(document).on('loadFunctions','select.form-autocomplete', createYuiDiv);
+
+              // Use named function so it can be bound to events
+              function createYuiDiv()
                 {
                   // Share <select/> with nested scopes
                   var select = this;
@@ -548,7 +554,7 @@
 
                   // Finally remove <select/> element
                   $(this).remove();
-                });
+                }
 
                // Fix z-index autocomplete bug in IE6/7
                // See http://developer.yahoo.com/yui/examples/autocomplete/ac_combobox.html

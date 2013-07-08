@@ -23,6 +23,14 @@ class sfIsaarPlugin implements ArrayAccess
 
   public function __get($name)
   {
+    $args = func_get_args();
+
+    $options = array();
+    if (1 < count($args))
+    {
+      $options = $args[1];
+    }
+
     switch ($name)
     {
       case '_maintenanceNote':
@@ -50,7 +58,7 @@ class sfIsaarPlugin implements ArrayAccess
 
       case 'maintenanceNotes':
 
-        return $this->_maintenanceNote->content;
+        return $this->_maintenanceNote->__get('content', $options);
 
       case 'sourceCulture':
 

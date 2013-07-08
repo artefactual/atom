@@ -14,7 +14,7 @@
   </ul>
 </noscript>
 
-<div id="no-flash" style="display:none">
+<div id="no-flash" style="display: none;">
   <div class="messages warning">
     <?php echo __('Your browser does not have Flash player installed. To import digital objects, please <a href="http://get.adobe.com/flashplayer/">Download Adobe Flash Player</a> (requires version 9.0.45 or higher)') ?>
   </div>
@@ -24,50 +24,66 @@
   </ul>
 </div>
 
-<?php echo $form->renderGlobalErrors() ?>
+<?php if (QubitDIgitalObject::reachedAppUploadLimit()): ?>
 
-<?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'multiFileUpload')), array('id' => 'multiFileUploadForm', 'style' => 'display: none')) ?>
+  <div id="upload_limit_reached">
+    <div class="messages warning">
+      <?php echo __('The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your ICA-AtoM system administrator to increase the available disk space.',  array('%1%' => sfConfig::get('app_upload_limit'))) ?>
+    </div>
 
-  <?php echo $form->renderHiddenFields() ?>
+    <ul class="actions links">
+      <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject')) ?></li>
+    </ul>
+  </div>
 
-  <?php echo $form->title
-    ->help(__('The "<strong>%dd%</strong>" placeholder will be replaced with a incremental number (e.g. \'image <strong>01</strong>\', \'image <strong>02</strong>\')'))
-    ->label(__('Title'))
-    ->renderRow() ?>
+<?php else: ?>
 
-  <?php echo $form->levelOfDescription
-    ->label(__('Level of description'))
-    ->renderRow() ?>
+  <?php echo $form->renderGlobalErrors() ?>
 
-  <div class="multiFileUpload section">
+  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'multiFileUpload')), array('id' => 'multiFileUploadForm', 'style' => 'display: none')) ?>
 
-    <h3><?php echo __('Digital objects') ?></h3>
+    <?php echo $form->renderHiddenFields() ?>
 
-    <div id="uploads"></div>
+    <?php echo $form->title
+      ->help(__('The "<strong>%dd%</strong>" placeholder will be replaced with a incremental number (e.g. \'image <strong>01</strong>\', \'image <strong>02</strong>\')'))
+      ->label(__('Title'))
+      ->renderRow() ?>
 
-    <div id="uiElements" style="display: inline;">
-      <div id="uploaderContainer">
-        <div id="uploaderOverlay" style="position: absolute; z-index: 2;"></div>
-        <div id="selectFilesLink" style="z-index: 1"><a id="selectLink" href="#">Select files</a></div>
+    <?php echo $form->levelOfDescription
+      ->label(__('Level of description'))
+      ->renderRow() ?>
+
+    <div class="multiFileUpload section">
+
+      <h3><?php echo __('Digital objects') ?></h3>
+
+      <div id="uploads"></div>
+
+      <div id="uiElements" style="display: inline;">
+        <div id="uploaderContainer">
+          <div id="uploaderOverlay" style="position: absolute; z-index: 2;"></div>
+          <div id="selectFilesLink" style="z-index: 1"><a id="selectLink" href="#">Select files</a></div>
+        </div>
       </div>
+
     </div>
 
-  </div>
+    <div class="actions section">
 
-  <div class="actions section">
+      <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
 
-    <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+      <div class="content">
+        <ul class="clearfix links">
+          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject')) ?></li>
+          <li><input class="form-submit" type="submit" value="<?php echo __('Import') ?>"/></li>
+        </ul>
+      </div>
 
-    <div class="content">
-      <ul class="clearfix links">
-        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject')) ?></li>
-        <li><input class="form-submit" type="submit" value="<?php echo __('Import') ?>"/></li>
-      </ul>
     </div>
 
-  </div>
+  </form>
 
-</form>
+<?php endif; ?>
 
 <?php echo javascript_tag(<<<content
 // If JavaScript and Flash Player installed

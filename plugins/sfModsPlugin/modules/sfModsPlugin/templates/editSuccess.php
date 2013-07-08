@@ -52,7 +52,7 @@
 
     <table class="multiRow">
       <thead>
-        <tr>
+        <tr class="even">
           <th style="width: 20%">
             <?php echo __('Identifier') ?>
           </th><th style="width: 80%">
