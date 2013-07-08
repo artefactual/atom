@@ -27,15 +27,9 @@
     ->help(__('The name given to this resource.'))
     ->label(__('Title').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource) ?>
 
-  <div class="section">
+  <?php echo get_partial('dcNames', $dcNamesComponent->getVarHolder()->getAll()) ?>
 
-    <h3><?php echo __('Names and dates') ?></h3>
-
-    <?php echo get_partial('informationobject/relatedEvents', array('resource' => $resource)) ?>
-
-    <?php echo get_partial('informationobject/event', $eventComponent->getVarHolder()->getAll()) ?>
-
-  </div>
+  <?php echo get_partial('dcDates', $dcDatesComponent->getVarHolder()->getAll()) ?>
 
   <div class="form-item">
     <?php echo $form->subjectAccessPoints
@@ -65,7 +59,7 @@
 
     <table class="multiRow">
       <thead>
-        <tr>
+        <tr class="even">
           <th style="width: 20%">
             <?php echo __('Identifier') ?>
           </th><th style="width: 80%">

@@ -8,8 +8,9 @@
         <li>
           <div class="date">
             <span property="dc:date" start="<?php echo $item->startDate ?>" end="<?php echo $item->endDate ?>"><?php echo Qubit::renderDateStartEnd($item->getDate(array('cultureFallback' => true)), $item->startDate, $item->endDate) ?></span>
-            <span class="date-type">(<?php echo $item->type->__toString() ?>)</span>
-
+            <?php if (sfConfig::get('app_default_template_informationobject') !== 'dc'): ?>
+              <span class="date-type">(<?php echo $item->type->__toString() ?>)</span>
+            <?php endif; ?>
             <dl>
               <?php if (isset($item->actor) && null !== $item->type->getRole()): ?>
                 <dt><?php echo $item->type->getRole() ?></dt>
