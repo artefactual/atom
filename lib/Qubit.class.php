@@ -147,4 +147,43 @@ class Qubit
 
     return $path;
   }
+
+  /**
+   * Given a directory return its size
+   *
+   * @param string $directory path
+   * @param array $options
+   *
+   * @return int
+   */
+  public static function getDirectorySize($directory, $options = array())
+  {
+    // Derived from http://www.php.net/manual/en/function.filesize.php#94566
+    $size = 0;
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
+    foreach ($iterator as $item)
+    {
+      $size += $item->getSize();
+    }
+
+    // Set metric units for return value
+    if (isset($options['units']))
+    {
+      switch (strtolower($options['units']))
+      {
+        case 'g':
+          $size /= pow(10, 3);
+
+        case 'm':
+          $size /= pow(10, 3);
+
+        case 'k':
+          $size /= pow(10, 3);
+      }
+
+      $size = round($size, 2);
+    }
+
+    return $size;
+  }
 }

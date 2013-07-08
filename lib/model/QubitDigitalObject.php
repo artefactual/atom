@@ -2147,4 +2147,24 @@ class QubitDigitalObject extends BaseDigitalObject
       return (2 >= count($files)); // Always have "." and ".." dirs
     }
   }
+
+  /**
+   * Check if uploads are allowed
+   *
+   * @return boolean true if allowed
+   */
+  public static function isUploadAllowed()
+  {
+    return 0 !== sfConfig::get('app_upload_limit', 0);
+  }
+
+  /**
+   * Check the upload limit has been reached
+   *
+   * @return boolean true if reached
+   */
+  public static function reachedAppUploadLimit()
+  {
+    return sfConfig::get('app_upload_limit', 0) > 0 && Qubit::getDirectorySize(sfConfig::get('sf_upload_dir')) > sfConfig::get('app_upload_limit', 0) * pow(1024, 3);
+  }
 }

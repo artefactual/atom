@@ -22,16 +22,17 @@
 
         <li><?php echo link_to(__('Move'), array($resource, 'module' => 'default', 'action' => 'move')) ?></li>
 
-          <?php if (0 < count($resource->digitalObjects)): ?>
+          <?php if (0 < count($resource->digitalObjects) && QubitDigitalObject::isUploadAllowed()): ?>
 
             <li><?php echo link_to(__('Edit digital object'), array($resource->digitalObjects[0], 'module' => 'digitalobject', 'action' => 'edit')) ?></li>
-          <?php else: ?>
+
+          <?php elseif (QubitDigitalObject::isUploadAllowed()): ?>
 
             <li><?php echo link_to(__('Link digital object'), array($resource, 'module' => 'informationobject', 'action' => 'addDigitalObject')) ?></li>
 
           <?php endif; // has digital object ?>
 
-        <?php if (null === $resource->repository || 0 != $resource->repository->uploadLimit): ?>
+        <?php if ((null === $resource->repository || 0 != $resource->repository->uploadLimit) && QubitDigitalObject::isUploadAllowed()): ?>
 
           <li><?php echo link_to(__('Import digital objects'), array($resource, 'module' => 'informationobject', 'action' => 'multiFileUpload')) ?></li>
 

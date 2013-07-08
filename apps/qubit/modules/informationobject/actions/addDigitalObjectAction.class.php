@@ -74,6 +74,12 @@ class InformationObjectAddDigitalObjectAction extends sfAction
       QubitAcl::forwardUnauthorized();
     }
 
+    // Check if uploads are allowed
+    if (!QubitDigitalObject::isUploadAllowed())
+    {
+      QubitAcl::forwardToSecureAction();
+    }
+
     // Add form fields
     $this->addFields($request);
 

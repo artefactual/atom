@@ -37,6 +37,12 @@ class DigitalObjectUpdateAction extends sfAction
       QubitAcl::forwardUnauthorized();
     }
 
+    // Check if uploads are allowed
+    if (!QubitDigitalObject::isUploadAllowed())
+    {
+      QubitAcl::forwardToSecureAction();
+    }
+
     // Set the digital object's attributes
     $this->resource->usageId = $request->usage_id;
     $this->resource->mediaTypeId = $request->media_type_id;

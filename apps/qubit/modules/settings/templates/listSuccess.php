@@ -14,6 +14,12 @@
   <tbody>
     <?php echo $globalForm ?>
     <tr>
+      <td><label><?php echo __('Available disk space for upload digital objects')?></label></td>
+      <td><label><?php echo __('%1% used of %2%.', array(
+                                '%1%' => hr_filesize(Qubit::getDirectorySize(sfConfig::get('sf_upload_dir'))),
+                                '%2%' => sfConfig::get('app_upload_limit') < 0 ? 'unlimited' : sfConfig::get('app_upload_limit') . ' GB'))?></label></td>
+    </tr>
+    <tr>
       <td>&nbsp;</td>
       <td>
         <div style="float: right; margin: 3px 8px 0 0;">
