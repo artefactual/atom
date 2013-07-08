@@ -154,49 +154,7 @@
       ->help(__('Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)'))
       ->label(__('Related units of description')), $resource, array('class' => 'resizable')) ?>
 
-    <div class="form-item">
-
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 90%">
-              <?php echo __('Publication notes') ?>
-            </th><th style="width: 10%; text-align: right">
-              <?php echo image_tag('delete', array('align' => 'top', 'class' => 'deleteIcon')) ?>
-            </th>
-          </tr>
-        </thead><tbody>
-
-          <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)) as $item): ?>
-            <tr class="<?php echo 'related_obj_'.$item->id ?>">
-              <td>
-                <div class="animateNicely">
-                  <?php echo $item->getContent(array('cultureFallback' => 'true')) ?>
-                </div>
-              </td><td style="text-align: right">
-                <div class="animateNicely">
-                  <input type="checkbox" name="delete_notes[<?php echo $item->id ?>]" value="delete" class="multiDelete"/>
-                </div>
-              </td>
-            </tr>
-          <?php endforeach; ?>
-
-          <tr>
-            <td>
-              <textarea name="new_publication_note" class="multiInstanceTr resizable" size="30x2"></textarea>
-            </td><td style="text-align: right">
-              &nbsp;
-            </td>
-          </tr>
-
-        </tbody>
-      </table>
-
-      <div class="description">
-        <?php echo __('Record a citation to, and/or information about a publication that is about or based on the use, study, or analysis of the unit of description. Include references to published facsimiles or transcriptions. (ISAD 3.5.4)') ?>
-      </div>
-
-    </div>
+    <?php echo get_partial('informationobject/notes', $publicationNotesComponent->getVarHolder()->getAll()) ?>
 
   </fieldset> <!-- /#alliedMaterialsArea -->
 
@@ -204,49 +162,7 @@
 
     <legend><?php echo __('Notes area') ?></legend>
 
-    <div class="form-item">
-
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 90%">
-              <?php echo __('Notes') ?>
-            </th><th style="width: 10%; text-align: right">
-              <?php echo image_tag('delete', array('align' => 'top', 'class' => 'deleteIcon')) ?>
-            </th>
-          </tr>
-        </thead><tbody>
-
-          <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID)) as $item): ?>
-            <tr class="<?php echo 'related_obj_'.$item->id ?>">
-              <td>
-                <div class="animateNicely">
-                  <?php echo $item->getContent(array('cultureFallback' => 'true')) ?>
-                </div>
-              </td><td style="text-align: right">
-                <div class="animateNicely">
-                  <input type="checkbox" name="delete_notes[<?php echo $item->id ?>]" value="delete" class="multiDelete"/>
-                </div>
-              </td>
-            </tr>
-          <?php endforeach; ?>
-
-          <tr>
-            <td>
-              <textarea name="new_note" class="multiInstanceTr resizable" size="30x2"></textarea>
-            </td><td style="text-align: right">
-              &nbsp;
-            </td>
-          </tr>
-
-        </tbody>
-      </table>
-
-      <div class="description">
-        <?php echo __('Record specialized or other important information not accommodated by any of the defined elements of description. (ISAD 3.6.1)') ?>
-      </div>
-
-    </div>
+    <?php echo get_partial('informationobject/notes', $notesComponent->getVarHolder()->getAll()) ?>
 
   </fieldset> <!-- /#notesArea -->
 
@@ -330,49 +246,7 @@
 
     <?php echo render_field($form->sources, $resource, array('class' => 'resizable')) ?>
 
-    <div class="form-item">
-
-      <table>
-        <thead>
-          <tr>
-            <th>
-              <?php echo __('Archivist\'s notes') ?>
-            </th><th style="text-align: right">
-              <?php echo image_tag('delete', array('align' => 'top', 'class' => 'deleteIcon')) ?>
-            </th>
-          </tr>
-        </thead><tbody>
-
-          <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)) as $item): ?>
-            <tr class="<?php echo 'related_obj_'.$item->id ?>">
-              <td>
-                <div class="animateNicely">
-                  <?php echo $item->getContent(array('cultureFallback' => 'true')) ?>
-                </div>
-              </td><td style="text-align: right">
-                <div class="animateNicely">
-                  <input type="checkbox" name="delete_notes[<?php echo $item->id ?>]" value="delete" class="multiDelete"/>
-                </div>
-              </td>
-            </tr>
-          <?php endforeach; ?>
-
-          <tr>
-            <td>
-              <textarea name="new_archivist_note" class="multiInstanceTr resizable" size="30x2"></textarea>
-            </td><td style="text-align: right">
-              &nbsp;
-            </td>
-          </tr>
-
-        </tbody>
-      </table>
-
-      <div class="description">
-        <?php echo __('Record notes on sources consulted in preparing the description and who prepared it. (ISAD 3.7.1)') ?>
-      </div>
-
-    </div>
+    <?php echo get_partial('informationobject/notes', $archivistsNotesComponent->getVarHolder()->getAll()) ?>
 
   </fieldset> <!-- /#descriptionControlArea -->
 
