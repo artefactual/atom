@@ -1,16 +1,24 @@
-<h1><?php echo __('View term') ?></h1>
+<?php decorate_with('layout_2col') ?>
 
-<?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h1 class="label">'.render_title($resource).'</h1>', array($resource, 'module' => 'term', 'action' => 'edit'), array('title' => __('Edit term'))) ?>
+<?php slot('sidebar') ?>
 
-<?php if (isset($errorSchema)): ?>
-  <div class="messages error">
-    <ul>
-      <?php foreach ($errorSchema as $error): ?>
-        <li><?php echo $error ?></li>
-      <?php endforeach; ?>
-    </ul>
-  </div>
-<?php endif; ?>
+<?php end_slot() ?>
+
+<?php slot('title') ?>
+
+  <h1><?php echo render_title($resource) ?></h1>
+
+  <?php if (isset($errorSchema)): ?>
+    <div class="messages error">
+      <ul>
+        <?php foreach ($errorSchema as $error): ?>
+          <li><?php echo $error ?></li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+  <?php endif; ?>
+
+<?php end_slot() ?>
 
 <?php echo render_show(__('Taxonomy'), link_to(render_title($resource->taxonomy), array($resource->taxonomy, 'module' => 'taxonomy'))) ?>
 
@@ -117,26 +125,26 @@
   </div>
 </div>
 
-<div class="actions section">
+<?php slot('after-content') ?>
 
-  <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+  <section class="actions">
 
-  <div class="content">
-    <ul class="clearfix links">
+    <ul>
 
       <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')): ?>
-        <li><?php echo link_to (__('Edit'), array($resource, 'module' => 'term', 'action' => 'edit')) ?></li>
+        <li><?php echo link_to (__('Edit'), array($resource, 'module' => 'term', 'action' => 'edit'), array('class' => 'c-btn c-btn-submit')) ?></li>
       <?php endif; ?>
 
       <?php if (QubitAcl::check($resource, 'delete') && !$resource->isProtected()): ?>
-        <li><?php echo link_to (__('Delete'), array($resource, 'module' => 'term', 'action' => 'delete'), array('class' => 'delete')) ?></li>
+        <li><?php echo link_to (__('Delete'), array($resource, 'module' => 'term', 'action' => 'delete'), array('class' => 'c-btn c-btn-delete')) ?></li>
       <?php endif; ?>
 
       <?php if (QubitAcl::check($resource->taxonomy, 'createTerm')): ?>
-        <li><?php echo link_to(__('Add new'), array('module' => 'term', 'action' => 'add', 'parent' => url_for(array($resource, 'module' => 'term')), 'taxonomy' => url_for(array($resource->taxonomy, 'module' => 'taxonomy')))) ?></li>
+        <li><?php echo link_to(__('Add new'), array('module' => 'term', 'action' => 'add', 'parent' => url_for(array($resource, 'module' => 'term')), 'taxonomy' => url_for(array($resource->taxonomy, 'module' => 'taxonomy'))), array('class' => 'c-btn')) ?></li>
       <?php endif; ?>
 
     </ul>
-  </div>
 
-</div>
+  </section>
+
+<?php end_slot() ?>

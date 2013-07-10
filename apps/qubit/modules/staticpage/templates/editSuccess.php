@@ -22,22 +22,18 @@
 
   <?php echo render_field($form->content, $resource, array('class' => 'resizable')) ?>
 
-  <div class="actions section">
+  <section class="actions">
 
-    <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+    <ul>
+      <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
+        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'staticpage')) ?></li>
+        <li><input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
+      <?php else: ?>
+        <li><?php echo link_to(__('Cancel'), array('module' => 'staticpage', 'action' => 'list')) ?></li>
+        <li><input class="form-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
+      <?php endif; ?>
+    </ul>
 
-    <div class="content">
-      <ul class="clearfix links">
-        <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
-          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'staticpage')) ?></li>
-          <li><input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
-        <?php else: ?>
-          <li><?php echo link_to(__('Cancel'), array('module' => 'staticpage', 'action' => 'list')) ?></li>
-          <li><input class="form-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
-        <?php endif; ?>
-      </ul>
-    </div>
-
-  </div>
+  </section>
 
 </form>
