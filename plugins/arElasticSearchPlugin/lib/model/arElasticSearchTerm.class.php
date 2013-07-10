@@ -56,13 +56,13 @@ class arElasticSearchTerm extends arElasticSearchModelBase
     $serialized['id'] = $object->id;
     $serialized['slug'] = $object->slug;
 
-    $serialized['taxonomyId'] = $object->taxonomy_id;
+    $serialized['taxonomyId'] = $object->taxonomyId;
 
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($object->createdAt);
     $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($object->updatedAt);
 
-    $serialized['sourceCulture'] = $object->source_culture;
-    $serialized['i18n'] = self::serializeI18ns($object->id, array('QubitTerm'));
+    $serialized['sourceCulture'] = $object->sourceCulture;
+    $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($object->id, array('QubitActor'));
 
     return $serialized;
   }
