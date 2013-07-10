@@ -22,6 +22,7 @@ class sfPluginAdminPluginPluginsAction extends sfAction
   public function execute($request)
   {
     $this->form = new sfForm;
+    $this->defaultTemplate = sfConfig::get('app_default_template_informationobject');
 
     if (!$this->context->user->isAdministrator())
     {
@@ -87,9 +88,15 @@ class sfPluginAdminPluginPluginsAction extends sfAction
           {
             $settings[] = $item;
           }
-          else
+          else if (false !== $key = array_search($item, $settings))
           {
-            if (false !== $key = array_search($item, $settings))
+            // Don't disable default plugins
+            if (!($item == 'sfIsdiahPlugin'
+                || $item == 'sfIsaarPlugin'
+                || ($item == 'sfIsadPlugin' && $this->defaultTemplate =='isad')
+                || ($item == 'sfRadPlugin' && $this->defaultTemplate == 'rad')
+                || ($item == 'sfDcPlugin' && $this->defaultTemplate == 'dc')
+                || ($item == 'sfModsPlugin' && $this->defaultTemplate == 'mods')))
             {
               unset($settings[$key]);
             }

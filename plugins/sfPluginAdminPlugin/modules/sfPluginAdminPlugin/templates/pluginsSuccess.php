@@ -29,7 +29,20 @@
           </td><td>
             <?php echo $plugin::$version ?>
           </td><td align="center">
-            <input<?php if ($form->isBound() && in_array($name, $form->getValue('enabled')) || !$form->isBound() && in_array($name, $form->getDefault('enabled'))): ?> checked="checked"<?php endif; ?> name="enabled[]" type="checkbox" value="<?php echo $name ?>"
+            <input
+              <?php if ($form->isBound() && in_array($name, $form->getValue('enabled'))
+                          || !$form->isBound() && in_array($name, $form->getDefault('enabled'))): ?>
+                checked="checked"
+              <?php endif; ?>
+              <?php if ($name == 'sfIsdiahPlugin'
+                        || $name == 'sfIsaarPlugin'
+                        || ($name == 'sfIsadPlugin' && $defaultTemplate =='isad')
+                        || ($name == 'sfRadPlugin' && $defaultTemplate == 'rad')
+                        || ($name == 'sfDcPlugin' && $defaultTemplate == 'dc')
+                        || ($name == 'sfModsPlugin' && $defaultTemplate == 'mods')): ?>
+                disabled="disabled"
+              <?php endif; ?>
+              name="enabled[]" type="checkbox" value="<?php echo $name ?>"
           </td>
         </tr>
       <?php endforeach; ?>

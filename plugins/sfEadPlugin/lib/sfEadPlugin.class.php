@@ -74,11 +74,9 @@ class sfEadPlugin
         'languageOfDescription' => 'languageOfDescription',
         'script'                => 'script',
         'scriptOfDescription'   => 'scriptOfDescription',
-        'descrules'             => '',
         'scopecontent'          => '1.7D',
         'arrangement'           => '1.8B13',
-        'phystech'              => '1.8B14',
-        'appraisal'             => '',
+        'phystech'              => '1.8B9a',
         'acqinfo'               => '1.8B12',
         'accruals'              => '1.8B19',
         'custodhist'            => '1.7C',
@@ -88,7 +86,6 @@ class sfEadPlugin
         'accessrestrict'        => '1.8B16a',
         'userestrict'           => '1.8B16c',
         'otherfindaid'          => '1.8B17',
-        'bibliography'          => '',
         'unittitle'             => '1.1B',
         'unitid'                => '1.8B11',
         'unitdate'              => '1.4B2',
@@ -96,11 +93,45 @@ class sfEadPlugin
         'langmaterial'          => '1.8B9a',
         'note'                  => '1.8B21',
         'bioghist'              => '1.7B',
-        'origination'           => '1.7C'));
+        'origination'           => '1.7C',
+        'genreform'         => '1.1C',
+        'parallel'                  => '1.1D',
+        'otherinfo'              => '1.1E',
+        'statrep'               => '1.1F',
+        'titlevariation'              => '1.8B1',
+        'titleattributions'           => '1.8B6',
+        'titlecontinuation'         => '1.8B4',
+        'titlestatrep'                  => '1.8B5',
+        'titleparallel'              => '1.8B3',
+        'titlesource'           => '1.8B2',
+        'editionstatement'        => '1.2B1',
+        'statementofresp'        => '1.2C',
+        'cartographic'                  => '5.3B1',
+        'projection'              => '5.3C1',
+        'coordinates'           => '5.3D',
+        'architectural'        => '6.3B',
+        'philatelic'        => '12.3B1',
+        'titleProperOfPublishersSeries' => '1.6B1',
+        'parallelTitleOfPublishersSeries' => '1.6C1',
+        'otherTitleInformationOfPublishersSeries' => '1.6D1',
+        'statementOfResponsibilityRelatingToPublishersSeries' => '1.6E1',
+        'numberingWithinPublishersSeries' => '1.6F',
+        'standardNumber' => '1.9B1',
+        'bibseries'           => '1.8B10',
+        'edition'        => '1.8B7',
+        'physdesc'        => '1.8B9',
+        'conservation'      => '1.8B9b',
+        'material'              => '1.5E',
+        'alphanumericdesignation' => '1.8B11',
+        'rights'        => '1.8B16b',
+        'general'        => '1.8B21',
+        'actorEventsName'   => '1.4D'));
 
   public function __construct(QubitInformationObject $resource)
   {
     $this->resource = $resource;
+
+    $this->version = 'Access to Memory (AtoM) '.qubitConfiguration::VERSION.' (2013-07-05 14:00:00)';
   }
 
   public function __get($name)
@@ -146,7 +177,7 @@ class sfEadPlugin
       }
     }
 
-    $url = url_for(array($this->resource, 'module' => 'informationobject', 'sf_format' => 'xml'), $absolute = true);
+    $url = url_for(array($this->resource, 'module' => 'informationobject'), $absolute = true);
 
     if (null === $identifier = $this->resource->descriptionIdentifier)
     {
@@ -228,7 +259,7 @@ class sfEadPlugin
       return self::$ENCODING_MAP[$metadataStandard][$param];
     }
 
-    return self::$ENCODING_MAP['isad'][$param];
+    return isset(self::$ENCODING_MAP['isad'][$param]) ? self::$ENCODING_MAP['isad'][$param] : '';
   }
 
   public function getEadContainerAttributes($physcalObject)
@@ -261,4 +292,33 @@ class sfEadPlugin
 
     return $result;
   }
+
+  public function renderEadPhysDesc($extentAndMedium)
+  {
+    $physDescContent = '';
+
+    // Check if extentAndMedium contains a HTML definition list
+    if (strpos($extentAndMedium, '<dl>') === false)
+    {
+      $physDescContent .= '<extent encodinganalog="' . $this->getMetadataParameter('extent') . '">' . escape_dc(esc_specialchars($extentAndMedium)) . '</extent>';
+    }
+    else
+    {
+      while (($pos = strpos($extentAndMedium, '<dt>')) !== false)
+      {
+        $extentAndMedium = substr($extentAndMedium, $pos + 4);
+        $term = trim(substr($extentAndMedium, 0, strpos($extentAndMedium, '</dt>')));
+        if ($term == 'extent' || $term == 'dimensions')
+        {
+          $pos = strpos($extentAndMedium, '<dd>') + 4;
+          $value = trim(substr($extentAndMedium, $pos, strpos($extentAndMedium, '</dd>') - $pos));
+
+          $physDescContent .=  '<' . $term . ' encodinganalog="' . $this->getMetadataParameter('extent') . '">' . escape_dc(esc_specialchars($value)) . '</' . $term . '>';
+        }
+      }
+    }
+
+    return $physDescContent;
+  }
+
 }

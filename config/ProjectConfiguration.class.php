@@ -69,5 +69,11 @@ class ProjectConfiguration extends sfProjectConfiguration
       'Elastica' => __DIR__.'/../plugins/arElasticSearchPlugin/lib/vendor/Elastica/lib'));
 
     $loader->register();
+
+  }
+
+  public function isPluginEnabled($pluginName)
+  {
+    return false !== array_search($pluginName, $this->plugins);
   }
 }

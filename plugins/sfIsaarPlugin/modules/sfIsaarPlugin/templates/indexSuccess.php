@@ -29,20 +29,24 @@
 
 <?php slot('context-menu') ?>
 
-  <section id="action-icons">
-    <ul>
+  <?php if ($sf_context->getConfiguration()->isPluginEnabled('sfEacPlugin')): ?>
 
-      <li class="separator"><h4><?php echo __('Export') ?></h4></li>
+    <section id="action-icons">
+      <ul>
 
-      <li>
-        <a href="<?php echo url_for(array($resource, 'module' => 'sfEacPlugin', 'sf_format' => 'xml')) ?>">
-          <i class="icon-upload-alt"></i>
-          <?php echo __('EAC') ?>
-        </a>
-      </li>
+        <li class="separator"><h4><?php echo __('Export') ?></h4></li>
 
-    </ul>
-  </section>
+        <li>
+          <a href="<?php echo url_for(array($resource, 'module' => 'sfEacPlugin', 'sf_format' => 'xml')) ?>">
+            <i class="icon-upload-alt"></i>
+            <?php echo __('EAC') ?>
+          </a>
+        </li>
+
+      </ul>
+    </section>
+
+  <?php endif; ?>
 
 <?php end_slot() ?>
 
@@ -183,7 +187,7 @@
 
   <?php echo render_show(__('Sources'), render_value($resource->getSources(array('cultureFallback' => true)))) ?>
 
-  <?php echo render_show(__('Maintenance notes'), render_value($isaar->maintenanceNotes)) ?>
+  <?php echo render_show(__('Maintenance notes'), render_value($isaar->_maintenanceNote)) ?>
 
 </section> <!-- /section#controlArea -->
 

@@ -25,20 +25,26 @@
     <?php endif; ?>
 
     <li class="separator"><h4><?php echo __('Export') ?></h4></li>
-    <li>
-      <a href="<?php echo url_for(array($resource, 'module' => 'sfDcPlugin', 'sf_format' => 'xml')) ?>">
-        <i class="icon-upload-alt"></i>
-        <?php echo __('Dublin Core 1.1 XML') ?>
-      </a>
-    </li>
-    <li>
-      <a href="<?php echo url_for(array($resource, 'module' => 'sfEadPlugin', 'sf_format' => 'xml')) ?>">
-        <i class="icon-upload-alt"></i>
-        <?php echo __('EAD 2002 XML') ?>
-      </a>
-    </li>
 
-    <?php if ('sfModsPlugin' == $sf_context->getModuleName()): ?>
+    <?php if ($sf_context->getConfiguration()->isPluginEnabled('sfDcPlugin')): ?>
+      <li>
+        <a href="<?php echo url_for(array($resource, 'module' => 'sfDcPlugin', 'sf_format' => 'xml')) ?>">
+          <i class="icon-upload-alt"></i>
+          <?php echo __('Dublin Core 1.1 XML') ?>
+        </a>
+      </li>
+    <?php endif; ?>
+
+    <?php if ($sf_context->getConfiguration()->isPluginEnabled('sfEadPlugin')): ?>
+      <li>
+        <a href="<?php echo url_for(array($resource, 'module' => 'sfEadPlugin', 'sf_format' => 'xml')) ?>">
+          <i class="icon-upload-alt"></i>
+          <?php echo __('EAD 2002 XML') ?>
+        </a>
+      </li>
+    <?php endif; ?>
+
+    <?php if ('sfModsPlugin' == $sf_context->getModuleName() && $sf_context->getConfiguration()->isPluginEnabled('sfModsPlugin')): ?>
       <li>
         <a href="<?php echo url_for(array($resource, 'module' => 'sfModsPlugin', 'sf_format' => 'xml')) ?>">
           <i class="icon-upload-alt"></i>

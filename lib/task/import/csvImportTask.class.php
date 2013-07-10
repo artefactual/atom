@@ -99,11 +99,19 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-    // set default publishing status
-    $defaultStatusId = sfConfig::get(
-      'app_defaultPubStatus',
-      QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID
-    );
+    // set default publication status
+    $results = $conn->query('SELECT i18n.value
+      FROM setting INNER JOIN setting_i18n i18n ON setting.id = i18n.id
+      WHERE setting.name=\'defaultPubStatus\'');
+
+    if ($results)
+    {
+      $defaultStatusId = $results->fetchColumn();
+    }
+    else
+    {
+      $defaultStatusId = QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID;
+    }
 
     // TODO: this may be unnecessary as it may now be part of Qubit trunk
     // create note term if it doesn't yet exist
@@ -383,7 +391,8 @@ EOF;
         }
 
         // set level of detail
-        if (isset($self->rowStatusVars['levelOfDetail']))
+        if (isset($self->rowStatusVars['levelOfDetail'])
+          && 0 < strlen($self->rowStatusVars['levelOfDetail']))
         {
           $levelOfDetailTermId = array_search(
             (trim($self->rowStatusVars['levelOfDetail'])) ? $self->rowStatusVars['levelOfDetail'] : 'Full',
@@ -403,7 +412,8 @@ EOF;
 
         foreach($languageProperties as $serializeProperty)
         {
-          if (isset($self->rowStatusVars[$serializeProperty]) && 0 < strlen($self->rowStatusVars[$serializeProperty]))
+          if (isset($self->rowStatusVars[$serializeProperty])
+            && 0 < strlen($self->rowStatusVars[$serializeProperty]))
           {
             $data = explode('|', $self->rowStatusVars[$serializeProperty]);
 
@@ -415,7 +425,8 @@ EOF;
         }
 
         // set description status
-        if (isset($self->rowStatusVars['descriptionStatus']))
+        if (isset($self->rowStatusVars['descriptionStatus'])
+          && 0 < strlen($self->rowStatusVars['descriptionStatus']))
         {
           $statusTermId = array_search(
             (trim($self->rowStatusVars['descriptionStatus'])) ? $self->rowStatusVars['descriptionStatus'] : 'Final',
@@ -426,7 +437,8 @@ EOF;
         }
 
         // set publication status
-        if (isset($self->rowStatusVars['publicationStatus']))
+        if (isset($self->rowStatusVars['publicationStatus'])
+          && 0 < strlen($self->rowStatusVars['publicationStatus']))
         {
           $pubStatusTermId = array_search(
             ucwords($self->rowStatusVars['publicationStatus']),
@@ -965,10 +977,7 @@ EOF;
               array_push($createEvents, $eventData);
             }
           }
-          else if(
-            isset($self->rowStatusVars['creatorDates'])
-            || isset($self->rowStatusVars['creatorDates'])
-          ) {
+          else if(isset($self->rowStatusVars['creatorDates'])) {
             foreach($self->rowStatusVars['creatorDates'] as $index => $date)
             {
               $eventData = array();

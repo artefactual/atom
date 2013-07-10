@@ -5,9 +5,9 @@
       <?php foreach ($ancestor->getCreators() as $item): ?>
         <li>
           <?php if (0 < count($resource->getCreators())): ?>
-            <?php echo link_to(render_title($item), array($item, 'module' => 'actor')) ?>
+            <?php echo link_to(render_title($item), array($item)) ?>
           <?php else: ?>
-            <?php echo link_to(render_title($item), array($item, 'module' => 'actor'), array('title' => __('Inherited from %1%', array('%1%' => $ancestor)))) ?>
+            <?php echo link_to(render_title($item), array($item), array('title' => __('Inherited from %1%', array('%1%' => $ancestor)))) ?>
           <?php endif; ?>
         </li>
       <?php endforeach; ?>

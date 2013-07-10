@@ -64,11 +64,13 @@ class sfDcPluginEditAction extends InformationObjectEditAction
 
     $this->response->setTitle("$title - {$this->response->getTitle()}");
 
-    $this->eventComponent = new InformationObjectEventComponent($this->context, 'informationobject', 'event');
-    $this->eventComponent->resource = $this->resource;
-    $this->eventComponent->execute($this->request);
+    $this->dcDatesComponent = new sfDcPluginDcDatesComponent($this->context, 'sfDcPlugin', 'dcDates');
+    $this->dcDatesComponent->resource = $this->resource;
+    $this->dcDatesComponent->execute($this->request);
 
-    $this->eventComponent->form->getWidgetSchema()->type->setHelp($this->context->i18n->__('Select the type of activity (creation, publication or contribution) that established the relation between the authority record and the archival description.'));
+    $this->dcNamesComponent = new sfDcPluginDcNamesComponent($this->context, 'sfDcPlugin', 'dcNames');
+    $this->dcNamesComponent->resource = $this->resource;
+    $this->dcNamesComponent->execute($this->request);
 
     $this->rightEditComponent = new RightEditComponent($this->context, 'right', 'edit');
     $this->rightEditComponent->resource = $this->resource;
@@ -155,9 +157,11 @@ class sfDcPluginEditAction extends InformationObjectEditAction
   {
     $this->resource->sourceStandard = 'Dublin Core Simple version 1.1';
 
-    $this->eventComponent->processForm();
-
     $this->rightEditComponent->processForm();
+
+    $this->dcDatesComponent->processForm();
+
+    $this->dcNamesComponent->processForm();
 
     return parent::processForm();
   }

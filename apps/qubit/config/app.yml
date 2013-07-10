@@ -2,4 +2,11 @@
 # http://www.symfony-project.org/reference/1_4/en/11-App
 
 all:
+
+  # Upload limit (in gigabytes), possible values:
+  #  Zero              => Uploads forbidden
+  #  Negative integer  => Unlimited uploads
+  #  Positive integer  => Number of gigabytes
+  upload_limit: -1
+
   qubit_cache_class: sfAPCCache

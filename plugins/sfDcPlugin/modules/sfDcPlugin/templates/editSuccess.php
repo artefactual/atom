@@ -50,9 +50,9 @@
 
           <h3><?php echo __('Names and dates') ?></h3>
 
-          <?php echo get_partial('informationobject/relatedEvents', array('resource' => $resource)) ?>
+          <?php echo get_partial('dcNames', $dcNamesComponent->getVarHolder()->getAll()) ?>
 
-          <?php echo get_partial('informationobject/event', $eventComponent->getVarHolder()->getAll()) ?>
+          <?php echo get_partial('dcDates', $dcDatesComponent->getVarHolder()->getAll()) ?>
 
         </section>
 

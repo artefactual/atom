@@ -25,7 +25,13 @@
                 }
               }
 
-              $('select.form-autocomplete', this).each(function ()
+              $('select.form-autocomplete', this).each(createYuiDiv);
+
+              // Use $(document).on('loadFunctions') to add function in new rows created with multiRow.js
+              $(document).on('loadFunctions','select.form-autocomplete', createYuiDiv);
+
+              // Use named function so it can be bound to events
+              function createYuiDiv()
                 {
                   // Share <select/> with nested scopes
                   var select = this;
@@ -149,16 +155,6 @@
                   $input.keydown(function ()
                     {
                       event = arguments[0];
-
-                      // Tab key down
-                      if (9 == event.keyCode)
-                      {
-                        autoComplete._onTextboxKeyDown(event, autoComplete);
-
-                        // Call _onTextboxBlur() to trigger item select or
-                        // unmatched item select custom YUI events
-                        autoComplete._onTextboxBlur(event, autoComplete);
-                      }
                     })
 
                   var autoComplete = new YAHOO.widget.AutoComplete($input[0], $('<div/>').insertAfter(this)[0], dataSource);
@@ -388,6 +384,12 @@
                       autoComplete.itemSelectEvent.subscribe(function ()
                         {
                           $(form).unbind('submit', submit);
+
+                          // Trigger event to load item data if it's needed
+                          $input.trigger({
+                            type: 'itemSelected',
+                            itemValue: $hidden.attr('value')
+                          });
                         });
                     }
 
@@ -552,7 +554,7 @@
 
                   // Finally remove <select/> element
                   $(this).remove();
-                });
+                }
 
                // Fix z-index autocomplete bug in IE6/7
                // See http://developer.yahoo.com/yui/examples/autocomplete/ac_combobox.html

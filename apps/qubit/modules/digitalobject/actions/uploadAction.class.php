@@ -41,6 +41,12 @@ class DigitalObjectUploadAction extends sfAction
       throw new sfException;
     }
 
+    // Check if uploads are allowed
+    if (!QubitDigitalObject::isUploadAllowed())
+    {
+      QubitAcl::forwardToSecureAction();
+    }
+
     $repo = $this->informationObject->getRepository(array('inherit' => true));
 
     if (isset($repo))

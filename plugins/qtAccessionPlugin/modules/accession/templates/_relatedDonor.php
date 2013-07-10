@@ -69,6 +69,16 @@ Drupal.behaviors.relatedAuthorityRecord = {
           })
         .find('td:last')
         .prepend('$editHtml');
+
+      // Load primary contact data when a new item is selected
+      jQuery('#relatedDonor .yui-ac-input').on('itemSelected', function (e)
+        {
+          dialog.loadData(e.itemValue + '/primaryContact', function ()
+            {
+              dialog.yuiDialog.show();
+            });
+        });
+
     } }
 
 content

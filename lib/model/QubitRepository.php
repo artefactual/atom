@@ -251,7 +251,6 @@ class QubitRepository extends BaseRepository
    */
   public function getDiskUsage($options = array())
   {
-    $du = 0;
     $repoDir = sfConfig::get('app_upload_dir').'/r/'.$this->slug;
 
     if (!file_exists($repoDir))
@@ -259,30 +258,7 @@ class QubitRepository extends BaseRepository
       return 0;
     }
 
-    // Derived from http://www.php.net/manual/en/function.filesize.php#94566
-    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($repoDir));
-    foreach ($iterator as $item)
-    {
-      $du += $item->getSize();
-    }
-
-    // Set metric units for return value
-    if (isset($options['units']))
-    {
-      switch (strtolower($options['units']))
-      {
-        case 'g':
-          $du /= pow(10, 3);
-        case 'm':
-          $du /= pow(10, 3);
-        case 'k':
-          $du /= pow(10, 3);
-      }
-
-      $du = round($du, 2);
-    }
-
-    return $du;
+    return Qubit::getDirectorySize($repoDir, $options);
   }
 
 

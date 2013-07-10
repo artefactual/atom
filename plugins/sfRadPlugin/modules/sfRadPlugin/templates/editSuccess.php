@@ -58,55 +58,7 @@
           ->help(__('"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)'))
           ->label(__('Statement of responsibility')), $rad) ?>
 
-        <section>
-
-          <table>
-
-            <thead>
-              <tr>
-                <th style="width: 65%">
-                  <?php echo __('Title notes') ?>
-                </th><th style="width: 30%">
-                  <?php echo __('Note type') ?>
-                </th><th style="width: 5%">
-                </th>
-              </tr>
-            </thead><tbody>
-
-              <?php foreach ($resource->getNotesByTaxonomy(array('taxonomyId' => QubitTaxonomy::RAD_TITLE_NOTE_ID)) as $item): ?>
-                <tr class="related_obj_<?php echo $item->id ?>">
-                  <td>
-                    <?php echo $item->getContent(array('cultureFallback' => 'true')) ?><span class="note"><?php echo $item->user ?>, <?php echo format_date($item->object->updatedAt, 'f') ?></span>
-                  </td><td>
-                    <?php echo $item->type ?>
-                  </td><td style="text-align: center">
-                    <input type="checkbox" name="delete_notes[<?php echo $item->id ?>]" value="delete" class="multiDelete"/>
-                  </td>
-                </tr>
-              <?php endforeach; ?>
-
-              <tr valign="top">
-                <td>
-                  <input type="text" name="rad_title_note"/>
-                </td><td>
-                  <select name="rad_title_note_type" id="rad_title_note_type">
-                    <?php foreach (QubitTerm::getOptionsForSelectList(QubitTaxonomy::RAD_TITLE_NOTE_ID) as $value => $label): ?>
-                      <option value="<?php echo esc_entities($value) ?>"><?php echo esc_entities($label) ?></option>
-                    <?php endforeach; ?>
-                  </select>
-                </td><td>
-                  &nbsp;
-                </td>
-              </tr>
-
-            </tbody>
-          </table>
-
-          <div class="description">
-            <?php echo __('Select a note type from the drop-down menu and enter note text in accordance with RAD 1.8B1 through 1.8B6.') ?>
-          </div>
-
-        </section>
+        <?php echo get_partial('informationobject/notes', $titleNotesComponent->getVarHolder()->getAll()) ?>
 
         <?php echo $form->levelOfDescription
           ->help(__('Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.'))
@@ -287,10 +239,9 @@
           ->label(__('Script of material'))
           ->renderRow(array('class' => 'form-autocomplete')) ?>
 
-        <?php echo $form->languageNotes
+        <?php echo render_field($form->languageNotes
           ->help(__('"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).'))
-          ->label(__('Language and script notes'))
-          ->renderRow() ?>
+          ->label(__('Language and script notes')), $rad, array('class' => 'resizable')) ?>
 
         <?php echo render_field($form->locationOfOriginals
           ->help(__('"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)')), $resource, array('class' => 'resizable')) ?>
@@ -304,7 +255,7 @@
           ->label(__('Restrictions on access')), $resource, array('class' => 'resizable')) ?>
 
         <?php echo render_field($form->reproductionConditions
-          ->help(__('"Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c)'))
+          ->help(__('For terms governing use and reproduction, "Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c). For terms governing publication, "Give information on legal or donor restrictions that may affect publication of the material." (RAD 1.8B16d)'))
           ->label(__('Terms governing use, reproduction, and publication')), $resource, array('class' => 'resizable')) ?>
 
         <?php echo render_field($form->findingAids
@@ -317,57 +268,7 @@
         <?php echo render_field($form->accruals
           ->help(__('"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)')), $resource, array('class' => 'resizable')) ?>
 
-        <section>
-
-          <h3><?php echo __('Other notes') ?></h3>
-
-          <table>
-            <thead>
-              <tr>
-                <th style="width: 65%">
-                  &nbsp;
-                </th><th style="width: 30%">
-                  <?php echo __('Note type') ?>
-                </th><th style="width: 5%">
-                  &nbsp;
-                </th>
-              </tr>
-            </thead><tbody>
-
-              <?php foreach ($resource->getNotesByTaxonomy(array('taxonomyId' => QubitTaxonomy::RAD_NOTE_ID)) as $item): ?>
-                <tr class="related_obj_<?php echo $item->id ?>">
-                  <td>
-                    <?php echo $item->getContent(array('cultureFallback' => 'true')) ?><span class="note"><?php echo $item->user ?>, <?php echo $item->object->updatedAt ?></span>
-                  </td><td>
-                    <?php echo $item->type ?>
-                  </td><td style="text-align: center">
-                    <input type="checkbox" name="delete_notes[<?php echo $item->id ?>]" value="delete" class="multiDelete"/>
-                  </td>
-                </tr>
-              <?php endforeach; ?>
-
-              <tr valign="top">
-                <td>
-                  <input type="text" name="rad_note"/>
-                </td><td>
-                  <select name="rad_note_type" id="rad_title_note_type">
-                    <?php foreach (QubitTerm::getOptionsForSelectList(QubitTaxonomy::RAD_NOTE_ID) as $value => $label): ?>
-                      <option value="<?php echo esc_entities($value) ?>"><?php echo esc_entities($label) ?></option>
-                    <?php endforeach; ?>
-                  </select>
-                </td><td>
-                  &nbsp;
-                </td>
-              </tr>
-
-            </tbody>
-          </table>
-
-          <div class="description">
-            <?php echo __('Select a note type from the drop-down menu and enter note text in accordance with the following sections in RAD: 1.5E (Accompanying material); 1.8 B11 (Alpha-numeric designations); 1.8B9b (Conservation); 1.8B7 (Edition); 1.8B9 (Physical Description); 1.8B16b (Rights); 1.8B21 (General note).') ?>
-          </div>
-
-        </section>
+        <?php echo get_partial('informationobject/notes', $otherNotesComponent->getVarHolder()->getAll()) ?>
 
       </fieldset> <!-- #notesArea -->
 

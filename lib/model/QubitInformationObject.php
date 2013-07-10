@@ -1473,6 +1473,10 @@ class QubitInformationObject extends BaseInformationObject
       {
         $noteContent .= trim($child->textContent);
       }
+      else if ($child->nodeName == 'lb')
+      {
+        $noteContent .= "\n";
+      }
     }
 
     // add language and script note, if so
@@ -1611,6 +1615,33 @@ class QubitInformationObject extends BaseInformationObject
           $this->setActorByName($name, $eventSpec);
         }
       }
+    }
+  }
+
+  /**
+   * Import extent and dimension elements from an <physdesc> tag in EAD2002
+   *
+   * @param $physDescNode  DOMNode  EAD physdesc DOM node
+   */
+  public function importPhysDescEadData($physDescNode)
+  {
+    $extentAndMedium = '';
+
+    $extentNodeList = $physDescNode->getElementsByTagName('extent');
+    if (0 < $extentNodeList->length)
+    {
+      $extentAndMedium .= '<dt>extent</dt><dd>' . QubitXmlImport::replaceLineBreaks($extentNodeList->item(0)) . '</dd>';
+    }
+
+    $dimensionsNodeList = $physDescNode->getElementsByTagName('dimensions');
+    if (0 < $dimensionsNodeList->length)
+    {
+      $extentAndMedium .= '<dt>dimensions</dt><dd>' . QubitXmlImport::replaceLineBreaks($dimensionsNodeList->item(0)) . '</dd>';
+    }
+
+    if (0 < strlen($extentAndMedium))
+    {
+      $this->extentAndMedium = '<dl>' . $extentAndMedium . '</dl>';
     }
   }
 
