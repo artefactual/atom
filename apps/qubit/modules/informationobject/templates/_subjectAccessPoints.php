@@ -9,7 +9,15 @@
   <div>
     <ul>
       <?php foreach ($resource->getSubjectAccessPoints() as $item): ?>
-        <li><?php echo link_to($item->term, array($item->term, 'module' => 'term', 'action' => 'browseTerm')) ?></li>
+        <li>
+          <?php foreach ($item->term->ancestors->andSelf()->orderBy('lft') as $key => $subject): ?>
+            <?php if (QubitTerm::ROOT_ID == $subject->id) continue; ?>
+            <?php if (1 < $key): ?>
+              &raquo;
+            <?php endif; ?>
+            <?php echo link_to($subject->__toString(), array($subject, 'module' => 'term', 'action' => 'browseTerm')) ?>
+          <?php endforeach; ?>
+        </li>
       <?php endforeach; ?>
     </ul>
   </div>
