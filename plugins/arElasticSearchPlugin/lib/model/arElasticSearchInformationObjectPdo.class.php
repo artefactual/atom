@@ -540,8 +540,6 @@ class arElasticSearchInformationObjectPdo
    */
   protected function getRelatedTerms($typeId)
   {
-    $terms = array();
-
     $sql  = 'SELECT
                 term.id,
                 term.taxonomy_id,
