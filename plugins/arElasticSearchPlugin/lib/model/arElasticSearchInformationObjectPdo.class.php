@@ -535,6 +535,9 @@ class arElasticSearchInformationObjectPdo
     }
   }
 
+  /*
+   * Get related terms and its ancestors
+   */
   protected function getRelatedTerms($typeId)
   {
     $terms = array();
@@ -546,8 +549,10 @@ class arElasticSearchInformationObjectPdo
                 slug.slug,
                 i18n.name';
     $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' otr';
+    $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' current
+                ON otr.term_id = current.id';
     $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' term
-                ON otr.term_id = term.id';
+                ON term.lft <= current.lft AND term.rgt >= current.rgt';
     $sql .= ' JOIN '.QubitTermI18n::TABLE_NAME.' i18n
                 ON term.id = i18n.id';
     $sql .= ' JOIN '.QubitSlug::TABLE_NAME.' slug
