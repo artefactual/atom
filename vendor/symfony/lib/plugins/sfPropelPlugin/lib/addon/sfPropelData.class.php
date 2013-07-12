@@ -248,7 +248,7 @@ class sfPropelData extends sfData
     $files = sfFinder::type('file')->name('*TableMap.php')->in(sfProjectConfiguration::getActive()->getModelDirs());
     foreach ($files as $file)
     {
-      $omClass = basename($file, 'TableMap.php');
+      $omClass = 'Qubit'.basename($file, 'TableMap.php');
       if (class_exists($omClass) && is_subclass_of($omClass, 'BasePropelObject') && constant($omClass.'Peer::DATABASE_NAME') == $connectionName)
       {
         $tableMapClass = basename($file, '.php');
