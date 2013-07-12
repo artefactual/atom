@@ -33,7 +33,7 @@ class InformationObjectNotesComponent extends sfComponent
         case 'radTitleNotes':
           $this->hiddenType = false;
           $this->taxonomyId = QubitTaxonomy::RAD_TITLE_NOTE_ID;
-          $this->notes = $this->resource->getNotesByTaxonomy(array('taxonomyId' => $this->taxonomyId));
+          $this->allNotes = $this->resource->getNotesByTaxonomy(array('taxonomyId' => $this->taxonomyId));
           $this->tableName = $this->context->i18n->__('Title notes');
           $this->arrayName = 'radTitleNotes';
           $this->help = $this->context->i18n->__('Select a note type from the drop-down menu and enter note text in accordance with RAD 1.8B1 through 1.8B6.');
@@ -45,7 +45,7 @@ class InformationObjectNotesComponent extends sfComponent
         case 'radOtherNotes':
           $this->hiddenType = false;
           $this->taxonomyId = QubitTaxonomy::RAD_NOTE_ID;
-          $this->notes = $this->resource->getNotesByTaxonomy(array('taxonomyId' => $this->taxonomyId));
+          $this->allNotes = $this->resource->getNotesByTaxonomy(array('taxonomyId' => $this->taxonomyId));
           $this->tableName = $this->context->i18n->__('Other notes');
           $this->arrayName = 'radOtherNotes';
           $this->help = $this->context->i18n->__('Select a note type from the drop-down menu and enter note text in accordance with the following sections in RAD: 1.5E (Accompanying material); 1.8 B11 (Alpha-numeric designations); 1.8B9b (Conservation); 1.8B7 (Edition); 1.8B9 (Physical Description); 1.8B16b (Rights); 1.8B21 (General note).');
@@ -57,7 +57,7 @@ class InformationObjectNotesComponent extends sfComponent
         case 'isadPublicationNotes':
           $this->hiddenType = true;
           $this->hiddenTypeId = QubitTerm::PUBLICATION_NOTE_ID;
-          $this->notes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
+          $this->allNotes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
           $this->tableName = $this->context->i18n->__('Publication notes');
           $this->arrayName = 'isadPublicationNotes';
           $this->help = $this->context->i18n->__('Record a citation to, and/or information about a publication that is about or based on the use, study, or analysis of the unit of description. Include references to published facsimiles or transcriptions. (ISAD 3.5.4)');
@@ -67,7 +67,7 @@ class InformationObjectNotesComponent extends sfComponent
         case 'isadNotes':
           $this->hiddenType = true;
           $this->hiddenTypeId = QubitTerm::GENERAL_NOTE_ID;
-          $this->notes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
+          $this->allNotes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
           $this->tableName = $this->context->i18n->__('Notes');
           $this->arrayName = 'isadNotes';
           $this->help = $this->context->i18n->__('Record specialized or other important information not accommodated by any of the defined elements of description. (ISAD 3.6.1)');
@@ -77,12 +77,26 @@ class InformationObjectNotesComponent extends sfComponent
         case 'isadArchivistsNotes':
           $this->hiddenType = true;
           $this->hiddenTypeId = QubitTerm::ARCHIVIST_NOTE_ID;
-          $this->notes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
+          $this->allNotes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
           $this->tableName = $this->context->i18n->__('Archivist\'s notes');
           $this->arrayName = 'isadArchivistsNotes';
           $this->help = $this->context->i18n->__('Record notes on sources consulted in preparing the description and who prepared it. (ISAD 3.7.1)');
 
           break;
+      }
+
+      // Ignore notes where the desired translation is not available
+      $culture = sfContext::getInstance()->getUser()->getCulture();
+      $this->notes = array();
+      if (isset($this->allNotes))
+      {
+        foreach ($this->allNotes as $note)
+        {
+          if (0 < strlen($note->getContent(array('culture' => $culture))) || 0 < strlen($note->getContent(array('sourceCulture' => true))))
+          {
+            $this->notes[] = $note;
+          }
+        }
       }
     }
   }
@@ -145,6 +159,9 @@ class InformationObjectNotesComponent extends sfComponent
         if (is_null($this->note))
         {
           $this->resource->notes[] =  $this->note = new QubitNote;
+
+          // Notes should inherit the source culture from its descriptions
+          $this->note->sourceCulture = $this->resource->sourceCulture;
         }
 
         if (isset($item['type']))
