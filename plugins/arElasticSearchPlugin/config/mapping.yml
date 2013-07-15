@@ -4,6 +4,7 @@ mapping:
 
   # Special attributes (_attributes):
   # - i18n: the i18n fields will be added automatically (it is optional)
+  # - i18nIncludeInAll: list of i18n fields using include_in_all
   # - i18nExtra: to inherit i18n fields from other table
   # - autocompleteFields: a list of fields that will be analyzed with edgengram
   # - timestamp: adds created_at and updated_at properties
@@ -27,6 +28,13 @@ mapping:
       postal_code: { type: string, include_in_all: false }
       country_code: { type: string, index: not_analyzed, include_in_all: false }
       location: { type: geo_point }
+
+  other_name:
+    _attributes:
+      i18n: true
+      i18nIncludeInAll: [ name ]
+      nested_only: true
+    dynamic: strict
 
   #
   # Main types
@@ -54,6 +62,7 @@ mapping:
       i18n: true
       timestamp: true
       autocompleteFields: [name]
+    _foreign_types: { use_for: other_name }
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }

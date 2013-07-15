@@ -58,6 +58,12 @@ class arElasticSearchTerm extends arElasticSearchModelBase
 
     $serialized['taxonomyId'] = $object->taxonomyId;
 
+    $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
+    foreach (QubitPdo::fetchAll($sql, array($object->id, QubitTerm::ALTERNATIVE_LABEL_ID)) as $item)
+    {
+      $serialized['useFor'] = arElasticSearchOtherName::serialize($item);
+    }
+
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($object->createdAt);
     $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($object->updatedAt);
 
