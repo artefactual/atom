@@ -26,7 +26,9 @@
             <?php echo link_to(image_tag('play.png', array('alt' => $doc->title)), array('slug' => $doc->slug, 'module' => 'informationobject')) ?>
           <?php elseif (!empty($doc->thumbnailPath)): ?>
             <?php echo link_to(image_tag(public_path($doc->thumbnailPath), array('alt' => $doc->title)), array('slug' => $doc->slug, 'module' => 'informationobject')) ?>
-          <?php endif; ?>
+          <?php elseif (!empty($doc->mimeType)): ?>
+            <?php echo link_to(image_tag(QubitDigitalObject::getGenericRepresentation($doc->mimeType, QubitTerm::THUMBNAIL_ID)->getFullPath(), array('alt' => $doc->title)), array('slug' => $doc->slug, 'module' => 'informationobject')) ?>
+         <?php endif; ?>
         <?php else: ?>
           <?php echo link_to(image_tag(QubitDigitalObject::getGenericRepresentation(null, QubitTerm::THUMBNAIL_ID)->getFullPath(), array('alt' => $doc->title)), array('slug' => $doc->slug, 'module' => 'informationobject')) ?>
         <?php endif; ?>
