@@ -56,7 +56,7 @@ class arElasticSearchTerm extends arElasticSearchModelBase
     $serialized['id'] = $object->id;
     $serialized['slug'] = $object->slug;
 
-    $serialized['taxonomyId'] = $object->taxonomyId;
+    $serialized['taxonomyId'] = $object->taxonomy_id;
 
     $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
     foreach (QubitPdo::fetchAll($sql, array($object->id, QubitTerm::ALTERNATIVE_LABEL_ID)) as $item)
@@ -64,11 +64,11 @@ class arElasticSearchTerm extends arElasticSearchModelBase
       $serialized['useFor'][] = arElasticSearchOtherName::serialize($item);
     }
 
-    $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($object->createdAt);
-    $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($object->updatedAt);
+    $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($object->created_at);
+    $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($object->updated_at);
 
-    $serialized['sourceCulture'] = $object->sourceCulture;
-    $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($object->id, array('QubitActor'));
+    $serialized['sourceCulture'] = $object->source_culture;
+    $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($object->id, array('QubitTerm'));
 
     return $serialized;
   }
