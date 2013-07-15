@@ -196,13 +196,20 @@ class arElasticSearchMapping
           $nestedI18nFields = array();
           foreach ($this->getI18nFields(lcfirst(sfInflector::camelize($typeName))) as $fieldName)
           {
+            $includeInAll = false;
+            if (isset($typeProperties['_attributes']['i18nIncludeInAll'])
+              && false !== array_search($fieldName, $typeProperties['_attributes']['i18nIncludeInAll']))
+            {
+              $includeInAll = true;
+            }
+
             $nestedI18nFields[$fieldName] = array(
               'type' => 'multi_field',
               'fields' => array(
                 $fieldName => array(
                   'type' => 'string',
                   'index' => 'analyzed',
-                  'include_in_all' => false),
+                  'include_in_all' => $includeInAll),
                 'untouched' => array(
                   'type' => 'string',
                   'index' => 'not_analyzed',
@@ -213,13 +220,20 @@ class arElasticSearchMapping
           {
             foreach ($this->getI18nFields(lcfirst(sfInflector::camelize($typeProperties['_attributes']['i18nExtra']))) as $fieldName)
             {
+              $includeInAll = false;
+              if (isset($typeProperties['_attributes']['i18nIncludeInAll'])
+                && false !== array_search($fieldName, $typeProperties['_attributes']['i18nIncludeInAll']))
+              {
+                $includeInAll = true;
+              }
+
               $nestedI18nFields[$fieldName] = array(
                 'type' => 'multi_field',
                 'fields' => array(
                   $fieldName => array(
                     'type' => 'string',
                     'index' => 'analyzed',
-                    'include_in_all' => false),
+                    'include_in_all' => $includeInAll),
                   'untouched' => array(
                     'type' => 'string',
                     'index' => 'not_analyzed',
