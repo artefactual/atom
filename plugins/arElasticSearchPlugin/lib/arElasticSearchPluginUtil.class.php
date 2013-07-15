@@ -27,6 +27,11 @@ class arElasticSearchPluginUtil
 {
   public static function convertDate($date)
   {
+    if (is_null($date))
+    {
+      return;
+    }
+
     if ($date instanceof DateTime)
     {
       $value = $date->format('Y-m-d\TH:i:s\Z');
