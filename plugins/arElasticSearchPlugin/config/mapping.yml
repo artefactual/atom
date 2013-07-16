@@ -36,6 +36,18 @@ mapping:
       nested_only: true
     dynamic: strict
 
+  term:
+    _attributes:
+      i18n: true
+      timestamp: true
+      autocompleteFields: [name]
+      nested_only: true
+    _foreign_types: { use_for: other_name }
+    dynamic: strict
+    properties:
+      slug: { type: string, index: not_analyzed }
+      taxonomy_id: { type: integer, index: not_analyzed, include_in_all: false }
+
   #
   # Main types
   #
@@ -56,17 +68,6 @@ mapping:
     properties:
       slug: { type: string, index: not_analyzed }
       entity_type_id: { type: integer, index: not_analyzed, include_in_all: false }
-
-  term:
-    _attributes:
-      i18n: true
-      timestamp: true
-      autocompleteFields: [name]
-    _foreign_types: { use_for: other_name }
-    dynamic: strict
-    properties:
-      slug: { type: string, index: not_analyzed }
-      taxonomy_id: { type: integer, index: not_analyzed, include_in_all: false }
 
   repository:
     _attributes:

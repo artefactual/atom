@@ -19,36 +19,6 @@
 
 class arElasticSearchTerm extends arElasticSearchModelBase
 {
-  public function populate()
-  {
-    if (!isset(self::$conn))
-    {
-      self::$conn = Propel::getConnection();
-    }
-
-    $sql  = 'SELECT term.id, term.source_culture, slug, taxonomy_id, created_at, updated_at';
-    $sql .= ' FROM '.QubitTerm::TABLE_NAME.' term';
-    $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON (term.id = object.id)';
-    $sql .= ' JOIN '.QubitSlug::TABLE_NAME.' slug ON (term.id = slug.object_id)';
-    $sql .= ' WHERE term.taxonomy_id IN (:subject, :place)';
-    $sql .= ' AND term.id != '.QubitTerm::ROOT_ID;
-
-    $terms = QubitPdo::fetchAll($sql, array(
-      ':subject' => QubitTaxonomy::SUBJECT_ID,
-      ':place' => QubitTaxonomy::PLACE_ID));
-
-    $this->count = count($terms);
-
-    foreach ($terms as $key => $item)
-    {
-      $data = self::serialize($item);
-
-      $this->search->addDocument($data, 'QubitTerm');
-
-      $this->logEntry($data['i18n'][$data['sourceCulture']]['name'], $key + 1);
-    }
-  }
-
   public static function serialize($object)
   {
     $serialized = array();
@@ -71,14 +41,5 @@ class arElasticSearchTerm extends arElasticSearchModelBase
     $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($object->id, array('QubitTerm'));
 
     return $serialized;
-  }
-
-  public static function update($object)
-  {
-    $data = self::serialize($object);
-
-    QubitSearch::getInstance()->addDocument($data, 'QubitTerm');
-
-    return true;
   }
 }
