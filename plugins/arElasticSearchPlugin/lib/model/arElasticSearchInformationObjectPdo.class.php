@@ -541,7 +541,7 @@ class arElasticSearchInformationObjectPdo
   protected function getRelatedTerms($typeId)
   {
     $sql  = 'SELECT
-                term.id,
+                DISTINCT term.id,
                 term.taxonomy_id,
                 term.source_culture,
                 slug.slug,
