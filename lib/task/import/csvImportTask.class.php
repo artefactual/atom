@@ -429,11 +429,20 @@ EOF;
           && 0 < strlen($self->rowStatusVars['descriptionStatus']))
         {
           $statusTermId = array_search(
-            (trim($self->rowStatusVars['descriptionStatus'])) ? $self->rowStatusVars['descriptionStatus'] : 'Final',
+            trim($self->rowStatusVars['descriptionStatus']),
             $self->status['descriptionStatusTypes']
           );
 
-          $self->object->descriptionStatusId = $statusTermId;
+          if (false !== $statusTermId)
+          {
+            $self->object->descriptionStatusId = $statusTermId;
+          }
+          else
+          {
+            printf("Row %s: Invalid description status '%s', using null instead\n",
+              $self->getStatus('rows') + 1,
+              trim($self->rowStatusVars['descriptionStatus']));
+          }
         }
 
         // set publication status
