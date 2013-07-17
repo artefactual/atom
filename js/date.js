@@ -68,7 +68,13 @@
             return !isNaN(date.getTime());
           }
 
-          $('.date', context).each(function ()
+          $('.date', context).each(bindParse);
+
+          // Use $(document).on('loadFunctions') to add function in new rows created with multiRow.js
+          $(document).on('loadFunctions','.date', bindParse);
+
+          // Use named function so it can be bound to events
+          function bindParse()
             {
               var $start = $('[id$=startDate]', this);
               var $end = $('[id$=endDate]', this);
@@ -85,17 +91,17 @@
                     }
                   })
                 .val());
-            });
+            }
 
           $('input.date-widget', context).each(function ()
             {
               var self = this;
 
               $(self)
-                 
+
                 // Prepare the input field
                 .css({'float': 'left', 'width': 'auto'})
-                
+
                 // Add calendar button
                 .after('&nbsp;<button><img src="' + self.getAttribute('icon') + '" /></button>').next()
 

@@ -130,6 +130,8 @@ class sfEadPlugin
   public function __construct(QubitInformationObject $resource)
   {
     $this->resource = $resource;
+
+    $this->version = 'Access to Memory (AtoM) '.qubitConfiguration::VERSION.' (2013-07-05 14:00:00)';
   }
 
   public function __get($name)
@@ -175,7 +177,7 @@ class sfEadPlugin
       }
     }
 
-    $url = url_for(array($this->resource, 'module' => 'informationobject', 'sf_format' => 'xml'), $absolute = true);
+    $url = url_for(array($this->resource, 'module' => 'informationobject'), $absolute = true);
 
     if (null === $identifier = $this->resource->descriptionIdentifier)
     {
@@ -290,4 +292,33 @@ class sfEadPlugin
 
     return $result;
   }
+
+  public function renderEadPhysDesc($extentAndMedium)
+  {
+    $physDescContent = '';
+
+    // Check if extentAndMedium contains a HTML definition list
+    if (strpos($extentAndMedium, '<dl>') === false)
+    {
+      $physDescContent .= '<extent encodinganalog="' . $this->getMetadataParameter('extent') . '">' . escape_dc(esc_specialchars($extentAndMedium)) . '</extent>';
+    }
+    else
+    {
+      while (($pos = strpos($extentAndMedium, '<dt>')) !== false)
+      {
+        $extentAndMedium = substr($extentAndMedium, $pos + 4);
+        $term = trim(substr($extentAndMedium, 0, strpos($extentAndMedium, '</dt>')));
+        if ($term == 'extent' || $term == 'dimensions')
+        {
+          $pos = strpos($extentAndMedium, '<dd>') + 4;
+          $value = trim(substr($extentAndMedium, $pos, strpos($extentAndMedium, '</dd>') - $pos));
+
+          $physDescContent .=  '<' . $term . ' encodinganalog="' . $this->getMetadataParameter('extent') . '">' . escape_dc(esc_specialchars($value)) . '</' . $term . '>';
+        }
+      }
+    }
+
+    return $physDescContent;
+  }
+
 }

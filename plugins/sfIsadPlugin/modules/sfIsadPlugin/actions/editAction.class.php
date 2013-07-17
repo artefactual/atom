@@ -92,6 +92,18 @@ class sfIsadPluginEditAction extends InformationObjectEditAction
     $this->rightEditComponent = new RightEditComponent($this->context, 'right', 'edit');
     $this->rightEditComponent->resource = $this->resource;
     $this->rightEditComponent->execute($this->request);
+
+    $this->publicationNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+    $this->publicationNotesComponent->resource = $this->resource;
+    $this->publicationNotesComponent->execute($this->request, $options = array('type' => 'isadPublicationNotes'));
+
+    $this->notesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+    $this->notesComponent->resource = $this->resource;
+    $this->notesComponent->execute($this->request, $options = array('type' => 'isadNotes'));
+
+    $this->archivistsNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+    $this->archivistsNotesComponent->resource = $this->resource;
+    $this->archivistsNotesComponent->execute($this->request, $options = array('type' => 'isadArchivistsNotes'));
   }
 
   protected function addField($name)
@@ -193,7 +205,11 @@ class sfIsadPluginEditAction extends InformationObjectEditAction
 
     $this->rightEditComponent->processForm();
 
-    $this->updateNotes();
+    $this->publicationNotesComponent->processForm();
+
+    $this->notesComponent->processForm();
+
+    $this->archivistsNotesComponent->processForm();
 
     return parent::processForm();
   }

@@ -17,20 +17,32 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitLimitResults extends sfFilter
+/*
+ * Include sub-item level "part" in the levels of description taxonomy
+ *
+ * @package    AccesstoMemory
+ * @subpackage migration
+ */
+class arMigration0097
 {
-  public function execute($filterChain)
+  const
+    VERSION = 97, // The new database version
+    MIN_MILESTONE = 1; // The minimum milestone required
+
+  /**
+   * Upgrade
+   *
+   * @return bool True if the upgrade succeeded, False otherwise
+   */
+  public function up($configuration)
   {
-    $request = $this->getContext()->getRequest();
-    $hitsPerPage = sfConfig::get('app_hits_per_page');
+    $term = new QubitTerm;
+    $term->parentId = QubitTerm::ROOT_ID;
+    $term->taxonomyId = QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID;
+    $term->name = 'Part';
+    $term->culture = 'en';
+    $term->save();
 
-     // Set request limit to app_hits_per_page if bigger
-    if (isset($request->limit) && (true !== ctype_digit($request->limit) || $request->limit > $hitsPerPage))
-    {
-      $request->limit = $hitsPerPage;
-    }
-
-    // Execute next filter
-    $filterChain->execute();
+    return true;
   }
 }

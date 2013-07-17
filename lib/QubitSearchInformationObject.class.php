@@ -76,6 +76,7 @@ class QubitSearchInformationObject
       'material_type_id',
       'media_type',
       'media_type_id',
+      'mime_type',
       'name',
       'notes',
       'parent',
@@ -391,6 +392,11 @@ class QubitSearchInformationObject
 
       case 'media_type':
         $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->getMediaTypeName($culture));
+
+        break;
+
+      case 'mime_type':
+        $field = Zend_Search_Lucene_Field::UnIndexed($camelName, $this->getMimeType());
 
         break;
 
@@ -1183,5 +1189,18 @@ class QubitSearchInformationObject
     self::$statements['transcript']->execute(array($this->__get('digital_object_id')));
 
     return self::$statements['transcript']->fetchColumn();
+  }
+
+  public function getMimeType()
+  {
+    if (!$this->__isset('digital_object_id'))
+    {
+      return;
+    }
+
+    if (null !== $digitalObject = QubitDigitalObject::getById($this->__get('digital_object_id')))
+    {
+      return $digitalObject->getMimeType();
+    }
   }
 }

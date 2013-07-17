@@ -20,7 +20,7 @@
 
     <div class="content">
       <ul class="clearfix">
-        <li><?php echo link_to(__('SKOS'), array($resource, 'module' => 'sfSkosPlugin', 'sf_format' => 'xml')) ?></li>
+        <li><?php echo link_to(__('SKOS'), array($resource, 'module' => 'sfSkosPlugin')) ?></li>
       </ul>
     </div>
 

@@ -151,7 +151,7 @@
 
   <?php echo render_show(__('Sources'), render_value($resource->getSources(array('cultureFallback' => true)))) ?>
 
-  <?php echo render_show(__('Maintenance notes'), render_value($isaar->maintenanceNotes)) ?>
+  <?php echo render_show(__('Maintenance notes'), render_value($isaar->_maintenanceNote)) ?>
 
 </div>
 

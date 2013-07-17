@@ -3187,6 +3187,12 @@ QubitTerm:
       pl: 'Przypisania i domysły'
       pt: 'Atribuições e conjecturas'
       sl: 'Pripisovanja in domneve'
+  QubitTerm_252:
+    taxonomy_id: QubitTaxonomy_4
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Part
   QubitTerm_mods_resource_type_text:
     taxonomy_id: QubitTaxonomy_mods_resource_type
     parent_id: QubitTerm_110

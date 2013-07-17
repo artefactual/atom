@@ -418,27 +418,30 @@ class QubitXmlImport
 
             break;
 
-          default:
-            foreach ($nodeList2 as $domNode2Original)
+          case 'relatedunitsofdescription':
+            $i = 0;
+            $nodeValue = '';
+            foreach ($nodeList2 as $item)
             {
-              // normalize the node text (trim whitespace manually and replace lb tag for \n); NB: this will strip any child elements, eg. HTML tags
-              // clone node to avoid saving changes in the DomDocument, which would affect others fields import
-              $domNode2 = $domNode2Original->cloneNode(TRUE);
-              $nodeList3 = $importDOM->xpath->query('.//lb', $domNode2);
-              if (0 < $nodeList3->length)
+              if ($i++ == 0)
               {
-                foreach ($nodeList3 as $lbNode)
-                {
-                  $lbNodeParent = $importDOM->xpath->query('..', $lbNode);
-                  $lbNodeParent->item(0)->replaceChild(new DomText("\n"), $lbNode);
-                }
-
-                 $nodeValue = trim(preg_replace('/[\h]+/', ' ', $domNode2->nodeValue));
+                $nodeValue .= self::normalizeNodeValue($item);
               }
               else
               {
-                $nodeValue = trim(preg_replace('/[\n\r\s]+/', ' ', $domNode2->nodeValue));
+                $nodeValue .= "\n\n" . self::normalizeNodeValue($item);
               }
+            }
+
+            $currentObject->setRelatedUnitsOfDescription($nodeValue);
+
+            break;
+
+          default:
+            foreach ($nodeList2 as $domNode2)
+            {
+              // normalize the node text; NB: this will strip any child elements, eg. HTML tags
+              $nodeValue = self::normalizeNodeValue($domNode2);
 
               // if you want the full XML from the node, use this
               $nodeXML = $domNode2->ownerDocument->saveXML($domNode2);
@@ -695,5 +698,70 @@ class QubitXmlImport
   public function setParent($parent)
   {
     return $this->parent = $parent;
+  }
+
+  /**
+   * Replace </lb> tags for '\n'
+   *
+   * @return node value without linebreaks tags
+   */
+  public static function replaceLineBreaks($node)
+  {
+    $nodeValue = '';
+
+    foreach ($node->childNodes as $child)
+    {
+      if ($child->nodeName == 'lb')
+      {
+        $nodeValue .= "\n";
+      }
+      else
+      {
+        $nodeValue .= trim(preg_replace('/[\n\r\s]+/', ' ', $child->nodeValue));
+      }
+    }
+
+    return $nodeValue;
+  }
+
+  /**
+   * Normalize node, replaces <p> and <lb/>
+   *
+   * @return node value normalized
+   */
+  public static function normalizeNodeValue($node)
+  {
+    $nodeValue = '';
+
+    if (!($node instanceof DOMAttr))
+    {
+      $nodeList = $node->getElementsByTagName('p');
+
+      if (0 < $nodeList->length)
+      {
+        $i = 0;
+        foreach ($nodeList as $pNode)
+        {
+          if ($i++ == 0)
+          {
+            $nodeValue .= self::replaceLineBreaks($pNode);
+          }
+          else
+          {
+            $nodeValue .= "\n\n" . self::replaceLineBreaks($pNode);
+          }
+        }
+      }
+      else
+      {
+        $nodeValue .= self::replaceLineBreaks($node);
+      }
+    }
+    else
+    {
+      $nodeValue .= $node->nodeValue;
+    }
+
+    return $nodeValue;
   }
 }

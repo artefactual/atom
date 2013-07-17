@@ -47,6 +47,14 @@ edit/dc:
     action: edit
     informationobject_template: dc
 
+skos:
+  url: /:slug;skos
+  class: QubitResourceRoute
+  param:
+    module: sfSkosPlugin
+    action: index
+    sf_format: xml
+
 eac:
   url: /:slug;eac
   class: QubitResourceRoute
@@ -54,6 +62,7 @@ eac:
     module: sfEacPlugin
     action: index
     actor_template: eac
+    sf_format: xml
 
 ead:
   url: /:slug;ead
@@ -62,6 +71,7 @@ ead:
     module: sfEadPlugin
     action: index
     informationobject_template: ead
+    sf_format: xml
 
 isaar:
   url: /:slug;isaar

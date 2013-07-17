@@ -80,6 +80,14 @@ class sfRadPlugin implements ArrayAccess
 
   public function __get($name)
   {
+    $args = func_get_args();
+
+    $options = array();
+    if (1 < count($args))
+    {
+      $options = $args[1];
+    }
+
     switch ($name)
     {
       case 'editionStatementOfResponsibility':
@@ -98,7 +106,7 @@ class sfRadPlugin implements ArrayAccess
       case 'titleStatementOfResponsibility':
       case 'titleProperOfPublishersSeries':
 
-        return $this->property($name)->value;
+        return $this->property($name)->__get('value', $options);
 
       case 'referenceCode':
 

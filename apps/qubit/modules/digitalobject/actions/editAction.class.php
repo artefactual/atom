@@ -140,6 +140,12 @@ class DigitalObjectEditAction extends sfAction
       QubitAcl::forwardUnauthorized();
     }
 
+    // Check if uploads are allowed
+    if (!QubitDigitalObject::isUploadAllowed())
+    {
+      QubitAcl::forwardToSecureAction();
+    }
+
     // Get representations
     $this->representations = array(
       QubitTerm::REFERENCE_ID => $this->resource->getChildByUsageId(QubitTerm::REFERENCE_ID),

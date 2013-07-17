@@ -97,6 +97,7 @@ class SearchGlobalReplaceAction extends SearchAdvancedAction
         $choices[$col_name] = sfInflector::humanize(sfInflector::underscore($col_name));
       }
     }
+    $choices['identifier'] = $this->context->i18n->__('Identifier');
 
     $this->form->setValidator('column', new sfValidatorString);
     $this->form->setWidget('column', new sfWidgetFormSelect(array('choices' => $choices), array('style' => 'width: auto')));

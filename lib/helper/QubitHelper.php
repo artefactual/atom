@@ -39,9 +39,9 @@ function render_field($field, $resource, array $options = array())
   $culture = sfContext::getInstance()->user->getCulture();
 
   if (isset($resource)
-    && property_exists($resource, $options['name'])
       && $culture != $resource->sourceCulture
-        && 0 < strlen($source = $resource->__get($options['name'], array('sourceCulture' => true))))
+        && 0 < strlen($source = $resource->__get($options['name'], array('sourceCulture' => true)))
+          && 0 == strlen($resource->__get($options['name'])))
   {
     // TODO Are there cases where the direction of this <div/>'s containing
     // block isn't the direction of the current culture?
@@ -62,16 +62,17 @@ div;
 
   unset($options['name']);
 
-  return <<<return
-<div class="form-item">
-  {$field->renderLabel()}
-  {$field->renderError()}
-  $div
-  {$field->render($options)}
-  {$field->renderHelp()}
-</div>
+  if (isset($options['onlyInput']) && $options['onlyInput'])
+  {
+    $field = $div.$field->render($options);
+  }
+  else
+  {
+    $field = '<div class="form-item">'.$field->renderLabel().$field->renderError().
+                  $div.$field->render($options).$field->renderHelp().'</div>';
+  }
 
-return;
+  return $field;
 }
 
 function render_show($label, $value)
@@ -268,9 +269,14 @@ function render_treeview_node($item, array $classes = array(), array $options = 
   return $node;
 }
 
+function is_using_cli()
+{
+  return php_sapi_name() === 'cli';
+}
+
 function check_field_visibility($fieldName)
 {
-  return sfContext::getInstance()->user->isAuthenticated() || sfConfig::get($fieldName, false);
+  return (is_using_cli() || sfContext::getInstance()->user->isAuthenticated()) || sfConfig::get($fieldName, false);
 }
 
 function escape_dc($text)

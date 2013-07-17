@@ -17,40 +17,43 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Digital Object - Update database from "edit" form
- *
- * @package    AccesstoMemory
- * @subpackage digitalobject
- * @author     david juhasz <david@artefactual.com>
- *
- */
-class DigitalObjectUpdateAction extends sfAction
+class DonorPrimaryContactAction extends sfAction
 {
   public function execute($request)
   {
-    $this->resource = $this->getRoute()->resource;
+    $resource = $this->getRoute()->resource;
 
     // Check user authorization
-    if (!QubitAcl::check($this->resource->informationObject, 'update'))
-    {
-      QubitAcl::forwardUnauthorized();
-    }
-
-    // Check if uploads are allowed
-    if (!QubitDigitalObject::isUploadAllowed())
+    if (!QubitAcl::check($resource, 'read'))
     {
       QubitAcl::forwardToSecureAction();
     }
 
-    // Set the digital object's attributes
-    $this->resource->usageId = $request->usage_id;
-    $this->resource->mediaTypeId = $request->media_type_id;
+    // Return 404 if the primary contact doesn't exist
+    if (null === $primaryContactInformation = $resource->getPrimaryContact())
+    {
+      $this->forward404();
+    }
 
-    // Save the digital object
-    $this->resource->save();
+    $data = array();
 
-    // Return to edit page
-    $this->redirect('digitalobject/edit?id='.$this->resource->id);
+    foreach (array(
+      'streetAddress',
+      'region',
+      'countryCode',
+      'postalCode',
+      'telephone',
+      'email',
+      'contactPerson') as $field)
+    {
+      if (isset($primaryContactInformation->$field))
+      {
+        $data[$field] = $primaryContactInformation->$field;
+      }
+    }
+
+    $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
+
+    return $this->renderText(json_encode($data));
   }
 }

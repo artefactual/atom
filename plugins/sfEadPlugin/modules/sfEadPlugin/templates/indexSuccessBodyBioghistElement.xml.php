@@ -6,7 +6,7 @@
 <?php if (0 < count($creators)): ?>
   <?php foreach($events as $date): ?>
     <?php $creator = QubitActor::getById($date->actorId); ?>
-    <bioghist id="<?php echo url_for(array($creator, 'module' => 'actor'), true) ?>" encodinganalog="<?php echo $ead->getMetadataParameter('bioghist') ?>">
+    <bioghist id="<?php echo 'md5-' . md5(url_for(array($creator, 'module' => 'actor'), true)) ?>" encodinganalog="<?php echo $ead->getMetadataParameter('bioghist') ?>">
       <chronlist>
         <chronitem>
           <?php echo $ead->renderEadDateFromEvent('creation', $date) ?>
