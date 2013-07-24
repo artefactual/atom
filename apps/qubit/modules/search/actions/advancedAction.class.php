@@ -218,53 +218,67 @@ class SearchAdvancedAction extends DefaultBrowseAction
       $field = $this->request->getParameter('sf'.$count, '_all');
       $operator = $this->request->getParameter('so'.$count, 'or');
 
-      $queryText = new \Elastica\Query\Text();
-
       switch ($field)
       {
         case 'identifier':
-          $queryText->setFieldQuery('identifier', $query);
+          $queryField = new \Elastica\Query\Text();
+          $queryField->setFieldQuery('identifier', $query);
 
           break;
 
         case 'title':
-          $queryText->setFieldQuery('i18n.'.$culture.'.title', $query);
+          $queryField = new \Elastica\Query\Text();
+          $queryField->setFieldQuery('i18n.'.$culture.'.title', $query);
 
           break;
 
         case 'scopeAndContent':
-          $queryText->setFieldQuery('i18n.'.$culture.'.scopeAndContet', $query);
+          $queryField = new \Elastica\Query\Text();
+          $queryField->setFieldQuery('i18n.'.$culture.'.scopeAndContet', $query);
 
           break;
 
         case 'archivalHistory':
-          $queryText->setFieldQuery('i18n.'.$culture.'.archivalHistory', $query);
+          $queryField = new \Elastica\Query\Text();
+          $queryField->setFieldQuery('i18n.'.$culture.'.archivalHistory', $query);
 
           break;
 
         case 'extentAndMedium':
-          $queryText->setFieldQuery('i18n.'.$culture.'.extentAndMedium', $query);
+          $queryField = new \Elastica\Query\Text();
+          $queryField->setFieldQuery('i18n.'.$culture.'.extentAndMedium', $query);
 
           break;
 
         case 'subject':
-          $queryText->setFieldQuery('subjects.i18n.'.$culture.'.name', $query);
+          $queryField = new \Elastica\Query\Text();
+          $queryField->setFieldQuery('subjects.i18n.'.$culture.'.name', $query);
 
           break;
 
         case 'name':
-          $queryText->setFieldQuery('names.i18n.'.$culture.'.name', $query);
+          $queryField = new \Elastica\Query\Text();
+          $queryField->setFieldQuery('names.i18n.'.$culture.'.name', $query);
 
           break;
 
         case 'place':
-          $queryText->setFieldQuery('places.i18n.'.$culture.'.name', $query);
+          $queryField = new \Elastica\Query\Bool();
+
+          $queryPlaceTermName = new \Elastica\Query\Text();
+          $queryPlaceTermName->setFieldQuery('places.i18n.'.$culture.'.name', $query);
+          $queryField->addShould($queryPlaceTermName);
+
+          $queryPlaceTermUseFor = new \Elastica\Query\Text();
+          $queryPlaceTermUseFor->setFieldQuery('places.useFor.i18n.'.$culture.'.name', $query);
+          $queryField->addShould($queryPlaceTermUseFor);
 
           break;
 
         case '_all':
         default:
-          $queryText->setFieldQuery('_all', $query);
+          $queryField = new \Elastica\Query\Text();
+          $queryField->setFieldQuery('_all', $query);
 
           break;
       }
@@ -272,18 +286,18 @@ class SearchAdvancedAction extends DefaultBrowseAction
       switch ($operator)
       {
         case 'not':
-          $queryBool->addMustNot($queryText);
+          $queryBool->addMustNot($queryField);
 
           break;
 
         case 'or':
-          $queryBool->addShould($queryText);
+          $queryBool->addShould($queryField);
 
           break;
 
         case 'add':
         default: // First criteria falls here
-          $queryBool->addMust($queryText);
+          $queryBool->addMust($queryField);
 
           break;
       }
