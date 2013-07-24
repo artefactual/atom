@@ -121,14 +121,8 @@ class sfDcPlugin implements ArrayAccess
         $list = array();
         foreach ($this->_event as $item)
         {
-          if (isset($item->startDate))
+          if (0 < strlen($date = $item->getDate(array('cultureFallback' => true))))
           {
-            $date = $item->startDate;
-            if (isset($item->endDate))
-            {
-              $date .= "/$item->endDate";
-            }
-
             $list[] = $date;
           }
         }
