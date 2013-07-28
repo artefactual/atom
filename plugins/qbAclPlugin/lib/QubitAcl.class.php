@@ -1020,6 +1020,12 @@ class ConditionalAssert implements Zend_Acl_Assert_Interface
         $repositorySlug = $repository->slug;
       }
 
+      // Deny if there is no repository and the permission is conditional
+      if (!isset($repositorySlug) && 0 < strlen($this->permission->conditional))
+      {
+        return false;
+      }
+
       // Test repository conditional
       if (!$this->permission->evaluateConditional(array('repository' => $repositorySlug)))
       {
