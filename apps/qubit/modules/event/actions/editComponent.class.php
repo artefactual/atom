@@ -94,6 +94,18 @@ class EventEditComponent extends sfComponent
 
         break;
 
+      case 'startDate':
+      case 'endDate':
+        $value = $this->form->getValue($field->getName());
+        if (isset($value) && preg_match('/^\d{8}\z/', trim($value), $matches))
+        {
+          $value = substr($matches[0], 0, 4).'-'.substr($matches[0], 4, 2).'-'.substr($matches[0], 6, 2);
+        }
+
+        $this->event[$field->getName()] = $value;
+
+        break;
+
       default:
         $this->event[$field->getName()] = $this->form->getValue($field->getName());
     }
