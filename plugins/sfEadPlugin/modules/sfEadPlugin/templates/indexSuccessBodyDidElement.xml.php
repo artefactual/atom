@@ -150,7 +150,7 @@
 
   <?php if (0 < count($notes = $$resourceVar->getNotesByType(array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID)))): ?>
     <?php foreach ($notes as $note): ?>
-      <note type="<?php echo escape_dc(esc_specialchars($note->getType(array('cultureFallback' => true)))) ?>">
+      <note type="generalNote">
         <p><?php echo escape_dc(esc_specialchars($note->getContent(array('cultureFallback' => true)))) ?></p>
       </note>
     <?php endforeach; ?>
