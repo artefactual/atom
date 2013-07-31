@@ -60,6 +60,7 @@ EOF;
     $tables = array(
       'actor' => 'QubitActor',
       'information_object' => 'QubitInformationObject',
+      'physical_object' => 'QubitPhysicalObject',
       'term' => 'QubitTerm',
       'event' => 'QubitEvent',
       'accession' => 'QubitAccession'
