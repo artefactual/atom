@@ -9,3 +9,6 @@ all:
   #  Negative integer  => Unlimited uploads
   #  Positive integer  => Number of gigabytes
   upload_limit: -1
+
+  # Enable read only mode
+  read_only: false

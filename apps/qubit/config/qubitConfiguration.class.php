@@ -29,9 +29,23 @@ class qubitConfiguration extends sfApplicationConfiguration
     return str_ireplace('</head>', javascript_tag('jQuery.extend(Qubit, '.json_encode(array('relativeUrlRoot' => sfContext::getInstance()->request->getRelativeUrlRoot())).');').'</head>', $content);
   }
 
+  /**
+   * @see sfApplicationConfiguration
+   */
   public function configure()
   {
     $this->dispatcher->connect('response.filter_content', array($this, 'responseFilterContent'));
+  }
+
+  /**
+   * @see sfApplicationConfiguration
+   */
+  public function initialize()
+  {
+    if (false !== $readOnly = getenv('ATOM_READ_ONLY'))
+    {
+      sfConfig::set('app_read_only', filter_var($readOnly, FILTER_VALIDATE_BOOLEAN));
+    }
   }
 
   /**
