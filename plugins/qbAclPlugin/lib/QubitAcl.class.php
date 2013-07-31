@@ -845,9 +845,37 @@ class QubitAcl
         switch ($action)
         {
           case 'createTerm':
-            if (null === $permission->getConstants(array('name' => 'taxonomy')))
+            if (null !== $slug = $permission->getConstants(array('name' => 'taxonomy')))
             {
-              $ids[] = QubitTaxonomy::ROOT_ID;
+              $criteria2 = new Criteria;
+              $criteria2->add(QubitSlug::SLUG, $slug);
+              $criteria2->addJoin(QubitSlug::OBJECT_ID, QubitTaxonomy::ID);
+
+              if (null !== $taxonomy = QubitTaxonomy::getOne($criteria2))
+              {
+                // Add id directly to the allows and bans arrays
+                // self::isAllowed gives unexpected results if there are more than one taxonomy rule
+                if ($permission->grantDeny == 1)
+                {
+                  $allows[] = $taxonomy->id;
+                }
+                else
+                {
+                  $bans[] = $taxonomy->id;
+                }
+              }
+            }
+            else
+            {
+              // Grant or deny all if the permission hasn't taxonomy's constants
+              if ($permission->grantDeny == 1)
+              {
+                return true;
+              }
+              else
+              {
+                return false;
+              }
             }
 
             break;
