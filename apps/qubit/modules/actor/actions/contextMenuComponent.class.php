@@ -29,35 +29,68 @@ class ActorContextMenuComponent extends sfComponent
 {
   public function execute($request)
   {
-    $this->resource = $request->getAttribute('sf_route')->resource;
-
-    $criteria = new Criteria;
-    $criteria->add(QubitEvent::ACTOR_ID, $this->resource->id);
-    $criteria->addJoin(QubitEvent::INFORMATION_OBJECT_ID, QubitInformationObject::ID);
-    $criteria->addAscendingOrderByColumn(QubitEvent::TYPE_ID);
-
-    // Sort info objects alphabetically (w/ fallback)
-    $criteria->addAscendingOrderByColumn('title');
-    $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitInformationObject');
-
-    // Filter draft descriptions
-    $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
-
-    $this->relatedInfoObjects = array();
-    foreach (QubitEvent::get($criteria) as $item)
+    if (!isset($request->limit))
     {
-      $this->relatedInfoObjects[$item->type->getRole()][] = $item->informationObject;
+      $request->limit = sfConfig::get('app_hits_per_page');
     }
+
+    $this->resource = $request->getAttribute('sf_route')->resource;
+    $this->relatedInfoObjects = $this->pagers = $this->showPagers = array();
 
     // Get "subject of" information objects (name access point)
     $criteria = new Criteria;
     $criteria->add(QubitRelation::OBJECT_ID, $this->resource->id);
     $criteria->add(QubitRelation::TYPE_ID, QubitTerm::NAME_ACCESS_POINT_ID);
+    $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitInformationObject::ID);
 
-    $this->subjectInfoObjects = array();
-    foreach (QubitRelation::get($criteria) as $item)
+    // Paginate results
+    $pager = new QubitPager('QubitInformationObject');
+    $pager->setCriteria($criteria);
+    $pager->setMaxPerPage($request->limit);
+    $pager->setPage($request->page);
+
+    $role = __('Subject of');
+    if (0 < count($pager->getResults()))
     {
-      $this->subjectInfoObjects[] = $item->subject;
+      // Add pager only if needed
+      if ($pager->getNbResults() > $request->limit)
+      {
+        $this->pagers[$role] = $pager;
+      }
+
+      $this->relatedInfoObjects[$role] = $pager->getResults();
+    }
+
+    foreach (QubitTerm::getEventTypes() as $eventType)
+    {
+      $criteria = new Criteria;
+      $criteria->add(QubitEvent::ACTOR_ID, $this->resource->id);
+      $criteria->add(QubitEvent::TYPE_ID, $eventType->id);
+      $criteria->addJoin(QubitEvent::INFORMATION_OBJECT_ID, QubitInformationObject::ID);
+
+      // Sort info objects alphabetically (w/ fallback)
+      $criteria->addAscendingOrderByColumn('title');
+      $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitInformationObject');
+
+      // Filter draft descriptions
+      $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
+
+      // Paginate results
+      $pager = new QubitPager('QubitInformationObject');
+      $pager->setCriteria($criteria);
+      $pager->setMaxPerPage($request->limit);
+      $pager->setPage($request->page);
+
+      if (0 < count($pager->getResults()))
+      {
+        // Add pager only if needed
+        if ($pager->getNbResults() > $request->limit)
+        {
+          $this->pagers[$eventType->getRole()] = $pager;
+        }
+
+        $this->relatedInfoObjects[$eventType->getRole()] = $pager->getResults();
+      }
     }
   }
 }
