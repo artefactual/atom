@@ -868,14 +868,7 @@ class QubitAcl
             else
             {
               // Grant or deny all if the permission hasn't taxonomy's constants
-              if ($permission->grantDeny == 1)
-              {
-                return true;
-              }
-              else
-              {
-                return false;
-              }
+              return $permission->grantDeny == 1;
             }
 
             break;
