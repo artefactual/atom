@@ -35,7 +35,10 @@ class ActorContextMenuComponent extends sfComponent
     }
 
     $this->resource = $request->getAttribute('sf_route')->resource;
-    $this->relatedInfoObjects = $this->pagers = $this->showPagers = array();
+
+    // Arrays used to store all the descriptions related to this resource
+    // and the paginated results related by the event type
+    $this->relatedInfoObjects = $this->pagers = array();
 
     // Get "subject of" information objects (name access point)
     $criteria = new Criteria;
@@ -61,6 +64,7 @@ class ActorContextMenuComponent extends sfComponent
       $this->relatedInfoObjects[$role] = $pager->getResults();
     }
 
+    // Iterate over event types to get the related descriptions for each type of event
     foreach (QubitTerm::getEventTypes() as $eventType)
     {
       $criteria = new Criteria;
