@@ -122,7 +122,7 @@
         '%1%' => $pager->facets['digitalobjects']['count'])) ?>
       <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $sf_request->getGetParameters() + array('onlyMedia' => true)) ?>">
         <i class="icon-search"></i>
-        <?php echo __('Show all') ?>
+        <?php echo __('Show results with digital objects') ?>
       </a>
     </p>
   </div>
