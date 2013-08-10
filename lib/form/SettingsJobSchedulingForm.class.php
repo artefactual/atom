@@ -41,7 +41,7 @@ class SettingsJobSchedulingForm extends sfForm
 
     // Add helper text
     $this->widgetSchema->setHelps(array(
-      'use_job_scheduler' => __('')
+      'use_job_scheduler' => ''
     ));
 
     $this->validatorSchema['use_job_scheduler'] = new sfValidatorInteger(array('required' => false));
