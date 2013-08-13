@@ -51,7 +51,14 @@ class myUser extends sfBasicSecurityUser implements Zend_Acl_Role_Interface
 
     if ($this->isAuthenticated())
     {
-      $this->user = QubitUser::getById($this->getUserID());
+      try
+      {
+        $this->user = QubitUser::getById($this->getUserID());
+      }
+      catch (Exception $e)
+      {
+        $this->user = null;
+      }
 
       // If this user's account has been *deleted* or this user session is from a
       // different install of qubit on the same server (cross-site), then signout
