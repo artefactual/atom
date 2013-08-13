@@ -843,6 +843,12 @@ class arElasticSearchInformationObjectPdo
       $serialized['dates'] = $dates;
     }
 
+    // Transcript
+    if (null !== $transcript = $this->getTranscript())
+    {
+      $serialized['transcript'] = $transcript;
+    }
+
     // Repository
     if (null !== $repository = $this->getRepository())
     {
