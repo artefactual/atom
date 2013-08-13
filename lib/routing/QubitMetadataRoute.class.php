@@ -39,7 +39,10 @@ class QubitMetadataRoute extends sfRoute
       'function'          => 'sfIsdfPlugin');
 
   /**
-   * Rewrite $parameters to use the app module that fits better
+   * Returns an array of parameters if the $url matches this route by looking up
+   * the slug in the database, otherwise returns FALSE. These parameters are
+   * modified according to the type of resource in order to route the request to
+   * its corresponding Symfony module.
    *
    * Case 1: e.g. uri "/peanut-12345" (QubitInformationObject)
    *     -> Add module 'sfIsadPlugin' since that is the module that corresponds
@@ -53,6 +56,7 @@ class QubitMetadataRoute extends sfRoute
    */
   public function matchesUrl($url, $context = array())
   {
+    // Delegate basic matching to sfRoute
     if (false === $parameters = parent::matchesUrl($url, $context))
     {
       return false;
@@ -64,6 +68,8 @@ class QubitMetadataRoute extends sfRoute
       $parameters['action'] = 'edit';
     }
 
+    // At this point, it's likely that we are dealing with a permalink so let's
+    // hit the database to see whether the resource exists or not.
     if (isset($parameters['slug']))
     {
       $criteria = new Criteria;
