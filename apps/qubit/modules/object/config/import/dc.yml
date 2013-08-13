@@ -77,7 +77,6 @@ information_object:
     date:
       XPath:  date
       Method:  setDates
-      Parameters: [$nodeValue, "$options = array('normalized_dates' => $nodeValue)"]
 
     type:
       XPath:  type

@@ -35,7 +35,7 @@ class EventEditComponent extends sfComponent
         $this->form->setValidator('endDate', new sfValidatorString);
         $this->form->setWidget('endDate', new sfWidgetFormInput);
 
-        $this->form->getWidgetSchema()->endDate->setHelp($this->context->i18n->__('Enter the end year. Do not use any qualifiers or typographical symbols to express uncertainty. If the start and end years are the same, enter data only in the "Date" field and leave the "End date" blank.'));
+        $this->form->getWidgetSchema()->endDate->setHelp($this->context->i18n->__('Enter the end year. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY. If the start and end years are the same, enter data only in the "Date" field and leave the "End date" blank.'));
         $this->form->getWidgetSchema()->endDate->setLabel($this->context->i18n->__('End'));
 
         break;
@@ -44,7 +44,7 @@ class EventEditComponent extends sfComponent
         $this->form->setValidator('startDate', new sfValidatorString);
         $this->form->setWidget('startDate', new sfWidgetFormInput);
 
-        $this->form->getWidgetSchema()->startDate->setHelp($this->context->i18n->__('Enter the start year. Do not use any qualifiers or typographical symbols to express uncertainty.'));
+        $this->form->getWidgetSchema()->startDate->setHelp($this->context->i18n->__('Enter the start year. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.'));
         $this->form->getWidgetSchema()->startDate->setLabel($this->context->i18n->__('Start'));
 
         break;
@@ -91,6 +91,18 @@ class EventEditComponent extends sfComponent
           $params = $this->context->routing->parse(Qubit::pathInfo($value));
           $this->event[$field->getName()] = $params['_sf_route']->resource;
         }
+
+        break;
+
+      case 'startDate':
+      case 'endDate':
+        $value = $this->form->getValue($field->getName());
+        if (isset($value) && preg_match('/^\d{8}\z/', trim($value), $matches))
+        {
+          $value = substr($matches[0], 0, 4).'-'.substr($matches[0], 4, 2).'-'.substr($matches[0], 6, 2);
+        }
+
+        $this->event[$field->getName()] = $value;
 
         break;
 

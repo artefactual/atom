@@ -10,3 +10,6 @@ all:
   upload_limit: -1
 
   qubit_cache_class: sfAPCCache
+
+  # Enable read only mode
+  read_only: false

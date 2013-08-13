@@ -17,20 +17,21 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitLimitResults extends sfFilter
+class arWidgetFormUploadQuota extends sfWidgetFormInput
 {
-  public function execute($filterChain)
+  protected function configure($options = array(), $attributes = array())
   {
-    $request = $this->getContext()->getRequest();
-    $hitsPerPage = sfConfig::get('app_hits_per_page');
+    parent::configure($options, $attributes);
+  }
 
-     // Set request limit to app_hits_per_page if bigger
-    if (isset($request->limit) && (true !== ctype_digit($request->limit) || $request->limit > $hitsPerPage))
+  public function render($name, $value = null, $attributes = array(), $errors = array())
+  {
+    if (sfConfig::get('app_upload_limit') == 0)
     {
-      $request->limit = $hitsPerPage;
+      return '<label>' . __('Digital object upload is disabled') . '</label>';
     }
 
-    // Execute next filter
-    $filterChain->execute();
+    return '<label>' . __('%1% used of %2%', array('%1%' => hr_filesize(Qubit::getDirectorySize(sfConfig::get('sf_upload_dir'))),
+                '%2%' => sfConfig::get('app_upload_limit') < 0 ? '<i>Unlimited</i>' : sfConfig::get('app_upload_limit') . ' GB')) . '</label>';
   }
 }

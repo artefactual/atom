@@ -26,7 +26,7 @@ class sfPartialView extends sfPHPView
 
   /**
    * Constructor.
-   * 
+   *
    * @see sfView
    */
   public function initialize($context, $moduleName, $actionName, $viewName)
@@ -35,7 +35,7 @@ class sfPartialView extends sfPHPView
 
     $this->viewCache = $this->context->getViewCacheManager();
 
-    if (sfConfig::get('sf_cache'))
+    if (sfConfig::get('sf_cache') && isset($this->viewCache))
     {
       $this->checkCache = $this->viewCache->isActionCacheable($moduleName, $actionName);
     }

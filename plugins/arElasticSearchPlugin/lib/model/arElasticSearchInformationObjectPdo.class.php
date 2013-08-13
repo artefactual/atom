@@ -286,6 +286,19 @@ class arElasticSearchInformationObjectPdo
     }
   }
 
+  public function getMimeType()
+  {
+    if (!$this->__isset('digital_object_id'))
+    {
+      return;
+    }
+
+    if (null !== $digitalObject = QubitDigitalObject::getById($this->__get('digital_object_id')))
+    {
+      return $digitalObject->getMimeType();
+    }
+  }
+
   public function getReferenceCode()
   {
     if (null == $this->__get('identifier'))

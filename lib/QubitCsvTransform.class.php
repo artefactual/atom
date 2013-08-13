@@ -71,7 +71,7 @@ class QubitCsvTransform extends QubitFlatfileImport
     $this->levelsOfDescription = array();
     foreach (QubitTerm::get($criteria) as $term)
     {
-      $this->levelsOfDescription[] = $term->name;
+      $this->levelsOfDescription[] = strtolower($term->name);
     }
   }
 

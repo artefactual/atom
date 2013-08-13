@@ -34,9 +34,7 @@ class AclGroupEditActorAclAction extends AclGroupEditDefaultAclAction
     $criteria = new Criteria;
     $criteria->addJoin(QubitAclPermission::OBJECT_ID, QubitObject::ID, Criteria::LEFT_JOIN);
     $criteria->add(QubitAclPermission::GROUP_ID, $this->resource->id);
-    $c1 = $criteria->getNewCriterion(QubitAclPermission::OBJECT_ID, null, Criteria::ISNULL);
-    $c2 = $criteria->getNewCriterion(QubitObject::CLASS_NAME, 'QubitActor');
-    $c1->addOr($c2);
+    $c1 = $criteria->getNewCriterion(QubitObject::CLASS_NAME, 'QubitActor');
     $criteria->add($c1);
 
     if (null !== $permissions = QubitAclPermission::get($criteria))
