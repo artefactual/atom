@@ -38,6 +38,17 @@ dev:
     param:
       session_name: symfony
 
+  logger:
+    class: sfAggregateLogger
+    param:
+      level: debug
+      loggers:
+        sf_file_debug:
+          class: sfFileLogger
+          param:
+            level: warning
+            file: %SF_LOG_DIR%/%SF_APP%_%SF_ENVIRONMENT%.log
+
 all:
   i18n:
     class: sfTranslateI18N
