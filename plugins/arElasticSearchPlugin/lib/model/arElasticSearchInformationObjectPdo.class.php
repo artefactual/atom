@@ -311,7 +311,7 @@ class arElasticSearchInformationObjectPdo
       }
 
       $identifiers = array();
-      foreach (array_merge($this->ancestors, array($this)) as $item)
+      foreach (array_merge(is_array($this->ancestors) ? $this->ancestors : array(), array($this)) as $item)
       {
         if (isset($item->identifier))
         {
