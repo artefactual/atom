@@ -37,7 +37,7 @@ class TermEditAction extends DefaultEditAction
       'sourceNote',
       'useFor');
 
-  protected 
+  protected
     $updatedLabel = false;
 
   protected function earlyExecute()
@@ -417,7 +417,7 @@ class TermEditAction extends DefaultEditAction
     parent::processForm();
 
     // Check authorization
-    if (!isset($this->getRoute()->resource) && !QubitAcl::check($this->resource, 'create'))
+    if (!isset($this->getRoute()->resource) && !QubitAcl::check($this->resource->taxonomy, 'createTerm'))
     {
       QubitAcl::forwardUnauthorized();
     }
