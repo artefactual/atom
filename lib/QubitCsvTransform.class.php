@@ -82,7 +82,7 @@ class QubitCsvTransform extends QubitFlatfileImport
       throw new sfException('You must specifiy the output-file option.');
     }
 
-    if (!getEnv("MYSQL_PASSWORD"))
+    if (getEnv("MYSQL_PASSWORD") === false)
     {
       throw new sfException('You must set the MYSQL_PASSWORD environmental variable. This script will use the "root" user and a database called "import".');
     }
