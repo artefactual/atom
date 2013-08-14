@@ -227,7 +227,7 @@
       ->renderRow(array('class' => 'form-autocomplete')) ?>
 
     <?php echo render_field($form->languageNotes
-      ->help(__('"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).'))
+      ->help(__('"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.'))
       ->label(__('Language and script notes')), $rad, array('class' => 'resizable')) ?>
 
     <?php echo render_field($form->locationOfOriginals
