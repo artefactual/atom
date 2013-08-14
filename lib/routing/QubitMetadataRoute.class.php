@@ -165,6 +165,11 @@ class QubitMetadataRoute extends sfRoute
 
           break;
 
+        case $this->resource instanceof QubitPhysicalObject:
+          $parameters['module'] = 'physicalobject';
+
+          break;
+
         default:
 
           return false;
