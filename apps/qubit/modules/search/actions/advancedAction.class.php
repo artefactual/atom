@@ -323,7 +323,7 @@ class SearchAdvancedAction extends SearchIndexAction
         else
         {
           $startTerm = $startDate;
-          $endTerm = date('Ymd');
+          $endTerm = '99999999';
           $searchField = 'endDate';
         }
 
@@ -342,7 +342,7 @@ class SearchAdvancedAction extends SearchIndexAction
         if (null !== $startDate)
         {
           $startTerm = $startDate;
-          $endTerm =  date('Ymd');
+          $endTerm =  '99999999';
           $searchField = 'endDate';
         }
         else
