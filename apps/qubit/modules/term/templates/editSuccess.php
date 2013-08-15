@@ -1,17 +1,7 @@
 <?php decorate_with('layout_2col.php') ?>
 
 <?php slot('title') ?>
-
-  <h1>
-    <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
-      <?php echo __('Edit term') ?>
-    <?php else: ?>
-      <?php echo __('Add new term') ?>
-    <?php endif; ?>
-  </h1>
-
-  <h1 class="label"><?php echo render_title($resource) ?></h1>
-
+  <h1><?php echo __('Term %1%', array('%1%' => render_title($resource))) ?></h1>
 <?php end_slot() ?>
 
 <?php slot('content') ?>
