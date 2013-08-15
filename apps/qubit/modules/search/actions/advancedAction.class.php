@@ -257,6 +257,11 @@ class SearchAdvancedAction extends SearchIndexAction
   // Transform YYYY-MM-DD and YYYY/MM/DD formats to YYYYMMDD
   private function normalizeDateString(&$dateString)
   {
+    if (null === $dateString)
+    {
+      return;
+    }
+
     $dateString = str_replace("-", "", $dateString);
     $dateString = str_replace("/", "", $dateString);
   }
@@ -320,7 +325,7 @@ class SearchAdvancedAction extends SearchIndexAction
     {
       $this->normalizeDateString($startDate);
       $this->normalizeDateString($endDate);
-      
+
       $dateQuery = new Zend_Search_Lucene_Search_Query_Boolean();
 
       if (null !== $startDate)
