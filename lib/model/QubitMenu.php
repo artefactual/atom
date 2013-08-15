@@ -356,7 +356,16 @@ class QubitMenu extends BaseMenu
    */
   public static function displayHierarchyAsList($parent, $depth = 0, $options = array())
   {
+    // Set current depth if not defined yet
+    // We're using it to track the depth of the recursion
+    if (!isset($options['current-depth']))
+    {
+      $options['current-depth'] = 0;
+    }
+
+    // An array of <li/> elements for the list
     $li = array();
+
     foreach ($parent->getChildren() as $child)
     {
       // Skip this menu and children if marked "hidden"
@@ -366,49 +375,52 @@ class QubitMenu extends BaseMenu
         continue;
       }
 
+      // Determine if we need to keep going down the hierarchy
+      $continueHierarchy = $options['current-depth'] < $depth && $child->hasChildren();
+
+      // Declare some options for the link for this node
+      $anchorPath = $child->getPath(array('getUrl' => true, 'resolveAlias' => true));
+      $anchorLabel = $child->getLabel(array('cultureFallback' => true));
+      $anchorOptions = array();
+      if ($continueHierarchy)
+      {
+        $anchorLabel .= ' <b class="caret"></b>';
+        $anchorOptions['class'] = 'dropdown-toggle';
+        $anchorOptions['data-toggle'] = 'dropdown';
+      }
+
+      // Construct the link
+      $a = link_to($anchorLabel, $anchorPath, $anchorOptions);
+
+      // An array of CSS classes for the li element
       $class = array();
       if ($child->isSelected() || $child->isDescendantSelected())
       {
         $class[] = 'active';
       }
 
-      // Build anchor label
-      $anchorLabel = $child->getLabel(array('cultureFallback' => true));
-      if ($child->hasChildren())
+      if ($continueHierarchy)
       {
-        $anchorLabel .= ' <b class="caret"></b>';
-      }
+        // Nested nodes
+        $a .= self::displayHierarchyAsList($child, $depth, array_merge($options, array('ulWrap' => true, 'ulClass' => 'dropdown-menu', 'current-depth' => ($depth + 1))));
 
-      // Build anchor path
-      $anchorPath = $child->getPath(array('getUrl' => true, 'resolveAlias' => true));
-
-      // Build anchor options
-      $anchorOptions = array();
-      if ($child->hasChildren())
-      {
-        $anchorOptions['class'] = 'dropdown-toggle';
-        $anchorOptions['data-toggle'] = 'dropdown';
-      }
-
-
-      $a = link_to($anchorLabel, $anchorPath, $anchorOptions);
-
-      if ($child->hasChildren())
-      {
-        $a .= self::displayHierarchyAsList($child, $depth + 1, array_merge($options, array('ulWrap' => true, 'ulClass' => 'dropdown-menu')));
+        // We need this class for the <li> element
         $class[] = 'dropdown';
       }
       else
       {
+        // Add .leaf to the <li> element of orphan nodes
         $class[] = 'leaf';
       }
 
+      // Build string of classes for the class property of the <li> element
       $class = implode(' ', $class);
       if (0 < strlen($class))
       {
         $class = ' class="'.$class.'"';
       }
 
+      // Add an #id to make style customizatino easier
       $id = isset($child->name) ? ' id="node_'.$child->name.'"' : '';
 
       $li[] = '<li'.$class.$id.'>'.$a.'</li>';
