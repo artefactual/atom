@@ -17,7 +17,7 @@ class sfInstallPluginConfiguration extends sfPluginConfiguration
     if ('sfInstallPlugin' != $context->request->module
       && !file_exists(sfConfig::get('sf_config_dir').'/config.php'))
     {
-      $context->controller->redirect(array('module' => 'sfInstallPlugin'));
+      $context->controller->redirect(array('module' => 'sfInstallPlugin', 'action' => 'index'));
     }
   }
 
@@ -97,8 +97,6 @@ class sfInstallPluginConfiguration extends sfPluginConfiguration
     $routing = $event->getSubject();
 
     $routing->insertRouteBefore('default', 'sfInstallPlugin/help', new sfRoute('http://accesstomemory.org/wiki/index.php?title=Installer_warnings', array('module' => 'sfInstallPlugin', 'action' => 'help')));
-
-    $routing->prependRoute('sfInstallPlugin/starter', new sfRoute('/sfInstallPlugin', array('module' => 'sfInstallPlugin', 'action' => 'index')));
   }
 
   /**
