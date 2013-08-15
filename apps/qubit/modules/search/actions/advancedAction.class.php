@@ -254,6 +254,13 @@ class SearchAdvancedAction extends SearchIndexAction
     return $query;
   }
 
+  // Transform YYYY-MM-DD and YYYY/MM/DD formats to YYYYMMDD
+  private function normalizeDateString(&$dateString)
+  {
+    $dateString = str_replace("-", "", $dateString);
+    $dateString = str_replace("/", "", $dateString);
+  }
+
   public function filterQuery($query)
   {
     // limit to a repository if selected
@@ -306,10 +313,14 @@ class SearchAdvancedAction extends SearchIndexAction
     $startDate = $this->form->getValue('startDate');
     $endDate = $this->form->getValue('endDate');
 
+
     $this->context->getLogger()->log('Doing a date search '.$startDate.' to '.$endDate);
 
     if (null !== $startDate || null !== $endDate)
     {
+      $this->normalizeDateString($startDate);
+      $this->normalizeDateString($endDate);
+      
       $dateQuery = new Zend_Search_Lucene_Search_Query_Boolean();
 
       if (null !== $startDate)
