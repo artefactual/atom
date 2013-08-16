@@ -2196,7 +2196,7 @@ class QubitInformationObject extends BaseInformationObject
           $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitInformationObject');
 
           $concatCurrent  = $current->__get('identifier') ?: " ";
-          $concatCurrent .= $current->title;
+          $concatCurrent .= $current->getTitle(array('sourceCulture' => true));
           $concatCurrent .= str_pad($current->lft, 12, '0', STR_PAD_LEFT);
           $concatCurrent = Propel::getConnection()->quote($concatCurrent);
 
@@ -2235,7 +2235,7 @@ class QubitInformationObject extends BaseInformationObject
 
           $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitInformationObject');
 
-          $concatCurrent = $current->title;
+          $concatCurrent = $current->getTitle(array('sourceCulture' => true));
           $concatCurrent .= str_pad($current->lft, 12, '0', STR_PAD_LEFT);
           $concatCurrent = Propel::getConnection()->quote($concatCurrent);
 
