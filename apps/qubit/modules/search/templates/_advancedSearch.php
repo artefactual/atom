@@ -5,36 +5,6 @@
   <div style="display: none;">
 <?php endif; ?>
 
-<div class="form-item">
-  <label><?php echo __('Date range search') ?></label>
-  <table>
-    <tr>
-      <td>
-        <?php echo $form->startDate
-          ->label(__('Start date'))
-          ->renderRow() ?>
-      </td>
-      <td>
-        <?php echo $form->endDate
-          ->label(__('End date'))
-          ->renderRow() ?>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <div style="text-align:right;vertical-align:top;">
-          <span style="float:left">
-            <?php echo __('Date format: YYYYMMDD') ?>
-          </span>
-          <span style="float:right">
-            <a href="https://www.ica-atom.org/doc/Advanced_search"><?php echo __('Advanced search help') ?></a>
-          </span>
-        </div>
-      </td>
-    </tr>
-  </table>
-</div>
-
 <table class="multiRow" style="white-space: nowrap; min-width: 660px;">
   <tbody>
     <?php echo get_partial('search/searchFields') ?>
@@ -44,6 +14,36 @@
 <fieldset class="collapsible <?php echo ($form->getValue('repository') . $form->getValue('media') . $form->getValue('hasDigitalObject') . $form->getValue('levelOfDescription') . $form->getValue('startDate') . $form->getValue('endDate') ? '' : 'collapsed') ?>" id="filterLimit">
 
   <legend><?php echo __('Filter/Limit') ?></legend>
+
+  <div class="form-item">
+    <label><?php echo __('Date range search') ?></label>
+    <table>
+      <tr>
+        <td>
+          <?php echo $form->startDate
+            ->label(__('Start date'))
+            ->renderRow() ?>
+        </td>
+        <td>
+          <?php echo $form->endDate
+            ->label(__('End date'))
+            ->renderRow() ?>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div style="text-align:right;vertical-align:top;">
+            <span style="float:left">
+              <?php echo __('Date format: YYYYMMDD, YYYYMM or YYYY') ?>
+            </span>
+            <span style="float:right">
+              <a href="https://www.ica-atom.org/doc/Advanced_search"><?php echo __('Advanced search help') ?></a>
+            </span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
 
   <?php if (sfConfig::get('app_multi_repository')): ?>
 
