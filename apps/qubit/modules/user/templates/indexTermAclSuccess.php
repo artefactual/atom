@@ -1,14 +1,12 @@
 <?php echo get_component('user', 'aclMenu') ?>
 
-<h1><?php echo __('View permissions') ?></h1>
-
-<h1 class="label"><?php echo link_to_if(SecurityCheck::HasPermission($sf_user, array('module' => 'user', 'action' => 'edit')), render_title($resource), array($resource, 'module' => 'user', 'action' => 'edit'), array('title' => __('Edit user'))) ?></h1>
+<h1><?php echo __('User %1%', array('%1%' => render_title($resource))) ?></h1>
 
 <div class="section">
 
   <?php if (0 < count($acl)): ?>
 
-    <table id="userPermissions" class="sticky-enabled">
+    <table id="userPermissions" class="table table-bordered sticky-enabled">
       <thead>
         <tr>
           <th colspan="2">&nbsp;</th>

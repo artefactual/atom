@@ -31,14 +31,8 @@ class AclGroupDeleteAction extends sfAction
       $this->forward404();
     }
 
-    // Check if group is protected
-    if ($this->group->isProtected())
-    {
-      $this->forward('aclGroup', 'protected');
-    }
-
-    // Check user authorization
-    if (!QubitAcl::check($this->group, 'delete'))
+    // Check permissions
+    if ($this->group->isProtected() || !QubitAcl::check($this->group, 'delete'))
     {
       QubitAcl::forwardUnauthorized();
     }

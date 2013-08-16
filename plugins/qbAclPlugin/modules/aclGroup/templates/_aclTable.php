@@ -1,4 +1,4 @@
-<table id="<?php echo 'acl_'.url_for(array($object, 'module' => $module)) ?>">
+<table id="<?php echo 'acl_'.url_for(array($object, 'module' => $module)) ?>" class="table table-bordered">
   <?php if ($object->id != constant(get_class($object).'::ROOT_ID')): ?>
     <caption><?php echo render_title($object) ?></caption>
   <?php else: ?>
@@ -11,7 +11,7 @@
     </tr>
   </thead><tbody>
     <?php foreach ($actions as $key => $item): ?>
-      <tr class="<?php echo (0 == @++$row % 2) ? 'even' : 'odd' ?>">
+      <tr>
         <td><?php echo __($item) ?></td>
         <td id="<?php echo $module.'_'.$object->id.'_'.$key ?>">
           <ul class="radio inline">

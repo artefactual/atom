@@ -1,6 +1,6 @@
 <h1><?php echo __('List groups') ?></h1>
 
-<table class="sticky-enabled">
+<table class="table table-bordered sticky-enabled">
   <thead>
     <tr>
       <th>
@@ -28,14 +28,8 @@
 
 <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
 
-<div class="actions section">
-
-  <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
-
-    <div class="content">
-      <ul class="clearfix links">
-       <li><?php echo link_to(__('Add new'), array('module' => 'aclGroup', 'action' => 'add')) ?></li>
-     </ul>
-   </div>
-
+<section class="actions">
+  <ul class="clearfix links">
+    <li><?php echo link_to(__('Add new'), array('module' => 'aclGroup', 'action' => 'add'), array('class' => 'c-btn')) ?></li>
+  </ul>
 </div>

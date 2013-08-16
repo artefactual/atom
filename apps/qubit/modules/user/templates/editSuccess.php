@@ -1,108 +1,107 @@
+<?php decorate_with('layout_1col.php') ?>
 <?php use_helper('Javascript') ?>
 
-<h1>
-  <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
-    <?php echo __('Edit user') ?>
-  <?php else: ?>
-    <?php echo __('Add new user') ?>
-  <?php endif; ?>
-</h1>
+<?php slot('title') ?>
+  <h1><?php echo __('User %1%', array('%1%' => render_title($resource))) ?></h1>
+<?php end_slot() ?>
 
-<h1 class="label"><?php echo render_title($resource) ?></h1>
+<?php slot('content') ?>
 
-<?php echo $form->renderGlobalErrors(); ?>
+  <?php echo $form->renderGlobalErrors(); ?>
 
-<?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'user', 'action' => 'edit')), array('id' => 'editForm')) ?>
+  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'user', 'action' => 'edit')), array('id' => 'editForm')) ?>
 
-  <fieldset class="collapsible" id="basicInfo">
+    <section id="content">
 
-    <legend><?php echo __('Basic info')?></legend>
+      <fieldset class="collapsible" id="basicInfo">
 
-    <?php echo $form->username->renderRow() ?>
+        <legend><?php echo __('Basic info')?></legend>
 
-    <?php echo $form->email->renderRow() ?>
+        <?php echo $form->username->renderRow() ?>
 
-    <?php $settings = json_encode(array(
-      'password' => array(
-        'strengthTitle' => __('Password strength:'),
-        'hasWeaknesses' => __('To make your password stronger:'),
-        'tooShort' => __('Make it at least six characters'),
-        'addLowerCase' => __('Add lowercase letters'),
-        'addUpperCase' => __('Add uppercase letters'),
-        'addNumbers' => __('Add numbers'),
-        'addPunctuation' => __('Add punctuation'),
-        'sameAsUsername' => __('Make it different from your username'),
-        'confirmSuccess' => __('Yes'),
-        'confirmFailure' => __('No'),
-        'confirmTitle' => __('Passwords match:'),
-        'username' => ''))) ?>
-    <?php echo javascript_tag(<<<EOF
+        <?php echo $form->email->renderRow() ?>
+
+        <?php $settings = json_encode(array(
+          'password' => array(
+            'strengthTitle' => __('Password strength:'),
+            'hasWeaknesses' => __('To make your password stronger:'),
+            'tooShort' => __('Make it at least six characters'),
+            'addLowerCase' => __('Add lowercase letters'),
+            'addUpperCase' => __('Add uppercase letters'),
+            'addNumbers' => __('Add numbers'),
+            'addPunctuation' => __('Add punctuation'),
+            'sameAsUsername' => __('Make it different from your username'),
+            'confirmSuccess' => __('Yes'),
+            'confirmFailure' => __('No'),
+            'confirmTitle' => __('Passwords match:'),
+            'username' => ''))) ?>
+
+        <?php echo javascript_tag(<<<EOF
 jQuery.extend(Drupal.settings, $settings);
 EOF
 ) ?>
-    <?php echo $form->password->renderError() ?>
 
-    <div class="form-item password-parent">
+        <?php echo $form->password->renderError() ?>
 
-      <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
-        <?php echo $form->password
-          ->label(__('Change password'))
-          ->renderLabel() ?>
-      <?php else: ?>
-        <?php echo $form->password
-          ->label(__('Password'))
-          ->renderLabel() ?>
-      <?php endif; ?>
+        <div class="form-item password-parent">
 
-      <?php echo $form->password->render(array('class' => 'password-field')) ?>
+          <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
+            <?php echo $form->password
+              ->label(__('Change password'))
+              ->renderLabel() ?>
+          <?php else: ?>
+            <?php echo $form->password
+              ->label(__('Password'))
+              ->renderLabel() ?>
+          <?php endif; ?>
 
-    </div>
+          <?php echo $form->password->render(array('class' => 'password-field')) ?>
 
-    <div class="form-item confirm-parent">
-      <?php echo $form->password
-        ->label(__('Confirm password'))
-        ->renderLabel() ?>
-      <?php echo $form->confirmPassword->render(array('class' => 'password-confirm')) ?>
-    </div>
+        </div>
 
-    <?php if ($sf_user->user != $resource): ?>
-      <?php echo $form->active
-        ->label(__('Active'))
-        ->renderRow() ?>
-    <?php endif; ?>
+        <div class="form-item confirm-parent">
+          <?php echo $form->password
+            ->label(__('Confirm password'))
+            ->renderLabel() ?>
+          <?php echo $form->confirmPassword->render(array('class' => 'password-confirm')) ?>
+        </div>
 
-  </fieldset> <!-- /#basicInfo -->
+        <?php if ($sf_user->user != $resource): ?>
+          <?php echo $form->active
+            ->label(__('Active'))
+            ->renderRow() ?>
+        <?php endif; ?>
 
-  <fieldset class="collapsible collapsed" id="groupsAndPermissions">
+      </fieldset> <!-- /#basicInfo -->
 
-    <legend><?php echo __('Access control')?></legend>
+      <fieldset class="collapsible" id="groupsAndPermissions">
 
-    <?php echo $form->groups
-      ->label(__('User groups'))
-      ->renderRow(array('class' => 'form-autocomplete')) ?>
+        <legend><?php echo __('Access control')?></legend>
 
-    <?php echo $form->translate
-      ->label(__('Allowed languages for translation'))
-      ->renderRow(array('class' => 'form-autocomplete')) ?>
+        <?php echo $form->groups
+          ->label(__('User groups'))
+          ->renderRow(array('class' => 'form-autocomplete')) ?>
 
-  </fieldset> <!-- /#groupsAndPermissions -->
+        <?php echo $form->translate
+          ->label(__('Allowed languages for translation'))
+          ->renderRow(array('class' => 'form-autocomplete')) ?>
 
-  <div class="actions section">
+      </fieldset> <!-- /#groupsAndPermissions -->
 
-    <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+    </section>
 
-    <div class="content">
-      <ul class="clearfix links">
+    <section class="actions">
+      <ul>
         <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
-          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'user')) ?></li>
-          <li><input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
+          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'user'), array('class' => 'c-btn')) ?></li>
+          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
         <?php else: ?>
-          <li><?php echo link_to(__('Cancel'), array('module' => 'user', 'action' => 'list')) ?></li>
-          <li><input class="form-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
+          <li><?php echo link_to(__('Cancel'), array('module' => 'user', 'action' => 'list'), array('class' => 'c-btn')) ?></li>
+          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
         <?php endif; ?>
       </ul>
-    </div>
+    </section>
 
-  </div>
+  </form>
 
-</form>
+<?php end_slot() ?>

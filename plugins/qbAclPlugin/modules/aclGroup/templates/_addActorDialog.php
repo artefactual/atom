@@ -19,7 +19,7 @@ $permissionsLabel = __('Permissions');
 
 $tableTemplate = <<<EOL
 <div class="form-item">
-<table id="acl_{objectId}">
+<table id="acl_{objectId}" class="table table-bordered">
 <caption/>
 <thead>
 <tr>
@@ -30,10 +30,9 @@ $tableTemplate = <<<EOL
 <tbody>
 EOL;
 
-$row = 0;
 foreach ($basicActions as $key => $item)
 {
-  $tableTemplate .= '<tr class="'.((0 == ++$row % 2) ? 'even' : 'odd').'">';
+  $tableTemplate .= '<tr>';
   $tableTemplate .= '<td>'.__($item).'</th>';
   $tableTemplate .= '<td><ul class="radio inline">';
   $tableTemplate .= '<li><input type="radio" name="acl['.$key.'_{objectId}]" value="'.QubitAcl::GRANT.'"/>'.__('Grant').'</li>';

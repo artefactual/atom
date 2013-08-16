@@ -1,45 +1,47 @@
-<h1>
+<?php decorate_with('layout_1col.php') ?>
+
+<?php slot('title') ?>
+  <h1><?php echo __('Group %1%', array('%1%' => render_title($group))) ?></h1>
+<?php end_slot() ?>
+
+<?php slot('content') ?>
+
+  <?php echo $form->renderGlobalErrors() ?>
+
   <?php if (isset($sf_request->id)): ?>
-    <?php echo __('Edit group') ?>
+    <?php echo $form->renderFormTag(url_for(array($group, 'module' => 'aclGroup', 'action' => 'edit')), array('id' => 'editForm')) ?>
   <?php else: ?>
-    <?php echo __('Add new group') ?>
+    <?php echo $form->renderFormTag(url_for(array('module' => 'aclGroup', 'action' => 'add')), array('id' => 'editForm')) ?>
   <?php endif; ?>
-</h1>
 
-<?php if (isset($sf_request->id)): ?>
-  <h1 class="label"><?php echo $group ?></h1>
-<?php endif; ?>
+    <section id="content">
 
-<?php echo $form->renderGlobalErrors() ?>
+      <fieldset class="collapsible">
 
-<?php if (isset($sf_request->id)): ?>
-  <?php echo $form->renderFormTag(url_for(array($group, 'module' => 'aclGroup', 'action' => 'edit')), array('id' => 'editForm')) ?>
-<?php else: ?>
-  <?php echo $form->renderFormTag(url_for(array('module' => 'aclGroup', 'action' => 'add')), array('id' => 'editForm')) ?>
-<?php endif; ?>
+        <legend><?php echo __('Main area') ?></legend>
 
-  <?php echo render_field($form->name, $group) ?>
+        <?php echo render_field($form->name, $group) ?>
 
-  <?php echo render_field($form->description, $group, array('class' => 'resizable')) ?>
+        <?php echo render_field($form->description, $group, array('class' => 'resizable')) ?>
 
-  <?php echo $form->translate->renderRow() ?>
+        <?php echo $form->translate->renderRow(array('class' => 'asdf')) ?>
 
-  <div class="actions section">
+      </fieldset>
 
-    <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+    </section>
 
-    <div class="content">
-      <ul class="clearfix links">
+    <section class="actions">
+      <ul>
         <?php if (isset($sf_request->id)): ?>
-          <li><?php echo link_to(__('Cancel'), array($group, 'module' => 'aclGroup')) ?></li>
-          <li><input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
+          <li><?php echo link_to(__('Cancel'), array($group, 'module' => 'aclGroup'), array('class' => 'c-btn')) ?></li>
+          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
         <?php else: ?>
-          <li><?php echo link_to(__('Cancel'), array('module' => 'aclGroup', 'action' => 'list')) ?></li>
-          <li><input class="form-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
+          <li><?php echo link_to(__('Cancel'), array('module' => 'aclGroup', 'action' => 'list'), array('class' => 'c-btn')) ?></li>
+          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
         <?php endif; ?>
       </ul>
-    </div>
+    </section>
 
-  </div>
+  </form>
 
-</form>
+<?php end_slot() ?>
