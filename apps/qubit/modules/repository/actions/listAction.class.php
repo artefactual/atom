@@ -51,6 +51,7 @@ class RepositoryListAction extends sfAction
     }
 
     $query->addSubquery(QubitSearch::getInstance()->addTerm('QubitRepository', 'className'), true);
+    $query = QubitAcl::searchFilterByResource($query, QubitRepository::getById(QubitRepository::ROOT_ID));
 
     $this->pager = new QubitArrayPager;
 

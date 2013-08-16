@@ -34,12 +34,21 @@ class RepositoryEditAction extends DefaultEditAction
 
     $this->resource = new QubitRepository;
 
+    // Make root repository the parent of new repositories
+    $this->resource->parentId = QubitRepository::ROOT_ID;
+
     if (isset($this->getRoute()->resource))
     {
       $this->resource = $this->getRoute()->resource;
 
+      // Check that this isn't the root
+      if (!isset($this->resource->parent))
+      {
+        $this->forward404();
+      }
+
       // Check user authorization
-      if (!QubitAcl::check($this->resource, 'update'))
+      if (!QubitAcl::check($this->resource, 'update') && !QubitAcl::check($this->resource, 'translate'))
       {
         QubitAcl::forwardUnauthorized();
       }
@@ -51,8 +60,8 @@ class RepositoryEditAction extends DefaultEditAction
     }
     else
     {
-      // Check user authorization
-      if (!QubitAcl::check($this->resource, 'create'))
+      // Check user authorization against ROOT repository
+      if (!QubitAcl::check(QubitRepository::getById(QubitRepository::ROOT_ID), 'create'))
       {
         QubitAcl::forwardUnauthorized();
       }

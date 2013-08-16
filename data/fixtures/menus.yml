@@ -393,6 +393,13 @@ QubitMenu:
       pl: 'Uprawnienia sprawcy/powoda'
       pt: 'Permissões do ator'
       sl: 'Dovoljenja za delovalca'
+  QubitMenu_mainmenu_admin_users_repositoryAcl:
+    parent_id: QubitMenu_mainmenu_admin_users
+    name: userRepositoryAcl
+    path: 'user/indexRepositoryAcl?slug=%currentSlug%'
+    source_culture: en
+    label:
+      en: 'Archival institution permissions'
   QubitMenu_mainmenu_admin_users_termAcl:
     parent_id: QubitMenu_mainmenu_admin_users
     name: userTermAcl
@@ -475,6 +482,13 @@ QubitMenu:
       pl: 'Uprawnienia sprawcy/powoda'
       pt: 'Permissões do ator'
       sl: 'Dovoljenja za delovalca'
+  QubitMenu_mainmenu_admin_groups_repositoryAcl:
+    parent_id: QubitMenu_mainmenu_admin_groups
+    name: groupRepositoryAcl
+    path: 'aclGroup/indexRepositoryAcl?id=%currentId%'
+    source_culture: en
+    label:
+      en: 'Archival institution permissions'
   QubitMenu_mainmenu_admin_groups_termAcl:
     parent_id: QubitMenu_mainmenu_admin_groups
     name: groupTermAcl

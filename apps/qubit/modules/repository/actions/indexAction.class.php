@@ -22,5 +22,17 @@ class RepositoryIndexAction extends sfAction
   public function execute($request)
   {
     $this->resource = $this->getRoute()->resource;
+
+    // Check that this isn't the root
+    if (!isset($this->resource->parent))
+    {
+      $this->forward404();
+    }
+
+    // Check user authorization
+    if (!QubitAcl::check($this->resource, 'read'))
+    {
+      QubitAcl::forwardUnauthorized();
+    }
   }
 }

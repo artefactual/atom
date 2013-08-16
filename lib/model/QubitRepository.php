@@ -24,6 +24,9 @@
  */
 class QubitRepository extends BaseRepository
 {
+  const
+    ROOT_ID = 6;
+
   /**
    * Add repository specific logic to the insert action
    *

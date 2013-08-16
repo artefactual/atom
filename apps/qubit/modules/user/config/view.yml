@@ -28,6 +28,21 @@ editActorAclSuccess:
     autocomplete:
     select:
 
+editRepositoryAclSuccess:
+  stylesheets:
+    /vendor/yui/autocomplete/assets/skins/sam/autocomplete: { position: first }
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/textarea:
+    /plugins/sfDrupalPlugin/vendor/drupal/modules/user/user:
+    /vendor/yui/connection/connection-min:
+    /vendor/yui/datasource/datasource-min:
+    /vendor/yui/autocomplete/autocomplete-min:
+    autocomplete:
+    select:
+
 editInformationObjectAclSuccess:
   stylesheets:
     /vendor/yui/autocomplete/assets/skins/sam/autocomplete: { position: first }
@@ -66,6 +81,12 @@ indexSuccess:
      blank:
 
 indexActorAclSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
+    blank:
+
+indexRepositoryAclSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:

@@ -42,6 +42,7 @@ class RepositoryBrowseAction extends sfAction
     }
 
     $criteria = new Criteria;
+    $criteria->add(QubitActor::PARENT_ID, QubitRepository::ROOT_ID);
 
     // Do source culture fallback
     $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitActor');

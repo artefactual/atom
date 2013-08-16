@@ -17,12 +17,44 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class AclGroupEditDefaultAclAction extends sfAction
+class UserEditRepositoryAclAction extends DefaultEditAction
 {
-  protected function addField($name)
+  public static
+    $NAMES = array();
+
+  protected function earlyExecute()
   {
-    $this->form->setValidator($name, new sfValidatorString);
-    $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => array())));
+    $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
+
+    $this->resource = new QubitUser;
+    if (isset($this->getRoute()->resource))
+    {
+      $this->resource = $this->getRoute()->resource;
+    }
+
+    // Always include root repository permissions
+    $this->repositories = array(QubitRepository::ROOT_ID => null);
+
+    // Get repository permissions for this group
+    $criteria = new Criteria;
+    $criteria->addJoin(QubitAclPermission::OBJECT_ID, QubitObject::ID, Criteria::LEFT_JOIN);
+    $criteria->add(QubitAclPermission::USER_ID, $this->resource->id);
+    $c1 = $criteria->getNewCriterion(QubitAclPermission::OBJECT_ID, null, Criteria::ISNULL);
+    $c2 = $criteria->getNewCriterion(QubitObject::CLASS_NAME, 'QubitRepository');
+    $c1->addOr($c2);
+    $criteria->add($c1);
+
+    if (null !== $permissions = QubitAclPermission::get($criteria))
+    {
+      foreach ($permissions as $item)
+      {
+        $this->repositories[$item->objectId][$item->action] = $item;
+      }
+    }
+
+    // List of actions without translate
+    $this->basicActions = QubitAcl::$ACTIONS;
+    unset($this->basicActions['translate']);
   }
 
   protected function processForm()
@@ -34,49 +66,14 @@ class AclGroupEditDefaultAclAction extends sfAction
       {
         list ($action, $uri) = array_slice($matches, 1, 2);
         $params = $this->context->routing->parse(Qubit::pathInfo($uri));
-        if (isset($params['_sf_route']->resource))
-        {
-          $resource = $params['_sf_route']->resource;
-        }
-        else
-        {
-          continue;
-        }
+        $resource = $params['_sf_route']->resource;
 
-        if (QubitAcl::INHERIT != $value && isset($this->basicActions[$action]))
+        if (QubitAcl::INHERIT != $value && isset(QubitAcl::$ACTIONS[$action]))
         {
           $aclPermission = new QubitAclPermission;
           $aclPermission->action = $action;
           $aclPermission->grantDeny = (QubitAcl::GRANT == $value) ? 1 : 0;
-
-          switch ($resource->className)
-          {
-            case 'QubitRepository':
-
-              // Coming from editInformationObjectAcl class, add permissions to the
-              // repository information objects
-              if (false !== strrpos($this->request->getReferer(), 'editInformationObjectAcl'))
-              {
-                $aclPermission->objectId = QubitInformationObject::ROOT_ID;
-                $aclPermission->setRepository($resource);
-              }
-              // If not, add permissions to the repository
-              else
-              {
-                $aclPermission->object = $resource;
-              }
-
-              break;
-
-            case 'QubitTaxonomy':
-              $aclPermission->objectId = QubitTerm::ROOT_ID;
-              $aclPermission->setTaxonomy($resource);
-
-              break;
-
-            default:
-              $aclPermission->object = $resource;
-          }
+          $aclPermission->object = $resource;
 
           $this->resource->aclPermissions[] = $aclPermission;
         }
@@ -85,40 +82,35 @@ class AclGroupEditDefaultAclAction extends sfAction
       // Otherwise, update an existing permission
       else if (null !== $aclPermission = QubitAclPermission::getById($key))
       {
-        if (QubitAcl::INHERIT == $value)
+        if ($value == QubitAcl::INHERIT)
         {
           $aclPermission->delete();
         }
         else
         {
           $aclPermission->grantDeny = (QubitAcl::GRANT == $value) ? 1 : 0;
-
           $this->resource->aclPermissions[] = $aclPermission;
         }
       }
     }
-
-    $this->resource->save();
   }
 
   public function execute($request)
   {
-    $this->form = new sfForm;
-    $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
+    parent::execute($request);
 
-    if (isset($this->request->id))
+    if ($request->isMethod('post'))
     {
-      $this->resource = QubitAclGroup::getById($this->request->id);
+      $this->form->bind($request->getPostParameters());
 
-      if (!isset($this->resource))
+      if ($this->form->isValid())
       {
-        $this->forward404();
-      }
-    }
+        $this->processForm();
 
-    foreach ($this::$NAMES as $name)
-    {
-      $this->addField($name);
+        $this->resource->save();
+
+        $this->redirect(array($this->resource, 'module' => 'user', 'action' => 'indexRepositoryAcl'));
+      }
     }
   }
 }
