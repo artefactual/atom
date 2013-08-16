@@ -57,9 +57,22 @@ class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
           }
         }
 
+        // Find available plugins in the filesystem
+        $pluginPaths = $this->configuration->getAllPluginPaths();
+
+        // Ignore plugins configured in the db but not available (removed)
+        foreach (array_diff($pluginNames, array_keys($pluginPaths)) as $item)
+        {
+          if (false !== $pos = array_search($item, $pluginNames))
+          {
+            unset($pluginNames[$pos]);
+
+            $this->dispatcher->notify(new sfEvent($this, 'application.log', array(sprintf('The plugin "%s" does not exist.', $item))));
+          }
+        }
+
         $this->configuration->enablePlugins($pluginNames);
 
-        $pluginPaths = $this->configuration->getAllPluginPaths();
         foreach ($pluginNames as $name)
         {
           if (!isset($pluginPaths[$name]))
