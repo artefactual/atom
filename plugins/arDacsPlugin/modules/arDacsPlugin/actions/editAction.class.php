@@ -126,16 +126,10 @@ class arDacsPluginEditAction extends InformationObjectEditAction
         break;
 
       case 'languageNotes':
-        $this->form->setDefault('languageNotes', $this->dacs['languageNotes']);
-        $this->form->setValidator('languageNotes', new sfValidatorString);
-        $this->form->setWidget('languageNotes', new sfWidgetFormTextarea);
-
-        break;
-
       case 'technicalAccess':
         $this->form->setDefault($name, $this->dacs[$name]);
         $this->form->setValidator($name, new sfValidatorString);
-        $this->form->setWidget($name, new sfWidgetFormInput);
+        $this->form->setWidget($name, new sfWidgetFormTextarea);
 
         break;
 
