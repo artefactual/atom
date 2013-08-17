@@ -341,6 +341,7 @@ class sfInstall
       'sfEadPlugin',
       'sfIsaarPlugin',
       'sfIsadPlugin',
+      'arDacsPlugin',
       'sfIsdfPlugin',
       'sfIsdiahPlugin',
       'sfModsPlugin',

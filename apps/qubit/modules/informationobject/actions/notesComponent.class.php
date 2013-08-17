@@ -64,6 +64,16 @@ class InformationObjectNotesComponent extends sfComponent
 
           break;
 
+        case 'dacsPublicationNotes':
+          $this->hiddenType = true;
+          $this->hiddenTypeId = QubitTerm::PUBLICATION_NOTE_ID;
+          $this->allNotes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
+          $this->tableName = $this->context->i18n->__('Publication notes');
+          $this->arrayName = 'dacsPublicationNotes';
+          $this->help = $this->context->i18n->__('TODO');
+
+          break;
+
         case 'isadNotes':
           $this->hiddenType = true;
           $this->hiddenTypeId = QubitTerm::GENERAL_NOTE_ID;
@@ -74,6 +84,16 @@ class InformationObjectNotesComponent extends sfComponent
 
           break;
 
+        case 'dacsNotes':
+          $this->hiddenType = true;
+          $this->hiddenTypeId = QubitTerm::GENERAL_NOTE_ID;
+          $this->allNotes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
+          $this->tableName = $this->context->i18n->__('Notes');
+          $this->arrayName = 'dacsNotes';
+          $this->help = $this->context->i18n->__('TODO');
+
+          break;
+
         case 'isadArchivistsNotes':
           $this->hiddenType = true;
           $this->hiddenTypeId = QubitTerm::ARCHIVIST_NOTE_ID;
@@ -81,6 +101,16 @@ class InformationObjectNotesComponent extends sfComponent
           $this->tableName = $this->context->i18n->__('Archivist\'s notes');
           $this->arrayName = 'isadArchivistsNotes';
           $this->help = $this->context->i18n->__('Record notes on sources consulted in preparing the description and who prepared it. (ISAD 3.7.1)');
+
+          break;
+
+        case 'dacsArchivistsNotes':
+          $this->hiddenType = true;
+          $this->hiddenTypeId = QubitTerm::ARCHIVIST_NOTE_ID;
+          $this->allNotes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
+          $this->tableName = $this->context->i18n->__('Archivist and date');
+          $this->arrayName = 'dacsArchivistsNotes';
+          $this->help = $this->context->i18n->__('Record the name(s) of the person(s) who created or revised the description, as well as the creation or revision date. (DACS 8.1.5)');
 
           break;
       }

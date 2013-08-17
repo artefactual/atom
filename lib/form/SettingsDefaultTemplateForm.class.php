@@ -51,6 +51,10 @@ class SettingsDefaultTemplateForm extends sfForm
     {
       $informationObjectTemplates['rad'] = __('RAD, July 2008 version. Canadian Council of Archives');
     }
+    if ($configuration->isPluginEnabled('arDacsPlugin'))
+    {
+      $informationObjectTemplates['dacs'] = __('DACS, 2nd ed. Society of American Archivists');
+    }
 
     $actorTemplates = array(
       'isaar' => __('ISAAR(CPF), 2nd ed. International Council on Archives')

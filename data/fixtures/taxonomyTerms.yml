@@ -4055,6 +4055,13 @@ QubitTerm:
     code: rad
     name:
       en: 'RAD, July 2008 version. Canadian Council of Archives'
+  QubitTerm_template_dacs:
+    taxonomy_id: 70
+    parent_id: QubitTerm_110
+    source_culture: en
+    code: dacs
+    name:
+      en: 'DACS, 2nd ed. Society of American Archivists'
 QubitNote:
   QubitNote_1:
     object_id: QubitTerm_111
