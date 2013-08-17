@@ -45,6 +45,6 @@
 
 <section class="actions">
   <ul class="clearfix links">
-    <li><?php echo link_to(__('Add new'), array('module' => 'aclGroup', 'action' => 'add'), array('class' => 'c-btn')) ?></li>
+    <li><?php echo link_to(__('Add new'), array('module' => 'user', 'action' => 'add'), array('class' => 'c-btn')) ?></li>
   </ul>
 </div>
