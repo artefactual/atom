@@ -72,6 +72,13 @@ EOF;
 
     // Extract i18n messages from php and yaml files (including plugins)
     $i18n = new $class($this->configuration, new sfNoCache(), $params);
+
+    // Set the message source manually as sfI18N relies only in those plugins
+    // that have been explicilty enabled, including those set in the database.
+    // That was causing this task to produce files with less strings than the
+    // expected.
+    $i18n->setMessageSource($this->getI18nDirs());
+
     $extract = new sfI18nConsolidatedExtract($i18n, $arguments['culture']);
     $extract->extract();
 
@@ -80,6 +87,22 @@ EOF;
     $consolidated->setMessageSource(array($arguments['target']), $arguments['culture']);
     $consolidated->getMessageSource()->setCulture($arguments['culture']);
     $extract->save($consolidated);
+  }
+
+  /**
+   * Buid a list of i18n directories in AtoM
+   */
+  protected function getI18nDirs()
+  {
+    $dirs = array(sfConfig::get('sf_app_i18n_dir'));
+
+    $plugins = sfFinder::type('dir')->name('i18n')->maxdepth(1)->not_name('.')->in(sfConfig::get('sf_plugins_dir'));
+    foreach ($plugins as $plugin)
+    {
+      $dirs[] = $plugin;
+    }
+
+    return $dirs;
   }
 }
 
