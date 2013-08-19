@@ -41,6 +41,9 @@ final class xfToolkit
    */
   static public function camelize($underscore)
   {
-    return preg_replace('/(^|_)(.)/e', "strtoupper('$2')", $underscore);
+    return preg_replace_callback('/(^|_)(.)/', function($matches)
+      {
+        return strtoupper($matches[2]);
+      }, $underscore);
   }
 }

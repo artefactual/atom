@@ -47,9 +47,20 @@ final class xfLoggerTask implements xfLogger
    */
   public function log($message, $section = 'sfSearch')
   {
-    $message = preg_replace('/"(.+?)"/e', '$this->formatter->format("\\1", array("fg" => "blue", "bold" => true));', $message);
-    $message = preg_replace('/\.{3}$/e', '$this->formatter->format("...", array("fg" => "red", "bold" => true));', $message);
-    $message = preg_replace('/(Warning|Error)!/e', '$this->formatter->format("\\1!", array("fg" => "red", "bold" => true));', $message);
+    $message = preg_replace_callback('/"(.+?)"/', function($matches)
+      {
+        return $this->formatter->format($matches[1], array("fg" => "blue", "bold" => true));
+      }, $message);
+
+    $message = preg_replace_callback('/\.{3}$/', function($matches)
+      {
+        return $this->formatter->format("...", array("fg" => "red", "bold" => true));
+      }, $message);
+
+    $message = preg_replace_callback('/(Warning|Error)!/', function($matches)
+      {
+        return $this->formatter->format($matches[1].'!', array("fg" => "red", "bold" => true));
+      }, $message);
 
     $this->dispatcher->notify(new sfEvent($this, 'command.log', array($this->formatter->format($section, array('fg' => 'green', 'bold' => true)) . ' >> ' . $message)));
   }
