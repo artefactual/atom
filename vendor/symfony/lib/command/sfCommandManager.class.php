@@ -110,7 +110,7 @@ class sfCommandManager
       // hack to split arguments with spaces : --test="with some spaces"
       $arguments = preg_replace_callback('/(\'|")(.+?)\\1/', function($matches)
         {
-          return str_replace(' ', '=PLACEHOLDER=', '\\2');
+          return str_replace(' ', '=PLACEHOLDER=', $matches[2]);
         }, $arguments);
       $arguments = preg_split('/\s+/', $arguments);
       $arguments = str_replace('=PLACEHOLDER=', ' ', $arguments);
