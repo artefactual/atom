@@ -1,6 +1,9 @@
-<h1><?php echo __('Upload digital objects') ?></h1>
+<?php decorate_with('layout_1col.php') ?>
 
-<h1 class="label"><?php echo render_title(new sfIsadPlugin($resource)) ?> </h1>
+<?php slot('title') ?>
+  <h1><?php echo __('Link digital object') ?></h1>
+  <h2><?php echo render_title(new sfIsadPlugin($resource)) ?> </h2>
+<?php end_slot() ?>
 
 <?php if (QubitDigitalObject::reachedAppUploadLimit()): ?>
 
@@ -16,43 +19,45 @@
 
 <?php else: ?>
 
-  <?php echo $form->renderGlobalErrors() ?>
+  <?php slot('content') ?>
 
-  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'addDigitalObject')), array('id' => 'uploadForm')) ?>
+    <?php echo $form->renderGlobalErrors() ?>
 
-    <?php echo $form->renderHiddenFields() ?>
+    <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'addDigitalObject')), array('id' => 'uploadForm')) ?>
 
-    <?php if (null == $repository || -1 == $repository->uploadLimit || $repository->getDiskUsage(array('units' => 'G')) < floatval($repository->uploadLimit)): ?>
-      <fieldset class="collapsible" id="singleFileUpload">
+      <?php echo $form->renderHiddenFields() ?>
 
-        <legend><?php echo __('Upload a digital object') ?></legend>
+      <section id="content">
 
-        <?php echo $form->file->renderRow() ?>
+        <?php if (null == $repository || -1 == $repository->uploadLimit || $repository->getDiskUsage(array('units' => 'G')) < floatval($repository->uploadLimit)): ?>
+          <fieldset class="collapsible" id="singleFileUpload">
 
-      </fieldset>
-    <?php endif; // Test upload limit ?>
+            <legend><?php echo __('Upload a digital object') ?></legend>
 
-    <fieldset class="collapsible" id="externalFileLink">
+            <?php echo $form->file->renderRow() ?>
 
-      <legend><?php echo __('Link to an external digital object') ?></legend>
+          </fieldset>
+        <?php endif; // Test upload limit ?>
 
-      <?php echo $form->url->renderRow() ?>
+        <fieldset class="collapsible" id="externalFileLink">
 
-    </fieldset>
+          <legend><?php echo __('Link to an external digital object') ?></legend>
 
-    <div class="actions section">
+          <?php echo $form->url->renderRow() ?>
 
-      <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+        </fieldset>
 
-      <div class="content">
-        <ul class="clearfix links">
-          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject')) ?></li>
-          <li><input class="form-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
+      </section>
+
+      <section class="actions">
+        <ul>
+          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject'), array('class' => 'c-btn')) ?></li>
+          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
         </ul>
-      </div>
+      </section>
 
-    </div>
+    </form>
 
-  </form>
+  <?php end_slot() ?>
 
 <?php endif; ?>
