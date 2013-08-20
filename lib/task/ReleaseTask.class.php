@@ -52,12 +52,6 @@ class ReleaseTask extends sfBaseTask
 
     $name = $xpath->evaluate('string(p:name)', $doc->documentElement);
 
-    list($stdout, $stderr) = $this->getFilesystem()->execute('chdir '.sfConfig::get('sf_root_dir'));
-    if (0 < strlen($stderr))
-    {
-      throw new Exception("git error: $stderr");
-    }
-
     if (!$xpath->evaluate('boolean(p:date)', $doc->documentElement))
     {
       $dateNode = $doc->createElement('date', date('Y-m-d'));
@@ -160,18 +154,6 @@ class ReleaseTask extends sfBaseTask
     $packageXmlPath = sfConfig::get('sf_root_dir').'/package.xml';
     $doc->save($packageXmlPath);
     $this->logSection('release', sprintf('%s generated', $packageXmlPath));
-
-    /*
-    list($stdout, $stderr) = $this->getFilesystem()->execute('pear package');
-    if (0 < strlen($stderr))
-    {
-      throw new Exception("Pear error: $stderr");
-    }
-
-    print $stdout;
-
-    $this->getFilesystem()->remove($packageXmlPath);
-    */
   }
 
   protected function globToPattern($glob)
