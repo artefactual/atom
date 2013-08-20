@@ -26,40 +26,36 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
   <license filesource="LICENSE">AGPLv3</license>
   <notes>-</notes>
   <contents>
+    <file name="index.php" role="php"/>
+    <file name="qubit_dev.php" role="php"/>
     <file name="apps/qubit//*" role="php"/>
+    <file name="lib//*" role="php"/>
+    <file name="plugins//*" role="php"/>
     <file name="config//*" role="data"/>
+    <file name="data//*" role="data"/>
+    <file name="vendor//*" role="data"/>
+    <file name="uploads//*" role="data"/>
+    <file name="plugins/sfDrupalPlugin//*" role="data"/>
+    <file name="plugins/sfLucenePlugin//*" role="data"/>
+    <file name="plugins/sfSearchPlugin//*" role="data"/>
+    <file name="plugins/sfFormExtraPlugin//*" role="data"/>
+    <file name="plugins/sfWebBrowserPlugin//*" role="data"/>
+    <file name="plugins/sfThumbnailPlugin//*" role="data"/>
+    <file name="LICENSE" role="doc"/>
+    <file name="README" role="doc"/>
     <file name="CONTRIBUTING" role="doc"/>
     <file name="COPYRIGHT" role="doc"/>
     <file name="css//*" role="data"/>
-    <file name="data//*" role="data"/>
+    <file name="images//*" role="data"/>
+    <file name="js//*" role="data"/>
     <file name="ead.dtd" role="data"/>
     <file name="favicon.ico" role="data"/>
-    <file name="images//*" role="data"/>
-    <file name="index.php" role="php"/>
-    <file name="init//*" role="script"/>
-    <file name="js//*" role="data"/>
-    <file name="lib//*" role="php"/>
-    <file name="LICENSE" role="doc"/>
-    <file name="plugins//*" role="php"/>
-    <file name="plugins/sfAuditPlugin/lib/vendor/PHP/CodeSniffer/Standards/Squiz/Tests/Commenting/ClassCommentUnitTest.inc" role="data"/>
-    <file name="plugins/sfAuditPlugin/lib/vendor/PHP/CodeSniffer/Standards/PEAR/Tests/Commenting/ClassCommentUnitTest.inc" role="data"/>
-    <file name="plugins/sfDrupalPlugin/vendor/drupal/includes/database/database.inc" role="data"/>
-    <file name="plugins/sfLucenePlugin/README" role="doc"/>
-    <file name="plugins/sfSearchPlugin/doc/recipes/Quick-Start.txt" role="doc"/>
-    <file name="qubit_dev.php" role="php"/>
-    <file name="README" role="doc"/>
-    <file name="robots.txt" role="doc"/>
-    <file name="symfony" role="script"/>
-    <file name="test//*" role="test"/>
-    <file name="uploads//*" role="data"/>
-    <file name="vendor//*" role="php"/>
-    <file name="vendor/yui//*" role="script"/>
-    <file name="vendor/symfony/data//*" role="data"/>
+    <file name="robots.txt" role="data"/>
   </contents>
   <dependencies>
     <required>
       <php>
-        <min>5.3</min>
+        <min>5.3.10</min>
       </php>
       <pearinstaller>
         <min>1.4.1</min>
@@ -74,6 +70,9 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
       </extension>
       <extension>
         <name>xsl</name>
+      </extension>
+      <extension>
+        <name>json</name>
       </extension>
     </optional>
   </dependencies>

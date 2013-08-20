@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<project name="atom" basedir="." default="main">
+
+  <!-- Project directory -->
+  <php function="dirname" returnProperty="project.dir">
+      <param value="${phing.file}"/>
+  </php>
+
+  <!-- Build directory: build.src.dir -->
+  <property name="build.src.dir" value="${phing.dir}/build"/>
+
+  <target name="version-check">
+    <fail unless="version" message="Please pass the version, e.g. phing -D version=1.4.0"/>
+    <echo>I'm going to build AtoM ${version} for ya!</echo>
+  </target>
+
+  <target name="set-properties">
+    <property name="package.name" value="${phing.project.name}-${version}"/>
+    <echo>Debug:</echo>
+    <echo>  - project.dir:   ${project.dir}</echo>
+    <echo>  - phing.file:    ${phing.file}</echo>
+    <echo>  - build.src.dir: ${build.src.dir}</echo>
+  </target>
+
+  <target name="prepare" depends="set-properties">
+    <delete dir="${build.src.dir}"/>
+    <mkdir dir="${build.src.dir}"/>
+    <exec command="php symfony release --no-confirmation ${version} stable" dir="${project.dir}"/>
+  </target>
+
+  <target name="build" depends="prepare">
+    <echo>Building pear package</echo>
+    <exec command="pear package" dir="${project.dir}"/>
+    <move file="${project.dir}/icaatom-${version}.tgz" tofile="${build.src.dir}/icaatom-${version}.tar.gz" overwrite="true"/>
+    <delete file="${project.dir}/package.xml"/>
+  </target>
+
+  <target name="main" depends="version-check, set-properties, prepare, build">
+    <echo>Done!</echo>
+  </target>
+
+</project>
