@@ -51,13 +51,6 @@ class ReleaseTask extends sfBaseTask
     $xpath->registerNamespace('p', 'http://pear.php.net/dtd/package-2.0');
 
     $name = $xpath->evaluate('string(p:name)', $doc->documentElement);
-    print 'Releasing '.$name.' version "'.$arguments['version']."\"\n";
-
-    list($stdout, $stderr) = $this->getFilesystem()->execute('chdir '.sfConfig::get('sf_root_dir').' && git reset --hard HEAD && git clean -fdx');
-    if (0 < strlen($stderr))
-    {
-      throw new Exception("git error: $stderr");
-    }
 
     if (!$xpath->evaluate('boolean(p:date)', $doc->documentElement))
     {
@@ -119,7 +112,7 @@ class ReleaseTask extends sfBaseTask
         $glob = '/'.$glob;
       }
 
-      $pattern = AuditTask::globToPattern($glob);
+      $pattern = $this->globToPattern($glob);
       $patternNodes[$pattern] = $patternNode;
 
       $patternNode->parentNode->removeChild($patternNode);
@@ -159,17 +152,36 @@ class ReleaseTask extends sfBaseTask
     }
 
     $packageXmlPath = sfConfig::get('sf_root_dir').'/package.xml';
-
     $doc->save($packageXmlPath);
+    $this->logSection('release', sprintf('%s generated', $packageXmlPath));
+  }
 
-    list($stdout, $stderr) = $this->getFilesystem()->execute('pear package');
-    if (0 < strlen($stderr))
+  protected function globToPattern($glob)
+  {
+    $pattern = '';
+
+    // PREG_SPLIT_NO_EMPTY is a possibly unnecessary optimization
+    foreach (preg_split('/(\*|\/\/|\?)/', $glob, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE) as $token)
     {
-      throw new Exception("Pear error: $stderr");
+      switch ($token)
+      {
+        case '*':
+          $pattern .= '[^/]*';
+          break;
+
+        case '//':
+          $pattern .= '/(?:.*/)?';
+          break;
+
+        case '?':
+          $pattern .= '[^/]';
+          break;
+
+        default:
+          $pattern .= preg_quote($token);
+      }
     }
 
-    print $stdout;
-
-    $this->getFilesystem()->remove($packageXmlPath);
+    return $pattern;
   }
 }

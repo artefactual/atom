@@ -132,7 +132,6 @@ class QubitAcl
         // TODO: Add root object to allow hierarchical ACL checks
         case 'QubitAccession':
         case 'QubitDeaccession':
-        case 'QubitRepository':
         case 'QubitDonor':
         case 'QubitFunction':
         case 'QubitRightsHolder':

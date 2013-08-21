@@ -24,6 +24,9 @@
  */
 class QubitRepository extends BaseRepository
 {
+  const
+    ROOT_ID = 6;
+
   public function __get($name)
   {
     $args = func_get_args();

@@ -19,6 +19,22 @@ editActorAclSuccess:
     /vendor/yui/autocomplete/autocomplete-min:
     autocomplete:
 
+editRepositoryAclSuccess:
+  stylesheets:
+    /vendor/yui/autocomplete/assets/skins/sam/autocomplete: { position: first }
+    /vendor/yui/container/assets/skins/sam/container: { position: first }
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+    /vendor/yui/animation/animation-min:
+    /vendor/yui/connection/connection-min:
+    /vendor/yui/json/json-min:
+    /vendor/yui/dragdrop/dragdrop-min:
+    /vendor/yui/datasource/datasource-min:
+    /vendor/yui/container/container-min:
+    /vendor/yui/autocomplete/autocomplete-min:
+    autocomplete:
+
 editInformationObjectAclSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
@@ -56,6 +72,11 @@ indexSuccess:
     blank:
 
 indexActorAclSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
+
+indexRepositoryAclSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:

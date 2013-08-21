@@ -332,6 +332,10 @@ class sfInstall
     $object->id = QubitActor::ROOT_ID;
     $object->save();
 
+    $object = new QubitRepository;
+    $object->id = QubitRepository::ROOT_ID;
+    $object->save();
+
     $object = new QubitSetting;
     $object->name = 'plugins';
     $object->value = serialize(array(

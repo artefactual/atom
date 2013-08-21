@@ -63,7 +63,7 @@
   </table>
 
   <div class="description">
-    <?php echo __('Identify and record the date(s) of the unit of description. Record as a single date or a range of dates as appropriate. Use YYYY-MM-DD format for the <em>Date</em> field. The <em>End date</em> field can be used to indicate a date range. The <em>Date display</em> field can be used to enter free-text date information.') ?>
+    <?php echo __('Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.') ?>
   </div>
 
 </div>

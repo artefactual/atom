@@ -23,6 +23,18 @@ class RepositoryIndexAction extends sfAction
   {
     $this->resource = $this->getRoute()->resource;
 
+    // Check that this isn't the root
+    if (!isset($this->resource->parent))
+    {
+      $this->forward404();
+    }
+
+    // Check user authorization
+    if (!QubitAcl::check($this->resource, 'read'))
+    {
+      QubitAcl::forwardUnauthorized();
+    }
+
     $this->dispatcher->notify(new sfEvent($this, 'access_log.view', array('object' => $this->resource)));
 
     // Per-institution stylesheet

@@ -850,7 +850,7 @@ class QubitTerm extends BaseTerm
                 THEN current.NAME
               ELSE
                 source.NAME
-              END), "") < '.Propel::getConnection()->quote($this->name), Criteria::CUSTOM);
+              END), "") < '.Propel::getConnection()->quote($this->getName(array('cultureFallback' => true))), Criteria::CUSTOM);
 
         $criteria->addDescendingOrderByColumn('name');
         $criteria->addDescendingOrderByColumn('lft');
@@ -867,7 +867,7 @@ class QubitTerm extends BaseTerm
                 THEN current.NAME
               ELSE
                 source.NAME
-              END), "") > '.Propel::getConnection()->quote($this->name), Criteria::CUSTOM);
+              END), "") > '.Propel::getConnection()->quote($this->getName(array('cultureFallback' => true))), Criteria::CUSTOM);
 
         $criteria->addAscendingOrderByColumn('name');
         $criteria->addAscendingOrderByColumn('lft');

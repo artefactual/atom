@@ -6,6 +6,7 @@
 /log/
 /sf
 /uploads/
+/build/
 
 plugins/arDominionPlugin/css/min.css
 plugins/arArchivesCanadaPlugin/css/min.css

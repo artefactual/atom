@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<project name="atom" basedir="." default="build">
+
+  <property name="build.dir" value="${phing.dir}/build"/>
+
+  <!-- package.version: e.g. 1.4 -->
+  <exec command="cat apps/qubit/config/qubitConfiguration.class.php | grep VERSION | grep -Po '\d\.\d\.\d'" outputProperty="package.version"/>
+
+  <!-- package.is_2: e.g. True -->
+  <php function="version_compare" returnProperty="package.is_2">
+    <param value="${package.version}"/>
+    <param value="2.0.0"/>
+    <param value=">="/>
+  </php>
+
+  <!-- package.hash: e.g. e074179cb205a43b20ac171b9917d1608a41b5dd -->
+  <exec command="git rev-parse HEAD" outputProperty="package.hash"/>
+  <exec command="git rev-parse HEAD | cut -c 1-16" outputProperty="package.hash16"/>
+
+  <!-- package.prefix -->
+  <if>
+    <equals arg1="${package.is_2}" arg2="true" />
+    <then>
+      <property name="package.prefix" value=""/>
+    </then>
+    <else>
+      <property name="package.prefix" value="ica"/>
+    </else>
+  </if>
+
+  <!-- package.pear.name: e.g. atom-2.0.0 -->
+  <property name="package.pear.name" value="${phing.project.name}-${package.version}"/>
+
+  <!-- package.name: e.g. atom-2.0.0-20030101-e6471c09494dd6fe or atom-2.0.0 -->
+  <exec command="git show-ref --tags | grep 0d8bfe29934c3ad6ff2394dcc84e15bb6887df95 | grep -Po '\d\.\d(\.\d){0,1}'" returnProperty="return_code" outputProperty="package.tag"/>
+  <if>
+    <equals arg1="${return_code}" arg2="0" />
+    <then>
+      <property name="package.name" value="${package.prefix}${package.pear.name}-${package.tag}"/>
+    </then>
+    <else>
+      <exec command="date +'%Y%m%d'" outputProperty="date" />
+      <property name="package.name" value="${package.prefix}${package.pear.name}-${date}-${package.hash16}"/>
+    </else>
+  </if>
+
+  <!-- ===================================================================== -->
+  <!-- Debug target                                                          -->
+  <!-- ===================================================================== -->
+
+  <target name="debug">
+    <echo>Debug:</echo>
+    <echo>  - phing.dir:           ${phing.dir}</echo>
+    <echo>  - phing.file:          ${phing.file}</echo>
+    <echo>  - build.dir:           ${build.dir}</echo>
+    <echo>  - package.version:     ${package.version}</echo>
+    <echo>  - package.name:        ${package.name}</echo>
+  </target>
+
+  <!-- ===================================================================== -->
+  <!-- Build target                                                          -->
+  <!-- ===================================================================== -->
+
+  <target name="build" depends="debug, prepare, package"/>
+
+  <target name="prepare" depends="debug">
+    <delete dir="${build.dir}"/>
+    <mkdir dir="${build.dir}"/>
+    <exec command="php symfony release --no-confirmation ${package.version} stable" dir="${phing.dir}" checkreturn="true"/>
+  </target>
+
+  <target name="package" depends="prepare">
+    <echo>Building pear package</echo>
+    <exec command="pear package" dir="${phing.dir}" checkreturn="true"/>
+    <move file="${phing.dir}/${package.pear.name}.tgz" tofile="${build.dir}/${package.name}.tar.gz" overwrite="true"/>
+    <delete file="${phing.dir}/package.xml"/>
+    <echo>Done! ${build.dir}/${package.name}.tar.gz</echo>
+  </target>
+
+</project>

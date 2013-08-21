@@ -25,6 +25,12 @@ class RepositoryDeleteAction extends sfAction
 
     $this->resource = $this->getRoute()->resource;
 
+    // Check that this isn't the root
+    if (!isset($this->resource->parent))
+    {
+      $this->forward404();
+    }
+
     if ($request->isMethod('delete'))
     {
       foreach ($this->resource->informationObjects as $item)
