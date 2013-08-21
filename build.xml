@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="atom" basedir="." default="build">
 
-  <property name="build.dir" value="${phing.dir}/../build"/>
+  <property name="build.dir" value="${phing.dir}/build"/>
 
   <!-- package.version: e.g. 1.4 -->
   <exec command="cat apps/qubit/config/qubitConfiguration.class.php | grep VERSION | grep -Po '\d\.\d\.\d'" outputProperty="package.version"/>
