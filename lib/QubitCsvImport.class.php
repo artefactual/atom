@@ -42,7 +42,7 @@ class QubitCsvImport
 
         break;
 
-      case 'actor':
+      case 'authorityRecord':
         $taskClassName = 'csv:authority-import';
 
         break;

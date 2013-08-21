@@ -58,6 +58,12 @@ EOF;
         null,
         sfCommandOption::PARAMETER_OPTIONAL,
         'Source name to use when inserting keymap entries.'
+      ),
+      new sfCommandOption(
+        'index',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        "Index for search during import."
       )
     ));
   }
@@ -177,7 +183,7 @@ EOF;
 
       /* import columns that should be redirected to QubitInformationObject
          properties (and optionally transformed)
-      
+
          Example:
          'columnMap' => array(
            'Archival History' => 'archivalHistory',
@@ -346,6 +352,10 @@ EOF;
         }
       }
     ));
+
+    // allow search indexing to be enabled via a CLI option
+    $import->searchIndexingDisabled = ($options['index']) ? false : true;
+
     $import->csv($fh, $skipRows);
     $actorNames = $import->getStatus('actorNames');
 
