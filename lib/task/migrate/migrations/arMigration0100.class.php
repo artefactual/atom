@@ -23,7 +23,7 @@
  * @package    AccesstoMemory
  * @subpackage migration
  */
-class arMigration0098
+class arMigration0100
 {
   const
     VERSION = 98, // The new database version
