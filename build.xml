@@ -4,7 +4,7 @@
   <property name="build.dir" value="${phing.dir}/../build"/>
 
   <!-- package.version: e.g. 1.4 -->
-  <exec command="cat apps/qubit/config/qubitConfiguration.class.php | grep VERSION | grep -Po '\d+.\d+.\d+'" outputProperty="package.version"/>
+  <exec command="cat apps/qubit/config/qubitConfiguration.class.php | grep VERSION | grep -Po '\d\.\d\.\d'" outputProperty="package.version"/>
 
   <!-- package.is_2: e.g. True -->
   <php function="version_compare" returnProperty="package.is_2">
@@ -32,16 +32,17 @@
   <property name="package.pear.name" value="${phing.project.name}-${package.version}"/>
 
   <!-- package.name: e.g. atom-2.0.0-20030101-e6471c09494dd6fe or atom-2.0.0 -->
-  <trycatch>
-    <try>
-      <exec command="git describe --exact-match `git rev-parse HEAD`" returnProperty="package.tag" checkreturn="true"/>
+  <exec command="git show-ref --tags | grep 0d8bfe29934c3ad6ff2394dcc84e15bb6887df95 | grep -Po '\d\.\d(\.\d){0,1}'" returnProperty="return_code" outputProperty="package.tag"/>
+  <if>
+    <equals arg1="${return_code}" arg2="0" />
+    <then>
       <property name="package.name" value="${package.prefix}${package.pear.name}-${package.tag}"/>
-    </try>
-    <catch>
+    </then>
+    <else>
       <exec command="date +'%Y%m%d'" outputProperty="date" />
       <property name="package.name" value="${package.prefix}${package.pear.name}-${date}-${package.hash16}"/>
-    </catch>
-  </trycatch>
+    </else>
+  </if>
 
   <!-- ===================================================================== -->
   <!-- Debug target                                                          -->
@@ -53,7 +54,6 @@
     <echo>  - phing.file:          ${phing.file}</echo>
     <echo>  - build.dir:           ${build.dir}</echo>
     <echo>  - package.version:     ${package.version}</echo>
-    <echo>  - package.pear.name:   ${package.pear.name}</echo>
     <echo>  - package.name:        ${package.name}</echo>
   </target>
 
