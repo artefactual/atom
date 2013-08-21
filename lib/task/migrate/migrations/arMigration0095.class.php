@@ -47,7 +47,7 @@ class arMigration0095
     // Unserialize
     $plugins = array_values(unserialize($setting->getValue(array('sourceCulture' => true))));
 
-    // Define list of plugins that we have removed in 2.x
+    // Define list of plugins that will be disabled
     $disable = array('qtTrilliumPlugin', 'sfAlouettePlugin', 'sfCaribouPlugin', 'sfColumbiaPlugin');
 
     // Remove them

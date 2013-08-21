@@ -18,16 +18,16 @@
  */
 
 /*
- * Include sub-item level "part" in the levels of description taxonomy
+ * Activate DACS plugin
  *
  * @package    AccesstoMemory
  * @subpackage migration
  */
-class arMigration0097
+class arMigration0098
 {
   const
-    VERSION = 97, // The new database version
-    MIN_MILESTONE = 1; // The minimum milestone required
+    VERSION = 98, // The new database version
+    MIN_MILESTONE = 2; // The minimum milestone required
 
   /**
    * Upgrade
@@ -36,10 +36,22 @@ class arMigration0097
    */
   public function up($configuration)
   {
+    // Enable arDacsPlugin
+    if (null !== $setting = QubitSetting::getByName('plugins'))
+    {
+      $settings = unserialize($setting->getValue(array('sourceCulture' => true)));
+      $settings[] = 'arDacsPlugin';
+
+      $setting->setValue(serialize($settings), array('sourceCulture' => true));
+      $setting->save();
+    }
+
+    // Add the "dacs" template to its taxonomy
     $term = new QubitTerm;
     $term->parentId = QubitTerm::ROOT_ID;
-    $term->taxonomyId = QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID;
-    $term->name = 'Part';
+    $term->taxonomyId = QubitTaxonomy::INFORMATION_OBJECT_TEMPLATE_ID;
+    $term->code = 'dacs';
+    $term->name = 'DACS, 2nd ed. Society of American Archivists';
     $term->culture = 'en';
     $term->save();
 

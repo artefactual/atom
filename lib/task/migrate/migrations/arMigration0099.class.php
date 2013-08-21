@@ -18,7 +18,7 @@
  */
 
 /*
- * Include sub-item level "part" in the levels of description taxonomy
+ * Activate Dominion theme
  *
  * @package    AccesstoMemory
  * @subpackage migration
@@ -27,7 +27,7 @@ class arMigration0097
 {
   const
     VERSION = 97, // The new database version
-    MIN_MILESTONE = 1; // The minimum milestone required
+    MIN_MILESTONE = 2; // The minimum milestone required
 
   /**
    * Upgrade
@@ -36,12 +36,17 @@ class arMigration0097
    */
   public function up($configuration)
   {
-    $term = new QubitTerm;
-    $term->parentId = QubitTerm::ROOT_ID;
-    $term->taxonomyId = QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID;
-    $term->name = 'Part';
-    $term->culture = 'en';
-    $term->save();
+    foreach (array(
+      'taxonomies' => 'taxonomy/browse',
+      'browseDigitalObjects' => 'digitalobject/browse') as $key => $value)
+    {
+      if (null !== $menu = QubitMenu::getByName($key))
+      {
+        $menu->path = $value;
+
+        $menu->save();
+      }
+    }
 
     return true;
   }
