@@ -27,9 +27,7 @@
 class QubitUpgradeSqlTask extends sfBaseTask
 {
   protected
-    $initialVersion,
-    $targetVersion,
-    $upgraders = array();
+    $initialVersion;
 
   /**
    * @see sfBaseTask
@@ -53,7 +51,7 @@ EOF;
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-      new sfCommandOption('no-backup', 'B', sfCommandOption::PARAMETER_NONE, 'Don\'t backup database', null),
+      new sfCommandOption('no-confirmation', 'B', sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation'),
       new sfCommandOption('verbose', 'v', sfCommandOption::PARAMETER_NONE, 'Verbose mode', null),
     ));
   }
@@ -104,24 +102,22 @@ EOF;
       return 1;
     }
 
-    // Attempt to backup database (MySQL only)
-    if (!$options['no-backup'])
+    // Confirmation
+    if (
+      !$options['no-confirmation']
+      &&
+      !$this->askConfirmation(array(
+          'WARNING: Your database has not been backed up!',
+          'Please back-up your database manually before you proceed.',
+          'If this task fails you may lose your data.',
+          '',
+          'Have you done a manual backup and wish to proceed? (y/N)'),
+        'QUESTION_LARGE', false)
+    )
     {
-      $backupName = $this->backupDatabase($database);
+      $this->logSection('upgrade-sql', 'Task aborted.');
 
-      // If backup failed, warn user to backup database manually
-      if (!isset($backupName) && !$this->askConfirmation(array(
-        'WARNING: Your database has not been backed up!',
-        'Please back-up your database manually before you proceed.',
-        '',
-        'Have you done a manual backup and wish to proceed? (y/N)'),
-        'QUESTION_LARGE',
-        false))
-      {
-        $this->logSection('upgrade-sql', 'Upgrade aborted.');
-
-        return 1;
-      }
+      return 1;
     }
 
     // Find all the upgrade classes in lib/task/migrate
@@ -185,51 +181,50 @@ EOF;
       $className = preg_replace('/.*(arMigration\d+).*/', '$1', $filename);
       $class = new $className;
 
-      // The following piece of code decides whether the different database
-      // upgrades under task/migrate/migrations should be applied or not:
+      // Are we stepping over this migration? Read more below :)
+      $omit = false;
 
-      // Upgrading to 1.x. The safest way I've found to get this value is
-      // looking at the qubitConfiguration class, which is part of the codebase.
-      if (version_compare(qubitConfiguration::VERSION, '2.0', '<'))
+      // Upgrading from 1.x to 1.x
+      // Ignore upgrades already applied and those targetting only 2.x
+      if (version_compare(qubitConfiguration::VERSION, '2.0.0', '<'))
       {
-        // Ignore upgrades that have already been applied.
-        // Also, ignore upgrades that target only 2.x.
-        if ($class::VERSION <= $version || 1 < $class::MIN_MILESTONE)
-        {
-          continue;
-        }
+        $omit = $class::VERSION <= $version || 1 < $class::MIN_MILESTONE;
       }
       // Upgrading from 1.x to 2.x
+      // This is the trickiest: ignore upgrades already applied *excepting*
+      // those targetting 2.x, as they should have been ignored been ignored
+      // during 1.x to 1.x upgrades.
       else if (1 == $previousMilestone)
       {
-        // Ignore previous 1.x/2.x because they have been already applied
-        if ($class::VERSION < $version && 1 == $class::MIN_MILESTONE)
-        {
-          continue;
-        }
-
-        // Ignore the current version for the same reason
-        if ($class::VERSION == $version)
-        {
-          continue;
-        }
+        $omit = $class::VERSION == $version || ($class::VERSION < $version && 1 == $class::MIN_MILESTONE);
       }
       // Upgrading from 2.x to 2.x
+      // Ignore upgrades already applied
       else
       {
-        // Ignore previous upgrades
-        if ($class::VERSION <= $version)
+        $omit = $class::VERSION <= $version;
+      }
+
+      if ($omit)
+      {
+        if ($options['verbose'])
         {
-          continue;
+          $this->logSection('upgrade-sql', sprintf('Omitting %s', $version));
         }
+
+        // Bump database version anyways
+        $this->updateDatabaseVersion(++$version);
+
+        continue;
       }
 
       if ($options['verbose'])
       {
-        echo "up($version)\n";
+        $this->logSection('upgrade-sql', sprintf('Invoking upgrader (%s)', $version));
       }
 
       // Run migration
+      // If an exception is thrown from $class, updateDatabaseVersion() won't make it
       if (true !== $class::up($this->configuration))
       {
         throw new sfException('Failed to apply upgrade '.get_class($class));
@@ -334,50 +329,5 @@ EOF;
     }
 
     return $params;
-  }
-
-  protected function backupDatabase($database)
-  {
-    $backupSuccess = false;
-    $dsn = $this->parseDsn($database->getParameter('dsn'));
-
-    if (isset($dsn) && 'mysql' == strtolower($dsn['prefix']))
-    {
-      // MySQL backup
-      $backupName = 'db_'.date('YmdHis').'.sql.bak';
-      $this->logSection('backup', sprintf('Backing up database "%s" to %s', $dsn['dbname'], $backupName));
-
-      $cmd = sprintf('mysqldump -u %s', $database->getParameter('username'));
-
-      // Passing a blank "-p" will prompt for password, which we don't want
-      if (null != $database->getParameter('password'))
-      {
-        $cmd .= sprintf(' -p%s', $database->getParameter('password'));
-      }
-
-      $cmd .= sprintf(' -h %s -P %s %s > %s',
-        $dsn['host'],
-        $dsn['port'],
-        $dsn['dbname'],
-        $backupName);
-
-      // Run backup command
-      system($cmd, $returned);
-
-      if (0 == $returned)
-      {
-        $this->logSection('backup', 'Database backup complete!');
-        $backupSuccess = true;
-      }
-      else
-      {
-        $this->logSection('backup', 'Database backup failed!', null, 'ERROR');
-      }
-    }
-
-    if ($backupSuccess)
-    {
-      return $backupName;
-    }
   }
 }
