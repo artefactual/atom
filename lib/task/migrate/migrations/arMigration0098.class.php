@@ -41,16 +41,36 @@ class arMigration0098
     $object->id = QubitRepository::ROOT_ID;
     $object->save();
 
-    // Add parent to all the existing repositories
-    $sql = sprintf("UPDATE %s t1
+    // Get maximun rgt value
+    $order = $object->rgt;
+
+    // Obtain all repositories except the root
+    $sql = sprintf("SELECT t1.id
+      FROM %s t1
       LEFT JOIN %s t2
       ON t1.id = t2.id
-      SET parent_id = ?
       WHERE class_name = ?
       AND t1.id != ?;", QubitActor::TABLE_NAME, QubitObject::TABLE_NAME);
 
-    QubitPdo::modify($sql, array(QubitRepository::ROOT_ID,
-      'QubitRepository', QubitRepository::ROOT_ID));
+    $rows = QubitPdo::fetchAll($sql, array('QubitRepository', QubitRepository::ROOT_ID));
+
+    // Add parent to all the existing repositories and update rgt and lft values
+    foreach ($rows as $repository)
+    {
+      $sql = sprintf("UPDATE %s t1
+        LEFT JOIN %s t2
+        ON t1.id = t2.id
+        SET parent_id = ?, lft = ?, rgt = ?
+        WHERE t1.id = ?
+        AND t1.id != ?;", QubitActor::TABLE_NAME, QubitObject::TABLE_NAME);
+
+      QubitPdo::modify($sql, array(QubitRepository::ROOT_ID,
+        $order++, $order++, $repository->id, QubitRepository::ROOT_ID));
+    }
+
+    // Set the new max rgt value for the root repository
+    $object->rgt = $order;
+    $object->save();
 
     // Add menu nodes for repository permissions
     if (null !== $parentNode = QubitMenu::getByName('groups'))
