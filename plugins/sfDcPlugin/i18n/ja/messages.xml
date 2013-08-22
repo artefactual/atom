@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2012-08-17T14:34:06Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2013-08-22T14:07:52Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -94,10 +94,6 @@
         <source>The name given to this resource.</source>
         <target>この資料に与えられた名称。</target>
       </trans-unit>
-      <trans-unit id="844">
-        <source>Names and dates</source>
-        <target>名称と日付</target>
-      </trans-unit>
       <trans-unit id="846">
         <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
         <target>資料の主題。冒頭の数文字を入力して主題分類の既存の用語を検索してください。または作成する新規名称を入力し新規の主題用語へリンクさせてください。</target>
@@ -125,10 +121,6 @@
       <trans-unit id="859">
         <source>Untitled</source>
         <target>無題の</target>
-      </trans-unit>
-      <trans-unit id="860">
-        <source>Select the type of activity (creation, publication or contribution) that established the relation between the authority record and the archival description.</source>
-        <target>典拠レコードとアーカイブズの記述の関連性を示す活動（作成、出版、寄贈）の種別を選択してください。</target>
       </trans-unit>
       <trans-unit id="861">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
@@ -172,6 +164,38 @@
       </trans-unit>
       <trans-unit id="871">
         <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="872">
+        <source>Date(s)</source>
+        <target>日付</target>
+      </trans-unit>
+      <trans-unit id="873">
+        <source>Date</source>
+        <target>日付</target>
+      </trans-unit>
+      <trans-unit id="874">
+        <source>Start</source>
+        <target>開始</target>
+      </trans-unit>
+      <trans-unit id="875">
+        <source>End</source>
+        <target>終了</target>
+      </trans-unit>
+      <trans-unit id="876">
+        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="877">
+        <source>Name(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="878">
+        <source>Actor name</source>
+        <target>主体者名</target>
+      </trans-unit>
+      <trans-unit id="879">
+        <source>Identify and record the name(s) and type(s) of the unit of description.</source>
         <target/>
       </trans-unit>
     </body>

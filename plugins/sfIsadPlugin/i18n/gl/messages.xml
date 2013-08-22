@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2012-08-15T12:05:58Z" product-name="messages">
+  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2013-08-22T14:04:27Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -71,10 +71,6 @@
       <trans-unit id="17">
         <source>End</source>
         <target>Fin</target>
-      </trans-unit>
-      <trans-unit id="18">
-        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. Use YYYY-MM-DD format for the &lt;em&gt;Date&lt;/em&gt; field. The &lt;em&gt;End date&lt;/em&gt; field can be used to indicate a date range. The &lt;em&gt;Date display&lt;/em&gt; field can be used to enter free-text date information. (ISAD 3.1.3)</source>
-        <target>Indentifique e rexistre a(s) data(s) da unidade de descrición. Identifique o tipo de data entregada. Rexistre unha soa data ou un rango de Datas, como sexa apropiado. Use o formato AAAA-MM-DD para o campo &lt;em&gt;Data&lt;/em&gt;. O campo de &lt;em&gt;Data final&lt;/em&gt; pode utilizarse para indicar un rango de Datas. O campo &lt;em&gt;despregue de Data&lt;/em&gt; pode utilizarse para ingresar información de Data con texto libre.</target>
       </trans-unit>
       <trans-unit id="19">
         <source>View archival description</source>
@@ -380,10 +376,6 @@
         <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
         <target>Especifique a lei ou estado legal, contrato, regulación ou política que afecta ao acceso á unidade de descrición. Indicar a extensión do período clausura e a data en que o material se abrirá cando sexa apropiado. (ISAD 3.4.1)</target>
       </trans-unit>
-      <trans-unit id="95">
-        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.3)</source>
-        <target>Achegue información sobre as condicións, tales como copyright, que rixa reproducción da unidade de descrición despois que o acceso fose proporcionado. Se a existencia de tales condicións é descoñecida, rexístreo. Se no hai condicións, no é necesario declaralo. (ISAD 3.4.3)</target>
-      </trans-unit>
       <trans-unit id="96">
         <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
         <target>Rexistre o idioma(s) dos materiais que comprendna unidade de descrición. (ISAD 3.4.3)</target>
@@ -415,22 +407,6 @@
       <trans-unit id="103">
         <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
         <target>Rexistre a información sobre as unidades de descrición no mesmo repositorio ou noutra parte que estea relacionada coa procedencia ou outrásociación(es). Use palabras introductorias apropiadas e explique a natureza da relación. Se a unidade de descrición é un instrumento de descrición, use o elemento de instrumento de descrición (3.4.5) para referenciarla. (ISAD 3.5.3)</target>
-      </trans-unit>
-      <trans-unit id="104">
-        <source>Publication notes</source>
-        <target>Notas de publicación</target>
-      </trans-unit>
-      <trans-unit id="105">
-        <source>Record a citation to, and/or information about a publication that is about or based on the use, study, or analysis of the unit of description. Include references to published facsimiles or transcriptions. (ISAD 3.5.4)</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="106">
-        <source>Notes</source>
-        <target>Notas</target>
-      </trans-unit>
-      <trans-unit id="107">
-        <source>Record specialized or other important information not accommodated by any of the defined elements of description. (ISAD 3.6.1)</source>
-        <target>Rexistre a información especializada ou importante que non se acomode en ningún dos elementos definidos da descrición. (ISAD 3.6.1)</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Subject access points</source>
@@ -484,13 +460,13 @@
         <source>Indicate the script(s) used to create the description of the archival material.</source>
         <target>Indicar a escritura(s) empregada para crear a descrición do material de arquivo.</target>
       </trans-unit>
-      <trans-unit id="121">
-        <source>Archivist's notes</source>
-        <target>Notas do arquiveiro</target>
+      <trans-unit id="123">
+        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
+        <target/>
       </trans-unit>
-      <trans-unit id="122">
-        <source>Record notes on sources consulted in preparing the description and who prepared it. (ISAD 3.7.1)</source>
-        <target>Rexistre notas das fontes consultadas na preparación da descrición e quna preparou. (ISAD 3.7.1)</target>
+      <trans-unit id="124">
+        <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

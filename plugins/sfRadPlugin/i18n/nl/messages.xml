@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2012-08-17T14:31:19Z" product-name="messages">
+  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2013-08-22T14:04:21Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -76,14 +76,6 @@
         <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="19">
-        <source>Edition statement - This is a mandatory element for published items.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="20">
-        <source>Standard number - This is a mandatory element for published items.</source>
-        <target>Stanaard nummer - Dit is een verplicht veld voor gepubliceerde stukken.</target>
-      </trans-unit>
       <trans-unit id="21">
         <source>Edit archival description - RAD</source>
         <target/>
@@ -144,14 +136,6 @@
         <source>Title notes</source>
         <target>Titel aantekeningen</target>
       </trans-unit>
-      <trans-unit id="36">
-        <source>Note type</source>
-        <target>Soort aantekening</target>
-      </trans-unit>
-      <trans-unit id="37">
-        <source>Select a note type from the drop-down menu and enter note text in accordance with RAD 1.8B1 through 1.8B6.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="38">
         <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
         <target/>
@@ -179,10 +163,6 @@
       <trans-unit id="44">
         <source>Edition area</source>
         <target>Editie</target>
-      </trans-unit>
-      <trans-unit id="45">
-        <source>"Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
-        <target/>
       </trans-unit>
       <trans-unit id="46">
         <source>Edition statement</source>
@@ -372,10 +352,6 @@
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="93">
-        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="94">
         <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
         <target/>
@@ -395,10 +371,6 @@
       <trans-unit id="98">
         <source>Restrictions on access</source>
         <target/>
-      </trans-unit>
-      <trans-unit id="99">
-        <source>"Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c)</source>
-        <target>"Geef informatie over wettelijke beperkingen, of beperkingen opgelegd door de bruikleengever of schenker, betreffend gebruik of reproductie van het materiaal."</target>
       </trans-unit>
       <trans-unit id="100">
         <source>Terms governing use, reproduction, and publication</source>
@@ -423,10 +395,6 @@
       <trans-unit id="105">
         <source>Other notes</source>
         <target>Overige aantekeningen</target>
-      </trans-unit>
-      <trans-unit id="106">
-        <source>Select a note type from the drop-down menu and enter note text in accordance with the following sections in RAD: 1.5E (Accompanying material); 1.8 B11 (Alpha-numeric designations); 1.8B9b (Conservation); 1.8B7 (Edition); 1.8B9 (Physical Description); 1.8B16b (Rights); 1.8B21 (General note).</source>
-        <target/>
       </trans-unit>
       <trans-unit id="107">
         <source>Standard number area</source>
@@ -676,8 +644,24 @@
         <source>Language and script notes</source>
         <target>Taal en schrift aantekeningen</target>
       </trans-unit>
-      <trans-unit id="169">
-        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).</source>
+      <trans-unit id="170">
+        <source>Edition statement - This is a mandatory element for published items if there are multiple editions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="171">
+        <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="172">
+        <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="173">
+        <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="174">
+        <source>For terms governing use and reproduction, "Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c). For terms governing publication, "Give information on legal or donor restrictions that may affect publication of the material." (RAD 1.8B16d)</source>
         <target/>
       </trans-unit>
     </body>

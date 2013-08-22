@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2012-08-15T12:06:00Z" product-name="messages">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2013-08-22T14:04:18Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -71,10 +71,6 @@
       <trans-unit id="17">
         <source>End</source>
         <target/>
-      </trans-unit>
-      <trans-unit id="18">
-        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. Use YYYY-MM-DD format for the &lt;em&gt;Date&lt;/em&gt; field. The &lt;em&gt;End date&lt;/em&gt; field can be used to indicate a date range. The &lt;em&gt;Date display&lt;/em&gt; field can be used to enter free-text date information. (ISAD 3.1.3)</source>
-        <target>Identifikasi dan catat tanggal dari berkas yang dideskripsikan. Indentifikasi bagaimana cara penulisan tanggal. Catat sebagai tanggal tunggal atau kurun waktu dari suatu masa. Gunakan YYY-MM-DD format untuk &lt;em&gt;Tanggal&lt;/em&gt; field. &lt;em&gt;Tanggal Akhir&lt;/em&gt; bisa digunakan untuk mengidentifikasi kurun waktu. &lt;em&gt;Date display&lt;/em&gt; bisa digunakan untuk memberikan informasi bebas mengenai tanggal. (ISAD 3.1.3)</target>
       </trans-unit>
       <trans-unit id="19">
         <source>View archival description</source>
@@ -380,10 +376,6 @@
         <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
         <target>Jelaskan informasi hukum atau legalitas, kontrak, regulasi atau kebijakan yang mempengaruhi akses terhadap berkas. Indikasikan berapa lama periode penutupan arsip dan tanggal bisa dibuka kembali. (ISAD 3.4.1)</target>
       </trans-unit>
-      <trans-unit id="95">
-        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.3)</source>
-        <target>Berikan informasi mengenai kondisi, seperti hak cipta, ketentuan reproduksi deskripsi arsip setelah tersedianya akses terhadap arsip. Jika keberadaan atas kondisi tersebut tidak diketahui, catat hal tersebut. Jika tidak terdapat informasi mengenai kondisi, maka tidak diperlukan pernyataan. (ISAD 3.4.3)</target>
-      </trans-unit>
       <trans-unit id="96">
         <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
         <target>Berikan informasi mengenai bahasa yang digunakan oleh berkas arsip yang sedang dideskripsikan. (ISAD 3.4.3)</target>
@@ -415,22 +407,6 @@
       <trans-unit id="103">
         <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
         <target>Berikan informasi mengenai berkas yang sedang dideskripsikan pada repositori yang sama atau ditempat lain yang memiliki hubungan berdasarkan prinsip provenance atau keterkaitan lainnya. Gunakan penggunaan kata pendahuluan yang sesuai dan jelaskan hubungan relasi berkas tersebut. Jika Berkas yang dimaksud adalah sebuah finding aid, gunakan elemen deskripsi finding aid (3.4.5) untuk membuat referensi terhadap hal tersebut. (ISAD 3.5.3)</target>
-      </trans-unit>
-      <trans-unit id="104">
-        <source>Publication notes</source>
-        <target>Catatan Publikasi</target>
-      </trans-unit>
-      <trans-unit id="105">
-        <source>Record a citation to, and/or information about a publication that is about or based on the use, study, or analysis of the unit of description. Include references to published facsimiles or transcriptions. (ISAD 3.5.4)</source>
-        <target>Berikan sitasi dan/ atau informasi mengenai publikasi berdasarkan pada penggunaan, pembelajaran, atau analisis dari berkas yang sedang dideskripsikan. Termasuk referensi pada faks. atau transkrip yang diterbitkan. (ISAD 3.5.4)</target>
-      </trans-unit>
-      <trans-unit id="106">
-        <source>Notes</source>
-        <target>Catatan</target>
-      </trans-unit>
-      <trans-unit id="107">
-        <source>Record specialized or other important information not accommodated by any of the defined elements of description. (ISAD 3.6.1)</source>
-        <target>Berikan informasi khusus atau informasi penting lainnya yang tidak dijelaskan dalam bagian deskripsi lainnya. (ISAD 3.6.1)</target>
       </trans-unit>
       <trans-unit id="108">
         <source>Subject access points</source>
@@ -484,13 +460,13 @@
         <source>Indicate the script(s) used to create the description of the archival material.</source>
         <target>Tulisan atau naskah yang digunakan untuk mendeskripsikan arsip.</target>
       </trans-unit>
-      <trans-unit id="121">
-        <source>Archivist's notes</source>
-        <target>Catatan Arsiparis</target>
+      <trans-unit id="123">
+        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
+        <target/>
       </trans-unit>
-      <trans-unit id="122">
-        <source>Record notes on sources consulted in preparing the description and who prepared it. (ISAD 3.7.1)</source>
-        <target>Berikan catatan dalam melakukan persiapan deskripsi dan seseorang yang menyiapkannya. (ISAD 3.7.1)</target>
+      <trans-unit id="124">
+        <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

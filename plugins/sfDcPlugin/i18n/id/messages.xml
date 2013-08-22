@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2012-08-15T12:05:59Z" product-name="messages">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2013-08-22T14:07:55Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -11,10 +11,6 @@
       <trans-unit id="2">
         <source>Untitled</source>
         <target>tanpa judul</target>
-      </trans-unit>
-      <trans-unit id="3">
-        <source>Select the type of activity (creation, publication or contribution) that established the relation between the authority record and the archival description.</source>
-        <target>Pilih tipe aktivitas (penciptaan, publikasi, atau kontribusi) yang menjelaskan relasi antara pencipta arsip dan deskripsi arsip.</target>
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Identifier%2% - This is a mandatory element.</source>
@@ -124,10 +120,6 @@
         <source>The name given to this resource.</source>
         <target>Nama yang diberikan untuk sumber informasi.</target>
       </trans-unit>
-      <trans-unit id="31">
-        <source>Names and dates</source>
-        <target>Nama dan tanggal</target>
-      </trans-unit>
       <trans-unit id="32">
         <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
         <target>Topik dari sumber informasi. Cari untuk istilah subjek yang sudah tersedia dengan ketik beberapa karakter dari nama istilah subjek. Atau, ketik nama baru untuk membuat istilah subjek baru.</target>
@@ -175,6 +167,38 @@
       <trans-unit id="43">
         <source>Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).</source>
         <target>Informasi mengenai pemegang hak terhadap maupun diluar sumber informasi (mis. hak cipta, akses, dll).</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Date(s)</source>
+        <target>Tanggal</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Date</source>
+        <target>Tanggal</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Start</source>
+        <target>Awal</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>End</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Name(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Actor name</source>
+        <target>Nama Aktor</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Identify and record the name(s) and type(s) of the unit of description.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

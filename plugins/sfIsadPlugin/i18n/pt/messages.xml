@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2012-08-17T14:34:54Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-08-22T14:04:32Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -298,14 +298,6 @@
         <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.</source>
         <target>Indicar qualquer condição física, tal como requisitos de preservação, que afecte a conservação da unidade  descrita. Especificar qualquer programa ou equipamento exigido para leitura da mesma.</target>
       </trans-unit>
-      <trans-unit id="959">
-        <source>Publication notes</source>
-        <target>Notas de publicação</target>
-      </trans-unit>
-      <trans-unit id="960">
-        <source>Notes</source>
-        <target>Notas</target>
-      </trans-unit>
       <trans-unit id="963">
         <source>Add new archival description</source>
         <target>Adicionar nova descrição arquivística</target>
@@ -362,10 +354,6 @@
         <source>Indicate the script(s) used to create the description of the archival material.</source>
         <target>Indicar o script(s) utilizado para criar a descrição do material arquívistico.</target>
       </trans-unit>
-      <trans-unit id="985">
-        <source>Archivist's notes</source>
-        <target>Notas do arquivísta</target>
-      </trans-unit>
       <trans-unit id="987">
         <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)</source>
         <target>Registar um código únivoco. O código do país e a entidade detentora serão automáticamente adicionados para criar uma referência completa.</target>
@@ -416,11 +404,6 @@ da unidade de descrição. Para documentos electrónicos, registar ou referencia
         <target>Facultar informação sobre o estatuto legal ou outras disposições que restrinjam ou
 afectem o acesso à unidade de descrição. (ISAD 3.4.1)</target>
       </trans-unit>
-      <trans-unit id="999">
-        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.3)</source>
-        <target>Indicar as condições que, como o direito de autor, regulam a reprodução da unidade de descrição caso o acesso tenha sido facultado. Se a existência de tais condições for desconhecida, registar esse facto. Caso não existam restricções não é
-necessário assinalá-lo.(ISAD 3.4.2)</target>
-      </trans-unit>
       <trans-unit id="1000">
         <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
         <target>Registar o(s) idioma(s) e/ou escritas dos documentos incluídos na unidade de descrição. (ISAD 3.4.3)</target>
@@ -443,14 +426,6 @@ noutro lugar), registar a sua localização, bem como quaisquer números de cont
         <target>Registar informação sobre unidades de descrição existentes na mesma entidade detentora, ou em qualquer outro lugar, que com elas estejam relacionadas, pela proveniência ou outro tipo de associação. Elaborar uma introdução adequada, explicando
 a natureza da relação. Se a unidade de descrição relacionada for um instrumento de descrição, usar o elemento de informação Instrumentos de descrição (3.4.5) para o referenciar. (ISAD 3.5.3)</target>
       </trans-unit>
-      <trans-unit id="1006">
-        <source>Record a citation to, and/or information about a publication that is about or based on the use, study, or analysis of the unit of description. Include references to published facsimiles or transcriptions. (ISAD 3.5.4)</source>
-        <target>Registar referências e/ou informações sobre publicações que tratem ou se baseiem na utilização, estudo ou análise da unidade de descrição. Incluir referências a facsímiles ou transcrições publicadas. (ISAD 3.5.4)</target>
-      </trans-unit>
-      <trans-unit id="1007">
-        <source>Record specialized or other important information not accommodated by any of the defined elements of description. (ISAD 3.6.1)</source>
-        <target>Registar informação especializada ou outra informação significativa não incluída em nenhum dos elementos de informação definidos.(ISAD 3.6.1)</target>
-      </trans-unit>
       <trans-unit id="1008">
         <source>Name access points (subjects)</source>
         <target>Pontos de acesso (assuntos)</target>
@@ -459,10 +434,6 @@ a natureza da relação. Se a unidade de descrição relacionada for um instrume
         <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
         <target>Registar as regras ou convenções internacionais, nacionais e/ou locais utilizadas na
 elaboração da descrição. (ISAD 3.7.2)</target>
-      </trans-unit>
-      <trans-unit id="1010">
-        <source>Record notes on sources consulted in preparing the description and who prepared it. (ISAD 3.7.1)</source>
-        <target>Registar a informação sobre as fontes consultadas e o(s) responsável(eis) pela elaboração da descrição. (ISAD 3.7.1)</target>
       </trans-unit>
       <trans-unit id="1011">
         <source>Rights area</source>
@@ -475,10 +446,6 @@ elaboração da descrição. (ISAD 3.7.2)</target>
       <trans-unit id="1013">
         <source>Accession area</source>
         <target>Zona da incorporação</target>
-      </trans-unit>
-      <trans-unit id="1014">
-        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. Use YYYY-MM-DD format for the &lt;em&gt;Date&lt;/em&gt; field. The &lt;em&gt;End date&lt;/em&gt; field can be used to indicate a date range. The &lt;em&gt;Date display&lt;/em&gt; field can be used to enter free-text date information. (ISAD 3.1.3)</source>
-        <target>Registar, relativamente a cada unidade de descrição, o tipo de data adequado à documentação e ao nível de descrição. Usar AAAA-MM-DD para o campo &lt;em&gt;Data&lt;/em&gt; . A &lt;em&gt;Data final&lt;/em&gt; deve ser usada para indicar uma limite temporal. A &lt;em&gt;Data texto&lt;/em&gt; pode ser usada como texto livre para uma informação sobre a data. (ISAD 3.1.3)</target>
       </trans-unit>
       <trans-unit id="1015">
         <source>Part of %1%</source>
@@ -495,6 +462,14 @@ elaboração da descrição. (ISAD 3.7.2)</target>
       <trans-unit id="1019">
         <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
         <target>Especificar qualquer tipo de alfabeto, escrita, sistema de símbolos ou abreviaturas utilizados. (ISAD 3.4.3)</target>
+      </trans-unit>
+      <trans-unit id="1020">
+        <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1021">
+        <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

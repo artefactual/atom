@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2012-08-15T12:06:00Z" product-name="messages">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2013-08-22T14:04:16Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -75,14 +75,6 @@
       <trans-unit id="18">
         <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
         <target>Issuing jurisdiction and denomination (philatelic) - Bagian ini merupakan elemen yang harus diisi.</target>
-      </trans-unit>
-      <trans-unit id="19">
-        <source>Edition statement - This is a mandatory element for published items.</source>
-        <target>Pernyataan edisi - Bagian ini merupakan elemen yang harus diisi untuk item yang sudah dipublikasikan.</target>
-      </trans-unit>
-      <trans-unit id="20">
-        <source>Standard number - This is a mandatory element for published items.</source>
-        <target>Standard number - Bagian ini merupakan elemen yang harus diisi.</target>
       </trans-unit>
       <trans-unit id="21">
         <source>View archival description</source>
@@ -432,14 +424,6 @@
         <source>Statement of responsibility</source>
         <target>Pernyataan penanggungjawab</target>
       </trans-unit>
-      <trans-unit id="108">
-        <source>Note type</source>
-        <target>Tipe Catatan</target>
-      </trans-unit>
-      <trans-unit id="109">
-        <source>Select a note type from the drop-down menu and enter note text in accordance with RAD 1.8B1 through 1.8B6.</source>
-        <target>Pilih tipe catatan dari daftar dan berikan teks catatan sesuai dengan RAD 1.8B1 sampai 1.8B6.</target>
-      </trans-unit>
       <trans-unit id="110">
         <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
         <target>Pilih level deskripsi dari daftar. Lihat RAD 1.0A untuk bagaimana aturan dan konvensi dalam pemilihan level deskripsi arsip.</target>
@@ -455,10 +439,6 @@
       <trans-unit id="113">
         <source>Enter an unambiguous code used to uniquely identify the description.</source>
         <target>Berikan kode yang jelas dan tidak ambigu yang bisa digunakan secara unik untuk mengidentifikasi deskripsi ini.</target>
-      </trans-unit>
-      <trans-unit id="114">
-        <source>"Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
-        <target>"Tuliskan pernyataan edisi yang berkaitan dengan item yang sedang dideskripsikan." (RAD 1.2B1) "jika item yang sedang dideskripsikan tidak terdapat pernyataan edisi akan tetapi diketahui terdapat perubahan cukup besar dari edisi sebelumnya, berikan pernyataan ringkas mengenai hal tersebut dengan kurung siku." (RAD 1.2B3)</target>
       </trans-unit>
       <trans-unit id="115">
         <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
@@ -560,17 +540,9 @@
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
         <target>"Catat penggunaan bahasa atau informasi mengenai bahasa yang digunakan oleh berkas arsip, kecuali sudah dijelaskan pada field lain." (RAD 1.8.B14). Pilih bahasa dari daftar; ketik beberapa kata untuk mempersempit pilihan.</target>
       </trans-unit>
-      <trans-unit id="140">
-        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target>"Berikan karakter istimewa berupa alfabet atau simbol dari sistem yang digunakan." (RAD 1.8.B14) Pilih naskah dari daftar; masukkan beberapa huruf pertama untuk mempersempit pilihan.</target>
-      </trans-unit>
       <trans-unit id="141">
         <source>Language and script notes</source>
         <target>Catatan Bahasan dan Naskah</target>
-      </trans-unit>
-      <trans-unit id="142">
-        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).</source>
-        <target>"Berikan karakter istimewa berupa alfabet atau simbol sari sistem yang digunakan." (RAD 1.8.B14)</target>
       </trans-unit>
       <trans-unit id="143">
         <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
@@ -583,10 +555,6 @@
       <trans-unit id="145">
         <source>"Give information about any restrictions placed on access to the unit (or parts of the unit) being described." (RAD 1.8B16a)</source>
         <target>"Berikan informasi tentang batasan akses untuk berkas (atau beberapa bagian dari berkas) yang sedang dideskripsikan." (RAD 1.8B16a)</target>
-      </trans-unit>
-      <trans-unit id="146">
-        <source>"Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c)</source>
-        <target>"Berikan informasi tentang legalitas atau batasan hak dari pendonor yang mepengerahui dalam penggunaan atau reproduksi dari material arsip." (RAD 1.8B16c)</target>
       </trans-unit>
       <trans-unit id="147">
         <source>"Give information regarding the existence of any finding aids. Include appropriate administrative and/or intellectual control tools over the material in existence at the time the unit is described, such as card catalogues, box lists, series lists, inventories, indexes, etc." (RAD 1.8B17)</source>
@@ -603,10 +571,6 @@
       <trans-unit id="150">
         <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
         <target>"Apabila berkas yang sedang dideskripsikan belum selesai, mis. sebuah kumpulan series yang sedang berjalan, buat catatan yang menjelaskan bahwa akan terdapat akumulasi selanjutnya dari berkas tersebut... jika diperkirakan tidak terdapat akumulasi tambahan terhadap berkas tersebut maka dianggap series sudah selesai." (RAD 1.8B19)</target>
-      </trans-unit>
-      <trans-unit id="151">
-        <source>Select a note type from the drop-down menu and enter note text in accordance with the following sections in RAD: 1.5E (Accompanying material); 1.8 B11 (Alpha-numeric designations); 1.8B9b (Conservation); 1.8B7 (Edition); 1.8B9 (Physical Description); 1.8B16b (Rights); 1.8B21 (General note).</source>
-        <target>Pilih tipe catatan dari daftar dan berikan teks informasi sesuai dengan bagian RAD: 1.5E (Accomapnying material); 1.8 B11 (Alpha-numeric designations); 1.8B9b (Conservation); 1.8B7 (Edition); 1.8B9 (Physical Description); 1.8B16b (rights); 1.8B21 (general note).</target>
       </trans-unit>
       <trans-unit id="152">
         <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
@@ -679,6 +643,26 @@
       <trans-unit id="169">
         <source>Script</source>
         <target>Naskah</target>
+      </trans-unit>
+      <trans-unit id="170">
+        <source>Edition statement - This is a mandatory element for published items if there are multiple editions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="171">
+        <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="172">
+        <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="173">
+        <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="174">
+        <source>For terms governing use and reproduction, "Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c). For terms governing publication, "Give information on legal or donor restrictions that may affect publication of the material." (RAD 1.8B16d)</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

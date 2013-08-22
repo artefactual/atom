@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2012-08-17T14:34:57Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2013-08-22T14:07:52Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -94,10 +94,6 @@
         <source>The name given to this resource.</source>
         <target>O nome dado a este recurso.</target>
       </trans-unit>
-      <trans-unit id="912">
-        <source>Names and dates</source>
-        <target>Nomes e datas</target>
-      </trans-unit>
       <trans-unit id="914">
         <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
         <target>O tópico do recurso. Pesquise um termo existente na taxonomia Assunto digitando os primeiros caracteres do nome do termo. Alternativamente, digite um novo nome para criar e vincular a um termo novo assunto.</target>
@@ -125,10 +121,6 @@
       <trans-unit id="927">
         <source>Untitled</source>
         <target>Sem título</target>
-      </trans-unit>
-      <trans-unit id="928">
-        <source>Select the type of activity (creation, publication or contribution) that established the relation between the authority record and the archival description.</source>
-        <target>Selecione o tipo de atividade (produção, publicação ou contribuição) que estabeleceu a relação entre o registro de autoridade e a descrição arquivística.</target>
       </trans-unit>
       <trans-unit id="929">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
@@ -165,6 +157,38 @@
       <trans-unit id="937">
         <source>Accession area</source>
         <target>Área de acesso</target>
+      </trans-unit>
+      <trans-unit id="938">
+        <source>Date(s)</source>
+        <target>Data(s)</target>
+      </trans-unit>
+      <trans-unit id="939">
+        <source>Date</source>
+        <target>data</target>
+      </trans-unit>
+      <trans-unit id="940">
+        <source>Start</source>
+        <target>Inicial</target>
+      </trans-unit>
+      <trans-unit id="941">
+        <source>End</source>
+        <target>Final</target>
+      </trans-unit>
+      <trans-unit id="942">
+        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="943">
+        <source>Name(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="944">
+        <source>Actor name</source>
+        <target>Nome do ator</target>
+      </trans-unit>
+      <trans-unit id="945">
+        <source>Identify and record the name(s) and type(s) of the unit of description.</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

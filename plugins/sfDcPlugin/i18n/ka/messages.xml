@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2012-08-17T14:34:18Z" product-name="messages">
+  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2013-08-22T14:07:52Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -11,10 +11,6 @@
       <trans-unit id="2">
         <source>Untitled</source>
         <target> უსათაურო</target>
-      </trans-unit>
-      <trans-unit id="3">
-        <source>Select the type of activity (creation, publication or contribution) that established the relation between the authority record and the archival description.</source>
-        <target> აირჩიეთ  საქმიანობის ტიპი (შექმნა, გამოქვეყნება ან წვლილი), რომელიც ადგენს ურთიერთობას ავტორიტეტულ  ჩანაწერსა და საარქივო აღწერას შორის.</target>
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Identifier%2% - This is a mandatory element.</source>
@@ -120,10 +116,6 @@
         <source>The name given to this resource.</source>
         <target> სახელი გადაეცა ამ რესურსს</target>
       </trans-unit>
-      <trans-unit id="31">
-        <source>Names and dates</source>
-        <target>სახელები და ვადები(თარიღები)</target>
-      </trans-unit>
       <trans-unit id="32">
         <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
         <target>რესურსის თემა.ძებნა ხდება არსებული ვადისთვის სუბიექტის ტაქსონომში ტერმინის პირველი რამდენიმე სიმბოლოს აკრეფით. ალლტერნატიულად, აკრიფეთ ახალი სახელი რომ შექმნათ  და გააერთიანოთ ახალი სუბიექტის ვადასთან.</target>
@@ -174,6 +166,38 @@
       </trans-unit>
       <trans-unit id="45">
         <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Date(s)</source>
+        <target>თარიღი, ვადა(ები)</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Date</source>
+        <target>თარიღი</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Start</source>
+        <target>დაწყება</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>End</source>
+        <target>დასასრული</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Name(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Actor name</source>
+        <target>მონაწილის სახელი</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Identify and record the name(s) and type(s) of the unit of description.</source>
         <target/>
       </trans-unit>
     </body>

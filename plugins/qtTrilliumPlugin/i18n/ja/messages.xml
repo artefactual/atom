@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2012-08-15T11:37:01Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2013-08-22T14:03:48Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -39,10 +39,6 @@
       <trans-unit id="9">
         <source>Go to next page</source>
         <target>次ページに飛ぶ</target>
-      </trans-unit>
-      <trans-unit id="10">
-        <source>%1% results per page</source>
-        <target>%1%  ページごとの結果 </target>
       </trans-unit>
       <trans-unit id="11">
         <source>Quick links</source>

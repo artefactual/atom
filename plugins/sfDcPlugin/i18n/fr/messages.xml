@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2012-08-17T14:33:27Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2013-08-22T14:07:56Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -11,10 +11,6 @@
       <trans-unit id="2">
         <source>Untitled</source>
         <target>Sans titre</target>
-      </trans-unit>
-      <trans-unit id="3">
-        <source>Select the type of activity (creation, publication or contribution) that established the relation between the authority record and the archival description.</source>
-        <target>Sélectionner le type d'activité (création, publication ou contribution) à l'origine de la relation entre la notice d'autorité et la description archivistique. </target>
       </trans-unit>
       <trans-unit id="4">
         <source>%1%Identifier%2% - This is a mandatory element.</source>
@@ -51,10 +47,6 @@
       <trans-unit id="13">
         <source>Title</source>
         <target>Intitulé</target>
-      </trans-unit>
-      <trans-unit id="14">
-        <source>Names and dates</source>
-        <target>Noms et dates</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Subject</source>
@@ -174,6 +166,38 @@
       </trans-unit>
       <trans-unit id="45">
         <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Date(s)</source>
+        <target>Date(s)</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Date</source>
+        <target>Date</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Start</source>
+        <target>Début</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>End</source>
+        <target>Fin</target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Name(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Actor name</source>
+        <target>Nom de l'acteur</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Identify and record the name(s) and type(s) of the unit of description.</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2012-08-15T11:37:01Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2013-08-22T14:03:47Z" product-name="messages">
     <body>
       <trans-unit id="44">
         <source>Reference code</source>
@@ -350,10 +350,6 @@
         <source>Associated/related material</source>
         <target>他機関所蔵 / 関連資料</target>
       </trans-unit>
-      <trans-unit id="886">
-        <source>Note type</source>
-        <target>注記の種別</target>
-      </trans-unit>
       <trans-unit id="887">
         <source>Add new archival description</source>
         <target>新規のアーカイブ記述を追加</target>
@@ -406,14 +402,6 @@
         <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
         <target>発行政府と額面の表示（切手コレクション）-　必須項目</target>
       </trans-unit>
-      <trans-unit id="901">
-        <source>Edition statement - This is a mandatory element for published items.</source>
-        <target>版次の表示- 出版物に関する必須項目。</target>
-      </trans-unit>
-      <trans-unit id="902">
-        <source>Standard number - This is a mandatory element for published items.</source>
-        <target>標準番号 - 必須項目</target>
-      </trans-unit>
       <trans-unit id="903">
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
         <target>転写されたあるいは供給されたタイトルを入力してください。 (RAD 1.1B)</target>
@@ -442,10 +430,6 @@
         <source>"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)</source>
         <target>"アイテムレベルの記述では、主たる情報源に記載された正式なタイトルに併記された責任表示も転記してください。..." (RAD 1.1F)</target>
       </trans-unit>
-      <trans-unit id="910">
-        <source>Select a note type from the drop-down menu and enter note text in accordance with RAD 1.8B1 through 1.8B6.</source>
-        <target>ドロップダウンメニューからノートの種別を選択し、RAD1.8B1から1.8B6にしたがって文字を入力してください。</target>
-      </trans-unit>
       <trans-unit id="911">
         <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
         <target>ドロップダウンメニューから記述のレベルを選択してください。レベルを選択する際にはRAD1.0Aのルールと規則を参照してください。</target>
@@ -461,10 +445,6 @@
       <trans-unit id="914">
         <source>Enter an unambiguous code used to uniquely identify the description.</source>
         <target>個別に記述を特定するために使用する明確なコードを入力してください。</target>
-      </trans-unit>
-      <trans-unit id="915">
-        <source>"Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
-        <target>"記述されたアイテムの関係する版表示を転写してください。" (RAD 1.2B3) "もし記述されたアイテムが、版表示を欠いているもののほかの版からの重要な変更を含んでいることがわかっている場合は、言語についての適当な略述と本来のタイトルの原稿を提供して、その表示を括弧でくくってください。" (RAD 1.2B3)</target>
       </trans-unit>
       <trans-unit id="916">
         <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
@@ -550,10 +530,6 @@
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description." (RAD 1.8.B14). Select the language from the drop-down menu; enter the first few letters to narrow the choices.</source>
         <target>"記述単位の使用言語（複数可）を記載してください。すでに他のところに記載されている、あるいは他の記述情報から明らかな場合は不要です。" (RAD 1.8.B14). ドロップダウンメニューから言語を選択してください; 絞り込むためには、冒頭の数文字を入力してください。</target>
       </trans-unit>
-      <trans-unit id="937">
-        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
-        <target>"何か特別な文字やシンボルのシステムが使用されていれば記載してください" (RAD 1.8.B14) ドロップダウンメニューからスクリプトを選択してください; 絞り込みのため冒頭の数文字を入力してください。</target>
-      </trans-unit>
       <trans-unit id="938">
         <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
         <target>"記述単位の全体あるいは一部が、機関内部または他の機関において、他のフォーマットで利用可能な場合、つまり記述単位は文書だがマイクロフィルムが存在する、あるいは映画フィルムだがビデオ・カセットでも利用できるような場合は、そうした他のフォーマットの存在と、その所在情報を、知る限りにおいて記載してください。記述単位の一部のみが他のフォーマットで利用可能な場合は、どの部分かも示してください。" (RAD 1.8B15b)</target>
@@ -565,10 +541,6 @@
       <trans-unit id="940">
         <source>"Give information about any restrictions placed on access to the unit (or parts of the unit) being described." (RAD 1.8B16a)</source>
         <target>"記述単位（あるいはその部分）へのアクセスに制限があれば、それを記載してください。" (RAD 1.8B16a)</target>
-      </trans-unit>
-      <trans-unit id="941">
-        <source>"Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c)</source>
-        <target>"資料の利用や複製に影響を与える可能性がある、法律上の、あるいは寄贈者が課した制限があれば記載してください。" (RAD 1.8B16c)</target>
       </trans-unit>
       <trans-unit id="942">
         <source>"Give information regarding the existence of any finding aids. Include appropriate administrative and/or intellectual control tools over the material in existence at the time the unit is described, such as card catalogues, box lists, series lists, inventories, indexes, etc." (RAD 1.8B17)</source>
@@ -583,10 +555,6 @@
       <trans-unit id="944">
         <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
         <target>"記述された単位がまだ完全ではないときは、さらになる追加が予想されることを説明するためのメモをしてください……もしさらに追加が予期されない場合は、その単位は完了したものと見なされていることを示してください。" (RAD 1.8B19)</target>
-      </trans-unit>
-      <trans-unit id="945">
-        <source>Select a note type from the drop-down menu and enter note text in accordance with the following sections in RAD: 1.5E (Accompanying material); 1.8 B11 (Alpha-numeric designations); 1.8B9b (Conservation); 1.8B7 (Edition); 1.8B9 (Physical Description); 1.8B16b (Rights); 1.8B21 (General note).</source>
-        <target>ドロップダウンメニューからノートの種別を選択し、RADの以下のセクションにしたがって文字を入力してください。：1.5E（付随する資料）；1.8B11（アルファベットと数字の指定）；1.8B9ｂ（保存）；1.8Ｂ7（編集）；1.8Ｂ9（物理的な記述）；1.8Ｂ16ｂ（権利）；1.8Ｂ21（一般的な注記）</target>
       </trans-unit>
       <trans-unit id="946">
         <source>"Give the International Standard Book Number (ISBN), International Standard Serial Number (ISSN), or any other internationally agreed standard number for the item being described. Give such numbers with the agreed abbreviation and with the standard spacing or hyphenation." (RAD 1.9B1)</source>
@@ -676,9 +644,25 @@
         <source>Language and script notes</source>
         <target>言語とスクリプトの注記</target>
       </trans-unit>
-      <trans-unit id="968">
-        <source>"[N]ote any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).</source>
-        <target>"何か特別な文字やシンボルのシステムが使用されていれば記載してください" (RAD 1.8.B14)</target>
+      <trans-unit id="969">
+        <source>Edition statement - This is a mandatory element for published items if there are multiple editions.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="970">
+        <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="971">
+        <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="972">
+        <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="973">
+        <source>For terms governing use and reproduction, "Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c). For terms governing publication, "Give information on legal or donor restrictions that may affect publication of the material." (RAD 1.8B16d)</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

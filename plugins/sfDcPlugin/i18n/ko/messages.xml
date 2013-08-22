@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2012-08-17T14:34:21Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2013-08-22T14:07:53Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -94,10 +94,6 @@
         <source>The name given to this resource.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="844">
-        <source>Names and dates</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="846">
         <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
         <target/>
@@ -124,10 +120,6 @@
       </trans-unit>
       <trans-unit id="859">
         <source>Untitled</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="860">
-        <source>Select the type of activity (creation, publication or contribution) that established the relation between the authority record and the archival description.</source>
         <target/>
       </trans-unit>
       <trans-unit id="861">
@@ -172,6 +164,38 @@
       </trans-unit>
       <trans-unit id="871">
         <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="872">
+        <source>Date(s)</source>
+        <target>일자(시기)</target>
+      </trans-unit>
+      <trans-unit id="873">
+        <source>Date</source>
+        <target>일자</target>
+      </trans-unit>
+      <trans-unit id="874">
+        <source>Start</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="875">
+        <source>End</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="876">
+        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="877">
+        <source>Name(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="878">
+        <source>Actor name</source>
+        <target>행위자 이름</target>
+      </trans-unit>
+      <trans-unit id="879">
+        <source>Identify and record the name(s) and type(s) of the unit of description.</source>
         <target/>
       </trans-unit>
     </body>
