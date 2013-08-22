@@ -121,7 +121,7 @@ class SearchIndexAction extends sfAction
     if (isset($this->getRoute()->resource) && $this->getRoute()->resource instanceof QubitRepository)
     {
       $query->addSubquery(QubitSearch::getInstance()->addTerm($this->getRoute()->resource->id, 'repositoryId'), true);
-      $this->title .= $this->context->i18n->__(' in %1%', array('%1%' => $this->getRoute()->resource->authorizedFormOfName));
+      $this->title .= '%nbsp;'.$this->context->i18n->__('in %1%', array('%1%' => $this->getRoute()->resource->authorizedFormOfName));
     }
 
     return $query;

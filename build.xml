@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <project name="atom" basedir="." default="build">
 
+  <!-- ===================================================================== -->
+  <!-- Define some globals                                                   -->
+  <!-- ===================================================================== -->
+
   <property name="build.dir" value="${phing.dir}/build"/>
 
   <!-- package.version: e.g. 1.4 -->
@@ -61,7 +65,9 @@
   <!-- Build target                                                          -->
   <!-- ===================================================================== -->
 
-  <target name="build" depends="debug, prepare, package"/>
+  <target name="build"
+    depends="debug, prepare, package"
+    description="Build a tarball"/>
 
   <target name="prepare" depends="debug">
     <delete dir="${build.dir}"/>
@@ -75,6 +81,133 @@
     <move file="${phing.dir}/${package.pear.name}.tgz" tofile="${build.dir}/${package.name}.tar.gz" overwrite="true"/>
     <delete file="${phing.dir}/package.xml"/>
     <echo>Done! ${build.dir}/${package.name}.tar.gz</echo>
+  </target>
+
+  <!-- ===================================================================== -->
+  <!-- i18n shared targets                                                   -->
+  <!-- ===================================================================== -->
+
+  <target name="i18n-prepare">
+    <mkdir dir=".tx/i18n"/>
+    <exec command="which tx" returnProperty="return_code" outputProperty="tx.path"/>
+    <if>
+      <equals arg1="${return_code}" arg2="1" />
+      <then>
+        <fail message="You need to install transifex-client before!"/>
+      </then>
+    </if>
+    <exec command="git diff --quiet" returnProperty="return_code"/>
+    <if>
+      <equals arg1="${return_code}" arg2="0" />
+      <then><echo>You are good to go!</echo></then>
+      <else><fail message="For your safety, this target won't work if you have unstaged changes in your git tree."/></else>
+    </if>
+  </target>
+
+  <target name="i18n-extract">
+    <foreach param="lang" target="i18n-extract-subtask">
+      <fileset dir="apps/qubit/i18n/">
+        <type type="dir"/>
+        <depth max="0" min="0"/>
+      </fileset>
+    </foreach>
+  </target>
+  <target name="i18n-extract-subtask">
+    <exec command="php symfony i18n:extract --plugins --auto-delete --auto-save ${lang}" dir="${phing.dir}" checkreturn="true" level="debug"/>
+  </target>
+
+  <!-- ===================================================================== -->
+  <!-- i18n-push-sources target, push source strings to Transifex            -->
+  <!-- ===================================================================== -->
+
+  <target name="i18n-push-sources"
+    depends="i18n-prepare, i18n-extract-sources, i18n-consolidate-sources, i18n-send-sources"
+    description="Push source strings to Transifex"/>
+
+  <target name="i18n-extract-sources">
+    <exec command="php symfony i18n:extract --plugins --auto-delete --auto-save en" dir="${phing.dir}" checkreturn="true"/>
+  </target>
+
+  <target name="i18n-consolidate-sources">
+    <exec command="php symfony i18n:consolidate en .tx/i18n/" dir="${phing.dir}" checkreturn="true"/>
+  </target>
+
+  <target name="i18n-send-sources">
+    <exec command="tx push --source" dir="${phing.dir}" checkreturn="true" logoutput="true" passthru="true"/>
+    <exec command="find . -wholename &quot;*i18n/en&quot; | xargs -IF rm -rf F"/>
+  </target>
+
+  <!-- ===================================================================== -->
+  <!-- i18n-push-translations target, push translations to Transifex         -->
+  <!-- ===================================================================== -->
+
+  <target name="i18n-push-translations"
+    depends="i18n-prepare, i18n-extract, i18n-consolidate-translations, i18n-send-translations"
+    description="Push translations to Transifex"/>
+
+  <target name="i18n-consolidate-translations">
+    <foreach param="lang" target="i18n-consolidate-translations-subtask">
+      <fileset dir="apps/qubit/i18n/">
+        <type type="dir"/>
+        <depth max="0" min="0"/>
+      </fileset>
+    </foreach>
+  </target>
+  <target name="i18n-consolidate-translations-subtask">
+    <exec command="php symfony i18n:consolidate ${lang} .tx/i18n/" dir="${phing.dir}" checkreturn="true" level="debug"/>
+  </target>
+
+  <target name="i18n-send-translations">
+    <exec command="tx push --translations" dir="${phing.dir}" checkreturn="true" logoutput="true" passthru="true"/>
+  </target>
+
+  <!-- ===================================================================== -->
+  <!-- i18n-pull-translations target, pull translations from Transifex       -->
+  <!-- ===================================================================== -->
+
+  <target name="i18n-pull-translations"
+    depends="i18n-prepare, i18n-fetch, i18n-rectify, i18n-update-fixtures, i18n-cleanup"
+    description="Pull translations from Transifex, ready to be committed"/>
+
+  <target name="i18n-fetch">
+    <exec command="tx pull" dir="${phing.dir}" checkreturn="true" logoutput="true" passthru="true"/>
+    <foreach param="lang" absparam="directory" target="i18n-fetch-subtask">
+      <fileset dir=".tx/i18n">
+        <type type="dir"/>
+        <depth max="0" min="0"/>
+      </fileset>
+    </foreach>
+  </target>
+  <target name="i18n-fetch-subtask">
+    <copy file="${directory}/messages.xml" tofile="apps/qubit/i18n/${lang}/messages.xml" overwrite="true"/>
+  </target>
+
+  <target name="i18n-rectify">
+    <foreach param="lang" target="i18n-rectify-subtask">
+      <fileset dir="apps/qubit/i18n/">
+        <type type="dir"/>
+        <depth max="0" min="0"/>
+      </fileset>
+    </foreach>
+  </target>
+  <target name="i18n-rectify-subtask">
+    <exec command="php symfony i18n:rectify ${lang}" dir="${phing.dir}" checkreturn="true"/>
+  </target>
+
+  <target name="i18n-update-fixtures">
+    <exec command="php symfony i18n:update-fixtures apps/qubit/i18n/" dir="${phing.dir}" checkreturn="true"/>
+  </target>
+
+  <target name="i18n-cleanup">
+    <foreach param="lang" target="i18n-cleanup-subtask">
+      <fileset dir="apps/qubit/i18n/">
+        <type type="dir"/>
+        <depth max="0" min="0"/>
+      </fileset>
+    </foreach>
+  </target>
+  <target name="i18n-cleanup-subtask">
+    <exec command="php symfony i18n:extract --auto-save --auto-delete --plugins ${lang}" dir="${phing.dir}" checkreturn="true"/>
   </target>
 
 </project>
