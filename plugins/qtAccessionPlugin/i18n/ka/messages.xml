@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2013-06-09T19:07:41Z" product-name="messages">
+  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2013-08-22T16:45:56Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -430,7 +430,7 @@
       </trans-unit>
       <trans-unit id="108">
         <source>Accession area</source>
-        <target/>
+        <target>დაშვების არე</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Related accession(s)</source>
@@ -438,7 +438,7 @@
       </trans-unit>
       <trans-unit id="110">
         <source>Accruals</source>
-        <target/>
+        <target>დანამატი</target>
       </trans-unit>
       <trans-unit id="111">
         <source>Accrual to</source>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2013-06-09T19:07:37Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2013-08-22T16:46:20Z" product-name="messages">
     <body>
       <trans-unit id="43">
         <source>Identity area</source>
@@ -291,14 +291,6 @@
         <target>記述の記述単位の使用に影響を与える保存の要件などの主要な物理的条件を表示する。
 記述の記述単位へのアクセスに必要なソフトウエアおよび/またはハードウエアを注記する</target>
       </trans-unit>
-      <trans-unit id="891">
-        <source>Publication notes</source>
-        <target>出版物の注記</target>
-      </trans-unit>
-      <trans-unit id="892">
-        <source>Notes</source>
-        <target>注記</target>
-      </trans-unit>
       <trans-unit id="895">
         <source>Add new archival description</source>
         <target>新規のアーカイブ記述を追加</target>
@@ -350,10 +342,6 @@
       <trans-unit id="916">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
         <target>アーカイブズ史料の記述を作成するのに使用するスクリプトを表示する。</target>
-      </trans-unit>
-      <trans-unit id="917">
-        <source>Archivist's notes</source>
-        <target>アーキビストの注記</target>
       </trans-unit>
       <trans-unit id="919">
         <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)</source>
@@ -423,14 +411,6 @@
         <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
         <target>出所か他の団体によって関係づけられる同じリポジトリかほかの場所での記述の記述単位の情報を記録する。適切な紹介の表現を使用してその関係の本質を説明する。その関係する記述単位が検索手段であれば、検索手段の記述の要素を用いて、記述単位のレファレンスに供する。</target>
       </trans-unit>
-      <trans-unit id="938">
-        <source>Record a citation to, and/or information about a publication that is about or based on the use, study, or analysis of the unit of description. Include references to published facsimiles or transcriptions. (ISAD 3.5.4)</source>
-        <target>記述単位の使用、研究、分析に関して、あるいは礎にした出版物の情報、引用文を記録する。出版された複製や転写物の参照も含む。(ISAD 3.5.4)</target>
-      </trans-unit>
-      <trans-unit id="939">
-        <source>Record specialized or other important information not accommodated by any of the defined elements of description. (ISAD 3.6.1)</source>
-        <target>記述の要素に定義されていない特別な、他の重要な情報を記録する。(ISAD 3.6.1)</target>
-      </trans-unit>
       <trans-unit id="940">
         <source>Name access points (subjects)</source>
         <target>名称アクセスポイント(主題)</target>
@@ -438,10 +418,6 @@
       <trans-unit id="941">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
         <target>記述の準備として国際的、国内または地域のルールや規則を記録する。(ISAD 3.7.2)</target>
-      </trans-unit>
-      <trans-unit id="942">
-        <source>Record notes on sources consulted in preparing the description and who prepared it. (ISAD 3.7.1)</source>
-        <target>記述の準備に助言を与えた、または準備した人間の情報源を記録する。(ISAD 3.7.1)</target>
       </trans-unit>
       <trans-unit id="943">
         <source>Rights area</source>
@@ -454,12 +430,6 @@
       <trans-unit id="945">
         <source>Accession area</source>
         <target>受入資料エリア</target>
-      </trans-unit>
-      <trans-unit id="946">
-        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. Use YYYY-MM-DD format for the &lt;em&gt;Date&lt;/em&gt; field. The &lt;em&gt;End date&lt;/em&gt; field can be used to indicate a date range. The &lt;em&gt;Date display&lt;/em&gt; field can be used to enter free-text date information. (ISAD 3.1.3)</source>
-        <target>記述の記述単位の日付を識別し記録する。特定の日付のタイプを識別する。単一の日付あるいは適切な一連の日付を記録する。
-フイールドは日付の範囲を示すのに使用される。
-The &lt;em&gt;日付の表示&lt;/em&gt;フイールドはフリーのテキストの日付情報を入力するのに使用される。lt;em&gt;Date display&lt;/em&gt; field can be used to enter free-text date information. (ISAD 3.1.3)</target>
       </trans-unit>
       <trans-unit id="949">
         <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
@@ -491,6 +461,10 @@ The &lt;em&gt;日付の表示&lt;/em&gt;フイールドはフリーのテキス�
       </trans-unit>
       <trans-unit id="956">
         <source>Close</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="957">
+        <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
         <target/>
       </trans-unit>
     </body>

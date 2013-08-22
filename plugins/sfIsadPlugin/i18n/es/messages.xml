@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2013-06-09T19:07:21Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2013-08-22T17:21:52Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -220,25 +220,9 @@
         <source>Related units of description</source>
         <target>Unidades de descripción relacionadas</target>
       </trans-unit>
-      <trans-unit id="58">
-        <source>Publication notes</source>
-        <target>Notas de publicación</target>
-      </trans-unit>
-      <trans-unit id="59">
-        <source>Record a citation to, and/or information about a publication that is about or based on the use, study, or analysis of the unit of description. Include references to published facsimiles or transcriptions. (ISAD 3.5.4)</source>
-        <target>Registre una cita, y/o información sobre una publicación que trata o se basa en el uso, estudio o análisis de la unidad de descripción. Incluya referencias a facsímiles o transcripciones publicadas. (ISAD 3.5.4)</target>
-      </trans-unit>
       <trans-unit id="60">
         <source>Notes area</source>
         <target>Área de notas</target>
-      </trans-unit>
-      <trans-unit id="61">
-        <source>Notes</source>
-        <target>Notas</target>
-      </trans-unit>
-      <trans-unit id="62">
-        <source>Record specialized or other important information not accommodated by any of the defined elements of description. (ISAD 3.6.1)</source>
-        <target>Registre información especializada o importante que no se acomoda en ninguno de los elementos definidos de la descripción. (ISAD 3.6.1)</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Access points</source>
@@ -319,14 +303,6 @@
       <trans-unit id="83">
         <source>Script(s)</source>
         <target>Escritura(s)</target>
-      </trans-unit>
-      <trans-unit id="84">
-        <source>Archivist's notes</source>
-        <target>Notas del archivista</target>
-      </trans-unit>
-      <trans-unit id="85">
-        <source>Record notes on sources consulted in preparing the description and who prepared it. (ISAD 3.7.1)</source>
-        <target>Registre notas de las fuentes consultadas en la preparación de la descripción y quién la preparó. (ISAD 3.7.1)</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Rights area</source>
@@ -452,10 +428,6 @@
         <source>End</source>
         <target>Fin</target>
       </trans-unit>
-      <trans-unit id="120">
-        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. Use YYYY-MM-DD format for the &lt;em&gt;Date&lt;/em&gt; field. The &lt;em&gt;End date&lt;/em&gt; field can be used to indicate a date range. The &lt;em&gt;Date display&lt;/em&gt; field can be used to enter free-text date information. (ISAD 3.1.3)</source>
-        <target>Indentifique y registre la fecha(s) de la unidad de descripción. Identifique el tipo de fecha entregada. Registre una sola fecha o un rango de fechas, como sea apropiado. Use el formato AAAA-MM-DD para el campo &lt;em&gt;Fecha&lt;/em&gt;. El campo de &lt;em&gt;Fecha final&lt;/em&gt; puede utilizarse para indicar un rango de fechas. El campo &lt;em&gt;Despliegue de fecha&lt;/em&gt; puede utilizarse para ingresar información de fecha con texto libre.</target>
-      </trans-unit>
       <trans-unit id="121">
         <source>File list</source>
         <target>Listado de archivos</target>
@@ -482,14 +454,18 @@
       </trans-unit>
       <trans-unit id="128">
         <source>Contact the archivist at %1%</source>
-        <target/>
+        <target>Contactar con el archivero, %1%</target>
       </trans-unit>
       <trans-unit id="129">
         <source>Show details</source>
-        <target/>
+        <target>Mostrar detalles</target>
       </trans-unit>
       <trans-unit id="130">
         <source>Close</source>
+        <target>Cerrar</target>
+      </trans-unit>
+      <trans-unit id="131">
+        <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
         <target/>
       </trans-unit>
     </body>

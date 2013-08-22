@@ -1,35 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="th" datatype="plaintext" original="messages" date="2013-06-09T20:17:44Z" product-name="messages">
+  <file source-language="EN" target-language="th" datatype="plaintext" original="messages" date="2013-08-22T16:46:26Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Browse by</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="2">
-        <source>Archival descriptions</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="3">
-        <source>Institutions</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="4">
-        <source>Subjects</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="5">
-        <source>People &amp;amp; Organizations</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="6">
-        <source>Places</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="7">
-        <source>Media</source>
         <target/>
       </trans-unit>
       <trans-unit id="8">
@@ -38,7 +14,7 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Search</source>
-        <target/>
+        <target>ค้นหา</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Advanced search</source>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2013-06-09T19:07:16Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2013-08-22T17:21:53Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -28,7 +28,7 @@
       </trans-unit>
       <trans-unit id="604">
         <source>Subject</source>
-        <target/>
+        <target>Gegenstand</target>
       </trans-unit>
       <trans-unit id="843">
         <source>Source</source>
@@ -36,7 +36,7 @@
       </trans-unit>
       <trans-unit id="844">
         <source>Rights</source>
-        <target/>
+        <target>Rechte</target>
       </trans-unit>
       <trans-unit id="895">
         <source>%1%Identifier%2% - This is a mandatory element.</source>
@@ -48,7 +48,7 @@
       </trans-unit>
       <trans-unit id="901">
         <source>Creator</source>
-        <target/>
+        <target>Urheber/Bestandsbildner</target>
       </trans-unit>
       <trans-unit id="902">
         <source>Publisher</source>
@@ -112,10 +112,6 @@
       </trans-unit>
       <trans-unit id="926">
         <source>Untitled</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="927">
-        <source>Select the type of activity (creation, publication or contribution) that established the relation between the authority record and the archival description.</source>
         <target/>
       </trans-unit>
       <trans-unit id="928">
@@ -184,6 +180,38 @@
       </trans-unit>
       <trans-unit id="944">
         <source>Edit elements area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="945">
+        <source>Date(s)</source>
+        <target>Datum/Daten</target>
+      </trans-unit>
+      <trans-unit id="946">
+        <source>Date</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="947">
+        <source>Start</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="948">
+        <source>End</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="949">
+        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="950">
+        <source>Name(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="951">
+        <source>Actor name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="952">
+        <source>Identify and record the name(s) and type(s) of the unit of description.</source>
         <target/>
       </trans-unit>
     </body>

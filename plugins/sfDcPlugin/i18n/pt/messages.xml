@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-06-09T19:07:51Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-08-22T17:11:03Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -114,10 +114,6 @@
         <source>Untitled</source>
         <target>Sem título</target>
       </trans-unit>
-      <trans-unit id="928">
-        <source>Select the type of activity (creation, publication or contribution) that established the relation between the authority record and the archival description.</source>
-        <target>Seleccionar o tipo de actividade (criação, publicação ou contribuição) que estabelece a relação entre o registo de autoridade e a descrição arquivística</target>
-      </trans-unit>
       <trans-unit id="929">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
         <target>Resumo, índice do conteúdo ou descrição do âmbito e conteúdo do recurso.</target>
@@ -184,6 +180,38 @@
       </trans-unit>
       <trans-unit id="945">
         <source>Edit elements area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="946">
+        <source>Date(s)</source>
+        <target>Data(s)</target>
+      </trans-unit>
+      <trans-unit id="947">
+        <source>Date</source>
+        <target>data</target>
+      </trans-unit>
+      <trans-unit id="948">
+        <source>Start</source>
+        <target>Início</target>
+      </trans-unit>
+      <trans-unit id="949">
+        <source>End</source>
+        <target>Fim</target>
+      </trans-unit>
+      <trans-unit id="950">
+        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="951">
+        <source>Name(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="952">
+        <source>Actor name</source>
+        <target>Nome do ator</target>
+      </trans-unit>
+      <trans-unit id="953">
+        <source>Identify and record the name(s) and type(s) of the unit of description.</source>
         <target/>
       </trans-unit>
     </body>

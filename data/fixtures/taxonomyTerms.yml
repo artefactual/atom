@@ -1501,7 +1501,7 @@ QubitTerm:
       de: Entwurf
       en: Draft
       es: Borrador
-      fr: Ébauche
+      fr: Brouillon
       gl: Borrador
       it: Bozza
       ja: 原稿
@@ -1509,6 +1509,7 @@ QubitTerm:
       nl: Concept
       pl: Szkic
       pt: Preliminar
+      pt_BR: 'Versão preliminar'
       sl: Osnutek
   QubitTerm_publication_status_published:
     taxonomy_id: QubitTaxonomy_publication_status
@@ -1518,7 +1519,7 @@ QubitTerm:
     name:
       en: Published
       es: Publicado
-      fr: publié
+      fr: Publié
       gl: Publicado
       id: Terpublikasi
       it: pubblicato
@@ -1527,6 +1528,7 @@ QubitTerm:
       nl: Gepubliceerd
       pl: Opublikowano
       pt: Publicado
+      pt_BR: Publicado
       sl: Objavljeno
       th: ตีพิมพ์
   QubitTerm_maintenance_note:
@@ -1996,7 +1998,7 @@ QubitTerm:
       de: Entwurf
       en: Draft
       es: Borrador
-      fr: Ébauche
+      fr: Brouillon
       gl: Borrador
       it: Bozza
       ja: 原稿
@@ -4033,14 +4035,34 @@ QubitTerm:
     source_culture: en
     code: isad
     name:
+      de: 'ISAD(G), 2. Ausg. hg. Internationaler Archivrat'
       en: 'ISAD(G), 2nd ed. International Council on Archives'
+      es: 'ISAD(G), 2a ed. Consejo Internacional de Archivos'
+      fr: 'ISAD(G), 2e édition, Conseil international des archives'
+      gl: 'ISAD(G), 2da ed. Consello Internacional de Arquivos'
+      ka: 'ISAD(G), 2nd ed. საერთაშორისო საბჭო(ორგანიზაცია) არქივების'
+      ko: 'ISAD(G), 2판. ICA 국제기술규칙'
+      pl: 'ISAD(G), II.ed. Międzynarodowa Rada Archiwów'
+      pt: 'ISAD(G), 2ª ed. Conselho Internacional de Arquivos'
+      pt_BR: 'ISAD(G), Conselho Internacional de Arquivos, 2. ed.'
+      sl: 'ISAD(G), 2. izdaja Splošnih mednarodnih standardov za arhivsko popisovanje, Mednarodni arhivski svet'
   QubitTerm_template_dc:
     taxonomy_id: 70
     parent_id: QubitTerm_110
     source_culture: en
     code: dc
     name:
+      de: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       en: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
+      es: 'Dublin Core, Versión 1.1 Iniciativa de Metadatos Dublin Core'
+      fr: 'Dublin Core, version 1.1, Inititative de métadonnées Dublin Core'
+      gl: 'Dublin Core, Versión 1.1 Iniciativa de Metadatos Dublin Core'
+      ka: 'დაბლინ კორ მეტამონაცემების ელემენტთა სიმრავლე, ვერსია 1.1 ის ინიციატივა'
+      ko: '더블린코어(Dublin Core) 1.1판. 더블린코어 메타데이터 이니시에이티브(DCMI)'
+      pl: 'Dublin Core, Wersja 1.1. Dublin Core Metadata Initiative'
+      pt: 'Dublin Core, Versão 1.1. Dublin Core Metadata Initiative'
+      pt_BR: 'Dublin Core, Versão 1.1. Dublin Core Metadata Initiative'
+      sl: 'Dublin Core, verzija 1.1., Iniciativa o metapodatkih Dublin Core (DCMI)'
   QubitTerm_template_mods:
     taxonomy_id: 70
     parent_id: QubitTerm_110
@@ -4048,13 +4070,32 @@ QubitTerm:
     code: mods
     name:
       en: 'MODS, Version 3.3. U.S. Library of Congress'
+      es: 'MODS, Versión 3.3 Biblioteca del Congreso de los Estados Unidos'
+      fr: 'MODS, version 3.3, Bibliothèque du Congrès'
+      gl: 'MODS, Versión 3.3 Biblioteca do Congreso dos Estados Unidos'
+      ka: 'MODS, ვერსია 3.3 ა.შ.შ-ს კონგრესის ბიბლიოთეკა'
+      ko: 'MODS, 3.3판. 미국 의회도서관 메타데이터 객체 기술스키마'
+      pl: 'MODS, Wersja 3.3. U.S. Biblioteka Kongresu'
+      pt: 'MODS, Versão 3.3. U.S. da Biblioteca do Congresso'
+      pt_BR: 'MODS, Versão 3.3. U.S. Library of Congress'
+      sl: 'MODS, verzija 3.3., ameriška kongresna knjižnica'
   QubitTerm_template_rad:
     taxonomy_id: 70
     parent_id: QubitTerm_110
     source_culture: en
     code: rad
     name:
+      de: 'RAD, July 2008 version. Canadian Council of Archives'
       en: 'RAD, July 2008 version. Canadian Council of Archives'
+      es: 'RAD, versión Julio 2008. Consejo Canadiense de Archivos'
+      fr: 'RDDA, version de juillet 2008, Conseil canadien des archives'
+      gl: 'RAD, versión Xullo 2008. Consello Canadiano de arquivos'
+      ka: 'RAD 2008 წლის ვერსია'
+      ko: 'RAD(보존기록기술규칙), 2008년 7월판. 캐나다 아카이브즈협회(CCA)'
+      pl: 'RAD, wersja luty 2008. Kanadyjska Rada Archiwów'
+      pt: 'RAD, versão Julho 2008. Conselho Canadiano de Arquivos'
+      pt_BR: 'RAD, versão jul. 2008. Canadian Council of Archives'
+      sl: 'RAD, verzija iz julija 2008, Kanadski arhivski svet (Canadian Council of Archives)'
   QubitTerm_template_dacs:
     taxonomy_id: 70
     parent_id: QubitTerm_110

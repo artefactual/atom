@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2013-06-09T19:07:41Z" product-name="messages">
+  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2013-08-22T16:46:12Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -284,10 +284,6 @@
         <source>End</source>
         <target>დასასრული</target>
       </trans-unit>
-      <trans-unit id="75">
-        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. Use YYYY-MM-DD format for the &lt;em&gt;Date&lt;/em&gt; field. The &lt;em&gt;End date&lt;/em&gt; field can be used to indicate a date range. The &lt;em&gt;Date display&lt;/em&gt; field can be used to enter free-text date information. (ISAD 3.1.3)</source>
-        <target>დაადგინეთ იდენტობა და ჩაწერეთ ვადები აღწერის ერთეულისა. დაადგინეთ იდენტობა მიღებული თარიღის ტიპისა.ჩაწერეთ ერთი თარიღი ან  გარკვეული თარიღები, როგორც შეეფერება. გამოიყენეთ YYYY-MM-DD (წელი-თვე-დღე) ფორმატი &lt;em&gt;Date&lt;/em&gt; ველისთვის. &lt;em&gt;End date&lt;/em&gt; field ველი  შეიძლება იქნეს გამოყენებული  რომ მიუთითოს თარიღის მწკრივი, რიგი. &lt;em&gt;Date display&lt;/em&gt;-ს ველი შეიძლება გამოყენებულ იქნეს რათა შეიყვანოთ თავისუფალი ტექსტ თარიღის ინფორმაცია. (ISAD 3.1.3)</target>
-      </trans-unit>
       <trans-unit id="77">
         <source>This is a duplicate of record %1%</source>
         <target> ეს არის დუბლიკატი %!% იანი ჩანაწერისთვის</target>
@@ -396,22 +392,6 @@
         <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
         <target>ჩაწერეთ ინფორმაცია აღწერის ერთეულის შესახებ იგივე საცავში ან სადმე სხვაგან რომელიც არის დაკავშირებული წარმოშობასთან  ან ურთიერთობის სხვა არსთან . გამოიყენეთ შესაბამისი გაცნობითი ხასიათის ფორმულირება და განმარტეთ  ურთიერთობის არსი.თუ აღწერის დაკავშირებული ერთეული ეხმარება მოძიებაში , გამოიყენეთ დახმარების ძებნის ელემენტები აღწერისა. მიუთითეთ ეს. (ISAD 3.5.3)</target>
       </trans-unit>
-      <trans-unit id="105">
-        <source>Publication notes</source>
-        <target>პუბლიკაციის შენიშვნები </target>
-      </trans-unit>
-      <trans-unit id="106">
-        <source>Record a citation to, and/or information about a publication that is about or based on the use, study, or analysis of the unit of description. Include references to published facsimiles or transcriptions. (ISAD 3.5.4)</source>
-        <target>ჩაწერეთ ციტატა და/ან ინფორმაცია პუბლიკაციის შესახებ  რომელიც დაფუძნებულია აღწერის გამოყენებაზე ანალიზზე. ჩართეთ მითითება რათა ფაქსიმილეები ან ტრანსკრიფციები იქნეს გამოქვეყნებული. (ISAD 3.5.4)</target>
-      </trans-unit>
-      <trans-unit id="107">
-        <source>Notes</source>
-        <target>შენიშვნები</target>
-      </trans-unit>
-      <trans-unit id="108">
-        <source>Record specialized or other important information not accommodated by any of the defined elements of description. (ISAD 3.6.1)</source>
-        <target>ჩწერეთ სპეციალიზებული ან სხვა მნიშვნელოვანი ინფორმაცია , არა უზრუნველყოფილი აღწერის არც ერთი მითითებული  ელემენტის მიერ(ISAD 3.6.1)</target>
-      </trans-unit>
       <trans-unit id="109">
         <source>Subject access points</source>
         <target>სუბიექტის წვდომის წერტილები</target>
@@ -464,14 +444,6 @@
         <source>Indicate the script(s) used to create the description of the archival material.</source>
         <target>მიუთითეთ  საარქივო მასალის აღწერის შესაქმნელად გამოყენებული ნაწერი(აბი)</target>
       </trans-unit>
-      <trans-unit id="122">
-        <source>Archivist's notes</source>
-        <target>არქივისტის შენიშვნები</target>
-      </trans-unit>
-      <trans-unit id="123">
-        <source>Record notes on sources consulted in preparing the description and who prepared it. (ISAD 3.7.1)</source>
-        <target>ჩაწერეთ შენიშვნები კონსულტირებულ წყაროებზე , აღწერის მომზადებაში, და ვინც მოამზადა ეს. (ISAD 3.7.1) </target>
-      </trans-unit>
       <trans-unit id="124">
         <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
         <target/>
@@ -490,6 +462,10 @@
       </trans-unit>
       <trans-unit id="128">
         <source>Close</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="129">
+        <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
         <target/>
       </trans-unit>
     </body>

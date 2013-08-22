@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2010-11-12T09:28:00Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2013-08-22T16:46:22Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -56,10 +56,6 @@
         <source>Add new</source>
         <target>새항목 추가</target>
       </trans-unit>
-      <trans-unit id="14">
-        <source>Groups ACL</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="15">
         <source>Permissions for all %1%</source>
         <target/>
@@ -112,10 +108,6 @@
         <source>Edit group</source>
         <target/>
       </trans-unit>
-      <trans-unit id="28">
-        <source>Add new group</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="29">
         <source>Create</source>
         <target/>
@@ -130,10 +122,6 @@
       </trans-unit>
       <trans-unit id="32">
         <source>%1%: %2%</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="33">
-        <source>View group</source>
         <target/>
       </trans-unit>
       <trans-unit id="34">
@@ -164,17 +152,21 @@
         <source>Members</source>
         <target/>
       </trans-unit>
-      <trans-unit id="41">
-        <source>Sorry, this group is locked and cannot be deleted</source>
+      <trans-unit id="44">
+        <source>Edit %1% permissions of %2%</source>
         <target/>
       </trans-unit>
-      <trans-unit id="42">
-        <source>This group is required by the application to operate correctly</source>
+      <trans-unit id="45">
+        <source>Group %1%</source>
         <target/>
       </trans-unit>
-      <trans-unit id="43">
-        <source>Back to previous page</source>
-        <target>이전 페이지로 돌아감</target>
+      <trans-unit id="46">
+        <source>Main area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Group details</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

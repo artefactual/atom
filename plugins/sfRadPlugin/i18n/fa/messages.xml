@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2013-06-09T19:07:22Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2013-08-22T16:47:03Z" product-name="messages">
     <body>
       <trans-unit id="44">
         <source>Reference code</source>
@@ -338,10 +338,6 @@
         <source>Associated/related material</source>
         <target/>
       </trans-unit>
-      <trans-unit id="879">
-        <source>Note type</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="880">
         <source>Add new archival description</source>
         <target/>
@@ -420,10 +416,6 @@
       </trans-unit>
       <trans-unit id="902">
         <source>"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="903">
-        <source>Select a note type from the drop-down menu and enter note text in accordance with RAD 1.8B1 through 1.8B6.</source>
         <target/>
       </trans-unit>
       <trans-unit id="904">
@@ -538,10 +530,6 @@
         <source>"Give information about any restrictions placed on access to the unit (or parts of the unit) being described." (RAD 1.8B16a)</source>
         <target/>
       </trans-unit>
-      <trans-unit id="934">
-        <source>"Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c)</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="935">
         <source>"Give information regarding the existence of any finding aids. Include appropriate administrative and/or intellectual control tools over the material in existence at the time the unit is described, such as card catalogues, box lists, series lists, inventories, indexes, etc." (RAD 1.8B17)</source>
         <target/>
@@ -552,10 +540,6 @@
       </trans-unit>
       <trans-unit id="937">
         <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="938">
-        <source>Select a note type from the drop-down menu and enter note text in accordance with the following sections in RAD: 1.5E (Accompanying material); 1.8 B11 (Alpha-numeric designations); 1.8B9b (Conservation); 1.8B7 (Edition); 1.8B9 (Physical Description); 1.8B16b (Rights); 1.8B21 (General note).</source>
         <target/>
       </trans-unit>
       <trans-unit id="939">
@@ -654,10 +638,6 @@
         <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14) Select the script from the drop-down menu; enter the first few letters to narrow the choices.</source>
         <target/>
       </trans-unit>
-      <trans-unit id="965">
-        <source>"Note any distinctive alphabets or symbol systems employed." (RAD 1.8.B14).</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="966">
         <source>How to access to this content?</source>
         <target/>
@@ -672,6 +652,14 @@
       </trans-unit>
       <trans-unit id="969">
         <source>Close</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="970">
+        <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="971">
+        <source>For terms governing use and reproduction, "Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c). For terms governing publication, "Give information on legal or donor restrictions that may affect publication of the material." (RAD 1.8B16d)</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ko" datatype="plaintext" original="messages" date="2013-08-19T14:49:59Z" product-name="messages">
+  <file source-language="en" target-language="ko" datatype="plaintext" original="messages" date="2013-08-22T16:45:58Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -14,7 +14,7 @@
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
-        <target/>
+        <target>%1% 편집</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Identifier - This is a mandatory element.</source>
@@ -66,7 +66,7 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Identifier</source>
-        <target/>
+        <target>식별자</target>
       </trans-unit>
       <trans-unit id="17">
         <source>This is a mandatory element.</source>
@@ -86,7 +86,7 @@
       </trans-unit>
       <trans-unit id="21">
         <source>Title</source>
-        <target/>
+        <target>제목</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Record information about physical characteristics that affect the use of the unit being described in the Physical Access Element.</source>
@@ -118,7 +118,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>System of arrangement</source>
-        <target/>
+        <target>정리 시스템</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Conditions of access and use elements</source>
@@ -126,7 +126,7 @@
       </trans-unit>
       <trans-unit id="31">
         <source>Conditions governing access</source>
-        <target/>
+        <target>접근 조건</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Physical access</source>
@@ -174,11 +174,11 @@
       </trans-unit>
       <trans-unit id="43">
         <source>Existence and location of originals</source>
-        <target/>
+        <target>원본 존재와 소장위치</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Existence and location of copies</source>
-        <target/>
+        <target>복사본의 존재와 소장위치</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Related archival materials</source>
@@ -198,7 +198,7 @@
       </trans-unit>
       <trans-unit id="49">
         <source>Rules or conventions</source>
-        <target/>
+        <target>규칙 혹은 표준규정 </target>
       </trans-unit>
       <trans-unit id="50">
         <source>Access points</source>
@@ -206,11 +206,11 @@
       </trans-unit>
       <trans-unit id="51">
         <source>Subject access points</source>
-        <target/>
+        <target>주제 접근점</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Place access points</source>
-        <target/>
+        <target>장소 접근점</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Name access points (subjects)</source>
@@ -226,11 +226,11 @@
       </trans-unit>
       <trans-unit id="56">
         <source>Level of description</source>
-        <target/>
+        <target>기술 계층</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Date(s)</source>
-        <target/>
+        <target>일자(시기)</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Related function</source>
@@ -246,7 +246,7 @@
       </trans-unit>
       <trans-unit id="61">
         <source>Conditions governing reproduction</source>
-        <target/>
+        <target>복사조건</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Finding aids</source>
@@ -278,7 +278,7 @@
       </trans-unit>
       <trans-unit id="69">
         <source>Note</source>
-        <target/>
+        <target>주기(노트)</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Edit description control element</source>

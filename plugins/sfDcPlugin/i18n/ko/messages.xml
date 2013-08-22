@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2013-06-09T19:07:44Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2013-08-22T17:10:59Z" product-name="messages">
     <body>
       <trans-unit id="45">
         <source>Identifier</source>
@@ -114,10 +114,6 @@
         <source>Untitled</source>
         <target/>
       </trans-unit>
-      <trans-unit id="860">
-        <source>Select the type of activity (creation, publication or contribution) that established the relation between the authority record and the archival description.</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="861">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
         <target/>
@@ -184,6 +180,38 @@
       </trans-unit>
       <trans-unit id="877">
         <source>Edit elements area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="878">
+        <source>Date(s)</source>
+        <target>일자(시기)</target>
+      </trans-unit>
+      <trans-unit id="879">
+        <source>Date</source>
+        <target>일자</target>
+      </trans-unit>
+      <trans-unit id="880">
+        <source>Start</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="881">
+        <source>End</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="882">
+        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="883">
+        <source>Name(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="884">
+        <source>Actor name</source>
+        <target>행위자 이름</target>
+      </trans-unit>
+      <trans-unit id="885">
+        <source>Identify and record the name(s) and type(s) of the unit of description.</source>
         <target/>
       </trans-unit>
     </body>

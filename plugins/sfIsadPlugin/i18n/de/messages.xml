@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2013-06-09T19:07:16Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2013-08-22T17:21:53Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -224,7 +224,7 @@
       </trans-unit>
       <trans-unit id="923">
         <source>Publication note</source>
-        <target/>
+        <target>Anmerkung zur Veröffentlichung</target>
       </trans-unit>
       <trans-unit id="924">
         <source>Notes area</source>
@@ -268,7 +268,7 @@
       </trans-unit>
       <trans-unit id="934">
         <source>Archivist's note</source>
-        <target/>
+        <target>Anmerkung des Archivars/der Archivarin</target>
       </trans-unit>
       <trans-unit id="936">
         <source>This is a duplicate of record %1%</source>
@@ -288,14 +288,6 @@
       </trans-unit>
       <trans-unit id="953">
         <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="958">
-        <source>Publication notes</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="959">
-        <source>Notes</source>
         <target/>
       </trans-unit>
       <trans-unit id="962">
@@ -348,10 +340,6 @@
       </trans-unit>
       <trans-unit id="983">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="984">
-        <source>Archivist's notes</source>
         <target/>
       </trans-unit>
       <trans-unit id="986">
@@ -422,24 +410,12 @@
         <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
         <target/>
       </trans-unit>
-      <trans-unit id="1005">
-        <source>Record a citation to, and/or information about a publication that is about or based on the use, study, or analysis of the unit of description. Include references to published facsimiles or transcriptions. (ISAD 3.5.4)</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1006">
-        <source>Record specialized or other important information not accommodated by any of the defined elements of description. (ISAD 3.6.1)</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="1007">
         <source>Name access points (subjects)</source>
         <target/>
       </trans-unit>
       <trans-unit id="1008">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1009">
-        <source>Record notes on sources consulted in preparing the description and who prepared it. (ISAD 3.7.1)</source>
         <target/>
       </trans-unit>
       <trans-unit id="1010">
@@ -452,10 +428,6 @@
       </trans-unit>
       <trans-unit id="1012">
         <source>Accession area</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="1013">
-        <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. Use YYYY-MM-DD format for the &lt;em&gt;Date&lt;/em&gt; field. The &lt;em&gt;End date&lt;/em&gt; field can be used to indicate a date range. The &lt;em&gt;Date display&lt;/em&gt; field can be used to enter free-text date information. (ISAD 3.1.3)</source>
         <target/>
       </trans-unit>
       <trans-unit id="1016">
@@ -488,6 +460,10 @@
       </trans-unit>
       <trans-unit id="1023">
         <source>Close</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1024">
+        <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
         <target/>
       </trans-unit>
     </body>
