@@ -254,7 +254,8 @@ class SearchAdvancedAction extends SearchIndexAction
     return $query;
   }
 
-  // Transform YYYY-MM-DD and YYYY/MM/DD formats to YYYYMMDD
+  // Transform YYYY-MM-DD, YYYY/MM/DD, YYYY-MM,
+  // YYYY/MM, YYYYMM and YYYY formats to YYYYMMDD
   private function normalizeDateString(&$dateString)
   {
     if (null === $dateString)
@@ -262,8 +263,13 @@ class SearchAdvancedAction extends SearchIndexAction
       return;
     }
 
-    $dateString = str_replace("-", "", $dateString);
-    $dateString = str_replace("/", "", $dateString);
+    $dateString = str_replace("-", "", trim($dateString));
+    $dateString = str_replace("/", "", trim($dateString));
+
+    if (preg_match('/^\d{4}\z/', $dateString) || preg_match('/^\d{6}\z/', $dateString))
+    {
+      $dateString = str_pad($dateString, 8, '0', STR_PAD_RIGHT);
+    }
   }
 
   public function filterQuery($query)
@@ -317,7 +323,6 @@ class SearchAdvancedAction extends SearchIndexAction
     // Date range search
     $startDate = $this->form->getValue('startDate');
     $endDate = $this->form->getValue('endDate');
-
 
     $this->context->getLogger()->log('Doing a date search '.$startDate.' to '.$endDate);
 
