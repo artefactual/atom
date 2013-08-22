@@ -5,14 +5,16 @@
 </div>
 
 <?php if ($errors != null): ?>
-  <div class="messages error">
-    <h3>Warnings were encountered:</h3>
-    <?php foreach ($errors as $error): ?>
-      <div>
-        <?php echo $error ?>
-      </div>
-    <?php endforeach; ?>
-  </div>
+  <?php if (!(count($errors) == 1 && $errors[0] == '..')): ?>
+    <div class="messages error">
+      <h3>Warnings were encountered:</h3>
+      <?php foreach ($errors as $error): ?>
+        <div>
+          <?php echo $error ?>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  <?php endif; ?>
 <?php endif; ?>
 
 <div class="actions section">
