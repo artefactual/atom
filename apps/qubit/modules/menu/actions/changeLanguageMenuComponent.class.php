@@ -17,23 +17,9 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Display "quicklinks" navigation menu
- *
- * @package    AccesstoMemory
- * @subpackage menu
- * @author     David Juhasz <david@artefactual.com>
- */
-class menuQuickLinksComponent extends sfComponent
+class MenuChangeLanguageMenuComponent extends sfComponent
 {
   public function execute($request)
   {
-    // Get menu objects
-    $this->quickLinksMenu = QubitMenu::getById(QubitMenu::QUICK_LINKS_ID);
-
-    if (!$this->quickLinksMenu instanceof QubitMenu)
-    {
-      return sfView::NONE;
-    }
   }
 }

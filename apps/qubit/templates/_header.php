@@ -14,11 +14,11 @@
 
   <nav>
 
-    <?php echo get_component('user', 'menu') ?>
+    <?php echo get_component('menu', 'userMenu') ?>
 
-    <?php // echo get_component('menu', 'quickLinks') ?>
+    <?php // echo get_component('menu', 'quickLinksMenu') ?>
 
-    <?php echo get_component('i18n', 'changeLanguageList') ?>
+    <?php echo get_component('menu', 'changeLanguageMenu') ?>
 
     <?php echo get_component('menu', 'mainMenu', array('sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID())) ?>
 

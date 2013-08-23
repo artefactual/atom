@@ -1,10 +1,5 @@
 <?php echo get_component_slot('header') ?>
 
-<?php // echo get_component('menu', 'mainMenu') ?>
-<?php // echo get_component('menu', 'quickLinks') ?>
-<?php // echo get_component('i18n', 'changeLanguageList') ?>
-<?php // echo get_component('menu', 'browseMenu', array('sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID())) ?>
-
 <div id="header">
 
   <div class="container">

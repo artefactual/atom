@@ -2,7 +2,7 @@
 
   <div id="<?php echo $menu->getName() ?>-menu">
 
-    <a class="top-item top-dropdown icon" data-toggle="dropdown" data-target="#"><?php echo $menu->getLabel(array('cultureFallback' => true)) ?></a>
+    <a class="top-item" data-toggle="dropdown" data-target="#"><?php echo $menu->getLabel(array('cultureFallback' => true)) ?></a>
 
     <div class="top-dropdown-container">
 

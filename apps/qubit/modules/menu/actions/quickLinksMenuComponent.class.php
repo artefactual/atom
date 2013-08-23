@@ -17,22 +17,23 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class I18nChangeLanguageSelectboxComponent extends sfComponent
+/**
+ * Display "quicklinks" navigation menu
+ *
+ * @package    AccesstoMemory
+ * @subpackage menu
+ * @author     David Juhasz <david@artefactual.com>
+ */
+class menuQuickLinksMenuComponent extends sfComponent
 {
   public function execute($request)
   {
-    // loop through application settings and extract enabled i18n languages
-    foreach (sfConfig::getAll() as $setting => $value)
+    // Get menu objects
+    $this->quickLinksMenu = QubitMenu::getById(QubitMenu::QUICK_LINKS_ID);
+
+    if (!$this->quickLinksMenu instanceof QubitMenu)
     {
-      if (0 === strpos($setting, 'app_i18n_languages'))
-      {
-        $enabledI18nLanguages[$value] = format_language($value, $value);
-      }
+      return sfView::NONE;
     }
-
-    // sort languages by alpha code to look pretty
-    ksort($enabledI18nLanguages);
-
-    $this->enabledI18nLanguages = $enabledI18nLanguages;
   }
 }

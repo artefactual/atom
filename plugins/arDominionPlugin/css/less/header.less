@@ -15,9 +15,8 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
- @topBarTextColor: lighten(@gray, 40%);
- @topBarBackgroundColor: rgb(22, 21, 20);
- @topBarButtonHoverColor: @orange;
+@topBarBackgroundColor: rgb(22, 21, 20);
+@topBarButtonHoverColor: @orange;
 
 #top-bar {
   height: 50px;
@@ -49,7 +48,7 @@
   }
 }
 
-// Shared class for buttons and dropdowns
+// Shared class for buttons and dropdowns elements
 
 .top-item {
   display: block;
@@ -61,23 +60,6 @@
   line-height: 14px;
   text-decoration: none;
 }
-
-// Button
-
-.top-button,
-a.top-button:link,
-a.top-button:visited,
-a.top-button:active  {
-  padding: 5px 15px 7px 15px;
-  color: @topBarTextColor;
-}
-
-a.top-button:hover {
-  background-color: @topBarButtonHoverColor !important;
-  color: @white;
-}
-
-// Dropdown button
 
 .top-dropdown {
   cursor: pointer; // no href
@@ -91,7 +73,7 @@ a.top-dropdown:active {
   background-image: url(../../images/gray-arrow.png);
   background-position: right center;
   background-repeat: no-repeat;
-  color: @topBarTextColor;
+  color: lighten(@gray, 40%);
 }
 
 .open > a.top-dropdown,
@@ -99,12 +81,6 @@ a.top-dropdown:hover {
   background-color: @topBarButtonHoverColor !important;
   background-image: url(../../images/white-arrow.png);
   color: @white;
-}
-
-.top-dropdown.icon {
-  padding: 12px 0 !important;
-  .hide-text();
-  width: 28px;
 }
 
 // Dropdown container
@@ -149,15 +125,13 @@ nav > div {
 
   .top-dropdown-header {
     background-color: @white;
-    padding: 10px;
+    padding: 8px 10px;
     font-size: 16px;
+    border-bottom: 1px solid @grayLighter;
   }
 
   .top-dropdown-body {
 
-    background-image: url('../../images/separator.png');
-    background-repeat: no-repeat;
-    background-position: top center;
     background-color: @graySilver;
     background-color: rgba(255, 255, 255, 0.95);
     font-size: 14px;
@@ -184,9 +158,8 @@ nav > div {
   }
 
   .top-dropdown-bottom {
-    border-top: 1px solid lighten(@gray, 60%);
     background-color: @white;
-    height: 12px;
+    height: 4px;
   }
 
 }
@@ -202,6 +175,9 @@ nav > div {
 }
 
 #user-menu {
+  > a {
+    margin-left: 12px;
+  }
   form {
     background: none;
     padding: 10px 20px;
@@ -212,34 +188,93 @@ nav > div {
   }
 }
 
-#language-menu > a {
-  background-image: url(../../images/token-icons/language.png);
-  background-position: 2px 0;
-  background-repeat: no-repeat;
+// Icons
+
+#language-menu,
+#admin-menu,
+#import-menu,
+#manage-menu,
+#add-menu {
+
+  @side: 50px;
+
+  // As text is hidden
+  cursor: pointer;
+
+  > a {
+    .border-radius(0);
+  }
+
+  // Cancel margin and padding
+  > a,
+  > a:before {
+    margin: 0;
+    padding: 0;
+    line-height: @side;
+    .square(@side);
+  }
+
+  > a {
+    .hide-text();
+    position: relative;
+  }
+
+  // Icons
+  > a:before {
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-style: normal;
+    text-align: center;
+    color: @grayLighter;
+    font-size: @side/2;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  // Hover effect
+  &.open,
+  > a:hover {
+    background-color: @topBarButtonHoverColor;
+  }
+
+  &.open > a:before,
+  > a:hover:before {
+    color: @white;
+  }
+
 }
 
-#admin-menu > a {
-  background-image: url(../../images/token-icons/gear.png);
-  background-position: 2px 0;
-  background-repeat: no-repeat;
+// Font-Awesome icons
+
+#admin-menu  {
+  > a:before {
+    content: "\f085";
+  }
 }
 
-#import-menu > a {
-  background-image: url(../../images/token-icons/import.png);
-  background-position: 2px 0;
-  background-repeat: no-repeat;
+#add-menu {
+  > a:before {
+    content: "\f055";
+  }
 }
 
-#manage-menu > a {
-  background-image: url(../../images/token-icons/manage.png);
-  background-position: 2px 0;
-  background-repeat: no-repeat;
+#manage-menu {
+  > a:before {
+    content: "\f14b";
+  }
 }
 
-#add-menu > a {
-  background-image: url(../../images/token-icons/add.png);
-  background-position: 2px 0;
-  background-repeat: no-repeat;
+#import-menu {
+  > a:before {
+    content: "\f019";
+  }
+}
+
+#language-menu {
+  > a:before {
+    content: "\f0ac";
+  }
 }
 
 // Top search bar
@@ -275,7 +310,7 @@ nav > div {
     // See .top-item
     background-color: @grayDark;
     .border-radius(4px 0 0 4px);
-    color: @topBarTextColor;
+    color: lighten(@gray, 40%);
 
     // Overrides defaults for [type=text]
     // Some of this default like box-model are set by AtoM, not only Bootstrap
@@ -297,70 +332,3 @@ nav > div {
   }
 
 }
-
-// Responsive desgin
-
-@media (min-width: 1200px) { }
-
-@media (max-width: 979px) {
-
-  // Double height of the bar
-  #top-bar {
-    height: 100px;
-  }
-
-  // Hide buttons
-  nav {
-    .hide();
-  }
-
-  // Fist row: logo
-  #logo {
-    float: none;
-    text-align: center;
-  }
-
-  // Second row: search bar
-  #search-bar {
-
-    .clearfix();
-    margin: 0 auto;
-    padding: 0 20px;
-
-    #search-form-wrapper {
-      width: 80%;
-      float: left;
-      form {
-        width: auto;
-        margin-right: 0;
-      }
-      input {
-        .input-block-level();
-        min-height: 25px;
-      }
-    }
-
-    #browse-menu {
-      width: 20%;
-      > a {
-        .box-sizing(border-box);
-        width: 100%;
-        margin-right: 0px;
-        float: left;
-      }
-    }
-
-  }
-
-}
-
-@media (max-width: 767px) {
-
-  // Cancel default responsive body margin
-  #top-bar {
-    margin: 0 -20px;
-  }
-
-}
-
-@media (max-width: 480px) { }
