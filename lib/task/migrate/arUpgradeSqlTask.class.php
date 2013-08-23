@@ -163,10 +163,12 @@ EOF;
     // applied to 1.x users until they decide to migrate to AtoM 2.x.
     // See #4494 for more details.
 
-    // Since some db upgrades are applied to both 1.x and 2.x releases, we need
-    // the previous milestone used. This value has been stored in the database
-    // since the fork happened.
+    // The milestone founds in the database before the upgrade happens
     $previousMilestone = $this->getPreviousMilestone();
+
+    // Get current codebase milestone
+    $substrings = preg_split('/\./', qubitConfiguration::VERSION);
+    $currentMilestone = array_shift($substrings);
 
     // Upgrades post to Release 1.3 (v92) are located under
     // task/migrate/migrations and named using the following format:
@@ -181,69 +183,34 @@ EOF;
       $className = preg_replace('/.*(arMigration\d+).*/', '$1', $filename);
       $class = new $className;
 
-      // Are we stepping over this migration? Read more below :)
-      $omit = false;
-
-      // Upgrading from 1.x to 1.x
-      // Ignore upgrades already applied and those targetting only 2.x
-      if (version_compare(qubitConfiguration::VERSION, '2.0.0', '<'))
+      // This upgrade should have been applied already
+      if ($class::VERSION <= $version)
       {
-        $omit = $class::VERSION <= $version || 1 < $class::MIN_MILESTONE;
+        // Unless the user is moving from 1.x to 2.x
+        if (2 == $class::MIN_MILESTONE && 1 == $previousMilestone && 2 == $currentMilestone)
+        {
+          // Run migration but don't bump dbversion
+          if (true !== $class::up($this->configuration)) throw new sfException('Failed to apply upgrade '.get_class($class));
+        }
       }
-      // Upgrading from 1.x to 2.x
-      // This is the trickiest: ignore upgrades already applied *excepting*
-      // those targetting 2.x, as they should have been ignored been ignored
-      // during 1.x to 1.x upgrades.
-      else if (1 == $previousMilestone)
-      {
-        $omit = $class::VERSION == $version || ($class::VERSION < $version && 1 == $class::MIN_MILESTONE);
-      }
-      // Upgrading from 2.x to 2.x
-      // Ignore upgrades already applied
+      // New upgrades, not applied yet
       else
       {
-        $omit = $class::VERSION <= $version;
-      }
-
-      if ($omit)
-      {
-        if ($options['verbose'])
+        // Apply unless we are deadling with a 1.x user staying in 1.x
+        if (1 != $previousMilestone || 1 != $currentMilestone)
         {
-          $this->logSection('upgrade-sql', sprintf('Omitting %s', $version));
+          // Run migration
+          if (true !== $class::up($this->configuration)) throw new sfException('Failed to apply upgrade '.get_class($class));
+          $this->updateDatabaseVersion(++$version);
         }
-
-        // Bump database version anyways
-        $this->updateDatabaseVersion(++$version);
-
-        continue;
       }
-
-      if ($options['verbose'])
-      {
-        $this->logSection('upgrade-sql', sprintf('Invoking upgrader (%s)', $version));
-      }
-
-      // Run migration
-      // If an exception is thrown from $class, updateDatabaseVersion() won't make it
-      if (true !== $class::up($this->configuration))
-      {
-        throw new sfException('Failed to apply upgrade '.get_class($class));
-      }
-
-      // Bump database version
-      $this->updateDatabaseVersion(++$version);
     }
 
-    if ($this->initialVersion == $version)
-    {
-      $this->logSection('upgrade-sql', sprintf('Already at latest version (%s), no upgrades done', $version));
-    }
-    else
-    {
-      $this->logSection('upgrade-sql', sprintf('Successfully upgraded to Release %s v%s', qubitConfiguration::VERSION, $version));
+    $this->logSection('upgrade-sql', sprintf('Successfully upgraded to Release %s v%s', qubitConfiguration::VERSION, $version));
 
-      $this->updateMilestone();
-    }
+    // Store the milestone in settings, we're going to need that in further upgrades!
+    // Use case: a user running 1.x for a long period after 2.x release, then upgrades
+    $this->updateMilestone();
   }
 
   /**
