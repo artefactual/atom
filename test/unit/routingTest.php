@@ -19,7 +19,7 @@
 
 require_once dirname(__FILE__).'/../bootstrap/unit.php';
 
-$t = new lime_test(125, new lime_output_color);
+$t = new lime_test(124, new lime_output_color);
 
 $t->diag('Initializing configuration.');
 $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', true);
@@ -36,23 +36,37 @@ $routing->initialize(sfContext::getInstance()->getEventDispatcher(), $routing->g
 
 $t->diag('Creeate QubitInformationObject "peanut-12345"');
 if (null !== $io = QubitObject::getBySlug('peanut-12345')) $io->delete();
-$io = new QubitInformationObject; $io->slug = 'peanut-12345'; $io->save();
+$io = new QubitInformationObject;
+$io->parentId = QubitInformationObject::ROOT_ID;
+$io->slug = 'peanut-12345'; $io->save();
 
 $t->diag('Create QubitActor "actor-12345"');
 if (null !== $actor = QubitObject::getBySlug('actor-12345')) $actor->delete();
-$actor = new QubitActor; $actor->slug = 'actor-12345'; $actor->save();
+$actor = new QubitActor;
+$actor->parentId = QubitActor::ROOT_ID;
+$actor->slug = 'actor-12345';
+$actor->save();
 
 $t->diag('Create QubitRepository "repository-12345"');
 if (null !== $repository = QubitObject::getBySlug('repository-12345')) $repository->delete();
-$repository = new QubitRepository; $repository->slug = 'repository-12345'; $repository->save();
+$repository = new QubitRepository;
+$repository->parentId = QubitRepository::ROOT_ID;
+$repository->slug = 'repository-12345';
+$repository->save();
 
 $t->diag('Create QubitFunction "function-12345"');
 if (null !== $function = QubitObject::getBySlug('function-12345')) $function->delete();
-$function = new QubitFunction; $function->slug = 'function-12345'; $function->save();
+$function = new QubitFunction;
+$function->slug = 'function-12345';
+$function->save();
 
 $t->diag('Create QubitTaxonomy "taxonomy-12345"');
 if (null !== $taxonomy = QubitObject::getBySlug('taxonomy-12345')) $taxonomy->delete();
-$taxonomy = new QubitTaxonomy; $taxonomy->slug = 'taxonomy-12345'; $taxonomy->save();
+$taxonomy = new QubitTaxonomy;
+$taxonomy->parentId = QubitTaxonomy::ROOT_ID;
+$taxonomy->slug = 'taxonomy-12345';
+$taxonomy->name = 'Taxonomy 12345';
+$taxonomy->save();
 
 $t->diag('Create QubitContactInformation');
 $contactInformation = new QubitContactInformation; $contactInformation->actor = $actor; $contactInformation->save();
@@ -66,8 +80,21 @@ $t->is($uri, '/', '"->generate(\'homepage\')" returns "/"');
 $info = $routing->parse('/');
 $t->is($routing->getCurrentRouteName(), 'homepage', 'Url "/" is matched with route "homepage"');
 $t->is($info['module'], 'staticpage', '... with module="staticpage"');
-$t->is($info['action'], 'index', '... and action="index"');
+$t->is($info['action'], 'home', '... and action="home"');
 
+if ($configuration->isPluginEnabled('sfInstallPlugin'))
+{
+  $t->diag('Test sfInstallPlugin');
+
+  $uri = $routing->generate(null, array('module' => 'sfInstallPlugin'));
+  $t->is($uri, '/sfInstallPlugin');
+  $info = $routing->parse('/sfInstallPlugin');
+  $t->is($routing->getCurrentRouteName(), 'default_index');
+  $t->is($info['module'], 'sfInstallPlugin');
+  $t->is($info['action'], 'index');
+}
+
+/*
 $t->diag('Test oai_harvester_harvest_all_sets');
 $uri = $routing->generate(null, array('module' => 'qtOaiPlugin', 'action' => 'harvesterHarvest', 'id' => '12345', 'type' => 'type'));
 $t->is($uri, '/oai/harvest/type/12345');
@@ -91,6 +118,7 @@ $info = $routing->parse('/oai/request');
 $t->is($routing->getCurrentRouteName(), 'oai_requests');
 $t->is($info['module'], 'qtOaiPlugin');
 $t->is($info['action'], 'oai');
+*/
 
 $t->diag('Test /peanut-12345/addDigitalObject (route informationobject/action)');
 $uri = $routing->generate(null, array($io, 'action' => 'addDigitalObject'));
@@ -170,7 +198,7 @@ $t->is($info['action'], 'bar');
 # QubitMetadataResource
 #
 
-$ioTemplates = array('dc' => 'sfDcPlugin', 'isad' => 'sfIsadPlugin', 'mods' => 'sfModsPlugin', 'rad' => 'sfRadPlugin');
+$ioTemplates = array('dc' => 'sfDcPlugin', 'isad' => 'sfIsadPlugin', 'mods' => 'sfModsPlugin', 'rad' => 'sfRadPlugin', 'dacs' => 'arDacsPlugin');
 
 $defaultIoTemplateCode = sfConfig::get('app_default_template_informationobject');
 $defaultIoTemplateModule = $ioTemplates[$defaultIoTemplateCode];
