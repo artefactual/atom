@@ -446,7 +446,7 @@ QubitSetting:
     value: 1
   toggleTitle:
     name: toggleTitle
-    value: 1
+    value: 0
   QubitSetting_checkForUpdates:
     name: check_for_updates
     value: 1
