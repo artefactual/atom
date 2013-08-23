@@ -77,9 +77,20 @@ class QubitMetadataRoute extends sfRoute
       $criteria->add(QubitSlug::SLUG, $parameters['slug']);
       $criteria->addJoin(QubitSlug::OBJECT_ID, QubitObject::ID);
 
-      if (null === $this->resource = QubitObject::get($criteria)->__get(0))
+      try
       {
-        return false;
+        if (null === $this->resource = QubitObject::get($criteria)->__get(0))
+        {
+          return false;
+        }
+      }
+      // If for any reason the database can't be accessed, trigger the installer
+      catch (PropelException $e)
+      {
+        $parameters['module'] = 'sfInstallPlugin';
+        $parameters['action'] = 'index';
+
+        return $parameters;
       }
 
       // Find the Symfony module to be used based in the object class.

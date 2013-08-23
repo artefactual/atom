@@ -97,6 +97,8 @@ class sfInstallPluginConfiguration extends sfPluginConfiguration
     $routing = $event->getSubject();
 
     $routing->insertRouteBefore('default', 'sfInstallPlugin/help', new sfRoute('http://accesstomemory.org/wiki/index.php?title=Installer_warnings', array('module' => 'sfInstallPlugin', 'action' => 'help')));
+
+    // See QubitMetadataResource
   }
 
   /**
