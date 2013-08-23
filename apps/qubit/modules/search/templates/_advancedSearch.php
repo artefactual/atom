@@ -34,7 +34,7 @@
         <td colspan="2">
           <div style="text-align:right;vertical-align:top;">
             <span style="float:left">
-              <?php echo __('Date format: YYYYMMDD, YYYYMM or YYYY') ?>
+              <?php echo __('Recommended date format...') ?>
             </span>
             <span style="float:right">
               <a href="https://www.ica-atom.org/doc/Advanced_search"><?php echo __('Advanced search help') ?></a>

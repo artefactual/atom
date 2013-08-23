@@ -7,9 +7,26 @@ jQuery(document).ready(function() {
     changeMonth: true,
     yearRange: "-70:+70",
     dateFormat: "yymmdd",
-    defaultDate: new Date(1950, 0, 1)
+    defaultDate: new Date(1950, 0, 1),
+    constrainInput: false
   };
 
-  jQuery("#startDate").datepicker(opts);
-  jQuery("#endDate").datepicker(opts);
+  function normalizeDateString()
+  {
+    this.value = jQuery.trim(this.value);
+    this.value = this.value.replace(/\//g, '');
+    this.value = this.value.replace(/-/g, '');
+
+    if (this.value.match(/^\d{4}$/) !== null)
+    {
+      this.value = this.value + '01';
+    }
+    if (this.value.match(/^\d{6}$/) !== null)
+    {
+      this.value = this.value + '01';
+    }
+  }
+
+  jQuery("#startDate").focus(normalizeDateString).datepicker(opts);
+  jQuery("#endDate").focus(normalizeDateString).datepicker(opts);
 });
