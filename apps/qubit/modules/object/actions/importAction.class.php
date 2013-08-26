@@ -56,10 +56,6 @@ class ObjectImportAction extends sfAction
     {
       QubitSearch::getInstance()->disable();
     }
-    else
-    {
-      QubitSearch::getInstance()->getEngine()->enableBatchMode();
-    }
 
     // Zip file
     if ('zip' == strtolower(pathinfo($file['name'], PATHINFO_EXTENSION)))
@@ -146,12 +142,6 @@ class ObjectImportAction extends sfAction
       {
         $this->context->user->setFlash('error', $e->getMessage());
         $this->redirect($importSelectRoute);
-      }
-
-      // Optimize index if enabled
-      if (!$request->getParameter('noindex'))
-      {
-        QubitSearch::getInstance()->getEngine()->optimize();
       }
 
       $this->errors = $importer->getErrors();
