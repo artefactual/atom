@@ -130,7 +130,7 @@
     </repository>
   <?php endif; ?>
 
-  <?php if (0 < count($$resourceVar->language) || 0 < count($$resourceVar->script) || 0 < strlen($value = $$resourceVar->getNotesByType(array('noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID))->offsetGet(0))): ?>
+  <?php if (0 < count($$resourceVar->language) || 0 < count($$resourceVar->script) || 0 < count($$resourceVar->getNotesByType(array('noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID))->offsetGet(0))): ?>
     <langmaterial encodinganalog="<?php echo $ead->getMetadataParameter('langmaterial') ?>">
     <?php foreach ($$resourceVar->language as $languageCode): ?>
       <language langcode="<?php echo strtolower($iso639convertor->getID2($languageCode)) ?>"><?php echo format_language($languageCode) ?></language>
@@ -138,8 +138,8 @@
     <?php foreach ($$resourceVar->script as $scriptCode): ?>
       <language scriptcode="<?php echo $scriptCode ?>"><?php echo format_script($scriptCode) ?></language>
     <?php endforeach; ?>
-    <?php if (0 < strlen($value = $$resourceVar->getNotesByType(array('noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID))->offsetGet(0))): ?>
-      <?php echo escape_dc(esc_specialchars($value)) ?>
+    <?php if (0 < count($notes = $$resourceVar->getNotesByType(array('noteTypeId' => QubitTerm::LANGUAGE_NOTE_ID)))): ?>
+      <?php echo escape_dc(esc_specialchars($notes[0]->getContent(array('cultureFallback' => true)))) ?>
     <?php endif; ?>
     </langmaterial>
   <?php endif; ?>
