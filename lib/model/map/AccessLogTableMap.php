@@ -47,7 +47,7 @@ class AccessLogTableMap extends TableMap {
 	 */
 	public function buildRelations()
 	{
-    $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('object_id' => 'id', ), null, null);
+    $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('object_id' => 'id', ), 'CASCADE', null);
 	} // buildRelations()
 
 } // AccessLogTableMap

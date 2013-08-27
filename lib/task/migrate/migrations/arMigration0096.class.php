@@ -50,6 +50,7 @@ CREATE TABLE `access_log`
         CONSTRAINT `access_log_FK_1`
                 FOREIGN KEY (`object_id`)
                 REFERENCES `object` (`id`)
+                ON DELETE CASCADE
 )Engine=InnoDB;
 
 sql;

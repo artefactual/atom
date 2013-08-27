@@ -2,7 +2,7 @@ propel:
 
   access_log:
     id: { type: integer, primaryKey: true, autoIncrement: true, inheritanceKey: false }
-    object_id: { type: integer, required: true, foreignTable: object, foreignReference: id }
+    object_id: { type: integer, required: true, foreignTable: object, foreignReference: id, onDelete: cascade }
     access_date: { type: timestamp }
     _indexes:
       1: [access_date, object_id]

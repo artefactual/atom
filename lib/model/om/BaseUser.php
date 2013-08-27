@@ -84,17 +84,17 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
     {
     }
 
-    if ('notes' == $name)
-    {
-      return true;
-    }
-
     if ('aclPermissions' == $name)
     {
       return true;
     }
 
     if ('aclUserGroups' == $name)
+    {
+      return true;
+    }
+
+    if ('notes' == $name)
     {
       return true;
     }
@@ -118,23 +118,6 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
     }
     catch (sfException $e)
     {
-    }
-
-    if ('notes' == $name)
-    {
-      if (!isset($this->refFkValues['notes']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['notes'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['notes'] = self::getnotesById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['notes'];
     }
 
     if ('aclPermissions' == $name)
@@ -171,27 +154,24 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
       return $this->refFkValues['aclUserGroups'];
     }
 
+    if ('notes' == $name)
+    {
+      if (!isset($this->refFkValues['notes']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['notes'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['notes'] = self::getnotesById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['notes'];
+    }
+
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
-  }
-
-  public static function addnotesCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitNote::USER_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getnotesById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addnotesCriteriaById($criteria, $id);
-
-    return QubitNote::get($criteria, $options);
-  }
-
-  public function addnotesCriteria(Criteria $criteria)
-  {
-    return self::addnotesCriteriaById($criteria, $this->id);
   }
 
   public static function addaclPermissionsCriteriaById(Criteria $criteria, $id)
@@ -232,5 +212,25 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
   public function addaclUserGroupsCriteria(Criteria $criteria)
   {
     return self::addaclUserGroupsCriteriaById($criteria, $this->id);
+  }
+
+  public static function addnotesCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitNote::USER_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getnotesById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addnotesCriteriaById($criteria, $id);
+
+    return QubitNote::get($criteria, $options);
+  }
+
+  public function addnotesCriteria(Criteria $criteria)
+  {
+    return self::addnotesCriteriaById($criteria, $this->id);
   }
 }
