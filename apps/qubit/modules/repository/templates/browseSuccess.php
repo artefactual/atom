@@ -66,7 +66,6 @@
       array(
         'options' => array(
           'alphabetic' => __('Alphabetic'),
-          'relevancy' => __('Relevancy'),
           'mostRecent' => __('Most recent')))) ?>
 
   </section>

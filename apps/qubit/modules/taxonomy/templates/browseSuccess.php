@@ -12,16 +12,6 @@
 
 <?php slot('before-content') ?>
 
-  <section class="header-options">
-
-    <?php echo get_partial('default/sortPicker',
-      array(
-        'options' => array(
-          'alphabetic' => __('Alphabetic'),
-          'relevancy' => __('Relevancy')))) ?>
-
-  </section>
-
 <?php end_slot() ?>
 
 <?php slot('content') ?>
