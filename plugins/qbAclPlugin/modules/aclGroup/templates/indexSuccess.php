@@ -1,6 +1,6 @@
-<?php echo get_component('aclGroup', 'tabs') ?>
-
 <h1><?php echo __('Group %1%', array('%1%' => render_title($group))) ?></h1>
+
+<?php echo get_component('aclGroup', 'tabs') ?>
 
 <section id="content">
 

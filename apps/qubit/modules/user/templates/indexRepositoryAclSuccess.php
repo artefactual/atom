@@ -1,6 +1,6 @@
-<?php echo get_component('user', 'aclMenu') ?>
-
 <h1><?php echo __('View permissions') ?></h1>
+
+<?php echo get_component('user', 'aclMenu') ?>
 
 <h1 class="label"><?php echo link_to_if(SecurityCheck::HasPermission($sf_user, array('module' => 'user', 'action' => 'edit')), render_title($resource), array($resource, 'module' => 'user', 'action' => 'edit'), array('title' => __('Edit user'))) ?></h1>
 

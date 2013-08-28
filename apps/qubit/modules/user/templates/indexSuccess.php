@@ -1,6 +1,6 @@
-<?php echo get_component('user', 'aclMenu') ?>
-
 <h1><?php echo __('User %1%', array('%1%' => render_title($resource))) ?></h1>
+
+<?php echo get_component('user', 'aclMenu') ?>
 
 <?php if (0 < $notesCount || !$resource->active): ?>
   <div class="messages error">

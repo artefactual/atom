@@ -1,6 +1,6 @@
-<?php echo get_component('aclGroup', 'tabs') ?>
-
 <h1><?php echo __('View permissions') ?></h1>
+
+<?php echo get_component('aclGroup', 'tabs') ?>
 
 <h1 class="label"><?php echo link_to_if(QubitAcl::check($group, 'edit'), render_title($group), array($group, 'module' => 'aclGroup', 'action' => 'edit'), array('title' => __('Edit group'))) ?></h1>
 
