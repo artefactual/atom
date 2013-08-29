@@ -7,7 +7,7 @@
 $allowedIps = array('127.0.0.1', '::1');
 if (false !== $envIp = getenv('ATOM_DEBUG_IP'))
 {
-  $allowedIps[] = $envIp;
+  $allowedIps = array_merge($allowedIps, array_filter(explode(',', $envIp)));
 }
 
 if (!in_array(@$_SERVER['REMOTE_ADDR'], $allowedIps))
