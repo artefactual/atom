@@ -332,3 +332,70 @@ nav > div {
   }
 
 }
+
+// Responsive desgin
+
+@media (min-width: 1200px) { }
+
+@media (max-width: 979px) {
+
+  // Double height of the bar
+  #top-bar {
+    height: 100px;
+  }
+
+  // Hide buttons
+  nav {
+    .hide();
+  }
+
+  // Fist row: logo
+  #logo {
+    float: none;
+    text-align: center;
+  }
+
+  // Second row: search bar
+  #search-bar {
+
+    .clearfix();
+    margin: 0 auto;
+    padding: 0 20px;
+
+    #search-form-wrapper {
+      width: 80%;
+      float: left;
+      form {
+        width: auto;
+        margin-right: 0;
+      }
+      input {
+        .input-block-level();
+        min-height: 25px;
+      }
+    }
+
+    #browse-menu {
+      width: 20%;
+      > a {
+        .box-sizing(border-box);
+        width: 100%;
+        margin-right: 0px;
+        float: left;
+      }
+    }
+
+  }
+
+}
+
+@media (max-width: 767px) {
+
+  // Cancel default responsive body margin
+  #top-bar {
+    margin: 0 -20px;
+  }
+
+}
+
+@media (max-width: 480px) { }
