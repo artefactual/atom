@@ -25,7 +25,7 @@ class QubitCache
   {
     if (!isset(self::$instance))
     {
-      $cacheClass = sfConfig::get('app_qubit_cache_class');
+      $cacheClass = sfConfig::get('app_cache_engine');
 
       self::$instance = new $cacheClass;
     }
