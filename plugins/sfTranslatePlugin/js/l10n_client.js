@@ -13,7 +13,7 @@ jQuery.extend(Drupal, {
 Drupal.behaviors.l10nEditor = {
   attach: function (context) {
     $('#l10n-client-hide').click(function() {
-      $('#l10n-client-string-select, #l10n-client-string-editor, #l10n-client .labels .label').hide();
+      $('#l10n-client-string-select, #l10n-client-string-editor, #l10n-client .labels .lbl').hide();
       $('#l10n-client').height('2em');
       $('#l10n-client-hide').hide();
       $('#l10n-client-show').show();
@@ -23,7 +23,7 @@ Drupal.behaviors.l10nEditor = {
     });
 
     $('#l10n-client-show').click(function() {
-      $('#l10n-client-string-select, #l10n-client-string-editor, #l10n-client .labels .label').show();
+      $('#l10n-client-string-select, #l10n-client-string-editor, #l10n-client .labels .lbl').show();
       $('#l10n-client').height('22em');
       $('#l10n-client-hide').show();
       $('#l10n-client-show').hide();

@@ -2,19 +2,21 @@
 <?php use_helper('Text') ?>
 
 <div id="l10n-client">
+
   <div class="labels">
     <span id="l10n-client-hide">X</span>
     <span id="l10n-client-show"><?php echo __('Translate user interface') ?></span>
-    <div class="label strings">
+    <div class="lbl strings">
       <h2><?php echo __('Page text') ?></h2>
     </div>
-    <div class="label source">
+    <div class="lbl source">
       <h2><?php echo __('Source') ?></h2>
     </div>
-    <div class="label translation">
+    <div class="lbl translation">
       <h2><?php echo __('%language% translation', array('%language%' => format_language($sf_user->getCulture()))) ?></h2>
     </div>
   </div>
+
   <div id="l10n-client-string-select">
     <ul class="string-list">
       <?php foreach ($sf_data->getRaw('messages') as $source => $target): ?>
