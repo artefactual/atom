@@ -3,7 +3,7 @@
 <?php slot('title') ?>
   <h1 class="multiline">
     <?php echo render_title($resource) ?>
-    <span class="sub"><?php echo __('Link %1%', array('%1%' => sfConfig::get('app_ui_label_digitalobject'))) ?></span>
+    <span class="sub"><?php echo __('Link %1%', array('%1%' => sfConfig::get('app_ui_label_physicalobject'))) ?></span>
   </h1>
 <?php end_slot() ?>
 
@@ -71,7 +71,7 @@
     </div>
 
     <section class="actions">
-      <ul class="clearfix links">
+      <ul>
         <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject'), array('class' => 'c-btn')) ?></li>
         <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
       </ul>
