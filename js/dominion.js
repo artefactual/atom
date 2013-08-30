@@ -267,7 +267,7 @@
         var $radio = $(e.target);
         if (undefined !== $radio.data('placeholder'))
         {
-          this.$element.attr('placeholder', $radio.data('placeholder'))
+          this.$element.attr('placeholder', $radio.data('placeholder'));
         }
         else
         {
@@ -313,10 +313,13 @@
 
         this.$element.addClass('loading');
 
+        var radio = this.$form.find('[type=radio]:checked');
+        var realm = radio.length ? radio.get(0).value : 'all';
+
         $.ajax(this.source,
           {
             context: this,
-            data: { query: query, realm: this.$form.find('[type=radio]:checked').get(0).value },
+            data: { query: query, realm: realm },
             dataType: 'html'
           })
           .done(function(html)
