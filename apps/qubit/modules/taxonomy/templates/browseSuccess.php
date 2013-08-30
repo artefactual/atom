@@ -10,10 +10,6 @@
   </h1>
 <?php end_slot() ?>
 
-<?php slot('before-content') ?>
-
-<?php end_slot() ?>
-
 <?php slot('content') ?>
 
   <table class="table table-bordered sticky-enabled">
