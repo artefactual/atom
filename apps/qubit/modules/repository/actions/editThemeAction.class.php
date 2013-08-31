@@ -164,7 +164,7 @@ class RepositoryEditThemeAction extends sfAction
         {
           unlink($this->resource->getLogoPath(true));
         }
-        else if (null !== $logo = $this->form->getValue('logo'))
+        if (null !== $logo = $this->form->getValue('logo'))
         {
           // Call save() method found in sfValidatedFile
           // TODO: force conversion to png
@@ -176,7 +176,7 @@ class RepositoryEditThemeAction extends sfAction
         {
           unlink($this->resource->getBannerPath(true));
         }
-        else if (null !== $logo = $this->form->getValue('banner'))
+        if (null !== $logo = $this->form->getValue('banner'))
         {
           // Call save() method found in sfValidatedFile
           // TODO: force conversion to png
