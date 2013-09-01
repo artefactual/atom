@@ -20,24 +20,22 @@
         <legend><?php echo __('Style') ?></legend>
 
         <?php echo $form->backgroundColor
-          ->label(__('Background color'))
+          ->label('<b>'.__('Background color').'</b>')
           ->renderRow() ?>
 
-        <?php echo $form->banner
-          ->help(__('Requirements: PNG format, 256K max. size.<br />Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.',
-              array(
-                '%1%' => arRepositoryThemeCropValidatedFile::BANNER_MAX_WIDTH,
-                '%2%' => arRepositoryThemeCropValidatedFile::BANNER_MAX_HEIGHT)))
-          ->label(__('Banner'))
-          ->renderRow() ?>
+        <div class="form-item form-item-banner">
+        <?php echo $form->banner->renderLabel() ?>
+        <?php echo $form->banner->render() ?>
+        <?php echo $form->banner->renderError() ?>
+        <?php echo $form->banner->renderHelp() ?>
+        </div>
 
-        <?php echo $form->logo
-          ->help(__('Requirements: PNG format, 256K max. size.<br />Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.',
-            array(
-              '%1%' => arRepositoryThemeCropValidatedFile::LOGO_MAX_WIDTH,
-              '%2%' => arRepositoryThemeCropValidatedFile::LOGO_MAX_HEIGHT)))
-          ->label(__('Logo'))
-          ->renderRow() ?>
+        <div class="form-item form-item-logo">
+        <?php echo $form->logo->renderLabel() ?>
+        <?php echo $form->logo->render() ?>
+        <?php echo $form->logo->renderError() ?>
+        <?php echo $form->logo->renderHelp() ?>
+        </div>
 
       </fieldset>
 
@@ -47,7 +45,7 @@
 
         <?php echo render_field($form->htmlSnippet
           ->help(__('An abstract, table of contents or description of the resource\'s scope and contents.'))
-          ->label(__('Description')), $resource, array('class' => 'resizable')) ?>
+          ->label('<b>'.__('Description').'</b>'), $resource, array('class' => 'resizable')) ?>
 
       </fieldset>
 
