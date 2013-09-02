@@ -38,6 +38,15 @@
             $menu.find('#email').focus();
           }
         });
+
+      $('[id$=menu]').tooltip(
+        {
+          'placement': 'bottom'
+        })
+        .click(function ()
+          {
+            $(this).tooltip('hide');
+          });
     });
 
   /****

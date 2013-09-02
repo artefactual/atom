@@ -1,6 +1,6 @@
 <?php foreach (array($adminMenu, $importMenu, $manageMenu, $addMenu) as $menu): ?>
 
-  <div id="<?php echo $menu->getName() ?>-menu">
+  <div id="<?php echo $menu->getName() ?>-menu" data-toggle="tooltip" data-title="<?php echo $menu->getLabel(array('cultureFallback' => true)) ?>">
 
     <a class="top-item" data-toggle="dropdown" data-target="#"><?php echo $menu->getLabel(array('cultureFallback' => true)) ?></a>
 

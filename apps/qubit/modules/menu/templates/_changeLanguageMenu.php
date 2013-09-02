@@ -1,4 +1,4 @@
-<div id="language-menu">
+<div id="language-menu" data-toggle="tooltip" data-title="<?php echo __('Language') ?>">
 
   <a class="top-item" data-toggle="dropdown" data-target="#"><?php echo __('Language') ?></a>
 
