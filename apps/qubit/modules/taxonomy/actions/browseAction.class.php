@@ -31,7 +31,7 @@ class TaxonomyBrowseAction extends sfAction
     $this->resource = QubitTaxonomy::getById($request->id);
     if (!isset($this->resource))
     {
-      $this->forward404();
+      $this->redirect(array('module' => 'taxonomy', 'action' => 'list'));
     }
 
     switch ($this->resource->id)
