@@ -1,5 +1,17 @@
 <?php echo get_component_slot('header') ?>
 
+<?php if ($sf_user->isAuthenticated()): ?>
+  <div id="top-bar">
+    <?php echo get_component('default', 'updateCheck') ?>
+    <nav>
+      <?php echo get_component('menu', 'userMenu') ?>
+      <?php // echo get_component('menu', 'quickLinksMenu') ?>
+      <?php echo get_component('menu', 'changeLanguageMenu') ?>
+      <?php echo get_component('menu', 'mainMenu', array('sf_cache_key' => $sf_user->getCulture().$sf_user->getUserID())) ?>
+    </nav>
+  </div>
+<?php endif; ?>
+
 <div id="header">
 
   <div class="container">
@@ -31,7 +43,12 @@
               <?php endif; ?>
             <?php endforeach; ?>
 
+            <?php if (!$sf_user->isAuthenticated()): ?>
+              <li><?php echo link_to(__('Log in'), array('module' => 'user', 'action' => 'login')) ?></li>
+            <?php endif; ?>
+
           </ul>
+
         </div>
       </div>
     </div>
