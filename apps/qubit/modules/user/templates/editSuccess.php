@@ -15,7 +15,7 @@
 
       <fieldset class="collapsible" id="basicInfo">
 
-        <legend><?php echo __('Basic info')?></legend>
+        <legend><?php echo __('Basic info') ?></legend>
 
         <?php echo $form->username->renderRow() ?>
 
