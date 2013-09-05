@@ -27,24 +27,24 @@
   <legend><?php echo __('Global') ?></legend>
 
   <form action="<?php echo url_for('settings/list') ?>" method="post">
-    <table class="table">
-    <thead>
-      <tr>
-        <th><?php echo __('Name')?></th>
-        <th><?php echo __('Value')?></th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php echo $globalForm ?>
-      <tr>
-        <td>&nbsp;</td>
-        <td>
-          <div style="float: right; margin: 3px 8px 0 0;">
-            <input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/>
-          </div>
-        </td>
-      </tr>
-    </tbody>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th><?php echo __('Name')?></th>
+          <th><?php echo __('Value')?></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php echo $globalForm ?>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <div style="float: right; margin: 3px 8px 0 0;">
+              <input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/>
+            </div>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </form>
 
@@ -55,7 +55,7 @@
   <legend><?php echo __('Site information') ?></legend>
 
   <form action="<?php echo url_for('settings/list') ?>" method="post">
-    <table class="table">
+    <table class="table table-bordered">
       <thead>
         <tr>
           <th><?php echo __('Name') ?></th>
@@ -109,7 +109,7 @@
 
     <?php echo $defaultPageElementsForm->renderGlobalErrors() ?>
     <p><?php echo __('Enable or disable the display of certain page elements. Unless they have been overridden by a specific theme, these settings will be used site wide.') ?></p>
-    <table class="table">
+    <table class="table table-bordered">
       <thead>
         <tr>
           <th><?php echo __('Name')?></th>
@@ -148,7 +148,7 @@
   <legend><?php echo __('Default template') ?></legend>
 
   <form action="<?php echo url_for('settings/list') ?>" method="post">
-    <table class="list">
+    <table class="table table-bordered">
       <thead>
         <tr>
           <th><?php echo __('Name') ?></th>
@@ -176,7 +176,7 @@
   <legend><?php echo __('User interface label') ?></legend>
 
   <form action="<?php echo url_for('settings/list') ?>" method="post">
-    <table class="table">
+    <table class="table table-bordered">
       <thead>
         <tr>
           <th><?php echo __('Name') ?></th>
@@ -217,7 +217,7 @@
   <legend><?php echo __('I18n languages') ?></legend>
 
   <form action="<?php echo url_for('settings/list') ?>" method="post">
-    <table class="table">
+    <table class="table table-bordered">
       <thead>
         <tr>
           <th><?php echo __('Name') ?></th>
@@ -262,24 +262,24 @@
   <legend><?php echo __('OAI Repository') ?></legend>
 
   <form action="<?php echo url_for('settings/list') ?>" method="post">
-    <table class="table">
-    <thead>
-      <tr>
-        <th width="30%"><?php echo __('Name')?></th>
-        <th><?php echo __('Value')?></th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php echo $oaiRepositoryForm ?>
-      <tr>
-        <td>&nbsp;</td>
-        <td>
-          <div style="float: right; margin: 3px 8px 0 0;">
-            <input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/>
-          </div>
-        </td>
-      </tr>
-    </tbody>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th width="30%"><?php echo __('Name')?></th>
+          <th><?php echo __('Value')?></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php echo $oaiRepositoryForm ?>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <div style="float: right; margin: 3px 8px 0 0;">
+              <input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/>
+            </div>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </form>
 
@@ -292,24 +292,24 @@
   <p><?php echo __('Specific Gearman job server options can be found in config/gearman.yml.') ?></p>
 
   <form action="<?php echo url_for('settings/list') ?>" method="post">
-    <table class="table">
-    <thead>
-      <tr>
-        <th width="30%"><?php echo __('Name') ?></th>
-        <th><?php echo __('Value') ?></th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php echo $jobSchedulingForm ?>
-      <tr>
-        <td>&nbsp;</td>
-        <td>
-          <div style="float: right; margin: 3px 8px 0 0;">
-            <input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/>
-          </div>
-        </td>
-      </tr>
-    </tbody>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th width="30%"><?php echo __('Name') ?></th>
+          <th><?php echo __('Value') ?></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php echo $jobSchedulingForm ?>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <div style="float: right; margin: 3px 8px 0 0;">
+              <input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/>
+            </div>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </form>
 
@@ -320,24 +320,24 @@
   <legend><?php echo __('Security') ?></legend>
 
   <form action="<?php echo url_for('settings/list') ?>" method="post">
-    <table class="table">
-    <thead>
-      <tr>
-        <th width="30%"><?php echo __('Name') ?></th>
-        <th><?php echo __('Value') ?></th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php echo $securityForm ?>
-      <tr>
-        <td>&nbsp;</td>
-        <td>
-          <div style="float: right; margin: 3px 8px 0 0;">
-            <input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/>
-          </div>
-        </td>
-      </tr>
-    </tbody>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th width="30%"><?php echo __('Name') ?></th>
+          <th><?php echo __('Value') ?></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php echo $securityForm ?>
+        <tr>
+          <td>&nbsp;</td>
+          <td>
+            <div style="float: right; margin: 3px 8px 0 0;">
+              <input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/>
+            </div>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </form>
 
