@@ -1,15 +1,20 @@
-<h1><?php echo __('Are you sure you want to delete %1%?', array('%1%' => render_title($group))) ?></h1>
+<?php decorate_with('layout_1col.php') ?>
 
-<?php echo $form->renderFormTag(url_for(array($group, 'module' => 'aclGroup', 'action' => 'delete')), array('method' => 'delete')) ?>
+<?php slot('title') ?>
+  <h1><?php echo __('Are you sure you want to delete %1%?', array('%1%' => render_title($resource))) ?></h1>
+<?php end_slot() ?>
 
-  <div class="actions section">
-    <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
-    <div class="content">
-      <ul class="clearfix links">
-        <li><?php echo link_to(__('Cancel'), array($group, 'module' => 'aclGroup', 'action' => 'edit')) ?></li>
-        <li><input class="form-submit" type="submit" value="<?php echo __('Confirm') ?>"/></li>
+<?php slot('content') ?>
+
+  <?php echo $form->renderFormTag(url_for(array($group, 'module' => 'aclGroup', 'action' => 'delete')), array('method' => 'delete')) ?>
+
+    <section class="actions">
+      <ul>
+        <li><?php echo link_to(__('Cancel'), array($group, 'module' => 'aclGroup'), array('class' => 'c-btn')) ?></li>
+        <li><input class="c-btn c-btn-delete" type="submit" value="<?php echo __('Delete') ?>"/></li>
       </ul>
-    </div>
-  </div>
+    </section>
 
-</form>
+  </form>
+
+<?php end_slot() ?>

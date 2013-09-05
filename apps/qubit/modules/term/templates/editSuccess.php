@@ -86,21 +86,19 @@
     </div>
 
     <section class="actions">
-
       <ul>
-          <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
-            <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'term'), array('class' => 'c-btn')) ?></li>
-            <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
+        <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
+          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'term'), array('class' => 'c-btn')) ?></li>
+          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
+        <?php else: ?>
+          <?php if (isset($resource->taxonomy)): ?>
+            <li><?php echo link_to(__('Cancel'), array($resource->taxonomy, 'module' => 'taxonomy'), array('class' => 'c-btn')) ?></li>
           <?php else: ?>
-            <?php if (isset($resource->taxonomy)): ?>
-              <li><?php echo link_to(__('Cancel'), array($resource->taxonomy, 'module' => 'taxonomy'), array('class' => 'c-btn')) ?></li>
-            <?php else: ?>
-              <li><?php echo link_to(__('Cancel'), array('module' => 'taxonomy', 'action' => 'list'), array('class' => 'c-btn')) ?></li>
-            <?php endif; ?>
-            <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
+            <li><?php echo link_to(__('Cancel'), array('module' => 'taxonomy', 'action' => 'list'), array('class' => 'c-btn')) ?></li>
           <?php endif; ?>
+          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
+        <?php endif; ?>
       </ul>
-
     </section>
 
   </form>
