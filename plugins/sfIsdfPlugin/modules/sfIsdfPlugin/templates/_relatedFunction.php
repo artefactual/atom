@@ -8,7 +8,7 @@
 
 <div class="section">
 
-  <table id="relatedFunctions">
+  <table id="relatedFunctions" class="table table-bordered">
     <caption>
       <?php echo __('Related functions') ?>
     </caption><thead>

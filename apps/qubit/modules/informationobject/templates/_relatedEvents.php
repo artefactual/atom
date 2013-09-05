@@ -1,6 +1,6 @@
 <?php $sf_response->addJavaScript('multiDelete') ?>
 
-<table id="relatedEvents">
+<table id="relatedEvents" class="table table-bordered">
   <thead>
     <tr>
       <th style="width: 35%">

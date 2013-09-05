@@ -7,7 +7,7 @@
 
 <div class="section">
 
-  <table id="relatedDonorDisplay">
+  <table id="relatedDonorDisplay" class="table table-bordered">
     <caption>
       <?php echo __('Related donors') ?>
     </caption><thead>

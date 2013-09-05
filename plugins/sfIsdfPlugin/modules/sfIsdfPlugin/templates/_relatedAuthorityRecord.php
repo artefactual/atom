@@ -8,7 +8,7 @@
 
 <div class="section">
 
-  <table id="relatedEntityDisplay">
+  <table id="relatedEntityDisplay" class="table table-bordered">
     <caption>
       <?php echo __('Related authority records') ?>
     </caption><thead>

@@ -5,7 +5,7 @@
 
   <h3><?php echo __('Date(s)') ?> <span class="form-required" title="<?php echo __('This is a mandatory element.') ?>">*</span></h3>
 
-  <table>
+  <table class="table table-bordered">
     <thead>
       <tr>
         <th style="width: 25%">

@@ -8,7 +8,7 @@
 
 <div class="section">
 
-  <table id="relatedResourceDisplay">
+  <table id="relatedResourceDisplay" class="table table-bordered">
     <caption>
       <?php echo __('Related resources') ?>
     </caption><thead>

@@ -8,7 +8,7 @@
 
 <div class="section">
 
-  <table id="relatedEntities">
+  <table id="relatedEntities" class="table table-bordered">
     <caption>
       <?php echo __('Related corporate bodies, persons or families') ?>
     </caption><thead>
