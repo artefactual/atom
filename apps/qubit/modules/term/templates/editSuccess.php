@@ -1,4 +1,4 @@
-<?php decorate_with('layout_2col.php') ?>
+<?php decorate_with('layout_1col.php') ?>
 
 <?php slot('title') ?>
   <h1><?php echo __('Term %1%', array('%1%' => render_title($resource))) ?></h1>
