@@ -1,6 +1,6 @@
 <div class="section">
 
-  <table class="multiRow">
+  <table class="table table-bordered multiRow">
 
     <thead>
       <tr>
