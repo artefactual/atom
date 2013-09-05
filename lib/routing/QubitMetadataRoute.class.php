@@ -182,6 +182,11 @@ class QubitMetadataRoute extends sfRoute
 
           break;
 
+        case $this->resource instanceof QubitEvent:
+          $parameters['module'] = 'event';
+
+          break;
+
         default:
 
           return false;

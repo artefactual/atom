@@ -62,7 +62,5 @@ class ActorAutocompleteAction extends sfAction
     $this->pager->setPage($request->page);
 
     $this->actors = $this->pager->getResults();
-
-    $this->setTemplate('list');
   }
 }
