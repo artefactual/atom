@@ -69,7 +69,7 @@
 
           <h3><?php echo __('Add new child levels (if describing a collection)') ?></h3>
 
-          <table class="multiRow">
+          <table class="table table-bordered multiRow">
             <thead>
               <tr>
                 <th style="width: 20%">

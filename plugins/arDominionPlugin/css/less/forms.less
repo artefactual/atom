@@ -116,33 +116,37 @@ input[type="color"],
   .input-block-level();
 }
 
-// Form widget titles like informationobject/_childLevels
-
 fieldset {
 
+  // Form widget titles like informationobject/_childLevels
   h3 {
-    color: @black;
+    color: #333;
     font-size: 13px;
     margin-bottom: -2px;
+    font-family: @sansFontFamily;
+
   }
 
-}
+  // Button
+  .btn {
+    margin-bottom: 10px;
+    display: inline-block !important;
+    &:after {
+      content: none !important;
+    }
+  }
 
-// Form tables
-
-fieldset table {
-
-  background-color: @white;
-
-  caption {
-
-    width: 33%;
-    margin-left: 12px;
-    border: 1px solid @borderOutlineColor;
+  // Form tables
+  table {
     background-color: @white;
-    border-bottom: 0;
-    .border-radius(4px 4px 0 0);
-
+    caption {
+      width: 33%;
+      margin-left: 12px;
+      border: 1px solid @borderOutlineColor;
+      background-color: @white;
+      border-bottom: 0;
+      .border-radius(4px 4px 0 0);
+    }
   }
 
 }
