@@ -4,7 +4,7 @@
 
   <h3><?php echo __('Date(s)') ?></h3>
 
-  <table class="multiRow">
+  <table class="table table-bordered multiRow">
     <thead>
       <tr>
         <th style="width: 40%">
