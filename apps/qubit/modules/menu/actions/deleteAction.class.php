@@ -23,18 +23,18 @@ class MenuDeleteAction extends sfAction
   {
     $this->form = new sfForm;
 
-    $this->menu = QubitMenu::getById($request->id);
+    $this->resource = QubitMenu::getById($request->id);
 
-    if (!isset($this->menu))
+    if (!isset($this->resource))
     {
       $this->forward404();
     }
 
     if ($request->isMethod('delete'))
     {
-      if (!$this->menu->isProtected())
+      if (!$this->resource->isProtected())
       {
-        $this->menu->delete();
+        $this->resource->delete();
       }
 
       // Remove cache

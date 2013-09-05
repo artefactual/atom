@@ -1,18 +1,20 @@
-<h1><?php echo __('Are you sure you want to delete user %1%?', array('%1%' => $resource->username)) ?></h1>
+<?php decorate_with('layout_1col.php') ?>
 
-<?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'user', 'action' => 'delete')), array('method' => 'delete')) ?>
+<?php slot('title') ?>
+  <h1><?php echo __('Are you sure you want to delete %1%?', array('%1%' => render_title($resource->username))) ?></h1>
+<?php end_slot() ?>
 
-  <div class="actions section">
+<?php slot('content') ?>
 
-    <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'user', 'action' => 'delete')), array('method' => 'delete')) ?>
 
-    <div class="content">
-      <ul class="clearfix links">
-        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'user')) ?></li>
-        <li><input class="form-submit danger" type="submit" value="<?php echo __('Delete') ?>"/></li>
+    <section class="actions">
+      <ul>
+        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'user'), array('class' => 'c-btn')) ?></li>
+        <li><input class="c-btn c-btn-delete" type="submit" value="<?php echo __('Delete') ?>"/></li>
       </ul>
-    </div>
+    </section>
 
-  </div>
+  </form>
 
-</form>
+<?php end_slot() ?>
