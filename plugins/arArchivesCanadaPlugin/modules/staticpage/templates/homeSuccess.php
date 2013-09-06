@@ -36,7 +36,7 @@
         <span class="title">ArchivesCanada</span>
         Votre accèss à l’histoire du Canada
       </h2>
-      <p>ARCHIVESCANADA.ca est votre portail à les ressources archivistiques à travers le Canada:<br />Par l'entremise de cet portail, vous pouvez faire une recherche pour les details (descriptions archivistiques), visionnez des photographies, des cartes, ou d’autres documents numérisés ainsi que des expositions virtuelles, et découvrir les dépôts d’archives avec l’information que vous avez besoin. ArchivesCanada.com est votre portail archivistique nationale à la patrimoine documentaire du Canada que l’on retrouve dans plus de 800 dépôts.</p>
+      <p>ARCHIVESCANADA.ca est votre portail à les ressources archivistiques à travers le Canada:<br />Par l'entremise de cet portail, vous pouvez faire une recherche pour les details (descriptions archivistiques), visionnez des photographies, des cartes, ou d’autres documents numérisés ainsi que des expositions virtuelles, et découvrir les dépôts d’archives avec l’information que vous avez besoin. ArchivesCanada.ca est votre portail archivistique nationale à la patrimoine documentaire du Canada que l’on retrouve dans plus de 800 dépôts.</p>
     <?php else: ?>
       <h2>
         <span class="title">ArchivesCanada</span>
