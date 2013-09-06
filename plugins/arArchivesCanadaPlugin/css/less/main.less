@@ -79,6 +79,8 @@ h1, h2, h3, h4, h5, h6,
 #facets .open .facet-header p,
 #facets .open .facet-header p:after,
 #facets .facet-body li a,
+.nav-pills a,
+.nav-pills .active a,
 .result-count,
 #sort-header .dropdown-selected span,
 #sidebar li a,
@@ -121,6 +123,9 @@ h1, h2, h3, h4, h5, h6,
   background-color: rgba(0, 0, 0, 0.10);
 }
 
+.nav-pills .active a,
+.nav-pills li:hover a,
+.nav-pills .active:hover a,
 #facets .open .facet-header p {
   background-color: rgba(0, 0, 0, 0.20);
 }
@@ -254,12 +259,9 @@ h1 .count {
 }
 
 // Login page
-
 body.login #content {
-
   h1 {
     color: @black;
     text-shadow: none;
   }
-
 }
