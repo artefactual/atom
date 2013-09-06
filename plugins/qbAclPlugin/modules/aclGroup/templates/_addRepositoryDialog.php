@@ -21,7 +21,7 @@ $permissionsLabel = __('Permissions');
 
 $tableTemplate = <<<EOL
 <div class="form-item">
-<table id="acl_{objectId}">
+<table id="acl_{objectId}" class="table table-bordered">
 <caption/>
 <thead>
 <tr>

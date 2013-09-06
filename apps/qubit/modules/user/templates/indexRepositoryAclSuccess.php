@@ -29,9 +29,8 @@
               <?php endif; ?>
             </strong></td>
           </tr>
-          <?php $row = 0; ?>
           <?php foreach ($actions as $action => $groupPermission): ?>
-            <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
+            <tr>
               <td>&nbsp;</td>
               <td>
                 <?php if ('' != $action): ?>

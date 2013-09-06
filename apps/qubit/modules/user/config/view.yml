@@ -30,6 +30,7 @@ editRepositoryAclSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/textarea:
     /plugins/sfDrupalPlugin/vendor/drupal/modules/user/user:

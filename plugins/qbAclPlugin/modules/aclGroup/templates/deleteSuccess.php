@@ -1,7 +1,7 @@
 <?php decorate_with('layout_1col.php') ?>
 
 <?php slot('title') ?>
-  <h1><?php echo __('Are you sure you want to delete %1%?', array('%1%' => render_title($resource))) ?></h1>
+  <h1><?php echo __('Are you sure you want to delete %1%?', array('%1%' => render_title($group))) ?></h1>
 <?php end_slot() ?>
 
 <?php slot('content') ?>
