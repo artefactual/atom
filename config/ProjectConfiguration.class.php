@@ -53,7 +53,7 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins($plugins);
 
     $this->dispatcher->connect('debug.web.load_panels',
-      array('arWebDebugPanel','listenToLoadDebugWebPanelEvent'));
+      array('arWebDebugPanel', 'listenToLoadDebugWebPanelEvent'));
   }
 
   protected function namespacesClassLoader()
