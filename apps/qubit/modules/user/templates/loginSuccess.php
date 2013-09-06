@@ -9,12 +9,10 @@
 
       <div id="content">
 
-        <h1><?php echo __('Please log in to access that page') ?></h1>
-
         <?php if ('user' != $sf_request->module || 'login' != $sf_request->action): ?>
-          <div class="messages status">
-            <?php echo __('Please log in to access that page') ?>
-          </div>
+          <h1><?php echo __('Please log in to access that page') ?></h1>
+        <?php else: ?>
+          <h1><?php echo __('Log in') ?></h1>
         <?php endif; ?>
 
         <?php if ($form->hasErrors()): ?>
@@ -30,7 +28,7 @@
           <?php echo $form->password->renderRow(array('class' => 'input-block-level')) ?>
 
           <section class="actions">
-            <button type="submit" class="btn btn-primary btn-block btn-large"><?php echo _('Sign in') ?></button>
+            <button type="submit" class="btn btn-primary btn-block btn-large"><?php echo _('Log in') ?></button>
           </section>
 
         </form>
