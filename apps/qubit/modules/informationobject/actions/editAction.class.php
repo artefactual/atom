@@ -395,9 +395,19 @@ class InformationObjectEditAction extends DefaultEditAction
 
       case 'displayStandard':
 
-        // Ignore if no display standard was chosen
+        // Use null when the user wants to inherit the global setting
         if (null === $displayStandardId = $this->form->getValue('displayStandard'))
         {
+          $this->resource->displayStandardId = null;
+
+          break;
+        }
+
+        // If this is a new record, assign the standard to the object
+        if (null === $this->resource->id)
+        {
+          $this->resource->displayStandardId = $displayStandardId;
+
           break;
         }
 
@@ -663,6 +673,12 @@ class InformationObjectEditAction extends DefaultEditAction
         if (0 < strlen($item['levelOfDescription']) && (null !== QubitTerm::getById($item['levelOfDescription'])))
         {
           $childLevel->levelOfDescriptionId = $item['levelOfDescription'];
+        }
+
+        if (true === $this->form->getValue('displayStandardUpdateDescendants')
+            && null !== $displayStandardId = $this->form->getValue('displayStandard'))
+        {
+          $childLevel->displayStandardId = $displayStandardId;
         }
 
         if (0 < strlen($item['levelOfDescription'])
