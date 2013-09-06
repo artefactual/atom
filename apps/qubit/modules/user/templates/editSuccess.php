@@ -9,7 +9,11 @@
 
   <?php echo $form->renderGlobalErrors(); ?>
 
-  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'user', 'action' => 'edit')), array('id' => 'editForm')) ?>
+  <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
+    <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'user', 'action' => 'edit')), array('id' => 'editForm')) ?>
+  <?php else: ?>
+    <?php echo $form->renderFormTag(url_for(array('module' => 'user', 'action' => 'add')), array('id' => 'editForm')) ?>
+  <?php endif; ?>
 
     <section id="content">
 
