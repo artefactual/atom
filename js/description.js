@@ -44,8 +44,12 @@
                 // in the space between the form fieldset and the left of the
                 // document
                 // - Bottom (class description): when right and left sides
-                // don't work */
-                if (0 == $sidebar.height() || ($this.offset().top <= $sidebar.offset().top + $sidebar.height()))
+                // don't work */);
+                if (undefined === $sidebar.offset())
+                {
+                  $description.addClass('description-left');
+                }
+                else if (0 == $sidebar.height() || ($this.offset().top <= $sidebar.offset().top + $sidebar.height()))
                 {
                   // I have to render the tooltip to get tooltipWidth value
                   $description.addClass('description-left').show().css('visibility', 'hidden');
