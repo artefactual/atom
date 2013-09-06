@@ -54,7 +54,7 @@ class ObjectImportAction extends sfAction
     // set indexing preference
     if (isset($request->noindex))
     {
-      QubitSearch::getInstance()->disable();
+      QubitSearch::disable();
     }
 
     // Zip file

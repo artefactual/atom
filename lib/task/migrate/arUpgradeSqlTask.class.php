@@ -67,7 +67,7 @@ EOF;
     sfContext::createInstance($this->configuration);
 
     // Deactivate search index, must be rebuilt later anyways
-    QubitSearch::getInstance()->disable();
+    QubitSearch::disable();
 
     // Get initial version
     $sql = 'SELECT value AS version

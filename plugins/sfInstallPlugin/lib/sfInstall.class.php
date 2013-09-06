@@ -322,7 +322,7 @@ class sfInstall
 
   public static function loadData()
   {
-    QubitSearch::getInstance()->disable();
+    QubitSearch::disable();
 
     $object = new QubitInformationObject;
     $object->id = QubitInformationObject::ROOT_ID;

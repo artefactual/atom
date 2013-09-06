@@ -51,12 +51,11 @@ EOF;
 
     if ($options['index'])
     {
-      QubitSearch::getInstance()->enable();
-      QubitSearch::getInstance()->enableBatch(); // Batched update is faster
+      QubitSearch::enable();
     }
     else
     {
-      QubitSearch::getInstance()->disable();
+      QubitSearch::disable();
     }
 
     // Get all master digital objects
