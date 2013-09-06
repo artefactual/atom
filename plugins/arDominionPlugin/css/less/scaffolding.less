@@ -1242,6 +1242,62 @@ body.login #content {
 
 }
 
+// Password strength indicator
+
+.password-parent {
+
+  label,
+  input {
+    width: 50% !important;
+  }
+
+  > #password-strength {
+    width: 40%;
+    float: right;
+    margin: 20px 0 0 20px;
+
+    > .password-strength-title {
+      display: inline;
+    }
+
+    > #password-strength-text {
+      display: none;
+    }
+
+    > #password-indicator {
+      background-color: #C4C4C4;
+      height: 1em;
+      width: 100%;
+      > div {
+        height: 100%;
+        width: 0%;
+        background-color: #47C965;
+      }
+    }
+
+  }
+
+}
+
+.confirm-parent {
+
+  label,
+  input {
+    width: 50% !important;
+  }
+
+  > div.password-confirm {
+    visibility: hidden;
+    > .ok {
+      color: @green;
+    }
+    > .error {
+      color: @red;
+    }
+  }
+
+}
+
 // Responsive design
 
 @media (min-width: 768px) {
