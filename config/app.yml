@@ -15,3 +15,9 @@ all:
 
   # Enable read only mode
   read_only: false
+
+  # Used in the repo template
+  # google_maps_api_key: ...
+
+  # Google Analitycs
+  # google_analytics_api_key: ...
