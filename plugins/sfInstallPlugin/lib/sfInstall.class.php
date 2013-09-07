@@ -370,7 +370,7 @@ class sfInstall
     $env['all'] = $config;
 
     $location = sfConfig::get('sf_config_dir').'/search.yml';
-    if (false === file_put_contents($location, sfYaml::dump($env, 0, 1)))
+    if (false === file_put_contents($location, sfYaml::dump($env, 9)))
     {
       $errors[] = "Can't write configuration file ".$location;
     }

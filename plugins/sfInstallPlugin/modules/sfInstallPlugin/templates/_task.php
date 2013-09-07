@@ -17,16 +17,3 @@
   </div>
 
 </div>
-
-<div class="section">
-
-  <h2>Help</h2>
-
-  <div class="content">
-    <ul class="clearfix links">
-      <li><a href="http://www.accesstomemory.org/wiki/Administrator_manual">Administrator manual</a></li>
-      <li><a href="http://www.accesstomemory.org/wiki/FAQ">Frequently asked questions</a></li>
-    </ul>
-  </div>
-
-</div>
