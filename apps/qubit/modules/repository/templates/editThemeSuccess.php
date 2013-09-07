@@ -20,7 +20,7 @@
         <legend><?php echo __('Style') ?></legend>
 
         <?php echo $form->backgroundColor
-          ->label('<b>'.__('Background color').'</b>')
+          ->label(__('Background color'))
           ->renderRow() ?>
 
         <div class="form-item form-item-banner">
@@ -44,8 +44,8 @@
         <legend><?php echo __('Page content') ?></legend>
 
         <?php echo render_field($form->htmlSnippet
-          ->help(__('An abstract, table of contents or description of the resource\'s scope and contents.'))
-          ->label('<b>'.__('Description').'</b>'), $resource, array('class' => 'resizable')) ?>
+          ->label(__('Description'))
+          ->help(__('An abstract, table of contents or description of the resource\'s scope and contents.')), $resource, array('class' => 'resizable')) ?>
 
       </fieldset>
 

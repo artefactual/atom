@@ -58,7 +58,7 @@ class RepositoryEditThemeAction extends sfAction
           'required' => false)));
 
         $this->form->setWidget($name, new arWidgetFormInputFileEditable(array(
-          'label' => '<b>'.$this->context->i18n->__('Banner').'</b>',
+          'label' => $this->context->i18n->__('Banner'),
           'help' => $this->context->i18n->__('Requirements: PNG format, 256K max. size.<br />Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.',
             array(
               '%1%' => arRepositoryThemeCropValidatedFile::BANNER_MAX_WIDTH,
@@ -90,7 +90,7 @@ class RepositoryEditThemeAction extends sfAction
           'required' => false)));
 
         $this->form->setWidget($name, new arWidgetFormInputFileEditable(array(
-          'label' => '<b>'.$this->context->i18n->__('Logo').'</b>',
+          'label' => $this->context->i18n->__('Logo'),
           'help' => $this->context->i18n->__('Requirements: PNG format, 256K max. size.<br />Recommended dimensions of %1%x%2%px, it will be cropped if ImageMagick is installed.',
             array(
               '%1%' => arRepositoryThemeCropValidatedFile::LOGO_MAX_WIDTH,
