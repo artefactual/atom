@@ -10,29 +10,31 @@
   </head>
   <body class="yui-skin-sam <?php echo $sf_context->getModuleName() ?> <?php echo $sf_context->getActionName() ?>">
 
-    <div id="page-wrapper">
-      <div id="page">
+    <div id="wrapper" class="container">
 
-        <div id="main-wrapper">
-          <div class="clearfix" id="main">
+      <div class="row">
 
-            <div class="column sidebar" id="sidebar-first">
-              <div class="section">
-                <?php echo get_component_slot('install_sidebar') ?>
-              </div>
+        <div class="span3">
+          <?php echo get_component_slot('install_sidebar') ?>
+        </div>
+
+        <div class="span9">
+
+          <?php include_slot('before-content') ?>
+
+          <?php if (!include_slot('content')): ?>
+            <div id="content">
+              <?php echo $sf_content ?>
             </div>
+          <?php endif; ?>
 
-            <div class="column" id="content">
-              <div class="section">
-                <?php echo $sf_content ?>
-              </div>
-            </div>
+          <?php include_slot('after-content') ?>
 
-          </div>
-        </div> <!-- /#main-wrapper -->
+        </div>
 
       </div>
-    </div> <!-- /#page-wrapper -->
+
+    </div>
 
   </body>
 </html>

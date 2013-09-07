@@ -304,6 +304,80 @@ class sfInstall
     return $database;
   }
 
+  public static function configureSearch(array $options = array())
+  {
+    $errors = array();
+    $defaults = sfConfig::get('sf_plugins_dir').'/arElasticSearchPlugin/config/search.yml';
+    $config = arElasticSearchConfigHandler::getConfiguration(array($defaults));
+
+    if (isset($options['searchHost']))
+    {
+      $config['server']['host'] = $options['searchHost'];
+    }
+    else
+    {
+      $config['server']['host'] = 'localhost';
+    }
+
+    if (isset($options['searchPort']))
+    {
+      $config['server']['port'] = $options['searchPort'];
+    }
+    else
+    {
+      $config['server']['port'] = '9200';
+    }
+
+    // Quick check of connectivity, I should put this somewhere else :)
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, sprintf("http://%s", $config['server']['host']));
+    curl_setopt($curl, CURLOPT_PORT, $config['server']['port']);
+    curl_setopt($curl, CURLOPT_HEADER, false);
+    ob_start();
+    curl_exec($curl);
+    $response = json_decode(ob_get_clean());
+    if (0 < curl_errno($curl))
+    {
+      $errors[] = sprintf("Can't connect to the server (%s).", curl_error($curl));
+    }
+    curl_close($curl);
+
+    if (0 < count($errors))
+    {
+      return $errors;
+    }
+
+    if (true !== $response->ok || 200 !== $response->status)
+    {
+      $errors[] = "Elasticsearch error.";
+    }
+
+    if (0 < count($errors))
+    {
+      return $errors;
+    }
+
+    if (isset($options['searchIndex']))
+    {
+      $config['index']['name'] = $options['searchIndex'];
+    }
+    else
+    {
+      $config['server']['port'] = 'atom';
+    }
+
+    $env = array();
+    $env['all'] = $config;
+
+    $location = sfConfig::get('sf_config_dir').'/search.yml';
+    if (false === file_put_contents($location, sfYaml::dump($env, 0, 1)))
+    {
+      $errors[] = "Can't write configuration file ".$location;
+    }
+
+    return $errors;
+  }
+
   public static function insertSql()
   {
     $arguments = array();

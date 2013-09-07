@@ -77,17 +77,16 @@
   </div>
 <?php endif; ?>
 
-<div class="actions section">
-  <h2 class="element-invisible">Actions</h2>
-  <div class="content">
-    <ul class="clearfix links">
+<?php slot('after-content') ?>
+  <section class="actions">
+    <ul>
       <?php if ($error): ?>
-        <li><?php echo link_to('Try again', $sf_request->getUri()) ?></li>
-        <li><?php echo link_to('Ignore errors and continue', array('module' => 'sfInstallPlugin', 'action' => 'configureDatabase')) ?></li>
+        <li><?php echo link_to('Try again', $sf_request->getUri(), array('class' => 'c-btn')) ?></li>
+        <li><?php echo link_to('Ignore errors and continue', array('module' => 'sfInstallPlugin', 'action' => 'configureDatabase'), array('class' => 'c-btn')) ?></li>
       <?php else: ?>
         <!-- If JavaScript is enabled, automatically redirect to the next task.  Include a link in case it is not. -->
-        <li><?php echo link_to('Continue', array('module' => 'sfInstallPlugin', 'action' => 'configureDatabase')) ?></li>
+        <li><?php echo link_to('Continue', array('module' => 'sfInstallPlugin', 'action' => 'configureDatabase'), array('class' => 'c-btn')) ?></li>
       <?php endif; ?>
     </ul>
-  </div>
-</div>
+  </section>
+<?php end_slot() ?>

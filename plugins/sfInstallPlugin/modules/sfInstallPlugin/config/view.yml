@@ -1,6 +1,7 @@
 checkSystemSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/progress:
 
 configureDatabaseSuccess:
@@ -9,9 +10,17 @@ configureDatabaseSuccess:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
 
+configureSearchSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+
 configureSiteSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /plugins/sfDrupalPlugin/vendor/drupal/modules/user/user:
 
 all:
@@ -20,8 +29,4 @@ all:
     install_sidebar: [sfInstallPlugin, task]
   stylesheets:
     -*:
-    form:
-    graphic:
-    main:
-    /plugins/qtTrilliumPlugin/css/less/main.css:
-    /plugins/qtTrilliumPlugin/css/ie: { condition: IE, position: last }
+    /plugins/arDominionPlugin/css/min.css:

@@ -33,6 +33,26 @@ a:hover {
   text-decoration: none;
 }
 
+// Installer
+
+.sfInstallPlugin {
+  .container {
+    padding-top: 40px;
+  }
+  .logo {
+    .clearfix();
+    background-color: #367180;
+    border: 1px solid @gray;
+    .border-radius(4px);
+  }
+  .active {
+    color: @blue;
+  }
+  .done {
+    color: @green;
+  }
+}
+
 // h1 multiline
 
 .multiline {
@@ -1252,7 +1272,8 @@ body.login #content {
   }
 
   > #password-strength {
-    width: 40%;
+    width: 42%;
+    padding-right: 20px;
     float: right;
     margin: 20px 0 0 20px;
 

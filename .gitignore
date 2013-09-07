@@ -2,6 +2,7 @@
 /cache/
 /config/config.php
 /config/databases.yml
+/config/search.yml
 /config/propel.ini
 /log/
 /sf

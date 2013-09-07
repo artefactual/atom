@@ -14,9 +14,11 @@
 
 <?php endif; ?>
 
-<?php echo $form->renderFormTag(url_for(array('module' => 'sfInstallPlugin', 'action' => 'configureDatabase'))) ?>
+<?php slot('before-content') ?>
+  <?php echo $form->renderFormTag(url_for(array('module' => 'sfInstallPlugin', 'action' => 'configureDatabase'))) ?>
+<?php end_slot() ?>
 
-  <fieldset>
+  <fieldset class="collapsible">
 
     <legend>Basic options</legend>
 
@@ -50,11 +52,12 @@
 
   </fieldset>
 
+<?php slot('after-content') ?>
   <div class="actions section">
     <h2 class="element-invisible">Actions</h2>
     <div class="content">
-      <input class="form-submit" type="submit" value="Save and continue"/>
+      <input class="c-btn c-btn-submit" type="submit" value="Save and continue"/>
     </div>
   </div>
-
-</form>
+  </form>
+<?php end_slot() ?>
