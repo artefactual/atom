@@ -1,4 +1,5 @@
 /apps/qubit/config/settings.yml
+/apps/qubit/config/app.yml
 /cache/
 /config/config.php
 /config/databases.yml
