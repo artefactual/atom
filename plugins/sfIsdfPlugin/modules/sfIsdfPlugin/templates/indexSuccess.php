@@ -1,18 +1,23 @@
-<h1><?php echo __('View ISDF function') ?></h1>
+<?php decorate_with('layout_1col') ?>
 
-<h1 class="label">
-<?php echo link_to_if(QubitAcl::check($resource, 'update'), render_title($resource), array($resource, 'module' => 'function', 'action' => 'edit'), array('title' => __('Edit function'))) ?>
-</h1>
+<?php slot('title') ?>
+  <h1 class="multiline">
+    <?php echo __('View ISDF function') ?>
+    <span class="sub"><?php echo render_title($resource) ?></span>
+  </h1>
+<?php end_slot() ?>
 
-<?php if (isset($errorSchema)): ?>
-  <div class="messages error">
-    <ul>
-      <?php foreach ($errorSchema as $error): ?>
-        <li><?php echo $error ?></li>
-      <?php endforeach; ?>
-    </ul>
-  </div>
-<?php endif; ?>
+<?php slot("before-content") ?>
+  <?php if (isset($errorSchema)): ?>
+    <div class="messages error">
+      <ul>
+        <?php foreach ($errorSchema as $error): ?>
+          <li><?php echo $error ?></li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+  <?php endif; ?>
+<?php end_slot() ?>
 
 <div class="section" id="identityArea">
 
@@ -48,7 +53,6 @@
 
 </div> <!-- /.section#identityArea -->
 
-<!-- Context area -->
 <div class="section" id="contextArea">
 
   <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Context area').'</h2>', array($resource, 'module' => 'function', 'action' => 'edit'), array('anchor' => 'contextArea', 'title' => __('Edit context area'))) ?>
@@ -63,7 +67,6 @@
 
 </div> <!-- /.section#contextArea -->
 
-<!-- Relationships area -->
 <div class="section" id="relationshipsArea">
 
   <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Relationships area').'</h2>', array($resource, 'module' => 'function', 'action' => 'edit'), array('anchor' => 'relationshipsArea', 'title' => __('Edit relationships area'))) ?>
@@ -130,7 +133,6 @@
 
 </div> <!-- /.section#relationshipsArea -->
 
-<!-- Control area -->
 <div class="section" id="controlArea">
 
   <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Control area').'</h2>', array($resource, 'module' => 'function', 'action' => 'edit'), array('anchor' => 'controlArea', 'title' => __('Edit control area'))) ?>
@@ -175,28 +177,20 @@
 
 </div> <!-- /.section#controlArea -->
 
-<?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'delete') || QubitAcl::check($resource, 'create')): ?>
-  <div class="actions section">
-
-    <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
-
-    <div class="content">
-      <ul class="clearfix links">
-
+<?php slot("after-content") ?>
+  <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'delete') || QubitAcl::check($resource, 'create')): ?>
+    <section class="actions">
+      <ul>
         <?php if (QubitAcl::check($resource, 'update')): ?>
-          <li><?php echo link_to(__('Edit'), array($resource, 'module' => 'function', 'action' => 'edit'), array('title' => __('Edit'))) ?></li>
+          <li><?php echo link_to(__('Edit'), array($resource, 'module' => 'function', 'action' => 'edit'), array('title' => __('Edit'), 'class' => 'c-btn')) ?></li>
         <?php endif; ?>
-
         <?php if (QubitAcl::check($resource, 'delete')): ?>
-          <li><?php echo link_to(__('Delete'), array($resource, 'module' => 'function', 'action' => 'delete'), array('class' => 'delete', 'title' => __('Delete'))) ?></li>
+          <li><?php echo link_to(__('Delete'), array($resource, 'module' => 'function', 'action' => 'delete'), array('class' => 'c-btn c-btn-delete', 'title' => __('Delete'))) ?></li>
         <?php endif; ?>
-
         <?php if (QubitAcl::check($resource, 'create')): ?>
-          <li><?php echo link_to(__('Add new'), array('module' => 'function', 'action' => 'add'), array('title' => __('Add new'))) ?></li>
+          <li><?php echo link_to(__('Add new'), array('module' => 'function', 'action' => 'add'), array('title' => __('Add new'), 'class' => 'c-btn')) ?></li>
         <?php endif; ?>
-
       </ul>
-    </div>
-
-  </div>
-<?php endif; ?>
+    </section>
+  <?php endif; ?>
+<?php end_slot() ?>
