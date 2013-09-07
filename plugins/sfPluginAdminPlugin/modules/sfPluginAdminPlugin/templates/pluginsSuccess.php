@@ -4,7 +4,7 @@
 
 <?php echo $form->renderFormTag(url_for(array('module' => 'sfPluginAdminPlugin', 'action' => 'plugins'))) ?>
 
-  <table class="sticky-enabled">
+  <table class="table table-bordered sticky-enabled">
     <thead>
       <tr>
         <th>
@@ -17,12 +17,12 @@
       </tr>
     </thead><tbody>
       <?php foreach ($plugins as $name => $plugin): ?>
-        <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
+        <tr>
           <td>
             <?php if (file_exists($plugin->getRootDir().'/images/image.png')): ?>
               <?php echo image_tag('/plugins/'.$name.'/images/image', array('alt' => $name)) ?>
             <?php endif; ?>
-            <h2><?php echo $name ?></h2>
+            <p class="plugin-name"><?php echo $name ?></p>
             <div class="plugin-description">
               <?php echo $plugin::$summary ?>
             </div>
@@ -49,13 +49,10 @@
     </tbody>
   </table>
 
-  <div class="actions section">
-    <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
-    <div class="content">
-      <ul class="clearfix links">
-        <input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/>
-      </ul>
-    </div>
-  </div>
+  <section class="actions">
+    <ul>
+      <input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/>
+    </ul>
+  </section>
 
 </form>
