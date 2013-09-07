@@ -1,16 +1,12 @@
-<?php decorate_with('layout_2col') ?>
+<?php decorate_with('layout_1col') ?>
 <?php use_helper('Date') ?>
 
 <?php slot('title') ?>
-  <h1><?php echo __('Browse %1%', array('%1%' => sfConfig::get('app_ui_label_function'))) ?></h1>
-<?php end_slot() ?>
-
-<?php slot('sidebar') ?>
-  <div id="facets">
-
-    ...
-
-  </div>
+  <h1 class="multiline">
+    <?php echo image_tag('/images/icons-large/icon-functions.png') ?>
+    <?php echo __('Showing %1% results', array('%1%' => $pager->getNbResults())) ?>
+    <span class="sub"><?php echo sfConfig::get('app_ui_label_function') ?></span>
+  </h1>
 <?php end_slot() ?>
 
 <?php slot('before-content') ?>
@@ -22,7 +18,7 @@
     <?php else: ?>
       <li<?php if ('updatedDown' == $sf_request->sort || 'updatedUp' == $sf_request->sort): ?> class="active"<?php endif; ?>><?php echo link_to(__('Recent changes'), array('sort' => 'updatedDown') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?></li>
       <li<?php if ('updatedDown' != $sf_request->sort && 'updatedUp' != $sf_request->sort): ?> class="active"<?php endif; ?>><?php echo link_to(__('Alphabetic'), array('sort' => 'nameUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?></li>
-    <?php endif; ?> 
+    <?php endif; ?>
 
     <li class="search">
       <form action="<?php echo url_for(array('module' => 'function', 'action' => 'list')) ?>">
@@ -73,7 +69,7 @@
             <?php elseif ('updatedDown' == $sf_request->sort): ?>
               <?php echo link_to(image_tag('down.gif'), array('sort' => 'updatedUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'))) ?>
             <?php endif; ?>
-          <?php endif; ?> 
+          <?php endif; ?>
         </th>
       <?php endif; ?>
     </tr>
