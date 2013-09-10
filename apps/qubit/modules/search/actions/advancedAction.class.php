@@ -27,7 +27,8 @@ class SearchAdvancedAction extends DefaultBrowseAction
       'm', // 'materialType',
       't', // 'mediaType',
       'r', // 'repository',
-      's'  // 'searchFields'
+      'f', // 'fonds/collection'
+      's' // 'searchFields'
     );
 
   protected function addField($name)
@@ -148,6 +149,12 @@ class SearchAdvancedAction extends DefaultBrowseAction
         $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
 
         break;
+
+      case 'f':
+        $this->form->setValidator($name, new sfValidatorString);
+        $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => array())));
+
+        break;
     }
   }
 
@@ -198,6 +205,16 @@ class SearchAdvancedAction extends DefaultBrowseAction
       case 'r':
         $query = new \Elastica\Query\Term;
         $query->setTerm('repository.id', $value);
+        $this->queryBool->addMust($query);
+
+        break;
+
+      case 'f':
+        $params = $this->context->routing->parse(Qubit::pathInfo($value));
+        $fonds = $params['_sf_route']->resource;
+
+        $query = new \Elastica\Query\Term;
+        $query->setTerm('ancestors', $fonds->id);
         $this->queryBool->addMust($query);
 
         break;

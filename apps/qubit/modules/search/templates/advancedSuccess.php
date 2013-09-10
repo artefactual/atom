@@ -14,6 +14,13 @@
       <?php endif; ?>
     </div>
     <div class="filter">
+      <?php echo $form->f
+        ->label(__('Top-level descriptions'))
+        ->renderLabel() ?>
+      <?php echo $form->f->render(array('class' => 'form-autocomplete')) ?>
+      <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'autocomplete', 'parent' => 'root')) ?>"/>
+    </div>
+    <div class="filter">
       <?php echo $form->m
         ->label(__('General material designation'))
         ->renderRow() ?>

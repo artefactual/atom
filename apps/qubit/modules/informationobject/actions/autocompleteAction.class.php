@@ -42,6 +42,11 @@ class InformationObjectAutocompleteAction extends sfAction
     $criteria->addJoin(QubitInformationObject::ID, QubitInformationObjectI18n::ID);
     $criteria->add(QubitInformationObjectI18n::CULTURE, $this->context->user->getCulture());
 
+    if (isset($request->parent) && $request->parent == 'root')
+    {
+      $criteria->add(QubitInformationObject::PARENT_ID, QubitInformationObject::ROOT_ID);
+    }
+
     // Search for matching title or identifier
     if (isset($request->query))
     {

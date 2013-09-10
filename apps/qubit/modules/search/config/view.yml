@@ -11,6 +11,12 @@ advancedSuccess:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/ui/ui.datepicker.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+    /vendor/yui/animation/animation-min:
+    /vendor/yui/connection/connection-min:
+    /vendor/yui/datasource/datasource-min:
+    /vendor/yui/autocomplete/autocomplete-min:
+    /vendor/yui/container/container-min:
+    autocomplete:
     multiRow:
 
 globalReplaceSuccess:
