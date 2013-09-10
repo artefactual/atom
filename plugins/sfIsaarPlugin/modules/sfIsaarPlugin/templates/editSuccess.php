@@ -156,7 +156,7 @@
         <?php elseif (isset($sf_request->id)): ?>
           <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'actor'), array('title' => __('Cancel'), 'class' => 'c-btn')) ?></li>
         <?php else: ?>
-          <li><?php echo link_to(__('Cancel'), array('module' => 'actor', 'action' => 'list'), array('title' => __('Cancel'), 'class' => 'c-btn')) ?></li>
+          <li><?php echo link_to(__('Cancel'), array('module' => 'actor', 'action' => 'browse'), array('title' => __('Cancel'), 'class' => 'c-btn')) ?></li>
         <?php endif; ?>
         <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
           <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
