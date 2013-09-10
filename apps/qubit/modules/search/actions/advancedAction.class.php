@@ -125,6 +125,9 @@ class SearchAdvancedAction extends DefaultBrowseAction
         // Do source culture fallback
         $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitActor');
 
+        // Ignore root repository
+        $criteria->add(QubitActor::ID, QubitRepository::ROOT_ID, Criteria::NOT_EQUAL);
+
         $criteria->addAscendingOrderByColumn('authorized_form_of_name');
 
         $cache = QubitCache::getInstance();
