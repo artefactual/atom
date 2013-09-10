@@ -25,16 +25,20 @@
 
         <div class="form-item form-item-banner">
           <?php echo $form->banner->renderLabel() ?>
-          <?php echo $form->banner->render() ?>
-          <?php echo $form->banner->renderError() ?>
-          <?php echo $form->banner->renderHelp() ?>
+          <div>
+            <?php echo $form->banner->render() ?>
+            <?php echo $form->banner->renderError() ?>
+            <?php echo $form->banner->renderHelp() ?>
+          </div>
         </div>
 
         <div class="form-item form-item-logo">
           <?php echo $form->logo->renderLabel() ?>
-          <?php echo $form->logo->render() ?>
-          <?php echo $form->logo->renderError() ?>
-          <?php echo $form->logo->renderHelp() ?>
+          <div>
+            <?php echo $form->logo->render() ?>
+            <?php echo $form->logo->renderError() ?>
+            <?php echo $form->logo->renderHelp() ?>
+          </div>
         </div>
 
       </fieldset>
