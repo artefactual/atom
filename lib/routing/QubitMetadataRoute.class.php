@@ -35,6 +35,7 @@ class QubitMetadataRoute extends sfRoute
 
     $DEFAULT_MODULES = array(
       'informationobject' => false,
+      'term'              => 'term',
       'actor'             => 'sfIsaarPlugin',
       'repository'        => 'sfIsdiahPlugin',
       'function'          => 'sfIsdfPlugin');
@@ -163,7 +164,7 @@ class QubitMetadataRoute extends sfRoute
           break;
 
         case $this->resource instanceof QubitTerm:
-          $parameters['module'] = 'term';
+          $parameters['module'] = isset($parameters['template']) && $parameters['template'] == 'skos' ? 'sfSkosPlugin' : 'term';
 
           break;
 
