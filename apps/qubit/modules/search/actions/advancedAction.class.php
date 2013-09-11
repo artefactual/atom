@@ -216,8 +216,16 @@ class SearchAdvancedAction extends DefaultBrowseAction
         $params = $this->context->routing->parse(Qubit::pathInfo($value));
         $fonds = $params['_sf_route']->resource;
 
-        $query = new \Elastica\Query\Term;
-        $query->setTerm('ancestors', $fonds->id);
+        $query = new \Elastica\Query\Bool();
+
+        $queryAncestors = new \Elastica\Query\Term;
+        $queryAncestors->setTerm('ancestors', $fonds->id);
+        $query->addShould($queryAncestors);
+
+        $querySelf = new \Elastica\Query\Text();
+        $querySelf->setFieldQuery('slug', $fonds->slug);
+        $query->addShould($querySelf);
+
         $this->queryBool->addMust($query);
 
         break;
