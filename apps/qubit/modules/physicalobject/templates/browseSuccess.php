@@ -2,7 +2,7 @@
 
 <h1><?php echo __('Browse %1%', array('%1%' => sfConfig::get('app_ui_label_physicalobject'))) ?></h1>
 
-<table class="sticky-enabled">
+<table class="table table-ordered sticky-enabled">
   <thead>
     <tr>
       <th class="sortable">

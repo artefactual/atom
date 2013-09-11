@@ -46,9 +46,9 @@ class ObjectImportAction extends sfAction
     }
 
     // if we got here without a file upload, go to file selection
-    if (!isset($file))
+    if (0 == count($file))
     {
-      $this->redirect();
+      $this->redirect($importSelectRoute);
     }
 
     // set indexing preference

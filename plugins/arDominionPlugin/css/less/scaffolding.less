@@ -618,6 +618,27 @@ a:hover {
   }
 }
 
+// Sidebar widget (like .list-menu) (used in uploadLimit)
+
+.sidebar-widget {
+
+  h3 {
+    border-bottom: 1px solid @grayLight;
+    margin-bottom: 0;
+  }
+
+  div {
+    padding: 10px;
+  }
+
+  .c-btn {
+    color: @gray;
+    border-color: @gray;
+    float: right;
+  }
+
+}
+
 // Content
 
 @borderOutlineColor: lighten(@grayLight, 25%);
@@ -899,6 +920,11 @@ section .vcard:last-child > .field:last-child > div {
   &.error {
     background-color: rgb(255, 237, 237);
     border: 1px solid #ac5562;
+  }
+
+  h3 {
+    color: @grayDark;
+    margin: 0;
   }
 
 }

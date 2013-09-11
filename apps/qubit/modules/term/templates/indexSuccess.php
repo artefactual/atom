@@ -2,6 +2,8 @@
 
 <?php slot('sidebar') ?>
 
+  <?php echo get_partial('term/format', array('resource' => $resource)) ?>
+
 <?php end_slot() ?>
 
 <?php slot('title') ?>

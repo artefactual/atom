@@ -1,11 +1,15 @@
-<h1><?php echo $title ?></h1>
+<?php decorate_with('layout_1col.php') ?>
 
-<?php if (isset($resource)): ?>
-  <h1 class="label"><?php echo render_title($resource) ?></h1>
-  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'object', 'action' => 'import')), array('enctype' => 'multipart/form-data')) ?>
-<?php else: ?>
-  <?php echo $form->renderFormTag(url_for(array('module' => 'object', 'action' => 'import')), array('enctype' => 'multipart/form-data')) ?>
-<?php endif; ?>
+<?php slot('title') ?>
+  <?php if (isset($resource)): ?>
+    <h1 class="multiline">
+      <?php echo $title ?>
+      <span class="sub"><?php echo render_title($resource) ?></span>
+    </h1>
+  <?php else: ?>
+    <h1><?php echo $title ?></h1>
+  <?php endif; ?>
+<?php end_slot() ?>
 
 <?php if ($sf_user->hasFlash('error')): ?>
   <div class="messages error">
@@ -14,50 +18,58 @@
   </div>
 <?php endif; ?>
 
-  <?php echo $form->renderHiddenFields() ?>
+<?php slot('content') ?>
 
-  <fieldset>
+  <?php if (isset($resource)): ?>
+    <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'object', 'action' => 'import')), array('enctype' => 'multipart/form-data')) ?>
+  <?php else: ?>
+    <?php echo $form->renderFormTag(url_for(array('module' => 'object', 'action' => 'import')), array('enctype' => 'multipart/form-data')) ?>
+  <?php endif; ?>
 
-    <legend><?php echo $title ?></legend>
+    <?php echo $form->renderHiddenFields() ?>
 
-    <div class="form-item">
-      <label><?php echo __('Select a file to import') ?></label>
-      <input name="file" type="file"/>
-    </div>
+    <section id="content">
 
-    <input type="hidden" name="importType" value="<?php echo esc_entities($type) ?>"/>
+      <fieldset class="collapsible">
 
-    <?php if ('csv' == $type): ?>
-      <div class="form-item">
-        <label><?php echo __('Type') ?></label>
-        <select name="csvObjectType">
-          <option value="informationObject"><?php echo sfConfig::get('app_ui_label_informationobject') ?></option>
-          <option value="accession"><?php echo sfConfig::get('app_ui_label_accession', __('Accession')) ?></option>
-          <option value="authorityRecord"><?php echo sfConfig::get('app_ui_label_actor') ?></option>
-          <option value="event"><?php echo sfConfig::get('app_ui_label_event', __('Event')) ?></option>
-        </select>
-      </div>
-    <?php endif; ?>
+        <legend><?php echo $title ?></legend>
 
-    <div class="form-item">
-      <label>
-        <input name="noindex" type="checkbox"/>
-        <?php echo __('Do not index imported items') ?>
-      </label>
-    </div>
+        <div class="form-item">
+          <label><?php echo __('Select a file to import') ?></label>
+          <input name="file" type="file"/>
+        </div>
 
-  </fieldset>
+        <input type="hidden" name="importType" value="<?php echo esc_entities($type) ?>"/>
 
-  <div class="actions section">
+        <?php if ('csv' == $type): ?>
+          <div class="form-item">
+            <label><?php echo __('Type') ?></label>
+            <select name="csvObjectType">
+              <option value="informationObject"><?php echo sfConfig::get('app_ui_label_informationobject') ?></option>
+              <option value="accession"><?php echo sfConfig::get('app_ui_label_accession', __('Accession')) ?></option>
+              <option value="authorityRecord"><?php echo sfConfig::get('app_ui_label_actor') ?></option>
+              <option value="event"><?php echo sfConfig::get('app_ui_label_event', __('Event')) ?></option>
+            </select>
+          </div>
+        <?php endif; ?>
 
-    <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+        <div class="form-item">
+          <label>
+            <input name="noindex" type="checkbox"/>
+            <?php echo __('Do not index imported items') ?>
+          </label>
+        </div>
 
-    <div class="content">
-      <ul class="clearfix links">
-        <li><input class="form-submit" type="submit" value="<?php echo __('Import') ?>"/></li>
+      </fieldset>
+
+    </section>
+
+    <section class="actions">
+      <ul>
+        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Import') ?>"/></li>
       </ul>
-    </div>
+    </section>
 
-  </div>
+  </form>
 
-</form>
+<?php end_slot() ?>

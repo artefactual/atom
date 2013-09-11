@@ -1,16 +1,23 @@
-<h1><?php echo __('View accession record') ?></h1>
+<?php decorate_with('layout_1col.php') ?>
 
-<h1 class="label"><?php echo link_to_if(QubitAcl::check($resource, 'update'), render_title($resource), array($resource, 'module' => 'accession', 'action' => 'edit'), array('title' => __('Edit accession record'))) ?></h1>
+<?php slot('title') ?>
+  <h1 class="multiline">
+    <?php echo __('View accession record') ?>
+    <span class="sub"><?php echo render_title($resource) ?></span>
+  </h1>
+<?php end_slot() ?>
 
-<?php if (isset($errorSchema)): ?>
-  <div class="messages error">
-    <ul>
-      <?php foreach ($errorSchema as $error): ?>
-        <li><?php echo $error ?></li>
-      <?php endforeach; ?>
-    </ul>
-  </div>
-<?php endif; ?>
+<?php slot('before-content') ?>
+  <?php if (isset($errorSchema)): ?>
+    <div class="messages error">
+      <ul>
+        <?php foreach ($errorSchema as $error): ?>
+          <li><?php echo $error ?></li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+  <?php endif; ?>
+<?php end_slot() ?>
 
 <?php echo render_show(__('Accession number'), render_value($resource->identifier)) ?>
 
@@ -140,30 +147,26 @@
 
 </div> <!-- /.section#deaccessionArea -->
 
-<div class="actions section">
-
-  <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
-
-  <div class="content">
-    <ul class="clearfix links">
+<?php slot('after-content') ?>
+  <section class="actions">
+    <ul>
 
       <?php if (QubitAcl::check($resource, 'update') || (QubitAcl::check($resource, 'translate'))): ?>
-        <li><?php echo link_to(__('Edit'), array($resource, 'module' => 'accession', 'action' => 'edit')) ?></li>
+        <li><?php echo link_to(__('Edit'), array($resource, 'module' => 'accession', 'action' => 'edit'), array('class' => 'c-btn')) ?></li>
       <?php endif; ?>
 
       <?php if (QubitAcl::check($resource, 'delete')): ?>
-        <li><?php echo link_to(__('Delete'), array($resource, 'module' => 'accession', 'action' => 'delete'), array('class' => 'delete')) ?></li>
+        <li><?php echo link_to(__('Delete'), array($resource, 'module' => 'accession', 'action' => 'delete'), array('class' => 'c-btn c-btn-delete')) ?></li>
       <?php endif; ?>
 
-      <li><?php echo link_to(__('Deaccession'), array('module' => 'deaccession', 'action' => 'add', 'accession' => $resource->id)) ?></li>
+      <li><?php echo link_to(__('Deaccession'), array('module' => 'deaccession', 'action' => 'add', 'accession' => $resource->id), array('class' => 'c-btn')) ?></li>
 
       <?php if (!isset($accrued)): ?>
-        <li><?php echo link_to(__('Add accrual'), array('module' => 'accession', 'action' => 'add', 'accession' => url_for(array($resource, 'module' => 'accession')))) ?></li>
+        <li><?php echo link_to(__('Add accrual'), array('module' => 'accession', 'action' => 'add', 'accession' => url_for(array($resource, 'module' => 'accession'))), array('class' => 'c-btn')) ?></li>
       <?php endif; ?>
 
-      <li><?php echo link_to(__('Create %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))), array($resource, 'module' => 'accession', 'action' => 'addInformationObject')) ?></li>
+      <li><?php echo link_to(__('Create %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))), array($resource, 'module' => 'accession', 'action' => 'addInformationObject'), array('class' => 'c-btn')) ?></li>
 
     </ul>
-  </div>
-
-</div>
+  </section>
+<?php end_slot() ?>

@@ -1,52 +1,57 @@
-<h1 class="small"><?php echo __('Edit donor') ?></h1>
+<?php decorate_with('layout_1col.php') ?>
 
-<h1 class="label"><?php echo render_title($resource) ?></h1>
+<?php slot('title') ?>
+  <h1 class="multiline">
+    <?php echo __('Edit donor') ?>
+    <span class="sub"><?php echo render_title($resource) ?></span>
+  </h1>
+<?php end_slot() ?>
 
-<?php echo $form->renderGlobalErrors() ?>
+<?php slot('content') ?>
 
-<?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
-  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'donor', 'action' => 'edit')), array('id' => 'editForm')) ?>
-<?php else: ?>
-  <?php echo $form->renderFormTag(url_for(array('module' => 'donor', 'action' => 'add')), array('id' => 'editForm')) ?>
-<?php endif; ?>
+  <?php echo $form->renderGlobalErrors() ?>
 
-  <?php echo $form->renderHiddenFields() ?>
+  <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
+    <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'donor', 'action' => 'edit')), array('id' => 'editForm')) ?>
+  <?php else: ?>
+    <?php echo $form->renderFormTag(url_for(array('module' => 'donor', 'action' => 'add')), array('id' => 'editForm')) ?>
+  <?php endif; ?>
 
-  <fieldset class="collapsible" id="identityArea">
+    <?php echo $form->renderHiddenFields() ?>
 
-    <legend><?php echo __('Identity area') ?></legend>
+    <section id="content">
 
-    <?php echo render_field($form->authorizedFormOfName
-      ->label(__('Authorized form of name').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource) ?>
+      <fieldset class="collapsible" id="identityArea">
 
-  </fieldset>
+        <legend><?php echo __('Identity area') ?></legend>
 
-  <fieldset class="collapsible" id="contactArea">
+        <?php echo render_field($form->authorizedFormOfName
+          ->label(__('Authorized form of name').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource) ?>
 
-    <legend><?php echo __('Contact area') ?></legend>
+      </fieldset>
 
-    <?php echo get_partial('contactinformation/edit', $contactInformationEditComponent->getVarHolder()->getAll()) ?>
+      <fieldset class="collapsible" id="contactArea">
 
-  </fieldset>
+        <legend><?php echo __('Contact area') ?></legend>
 
-  <div class="actions section">
+        <?php echo get_partial('contactinformation/edit', $contactInformationEditComponent->getVarHolder()->getAll()) ?>
 
-    <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+      </fieldset>
 
-    <div class="content">
+    </section>
+
+    <section class="actions">
       <ul class="clearfix links">
-
         <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
-          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'donor'), array('title' => __('Cancel'))) ?></li>
-          <li><input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
+          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'donor'), array('title' => __('Cancel'), 'class' => 'c-btn')) ?></li>
+          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
         <?php else: ?>
-          <li><?php echo link_to(__('Cancel'), array('module' => 'donor', 'action' => 'list'), array('title' => __('Cancel'))) ?></li>
-          <li><input class="form-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
+          <li><?php echo link_to(__('Cancel'), array('module' => 'donor', 'action' => 'list'), array('title' => __('Cancel'), 'class' => 'c-btn')) ?></li>
+          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
         <?php endif; ?>
-
       </ul>
-    </div>
+    </section>
 
-  </div>
+  </form>
 
-</form>
+<?php end_slot() ?>

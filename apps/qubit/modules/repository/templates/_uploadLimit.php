@@ -1,5 +1,5 @@
 <!-- upload limit display with usage bar -->
-<section id="uploadLimitDisplay">
+<section id="uploadLimitDisplay" class="sidebar-widget">
 
   <h3><?php echo __('Upload limit') ?></h3>
 
@@ -17,7 +17,7 @@
     <?php elseif ('disabled' == $quotaType): ?>
       <?php echo __('Upload is disabled') ?>
     <?php elseif ('unlimited' == $quotaType): ?>
-      <?php echo __('%du% <abbr title="1 GB = 1 000 000 000 bytes">GB</abbr> of <em>Unlimited</em>', array('%du%' => $diskUsage)) ?>
+      <?php echo __('%du% <abbr title="1 GB = 1 000 000 000 bytes">GB</abbr> of <em>Unlimited</em>&nbsp;', array('%du%' => $diskUsage)) ?>
     <?php endif; ?>
 
     <?php if ($sf_user->isAdministrator()): ?>

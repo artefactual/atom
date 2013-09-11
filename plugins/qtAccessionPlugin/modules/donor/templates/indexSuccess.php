@@ -1,16 +1,23 @@
-<h1><?php echo __('View donor') ?></h1>
+<?php decorate_with('layout_1col.php') ?>
 
-<h1 class="label"><?php echo link_to_if(QubitAcl::check($resource, 'update'), render_title($resource), array($resource, 'module' => 'donor', 'action' => 'edit'), array('title' => __('Edit donor'))) ?></h1>
+<?php slot('title') ?>
+  <h1 class="multiline">
+    <?php echo __('View donor') ?>
+    <span class="sub"><?php echo render_title($resource) ?></span>
+  </h1>
+<?php end_slot() ?>
 
-<?php if (isset($errorSchema)): ?>
-  <div class="messages error">
-    <ul>
-      <?php foreach ($errorSchema as $error): ?>
-        <li><?php echo $error ?></li>
-      <?php endforeach; ?>
-    </ul>
-  </div>
-<?php endif; ?>
+<?php slot('before-content') ?>
+  <?php if (isset($errorSchema)): ?>
+    <div class="messages error">
+      <ul>
+        <?php foreach ($errorSchema as $error): ?>
+          <li><?php echo $error ?></li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+  <?php endif; ?>
+<?php end_slot() ?>
 
 <?php echo render_show(__('Authorized form of name'), render_value($resource->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?>
 
@@ -44,26 +51,18 @@
 
 </div> <!-- /.section#accessionArea -->
 
-<div class="actions section">
-
-  <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
-
-  <div class="content">
-    <ul class="clearfix links">
-
+<?php slot('after-content') ?>
+  <section class="actions">
+    <ul>
       <?php if (QubitAcl::check($resource, 'update')): ?>
-        <li><?php echo link_to(__('Edit'), array($resource, 'module' => 'donor', 'action' => 'edit'), array('title' => __('Edit'))) ?></li>
+        <li><?php echo link_to(__('Edit'), array($resource, 'module' => 'donor', 'action' => 'edit'), array('title' => __('Edit'), 'class' => 'c-btn')) ?></li>
       <?php endif; ?>
-
       <?php if (QubitAcl::check($resource, 'delete')): ?>
-        <li><?php echo link_to(__('Delete'), array($resource, 'module' => 'donor', 'action' => 'delete'), array('class' => 'delete', 'title' => __('Delete'))) ?></li>
+        <li><?php echo link_to(__('Delete'), array($resource, 'module' => 'donor', 'action' => 'delete'), array('title' => __('Delete'), 'class' => 'c-btn c-btn-delete')) ?></li>
       <?php endif; ?>
-
       <?php if (QubitAcl::check($resource, 'create')): ?>
-        <li><?php echo link_to(__('Add new'), array('module' => 'donor', 'action' => 'add'), array('title' => __('Add new'))) ?></li>
+        <li><?php echo link_to(__('Add new'), array('module' => 'donor', 'action' => 'add'), array('title' => __('Add new'), 'class' => 'c-btn')) ?></li>
       <?php endif; ?>
-
     </ul>
-  </div>
-
-</div>
+  </section>
+<?php end_slot() ?>

@@ -38,7 +38,7 @@ class QubitDeaccession extends BaseDeaccession
   {
     parent::save($connection);
 
-    QubitSearch::updateAccession($this->accession);
+    QubitSearch::getInstance()->update($this->accession);
 
     return $this;
   }

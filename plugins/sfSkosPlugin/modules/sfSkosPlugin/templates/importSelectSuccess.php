@@ -1,25 +1,38 @@
-<h1><?php echo __('Import %1% (SKOS)', array('%1%' => $taxonomy->__toString())) ?></h1>
+<?php decorate_with('layout_1col.php') ?>
 
-<h1 class="label"><?php echo __('Select a file to import') ?></h1>
+<?php slot('title') ?>
+  <h1 class="multiline">
+    <?php echo __('SKOS import') ?>
+    <span class="sub"><?php echo render_title($taxonomy) ?></span>
+  </h1>
+<?php end_slot() ?>
 
-<?php if (QubitTerm::ROOT_ID == $parent->id): ?>
-  <?php echo $form->renderFormTag(url_for(array($taxonomy, 'module' => 'sfSkosPlugin', 'action' => 'import'))) ?>
-<?php else: ?>
-  <?php echo $form->renderFormTag(url_for(array($parent, 'module' => 'sfSkosPlugin', 'action' => 'import'))) ?>
-<?php endif; ?>
+<?php slot('content') ?>
 
-  <?php echo $form->file->renderRow() ?>
+  <?php if (QubitTerm::ROOT_ID == $parent->id): ?>
+    <?php echo $form->renderFormTag(url_for(array($taxonomy, 'module' => 'sfSkosPlugin', 'action' => 'import'))) ?>
+  <?php else: ?>
+    <?php echo $form->renderFormTag(url_for(array($parent, 'module' => 'sfSkosPlugin', 'action' => 'import'))) ?>
+  <?php endif; ?>
 
-  <div class="actions section">
+    <div id="content">
 
-    <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+      <fieldset class="collapsible">
 
-    <div class="content">
-      <ul class="clearfix links">
-        <li><input class="form-submit" type="submit" value="<?php echo __('Import') ?>"/></li>
-      </ul>
+        <legend><?php echo __('Select a file to import') ?></legend>
+
+        <?php echo $form->file->renderRow() ?>
+
+      </fieldset>
+
     </div>
 
-  </div>
+    <section class="actions">
+      <ul>
+        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Import') ?>"/></li>
+      </ul>
+    </section>
 
-</form>
+  </form>
+
+<?php end_slot() ?>
