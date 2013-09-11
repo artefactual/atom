@@ -64,6 +64,7 @@ h4 { font-size: 18px; }
 // Color changes
 
 h1, h2, h3, h4, h5, h6,
+.sidebar-widget > div,
 #action-icons i,
 #action-icons a,
 #action-icons a:hover i,
@@ -109,6 +110,7 @@ h1, h2, h3, h4, h5, h6,
 .pagination ul > li > a:hover,
 .pagination ul > .active > a,
 .pagination ul > .active > span,
+.sidebar-widget a,
 #facets .facet-body li.active a,
 #facets .facet-header p:hover:after {
   color: @orange;
@@ -123,6 +125,7 @@ h1, h2, h3, h4, h5, h6,
   background-color: rgba(0, 0, 0, 0.10);
 }
 
+.sidebar-widget > div,
 .nav-pills .active a,
 .nav-pills li:hover a,
 .nav-pills .active:hover a,
@@ -134,6 +137,10 @@ h1, h2, h3, h4, h5, h6,
 #sort-header .sort-options label,
 #sort-header .dropdown-selected span {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, .25);
+}
+
+.sidebar-widget > div {
+  border-top: 1px solid @white;
 }
 
 #facets .open .facet-header {
