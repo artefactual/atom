@@ -314,7 +314,14 @@ class arElasticSearchPlugin extends QubitSearchEngine
       return;
     }
 
-    $this->index->getType(get_class($object))->deleteById($object->id);
+    try
+    {
+      $this->index->getType(get_class($object))->deleteById($object->id);
+    }
+    catch (\Elastica\Exception\NotFoundException $e)
+    {
+      // Ignore
+    }
   }
 
   public function update($object)
