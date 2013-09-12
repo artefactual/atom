@@ -262,7 +262,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
         case 'scopeAndContent':
           $queryField = new \Elastica\Query\Text();
-          $queryField->setFieldQuery('i18n.'.$culture.'.scopeAndContet', $query);
+          $queryField->setFieldQuery('i18n.'.$culture.'.scopeAndContent', $query);
 
           break;
 
