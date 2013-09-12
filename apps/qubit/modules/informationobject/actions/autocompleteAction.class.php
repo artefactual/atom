@@ -42,9 +42,16 @@ class InformationObjectAutocompleteAction extends sfAction
     $criteria->addJoin(QubitInformationObject::ID, QubitInformationObjectI18n::ID);
     $criteria->add(QubitInformationObjectI18n::CULTURE, $this->context->user->getCulture());
 
-    if (isset($request->parent) && $request->parent == 'root')
+    // Limit results by parent
+    if (isset($request->parent))
     {
-      $criteria->add(QubitInformationObject::PARENT_ID, QubitInformationObject::ROOT_ID);
+      $criteria->add(QubitInformationObject::PARENT_ID, $request->parent);
+    }
+
+    // Filter drafts
+    if (isset($request->filterDrafts) && $request->filterDrafts)
+    {
+      $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
     }
 
     // Search for matching title or identifier
