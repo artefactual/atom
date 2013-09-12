@@ -35,6 +35,10 @@
         <li class="level-description"><?php echo QubitCache::getLabel($doc['levelOfDescriptionId'], 'QubitTerm') ?></li>
       <?php endif; ?>
 
+      <?php if (isset($doc['dates'])): ?>
+        <li class="dates"><?php echo Qubit::renderDateStartEnd(null, $doc['dates'][0]['startDateString'], $doc['dates'][0]['endDateString']) ?></li>
+      <?php endif; ?>
+
       <?php if (isset($doc['publicationStatusId']) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $doc['publicationStatusId']): ?>
         <li class="publication-status"><?php echo QubitCache::getLabel($doc['publicationStatusId'], 'QubitTerm') ?></li>
       <?php endif; ?>
