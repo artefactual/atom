@@ -2,7 +2,7 @@
   <?php if ($object->id != constant(get_class($object).'::ROOT_ID')): ?>
     <caption><?php echo render_title($object) ?></caption>
   <?php else: ?>
-    <caption><em><?php echo __('All %1%', array('%1%' => sfConfig::get('app_ui_label_'.$module))) ?></em></caption>
+    <caption><em><?php echo __('All %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_'.$module)))) ?></em></caption>
   <?php endif; ?>
   <thead>
     <tr>

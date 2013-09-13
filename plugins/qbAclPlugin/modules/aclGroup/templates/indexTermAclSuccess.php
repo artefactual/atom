@@ -18,7 +18,7 @@
           <td colspan="<?php echo $tableCols ?>">
             <strong>
               <?php if ('' == $taxonomy): ?>
-                <em><?php echo __('All %1%', array('%1%' => sfConfig::get('app_ui_label_term'))) ?></em>
+                <em><?php echo __('All %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_term')))) ?></em>
               <?php else: ?>
                 <?php echo __('Taxonomy: %1%', array('%1%' => render_title(QubitTaxonomy::getBySlug($taxonomy)))) ?>
               <?php endif; ?>

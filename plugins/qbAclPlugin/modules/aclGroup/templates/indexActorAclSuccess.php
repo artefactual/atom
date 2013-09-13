@@ -20,7 +20,7 @@
               <?php if (1 < $objectId): ?>
                 <?php echo render_title(QubitActor::getById($objectId)) ?>
               <?php else: ?>
-                <em><?php echo __('All %1%', array('%1%' => sfConfig::get('app_ui_label_actor'))) ?></em>
+                <em><?php echo __('All %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_actor')))) ?></em>
               <?php endif; ?>
             </strong>
           </td>

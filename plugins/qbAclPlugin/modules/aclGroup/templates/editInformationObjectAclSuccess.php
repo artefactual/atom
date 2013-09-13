@@ -1,6 +1,6 @@
 <?php use_helper('Javascript') ?>
 
-<h1><?php echo __('Edit %1% permissions of %2%', array('%1%' => sfConfig::get('app_ui_label_informationobject'), '%2%' => render_title($resource))) ?></h1>
+<h1><?php echo __('Edit %1% permissions of %2%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_informationobject')), '%2%' => render_title($resource))) ?></h1>
 
 <form method="post" action="<?php echo url_for(array($resource, 'module' => 'aclGroup', 'action' => 'editInformationObjectAcl')) ?>" id="editForm">
 
@@ -8,7 +8,7 @@
 
     <fieldset class="collapsible" id="allInfoObjectsArea">
 
-      <legend><?php echo __('Permissions for all %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))) ?></legend>
+      <legend><?php echo __('Permissions for all %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_informationobject')))) ?></legend>
 
       <div class="form-item">
         <?php echo get_component('aclGroup', 'aclTable', array('object' => QubitInformationObject::getRoot(), 'permissions' => $root, 'actions' => $basicActions)) ?>
@@ -18,7 +18,7 @@
 
     <fieldset class="collapsible collapsed" id="informationObjectArea">
 
-      <legend><?php echo __('Permissions by %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))) ?></legend>
+      <legend><?php echo __('Permissions by %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_informationobject')))) ?></legend>
 
       <?php if (0 < count($informationObjects)): ?>
         <?php foreach ($informationObjects as $informationObjectId => $permissions): ?>
@@ -78,15 +78,15 @@ EOL
       </div>
 
       <div class="form-item">
-        <label for="addInformationObjectLink"><?php echo __('Add permissions by %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))) ?></label>
-        <a id="addInformationObjectLink" href="javascript:Qubit.infoObjectDialog.show()"><?php echo __('Add %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))) ?></a>
+        <label for="addInformationObjectLink"><?php echo __('Add permissions by %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_informationobject')))) ?></label>
+        <a id="addInformationObjectLink" href="javascript:Qubit.infoObjectDialog.show()"><?php echo __('Add %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_informationobject')))) ?></a>
       </div>
 
     </fieldset>
 
     <fieldset class="collapsible collapsed" id="repositoryArea">
 
-      <legend><?php echo __('Permissions by %1%', array('%1%' => sfConfig::get('app_ui_label_repository'))) ?></legend>
+      <legend><?php echo __('Permissions by %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_repository')))) ?></legend>
 
       <?php if (0 < count($repositories)): ?>
         <?php foreach ($repositories as $repository => $permissions): ?>
@@ -114,8 +114,8 @@ EOL
       </div>
 
       <div class="form-item">
-        <label for="addRepositoryLink"><?php echo __('Add permissions by %1%', array('%1%' => sfConfig::get('app_ui_label_repository'))) ?></label>
-        <a id="addRepositoryLink" href="javascript:Qubit.repoDialog.show()"><?php echo __('Add %1%', array('%1%' => sfConfig::get('app_ui_label_repository'))) ?></a>
+        <label for="addRepositoryLink"><?php echo __('Add permissions by %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_repository')))) ?></label>
+        <a id="addRepositoryLink" href="javascript:Qubit.repoDialog.show()"><?php echo __('Add %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_repository')))) ?></a>
       </div>
 
     </fieldset>

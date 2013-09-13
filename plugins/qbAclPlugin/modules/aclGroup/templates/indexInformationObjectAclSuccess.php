@@ -19,7 +19,7 @@
             <td colspan="<?php echo $tableCols ?>">
               <strong>
                 <?php if ('' == $repository && '' == $objectId): ?>
-                  <em><?php echo __('All %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))) ?></em>
+                  <em><?php echo __('All %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_informationobject')))) ?></em>
                 <?php elseif ('' != $repository): ?>
                   <?php echo __('%1%: %2%', array('%1%' => sfConfig::get('app_ui_label_repository'), '%2%' => render_title(QubitRepository::getBySlug($repository)))) ?>
                 <?php else: ?>

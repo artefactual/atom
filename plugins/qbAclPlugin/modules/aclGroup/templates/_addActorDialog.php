@@ -2,7 +2,7 @@
 
 <!-- form for yui dialog -->
 <div id="myDialog">
-  <div class="hd"><?php echo __('Add %1%', array('%1%' => sfConfig::get('app_ui_label_actor'))) ?></div>
+  <div class="hd"><?php echo __('Add %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_actor')))) ?></div>
   <div class="bd">
     <form name="actorAcl" method="post">
       <div class="form-item">

@@ -9,12 +9,12 @@
 
     <fieldset class="collapsible" id="allTermsArea">
 
-      <legend><?php echo __('Permissions for all %1%', array('%1%' => sfConfig::get('app_ui_label_term'))) ?></legend>
+      <legend><?php echo __('Permissions for all %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_term')))) ?></legend>
 
       <div class="form-item">
 
         <table id="allTerms" class="table table-bordered">
-          <caption><em><?php echo __('All %1%', array('%1%' => sfConfig::get('app_ui_label_term'))) ?></em></caption>
+          <caption><em><?php echo __('All %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_term')))) ?></em></caption>
           <thead>
             <tr>
               <th scope="col"><?php echo __('Action') ?></th>

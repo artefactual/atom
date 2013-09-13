@@ -1,7 +1,7 @@
 <?php use_helper('Javascript') ?>
 
 <h1 class="multiline">
-  <?php echo __('Edit %1% permissions', array('%1%' => sfConfig::get('app_ui_label_repository'))) ?>
+  <?php echo __('Edit %1% permissions', array('%1%' => lcfirst(sfConfig::get('app_ui_label_repository')))) ?>
   <span class="sub"><?php echo render_title($resource) ?></span>
 </h1>
 
@@ -22,8 +22,8 @@
       <?php endforeach; ?>
 
       <div class="form-item">
-        <label for="addRepositoryLink"><?php echo __('Add permissions by %1%', array('%1%' => sfConfig::get('app_ui_label_repository'))) ?></label>
-        <a id="addRepositoryLink" href="javascript:myDialog.show()"><?php echo __('Add %1%', array('%1%' => sfConfig::get('app_ui_label_repository'))) ?></a>
+        <label for="addRepositoryLink"><?php echo __('Add permissions by %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_repository')))) ?></label>
+        <a id="addRepositoryLink" href="javascript:myDialog.show()"><?php echo __('Add %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_repository')))) ?></a>
       </div>
 
     </legend>

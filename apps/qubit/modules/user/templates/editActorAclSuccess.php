@@ -1,6 +1,6 @@
 <?php use_helper('Javascript') ?>
 
-<h1><?php echo __('Edit %1% permissions of %2%', array('%1%' => sfConfig::get('app_ui_label_actor'), '%2%' => render_title($resource))) ?></h1>
+<h1><?php echo __('Edit %1% permissions of %2%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_actor')), '%2%' => render_title($resource))) ?></h1>
 
 <?php echo get_partial('aclGroup/addActorDialog', array('basicActions' => $basicActions)) ?>
 
@@ -10,7 +10,7 @@
 
     <fieldset class="collapsible">
 
-      <legend><?php echo __('Permissions for all %1%', array('%1%' => sfConfig::get('app_ui_label_actor'))) ?></legend>
+      <legend><?php echo __('Permissions for all %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_actor')))) ?></legend>
 
       <?php foreach ($actors as $key => $item): ?>
         <div class="form-item">
@@ -19,8 +19,8 @@
       <?php endforeach; ?>
 
       <div class="form-item">
-        <label for="addActorLink"><?php echo __('Add permissions by %1%', array('%1%' => sfConfig::get('app_ui_label_actor'))) ?></label>
-        <a id="addActorLink" href="javascript:myDialog.show()"><?php echo __('Add %1%', array('%1%' => sfConfig::get('app_ui_label_actor'))) ?></a>
+        <label for="addActorLink"><?php echo __('Add permissions by %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_actor')))) ?></label>
+        <a id="addActorLink" href="javascript:myDialog.show()"><?php echo __('Add %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_actor')))) ?></a>
       </div>
 
     </fieldset>
