@@ -139,7 +139,10 @@ EOF;
 
       try
       {
-        $this->logSection('upgrade-sql', sprintf('Upgrading from Release %s', $class::MILESTONE));
+        if ($options['verbose'])
+        {
+          $this->logSection('upgrade-sql', sprintf('Upgrading from Release %s', $class::MILESTONE));
+        }
 
         while ($class->up($version, $this->configuration, $options))
         {
