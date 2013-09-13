@@ -2,17 +2,19 @@
 
 <?php slot('sidebar') ?>
 
-  <ul class="nav nav-list nav-stacked">
-    <li><a href="#globalArea"><?php echo __('Global') ?></a></li>
-    <li><a href="#siteInformationArea"><?php echo __('Site information') ?></a></li>
-    <li><a href="#defaultPageElementsArea"><?php echo __('Default page elements') ?></a></li>
-    <li><a href="#defaultTemplateArea"><?php echo __('Default template') ?></a></li>
-    <li><a href="#userInterfaceLabelArea"><?php echo __('User interface label') ?></a></li>
-    <li><a href="#i18nLanguagesArea"><?php echo __('I18n languages') ?></a></li>
-    <li><a href="#oaiRepositoryArea"><?php echo __('OAI repository') ?></a></li>
-    <li><a href="#jobSchedulingArea"><?php echo __('Job scheduling') ?></a></li>
-    <li><a href="#securityArea"><?php echo __('Security') ?></a></li>
-  </ul>
+  <div class="list-menu">
+    <ul class="nav nav-list nav-stacked">
+      <li><a href="#globalArea"><?php echo __('Global') ?></a></li>
+      <li><a href="#siteInformationArea"><?php echo __('Site information') ?></a></li>
+      <li><a href="#defaultPageElementsArea"><?php echo __('Default page elements') ?></a></li>
+      <li><a href="#defaultTemplateArea"><?php echo __('Default template') ?></a></li>
+      <li><a href="#userInterfaceLabelArea"><?php echo __('User interface label') ?></a></li>
+      <li><a href="#i18nLanguagesArea"><?php echo __('I18n languages') ?></a></li>
+      <li><a href="#oaiRepositoryArea"><?php echo __('OAI repository') ?></a></li>
+      <li><a href="#jobSchedulingArea"><?php echo __('Job scheduling') ?></a></li>
+      <li><a href="#securityArea"><?php echo __('Security') ?></a></li>
+    </ul>
+  </div>
 
 <?php end_slot() ?>
 
