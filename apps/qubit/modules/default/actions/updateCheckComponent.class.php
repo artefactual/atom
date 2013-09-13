@@ -34,7 +34,7 @@ class DefaultUpdateCheckComponent extends sfComponent
     }
 
     // updateCheck service URL
-    $this->updateCheckUrl = 'https://updatecheck.qubit-toolkit.org/check/';
+    $this->updateCheckUrl = 'http://www.accesstomemory.org/check/v1/';
 
     // Application version
     $this->currentVersion = qubitConfiguration::VERSION;
