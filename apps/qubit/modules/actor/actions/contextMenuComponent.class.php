@@ -52,7 +52,7 @@ class ActorContextMenuComponent extends sfComponent
     $pager->setMaxPerPage($request->limit);
     $pager->setPage($request->page);
 
-    $role = __('Subject of');
+    $role = __('Subject');
     if (0 < count($pager->getResults()))
     {
       // Add pager only if needed
