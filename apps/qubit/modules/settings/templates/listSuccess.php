@@ -216,6 +216,11 @@
 
   <legend><?php echo __('I18n languages') ?></legend>
 
+  <div class="alert alert-info">
+    <p><?php echo __('Please rebuild the search index if you are adding new languages.') ?></p>
+    <pre>$ php symfony search:populate</pre>
+  </div>
+
   <form action="<?php echo url_for('settings/list') ?>" method="post">
     <table class="table table-bordered">
       <thead>
