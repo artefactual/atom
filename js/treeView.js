@@ -427,11 +427,26 @@
         // Figure out if the user is try to collapse looking at the ancestor class
         var collapse = $element.hasClass('ancestor');
 
+        // Check if the element has a previous ancestor
+        var hasAncestor = $element.prev().hasClass('ancestor');
+
+        // When collapsing a top-level item show prev and next siblings
+        if (collapse && !hasAncestor)
+        {
+          var show = 'itemAndSiblings';
+          var url = $element.data('xhr-location');
+        }
+        else
+        {
+          var show = 'item';
+          var url = collapse ? $element.prev().data('xhr-location') : $element.data('xhr-location');
+        }
+
         $.ajax({
-          url: collapse ? $element.prev().data('xhr-location') : $element.data('xhr-location'),
+          url: url,
           context: this,
           dataType: 'html',
-          data: { show: 'item', resourceId: this.resourceId, browser: this.browser }})
+          data: { show: show, resourceId: this.resourceId, browser: this.browser }})
 
           .fail(function (fail)
             {
@@ -446,7 +461,12 @@
 
           .done(function (data)
             {
-              if (collapse)
+              if (collapse && !hasAncestor)
+              {
+                $element.nextAll().remove();
+                $element.replaceWith(data);
+              }
+              else if (collapse)
               {
                 $element.nextAll().andSelf().remove();
 
@@ -457,9 +477,21 @@
                 var nodes = this.$element.find(this.nodesSelector);
                 var lastAncestor = nodes.eq(0).prev();
 
-                nodes.remove();
-                this.$element.find('.more').remove();
-                lastAncestor.after($element).next().addClass('ancestor').removeClass('expand').after(data);
+                // Check if is really an ancestor
+                if (lastAncestor.hasClass('ancestor'))
+                {
+                  nodes.remove();
+                  this.$element.find('.more').remove();
+                  lastAncestor.after($element).next().addClass('ancestor').removeClass('expand').after(data);
+                }
+                else
+                {
+                  this.$element.find('.more').remove();
+                  $element.addClass('ancestor').removeClass('expand');
+                  var removeNodes = this.$element.find(this.nodesSelector);
+                  removeNodes.remove();
+                  $element.after(data);
+                }
               }
 
               this.refreshSortableBehavior();
