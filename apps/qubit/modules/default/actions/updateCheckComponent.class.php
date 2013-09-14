@@ -55,20 +55,8 @@ class DefaultUpdateCheckComponent extends sfComponent
     // Version (including db version)
     $this->updateCheckData['version'] = qubitConfiguration::VERSION.' - '.sfConfig::get('app_version');
 
-    // Distribution (icaatom, dcb, qubit)
-    if (null === $this->updateCheckData['distribution'] = $this->context->user->getAttribute('distribution'))
-    {
-      $packageXmlPath = sfConfig::get('sf_config_dir').'/package.xml';
-      if (file_exists($packageXmlPath))
-      {
-        require_once sfConfig::get('sf_root_dir').'/vendor/FluentDOM/FluentDOM.php';
-
-        $fd = FluentDOM($packageXmlPath)
-          ->namespaces(array('p' => 'http://pear.php.net/dtd/package-2.0'));
-
-        $this->context->user->setAttribute('distribution', $this->updateCheckData['distribution'] = $fd->find('/*/p:name')->item(0)->textContent);
-      }
-    }
+    // Distribution (legacy: icaatom, dcb, qubit, now just atom)
+    $this->updateCheckData['distribution'] = 'atom';
 
     // Site description
     $this->updateCheckData['site_description'] = sfConfig::get('app_siteDescription');
