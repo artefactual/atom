@@ -363,7 +363,7 @@ class sfInstall
     }
     else
     {
-      $config['server']['port'] = 'atom';
+      $config['index']['name'] = 'atom';
     }
 
     $env = array();
