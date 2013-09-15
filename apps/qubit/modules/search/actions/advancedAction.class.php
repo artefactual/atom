@@ -180,18 +180,21 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
         if (isset($term) && $term->id == $value)
         {
-          // Filter query by unknown or missing copyright status
-          $filter = new \Elastica\Filter\Bool();
+          // Filtered query for documents without copyright status
+          $queryAll = new \Elastica\Query\MatchAll();
+          $filter = new \Elastica\Filter\Missing;
+          $filter->setField('copyrightStatusId');
+          $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filter);
 
-          $filterMissing = new \Elastica\Filter\Missing;
-          $filterMissing->setField('copyrightStatusId');
-          $filter->addShould($filterMissing);
+          // Query for unknown copyright status
+          $query = new \Elastica\Query\Term;
+          $query->setTerm('copyrightStatusId', $value);
 
-          $filterUnknown = new \Elastica\Filter\Term;
-          $filterUnknown->setTerm('copyrightStatusId', $value);
-          $filter->addShould($filterUnknown);
+          $queryBool = new \Elastica\Query\Bool();
+          $queryBool->addShould($query);
+          $queryBool->addShould($filteredQuery);
 
-          $this->filterBool->addMust($filter);
+          $this->queryBool->addMust($queryBool);
         }
         else
         {
