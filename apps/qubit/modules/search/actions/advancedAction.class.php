@@ -171,9 +171,34 @@ class SearchAdvancedAction extends DefaultBrowseAction
     switch ($field->getName())
     {
       case 'c':
-        $query = new \Elastica\Query\Term;
-        $query->setTerm('copyrightStatusId', $value);
-        $this->queryBool->addMust($query);
+        // Get unknown copyright status term
+        $criteria = new Criteria;
+        $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+        $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::COPYRIGHT_STATUS_ID);
+        $criteria->add(QubitTermI18n::NAME, 'Unknown');
+        $term = QubitTerm::getOne($criteria);
+
+        if (isset($term) && $term->id == $value)
+        {
+          // Filter query by unknown or missing copyright status
+          $filter = new \Elastica\Filter\Bool();
+
+          $filterMissing = new \Elastica\Filter\Missing;
+          $filterMissing->setField('copyrightStatusId');
+          $filter->addShould($filterMissing);
+
+          $filterUnknown = new \Elastica\Filter\Term;
+          $filterUnknown->setTerm('copyrightStatusId', $value);
+          $filter->addShould($filterUnknown);
+
+          $this->filterBool->addMust($filter);
+        }
+        else
+        {
+          $query = new \Elastica\Query\Term;
+          $query->setTerm('copyrightStatusId', $value);
+          $this->queryBool->addMust($query);
+        }
 
         break;
 
