@@ -17,13 +17,24 @@
 
 @treeviewNodeBg: transparent;
 @treeviewNodeFg: @linkColor;
-@treeviewActiveNodeBg: @grayLight;
+@treeviewActiveNodeBg: darken(@grayLighter, 20%);
 @treeviewActiveNodeFg: @white;
 @treeviewAncestorNodeBg: darken(@grayLighter, 5%);
 @treeviewPlaceholderBg: #f0f0f0;
 
-.treeview-term {
-  margin-top: @baseLineHeight;
+/* Treeview header */
+
+.treeview-header p {
+  font-family: @sansFontFamily;
+  text-transform: lowercase;
+  font-variant: small-caps;
+  font-weight: normal;
+  font-size: 20px;
+  margin: 20px 0 0 0;
+  padding: 4px 4px 6px 6px;
+  position: relative;
+  background-color: @grayLight;
+  color: @white;
 }
 
 #treeview {
@@ -31,6 +42,7 @@
   margin-bottom: 10px;
   overflow: auto;
   overflow-x: hidden;
+  background-color: #eee;
 }
 
 /* List elements */
@@ -122,7 +134,7 @@
 #treeview .more a {
   padding: 0 8px;
   font-weight: bold;
-  background-color: @grayLight;
+  background-color: darken(@grayLighter, 20%);
   color: @white;
   text-decoration: none;
   .border-radius(4px);
