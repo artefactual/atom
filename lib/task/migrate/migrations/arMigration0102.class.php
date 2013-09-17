@@ -46,9 +46,6 @@ class arMigration0102
     $setting->setValue('Narrow your results by:', array('culture' => 'en'));
     $setting->save();
 
-    // Add setting to sfConfig
-    sfConfig::add(array('app_'.$setting->scope.'_'.$setting->name => $setting->value));
-
     return true;
   }
 }
