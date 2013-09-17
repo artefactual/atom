@@ -12,8 +12,6 @@
         <li><?php echo $types[$doc['entityTypeId']] ?></li>
       <?php endif; ?>
 
-      <li><?php echo format_date($doc['updatedAt'], 'f') ?></li>
-
       <li><?php echo get_search_i18n($doc, 'datesOfExistence') ?></li>
 
     </ul>
