@@ -21,6 +21,8 @@
 
     <div class="content">
 
+      <h3><?php echo sfConfig::get('app_ui_label_facetstitle') ?></h3>
+
       <?php echo get_partial('search/facetLanguage', array(
         'target' => '#facet-languages',
         'label' => __('Language'),
