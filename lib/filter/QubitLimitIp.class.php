@@ -24,7 +24,7 @@ class QubitLimitIpFilter extends sfFilter
     $this->context = $this->getContext();
     $this->request = $this->context->getRequest();
 
-    $this->limit = sfConfig::get('app_limit_admin_ip');
+    $this->limit = explode(';', sfConfig::get('app_limit_admin_ip'));
 
     # Pass if:
     # - Debug mode is on
@@ -61,23 +61,34 @@ class QubitLimitIpFilter extends sfFilter
 
   protected function isAllowed()
   {
-    $limit = preg_split('/[,-]/', $this->limit);
     $address = $this->getRemoteAddress();
 
-    // Single IP
-    if (1 == count($limit) && $address == $limit[0])
+    // Check if empty
+    if (1 == count($this->limit) && empty($this->limit[0]))
     {
       return true;
     }
-    // Range
-    else if (2 == count($limit))
-    {
-      $address = ip2long($address);
 
-      if (ip2long($limit[0]) <= $address &&
-          ip2long($limit[1]) >= $address)
+    foreach ($this->limit as $item)
+    {
+      // Ranges are supported, using a comma or a dash
+      $limit = preg_split('/[,-]/', $item);
+
+      // Single IP
+      if (1 == count($limit) && $address == $limit[0])
       {
         return true;
+      }
+      // Range
+      else if (2 == count($limit))
+      {
+        $address = ip2long($address);
+
+        if (ip2long($limit[0]) <= $address &&
+            ip2long($limit[1]) >= $address)
+        {
+          return true;
+        }
       }
     }
 

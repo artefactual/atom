@@ -38,7 +38,7 @@ class SettingsSecurityForm extends sfForm
 
     // Add labels
     $this->widgetSchema->setLabels(array(
-      'limit_admin_ip' => __('Limit administrator functionality to a static IP address or range'),
+      'limit_admin_ip' => __('Limit administrator functionality to one ore more IP addresses, separated by semicolons.'),
       'require_ssl_admin' => __('Require SSL for all administrator functionality'),
       'require_strong_passwords' => __('Require strong passwords')
     ));
