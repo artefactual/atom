@@ -1,52 +1,57 @@
-<h1><?php echo __('Edit rights holder') ?></h1>
+<?php decorate_with('layout_1col.php') ?>
 
-<h1 class="label"><?php echo render_title($resource) ?></h1>
+<?php slot('title') ?>
+  <h1 class="multiline">
+    <?php echo __('Edit rights holder') ?>
+    <span class="sub"><?php echo render_title($resource) ?></span>
+  </h1>
+<?php end_slot() ?>
 
-<?php echo $form->renderGlobalErrors() ?>
+<?php slot('content') ?>
 
-<?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
-  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'rightsholder', 'action' => 'edit')), array('id' => 'editForm')) ?>
-<?php else: ?>
-  <?php echo $form->renderFormTag(url_for(array('module' => 'rightsholder', 'action' => 'add')), array('id' => 'editForm')) ?>
-<?php endif; ?>
+  <?php echo $form->renderGlobalErrors() ?>
 
-  <?php echo $form->renderHiddenFields() ?>
+  <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
+    <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'rightsholder', 'action' => 'edit')), array('id' => 'editForm')) ?>
+  <?php else: ?>
+    <?php echo $form->renderFormTag(url_for(array('module' => 'rightsholder', 'action' => 'add')), array('id' => 'editForm')) ?>
+  <?php endif; ?>
 
-  <fieldset class="collapsible" id="identityArea">
+    <?php echo $form->renderHiddenFields() ?>
 
-    <legend><?php echo __('Identity area') ?></legend>
+    <section id="content">
 
-    <?php echo render_field($form->authorizedFormOfName
-      ->label(__('Authorized form of name').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource) ?>
+      <fieldset class="collapsible" id="identityArea">
 
-  </fieldset>
+        <legend><?php echo __('Identity area') ?></legend>
 
-  <fieldset class="collapsible" id="contactArea">
+        <?php echo render_field($form->authorizedFormOfName
+          ->label(__('Authorized form of name').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource) ?>
 
-    <legend><?php echo __('Contact area') ?></legend>
+      </fieldset>
 
-    <?php echo get_partial('contactinformation/edit', $contactInformationEditComponent->getVarHolder()->getAll()) ?>
-    
-  </fieldset>
+      <fieldset class="collapsible" id="contactArea">
 
-  <div class="actions section">
+        <legend><?php echo __('Contact area') ?></legend>
 
-    <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+        <?php echo get_partial('contactinformation/edit', $contactInformationEditComponent->getVarHolder()->getAll()) ?>
 
-    <div class="content">
+      </fieldset>
+
+    </section>
+
+    <section class="actions">
       <ul class="clearfix links">
-
         <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
-          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'rightsholder'), array('title' => __('Cancel'))) ?></li>
-          <li><input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
+          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'rightsholder'), array('title' => __('Cancel'), 'class' => 'c-btn')) ?></li>
+          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
         <?php else: ?>
-          <li><?php echo link_to(__('Cancel'), array('module' => 'rightsholder', 'action' => 'list'), array('title' => __('Cancel'))) ?></li>
-          <li><input class="form-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
+          <li><?php echo link_to(__('Cancel'), array('module' => 'rightsholder', 'action' => 'list'), array('title' => __('Cancel'), 'class' => 'c-btn')) ?></li>
+          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Create') ?>"/></li>
         <?php endif; ?>
-
       </ul>
-    </div>
+    </section>
 
-  </div>
+  </form>
 
-</form>
+<?php end_slot() ?>

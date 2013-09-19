@@ -31,52 +31,26 @@ class RightsHolderListAction extends sfAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
+    $criteria = new Criteria;
+    $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
+
     if (isset($request->subquery))
     {
-      try
-      {
-        // Parse query string
-        $query = QubitSearch::getInstance()->parse($request->subquery);
-      }
-      catch (Exception $e)
-      {
-        $this->error = $e->getMessage();
-
-        return;
-      }
+      $criteria->addJoin(QubitRightsHolder::ID, QubitActorI18n::ID);
+      $criteria->add(QubitActorI18n::CULTURE, $this->context->user->getCulture());
+      $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, "%$request->subquery%", Criteria::LIKE);
     }
     else
     {
       $this->redirect(array('module' => 'rightsholder', 'action' => 'browse'));
     }
 
-    $query->addSubquery(QubitSearch::getInstance()->addTerm('QubitRightsHolder', 'className'), true);
-
-    $this->pager = new QubitArrayPager;
-
-    try
-    {
-      $this->pager->hits = QubitSearch::getInstance()->getEngine()->getIndex()->find($query);
-    }
-    catch (Exception $e)
-    {
-      $this->error = $e->getMessage();
-
-      return;
-    }
-
+    // Page results
+    $this->pager = new QubitPager('QubitRightsHolder');
+    $this->pager->setCriteria($criteria);
     $this->pager->setMaxPerPage($request->limit);
     $this->pager->setPage($request->page);
 
-    $ids = array();
-    foreach ($this->pager->getResults() as $hit)
-    {
-      $ids[] = $hit->getDocument()->id;
-    }
-
-    $criteria = new Criteria;
-    $criteria->add(QubitRightsHolder::ID, $ids, Criteria::IN);
-
-    $this->rightsHolders = QubitRightsHolder::get($criteria);
+    $this->rightsHolders = $this->pager->getResults();
   }
 }

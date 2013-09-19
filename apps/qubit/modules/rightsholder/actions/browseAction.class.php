@@ -31,6 +31,15 @@ class RightsHolderBrowseAction extends sfAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
+    if ($this->getUser()->isAuthenticated())
+    {
+      $this->sortSetting = sfConfig::get('app_sort_browser_user');
+    }
+    else
+    {
+      $this->sortSetting = sfConfig::get('app_sort_browser_anonymous');
+    }
+
     $criteria = new Criteria;
 
     // Do source culture fallback
@@ -59,11 +68,11 @@ class RightsHolderBrowseAction extends sfAction
         break;
 
       default:
-        if (!$this->getUser()->isAuthenticated())
+        if ('alphabetic' == $this->sortSetting)
         {
           $criteria->addAscendingOrderByColumn('authorized_form_of_name');
         }
-        else
+        else if ('lastUpdated' == $this->sortSetting)
         {
           $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
         }
