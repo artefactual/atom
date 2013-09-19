@@ -11,7 +11,7 @@
 
 <?php slot('before-content') ?>
   <?php echo $form->renderGlobalErrors() ?>
-  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'fileList')), array('class' => 'form-inline')) ?>
+  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'itemList')), array('class' => 'form-inline')) ?>
 <?php end_slot() ?>
 
 <fieldset class="single">
