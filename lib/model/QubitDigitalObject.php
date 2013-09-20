@@ -1283,7 +1283,7 @@ class QubitDigitalObject extends BaseDigitalObject
     }
 
     // Upload paths for this information object / digital object
-    $infoObjectPath = $this->getAssetPath();
+    $infoObjectPath = $this->getAssetPath($asset->getChecksum());
     $filePath       = sfConfig::get('sf_web_dir').$infoObjectPath.'/';
     $relativePath   = $infoObjectPath.'/';
     $filePathName   = $filePath.$cleanFileName;
@@ -1640,7 +1640,7 @@ class QubitDigitalObject extends BaseDigitalObject
    *
    * @return string  asset file path
    */
-  public function getAssetPath()
+  public function getAssetPath($checksum)
   {
     if (isset($this->informationObject))
     {
@@ -1670,7 +1670,7 @@ class QubitDigitalObject extends BaseDigitalObject
     }
 
 
-    return '/'.QubitSetting::getByName('upload_dir')->__toString().'/r/'.$repoDir.'/'.$id[0].'/'.$id[1].'/'.$id;
+    return '/'.QubitSetting::getByName('upload_dir')->__toString().'/r/'.$repoDir.'/'.$checksum[0].'/'.$checksum[1].'/'.$checksum;
   }
 
   /**
@@ -1852,7 +1852,7 @@ class QubitDigitalObject extends BaseDigitalObject
    *
    * @return QubitDigitalObject this object
    */
-  public function setPageCount()
+  public function setPageCount($connection = null)
   {
     if ($this->canThumbnail() && self::hasImageMagick())
     {
@@ -1989,10 +1989,13 @@ class QubitDigitalObject extends BaseDigitalObject
       $newDigiObject = new QubitDigitalObject;
       $newDigiObject->parentId = $this->id;
       $newDigiObject->setInformationObjectId($newInfoObject->id);
-      $newDigiObject->save($connnection);
+      $newDigiObject->save($connection);
 
       // Derive new file path based on newInfoObject
-      $assetPath = $newDigiObject->getAssetPath();
+      // Note: due to the limitations of this code, the compound
+      // objects' indvidiual page asset paths will be the same
+      // as their parent.
+      $assetPath = $newDigiObject->getAssetPath($this->checksum);
       $createPath = '';
       foreach (explode('/', $assetPath) as $d)
       {
@@ -2022,7 +2025,7 @@ class QubitDigitalObject extends BaseDigitalObject
       $newDigiObject->mediaTypeId = $this->mediaTypeId;
       $newDigiObject->setPageCount();
       $newDigiObject->setSequence($i + 1);
-      $newDigiObject->save($connnection);
+      $newDigiObject->save($connection);
 
       // And finally create reference and thumb images for child asssets
       $newDigiObject->createRepresentations($newDigiObject->getUsageId(), $connection);

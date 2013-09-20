@@ -40,42 +40,32 @@
         }
     }
 
-    function version_compare(v1, v2)
+    // See: https://gist.github.com/alexey-bass/1115557
+    function version_compare(left, right)
     {
-      splitVersion = function (v)
-        {
-          return ('' + v).split('.');
-        };
-
-      v1 = splitVersion(v1);
-      v2 = splitVersion(v2);
-
-      var compare = 0;
-
-      for (i = 0; i < Math.max(v1.length, v2.length); i++)
+      if (typeof left + typeof right != 'stringstring')
       {
-        if (v1[i] == v2[i])
+        return false;
+      }
+
+      var a = left.split('.');
+      var b = right.split('.');
+      var i = 0;
+      var len = Math.max(a.length, b.length);
+
+      for (; i < len; i++)
+      {
+        if ((a[i] && !b[i] && parseInt(a[i]) > 0) || (parseInt(a[i]) > parseInt(b[i])))
         {
-          continue;
+          return 1;
         }
-
-        v1[i] = parseInt(v1[i]);
-        v2[i] = parseInt(v2[i]);
-
-        if (v1[i] < v2[i])
+        else if ((b[i] && !a[i] && parseInt(b[i]) > 0) || (parseInt(a[i]) < parseInt(b[i])))
         {
-          compare = -1;
-
-          break;
-        }
-        else if(v1[i] > v2[i])
-        {
-          compare = 1;
-
-          break;
+          return -1;
         }
       }
 
-      return compare;
+      return 0;
     }
-  })(jQuery);
+  })
+(jQuery);
