@@ -55,8 +55,8 @@ class DefaultUpdateCheckComponent extends sfComponent
     // Version (including db version)
     $this->updateCheckData['version'] = qubitConfiguration::VERSION.' - '.sfConfig::get('app_version');
 
-    // Distribution (legacy: icaatom, dcb, qubit, now just atom)
-    $this->updateCheckData['distribution'] = 'atom';
+    // Distribution (legacy: icaatom, dcb, qubit or just atom)
+    $this->updateCheckData['distribution'] = 'icaatom';
 
     // Site description
     $this->updateCheckData['site_description'] = sfConfig::get('app_siteDescription');
