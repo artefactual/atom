@@ -86,7 +86,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     switch ($request->sort)
     {
       case 'mostRecent':
-        $this->query->setSort(array('updatedAt' => 'asc'));
+        $this->query->setSort(array('updatedAt' => 'desc'));
 
         break;
 
