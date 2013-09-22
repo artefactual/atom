@@ -74,39 +74,24 @@ class ActorBrowseAction extends DefaultBrowseAction
 
     $this->query = QubitAclSearch::filterByResource($this->query, QubitActor::getById(QubitActor::ROOT_ID));
 
-    $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->context->user->getCulture());
-
+    // Sort
     switch ($request->sort)
     {
-      case 'nameDown':
-        $this->query->setSort(array($field => 'desc', '_score' => 'desc'));
+      // I don't think that this is going to scale, but let's leave it for now
+      case 'alphabetic':
+        $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->context->user->getCulture());
+        $this->query->setSort(array($field => 'asc'));
 
         break;
 
-      case 'nameUp':
-        $this->query->setSort(array($field => 'asc', '_score' => 'desc'));
+      case 'relevancy':
+        $this->query->setSort(array('_score' => 'asc'));
 
-      break;
+       break;
 
-      case 'updatedDown':
-        $this->query->setSort(array('updatedAt' => 'desc', '_score' => 'desc'));
-
-        break;
-
-      case 'updatedUp':
-        $this->query->setSort(array('updatedAt' => 'asc', '_score' => 'desc'));
-
-        break;
-
+      case 'mostRecent':
       default:
-        if ('alphabetic' == $this->sortSetting)
-        {
-          $this->query->setSort(array($field => 'asc', '_score' => 'desc'));
-        }
-        else if ('lastUpdated' == $this->sortSetting)
-        {
-          $this->query->setSort(array('updatedAt' => 'desc', '_score' => 'desc'));
-        }
+        $this->query->setSort(array('updatedAt' => 'desc'));
     }
 
     $this->query->setQuery($this->queryBool);
