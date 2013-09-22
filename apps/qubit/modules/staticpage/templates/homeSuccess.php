@@ -7,14 +7,23 @@
 <?php slot('sidebar') ?>
 
   <section>
-    <h3><?php echo __('Browse by') ?></h3>
-    <ul>
-      <li><?php echo link_to(__('Archival descriptions'), array('module' => 'informationobject', 'action' => 'browse')) ?></li>
-      <li><?php echo link_to(__('Institutions'), array('module' => 'repository', 'action' => 'browse')) ?></li>
-      <li><?php echo link_to(__('Subjects'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 35)) ?></li>
-      <li><?php echo link_to(__('People &amp; Organizations'), array('module' => 'actor', 'action' => 'browse')) ?></li>
-      <li><?php echo link_to(__('Places'), array('module' => 'taxonomy', 'action' => 'browse', 'id' => 42)) ?></li>
-    </ul>
+    <?php $cacheKey = 'homepage-nav-'.$sf_user->getCulture() ?>
+    <?php if (!cache($cacheKey)): ?>
+      <h3><?php echo __('Browse by') ?></h3>
+      <ul>
+        <?php $browseMenu = QubitMenu::getById(QubitMenu::BROWSE_ID) ?>
+        <?php if ($browseMenu->hasChildren()): ?>
+          <?php foreach ($browseMenu->getChildren() as $item): ?>
+            <li>
+              <a href="<?php echo url_for($item->getPath(array('getUrl' => true, 'resolveAlias' => true))) ?>">
+                <?php echo $item->getLabel(array('cultureFallback' => true)) ?>
+              </a>
+            </li>
+          <?php endforeach; ?>
+        <?php endif; ?>
+      </ul>
+      <?php cache_save($cacheKey) ?>
+    <?php endif; ?>
   </section>
 
   <?php echo get_component('default', 'popular', array('limit' => 10, 'sf_cache_key' => $sf_user->getCulture())) ?>
