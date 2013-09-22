@@ -184,11 +184,6 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     // Sort
     switch ($request->sort)
     {
-      case 'mostRecent':
-        $this->query->setSort(array('updatedAt' => 'asc'));
-
-        break;
-
       // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
         $field = sprintf('i18n.%s.title.untouched', $this->context->user->getCulture());
@@ -197,8 +192,13 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         break;
 
       case 'relevancy':
-      default:
         $this->query->setSort(array('_score' => 'asc'));
+
+       break;
+
+      case 'mostRecent':
+      default:
+        $this->query->setSort(array('updatedAt' => 'desc'));
     }
 
     $this->query->setQuery($this->queryBool);
