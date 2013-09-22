@@ -111,12 +111,16 @@ class arElasticSearchInformationObjectPdo
     {
       $sql = 'SELECT
          io.*,
+         obj.created_at,
+         obj.updated_at,
          slug.slug,
          pubstat.status_id as publication_status_id,
          do.id as digital_object_id,
          do.media_type_id as media_type_id,
          do.name as filename
        FROM '.QubitInformationObject::TABLE_NAME.' io
+       JOIN '.QubitObject::TABLE_NAME.' obj
+         ON io.id = obj.id
        JOIN '.QubitSlug::TABLE_NAME.' slug
          ON io.id = slug.object_id
        JOIN '.QubitStatus::TABLE_NAME.' pubstat
@@ -896,8 +900,8 @@ class arElasticSearchInformationObjectPdo
       $serialized['creators'][] = $node->serialize();
     }
 
-    $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->createdAt);
-    $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($this->updatedAt);
+    $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);
+    $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($this->updated_at);
 
     $serialized['sourceCulture'] = $this->source_culture;
     $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($this->id, array('QubitInformationObject'));
