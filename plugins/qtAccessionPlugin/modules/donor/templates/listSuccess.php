@@ -1,16 +1,23 @@
-<h1><?php echo __('List donor') ?></h1>
+<?php decorate_with('layout_1col') ?>
 
-<?php if (isset($error)): ?>
+<?php slot('title') ?>
+  <h1><?php echo __('List donor') ?></h1>
+<?php end_slot() ?>
 
-  <div class="search-results">
-    <ul>
-      <li><?php echo $error ?></li>
-    </ul>
+<?php slot('before-content') ?>
+  <div class="nav">
+    <div class="search">
+      <form action="<?php echo url_for(array('module' => 'donor', 'action' => 'list')) ?>">
+        <input name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>"/>
+        <input class="form-submit" type="submit" value="<?php echo __('Search donor') ?>"/>
+      </form>
+    </div>
   </div>
+<?php end_slot() ?>
 
-<?php else: ?>
+<?php slot('content') ?>
 
-  <table class="sticky-enabled">
+  <table class="table sticky-enabled">
     <thead>
       <tr>
         <th>
@@ -28,13 +35,8 @@
     </tbody>
   </table>
 
+<?php end_slot() ?>
+
+<?php slot('after-content') ?>
   <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
-
-<?php endif; ?>
-
-<div class="search">
-  <form action="<?php echo url_for(array('module' => 'donor', 'action' => 'list')) ?>">
-    <input name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>"/>
-    <input class="form-submit" type="submit" value="<?php echo __('Search donor') ?>"/>
-  </form>
-</div>
+<?php end_slot() ?>
