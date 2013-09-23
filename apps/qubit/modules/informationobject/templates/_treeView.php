@@ -6,7 +6,7 @@
   </li>
   <li>
     <a href="#treeview-search" data-toggle="#treeview-search">
-      <?php echo __('Search') ?>
+      <?php echo __('Quick search') ?>
     </a>
   </li>
 </ul>
@@ -102,7 +102,7 @@
 
   <form method="get" action="<?php echo url_for(array('module' => 'search', 'action' => 'index', 'collection' => $resource->getCollectionRoot()->id)) ?>" data-not-found="<?php echo __('No results found.') ?>">
     <div class="search-box">
-      <input type="text" name="query" placeholder="<?php echo __('Search within the entire collection') ?>" />
+      <input type="text" name="query" placeholder="<?php echo __('Search titles and identifiers') ?>" />
       <button type="submit"><i class="icon-search"></i></button>
     </div>
   </form>
