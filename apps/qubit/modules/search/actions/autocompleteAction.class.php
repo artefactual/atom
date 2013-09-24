@@ -111,8 +111,11 @@ class SearchAutocompleteAction extends sfAction
         // Filter drafts
         QubitAclSearch::filterDrafts($filter);
 
-        // Set filter
-        $query->setFilter($filter);
+        // Set filter when needed
+        if (0 < count($filter->toArray()))
+        {
+          $query->setFilter($filter);
+        }
       }
 
       $mSearch->addSearch($search);
