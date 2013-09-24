@@ -7,23 +7,19 @@
 <?php slot('sidebar') ?>
 
   <section>
-    <?php $cacheKey = 'homepage-nav-'.$sf_user->getCulture() ?>
-    <?php if (!cache($cacheKey)): ?>
-      <h3><?php echo __('Browse by') ?></h3>
-      <ul>
-        <?php $browseMenu = QubitMenu::getById(QubitMenu::BROWSE_ID) ?>
-        <?php if ($browseMenu->hasChildren()): ?>
-          <?php foreach ($browseMenu->getChildren() as $item): ?>
-            <li>
-              <a href="<?php echo url_for($item->getPath(array('getUrl' => true, 'resolveAlias' => true))) ?>">
-                <?php echo $item->getLabel(array('cultureFallback' => true)) ?>
-              </a>
-            </li>
-          <?php endforeach; ?>
-        <?php endif; ?>
-      </ul>
-      <?php cache_save($cacheKey) ?>
-    <?php endif; ?>
+    <h3><?php echo __('Browse by') ?></h3>
+    <ul>
+      <?php $browseMenu = QubitMenu::getById(QubitMenu::BROWSE_ID) ?>
+      <?php if ($browseMenu->hasChildren()): ?>
+        <?php foreach ($browseMenu->getChildren() as $item): ?>
+          <li>
+            <a href="<?php echo url_for($item->getPath(array('getUrl' => true, 'resolveAlias' => true))) ?>">
+              <?php echo $item->getLabel(array('cultureFallback' => true)) ?>
+            </a>
+          </li>
+        <?php endforeach; ?>
+      <?php endif; ?>
+    </ul>
   </section>
 
   <?php echo get_component('default', 'popular', array('limit' => 10, 'sf_cache_key' => $sf_user->getCulture())) ?>
