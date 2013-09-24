@@ -214,7 +214,7 @@ class SearchIndexAction extends DefaultBrowseAction
       }
 
       $url = url_for(array('module' => 'informationobject', 'action' => 'browse', 'collection' =>  $request->collection, 'query' => $request->query));
-      $link = $this->context->i18n->__('Browse %1% holdings', array('%1%' => $resultSet->getTotalHits()));
+      $link = $this->context->i18n->__('Browse all descriptions');
       $response['more'] = <<<EOF
 <div class="more">
   <a href="$url">
