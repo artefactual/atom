@@ -603,8 +603,8 @@
               for (var i in data.results)
               {
                 var item = data.results[i];
-                var link = '<li><a href="' + item.url + '">' + item.title + '</a></li>';
-                $list.append('<li></li>').children(':last-child').append(link);
+                var link = '<a href="' + item.url + '">' + item.title + '</a>';
+                $list.append('<li data-title="' + item.level + '" data-content="' + item.identifier + item.title + '"></li>').children(':last-child').append(link);
               }
 
               // Show more
@@ -614,6 +614,27 @@
               }
 
               this.$search.find('.list-menu').addClass('open');
+
+              // Show popover on mouse enter
+              this.$search.on('mouseenter', 'li', function(e) {
+
+                var $li = 'LI' === e.target.tagName ? $(e.target) : $(e.target).closest('li');
+
+                // Pass function so the placement is computed every time
+                $li.popover({ placement: function(popover, element) {
+                    return ($(window).innerWidth() - $(element).offset().left < 550) ? 'left' : 'right';
+                  }});
+
+                $li.popover('show');
+              });
+
+              // Hide popover on mouse leave
+              this.$search.on('mouseleave', 'li', function(e) {
+
+                var $li = 'LI' === e.target.tagName ? $(e.target) : $(e.target).closest('li');
+
+                $li.popover('hide');
+              });
             })
 
           .always(function (data)

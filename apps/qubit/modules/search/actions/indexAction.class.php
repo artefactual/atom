@@ -202,18 +202,20 @@ class SearchIndexAction extends DefaultBrowseAction
       foreach ($resultSet->getResults() as $item)
       {
         $data = $item->getData();
+        $levelOfDescription = QubitTerm::getById($data['levelOfDescriptionId']);
+
         $result = array(
           'url' => url_for(array('module' => 'informationobject', 'slug' => $data['slug'])),
-          'title' => $data['i18n'][$this->context->user->getCulture()]['title']);
+          'title' => $data['i18n'][$this->context->user->getCulture()]['title'],
+          'identifier' => isset($data['identifier']) && !empty($data['identifier']) ? $data['identifier'].' - ' : '',
+          'level' => null !== $levelOfDescription ? $levelOfDescription->getName() : '');
 
         $response['results'][] = $result;
       }
 
-      if ($resultSet->getTotalHits() > $resultSet->count())
-      {
-        $url = url_for(array('module' => 'informationobject', 'action' => 'browse', 'collection' =>  $request->collection));
-        $link = $this->context->i18n->__('Browse %1% holdings', array('%1%' => $resultSet->getTotalHits()));
-        $response['more'] = <<<EOF
+      $url = url_for(array('module' => 'informationobject', 'action' => 'browse', 'collection' =>  $request->collection, 'query' => $request->query));
+      $link = $this->context->i18n->__('Browse %1% holdings', array('%1%' => $resultSet->getTotalHits()));
+      $response['more'] = <<<EOF
 <div class="more">
   <a href="$url">
     <i class="icon-search"></i>
@@ -221,7 +223,6 @@ class SearchIndexAction extends DefaultBrowseAction
   </a>
 </div>
 EOF;
-      }
 
       $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
 
