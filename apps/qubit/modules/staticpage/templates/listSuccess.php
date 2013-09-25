@@ -1,6 +1,6 @@
 <h1><?php echo __('List pages') ?></h1>
 
-<table class="table sticky-enabled">
+<table class="table sticky-enabled table-bordered">
   <thead>
     <tr>
       <th>
