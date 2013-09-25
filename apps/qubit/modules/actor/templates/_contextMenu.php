@@ -1,4 +1,4 @@
-<div id="list-menu-wrapper">
+<div class="sidebar-lowering">
 
   <?php if (isset($subjectInfoObjects)): ?>
 
