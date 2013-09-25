@@ -178,6 +178,9 @@ class SearchAdvancedAction extends DefaultBrowseAction
         $criteria->add(QubitTermI18n::NAME, 'Unknown');
         $term = QubitTerm::getOne($criteria);
 
+        // If the user selected "Unknown copyright" make sure that we are
+        // matching documents that either (1) copyright status is unknown or
+        // (2) copyright status is not set.
         if (isset($term) && $term->id == $value)
         {
           // Filtered query for documents without copyright status
