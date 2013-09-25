@@ -1,8 +1,8 @@
-<div class="treeview-header">
-  <p><?php echo render_title($resource->taxonomy) ?></p>
-</div>
-
 <div id="treeview" class="treeview-term" data-current-id="<?php echo $resource->id ?>" data-browser="<?php echo $browser ? 'true' : 'false' ?>">
+
+  <div class="treeview-header">
+    <p><?php echo render_title($resource->taxonomy) ?></p>
+  </div>
 
   <ul class="unstyled">
 

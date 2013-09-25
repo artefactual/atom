@@ -22,6 +22,14 @@
 @treeviewAncestorNodeBg: darken(@grayLighter, 5%);
 @treeviewPlaceholderBg: #f0f0f0;
 
+#treeview {
+  max-height: 480px;
+  margin-bottom: 10px;
+  overflow: auto;
+  overflow-x: hidden;
+  background-color: #eee;
+}
+
 /* Treeview header */
 
 .treeview-header p {
@@ -35,14 +43,6 @@
   position: relative;
   background-color: @grayLight;
   color: @white;
-}
-
-#treeview {
-  max-height: 480px;
-  margin-bottom: 10px;
-  overflow: auto;
-  overflow-x: hidden;
-  background-color: #eee;
 }
 
 /* List elements */
