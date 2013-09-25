@@ -2,7 +2,7 @@
 
 <?php slot('sidebar') ?>
 
-  <div class="list-menu">
+  <div class="list-menu sidebar-lowering">
     <ul class="nav nav-list nav-stacked">
       <li><a href="#globalArea"><?php echo __('Global') ?></a></li>
       <li><a href="#siteInformationArea"><?php echo __('Site information') ?></a></li>
