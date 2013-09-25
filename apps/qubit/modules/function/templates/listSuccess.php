@@ -18,7 +18,7 @@
 
 <?php slot('content') ?>
 
-  <table class="table sticky-enabled">
+  <table class="table table-bordered sticky-enabled">
     <thead>
       <tr>
         <th>
