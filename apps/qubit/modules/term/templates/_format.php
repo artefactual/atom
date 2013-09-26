@@ -1,9 +1,9 @@
 <?php if (in_array('sfSkosPlugin', $sf_context->getConfiguration()->getPlugins())): ?>
 
   <?php if (QubitAcl::check($resource, 'create')): ?>
-    <div class="section">
+    <div class="list-menu">
 
-      <h2><?php echo __('Import') ?></h2>
+      <h4><?php echo __('Import') ?></h4>
 
       <div class="content">
         <ul class="clearfix">
@@ -14,9 +14,9 @@
     </div>
   <?php endif; ?>
 
-  <div class="section">
+  <div class="list-menu">
 
-    <h2><?php echo __('Export') ?></h2>
+    <h4><?php echo __('Export') ?></h4>
 
     <div class="content">
       <ul class="clearfix">
