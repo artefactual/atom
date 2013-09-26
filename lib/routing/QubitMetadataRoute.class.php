@@ -111,6 +111,11 @@ class QubitMetadataRoute extends sfRoute
 
           break;
 
+        case $this->resource instanceof QubitRights:
+          $parameters['module'] = 'right';
+
+          break;
+
         case $this->resource instanceof QubitRightsHolder:
           $parameters['module'] = 'rightsholder';
 
