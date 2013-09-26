@@ -370,7 +370,9 @@
           ->label(__('Script'))
           ->renderRow(array('class' => 'form-autocomplete')) ?>
 
-        <?php echo render_field($form->sources, $resource, array('class' => 'resizable')) ?>
+        <?php echo render_field($form->sources
+          ->help(__('Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).'))
+          ->label(__('Sources')), $resource, array('class' => 'resizable')) ?>
 
       </fieldset> <!-- #descriptionControlArea -->
 
