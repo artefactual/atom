@@ -50,7 +50,7 @@ class QubitAccession extends BaseAccession
 
   public function delete($connection = null)
   {
-    QubitSearch::delete($this);
+    QubitSearch::getInstance()->delete($this);
 
     return parent::delete($connection);
   }

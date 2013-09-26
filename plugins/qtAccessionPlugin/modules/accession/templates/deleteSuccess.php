@@ -6,7 +6,7 @@
 
 <?php slot('content') ?>
 
-  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'donor', 'action' => 'delete')), array('method' => 'delete')) ?>
+  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'accession', 'action' => 'delete')), array('method' => 'delete')) ?>
 
     <div id="content">
 
@@ -36,7 +36,7 @@
 
     <section class="actions">
       <ul>
-        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'donor'), array('class' => 'c-btn')) ?></li>
+        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'accession'), array('class' => 'c-btn')) ?></li>
         <li><input class="c-btn c-btn-delete" type="submit" value="<?php echo __('Delete') ?>"/></li>
       </ul>
     </section>
