@@ -33,10 +33,10 @@ edit:
     action: edit
 
 copy:
-  url: /:slug/copy
+  url: /:module/copy
   class: QubitMetadataRoute
   param:
-    action: copy
+    action: edit
 
 add:
   url: /:module/add
