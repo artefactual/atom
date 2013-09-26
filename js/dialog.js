@@ -347,7 +347,7 @@
                   dataSource.responseType = YAHOO.util.DataSourceBase.TYPE_TEXT;
                   dataSource.parseTextData = function (request, response)
                     {
-                      return { 'results' : [ $(response).filter('.label').text().trim() ] };
+                      return { 'results' : [ $(response).find('.label, #main-column h1').text().trim() ] };
                     };
 
                   // Set visible input field of yui-autocomplete

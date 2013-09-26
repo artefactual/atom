@@ -106,6 +106,11 @@ class QubitMetadataRoute extends sfRoute
 
           break;
 
+        case $this->resource instanceof QubitRelation:
+          $parameters['module'] = 'relation';
+
+          break;
+
         case $this->resource instanceof QubitDonor:
           $parameters['module'] = 'donor';
 
