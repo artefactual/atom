@@ -24,7 +24,7 @@
       <?php endforeach; ?>
 
       <?php if (isset($parent->parent)): ?>
-        <li><?php echo render_title($parent) ?></li>
+        <li class="active"><span><?php echo render_title($parent) ?></span></li>
       <?php endif; ?>
     </ul>
   </section>
