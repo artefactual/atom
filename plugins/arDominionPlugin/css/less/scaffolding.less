@@ -70,6 +70,13 @@ a:hover {
   }
 }
 
+// Open Sans is not happy forcing bold
+// Maybe use font-weight 300, 400, 700, 800...?
+
+th {
+  font-weight: normal;
+}
+
 // Breadcrumbs
 
 .breadcrumb {
@@ -632,7 +639,8 @@ a:hover {
 
 }
 
-// Sidebar widget (like .list-menu) (used in uploadLimit)
+// Sidebar widget (used in uploadLimit)
+// It's similar to .list-menu, we should merge them?
 
 .sidebar-widget {
 
@@ -643,6 +651,10 @@ a:hover {
 
   div {
     padding: 10px;
+  }
+
+  input[type=radio], input[type=checkbox] {
+    margin-top: 3px;
   }
 
 }
