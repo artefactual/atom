@@ -96,26 +96,58 @@ class DefaultMoveAction extends sfAction
     }
 
     $this->parent = QubitObject::getBySlug($this->form->parent->getValue());
-    $query = QubitSearch::getInstance()->addTerm($this->parent->slug, 'parent');
+
+    $this->query = new \Elastica\Query();
+    $this->query->setLimit($request->limit);
+
+    if (!empty($request->page))
+    {
+      $this->query->setFrom(($request->page - 1) * $request->limit);
+    }
+
+    $this->queryBool = new \Elastica\Query\Bool();
 
     if (isset($request->query))
     {
-      $query = $request->query;
+      $query = new \Elastica\Query\QueryString($request->query);
+      $query->setDefaultOperator('AND');
+      $this->queryBool->addMust($query);
+    }
+    else
+    {
+      $query = new \Elastica\Query\Term;
+      $query->setTerm('parentId', $this->parent->id);
+      $this->queryBool->addMust($query);
     }
 
-    $this->pager = new QubitArrayPager;
-    $this->pager->hits = QubitSearch::getInstance()->getEngine()->getIndex()->find($query);
-    $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
+    $this->query->setQuery($this->queryBool);
 
-    $ids = array();
+    if ($this->resource instanceof QubitInformationObject)
+    {
+      $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
+    }
+    else if ($this->resource instanceof QubitTerm)
+    {
+      // TODO: Add parent_id for terms in ES, add move button
+      $resultSet = QubitSearch::getInstance()->index->getType('QubitTerm')->search($this->query);
+    }
+
+    // Page results
+    $this->pager = new QubitSearchPager($resultSet);
+    $this->pager->setPage($request->page ? $request->page : 1);
+    $this->pager->setMaxPerPage($request->limit);
+    $this->pager->init();
+
+    $slugs = array();
     foreach ($this->pager->getResults() as $hit)
     {
-      $ids[] = $hit->getDocument()->id;
+      $data = $hit->getData();
+      $slugs[] = $data['slug'];
     }
 
     $criteria = new Criteria;
-    $criteria->add(QubitObject::ID, $ids, Criteria::IN);
+    $criteria->addJoin(QubitObject::ID, QubitSlug::OBJECT_ID);
+    $criteria->add(QubitSlug::SLUG, $slugs, Criteria::IN);
 
     $this->results = QubitObject::get($criteria);
   }
