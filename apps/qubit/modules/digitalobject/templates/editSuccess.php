@@ -1,87 +1,91 @@
-<h1><?php echo __('Edit digital object') ?></h1>
+<?php decorate_with('layout_1col.php') ?>
 
-<h1 class="label"><?php echo render_title(QubitInformationObject::getStandardsBasedInstance($informationObject)) ?></h1>
+<?php slot('title') ?>
+  <h1 class="multiline">
+    <?php echo __('Edit digital object') ?>
+    <span class="sub"><?php echo render_title(QubitInformationObject::getStandardsBasedInstance($informationObject)) ?></span>
+  </h1>
+<?php end_slot() ?>
 
-<?php echo $form->renderGlobalErrors() ?>
+<?php slot('content') ?>
 
-<?php if (isset($resource)): ?>
-  <div class="form-item">
-    <?php echo get_component('digitalobject', 'show', array('resource' => $resource, 'usageType' => QubitTerm::REFERENCE_ID)) ?>
-  </div>
-<?php endif; ?>
+  <?php echo $form->renderGlobalErrors() ?>
 
-<?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'digitalobject', 'action' => 'edit'))) ?>
+  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'digitalobject', 'action' => 'edit'))) ?>
 
-  <?php echo $form->renderHiddenFields() ?>
+    <?php echo $form->renderHiddenFields() ?>
 
-  <fieldset class="collapsible">
+    <section id="content">
 
-    <legend><?php echo __('Master') ?></legend>
+      <?php if (isset($resource)): ?>
+        <div class="form-item">
+          <?php echo get_component('digitalobject', 'show', array('resource' => $resource, 'usageType' => QubitTerm::REFERENCE_ID)) ?>
+        </div>
+      <?php endif; ?>
 
-    <?php echo render_show(__('Filename'), $resource->name) ?>
+      <fieldset class="collapsible">
 
-    <?php echo render_show(__('Filesize'), hr_filesize($resource->byteSize)) ?>
+        <legend><?php echo __('Master') ?></legend>
 
-    <?php echo $form->mediaType->renderRow() ?>
+        <?php echo render_show(__('Filename'), $resource->name) ?>
 
-    <?php if ($showCompoundObjectToggle): ?>
-      <?php echo $form->displayAsCompound
-        ->label(__('View children as a compound digital object?'))
-        ->renderRow() ?>
-    <?php endif; ?>
+        <?php echo render_show(__('Filesize'), hr_filesize($resource->byteSize)) ?>
 
-    <?php echo get_partial('right/edit', $rightEditComponent->getVarHolder()->getAll()) ?>
+        <?php echo $form->mediaType->renderRow() ?>
 
-  </fieldset>
-
-  <?php foreach ($representations as $usageId => $representation): ?>
-
-    <fieldset class="collapsible">
-
-      <legend><?php echo __('%1% representation', array('%1%' => QubitTerm::getById($usageId))) ?></legend>
-
-      <?php if (isset($representation)): ?>
-
-        <?php echo get_component('digitalobject', 'editRepresentation', array('resource' => $resource, 'representation' => $representation)) ?>
-
-        <?php $rightComponent = "rightEditComponent_$usageId" ?>
-        <?php echo get_partial('right/edit', $$rightComponent->getVarHolder()->getAll() + array('tableId' => $usageId)) ?>
-
-      <?php else: ?>
-
-        <?php echo $form["repFile_$usageId"]
-          ->label(__('Select a digital object to upload'))
-          ->renderRow() ?>
-
-        <?php if ($resource->canThumbnail()): ?>
-          <?php echo $form["generateDerivative_$usageId"]
-            ->label('Or auto-generate a new representation from master image')
+        <?php if ($showCompoundObjectToggle): ?>
+          <?php echo $form->displayAsCompound
+            ->label(__('View children as a compound digital object?'))
             ->renderRow() ?>
         <?php endif; ?>
 
-      <?php endif; ?>
+        <?php echo get_partial('right/edit', $rightEditComponent->getVarHolder()->getAll()) ?>
 
-    </fieldset>
+      </fieldset>
 
-  <?php endforeach; ?>
+      <?php foreach ($representations as $usageId => $representation): ?>
 
-  <div class="actions section">
+        <fieldset class="collapsible">
 
-    <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+          <legend><?php echo __('%1% representation', array('%1%' => QubitTerm::getById($usageId))) ?></legend>
 
-    <div class="content">
-      <ul class="clearfix links">
+          <?php if (isset($representation)): ?>
 
+            <?php echo get_component('digitalobject', 'editRepresentation', array('resource' => $resource, 'representation' => $representation)) ?>
+
+            <?php $rightComponent = "rightEditComponent_$usageId" ?>
+            <?php echo get_partial('right/edit', $$rightComponent->getVarHolder()->getAll() + array('tableId' => $usageId)) ?>
+
+          <?php else: ?>
+
+            <?php echo $form["repFile_$usageId"]
+              ->label(__('Select a digital object to upload'))
+              ->renderRow() ?>
+
+            <?php if ($resource->canThumbnail()): ?>
+              <?php echo $form["generateDerivative_$usageId"]
+                ->label('Or auto-generate a new representation from master image')
+                ->renderRow() ?>
+            <?php endif; ?>
+
+          <?php endif; ?>
+
+        </fieldset>
+
+      <?php endforeach; ?>
+
+    </section>
+
+    <section class="actions">
+      <ul>
         <?php if (isset($sf_request->getAttribute('sf_route')->resource)): ?>
-          <li><?php echo link_to(__('Delete'), array($resource, 'module' => 'digitalobject', 'action' => 'delete'), array('class' => 'delete')) ?></li>
+          <li><?php echo link_to(__('Delete'), array($resource, 'module' => 'digitalobject', 'action' => 'delete'), array('class' => 'c-btn c-btn-delete')) ?></li>
         <?php endif; ?>
-
-        <li><?php echo link_to(__('Cancel'), array($informationObject, 'module' => 'informationobject')) ?></li>
-        <li><input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
-
+        <li><?php echo link_to(__('Cancel'), array($informationObject, 'module' => 'informationobject'), array('class' => 'c-btn')) ?></li>
+        <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
       </ul>
-    </div>
+    </section>
 
-  </div>
+  </form>
 
-</form>
+<?php end_slot() ?>
