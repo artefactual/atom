@@ -10,7 +10,7 @@
               {
                 var $this = $(this);
                 var $description = $('.description', this);
-                var $sidebar = $('#left-column');
+                var $sidebar = $('#sidebar');
                 var $content = $('#content');
 
                 // Specific case for tooltips in YUI dialogs
@@ -47,7 +47,7 @@
                 // don't work */);
                 if (undefined === $sidebar.offset())
                 {
-                  $description.addClass('description-left');
+                  $description.addClass('description-bottom');
                 }
                 else if (0 == $sidebar.height() || ($this.offset().top <= $sidebar.offset().top + $sidebar.height()))
                 {
@@ -75,6 +75,7 @@
                 $('.description', this)
                   .removeClass('description-left')
                   .removeClass('description-right')
+                  .removeClass('description-bottom')
                   .hide();
 
                 $('div.yui-panel > .description-dialog').remove();
