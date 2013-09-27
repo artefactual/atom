@@ -3,6 +3,7 @@
 <?php $sf_response->addJavaScript('/vendor/yui/container/container-min') ?>
 <?php $sf_response->addJavaScript('/vendor/yui/autocomplete/autocomplete-min') ?>
 <?php $sf_response->addJavaScript('autocomplete') ?>
+<?php $sf_response->addJavaScript('date') ?>
 <?php $sf_response->addJavaScript('dialog') ?>
 <?php $sf_response->addJavaScript('multiDelete') ?>
 

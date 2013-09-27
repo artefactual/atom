@@ -139,7 +139,10 @@
         this.yuiDialog.showEvent.unsubscribeAll();
         this.yuiDialog.showEvent.subscribe(function ()
           {
-            Drupal.behaviors.date.attach(thisDialog.table.parentNode);
+            if (undefined !== Drupal.behaviors.date)
+            {
+              Drupal.behaviors.date.attach(thisDialog.table.parentNode);
+            }
 
             if (undefined !== thisDialog.options.showEvent)
             {
