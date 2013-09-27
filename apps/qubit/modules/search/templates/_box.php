@@ -26,7 +26,7 @@
         <?php if (isset($repository)): ?>
           <div>
             <label>
-              <input name="realm" checked="checked" type="radio" value="<?php echo $repository->id ?>"/>
+              <input name="realm" checked="checked" type="radio" value="<?php echo $repository->id ?>" data-placeholder="<?php echo __('Search %1%', array('%1%' => render_title($repository))) ?>"/>
               <?php echo __('Search <span>%1%</span>', array('%1%' => render_title($repository))) ?>
             </label>
           </div>
@@ -35,7 +35,7 @@
         <?php if (isset($altRepository)): ?>
           <div>
             <label>
-              <input name="realm" type="radio" value="<?php echo $altRepository->id ?>"/>
+              <input name="realm" type="radio" value="<?php echo $altRepository->id ?>" data-placeholder="<?php echo __('Search %1%', array('%1%' => render_title($altRepository))) ?>"/>
               <?php echo __('Search <span>%1%</span>', array('%1%' => render_title($altRepository))) ?>
             </label>
           </div>

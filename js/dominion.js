@@ -446,8 +446,19 @@
           {
             self.hide();
             self.hideRealm();
-            self.$element.val('');
+
+            // Remove value when it's not a placeholder added before
+            if (Modernizr.input.placeholder)
+            {
+              self.$element.val('');
+            }
           }, 150);
+
+        // Add placeholder as value in browsers without support
+        if (!Modernizr.input.placeholder)
+        {
+          self.$element.val(self.$element.attr('placeholder'));
+        }
 
         this.$form.removeClass('active');
       },
@@ -495,6 +506,26 @@
           e.preventDefault();
           $this.autocomplete();
         });
+    });
+
+  // Add placeholder as value in search box for browsers without support
+  $(document).ready(function()
+    {
+      if (!Modernizr.input.placeholder)
+      {
+        $('#search-form-wrapper input[name="query"]').each(function()
+          {
+            var $this = $(this);
+
+            // Ignore if it's already focus
+            if ($this.is(':focus'))
+            {
+              return;
+            }
+
+            $this.val($this.attr('placeholder'));
+          });
+      }
     });
 
   /****
