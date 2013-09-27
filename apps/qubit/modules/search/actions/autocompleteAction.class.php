@@ -83,13 +83,13 @@ class SearchAutocompleteAction extends sfAction
                   'number_of_fragments' => 0, // Request the entire field
               ))));
 
-      $queryTerm = new \Elastica\Query\Term;
-      $queryTerm->setTerm($item['field'].'.autocomplete', $this->queryString);
+      $queryText = new \Elastica\Query\Text();
+      $queryText->setFieldQuery($item['field'].'.autocomplete', $this->queryString);
 
       if (isset($request->realm) && ctype_digit($request->realm) && 'QubitInformationObject' == $item['type'])
       {
         $queryBool = new \Elastica\Query\Bool;
-        $queryBool->addMust($queryTerm);
+        $queryBool->addMust($queryText);
         $queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $request->realm)));
         $query->setQuery($queryBool);
 
@@ -98,7 +98,7 @@ class SearchAutocompleteAction extends sfAction
       }
       else
       {
-        $query->setQuery($queryTerm);
+        $query->setQuery($queryText);
       }
 
       $search->setQuery($query);
