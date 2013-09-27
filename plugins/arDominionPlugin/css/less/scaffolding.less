@@ -1318,6 +1318,35 @@ body.login #content {
 
 }
 
+// Update check
+
+#update-check {
+  background-color: #ff8800;
+  color: @black;
+  border-bottom: 1px solid @gray;
+  text-align: center;
+  span {
+    display: block;
+    padding: 4px;
+  }
+  a,
+  a:hover,
+  a:focus,
+  a:active {
+    color: @white;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+@media (max-width: 767px) {
+  #update-check {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}
+
 // Plugin manager (sfPluginAdminPlugin/plugins)
 
 .plugin-name {

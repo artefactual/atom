@@ -1,8 +1,9 @@
 <?php echo get_component_slot('header') ?>
 
+<?php echo get_component('default', 'updateCheck') ?>
+
 <?php if ($sf_user->isAuthenticated()): ?>
   <div id="top-bar">
-    <?php echo get_component('default', 'updateCheck') ?>
     <nav>
       <?php echo get_component('menu', 'userMenu') ?>
       <?php // echo get_component('menu', 'quickLinksMenu') ?>

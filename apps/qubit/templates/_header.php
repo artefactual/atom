@@ -1,3 +1,5 @@
+<?php echo get_component('default', 'updateCheck') ?>
+
 <header id="top-bar">
 
   <?php if (sfConfig::get('app_toggleLogo')): ?>
@@ -9,8 +11,6 @@
       <?php echo link_to('<span>'.sfConfig::get('app_siteTitle').'</span>', '@homepage', array('rel' => 'home', 'title' => __('Home'))) ?>
     </h1>
   <?php endif; ?>
-
-  <?php echo get_component('default', 'updateCheck') ?>
 
   <nav>
 
