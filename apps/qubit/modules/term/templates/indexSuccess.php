@@ -27,12 +27,10 @@
 <div class="field">
   <h3><?php echo __('Code') ?></h3>
   <div>
-    <?php echo $resource->code; ?>
-
+    <?php echo $resource->code ?>
     <?php if (!empty($resource->code) && QubitTaxonomy::PLACE_ID == $resource->taxonomy->id): ?>
-          <?php echo image_tag('http://maps.googleapis.com/maps/api/staticmap?zoom=13&size=300x300&sensor=false&center='.$resource->code, array('alt' => __('Home'), 'absolute' => true)) ?>
+      <?php echo image_tag('http://maps.googleapis.com/maps/api/staticmap?zoom=13&size=300x300&sensor=false&center='.$resource->code, array('class' => 'static-map')) ?>
     <?php endif; ?>
-
   </div>
 </div>
 
