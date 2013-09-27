@@ -16,7 +16,7 @@
 
     <?php echo get_component('menu', 'userMenu') ?>
 
-    <?php // echo get_component('menu', 'quickLinksMenu') ?>
+    <?php echo get_component('menu', 'quickLinksMenu') ?>
 
     <?php echo get_component('menu', 'changeLanguageMenu') ?>
 
