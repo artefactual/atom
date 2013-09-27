@@ -29,7 +29,7 @@
         <div class="field">
           <h3><?php echo __('Last updated') ?></h3>
           <div>
-            <?php echo $resource->updatedAt ?>
+            <?php echo format_date($resource->updatedAt, 'f') ?>
           </div>
         </div>
       <?php endif; ?>
