@@ -44,9 +44,19 @@ class MenuMainMenuComponent extends sfComponent
     }
     */
 
-    $this->addMenu = QubitMenu::getById(QubitMenu::ADD_EDIT_ID);
-    $this->manageMenu = QubitMenu::getById(QubitMenu::MANAGE_ID);
-    $this->importMenu = QubitMenu::getById(QubitMenu::IMPORT_ID);
-    $this->adminMenu = QubitMenu::getById(QubitMenu::ADMIN_ID);
+    if ($this->context->user->isAdministrator())
+    {
+      $this->menus = array(
+        QubitMenu::getById(QubitMenu::ADD_EDIT_ID),
+        QubitMenu::getById(QubitMenu::MANAGE_ID),
+        QubitMenu::getById(QubitMenu::IMPORT_ID),
+        QubitMenu::getById(QubitMenu::ADMIN_ID));
+    }
+    else
+    {
+      $this->menus = array(
+        QubitMenu::getById(QubitMenu::ADD_EDIT_ID),
+        QubitMenu::getById(QubitMenu::MANAGE_ID));
+    }
   }
 }

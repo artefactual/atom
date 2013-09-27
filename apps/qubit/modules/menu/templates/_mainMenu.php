@@ -1,4 +1,4 @@
-<?php foreach (array($adminMenu, $importMenu, $manageMenu, $addMenu) as $menu): ?>
+<?php foreach ($menus as $menu): ?>
 
   <div id="<?php echo $menu->getName() ?>-menu" data-toggle="tooltip" data-title="<?php echo $menu->getLabel(array('cultureFallback' => true)) ?>">
 
