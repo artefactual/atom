@@ -25,6 +25,15 @@
         </div>
       </div>
 
+      <?php if (isset($resource->updatedAt)): ?>
+        <div class="field">
+          <h3><?php echo __('Last updated') ?></h3>
+          <div>
+            <?php echo $resource->updatedAt ?>
+          </div>
+        </div>
+      <?php endif; ?>
+
     </div>
 
     <div class="span4">
