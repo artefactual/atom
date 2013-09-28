@@ -28,7 +28,7 @@
           <div>
             <?php echo $form->banner->render() ?>
             <?php echo $form->banner->renderError() ?>
-            <?php echo $form->banner->renderHelp() ?>
+            <?php echo $form->getWidget('banner')->getHelp() ?>
           </div>
         </div>
 
@@ -37,7 +37,7 @@
           <div>
             <?php echo $form->logo->render() ?>
             <?php echo $form->logo->renderError() ?>
-            <?php echo $form->logo->renderHelp() ?>
+            <?php echo $form->getWidget('logo')->getHelp() ?>
           </div>
         </div>
 
