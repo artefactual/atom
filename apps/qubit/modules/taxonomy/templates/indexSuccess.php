@@ -44,12 +44,16 @@
 
 <?php end_slot() ?>
 
-<?php echo get_partial('default/pager', array('pager' => $pager)) ?>
+<?php slot('after-content') ?>
 
-<section class="actions">
-  <ul>
-    <?php if (QubitAcl::check($resource, 'createTerm')): ?>
-      <li><?php echo link_to(__('Add new'), array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array($resource, 'module' => 'taxonomy'))), array('class' => 'c-btn')) ?></li>
-    <?php endif; ?>
-  </ul>
-</section>
+  <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
+
+  <section class="actions">
+    <ul>
+      <?php if (QubitAcl::check($resource, 'createTerm')): ?>
+        <li><?php echo link_to(__('Add new'), array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array($resource, 'module' => 'taxonomy'))), array('class' => 'c-btn')) ?></li>
+      <?php endif; ?>
+    </ul>
+  </section>
+
+<?php end_slot() ?>

@@ -30,7 +30,6 @@ class TaxonomyIndexAction extends sfAction
 
     $criteria = new Criteria;
     $criteria->add(QubitTerm::TAXONOMY_ID, $this->resource->id);
-    $criteria->add(QubitTerm::PARENT_ID, QubitTerm::ROOT_ID);
 
     // Do source culture fallback
     $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitTerm');
