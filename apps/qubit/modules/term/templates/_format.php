@@ -1,28 +1,25 @@
 <?php if (in_array('sfSkosPlugin', $sf_context->getConfiguration()->getPlugins())): ?>
+  <section id="action-icons">
+    <ul>
 
-  <?php if (QubitAcl::check($resource, 'create')): ?>
-    <div class="list-menu">
+      <?php if (QubitAcl::check($resource, 'create')): ?>
+        <li class="separator"><h4><?php echo __('Import') ?></h4></li>
+        <li>
+          <a href="<?php echo url_for(array($resource, 'module' => 'sfSkosPlugin', 'action' => 'import')) ?>">
+            <i class="icon-download-alt"></i>
+            <?php echo __('SKOS') ?>
+          </a>
+        </li>
+      <?php endif; ?>
 
-      <h4><?php echo __('Import') ?></h4>
+      <li class="separator"><h4><?php echo __('Export') ?></h4></li>
+      <li>
+        <a href="<?php echo url_for(array($resource, 'module' => 'sfSkosPlugin')) ?>">
+          <i class="icon-upload-alt"></i>
+          <?php echo __('SKOS') ?>
+        </a>
+      </li>
 
-      <div class="content">
-        <ul class="clearfix">
-          <li><?php echo link_to(__('SKOS'), array($resource, 'module' => 'sfSkosPlugin', 'action' => 'import')) ?></li>
-        </ul>
-      </div>
-
-    </div>
-  <?php endif; ?>
-
-  <div class="list-menu">
-
-    <h4><?php echo __('Export') ?></h4>
-
-    <div class="content">
-      <ul class="clearfix">
-        <li><?php echo link_to(__('SKOS'), array($resource, 'module' => 'sfSkosPlugin')) ?></li>
-      </ul>
-    </div>
-
-  </div>
+    </ul>
+  </section>
 <?php endif; ?>

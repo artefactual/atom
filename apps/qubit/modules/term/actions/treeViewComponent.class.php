@@ -38,8 +38,8 @@ class TermTreeViewComponent extends sfComponent
     {
       list($this->children, $this->hasNextSiblings) = $this->resource->getTreeViewChildren(array('numberOfPreviousOrNextSiblings' => $numberOfPreviousOrNextSiblings));
     }
-    // Show siblings if there's no children, but not for root descriptions
-    else if ($this->browser || QubitTerm::ROOT_ID != $this->resource->parentId)
+    // Show siblings if there's no children
+    else
     {
       // Previous siblings
       // Get an extra sibling just to know if the + button is necessary

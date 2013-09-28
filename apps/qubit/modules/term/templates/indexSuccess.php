@@ -1,8 +1,8 @@
-<?php decorate_with('layout_2col') ?>
+<?php decorate_with('layout_3col') ?>
 
 <?php slot('sidebar') ?>
 
-  <?php echo get_partial('term/format', array('resource' => $resource)) ?>
+  <?php echo get_component('term', 'treeView', array('browser' => false)) ?>
 
 <?php end_slot() ?>
 
@@ -19,6 +19,12 @@
       </ul>
     </div>
   <?php endif; ?>
+
+<?php end_slot() ?>
+
+<?php slot('context-menu') ?>
+
+  <?php echo get_partial('term/format', array('resource' => $resource)) ?>
 
 <?php end_slot() ?>
 
