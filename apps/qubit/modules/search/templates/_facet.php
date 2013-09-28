@@ -1,4 +1,5 @@
-<?php if (isset($sf_request->$facet)): ?>
+<?php if (isset($sf_request->$facet) || (isset($open) && $open
+  && isset($pager->facets[$facet]) && 0 < count($pager->facets[$facet]['terms']))): ?>
   <section class="facet open">
 <?php else: ?>
   <section class="facet">

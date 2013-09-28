@@ -40,7 +40,7 @@ class SearchIndexAction extends DefaultBrowseAction
               'field' => array('hasDigitalObject' => true),
               'filter' => 'hideDrafts',
               'populate' => false),
-      'repos' =>
+      'realm' =>
         array('type' => 'term',
               'field' => 'repository.id',
               'filter' => 'hideDrafts',
@@ -81,7 +81,7 @@ class SearchIndexAction extends DefaultBrowseAction
 
         break;
 
-      case 'repos':
+      case 'realm':
         $criteria = new Criteria;
         $criteria->add(QubitRepository::ID, array_keys($ids), Criteria::IN);
 

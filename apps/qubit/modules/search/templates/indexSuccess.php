@@ -63,56 +63,64 @@
       'label' => __('Language'),
       'facet' => 'languages',
       'pager' => $pager,
-      'filters' => $filters)) ?>
+      'filters' => $filters,
+      'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-levelOfDescription',
       'label' => __('Level of description'),
       'facet' => 'levels',
       'pager' => $pager,
-      'filters' => $filters)) ?>
+      'filters' => $filters,
+      'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-repository',
       'label' => sfConfig::get('app_ui_label_repository'),
-      'facet' => 'repos',
+      'facet' => 'realm',
       'pager' => $pager,
-      'filters' => $filters)) ?>
+      'filters' => $filters,
+      'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-names',
       'label' => sfConfig::get('app_ui_label_creator'),
       'facet' => 'creators',
       'pager' => $pager,
-      'filters' => $filters)) ?>
+      'filters' => $filters,
+      'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-names',
       'label' => sfConfig::get('app_ui_label_name'),
       'facet' => 'names',
       'pager' => $pager,
-      'filters' => $filters)) ?>
+      'filters' => $filters,
+      'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-places',
       'label' => sfConfig::get('app_ui_label_place'),
       'facet' => 'places',
       'pager' => $pager,
-      'filters' => $filters)) ?>
+      'filters' => $filters,
+      'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-subjects',
       'label' => sfConfig::get('app_ui_label_subject'),
       'facet' => 'subjects',
       'pager' => $pager,
-      'filters' => $filters)) ?>
+      'filters' => $filters,
+      'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-mediaTypes',
       'label' => __('Media types'),
       'facet' => 'mediatypes',
       'pager' => $pager,
-      'filters' => $filters)) ?>
+      'filters' => $filters,
+      'open' => true)) ?>
 
   </section>
 <?php end_slot() ?>
