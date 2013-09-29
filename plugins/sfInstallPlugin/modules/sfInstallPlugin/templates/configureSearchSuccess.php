@@ -44,11 +44,10 @@
   </fieldset>
 
 <?php slot('after-content') ?>
-  <div class="actions section">
-    <h2 class="element-invisible">Actions</h2>
-    <div class="content">
-      <input class="c-btn c-btn-submit" type="submit" value="Save and continue"/>
-    </div>
-  </div>
+  <section class="actions">
+    <ul>
+      <li><input class="c-btn c-btn-submit" type="submit" value="Save and continue"/></li>
+    </ul>
+  </section>
   </form>
 <?php end_slot() ?>
