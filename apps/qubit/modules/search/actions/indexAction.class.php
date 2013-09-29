@@ -40,7 +40,7 @@ class SearchIndexAction extends DefaultBrowseAction
               'field' => array('hasDigitalObject' => true),
               'filter' => 'hideDrafts',
               'populate' => false),
-      'realm' =>
+      'repos' =>
         array('type' => 'term',
               'field' => 'repository.id',
               'filter' => 'hideDrafts',
@@ -81,7 +81,7 @@ class SearchIndexAction extends DefaultBrowseAction
 
         break;
 
-      case 'realm':
+      case 'repos':
         $criteria = new Criteria;
         $criteria->add(QubitRepository::ID, array_keys($ids), Criteria::IN);
 
@@ -144,12 +144,12 @@ class SearchIndexAction extends DefaultBrowseAction
     $this->queryBool->addMust($queryText);
 
     // Realm filter
-    if (isset($request->realm) && ctype_digit($request->realm) && null !== $this->realm = QubitRepository::getById($request->realm))
+    if (isset($request->repos) && ctype_digit($request->repos) && null !== $this->repos = QubitRepository::getById($request->repos))
     {
-      $this->queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $request->realm)));
+      $this->queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $request->repos)));
 
       // Store realm in user session
-      $this->context->user->setAttribute('search-realm', $request->realm);
+      $this->context->user->setAttribute('search-realm', $request->repos);
     }
 
     if (isset($request->collection) && ctype_digit($request->collection))

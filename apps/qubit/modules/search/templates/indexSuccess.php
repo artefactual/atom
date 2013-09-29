@@ -9,29 +9,27 @@
 
 <?php slot('before-content') ?>
 
-  <?php if (isset($realm)): ?>
+  <section class="header-options">
 
-    <section class="header-options">
-
+    <?php if (isset($repos)): ?>
       <span class="search-filter">
-        <?php echo render_title($realm) ?>
+        <?php echo render_title($repos) ?>
         <?php $params = $sf_request->getGetParameters() ?>
-        <?php unset($params['realm']) ?>
+        <?php unset($params['repos']) ?>
         <a href="<?php echo url_for(array('module' => 'search') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
       </span>
+    <?php endif; ?>
 
-      <?php if (isset($sf_request->onlyMedia)): ?>
-        <span class="search-filter">
-          <?php echo __('Only digital objects') ?>
-          <?php $params = $sf_request->getGetParameters() ?>
-          <?php unset($params['onlyMedia']) ?>
-          <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
-        </span>
-      <?php endif; ?>
+    <?php if (isset($sf_request->onlyMedia)): ?>
+      <span class="search-filter">
+        <?php echo __('Only digital objects') ?>
+        <?php $params = $sf_request->getGetParameters() ?>
+        <?php unset($params['onlyMedia']) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
 
-    </section>
-
-  <?php endif; ?>
+  </section>
 
 <?php end_slot() ?>
 
@@ -77,7 +75,7 @@
     <?php echo get_partial('search/facet', array(
       'target' => '#facet-repository',
       'label' => sfConfig::get('app_ui_label_repository'),
-      'facet' => 'realm',
+      'facet' => 'repos',
       'pager' => $pager,
       'filters' => $filters,
       'open' => true)) ?>
