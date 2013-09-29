@@ -88,6 +88,15 @@
 
   <section class="header-options">
 
+    <?php if (isset($repos)): ?>
+      <span class="search-filter">
+        <?php echo render_title($repos) ?>
+        <?php $params = $sf_request->getGetParameters() ?>
+        <?php unset($params['repos']) ?>
+        <a href="<?php echo url_for(array('module' => 'search') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
+
     <?php if (isset($collectionFilter)): ?>
       <span class="search-filter">
         <?php echo $collectionFilter->__toString() ?>

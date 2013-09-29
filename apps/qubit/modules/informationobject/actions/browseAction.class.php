@@ -176,6 +176,16 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       $this->queryBool->addMust(new \Elastica\Query\Term(array('ancestors' => $request->collection)));
     }
 
+    if (isset($request->repos) && ctype_digit($request->repos))
+    {
+      if (null === $this->repos = QubitRepository::getById($request->repos))
+      {
+        $this->forward404();
+
+        return;
+      }
+    }
+
     if (isset($request->onlyMedia))
     {
       $this->queryBool->addMust(new \Elastica\Query\Term(array('hasDigitalObject' => true)));
