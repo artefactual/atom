@@ -37,10 +37,12 @@ addDigitalObjectSuccess:
 multiFileUploadSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /vendor/yui/connection/connection-min:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/container/container-min:
+    description:
     blank:
 
 storageLocationsSuccess:

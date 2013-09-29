@@ -1,8 +1,12 @@
 <?php use_helper('Javascript') ?>
+<?php decorate_with('layout_1col.php') ?>
 
-<h1><?php echo __('Import multiple digital objects') ?></h1>
-
-<h1 class="label"><?php echo render_title(new sfIsadPlugin($resource)) ?> </h1>
+<?php slot('title') ?>
+  <h1 class="multiline">
+    <?php echo __('Import multiple digital objects') ?>
+    <span class="sub"><?php echo render_title(new sfIsadPlugin($resource)) ?> </span>
+  </h1>
+<?php end_slot() ?>
 
 <noscript>
   <div class="messages warning">
@@ -24,66 +28,68 @@
   </ul>
 </div>
 
-<?php if (QubitDIgitalObject::reachedAppUploadLimit()): ?>
+<fieldset class="collapsible">
 
-  <div id="upload_limit_reached">
-    <div class="messages warning">
-      <?php echo __('The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your ICA-AtoM system administrator to increase the available disk space.',  array('%1%' => sfConfig::get('app_upload_limit'))) ?>
+  <legend><?php echo __('Import multiple digital objects') ?></legend>
+
+  <?php if (QubitDIgitalObject::reachedAppUploadLimit()): ?>
+
+    <div id="upload_limit_reached">
+      <div class="messages warning">
+        <?php echo __('The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your ICA-AtoM system administrator to increase the available disk space.',  array('%1%' => sfConfig::get('app_upload_limit'))) ?>
+      </div>
+
+      <ul class="actions links">
+        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject')) ?></li>
+      </ul>
     </div>
 
-    <ul class="actions links">
-      <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject')) ?></li>
-    </ul>
-  </div>
+  <?php else: ?>
 
-<?php else: ?>
+    <?php echo $form->renderGlobalErrors() ?>
 
-  <?php echo $form->renderGlobalErrors() ?>
+    <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'multiFileUpload')), array('id' => 'multiFileUploadForm', 'style' => 'display: none')) ?>
 
-  <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'informationobject', 'action' => 'multiFileUpload')), array('id' => 'multiFileUploadForm', 'style' => 'display: none')) ?>
+      <?php echo $form->renderHiddenFields() ?>
 
-    <?php echo $form->renderHiddenFields() ?>
+      <?php echo $form->title
+        ->help(__('The "<strong>%dd%</strong>" placeholder will be replaced with a incremental number (e.g. \'image <strong>01</strong>\', \'image <strong>02</strong>\')'))
+        ->label(__('Title'))
+        ->renderRow() ?>
 
-    <?php echo $form->title
-      ->help(__('The "<strong>%dd%</strong>" placeholder will be replaced with a incremental number (e.g. \'image <strong>01</strong>\', \'image <strong>02</strong>\')'))
-      ->label(__('Title'))
-      ->renderRow() ?>
+      <?php echo $form->levelOfDescription
+        ->label(__('Level of description'))
+        ->renderRow() ?>
 
-    <?php echo $form->levelOfDescription
-      ->label(__('Level of description'))
-      ->renderRow() ?>
+      <div class="multiFileUpload section">
 
-    <div class="multiFileUpload section">
+        <h3><?php echo __('Digital objects') ?></h3>
 
-      <h3><?php echo __('Digital objects') ?></h3>
+        <div id="uploads"></div>
 
-      <div id="uploads"></div>
-
-      <div id="uiElements" style="display: inline;">
-        <div id="uploaderContainer">
-          <div id="uploaderOverlay" style="position: absolute; z-index: 2;"></div>
-          <div id="selectFilesLink" style="z-index: 1"><a id="selectLink" href="#">Select files</a></div>
+        <div id="uiElements" style="display: inline;">
+          <div id="uploaderContainer">
+            <div id="uploaderOverlay" style="position: absolute; z-index: 2;"></div>
+            <div id="selectFilesLink" style="z-index: 1"><a id="selectLink" href="#">Select files</a></div>
+          </div>
         </div>
+
       </div>
 
-    </div>
+      <?php slot('after-content') ?>
+        <section class="actions">
+          <ul>
+            <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject'), array('class' => 'c-btn')) ?></li>
+            <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Import') ?>"/></li>
+          </ul>
+        </section>
+      <?php end_slot() ?>
 
-    <div class="actions section">
+    </form>
 
-      <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
+  <?php endif; ?>
 
-      <div class="content">
-        <ul class="clearfix links">
-          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject')) ?></li>
-          <li><input class="form-submit" type="submit" value="<?php echo __('Import') ?>"/></li>
-        </ul>
-      </div>
-
-    </div>
-
-  </form>
-
-<?php endif; ?>
+</fieldset>
 
 <?php echo javascript_tag(<<<content
 // If JavaScript and Flash Player installed
