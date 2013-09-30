@@ -4,7 +4,6 @@ mapping:
 
   # Special attributes (_attributes):
   # - i18n: the i18n fields will be added automatically (it is optional)
-  # - i18nIncludeInAll: list of i18n fields using include_in_all
   # - i18nExtra: to inherit i18n fields from other table
   # - autocompleteFields: a list of fields that will be analyzed with edgengram
   # - timestamp: adds created_at and updated_at properties
@@ -32,7 +31,6 @@ mapping:
   other_name:
     _attributes:
       i18n: true
-      i18nIncludeInAll: [ name ]
       nested_only: true
     dynamic: strict
 
