@@ -28,23 +28,21 @@
   </ul>
 </div>
 
-<fieldset class="collapsible">
+<?php if (QubitDIgitalObject::reachedAppUploadLimit()): ?>
 
-  <legend><?php echo __('Import multiple digital objects') ?></legend>
-
-  <?php if (QubitDIgitalObject::reachedAppUploadLimit()): ?>
-
-    <div id="upload_limit_reached">
-      <div class="messages warning">
-        <?php echo __('The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your ICA-AtoM system administrator to increase the available disk space.',  array('%1%' => sfConfig::get('app_upload_limit'))) ?>
-      </div>
-
-      <ul class="actions links">
-        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject')) ?></li>
-      </ul>
+  <div id="upload_limit_reached">
+    <div class="messages warning">
+      <?php echo __('The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your ICA-AtoM system administrator to increase the available disk space.',  array('%1%' => sfConfig::get('app_upload_limit'))) ?>
     </div>
 
-  <?php else: ?>
+    <ul class="actions links">
+      <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject')) ?></li>
+    </ul>
+  </div>
+
+<?php else: ?>
+
+  <?php slot('content') ?>
 
     <?php echo $form->renderGlobalErrors() ?>
 
@@ -52,45 +50,54 @@
 
       <?php echo $form->renderHiddenFields() ?>
 
-      <?php echo $form->title
-        ->help(__('The "<strong>%dd%</strong>" placeholder will be replaced with a incremental number (e.g. \'image <strong>01</strong>\', \'image <strong>02</strong>\')'))
-        ->label(__('Title'))
-        ->renderRow() ?>
+      <section id="content">
 
-      <?php echo $form->levelOfDescription
-        ->label(__('Level of description'))
-        ->renderRow() ?>
+        <fieldset class="collapsible">
 
-      <div class="multiFileUpload section">
+          <legend><?php echo __('Import multiple digital objects') ?></legend>
 
-        <h3><?php echo __('Digital objects') ?></h3>
+          <?php echo $form->title
+            ->help(__('The "<strong>%dd%</strong>" placeholder will be replaced with a incremental number (e.g. \'image <strong>01</strong>\', \'image <strong>02</strong>\')'))
+            ->label(__('Title'))
+            ->renderRow() ?>
 
-        <div id="uploads"></div>
+          <?php echo $form->levelOfDescription
+            ->label(__('Level of description'))
+            ->renderRow() ?>
 
-        <div id="uiElements" style="display: inline;">
-          <div id="uploaderContainer">
-            <div id="uploaderOverlay" style="position: absolute; z-index: 2;"></div>
-            <div id="selectFilesLink" style="z-index: 1"><a id="selectLink" href="#">Select files</a></div>
+          <div class="multiFileUpload section">
+
+            <h3><?php echo __('Digital objects') ?></h3>
+
+            <div id="uploads"></div>
+
+            <div id="uiElements" style="display: inline;">
+              <div id="uploaderContainer">
+                <div id="uploaderOverlay" style="position: absolute; z-index: 2;"></div>
+                <div id="selectFilesLink" style="z-index: 1"><a id="selectLink" href="#">Select files</a></div>
+              </div>
+            </div>
+
           </div>
-        </div>
 
-      </div>
+        </fieldset>
 
-      <?php slot('after-content') ?>
-        <section class="actions">
-          <ul>
-            <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject'), array('class' => 'c-btn')) ?></li>
-            <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Import') ?>"/></li>
-          </ul>
-        </section>
-      <?php end_slot() ?>
+      </section>
+
+      <section class="actions">
+        <ul>
+          <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject'), array('class' => 'c-btn')) ?></li>
+          <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Import') ?>"/></li>
+        </ul>
+      </section>
 
     </form>
 
-  <?php endif; ?>
+  <?php end_slot() ?>
 
-</fieldset>
+<?php endif; ?>
 
+<?php slot('after-content') ?>
 <?php echo javascript_tag(<<<content
 // If JavaScript and Flash Player installed
 if (0 == YAHOO.deconcept.SWFObjectUtil.getPlayerVersion().major)
@@ -129,3 +136,4 @@ Qubit.multiFileUpload.i18nOversizedFile = '{$sf_context->i18n->__('This file cou
 
 content
 ) ?>
+  <?php end_slot() ?>
