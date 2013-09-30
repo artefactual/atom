@@ -67,8 +67,8 @@
     <?php echo get_partial('default/sortPicker',
       array(
         'options' => array(
-          'alphabetic' => __('Alphabetic'),
-          'mostRecent' => __('Most recent')))) ?>
+          'mostRecent' => __('Most recent'),
+          'alphabetic' => __('Alphabetic')))) ?>
 
   </section>
 

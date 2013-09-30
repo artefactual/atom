@@ -83,10 +83,26 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     // TODO, ACL filter
     // $this->query = QubitAclSearch::filterBy...
 
+    // Sort
+    if (!isset($request->sort))
+    {
+      if ($this->getUser()->isAuthenticated())
+      {
+        $request->sort = sfConfig::get('app_sort_browser_user');
+      }
+      else
+      {
+        $request->sort = sfConfig::get('app_sort_browser_anonymous');
+      }
+    }
+
     switch ($request->sort)
     {
-      case 'mostRecent':
-        $this->query->setSort(array('updatedAt' => 'desc'));
+      // Most of the times the institutions set is small so we can afford
+      // alphabetic sorting without much memory consumption in ElasticSearch
+      case 'alphabetic':
+        $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->context->user->getCulture());
+        $this->query->setSort(array($field => 'asc'));
 
         break;
 
@@ -95,12 +111,10 @@ class RepositoryBrowseAction extends DefaultBrowseAction
 
         break;
 
-      // Most of the times the institutions set is small so we can afford
-      // alphabetic sorting without much memory consumption in ElasticSearch
-      case 'alphabetic':
+      case 'lastUpdated':
+      case 'mostRecent':
       default:
-        $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->context->user->getCulture());
-        $this->query->setSort(array($field => 'asc'));
+        $this->query->setSort(array('updatedAt' => 'desc'));
     }
 
     $this->query->setQuery($this->queryBool);
