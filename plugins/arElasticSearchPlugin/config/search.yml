@@ -32,15 +32,16 @@ all:
 
       analysis:
         analyzer:
+          # This is a special analyzer for autocomplete searches. It's used only
+          # in some fields as it can make the index very big.
           autocomplete:
             tokenizer: whitespace
             filter: [lowercase, engram]
         filter:
           engram:
             type: edgeNGram
-            min_gram: 1
-            max_gram: 20
-            side: front
+            min_gram: 3
+            max_gram: 10
 
       # Disable dynamic creation of mappings for unmapped types
       mapper:
