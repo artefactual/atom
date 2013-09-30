@@ -75,7 +75,7 @@ class DigitalObjectUploadAction extends sfAction
         $uploadFiles = array('error' => $this->context->i18n->__(
           '%1% upload limit of %2% GB exceeded for %3%', array(
             '%1%' => sfConfig::get('app_ui_label_digitalobject'),
-            '%2%' => round($uploadLimit / pow(10, 9), 2), // convert to GB
+            '%2%' => $repo->uploadLimit,
             '%4%' => $this->context->routing->generate(null, array($repo, 'module' => 'repository')),
             '%3%' => $repo->__toString())
         ));

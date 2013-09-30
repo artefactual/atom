@@ -33,7 +33,7 @@
 
           <legend><?php echo __('Upload a digital object') ?></legend>
 
-          <?php if (null == $repository || -1 == $repository->uploadLimit || $repository->getDiskUsage(array('units' => 'G')) < floatval($repository->uploadLimit)): ?>
+          <?php if (null == $repository || -1 == $repository->uploadLimit || floatval($repository->getDiskUsage() / pow(10, 9)) < floatval($repository->uploadLimit)): ?>
 
             <?php echo $form->file->renderRow() ?>
 

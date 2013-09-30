@@ -72,16 +72,6 @@ class RepositoryUploadLimitComponent extends sfComponent
     {
       // Convert bytes to GB
       $this->diskUsage = floatval($this->diskUsage) / pow(10, 9);
-
-      // Get display value for disk usage
-      if (0 < $this->diskUsage && 0.01 > $this->diskUsage)
-      {
-        $this->diskUsage = '<&nbsp;0.01';
-      }
-      else
-      {
-        $this->diskUsage = round($this->diskUsage, 2);
-      }
     }
 
     // Get display value for upload limit
@@ -117,6 +107,16 @@ class RepositoryUploadLimitComponent extends sfComponent
         $this->diskUsagePercent = round($dup, 0);
         $this->usageBarPixels = round($dup * 2, 0);
       }
+    }
+
+    // Get display value for disk usage
+    if (0 < $this->diskUsage && 0.01 > $this->diskUsage)
+    {
+      $this->diskUsage = '<&nbsp;0.01';
+    }
+    else
+    {
+      $this->diskUsage = round($this->diskUsage, 2);
     }
   }
 }
