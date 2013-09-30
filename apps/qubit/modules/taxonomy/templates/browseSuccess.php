@@ -12,9 +12,11 @@
 
 <?php slot('before-content') ?>
 
-  <div id="manage-button">
-    <?php echo link_to(__('Manage %1%', array('%1%' => 'taxonomy')), array($resource, 'module' => 'taxonomy'), array('class' => 'btn btn-small')) ?>
-  </div>
+  <?php if ($sf_user->isAuthenticated() ): ?>
+    <div class="manage-button">
+      <?php echo link_to(__('Manage %1%', array('%1%' => 'taxonomy')), array($resource, 'module' => 'taxonomy'), array('class' => 'btn btn-small')) ?>
+    </div>
+  <?php endif; ?>
 
 <?php end_slot() ?>
 

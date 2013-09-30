@@ -14,15 +14,11 @@
     </h1>
   </div>
 
-  <div id="manage-button" class="hidden-phone">
-
-    <?php if ($resource->isProtected()): ?>
-      <?php echo link_to(__('Manage %1%', array('%1%' => strtolower(sfConfig::get('app_ui_label_term')))), array($resource, 'module' => 'term'), array('class' => 'readOnly btn btn-small')) ?>
-    <?php else: ?>
+  <?php if ($sf_user->isAuthenticated() ): ?>
+    <div class="manage-button hidden-phone">
       <?php echo link_to(__('Manage %1%', array('%1%' => strtolower(sfConfig::get('app_ui_label_term')))), array($resource, 'module' => 'term'), array('class' => 'btn btn-small')) ?>
-    <?php endif; ?>
-
-  </div>
+    </div>
+  <?php endif; ?>
 
 <?php end_slot() ?>
 
