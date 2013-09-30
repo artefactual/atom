@@ -29,15 +29,34 @@
 
       <section id="content">
 
-        <?php if (null == $repository || -1 == $repository->uploadLimit || $repository->getDiskUsage(array('units' => 'G')) < floatval($repository->uploadLimit)): ?>
-          <fieldset class="collapsible" id="singleFileUpload">
+        <fieldset class="collapsible" id="singleFileUpload">
 
-            <legend><?php echo __('Upload a digital object') ?></legend>
+          <legend><?php echo __('Upload a digital object') ?></legend>
+
+          <?php if (null == $repository || -1 == $repository->uploadLimit || $repository->getDiskUsage(array('units' => 'G')) < floatval($repository->uploadLimit)): ?>
 
             <?php echo $form->file->renderRow() ?>
 
-          </fieldset>
-        <?php endif; // Test upload limit ?>
+          <?php elseif (0 == $repository->uploadLimit): ?>
+
+            <div class="messages warning">
+              <?php echo __('Uploads for <a href="%1%">%2%</a> are disabled', array(
+                '%1%' => url_for(array($repository, 'module' => 'repository')),
+                '%2%' => $repository->__toString())) ?>
+            </div>
+
+          <?php else: ?>
+
+            <div class="messages warning">
+              <?php echo __('The upload limit of %1% GB for <a href="%2%">%3%</a> has been reached', array(
+                '%1%' => $repository->uploadLimit,
+                '%2%' => url_for(array($repository, 'module' => 'repository')),
+                '%3%' => $repository->__toString())) ?>
+            </div>
+
+          <?php endif; // Test upload limit ?>
+
+        </fieldset>
 
         <fieldset class="collapsible" id="externalFileLink">
 
