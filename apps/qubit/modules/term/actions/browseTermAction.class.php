@@ -22,6 +22,11 @@ class TermBrowseTermAction extends DefaultBrowseAction
   // Arrays not allowed in class constants
   public static
     $FACETS = array(
+      'languages' =>
+        array('type' => 'term',
+              'field' => 'i18n.languages',
+              'filter' => 'hideDrafts',
+              'size' => 10),
       'places' =>
         array('type'   => 'term',
               'field'  => 'places.id',
