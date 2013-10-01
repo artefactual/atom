@@ -24,49 +24,53 @@
 
 <?php slot('sidebar') ?>
 
-  <?php echo get_component('term', 'treeView', array('browser' => true)) ?>
+  <div class="sidebar-lowering-sort">
 
-  <section id="facets">
+    <?php echo get_component('term', 'treeView', array('browser' => true)) ?>
 
-    <div class="visible-phone facets-header">
-      <a class="x-btn btn-wide">
-        <i class="icon-filter"></i>
-        <?php echo __('Filters') ?>
-      </a>
-    </div>
+    <section id="facets">
 
-    <div class="content">
+      <div class="visible-phone facets-header">
+        <a class="x-btn btn-wide">
+          <i class="icon-filter"></i>
+          <?php echo __('Filters') ?>
+        </a>
+      </div>
 
-      <?php if (QubitTaxonomy::PLACE_ID == $resource->taxonomyId): ?>
+      <div class="content">
 
-        <?php echo get_partial('search/facet', array(
-          'target' => '#facet-subjects',
-          'label' => sfConfig::get('app_ui_label_subject'),
-          'facet' => 'subjects',
+        <?php if (QubitTaxonomy::PLACE_ID == $resource->taxonomyId): ?>
+
+          <?php echo get_partial('search/facet', array(
+            'target' => '#facet-subjects',
+            'label' => sfConfig::get('app_ui_label_subject'),
+            'facet' => 'subjects',
+            'pager' => $pager,
+            'filters' => $filters)) ?>
+
+        <?php elseif (QubitTaxonomy::SUBJECT_ID == $resource->taxonomyId): ?>
+
+          <?php echo get_partial('search/facet', array(
+            'target' => sfConfig::get('app_ui_label_place'),
+            'label' => __('Places'),
+            'facet' => 'places',
+            'pager' => $pager,
+            'filters' => $filters)) ?>
+
+        <?php endif; ?>
+
+        <?php echo get_partial('search/facetLanguage', array(
+          'target' => '#facet-languages',
+          'label' => __('Language'),
+          'facet' => 'languages',
           'pager' => $pager,
           'filters' => $filters)) ?>
 
-      <?php elseif (QubitTaxonomy::SUBJECT_ID == $resource->taxonomyId): ?>
+      </div>
 
-        <?php echo get_partial('search/facet', array(
-          'target' => sfConfig::get('app_ui_label_place'),
-          'label' => __('Places'),
-          'facet' => 'places',
-          'pager' => $pager,
-          'filters' => $filters)) ?>
+    </section>
 
-      <?php endif; ?>
-
-      <?php echo get_partial('search/facetLanguage', array(
-        'target' => '#facet-languages',
-        'label' => __('Language'),
-        'facet' => 'languages',
-        'pager' => $pager,
-        'filters' => $filters)) ?>
-
-    </div>
-
-  </section>
+  </div>
 
 <?php end_slot() ?>
 

@@ -1,9 +1,11 @@
 <?php decorate_with('layout_3col') ?>
 
 <?php slot('sidebar') ?>
+  <div class="sidebar-lowering-sort">
 
-  <?php echo get_component('term', 'treeView', array('browser' => false)) ?>
+    <?php echo get_component('term', 'treeView', array('browser' => false)) ?>
 
+ </div>
 <?php end_slot() ?>
 
 <?php slot('title') ?>
