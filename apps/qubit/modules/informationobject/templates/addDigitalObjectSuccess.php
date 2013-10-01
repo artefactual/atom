@@ -1,8 +1,10 @@
 <?php decorate_with('layout_1col.php') ?>
 
 <?php slot('title') ?>
-  <h1><?php echo __('Link digital object') ?></h1>
-  <h2><?php echo render_title(new sfIsadPlugin($resource)) ?> </h2>
+  <h1 class="multiline">
+    <?php echo __('Link digital object') ?>
+    <span class="sub"><?php echo render_title(new sfIsadPlugin($resource)) ?></span>
+  </h1>
 <?php end_slot() ?>
 
 <?php if (QubitDigitalObject::reachedAppUploadLimit()): ?>
