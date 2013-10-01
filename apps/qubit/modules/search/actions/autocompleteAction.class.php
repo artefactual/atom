@@ -60,10 +60,6 @@ class SearchAutocompleteAction extends sfAction
       array(
         'type' => 'QubitActor',
         'field' => sprintf('i18n.%s.authorizedFormOfName', $culture),
-        'fields' => array('slug', sprintf('i18n.%s.title', $culture))),
-      array(
-        'type' => 'QubitTerm',
-        'field' => sprintf('i18n.%s.name', $culture),
         'fields' => array('slug', sprintf('i18n.%s.title', $culture)))) as $item)
     {
       $search = new \Elastica\Search($client);
@@ -126,10 +122,9 @@ class SearchAutocompleteAction extends sfAction
     $this->descriptions = $resultSets[0];
     $this->repositories = $resultSets[1];
     $this->actors = $resultSets[2];
-    $this->subjects = $resultSets[3];
 
     // Return a 404 response if there are no results
-    if (0 == $this->descriptions->getTotalHits() + $this->repositories->getTotalHits() + $this->actors->getTotalHits() + $this->subjects->getTotalHits())
+    if (0 == $this->descriptions->getTotalHits() + $this->repositories->getTotalHits() + $this->actors->getTotalHits())
     {
       $this->forward404();
     }

@@ -16,18 +16,6 @@
   </section>
 <?php endif; ?>
 
-<?php if ($subjects->getTotalHits() > 0): ?>
-  <section>
-    <?php echo image_tag('/images/icons-small/icon-subjects-small.png', array('width' => '24', 'height' => '24')) ?>
-    <ul>
-      <?php foreach ($subjects->getResults() as $hit): ?>
-        <?php $doc = $hit->getData() ?>
-        <li><?php echo link_to(get_search_i18n_highlight($hit, 'name.autocomplete'), array('module' => 'term', 'action' => 'browseTerm', 'slug' => $hit->slug)) ?></li>
-      <?php endforeach; ?>
-    </ul>
-  </section>
-<?php endif; ?>
-
 <?php if ($repositories->getTotalHits() > 0): ?>
   <section>
     <?php echo image_tag('/images/icons-small/icon-institutions-small.png', array('width' => '24', 'height' => '24')) ?>
