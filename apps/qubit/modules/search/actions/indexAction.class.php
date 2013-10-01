@@ -140,7 +140,7 @@ class SearchIndexAction extends DefaultBrowseAction
     }
 
     $queryText = new \Elastica\Query\QueryString($request->query);
-    $queryText->setDefaultOperator('AND');
+    $queryText->setDefaultOperator('OR');
     $this->queryBool->addMust($queryText);
 
     // Realm filter

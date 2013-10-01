@@ -280,64 +280,74 @@ class SearchAdvancedAction extends DefaultBrowseAction
       switch ($field)
       {
         case 'identifier':
-          $queryField = new \Elastica\Query\Text();
-          $queryField->setFieldQuery('identifier', $query);
+          $queryField = new \Elastica\Query\QueryString($query);
+          $queryField->setDefaultField('identifier');
+          $queryField->setDefaultOperator('OR');
 
           break;
 
         case 'title':
-          $queryField = new \Elastica\Query\Text();
-          $queryField->setFieldQuery('i18n.'.$culture.'.title', $query);
+          $queryField = new \Elastica\Query\QueryString($query);
+          $queryField->setDefaultField('i18n.'.$culture.'.title');
+          $queryField->setDefaultOperator('OR');
 
           break;
 
         case 'scopeAndContent':
-          $queryField = new \Elastica\Query\Text();
-          $queryField->setFieldQuery('i18n.'.$culture.'.scopeAndContent', $query);
+          $queryField = new \Elastica\Query\QueryString($query);
+          $queryField->setDefaultField('i18n.'.$culture.'.scopeAndContent');
+          $queryField->setDefaultOperator('OR');
 
           break;
 
         case 'archivalHistory':
-          $queryField = new \Elastica\Query\Text();
-          $queryField->setFieldQuery('i18n.'.$culture.'.archivalHistory', $query);
+          $queryField = new \Elastica\Query\QueryString($query);
+          $queryField->setDefaultField('i18n.'.$culture.'.archivalHistory');
+          $queryField->setDefaultOperator('OR');
 
           break;
 
         case 'extentAndMedium':
-          $queryField = new \Elastica\Query\Text();
-          $queryField->setFieldQuery('i18n.'.$culture.'.extentAndMedium', $query);
+          $queryField = new \Elastica\Query\QueryString($query);
+          $queryField->setDefaultField('i18n.'.$culture.'.extentAndMedium');
+          $queryField->setDefaultOperator('OR');
 
           break;
 
         case 'subject':
-          $queryField = new \Elastica\Query\Text();
-          $queryField->setFieldQuery('subjects.i18n.'.$culture.'.name', $query);
+          $queryField = new \Elastica\Query\QueryString($query);
+          $queryField->setDefaultField('subjects.i18n.'.$culture.'.name');
+          $queryField->setDefaultOperator('OR');
 
           break;
 
         case 'name':
-          $queryField = new \Elastica\Query\Text();
-          $queryField->setFieldQuery('names.i18n.'.$culture.'.name', $query);
+          $queryField = new \Elastica\Query\QueryString($query);
+          $queryField->setDefaultField('names.i18n.'.$culture.'.name');
+          $queryField->setDefaultOperator('OR');
 
           break;
 
         case 'place':
           $queryField = new \Elastica\Query\Bool();
 
-          $queryPlaceTermName = new \Elastica\Query\Text();
-          $queryPlaceTermName->setFieldQuery('places.i18n.'.$culture.'.name', $query);
+          $queryPlaceTermName = new \Elastica\Query\QueryString($query);
+          $queryPlaceTermName->setDefaultField('places.i18n.'.$culture.'.name');
+          $queryPlaceTermName->setDefaultOperator('OR');
           $queryField->addShould($queryPlaceTermName);
 
-          $queryPlaceTermUseFor = new \Elastica\Query\Text();
-          $queryPlaceTermUseFor->setFieldQuery('places.useFor.i18n.'.$culture.'.name', $query);
+          $queryPlaceTermUseFor = new \Elastica\Query\QueryString($query);
+          $queryPlaceTermUseFor->setDefaultField('places.useFor.i18n.'.$culture.'.name');
+          $queryPlaceTermUseFor->setDefaultOperator('OR');
           $queryField->addShould($queryPlaceTermUseFor);
 
           break;
 
         case '_all':
         default:
-          $queryField = new \Elastica\Query\Text();
-          $queryField->setFieldQuery('_all', $query);
+          $queryField = new \Elastica\Query\QueryString($query);
+          $queryField->setDefaultOperator('OR');
+          $queryField->setDefaultField('_all');
 
           break;
       }
