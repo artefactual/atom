@@ -1,4 +1,5 @@
 <?php decorate_with('layout_1col.php') ?>
+<?php use_helper('Date') ?>
 
 <?php slot('title') ?>
   <h1 class="multiline">
@@ -128,6 +129,15 @@
         <?php echo render_field($form->revisionHistory
           ->help(__('"Record the date the authority record was created and the dates of any revisions to the record." (ISAAR 5.4.6)'))
           ->label(__('Dates of creation, revision and deletion')), $resource, array('class' => 'resizable')) ?>
+
+        <?php if (isset($resource->updatedAt)): ?>
+          <div class="field">
+            <h3><?php echo __('Last updated') ?></h3>
+            <div>
+              <?php echo format_date($resource->updatedAt, 'f') ?>
+            </div>
+          </div>
+        <?php endif; ?>
 
         <?php echo $form->language
           ->help(__('Select the language(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)'))
