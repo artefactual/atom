@@ -47,7 +47,7 @@ class TermBrowseTermAction extends DefaultBrowseAction
 
         foreach (QubitTerm::get($criteria) as $item)
         {
-          $this->types[$item->id] = $item->name;
+          $this->types[$item->id] = $item->getName(array('cultureFallback' => true));
         }
 
         break;

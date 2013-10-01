@@ -108,7 +108,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
         foreach (QubitTerm::get($criteria) as $item)
         {
-          $this->types[$item->id] = $item->name;
+          $this->types[$item->id] = $item->getName(array('cultureFallback' => true));
         }
 
         break;
@@ -120,7 +120,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
         foreach (QubitActor::get($criteria) as $item)
         {
-          $this->types[$item->id] = $item->authorizedFormOfName;
+          $this->types[$item->id] = $item->__toString();
         }
 
         break;
