@@ -28,6 +28,11 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
   // Arrays not allowed in class constants
   public static
     $FACETS = array(
+      'languages' =>
+        array('type' => 'term',
+              'field' => 'i18n.languages',
+              'filter' => 'hideDrafts',
+              'size' => 10),
       'levels' =>
         array('type' => 'term',
               'field' => 'levelOfDescriptionId',

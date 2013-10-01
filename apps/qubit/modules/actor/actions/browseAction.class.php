@@ -31,9 +31,14 @@ class ActorBrowseAction extends DefaultBrowseAction
   // Arrays not allowed in class constants
   public static
     $FACETS = array(
-      'types' => array('type' => 'term',
-                       'field' => 'entityTypeId',
-                         'size' => 10));
+      'languages' =>
+        array('type' => 'term',
+              'field' => 'i18n.languages',
+              'size' => 10),
+      'types' =>
+        array('type' => 'term',
+              'field' => 'entityTypeId',
+              'size' => 10));
 
   protected function populateFacet($name, $ids)
   {

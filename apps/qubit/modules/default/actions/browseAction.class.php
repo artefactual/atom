@@ -21,13 +21,6 @@ class DefaultBrowseAction extends sfAction
 {
   protected function addFacets()
   {
-    // This facet is added by default to aggregate the different languages found
-    $this::$FACETS['languages'] = array(
-      'type' => 'term',
-      'field' => 'i18n.languages',
-      'filter' => 'hideDrafts',
-      'size' => 10);
-
     foreach ($this::$FACETS as $name => $item)
     {
       if (!is_array($item))
