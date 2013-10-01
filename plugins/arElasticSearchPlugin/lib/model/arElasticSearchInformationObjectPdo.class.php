@@ -510,13 +510,8 @@ class arElasticSearchInformationObjectPdo
     // Subject relations
     if (!isset(self::$statements['actorRelation']))
     {
-      $sql  = 'SELECT
-                  actor.id,
-                  actor.entity_type_id,
-                  slug.slug';
+      $sql  = 'SELECT actor.id';
       $sql .= ' FROM '.QubitActor::TABLE_NAME.' actor';
-      $sql .= ' JOIN '.QubitSlug::TABLE_NAME.' slug
-                  ON actor.id = slug.object_id';
       $sql .= ' JOIN '.QubitRelation::TABLE_NAME.' relation
                   ON actor.id = relation.object_id';
       $sql .= ' WHERE relation.subject_id = :resourceId
@@ -531,27 +526,16 @@ class arElasticSearchInformationObjectPdo
 
     foreach (self::$statements['actorRelation']->fetchAll(PDO::FETCH_OBJ) as $item)
     {
-      if (!in_array($item->authorized_form_of_name, $names))
-      {
-        $names[] = $item->authorized_form_of_name;
-      }
+      $names[$item->id] = $item;
     }
 
     // Get actors linked via the "event" table (e.g. creators)
     foreach ($this->getActors() as $item)
     {
-      $name = $item->authorized_form_of_name;
-
-      if (!in_array($name, $names))
-      {
-        $names[] = $name;
-      }
+      $names[$item->id] = $item;
     }
 
-    if (0 < count($names))
-    {
-      return implode(' ', $names);
-    }
+    return $names;
   }
 
   /*
