@@ -97,11 +97,15 @@ class DefaultBrowseAction extends sfAction
   {
     $this->filters = array();
 
-    // Filter language
-    $code = $this->request->getParameter('languages', sfConfig::get('sf_default_culture'));
-    $this->filters['languages'] = $code;
-    $term = new \Elastica\Filter\Term(array($this::$FACETS['languages']['field'] => $code));
-    $this->filterBool->addMust($term);
+    // Filter languages only if the languages facet is being used
+    if (isset($this::$FACETS['languages']))
+    {
+      $code = $this->request->getParameter('languages', sfConfig::get('sf_default_culture'));
+      $this->filters['languages'] = $code;
+      $term = new \Elastica\Filter\Term(array($this::$FACETS['languages']['field'] => $code));
+
+      $this->filterBool->addMust($term);
+    }
 
     foreach ($this->request->getGetParameters() as $param => $value)
     {
