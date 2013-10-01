@@ -110,7 +110,7 @@
               })
 
             // If user press enter, add new row
-            .find('input, select, textarea').live('keypress', function(event)
+            .find('input, select').live('keypress', function(event)
               {
                 if (event.keyCode == 13 || event.charCode == 13)
                 {
