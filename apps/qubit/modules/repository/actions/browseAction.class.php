@@ -73,17 +73,25 @@ class RepositoryBrowseAction extends DefaultBrowseAction
   {
     parent::execute($request);
 
-    if ('' == preg_replace('/[\s\t\r\n]*/', '', $request->query))
-    {
-      $this->queryBool->addMust(new \Elastica\Query\MatchAll());
-    }
-    else
+    if ('' != preg_replace('/[\s\t\r\n]*/', '', $request->query))
     {
       $queryText = new \Elastica\Query\QueryString($request->query);
       $queryText->setDefaultOperator('AND');
       $queryText->setDefaultField(sprintf('i18n.%s.authorizedFormOfName', $this->context->user->getCulture()));
 
       $this->queryBool->addMust($queryText);
+    }
+    else if ('' != preg_replace('/[\s\t\r\n]*/', '', $request->subquery))
+    {
+      $queryText = new \Elastica\Query\QueryString($request->subquery);
+      $queryText->setDefaultOperator('AND');
+      $queryText->setDefaultField(sprintf('i18n.%s.authorizedFormOfName', $this->context->user->getCulture()));
+
+      $this->queryBool->addMust($queryText);
+    }
+    else
+    {
+      $this->queryBool->addMust(new \Elastica\Query\MatchAll());
     }
 
     // TODO, ACL filter

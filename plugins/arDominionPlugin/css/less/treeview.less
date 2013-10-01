@@ -205,9 +205,8 @@
 
 }
 
-#treeview-search {
-
-  .hide();
+#treeview-search,
+#browse-search {
 
   form,
   button,
@@ -217,7 +216,6 @@
   }
 
   .search-box {
-
     padding: 14px 10px;
     background-color: rgba(0, 0, 0, .1);
     position: relative;
@@ -258,4 +256,20 @@
     padding: 4px 8px;
   }
 
+}
+
+#treeview-search {
+  .hide();
+}
+
+#browse-search {
+  margin-top: 20px;
+
+  .search-box {
+    background-color: rgba(0, 0, 0, .1) !important;
+
+    input {
+      background-color: rgba(0, 0, 0, .3) !important;
+    }
+  }
 }
