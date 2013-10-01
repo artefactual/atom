@@ -200,6 +200,7 @@
       this.source = this.$element.closest('form').data('autocomplete');
       this.shown = false;
       this.timeout = 150;
+      this.minLength = 3;
 
       this.listen();
       this.showRealm();
@@ -312,7 +313,7 @@
       {
         var query = this.$element.val();
 
-        if (!query)
+        if (!query || query.length < this.minLength)
         {
           this.hide();
           this.showRealm();
