@@ -20,9 +20,6 @@ editActorAclSuccess:
     autocomplete:
 
 editRepositoryAclSuccess:
-  stylesheets:
-    /vendor/yui/autocomplete/assets/skins/sam/autocomplete: { position: first }
-    /vendor/yui/container/assets/skins/sam/container: { position: first }
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
