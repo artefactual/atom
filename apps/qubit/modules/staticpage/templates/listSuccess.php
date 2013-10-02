@@ -1,6 +1,6 @@
 <h1><?php echo __('List pages') ?></h1>
 
-<table class="table sticky-enabled table-bordered">
+<table class="sticky-enabled table table-bordered">
   <thead>
     <tr>
       <th>
@@ -25,9 +25,7 @@
 <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
 
 <section class="actions">
-
- <ul>
+  <ul>
     <li><?php echo link_to(__('Add new'), array('module' => 'staticpage', 'action' => 'add'), array('class' => 'c-btn c-btn-submit')) ?></li>
- </ul>
-
+  </ul>
 </section>
