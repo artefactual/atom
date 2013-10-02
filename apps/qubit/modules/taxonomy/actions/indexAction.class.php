@@ -34,6 +34,13 @@ class TaxonomyIndexAction extends sfAction
     // Do source culture fallback
     $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitTerm');
 
+    if ('' != preg_replace('/[\s\t\r\n]*/', '', $request->subquery))
+    {
+      $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+      $criteria->add(QubitTermI18n::CULTURE, $this->context->user->getCulture());
+      $criteria->add(QubitTermI18n::NAME, "$request->subquery%", Criteria::LIKE);
+    }
+
     $criteria->addAscendingOrderByColumn('name');
 
     // Page results

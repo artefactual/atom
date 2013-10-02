@@ -4,6 +4,17 @@
   <h1><?php echo __('List %1%', array('%1%' => render_title($resource))) ?></h1>
 <?php end_slot() ?>
 
+<?php slot('before-content') ?>
+
+  <div class="search">
+    <form action="<?php echo url_for(array($resource, 'module' => 'taxonomy')) ?>">
+      <input name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>"/>
+      <input class="form-submit" type="submit" value="<?php echo __('Search %1%', array('%1%' => render_title($resource))) ?>"/>
+    </form>
+  </div>
+
+<?php end_slot() ?>
+
 <?php slot('content') ?>
 
   <table class="table table-bordered sticky-enabled">
