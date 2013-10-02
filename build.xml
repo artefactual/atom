@@ -170,7 +170,7 @@
     description="Pull translations from Transifex, ready to be committed"/>
 
   <target name="i18n-fetch">
-    <exec command="tx pull" dir="${phing.dir}" checkreturn="true" logoutput="true" passthru="true"/>
+    <exec command="tx pull --all" dir="${phing.dir}" checkreturn="true" logoutput="true" passthru="true"/>
     <foreach param="lang" absparam="directory" target="i18n-fetch-subtask">
       <fileset dir=".tx/i18n">
         <type type="dir"/>
