@@ -93,7 +93,7 @@
         <?php echo render_title($repos) ?>
         <?php $params = $sf_request->getGetParameters() ?>
         <?php unset($params['repos']) ?>
-        <a href="<?php echo url_for(array('module' => 'search') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
       </span>
     <?php endif; ?>
 
