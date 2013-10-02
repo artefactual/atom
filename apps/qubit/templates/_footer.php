@@ -16,7 +16,6 @@
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', '<?php echo $gaKey ?>']);
-    _gaq.push(['_setDomainName', 'accesstomemory.org']);
     _gaq.push(['_trackPageview']);
     <?php include_slot('google_analytics') ?>
     (function() {
