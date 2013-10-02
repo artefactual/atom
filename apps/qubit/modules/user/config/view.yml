@@ -103,4 +103,7 @@ listSuccess:
 
 passwordEditSuccess:
   javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/modules/user/user:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:

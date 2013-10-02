@@ -18,7 +18,7 @@
     </tr>
   </thead><tbody>
     <?php foreach ($users as $item): ?>
-      <tr class="<?php echo (0 == @++$row % 2) ? 'even' : 'odd' ?>">
+      <tr>
         <td>
           <?php echo link_to($item->username, array($item, 'module' => 'user')) ?>
           <?php if (!$item->active): ?>
@@ -44,7 +44,7 @@
 <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
 
 <section class="actions">
-  <ul class="clearfix links">
+  <ul>
     <li><?php echo link_to(__('Add new'), array('module' => 'user', 'action' => 'add'), array('class' => 'c-btn')) ?></li>
   </ul>
 </div>

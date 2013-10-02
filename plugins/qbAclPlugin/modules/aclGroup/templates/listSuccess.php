@@ -29,7 +29,7 @@
 <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
 
 <section class="actions">
-  <ul class="clearfix links">
+  <ul>
     <li><?php echo link_to(__('Add new'), array('module' => 'aclGroup', 'action' => 'add'), array('class' => 'c-btn')) ?></li>
   </ul>
 </div>
