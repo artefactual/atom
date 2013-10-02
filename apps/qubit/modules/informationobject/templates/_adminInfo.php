@@ -38,7 +38,7 @@
 
     <div class="span4">
       <?php echo $form->displayStandard->label(__('Display standard'))->renderRow() ?>
-      <?php echo $form->displayStandardUpdateDescendants->label(__('Assign the new display standard to all its descendants'))->renderRow() ?>
+      <?php echo $form->displayStandardUpdateDescendants->label(__('Make this selection the new default for existing children'))->renderRow() ?>
     </div>
 
   </div>
