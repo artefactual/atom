@@ -52,7 +52,10 @@ class RepositoryContextMenuComponent extends sfComponent
     QubitAclSearch::filterDrafts($filter);
 
     // Set filter
-    $query->setFilter($filter);
+    if (0 < count($filter->toArray()))
+    {
+      $query->setFilter($filter);
+    }
 
     $this->resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
   }
