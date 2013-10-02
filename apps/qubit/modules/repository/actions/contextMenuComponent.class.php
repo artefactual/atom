@@ -40,14 +40,13 @@ class RepositoryContextMenuComponent extends sfComponent
     $query = new \Elastica\Query($queryBool);
 
     $query->setLimit($this->limit);
-    $query->setSort(array(sprintf('i18n.%s.title.untouched', $this->context->user->getCulture()) => 'asc'));
+    $query->setSort(array(
+        sprintf('i18n.%s.title.untouched', $this->context->user->getCulture()) => array(
+            'order' => 'asc',
+            'ignore_unmapped' => true)));
 
     // Filter
     $filter = new \Elastica\Filter\Bool;
-
-    // Filter out descriptions without title
-    $filterExists = new \Elastica\Filter\Exists(sprintf('i18n.%s.title', $this->context->user->getCulture()));
-    $filter->addMust($filterExists);
 
     // Filter drafts
     QubitAclSearch::filterDrafts($filter);
