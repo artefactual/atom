@@ -23,7 +23,7 @@ function QubitAclDialog(dialogId, tableTemplate, $)
   };
 
   this.handleSubmit = function() {
-    var input = $('#'+dialogId).find('input[name]').eq(0);
+    var input = $('[id="'+dialogId+'"]').find('input[name]').eq(0);
 
     // Don't duplicate an existing table
     if ('null' != input.val())
@@ -31,10 +31,10 @@ function QubitAclDialog(dialogId, tableTemplate, $)
       var objectId = input.val();
       var tableId = $(tableTemplate).find('table').attr('id').replace('{objectId}', objectId);
 
-      if (0 < $('#'+tableId).length)
+      if (0 < $('[id="'+tableId+'"]').length)
       {
         // Highlight caption of duplicate table
-        var caption = $('#'+tableId+' caption');
+        var caption = $('[id="'+tableId+'"] caption');
         caption.css('background', 'yellow');
 
         setTimeout(function () {
@@ -92,7 +92,7 @@ function QubitAclDialog(dialogId, tableTemplate, $)
 
   // Focus on first visible input field
   this.yuiDialog.showEvent.subscribe(function () {
-    $('#'+dialogId).find('input:visible').get(0).focus();
+    $('[id="'+dialogId+'"]').find('input:visible').get(0).focus();
   }, this, true);
 
   // Wrap YUI dialog show method
