@@ -32,7 +32,7 @@
 
         // Build dialog for adding new table
         $tableTemplate  = '<div class="form-item">';
-        $tableTemplate .= '<table id="acl_{objectId}">';
+        $tableTemplate .= '<table id="acl_{objectId}" class="table table-bordered">';
         $tableTemplate .= '<caption/>';
         $tableTemplate .= '<thead>';
         $tableTemplate .= '<tr>';
