@@ -11,7 +11,7 @@
 
   <div id="content">
 
-    <legend class="collapsible">
+    <fieldset class="collapsible">
 
       <legend><?php echo __('Edit permissions') ?></legend>
 
@@ -26,7 +26,7 @@
         <a id="addRepositoryLink" href="javascript:myDialog.show()"><?php echo __('Add %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_repository')))) ?></a>
       </div>
 
-    </legend>
+    </fieldset>
 
   </div>
 
