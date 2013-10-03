@@ -72,6 +72,8 @@
   <target name="prepare" depends="debug">
     <delete dir="${build.dir}"/>
     <mkdir dir="${build.dir}"/>
+    <exec command="make" dir="${phing.dir}/plugins/arDominionPlugin" checkreturn="true"/>
+    <exec command="make" dir="${phing.dir}/plugins/arArchivesCanadaPlugin" checkreturn="true"/>
     <exec command="php symfony release --no-confirmation ${package.version} stable" dir="${phing.dir}" checkreturn="true"/>
   </target>
 
