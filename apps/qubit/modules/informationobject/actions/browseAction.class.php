@@ -134,7 +134,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
   {
     parent::execute($request);
 
-    if ('' == preg_replace('/[\s\t\r\n]*/', '', $request->subquery))
+    if (1 === preg_match('/^[\s\t\r\n]*$/', $request->subquery))
     {
       $this->queryBool->addMust(new \Elastica\Query\MatchAll());
     }

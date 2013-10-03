@@ -48,7 +48,7 @@ class AccessionBrowseAction extends sfAction
     switch ($request->sort)
     {
       case 'alphabetic':
-        $criteria->addAscendingOrderByColumn('authorized_form_of_name');
+        $criteria->addAscendingOrderByColumn('identifier');
 
         break;
 

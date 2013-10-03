@@ -118,7 +118,7 @@
     <?php echo get_partial('default/sortPicker',
       array(
         'options' => array(
-          'mostRecent' => __('Most recent'),
+          'lastUpdated' => __('Most recent'),
           'alphabetic' => __('Alphabetic')))) ?>
 
   </section>

@@ -31,7 +31,7 @@ class SearchAutocompleteAction extends sfAction
     $this->queryString = strtr($request->query, array('*' => '', '?' => ''));
 
     // If the query is empty, don't query
-    if ('' == preg_replace('/[\s\t\r\n]*/', '', $this->queryString))
+    if (1 === preg_match('/^[\s\t\r\n]*$/', $request->subquery))
     {
       $this->forward404();
     }

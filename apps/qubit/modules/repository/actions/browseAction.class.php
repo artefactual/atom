@@ -73,17 +73,17 @@ class RepositoryBrowseAction extends DefaultBrowseAction
   {
     parent::execute($request);
 
-    if (1 !== preg_match('/[\s\t\r\n]*/', $request->subquery))
+    if (1 === preg_match('/^[\s\t\r\n]*$/', $request->subquery))
+    {
+      $this->queryBool->addMust(new \Elastica\Query\MatchAll());
+    }
+    else
     {
       $queryText = new \Elastica\Query\QueryString($request->subquery);
       $queryText->setDefaultOperator('OR');
       $queryText->setDefaultField('_all');
 
       $this->queryBool->addMust($queryText);
-    }
-    else
-    {
-      $this->queryBool->addMust(new \Elastica\Query\MatchAll());
     }
 
     // TODO, ACL filter

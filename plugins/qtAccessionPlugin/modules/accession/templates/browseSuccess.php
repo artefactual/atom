@@ -5,14 +5,27 @@
   <h1><?php echo __('Browse accession') ?></h1>
 <?php end_slot() ?>
 
-<?php slot('content') ?>
+<?php slot('before-content') ?>
 
-  <div class="search">
-    <form action="<?php echo url_for(array('module' => 'accession', 'action' => 'list')) ?>">
-      <input name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>"/>
-      <input class="form-submit" type="submit" value="<?php echo __('Search accession') ?>"/>
-    </form>
-  </div>
+  <section class="header-options">
+    <div class="row">
+      <div class="span6">
+        <?php echo get_component('search', 'inlineSearch', array(
+          'label' => __('Search %1%', array('%1%' => strtolower(sfConfig::get('app_ui_label_accession')))))) ?>
+      </div>
+      <div class="span6">
+        <?php echo get_partial('default/sortPicker',
+          array(
+            'options' => array(
+              'lastUpdated' => __('Most recent'),
+              'alphabetic' => __('Alphabetic')))) ?>
+      </div>
+    </div>
+  </section>
+
+<?php end_slot() ?>
+
+<?php slot('content') ?>
 
   <table class="table table-bordered sticky-enabled">
     <thead>
