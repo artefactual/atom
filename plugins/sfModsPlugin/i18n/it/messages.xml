@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2013-08-22T17:21:52Z" product-name="messages">
+  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2013-10-03T11:49:41Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="3">
         <source>Identifier</source>
-        <target/>
+        <target>Codice identificativo</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Title</source>
-        <target/>
+        <target>Titolo</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Type of resource</source>
-        <target/>
+        <target>Tipo di risorsa</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Language</source>
-        <target/>
+        <target>Lingua</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Internet media type</source>
-        <target/>
+        <target>Internet Media Type </target>
       </trans-unit>
       <trans-unit id="8">
         <source>Subject</source>
@@ -30,115 +30,115 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Access condition</source>
-        <target/>
+        <target>Condizione di accesso</target>
       </trans-unit>
       <trans-unit id="10">
         <source>URL</source>
-        <target/>
+        <target>URL</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Physical location</source>
-        <target/>
+        <target>Localizzazione fisica</target>
       </trans-unit>
       <trans-unit id="13">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Questo è un duplicato del record %1%</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Names and origin info</source>
-        <target/>
+        <target>Informazioni sui nomi e sull'origine</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Add new name and/or origin info</source>
-        <target/>
+        <target>Aggiungi nuovo nome e/o informazioni sulla provenienza</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Add new child levels (if describing a collection)</source>
-        <target/>
+        <target>Aggiungi nuovi livelli subordinati (se si descrive una raccolta)</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Add new resource</source>
-        <target/>
+        <target>Aggiungi nuova risorsa</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Untitled</source>
-        <target/>
+        <target>Senza titolo</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Edit %1%</source>
-        <target/>
+        <target>Modifica %1%</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Select the type of activity that established the relation between the authority record and the resource.</source>
-        <target/>
+        <target>Seleziona il tipo di attività che ha stabilito la relazione fra il record d'autorità e la risorsa.</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Contains a unique standard number or code that distinctively identifies a resource.</source>
-        <target/>
+        <target>Contiene un codice o un numero standard univoco che identifica univocamente una risorsa.</target>
       </trans-unit>
       <trans-unit id="22">
         <source>A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it. Choice and format of titles should be governed by a content standard such as the Anglo-American Cataloging Rules, 2nd edition (AACR2), Cataloguing Cultural Objects (CCO), or Describing Archives: A Content Standard (DACS). Details such as capitalization, choosing among the forms of titles presented on an item, and use of abbreviations should be determined based on the rules in a content standard. One standard should be chosen and used consistently for all records in a set.</source>
-        <target/>
+        <target>Una parola, un carattere o un gruppo di caratteri, solitamente presenti in una risorsa, che danno il titolo alla risorsa o all'opera che contiene. La scelta e il formato dei titoli dovrebbero essere governati da uno standard sui contenuti, come le Anglo-American Cataloging Rules, 2nd edition (AACR2), il Cataloguing Cultural Objects (CCO) o Describing Archives: A Content Standard (DACS).  Dettagli come l'uso delle maiuscole e delle abbreviazioni, o la scelta delle forme dei titoli rappresentati su un oggetto, dovrebbero essere determinati sulla base delle regole di uno standard sui contenuti. Uno standard dovrebbe essere scelto e utilizzato in maniera coerente per tutti i record di un certo insieme.</target>
       </trans-unit>
       <trans-unit id="23">
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
-        <target/>
+        <target>Un termine che specifica le caratteristiche e il tipo generale di contenuto della risorsa. Assegna tutti i tipi ritenuti adeguati per la risorsa. Le opzioni relative al Tipo di risorsa sono limitate ai valori dell'elemento typeOfresource di MODS.</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
-        <target/>
+        <target>Usare questi due campi per aggiungere livelli inferiori a una descrizione al livello di raccolta. Cliccare Aggiungi nuovo per aggiungere tanti nodi figli quanti necessari. Identificativo: inserire un numero o un codice identificativo standard univoco che identifichi precisamente la risorsa. Titolo: inserire una parola, una frase, un carattere o un gruppo di caratteri, solitamente presenti nella risorsa, che danno il titolo alla risorsa stessa o all'opera che contiene.</target>
       </trans-unit>
       <trans-unit id="25">
         <source>A designation of the language in which the content of a resource is expressed. Select as many languages as required.</source>
-        <target/>
+        <target>Una designazione della lingua in cui è espresso il contenuto della risorsa. Selezionare quante lingue si desidera.</target>
       </trans-unit>
       <trans-unit id="26">
         <source>A term or phrase representing the primary topic(s) on which a work is focused. Search for an existing term in the Subjects taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
-        <target/>
+        <target>Un termine o una frase che rappresenta l'argomento  principale di un'opera. Cerca un termine esistente all'interno della Tassonomia degli oggetti, inserendo le prime lettere del termine. In alternativa, inserire un nuovo nome per creare un nuovo oggetto e collegarlo ..................</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
-        <target/>
+        <target>Informazioni sulle limitazioni nell'accesso a una risorsa. Si veda l'elemento accessCondition di MODS per maggiori informazioni su come utilizzare questo campo.</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.</source>
-        <target/>
+        <target>Identifica l'istituto o il deposito che conserva il materiale. Ricerca il nome di deposito inserendo le prime lettere del nome. In alternativa, inserisci un nuovo nome per creare un collegamento a un nuovo record per il deposito.</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Rights area</source>
-        <target/>
+        <target>Area dei diritti</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Edit rights area</source>
-        <target/>
+        <target>Modifica area dei diritti</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Accession area</source>
-        <target/>
+        <target>Area dell'acquisizione</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Elements area</source>
-        <target/>
+        <target>Area degli elementi</target>
       </trans-unit>
       <trans-unit id="33">
         <source>How to access to this content?</source>
-        <target/>
+        <target>Come accedere a questo contenuto?</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Contact the archivist at %1%</source>
-        <target/>
+        <target>Contatta l'archivista a %1%</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Show details</source>
-        <target/>
+        <target>Mostra dettagli</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Close</source>
-        <target/>
+        <target>Chiudi</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Edit elements area</source>
-        <target/>
+        <target>Modifica area degli elementi</target>
       </trans-unit>
     </body>
   </file>

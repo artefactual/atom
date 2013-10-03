@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-08-22T16:46:02Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-10-03T11:53:11Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -300,10 +300,6 @@ registos completos são os que fornecem informação para todos os elementos de 
         <source>"Record notes pertinent to the creation and maintenance of the authority record. The names of persons responsible for creating the authority record may be recorded here." (ISAAR 5.4.9)</source>
         <target>"Incluir notas pertinentes sobre a criação e manutenção do registo de autoridade. Os nomes das pessoas responsáveis pela criação do registo de autoridade podem ser registados neste elemento." (ISAAR 5.4.9)</target>
       </trans-unit>
-      <trans-unit id="74">
-        <source>Actions</source>
-        <target>Acções</target>
-      </trans-unit>
       <trans-unit id="75">
         <source>Cancel</source>
         <target>cancelar</target>
@@ -410,6 +406,10 @@ registos completos são os que fornecem informação para todos os elementos de 
       </trans-unit>
       <trans-unit id="104">
         <source>EAC</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Last updated</source>
         <target/>
       </trans-unit>
     </body>

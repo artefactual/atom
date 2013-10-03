@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2013-08-22T16:45:57Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2013-10-03T11:50:53Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -296,10 +296,6 @@
         <source>"Record notes pertinent to the creation and maintenance of the authority record. The names of persons responsible for creating the authority record may be recorded here." (ISAAR 5.4.9)</source>
         <target>"典拠レコードの作成とメンテナンスに関連する情報を記入してください。レコード作成者の氏名（複数可）をここに記載してもかまいません。" (ISAAR 5.4.9) (ISAAR 5.4.9)</target>
       </trans-unit>
-      <trans-unit id="74">
-        <source>Actions</source>
-        <target>行動</target>
-      </trans-unit>
       <trans-unit id="75">
         <source>Cancel</source>
         <target>キャンセル</target>
@@ -406,6 +402,10 @@
       </trans-unit>
       <trans-unit id="104">
         <source>EAC</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Last updated</source>
         <target/>
       </trans-unit>
     </body>

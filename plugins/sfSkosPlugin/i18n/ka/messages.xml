@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2012-08-15T11:37:04Z" product-name="messages">
+  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2013-10-03T11:50:23Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit id="1">
-        <source>Import successful</source>
-        <target>წარმატებული იმპორტი </target>
-      </trans-unit>
       <trans-unit id="2">
         <source>%1% terms imported in %2%s</source>
         <target>%1% ელემენტი იმპორტირებული %2%-ში</target>
-      </trans-unit>
-      <trans-unit id="3">
-        <source>Actions</source>
-        <target>ქმედებები</target>
       </trans-unit>
       <trans-unit id="4">
         <source>View %1%</source>
@@ -24,10 +16,6 @@
         <source>Import more %1%</source>
         <target>%1% -ზე მეტი იმპორტი </target>
       </trans-unit>
-      <trans-unit id="6">
-        <source>Import %1% (SKOS)</source>
-        <target>%1% (SKOS)-ს იმპორტი </target>
-      </trans-unit>
       <trans-unit id="7">
         <source>Select a file to import</source>
         <target>აირჩიეთ ფაილი იმპორტისთვის</target>
@@ -35,6 +23,14 @@
       <trans-unit id="8">
         <source>Import</source>
         <target>იმპორტი </target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>SKOS import</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Import completed</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

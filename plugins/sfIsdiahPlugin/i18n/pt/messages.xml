@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-08-22T16:46:02Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-10-03T11:53:10Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -364,10 +364,6 @@ registos completos são os que fornecem informação para todos os elementos de 
         <source>Edit control area</source>
         <target>Editar zona de controlo</target>
       </trans-unit>
-      <trans-unit id="110">
-        <source>Institutions</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="111">
         <source>Primary contact</source>
         <target>Contacto principal</target>
@@ -382,6 +378,10 @@ registos completos são os que fornecem informação para todos os elementos de 
       </trans-unit>
       <trans-unit id="114">
         <source>Edit theme</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="115">
+        <source>Last updated</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2013-08-22T17:33:46Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2013-10-03T11:49:42Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -22,7 +22,7 @@
       </trans-unit>
       <trans-unit id="11">
         <source>Global search</source>
-        <target/>
+        <target>Búsqueda global</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Search &lt;span&gt;%1%&lt;/span&gt;</source>

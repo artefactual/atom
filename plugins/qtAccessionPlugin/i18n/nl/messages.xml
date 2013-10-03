@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2013-08-22T16:46:01Z" product-name="messages">
+  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2013-10-03T11:52:46Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -19,18 +19,6 @@
       <trans-unit id="4">
         <source>Authorized form of name - This is a mandatory element.</source>
         <target>Geauthoriseerde naam - Dit is een verplicht veld.</target>
-      </trans-unit>
-      <trans-unit id="5">
-        <source>Donor browse options</source>
-        <target>Opties voor het bladeren door schenkers/bruikleengevers</target>
-      </trans-unit>
-      <trans-unit id="6">
-        <source>Recent changes</source>
-        <target>Recente wijzigingen</target>
-      </trans-unit>
-      <trans-unit id="7">
-        <source>Sort</source>
-        <target/>
       </trans-unit>
       <trans-unit id="8">
         <source>Alphabetic</source>
@@ -56,17 +44,9 @@
         <source>Are you sure you want to delete %1%?</source>
         <target/>
       </trans-unit>
-      <trans-unit id="14">
-        <source>Actions</source>
-        <target>Handelingen</target>
-      </trans-unit>
       <trans-unit id="15">
         <source>Cancel</source>
         <target>Verwijderen</target>
-      </trans-unit>
-      <trans-unit id="16">
-        <source>Confirm</source>
-        <target>Bevestig</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Edit donor</source>
@@ -207,10 +187,6 @@
       <trans-unit id="51">
         <source>Location information - This is a mandatory element.</source>
         <target>Plaatsingsgegevens - dit is een verplicht veld</target>
-      </trans-unit>
-      <trans-unit id="52">
-        <source>Accession browse options</source>
-        <target/>
       </trans-unit>
       <trans-unit id="53">
         <source>Browse accession</source>
@@ -458,6 +434,18 @@
       </trans-unit>
       <trans-unit id="120">
         <source>%1% area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>Basic info</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="122">
+        <source>Search %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>Most recent</source>
         <target/>
       </trans-unit>
     </body>

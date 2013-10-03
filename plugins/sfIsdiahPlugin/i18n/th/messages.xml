@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="th" datatype="plaintext" original="messages" date="2013-08-22T16:45:58Z" product-name="messages">
+  <file source-language="EN" target-language="th" datatype="plaintext" original="messages" date="2013-10-03T11:51:33Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -360,10 +360,6 @@
         <source>Create</source>
         <target>สร้าง</target>
       </trans-unit>
-      <trans-unit id="93">
-        <source>Institutions</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="94">
         <source>Primary contact</source>
         <target>นี่คือการติดต่อครั้งแรก</target>
@@ -378,6 +374,10 @@
       </trans-unit>
       <trans-unit id="97">
         <source>Edit theme</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Last updated</source>
         <target/>
       </trans-unit>
     </body>

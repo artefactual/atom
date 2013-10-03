@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2013-08-22T16:46:33Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2013-10-03T11:51:58Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit id="1">
-        <source>View permissions</source>
-        <target>Ver permisos</target>
-      </trans-unit>
-      <trans-unit id="2">
-        <source>Edit group</source>
-        <target>Editar grupo</target>
-      </trans-unit>
       <trans-unit id="3">
         <source>All %1%</source>
         <target>Todos %1%</target>
@@ -19,10 +11,6 @@
       <trans-unit id="4">
         <source>All privileges</source>
         <target>Todos los privilegios</target>
-      </trans-unit>
-      <trans-unit id="5">
-        <source>Actions</source>
-        <target>Acciones</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Edit</source>
@@ -96,10 +84,6 @@
         <source>Are you sure you want to delete %1%?</source>
         <target>¿Está seguro que quiere borrar %1%?</target>
       </trans-unit>
-      <trans-unit id="24">
-        <source>Confirm</source>
-        <target>Confirmar</target>
-      </trans-unit>
       <trans-unit id="26">
         <source>Create</source>
         <target>Crear</target>
@@ -154,18 +138,22 @@
       </trans-unit>
       <trans-unit id="44">
         <source>Edit %1% permissions of %2%</source>
-        <target/>
+        <target>Editar %1% permiso de %2%</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Group %1%</source>
-        <target/>
+        <target>Grupos %1%</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Main area</source>
-        <target/>
+        <target>Área principal</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Group details</source>
+        <target>Detalles de grupos</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Edit permissions</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2012-08-15T11:37:00Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2013-10-03T11:50:53Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -252,10 +252,6 @@
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDF 5.4.9)</source>
         <target>"記述の作成とメンテナンスに関連する情報を記入してください。" (ISDF 5.4.9)</target>
       </trans-unit>
-      <trans-unit id="63">
-        <source>Actions</source>
-        <target>行動</target>
-      </trans-unit>
       <trans-unit id="64">
         <source>Cancel</source>
         <target>キャンセル</target>
@@ -271,10 +267,6 @@
       <trans-unit id="67">
         <source>View ISDF function</source>
         <target>ISDF機能を見る</target>
-      </trans-unit>
-      <trans-unit id="68">
-        <source>Edit function</source>
-        <target>機能を編集する</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Edit identity area</source>

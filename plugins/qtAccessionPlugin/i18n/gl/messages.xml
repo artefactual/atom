@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2013-06-09T19:07:27Z" product-name="messages">
+  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2013-10-03T11:52:58Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Add new deaccession record</source>
-        <target/>
+        <target>Engadir novo rexistro de expurgo</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Untitled</source>
@@ -36,21 +36,13 @@
         <source>Are you sure you want to delete %1%?</source>
         <target>¿Está seguro que quere borrar %1%?</target>
       </trans-unit>
-      <trans-unit id="9">
-        <source>Actions</source>
-        <target>Accións</target>
-      </trans-unit>
       <trans-unit id="10">
         <source>Cancel</source>
         <target>Cancelar</target>
       </trans-unit>
-      <trans-unit id="11">
-        <source>Confirm</source>
-        <target>Confirmar</target>
-      </trans-unit>
       <trans-unit id="12">
         <source>View deaccession record</source>
-        <target/>
+        <target>Ver rexistro de expurgo</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Edit accession record</source>
@@ -58,7 +50,7 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Deaccession number</source>
-        <target/>
+        <target>Número de expurgo</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Scope</source>
@@ -90,7 +82,7 @@
       </trans-unit>
       <trans-unit id="22">
         <source>Edit deaccession record</source>
-        <target/>
+        <target>Modificar rexistro de expurgo</target>
       </trans-unit>
       <trans-unit id="23">
         <source>This is a mandatory element.</source>
@@ -98,15 +90,15 @@
       </trans-unit>
       <trans-unit id="24">
         <source>Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.</source>
-        <target/>
+        <target>Identifique se vai ser expurgada toda ou só unha parte do ingreso</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Date of deaccession</source>
-        <target/>
+        <target>Data de expurgo</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Identify what materials are being deaccessioned.</source>
-        <target/>
+        <target>Identifique que materiais van ser expurgados</target>
       </trans-unit>
       <trans-unit id="27">
         <source>The number of units as a whole number and the measurement of the records to be deaccessioned.</source>
@@ -154,7 +146,7 @@
       </trans-unit>
       <trans-unit id="38">
         <source>Related accession(s)</source>
-        <target/>
+        <target>Ingreso(s) relacionado(s)</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Add new</source>
@@ -175,18 +167,6 @@
       <trans-unit id="43">
         <source>Search donor</source>
         <target>Buscar donante</target>
-      </trans-unit>
-      <trans-unit id="44">
-        <source>Donor browse options</source>
-        <target>Opcións de navegación do donante</target>
-      </trans-unit>
-      <trans-unit id="45">
-        <source>Recent changes</source>
-        <target>Cambios recentes</target>
-      </trans-unit>
-      <trans-unit id="46">
-        <source>Sort</source>
-        <target>Ordear</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Alphabetic</source>
@@ -218,7 +198,7 @@
       </trans-unit>
       <trans-unit id="54">
         <source>It has %1% deaccessions that will also be deleted:</source>
-        <target/>
+        <target>Ten %1% expurgos que tamén serán eliminados</target>
       </trans-unit>
       <trans-unit id="55">
         <source>It has %1% accruals. They will not be deleted.</source>
@@ -318,7 +298,7 @@
       </trans-unit>
       <trans-unit id="79">
         <source>Accrual to</source>
-        <target/>
+        <target>Provisión para</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Rights area</source>
@@ -330,15 +310,15 @@
       </trans-unit>
       <trans-unit id="84">
         <source>Deaccession area</source>
-        <target/>
+        <target>Área de expurgo</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Deaccession</source>
-        <target/>
+        <target>Expurgo</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Add accrual</source>
-        <target/>
+        <target>Engadir acumulación</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Create %1%</source>
@@ -350,11 +330,11 @@
       </trans-unit>
       <trans-unit id="89">
         <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
-        <target/>
+        <target>Número de ingreso debe ser unha combinación de valores recollidos no campo e debe ser un número de adhesión exclusivo para o repositorio</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
-        <target/>
+        <target>A data de ingreso representa a data de recepción dos materiais i engadese no proceso de doazón</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.</source>
@@ -362,7 +342,7 @@
       </trans-unit>
       <trans-unit id="92">
         <source>A description of the physical location in the repository where the accession can be found.</source>
-        <target/>
+        <target>Descrición da ubicación física do repositorio onde se pode atopar o ingreso.</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Term describing the type of accession transaction and referring to the way in which the accession was acquired.</source>
@@ -370,7 +350,7 @@
       </trans-unit>
       <trans-unit id="94">
         <source>Select the type of resource represented in the accession, either public or private.</source>
-        <target/>
+        <target>Seleccione o tipo de recurso representado no ingreso, sexa público ou privado.</target>
       </trans-unit>
       <trans-unit id="95">
         <source>The title of the accession, usually the creator name and term describing the format of the accession materials.</source>
@@ -378,7 +358,7 @@
       </trans-unit>
       <trans-unit id="96">
         <source>The name of the creator of the accession or the name of the department that created the accession.</source>
-        <target/>
+        <target>Nome do creador do ingreso ou nome do departamento que creou o ingreso.</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Information on the history of the accession. When the accession is acquired directly from the creator, do not record an archival history but record the information as the Immediate Source of Acquisition.</source>
@@ -386,7 +366,7 @@
       </trans-unit>
       <trans-unit id="98">
         <source>A description of the intellectual content and document types represented in the accession.</source>
-        <target/>
+        <target>Unha descrición do contido intelectual e tipos de documentos representados no ingreso</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
@@ -394,7 +374,7 @@
       </trans-unit>
       <trans-unit id="100">
         <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
-        <target/>
+        <target>Unha descrición das condicións físicas do ingreso e si existise algún requerimento especial de tratamento e conservación.</target>
       </trans-unit>
       <trans-unit id="101">
         <source>The number of units as a whole number and the measurement of the received volume of records in the accession.</source>
@@ -402,11 +382,11 @@
       </trans-unit>
       <trans-unit id="102">
         <source>An indicator of the accessioning process.</source>
-        <target/>
+        <target>Un indicador do proceso de ingreso</target>
       </trans-unit>
       <trans-unit id="103">
         <source>Indicates the priority the repository assigns to completing the processing of the accession.</source>
-        <target/>
+        <target>Indica a prioridade que o repositorio asigna a completar o proceso de ingreso.</target>
       </trans-unit>
       <trans-unit id="104">
         <source>Notes about the processing plan, describing what needs to be done for the accession to be processed completely.</source>
@@ -448,16 +428,24 @@
         <source>Search accession</source>
         <target>Buscar entrada</target>
       </trans-unit>
-      <trans-unit id="115">
-        <source>Accession browse options</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="116">
         <source>Browse accession</source>
-        <target/>
+        <target>Navegar polos ingresos</target>
       </trans-unit>
       <trans-unit id="117">
         <source>%1% area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="118">
+        <source>Basic info</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="119">
+        <source>Search %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="120">
+        <source>Most recent</source>
         <target/>
       </trans-unit>
     </body>

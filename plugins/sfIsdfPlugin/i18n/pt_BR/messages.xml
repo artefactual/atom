@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2012-08-15T11:37:10Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2013-10-03T11:50:38Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -253,10 +253,6 @@ registos completos são os que fornecem informação para todos os elementos de 
         <source>"Record notes pertinent to the creation and maintenance of the description." (ISDF 5.4.9)</source>
         <target>"Registre notas relevantes sobre a criação e manutenção da descrição." (ISDF 5.4.9)</target>
       </trans-unit>
-      <trans-unit id="63">
-        <source>Actions</source>
-        <target>Ações</target>
-      </trans-unit>
       <trans-unit id="64">
         <source>Cancel</source>
         <target>cancelar</target>
@@ -272,10 +268,6 @@ registos completos são os que fornecem informação para todos os elementos de 
       <trans-unit id="67">
         <source>View ISDF function</source>
         <target>Visualizar função ISDF</target>
-      </trans-unit>
-      <trans-unit id="68">
-        <source>Edit function</source>
-        <target>Editar função</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Edit identity area</source>

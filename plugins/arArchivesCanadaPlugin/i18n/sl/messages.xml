@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2013-08-22T16:46:37Z" product-name="messages">
+  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2013-10-03T11:49:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Browse by</source>
-        <target/>
+        <target>Prebrskajte glede na</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Search %1%</source>
-        <target/>
+        <target>Išči %1%</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Search</source>
@@ -22,15 +22,15 @@
       </trans-unit>
       <trans-unit id="11">
         <source>Global search</source>
-        <target/>
+        <target>Iskanje po celotnem programu</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Search &lt;span&gt;%1%&lt;/span&gt;</source>
-        <target/>
+        <target>Iskanje &lt;span&gt;%1%&lt;/span&gt;</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Virtual exhibits</source>
-        <target/>
+        <target>Virtualni eksponati</target>
       </trans-unit>
     </body>
   </file>

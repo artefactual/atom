@@ -1,84 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="it" datatype="plaintext" original="messages" date="2013-08-22T17:21:52Z" product-name="messages">
+  <file source-language="en" target-language="it" datatype="plaintext" original="messages" date="2013-10-03T11:49:42Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Add new archival description</source>
-        <target/>
+        <target>Aggiungi nuova descrizione archivistica</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Untitled</source>
-        <target/>
+        <target>Senza titolo</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
-        <target/>
+        <target>Modifica %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Identifier - This is a mandatory element.</source>
-        <target/>
+        <target>Codice identificativo - Questo è un elemento obbligatorio.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Name and location of repository - This is a mandatory element.</source>
-        <target/>
+        <target>Nome e ubicazione del deposito - Questo è un elemento obbligatorio.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Title - This is a mandatory element.</source>
-        <target/>
+        <target>Titolo - Questo è un elemento obbligatorio.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Date(s) - are not consistent with higher levels.</source>
-        <target/>
+        <target>Date - Non sono compatibili con i livelli superiori.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Date(s) - This is a mandatory element.</source>
-        <target/>
+        <target>Date - Questo è un elemento obbligatorio.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Extent - This is a mandatory element.</source>
-        <target/>
+        <target>Consistenza - Questo è un elemento obbligatorio.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
-        <target/>
+        <target>Questa descrizione archivistica, o uno dei suoi livelli superiori, richiede almeno un soggetto produttore</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Scope and content - This is a mandatory element.</source>
-        <target/>
+        <target>Ambito e contenuto - Questo è un elemento obbligatorio.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Questo è un duplicato del record %1%</target>
       </trans-unit>
       <trans-unit id="13">
         <source>Identity elements</source>
-        <target/>
+        <target>Elementi di identificazione</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Reference code</source>
-        <target/>
+        <target>Codice di riferimento</target>
       </trans-unit>
       <trans-unit id="15">
         <source>TODO tooltip</source>
-        <target/>
+        <target>TODO (tooltip)</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Identifier</source>
-        <target/>
+        <target>Codice identificativo</target>
       </trans-unit>
       <trans-unit id="17">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Questo è un elemento obbligatorio.</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Name and location of repository</source>
-        <target/>
+        <target>Nome e ubicazione del deposito</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
-        <target/>
+        <target>Indicare il nome dell'ente che ha la custodia della risorsa. Cercare un nome esistente fra i record degli istituti di conservazione inserendo le prime lettere del nome. In alternativa, inserire un nuovo nome per creare e collegare un nuovo record dell'istituto conservatore.</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Levels of description</source>
@@ -86,203 +86,203 @@
       </trans-unit>
       <trans-unit id="21">
         <source>Title</source>
-        <target/>
+        <target>Titolo</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Record information about physical characteristics that affect the use of the unit being described in the Physical Access Element.</source>
-        <target/>
+        <target>Fornire, all'interno dell'elemento Accesso fisico, informazioni sulle caratteristiche materiali che condizionano l'uso dell'unità di descrizione.</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Extent</source>
-        <target/>
+        <target>Consistenza</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Name of creator(s)</source>
-        <target/>
+        <target>Nomi dei soggetti produttori</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Optionally, describe the nature of the relationship between the entities named in the creator element and the materials being described (e.g., creator, author, subject, custodian, copyright owner, controller, or owner.).</source>
-        <target/>
+        <target>Facoltativamente, descrivere la natura della relazione tra le entità nominate nell'elemento Soggetto produttore e i materiali descritti (ad esempio, soggetto produttore, autore, oggetto, conservatore, detentore del copyright, controllore, proprietario).</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Administrative/biographical history</source>
-        <target/>
+        <target>Storia istituzionale/amministrativa o nota biografica</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Content and structure elements</source>
-        <target/>
+        <target>Elementi relativi al contenuto e alla struttura</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Scope and content</source>
-        <target/>
+        <target>Ambito e contenuto</target>
       </trans-unit>
       <trans-unit id="29">
         <source>System of arrangement</source>
-        <target/>
+        <target>Sistema di ordinamento</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Conditions of access and use elements</source>
-        <target/>
+        <target>Elementi relativi alle conduzioni di accesso e uso</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Conditions governing access</source>
-        <target/>
+        <target>Condizioni di accesso</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Physical access</source>
-        <target/>
+        <target>Accesso fisico</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Technical access</source>
-        <target/>
+        <target>Accesso tecnico</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Conditions governing reproduction and use</source>
-        <target/>
+        <target>Condizioni di uso e riproduzione</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Languages of the material</source>
-        <target/>
+        <target>Lingue dei materiali</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Scripts of the material</source>
-        <target/>
+        <target>Scrittura del materiale</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Language and script notes</source>
-        <target/>
+        <target>Note sulla lingua e sulla scrittura</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Acquisition and appraisal elements</source>
-        <target/>
+        <target>Elementi relativi all'acquisizione e alla valutazione</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Custodial history</source>
-        <target/>
+        <target>Nota archivistica</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Immediate source of acquisition or transfer</source>
-        <target/>
+        <target>Modalità di acquisizione</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Appraisal, destruction and scheduling information</source>
-        <target/>
+        <target>Procedure, tempi e criteri di valutazione e scarto</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Related materials elements</source>
-        <target/>
+        <target>Elementi informativi relativi ai materiali collegati</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Existence and location of originals</source>
-        <target/>
+        <target>Esistenza e localizzazione degli originali</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Existence and location of copies</source>
-        <target/>
+        <target>Esistenza e localizzazione di copie</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Related archival materials</source>
-        <target/>
+        <target>Materiali d'archivio collegati</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Notes element</source>
-        <target/>
+        <target>Elemento riferito alle note</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Description control element</source>
-        <target/>
+        <target>Elemento di controllo della descrizione</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Sources used</source>
-        <target/>
+        <target>Fonti utilizzate</target>
       </trans-unit>
       <trans-unit id="49">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Norme e convenzioni</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Access points</source>
-        <target/>
+        <target>Punti di accesso</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Subject access points</source>
-        <target/>
+        <target>Punti d'accesso per soggetto</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Place access points</source>
-        <target/>
+        <target>Punti d'accesso per luogo</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>Punti d'accesso per nome (soggetto)</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Rights area</source>
-        <target/>
+        <target>Area dei diritti</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Edit identity elements</source>
-        <target/>
+        <target>Modifica elementi relativi all'identificazione</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Level of description</source>
-        <target/>
+        <target>Livello di descrizione</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Date(s)</source>
-        <target/>
+        <target>Date</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Related function</source>
-        <target/>
+        <target>Funzione collegata</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Edit context and structure elements</source>
-        <target/>
+        <target>Modifica elementi relativi al contesto e alla struttura</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Edit conditions of access and use elements</source>
-        <target/>
+        <target>Modifica elementi relativi alle condzioni di accesso e uso</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Conditions governing reproduction</source>
-        <target/>
+        <target>Condizioni di riproduzione</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Finding aids</source>
-        <target/>
+        <target>Strumenti di ricerca</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Edit acquisition and appraisal elements</source>
-        <target/>
+        <target>Modifica elementi relativi all'acquisizione e alla valutazione</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>Modalità di acquisizione</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Accruals</source>
-        <target/>
+        <target>Incrementi</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Edit related materials elements</source>
-        <target/>
+        <target>Modifica elementi relativi ai materiali collegati</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Publication notes</source>
-        <target/>
+        <target>Note di pubblicazione</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Edit notes element</source>
-        <target/>
+        <target>Modifica elementi relativi alle note</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Note</source>
-        <target/>
+        <target>Nota</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Edit description control element</source>
-        <target/>
+        <target>Modifica elemento di controllo della descrizione</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Archivist's note</source>
@@ -290,15 +290,15 @@
       </trans-unit>
       <trans-unit id="72">
         <source>Edit access points</source>
-        <target/>
+        <target>Modifica i punti d'accesso</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Edit rights area</source>
-        <target/>
+        <target>Modifica area dei diritti</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Accession area</source>
-        <target/>
+        <target>Area dell'acquisizione</target>
       </trans-unit>
     </body>
   </file>

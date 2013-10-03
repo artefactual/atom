@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2013-08-22T16:46:02Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2013-10-03T11:53:24Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -19,18 +19,6 @@
       <trans-unit id="4">
         <source>Authorized form of name - This is a mandatory element.</source>
         <target>Forme autorisée du nom - Cet élément est obligatoire</target>
-      </trans-unit>
-      <trans-unit id="5">
-        <source>Donor browse options</source>
-        <target>Options de navigation au sein des donateurs</target>
-      </trans-unit>
-      <trans-unit id="6">
-        <source>Recent changes</source>
-        <target>Modifications récentes</target>
-      </trans-unit>
-      <trans-unit id="7">
-        <source>Sort</source>
-        <target>Trier</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Alphabetic</source>
@@ -56,17 +44,9 @@
         <source>Are you sure you want to delete %1%?</source>
         <target>Êtes-vous sûr de vouloir supprimer %1% ?</target>
       </trans-unit>
-      <trans-unit id="14">
-        <source>Actions</source>
-        <target>Actions</target>
-      </trans-unit>
       <trans-unit id="15">
         <source>Cancel</source>
         <target>Annuler</target>
-      </trans-unit>
-      <trans-unit id="16">
-        <source>Confirm</source>
-        <target>Confirmer</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Edit donor</source>
@@ -207,10 +187,6 @@
       <trans-unit id="51">
         <source>Location information - This is a mandatory element.</source>
         <target>Information de localisation - Cet élément est obligatoire</target>
-      </trans-unit>
-      <trans-unit id="52">
-        <source>Accession browse options</source>
-        <target>Options de navigation dans les entrées</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Browse accession</source>
@@ -435,7 +411,7 @@ Il permet de saisir plusieurs entrées et de créer plusieurs contacts en utilis
       </trans-unit>
       <trans-unit id="112">
         <source>Related accession(s)</source>
-        <target/>
+        <target>Entrée(s) associée(s)</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Accruals</source>
@@ -443,22 +419,34 @@ Il permet de saisir plusieurs entrées et de créer plusieurs contacts en utilis
       </trans-unit>
       <trans-unit id="114">
         <source>Accrual to</source>
-        <target/>
+        <target>Accroissement de</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Add accrual</source>
-        <target/>
+        <target>Ajouter l'accroissement</target>
       </trans-unit>
       <trans-unit id="117">
         <source>It has %1% accruals. They will not be deleted.</source>
-        <target/>
+        <target>L'entité a %1% accroissements qui ne seront pas supprimés.</target>
       </trans-unit>
       <trans-unit id="118">
         <source>You are creating an accrual to accession %1%</source>
-        <target/>
+        <target>Vous êtes en train de créer un supplément à l'entrée %1%</target>
       </trans-unit>
       <trans-unit id="120">
         <source>%1% area</source>
+        <target>%1% zone</target>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>Basic info</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="122">
+        <source>Search %1%</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="123">
+        <source>Most recent</source>
         <target/>
       </trans-unit>
     </body>

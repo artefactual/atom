@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2011-11-08T09:54:20Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2013-10-03T11:49:42Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Not found</source>
-        <target/>
+        <target>No se han encontrado resultados</target>
       </trans-unit>
       <trans-unit id="2">
         <source>The supplied format is not supported by this server</source>
-        <target/>
+        <target>El formato utilizado no es soportado por este servidor.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>The supplied content type is not supported by this server</source>
-        <target/>
+        <target>El tipo de contenido que usted ingresó no es soportado por este servidor.</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Checksum sent does not match the calculated checksum</source>
-        <target/>
+        <target>Checksum enviado no concuerda con el checksum calculado</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Not implemented</source>
-        <target/>
+        <target>No implementado</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Bad request</source>
-        <target/>
+        <target>Solicitud incorrecta</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Forbidden</source>
-        <target/>
+        <target>Prohibido</target>
       </trans-unit>
     </body>
   </file>

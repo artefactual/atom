@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2013-08-22T16:46:58Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2013-10-03T11:53:24Z" product-name="messages">
     <header/>
     <body>
-      <trans-unit id="1">
-        <source>View permissions</source>
-        <target>Afficher les droits</target>
-      </trans-unit>
-      <trans-unit id="2">
-        <source>Edit group</source>
-        <target>Modifier le groupe</target>
-      </trans-unit>
       <trans-unit id="3">
         <source>All %1%</source>
         <target>Tout %1%</target>
@@ -19,10 +11,6 @@
       <trans-unit id="4">
         <source>All privileges</source>
         <target>Tous les privilèges</target>
-      </trans-unit>
-      <trans-unit id="5">
-        <source>Actions</source>
-        <target>Actions</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Edit</source>
@@ -96,10 +84,6 @@
         <source>Are you sure you want to delete %1%?</source>
         <target>Êtes-vous sûr de vouloir supprimer %1% ?</target>
       </trans-unit>
-      <trans-unit id="24">
-        <source>Confirm</source>
-        <target>Confirmer</target>
-      </trans-unit>
       <trans-unit id="26">
         <source>Create</source>
         <target>Ajouter</target>
@@ -154,18 +138,22 @@
       </trans-unit>
       <trans-unit id="44">
         <source>Edit %1% permissions of %2%</source>
-        <target/>
+        <target>Modifier %1% les droits de %2%</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Group %1%</source>
-        <target/>
+        <target>Groupe %1%</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Main area</source>
-        <target/>
+        <target>Zone principale</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Group details</source>
+        <target>Informations sur le groupe</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Edit permissions</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2013-06-09T20:17:31Z" product-name="messages">
+  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2013-10-03T11:52:46Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -210,10 +210,6 @@ Beschrijf de genealogie van een familie (bijvoorbeeld door middel van een stambo
         <source>"Record notes pertinent to the creation and maintenance of the authority record. The names of persons responsible for creating the authority record may be recorded here." (ISAAR 5.4.9)</source>
         <target>"Maak aantekeningen over de creatie en het onderhoud van de geautoriseerde beschrijving. Hier kunnen de namen van personen die verantwoordelijk zijn voor het maken van de geautoriseerde beschrijving worden vastgelegd." (ISAAR 5.4.9)</target>
       </trans-unit>
-      <trans-unit id="52">
-        <source>Actions</source>
-        <target>Handelingen</target>
-      </trans-unit>
       <trans-unit id="53">
         <source>Cancel</source>
         <target>Verwijderen</target>
@@ -408,6 +404,10 @@ Beschrijf de genealogie van een familie (bijvoorbeeld door middel van een stambo
       </trans-unit>
       <trans-unit id="104">
         <source>EAC</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Last updated</source>
         <target/>
       </trans-unit>
     </body>

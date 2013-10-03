@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2013-08-22T16:47:02Z" product-name="messages">
+  <file source-language="EN" target-language="fa" datatype="plaintext" original="messages" date="2013-10-03T11:53:48Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -38,10 +38,6 @@
       </trans-unit>
       <trans-unit id="9">
         <source>Permissions</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="10">
-        <source>Actions</source>
         <target/>
       </trans-unit>
       <trans-unit id="11">
@@ -88,10 +84,6 @@
         <source>Are you sure you want to delete %1%?</source>
         <target/>
       </trans-unit>
-      <trans-unit id="23">
-        <source>Confirm</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="24">
         <source>Edit %1% permissions</source>
         <target/>
@@ -104,17 +96,9 @@
         <source>Permissions by %1%</source>
         <target/>
       </trans-unit>
-      <trans-unit id="27">
-        <source>Edit group</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="29">
         <source>Create</source>
         <target>ايجاد</target>
-      </trans-unit>
-      <trans-unit id="30">
-        <source>View permissions</source>
-        <target/>
       </trans-unit>
       <trans-unit id="31">
         <source>All privileges</source>
@@ -166,6 +150,10 @@
       </trans-unit>
       <trans-unit id="47">
         <source>Group details</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Edit permissions</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2013-08-22T17:21:50Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2013-10-03T11:50:38Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -154,7 +154,7 @@
       </trans-unit>
       <trans-unit id="53">
         <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
-        <target/>
+        <target>"Descreva as políticas de acesso, incluindo quaisquer restrições ou regulamentos para o uso de materiais e instalações. Registre informações sobre o registro, apontamentos, bilhetes dos leitores, cartas de apresentação, taxas de admissão, etc. Quanto for apropriado faça referência à legislação pertinente." (ISDIAH 5.4.2)</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Conditions and requirements</source>
@@ -361,6 +361,10 @@ registos completos são os que fornecem informação para todos os elementos de 
       <trans-unit id="109">
         <source>Edit control area</source>
         <target>Editar zona de controlo</target>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Last updated</source>
+        <target/>
       </trans-unit>
     </body>
   </file>

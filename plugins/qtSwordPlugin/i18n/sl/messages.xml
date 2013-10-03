@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2011-11-08T09:54:48Z" product-name="messages">
+  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2013-10-03T11:49:43Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Not found</source>
-        <target/>
+        <target>Brez zadetkov</target>
       </trans-unit>
       <trans-unit id="2">
         <source>The supplied format is not supported by this server</source>
-        <target/>
+        <target>Predloženega formata ta strežnik ne podpira.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>The supplied content type is not supported by this server</source>
-        <target/>
+        <target>Predložene vrste vsebine strežnik ne podpira.</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Checksum sent does not match the calculated checksum</source>
-        <target/>
+        <target>Kontrolna vsota se ne ujema z izračunano kontrolno vsoto.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Not implemented</source>
-        <target/>
+        <target>Ni izvedeno</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Bad request</source>
-        <target/>
+        <target>Slab zahteva</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Forbidden</source>
-        <target/>
+        <target>Prepovedano</target>
       </trans-unit>
     </body>
   </file>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2012-08-15T12:05:57Z" product-name="messages">
+  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2013-10-03T11:52:58Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -71,10 +71,6 @@
       <trans-unit id="17">
         <source>View ISDF function</source>
         <target>Ver función ISDF</target>
-      </trans-unit>
-      <trans-unit id="18">
-        <source>Edit function</source>
-        <target>Editar función</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Identity area</source>
@@ -208,10 +204,6 @@
         <source>Maintenance notes</source>
         <target>Notas de mantención</target>
       </trans-unit>
-      <trans-unit id="52">
-        <source>Actions</source>
-        <target>Accións</target>
-      </trans-unit>
       <trans-unit id="53">
         <source>Edit</source>
         <target>Editar</target>
@@ -254,7 +246,7 @@
       </trans-unit>
       <trans-unit id="63">
         <source>"Provide a date or date span which covers the dates when the function was started and when it finished. If a function is ongoing, no end date is needed." (ISDF 5.2.1)</source>
-        <target/>
+        <target>"Proporcione unha data ou período que abrangue as datas en que a función foi iniciada e cando rematou. Si a función continua, non se precisa data de finalización." (ISDF 5.2.1)</target>
       </trans-unit>
       <trans-unit id="64">
         <source>"Record a narrative description of the purpose of the function." (ISDF 5.2.2)</source>
