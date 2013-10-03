@@ -840,7 +840,7 @@ class arElasticSearchInformationObjectPdo
     }
 
     // Dates
-    $dates = $this->getDates('array');
+    $dates = $this->getDates('array', sfConfig::get('sf_default_culture'));
     if (0 < count($dates))
     {
       $serialized['dates'] = $dates;
