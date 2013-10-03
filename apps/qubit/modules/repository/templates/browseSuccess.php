@@ -11,17 +11,6 @@
 
 <?php slot('sidebar') ?>
 
-  <div id="browse-search">
-
-    <form method="get" action="<?php echo url_for(array('module' => 'repository', 'action' => 'browse')) ?>">
-      <div class="search-box">
-        <input type="text" name="subquery" placeholder="<?php echo __('Search %1%', array('%1%' => strtolower(sfConfig::get('app_ui_label_repository')))) ?>" />
-        <button type="submit"><i class="icon-search"></i></button>
-      </div>
-    </form>
-
-  </div>
-
   <section id="facets">
 
     <div class="visible-phone facets-header">
@@ -65,31 +54,32 @@
 <?php slot('before-content') ?>
 
   <section class="header-options">
-
-    <?php if (isset($sf_request->query)): ?>
-      <span class="search-filter">
-        <?php echo esc_entities($sf_request->query) ?>
-        <?php $params = $sf_request->getGetParameters() ?>
-        <?php unset($params['query']) ?>
-        <a href="<?php echo url_for(array('module' => 'repository', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
-      </span>
-    <?php endif; ?>
-
-    <?php if (isset($sf_request->subquery)): ?>
-      <span class="search-filter">
-        <?php echo esc_entities($sf_request->subquery) ?>
-        <?php $params = $sf_request->getGetParameters() ?>
-        <?php unset($params['subquery']) ?>
-        <a href="<?php echo url_for(array('module' => 'repository', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
-      </span>
-    <?php endif; ?>
-
-    <?php echo get_partial('default/sortPicker',
-      array(
-        'options' => array(
-          'mostRecent' => __('Most recent'),
-          'alphabetic' => __('Alphabetic')))) ?>
-
+    <div class="row">
+      <div class="span5">
+        <div class="inline-search">
+          <form method="get" action="<?php echo url_for(array('module' => 'repository', 'action' => 'browse')) ?>">
+            <div class="input-append">
+              <?php if (isset($sf_request->subquery)): ?>
+                <input type="text" name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>" />
+                <?php $params = $sf_request->getGetParameters() ?>
+                <?php unset($params['subquery']) ?>
+                <a class="btn" href="<?php echo url_for(array('module' => 'repository', 'action' => 'browse') + $params) ?>"><i class="icon-remove"></i></a>
+              <?php else: ?>
+                <input type="text" name="subquery" placeholder="<?php echo __('Search %1%', array('%1%' => strtolower(sfConfig::get('app_ui_label_repository')))) ?>" />
+              <?php endif; ?>
+              <button class="btn" type="submit"><i class="icon-search"></i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="span4">
+        <?php echo get_partial('default/sortPicker',
+          array(
+            'options' => array(
+              'mostRecent' => __('Most recent'),
+              'alphabetic' => __('Alphabetic')))) ?>
+      </div>
+    </div>
   </section>
 
 <?php end_slot() ?>
