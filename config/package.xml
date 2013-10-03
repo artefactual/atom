@@ -28,6 +28,7 @@ The goal is to provide an easy-to-use, flexible toolkit that complies with open 
   <contents>
     <file name="index.php" role="php"/>
     <file name="qubit_dev.php" role="php"/>
+    <file name="symfony" role="php"/>
     <file name="apps/qubit//*" role="php"/>
     <file name="lib//*" role="php"/>
     <file name="plugins//*" role="php"/>
