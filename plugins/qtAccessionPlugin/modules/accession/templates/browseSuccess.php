@@ -41,7 +41,7 @@
       </tr>
     </thead><tbody>
       <?php foreach ($pager->getResults() as $item): ?>
-        <tr></tr>>
+        <tr></tr>
           <td>
             <?php echo link_to(render_title($item), array($item, 'module' => 'accession')) ?>
           </td>
