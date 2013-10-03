@@ -45,6 +45,11 @@ class AccessionBrowseAction extends sfAction
 
     $criteria = new Criteria;
 
+    if (isset($request->subquery))
+    {
+      $criteria->add(QubitAccession::IDENTIFIER, "%$request->subquery%", Criteria::LIKE);
+    }
+
     switch ($request->sort)
     {
       case 'alphabetic':

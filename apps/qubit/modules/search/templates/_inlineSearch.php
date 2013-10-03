@@ -1,11 +1,11 @@
 <div class="inline-search">
 
-  <form method="get" action="<?php echo url_for(array('module' => $module, 'action' => $action)) ?>">
+  <form method="get" action="<?php echo $route ?>">
 
     <div class="input-append">
       <?php if (isset($sf_request->subquery)): ?>
         <input type="text" name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>" />
-        <a class="btn" href="<?php echo url_for(array('module' => $module, 'action' => $action) + $params) ?>">
+        <a class="btn" href="<?php echo $cleanRoute ?>">
           <i class="icon-remove"></i>
         </a>
       <?php else: ?>

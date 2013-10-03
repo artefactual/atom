@@ -10,7 +10,8 @@
     <div class="row">
       <div class="span6">
         <?php echo get_component('search', 'inlineSearch', array(
-          'label' => __('Search %1%', array('%1%' => render_title($resource))))) ?>
+          'label' => __('Search %1%', array('%1%' => render_title($resource))),
+          'route' => url_for(array('module' => 'taxonomy', 'action' => 'index', 'slug' => $resource->slug)))) ?>
       </div>
     </div>
   </section>
