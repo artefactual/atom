@@ -117,7 +117,7 @@ class DefaultBrowseAction extends sfAction
       foreach (explode(',', $value) as $facetValue)
       {
         // Don't include empty filters
-        if (1 === preg_match('/^[\s\t\r\n]*$/', $request->subquery))
+        if (1 === preg_match('/^[\s\t\r\n]*$/', $facetValue))
         {
           continue;
         }
