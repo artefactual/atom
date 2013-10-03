@@ -209,6 +209,11 @@ class DefaultBrowseAction extends sfAction
       $this->sortSetting = sfConfig::get('app_sort_browser_anonymous');
     }
 
+    if (!isset($request->sort))
+    {
+      $request->sort = $this->sortSetting;
+    }
+
     $this->query = new \Elastica\Query();
     $this->query->setLimit($request->limit);
 

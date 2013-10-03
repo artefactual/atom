@@ -64,19 +64,11 @@ class ActorBrowseAction extends DefaultBrowseAction
   {
     parent::execute($request);
 
-    if ('' != preg_replace('/[\s\t\r\n]*/', '', $request->query))
-    {
-      $queryText = new \Elastica\Query\QueryString($request->query);
-      $queryText->setDefaultOperator('AND');
-      $queryText->setDefaultField(sprintf('i18n.%s.authorizedFormOfName', $this->context->user->getCulture()));
-
-      $this->queryBool->addMust($queryText);
-    }
-    else if ('' != preg_replace('/[\s\t\r\n]*/', '', $request->subquery))
+    if (1 !== preg_match('/[\s\t\r\n]*/', $request->subquery))
     {
       $queryText = new \Elastica\Query\QueryString($request->subquery);
-      $queryText->setDefaultOperator('AND');
-      $queryText->setDefaultField(sprintf('i18n.%s.authorizedFormOfName', $this->context->user->getCulture()));
+      $queryText->setDefaultOperator('OR');
+      $queryText->setDefaultField('_all');
 
       $this->queryBool->addMust($queryText);
     }
@@ -87,19 +79,6 @@ class ActorBrowseAction extends DefaultBrowseAction
 
     $this->query = QubitAclSearch::filterByResource($this->query, QubitActor::getById(QubitActor::ROOT_ID));
 
-    // Sort
-    if (!isset($request->sort))
-    {
-      if ($this->getUser()->isAuthenticated())
-      {
-        $request->sort = sfConfig::get('app_sort_browser_user');
-      }
-      else
-      {
-        $request->sort = sfConfig::get('app_sort_browser_anonymous');
-      }
-    }
-
     switch ($request->sort)
     {
       // I don't think that this is going to scale, but let's leave it for now
@@ -109,13 +88,7 @@ class ActorBrowseAction extends DefaultBrowseAction
 
         break;
 
-      case 'relevancy':
-        $this->query->setSort(array('_score' => 'asc'));
-
-        break;
-
       case 'lastUpdated':
-      case 'mostRecent':
       default:
         $this->query->setSort(array('updatedAt' => 'desc'));
     }

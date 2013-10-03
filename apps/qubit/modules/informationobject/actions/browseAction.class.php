@@ -197,18 +197,6 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     }
 
     // Sort
-    if (!isset($request->sort))
-    {
-      if ($this->getUser()->isAuthenticated())
-      {
-        $request->sort = sfConfig::get('app_sort_browser_user');
-      }
-      else
-      {
-        $request->sort = sfConfig::get('app_sort_browser_anonymous');
-      }
-    }
-
     switch ($request->sort)
     {
       // I don't think that this is going to scale, but let's leave it for now
@@ -218,13 +206,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
         break;
 
-      case 'relevancy':
-        $this->query->setSort(array('_score' => 'asc'));
-
-        break;
-
       case 'lastUpdated':
-      case 'mostRecent':
       default:
         $this->query->setSort(array('updatedAt' => 'desc'));
     }

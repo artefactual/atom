@@ -6,12 +6,14 @@
 
 <?php slot('before-content') ?>
 
-  <div class="search">
-    <form action="<?php echo url_for(array($resource, 'module' => 'taxonomy')) ?>">
-      <input name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>"/>
-      <input class="form-submit" type="submit" value="<?php echo __('Search %1%', array('%1%' => render_title($resource))) ?>"/>
-    </form>
-  </div>
+  <section class="header-options">
+    <div class="row">
+      <div class="span6">
+        <?php echo get_component('search', 'inlineSearch', array(
+          'label' => __('Search %1%', array('%1%' => render_title($resource))))) ?>
+      </div>
+    </div>
+  </section>
 
 <?php end_slot() ?>
 
@@ -28,7 +30,7 @@
       </tr>
     </thead><tbody>
       <?php foreach ($terms as $item): ?>
-        <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
+        <tr>
           <td>
 
             <?php if ($item->isProtected()): ?>

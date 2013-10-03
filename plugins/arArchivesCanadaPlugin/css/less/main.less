@@ -287,3 +287,26 @@ body.login #content {
     text-shadow: none;
   }
 }
+
+// Search block in browsers
+.inline-search {
+  [type=text],
+  .btn {
+    background-color: rgba(0, 0, 0, 0.10);
+    border-color: transparent;
+    box-shadow: none;
+    color: @white;
+    &:focus {
+      box-shadow: none;
+      border-color: transparent;
+    }
+  }
+  .btn {
+    background-image: none;
+    background-color: rgba(0, 0, 0, 0.20);
+    text-shadow: none;
+  }
+  [type=text] {
+    .placeholder(#bbb);
+  }
+}

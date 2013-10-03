@@ -6,14 +6,16 @@
 <?php end_slot() ?>
 
 <?php slot('before-content') ?>
-  <div class="nav">
-    <div class="search">
-      <form action="<?php echo url_for(array('module' => 'function', 'action' => 'list')) ?>">
-        <input name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>"/>
-        <input class="form-submit" type="submit" value="<?php echo __('Search %1%', array('%1%' => sfConfig::get('app_ui_label_function'))) ?>"/>
-      </form>
+
+  <section class="header-options">
+    <div class="row">
+      <div class="span5">
+        <?php echo get_component('search', 'inlineSearch', array(
+          'label' => __('Search %1%', array('%1%' => strtolower(sfConfig::get('app_ui_label_repository')))))) ?>
+      </div>
     </div>
-  </div>
+  </section>
+
 <?php end_slot() ?>
 
 <?php slot('content') ?>

@@ -31,6 +31,18 @@ class DonorBrowseAction extends sfAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
+    if (!isset($request->sort))
+    {
+      if ($this->getUser()->isAuthenticated())
+      {
+        $request->sort = sfConfig::get('app_sort_browser_user');
+      }
+      else
+      {
+        $request->sort = sfConfig::get('app_sort_browser_anonymous');
+      }
+    }
+
     $criteria = new Criteria;
 
     // Do source culture fallback
@@ -38,35 +50,16 @@ class DonorBrowseAction extends sfAction
 
     switch ($request->sort)
     {
-      case 'nameDown':
-        $criteria->addDescendingOrderByColumn('authorized_form_of_name');
-
-        break;
-
-      case 'nameUp':
+      case 'alphabetic':
         $criteria->addAscendingOrderByColumn('authorized_form_of_name');
 
         break;
 
-      case 'updatedDown':
+      case 'lastUpdated':
+      default:
         $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
 
         break;
-
-      case 'updatedUp':
-        $criteria->addAscendingOrderByColumn(QubitObject::UPDATED_AT);
-
-        break;
-
-      default:
-        if (!$this->getUser()->isAuthenticated())
-        {
-          $criteria->addAscendingOrderByColumn('authorized_form_of_name');
-        }
-        else
-        {
-          $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
-        }
     }
 
     // Page results

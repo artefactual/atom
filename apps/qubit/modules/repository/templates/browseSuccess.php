@@ -56,21 +56,8 @@
   <section class="header-options">
     <div class="row">
       <div class="span5">
-        <div class="inline-search">
-          <form method="get" action="<?php echo url_for(array('module' => 'repository', 'action' => 'browse')) ?>">
-            <div class="input-append">
-              <?php if (isset($sf_request->subquery)): ?>
-                <input type="text" name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>" />
-                <?php $params = $sf_request->getGetParameters() ?>
-                <?php unset($params['subquery']) ?>
-                <a class="btn" href="<?php echo url_for(array('module' => 'repository', 'action' => 'browse') + $params) ?>"><i class="icon-remove"></i></a>
-              <?php else: ?>
-                <input type="text" name="subquery" placeholder="<?php echo __('Search %1%', array('%1%' => strtolower(sfConfig::get('app_ui_label_repository')))) ?>" />
-              <?php endif; ?>
-              <button class="btn" type="submit"><i class="icon-search"></i></button>
-            </div>
-          </form>
-        </div>
+        <?php echo get_component('search', 'inlineSearch', array(
+          'label' => __('Search %1%', array('%1%' => strtolower(sfConfig::get('app_ui_label_repository')))))) ?>
       </div>
       <div class="span4">
         <?php echo get_partial('default/sortPicker',

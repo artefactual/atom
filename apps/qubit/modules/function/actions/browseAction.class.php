@@ -32,49 +32,39 @@ class FunctionBrowseAction extends sfAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
-    if ($this->getUser()->isAuthenticated())
+    if (!isset($request->sort))
     {
-      $this->sortSetting = sfConfig::get('app_sort_browser_user');
-    }
-    else
-    {
-      $this->sortSetting = sfConfig::get('app_sort_browser_anonymous');
+      if ($this->getUser()->isAuthenticated())
+      {
+        $request->sort = sfConfig::get('app_sort_browser_user');
+      }
+      else
+      {
+        $request->sort = sfConfig::get('app_sort_browser_anonymous');
+      }
     }
 
     $criteria = new Criteria;
 
+    if (isset($request->subquery))
+    {
+      $criteria->addJoin(QubitFunction::ID, QubitFunctionI18n::ID);
+      $criteria->add(QubitFunctionI18n::CULTURE, $this->context->user->getCulture());
+      $criteria->add(QubitFunctionI18n::AUTHORIZED_FORM_OF_NAME, "%$request->subquery%", Criteria::LIKE);
+    }
+
     switch ($request->sort)
     {
-      case 'nameDown':
-        $criteria->addDescendingOrderByColumn('authorized_form_of_name');
-
-        break;
-
-      case 'nameUp':
+      case 'alphabetic':
         $criteria->addAscendingOrderByColumn('authorized_form_of_name');
 
         break;
 
-      case 'updatedDown':
-    
+      case 'lastUpdated':
+      default:
         $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
 
         break;
-
-      case 'updatedUp':
-        $criteria->addAscendingOrderByColumn(QubitObject::UPDATED_AT);
-
-        break;
-
-      default:
-        if ('alphabetic' == $this->sortSetting)
-        {
-          $criteria->addAscendingOrderByColumn('authorized_form_of_name');
-        }
-        else if ('lastUpdated' == $this->sortSetting)
-        {
-          $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
-        }
     }
 
     // Do source culture fallback
