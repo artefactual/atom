@@ -173,6 +173,22 @@ EOF;
     }
     libxml_use_internal_errors(false);
 
-    return (string) $xml->file['target-language'];
+    $code = (string) $xml->file['target-language'];
+
+    // It looks like Transifex leaves the target-language property emtpy, is
+    // that intentional? For now, I'm going to extract the target based in the
+    // path of the file.
+    if (empty($code))
+    {
+      if (1 === preg_match("/\/(?P<code>[a-zA-Z_]+)\/messages\.xml$/m", $filename, $matches))
+      {
+        if (isset($matches['code']))
+        {
+          $code = $matches['code'];
+        }
+      }
+    }
+
+    return $code;
   }
 }
