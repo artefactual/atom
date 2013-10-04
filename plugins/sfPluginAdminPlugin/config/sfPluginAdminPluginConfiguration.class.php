@@ -48,14 +48,14 @@ class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
 
         $pluginNames = unserialize($query[0]->__get('value', array('sourceCulture' => true)));
 
-        if (isset($_GET['t']))
-        {
-          if (false !== $key = array_search('arArchivesCanadaPlugin', $pluginNames))
-          {
-            unset($pluginNames[$key]);
-            $pluginNames[] = 'arDominionPlugin';
-          }
-        }
+        // if (isset($_GET['t']))
+        // {
+        //   if (false !== $key = array_search('arArchivesCanadaPlugin', $pluginNames))
+        //   {
+        //     unset($pluginNames[$key]);
+        //     $pluginNames[] = 'arDominionPlugin';
+        //   }
+        // }
 
         // Find available plugins in the filesystem
         $pluginPaths = $this->configuration->getAllPluginPaths();
