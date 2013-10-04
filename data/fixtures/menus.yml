@@ -22,6 +22,7 @@ QubitMenu:
       fr: Parcourir
       gl: Navegar
       id: Telusur
+      it: Scorri
       ja: ブラウズ
       ka: დათვალიერება(ამორჩევა)
       nl: Blader
@@ -41,7 +42,7 @@ QubitMenu:
       fr: Ajouter
       gl: Engadir
       id: Tambah
-      it: aggiungi
+      it: Aggiungi
       ja: 追加
       ka: დამატება
       ko: 추가
@@ -62,6 +63,7 @@ QubitMenu:
       es: Administrar
       fr: Gérer
       gl: Administrar
+      it: Gestisci
       ja: 運営する
       ka: მართვა
       nl: Beheer
@@ -78,7 +80,8 @@ QubitMenu:
       en: Accessions
       es: Ingresos
       fr: Entrées
-      gl: Accesos
+      gl: Ingresos
+      it: Acquisizioni
       ja: 受入資料
       ka: დაშვებები
       nl: Aanwinsten
@@ -96,6 +99,7 @@ QubitMenu:
       es: Donadores
       fr: 'Donateurs/Services versants'
       gl: Donantes
+      it: Donatori
       ja: 寄贈者
       ka: დონორები
       nl: Schenkers
@@ -114,11 +118,13 @@ QubitMenu:
       fr: 'Localisation physique'
       gl: 'Almacenamento físico'
       id: 'Penyimpanan Fisik'
+      it: Deposito
       ja: 物理的記憶
       ka: 'ფიზიკური საცავი'
       nl: 'Fysieke opslag'
       pl: 'Fizyczne miejsce przechowywania'
       pt: 'Depósito físico'
+      pt_BR: 'Depósito físico'
       sl: 'Fizična hramba'
       th: การเก็บเอกสารทางกายภาพ
     path: physicalobject/browse
@@ -131,6 +137,7 @@ QubitMenu:
       es: 'Titulares de derechos'
       fr: 'Détenteurs de droits'
       gl: 'Titulares de dereitos'
+      it: 'Detentori di diritti'
       ja: 権利保持者
       ka: 'უფლებების მქონეები(მფლობელები)'
       nl: Rechthebbenden
@@ -150,6 +157,7 @@ QubitMenu:
       fr: Référentiels
       gl: Taxonomías
       id: Taksonomi
+      it: Tassonomie
       ja: 分類
       ka: 'ტაქსონომიები  ( კლასიფიცირება)'
       nl: Taxonomieën
@@ -170,7 +178,7 @@ QubitMenu:
       fa: 'وارد كردن'
       fr: Importer
       gl: Importar
-      it: importa
+      it: Importa
       ja: インポート
       ka: იმპორტი
       ko: 가져오기
@@ -193,7 +201,7 @@ QubitMenu:
       fa: مدير
       fr: Administration
       gl: Administrador
-      it: amministra
+      it: Amministrazione
       ja: 管理者
       ka: ადმინი
       pl: Administrator
@@ -207,8 +215,9 @@ QubitMenu:
     label:
       en: 'Accession records'
       es: 'Registros de ingresos'
-      fr: 'Notice d''entrée'
-      gl: 'Rexistros de adhesiones'
+      fr: 'Notices d''entrée'
+      gl: 'Rexistros de ingresos'
+      it: 'Registrazioni delle acquisizioni'
       ja: 受入記録
       ka: 'დაშვების დოკუმენტები'
       nl: 'Aanwinst documentatie'
@@ -225,12 +234,13 @@ QubitMenu:
       de: 'Archivische Beschreibung'
       en: 'Archival descriptions'
       es: 'Descripción archivística'
-      fr: 'Description archivistique'
-      it: 'Descrizione archivistica'
-      nl: 'Archivistische beschrijving'
+      fr: 'Descriptions archivistiques'
+      gl: 'Descrición arquivística'
+      it: 'Descrizioni archivistiche'
+      nl: 'archivistische beschrijving'
       pl: 'Opis archiwalny'
-      pt: 'Descrição arquivística'
-      sl: 'Arhivski opisi'
+      pt: 'descrição arquivística'
+      sl: 'arhivski opisi'
     path: informationobject/add
   QubitMenu_mainmenu_addedit_actor:
     parent_id: QubitMenu_mainmenu_addedit
@@ -239,12 +249,13 @@ QubitMenu:
     label:
       en: 'Authority records'
       es: 'Registro de autoridad'
-      fr: 'Notice d''autorité'
-      it: 'Record di autorità'
-      nl: 'Geautoriseerd bestand'
+      fr: 'Notices d''autorité'
+      gl: 'Rexistros de autoridade'
+      it: 'Record d''autorità'
+      nl: 'geautoriseerd bestand'
       pl: 'Hasło wzorcowe'
-      pt: 'Registro de autoridade'
-      sl: 'Zapis o ustvarjalcu'
+      pt: 'registro de autoridade'
+      sl: 'normativni zapisi'
     path: actor/add
   QubitMenu_mainmenu_addedit_repository:
     parent_id: QubitMenu_mainmenu_addedit
@@ -253,13 +264,18 @@ QubitMenu:
     label:
       de: Archiv
       en: 'Archival institutions'
-      es: 'Institución archivística'
-      fr: 'Service d''archives'
+      es: 'Instituciones archivísticas'
+      fr: 'Institutions de conservation'
+      gl: Repositorios
+      id: Repositori
       it: 'Istituzione archivistica'
-      nl: Archiefinstelling
+      ja: リポジトリ
+      ka: საცავები
+      nl: archiefinstelling
       pl: 'Instytucja archiwalna'
-      pt: 'Instituição arquivística'
-      sl: 'Arhivske ustanove'
+      pt: 'instituição arquivística'
+      sl: 'arhivske ustanove'
+      th: คลังเก็บ
     path: repository/add
   QubitMenu_mainmenu_addedit_term:
     parent_id: QubitMenu_mainmenu_addedit
@@ -271,7 +287,7 @@ QubitMenu:
       fr: Termes
       gl: Termos
       id: Istilah
-      it: termine
+      it: Termini
       ja: 用語
       ka: ვადები
       nl: Termen
@@ -291,6 +307,7 @@ QubitMenu:
       fr: Fonctions
       gl: Función
       id: Fungsi
+      it: Funzione
       ja: 機能
       ka: ფუნქცია
       nl: Functie
@@ -308,9 +325,11 @@ QubitMenu:
       es: XML
       fr: XML
       gl: XML
+      it: XML
       ka: XML
       pl: XML
       pt: XML
+      pt_BR: XML
       sl: XML
     path: 'object/importSelect?type=xml'
   QubitMenu_mainmenu_import_csv:
@@ -322,6 +341,7 @@ QubitMenu:
       es: CSV
       fr: CSV
       gl: CSV
+      it: CSV
       ka: CSV
       pl: CSV
       pt: CSV
@@ -337,7 +357,7 @@ QubitMenu:
       fa: كاربران
       fr: Utilisateurs
       gl: Usuarios
-      it: utenti
+      it: Utenti
       ja: ユーザー
       ka: მომხმარებლები
       nl: Gebruikers
@@ -356,6 +376,7 @@ QubitMenu:
       es: Perfil
       fr: Profil
       gl: Perfil
+      it: Profilo
       ja: プロフィール
       ka: პროფილი
       nl: Profiel
@@ -372,6 +393,8 @@ QubitMenu:
       en: 'Archival description permissions'
       es: 'Information object permissions'
       fr: 'Droits sur la description archivistique'
+      gl: 'Permisos de descrición arquivística'
+      it: 'Permessi per la descrizione archivistica'
       ja: 情報オブジェクト許可
       ka: 'საინფორმაციო ობიექტის უფლებამოსილებები'
       pt: 'Permissões do objeto informacional'
@@ -385,9 +408,10 @@ QubitMenu:
     label:
       en: 'Authority record permissions'
       es: 'Permisos del actor'
-      fr: 'Permissions de l''utilisateur'
+      fr: 'Droits de la notice d''autorité'
       gl: 'Permisos de actor'
       id: 'Izin Aktor'
+      it: 'Permessi per il record d''autorità'
       ja: 主体者の許可
       ka: 'მონაწილის უფლებები'
       pl: 'Uprawnienia sprawcy/powoda'
@@ -400,6 +424,11 @@ QubitMenu:
     source_culture: en
     label:
       en: 'Archival institution permissions'
+      es: 'Permisos Instituciones archivísticas'
+      fr: 'Autorisations de l''institution de conservation'
+      gl: 'Permisos de institución arquivística'
+      it: 'Permessi dell''istituto archivistico'
+      sl: 'Dovoljenja glede arhivske ustanove'
   QubitMenu_mainmenu_admin_users_termAcl:
     parent_id: QubitMenu_mainmenu_admin_users
     name: userTermAcl
@@ -411,6 +440,7 @@ QubitMenu:
       fr: 'Droits sur les référentiels'
       gl: 'Permisos de taxonomías'
       id: 'Perijinan Taksonomi'
+      it: 'Permessi relativi alla tassonomia'
       ja: 分類許可
       ka: 'ტაქსონომის ნების დართვა'
       nl: 'Taxonomie permissies'
@@ -427,6 +457,7 @@ QubitMenu:
       es: Grupos
       fr: Groupes
       gl: Grupos
+      it: Gruppi
       ja: グループ
       ka: ჯგუფები
       nl: Groepen
@@ -445,6 +476,7 @@ QubitMenu:
       es: Perfil
       fr: Profil
       gl: Perfil
+      it: Profilo
       ja: プロフィール
       ka: პროფილი
       nl: Profiel
@@ -461,6 +493,8 @@ QubitMenu:
       en: 'Archival description permissions'
       es: 'Information object permissions'
       fr: 'Droits sur la description archivistique'
+      gl: 'Permisos de descrición arquivística'
+      it: 'Permessi per la descrizione archivistica'
       ja: 情報オブジェクト許可
       ka: 'საინფორმაციო ობიექტის უფლებამოსილებები'
       pt: 'Permissões do objeto informacional'
@@ -474,9 +508,10 @@ QubitMenu:
     label:
       en: 'Authority record permissions'
       es: 'Permisos del actor'
-      fr: 'Permissions de l''utilisateur'
+      fr: 'Droits de la notice d''autorité'
       gl: 'Permisos de actor'
       id: 'Izin Aktor'
+      it: 'Permessi per il record d''autorità'
       ja: 主体者の許可
       ka: 'მონაწილის უფლებები'
       pl: 'Uprawnienia sprawcy/powoda'
@@ -489,6 +524,11 @@ QubitMenu:
     source_culture: en
     label:
       en: 'Archival institution permissions'
+      es: 'Permisos Instituciones archivísticas'
+      fr: 'Autorisations de l''institution de conservation'
+      gl: 'Permisos de institución arquivística'
+      it: 'Permessi dell''istituto archivistico'
+      sl: 'Dovoljenja glede arhivske ustanove'
   QubitMenu_mainmenu_admin_groups_termAcl:
     parent_id: QubitMenu_mainmenu_admin_groups
     name: groupTermAcl
@@ -500,6 +540,7 @@ QubitMenu:
       fr: 'Droits sur les référentiels'
       gl: 'Permisos de taxonomías'
       id: 'Perijinan Taksonomi'
+      it: 'Permessi relativi alla tassonomia'
       ja: 分類許可
       ka: 'ტაქსონომის ნების დართვა'
       nl: 'Taxonomie permissies'
@@ -517,7 +558,7 @@ QubitMenu:
       fa: 'صفحات ايستا'
       fr: 'Pages statiques'
       gl: 'Páxinas estáticas'
-      it: 'pagine statiche'
+      it: 'Pagine statiche'
       ja: 静的ページ
       ka: 'არეულ-დარეული გვერდები'
       nl: 'statische pagina''s'
@@ -535,6 +576,7 @@ QubitMenu:
       es: Menús
       fr: Menus
       gl: Menús
+      it: Menu
       ja: メニュー
       ka: მენიუები
       pl: 'Listy menu'
@@ -549,6 +591,7 @@ QubitMenu:
       en: Plugins
       es: Plugins
       fr: Extensions
+      it: Plugin
       ja: プラグイン
       ka: ფლაგინები
       pl: Wtyczki/pluginy
@@ -566,11 +609,13 @@ QubitMenu:
       fr: Thèmes
       gl: Temas
       id: Tema
+      it: Temi
       ja: テーマ
       ka: თემები
       nl: 'Thema''s'
       pl: Motywy
       pt: Temas
+      pt_BR: Temas
       sl: Teme
     path: sfPluginAdminPlugin/themes
   QubitMenu_mainmenu_admin_settings:
@@ -584,7 +629,7 @@ QubitMenu:
       fa: تنظيمات
       fr: Paramétrages
       gl: Configuraciones
-      it: impostazioni
+      it: Impostazioni
       ja: 設定
       ka: '“სეთინგები“, ფუნქციები.'
       nl: Instellingen
@@ -603,6 +648,7 @@ QubitMenu:
       fr: 'Mises à jour de la description'
       gl: 'Actualizacións da descrición'
       id: 'Update Dekripsi'
+      it: 'Aggiornamenti della descrizione'
       ja: 記述のアップデート
       ka: 'განახლებების აღწერა, ან აღწერის განახლებები'
       nl: 'Wijzigingen van de beschrijving'
@@ -621,9 +667,11 @@ QubitMenu:
       es: 'Buscar/reemplazar global'
       fr: 'Recherche et remplacement globaux'
       gl: 'Búsqueda global/Reemprazar'
+      it: 'Ricerca/Sostituisci (globale)'
       ja: 'グローバル 検索/変更'
       ka: 'გლობალური ძებნა /შენაცვლება'
       pt: 'Pesquisa/substituição global'
+      pt_BR: 'Pesquisa/substituição global'
       sl: 'Išči/zamenjaj v celotnem programu'
       th: 'ค้นหา / แทน ทั่วโลก'
     path: search/globalReplace
@@ -638,7 +686,7 @@ QubitMenu:
       fa: 'صفحه اصلي'
       fr: Accueil
       gl: Inicio
-      it: 'pagina iniziale'
+      it: 'Pagina iniziale'
       ja: ホーム
       ka: საწყისი
       nl: home
@@ -659,12 +707,13 @@ QubitMenu:
       fr: 'À propos'
       gl: Acerca
       id: 'Tentang Kami'
-      it: 'informazioni su'
+      it: Riguardo
       ja: ついて
       ka: შესახებ
       nl: Over
       pl: O...
       pt: Sobre
+      pt_BR: Sobre
       sl: 'O programu'
     path: 'staticpage/index?slug=about'
   QubitMenu_quicklinks_help:
@@ -678,12 +727,13 @@ QubitMenu:
       fa: راهنما
       fr: Aide
       gl: Axuda
-      it: aiuto
+      it: Aiuto
       ja: ヘルプ
       ka: დახმარება
       nl: Help
       pl: Pomoc
       pt: Ajuda
+      pt_BR: Ajuda
       sl: Pomoč
     path: 'http://docs.accesstomemory.org/'
   QubitMenu_quicklinks_myProfile:
@@ -695,11 +745,13 @@ QubitMenu:
       es: 'Mi perfil'
       fr: 'Mon profil'
       gl: 'O meu perfil'
+      it: 'Il mio profilo'
       ja: 私のプロフィール
       ka: 'ჩემი პროფილი'
       nl: 'Mijn profiel'
       pl: 'Mój profil'
       pt: 'O meu perfil'
+      pt_BR: 'Meu Perfil'
       sl: 'Moj profil'
       th: ประว้ติส่วนตัว
     path: '%profile%'
@@ -714,7 +766,7 @@ QubitMenu:
       fa: 'ورود به سيستم'
       fr: 'Ouverture de session'
       gl: 'Iniciar sesión'
-      it: accesso
+      it: Accedi
       ja: ログイン
       ka: ავტორიზაცია
       ko: 로그인
@@ -736,7 +788,7 @@ QubitMenu:
       fa: خروج
       fr: 'Fermeture de session'
       gl: 'Pechar sesión'
-      it: esci
+      it: Esci
       ja: ログアウト
       ka: გამოსვლა
       nl: uitloggen
@@ -750,8 +802,9 @@ QubitMenu:
     label:
       en: 'Archival descriptions'
       es: 'Descripción archivística'
-      fr: 'description archivistique'
-      it: 'descrizione archivistica'
+      fr: 'Descriptions archivistiques'
+      gl: 'Descrición arquivística'
+      it: 'Descrizioni archivistiche'
       nl: 'archivistische beschrijving'
       pt: 'descrição arquivística'
       sl: 'arhivski opisi'
@@ -763,8 +816,9 @@ QubitMenu:
     label:
       en: 'Authority records'
       es: 'Registro de autoridad'
-      fr: 'fichier d''autorité'
-      it: 'record di autorità'
+      fr: 'Notices d''autorité'
+      gl: 'Rexistros de autoridade'
+      it: 'Record d''autorità'
       nl: 'geautoriseerd bestand'
       pt: 'registro de autoridade'
       sl: 'normativni zapisi'
@@ -776,10 +830,10 @@ QubitMenu:
     label:
       en: 'Archival institutions'
       es: 'Instituciones archivísticas'
-      fr: 'Institution de conservation'
+      fr: 'Institutions de conservation'
       gl: Repositorios
       id: Repositori
-      it: 'soggetto conservatore'
+      it: 'Istituzione archivistica'
       ja: リポジトリ
       ka: საცავები
       nl: archiefinstelling
@@ -798,6 +852,7 @@ QubitMenu:
       fr: Fonctions
       gl: Funcións
       id: Fungsi
+      it: Funzioni
       ja: 機能
       ka: ფუნქციები
       nl: Functies
@@ -817,7 +872,7 @@ QubitMenu:
       fr: Sujets
       gl: Materias
       id: Subjek
-      it: soggetti
+      it: Soggetti
       ja: 主題
       ka: სუბიექტები
       nl: Onderwerpen
@@ -833,15 +888,18 @@ QubitMenu:
       de: Orte
       en: Places
       es: Lugares
+      fa: 'مكان ها'
       fr: Lieux
       gl: Lugares
       id: Tempat
-      it: luoghi
+      it: Luoghi
       ja: 場所
       ka: ადგილები
+      ko: 장소
       nl: Plaatsen
       pl: Miejsca
-      pt: Locais
+      pt: locais
+      pt_BR: locais
       sl: Kraji
       th: สถานที
     path: 'taxonomy/browse?id=42'
@@ -854,14 +912,16 @@ QubitMenu:
       en: 'Digital objects'
       es: 'Objetos digitales'
       fr: 'Objets numériques'
+      gl: 'Obxectos dixitais'
       id: 'Objek Digital'
-      it: 'Oggetto digitale'
+      it: 'Oggetti digitali'
       ja: ディジタルオブジェクト
       ka: 'ციფრული ობიექტები'
       ko: '디지털 객체'
       nl: 'Digitale objecten'
       pl: 'Obiekty cyfrowe'
       pt: 'Objeto digital'
+      pt_BR: 'Objeto digital'
       sl: 'Digitalni predmeti'
       th: วัตถุดิจิตอล
     path: digitalobject/browse
@@ -875,9 +935,11 @@ QubitMenu:
       fr: 'Éléments visibles'
       gl: 'Elementos visíbeis'
       id: 'Elemen terlihat'
+      it: 'Elementi visibili'
       ja: 見えるエレメント
       ka: 'შესამჩნევი ელემენტები'
       pt: 'Elementos visiveis'
+      pt_BR: 'Elementos visiveis'
       sl: 'Vidni elementi'
       th: 'elementsที่สามารถมองเห็นได้,'
     path: settings/visibleElements

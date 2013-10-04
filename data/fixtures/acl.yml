@@ -9,6 +9,7 @@ QubitAclGroup:
       es: anónimo
       fr: anonyme
       gl: anónimo
+      it: anonimo
       ja: 匿名
       ka: ანონიმი
       pl: anonimowy
@@ -23,10 +24,12 @@ QubitAclGroup:
       es: autenticado
       fr: authentifié
       gl: autentificado
+      it: autenticato
       ja: 認証された
       ka: აუთენტური
       pl: zweryfikowany
       pt: autenticado
+      pt_BR: autenticado
       sl: overjeno
   QubitAclGroup_administrator:
     id: 100
@@ -36,6 +39,7 @@ QubitAclGroup:
       es: administrador
       fr: administrateur
       gl: administrador
+      it: Amministratore
       ja: 管理者
       ka: ადმინისტრატორი
       pl: administrator
@@ -49,6 +53,7 @@ QubitAclGroup:
       es: editor
       fr: 'auteur de la modification'
       gl: editor
+      it: editore
       ja: 編集者
       ka: რედაქტორი
       pl: edytor
@@ -63,6 +68,7 @@ QubitAclGroup:
       fr: contributeur
       gl: contribuínte
       id: Kontributor
+      it: 'soggetto che ha fornito un contributo'
       ja: 貢献者
       ka: 'კონტრიბუტორი, დამხმარე, ხელის შემწყობი'
       pl: kontrybutor
@@ -75,7 +81,9 @@ QubitAclGroup:
       en: translator
       es: traductor
       fr: traducteur
+      gl: traductor
       id: terjemah
+      it: traduttore
       ja: 翻訳者
       ka: მთარგმნელი
       pl: tłumacz

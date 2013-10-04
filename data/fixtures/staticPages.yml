@@ -41,16 +41,18 @@ QubitStaticPage:
       de: Über
       en: About
       es: Acerca
+      fa: 'درباره ما'
       fr: 'À propos'
       gl: Acerca
       id: 'Tentang Kami'
-      it: Informazioni
+      it: Riguardo
       ja: ついて
       ka: შესახებ
       ko: '큐빗에 대하여'
       nl: Over
       pl: O...
       pt: Sobre
+      pt_BR: Sobre
       sl: 'O programu'
     content:
       de: "Dies ist die vorgegebene Seite <i>Über</i> der Open-Source Anwendung zur archivischen Erschließung AtoM. Für den Einstieg in AtoM benützen Sie die <a href=\"http://ica-atom.org/docs\">Dokumentation</a>. Hier erfahren Sie, wie Sie die Anwendung an die Gestaltung ihrer Webseite anpassen und editieren können.\n\nAtoM ist ein <a href=\"http://ica-atom.org/about#partners\">gemeinschaftliches Projekt</a>. Es möchte der internationalen archivarischen Gemeinschaft eine freie, auf Open-Source basierende Software-Anwendung zur Verfügung stellen, um Archivbestände in Übereinstimmung mit den ICA-Standards erschließen zu können.\n\nZiel ist es, eine einfache, vielsprachige, komplett webbasierte Anwendung zur Verfügung zu stellen, die es Institutionen erlaubt, ihre Archivbestände online vorzustellen."

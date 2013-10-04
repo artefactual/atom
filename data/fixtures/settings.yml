@@ -100,6 +100,7 @@ QubitSetting:
       fr: 'Notice d''autorité'
       gl: 'Rexistro de autoridade'
       id: 'Pencipta Arsip'
+      it: 'Record d''autorità'
       ja: 典拠レコード
       ka: 'ავტორიტეტული ჩანაწერი'
       nl: 'Geauthoriseerde beschrijving'
@@ -116,7 +117,7 @@ QubitSetting:
     value:
       de: Urheber/Bestandsbildner
       en: Creator
-      es: Productor
+      es: Creador
       fr: Producteur
       gl: Creador
       id: Pencipta
@@ -126,7 +127,8 @@ QubitSetting:
       nl: Archiefvormer
       pl: Twórca
       pt: Produtor
-      sl: Ustvarjalec
+      pt_BR: Produtor
+      sl: Ustvaril
       th: ผู้ผลิตเอกสาร
   QubitSetting_14:
     name: repository
@@ -139,7 +141,7 @@ QubitSetting:
       en: 'Archival institution'
       es: 'Institución archivística'
       fa: منبع
-      fr: 'Service d''archives'
+      fr: 'Institution de conservation'
       gl: 'Institución arquivística'
       id: 'Institusi Arsip'
       it: 'Istituzione archivistica'
@@ -159,11 +161,13 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      de: Funktion
       en: Function
       es: Función
-      fr: Fonction
+      fr: Fonctions
       gl: Función
       id: Fungsi
+      it: Funzione
       ja: 機能
       ka: ფუნქცია
       nl: Functie
@@ -208,6 +212,7 @@ QubitSetting:
       it: Soggetto
       ja: 主題
       ka: 'სუბიექტი (თემა, საგანი, სათაური)'
+      ko: 주제
       nl: Onderwerp
       pl: Temat
       pt: Assunto
@@ -226,7 +231,7 @@ QubitSetting:
       es: Fondo
       fr: collection
       gl: Fondos
-      it: collezione
+      it: Fondo
       ja: フォンド
       ka: ფონდები
       nl: Archief
@@ -241,9 +246,10 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      de: Bestand
+      de: 'Bestände (?)'
       en: Holdings
-      es: 'Fondos y colecciones'
+      es: Fondos
+      fa: دربرگيرندگي
       fr: Fonds
       gl: Fondos
       it: Patrimoni
@@ -252,6 +258,7 @@ QubitSetting:
       nl: Bestanden
       pl: 'Zasoby posiadane'
       pt: Acervo
+      pt_BR: Acervo
       sl: 'Arhivsko gradivo'
       th: สถานที่เก็บเอกสาร
   QubitSetting_20:
@@ -313,6 +320,7 @@ QubitSetting:
       en: 'Digital object'
       es: 'Objeto digital'
       fr: 'Objet numérique'
+      gl: 'Obxecto dixital'
       id: 'Objek Digital'
       it: 'Oggetto digitale'
       ja: ディジタルオブジェクト
@@ -335,12 +343,13 @@ QubitSetting:
       fr: 'Localisation physique'
       gl: 'Almacenamento físico'
       id: 'Penyimpanan Fisik'
-      it: 'Oggetto fisico'
+      it: Deposito
       ja: 物理的記憶
       ka: 'ფიზიკური საცავი'
       nl: 'Fysieke opslag'
       pl: 'Fizyczne miejsce przechowywania'
       pt: 'Depósito físico'
+      pt_BR: 'Depósito físico'
       sl: 'Fizična hramba'
       th: การเก็บเอกสารทางกายภาพ
   QubitSetting_24:
@@ -356,7 +365,7 @@ QubitSetting:
       fa: 'نوع رسانه'
       fr: 'Type de support'
       gl: 'Tipo de medio'
-      it: 'Tipo di media'
+      it: 'Tipo di supporto'
       ja: メディア種別
       ka: 'მედია ტიპი'
       nl: mediatype
@@ -393,6 +402,11 @@ QubitSetting:
     source_culture: en
     value:
       en: 'Narrow your results by:'
+      es: 'Restringir resultados por:'
+      fr: 'Affiner les résultats par :'
+      gl: 'Refinar os resultados por:'
+      it: 'Restringi i risultati per:'
+      sl: 'Omejite rezultate:'
   QubitSetting_26:
     name: en
     scope: i18n_languages
