@@ -47,21 +47,27 @@ final class xfLoggerTask implements xfLogger
    */
   public function log($message, $section = 'sfSearch')
   {
-    $message = preg_replace_callback('/"(.+?)"/', function($matches)
-      {
-        return $this->formatter->format($matches[1], array("fg" => "blue", "bold" => true));
-      }, $message);
+    $message = preg_replace_callback('/"(.+?)"/', array($this, 'formatBlue'), $message);
 
-    $message = preg_replace_callback('/\.{3}$/', function($matches)
-      {
-        return $this->formatter->format("...", array("fg" => "red", "bold" => true));
-      }, $message);
+    $message = preg_replace_callback('/\.{3}$/', array($this, 'formatDots'), $message);
 
-    $message = preg_replace_callback('/(Warning|Error)!/', function($matches)
-      {
-        return $this->formatter->format($matches[1].'!', array("fg" => "red", "bold" => true));
-      }, $message);
+    $message = preg_replace_callback('/(Warning|Error)!/', array($this, 'formatRed'), $message);
 
     $this->dispatcher->notify(new sfEvent($this, 'command.log', array($this->formatter->format($section, array('fg' => 'green', 'bold' => true)) . ' >> ' . $message)));
+  }
+
+  private function formatBlue($matches)
+  {
+    return $this->formatter->format($matches[1], array("fg" => "blue", "bold" => true));
+  }
+
+  private function formatDots($matches)
+  {
+    return $this->formatter->format("...", array("fg" => "red", "bold" => true));
+  }
+
+  private function formatRed($matches)
+  {
+    return $this->formatter->format($matches[1].'!', array("fg" => "red", "bold" => true));
   }
 }
