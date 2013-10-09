@@ -89,11 +89,27 @@ class sfSkosPlugin
       {
         $skos->setParent($concept);
       }
+    }
+
+    foreach ($concepts as $concept)
+    {
+      if (!($concept instanceof domElement))
+      {
+        continue;
+      }
 
       // Add children
       if (0 < $skos->xpath->query('./skos:narrower', $concept)->length)
       {
         $skos->setChildren($concept);
+      }
+    }
+
+    foreach ($concepts as $concept)
+    {
+      if (!($concept instanceof domElement))
+      {
+        continue;
       }
 
       // Add relations

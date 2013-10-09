@@ -26,6 +26,8 @@
  */
 class propelBuildNestedSetTask extends sfBaseTask
 {
+  private $rows = array(); // Holds all our SQL update queries
+
   /**
    * @see sfTask
    */
@@ -112,16 +114,16 @@ EOF;
         // There seems to be some limit on how many rows we can update with one
         // exec() statement, so chunk the update rows
         $incr = 4000;
-        for ($i=0; $i <= count($rows); $i+=$incr)
+        for ($i=0; $i <= count($this->rows); $i+=$incr)
         {
-          $sql = implode("\n", array_slice($rows, $i, $incr));
+          $sql = implode("\n", array_slice($this->rows, $i, $incr));
           $conn->exec($sql);
         }
       }
       catch (PDOException $e)
       {
         $conn->rollback();
-        throw sfException($e);
+        throw new sfException($e);
       }
 
       $conn->commit();
@@ -160,16 +162,14 @@ EOF;
     $str .= ' SET lft = '.$node['lft'];
     $str .= ', rgt = '.$node['rgt'];
     $str .= ' WHERE id = '.$node['id'].";";
-    $rows = array($str);
+    $this->rows[$str] = $str;
 
     if (0 < count($node['children']))
     {
       foreach ($node['children'] as $child)
       {
-        $rows = array_merge($rows, self::getNsUpdateRows($child, $classname));
+        self::getNsUpdateRows($child, $classname);
       }
     }
-
-    return $rows;
   }
 }

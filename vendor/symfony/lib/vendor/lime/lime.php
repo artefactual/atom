@@ -684,28 +684,36 @@ class lime_output
   {
     if ($colorize)
     {
-      $message = preg_replace_callback('/(?:^|\.)((?:not ok|dubious|errors) *\d*)\b/', function($matches)
-        {
-          return $this->colorizer->colorize($matches[1], 'ERROR');
-        }, $message);
+      $message = preg_replace_callback('/(?:^|\.)((?:not ok|dubious|errors) *\d*)\b/', array($this, 'colorizeError'), $message);
 
-      $message = preg_replace_callback('/(?:^|\.)(ok *\d*)\b/', function($matches)
-        {
-          return $this->colorizer->colorize($matches[1], 'INFO');
-        }, $message);
+      $message = preg_replace_callback('/(?:^|\.)(ok *\d*)\b/', array($this, 'colorizeInfo'), $message);
 
-      $message = preg_replace_callback('/"(.+?)"/', function($matches)
-        {
-          return $this->colorizer->colorize($matches[1], 'PARAMETER');
-        }, $message);
+      $message = preg_replace_callback('/"(.+?)"/', array($this, 'colorizeParameter'), $message);
 
-      $message = preg_replace_callback('/(\->|\:\:)?([a-zA-Z0-9_]+?)\(\)/', function($matches)
-        {
-          return $this->colorizer->colorize($matches[1].$matches[2].'()', 'PARAMETER');
-        }, $message);
+      $message = preg_replace_callback('/(\->|\:\:)?([a-zA-Z0-9_]+?)\(\)/', array($this, 'colorizeParameterAlt'), $message);
     }
 
     echo ($colorizer_parameter ? $this->colorizer->colorize($message, $colorizer_parameter) : $message)."\n";
+  }
+
+  private function colorizeError($matches)
+  {
+    return $this->colorizer->colorize($matches[1], 'ERROR');
+  }
+
+  private function colorizeInfo($matches)
+  {
+    return $this->colorizer->colorize($matches[1], 'INFO');
+  }
+
+  private function colorizeParameter($matches)
+  {
+    return $this->colorizer->colorize($matches[1], 'PARAMETER');
+  }
+
+  private function colorizeParameterAlt($matches)
+  {
+    return $this->colorizer->colorize($matches[1].$matches[2].'()', 'PARAMETER');
   }
 
   public function green_bar($message)
