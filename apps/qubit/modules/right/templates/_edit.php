@@ -93,6 +93,8 @@ echo javascript_tag(<<<content
 Drupal.behaviors.rights$suffix = {
   attach: function (context)
     {
+      var basisFormSelectSelector = 'select#editRight${suffix}_basis'.replace('editRight_', 'editRight');
+
       // Define dialog
       var dialog = new QubitDialog('updateRights$suffix', {
         'displayTable': 'rightsDisplay$suffix',
@@ -104,7 +106,7 @@ Drupal.behaviors.rights$suffix = {
 
             jQuery('fieldset', this.body)
               .hide()
-              .filter('[route="' + jQuery('select#editRight_basis').val() + '"]').show();
+              .filter('[route="' + jQuery(basisFormSelectSelector, this.table).val() + '"]').show();
           }
         });
 
@@ -115,7 +117,7 @@ Drupal.behaviors.rights$suffix = {
         {
           $(document).ready(function()
             {
-              $('select#editRight_basis').change(function()
+              $(dialog.table).find(basisFormSelectSelector).change(function()
                 {
                   $(this)
                     .parent().nextAll('fieldset').hide()
