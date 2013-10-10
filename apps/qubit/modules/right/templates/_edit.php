@@ -93,7 +93,7 @@ echo javascript_tag(<<<content
 Drupal.behaviors.rights$suffix = {
   attach: function (context)
     {
-      var basisFormSelectSelector = 'select#editRight${suffix}_basis'.replace('editRight_', 'editRight');
+      var basisFormSelectSelector = 'select#editRight${suffix}_basis'.replace(/^select#editRight_(\d+)/, 'select#editRight$1');
 
       // Define dialog
       var dialog = new QubitDialog('updateRights$suffix', {
