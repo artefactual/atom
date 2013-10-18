@@ -56,11 +56,7 @@ EOF;
     // Set indexing preference
     if ($options['noindex'])
     {
-      QubitSearch::getInstance()->disable();
-    }
-    else
-    {
-      QubitSearch::getInstance()->enableBatch();
+      QubitSearch::disable();
     }
 
     if (is_dir($arguments['folder']))
