@@ -29,6 +29,7 @@ class importBulkTask extends sfBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'qubit'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('noindex', null, sfCommandOption::PARAMETER_OPTIONAL, 'Set to \'true\' to skip indexing on imported objects'),
+      new sfCommandOption('taxonomy', null, sfCommandOption::PARAMETER_OPTIONAL, 'Set the taxonomy id to insert the SKOS concepts into'),
       new sfCommandOption('schema', null, sfCommandOption::PARAMETER_OPTIONAL, 'Schema to use if importing a CSV file'),
       new sfCommandOption('output', null, sfCommandOption::PARAMETER_OPTIONAL, 'Filename to output results in CSV format'),
       new sfCommandOption('v', null, sfCommandOption::PARAMETER_OPTIONAL, 'Verbose output'),
@@ -92,7 +93,9 @@ EOF;
       elseif ('xml' == pathinfo($file, PATHINFO_EXTENSION))
       {
         $importer = new QubitXmlImport;
-        $importer->import($file, array('strictXmlParsing' => false));
+        $options['strictXmlParsing'] = false;
+
+        $importer->import($file, $options);
       }
       else
       {
@@ -100,7 +103,7 @@ EOF;
         continue;
       }
 
-print '.';
+      print '.';
 
       // Try to free up memory
       unset($importer);
