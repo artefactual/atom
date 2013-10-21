@@ -32,6 +32,12 @@ class UserListAction extends sfAction
     }
 
     $criteria = new Criteria;
+
+    if (isset($request->subquery))
+    {
+      $criteria->add(QubitUser::USERNAME, "%$request->subquery%", Criteria::LIKE);
+    }
+
     $criteria->addAscendingOrderByColumn(QubitUser::USERNAME);
 
     switch ($request->filter)
@@ -43,7 +49,7 @@ class UserListAction extends sfAction
 
       case 'onlyActive':
       default:
-        $criteria->add(QubitUser::ACTIVE, 1); 
+        $criteria->add(QubitUser::ACTIVE, 1);
     }
 
     $this->pager = new QubitPager('QubitUser');
