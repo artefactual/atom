@@ -249,6 +249,8 @@
 
   <?php echo render_show(__('Associated / related material'), render_value($resource->getRelatedUnitsOfDescription(array('cultureFallback' => true)))) ?>
 
+  <?php echo get_partial('informationobject/relatedMaterialDescriptions', array('resource' => $resource)) ?>
+
   <?php echo render_show(__('Accruals'), render_value($resource->getAccruals(array('cultureFallback' => true)))) ?>
 
   <div class="field">

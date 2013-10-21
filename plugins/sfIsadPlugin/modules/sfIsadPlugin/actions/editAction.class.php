@@ -53,6 +53,7 @@ class sfIsadPluginEditAction extends InformationObjectEditAction
       'physicalCharacteristics',
       'placeAccessPoints',
       'relatedUnitsOfDescription',
+      'relatedMaterialDescriptions',
       'repository',
       'reproductionConditions',
       'revisionHistory',

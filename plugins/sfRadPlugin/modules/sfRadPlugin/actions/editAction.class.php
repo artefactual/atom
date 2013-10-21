@@ -60,6 +60,7 @@ class sfRadPluginEditAction extends InformationObjectEditAction
       'physicalCharacteristics',
       'placeAccessPoints',
       'relatedUnitsOfDescription',
+      'relatedMaterialDescriptions',
       'repository',
       'reproductionConditions',
       'revisionHistory',

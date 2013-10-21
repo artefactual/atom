@@ -128,6 +128,7 @@ class QubitTerm extends BaseTerm
     ACCESSION_ID = 167,
     RIGHT_ID = 168,
     DONOR_ID = 169,
+    RELATED_MATERIAL_DESCRIPTIONS_ID = 176,
 
     // Rights basis
     RIGHT_BASIS_COPYRIGHT_ID = 170,

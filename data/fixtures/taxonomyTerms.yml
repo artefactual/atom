@@ -1685,6 +1685,13 @@ QubitTerm:
       pt: Doador
       sl: Donator
       th: ผู้บริจาค
+  QubitTerm_related_material_descriptions:
+    taxonomy_id: 49
+    parent_id: 110
+    id: 176
+    source_culture: en
+    name:
+      en: 'Related material descriptions'
   QubitTerm_isdf_relationship_hierarchical:
     taxonomy_id: 61
     parent_id: QubitTerm_110

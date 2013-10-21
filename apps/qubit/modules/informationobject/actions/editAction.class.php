@@ -289,14 +289,32 @@ class InformationObjectEditAction extends DefaultEditAction
         break;
 
       case 'nameAccessPoints':
+      case 'relatedMaterialDescriptions':
         $criteria = new Criteria;
         $criteria->add(QubitRelation::SUBJECT_ID, $this->resource->id);
-        $criteria->add(QubitRelation::TYPE_ID, QubitTerm::NAME_ACCESS_POINT_ID);
 
         $value = $choices = array();
-        foreach ($this->nameAccessPoints = QubitRelation::get($criteria) as $item)
+        switch ($name)
         {
-          $choices[$value[] = $this->context->routing->generate(null, array($item->object, 'module' => 'actor'))] = $item->object;
+          case 'nameAccessPoints':
+            $criteria->add(QubitRelation::TYPE_ID, QubitTerm::NAME_ACCESS_POINT_ID);
+
+            foreach ($this->nameAccessPoints = QubitRelation::get($criteria) as $item)
+            {
+              $choices[$value[] = $this->context->routing->generate(null, array($item->object, 'module' => 'actor'))] = $item->object;
+            }
+
+            break;
+
+          case 'relatedMaterialDescriptions':
+            $criteria->add(QubitRelation::TYPE_ID, QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID);
+
+            foreach ($this->relatedMaterialDescriptions = QubitRelation::get($criteria) as $item)
+            {
+              $choices[$value[] = $this->context->routing->generate(null, array($item->object, 'module' => 'informationobject'))] = $item->object;
+            }
+
+            break;
         }
 
         $this->form->setDefault($name, $value);
@@ -362,15 +380,16 @@ class InformationObjectEditAction extends DefaultEditAction
         break;
 
       case 'nameAccessPoints':
+      case 'relatedMaterialDescriptions':
         $value = $filtered = array();
-        foreach ($this->form->getValue('nameAccessPoints') as $item)
+        foreach ($this->form->getValue($field->getName()) as $item)
         {
           $params = $this->context->routing->parse(Qubit::pathInfo($item));
           $resource = $params['_sf_route']->resource;
           $value[$resource->id] = $filtered[$resource->id] = $resource;
         }
 
-        foreach ($this->nameAccessPoints as $item)
+        foreach ($this->{$field->getName()} as $item)
         {
           if (isset($value[$item->objectId]))
           {
@@ -386,7 +405,19 @@ class InformationObjectEditAction extends DefaultEditAction
         {
           $relation = new QubitRelation;
           $relation->object = $item;
-          $relation->typeId = QubitTerm::NAME_ACCESS_POINT_ID;
+
+          switch ($field->getName())
+          {
+            case 'nameAccessPoints':
+              $relation->typeId = QubitTerm::NAME_ACCESS_POINT_ID;
+
+              break;
+
+            case 'relatedMaterialDescriptions':
+              $relation->typeId = QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID;
+
+              break;
+          }
 
           $this->resource->relationsRelatedBysubjectId[] = $relation;
         }
