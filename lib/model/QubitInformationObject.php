@@ -2107,6 +2107,25 @@ class QubitInformationObject extends BaseInformationObject
     return $this->setStatus($options = array('statusId' => $value, 'typeId' => QubitTerm::STATUS_TYPE_PUBLICATION_ID));
   }
 
+  /**
+   * Set publication date
+   * @param $value  The year the information object was published
+   */
+  public function setPublicationDate($value)
+  {
+    // We only support singular years right now...
+    if (!is_numeric($value))
+      return;
+
+    $publicationEvent = new QubitEvent;
+    $publicationEvent->typeId = QubitTerm::PUBLICATION_ID;
+    $publicationEvent->startDate = sprintf("%s-0-0", $value);
+    $publicationEvent->endDate = sprintf("%s-0-0", $value);
+
+    $this->events[] = $publicationEvent;
+    $this->save();
+  }
+
   /*****************************************************
    TreeView
   *****************************************************/
