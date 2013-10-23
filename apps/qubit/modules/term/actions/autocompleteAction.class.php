@@ -68,16 +68,22 @@ class TermAutocompleteAction extends sfAction
     // If NOT calling from term page show preferred and alternative terms
     else
     {
+      $where = '';
+      if (isset($request->query))
+      {
+       $where = ' WHERE name LIKE :p3';
+      }
+
       $s1 = 'SELECT qt.id, null, qti.name
         FROM '.QubitTerm::TABLE_NAME.' qt
-          LEFT JOIN '.QubitTermI18n::TABLE_NAME.' qti
+          LEFT JOIN (SELECT id, name, culture FROM '.QubitTermI18n::TABLE_NAME.$where.') qti
             ON qt.id = qti.id
         WHERE taxonomy_id = :p1
           AND qti.culture = :p2';
 
       $s2 = 'SELECT qt.id, qon.id as altId, qoni.name
         FROM '.QubitOtherName::TABLE_NAME.' qon
-          INNER JOIN '.QubitOtherNameI18n::TABLE_NAME.' qoni
+          INNER JOIN (SELECT id, culture, name FROM '.QubitOtherNameI18n::TABLE_NAME.$where.') qoni
             ON qon.id = qoni.id
           INNER JOIN '.QubitTerm::TABLE_NAME.' qt
             ON qon.object_id = qt.id
@@ -87,7 +93,6 @@ class TermAutocompleteAction extends sfAction
       // Narrow results by query
       if (isset($request->query))
       {
-       $s1 .= ' AND qti.name LIKE :p3';
        $s2 .= ' AND qoni.name LIKE :p3';
       }
 
