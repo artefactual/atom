@@ -79,7 +79,7 @@ information_object:
       Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID, 'entity_type_id' => QubitTerm::FAMILY_ID)"]
 
     title:
-      XPath:   "did/unittitle[not(@type) and not(*)]"
+      XPath:   "(did/unittitle[not(@type) and not(*)] | did/unittitle[not(@type)]/corpname | did/unittitle[not(@type)]/famname | did/unittitle[not(@type)]/geogname | did/unittitle[not(@type)]/persname)"
       Method:  setTitle
 
     alternate_title:
