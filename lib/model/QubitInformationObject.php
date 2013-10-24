@@ -2123,7 +2123,6 @@ class QubitInformationObject extends BaseInformationObject
     $publicationEvent->endDate = sprintf("%s-0-0", $value);
 
     $this->events[] = $publicationEvent;
-    $this->save();
   }
 
   /*****************************************************
