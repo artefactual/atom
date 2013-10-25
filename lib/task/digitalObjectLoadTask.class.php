@@ -80,9 +80,9 @@ EOF;
     // Get header (first) row
     $header = fgetcsv($fh, 1000);
 
-    if (!in_array('information_object_id', $header) || !in_array('filename', $header))
+    if ((!in_array('information_object_id', $header) && !in_array('identifier', $header)) || !in_array('filename', $header))
     {
-      throw new sfException('Import file must contain an \'information_object_id\' and \'filename\' column');
+      throw new sfException('Import file must contain an \'information_object_id\' or an \'identifier\' column, and a \'filename\' column');
     }
 
     $idKey = array_search('information_object_id', $header);
@@ -93,9 +93,21 @@ EOF;
     // object has multiple digital objects attached
     while ($item = fgetcsv($fh, 1000))
     {
-      $id = $item[$idKey];
-      $identifier = $item[$identifierKey];
-      $filename = $item[$fileKey];
+      $id = $identifier = $filename = null;
+
+      // Avoid looking for 'false' key
+      if ($idKey !== false)
+      {
+        $id = $item[$idKey];
+      }
+      if ($identifierKey !== false)
+      {
+        $identifier = $item[$identifierKey];
+      }
+      if ($fileKey !== false)
+      {
+        $filename = $item[$fileKey];
+      }
 
       // No information_object_id specified, try looking up id via identifier
       if (strlen($id) < 1 && strlen($identifier) > 0)
@@ -103,6 +115,12 @@ EOF;
         if (null !== $ret = $this->getIdFromIdentifier($identifier))
         {
           $id = $ret;
+        }
+        else
+        {
+          $this->log("Couldn't find information object with identifier: $identifier");
+
+          continue;
         }
       }
 
