@@ -195,7 +195,15 @@
         <?php endif; ?>
       <?php endforeach; ?>
       <?php foreach ($names as $name): ?>
-        <persname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></persname>
+        <?php if ($name->getObject()->getEntityTypeId() == QubitTerm::PERSON_ID): ?>
+          <persname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></persname>
+        <?php elseif ($name->getObject()->getEntityTypeId() == QubitTerm::FAMILY_ID): ?>
+          <famname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></famname>
+        <?php elseif ($name->getObject()->getEntityTypeId() == QubitTerm::CORPORATE_BODY_ID): ?>
+          <corpname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></corpname>
+        <?php else: ?>
+          <name role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></name>
+        <?php endif; ?>
       <?php endforeach; ?>
       <?php foreach ($materialtypes as $materialtype): ?>
         <genreform <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars($materialtype->getTerm()))) ?></genreform>
@@ -297,7 +305,15 @@
             <?php endforeach; ?>
 
             <?php foreach ($names as $name): ?>
-              <persname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></persname>
+              <?php if ($name->getObject()->getEntityTypeId() == QubitTerm::PERSON_ID): ?>
+                <persname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></persname>
+              <?php elseif ($name->getObject()->getEntityTypeId() == QubitTerm::FAMILY_ID): ?>
+                <famname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></famname>
+              <?php elseif ($name->getObject()->getEntityTypeId() == QubitTerm::CORPORATE_BODY_ID): ?>
+                <corpname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></corpname>
+              <?php else: ?>
+                <name role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></name>
+              <?php endif; ?>
             <?php endforeach; ?>
 
             <?php foreach ($materialtypes as $materialtype): ?>
