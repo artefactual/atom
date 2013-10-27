@@ -61,4 +61,10 @@
 
   <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
 
+  <section class="actions">
+    <ul>
+      <li><?php echo link_to(__('Add new'), array('module' => 'accession', 'action' => 'add'), array('class' => 'c-btn')) ?></li>
+    </ul>
+  </section>
+
 <?php end_slot() ?>
