@@ -267,7 +267,7 @@
 
         <div class="form-item">
           <?php echo $form->relatedMaterialDescriptions
-            ->label(__('Related material descriptions'))
+            ->label(__('Related descriptions'))
             ->renderLabel() ?>
           <?php echo $form->relatedMaterialDescriptions->render(array('class' => 'form-autocomplete')) ?>
           <?php if (QubitAcl::check(QubitInformationObject::getRoot(), 'create')): ?>
@@ -275,7 +275,7 @@
           <?php endif; ?>
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'autocomplete')) ?>"/>
           <?php echo $form->relatedMaterialDescriptions
-            ->help(__('For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)'))
+            ->help(__('To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.'))
             ->renderHelp() ?>
         </div>
 

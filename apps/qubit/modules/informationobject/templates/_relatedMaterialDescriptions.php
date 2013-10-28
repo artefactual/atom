@@ -1,6 +1,6 @@
 <div class="field">
 
-  <h3><?php echo __('Related material descriptions') ?></h3>
+  <h3><?php echo __('Related descriptions') ?></h3>
 
   <div>
     <ul>
