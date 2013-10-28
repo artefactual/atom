@@ -316,13 +316,6 @@ QubitMenu:
       sl: Funkcija
       th: ฟังก์ชั่น
     path: function/add
-  QubitMenu_mainmenu_addedit_donors:
-    parent_id: QubitMenu_mainmenu_addedit
-    source_culture: en
-    name: addDonor
-    label:
-      en: Donor
-    path: donor/add
   QubitMenu_mainmenu_import_xml:
     parent_id: QubitMenu_mainmenu_import
     source_culture: en
