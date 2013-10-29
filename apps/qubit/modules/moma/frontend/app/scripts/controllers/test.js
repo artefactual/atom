@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('momaApp')
-  .controller('TestCtrl', function ($scope, $http) {
+  .controller('TestCtrl', function ($scope, $http, atomGlobals) {
+
+    $scope.atomGlobals = atomGlobals;
 
     $scope.collection = [
       { id: 0, title: "One", children:
@@ -18,5 +20,7 @@ angular.module('momaApp')
           { id: 7, title: "Eight" },
         ]},
     ];
+
+    $scope.path = "/foobar/";
 
   });

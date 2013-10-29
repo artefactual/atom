@@ -22,6 +22,12 @@ angular.module('momaApp', [
   })
   .config(function ($locationProvider) {
     $locationProvider.html5Mode(false);
+  })
+
+  .factory("atomGlobals", function() {
+    return {
+      relativeUrlRoot: Qubit.relativeUrlRoot
+    }
   });
 
 // Setup dependency injection
