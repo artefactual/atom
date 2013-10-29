@@ -5,33 +5,50 @@ body {
     //border: 1px solid orange;
   }
   #haMainPage {
-    .breadcrumb {
-      ul {
-        li.h2Li {
-          padding-top: 10px;
-        }
-        li.h2LiIcon:after {
-          padding: 10px 13px 0 0;
-          content: "\f105";
-          color: @black;
-        }
+    div#main-column {
+      h1:before {
+        content: url('../../../../../www/atom-moma/apps/qubit/modules/moma/frontend/assets/atom-moma-M-icon_03.png');
       }
-    } //.breadcrumb
+      .breadcrumb {
+        ul {
+          li.h2Li {
+            padding-top: 10px;
+          }
+          li.h2LiIcon:after {
+            padding: 10px 13px 0 0;
+            content: "\f105";
+            color: @black;
+          }
+        }
+      } //.breadcrumb
 
-    div.contentTitle {
-      clear: both;
-      width: 100%;
-      h2 {
+      div.titleNav {
+        clear: both;
+        width: 100%;
+        h2 {
+          display: block;
+          float: left;
+        }
+        span {
+          display: block;
+          float: left;
+        }
+        ul.titleMenu {
+        float: right;
+        padding-top: 6px;
         display: block;
-        float: left;
-      }
-    }
+        position: relative;
+        }
+      } //ul.titlemenu
 
-    ul.titleMenu {
-      float: right;
-      display: block;
-      position: relative;
-    }
+
+      aside.graph img {
+        display: block;
+        float: right;
+        margin-right: 50px;
+        margin-top: -120px;
+      }
+    } //main-column
   } //haMainPage
 } //body
 
