@@ -5,237 +5,33 @@ body {
     //border: 1px solid orange;
   }
   #haMainPage {
-    //background: violet;
-    height: 345px;
-    width: 100%;
-    //to delete 
-    .span2, .span10 {
-      //border: 2px solid navajowhite;
-    }
-    #main-column {
-      // border: 1px solid #333;
-      #haMainPageTopHeader {
-        //border: 2px solid dodgerblue;
-        width: 100%;
-        height: 25px;
-        padding: 10px 0;
-        border-bottom: #333 1px solid;
-        #haMainPageTopHeaderImage {
-          height: 25px;
-          width: 25px;
-          display: block;
-          background: url("../../../images/icons-fa/adjust.png");
-          background: rgba(0,0,0,0.5);
-          float: left;
-          //border: 2px dashed antiquewhite;
+    .breadcrumb {
+      ul {
+        li.h2Li {
+          padding-top: 10px;
         }
-        div#haMainPageTopHeaderTitle {
-          display: inline-block;
-          float: left;
-          width: 94%;
-          h2 {
-            font-family: FontAwesome, sans-serif;
-            padding: 0 10px;
-            line-height: 1em;
-            font-weight: bolder;
-          } //h2
-        } //#haMainPageTopHeaderTitle
-        section.breadcrumb {
-        width: 100%;
-        height: 25px;
-        display: block;
-        clear: both;
-        float: left;
-        li {
-          margin-right: none;
-          &:after {
-          display: none;
-            }
-          } //after
-        } //li
-        } //haMainTopHeader
-      } // main-column
-
-/*
-############################################
-######################### MAIN COLUMN
-######################### GLOBAL STYLES
- ############################################
-*/
-
-      div.mbTextTitle {
-          display: block;
-          color: darkorange;
-          float: left;
-          font-size: 1.1em;
-          padding: 5px;
-          .orLi {
-            color: darkorange;
-          }
-          .blLi {
-            color: #000;
-          }
-        } 
-
-      div.mbTitlesContainer {
-        //background: springgreen;
-        clear: both;
-        border-top: 1px solid #333;
-        border-bottom: 1px solid #333;
-        height: 32px;
+        li.h2LiIcon:after {
+          padding: 10px 13px 0 0;
+          content: "\f105";
+          color: @black;
+        }
       }
-       .mbTextTitleOptionList {
-          display: block;
-          font-size: .9em;
-          float: right;
-          ul {
-            box-sizing: border-box;
-            margin-bottom: 0;
-            li {
-              border-left: 1px solid #333;
-              padding: 7px;
-              &:before {
-                content: url("http://placehold.it/20x14");
-              }
-            } //li
-          } // ul 
-        } // mbtextoptionslist
+    } //.breadcrumb
 
-/*
-############################################
-######################### MAIN BLOCK ONE
- ############################################
-*/
-
-    div#mb1 {
-      //background: navajowhite;
-      display: block;
-      float: left;
+    div.contentTitle {
+      clear: both;
       width: 100%;
-      height: 100%;
-      div.mb1Img {
-        // background: rgba(0,0,0,0.5);
-        background: url('../images/F2242_main_image.png');
-        background-size: cover;
-        background-position: -15px center;
-        height: 200px;
-        margin: 5px 0;
+      h2 {
         display: block;
-        border: 6px solid black;
-        box-sizing: border-box;
-      }
-      div.mb1Description {
-        border: 1px solid #222;
-        // background: darkseagreen;
-        font-family: 'Open Sans Regular';
-        div#mb1Titles {
-          clear: both;
-          height: 30px;
-          border-bottom: 1px solid #333;
-         
-          div.mb1TextMetaEdit {
-            display: block;
-            float: right;
-            font-size: .9em;
-            padding: 5px;
-            border-left: 1px solid #333;
-            color: darkorange;
-            &:before {
-              content: url("http://placehold.it/20x14");
-            }
-          } //mb1textmetaedit
-        } //mb1Titles
-        div#mb1Meta {
-          font-size: .9em;
-          ul {
-            list-style: none;
-            
-            li {
-              line-height: 140%;
-              div.mb1MetaTitlesTitle {
-              width: 20%;
-              float: left;
-              text-align: right;
-              } //div.mb1metaTitlesTitle
-              div.mb1MetaTitlesMeta {
-                width: 75%;
-                float: right;
-                text-align: left;
-              } //div.mb1MetaTitlesMeta
-            } //li
-          } //ul
-        } //mb1meta
-      } //mb1description
-    } //mb1
-
-
-/*
-############################################
-######################### MAIN BLOCK TWO
- ############################################
-*/
-    #mb2 {
-      margin: 0;
-      border-right: 1px solid #333;
-      border-left: 1px solid #333;
-      #mb2Plumbing {
-        //background: tomato;
-        height: 200px;
-        width: 100%;
+        float: left;
       }
     }
 
-/*
-############################################
-######################### MAIN BLOCK THREE
- ############################################
-*/
-
-    #mb3 {
-      margin: 0;
-      font-size: .9em;
-      border-right: 1px solid #333;
-      border-left: 1px solid #333;
-      div.mb3Content {
-        //background: thistle;
-        ul {
-          list-style: none;
-          position: relative;
-          z-index: 10;
-          li {
-            line-height: 140%;
-            .mb3MetaTitlesTitle {
-              color: steelblue;
-              display: block;
-              width: 23%;
-              float: left;
-              text-align: right;
-              clear: left;
-              padding-right: 10px;
-            }
-            .mb3MetaTitlesMeta {
-              width: 70%;
-              padding-left: 10px;
-              float: left;
-              clear: right;
-              text-align: left;
-              } // .mb3metatitlesmeta
-          } // li
-        } //ul
-        #mb3Chart {
-          background: url(../images/pie-chart.png);
-          background-size: cover;
-          position: absolute;
-          z-index: 20;
-          margin-top: 10px;
-          height: 100px;
-          width: 100px;
-          display: block;
-          right: 200px;
-        }
-      } // mb3content
-    } // mb3
-
+    ul.titleMenu {
+      float: right;
+      display: block;
+      position: relative;
+    }
   } //haMainPage
 } //body
 
