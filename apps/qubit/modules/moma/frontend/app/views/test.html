@@ -26,7 +26,7 @@
             <h2>TMS Work Metadata</h2>
             <ul class="nav nav-pills titleMenu">
                <li>
-                <a href="">
+                <a class="edit" href="">
                    Edit
                   </a>
                 </li>
@@ -76,14 +76,14 @@
         </section><!-- MetaBox1 metadataarea -->
       </div><!-- MetaBox1 content -->
 
-       <!-- MetaBox 2 -->
+      <!-- MetaBox 2 -->
       <div id="content">
 
         <section>
 
           <div class="titleNav row-fluid" title="Edit metadata area">
             <h2>Context Browser</h2>
-            <ul class="nav nav-pills titleMenu">
+            <ul class="titleMenu nav nav-pills">
               <li class="dropdown">
                 <a class="dropdown-toggle"
                    data-toggle="dropdown"
@@ -91,24 +91,49 @@
                    More
                    <b class="caret"></b>
                 </a>
+                <ul id="metaDrop1" class="dropdown-menu" role="menu" aria-labelledby="metaDrop1">
+                  <li role="presentation">
+                    <a class="move" role="menuitem" tabindex="-1" href="">Move</a>
+                  </li>
+                  <li role="presentation">
+                    <a class="add_child" role="menuitem" tabindex="-1" href="">Add Child</a>
+                  </li>
+                  <li role="presentation">
+                    <a class="duplicate" role="menuitem" tabindex="-1" href="">Duplicate</a>
+                  </li>
+                  <li role="presentation">
+                    <a class="add_relationship" role="menuitem" tabindex="-1" href="">Add Relationship</a>
+                  </li>
+                  <li role="presentation">
+                    <a class="delete" role="menuitem" tabindex="-1" href="">Delete</a>
+                  </li>
+                </ul>
               </li>
-               <li>
-                <a class="dropdown-toggle"
+              <li>
+                <a class="hide_relationships dropdown-toggle"
                    data-toggle="dropdown"
                    href="">
                    Hide Relationships
-                  </a>
-                </li>
-                <li class="dropdown">
-                <a class="dropdown-toggle"
+                </a>
+              </li>
+              <li class="dropdown">
+                <a class="view dropdown-toggle"
                    data-toggle="dropdown"
                    href="">
                    View
                    <b class="caret"></b>
                 </a>
+                <ul id="metaDrop1" class="dropdown-menu" role="menu" aria-labelledby="metaDrop1">
+                  <li role="presentation">
+                    <a class="fullscreen" role="menuitem" tabindex="-1" href="">Fullscreen</a>
+                  </li>
+                  <li role="presentation">
+                    <a class="list_relationships" role="menuitem" tabindex="-1" href="">List Relationship</a>
+                  </li>
+                </ul>
               </li>
               <li class="dropdown">
-                <a class="dropdown-toggle"
+                <a class="expand_all dropdown-toggle"
                    data-toggle="dropdown"
                    href="">
                    Expand All

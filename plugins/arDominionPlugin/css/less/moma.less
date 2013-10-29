@@ -11,6 +11,7 @@ body {
       }
       .breadcrumb {
         ul {
+          padding-top: 5px;
           li.h2Li {
             padding-top: 10px;
           }
@@ -35,11 +36,56 @@ body {
         }
         ul.titleMenu {
         float: right;
-        padding-top: 6px;
+        padding-top: 4px;
         display: block;
         position: relative;
-        }
-      } //ul.titlemenu
+        li {
+          a { color: @orange; }
+          a:before {
+          color: @grayLight;
+          font-family: FontAwesome;
+          font-style: normal;
+          font-weight: normal;
+          text-decoration: inherit;
+          padding-right: 4px;
+          }
+          a.more:before {
+            // content: "\f074"; comes from bootstrap's js
+          }
+          a.edit:before {
+            content: "\f040";
+          } //
+          a.hide_relationships:before {
+            content: "\f074";
+          } //
+          a.expand_all:before {
+            content: "\f0e8";
+          } //a
+          a.move:before {
+            content: "\f148";
+          } //a
+          a.add_child:before {
+            content: "\f055";
+          } //a
+          a.duplicate:before {
+            content: "\f0c5";
+          } //a
+          a.add_relationship:before {
+            content: "\f074";
+          } //a
+          a.delete:before {
+            content: "\f057";
+          } //a
+          a.list_relationships:before {
+            content: "\f126";
+          } //a
+          a.fullscreen:before {
+            content: "\f0b2";
+          } //a
+        } //li
+
+        } //ul.titlemenu
+      } //ul.titleNav
 
 
       aside.graph img {
