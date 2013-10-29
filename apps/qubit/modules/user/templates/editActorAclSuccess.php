@@ -30,7 +30,7 @@
   <section class="actions">
     <ul>
       <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'user', 'action' => 'indexActorAcl'), array('class' => 'c-btn')) ?></li>
-      <li><input class="c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
+      <li><input class="c-btn c-btn-submit" type="submit" value="<?php echo __('Save') ?>"/></li>
     </ul>
   </section>
 
