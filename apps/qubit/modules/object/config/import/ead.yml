@@ -79,15 +79,15 @@ information_object:
       Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID, 'entity_type_id' => QubitTerm::FAMILY_ID)"]
 
     title:
-      XPath:   "(did/unittitle[not(@type) and not(*)] | did/unittitle[not(@type)]/corpname | did/unittitle[not(@type)]/famname | did/unittitle[not(@type)]/geogname | did/unittitle[not(@type)]/persname)"
+      XPath: "(did/unittitle[not(@type) and not(*)] | did/unittitle[not(@type)]/*[self::corpname or self::famname or self::geogname or self::name or self::persname or self::date or self::emph or self::function or self::genreform or self::occupation or self::ref or self::subject or self::title])"
       Method:  setTitle
 
     alternate_title:
-      XPath:   "did/unittitle[@type='parallel']"
+      XPath: "(did/unittitle[@type='parallel' and not(*)] | did/unittitle[@type='parallel']/*[self::corpname or self::famname or self::geogname or self::name or self::persname or self::date or self::emph or self::function or self::genreform or self::occupation or self::ref or self::subject or self::title])"
       Method:  setAlternateTitle
 
     other_title:
-      XPath:   "did/unittitle[@type='otherInfo']"
+      XPath: "(did/unittitle[@type='otherInfo' and not(*)] | did/unittitle[@type='otherInfo']/*[self::corpname or self::famname or self::geogname or self::name or self::persname or self::date or self::emph or self::function or self::genreform or self::occupation or self::ref or self::subject or self::title])"
       Method:  addProperty
       Parameters: ["otherTitleInformation", $nodeValue]
 
