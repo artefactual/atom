@@ -93,6 +93,8 @@
         <?php else: ?>
           <?php if (isset($resource->taxonomy)): ?>
             <li><?php echo link_to(__('Cancel'), array($resource->taxonomy, 'module' => 'taxonomy'), array('class' => 'c-btn')) ?></li>
+          <?php elseif (isset($sf_request->taxonomy)): ?>
+            <li><?php echo link_to(__('Cancel'), $sf_request->taxonomy, array('class' => 'c-btn')) ?></li>
           <?php else: ?>
             <li><?php echo link_to(__('Cancel'), array('module' => 'taxonomy', 'action' => 'list'), array('class' => 'c-btn')) ?></li>
           <?php endif; ?>
