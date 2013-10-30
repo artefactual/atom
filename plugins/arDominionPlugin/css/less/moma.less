@@ -11,7 +11,6 @@ body {
       }
       .breadcrumb {
         ul {
-          padding-top: 5px;
           li.h2Li {
             padding-top: 10px;
           }
@@ -22,6 +21,9 @@ body {
           }
         }
       } //.breadcrumb
+      .breadcrumb#pageBreakBreadcrumb {
+        padding-top: 5px;
+      }
 
       div.titleNav {
         clear: both;
@@ -73,14 +75,23 @@ body {
           a.add_relationship:before {
             content: "\f074";
           } //a
-          a.delete:before {
+           a.delete {
+            color: red;
+              &:before {
             content: "\f057";
+            } //a before
           } //a
           a.list_relationships:before {
             content: "\f126";
           } //a
           a.fullscreen:before {
             content: "\f0b2";
+          } //a
+          a.AIP_Details:before {
+            content: "\f03a";
+          } //a
+          a.fixity_reports:before {
+            content: "\f058";
           } //a
         } //li
 
