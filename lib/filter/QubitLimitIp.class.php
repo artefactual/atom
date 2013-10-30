@@ -79,13 +79,17 @@ class QubitLimitIpFilter extends sfFilter
       {
         return true;
       }
+
       // Range
       else if (2 == count($limit))
       {
-        $address = ip2long($address);
+        $limit[0] = trim($limit[0]);
+        $limit[1] = trim($limit[1]);
 
-        if (ip2long($limit[0]) <= $address &&
-            ip2long($limit[1]) >= $address)
+        $addressLong = ip2long($address);
+
+        if (ip2long($limit[0]) <= $addressLong &&
+            ip2long($limit[1]) >= $addressLong)
         {
           return true;
         }
