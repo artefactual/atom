@@ -158,6 +158,7 @@ information_object:
     digital_object:
       XPath:   "(did/dao[1]/@href | did/daogrp[1]/daoloc[1]/@href)[1]"
       Method:  importDigitalObjectFromUri
+      Parameters: [$nodeValue, &$this->errors]
 
     publicationStatus:
       XPath:  "odd[@type='publicationStatus']"

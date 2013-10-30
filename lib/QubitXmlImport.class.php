@@ -399,7 +399,7 @@ class QubitXmlImport
 
             if (0 < count($resources))
             {
-              $currentObject->importDigitalObjectFromUri($resources);
+              $currentObject->importDigitalObjectFromUri($resources, &$this->errors);
             }
 
             break;

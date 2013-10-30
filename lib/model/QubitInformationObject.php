@@ -1095,7 +1095,7 @@ class QubitInformationObject extends BaseInformationObject
    *
    * @TODO allow for different usage types
    */
-  public function importDigitalObjectFromUri($uris)
+  public function importDigitalObjectFromUri($uris, &$errors)
   {
     if (is_array($uris) && 1 < count($uris))
     {
@@ -1119,7 +1119,16 @@ class QubitInformationObject extends BaseInformationObject
 
         $digitalObject = new QubitDigitalObject;
         $digitalObject->usageId = QubitTerm::MASTER_ID;
-        $digitalObject->importFromUri($uri);
+
+        try
+        {
+          $digitalObject->importFromUri($uri);
+        }
+        catch (sfException $e)
+        {
+          $errors[] = sfContext::getInstance()->i18n->__('Encountered error fetching external resource: '.$uri);
+          continue;
+        }
 
         $infoObject->digitalObjects[] = $digitalObject;
         $infoObject->title = $digitalObject->name;
@@ -1141,9 +1150,16 @@ class QubitInformationObject extends BaseInformationObject
       {
         $uris = array_shift($uris);
       }
-      $digitalObject->importFromUri($uris);
 
-      $this->digitalObjects[] = $digitalObject;
+      try
+      {
+        $digitalObject->importFromUri($uris);
+        $this->digitalObjects[] = $digitalObject;
+      }
+      catch (sfException $e)
+      {
+        $errors[] = sfContext::getInstance()->i18n->__('Encountered error fetching external resource: '.$uris);
+      }
     }
 
     return $this;
