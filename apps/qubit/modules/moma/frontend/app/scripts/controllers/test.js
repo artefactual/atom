@@ -6,21 +6,21 @@ angular.module('momaApp')
     $scope.atomGlobals = atomGlobals;
 
     $scope.collection = [
-      { id: 0, title: "One", children:
-        [
-          { id: 1, title: "Two" },
-          { id: 2, title: "Three" },
-        ]
-      },
-      { id: 3, title: "Four" },
-      { id: 4, title: "Five" },
-      { id: 5, title: "Six", children:
-        [
-          { id: 6, title: "Sevein" },
-          { id: 7, title: "Eight" },
-        ]},
+      { id: 0, title: 'Zero', level: 'Work', children: [
+        { id: 1, title: 'One', level: 'Expression', children:
+          [
+            { id: 2, title: 'Two', level: 'Manifestation' },
+            { id: 3, title: 'Three', level: 'Manifestation' },
+          ]
+        },
+        { id: 4, title: 'Four', level: 'Expression' },
+        { id: 5, title: 'Five', level: 'Expression' },
+        { id: 6, title: 'Six', level: 'Expression', children:
+          [
+            { id: 7, title: 'Seven', level: 'Manifestation' },
+            { id: 8, title: 'Eight', level: 'Manifestation' },
+          ]}
+      ]}
     ];
-
-    $scope.path = "/foobar/";
 
   });

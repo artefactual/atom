@@ -3,19 +3,17 @@
 angular.module('momaApp.directives', ['jsPlumb'])
   .directive('plumbGraph', function(jsPlumbService) {
     return {
-      restrict: 'A',
+      restrict: 'AE',
       scope: {
         collection: '='
       },
       link: function(scope, element, attrs) {
         jsPlumbService.jsPlumb().then(function(jsPlumb) {
 
-          var configuration = {
-          };
+          console.log("MUU");
 
-          scope.plumb = new Plumb(element[0], configuration);
-          scope.plumb.render();
-          scope.plumb.redraw(scope.collection);
+          scope.plumb = new Plumb(element, {});
+          scope.plumb.initialize();
 
           scope.$watch('collection', function() {
             if (scope.plumb)
