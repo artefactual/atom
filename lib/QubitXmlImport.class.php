@@ -717,7 +717,7 @@ class QubitXmlImport
       }
       else
       {
-        $nodeValue .= trim(preg_replace('/[\n\r\s]+/', ' ', $child->nodeValue));
+        $nodeValue .= preg_replace('/[\n\r\s]+/', ' ', $child->nodeValue);
       }
     }
 
