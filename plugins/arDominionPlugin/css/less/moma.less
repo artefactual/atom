@@ -1,18 +1,13 @@
+#sidebar {
+  border: 1px solid turquoise;
+}
+
 div.content {
   //Imports all styles from #content
   #content();
 }
 
-section#moma-metabox-1 {
-  margin-bottom: 10px;
-  .content {
-    box-shadow: none;
-  }
-}
-
-section.breadcrumb {
-
-}
+/* ################## Page Title ################ */
 
 h1#moma-page-title:before {
   content: "\f0c8";
@@ -22,30 +17,54 @@ h1#moma-page-title:before {
   text-decoration: inherit;
   padding-right: 8px;
 }
-.breadcrumb {
-  ul {
-    li.h2Li {
-      padding-top: 10px;
-    }
-    li.h2LiIcon:after {
-      padding: 10px 13px 0 0;
-      content: "\f105";
-      color: @black;
-    }
+
+section#moma-metabox-1 {
+  margin-bottom: 10px;
+  .content {
+    box-shadow: none;
   }
-} //.breadcrumb
-.breadcrumb#pageBreakBreadcrumb {
-  padding-top: 5px;
+}
+.title-menu .edit {
+  margin-top: -1px;
 }
 
-div.titleNav {
+/* ################## jsPlumbing ################ */
+
+#jsPlumbing {
+  background: url(../../../../apps/qubit/modules/moma/frontend/assets/jsPlumbAlmost.png);
+  background-size: cover;
+  height: 200px;
+  margin-bottom: 30px;
+
+}
+
+section#moma-breadcrumb {
+  border-top: 1px solid @grayLight;
+  border-radius: none;
+}
+
+
+.title-nav .breadcrumb {
+  border-bottom: 1px solid @grayLighter;
+  border-top: 1px solid @grayLighter;
+}
+// .breadcrumb {
+//   ul {
+//     li.h2Li {
+//       padding-top: 10px;
+//     }
+//     li.h2LiIcon:after {
+//       padding: 10px 13px 0 0;
+//       content: "\f105";
+//       color: @black;
+//     }
+//   }
+// } //.breadcrumb
+
+div.title-nav {
   clear: both;
   width: 100%;
-  span {
-    display: block;
-    float: left;
-  }
-  ul.titleMenu {
+  ul.title-menu {
   float: right;
   padding-top: 4px;
   display: block;
@@ -104,8 +123,8 @@ div.titleNav {
     } //a
   } //li
 
-  } //ul.titlemenu
-} //ul.titleNav
+  } //ul.title-menu
+} //ul.title-nav
 
 
 aside.metaBox4Meta {
