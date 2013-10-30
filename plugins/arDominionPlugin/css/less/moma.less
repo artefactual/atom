@@ -1,151 +1,163 @@
+div.content {
+  //Imports all styles from #content
+  #content();
+}
 
-body {
-  //background: wheat;
-  div {
-    //border: 1px solid orange;
+section#moma-metabox-1 {
+  margin-bottom: 10px;
+  .content {
+    box-shadow: none;
   }
-  #haMainPage {
-    div#main-column {
-      h1:before {
-        content: url(/apps/qubit/modules/moma/frontend/assets/atom-moma-M-icon_03.png);
-      }
-      .breadcrumb {
-        ul {
-          li.h2Li {
-            padding-top: 10px;
-          }
-          li.h2LiIcon:after {
-            padding: 10px 13px 0 0;
-            content: "\f105";
-            color: @black;
-          }
-        }
-      } //.breadcrumb
-      .breadcrumb#pageBreakBreadcrumb {
-        padding-top: 5px;
-      }
+}
 
-      div.titleNav {
-        clear: both;
-        width: 100%;
-        h2 {
-          display: block;
-          float: left;
-        }
-        span {
-          display: block;
-          float: left;
-        }
-        ul.titleMenu {
-        float: right;
-        padding-top: 4px;
-        display: block;
-        position: relative;
-        li {
-          a { color: @orange; }
-          a:before {
-          color: @grayLight;
+section.breadcrumb {
+
+}
+
+h1#moma-page-title:before {
+  content: "\f0c8";
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  padding-right: 8px;
+}
+.breadcrumb {
+  ul {
+    li.h2Li {
+      padding-top: 10px;
+    }
+    li.h2LiIcon:after {
+      padding: 10px 13px 0 0;
+      content: "\f105";
+      color: @black;
+    }
+  }
+} //.breadcrumb
+.breadcrumb#pageBreakBreadcrumb {
+  padding-top: 5px;
+}
+
+div.titleNav {
+  clear: both;
+  width: 100%;
+  span {
+    display: block;
+    float: left;
+  }
+  ul.titleMenu {
+  float: right;
+  padding-top: 4px;
+  display: block;
+  position: relative;
+  li {
+    a { color: @orange; }
+    a:before {
+    color: @grayLight;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    padding-right: 4px;
+    }
+    a.more:before {
+      // content: "\f074"; comes from bootstrap's js
+    }
+    a.edit:before {
+      content: "\f040";
+    } //
+    a.hide_relationships:before {
+      content: "\f074";
+    } //
+    a.expand_all:before {
+      content: "\f0e8";
+    } //a
+    a.move:before {
+      content: "\f148";
+    } //a
+    a.add_child:before {
+      content: "\f055";
+    } //a
+    a.duplicate:before {
+      content: "\f0c5";
+    } //a
+    a.add_relationship:before {
+      content: "\f074";
+    } //a
+     a.delete {
+      color: red;
+        &:before {
+      content: "\f057";
+      } //a before
+    } //a
+    a.list_relationships:before {
+      content: "\f126";
+    } //a
+    a.fullscreen:before {
+      content: "\f0b2";
+    } //a
+    a.AIP_Details:before {
+      content: "\f03a";
+    } //a
+    a.fixity_reports:before {
+      content: "\f058";
+    } //a
+  } //li
+
+  } //ul.titlemenu
+} //ul.titleNav
+
+
+aside.metaBox4Meta {
+  z-index: 20;
+  position: relative;
+  display: block;
+  div.graph {
+    background: url(../../../../apps/qubit/modules/moma/frontend/assets/pie-chart.png);
+    background-size: cover;
+    z-index: 25;
+    position: relative;
+    float: right;
+    display: block;
+    height: 130px;
+    width: 130px;
+    right: 50px;
+    margin-top: -150px;
+  } //div graph
+} // aside
+
+div.table {
+  padding: 0 6px;
+  width: 98%;
+  margin: 15px auto;
+  table {
+    thead {
+      color: @grayDark;
+      th {
+        background: @grayLighter;
+        th:after {
+          content: "\f0dd";
           font-family: FontAwesome;
           font-style: normal;
+          font-size: 1rem;
+          padding: 0 0 8px 5px;
           font-weight: normal;
           text-decoration: inherit;
-          padding-right: 4px;
-          }
-          a.more:before {
-            // content: "\f074"; comes from bootstrap's js
-          }
-          a.edit:before {
-            content: "\f040";
-          } //
-          a.hide_relationships:before {
-            content: "\f074";
-          } //
-          a.expand_all:before {
-            content: "\f0e8";
-          } //a
-          a.move:before {
-            content: "\f148";
-          } //a
-          a.add_child:before {
-            content: "\f055";
-          } //a
-          a.duplicate:before {
-            content: "\f0c5";
-          } //a
-          a.add_relationship:before {
-            content: "\f074";
-          } //a
-           a.delete {
-            color: red;
-              &:before {
-            content: "\f057";
-            } //a before
-          } //a
-          a.list_relationships:before {
-            content: "\f126";
-          } //a
-          a.fullscreen:before {
-            content: "\f0b2";
-          } //a
-          a.AIP_Details:before {
-            content: "\f03a";
-          } //a
-          a.fixity_reports:before {
-            content: "\f058";
-          } //a
-        } //li
-
-        } //ul.titlemenu
-      } //ul.titleNav
-
-
-      aside.metaBox4Meta {
-        z-index: 20;
-        position: relative;
-        display: block;
-        div.graph {
-          background: url(/apps/qubit/modules/moma/frontend/assets/pie-chart.png);
-          background-size: cover;
-          z-index: 25;
-          position: relative;
-          float: right;
-          display: block;
-          height: 130px;
-          width: 130px;
-          right: 50px;
-          margin-top: -150px;
-        } //div graph
-      } // aside
-
-      div.table {
-        padding: 0 6px;
-        width: 98%;
-        margin: 15px auto;
-        table {
-          thead {
-            color: @grayDark;
-            background: @grayLighter;
-            th {
-              th:after {
-                content: "\f0dd";
-                font-family: FontAwesome;
-                font-style: normal;
-                font-size: 1rem;
-                padding: 0 0 8px 5px;
-                font-weight: normal;
-                text-decoration: inherit;
-              } //th:after
-            } //th
-          } //thead
-          tbody {
-            font-size: .8em;
-            tr:nth-child(2n) {
-              background: @grayLighter;
-            }
-          }
-        } //table
-      } //div.table
-    } //main-column
-  } //haMainPage
-} //body
+        } //th:after
+      } //th
+    } //thead
+    tbody {
+      font-size: .8em;
+      tr {
+        background: #fff;
+        &:nth-child(2n) {
+          background: @grayLighter;
+        }
+        td {
+          padding: 2px 4px;
+        }
+      } //tr
+    } //tbody
+  } //table
+} //div.table
 

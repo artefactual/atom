@@ -8,7 +8,7 @@
   <div class="span9">
     <div id="main-column">
 
-      <h1>Work F2242 - Screen Test: Ivy Nicholson</h1>
+      <h1 id="moma-page-title">Work F2242 - Screen Test: Ivy Nicholson</h1>
 
       <section class="breadcrumb">
         <ul>
@@ -17,27 +17,29 @@
         </ul>
       </section>
 
-      <!-- MetaBox 1 -->
-      <div id="content">
 
-        <section>
 
-          <div class="titleNav row-fluid" title="Edit metadata area">
-            <h2>TMS Work Metadata</h2>
-            <ul class="nav nav-pills titleMenu">
-               <li>
-                <a class="edit" href="">
-                   Edit
-                  </a>
-                </li>
-            </ul>
-          </div><!-- /contentTitle -->
+
+        <!-- MetaBox 1 -->
+        <section id="moma-metabox-1">
 
           <div class="row-fluid">
             <div class="span3">
               <img ng-src="{{ atomGlobals.relativeUrlRoot }}/apps/qubit/modules/moma/frontend/assets/F2242_main_image.png" />
             </div>
-            <div class="span9">
+            <div class="span9 content">
+              <div class="titleNav row-fluid" title="Edit metadata area">
+                <h2>TMS Work Metadata
+                  <ul class="nav nav-pills titleMenu">
+                    <li>
+                      <a class="edit" href="">
+                        Edit
+                      </a>
+                    </li>
+                  </ul>
+                </h2>
+
+              </div><!-- /contentTitle -->
               <div class="field">
                 <h3>Accession number</h3>
                 <div>F224</div>
@@ -74,16 +76,15 @@
           </div><!-- row-fluid -->
 
         </section><!-- MetaBox1 metadataarea -->
-      </div><!-- MetaBox1 content -->
 
-      <!-- MetaBox 2 -->
       <div id="content">
+      <!-- MetaBox 2 -->
 
         <section>
 
           <div class="titleNav row-fluid" title="Edit metadata area">
-            <h2>Context Browser</h2>
-            <ul class="titleMenu nav nav-pills">
+            <h2>Context Browser
+              <ul class="titleMenu nav nav-pills">
               <li class="dropdown">
                 <a class="dropdown-toggle"
                    data-toggle="dropdown"
@@ -140,6 +141,7 @@
                 </a>
               </li>
             </ul>
+            </h2>
           </div><!-- /contentTitle -->
 
           <div class="row-fluid">
@@ -147,29 +149,29 @@
           </div><!-- metaBox2 row-fluid -->
 
         </section><!-- metaBox2 metadataarea -->
-      </div><!-- metaBox2 content-->
 
-      <section id="pageBreakBreadcrumb" class="breadcrumb">
-         <ul><!-- will turn blue when ahref links are inserted -->
-          <li><span>Screen Test: Ivy Nicholson</span></li><!-- a href removed temporarily-->
-          <li><span>Original Film</span></li>
-          <li><span>Artwork Components</span></li>
-          <li><span>Reversal positive "original"</span></li>
-        </ul>
-      </section>
+
+        <section id="momaBreadcrumb" class="breadcrumb">
+           <ul><!-- will turn blue when ahref links are inserted -->
+            <li><a href="#" onclick="return false;"><span>Screen Test: Ivy Nicholson</span></a></li><!-- a href removed temporarily-->
+            <li><a href="#" onclick="return false;"><span>Original Film</span></a></li>
+            <li><span>Artwork Components</span></li>
+            <li><span>Reversal positive "original"</span></li>
+          </ul>
+        </section>
 
         <!-- MetaBox 3 -->
-      <div id="content">
 
         <section>
           <div class="titleNav row-fluid">
             <span>
-              <section class="breadcrumb">
+              <div class="breadcrumb">
                 <ul>
                   <li class="h2LiIcon"><h2><span>MetaData</span></h2></li><!-- a href removed temporarily-->
                   <li class="h2Li"><span>Reversal positive "original"</span></li>
                 </ul>
-              </section>
+              </div>
+
             </span>
             <ul class="nav nav-pills titleMenu">
               <li class="dropdown">
@@ -220,10 +222,8 @@
           </aside>
 
         </section><!-- metaBox3 metadataarea -->
-      </div><!-- /metaBox3 content-->
 
         <!-- MetaBox 4 -->
-      <div id="content">
 
         <section>
 
@@ -322,62 +322,16 @@
                   <td>Exhibition Documentation</td>
                   <td>2.10 GB</td>
                 </tr>
-                <tr>
-                  <td>DPX Scan</td>
-                  <td>aa4-5j98-09on7-e2d</td>
-                  <td>Artwork</td>
-                  <td>application/pdf</td>
-                  <td>pdf</td>
-                  <td>Artwork Components</td>
-                  <td>26.5 GB</td>
-                </tr>
-                <tr><!-- table row -->
-                  <td>Exhibition Walkthrough</td><!-- table data -->
-                  <td>54n-3ke0d495-39do3p-ro3</td>
-                  <td>Documentation</td>
-                  <td>text/html</td>
-                  <td>html</td>
-                  <td>Exhibition Documentation</td>
-                  <td>2.10 GB</td>
-                </tr>
-                <tr>
-                  <td>DPX Scan</td>
-                  <td>aa4-5j98-09on7-e2d</td>
-                  <td>Artwork</td>
-                  <td>application/pdf</td>
-                  <td>pdf</td>
-                  <td>Artwork Components</td>
-                  <td>26.5 GB</td>
-                </tr>
-                <tr>
-                  <td>Exhibition Walkthrough</td>
-                  <td>54n-3ke0d495-39do3p-ro3</td>
-                  <td>Documentation</td>
-                  <td>text/html</td>
-                  <td>html</td>
-                  <td>Exhibition Documentation</td>
-                  <td>2.10 GB</td>
-                </tr>
-                <tr>
-                  <td>DPX Scan</td>
-                  <td>aa4-5j98-09on7-e2d</td>
-                  <td>Artwork</td>
-                  <td>application/pdf</td>
-                  <td>pdf</td>
-                  <td>Artwork Components</td>
-                  <td>26.5 GB</td>
-                </tr>
+
               </tbody>
             </table>
           </div>
 
 
 
-        </section><!-- MetaBox1 metadataarea -->
-      </div><!-- /metaBox4 content-->
+        </section><!-- MetaBox4 metadataarea -->
 
       <!-- MetaBox 5 -->
-      <div id="content">
 
         <section>
 
@@ -403,10 +357,9 @@
           </div><!-- /titlenav -->
 
         </section><!-- MetaBox1 metadataarea -->
-      </div><!-- /metaBox5 content-->
 
 
-
+      </div><!-- #content -->
     </div><!-- div.span9 -->
   </div><!-- main-column -->
 
