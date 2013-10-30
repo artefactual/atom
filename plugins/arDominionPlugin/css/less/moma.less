@@ -7,7 +7,7 @@ body {
   #haMainPage {
     div#main-column {
       h1:before {
-        content: url('../../../../../www/atom-moma/apps/qubit/modules/moma/frontend/assets/atom-moma-M-icon_03.png');
+        content: url(/apps/qubit/modules/moma/frontend/assets/atom-moma-M-icon_03.png);
       }
       .breadcrumb {
         ul {
@@ -99,12 +99,52 @@ body {
       } //ul.titleNav
 
 
-      aside.graph img {
+      aside.metaBox4Meta {
+        z-index: 20;
+        position: relative;
         display: block;
-        float: right;
-        margin-right: 50px;
-        margin-top: -120px;
-      }
+        div.graph {
+          background: url(/apps/qubit/modules/moma/frontend/assets/pie-chart.png);
+          background-size: cover;
+          z-index: 25;
+          position: relative;
+          float: right;
+          display: block;
+          height: 130px;
+          width: 130px;
+          right: 50px;
+          margin-top: -150px;
+        } //div graph
+      } // aside
+
+      div.table {
+        padding: 0 6px;
+        width: 98%;
+        margin: 15px auto;
+        table {
+          thead {
+            color: @grayDark;
+            background: @grayLighter;
+            th {
+              th:after {
+                content: "\f0dd";
+                font-family: FontAwesome;
+                font-style: normal;
+                font-size: 1rem;
+                padding: 0 0 8px 5px;
+                font-weight: normal;
+                text-decoration: inherit;
+              } //th:after
+            } //th
+          } //thead
+          tbody {
+            font-size: .8em;
+            tr:nth-child(2n) {
+              background: @grayLighter;
+            }
+          }
+        } //table
+      } //div.table
     } //main-column
   } //haMainPage
 } //body
