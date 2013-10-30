@@ -204,7 +204,7 @@
 
   <?php echo render_show(__('Related units of description'), render_value($resource->getRelatedUnitsOfDescription(array('cultureFallback' => true)))) ?>
 
-  <?php echo get_partial('informationobject/relatedMaterialDescriptions', array('resource' => $resource)) ?>
+  <?php echo get_partial('informationobject/relatedMaterialDescriptions', array('resource' => $resource, 'template' => 'isad')) ?>
 
   <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)) as $item): ?>
     <?php echo render_show(__('Publication note'), render_value($item->getContent(array('cultureFallback' => true)))) ?>

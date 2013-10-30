@@ -263,11 +263,11 @@
 
         <?php echo render_field($form->relatedUnitsOfDescription
           ->help(__('For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)'))
-          ->label(__('Associated/related material')), $resource, array('class' => 'resizable')) ?>
+          ->label(__('Associated materials')), $resource, array('class' => 'resizable')) ?>
 
         <div class="form-item">
           <?php echo $form->relatedMaterialDescriptions
-            ->label(__('Related descriptions'))
+            ->label(__('Related materials'))
             ->renderLabel() ?>
           <?php echo $form->relatedMaterialDescriptions->render(array('class' => 'form-autocomplete')) ?>
           <?php if (QubitAcl::check(QubitInformationObject::getRoot(), 'create')): ?>
