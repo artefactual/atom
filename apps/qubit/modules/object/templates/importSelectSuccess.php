@@ -11,14 +11,14 @@
   <?php endif; ?>
 <?php end_slot() ?>
 
-<?php if ($sf_user->hasFlash('error')): ?>
-  <div class="messages error">
-    <h3><?php echo __('Error encountered') ?></h3>
-    <div><?php echo $sf_user->getFlash('error') ?></div>
-  </div>
-<?php endif; ?>
-
 <?php slot('content') ?>
+
+  <?php if ($sf_user->hasFlash('error')): ?>
+    <div class="messages error">
+      <h3><?php echo __('Error encountered') ?></h3>
+      <div><?php echo $sf_user->getFlash('error') ?></div>
+    </div>
+  <?php endif; ?>
 
   <?php if (isset($resource)): ?>
     <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'object', 'action' => 'import')), array('enctype' => 'multipart/form-data')) ?>
