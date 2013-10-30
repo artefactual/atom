@@ -79,15 +79,15 @@ information_object:
       Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID, 'entity_type_id' => QubitTerm::FAMILY_ID)"]
 
     title:
-      XPath:   "did/unittitle[not(@type) and not(*)]"
+      XPath: "did/unittitle[not(@type)]"
       Method:  setTitle
 
     alternate_title:
-      XPath:   "did/unittitle[@type='parallel']"
+      XPath: "did/unittitle[@type='parallel']"
       Method:  setAlternateTitle
 
     other_title:
-      XPath:   "did/unittitle[@type='otherInfo']"
+      XPath: "did/unittitle[@type='otherInfo']"
       Method:  addProperty
       Parameters: ["otherTitleInformation", $nodeValue]
 
