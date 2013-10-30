@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('momaApp')
-  .controller('AboutCtrl', function ($scope) {
+  .controller('HomeCtrl', function ($scope) {
     $scope.foo = 'bar';
   });

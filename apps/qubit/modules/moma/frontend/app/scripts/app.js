@@ -7,16 +7,12 @@ angular.module('momaApp', [
   .config(function($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/main.html',
-        controller: 'MainCtrl'
+        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/home.html',
+        controller: 'HomeCtrl'
       })
       .when('/test', {
         templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/test.html',
         controller: 'TestCtrl'
-      })
-      .when('/about', {
-        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/about.html',
-        controller: 'AboutCtrl'
       })
     .otherwise({ redirectTo: '/' });
   })
