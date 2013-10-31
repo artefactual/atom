@@ -80,6 +80,9 @@ EOF;
 
     // Define import
     $import = new QubitFlatfileImport(array(
+      /* Pass context */
+      'context' => sfContext::createInstance($this->configuration),
+
       /* How many rows should import until we display an import status update? */
       'rowsUntilProgressDisplay' => $options['rows-until-update'],
 
@@ -110,7 +113,7 @@ EOF;
 
       /* import columns that should be redirected to QubitInformationObject
          properties (and optionally transformed)
-      
+
          Example:
          'columnMap' => array(
            'Archival History' => 'archivalHistory',
@@ -244,7 +247,7 @@ EOF;
       if ($data)
       {
         if (isset($self->object) && is_object($self->object))
-        { 
+        {
           $parsedDate = $self->parseDateLoggingErrors($data);
           if ($parsedDate) {
             $self->object->date = $parsedDate;
