@@ -391,6 +391,7 @@ class QubitXmlImport
             break;
 
           case 'flocat':
+          case 'digital_object':
             $resources = array();
             foreach ($nodeList2 as $item)
             {
@@ -399,7 +400,7 @@ class QubitXmlImport
 
             if (0 < count($resources))
             {
-              $currentObject->importDigitalObjectFromUri($resources, &$this->errors);
+              $currentObject->importDigitalObjectFromUri($resources, $this->errors);
             }
 
             break;
