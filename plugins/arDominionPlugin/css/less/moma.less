@@ -24,8 +24,8 @@ section#moma-metabox-1 {
     box-shadow: none;
   }
 }
-.menu-list-right .edit {
-  margin-top: -1px;
+.menu-list-right a.edit {
+  margin-top: 2px;
 }
 
 /* ################## jsPlumbing ################ */
@@ -59,9 +59,11 @@ section#moma-breadcrumb {
   }
   li {
     padding-left: 8px;
+    font-size: .8rem;
   }
   a {
     padding-top: 0;
+    font-size: .8rem;
   }
 }
 
@@ -69,12 +71,17 @@ section#moma-breadcrumb {
 .menu-list-left {
   border-bottom: 1px solid @grayLighter;
   border-top: 1px solid @grayLighter;
-    li {
+  float: left;
+  line-height: 38px;
+    li:nth-child(2n) {
       font-family: FontAwesome;
-        font-style: normal;
-        font-weight: normal;
-        text-decoration: inherit;
-        padding-right: 4px;
+      font-style: normal;
+      font-weight: normal;
+      text-decoration: inherit;
+        &:before {
+          content: "\f105";
+          padding-right: 12px;
+        }
   }
 }
 li:not(:first-child) {
@@ -83,22 +90,20 @@ li:not(:first-child) {
     &:before {
   }
 }
-// .breadcrumb {
-//   ul {
-//     li.h2Li {
-//       padding-top: 10px;
-//     }
-//     li.h2LiIcon:after {
-//       padding: 10px 13px 0 0;
-//       content: "\f105";
-//       color: @black;
-//     }
-//   }
-// } //.breadcrumb
 
-div.menu-list-left {
-  clear: both;
-  width: 100%;
+.menu-list {
+  border-top: 1px solid @borderLineColor;
+  border-bottom: 1px solid @borderLineColor;
+  h2 {
+
+  }
+}
+
+#content ul.menu-list-left h2 {
+  border: none!important; //still doubling border -> fix this
+}
+
+
   ul.menu-list-right {
   float: right;
   padding-top: 4px;
@@ -159,7 +164,6 @@ div.menu-list-left {
   } //li
 
   } //ul.menu-list-right
-} //ul.menu-list-left
 
 
 aside.metaBox4Meta {
@@ -176,7 +180,7 @@ aside.metaBox4Meta {
     height: 130px;
     width: 130px;
     right: 50px;
-    margin-top: -150px;
+    margin-top: -130px;
   } //div graph
 } // aside
 
