@@ -1,7 +1,7 @@
 <div id="haMainPage" class="row-fluid">
 
   <div class="span2">
-    <div id="sidebar">
+    <div id="sidebar" class="sidebar-prototype">
     </div>
   </div>
 
@@ -28,9 +28,9 @@
               <img ng-src="{{ atomGlobals.relativeUrlRoot }}/apps/qubit/modules/moma/frontend/assets/F2242_main_image.png" />
             </div>
             <div class="span9 content">
-              <div class="title-nav row-fluid" title="Edit metadata area">
+              <div class="menu-list-left row-fluid" title="Edit metadata area">
                 <h2>TMS Work Metadata
-                  <ul class="nav nav-pills title-menu">
+                  <ul class="nav nav-pills menu-list-right">
                     <li>
                       <a href="#" class="edit" onclick="return false;">
                         Edit
@@ -82,9 +82,9 @@
 
         <section>
 
-          <div class="title-nav row-fluid" title="Edit metadata area">
+          <div class="menu-list-left row-fluid" title="Edit metadata area">
             <h2>Context Browser
-              <ul class="title-menu nav nav-pills">
+              <ul class="menu-list-right nav nav-pills">
                 <li class="dropdown">
                   <a class="dropdown-toggle"
                      data-toggle="dropdown"
@@ -144,14 +144,16 @@
             </h2>
           </div><!-- /contentTitle -->
 
-          <div class="row-fluid" id="jsPlumbing">
-            <div plumb-graph class="plumb-graph" collection="collection" />
+          <div class="plumb-div row-fluid">
+            <div plumb-graph class="plumb-graph" collection="collection" >
+            </div>
           </div><!-- metaBox2 row-fluid -->
+
         </section><!-- metaBox2 metadataarea -->
 
 
-        <section id="moma-breadcrumb" class="breadcrumb">
-          <ul><!-- will turn blue when ahref links are inserted -->
+        <section id="moma-breadcrumb">
+          <ul class="breadcrumb"><!-- will turn blue when ahref links are inserted -->
             <li><a href="#" onclick="return false;"><span>Screen Test: Ivy Nicholson</span></a></li><!-- a href removed temporarily-->
             <li><a href="#" onclick="return false;"><span>Original Film</span></a></li>
             <li><span>Artwork Components</span></li>
@@ -162,41 +164,40 @@
         <!-- MetaBox 3 -->
 
         <section>
-          <div class="title-nav row-fluid">
-            <div class="breadcrumb">
-              <ul>
-                <li class="h2LiIcon"><h2>MetaData</h2></li><!-- a href removed temporarily-->
-                <li class="h2Li"><span>Reversal positive "original"</span></li>
-              </ul>
+          <div class="menu-list-left row-fluid">
+              <h2>
+                <ul class="inline">
+                  <li>MetaData</li><!-- a href removed temporarily-->
+                  <li>Reversal positive "original"</li>
+                </ul>
 
-            </div>
-
-            <ul class="nav nav-pills title-menu">
-                <li class="dropdown">
-                  <a class="dropdown-toggle"
-                     data-toggle="dropdown"
-                     href="">
-                     More
-                     <b class="caret"></b>
-                  </a>
-                   <ul class="dropdown-menu" role="menu" aria-labelledby="metaDrop1">
-                    <li role="presentation">
-                      <a class="add_child" role="menuitem" tabindex="-1" href="">Add Child</a>
-                    </li>
-                    <li role="presentation">
-                      <a class="duplicate" role="menuitem" tabindex="-1" href="">Duplicate</a>
-                    </li>
-                    <li role="presentation">
-                      <a class="delete" role="menuitem" tabindex="-1" href="">Delete</a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                <a class="edit" href="">
-                   Edit
-                  </a>
-                </li>
-              </ul>
+                <ul class="nav nav-pills menu-list-right">
+                  <li class="dropdown">
+                    <a class="dropdown-toggle"
+                       data-toggle="dropdown"
+                       href="">
+                       More
+                       <b class="caret"></b>
+                    </a>
+                     <ul class="dropdown-menu" role="menu" aria-labelledby="metaDrop1">
+                      <li role="presentation">
+                        <a class="add_child" role="menuitem" tabindex="-1" href="">Add Child</a>
+                      </li>
+                      <li role="presentation">
+                        <a class="duplicate" role="menuitem" tabindex="-1" href="">Duplicate</a>
+                      </li>
+                      <li role="presentation">
+                        <a class="delete" role="menuitem" tabindex="-1" href="">Delete</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                  <a class="edit" href="">
+                     Edit
+                    </a>
+                  </li>
+                </ul>
+              </h2>
 
           </div><!-- /contentTitle -->
 
@@ -226,7 +227,7 @@
 
         <section>
 
-          <div class="title-nav row-fluid">
+          <div class="menu-list-left row-fluid">
             <span title="Edit metadata area">
               <section class="breadcrumb">
                 <ul>
@@ -236,7 +237,7 @@
               </section>
             </span>
 
-            <ul class="nav nav-pills title-menu">
+            <ul class="nav nav-pills menu-list-right">
               <li>
                 <a class="AIP_Details" href="">
                    AIP Details
@@ -334,7 +335,7 @@
 
         <section>
 
-          <div class="title-nav row-fluid">
+          <div class="menu-list-left row-fluid">
             <span>
              <section class="breadcrumb">
                <ul>
@@ -346,14 +347,14 @@
 
           </span>
 
-          <ul class="nav nav-pills title-menu">
+          <ul class="nav nav-pills menu-list-right">
               <li>
                 <a class="edit" href="">
                    Add
                 </a>
               </li>
             </ul>
-          </div><!-- /title-nav -->
+          </div><!-- /menu-list-left -->
 
         </section><!-- MetaBox1 metadataarea -->
 

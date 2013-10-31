@@ -1,4 +1,4 @@
-#sidebar {
+.sidebar-prototype {
   border: 1px solid turquoise;
 }
 
@@ -24,20 +24,20 @@ section#moma-metabox-1 {
     box-shadow: none;
   }
 }
-.title-menu .edit {
+.menu-list-right .edit {
   margin-top: -1px;
 }
 
 /* ################## jsPlumbing ################ */
-
-#jsPlumbing {
-  background: url(../../../../apps/qubit/modules/moma/frontend/assets/jsPlumbAlmost.png);
-  background-size: cover;
-  margin-bottom: 30px;
+.plumb-div {
+  background-color: #eee;
 }
 
 .plumb-graph {
-  height: 400px;
+  margin: 26px;
+  max-width: 100%;
+  box-sixing: content-box;
+  max-height: 350px;
   background-color: #eee;
   .node {
     border: 2px solid #ff8800;
@@ -50,14 +50,38 @@ section#moma-metabox-1 {
 }
 
 section#moma-breadcrumb {
-  border-top: 1px solid @grayLight;
+  padding-top: 4px;
+  border-top: 1px solid @grayLighter;
   border-radius: none;
+  li > span:not(a) {
+    padding-top: 3px;
+    padding-left: 12px;
+  }
+  li {
+    padding-left: 8px;
+  }
+  a {
+    padding-top: 0;
+  }
 }
 
 
-.title-nav .breadcrumb {
+.menu-list-left {
   border-bottom: 1px solid @grayLighter;
   border-top: 1px solid @grayLighter;
+    li {
+      font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: inherit;
+        padding-right: 4px;
+  }
+}
+li:not(:first-child) {
+    color: @black;
+    font-size: .9em;
+    &:before {
+  }
 }
 // .breadcrumb {
 //   ul {
@@ -72,10 +96,10 @@ section#moma-breadcrumb {
 //   }
 // } //.breadcrumb
 
-div.title-nav {
+div.menu-list-left {
   clear: both;
   width: 100%;
-  ul.title-menu {
+  ul.menu-list-right {
   float: right;
   padding-top: 4px;
   display: block;
@@ -134,8 +158,8 @@ div.title-nav {
     } //a
   } //li
 
-  } //ul.title-menu
-} //ul.title-nav
+  } //ul.menu-list-right
+} //ul.menu-list-left
 
 
 aside.metaBox4Meta {
