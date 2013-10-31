@@ -79,6 +79,9 @@ EOF;
 
     // Define import
     $import = new QubitFlatfileImport(array(
+      /* Pass context */
+      'context' => sfContext::createInstance($this->configuration),
+
       /* What type of object are we importing? */
       'className' => 'QubitRepository',
 
@@ -128,7 +131,7 @@ EOF;
       'preSaveLogic' => function(&$self)
       {
         $opts = $self->getStatus('options');
-        if (isset($opts['upload-limit']) && !isset($self->object->uploadLimit)) 
+        if (isset($opts['upload-limit']) && !isset($self->object->uploadLimit))
           $self->object->uploadLimit = $opts['upload-limit'];
       },
 
