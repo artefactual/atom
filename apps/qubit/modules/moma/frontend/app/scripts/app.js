@@ -14,8 +14,13 @@ angular.module('momaApp', [
         templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/test.html',
         controller: 'TestCtrl'
       })
+      .when('/documentationObject', {
+        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/documentationObject.html',
+        controller: 'DocumentationObjectCtrl'
+      })
     .otherwise({ redirectTo: '/' });
   })
+
   .config(function ($locationProvider) {
     $locationProvider.html5Mode(false);
   })
@@ -29,3 +34,4 @@ angular.module('momaApp', [
 // Setup dependency injection
 angular.module('jsPlumb', []);
 angular.module('momaApp.directives', ['jsPlumb']);
+

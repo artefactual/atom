@@ -4,6 +4,7 @@
   <ul class="nav nav-pills">
     <li><a ng-href="#/">Home</a></li>
     <li><a ng-href="#/test">Test</a></li>
+    <li><a ng-href="#/documentationObject">Doc Obj</a></li>
   </ul>
 
   <!-- View placeholder -->
