@@ -29,6 +29,14 @@
         <?php else: ?>
           <?php echo link_to(__('View %1%', array('%1%' => sfConfig::get('app_ui_label_'.strtolower($objectType)))), array($rootObject, 'module' => 'taxonomy')) ?>
         <?php endif; ?>
+      <?php elseif (isset($sf_request->csvObjectType)): ?>
+        <?php if ($sf_request->csvObjectType == 'informationObject'): ?>
+          <?php echo link_to(__('Browse %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))), array('module' => 'informationobject', 'action' => 'browse')) ?>
+        <?php elseif ($sf_request->csvObjectType == 'authorityRecord'): ?>
+          <?php echo link_to(__('Browse %1%', array('%1%' => sfConfig::get('app_ui_label_actor'))), array('module' => 'actor', 'action' => 'browse')) ?>
+        <?php elseif ($sf_request->csvObjectType == 'accession'): ?>
+          <?php echo link_to(__('Browse accessions'), array('module' => 'accession', 'action' => 'browse')) ?>
+        <?php endif; ?>
       <?php endif; ?>
       <?php if (0 < count($errors)): ?>
         <?php echo link_to(__('Back'), array('module' => 'object', 'action' => 'importSelect')) ?>
