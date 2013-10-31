@@ -1,3 +1,7 @@
+body {
+  position: relative;
+}
+
 div.content {
   //Imports all styles from #content
   #content();
@@ -216,10 +220,39 @@ div.table {
 
 
 /* ################## Sidebar ################ */
+.sidebar-prototype {
+  position: relative;
+  margin-top: 96px;
+}
+
+.affix-top {
+  position: relative;
+}
+
+.affix {
+  position: fixed;
+  top: 10px;  //height from top
+}
+// .affix-bottom {
+//   width: inherit;
+//   position: absolute;
+//   top: auto;
+//   bottom: 200px;  //height of the footer
+// }
+
+
+
+
+
+
+
+
+
 
 div.sidebar-prototype h4 {
   font-style: italic;
-  color: @black;
+  color: @orange;
+  text-align: center;
 }
 
 .sidebar-prototype {
@@ -229,7 +262,6 @@ div.sidebar-prototype h4 {
 
 ul.list-menu1 {
   background: none;
-  margin-top: 70px;
   li {
     border-bottom: 1px solid @gray;
     }
