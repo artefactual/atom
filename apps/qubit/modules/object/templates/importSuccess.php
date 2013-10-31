@@ -25,6 +25,14 @@
       <?php else: ?>
         <li><?php echo link_to(__('View %1%', array('%1%' => sfConfig::get('app_ui_label_'.strtolower($objectType)))), array($rootObject, 'module' => 'taxonomy'), array('class' => 'c-btn')) ?></li>
       <?php endif; ?>
+    <?php elseif (isset($sf_request->csvObjectType)): ?>
+      <?php if ($sf_request->csvObjectType == 'informationObject'): ?>
+        <li><?php echo link_to(__('Browse %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))), array('module' => 'informationobject', 'action' => 'browse'), array('class' => 'c-btn')) ?></li>
+      <?php elseif ($sf_request->csvObjectType == 'authorityRecord'): ?>
+        <li><?php echo link_to(__('Browse %1%', array('%1%' => sfConfig::get('app_ui_label_actor'))), array('module' => 'actor', 'action' => 'browse'), array('class' => 'c-btn')) ?></li>
+      <?php elseif ($sf_request->csvObjectType == 'accession'): ?>
+        <li><?php echo link_to(__('Browse accessions'), array('module' => 'accession', 'action' => 'browse'), array('class' => 'c-btn')) ?></li>
+      <?php endif; ?>
     <?php endif; ?>
     <?php if (0 < count($errors)): ?>
       <li><?php echo link_to(__('Back'), array('module' => 'object', 'action' => 'importSelect'), array('class' => 'c-btn')) ?></li>
