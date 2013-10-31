@@ -29,7 +29,7 @@
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'taxonomy', 'action' => 'autocomplete')) ?>"/>
         </div>
 
-        <?php if ($resource->isProtected()): ?>
+        <?php if (QubitTerm::isProtected($resource->id)): ?>
           <?php echo $form->name->renderRow(array('class' => 'readOnly', 'disabled' => 'disabled')) ?>
         <?php else: ?>
           <?php echo render_field($form->name, $resource) ?>

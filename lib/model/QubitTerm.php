@@ -143,10 +143,10 @@ class QubitTerm extends BaseTerm
     ACCRUAL_ID = 175;
 
 
-  public function isProtected()
+  public static function isProtected($id)
   {
     // The following terms cannot be edited by users because their values are used in application logic
-    return in_array($this->id, array(
+    return in_array($id, array(
       QubitTerm::ACCESSION_ID,
       QubitTerm::ACCRUAL_ID,
       QubitTerm::ACCUMULATION_ID,
@@ -299,6 +299,8 @@ class QubitTerm extends BaseTerm
         $otRelation->delete($connection);
       }
     }
+
+    QubitSearch::getInstance()->delete($this);
 
     parent::delete($connection);
   }

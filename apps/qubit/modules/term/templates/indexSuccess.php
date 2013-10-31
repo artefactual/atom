@@ -143,7 +143,7 @@
         <li><?php echo link_to (__('Edit'), array($resource, 'module' => 'term', 'action' => 'edit'), array('class' => 'c-btn c-btn-submit')) ?></li>
       <?php endif; ?>
 
-      <?php if (QubitAcl::check($resource, 'delete') && !$resource->isProtected()): ?>
+      <?php if (QubitAcl::check($resource, 'delete') && !QubitTerm::isProtected($resource->id)): ?>
         <li><?php echo link_to (__('Delete'), array($resource, 'module' => 'term', 'action' => 'delete'), array('class' => 'c-btn c-btn-delete')) ?></li>
       <?php endif; ?>
 

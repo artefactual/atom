@@ -2,7 +2,32 @@
 
   <form method="get" action="<?php echo $route ?>">
 
-    <div class="input-append">
+    <div class="input-prepend input-append">
+
+      <?php if (isset($fields)): ?>
+        <?php if (isset($sf_request->subqueryfield) && 0 < strlen($sf_request->subqueryfield)): ?>
+          <input type="hidden" name="subqueryfield" id="subqueryfield" value="<?php echo $sf_request->subqueryfield ?>" />
+        <?php else: ?>
+          <input type="hidden" name="subqueryfield" id="subqueryfield" value="<?php echo $fields[0] ?>" />
+        <?php endif; ?>
+
+        <div class="btn-group">
+          <button class="btn dropdown-toggle" data-toggle="dropdown">
+            <?php if (isset($sf_request->subqueryfield) && 0 < strlen($sf_request->subqueryfield)): ?>
+              <?php echo $sf_request->subqueryfield ?>
+            <?php else: ?>
+              <?php echo $fields[0] ?>
+            <?php endif; ?>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <?php foreach ($fields as $field): ?>
+              <li><a href="#"><?php echo $field ?></a></li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      <?php endif; ?>
+
       <?php if (isset($sf_request->subquery)): ?>
         <input type="text" name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>" />
         <a class="btn" href="<?php echo $cleanRoute ?>">

@@ -32,7 +32,7 @@ class TermDeleteAction extends sfAction
     }
 
     // Don't delete protected terms
-    if ($this->resource->isProtected())
+    if (QubitTerm::isProtected($this->resource->id))
     {
       $this->forward('admin', 'termPermission');
     }

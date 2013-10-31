@@ -34,21 +34,28 @@ mapping:
       nested_only: true
     dynamic: strict
 
+  note:
+    _attributes:
+      i18n: true
+      nested_only: true
+    dynamic: strict
+
+  #
+  # Main types
+  #
+
   term:
     _attributes:
       i18n: true
       timestamp: true
       autocompleteFields: [name]
-      nested_only: true
-    _foreign_types: { use_for: other_name }
+    _foreign_types: { use_for: other_name, scope_notes: note }
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }
       taxonomy_id: { type: integer, index: not_analyzed, include_in_all: false }
-
-  #
-  # Main types
-  #
+      is_protected: { type: boolean, index: not_analyzed, include_in_all: false }
+      number_of_descendants: { type: integer, index: not_analyzed, include_in_all: false }
 
   accession:
     _attributes: { i18n: true, timestamp: true }

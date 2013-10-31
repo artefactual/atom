@@ -298,7 +298,8 @@ function get_search_i18n($hit, $fieldName, $cultureFallback = true, $allowEmpty 
   {
     $value = $hit['i18n'][$hit['sourceCulture']][$fieldName];
   }
-  else if (!$allowEmpty)
+
+  if (!$allowEmpty && ($value == null || $value == ''))
   {
     $value = sfContext::getInstance()->i18n->__('Untitled');
   }

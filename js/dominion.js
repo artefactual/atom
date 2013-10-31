@@ -673,4 +673,33 @@
       }
     });
 
+  /****
+   ****
+   ****  Inline search
+   ****
+   ****/
+
+  $(function ()
+    {
+      // Click in a dropdown option
+      $(".inline-search .dropdown-menu li a").click(function()
+        {
+          // Change button label
+          $(".dropdown-toggle").html($(this).text() + '<span class="caret"></span>');
+          // Modify subqueryfield value
+          $('#subqueryfield').val($(this).text());
+        });
+
+      // Avoid opening dropdown list and send form when ENTER key is pressed
+      $(".inline-search input").keypress(function (e)
+        {
+          if (e.keyCode == 13)
+          {
+            e.preventDefault();
+            $(e.target).closest('form').submit();
+          }
+        });
+    });
+
 })(window.jQuery);
+

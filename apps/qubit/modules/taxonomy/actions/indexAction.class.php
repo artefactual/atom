@@ -28,27 +28,66 @@ class TaxonomyIndexAction extends sfAction
 
     $this->resource = $this->getRoute()->resource;
 
-    $criteria = new Criteria;
-    $criteria->add(QubitTerm::TAXONOMY_ID, $this->resource->id);
+    $culture = $this->context->user->getCulture();
 
-    // Do source culture fallback
-    $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitTerm');
+    $this->query = new \Elastica\Query();
+    $this->query->setLimit($request->limit);
 
-    if (isset($request->subquery))
+    if (!empty($request->page))
     {
-      $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-      $criteria->add(QubitTermI18n::CULTURE, $this->context->user->getCulture());
-      $criteria->add(QubitTermI18n::NAME, "%$request->subquery%", Criteria::LIKE);
+      $this->query->setFrom(($request->page - 1) * $request->limit);
     }
 
-    $criteria->addAscendingOrderByColumn('name');
+    $this->queryBool = new \Elastica\Query\Bool();
+    $this->filterBool = new \Elastica\Filter\Bool;
 
-    // Page results
-    $this->pager = new QubitPager('QubitTerm');
-    $this->pager->setCriteria($criteria);
+    $query = new \Elastica\Query\Term;
+    $query->setTerm('taxonomyId', $this->resource->id);
+    $this->queryBool->addMust($query);
+
+    if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->subquery))
+    {
+      $queryString = new \Elastica\Query\QueryString($request->subquery);
+
+      switch ($request->subqueryfield)
+      {
+        case 'Preferred label':
+          $queryString->setDefaultField('i18n.'.$culture.'.name');
+
+          break;
+
+        case '"Use for" labels':
+          $queryString->setDefaultField('useFor.i18n.'.$culture.'.name');
+
+          break;
+
+        case 'All fields':
+        default:
+          // Search over preferred label (boosted by five) and "Use for" labels
+          $queryString->setFields(array('i18n.'.$culture.'.name^5', 'useFor.i18n.'.$culture.'.name'));
+          $queryString->setDefaultOperator('OR');
+
+          break;
+      }
+
+      // Filter results by subquery
+      $filter = new \Elastica\Filter\Query($queryString);
+      $this->filterBool->addMust($filter);
+    }
+
+    $this->query->setQuery($this->queryBool);
+
+    // Set filter
+    if (0 < count($this->filterBool->toArray()))
+    {
+      $this->query->setFilter($this->filterBool);
+    }
+
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitTerm')->search($this->query);
+
+    $this->pager = new QubitSearchPager($resultSet);
+    $this->pager->setPage($request->page ? $request->page : 1);
     $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
-
-    $this->terms = $this->pager->getResults();
+    $this->pager->init();
   }
 }

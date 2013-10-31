@@ -11,7 +11,8 @@
       <div class="span6">
         <?php echo get_component('search', 'inlineSearch', array(
           'label' => __('Search %1%', array('%1%' => render_title($resource))),
-          'route' => url_for(array('module' => 'taxonomy', 'action' => 'index', 'slug' => $resource->slug)))) ?>
+          'route' => url_for(array('module' => 'taxonomy', 'action' => 'index', 'slug' => $resource->slug)),
+          'fields' => array('All fields', 'Preferred label', '\'Use for\' labels'))) ?>
       </div>
     </div>
   </section>
@@ -30,26 +31,32 @@
         </th>
       </tr>
     </thead><tbody>
-      <?php foreach ($terms as $item): ?>
+      <?php foreach ($pager->getResults() as $hit): ?>
+        <?php $doc = $hit->getData() ?>
         <tr>
           <td>
-
-            <?php if ($item->isProtected()): ?>
-              <?php echo link_to(render_title($item->getName(array('cultureFallback' => true))), array($item, 'module' => 'term'), array('class' => 'readOnly')) ?>
+            <?php if ($doc['isProtected']): ?>
+              <?php echo link_to(get_search_i18n($doc, 'name', true, false), array('module' => 'term', 'slug' => $doc['slug']), array('class' => 'readOnly')) ?>
             <?php else: ?>
-              <?php echo link_to(render_title($item->getName(array('cultureFallback' => true))), array($item, 'module' => 'term')) ?>
+              <?php echo link_to(get_search_i18n($doc, 'name', true, false), array('module' => 'term', 'slug' => $doc['slug'])) ?>
             <?php endif; ?>
 
-            <?php if (0 < count($item->descendants)): ?>
-              <span class="note2">(<?php echo count($item->descendants) ?>)</span>
+            <?php if (0 < $doc['numberOfDescendants']): ?>
+              <span class="note2">(<?php echo $doc['numberOfDescendants'] ?>)</span>
+            <?php endif; ?>
+
+            <?php if (isset($doc['useFor']) && count($doc['useFor']) > 0): ?>
+              <p><?php echo 'Use for: '.get_search_i18n(array_pop($doc['useFor']), 'name', true, false) ?><?php foreach ($doc['useFor'] as $label): ?><?php echo ', '.get_search_i18n($label, 'name', true, false) ?><?php endforeach; ?></p>
             <?php endif; ?>
 
           </td><td>
-            <ul>
-              <?php foreach ($item->getNotesByType(array('noteTypeId' => QubitTerm::SCOPE_NOTE_ID)) as $note): ?>
-                <li><?php echo $note->getContent(array('cultureFallback' => 'true')) ?></li>
-              <?php endforeach; ?>
-            </ul>
+            <?php if (isset($doc['scopeNotes']) && count($doc['scopeNotes']) > 0): ?>
+              <ul>
+                <?php foreach ($doc['scopeNotes'] as $note): ?>
+                  <li><?php echo get_search_i18n($note, 'content') ?></li>
+                <?php endforeach; ?>
+              </ul>
+            <?php endif; ?>
           </td>
         </tr>
       <?php endforeach; ?>

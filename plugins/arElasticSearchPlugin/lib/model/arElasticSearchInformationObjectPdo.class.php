@@ -861,13 +861,15 @@ class arElasticSearchInformationObjectPdo
     // Places
     foreach ($this->getRelatedTerms(QubitTaxonomy::PLACE_ID) as $item)
     {
-      $serialized['places'][] = arElasticSearchTerm::serialize($item);
+      $node = new arElasticSearchTermPdo($item->id);
+      $serialized['places'][] = $node->serialize();
     }
 
     // Subjects
     foreach ($this->getRelatedTerms(QubitTaxonomy::SUBJECT_ID) as $item)
     {
-      $serialized['subjects'][] = arElasticSearchTerm::serialize($item);
+      $node = new arElasticSearchTermPdo($item->id);
+      $serialized['subjects'][] = $node->serialize();
     }
 
     // Name access points

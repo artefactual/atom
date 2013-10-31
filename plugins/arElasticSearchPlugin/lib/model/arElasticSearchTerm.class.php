@@ -19,27 +19,36 @@
 
 class arElasticSearchTerm extends arElasticSearchModelBase
 {
-  public static function serialize($object)
+  public function populate()
   {
-    $serialized = array();
+    $sql  = 'SELECT term.id';
+    $sql .= ' FROM '.QubitTerm::TABLE_NAME.' term';
+    $sql .= ' JOIN '.QubitObject::TABLE_NAME.' object ON term.id = object.id';
+    $sql .= ' WHERE term.id != ? AND object.class_name = ?';
+    $sql .= ' ORDER BY term.lft';
 
-    $serialized['id'] = $object->id;
-    $serialized['slug'] = $object->slug;
+    $terms = QubitPdo::fetchAll($sql, array(QubitTerm::ROOT_ID, 'QubitTerm'));
 
-    $serialized['taxonomyId'] = $object->taxonomy_id;
+    $this->count = count($terms);
 
-    $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
-    foreach (QubitPdo::fetchAll($sql, array($object->id, QubitTerm::ALTERNATIVE_LABEL_ID)) as $item)
+    // Loop through results, and add to search index
+    foreach ($terms as $key => $item)
     {
-      $serialized['useFor'][] = arElasticSearchOtherName::serialize($item);
+      $node = new arElasticSearchTermPdo($item->id);
+      $data = $node->serialize();
+
+      QubitSearch::getInstance()->addDocument($data, 'QubitTerm');
+
+      $this->logEntry($data['i18n'][$data['sourceCulture']]['name'], $key + 1);
     }
+  }
 
-    $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($object->created_at);
-    $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($object->updated_at);
+  public static function update($object)
+  {
+    $node = new arElasticSearchTermPdo($object->id);
 
-    $serialized['sourceCulture'] = $object->source_culture;
-    $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($object->id, array('QubitTerm'));
+    QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitTerm');
 
-    return $serialized;
+    return true;
   }
 }

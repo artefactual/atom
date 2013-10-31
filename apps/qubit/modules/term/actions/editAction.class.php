@@ -279,7 +279,7 @@ class TermEditAction extends DefaultEditAction
 
       case 'name':
 
-        if (!$this->resource->isProtected()
+        if (!QubitTerm::isProtected($this->resource->id)
             && $this->resource->name != $this->form->getValue('name'))
         {
           $this->resource->name = $this->form->getValue('name');
