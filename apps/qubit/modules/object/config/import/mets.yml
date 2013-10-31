@@ -108,7 +108,6 @@ information_object:
     flocat:
       XPath:   "//mets:fileGrp[contains(@USE,'Reference')]/mets:file/mets:FLocat/@xlink:href"
       Method:  importDigitalObjectFromUri
-      Parameters: [$nodeValue, &$this->errors]
 
     fcontent:
       XPath:   "//mets:file/mets:FContent/mets:binData"
