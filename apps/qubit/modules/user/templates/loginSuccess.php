@@ -10,7 +10,7 @@
 
 <?php echo $form->renderGlobalErrors() ?>
 
-<?php echo $form->renderFormTag(url_for(array('module' => 'user', 'action' => 'login'))) ?>
+<?php echo $form->renderFormTag(url_for(array('module' => 'user', 'action' => 'login')), array('automplete' => 'off')) ?>
 
   <?php echo $form->renderHiddenFields() ?>
 
