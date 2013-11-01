@@ -73,7 +73,7 @@ function Plumb(element, configuration)
     // Make nodes draggable
     this.plumb.draggable(
       this.element.find('.node'),
-      { containment: '.demo' });
+      { containment: '.plumb-div' });
   }
 
   this.createNode = function(data, root)
@@ -129,4 +129,5 @@ function Plumb(element, configuration)
   {
     return Math.random() * (max - min) + min;
   }
+
 }
