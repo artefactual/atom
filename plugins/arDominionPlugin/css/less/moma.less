@@ -2,12 +2,16 @@ body {
   position: relative;
 }
 
+// * {
+//   border: 1px solid orange;
+// }
+
 div.content {
   //Imports all styles from #content
   #content();
 }
 
-/* ################## Page Title ################ */
+/* ################## Page Titles ################ */
 
 h1#moma-page-title:before {
   content: "\f0c8";
@@ -28,26 +32,10 @@ section#moma-metabox-1 {
   margin-top: 2px;
 }
 
-/* ################## jsPlumbing ################ */
-.plumb-div {
-  background-color: #eee;
-}
 
-.plumb-graph {
-  margin: 26px;
-  max-width: 100%;
-  box-sixing: content-box;
-  max-height: 350px;
-  background-color: #eee;
-  .node {
-    border: 2px solid #ff8800;
-    width: 20px;
-    height: 20px;
-    border-radius: 20px;
-    background-color: @white;
-    box-shadow: 0 0 4px rgba(0, 0, 0, .5);
-  }
-}
+
+
+
 
 section#moma-breadcrumb {
   padding-top: 4px;
@@ -67,36 +55,6 @@ section#moma-breadcrumb {
   }
 }
 
-.menu-list-left {
-  border-bottom: 1px solid @grayLighter;
-  border-top: 1px solid @grayLighter;
-  float: left;
-  line-height: 38px;
-    li:nth-child(2n) {
-      font-family: FontAwesome;
-      font-style: normal;
-      font-weight: normal;
-      text-decoration: inherit;
-        &:before {
-          content: "\f105";
-          padding-right: 12px;
-        }
-  }
-}
-li:not(:first-child) {
-    color: @black;
-    font-size: .9em;
-    &:before {
-  }
-}
-
-.menu-list {
-  border-top: 1px solid @borderLineColor;
-  border-bottom: 1px solid @borderLineColor;
-  h2 {
-
-  }
-}
 
 #content ul.menu-list-left h2 {
   border: none!important; //still doubling border -> fix this
@@ -106,8 +64,6 @@ li:not(:first-child) {
   ul.menu-list-right {
   float: right;
   padding-top: 4px;
-  display: block;
-  position: relative;
   li {
     a { color: @orange; }
     a:before {
@@ -157,29 +113,67 @@ li:not(:first-child) {
     a.AIP_Details:before {
       content: "\f03a";
     } //a
-    a.fixity_reports:before {
+    a.fixity_report:before {
       content: "\f058";
     } //a
   } //li
 
   } //ul.menu-list-right
 
+.section-digitalObjects, .section-metadata {
+  width: 49.5%;
+  min-height: 250px;
+  margin-bottom: 30px;
+  border: 1px solid @grayLighter;
+}
+
+.menu-list-left {
+  border-bottom: 1px solid @grayLighter;
+  float: left;
+    li:nth-child(2n) {
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: normal;
+      text-decoration: inherit;
+      width: 100px;
+      line-height: 11px;
+      white-space: nowrap;
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      color: @black;
+      font-size: .9em;
+        &:before {
+          content: "\f105";
+          padding-right: 12px;
+        }
+      }
+}
+
+.menu-list {
+  border-top: 1px solid @borderLineColor;
+  border-bottom: 1px solid @borderLineColor;
+  h2 {
+
+  }
+}
 
 aside.metaBox4Meta {
   z-index: 20;
   position: relative;
   display: block;
   div.graph {
-    background: url(../../../../apps/qubit/modules/moma/frontend/assets/pie-chart.png);
-    background-size: cover;
-    z-index: 25;
-    position: relative;
-    float: right;
-    display: block;
-    height: 130px;
-    width: 130px;
-    right: 50px;
-    margin-top: -130px;
+    // background: url(../../../../apps/qubit/modules/moma/frontend/assets/pie-chart.png);
+    // background-size: cover;
+    // z-index: 25;
+    // position: relative;
+    // float: right;
+    // display: block;
+    // height: 130px;
+    // width: 130px;
+    // margin-top: -180px;
+    display: none; //for 2-column layout only
   } //div graph
 } // aside
 
@@ -281,12 +275,7 @@ ul.list-menu1 {
   }
 }
 
-section.list-menu {
-  margin-bottom: 50px;
-  a {
-     padding-left: 8px;
-  }
-}
+
 
 .list-menu2 li:nth-child(2n+1) {
   background: @grayLight;
