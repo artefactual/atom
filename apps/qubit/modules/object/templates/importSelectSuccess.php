@@ -41,6 +41,12 @@
 
         <input type="hidden" name="importType" value="<?php echo esc_entities($type) ?>"/>
 
+        <?php if ('csv' != $type): ?>
+          <div>
+            <p><?php echo __('If you are importing a SKOS file to a taxonomy other than subjects, please go to the %1%', array('%1%' => link_to(__('SKOS import page'), array('module' => 'sfSkosPlugin', 'action' => 'import')))) ?></p>
+          </div>
+        <?php endif; ?>
+
         <?php if ('csv' == $type): ?>
           <div class="form-item">
             <label><?php echo __('Type') ?></label>
