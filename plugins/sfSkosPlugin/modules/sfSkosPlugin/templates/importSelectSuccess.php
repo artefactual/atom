@@ -10,6 +10,13 @@
 
   <?php echo $form->file->renderRow() ?>
 
+  <div class="form-item">
+    <?php echo $form->taxonomy->renderLabel() ?>
+    <?php echo $form->taxonomy->renderError() ?>
+    <?php echo $form->taxonomy->render(array('class' => 'form-autocomplete')) ?>
+    <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'taxonomy', 'action' => 'autocomplete')) ?>"/>
+  </div>
+
   <div class="actions section">
 
     <h2 class="element-invisible"><?php echo __('Actions') ?></h2>
