@@ -68,6 +68,7 @@ class QubitSearchInformationObject
       'finding_aids',
       'has_digital_object',
       'identifier',
+      'inherit_reference_code',
       'language',
       'level_of_description',
       'level_of_description_id',
@@ -359,6 +360,11 @@ class QubitSearchInformationObject
       case 'identifier':
         $field = Zend_Search_Lucene_Field::Unstored($camelName, $this->__get('identifier'));
         $field->boost = 5;
+
+        break;
+
+      case 'inherit_reference_code':
+        $field = Zend_Search_Lucene_Field::Text($camelName, $this->getInheritReferenceCode());
 
         break;
 
@@ -696,38 +702,40 @@ class QubitSearchInformationObject
       return;
     }
 
-    // Check if identifiers inherit from higher levels
-    if ('1' == sfConfig::get('app_inherit_code_informationobject', 1))
-    {
-      $refcode = '';
-      if (isset($this->repository))
-      {
-        if (null != $cc = $this->repository->getCountryCode(array('culture' => $this->__get('culture'))))
-        {
-          $refcode .= $cc.' ';
-        }
+    return $this->__get('identifier');
+  }
 
-        if (isset($this->repository->identifier))
-        {
-          $refcode .= $this->repository->identifier.' ';
-        }
+  public function getInheritReferenceCode()
+  {
+    if (null == $this->__get('identifier'))
+    {
+      return;
+    }
+
+    $refcode = '';
+    if (isset($this->repository))
+    {
+      if (null != $cc = $this->repository->getCountryCode(array('culture' => $this->__get('culture'))))
+      {
+        $refcode .= $cc.' ';
       }
 
-      $identifiers = array();
-      foreach (array_merge($this->ancestors, array($this)) as $item)
+      if (isset($this->repository->identifier))
       {
-        if (isset($item->identifier))
-        {
-          $identifiers[] = $item->identifier;
-        }
+        $refcode .= $this->repository->identifier.' ';
       }
+    }
 
-      $refcode .= implode(sfConfig::get('app_separator_character', '-'), $identifiers);
-    }
-    else
+    $identifiers = array();
+    foreach (array_merge($this->ancestors, array($this)) as $item)
     {
-      $refcode = $this->__get('identifier');
+      if (isset($item->identifier))
+      {
+        $identifiers[] = $item->identifier;
+      }
     }
+
+    $refcode .= implode(sfConfig::get('app_separator_character', '-'), $identifiers);
 
     return $refcode;
   }

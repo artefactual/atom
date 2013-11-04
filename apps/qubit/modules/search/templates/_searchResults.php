@@ -42,9 +42,11 @@
         </div>
       <?php endif; ?>
 
-      <?php if ($doc->referenceCode): ?>
-        <?php echo render_show(__('Reference code'), render_value($doc->referenceCode)); ?>
-      <?php endif; ?>
+    <?php if ('1' == sfConfig::get('app_inherit_code_informationobject', 1) && $doc->inheritReferenceCode): ?>
+      <?php echo render_show(__('Reference code'), render_value($doc->inheritReferenceCode)); ?>
+    <?php elseif ('1' != sfConfig::get('app_inherit_code_informationobject', 1) && $doc->referenceCode): ?>
+      <?php echo render_show(__('Reference code'), render_value($doc->referenceCode)); ?>
+    <?php endif; ?>
 
       <?php $dates = unserialize($doc->dateSerialized) ?>
       <?php if (0 < count($dates)): ?>
