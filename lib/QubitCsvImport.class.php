@@ -62,7 +62,7 @@ class QubitCsvImport
     }
 
     // Figure out whether indexing flag should be added to command
-    $commandIndexFlag = ($this->indexDuringImport) ? '--index' : '';
+    $commandIndexFlag = ($taskClassName != 'csv:event-import' && $taskClassName != 'csv:accession-import' && $this->indexDuringImport) ? '--index' : '';
 
     // Build command string
     if (isset($this->parent))
