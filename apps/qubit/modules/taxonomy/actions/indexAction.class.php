@@ -56,7 +56,7 @@ class TaxonomyIndexAction extends sfAction
 
           break;
 
-        case '"Use for" labels':
+        case '\'Use for\' labels':
           $queryString->setDefaultField('useFor.i18n.'.$culture.'.name');
 
           break;
