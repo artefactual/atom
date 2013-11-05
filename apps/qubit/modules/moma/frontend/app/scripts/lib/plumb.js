@@ -26,7 +26,6 @@ function Plumb(element, configuration)
     { name: 'Work' },
     { name: 'Expression' },
     { name: 'Manifestation' },
-    { name: 'Item' },
     { name: 'Component' }
   ];
 
