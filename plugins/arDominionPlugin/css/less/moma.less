@@ -1,17 +1,15 @@
 body {
+  //Important for sidebar animation
   position: relative;
 }
-
-// * {
-//   border: 1px solid orange;
-// }
 
 div.content {
   //Imports all styles from #content
   #content();
 }
 
-/* ################## Page Titles ################ */
+/*------------------------ */
+// Section Titles
 
 h1#moma-page-title:before {
   content: "\f0c8";
@@ -28,13 +26,10 @@ section#moma-metabox-1 {
     box-shadow: none;
   }
 }
-.menu-list-right a.edit {
-  margin-top: 2px;
-}
 
 
-
-
+/* -------------------------- */
+// Breadcrumb
 
 
 section#moma-breadcrumb {
@@ -56,69 +51,13 @@ section#moma-breadcrumb {
 }
 
 
+/* -------------------------- */
+// MetaData / Digital Objects
+
 #content ul.menu-list-left h2 {
   border: none!important; //still doubling border -> fix this
 }
 
-
-  ul.menu-list-right {
-  float: right;
-  padding-top: 4px;
-  li {
-    a { color: @orange; }
-    a:before {
-    color: @grayLight;
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-    padding-right: 4px;
-    }
-    a.more:before {
-      // content: "\f074"; comes from bootstrap's js
-    }
-    a.edit:before {
-      content: "\f040";
-    } //
-    a.hide_relationships:before {
-      content: "\f074";
-    } //
-    a.expand_all:before {
-      content: "\f0e8";
-    } //a
-    a.move:before {
-      content: "\f148";
-    } //a
-    a.add_child:before {
-      content: "\f055";
-    } //a
-    a.duplicate:before {
-      content: "\f0c5";
-    } //a
-    a.add_relationship:before {
-      content: "\f074";
-    } //a
-     a.delete {
-      color: red;
-        &:before {
-      content: "\f057";
-      } //a before
-    } //a
-    a.list_relationships:before {
-      content: "\f126";
-    } //a
-    a.fullscreen:before {
-      content: "\f0b2";
-    } //a
-    a.AIP_Details:before {
-      content: "\f03a";
-    } //a
-    a.fixity_report:before {
-      content: "\f058";
-    } //a
-  } //li
-
-  } //ul.menu-list-right
 
 .section-digitalObjects, .section-metadata {
   width: 49.5%;
@@ -126,6 +65,67 @@ section#moma-breadcrumb {
   margin-bottom: 30px;
   border: 1px solid @grayLighter;
 }
+
+.menu-list-right {
+  float: right;
+  padding-top: 4px;
+    li {
+      a { color: @orange; }
+      a:before {
+      color: @grayLight;
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: normal;
+      text-decoration: inherit;
+      padding-right: 4px;
+      }
+      a.more:before {
+        // content: "\f074"; comes from bootstrap's js
+      }
+      a.edit:before {
+        content: "\f040";
+      } //
+      a.hide_relationships:before {
+        content: "\f074";
+      } //
+      a.expand_all:before {
+        content: "\f0e8";
+      } //a
+      a.move:before {
+        content: "\f148";
+      } //a
+      a.add_child:before {
+        content: "\f055";
+      } //a
+      a.duplicate:before {
+        content: "\f0c5";
+      } //a
+      a.add_relationship:before {
+        content: "\f074";
+      } //a
+       a.delete {
+        color: red;
+          &:before {
+        content: "\f057";
+        } //a before
+      } //a
+      a.list_relationships:before {
+        content: "\f126";
+      } //a
+      a.fullscreen:before {
+        content: "\f0b2";
+      } //a
+      a.AIP_Details:before {
+        content: "\f03a";
+      } //a
+      a.fixity_report:before {
+        content: "\f058";
+      } //a
+    } //li
+    a.edit {
+  margin-top: 2px;
+}
+} //ul.menu-list-right
 
 .menu-list-left {
   border-bottom: 1px solid @grayLighter;
@@ -136,6 +136,7 @@ section#moma-breadcrumb {
       font-weight: normal;
       text-decoration: inherit;
       width: 100px;
+      cursor: pointer;
       line-height: 11px;
       white-space: nowrap;
       -ms-text-overflow: ellipsis;
@@ -144,6 +145,9 @@ section#moma-breadcrumb {
       overflow: hidden;
       color: @black;
       font-size: .9em;
+      &:hover {
+        overflow: visible;
+      }
         &:before {
           content: "\f105";
           padding-right: 12px;
@@ -154,9 +158,6 @@ section#moma-breadcrumb {
 .menu-list {
   border-top: 1px solid @borderLineColor;
   border-bottom: 1px solid @borderLineColor;
-  h2 {
-
-  }
 }
 
 aside.metaBox4Meta {
@@ -213,7 +214,11 @@ div.table {
 } //div.table
 
 
-/* ################## Sidebar ################ */
+
+
+/* -------------------------- */
+// Sidebar
+
 .sidebar-prototype {
   position: relative;
   margin-top: 99px;
@@ -225,64 +230,73 @@ div.table {
 
 .affix {
   position: fixed;
-  top: -70px;  //height from top
-  width: 11%;
+  top: 10px;  //height from top
+  width: 14%;
 }
-// .affix-bottom {
-//   width: inherit;
-//   position: absolute;
-//   top: auto;
-//   bottom: 200px;  //height of the footer
-// }
-
-
-
-
-
-
-
-
-
 
 div.sidebar-prototype h4 {
-  font-style: italic;
+  font-size: 1.1em;
   color: @orange;
   text-align: center;
 }
 
 .sidebar-prototype {
-  color: @white;
   font-size: .85em;
+  margin-top: 20px;
 }
 
-ul.list-menu1 {
-  background: none;
-  li {
-    border-bottom: 1px solid @gray;
-    }
-    a {
-      color: @black;
-      font-family: FontAwesome;
-      font-style: normal;
-      font-weight: normal;
-      text-decoration: inherit;
-    a:before:active {
-      content: "\f0a9";
-    }
+.list-menu1, .list-menu2 {
+  background:@white!important;
+  border-top: 0!important;
+  a {
+    margin-left: 6px;
     &:hover {
-      background: rgba(0,136,204,0.4);
-      }
+      //fix for existing style
+      background: none!important;
+    }
   }
 }
 
-
+ul.list-menu1, ul.list-menu2 {
+  li {
+    border: 1px solid @borderLineColor;
+    &:hover {
+      background: @momaBlue;
+    }
+  }
+}
 
 .list-menu2 li:nth-child(2n+1) {
-  background: @grayLight;
-  a {
-    color: @white;
+  background: @grayLighter;
+  &:hover {
+    border-left: 4px solid #93DCFF;
+    margin-left: -4px;
   }
 }
+
+
+.list-menu2 li:nth-child(2n) {
+  padding-left: 12px;
+  height: 60%;
+  &:hover {
+    background: @white;
+    margin-left: 4px;
+  }
+  a {
+    color: @black;
+    font-size: .8em;
+    cursor: auto;
+  }
+}
+
+/* -------------------------- */
+// Colour Scheme
+
+@taupe: #CFC9C9;
+@pasteGreen: #CEDFC8;
+@momaBlue: rgba(0, 136, 204, 0.1); //0088cc
+
+
 
 
 
