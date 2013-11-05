@@ -80,8 +80,10 @@ function Plumb(element, configuration)
   {
     var node = document.createElement('div');
     node.className = 'node';
+    node.id = 'node-' + data.id;
 
-    this.locateNode(node, data);
+    // this.locateNode(node, data);
+
     this.element[0].appendChild(node);
 
     if (angular.isArray(data.children))
