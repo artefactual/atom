@@ -314,6 +314,17 @@ class InformationObjectEditAction extends DefaultEditAction
               $choices[$value[] = $this->context->routing->generate(null, array($item->object, 'module' => 'informationobject'))] = $item->object;
             }
 
+            // Add also relations where it's the object
+            $criteria = new Criteria;
+            $criteria->add(QubitRelation::OBJECT_ID, $this->resource->id);
+            $criteria->add(QubitRelation::TYPE_ID, QubitTerm::RELATED_MATERIAL_DESCRIPTIONS_ID);
+
+            foreach (QubitRelation::get($criteria) as $item)
+            {
+              $this->relatedMaterialDescriptions[] = $item;
+              $choices[$value[] = $this->context->routing->generate(null, array($item->subject, 'module' => 'informationobject'))] = $item->subject;
+            }
+
             break;
         }
 
