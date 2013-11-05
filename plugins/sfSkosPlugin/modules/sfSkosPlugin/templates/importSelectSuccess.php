@@ -1,4 +1,4 @@
-<h1><?php echo __('Import %1% (SKOS)', array('%1%' => $taxonomy->__toString())) ?></h1>
+<h1><?php echo __('Import %1% (SKOS)', array('%1%' => $title)) ?></h1>
 
 <h1 class="label"><?php echo __('Select a file to import') ?></h1>
 

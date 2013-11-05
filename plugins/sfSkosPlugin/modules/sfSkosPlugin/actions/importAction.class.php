@@ -27,9 +27,12 @@ class sfSkosPluginImportAction extends sfAction
     $this->terms = array();
     $this->termsPerPage = intval(sfConfig::get('app_hits_per_page'));
 
-    // Use 'Subjects' as default taxonomy
-    $this->taxonomy = QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID);
+    // Use 'Places' as default taxonomy
+    $this->taxonomy = QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID);
     $this->parent = QubitTerm::getById(QubitTerm::ROOT_ID);
+
+    // Default title
+    $this->title = 'Terms';
 
     if (isset($this->getRoute()->resource))
     {
@@ -44,6 +47,8 @@ class sfSkosPluginImportAction extends sfAction
         $this->parent = QubitTerm::getById($resource->id);
         $this->taxonomy = $this->parent->taxonomy;
       }
+
+      $this->title = $this->taxonomy->__toString();
     }
 
     // Check user authorization
