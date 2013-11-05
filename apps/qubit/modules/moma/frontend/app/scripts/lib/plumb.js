@@ -82,6 +82,9 @@ function Plumb(element, configuration)
     node.className = 'node';
     node.id = 'node-' + data.id;
 
+    // Add title
+    node.innerHTML = '<span>' + data.title + '</span>';
+
     // this.locateNode(node, data);
 
     this.element[0].appendChild(node);
