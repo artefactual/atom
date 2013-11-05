@@ -8,18 +8,12 @@ function Plumb(element, configuration)
 
   this.stateMachineConnector = {
     connector: 'StateMachine',
-    paintStyle: {
-      lineWidth: 3,
-      strokeStyle: '#056'
-    },
-    hoverPaintStyle: {
-      strokeStyle: '#dbe300'
-    },
+      paintStyle: {
+        lineWidth: 1,
+        strokeStyle: '#cecece'
+      },
     endpoint: 'Blank',
     anchor: 'Continuous',
-    overlays: [
-      ['PlainArrow', { location: 1, width: 15, length: 12 }]
-    ]
   };
 
   this.levels = [

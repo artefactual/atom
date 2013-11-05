@@ -35,65 +35,118 @@
   max-width: 100%;
   box-sixing: content-box;
   max-height: 350px;
-  background-color: #eee;
+  background-color: #f5f5f5;
   .node {
     border: 2px solid #ff8800;
     width: 20px;
     height: 20px;
     position: relative;
+    display: block;
     border-radius: 20px;
     background-color: @white;
     box-shadow: 0 0 4px rgba(0, 0, 0, .5);
+    span {
+      min-width: 150px;
+      text-align: center;
+      white-space: wordwrap;
+      display: block;
+      color: @momaBlueDark;
+    }
   }
 }
-#node-0 {
-  left: 20%;
+#node-0 { //work
+  left: 10%;
   top: 8rem;
-  border: 2px solid @momaBlueDarkish;
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
+  border: 5px solid @momaBlueDark;
+  width: 110px;
+  height: 43px;
+  border-radius: 20px;
+  padding: 5px;
+  text-align: center;
+  span {
+    font-size: 1.3em;
+    color: @black;
+    margin-left: -22px;
+  }
 }
 
-#node-10, #node-11 {
-  left: 33%;
-  border: 2px solid @pasteGreen;
+#node-10, #node-11 { //
+  border: 3px solid @momaViolet;
 }
 #node-10 { //retouched film
+  left: 32.5%;
   top: 10rem;
+  span {
+    margin-top: 30px;
+    margin-left: -60px;
+  }
 }
 #node-11 { //original film
+  left: 32%;
   top: -4rem;
+  span {
+    margin-top: -30px;
+    margin-left: -60px;
+  }
 }
 
-#node-20, #node-21 {
+#node-20, #node-21 { //manifestation
   left: 46%;
-  border: 2px solid @pasteGreen;
+  border: 3px solid @momaGreen;
 }
 #node-20 { //exhibition documentation
-  top: 6rem;
+  top: 4.5rem;
+  span {
+    line-height: 12px;
+    margin-top: 30px;
+    margin-left: -58px;
+  }
 }
 
 #node-21 { //artwork components
   top: -5.5rem;
+  span {
+    line-height: 12px;
+    margin-top: -50px;
+    margin-left: -65px;
+  }
 }
 
-#node-30 {
-
+#node-30 { //exhibition walkthrough
+  left: 59%;
+  top: 5rem;
+  border: 3px solid @orange;
+  span {
+    line-height: 13px;
+    margin-top: 30px;
+    margin-left: -55px;
+  }
 }
 
 #node-31, #node-32, #node-33, #node-34, #node-35 {
-
+  left: 70%;
+  border: 3px solid @momaOrangeDark;
+  span {
+    text-align: left;
+    margin-left: 30px;
+  }
 }
-#node-33 {
 
+#node-31 { // reversal positive...
+  top: -9.5rem;
 }
-
-#node-24 { //print
-
+#node-32 { //internegative
+  top: -7rem;
+}
+#node-33 { //print
+  top: -5.5rem;
+}
+#node-34 { //print
+  top: -4rem;
 }
 #node-35 { //dpx scan
-
+  top: -2.5rem;
+  border: 3px solid @orange;
 }
 
 
