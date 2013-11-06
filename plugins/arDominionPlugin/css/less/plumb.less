@@ -30,6 +30,42 @@
 .plumb-div {
   // background-color: #eee;
 }
+#cbrowser-legend {
+  width: 200px;
+  display: block;
+  margin-bottom: -200px;
+  position: absolute;
+  padding: 10px;
+
+  li {
+    margin-top: -3px;
+  }
+  li:before {
+    content: "";
+    width: 14px;
+    height: 12px;
+    margin-right: 5px;
+    padding-top: 2px;
+    border-radius: 10px;
+    display: inline-block;
+  }
+  li.legend-work:before {
+    background: @momaBlueDark;
+  }
+  li.legend-expr:before {
+    background: @momaViolet;
+  }
+  li.legend-manif:before {
+    background: @momaGreen;
+  }
+  li.legend-comp:before {
+    background: @momaOrangeDark;
+  }
+  li.legend-dig-comp:before {
+    background: @orange;
+  }
+}
+
 
 .plumb-graph {
   max-width: 100%;
@@ -55,11 +91,11 @@
   }
 }
 #node-0 { //work
-  left: 10%;
+  left: 14%;
   top: 8rem;
   border: 5px solid @momaBlueDark;
   width: 110px;
-  height: 43px;
+  height: 42px;
   border-radius: 20px;
   padding: 5px;
   text-align: center;
