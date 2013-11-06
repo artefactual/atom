@@ -3,6 +3,7 @@
   <!-- Menu -->
   <ul class="nav nav-pills">
     <li><a ng-href="#/">Home</a></li>
+
     <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown">Tests
             <b class="caret"></b>
@@ -16,7 +17,14 @@
             </li>
         </ul>
     </li>
-    <li><a ng-href="#/documentationObject">Doc Obj</a></li>
+
+    <li>
+      <a ng-href="#/dashboard">Dashboard</a>
+    </li>
+
+    <li>
+      <a ng-href="#/documentationObject">Doc Obj</a>
+    </li>
   </ul>
 
   <!-- View placeholder -->

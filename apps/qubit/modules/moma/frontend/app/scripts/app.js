@@ -1,5 +1,4 @@
 'use strict';
-
 // Setup the main module: momaApp
 angular.module('momaApp', [
   'momaApp.directives'
@@ -17,6 +16,10 @@ angular.module('momaApp', [
       .when('/test2', {
         templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/test2.html',
         controller: 'TestCtrl'
+      })
+      .when('/dashboard', {
+        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/dashboard.html',
+        controller: 'DashboardCtrl'
       })
       .when('/documentationObject', {
         templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/documentationObject.html',
