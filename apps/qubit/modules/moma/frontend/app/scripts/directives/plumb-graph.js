@@ -10,9 +10,6 @@ angular.module('momaApp.directives', ['jsPlumb'])
       link: function(scope, element, attrs) {
         jsPlumbService.jsPlumb().then(function(jsPlumb) {
 
-          console.log("MUU");
-          console.log("WREBBIT");
-
           scope.plumb = new Plumb(element, {});
           scope.plumb.initialize();
 
