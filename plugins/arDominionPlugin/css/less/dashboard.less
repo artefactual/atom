@@ -22,12 +22,20 @@
     }
   }
   .dash-col-updates {
-    &:before {
-      content: "";
+    overflow: hidden;
+    margin-top: 30px;
+    border: 1px solid @gray;
+    border-radius: 4px;
+    .dash-col-updates-icon {
       width: 16px;
       height: 16px;
+      display: inline-block;
+      margin: 6px 6px inherit inherit;
       border-radius: 6px;
       background: @black;
+    }
+    li {
+      white-space: nowrap;
     }
   }
 }
