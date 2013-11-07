@@ -32,7 +32,7 @@ angular.module('momaApp')
     ];
 
 });
-console.log('Hi from heather');
+
 function switchData(){
 
       var obj = document.getElementById('node-10');
