@@ -15,7 +15,7 @@ angular.module('momaApp', [
       })
       .when('/test2', {
         templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/test2.html',
-        controller: 'TestCtrl'
+        controller: 'Test2Ctrl'
       })
       .when('/dashboard', {
         templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/dashboard.html',
