@@ -31,20 +31,19 @@ angular.module('momaApp')
       ]}
     ];
 
+});
+console.log('Hi from heather');
+function switchData(){
 
+      var obj = document.getElementById('node-10');
+      var a1  = document.getElementById('aside1');
+      var a2  = document.getElementById('aside2');
+      console.log(obj + a1 + a1 + 'Hi from heather');
 
+      obj.onclick = onClick;
 
+     function onClick(){
+      a1.css("display", "none");
+    };
+  };
 
-function contentClick(){
-  console.log('heather says hi');
-  var obj = $('');
-  var a1  = $('#aside1');
-  var a2  = $('#aside2');
-
-  obj.click(function(){
-    a1.css("background", "pink");
-    a2.css("display", "block");
-  });
-};
-
-  });
