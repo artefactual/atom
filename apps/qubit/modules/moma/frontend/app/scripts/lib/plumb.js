@@ -85,27 +85,33 @@ function Plumb(element, configuration)
     // Initialization
     console.log('plumb', 'Initializing...');
     this.configure(configuration);
-  }
+  };
 
   this.redraw = function(data, transitionDuration)
   {
     console.log('plumb', 'Redrawing...');
 
-    this.plumb.repaintEverything();
+    this.createNodes(data);
 
-    for (var i = 0; i < data.length; i++)
-    {
-      this.createNode(data[i], true);
-    }
+    this.plumb.repaintEverything();
 
     // Make nodes draggable
     this.plumb.draggable(
       this.element.find('.node'),
       { containment: '.plumb-div' });
-  }
+  };
+
+  this.createNodes = function(data)
+  {
+    for (var i = 0; i < data.length; i++)
+    {
+      this.createNode(data[i], true);
+    }
+  };
 
   this.createNode = function(data, root)
   {
+    // Create the DOM element
     var node = document.createElement('div');
     node.className = 'node';
     node.id = 'node-' + data.id;
@@ -114,10 +120,10 @@ function Plumb(element, configuration)
     // Add title
     node.innerHTML = '<span>' + data.title + '</span>';
 
-    // this.locateNode(node, data);
-
+    // Append the node to jsPlumb
     this.element[0].appendChild(node);
 
+    // Iterate children (recursion)
     if (angular.isArray(data.children))
     {
       for (var i = 0; i < data.children.length; i++)
@@ -135,33 +141,5 @@ function Plumb(element, configuration)
     }
 
     return node;
-  }
-
-  this.locateNode = function(node, data)
-  {
-    for (var i = 0; i < this.levels.length; i++)
-    {
-      if (this.levels[i].name == data.level)
-      {
-        if (this.levels.pile == undefined)
-        {
-          this.levels.pile = new Array();
-        }
-
-        this.levels.pile.push(node);
-      }
-    }
-
-    jQuery(node)
-      .css('left', this.randomLocation(0, this.viewport.width))
-      .css('top', this.randomLocation(0, this.viewport.height / 2))
-      .css('position', 'relative');
-  }
-
-  // Returns a random number between min and max
-  this.randomLocation = function(min, max)
-  {
-    return Math.random() * (max - min) + min;
-  }
-
+  };
 }
