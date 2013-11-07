@@ -6,3 +6,4 @@ angular.module('momaApp')
     $scope.atomGlobals = atomGlobals;
 
   });
+

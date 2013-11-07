@@ -32,18 +32,3 @@ angular.module('momaApp')
     ];
 
 });
-
-function switchData(){
-
-      var obj = document.getElementById('node-10');
-      var a1  = document.getElementById('aside1');
-      var a2  = document.getElementById('aside2');
-      console.log(obj + a1 + a1 + 'Hi from heather');
-
-      obj.onclick = onClick;
-
-     function onClick(){
-      a1.css("display", "none");
-    };
-  };
-
