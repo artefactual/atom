@@ -43,7 +43,42 @@ function Plumb(element, configuration)
       height: this.element.innerHeight(),
       columns: this.levels.length
     };
-  }
+
+    // Attach a callback to the click event for .node elements. Should we do
+    // this from the angular directive?
+    this.element.on('click', '.node',
+      {
+        // Pass jsPlumb as we are going to need it
+        plumb: element
+      },
+      // Callback. It is executed each time a node is clicked in jsPlumb.
+      function(event) {
+
+        // Create a jQuery object from the DOM element
+        var node = jQuery(this);
+
+        // Each node has its own Id which is stored in the DOM element as a data
+        // attribute. Let's extract it.
+        var id = node.data('id');
+
+        // This is going to be the aside that correspond to the node
+        var aside = jQuery('#aside-id-' + id);
+
+        // It's time to hide any aside before we proceed
+        jQuery('.context-browser-doc, .context-browser-default').hide();
+
+        // In case that the aside could not be found, show the default aside
+        if (!aside.length)
+        {
+          jQuery('.context-browser-default').show();
+        }
+        // Otherwise, show the aside that correspond to the node
+        else
+        {
+          aside.show();
+        }
+      });
+  };
 
   this.initialize = function()
   {
@@ -74,6 +109,7 @@ function Plumb(element, configuration)
     var node = document.createElement('div');
     node.className = 'node';
     node.id = 'node-' + data.id;
+    node.setAttribute('data-id', data.id);
 
     // Add title
     node.innerHTML = '<span>' + data.title + '</span>';
@@ -129,4 +165,3 @@ function Plumb(element, configuration)
   }
 
 }
-
