@@ -18,24 +18,90 @@
       margin-right: 6px;
       background: @momaBlueMid;
       font-family: 'Open Sans Semibold';
-
     }
   }
   .dash-col-updates {
     overflow: hidden;
     margin-top: 30px;
-    border: 1px solid @gray;
     border-radius: 4px;
+    li {
+      font-size: .8em;
+      line-height: 10px;
+    }
     .dash-col-updates-icon {
-      width: 16px;
-      height: 16px;
+      width: 20px;
+      height: 20px;
       display: inline-block;
       margin: 6px 6px inherit inherit;
       border-radius: 6px;
       background: @black;
     }
-    li {
-      white-space: nowrap;
+    a {
+      white-space: pre-wrap;
+      color: @black;
+      display: inline-block;
+      width: 74%;
     }
   }
 }
+
+//#content span9
+
+section#fix-check, section#new-AIP {
+  ul {
+    margin: 1em;
+    min-height: 6em;
+    li {
+      margin-top: 0;
+      min-height: 6em;
+      display: inline-block;
+      input {
+        float: left;
+        max-width: 4em;
+      }
+    }
+  }
+
+}
+
+section#AIP-ov {
+  ul {
+    margin: 1em;
+    li {
+      margin-top: 0;
+      display: inline-block;
+    }
+    input {
+        float: left;
+        max-width: 4em;
+      }
+    a.view-AIP-reports {
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: normal;
+      text-decoration: inherit;
+      &:before {
+        content: "\f022";
+      }
+    }
+  } //ul
+  div#AIP-ov-MIME, div#AIP-ov-cla {
+    h4 {
+      font-size: 1.1em;
+      font-family: 'Open Sans Semibold';
+      text-align: center;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
