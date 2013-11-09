@@ -47,23 +47,116 @@
 
 //#content span9
 
-section#fix-check, section#new-AIP {
+//First section ------------
+section#fix-check {
   ul {
     margin: 1em;
     min-height: 6em;
     li {
       margin-top: 0;
+      margin-bottom: -1em;
       min-height: 6em;
       display: inline-block;
+      padding-top: 3px;
+      border-right: 1px solid @grayLighter;
+      border-left: 1px solid @grayLighter;
       input {
-        float: left;
-        max-width: 4em;
+        display: inline-block;
+        position: relative;
+      }
+    }
+    li#fc-sta {
+      width: 7%;
+      text-align: center;
+      img {
+        width: 40px;
+        clear: both;
+        display: block;
+        margin: 4px auto;
+      }
+    }
+    li#fc-inp div {
+      margin: 0 auto;
+      input {
+        margin-top: 1em;
+        height: 2em;
+      }
+      span {
+          font-size: .8em;
+          color: @gray;
+        }
+    }
+
+    li#fc-set, li#fc-fr, li#fc-sum  {
+      text-align: center;
+      width: 6%;
+      font-size: .9em;
+      white-space: nowrap;
+      a {
+        color: @orange;
       }
     }
   }
 
 }
 
+//Second section ------------
+section#new-AIP ul {
+    margin: 1em;
+    min-height: 6em;
+  }
+
+li#new-AIP-sta div {
+  position: relative;
+}
+
+li#fc-set div {
+  margin-top: 1em;
+    &:after {
+    color: @grayLight;
+    content: "\f085";
+    font-family: FontAwesome;
+    font-size: 2em;
+    padding: 8px 5px;
+  }
+}
+
+li#fc-fr div {
+  margin-top: 1em;
+    &:after {
+    color: @grayLight;
+    content: "\f00b";
+    font-family: FontAwesome;
+    font-size: 2em;
+    padding: 8px 5px;
+  }
+}
+
+li#fc-sum div {
+  margin-top: 1em;
+    &:after {
+    color: @grayLight;
+    content: "\f06e";
+    font-family: FontAwesome;
+    font-size: 2em;
+    padding: 8px 5px;
+    margin-top: 8px;
+  }
+}
+
+li#new-AIP-view div {
+  margin-top: 1em;
+    &:after {
+    color: @grayLight;
+    content: "\f0c9";
+    font-family: FontAwesome;
+    font-size: 2em;
+    padding: 8px 5px;
+    margin-top: 8px;
+  }
+}
+
+//Third section ------------
 section#AIP-ov {
   ul {
     margin: 1em;
@@ -94,8 +187,9 @@ section#AIP-ov {
   }
 }
 
-
-
+.moma-btn-success {
+  background: @momaGreenLight;
+}
 
 
 
