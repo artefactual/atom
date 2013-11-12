@@ -40,6 +40,22 @@
               <a href="#" class="dash-update" onclick="return false;">Ms. Pac Man - 1982 Midway Arcade</a>
             </li>
           </ul>
+          <div class="btn btn-mini">
+            View All
+          </div>
+
+      </section>
+
+      <section class="list-menu dash-col-works">
+
+        <h4>Works by Type</h4>
+
+          <ul>
+            <li>
+              <img ng-src="{{ atomGlobals.relativeUrlRoot }}/apps/qubit/modules/moma/frontend/assets/pie-chart2.png" />
+            </li>
+
+          </ul>
 
       </section>
 
@@ -64,31 +80,32 @@
                   <img ng-src="{{ atomGlobals.relativeUrlRoot }}/apps/qubit/modules/moma/frontend/assets/checkmark3.png" />
                 </li>
                 <li id="fc-inp" class="pull-left">
-                  <div class="controls controls-row">
-                    <input type="text" placeholder="20" class="span2">
+                  <form class="controls-row">
+                    <input type="text" value="20" class="span2">
                       <!-- <span class="help-block">Checks in 24h</span> -->
-                    <input type="text" placeholder="3 weeks 1 day 4 hours" class="span4">
+                    <input type="text" value="3 weeks 1 day 4 hours" class="span4">
                       <!-- <span class="help-block">Time to check collection</span> -->
-                    <input type="text" placeholder="Tetris-1998-NES-4f439-oe23" class="span6">
+                    <input type="text" value="Tetris-1998-NES-4f439-oe23" class="span6">
                       <!-- <span class="help-block">Currently checking</span> -->
-                  </div>
+                  </form>
 
                 </li>
-                <li id="fc-set" class="pull-left">
-                  <a href="#" onclick="return false">Settings
-                  <div></div>
-                </a>
-                </li>
-                <li id="fc-fr"class="pull-left">
-                  <a href="#" onclick="return false">Full report
-                  <div></div>
-                </a>
-                </li>
-                <li id="fc-sum"class="pull-left">
+                <li id="fc-sum">
                   <a href="#" onclick="return false">Summary
                   <div></div>
                 </a>
                 </li>
+                <li id="fc-fr">
+                  <a href="#" onclick="return false">Full report
+                  <div></div>
+                </a>
+                </li>
+                <li id="fc-set">
+                  <a href="#" onclick="return false">Settings
+                  <div></div>
+                </a>
+                </li>
+
               </ul>
 
         </section><!-- metaBox2 metadataarea -->
@@ -96,43 +113,50 @@
         <section id="new-AIP" class="row-fluid">
             <h2>New AIPs</h2>
               <ul class="well inline">
-                <li id="new-AIP-inp" class="pull-left">
-                  <input class="span1" type="text" placeholder="14">
+                <li id="new-AIP-inp">
+                  <div class="controls controls-row">
+                    <input class="span2" type="text" value="14">
+                    <!-- <span class="help-block">New AIPs</span> -->
+                    <input class="span2" type="text" value="08"><!--
+                    <span class="help-block">Awaiting Classicification</span> -->
+                    <div class="input-append">
+                      <input id="new-AIP-sta" type="text" value="Screen_test_Ivy_Nicholson_Exhibition_documentation-58mx-2kd-3mdng23" class="span6">
+
+                      <div class="btn-group">
+                        <button class="btn dropdown-toggle" data-toggle="dropdown">
+                          Select AIP
+                          <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                          <li><a tabindex="-1" href="#" onclick="return false">Draft</a></li>
+                          <li><a tabindex="-1" href="#" onclick="return false">Pending Review</a></li>
+                          <li><a tabindex="-1" href="#" onclick="return false">Revised - Unpublished</a></li>
+                          <li><a tabindex="-1" href="#" onclick="return false">Revised - Published</a></li>
+                        </ul>
+                      </div><!-- /dropdown btn-group -->
+                      <button class="btn">Go</button>
+                    </div><!-- input-append -->
+
+                  </div><!-- controls controls-row -->
                 </li>
 
-                <li id="new-AIP-sta" class="input-append pull-left">
-                  <input type="text" value="08" class="span6">
-                  <div class="dropdown btn-group">
-                    <button class="btn dropdown-toggle" data-toggle="dropdown">
-                      Select AIP
-                      <span class="caret"></span>
-                    </button>
-                    <button class="btn">Go</button>
 
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                      <li><a tabindex="-1" href="#" onclick="return false">Draft</a></li>
-                      <li><a tabindex="-1" href="#" onclick="return false">Pending Review</a></li>
-                      <li><a tabindex="-1" href="#" onclick="return false">Revised - Unpublished</a></li>
-                      <li><a tabindex="-1" href="#" onclick="return false">Revised - Published</a></li>
-                    </ul>
-                  </div>
-                </li>
-                <li id="new-AIP-view" class="">
+                <li id="new-AIP-view" class="pull-right">
                   <a href="#" onclick="return false">View All
                   <div></div>
-                </a>
+                  </a>
                 </li>
-
               </ul>
 
         </section>
 
-         <section id="AIP-ov" class="row-fluid">
+         <section id="AIP-ov">
             <div class="menu-list row-fluid" >
               <h2 class="menu-list-left">AIP Overview</h2>
               <ul class="menu-list-right">
-                <li>
-                  <a class="view-AIP-reports">View AIP Reports</a>
+                <li class="view-AIP-reports">
+                  <a href="#" onclick="return false">View AIP Reports</a>
                 </li>
               </ul>
             </div>

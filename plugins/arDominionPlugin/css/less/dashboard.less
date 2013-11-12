@@ -20,9 +20,11 @@
       font-family: 'Open Sans Semibold';
     }
   }
+  section {
+    margin-top: 30px;
+  }
   .dash-col-updates {
     overflow: hidden;
-    margin-top: 30px;
     border-radius: 4px;
     li {
       font-size: .8em;
@@ -43,6 +45,10 @@
       width: 74%;
     }
   }
+  .btn {
+      background: @momaBlueMid;
+      margin-top: 8px;
+    }
 }
 
 //#content span9
@@ -61,8 +67,10 @@ section#fix-check {
       border-right: 1px solid @grayLighter;
       border-left: 1px solid @grayLighter;
       input {
+        height: 2.5em;
         display: inline-block;
         position: relative;
+        text-align: center;
       }
     }
     li#fc-sta {
@@ -75,8 +83,13 @@ section#fix-check {
         margin: 4px auto;
       }
     }
-    li#fc-inp div {
-      margin: 0 auto;
+
+    li#fc-inp {
+      width: 55%;
+      clear: none;
+      margin-left: 1%;
+      border-right: none;
+      border-left: none;
       input {
         margin-top: 1em;
         height: 2em;
@@ -90,6 +103,9 @@ section#fix-check {
     li#fc-set, li#fc-fr, li#fc-sum  {
       text-align: center;
       width: 6%;
+      float: right;
+      margin-right: 8px;
+      text-align: center;
       font-size: .9em;
       white-space: nowrap;
       a {
@@ -97,17 +113,6 @@ section#fix-check {
       }
     }
   }
-
-}
-
-//Second section ------------
-section#new-AIP ul {
-    margin: 1em;
-    min-height: 6em;
-  }
-
-li#new-AIP-sta div {
-  position: relative;
 }
 
 li#fc-set div {
@@ -144,45 +149,95 @@ li#fc-sum div {
   }
 }
 
-li#new-AIP-view div {
-  margin-top: 1em;
-    &:after {
-    color: @grayLight;
-    content: "\f0c9";
-    font-family: FontAwesome;
-    font-size: 2em;
-    padding: 8px 5px;
-    margin-top: 8px;
+//Second section ------------
+section#new-AIP ul {
+    margin: 1em;
+    min-height: 6em;
+    li {
+      padding-top: 3px;
+      border-right: 1px solid @grayLighter;
+      border-left: 1px solid @grayLighter;
+      input {
+        text-align: center;
+        display: inline-block;
+        position: relative;
+      }
+    }
+  }
+li#new-AIP-inp {
+  width: 75%;
+}
+
+li#new-AIP-inp div.controls {
+    input, button {
+      margin-top: 1em;
+      height: 2.5em;
+    }
+      #new-AIP-sta {
+        margin-left: 2.5%;
+      }
+  }
+
+
+li#new-AIP-view {
+  text-align: center;
+  a {
+        color: @orange;
+      }
+      div {
+      margin-top: 1em;
+      &:after {
+      color: @grayLight;
+      content: "\f0c9";
+      font-family: FontAwesome;
+      font-size: 2em;
+      padding: 8px 5px;
+      margin-top: 8px;
+    }
   }
 }
 
+
+
+
 //Third section ------------
 section#AIP-ov {
-  ul {
+  h2 {
+    border-bottom: none;
+  }
+  li.view-AIP-reports {
+    padding: .8em .8em 0 0;
+    color: @grayLight;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    &:before {
+      content: "\f022";
+    }
+    }
+  aside {
+    margin: 1em;
+  }
+  aside ul {
     margin: 1em;
     li {
-      margin-top: 0;
       display: inline-block;
     }
     input {
-        float: left;
-        max-width: 4em;
+      height: 2.5em;
+      float: left;
+      max-width: 4em;
       }
-    a.view-AIP-reports {
-      font-family: FontAwesome;
-      font-style: normal;
-      font-weight: normal;
-      text-decoration: inherit;
-      &:before {
-        content: "\f022";
-      }
-    }
   } //ul
   div#AIP-ov-MIME, div#AIP-ov-cla {
     h4 {
       font-size: 1.1em;
       font-family: 'Open Sans Semibold';
       text-align: center;
+    }
+    img {
+      width: 90%;
     }
   }
 }
