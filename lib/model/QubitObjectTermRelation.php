@@ -21,7 +21,8 @@ class QubitObjectTermRelation extends BaseObjectTermRelation
 {
   // Flag for updating search index on save or delete
   public
-    $indexOnSave = true;
+    $indexOnSave = true,
+    $indexObjectOnDelete = true;
 
   public function save($connection = null)
   {
@@ -50,7 +51,7 @@ class QubitObjectTermRelation extends BaseObjectTermRelation
   {
     parent::delete($connection);
 
-    if ($this->getObject() instanceof QubitInformationObject)
+    if ($this->indexObjectOnDelete && $this->getObject() instanceof QubitInformationObject)
     {
       QubitSearch::updateInformationObject($this->getObject());
     }

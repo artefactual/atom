@@ -326,6 +326,7 @@ class InformationObjectEditAction extends DefaultEditAction
           }
           else
           {
+            $item->indexObjectOnDelete = false;
             $item->delete();
           }
         }
@@ -357,6 +358,7 @@ class InformationObjectEditAction extends DefaultEditAction
           }
           else
           {
+            $item->indexSubjectOnDelete = false;
             $item->delete();
           }
         }
