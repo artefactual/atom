@@ -96,7 +96,7 @@ function Plumb(element, configuration)
     this.plumb.repaintEverything();
 
     // Make nodes draggable
-    this.plumb.draggable(
+    this.plumb(
       this.element.find('.node'),
       { containment: '.plumb-div' });
   };
