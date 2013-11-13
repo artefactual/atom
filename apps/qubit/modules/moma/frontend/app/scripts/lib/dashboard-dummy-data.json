@@ -2,289 +2,100 @@
 "dash": [
         {
             "id": 0,
+            "mime-type": "text/pdf",
             "guid": "dbfdb989-9ed9-41a2-892a-c4b944a718f8",
             "isActive": false,
             "balance": "$1,848.00",
-            "age": 22,
             "name": "Cantu Wooten",
             "gender": "male",
-            "company": "Insurety",
             "email": "cantuwooten@insurety.com",
-            "phone": "+1 (946) 455-2232",
             "address": "327 Vandalia Avenue, Mansfield, Nebraska, 5922",
             "about": "Nostrud incididunt qui anim esse enim laborum non do voluptate mollit. Officia enim ut aliqua elit anim exercitation id sunt tempor consequat nostrud ipsum magna. Eiusmod ex ullamco amet do duis irure do elit ad.\r\n",
             "registered": "1998-10-22T15:03:59 +07:00",
-            "latitude": 81.051095,
-            "longitude": 64.656314,
-            "tags": [
-                "veniam",
-                "proident",
-                "qui",
-                "adipisicing",
-                "aliqua",
-                "culpa",
-                "esse"
-            ],
-            "friends": [
-                {
-                    "id": 0,
-                    "name": "Pugh Adkins"
-                },
-                {
-                    "id": 1,
-                    "name": "Sharron Newton"
-                },
-                {
-                    "id": 2,
-                    "name": "Rosalie Campbell"
-                }
-            ],
             "randomArrayItem": "lemon"
         },
         {
             "id": 1,
+            "mime-type": "image/jpeg",
             "guid": "284fa7e7-c35f-4833-8d10-76914345e464",
             "isActive": false,
             "balance": "$2,490.00",
-            "age": 30,
             "name": "Rush King",
             "gender": "male",
-            "company": "Moreganic",
             "email": "rushking@moreganic.com",
-            "phone": "+1 (937) 582-2963",
             "address": "676 Fleet Street, Yettem, Pennsylvania, 5701",
             "about": "Deserunt duis consequat fugiat occaecat mollit ad in aliqua voluptate reprehenderit magna aliqua sit. Ipsum enim voluptate ea commodo non culpa consectetur commodo officia. Occaecat quis officia quis consequat minim deserunt amet amet exercitation. Dolor consequat consequat deserunt laboris commodo est nostrud in veniam minim est aute sunt tempor. Minim do nisi laboris cupidatat eu tempor id do dolor reprehenderit irure ex sit. Et exercitation magna anim voluptate exercitation pariatur aute culpa. Pariatur consectetur anim eiusmod aliqua.\r\n",
             "registered": "1992-07-03T17:44:17 +07:00",
-            "latitude": -23.855526,
-            "longitude": -14.851321,
-            "tags": [
-                "excepteur",
-                "ipsum",
-                "commodo",
-                "quis",
-                "quis",
-                "et",
-                "anim"
-            ],
-            "friends": [
-                {
-                    "id": 0,
-                    "name": "Cross Murphy"
-                },
-                {
-                    "id": 1,
-                    "name": "Francis Bishop"
-                },
-                {
-                    "id": 2,
-                    "name": "Farley Barrett"
-                }
-            ],
             "randomArrayItem": "apple"
         },
         {
             "id": 2,
+            "mime-type": "audio/x-aiff",
             "guid": "f1515f05-eb17-45af-87da-8b8e5647f5cf",
             "isActive": true,
             "balance": "$3,363.00",
-            "age": 29,
             "name": "Harding Yates",
             "gender": "male",
-            "company": "Ginkle",
             "email": "hardingyates@ginkle.com",
-            "phone": "+1 (811) 492-2910",
             "address": "295 Preston Court, Groveville, Delaware, 5989",
             "about": "Id et dolor enim occaecat qui esse occaecat amet proident mollit eiusmod sunt. Consectetur fugiat eiusmod esse ipsum enim cupidatat eu Lorem nulla fugiat commodo consectetur. Deserunt reprehenderit adipisicing cupidatat minim nulla consectetur pariatur nulla voluptate. Ullamco aliqua magna aute cupidatat dolor commodo ipsum mollit.\r\n",
             "registered": "2006-04-20T12:18:13 +07:00",
-            "latitude": -89.00522,
-            "longitude": 152.0648,
-            "tags": [
-                "proident",
-                "cillum",
-                "laborum",
-                "magna",
-                "cillum",
-                "est",
-                "magna"
-            ],
-            "friends": [
-                {
-                    "id": 0,
-                    "name": "Bean Petty"
-                },
-                {
-                    "id": 1,
-                    "name": "Burnett House"
-                },
-                {
-                    "id": 2,
-                    "name": "Guadalupe Carpenter"
-                }
-            ],
             "randomArrayItem": "lemon"
         },
         {
             "id": 3,
+            "mime-type": "image/bmp",
             "guid": "e15d492b-6ca1-4613-a818-282fa0718392",
             "isActive": false,
             "balance": "$2,755.00",
-            "age": 35,
             "name": "Ola Atkinson",
             "gender": "female",
-            "company": "Orbaxter",
             "email": "olaatkinson@orbaxter.com",
-            "phone": "+1 (884) 566-2583",
             "address": "772 Bowery Street, Floriston, New Jersey, 5497",
             "about": "Nostrud ad consectetur cillum dolore ullamco. Deserunt non sit magna culpa ad dolor exercitation magna adipisicing. Id non ad est irure aliquip quis et veniam ea aliqua. Irure elit amet cillum officia mollit ipsum Lorem pariatur.\r\n",
             "registered": "2003-01-27T02:49:41 +08:00",
-            "latitude": 56.741954,
-            "longitude": 77.841815,
-            "tags": [
-                "laborum",
-                "sunt",
-                "amet",
-                "dolore",
-                "cillum",
-                "fugiat",
-                "cillum"
-            ],
-            "friends": [
-                {
-                    "id": 0,
-                    "name": "Foster Butler"
-                },
-                {
-                    "id": 1,
-                    "name": "Quinn Houston"
-                },
-                {
-                    "id": 2,
-                    "name": "Ursula Head"
-                }
-            ],
             "randomArrayItem": "cherry"
         },
         {
             "id": 4,
+            "mime-type": "video/x-f4v",
             "guid": "a0dee6be-738a-423b-b548-33d8f516a429",
             "isActive": true,
             "balance": "$2,972.00",
-            "age": 21,
             "name": "Neva Herring",
             "gender": "female",
-            "company": "Portalis",
             "email": "nevaherring@portalis.com",
-            "phone": "+1 (929) 542-3099",
             "address": "459 Plaza Street, Guthrie, Arkansas, 4316",
             "about": "Culpa occaecat ad proident veniam officia reprehenderit. Tempor tempor culpa quis ad do commodo laboris ut incididunt dolore mollit commodo culpa. Culpa aliqua tempor anim commodo cillum fugiat sint voluptate officia. Lorem adipisicing sint adipisicing consequat fugiat amet aute ad deserunt.\r\n",
             "registered": "1998-01-08T08:05:25 +08:00",
-            "latitude": 53.789913,
-            "longitude": -22.246444,
-            "tags": [
-                "et",
-                "fugiat",
-                "adipisicing",
-                "anim",
-                "voluptate",
-                "tempor",
-                "irure"
-            ],
-            "friends": [
-                {
-                    "id": 0,
-                    "name": "Gilda Simpson"
-                },
-                {
-                    "id": 1,
-                    "name": "Mcfarland Kidd"
-                },
-                {
-                    "id": 2,
-                    "name": "Salas Quinn"
-                }
-            ],
             "randomArrayItem": "cherry"
         },
         {
             "id": 5,
+            "mime-type": "video/h264",
             "guid": "d31b1e43-a37d-4fee-9f4b-02f1918fadcb",
             "isActive": false,
             "balance": "$2,342.00",
-            "age": 35,
             "name": "Judy Hopper",
             "gender": "female",
-            "company": "Quonk",
             "email": "judyhopper@quonk.com",
-            "phone": "+1 (917) 598-2244",
             "address": "734 Rost Place, Kipp, Florida, 7271",
             "about": "Adipisicing aute commodo incididunt consequat labore ipsum proident nulla eu tempor in adipisicing cupidatat qui. Magna irure adipisicing dolore aute eiusmod duis adipisicing aliqua commodo culpa ullamco aliqua consectetur. Quis sunt laboris reprehenderit sunt in occaecat excepteur id labore incididunt consequat est. Consequat ullamco ut dolor voluptate exercitation ea culpa sunt voluptate magna. Ullamco cillum minim nulla consectetur laboris officia id ipsum culpa in non incididunt.\r\n",
             "registered": "1993-03-28T06:36:28 +08:00",
-            "latitude": 77.182735,
-            "longitude": 67.326639,
-            "tags": [
-                "consequat",
-                "cupidatat",
-                "excepteur",
-                "consectetur",
-                "proident",
-                "sunt",
-                "fugiat"
-            ],
-            "friends": [
-                {
-                    "id": 0,
-                    "name": "Swanson West"
-                },
-                {
-                    "id": 1,
-                    "name": "Lizzie Foreman"
-                },
-                {
-                    "id": 2,
-                    "name": "Verna Sampson"
-                }
-            ],
             "randomArrayItem": "apple"
         },
         {
             "id": 6,
+            "mime-type": "text/pdf",
             "guid": "c6884c44-3dec-4205-bb8e-72ac13fac053",
             "isActive": false,
             "balance": "$1,129.00",
-            "age": 39,
             "name": "Mills Rodgers",
             "gender": "male",
-            "company": "Exerta",
             "email": "millsrodgers@exerta.com",
-            "phone": "+1 (954) 459-3765",
             "address": "724 Elmwood Avenue, Slovan, Missouri, 8680",
             "about": "Commodo dolor Lorem qui elit Lorem enim aliquip mollit eiusmod reprehenderit laboris duis. Officia ut magna occaecat ea proident nostrud sunt tempor dolore excepteur nisi ipsum. Enim et fugiat exercitation duis cillum elit sint anim. Consequat proident mollit cupidatat voluptate reprehenderit voluptate qui nostrud consectetur aute.\r\n",
             "registered": "1994-07-28T10:41:51 +07:00",
-            "latitude": 12.377671,
-            "longitude": 116.559747,
-            "tags": [
-                "nostrud",
-                "aliquip",
-                "voluptate",
-                "duis",
-                "ea",
-                "qui",
-                "aute"
-            ],
-            "friends": [
-                {
-                    "id": 0,
-                    "name": "Beulah Mayo"
-                },
-                {
-                    "id": 1,
-                    "name": "Cecilia Hurst"
-                },
-                {
-                    "id": 2,
-                    "name": "Gill Merritt"
-                }
-            ],
             "randomArrayItem": "apple"
         }
     ]
