@@ -31,5 +31,6 @@ class MomaWorkAction extends sfAction
     $this->response->addJavaScript('/apps/qubit/modules/moma/frontend/app/scripts/controllers/test.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/moma/frontend/app/scripts/controllers/test2.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/moma/frontend/app/scripts/controllers/dashboard.js', 'last');
+    $this->response->addJavaScript('/apps/qubit/modules/moma/frontend/app/scripts/lib/dashboard-scripts.js', 'last');
   }
 }
