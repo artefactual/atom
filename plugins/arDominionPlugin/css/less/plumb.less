@@ -50,7 +50,7 @@
     display: inline-block;
   }
   li.legend-work:before {
-    background: @momaBlueDark;
+    background: @momaBlueMid;
   }
   li.legend-expr:before {
     background: @momaViolet;
@@ -93,25 +93,32 @@
     }
   }
 }
+//Nodes < 100 are for artwork record
+//Nodes 100 < 200 are for tech record
+//Note that octal literals are not allowed in strict mode
 #node-0 { //work
-  left: 14%;
-  top: 8rem;
-  border: 4px solid @momaBlueDark;
-  width: 110px;
-  height: 42px;
+  left: 15%;
+  display: block;
+  top: 8.5rem;
+  border: 4px solid @momaBlueMid;
   border-radius: 20px;
   padding: 5px;
-  text-align: center;
   span {
+    display: block;
     font-size: 1.3em;
+    min-width: 0;
+    max-width: 120px;
     color: @black;
-    margin-left: -22px;
+    transform-origin: 0 50%;
+    margin-left: -130px;
   }
 }
 
-#node-10, #node-11 { //
+#node-10, #node-11, #node-100, #node-111 { //
   border: 3px solid @momaViolet;
 }
+
+//artwork record
 #node-10 { //retouched film
   left: 14.5rem;
   top: 11rem;
@@ -120,6 +127,7 @@
     margin-left: -60px;
   }
 }
+
 #node-11 { //original film
   left: 14.5rem;
   top: -4rem;
@@ -129,7 +137,7 @@
   }
 }
 
-#node-20, #node-21 { //manifestation
+#node-20, #node-21, #node-120, #node-121 { //manifestation
   left: 46%;
   border: 3px solid @momaGreen;
 }
@@ -151,7 +159,7 @@
   }
 }
 
-#node-30 { //exhibition walkthrough
+#node-30, #node-130, #node-131, #node-132 { //exhibition walkthrough
   left: 70%;
   top: 9rem;
   border: 3px solid @orange;
@@ -162,7 +170,7 @@
      }
 }
 
-#node-31, #node-32, #node-33, #node-34, #node-35 {
+#node-31, #node-32, #node-33, #node-34, #node-35, #node-140, #node-141{
   left: 70%;
   border: 3px solid @momaOrangeDark;
   span {
@@ -194,7 +202,98 @@
 
 
 
-// Nodes
+// Nodes >100
 // -------------------------
+
+#node-100 { // video codec
+  left: 14.5rem;
+  span {
+    margin-top: -30px;
+    margin-left: -60px;
+  }
+}
+#node-111 { //audio codec
+  left: 14.5rem;
+  bottom: 3rem;
+  span {
+    margin-top: 30px;
+    margin-left: -60px;
+  }
+}
+
+#node-120 { //open source
+  top: -1.5rem;
+  span {
+    margin-top: -30px;
+    margin-left: -60px;
+  }
+}
+
+#node-121 { //proprietary
+  bottom: 4.5rem;
+  span {
+    margin-top: 30px;
+    margin-left: -60px;
+  }
+}
+
+#node-130 { // ffmpeg
+  left: 63%;
+    top: -3rem;
+  span {
+    margin-top: -27px;
+    margin-left: -20px;
+  }
+}
+
+#node-131 { //Xvid
+  left: 63%;
+  top: 0rem;
+  span {
+    margin-top: -2px;
+    margin-left: -30px;
+  }
+}
+
+#node-132 { //shrodinger
+  left: 63%;
+  top: 1rem;
+  span {
+    margin-top: -27px;
+    margin-left: -30px;
+  }
+}
+
+#node-140 { // 1.1
+  left: 83%;
+  top: -4.5rem;
+  span {
+    margin-top: 30px;
+    margin-left: -30px;
+  }
+}
+
+#node-141 { // xbit 1.3.3
+  left: 83%;
+  top: 1.5rem;
+  span {
+    margin-top: 30px;
+    margin-left: -30px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

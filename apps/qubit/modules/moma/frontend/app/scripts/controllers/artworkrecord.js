@@ -6,7 +6,7 @@ angular.module('momaApp')
     $scope.atomGlobals = atomGlobals;
 
     $scope.collection = [
-      { id: 0, title: 'Screen Test:<br />Ivy Nicholson', level: 'Work', children: [
+      { id: 0, title: 'Screen Test: Ivy Nicholson', level: 'Work', children: [
         { id: 10, title: 'Retouched Film', level: 'Expression', children:
           [
             { id: 20, title: 'Exhibition Documentation', level: 'Manifestation', children:
