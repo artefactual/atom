@@ -3,11 +3,26 @@ body {
   position: relative;
 }
 
-div.content {
+.content {
   //Imports all styles from #content
+  margin-bottom: 1em;
   #content();
 }
 
+/*------------------------ */
+// menu lists
+
+
+.menu-list {
+  border-top: 1px solid @borderLineColor;
+  border-bottom: 1px solid @borderLineColor;
+  font-size: .9em;
+}
+
+.menu-list li > a {
+  padding-right: 5px;
+  padding-left: 2px;
+}
 /*------------------------ */
 // Section Titles
 
@@ -53,8 +68,39 @@ section#moma-breadcrumb {
 
 /* -------------------------- */
 // MetaData / Digital Objects
-
-#content ul.menu-list-left h2 {
+.menu-list-left {
+  float: left;
+  h2 {
+    padding-right: 0;
+    border-top: none!important;
+    border-bottom: none!important;
+    margin-right: 0px;
+  }
+    li:nth-child(2n) {
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: normal;
+      text-decoration: inherit;
+      width: 100px;
+      cursor: pointer;
+      line-height: 11px;
+      white-space: nowrap;
+      -ms-text-overflow: ellipsis;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      color: @black;
+      font-size: .9em;
+      &:hover {
+        overflow: visible;
+      }
+        &:before {
+          content: "\f105";
+          padding-right: 6px;
+        }
+      }
+}
+ul.menu-list-left li {
   border: none!important; //still doubling border -> fix this
 }
 
@@ -68,7 +114,7 @@ section#moma-breadcrumb {
 
 .menu-list-right {
   float: right;
-  padding-top: 4px;
+  margin-top: 3px!important;
     li {
       a { color: @orange; }
       a:before {
@@ -127,38 +173,8 @@ section#moma-breadcrumb {
 }
 } //ul.menu-list-right
 
-.menu-list-left {
-  border-bottom: 1px solid @grayLighter;
-  float: left;
-    li:nth-child(2n) {
-      font-family: FontAwesome;
-      font-style: normal;
-      font-weight: normal;
-      text-decoration: inherit;
-      width: 100px;
-      cursor: pointer;
-      line-height: 11px;
-      white-space: nowrap;
-      -ms-text-overflow: ellipsis;
-      -o-text-overflow: ellipsis;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      color: @black;
-      font-size: .9em;
-      &:hover {
-        overflow: visible;
-      }
-        &:before {
-          content: "\f105";
-          padding-right: 12px;
-        }
-      }
-}
 
-.menu-list {
-  border-top: 1px solid @borderLineColor;
-  border-bottom: 1px solid @borderLineColor;
-}
+
 
 aside.metaBox4Meta {
   z-index: 20;

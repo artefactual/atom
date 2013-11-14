@@ -17,8 +17,8 @@ angular.module('momaApp', [
         templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/dashboard.html',
         controller: 'DashboardCtrl'
       })
-      .when('/documentationObject', {
-        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/documentationObject.html',
+      .when('/technologyrecord', {
+        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/technologyrecord.html',
         controller: 'TechnologyRecordCtrl'
       })
     .otherwise({ redirectTo: '/' });

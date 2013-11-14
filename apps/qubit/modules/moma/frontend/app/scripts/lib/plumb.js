@@ -7,7 +7,7 @@ function Plumb(element, configuration)
   var self = this;
 
   this.stateMachineConnector = {
-    connector: 'StateMachine',
+    connector: 'Straight',
       paintStyle: {
         lineWidth: 1,
         strokeStyle: '#cecece'
