@@ -85,6 +85,8 @@ section#moma-breadcrumb {
       font-weight: normal;
       text-decoration: inherit;
       width: 60px;
+      margin-right: -8px!important;
+      display: inline-block;
       cursor: pointer;
       line-height: 11px;
       white-space: nowrap;
@@ -165,6 +167,12 @@ ul.menu-list-left li {
       a.add_relationship:before {
         content: "\f074";
       } //a
+      a.download:before {
+        content: "\f019";
+      } //a
+      a.inspect:before {
+        content: "\f06e";
+      } //a
        a.delete {
         color: red;
           &:before {
@@ -231,7 +239,7 @@ div#table-dl {
 
 /* -------------------------- */
 // Supporting Tech Metabox
-section.section-supTech {
+section.section-supTech, section.dig-obj-bro {
   margin-left: 0px!important;
 }
 
