@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 103
+    value: 104
   milestone:
     name: milestone
     editable: 0
@@ -562,6 +562,10 @@ QubitSetting:
     name: isad_control_archivists_notes
     scope: element_visibility
     value: 1
+  Qubit_Settings_visibleElements_IsadArchivalHistory:
+    name: isad_archival_history
+    scope: element_visibility
+    value: 1
   Qubit_Settings_visibleElements_RadGeneralNotes:
     name: rad_general_notes
     scope: element_visibility
@@ -612,6 +616,10 @@ QubitSetting:
     value: 1
   Qubit_Settings_visibleElements_RadControlSources:
     name: rad_control_sources
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_RadArchivalHistory:
+    name: rad_archival_history
     scope: element_visibility
     value: 1
   Qubit_Settings_visibleElements_digitalObjectUrl:

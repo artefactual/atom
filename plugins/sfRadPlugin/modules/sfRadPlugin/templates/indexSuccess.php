@@ -191,7 +191,9 @@
 
   <?php echo get_component('informationobject', 'creatorDetail', array('resource' => $resource)) ?>
 
-  <?php echo render_show(__('Custodial history'), render_value($resource->getArchivalHistory(array('cultureFallback' => true)))) ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_archival_history')): ?>
+    <?php echo render_show(__('Custodial history'), render_value($resource->getArchivalHistory(array('cultureFallback' => true)))) ?>
+  <?php endif; ?>
 
   <?php echo render_show(__('Scope and content'), render_value($resource->getScopeAndContent(array('cultureFallback' => true)))) ?>
 

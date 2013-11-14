@@ -130,7 +130,9 @@
 
   <?php echo render_show_repository(__('Repository'), $resource) ?>
 
-  <?php echo render_show(__('Archival history'), render_value($resource->getArchivalHistory(array('cultureFallback' => true)))) ?>
+  <?php if (check_field_visibility('app_element_visibility_isad_archival_history')): ?>
+    <?php echo render_show(__('Archival history'), render_value($resource->getArchivalHistory(array('cultureFallback' => true)))) ?>
+  <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_immediate_source')): ?>
     <?php echo render_show(__('Immediate source of acquisition or transfer'), render_value($resource->getAcquisition(array('cultureFallback' => true)))) ?>

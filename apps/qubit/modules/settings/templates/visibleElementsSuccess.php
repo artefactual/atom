@@ -32,7 +32,8 @@
           'isad_control_languages' => __('Language(s)'),
           'isad_control_scripts' => __('Script(s)'),
           'isad_control_sources' => __('Sources'),
-          'isad_control_archivists_notes' => __('Archivist\'s notes')) as $key => $value): ?>
+          'isad_control_archivists_notes' => __('Archivist\'s notes'),
+          'isad_archival_history' => __('Archival history')) as $key => $value): ?>
 
           <div class="form-item form-item-checkbox">
             <?php echo $form[$key] ?>
@@ -62,7 +63,8 @@
           'rad_control_dates' => __('Dates of creation, revision and deletion'),
           'rad_control_language' => __('Language'),
           'rad_control_script' => __('Script'),
-          'rad_control_sources' => __('Sources')) as $key => $value): ?>
+          'rad_control_sources' => __('Sources'),
+          'rad_archival_history' => __('Archival history')) as $key => $value): ?>
 
           <div class="form-item form-item-checkbox">
             <?php echo $form[$key] ?>
