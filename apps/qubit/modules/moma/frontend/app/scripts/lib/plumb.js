@@ -95,7 +95,7 @@ function Plumb(element, configuration)
 
     this.plumb.repaintEverything();
 
-    // Make nodes draggable
+    // Make nodes draggable - Heather took this off by removing .draggable( after this.plub.dragg...
     this.plumb(
       this.element.find('.node'),
       { containment: '.plumb-div' });

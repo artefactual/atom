@@ -173,7 +173,7 @@ aside.metaBox4Meta {
     display: block;
     height: 130px;
     width: 130px;
-    margin-top: -200px;
+    margin-top: -160px;
     right: 20px;
     // display: none; //for 2-column layout only
   } //div graph
@@ -238,60 +238,37 @@ div#table-dl {
   width: 14%;
 }
 
-div.sidebar-prototype h4 {
-  font-size: 1.1em;
-  color: @orange;
-  text-align: center;
-}
-
-.sidebar-prototype {
-  font-size: .85em;
-  margin-top: 20px;
-}
-
-.list-menu1, .list-menu2 {
-  background:@white!important;
-  border-top: 0!important;
-  a {
-    margin-left: 6px;
-    &:hover {
-      //fix for existing style
-      background: none!important;
+.sidebar-prototype .list-menu {
+  h4 {
+    font-size: 1.2em;
+    font-family: 'Open Sans Semibold';
+  }
+  ul {
+    border-top: 4px solid @black;
+    li {
+      background: none;
+      a {
+        color: @black;
+        margin-left: 9px;
+        cursor: auto;
+        color: @momaBlueDark;
+        font-style: italic;
+        font-size: .9em;
+        border-left: 0px;
+        &:hover {
+          border-left: 9px solid @white;
+          background: @momaGray;
+          margin: 0px;
+        }
+      }
+    &:nth-child(2n+1) {
+      padding: 4px;
+      font-family: 'Open Sans Semibold';
     }
+    } //li
   }
 }
 
-ul.list-menu1, ul.list-menu2 {
-  li {
-    border: 1px solid @borderLineColor;
-    &:hover {
-      background: @momaBlue;
-    }
-  }
-}
-
-.list-menu2 li:nth-child(2n+1) {
-  background: @grayLighter;
-  &:hover {
-    border-left: 4px solid #93DCFF;
-    margin-left: -4px;
-  }
-}
-
-
-.list-menu2 li:nth-child(2n) {
-  padding-left: 12px;
-  height: 60%;
-  &:hover {
-    background: @white;
-    margin-left: 4px;
-  }
-  a {
-    color: @black;
-    font-size: .8em;
-    cursor: auto;
-  }
-}
 
 /* ---------------------- */
 // Toggling content divs

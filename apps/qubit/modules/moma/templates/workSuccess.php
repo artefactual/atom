@@ -3,14 +3,14 @@
   <!-- Menu -->
   <ul class="nav nav-pills">
     <li><a ng-href="#/">Home</a></li>
-    <li><a ng-href="#/test2"tabindex="-1">Test</a>
+    <li><a ng-href="#/artworkrecord" tabindex="-1">Artwork Record</a>
     </li>
     <li>
       <a ng-href="#/dashboard">Dashboard</a>
     </li>
 
     <li>
-      <a ng-href="#/documentationObject">Doc Obj</a>
+      <a ng-href="#/technologyrecord">Technology Record</a>
     </li>
   </ul>
 

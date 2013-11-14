@@ -9,13 +9,9 @@ angular.module('momaApp', [
         templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/home.html',
         controller: 'HomeCtrl'
       })
-      .when('/test', {
-        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/test.html',
-        controller: 'TestCtrl'
-      })
-      .when('/test2', {
-        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/test2.html',
-        controller: 'Test2Ctrl'
+      .when('/artworkrecord', {
+        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/artworkrecord.html',
+        controller: 'ArtworkRecordCtrl'
       })
       .when('/dashboard', {
         templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/dashboard.html',
@@ -23,7 +19,7 @@ angular.module('momaApp', [
       })
       .when('/documentationObject', {
         templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/documentationObject.html',
-        controller: 'DocumentationObjectCtrl'
+        controller: 'TechnologyRecordCtrl'
       })
     .otherwise({ redirectTo: '/' });
   })
