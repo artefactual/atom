@@ -133,13 +133,14 @@ function Plumb(element, configuration)
   this.createNode = function(data, root)
   {
     // Create the DOM element
-    var node = document.createElement('div');
+    var node = document.createElement('span');
     node.className = 'node';
     node.id = 'node-' + data.id;
     node.setAttribute('data-id', data.id);
 
     // Add title
-    node.innerHTML = '<span>' + data.title + '</span>';
+    node.innerHTML = data.title;
+    // node.innerHTML = '<span>' + data.title + '</span>';
 
     // Append the node to jsPlumb
     this.element[0].appendChild(node);

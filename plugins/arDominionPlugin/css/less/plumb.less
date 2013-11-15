@@ -73,20 +73,28 @@
   max-height: 350px;
   background-color: #f5f5f5;
   .node {
-    border: 2px solid #ff8800;
-    width: 20px;
-    height: 20px;
+    padding: 4px;
+    color: @momaBlueDark;
+    line-height: 12px;
+    font-style: italic;
+    font-size: .9em;
+    max-width: 90px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    // min-height: 20px;
     position: relative;
     display: block;
-    border-radius: 20px;
+    border-radius: 8px;
     background-color: @white;
     box-shadow: 0 0 4px rgba(0, 0, 0, .5);
     span {
-      min-width: 150px;
-      text-align: center;
-      white-space: wordwrap;
-      display: block;
-      color: @momaBlueDark;
+      // min-width: 150px;
+      // text-align: center;
+      // white-space: wordwrap;
+      // display: block;
+      // color: @momaBlueDark;
     }
     &:hover {
       cursor: pointer;
@@ -97,12 +105,10 @@
 //Nodes 100 < 200 are for tech record
 //Note that octal literals are not allowed in strict mode
 #node-0 { //work
-  left: 15%;
+  left: 10%;
   display: block;
-  top: 8.5rem;
+  top: 9.5rem;
   border: 4px solid @momaBlueMid;
-  border-radius: 20px;
-  padding: 5px;
   span {
     display: block;
     font-size: 1.3em;
@@ -121,7 +127,7 @@
 //artwork record
 #node-10 { //retouched film
   left: 14.5rem;
-  top: 11rem;
+  top: 13rem;
   span {
     margin-top: 30px;
     margin-left: -60px;
@@ -142,7 +148,7 @@
   border: 3px solid @momaGreen;
 }
 #node-20 { //exhibition documentation
-  top: 9.25rem;
+  top: 11.25rem;
   span {
     line-height: 12px;
     margin-top: 30px;
@@ -151,7 +157,7 @@
 }
 
 #node-21 { //artwork components
-  top: -5.5rem;
+  top: -6rem;
   span {
     line-height: 12px;
     margin-top: -50px;
@@ -161,7 +167,7 @@
 
 #node-30, #node-130, #node-131, #node-132 { //exhibition walkthrough
   left: 70%;
-  top: 9rem;
+  top: 11.5rem;
   border: 3px solid @orange;
   span {
     line-height: 13px;
@@ -180,7 +186,7 @@
 }
 
 #node-31 { // reversal positive...
-  top: -9.5rem;
+  top: -9rem;
   span {
     margin-top: -10px;
     line-height: 13px;
@@ -190,13 +196,13 @@
   top: -8rem;
 }
 #node-33 { //print
-  top: -7rem;
+  top: -7.5rem;
 }
 #node-34 { //print
-  top: -6rem;
+  top: -6.5rem;
 }
 #node-35 { //dpx scan
-  top: -5rem;
+  top: -5.5rem;
   border: 3px solid @orange;
 }
 
@@ -281,8 +287,6 @@
     margin-left: -30px;
   }
 }
-
-
 
 
 
