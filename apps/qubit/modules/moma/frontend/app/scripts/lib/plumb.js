@@ -91,9 +91,35 @@ function Plumb(element, configuration)
   {
     console.log('plumb', 'Redrawing...');
 
-    this.createNodes(data);
+    this.createNodes(data.collection);
+
+    this.createRelations(data.relations);
 
     this.plumb.repaintEverything();
+  };
+
+  this.createRelations = function(relations)
+  {
+    for (var i = 0; i < relations.length; i++)
+    {
+      var relation = relations[i];
+
+      this.plumb.connect({
+        source: document.getElementById('node-' + relation.source),
+        target: document.getElementById('node-' + relation.target),
+        anchors: ["Right", "Right"],
+        connector: [ "Bezier", { curviness: 50 }],
+        paintStyle: {
+          lineWidth: 2,
+          strokeStyle:"rgb(131,8,135)",
+          dashstyle: "1 1",
+          joinstyle: "miter"
+        },
+        endpoint: "Dot",
+        overlays: [["PlainArrow", { location: 1, width: 15, length: 12}]],
+        label: relation.type
+      });
+    }
   };
 
   this.createNodes = function(data)

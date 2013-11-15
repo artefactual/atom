@@ -5,7 +5,8 @@ angular.module('momaApp.directives', ['jsPlumb'])
     return {
       restrict: 'AE',
       scope: {
-        collection: '='
+        collection: '=',
+        relations: '='
       },
       link: function(scope, element, attrs) {
         jsPlumbService.jsPlumb().then(function(jsPlumb) {
@@ -14,10 +15,14 @@ angular.module('momaApp.directives', ['jsPlumb'])
           scope.plumb.initialize();
 
           scope.$watch('collection', function() {
-            if (scope.plumb)
+            if (!scope.plumb)
             {
-              scope.plumb.redraw(scope.collection);
+              return;
             }
+
+            scope.plumb.redraw({
+              collection: scope.collection,
+              relations: scope.relations});
           });
 
         });

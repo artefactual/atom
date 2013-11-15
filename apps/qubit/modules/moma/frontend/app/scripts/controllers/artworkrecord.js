@@ -31,4 +31,8 @@ angular.module('momaApp')
       ]}
     ];
 
+    $scope.relations = [
+      { source: 35, target: 31, type: 'is derivative of' }
+    ];
+
 });
