@@ -2,21 +2,23 @@
 
   <h3><?php echo __('Add new child levels') ?></h3>
 
-  <table class="table table-bordered multiRow">
+  <table class="table table-bordered multiRow" id="childsTable">
     <thead>
       <tr>
-        <th style="width: 20%">
+        <th style="width: 15%">
           <?php echo __('Identifier') ?>
-        </th><th style="width: 20%">
+        </th><th style="width: 15%">
           <?php echo __('Level') ?>
-        </th><th style="width: 60%">
+        </th><th style="width: 50%">
           <?php echo __('Title') ?>
+        </th><th style="width: 20%">
+          <?php echo __('Date') ?>
         </th>
       </tr>
     </thead><tbody>
-      <tr>
+      <tr class="date">
         <td>
-          <input type="text" name="updateChildLevels[0][identifier]"/>
+          <input type="text" id="updateChildLevels_0_identifier" name="updateChildLevels[0][identifier]"/>
         </td><td>
           <select name="updateChildLevels[0][levelOfDescription]" id="updateChildLevels_0_levelOfDescription">
             <option value="">&nbsp;</option>
@@ -25,7 +27,11 @@
             <?php endforeach; ?>
           </select>
         </td><td>
-          <input type="text" name="updateChildLevels[0][title]"/>
+          <input type="text" id="updateChildLevels_0_title" name="updateChildLevels[0][title]"/>
+        </td><td>
+          <input type="text" id="updateChildLevels_0_date" name="updateChildLevels[0][date]"/>
+          <input type="hidden" id="updateChildLevels_0_startDate" name="updateChildLevels[0][startDate]"/>
+          <input type="hidden" id="updateChildLevels_0_endDate" name="updateChildLevels[0][endDate]"/>
         </td>
       </tr>
     </tbody>

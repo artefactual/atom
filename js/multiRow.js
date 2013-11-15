@@ -26,8 +26,8 @@
         // Iterate over each input, select and textarea elements
         newRow.find('input, select, textarea').each(function(i)
           {
-            // Input values are removed except hidden ones
-            if ($(this).is('input, textarea') && $(this).attr("type") != "hidden")
+            // Input values are removed except hidden ones (not in childsTable)
+            if ($(this).is('input, textarea') && ($(this).attr("type") != "hidden" || table.attr("id") == "childsTable"))
             {
               $(this).val('');
             }

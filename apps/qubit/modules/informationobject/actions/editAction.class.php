@@ -723,6 +723,39 @@ class InformationObjectEditAction extends DefaultEditAction
           $childLevel->displayStandardId = $displayStandardId;
         }
 
+        if (0 < strlen($item['date']))
+        {
+          $creationEvent = new QubitEvent;
+          $creationEvent->typeId = QubitTerm::CREATION_ID;
+          $creationEvent->date = $item['date'];
+
+          if (0 < strlen($item['startDate']))
+          {
+            if (preg_match('/^\d{8}\z/', trim($item['startDate']), $matches))
+            {
+              $creationEvent->startDate = substr($matches[0], 0, 4).'-'.substr($matches[0], 4, 2).'-'.substr($matches[0], 6, 2);
+            }
+            else
+            {
+              $creationEvent->startDate = $item['startDate'];
+            }
+          }
+
+          if (0 < strlen($item['endDate']))
+          {
+            if (preg_match('/^\d{8}\z/', trim($item['endDate']), $matches))
+            {
+              $creationEvent->endDate = substr($matches[0], 0, 4).'-'.substr($matches[0], 4, 2).'-'.substr($matches[0], 6, 2);
+            }
+            else
+            {
+              $creationEvent->endDate = $item['endDate'];
+            }
+          }
+
+          $childLevel->events[] = $creationEvent;
+        }
+
         if (0 < strlen($item['levelOfDescription'])
             || 0 < strlen($item['identifier'])
             || 0 < strlen($item['title']))
