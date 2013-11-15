@@ -139,7 +139,7 @@
 
     <ul>
 
-      <?php if (QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')): ?>
+      <?php if ((QubitAcl::check($resource, 'update') || QubitAcl::check($resource, 'translate')) && !QubitTerm::isProtected($resource->id)): ?>
         <li><?php echo link_to (__('Edit'), array($resource, 'module' => 'term', 'action' => 'edit'), array('class' => 'c-btn c-btn-submit')) ?></li>
       <?php endif; ?>
 

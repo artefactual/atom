@@ -62,7 +62,7 @@ class TermEditAction extends DefaultEditAction
       }
 
       // Check authorization
-      if (!QubitAcl::check($this->resource, 'update') && !QubitAcl::check($this->resource, 'translate'))
+      if (QubitTerm::isProtected($this->resource->id) || (!QubitAcl::check($this->resource, 'update') && !QubitAcl::check($this->resource, 'translate')))
       {
         QubitAcl::forwardUnauthorized();
       }
