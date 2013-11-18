@@ -2,7 +2,7 @@
 
 jQuery(document).ready(function(){
 
-  jQuery.getJSON(Qubit.relativeUrlRoot + "/apps/qubit/modules/moma/frontend/app/scripts/lib/dashboard-dummy-data.json",function(obj){
+  jQuery.getJSON(Qubit.relativeUrlRoot + "/apps/qubit/modules/drmc/frontend/app/scripts/lib/dashboard-dummy-data.json",function(obj){
 
      jQuery.each(obj.dash,function(key,value) {
 

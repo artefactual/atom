@@ -6,19 +6,19 @@ angular.module('momaApp', [
   .config(function($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/home.html',
+        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/home.html',
         controller: 'HomeCtrl'
       })
       .when('/artworkrecord', {
-        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/artworkrecord.html',
+        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/artworkrecord.html',
         controller: 'ArtworkRecordCtrl'
       })
       .when('/dashboard', {
-        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/dashboard.html',
+        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/dashboard.html',
         controller: 'DashboardCtrl'
       })
       .when('/technologyrecord', {
-        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/moma/frontend/app/views/technologyrecord.html',
+        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/technologyrecord.html',
         controller: 'TechnologyRecordCtrl'
       })
     .otherwise({ redirectTo: '/' });
