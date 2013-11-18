@@ -23,8 +23,8 @@ class DRMCWorkAction extends sfAction
   {
     $this->response->addJavaScript('//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js', 'last');
     $this->response->addJavaScript('//cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.js', 'last');
+    $this->response->addJavaScript('//cdnjs.cloudflare.com/ajax/libs/d3/3.3.9/d3.min.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/lib/plumb.js', 'last');
-    $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/services/d3.v3.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/app.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/directives/plumb-graph.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/services/jsPlumb.js', 'last');
