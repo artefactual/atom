@@ -24,5 +24,7 @@ class StaticPageHomeAction extends StaticPageIndexAction
     parent::execute($request);
 
     // Extra features (popular searches, editor picks, virtual exhibits, etc...)
+
+    $this->redirect(array('module' => 'drmc', 'action' => 'work'));
   }
 }
