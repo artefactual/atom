@@ -6,22 +6,42 @@ function Plumb(element, configuration)
 
   var self = this;
 
-  this.stateMachineConnector = {
-    connector: 'Straight',
-      paintStyle: {
-        lineWidth: 1,
-        strokeStyle: '#cecece'
-      },
-    endpoint: 'Blank',
-    anchor: 'Continuous',
-  };
-
   this.levels = [
     { name: 'Work' },
     { name: 'Expression' },
     { name: 'Manifestation' },
     { name: 'Component' }
   ];
+
+  this.jsPlumbConfiguration = {
+    defaults: {
+      Container: this.element
+    },
+    connectors: {
+      parentHood: {
+        connector: 'Straight',
+        anchors: ['Right', 'Left'],
+        paintStyle: {
+          lineWidth: 1,
+          strokeStyle: '#cecece'
+        },
+        endpoint: 'Blank',
+      },
+      derivativeOf: {
+        connector: [ 'Bezier', { curviness: 50 }],
+        anchors: ['Right', 'Right'],
+        paintStyle: {
+          lineWidth: 2,
+          strokeStyle: 'rgb(131,8,135)',
+          dashstyle: '1 1',
+          joinstyle: 'miter'
+        },
+        endpoint: 'Dot',
+        overlays: [['PlainArrow', { location: 1, width: 15, length: 12}]],
+        label: 'is derivative of',
+      }
+    }
+  };
 
   this.initialize = function()
   {
@@ -41,9 +61,7 @@ function Plumb(element, configuration)
     this.plumb = jsPlumb.getInstance();
 
     // Change jsPlumb.Defaults
-    this.plumb.importDefaults({
-      Container: element
-    });
+    this.plumb.importDefaults(this.jsPlumbConfiguration.defaults);
 
     // Create a new directed graph
     this.dagreDigraph = new dagre.Digraph();
@@ -55,7 +73,7 @@ function Plumb(element, configuration)
       .on('click', '.node', jQuery.proxy(this.clickNode, this));
   };
 
-  this.redraw = function(data, transitionDuration)
+  this.redraw = function(data)
   {
     console.log('plumb', 'Redrawing...');
 
@@ -77,30 +95,6 @@ function Plumb(element, configuration)
     });
 
     this.plumb.repaintEverything();
-  };
-
-  this.createRelations = function(relations)
-  {
-    for (var i = 0; i < relations.length; i++)
-    {
-      var relation = relations[i];
-
-      this.plumb.connect({
-        source: document.getElementById('node-' + relation.source),
-        target: document.getElementById('node-' + relation.target),
-        anchors: ["Right", "Right"],
-        connector: [ "Bezier", { curviness: 50 }],
-        paintStyle: {
-          lineWidth: 2,
-          strokeStyle:"rgb(131,8,135)",
-          dashstyle: "1 1",
-          joinstyle: "miter"
-        },
-        endpoint: "Dot",
-        overlays: [["PlainArrow", { location: 1, width: 15, length: 12}]],
-        label: relation.type
-      });
-    }
   };
 
   this.createNodes = function(data)
@@ -138,16 +132,28 @@ function Plumb(element, configuration)
         this.plumb.connect({
           source: node,
           target: child,
-          dragOptions: {
-            cursor: 'crosshair'
-          },
-        }, this.stateMachineConnector);
+        }, this.jsPlumbConfiguration.connectors.parentHood);
 
         this.dagreDigraph.addEdge(null, node.getAttribute('data-id'), child.getAttribute('data-id'));
       }
     }
 
     return node;
+  };
+
+  this.createRelations = function(relations)
+  {
+    for (var i = 0; i < relations.length; i++)
+    {
+      var relation = relations[i];
+
+      this.plumb.connect({
+        source: document.getElementById('node-' + relation.source),
+        target: document.getElementById('node-' + relation.target),
+      }, this.jsPlumbConfiguration.connectors.derivativeOf);
+
+      // this.dagreDigraph.addEdge(null, relation.source, relation.target);
+    }
   };
 
   this.clickNode = function(event)
