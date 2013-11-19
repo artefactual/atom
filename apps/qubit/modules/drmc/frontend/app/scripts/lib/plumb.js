@@ -84,7 +84,7 @@ function Plumb(element, configuration)
     this.createRelations(data.relations);
 
     var layout = dagre.layout()
-                  .nodeSep(0)
+                  .nodeSep(-40)
                   .rankSep(140)
                   .rankDir("TB")
                   .run(this.dagreDigraph);
