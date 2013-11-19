@@ -25,6 +25,6 @@ class StaticPageHomeAction extends StaticPageIndexAction
 
     // Extra features (popular searches, editor picks, virtual exhibits, etc...)
 
-    $this->redirect(array('module' => 'drmc', 'action' => 'work'));
+    $this->redirect(array('module' => 'drmc', 'action' => 'index'));
   }
 }

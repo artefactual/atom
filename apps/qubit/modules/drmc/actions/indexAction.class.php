@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class DRMCWorkAction extends sfAction
+class DRMCIndexAction extends sfAction
 {
   public function execute($request)
   {
