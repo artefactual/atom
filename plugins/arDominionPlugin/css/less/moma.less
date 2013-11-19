@@ -314,18 +314,22 @@ section.section-supTech, section.dig-obj-bro {
   }
 }
 
+// Context browser
 
-/* ---------------------- */
-// Toggling content divs
+.context-browser {
+}
 
-.context-browser-default {
-  > div {
-    padding: 10px;
-  }
+.context-browser-fullscreen {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 1000;
 }
 
 .context-browser-doc {
-  display: none;
+  .hide();
 }
 
 // Special scroll for MOMA

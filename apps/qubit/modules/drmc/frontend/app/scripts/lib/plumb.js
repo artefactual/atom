@@ -70,8 +70,10 @@ function Plumb(element, configuration)
   this.listen = function()
   {
     this.element
-      .on('click', jQuery.proxy(this.clickNode, this))
-      .on('mouseenter, mouseleave', '.node', jQuery.proxy(this.hoverNode, this));
+      .on('click', jQuery.proxy(this.click, this));
+
+    jQuery(this.element).closest('.plumb-div').prev()
+      .on('click', '.fullscreen', jQuery.proxy(this.toggleFullscreen, this));
   };
 
   this.redraw = function(data)
@@ -96,6 +98,8 @@ function Plumb(element, configuration)
     });
 
     this.plumb.repaintEverything();
+
+    this.activateDefaultNode();
   };
 
   this.createNodes = function(data)
@@ -165,38 +169,63 @@ function Plumb(element, configuration)
   this.click = function(event)
   {
     event.preventDefault();
-
     var target = jQuery(event.target);
     if (target.hasClass('node'))
     {
-      target.trigger('click');
-
-      return;
+      this.activateNode(target);
     }
-
-    this.getNodes().removeClass('active');
-    jQuery('.context-browser-doc, .context-browser-default').hide();
-    jQuery('#aside-id-default').show();
   }
 
-  this.clickNode = function(event)
+  this.activateNode = function(node)
   {
-    var node = jQuery(event.target);
     var id = node.data('id');
     var aside = jQuery('#aside-id-' + id);
 
-    this.getNodes().removeClass('active');
-    node.addClass('active');
-
-    jQuery('.context-browser-doc, .context-browser-default').hide();
-
-    if (!aside.length)
+    if (node.hasClass('active') || !aside.length)
     {
-      jQuery('#aside-id-default').show();
+      return;
     }
-    else
+
+    this.deactivateAllNodes();
+    node.addClass('active');
+    aside.show();
+  };
+
+  this.activateDefaultNode = function()
+  {
+    this.deactivateAllNodes();
+    this.getNodes().filter('#node-0').addClass('active');
+    jQuery('#aside-id-0').show();
+  };
+
+  this.deactivateAllNodes = function()
+  {
+    this.getNodes().removeClass('active');
+    jQuery('.context-browser-doc').hide();
+  };
+
+  this.toggleFullscreen = function(event)
+  {
+    var el = document.documentElement;
+    var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen;
+
+    if (undefined === this.fullscreen | !this.fullscreen)
     {
-      aside.show();
+      rfs.call(el);
+
+      var cb = this.element
+        .closest('.context-browser')
+        .addClass('context-browser-fullscreen');
+
+      this.element.css(
+      {
+        width: window.innerWidth,
+        height: window.outerHeight
+      });
+
+      this.fullscreen = true;
+
+      // TODO redraw
     }
   };
 }
