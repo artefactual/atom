@@ -23,6 +23,14 @@ function Plumb(element, configuration)
     { name: 'Component' }
   ];
 
+  this.initialize = function()
+  {
+    // Initialization
+    console.log('plumb', 'Initializing...');
+    this.configure(configuration);
+    this.listen();
+  };
+
   this.configure = function(configuration)
   {
     console.log('plumb', 'Configuring...');
@@ -39,40 +47,12 @@ function Plumb(element, configuration)
 
     // Create a new directed graph
     this.dagreDigraph = new dagre.Digraph();
-
-    // Create an object with information about the viewport
-    this.viewport = {
-      width: this.element.innerWidth(),
-      height: this.element.innerHeight()
-    };
-
-    // Attach a callback to the click event for .node elements. Should we do
-    // this from the angular directive?
-    this.element.on('click', '.node',
-      {
-        plumb: element
-      },
-      function(event) {
-        var node = jQuery(this);
-        var id = node.data('id');
-        var aside = jQuery('#aside-id-' + id);
-        jQuery('.context-browser-doc, .context-browser-default').hide();
-        if (!aside.length)
-        {
-          jQuery('#aside-id-default').show();
-        }
-        else
-        {
-          aside.show();
-        }
-      });
   };
 
-  this.initialize = function()
+  this.listen = function()
   {
-    // Initialization
-    console.log('plumb', 'Initializing...');
-    this.configure(configuration);
+    this.element
+      .on('click', '.node', jQuery.proxy(this.clickNode, this));
   };
 
   this.redraw = function(data, transitionDuration)
@@ -168,5 +148,25 @@ function Plumb(element, configuration)
     }
 
     return node;
+  };
+
+  this.clickNode = function(event)
+  {
+    var node = jQuery(event.target);
+    var id = node.data('id');
+    var aside = jQuery('#aside-id-' + id);
+
+    jQuery('.context-browser-doc, .context-browser-default').hide();
+
+    console.log(aside);
+
+    if (!aside.length)
+    {
+      jQuery('#aside-id-default').show();
+    }
+    else
+    {
+      aside.show();
+    }
   };
 }
