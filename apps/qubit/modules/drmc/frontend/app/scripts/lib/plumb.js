@@ -37,42 +37,30 @@ function Plumb(element, configuration)
       Container: element
     });
 
+    // Create a new directed graph
+    this.dagreDigraph = new dagre.Digraph();
+
     // Create an object with information about the viewport
     this.viewport = {
       width: this.element.innerWidth(),
-      height: this.element.innerHeight(),
-      columns: this.levels.length
+      height: this.element.innerHeight()
     };
 
     // Attach a callback to the click event for .node elements. Should we do
     // this from the angular directive?
     this.element.on('click', '.node',
       {
-        // Pass jsPlumb as we are going to need it
         plumb: element
       },
-      // Callback. It is executed each time a node is clicked in jsPlumb.
       function(event) {
-
-        // Create a jQuery object from the DOM element
         var node = jQuery(this);
-
-        // Each node has its own Id which is stored in the DOM element as a data
-        // attribute. Let's extract it.
         var id = node.data('id');
-
-        // This is going to be the aside that correspond to the node
         var aside = jQuery('#aside-id-' + id);
-
-        // It's time to hide any aside before we proceed
         jQuery('.context-browser-doc, .context-browser-default').hide();
-
-        // In case that the aside could not be found, show the default aside
         if (!aside.length)
         {
           jQuery('#aside-id-default').show();
         }
-        // Otherwise, show the aside that correspond to the node
         else
         {
           aside.show();
@@ -94,6 +82,19 @@ function Plumb(element, configuration)
     this.createNodes(data.collection);
 
     this.createRelations(data.relations);
+
+    var layout = dagre.layout()
+                  .nodeSep(0)
+                  .rankSep(140)
+                  .rankDir("TB")
+                  .run(this.dagreDigraph);
+
+    layout.eachNode(function(u, value) {
+      var node = document.getElementById('node-' + u);
+      node.style.position = "absolute";
+      node.style.top = value.x + "px";
+      node.style.left = value.y + "px";
+    });
 
     this.plumb.repaintEverything();
   };
@@ -134,7 +135,7 @@ function Plumb(element, configuration)
   {
     // Create the DOM element
     var node = document.createElement('span');
-    node.className = 'node';
+    node.className = 'node node-level-' + data.level;
     node.id = 'node-' + data.id;
     node.setAttribute('data-id', data.id);
 
@@ -144,6 +145,8 @@ function Plumb(element, configuration)
 
     // Append the node to jsPlumb
     this.element[0].appendChild(node);
+
+    this.dagreDigraph.addNode(data.id, { width: 120, height: 32 });
 
     // Iterate children (recursion)
     if (angular.isArray(data.children))
@@ -159,6 +162,8 @@ function Plumb(element, configuration)
             cursor: 'crosshair'
           },
         }, this.stateMachineConnector);
+
+        this.dagreDigraph.addEdge(null, node.getAttribute('data-id'), child.getAttribute('data-id'));
       }
     }
 

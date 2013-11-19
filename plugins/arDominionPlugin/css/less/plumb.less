@@ -28,15 +28,15 @@
 // --------------------------------------------------
 
 .plumb-div {
-  // background-color: #eee;
+  background-color: #eee;
 }
+
 #cbrowser-legend {
   width: 200px;
   display: block;
   margin-bottom: -200px;
   position: absolute;
   padding: 10px;
-
   li {
     margin-top: -3px;
   }
@@ -68,242 +68,47 @@
 
 
 .plumb-graph {
-  max-width: 100%;
-  box-sixing: content-box;
-  max-height: 350px;
-  background-color: #f5f5f5;
+  overflow: auto;
+  position: relative;
+  height: 400px;
+  background-color: #e0e0e0;
   background: url('../../../../../../apps/qubit/modules/drmc/frontend/assets/tiny_grid/tiny_grid.png');
   .node {
-    padding: 4px;
     color: @momaBlueDark;
-    line-height: 12px;
-    font-style: italic;
-    font-size: .9em;
+    overflow-y: auto;
+    width: 120px;
+    height: 32px;
+    padding: 4px;
+    line-height: 1.2em;
     text-align: center;
-    max-width: 90px;
     white-space: pre-wrap;
     word-break: break-word;
     -webkit-hyphens: auto;
     hyphens: auto;
-    // min-height: 20px;
-    position: relative;
     display: block;
-    border-radius: 8px;
+    border-radius: 4px;
     background-color: @white;
     box-shadow: 0 0 4px rgba(0, 0, 0, .2);
-    span {
-      // min-width: 150px;
-      // text-align: center;
-      // white-space: wordwrap;
-      // display: block;
-      // color: @momaBlueDark;
-    }
     &:hover {
       cursor: pointer;
       text-decoration: underline;
     }
   }
-}
-//Nodes < 100 are for artwork record
-//Nodes 100 < 200 are for tech record
-//Note that octal literals are not allowed in strict mode
-#node-0 { //work
-  left: 10%;
-  display: block;
-  top: 8.5rem;
-  -webkit-border-radius: 20px;
-  border-radius: 6px;
-  border: 4px solid @momaBlueMid;
-  -webkit-box-shadow: -2px 4px 5px rgba(50, 50, 50, 1);
-  font-style: bold;
-  font-family: 'Open Sans Semibold';
-  span {
-    font-size: 1.3em;
-    min-width: 0;
-    max-width: 120px;
-    transform-origin: 0 50%;
-    margin-left: -130px;
-    display: none!important;
+
+  .node-level-Work {
+    border: 2px solid @momaBlueMid;
+  }
+  .node-level-Expression {
+    border: 2px solid @momaViolet;
+  }
+  .node-level-Manifestation {
+    border: 2px solid @momaGreen;
+  }
+  .node-level-Component {
+    border: 2px solid @orange;
   }
 }
-
-#node-10, #node-11, #node-100, #node-111 { //
-  border: 3px solid @momaViolet;
-}
-
-//artwork record
-#node-10 { //retouched film
-  left: 14.5rem;
-  top: 13rem;
-  span {
-    margin-top: 30px;
-    margin-left: -60px;
-  }
-}
-
-#node-11 { //original film
-  left: 14.5rem;
-  top: -4rem;
-  span {
-    margin-top: -30px;
-    margin-left: -60px;
-  }
-}
-
-#node-20, #node-21, #node-120, #node-121 { //manifestation
-  left: 46%;
-  border: 3px solid @momaGreen;
-}
-#node-20 { //exhibition documentation
-  top: 11.25rem;
-  span {
-    line-height: 12px;
-    margin-top: 30px;
-    margin-left: -58px;
-  }
-}
-
-#node-21 { //artwork components
-  top: -6rem;
-  span {
-    line-height: 12px;
-    margin-top: -50px;
-    margin-left: -65px;
-  }
-}
-
-#node-30, #node-130, #node-131, #node-132 { //exhibition walkthrough
-  left: 70%;
-  top: 11.5rem;
-  border: 3px solid @orange;
-  span {
-    line-height: 13px;
-    text-align: left;
-    margin-left: 2rem;
-     }
-}
-
-#node-31, #node-32, #node-33, #node-34, #node-35, #node-140, #node-141{
-  left: 70%;
-  border: 3px solid @momaOrangeDark;
-  span {
-    text-align: left;
-    margin-left: 30px;
-  }
-}
-
-#node-31 { // reversal positive...
-  top: -9rem;
-  span {
-    margin-top: -10px;
-    line-height: 13px;
-  }
-}
-#node-32 { //internegative
-  top: -8rem;
-}
-#node-33 { //print
-  top: -7.5rem;
-}
-#node-34 { //print
-  top: -6.5rem;
-}
-#node-35 { //dpx scan
-  top: -5.5rem;
-  border: 3px solid @orange;
-}
-
-
-
-// Nodes >100
-// -------------------------
-
-#node-100 { // video codec
-  left: 14.5rem;
-  span {
-    margin-top: -30px;
-    margin-left: -60px;
-  }
-}
-#node-111 { //audio codec
-  left: 14.5rem;
-  bottom: 3rem;
-  span {
-    margin-top: 30px;
-    margin-left: -60px;
-  }
-}
-
-#node-120 { //open source
-  top: -1.5rem;
-  span {
-    margin-top: -30px;
-    margin-left: -60px;
-  }
-}
-
-#node-121 { //proprietary
-  bottom: 4.5rem;
-  span {
-    margin-top: 30px;
-    margin-left: -60px;
-  }
-}
-
-#node-130 { // ffmpeg
-  left: 63%;
-    top: -3rem;
-  span {
-    margin-top: -27px;
-    margin-left: -20px;
-  }
-}
-
-#node-131 { //Xvid
-  left: 63%;
-  top: 0rem;
-  span {
-    margin-top: 30px;
-    margin-left: -5px;
-  }
-}
-
-#node-132 { //shrodinger
-  left: 63%;
-  top: 1rem;
-  span {
-    margin-top: 30px;
-    margin-left: -30px;
-  }
-}
-
-#node-140 { // 1.1
-  left: 83%;
-  top: -4.5rem;
-  span {
-    margin-top: 30px;
-    margin-left: -30px;
-  }
-}
-
-#node-141 { // xbit 1.3.3
-  left: 83%;
-  top: 1.5rem;
-  span {
-    margin-top: 30px;
-    margin-left: -30px;
-  }
-}
-
 
 .context-browser-doc {
   .hide();
 }
-
-
-
-
-
-
-
-
