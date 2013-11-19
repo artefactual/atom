@@ -40,12 +40,26 @@ h1#moma-page-title:before {
 
 section#moma-metabox-1 {
   margin-bottom: 10px;
-  > .content {
+  .content {
     box-shadow: none;
   }
   .span7 {
     overflow: auto;
-    max-height: 240px;
+    padding-bottom: 16px;
+    max-height: 300px;
+  }
+  .span5 {
+    position: relative;
+    display: block;
+      img {
+    position: absolute;
+    display: block;
+    vertical-align: center;
+    width: 100%;
+    height: auto;
+    min-height: 300px;
+    border: 1px solid gold;
+    }
   }
 }
 
@@ -116,7 +130,7 @@ ul.menu-list-left li {
 
 .section-digitalObjects, .section-metadata {
   width: 49.5%;
-  max-height: 250px;
+  height: 250px;
   overflow: auto;
   margin-bottom: 30px;
   border: 1px solid @grayLighter;
@@ -256,6 +270,7 @@ section.section-supTech, section.dig-obj-bro {
 .sidebar-prototype {
   position: relative;
   margin-top: 99px;
+  width: 150px;
 }
 
 .affix-top {
@@ -265,7 +280,7 @@ section.section-supTech, section.dig-obj-bro {
 .affix {
   position: fixed;
   top: 10px;  //height from top
-  width: 140px;
+  width: 150px;
 }
 
 .sidebar-prototype .list-menu {
