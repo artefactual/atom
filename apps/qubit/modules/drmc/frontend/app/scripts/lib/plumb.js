@@ -70,7 +70,7 @@ function Plumb(element, configuration)
         // In case that the aside could not be found, show the default aside
         if (!aside.length)
         {
-          jQuery('.context-browser-default').show();
+          jQuery('#aside-id-default').show();
         }
         // Otherwise, show the aside that correspond to the node
         else
