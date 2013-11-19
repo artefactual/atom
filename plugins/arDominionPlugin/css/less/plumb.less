@@ -90,9 +90,14 @@
     background-color: @white;
     box-shadow: 0 0 4px rgba(0, 0, 0, .2);
     .user-select(none);
+    -webkit-transition: background-color 250ms linear;
     &:hover {
+      #gradient > .vertical(#fff, #eeeeee);
       cursor: pointer;
-      text-decoration: underline;
+    }
+    &.active {
+      box-shadow: 0 0 4px rgba(0, 0, 0, .2), inset 0 0 4px rgba(0, 0, 0, .2);
+      #gradient > .vertical(#fff, #e9e9e9);
     }
   }
 

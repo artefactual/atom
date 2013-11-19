@@ -70,7 +70,8 @@ function Plumb(element, configuration)
   this.listen = function()
   {
     this.element
-      .on('click', '.node', jQuery.proxy(this.clickNode, this));
+      .on('click', jQuery.proxy(this.clickNode, this))
+      .on('mouseenter, mouseleave', '.node', jQuery.proxy(this.hoverNode, this));
   };
 
   this.redraw = function(data)
@@ -156,15 +157,38 @@ function Plumb(element, configuration)
     }
   };
 
+  this.getNodes = function(relations)
+  {
+    return jQuery(this.element).find('.node');
+  };
+
+  this.click = function(event)
+  {
+    event.preventDefault();
+
+    var target = jQuery(event.target);
+    if (target.hasClass('node'))
+    {
+      target.trigger('click');
+
+      return;
+    }
+
+    this.getNodes().removeClass('active');
+    jQuery('.context-browser-doc, .context-browser-default').hide();
+    jQuery('#aside-id-default').show();
+  }
+
   this.clickNode = function(event)
   {
     var node = jQuery(event.target);
     var id = node.data('id');
     var aside = jQuery('#aside-id-' + id);
 
-    jQuery('.context-browser-doc, .context-browser-default').hide();
+    this.getNodes().removeClass('active');
+    node.addClass('active');
 
-    console.log(aside);
+    jQuery('.context-browser-doc, .context-browser-default').hide();
 
     if (!aside.length)
     {
