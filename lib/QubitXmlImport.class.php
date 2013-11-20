@@ -438,7 +438,7 @@ class QubitXmlImport
             break;
 
           default:
-            foreach ($nodeList2 as $domNode2)
+            foreach ($nodeList2 as $key => $domNode2)
             {
               // normalize the node text; NB: this will strip any child elements, eg. HTML tags
               $nodeValue = self::normalizeNodeValue($domNode2);
