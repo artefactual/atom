@@ -322,7 +322,7 @@ information_object:
     bioghist:
       XPath:  "(bioghist | descgrp/bioghist)"
       Method: importBioghistEadData
-      Parameters: ["$domNode2"]
+      Parameters: ["$domNode2", "$key"]
 
     # this will overwrite any values entered for <abstract>
     scopeandcontent:

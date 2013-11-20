@@ -1524,7 +1524,7 @@ class QubitInformationObject extends BaseInformationObject
    *
    * @param $biogHistNode  DOMNode  EAD bioghist DOM node
    */
-  public function importBioghistEadData($biogHistNode)
+  public function importBioghistEadData($biogHistNode, $key)
   {
     // get chronlist element in bioghist element
     $chronlistNodeList = $biogHistNode->getElementsByTagName('chronlist');
@@ -1630,6 +1630,42 @@ class QubitInformationObject extends BaseInformationObject
 
           $this->setActorByName($name, $eventSpec);
         }
+      }
+    }
+
+    // If there isn't a chronlist node, add the bioghist to creators (by order)
+    else
+    {
+      // Obtain creators (we can't use criteria because they're not saved yet)
+      $creators = array();
+      foreach ($this->events as $existingEvent)
+      {
+        if ($existingEvent->typeId == QubitTerm::CREATION_ID && isset($existingEvent->actor))
+        {
+          $creators[] = $existingEvent->actor;
+        }
+      }
+
+      // Add bioghist if there is a creator in the position and it doesn't have history
+      if (isset($creators[$key]) && !isset($creators[$key]->history))
+      {
+        $creators[$key]->history = QubitXmlImport::normalizeNodeValue($biogHistNode);
+        $creators[$key]->save();
+      }
+      else
+      {
+        // Otherwise create new 'Untitled' actor
+        $actor = new QubitActor;
+        $actor->parentId = QubitActor::ROOT_ID;
+        $actor->setHistory(QubitXmlImport::normalizeNodeValue($biogHistNode));
+        $actor->save();
+
+        // And add it to a new creation event for the resource
+        $event = new QubitEvent;
+        $event->setActorId($actor->id);
+        $event->setTypeId(QubitTerm::CREATION_ID);
+
+        $this->events[] = $event;
       }
     }
   }
