@@ -15,12 +15,12 @@ angular.module('momaApp')
                 { id: 34, title: 'Digital Betacam', level: 'Component' },
                 { id: 35, title: 'Digital Betacam', level: 'Component' },
                 { id: 36, title: 'Digital Betacam', level: 'Component' },
-                { id: 37, title: '.mov Uncompressed 10bit PAL', level: 'Component' },
-                { id: 38, title: '.mov Uncompressed 10bit PAL', level: 'Component' },
-                { id: 39, title: '.mov Uncompressed 10bit PAL', level: 'Component' },
-                { id: 40, title: '.mov H264', level: 'Component' },
-                { id: 41, title: '.mov H264', level: 'Component' },
-                { id: 42, title: '.mov H264', level: 'Component' }
+                { id: 37, title: '.mov Uncompressed 10bit PAL', level: 'DigitalObject' },
+                { id: 38, title: '.mov Uncompressed 10bit PAL', level: 'DigitalObject' },
+                { id: 39, title: '.mov Uncompressed 10bit PAL', level: 'DigitalObject' },
+                { id: 40, title: '.mov H264', level: 'DigitalObject' },
+                { id: 41, title: '.mov H264', level: 'DigitalObject' },
+                { id: 42, title: '.mov H264', level: 'DigitalObject' }
               ]
         },
         { id: 11, title: 'Installation Documentation', level: 'Expression' }
