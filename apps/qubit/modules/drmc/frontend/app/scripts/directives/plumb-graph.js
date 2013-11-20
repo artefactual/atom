@@ -11,18 +11,21 @@ angular.module('momaApp.directives', ['jsPlumb'])
       link: function(scope, element, attrs) {
         jsPlumbService.jsPlumb().then(function(jsPlumb) {
 
-          scope.plumb = new Plumb(element, {});
+          scope.plumb = new Plumb(element, scope);
           scope.plumb.initialize();
 
-          scope.$watch('collection', function() {
+          scope.$watch('collection', function(newValue, oldValue) {
+
+            console.log("WATCHED collection", newValue, oldValue);
+
             if (!scope.plumb)
             {
               return;
             }
 
-            scope.plumb.redraw({
-              collection: scope.collection,
-              relations: scope.relations});
+            console.log(newValue, oldValue);
+            scope.plumb.draw();
+
           });
 
         });

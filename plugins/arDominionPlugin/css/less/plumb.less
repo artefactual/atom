@@ -66,25 +66,20 @@
 .plumb-div {
   background-color: #e0e0e0;
   background: url('../../../../apps/qubit/modules/drmc/frontend/assets/tiny_grid/tiny_grid.png');
-  max-height: 400px;
-  overflow: auto;
 }
 
 .plumb-graph {
   position: relative;
   overflow: auto;
+  margin-left: 150px;
   .node {
     color: @momaBlueDark;
     overflow-y: auto;
-    width: 120px;
-    height: 40px;
     padding: 4px;
-    margin-left: 15%; //this moves everything over a lot! fix later!
-    line-height: 1.2em;
     text-align: center;
-    white-space: pre-wrap;
-    word-break: break-word;
-    -webkit-hyphens: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     hyphens: auto;
     display: block;
     border-radius: 4px;

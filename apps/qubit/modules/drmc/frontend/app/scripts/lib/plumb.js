@@ -1,10 +1,11 @@
 'use strict';
 
-function Plumb(element, configuration)
+function Plumb(element, scope)
 {
-  this.element = element;
-
   var self = this;
+
+  this.element = element;
+  this.scope = scope;
 
   this.levels = [
     { name: 'Work' },
@@ -12,6 +13,11 @@ function Plumb(element, configuration)
     { name: 'Manifestation' },
     { name: 'Component' }
   ];
+
+  this.defaultBoxSize = {
+    width: 120,
+    height: 24
+  };
 
   this.jsPlumbConfiguration = {
     defaults: {
@@ -43,25 +49,23 @@ function Plumb(element, configuration)
     }
   };
 
-  this.initialize = function()
+  this.initialize = function(scope)
   {
     // Initialization
     console.log('plumb', 'Initializing...');
-    this.configure(configuration);
-    this.listen();
-  };
-
-  this.configure = function(configuration)
-  {
-    console.log('plumb', 'Configuring...');
-
-    this.config = configuration;
 
     // Create an instance of jsPlumb
     this.plumb = jsPlumb.getInstance();
 
     // Change jsPlumb.Defaults
     this.plumb.importDefaults(this.jsPlumbConfiguration.defaults);
+
+    // Configure DOM listeners
+    this.listen();
+
+    // Build the directed graph using graphlib
+    this.digraph = new dagre.Digraph();
+    this.loadDataIntoDigraph();
   };
 
   this.listen = function()
@@ -74,110 +78,138 @@ function Plumb(element, configuration)
       .on('click', '.add_child', jQuery.proxy(this.addChildNode, this));
   };
 
-  this.redraw = function(data)
+  this.draw = function()
   {
-    console.log('plumb', 'Redrawing...');
+    console.log('plumb', 'Drawing context browser');
 
-    if (data !== undefined)
-    {
-      this.data = data;
-    }
+    // Use dagre to build the layout by passing the digraph
+    var layout = dagre.layout().nodeSep(-70).rankSep(140).rankDir("TB").run(this.digraph);
 
-    // Create a new directed graph
-    this.dagreDigraph = new dagre.Digraph();
+    this.element.children().remove();
 
-    this.createNodes();
-    this.createRelations();
-
-    var layout = dagre.layout()
-                  .nodeSep(-40)
-                  .rankSep(140)
-                  .rankDir("TB")
-                  .run(this.dagreDigraph);
-
+    // Update size of the container
     this.element.css({
-      'height': layout.graph().height
+      'height': layout.graph().height + 140
     })
 
-    layout.eachNode(function(u, value) {
-      var node = document.getElementById('node-' + u);
-      node.style.position = "absolute";
-      node.style.top = value.x + "px";
-      node.style.left = value.y + "px";
+    layout.eachNode(function(id, dagreLayout) {
+      var node = self.digraph.node(id);
+      node.domEl = self.renderNode(id, node, dagreLayout);
+    });
+
+    layout.eachEdge(function(edgeId, sourceId, targetId, dagreLayout) {
+      var source = self.digraph.node(sourceId);
+      var target = self.digraph.node(targetId);
+      var edge = self.digraph.edge(edgeId);
+      edge.jsPlumbConnection = self.renderEdge(edgeId, source.domEl, target.domEl, edge.relationType, dagreLayout);
     });
 
     this.plumb.repaintEverything();
 
-    this.activateDefaultNode();
-  };
-
-  this.createNodes = function()
-  {
-    for (var i = 0; i < this.data.collection.length; i++)
+    if (this.firstRender === undefined)
     {
-      this.createNode(this.data.collection[i], true);
+      this.activateDefaultNode();
+      this.firstRender = false;
     }
   };
 
-  this.createNode = function(data, root)
+  /*
+   * @return {DOMElement}
+   */
+  this.renderNode = function(id, data, dagreLayout)
   {
-    // Create the DOM element
-    var node = document.createElement('span');
-    node.className = 'node node-level-' + data.level;
-    node.id = 'node-' + data.id;
-    node.setAttribute('data-id', data.id);
+    var el = document.createElement('span');
+    el.className = 'node node-level-' + data.level;
+    el.id = 'node-' + id;
+    el.setAttribute('data-id', id);
+    el.innerHTML = data.title;
+    el.style.position = "absolute";
+    el.style.top = dagreLayout.x + 'px';
+    el.style.left = dagreLayout.y + 'px';
+    el.style.width = this.defaultBoxSize.width + 'px';
+    el.style.height = this.defaultBoxSize.height + 'px';
+    el.style.lineHeight = this.defaultBoxSize.height + 'px';
+    self.element[0].appendChild(el);
 
-    // Add title
-    node.innerHTML = data.title;
-    // node.innerHTML = '<span>' + data.title + '</span>';
+    return el;
+  };
 
-    // Append the node to jsPlumb
-    this.element[0].appendChild(node);
+  /*
+   * @return {jsPlumb.Connection}
+   */
+  this.renderEdge = function(id, sourceDomEl, targetDomEl, relationType, dagreLayout)
+  {
+    return self.plumb.connect({
+      source: sourceDomEl,
+      target: targetDomEl,
+    }, self.jsPlumbConfiguration.connectors[relationType]);
+  };
 
-    this.dagreDigraph.addNode(data.id, { width: 120, height: 32 });
-
-    // Iterate children (recursion)
-    if (angular.isArray(data.children))
+  this.loadDataIntoDigraph = function()
+  {
+    var addNode = function(node, isRoot)
     {
-      for (var i = 0; i < data.children.length; i++)
+      self.digraph.addNode(node.id, {
+        id: node.id,
+        width: self.defaultBoxSize.width,
+        height: self.defaultBoxSize.height,
+        level: node.level,
+        title: node.title
+      });
+
+      if (angular.isArray(node.children))
       {
-        var child = this.createNode(data.children[i]);
-
-        this.plumb.connect({
-          source: node,
-          target: child,
-        }, this.jsPlumbConfiguration.connectors.parentHood);
-
-        this.dagreDigraph.addEdge(null, node.getAttribute('data-id'), child.getAttribute('data-id'));
+        for (var i = 0; i < node.children.length; i++)
+        {
+          // Add children and partnership relation
+          var child = addNode(node.children[i], false);
+          addRelation(node.id, child.id, 'parentHood');
+        }
       }
+
+      return node;
+    };
+
+    var addRelation = function(sourceId, targetId, relationType)
+    {
+      self.digraph.addEdge(sourceId + ':' + targetId, sourceId, targetId, {
+        relationType: relationType
+      });
+    };
+
+    // Load collection
+    for (var i = 0; i < this.scope.collection.length; i++)
+    {
+      addNode(this.scope.collection[i], true);
     }
 
-    return node;
-  };
-
-  this.createRelations = function()
-  {
-    if (this.data.relations === undefined)
+    // Load relations
+    if (this.scope.relations !== undefined)
     {
-      return;
-    }
-
-    for (var i = 0; i < this.data.relations.length; i++)
-    {
-      var relation = this.data.relations[i];
-
-      this.plumb.connect({
-        source: document.getElementById('node-' + relation.source),
-        target: document.getElementById('node-' + relation.target),
-      }, this.jsPlumbConfiguration.connectors.derivativeOf);
-
-      // this.dagreDigraph.addEdge(null, relation.source, relation.target);
+      for (var i = 0; i < this.scope.relations.length; i++)
+      {
+        addRelation(
+          this.scope.relations[i].source,
+          this.scope.relations[i].target,
+          'derivativeOf');
+      }
     }
   };
 
   this.getNodes = function(relations)
   {
     return jQuery(this.element).find('.node');
+  };
+
+  this.getActiveNode = function()
+  {
+    var activeNode = this.element.find('.node.active');
+    if (!activeNode.length)
+    {
+      return;
+    }
+
+    return this.digraph.node(activeNode.data('id'));
   };
 
   this.click = function(event)
@@ -188,21 +220,25 @@ function Plumb(element, configuration)
     {
       this.activateNode(target);
     }
-  }
+  };
 
   this.activateNode = function(node)
   {
     var id = node.data('id');
     var aside = jQuery('#aside-id-' + id);
 
-    if (node.hasClass('active') || !aside.length)
+    if (node.hasClass('active'))
     {
       return;
     }
 
     this.deactivateAllNodes();
     node.addClass('active');
-    aside.show();
+
+    if (aside.length)
+    {
+      aside.show();
+    }
   };
 
   this.activateDefaultNode = function()
@@ -222,13 +258,36 @@ function Plumb(element, configuration)
   {
     event.preventDefault();
 
-    this.data.collection[0].children.push({
-      id: 12345,
-      title: 'Foobar',
-      level: 'Expression'
+    var makeId = function makeId(length)
+    {
+      var text = "";
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+      for (var i = 0; i < length; i++)
+      {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      }
+
+      return text;
+    }
+
+    var activeNodeData = this.getActiveNode();
+
+    // Add node and edge to digraph
+    var newId = makeId(8);
+    var newChildNodeId = this.digraph.addNode(newId, {
+      id: newId,
+      width: self.defaultBoxSize.width,
+      height: self.defaultBoxSize.height,
+      level: 'Expression',
+      title: "foobar"
+    });
+    this.digraph.addEdge(activeNodeData.id + ':' + newChildNodeId, activeNodeData.id, newChildNodeId, {
+      relationType: 'parentHood'
     });
 
-    this.redraw();
+    // Redraw!
+    this.draw();
   };
 
   this.toggleFullscreen = function(event)
