@@ -5,23 +5,22 @@ angular.module('momaApp', [
 ])
   .config(function($routeProvider) {
     $routeProvider
-      .when('/', {
-        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/home.html',
-        controller: 'HomeCtrl'
-      })
-      .when('/artworkrecord', {
-        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/artworkrecord.html',
-        controller: 'ArtworkRecordCtrl'
-      })
       .when('/dashboard', {
         templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/dashboard.html',
-        controller: 'DashboardCtrl'
+        controller: 'DashboardCtrl',
+        activeTab: 'dashboard'
       })
-      .when('/technologyrecord', {
+      .when('/artwork-record', {
+        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/artworkrecord.html',
+        controller: 'ArtworkRecordCtrl',
+        activeTab: 'artwork-record'
+      })
+      .when('/technology-record', {
         templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/technologyrecord.html',
-        controller: 'TechnologyRecordCtrl'
+        controller: 'TechnologyRecordCtrl',
+        activeTab: 'technology-record'
       })
-    .otherwise({ redirectTo: '/' });
+    .otherwise({ redirectTo: '/dashboard' });
   })
 
   .config(function ($locationProvider) {

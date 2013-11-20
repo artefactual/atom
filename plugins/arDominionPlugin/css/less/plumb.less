@@ -27,10 +27,6 @@
 // Global values
 // --------------------------------------------------
 
-.plumb-div {
-  background-color: #eee;
-}
-
 #cbrowser-legend {
   width: 200px;
   z-index: 40;
@@ -67,13 +63,16 @@
   }
 }
 
-
-.plumb-graph {
-  overflow: auto;
-  position: relative;
-  height: 400px;
+.plumb-div {
   background-color: #e0e0e0;
   background: url('../../../../apps/qubit/modules/drmc/frontend/assets/tiny_grid/tiny_grid.png');
+  max-height: 400px;
+  overflow: auto;
+}
+
+.plumb-graph {
+  position: relative;
+  overflow: auto;
   .node {
     color: @momaBlueDark;
     overflow-y: auto;

@@ -62,9 +62,6 @@ function Plumb(element, configuration)
 
     // Change jsPlumb.Defaults
     this.plumb.importDefaults(this.jsPlumbConfiguration.defaults);
-
-    // Create a new directed graph
-    this.dagreDigraph = new dagre.Digraph();
   };
 
   this.listen = function()
@@ -73,22 +70,34 @@ function Plumb(element, configuration)
       .on('click', jQuery.proxy(this.click, this));
 
     jQuery(this.element).closest('.plumb-div').prev()
-      .on('click', '.fullscreen', jQuery.proxy(this.toggleFullscreen, this));
+      .on('click', '.fullscreen', jQuery.proxy(this.toggleFullscreen, this))
+      .on('click', '.add_child', jQuery.proxy(this.addChildNode, this));
   };
 
   this.redraw = function(data)
   {
     console.log('plumb', 'Redrawing...');
 
-    this.createNodes(data.collection);
+    if (data !== undefined)
+    {
+      this.data = data;
+    }
 
-    this.createRelations(data.relations);
+    // Create a new directed graph
+    this.dagreDigraph = new dagre.Digraph();
+
+    this.createNodes();
+    this.createRelations();
 
     var layout = dagre.layout()
                   .nodeSep(-40)
                   .rankSep(140)
                   .rankDir("TB")
                   .run(this.dagreDigraph);
+
+    this.element.css({
+      'height': layout.graph().height
+    })
 
     layout.eachNode(function(u, value) {
       var node = document.getElementById('node-' + u);
@@ -102,11 +111,11 @@ function Plumb(element, configuration)
     this.activateDefaultNode();
   };
 
-  this.createNodes = function(data)
+  this.createNodes = function()
   {
-    for (var i = 0; i < data.length; i++)
+    for (var i = 0; i < this.data.collection.length; i++)
     {
-      this.createNode(data[i], true);
+      this.createNode(this.data.collection[i], true);
     }
   };
 
@@ -146,11 +155,16 @@ function Plumb(element, configuration)
     return node;
   };
 
-  this.createRelations = function(relations)
+  this.createRelations = function()
   {
-    for (var i = 0; i < relations.length; i++)
+    if (this.data.relations === undefined)
     {
-      var relation = relations[i];
+      return;
+    }
+
+    for (var i = 0; i < this.data.relations.length; i++)
+    {
+      var relation = this.data.relations[i];
 
       this.plumb.connect({
         source: document.getElementById('node-' + relation.source),
@@ -204,8 +218,23 @@ function Plumb(element, configuration)
     jQuery('.context-browser-doc').hide();
   };
 
+  this.addChildNode = function(event)
+  {
+    event.preventDefault();
+
+    this.data.collection[0].children.push({
+      id: 12345,
+      title: 'Foobar',
+      level: 'Expression'
+    });
+
+    this.redraw();
+  };
+
   this.toggleFullscreen = function(event)
   {
+    event.preventDefault();
+
     var el = document.documentElement;
     var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen;
 
