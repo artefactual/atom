@@ -7,9 +7,12 @@ jQuery(document).ready(function(){
      jQuery.each(obj.dash,function(key,value) {
 
         //dropdown lists
-        jQuery("#select-AIP-new").append('<li><a href=\"#\">AIP# ' + value.id + ' - ' + value.registered + '</a></li>');
+        jQuery("#select-AIP-new").append('<li><a href=\"#\">AIP# ' + value.id + ' - ' + value.name + '</a></li>');
 
-        jQuery("#select-AIP-awaiting").append('<li><a href=\"#\">AIP# ' + value.id + ' - ' + value.name + value.gender + ' - ' + value.balance + '</a></li>');
+        jQuery("#select-AIP-awaiting")
+            .append('<li><a href=\"#/artwork-record\">AIP# ' + value.id + ' - ' + value.name + ' - ' + value.status + '</a></li>')
+            .attr('href', '#/artworkrecord')
+            .click(function(){return true;});
          });
 
   });
