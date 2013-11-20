@@ -316,4 +316,6 @@ function Plumb(element, scope)
       // TODO redraw
     }
   };
-}
+
+  }
+
