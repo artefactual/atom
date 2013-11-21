@@ -32,7 +32,6 @@ class DRMCIndexAction extends sfAction
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/controllers/artworkrecord.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/controllers/technologyrecord.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/controllers/dashboard.js', 'last');
-    $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/lib/dashboard-scripts.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/lib/moma-d3Graphs.js', 'last');
   }
 }

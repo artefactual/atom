@@ -1,3 +1,5 @@
+<h1 id="dash-h1">Welcome to MoMA's DRMC-MA!</h1>
+<h5 id="dash-h5">Recent additions</h5>
 <div id="artwork-record-header"><a ng-href="#/artwork-record" >
   <img ng-src="{{ atomGlobals.relativeUrlRoot }}/apps/qubit/modules/drmc/frontend/assets/moma-top-img.png" /></a>
 </div>
@@ -129,11 +131,10 @@
                   <ul class="dropdown-menu">
                     <li>
                       <a href="#" onclick="return false">
-                        New
+                        New AIPS
                       </a>
-                      <ul id="select-AIP-new" class="dropdown-menu sub-menu">
-                        <li>
-                          <!-- from JSON -->
+                      <ul ng-model="selectAips" id="select-AIP-new" class="dropdown-menu sub-menu">
+                        <li ng-repeat="selectAipNew in selectAips"><a href="#/artwork-record">{{selectAipNew.name}}&nbsp-&nbsp{{selectAipNew.statusYes}}</a>
                         </li>
                       </ul>
                     </li>
@@ -141,9 +142,8 @@
                       <a href="#">
                         Awaiting Classification
                       </a>
-                      <ul id="select-AIP-awaiting" class="dropdown-menu sub-menu">
-                        <li>
-                         <!-- from JSON -->
+                      <ul ng-model="selectAipsg" id="select-AIP-awaiting" class="dropdown-menu sub-menu">
+                        <li ng-repeat="selectAipAwaiting in selectAips"><a href="#/artwork-record">{{selectAipAwaiting.name}}&nbsp-&nbsp{{selectAipAwaiting.statusNo}}</a>
                         </li>
                       </ul>
                     </li>

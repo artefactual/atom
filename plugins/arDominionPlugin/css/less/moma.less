@@ -3,6 +3,7 @@ body {
   position: relative!important;
 }
 
+
 .content {
   //Imports all styles from #content
   margin-bottom: 1em;
@@ -56,6 +57,8 @@ section#moma-metabox-1 {
     display: block;
     vertical-align: center;
     width: 100%;
+    border: 2px solid @black;
+    border-radius: 5px;
     height: auto;
     min-height: 300px;
     }
@@ -305,9 +308,9 @@ section.section-supTech, section.dig-obj-bro {
           margin: 0px;
         }
       }
-    &:nth-child(2n+1) {
-      padding: 4px;
+    &:first-child {
       font-family: 'Open Sans Semibold';
+      margin-left: -6px;
     }
     } //li
   }
