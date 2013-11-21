@@ -34,7 +34,7 @@ function Plumb(element, scope)
         endpoint: 'Blank',
       },
       derivativeOf: {
-        connector: [ 'Bezier', { curviness: 50 }],
+        connector: [ 'Straight', { curviness: 50 }],
         anchors: ['Right', 'Right'],
         paintStyle: {
           lineWidth: 2,
@@ -90,7 +90,7 @@ function Plumb(element, scope)
     // Update size of the container
     this.element.css({
       'height': layout.graph().height + 140
-    })
+    });
 
     layout.eachNode(function(id, dagreLayout) {
       var node = self.digraph.node(id);
@@ -273,6 +273,8 @@ function Plumb(element, scope)
 
     var activeNodeData = this.getActiveNode();
 
+    var n = prompt("Insert name");
+
     // Add node and edge to digraph
     var newId = makeId(8);
     var newChildNodeId = this.digraph.addNode(newId, {
@@ -280,7 +282,7 @@ function Plumb(element, scope)
       width: self.defaultBoxSize.width,
       height: self.defaultBoxSize.height,
       level: 'Expression',
-      title: "foobar"
+      title: n
     });
     this.digraph.addEdge(activeNodeData.id + ':' + newChildNodeId, activeNodeData.id, newChildNodeId, {
       relationType: 'parentHood'
