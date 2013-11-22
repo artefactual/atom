@@ -4,219 +4,198 @@
   <img ng-src="{{ atomGlobals.relativeUrlRoot }}/apps/qubit/modules/drmc/frontend/assets/moma-top-img.png" /></a>
 </div>
 
-<!-- 2 column main-content -->
 <div id="Dashboard" class="row-fluid">
 
   <div class="span3">
-
     <div id="dash-sidebar">
 
       <section class="list-menu dash-col-stats">
-
         <h4>Collection Stats</h4>
-
-          <ul>
-            <li><span>256</span>Works in the DRMC-MA</li>
-            <li><span>589</span>Expressions</li>
-            <li><span>1003</span>Manifestations</li>
-            <li><span>1467</span>Components</li>
-          </ul>
-
+        <ul>
+          <li><span>256</span>Works in the DRMC-MA</li>
+          <li><span>589</span>Expressions</li>
+          <li><span>1003</span>Manifestations</li>
+          <li><span>1467</span>Components</li>
+        </ul>
       </section>
 
       <section class="list-menu dash-col-updates">
-
         <h4>Recent Updates</h4>
-
-          <ul>
-            <li>
-              <div class="dash-col-updates-icon"></div>
-              <a href="#" class="dash-update" onclick="return false;">Tetris - 1988 NES Release - 24x723rbwsdd7</a>
-            </li>
-            <li>
-              <div class="dash-col-updates-icon"></div>
-              <a href="#" class="dash-update" onclick="return false;">Tetris - 1984 IBM Edition - Compiled source code</a>
-            </li>
-            <li>
-              <div class="dash-col-updates-icon"></div>
-              <a href="#" class="dash-update" onclick="return false;">Adventure! - 1990 (video game)</a>
-            </li>
-            <li>
-              <div class="dash-col-updates-icon"></div>
-              <a href="#" class="dash-update" onclick="return false;">Ms. Pac Man - 1982 Midway Arcade</a>
-            </li>
-          </ul>
-          <div class="btn btn-mini">
-            View All
-          </div>
-
+        <ul>
+          <li>
+            <div class="dash-col-updates-icon"></div>
+            <a href="#" class="dash-update" onclick="return false;">Tetris - 1988 NES Release - 24x723rbwsdd7</a>
+          </li>
+          <li>
+            <div class="dash-col-updates-icon"></div>
+            <a href="#" class="dash-update" onclick="return false;">Tetris - 1984 IBM Edition - Compiled source code</a>
+          </li>
+          <li>
+            <div class="dash-col-updates-icon"></div>
+            <a href="#" class="dash-update" onclick="return false;">Adventure! - 1990 (video game)</a>
+          </li>
+          <li>
+            <div class="dash-col-updates-icon"></div>
+            <a href="#" class="dash-update" onclick="return false;">Ms. Pac Man - 1982 Midway Arcade</a>
+          </li>
+        </ul>
+        <div class="btn btn-mini">
+          View All
+        </div>
       </section>
 
       <section class="list-menu dash-col-works">
-
         <h4>Works by Type</h4>
-
-          <ul>
-            <li>
-              <img ng-src="{{ atomGlobals.relativeUrlRoot }}/apps/qubit/modules/drmc/frontend/assets/pie-chart2.png" />
-            </li>
-
-          </ul>
-
+        <ul>
+          <li>
+            <img ng-src="{{ atomGlobals.relativeUrlRoot }}/apps/qubit/modules/drmc/frontend/assets/pie-chart2.png" />
+          </li>
+        </ul>
       </section>
 
-
     </div><!--dash-sidebar -->
-  </div><!-- /span2 -->
+  </div><!-- /span3 -->
 
   <div class="span9">
 
     <div id="main-column" class="row-fluid">
 
-        <section id="">
-        </section><!-- MetaBox1 metadataarea -->
-
       <div id="content">
 
         <section id="fix-check" class="row-fluid">
-            <h2>Fixity Checks</h2>
-              <ul class="well inline">
-                <li id="fc-sta" class="pull-left moma-btn-success">
-                  Status
-                  <div></div>
-                </li>
-                <li id="fc-inp" class="pull-left">
-                  <form class="controls-row">
-                    <input type="text" value="20" class="span2">
-                      <!-- <span class="help-block">Checks in 24h</span> -->
-                    <input type="text" value="3 weeks 1 day 4 hours" class="span4">
-                      <!-- <span class="help-block">Time to check collection</span> -->
-                    <input type="text" value="Tetris-1998-NES-4f439-oe23" class="span6">
-                      <!-- <span class="help-block">Currently checking</span> -->
-                  </form>
 
-                </li>
-                <li id="fc-sum">
-                  <a href="#" onclick="return false">Summary
-                  <div></div>
-                </a>
-                </li>
-                <li id="fc-fr">
-                  <a href="#" onclick="return false">Full report
-                  <div></div>
-                </a>
-                </li>
-                <li id="fc-set">
-                  <a href="#" onclick="return false">Settings
-                  <div></div>
-                </a>
-                </li>
+          <h2>Fixity Checks</h2>
 
-              </ul>
+          <ul class="well inline">
+            <li id="fc-sta" class="pull-left moma-btn-success">
+              Status
+              <div></div>
+            </li>
+            <li id="fc-inp" class="pull-left">
+              <form class="controls-row">
+                <input type="text" value="20" class="span2">
+                <!-- <span class="help-block">Checks in 24h</span> -->
+                <input type="text" value="3 weeks 1 day 4 hours" class="span4">
+                <!-- <span class="help-block">Time to check collection</span> -->
+                <input type="text" value="Tetris-1998-NES-4f439-oe23" class="span6">
+                <!-- <span class="help-block">Currently checking</span> -->
+              </form>
+            </li>
+            <li id="fc-sum">
+              <a href="#" onclick="return false">Summary<div></div></a>
+            </li>
+            <li id="fc-fr">
+              <a href="#" onclick="return false">Full report<div></div></a>
+            </li>
+            <li id="fc-set">
+              <a href="#" onclick="return false">Settings<div></div></a>
+            </li>
+          </ul>
 
-        </section><!-- metaBox2 metadataarea -->
-
-        <section id="new-AIP">
-          <h2>New AIPs</h2>
-            <div class="well inline">
-
-              <ul class="nav">
-
-                <li class="dropdown">
-                  <a href="#" onclick="return false" data-toggle="dropdown" class="btn btn-info dropdown-toggle">
-                    SELECT AIP
-                    <b class="caret">
-                    </b>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a href="#" onclick="return false">
-                        New AIPS
-                      </a>
-                      <ul ng-model="selectAips" id="select-AIP-new" class="dropdown-menu sub-menu">
-                        <li ng-repeat="selectAipNew in selectAips"><a href="#/artwork-record">{{ selectAipNew.name }}&nbsp;{{ selectAipNew.statusYes }}</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="#">
-                        Awaiting Classification
-                      </a>
-                      <ul ng-model="selectAips" id="select-AIP-awaiting" class="dropdown-menu sub-menu">
-                        <li ng-repeat="selectAipAwaiting in selectAips"><a href="#/artwork-record">{{ selectAipAwaiting.name }}&nbsp:{{ selectAipAwaiting.statusNo }}</a>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-
-              </ul>
-
-
-
-              <ul class="inline new-AIP-views">
-                  <li>
-                     <a href="#" onclick="return false">
-                      <span class="help-block">New</span>
-                      <button class="">44</button>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" onclick="return false">
-                      <span class="help-block">Awaiting</span>
-                      <button class="">3</button>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" onclick="return false">
-                      <span class="help-block">View All</span>
-                      <button class="">47</button>
-                    </a>
-                  </li>
-
-              </ul>
-            </div><!-- well inline -->
         </section>
 
-         <section id="AIP-ov">
-            <div class="menu-list row-fluid" >
-              <h2 class="menu-list-left">AIP Overview</h2>
-              <ul class="menu-list-right">
-                <li class="view-AIP-reports">
-                  <a href="#" onclick="return false">View AIP Reports</a>
+        <section id="new-AIP">
+
+          <h2>New AIPs</h2>
+
+          <div class="well inline">
+
+            <ul class="nav">
+              <li class="dropdown">
+                <a href="#" onclick="return false" data-toggle="dropdown" class="btn btn-info dropdown-toggle">
+                  SELECT AIP
+                  <b class="caret">
+                  </b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="#" onclick="return false">
+                      New AIPS
+                    </a>
+                    <ul ng-model="selectAips" id="select-AIP-new" class="dropdown-menu sub-menu">
+                      <li ng-repeat="selectAipNew in selectAips"><a href="#/artwork-record">{{ selectAipNew.name }}&nbsp;{{ selectAipNew.statusYes }}</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">
+                      Awaiting Classification
+                    </a>
+                    <ul ng-model="selectAips" id="select-AIP-awaiting" class="dropdown-menu sub-menu">
+                      <li ng-repeat="selectAipAwaiting in selectAips"><a href="#/artwork-record">{{ selectAipAwaiting.name }}&nbsp:{{ selectAipAwaiting.statusNo }}</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <ul class="inline new-AIP-views">
+              <li>
+                 <a href="#" onclick="return false">
+                  <span class="help-block">New</span>
+                  <button class="">44</button>
+                </a>
+              </li>
+              <li>
+                <a href="#" onclick="return false">
+                  <span class="help-block">Awaiting</span>
+                  <button class="">3</button>
+                </a>
+              </li>
+              <li>
+                <a href="#" onclick="return false">
+                  <span class="help-block">View All</span>
+                  <button class="">47</button>
+                </a>
+              </li>
+            </ul>
+
+          </div><!-- well inline -->
+
+        </section>
+
+        <section id="AIP-ov">
+
+          <div class="menu-list row-fluid" >
+            <h2 class="menu-list-left">AIP Overview</h2>
+            <ul class="menu-list-right">
+              <li class="view-AIP-reports">
+                <a href="#" onclick="return false">View AIP Reports</a>
+              </li>
+            </ul>
+          </div>
+
+          <aside class="row-fluid">
+            <div id="AIP-ov-stat" class="well span3">
+              <ul>
+                <li>
+                  <span>Total AIP storage size</span>
+                  <input type="text" value="125.4 TB"></input>
+                </li>
+                <li>
+                  <span>Total no. of AIPs</span>
+                  <input type="text" value="3462"></input>
                 </li>
               </ul>
             </div>
+            <div id="AIP-ov-MIME" class="span4">
+              <h4>AIP Objects by MIME Type</h4>
+              <div id="AIP-mime-type">got graph?</div>
+              <!-- <img ng-src="{{ atomGlobals.relativeUrlRoot }}/apps/qubit/modules/drmc/frontend/assets/green-pie.png" /> -->
+            </div>
+            <div id="AIP-ov-cla" class="span5">
+              <h4>Classified AIPs</h4>
+              <img ng-src="{{ atomGlobals.relativeUrlRoot }}/apps/qubit/modules/drmc/frontend/assets/purple-graph.png" />
+            </div>
+          </aside>
 
-            <aside class="row-fluid">
-              <div id="AIP-ov-stat" class="well span3">
-                <ul>
-                  <li>
-                    <span>Total AIP storage size</span>
-                    <input type="text" value="125.4 TB"></input>
-                  </li>
-                  <li>
-                    <span>Total no. of AIPs</span>
-                    <input type="text" value="3462"></input>
-                  </li>
-                </ul>
-              </div>
-              <div id="AIP-ov-MIME" class="span4">
-                <h4>AIP Objects by MIME Type</h4>
-                <div id="AIP-mime-type">
-                  got graph?</div>
-                <!-- <img ng-src="{{ atomGlobals.relativeUrlRoot }}/apps/qubit/modules/drmc/frontend/assets/green-pie.png" /> -->
-              </div>
-              <div id="AIP-ov-cla" class="span5">
-                <h4>Classified AIPs</h4>
-                <img ng-src="{{ atomGlobals.relativeUrlRoot }}/apps/qubit/modules/drmc/frontend/assets/purple-graph.png" />
-              </div>
-            </aside>
         </section>
 
+      </div><!-- /#content -->
 
-      </div><!-- #content -->
-    </div><!-- div.span9 -->
-  </div><!-- main-column -->
+    </div><!-- /.span9 -->
 
-</div><!-- haMainPage -->
+  </div><!-- /#main-column -->
+
+</div>
