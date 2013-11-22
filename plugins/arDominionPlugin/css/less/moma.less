@@ -337,25 +337,37 @@ section.section-supTech, section.dig-obj-bro {
 // Special scroll for MOMA
 
 ::-webkit-scrollbar {
-  width: 10px;
   background-color: rgba(0, 0, 0, 0);
-  -webkit-border-radius: 100px;
 }
 
 ::-webkit-scrollbar:hover {
-  background-color: rgba(0, 0, 0, 0.09);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
+::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
 
-::-webkit-scrollbar-thumb:vertical {
-  background: rgba(0, 0, 0, 0.5);
+::-webkit-scrollbar:vertical {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
   -webkit-border-radius: 100px;
   background-clip: padding-box;
   border: 2px solid rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  min-width: 10px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
   min-height: 10px;
 }
 
-::-webkit-scrollbar-thumb:vertical:active {
-  background: rgba(0, 0, 0, 0.61);
+::-webkit-scrollbar-thumb:active {
+  background: rgba(0, 0, 0, 0.6);
   -webkit-border-radius: 100px;
 }

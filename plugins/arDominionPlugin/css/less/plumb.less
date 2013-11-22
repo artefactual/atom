@@ -15,23 +15,22 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- *
- */
-
 //
 // jsPlumb Styles
 // --------------------------------------------------
 
+.plumb-container {
+  background-color: #e0e0e0;
+  background: url('../../../../apps/qubit/modules/drmc/frontend/assets/tiny_grid/tiny_grid.png');
+  position: relative;
+  max-height: 400px;
+  overflow: auto;
+}
 
-// Global values
-// --------------------------------------------------
-
-#cbrowser-legend {
-  width: 200px;
+.plumb-legend {
+  float: left;
   z-index: 40;
   display: block;
-  margin-bottom: -200px;
   padding: 10px;
   li {
     margin-top: -3px;
@@ -62,19 +61,8 @@
   }
 }
 
-.plumb-div {
-  background-color: #e0e0e0;
-  background: url('../../../../apps/qubit/modules/drmc/frontend/assets/tiny_grid/tiny_grid.png');
-  max-height: 550px;
-  overflow: auto;
-  width: 100%;
-  position: relative;
-}
-
 .plumb-graph {
   position: relative;
-  overflow: auto;
-  margin-left: 150px;
   .node {
     color: @momaBlueDark;
     overflow-y: auto;

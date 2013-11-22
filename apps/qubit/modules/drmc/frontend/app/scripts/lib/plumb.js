@@ -5,6 +5,7 @@ function Plumb(element, scope)
   var self = this;
 
   this.element = element;
+
   this.scope = scope;
 
   this.levels = [
@@ -20,11 +21,17 @@ function Plumb(element, scope)
   };
 
   this.jsPlumbConfiguration = {
+
+    // jsPlumb defaults
     defaults: {
       Container: this.element
     },
+
+    // Types of relations
     connectors: {
-      parentHood: {
+
+      // Hierarchical
+      hierarchical: {
         connector: 'Straight',
         anchors: ['Right', 'Left'],
         paintStyle: {
@@ -33,7 +40,9 @@ function Plumb(element, scope)
         },
         endpoint: 'Blank',
       },
-      derivativeOf: {
+
+      // Associative
+      associative: {
         connector: [ 'Straight', { curviness: 50 }],
         anchors: ['Right', 'Right'],
         paintStyle: {
@@ -46,6 +55,7 @@ function Plumb(element, scope)
         overlays: [['PlainArrow', { location: 1, width: 15, length: 12}]],
         label: 'is derivative of',
       }
+
     }
   };
 
@@ -73,7 +83,7 @@ function Plumb(element, scope)
     this.element
       .on('click', jQuery.proxy(this.click, this));
 
-    jQuery(this.element).closest('.plumb-div').prev()
+    this.element.closest('.plumb-container').prev()
       .on('click', '.fullscreen', jQuery.proxy(this.toggleFullscreen, this))
       .on('click', '.add_child', jQuery.proxy(this.addChildNode, this));
   };
@@ -83,14 +93,15 @@ function Plumb(element, scope)
     console.log('plumb', 'Drawing context browser');
 
     // Use dagre to build the layout by passing the digraph
-    var layout = dagre.layout().nodeSep(-70).rankSep(140).rankDir("TB").run(this.digraph);
-
-    this.element.children().remove();
+    var layout = dagre.layout().nodeSep(30).rankSep(80).rankDir("LR").run(this.digraph);
 
     // Update size of the container
     this.element.css({
-      'height': layout.graph().height + 140
+      'width': layout.graph().width,
+      'height': layout.graph().height + 60
     });
+
+    this.element.children().remove();
 
     layout.eachNode(function(id, dagreLayout) {
       var node = self.digraph.node(id);
@@ -114,6 +125,8 @@ function Plumb(element, scope)
   };
 
   /*
+   * renderNode draws the new node using HTML
+   *
    * @return {DOMElement}
    */
   this.renderNode = function(id, data, dagreLayout)
@@ -124,8 +137,8 @@ function Plumb(element, scope)
     el.setAttribute('data-id', id);
     el.innerHTML = data.title;
     el.style.position = "absolute";
-    el.style.top = dagreLayout.x + 'px';
-    el.style.left = dagreLayout.y + 'px';
+    el.style.top = dagreLayout.y + 'px';
+    el.style.left = dagreLayout.x + 'px';
     el.style.width = this.defaultBoxSize.width + 'px';
     el.style.height = this.defaultBoxSize.height + 'px';
     el.style.lineHeight = this.defaultBoxSize.height + 'px';
@@ -135,6 +148,8 @@ function Plumb(element, scope)
   };
 
   /*
+   * renderEdge draws the connection between nodes using jsPlumb
+   *
    * @return {jsPlumb.Connection}
    */
   this.renderEdge = function(id, sourceDomEl, targetDomEl, relationType, dagreLayout)
@@ -145,6 +160,12 @@ function Plumb(element, scope)
     }, self.jsPlumbConfiguration.connectors[relationType]);
   };
 
+  /*
+   * loadDataIntoDigraph iterates over the collection and adds the corresponding
+   * nods and edges to the digraph
+   *
+   * @return {jsPlumb.Connection}
+   */
   this.loadDataIntoDigraph = function()
   {
     var addNode = function(node, isRoot)
@@ -163,7 +184,7 @@ function Plumb(element, scope)
         {
           // Add children and partnership relation
           var child = addNode(node.children[i], false);
-          addRelation(node.id, child.id, 'parentHood');
+          addRelation(node.id, child.id, 'hierarchical');
         }
       }
 
@@ -191,14 +212,17 @@ function Plumb(element, scope)
         addRelation(
           this.scope.relations[i].source,
           this.scope.relations[i].target,
-          'derivativeOf');
+          'associative');
       }
     }
   };
 
+  /*
+   *
+   */
   this.getNodes = function(relations)
   {
-    return jQuery(this.element).find('.node');
+    return this.element.find('.node');
   };
 
   this.getActiveNode = function()
@@ -269,7 +293,7 @@ function Plumb(element, scope)
       }
 
       return text;
-    }
+    };
 
     var activeNodeData = this.getActiveNode();
 
@@ -285,7 +309,7 @@ function Plumb(element, scope)
       title: n
     });
     this.digraph.addEdge(activeNodeData.id + ':' + newChildNodeId, activeNodeData.id, newChildNodeId, {
-      relationType: 'parentHood'
+      relationType: 'hierarchical'
     });
 
     // Redraw!
