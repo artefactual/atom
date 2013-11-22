@@ -11,12 +11,12 @@ angular.module('momaApp', [
         activeTab: 'dashboard'
       })
       .when('/artwork-record', {
-        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/artworkrecord.html',
+        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/artwork-record.html',
         controller: 'ArtworkRecordCtrl',
         activeTab: 'artwork-record'
       })
       .when('/technology-record', {
-        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/technologyrecord.html',
+        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/technology-record.html',
         controller: 'TechnologyRecordCtrl',
         activeTab: 'technology-record'
       })
