@@ -134,7 +134,7 @@
                         New AIPS
                       </a>
                       <ul ng-model="selectAips" id="select-AIP-new" class="dropdown-menu sub-menu">
-                        <li ng-repeat="selectAipNew in selectAips"><a href="#/artwork-record">{{selectAipNew.name}}&nbsp-&nbsp{{selectAipNew.statusYes}}</a>
+                        <li ng-repeat="selectAipNew in selectAips"><a href="#/artwork-record">{{ selectAipNew.name }}&nbsp;{{ selectAipNew.statusYes }}</a>
                         </li>
                       </ul>
                     </li>
@@ -143,7 +143,7 @@
                         Awaiting Classification
                       </a>
                       <ul ng-model="selectAips" id="select-AIP-awaiting" class="dropdown-menu sub-menu">
-                        <li ng-repeat="selectAipAwaiting in selectAips"><a href="#/artwork-record">{{selectAipAwaiting.name}}&nbsp-&nbsp{{selectAipAwaiting.statusNo}}</a>
+                        <li ng-repeat="selectAipAwaiting in selectAips"><a href="#/artwork-record">{{ selectAipAwaiting.name }}&nbsp:{{ selectAipAwaiting.statusNo }}</a>
                         </li>
                       </ul>
                     </li>
