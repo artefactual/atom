@@ -220,7 +220,6 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     if (0 < count($this->filterBool->toArray()))
     {
       $this->query->setFilter($this->filterBool);
-      var_dump($this->filterBool);
     }
 
 

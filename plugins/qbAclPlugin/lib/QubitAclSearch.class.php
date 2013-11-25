@@ -196,20 +196,19 @@ class QubitAclSearch
 
       while ($repo = array_shift($repositoryViewDrafts))
       {
-        $filterBool->addShould(new \Elastica\Filter\Term(array('id' => (int)$repo['id'])));
+        $filter->addShould(new \Elastica\Filter\Term(array('repository.id' => (int)$repo['id'])));
         QubitAclSearch::log(sprintf("Adding repo %d\n", $repo['id']));
       }
 
-      $filterBool->addShould(new \Elastica\Filter\Term(array('publicationStatusId' => QubitTerm::PUBLICATION_STATUS_DRAFT_ID)));
-      $filterBool->addShould(new \Elastica\Filter\Term(array('publicationStatusId' => QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)));
+      $filter->addShould(new \Elastica\Filter\Term(array('publicationStatusId' => QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)));
 
       // Does this ever happen in AtoM?
       if ($globalRule['access'] == QubitAcl::GRANT)
       {
-        $filter = new \Elastica\Filter\Not($filter);
+        $filter = new \Elastica\Filter\BoolNot($filter);
       }
 
-      //$filterBool->addMust($filter);
+      $filterBool->addMust($filter);
     }
   }
 }
