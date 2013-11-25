@@ -12,7 +12,8 @@ function Plumb(element, scope)
     { name: 'Work' },
     { name: 'Expression' },
     { name: 'Manifestation' },
-    { name: 'Component' }
+    { name: 'Component' },
+    { name: 'Digital object' }
   ];
 
   this.defaultBoxSize = {
@@ -95,9 +96,21 @@ function Plumb(element, scope)
     // Use dagre to build the layout by passing the digraph
     var layout = dagre.layout().nodeSep(30).rankSep(80).rankDir("LR").run(this.digraph);
 
+    var getOptimalWidth = function()
+    {
+      var width = layout.graph().width;
+
+      if (width < self.element.width())
+      {
+        width = self.element.width() - 10;
+      }
+
+      return width;
+    };
+
     // Update size of the container
     this.element.css({
-      'width': layout.graph().width,
+      'width': getOptimalWidth(),
       'height': layout.graph().height + 60
     });
 
@@ -131,7 +144,7 @@ function Plumb(element, scope)
    */
   this.renderNode = function(id, data, dagreLayout)
   {
-    var el = document.createElement('span');
+    var el = document.createElement('div');
     el.className = 'node node-level-' + data.level;
     el.id = 'node-' + id;
     el.setAttribute('data-id', id);
@@ -144,6 +157,8 @@ function Plumb(element, scope)
     el.style.lineHeight = this.defaultBoxSize.height + 'px';
     self.element[0].appendChild(el);
 
+    this.configureDragAndDrop(el);
+
     return el;
   };
 
@@ -152,8 +167,7 @@ function Plumb(element, scope)
    *
    * @return {jsPlumb.Connection}
    */
-  this.renderEdge = function(id, sourceDomEl, targetDomEl, relationType, dagreLayout)
-  {
+  this.renderEdge = function(id, sourceDomEl, targetDomEl, relationType, dagreLayout) {
     return self.plumb.connect({
       source: sourceDomEl,
       target: targetDomEl,
@@ -296,6 +310,10 @@ function Plumb(element, scope)
     };
 
     var activeNodeData = this.getActiveNode();
+    if (activeNodeData === undefined)
+    {
+      return false;
+    }
 
     var n = prompt("Insert name");
 
@@ -341,5 +359,34 @@ function Plumb(element, scope)
 
       // TODO redraw
     }
+  };
+
+  this.configureDragAndDrop = function(nodeEl)
+  {
+    if (nodeEl.jquery === undefined)
+    {
+      nodeEl = jQuery(nodeEl);
+    }
+
+    if (nodeEl.data('drag-n-drop') === true)
+    {
+      return;
+    }
+
+    // Use jsPlumb draggable wrapper in order to repaint edges
+    this.plumb.draggable(nodeEl, {
+      containment: self.element,
+      start: function() {
+        console.log("DRAG");
+      }
+    });
+
+    nodeEl.droppable({
+      drop: function() {
+        console.log("DROP");
+      }
+    });
+
+    nodeEl.data('drag-n-drop', true);
   };
 }
