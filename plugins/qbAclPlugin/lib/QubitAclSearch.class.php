@@ -158,13 +158,6 @@ class QubitAclSearch
     return $query;
   }
 
-  private static function log($s)
-  {
-    $fp = fopen('/tmp/logme', 'a');
-    fprintf($fp, "%s", $s);
-    fclose($fp);
-  }
-
   /**
    * Filter search query by resource specific ACL
    *
@@ -197,7 +190,6 @@ class QubitAclSearch
       while ($repo = array_shift($repositoryViewDrafts))
       {
         $filter->addShould(new \Elastica\Filter\Term(array('repository.id' => (int)$repo['id'])));
-        QubitAclSearch::log(sprintf("Adding repo %d\n", $repo['id']));
       }
 
       $filter->addShould(new \Elastica\Filter\Term(array('publicationStatusId' => QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)));
