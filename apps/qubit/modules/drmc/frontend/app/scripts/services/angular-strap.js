@@ -1,3 +1,6 @@
+// Hack
+var $ = jQuery;
+
 /**
  * AngularStrap - Twitter Bootstrap directives for AngularJS
  * @version v0.7.5 - 2013-07-21

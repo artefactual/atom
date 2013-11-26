@@ -1,7 +1,9 @@
 'use strict';
+
 // Setup the main module: momaApp
 angular.module('momaApp', [
-  'momaApp.directives'
+  'momaApp.directives',
+  '$strap.directives'
 ])
   .config(function($routeProvider) {
     $routeProvider
@@ -36,4 +38,3 @@ angular.module('momaApp', [
 // Setup dependency injection
 angular.module('jsPlumb', []);
 angular.module('momaApp.directives', ['jsPlumb']);
-
