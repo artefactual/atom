@@ -100,57 +100,58 @@
 
           <div class="well inline">
 
-            <ul class="nav">
-              <li class="dropdown">
-                <a href="#" onclick="return false" data-toggle="dropdown" class="btn btn-info dropdown-toggle">
-                  SELECT AIP
-                  <b class="caret">
-                  </b>
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a href="#" onclick="return false">
-                      New AIPS
-                    </a>
-                    <ul ng-model="selectAips" id="select-AIP-new" class="dropdown-menu sub-menu">
-                      <li ng-repeat="selectAipNew in selectAips"><a href="#/artwork-record">{{ selectAipNew.name }}&nbsp;{{ selectAipNew.statusYes }}</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="#">
-                      Awaiting Classification
-                    </a>
-                    <ul ng-model="selectAips" id="select-AIP-awaiting" class="dropdown-menu sub-menu">
-                      <li ng-repeat="selectAipAwaiting in selectAips"><a href="#/artwork-record">{{ selectAipAwaiting.name }}&nbsp:{{ selectAipAwaiting.statusNo }}</a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+            <section class="header-options">
 
-            <ul class="inline new-AIP-views">
-              <li>
-                 <a href="#" onclick="return false">
-                  <span class="help-block">New</span>
-                  <button class="">44</button>
-                </a>
-              </li>
-              <li>
-                <a href="#" onclick="return false">
-                  <span class="help-block">Awaiting</span>
-                  <button class="">3</button>
-                </a>
-              </li>
-              <li>
-                <a href="#" onclick="return false">
-                  <span class="help-block">View All</span>
-                  <button class="">47</button>
-                </a>
-              </li>
-            </ul>
+              <ar-select-aip>asdf</ar-select-aip>
 
+              <div class="row-fluid">
+                <div class="span6">
+                  <div class="inline-search">
+
+                    <div class="input-prepend input-append">
+                      <input type="hidden" name="subqueryfield" id="" value="Select AIP Type" />
+                      <div class="btn-group">
+                        <button class="btn dropdown-toggle" data-toggle="dropdown">
+                          Select AIP Type
+                          <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a href="#" onclick="return false">All AIPs</a></li>
+                          <li><a href="#" onclick="return false">New, Classified</a></li>
+                          <li><a href="#" onclick="return false">New, Unclassified</a></li>
+                        </ul>
+                      </div>
+                      <input type="Text" name="subquery" placeholder="Search AIPs" />
+                      <button class="btn" id="AIP-type-search" type="submit">
+                      </button>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="span5 pull-right">
+                  <ul class="pull-right inline new-AIP-views">
+                    <li>
+                      <a href="#" onclick="return false">
+                        <span class="help-block">New</span>
+                        <button class="">44</button>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" onclick="return false">
+                        <span class="help-block">Awaiting</span>
+                        <button class="">3</button>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" onclick="return false">
+                        <span class="help-block">View All</span>
+                        <button class="">47</button>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </section>
           </div><!-- well inline -->
 
         </section>
@@ -199,3 +200,5 @@
   </div><!-- /#main-column -->
 
 </div>
+
+
