@@ -16,4 +16,28 @@ angular.module('momaApp')
       { id: 7, name: 'Judy Hopper', statusNo: 'unclassified', statusYes: 'classified', randomArrayItem: 'asparagus' },
       { id: 8, name: 'Adolphus Arugula', statusNo: 'unclassified', statusYes: 'classified', randomArrayItem: 'train wreck' }
     ];
+
+    $scope.relations = [
+      { source: 35, target: 31, type: 'is derivative of' }
+    ];
+
+    $scope.selects = [
+      { id: '1', name: 'All AIPs' },
+      { id: '2', name: 'New, Classified' },
+      { id: '3', name: 'New, Unclassified' }
+    ];
+
+    $scope.selectedItem = '1';
+    $scope.selectedItems = ['1', '2', '3'];
+    $scope.pushSelect = function(){
+    $scope.selects.push({ id: '' + ($scope.selects.length + 1), name: '' });
+  };
+
+    $scope.typeaheadValue = $scope.selectAips[0];
 });
+
+
+
+
+
+

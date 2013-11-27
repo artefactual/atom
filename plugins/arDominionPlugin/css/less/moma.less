@@ -265,6 +265,87 @@ section.section-supTech, section.dig-obj-bro {
   margin-left: 0px!important;
 }
 
+/* -------------------------- */
+// Modals
+
+.modal {
+  width: 80%;
+  margin: 0 auto;
+  left: 10%;
+}
+
+.modal .modal-header {
+  background-color: @grayLighter;
+  background-image: none;
+  border-bottom: 1px solid @gray;
+  .box-shadow(0 1px 2px rgba(25, 25, 25, .2));
+}
+
+#myModalLabel {
+  color: @orange!important;
+}
+
+.modal-checkbox label {
+  font-size: .75em;
+  line-height: 90%;
+}
+
+.modal-div {
+  border-bottom: 1px solid @grayLighter;
+  margin: .5em 0 1.5em 0;
+  padding: 1em auto;
+
+  button.modal-btn-x {
+    color: @orange;
+    margin-top: 6px;
+  }
+  span.modal-btn-x {
+     padding-left: 4px;
+     &:after {
+      content: "\f00d";
+      font-family: FontAwesome;
+      font-style: normal;
+      color: @grayLight;
+    }
+  }
+  .first-span {
+    margin-left: 0;
+  }
+  div.select-box {
+    overflow: auto;
+    height: 150px;
+    h3 {
+      color: @orange;
+      margin-bottom: 8px;
+    }
+  }
+}
+
+.modal-footer {
+  float: left;
+  button {
+    font-size: 1.1em;
+  }
+}
+
+.modal-footer span {
+  font-family: FontAwesome;
+  font-style: normal;
+  color: @grayLight;
+  padding-right: 6px;
+}
+
+.btn-save:after {
+  content: "\f0c7";
+}
+
+.btn-clearall:after {
+  content: "\f014";
+}
+
+.btn-cancel:after {
+  content: "\f057";
+}
 
 /* -------------------------- */
 // Sidebar

@@ -23,8 +23,5 @@ angular.module('momaApp')
         { id: 11, title: 'Installation Documentation', level: 'Expression' }]}
     ];
 
-    $scope.relations = [
-      { source: 35, target: 31, type: 'is derivative of' }
-    ];
 
 });

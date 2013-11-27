@@ -1,26 +1,133 @@
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-  <h3 id="myModalLabel">Modal header</h3>
+  <h3 id="myModalLabel">Supporting Technology Relationships</h3>
 </div>
 <div class="modal-body">
   <form>
-    <fieldset>
-      <legend>Legend</legend>
-      <label>Label name</label>
-      <input type="text" placeholder="Type something…" autofocus="autofocus">
-      <span class="help-block">Example block-level help text here.</span>
-      <label class="checkbox">
-        <input type="checkbox"> Check me out
-      </label>
-      <button type="submit" class="btn">Submit</button>
+    <fieldset class="row-fluid">
+
+      <div class="modal-div span12 row-fluid">
+        <label>Search for related technologies</label>
+        <input class="span5" type="text" placeholder="Type something…" autofocus="autofocus">
+        <input class="span5" type="text" placeholder="New Search (clear filters)" autofocus="autofocus">
+      </div>
+
+      <div class="modal-div span12 row-fluid">
+        <label class="modal-btn-x span5 first-span row-fluid">Showing results within:
+          <div class="span12">
+            <button class="modal-btn-x btn-mini btn">Windows<span class="modal-btn-x"></span></button>
+            <button class="modal-btn-x btn-mini btn">Windows 98<span class="modal-btn-x"></span></button>
+          </div>
+        </label>
+
+        <label>Narrow search further</label>
+        <input class="span5 offset1" type="text" placeholder="New Search (clear filters)" autofocus="autofocus">
+      </div>
+
+      <h4>Select relationship elements</h4>
+      <div class="modal-checkbox span12 row-fluid">
+        <label class="checkbox span2">
+          <input type="checkbox">Windows
+        </label>
+        <label class="checkbox span2">
+          <input type="checkbox">Windows Vista
+        </label>
+        <label class="checkbox span2">
+          <input type="checkbox">Windows 98
+        </label>
+        <label class="checkbox span2">
+          <input type="checkbox">Windows 95 emulator
+        </label>
+        <label class="checkbox span2">
+          <input type="checkbox">Window-like system
+        </label>
+      </div>
+      <!-- second row -->
+      <div class="modal-checkbox span12 row-fluid">
+        <label class="checkbox span2">
+          <input type="checkbox">Window-like system
+        </label>
+        <label class="checkbox span2">
+          <input type="checkbox">Window-like system
+        </label>
+        <label class="checkbox span2">
+          <input type="checkbox">Window-like system
+        </label>
+        <label class="checkbox span2">
+          <input type="checkbox">Window-like system
+        </label>
+        <label class="checkbox span2">
+          <input type="checkbox">Window-like system
+        </label>
+      </div>
+
+      <!-- third row -->
+      <div class="modal-checkbox span12 row-fluid">
+        <label class="checkbox span2">
+          <input type="checkbox">Window-like system
+        </label>
+        <label class="checkbox span2">
+          <input type="checkbox">Window-like system
+        </label>
+        <label class="checkbox span2">
+          <input type="checkbox">Window-like system
+        </label>
+        <label class="checkbox span2">
+          <input type="checkbox">Window-like system
+        </label>
+        <label class="checkbox span2">
+          <input type="checkbox">Window-like system
+        </label>
+      </div>
+
+      <a href="#" onclick="return false">View more</a>
+
     </fieldset>
+
+    <div class="modal-div span12 row-fluid">
+
+      <div class="span8 row-fluid">
+
+        <select class="span6">Define relationship
+          <input type="text" placeholder="Requires" autofocus="autofocus">
+          <input type="text" placeholder="Associate with" autofocus="autofocus">
+          <input type="text" placeholder="Commonly used by" autofocus="autofocus">
+          <input type="text" placeholder="Adds to" autofocus="autofocus">
+        </select>
+
+        <label class="span6">Descriptive Note
+          <input type="text" placeholder="" autofocus="autofocus">
+        </label>
+
+        <label class="span6 first-span">Group Name
+          <input type="text" placeholder="" autofocus="autofocus">
+        </label>
+
+        <label class="span6">Group Type
+          <input type="text" placeholder="" autofocus="autofocus">
+        </label>
+
+      </div>
+
+
+      <!-- selections -->
+      <div class="select-box span3 well well-small">
+        <h3>Selections</h3>
+
+        <div class="row-fluid modal-checkbox">
+          <label class="checkbox">
+            <input type="checkbox">Windows Vista
+          </label>
+        </div>
+      </div>
+    </div>
   </form>
-  <p>{{modal.content}}</p>
+  <!-- <p>{{modal.content}}</p> -->
   <br />
-  <pre>2 + 3 = {{ 2 + 3 }}</pre>
+  <!-- <pre>2 + 3 = {{ 2 + 3 * 16.5 / 13 }}</pre> -->
 </div>
 <div class="modal-footer">
-  <button class="btn" ng-click="dismiss()">Close</button>
-  <button class="btn btn-primary" ng-click="modal.saved=true;dismiss()">Save changes</button>
-  <button class="btn btn-primary" ng-click="parentController(dismiss)">Parent dismiss</button>
+  <button class="btn" ng-click="modal.saved=true;dismiss()"><span class="btn-save"></span>Save</button>
+  <button class="btn" ng-click="parentController(dismiss)"><span class="btn-clearall"></span>Clear All</button>
+  <button class="btn" ng-click="dismiss()"><span class="btn-cancel"></span>Cancel</button>
 </div>

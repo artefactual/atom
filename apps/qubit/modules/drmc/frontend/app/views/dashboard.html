@@ -102,26 +102,20 @@
 
             <section class="header-options">
 
-              <ar-select-aip>asdf</ar-select-aip>
+
 
               <div class="row-fluid">
                 <div class="span6">
                   <div class="inline-search">
 
-                    <div class="input-prepend input-append">
-                      <input type="hidden" name="subqueryfield" id="" value="Select AIP Type" />
-                      <div class="btn-group">
-                        <button class="btn dropdown-toggle" data-toggle="dropdown">
-                          Select AIP Type
-                          <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                          <li><a href="#" onclick="return false">All AIPs</a></li>
-                          <li><a href="#" onclick="return false">New, Classified</a></li>
-                          <li><a href="#" onclick="return false">New, Unclassified</a></li>
-                        </ul>
-                      </div>
-                      <input type="Text" name="subquery" placeholder="Search AIPs" />
+                    <div class="input-prepend input-append row-fluid">
+
+                      <select class="span6" ng-model="selectedItem" ng-options="value.id as value.name for (key, value) in selects">
+                      </select>
+
+                      <input typeahead="item as item.name for item in selects"
+                              ng-model="typeaheadValue" autocomplete="off" type="text" />
+
                       <button class="btn" id="AIP-type-search" type="submit">
                       </button>
                     </div>
