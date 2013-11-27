@@ -113,8 +113,7 @@
                       <select class="span6" ng-model="selectedItem" ng-options="value.id as value.name for (key, value) in selects">
                       </select>
 
-                      <input typeahead="item as item.name for item in selects"
-                              ng-model="typeaheadValue" autocomplete="off" type="text" />
+                      <input  type="text" />
 
                       <button class="btn" id="AIP-type-search" type="submit">
                       </button>
@@ -176,8 +175,8 @@
             </div>
             <div id="AIP-ov-MIME" class="span4">
               <h4>AIP Objects by MIME Type</h4>
-              <div id="AIP-mime-type">got graph?</div>
-              <!-- <img ng-src="{{ atomGlobals.relativeUrlRoot }}/apps/qubit/modules/drmc/frontend/assets/green-pie.png" /> -->
+              <div id="AIP-mime-type"></div>
+              <img ng-src="{{ atomGlobals.relativeUrlRoot }}/apps/qubit/modules/drmc/frontend/assets/green-pie.png" />
             </div>
             <div id="AIP-ov-cla" class="span5">
               <h4>Classified AIPs</h4>
