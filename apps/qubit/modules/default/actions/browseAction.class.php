@@ -19,13 +19,6 @@
 
 class DefaultBrowseAction extends sfAction
 {
-  private static function log($s)
-  {
-    $fp = fopen('/tmp/logme', 'a');
-    fprintf($fp, "%s", $s);
-    fclose($fp);
-  }
-
   protected function addFacets()
   {
     foreach ($this::$FACETS as $name => $item)

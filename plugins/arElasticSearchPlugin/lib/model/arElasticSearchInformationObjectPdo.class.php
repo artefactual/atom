@@ -230,11 +230,6 @@ class arElasticSearchInformationObjectPdo
       }
     }
 
-    if (isset($this->repository))
-      print $this->repository->authorizedFormOfName . "\n";
-    else
-      print "REPO NOT SET";
-
     return $this->repository;
   }
 
