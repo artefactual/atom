@@ -131,7 +131,7 @@ class sfEadPlugin
   {
     $this->resource = $resource;
 
-    $this->version = 'Access to Memory (AtoM) '.qubitConfiguration::VERSION.' (2013-07-05 14:00:00)';
+    $this->version = 'Access to Memory (AtoM) '.qubitConfiguration::VERSION;
   }
 
   public function __get($name)
