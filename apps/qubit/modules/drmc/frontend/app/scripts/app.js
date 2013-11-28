@@ -3,6 +3,7 @@
 // Setup the main module: momaApp
 angular.module('momaApp', [
   'momaApp.directives',
+  'ui.router',
   '$strap.directives'
 ])
   .config(function($routeProvider) {

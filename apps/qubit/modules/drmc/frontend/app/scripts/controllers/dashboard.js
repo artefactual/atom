@@ -28,12 +28,12 @@ angular.module('momaApp')
     ];
 
     $scope.selectedItem = '1';
-    $scope.selectedItems = ['1', '2', '3'];
     $scope.pushSelect = function(){
-    $scope.selects.push({ id: '' + ($scope.selects.length + 1), name: '' });
-  };
+      $scope.selects.push({ id: '' + ($scope.selects.length + 1), name: '' });
 
-    $scope.typeaheadValue = $scope.selectAips[0];
+      };
+      $scope.AIPtypeahead = [ 'Douglas Gordon' ];
+
 });
 
 

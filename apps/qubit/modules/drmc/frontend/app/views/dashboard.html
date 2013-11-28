@@ -105,7 +105,7 @@
 
 
               <div class="row-fluid">
-                <div class="span6">
+                <div class="span5">
                   <div class="inline-search">
 
                     <div class="input-prepend input-append row-fluid">
@@ -113,10 +113,10 @@
                       <select class="span6" ng-model="selectedItem" ng-options="value.id as value.name for (key, value) in selects">
                       </select>
 
-                      <input  type="text" />
+                      <input bs-typeahead="AIPtypeahead" autocomplete="off" type="text" placeholder="Ex. Douglas Gordon" />
+                      <a ng-href="#/artwork-record"><button type="submit" class="btn" id="AIP-type-search">
+                      </button></a>
 
-                      <button class="btn" id="AIP-type-search" type="submit">
-                      </button>
                     </div>
 
                   </div>
