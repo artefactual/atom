@@ -13,9 +13,7 @@
         <h4>Collection Stats</h4>
         <ul>
           <li><span>256</span>Works in the DRMC-MA</li>
-          <li><span>589</span>Expressions</li>
-          <li><span>1003</span>Manifestations</li>
-          <li><span>1467</span>Components</li>
+          <li><span>1</span>Components</li>
         </ul>
       </section>
 
@@ -23,19 +21,15 @@
         <h4>Recent Updates</h4>
         <ul>
           <li>
-            <div class="dash-col-updates-icon"></div>
             <a href="#" class="dash-update" onclick="return false;">Tetris - 1988 NES Release - 24x723rbwsdd7</a>
           </li>
           <li>
-            <div class="dash-col-updates-icon"></div>
             <a href="#" class="dash-update" onclick="return false;">Tetris - 1984 IBM Edition - Compiled source code</a>
           </li>
           <li>
-            <div class="dash-col-updates-icon"></div>
             <a href="#" class="dash-update" onclick="return false;">Adventure! - 1990 (video game)</a>
           </li>
           <li>
-            <div class="dash-col-updates-icon"></div>
             <a href="#" class="dash-update" onclick="return false;">Ms. Pac Man - 1982 Midway Arcade</a>
           </li>
         </ul>
@@ -73,12 +67,9 @@
             </li>
             <li id="fc-inp" class="pull-left">
               <form class="controls-row">
-                <input type="text" value="20" class="span2">
-                <!-- <span class="help-block">Checks in 24h</span> -->
-                <input type="text" value="3 weeks 1 day 4 hours" class="span4">
-                <!-- <span class="help-block">Time to check collection</span> -->
-                <input type="text" value="Tetris-1998-NES-4f439-oe23" class="span6">
-                <!-- <span class="help-block">Currently checking</span> -->
+                <input type="text" value="20" class="span2" disabled>
+                <input type="text" value="3 weeks 1 day 4 hours" class="span4" disabled>
+                <input type="text" value="Tetris-1998-NES-4f439-oe23" class="span6" disabled>
               </form>
             </li>
             <li id="fc-sum">
@@ -113,7 +104,7 @@
                       <select class="span6" ng-model="selectedItem" ng-options="value.id as value.name for (key, value) in selects">
                       </select>
 
-                      <input bs-typeahead="AIPtypeahead" autocomplete="off" type="text" placeholder="Ex. Douglas Gordon" />
+                      <input bs-typeahead="AIPtypeahead" autocomplete="off" type="text" placeholder="Ex. Play Dead; Real Time" />
                       <a ng-href="#/artwork-record"><button type="submit" class="btn" id="AIP-type-search">
                       </button></a>
 
@@ -126,19 +117,19 @@
                     <li>
                       <a href="#" onclick="return false">
                         <span class="help-block">New</span>
-                        <button class="">44</button>
+                        <button class="">1</button>
                       </a>
                     </li>
                     <li>
                       <a href="#" onclick="return false">
                         <span class="help-block">Awaiting</span>
-                        <button class="">3</button>
+                        <button class="">1</button>
                       </a>
                     </li>
                     <li>
                       <a href="#" onclick="return false">
                         <span class="help-block">View All</span>
-                        <button class="">47</button>
+                        <button class="">1</button>
                       </a>
                     </li>
                   </ul>

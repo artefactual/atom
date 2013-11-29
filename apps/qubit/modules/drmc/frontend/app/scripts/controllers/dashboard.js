@@ -32,7 +32,7 @@ angular.module('momaApp')
       $scope.selects.push({ id: '' + ($scope.selects.length + 1), name: '' });
 
       };
-      $scope.AIPtypeahead = [ 'Douglas Gordon' ];
+      $scope.AIPtypeahead = [ 'Play Dead; Real Time' ];
 
 });
 
