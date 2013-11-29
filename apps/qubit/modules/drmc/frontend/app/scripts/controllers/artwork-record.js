@@ -23,5 +23,20 @@ angular.module('momaApp')
         { id: 11, title: 'Installation Documentation', level: 'Expression' }]}
     ];
 
+    $scope.techRelationships = [
+      { id: '1', name: 'requires' },
+      { id: '2', name: 'replaces' },
+      { id: '3', name: 'references' },
+      { id: '4', name: 'has format' },
+      { id: '5', name: 'is format on' },
+      { id: '6', name: 'is part of' },
+      { id: '7', name: 'is replaced by' },
+      { id: '8', name: 'is required by' }
+    ];
+
+    $scope.techRelation = '1';
+    $scope.pushSelect = function(){
+      $scope.techRelationships.push({ id: '' + ($scope.techRelationships.length + 1), name: '' });
+      };
 
 });

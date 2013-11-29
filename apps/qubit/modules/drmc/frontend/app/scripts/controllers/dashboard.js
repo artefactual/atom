@@ -30,9 +30,10 @@ angular.module('momaApp')
     $scope.selectedItem = '1';
     $scope.pushSelect = function(){
       $scope.selects.push({ id: '' + ($scope.selects.length + 1), name: '' });
-
       };
-      $scope.AIPtypeahead = [ 'Play Dead; Real Time' ];
+
+    $scope.AIPtypeahead = [ 'Play Dead; Real Time' ];
+
 
 });
 

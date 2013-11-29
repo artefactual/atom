@@ -12,20 +12,24 @@
         <input class="span5" type="text" placeholder="New Search (clear filters)" autofocus="autofocus">
       </div>
 
-      <div class="modal-div span12 row-fluid">
-        <label class="modal-btn-x span5 first-span row-fluid">Showing results within:
+      <div class="modal-div first-span row-fluid">
+        <div class="span5 row-fluid">
+          <label class="modal-btn-x row-fluid">Showing results within:</label>
           <div class="span12">
             <button class="modal-btn-x btn-mini btn">Windows<span class="modal-btn-x"></span></button>
             <button class="modal-btn-x btn-mini btn">Windows 98<span class="modal-btn-x"></span></button>
           </div>
-        </label>
+        </div>
 
-        <label>Narrow search further</label>
-        <input class="span5 offset1" type="text" placeholder="New Search (clear filters)" autofocus="autofocus">
+        <div class="first-span span5">
+          <label>Narrow search further</label>
+          <input type="text" placeholder="New Search (clear filters)" autofocus="autofocus">
+        </div>
       </div>
 
       <h4>Select relationship elements</h4>
       <div class="modal-checkbox span12 row-fluid">
+
         <label class="checkbox span2">
           <input type="checkbox">Windows
         </label>
@@ -81,33 +85,25 @@
       </div>
 
       <a href="#" onclick="return false">View more</a>
-
     </fieldset>
 
     <div class="modal-div span12 row-fluid">
 
       <div class="span8 row-fluid">
 
-        <select class="span6">Define relationship
-          <input type="text" placeholder="requires" autofocus="autofocus">
-          <input type="text" placeholder="replaces" autofocus="autofocus">
-          <input type="text" placeholder="references" autofocus="autofocus">
-          <input type="text" placeholder="has format" autofocus="autofocus">
-          <input type="text" placeholder="is format on" autofocus="autofocus">
-          <input type="text" placeholder="is part of" autofocus="autofocus">
-          <input type="text" placeholder="is replaced by" autofocus="autofocus">
-          <input type="text" placeholder="is required by" autofocus="autofocus">
+        <select class="span6" placeholder="Define Relationship" ng-model="techRelation" ng-options="value.id as value.name for (key, value) in techRelationships">
         </select>
 
-        <label class="span6">Descriptive Note
+        <br />
+        <label class="first-span span11">Descriptive Note
+          <textarea rows="4" type="text" placeholder="" autofocus="autofocus"></textarea>
+        </label>
+
+        <label class="span5 first-span">Group Name
           <input type="text" placeholder="" autofocus="autofocus">
         </label>
 
-        <label class="span6 first-span">Group Name
-          <input type="text" placeholder="" autofocus="autofocus">
-        </label>
-
-        <label class="span6">Group Type
+        <label class="span5 offset1">Group Type
           <input type="text" placeholder="" autofocus="autofocus">
         </label>
 
