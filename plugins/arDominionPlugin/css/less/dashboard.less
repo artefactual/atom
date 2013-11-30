@@ -1,3 +1,8 @@
+body {
+  //Important for sidebar animation
+  position: relative!important;
+}
+
 /*------------------------ */
 // header
 #artwork-record-header img {
@@ -246,13 +251,18 @@ section#AIP-ov {
       }
   } //ul
   div#AIP-ov-MIME, div#AIP-ov-cla {
+    margin-top: -15px;
     h4 {
       font-size: 1.1em;
       font-family: 'Open Sans Semibold';
       text-align: center;
     }
+    #svg_donut {
+      margin-top: -30px;
+      margin-left: -10px;
+    }
     img {
-      width: 90%;
+      width: 94%;
     }
   }
 }
@@ -261,4 +271,14 @@ section#AIP-ov {
   background: @momaGreenLight;
 }
 
-
+/*------------------------ */
+// D3 graoh
+#svg_donut {
+  margin-top: -15px;
+  width: 100%;
+  margin: -15px auto inherit auto;
+  .slice text {
+    font-size: .8em;
+    font-family: 'Open Sans Semibold';
+  }
+}

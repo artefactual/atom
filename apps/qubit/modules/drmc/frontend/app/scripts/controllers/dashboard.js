@@ -34,6 +34,9 @@ angular.module('momaApp')
 
     $scope.AIPtypeahead = [ 'Play Dead; Real Time' ];
 
+    // D3 Graph 'AIP Objects by MIME Type'
+    // Eventually separate out data set from js file
+    mimeGraph(data);
 
 });
 
