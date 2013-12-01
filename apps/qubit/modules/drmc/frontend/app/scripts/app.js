@@ -3,6 +3,7 @@
 // Setup the main module: momaApp
 angular.module('momaApp', [
   'momaApp.directives',
+  'ngRoute',
   'ui.router',
   '$strap.directives'
 ])
@@ -37,5 +38,4 @@ angular.module('momaApp', [
   });
 
 // Setup dependency injection
-angular.module('jsPlumb', []);
-angular.module('momaApp.directives', ['jsPlumb']);
+angular.module('momaApp.directives', []);
