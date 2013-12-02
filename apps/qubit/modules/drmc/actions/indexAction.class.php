@@ -29,7 +29,7 @@ class DRMCIndexAction extends sfAction
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/lib/vendor/angular-strap.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/lib/vendor/boostrap-select.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/lib/vendor/dagre.js', 'last');
-    $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/lib/vendor/jquery.jsPlumb-1.4.1-all-min.js', 'last');
+    $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/lib/vendor/jquery.jsPlumb-all.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/lib/vendor/d3.min.js', 'last');
 
     // Internal libraries

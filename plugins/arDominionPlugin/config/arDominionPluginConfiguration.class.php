@@ -29,7 +29,7 @@ class arDominionPluginConfiguration extends sfPluginConfiguration
 
     // Runtime less interpreter will be loaded if debug mode is enabled
     // Remember to avoid localStorage caching when dev machine is not localhost
-    if ($context->getConfiguration()->isDebug())
+    if (false || $context->getConfiguration()->isDebug())
     {
       $context->response->addJavaScript('/vendor/less.js');
       $context->response->addStylesheet('/plugins/arDominionPlugin/css/main.less', 'last', array('rel' => 'stylesheet/less', 'type' => 'text/css'));

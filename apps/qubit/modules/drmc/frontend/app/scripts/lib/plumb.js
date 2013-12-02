@@ -89,133 +89,45 @@ function Plumb(element, scope)
       .on('click', '.add_child', jQuery.proxy(this.addChildNode, this));
   };
 
-  this.draw = function()
+  this.addNodeIntoDigraph = function(node, isRoot)
   {
-    console.log('plumb', 'Drawing context browser');
+    self.digraph.addNode(node.id, {
+      id: node.id,
+      width: self.defaultBoxSize.width,
+      height: self.defaultBoxSize.height,
+      level: node.level,
+      title: node.title
+    });
 
-    // Use dagre to build the layout by passing the digraph
-    var layout = dagre.layout().nodeSep(30).rankSep(80).rankDir("LR").run(this.digraph);
-
-    var getOptimalWidth = function()
+    if (angular.isArray(node.children))
     {
-      var width = layout.graph().width;
-
-      if (width < self.element.width())
+      for (var i = 0; i < node.children.length; i++)
       {
-        width = self.element.width() - 10;
+        // Add children and partnership relation
+        var child = self.addNodeIntoDigraph(node.children[i], false);
+        self.addEdgeIntoDigraph(node.id, child.id, 'hierarchical');
       }
-
-      return width;
-    };
-
-    // Update size of the container
-    this.element.css({
-      'width': getOptimalWidth(),
-      'height': layout.graph().height + 60
-    });
-
-    this.element.children().remove();
-
-    layout.eachNode(function(id, dagreLayout) {
-      var node = self.digraph.node(id);
-      node.domEl = self.renderNode(id, node, dagreLayout);
-    });
-
-    layout.eachEdge(function(edgeId, sourceId, targetId, dagreLayout) {
-      var source = self.digraph.node(sourceId);
-      var target = self.digraph.node(targetId);
-      var edge = self.digraph.edge(edgeId);
-      edge.jsPlumbConnection = self.renderEdge(edgeId, source.domEl, target.domEl, edge.relationType, dagreLayout);
-    });
-
-    this.plumb.repaintEverything();
-
-    if (this.firstRender === undefined)
-    {
-      this.activateDefaultNode();
-      this.firstRender = false;
     }
+
+    return node;
   };
 
-  /*
-   * renderNode draws the new node using HTML
-   *
-   * @return {DOMElement}
-   */
-  this.renderNode = function(id, data, dagreLayout)
+  this.addEdgeIntoDigraph = function(sourceId, targetId, relationType)
   {
-    var el = document.createElement('div');
-    el.className = 'node node-level-' + data.level;
-    el.id = 'node-' + id;
-    el.setAttribute('data-id', id);
-    el.innerHTML = data.title;
-    el.style.position = "absolute";
-    el.style.top = dagreLayout.y + 'px';
-    el.style.left = dagreLayout.x + 'px';
-    el.style.width = this.defaultBoxSize.width + 'px';
-    el.style.height = this.defaultBoxSize.height + 'px';
-    el.style.lineHeight = this.defaultBoxSize.height + 'px';
-    self.element[0].appendChild(el);
-
-    this.configureDragAndDrop(el);
-
-    return el;
-  };
-
-  /*
-   * renderEdge draws the connection between nodes using jsPlumb
-   *
-   * @return {jsPlumb.Connection}
-   */
-  this.renderEdge = function(id, sourceDomEl, targetDomEl, relationType, dagreLayout) {
-    return self.plumb.connect({
-      source: sourceDomEl,
-      target: targetDomEl,
-    }, self.jsPlumbConfiguration.connectors[relationType]);
-  };
-
-  /*
-   * loadDataIntoDigraph iterates over the collection and adds the corresponding
-   * nods and edges to the digraph
-   *
-   * @return {jsPlumb.Connection}
-   */
-  this.loadDataIntoDigraph = function()
-  {
-    var addNode = function(node, isRoot)
-    {
-      self.digraph.addNode(node.id, {
-        id: node.id,
-        width: self.defaultBoxSize.width,
-        height: self.defaultBoxSize.height,
-        level: node.level,
-        title: node.title
-      });
-
-      if (angular.isArray(node.children))
+    var edgeId = sourceId + ':' + targetId;
+    self.digraph.addEdge(edgeId, sourceId, targetId,
+      // This is the object that we pass to digraph with some user-defined data
       {
-        for (var i = 0; i < node.children.length; i++)
-        {
-          // Add children and partnership relation
-          var child = addNode(node.children[i], false);
-          addRelation(node.id, child.id, 'hierarchical');
-        }
-      }
-
-      return node;
-    };
-
-    var addRelation = function(sourceId, targetId, relationType)
-    {
-      self.digraph.addEdge(sourceId + ':' + targetId, sourceId, targetId, {
         relationType: relationType
       });
-    };
+  };
 
+  this.loadDataIntoDigraph = function()
+  {
     // Load collection
     for (var i = 0; i < this.scope.collection.length; i++)
     {
-      addNode(this.scope.collection[i], true);
+      self.addNodeIntoDigraph(this.scope.collection[i], true);
     }
 
     // Load relations
@@ -223,7 +135,7 @@ function Plumb(element, scope)
     {
       for (var i = 0; i < this.scope.relations.length; i++)
       {
-        addRelation(
+        self.addEdgeIntoDigraph(
           this.scope.relations[i].source,
           this.scope.relations[i].target,
           'associative');
@@ -231,9 +143,141 @@ function Plumb(element, scope)
     }
   };
 
+  this.updateWidgetSize = function()
+  {
+    var width = self.layout.graph().width;
+    if (width < self.element.width())
+    {
+      width = self.element.width() - 10;
+    }
+
+    this.element.css({
+      'width': width,
+      'height': self.layout.graph().height + 60 });
+  };
+
+  this.computeLayout = function()
+  {
+    // Use dagre to build the layout by passing the digraph
+    self.layout = dagre.layout().nodeSep(30).rankSep(80).rankDir("LR").run(this.digraph);
+
+    self.updateWidgetSize();
+  };
+
+  this.draw = function()
+  {
+    var firstRender = this.firstRender === undefined || this.firstRender === true;
+
+    self.computeLayout();
+
+    self.layout.eachNode(function(id, value) {
+      self.renderNode(id, value, firstRender);
+    });
+
+    self.layout.eachEdge(function(edgeId, sourceId, targetId, value) {
+      self.renderEdge(edgeId, sourceId, targetId, value);
+    });
+
+    if (firstRender)
+    {
+      this.firstRender = false;
+    }
+  };
+
   /*
-   *
+   * renderNode draws the new node using HTML
    */
+  this.renderNode = function(id, value, insertInDOM)
+  {
+    var node = this.digraph.node(id);
+
+    if (insertInDOM)
+    {
+      var el = document.createElement('div');
+
+      el.className = 'node node-level-' + node.level;
+      el.id = 'node-' + id;
+      el.setAttribute('data-id', id);
+      el.innerHTML = node.title;
+      el.style.position = 'absolute';
+      el.style.width = this.defaultBoxSize.width + 'px';
+      el.style.height = this.defaultBoxSize.height + 'px';
+      el.style.lineHeight = this.defaultBoxSize.height + 'px';
+
+      self.element[0].appendChild(el);
+
+      this.configureDragAndDrop(el);
+
+      node.el = el;
+    }
+    else
+    {
+      var el = node.el;
+    }
+
+    el.style.left = value.x + 'px';
+    el.style.top = value.y + 'px';
+  };
+
+  /*
+   * renderEdge draws the connection between nodes using jsPlumb
+   */
+  this.renderEdge = function(edgeId, sourceId, targetId, value) {
+    // The value var passed to this function by eachEdge doesn't include
+    // user-defined data. We need to retrieve that by calling the edge() getter.
+    var userValue = self.digraph.edge(edgeId);
+    userValue.jsPlumbConnection = self.plumb.connect({
+      source: this.digraph.node(sourceId).el,
+      target: this.digraph.node(targetId).el,
+    }, self.jsPlumbConfiguration.connectors[userValue.relationType]);
+  };
+
+  /*
+   * configureDragAndDrop binds all the events needed to make drag-n-drop work
+   */
+  this.configureDragAndDrop = function(nodeEl)
+  {
+    if (nodeEl.jquery === undefined)
+    {
+      var nodeEl = jQuery(nodeEl);
+    }
+
+    // Make sure that we are not doing it twice
+    if (nodeEl.data('drag-n-drop') === true)
+    {
+      return;
+    }
+
+    // Use jsPlumb draggable wrapper so jsPlumb can repaint edges
+    this.plumb.draggable(nodeEl, {
+      containment: self.element,
+      start: function(event, ui) {
+        ui.helper.data('originalZIndex', ui.helper.css('z-index'));
+        ui.helper.css('z-index', 9999);
+      },
+      stop: function(event, ui) {
+        ui.helper.css('z-index', ui.helper.data('originalZIndex') !== undefined ? ui.helper.data('originalZIndex') : 1);
+      },
+    });
+
+    nodeEl.droppable({
+      activeClass: 'droppable',
+      hoverClass: 'droppable-hover',
+      drop: function(event, ui) {
+        var sourceEl = ui.helper;
+        var targetEl = jQuery(event.target);
+        self.moveNode(sourceEl, targetEl);
+      }
+    });
+
+    // Mark this element configured
+    nodeEl.data('drag-n-drop', true);
+  };
+
+  /* ------------------------------------------------------------------------
+   * Interaction with nodes
+   * ------------------------------------------------------------------------ */
+
   this.getNodes = function(relations)
   {
     return this.element.find('.node');
@@ -248,16 +292,6 @@ function Plumb(element, scope)
     }
 
     return this.digraph.node(activeNode.data('id'));
-  };
-
-  this.click = function(event)
-  {
-    event.preventDefault();
-    var target = jQuery(event.target);
-    if (target.hasClass('node'))
-    {
-      this.activateNode(target);
-    }
   };
 
   this.activateNode = function(node)
@@ -292,10 +326,68 @@ function Plumb(element, scope)
     jQuery('.context-browser-doc').hide();
   };
 
+  /*
+   * When we are moving a node to a different place we need to:
+   *
+   * 1) Recreate existing inEdges with the new $target
+   * 2) Call draw()
+   */
+  this.moveNode = function(sourceEl, targetEl)
+  {
+    var sourceNo = self.digraph.node(sourceEl.data('id'));
+    var targetNo = self.digraph.node(targetEl.data('id'));
+
+    // Move element to child logic
+    var targetIsSuccessor = -1 !== jQuery.inArray(sourceEl.data('id'), self.digraph.predecessors(targetEl.data('id')));
+    if (targetIsSuccessor)
+    {
+      return false;
+    }
+
+    // Detach existing connections
+    // TODO: calling detach() individually for a connection didn't work for me
+    self.plumb.detachAllConnections(sourceEl);
+
+    // This should happen only once, as only one parent is possible
+    self.digraph.inEdges(sourceEl.data('id')).forEach(function(edgeId)
+    {
+      // Remove existing connection
+      var edge = self.digraph.edge(edgeId);
+      self.digraph.delEdge(edgeId);
+
+      // Add new edge
+      self.addEdgeIntoDigraph(targetEl.data('id'), sourceEl.data('id'), 'hierarchical');
+    });
+
+    self.draw();
+
+    // I have no idea why I need to schedule this function but if I call it right
+    // away the connections of jsPlumb won't be rendered properly
+    window.setTimeout(function()
+      {
+        self.plumb.repaintEverything();
+      }, 0);
+  };
+
+  /* ------------------------------------------------------------------------
+   * Event callbacks
+   * ------------------------------------------------------------------------ */
+
+  this.click = function(event)
+  {
+    event.preventDefault();
+    var target = jQuery(event.target);
+    if (target.hasClass('node'))
+    {
+      this.activateNode(target);
+    }
+  };
+
   this.addChildNode = function(event)
   {
     event.preventDefault();
 
+    // Temporary solution to get a random ID for a node
     var makeId = function makeId(length)
     {
       var text = "";
@@ -358,35 +450,7 @@ function Plumb(element, scope)
       this.fullscreen = true;
 
       // TODO redraw
+      this.draw();
     }
   };
-
-  this.configureDragAndDrop = function(nodeEl)
-  {
-    if (nodeEl.jquery === undefined)
-    {
-      nodeEl = jQuery(nodeEl);
-    }
-
-    if (nodeEl.data('drag-n-drop') === true)
-    {
-      return;
-    }
-
-    // Use jsPlumb draggable wrapper in order to repaint edges
-    this.plumb.draggable(nodeEl, {
-      containment: self.element,
-      start: function() {
-        console.log("DRAG");
-      }
-    });
-
-    nodeEl.droppable({
-      drop: function() {
-        console.log("DROP");
-      }
-    });
-
-    nodeEl.data('drag-n-drop', true);
-  };
-}
+};
