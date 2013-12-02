@@ -9,11 +9,10 @@ function Plumb(element, scope)
   this.scope = scope;
 
   this.levels = [
-    { name: 'Work' },
-    { name: 'Expression' },
-    { name: 'Manifestation' },
-    { name: 'Component' },
-    { name: 'Digital object' }
+    { name: 'work' },
+    { name: 'description' },
+    { name: 'physical-component' },
+    { name: 'digital-object' }
   ];
 
   this.defaultBoxSize = {

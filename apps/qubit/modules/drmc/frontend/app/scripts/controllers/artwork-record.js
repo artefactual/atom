@@ -6,17 +6,17 @@ angular.module('momaApp')
     $scope.atomGlobals = atomGlobals;
 
     $scope.collection = [
-      { id: 0, title: 'Play Dead; Real Time', level: 'Work', children: [
-        { id: 20, title: 'Components', level: 'Expression', children: [
-          { id: 31, title: 'DVD', level: 'PhysicalComponent' },
-          { id: 32, title: 'DVD', level: 'PhysicalComponent' },
-          { id: 33, title: 'DVD', level: 'PhysicalComponent' },
-          { id: 34, title: 'Digital Betacam', level: 'PhysicalComponent' },
-          { id: 35, title: 'Digital Betacam', level: 'PhysicalComponent' },
-          { id: 36, title: 'Digital Betacam', level: 'PhysicalComponent' },
-          { id: 37, title: '.mov Uncompressed 10bit PAL', level: 'DigitalObject' },
-          { id: 38, title: '.mov Uncompressed 10bit PAL', level: 'DigitalObject' },
-          { id: 39, title: '.mov Uncompressed 10bit PAL', level: 'DigitalObject' }
+      { id: 0, title: 'Play Dead; Real Time', level: 'work', children: [
+        { id: 20, title: 'Components', level: 'description', children: [
+          { id: 31, title: 'DVD', level: 'physical-component' },
+          { id: 32, title: 'DVD', level: 'physical-component' },
+          { id: 33, title: 'DVD', level: 'physical-component' },
+          { id: 34, title: 'Digital Betacam', level: 'physical-component' },
+          { id: 35, title: 'Digital Betacam', level: 'physical-component' },
+          { id: 36, title: 'Digital Betacam', level: 'physical-component' },
+          { id: 37, title: '.mov Uncompressed 10bit PAL', level: 'digital-object' },
+          { id: 38, title: '.mov Uncompressed 10bit PAL', level: 'digital-object' },
+          { id: 39, title: '.mov Uncompressed 10bit PAL', level: 'digital-object' }
         ]}
       ]}
     ];
