@@ -301,6 +301,11 @@ function Plumb(element, scope)
     var id = node.data('id');
     var aside = jQuery('#aside-id-' + id);
 
+    if ($(node).hasClass('node-level-physical-component'))
+    {
+      return false;
+    }
+
     if (node.hasClass('active'))
     {
       return;
