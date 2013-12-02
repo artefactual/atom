@@ -168,32 +168,27 @@ function Plumb(element, scope)
 
   this.draw = function()
   {
-    var firstRender = this.firstRender === undefined || this.firstRender === true;
-
     self.computeLayout();
 
     self.layout.eachNode(function(id, value) {
-      self.renderNode(id, value, firstRender);
+      self.renderNode(id, value);
     });
 
     self.layout.eachEdge(function(edgeId, sourceId, targetId, value) {
       self.renderEdge(edgeId, sourceId, targetId, value);
     });
-
-    if (firstRender)
-    {
-      this.firstRender = false;
-    }
   };
 
   /*
    * renderNode draws the new node using HTML
    */
-  this.renderNode = function(id, value, insertInDOM)
+  this.renderNode = function(id, value)
   {
     var node = this.digraph.node(id);
 
-    if (insertInDOM)
+    var isRendered = node.el !== undefined;
+
+    if (!isRendered)
     {
       var el = document.createElement('div');
 
@@ -427,7 +422,7 @@ function Plumb(element, scope)
       id: newId,
       width: self.defaultBoxSize.width,
       height: self.defaultBoxSize.height,
-      level: 'Expression',
+      level: 'description',
       title: n
     });
     this.digraph.addEdge(activeNodeData.id + ':' + newChildNodeId, activeNodeData.id, newChildNodeId, {
