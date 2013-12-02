@@ -19,6 +19,16 @@ angular.module('momaApp', [
         controller: 'ArtworkRecordCtrl',
         activeTab: 'artwork-record'
       })
+      .when('/artwork-record2', {
+        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/artwork-record2.html',
+        controller: 'ArtworkRecord2Ctrl',
+        activeTab: 'artwork-record2'
+      })
+      .when('/artwork-record3', {
+        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/artwork-record3.html',
+        controller: 'ArtworkRecord3Ctrl',
+        activeTab: 'artwork-record3'
+      })
       .when('/technology-record', {
         templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/technology-record.html',
         controller: 'TechnologyRecordCtrl',
