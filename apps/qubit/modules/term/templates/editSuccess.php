@@ -57,25 +57,30 @@
 
         <legend><?php echo __('Relationships') ?></legend>
 
-        <?php if (null !== $form->taxonomy->getValue()): ?>
+        <div class="form-item">
+          <?php echo $form->parent
+            ->label(__('Broad term'))
+            ->renderLabel() ?>
+          <?php echo $form->parent->render(array('class' => 'form-autocomplete')) ?>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete')) ?>"/>
+        </div>
 
-          <div class="form-item">
-            <?php echo $form->parent
-              ->label(__('Broad term'))
-              ->renderLabel() ?>
-            <?php echo $form->parent->render(array('class' => 'form-autocomplete')) ?>
-            <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => $form->taxonomy->getValue())) ?>"/>
-          </div>
+        <div class="form-item">
+          <?php echo $form->relatedTerms
+            ->label(__('Related term(s)'))
+            ->renderLabel() ?>
+          <?php echo $form->relatedTerms->render(array('class' => 'form-autocomplete')) ?>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete')) ?>"/>
+        </div>
 
-          <div class="form-item">
-            <?php echo $form->relatedTerms
-              ->label(__('Related term(s)'))
-              ->renderLabel() ?>
-            <?php echo $form->relatedTerms->render(array('class' => 'form-autocomplete')) ?>
-            <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => $form->taxonomy->getValue())) ?>"/>
-          </div>
-
-        <?php endif; ?>
+        <div class="form-item">
+          <?php echo $form->converseTerm
+            ->label(__('Converse term'))
+            ->renderLabel() ?>
+          <?php echo $form->converseTerm->render(array('class' => 'form-autocomplete')) ?>
+          <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => $form->taxonomy->getValue())) ?> #name"/>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'selfReciprocal' => true)) ?>"/>
+        </div>
 
         <?php echo $form->narrowTerms
           ->label(__('Add new narrow terms'))

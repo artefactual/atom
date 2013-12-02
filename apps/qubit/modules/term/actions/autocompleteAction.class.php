@@ -34,15 +34,18 @@ class TermAutocompleteAction extends sfAction
 
       // Exclude the calling object and it's descendants from the list (prevent
       // circular inheritance)
-      if (isset($params['id']))
+      if (isset($params['_sf_route']->resource->id))
       {
         // TODO Self join would be ideal
-        $term = QubitTerm::getById($params['id']);
-        if (isset($term))
-        {
-          $criteria->add($criteria->getNewCriterion(QubitTerm::LFT, $term->lft, Criteria::LESS_THAN)
-            ->addOr($criteria->getNewCriterion(QubitTerm::RGT, $term->rgt, Criteria::GREATER_THAN)));
-        }
+        $criteria->add($criteria->getNewCriterion(QubitTerm::LFT, $params['_sf_route']->resource->lft, Criteria::LESS_THAN)
+          ->addOr($criteria->getNewCriterion(QubitTerm::RGT, $params['_sf_route']->resource->rgt, Criteria::GREATER_THAN)));
+      }
+
+      // Filter by parent if it's set
+      if (isset($request->parent))
+      {
+        $params = $this->context->routing->parse(Qubit::pathInfo($request->parent));
+        $criteria->add(QubitTerm::PARENT_ID, $params['_sf_route']->resource->id);
       }
 
       $params = $this->context->routing->parse(Qubit::pathInfo($request->taxonomy));
@@ -81,6 +84,11 @@ class TermAutocompleteAction extends sfAction
         WHERE taxonomy_id = :p1
           AND qti.culture = :p2';
 
+      if (isset($request->parent))
+      {
+       $s1 .= ' AND parent_id = :p5';
+      }
+
       $s2 = 'SELECT qt.id, qon.id as altId, qoni.name
         FROM '.QubitOtherName::TABLE_NAME.' qon
           INNER JOIN (SELECT id, culture, name FROM '.QubitOtherNameI18n::TABLE_NAME.$where.') qoni
@@ -96,6 +104,12 @@ class TermAutocompleteAction extends sfAction
        $s2 .= ' AND qoni.name LIKE :p3';
       }
 
+      // Narrow results by parent
+      if (isset($request->parent))
+      {
+        $s2 .= ' AND qt.parent_id = :p5';
+      }
+
       $connection = Propel::getConnection();
       $statement = $connection->prepare("($s1) UNION ALL ($s2) ORDER BY name LIMIT :p4");
       $params = $this->context->routing->parse(Qubit::pathInfo($request->taxonomy));
@@ -106,6 +120,12 @@ class TermAutocompleteAction extends sfAction
       if (isset($request->query))
       {
         $statement->bindValue(':p3', "$request->query%");
+      }
+
+      if (isset($request->parent))
+      {
+        $params = $this->context->routing->parse(Qubit::pathInfo($request->parent));
+        $statement->bindValue(':p5', $params['_sf_route']->resource->id);
       }
 
       $statement->bindValue(':p4', (int) $request->limit, PDO::PARAM_INT);

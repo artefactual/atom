@@ -10,6 +10,7 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
     ID = 'term.ID',
     TAXONOMY_ID = 'term.TAXONOMY_ID',
     CODE = 'term.CODE',
+    CONVERSE_TERM_ID = 'term.CONVERSE_TERM_ID',
     PARENT_ID = 'term.PARENT_ID',
     LFT = 'term.LFT',
     RGT = 'term.RGT',
@@ -24,6 +25,7 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
     $criteria->addSelectColumn(QubitTerm::ID);
     $criteria->addSelectColumn(QubitTerm::TAXONOMY_ID);
     $criteria->addSelectColumn(QubitTerm::CODE);
+    $criteria->addSelectColumn(QubitTerm::CONVERSE_TERM_ID);
     $criteria->addSelectColumn(QubitTerm::PARENT_ID);
     $criteria->addSelectColumn(QubitTerm::LFT);
     $criteria->addSelectColumn(QubitTerm::RGT);
@@ -235,6 +237,11 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
     }
 
     if ('statussRelatedBystatusId' == $name)
+    {
+      return true;
+    }
+
+    if ('termsRelatedByconverseTermId' == $name)
     {
       return true;
     }
@@ -760,6 +767,23 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       return $this->refFkValues['statussRelatedBystatusId'];
     }
 
+    if ('termsRelatedByconverseTermId' == $name)
+    {
+      if (!isset($this->refFkValues['termsRelatedByconverseTermId']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['termsRelatedByconverseTermId'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['termsRelatedByconverseTermId'] = self::gettermsRelatedByconverseTermIdById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['termsRelatedByconverseTermId'];
+    }
+
     if ('termsRelatedByparentId' == $name)
     {
       if (!isset($this->refFkValues['termsRelatedByparentId']))
@@ -1093,6 +1117,13 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
   public static function addJointaxonomyCriteria(Criteria $criteria)
   {
     $criteria->addJoin(QubitTerm::TAXONOMY_ID, QubitTaxonomy::ID);
+
+    return $criteria;
+  }
+
+  public static function addJoinconverseTermCriteria(Criteria $criteria)
+  {
+    $criteria->addJoin(QubitTerm::CONVERSE_TERM_ID, QubitTerm::ID);
 
     return $criteria;
   }
@@ -1622,6 +1653,26 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
   public function addstatussRelatedBystatusIdCriteria(Criteria $criteria)
   {
     return self::addstatussRelatedBystatusIdCriteriaById($criteria, $this->id);
+  }
+
+  public static function addtermsRelatedByconverseTermIdCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitTerm::CONVERSE_TERM_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function gettermsRelatedByconverseTermIdById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addtermsRelatedByconverseTermIdCriteriaById($criteria, $id);
+
+    return QubitTerm::get($criteria, $options);
+  }
+
+  public function addtermsRelatedByconverseTermIdCriteria(Criteria $criteria)
+  {
+    return self::addtermsRelatedByconverseTermIdCriteriaById($criteria, $this->id);
   }
 
   public static function addtermsRelatedByparentIdCriteriaById(Criteria $criteria, $id)

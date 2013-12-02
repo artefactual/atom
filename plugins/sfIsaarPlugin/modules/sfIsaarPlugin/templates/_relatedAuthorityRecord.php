@@ -13,13 +13,15 @@
       <?php echo __('Related corporate bodies, persons or families') ?>
     </caption><thead>
       <tr>
-        <th style="width: 25%">
+        <th style="width: 20%">
           <?php echo __('Name') ?>
         </th><th style="width: 15%">
+          <?php echo __('Category') ?>
+        </th><th style="width: 15%">
           <?php echo __('Type') ?>
-        </th><th style="width: 20%">
+        </th><th style="width: 15%">
           <?php echo __('Dates') ?>
-        </th><th style="width: 30%">
+        </th><th style="width: 25%">
           <?php echo __('Description') ?>
         </th><th style="text-align: center; width: 10%">
           <?php echo image_tag('delete', array('align' => 'top', 'class' => 'deleteIcon')) ?>
@@ -35,7 +37,19 @@
               <?php echo render_title($item->object) ?>
             <?php endif; ?>
           </td><td>
-            <?php echo $item->type ?>
+            <?php if ($item->type->parentId == QubitTerm::ROOT_ID): ?>
+              <?php echo $item->type ?>
+            <?php else: ?>
+              <?php echo $item->type->parent ?>
+            <?php endif; ?>
+          </td><td>
+            <?php if ($item->type->parentId != QubitTerm::ROOT_ID): ?>
+              <?php if ($resource->id == $item->objectId): ?>
+                <?php echo $item->type->converseTerm ?>
+              <?php else: ?>
+                <?php echo $item->type ?>
+              <?php endif; ?>
+            <?php endif; ?>
           </td><td>
             <?php echo Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate) ?>
           </td><td>
@@ -59,6 +73,8 @@ $rowTemplate = json_encode(<<<value
     {{$form->resource->renderName()}}
   </td><td>
     {{$form->type->renderName()}}
+  </td><td>
+    {{$form->subType->renderName()}}
   </td><td>
     {{$form->date->renderName()}}
   </td><td>
@@ -102,6 +118,7 @@ Drupal.behaviors.relatedAuthorityRecord = {
             if ('$url' === response.resource)
             {
               response.resource = response.subject;
+              response.subType = response.converseSubType;
             }
 
             return response;
@@ -142,6 +159,17 @@ content
         ->help(__('"Purpose: To identify the general category of relationship between the entity being described and another corporate body, person or family." (ISAAR 5.3.2). Select a category from the drop-down menu: hierarchical, temporal, family or associative.'))
         ->label(__('Category of relationship'))
         ->renderRow() ?>
+
+      <div class="form-item">
+        <?php echo $form->subType
+          ->label(__('Relationship type'))
+          ->renderLabel() ?>
+        <?php echo $form->subType->render(array('class' => 'form-autocomplete', 'disabled' => 'true')) ?>
+        <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::ACTOR_RELATION_TYPE_ID), 'module' => 'taxonomy')))) ?>"/>
+        <?php echo $form->subType
+          ->help(__('"Help for relationship type"'))
+          ->renderHelp() ?>
+      </div>
 
       <?php echo $form->description
         ->help(__('"Record a precise description of the nature of the relationship between the entity described in this authority record and the other related entity....Record in the Rules and/or conventions element (5.4.3) any classification scheme used as a source of controlled vocabulary terms to describe the relationship. A narrative description of the history and/or nature of the relationship may also be provided here." (ISAAR 5.3.3). Note that the text entered in this field will also appear in the related authority record.'))

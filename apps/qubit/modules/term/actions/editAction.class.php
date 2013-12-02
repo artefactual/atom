@@ -32,6 +32,7 @@ class TermEditAction extends DefaultEditAction
 
       'narrowTerms',
       'parent',
+      'converseTerm',
       'relatedTerms',
       'scopeNote',
       'sourceNote',
@@ -161,6 +162,20 @@ class TermEditAction extends DefaultEditAction
         }
 
         $this->form->setWidget('parent', new sfWidgetFormSelect(array('choices' => $choices)));
+
+        break;
+
+      case 'converseTerm':
+        $this->form->setDefault('converseTerm', $this->context->routing->generate(null, array($this->resource->converseTerm, 'module' => 'term')));
+        $this->form->setValidator('converseTerm', new sfValidatorString);
+
+        $choices = array();
+        if (isset($this->resource->converseTermId))
+        {
+          $choices[$this->context->routing->generate(null, array($this->resource->converseTerm, 'module' => 'term'))] = $this->resource->converseTerm;
+        }
+
+        $this->form->setWidget('converseTerm', new sfWidgetFormSelect(array('choices' => $choices)));
 
         break;
 
@@ -326,6 +341,46 @@ class TermEditAction extends DefaultEditAction
         {
           $params = $this->context->routing->parse(Qubit::pathInfo($value));
           $this->resource->parent = $params['_sf_route']->resource;
+        }
+
+        break;
+
+      case 'converseTerm':
+        // Remove actual converse relation
+        if (isset($this->resource->converseTermId))
+        {
+          // Remove itself from the converse term if it's not self-reciprocal
+          if ($this->resource->converseTermId != $this->resource->id)
+          {
+            unset($this->resource->converseTerm->converseTermId);
+            $this->resource->converseTerm->save();
+          }
+
+          unset($this->resource->converseTermId);
+        }
+
+        // Create new converse relation
+        $value = $this->form->getValue('converseTerm');
+        if (isset($value) && $value != '')
+        {
+          // We're going to need the id
+          $this->resource->save();
+          if ($value == '#')
+          {
+            // Set self-reciprocal relation
+            $this->resource->converseTermId = $this->resource->id;
+          }
+          else
+          {
+            // Get converse term, update its parent (when it's created on the fly) and its converse term id
+            $params = $this->context->routing->parse(Qubit::pathInfo($value));
+            $converseTerm = $params['_sf_route']->resource;
+            $converseTerm->parentId = $this->resource->parentId;
+            $converseTerm->converseTermId = $this->resource->id;
+            $converseTerm->save();
+
+            $this->resource->converseTermId = $converseTerm->id;
+          }
         }
 
         break;

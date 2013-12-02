@@ -115,6 +115,10 @@
   </div>
 </div>
 
+<?php if (isset($resource->converseTermId)): ?>
+  <?php echo render_show(__('Converse term'), link_to(render_title($resource->converseTerm), array($resource->converseTerm, 'module' => 'term'))) ?>
+<?php endif; ?>
+
 <div class="field">
   <h3><?php echo __('Associated terms') ?></h3>
   <div>

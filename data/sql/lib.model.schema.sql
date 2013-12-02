@@ -1194,6 +1194,7 @@ CREATE TABLE `term`
 	`id` INTEGER  NOT NULL,
 	`taxonomy_id` INTEGER  NOT NULL,
 	`code` VARCHAR(1024),
+	`converse_term_id` INTEGER,
 	`parent_id` INTEGER,
 	`lft` INTEGER  NOT NULL,
 	`rgt` INTEGER  NOT NULL,
@@ -1208,8 +1209,13 @@ CREATE TABLE `term`
 		FOREIGN KEY (`taxonomy_id`)
 		REFERENCES `taxonomy` (`id`)
 		ON DELETE CASCADE,
-	INDEX `term_FI_3` (`parent_id`),
+	INDEX `term_FI_3` (`converse_term_id`),
 	CONSTRAINT `term_FK_3`
+		FOREIGN KEY (`converse_term_id`)
+		REFERENCES `term` (`id`)
+		ON DELETE SET NULL,
+	INDEX `term_FI_4` (`parent_id`),
+	CONSTRAINT `term_FK_4`
 		FOREIGN KEY (`parent_id`)
 		REFERENCES `term` (`id`)
 )Engine=InnoDB;
