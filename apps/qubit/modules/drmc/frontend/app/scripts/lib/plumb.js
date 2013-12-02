@@ -250,6 +250,11 @@ function Plumb(element, scope)
       return;
     }
 
+    if (nodeEl.hasClass('node-level-work'))
+    {
+      return;
+    }
+
     // Use jsPlumb draggable wrapper so jsPlumb can repaint edges
     this.plumb.draggable(nodeEl, {
       containment: self.element,
