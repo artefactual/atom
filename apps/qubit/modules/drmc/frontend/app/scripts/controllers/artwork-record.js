@@ -16,11 +16,9 @@ angular.module('momaApp')
           { id: 36, title: 'Digital Betacam', level: 'PhysicalComponent' },
           { id: 37, title: '.mov Uncompressed 10bit PAL', level: 'DigitalObject' },
           { id: 38, title: '.mov Uncompressed 10bit PAL', level: 'DigitalObject' },
-          { id: 39, title: '.mov Uncompressed 10bit PAL', level: 'DigitalObject' },
-          { id: 40, title: '.mov H264', level: 'DigitalObject' },
-          { id: 41, title: '.mov H264', level: 'DigitalObject' },
-          { id: 42, title: '.mov H264', level: 'DigitalObject' } ]},
-        { id: 11, title: 'Installation Documentation', level: 'Expression' }]}
+          { id: 39, title: '.mov Uncompressed 10bit PAL', level: 'DigitalObject' }
+        ]}
+      ]}
     ];
 
     $scope.techRelationships = [

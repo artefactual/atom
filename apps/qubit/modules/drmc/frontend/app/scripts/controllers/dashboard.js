@@ -32,7 +32,7 @@ angular.module('momaApp')
       $scope.selects.push({ id: '' + ($scope.selects.length + 1), name: '' });
       };
 
-    $scope.AIPtypeahead = [ 'Play Dead; Real Time' ];
+    $scope.AIPtypeahead = [ 'Play Dead; Real Time', 'Douglas Gordon' ];
 
     // D3 Graph 'AIP Objects by MIME Type'
     // Eventually separate out data set from js file

@@ -11,9 +11,6 @@
             <li>
                 <a ng-class="{ active: $route.current.activetab == 'artwork-record2' }" ng-href="#/artwork-record2" class="" role="menuitem" tabindex="-1">Artwork Record 2</a>
             </li>
-            <li>
-                <a ng-class="{ active: $route.current.activetab == 'artwork-record3' }" ng-href="#/artwork-record3" class="" role="menuitem" tabindex="-1">Artwork Record 3</a>
-            </li>
         </ul>
     </li>
     <li><a ng-class="{ active: $route.current.activetab == 'technology-record' }" ng-href="#/technology-record">Technology Record</a></li>
