@@ -18,8 +18,11 @@ function Plumb(element, scope)
 
   this.defaultBoxSize = {
     width: 120,
-    height: 24
+    height: 14
   };
+
+  this.nodeSep = 20;
+  this.rankSep = 80;
 
   this.jsPlumbConfiguration = {
 
@@ -159,7 +162,7 @@ function Plumb(element, scope)
   this.computeLayout = function()
   {
     // Use dagre to build the layout by passing the digraph
-    self.layout = dagre.layout().nodeSep(30).rankSep(80).rankDir("LR").run(this.digraph);
+    self.layout = dagre.layout().nodeSep(self.nodeSep).rankSep(self.rankSep).rankDir("LR").run(this.digraph);
 
     self.updateWidgetSize();
   };
