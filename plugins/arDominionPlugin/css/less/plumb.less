@@ -61,12 +61,13 @@
 .plumb-graph {
   position: relative;
   .node {
+    position: relative;
     z-index: 1;
     font-size: 12px;
     border: 1px solid #666;
     color: @white;
     overflow-y: auto;
-    padding: 4px;
+    padding: 4px 22px 4px 4px;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
@@ -113,8 +114,22 @@
   .node-level-physical-component {
     background-color: @momaNodePhysicalComponent;
   }
+  .node-conn-handler {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, .4);
+    border: 1px solid @gray;
+    border-radius: 1px;
+  }
 }
 
 .context-browser-doc {
   .hide();
+}
+
+.dragHover, .dragActive {
+  border-color: 2px solid red;
 }

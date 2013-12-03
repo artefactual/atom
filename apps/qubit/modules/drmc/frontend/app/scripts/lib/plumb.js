@@ -32,7 +32,6 @@ function Plumb(element, scope)
 
     // Types of relations
     connectors: {
-
       // Hierarchical
       hierarchical: {
         connector: 'Straight',
@@ -43,11 +42,10 @@ function Plumb(element, scope)
         },
         endpoint: 'Blank'
       },
-
       // Associative
       associative: {
         connector: [ 'Straight', { curviness: 50 }],
-        anchors: ['Right', 'Right'],
+        anchors: ['RightMiddle', 'RightMiddle'],
         paintStyle: {
           lineWidth: 2,
           strokeStyle: 'rgb(131,8,135)',
@@ -58,8 +56,30 @@ function Plumb(element, scope)
         overlays: [['PlainArrow', { location: 1, width: 15, length: 12}]],
         label: 'is derivative of'
       }
+    },
 
+    // Types of endpoints
+    endpoints: {
+      associative: {
+        endpoint: 'Rectangle',
+        paintStyle: { width: 10, height: 10, fillStyle: '#f80' },
+        cssClass: 'endpoint-associative',
+        hoverClass: 'endpoint-associative-hover',
+        isSource: true,
+        isTarget: true,
+        scope: 'endpoint-associative',
+        connectorStyle: { strokeStyle: 'rgb(131,8,135)', lineWidth: 2, dashstyle: '1 1', joinstyle: 'miter' },
+        beforeDrop: function(params) {
+          return true;
+        },
+        dragOptions: {
+          tolerance: "touch",
+          hoverClass: "endpoint-associative-drop-hover",
+          activeClass: "endpoint-associative-drag-active-active"
+        }
+      }
     }
+
   };
 
   this.initialize = function(scope)
@@ -67,11 +87,7 @@ function Plumb(element, scope)
     // Initialization
     console.log('plumb', 'Initializing...');
 
-    // Create an instance of jsPlumb
-    this.plumb = jsPlumb.getInstance();
-
-    // Change jsPlumb.Defaults
-    this.plumb.importDefaults(this.jsPlumbConfiguration.defaults);
+    this.initializePlumb();
 
     // Configure DOM listeners
     this.listen();
@@ -79,6 +95,15 @@ function Plumb(element, scope)
     // Build the directed graph using graphlib
     this.digraph = new dagre.Digraph();
     this.loadDataIntoDigraph();
+  };
+
+  this.initializePlumb = function()
+  {
+    // Create an instance of jsPlumb
+    window.plumb = this.plumb = jsPlumb.getInstance();
+
+    // Change jsPlumb.Defaults
+    this.plumb.importDefaults(this.jsPlumbConfiguration.defaults);
   };
 
   this.listen = function()
@@ -89,6 +114,9 @@ function Plumb(element, scope)
     this.element.closest('.plumb-container').prev()
       .on('click', '.fullscreen', jQuery.proxy(this.toggleFullscreen, this))
       .on('click', '.add_child', jQuery.proxy(this.addChildNode, this));
+
+    this.plumb.bind('connection', function(info, event) { console.log('conn'); });
+    this.plumb.bind('connectionDettached', function(info, event) { console.log('disconn'); });
   };
 
   this.addNodeIntoDigraph = function(node, isRoot)
@@ -177,6 +205,7 @@ function Plumb(element, scope)
     self.layout.eachEdge(function(edgeId, sourceId, targetId, value) {
       self.renderEdge(edgeId, sourceId, targetId, value);
     });
+
   };
 
   /*
@@ -191,7 +220,6 @@ function Plumb(element, scope)
     if (!isRendered)
     {
       var el = document.createElement('div');
-
       el.className = 'node node-level-' + node.level;
       el.id = 'node-' + id;
       el.setAttribute('data-id', id);
@@ -200,6 +228,11 @@ function Plumb(element, scope)
       el.style.width = this.defaultBoxSize.width + 'px';
       el.style.height = this.defaultBoxSize.height + 'px';
       el.style.lineHeight = this.defaultBoxSize.height + 'px';
+
+      // Add assocative handler
+      // var handler = document.createElement('div');
+      // handler.className = 'node-conn-handler';
+      // el.appendChild(handler);
 
       // Insert in DOM
       self.element[0].appendChild(el);
@@ -216,6 +249,12 @@ function Plumb(element, scope)
 
     el.style.left = value.x + 'px';
     el.style.top = value.y + 'px';
+
+    if (!isRendered)
+    {
+      // Add the associative endpoint
+      self.plumb.addEndpoint(el, { anchor: 'RightMiddle' }, self.jsPlumbConfiguration.endpoints['associative']);
+    }
   };
 
   /*
