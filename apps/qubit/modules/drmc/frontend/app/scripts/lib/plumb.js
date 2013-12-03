@@ -197,6 +197,8 @@ function Plumb(element, scope)
 
   this.draw = function()
   {
+    this.rendered = this.rendered !== undefined && this.rendered == true;
+
     self.computeLayout();
 
     self.layout.eachNode(function(id, value) {
