@@ -41,7 +41,7 @@ function Plumb(element, scope)
           lineWidth: 1,
           strokeStyle: '#cecece'
         },
-        endpoint: 'Blank',
+        endpoint: 'Blank'
       },
 
       // Associative
@@ -56,7 +56,7 @@ function Plumb(element, scope)
         },
         endpoint: 'Dot',
         overlays: [['PlainArrow', { location: 1, width: 15, length: 12}]],
-        label: 'is derivative of',
+        label: 'is derivative of'
       }
 
     }
@@ -201,8 +201,10 @@ function Plumb(element, scope)
       el.style.height = this.defaultBoxSize.height + 'px';
       el.style.lineHeight = this.defaultBoxSize.height + 'px';
 
+      // Insert in DOM
       self.element[0].appendChild(el);
 
+      // Configure drag-n-drop
       this.configureDragAndDrop(el);
 
       node.el = el;
