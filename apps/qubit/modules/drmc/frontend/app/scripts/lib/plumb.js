@@ -247,22 +247,20 @@ function Plumb(element, scope)
       return;
     }
 
-    if (nodeEl.hasClass('node-level-work'))
+    if (!nodeEl.hasClass('node-level-work'))
     {
-      return;
+      // Use jsPlumb draggable wrapper so jsPlumb can repaint edges
+      this.plumb.draggable(nodeEl, {
+        containment: self.element,
+        start: function(event, ui) {
+          ui.helper.data('originalZIndex', ui.helper.css('z-index'));
+          ui.helper.css('z-index', 9999);
+        },
+        stop: function(event, ui) {
+          ui.helper.css('z-index', ui.helper.data('originalZIndex') !== undefined ? ui.helper.data('originalZIndex') : 1);
+        },
+      });
     }
-
-    // Use jsPlumb draggable wrapper so jsPlumb can repaint edges
-    this.plumb.draggable(nodeEl, {
-      containment: self.element,
-      start: function(event, ui) {
-        ui.helper.data('originalZIndex', ui.helper.css('z-index'));
-        ui.helper.css('z-index', 9999);
-      },
-      stop: function(event, ui) {
-        ui.helper.css('z-index', ui.helper.data('originalZIndex') !== undefined ? ui.helper.data('originalZIndex') : 1);
-      },
-    });
 
     nodeEl.droppable({
       activeClass: 'droppable',
