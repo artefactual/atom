@@ -112,8 +112,9 @@ function Plumb(element, scope)
       .on('click', jQuery.proxy(this.click, this));
 
     this.element.closest('.plumb-container').prev()
-      .on('click', '.fullscreen', jQuery.proxy(this.toggleFullscreen, this))
-      .on('click', '.add_child', jQuery.proxy(this.addChildNode, this));
+      .on('click', '.fullscreen', jQuery.proxy(this.clickFullscreen, this))
+      .on('click', '.add_child', jQuery.proxy(this.clickAddChildNode, this))
+      .on('click', '.delete', jQuery.proxy(this.clickDeleteNode, this));
 
     this.plumb.bind('connection', function(info, event) { console.log('conn'); });
     this.plumb.bind('connectionDettached', function(info, event) { console.log('disconn'); });
@@ -253,7 +254,7 @@ function Plumb(element, scope)
     if (!isRendered)
     {
       // Add the associative endpoint
-      self.plumb.addEndpoint(el, { anchor: 'RightMiddle' }, self.jsPlumbConfiguration.endpoints['associative']);
+      node.associativeEndpoint = self.plumb.addEndpoint(el, { anchor: 'RightMiddle' }, self.jsPlumbConfiguration.endpoints['associative']);
     }
   };
 
@@ -415,6 +416,38 @@ function Plumb(element, scope)
       }, 0);
   };
 
+  this.deleteNode = function(id, nested)
+  {
+    var nested = nested === undefined || nested === true;
+
+    if (nested)
+    {
+      self.digraph.successors(id).forEach(function(id)
+      {
+        self.deleteNode(id, false);
+      });
+    }
+
+    var node = self.digraph.node(id);
+
+    self.plumb.deleteEndpoint(node.associativeEndpoint);
+
+    self.digraph.incidentEdges(id).forEach(function(edgeId)
+    {
+      self.digraph.delEdge(edgeId);
+    });
+    self.digraph.delNode(id);
+
+    self.element.find('node-' + id).remove();
+
+    self.draw();
+
+    window.setTimeout(function()
+      {
+        self.plumb.repaintEverything();
+      }, 0);
+  };
+
   /* ------------------------------------------------------------------------
    * Event callbacks
    * ------------------------------------------------------------------------ */
@@ -429,7 +462,20 @@ function Plumb(element, scope)
     }
   };
 
-  this.addChildNode = function(event)
+  this.clickDeleteNode = function(event)
+  {
+    event.preventDefault();
+
+    var activeNodeData = this.getActiveNode();
+    if (activeNodeData === undefined)
+    {
+      return false;
+    }
+
+    this.deleteNode(activeNodeData.id);
+  }
+
+  this.clickAddChildNode = function(event)
   {
     event.preventDefault();
 
@@ -472,7 +518,7 @@ function Plumb(element, scope)
     this.draw();
   };
 
-  this.toggleFullscreen = function(event)
+  this.clickFullscreen = function(event)
   {
     event.preventDefault();
 
