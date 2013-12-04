@@ -62,11 +62,14 @@ function Plumb(element, scope)
     endpoints: {
       associative: {
         endpoint: 'Rectangle',
-        paintStyle: { width: 10, height: 10, fillStyle: '#f80' },
+        paintStyle: { width: 8, height: 8, fillStyle: '#fff' },
         cssClass: 'endpoint-associative',
         hoverClass: 'endpoint-associative-hover',
         isSource: true,
         isTarget: true,
+        connectorOverlays: [
+          ['PlainArrow', { location: 1, width: 15, length: 12}]
+        ],
         maxConnections: 10,
         scope: 'endpoint-associative',
         connectorStyle: { strokeStyle: 'rgb(131,8,135)', lineWidth: 2, dashstyle: '1 1', joinstyle: 'miter' },
