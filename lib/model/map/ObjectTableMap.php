@@ -49,7 +49,6 @@ class ObjectTableMap extends TableMap {
 	 */
 	public function buildRelations()
 	{
-    $this->addRelation('aclPermission', 'aclPermission', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);
     $this->addRelation('accessLog', 'accessLog', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);
     $this->addRelation('actor', 'actor', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('digitalObject', 'digitalObject', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
@@ -71,6 +70,7 @@ class ObjectTableMap extends TableMap {
     $this->addRelation('status', 'status', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);
     $this->addRelation('taxonomy', 'taxonomy', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('term', 'term', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('aclPermission', 'aclPermission', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);
     $this->addRelation('accession', 'accession', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('deaccession', 'deaccession', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
 	} // buildRelations()

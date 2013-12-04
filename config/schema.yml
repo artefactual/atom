@@ -343,7 +343,6 @@ propel:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     taxonomy_id: { type: integer, required: true, foreignTable: taxonomy, foreignReference: id, onDelete: cascade }
     code: varchar(1024)
-    converse_term_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     parent_id: { type: integer, foreignTable: term, foreignReference: id }
     lft: { type: integer, required: true, nestedSetLeftKey: true }
     rgt: { type: integer, required: true, nestedSetRightKey: true }
