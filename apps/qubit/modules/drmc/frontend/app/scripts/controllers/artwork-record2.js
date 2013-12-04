@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('momaApp')
-  .controller('ArtworkRecord2Ctrl', function ($scope, $modal, atomGlobals) {
+  .controller('ArtworkRecord2Ctrl', function ($scope, $modal, atomGlobals, $sce) {
 
     $scope.atomGlobals = atomGlobals;
 
