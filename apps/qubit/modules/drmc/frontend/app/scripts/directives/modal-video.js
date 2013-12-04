@@ -6,6 +6,6 @@ angular.module('momaApp.directives')
 
     return {
         restrict: 'AE',
-        template: '<video controls ng-src="{{videoUrl}}" ></video>'
+        template: '<video controls src="{{ videoUrl }}"></video>'
     }
 });
