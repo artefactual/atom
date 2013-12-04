@@ -356,7 +356,7 @@ section.section-supTech, section.dig-obj-bro {
 // video modal, using flexbox
 
 #inspectModal {
-  background: rgba(0,0,0,0.9);
+  background: @black;
   display: flex;
   display: -webkit-flex;
   -webkit-flex-flow: row nowrap;
@@ -381,9 +381,13 @@ section.section-supTech, section.dig-obj-bro {
     width: 35%;
     overflow: auto;
     order: 2;
+    min-height: 100%;
   }
   section {
     text-align: left;
+  }
+  .viewer-modal-info section > h1 {
+    padding: 8px;
   }
 
 }

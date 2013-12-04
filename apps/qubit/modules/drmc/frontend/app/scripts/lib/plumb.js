@@ -209,6 +209,12 @@ function Plumb(element, scope)
       self.renderEdge(edgeId, sourceId, targetId, value);
     });
 
+    if (!this.rendered)
+    {
+      self.activateDefaultNode();
+    }
+
+    this.rendered = true;
   };
 
   /*

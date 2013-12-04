@@ -37,15 +37,9 @@ angular.module('momaApp')
     $scope.techRelationships.push({ id: '' + ($scope.techRelationships.length + 1), name: '' });
       };
 
-    //hack - must fix
-    var videoUrl1 = $scope.atomGlobals.relativeUrlRoot + "/apps/qubit/modules/drmc/frontend/assets/play-dead-channel-1/1098_2005_a_trim.mp4";
-    $scope.videoUrl1 = $sce.trustAsResourceUrl(videoUrl1);
-
-    var videoUrl2 = $scope.atomGlobals.relativeUrlRoot + "/apps/qubit/modules/drmc/frontend/assets/play-dead-channel-2/1098_2005_b_trim.mp4";
-    $scope.videoUrl2 = $sce.trustAsResourceUrl(videoUrl2);
-
-    var videoUrl3 = $scope.atomGlobals.relativeUrlRoot + "/apps/qubit/modules/drmc/frontend/assets/play-dead-channel-3/1098_2005_c_trim.mp4";
-    $scope.videoUrl3 = $sce.trustAsResourceUrl(videoUrl3);
+    //the video link seems untrusted by angular. This needs $sce in params too.
+    var videoUrl = $scope.atomGlobals.relativeUrlRoot + "/apps/qubit/modules/drmc/frontend/assets/play-dead-channel-1/play-dead-channel-1.mp4";
+    $scope.videoUrl = $sce.trustAsResourceUrl(videoUrl);
 
 
 });
