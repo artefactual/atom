@@ -32,7 +32,7 @@ class qtSwordPluginWorker extends Net_Gearman_Job_Common
     $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
 
     // Start the index (a previous job may have closed it)
-    QubitSearch::getInstance()->initialize();
+    QubitSearch::enable();
 
     $this->log('A new job has started to being processed.');
 
@@ -73,7 +73,7 @@ class qtSwordPluginWorker extends Net_Gearman_Job_Common
     $this->log(sprintf('Job finished.'));
 
     // Free the index lock
-    QubitSearch::getInstance()->getEngine()->close();
+    QubitSearch::disable();
 
     return true;
   }
