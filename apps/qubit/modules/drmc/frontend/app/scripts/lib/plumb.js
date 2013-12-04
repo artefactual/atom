@@ -126,7 +126,10 @@ function Plumb(element, scope)
         var name = prompt('Insert type of relation (or leave it blank)');
         if (name !== undefined && name.length > 0)
         {
-          info.connection.setLabel(name);
+          info.connection.setLabel({
+            cssClass: 'associative-label',
+            label: name
+          });
         }
       }
     });
