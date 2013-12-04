@@ -120,8 +120,17 @@ function Plumb(element, scope)
       .on('click', '.add_child', jQuery.proxy(this.clickAddChildNode, this))
       .on('click', '.delete', jQuery.proxy(this.clickDeleteNode, this));
 
-    this.plumb.bind('connection', function(info, event) { console.log('conn'); });
-    this.plumb.bind('connectionDettached', function(info, event) { console.log('disconn'); });
+    this.plumb.bind('connection', function(info, event) {
+      if (event !== undefined && event.type === 'drop')
+      {
+        var name = prompt('Insert type of relation (or leave it blank)');
+        if (name !== undefined && name.length > 0)
+        {
+          info.connection.setLabel(name);
+        }
+      }
+    });
+    // this.plumb.bind('connectionDettached', function(info, event) { console.log('disconn'); });
   };
 
   this.addNodeIntoDigraph = function(node, isRoot)
