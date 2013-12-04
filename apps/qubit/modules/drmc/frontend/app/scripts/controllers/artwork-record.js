@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('momaApp')
-  .controller('ArtworkRecordCtrl', function ($scope, $modal, atomGlobals) {
+  .controller('ArtworkRecordCtrl', function ($scope, $modal, atomGlobals, $sce) {
 
     $scope.atomGlobals = atomGlobals;
 
@@ -34,7 +34,18 @@ angular.module('momaApp')
 
     $scope.techRelation = '1';
     $scope.pushSelect = function(){
-      $scope.techRelationships.push({ id: '' + ($scope.techRelationships.length + 1), name: '' });
+    $scope.techRelationships.push({ id: '' + ($scope.techRelationships.length + 1), name: '' });
       };
+
+    //hack - must fix
+    var videoUrl1 = $scope.atomGlobals.relativeUrlRoot + "/apps/qubit/modules/drmc/frontend/assets/play-dead-channel-1/1098_2005_a_trim.mp4";
+    $scope.videoUrl1 = $sce.trustAsResourceUrl(videoUrl1);
+
+    var videoUrl2 = $scope.atomGlobals.relativeUrlRoot + "/apps/qubit/modules/drmc/frontend/assets/play-dead-channel-2/1098_2005_b_trim.mp4";
+    $scope.videoUrl2 = $sce.trustAsResourceUrl(videoUrl2);
+
+    var videoUrl3 = $scope.atomGlobals.relativeUrlRoot + "/apps/qubit/modules/drmc/frontend/assets/play-dead-channel-3/1098_2005_c_trim.mp4";
+    $scope.videoUrl3 = $sce.trustAsResourceUrl(videoUrl3);
+
 
 });

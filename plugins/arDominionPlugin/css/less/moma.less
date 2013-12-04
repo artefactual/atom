@@ -274,13 +274,13 @@ section.section-supTech, section.dig-obj-bro {
 // Modals
 
 .modal {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
-  left: 10%;
+  left: 5%;
 }
 
 .modal .modal-header {
-  background-image: none;
+  background: @grayLighter;
   border-bottom: 1px solid @gray;
   .box-shadow(0 1px 2px rgba(25, 25, 25, .2));
 }
@@ -351,6 +351,47 @@ section.section-supTech, section.dig-obj-bro {
 .btn-cancel:after {
   content: "\f057";
 }
+
+/* -------------------------- */
+// video modal, using flexbox
+
+#inspectModal {
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  display: -webkit-flex;
+  -webkit-flex-flow: row nowrap;
+  min-height: 700px;
+  width: 100%;
+  justify-content: space-around;
+
+    video {
+      position: relative;
+      max-width: 100%;
+    }
+
+  .modal-body {
+    flex-grow: 1;
+    width: 65%;
+    height: 100%;
+    order: 1;
+    margin: auto; //perfect center of x and y
+  }
+  .modal-footer {
+    flex-grow: 1;
+    width: 35%;
+    overflow: auto;
+    order: 2;
+  }
+  section {
+    text-align: left;
+  }
+
+}
+
+
+
+
+
 
 /* -------------------------- */
 // Sidebar
