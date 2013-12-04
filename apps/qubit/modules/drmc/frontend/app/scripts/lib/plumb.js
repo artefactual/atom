@@ -67,6 +67,7 @@ function Plumb(element, scope)
         hoverClass: 'endpoint-associative-hover',
         isSource: true,
         isTarget: true,
+        maxConnections: 10,
         scope: 'endpoint-associative',
         connectorStyle: { strokeStyle: 'rgb(131,8,135)', lineWidth: 2, dashstyle: '1 1', joinstyle: 'miter' },
         beforeDrop: function(params) {
