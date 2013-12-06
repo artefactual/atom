@@ -37,10 +37,8 @@
 
         <legend><?php echo __('Identity elements') ?></legend>
 
-        <?php echo render_show(__('Reference code'), $dacs->referenceCode) ?>
-
         <?php echo $form->identifier
-          ->help(__('TODO tooltip'))
+          ->help(__('"Explicitly state the name of the repository, including any parent bodies." (DACS 2.2.2)'))
           ->label(__('Identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
           ->renderRow() ?>
 
@@ -50,12 +48,12 @@
           <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'repository', 'action' => 'add')) ?> #authorizedFormOfName"/>
           <input class="list" type="hidden" value="<?php echo url_for($repoAcParams) ?>"/>
           <?php echo $form->repository
-            ->help(__('Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.'))
+            ->help(__('Explicitly state the name of the repository, including any parent bodies. (DACS 2.2.2)'))
             ->renderHelp(); ?>
         </div>
 
         <?php echo $form->levelOfDescription
-          ->help(__('TODO tooltip'))
+          ->help(__('Select a level of description from the drop-down menu. Follow any relevant local or institutional guidelines in selecting the proper level of description. See DACS (2013) Chapter 1 for further guidance.'))
           ->label(__('Levels of description'))
           ->renderRow() ?>
 
@@ -66,7 +64,8 @@
         <?php echo get_partial('sfIsadPlugin/event', $eventComponent->getVarHolder()->getAll()) ?>
 
         <?php echo render_field($form->extentAndMedium
-          ->help(__('Record information about physical characteristics that affect the use of the unit being described in the Physical Access Element.'))
+          ->help(__('Record the quantity of the material in terms of its physical extent as linear or cubic feet, number of items, or number of containers or carriers. (DACS 2.5.4). Optionally, record the quantity in terms of material type(s) (DACS 2.5.5), and/or qualify the statement of physical extent to hightlight the existence of material types that re important (DACS 2.5.6).
+'))
           ->label(__('Extent').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource, array('class' => 'resizable')) ?>
 
         <div class="form-item">
@@ -75,7 +74,7 @@
             ->renderLabel() ?>
           <?php echo $form->creators->render(array('class' => 'form-autocomplete')) ?>
           <?php echo $form->creators
-            ->help(__('Optionally, describe the nature of the relationship between the entities named in the creator element and the materials being described (e.g., creator, author, subject, custodian, copyright owner, controller, or owner.).'))
+            ->help(__('Record the name(s) of the creator(s) identified in the name element in the devised title of the materials using standardized vocabularies or with rules for formulating standardized names (DACS 2.6.4). Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.'))
             ->renderHelp() ?>
           <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'add')) ?> #authorizedFormOfName"/>
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'autocomplete')) ?>"/>
@@ -83,9 +82,9 @@
 
         <?php echo render_field($form->archivalHistory
           ->label(__('Administrative/biographical history'))
-          ->help(__('TODO tooltip')), $resource, array('class' => 'resizable')) ?>
+          ->help(__('At the highest level of description, give information about the history of corporate body(ies), person(s), or family(ies) that created, assembled, accumulated, and/or maintained and used the material as a whole (DACS 2.7.6). Optionally, at subsequent levels of description, if the creator of the subordinate unit is different from the creator of the material as a whole, give information about the history of the corporate body(ies), person(s), or family(ies) that created, assembled, accumulated, and/or maintained and used that subordinate unit. (DACS 2.7.7)')), $resource, array('class' => 'resizable')) ?>
 
-        <?php echo get_partial('informationobject/childLevels', array('help' => __('TODO tooltip'))) ?>
+        <?php echo get_partial('informationobject/childLevels', array('help' => __('<strong>Identifier</strong><br />Provide a unique identifier for the materials being described in accordance with the institution’s administrative control system.<br /><strong>Level of description</strong><br />Record the level of this unit of description.<br /><strong>Title</strong><br />In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material.<br /><strong>Date</strong><br />Record a date of creation.'))) ?>
 
       </fieldset> <!-- /#identityArea -->
 
@@ -94,11 +93,11 @@
         <legend><?php echo __('Content and structure elements') ?></legend>
 
         <?php echo render_field($form->scopeAndContent
-          ->help(__('TODO tooltip'))
+          ->help(__('Record information about the nature of the materials and activities reflected in the unit being described to enable users to judge its potential relevance, including information about functions, activities, transations, and processes; documentary form(s) or intellectual characteristics; content dates; geographic areas and places; subject matter; completeness of the materials; or any other information that assists the user in evaluating the relevance of the materials. (DACS 3.1)'))
           ->label(__('Scope and content').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource) ?>
 
         <?php echo render_field($form->arrangement
-          ->help(__('TODO tooltip'))
+          ->help(__('Describe the current arrangement of the material in terms of the various aggregations within it and their relationships. (DACS 3.2.3)'))
           ->label(__('System of arrangement')), $resource, array('class' => 'resizable')) ?>
 
       </fieldset> <!-- /#contentAndStructureArea -->
@@ -108,37 +107,37 @@
         <legend><?php echo __('Conditions of access and use elements') ?></legend>
 
         <?php echo render_field($form->accessConditions
-          ->help(__('TODO tooltip'))
+          ->help(__('Give information about any restrictions on access to the unit being described (or parts thereof) as a result of the nature of the information therein or statutory/contractual requirements. As appropriate, specify the details of the restriction. If there are no restrictions, state that fact. (DACS 4.1.5)'))
           ->label(__('Conditions governing access')), $resource, array('class' => 'resizable')) ?>
 
         <?php echo render_field($form->physicalCharacteristics
-          ->help(__('TODO tooltip'))
+          ->help(__('Provide information about the physical characteristics or condition of the unit being described that limit access to it or restrict its use. (DACS 4.2.5)'))
           ->label(__('Physical access')), $resource, array('class' => 'resizable')) ?>
 
         <?php echo render_field($form->technicalAccess
-          ->help(__('TODO tooltip'))
+          ->help(__('Provide information about any special equipment required to view or access the unit being described, if it is not clear from the Extent element. (DACS 4.3.5)'))
           ->label(__('Technical access')), $dacs) ?>
 
         <?php echo render_field($form->reproductionConditions
-          ->help(__('TODO tooltip'))
+          ->help(__('Give information about copyright status and any other conditions governing the reproduction, publication, and further use (e.g., display, public screening, broadcast, etc.) of the unit being described after access has been provided. (DACS 4.4.5)'))
           ->label(__('Conditions governing reproduction and use')), $resource, array('class' => 'resizable')) ?>
 
         <?php echo $form->language
-          ->help(__('TODO tooltip'))
+          ->help(__('Record the language(s) of the materials being described. (DACS 4.5.2)'))
           ->label(__('Languages of the material'))
           ->renderRow(array('class' => 'form-autocomplete')) ?>
 
         <?php echo $form->script
-          ->help(__('TODO tooltip'))
+          ->help(__('Record the scripts(s) of the materials being described.'))
           ->label(__('Scripts of the material'))
           ->renderRow(array('class' => 'form-autocomplete')) ?>
 
         <?php echo render_field($form->languageNotes
-          ->help(__('TODO tooltip'))
+          ->help(__('Record information about any distinctive alphabets, scripts, symbol systems, or abbreviations employed (DACS 4.5.3). If there is no language content, record “no linguistic content.” (DACS 4.5.4)'))
           ->label(__('Language and script notes')), $dacs, array('class' => 'resizable')) ?>
 
         <?php echo render_field($form->findingAids
-          ->help(__('TODO tooltip')), $resource, array('class' => 'resizable')) ?>
+          ->help(__('Record information about any existing finding aids that provide information relating to the context and contents of the unit being described... including any relevant information about its location or availability, and any other information necessary to assist the user in evaluating its usefulness. Include finding aids prepared by the creator (e.g., registers, indexes, etc.) that are part of the unit being described. (DACS 4.6.2)')), $resource, array('class' => 'resizable')) ?>
 
       </fieldset> <!-- /#conditionsOfAccessAndUseArea -->
 
@@ -148,18 +147,18 @@
 
         <?php echo render_field($form->archivalHistory
           ->label(__('Custodial history'))
-          ->help(__('TODO tooltip')), $resource, array('class' => 'resizable')) ?>
+          ->help(__('Record the successive transfers of ownership, responsibility, or custody or control of the unit being described from the time it left the possession of the creator until its acquisition by the repository, along with the dates thereof, insofar as this information can be ascertained and is significant to the user’s understanding of the authenticity. (DACS 5.1.3)')), $resource, array('class' => 'resizable')) ?>
 
         <?php echo render_field($form->acquisition
-          ->help(__('TODO tooltip'))
+          ->help(__('Record the source(s) from which the materials being described were acquired, the date(s) of acquisition, and the method of acquisition, if this information is not confidential. (DACS 5.2.3)'))
           ->label(__('Immediate source of acquisition or transfer')), $resource, array('class' => 'resizable')) ?>
 
         <?php echo render_field($form->appraisal
-          ->help(__('TODO tooltip'))
+          ->help(__('Where the destruction or retention of archival materials has a bearing on the interpretation and use of the unit being described, provide information about the materials destroyed or retained and provide the reason(s) for the appraisal decision(s), where known. (DACS 5.3.4)'))
           ->label(__('Appraisal, destruction and scheduling information')), $resource, array('class' => 'resizable')) ?>
 
         <?php echo render_field($form->accruals
-          ->help(__('TODO tooltip')), $resource, array('class' => 'resizable')) ?>
+          ->help(__('If known, indicate whether or not further accruals are expected. When appropriate, indicate frequency and volume. (DACS 5.4.2)')), $resource, array('class' => 'resizable')) ?>
 
       </fieldset> <!-- /#acquisitionAndAppraisalArea -->
 
@@ -168,15 +167,15 @@
         <legend><?php echo __('Related materials elements') ?></legend>
 
         <?php echo render_field($form->locationOfOriginals
-          ->help(__('TODO tooltip'))
+          ->help(__('If the materials being described are reproductions and the originals are located elsewhere, give the location of the originals (DACS 6.1.4). Record any identifying numbers that may help in locating the originals in the cited location (DACS 6.1.6).'))
           ->label(__('Existence and location of originals')), $resource, array('class' => 'resizable')) ?>
 
         <?php echo render_field($form->locationOfCopies
-          ->help(__('TODO tooltip'))
+          ->help(__('If a copy of all or part of the material being described is available, in addition to the originals, record information about the medium and location of the copy, any identifying numbers, and any conditions on the use or availability of the copy. If a copy of only a part of the unit being described is available, indicate which part. If the materials being described are available via remote access (electronically or otherwise), provide the relevant information needed to access them. (DACS 6.2.3)'))
           ->label(__('Existence and location of copies')), $resource, array('class' => 'resizable')) ?>
 
         <?php echo render_field($form->relatedUnitsOfDescription
-          ->help(__('TODO tooltip'))
+          ->help(__('If there are materials that have a direct and significant connection to those being described by reason of closely shared responsibility or sphere of activity, provide the title, location, and, optionally, the reference number(s) of the related materials and their relationship with the materials being described. (DACS 6.3.5)'))
           ->label(__('Related archival materials')), $resource, array('class' => 'resizable')) ?>
 
         <?php echo get_partial('informationobject/notes', $publicationNotesComponent->getVarHolder()->getAll()) ?>
@@ -196,11 +195,11 @@
         <legend><?php echo __('Description control element') ?></legend>
 
         <?php echo render_field($form->sources
-          ->help(__('TODO tooltip'))
+          ->help(__('Record relevant information about sources consulted in establishing or revising the description. (DACS 8.1.3)'))
           ->label(__('Sources used')), $dacs, array('class' => 'resizable')) ?>
 
         <?php echo render_field($form->rules
-          ->help(__('TODO tooltip'))
+          ->help(__('Record the international, national or local rules or conventions followed in preparing the description. (DACS 8.1.4)'))
           ->label(__('Rules or conventions')), $resource, array('class' => 'resizable')) ?>
 
         <!-- TODO: Make $archivistsNotesComponent to include ISAD 3.7.3 Date(s) of description as the first note and editable -->
