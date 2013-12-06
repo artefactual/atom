@@ -38,7 +38,7 @@
         <legend><?php echo __('Identity elements') ?></legend>
 
         <?php echo $form->identifier
-          ->help(__('"Explicitly state the name of the repository, including any parent bodies." (DACS 2.2.2)'))
+          ->help(__('At the highest level of a multilevel description or in a single level description, provide a unique identifier for the materials being described in accordance with the institution’s administrative control system. Optionally, devise unique identifiers at lower levels of a multilevel description. (DACS 2.1.3) The country and repository code will be automatically added from the linked repository record to form a full reference code.'))
           ->label(__('Identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
           ->renderRow() ?>
 
@@ -58,7 +58,7 @@
           ->renderRow() ?>
 
         <?php echo render_field($form->title
-          ->help(__('TODO tooltip'))
+          ->help(__('In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material, normally consisting of a name segment, a term indicating the nature of the unit being described, and optionally a topical segment. Do not enclose devised titles in square brackets. (DACS 2.3.3)'))
           ->label(__('Title').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource) ?>
 
         <?php echo get_partial('sfIsadPlugin/event', $eventComponent->getVarHolder()->getAll()) ?>
