@@ -70,7 +70,7 @@ class InformationObjectNotesComponent extends sfComponent
           $this->allNotes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
           $this->tableName = $this->context->i18n->__('Publication notes');
           $this->arrayName = 'dacsPublicationNotes';
-          $this->help = $this->context->i18n->__('TODO');
+          $this->help = $this->context->i18n->__('Record a citation to, or information about, a publication that is about or is based on the use, study, or analysis of the materials being described. Provide sufficient information to indicate the relationship between the publication and the unit being described. This includes annotated editions. (DACS 6.4.4)');
 
           break;
 
@@ -90,7 +90,7 @@ class InformationObjectNotesComponent extends sfComponent
           $this->allNotes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
           $this->tableName = $this->context->i18n->__('Notes');
           $this->arrayName = 'dacsNotes';
-          $this->help = $this->context->i18n->__('TODO');
+          $this->help = $this->context->i18n->__('Record, as needed, information not accommodated by any of the defined elements of description. (DACS 7.1.2)');
 
           break;
 
