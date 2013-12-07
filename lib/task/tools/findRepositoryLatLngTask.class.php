@@ -29,14 +29,15 @@ class findRepositoryLatLngTask extends sfBaseTask
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel')
+      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+      new sfCommandOption('overwrite', null, sfCommandOption::PARAMETER_NONE, 'Overwrite existing values'),
     ));
 
     $this->namespace = 'tools';
     $this->name = 'find-repository-latlng';
-    $this->briefDescription = 'FIXME';
+    $this->briefDescription = 'Search for the lat/lng values of your contacts in Google Maps';
     $this->detailedDescription = <<<EOF
-FIXME
+This task won't overwrite existing values unless you use "--overwrite".
 EOF;
   }
 
@@ -47,6 +48,15 @@ EOF;
 
     foreach (QubitContactInformation::getAll() as $item)
     {
+      if (!empty($item->latitude) || !empty($item->longitude))
+      {
+        if (false === $options['overwrite'])
+        {
+          $this->logSection('latlng', sprintf('Skipping entry (%s, %s)', $item->latitude, $item->longitude));
+          continue;
+        }
+      }
+
       $address = array();
 
       foreach (array('streetAddress', 'city', 'region', 'postalCode', 'countryCode') as $field)
