@@ -78,7 +78,7 @@
             ->label(__('Converse term'))
             ->renderLabel() ?>
           <?php echo $form->converseTerm->render(array('class' => 'form-autocomplete')) ?>
-          <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => $form->taxonomy->getValue())) ?> #name"/>
+          <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::ROOT_ID), 'module' => 'taxonomy')))) ?> #name"/>
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'selfReciprocal' => true)) ?>"/>
         </div>
 

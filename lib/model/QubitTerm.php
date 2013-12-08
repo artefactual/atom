@@ -128,7 +128,6 @@ class QubitTerm extends BaseTerm
     ACCESSION_ID = 167,
     RIGHT_ID = 168,
     DONOR_ID = 169,
-    RELATED_MATERIAL_DESCRIPTIONS_ID = 176,
 
     // Rights basis
     RIGHT_BASIS_COPYRIGHT_ID = 170,
@@ -140,7 +139,13 @@ class QubitTerm extends BaseTerm
     LANGUAGE_NOTE_ID = 174,
 
     // Accrual relation type
-    ACCRUAL_ID = 175;
+    ACCRUAL_ID = 175,
+
+    // Relation type
+    RELATED_MATERIAL_DESCRIPTIONS_ID = 176,
+
+    // Converse term relation
+    CONVERSE_TERM_ID = 177;
 
 
   public static function isProtected($id)
@@ -161,6 +166,7 @@ class QubitTerm extends BaseTerm
       QubitTerm::COMPOUND_ID,
       QubitTerm::CONTAINER_ID,
       QubitTerm::CONTRIBUTION_ID,
+      QubitTerm::CONVERSE_TERM_ID,
       QubitTerm::CORPORATE_BODY_ID,
       QubitTerm::CREATION_ID,
       QubitTerm::CUSTODY_ID,

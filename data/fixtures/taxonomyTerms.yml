@@ -1524,6 +1524,13 @@ QubitTerm:
       pl: wiążący
       pt: associativo
       sl: povezovalna
+  QubitTerm_term_relation_converse:
+    taxonomy_id: QubitTaxonomy_term_relation_type
+    parent_id: QubitTerm_110
+    id: 177
+    source_culture: en
+    name:
+      en: 'Converse term'
   QubitTerm_status_type_publication:
     taxonomy_id: QubitTaxonomy_status_types
     parent_id: QubitTerm_110
@@ -1830,6 +1837,126 @@ QubitTerm:
       pt: Política
       sl: Pravilo
       th: นโยบาย
+  QubitTerm_actor_relationship_is_the_superior_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_hierarchical
+    source_culture: en
+    name:
+      en: 'is the superior of'
+  QubitTerm_actor_relationship_is_the_subordinate_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_hierarchical
+    source_culture: en
+    name:
+      en: 'is the subordinate of'
+  QubitTerm_actor_relationship_controls:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_hierarchical
+    source_culture: en
+    name:
+      en: 'controls'
+  QubitTerm_actor_relationship_is_controlled_by:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_hierarchical
+    source_culture: en
+    name:
+      en: 'is controlled by'
+  QubitTerm_actor_relationship_is_the_owner_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_hierarchical
+    source_culture: en
+    name:
+      en: 'is the owner of'
+  QubitTerm_actor_relationship_is_owned_by:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_hierarchical
+    source_culture: en
+    name:
+      en: 'is owned by'
+  QubitTerm_actor_relationship_is_the_predecessor_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_temporal
+    source_culture: en
+    name:
+      en: 'is the predecessor of'
+  QubitTerm_actor_relationship_is_the_successor_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_temporal
+    source_culture: en
+    name:
+      en: 'is the successor of'
+  QubitTerm_actor_relationship_is_the_provider_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_associative
+    source_culture: en
+    name:
+      en: 'is the provider of'
+  QubitTerm_actor_relationship_is_the_client_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_associative
+    source_culture: en
+    name:
+      en: 'is the client of'
+  QubitTerm_actor_relationship_is_the_business_partner_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_associative
+    source_culture: en
+    name:
+      en: 'is the business partner of'
+  QubitTerm_actor_relationship_is_the_associate_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_associative
+    source_culture: en
+    name:
+      en: 'is the associate of'
+  QubitTerm_actor_relationship_is_the_friend_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_associative
+    source_culture: en
+    name:
+      en: 'is the friend of'
+  QubitTerm_actor_relationship_is_the_parent_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_family
+    source_culture: en
+    name:
+      en: 'is the parent of'
+  QubitTerm_actor_relationship_is_the_child_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_family
+    source_culture: en
+    name:
+      en: 'is the child of'
+  QubitTerm_actor_relationship_is_the_sibling_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_family
+    source_culture: en
+    name:
+      en: 'is the sibling of'
+  QubitTerm_actor_relationship_is_the_spouse_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_family
+    source_culture: en
+    name:
+      en: 'is the spouse of'
+  QubitTerm_actor_relationship_is_the_cousin_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_family
+    source_culture: en
+    name:
+      en: 'is the cousin of'
+  QubitTerm_actor_relationship_is_the_grandparent_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_family
+    source_culture: en
+    name:
+      en: 'is the grandparent of'
+  QubitTerm_actor_relationship_is_the_grandchild_of:
+    taxonomy_id: QubitTaxonomy_actor_relation_type
+    parent_id: QubitTerm_actor_relationship_family
+    source_culture: en
+    name:
+      en: 'is the grandchild of'
   QubitTerm_right_basis_donor:
     taxonomy_id: 68
     parent_id: QubitTerm_110
@@ -4457,3 +4584,56 @@ QubitStatus:
     object_id: 1
     type_id: 158
     status_id: 159
+QubitRelation:
+  QubitRelation_converse_term_superior:
+    object_id: QubitTerm_actor_relationship_is_the_superior_of
+    subject_id: QubitTerm_actor_relationship_is_the_subordinate_of
+    type_id: QubitTerm_term_relation_converse
+  QubitRelation_converse_term_control:
+    object_id: QubitTerm_actor_relationship_controls
+    subject_id: QubitTerm_actor_relationship_is_controlled_by
+    type_id: QubitTerm_term_relation_converse
+  QubitRelation_converse_term_owner:
+    object_id: QubitTerm_actor_relationship_is_the_owner_of
+    subject_id: QubitTerm_actor_relationship_is_owned_by
+    type_id: QubitTerm_term_relation_converse
+  QubitRelation_converse_term_predeccessor:
+    object_id: QubitTerm_actor_relationship_is_the_predecessor_of
+    subject_id: QubitTerm_actor_relationship_is_the_successor_of
+    type_id: QubitTerm_term_relation_converse
+  QubitRelation_converse_term_parent:
+    object_id: QubitTerm_actor_relationship_is_the_parent_of
+    subject_id: QubitTerm_actor_relationship_is_the_child_of
+    type_id: QubitTerm_term_relation_converse
+  QubitRelation_converse_term_sibling:
+    object_id: QubitTerm_actor_relationship_is_the_sibling_of
+    subject_id: QubitTerm_actor_relationship_is_the_sibling_of
+    type_id: QubitTerm_term_relation_converse
+  QubitRelation_converse_term_spouse:
+    object_id: QubitTerm_actor_relationship_is_the_spouse_of
+    subject_id: QubitTerm_actor_relationship_is_the_spouse_of
+    type_id: QubitTerm_term_relation_converse
+  QubitRelation_converse_term_cousin:
+    object_id: QubitTerm_actor_relationship_is_the_cousin_of
+    subject_id: QubitTerm_actor_relationship_is_the_cousin_of
+    type_id: QubitTerm_term_relation_converse
+  QubitRelation_converse_term_grandparent:
+    object_id: QubitTerm_actor_relationship_is_the_grandparent_of
+    subject_id: QubitTerm_actor_relationship_is_the_grandchild_of
+    type_id: QubitTerm_term_relation_converse
+  QubitRelation_converse_term_provider:
+    object_id: QubitTerm_actor_relationship_is_the_provider_of
+    subject_id: QubitTerm_actor_relationship_is_the_client_of
+    type_id: QubitTerm_term_relation_converse
+  QubitRelation_converse_term_business_partner:
+    object_id: QubitTerm_actor_relationship_is_the_business_partner_of
+    subject_id: QubitTerm_actor_relationship_is_the_business_partner_of
+    type_id: QubitTerm_term_relation_converse
+  QubitRelation_converse_term_associate:
+    object_id: QubitTerm_actor_relationship_is_the_associate_of
+    subject_id: QubitTerm_actor_relationship_is_the_associate_of
+    type_id: QubitTerm_term_relation_converse
+  QubitRelation_converse_term_friend:
+    object_id: QubitTerm_actor_relationship_is_the_friend_of
+    subject_id: QubitTerm_actor_relationship_is_the_friend_of
+    type_id: QubitTerm_term_relation_converse

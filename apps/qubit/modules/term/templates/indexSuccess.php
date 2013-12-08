@@ -115,8 +115,8 @@
   </div>
 </div>
 
-<?php if (isset($resource->converseTermId)): ?>
-  <?php echo render_show(__('Converse term'), link_to(render_title($resource->converseTerm), array($resource->converseTerm, 'module' => 'term'))) ?>
+<?php if (0 < count($converseTerms = QubitRelation::getBySubjectOrObjectId($resource->id, array('typeId' => QubitTerm::CONVERSE_TERM_ID)))): ?>
+  <?php echo render_show(__('Converse term'), link_to(render_title($converseTerms[0]->getOpposedObject($resource)), array($converseTerms[0]->getOpposedObject($resource), 'module' => 'term'))) ?>
 <?php endif; ?>
 
 <div class="field">

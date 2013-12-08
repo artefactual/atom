@@ -434,57 +434,6 @@ class sfInstall
 
     $loadData = new sfPropelDataLoadTask($dispatcher, $formatter);
     $loadData->run();
-
-    // Add new actor relation type terms that can't be added in fixtures
-    // because they depend on each others
-    foreach (array(
-      QubitTerm::HIERARCHICAL_RELATION_ID => array(
-        'is the superior of' => 'is the subordinate of',
-        'controls' => 'is controlled by',
-        'is the owner of' => 'is owned by'),
-      QubitTerm::TEMPORAL_RELATION_ID => array(
-        'is the predecessor of' => 'is the successor of'),
-      QubitTerm::FAMILY_RELATION_ID => array(
-        'is the parent of' => 'is the child of',
-        'is the sibling of' => 'itself',
-        'is the spouse of' => 'itself',
-        'is the cousin of' => 'itself',
-        'is the grandparent of' => 'is the grandchild of'),
-      QubitTerm::ASSOCIATIVE_RELATION_ID => array(
-        'is the provider of' => 'is the client of',
-        'is the business partner of' => 'itself',
-        'is the associate of' => 'itself',
-        'is the friend of' => 'itself')) as $parentId => $terms)
-    {
-      foreach ($terms as $termName => $converseTermName)
-      {
-        $term = new QubitTerm;
-        $term->parentId = $parentId;
-        $term->taxonomyId = QubitTaxonomy::ACTOR_RELATION_TYPE_ID;
-        $term->name = $termName;
-        $term->culture = 'en';
-        $term->save();
-
-        if ($converseTermName == 'itself')
-        {
-          $term->converseTermId = $term->id;
-        }
-        else
-        {
-          $converseTerm = new QubitTerm;
-          $converseTerm->parentId = $parentId;
-          $converseTerm->taxonomyId = QubitTaxonomy::ACTOR_RELATION_TYPE_ID;
-          $converseTerm->name = $converseTermName;
-          $converseTerm->culture = 'en';
-          $converseTerm->converseTermId = $term->id;
-          $converseTerm->save();
-
-          $term->converseTermId = $converseTerm->id;
-        }
-
-        $term->save();
-      }
-    }
   }
 
   public static function addSymlinks()

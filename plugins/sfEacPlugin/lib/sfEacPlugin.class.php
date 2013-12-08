@@ -834,6 +834,31 @@ return;
       case QubitTerm::TEMPORAL_RELATION_ID:
 
         return 'temporal';
+
+      default:
+        $type = QubitTerm::getById($value);
+        $typeName = $type->getName(array('culture' => 'en'));
+
+        if ($typeName == 'is the superior of' || $typeName == 'controls' || $typeName == 'is the owner of')
+        {
+          return 'hierarchical-parent';
+        }
+        else if ($typeName == 'is the subordinate of' || $typeName == 'is controlled by' || $typeName == 'is owned by')
+        {
+          return 'hierarchical-child';
+        }
+        else if ($typeName == 'is the predecessor of')
+        {
+          return 'temporal-earlier';
+        }
+        else if ($typeName == 'is the successor of')
+        {
+          return 'temporal-later';
+        }
+        else if ($type->parentId != QubitTerm::ROOT_ID)
+        {
+          return self::toCpfRelationType($type->parentId);
+        }
     }
   }
 
