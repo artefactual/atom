@@ -81,6 +81,8 @@
           ->help(__('Enter an unambiguous code used to uniquely identify the description.'))
           ->renderRow() ?>
 
+        <?php echo get_partial('informationobject/alternativeIdentifiers', $alternativeIdentifiersComponent->getVarHolder()->getAll()) ?>
+
         <?php echo render_show(__('Reference code'), $rad->referenceCode) ?>
 
       </fieldset> <!-- #titleAndStatementOfResponsibilityArea -->

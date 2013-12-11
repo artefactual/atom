@@ -286,6 +286,16 @@ information_object:
       Method:  setIdentifierWithCodes
       Parameters: [$nodeValue, "$options = array('countrycode' => $importDOM->xpath->query('@countrycode', $domNode2)->item(0)->nodeValue, 'repositorycode' => $importDOM->xpath->query('@repositorycode', $domNode2)->item(0)->nodeValue)"]
 
+    alternative_identifiers:
+      XPath:  "did/unitid[@type!='standard' and @label]"
+      Method:  addProperty
+      Parameters: ["$importDOM->xpath->query('@label', $domNode2)->item(0)->nodeValue", $nodeValue, "$options = array('scope' => 'alternativeIdentifiers')"]
+
+    alternative_identifiers_2:
+      XPath:  "did/unitid[@type!='standard' and not(@label)]"
+      Method:  addProperty
+      Parameters: ["$importDOM->xpath->query('@type', $domNode2)->item(0)->nodeValue", $nodeValue, "$options = array('scope' => 'alternativeIdentifiers')"]
+
     standard_number:
       XPath:  "did/unitid[@type='standard']"
       Method:  addProperty

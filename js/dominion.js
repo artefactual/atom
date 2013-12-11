@@ -701,5 +701,24 @@
         });
     });
 
+  // Altenative identifiers link
+  $(function ()
+    {
+      $("#alternative-identifiers").on('click', function(e)
+        {
+          e.preventDefault();
+
+          // Hide/show alternative identifiers table
+          if ($("#alternative-identifiers-table").attr('style') == 'display:none')
+          {
+            $("#alternative-identifiers-table").attr('style', '');
+          }
+          else
+          {
+            $("#alternative-identifiers-table").attr('style', 'display:none')
+          }
+        });
+    });
+
 })(window.jQuery);
 

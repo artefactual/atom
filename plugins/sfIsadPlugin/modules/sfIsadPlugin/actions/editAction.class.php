@@ -88,6 +88,10 @@ class sfIsadPluginEditAction extends InformationObjectEditAction
 
     $this->response->setTitle("$title - {$this->response->getTitle()}");
 
+    $this->alternativeIdentifiersComponent = new InformationObjectAlternativeIdentifiersComponent($this->context, 'informationobject', 'alternativeIdentifiers');
+    $this->alternativeIdentifiersComponent->resource = $this->resource;
+    $this->alternativeIdentifiersComponent->execute($this->request);
+
     $this->eventComponent = new sfIsadPluginEventComponent($this->context, 'sfIsadPlugin', 'event');
     $this->eventComponent->resource = $this->resource;
     $this->eventComponent->execute($this->request);
@@ -203,6 +207,8 @@ class sfIsadPluginEditAction extends InformationObjectEditAction
   protected function processForm()
   {
     $this->resource->sourceStandard = 'ISAD(G) 2nd edition';
+
+    $this->alternativeIdentifiersComponent->processForm();
 
     $this->eventComponent->processForm();
 

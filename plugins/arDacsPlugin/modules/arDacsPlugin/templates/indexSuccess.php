@@ -191,6 +191,8 @@
     <?php endforeach; ?>
   <?php endif; ?>
 
+  <?php echo get_partial('informationobject/alternativeIdentifiersIndex', array('resource' => $resource)) ?>
+
 </section> <!-- /section#notesArea -->
 
 <section id="descriptionControlArea">

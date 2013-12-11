@@ -770,6 +770,42 @@ class arElasticSearchInformationObjectPdo
     return self::$statements['transcript']->fetchColumn();
   }
 
+  protected function getAlternativeIdentifiers()
+  {
+    // Find langs and scripts
+    if (!isset(self::$statements['alternativeIdentifiers']))
+    {
+      $sql  = 'SELECT
+                  node.name,
+                  i18n.value';
+      $sql .= ' FROM '.QubitProperty::TABLE_NAME.' node';
+      $sql .= ' JOIN '.QubitPropertyI18n::TABLE_NAME.' i18n
+                  ON node.id = i18n.id';
+      $sql .= ' WHERE node.source_culture = i18n.culture
+                  AND node.object_id = ?
+                  AND node.scope = ?';
+
+      self::$statements['alternativeIdentifiers'] = self::$conn->prepare($sql);
+    }
+
+    self::$statements['alternativeIdentifiers']->execute(array(
+      $this->__get('id'),
+      'alternativeIdentifiers'));
+
+    $alternativeIdentifiers = array();
+    foreach (self::$statements['alternativeIdentifiers']->fetchAll() as $item)
+    {
+      $tmp = array();
+
+      $tmp['label'] = $item['name'];
+      $tmp['identifier'] = $item['value'];
+
+      $alternativeIdentifiers[] = $tmp;
+    }
+
+    return $alternativeIdentifiers;
+  }
+
   public function serialize()
   {
     $serialized = array();
@@ -781,6 +817,13 @@ class arElasticSearchInformationObjectPdo
     $serialized['referenceCode'] = $this->getReferenceCode();
     $serialized['levelOfDescriptionId'] = $this->level_of_description_id;
     $serialized['publicationStatusId'] = $this->publication_status_id;
+
+    // Alternative identifiers
+    $alternativeIdentifiers = $this->getAlternativeIdentifiers();
+    if (0 < count($alternativeIdentifiers))
+    {
+      $serialized['alternativeIdentifiers'] = $alternativeIdentifiers;
+    }
 
     // NB: this will include the ROOT_ID
     foreach ($this->getAncestors() as $ancestor)
