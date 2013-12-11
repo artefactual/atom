@@ -1661,23 +1661,30 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function importPhysDescEadData($physDescNode)
   {
-    $extentAndMedium = '';
+    $physicalDescription = '';
+    $childTags = array('extent', 'dimensions', 'genreform');
 
-    $extentNodeList = $physDescNode->getElementsByTagName('extent');
-    if (0 < $extentNodeList->length)
+    foreach ($childTags as $tag)
     {
-      $extentAndMedium .= '<dt>extent</dt><dd>' . QubitXmlImport::replaceLineBreaks($extentNodeList->item(0)) . '</dd>';
+      $nodeList = $physDescNode->getElementsByTagName($tag);
+      if ($nodeList->length > 0)
+      {
+        $physicalDescription .= "<dt>{$tag}</dt><dd>" . QubitXmlImport::replaceLineBreaks($nodeList->item(0)) . "</dd>";
+
+        // Remove the children nodes as we go so we're 
+        // left with any remaining node text in physDescNode.
+        $physDescNode->removeChild($nodeList->item(0));
+      }
     }
 
-    $dimensionsNodeList = $physDescNode->getElementsByTagName('dimensions');
-    if (0 < $dimensionsNodeList->length)
-    {
-      $extentAndMedium .= '<dt>dimensions</dt><dd>' . QubitXmlImport::replaceLineBreaks($dimensionsNodeList->item(0)) . '</dd>';
-    }
+    // Get the node text for physloc itself, e.g.:
+    // <physdesc>Hello<extent>...</extent><dimensions>...</dimensions></physdesc>
+    // "Hello" in this case.
+    $this->extentAndMedium = trim($physDescNode->nodeValue);
 
-    if (0 < strlen($extentAndMedium))
+    if (strlen($physicalDescription) > 0)
     {
-      $this->extentAndMedium = '<dl>' . $extentAndMedium . '</dl>';
+      $this->extentAndMedium .= '<dl>' . $physicalDescription . '</dl>';
     }
   }
 
