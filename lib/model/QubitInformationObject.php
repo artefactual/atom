@@ -1662,14 +1662,18 @@ class QubitInformationObject extends BaseInformationObject
   public function importPhysDescEadData($physDescNode)
   {
     $physicalDescription = '';
-    $childTags = array('extent', 'dimensions', 'genreform');
+    $childTags = array(
+      'extent' => 'Extent', 
+      'dimensions' => 'Dimensions', 
+      'genreform' => 'Form of material'
+    );
 
-    foreach ($childTags as $tag)
+    foreach ($childTags as $tag => $headingText)
     {
       $nodeList = $physDescNode->getElementsByTagName($tag);
       if ($nodeList->length > 0)
       {
-        $physicalDescription .= "<dt>{$tag}</dt><dd>" . QubitXmlImport::replaceLineBreaks($nodeList->item(0)) . "</dd>";
+        $physicalDescription .= "<dt>{$headingText}</dt><dd>" . QubitXmlImport::replaceLineBreaks($nodeList->item(0)) . "</dd>";
 
         // Remove the children nodes as we go so we're 
         // left with any remaining node text in physDescNode.
