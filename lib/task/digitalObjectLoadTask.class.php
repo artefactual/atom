@@ -80,9 +80,9 @@ EOF;
     // Get header (first) row
     $header = fgetcsv($fh, 1000);
 
-    if (!in_array('filename', $header))
+    if ((!in_array('information_object_id', $header) && !in_array('identifier', $header)) || !in_array('filename', $header))
     {
-      throw new sfException('Import file must contain a \'filename\' column');
+      throw new sfException('Import file must contain an \'information_object_id\' or an \'identifier\' column, and a \'filename\' column');
     }
 
     $idKey = array_search('information_object_id', $header);
@@ -115,6 +115,12 @@ EOF;
         if (null !== $ret = $this->getIdFromIdentifier($identifier))
         {
           $id = $ret;
+        }
+        else
+        {
+          $this->log("Couldn't find information object with identifier: $identifier");
+
+          continue;
         }
       }
 

@@ -401,12 +401,19 @@ information_object:
       XPath:   "(custodhist | descgrp/custodhist)"
       Method:  setArchivalHistory
 
-    #prefercite:
+    prefercite:
+      XPath: "prefercite"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => 'Preferred citation: ' . $nodeValue, 'noteTypeId' => QubitTerm::GENERAL_NOTE_ID)"]
 
     processinfo:
       XPath:  "(processinfo/p/not(*)] | descgrp/processinfo/p/not(*)])"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)"]
+
+    publicationdate:
+      XPath: "../eadheader/filedesc/publicationstmt/date"
+      Method: setPublicationDate
 
     archivistnote:
       XPath:  "../eadheader/filedesc/titlestmt/author[@encodinganalog='creator']"

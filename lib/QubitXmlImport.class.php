@@ -153,7 +153,7 @@ class QubitXmlImport
           throw new sfException(sfContext::getInstance()->i18n->__('The SKOS plugin is not enabled'));
         }
 
-        $importTerms = sfSkosPlugin::parse($importDOM);
+        $importTerms = sfSkosPlugin::parse($importDOM, $options);
         $this->rootObject = QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID);
         $this->count = count($importTerms);
 
@@ -391,6 +391,7 @@ class QubitXmlImport
             break;
 
           case 'flocat':
+          case 'digital_object':
             $resources = array();
             foreach ($nodeList2 as $item)
             {
@@ -399,7 +400,7 @@ class QubitXmlImport
 
             if (0 < count($resources))
             {
-              $currentObject->importDigitalObjectFromUri($resources);
+              $currentObject->importDigitalObjectFromUri($resources, $this->errors);
             }
 
             break;

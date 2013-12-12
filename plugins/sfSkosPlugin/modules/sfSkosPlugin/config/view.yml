@@ -1,0 +1,8 @@
+importSelectSuccess:
+  stylesheets:
+    /vendor/yui/autocomplete/assets/skins/sam/autocomplete: { position: first }
+  javascripts:
+    /vendor/yui/connection/connection-min:
+    /vendor/yui/datasource/datasource-min:
+    /vendor/yui/autocomplete/autocomplete-min:
+    autocomplete:
