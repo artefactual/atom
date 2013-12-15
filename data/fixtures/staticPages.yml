@@ -38,6 +38,7 @@ QubitStaticPage:
     slug: about
     source_culture: en
     title:
+      ca: Sobre
       de: Über
       en: About
       es: Acerca

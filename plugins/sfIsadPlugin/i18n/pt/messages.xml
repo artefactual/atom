@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-10-03T11:53:11Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-12-15T10:25:15Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -132,7 +132,7 @@
       </trans-unit>
       <trans-unit id="898">
         <source>%1%Date(s)%2% - are not consistent with %3%higher levels%2%.</source>
-        <target/>
+        <target>%1%Data(s)%2% - não são consistentes com %3%níveis superiores%2%.</target>
       </trans-unit>
       <trans-unit id="899">
         <source>%1%Date(s)%2% - This is a %3%mandatory%4% element.</source>
@@ -453,27 +453,27 @@ elaboração da descrição. (ISAD 3.7.2)</target>
       </trans-unit>
       <trans-unit id="1021">
         <source>How to access to this content?</source>
-        <target/>
+        <target>Como se acede a este conteúdo?</target>
       </trans-unit>
       <trans-unit id="1022">
         <source>Contact the archivist at %1%</source>
-        <target/>
+        <target>Contatar o arquivista em %1%</target>
       </trans-unit>
       <trans-unit id="1023">
         <source>Show details</source>
-        <target/>
+        <target>Mostrar detalhes</target>
       </trans-unit>
       <trans-unit id="1024">
         <source>Close</source>
-        <target/>
+        <target>Fechar</target>
       </trans-unit>
       <trans-unit id="1025">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>"Identificar e registar a data(s) da unidade de descrição. Identificar o tipo de data atribuído. Registar uma única data ou um intervalo de datas, conforme apropriado." (ISAD 3.1.3). O campo de exibição de data pode ser usado para introduzir texto com informações sobre a data, incluindo marcas tipográficas para expressar aproximação, incerteza, ou qualificação. Utilize os campos de ínicio e de fim para tornar as datas pesquisáveis. Não utilize nenhum quantificador ou símbolo tipográfico para expressar incerteza. Formatos de data aceitáveis: AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.</target>
       </trans-unit>
       <trans-unit id="1026">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
-        <target/>
+        <target>Registe citações para quaisquer fontes externas usadas na descrição arquivística (tal como o Escopo e Conteúdo, História Arquivística ou Campos de notas). </target>
       </trans-unit>
     </body>
   </file>

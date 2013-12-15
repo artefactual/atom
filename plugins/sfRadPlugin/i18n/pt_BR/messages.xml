@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2013-10-03T11:50:38Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2013-12-15T10:25:10Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -629,7 +629,7 @@ elaboração da descrição.</target>
       </trans-unit>
       <trans-unit id="1035">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target/>
+        <target>Registe citações para quaisquer fontes externas usadas na descrição arquivística (tais como o Escopo e Conteúdo, História de Custódia ou Campos de notas). </target>
       </trans-unit>
     </body>
   </file>

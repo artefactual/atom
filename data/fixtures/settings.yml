@@ -74,6 +74,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: 'Descripció arxivística'
       de: 'Archivische Beschreibung'
       en: 'Archival description'
       es: 'Descripción archivística'
@@ -86,6 +87,7 @@ QubitSetting:
       nl: 'Archivistische beschrijving'
       pl: 'Opis archiwalny'
       pt: 'Descrição arquivística'
+      pt_BR: 'Descrição arquivística'
       sl: 'Arhivski popis'
       th: คำอธิบายจดหมายเหตุ
   QubitSetting_12:
@@ -95,6 +97,8 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: 'Registre d''autoritat'
+      de: Normdatei
       en: 'Authority record'
       es: 'Registro de autoridad'
       fr: 'Notice d''autorité'
@@ -115,6 +119,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: Productor
       de: Urheber/Bestandsbildner
       en: Creator
       es: Creador
@@ -137,6 +142,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: 'Institució arxivística'
       de: Archiv
       en: 'Archival institution'
       es: 'Institución archivística'
@@ -161,6 +167,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: Funció
       de: Funktion
       en: Function
       es: Función
@@ -182,6 +189,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: Terme
       de: Begriff
       en: Term
       es: Término
@@ -203,6 +211,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: Matèria
       de: Gegenstand
       en: Subject
       es: Materia
@@ -226,6 +235,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: Fons
       de: Sammlung
       en: Fonds
       es: Fondo
@@ -246,6 +256,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: Fons
       de: 'Bestände (?)'
       en: Holdings
       es: Fondos
@@ -268,6 +279,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: Lloc
       de: Ort
       en: Place
       es: Lugar
@@ -292,6 +304,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: Nom
       de: Name
       en: Name
       es: Nombre
@@ -316,6 +329,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: 'Objecte digital'
       de: 'Digitales Objekt'
       en: 'Digital object'
       es: 'Objeto digital'
@@ -337,6 +351,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: 'Unitat de magatzematge'
       de: 'Physisches Objekt'
       en: 'Physical storage'
       es: 'Unidad de almacenaje'
@@ -359,6 +374,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: 'Tipus de suport'
       de: Medienart
       en: 'Media type'
       es: 'Tipo de soporte'
@@ -381,6 +397,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: 'Tipus de material'
       de: Materialart
       en: 'Material type'
       es: 'Tipo de material'
@@ -401,11 +418,13 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: 'Restringir resultats per:'
       en: 'Narrow your results by:'
       es: 'Restringir resultados por:'
       fr: 'Affiner les résultats par :'
       gl: 'Refinar os resultados por:'
       it: 'Restringi i risultati per:'
+      pt: 'Limite os seus resultados por:'
       sl: 'Omejite rezultate:'
   QubitSetting_26:
     name: en

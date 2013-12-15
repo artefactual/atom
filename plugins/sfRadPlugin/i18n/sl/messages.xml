@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2013-10-03T11:52:11Z" product-name="messages">
+  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2013-12-15T10:25:13Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -666,7 +666,7 @@
       </trans-unit>
       <trans-unit id="180">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target/>
+        <target>Zabeležite citate morebitnih zunanjih virov, uporabljenih pri arhivskem popisovanju (npr. polja Obseg in Vsebina, Historiat fonda ali Opombe).</target>
       </trans-unit>
     </body>
   </file>

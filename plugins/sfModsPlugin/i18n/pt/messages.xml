@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-06-09T19:07:50Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-12-15T10:25:15Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -116,27 +116,27 @@
       </trans-unit>
       <trans-unit id="921">
         <source>Elements area</source>
-        <target/>
+        <target>Área de elementos</target>
       </trans-unit>
       <trans-unit id="922">
         <source>How to access to this content?</source>
-        <target/>
+        <target>Como se acede a este conteúdo?</target>
       </trans-unit>
       <trans-unit id="923">
         <source>Contact the archivist at %1%</source>
-        <target/>
+        <target>Contatar o arquivista em %1%</target>
       </trans-unit>
       <trans-unit id="924">
         <source>Show details</source>
-        <target/>
+        <target>Mostrar detalhes</target>
       </trans-unit>
       <trans-unit id="925">
         <source>Close</source>
-        <target/>
+        <target>Fechar</target>
       </trans-unit>
       <trans-unit id="926">
         <source>Edit elements area</source>
-        <target/>
+        <target>Editar área de elementos</target>
       </trans-unit>
     </body>
   </file>

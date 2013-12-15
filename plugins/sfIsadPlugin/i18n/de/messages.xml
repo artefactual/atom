@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2013-10-03T11:52:23Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2013-12-15T10:25:13Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -132,31 +132,31 @@
       </trans-unit>
       <trans-unit id="897">
         <source>%1%Date(s)%2% - are not consistent with %3%higher levels%2%.</source>
-        <target/>
+        <target>%1%Datum/Laufzeit%2% - die Angaben sind nicht vereinbar mit den  %3%höheren Stufen%2%.</target>
       </trans-unit>
       <trans-unit id="898">
         <source>%1%Date(s)%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Datum/Laufzeit%2% - Dies ist ein%3%notwendiges%4% Element.</target>
       </trans-unit>
       <trans-unit id="899">
         <source>%1%Extent and medium%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Umfang und Medium%2%   - Dies ist ein%3%notwendiges%4% Element.</target>
       </trans-unit>
       <trans-unit id="900">
         <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Signatur%2% - Dies ist ein%3%notwendiges%4% Element.</target>
       </trans-unit>
       <trans-unit id="901">
         <source>%1%Level of description%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Verzeichnungsstufe%2% - Dies ist ein%3%notwendiges%4% Element.</target>
       </trans-unit>
       <trans-unit id="902">
         <source>%1%Title%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Titel%2% - Dies ist ein%3%notwendiges%4% Element.</target>
       </trans-unit>
       <trans-unit id="903">
         <source>%1%Level of description%2% - Value "%value%" is not consistent with higher levels.</source>
-        <target/>
+        <target>%1%Verzeichnungsstufe%2% - Der Wert "%value%" ist nicht vereinbar mit den höheren Stufen.</target>
       </trans-unit>
       <trans-unit id="905">
         <source>File list</source>
@@ -464,7 +464,7 @@
       </trans-unit>
       <trans-unit id="1024">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>"Das Entstehungsdatum bzw. der Entstehungszeitraum der Verzeichnungseinheit ist zu identifizieren und festzuhalten. Die Art der Daten ist anzugeben." (ISAD 3.1.3). Das Feld zur Anzeige des Datums kann mit freiem Text belegt werden, einschließlich typographischer Zeichen, die Näherung, Ungewissheit oder eine nähere Bestimmung ausdrücken. Nutze die Felder für "Beginn" und "Ende" um Daten suchbar zu machen. Benutzen Sie hier keine näheren Bestimmungen oder typographische Zeichen um Ungewissheit auszudrücken. Geeignete Datenformate sind: JJJJMMTT, JJJJ-MM-TT, JJJJ-MM, JJJJ.</target>
       </trans-unit>
       <trans-unit id="1025">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
