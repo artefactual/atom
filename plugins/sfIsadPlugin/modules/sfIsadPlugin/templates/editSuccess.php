@@ -48,7 +48,7 @@
           ->help(__('Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)'))
           ->label(__('Title').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource) ?>
 
-        <?php echo get_partial('event', $eventComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('event', $eventComponent->getVarHolder()->getAll() + array('help' => __('"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.'))) ?>
 
         <?php echo $form->levelOfDescription
           ->help(__('Record the level of this unit of description. (ISAD 3.1.4)'))
