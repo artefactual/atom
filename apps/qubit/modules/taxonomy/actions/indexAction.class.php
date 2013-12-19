@@ -61,7 +61,7 @@ class TaxonomyIndexAction extends sfAction
 
           break;
 
-        case 'All fields':
+        case 'All labels':
         default:
           // Search over preferred label (boosted by five) and "Use for" labels
           $queryString->setFields(array('i18n.'.$culture.'.name^5', 'useFor.i18n.'.$culture.'.name'));
