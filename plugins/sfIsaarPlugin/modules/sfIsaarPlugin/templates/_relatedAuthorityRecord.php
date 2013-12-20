@@ -45,9 +45,9 @@
           </td><td>
             <?php if ($item->type->parentId != QubitTerm::ROOT_ID): ?>
               <?php if ($resource->id != $item->objectId): ?>
-                <?php echo $item->type ?>
+                <?php echo $item->type.' '.render_title($resource) ?>
               <?php elseif (0 < count($converseTerms = QubitRelation::getBySubjectOrObjectId($item->type->id, array('typeId' => QubitTerm::CONVERSE_TERM_ID)))): ?>
-                <?php echo $converseTerms[0]->getOpposedObject($item->type) ?>
+                <?php echo $converseTerms[0]->getOpposedObject($item->type).' '.render_title($resource) ?>
               <?php endif; ?>
             <?php endif; ?>
           </td><td>
@@ -121,6 +121,8 @@ Drupal.behaviors.relatedAuthorityRecord = {
               response.subType = response.converseSubType;
             }
 
+            response.actor = ' $resource';
+
             return response;
           } });
 
@@ -165,7 +167,7 @@ content
           ->label(__('Relationship type'))
           ->renderLabel() ?>
         <?php echo $form->subType->render(array('class' => 'form-autocomplete', 'disabled' => 'true')) ?>
-        <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::ACTOR_RELATION_TYPE_ID), 'module' => 'taxonomy')))) ?>"/>
+        <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::ACTOR_RELATION_TYPE_ID), 'module' => 'taxonomy')), 'addWords' => render_title($resource))) ?>"/>
         <?php echo $form->subType
           ->help(__('"Select a descriptive term from the drop-down menu to clarify the type of relationship between these two actors."'))
           ->renderHelp() ?>

@@ -381,9 +381,19 @@
                     scope: $(hiddenInput),
                     success: function (request, response)
                       {
-                        this
-                          .next('.form-autocomplete')
-                          .val(response.results[0]);
+                        if (this.attr('name') == 'relatedAuthorityRecord[subType]')
+                        {
+                          // Set value + actor name for subType field
+                          this
+                            .next('.form-autocomplete')
+                            .val(response.results[0] + thisData['relatedAuthorityRecord[actor]']);
+                        }
+                        else
+                        {
+                          this
+                            .next('.form-autocomplete')
+                            .val(response.results[0]);
+                        }
                       } });
                 }
               }

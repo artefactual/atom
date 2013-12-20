@@ -306,7 +306,17 @@
                       //
                       // Use XML() constructor as with multiple <select/>, but
                       // use toString() to get text of parsed HTML
-                      $input.val(args[2][0]);
+                      if (args[2][0].indexOf('<b>') >= 0 && args[2][0].indexOf('</b>') >= 0)
+                      {
+                        // Remove bold tags
+                        $input.val(args[2][0].substring(0, args[2][0].indexOf('<b>'))
+                          + args[2][0].substring(args[2][0].indexOf('<b>') + 3, args[2][0].indexOf('</b>'))
+                          + args[2][0].substring(args[2][0].indexOf('</b>') + 4, args[2][0].length));
+                      }
+                      else
+                      {
+                        $input.val(args[2][0]);
+                      }
                     });
 
                   if ($(select).attr('multiple'))
