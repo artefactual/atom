@@ -1,4 +1,6 @@
-<a href="#" id="alternative-identifiers">Add alternative identifier(s)</a>
+<div class="section">
+  <a href="#" id="alternative-identifiers">Add alternative identifier(s)</a>
+</div>
 
 <div class="section" id="alternative-identifiers-table"<?php echo 0 < count($alternativeIdentifiers) ? '' : 'style="display:none"' ?>>
 
