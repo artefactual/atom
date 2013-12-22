@@ -214,6 +214,32 @@
     border: 0;
   }
 
+  #field-options {
+    background-color: rgba(0, 0, 0, .1);
+    position: relative;
+    padding: 0 10px 1px 10px;
+
+    ul {
+      background-color: rgba(0, 0, 0, .2);
+      list-style: none;
+      padding: 5px 10px;
+      margin-left:0;
+      border-radius: 4px;
+    }
+
+    label {
+      display: inline;
+      position: relative;
+      color: @white;
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+
+  }
+
+
   .search-box {
     padding: 14px 10px;
     background-color: rgba(0, 0, 0, .1);
@@ -223,19 +249,30 @@
       background-color: rgba(0, 0, 0, .2);
       .placeholder(#fff);
       color: @white;
-      padding-right: 32px;
+      padding: 0 32px;
     }
 
     button {
       position: absolute;
-      right: 13px;
       top: 17px;
       bottom: 17px;
       background-color: rgba(255, 255, 255, .1);
-
       .border-radius(4px);
-      font-size: 12px;
       color: @white;
+    }
+
+    button[type="submit"] {
+      right: 13px;
+      font-size: 12px;
+    }
+
+    button#treeview-search-settings {
+      left: 13px;
+      font-size: 14px;
+
+      .icon-search-settings:before {
+        content: "\f013";
+      }
     }
 
   }
@@ -250,13 +287,41 @@
 
   .no-results {
     border-top: 1px solid @white;
-    background-color: rgba(0, 0, 0, .2);
-    color: @orange;
+    background-color: rgba(0, 0, 0, .3);
+    color: @white;
     padding: 4px 8px;
   }
 
 }
 
-#treeview-search {
+// List tab in term treeview
+
+#treeview-list {
+  background-color: @grayLighter;
+
+  > ul {
+    list-style: none;
+    margin-left: -15px;
+
+    > li {
+      padding: 5px 5px 5px 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      position: relative;
+      font-size: 13px;
+    }
+  }
+
+  .pager li > a {
+    font-size: 10px;
+    padding: 3px 8px;
+    margin: 0 5px 5px -20px;
+  }
+
+}
+
+#treeview-search,
+#treeview-list {
   .hide();
 }

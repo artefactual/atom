@@ -26,7 +26,7 @@
 
   <div class="sidebar-lowering-sort">
 
-    <?php echo get_component('term', 'treeView', array('browser' => true)) ?>
+    <?php echo get_component('term', 'treeView', array('browser' => false)) ?>
 
     <section id="facets">
 

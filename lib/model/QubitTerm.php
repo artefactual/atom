@@ -698,10 +698,10 @@ class QubitTerm extends BaseTerm
    * @param string $objectClassName related object class_name column value
    * @return integer count of related object.
    */
-  public function countRelatedInformationObjects()
+  public static function countRelatedInformationObjects($id)
   {
     $criteria = new Criteria;
-    $criteria->add(QubitTerm::ID, $this->id);
+    $criteria->add(QubitTerm::ID, $id);
 
     $criteria->addJoin(QubitTerm::ID, QubitObject::ID);
     $criteria->addJoin(QubitTerm::ID, QubitObjectTermRelation::TERM_ID);

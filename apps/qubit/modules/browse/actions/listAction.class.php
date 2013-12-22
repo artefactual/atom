@@ -28,17 +28,17 @@ class BrowseListAction extends sfAction
     {
       case 'subject':
         $this->context->user->setAttribute('browse_list', 'subject');
-        $this->redirect(array('module' => 'taxonomy', 'action' => 'browse', 'id' => QubitTaxonomy::SUBJECT_ID));
+        $this->redirect(array('module' => 'taxonomy', 'id' => QubitTaxonomy::SUBJECT_ID));
         break;
 
       case 'materialtype':
         $this->context->user->setAttribute('browse_list', 'materialtype');
-        $this->redirect(array('module' => 'taxonomy', 'action' => 'browse', 'id' => QubitTaxonomy::MATERIAL_TYPE_ID));
+        $this->redirect(array('module' => 'taxonomy', 'id' => QubitTaxonomy::MATERIAL_TYPE_ID));
         break;
 
       case 'place':
         $this->context->user->setAttribute('browse_list', 'place');
-        $this->redirect(array('module' => 'taxonomy', 'action' => 'browse', 'id' => QubitTaxonomy::PLACE_ID));
+        $this->redirect(array('module' => 'taxonomy', 'id' => QubitTaxonomy::PLACE_ID));
         break;
 
       case 'actor':

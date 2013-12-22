@@ -92,7 +92,8 @@
 
       // Menu (tabs) and search box
       this.$menu = this.$element.prev('#treeview-menu');
-      this.$search = this.$element.next('#treeview-search');
+      this.$search = this.$element.siblings('#treeview-search');
+      this.$list = this.$element.siblings('#treeview-list');
 
       this.init();
     };
@@ -118,6 +119,9 @@
         this.$search
           .on('submit.treeview.atom', 'form', $.proxy(this.search, this))
           .on('keydown.treeview.atom', 'input', $.proxy(this.searchChange, this));
+
+        this.$list
+          .on('click.treeview.atom', '.pager a', $.proxy(this.clickPagerButton, this));
 
         // Prevent out-of-bounds scrollings via mousewheel
         if ($.fn.mousewheel)
@@ -552,9 +556,11 @@
 
         if (!$li.hasClass('active'))
         {
-          this.$menu.find('li').toggleClass('active');
+          this.$menu.find('li').removeClass('active');
+          $li.addClass('active');
           this.$element.hide();
           this.$search.hide();
+          this.$list.hide();
 
           $($link.data('toggle')).show();
 
@@ -575,13 +581,25 @@
           return this;
         }
 
+        // Obtain queryField value
+        var queryField = this.$search.find('input[type="radio"][name="queryField"]:checked');
+        if (queryField.length > 0)
+        {
+            var queryFieldValue = queryField.val();
+            var data = { subquery: query, subqueryfield: queryFieldValue };
+        }
+        else
+        {
+          var data = { query: query };
+        }
+
         this.setLoading(true);
 
         $.ajax({
           url: event.target.action,
           context: this,
           dataType: 'json',
-          data: { query: query }})
+          data: data })
 
           .fail(function (fail)
             {
@@ -657,6 +675,57 @@
             this.$search.find('.list-menu, .no-results').remove();
             $(event.target).attr('value', '');
         }
+      },
+
+    clickPagerButton: function (event)
+      {
+        event.preventDefault();
+
+        this.setLoading(true);
+
+        $.ajax({
+          url: event.target.href,
+          context: this,
+          dataType: 'json'})
+
+          .fail(function (fail)
+            {
+              if (404 == fail.status)
+              {
+                this.$list.find('ul, section').remove();
+              }
+            })
+
+          .done(function (data)
+            {
+              this.$list.find('ul, section').remove();
+              this.$list.append('<ul></ul>');
+
+              var $list = this.$list.find('ul');
+              for (var i in data.results)
+              {
+                var item = data.results[i];
+                var link = '<a href="' + item.url + '">' + item.title + '</a>';
+                $list.append('<li></li>').children(':last-child').append(link);
+              }
+
+              // Show more
+              if (undefined !== data.more)
+              {
+                $list.after(data.more);
+              }
+            })
+
+          .always(function (data)
+            {
+              var self = this;
+              window.setTimeout(function()
+              {
+                self.setLoading(false);
+              }, 250);
+            });
+
+        return this;
       }
   };
 

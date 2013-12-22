@@ -15,7 +15,7 @@
             <?php if (1 < $key): ?>
               &raquo;
             <?php endif; ?>
-            <?php echo link_to($place->__toString(), array($place, 'module' => 'term', 'action' => 'browseTerm')) ?>
+            <?php echo link_to($place->__toString(), array($place, 'module' => 'term')) ?>
           <?php endforeach; ?>
         </li>
       <?php endforeach; ?>

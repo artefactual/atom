@@ -92,7 +92,7 @@ mapping:
       i18n: true
       timestamp: true
       autocompleteFields: [title]
-    _foreign_types: { repository: repository, names: actor, creators: actor, subjects: term, places: term }
+    _foreign_types: { repository: repository, names: actor, creators: actor, subjects: term, places: term, direct_subjects: term, direct_places: term }
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }

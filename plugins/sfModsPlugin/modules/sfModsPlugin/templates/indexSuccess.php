@@ -112,7 +112,7 @@
   <?php endif; ?>
 
   <?php foreach ($resource->getSubjectAccessPoints() as $item): ?>
-    <?php echo render_show(__('Subject'), link_to($item->term, array($item->term, 'module' => 'term', 'action' => 'browseTerm'))) ?>
+    <?php echo render_show(__('Subject'), link_to($item->term, array($item->term, 'module' => 'term'))) ?>
   <?php endforeach; ?>
 
   <?php echo render_show(__('Access condition'), render_value($resource->getAccessConditions(array('cultureFallback' => true)))) ?>

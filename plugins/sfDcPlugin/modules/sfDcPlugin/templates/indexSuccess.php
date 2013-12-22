@@ -121,7 +121,7 @@
   <?php echo get_partial('informationobject/dates', array('resource' => $resource)) ?>
 
   <?php foreach ($resource->getSubjectAccessPoints() as $item): ?>
-    <?php echo render_show(__('Subject'), link_to($item->term, array($item->term, 'module' => 'term', 'action' => 'browseTerm'))) ?>
+    <?php echo render_show(__('Subject'), link_to($item->term, array($item->term, 'module' => 'term'))) ?>
   <?php endforeach; ?>
 
   <?php echo render_show(__('Description'), render_value($resource->getScopeAndContent(array('cultureFallback' => true)))) ?>
@@ -143,7 +143,7 @@
   <?php echo render_show_repository(__('Relation (isLocatedAt)'), $resource) ?>
 
   <?php foreach ($dc->coverage as $item): ?>
-    <?php echo render_show(__('Coverage (spatial)'), link_to(render_title($item), array($item, 'module' => 'term', 'action' => 'browseTerm'))) ?>
+    <?php echo render_show(__('Coverage (spatial)'), link_to(render_title($item), array($item, 'module' => 'term'))) ?>
   <?php endforeach; ?>
 
   <?php echo render_show(__('Rights'), render_value($resource->getAccessConditions(array('cultureFallback' => true)))) ?>

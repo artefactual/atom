@@ -720,5 +720,24 @@
         });
     });
 
+  // Treeview search settings button
+  $(function ()
+    {
+      $("#treeview-search-settings").on('click', function(e)
+        {
+          e.preventDefault();
+
+          // Hide/show field options
+          if ($("#field-options").attr('style') == 'display: none;')
+          {
+            $("#field-options").show(200);
+          }
+          else
+          {
+            $("#field-options").hide(200);
+          }
+        });
+    });
+
 })(window.jQuery);
 
