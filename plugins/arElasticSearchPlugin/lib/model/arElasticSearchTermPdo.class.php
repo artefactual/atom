@@ -22,7 +22,6 @@
  *
  * @package    AccesstoMemory
  * @subpackage arElasticSearchPlugin
- * @author     MJ Suhonos <mj@suhonos.ca>
  */
 class arElasticSearchTermPdo
 {

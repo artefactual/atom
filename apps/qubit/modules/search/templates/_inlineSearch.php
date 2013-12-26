@@ -5,16 +5,16 @@
     <div class="input-prepend input-append">
 
       <?php if (isset($fields)): ?>
-        <?php if (isset($sf_request->subqueryfield) && 0 < strlen($sf_request->subqueryfield)): ?>
-          <input type="hidden" name="subqueryfield" id="subqueryfield" value="<?php echo $sf_request->subqueryfield ?>" />
+        <?php if (isset($sf_request->subqueryField) && 0 < strlen($sf_request->subqueryField)): ?>
+          <input type="hidden" name="subqueryField" id="subqueryField" value="<?php echo $sf_request->subqueryField ?>" />
         <?php else: ?>
-          <input type="hidden" name="subqueryfield" id="subqueryfield" value="<?php echo $fields[0] ?>" />
+          <input type="hidden" name="subqueryField" id="subqueryField" value="<?php echo $fields[0] ?>" />
         <?php endif; ?>
 
         <div class="btn-group">
           <button class="btn dropdown-toggle" data-toggle="dropdown">
-            <?php if (isset($sf_request->subqueryfield) && 0 < strlen($sf_request->subqueryfield)): ?>
-              <?php echo $sf_request->subqueryfield ?>
+            <?php if (isset($sf_request->subqueryField) && 0 < strlen($sf_request->subqueryField)): ?>
+              <?php echo $sf_request->subqueryField ?>
             <?php else: ?>
               <?php echo $fields[0] ?>
             <?php endif; ?>

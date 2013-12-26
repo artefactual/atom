@@ -102,7 +102,7 @@ class TaxonomyIndexAction extends sfAction
     {
       $queryString = new \Elastica\Query\QueryString($request->subquery);
 
-      switch ($request->subqueryfield)
+      switch ($request->subqueryField)
       {
         case 'Preferred label':
           $queryString->setDefaultField('i18n.'.$culture.'.name');

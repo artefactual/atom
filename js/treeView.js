@@ -586,7 +586,7 @@
         if (queryField.length > 0)
         {
             var queryFieldValue = queryField.val();
-            var data = { subquery: query, subqueryfield: queryFieldValue };
+            var data = { subquery: query, subqueryField: queryFieldValue };
         }
         else
         {

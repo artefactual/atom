@@ -686,8 +686,8 @@
         {
           // Change button label
           $(".dropdown-toggle").html($(this).text() + '<span class="caret"></span>');
-          // Modify subqueryfield value
-          $('#subqueryfield').val($(this).text());
+          // Modify subqueryField value
+          $('#subqueryField').val($(this).text());
         });
 
       // Avoid opening dropdown list and send form when ENTER key is pressed
