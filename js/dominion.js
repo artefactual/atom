@@ -681,62 +681,55 @@
 
   $(function ()
     {
-      // Click in a dropdown option
-      $(".inline-search .dropdown-menu li a").click(function()
-        {
-          // Change button label
-          $(".dropdown-toggle").html($(this).text() + '<span class="caret"></span>');
-          // Modify subqueryField value
-          $('#subqueryField').val($(this).text());
-        });
+      var $inlineSearch = $('.inline-search');
 
-      // Avoid opening dropdown list and send form when ENTER key is pressed
-      $(".inline-search input").keypress(function (e)
-        {
-          if (e.keyCode == 13)
+      $inlineSearch
+        .on('click', '.dropdown-menu li a', function(e)
+          {
+            var $this = $(e.target);
+
+            // Change button label
+            $inlineSearch.find('.dropdown-toggle')
+              .html($this.text() + '<span class="caret"></span>');
+
+            // Modify subqueryField value
+            $inlineSearch.find('#subqueryField')
+              .val($this.text());
+          })
+        .on('keypress', 'input', function(e)
+          {
+            if (e.which == 13)
+            {
+              e.preventDefault();
+
+              $inlineSearch.find('form').submit();
+            }
+          });
+    });
+
+  /****
+   ****
+   ****  Hide/show elements on click
+   ****
+   ****/
+
+  $(function ()
+    {
+      $("#treeview-search-settings")
+        .on('click', function(e)
           {
             e.preventDefault();
-            $(e.target).closest('form').submit();
-          }
-        });
-    });
 
-  // Altenative identifiers link
-  $(function ()
-    {
-      $("#alternative-identifiers").on('click', function(e)
-        {
-          e.preventDefault();
+            $("#field-options").toggle(200);
+          });
 
-          // Hide/show alternative identifiers table
-          if ($("#alternative-identifiers-table").attr('style') == 'display:none')
+      $("#alternative-identifiers")
+        .on('click', function(e)
           {
-            $("#alternative-identifiers-table").attr('style', '');
-          }
-          else
-          {
-            $("#alternative-identifiers-table").attr('style', 'display:none')
-          }
-        });
-    });
+            e.preventDefault();
 
-  // Treeview search settings button
-  $(function ()
-    {
-      $("#treeview-search-settings").on('click', function(e)
-        {
-          e.preventDefault();
-
-          // Hide/show field options
-          if ($("#field-options").attr('style') == 'display: none;')
-          {
-            $("#field-options").show(200);
-          }
-          else
-          {
-            $("#field-options").hide(200);
-          }
-        });
+            $("#alternative-identifiers-table").toggle(200);
+          });
     });
 
 })(window.jQuery);
