@@ -197,7 +197,7 @@
                       var taxonomy = $('input[name=taxonomy]').val();
                       var parent = $('input[name=parent]').val();
 
-                      return '&taxonomy=' + taxonomy + '&parent=' + parent + '&query=' + query;
+                      return '?taxonomy=' + taxonomy + '&parent=' + parent + '&query=' + query;
                     };
                   }
                   // Alternatively use try/catch?

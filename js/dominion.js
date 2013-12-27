@@ -732,5 +732,31 @@
           });
     });
 
+
+  // Disable/enable converseTerm field
+  $(function ()
+    {
+      var $selfReciprocal = $('input[id=selfReciprocal]');
+      var $converseTerm = $('input[id=converseTerm]');
+
+      if ($selfReciprocal.prop('checked'))
+      {
+        $converseTerm.prop('disabled', 'disabled').val('');
+      }
+
+      $selfReciprocal
+        .on('change', function ()
+          {
+            if ($converseTerm.prop('disabled'))
+            {
+              $converseTerm.prop('disabled', false).focus();
+            }
+            else
+            {
+              $converseTerm.prop('disabled', 'disabled').val('');
+            }
+          });
+    });
+
 })(window.jQuery);
 

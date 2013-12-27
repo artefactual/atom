@@ -73,13 +73,21 @@
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete')) ?>"/>
         </div>
 
-        <div class="form-item">
-          <?php echo $form->converseTerm
-            ->label(__('Converse term'))
-            ->renderLabel() ?>
-          <?php echo $form->converseTerm->render(array('class' => 'form-autocomplete')) ?>
-          <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::ROOT_ID), 'module' => 'taxonomy')))) ?> #name"/>
-          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'selfReciprocal' => true)) ?>"/>
+        <div class="row">
+
+          <div class="span9">
+            <?php echo $form->converseTerm
+              ->label(__('Converse term'))
+              ->renderLabel() ?>
+            <?php echo $form->converseTerm->render(array('class' => 'form-autocomplete')) ?>
+            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::ROOT_ID), 'module' => 'taxonomy')))) ?> #name"/>
+            <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete')) ?>"/>
+          </div>
+
+          <div class="span2 field-lowering pull-right">
+            <?php echo $form->selfReciprocal->label(__('Self-reciprocal'))->renderRow() ?>
+          </div>
+
         </div>
 
         <?php echo $form->narrowTerms

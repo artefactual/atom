@@ -32,9 +32,13 @@ class TermEditAction extends DefaultEditAction
 
       'narrowTerms',
       'parent',
+
+      // Needs to go before selfReciprocal field
       'converseTerm',
+
       'relatedTerms',
       'scopeNote',
+      'selfReciprocal',
       'sourceNote',
       'useFor');
 
@@ -168,15 +172,16 @@ class TermEditAction extends DefaultEditAction
       case 'converseTerm':
         $this->form->setValidator('converseTerm', new sfValidatorString);
 
+        $choices = array();
         if (0 < count($converseTerms = QubitRelation::getBySubjectOrObjectId($this->resource->id, array('typeId' => QubitTerm::CONVERSE_TERM_ID))))
         {
-          $this->form->setDefault('converseTerm', $this->context->routing->generate(null, array($converseTerms[0]->getOpposedObject($this->resource), 'module' => 'term')));
-        }
+          $this->converseTerm = $converseTerms[0]->getOpposedObject($this->resource);
 
-        $choices = array();
-        if (0 < count($converseTerms))
-        {
-          $choices[$this->context->routing->generate(null, array($converseTerms[0]->getOpposedObject($this->resource), 'module' => 'term'))] = $converseTerms[0]->getOpposedObject($this->resource);
+          if (isset($this->converseTerm) && $this->converseTerm->id != $this->resource->id)
+          {
+            $this->form->setDefault('converseTerm', $this->context->routing->generate(null, array($this->converseTerm, 'module' => 'term')));
+            $choices[$this->context->routing->generate(null, array($this->converseTerm, 'module' => 'term'))] = $this->converseTerm;
+          }
         }
 
         $this->form->setWidget('converseTerm', new sfWidgetFormSelect(array('choices' => $choices)));
@@ -232,6 +237,17 @@ class TermEditAction extends DefaultEditAction
         $this->form->setDefault('useFor', $value);
         $this->form->setValidator('useFor', new sfValidatorPass);
         $this->form->setWidget('useFor', new QubitWidgetFormInputMany(array('defaults' => $defaults)));
+
+        break;
+
+      case 'selfReciprocal':
+        $this->form->setValidator('selfReciprocal', new sfValidatorBoolean);
+        $this->form->setWidget('selfReciprocal', new sfWidgetFormInputCheckbox);
+
+        if (isset($this->converseTerm) && $this->converseTerm->id == $this->resource->id)
+        {
+          $this->form->setDefault('selfReciprocal', true);
+        }
 
         break;
 
@@ -357,35 +373,38 @@ class TermEditAction extends DefaultEditAction
         }
 
         $value = $this->form->getValue('converseTerm');
-        if (isset($value) && $value != '')
+
+        if (true === $this->form->getValue('selfReciprocal'))
+        {
+          $this->resource->save();
+
+          // Set self-reciprocal relation
+          $relation = new QubitRelation;
+          $relation->typeId = QubitTerm::CONVERSE_TERM_ID;
+          $relation->object = $this->resource;
+
+          $this->resource->relationsRelatedBysubjectId[] = $relation;
+        }
+        else if (isset($value) && $value != '')
         {
           // Create new converse relation
           $relation = new QubitRelation;
           $relation->typeId = QubitTerm::CONVERSE_TERM_ID;
 
-          if ($value == '#')
-          {
-            // Set self-reciprocal relation
-            $this->resource->save();
-            $relation->object = $this->resource;
-          }
-          else
-          {
-            // Get converse term, update parent and taxonomy (when it's created on the fly)
-            $params = $this->context->routing->parse(Qubit::pathInfo($value));
-            $converseTerm = $params['_sf_route']->resource;
-            $converseTerm->parentId = $this->resource->parentId;
-            $converseTerm->taxonomyId = $this->resource->taxonomyId;
-            $converseTerm->save();
+          // Get converse term, update parent and taxonomy (when it's created on the fly)
+          $params = $this->context->routing->parse(Qubit::pathInfo($value));
+          $converseTerm = $params['_sf_route']->resource;
+          $converseTerm->parentId = $this->resource->parentId;
+          $converseTerm->taxonomyId = $this->resource->taxonomyId;
+          $converseTerm->save();
 
-            // Remove converse relations for the converse term
-            foreach (QubitRelation::getBySubjectOrObjectId($converseTerm->id, array('typeId' => QubitTerm::CONVERSE_TERM_ID)) as $converseRelation)
-            {
-              $converseRelation->delete();
-            }
-
-            $relation->object = $converseTerm;
+          // Remove converse relations for the converse term
+          foreach (QubitRelation::getBySubjectOrObjectId($converseTerm->id, array('typeId' => QubitTerm::CONVERSE_TERM_ID)) as $converseRelation)
+          {
+            $converseRelation->delete();
           }
+
+          $relation->object = $converseTerm;
 
           $this->resource->relationsRelatedBysubjectId[] = $relation;
         }

@@ -1,12 +1,5 @@
 <table>
   <tbody>
-    <?php if (isset($sf_request->selfReciprocal) && $sf_request->selfReciprocal && (!isset($sf_request->query) || $sf_request->query == '')): ?>
-      <tr>
-        <td>
-          <a href="#" title="self-reciprocal">self-reciprocal</a>
-        </td>
-      </tr>
-    <?php endif; ?>
     <?php foreach ($terms as $item): ?>
       <tr>
         <td>
