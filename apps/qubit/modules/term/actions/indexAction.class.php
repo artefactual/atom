@@ -210,22 +210,22 @@ EOF;
         {
           case QubitTaxonomy::PLACE_ID:
             $query = new \Elastica\Query\Terms('places.id', array($this->resource->id));
-            $this::$FACETS['direct']['field'] = array('directPlaces.id' => $this->resource->id);
+            $this::$FACETS['direct']['field'] = array('directPlaces' => $this->resource->id);
 
             if (isset($request->onlyDirect))
             {
-              $queryDirect = new \Elastica\Query\Terms('directPlaces.id', array($this->resource->id));
+              $queryDirect = new \Elastica\Query\Terms('directPlaces', array($this->resource->id));
             }
 
             break;
 
           case QubitTaxonomy::SUBJECT_ID:
             $query = new \Elastica\Query\Terms('subjects.id', array($this->resource->id));
-            $this::$FACETS['direct']['field'] = array('directSubjects.id' => $this->resource->id);
+            $this::$FACETS['direct']['field'] = array('directSubjects' => $this->resource->id);
 
             if (isset($request->onlyDirect))
             {
-              $queryDirect = new \Elastica\Query\Terms('directSubjects.id', array($this->resource->id));
+              $queryDirect = new \Elastica\Query\Terms('directSubjects', array($this->resource->id));
             }
 
             break;

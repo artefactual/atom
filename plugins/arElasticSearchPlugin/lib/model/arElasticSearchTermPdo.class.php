@@ -117,7 +117,7 @@ class arElasticSearchTermPdo
     return QubitPdo::fetchOne($sql, array(':lft' => $this->lft, ':rgt' => $this->rgt))->count;
   }
 
-  public function serialize($object)
+  public function serialize()
   {
     $serialized = array();
 

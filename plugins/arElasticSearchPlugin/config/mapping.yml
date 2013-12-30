@@ -92,7 +92,7 @@ mapping:
       i18n: true
       timestamp: true
       autocompleteFields: [title]
-    _foreign_types: { repository: repository, names: actor, creators: actor, subjects: term, places: term, direct_subjects: term, direct_places: term }
+    _foreign_types: { repository: repository, names: actor, creators: actor, subjects: term, places: term }
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }
@@ -106,6 +106,8 @@ mapping:
       copyright_status_id: { type: integer, index: not_analyzed, include_in_all: false }
       material_type_id: { type: integer, index: not_analyzed, include_in_all: false }
       transcript: { type: string, index: analyzed, include_in_all: true }
+      direct_subjects: { type: integer, index: not_analyzed, include_in_all: false }
+      direct_places: { type: integer, index: not_analyzed, include_in_all: false }
       dates:
         type: object
         properties:

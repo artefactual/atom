@@ -569,20 +569,12 @@ class arElasticSearchInformationObjectPdo
   protected function getDirectlyRelatedTerms($typeId)
   {
     $sql  = 'SELECT
-                DISTINCT current.id,
-                current.taxonomy_id,
-                current.source_culture,
-                slug.slug,
-                i18n.name';
+                DISTINCT current.id';
     $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' otr';
     $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' current
                 ON otr.term_id = current.id';
-    $sql .= ' JOIN '.QubitTermI18n::TABLE_NAME.' i18n
-                ON current.id = i18n.id';
-    $sql .= ' JOIN '.QubitSlug::TABLE_NAME.' slug
-                ON current.id = slug.object_id';
     $sql .= ' WHERE otr.object_id = ?
-               AND current.taxonomy_id = ?';
+                AND current.taxonomy_id = ?';
 
     self::$statements['relatedTerms'] = self::$conn->prepare($sql);
     self::$statements['relatedTerms']->execute(array($this->__get('id'), $typeId));
@@ -933,8 +925,7 @@ class arElasticSearchInformationObjectPdo
 
     foreach ($this->getDirectlyRelatedTerms(QubitTaxonomy::PLACE_ID) as $item)
     {
-      $node = new arElasticSearchTermPdo($item->id);
-      $serialized['directPlaces'][] = $node->serialize();
+      $serialized['directPlaces'][] = $item->id;
     }
 
     // Subjects
@@ -946,8 +937,7 @@ class arElasticSearchInformationObjectPdo
 
     foreach ($this->getDirectlyRelatedTerms(QubitTaxonomy::SUBJECT_ID) as $item)
     {
-      $node = new arElasticSearchTermPdo($item->id);
-      $serialized['directSubjects'][] = $node->serialize();
+      $serialized['directSubjects'][] = $item->id;
     }
 
     // Name access points
