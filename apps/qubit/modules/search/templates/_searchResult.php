@@ -27,8 +27,11 @@
 
     <ul class="result-details">
 
-      <?php if (isset($doc['referenceCode']) && !empty($doc['referenceCode'])): ?>
-        <li class="reference-code"><?php echo $doc['referenceCode'] ?></li>
+      <?php if ('1' == sfConfig::get('app_inherit_code_informationobject', 1)
+        && isset($doc['inheritReferenceCode']) && !empty($doc['inheritReferenceCode'])) : ?>
+          <li class="reference-code"><?php echo $doc['inheritReferenceCode'] ?></li>
+      <?php elseif (isset($doc['identifier']) && !empty($doc['identifier'])) : ?>
+          <li class="reference-code"><?php echo $doc['identifier'] ?></li>
       <?php endif; ?>
 
       <?php if (isset($doc['levelOfDescriptionId']) && !empty($doc['levelOfDescriptionId'])): ?>

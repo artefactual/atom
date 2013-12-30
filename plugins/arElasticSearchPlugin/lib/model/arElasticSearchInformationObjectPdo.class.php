@@ -303,45 +303,41 @@ class arElasticSearchInformationObjectPdo
     }
   }
 
-  public function getReferenceCode()
+  public function getInheritReferenceCode()
   {
     if (null == $this->__get('identifier'))
     {
       return;
     }
 
-    // Check if identifiers inherit from higher levels
-    if ('1' == sfConfig::get('app_inherit_code_informationobject', 1))
-    {
-      $refcode = '';
-      if (isset($this->repository))
-      {
-        if (null != $cc = $this->repository->getCountryCode(array('culture' => $this->__get('culture'))))
-        {
-          $refcode .= $cc.' ';
-        }
+    $refcode = '';
+    $this->repository =$this->getRepository();
 
-        if (isset($this->repository->identifier))
-        {
-          $refcode .= $this->repository->identifier.' ';
-        }
+    if (isset($this->repository))
+    {
+      if (null != $cc = $this->repository->getCountryCode(array('culture' => $this->__get('culture'))))
+      {
+        $refcode .= $cc.' ';
       }
 
-      $identifiers = array();
-      foreach (array_merge(is_array($this->ancestors) ? $this->ancestors : array(), array($this)) as $item)
+      if (isset($this->repository->identifier))
       {
-        if (isset($item->identifier))
-        {
-          $identifiers[] = $item->identifier;
-        }
+        $refcode .= $this->repository->identifier.' ';
       }
+    }
 
-      $refcode .= implode(sfConfig::get('app_separator_character', '-'), $identifiers);
-    }
-    else
+    $identifiers = array();
+    $this->ancestors =$this->getAncestors();
+
+    foreach (array_merge(is_array($this->ancestors) ? $this->ancestors : array(), array($this)) as $item)
     {
-      $refcode = $this->__get('identifier');
+      if (isset($item->identifier))
+      {
+        $identifiers[] = $item->identifier;
+      }
     }
+
+    $refcode .= implode(sfConfig::get('app_separator_character', '-'), $identifiers);
 
     return $refcode;
   }
@@ -841,7 +837,7 @@ class arElasticSearchInformationObjectPdo
     $serialized['slug'] = $this->slug;
 
     $serialized['identifier'] = $this->identifier;
-    $serialized['referenceCode'] = $this->getReferenceCode();
+    $serialized['inheritReferenceCode'] = $this->getInheritReferenceCode();
     $serialized['levelOfDescriptionId'] = $this->level_of_description_id;
     $serialized['publicationStatusId'] = $this->publication_status_id;
 
