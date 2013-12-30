@@ -329,7 +329,7 @@
         $.ajax(this.source,
           {
             context: this,
-            data: { query: query, realm: realm },
+            data: { query: query, repos: realm },
             dataType: 'html'
           })
           .done(function(html)

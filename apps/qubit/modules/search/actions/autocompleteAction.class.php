@@ -82,15 +82,15 @@ class SearchAutocompleteAction extends sfAction
       $queryText = new \Elastica\Query\Text();
       $queryText->setFieldQuery($item['field'].'.autocomplete', $this->queryString);
 
-      if (isset($request->realm) && ctype_digit($request->realm) && 'QubitInformationObject' == $item['type'])
+      if (isset($request->repos) && ctype_digit($request->repos) && 'QubitInformationObject' == $item['type'])
       {
         $queryBool = new \Elastica\Query\Bool;
         $queryBool->addMust($queryText);
-        $queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $request->realm)));
+        $queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $request->repos)));
         $query->setQuery($queryBool);
 
         // Store realm in user session
-        $this->context->user->setAttribute('search-realm', $request->realm);
+        $this->context->user->setAttribute('search-realm', $request->repos);
       }
       else
       {
