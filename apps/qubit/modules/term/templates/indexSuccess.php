@@ -230,6 +230,7 @@
               <?php echo __('Only results directly related') ?>
               <?php $params = $sf_request->getGetParameters() ?>
               <?php unset($params['onlyDirect']) ?>
+              <?php unset($params['page']) ?>
               <a href="<?php echo url_for(array($resource, 'module' => 'term') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
             </span>
           <?php endif; ?>
@@ -251,7 +252,9 @@
           <p>
             <?php echo __('%1% results directly related', array(
               '%1%' => $pager->facets['direct']['count'])) ?>
-            <a href="<?php echo url_for(array($resource, 'module' => 'term') + $sf_request->getGetParameters() + array('onlyDirect' => true)) ?>">
+            <?php $params = $sf_request->getGetParameters() ?>
+            <?php unset($params['page']) ?>
+            <a href="<?php echo url_for(array($resource, 'module' => 'term') + $params + array('onlyDirect' => true)) ?>">
               <i class="icon-search"></i>
               <?php echo __('Show results directly related') ?>
             </a>

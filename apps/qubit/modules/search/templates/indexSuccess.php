@@ -25,7 +25,8 @@
         <?php echo __('Only digital objects') ?>
         <?php $params = $sf_request->getGetParameters() ?>
         <?php unset($params['onlyMedia']) ?>
-        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+        <?php unset($params['page']) ?>
+        <a href="<?php echo url_for(array('module' => 'search') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
       </span>
     <?php endif; ?>
 
@@ -128,7 +129,9 @@
     <p>
       <?php echo __('%1% results with digital objects', array(
         '%1%' => $pager->facets['digitalobjects']['count'])) ?>
-      <a href="<?php echo url_for(array('module' => 'search') + $sf_request->getGetParameters() + array('onlyMedia' => true)) ?>">
+      <?php $params = $sf_request->getGetParameters() ?>
+      <?php unset($params['page']) ?>
+      <a href="<?php echo url_for(array('module' => 'search') + $params + array('onlyMedia' => true)) ?>">
         <i class="icon-search"></i>
         <?php echo __('Show results with digital objects') ?>
       </a>
