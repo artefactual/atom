@@ -50,7 +50,14 @@
       </div>
       <p class="description"><?php echo render_title(get_search_i18n($doc, 'title')) ?></p>
       <div class="bottom">
-        <p><?php echo $doc['referenceCode'] ?></p>
+        <p>
+          <?php if ('1' == sfConfig::get('app_inherit_code_informationobject', 1)
+            && isset($doc['inheritReferenceCode']) && !empty($doc['inheritReferenceCode'])) : ?>
+              <?php echo $doc['inheritReferenceCode'] ?>
+          <?php elseif (isset($doc['identifier']) && !empty($doc['identifier'])) : ?>
+              <?php echo $doc['identifier'] ?>
+          <?php endif; ?>
+        </p>
       </div>
     </div>
   <?php endforeach; ?>
