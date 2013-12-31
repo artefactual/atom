@@ -13,7 +13,7 @@
   <!-- package.is_2: e.g. True -->
   <php function="version_compare" returnProperty="package.is_2">
     <param value="${package.version}"/>
-    <param value="2.0.0"/>
+    <param value="2.1.0"/>
     <param value=">="/>
   </php>
 
