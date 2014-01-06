@@ -35,8 +35,20 @@
         <li class="level-description"><?php echo QubitCache::getLabel($doc['levelOfDescriptionId'], 'QubitTerm') ?></li>
       <?php endif; ?>
 
-      <?php if (isset($doc['dates'][0]['startDateString']) || isset($doc['dates'][0]['endDateString'])): ?>
-        <li class="dates"><?php echo Qubit::renderDateStartEnd(null, isset($doc['dates'][0]['startDateString']) ? $doc['dates'][0]['startDateString'] : null, isset($doc['dates'][0]['endDateString']) ? $doc['dates'][0]['endDateString'] : null) ?></li>
+      <?php if (isset($doc['dates'])): ?>
+        <?php foreach ($doc['dates'] as $date): ?>
+          <?php if (isset($date['startDateString'])
+            || isset($date['endDateString'])
+            || null != get_search_i18n($date, 'date')): ?>
+
+            <li class="dates"><?php echo Qubit::renderDateStartEnd(get_search_i18n($date, 'date'),
+              isset($date['startDateString']) ? $date['startDateString'] : null,
+              isset($date['endDateString']) ? $date['endDateString'] : null) ?></li>
+
+            <?php break; ?>
+
+          <?php endif; ?>
+        <?php endforeach; ?>
       <?php endif; ?>
 
       <?php if (isset($doc['publicationStatusId']) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $doc['publicationStatusId']): ?>

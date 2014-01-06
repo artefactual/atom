@@ -34,6 +34,19 @@ mapping:
       nested_only: true
     dynamic: strict
 
+  event:
+    _attributes:
+      i18n: true
+      nested_only: true
+    dynamic: strict
+    properties:
+      start_date: { type: date }
+      end_date: { type: date }
+      start_date_string: { type: string, index: not_analyzed, include_in_all: false }
+      end_date_string: { type: string, index: not_analyzed, include_in_all: false }
+      type_id: { type: integer, index: not_analyzed, include_in_all: false }
+      actor_id: { type: integer, index: not_analyzed, include_in_all: false }
+
   term:
     _attributes:
       i18n: true
@@ -85,7 +98,13 @@ mapping:
       i18n: true
       timestamp: true
       autocompleteFields: [title]
-    _foreign_types: { repository: repository, names: actor, creators: actor, subjects: term, places: term }
+    _foreign_types:
+      repository: repository
+      names: actor
+      creators: actor
+      subjects: term
+      places: term
+      dates: event
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }
@@ -99,15 +118,6 @@ mapping:
       copyright_status_id: { type: integer, index: not_analyzed, include_in_all: false }
       material_type_id: { type: integer, index: not_analyzed, include_in_all: false }
       transcript: { type: string, index: analyzed, include_in_all: true }
-      dates:
-        type: object
-        properties:
-          start_date: { type: date }
-          end_date: { type: date }
-          start_date_string: { type: string, index: not_analyzed, include_in_all: false }
-          end_date_string: { type: string, index: not_analyzed, include_in_all: false }
-          type_id: { type: integer, index: not_analyzed, include_in_all: false }
-          actor: { type: string }
       has_digital_object: { type: boolean, index: not_analyzed, include_in_all: false }
       digital_object:
         type: object

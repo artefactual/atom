@@ -360,6 +360,7 @@ class arElasticSearchInformationObjectPdo
                     event.end_date,
                     event.actor_id,
                     event.type_id,
+                    event.source_culture,
                     i18n.date,
                     i18n.culture';
         $sql .= ' FROM '.QubitEvent::TABLE_NAME.' event';
@@ -382,6 +383,7 @@ class arElasticSearchInformationObjectPdo
           $event->end_date = $item['end_date'];
           $event->actor_id = $item['actor_id'];
           $event->type_id = $item['type_id'];
+          $event->source_culture = $item['source_culture'];
 
           $events[$item['id']] = $event;
         }
@@ -840,10 +842,9 @@ class arElasticSearchInformationObjectPdo
     }
 
     // Dates
-    $dates = $this->getDates('array', sfConfig::get('sf_default_culture'));
-    if (0 < count($dates))
+    foreach ($this->events as $event)
     {
-      $serialized['dates'] = $dates;
+      $serialized['dates'][] = arElasticSearchEvent::serialize($event);
     }
 
     // Transcript
