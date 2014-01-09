@@ -436,6 +436,12 @@ class sfInstall
     $loadData->run();
   }
 
+  public static function populateSearchIndex()
+  {
+    QubitSearch::enable();
+    QubitSearch::getInstance()->populate();
+  }
+
   public static function addSymlinks()
   {
     if (!function_exists('symlink'))
