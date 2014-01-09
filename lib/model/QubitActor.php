@@ -171,7 +171,12 @@ class QubitActor extends BaseActor
       }
     }
 
-    QubitSearch::getInstance()->update($this);
+    // Repositories are updated in the save function for QubitRepository class
+    // in order to get the i18n values updated in the search index
+    if ('QubitActor' == $this->className)
+    {
+      QubitSearch::getInstance()->update($this);
+    }
 
     return $this;
   }

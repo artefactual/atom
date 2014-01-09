@@ -110,6 +110,15 @@ class QubitRepository extends BaseRepository
     }
   }
 
+  public function save($connection = null)
+  {
+    parent::save($connection);
+
+    QubitSearch::getInstance()->update($this);
+
+    return $this;
+  }
+
   /**
    * Add repository specific logic to the insert action
    *
