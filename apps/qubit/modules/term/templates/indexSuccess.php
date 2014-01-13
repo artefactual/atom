@@ -256,7 +256,7 @@
             <?php unset($params['page']) ?>
             <a href="<?php echo url_for(array($resource, 'module' => 'term') + $params + array('onlyDirect' => true)) ?>">
               <i class="icon-search"></i>
-              <?php echo __('Show results directly related') ?>
+              <?php echo __('Exclude narrower terms') ?>
             </a>
           </p>
         </div>
