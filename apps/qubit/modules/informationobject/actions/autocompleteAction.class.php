@@ -34,42 +34,69 @@ class InformationObjectAutocompleteAction extends sfAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
-    $criteria = new Criteria;
+    $culture = $this->context->user->getCulture();
 
-    // Exclude root
-    $criteria->add(QubitInformationObject::ID, QubitInformationObject::ROOT_ID, Criteria::NOT_EQUAL);
+    $this->query = new \Elastica\Query();
+    $this->query->setLimit($request->limit);
+    $this->query->setSort(array('levelOfDescriptionId' => 'asc', 'identifier' => 'asc', 'i18n.'.$culture.'.title' => 'asc'));
 
-    $criteria->addJoin(QubitInformationObject::ID, QubitInformationObjectI18n::ID);
-    $criteria->add(QubitInformationObjectI18n::CULTURE, $this->context->user->getCulture());
+    $this->queryBool = new \Elastica\Query\Bool();
+    $this->filterBool = new \Elastica\Filter\Bool;
 
-    // Limit results by parent
+    if (1 === preg_match('/^[\s\t\r\n]*$/', $request->query))
+    {
+      $this->queryBool->addMust(new \Elastica\Query\MatchAll());
+    }
+    else
+    {
+      $queryString = new \Elastica\Query\QueryString($request->query);
+
+      // Query over inheritReferenceCode or identifier, and title
+      if ('1' == sfConfig::get('app_inherit_code_informationobject', 1))
+      {
+        $queryString->setFields(array('i18n.'.$culture.'.title.autocomplete', 'inheritReferenceCode.autocomplete'));
+
+        // Change sort order
+        $this->query->setSort(array('levelOfDescriptionId' => 'asc', 'inheritReferenceCode' => 'asc', 'i18n.'.$culture.'.title' => 'asc'));
+      }
+      else
+      {
+        $queryString->setFields(array('i18n.'.$culture.'.title.autocomplete', 'identifier'));
+      }
+
+      $this->queryBool->addMust($queryString);
+    }
+
+    $this->query->setQuery($this->queryBool);
+
+    // Filter results by parent
     if (isset($request->parent))
     {
-      $criteria->add(QubitInformationObject::PARENT_ID, $request->parent);
+      $queryTerm = new \Elastica\Query\Term;
+      $queryTerm->setTerm('parentId', $request->parent);
+
+      $filter = new \Elastica\Filter\Query($queryTerm);
+      $this->filterBool->addMust($filter);
     }
 
     // Filter drafts
     if (isset($request->filterDrafts) && $request->filterDrafts)
     {
-      $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
+      QubitAclSearch::filterDrafts($this->filterBool);
     }
 
-    // Search for matching title or identifier
-    if (isset($request->query))
+    // Set filter
+    if (0 < count($this->filterBool->toArray()))
     {
-      $criteria->add($criteria->getNewCriterion(QubitInformationObject::IDENTIFIER, "$request->query%", Criteria::LIKE)
-        ->addOr($criteria->getNewCriterion(QubitInformationObjectI18n::TITLE, "$request->query%", Criteria::LIKE)));
+      $this->query->setFilter($this->filterBool);
     }
 
-    $criteria->addAscendingOrderByColumn(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID);
-    $criteria->addAscendingOrderByColumn(QubitInformationObject::IDENTIFIER);
-    $criteria->addAscendingOrderByColumn(QubitInformationObjectI18n::TITLE);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
 
-    $this->pager = new QubitPager('QubitInformationObject');
-    $this->pager->setCriteria($criteria);
+    // Page results
+    $this->pager = new QubitSearchPager($resultSet);
+    $this->pager->setPage($request->page ? $request->page : 1);
     $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage(1);
-
-    $this->informationObjects = $this->pager->getResults();
+    $this->pager->init();
   }
 }

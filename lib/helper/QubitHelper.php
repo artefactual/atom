@@ -373,6 +373,57 @@ function get_search_creation_details($hit)
   return implode(', ', $details);
 }
 
+function get_search_autocomplete_string($hit)
+{
+  if ($hit instanceof \Elastica\Result)
+  {
+    $hit = $hit->getData();
+  }
+
+  $string = array();
+
+  $levelOfDescriptionAndIdentifier = array();
+
+  if (isset($hit['levelOfDescriptionId']))
+  {
+    $levelOfDescriptionAndIdentifier[] = QubitTerm::getById($hit['levelOfDescriptionId'])->__toString();
+  }
+
+  if ('1' == sfConfig::get('app_inherit_code_informationobject', 1)
+    && isset($hit['inheritReferenceCode']) && !empty($hit['inheritReferenceCode']))
+  {
+    $levelOfDescriptionAndIdentifier[] = $hit['inheritReferenceCode'];
+  }
+  elseif (isset($hit['identifier']) && !empty($hit['identifier']))
+  {
+    $levelOfDescriptionAndIdentifier[] = $hit['identifier'];
+  }
+
+  if (0 < count($levelOfDescriptionAndIdentifier))
+  {
+    $string[] = implode($levelOfDescriptionAndIdentifier, ' ');
+  }
+
+  $titleAndPublicationStatus = array();
+
+  if (null !== $title = get_search_i18n($hit, 'title'))
+  {
+    $titleAndPublicationStatus[] = $title;
+  }
+
+  if (isset($hit['publicationStatusId']) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $hit['publicationStatusId'])
+  {
+    $titleAndPublicationStatus[] = '('.QubitTerm::getById($hit['publicationStatusId'])->__toString().')';
+  }
+
+  if (0 < count($titleAndPublicationStatus))
+  {
+    $string[] = implode($titleAndPublicationStatus, ' ');
+  }
+
+  return implode(' - ', $string);
+}
+
 function escape_dc($text)
 {
   return preg_replace('/\n/', '<lb/>', $text);
