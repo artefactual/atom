@@ -14,6 +14,7 @@
         </ul>
     </li>
     <li><a ng-class="{ active: $route.current.activetab == 'technology-record' }" ng-href="#/technology-record">Technology Record</a></li>
+    <li><a ng-href="#/rest-tests">REST tests</a></li>
   </ul>
 
   <!-- View placeholder -->

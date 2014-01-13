@@ -71,6 +71,15 @@ sword:
   param:
     module: qtSwordPlugin
 
+api_dashboard:
+  class: sfRequestRoute
+  url: /api/dashboard
+  param:
+    module: api
+    action: dashboardIndex
+  requirements:
+    sf_method: [GET]
+
 # ------------------------------------------------------------------------------
 
 slug;default_index:

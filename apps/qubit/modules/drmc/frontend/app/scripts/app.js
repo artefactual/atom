@@ -29,6 +29,11 @@ angular.module('momaApp', [
         controller: 'TechnologyRecordCtrl',
         activeTab: 'technology-record'
       })
+      .when('/rest-tests', {
+        templateUrl: Qubit.relativeUrlRoot + '/apps/qubit/modules/drmc/frontend/app/views/rest-tests.html',
+        controller: 'RestTestsCtrl',
+        activeTab: 'rest-tests'
+      })
     .otherwise({ redirectTo: '/dashboard' });
   })
 
@@ -38,7 +43,8 @@ angular.module('momaApp', [
 
   .factory("atomGlobals", function() {
     return {
-      relativeUrlRoot: Qubit.relativeUrlRoot
+      relativeUrlRoot: Qubit.relativeUrlRoot,
+      relativeUrlFrontend: Qubit.relativeUrlRoot + '/index.php'
     }
   });
 
