@@ -95,6 +95,9 @@ EOF;
 
         // import name aliases, if specified
         $import = new QubitFlatfileImport(array(
+          /* Pass context */
+          'context' => sfContext::createInstance($this->configuration),
+
           'status' => array(
             'aliases' => array()
           ),
@@ -143,6 +146,9 @@ EOF;
 
     // Define import
     $import = new QubitFlatfileImport(array(
+      /* Pass context */
+      'context' => sfContext::createInstance($this->configuration),
+
       /* What type of object are we importing? */
       'className' => 'QubitActor',
 
@@ -370,6 +376,9 @@ EOF;
         print "Importing relationships\n";
 
         $import = new QubitFlatfileImport(array(
+          /* Pass context */
+          'context' => sfContext::createInstance($this->configuration),
+
           'status' => array(
             'actorNames'         => $actorNames,
             'actorRelationTypes' => $termData['actorRelationTypes']

@@ -172,9 +172,9 @@ class QubitAclSearch
       if (QubitAcl::DENY == $repositoryViewDrafts[0]['access'])
       {
         // Don't show *any* draft info objects
-        // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID, 'publicationStatusId'), true);
         $filter = new \Elastica\Filter\Term();
         $filter->setTerm('publicationStatusId', QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
+
         $filterBool->addMust($filter);
       }
     }
@@ -185,34 +185,19 @@ class QubitAclSearch
       // preceeding rules will be "ALLOW" rules)
       $globalRule = array_pop($repositoryViewDrafts);
 
-      $fb = new \Elastica\Filter\Bool;
+      $filter = new \Elastica\Filter\Bool();
 
-      // If global rule is GRANT, then listed repos are exceptions so remove
-      // from results
-      if (QubitAcl::GRANT == $globalRule['access'])
+      while ($repo = array_shift($repositoryViewDrafts))
       {
-        while ($repo = array_shift($repositoryViewDrafts))
-        {
-          // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
-          // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_DRAFT_ID, 'publicationStatusId'), true);
-          $fb->addShould(new \Elastica\Filter\Term(array('repositoryId', $repo['id'])));
-        }
-
-        $filter = new \Elastica\Filter\Not($fb);
+        $filter->addShould(new \Elastica\Filter\Term(array('repository.id' => (int)$repo['id'])));
       }
 
-      // If global rule is DENY, then only show the listed repo drafts
-      else
-      {
-        while ($repo = array_shift($repositoryViewDrafts))
-        {
-          // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm($repo['id'], 'repositoryId'), true);
-          $fb->addShould(new \Elastica\Filter\Term(array('repositoryId', $repo['id'])));
-        }
+      $filter->addShould(new \Elastica\Filter\Term(array('publicationStatusId' => QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)));
 
-        // Filter rule should look like "+(id:(356 357 358) status:published)"
-        // (ZSL) $query->addSubquery(QubitSearch::getInstance()->addTerm(QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID, 'publicationStatusId'), null);
-        $fb->addShould(new \Elastica\Filter\Term(array('publicationStatusId', QubitTerm::PUBLICATION_STATUS_DRAFT_ID)));
+      // Does this ever happen in AtoM?
+      if ($globalRule['access'] == QubitAcl::GRANT)
+      {
+        $filter = new \Elastica\Filter\BoolNot($filter);
       }
 
       $filterBool->addMust($filter);

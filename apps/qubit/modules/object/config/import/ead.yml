@@ -79,15 +79,15 @@ information_object:
       Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID, 'entity_type_id' => QubitTerm::FAMILY_ID)"]
 
     title:
-      XPath:   "did/unittitle[not(@type) and not(*)]"
+      XPath: "did/unittitle[not(@type)]"
       Method:  setTitle
 
     alternate_title:
-      XPath:   "did/unittitle[@type='parallel']"
+      XPath: "did/unittitle[@type='parallel']"
       Method:  setAlternateTitle
 
     other_title:
-      XPath:   "did/unittitle[@type='otherInfo']"
+      XPath: "did/unittitle[@type='otherInfo']"
       Method:  addProperty
       Parameters: ["otherTitleInformation", $nodeValue]
 
@@ -322,7 +322,7 @@ information_object:
     bioghist:
       XPath:  "(bioghist | descgrp/bioghist)"
       Method: importBioghistEadData
-      Parameters: ["$domNode2"]
+      Parameters: ["$domNode2", "$key"]
 
     # this will overwrite any values entered for <abstract>
     scopeandcontent:
@@ -391,12 +391,19 @@ information_object:
       XPath:   "(custodhist | descgrp/custodhist)"
       Method:  setArchivalHistory
 
-    #prefercite:
+    prefercite:
+      XPath: "prefercite"
+      Method: importEadNote
+      Parameters: ["$options = array('note' => 'Preferred citation: ' . $nodeValue, 'noteTypeId' => QubitTerm::GENERAL_NOTE_ID)"]
 
     processinfo:
       XPath:  "(processinfo/p/not(*)] | descgrp/processinfo/p/not(*)])"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)"]
+
+    publicationdate:
+      XPath: "../eadheader/filedesc/publicationstmt/date"
+      Method: setPublicationDate
 
     archivistnote:
       XPath:  "../eadheader/filedesc/titlestmt/author[@encodinganalog='creator']"

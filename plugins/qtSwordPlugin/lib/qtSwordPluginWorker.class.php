@@ -32,14 +32,13 @@ class qtSwordPluginWorker extends Net_Gearman_Job_Common
     $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
 
     // Start the index (a previous job may have closed it)
-    QubitSearch::getInstance()->initialize();
+    QubitSearch::enable();
 
     $this->log('A new job has started to being processed.');
 
-    if (!is_writable(sfConfig::get('sf_data_dir').DIRECTORY_SEPARATOR.'index') ||
-        !is_writable(sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.sfConfig::get('app_upload_dir')))
+    if (!is_writable(sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.sfConfig::get('app_upload_dir')))
     {
-      throw new sfException('ERROR: Read-write access needed in {sf_data_dir}/index and {sf_web_dir}/{app_upload_dir}, sudo-me! (example: sudo -u www-data ...)?');
+      throw new sfException('ERROR: Read-write access needed in {sf_web_dir}/{app_upload_dir}!');
     }
 
     if (isset($package['location']))
@@ -73,7 +72,7 @@ class qtSwordPluginWorker extends Net_Gearman_Job_Common
     $this->log(sprintf('Job finished.'));
 
     // Free the index lock
-    QubitSearch::getInstance()->getEngine()->close();
+    QubitSearch::disable();
 
     return true;
   }

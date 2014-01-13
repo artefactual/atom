@@ -27,8 +27,12 @@ class sfSkosPluginImportAction extends sfAction
     $this->terms = array();
     $this->termsPerPage = intval(sfConfig::get('app_hits_per_page'));
 
-    $this->taxonomy = null;
+    // Use 'Places' as default taxonomy
+    $this->taxonomy = QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID);
     $this->parent = QubitTerm::getById(QubitTerm::ROOT_ID);
+
+    // Default title
+    $this->title = 'Terms';
 
     if (isset($this->getRoute()->resource))
     {
@@ -43,11 +47,8 @@ class sfSkosPluginImportAction extends sfAction
         $this->parent = QubitTerm::getById($resource->id);
         $this->taxonomy = $this->parent->taxonomy;
       }
-    }
 
-    if (!isset($this->taxonomy))
-    {
-      $this->forward404();
+      $this->title = $this->taxonomy->__toString();
     }
 
     // Check user authorization
@@ -58,6 +59,11 @@ class sfSkosPluginImportAction extends sfAction
 
     $this->form->setWidget('file', new sfWidgetFormInputFile);
     $this->form->setValidator('file', new sfValidatorFile);
+
+    $this->form->setValidator('taxonomy', new sfValidatorString);
+    $this->form->setDefault('taxonomy', $this->context->routing->generate(null, array($this->taxonomy, 'module' => 'taxonomy')));
+    $choices[$this->context->routing->generate(null, array($this->taxonomy, 'module' => 'taxonomy'))] = $this->taxonomy;
+    $this->form->setWidget('taxonomy', new sfWidgetFormSelect(array('choices' => $choices)));
 
     if ($request->isMethod('post'))
     {
@@ -71,8 +77,13 @@ class sfSkosPluginImportAction extends sfAction
           $doc->substituteEntities = true;
           $doc->load($file->getTempName());
 
-          $this->skos = sfSkosPlugin::parse($doc, array('taxonomy' => $this->taxonomy, 'parent' => $this->parent));
+          if (null !== $value = $this->form->getValue('taxonomy'))
+          {
+            $params = $this->context->routing->parse(Qubit::pathInfo($value));
+            $this->taxonomy = $params['_sf_route']->resource;
+          }
 
+          $this->skos = sfSkosPlugin::parse($doc, array('taxonomy' => $this->taxonomy->id, 'parent' => $this->parent));
         }
       }
     }

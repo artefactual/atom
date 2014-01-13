@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-10-03T11:53:10Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-12-15T10:25:15Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -156,7 +156,7 @@ vigência ou alteração do(s) mandato(s)." (ISDIAH 5.3.3)</target>
       </trans-unit>
       <trans-unit id="53">
         <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
-        <target/>
+        <target>"Descrever políticas de acesso, incluindo quaisquer restrições e/ou regulamentos para o uso de materiais e instalações. Registo de informação sobre registo, compromissos, cartões de leitor, cartas de apresentação, taxas de admissão, etc. Sempre que necessário, fazer referência à legislação relevante." (ISDIAH 5.4.2)</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Conditions and requirements</source>
@@ -370,7 +370,7 @@ registos completos são os que fornecem informação para todos os elementos de 
       </trans-unit>
       <trans-unit id="112">
         <source>Website</source>
-        <target/>
+        <target>Site da Internet</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Email</source>
@@ -378,11 +378,11 @@ registos completos são os que fornecem informação para todos os elementos de 
       </trans-unit>
       <trans-unit id="114">
         <source>Edit theme</source>
-        <target/>
+        <target>Editar tema</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Last updated</source>
-        <target/>
+        <target>Última atualização</target>
       </trans-unit>
     </body>
   </file>

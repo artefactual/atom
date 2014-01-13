@@ -11,14 +11,14 @@
   <?php endif; ?>
 <?php end_slot() ?>
 
-<?php if ($sf_user->hasFlash('error')): ?>
-  <div class="messages error">
-    <h3><?php echo __('Error encountered') ?></h3>
-    <div><?php echo $sf_user->getFlash('error') ?></div>
-  </div>
-<?php endif; ?>
-
 <?php slot('content') ?>
+
+  <?php if ($sf_user->hasFlash('error')): ?>
+    <div class="messages error">
+      <h3><?php echo __('Error encountered') ?></h3>
+      <div><?php echo $sf_user->getFlash('error') ?></div>
+    </div>
+  <?php endif; ?>
 
   <?php if (isset($resource)): ?>
     <?php echo $form->renderFormTag(url_for(array($resource, 'module' => 'object', 'action' => 'import')), array('enctype' => 'multipart/form-data')) ?>
@@ -40,6 +40,12 @@
         </div>
 
         <input type="hidden" name="importType" value="<?php echo esc_entities($type) ?>"/>
+
+        <?php if ('csv' != $type): ?>
+          <div>
+            <p><?php echo __('If you are importing a SKOS file to a taxonomy other than subjects, please go to the %1%', array('%1%' => link_to(__('SKOS import page'), array('module' => 'sfSkosPlugin', 'action' => 'import')))) ?></p>
+          </div>
+        <?php endif; ?>
 
         <?php if ('csv' == $type): ?>
           <div class="form-item">

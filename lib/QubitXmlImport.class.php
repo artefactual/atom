@@ -391,6 +391,7 @@ class QubitXmlImport
             break;
 
           case 'flocat':
+          case 'digital_object':
             $resources = array();
             foreach ($nodeList2 as $item)
             {
@@ -399,7 +400,7 @@ class QubitXmlImport
 
             if (0 < count($resources))
             {
-              $currentObject->importDigitalObjectFromUri($resources);
+              $currentObject->importDigitalObjectFromUri($resources, $this->errors);
             }
 
             break;
@@ -438,7 +439,7 @@ class QubitXmlImport
             break;
 
           default:
-            foreach ($nodeList2 as $domNode2)
+            foreach ($nodeList2 as $key => $domNode2)
             {
               // normalize the node text; NB: this will strip any child elements, eg. HTML tags
               $nodeValue = self::normalizeNodeValue($domNode2);
@@ -717,7 +718,7 @@ class QubitXmlImport
       }
       else
       {
-        $nodeValue .= trim(preg_replace('/[\n\r\s]+/', ' ', $child->nodeValue));
+        $nodeValue .= preg_replace('/[\n\r\s]+/', ' ', $child->nodeValue);
       }
     }
 

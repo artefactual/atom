@@ -85,6 +85,8 @@ EOF;
     $relationTypeColumn = 'eventType';
 
     $import = new QubitFlatfileImport(array(
+      /* Pass context */
+      'context' => sfContext::createInstance($this->configuration),
 
       'status' => array(
         'sourceName'         => $sourceName,
@@ -237,4 +239,4 @@ function getNameIdArrayFromTable(&$self, $tableName, $keyColumn, $idColumn, $whe
     $names[$subject->$keyColumn] = $subject->$idColumn;
   }
   return $names;
-} 
+}

@@ -6,6 +6,7 @@ QubitTaxonomy:
     id: 31
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Nivell de detall de la descripció'
       de: 'Detailgrad der Erschließung'
       en: 'Description Detail Levels'
       es: 'Nivel de detalle de la descripción'
@@ -25,6 +26,7 @@ QubitTaxonomy:
     id: 32
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Tipus d''Actor'
       de: Rechtspersönlichkeit
       en: 'Actor Entity Types'
       es: 'Tipos de Actor'
@@ -43,6 +45,7 @@ QubitTaxonomy:
     id: 33
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Estat de la descripció'
       de: Erschließungsstatus
       en: 'Description Statuses'
       es: 'Estado de la descripción'
@@ -62,6 +65,7 @@ QubitTaxonomy:
     id: 34
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Nivells de descripció'
       de: Erschließungsstufe
       en: 'Levels of description'
       es: 'Niveles de descripción'
@@ -80,6 +84,7 @@ QubitTaxonomy:
     id: 35
     parent_id: QubitTaxonomy_root
     name:
+      ca: Matèries
       de: Themen
       en: Subjects
       es: Materias
@@ -98,6 +103,7 @@ QubitTaxonomy:
     id: 36
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Tipus de Nom d''Actor'
       de: Bezeichnung
       en: 'Actor Name Types'
       es: 'Tipos de Nombre de Actor'
@@ -117,6 +123,7 @@ QubitTaxonomy:
     id: 37
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Tipus de notes'
       de: Anmerkungsarten
       en: 'Note types'
       es: 'Tipos de notas'
@@ -134,6 +141,7 @@ QubitTaxonomy:
     id: 38
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Tipus d''Institucions Arxivístiques'
       de: Aufbewahrungsart
       en: 'Repository Types'
       es: 'Tipos de Instituciones Archivísticas'
@@ -151,6 +159,7 @@ QubitTaxonomy:
     id: 40
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Tipus d''activitat'
       de: Ereignistyp
       en: 'Event Types'
       es: 'Tipos de Actividad'
@@ -171,6 +180,7 @@ QubitTaxonomy:
     id: 41
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Etiquetes de configuració de Qubit'
       de: 'Qubit Einstellungskennzeichen'
       en: 'Qubit Setting Labels'
       es: 'Etiquetas de configuración de Qubit'
@@ -190,6 +200,7 @@ QubitTaxonomy:
     id: 42
     parent_id: QubitTaxonomy_root
     name:
+      ca: Llocs
       de: Orte
       en: Places
       es: Lugares
@@ -212,6 +223,7 @@ QubitTaxonomy:
     id: 43
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'ISDF Tipus de Funció'
       de: 'ISDF Funktionen'
       en: 'ISDF Function Types'
       es: 'ISDF Tipos de Funcion'
@@ -229,6 +241,7 @@ QubitTaxonomy:
     id: 44
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Historial d''activitats'
       de: 'Historische Ereignisse'
       en: 'Historical Events'
       es: 'Sucesos históricos'
@@ -246,6 +259,7 @@ QubitTaxonomy:
     id: 45
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Tipus de col·leccions'
       de: Bestandsart
       en: 'Collection Types'
       es: 'Tipos de Colección'
@@ -265,6 +279,7 @@ QubitTaxonomy:
     id: 46
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Tipus de suports'
       de: Medientyp
       en: 'Media Types'
       es: 'Tipos de Soportes'
@@ -282,6 +297,7 @@ QubitTaxonomy:
     id: 47
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Usos dels Objectes Digitals'
       de: 'Repräsentationsformen digitaler Objekte'
       en: 'Digital Object Usages'
       es: 'Usos de los Objetivos Digitales'
@@ -300,6 +316,7 @@ QubitTaxonomy:
     id: 48
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Physical Object Type'
       de: 'Art des Physischen Objekts'
       en: 'Physical Object Type'
       es: 'Physical Object Type'
@@ -318,6 +335,7 @@ QubitTaxonomy:
     id: 49
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Tipus de relació'
       de: Bezugsart
       en: 'Relation Type'
       es: 'Tipo de Relación'
@@ -336,6 +354,7 @@ QubitTaxonomy:
     id: 50
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Tipus de material'
       de: Materialart
       en: 'Material Type'
       es: 'Tipo de Material'
@@ -353,6 +372,7 @@ QubitTaxonomy:
     id: 51
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Nota de normes RAD'
       de: 'RAD Eintrag'
       en: 'RAD Note'
       es: 'Nota de normas RAD'
@@ -371,6 +391,7 @@ QubitTaxonomy:
     id: 52
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Nota sobre títols segons RAD'
       de: 'RAD Titeleintrag'
       en: 'RAD Title Note'
       es: 'Nota sobre títulos según RAD'
@@ -389,6 +410,7 @@ QubitTaxonomy:
     id: 53
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'MODS Resource Type'
       en: 'MODS Resource Type'
       es: 'Tipo de Recurso MODS'
       fr: 'Types de ressources MODS'
@@ -404,6 +426,7 @@ QubitTaxonomy:
     id: 54
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Dublin Core Types'
       en: 'Dublin Core Types'
       es: 'Tipos según Dublin Core'
       fr: 'Types Dublin Core'
@@ -420,6 +443,7 @@ QubitTaxonomy:
     id: 55
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Tipus de Relació amb l''Actor'
       en: 'Actor Relation Type'
       es: 'Tipo de Relación con el Actor'
       fr: 'Type de relation entre acteurs'
@@ -440,6 +464,7 @@ QubitTaxonomy:
     id: 56
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Tipus de Notes sobre Relacions'
       en: 'Relation Note Types'
       es: 'Tipos de Notas sobre Relaciones'
       fr: 'Types de note sur la relation'
@@ -455,6 +480,7 @@ QubitTaxonomy:
     id: 57
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Tipus de Termes de Relació'
       en: 'Term Relation Types'
       es: 'Tipos de Términos de Relación'
       fr: 'Types de terme de relation'
@@ -473,6 +499,7 @@ QubitTaxonomy:
     id: 59
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Tipus d''estat'
       en: 'Status Types'
       es: 'Tipos de Estado'
       fr: 'Type de statut'
@@ -490,6 +517,7 @@ QubitTaxonomy:
     id: 60
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Estat de publicació'
       en: 'Publication Status'
       es: 'Estado de publicación'
       fr: 'Statut de la publication'
@@ -508,6 +536,7 @@ QubitTaxonomy:
     id: 61
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Tipus de relació de funcions'
       en: 'Function Relation Type'
       es: 'Tipo de Relación de Función'
       fr: 'Type de relation entre fonctions'
@@ -527,6 +556,7 @@ QubitTaxonomy:
     id: 62
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Tipus de documentació d''ingressos'
       en: 'Accession resource type'
       es: 'Tipo de documentación del ingreso'
       fr: 'Type de ressource versée'
@@ -545,6 +575,7 @@ QubitTaxonomy:
     id: 63
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Tipus d''adquisició'
       en: 'Accession acquisition type'
       es: 'Tipo de ingreso'
       fr: 'Type d''entrée'
@@ -563,6 +594,7 @@ QubitTaxonomy:
     id: 64
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Prioritat de tractament d''ingrés'
       en: 'Accession processing priority'
       es: 'Prioridad de tratamiento del ingreso'
       fr: 'Priorité du processus d''entrée'
@@ -580,6 +612,7 @@ QubitTaxonomy:
     id: 65
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Estat de tractament d''ingrés'
       en: 'Accession processing status'
       es: 'Estado de tratamiento del ingreso'
       fr: 'Statut du processus d''entrée'
@@ -597,6 +630,7 @@ QubitTaxonomy:
     id: 66
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Abast de l''eliminació'
       en: 'Deaccession scope'
       es: 'Alcance de la eliminación'
       fr: 'Portée de la sortie définitive'
@@ -613,6 +647,7 @@ QubitTaxonomy:
     id: 68
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Fonaments de drets'
       en: 'Rights basis'
       es: 'Fundamentos de derechos'
       fr: 'Fondements des droits'
@@ -630,6 +665,7 @@ QubitTaxonomy:
     id: 67
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Accions regulades per drets'
       en: 'Rights act'
       es: 'Acciones reguladas por derechos'
       fr: 'Actions liées aux droits'
@@ -647,6 +683,7 @@ QubitTaxonomy:
     id: 69
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Règim de drets d''autor'
       en: 'Copyright status'
       es: 'Régimen de derechos de autor'
       fr: 'Statut des droits d''auteur'
@@ -666,6 +703,7 @@ QubitTaxonomy:
     id: 70
     parent_id: QubitTaxonomy_root
     name:
+      ca: 'Informació sobre les plantilles'
       en: 'Information object templates'
       es: 'Información sobre las plantillas'
       fr: 'Modèles de description archivistique'
@@ -683,6 +721,7 @@ QubitTerm:
     id: 111
     source_culture: en
     name:
+      ca: Creació
       de: Anlage
       en: Creation
       es: Creación
@@ -702,6 +741,7 @@ QubitTerm:
     id: 113
     source_culture: en
     name:
+      ca: Custòdia
       de: Verwahrung
       en: Custody
       es: Custodia
@@ -721,6 +761,7 @@ QubitTerm:
     id: 114
     source_culture: en
     name:
+      ca: Publicació
       de: Veröffentlichung
       en: Publication
       es: Publicación
@@ -741,6 +782,7 @@ QubitTerm:
     id: 115
     source_culture: en
     name:
+      ca: Contribució
       de: Beitrag
       en: Contribution
       es: Contribución
@@ -760,6 +802,7 @@ QubitTerm:
     id: 117
     source_culture: en
     name:
+      ca: Col·lecció
       de: Sammlung
       en: Collection
       es: Colección
@@ -780,6 +823,7 @@ QubitTerm:
     id: 118
     source_culture: en
     name:
+      ca: Agregació
       de: Bildung
       en: Accumulation
       es: Agregación
@@ -791,6 +835,7 @@ QubitTerm:
       ka: აკუმულირება
       pl: 'Nagromadzenie zasobu'
       pt: Acumulação
+      pt_BR: Acumulação
       sl: Zbiranje
       th: การสะสม
   QubitTerm_118:
@@ -799,6 +844,7 @@ QubitTerm:
     id: 119
     source_culture: en
     name:
+      ca: 'Nota sobre el títol'
       de: 'Anmerkung zum Titel (?)'
       en: 'Title note'
       es: 'Nota sobre el título'
@@ -819,6 +865,7 @@ QubitTerm:
     id: 174
     source_culture: en
     name:
+      ca: 'Nota sobre el idioma'
       en: 'Language note'
       es: 'Nota sobre el idioma'
       fr: 'Note sur la langue'
@@ -837,6 +884,7 @@ QubitTerm:
     id: 120
     source_culture: en
     name:
+      ca: 'Nota de publicació'
       de: 'Anmerkung zur Veröffentlichung'
       en: 'Publication note'
       es: 'Nota de publicación'
@@ -858,6 +906,7 @@ QubitTerm:
     id: 121
     source_culture: en
     name:
+      ca: 'Nota sobre l''origen'
       de: 'Anmerkung zur Quelle'
       en: 'Source note'
       es: 'Nota sobre el origen'
@@ -878,6 +927,7 @@ QubitTerm:
     id: 122
     source_culture: en
     name:
+      ca: 'Nota sobre l''abast'
       de: 'Anmerkung zum Umfang'
       en: 'Scope note'
       es: 'Nota sobre el alcance'
@@ -900,6 +950,7 @@ QubitTerm:
     id: 123
     source_culture: en
     name:
+      ca: 'Mostrar nota'
       de: 'Anmerkung zur Ansicht'
       en: 'Display note'
       es: 'Mostrar nota'
@@ -918,6 +969,7 @@ QubitTerm:
     id: 128
     source_culture: en
     name:
+      ca: 'Documents i material d''arxiu'
       de: Archivgut
       en: 'Archival material'
       es: 'Documentos y material de archivo'
@@ -938,6 +990,7 @@ QubitTerm:
     id: 129
     source_culture: en
     name:
+      ca: 'Material publicat'
       de: Veröffentlichung
       en: 'Published material'
       es: 'Material publicado'
@@ -957,6 +1010,7 @@ QubitTerm:
     id: 130
     source_culture: en
     name:
+      ca: 'Material de l''artefacte'
       de: Artefakt
       en: 'Artefact material'
       es: 'Material del artefacto'
@@ -975,6 +1029,7 @@ QubitTerm:
     id: 131
     source_culture: en
     name:
+      ca: 'Entitat col·lectiva'
       de: Organisation
       en: 'Corporate body'
       es: 'Entidad colectiva'
@@ -994,6 +1049,7 @@ QubitTerm:
     id: 132
     source_culture: en
     name:
+      ca: Persona
       de: Person
       en: Person
       es: Persona
@@ -1013,6 +1069,7 @@ QubitTerm:
     id: 133
     source_culture: en
     name:
+      ca: Família
       de: Familie
       en: Family
       es: Familia
@@ -1032,6 +1089,7 @@ QubitTerm:
     id: 135
     source_culture: en
     name:
+      ca: Àudio
       de: Audio/Ton-
       en: Audio
       es: Audio
@@ -1051,6 +1109,7 @@ QubitTerm:
     id: 136
     source_culture: en
     name:
+      ca: Imatge
       de: Bild
       en: Image
       es: Imagen
@@ -1068,6 +1127,7 @@ QubitTerm:
     id: 137
     source_culture: en
     name:
+      ca: Text
       de: Text
       en: Text
       es: Texto
@@ -1088,6 +1148,7 @@ QubitTerm:
     id: 138
     source_culture: en
     name:
+      ca: Vídeo
       de: Video
       en: Video
       es: Video
@@ -1107,6 +1168,7 @@ QubitTerm:
     id: 139
     source_culture: en
     name:
+      ca: Altre
       de: Anderes
       en: Other
       es: Otro
@@ -1126,6 +1188,7 @@ QubitTerm:
     id: 166
     source_culture: en
     name:
+      ca: 'URI extern'
       en: 'External URI'
       es: 'URI externo'
       fr: 'URI externe'
@@ -1141,6 +1204,7 @@ QubitTerm:
     id: 140
     source_culture: en
     name:
+      ca: 'Exemplar original'
       de: Original
       en: Master
       es: 'Ejemplar original'
@@ -1159,6 +1223,7 @@ QubitTerm:
     id: 141
     source_culture: en
     name:
+      ca: Referència
       de: Verweis
       en: Reference
       es: Referencia
@@ -1178,6 +1243,7 @@ QubitTerm:
     id: 142
     source_culture: en
     name:
+      ca: Thumbnail
       de: Thumbnail
       en: Thumbnail
       es: Miniatura
@@ -1197,6 +1263,7 @@ QubitTerm:
     id: 143
     source_culture: en
     name:
+      ca: Múltiple
       en: Compound
       es: Múltiple
       fr: Complexe
@@ -1215,6 +1282,7 @@ QubitTerm:
     id: 144
     source_culture: en
     name:
+      ca: Localització
       de: Aufbewahrungsort
       en: Location
       es: Localización
@@ -1238,6 +1306,7 @@ QubitTerm:
     id: 145
     source_culture: en
     name:
+      ca: Contenidor
       de: Behältnis
       en: Container
       es: Contenedor
@@ -1258,6 +1327,7 @@ QubitTerm:
     id: 146
     source_culture: en
     name:
+      ca: Artefacte
       de: Gegenstand
       en: Artefact
       es: Artefacto
@@ -1277,6 +1347,7 @@ QubitTerm:
     id: 147
     source_culture: en
     name:
+      ca: 'té Objecte Físic'
       de: 'besitzt physisches Objekt (?)'
       en: 'has Physical Object'
       es: 'has Physical Object'
@@ -1297,6 +1368,7 @@ QubitTerm:
     id: 124
     source_culture: en
     name:
+      ca: 'Nota de l''arxiver'
       de: 'Anmerkung des Archivars/der Archivarin'
       en: 'Archivist''s note'
       es: 'Nota del archivista'
@@ -1318,6 +1390,7 @@ QubitTerm:
     id: 126
     source_culture: en
     name:
+      ca: 'Altra data descriptiva'
       en: 'Other Descriptive Data'
       es: 'Otra Fecha Descriptiva'
       fr: 'Autres données descriptives'
@@ -1336,6 +1409,7 @@ QubitTerm:
     id: 125
     source_culture: en
     name:
+      ca: 'Nota general'
       de: 'Allgemeine Anmerkung'
       en: 'General note'
       es: 'Nota general'
@@ -1355,6 +1429,7 @@ QubitTerm:
     id: 148
     source_culture: en
     name:
+      ca: 'Forma paral·lela'
       de: Parallelansetzung
       en: 'Parallel form'
       es: 'Forma paralela'
@@ -1374,6 +1449,7 @@ QubitTerm:
     id: 149
     source_culture: en
     name:
+      ca: 'Altra forma'
       de: 'Weiterer Name'
       en: 'Other form'
       es: 'Otra forma'
@@ -1393,6 +1469,7 @@ QubitTerm:
     id: 150
     source_culture: en
     name:
+      ca: jeràrquica
       en: hierarchical
       es: jerárquica
       fr: hiérarchique
@@ -1411,6 +1488,7 @@ QubitTerm:
     id: 151
     source_culture: en
     name:
+      ca: temporal
       en: temporal
       es: temporal
       fr: temporelle
@@ -1428,6 +1506,7 @@ QubitTerm:
     id: 152
     source_culture: en
     name:
+      ca: família
       de: Familie
       en: family
       es: familia
@@ -1447,6 +1526,7 @@ QubitTerm:
     id: 153
     source_culture: en
     name:
+      ca: associativa
       en: associative
       es: asociativa
       fr: 'd''association'
@@ -1463,6 +1543,7 @@ QubitTerm:
     id: 154
     source_culture: en
     name:
+      ca: descripció
       en: description
       es: descripción
       fr: description
@@ -1481,6 +1562,7 @@ QubitTerm:
     id: 155
     source_culture: en
     name:
+      ca: 'visualització de data'
       en: 'date display'
       es: 'visualización de fecha'
       fr: 'affichage de la date'
@@ -1498,6 +1580,7 @@ QubitTerm:
     id: 156
     source_culture: en
     name:
+      ca: 'etiqueta alternativa'
       en: 'alternative label'
       es: 'etiqueta alternativa'
       fr: 'Autre libellé'
@@ -1514,6 +1597,7 @@ QubitTerm:
     id: 157
     source_culture: en
     name:
+      ca: associativa
       en: associative
       es: asociativa
       fr: 'd''association'
@@ -1530,6 +1614,7 @@ QubitTerm:
     id: 158
     source_culture: en
     name:
+      ca: publicació
       de: Veröffentlichung
       en: publication
       es: publicación
@@ -1550,6 +1635,7 @@ QubitTerm:
     id: 159
     source_culture: en
     name:
+      ca: Esborrany
       de: Entwurf
       en: Draft
       es: Borrador
@@ -1569,6 +1655,7 @@ QubitTerm:
     id: 160
     source_culture: en
     name:
+      ca: Publicat
       en: Published
       es: Publicado
       fr: Publié
@@ -1589,6 +1676,7 @@ QubitTerm:
     id: 127
     source_culture: en
     name:
+      ca: 'Nota de manteniment'
       de: 'Anmerkung zur Instandhaltung(?)'
       en: 'Maintenance note'
       es: 'Nota de mantenimiento'
@@ -1607,6 +1695,7 @@ QubitTerm:
     id: 161
     source_culture: en
     name:
+      ca: 'punts d''accés per autoritat'
       de: 'Zugriffspunkt (Name)'
       en: 'name access points'
       es: 'puntos de acceso por autoridad'
@@ -1626,11 +1715,13 @@ QubitTerm:
     id: 175
     source_culture: en
     name:
+      ca: 'Nou ingrés'
       en: Accrual
       es: 'Nuevo ingreso'
       fr: Accroissement
       gl: Acumulación
       it: Incremento
+      pt: Acréscimo
       sl: 'Dopolnjevanje fondov'
   QubitTerm_accession:
     taxonomy_id: 49
@@ -1638,6 +1729,7 @@ QubitTerm:
     id: 167
     source_culture: en
     name:
+      ca: Adhesió
       en: Accession
       es: Ingreso
       fr: Entrée
@@ -1655,6 +1747,7 @@ QubitTerm:
     id: 168
     source_culture: en
     name:
+      ca: Dret
       en: Right
       es: Derecho
       fr: Droit
@@ -1674,6 +1767,7 @@ QubitTerm:
     id: 169
     source_culture: en
     name:
+      ca: Donant
       en: Donor
       es: Donador
       fr: Donateur
@@ -1691,6 +1785,7 @@ QubitTerm:
     id: 162
     source_culture: en
     name:
+      ca: jeràrquica
       en: hierarchical
       es: jerárquica
       fr: hiérarchique
@@ -1709,6 +1804,7 @@ QubitTerm:
     id: 163
     source_culture: en
     name:
+      ca: temporal
       en: temporal
       es: temporal
       fr: temporelle
@@ -1726,6 +1822,7 @@ QubitTerm:
     id: 164
     source_culture: en
     name:
+      ca: associativa
       en: associative
       es: asociativa
       fr: 'd''association'
@@ -1742,6 +1839,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Forma normalitzada'
       de: Standardansetzung
       en: 'Standardized form'
       es: 'Forma normalizada'
@@ -1760,6 +1858,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Drets d''autor'
       en: Copyright
       es: 'Derechos de autor'
       fr: 'Droit d''auteur'
@@ -1778,6 +1877,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Llicència
       en: License
       es: Licencia
       fr: Licence
@@ -1794,6 +1894,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Normativa
       en: Statute
       es: Normativa
       fr: Réglementation
@@ -1811,6 +1912,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Política
       en: Policy
       es: Política
       fr: Politique
@@ -1828,6 +1930,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Donant
       en: Donor
       es: Donador
       fr: Donateur
@@ -1844,6 +1947,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Reproducció
       en: Reproduction
       es: Reproducción
       fr: Reproduction
@@ -1861,6 +1965,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Distribució
       de: Verbreitung
       en: Distribution
       es: Difusión
@@ -1877,6 +1982,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Emissió
       de: Sendung
       en: Broadcasting
       es: Emisión
@@ -1892,6 +1998,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Fabricació
       de: Herstellung
       en: Manufacturing
       es: Fabricación
@@ -1908,6 +2015,7 @@ QubitTerm:
     parent_id: QubitTerm_141
     source_culture: en
     name:
+      ca: Caixa
       de: Schachtel
       en: Box
       es: Caja
@@ -1927,6 +2035,7 @@ QubitTerm:
     parent_id: QubitTerm_158
     source_culture: en
     name:
+      ca: 'Caixa tipus contenidor'
       de: Pappkarton
       en: 'Cardboard box'
       es: 'Caja tipo contenedor'
@@ -1944,6 +2053,7 @@ QubitTerm:
     parent_id: QubitTerm_158
     source_culture: en
     name:
+      ca: 'Caixa estàndard de documents'
       de: 'Hollinger box?'
       en: 'Hollinger box'
       es: 'Caja estándar de documentos'
@@ -1960,6 +2070,7 @@ QubitTerm:
     parent_id: QubitTerm_141
     source_culture: en
     name:
+      ca: Carpeta
       de: Umschlag/Mappe
       en: Folder
       es: Carpeta
@@ -1977,6 +2088,7 @@ QubitTerm:
     parent_id: QubitTerm_141
     source_culture: en
     name:
+      ca: 'Compacte o arxivador'
       de: Aktenschrank
       en: 'Filing cabinet'
       es: 'Compacto o archivador'
@@ -1994,6 +2106,7 @@ QubitTerm:
     parent_id: QubitTerm_141
     source_culture: en
     name:
+      ca: Planer
       de: Planschrank
       en: 'Map cabinet'
       es: Planero
@@ -2010,6 +2123,7 @@ QubitTerm:
     parent_id: QubitTerm_141
     source_culture: en
     name:
+      ca: Prestatgeria
       de: Fach
       en: Shelf
       es: Estantería
@@ -2029,6 +2143,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Fi
       de: Final
       en: Final
       es: Final
@@ -2046,6 +2161,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Revisat
       de: Überarbeitet
       en: Revised
       es: Revisado
@@ -2064,6 +2180,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Esborrany
       de: Entwurf
       en: Draft
       es: Borrador
@@ -2082,6 +2199,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Complet
       de: Vollständig
       en: Full
       es: Completo
@@ -2098,6 +2216,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Parcial
       de: Teilweise
       en: Partial
       es: Parcial
@@ -2116,6 +2235,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Mínim
       de: Minimal
       en: Minimal
       es: Básico
@@ -2132,6 +2252,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Fons
       de: Sammlung
       en: Fonds
       es: Fondo
@@ -2150,6 +2271,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Subfons
       de: Teilbestand
       en: Subfonds
       es: Subfondo
@@ -2167,6 +2289,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Col·lecció
       de: Sammlung
       en: Collection
       es: Colección
@@ -2186,6 +2309,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Sèrie
       de: Serie
       en: Series
       es: Serie
@@ -2203,6 +2327,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Subsèrie
       de: Teilserie
       en: Subseries
       es: Subserie
@@ -2220,6 +2345,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Unitat documental composta'
       de: Akt
       en: File
       es: 'Unidad documental compuesta'
@@ -2237,6 +2363,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Unitat documental simple'
       de: Einzelstück
       en: Item
       es: 'Unidad documental simple'
@@ -2254,6 +2381,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Informació de l''objecte'
       de: 'Information zum Objekt'
       en: 'Information object'
       es: 'Information object'
@@ -2271,6 +2399,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Persona/organització
       de: Person/Einrichtung
       en: Person/organization
       es: Persona/organización
@@ -2288,6 +2417,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Productor
       de: Urheber/Bestandsbildner
       en: Creator
       es: Creador
@@ -2308,6 +2438,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Institució arxivística'
       de: Aufbewahrungsort
       en: Repository
       es: 'Institución archivística'
@@ -2330,6 +2461,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Terme
       de: Begriff
       en: Term
       es: Término
@@ -2349,6 +2481,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Matèria
       de: Gegenstand
       en: Subject
       es: Materia
@@ -2370,6 +2503,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Col·lecció
       de: Sammlung
       en: Collection
       es: Colección
@@ -2389,6 +2523,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Fons
       de: 'Bestände (?)'
       en: Holdings
       es: Fondos
@@ -2409,6 +2544,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Descripció arxivística'
       de: 'Archivische Beschreibung'
       en: 'Archival description'
       es: 'Descripción archivística'
@@ -2421,6 +2557,7 @@ QubitTerm:
       nl: 'Archivistische beschrijving'
       pl: 'Opis archiwalny'
       pt: 'Descrição arquivística'
+      pt_BR: 'Descrição arquivística'
       sl: 'Arhivski popis'
       th: คำอธิบายจดหมายเหตุ
   QubitTerm_192:
@@ -2428,6 +2565,8 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Registre d''autoritat'
+      de: Normdatei
       en: 'Authority record'
       es: 'Registro de autoridad'
       fr: 'Notice d''autorité'
@@ -2446,6 +2585,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Fons
       de: Sammlung
       en: Fonds
       es: Fondo
@@ -2464,6 +2604,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Institució arxivística'
       de: Archiv
       en: 'Archival institution'
       es: 'Institución archivística'
@@ -2486,6 +2627,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Internacional
       de: International
       en: International
       es: Internacional
@@ -2503,6 +2645,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Nacional
       de: National
       en: National
       es: Nacional
@@ -2520,6 +2663,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Regional
       de: Regional
       en: Regional
       es: Regional
@@ -2538,6 +2682,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Província/estat
       de: Bundesland/Kanton
       en: Provincial/state
       es: Provincial/estatal
@@ -2557,6 +2702,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Comunitat
       de: Gemeinschaft
       en: Community
       es: Comunidad
@@ -2575,6 +2721,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Religiós
       de: Religion
       en: Religious
       es: Religioso
@@ -2593,6 +2740,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Universitat
       de: Universität
       en: University
       es: Universidad
@@ -2612,6 +2760,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Municipal
       de: Gemeinde
       en: Municipal
       es: Municipal
@@ -2629,6 +2778,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Aborigen
       de: 'Indigen (?)'
       en: Aboriginal
       es: Aborigen
@@ -2646,6 +2796,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Educatiu
       de: Erziehung
       en: Educational
       es: Educativo
@@ -2662,6 +2813,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Metge
       de: medizinisch
       en: Medical
       es: Médico
@@ -2679,6 +2831,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Militar
       de: Militär
       en: Military
       es: Militar
@@ -2697,6 +2850,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Privat
       de: Privat
       en: Private
       es: 'Persona privada'
@@ -2715,6 +2869,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Lloc
       de: Ort
       en: Place
       es: Lugar
@@ -2737,6 +2892,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Nom
       de: Name
       en: Name
       es: Nombre
@@ -2759,6 +2915,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Objecte digital'
       de: 'Digitales Objekt'
       en: 'Digital object'
       es: 'Objeto digital'
@@ -2778,6 +2935,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Objecte físic'
       de: 'physisches Objekt'
       en: 'Physical object'
       es: 'Physical object'
@@ -2796,6 +2954,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Unitat de magatzematge'
       de: Aufbewahrung
       en: 'Physical storage'
       es: 'Unidad de almacenaje'
@@ -2816,6 +2975,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Tipus de suport'
       de: Medienart
       en: 'Media type'
       es: 'Tipo de soporte'
@@ -2836,6 +2996,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Open Information Management Toolkit'
       de: 'Werkzeug für das Open Information Management'
       en: 'Open Information Management Toolkit'
       es: 'Open Information Management Toolkit'
@@ -2851,6 +3012,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Nota de conservació'
       de: 'Anmerkung zur Aufbewahrung'
       en: 'Conservation note'
       es: 'Notas de conservación'
@@ -2870,6 +3032,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Dibuix arquitectònic'
       de: Architekturzeichnung
       en: 'Architectural drawing'
       es: 'Dibujo arquitectónico'
@@ -2888,6 +3051,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Material cartogràfic'
       de: 'Kartografisches Material'
       en: 'Cartographic material'
       es: 'Material cartográfico'
@@ -2907,6 +3071,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Material gràfic'
       de: Grafik(en)
       en: 'Graphic material'
       es: 'Material gráfico'
@@ -2924,6 +3089,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Menejant imatges'
       de: 'Bewegte Bilder (?)'
       en: 'Moving images'
       es: 'Moviendo imágenes'
@@ -2940,6 +3106,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Suports múltiples'
       de: Multimedia
       en: 'Multiple media'
       es: 'Soportes múltiples'
@@ -2955,6 +3122,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Objecte
       de: Objekt
       en: Object
       es: Objeto
@@ -2972,6 +3140,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Document filatèlic'
       de: 'Philatelistisches Objekt (Briefmarke?)'
       en: 'Philatelic record'
       es: 'Documento filatélico'
@@ -2989,6 +3158,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Registre sonor'
       de: Tonaufnahme
       en: 'Sound recording'
       es: 'Registro sonoro'
@@ -3008,6 +3178,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Dibuix tècnic'
       de: 'Technische Zeichnung'
       en: 'Technical drawing'
       es: 'Dibujo técnico'
@@ -3026,6 +3197,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Document textual'
       de: Text
       en: 'Textual record'
       es: 'Documento textual'
@@ -3044,6 +3216,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Edició
       de: Ausgabe
       en: Edition
       es: Edición
@@ -3062,6 +3235,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Descripció física'
       de: 'Physische Beschreibung'
       en: 'Physical description'
       es: 'Descripción física'
@@ -3082,6 +3256,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Conservació
       de: Erhaltung
       en: Conservation
       es: Conservación
@@ -3101,6 +3276,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Material complementari'
       de: Begleitmaterial
       en: 'Accompanying material'
       es: 'Material complementario'
@@ -3110,6 +3286,7 @@ QubitTerm:
       it: 'Materiale di accompagnamento'
       ja: 付属資料
       ka: 'თანდართული მასალები'
+      ko: '첨부 자료'
       nl: 'Begeleidend materiaal'
       pl: 'Materiał towarzyszący'
       pt: 'Material acompanhante'
@@ -3120,6 +3297,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Publicacions seriades'
       de: 'Herausgeberreihen(?)Reihenwerk(?)'
       en: 'Publisher''s series'
       es: 'Publicaciones seriadas'
@@ -3137,6 +3315,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Designacions alfanumèrics'
       de: 'Alphanumerische Bezeichnungen'
       en: 'Alpha-numeric designations'
       es: 'Designaciones alfanuméricas'
@@ -3153,6 +3332,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Drets
       de: Rechte
       en: Rights
       es: Derechos
@@ -3174,6 +3354,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Nota general'
       de: 'Allgemeine Anmerkung'
       en: 'General note'
       es: 'Nota general'
@@ -3192,6 +3373,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Variacions en el títol'
       de: Titelvarianten
       en: 'Variations in title'
       es: 'Variantes del título'
@@ -3208,6 +3390,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Font del títol'
       de: 'Quelle des genauen Titels'
       en: 'Source of title proper'
       es: 'Fuente del título'
@@ -3224,6 +3407,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Títols paral·lels i una altra informació del títol'
       de: 'Parallele Titel und andere Informationen zum Titel'
       en: 'Parallel titles and other title information'
       es: 'Títulos paralelos y otra información del título'
@@ -3242,6 +3426,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Complements del títol'
       de: 'Fortsetzung des Titels'
       en: 'Continuation of title'
       es: 'Complementos del título'
@@ -3261,6 +3446,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Declaracions de responsabilitat'
       de: 'Anmerkung zur Verantwortlichkeit'
       en: 'Statements of responsibility'
       es: 'Declaraciones de responsabilidad'
@@ -3279,6 +3465,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Atribucions i conjectures'
       de: 'Zuordnungen und Vermutungen'
       en: 'Attributions and conjectures'
       es: 'Atribuciones y conjeturas'
@@ -3296,6 +3483,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Part
       en: Part
       es: Parte
       fr: Partiellement
@@ -3314,6 +3502,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: text
       de: Text
       en: text
       es: texto
@@ -3332,6 +3521,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: cartogràfic
       en: cartographic
       es: cartográfico
       fr: 'documents cartographiques'
@@ -3349,6 +3539,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'partitura/notació musical'
       en: 'notated music'
       es: 'partitura/notación musical'
       fr: 'partitions musicales'
@@ -3364,6 +3555,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'registre sonor'
       de: Tonaufnahme
       en: 'sound recording'
       es: 'registro sonoro'
@@ -3382,6 +3574,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'registre sonor - musical'
       en: 'sound recording - musical'
       es: 'registro sonoro - musical'
       fr: 'enregistrements sonores - musicaux'
@@ -3399,6 +3592,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'registre sonor - no musical'
       en: 'sound recording - nonmusical'
       es: 'registro sonoro - no musical'
       fr: 'enregistrements sonores - non musicaux'
@@ -3416,6 +3610,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'imatge estàtica'
       en: 'still image'
       es: 'imagen estátita'
       fr: 'images fixes'
@@ -3432,6 +3627,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'imatge en moviment'
       en: 'moving image'
       es: 'imagen en movimiento'
       fr: 'images animées'
@@ -3448,6 +3644,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'objecte tridimensional'
       en: 'three dimensional object'
       es: 'objeto tridimensional'
       fr: 'objets tridimensionnels'
@@ -3464,6 +3661,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'programari, multimèdia'
       en: 'software, multimedia'
       es: 'software, multimedia'
       fr: 'logiciels, multimedia'
@@ -3480,6 +3678,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'diversos materials'
       en: 'mixed material'
       es: 'diversos materiales'
       fr: 'documentation mixte'
@@ -3496,6 +3695,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Col·lecció
       de: Sammlung
       en: Collection
       es: Colección
@@ -3515,6 +3715,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: dataset
       en: dataset
       es: dataset
       fr: 'ensemble de données'
@@ -3529,6 +3730,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: activitat
       en: event
       es: actividad
       fr: événement
@@ -3545,6 +3747,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: imatge
       de: Bild
       en: image
       es: imagen
@@ -3563,6 +3766,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'recurs interactiu'
       en: 'interactive resource'
       es: 'recurso interactivo'
       fr: 'ressource interactive'
@@ -3580,6 +3784,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'imatge en moviment'
       en: 'moving image'
       es: 'imagen en movimiento'
       fr: 'images animées'
@@ -3596,6 +3801,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'objecte físic'
       de: 'physisches Objekt'
       en: 'physical object'
       es: 'physical object'
@@ -3615,6 +3821,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: servei
       en: service
       es: servicio
       fr: service
@@ -3632,6 +3839,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: programari
       en: software
       es: software
       fr: logiciel
@@ -3648,6 +3856,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: so
       en: sound
       es: sonido
       fr: 'enregistrement sonore'
@@ -3664,6 +3873,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'imatge estàtica'
       en: 'still image'
       es: 'imagen estátita'
       fr: 'images fixes'
@@ -3680,6 +3890,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: text
       de: Text
       en: text
       es: texto
@@ -3698,6 +3909,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Funció
       de: Funktion
       en: Function
       es: Función
@@ -3717,6 +3929,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Subfunció
       en: Subfunction
       es: Subfunción
       fr: Sous-fonction
@@ -3733,6 +3946,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Procés
       en: 'Business process'
       es: Proceso
       fr: 'Processus d''activité'
@@ -3750,6 +3964,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Activitat
       en: Activity
       es: Actividad
       fr: Activité
@@ -3758,9 +3973,11 @@ QubitTerm:
       it: Attività
       ja: 活動
       ka: აქტიურობა
+      ko: 활동
       nl: Activiteit
       pl: Aktywność
       pt: Actividade
+      pt_BR: Atividade
       sl: Aktivnost
       th: กิจกรรม
   QubitTerm_function_task:
@@ -3768,6 +3985,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Tasca
       en: Task
       es: Tarea
       fr: Tâche
@@ -3783,6 +4001,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Transacció
       en: Transaction
       es: Acción
       fr: Transaction
@@ -3800,6 +4019,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Transferència pública'
       en: 'Public transfer'
       es: 'Transferencia pública'
       fr: 'Versement d''archives publiques'
@@ -3816,6 +4036,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Transferència privada'
       en: 'Private transfer'
       es: 'Transferencia privada'
       fr: 'Versement d''archives privées'
@@ -3832,6 +4053,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Dipòsit
       en: Deposit
       es: Depósito
       fr: Dépôt
@@ -3848,6 +4070,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Donació
       en: Gift
       es: Donación
       fr: Don
@@ -3865,6 +4088,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Compra
       en: Purchase
       es: Compra
       fr: Achat
@@ -3882,6 +4106,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Transferència
       en: Transfer
       es: Transferencia
       fr: Versement
@@ -3899,6 +4124,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Alta
       en: High
       es: Alta
       fr: Haute
@@ -3914,6 +4140,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Moderada
       en: Medium
       es: Moderada
       fr: Moyenne
@@ -3931,6 +4158,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Baixa
       en: Low
       es: Baja
       fr: Basse
@@ -3946,6 +4174,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Complet
       en: Complete
       es: Completo
       fr: Complet
@@ -3956,6 +4185,7 @@ QubitTerm:
       nl: Volledig
       pl: Ukończony
       pt: Completo
+      pt_BR: Completo
       sl: Dokončano
       th: ทั้งหมด
   QubitTerm_accession_processing_status_incomplete:
@@ -3963,6 +4193,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Incomplet
       en: Incomplete
       es: Incompleto
       fr: Incomplet
@@ -3978,6 +4209,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'En procés'
       en: In-Progress
       es: 'En proceso'
       fr: 'En cours'
@@ -3991,6 +4223,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Sencer
       en: Whole
       es: Entero
       fr: 'En intégralité'
@@ -4008,6 +4241,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Part
       en: Part
       es: Parte
       fr: Partiellement
@@ -4026,6 +4260,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Esborrar
       de: Löschen
       en: Delete
       es: Borrar
@@ -4048,6 +4283,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Mostrar
       en: Discover
       es: Mostrar
       fr: Découvrir
@@ -4062,6 +4298,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Visualitzar
       en: Display
       es: Visualizar
       fr: Afficher
@@ -4077,6 +4314,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Difusió
       en: Disseminate
       es: Distribuir
       fr: Diffuser
@@ -4092,6 +4330,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Migrar
       en: Migrate
       es: Migrar
       fr: Migrer
@@ -4108,6 +4347,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Modificar
       en: Modify
       es: Modificar
       fr: Modifier
@@ -4124,6 +4364,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Reproduir
       en: Replicate
       es: Reproducir
       fr: Reproduire
@@ -4139,6 +4380,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Sota drets d''autor'
       en: 'Under copyright'
       es: 'Bajo derechos de autor'
       fr: 'Utilisation soumise à copyright'
@@ -4156,6 +4398,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: 'Domini públic'
       en: 'Public domain'
       es: 'Dominio público'
       fr: 'Domaine public'
@@ -4172,6 +4415,7 @@ QubitTerm:
     parent_id: QubitTerm_110
     source_culture: en
     name:
+      ca: Desconegut
       en: Unknown
       es: Desconocido
       fr: Inconnu
@@ -4190,6 +4434,7 @@ QubitTerm:
     source_culture: en
     code: isad
     name:
+      ca: 'ISAD(G), 2nd ed. Consell Internacional d''Arxius'
       de: 'ISAD(G), 2. Ausg. hg. Internationaler Archivrat'
       en: 'ISAD(G), 2nd ed. International Council on Archives'
       es: 'ISAD(G), 2a ed. Consejo Internacional de Archivos'
@@ -4208,6 +4453,7 @@ QubitTerm:
     source_culture: en
     code: dc
     name:
+      ca: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       de: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       en: 'Dublin Core, Version 1.1. Dublin Core Metadata Initiative'
       es: 'Dublin Core, Versión 1.1 Iniciativa de Metadatos Dublin Core'
@@ -4226,6 +4472,7 @@ QubitTerm:
     source_culture: en
     code: mods
     name:
+      ca: 'MODS, Version 3.3. U.S. Library of Congress'
       en: 'MODS, Version 3.3. U.S. Library of Congress'
       es: 'MODS, Versión 3.3 Biblioteca del Congreso de los Estados Unidos'
       fr: 'MODS, version 3.3, Bibliothèque du Congrès'
@@ -4243,6 +4490,7 @@ QubitTerm:
     source_culture: en
     code: rad
     name:
+      ca: 'RAD, versió Julio 2008. Consell Canadenc d''Arxius'
       de: 'RAD, July 2008 version. Canadian Council of Archives'
       en: 'RAD, July 2008 version. Canadian Council of Archives'
       es: 'RAD, versión Julio 2008. Consejo Canadiense de Archivos'
@@ -4261,11 +4509,13 @@ QubitTerm:
     source_culture: en
     code: dacs
     name:
+      ca: 'DACS, 2nd ed. Society of American Archivists'
       en: 'DACS, 2nd ed. Society of American Archivists'
       es: 'DACS, 2a ed. Society of American Archivists'
       fr: 'DACS, 2e éd., Société des archivistes américains'
       gl: 'DACS, 2nd ed. Society of American Archivists'
       it: 'DACS, 2nd ed. Society of American Archivists'
+      pt: 'DACS, 2ª ed. Society of American Archivists'
       sl: 'Arhivsko popisovanje: vsebinski standard (DACS), 2. izdaja, Društvo ameriških arhivistov'
 QubitNote:
   QubitNote_1:
@@ -4274,6 +4524,7 @@ QubitNote:
     scope: QubitTerm
     source_culture: en
     content:
+      ca: Productor
       de: Urheber/Bestandsbildner
       en: Creator
       es: Creador
@@ -4318,6 +4569,7 @@ QubitNote:
     scope: QubitTerm
     source_culture: en
     content:
+      ca: Editorial
       en: Publisher
       es: Editorial
       fr: Editeur
@@ -4344,6 +4596,7 @@ QubitNote:
     scope: QubitTerm
     source_culture: en
     content:
+      ca: Contribuent
       en: Contributor
       es: Contribuyente
       fr: Contributeur

@@ -222,6 +222,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       $this->query->setFilter($this->filterBool);
     }
 
+
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
 
     // Page results

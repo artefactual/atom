@@ -60,6 +60,8 @@ EOF;
 
       // get import definition
       $import = new QubitFlatfileImport(array(
+        /* Pass context */
+        'context' => sfContext::createInstance($this->configuration),
 
         'status' => array(
           'nonEmptyColumns'             => $nonEmptyColumns,

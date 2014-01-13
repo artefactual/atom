@@ -1095,7 +1095,7 @@ class QubitInformationObject extends BaseInformationObject
    *
    * @TODO allow for different usage types
    */
-  public function importDigitalObjectFromUri($uris)
+  public function importDigitalObjectFromUri($uris, &$errors)
   {
     if (is_array($uris) && 1 < count($uris))
     {
@@ -1119,7 +1119,16 @@ class QubitInformationObject extends BaseInformationObject
 
         $digitalObject = new QubitDigitalObject;
         $digitalObject->usageId = QubitTerm::MASTER_ID;
-        $digitalObject->importFromUri($uri);
+
+        try
+        {
+          $digitalObject->importFromUri($uri);
+        }
+        catch (sfException $e)
+        {
+          $errors[] = sfContext::getInstance()->i18n->__('Encountered error fetching external resource: '.$uri);
+          continue;
+        }
 
         $infoObject->digitalObjects[] = $digitalObject;
         $infoObject->title = $digitalObject->name;
@@ -1141,9 +1150,16 @@ class QubitInformationObject extends BaseInformationObject
       {
         $uris = array_shift($uris);
       }
-      $digitalObject->importFromUri($uris);
 
-      $this->digitalObjects[] = $digitalObject;
+      try
+      {
+        $digitalObject->importFromUri($uris);
+        $this->digitalObjects[] = $digitalObject;
+      }
+      catch (sfException $e)
+      {
+        $errors[] = sfContext::getInstance()->i18n->__('Encountered error fetching external resource: '.$uris);
+      }
     }
 
     return $this;
@@ -1508,7 +1524,7 @@ class QubitInformationObject extends BaseInformationObject
    *
    * @param $biogHistNode  DOMNode  EAD bioghist DOM node
    */
-  public function importBioghistEadData($biogHistNode)
+  public function importBioghistEadData($biogHistNode, $key)
   {
     // get chronlist element in bioghist element
     $chronlistNodeList = $biogHistNode->getElementsByTagName('chronlist');
@@ -1616,6 +1632,42 @@ class QubitInformationObject extends BaseInformationObject
         }
       }
     }
+
+    // If there isn't a chronlist node, add the bioghist to creators (by order)
+    else
+    {
+      // Obtain creators (we can't use criteria because they're not saved yet)
+      $creators = array();
+      foreach ($this->events as $existingEvent)
+      {
+        if ($existingEvent->typeId == QubitTerm::CREATION_ID && isset($existingEvent->actor))
+        {
+          $creators[] = $existingEvent->actor;
+        }
+      }
+
+      // Add bioghist if there is a creator in the position and it doesn't have history
+      if (isset($creators[$key]) && !isset($creators[$key]->history))
+      {
+        $creators[$key]->history = QubitXmlImport::normalizeNodeValue($biogHistNode);
+        $creators[$key]->save();
+      }
+      else
+      {
+        // Otherwise create new 'Untitled' actor
+        $actor = new QubitActor;
+        $actor->parentId = QubitActor::ROOT_ID;
+        $actor->setHistory(QubitXmlImport::normalizeNodeValue($biogHistNode));
+        $actor->save();
+
+        // And add it to a new creation event for the resource
+        $event = new QubitEvent;
+        $event->setActorId($actor->id);
+        $event->setTypeId(QubitTerm::CREATION_ID);
+
+        $this->events[] = $event;
+      }
+    }
   }
 
   /**
@@ -1625,23 +1677,34 @@ class QubitInformationObject extends BaseInformationObject
    */
   public function importPhysDescEadData($physDescNode)
   {
-    $extentAndMedium = '';
+    $physicalDescription = '';
+    $childTags = array(
+      'extent' => 'Extent', 
+      'dimensions' => 'Dimensions', 
+      'genreform' => 'Form of material'
+    );
 
-    $extentNodeList = $physDescNode->getElementsByTagName('extent');
-    if (0 < $extentNodeList->length)
+    foreach ($childTags as $tag => $headingText)
     {
-      $extentAndMedium .= '<dt>extent</dt><dd>' . QubitXmlImport::replaceLineBreaks($extentNodeList->item(0)) . '</dd>';
+      $nodeList = $physDescNode->getElementsByTagName($tag);
+      if ($nodeList->length > 0)
+      {
+        $physicalDescription .= "<dt>{$headingText}</dt><dd>" . QubitXmlImport::replaceLineBreaks($nodeList->item(0)) . "</dd>";
+
+        // Remove the children nodes as we go so we're 
+        // left with any remaining node text in physDescNode.
+        $physDescNode->removeChild($nodeList->item(0));
+      }
     }
 
-    $dimensionsNodeList = $physDescNode->getElementsByTagName('dimensions');
-    if (0 < $dimensionsNodeList->length)
-    {
-      $extentAndMedium .= '<dt>dimensions</dt><dd>' . QubitXmlImport::replaceLineBreaks($dimensionsNodeList->item(0)) . '</dd>';
-    }
+    // Get the node text for physloc itself, e.g.:
+    // <physdesc>Hello<extent>...</extent><dimensions>...</dimensions></physdesc>
+    // "Hello" in this case.
+    $this->extentAndMedium = trim($physDescNode->nodeValue);
 
-    if (0 < strlen($extentAndMedium))
+    if (strlen($physicalDescription) > 0)
     {
-      $this->extentAndMedium = '<dl>' . $extentAndMedium . '</dl>';
+      $this->extentAndMedium .= '<dl>' . $physicalDescription . '</dl>';
     }
   }
 
@@ -2105,6 +2168,24 @@ class QubitInformationObject extends BaseInformationObject
   public function setPublicationStatus($value)
   {
     return $this->setStatus($options = array('statusId' => $value, 'typeId' => QubitTerm::STATUS_TYPE_PUBLICATION_ID));
+  }
+
+  /**
+   * Set publication date
+   * @param $value  The year the information object was published
+   */
+  public function setPublicationDate($value)
+  {
+    // We only support singular years right now...
+    if (!is_numeric($value))
+      return;
+
+    $publicationEvent = new QubitEvent;
+    $publicationEvent->typeId = QubitTerm::PUBLICATION_ID;
+    $publicationEvent->startDate = sprintf("%s-0-0", $value);
+    $publicationEvent->endDate = sprintf("%s-0-0", $value);
+
+    $this->events[] = $publicationEvent;
   }
 
   /*****************************************************

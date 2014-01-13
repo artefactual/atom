@@ -71,7 +71,6 @@ class DefaultBrowseAction extends sfAction
         {
           case 'hideDrafts':
             QubitAclSearch::filterDrafts($filter);
-
           break;
         }
       }
@@ -109,7 +108,7 @@ class DefaultBrowseAction extends sfAction
 
     foreach ($this->request->getGetParameters() as $param => $value)
     {
-      if ('languages' == $param || !array_key_exists($param, $this::$FACETS))
+      if ('languages' == $param || !array_key_exists($param, $this::$FACETS) || ('repos' == $param && (!ctype_digit($value) || null === QubitRepository::getById($value))))
       {
         continue;
       }

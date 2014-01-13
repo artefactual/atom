@@ -54,6 +54,8 @@ class QubitSearch
 
   public static function enable()
   {
+    self::$instance = self::getInstance();
+
     self::$instance->enable();
   }
 }

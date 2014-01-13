@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2013-10-03T11:51:19Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2013-12-15T10:25:11Z" product-name="messages">
     <body>
       <trans-unit id="43">
         <source>Identity area</source>
@@ -236,7 +236,7 @@
       </trans-unit>
       <trans-unit id="859">
         <source>Access points</source>
-        <target/>
+        <target>접근점</target>
       </trans-unit>
       <trans-unit id="860">
         <source>Edit access points</source>

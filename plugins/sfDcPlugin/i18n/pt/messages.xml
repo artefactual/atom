@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-08-22T17:11:03Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-12-15T10:25:15Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -160,27 +160,27 @@
       </trans-unit>
       <trans-unit id="940">
         <source>Elements area</source>
-        <target/>
+        <target>Área de elementos</target>
       </trans-unit>
       <trans-unit id="941">
         <source>How to access to this content?</source>
-        <target/>
+        <target>Como se acede a este conteúdo?</target>
       </trans-unit>
       <trans-unit id="942">
         <source>Contact the archivist at %1%</source>
-        <target/>
+        <target>Contatar o arquivista em %1%</target>
       </trans-unit>
       <trans-unit id="943">
         <source>Show details</source>
-        <target/>
+        <target>Mostrar detalhes</target>
       </trans-unit>
       <trans-unit id="944">
         <source>Close</source>
-        <target/>
+        <target>Fechar</target>
       </trans-unit>
       <trans-unit id="945">
         <source>Edit elements area</source>
-        <target/>
+        <target>Editar área de elementos</target>
       </trans-unit>
       <trans-unit id="946">
         <source>Date(s)</source>
@@ -204,7 +204,7 @@
       </trans-unit>
       <trans-unit id="951">
         <source>Name(s)</source>
-        <target/>
+        <target>Nome(s)</target>
       </trans-unit>
       <trans-unit id="952">
         <source>Actor name</source>
@@ -212,7 +212,7 @@
       </trans-unit>
       <trans-unit id="953">
         <source>Identify and record the name(s) and type(s) of the unit of description.</source>
-        <target/>
+        <target>Identifica e regista o nome(s) e o tipo(s) da unidade de descrição.</target>
       </trans-unit>
     </body>
   </file>

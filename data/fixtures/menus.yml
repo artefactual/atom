@@ -17,6 +17,7 @@ QubitMenu:
     source_culture: en
     name: browse
     label:
+      ca: Navegar
       en: Browse
       es: Navegar
       fr: Parcourir
@@ -28,6 +29,7 @@ QubitMenu:
       nl: Blader
       pl: Przeglądaj
       pt: Navegar
+      pt_BR: Navegar
       sl: Brskaj
   QubitMenu_mainmenu_addedit:
     id: 5
@@ -35,6 +37,7 @@ QubitMenu:
     source_culture: en
     name: add
     label:
+      ca: Agregar
       de: Hinzufügen
       en: Add
       es: Agregar
@@ -59,6 +62,7 @@ QubitMenu:
     source_culture: en
     name: manage
     label:
+      ca: Administrar
       en: Manage
       es: Administrar
       fr: Gérer
@@ -77,6 +81,7 @@ QubitMenu:
     source_culture: en
     name: accessions
     label:
+      ca: Ingressos
       en: Accessions
       es: Ingresos
       fr: Entrées
@@ -95,6 +100,7 @@ QubitMenu:
     source_culture: en
     name: donors
     label:
+      ca: Donants
       en: Donors
       es: Donadores
       fr: 'Donateurs/Services versants'
@@ -113,6 +119,7 @@ QubitMenu:
     source_culture: en
     name: browsePhysicalObjects
     label:
+      ca: 'Unitat de magatzematge'
       en: 'Physical storage'
       es: 'Unidad de almacenaje'
       fr: 'Localisation physique'
@@ -133,6 +140,7 @@ QubitMenu:
     source_culture: en
     name: rightsholders
     label:
+      ca: 'Titulars de drets'
       en: 'Rights holders'
       es: 'Titulares de derechos'
       fr: 'Détenteurs de droits'
@@ -152,6 +160,7 @@ QubitMenu:
     source_culture: en
     name: taxonomies
     label:
+      ca: Taxonomies
       en: Taxonomies
       es: Taxonomías
       fr: Référentiels
@@ -172,6 +181,7 @@ QubitMenu:
     source_culture: en
     name: import
     label:
+      ca: Importar
       de: importieren
       en: Import
       es: Importar
@@ -195,6 +205,7 @@ QubitMenu:
     source_culture: en
     name: admin
     label:
+      ca: Administrador
       de: Administrator
       en: Admin
       es: Administrador
@@ -206,6 +217,7 @@ QubitMenu:
       ka: ადმინი
       pl: Administrator
       pt: Admin
+      pt_BR: Administrador
       sl: Skrbnik
     path: user/list
   QubitMenu_mainmenu_addedit_accessionrecord:
@@ -213,6 +225,7 @@ QubitMenu:
     source_culture: en
     name: addAccessionRecord
     label:
+      ca: 'Registres d''ingressos'
       en: 'Accession records'
       es: 'Registros de ingresos'
       fr: 'Notices d''entrée'
@@ -231,6 +244,7 @@ QubitMenu:
     source_culture: en
     name: addInformationObject
     label:
+      ca: 'Descripcions arxivístiques'
       de: 'Archivische Beschreibung'
       en: 'Archival descriptions'
       es: 'Descripción archivística'
@@ -240,6 +254,7 @@ QubitMenu:
       nl: 'archivistische beschrijving'
       pl: 'Opis archiwalny'
       pt: 'descrição arquivística'
+      pt_BR: 'Descrição arquivística'
       sl: 'arhivski opisi'
     path: informationobject/add
   QubitMenu_mainmenu_addedit_actor:
@@ -247,6 +262,8 @@ QubitMenu:
     source_culture: en
     name: addActor
     label:
+      ca: 'Registre d''autoritats'
+      de: Normdateien
       en: 'Authority records'
       es: 'Registro de autoridad'
       fr: 'Notices d''autorité'
@@ -262,6 +279,7 @@ QubitMenu:
     source_culture: en
     name: addRepository
     label:
+      ca: 'Institucions arxivístiques'
       de: Archiv
       en: 'Archival institutions'
       es: 'Instituciones archivísticas'
@@ -282,6 +300,7 @@ QubitMenu:
     source_culture: en
     name: addTerm
     label:
+      ca: Termes
       en: Terms
       es: Términos
       fr: Termes
@@ -301,6 +320,7 @@ QubitMenu:
     source_culture: en
     name: addFunction
     label:
+      ca: Funció
       de: Funktion
       en: Function
       es: Función
@@ -321,6 +341,7 @@ QubitMenu:
     source_culture: en
     name: importXml
     label:
+      ca: XML
       en: XML
       es: XML
       fr: XML
@@ -337,6 +358,7 @@ QubitMenu:
     source_culture: en
     name: importCsv
     label:
+      ca: CSV
       en: CSV
       es: CSV
       fr: CSV
@@ -352,6 +374,7 @@ QubitMenu:
     source_culture: en
     name: users
     label:
+      ca: Usuaris
       en: Users
       es: Usuarios
       fa: كاربران
@@ -372,6 +395,7 @@ QubitMenu:
     path: 'user/index?slug=%currentSlug%'
     source_culture: en
     label:
+      ca: Perfil
       en: Profile
       es: Perfil
       fr: Profil
@@ -390,6 +414,7 @@ QubitMenu:
     path: 'user/indexInformationObjectAcl?slug=%currentSlug%'
     source_culture: en
     label:
+      ca: 'Permisos de descripció arxivística'
       en: 'Archival description permissions'
       es: 'Information object permissions'
       fr: 'Droits sur la description archivistique'
@@ -406,6 +431,7 @@ QubitMenu:
     path: 'user/indexActorAcl?slug=%currentSlug%'
     source_culture: en
     label:
+      ca: 'Permisos registre d''autoritat'
       en: 'Authority record permissions'
       es: 'Permisos del actor'
       fr: 'Droits de la notice d''autorité'
@@ -423,11 +449,13 @@ QubitMenu:
     path: 'user/indexRepositoryAcl?slug=%currentSlug%'
     source_culture: en
     label:
+      ca: 'Permisos institucions arxivístiques'
       en: 'Archival institution permissions'
       es: 'Permisos Instituciones archivísticas'
       fr: 'Autorisations de l''institution de conservation'
       gl: 'Permisos de institución arquivística'
       it: 'Permessi dell''istituto archivistico'
+      pt: 'Permissões de instituições arquivísticas'
       sl: 'Dovoljenja glede arhivske ustanove'
   QubitMenu_mainmenu_admin_users_termAcl:
     parent_id: QubitMenu_mainmenu_admin_users
@@ -435,6 +463,7 @@ QubitMenu:
     path: 'user/indexTermAcl?slug=%currentSlug%'
     source_culture: en
     label:
+      ca: 'Permisos per a taxonomies'
       en: 'Taxonomy permissions'
       es: 'Permisos para taxonomías'
       fr: 'Droits sur les référentiels'
@@ -453,6 +482,7 @@ QubitMenu:
     source_culture: en
     name: groups
     label:
+      ca: Grups
       en: Groups
       es: Grupos
       fr: Groupes
@@ -472,6 +502,7 @@ QubitMenu:
     path: 'aclGroup/index?id=%currentId%'
     source_culture: en
     label:
+      ca: Perfil
       en: Profile
       es: Perfil
       fr: Profil
@@ -490,6 +521,7 @@ QubitMenu:
     path: 'aclGroup/indexInformationObjectAcl?id=%currentId%'
     source_culture: en
     label:
+      ca: 'Permisos de descripció arxivística'
       en: 'Archival description permissions'
       es: 'Information object permissions'
       fr: 'Droits sur la description archivistique'
@@ -506,6 +538,7 @@ QubitMenu:
     path: 'aclGroup/indexActorAcl?id=%currentId%'
     source_culture: en
     label:
+      ca: 'Permisos registre d''autoritat'
       en: 'Authority record permissions'
       es: 'Permisos del actor'
       fr: 'Droits de la notice d''autorité'
@@ -523,11 +556,13 @@ QubitMenu:
     path: 'aclGroup/indexRepositoryAcl?id=%currentId%'
     source_culture: en
     label:
+      ca: 'Permisos institucions arxivístiques'
       en: 'Archival institution permissions'
       es: 'Permisos Instituciones archivísticas'
       fr: 'Autorisations de l''institution de conservation'
       gl: 'Permisos de institución arquivística'
       it: 'Permessi dell''istituto archivistico'
+      pt: 'Permissões de instituições arquivísticas'
       sl: 'Dovoljenja glede arhivske ustanove'
   QubitMenu_mainmenu_admin_groups_termAcl:
     parent_id: QubitMenu_mainmenu_admin_groups
@@ -535,6 +570,7 @@ QubitMenu:
     path: 'aclGroup/indexTermAcl?id=%currentId%'
     source_culture: en
     label:
+      ca: 'Permisos per a taxonomies'
       en: 'Taxonomy permissions'
       es: 'Permisos para taxonomías'
       fr: 'Droits sur les référentiels'
@@ -553,6 +589,7 @@ QubitMenu:
     source_culture: en
     name: staticPages
     label:
+      ca: 'Pàgines estàtiques'
       en: 'Static pages'
       es: 'Páginas estáticas'
       fa: 'صفحات ايستا'
@@ -572,6 +609,7 @@ QubitMenu:
     source_culture: en
     name: menu
     label:
+      ca: Menús
       en: Menus
       es: Menús
       fr: Menus
@@ -588,6 +626,7 @@ QubitMenu:
     source_culture: en
     name: plugins
     label:
+      ca: Plugins
       en: Plugins
       es: Plugins
       fr: Extensions
@@ -604,6 +643,7 @@ QubitMenu:
     source_culture: en
     name: themes
     label:
+      ca: Temes
       en: Themes
       es: Temas
       fr: Thèmes
@@ -623,6 +663,7 @@ QubitMenu:
     source_culture: en
     name: settings
     label:
+      ca: Configuració
       de: Einstellungen
       en: Settings
       es: Configuraciones
@@ -643,6 +684,7 @@ QubitMenu:
     source_culture: en
     name: descriptionUpdates
     label:
+      ca: 'Actualitzacions de descripció'
       en: 'Description updates'
       es: 'Actualizaciones de descripción'
       fr: 'Mises à jour de la description'
@@ -663,6 +705,7 @@ QubitMenu:
     source_culture: en
     name: globalReplace
     label:
+      ca: 'Cercar/reemplaçar global'
       en: 'Global search/replace'
       es: 'Buscar/reemplazar global'
       fr: 'Recherche et remplacement globaux'
@@ -680,6 +723,7 @@ QubitMenu:
     source_culture: en
     name: home
     label:
+      ca: Inici
       de: Startseite
       en: Home
       es: Inicio
@@ -700,6 +744,7 @@ QubitMenu:
     source_culture: en
     name: about
     label:
+      ca: Sobre
       de: Über
       en: About
       es: Acerca
@@ -721,6 +766,7 @@ QubitMenu:
     source_culture: en
     name: help
     label:
+      ca: Ajuda
       de: Hilfe
       en: Help
       es: Ayuda
@@ -741,6 +787,7 @@ QubitMenu:
     source_culture: en
     name: myProfile
     label:
+      ca: 'El meu perfil'
       en: 'My profile'
       es: 'Mi perfil'
       fr: 'Mon profil'
@@ -760,6 +807,7 @@ QubitMenu:
     source_culture: en
     name: login
     label:
+      ca: Entrar
       de: Anmelden
       en: 'Log in'
       es: 'Iniciar sesión'
@@ -782,6 +830,7 @@ QubitMenu:
     source_culture: en
     name: logout
     label:
+      ca: 'Tancar sessió'
       de: Abmelden
       en: 'Log out'
       es: 'cerrar sesión'
@@ -800,6 +849,7 @@ QubitMenu:
     source_culture: en
     name: browseInformationObjects
     label:
+      ca: 'Descripcions arxivístiques'
       en: 'Archival descriptions'
       es: 'Descripción archivística'
       fr: 'Descriptions archivistiques'
@@ -807,6 +857,7 @@ QubitMenu:
       it: 'Descrizioni archivistiche'
       nl: 'archivistische beschrijving'
       pt: 'descrição arquivística'
+      pt_BR: 'Descrição arquivística'
       sl: 'arhivski opisi'
     path: informationobject/browse
   QubitMenu_browse_actors:
@@ -814,6 +865,8 @@ QubitMenu:
     source_culture: en
     name: browseActors
     label:
+      ca: 'Registre d''autoritats'
+      de: Normdateien
       en: 'Authority records'
       es: 'Registro de autoridad'
       fr: 'Notices d''autorité'
@@ -828,6 +881,7 @@ QubitMenu:
     source_culture: en
     name: browseRepositories
     label:
+      ca: 'Institucions arxivístiques'
       en: 'Archival institutions'
       es: 'Instituciones archivísticas'
       fr: 'Institutions de conservation'
@@ -846,6 +900,7 @@ QubitMenu:
     source_culture: en
     name: browseFunctions
     label:
+      ca: Funcions
       de: Funktionen
       en: Functions
       es: Funciones
@@ -866,6 +921,7 @@ QubitMenu:
     source_culture: en
     name: browseSubjects
     label:
+      ca: Matèries
       de: Themen
       en: Subjects
       es: Materias
@@ -885,6 +941,7 @@ QubitMenu:
     source_culture: en
     name: browsePlaces
     label:
+      ca: Llocs
       de: Orte
       en: Places
       es: Lugares
@@ -908,6 +965,7 @@ QubitMenu:
     source_culture: en
     name: browseDigitalObjects
     label:
+      ca: 'Objectes digitals'
       de: 'Digitales Objekt'
       en: 'Digital objects'
       es: 'Objetos digitales'
@@ -930,6 +988,7 @@ QubitMenu:
     source_culture: en
     name: visibleElements
     label:
+      ca: 'Elements visibles'
       en: 'Visible elements'
       es: 'Elementos visibles'
       fr: 'Éléments visibles'

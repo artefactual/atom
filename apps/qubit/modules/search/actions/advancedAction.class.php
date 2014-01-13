@@ -155,7 +155,17 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
       case 'f':
         $this->form->setValidator($name, new sfValidatorString);
-        $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => array())));
+
+        $choices = array();
+        if (isset($this->request->f))
+        {
+          $this->form->setDefault($name, $this->request->f);
+
+          $params = $this->context->routing->parse(Qubit::pathInfo($this->request->f));
+          $choices[$this->request->f] = $params['_sf_route']->resource;
+        }
+
+        $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
 
         break;
     }
