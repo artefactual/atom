@@ -80,6 +80,15 @@ api_dashboard:
   requirements:
     sf_method: [GET]
 
+api_aips:
+  class: sfRequestRoute
+  url: /api/aips
+  param:
+    module: api
+    action: aipsIndex
+  requirements:
+    sf_method: [GET]
+
 # ------------------------------------------------------------------------------
 
 slug;default_index:
