@@ -41,7 +41,6 @@ class DRMCIndexAction extends sfAction
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/directives/plumb-graph.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/directives/modal-video.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/controllers/dashboard.js', 'last');
-    $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/lib/d3-graphs.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/controllers/artwork-record.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/controllers/artwork-record2.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/controllers/technology-record.js', 'last');
