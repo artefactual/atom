@@ -22,7 +22,7 @@ mapping:
     _attributes: { i18n: true, i18nExtra: actor, timestamp: true, nested_only: true }
     dynamic: strict
     properties:
-      contact_person: { type: string, index: no }
+      contact_person: { type: string, index: not_analyzed }
       street_address: { type: string, index: no }
       postal_code: { type: string, include_in_all: false }
       country_code: { type: string, index: not_analyzed, include_in_all: false }
@@ -53,6 +53,15 @@ mapping:
       type_id: { type: integer, index: not_analyzed, include_in_all: false }
       actor_id: { type: integer, index: not_analyzed, include_in_all: false }
 
+  donor:
+    _attributes:
+      i18nExtra: actor
+      nested_only: true
+    _foreign_types: { contact_informations: contact_information }
+    dynamic: true
+    properties:
+      slug: { type: string, index: not_analyzed }
+
   #
   # Main types
   #
@@ -72,6 +81,7 @@ mapping:
 
   accession:
     _attributes: { i18n: true, timestamp: true }
+    _foreign_types: { donors: donor, creators: actor }
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }

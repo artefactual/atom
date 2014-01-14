@@ -14,11 +14,7 @@
           'label' => __('Search %1%', array('%1%' => strtolower(sfConfig::get('app_ui_label_accession')))))) ?>
       </div>
       <div class="span6">
-        <?php echo get_partial('default/sortPicker',
-          array(
-            'options' => array(
-              'lastUpdated' => __('Most recent'),
-              'alphabetic' => __('Alphabetic')))) ?>
+        <?php echo get_partial('default/sortPicker', array('options' => $sortOptions)) ?>
       </div>
     </div>
   </section>
@@ -33,21 +29,23 @@
         <th>
           <?php echo __('Name') ?>
         </th>
-        <?php if ('alphabetic' != $sf_request->sort): ?>
+        <?php if ('lastUpdated' == $sf_request->sort): ?>
           <th>
             <?php echo __('Updated') ?>
           </th>
         <?php endif; ?>
       </tr>
     </thead><tbody>
-      <?php foreach ($pager->getResults() as $item): ?>
+      <?php foreach ($pager->getResults() as $hit): ?>
+        <?php $doc = $hit->getData() ?>
+
         <tr></tr>
           <td>
-            <?php echo link_to(render_title($item), array($item, 'module' => 'accession')) ?>
+            <?php echo link_to($doc['identifier'], array('module' => 'accession', 'slug' => $doc['slug'])) ?>
           </td>
-          <?php if ('alphabetic' != $sf_request->sort): ?>
+          <?php if ('lastUpdated' == $sf_request->sort): ?>
             <td>
-              <?php echo format_date($item->updatedAt, 'f') ?>
+              <?php echo format_date($doc['updatedAt'], 'f') ?>
             </td>
           <?php endif; ?>
         </tr>

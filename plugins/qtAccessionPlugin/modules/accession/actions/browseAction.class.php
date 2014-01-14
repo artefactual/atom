@@ -31,9 +31,17 @@ class AccessionBrowseAction extends sfAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
+    $this->sortOptions = array(
+      'lastUpdated' => $this->context->i18n->__('Most recent'),
+      'alphabetic' => $this->context->i18n->__('Alphabetic'));
+
     if (!isset($request->sort))
     {
-      if ($this->getUser()->isAuthenticated())
+      if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->subquery))
+      {
+        $request->sort = 'relevance';
+      }
+      else if ($this->getUser()->isAuthenticated())
       {
         $request->sort = sfConfig::get('app_sort_browser_user');
       }
@@ -43,53 +51,75 @@ class AccessionBrowseAction extends sfAction
       }
     }
 
-    $criteria = new Criteria;
+    $culture = $this->context->user->getCulture();
 
-    if (isset($request->subquery))
+    $this->query = new \Elastica\Query();
+    $this->query->setLimit($request->limit);
+
+    if (!empty($request->page))
     {
-      $criteria->addJoin(QubitAccession::ID, QubitAccessionI18n::ID);
-      $criteria->add(QubitAccessionI18n::CULTURE, $this->context->user->getCulture());
-
-      // Query in all i18n columns
-      $c1 = $criteria->getNewCriterion(QubitAccessionI18n::APPRAISAL, "%$request->subquery%", Criteria::LIKE);
-      $c2 = $criteria->getNewCriterion(QubitAccessionI18n::ARCHIVAL_HISTORY, "%$request->subquery%", Criteria::LIKE);
-      $c1->addOr($c2);
-      $c2 = $criteria->getNewCriterion(QubitAccessionI18n::LOCATION_INFORMATION, "%$request->subquery%", Criteria::LIKE);
-      $c1->addOr($c2);
-      $c2 = $criteria->getNewCriterion(QubitAccessionI18n::PHYSICAL_CHARACTERISTICS, "%$request->subquery%", Criteria::LIKE);
-      $c1->addOr($c2);
-      $c2 = $criteria->getNewCriterion(QubitAccessionI18n::PROCESSING_NOTES, "%$request->subquery%", Criteria::LIKE);
-      $c1->addOr($c2);
-      $c2 = $criteria->getNewCriterion(QubitAccessionI18n::RECEIVED_EXTENT_UNITS, "%$request->subquery%", Criteria::LIKE);
-      $c1->addOr($c2);
-      $c2 = $criteria->getNewCriterion(QubitAccessionI18n::SCOPE_AND_CONTENT, "%$request->subquery%", Criteria::LIKE);
-      $c1->addOr($c2);
-      $c2 = $criteria->getNewCriterion(QubitAccessionI18n::SOURCE_OF_ACQUISITION, "%$request->subquery%", Criteria::LIKE);
-      $c1->addOr($c2);
-      $c2 = $criteria->getNewCriterion(QubitAccessionI18n::TITLE, "%$request->subquery%", Criteria::LIKE);
-      $c1->addOr($c2);
-
-      $criteria->add($c1);
+      $this->query->setFrom(($request->page - 1) * $request->limit);
     }
 
+    $this->queryBool = new \Elastica\Query\Bool();
+
+    if (1 === preg_match('/^[\s\t\r\n]*$/', $request->subquery))
+    {
+      $this->queryBool->addMust(new \Elastica\Query\MatchAll());
+    }
+    else
+    {
+      $queryString = new \Elastica\Query\QueryString($request->subquery);
+
+      // TODO: Add boost options to arElasticSearchPluginUtil::setAllFields function
+      $queryString->setFields(array(
+        'identifier^10',
+        'donors.i18n.'.$culture.'.authorizedFormOfName^10',
+        'i18n.'.$culture.'.title^10',
+        'i18n.'.$culture.'.scopeAndContent^10',
+        'i18n.'.$culture.'.locationInformation^5',
+        'i18n.'.$culture.'.processingNotes^5',
+        'i18n.'.$culture.'.sourceOfAcquisition^5',
+        'i18n.'.$culture.'.archivalHistory^5',
+        'i18n.'.$culture.'.appraisal',
+        'i18n.'.$culture.'.physicalCharacteristics',
+        'i18n.'.$culture.'.receivedExtentUnits',
+        'donors.contactInformations.contactPerson',
+        'creators.i18n.'.$culture.'.authorizedFormOfName'));
+
+      $this->queryBool->addMust($queryString);
+
+      $this->sortOptions['relevance'] = $this->context->i18n->__('Relevance');
+    }
+
+    // Set query
+    $this->query->setQuery($this->queryBool);
+
+    // Set order
     switch ($request->sort)
     {
+      // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
-        $criteria->addAscendingOrderByColumn('identifier');
+        $this->query->setSort(array('identifier' => 'asc'));
 
+        break;
+
+      case 'relevance':
+        // Keep boost options
         break;
 
       case 'lastUpdated':
       default:
-        $criteria->addDescendingOrderByColumn(QubitObject::UPDATED_AT);
+        $this->query->setSort(array('updatedAt' => 'desc'));
 
         break;
     }
 
-    // Page results
-    $this->pager = new QubitPager('QubitAccession');
-    $this->pager->setCriteria($criteria);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitAccession')->search($this->query);
+
+    $this->pager = new QubitSearchPager($resultSet);
+    $this->pager->setPage($request->page ? $request->page : 1);
     $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
+    $this->pager->init();
   }
 }
