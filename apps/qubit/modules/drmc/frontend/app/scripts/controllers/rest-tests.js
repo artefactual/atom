@@ -20,9 +20,3 @@ angular.module('momaApp')
     restTest($http, 'GET', requestUrl + '/dashboard');
 
 });
-
-
-function restTest($http, method, resource)
-{
-
-}
