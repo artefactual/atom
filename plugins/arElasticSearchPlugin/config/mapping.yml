@@ -103,7 +103,10 @@ mapping:
       i18nExtra: actor
       timestamp: true
       autocompleteFields: [authorizedFormOfName]
-    _foreign_types: { contact_informations: contact_information }
+    _foreign_types:
+      contact_informations: contact_information
+      other_names: other_name
+      parallel_names: other_name
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }
