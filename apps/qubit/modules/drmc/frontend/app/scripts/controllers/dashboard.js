@@ -1,9 +1,16 @@
 'use strict';
 
 angular.module('momaApp')
-  .controller('DashboardCtrl', function ($scope, $http, atomGlobals) {
+  .controller('DashboardCtrl', function ($scope, $http, atomGlobals, AIPService) {
 
     $scope.atomGlobals = atomGlobals;
+
+    AIPService.getOverview()
+      .then(function(data) {
+        $scope.overview = data;
+      });
+
+    console.log($scope.overview);
 
     $scope.selectAips = [
       { id: 0, name: 'Douglas Gordon', statusNo: 'unclassified', statusYes: 'classified', randomArrayItem: 'lemon' },

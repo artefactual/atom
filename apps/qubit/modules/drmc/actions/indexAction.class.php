@@ -38,6 +38,8 @@ class DRMCIndexAction extends sfAction
 
     // AngularJS app
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/app.js', 'last');
+    $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/services/aip.js', 'last');
+    $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/services/dashboard.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/directives/plumb-graph.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/directives/modal-video.js', 'last');
     $this->response->addJavaScript('/apps/qubit/modules/drmc/frontend/app/scripts/controllers/dashboard.js', 'last');

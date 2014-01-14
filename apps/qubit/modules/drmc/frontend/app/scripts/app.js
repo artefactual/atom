@@ -2,6 +2,7 @@
 
 // Setup the main module: momaApp
 angular.module('momaApp', [
+  'momaApp.services',
   'momaApp.directives',
   'ngRoute',
   'ui.router',
@@ -49,4 +50,5 @@ angular.module('momaApp', [
   });
 
 // Setup dependency injection
+angular.module('momaApp.services', []);
 angular.module('momaApp.directives', []);
