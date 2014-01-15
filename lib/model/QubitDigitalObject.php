@@ -1656,21 +1656,30 @@ class QubitDigitalObject extends BaseDigitalObject
       throw new sfException('Couldn\'t find related information object for digital object');
     }
 
-    $id = (string) $infoObject->id;
-
-    // determine path for current repository
-    $repoDir = '';
-    if (null !== ($repo = $infoObject->getRepository(array('inherit' => true))))
+    if ($this->usageId == QubitTerm::MASTER_ID)
     {
-      $repoDir = $repo->slug;
+      $id = (string) $infoObject->id;
+
+      // determine path for current repository
+      $repoDir = '';
+      if (null !== ($repo = $infoObject->getRepository(array('inherit' => true))))
+      {
+        $repoDir = $repo->slug;
+      }
+      else
+      {
+        $repoDir = 'null';
+      }
+
+      return '/'.QubitSetting::getByName('upload_dir')->__toString().'/r/'.$repoDir.'/'.$checksum[0].'/'.$checksum[1].'/'.$checksum;
     }
     else
     {
-      $repoDir = 'null';
+      if (!isset($this->parent))
+        throw new sfException("Got orphaned derivative.");
+
+      return rtrim($this->parent->getPath(), '/');
     }
-
-
-    return '/'.QubitSetting::getByName('upload_dir')->__toString().'/r/'.$repoDir.'/'.$checksum[0].'/'.$checksum[1].'/'.$checksum;
   }
 
   /**
@@ -1814,8 +1823,8 @@ class QubitDigitalObject extends BaseDigitalObject
           // Thumbnail PDFs (may add other formats in future)
           if ($this->canThumbnail())
           {
-            $this->createReferenceImage($connection);
-            $this->createThumbnail($connection);
+            $this->createReferenceImage($connection, $options);
+            $this->createThumbnail($connection, $options);
           }
 
           // Extract text
@@ -2162,7 +2171,60 @@ class QubitDigitalObject extends BaseDigitalObject
     // Resize
     $resizedImage = QubitDigitalObject::resizeImage($originalFullPath, $maxDimensions[0], $maxDimensions[1]);
 
-    if (0 < strlen($resizedImage))
+    if (strlen($resizedImage) == 0)
+    {
+      return null;
+    }
+
+    $asset = new QubitAsset($derivativeName, $resizedImage);
+
+    $derivative = new QubitDigitalObject;
+    $derivative->parentId = $this->id;
+    $derivative->usageId = $usageId;
+    $derivative->createDerivatives = false;
+    $derivative->indexOnSave = false;
+    $derivative->assets[] = $asset;
+
+
+    // NOTE: This raw SQL code does NOT update the nested sets!
+    // Be sure to run propel:build-nested-set
+    if ($rawSql)
+    {
+      $derivative->setMimeType(QubitDigitalObject::THUMB_MIME_TYPE);
+      $derivative->writeToFileSystem($asset);
+      $sql = '
+        INSERT INTO object(created_at, updated_at, class_name)
+        VALUES(NOW(), NOW(), "QubitDigitalObject")
+      ';
+
+      $s = QubitPDO::prepareAndExecute($sql);
+
+      $sql = '
+        INSERT INTO digital_object(id, parent_id, usage_id, mime_type, media_type_id, 
+                      name, path, byte_size, checksum, checksum_type, lft, rgt)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0)
+      ';
+
+      // Guess lft/rgt values... kind of a kludge, seems build-nested-set
+      // doesn't work on digital objects even if you add it to the table list.
+
+      QubitPDO::prepareAndExecute($sql, array(
+        QubitPDO::getLastInsertId(),
+        $this->id, 
+        $usageId, 
+        QubitDigitalObject::THUMB_MIME_TYPE,
+        $this->mediaTypeId,
+        $asset->getName(),
+        $derivative->getAssetPath($asset->getChecksum()) . '/',
+        $derivative->byteSize,
+        $asset->getChecksum(),
+        $asset->getChecksumAlgorithm(),
+      ));
+
+      unset($derivative);
+      unset($asset);
+    }
+    else
     {
       $derivative = new QubitDigitalObject;
       $derivative->parentId = $this->id;
