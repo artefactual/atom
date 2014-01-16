@@ -22,12 +22,16 @@
   <!-- Menu -->
   <ul class="nav nav-pills">
 
-    <li><a ui-sref="dashboard">Dashboard</a></li>
+    <li ng-class="{ active: $state.includes('dashboard') }">
+      <a ui-sref="dashboard">Dashboard</a>
+    </li>
 
-    <li class="dropdown">
+    <li ng-class="{ dropdown: true, active: $state.includes('aips') }" ng-class="dropdown">
       <a data-toggle="dropdown" class="dropdown-toggle">Browse<b class="caret"></b></a>
       <ul class="dropdown-menu">
-        <li><a ui-sref="aips.browser">AIPs</a></li>
+        <li ng-class="{ active: $state.includes('aips.browser') }">
+          <a ui-sref="aips.browser">AIPs</a>
+        </li>
       </ul>
     </li>
 
