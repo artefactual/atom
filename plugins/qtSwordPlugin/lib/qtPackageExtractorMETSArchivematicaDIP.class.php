@@ -278,7 +278,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       list($parent, $creation) = $this->processDmdSec($dmdSec, $parent);
       $parent->setLevelOfDescriptionByName('file');
 
-      $this->resource->informationObjectsRelatedByparentId[] = $parent;
+      $parent->parentId = $this->resource->id;
       $parent->save();
 
       if (count($creation))
@@ -314,16 +314,14 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         }
       }
 
-      // Process metatadata from METS file
-      if (null !== ($dmdSec = $this->searchFileDmdSec($objectUUID, $mapping)))
+      // Parent must be set before saving
+      if (isset($parent))
       {
-        list($child, $creation) = $this->processDmdSec($dmdSec, $child);
-        $child->save();
-
-        if (count($creation))
-        {
-          $this->addCreationEvent($child, $creation);
-        }
+        $child->parentId = $parent->id;
+      }
+      else
+      {
+        $child->parentId = $this->resource->id;
       }
 
       // Storage UUIDs
@@ -336,17 +334,19 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $digitalObject->usageId = QubitTerm::MASTER_ID;
       $child->digitalObjects[] = $digitalObject;
 
-      if (isset($parent))
+      $child->save();
+
+      // Process metatadata from METS file
+      if (null !== ($dmdSec = $this->searchFileDmdSec($objectUUID, $mapping)))
       {
-        $parent->informationObjectsRelatedByparentId[] = $child;
-      }
-      else
-      {
-        $this->resource->informationObjectsRelatedByparentId[] = $child;
+        list($child, $creation) = $this->processDmdSec($dmdSec, $child);
+
+        if (count($creation))
+        {
+          $this->addCreationEvent($child, $creation);
+        }
       }
     }
-
-    $this->resource->save();
 
     parent::process();
   }
