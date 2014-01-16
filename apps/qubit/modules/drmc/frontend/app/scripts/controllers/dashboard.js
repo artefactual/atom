@@ -10,8 +10,6 @@ angular.module('momaApp')
         $scope.overview = data;
       });
 
-    console.log($scope.overview);
-
     $scope.selectAips = [
       { id: 0, name: 'Douglas Gordon', statusNo: 'unclassified', statusYes: 'classified', randomArrayItem: 'lemon' },
       { id: 1, name: 'Rush King', statusNo: 'unclassified', statusYes: 'classified', randomArrayItem: 'apple' },
