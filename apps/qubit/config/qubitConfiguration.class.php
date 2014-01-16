@@ -27,7 +27,15 @@ class qubitConfiguration extends sfApplicationConfiguration
   {
     ProjectConfiguration::getActive()->loadHelpers('Javascript');
 
-    return str_ireplace('</head>', javascript_tag('jQuery.extend(Qubit, '.json_encode(array('relativeUrlRoot' => sfContext::getInstance()->request->getRelativeUrlRoot())).');').'</head>', $content);
+    $data = json_encode(array(
+      'relativeUrlRoot' => sfContext::getInstance()->request->getRelativeUrlRoot(),
+      'frontend' => sfContext::getInstance()->controller->genUrl('@homepage')
+    ));
+
+    return str_ireplace('</head>', javascript_tag(<<<EOF
+jQuery.extend(Qubit, $data);
+EOF
+    ), $content);
   }
 
   /**
