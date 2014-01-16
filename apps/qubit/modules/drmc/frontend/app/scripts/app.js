@@ -7,11 +7,14 @@
 angular.module('momaApp.services', []);
 angular.module('momaApp.directives', []);
 angular.module('momaApp', [
+
+  // Dependencies
   'momaApp.services',
   'momaApp.directives',
   'ngRoute',
   'ui.router',
   '$strap.directives'
+
 ])
 
 /*
@@ -37,6 +40,22 @@ angular.module('momaApp')
       relativeUrlRoot: Qubit.relativeUrlRoot,
       relativeUrlFrontend: Qubit.relativeUrlRoot + '/index.php'
     }
+  });
+
+/*
+ * Kickstart the application
+ *
+ * This is executed after all the services have been configured and the injector
+ * has been created.
+ */
+angular.module('momaApp')
+  .run(function($rootScope, $state, $stateParams) {
+
+    // Add references to $state and $stateParams to the $rootScope so we can
+    // access from them from our entire application
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+
   });
 
 /*
