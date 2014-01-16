@@ -229,7 +229,17 @@ class QubitInformationObject extends BaseInformationObject
   {
     if (!isset($this->slug))
     {
-      $this->slug = QubitSlug::slugify($this->__get('title', array('sourceCulture' => true)));
+      $textToSlugify = '';
+      $identifier = $this->__get('identifier');
+      $title = $this->__get('title', array('sourceCulture' => true));
+
+      if (!empty($identifier)) {
+        $textToSlugify = $identifier;
+      } elseif (!empty($title)) {
+        $textToSlugify = $title;
+      }
+
+      $this->slug = QubitSlug::slugify($textToSlugify);
     }
 
     return parent::insert($connection);
