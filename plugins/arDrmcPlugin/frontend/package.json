@@ -1,0 +1,17 @@
+{
+  "name": "DRMC-MA",
+  "version": "0.0.0",
+  "description": "AtoM DRMC-MA frontend built with AngularJS",
+  "main": "app/scripts/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Artefactual Systems Inc.",
+  "license": "Unknown",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}
