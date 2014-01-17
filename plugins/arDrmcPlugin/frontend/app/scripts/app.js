@@ -15,7 +15,7 @@ angular.module('momaApp', [
   'ui.router',
   '$strap.directives'
 
-])
+]);
 
 /*
  * Configuration provider (cfgProvider)
@@ -41,7 +41,7 @@ angular.module('momaApp')
     return {
       relativeUrlRoot: Qubit.relativeUrlRoot,
       relativeUrlFrontend: Qubit.relativeUrlRoot + '/index.php'
-    }
+    };
   });
 
 /*

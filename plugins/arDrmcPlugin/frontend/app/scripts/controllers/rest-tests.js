@@ -8,12 +8,12 @@ angular.module('momaApp')
     function restTest()
     {
       return $http({
-        method: method,
+        method: 'GET',
         url: atomGlobals.relativeUrlFrontend + '/api' + resource
       }).success(function(data, status, headers, config) {
-        console.log('SUCCESS', resource, status);
+
       }).error(function(data, status, headers, config) {
-        console.log('ERROR', resource, status);
+
       });
     }
 

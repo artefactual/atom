@@ -15,7 +15,7 @@ function mimeGraph(data){
     var w = 240,
     h = 240,
     //for radius positioning
-    r = (h*.5),
+    r = (h*0.5),
     colour = d3.scale.category20c(); //d3 has built-in range of colours
 
 

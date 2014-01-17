@@ -36,7 +36,12 @@ module.exports = function (grunt) {
         sub: true,
         boss: true,
         eqnull: true,
-        globals: {}
+        globals: {
+          'jQuery': true,
+          'Qubit': true,
+          'angular': true,
+          'window': true
+        }
       }
     }
   });
