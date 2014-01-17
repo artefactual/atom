@@ -45,6 +45,9 @@ class ProjectConfiguration extends sfProjectConfiguration
       'sfTranslatePlugin',
       'sfWebBrowserPlugin',
 
+      // DRMC
+      'arRestApiPlugin',
+
       // sfInstallPlugin and sfPluginAdminPlugin depend on sfPropelPlugin, so
       // must be enabled last
       'sfInstallPlugin',
