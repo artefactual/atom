@@ -26,10 +26,12 @@ angular.module('momaApp')
     this.basePath = Qubit.relativeUrlRoot;
     this.frontendPath = Qubit.frontend;
     this.DRMCPath = Qubit.frontend + 'drmc/';
+    this.viewsPath = Qubit.relativeUrlRoot + '/plugins/arDrmcPlugin/frontend/app/views';
     this.$get = function() {
       var basePath = this.basePath;
       var frontendPath = this.frontendPath;
       var DRMCPath = this.DRMCPath;
+      var viewsPath = this.viewsPath;
     };
   });
 
@@ -78,7 +80,7 @@ angular.module('momaApp')
       .state('dashboard', {
         url: cfgProvider.DRMCPath + 'dashboard',
         controller: 'DashboardCtrl',
-        templateUrl: cfgProvider.basePath + '/apps/qubit/modules/drmc/frontend/app/views/dashboard.html'
+        templateUrl: cfgProvider.viewsPath + '/dashboard.html'
       })
 
       // AIPs
@@ -90,34 +92,34 @@ angular.module('momaApp')
       .state('aips.browser', {
         url: '',
         controller: 'AIPsBrowserCtrl',
-        templateUrl: cfgProvider.basePath + '/apps/qubit/modules/drmc/frontend/app/views/aips.browser.html'
+        templateUrl: cfgProvider.viewsPath + '/aips.browser.html'
       })
       .state('aips.view', {
         url: '/{aipId}',
         controller: 'AIPsViewCtrl',
-        templateUrl: cfgProvider.basePath + '/apps/qubit/modules/drmc/frontend/app/views/aips.view.html'
+        templateUrl: cfgProvider.viewsPath + '/aips.view.html'
       })
 
       // Prototypes and tests
       .state('artwork-record', {
         url: cfgProvider.DRMCPath + 'artwork-record',
         controller: 'ArtworkRecordCtrl',
-        templateUrl: cfgProvider.basePath + '/apps/qubit/modules/drmc/frontend/app/views/artwork-record.html'
+        templateUrl: cfgProvider.viewsPath + '/artwork-record.html'
       })
       .state('artwork-record-2', {
         url: cfgProvider.DRMCPath + 'artwork-record-2',
         controller: 'ArtworkRecord2Ctrl',
-        templateUrl: cfgProvider.basePath + '/apps/qubit/modules/drmc/frontend/app/views/artwork-record-2.html'
+        templateUrl: cfgProvider.viewsPath + '/artwork-record-2.html'
       })
       .state('technology-record', {
         url: cfgProvider.DRMCPath + 'technology-record',
         controller: 'TechnologyRecordCtrl',
-        templateUrl: cfgProvider.basePath + '/apps/qubit/modules/drmc/frontend/app/views/technology-record.html'
+        templateUrl: cfgProvider.viewsPath + '/technology-record.html'
       })
       .state('rest-tests', {
         url: cfgProvider.DRMCPath + 'rest-tests',
         controller: 'RestTestsCtrl',
-        templateUrl: cfgProvider.basePath + '/apps/qubit/modules/drmc/frontend/app/views/rest-tests.html'
+        templateUrl: cfgProvider.viewsPath + '/rest-tests.html'
       });
 
   });
