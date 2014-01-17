@@ -17,8 +17,10 @@ angular.module('momaApp.controllers')
           { id: 39, title: '.mov Uncompressed 10bit PAL', level: 'digital-object' },
           { id: 40, title: '.mov H264', level: 'digital-object' },
           { id: 41, title: '.mov H264', level: 'digital-object' },
-          { id: 42, title: '.mov H264', level: 'digital-object' } ]},
-        { id: 11, title: 'Installation Documentation', level: 'description' }]}
+          { id: 42, title: '.mov H264', level: 'digital-object' }
+        ]},
+        { id: 11, title: 'Installation Documentation', level: 'description' }
+      ]}
     ];
 
     $scope.techRelationships = [
@@ -33,12 +35,12 @@ angular.module('momaApp.controllers')
     ];
 
     $scope.techRelation = '1';
-    $scope.pushSelect = function(){
+    $scope.pushSelect = function() {
       $scope.techRelationships.push({ id: '' + ($scope.techRelationships.length + 1), name: '' });
-      };
+    };
 
     // The video link seems untrusted by angular. This needs $sce in params too.
     var videoUrl = ATOM_CONFIG.assetsPath + '/play-dead-channel-1/play-dead-channel-1.mp4';
     $scope.videoUrl = $sce.trustAsResourceUrl(videoUrl);
 
-});
+  });

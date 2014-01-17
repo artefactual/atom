@@ -71,7 +71,7 @@ angular.module('momaApp')
   .config(function($locationProvider, $stateProvider, $urlRouterProvider, ATOM_CONFIG) {
 
     // Use HTML5 mode
-    $locationProvider.html5Mode(true)
+    $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix('!');
 
     // Default route

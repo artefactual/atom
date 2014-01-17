@@ -5,4 +5,4 @@ angular.module('momaApp.controllers')
 
     $scope.aipId = $stateParams.aipId;
 
-});
+  });

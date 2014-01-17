@@ -77,9 +77,9 @@ function Plumb(element, scope)
           return true;
         },
         dragOptions: {
-          tolerance: "touch",
-          hoverClass: "endpoint-associative-drop-hover",
-          activeClass: "endpoint-associative-drag-active-active"
+          tolerance: 'touch',
+          hoverClass: 'endpoint-associative-drop-hover',
+          activeClass: 'endpoint-associative-drag-active-active'
         }
       }
     }
@@ -180,11 +180,11 @@ function Plumb(element, scope)
     // Load relations
     if (this.scope.relations !== undefined)
     {
-      for (var i = 0; i < this.scope.relations.length; i++)
+      for (var j = 0; j < this.scope.relations.length; j++)
       {
         self.addEdgeIntoDigraph(
-          this.scope.relations[i].source,
-          this.scope.relations[i].target,
+          this.scope.relations[j].source,
+          this.scope.relations[j].target,
           'associative');
       }
     }
@@ -200,13 +200,14 @@ function Plumb(element, scope)
 
     this.element.css({
       'width': width,
-      'height': self.layout.graph().height + 60 });
+      'height': self.layout.graph().height + 60
+    });
   };
 
   this.computeLayout = function()
   {
     // Use dagre to build the layout by passing the digraph
-    self.layout = dagre.layout().nodeSep(self.nodeSep).rankSep(self.rankSep).rankDir("LR").run(this.digraph);
+    self.layout = dagre.layout().nodeSep(self.nodeSep).rankSep(self.rankSep).rankDir('LR').run(this.digraph);
 
     self.updateWidgetSize();
   };
@@ -239,12 +240,12 @@ function Plumb(element, scope)
   this.renderNode = function(id, value)
   {
     var node = this.digraph.node(id);
-
     var isRendered = node.el !== undefined;
+    var el;
 
     if (!isRendered)
     {
-      var el = document.createElement('div');
+      el = document.createElement('div');
       el.className = 'node node-level-' + node.level;
       el.id = 'node-' + id;
       el.setAttribute('data-id', id);
@@ -269,7 +270,7 @@ function Plumb(element, scope)
     }
     else
     {
-      var el = node.el;
+      el = node.el;
     }
 
     el.style.left = value.x + 'px';
@@ -549,11 +550,11 @@ function Plumb(element, scope)
     var el = document.documentElement;
     var rfs = el.requestFullScreen || el.webkitRequestFullScreen || el.mozRequestFullScreen;
 
-    if (undefined === this.fullscreen | !this.fullscreen)
+    if (undefined === this.fullscreen || !this.fullscreen)
     {
       rfs.call(el);
 
-      var cb = this.element
+      this.element
         .closest('.context-browser')
         .addClass('context-browser-fullscreen');
 

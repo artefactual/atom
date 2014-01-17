@@ -31,12 +31,12 @@ angular.module('momaApp.controllers')
     ];
 
     $scope.techRelation = '1';
-    $scope.pushSelect = function(){
-    $scope.techRelationships.push({ id: '' + ($scope.techRelationships.length + 1), name: '' });
-      };
+    $scope.pushSelect = function() {
+      $scope.techRelationships.push({ id: '' + ($scope.techRelationships.length + 1), name: '' });
+    };
 
     //the video link seems untrusted by angular. This needs $sce in params too.
     var videoUrl = ATOM_CONFIG.assetsPath + '/play-dead-channel-1/play-dead-channel-1.mp4';
     $scope.videoUrl = $sce.trustAsResourceUrl(videoUrl);
 
-});
+  });
