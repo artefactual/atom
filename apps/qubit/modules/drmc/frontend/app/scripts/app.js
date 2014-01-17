@@ -75,7 +75,6 @@ angular.module('momaApp')
     $stateProvider
 
       // Dashboard
-
       .state('dashboard', {
         url: cfgProvider.DRMCPath + 'dashboard',
         controller: 'DashboardCtrl',
@@ -83,19 +82,16 @@ angular.module('momaApp')
       })
 
       // AIPs
-
       .state('aips', {
         abstract: true,
         url: cfgProvider.DRMCPath + 'aips',
         template: '<ui-view/>'
       })
-
       .state('aips.browser', {
         url: '',
         controller: 'AIPsBrowserCtrl',
         templateUrl: cfgProvider.basePath + '/apps/qubit/modules/drmc/frontend/app/views/aips.browser.html'
       })
-
       .state('aips.view', {
         url: '/{aipId}',
         controller: 'AIPsViewCtrl',
@@ -103,25 +99,21 @@ angular.module('momaApp')
       })
 
       // Prototypes and tests
-
       .state('artwork-record', {
         url: cfgProvider.DRMCPath + 'artwork-record',
         controller: 'ArtworkRecordCtrl',
         templateUrl: cfgProvider.basePath + '/apps/qubit/modules/drmc/frontend/app/views/artwork-record.html'
       })
-
       .state('artwork-record-2', {
         url: cfgProvider.DRMCPath + 'artwork-record-2',
         controller: 'ArtworkRecord2Ctrl',
         templateUrl: cfgProvider.basePath + '/apps/qubit/modules/drmc/frontend/app/views/artwork-record-2.html'
       })
-
       .state('technology-record', {
         url: cfgProvider.DRMCPath + 'technology-record',
         controller: 'TechnologyRecordCtrl',
         templateUrl: cfgProvider.basePath + '/apps/qubit/modules/drmc/frontend/app/views/technology-record.html'
       })
-
       .state('rest-tests', {
         url: cfgProvider.DRMCPath + 'rest-tests',
         controller: 'RestTestsCtrl',
