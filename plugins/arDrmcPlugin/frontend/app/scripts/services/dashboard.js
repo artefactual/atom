@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('momaApp.services')
-  .factory('dashboardService', function ($http, atomGlobals) {
+  .factory('dashboardService', function ($http) {
 
     var runUserRequest = function() {
       return 'foobar';

@@ -6,11 +6,13 @@
 
 angular.module('momaApp.services', []);
 angular.module('momaApp.directives', []);
+angular.module('momaApp.controllers', []);
 angular.module('momaApp', [
 
   // Dependencies
   'momaApp.services',
   'momaApp.directives',
+  'momaApp.controllers',
   'ngRoute',
   'ui.router',
   '$strap.directives'
@@ -18,31 +20,27 @@ angular.module('momaApp', [
 ]);
 
 /*
- * Configuration provider (cfgProvider)
+ * Configuration constants
  */
 
 angular.module('momaApp')
-  .provider('cfg', function() {
-    this.basePath = Qubit.relativeUrlRoot;
-    this.frontendPath = Qubit.frontend;
-    this.DRMCPath = Qubit.frontend + 'drmc/';
-    this.viewsPath = Qubit.relativeUrlRoot + '/plugins/arDrmcPlugin/frontend/app/views';
-    this.$get = function() {
-      var basePath = this.basePath;
-      var frontendPath = this.frontendPath;
-      var DRMCPath = this.DRMCPath;
-      var viewsPath = this.viewsPath;
-    };
+  .constant('ATOM_CONFIG', {
+
+    // Base path, e.g. "/~user/atom"
+    basePath: Qubit.relativeUrlRoot,
+
+    // Frontend path, e.g. "/~user/atom/index.php"
+    frontendPath: Qubit.frontend,
+
+    // DRMC path, e.g. "/~user/atom/index.php/drmc"
+    DRMCPath: Qubit.frontend + 'drmc/',
+
+    // Views, assets, etc...
+    viewsPath: Qubit.relativeUrlRoot + '/plugins/arDrmcPlugin/frontend/app/views',
+    assetsPath: Qubit.relativeUrlRoot + '/Plugins/arDrmcPlugin/frontend/assets'
+
   });
 
-// This should be removed in favor of cfgProvider
-angular.module('momaApp')
-  .factory("atomGlobals", function() {
-    return {
-      relativeUrlRoot: Qubit.relativeUrlRoot,
-      relativeUrlFrontend: Qubit.relativeUrlRoot + '/index.php'
-    };
-  });
 
 /*
  * Kickstart the application
@@ -51,12 +49,15 @@ angular.module('momaApp')
  * has been created.
  */
 angular.module('momaApp')
-  .run(function($rootScope, $state, $stateParams) {
+  .run(function($rootScope, $state, $stateParams, ATOM_CONFIG) {
 
     // Add references to $state and $stateParams to the $rootScope so we can
     // access from them from our entire application
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
+
+    // Same with our assets path
+    $rootScope.assetsPath = ATOM_CONFIG.assetsPath;
 
   });
 
@@ -65,61 +66,56 @@ angular.module('momaApp')
  */
 
 angular.module('momaApp')
-  .config(function($locationProvider, $stateProvider, $urlRouterProvider, cfgProvider) {
+  .config(function($locationProvider, $stateProvider, $urlRouterProvider, ATOM_CONFIG) {
 
     // Use HTML5 mode
     $locationProvider.html5Mode(true).hashPrefix('');
 
     // Default route
-    $urlRouterProvider.otherwise(cfgProvider.DRMCPath + 'dashboard');
+    $urlRouterProvider.otherwise(ATOM_CONFIG.DRMCPath + 'aips');
 
     // Define ui-router states
     $stateProvider
 
       // Dashboard
       .state('dashboard', {
-        url: cfgProvider.DRMCPath + 'dashboard',
+        url: ATOM_CONFIG.DRMCPath + 'dashboard',
         controller: 'DashboardCtrl',
-        templateUrl: cfgProvider.viewsPath + '/dashboard.html'
+        templateUrl: ATOM_CONFIG.viewsPath + '/dashboard.html'
       })
 
       // AIPs
       .state('aips', {
         abstract: true,
-        url: cfgProvider.DRMCPath + 'aips',
+        url: ATOM_CONFIG.DRMCPath + 'aips',
         template: '<ui-view/>'
       })
       .state('aips.browser', {
         url: '',
         controller: 'AIPsBrowserCtrl',
-        templateUrl: cfgProvider.viewsPath + '/aips.browser.html'
+        templateUrl: ATOM_CONFIG.viewsPath + '/aips.browser.html'
       })
       .state('aips.view', {
         url: '/{aipId}',
         controller: 'AIPsViewCtrl',
-        templateUrl: cfgProvider.viewsPath + '/aips.view.html'
+        templateUrl: ATOM_CONFIG.viewsPath + '/aips.view.html'
       })
 
       // Prototypes and tests
       .state('artwork-record', {
-        url: cfgProvider.DRMCPath + 'artwork-record',
+        url: ATOM_CONFIG.DRMCPath + 'artwork-record',
         controller: 'ArtworkRecordCtrl',
-        templateUrl: cfgProvider.viewsPath + '/artwork-record.html'
+        templateUrl: ATOM_CONFIG.viewsPath + '/artwork-record.html'
       })
       .state('artwork-record-2', {
-        url: cfgProvider.DRMCPath + 'artwork-record-2',
+        url: ATOM_CONFIG.DRMCPath + 'artwork-record-2',
         controller: 'ArtworkRecord2Ctrl',
-        templateUrl: cfgProvider.viewsPath + '/artwork-record-2.html'
+        templateUrl: ATOM_CONFIG.viewsPath + '/artwork-record-2.html'
       })
       .state('technology-record', {
-        url: cfgProvider.DRMCPath + 'technology-record',
+        url: ATOM_CONFIG.DRMCPath + 'technology-record',
         controller: 'TechnologyRecordCtrl',
-        templateUrl: cfgProvider.viewsPath + '/technology-record.html'
-      })
-      .state('rest-tests', {
-        url: cfgProvider.DRMCPath + 'rest-tests',
-        controller: 'RestTestsCtrl',
-        templateUrl: cfgProvider.viewsPath + '/rest-tests.html'
+        templateUrl: ATOM_CONFIG.viewsPath + '/technology-record.html'
       });
 
   });

@@ -1,9 +1,7 @@
 'use strict';
 
-angular.module('momaApp')
-  .controller('DashboardCtrl', function ($scope, $http, atomGlobals, AIPService) {
-
-    $scope.atomGlobals = atomGlobals;
+angular.module('momaApp.controllers')
+  .controller('DashboardCtrl', function ($scope, $http, AIPService) {
 
     AIPService.getOverview()
       .then(function(data) {
@@ -41,7 +39,7 @@ angular.module('momaApp')
 
     // D3 Graph 'AIP Objects by MIME Type'
     // Eventually separate out data set from js file
-    mimeGraph(data);
+    // mimeGraph(data);
 
 });
 

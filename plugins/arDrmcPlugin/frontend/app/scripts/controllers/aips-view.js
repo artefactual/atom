@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('momaApp')
+angular.module('momaApp.controllers')
   .controller('AIPsViewCtrl', function ($scope, $stateParams) {
 
     $scope.aipId = $stateParams.aipId;

@@ -1,10 +1,7 @@
 'use strict';
 
-angular.module('momaApp')
-  .controller('ArtworkRecord2Ctrl', function ($scope, $modal, atomGlobals, $sce) {
-
-    $scope.atomGlobals = atomGlobals;
-
+angular.module('momaApp.controllers')
+  .controller('ArtworkRecord2Ctrl', function ($scope, $modal, $sce, ATOM_CONFIG) {
 
     $scope.collection = [
       { id: 0, title: 'Play Dead; Real Time', level: 'work', children: [
@@ -40,8 +37,8 @@ angular.module('momaApp')
       $scope.techRelationships.push({ id: '' + ($scope.techRelationships.length + 1), name: '' });
       };
 
-    //the video link seems untrusted by angular. This needs $sce in params too.
-    var videoUrl = $scope.atomGlobals.relativeUrlRoot + "/apps/qubit/modules/drmc/frontend/assets/play-dead-channel-1/play-dead-channel-1.mp4";
+    // The video link seems untrusted by angular. This needs $sce in params too.
+    var videoUrl = ATOM_CONFIG.assetsPath + '/play-dead-channel-1/play-dead-channel-1.mp4';
     $scope.videoUrl = $sce.trustAsResourceUrl(videoUrl);
 
 });

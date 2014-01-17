@@ -1,9 +1,7 @@
 'use strict';
 
-angular.module('momaApp')
-  .controller('TechnologyRecordCtrl', function ($scope, $http, atomGlobals) {
-
-    $scope.atomGlobals = atomGlobals;
+angular.module('momaApp.controllers')
+  .controller('TechnologyRecordCtrl', function ($scope) {
 
     $scope.collection = [
       { id: 0, title: 'Codecs', level: 'Work', children: [

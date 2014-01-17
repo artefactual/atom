@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('momaApp.services')
-  .service('AIPService', function ($http, atomGlobals) {
+  .service('AIPService', function ($http, ATOM_CONFIG) {
 
     this.getOverview = function() {
       return $http({
         method: 'GET',
-        url: atomGlobals.relativeUrlFrontend + '/api/aips'
+        url: ATOM_CONFIG.frontendPath + '/api/aips'
       });
     };
 

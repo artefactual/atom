@@ -1,9 +1,7 @@
 'use strict';
 
-angular.module('momaApp')
-  .controller('ArtworkRecordCtrl', function ($scope, $modal, atomGlobals, $sce) {
-
-    $scope.atomGlobals = atomGlobals;
+angular.module('momaApp.controllers')
+  .controller('ArtworkRecordCtrl', function ($scope, $modal, $sce, ATOM_CONFIG) {
 
     $scope.collection = [
       { id: 0, title: 'Play Dead; Real Time', level: 'work', children: [
@@ -38,8 +36,7 @@ angular.module('momaApp')
       };
 
     //the video link seems untrusted by angular. This needs $sce in params too.
-    var videoUrl = $scope.atomGlobals.relativeUrlRoot + "/apps/qubit/modules/drmc/frontend/assets/play-dead-channel-1/play-dead-channel-1.mp4";
+    var videoUrl = ATOM_CONFIG.assetsPath + '/play-dead-channel-1/play-dead-channel-1.mp4';
     $scope.videoUrl = $sce.trustAsResourceUrl(videoUrl);
-
 
 });
