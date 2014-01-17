@@ -72,7 +72,7 @@ angular.module('momaApp')
     $locationProvider.html5Mode(true).hashPrefix('');
 
     // Default route
-    $urlRouterProvider.otherwise(ATOM_CONFIG.DRMCPath + 'aips');
+    $urlRouterProvider.otherwise(ATOM_CONFIG.DRMCPath + 'dashboard');
 
     // Define ui-router states
     $stateProvider
