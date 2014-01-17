@@ -1,11 +1,16 @@
+'use strict';
+
 module.exports = function (grunt) {
 
   // Load tasks
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   // Default task
-  // grunt.registerTask('default', ['jshint']);
+  grunt.registerTask('default', ['jshint', 'build']);
+  grunt.registerTask('build', ['clean', 'concat', 'recess:build', 'copy:assets']);
 
   // Print a timestamp (useful for when watching)
   grunt.registerTask('timestamp', function() {
@@ -16,7 +21,13 @@ module.exports = function (grunt) {
     distdir: 'dist',
     pkg: grunt.file.readJSON('package.json'),
     src: {
-      js: ['app/scripts/app.js', 'app/scripts/services/*.js', 'app/scripts/lib/*.js', 'app/scripts/controllers/*.js', 'app/scripts/directives/*.js']
+      js: [
+        'app/scripts/app.js',
+        'app/scripts/services/*.js',
+        'app/scripts/lib/*.js',
+        'app/scripts/controllers/*.js',
+        'app/scripts/directives/*.js'
+      ]
     },
     watch: {
       scripts: {
@@ -25,25 +36,23 @@ module.exports = function (grunt) {
       }
     },
     jshint: {
-      files: ['Gruntfile.js', '<%= src.js %>'],
       options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        boss: true,
-        eqnull: true,
-        globals: {
-          'jQuery': true,
-          'Qubit': true,
-          'angular': true,
-          'window': true
-        }
+        jshintrc: '.jshintrc',
+        reporter: require('jshint-stylish')
+      },
+      all: [
+        'Gruntfile.js',
+        '<%= src.js %>'
+      ]
+    },
+    clean: ['<%= distdir %>/*'],
+    copy: {
+      assets: {
+        files: [
+          { dest: '<%= distdir %>', src: '**', expand: true, cwd: 'src/assets/' }
+        ]
       }
-    }
+    },
   });
 
 };
