@@ -22,7 +22,6 @@
         <li><a ui-sref="artwork-record">Artwork record (1)</a></li>
         <li><a ui-sref="artwork-record-2">Artwork record (2)</a></li>
         <li><a ui-sref="technology-record">Technology record</a></li>
-        <li><a ui-sref="rest-tests">REST tests</a></li>
       </ul>
     </li>
 

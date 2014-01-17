@@ -13,11 +13,11 @@ angular.module('momaApp', [
   'momaApp.services',
   'momaApp.directives',
   'momaApp.controllers',
-  'ngRoute',
   'ui.router',
   '$strap.directives'
 
 ]);
+
 
 /*
  * Configuration constants
@@ -37,7 +37,7 @@ angular.module('momaApp')
 
     // Views, assets, etc...
     viewsPath: Qubit.relativeUrlRoot + '/plugins/arDrmcPlugin/frontend/app/views',
-    assetsPath: Qubit.relativeUrlRoot + '/Plugins/arDrmcPlugin/frontend/assets'
+    assetsPath: Qubit.relativeUrlRoot + '/plugins/arDrmcPlugin/frontend/assets'
 
   });
 
@@ -56,10 +56,12 @@ angular.module('momaApp')
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 
-    // Same with our assets path
+    // Same here
+    $rootScope.viewsPath = ATOM_CONFIG.viewsPath;
     $rootScope.assetsPath = ATOM_CONFIG.assetsPath;
 
   });
+
 
 /*
  * Routing
@@ -69,7 +71,8 @@ angular.module('momaApp')
   .config(function($locationProvider, $stateProvider, $urlRouterProvider, ATOM_CONFIG) {
 
     // Use HTML5 mode
-    $locationProvider.html5Mode(true).hashPrefix('');
+    $locationProvider.html5Mode(true)
+    $locationProvider.hashPrefix('!');
 
     // Default route
     $urlRouterProvider.otherwise(ATOM_CONFIG.DRMCPath + 'dashboard');
