@@ -32,8 +32,8 @@ class qubitConfiguration extends sfApplicationConfiguration
       'frontend' => sfContext::getInstance()->controller->genUrl('@homepage')
     ));
 
-    return str_ireplace('</head>', javascript_tag(<<<EOF
-jQuery.extend(Qubit, $data);
+    return str_ireplace('<head>', '<head>'.javascript_tag(<<<EOF
+var Qubit = $data;
 EOF
     ), $content);
   }
