@@ -279,7 +279,7 @@ function Plumb(element, scope)
     if (!isRendered)
     {
       // Add the associative endpoint
-      node.associativeEndpoint = self.plumb.addEndpoint(el, { anchor: 'RightMiddle' }, self.jsPlumbConfiguration.endpoints['associative']);
+      node.associativeEndpoint = self.plumb.addEndpoint(el, { anchor: 'RightMiddle' }, self.jsPlumbConfiguration.endpoints.associative);
     }
   };
 
@@ -303,7 +303,7 @@ function Plumb(element, scope)
   {
     if (nodeEl.jquery === undefined)
     {
-      var nodeEl = jQuery(nodeEl);
+      nodeEl = jQuery(nodeEl);
     }
 
     // Make sure that we are not doing it twice
@@ -366,7 +366,7 @@ function Plumb(element, scope)
     var id = node.data('id');
     var aside = jQuery('#aside-id-' + id);
 
-    if ($(node).hasClass('node-level-physical-component'))
+    if (jQuery(node).hasClass('node-level-physical-component'))
     {
       return false;
     }
@@ -443,7 +443,7 @@ function Plumb(element, scope)
 
   this.deleteNode = function(id, nested)
   {
-    var nested = nested === undefined || nested === true;
+    nested = nested === undefined || nested === true;
 
     if (nested)
     {
@@ -498,7 +498,7 @@ function Plumb(element, scope)
     }
 
     this.deleteNode(activeNodeData.id);
-  }
+  };
 
   this.clickAddChildNode = function(event)
   {
@@ -507,8 +507,8 @@ function Plumb(element, scope)
     // Temporary solution to get a random ID for a node
     var makeId = function makeId(length)
     {
-      var text = "";
-      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      var text = '';
+      var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
       for (var i = 0; i < length; i++)
       {
@@ -524,7 +524,7 @@ function Plumb(element, scope)
       return false;
     }
 
-    var n = prompt("Insert name");
+    var n = prompt('Insert name');
 
     // Add node and edge to digraph
     var newId = makeId(8);
@@ -570,4 +570,4 @@ function Plumb(element, scope)
       this.draw();
     }
   };
-};
+}

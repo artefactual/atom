@@ -8,7 +8,7 @@ angular.module('momaApp.directives')
         collection: '=',
         relations: '='
       },
-      link: function(scope, element, attrs) {
+      link: function(scope, element) {
         scope.plumb = new Plumb(element, scope);
         scope.plumb.initialize();
       }
