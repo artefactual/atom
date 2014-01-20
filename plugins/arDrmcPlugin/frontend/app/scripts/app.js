@@ -99,7 +99,7 @@ angular.module('momaApp')
         templateUrl: ATOM_CONFIG.viewsPath + '/aips.browser.html'
       })
       .state('aips.view', {
-        url: '/{aipId}',
+        url: '/{aipId:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}}',
         controller: 'AIPsViewCtrl',
         templateUrl: ATOM_CONFIG.viewsPath + '/aips.view.html'
       })
