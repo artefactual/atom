@@ -45,6 +45,8 @@ class DRMCIndexAction extends sfAction
     $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/controllers/dashboard.js', 'last');
     $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/controllers/aips-browser.js', 'last');
     $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/controllers/aips-view.js', 'last');
+    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/controllers/works-browser.js', 'last');
+    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/controllers/works-view.js', 'last');
     $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/controllers/artwork-record.js', 'last');
     $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/controllers/artwork-record-2.js', 'last');
     $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/controllers/technology-record.js', 'last');

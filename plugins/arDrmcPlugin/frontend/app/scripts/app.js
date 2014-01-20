@@ -99,9 +99,26 @@ angular.module('momaApp')
         templateUrl: ATOM_CONFIG.viewsPath + '/aips.browser.html'
       })
       .state('aips.view', {
-        url: '/{aipId:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}}',
+        url: '/{id:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}}',
         controller: 'AIPsViewCtrl',
         templateUrl: ATOM_CONFIG.viewsPath + '/aips.view.html'
+      })
+
+      // Works
+      .state('works', {
+        abstract: true,
+        url: ATOM_CONFIG.DRMCPath + 'works',
+        template: '<ui-view/>'
+      })
+      .state('works.browser', {
+        url: '',
+        controller: 'WorksBrowserCtrl',
+        templateUrl: ATOM_CONFIG.viewsPath + '/works.browser.html'
+      })
+      .state('works.view', {
+        url: '/{id}',
+        controller: 'WorksViewCtrl',
+        templateUrl: ATOM_CONFIG.viewsPath + '/works.view.html'
       })
 
       // Prototypes and tests

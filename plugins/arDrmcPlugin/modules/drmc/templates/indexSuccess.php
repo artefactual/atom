@@ -13,6 +13,9 @@
         <li ng-class="{ active: $state.includes('aips.browser') }">
           <a ui-sref="aips.browser">AIPs</a>
         </li>
+        <li ng-class="{ active: $state.includes('works.browser') }">
+          <a ui-sref="works.browser">Works</a>
+        </li>
       </ul>
     </li>
 
