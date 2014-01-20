@@ -23,6 +23,9 @@
     "Qubit": false,
     "jQuery": false,
     "d3": false,
-    "dagre": false
+    "dagre": false,
+    "Plumb": false,
+    "jsPlumb": false,
+    "prompt": false
   }
 }
