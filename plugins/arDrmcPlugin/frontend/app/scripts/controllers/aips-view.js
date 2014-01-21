@@ -1,19 +1,8 @@
 'use strict';
 
 angular.module('momaApp.controllers')
-  .controller('AIPsViewCtrl', function ($scope, $stateParams, AIPService) {
+  .controller('AIPsViewCtrl', function ($scope, $stateParams) {
 
     $scope.id = $stateParams.id;
-
-    AIPService.getAIPs()
-      .success(function (data, status) {
-        $scope.data = data;
-      });
-
-    // Support overview toggling
-    $scope.showOverview = true;
-    $scope.toggleOverview = function() {
-      $scope.showOverview = !$scope.showOverview;
-    };
 
   });

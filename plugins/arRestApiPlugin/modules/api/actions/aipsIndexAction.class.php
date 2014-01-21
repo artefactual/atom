@@ -50,6 +50,7 @@ class APIAIPSIndexAction extends QubitAPIAction
         'results' => array(
           array(
             'name' => 'SymCity_Box_scan_1-1-F9506513-0A19-41B4-B44B-D1A9F86ABEEA',
+            'uuid' => 'f9506513-0a19-41b4-b44b-d1a9f86abeea',
             'size' => 15762529976,
             'created_at' => '2013-08-21 11:45:06 EST',
             'class' => 'Unclassified',
@@ -61,6 +62,7 @@ class APIAIPSIndexAction extends QubitAPIAction
               'title' => 'SimCity 2000')),
           array(
             'name' => 'SymCity_Box_scan_1-1-F9506513-0A19-41B4-B44B-D1A9F86ABEEA',
+            'uuid' => 'f9506513-0a19-41b4-b44b-d1a9f86abeea',
             'size' => 15762529976,
             'created_at' => '2013-08-21 11:45:06 EST',
             'class' => 'Unclassified',
@@ -72,6 +74,7 @@ class APIAIPSIndexAction extends QubitAPIAction
               'title' => 'SimCity 2000')),
           array(
             'name' => 'SymCity_Box_scan_1-1-F9506513-0A19-41B4-B44B-D1A9F86ABEEA',
+            'uuid' => 'f9506513-0a19-41b4-b44b-d1a9f86abeea',
             'size' => 15762529976,
             'created_at' => '2013-08-21 11:45:06 EST',
             'class' => 'Unclassified',

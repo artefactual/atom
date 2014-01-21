@@ -1,16 +1,13 @@
 'use strict';
 
 angular.module('momaApp.services')
-  .factory('dashboardService', function ($http, ATOM_CONFIG) {
+  .service('dashboardService', function ($http, ATOM_CONFIG) {
 
-    var runUserRequest = function() {
-      return 'foobar';
-    };
-
-    return {
-      getOverview: function() {
-        return runUserRequest();
-      }
+    this.getOverview = function() {
+      return $http({
+        method: 'GET',
+        url: ATOM_CONFIG.frontendPath + '/api/dashboard'
+      });
     };
 
   });
