@@ -47,39 +47,41 @@ class APIAIPSIndexAction extends QubitAPIAction
        * AIPs
        */
       'aips' => array(
-        array(
-          'name' => 'SymCity_Box_scan_1-1-F9506513-0A19-41B4-B44B-D1A9F86ABEEA',
-          'size' => 15762529976,
-          'created_at' => '2013-08-21 11:45:06 EST',
-          'class' => 'Unclassified',
-          'parent' => array(
-            'id' => 1,
-            'title' => 'SimCity 2000'),
-          'part_of' => array(
-            'id' => 1,
-            'title' => 'SimCity 2000')),
-        array(
-          'name' => 'SymCity_Box_scan_1-1-F9506513-0A19-41B4-B44B-D1A9F86ABEEA',
-          'size' => 15762529976,
-          'created_at' => '2013-08-21 11:45:06 EST',
-          'class' => 'Unclassified',
-          'parent' => array(
-            'id' => 1,
-            'title' => 'SimCity 2000'),
-          'part_of' => array(
-            'id' => 1,
-            'title' => 'SimCity 2000')),
-        array(
-          'name' => 'SymCity_Box_scan_1-1-F9506513-0A19-41B4-B44B-D1A9F86ABEEA',
-          'size' => 15762529976,
-          'created_at' => '2013-08-21 11:45:06 EST',
-          'class' => 'Unclassified',
-          'parent' => array(
-            'id' => 1,
-            'title' => 'SimCity 2000'),
-          'part_of' => array(
-            'id' => 1,
-            'title' => 'SimCity 2000')),
+        'results' => array(
+          array(
+            'name' => 'SymCity_Box_scan_1-1-F9506513-0A19-41B4-B44B-D1A9F86ABEEA',
+            'size' => 15762529976,
+            'created_at' => '2013-08-21 11:45:06 EST',
+            'class' => 'Unclassified',
+            'parent' => array(
+              'id' => 1,
+              'title' => 'SimCity 2000'),
+            'part_of' => array(
+              'id' => 1,
+              'title' => 'SimCity 2000')),
+          array(
+            'name' => 'SymCity_Box_scan_1-1-F9506513-0A19-41B4-B44B-D1A9F86ABEEA',
+            'size' => 15762529976,
+            'created_at' => '2013-08-21 11:45:06 EST',
+            'class' => 'Unclassified',
+            'parent' => array(
+              'id' => 1,
+              'title' => 'SimCity 2000'),
+            'part_of' => array(
+              'id' => 1,
+              'title' => 'SimCity 2000')),
+          array(
+            'name' => 'SymCity_Box_scan_1-1-F9506513-0A19-41B4-B44B-D1A9F86ABEEA',
+            'size' => 15762529976,
+            'created_at' => '2013-08-21 11:45:06 EST',
+            'class' => 'Unclassified',
+            'parent' => array(
+              'id' => 1,
+              'title' => 'SimCity 2000'),
+            'part_of' => array(
+              'id' => 1,
+              'title' => 'SimCity 2000')),
+        ),
 
       /*
        * Facets

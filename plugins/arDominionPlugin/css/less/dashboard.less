@@ -60,7 +60,7 @@ body {
       padding: 2px inherit;
     }
     .btn {
-      .MomaBtnBlue(1em, 2px);
+      .moma-btn(@momaBlueLight);
        width: 22%;
        padding: 2px 4px;
        margin-top: 6px;
@@ -174,64 +174,16 @@ li#fc-sum div {
   }
 }
 
-//Second section ------------
-
-
-section#new-AIP div.well {
-    margin: 0px 1em;
-    min-height: 4em;
-
-  .header-options {
-    margin-top: 20px;
-      input {
-          border-radius: 4px;
-        }
-    }
-
-  ul.new-AIP-views {
-    text-align: center;
-    margin-top: -20px;
-  span.help-block {
-    color: @orange;
-    }
-    button {
-      height: 40px;
-      background: none;
-      border-radius: 6px;
-      color: @grayLight;
-      border: none;
-      padding: 0px 5px 0px 5px;
-      font-size: 2em;
-      width: 2em;
-    }
-  }
-  li {
-    border-left: 1px solid @grayLighter;
-  }
-  button#AIP-type-search:after {
-    content: "\f0da";
-    font-family: FontAwesome;
-    font-style: normal;
-    font-size: 1rem;
-  }
-}
-
-
-
-
 
 //Third section ------------
 section#AIP-ov {
   h2 {
     border-bottom: none;
   }
-  li.view-AIP-reports {
+  li.section-menu {
     padding: .8em .8em 0 0;
     color: @grayLight;
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
+    .moma-icon();
     &:before {
       content: "\f022";
     }

@@ -1,6 +1,130 @@
 AIPs browser
 
 <ul>
-  <li><a ui-sref="aips.view({ id: '7e08a799-1bb8-47ef-915b-8159d11e8e5d' })">AIP 1</a></li>
-  <li><a ui-sref="aips.view({ id: '608a3969-90c5-4cc6-8925-34ba59dc3697' })">AIP 2</a></li>
+  <li><a ui-sref="aips.view({ aipId: '7e08a799-1bb8-47ef-915b-8159d11e8e5d' })">AIP 1</a></li>
+  <li><a ui-sref="aips.view({ aipId: '608a3969-90c5-4cc6-8925-34ba59dc3697' })">AIP 2</a></li>
 </ul>
+
+<div id="" class="row-fluid">
+
+  <div class="span3">
+
+      <section class="list-menu dash-col-stats">
+        <h4>Collection Stats</h4>
+      </section>
+
+      <section class="list-menu">
+        <h4>Recent Updates</h4>
+        <ul>
+          <li>
+            <a href="#" class="dash-update" onclick="return false;">Tetris - 1988 NES Release - 24x723rbwsdd7</a>
+          </li>
+          <li>
+            <a href="#" class="dash-update" onclick="return false;">Tetris - 1984 IBM Edition - Compiled source code</a>
+          </li>
+          <li>
+            <a href="#" class="dash-update" onclick="return false;">Adventure! - 1990 (video game)</a>
+          </li>
+          <li>
+            <a href="#" class="dash-update" onclick="return false;">Ms. Pac Man - 1982 Midway Arcade</a>
+          </li>
+        </ul>
+        <div class="btn btn-mini">
+          View All
+        </div>
+      </section>
+
+  </div><!-- /span3 -->
+
+  <div class="span9" ng-model="data">
+
+    <div id="main-column" class="row-fluid">
+
+      <div id="content">
+
+        <section>
+
+          <!-- title -->
+          <div class="menu-list row-fluid" >
+            <ul class="menu-list-left inline">
+              <li><h2>Overview</h2></li>
+            </ul>
+            <ul class="menu-list-right nav nav-pills">
+              <li>
+                <a ng-click="toggleOverview()" ng-show="showOverview">Hide</a>
+                <a ng-click="toggleOverview()" ng-hide="showOverview">Show</a>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- content -->
+          <section class="row-fluid" ng-show="showOverview">
+            <div class="field">
+              <h3>Total AIP Storage Size</h3>
+              <div>{{ data.overview.total.size }}</div>
+            </div>
+            <div class="field">
+              <h3>Total AIPs</h3>
+              <div>{{ data.overview.total.count }}</div>
+            </div>
+            <div class="field">
+              <h3>Artwork AIP Count</h3>
+              <div>{{ data.overview.artwork.count }}</div>
+            </div>
+             <div class="field">
+              <h3>Software AIP Count</h3>
+              <div>{{ data.overview.software.count }}</div>
+            </div>
+            <div class="field">
+              <h3>Documentation AIP Count</h3>
+              <div>{{ data.overview.documentation.count}}</div>
+            </div>
+            <div class="field">
+              <h3>Unclassified AIP Count</h3>
+              <div>{{ data.overview.unclassified.count }}</div>
+            </div>
+          </section>
+
+        </section>
+
+        <section>
+
+        <h2>AIPs</h2>
+
+          <div class="table">
+            <table dir="ltr" class="table table-bordered">
+              <thead>
+                <tr><!-- table row -->
+                  <th>Name</th><!-- table head -->
+                  <th>Size</th>
+                  <th>Added</th>
+                  <th>Class</th>
+                  <th>Parent</th>
+                  <th>Part Of</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr ng-repeat="(key, aip) in data.aips.results"><!-- table row -->
+                  <td>{{ aip.name }}</td><!-- table data -->
+                  <td>{{ aip.size }}</td>
+                  <td>{{ aip.created_at }}</td>
+                  <td><a role="button" bs-modal="'{{ ATOM_CONFIG.relativeUrlRoot }}/apps/qubit/modules/drmc/frontend/app/views/partials/reclassify-aips.html'">
+                    {{ aip.class }}</a></td>
+                  <td>{{ aip.parent.title }}</td>
+                  <td>{{ aip.part_of.title }}</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </div><!-- /#content -->
+
+    </div><!-- /.span9 -->
+
+  </div><!-- /#main-column -->
+
+</div>

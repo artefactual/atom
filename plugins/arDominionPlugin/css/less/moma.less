@@ -228,40 +228,41 @@ div.table {
   padding: 0 6px;
   width: 98%;
   margin: 15px auto;
+
   table {
+
+    a {
+      cursor: pointer;
+    }
+
     thead {
       color: @grayDark;
+      white-space: nowrap;
+
       th {
         background: @grayLighter;
-        th:after {
-          content: "\f0dd";
-          font-family: FontAwesome;
-          font-style: normal;
-          font-size: 1rem;
-          padding: 0 0 8px 5px;
-          font-weight: normal;
-          text-decoration: inherit;
-        } //th:after
+
       } //th
     } //thead
+
     tbody {
       font-size: .8em;
+
       tr {
         background: #fff;
+
         &:nth-child(2n) {
           background: @grayLighter;
         }
+
         td {
-          padding: 2px 4px;
+          padding: 8px 3px;
+          line-height: 14px;
         }
       } //tr
     } //tbody
   } //table
 } //div.table
-
-div#table-dl {
-  margin-bottom: 70px;
-}
 
 /* -------------------------- */
 // Supporting Tech Metabox
@@ -273,32 +274,47 @@ section.section-supTech, section.dig-obj-bro {
 /* -------------------------- */
 // Modals
 
-.modal {
-  width: 90%;
-  margin: 0 auto;
-  left: 5%;
-}
-
 .modal .modal-header {
-  background: @grayLighter;
+  padding: 6px 15px 0px 15px;
+  background-color: @grayLighter!important;
+  background-image: none;
   border-bottom: 1px solid @gray;
-  .box-shadow(0 1px 2px rgba(25, 25, 25, .2));
-}
-
-#myModalLabel {
-  color: @orange!important;
+  > h2 {
+    color: @orange!important;
+    font-weight: normal;
+    font-size: 1.2em;
+  }
+  .close {
+    font-size: 30px;
+    padding-top: 5px;
+  }
 }
 
 .modal-checkbox label {
   font-size: .75em;
   line-height: 90%;
-
 }
 
+.modal .modal-body {
+  h3 {
+    font-weight: bold;
+    margin-bottom: 40px;
+  }
+  dt {
+    color: @grayLight;
+    font-size: .9em;
+    margin-bottom: -5px;
+  }
+  dl {
+    margin-bottom: 40px;
+  }
+}
+
+//technology support modal
 .modal-div {
-  border-bottom: 1px solid @grayLighter;
   margin: .5em 0 1.5em 0 !important;
-  padding: 1em auto;
+  padding: 8px auto;
+  background-color: @grayLighter;
 
   button.modal-btn-x {
     color: @orange;
@@ -327,35 +343,36 @@ section.section-supTech, section.dig-obj-bro {
 }
 
 .modal-footer {
-  float: left;
-  button {
-    font-size: 1.1em;
+  * { float: left; }
+  left: 5%;
+  border-top: 1px solid @black;
+}
+
+.btn-save span {
+  .moma-icon();
+  &:before {
+  content: "\f0c7";
   }
 }
 
-.modal-footer span {
-  font-family: FontAwesome;
-  font-style: normal;
-  color: @grayLight;
-  padding-right: 6px;
+.btn-view span {
+   .moma-icon();
+  &:before {
+    content: "\f06e";
+  }
 }
 
-.btn-save:after {
-  content: "\f0c7";
-}
-
-.btn-clearall:after {
-  content: "\f014";
-}
-
-.btn-cancel:after {
-  content: "\f057";
+.btn-cancel span {
+   .moma-icon();
+  &:before {
+    content: "\f057";
+  }
 }
 
 /* -------------------------- */
 // video modal, using flexbox
 
-#inspectModal {
+#inspectModalr {
   background: @black;
   display: flex;
   display: -webkit-flex;
@@ -391,7 +408,6 @@ section.section-supTech, section.dig-obj-bro {
   }
 
 }
-
 
 
 

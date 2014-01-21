@@ -1,0 +1,32 @@
+<div id="classify-aip-modal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h2>Classify AIPs</h2>
+  </div>
+
+  <div class="modal-body classify-aip-modal">
+
+    <h3>{{ data.aips.0.name }}</h3>
+
+    <dl>
+      <dt>Parent</dt>
+        <dd>{{ data.aips.0.parent.title }}</dd>
+      <dt>Part of</dt>
+        <dd>{{ data.aips.0.parent.title }}</dd>
+    </dl>
+
+
+    <label>Classify as:</label>
+    <select>
+      <option>Artwork</option>
+      <option>Option 1</option>
+      <option>Option 2</option>
+    </select>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-save" ng-click="modal.saved=true;dismiss()"><span class="btn-save"></span>Save</button>
+    <button class="btn btn-view" ng-click="parentController(dismiss)"><span class="btn-clearall"></span>View AIP</button>
+    <button class="btn btn-cancel" ng-click="dismiss()"><span class="btn-cancel"></span>Cancel</button>
+  </div>
+</div>

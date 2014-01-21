@@ -1,13 +1,17 @@
 // Custom Colours
 // -------------------------
-@momaGreen: rgba(78, 115, 91, 1); //#CEDFC8;
+@momaGreen: rgba(78, 115, 91, 1);               //#CEDFC8;
 @momaGreenLight: rgba(128,198,90,.5);
-@momaBlue: rgba(0, 136, 204, 0.1); //0088cc
+@momaBlue: rgba(0, 136, 204, 0.1);              //0088cc
 @momaBlueDark: rgba(0, 136, 204, 1);
 @momaBlueMid: rgba(0, 136, 204, .35);
+@momaBlueLight: rgba(182, 205, 242, 1);         // #c97bc9
 @momaGray: #DFE4E6;
-@momaOrangeDark: rgba(201, 74, 0, 1); //#cc6040
-@momaViolet: rgba(201, 123, 201,1); //#c97BC9
+@momaOrangeDark: rgba(201, 74, 0, 1);           //#cc6040
+@momaViolet: rgba(201, 123, 201,1);             //#c97BC9
+        // #c97bc9
+@momaBtnView: rgba(201, 74, 0, 1);               // #cc6040
+@momaBtnCancel: rgba(246, 172, 0, 1);            // #f6ac00
 
 // Levels of description colours
 // -----------------------------
@@ -18,11 +22,18 @@
 
 // Custom Buttons
 // --------------------------
-.MomaBtnBlue(@font-size, @padding) {
+.moma-btn(@bg-color) {
   border-radius: 3px;
   text-shadow: none;
   color: @black;
-  background: @momaBlueMid;
-  border: none;
-  border-bottom: 3px solid @momaBlueDark;
+}
+
+.moma-icon() {
+  color: @grayLight;
+  padding-right: 6px;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+  > span { border: none!important; }
 }

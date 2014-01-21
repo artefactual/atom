@@ -85,67 +85,12 @@
 
         </section>
 
-        <section id="new-AIP">
-
-          <h2>New AIPs</h2>
-
-          <div class="well inline">
-
-            <section class="header-options">
-
-
-
-              <div class="row-fluid">
-                <div class="span5">
-                  <div class="inline-search">
-
-                    <div class="input-prepend input-append row-fluid">
-
-                      <select class="span6" ng-model="selectedItem" ng-options="value.id as value.name for (key, value) in selects">
-                      </select>
-
-                      <input bs-typeahead="AIPtypeahead" autocomplete="off" type="text" placeholder="Ex. Play Dead; Real Time" />
-                      <a ng-href="#/artwork-record"><button type="submit" class="btn" id="AIP-type-search">
-                      </button></a>
-
-                    </div>
-
-                  </div>
-                </div>
-                <div class="span5 pull-right">
-                  <ul class="pull-right inline new-AIP-views">
-                    <li>
-                      <a href="#" onclick="return false">
-                        <span class="help-block">New</span>
-                        <button class="">1</button>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" onclick="return false">
-                        <span class="help-block">Awaiting</span>
-                        <button class="">1</button>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" onclick="return false">
-                        <span class="help-block">View All</span>
-                        <button class="">1</button>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-          </div><!-- well inline -->
-
-        </section>
-
         <section id="AIP-ov">
 
           <div class="menu-list row-fluid" >
             <h2 class="menu-list-left">AIP Overview</h2>
             <ul class="menu-list-right">
-              <li class="view-AIP-reports">
+              <li class="section-menu">
                 <a href="#" onclick="return false">View AIP Reports</a>
               </li>
             </ul>
