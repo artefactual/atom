@@ -15,8 +15,32 @@
     <div id="content">
 
       <fieldset class="collapsible collapsed">
+        <legend><?php echo __('ISAD template - area headings') ?></legend>
 
-        <legend><?php echo __('ISAD template') ?></legend>
+        <?php foreach (array(
+          'isad_identity_area' => __('Identity area'),
+          'isad_context_area' => __('Context area'),
+          'isad_content_and_structure_area' => __('Content and structure area'),
+          'isad_conditions_of_access_use_area' => __('Conditions of access and use area'),
+          'isad_allied_materials_area' => __('Allied materials area'),
+          'isad_notes_area' => __('Notes area'),
+          'isad_access_points_area' => __('Access points'),
+          'isad_description_control_area' => __('Description control area')) as $key => $value): ?>
+
+          <div class="form-item form-item-checkbox">
+            <?php echo $form[$key] ?>
+            <?php echo $form[$key]
+              ->label($value)
+              ->renderLabel() ?>
+          </div>
+
+        <?php endforeach; ?>
+
+      </fieldset>
+
+      <fieldset class="collapsible collapsed">
+
+        <legend><?php echo __('ISAD template - elements') ?></legend>
 
         <?php foreach (array(
           'isad_archival_history' => __('Archival history'),
@@ -46,9 +70,37 @@
 
       </fieldset>
 
+
+      <fieldset class="collapsible collapsed">
+        <legend><?php echo __('RAD template - area headings') ?></legend>
+
+        <?php foreach (array(
+          'rad_title_responsibility_area' => __('Title and statement of responsibility area'),
+          'rad_edition_area' => __('Edition area'),
+          'rad_material_specific_details_area' => __('Class of material specific details area'),
+          'rad_dates_of_creation_area' => __('Dates of creation area'),
+          'rad_physical_description_area' => __('Physical description area'),
+          'rad_publishers_series_area' => __('Publisher\'s series area'),
+          'rad_archival_description_area' => __('Archival description area'),
+          'rad_notes_area' => __('Notes area'),
+          'rad_standard_number_area' => __('Standard number area'),
+          'rad_access_points_area' => __('Access points'),
+          'rad_description_control_area' => __('Control area')) as $key => $value): ?>
+
+          <div class="form-item form-item-checkbox">
+            <?php echo $form[$key] ?>
+            <?php echo $form[$key]
+              ->label($value)
+              ->renderLabel() ?>
+          </div>
+
+        <?php endforeach; ?>
+
+      </fieldset>
+
       <fieldset class="collapsible collapsed">
 
-        <legend><?php echo __('RAD template') ?></legend>
+        <legend><?php echo __('RAD template - elements') ?></legend>
 
         <?php foreach (array(
           'rad_archival_history' => __('Custodial history'),
