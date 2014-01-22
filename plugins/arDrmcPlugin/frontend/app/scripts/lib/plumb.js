@@ -89,8 +89,6 @@ function Plumb(element, scope)
   this.initialize = function(scope)
   {
     // Initialization
-    console.log('plumb', 'Initializing...');
-
     this.initializePlumb();
 
     // Configure DOM listeners
@@ -133,7 +131,6 @@ function Plumb(element, scope)
         }
       }
     });
-    // this.plumb.bind('connectionDettached', function(info, event) { console.log('disconn'); });
   };
 
   this.addNodeIntoDigraph = function(node, isRoot)

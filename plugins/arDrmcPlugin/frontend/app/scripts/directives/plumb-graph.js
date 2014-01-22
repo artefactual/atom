@@ -3,14 +3,14 @@
 angular.module('momaApp.directives')
   .directive('plumbGraph', function() {
     return {
-      restrict: 'AE',
+      restrict: 'C',
       scope: {
-        collection: '=',
-        relations: '='
+        collection: '='
       },
       link: function(scope, element) {
         scope.plumb = new Plumb(element, scope);
         scope.plumb.initialize();
+        scope.plumb.draw();
       }
     };
   });
