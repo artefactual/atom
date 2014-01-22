@@ -6,11 +6,13 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
   // Default task
   grunt.registerTask('default', ['jshint', 'build']);
-  grunt.registerTask('build', ['clean', 'concat', 'recess:build', 'copy:assets']);
+  grunt.registerTask('build', ['clean', 'concat']);
+  grunt.registerTask('release', ['clean', 'uglify']);
 
   // Print a timestamp (useful for when watching)
   grunt.registerTask('timestamp', function() {
@@ -32,7 +34,7 @@ module.exports = function (grunt) {
     watch: {
       scripts: {
         files: ['<%= src.js %>'],
-        tasks: ['timestamp']
+        tasks: ['timestamp', 'jshint:all']
       }
     },
     jshint: {
@@ -46,13 +48,18 @@ module.exports = function (grunt) {
       ]
     },
     clean: ['<%= distdir %>/*'],
-    copy: {
-      assets: {
-        files: [
-          { dest: '<%= distdir %>', src: '**', expand: true, cwd: 'src/assets/' }
-        ]
+    concat: {
+      dist: {
+        src: ['<%= src.js %>'],
+        dest: '<%= distdir %>/<%= pkg.name %>.js'
       }
     },
+    uglify: {
+      dist: {
+        src: ['<%= src.js %>'],
+        dest: '<%= distdir %>/<%= pkg.name %>.js'
+      }
+    }
   });
 
 };
