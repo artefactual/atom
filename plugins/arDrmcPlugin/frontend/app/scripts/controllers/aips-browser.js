@@ -6,7 +6,7 @@ angular.module('momaApp.controllers')
     $scope.id = $stateParams.id;
 
     AIPService.getAIPs()
-      .success(function (data, status) {
+      .success(function (data) {
         $scope.data = data;
       });
 
