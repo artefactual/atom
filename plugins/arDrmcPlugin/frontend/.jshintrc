@@ -1,4 +1,7 @@
 {
+
+  // JSHint configuration
+
   "node": true,
   "browser": true,
   "esnext": true,
@@ -28,4 +31,5 @@
     "jsPlumb": false,
     "prompt": false
   }
+
 }
