@@ -157,12 +157,17 @@ class SearchAdvancedAction extends DefaultBrowseAction
         $this->form->setValidator($name, new sfValidatorString);
 
         $choices = array();
-        if (isset($this->request->f))
+        if (isset($this->request->f) && strlen($this->request->f) > 0)
         {
-          $this->form->setDefault($name, $this->request->f);
-
           $params = $this->context->routing->parse(Qubit::pathInfo($this->request->f));
-          $choices[$this->request->f] = $params['_sf_route']->resource;
+          $fonds = $params['_sf_route']->resource;
+
+          if ($fonds instanceof QubitInformationObject)
+          {
+            $this->form->setDefault($name, $this->request->f);
+
+            $choices[$this->request->f] = $params['_sf_route']->resource;
+          }
         }
 
         $this->form->setWidget($name, new sfWidgetFormSelect(array('choices' => $choices)));
@@ -257,17 +262,20 @@ class SearchAdvancedAction extends DefaultBrowseAction
         $params = $this->context->routing->parse(Qubit::pathInfo($value));
         $fonds = $params['_sf_route']->resource;
 
-        $query = new \Elastica\Query\Bool();
+        if ($fonds instanceof QubitInformationObject)
+        {
+          $query = new \Elastica\Query\Bool();
 
-        $queryAncestors = new \Elastica\Query\Term;
-        $queryAncestors->setTerm('ancestors', $fonds->id);
-        $query->addShould($queryAncestors);
+          $queryAncestors = new \Elastica\Query\Term;
+          $queryAncestors->setTerm('ancestors', $fonds->id);
+          $query->addShould($queryAncestors);
 
-        $querySelf = new \Elastica\Query\Text();
-        $querySelf->setFieldQuery('slug', $fonds->slug);
-        $query->addShould($querySelf);
+          $querySelf = new \Elastica\Query\Text();
+          $querySelf->setFieldQuery('slug', $fonds->slug);
+          $query->addShould($querySelf);
 
-        $this->queryBool->addMust($query);
+          $this->queryBool->addMust($query);
+        }
 
         break;
     }
