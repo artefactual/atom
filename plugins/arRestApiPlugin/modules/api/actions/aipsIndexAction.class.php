@@ -120,7 +120,21 @@ class APIAIPSIndexAction extends QubitAPIAction
               'count' => 4),
             array(
               'term' => 'Other',
-              'count' => 32))))));
+              'count' => 32))))),
+
+      /*
+       * TMS Work MetaData
+       */
+      'tms_metadata' => array(
+        'accession_id' => 'F2242',
+        'object_id' => '141421',
+        'title' => 'Screen Test: Ivy Nicholson',
+        'date' => '1964',
+        'artist' => 'Andy Warhol, American, 1928-1987',
+        'medium' => '16mm film',
+        'dimensions' => '4 min. at 16 frames per second',
+        'credit_line' => 'Original film elements preserved by the Museum of Modern Art, New York. Collection of the Andy Warhol Museum, Pittsburgh.')
+      );
 
   }
 }
