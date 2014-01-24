@@ -126,14 +126,33 @@ class APIAIPSIndexAction extends QubitAPIAction
        * TMS Work MetaData
        */
       'tms_metadata' => array(
-        'accession_id' => 'F2242',
-        'object_id' => '141421',
-        'title' => 'Screen Test: Ivy Nicholson',
-        'date' => '1964',
-        'artist' => 'Andy Warhol, American, 1928-1987',
-        'medium' => '16mm film',
-        'dimensions' => '4 min. at 16 frames per second',
-        'credit_line' => 'Original film elements preserved by the Museum of Modern Art, New York. Collection of the Andy Warhol Museum, Pittsburgh.')
+        'accession_id' => '1098.2005.a-c',
+        'object_id' => '100620',
+        'title' => 'Play Dead; Real time',
+        'date' => '2003',
+        'artist' => 'Douglas Gordon',
+        'medium' => 'Three-channel video',
+        'dimensions' => '19:11 min, 14:44 min. (on larger screens), 21:58 min. (on monitor). Minimum Room Size: 24.8m x 13.07m',
+        'description' => 'Exhibition materials: 3 DVD and players, 2 projectors, 3 monitor, 2 screens. The complete work is a three-screen piece, consisting of one retro projection, one front projection and one monitor. See file for installation instructions. One monitor and two projections on screens 19.69 X 11.38 feet. Viewer must be able to walk around screens.'),
+
+      /*
+       * Digital Objects
+       */
+      'digital_objects' => array(
+        'storage_total' => '10776432223432',
+        'related_total' => array(
+          'digital_objects' => 1,
+          'aips' => 12),
+        'objects' => array(
+          'artwork' => array(
+            'total' => 1,
+            'total_size' => '262453654232'),
+          'documentation' => array(
+            'total' => 0,
+            'total_size' => '0'),
+          'unclassified' => array(
+            'total' => 0,
+            'total_size' => '0')))
       );
 
   }
