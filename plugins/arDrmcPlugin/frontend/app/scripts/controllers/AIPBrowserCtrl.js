@@ -2,8 +2,6 @@
 
 module.exports = function ($scope, $stateParams, AIPService) {
 
-  $scope.id = $stateParams.id;
-
   AIPService.getAIPs()
     .success(function (data) {
       $scope.data = data;
