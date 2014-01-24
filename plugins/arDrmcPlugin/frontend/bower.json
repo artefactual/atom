@@ -2,8 +2,5 @@
   "name": "DRMC-MA",
   "version": "0.0.1",
   "dependencies": {},
-  "devDependencies": {
-    "d3": "~3.4.1",
-    "dagre-d3": "https://raw.github.com/cpettitt/cpettitt.github.com/master/project/dagre-d3/latest/dagre-d3.js"
-  }
+  "devDependencies": {}
 }

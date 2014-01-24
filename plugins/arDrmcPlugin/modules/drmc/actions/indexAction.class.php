@@ -21,34 +21,9 @@ class DRMCIndexAction extends sfAction
 {
   public function execute($request)
   {
-    // Third-party libraries
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/lib/vendor/jquery-ui.min.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/lib/vendor/angular/angular.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/lib/vendor/angular/angular-route.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/lib/vendor/angular-ui-router.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/lib/vendor/angular-strap.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/lib/vendor/boostrap-select.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/lib/vendor/dagre.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/lib/vendor/jquery.jsPlumb-all.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/lib/vendor/d3.min.js', 'last');
-
-    // Internal libraries
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/lib/d3-graphs.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/lib/plumb.js', 'last');
-
-    // AngularJS app
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/app.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/services/aip.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/services/dashboard.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/directives/plumb-graph.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/directives/modal-video.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/controllers/dashboard.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/controllers/aips-browser.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/controllers/aips-view.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/controllers/works-browser.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/controllers/works-view.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/controllers/artwork-record.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/controllers/artwork-record-2.js', 'last');
-    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/app/scripts/controllers/technology-record.js', 'last');
+    // Use "grunt build" or "grunt watch" during development
+    // Or use "grunt release" in production
+    // TODO: break the build into pieces: angular, jquery, d3, internal code...
+    $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/dist/DRMC-MA.js', 'last');
   }
 }

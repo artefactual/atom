@@ -518,3 +518,36 @@ section.section-supTech, section.dig-obj-bro {
   background: rgba(0, 0, 0, 0.6);
   -webkit-border-radius: 100px;
 }
+
+
+// Context browser
+
+svg {
+  overflow: hidden;
+}
+
+text {
+  font-weight: 300;
+  font-family: Arial;
+  font-size: 12px;
+  cursor: default;
+  .user-select(none);
+}
+
+.node rect {
+  stroke: #333;
+  stroke-width: 1px;
+  fill: #fff;
+}
+
+.edgeLabel rect {
+  fill: rgba(160, 160, 160, .8);
+  border: 1px solid #333;
+  padding: 4px;
+}
+
+.edgePath path {
+  stroke: #333;
+  stroke-width: 1px;
+  fill: none;
+}
