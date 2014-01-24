@@ -2,6 +2,8 @@
 
 module.exports = function ($scope, $stateParams) {
 
+  $scope.id = $stateParams.id;
+
   $scope.work = {
     id: $stateParams.id,
     title: 'Play Dead; Real Time',
