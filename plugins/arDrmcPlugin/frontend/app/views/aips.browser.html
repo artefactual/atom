@@ -96,17 +96,7 @@
                   <td><a ui-sref="aips.view({ id: aip.uuid })">{{ aip.name }}</a></td>
                   <td>{{ aip.size }}</td>
                   <td>{{ aip.created_at }}</td>
-                  <!--
                   <td><a role="button" ng-click="showAipModal(key)" bs-modal="'{{ viewsPath }}/partials/reclassify-aips.html'">{{ aip.class }}</a></td>
-                  -->
-                  <td>
-                    <a ng-click="showAipModal(index)" >{{ aip.class }}</a>
-                    <ul>
-                      <li ng-repeat="classification in data.aips.results">
-
-                      </li>
-                    </ul>
-                  </td>
                   <td>{{ aip.parent.title }}</td>
                   <td>{{ aip.part_of.title }}</td>
                 </tr>

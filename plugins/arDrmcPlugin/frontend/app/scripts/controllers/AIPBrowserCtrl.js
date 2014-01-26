@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports = function ($scope, $stateParams, AIPService) {
+module.exports = function ($scope, AIPService) {
 
   AIPService.getAIPs()
     .success(function (data) {
-      $scope.data = data;
-    });
+    $scope.data = data;
+  });
 
   // Support overview toggling
   $scope.showOverview = true;
