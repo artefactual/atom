@@ -38,7 +38,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
               'size' => 10),
       'regions' =>
         array('type' => 'term',
-              'field' => 'contactInformations.i18n.en.region',
+              'field' => 'contactInformations.i18n.en.region.untouched',
               'size' => 10));
 
   protected function populateFacet($name, $ids)
