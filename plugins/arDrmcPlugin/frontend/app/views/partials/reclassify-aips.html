@@ -16,7 +16,8 @@
     </dl>
 
     <label>Classify as:</label>
-    <select ng-model="classification" ng-options="item as item.name for item in classifications">
+    <select ng-model="classification" ng-init="" ng-options="item as item.name for item in classifications">
+      <option value="">{{ aip.class }}</option>
     </select>
   </div>
 
