@@ -50,6 +50,14 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
         array('module' => 'api', 'action' => 'aipsIndex'),
         array('requirements' => array('GET'))));
 
+    $routing->insertRouteBefore(
+      'slug;default_index',
+      'api_aips_reclassify',
+      new sfRequestRoute(
+        '/api/aips/reclassify',
+        array('module' => 'api', 'action' => 'aipsReclassify'),
+        array('requirements' => array('GET'))));
+
   }
 
   /**

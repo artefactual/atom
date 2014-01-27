@@ -17,16 +17,19 @@
 
 
     <label>Classify as:</label>
-    <select>
+    <select ng-model="classification">
       <option>Artwork</option>
       <option>Option 1</option>
       <option>Option 2</option>
     </select>
   </div>
 
+  {{ aip.part_of.title }}
+
   <div class="modal-footer">
-    <button class="btn btn-save" ng-click="modal.saved=true;dismiss()"><span class="btn-save"></span>Save</button>
+    <button class="btn btn-save" ng-click="modal.saved = true; reclassifyAIP(aip.id, classification);"><span class="btn-save"></span>Save</button>
     <button class="btn btn-view" ng-click="parentController(dismiss)"><span class="btn-clearall"></span>View AIP</button>
     <button class="btn btn-cancel" ng-click="dismiss()"><span class="btn-cancel"></span>Cancel</button>
   </div>
+
 </div>
