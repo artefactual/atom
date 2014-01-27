@@ -83,8 +83,6 @@
     return utils.values(visibleParentMap[this.id]);
   };
 
-  module.exports = {
-    Node: Node
-  };
+  module.exports = Node;
 
 })();

@@ -10,7 +10,7 @@
   }
 
   Graph.prototype.addNode = function (node) {
-    this.nodelist.push(node);
+    this.nodeList.push(node);
     this.nodes[node.id] = node;
   };
 
@@ -19,11 +19,11 @@
   };
 
   Graph.prototype.getNodes = function () {
-    return this.nodelist;
+    return this.nodeList;
   };
 
   Graph.prototype.getVisibleNodes = function () {
-    return this.nodelist.filter(function (node) {
+    return this.nodeList.filter(function (node) {
       return node.visible();
     });
   };
