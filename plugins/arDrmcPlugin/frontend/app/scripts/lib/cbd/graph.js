@@ -4,15 +4,77 @@
 
   require('./node');
 
-  module.exports = function () {
-
+  function Graph () {
     this.nodeList = [];
     this.nodes = {};
+  }
 
-    this.debug = function () {
-      console.log('debug');
+  Graph.prototype.addNode = function (node) {
+    this.nodelist.push(node);
+    this.nodes[node.id] = node;
+  };
+
+  Graph.prototype.getNode = function (id) {
+    return this.nodes[id];
+  };
+
+  Graph.prototype.getNodes = function () {
+    return this.nodelist;
+  };
+
+  Graph.prototype.getVisibleNodes = function () {
+    return this.nodelist.filter(function (node) {
+      return node.visible();
+    });
+  };
+
+  Graph.prototype.getVisibleLinks = function () {
+    var visibleParentMap = {};
+
+    var exploreNode = function (node) {
+      if (visibleParentMap[node.id]) {
+        return;
+      }
+      visibleParentMap[node.id] = {};
+      var parents = node.parentNodes;
+      for (var pid in parents) {
+        var parent = parents[pid];
+        if (parent.visible()) {
+          visibleParentMap[node.id][pid] = true;
+        } else {
+          exploreNode(parent);
+          var grandparents = visibleParentMap[pid];
+          for (var gpid in grandparents) {
+            visibleParentMap[node.id][gpid] = true;
+          }
+        }
+      }
     };
 
+    for (var i = 0; i < this.nodeList.length; i++) {
+      exploreNode(this.nodeList[i]);
+    }
+
+    var nodes = this.nodes;
+    var ret = [];
+    var visibleNodes = this.getVisibleNodes();
+
+    var pushPid = function (pid) {
+      ret.push({
+        source: nodes[pid],
+        target: node
+      });
+    };
+
+    for (var j = 0; j < visibleNodes.length; j++) {
+      var node = visibleNodes[j];
+      var parentids = visibleParentMap[node.id];
+      Object.keys(parentids).forEach(pushPid);
+    }
+
+    return ret;
   };
+
+  module.exports = Graph;
 
 })();
