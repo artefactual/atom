@@ -28,6 +28,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-karma');
 
   // Build task
   grunt.registerTask('default', [
@@ -59,6 +60,14 @@ module.exports = function (grunt) {
   grunt.registerTask('timestamp', function () {
     grunt.log.subhead(Date());
   });
+
+  var karmaConfig = function (configFile, customOptions) {
+    var options = {
+      configFile: configFile,
+      keepalive: true
+    };
+    return grunt.util._.extend(options, customOptions);
+  };
 
   grunt.initConfig({
     distdir: 'dist',
@@ -112,8 +121,20 @@ module.exports = function (grunt) {
           relativeUrls: true
         },
         files: {
-          '../../arDominionPlugin/css/min.css': '../../arDominionPlugin/css/main.less' // '../../../arDominionPlugin/css/main.less'
+          '../../arDominionPlugin/css/min.css': '../../arDominionPlugin/css/main.less'
         }
+      }
+    },
+
+    karma: {
+      unit: {
+        options: karmaConfig('test/config/karma.config.js')
+      },
+      watch: {
+        options: karmaConfig('test/config/karma.config.js', {
+          singleRun: false,
+          autoWatch: true
+        })
       }
     },
 
@@ -136,6 +157,7 @@ module.exports = function (grunt) {
         ],
         dest: '<%= builddir %>/vendor-shims.js',
         options: {
+          debug: true,
           strap: {
             'angular-strap': {
               path: './vendor/angular-strap.js',
@@ -149,6 +171,7 @@ module.exports = function (grunt) {
         src: ['<%= src.jsEntry %>'],
         dest: '<%= builddir %>/app.js',
         options: {
+          debug: true,
           external: [
             '9RiUY6' // Why? Mysterious! grunt-browserify: wtf?!
           ]
