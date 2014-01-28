@@ -18,7 +18,7 @@ module.exports = function ($scope, $stateParams) {
   };
 
   $scope.collectionTest1 = [
-    { id: 0, title: 'Play Dead; Real Time', level: 'work', children: [
+    { id: 1, title: 'Play Dead; Real Time', level: 'work', children: [
       { id: 20, title: 'Components', level: 'description', children: [
         { id: 31, title: 'DVD', level: 'physical-component' },
         { id: 32, title: 'DVD', level: 'physical-component' },
@@ -38,7 +38,7 @@ module.exports = function ($scope, $stateParams) {
   ];
 
   $scope.collectionTest2 = [
-    { id: 0, title: 'Play Dead; Real Time', level: 'work', children: [
+    { id: 1, title: 'Play Dead; Real Time', level: 'work', children: [
       { id: 20, title: 'Components', level: 'description', children: [
         { id: 31, title: 'DVD', level: 'physical-component' },
         { id: 32, title: 'DVD', level: 'physical-component' },

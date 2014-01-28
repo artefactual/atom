@@ -5,21 +5,24 @@
   // var utils = require('./utils');
   var Graph = require('./graph');
   var d3 = require('d3');
+  var dagreD3 = require('dagre-d3');
 
   function ContextBrowser (container, data, options) {
     options = options || {};
 
     this.container = container;
 
+    // SVG layout
     this.rootSVG = d3.select(this.container.get(0)).append('svg');
     this.graphSVG = this.rootSVG.append('svg').attr({
       'width': '100%',
       'height': '100%',
-      'border': '1px solid #333',
       'class': 'graph-attach'
     });
+    this.g = this.graphSVG.append('g');
 
     this.graph = new Graph(data);
+    this.renderer = new dagreD3.Renderer();
 
     this.draw();
 
@@ -27,7 +30,8 @@
   }
 
   ContextBrowser.prototype.draw = function () {
-    // this.graphSVG.datum(this.graph).call(this.dag);
+    var layout = dagreD3.layout().nodeSep(20).rankSep(80).rankDir('RL');
+    this.renderer.layout(layout).run(this.graph, this.g);
   };
 
   ContextBrowser.prototype.reset = function () {
