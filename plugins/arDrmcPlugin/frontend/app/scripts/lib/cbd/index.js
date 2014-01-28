@@ -2,8 +2,8 @@
 
   'use strict';
 
-  var utils = require('./utils');
-  var Dag = require('./dag');
+  // var utils = require('./utils');
+  var Graph = require('./graph');
   var d3 = require('d3');
 
   function ContextBrowser (container, data, options) {
@@ -19,9 +19,7 @@
       'class': 'graph-attach'
     });
 
-    this.graph = utils.createGraph(data);
-
-    this.dag = new Dag();
+    this.graph = new Graph(data);
 
     this.draw();
 
@@ -29,7 +27,7 @@
   }
 
   ContextBrowser.prototype.draw = function () {
-    this.graphSVG.datum(this.graph).call(this.dag);
+    // this.graphSVG.datum(this.graph).call(this.dag);
   };
 
   ContextBrowser.prototype.reset = function () {
