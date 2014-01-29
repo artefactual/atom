@@ -49,16 +49,6 @@
     this.data.forEach(add);
   };
 
-  Graph.prototype.addNode = function (u, value) {
-    console.log('Adding node', u);
-    return dagreD3.Digraph.prototype.addNode.call(this, u, value);
-  };
-
-  Graph.prototype.addEdge = function (e, source, target, value) {
-    console.log('Adding edge', e);
-    return dagreD3.Digraph.prototype.addEdge.call(this, e, source, target, value);
-  };
-
   module.exports = Graph;
 
 })();
