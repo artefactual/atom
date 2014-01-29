@@ -3,3 +3,8 @@ Built with AngularJS!
 This could be in a different repo some day?
 
 The directory structure is based in the angular generator found in yeoman.
+
+Build instructions:
+
+1) npm install
+2) grunt build
