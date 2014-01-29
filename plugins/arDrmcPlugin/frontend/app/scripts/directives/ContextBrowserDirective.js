@@ -1,20 +1,19 @@
 'use strict';
 
-module.exports = function (ATOM_CONFIG) {
+module.exports = function (ATOM_CONFIG, InformationObjectService) {
   return {
     restrict: 'E',
-    scope: {
-      collection: '='
-    },
     templateUrl: ATOM_CONFIG.viewsPath + '/partials/context-browser.html',
     replace: true,
     link: function (scope, element) {
       // This layer will be the closest HTML container of the SVG
       var container = element.find('.svg-container');
 
+      var tree = InformationObjectService.getTree(2);
+
       // Import cbd, the context browser module
       // I can't remember what is the 'd' for :P
-      new (require('../lib/cbd'))(container, scope.collection);
+      new (require('../lib/cbd'))(container, tree);
     }
   };
 };

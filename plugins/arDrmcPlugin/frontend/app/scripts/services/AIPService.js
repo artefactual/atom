@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports = function ($http) {
-	
+module.exports = function ($http, ATOM_CONFIG) {
+
   this.getAIPs = function () {
     return $http({
       method: 'GET',
-      url: '/api/aips'
+      url: ATOM_CONFIG.frontendPath + 'api/dashboard'
     });
   };
 
