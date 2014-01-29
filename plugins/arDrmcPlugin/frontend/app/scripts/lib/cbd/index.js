@@ -2,8 +2,8 @@
 
   'use strict';
 
-  // var utils = require('./utils');
   var Graph = require('./graph');
+  var Zoom = require('./zoom');
   var d3 = require('d3');
   var dagreD3 = require('dagre-d3');
 
@@ -14,15 +14,13 @@
 
     // SVG layout
     this.rootSVG = d3.select(this.container.get(0)).append('svg');
-    this.graphSVG = this.rootSVG.append('svg').attr({
-      'width': '100%',
-      'height': '100%',
-      'class': 'graph-attach'
-    });
+    this.graphSVG = this.rootSVG.append('svg').attr({ 'width': '100%', 'height': '100%', 'class': 'graph-attach'});
     this.g = this.graphSVG.append('g');
 
     this.graph = new Graph(data);
     this.renderer = new dagreD3.Renderer();
+
+    new Zoom(this.graphSVG);
 
     this.draw();
 
