@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (ATOM_CONFIG, InformationObjectService) {
+module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenService) {
   return {
     restrict: 'E',
     templateUrl: ATOM_CONFIG.viewsPath + '/partials/context-browser.html',
@@ -23,6 +23,16 @@ module.exports = function (ATOM_CONFIG, InformationObjectService) {
         }, function (reason) {
           console.error('Error loading tree:', reason);
         });
+
+      scope.isFullscreen = false;
+      scope.toggleFullscreenMode = function () {
+        if (scope.isFullscreen) {
+          FullscreenService.cancel();
+        } else {
+          FullscreenService.enable(element.get(0));
+        }
+        scope.isFullscreen = !scope.FullscreenService;
+      };
     }
   };
 };
