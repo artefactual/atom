@@ -25,5 +25,8 @@ class DRMCIndexAction extends sfAction
     // Or use "grunt release" in production
     // TODO: break the build into pieces: angular, jquery, d3, internal code...
     $this->response->addJavaScript('/plugins/arDrmcPlugin/frontend/dist/DRMC-MA.js', 'last');
+
+    $layoutPath = sfConfig::get('sf_root_dir').'/plugins/arDrmcPlugin/templates/layout';
+    $this->setLayout($layoutPath);
   }
 }

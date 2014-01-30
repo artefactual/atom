@@ -1,4 +1,4 @@
-<div ng-app="momaApp">
+<div>
 
   <!-- Menu -->
   <ul class="nav nav-pills">
