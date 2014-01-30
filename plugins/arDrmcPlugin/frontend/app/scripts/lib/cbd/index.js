@@ -7,11 +7,13 @@
   var d3 = require('d3');
   var dagreD3 = require('dagre-d3');
 
-  function ContextBrowser (container, data, options) {
+  function ContextBrowser (container, options) {
     options = options || {};
 
     this.container = container;
+  }
 
+  ContextBrowser.prototype.init = function (data) {
     // SVG layout
     this.rootSVG = d3.select(this.container.get(0)).append('svg');
     this.graphSVG = this.rootSVG.append('svg').attr({ 'class': 'graph-attach' });
@@ -34,13 +36,11 @@
     new Zoom(this.rootSVG);
 
     this.draw();
-  }
+  };
 
   ContextBrowser.prototype.draw = function () {
     var behavior = dagreD3.layout().nodeSep(20).rankSep(80).rankDir('RL');
     var layout = this.renderer.layout(behavior).run(this.graph, this.g);
-
-    console.log(layout);
 
     // Update the size of the SVG
     this.graphSVG.attr({
@@ -54,6 +54,14 @@
 
   ContextBrowser.prototype.reset = function () {
 
+  };
+
+  ContextBrowser.prototype.showRelationships = function () {
+    this.graphSVG.select('.edgePaths, .edgeLabels').style('display', 'inline');
+  };
+
+  ContextBrowser.prototype.hideRelationships = function () {
+    this.graphSVG.select('.edgePaths, .edgeLabels').style('display', 'none');
   };
 
   module.exports = ContextBrowser;

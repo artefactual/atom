@@ -22,9 +22,14 @@
             <li><a class="delete" href="">Delete</a></li>
           </ul>
         </li>
-        <li>
-          <a class="hide_relationships dropdown-toggle" data-toggle="dropdown" href="">Hide relationships</a>
+
+        <!-- Toogle relationships -->
+        <li ng-class="{ active: areRelationshipsHidden }">
+          <a class="hide_relationships" ng-click="hideRelationships()">
+            {{ areRelationshipsHidden ? 'Show relationships' : 'Hide relationships' }}
+          </a>
         </li>
+
         <li class="dropdown">
           <a class="view dropdown-toggle" data-toggle="dropdown" href="">View<b class="caret"></b></a>
           <ul id="metaDrop1" class="dropdown-menu">
@@ -36,7 +41,7 @@
               </a>
             </li>
 
-            <li><a class="list_relationships" href="">List relationship</a></li>
+            <li><a class="list_relationships" href="">List relationships</a></li>
           </ul>
         </li>
         <li class="dropdown">

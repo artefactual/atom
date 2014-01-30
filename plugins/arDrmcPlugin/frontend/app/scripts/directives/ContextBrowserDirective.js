@@ -1,5 +1,7 @@
 'use strict';
 
+var ContextBrowser = require('../lib/cbd');
+
 module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenService) {
   return {
     restrict: 'E',
@@ -17,13 +19,17 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
       //  console.log(value);
       //});
 
+      var cb = new ContextBrowser(container);
+
+      // Fetch data from the server
       InformationObjectService.getTree(scope.resource)
         .then(function (tree) {
-          new (require('../lib/cbd'))(container, tree);
+          cb.init(tree);
         }, function (reason) {
           console.error('Error loading tree:', reason);
         });
 
+      // Manage the fullscreen mode
       scope.isFullscreen = false;
       scope.toggleFullscreenMode = function () {
         if (scope.isFullscreen) {
@@ -40,6 +46,17 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
           scope.isFullscreen = false;
         }
       });
+
+      // Hide relationships
+      scope.areRelationshipsHidden = false;
+      scope.hideRelationships = function () {
+        scope.areRelationshipsHidden = !scope.areRelationshipsHidden;
+        if (scope.areRelationshipsHidden) {
+          cb.hideRelationships();
+        } else {
+          cb.showRelationships();
+        }
+      };
     }
   };
 };
