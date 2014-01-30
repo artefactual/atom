@@ -1,11 +1,12 @@
 Built with AngularJS!
 
-This could be in a different repo some day?
+Dependencies (tested in Ubuntu 12.04):
 
-The directory structure is based in the angular generator found in yeoman.
+$ sudo add-apt-repository ppa:chris-lea/node.js
+$ sudo apt-get update
+$ sudo apt-get install nodejs build-essential # Yep, you're going to need make, gcc, etc...
 
 Build instructions:
 
-# sudo apt-get install build-essential // yep, you're going to need make, gcc etc...
-# npm install
-# grunt build
+$ npm install
+$ grunt build
