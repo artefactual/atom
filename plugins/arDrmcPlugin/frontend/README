@@ -6,5 +6,6 @@ The directory structure is based in the angular generator found in yeoman.
 
 Build instructions:
 
-1) npm install
-2) grunt build
+# sudo apt-get install build-essential // yep, you're going to need make, gcc etc...
+# npm install
+# grunt build
