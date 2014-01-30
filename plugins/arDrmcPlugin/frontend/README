@@ -5,9 +5,9 @@ Dependencies (tested in Ubuntu 12.04):
 $ sudo add-apt-repository ppa:chris-lea/node.js
 $ sudo apt-get update
 $ sudo apt-get install nodejs build-essential # Yep, you're going to need make, gcc, etc...
-
-Build instructions:
-
 $ sudo npm install -g grunt-cli
+
+Build instructions (in /plugins/arDrmcPlugin/frontend):
+
 $ npm install
 $ grunt build
