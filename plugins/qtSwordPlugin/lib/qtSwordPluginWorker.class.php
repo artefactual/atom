@@ -31,9 +31,6 @@ class qtSwordPluginWorker extends Net_Gearman_Job_Common
   {
     $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
 
-    // Start the index (a previous job may have closed it)
-    QubitSearch::enable();
-
     $this->log('A new job has started to being processed.');
 
     if (!is_writable(sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.sfConfig::get('app_upload_dir')))
@@ -69,10 +66,10 @@ class qtSwordPluginWorker extends Net_Gearman_Job_Common
       $this->log(sprintf('Exception: %s', $e->getMessage()));
     }
 
-    $this->log(sprintf('Job finished.'));
+    // Save ES documents in the batch queue
+    QubitSearch::getInstance()->__destruct();
 
-    // Free the index lock
-    QubitSearch::disable();
+    $this->log(sprintf('Job finished.'));
 
     return true;
   }
