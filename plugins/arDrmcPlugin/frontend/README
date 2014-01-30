@@ -8,5 +8,6 @@ $ sudo apt-get install nodejs build-essential # Yep, you're going to need make, 
 
 Build instructions:
 
+$ sudo npm install -g grunt-cli
 $ npm install
 $ grunt build
