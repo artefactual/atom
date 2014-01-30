@@ -28,9 +28,10 @@ module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
     });
   };
 
-  $scope.reclassifyAIP = function (aip, classification) {
+  $scope.reclassifyAIP = function ($scope, aip, classification) {
     if (classification === undefined) {
-      throw 'hey buddy what are you doing?';
+      throw 'error in reclassifyAIP';
+      $scope.showOverview = true;
     }
 
     $q.when($scope.reclassifyModal).then(function (modalEl) {
@@ -58,5 +59,18 @@ module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
   $scope.toggleOverview = function () {
     $scope.showOverview = !$scope.showOverview;
   };
+
+  //custom alerts
+  alerts: [
+  {
+    'type': 'alert',
+    'title': 'Uh-oh!',
+    'content': 'Please enter a classification'
+  },
+  {
+    "type": "info",
+    "title": "Heads up!",
+    "content": "More info needed, please."
+  }];
 
 };
