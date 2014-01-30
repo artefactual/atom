@@ -1,8 +1,14 @@
 'use strict';
 
-module.exports = function ($document) {
+module.exports = function ($document, $rootScope) {
 
   var document = $document.get(0);
+
+  $document.bind('fullscreenchange mozfullscreenchange webkitfullscreenchange', function () {
+    $rootScope.$broadcast('fullscreenchange', {
+      type: document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement ? 'enter' : 'exit'
+    });
+  });
 
   return {
 

@@ -28,7 +28,14 @@
         <li class="dropdown">
           <a class="view dropdown-toggle" data-toggle="dropdown" href="">View<b class="caret"></b></a>
           <ul id="metaDrop1" class="dropdown-menu">
-            <li ng-class="{ active: isFullscreen }"><a ng-click="toggleFullscreenMode()" ng-class="{ fullscreen: true }">Fullscreen</a></li>
+
+            <!-- Fullscreen -->
+            <li ng-class="{ active: isFullscreen }">
+              <a ng-click="toggleFullscreenMode()" ng-class="{ fullscreen: true }">
+                {{ isFullscreen ? 'Exit fullscreen' : 'Fullscreen' }}
+              </a>
+            </li>
+
             <li><a class="list_relationships" href="">List relationship</a></li>
           </ul>
         </li>

@@ -31,8 +31,15 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
         } else {
           FullscreenService.enable(element.get(0));
         }
-        scope.isFullscreen = !scope.FullscreenService;
+        scope.isFullscreen = !scope.isFullscreen;
       };
+      scope.$on('fullscreenchange', function (event, args) {
+        if (args.type === 'enter') {
+          scope.isFullscreen = true;
+        } else {
+          scope.isFullscreen = false;
+        }
+      });
     }
   };
 };
