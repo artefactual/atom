@@ -4,16 +4,25 @@ module.exports = function (ATOM_CONFIG, InformationObjectService) {
   return {
     restrict: 'E',
     templateUrl: ATOM_CONFIG.viewsPath + '/partials/context-browser.html',
+    scope: {
+      resource: '@resource'
+    },
     replace: true,
     link: function (scope, element) {
       // This layer will be the closest HTML container of the SVG
       var container = element.find('.svg-container');
 
-      var tree = InformationObjectService.getTree(2);
+      // Do I really need this because I'm isolating scope with @?
+      // attr.$observe('resource', function (value) {
+      //  console.log(value);
+      //});
 
-      // Import cbd, the context browser module
-      // I can't remember what is the 'd' for :P
-      new (require('../lib/cbd'))(container, tree);
+      InformationObjectService.getTree(scope.resource)
+        .then(function (tree) {
+          new (require('../lib/cbd'))(container, tree);
+        }, function (reason) {
+          console.error('Error loading tree:', reason);
+        });
     }
   };
 };

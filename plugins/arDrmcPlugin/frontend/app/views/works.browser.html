@@ -1,6 +1,7 @@
 Works browser
 
 <ul>
-  <li><a ui-sref="works.view({ id: '1' })">Work 1</a></li>
-  <li><a ui-sref="works.view({ id: '2' })">Work 2</a></li>
+  <li ng-repeat="(id, work) in works">
+    <a ui-sref="works.view({id:id})">{{ work.title }}</a> ({{ work.tms.year }})
+  </li>
 </ul>

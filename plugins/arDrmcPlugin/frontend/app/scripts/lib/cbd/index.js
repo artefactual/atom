@@ -40,12 +40,15 @@
     var behavior = dagreD3.layout().nodeSep(20).rankSep(80).rankDir('RL');
     var layout = this.renderer.layout(behavior).run(this.graph, this.g);
 
-    window.root = this.rootSVG;
+    console.log(layout);
 
     // Update the size of the SVG
     this.graphSVG.attr({
       'width': this.rootSVG.style('width'),
-      'height': layout.graph().height
+    });
+
+    this.rootSVG.attr({
+      'height': layout.graph().height + 40
     });
   };
 

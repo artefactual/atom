@@ -15,7 +15,7 @@
 
       <section class="breadcrumb moma-breadcrumb">
         <ul>
-          <li><a ui-sref="works">Works</a></li>
+          <li><a ui-sref="works.browser">Works</a></li>
           <li><span>{{ work.title }}</span></li>
         </ul>
       </section>
@@ -35,47 +35,47 @@
 
             <div class="field">
               <h3>Accession number</h3>
-              <div>{{ work.accessionNo }}</div>
+              <div>{{ work.tms.accessionNo }}</div>
             </div>
 
             <div class="field">
               <h3>Object ID</h3>
-              <div>{{ work.objectId }}</div>
+              <div>{{ work.tms.objectId }}</div>
             </div>
 
             <div class="field">
               <h3>Title</h3>
-              <div>{{ work.title }}</div>
+              <div>{{ work.tms.title }}</div>
             </div>
 
             <div class="field">
               <h3>Year</h3>
-              <div>{{ work.date }}</div>
+              <div>{{ work.tms.year }}</div>
             </div>
 
             <div class="field">
               <h3>Artist</h3>
-              <div>{{ work.artist }}</div>
+              <div>{{ work.tms.artist }}</div>
             </div>
 
             <div class="field">
               <h3>Classification</h3>
-              <div>{{ work.classification }}</div>
+              <div>{{ work.tms.classification }}</div>
             </div>
 
             <div class="field">
               <h3>Medium</h3>
-              <div>{{ work.medium }}</div>
+              <div>{{ work.tms.medium }}</div>
             </div>
 
             <div class="field">
               <h3>Dimensions</h3>
-              <div>{{ work.dimensions }}</div>
+              <div>{{ work.tms.dimensions }}</div>
             </div>
 
             <div class="field">
               <h3>Description</h3>
-              <div>{{ work.description }}</div>
+              <div>{{ work.tms.description }}</div>
             </div>
 
           </div>
@@ -83,7 +83,7 @@
         </div>
       </section>
 
-      <ar:context-browser/>
+      <ar:context-browser resource="{{ work.id }}"/>
 
     </div>
   </div>

@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function () {
+module.exports = function ($q) {
 
   this.tree1 = [
     { id: 1, title: 'Play Dead; Real Time', level: 'work', children: [
@@ -23,7 +23,7 @@ module.exports = function () {
   ];
 
   this.tree2 = [
-    { id: 1, title: 'Play Dead; Real Time', level: 'work', children: [
+    { id: 2, title: 'Zidane, un portrait du 21e siècle', level: 'work', children: [
       { id: 20, title: 'Components', level: 'description', children: [
         { id: 31, title: 'DVD', level: 'physical-component' },
         { id: 32, title: 'DVD', level: 'physical-component' },
@@ -38,8 +38,73 @@ module.exports = function () {
     ]}
   ];
 
+  this.works = {
+    1: {
+      id: 1,
+      title: 'Play Dead; Real Time',
+      tms: {
+        accessionNumber: '1098.2005.a-c',
+        objectId: '100620',
+        title: 'Play Dead; Real Time',
+        year: '2003',
+        artist: 'Douglas Gordon',
+        classification: 'Installation',
+        medium: 'Three-channel video',
+        dimensions: '19:11 min, 14:44 min. (on larger screens), 21:58 min. (on monitor). Minimum Room Size: 24.8m x 13.07m',
+        description: 'Exhibition materials: 3 DVD and players, 2 projectors, 3 monitor, 2 screens. The complete work is a three-screen piece, consisting of one retro projection, one front projection and one monitor. See file for installation instructions. One monitor and two projections on screens 19.69 X 11.38 feet. Viewer must be able to walk around screens.'
+      }
+    },
+    2: {
+      id: 2,
+      title: 'Zidane, un portrait du 21e siècle',
+      tms: {
+        accessionNumber: '1099.2006.a-c',
+        objectId: '100621',
+        title: 'Zidane, un portrait du 21e siècle',
+        year: '2006',
+        artist: 'Douglas Gordon',
+        classification: 'Movie',
+        medium: 'DVD',
+        dimensions: 'Big enough',
+        description: 'A movie about Zinedine Zidane'
+      }
+    }
+  };
+
   this.getTree = function (id) {
-    return this['tree' + id];
+    var deferred = $q.defer();
+
+    if (this['tree' + id] !== undefined) {
+      deferred.resolve(this['tree' + id]);
+    } else {
+      deferred.reject('There are not works currently available');
+    }
+
+    return deferred.promise;
+  };
+
+  this.getWorks = function () {
+    var deferred = $q.defer();
+
+    if (this.works !== undefined) {
+      deferred.resolve(this.works);
+    } else {
+      deferred.reject('There are not works currently available');
+    }
+
+    return deferred.promise;
+  };
+
+  this.getWork = function (id) {
+    var deferred = $q.defer();
+
+    if (this.works[id] !== undefined) {
+      deferred.resolve(this.works[id]);
+    } else {
+      deferred.reject('Work not found!');
+    }
+
+    return deferred.promise;
   };
 
 };
