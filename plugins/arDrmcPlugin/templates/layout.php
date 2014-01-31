@@ -10,7 +10,7 @@
   </head>
   <body ng-app="momaApp">
 
-    <?php echo get_partial('header') ?>
+    <?php // echo get_partial('header') ?>
 
     <div id="wrapper" class="container">
 
@@ -18,7 +18,7 @@
 
     </div>
 
-    <?php echo get_partial('footer') ?>
+    <?php // echo get_partial('footer') ?>
 
   </body>
 </html>
