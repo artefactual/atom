@@ -30,24 +30,17 @@ module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
 
   $scope.reclassifyAIP = function ($scope, aip, classification) {
     if (classification === undefined) {
-      throw 'error in reclassifyAIP';
       $scope.showOverview = true;
     }
 
     $q.when($scope.reclassifyModal).then(function (modalEl) {
       AIPService.reclassifyAIP(aip.id, classification)
-        .success(function (data, status) {
-          console.log('OK', data, status);
-
-          // Update object
+        .success(function () {
+          // Update AIP and close modal
           aip.class = classification;
-
-          // Close the popup
           modalEl.modal('hide');
-
-
-        }).error(function (data, status) {
-          console.log('ERROR', data, status);
+        }).error(function () {
+          // Close modal
           modalEl.modal('hide');
         });
     });
@@ -60,17 +53,16 @@ module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
     $scope.showOverview = !$scope.showOverview;
   };
 
-  //custom alerts
-  alerts: [
-  {
-    'type': 'alert',
-    'title': 'Uh-oh!',
-    'content': 'Please enter a classification'
-  },
-  {
-    "type": "info",
-    "title": "Heads up!",
-    "content": "More info needed, please."
-  }];
-
+  // Alerts
+  $scope.alerts = [
+    {
+      'type': 'alert',
+      'title': 'Uh-oh!',
+      'content': 'Please enter a classification'
+    }, {
+      'type': 'info',
+      'title': 'Heads up!',
+      'content': 'More info needed, please.'
+    }
+  ];
 };
