@@ -21,6 +21,14 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
 
       var cb = new ContextBrowser(container);
 
+      cb.events.on('pin-node', function (attrs) {
+        console.log('--> node pinned', attrs);
+      });
+
+      cb.events.on('unpin-node', function (attrs) {
+        console.log('--> node unpinned', attrs);
+      });
+
       // Fetch data from the server
       InformationObjectService.getTree(scope.resource)
         .then(function (tree) {

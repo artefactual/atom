@@ -18,7 +18,8 @@
     "grunt-contrib-less": "~0.9.0",
     "grunt-jscs-checker": "~0.3.2",
     "d3": "~3.4.1",
-    "dagre-d3": "~0.1.2"
+    "dagre-d3": "~0.1.2",
+    "wolfy87-eventemitter": "~4.2.6"
   },
   "scripts": {
     "test": "grunt test"
