@@ -540,20 +540,29 @@ text {
   .user-select(none);
 }
 
-.node rect {
-  stroke: #333;
-  stroke-width: 1px;
-  fill: #fff;
+.nodes {
+  rect {
+    stroke: #333;
+    stroke-width: 1px;
+    fill: #fff;
+  }
+  .active rect {
+    fill: @orange;
+  }
 }
 
-.edgeLabel rect {
-  fill: rgba(160, 160, 160, .8);
-  border: 1px solid #333;
-  padding: 4px;
+.edgeLabels {
+  rect {
+    fill: rgba(160, 160, 160, .8);
+    border: 1px solid #333;
+    padding: 4px;
+  }
 }
 
-.edgePath path {
-  stroke: #333;
-  stroke-width: 1px;
-  fill: none;
+.edgePaths {
+  path {
+    stroke: #333;
+    stroke-width: 1px;
+    fill: none;
+  }
 }
