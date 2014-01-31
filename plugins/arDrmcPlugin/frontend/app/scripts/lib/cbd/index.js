@@ -85,10 +85,10 @@
     var n = d3.select(this);
     if (n.classed('active')) {
       n.classed('active', false);
-      context.events.emitEvent('unpin-node', { id: datum, index: index });
+      context.events.emitEvent('unpin-node', [{ id: datum, index: index }]);
     } else {
       n.classed('active', true);
-      context.events.emitEvent('pin-node', { id: datum, index: index });
+      context.events.emitEvent('pin-node', [{ id: datum, index: index }]);
     }
   };
 
