@@ -75,13 +75,13 @@ class QubitAccession extends BaseAccession
 
     if ($incrementCounter)
     {
-      $setting->value = $setting->getValue(array('sourceCulture' => true)) + 1;
+      $setting->value = $setting->getValue() + 1;
       $setting->save();
 
-      return $setting->getValue(array('sourceCulture' => true));
+      return ($setting->getCulture().$setting->getValue());
     }
 
-    return $setting->getValue(array('sourceCulture' => true)) + 1;
+    return ($setting->getCulture().(string)($setting->getValue() + 1));
   }
 
   public static function generateAccessionIdentifier($incrementCounter = false)
