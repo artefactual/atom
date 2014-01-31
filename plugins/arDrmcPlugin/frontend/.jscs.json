@@ -5,16 +5,29 @@
   "disallowRightStickedOperators": ["?", "+", "/", "*", ":", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<="],
   "requireRightStickedOperators": ["!"],
   "requireLeftStickedOperators": [","],
+  "requireSpaceBeforeBinaryOperators": ["+", "-", "/", "*", "=", "==", "===", "!=", "!=="],
+  "requireSpaceAfterBinaryOperators": ["+", "-", "/", "*", "=", "==", "===", "!=", "!=="],
+  "requireCamelCaseOrUpperCaseIdentifiers": true,
   "disallowImplicitTypeConversion": ["string"],
   "disallowKeywords": ["with"],
   "disallowKeywordsOnNewLine": ["else"],
+  "disallowSpacesInsideParentheses": true,
+  "disallowSpaceAfterObjectKeys": true,
+  "disallowMixedSpacesAndTabs": true,
+  "requireCommaBeforeLineBreak": true,
+  "disallowSpaceBeforePostfixUnaryOperators": ["++", "--"],
+  "disallowTrailingWhitespace": true,
+  "disallowKeywordsOnNewLine": ["else"],
   "requireLineFeedAtFileEnd": true,
+  "requireCapitalizedConstructors": true,
   "requireSpacesInFunctionExpression": {
     "beforeOpeningRoundBrace": true,
     "beforeOpeningCurlyBrace": true
   },
   "validateJSDoc": {
     "checkParamNames": true,
+    "checkRedundantParams": true,
     "requireParamTypes": true
-  }
+  },
+  "validateLineBreaks": "LF"
 }
