@@ -211,6 +211,12 @@ ul.menu-list-left li {
       a.fullscreen:before {
         content: "\f0b2";
       } //a
+      a.maximize:before {
+        content: "\f0fe";
+      }
+      a.minimize:before {
+        content: "\f146";
+      }
       a.AIP_Details:before {
         content: "\f03a";
       } //a
@@ -518,8 +524,7 @@ section.section-supTech, section.dig-obj-bro {
   -webkit-box-pack: start;
 }
 
-.cb-header {
-
+.cb-menu {
 }
 
 .cb-body {
@@ -544,6 +549,17 @@ section.section-supTech, section.dig-obj-bro {
   height: 100%;
   width: 100%;
   margin-bottom: 0;
+  // Cancel .content
+  border-width: 0;
+  border-radius: 0;
+  box-shadow: 0;
+}
+
+.cb-maximized {
+  .cb-fullscreen();
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 // Context browser contents

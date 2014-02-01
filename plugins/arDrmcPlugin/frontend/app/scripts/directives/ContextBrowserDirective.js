@@ -47,7 +47,13 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
           console.error('Error loading tree:', reason);
         });
 
-      // Manage the fullscreen mode
+      // Maximize/minimize
+      scope.isMaximized = false;
+      scope.toggleMaximizedMode = function () {
+        scope.isMaximized = !scope.isMaximized;
+      };
+
+      // Fullscreen mode
       scope.isFullscreen = false;
       scope.toggleFullscreenMode = function () {
         if (scope.isFullscreen) {
