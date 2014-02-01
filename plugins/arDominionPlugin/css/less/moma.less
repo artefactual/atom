@@ -505,6 +505,8 @@ section.section-supTech, section.dig-obj-bro {
 
 .cb {
   margin-bottom: 40px;
+  max-height: 640px;
+  overflow: hidden;
 }
 
 .cb-inner {
@@ -526,15 +528,19 @@ section.section-supTech, section.dig-obj-bro {
 
 .cb-container {
   flex: 3;
+  background-image: url('../../../arDrmcPlugin/frontend/assets/tiny_grid/tiny_grid.png');
+  backgrond-repat: repeat;
+  line-height: 0; // This is inherited from bootstrap I guess?
 }
 
 .cb-sidebar {
-  border-left: 1px solid #eee;
+  border-left: 3px solid #ccc;
   background-color: #eee;
   flex: 1;
 }
 
 .cb-fullscreen {
+  min-height: 100%;
   height: 100%;
   width: 100%;
   margin-bottom: 0;
@@ -553,7 +559,6 @@ section.section-supTech, section.dig-obj-bro {
 .cb-doc {
   .hide();
 }
-
 .cb-legend {
   padding: 10px;
   li {
@@ -593,10 +598,13 @@ text {
 }
 
 .nodes {
-  rect {
+  rect.content {
     stroke: #333;
     stroke-width: 1px;
-    fill: #fff;
+    fill: transparent;
+  }
+  rect.background {
+    fill: #f80;
   }
   .active rect {
     fill: @orange;

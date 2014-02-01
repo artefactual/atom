@@ -18,26 +18,42 @@
   }
 
   ContextBrowser.prototype.init = function (data) {
+
     // SVG layout
-    this.rootSVG = d3.select(this.container.get(0)).append('svg').attr({ 'width': '100%' });
-    this.graphSVG = this.rootSVG.append('svg').attr({ 'class': 'graph-attach', 'width': '100%' });
+    this.rootSVG = d3.select(this.container.get(0)).append('svg').attr('height', '100%');
+    this.graphSVG = this.rootSVG.append('svg').attr({ 'class': 'graph-attach' });
     this.g = this.graphSVG.append('g');
+
+
     this.graph = new Graph(data);
     this.renderer = new dagreD3.Renderer();
 
     // Customize rendering, maybe class-inheritance later?
-    /*
     var _drawNodes = this.renderer.drawNodes();
     this.renderer.drawNodes(function (graph, root) {
       var svgNodes = _drawNodes(graph, root);
       svgNodes.each(function (u) {
-        // this = g.node.enter
-        // u = dagre node value
-        u
+        var r = d3.select(this).select('rect').attr('class', 'content');
+
+        // Background effect
+        d3.select(this)
+          .insert('rect', 'rect.content')
+          .attr({
+            'class': 'background',
+            'x': r.attr('x'),
+            'y': r.attr('y'),
+            'rx': r.attr('rx'),
+            'ry': r.attr('ry'),
+            'width': r.attr('width'),
+            'height': r.attr('height'),
+            'style': 'fill: #f80;'
+          });
+
+        console.log(u);
+
       });
       return svgNodes;
     });
-    */
 
     // Configure zoom
     new Zoom(this.rootSVG);
