@@ -19,10 +19,9 @@
 
   ContextBrowser.prototype.init = function (data) {
     // SVG layout
-    this.rootSVG = d3.select(this.container.get(0)).append('svg');
-    this.graphSVG = this.rootSVG.append('svg').attr({ 'class': 'graph-attach' });
+    this.rootSVG = d3.select(this.container.get(0)).append('svg').attr({ 'width': '100%' });
+    this.graphSVG = this.rootSVG.append('svg').attr({ 'class': 'graph-attach', 'width': '100%' });
     this.g = this.graphSVG.append('g');
-
     this.graph = new Graph(data);
     this.renderer = new dagreD3.Renderer();
 
@@ -50,16 +49,15 @@
 
   ContextBrowser.prototype.draw = function () {
     var behavior = dagreD3.layout().nodeSep(20).rankSep(80).rankDir('RL');
-    var layout = this.renderer.layout(behavior).run(this.graph, this.g);
+    this.layout = this.renderer.layout(behavior).run(this.graph, this.g);
+  };
 
-    // Update the size of the SVG
-    this.graphSVG.attr({
-      'width': this.rootSVG.style('width'),
-    });
+  ContextBrowser.prototype.minimizeAfterFullscreen = function () {
 
-    this.rootSVG.attr({
-      'height': layout.graph().height + 40
-    });
+  };
+
+  ContextBrowser.prototype.maximizeForFullscreen = function () {
+
   };
 
   ContextBrowser.prototype.reset = function () {

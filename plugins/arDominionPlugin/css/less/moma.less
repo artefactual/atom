@@ -463,24 +463,6 @@ section.section-supTech, section.dig-obj-bro {
   }
 }
 
-// Context browser
-
-.context-browser {
-}
-
-.context-browser-fullscreen {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  z-index: 1000;
-}
-
-.context-browser-doc {
-  .hide();
-}
-
 // Special scroll for MOMA
 
 ::-webkit-scrollbar {
@@ -519,18 +501,60 @@ section.section-supTech, section.dig-obj-bro {
   -webkit-border-radius: 100px;
 }
 
-
 // Context browser
 
-svg {
-  overflow: hidden;
+.cb {
+  margin-bottom: 40px;
 }
 
-g.graph {
-  stroke: green;
-  fill: white;
-  stroke-width: 10;
+.cb-inner {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  -webkit-box-direction: normal;
+  -webkit-box-pack: start;
 }
+
+.cb-header {
+
+}
+
+.cb-body {
+  display: flex;
+}
+
+.cb-container {
+  flex: 3;
+}
+
+.cb-sidebar {
+  border-left: 1px solid #eee;
+  background-color: #eee;
+  flex: 1;
+}
+
+.cb-fullscreen {
+  height: 100%;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+// Context browser contents
+
+.cb-list-active-nodes {
+  background-color: @white;
+  list-style-type: none;
+  li {
+    padding: 8px 4px;
+  }
+}
+
+.cb-doc {
+  .hide();
+}
+
+// Context browser SVG
 
 text {
   font-weight: 300;

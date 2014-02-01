@@ -1,9 +1,9 @@
-<div id="content">
+<div ng-class="{ cb: true, 'cb-fullscreen': isFullscreen, content: true }">
 
-  <section class="context-browser">
+  <section class="cb-inner row-fluid">
 
-    <!-- Context browser toolbar -->
-    <div class="menu-list row-fluid">
+    <!-- Header -->
+    <div class="cb-menu menu-list">
 
       <!-- Heading -->
       <ul class="menu-list-left inline">
@@ -12,8 +12,6 @@
 
       <!-- Menu -->
       <ul class="menu-list-right nav nav-pills">
-
-        {{ activeNodes }}
 
         <!-- More -->
         <li class="dropdown">
@@ -54,21 +52,35 @@
       </ul>
     </div>
 
-    <!-- Context browser -->
-    <div class="plumb-container row-fluid">
+    <!-- Body -->
+    <div class="cb-body">
 
-      <!-- Legend -->
-      <div class="plumb-legend" style="display: none;">
-        <ul class="nav nav-stacked">
-          <li class="legend-work">Work</li>
-          <li class="legend-description">Description</li>
-          <li class="legend-physical-component">Physical component</li>
-          <li class="legend-digital-object">Digital object</li>
-        </ul>
+      <!-- Context browser -->
+      <div class="cb-container">
+
+        <!-- Legend -->
+        <div class="plumb-legend" style="display: none;">
+          <ul class="nav nav-stacked">
+            <li class="legend-work">Work</li>
+            <li class="legend-description">Description</li>
+            <li class="legend-physical-component">Physical component</li>
+            <li class="legend-digital-object">Digital object</li>
+          </ul>
+        </div>
+
+        <!-- Container -->
+        <div class="svg-container"/>
+
       </div>
 
-      <!-- Container -->
-      <div class="svg-container"/>
+      <!-- Sidebar -->
+      <div class="cb-sidebar">
+
+        <ul ng-if="hasActiveNodes()" class="cb-list-active-nodes">
+          <li ng-repeat="node in activeNodes">{{ node }}</li>
+        </ul>
+
+      </div>
 
     </div>
 

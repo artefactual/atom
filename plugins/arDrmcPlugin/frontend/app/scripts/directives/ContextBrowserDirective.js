@@ -35,6 +35,9 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
 
       // Selected nodes
       scope.activeNodes = {};
+      scope.hasActiveNodes = function () {
+        return !angular.equals({}, scope.activeNodes);
+      };
 
       // Fetch data from the server
       InformationObjectService.getTree(scope.resource)
@@ -49,8 +52,10 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
       scope.toggleFullscreenMode = function () {
         if (scope.isFullscreen) {
           FullscreenService.cancel();
+          cb.minimizeAfterFullscreen();
         } else {
           FullscreenService.enable(element.get(0));
+          cb.maximizeForFullscreen();
         }
         scope.isFullscreen = !scope.isFullscreen;
       };
