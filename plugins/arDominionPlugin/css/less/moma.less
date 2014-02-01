@@ -554,6 +554,34 @@ section.section-supTech, section.dig-obj-bro {
   .hide();
 }
 
+.cb-legend {
+  padding: 10px;
+  li {
+    margin-top: -3px;
+  }
+  li:before {
+    content: "";
+    width: 14px;
+    height: 12px;
+    margin-right: 5px;
+    padding-top: 2px;
+    border-radius: 10px;
+    display: inline-block;
+  }
+  li.legend-work:before {
+    background: @momaNodeWork;
+  }
+  li.legend-description:before {
+    background: @momaNodeDescription;
+  }
+  li.legend-digital-object:before {
+    background: @momaNodeDigitalObject;
+  }
+  li.legend-physical-component:before {
+    background: @momaNodePhysicalComponent;
+  }
+}
+
 // Context browser SVG
 
 text {
