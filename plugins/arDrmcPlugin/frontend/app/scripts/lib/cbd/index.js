@@ -46,7 +46,7 @@
             'ry': r.attr('ry'),
             'width': r.attr('width'),
             'height': r.attr('height'),
-            'style': 'fill: #f80;'
+            'style': 'fill: #eee;'
           });
 
         console.log(u);
@@ -55,10 +55,10 @@
       return svgNodes;
     });
 
-    // Configure zoom
-    new Zoom(this.rootSVG);
-
     this.draw();
+
+    // Configure zoom
+    this.zoom = new Zoom(this.rootSVG);
 
     this.setupEvents();
   };
