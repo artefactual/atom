@@ -37,10 +37,18 @@ module.exports = function (grunt) {
 
   // Build task
   grunt.registerTask('build', [
+    'build-js',
+    'build-css'
+  ]);
+
+  grunt.registerTask('build-css', [
+    'less',
+  ]);
+
+  grunt.registerTask('build-js', [
     'clean:dist',
     'browserify',
     'concat',
-    'less',
     'clean:build'
   ]);
 
@@ -55,11 +63,6 @@ module.exports = function (grunt) {
     'jshint',
     'jscs'
   ]);
-
-  // Print a timestamp (useful for when watching)
-  grunt.registerTask('timestamp', function () {
-    grunt.log.subhead(Date());
-  });
 
   var karmaConfig = function (configFile, customOptions) {
     var options = {
@@ -90,11 +93,11 @@ module.exports = function (grunt) {
     watch: {
       js: {
         files: ['<%= src.js %>'],
-        tasks: ['timestamp', 'lint', 'build']
+        tasks: ['build-js']
       },
       less: {
         files: ['<%= src.less %>'],
-        tasks: ['timestamp', 'less']
+        tasks: ['build-css']
       }
     },
 
