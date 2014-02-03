@@ -33,6 +33,7 @@
       .translate(this.translate)
       .on('zoom', jQuery.proxy(this.zoomed, this));
     this.SVG.call(this.zoomBehavior);
+    this.SVG.on('dblclick.zoom', null);
   }
 
   Zoom.prototype.fitContainer = function () {
