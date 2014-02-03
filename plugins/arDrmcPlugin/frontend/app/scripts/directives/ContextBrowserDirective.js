@@ -47,13 +47,16 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
           console.error('Error loading tree:', reason);
         });
 
-      // Maximize/minimize
+      // Maximize/minimize. Center the graph within the loop.
       scope.isMaximized = false;
       scope.toggleMaximizedMode = function () {
         scope.isMaximized = !scope.isMaximized;
-        cb.center();
-        cb.expand();
       };
+      scope.$watch('isMaximized', function (oldValue, newValue) {
+        if (oldValue !== newValue) {
+          cb.center();
+        }
+      });
 
       // Fullscreen mode
       scope.isFullscreen = false;
@@ -65,7 +68,6 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
         }
         scope.isFullscreen = !scope.isFullscreen;
         cb.center();
-        cb.expand();
       };
       scope.$on('fullscreenchange', function (event, args) {
         if (args.type === 'enter') {
@@ -74,7 +76,6 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
           scope.isFullscreen = false;
         }
         cb.center();
-        cb.expand();
       });
 
       // Hide relationships

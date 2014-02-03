@@ -511,8 +511,6 @@ section.section-supTech, section.dig-obj-bro {
 
 .cb {
   margin-bottom: 40px;
-  max-height: 640px;
-  overflow: hidden;
 }
 
 .cb-inner {
@@ -522,6 +520,7 @@ section.section-supTech, section.dig-obj-bro {
   -webkit-box-align: stretch;
   -webkit-box-direction: normal;
   -webkit-box-pack: start;
+  overflow: hidden;
 }
 
 .cb-menu {
@@ -529,6 +528,8 @@ section.section-supTech, section.dig-obj-bro {
 
 .cb-body {
   display: flex;
+  max-height: 640px;
+  overflow: hidden;
 }
 
 .cb-container {
@@ -560,6 +561,13 @@ section.section-supTech, section.dig-obj-bro {
   position: fixed;
   top: 0;
   left: 0;
+}
+
+.cb-fullscreen,
+.cb-maximized {
+  .cb-body {
+    max-height: 100%;
+  }
 }
 
 // Context browser contents

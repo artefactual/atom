@@ -13,16 +13,7 @@
     this.SVG = SVG;
     this.container = this.SVG.select('svg > g');
 
-    // Do I really need to use jQuery? Try maybe getBoundingClientRect()?
-    // TODO: height is a dirty hack that needs to be fixed
-    var $SVG = jQuery(this.SVG.node());
-
-    // We are going to need this later
-    this.viewportBox = { width: this.SVG.node().getBoundingClientRect().width, height: $SVG.closest('.cb').height() - 40 };
-    this.containerBox = this.container.node().getBBox();
-
-    this.scale = 1;
-    this.translate = [0, 0];
+    this.cbBody = jQuery(this.SVG.node()).closest('.cb-container');
 
     this.fitContainer();
     this.centerContainer();
@@ -36,11 +27,27 @@
     this.SVG.on('dblclick.zoom', null);
   }
 
+  Zoom.prototype.getViewportDimensions = function () {
+    return {
+      // I could just be looking at .cb-body
+      width: this.cbBody.width(),
+      height: this.cbBody.height()
+    };
+  };
+
+  Zoom.prototype.getContainerDimensions = function () {
+    return this.container.node().getBBox();
+  };
+
   Zoom.prototype.fitContainer = function () {
-    var vx = this.viewportBox.width;
-    var vy = this.viewportBox.height;
-    var gx = this.containerBox.width;
-    var gy = this.containerBox.height;
+    var viewportDimensions = this.getViewportDimensions();
+    var vx = viewportDimensions.width;
+    var vy = viewportDimensions.height;
+    var containerDimensions = this.getContainerDimensions();
+    var gx = containerDimensions.width;
+    var gy = containerDimensions.height;
+
+    console.log(vx, vy, gx, gy);
 
     // We are not transforming the object if it fits within the viewport
     if (gx < vx && gy < vy) {
@@ -57,8 +64,9 @@
   };
 
   Zoom.prototype.centerContainer = function () {
+    var v = this.getViewportDimensions();
     var c = this.container.node().getBoundingClientRect();
-    this.translate = [(this.viewportBox.width / 2) - (c.width / 2), (this.viewportBox.height / 2) - (c.height / 2)];
+    this.translate = [(v.width / 2) - (c.width / 2), (v.height / 2) - (c.height / 2)];
     this.container.attr('transform', 'translate(' + this.translate + ') scale(' + this.scale + ')');
   };
 
