@@ -19,7 +19,7 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
       //  console.log(value);
       //});
 
-      var cb = new ContextBrowser(container);
+      var cb = window.cb = new ContextBrowser(container);
 
       cb.events.on('pin-node', function (attrs) {
         scope.$apply(function () {
@@ -52,6 +52,7 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
       scope.toggleMaximizedMode = function () {
         scope.isMaximized = !scope.isMaximized;
         cb.center();
+        cb.expand();
       };
 
       // Fullscreen mode
@@ -59,12 +60,12 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
       scope.toggleFullscreenMode = function () {
         if (scope.isFullscreen) {
           FullscreenService.cancel();
-          cb.minimizeAfterFullscreen();
         } else {
           FullscreenService.enable(element.get(0));
-          cb.maximizeForFullscreen();
         }
         scope.isFullscreen = !scope.isFullscreen;
+        cb.center();
+        cb.expand();
       };
       scope.$on('fullscreenchange', function (event, args) {
         if (args.type === 'enter') {
@@ -72,6 +73,8 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
         } else {
           scope.isFullscreen = false;
         }
+        cb.center();
+        cb.expand();
       });
 
       // Hide relationships

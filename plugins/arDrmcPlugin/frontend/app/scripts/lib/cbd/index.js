@@ -18,12 +18,10 @@
   }
 
   ContextBrowser.prototype.init = function (data) {
-
     // SVG layout
-    this.rootSVG = d3.select(this.container.get(0)).append('svg').attr('height', '100%');
+    this.rootSVG = d3.select(this.container.get(0)).append('svg');
     this.graphSVG = this.rootSVG.append('svg').attr({ 'class': 'graph-attach' });
     this.g = this.graphSVG.append('g');
-
 
     this.graph = new Graph(data);
     this.renderer = new dagreD3.Renderer();
@@ -59,13 +57,20 @@
 
     // Configure zoom
     this.zoom = new Zoom(this.rootSVG);
-
+    this.expand();
     this.setupEvents();
   };
 
   ContextBrowser.prototype.draw = function () {
     var behavior = dagreD3.layout().nodeSep(20).rankSep(80).rankDir('RL');
     this.layout = this.renderer.layout(behavior).run(this.graph, this.g);
+  };
+
+  ContextBrowser.prototype.expand = function () {
+    this.rootSVG.attr({
+      'width': this.container.width(),
+      'height': this.container.height()
+    });
   };
 
   ContextBrowser.prototype.minimizeAfterFullscreen = function () {
