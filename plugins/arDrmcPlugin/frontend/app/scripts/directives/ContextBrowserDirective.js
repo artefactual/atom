@@ -51,6 +51,7 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
       scope.isMaximized = false;
       scope.toggleMaximizedMode = function () {
         scope.isMaximized = !scope.isMaximized;
+        cb.center();
       };
 
       // Fullscreen mode

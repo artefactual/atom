@@ -62,6 +62,14 @@
     this.container.attr('transform', 'translate(' + this.translate + ') scale(' + this.scale + ')');
   };
 
+  Zoom.prototype.reset = function () {
+    this.fitContainer();
+    this.centerContainer();
+    this.zoomBehavior
+      .scale(this.scale)
+      .translate(this.translate);
+  };
+
   Zoom.prototype.zoomed = function () {
     this.container.attr('transform', 'translate(' + d3.event.translate + ') scale(' + d3.event.scale + ')');
   };

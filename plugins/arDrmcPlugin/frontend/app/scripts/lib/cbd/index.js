@@ -76,8 +76,8 @@
 
   };
 
-  ContextBrowser.prototype.reset = function () {
-
+  ContextBrowser.prototype.center = function () {
+    this.zoom.reset();
   };
 
   ContextBrowser.prototype.setupEvents = function () {
