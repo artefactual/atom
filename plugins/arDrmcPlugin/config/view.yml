@@ -27,7 +27,9 @@ all:
 
   javascripts:
     -*:
+    /plugins/arDrmcPlugin/frontend/dist/DRMC-MA.vendor.js: { position: last }
     ../vendor/bootstrap/js/bootstrap: { position: last }
+    /plugins/arDrmcPlugin/frontend/dist/DRMC-MA.app.js: { position: last }
 
 
   # Stylesheets

@@ -2,10 +2,7 @@
 
   'use strict';
 
-  window.jQuery = require('jquery');
   var angular = require('angular');
-  require('../../vendor/angular-ui-router.js');
-  require('../../dist/build/vendor-shims.js');
 
   /*
    * Module definition

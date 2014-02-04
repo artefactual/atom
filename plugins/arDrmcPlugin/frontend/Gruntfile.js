@@ -25,8 +25,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-concat'); // Not used
+  grunt.loadNpmTasks('grunt-contrib-uglify'); // Not used
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-karma');
 
@@ -48,14 +48,15 @@ module.exports = function (grunt) {
   grunt.registerTask('build-js', [
     'clean:dist',
     'browserify',
-    'concat',
+    'copy',
     'clean:build'
   ]);
 
-  // Release task
-  grunt.registerTask('release', [
-    'build',
-    'uglify'
+  // This is for grunt-watch
+  grunt.registerTask('build-js-after-changes', [
+    'lint',
+    'browserify:app',
+    'copy',
   ]);
 
   // Lint task
@@ -93,11 +94,17 @@ module.exports = function (grunt) {
     watch: {
       js: {
         files: ['<%= src.js %>'],
-        tasks: ['build-js']
+        tasks: ['build-js-after-changes'],
+        options: {
+          spawn: false
+        }
       },
       less: {
         files: ['<%= src.less %>'],
-        tasks: ['build-css']
+        tasks: ['build-css'],
+        options: {
+          spawn: false
+        }
       }
     },
 
@@ -154,7 +161,7 @@ module.exports = function (grunt) {
       // Add in browserify.vendor.src all the libs you need but make sure that
       // you also declare the shim under browserify.vendor.options.shim.
       // There is a good example in: http://goo.gl/rbIFwu
-      vendor: {
+      shims: {
         src: [
           'vendor/angular-strap.js'
         ],
@@ -170,36 +177,49 @@ module.exports = function (grunt) {
         }
       },
 
+      vendor: {
+        src: 'app/scripts/import.js',
+        dest: '<%= builddir %>/vendor.js',
+        options: {
+          debug: true,
+          alias: [
+            'jquery:jquery',
+            'd3:d3',
+            'dagre-d3:dagre-d3',
+            'angular:angular',
+            'ui-router:ui-router',
+            'wolfy87-eventemitter:wolfy87-eventemitter'
+          ]
+        }
+      },
+
       app: {
-        src: ['<%= src.jsEntry %>'],
+        src: '<%= src.jsEntry %>',
         dest: '<%= builddir %>/app.js',
         options: {
           debug: true,
           external: [
-            '9RiUY6' // Why? Mysterious! grunt-browserify: wtf?!
+            'jquery',
+            'd3',
+            'dagre-d3',
+            'angular',
+            'ui-router',
+            'wolfy87-eventemitter'
           ]
         }
       },
 
     },
 
-    concat: {
+    copy: {
       build: {
-        src: [
-          '<%= builddir %>/app.js'
-        ],
-        dest: '<%= distdir %>/<%= pkg.name %>.js'
-      }
-    },
-
-    uglify: {
-      options: { },
-      relase: {
-        files: {
-          '<%= distdir %>/<%= pkg.name %>.min.js': [
-            '<%= distdir %>/<%= pkg.name %>.js'
-          ]
-        }
+        files: [{
+          src: '<%= builddir %>/vendor.js',
+          dest: '<%= distdir %>/<%= pkg.name %>.vendor.js'
+        }, {
+          src: '<%= builddir %>/app.js',
+          dest: '<%= distdir %>/<%= pkg.name %>.app.js'
+        }]
       }
     }
 
