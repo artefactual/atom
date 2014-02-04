@@ -1,2 +1,2 @@
 <!-- View placeholder -->
-<ui-view/>
+<ui-view autoscroll="false"/>
