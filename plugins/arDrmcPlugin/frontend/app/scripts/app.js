@@ -63,8 +63,12 @@
       $rootScope.$stateParams = $stateParams;
 
       // Same here
+      $rootScope.basePath = ATOM_CONFIG.basePath;
       $rootScope.viewsPath = ATOM_CONFIG.viewsPath;
       $rootScope.assetsPath = ATOM_CONFIG.assetsPath;
+
+      $rootScope.headerPartialPath = ATOM_CONFIG.viewsPath + '/partials/header.html';
+      $rootScope.footerPartialPath = ATOM_CONFIG.viewsPath + '/partials/footer.html';
 
     });
 

@@ -1,7 +1,30 @@
-Works browser
+<div id="" class="row-fluid">
 
-<ul>
-  <li ng-repeat="(id, work) in works">
-    <a ui-sref="works.view({id:id})">{{ work.title }}</a> ({{ work.tms.year }})
-  </li>
-</ul>
+  <div class="span3">
+  </div>
+
+  <div class="span9">
+    <div id="main-column" class="row-fluid">
+
+      <h2>Works browser</h2>
+
+      <div id="content">
+
+        <article ng-repeat="(id, work) in works" class="search-result">
+          <div class="search-result-description">
+            <p class="title"><a ui-sref="works.view({id:id})">{{ work.title }}</a></p>
+            <ul class="result-details">
+              <li class="reference-code">{{ work.tms.objectId }}</li>
+              <li class="dates">{{ work.tms.year }}</li>
+            </ul>
+            <p>{{ work.tms.description }}</p>
+            <p class="creation-details">{{ work.tms.accessionNumber }}</p>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

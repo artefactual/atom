@@ -1,0 +1,42 @@
+<header id="top-bar">
+
+  <a id="logo" rel="home" ui-sref="dashboard" ng-if="false">
+    <img src="{{ basePath }}/images/logo.png"/>
+  </a>
+
+  <h1 id="site-name">
+    <a ui-sref="dashboard">DRMC-MA</a>
+  </h1>
+
+  <div id="search-bar">
+
+    <div id="search-form-wrapper">
+      <form>
+        <input type="text" name="query" placeholder="Search (WIP)"/>
+      </form>
+    </div>
+
+    <div id="browse-menu">
+      <a class="top-item top-dropdown" data-toggle="dropdown">Browse</a>
+      <div class="top-dropdown-container">
+        <div class="top-dropdown-arrow">
+          <div class="arrow"></div>
+        </div>
+        <div class="top-dropdown-header">Browse</div>
+        <div class="top-dropdown-body">
+          <ul>
+            <li ng-class="{ active: $state.includes('aips.browser') }">
+              <a ui-sref="aips.browser">AIPs</a>
+            </li>
+            <li ng-class="{ active: $state.includes('works.browser') }">
+              <a ui-sref="works.browser">Works</a>
+            </li>
+          </ul>
+        </div>
+        <div class="top-dropdown-bottom"></div>
+      </div>
+    </div>
+
+  </div>
+
+</header>

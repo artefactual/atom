@@ -8,9 +8,9 @@
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
   </head>
-  <body ng-app="momaApp">
+  <body ng-app="momaApp" class="drmc-ma">
 
-    <?php // echo get_partial('header') ?>
+    <ng-include src="headerPartialPath"></ng-include>
 
     <div id="wrapper" class="container">
 
@@ -18,7 +18,7 @@
 
     </div>
 
-    <?php // echo get_partial('footer') ?>
+    <ng-include src="footerPartialPath"></ng-include>
 
   </body>
 </html>
