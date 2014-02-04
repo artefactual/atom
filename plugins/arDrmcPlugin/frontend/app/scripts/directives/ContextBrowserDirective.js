@@ -24,6 +24,9 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
       cb.events.on('pin-node', function (attrs) {
         scope.$apply(function () {
           scope.activeNodes[attrs.id] = attrs;
+          InformationObjectService.getWork(attrs.id).then(function (work) {
+              scope.activeNodes[attrs.id].data = work;
+            });
         });
       });
 
@@ -36,7 +39,17 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
       // Selected nodes
       scope.activeNodes = {};
       scope.hasActiveNodes = function () {
-        return !angular.equals({}, scope.activeNodes);
+        return Object.keys(scope.activeNodes).length > 1;
+      };
+      scope.hasOneNodeActive = function () {
+        if (Object.keys(scope.activeNodes).length === 1)
+        {
+          scope.activeNode = scope.activeNodes[Object.keys(scope.activeNodes)[0]];
+
+          return true;
+        }
+
+        return false;
       };
 
       // Fetch data from the server

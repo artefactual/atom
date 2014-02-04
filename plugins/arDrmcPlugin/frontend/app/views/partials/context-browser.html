@@ -80,13 +80,20 @@
           </ul>
         </div>
 
-        <ul ng-if="hasActiveNodes()" class="cb-list-active-nodes">
-          <li ng-repeat="node in activeNodes">
-            {{ node }}
-            <a href ng-click="addChildNode(node.id)">Add child</a>
-            <a href ng-click="deleteNode(node.id)">Delete</a>
-          </li>
-        </ul>
+        <div ng-if="hasOneNodeActive()" class="cb-node-detail">
+          <h4>Node detail</h4>
+          {{ activeNode }}
+          <hr />
+          <a href ng-click="addChildNode(node.id)">Add child</a>
+          <a href ng-click="deleteNode(node.id)">Delete</a>
+        </div>
+
+        <div ng-if="hasActiveNodes()" class="cb-list-active-nodes">
+          <h4>Bulk edit</h4>
+          <ul>
+            <li ng-repeat="node in activeNodes">{{ node }}</li>
+          </ul>
+        </div>
 
       </div>
 
