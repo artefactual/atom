@@ -11,6 +11,7 @@ Build instructions (in /plugins/arDrmcPlugin/frontend):
 
 $ npm install
 $ grunt build
+$ php symfony cc # In root directory
 
 You can run "grunt watch" to detect changes during development and trigger the build.
 Take into account that "grunt build" will be still necessary to be executed once when
