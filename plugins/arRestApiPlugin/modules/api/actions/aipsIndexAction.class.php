@@ -21,7 +21,65 @@ class APIAIPSIndexAction extends QubitAPIAction
 {
   protected function getData($request)
   {
-    return array(
+    $this->query = new \Elastica\Query();
+    $this->queryBool = new \Elastica\Query\Bool();
+    $this->filterBool = new \Elastica\Filter\Bool;
+
+    // Limit and page
+    if (isset($request->limit) && ctype_digit($request->limit))
+    {
+      $this->query->setLimit($request->limit);
+
+      if (isset($request->page) && ctype_digit($request->page))
+      {
+        $this->query->setFrom(($request->page - 1) * $request->limit);
+      }
+    }
+
+    // Sort and direction, default: filename, asc
+    if (!isset($request->sort))
+    {
+      $request->sort = 'filename';
+    }
+
+    if (!isset($request->direction))
+    {
+      $request->direction = 'asc';
+    }
+
+    $this->query->setSort(array($request->sort => $request->direction));
+
+    // Query
+    $this->queryBool->addMust(new \Elastica\Query\MatchAll());
+    $this->query->setQuery($this->queryBool);
+
+    // TODO: Filter
+    if (0 < count($this->filterBool->toArray()))
+    {
+      $this->query->setFilter($this->filterBool);
+    }
+
+    // Build array from results
+    $resultsES = array();
+    foreach (QubitSearch::getInstance()->index->getType('QubitAip')->search($this->query) as $hit)
+    {
+      $doc = $hit->getData();
+
+      $aip = array();
+      $aip['id'] = $hit->getId();
+      $aip['name'] = $doc['filename'];
+      $aip['uuid'] = $doc['uuid'];
+      $aip['size'] = $doc['sizeOnDisk'];
+      $aip['created_at'] = $doc['createdAt'];
+      $aip['class'] = $doc['typeId']; // TODO: Get type name from ORM or add full term to the aips ES index
+
+      // TODO: Parent of and part of
+
+      $resultsES['aips']['results'][] = $aip;
+    }
+
+    // Test data
+    $results = array(
 
       /*
        * Overview
@@ -158,5 +216,6 @@ class APIAIPSIndexAction extends QubitAPIAction
             'total_size' => '0')))
       );
 
+    return $results;
   }
 }
