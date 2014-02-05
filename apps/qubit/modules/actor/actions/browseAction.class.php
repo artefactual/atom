@@ -94,7 +94,7 @@ class ActorBrowseAction extends DefaultBrowseAction
     }
 
     $this->query->setQuery($this->queryBool);
-    $this->query->setFields(array('slug', 'sourceCulture', 'i18n', 'entityTypeId', 'updatedAt'));
+    $this->query->setFields(array('slug', 'sourceCulture', 'i18n', 'entityTypeId', 'updatedAt', 'descriptionIdentifier'));
 
     // Set filter
     if (0 < count($this->filterBool->toArray()))
