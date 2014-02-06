@@ -812,7 +812,7 @@ class arElasticSearchInformationObjectPdo
     }
 
     // Material type
-    if (null !== ($materialTypeId = $this->getMaterialTypeId))
+    if (false !== ($materialTypeId = $this->getMaterialTypeId()))
     {
       $serialized['materialTypeId'] = $materialTypeId;
     }
