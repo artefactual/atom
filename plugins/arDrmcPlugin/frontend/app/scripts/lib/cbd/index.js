@@ -30,7 +30,7 @@
     var _drawNodes = this.renderer.drawNodes();
     this.renderer.drawNodes(function (graph, root) {
       var svgNodes = _drawNodes(graph, root);
-      svgNodes.each(function (u) {
+      svgNodes.each(function () {
         var r = d3.select(this).select('rect').attr('class', 'content');
 
         // Background effect
@@ -43,11 +43,8 @@
             'rx': r.attr('rx'),
             'ry': r.attr('ry'),
             'width': r.attr('width'),
-            'height': r.attr('height'),
-            'style': 'fill: #eee;'
+            'height': r.attr('height')
           });
-
-        console.log(u);
 
       });
       return svgNodes;
@@ -73,7 +70,9 @@
     var nodes = this.graphSVG.selectAll('g.node');
 
     nodes
-      .on('click', jQuery.proxy(this.clickNode, null, this));
+      .on('click', jQuery.proxy(this.clickNode, null, this))
+      .on('mouseover', jQuery.proxy(this.hoverNode, null, this))
+      .on('mouseout', jQuery.proxy(this.hoverNode, null, this));
   };
 
   ContextBrowser.prototype.showRelationships = function () {
@@ -89,10 +88,39 @@
     if (n.classed('active')) {
       n.classed('active', false);
       context.events.emitEvent('unpin-node', [{ id: datum, index: index }]);
+
     } else {
       n.classed('active', true);
       context.events.emitEvent('pin-node', [{ id: datum, index: index }]);
     }
+  };
+
+  ContextBrowser.prototype.hoverNode = function () {
+    if (d3.event.type === 'mouseover') {
+      d3.select(this).classed('hover', true);
+    } else if (d3.event.type === 'mouseout') {
+      d3.select(this).classed('hover', false);
+    }
+  };
+
+  // Graph contents manipulation
+
+  ContextBrowser.prototype.addNode = function (id, label, level, parentId) {
+    if (typeof level === 'undefined') {
+      level = 'description';
+    }
+    this.graph.addNode(id, {
+      id: id,
+      level: level,
+      label: label
+    });
+    this.graph.addEdge(id + ':' + parentId, id, parentId);
+    this.draw();
+  };
+
+  ContextBrowser.prototype.deleteNode = function (id) {
+    this.graph.delNode(id);
+    this.draw();
   };
 
   module.exports = ContextBrowser;

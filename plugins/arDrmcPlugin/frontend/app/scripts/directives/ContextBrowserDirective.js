@@ -88,6 +88,22 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
           cb.showRelationships();
         }
       };
+
+      // Add child node
+      scope.addChildNode = function (parentId) {
+        var label = prompt('Insert label');
+        var id = Math.random() * 100;
+        if (label.length === 0) {
+          return;
+        }
+        cb.addNode(id, label, 'description', parentId);
+      };
+
+      // Delete node
+      scope.deleteNode = function (id) {
+        cb.deleteNode(id);
+        scope.activeNodes = {};
+      };
     }
   };
 };

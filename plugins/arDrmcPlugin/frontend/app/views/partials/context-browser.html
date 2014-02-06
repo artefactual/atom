@@ -81,7 +81,11 @@
         </div>
 
         <ul ng-if="hasActiveNodes()" class="cb-list-active-nodes">
-          <li ng-repeat="node in activeNodes">{{ node }}</li>
+          <li ng-repeat="node in activeNodes">
+            {{ node }}
+            <a href ng-click="addChildNode(node.id)">Add child</a>
+            <a href ng-click="deleteNode(node.id)">Delete</a>
+          </li>
         </ul>
 
       </div>

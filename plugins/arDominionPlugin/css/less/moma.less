@@ -34,10 +34,10 @@ body {
     padding-right: 6px;
   }
 }
-/*------------------------ */
-// Section Titles
 
-h1#moma-page-title:before {
+// Titles
+
+.moma-page-title:before {
   border-radius: 20px;
   width: 20px;
   height: 20px;
@@ -47,54 +47,26 @@ h1#moma-page-title:before {
   background: @momaNodeWork;
 }
 
-section#moma-metabox-1 {
-  margin-bottom: 10px;
-  .content {
-    box-shadow: none;
-  }
+// Some layout mixins
+
+.moma-metabox {
+  margin-bottom: 20px;
   .span7 {
-    overflow: auto;
-    padding-bottom: 16px;
-    max-height: 300px;
+    margin-bottom: 0;
   }
   .span5 {
     position: relative;
     display: block;
-      img {
-    position: absolute;
-    display: block;
-    vertical-align: center;
-    width: 100%;
-    border: 2px solid @black;
-    border-radius: 5px;
-    height: auto;
-    min-height: 300px;
+    img {
+      display: block;
+      vertical-align: center;
+      width: 100%;
+      border: 2px solid @black;
+      border-radius: 5px;
+      height: auto;
     }
   }
 }
-
-
-/* -------------------------- */
-// Breadcrumb
-
-
-section#moma-breadcrumb {
-  padding-top: 4px;
-  border-top: 1px solid @grayLighter;
-  border-radius: none;
-  li {
-    padding-left: 8px;
-    font-size: .8rem;
-    &:last-child {
-      top: 3px;
-      margin-left: 8px;
-    }
-  }
-  a {
-    padding-top: 0;
-  }
-}
-
 
 /* -------------------------- */
 // MetaData / Digital Objects
@@ -637,10 +609,13 @@ text {
     fill: transparent;
   }
   rect.background {
-    fill: #f80;
+    fill: #fff3e6;
   }
   .active rect {
     fill: @orange;
+  }
+  .hover .background {
+    fill: lighten(@blue, 50%);
   }
 }
 

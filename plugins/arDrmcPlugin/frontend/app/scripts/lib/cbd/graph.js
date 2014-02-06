@@ -26,8 +26,6 @@
       // Add node
       self.addNode(element.id, {
         id: element.id,
-        width: 1, // self.defaultBoxSize.width,
-        height: 2, // self.defaultBoxSize.height,
         level: element.level,
         label: element.title
       });
