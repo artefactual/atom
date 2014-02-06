@@ -15,6 +15,8 @@
 
     this.cbBody = jQuery(this.SVG.node()).closest('.cb-container');
 
+    this.scale = 1;
+
     this.fitContainer();
     this.centerContainer();
 
@@ -47,18 +49,15 @@
     var gx = containerDimensions.width;
     var gy = containerDimensions.height;
 
-    console.log(vx, vy, gx, gy);
-
-    // We are not transforming the object if it fits within the viewport
+    // We are not transforming the object if it fits within the viewport, but
+    // reset its scale in case that the user changed it
     if (gx < vx && gy < vy) {
+      this.scale = 1;
       return;
     }
 
-    // There must be a cleaner way to do this! :(
     var margin = 40;
-    var longest = Math.max(gx, gy);
-    var related = longest === gx ? vx : vy;
-    this.scale = 1 / (longest / (related - margin));
+    this.scale = Math.min(vx / (gx + margin), vy / (gy + margin));
 
     this.container.attr('transform', 'translate(0, 0) scale(' + this.scale + ')');
   };
