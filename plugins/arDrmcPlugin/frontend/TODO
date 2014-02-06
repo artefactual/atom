@@ -1,0 +1,12 @@
+Build
+-----
+- I was recommended by thlorenz to stop using grunt-browserify for shims
+  and just use browserify-shim and put all the config in packages.json, which
+  seems to be the best place. View thlorenz/browserify-shim issue #22.
+- Use angular-ui-router instead of ui-router (npm). Having issues with the build.
+- Experiment with livereload(), supported by grunt-watch
+- Better use of source maps
+- Split build in dev and prod (minify css and js)
+- yeoman-angular and twbs have the best build ever, learn from it for improvements
+- For stylesheet, should we be using recess? csslint?
+- Write some tests, configure runner
