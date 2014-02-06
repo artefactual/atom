@@ -2,22 +2,6 @@
 
 module.exports = function (grunt) {
 
-  /*
-   * Some TODO items for this build:
-   *  - Add more comments and a introduction
-   *  - Add source maps for better debugging
-   *  - Add basic testing
-   *  - Remove libs from vendor/, use bower?
-   *  - Compile CSS using recess?
-   *  - More linting: better .jshintrc, jscs and csslint!
-        See: http://goo.gl/pjQku0
-   *  - Look at yeoman-angular, they have a bunch of nice features
-   *  - Builder alternatives? (gulp)
-   *  - Module bundler alternatives? requirejs, webpack...
-   *    requirejs can fully run in a browser, but its syntax is not that nice!
-   *    webpack seems to be awesome, see http://goo.gl/3pmIjy
-   */
-
   // Load tasks
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-jscs-checker');
