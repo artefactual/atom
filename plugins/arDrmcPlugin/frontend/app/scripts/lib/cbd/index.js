@@ -112,7 +112,7 @@
       level = 'description';
     }
     this.graph.addNode(id, {
-      id: id,
+      id: Math.floor(Math.random() * 11),
       level: level,
       label: label
     });
