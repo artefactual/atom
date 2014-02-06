@@ -70,12 +70,28 @@
   };
 
   ContextBrowser.prototype.setupEvents = function () {
-    var nodes = this.graphSVG.selectAll('g.node');
+    // d3.selection.on doesn't support event delegation
+    // Mimic it. Maybe I should just use jQuery.on() or setup events per node.
+    var cb = this;
+    var nodeFilter = function (fn) {
+      var $this = jQuery(this);
+      if ($this.has(d3.event.target)) {
+        var node = jQuery(d3.event.target).closest('.node').get(0);
+        fn.call(
+          // Context: node (this)
+          node,
+          // Param 1: context browser
+          cb,
+          // Param 2: datum
+          d3.select(node).datum()
+        );
+      }
+    };
 
-    nodes
-      .on('click', jQuery.proxy(this.clickNode, null, this))
-      .on('mouseover', jQuery.proxy(this.hoverNode, null, this))
-      .on('mouseout', jQuery.proxy(this.hoverNode, null, this));
+    this.graphSVG.select('.nodes')
+      .on('click', jQuery.proxy(nodeFilter, null, this.clickNode))
+      .on('mouseover', jQuery.proxy(nodeFilter, null, this.hoverNode))
+      .on('mouseout', jQuery.proxy(nodeFilter, null, this.hoverNode));
   };
 
   ContextBrowser.prototype.showRelationships = function () {
@@ -88,12 +104,18 @@
 
   ContextBrowser.prototype.clickNode = function (context, datum, index) {
     var n = d3.select(this);
-    if (n.classed('active')) {
-      n.classed('active', false);
-      context.events.emitEvent('unpin-node', [{ id: datum, index: index }, d3.event.target]);
-    } else {
+    if (!n.classed('active')) {
+      if (!d3.event.shiftKey) {
+        context.graphSVG.selectAll('.node.active').each(function (datum, index) {
+          d3.select(this).classed('active', false);
+          context.events.emitEvent('unpin-node', [{ id: datum, index: index }, d3.event.target]);
+        });
+      }
       n.classed('active', true);
       context.events.emitEvent('pin-node', [{ id: datum, index: index }, d3.event.target]);
+    } else {
+      n.classed('active', false);
+      context.events.emitEvent('unpin-node', [{ id: datum, index: index }, d3.event.target]);
     }
   };
 
