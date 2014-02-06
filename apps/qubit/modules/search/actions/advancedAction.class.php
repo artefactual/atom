@@ -244,7 +244,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
         break;
 
-      case 'm':
+      case 't':
         $query = new \Elastica\Query\Term;
         $query->setTerm('digitalObject.mediaTypeId', $value);
         $this->queryBool->addMust($query);
