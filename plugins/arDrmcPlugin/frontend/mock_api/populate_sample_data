@@ -1,0 +1,66 @@
+#! /usr/bin/env node
+/*
+
+Populate mock AIP server with data
+
+Examples:
+  ./populate_sample_data        # defaults to base URL of http://127.0.0.1:2403/
+  ./populate_sample_data 2404   # specify port only: ends up http://127.0.0.1:2404/
+  ./populate_sample_data http://192.168.1.75:2403
+
+*/
+
+var fs = require('fs'),
+    uuid = require('node-uuid'),
+    request = require('request'),
+    url,
+    serverSpec;
+
+// determine URL base from optional CLI arg
+if (process.argv.length > 2) {
+
+  serverSpec = process.argv[process.argv.length-1];
+
+  // check for numerical value
+  if (parseInt(serverSpec, 10) > 0) {
+
+    // treat CLI arg as local port number
+    urlBase = 'http://127.0.0.1:' + serverSpec + '/';
+  } else {
+    // try CLI arg as URL base
+    urlBase = serverSpec + '/';
+  }
+} else {
+  // default URL base
+  urlBase = 'http://127.0.0.1:2403/';
+}
+
+// load sample AIP data
+aips = JSON.parse(fs.readFileSync(__dirname + '/sample_data/aips.json'));
+
+// POST AIP data to API
+var aipsEndpoint = urlBase + 'aips-raw';
+console.log('Posting sample data to ' + aipsEndpoint);
+
+aips.forEach(function (aip) {
+  // generate UUID if not present
+  if (typeof aip['uuid'] == 'undefined') {
+    aip['uuid'] = uuid.v4();
+  }
+
+  // remove system IDs if present in data
+  if (typeof aip['id'] != 'undefined') {
+    delete aip['id'];
+  }
+
+  // POST to API
+  request.post(aipsEndpoint, {form: aip}, function (error, response, body) {  
+    if (!error) {
+      created_aip = JSON.parse(body);
+      console.log('  Created resource ' + created_aip.id + '.');
+    } else {
+      console.log('Error sending data.');
+      process.exit();
+    }
+  });
+});

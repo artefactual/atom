@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "Starting mock API server..."
+
+cd mock_api
+dpd -d
