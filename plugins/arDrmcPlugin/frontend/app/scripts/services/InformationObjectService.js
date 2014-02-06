@@ -150,12 +150,9 @@ module.exports = function ($q) {
     var deferred = $q.defer();
 
     if (this.informationObjects !== undefined) {
-      /*
       deferred.resolve(lodash.filter(this.informationObjects, function (element) {
         return element.level === 'work';
       }));
-      */
-      deferred.resolve(this.informationObjects);
     } else {
       deferred.reject('There are not works currently available');
     }
