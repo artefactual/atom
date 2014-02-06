@@ -71,18 +71,30 @@
       <div class="cb-sidebar">
 
         <div class="cb-sidebar-top">
-          <div ng-if="hasOneNodeActive()" class="cb-node-detail">
-            <h4>{{ activeNode.data.title }}</h4>
+          <!-- Single node detail -->
+          <div ng-if="hasNodeSelected()" class="cb-node-detail">
+            <h3>[{{ lastSelection.data.id }}] {{ lastSelection.data.title }}</h3>
+            <div class="node-metadata">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nisl tortor, pretium eu egestas a, dapibus ut eros. Fusce ultrices felis dui, quis lacinia magna pellentesque non. Nullam et ornare elit. Aenean condimentum aliquam rhoncus. Nulla vitae vestibulum lectus.</p>
+            </div>
             <div class="node-actions">
-              <a href class="btn btn-small" ng-click="addChildNode(activeNode.id)">Add child</a>
-              <a href class="btn btn-small" ng-click="deleteNode(activeNode.id)">Delete</a>
+              <a href class="btn btn-small" ng-click="addChildNode(lastSelection.id)">Add child</a>
+              <a href class="btn btn-small" ng-click="deleteNode(lastSelection.id)">Delete</a>
+              <a href class="btn btn-small" ng-click="moveNode(lastSelection.id)">Move</a>
             </div>
           </div>
-          <div ng-if="hasActiveNodes()" class="cb-list-active-nodes">
-            <h4>Bulk edit</h4>
-            <ul>
-              <li ng-repeat="node in activeNodes">{{ node.data.title }}</li>
-            </ul>
+          <!-- Bulk edit -->
+          <div ng-if="hasNodesSelected()" class="cb-node-detail cb-list-active-nodes">
+            <h3>Bulk edit</h3>
+            <div class="node-metadata">
+              <p>
+                <span< ng-repeat="node in activeNodes">{{ node.data.title }}<br /></span>
+              </p>
+            </div>
+            <div class="node-actions">
+              <a href class="btn btn-small" ng-click="" ng-enabled="false">Delete</a>
+              <a href class="btn btn-small" ng-click="" ng-enabled="false">Move</a>
+            </div>
           </div>
         </div>
 

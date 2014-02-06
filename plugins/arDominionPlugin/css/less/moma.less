@@ -566,6 +566,35 @@ section.section-supTech, section.dig-obj-bro {
 
 // Context browser contents
 
+.cb-node-detail {
+  border: 1px solid #999;
+  margin: 10px;
+  border-radius: 4px;
+  background-color: @white;
+  h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .node-metadata {
+    padding-left: 10px;
+    padding-right: 10px;
+    p {
+      font-size: 11px;
+      line-height: 1.4em;
+    }
+  }
+  .node-actions {
+    padding: 8px;
+    border-top: 1px solid #ccc;
+    background-color: #e4e1d8;
+  }
+}
+
 .cb-list-active-nodes {
   background-color: @white;
   list-style-type: none;

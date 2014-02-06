@@ -16,14 +16,20 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
 
       var cb = window.cb = new ContextBrowser(container);
 
-      var firstSelection;
+      // There may be many nodes selected, but firstSelection should be pointing
+      // to the first one so we can do bulk edits over it
+      scope.firstSelection = undefined;
+      scope.lastSelection = undefined;
+      scope.activeNodes = {};
 
       cb.events.on('pin-node', function (attrs) {
         scope.$apply(function () {
           if (typeof firstSelection === 'undefined') {
-            firstSelection = attrs.id;
+            scope.firstSelection = attrs.id;
           }
-          scope.activeNodes[attrs.id] = attrs;
+
+          scope.lastSelection = scope.activeNodes[attrs.id] = attrs;
+
           InformationObjectService.getWork(attrs.id).then(function (work) {
               scope.activeNodes[attrs.id].data = work;
             });
@@ -32,29 +38,16 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
 
       cb.events.on('unpin-node', function (attrs) {
         scope.$apply(function () {
-          if (attrs.id === firstSelection) {
-            scope.activeNodes = {};
-            firstSelection = undefined;
-          } else {
-            delete scope.activeNodes[attrs.id];
-          }
+          delete scope.activeNodes[attrs.id];
         });
       });
 
       // Selected nodes
-      scope.activeNodes = {};
-      scope.hasActiveNodes = function () {
-        return Object.keys(scope.activeNodes).length > 1;
+      scope.hasNodeSelected = function () {
+        return scope.lastSelection !== undefined;
       };
-      scope.hasOneNodeActive = function () {
-        if (Object.keys(scope.activeNodes).length === 1)
-        {
-          scope.activeNode = scope.activeNodes[Object.keys(scope.activeNodes)[0]];
-
-          return true;
-        }
-
-        return false;
+      scope.hasNodesSelected = function () {
+        return Object.keys(scope.activeNodes).length > 1;
       };
 
       // Fetch data from the server
@@ -107,7 +100,6 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
         }
       };
 
-      // Add child node
       scope.addChildNode = function (parentId) {
         var label = prompt('Insert label');
         var id = Math.random() * 100;
@@ -117,10 +109,13 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
         cb.addNode(id, label, 'description', parentId);
       };
 
-      // Delete node
       scope.deleteNode = function (id) {
         cb.deleteNode(id);
         scope.activeNodes = {};
+      };
+
+      scope.moveNode = function (id) {
+        console.log(id);
       };
     }
   };
