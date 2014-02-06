@@ -23,8 +23,8 @@
 
       <section>
         <h2>Other works</h2>
-        <ul ng-repeat="(id, item) in works" class="nav nav-pills">
-          <li ng-class="{ active: item.id === work.id }"><a ui-sref="works.view({id:id})">{{ item.title }}</a></li>
+        <ul ng-repeat="item in works" class="nav nav-pills">
+          <li ng-class="{ active: item.id === work.id }"><a ui-sref="works.view({id:item.id})">{{ item.title }}</a></li>
         </ul>
       </section>
 

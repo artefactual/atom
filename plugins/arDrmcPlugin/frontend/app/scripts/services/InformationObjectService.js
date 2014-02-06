@@ -1,5 +1,7 @@
 'use strict';
 
+var lodash = require('lodash');
+
 module.exports = function ($q) {
 
   this.tree1 = [
@@ -47,10 +49,11 @@ module.exports = function ($q) {
     ]}
   ];
 
-  this.works = {
+  this.informationObjects = {
     1: {
       id: 1,
       title: 'Play Dead; Real Time',
+      level: 'work',
       tms: {
         accessionNumber: '1098.2005.a-c',
         objectId: '100620',
@@ -66,6 +69,7 @@ module.exports = function ($q) {
     2: {
       id: 2,
       title: 'Zidane, un portrait du 21e siècle',
+      level: 'work',
       tms: {
         accessionNumber: '1099.2006.a-c',
         objectId: '100621',
@@ -77,6 +81,56 @@ module.exports = function ($q) {
         dimensions: 'Big enough',
         description: 'A movie about Zinedine Zidane'
       }
+    },
+    20: {
+      id: 20,
+      title: 'Components',
+      level: 'description'
+    },
+    31: {
+      id: 31,
+      title: 'DVD',
+      level: 'physical-component'
+    },
+    32: {
+      id: 32,
+      title: 'DVD',
+      level: 'physical-component'
+    },
+    33: {
+      id: 33,
+      title: 'DVD',
+      level: 'physical-component'
+    },
+    34: {
+      id: 34,
+      title: 'Digital Betacam',
+      level: 'physical-component'
+    },
+    35: {
+      id: 35,
+      title: 'Digital Betacam',
+      level: 'physical-component'
+    },
+    36: {
+      id: 36,
+      title: 'Digital Betacam',
+      level: 'physical-component'
+    },
+    37: {
+      id: 37,
+      title: '.mov Uncompressed 10bit PAL',
+      level: 'digital-object'
+    },
+    38: {
+      id: 38,
+      title: '.mov Uncompressed 10bit PAL',
+      level: 'digital-object'
+    },
+    39: {
+      id: 39,
+      title: '.mov Uncompressed 10bit PAL',
+      level: 'digital-object'
     }
   };
 
@@ -95,8 +149,13 @@ module.exports = function ($q) {
   this.getWorks = function () {
     var deferred = $q.defer();
 
-    if (this.works !== undefined) {
-      deferred.resolve(this.works);
+    if (this.informationObjects !== undefined) {
+      /*
+      deferred.resolve(lodash.filter(this.informationObjects, function (element) {
+        return element.level === 'work';
+      }));
+      */
+      deferred.resolve(this.informationObjects);
     } else {
       deferred.reject('There are not works currently available');
     }
@@ -107,8 +166,8 @@ module.exports = function ($q) {
   this.getWork = function (id) {
     var deferred = $q.defer();
 
-    if (this.works[id] !== undefined) {
-      deferred.resolve(this.works[id]);
+    if (this.informationObjects[id] !== undefined) {
+      deferred.resolve(this.informationObjects[id]);
     } else {
       deferred.reject('Work not found!');
     }

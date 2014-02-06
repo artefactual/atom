@@ -618,20 +618,38 @@ text {
 }
 
 .nodes {
-  rect.content {
+  .content {
     stroke: #333;
     stroke-width: 1px;
-    fill: transparent;
   }
-  rect.background {
-    fill: #fff3e6;
+  // Active nodes
+  .active rect.content {
+    fill: @white !important;
   }
-  .active rect {
-    fill: @orange;
+  // Hovering effect
+  .hover .content {
+    fill: lighten(@blue, 50%) !important;
   }
-  .hover .background {
-    fill: lighten(@blue, 50%);
+  // Level of description colors
+  .level-work {
+    .content { fill: @momaNodeWork; }
   }
+  .level-description .content {
+    fill: @momaNodeDescription;
+  }
+  .level-physical-component .content {
+    fill: @momaNodePhysicalComponent;
+  }
+  .level-digital-object .content  {
+    fill: @momaNodeDigitalObject;
+  }
+  // Some color contrast tweaking
+  .level-work text,
+  .level-digital-object { fill: @white; }
+  .level-work.hover text,
+  .level-work.active text,
+  .level-digital-object.hover text,
+  .level-digital-object.active text { fill: #333; }
 }
 
 .edgeLabels {

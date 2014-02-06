@@ -72,16 +72,16 @@
 
         <div class="cb-sidebar-top">
           <div ng-if="hasOneNodeActive()" class="cb-node-detail">
-            <h4>Node detail</h4>
-            {{ activeNode }}
-            <hr />
-            <a href ng-click="addChildNode(node.id)">Add child</a>
-            <a href ng-click="deleteNode(node.id)">Delete</a>
+            <h4>{{ activeNode.data.title }}</h4>
+            <div class="node-actions">
+              <a href class="btn btn-small" ng-click="addChildNode(node.id)">Add child</a>
+              <a href class="btn btn-small" ng-click="deleteNode(node.id)">Delete</a>
+            </div>
           </div>
           <div ng-if="hasActiveNodes()" class="cb-list-active-nodes">
             <h4>Bulk edit</h4>
             <ul>
-              <li ng-repeat="node in activeNodes">{{ node }}</li>
+              <li ng-repeat="node in activeNodes">{{ node.data.title }}</li>
             </ul>
           </div>
         </div>

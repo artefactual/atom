@@ -30,11 +30,14 @@
     var _drawNodes = this.renderer.drawNodes();
     this.renderer.drawNodes(function (graph, root) {
       var svgNodes = _drawNodes(graph, root);
-      svgNodes.each(function () {
-        var r = d3.select(this).select('rect').attr('class', 'content');
+      svgNodes.each(function (u) {
+        var node = d3.select(this);
+        var r = node.select('rect').attr('class', 'content');
+
+        node.classed('level-' + graph.node(u).level, true);
 
         // Background effect
-        d3.select(this)
+        node
           .insert('rect', 'rect.content')
           .attr({
             'class': 'background',
@@ -87,11 +90,10 @@
     var n = d3.select(this);
     if (n.classed('active')) {
       n.classed('active', false);
-      context.events.emitEvent('unpin-node', [{ id: datum, index: index }]);
-
+      context.events.emitEvent('unpin-node', [{ id: datum, index: index }, d3.event.target]);
     } else {
       n.classed('active', true);
-      context.events.emitEvent('pin-node', [{ id: datum, index: index }]);
+      context.events.emitEvent('pin-node', [{ id: datum, index: index }, d3.event.target]);
     }
   };
 

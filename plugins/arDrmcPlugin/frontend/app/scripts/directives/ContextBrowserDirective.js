@@ -14,15 +14,15 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
       // This layer will be the closest HTML container of the SVG
       var container = element.find('.svg-container');
 
-      // Do I really need this because I'm isolating scope with @?
-      // attr.$observe('resource', function (value) {
-      //  console.log(value);
-      //});
-
       var cb = window.cb = new ContextBrowser(container);
+
+      var firstSelection;
 
       cb.events.on('pin-node', function (attrs) {
         scope.$apply(function () {
+          if (typeof firstSelection === 'undefined') {
+            firstSelection = attrs.id;
+          }
           scope.activeNodes[attrs.id] = attrs;
           InformationObjectService.getWork(attrs.id).then(function (work) {
               scope.activeNodes[attrs.id].data = work;
@@ -32,7 +32,12 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
 
       cb.events.on('unpin-node', function (attrs) {
         scope.$apply(function () {
-          delete scope.activeNodes[attrs.id];
+          if (attrs.id === firstSelection) {
+            scope.activeNodes = {};
+            firstSelection = undefined;
+          } else {
+            delete scope.activeNodes[attrs.id];
+          }
         });
       });
 
