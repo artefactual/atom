@@ -522,6 +522,21 @@ section.section-supTech, section.dig-obj-bro {
   border-left: 3px solid #ccc;
   background-color: #eee;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  -webkit-box-direction: normal;
+  -webkit-box-pack: start;
+}
+
+.cb-sidebar-top {
+  flex: 1;
+}
+
+.cb-sidebar-bottom {
+  border-top: 3px solid #ccc;
+  min-height: 80px;
 }
 
 .cb-fullscreen {
@@ -560,19 +575,19 @@ section.section-supTech, section.dig-obj-bro {
 }
 
 .cb-legend {
-  .clearfix();
   padding: 10px;
   li {
-    margin-top: -3px;
+    position: relative;
+    padding-left: 18px;
   }
   li:before {
     content: "";
-    width: 14px;
+    width: 12px;
     height: 12px;
-    margin-right: 5px;
-    padding-top: 2px;
     border-radius: 10px;
-    display: inline-block;
+    position: absolute;
+    top: 4px;
+    left: 0px;
   }
   li.legend-work:before {
     background: @momaNodeWork;
