@@ -571,14 +571,29 @@ section.section-supTech, section.dig-obj-bro {
   margin: 10px;
   border-radius: 4px;
   background-color: @white;
+  position: relative;
+  overflow: hidden;
   h3 {
     margin-top: 0;
     margin-bottom: 0;
-    padding-left: 8px;
+    padding-left: 28px;
     padding-right: 8px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    &:before {
+      content: "";
+      width: 16px;
+      height: 16px;
+      border-radius: 8px;
+      position: absolute;
+      top: 13px;
+      left: 8px;
+    }
+    &.node-level-work:before { background-color: @momaNodeWork; }
+    &.node-level-description:before { background-color: @momaNodeDescription; }
+    &.node-level-digital-object:before { background-color: @momaNodeDigitalObject; }
+    &.node-level-physical-component:before { background-color: @momaNodePhysicalComponent; }
   }
   .node-metadata {
     padding-left: 10px;
@@ -619,16 +634,16 @@ section.section-supTech, section.dig-obj-bro {
     left: 0px;
   }
   li.legend-work:before {
-    background: @momaNodeWork;
+    background-color: @momaNodeWork;
   }
   li.legend-description:before {
-    background: @momaNodeDescription;
+    background-color: @momaNodeDescription;
   }
   li.legend-digital-object:before {
-    background: @momaNodeDigitalObject;
+    background-color: @momaNodeDigitalObject;
   }
   li.legend-physical-component:before {
-    background: @momaNodePhysicalComponent;
+    background-color: @momaNodePhysicalComponent;
   }
 }
 
