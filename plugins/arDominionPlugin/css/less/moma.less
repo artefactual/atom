@@ -600,13 +600,15 @@ section.section-supTech, section.dig-obj-bro {
     border-top: 1px solid #ccc;
     background-color: #e4e1d8;
     .btn {
-      font-size: 14px;
       background-image: none; // Flat, cancel bootstrap
       i {
-        display: none;
+        font-size: 14px;
       }
       &.btn-delete {
         background-color: lighten(@red, 50%);
+      }
+      span {
+        display: none;
       }
     }
   }
