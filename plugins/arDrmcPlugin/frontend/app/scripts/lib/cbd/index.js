@@ -104,6 +104,11 @@
 
   ContextBrowser.prototype.clickNode = function (context, datum, index) {
     var n = d3.select(this);
+    var node = context.graph.node(datum);
+    // No fun for physical components!
+    if (node.level === 'physical-component') {
+      return false;
+    }
     if (!n.classed('active')) {
       if (!d3.event.shiftKey) {
         context.graphSVG.selectAll('.node.active').each(function (datum, index) {
@@ -119,7 +124,12 @@
     }
   };
 
-  ContextBrowser.prototype.hoverNode = function () {
+  ContextBrowser.prototype.hoverNode = function (context, datum) {
+    var node = context.graph.node(datum);
+    // No fun for physical components!
+    if (node.level === 'physical-component') {
+      return false;
+    }
     if (d3.event.type === 'mouseover') {
       d3.select(this).classed('hover', true);
     } else if (d3.event.type === 'mouseout') {
@@ -142,8 +152,11 @@
     this.draw();
   };
 
-  ContextBrowser.prototype.deleteNode = function (id) {
-    this.graph.delNode(id);
+  ContextBrowser.prototype.deleteNodes = function (nodes) {
+    var self = this;
+    nodes.forEach(function (element) {
+      self.graph.delNode(element);
+    });
     this.draw();
   };
 

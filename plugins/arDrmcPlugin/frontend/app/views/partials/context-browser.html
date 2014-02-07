@@ -73,6 +73,21 @@
 
         <div class="cb-sidebar-top">
 
+          <!-- Bulk edit -->
+          <div ng-if="hasNodesSelected()" class="cb-sidebar-basic-box cb-list-active-nodes">
+            <h3>Bulk edit</h3>
+            <div class="node-metadata">
+              <p>
+                <span ng-repeat="node in activeNodes">{{ node.data.title }}<br /></span>
+              </p>
+            </div>
+            <div class="node-actions">
+              <a href class="btn btn-small btn-delete icon-remove" ng-click="deleteNodes('selected')"><i>Delete</i></a>
+              <a href class="btn btn-small btn-move icon-move" ng-click="moveNodes('selected')"><i>Move</i></a>
+              <a href class="btn btn-small" ng-click="">Cancel</a>
+            </div>
+          </div>
+
           <!-- Single node detail -->
           <div ng-if="hasNodeSelected()" class="cb-sidebar-basic-box">
             <h3 class="node-level-{{ lastSelection.data.level }}">{{ lastSelection.data.title }}</h3>
@@ -85,21 +100,6 @@
               <a href class="btn btn-small btn-edit icon-edit" ng-click="editNode(lastSelection.id)"><i>Edit node</i></a>
               <a href class="btn btn-small btn-delete icon-remove" ng-click="deleteNodes(lastSelection.id)"><i>Delete</i></a>
               <a href class="btn btn-small btn-move icon-move" ng-click="moveNodes(lastSelection.id)"><i>Move</i></a>
-            </div>
-          </div>
-
-          <!-- Bulk edit -->
-          <div ng-if="hasNodesSelected()" class="cb-sidebar-basic-box cb-list-active-nodes">
-            <h3>Bulk edit</h3>
-            <div class="node-metadata">
-              <p>
-                <span< ng-repeat="node in activeNodes">{{ node.data.title }}<br /></span>
-              </p>
-            </div>
-            <div class="node-actions">
-              <a href class="btn btn-small btn-delete icon-remove" ng-click="deleteNodes('selected')"><i>Delete</i></a>
-              <a href class="btn btn-small btn-move icon-move" ng-click="moveNodes('selected')"><i>Move</i></a>
-              <a href class="btn btn-small" ng-click="">Cancel</a>
             </div>
           </div>
 

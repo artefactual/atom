@@ -118,8 +118,16 @@ module.exports = function ($document, ATOM_CONFIG, InformationObjectService, Ful
         cb.addNode(id, label, 'description', parentId);
       };
 
-      scope.deleteNodes = function (id) {
-        cb.deleteNode(id);
+      scope.deleteNodes = function (ids) {
+        var candidates = [];
+        if (typeof ids === 'number') {
+          candidates.push(ids);
+        } else if (typeof ids === 'string' && ids === 'selected') {
+          candidates = candidates.concat(Object.keys(scope.activeNodes));
+        } else {
+          throw 'I don\'t know what you are trying to do!';
+        }
+        cb.deleteNodes(candidates);
         scope.activeNodes = {};
       };
 
