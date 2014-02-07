@@ -152,7 +152,7 @@
     nodes.forEach(function (element) {
       var edges = self.graph.outEdges(element);
       if (edges.length !== 1) {
-        throw 'Unexpected number of edges in node ' + element;
+        return false;
       }
       self.graph.delEdge(edges.pop());
       self.graph.addEdge(element + ':' + target, element, target);
@@ -162,6 +162,11 @@
 
   ContextBrowser.prototype.promptNodeSelection = function (options) {
     options = options || {};
+    if (options.hasOwnProperty('action')) {
+      throw 'Missing action attribute (function callback)';
+    }
+
+    // Build exclusion list
     var exclusionList = [];
     if (options.hasOwnProperty('exclude')) {
       exclusionList = options.exclude;
