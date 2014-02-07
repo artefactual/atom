@@ -75,7 +75,7 @@
 
           <!-- Bulk edit -->
           <div ng-if="hasNodesSelected()" class="cb-sidebar-basic-box cb-list-active-nodes">
-            <h3>Bulk edit</h3>
+            <h3>Bulk edit ({{ getNumberOfSelectedNodes() }} items)</h3>
             <div class="node-metadata">
               <p>
                 <span ng-repeat="node in activeNodes">{{ node.data.title }}<br /></span>

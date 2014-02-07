@@ -49,6 +49,9 @@ module.exports = function ($document, ATOM_CONFIG, InformationObjectService, Ful
       scope.hasNodesSelected = function () {
         return Object.keys(scope.activeNodes).length > 1;
       };
+      scope.getNumberOfSelectedNodes = function () {
+        return Object.keys(scope.activeNodes).length;
+      };
 
       // Fetch data from the server
       InformationObjectService.getTree(scope.resource)
