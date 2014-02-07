@@ -162,7 +162,7 @@
 
   ContextBrowser.prototype.promptNodeSelection = function (options) {
     options = options || {};
-    if (options.hasOwnProperty('action')) {
+    if (!options.hasOwnProperty('action')) {
       throw 'Missing action attribute (function callback)';
     }
 
