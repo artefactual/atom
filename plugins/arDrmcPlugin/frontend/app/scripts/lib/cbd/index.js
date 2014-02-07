@@ -147,6 +147,41 @@
     this.draw();
   };
 
+  ContextBrowser.prototype.moveNodes = function (nodes, target) {
+    var self = this;
+    nodes.forEach(function (element) {
+      var edges = self.graph.outEdges(element);
+      if (edges.length !== 1) {
+        throw 'Unexpected number of edges in node ' + element;
+      }
+      self.graph.delEdge(edges.pop());
+      self.graph.addEdge(element + ':' + target, element, target);
+    });
+    this.draw();
+  };
+
+  ContextBrowser.prototype.promptNodeSelection = function (options) {
+    options = options || {};
+    var exclusionList = [];
+    if (options.hasOwnProperty('exclude')) {
+      exclusionList = options.exclude;
+    }
+
+    // Disable excluded nodes
+    this.graphSVG.selectAll('.node')
+      .data(exclusionList, function (d) { return d; })
+      .classed('disabled', true)
+      .attr('style', 'opacity: 0.2;');
+
+    // Add a only-once event handler
+    var $nodes = jQuery(this.graphSVG.node());
+    $nodes.one('click', '.node', function (event) {
+      var $node = jQuery(event.target).closest('.node');
+      var id = d3.select($node.get(0)).datum();
+      options.action.call(null, id);
+    });
+  };
+
   module.exports = ContextBrowser;
 
 })();

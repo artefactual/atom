@@ -527,7 +527,7 @@ section.section-supTech, section.dig-obj-bro {
   -webkit-box-orient: vertical;
   -webkit-box-align: stretch;
   -webkit-box-direction: normal;
-  -webkit-box-pack: start;
+  -webkit-box-pack: justify;
 }
 
 .cb-sidebar-top {
@@ -536,38 +536,29 @@ section.section-supTech, section.dig-obj-bro {
 }
 
 .cb-sidebar-bottom {
+  flex: 1;
   border-top: 3px solid #ccc;
-  min-height: 80px;
-}
-
-.cb-fullscreen {
-  min-height: 100%;
-  height: 100%;
-  width: 100%;
-  margin-bottom: 0;
-  // Cancel .content
-  border-width: 0;
-  border-radius: 0;
-  box-shadow: 0;
-}
-
-.cb-maximized {
-  .cb-fullscreen();
-  position: fixed;
-  top: 0;
-  left: 0;
 }
 
 .cb-fullscreen,
 .cb-maximized {
+  margin-bottom: 0;
+  border-width: 0;
+  border-radius: 0;
+  box-shadow: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   .cb-body {
-    max-height: 100%;
+    max-height: none;
   }
 }
 
 // Context browser contents
 
-.cb-node-detail {
+.cb-sidebar-basic-box {
   border: 1px solid #999;
   margin: 10px;
   border-radius: 4px;
@@ -608,6 +599,16 @@ section.section-supTech, section.dig-obj-bro {
     padding: 8px;
     border-top: 1px solid #ccc;
     background-color: #e4e1d8;
+    .btn {
+      font-size: 14px;
+      background-image: none; // Flat, cancel bootstrap
+      i {
+        display: none;
+      }
+      &.btn-delete {
+        background-color: lighten(@red, 50%);
+      }
+    }
   }
 }
 
@@ -670,6 +671,10 @@ text {
   // Active nodes
   .active rect.content {
     fill: @white !important;
+  }
+  // Disabled nodes
+  .disabled {
+
   }
   // Hovering effect
   .hover .content {

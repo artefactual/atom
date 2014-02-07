@@ -54,6 +54,7 @@
         </li>
 
       </ul>
+
     </div>
 
     <!-- Body -->
@@ -71,21 +72,24 @@
       <div class="cb-sidebar">
 
         <div class="cb-sidebar-top">
+
           <!-- Single node detail -->
-          <div ng-if="hasNodeSelected()" class="cb-node-detail">
+          <div ng-if="hasNodeSelected()" class="cb-sidebar-basic-box">
             <h3 class="node-level-{{ lastSelection.data.level }}">{{ lastSelection.data.title }}</h3>
             <div class="node-metadata">
               <p>Identifier: {{ lastSelection.data.id }} (WIP)</p>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nisl tortor, pretium eu egestas a, dapibus ut eros. Fusce ultrices felis dui, quis lacinia magna pellentesque non. Nullam et ornare elit. Aenean condimentum aliquam rhoncus. Nulla vitae vestibulum lectus.</p>
             </div>
             <div class="node-actions">
-              <a href class="btn btn-small" ng-click="addChildNode(lastSelection.id)">Add child</a>
-              <a href class="btn btn-small" ng-click="deleteNode(lastSelection.id)">Delete</a>
-              <a href class="btn btn-small" ng-click="moveNode(lastSelection.id)">Move</a>
+              <a href class="btn btn-small btn-add icon-plus" ng-click="addChildNode(lastSelection.id)"><i>Add child</i></a>
+              <a href class="btn btn-small btn-edit icon-edit" ng-click="editNode(lastSelection.id)"><i>Edit node</i></a>
+              <a href class="btn btn-small btn-delete icon-remove" ng-click="deleteNodes(lastSelection.id)"><i>Delete</i></a>
+              <a href class="btn btn-small btn-move icon-move" ng-click="moveNodes(lastSelection.id)"><i>Move</i></a>
             </div>
           </div>
+
           <!-- Bulk edit -->
-          <div ng-if="hasNodesSelected()" class="cb-node-detail cb-list-active-nodes">
+          <div ng-if="hasNodesSelected()" class="cb-sidebar-basic-box cb-list-active-nodes">
             <h3>Bulk edit</h3>
             <div class="node-metadata">
               <p>
@@ -93,10 +97,12 @@
               </p>
             </div>
             <div class="node-actions">
-              <a href class="btn btn-small" ng-click="" ng-enabled="false">Delete</a>
-              <a href class="btn btn-small" ng-click="" ng-enabled="false">Move</a>
+              <a href class="btn btn-small btn-delete icon-remove" ng-click="deleteNodes('selected')"><i>Delete</i></a>
+              <a href class="btn btn-small btn-move icon-move" ng-click="moveNodes('selected')"><i>Move</i></a>
+              <a href class="btn btn-small" ng-click="">Cancel</a>
             </div>
           </div>
+
         </div>
 
         <div class="cb-sidebar-bottom">

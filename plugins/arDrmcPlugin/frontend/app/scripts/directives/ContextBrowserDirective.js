@@ -118,13 +118,26 @@ module.exports = function ($document, ATOM_CONFIG, InformationObjectService, Ful
         cb.addNode(id, label, 'description', parentId);
       };
 
-      scope.deleteNode = function (id) {
+      scope.deleteNodes = function (id) {
         cb.deleteNode(id);
         scope.activeNodes = {};
       };
 
-      scope.moveNode = function (id) {
-        console.log(id);
+      scope.moveNodes = function (ids) {
+        var source = [];
+        if (typeof ids === 'number') {
+          source.push(ids);
+        } else if (typeof ids === 'string' && ids === 'selected') {
+          source = source.concat(Object.keys(scope.activeNodes));
+        } else {
+          throw 'I don\'t know what you are trying to do!';
+        }
+        cb.promptNodeSelection({
+          exclude: source,
+          action: function (target) {
+            cb.moveNodes(source, target);
+          }
+        });
       };
     }
   };
