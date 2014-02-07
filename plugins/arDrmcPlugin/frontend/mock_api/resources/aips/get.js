@@ -1,4 +1,6 @@
-var sortDir = (query.sort_direction) ? query.sort_direction : false,
+var path = require('path'),
+    helpers = require(path.join(process().cwd(), 'resources/aips/lib/helpers.js')),
+    sortDir,
     criteria = {},
     aipResults = [];
 
@@ -11,83 +13,17 @@ if (query.limit) {
 if (query.sort) {
   criteria.$sort = {};
   // sort by specified field and, optionally, by specified sort direction
+  sortDir = (query.sort_direction) ? query.sort_direction : false;
   criteria.$sort[query.sort] = (sortDir && sortDir == 'desc') ? -1 : 1;
 }
 
-// TODO: move this class into a module
-function ObjectPropertyTokenCounter(countOnlyProperties) {
-  this.reset();
-  this.countOnlyProperties = (countOnlyProperties) ? countOnlyProperties : false;
-}
-
-// TODO: maybe try to use Underscore's groupby for this
-ObjectPropertyTokenCounter.prototype = {
-  tokenCounts: {},
-
-  reset: function() {
-    this.tokenCounts = {};
-  },
-
-  count: function(object) {
-    var self = this;
-
-    for (var key in object) {
-      if (!this.countOnlyProperties || (this.countOnlyProperties.indexOf(key) != -1)) {
-        // split object value into tokens by whitespace
-        values = object[key]
-          .toString()
-          .toLowerCase()
-          .split(/[ ,]+/);
-
-        // add each value to token count
-        values.forEach(function(value) {
-          if (typeof self.tokenCounts[value] == 'undefined') {
-            self.tokenCounts[value] = 1;
-          } else {
-            self.tokenCounts[value]++;
-          }
-        });
-      }
-    }
-  }
-};
-
-function formatTokenCounts(tokenCounts) {
-  var formatted = {'terms': []};
-
-  for(var key in tokenCounts) {
-    formatted.terms.push({
-      "term": key,
-      "count": tokenCounts[key]
-    });
-  }
-
-  return formatted;
-}
-
+// fetch AIPs matching criteria
 dpd.aipsraw.get(criteria, function(aips) {
-  var overview = {'total': {'size': 0, 'count': 0}},
+  var overview = helpers.calculateOverviewData(aips),
       classLowerCase;
 
-  // calculate overview data
-  aips.forEach(function(aip) {
-    // add to total data
-    overview['total']['size'] += aip.size;
-    overview['total']['count'] += 1;
-
-    // initialize classification data if needed
-    classLowerCase = aip.class.toLowerCase();
-    if (typeof overview[aip.class] == 'undefined') {
-      overview[classLowerCase] = {'size': 0, 'count': 0};
-    }
-
-    // add to classification data    
-    overview[classLowerCase]['size'] += aip.size;
-    overview[classLowerCase]['count'] += 1;
-  });
-
   // count occurrance of each value found in name property of each aip
-  facetCounter = new ObjectPropertyTokenCounter(['class']);
+  facetCounter = new helpers.ObjectPropertyTokenCounter(['class']);
 
   // process result set
   aips.forEach(function(aip) {
@@ -105,6 +41,7 @@ dpd.aipsraw.get(criteria, function(aips) {
     facetCounter.count(aip);
   });
 
+  // mock TMS data
   var tmsData = {
     "accession_id": "1098.2005.a-c",
     "object_id": "100620",
@@ -116,6 +53,7 @@ dpd.aipsraw.get(criteria, function(aips) {
     "description": "Exhibition materials: 3 DVD and players, 2 projectors, 3 monitor, 2 screens. The complete work is a three-screen piece, consisting of one retro projection, one front projection and one monitor. See file for installation instructions. One monitor and two projections on screens 19.69 X 11.38 feet. Viewer must be able to walk around screens."
   }
 
+  // mock digital object data
   var digitalObjectData = {
     "storage_total": "10776432223432",
     "related_total": {
@@ -138,16 +76,16 @@ dpd.aipsraw.get(criteria, function(aips) {
     }
   };
 
-  // should result set
+  // set result data to send back as response
   setResult({
     'overview': overview,
     'aips': {
       'results': aipResults,
       'facets': {
-        'class': formatTokenCounts(facetCounter.tokenCounts)
+        'class': helpers.formatTokenCounts(facetCounter.tokenCounts)
       }
     },
     'tms_metadata': tmsData,
     'digital_objects': digitalObjectData
-  }); 
+  });
 });
