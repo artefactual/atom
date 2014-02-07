@@ -2,7 +2,7 @@
 
 var ContextBrowser = require('../lib/cbd');
 
-module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenService) {
+module.exports = function ($document, ATOM_CONFIG, InformationObjectService, FullscreenService) {
   return {
     restrict: 'E',
     templateUrl: ATOM_CONFIG.viewsPath + '/partials/context-browser.html',
@@ -66,6 +66,15 @@ module.exports = function (ATOM_CONFIG, InformationObjectService, FullscreenServ
       scope.$watch('isMaximized', function (oldValue, newValue) {
         if (oldValue !== newValue) {
           cb.center();
+        }
+      });
+
+      // Exit maximized mode using ESC key
+      $document.on('keyup', function (event) {
+        if (event.which === 27 && scope.isMaximized) {
+          scope.$apply(function () {
+            scope.toggleMaximizedMode();
+          });
         }
       });
 
