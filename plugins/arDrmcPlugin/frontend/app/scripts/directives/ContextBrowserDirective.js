@@ -86,7 +86,13 @@ module.exports = function ($document, ATOM_CONFIG, InformationObjectService, Ful
 
       // Exit maximized mode using ESC key
       $document.on('keyup', function (event) {
-        if (event.which === 27 && scope.isMaximized) {
+        // Escape shortcut
+        if (event.which === 27 && scope.isMaximized && !scope.isFullscreen) {
+          scope.$apply(function () {
+            scope.toggleMaximizedMode();
+          });
+        // Maximized mode (f)
+        } else if (event.which === 70 && !scope.isFullscreen) {
           scope.$apply(function () {
             scope.toggleMaximizedMode();
           });
