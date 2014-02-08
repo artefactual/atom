@@ -1,0 +1,2 @@
+# Sphinx extension for REST API documentation
+sphinxcontrib-httpdomain
