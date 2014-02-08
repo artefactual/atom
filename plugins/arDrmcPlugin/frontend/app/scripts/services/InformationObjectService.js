@@ -18,16 +18,7 @@ module.exports = function ($q) {
         { id: 39, title: '.mov Uncompressed 10bit PAL', level: 'digital-object' },
         { id: 40, title: '.mov H264', level: 'digital-object' },
         { id: 41, title: '.mov H264', level: 'digital-object' },
-        { id: 42, title: '.mov H264', level: 'digital-object' },
-        { id: 43, title: '.mov H264', level: 'digital-object' },
-        { id: 44, title: '.mov H264', level: 'digital-object' },
-        { id: 45, title: '.mov H264', level: 'digital-object' },
-        { id: 46, title: '.mov H264', level: 'digital-object' },
-        { id: 47, title: '.mov H264', level: 'digital-object' },
-        { id: 48, title: '.mov H264', level: 'digital-object' },
-        { id: 49, title: '.mov H264', level: 'digital-object' },
-        { id: 50, title: '.mov H264', level: 'digital-object' },
-        { id: 51, title: '.mov H264', level: 'digital-object' }
+        { id: 42, title: '.mov H264', level: 'digital-object' }
       ]},
       { id: 11, title: 'Installation Documentation', level: 'description' }
     ]}
@@ -82,6 +73,11 @@ module.exports = function ($q) {
         description: 'A movie about Zinedine Zidane'
       }
     },
+    11: {
+      id: 11,
+      title: 'Components',
+      level: 'description'
+    },
     20: {
       id: 20,
       title: 'Components',
@@ -130,6 +126,21 @@ module.exports = function ($q) {
     39: {
       id: 39,
       title: '.mov Uncompressed 10bit PAL',
+      level: 'digital-object'
+    },
+    40: {
+      id: 40,
+      title: '.mov H264',
+      level: 'digital-object'
+    },
+    41: {
+      id: 41,
+      title: '.mov H264',
+      level: 'digital-object'
+    },
+    42: {
+      id: 42,
+      title: '.mov H264',
       level: 'digital-object'
     }
   };
