@@ -53,6 +53,18 @@ module.exports = function ($document, ATOM_CONFIG, InformationObjectService, Ful
         return Object.keys(scope.activeNodes).length;
       };
 
+      scope.files = [];
+      scope.hasFiles = function () {
+        var files = cb.graph.filter(scope.lastSelection.id, function (node) {
+          return node.level === 'digital-object';
+        });
+        if (typeof files === 'undefined' || files.length === 0) {
+          return false;
+        }
+        scope.files = files;
+        return true;
+      };
+
       // Fetch data from the server
       InformationObjectService.getTree(scope.resource)
         .then(function (tree) {

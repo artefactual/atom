@@ -103,6 +103,14 @@
             </div>
           </div>
 
+          <!-- File list -->
+          <div ng-if="hasNodeSelected() && hasFiles()" class="cb-sidebar-basic-box">
+            <h3>File list ({{ files.length }} items)</h3>
+            <div class="node-metadata">
+              <p ng-repeat="file in files">{{ file.label }}</p>
+            </div>
+          </div>
+
         </div>
 
         <div class="cb-sidebar-bottom">

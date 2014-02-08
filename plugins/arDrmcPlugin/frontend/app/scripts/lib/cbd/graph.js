@@ -47,6 +47,32 @@
     this.data.forEach(add);
   };
 
+  Graph.prototype.filter = function (u, filterFn) {
+    var self = this;
+    var list = [];
+    var go = function (u) {
+      var p = self.predecessors(u);
+      if (p.length === 0) {
+        return;
+      }
+      p.forEach(function (e) {
+        var node = self.node(e);
+        if (angular.isFunction(filterFn)) {
+          if (filterFn.call(null, node)) {
+            list.push(node);
+          }
+        } else {
+          list.push(node);
+        }
+        go(e);
+      });
+    };
+
+    go(u);
+
+    return list;
+  };
+
   module.exports = Graph;
 
 })();
