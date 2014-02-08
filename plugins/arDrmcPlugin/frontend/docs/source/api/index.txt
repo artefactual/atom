@@ -1,0 +1,12 @@
+DRMC-MA REST API documentation
+==============================
+
+Contents:
+
+.. toctree::
+   :maxdepth: 3
+
+   aip
+   tms
+
+Documentation goes here.

@@ -9,8 +9,9 @@ Welcome to DRMC-MA's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
+   /api/index
 
 
 Indices and tables
