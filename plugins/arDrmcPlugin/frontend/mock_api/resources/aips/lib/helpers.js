@@ -1,3 +1,10 @@
+/*
+
+NOTE: after editing this file, you must restart Deployd to see the changes
+reflected in your API.
+
+*/
+
 // calculate AIP overview data
 exports.calculateOverviewData = function(aips) {
   var overview = {'total': {'size': 0, 'count': 0}},
@@ -11,7 +18,7 @@ exports.calculateOverviewData = function(aips) {
 
     // initialize classification data if needed
     classLowerCase = aip.class.toLowerCase();
-    if (typeof overview[aip.class] == 'undefined') {
+    if (typeof overview[classLowerCase] == 'undefined') {
       overview[classLowerCase] = {'size': 0, 'count': 0};
     }
 
