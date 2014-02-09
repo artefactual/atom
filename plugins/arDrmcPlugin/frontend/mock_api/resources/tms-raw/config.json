@@ -1,0 +1,173 @@
+{
+	"type": "Collection",
+	"properties": {
+		"Title": {
+			"name": "Title",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "Title",
+			"order": 0
+		},
+		"Classification": {
+			"name": "Classification",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "Classification",
+			"order": 1
+		},
+		"DisplayName": {
+			"name": "DisplayName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "DisplayName",
+			"order": 2
+		},
+		"DisplayDate": {
+			"name": "DisplayDate",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "DisplayDate",
+			"order": 3
+		},
+		"FirstName": {
+			"name": "FirstName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "FirstName",
+			"order": 4
+		},
+		"LastName": {
+			"name": "LastName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "LastName",
+			"order": 5
+		},
+		"ErrorMsg": {
+			"name": "ErrorMsg",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "ErrorMsg",
+			"order": 6
+		},
+		"Dated": {
+			"name": "Dated",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "Dated",
+			"order": 7
+		},
+		"Medium": {
+			"name": "Medium",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "Medium",
+			"order": 8
+		},
+		"Dimensions": {
+			"name": "Dimensions",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "Dimensions",
+			"order": 9
+		},
+		"ObjectNumber": {
+			"name": "ObjectNumber",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "ObjectNumber",
+			"order": 10
+		},
+		"CreditLine": {
+			"name": "CreditLine",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "CreditLine",
+			"order": 11
+		},
+		"ObjectID": {
+			"name": "ObjectID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "ObjectID",
+			"order": 12
+		},
+		"DepartmentID": {
+			"name": "DepartmentID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "DepartmentID",
+			"order": 13
+		},
+		"ClassificationID": {
+			"name": "ClassificationID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "ClassificationID",
+			"order": 14
+		},
+		"AlphaSort": {
+			"name": "AlphaSort",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "AlphaSort",
+			"order": 15
+		},
+		"ConstituentID": {
+			"name": "ConstituentID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "ConstituentID",
+			"order": 16
+		},
+		"Department": {
+			"name": "Department",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "Department",
+			"order": 17
+		},
+		"ImageID": {
+			"name": "ImageID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "ImageID",
+			"order": 18
+		},
+		"Thumbnail": {
+			"name": "Thumbnail",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "Thumbnail",
+			"order": 19
+		},
+		"ComponentID": {
+			"name": "ComponentID",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "ComponentID",
+			"order": 20
+		}
+	}
+}

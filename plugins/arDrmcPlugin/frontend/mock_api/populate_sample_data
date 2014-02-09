@@ -35,32 +35,45 @@ if (process.argv.length > 2) {
   urlBase = 'http://127.0.0.1:2403/';
 }
 
-// load sample AIP data
-aips = JSON.parse(fs.readFileSync(__dirname + '/sample_data/aips.json'));
-
-// POST AIP data to API
-var aipsEndpoint = urlBase + 'aips-raw';
-console.log('Posting sample data to ' + aipsEndpoint);
-
-aips.forEach(function (aip) {
-  // generate UUID if not present
-  if (typeof aip['uuid'] == 'undefined') {
-    aip['uuid'] = uuid.v4();
-  }
-
-  // remove system IDs if present in data
-  if (typeof aip['id'] != 'undefined') {
-    delete aip['id'];
-  }
-
-  // POST to API
-  request.post(aipsEndpoint, {form: aip}, function (error, response, body) {  
-    if (!error) {
-      created_aip = JSON.parse(body);
-      console.log('  Created resource ' + created_aip.id + '.');
-    } else {
-      console.log('Error sending data.');
-      process.exit();
+function postDataToEndpoint(endpointURL, data) {
+  data.forEach(function (item) {
+    // generate UUID if not present
+    if (typeof item['uuid'] == 'undefined') {
+      item['uuid'] = uuid.v4();
     }
+
+    // remove system IDs if present in data
+    if (typeof item['id'] != 'undefined') {
+      delete item['id'];
+    }
+
+    // POST to API
+    request.post(endpointURL, {form: item}, function (error, response, body) {  
+      if (!error) {
+        created_item = JSON.parse(body);
+        console.log('  Created resource ' + created_item.id + '.');
+      } else {
+        console.log('Error sending data.');
+        process.exit();
+      }
+    });
   });
+}
+
+var populateConfig = {
+  "resources": [{
+    "sampleData": __dirname + '/sample_data/aips.json',
+    "URL": urlBase + 'aips-raw'
+  },
+  {
+    "sampleData": __dirname + '/sample_data/tms.json',
+    "URL": urlBase + 'tms-raw'
+  }]
+};
+
+populateConfig.resources.forEach(function(resource) {
+  // load sample data
+  var items = JSON.parse(fs.readFileSync(resource.sampleData));
+  console.log('Posting sample data to ' + resource.URL);
+  postDataToEndpoint(resource.URL, items);
 });
