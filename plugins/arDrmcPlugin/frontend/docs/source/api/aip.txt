@@ -1,4 +1,113 @@
 AIP Data REST API
 =================
 
-Documentation goes here.
+The AIP REST API endpoint provides data about AIPs that have been
+imported into the system. In addition to data about each individual
+AIP requested, summary data is also included.
+
+.. http:get:: /api/aips
+
+   Summary of API data.
+
+   **Example request**:
+
+   .. sourcecode:: http
+
+      GET /api/aips HTTP/1.1
+      Host: example.com
+      Accept: application/json, text/javascript
+
+   **Example response**:
+
+   .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Content-Type: text/javascript
+
+      {
+          "overview": {
+              "total": {
+                  "size": 6364710,
+                  "count": 3
+              },
+              "artwork": {
+                  "size": 454544,
+                  "count": 1
+              },
+              "unclassified": {
+                  "size": 456732,
+                  "count": 1
+              }
+          },
+          "aips": {
+              "results": [{
+                  "uuid": "ea741d3c-70cf-4dd7-88b2-9cfd6c331838",
+                  "name": "Dig Dug",
+                  "class": "Artwork",
+                  "size": 5453434,
+                  "id": 937757310827985000,
+                  "created_at": "2013-08-21 11:45:06 EST"
+              }, {
+                  "uuid": "4a09e090-986b-42d5-bc58-9b5467982142",
+                  "name": "Zaxxon",
+                  "class": "Artwork",
+                  "size": 454544,
+                  "id": 10682257190908824000,
+                  "created_at": "2013-08-21 11:45:06 EST"
+              }, {
+                  "uuid": "7bec98d4-1d6f-4c71-a8c5-93023c644fa9",
+                  "name": "Sim City",
+                  "class": "Unclassified",
+                  "size": 456732,
+                  "id": 16596749457982327000,
+                  "created_at": "2013-08-21 11:45:06 EST"
+              }],
+              "facets": {
+                  "class": {
+                      "terms": [{
+                          "term": "artwork",
+                          "count": 2
+                      }, {
+                          "term": "unclassified",
+                          "count": 1
+                      }]
+                  }
+              }
+          },
+          "tms_metadata": {
+              "accession_id": "1098.2005.a-c",
+              "object_id": "100620",
+              "title": "Play Dead; Real time",
+              "date": "2003",
+              "artist": "Douglas Gordon",
+              "medium": "Three-channel video",
+              "dimensions": "19:11 min, 14:44 min. (on larger screens), 21:58 min. (on monitor). Minimum Room Size: 24.8m x 13.07m",
+              "description": "Exhibition materials: 3 DVD and players, 2 projectors, 3 monitor, 2 screens. The complete work is a three-screen piece, consisting of one retro projection, one front projection and one monitor. See file for installation instructions. One monitor and two projections on screens 19.69 X 11.38 feet. Viewer must be able to walk around screens."
+          },
+          "digital_objects": {
+              "storage_total": "10776432223432",
+              "related_total": {
+                  "digital_objects": 1,
+                  "aips": 12
+              },
+              "objects": {
+                  "artwork": {
+                      "total": 1,
+                      "total_size": "262453654232"
+                  },
+                  "documentation": {
+                      "total": 0,
+                      "total_size": "0"
+                  },
+                  "unclassified": {
+                      "total": 0,
+                      "total_size": "0"
+                  }
+              }
+          }
+      }
+
+   :query sort: field to sort on
+   :query sort_direction: sort direction, either ``asc`` (ascending) or ``desc`` (descending)
+   :query limit: number of AIPs to return
+   :statuscode 200: no error

@@ -1,4 +1,8 @@
 REST API documentation
 ======================
 
-Documentation goes here.
+The DRMC plugin renders the UI using the browser, which makes requests
+to REST APIs to acquire necessary data.
+
+There are two REST API endpoints: one for pulling data about AIPs and
+the other for pulling data from TMS.
