@@ -1,4 +1,4 @@
 Instructions for building documentation::
 
-  $ pip install -r requirements.txt
+  $ sudo pip install -r requirements.txt
   $ make html

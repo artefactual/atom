@@ -1,4 +1,4 @@
-DRMC-MA AIP Data REST API
-=========================
+AIP Data REST API
+=================
 
 Documentation goes here.
