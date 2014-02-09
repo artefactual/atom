@@ -110,4 +110,5 @@ AIP requested, summary data is also included.
    :query sort: field to sort on
    :query sort_direction: sort direction, either ``asc`` (ascending) or ``desc`` (descending)
    :query limit: number of AIPs to return
+   :query skip: number of AIPs to skip (an offset in other words)
    :statuscode 200: no error

@@ -4,6 +4,11 @@ var path = require('path'),
     criteria = {},
     aipResults = [];
 
+// apply optional skip
+if (query.skip) {
+  criteria.$skip = query.skip;
+}
+
 // apply optional limit
 if (query.limit) {
   criteria.$limit = query.limit;
