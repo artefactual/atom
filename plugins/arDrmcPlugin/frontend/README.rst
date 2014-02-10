@@ -11,15 +11,22 @@ Branches
 --------
 
 * master branch
+
   This branch triggers a job in Jenkins that deploys the site in moma.test.artefactual.com
   in a per-commit basis. It's basically an extra step after qa/devel that we are adding
   in order to ensure that we are not breaking the testing site with new code.
+  This is all we should be doing in master really:
+
+    $ git checkout master
+    $ git pull --ff-only git@git.artefactual.com:client/moma/atom.git qa/devel
 
 * qa/devel
+
   We merge topic branches here.
   If it works, master will be pulling from here.
 
 * dev/*
+
   Development/topic branches. Here you can break things.
 
 
