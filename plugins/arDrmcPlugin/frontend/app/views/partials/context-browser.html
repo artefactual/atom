@@ -91,9 +91,15 @@
           <!-- Single node detail -->
           <div ng-if="hasNodeSelected()" class="cb-sidebar-basic-box">
             <h3 class="node-level-{{ lastSelection.data.level }}">{{ lastSelection.data.title }}</h3>
-            <div class="node-metadata">
-              <p>Identifier: {{ lastSelection.data.id }} (WIP)</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nisl tortor, pretium eu egestas a, dapibus ut eros. Fusce ultrices felis dui, quis lacinia magna pellentesque non. Nullam et ornare elit. Aenean condimentum aliquam rhoncus. Nulla vitae vestibulum lectus.</p>
+            <!-- Dublin Core metadata -->
+            <div ng-if="lastSelection.data.dc" class="node-metadata">
+              <h4>Dublin Core metadata</h4>
+              <ul>
+                <li ng-repeat="(key, value) in lastSelection.data.dc">
+                  <strong class="label">{{ key }}</strong>
+                  <p>{{ renderDCValue(value) }}</p>
+                </li>
+              </ul>
             </div>
             <div class="node-actions">
               <a href class="btn btn-small btn-add" ng-click="addChildNode(lastSelection.id)"><i class="icon-plus"></i><span>Add child</span></a>

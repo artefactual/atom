@@ -99,6 +99,16 @@ module.exports = function ($document, ATOM_CONFIG, InformationObjectService, Ful
         }
       });
 
+      scope.renderDCValue = function (value) {
+        if (angular.isArray(value)) {
+          return value.join(', ');
+        } else if (angular.isString(value)) {
+          return value;
+        } else {
+          return String(value);
+        }
+      };
+
       // Fullscreen mode
       scope.isFullscreen = false;
       scope.toggleFullscreenMode = function () {
