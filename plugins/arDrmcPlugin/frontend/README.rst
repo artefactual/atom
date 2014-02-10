@@ -19,6 +19,7 @@ Branches
 
     $ git checkout master
     $ git pull --ff-only git@git.artefactual.com:client/moma/atom.git qa/devel
+    $ git push # ... if everything went well! Remember, this is triggering a deployment.
 
 * qa/devel
 
