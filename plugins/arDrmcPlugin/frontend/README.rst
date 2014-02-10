@@ -12,9 +12,10 @@ Branches
 
 * master branch
 
-  This branch triggers a job in Jenkins that deploys the site in moma.test.artefactual.com
-  in a per-commit basis. It's basically an extra step after qa/devel that we are adding
-  in order to ensure that we are not breaking the testing site with new code.
+  This branch triggers a job in Jenkins that deploys the testing site
+  (see http://moma.test.artefactual.com in a per-commit basis.
+  It's basically an extra step after qa/devel that we are adding in order to ensure
+  that we are not breaking the testing site with new code.
   This is all we should be doing in master really:
 
     $ git checkout master
