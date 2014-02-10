@@ -370,11 +370,18 @@ class SearchAdvancedAction extends DefaultBrowseAction
           break;
 
         case 'or':
-          $queryBool->addShould($queryField);
+          // Build boolean query with all the previous queries
+          // and the new one as 'shoulds'
+          $queryOr = new \Elastica\Query\Bool();
+          $queryOr->addShould($queryBool);
+          $queryOr->addShould($queryField);
+
+          $queryBool = new \Elastica\Query\Bool();
+          $queryBool->addMust($queryOr);
 
           break;
 
-        case 'add':
+        case 'and':
         default: // First criteria falls here
           $queryBool->addMust($queryField);
 
