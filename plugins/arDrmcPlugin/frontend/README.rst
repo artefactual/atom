@@ -6,6 +6,23 @@ REST API. For testing/development purposes, a mock REST API server, built in
 Deployd, allows the front end to be tested/evaluated without accessing a
 production API.
 
+
+Branches
+--------
+
+* master branch
+  This branch triggers a job in Jenkins that deploys the site in moma.test.artefactual.com
+  in a per-commit basis. It's basically an extra step after qa/devel that we are adding
+  in order to ensure that we are not breaking the testing site with new code.
+
+* qa/devel
+  We merge topic branches here.
+  If it works, master will be pulling from here.
+
+* dev/*
+  Development/topic branches. Here you can break things.
+
+
 Installation of frontend
 ------------------------
 
@@ -29,6 +46,7 @@ You can run "grunt watch" to detect changes during development and trigger
 the build. Take into account that "grunt build" will be still necessary to
 be executed once when you are configuring a new environment or the vendor
 browserify build has changed. See Gruntfile.js for more details.
+
 
 Installation of mock API server
 -------------------------------
