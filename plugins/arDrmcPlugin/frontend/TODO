@@ -10,3 +10,4 @@ Build
 - yeoman-angular and twbs have the best build ever, learn from it for improvements
 - For stylesheet, should we be using recess? csslint?
 - Write some tests, configure runner
+- Stop using globals like angular, etc... use require() instead!
