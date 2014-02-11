@@ -21,6 +21,8 @@ class APIAIPSIndexAction extends QubitAPIAction
 {
   protected function getData($request)
   {
+    ProjectConfiguration::getActive()->loadHelpers('Qubit');
+
     $this->query = new \Elastica\Query();
     $this->queryBool = new \Elastica\Query\Bool();
     $this->filterBool = new \Elastica\Filter\Bool;
@@ -72,9 +74,11 @@ class APIAIPSIndexAction extends QubitAPIAction
       $aip['uuid'] = $doc['uuid'];
       $aip['size'] = $doc['sizeOnDisk'];
       $aip['created_at'] = $doc['createdAt'];
-      $aip['class'] = $doc['typeId']; // TODO: Get type name from ORM or add full term to the aips ES index
+      $aip['class'] = get_search_i18n($doc['class'][0], 'name');
+      $aip['part_of']['id'] = $doc['partOf'][0]['id'];
+      $aip['part_of']['title'] = get_search_i18n($doc['partOf'][0], 'title');
 
-      // TODO: Parent of and part of
+      // Parent is no longer needed
 
       $resultsES['aips']['results'][] = $aip;
     }
@@ -217,6 +221,6 @@ class APIAIPSIndexAction extends QubitAPIAction
             'total_size' => '0')))
       );
 
-    return $results;
+    return $resultsES;
   }
 }
