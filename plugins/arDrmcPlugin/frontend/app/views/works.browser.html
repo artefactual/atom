@@ -1,9 +1,50 @@
-<div id="" class="row-fluid">
+<div class="row">
 
   <div class="span12">
-    <div id="main-column" class="row-fluid">
+    <div id="main-column">
 
-      <h2>Works browser</h2>
+      <h1 class="multiline moma-title moma-title-works">
+        Showing TODO results
+        <span class="sub">Works browser</span>
+      </h1>
+
+      <section class="header-options">
+        <div class="row">
+          <div class="span8">
+
+            <!-- Inline search -->
+            <div class="inline-search">
+              <form>
+                <div class="input-append">
+                  <input type="text" placehoder="Enter here your search" value=""/>
+                  <a class="btn" href><i class="icon-remove"></i></a>
+                  <button class="btn" type="submit"><i class="icon-search"></i></button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+          <div class="span4">
+
+            <!-- Sorting -->
+            <div id="sort-header">
+              <div class="sort-options">
+                <label>Sort by:</label>
+                <div class="dropdown">
+                  <div class="dropdown-selected">
+                    <span>Most recent</span>
+                  </div>
+                  <ul class="dropdown-options">
+                    <span class="pointer"></span>
+                    <li><a href data-order="alphabetic"><span>Alphabetic</span></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
 
       <div id="content">
 
