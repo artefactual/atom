@@ -4,16 +4,15 @@
 
   var Graph = require('./graph');
   var Zoom = require('./zoom');
+  var Renderer = require('./renderer');
+
   var d3 = require('d3');
   var dagreD3 = require('dagre-d3');
   var jQuery = require('jquery');
   var EventEmitter = require('wolfy87-eventemitter');
 
-  function ContextBrowser (container, options) {
-    options = options || {};
-
+  function ContextBrowser (container) {
     this.container = container;
-
     this.events = new EventEmitter();
   }
 
@@ -21,37 +20,10 @@
     // SVG layout
     this.rootSVG = d3.select(this.container.get(0)).append('svg').attr('height', '100%');
     this.graphSVG = this.rootSVG.append('svg').attr({ 'class': 'graph-attach' });
-    this.g = this.graphSVG.append('g');
+    this.groupSVG = this.graphSVG.append('g');
 
     this.graph = new Graph(data);
-    this.renderer = new dagreD3.Renderer();
-
-    // Customize rendering, maybe class-inheritance later?
-    var _drawNodes = this.renderer.drawNodes();
-    this.renderer.drawNodes(function (graph, root) {
-      var svgNodes = _drawNodes(graph, root);
-      svgNodes.each(function (u) {
-        var node = d3.select(this);
-        var r = node.select('rect').attr('class', 'content');
-
-        node.classed('level-' + graph.node(u).level, true);
-
-        // Background effect
-        node
-          .insert('rect', 'rect.content')
-          .attr({
-            'class': 'background',
-            'x': r.attr('x'),
-            'y': r.attr('y'),
-            'rx': r.attr('rx'),
-            'ry': r.attr('ry'),
-            'width': r.attr('width'),
-            'height': r.attr('height')
-          });
-
-      });
-      return svgNodes;
-    });
+    this.renderer = new Renderer();
 
     this.draw();
 
@@ -62,7 +34,7 @@
 
   ContextBrowser.prototype.draw = function () {
     var behavior = dagreD3.layout().nodeSep(20).rankSep(80).rankDir('RL');
-    this.layout = this.renderer.layout(behavior).run(this.graph, this.g);
+    this.layout = this.renderer.layout(behavior).run(this.graph, this.groupSVG);
   };
 
   ContextBrowser.prototype.center = function () {
