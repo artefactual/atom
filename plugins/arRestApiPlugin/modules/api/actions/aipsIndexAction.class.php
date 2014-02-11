@@ -25,15 +25,16 @@ class APIAIPSIndexAction extends QubitAPIAction
     $this->queryBool = new \Elastica\Query\Bool();
     $this->filterBool = new \Elastica\Filter\Bool;
 
-    // Limit and page
+    // Limit
     if (isset($request->limit) && ctype_digit($request->limit))
     {
       $this->query->setLimit($request->limit);
+    }
 
-      if (isset($request->page) && ctype_digit($request->page))
-      {
-        $this->query->setFrom(($request->page - 1) * $request->limit);
-      }
+    // Skip
+    if (isset($request->skip) && ctype_digit($request->skip))
+    {
+      $this->query->setFrom($request->skip);
     }
 
     // Sort and direction, default: filename, asc
@@ -42,12 +43,12 @@ class APIAIPSIndexAction extends QubitAPIAction
       $request->sort = 'filename';
     }
 
-    if (!isset($request->direction))
+    if (!isset($request->sort_direction))
     {
-      $request->direction = 'asc';
+      $request->sort_direction = 'asc';
     }
 
-    $this->query->setSort(array($request->sort => $request->direction));
+    $this->query->setSort(array($request->sort => $request->sort_direction));
 
     // Query
     $this->queryBool->addMust(new \Elastica\Query\MatchAll());
