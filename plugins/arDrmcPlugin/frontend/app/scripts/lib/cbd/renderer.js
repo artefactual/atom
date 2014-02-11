@@ -62,9 +62,7 @@
   }
 
   function postRender (g, root) {
-    if (!g.isDirected()) {
-      return;
-    }
+    console.log(g, root);
   }
 
   module.exports = Renderer;

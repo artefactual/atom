@@ -1,6 +1,6 @@
-<div class="row-fluid">
+<div class="row">
 
-  <div class="span10 offset2">
+  <div class="span12">
 
     <h1 class="moma-page-title">{{ work.title }}</h1>
 
@@ -15,31 +15,16 @@
 
 </div>
 
-<div class="row-fluid">
+<div class="row">
 
-  <div class="span2">
-
-    <div id="sidebar">
-
-      <section>
-        <h2>Other works</h2>
-        <ul ng-repeat="item in works" class="nav nav-pills">
-          <li ng-class="{ active: item.id === work.id }"><a ui-sref="works.view({id:item.id})">{{ item.title }}</a></li>
-        </ul>
-      </section>
-
-    </div>
-
-  </div>
-
-  <div class="span10">
-    <div id="main-column" class="row-fluid">
+  <div class="span12">
+    <div id="main-column">
 
       <section class="moma-metabox">
         <div class="row-fluid">
 
           <div class="span5">
-            <img src="http://placebear.com/394/305" />
+            <img ng-src="{{ assetsPath }}/gordon.jpg" />
           </div>
 
           <div class="span7 content">
@@ -98,7 +83,16 @@
         </div>
       </section>
 
-      <ar:context-browser resource="{{ work.id }}"/>
+      <ar:context-browser resource="{{ work.id }}"></ar:context-browser>
+
+      <hr />
+
+      <section>
+        <h2>Other works</h2>
+        <ul ng-repeat="item in works" class="nav nav-pills nav-stacked">
+          <li ng-class="{ active: item.id === work.id }"><a ui-sref="works.view({id:item.id})">{{ item.title }}</a></li>
+        </ul>
+      </section>
 
     </div>
   </div>
