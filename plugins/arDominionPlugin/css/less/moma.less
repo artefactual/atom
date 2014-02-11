@@ -47,6 +47,22 @@ body {
   background: @momaNodeWork;
 }
 
+h1.multiline.moma-title {
+  padding-left: 40px;
+  position: relative;
+  &:before {
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+    content: "";
+    position: absolute;
+    left: 0px;
+    top: 6px;
+  }
+}
+
+.moma-title-works:before { background-color: @momaNodeWork; }
+
 // Some layout mixins
 
 .moma-metabox {
