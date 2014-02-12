@@ -26,7 +26,7 @@
   },
   "validateJSDoc": {
     "checkParamNames": true,
-    "checkRedundantParams": true,
+    "checkRedundantParams": false,
     "requireParamTypes": true
   },
   "validateLineBreaks": "LF"
