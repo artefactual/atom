@@ -206,6 +206,11 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
         break;
 
+      case 'identifier':
+        $this->query->setSort(array('referenceCode' => 'asc'));
+
+        break;
+
       case 'lastUpdated':
       default:
         $this->query->setSort(array('updatedAt' => 'desc'));

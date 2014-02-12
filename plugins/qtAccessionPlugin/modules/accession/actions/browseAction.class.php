@@ -99,6 +99,7 @@ class AccessionBrowseAction extends sfAction
     switch ($request->sort)
     {
       // I don't think that this is going to scale, but let's leave it for now
+      case 'identifier':
       case 'alphabetic':
         $this->query->setSort(array('identifier' => 'asc'));
 
