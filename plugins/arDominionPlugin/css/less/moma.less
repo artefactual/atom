@@ -1,6 +1,6 @@
 body {
-  //Important for sidebar animation
-  position: relative!important;
+  // Important for sidebar animation
+  position: relative !important;
 }
 
 
@@ -17,9 +17,7 @@ body {
   margin-right: 40px;
 }
 
-/*------------------------ */
-// menu lists
-
+// Menu lists
 
 .menu-list {
   border-top: 1px solid @borderLineColor;
@@ -148,82 +146,49 @@ ul.menu-list-left li {
 }
 
 
-/* Menus ----------------
-*/
+// Menu list right
 
 .menu-list-right {
   float: right;
-  margin-top: 3px!important;
-    li {
-      a { color: @orange; }
-      a:before {
+  margin-top: 3px !important;
+  li a {
+    color: @grayDark;
+    &:before {
       color: @grayLight;
       font-family: FontAwesome;
       font-style: normal;
       font-weight: normal;
       text-decoration: inherit;
       padding-right: 4px;
-      }
-      a.more:before {
-        // content: "\f074"; comes from bootstrap's js
-      }
-      a.edit:before {
-        content: "\f040";
-      } //
-      a.hide_relationships:before {
-        content: "\f074";
-      } //
-      a.expand_all:before {
-        content: "\f0e8";
-      } //a
-      a.move:before {
-        content: "\f148";
-      } //a
-      a.add_child:before {
-        content: "\f055";
-      } //a
-      a.duplicate:before {
-        content: "\f0c5";
-      } //a
-      a.add_relationship:before {
-        content: "\f074";
-      } //a
-      a.download:before {
-        content: "\f019";
-      } //a
-      a.inspect:before {
-        content: "\f06e";
-      } //a
-       a.delete {
-        color: red;
-          &:before {
-        content: "\f057";
-        } //a before
-      } //a
-      a.list_relationships:before {
-        content: "\f126";
-      } //a
-      a.fullscreen:before {
-        content: "\f0b2";
-      } //a
-      a.maximize:before {
-        content: "\f0fe";
-      }
-      a.minimize:before {
-        content: "\f146";
-      }
-      a.AIP_Details:before {
-        content: "\f03a";
-      } //a
-      a.fixity_report:before {
-        content: "\f058";
-      } //a
-    } //li
-    a.edit {
-  margin-top: 2px;
+    }
+  }
 }
-} //ul.menu-list-right
 
+.menu-list-right li {
+
+  a.edit:before               { content: "\f040"; }
+  a.hide_relationships:before { content: "\f074"; }
+  a.expand_all:before         { content: "\f0e8"; }
+  a.move:before               { content: "\f148"; }
+  a.add_child:before          { content: "\f055"; }
+  a.duplicate:before          { content: "\f0c5"; }
+  a.add_relationship:before   { content: "\f074"; }
+  a.download:before           { content: "\f019"; }
+  a.inspect:before            { content: "\f06e"; }
+  a.delete:before             { content: "\f057"; }
+  a.list_relationships:before { content: "\f126"; }
+  a.fullscreen:before         { content: "\f0b2"; }
+  a.maximize:before           { content: "\f0fe"; }
+  a.minimize:before           { content: "\f146"; }
+  a.AIP_Details:before        { content: "\f03a"; }
+  a.fixity_report:before      { content: "\f058"; }
+
+  a.edit { margin-top: 2px; }
+  a.delete { color: red; }
+
+}
+
+// Table
 
 div.table {
   padding: 0 6px;
@@ -265,14 +230,12 @@ div.table {
   } //table
 } //div.table
 
-/* -------------------------- */
 // Supporting Tech Metabox
 
 section.section-supTech, section.dig-obj-bro {
   margin-left: 0px!important;
 }
 
-/* -------------------------- */
 // Modals
 
 .modal .modal-header {
@@ -311,7 +274,8 @@ section.section-supTech, section.dig-obj-bro {
   }
 }
 
-//technology support modal
+// Technology support modal
+
 .modal-div {
   margin: .5em 0 1.5em 0 !important;
   padding: 8px auto;
@@ -370,7 +334,6 @@ section.section-supTech, section.dig-obj-bro {
   }
 }
 
-/* -------------------------- */
 // video modal, using flexbox
 
 #inspectModalr {
@@ -410,11 +373,6 @@ section.section-supTech, section.dig-obj-bro {
 
 }
 
-
-
-
-
-/* -------------------------- */
 // Sidebar
 
 .sidebar-prototype {
@@ -462,44 +420,6 @@ section.section-supTech, section.dig-obj-bro {
     }
     } //li
   }
-}
-
-// Special scroll for MOMA
-
-::-webkit-scrollbar {
-  background-color: rgba(0, 0, 0, 0);
-}
-
-::-webkit-scrollbar:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-::-webkit-scrollbar:horizontal {
-  height: 10px;
-}
-
-::-webkit-scrollbar:vertical {
-  width: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.3);
-  -webkit-border-radius: 100px;
-  background-clip: padding-box;
-  border: 2px solid rgba(0, 0, 0, 0);
-}
-
-::-webkit-scrollbar-thumb:horizontal {
-  min-width: 10px;
-}
-
-::-webkit-scrollbar-thumb:vertical {
-  min-height: 10px;
-}
-
-::-webkit-scrollbar-thumb:active {
-  background: rgba(0, 0, 0, 0.6);
-  -webkit-border-radius: 100px;
 }
 
 // Context browser
@@ -738,4 +658,42 @@ text {
     stroke-width: 0.5px;
     fill: none;
   }
+}
+
+// Special scroll for MOMA
+
+::-webkit-scrollbar {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+::-webkit-scrollbar:vertical {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 100px;
+  background-clip: padding-box;
+  border: 2px solid rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  min-width: 10px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  min-height: 10px;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-border-radius: 100px;
 }
