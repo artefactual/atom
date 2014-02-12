@@ -199,15 +199,13 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     // Sort
     switch ($request->sort)
     {
+      case 'identifier':
+        $this->query->addSort(array('referenceCode' => 'asc'));
+
       // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
         $field = sprintf('i18n.%s.title.untouched', $this->context->user->getCulture());
-        $this->query->setSort(array($field => 'asc'));
-
-        break;
-
-      case 'identifier':
-        $this->query->setSort(array('referenceCode' => 'asc'));
+        $this->query->addSort(array($field => 'asc'));
 
         break;
 
