@@ -74,13 +74,17 @@
     this.graphSVG.select('.edgePaths, .edgeLabels').style('display', 'none');
   };
 
+  /**
+   * Handler for click events. Allows selection of nodes by updating CSS classes
+   * and firing events to a watcher.
+   *
+   * @this {object} - D3 g.node
+   * @param {ContextBrowser} context
+   * @param {string} datum - D3 element datum, e.g. context.graph.node(datum)
+   * @param {number} index - Index
+   */
   ContextBrowser.prototype.clickNode = function (context, datum, index) {
     var n = d3.select(this);
-    var node = context.graph.node(datum);
-    // No fun for physical components!
-    if (node.level === 'physical-component') {
-      return false;
-    }
     if (!n.classed('active')) {
       if (!d3.event.shiftKey) {
         context.graphSVG.selectAll('.node.active').each(function (datum, index) {
@@ -96,12 +100,15 @@
     }
   };
 
-  ContextBrowser.prototype.hoverNode = function (context, datum) {
-    var node = context.graph.node(datum);
-    // No fun for physical components!
-    if (node.level === 'physical-component') {
-      return false;
-    }
+  /**
+   * Handler for mouseover and mouseout events. Adds or remove the hover class.
+   *
+   * @this {object} - D3 g.node
+   * @param {ContextBrowser} context
+   * @param {string} datum - D3 element datum, e.g. context.graph.node(datum)
+   * @param {number} index - Index
+   */
+  ContextBrowser.prototype.hoverNode = function () {
     if (d3.event.type === 'mouseover') {
       d3.select(this).classed('hover', true);
     } else if (d3.event.type === 'mouseout') {
