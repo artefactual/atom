@@ -74,6 +74,10 @@
     this.graphSVG.select('.edgePaths, .edgeLabels').style('display', 'none');
   };
 
+  ContextBrowser.prototype.unselectAll = function () {
+    this.graphSVG.selectAll('.node').classed('active', false);
+  };
+
   /**
    * Handler for click events. Allows selection of nodes by updating CSS classes
    * and firing events to a watcher.

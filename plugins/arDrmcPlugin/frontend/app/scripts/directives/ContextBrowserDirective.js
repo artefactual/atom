@@ -2,7 +2,7 @@
 
 var ContextBrowser = require('../lib/cbd');
 
-module.exports = function ($document, ATOM_CONFIG, InformationObjectService, FullscreenService) {
+module.exports = function ($document, $timeout, ATOM_CONFIG, InformationObjectService, FullscreenService) {
   return {
     restrict: 'E',
     templateUrl: ATOM_CONFIG.viewsPath + '/partials/context-browser.html',
@@ -176,6 +176,19 @@ module.exports = function ($document, ATOM_CONFIG, InformationObjectService, Ful
           action: function (target) {
             cb.moveNodes(source, target);
           }
+        });
+      };
+
+      scope.cancelBulkEdit = function () {
+        // Make sure that this is happening within the next digest
+        // I'm not using scope.$apply because Angular will fail if it happens
+        // that there is another $digest or $apply already running, see
+        // http://docs.angularjs.org/error/$rootScope:inprog
+        $timeout(function () {
+          scope.activeNodes = {};
+          scope.firstSelection = undefined;
+          scope.lastSelection = undefined;
+          cb.unselectAll();
         });
       };
     }
