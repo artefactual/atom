@@ -58,7 +58,9 @@
   }
 
   function drawEdgePaths (g, root) {
-    return _drawEdgePaths(g, root).selectAll('path').attr('marker-end', '');
+    var svgEdgePaths = _drawEdgePaths(g, root);
+    svgEdgePaths.selectAll('path').attr('marker-end', '');
+    return svgEdgePaths;
   }
 
   function postRender (g, root) {
