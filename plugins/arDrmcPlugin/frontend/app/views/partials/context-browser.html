@@ -13,35 +13,23 @@
       <!-- Menu -->
       <ul class="menu-list-right nav nav-pills">
 
-        <!-- More -->
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="">More<b class="caret"></b></a>
-          <ul id="metaDrop1" class="dropdown-menu">
-            <li><a class="move" href="">Move</a></li>
-            <li><a class="add_child" href="">Add child</a></li>
-            <li><a class="duplicate" href="">Duplicate</a></li>
-            <li><a class="add_relationship" href="">Add Relationship</a></li>
-            <li><a class="delete" href="">Delete</a></li>
-          </ul>
-        </li>
-
         <!-- Toogle relationships -->
         <li ng-class="{ active: areRelationshipsHidden }">
-          <a class="hide_relationships" ng-click="hideRelationships()">
+          <a href class="hide_relationships" ng-click="hideRelationships()">
             {{ areRelationshipsHidden ? 'Show relationships' : 'Hide relationships' }}
           </a>
         </li>
 
         <!-- Fullscreen -->
         <li ng-class="{ active: isFullscreen }">
-          <a ng-click="toggleFullscreenMode()" class="fullscreen">
+          <a href ng-click="toggleFullscreenMode()" class="fullscreen">
             {{ isFullscreen ? 'Exit fullscreen' : 'Fullscreen' }}
           </a>
         </li>
 
         <!-- Maximize -->
         <li ng-if="!isFullscreen">
-          <a ng-click="toggleMaximizedMode()" ng-class="{ maximize: !isMaximized, minimize: isMaximized }">
+          <a href ng-click="toggleMaximizedMode()" ng-class="{ maximize: !isMaximized, minimize: isMaximized }">
             {{ isMaximized ? 'Minimize' : 'Maximize' }}
           </a>
         </li>
@@ -50,7 +38,7 @@
 
         <!-- Expand all -->
         <li class="dropdown">
-          <a class="expand_all dropdown-toggle" data-toggle="dropdown" href="">Expand all</a>
+          <a href class="expand_all dropdown-toggle" data-toggle="dropdown">Expand all</a>
         </li>
 
       </ul>
