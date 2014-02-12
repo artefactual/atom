@@ -18,7 +18,8 @@
           array(
             'options' => array(
               'alphabetic' => __('Alphabetic'),
-              'lastUpdated' => __('Most recent')))) ?>
+              'lastUpdated' => __('Most recent'),
+              'identifier' => __('Identifier')))) ?>
       </div>
     </div>
   </section>
