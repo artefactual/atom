@@ -1,7 +1,5 @@
 'use strict';
 
-var lodash = require('lodash');
-
 module.exports = function ($q) {
 
   this.tree1 = [
@@ -174,9 +172,13 @@ module.exports = function ($q) {
     var deferred = $q.defer();
 
     if (this.informationObjects !== undefined) {
-      deferred.resolve(lodash.filter(this.informationObjects, function (element) {
-        return element.level === 'work';
-      }));
+      var works = {};
+      for (var key in this.informationObjects) {
+        if (this.informationObjects[key].level === 'work') {
+          works[key] = this.informationObjects[key];
+        }
+      }
+      deferred.resolve(works);
     } else {
       deferred.reject('There are not works currently available');
     }
