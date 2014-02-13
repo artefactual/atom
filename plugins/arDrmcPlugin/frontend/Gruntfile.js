@@ -139,28 +139,6 @@ module.exports = function (grunt) {
 
     browserify: {
 
-      // Here we are creating shims for browserify for the 3rd-party libraries
-      // that doesn't have its corresponding package in npm or that we don't
-      // to use for some reason (e.g. the maintainer doesn't update them).
-      // Add in browserify.vendor.src all the libs you need but make sure that
-      // you also declare the shim under browserify.vendor.options.shim.
-      // There is a good example in: http://goo.gl/rbIFwu
-      shims: {
-        src: [
-          'vendor/angular-strap.js'
-        ],
-        dest: '<%= builddir %>/vendor-shims.js',
-        options: {
-          debug: true,
-          strap: {
-            'angular-strap': {
-              path: './vendor/angular-strap.js',
-              exports: 'angular-strap'
-            }
-          }
-        }
-      },
-
       vendor: {
         src: 'app/scripts/import.js',
         dest: '<%= builddir %>/vendor.js',
