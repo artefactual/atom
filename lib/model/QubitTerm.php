@@ -27,6 +27,7 @@
  */
 class QubitTerm extends BaseTerm
 {
+  public $disableNestedSetUpdating = false;
   const
 
     // ROOT term id
@@ -266,6 +267,14 @@ class QubitTerm extends BaseTerm
   public function setRoot()
   {
     $this->parentId = QubitTerm::ROOT_ID;
+  }
+
+  protected function updateNestedSet($connection = null)
+  {
+    if (!$this->disableNestedSetUpdating)
+    {
+      return parent::updateNestedSet($connection);
+    }
   }
 
   public function delete($connection = null)
