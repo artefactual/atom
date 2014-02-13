@@ -46,10 +46,10 @@ mapping:
       nested_only: true
     dynamic: strict
     properties:
-      start_date: { type: date }
-      end_date: { type: date }
-      start_date_string: { type: string, index: not_analyzed, include_in_all: false }
-      end_date_string: { type: string, index: not_analyzed, include_in_all: false }
+      start_date: { type: date, include_in_all: false }
+      end_date: { type: date, include_in_all: false }
+      start_date_string: { type: string, index: not_analyzed }
+      end_date_string: { type: string, index: not_analyzed }
       type_id: { type: integer, index: not_analyzed, include_in_all: false }
       actor_id: { type: integer, index: not_analyzed, include_in_all: false }
 

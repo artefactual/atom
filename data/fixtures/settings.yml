@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 106
+    value: 107
   milestone:
     name: milestone
     editable: 0
@@ -648,5 +648,81 @@ QubitSetting:
     value: 1
   Qubit_Settings_visibleElements_physicalStorage:
     name: physical_storage
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_radTitleResponsibilityArea:
+    name: rad_title_responsibility_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_radEditionArea:
+    name: rad_edition_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_radMaterialSpecificDetailsArea:
+    name: rad_material_specific_details_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_radDatesOfCreationArea:
+    name: rad_dates_of_creation_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_radPhysicalDescriptionArea:
+    name: rad_physical_description_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_radPublishersSeriesArea:
+    name: rad_publishers_series_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_radArchivalDescriptionArea:
+    name: rad_archival_description_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_radNotesArea:
+    name: rad_notes_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_radStandardNumberArea:
+    name: rad_standard_number_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_radAccessPointsArea:
+    name: rad_access_points_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_radDescriptionControlArea:
+    name: rad_description_control_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_isadIdentityArea:
+    name: isad_identity_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_isadContextArea:
+    name: isad_context_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_isadContentAndStructureArea:
+    name: isad_content_and_structure_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_isadConditionsOfAccessAndUseArea:
+    name: isad_conditions_of_access_use_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_isadAlliedMaterialsArea:
+    name: isad_allied_materials_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_isadNotesArea:
+    name: isad_notes_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_isadAccessPointsArea:
+    name: isad_access_points_area
+    scope: element_visibility
+    value: 1
+  Qubit_Settings_visibleElements_isadDescriptionControlArea:
+    name: isad_description_control_area
     scope: element_visibility
     value: 1
