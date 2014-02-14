@@ -183,6 +183,15 @@
     });
   };
 
+  ContextBrowser.prototype.createAssociativeRelationship = function (source, target, type) {
+    for (var i in source) {
+      var src = source[i];
+      this.graph.addEdge(src + ':' + target, src, target);
+      this.draw();
+      console.log(type);
+    }
+  };
+
   module.exports = ContextBrowser;
 
 })();
