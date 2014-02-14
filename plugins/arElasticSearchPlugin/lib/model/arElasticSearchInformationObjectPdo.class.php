@@ -681,7 +681,7 @@ class arElasticSearchInformationObjectPdo
     self::$statements['materialType']->execute(array(
       $this->__get('id')));
 
-    return self::$statements['materialType']->fetchColumn(0);
+    return self::$statements['materialType']->fetchAll(PDO::FETCH_OBJ);
   }
 
   public function getStorageNames()
@@ -812,9 +812,9 @@ class arElasticSearchInformationObjectPdo
     }
 
     // Material type
-    if (false !== ($materialTypeId = $this->getMaterialTypeId()))
+    foreach ($this->getMaterialTypeId() as $item)
     {
-      $serialized['materialTypeId'] = $materialTypeId;
+      $serialized['materialTypeId'][] = $item->id;
     }
 
     // Media
