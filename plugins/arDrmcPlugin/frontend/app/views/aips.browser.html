@@ -19,17 +19,31 @@
         </div>
       </section>
 
+      <section class="list-menu">
+        <h4>AIP Class</h4>
+        <ul>
+          <li><a href="#" ng-click="criteria.class = undefined">All</a></li>
+          <li ng-repeat="item in data.aips.facets.class.terms">
+            <a href="#" ng-click="criteria.class = item.term">{{ item.term }} ({{ item.count }})</a>
+          </li>
+        </ul>
+      </section>
+
   </div><!-- /span3 -->
 
-  <div class="span9" ng-model="data">
+  <div class="span9 row-fluid" ng-model="data">
 
-    <div id="main-column" class="row-fluid">
+    <div id="main-column" class="span12">
 
       <h2>AIPs browser</h2>
 
+      <div id="facet-indicators">
+        <div ng-show="criteria.class">{{ criteria.class }} <span ng-click="criteria.class = undefined">[x]</span></div>
+      </div>
+
       <div id="content">
 
-        <section>
+        <section id="aips-overview">
 
           <!-- title -->
           <div class="menu-list row-fluid" >
@@ -40,74 +54,78 @@
               <li>
                 <a ng-click="toggleOverview()" ng-show="showOverview">Hide</a>
                 <a ng-click="toggleOverview()" ng-hide="showOverview">Show</a>
-                </a>
               </li>
             </ul>
           </div>
 
           <!-- content -->
-          <section class="row-fluid" ng-show="showOverview">
+          <section class="aips-overview-body row-fluid" ng-show="showOverview">
             <div class="field">
               <h3>Total AIP Storage Size</h3>
-              <div>{{ data.overview.total.size }}</div>
+              <div>{{ data.overview.total.size | UnitFilter:2 }}</div>
             </div>
             <div class="field">
               <h3>Total AIPs</h3>
               <div>{{ data.overview.total.count }}</div>
             </div>
             <div class="field">
-              <h3>Artwork AIP Count</h3>
-              <div>{{ data.overview.artwork.count }}</div>
+              <h3>Artwork Component AIP Count</h3>
+              <div>{{ data.overview['Artwork Component'].count }}</div>
             </div>
              <div class="field">
-              <h3>Software AIP Count</h3>
-              <div>{{ data.overview.software.count }}</div>
+              <h3>Artwork Material AIP Count</h3>
+              <div>{{ data.overview['Artwork Material'].count }}</div>
             </div>
             <div class="field">
-              <h3>Documentation AIP Count</h3>
-              <div>{{ data.overview.documentation.count}}</div>
+              <h3>Supporting Documentation AIP Count</h3>
+              <div>{{ data.overview['Supporting Documentation'].count }}</div>
+            </div>
+            <div class="field">
+              <h3>Supporting Technology AIP Count</h3>
+              <div>{{ data.overview['Supporting Technology'].count }}</div>
             </div>
             <div class="field">
               <h3>Unclassified AIP Count</h3>
-              <div>{{ data.overview.unclassified.count }}</div>
+              <div>{{ data.overview['Unclassified'].count }}</div>
             </div>
           </section>
 
         </section>
 
-        <section>
+        <section class="row-fluid">
 
-        <h2>AIPs</h2>
+          <div class="menu-list row-fluid" >
 
-          <div class="table">
-            <table dir="ltr" class="table table-bordered">
-              <thead>
-                <tr><!-- table row -->
-                  <th>Name</th><!-- table head -->
-                  <th>Size</th>
-                  <th>Added</th>
-                  <th>Class</th>
-                  <th>Parent</th>
-                  <th>Part Of</th>
-                </tr>
-              </thead>
+            <ul class="menu-list-left inline">
+              <li>
+                <h2>AIPS</h2>
+              </li>
+            </ul>
 
-              <tbody>
+            <ul class="menu-list-right nav nav-pills">
+              <li>
+                <a class="i-print"
+                   data-toggle="dropdown"
+                   ui-sref="#">
+                   Print Report
+                </a>
+              </li>
+            </ul>
+          </div><!-- /contentTitle -->
 
-                <tr ng-repeat="(key, aip) in data.aips.results">
-                  <td><a ui-sref="aips.view({ id: aip.uuid })">{{ aip.name }}</a></td>
-                  <td>{{ aip.size }}</td>
-                  <td>{{ aip.created_at }}</td>
-                  <td><a role="button" ng-click="openReclassifyModal(aip)">{{ aip.class }}</a></td>
-                  <td>{{ aip.parent.title }}</td>
-                  <td>{{ aip.part_of.title }}</td>
-                </tr>
+          <div id="aips-views" class="container-fluid">
+            <span>View in</span>
+            <select class="span6" name="aips=templates" ng-model="template" ng-options="template.name for template in templates">
+              <option>{{ template.name }}</option>
+            </select>
 
-              </tbody>
-            </table>
+            <!-- Location of template from ng-include -->
+            <div class="aips-views-container">
+              <div ng-include="template.url"></div>
+            </div>
           </div>
-        </section>
 
+        </section>
       </div><!-- /#content -->
 
     </div><!-- /.span9 -->

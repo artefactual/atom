@@ -1,6 +1,6 @@
 <div id="classify-aip-modal">
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <button type="button" ng-click="$dismiss()" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h2>Classify AIPs</h2>
   </div>
 
@@ -12,7 +12,7 @@
       <dt>Parent</dt>
         <dd>{{ aip.parent.title }}</dd>
       <dt>Part of</dt>
-        <dd>{{ aip.part_of.title }}</dd>
+        <dd>{{ aip.partof.title }}</dd>
     </dl>
 
     <div style="border: 1px solid tomato" class="alert error" ng-hide="showOverview" bs-alert></div>
@@ -25,8 +25,7 @@
 
   <div class="modal-footer">
     <button class="btn btn-save" ng-click="modal.saved = true; reclassifyAIP(aip, classification);"><span class="btn-save"></span>Save</button>
-    <button class="btn btn-view" ng-click="parentController(dismiss)"><span class="btn-clearall"></span>View AIP</button>
-    <button class="btn btn-cancel" ng-click="dismiss()"><span class="btn-cancel"></span>Cancel</button>
+    <button class="btn btn-cancel" ng-click="$dismiss()"><span class="btn-cancel"></span>Cancel</button>
   </div>
 
 </div>

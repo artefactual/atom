@@ -17,14 +17,14 @@ exports.calculateOverviewData = function(aips) {
     overview['total']['count'] += 1;
 
     // initialize classification data if needed
-    classLowerCase = aip.class.toLowerCase();
-    if (typeof overview[classLowerCase] == 'undefined') {
-      overview[classLowerCase] = {'size': 0, 'count': 0};
+    classCaseAdjusted = aip.class;
+    if (typeof overview[classCaseAdjusted] == 'undefined') {
+      overview[classCaseAdjusted] = {'size': 0, 'count': 0};
     }
 
     // add to classification data
-    overview[classLowerCase]['size'] += aip.size;
-    overview[classLowerCase]['count'] += 1;
+    overview[classCaseAdjusted]['size'] += aip.size;
+    overview[classCaseAdjusted]['count'] += 1;
   });
 
   return overview;
@@ -51,7 +51,6 @@ exports.ObjectPropertyTokenCounter.prototype = {
         // split object value into tokens by whitespace
         values = object[key]
           .toString()
-          .toLowerCase()
           .split(/[ ,]+/);
 
         // add each value to token count

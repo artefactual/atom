@@ -1,0 +1,24 @@
+// Custom Buttons
+
+.moma-btn(@bg-color) {
+  border-radius: 3px;
+  text-shadow: none;
+  color: @black;
+}
+
+// This sets parent styles for
+// pseudo class icon use (:after, :before)
+
+.fa-icon-set (@color) {
+  color: @color;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+}
+
+.moma-icon() {
+  padding-right: 6px;
+  .fa-icon-set(@grayLight);
+  > span { border: none!important; }
+}

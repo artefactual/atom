@@ -8,6 +8,7 @@
 
     .controller('DashboardCtrl', require('./DashboardCtrl'))
     .controller('AIPBrowserCtrl', require('./AIPBrowserCtrl'))
+    .controller('AIPReclassifyCtrl', require('./AIPReclassifyCtrl'))
     .controller('AIPViewCtrl', require('./AIPViewCtrl'))
     .controller('WorkBrowserCtrl', require('./WorkBrowserCtrl'))
     .controller('WorkViewCtrl', require('./WorkViewCtrl'))

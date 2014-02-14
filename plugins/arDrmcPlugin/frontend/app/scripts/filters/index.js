@@ -4,6 +4,7 @@
 
   var angular = require('angular');
 
-  module.exports = angular.module('momaApp.filters', []);
+  module.exports = angular.module('momaApp.filters', [])
+    .filter('UnitFilter', require('./UnitFilter'));
 
 })();

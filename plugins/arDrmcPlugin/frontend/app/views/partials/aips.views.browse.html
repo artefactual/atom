@@ -1,0 +1,69 @@
+<div class="browse-view-browse"  class="row-fluid">
+
+  <div ng-repeat="(key, aip) in data.aips.results" class="span12 row-fluid">
+
+    <div class="span2 offset1">
+      <div><img src="http://fillmurray.com/g/200/150" /></div>
+    </div>
+
+    <div class="span5">
+      <div class="field">
+        <h3>Name</h3>
+        <div>
+          {{ aip.name }}
+        </div>
+      </div>
+
+      <div class="field">
+        <h3>UUID</h3>
+        <div>
+          {{ aip.uuid }}
+        </div>
+      </div>
+
+      <div class="field">
+        <h3>Size</h3>
+        <div>
+          {{ aip.size | UnitFilter:2 }}
+        </div>
+      </div>
+
+      <div class="field">
+        <h3>Added</h3>
+        <div>
+          {{ aip.created_at }}
+        </div>
+      </div>
+    </div>
+
+    <div class="span4">
+      <div class="field">
+        <h3>Class</h3>
+        <div>
+          <a role="button" ng-click="open(aip)">{{ aip.class }}</a>
+        </div>
+      </div>
+
+      <div class="field">
+        <h3>No. Obj</h3>
+        <div>
+          {{ aip.objectcount }}
+        </div>
+      </div>
+
+      <div class="field">
+        <h3>Parent</h3>
+        <div>
+          {{ aip.parent.title }}
+        </div>
+      </div>
+
+      <div class="field">
+        <h3>Part of</h3>
+        <div>
+          {{ aip.partof.title }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,7 +4,9 @@
 
   var angular = require('angular');
 
-  /*
+  require('../../vendor/angular-ui.js');
+
+ /*
    * Module definition
    */
 
@@ -16,11 +18,9 @@
     require('./filters').name,
 
     'ui.router',
-    '$strap'
+    'ui.bootstrap'
 
   ]);
-
-
   /*
    * Configuration constants
    */

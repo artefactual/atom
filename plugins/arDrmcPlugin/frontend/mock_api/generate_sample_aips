@@ -1,0 +1,63 @@
+#! /usr/bin/env node
+/*
+
+Generate random sample AIP data
+
+Examples:
+  ./generate_sample_aips 120 # generate 120 sample AIPs
+
+*/
+
+var fs = require('fs'),
+    uuid = require('node-uuid'),
+    casual = require('casual'),
+    amountToGenerate = process.argv[process.argv.length-1],
+    names,
+    classifications;
+
+// show usage if arg length is wrong or final arg isn't a number
+if (process.argv.length != 3 || !(parseInt(amountToGenerate, 10) > 0)) {
+  console.log('Usage: ' + process.argv[1] + ' <number of AIPs to generate>');
+  process.exit();
+}
+
+// read list of names (taken from ElasticSearch project):
+// https://raw2.github.com/elasticsearch/elasticsearch/master/src/main/resources/config/names.txt
+names = fs.readFileSync(__dirname + '/sample_data/names.txt').toString().split("\n");
+names.pop();
+
+// read list of classifications
+classifications = fs.readFileSync(__dirname + '/sample_data/classifications.txt').toString().split("\n");
+classifications.pop();
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getRandomFromArray(arrayData) {
+  return arrayData[getRandomInt(0, arrayData.length - 1)]
+}
+
+function generateAIP(name, classification) {
+  var dateAndTime = casual.date(format = 'YYYY-MM-DD') + ' ' + casual.time(format = 'HH:mm:ss') + ' EST';
+
+  return {
+    'uuid': uuid.v4(),
+    'name': name,
+    'class': classification,
+    'size': getRandomInt(100000, 100000000), 
+    'createdat': dateAndTime
+  };
+}
+
+console.log('[');
+
+for (var i = 0; i < amountToGenerate; i++) {
+  var commandAfterJSON = (i < (amountToGenerate - 1)) ? ',' : '',
+      name = getRandomFromArray(names),
+      classification = getRandomFromArray(classifications);
+
+  console.log('  ' + JSON.stringify(generateAIP(name, classification)) + commandAfterJSON);
+}
+
+console.log(']');

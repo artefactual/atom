@@ -10,6 +10,9 @@ body {
   #content();
 }
 
+// Fixes cursor to non-href elements
+.nav, .panel-title a { cursor: pointer; }
+
 // Header
 
 .drmc-ma #site-name {
@@ -82,8 +85,8 @@ h1.multiline.moma-title {
   }
 }
 
-/* -------------------------- */
 // MetaData / Digital Objects
+
 .menu-list-left {
   float: left;
   h2 {
@@ -118,10 +121,10 @@ h1.multiline.moma-title {
         }
       }
 }
+
 ul.menu-list-left li {
   border: none!important; //still doubling border -> fix this
 }
-
 
 .section-digitalObjects, .section-metadata {
   width: 49.5%;
@@ -145,14 +148,13 @@ ul.menu-list-left li {
   }
 }
 
-
 // Menu list right
 
 .menu-list-right {
   float: right;
   margin-top: 3px !important;
   li a {
-    color: @grayDark;
+    color: @orange;
     &:before {
       color: @grayLight;
       font-family: FontAwesome;
@@ -186,6 +188,76 @@ ul.menu-list-left li {
   a.edit { margin-top: 2px; }
   a.delete { color: red; }
 
+  float: right;
+  margin-top: 3px!important;
+  border-bottom: none;
+
+  li {
+    a { color: @orange; }
+    a:hover { border-bottom: none; }
+    a:before {
+    .fa-icon-set(@grayLight);
+    padding-right: 4px;
+    }
+  }
+}
+
+// Aips page
+
+// Gives wider space to fields to
+// accomodate longer titles
+
+#aips-overview {
+
+  > div.menu-list ul li > a {
+    padding-right: 6px;
+  }
+
+  .aips-overview-body .field {
+
+    h3 {
+      width: 38%;
+      margin-left: -2%;
+    }
+
+    div {
+      padding-left: 9%;
+    }
+  }
+}
+
+.browse-view-list th a {
+  .fa-icon-set(@grayLight);
+
+    &:after {
+      font-size: 18px;
+      content: "\f106";
+      margin-left: 3px;
+      color: @grayDark;
+    }
+}
+
+.browse-view-browse {
+
+  // Aligns first spa
+  [class*="span"]:not(.span2) {
+    margin-left: 0px;
+  }
+  .span12 {
+    border-bottom: 1px solid @grayLighter;
+    margin-top: 20px;
+    padding-bottom: 8px;
+  }
+
+  .span12:first-child {
+    border-top: 1px solid @grayLighter;
+    padding-top: 15px;
+  }
+
+  .span12:last-child {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
 }
 
 // Table
@@ -197,9 +269,7 @@ div.table {
 
   table {
 
-    a {
-      cursor: pointer;
-    }
+    a { cursor: pointer; }
 
     thead {
       color: @grayDark;
@@ -207,9 +277,8 @@ div.table {
 
       th {
         background: @grayLighter;
-
-      } //th
-    } //thead
+      }
+    }
 
     tbody {
       font-size: .8em;
@@ -225,10 +294,23 @@ div.table {
           padding: 8px 3px;
           line-height: 14px;
         }
-      } //tr
-    } //tbody
-  } //table
-} //div.table
+      }
+    }
+  }
+}
+
+#aips-views select {
+  margin-top: 6px;
+  margin-left: 6px;
+}
+
+// Aips views (maybe future animations)
+
+.aips-views-container {
+  position:relative;
+  min-height: 200px;
+  overflow:hidden;
+}
 
 // Supporting Tech Metabox
 
@@ -285,18 +367,21 @@ section.section-supTech, section.dig-obj-bro {
     color: @orange;
     margin-top: 6px;
   }
+
   span.modal-btn-x {
-     padding-left: 4px;
-     &:after {
+   padding-left: 4px;
+    &:after {
       content: "\f00d";
       font-family: FontAwesome;
       font-style: normal;
       color: @grayLight;
     }
   }
+
   .first-span {
     margin-left: 0!important;
   }
+
   div.select-box {
     overflow: auto;
     height: 150px;
@@ -357,6 +442,7 @@ section.section-supTech, section.dig-obj-bro {
     order: 1;
     margin: auto; //perfect center of x and y
   }
+
   .modal-footer {
     flex-grow: 1;
     width: 35%;
@@ -364,13 +450,14 @@ section.section-supTech, section.dig-obj-bro {
     order: 2;
     min-height: 100%;
   }
+
   section {
     text-align: left;
   }
+
   .viewer-modal-info section > h1 {
     padding: 8px;
   }
-
 }
 
 // Sidebar
@@ -392,14 +479,18 @@ section.section-supTech, section.dig-obj-bro {
 }
 
 .sidebar-prototype .list-menu {
+
   h4 {
     font-size: 1.2em;
     font-family: 'Open Sans Semibold';
   }
+
   ul {
     border-top: 4px solid @black;
+
     li {
       background: none;
+
       a {
         color: @black;
         margin-left: 9px;
@@ -417,7 +508,7 @@ section.section-supTech, section.dig-obj-bro {
     &:first-child {
       font-family: 'Open Sans Semibold';
       margin-left: -6px;
-    }
+      }
     } //li
   }
 }
@@ -697,3 +788,4 @@ text {
   background: rgba(0, 0, 0, 0.6);
   -webkit-border-radius: 100px;
 }
+

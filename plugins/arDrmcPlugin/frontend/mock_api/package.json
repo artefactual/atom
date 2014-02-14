@@ -8,6 +8,7 @@
     "dpd-event": "~0.0.2",
     "dpd-event-extension": "0.0.3",
     "request": "~2.33.0",
-    "node-uuid": "~1.4.1"
+    "node-uuid": "~1.4.1",
+    "casual": "1.3.3"
   }
 }

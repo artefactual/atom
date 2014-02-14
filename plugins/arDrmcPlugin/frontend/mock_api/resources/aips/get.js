@@ -2,6 +2,7 @@ var path = require('path'),
     helpers = require(path.join(process().cwd(), 'resources/aips/lib/helpers.js')),
     sortDir,
     criteria = {},
+    filterFields = ['classification', 'class'],
     aipResults = [];
 
 // apply optional skip
@@ -22,6 +23,25 @@ if (query.sort) {
   criteria.$sort[query.sort] = (sortDir && sortDir == 'desc') ? -1 : 1;
 }
 
+// allowable filter fields
+var synonyms = {
+      'classification': 'class'
+    },
+    value;
+
+filterFields.forEach(function(field) {
+  if (typeof query[field] != 'undefined') {
+    if (typeof synonyms[field] != 'undefined') {
+    //if (field == 'classification') {
+      value = query[field];
+      field = synonyms[field];
+      query[field] = value;
+    //}
+    }
+    criteria[field] = query[field];
+  }
+});
+
 // fetch AIPs matching criteria
 dpd.aipsraw.get(criteria, function(aips) {
   var overview = helpers.calculateOverviewData(aips),
@@ -33,7 +53,7 @@ dpd.aipsraw.get(criteria, function(aips) {
   // process result set
   aips.forEach(function(aip) {
     // covert Deployd-created IDs to decimal IDs
-    aip.id = parseInt(aip.id, 16);
+    //aip.id = parseInt(aip.id, 16);
 
     // work around Deployd issue with property names not allowing "_"
     aip.created_at = aip.createdat;
