@@ -110,3 +110,5 @@ Next, change the FastCGI location criteria to::
 Restart nginx::
 
   $ sudo service nginx restart
+
+  TEST
