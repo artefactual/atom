@@ -4,7 +4,7 @@
 
   window.jQuery = require('jquery');
   require('d3');
-  require('dagre-d3');
+  require('dagre');
   require('angular');
   require('ui-router');
   require('wolfy87-eventemitter');

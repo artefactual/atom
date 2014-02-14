@@ -7,7 +7,6 @@
   var Renderer = require('./renderer');
 
   var d3 = require('d3');
-  var dagreD3 = require('dagre-d3');
   var jQuery = require('jquery');
   var EventEmitter = require('wolfy87-eventemitter');
 
@@ -33,8 +32,7 @@
   };
 
   ContextBrowser.prototype.draw = function () {
-    var behavior = dagreD3.layout().nodeSep(20).rankSep(80).rankDir('RL');
-    this.layout = this.renderer.layout(behavior).run(this.graph, this.groupSVG);
+    this.renderer.run(this.graph, this.groupSVG);
   };
 
   ContextBrowser.prototype.center = function () {
@@ -186,7 +184,9 @@
   ContextBrowser.prototype.createAssociativeRelationship = function (source, target, type) {
     for (var i in source) {
       var src = source[i];
-      this.graph.addEdge(src + ':' + target, src, target);
+      this.graph.addEdge(src + ':' + target, src, target, {
+        type: 'associative'
+      });
       this.draw();
       console.log(type);
     }

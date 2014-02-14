@@ -3,68 +3,455 @@
   'use strict';
 
   var d3 = require('d3');
-  var dagreD3 = require('dagre-d3');
-
-  var _drawNodes;
-  var _drawEdgePaths;
-  var _postRender;
-  var _transition;
-
-  // TODO: overriding dagreD3 is getting messy, just copy and reuse?
+  var dagre = require('dagre');
 
   function Renderer () {
-    this.renderer = new dagreD3.Renderer();
+    this.layout = dagre.layout().nodeSep(20).rankSep(80).rankDir('RL');
+    this.edgeInterpolate = 'bundle';
+    this.edgeTension = 0.95;
+  }
 
-    // Override drawNodes
-    _drawNodes = this.renderer.drawNodes();
-    this.renderer.drawNodes(drawNodes);
+  Renderer.prototype.run = function (graph, svg) {
+    // First copy the input graph so that it is not changed by the rendering
+    // process.
+    graph = copyAndInitGraph(graph);
 
-    // Override drawEdgePaths
-    _drawEdgePaths = this.renderer.drawEdgePaths();
-    this.renderer.drawEdgePaths(drawEdgePaths);
+    // Create layers
+    svg
+      .selectAll('g.edgePaths, g.edgeLabels, g.nodes')
+      .data(['edgePaths', 'edgeLabels', 'nodes'])
+      .enter()
+        .append('g')
+        .attr('class', function (d) {
+          return d;
+        });
 
-    // Override postRender
-    _postRender = this.renderer.postRender();
-    this.renderer.postRender(postRender);
+    // Create node and edge roots, attach labels, and capture dimension
+    // information for use with layout.
+    var svgNodes = drawNodes(graph, svg.select('g.nodes'));
+    var svgEdgeLabels = drawEdgeLabels(graph, svg.select('g.edgeLabels'));
 
-    _transition = this.renderer.transition();
+    svgNodes.each(function (u) {
+      calculateDimensions(this, graph.node(u));
+    });
+    svgEdgeLabels.each(function (e) {
+      calculateDimensions(this, graph.edge(e));
+    });
 
-    return this.renderer;
+    // Now apply the layout function
+    var result = runLayout(graph, this.layout);
+
+    var svgEdgePaths = drawEdgePaths(graph, svg.select('g.edgePaths'));
+
+    // Apply the layout information to the graph
+    positionNodes(result, svgNodes);
+    positionEdgeLabels(result, svgEdgeLabels);
+    positionEdgePaths(result, svgEdgePaths, this.edgeTension, this.edgeInterpolate);
+
+    postRender(result, svg);
+
+    return result;
+  };
+
+  function runLayout (graph, layout) {
+    // Pass to dagre a copy of the graph discarding every edge that is not
+    // hierarchical. We want the layout to be defined only by hierarchical edges
+    var _graph = graph.copyHierarchicalGraph();
+
+    var result = layout.run(_graph);
+
+    // Copy labels to the result graph
+    graph.eachNode(function (u, value) {
+      result.node(u).label = value.label;
+    });
+    graph.eachEdge(function (e, u, v, value) {
+      result.edge(e).label = value.label;
+    });
+
+    return result;
   }
 
   function drawNodes (g, root) {
-    var svgNodes = _drawNodes(g, root);
-    svgNodes.each(function (u) {
-      var node = d3.select(this);
-      var r = node.select('rect').attr('class', 'content');
-
-      node.classed('level-' + g.node(u).level, true);
-
-      // Background effect
-      node
-        .insert('rect', 'rect.content')
-        .attr({
-          'class': 'background',
-          'x': r.attr('x'),
-          'y': r.attr('y'),
-          'rx': r.attr('rx'),
-          'ry': r.attr('ry'),
-          'width': r.attr('width'),
-          'height': r.attr('height')
-        });
-
+    var nodes = g.nodes().filter(function (u) {
+      return !isComposite(g, u);
     });
+
+    var svgNodes = root
+      .selectAll('g.node')
+      .classed('enter', false)
+      .data(nodes, function (u) {
+        return u;
+      });
+
+    svgNodes.selectAll('*').remove();
+
+    svgNodes
+      .enter()
+        .append('g')
+          .style('opacity', 0)
+          .attr('class', function (u) {
+            var classes = ['node', 'enter'];
+            classes.push('level-' + g.node(u).level);
+            return classes.join(' ');
+          });
+
+    svgNodes.each(function (u) {
+      var n = d3.select(this);
+      // Add label
+      addLabel(g.node(u), n, 10, 10);
+      // Add .content class
+      var r = n.select('rect').classed('content', true);
+      // Insert background
+      n.insert('rect', 'rect.content').attr({
+        'class': 'background',
+        'x': r.attr('x'),
+        'y': r.attr('y'),
+        'rx': r.attr('rx'),
+        'ry': r.attr('ry'),
+        'width': r.attr('width'),
+        'height': r.attr('height')
+      });
+    });
+
+    transition(svgNodes.exit())
+      .style('opacity', 0)
+      .remove();
+
     return svgNodes;
   }
 
+  function drawEdgeLabels (g, root) {
+    var svgEdgeLabels = root
+      .selectAll('g.edgeLabel')
+      .classed('enter', false)
+      .data(g.edges(), function (e) {
+        return e;
+      });
+
+    svgEdgeLabels.selectAll('*').remove();
+
+    svgEdgeLabels
+      .enter()
+        .append('g')
+          .style('opacity', 0)
+          .attr('class', 'edgeLabel enter');
+
+    svgEdgeLabels.each(function (e) {
+      addLabel(g.edge(e), d3.select(this), 0, 0);
+    });
+
+    transition(svgEdgeLabels.exit())
+      .style('opacity', 0)
+      .remove();
+
+    return svgEdgeLabels;
+  }
+
   function drawEdgePaths (g, root) {
-    var svgEdgePaths = _drawEdgePaths(g, root);
-    svgEdgePaths.selectAll('path').attr('marker-end', '');
+    var svgEdgePaths = root
+      .selectAll('g.edgePath')
+      .classed('enter', false)
+      .data(g.edges(), function (e) {
+        return e;
+      });
+
+    svgEdgePaths
+      .enter()
+        .append('g')
+          .attr('class', 'edgePath enter')
+          .append('path')
+            .style('opacity', 0);
+            // .attr('marker-end', 'url(#arrowhead)');
+
+    transition(svgEdgePaths.exit())
+      .style('opacity', 0)
+      .remove();
+
     return svgEdgePaths;
   }
 
-  function postRender (g, root) {
-    console.log(g, root);
+  function positionNodes (g, svgNodes) {
+    function transform (u) {
+      var value = g.node(u);
+      return 'translate(' + value.x + ',' + value.y + ')';
+    }
+
+    // For entering nodes, position immediately without transition
+    svgNodes.filter('.enter').attr('transform', transform);
+
+    transition(svgNodes)
+      .style('opacity', 1)
+      .attr('transform', transform);
+  }
+
+  function positionEdgeLabels (g, svgEdgeLabels) {
+    function transform (e) {
+      var value = g.edge(e);
+      var point = findMidPoint(value.points);
+      return 'translate(' + point.x + ',' + point.y + ')';
+    }
+
+    // For entering edge labels, position immediately without transition
+    svgEdgeLabels.filter('.enter').attr('transform', transform);
+
+    transition(svgEdgeLabels)
+      .style('opacity', 1)
+      .attr('transform', transform);
+  }
+
+  function positionEdgePaths (g, svgEdgePaths, edgeTension, edgeInterpolate) {
+    var interpolate = edgeInterpolate;
+    var tension = edgeTension;
+
+    function calcPoints (e) {
+      var value = g.edge(e);
+      var source = g.node(g.incidentNodes(e)[0]);
+      var target = g.node(g.incidentNodes(e)[1]);
+      var points = value.points.slice();
+
+      var p0 = points.length === 0 ? target : points[0];
+      var p1 = points.length === 0 ? source : points[points.length - 1];
+
+      points.unshift(intersectRect(source, p0));
+      // TODO: use bpodgursky's shortening algorithm here
+      points.push(intersectRect(target, p1));
+
+      return d3.svg.line()
+        .x(function (d) {
+          return d.x;
+        })
+        .y(function (d) {
+          return d.y;
+        })
+        .interpolate(interpolate)
+        .tension(tension)
+        (points);
+    }
+
+    svgEdgePaths.filter('.enter').selectAll('path')
+      .attr('d', calcPoints);
+
+    transition(svgEdgePaths.filter('.enter').selectAll('path'))
+      .style('opacity', 1);
+
+    // When initiating a transition with 1 more control point than previously
+    // present, the transition immediately sets the terminal control point to the
+    // final position. This hack inserts an artificial control point. It's not
+    // pretty, but better than the previous behavior.
+    svgEdgePaths.selectAll('path')
+        .filter(function (e) {
+          var points = g.edge(e).points;
+          return d3.select(this).attr('d').split('C').length - 2 < points.length;
+        })
+        .attr('d', function () {
+          var dSplit = d3.select(this).attr('d').split('C');
+          dSplit.splice(1, 0, dSplit[1]);
+          return dSplit.join('C');
+        });
+
+    transition(svgEdgePaths.filter(':not(.enter)').selectAll('path'))
+      .attr('d', calcPoints);
+  }
+
+  // By default we do not use transitions
+  function transition (selection) {
+    return selection;
+  }
+
+  function isComposite (g, u) {
+    return 'children' in g && g.children(u).length;
+  }
+
+  function postRender () {
+    /*
+    if (graph.isDirected() && root.select('#arrowhead').empty()) {
+      root
+        .append('svg:defs')
+          .append('svg:marker')
+            .attr('id', 'arrowhead')
+            .attr('viewBox', '0 0 10 10')
+            .attr('refX', 8)
+            .attr('refY', 5)
+            .attr('markerUnits', 'strokewidth')
+            .attr('markerWidth', 8)
+            .attr('markerHeight', 5)
+            .attr('orient', 'auto')
+            .attr('style', 'fill: #333')
+            .append('svg:path')
+              .attr('d', 'M 0 0 L 10 5 L 0 10 z');
+    }
+    */
+  }
+
+  function addLabel (node, root, marginX, marginY) {
+    // Add the rect first so that it appears behind the label
+    var label = node.label;
+    var rect = root.append('rect');
+    var labelSvg = root.append('g');
+
+    if (label[0] === '<') {
+      addForeignObjectLabel(label, labelSvg);
+      // No margin for HTML elements
+      marginX = marginY = 0;
+    } else {
+      addTextLabel(label, labelSvg, Math.floor(node.labelCols), node.labelCut);
+    }
+
+    var bbox = root.node().getBBox();
+
+    labelSvg.attr('transform', 'translate(' + (bbox.width / -2) + ',' + (bbox.height / -2) + ')');
+
+    rect
+      .attr('rx', 5)
+      .attr('ry', 5)
+      .attr('x', -(bbox.width / 2 + marginX))
+      .attr('y', -(bbox.height / 2 + marginY))
+      .attr('width', bbox.width + 2 * marginX)
+      .attr('height', bbox.height + 2 * marginY);
+  }
+
+  function calculateDimensions (group, value) {
+    var bbox = group.getBBox();
+    value.width = bbox.width;
+    value.height = bbox.height;
+  }
+
+  function copyAndInitGraph (graph) {
+    var copy = graph.copy();
+
+    // Init labels if they were not present in the source graph
+    copy.nodes().forEach(function (u) {
+      var value = copy.node(u);
+      if (value === undefined) {
+        value = {};
+        copy.node(u, value);
+      }
+      if (!('label' in value)) {
+        value.label = '';
+      }
+    });
+
+    copy.edges().forEach(function (e) {
+      var value = copy.edge(e);
+      if (value === undefined) {
+        value = {};
+        copy.edge(e, value);
+      }
+      if (!('label' in value)) {
+        value.label = '';
+      }
+    });
+
+    return copy;
+  }
+
+  function addForeignObjectLabel (label, root) {
+    var fo = root
+      .append('foreignObject')
+        .attr('width', '100000');
+
+    var w, h;
+    fo
+      .append('xhtml:div')
+        .style('float', 'left')
+        // TODO find a better way to get dimensions for foreignObjects...
+        .html(function () {
+          return label;
+        })
+        .each(function () {
+          w = this.clientWidth;
+          h = this.clientHeight;
+        });
+
+    fo
+      .attr('width', w)
+      .attr('height', h);
+  }
+
+  function addTextLabel (label, root, labelCols, labelCut) {
+    if (labelCut === undefined) {
+      labelCut = 'false';
+    }
+    labelCut = labelCut.toString().toLowerCase() === 'true';
+
+    var node = root
+      .append('text')
+      .attr('text-anchor', 'left');
+
+    label = label.replace(/\\n/g, '\n');
+
+    var arr = labelCols ? wordwrap(label, labelCols, labelCut) : label;
+    arr = arr.split('\n');
+    for (var i = 0; i < arr.length; i++) {
+      node
+        .append('tspan')
+          .attr('dy', '1em')
+          .attr('x', '1')
+          .text(arr[i]);
+    }
+  }
+
+  // Thanks to
+  // http://james.padolsey.com/javascript/wordwrap-for-javascript/
+  function wordwrap (str, width, cut, brk) {
+    brk = brk || '\n';
+    width = width || 75;
+    cut = cut || false;
+
+    if (!str) {
+      return str;
+    }
+
+    var regex = '.{1,' + width + '}(\\s|$)' + (cut ? '|.{' + width + '}|.+$' : '|\\S+?(\\s|$)');
+
+    return str.match(new RegExp(regex, 'g')).join(brk);
+  }
+
+  function findMidPoint (points) {
+    var midIdx = points.length / 2;
+    if (points.length % 2) {
+      return points[Math.floor(midIdx)];
+    } else {
+      var p0 = points[midIdx - 1];
+      var p1 = points[midIdx];
+      return {x: (p0.x + p1.x) / 2, y: (p0.y + p1.y) / 2};
+    }
+  }
+
+  function intersectRect (rect, point) {
+    var x = rect.x;
+    var y = rect.y;
+
+    // For now we only support rectangles
+
+    // Rectangle intersection algorithm from:
+    // http://math.stackexchange.com/questions/108113/find-edge-between-two-boxes
+    var dx = point.x - x;
+    var dy = point.y - y;
+    var w = rect.width / 2;
+    var h = rect.height / 2;
+
+    var sx, sy;
+    if (Math.abs(dy) * w > Math.abs(dx) * h) {
+      // Intersection is top or bottom of rect.
+      if (dy < 0) {
+        h = -h;
+      }
+      sx = dy === 0 ? 0 : h * dx / dy;
+      sy = h;
+    } else {
+      // Intersection is left or right of rect.
+      if (dx < 0) {
+        w = -w;
+      }
+      sx = w;
+      sy = dx === 0 ? 0 : w * dy / dx;
+    }
+
+    return {
+      x: x + sx,
+      y: y + sy
+    };
   }
 
   module.exports = Renderer;

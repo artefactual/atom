@@ -147,7 +147,7 @@ module.exports = function (grunt) {
           alias: [
             'jquery:jquery',
             'd3:d3',
-            'dagre-d3:dagre-d3',
+            'dagre:dagre',
             'angular:angular',
             'ui-router:ui-router',
             'wolfy87-eventemitter:wolfy87-eventemitter'
@@ -163,7 +163,7 @@ module.exports = function (grunt) {
           external: [
             'jquery',
             'd3',
-            'dagre-d3',
+            'dagre',
             'angular',
             'ui-router',
             'wolfy87-eventemitter'

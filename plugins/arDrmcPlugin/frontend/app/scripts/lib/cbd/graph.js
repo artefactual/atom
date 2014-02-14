@@ -3,11 +3,11 @@
   'use strict';
 
   var angular = require('angular');
-  var dagreD3 = require('dagre-d3');
+  var dagre = require('dagre');
 
   function Graph (data) {
     // Call parent constructor
-    this._parent = dagreD3.Digraph.call(this);
+    this._parent = dagre.Digraph.call(this);
 
     // Only if we are passing data (see BaseGraph.copy)
     if (data !== undefined) {
@@ -16,7 +16,7 @@
     }
   }
 
-  Graph.prototype = Object.create(dagreD3.Digraph.prototype);
+  Graph.prototype = Object.create(dagre.Digraph.prototype);
   Graph.prototype.constructor = Graph;
 
   Graph.prototype.build = function () {
@@ -71,6 +71,26 @@
     go(u);
 
     return list;
+  };
+
+  /**
+   * This method is like copy() (see BaseGraph), but ignores edges that are not
+   * hierarchical.
+   */
+  Graph.prototype.copyHierarchicalGraph = function () {
+    var copy = new this.constructor();
+    copy.graph(this.graph());
+    this.eachNode(function (u, value) {
+      copy.addNode(u, value);
+    });
+    this.eachEdge(function (e, u, v, value) {
+      // Copy only hierarchical edges
+      if (value.type === undefined ||  value.type === 'hierarchical') {
+        copy.addEdge(e, u, v, value);
+      }
+    });
+    copy._nextId = this._nextId;
+    return copy;
   };
 
   module.exports = Graph;

@@ -714,8 +714,8 @@ text {
     fill: lighten(@blue, 50%) !important;
   }
   // Level of description colors
-  .level-work {
-    .content { fill: @momaNodeWork; }
+  .level-work .content {
+    fill: @momaNodeWork;
   }
   .level-description .content {
     fill: @momaNodeDescription;
@@ -728,7 +728,7 @@ text {
   }
   // Some color contrast tweaking
   .level-work text,
-  .level-digital-object { fill: @white; }
+  .level-digital-object text { fill: @white; }
   .level-work.hover text,
   .level-work.active text,
   .level-digital-object.hover text,
