@@ -85,6 +85,10 @@ Update the AIP sample data with modifications that can be committed to Git
 
   $ curl http://127.0.0.1:2403/aips-raw | python -mjson.tool > mock_api/sample_data/aips.json
 
+Generate sample data for 200 random AIPs (from /plugins/arDrmcPlugin/frontend)::
+
+  $ ./mock_api/generate_sample_aips 200 | python -mjson.tool > mock_api/sample_data/aips.json
+
 Configuring nginx to proxy the mock REST API server
 ```````````````````````````````````````````````````
 
