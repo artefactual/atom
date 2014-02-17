@@ -84,10 +84,10 @@ module.exports = function ($document, $timeout, $modal, ATOM_CONFIG, Information
         }
       });
 
-      // Exit maximized mode using ESC key
+      // Keyboard shortcuts
       $document.on('keyup', function (event) {
         // Escape shortcut
-        if (event.which === 27 && scope.isMaximized && !scope.isFullscreen) {
+        if (event.which === 27 && scope.isMaximized) {
           scope.$apply(function () {
             scope.toggleMaximizedMode();
           });
@@ -121,11 +121,13 @@ module.exports = function ($document, $timeout, $modal, ATOM_CONFIG, Information
         cb.center();
       };
       scope.$on('fullscreenchange', function (event, args) {
-        if (args.type === 'enter') {
-          scope.isFullscreen = true;
-        } else {
-          scope.isFullscreen = false;
-        }
+        scope.$apply(function () {
+          if (args.type === 'enter') {
+            scope.isFullscreen = true;
+          } else {
+            scope.isFullscreen = false;
+          }
+        });
         cb.center();
       });
 
