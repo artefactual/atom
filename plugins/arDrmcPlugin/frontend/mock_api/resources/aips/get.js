@@ -2,7 +2,7 @@ var path = require('path'),
     helpers = require(path.join(process().cwd(), 'resources/aips/lib/helpers.js')),
     sortDir,
     criteria = {},
-    filterFields = ['classification', 'class'],
+    filterFields = ['classification', 'class', 'uuid'],
     aipResults = [];
 
 // apply optional skip
