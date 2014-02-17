@@ -226,6 +226,22 @@ ul.menu-list-left li {
   }
 }
 
+// General AIPS view styles
+
+#aips-views select.select-view-style {
+  margin-top: 6px;
+  margin-left: 6px;
+}
+
+// (maybe future animations)
+
+.aips-views-container {
+  position:relative;
+  min-height: 200px;
+}
+
+// AIPS browse view
+
 .browse-view-list th a {
   .fa-icon-set(@grayLight);
 
@@ -239,10 +255,12 @@ ul.menu-list-left li {
 
 .browse-view-browse {
 
-  // Aligns first spa
+  // Aligns first span
+
   [class*="span"]:not(.span2) {
     margin-left: 0px;
   }
+
   .span12 {
     border-bottom: 1px solid @grayLighter;
     margin-top: 20px;
@@ -258,9 +276,27 @@ ul.menu-list-left li {
     padding-bottom: 20px;
     margin-bottom: 20px;
   }
+
+  .browse-view-sort {
+    padding-right: 2%;
+    margin-top: -40px;
+    width: 35%;
+
+    span {
+      display: inline-block;
+      float: left;
+      padding: 2% 4% 0 0;
+      width: 20%;
+    }
+
+    select {
+      width: 75%;
+      right: 0;
+    }
+  }
 }
 
-// Table
+// AIPS list view
 
 div.table {
   padding: 0 6px;
@@ -297,19 +333,6 @@ div.table {
       }
     }
   }
-}
-
-#aips-views select {
-  margin-top: 6px;
-  margin-left: 6px;
-}
-
-// Aips views (maybe future animations)
-
-.aips-views-container {
-  position:relative;
-  min-height: 200px;
-  overflow:hidden;
 }
 
 // Supporting Tech Metabox

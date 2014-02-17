@@ -39,17 +39,6 @@ module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
   ];
   $scope.template = $scope.templates[0];
 
-  // Sorting
-
-  $scope.namePredicate = 'name';
-
-  // Rotate icon
-
-  $scope.isRotated = false;
-  $scope.iconRotate = function () {
-    $scope.isRotated = !$scope.isRotated;
-  };
-
   $scope.open = function (aip) {
 
     $scope.aip = aip;
