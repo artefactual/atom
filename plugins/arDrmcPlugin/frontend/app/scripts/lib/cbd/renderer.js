@@ -56,9 +56,24 @@
   function runLayout (graph, layout) {
     // Pass to dagre a copy of the graph discarding every edge that is not
     // hierarchical. We want the layout to be defined only by hierarchical edges
-    var _graph = graph.copyHierarchicalGraph();
+    // See https://github.com/cpettitt/dagre/issues/110
+    var result = layout.run(graph.copyHierarchicalGraph());
 
-    var result = layout.run(_graph);
+    // Re-add associative edges and define a control point
+    // That point will be used later by positionEdgePaths
+    graph.eachEdge(function (e, u, v, value) {
+      if (value.type === 'associative') {
+        var src = result.node(u);
+        var tgt = result.node(v);
+        value.points = [
+          findMidPoint([
+            { x: src.x + 100, y: src.y },
+            { x: tgt.x + 100, y: tgt.y }
+          ])
+        ];
+        result.addEdge(e, u, v, value);
+      }
+    });
 
     // Copy labels to the result graph
     graph.eachNode(function (u, value) {
@@ -158,7 +173,14 @@
     svgEdgePaths
       .enter()
         .append('g')
-          .attr('class', 'edgePath enter')
+          .attr('class', function (e) {
+            var classes = ['edgePath', 'enter'];
+            var edge = g.edge(e);
+            if (typeof edge.type !== 'undefined') {
+              classes.push('r-' + edge.type);
+            }
+            return classes.join(' ');
+          })
           .append('path')
             .style('opacity', 0);
             // .attr('marker-end', 'url(#arrowhead)');
@@ -207,14 +229,23 @@
       var value = g.edge(e);
       var source = g.node(g.incidentNodes(e)[0]);
       var target = g.node(g.incidentNodes(e)[1]);
-      var points = value.points.slice();
 
-      var p0 = points.length === 0 ? target : points[0];
-      var p1 = points.length === 0 ? source : points[points.length - 1];
+      var points, p0, p1;
 
-      points.unshift(intersectRect(source, p0));
-      // TODO: use bpodgursky's shortening algorithm here
-      points.push(intersectRect(target, p1));
+      // For associative relationships
+      if (typeof value.type !== 'undefined' && value.type === 'associative') {
+        points = value.points.slice();
+        points.unshift(sideMiddlePoint(source));
+        points.push(sideMiddlePoint(target));
+      // For hierarchical relationships
+      } else {
+        points = value.points.slice();
+        p0 = points.length === 0 ? target : points[0];
+        p1 = points.length === 0 ? source : points[points.length - 1];
+
+        points.unshift(intersectRect(source, p0));
+        points.push(intersectRect(target, p1)); // TODO: use bpodgursky's shortening algorithm here
+      }
 
       return d3.svg.line()
         .x(function (d) {
@@ -416,6 +447,15 @@
       var p1 = points[midIdx];
       return {x: (p0.x + p1.x) / 2, y: (p0.y + p1.y) / 2};
     }
+  }
+
+  function sideMiddlePoint (rect) {
+    var ex = rect.x + rect.width / 2;
+    var ey = rect.y;
+    return {
+      x: ex,
+      y: ey
+    };
   }
 
   function intersectRect (rect, point) {
