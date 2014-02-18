@@ -44,8 +44,7 @@ filterFields.forEach(function(field) {
 
 // fetch AIPs matching criteria
 dpd.aipsraw.get(criteria, function(aips) {
-  var overview = helpers.calculateOverviewData(aips),
-      classLowerCase;
+  var classLowerCase;
 
   // count occurrance of each value found in name property of each aip
   facetCounter = new helpers.ObjectPropertyTokenCounter(['class']);
@@ -110,7 +109,7 @@ dpd.aipsraw.get(criteria, function(aips) {
   dpd.aipsraw.get(criteria, function(aips) {
     // set result data to send back as response
     setResult({
-      'overview': overview,
+      'overview': helpers.calculateOverviewData(aips),
       'aips': {
         'found': aips.length,
         'results': aipResults,
