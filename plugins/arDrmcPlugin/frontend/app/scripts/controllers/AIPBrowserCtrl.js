@@ -21,14 +21,17 @@ module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
     AIPService.getAIPs($scope.criteria)
       .success(function (data) {
         $scope.data = data;
+        console.log($scope.data);
       });
   };
 
+  // TODO: Load from server (/taxonomy endpoint?)
   $scope.classifications = [
-    { id: 10, name: 'Artwork Component' },
-    { id: 20, name: 'Artwork Material' },
-    { id: 30, name: 'Supporting Documentation' },
-    { id: 40, name: 'Supporting Technology' }
+    { id: 1, name: 'Artwork component' },
+    { id: 2, name: 'Artwork material' },
+    { id: 3, name: 'Supporting documentation' },
+    { id: 4, name: 'Supporting technology' },
+    { id: 5, name: 'Unclassified' }
   ];
 
   // Support overview toggling
