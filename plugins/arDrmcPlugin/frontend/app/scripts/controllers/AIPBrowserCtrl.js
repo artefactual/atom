@@ -8,6 +8,10 @@ module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
   // criteria contain GET params used when calling getAIPs to refresh data
   $scope.criteria = {};
 
+  $scope.data = {};
+  $scope.data.aips = {};
+  $scope.data.aips.results = { foo: 'bar' };
+
   // watch for criteria changes
   $scope.$watch('criteria', function () {
     $scope.pull();
@@ -53,10 +57,10 @@ module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
 
         $scope.reclassify = function () {
           AIPService.reclassifyAIP($scope.aip.id, $scope.aip.class)
-            .success(function (data, status) {
+            .success(function () {
               $scope.pull();
               $modalInstance.close($scope.aip.class);
-            }).error(function (data, status) {
+            }).error(function () {
               $modalInstance.dismiss('Your new classification could not be assigned');
             });
         };
