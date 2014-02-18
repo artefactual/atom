@@ -21,7 +21,7 @@
       <h3 class="aip-single-title">AIP&nbsp{{ id }}&nbsp-&nbsp{{ aip.name }}</h3>
       <span>
         <a ui-sref="aips.browser">AIPs</a>
-        &nbsp&raquo&nbsp
+        &nbsp&raquo&nbsp{{ aip.name }}
       </span>
 
 
@@ -78,11 +78,11 @@
             </div>
              <div class="field">
               <h3>No. of subdirectories</h3>
-              <div>{{  }}</div>
+              <div>{{ aip.subdirectoryquantity }}</div>
             </div>
             <div class="field">
               <h3>No. of objects</h3>
-              <div>{{ aip.objectcount }}</div>
+              <div>{{ aip.objectquantity }}</div>
             </div>
             <div class="field">
               <h3>AIP Class</h3>
@@ -98,7 +98,7 @@
             </div>
             <div class="field">
               <h3>Description</h3>
-              <div>{{  }}</div>
+              <div>{{ aip.description }}</div>
             </div>
           </section>
 
