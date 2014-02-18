@@ -52,6 +52,7 @@ function generateAIP(name, classification) {
     'name': name,
     'class': classification.name,
     'classid': classification.id,
+    'description': casual.sentence + ' ' + casual.sentence + ' ' + casual.sentence,
     'size': getRandomInt(100000, 100000000),
     'createdat': dateAndTime
   };
