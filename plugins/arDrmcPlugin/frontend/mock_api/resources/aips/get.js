@@ -46,14 +46,8 @@ filterFields.forEach(function(field) {
 dpd.aipsraw.get(criteria, function(aips) {
   var classLowerCase;
 
-  // count occurrance of each value found in name property of each aip
-  facetCounter = new helpers.ObjectPropertyTokenCounter(['class']);
-
   // process result set
   aips.forEach(function(aip) {
-    // covert Deployd-created IDs to decimal IDs
-    //aip.id = parseInt(aip.id, 16);
-
     // work around Deployd issue with property names not allowing "_"
     aip.created_at = aip.createdat;
     delete aip.createdat;
@@ -63,9 +57,6 @@ dpd.aipsraw.get(criteria, function(aips) {
 
     // add to results
     aipResults.push(aip);
-
-    // add to facet counts
-    facetCounter.count(aip);
   });
 
   // mock TMS data
@@ -107,11 +98,18 @@ dpd.aipsraw.get(criteria, function(aips) {
   delete criteria['$limit'];
   delete criteria['$skip'];
   dpd.aipsraw.get(criteria, function(aips) {
+    // count occurrance of each value found in name property of each aip
+    facetCounter = new helpers.ObjectPropertyTokenCounter(['class']);
+
+    aips.forEach(function(aip) {
+      // add to facet counts
+      facetCounter.count(aip);
+    });
+
     // set result data to send back as response
     setResult({
       'overview': helpers.calculateOverviewData(aips),
       'aips': {
-        'found': aips.length,
         'results': aipResults,
         'facets': {
           'class': helpers.formatTokenCounts(facetCounter.tokenCounts)
