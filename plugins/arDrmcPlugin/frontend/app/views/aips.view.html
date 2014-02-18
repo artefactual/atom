@@ -1,5 +1,112 @@
-<strong>AIPs view</strong> &raquo; {{ id }}
+<div id="" class="row-fluid">
 
-<hr />
+  <div class="span3">
 
-Back to <a ui-sref="aips.browser">AIP browser</a></li>
+    <section class="list-menu">
+      <h4>Currently Viewing</h4>
+      <ul>
+        <li><a href="#" ng-click="criteria.class = undefined">All</a></li>
+        <li ng-repeat="item in data.aips.facets.class.terms">
+          <a href="#" ng-click="criteria.class = item.term">{{ item.term }} ({{ item.count }})</a>
+        </li>
+      </ul>
+    </section>
+
+  </div><!-- /span3 -->
+
+  <div class="span9 row-fluid">
+
+    <div id="main-column" class="span12 aip-single">
+
+      <h3 class="aip-single-title">AIP&nbsp{{ id }}&nbsp-&nbsp{{ aip.name }}</h3>
+      <span>
+        <a ui-sref="aips.browser">AIPs</a>
+        &nbsp&raquo&nbsp
+      </span>
+
+
+      <div id="facet-indicators">
+        <div ng-show="criteria.class">{{ criteria.class }} <span ng-click="criteria.class = undefined">[x]</span></div>
+      </div>
+
+      <div id="content">
+
+        <section class="row-fluid">
+
+          <div class="menu-list row-fluid">
+
+            <ul class="menu-list-left inline">
+              <li>
+                <h2>AIP Details</h2>
+              </li>
+            </ul>
+
+            <ul class="menu-list-right nav nav-pills">
+              <li>
+                <a class="download"
+                   ui-sref="#">
+                   Download
+                </a>
+              </li>
+              <li>
+                <a class="fixity_report"
+                   ui-sref="#">
+                   Fixity Report
+                </a>
+              </li>
+              <li>
+                <a class="edit"
+                   ui-sref="#">
+                   Edit
+                </a>
+              </li>
+            </ul>
+          </div><!-- /contentTitle -->
+
+          <section class="aips-overview-body row-fluid">
+            <div class="field">
+              <h3>AIP Name</h3>
+              <div>{{ aip.name }}</div>
+            </div>
+            <div class="field">
+              <h3>UUID</h3>
+              <div>{{ aip.id }}</div>
+            </div>
+            <div class="field">
+              <h3>Size</h3>
+              <div>{{ aip.size | UnitFilter:2 }}</div>
+            </div>
+             <div class="field">
+              <h3>No. of subdirectories</h3>
+              <div>{{  }}</div>
+            </div>
+            <div class="field">
+              <h3>No. of objects</h3>
+              <div>{{ aip.objectcount }}</div>
+            </div>
+            <div class="field">
+              <h3>AIP Class</h3>
+              <div>{{ aip.class }}</div>
+            </div>
+            <div class="field">
+              <h3>Parent</h3>
+              <div>{{ aip.parent.title }}</div>
+            </div>
+            <div class="field">
+              <h3>Part of</h3>
+              <div>{{ aip.partof.title }}</div>
+            </div>
+            <div class="field">
+              <h3>Description</h3>
+              <div>{{  }}</div>
+            </div>
+          </section>
+
+        </section>
+      </div><!-- /#content -->
+
+    </div><!-- /.span9 -->
+
+  </div><!-- /#main-column -->
+
+</div>

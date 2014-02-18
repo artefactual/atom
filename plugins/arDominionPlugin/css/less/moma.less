@@ -188,7 +188,6 @@ ul.menu-list-left li {
   a.edit { margin-top: 2px; }
   a.delete { color: red; }
 
-  float: right;
   margin-top: 3px!important;
   border-bottom: none;
 
@@ -202,7 +201,7 @@ ul.menu-list-left li {
   }
 }
 
-// Aips page
+// Aips pages
 
 // Gives wider space to fields to
 // accomodate longer titles
@@ -226,7 +225,7 @@ ul.menu-list-left li {
   }
 }
 
-// General AIPS view styles
+// AIPS view styles (general)
 
 #aips-views select.select-view-style {
   margin-top: 6px;
@@ -333,6 +332,22 @@ div.table {
       }
     }
   }
+}
+
+// AIPS single page
+
+// Aips single title
+.aip-single h3.aip-single-title:before {
+  background: @momaNodeDigitalObject center center;
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: text-top;
+  content: "";
+  font-size: .7em;
+  color: @white;
+  margin-right: .45em;
 }
 
 // Supporting Tech Metabox

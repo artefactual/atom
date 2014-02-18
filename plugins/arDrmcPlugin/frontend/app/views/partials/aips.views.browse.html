@@ -5,7 +5,7 @@
     <select ng-model="sortBy" class="browse-view-sort-by">
       <option value="name">Name</option>
       <option value="size">Size</option>
-      <option value="created_at">Added</option>
+      <option value="created_at">Date Added</option>
       <option value="class">Class</option>
       <option value="parent">Parent</option>
       <option value="partof">Part of</option>
@@ -22,7 +22,7 @@
       <div class="field">
         <h3>Name</h3>
         <div>
-          {{ aip.name }}
+          <a ui-sref="aips.view({ id: aip.uuid })">{{ aip.name }}</a>
         </div>
       </div>
 
