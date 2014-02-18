@@ -7,7 +7,6 @@
   "requireLeftStickedOperators": [","],
   "requireSpaceBeforeBinaryOperators": ["+", "-", "/", "*", "=", "==", "===", "!=", "!=="],
   "requireSpaceAfterBinaryOperators": ["+", "-", "/", "*", "=", "==", "===", "!=", "!=="],
-  "requireCamelCaseOrUpperCaseIdentifiers": true,
   "disallowImplicitTypeConversion": ["string"],
   "disallowKeywords": ["with"],
   "disallowKeywordsOnNewLine": ["else"],
