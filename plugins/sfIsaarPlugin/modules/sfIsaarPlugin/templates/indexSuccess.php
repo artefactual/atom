@@ -131,7 +131,17 @@
 
         <?php echo render_show(__('Identifier of the related entity'), render_value($relatedEntity->descriptionIdentifier)) ?>
 
-        <?php echo render_show(__('Category of the relationship'), render_value($item->type)) ?>
+        <?php if ($item->type->parentId == QubitTerm::ROOT_ID): ?>
+          <?php echo render_show(__('Category of the relationship'), render_value($item->type)) ?>
+        <?php else: ?>
+          <?php echo render_show(__('Category of the relationship'), render_value($item->type->parent)) ?>
+
+          <?php if ($resource->id != $item->objectId): ?>
+            <?php echo render_show(__('Type of relationship'), link_to(render_title($relatedEntity), array($relatedEntity, 'module' => ('QubitRepository' == $relatedEntity->className) ? 'repository' : 'actor')) .' '. render_value($item->type) .' '. render_value($resource->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?>
+          <?php elseif (0 < count($converseTerms = QubitRelation::getBySubjectOrObjectId($item->type->id, array('typeId' => QubitTerm::CONVERSE_TERM_ID)))): ?>
+            <?php echo render_show(__('Type of relationship'), link_to(render_title($relatedEntity), array($relatedEntity, 'module' => ('QubitRepository' == $relatedEntity->className) ? 'repository' : 'actor')) .' '. render_value($converseTerms[0]->getOpposedObject($item->type)) .' '. render_value($resource->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?>
+          <?php endif; ?>
+        <?php endif; ?>
 
         <?php echo render_show(__('Dates of the relationship'), Qubit::renderDateStartEnd($item->date, $item->startDate, $item->endDate)) ?>
 

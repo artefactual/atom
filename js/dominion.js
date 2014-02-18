@@ -329,7 +329,7 @@
         $.ajax(this.source,
           {
             context: this,
-            data: { query: query, realm: realm },
+            data: { query: query, repos: realm },
             dataType: 'html'
           })
           .done(function(html)
@@ -673,4 +673,90 @@
       }
     });
 
+  /****
+   ****
+   ****  Inline search
+   ****
+   ****/
+
+  $(function ()
+    {
+      var $inlineSearch = $('.inline-search');
+
+      $inlineSearch
+        .on('click', '.dropdown-menu li a', function(e)
+          {
+            var $this = $(e.target);
+
+            // Change button label
+            $inlineSearch.find('.dropdown-toggle')
+              .html($this.text() + '<span class="caret"></span>');
+
+            // Modify subqueryField value
+            $inlineSearch.find('#subqueryField')
+              .val($this.text());
+          })
+        .on('keypress', 'input', function(e)
+          {
+            if (e.which == 13)
+            {
+              e.preventDefault();
+
+              $inlineSearch.find('form').submit();
+            }
+          });
+    });
+
+  /****
+   ****
+   ****  Hide/show elements on click
+   ****
+   ****/
+
+  $(function ()
+    {
+      $("#treeview-search-settings")
+        .on('click', function(e)
+          {
+            e.preventDefault();
+
+            $("#field-options").toggle(200);
+          });
+
+      $("#alternative-identifiers")
+        .on('click', function(e)
+          {
+            e.preventDefault();
+
+            $("#alternative-identifiers-table").toggle(200);
+          });
+    });
+
+
+  // Disable/enable converseTerm field
+  $(function ()
+    {
+      var $selfReciprocal = $('input[id=selfReciprocal]');
+      var $converseTerm = $('input[id=converseTerm]');
+
+      if ($selfReciprocal.prop('checked'))
+      {
+        $converseTerm.prop('disabled', 'disabled').val('');
+      }
+
+      $selfReciprocal
+        .on('change', function ()
+          {
+            if ($converseTerm.prop('disabled'))
+            {
+              $converseTerm.prop('disabled', false).focus();
+            }
+            else
+            {
+              $converseTerm.prop('disabled', 'disabled').val('');
+            }
+          });
+    });
+
 })(window.jQuery);
+

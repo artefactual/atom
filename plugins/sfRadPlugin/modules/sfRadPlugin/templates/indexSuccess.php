@@ -85,8 +85,9 @@
 
 <section id="titleAndStatementOfResponsibilityArea">
 
-  <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Title and statement of responsibility area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'titleAndStatementOfResponsibilityArea', 'title' => __('Edit title and statement of responsibility area'))) ?>
-
+  <?php if (check_field_visibility('app_element_visibility_rad_title_responsibility_area')): ?>
+    <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Title and statement of responsibility area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'titleAndStatementOfResponsibilityArea', 'title' => __('Edit title and statement of responsibility area'))) ?>
+  <?php endif; ?>
   <?php echo render_show(__('Title proper'), render_value($resource->getTitle(array('cultureFallback' => true)))) ?>
 
   <div class="field">
@@ -127,7 +128,9 @@
 
 <section id="editionArea">
 
-  <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Edition area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'editionArea', 'title' => __('Edit edition area'))) ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_edition_area')): ?>
+    <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Edition area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'editionArea', 'title' => __('Edit edition area'))) ?>
+  <?php endif; ?>
 
   <?php echo render_show(__('Edition statement'), render_value($resource->getEdition(array('cultureFallback' => true)))) ?>
 
@@ -137,7 +140,9 @@
 
 <section class="section" id="classOfMaterialSpecificDetailsArea">
 
-  <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Class of material specific details area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'classOfMaterialSpecificDetailsArea', 'title' => __('Edit class of material specific details area'))) ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_material_specific_details_area')): ?>
+    <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Class of material specific details area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'classOfMaterialSpecificDetailsArea', 'title' => __('Edit class of material specific details area'))) ?>
+  <?php endif; ?>
 
   <?php echo render_show(__('Statement of scale (cartographic)'), render_value($rad->__get('statementOfScaleCartographic', array('cultureFallback' => true)))) ?>
 
@@ -153,7 +158,9 @@
 
 <section class="section" id="datesOfCreationArea">
 
-  <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Dates of creation area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'datesOfCreationArea', 'title' => __('Edit dates of creation area'))) ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_dates_of_creation_area')): ?>
+    <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Dates of creation area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'datesOfCreationArea', 'title' => __('Edit dates of creation area'))) ?>
+  <?php endif; ?>
 
   <?php echo get_partial('informationobject/dates', array('resource' => $resource)) ?>
 
@@ -161,7 +168,9 @@
 
 <section id="physicalDescriptionArea">
 
-  <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Physical description area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'physicalDescriptionArea', 'title' => __('Edit physical description area'))) ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_physical_description_area')): ?>
+    <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Physical description area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'physicalDescriptionArea', 'title' => __('Edit physical description area'))) ?>
+  <?php endif; ?>
 
   <?php echo render_show(__('Physical description'), render_value($resource->getExtentAndMedium(array('cultureFallback' => true)))) ?>
 
@@ -169,7 +178,9 @@
 
 <section id="publishersSeriesArea">
 
-  <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Publisher\'s series area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'publishersSeriesArea', 'title' => __('Edit publisher\'s series area'))) ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_publishers_series_area')): ?>
+    <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Publisher\'s series area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'publishersSeriesArea', 'title' => __('Edit publisher\'s series area'))) ?>
+  <?php endif; ?>
 
   <?php echo render_show(__('Title proper of publisher\'s series'), render_value($rad->__get('titleProperOfPublishersSeries', array('cultureFallback' => true)))) ?>
 
@@ -187,11 +198,15 @@
 
 <section id="archivalDescriptionArea">
 
-  <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Archival description area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'archivalDescriptionArea', 'title' => __('Edit archival description area'))) ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_archival_description_area')): ?>
+    <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Archival description area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'archivalDescriptionArea', 'title' => __('Edit archival description area'))) ?>
+  <?php endif; ?>
 
   <?php echo get_component('informationobject', 'creatorDetail', array('resource' => $resource)) ?>
 
-  <?php echo render_show(__('Custodial history'), render_value($resource->getArchivalHistory(array('cultureFallback' => true)))) ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_archival_history')): ?>
+    <?php echo render_show(__('Custodial history'), render_value($resource->getArchivalHistory(array('cultureFallback' => true)))) ?>
+  <?php endif; ?>
 
   <?php echo render_show(__('Scope and content'), render_value($resource->getScopeAndContent(array('cultureFallback' => true)))) ?>
 
@@ -199,7 +214,9 @@
 
 <section class="section" id="notesArea">
 
-  <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Notes area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'notesArea', 'title' => __('Edit notes area'))) ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_notes_area')): ?>
+    <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Notes area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'notesArea', 'title' => __('Edit notes area'))) ?>
+  <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_rad_physical_condition')): ?>
     <?php echo render_show(__('Physical condition'), render_value($resource->getPhysicalCharacteristics(array('cultureFallback' => true)))) ?>
@@ -247,7 +264,9 @@
 
   <?php echo render_show(__('Finding aids'), render_value($resource->getFindingAids(array('cultureFallback' => true)))) ?>
 
-  <?php echo render_show(__('Associated / related material'), render_value($resource->getRelatedUnitsOfDescription(array('cultureFallback' => true)))) ?>
+  <?php echo render_show(__('Associated materials'), render_value($resource->getRelatedUnitsOfDescription(array('cultureFallback' => true)))) ?>
+
+  <?php echo get_partial('informationobject/relatedMaterialDescriptions', array('resource' => $resource, 'template' => 'rad')) ?>
 
   <?php echo render_show(__('Accruals'), render_value($resource->getAccruals(array('cultureFallback' => true)))) ?>
 
@@ -274,11 +293,15 @@
     </div>
   </div>
 
+  <?php echo get_partial('informationobject/alternativeIdentifiersIndex', array('resource' => $resource)) ?>
+
 </section> <!-- /section#notesArea -->
 
 <section id="standardNumberArea">
 
-  <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Standard number area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'standardNumberArea', 'title' => __('Edit standard number area'))) ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_standard_number_area')): ?>
+    <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Standard number area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'standardNumberArea', 'title' => __('Edit standard number area'))) ?>
+  <?php endif; ?>
 
   <?php echo render_show(__('Standard number'), render_value($rad->__get('standardNumber', array('cultureFallback' => true)))) ?>
 
@@ -286,7 +309,9 @@
 
 <section id="accessPointsArea">
 
-  <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Access points').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'accessPointsArea', 'title' => __('Edit access points'))) ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_access_points_area')): ?>
+    <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Access points').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'accessPointsArea', 'title' => __('Edit access points'))) ?>
+  <?php endif; ?>
 
   <?php echo get_partial('informationobject/subjectAccessPoints', array('resource' => $resource)) ?>
 
@@ -298,7 +323,9 @@
 
 <section class="section" id="descriptionControlArea">
 
-  <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Control area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'descriptionControlArea', 'title' => __('Edit control area'))) ?>
+  <?php if (check_field_visibility('app_element_visibility_rad_description_control_area')): ?>
+    <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Control area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'descriptionControlArea', 'title' => __('Edit control area'))) ?>
+  <?php endif; ?>
 
   <?php if (check_field_visibility('app_element_visibility_rad_control_description_identifier')): ?>
     <?php echo render_show(__('Description record identifier'), render_value($resource->descriptionIdentifier)) ?>

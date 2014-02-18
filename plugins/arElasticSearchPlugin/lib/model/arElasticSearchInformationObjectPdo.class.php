@@ -303,45 +303,41 @@ class arElasticSearchInformationObjectPdo
     }
   }
 
-  public function getReferenceCode()
+  public function getInheritReferenceCode()
   {
     if (null == $this->__get('identifier'))
     {
       return;
     }
 
-    // Check if identifiers inherit from higher levels
-    if ('1' == sfConfig::get('app_inherit_code_informationobject', 1))
-    {
-      $refcode = '';
-      if (isset($this->repository))
-      {
-        if (null != $cc = $this->repository->getCountryCode(array('culture' => $this->__get('culture'))))
-        {
-          $refcode .= $cc.' ';
-        }
+    $refcode = '';
+    $this->repository =$this->getRepository();
 
-        if (isset($this->repository->identifier))
-        {
-          $refcode .= $this->repository->identifier.' ';
-        }
+    if (isset($this->repository))
+    {
+      if (null != $cc = $this->repository->getCountryCode(array('culture' => $this->__get('culture'))))
+      {
+        $refcode .= $cc.' ';
       }
 
-      $identifiers = array();
-      foreach (array_merge(is_array($this->ancestors) ? $this->ancestors : array(), array($this)) as $item)
+      if (isset($this->repository->identifier))
       {
-        if (isset($item->identifier))
-        {
-          $identifiers[] = $item->identifier;
-        }
+        $refcode .= $this->repository->identifier.' ';
       }
+    }
 
-      $refcode .= implode(sfConfig::get('app_separator_character', '-'), $identifiers);
-    }
-    else
+    $identifiers = array();
+    $this->ancestors =$this->getAncestors();
+
+    foreach (array_merge(is_array($this->ancestors) ? $this->ancestors : array(), array($this)) as $item)
     {
-      $refcode = $this->__get('identifier');
+      if (isset($item->identifier))
+      {
+        $identifiers[] = $item->identifier;
+      }
     }
+
+    $refcode .= implode(sfConfig::get('app_separator_character', '-'), $identifiers);
 
     return $refcode;
   }
@@ -360,6 +356,7 @@ class arElasticSearchInformationObjectPdo
                     event.end_date,
                     event.actor_id,
                     event.type_id,
+                    event.source_culture,
                     i18n.date,
                     i18n.culture';
         $sql .= ' FROM '.QubitEvent::TABLE_NAME.' event';
@@ -382,6 +379,7 @@ class arElasticSearchInformationObjectPdo
           $event->end_date = $item['end_date'];
           $event->actor_id = $item['actor_id'];
           $event->type_id = $item['type_id'];
+          $event->source_culture = $item['source_culture'];
 
           $events[$item['id']] = $event;
         }
@@ -567,6 +565,25 @@ class arElasticSearchInformationObjectPdo
     return self::$statements['relatedTerms']->fetchAll(PDO::FETCH_OBJ);
   }
 
+  /*
+   * Get directly related terms
+   */
+  protected function getDirectlyRelatedTerms($typeId)
+  {
+    $sql  = 'SELECT
+                DISTINCT current.id';
+    $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' otr';
+    $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' current
+                ON otr.term_id = current.id';
+    $sql .= ' WHERE otr.object_id = ?
+                AND current.taxonomy_id = ?';
+
+    self::$statements['relatedTerms'] = self::$conn->prepare($sql);
+    self::$statements['relatedTerms']->execute(array($this->__get('id'), $typeId));
+
+    return self::$statements['relatedTerms']->fetchAll(PDO::FETCH_OBJ);
+  }
+
   protected function getLanguagesAndScripts()
   {
     // Find langs and scripts
@@ -681,7 +698,7 @@ class arElasticSearchInformationObjectPdo
     self::$statements['materialType']->execute(array(
       $this->__get('id')));
 
-    return self::$statements['materialType']->fetchColumn(0);
+    return self::$statements['materialType']->fetchAll(PDO::FETCH_OBJ);
   }
 
   public function getStorageNames()
@@ -770,6 +787,363 @@ class arElasticSearchInformationObjectPdo
     return self::$statements['transcript']->fetchColumn();
   }
 
+  protected function getAlternativeIdentifiers()
+  {
+    // Find langs and scripts
+    if (!isset(self::$statements['alternativeIdentifiers']))
+    {
+      $sql  = 'SELECT
+                  node.name,
+                  i18n.value';
+      $sql .= ' FROM '.QubitProperty::TABLE_NAME.' node';
+      $sql .= ' JOIN '.QubitPropertyI18n::TABLE_NAME.' i18n
+                  ON node.id = i18n.id';
+      $sql .= ' WHERE node.source_culture = i18n.culture
+                  AND node.object_id = ?
+                  AND node.scope = ?';
+
+      self::$statements['alternativeIdentifiers'] = self::$conn->prepare($sql);
+    }
+
+    self::$statements['alternativeIdentifiers']->execute(array(
+      $this->__get('id'),
+      'alternativeIdentifiers'));
+
+    $alternativeIdentifiers = array();
+    foreach (self::$statements['alternativeIdentifiers']->fetchAll() as $item)
+    {
+      $tmp = array();
+
+      $tmp['label'] = $item['name'];
+      $tmp['identifier'] = $item['value'];
+
+      $alternativeIdentifiers[] = $tmp;
+    }
+
+    return $alternativeIdentifiers;
+  }
+
+  protected function getProperty($name)
+  {
+    $sql  = 'SELECT
+                i18n.value';
+    $sql .= ' FROM '.QubitProperty::TABLE_NAME.' node';
+    $sql .= ' JOIN '.QubitPropertyI18n::TABLE_NAME.' i18n
+                ON node.id = i18n.id';
+    $sql .= ' WHERE node.source_culture = i18n.culture
+                AND node.object_id = ?
+                AND node.name = ?';
+
+    self::$statements['property'] = self::$conn->prepare($sql);
+    self::$statements['property']->execute(array($this->__get('id'), $name));
+    $result = self::$statements['property']->fetch(PDO::FETCH_ASSOC);
+
+    if(false !== $result)
+    {
+      return $result['value'];
+    }
+  }
+
+  protected function getAips()
+  {
+    $sql  = 'SELECT
+                aip.id';
+    $sql .= ' FROM '.QubitAip::TABLE_NAME.' aip';
+    $sql .= ' JOIN '.QubitRelation::TABLE_NAME.' relation
+                ON aip.id = relation.subject_id';
+    $sql .= ' WHERE relation.object_id = ?
+                AND relation.type_id = ?';
+
+    self::$statements['aips'] = self::$conn->prepare($sql);
+    self::$statements['aips']->execute(array($this->__get('id'), QubitTerm::AIP_RELATION_ID));
+
+    return self::$statements['aips']->fetchAll(PDO::FETCH_OBJ);
+  }
+
+  protected function getMetsData()
+  {
+    if ((null !== $aipUUID = $this->getProperty('aipUUID'))
+      && (null !== $objectUUID = $this->getProperty('objectUUID')))
+    {
+      // Get METS file
+      $metsFile = sfConfig::get('sf_web_dir').
+        DIRECTORY_SEPARATOR.'uploads'.
+        DIRECTORY_SEPARATOR.'aips'.
+        DIRECTORY_SEPARATOR.$aipUUID.
+        DIRECTORY_SEPARATOR.'METS.xml';
+
+      if (file_exists($metsFile))
+      {
+        $document = new SimpleXMLElement(@file_get_contents($metsFile));
+      }
+
+      if (isset($document))
+      {
+        // Register namespaces
+        $document->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+        $document->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
+        $document->registerXPathNamespace('f', 'http://hul.harvard.edu/ois/xml/ns/fits/fits_output');
+
+        // Obtain amdSec id for objectUUID
+        foreach ($document->xpath('//m:fileSec/m:fileGrp[@USE="original"]/m:file') as $item)
+        {
+          if (false !== strrpos($item['ID'], $objectUUID))
+          {
+            $amdSecId = $item['ADMID'];
+
+            break;
+          }
+        }
+
+        if (isset($amdSecId))
+        {
+          $metsData = array();
+
+          // Object
+          $objectXpath = '//m:amdSec[@ID="'.(string)$amdSecId.'"]/m:techMD/m:mdWrap[@MDTYPE="PREMIS:OBJECT"]/m:xmlData/s:object/';
+
+          if (0 < count($value = $document->xpath($objectXpath.'s:originalName')))
+          {
+            $metsData['filename'] = end(explode('/', (string)$value[0]));
+          }
+
+          if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/repInfo/lastModified')))
+          {
+            $metsData['lastModified'] = arElasticSearchPluginUtil::convertDate((string)$value[0]);
+          }
+
+          if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:size')))
+          {
+            $metsData['size'] = (string)$value[0];
+          }
+
+          if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/fileUtilityOutput/mimetype')))
+          {
+            $metsData['mimeType'] = (string)$value[0];
+          }
+
+          // Exiftool rawOutput
+          $exiftoolXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/exiftool/rawOutput';
+
+          if (0 < count($value = $document->xpath($exiftoolXpath)))
+          {
+            $metsData['exiftoolRawOutput'] = (string)$value[0];
+          }
+
+          // Audio
+          $audioXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:metadata/f:audio/';
+
+          if (0 < count($value = $document->xpath($audioXpath.'f:bitDepth')))
+          {
+            $metsData['audio']['bitDepth'] = (string)$value[0];
+          }
+
+          if (0 < count($value = $document->xpath($audioXpath.'f:sampleRate')))
+          {
+            $metsData['audio']['sampleRate'] = (string)$value[0];
+          }
+
+          if (0 < count($value = $document->xpath($audioXpath.'f:channels')))
+          {
+            $metsData['audio']['channels'] = (string)$value[0];
+          }
+
+          if (0 < count($value = $document->xpath($audioXpath.'f:audioDataEncoding')))
+          {
+            $metsData['audio']['dataEncoding'] = (string)$value[0];
+          }
+
+          if (0 < count($value = $document->xpath($audioXpath.'f:offset')))
+          {
+            $metsData['audio']['offset'] = (string)$value[0];
+          }
+
+          if (0 < count($value = $document->xpath($audioXpath.'f:byteOrder')))
+          {
+            $metsData['audio']['byteOrder'] = (string)$value[0];
+          }
+
+          // Document
+          $documentXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:metadata/f:document/';
+
+          if (0 < count($value = $document->xpath($documentXpath.'f:title')))
+          {
+            $metsData['document']['title'] = (string)$value[0];
+          }
+
+          if (0 < count($value = $document->xpath($documentXpath.'f:author')))
+          {
+            $metsData['document']['author'] = (string)$value[0];
+          }
+
+          if (0 < count($value = $document->xpath($documentXpath.'f:pageCount')))
+          {
+            $metsData['document']['pageCount'] = (string)$value[0];
+          }
+
+          if (0 < count($value = $document->xpath($documentXpath.'f:wordCount')))
+          {
+            $metsData['document']['wordCount'] = (string)$value[0];
+          }
+
+          if (0 < count($value = $document->xpath($documentXpath.'f:characterCount')))
+          {
+            $metsData['document']['characterCount'] = (string)$value[0];
+          }
+
+          if (0 < count($value = $document->xpath($documentXpath.'f:language')))
+          {
+            $metsData['document']['language'] = (string)$value[0];
+          }
+
+          if (0 < count($value = $document->xpath($documentXpath.'f:isProtected')))
+          {
+            $metsData['document']['isProtected'] = (string)$value[0] == 'yes' ? true : false;
+          }
+
+          if (0 < count($value = $document->xpath($documentXpath.'f:isRightsManaged')))
+          {
+            $metsData['document']['isRightsManaged'] = (string)$value[0] == 'yes' ? true : false;
+          }
+
+          if (0 < count($value = $document->xpath($documentXpath.'f:isTagged')))
+          {
+            $metsData['document']['isTagged'] = (string)$value[0] == 'yes' ? true : false;
+          }
+
+          if (0 < count($value = $document->xpath($documentXpath.'f:hasOutline')))
+          {
+            $metsData['document']['hasOutline'] = (string)$value[0] == 'yes' ? true : false;
+          }
+
+          if (0 < count($value = $document->xpath($documentXpath.'f:hasAnnotations')))
+          {
+            $metsData['document']['hasAnnotations'] = (string)$value[0] == 'yes' ? true : false;
+          }
+
+          if (0 < count($value = $document->xpath($documentXpath.'f:hasForms')))
+          {
+            $metsData['document']['hasForms'] = (string)$value[0] == 'yes' ? true : false;
+          }
+
+          // Text
+          $textXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:metadata/f:text/';
+
+          if (0 < count($value = $document->xpath($textXpath.'f:linebreak')))
+          {
+            $metsData['text']['linebreak'] = (string)$value[0];
+          }
+
+          if (0 < count($value = $document->xpath($textXpath.'f:charset')))
+          {
+            $metsData['text']['charset'] = (string)$value[0];
+          }
+
+          if (0 < count($value = $document->xpath($textXpath.'f:markupBasis')))
+          {
+            $metsData['text']['markupBasis'] = (string)$value[0];
+          }
+
+          if (0 < count($value = $document->xpath($textXpath.'f:markupBasisVersion')))
+          {
+            $metsData['text']['markupBasisVersion'] = (string)$value[0];
+          }
+
+          if (0 < count($value = $document->xpath($textXpath.'f:markupLanguage')))
+          {
+            $metsData['text']['markupLanguage'] = (string)$value[0];
+          }
+
+          // Events
+          foreach ($document->xpath('//m:amdSec[@ID="'.(string)$amdSecId.'"]/m:digiprovMD/m:mdWrap[@MDTYPE="PREMIS:EVENT"]/m:xmlData/s:event') as $item)
+          {
+            $event = array();
+
+            $item->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
+
+            if (0 < count($value = $item->xpath('s:eventType')))
+            {
+              $event['type'] = (string)$value[0];
+            }
+
+            if (0 < count($value = $item->xpath('s:eventDateTime')))
+            {
+              $event['dateTime'] = arElasticSearchPluginUtil::convertDate((string)$value[0]);
+            }
+
+            if (0 < count($value = $item->xpath('s:eventDetail')))
+            {
+              $event['detail'] = (string)$value[0];
+            }
+
+            if (0 < count($value = $item->xpath('s:eventOutcomeInformation/s:eventOutcome')))
+            {
+              $event['outcome'] = (string)$value[0];
+            }
+
+            if (0 < count($value = $item->xpath('s:eventOutcomeInformation/s:eventOutcomeDetail/s:eventOutcomeDetailNote')))
+            {
+              $event['outcomeDetailNote'] = (string)$value[0];
+            }
+
+            foreach ($item->xpath('s:linkingAgentIdentifier') as $linkingAgent)
+            {
+              $linkingAgentIdentifier = array();
+
+              $linkingAgent->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
+
+              if (0 < count($value = $linkingAgent->xpath('s:linkingAgentIdentifierType')))
+              {
+                $linkingAgentIdentifier['type'] = (string)$value[0];
+              }
+
+              if (0 < count($value = $linkingAgent->xpath('s:linkingAgentIdentifierValue')))
+              {
+                $linkingAgentIdentifier['value'] = (string)$value[0];
+              }
+
+              $event['linkingAgentIdentifier'][] = $linkingAgentIdentifier;
+            }
+
+            $metsData['event'][] = $event;
+          }
+
+          // Agents
+          foreach ($document->xpath('//m:amdSec[@ID="'.(string)$amdSecId.'"]/m:digiprovMD/m:mdWrap[@MDTYPE="PREMIS:AGENT"]/m:xmlData/m:agent') as $item)
+          {
+            $agent = array();
+
+            $item->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+
+            if (0 < count($value = $item->xpath('m:agentIdentifier/m:agentIdentifierType')))
+            {
+              $agent['identifierType'] = (string)$value[0];
+            }
+
+            if (0 < count($value = $item->xpath('m:agentIdentifier/m:agentIdentifierValue')))
+            {
+              $agent['identifierValue'] = (string)$value[0];
+            }
+
+            if (0 < count($value = $item->xpath('m:agentName')))
+            {
+              $agent['name'] = (string)$value[0];
+            }
+
+            if (0 < count($value = $item->xpath('m:agentType')))
+            {
+              $agent['type'] = (string)$value[0];
+            }
+
+            $metsData['agent'][] = $agent;
+          }
+
+          return $metsData;
+        }
+      }
+    }
+  }
+
   public function serialize()
   {
     $serialized = array();
@@ -778,9 +1152,16 @@ class arElasticSearchInformationObjectPdo
     $serialized['slug'] = $this->slug;
 
     $serialized['identifier'] = $this->identifier;
-    $serialized['referenceCode'] = $this->getReferenceCode();
+    $serialized['inheritReferenceCode'] = $this->getInheritReferenceCode();
     $serialized['levelOfDescriptionId'] = $this->level_of_description_id;
     $serialized['publicationStatusId'] = $this->publication_status_id;
+
+    // Alternative identifiers
+    $alternativeIdentifiers = $this->getAlternativeIdentifiers();
+    if (0 < count($alternativeIdentifiers))
+    {
+      $serialized['alternativeIdentifiers'] = $alternativeIdentifiers;
+    }
 
     // NB: this will include the ROOT_ID
     foreach ($this->getAncestors() as $ancestor)
@@ -812,9 +1193,9 @@ class arElasticSearchInformationObjectPdo
     }
 
     // Material type
-    if (null !== ($materialTypeId = $this->getMaterialTypeId))
+    foreach ($this->getMaterialTypeId() as $item)
     {
-      $serialized['materialTypeId'] = $materialTypeId;
+      $serialized['materialTypeId'][] = $item->id;
     }
 
     // Media
@@ -840,10 +1221,9 @@ class arElasticSearchInformationObjectPdo
     }
 
     // Dates
-    $dates = $this->getDates('array', sfConfig::get('sf_default_culture'));
-    if (0 < count($dates))
+    foreach ($this->events as $event)
     {
-      $serialized['dates'] = $dates;
+      $serialized['dates'][] = arElasticSearchEvent::serialize($event);
     }
 
     // Transcript
@@ -861,13 +1241,25 @@ class arElasticSearchInformationObjectPdo
     // Places
     foreach ($this->getRelatedTerms(QubitTaxonomy::PLACE_ID) as $item)
     {
-      $serialized['places'][] = arElasticSearchTerm::serialize($item);
+      $node = new arElasticSearchTermPdo($item->id);
+      $serialized['places'][] = $node->serialize();
+    }
+
+    foreach ($this->getDirectlyRelatedTerms(QubitTaxonomy::PLACE_ID) as $item)
+    {
+      $serialized['directPlaces'][] = $item->id;
     }
 
     // Subjects
     foreach ($this->getRelatedTerms(QubitTaxonomy::SUBJECT_ID) as $item)
     {
-      $serialized['subjects'][] = arElasticSearchTerm::serialize($item);
+      $node = new arElasticSearchTermPdo($item->id);
+      $serialized['subjects'][] = $node->serialize();
+    }
+
+    foreach ($this->getDirectlyRelatedTerms(QubitTaxonomy::SUBJECT_ID) as $item)
+    {
+      $serialized['directSubjects'][] = $item->id;
     }
 
     // Name access points
@@ -882,6 +1274,19 @@ class arElasticSearchInformationObjectPdo
     {
       $node = new arElasticSearchActorPdo($item->id);
       $serialized['creators'][] = $node->serialize();
+    }
+
+    // Aips
+    foreach ($this->getAips() as $item)
+    {
+      $node = new arElasticSearchAipPdo($item->id);
+      $serialized['aip'][] = $node->serialize();
+    }
+
+    // METS data
+    if (null !== $metsData = $this->getMetsData())
+    {
+      $serialized['metsData'] = $metsData;
     }
 
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);

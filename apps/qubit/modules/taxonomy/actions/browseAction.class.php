@@ -33,6 +33,10 @@ class TaxonomyBrowseAction extends sfAction
     {
       $this->redirect(array('module' => 'taxonomy', 'action' => 'list'));
     }
+    else
+    {
+      $this->redirect(array($this->resource, 'module' => 'taxonomy'));
+    }
 
     switch ($this->resource->id)
     {

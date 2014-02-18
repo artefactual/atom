@@ -81,6 +81,8 @@
           ->help(__('Enter an unambiguous code used to uniquely identify the description.'))
           ->renderRow() ?>
 
+        <?php echo get_partial('informationobject/alternativeIdentifiers', $alternativeIdentifiersComponent->getVarHolder()->getAll()) ?>
+
         <?php echo render_show(__('Reference code'), $rad->referenceCode) ?>
 
       </fieldset> <!-- #titleAndStatementOfResponsibilityArea -->
@@ -263,7 +265,21 @@
 
         <?php echo render_field($form->relatedUnitsOfDescription
           ->help(__('For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)'))
-          ->label(__('Associated/related material')), $resource, array('class' => 'resizable')) ?>
+          ->label(__('Associated materials')), $resource, array('class' => 'resizable')) ?>
+
+        <div class="form-item">
+          <?php echo $form->relatedMaterialDescriptions
+            ->label(__('Related materials'))
+            ->renderLabel() ?>
+          <?php echo $form->relatedMaterialDescriptions->render(array('class' => 'form-autocomplete')) ?>
+          <?php if (QubitAcl::check(QubitInformationObject::getRoot(), 'create')): ?>
+            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'add')) ?> #title"/>
+          <?php endif; ?>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'autocomplete')) ?>"/>
+          <?php echo $form->relatedMaterialDescriptions
+            ->help(__('To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.'))
+            ->renderHelp() ?>
+        </div>
 
         <?php echo render_field($form->accruals
           ->help(__('"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)')), $resource, array('class' => 'resizable')) ?>

@@ -27,6 +27,7 @@
  */
 class QubitTerm extends BaseTerm
 {
+  public $disableNestedSetUpdating = false;
   const
 
     // ROOT term id
@@ -139,13 +140,28 @@ class QubitTerm extends BaseTerm
     LANGUAGE_NOTE_ID = 174,
 
     // Accrual relation type
-    ACCRUAL_ID = 175;
+    ACCRUAL_ID = 175,
+
+    // Relation type
+    RELATED_MATERIAL_DESCRIPTIONS_ID = 176,
+
+    // Converse term relation
+    CONVERSE_TERM_ID = 177,
+
+    // AIP relation
+    AIP_RELATION_ID = 178,
+
+    // AIP types
+    ARTWORK_COMPONENT_ID = 179,
+    ARTWORK_MATERIAL_ID = 180,
+    SUPPORTING_DOCUMENTATION_ID = 181,
+    SUPPORTING_TECHNOLOGY_ID = 182;
 
 
-  public function isProtected()
+  public static function isProtected($id)
   {
     // The following terms cannot be edited by users because their values are used in application logic
-    return in_array($this->id, array(
+    return in_array($id, array(
       QubitTerm::ACCESSION_ID,
       QubitTerm::ACCRUAL_ID,
       QubitTerm::ACCUMULATION_ID,
@@ -160,6 +176,7 @@ class QubitTerm extends BaseTerm
       QubitTerm::COMPOUND_ID,
       QubitTerm::CONTAINER_ID,
       QubitTerm::CONTRIBUTION_ID,
+      QubitTerm::CONVERSE_TERM_ID,
       QubitTerm::CORPORATE_BODY_ID,
       QubitTerm::CREATION_ID,
       QubitTerm::CUSTODY_ID,
@@ -261,6 +278,14 @@ class QubitTerm extends BaseTerm
     $this->parentId = QubitTerm::ROOT_ID;
   }
 
+  protected function updateNestedSet($connection = null)
+  {
+    if (!$this->disableNestedSetUpdating)
+    {
+      return parent::updateNestedSet($connection);
+    }
+  }
+
   public function delete($connection = null)
   {
     // Cascade delete descendants
@@ -298,6 +323,8 @@ class QubitTerm extends BaseTerm
         $otRelation->delete($connection);
       }
     }
+
+    QubitSearch::getInstance()->delete($this);
 
     parent::delete($connection);
   }
@@ -689,10 +716,10 @@ class QubitTerm extends BaseTerm
    * @param string $objectClassName related object class_name column value
    * @return integer count of related object.
    */
-  public function countRelatedInformationObjects()
+  public static function countRelatedInformationObjects($id)
   {
     $criteria = new Criteria;
-    $criteria->add(QubitTerm::ID, $this->id);
+    $criteria->add(QubitTerm::ID, $id);
 
     $criteria->addJoin(QubitTerm::ID, QubitObject::ID);
     $criteria->addJoin(QubitTerm::ID, QubitObjectTermRelation::TERM_ID);

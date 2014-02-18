@@ -123,7 +123,10 @@ class arElasticSearchPlugin extends QubitSearchEngine
       }
 
       // Load mappings
-      $this->loadMappings();
+      if (null === $this->mappings)
+      {
+        $this->mappings = self::loadMappings();
+      }
 
       // Iterate over types (actor, information_object, ...)
       foreach ($this->mappings as $typeName => $typeProperties)
@@ -148,14 +151,8 @@ class arElasticSearchPlugin extends QubitSearchEngine
     }
   }
 
-  protected function loadMappings()
+  public static function loadMappings()
   {
-    // Avoid reload
-    if (null !== $this->mappings)
-    {
-      return $this->mappings;
-    }
-
     // Find mapping.yml
     $finder = sfFinder::type('file')->name('mapping.yml');
     $files = array_unique(array_merge(
@@ -171,8 +168,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
     $esMapping = new arElasticSearchMapping;
     $esMapping->loadYAML(array_shift($files));
 
-    $this->mappings = $esMapping->asArray();
-
+    return $esMapping->asArray();
   }
 
   /**

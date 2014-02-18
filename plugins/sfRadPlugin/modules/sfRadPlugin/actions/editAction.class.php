@@ -60,6 +60,7 @@ class sfRadPluginEditAction extends InformationObjectEditAction
       'physicalCharacteristics',
       'placeAccessPoints',
       'relatedUnitsOfDescription',
+      'relatedMaterialDescriptions',
       'repository',
       'reproductionConditions',
       'revisionHistory',
@@ -102,6 +103,10 @@ class sfRadPluginEditAction extends InformationObjectEditAction
     }
 
     $this->response->setTitle("$title - {$this->response->getTitle()}");
+
+    $this->alternativeIdentifiersComponent = new InformationObjectAlternativeIdentifiersComponent($this->context, 'informationobject', 'alternativeIdentifiers');
+    $this->alternativeIdentifiersComponent->resource = $this->resource;
+    $this->alternativeIdentifiersComponent->execute($this->request);
 
     $this->eventComponent = new InformationObjectEventComponent($this->context, 'informationobject', 'event');
     $this->eventComponent->resource = $this->resource;
@@ -260,6 +265,8 @@ class sfRadPluginEditAction extends InformationObjectEditAction
   protected function processForm()
   {
     $this->resource->sourceStandard = 'RAD version Jul2008';
+
+    $this->alternativeIdentifiersComponent->processForm();
 
     $this->eventComponent->processForm();
 

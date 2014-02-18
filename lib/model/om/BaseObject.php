@@ -195,6 +195,11 @@ abstract class BaseObject implements ArrayAccess
       return true;
     }
 
+    if ('aipsRelatedBypartOf' == $name)
+    {
+      return true;
+    }
+
     if ('notes' == $name)
     {
       return true;
@@ -308,6 +313,23 @@ abstract class BaseObject implements ArrayAccess
       }
 
       return $this->refFkValues['accessLogs'];
+    }
+
+    if ('aipsRelatedBypartOf' == $name)
+    {
+      if (!isset($this->refFkValues['aipsRelatedBypartOf']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['aipsRelatedBypartOf'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['aipsRelatedBypartOf'] = self::getaipsRelatedBypartOfById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['aipsRelatedBypartOf'];
     }
 
     if ('notes' == $name)
@@ -792,6 +814,26 @@ abstract class BaseObject implements ArrayAccess
   public function addaccessLogsCriteria(Criteria $criteria)
   {
     return self::addaccessLogsCriteriaById($criteria, $this->id);
+  }
+
+  public static function addaipsRelatedBypartOfCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitAip::PART_OF, $id);
+
+    return $criteria;
+  }
+
+  public static function getaipsRelatedBypartOfById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addaipsRelatedBypartOfCriteriaById($criteria, $id);
+
+    return QubitAip::get($criteria, $options);
+  }
+
+  public function addaipsRelatedBypartOfCriteria(Criteria $criteria)
+  {
+    return self::addaipsRelatedBypartOfCriteriaById($criteria, $this->id);
   }
 
   public static function addnotesCriteriaById(Criteria $criteria, $id)

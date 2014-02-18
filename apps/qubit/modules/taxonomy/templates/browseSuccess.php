@@ -35,9 +35,9 @@
       <?php foreach ($terms as $item): ?>
         <tr>
           <td>
-            <?php echo link_to(render_title($item), array($item, 'module' => 'term', 'action' => 'browseTerm')) ?>
+            <?php echo link_to(render_title($item), array($item, 'module' => 'term')) ?>
           </td><td>
-            <?php echo $item->countRelatedInformationObjects() ?>
+            <?php echo QubitTerm::countRelatedInformationObjects($item->id) ?>
           </td>
         </tr>
       <?php endforeach; ?>

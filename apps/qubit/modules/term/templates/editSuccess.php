@@ -29,7 +29,7 @@
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'taxonomy', 'action' => 'autocomplete')) ?>"/>
         </div>
 
-        <?php if ($resource->isProtected()): ?>
+        <?php if (QubitTerm::isProtected($resource->id)): ?>
           <?php echo $form->name->renderRow(array('class' => 'readOnly', 'disabled' => 'disabled')) ?>
         <?php else: ?>
           <?php echo render_field($form->name, $resource) ?>
@@ -57,25 +57,38 @@
 
         <legend><?php echo __('Relationships') ?></legend>
 
-        <?php if (null !== $form->taxonomy->getValue()): ?>
+        <div class="form-item">
+          <?php echo $form->parent
+            ->label(__('Broad term'))
+            ->renderLabel() ?>
+          <?php echo $form->parent->render(array('class' => 'form-autocomplete')) ?>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete')) ?>"/>
+        </div>
 
-          <div class="form-item">
-            <?php echo $form->parent
-              ->label(__('Broad term'))
+        <div class="form-item">
+          <?php echo $form->relatedTerms
+            ->label(__('Related term(s)'))
+            ->renderLabel() ?>
+          <?php echo $form->relatedTerms->render(array('class' => 'form-autocomplete')) ?>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete')) ?>"/>
+        </div>
+
+        <div class="row">
+
+          <div class="span9">
+            <?php echo $form->converseTerm
+              ->label(__('Converse term'))
               ->renderLabel() ?>
-            <?php echo $form->parent->render(array('class' => 'form-autocomplete')) ?>
-            <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => $form->taxonomy->getValue())) ?>"/>
+            <?php echo $form->converseTerm->render(array('class' => 'form-autocomplete')) ?>
+            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::ROOT_ID), 'module' => 'taxonomy')))) ?> #name"/>
+            <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete')) ?>"/>
           </div>
 
-          <div class="form-item">
-            <?php echo $form->relatedTerms
-              ->label(__('Related term(s)'))
-              ->renderLabel() ?>
-            <?php echo $form->relatedTerms->render(array('class' => 'form-autocomplete')) ?>
-            <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => $form->taxonomy->getValue())) ?>"/>
+          <div class="span2 field-lowering pull-right">
+            <?php echo $form->selfReciprocal->label(__('Self-reciprocal'))->renderRow() ?>
           </div>
 
-        <?php endif; ?>
+        </div>
 
         <?php echo $form->narrowTerms
           ->label(__('Add new narrow terms'))

@@ -50,7 +50,7 @@ class sfSkosPlugin
     $skos->taxonomy = QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID);
     if (isset($options['taxonomy']))
     {
-      $skos->taxonomy = $options['taxonomy'];
+      $skos->taxonomy = QubitTaxonomy::getById($options['taxonomy']);
     }
 
     $skos->parent = QubitTerm::getById(QubitTerm::ROOT_ID);

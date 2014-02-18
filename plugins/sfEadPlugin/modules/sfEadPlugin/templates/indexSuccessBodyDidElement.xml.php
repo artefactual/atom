@@ -79,6 +79,10 @@
     <unitid encodinganalog="<?php echo $ead->getMetadataParameter('unitid') ?>" <?php if (isset($repository)): ?><?php if ($countrycode = $repository->getCountryCode()): ?><?php echo 'countrycode="'.$countrycode.'" ' ?><?php endif;?><?php if ($repocode = $repository->getIdentifier()): ?><?php echo 'repositorycode="'.escape_dc(esc_specialchars($repocode)).'" ' ?><?php endif; ?><?php endif; ?>><?php echo escape_dc(esc_specialchars($$resourceVar->getIdentifier())) ?></unitid>
   <?php endif; ?>
 
+  <?php foreach ($$resourceVar->getProperties(null, 'alternativeIdentifiers') as $item): ?>
+    <unitid type="alternative" label="<?php echo escape_dc(esc_specialchars($item->name)) ?>"><?php echo escape_dc(esc_specialchars($item->getValue(array('sourceCulture' => true)))) ?></unitid>
+  <?php endforeach; ?>
+
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('standardNumber')->__toString())): ?>
     <unitid type="standard" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('standardNumber'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($value)) ?></unitid>
   <?php endif; ?>

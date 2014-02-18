@@ -146,6 +146,8 @@ class SearchIndexAction extends DefaultBrowseAction
 
     $queryText = new \Elastica\Query\QueryString($request->query);
     $queryText->setDefaultOperator('OR');
+    arElasticSearchPluginUtil::setAllFields($queryText, $options = array('type' => 'informationObject'));
+
     $this->queryBool->addMust($queryText);
 
     // Realm filter

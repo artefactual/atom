@@ -153,7 +153,7 @@ class QubitXmlImport
           throw new sfException(sfContext::getInstance()->i18n->__('The SKOS plugin is not enabled'));
         }
 
-        $importTerms = sfSkosPlugin::parse($importDOM);
+        $importTerms = sfSkosPlugin::parse($importDOM, $options);
         $this->rootObject = QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID);
         $this->count = count($importTerms);
 

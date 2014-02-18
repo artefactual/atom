@@ -50,6 +50,17 @@ class arElasticSearchAccession extends arElasticSearchModelBase
     $serialized['sourceCulture'] = $object->sourceCulture;
     $serialized['i18n'] = self::serializeI18ns($object->id, array('QubitAccession'));
 
+    foreach (QubitRelation::getRelationsBySubjectId($object->id, array('typeId' => QubitTerm::DONOR_ID)) as $item)
+    {
+      $serialized['donors'][] = arElasticSearchDonor::serialize($item->object);
+    }
+
+    foreach (QubitRelation::getRelationsByObjectId($object->id, array('typeId' => QubitTerm::CREATION_ID)) as $item)
+    {
+      $node = new arElasticSearchActorPdo($item->subject->id);
+      $serialized['creators'][] = $node->serialize();
+    }
+
     return $serialized;
   }
 

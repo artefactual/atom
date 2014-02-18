@@ -68,6 +68,22 @@
             })
           .insertAfter(this.table);
 
+        // Enable/disable relatedAuthorityRecord_subType field
+        $('select[id=relatedAuthorityRecord_type]', thisDialog.table)
+          .change(function ()
+            {
+              var subTypeField = $('input[id=relatedAuthorityRecord_subType]', thisDialog.table);
+
+              if (this.value == '')
+              {
+                subTypeField.prop('disabled', 'disabled');
+              }
+              else
+              {
+                subTypeField.prop('disabled', false).focus();
+              }
+          });
+
         // Create YUI container for dialog
         var $yuiDialogWrapper = $('<div id="' + this.table.id + '">'
           + '  <div class="hd">'
@@ -248,6 +264,13 @@
 
         this.open = function (id)
           {
+            // Disable relatedAuthorityRecord_subType field. The property is removed on YUI autocomplete first load
+            var subTypeField = $('input[id=relatedAuthorityRecord_subType]', thisDialog.table);
+            if (subTypeField.length > 0)
+            {
+              subTypeField.prop('disabled', 'disabled');
+            }
+
             this.id = id;
             if (undefined === this.id)
             {
@@ -358,11 +381,27 @@
                     scope: $(hiddenInput),
                     success: function (request, response)
                       {
-                        this
-                          .next('.form-autocomplete')
-                          .val(response.results[0]);
+                        if (this.attr('name') == 'relatedAuthorityRecord[subType]')
+                        {
+                          // Set value + actor name for subType field
+                          this
+                            .next('.form-autocomplete')
+                            .val(response.results[0] + thisData['relatedAuthorityRecord[actor]']);
+                        }
+                        else
+                        {
+                          this
+                            .next('.form-autocomplete')
+                            .val(response.results[0]);
+                        }
                       } });
                 }
+              }
+
+              // Enable relatedAuthorityRecord_subType field if there is type data
+              if (fieldname == 'relatedAuthorityRecord[type]')
+              {
+                $('input[id=relatedAuthorityRecord_subType]', thisDialog.table).prop('disabled', false);
               }
             }
 

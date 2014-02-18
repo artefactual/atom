@@ -56,6 +56,18 @@ class arElasticSearchRepository extends arElasticSearchModelBase
       $serialized['contactInformations'][] = arElasticSearchContactInformation::serialize($contactInformation);
     }
 
+    $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
+    foreach (QubitPdo::fetchAll($sql, array($object->id, QubitTerm::OTHER_FORM_OF_NAME_ID)) as $item)
+    {
+      $serialized['otherNames'][] = arElasticSearchOtherName::serialize($item);
+    }
+
+    $sql = 'SELECT id, source_culture FROM '.QubitOtherName::TABLE_NAME.' WHERE object_id = ? AND type_id = ?';
+    foreach (QubitPdo::fetchAll($sql, array($object->id, QubitTerm::PARALLEL_FORM_OF_NAME_ID)) as $item)
+    {
+      $serialized['parallelNames'][] = arElasticSearchOtherName::serialize($item);
+    }
+
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($object->createdAt);
     $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($object->updatedAt);
 

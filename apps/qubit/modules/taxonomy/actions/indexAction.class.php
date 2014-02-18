@@ -21,34 +21,186 @@ class TaxonomyIndexAction extends sfAction
 {
   public function execute($request)
   {
+    // HACK Use id deliberately, vs. slug, because "Subjects" and "Places"
+    // menus still use id
+    if (isset($request->id))
+    {
+      $this->resource = QubitTaxonomy::getById($request->id);
+    }
+    else
+    {
+      $this->resource = $this->getRoute()->resource;
+    }
+
+    if (!$this->resource instanceof QubitTaxonomy)
+    {
+      $this->redirect(array('module' => 'taxonomy', 'action' => 'list'));
+    }
+
+    // Check that this isn't the root
+    if (!isset($this->resource->parent))
+    {
+      $this->forward404();
+    }
+
     if (!isset($request->limit))
     {
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
-    $this->resource = $this->getRoute()->resource;
-
-    $criteria = new Criteria;
-    $criteria->add(QubitTerm::TAXONOMY_ID, $this->resource->id);
-
-    // Do source culture fallback
-    $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitTerm');
-
-    if (isset($request->subquery))
+    if ($this->getUser()->isAuthenticated())
     {
-      $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-      $criteria->add(QubitTermI18n::CULTURE, $this->context->user->getCulture());
-      $criteria->add(QubitTermI18n::NAME, "%$request->subquery%", Criteria::LIKE);
+      $this->sortSetting = sfConfig::get('app_sort_browser_user');
+    }
+    else
+    {
+      $this->sortSetting = sfConfig::get('app_sort_browser_anonymous');
     }
 
-    $criteria->addAscendingOrderByColumn('name');
+    if (!isset($request->sort))
+    {
+      $request->sort = $this->sortSetting;
+    }
 
-    // Page results
-    $this->pager = new QubitPager('QubitTerm');
-    $this->pager->setCriteria($criteria);
+    $this->resource = $this->getRoute()->resource;
+
+    $this->addResultsColumn = false;
+
+    switch ($this->resource->id)
+    {
+      case QubitTaxonomy::PLACE_ID:
+        $this->icon = 'places';
+        $this->addResultsColumn = true;
+
+        break;
+
+      case QubitTaxonomy::SUBJECT_ID:
+        $this->icon = 'subjects';
+        $this->addResultsColumn = true;
+
+        break;
+    }
+
+    $culture = $this->context->user->getCulture();
+
+    $this->query = new \Elastica\Query();
+    $this->query->setLimit($request->limit);
+
+    if (!empty($request->page))
+    {
+      $this->query->setFrom(($request->page - 1) * $request->limit);
+    }
+
+    $this->queryBool = new \Elastica\Query\Bool();
+    $this->filterBool = new \Elastica\Filter\Bool;
+
+    $query = new \Elastica\Query\Term;
+    $query->setTerm('taxonomyId', $this->resource->id);
+    $this->queryBool->addMust($query);
+
+    if (1 !== preg_match('/^[\s\t\r\n]*$/', $request->subquery))
+    {
+      $queryString = new \Elastica\Query\QueryString($request->subquery);
+
+      switch ($request->subqueryField)
+      {
+        case 'Preferred label':
+          $queryString->setDefaultField('i18n.'.$culture.'.name');
+
+          break;
+
+        case '\'Use for\' labels':
+        case "\'Use for\' labels":
+           $queryString->setDefaultField('useFor.i18n.'.$culture.'.name');
+
+          break;
+
+        case 'All labels':
+        default:
+          // Search over preferred label (boosted by five) and "Use for" labels
+          $queryString->setFields(array('i18n.'.$culture.'.name^5', 'useFor.i18n.'.$culture.'.name'));
+          $queryString->setDefaultOperator('OR');
+
+          break;
+      }
+
+      // Filter results by subquery
+      $filter = new \Elastica\Filter\Query($queryString);
+      $this->filterBool->addMust($filter);
+    }
+
+    // Set query
+    $this->query->setQuery($this->queryBool);
+
+    // Set order
+    switch ($request->sort)
+    {
+      // I don't think that this is going to scale, but let's leave it for now
+      case 'alphabetic':
+        $field = sprintf('i18n.%s.name.untouched', $culture);
+        $this->query->setSort(array($field => 'asc'));
+
+        break;
+
+      case 'lastUpdated':
+      default:
+        $this->query->setSort(array('updatedAt' => 'desc'));
+    }
+
+    // Set filter
+    if (0 < count($this->filterBool->toArray()))
+    {
+      $this->query->setFilter($this->filterBool);
+    }
+
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitTerm')->search($this->query);
+
+    // Return special response in JSON for XHR requests
+    if ($request->isXmlHttpRequest())
+    {
+      $total = $resultSet->getTotalHits();
+      if (1 > $total)
+      {
+        $this->forward404();
+
+        return;
+      }
+
+      sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
+
+      $response = array('results' => array());
+      foreach ($resultSet->getResults() as $item)
+      {
+        $data = $item->getData();
+
+        $result = array(
+          'url' => url_for(array('module' => 'term', 'slug' => $data['slug'])),
+          'title' => $data['i18n'][$culture]['name'],
+          'identifier' => '',
+          'level' => '');
+
+        $response['results'][] = $result;
+      }
+
+      $url = url_for(array($this->resource, 'module' => 'taxonomy', 'subquery' => $request->subquery));
+      $link = $this->context->i18n->__('Browse all terms');
+      $response['more'] = <<<EOF
+<div class="more">
+  <a href="$url">
+    <i class="icon-search"></i>
+    $link
+  </a>
+</div>
+EOF;
+
+      $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
+
+      return $this->renderText(json_encode($response));
+    }
+
+    $this->pager = new QubitSearchPager($resultSet);
+    $this->pager->setPage($request->page ? $request->page : 1);
     $this->pager->setMaxPerPage($request->limit);
-    $this->pager->setPage($request->page);
-
-    $this->terms = $this->pager->getResults();
+    $this->pager->init();
   }
 }

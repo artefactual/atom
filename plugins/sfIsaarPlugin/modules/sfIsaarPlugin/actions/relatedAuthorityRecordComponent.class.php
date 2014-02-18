@@ -24,6 +24,7 @@ class sfIsaarPluginRelatedAuthorityRecordComponent extends RelationEditComponent
     $NAMES = array(
       'resource',
       'type',
+      'subType',
       'description',
       'startDate',
       'endDate',
@@ -40,10 +41,19 @@ class sfIsaarPluginRelatedAuthorityRecordComponent extends RelationEditComponent
         $choices[null] = null;
         foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::ACTOR_RELATION_TYPE_ID) as $item)
         {
-          $choices[$this->context->routing->generate(null, array($item, 'module' => 'term'))] = $item;
+          if ($item->parentId == QubitTerm::ROOT_ID)
+          {
+            $choices[$this->context->routing->generate(null, array($item, 'module' => 'term'))] = $item;
+          }
         }
 
         $this->form->setWidget('type', new sfWidgetFormSelect(array('choices' => $choices)));
+
+        break;
+
+      case 'subType':
+        $this->form->setValidator('subType', new sfValidatorString());
+        $this->form->setWidget('subType', new sfWidgetFormSelect(array('choices' => array())));
 
         break;
 
@@ -81,6 +91,23 @@ class sfIsaarPluginRelatedAuthorityRecordComponent extends RelationEditComponent
           else
           {
             $this->relation->subject = $params['_sf_route']->resource;
+          }
+        }
+
+        break;
+
+      case 'subType':
+        $value = $this->form->getValue('subType');
+        if (isset($value))
+        {
+          $params = $this->context->routing->parse(Qubit::pathInfo($value));
+          if ($this->resource->id != $this->relation->objectId)
+          {
+            $this->relation->type = $params['_sf_route']->resource;
+          }
+          else if (0 < count($converseTerms = QubitRelation::getBySubjectOrObjectId($params['_sf_route']->resource->id, array('typeId' => QubitTerm::CONVERSE_TERM_ID))))
+          {
+            $this->relation->type = $converseTerms[0]->getOpposedObject($params['_sf_route']->resource);
           }
         }
 

@@ -171,8 +171,37 @@
                   // http://developer.yahoo.com/yui/autocomplete/#delay
                   autoComplete.queryDelay = 1;
 
+                  // Add other fields from the form to the autocomplete request
+                  if ($(this).attr('name') == 'relatedAuthorityRecord[subType]')
+                  {
+                    autoComplete.generateRequest = function (query)
+                    {
+                      var parent = $('#relatedAuthorityRecord_type').val();
+
+                      return '&parent=' + parent + '&query=' + query;
+                    };
+                  }
+                  else if (($(this).attr('name') == 'parent' || $(this).attr('name') == 'relatedTerms[]') && $(this).siblings('.list').val().indexOf('/term/autocomplete') != -1)
+                  {
+                    autoComplete.generateRequest = function (query)
+                    {
+                      var taxonomy = $('input[name=taxonomy]').val();
+
+                      return '?taxonomy=' + taxonomy + '&query=' + query;
+                    };
+                  }
+                  else if ($(this).attr('name') == 'converseTerm' && $(this).siblings('.list').val().indexOf('/term/autocomplete') != -1)
+                  {
+                    autoComplete.generateRequest = function (query)
+                    {
+                      var taxonomy = $('input[name=taxonomy]').val();
+                      var parent = $('input[name=parent]').val();
+
+                      return '?taxonomy=' + taxonomy + '&parent=' + parent + '&query=' + query;
+                    };
+                  }
                   // Alternatively use try/catch?
-                  if ('undefined' !== typeof dataSource.liveData.indexOf
+                  else if ('undefined' !== typeof dataSource.liveData.indexOf
                     && -1 != dataSource.liveData.indexOf('?'))
                   {
                     autoComplete.generateRequest = function (query)
@@ -277,7 +306,17 @@
                       //
                       // Use XML() constructor as with multiple <select/>, but
                       // use toString() to get text of parsed HTML
-                      $input.val(args[2][0]);
+                      if (args[2][0].indexOf('<b>') >= 0 && args[2][0].indexOf('</b>') >= 0)
+                      {
+                        // Remove bold tags
+                        $input.val(args[2][0].substring(0, args[2][0].indexOf('<b>'))
+                          + args[2][0].substring(args[2][0].indexOf('<b>') + 3, args[2][0].indexOf('</b>'))
+                          + args[2][0].substring(args[2][0].indexOf('</b>') + 4, args[2][0].length));
+                      }
+                      else
+                      {
+                        $input.val(args[2][0]);
+                      }
                     });
 
                   if ($(select).attr('multiple'))

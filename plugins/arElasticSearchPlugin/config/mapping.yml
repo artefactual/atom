@@ -22,7 +22,7 @@ mapping:
     _attributes: { i18n: true, i18nExtra: actor, timestamp: true, nested_only: true }
     dynamic: strict
     properties:
-      contact_person: { type: string, index: no }
+      contact_person: { type: string, index: not_analyzed }
       street_address: { type: string, index: no }
       postal_code: { type: string, include_in_all: false }
       country_code: { type: string, index: not_analyzed, include_in_all: false }
@@ -34,24 +34,129 @@ mapping:
       nested_only: true
     dynamic: strict
 
-  term:
+  note:
     _attributes:
       i18n: true
-      timestamp: true
-      autocompleteFields: [name]
       nested_only: true
-    _foreign_types: { use_for: other_name }
+    dynamic: strict
+
+  event:
+    _attributes:
+      i18n: true
+      nested_only: true
     dynamic: strict
     properties:
+      start_date: { type: date, include_in_all: false }
+      end_date: { type: date, include_in_all: false }
+      start_date_string: { type: string, index: not_analyzed }
+      end_date_string: { type: string, index: not_analyzed }
+      type_id: { type: integer, index: not_analyzed, include_in_all: false }
+      actor_id: { type: integer, index: not_analyzed, include_in_all: false }
+
+  donor:
+    _attributes:
+      i18nExtra: actor
+      nested_only: true
+    _foreign_types: { contact_informations: contact_information }
+    dynamic: true
+    properties:
       slug: { type: string, index: not_analyzed }
-      taxonomy_id: { type: integer, index: not_analyzed, include_in_all: false }
+
+  mets_data:
+    _attributes:
+      nested_only: true
+    dynamic: strict
+    properties:
+      filename: { type: string, index: not_analyzed, include_in_all: false }
+      last_modified: { type: date, index: not_analyzed, include_in_all: false }
+      size: { type: long, index: not_analyzed, include_in_all: false }
+      mime_type: { type: string, index: not_analyzed, include_in_all: false }
+      exiftool_raw_output: { type: string, index: not_analyzed, include_in_all: false }
+      audio:
+        type: object
+        properties:
+          bit_depth: { type: integer, index: not_analyzed, include_in_all: false }
+          sample_rate: { type: string, index: not_analyzed, include_in_all: false }
+          channels: { type: integer, index: not_analyzed, include_in_all: false }
+          data_encoding: { type: string, index: not_analyzed, include_in_all: false }
+          offset: { type: integer, index: not_analyzed, include_in_all: false }
+          byte_order: { type: string, index: not_analyzed, include_in_all: false }
+      document:
+        type: object
+        properties:
+          title: { type: string, index: not_analyzed, include_in_all: false }
+          author: { type: string, index: not_analyzed, include_in_all: false }
+          page_count: { type: integer, index: not_analyzed, include_in_all: false }
+          word_count: { type: integer, index: not_analyzed, include_in_all: false }
+          character_count: { type: integer, index: not_analyzed, include_in_all: false }
+          language: { type: string, index: not_analyzed, include_in_all: false }
+          is_protected: { type: boolean, index: not_analyzed, include_in_all: false }
+          is_rights_managed: { type: boolean, index: not_analyzed, include_in_all: false }
+          is_tagged: { type: boolean, index: not_analyzed, include_in_all: false }
+          has_outline: { type: boolean, index: not_analyzed, include_in_all: false }
+          has_annotations: { type: boolean, index: not_analyzed, include_in_all: false }
+          has_forms: { type: boolean, index: not_analyzed, include_in_all: false }
+      text:
+        type: object
+        properties:
+          linebreak: { type: string, index: not_analyzed, include_in_all: false }
+          charset: { type: string, index: not_analyzed, include_in_all: false }
+          markup_basis: { type: string, index: not_analyzed, include_in_all: false }
+          markup_basis_version: { type: string, index: not_analyzed, include_in_all: false }
+          markup_language: { type: string, index: not_analyzed, include_in_all: false }
+      event:
+        type: object
+        properties:
+          type: { type: string, index: not_analyzed, include_in_all: false }
+          dateTime: { type: date, index: not_analyzed, include_in_all: false }
+          detail: { type: string, index: not_analyzed, include_in_all: false }
+          outcome: { type: string, index: not_analyzed, include_in_all: false }
+          outcomeDetailNote: { type: string, index: not_analyzed, include_in_all: false }
+          linkingAgentIdentifier:
+            type: object
+            properties:
+              type: { type: string, index: not_analyzed, include_in_all: false }
+              value: { type: string, index: not_analyzed, include_in_all: false }
+      agent:
+        type: object
+        properties:
+          identifier_type: { type: string, index: not_analyzed, include_in_all: false }
+          identifier_value: { type: string, index: not_analyzed, include_in_all: false }
+          name: { type: string, index: not_analyzed, include_in_all: false }
+          type: { type: string, index: not_analyzed, include_in_all: false }
 
   #
   # Main types
   #
 
+  aip:
+    _foreign_types:
+      part_of: information_object
+      class: term
+    dynamic: strict
+    properties:
+      uuid: { type: string, index: not_analyzed, include_in_all: false }
+      filename: { type: string, index: not_analyzed, include_in_all: false }
+      size_on_disk: { type: long, index: not_analyzed, include_in_all: false }
+      digital_object_count: { type: integer, index: not_analyzed, include_in_all: false }
+      created_at: { type: date, index: not_analyzed, include_in_all: false }
+
+  term:
+    _attributes:
+      i18n: true
+      timestamp: true
+      autocompleteFields: [name]
+    _foreign_types: { use_for: other_name, scope_notes: note }
+    dynamic: strict
+    properties:
+      slug: { type: string, index: not_analyzed }
+      taxonomy_id: { type: integer, index: not_analyzed, include_in_all: false }
+      is_protected: { type: boolean, index: not_analyzed, include_in_all: false }
+      number_of_descendants: { type: integer, index: not_analyzed, include_in_all: false }
+
   accession:
     _attributes: { i18n: true, timestamp: true }
+    _foreign_types: { donors: donor, creators: actor }
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }
@@ -73,7 +178,10 @@ mapping:
       i18nExtra: actor
       timestamp: true
       autocompleteFields: [authorizedFormOfName]
-    _foreign_types: { contact_informations: contact_information }
+    _foreign_types:
+      contact_informations: contact_information
+      other_names: other_name
+      parallel_names: other_name
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }
@@ -85,12 +193,19 @@ mapping:
       i18n: true
       timestamp: true
       autocompleteFields: [title]
-    _foreign_types: { repository: repository, names: actor, creators: actor, subjects: term, places: term }
+    _foreign_types:
+      repository: repository
+      names: actor
+      creators: actor
+      subjects: term
+      places: term
+      dates: event
+      aip: aip
+      mets_data: mets_data
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }
       identifier: { type: string, index: not_analyzed }
-      reference_code: { type: string, index: not_analyzed }
       level_of_description_id: { type: integer, index: not_analyzed }
       publication_status_id: { type: integer, index: not_analyzed }
       parent_id: { type: integer, index: not_analyzed, include_in_all: false }
@@ -99,15 +214,8 @@ mapping:
       copyright_status_id: { type: integer, index: not_analyzed, include_in_all: false }
       material_type_id: { type: integer, index: not_analyzed, include_in_all: false }
       transcript: { type: string, index: analyzed, include_in_all: true }
-      dates:
-        type: object
-        properties:
-          start_date: { type: date }
-          end_date: { type: date }
-          start_date_string: { type: string, index: not_analyzed, include_in_all: false }
-          end_date_string: { type: string, index: not_analyzed, include_in_all: false }
-          type_id: { type: integer, index: not_analyzed, include_in_all: false }
-          actor: { type: string }
+      direct_subjects: { type: integer, index: not_analyzed, include_in_all: false }
+      direct_places: { type: integer, index: not_analyzed, include_in_all: false }
       has_digital_object: { type: boolean, index: not_analyzed, include_in_all: false }
       digital_object:
         type: object
@@ -115,3 +223,21 @@ mapping:
           media_type_id: { type: integer, index: not_analyzed, include_in_all: false }
           usage_id: { type: integer, index: not_analyzed, include_in_all: false }
           thumbnail_path: { type: string, index: not_analyzed }
+      alternative_identifiers:
+        type: object
+        properties:
+          label: { type: string, index: not_analyzed }
+          identifier: { type: string, index: not_analyzed }
+      inherit_reference_code:
+        type: multi_field
+        fields:
+          inheritReferenceCode:
+            type: string
+            index: not_analyzed
+          autocomplete:
+            include_in_all: false
+            index_analyzer: autocomplete
+            store: true
+            search_analyzer: standard
+            term_vector: with_positions_offsets
+            type: string

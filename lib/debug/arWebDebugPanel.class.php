@@ -52,7 +52,8 @@ class arWebDebugPanel extends sfWebDebugPanel
   {
     $gitDirectory = sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.'.git'.DIRECTORY_SEPARATOR;
     $headFile = $gitDirectory.'HEAD';
-    if (false !== $fd = fopen($headFile, 'r'))
+    // Use at sign to avoid unnecessary warning
+    if (false !== $fd = @fopen($headFile, 'r'))
     {
       $line = fgets($fd);
       fclose($fd);

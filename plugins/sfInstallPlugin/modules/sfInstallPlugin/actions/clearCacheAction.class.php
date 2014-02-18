@@ -25,9 +25,6 @@ class sfInstallPluginClearCacheAction extends sfAction
     $cacheClear = new sfCacheClearTask(sfContext::getInstance()->getEventDispatcher(), new sfFormatter());
     $cacheClear->run();
 
-    // Flush the search index
-    QubitSearch::getInstance()->flush();
-
     $this->redirect(array('module' => 'sfInstallPlugin', 'action' => 'finishInstall'));
   }
 }

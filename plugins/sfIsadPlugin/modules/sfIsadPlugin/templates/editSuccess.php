@@ -44,6 +44,8 @@
           ->label(__('Identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
           ->renderRow() ?>
 
+        <?php echo get_partial('informationobject/alternativeIdentifiers', $alternativeIdentifiersComponent->getVarHolder()->getAll()) ?>
+
         <?php echo render_field($form->title
           ->help(__('Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)'))
           ->label(__('Title').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource) ?>
@@ -168,6 +170,20 @@
         <?php echo render_field($form->relatedUnitsOfDescription
           ->help(__('Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)'))
           ->label(__('Related units of description')), $resource, array('class' => 'resizable')) ?>
+
+        <div class="form-item">
+          <?php echo $form->relatedMaterialDescriptions
+            ->label(__('Related descriptions'))
+            ->renderLabel() ?>
+          <?php echo $form->relatedMaterialDescriptions->render(array('class' => 'form-autocomplete')) ?>
+          <?php if (QubitAcl::check(QubitInformationObject::getRoot(), 'create')): ?>
+            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'add')) ?> #title"/>
+          <?php endif; ?>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'autocomplete')) ?>"/>
+          <?php echo $form->relatedMaterialDescriptions
+            ->help(__('To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.'))
+            ->renderHelp() ?>
+        </div>
 
         <?php echo get_partial('informationobject/notes', $publicationNotesComponent->getVarHolder()->getAll()) ?>
 
