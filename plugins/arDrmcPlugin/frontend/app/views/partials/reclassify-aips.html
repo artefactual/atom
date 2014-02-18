@@ -12,8 +12,10 @@
       <dd>{{ aip.parent.title }}</dd>
       <dt>Part of</dt>
       <dd>{{ aip.partof.title }}</dd>
+      <dt>Current class</dt>
+      <dd>{{ aip.class }}</dd>
     </dl>
-    <label>Classify as:</label>
+    <label>Reclassify as:</label>
     <select ng-model="aip.class_id" ng-options="key as value for (key, value) in classifications"></select>
   </div>
 
