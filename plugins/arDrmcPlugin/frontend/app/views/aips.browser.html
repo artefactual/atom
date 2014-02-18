@@ -2,32 +2,15 @@
 
   <div class="span3">
 
-      <section class="list-menu dash-col-stats">
-        <h4>Collection Stats</h4>
-      </section>
-
-      <section class="list-menu">
-        <h4>Recent Updates</h4>
-        <ul>
-          <li><a class="dash-update" ui-sref="aips.view({ id: '7e08a799-1bb8-47ef-915b-8159d11e8e5d' })">Tetris - 1988 NES Release - 24x723rbwsdd7</a></li>
-          <li><a class="dash-update" ui-sref="aips.view({ id: '7e08a799-1bb8-47ef-915b-8159d11e8e5d' })">Tetris - 1984 IBM Edition - Compiled source code</a></li>
-          <li><a class="dash-update" ui-sref="aips.view({ id: '7e08a799-1bb8-47ef-915b-8159d11e8e5d' })">Adventure! - 1990 (video game)</a></li>
-          <li><a class="dash-update" ui-sref="aips.view({ id: '7e08a799-1bb8-47ef-915b-8159d11e8e5d' })">Ms. Pac Man - 1982 Midway Arcade</a></li>
-        </ul>
-        <div class="btn btn-mini">
-          View All
-        </div>
-      </section>
-
-      <section class="list-menu">
-        <h4>AIP Class</h4>
-        <ul>
-          <li><a href="#" ng-click="criteria.class = undefined">All</a></li>
-          <li ng-repeat="item in data.aips.facets.class.terms">
-            <a href="#" ng-click="criteria.class = item.term">{{ item.term }} ({{ item.count }})</a>
-          </li>
-        </ul>
-      </section>
+    <section class="list-menu">
+      <h4>AIP Class</h4>
+      <ul>
+        <li><a href="#" ng-click="criteria.class = undefined">All</a></li>
+        <li ng-repeat="item in data.aips.facets.class.terms">
+          <a href="#" ng-click="criteria.class = item.term">{{ item.term }} ({{ item.count }})</a>
+        </li>
+      </ul>
+    </section>
 
   </div><!-- /span3 -->
 
