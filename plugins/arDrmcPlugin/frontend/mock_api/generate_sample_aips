@@ -27,8 +27,14 @@ names = fs.readFileSync(__dirname + '/sample_data/names.txt').toString().split("
 names.pop();
 
 // read list of classifications
-classifications = fs.readFileSync(__dirname + '/sample_data/classifications.txt').toString().split("\n");
-classifications.pop();
+classifications = [];
+fs.readFileSync(__dirname + '/sample_data/classifications.txt').toString().split("\n").forEach(function (value, index, array) {
+  var parts = value.split(",");
+  if (parts.length < 2) {
+    return;
+  }
+  classifications.push({ id: parts[0], name: parts[1] });
+});
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -44,8 +50,9 @@ function generateAIP(name, classification) {
   return {
     'uuid': uuid.v4(),
     'name': name,
-    'class': classification,
-    'size': getRandomInt(100000, 100000000), 
+    'class': classification.name,
+    'classid': classification.id,
+    'size': getRandomInt(100000, 100000000),
     'createdat': dateAndTime
   };
 }

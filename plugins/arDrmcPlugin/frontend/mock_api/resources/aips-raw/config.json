@@ -25,13 +25,21 @@
 			"id": "class",
 			"order": 2
 		},
+		"classid": {
+			"name": "classid",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "classid",
+			"order": 3
+		},
 		"size": {
 			"name": "size",
 			"type": "number",
 			"typeLabel": "number",
 			"required": false,
 			"id": "size",
-			"order": 3
+			"order": 4
 		},
 		"createdat": {
 			"name": "createdat",
@@ -39,7 +47,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "createdat",
-			"order": 4
+			"order": 5
 		}
 	}
 }

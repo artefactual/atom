@@ -59,6 +59,9 @@ dpd.aipsraw.get(criteria, function(aips) {
     aip.created_at = aip.createdat;
     delete aip.createdat;
 
+    aip.class_id = aip.classid;
+    delete aip.classid;
+
     // add to results
     aipResults.push(aip);
 
