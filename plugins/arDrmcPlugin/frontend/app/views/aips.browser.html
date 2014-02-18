@@ -19,6 +19,12 @@
     <div id="main-column" class="span12">
 
       <h2>AIPs browser</h2>
+      <section class="breadcrumb">
+      <ul>
+        <li><a ui-sref="dashboard">Dashboard</a></li>
+        <li><span>{{ data.aips. }}</span></li>
+      </ul>
+    </section>
 
       <div id="facet-indicators">
         <div ng-show="criteria.class">{{ criteria.class }} <span ng-click="criteria.class = undefined">[x]</span></div>
@@ -35,8 +41,8 @@
             </ul>
             <ul class="menu-list-right nav nav-pills">
               <li>
-                <a ng-click="toggleOverview()" ng-show="showOverview">Hide</a>
-                <a ng-click="toggleOverview()" ng-hide="showOverview">Show</a>
+                <a ng-click="toggleOverview()" ng-show="showOverview" class="angle_double_down">Hide</a>
+                <a ng-click="toggleOverview()" ng-hide="showOverview" class="angle_double_down">Show</a>
               </li>
             </ul>
           </div>
@@ -52,23 +58,23 @@
               <div>{{ data.overview.total.count }}</div>
             </div>
             <div class="field">
-              <h3>Artwork Component AIP Count</h3>
+              <h3>Artwork Component AIPs</h3>
               <div>{{ data.overview['Artwork Component'].count }}</div>
             </div>
              <div class="field">
-              <h3>Artwork Material AIP Count</h3>
+              <h3>Artwork Material AIPs</h3>
               <div>{{ data.overview['Artwork Material'].count }}</div>
             </div>
             <div class="field">
-              <h3>Supporting Documentation AIP Count</h3>
+              <h3>Supporting Documentation AIPs</h3>
               <div>{{ data.overview['Supporting Documentation'].count }}</div>
             </div>
             <div class="field">
-              <h3>Supporting Technology AIP Count</h3>
+              <h3>Supporting Technology AIPs</h3>
               <div>{{ data.overview['Supporting Technology'].count }}</div>
             </div>
             <div class="field">
-              <h3>Unclassified AIP Count</h3>
+              <h3>Unclassified AIPs</h3>
               <div>{{ data.overview['Unclassified'].count }}</div>
             </div>
           </section>
@@ -89,8 +95,7 @@
 
             <ul class="menu-list-right nav nav-pills">
               <li>
-                <a class="i-print"
-                   data-toggle="dropdown"
+                <a class="print"
                    ui-sref="#">
                    Print Report
                 </a>

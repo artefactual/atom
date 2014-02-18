@@ -156,11 +156,7 @@ ul.menu-list-left li {
   li a {
     color: @orange;
     &:before {
-      color: @grayLight;
-      font-family: FontAwesome;
-      font-style: normal;
-      font-weight: normal;
-      text-decoration: inherit;
+      .fa-icon-set (@grayLight);
       padding-right: 4px;
     }
   }
@@ -171,6 +167,7 @@ ul.menu-list-left li {
   a.edit:before               { content: "\f040"; }
   a.hide_relationships:before { content: "\f074"; }
   a.expand_all:before         { content: "\f0e8"; }
+  a.angle_double_down:before  { content: "\f103"; }
   a.move:before               { content: "\f148"; }
   a.add_child:before          { content: "\f055"; }
   a.duplicate:before          { content: "\f0c5"; }
@@ -184,6 +181,7 @@ ul.menu-list-left li {
   a.minimize:before           { content: "\f146"; }
   a.AIP_Details:before        { content: "\f03a"; }
   a.fixity_report:before      { content: "\f058"; }
+  a.print:before              { content: "\f02f"; }
 
   a.edit { margin-top: 2px; }
   a.delete { color: red; }
@@ -215,12 +213,15 @@ ul.menu-list-left li {
   .aips-overview-body .field {
 
     h3 {
-      width: 38%;
-      margin-left: -2%;
+      width: 40%;
     }
 
     div {
-      padding-left: 9%;
+      float: right;
+      width: 56.5%;
+      text-align: left;
+      margin-top: -22px;
+      padding-left: 0px;
     }
   }
 }
