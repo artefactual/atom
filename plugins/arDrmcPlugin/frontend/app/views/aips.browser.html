@@ -98,7 +98,7 @@
 
         </section>
 
-        <ar-pager page="page" items-per-page="10" total-items="{{ data.overview.total.count }}"></ar-pager>
+        <ar-pager page="page" items-per-page="{{ criteria.limit }}" total-items="{{ data.aips.found }}"></ar-pager>
 
         <section class="row-fluid">
 

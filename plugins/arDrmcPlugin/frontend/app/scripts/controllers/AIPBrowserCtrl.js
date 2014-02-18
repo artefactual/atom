@@ -10,9 +10,11 @@ module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
 
   // Default page
   $scope.page = 1;
+  $scope.criteria.limit = 5;
+  $scope.criteria.sort = 'name';
+
   $scope.$watch('page', function () {
-    console.log('AIPBrowserCtrl', 'Page has changed', $scope.page);
-    // update criteria and pull?
+    $scope.criteria.skip = (($scope.page - 1) * $scope.criteria.limit);
   });
 
   // watch for criteria changes
