@@ -17,8 +17,8 @@
 
   ContextBrowser.prototype.init = function (data) {
     // SVG layout
-    this.rootSVG = d3.select(this.container.get(0)).append('svg').attr('height', '100%');
-    this.graphSVG = this.rootSVG.append('svg').attr({ 'class': 'graph-attach' });
+    this.rootSVG = d3.select(this.container.get(0)).append('svg').attr('height', '100%').attr('class', 'graph-root');
+    this.graphSVG = this.rootSVG.append('svg').attr('class', 'graph-attach');
     this.groupSVG = this.graphSVG.append('g');
 
     this.graph = new Graph(data);
@@ -57,6 +57,8 @@
         );
       }
     };
+
+    this.rootSVG.on('click', this.clickSVG);
 
     this.graphSVG.select('.nodes')
       .on('click', jQuery.proxy(nodeFilter, null, this.clickNode))
@@ -99,6 +101,12 @@
     } else {
       n.classed('active', false);
       context.events.emitEvent('unpin-node', [{ id: datum, index: index }, d3.event.target]);
+    }
+  };
+
+  ContextBrowser.prototype.clickSVG = function () {
+    if (d3.select(d3.event.target).classed('graph-root')) {
+      console.log('You have clicked the background!');
     }
   };
 
