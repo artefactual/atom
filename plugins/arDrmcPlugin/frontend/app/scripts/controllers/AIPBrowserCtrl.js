@@ -8,6 +8,13 @@ module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
   // criteria contain GET params used when calling getAIPs to refresh data
   $scope.criteria = {};
 
+  // Default page
+  $scope.page = 1;
+  $scope.$watch('page', function () {
+    console.log('AIPBrowserCtrl', 'Page has changed', $scope.page);
+    // update criteria and pull?
+  });
+
   // watch for criteria changes
   $scope.$watch('criteria', function () {
     $scope.pull();

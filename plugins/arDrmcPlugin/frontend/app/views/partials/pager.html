@@ -1,7 +1,11 @@
 <div class="pager">
-  <span ng-show="showPrev" ng-click="prev()">Prev</span>
-  <span ng-show="showPrev"> | </span>
-  Page Z
-  <span ng-show="showNext"> | </span>
-  <span ng-show="showNext" ng-click="next()">Next</span>
+  <ul>
+    <li class="previous" ng-show="showPrev">
+      <a href ng-click="prev()">&laquo; Previous</a>
+    </li>
+    <li>Page {{ page }} / {{ numberOfPages }}</li>
+    <li class="next" ng-show="showNext">
+      <a href ng-click="next()">Next &raquo;</a>
+    </li>
+  </ul>
 </div>
