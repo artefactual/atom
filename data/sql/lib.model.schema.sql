@@ -102,6 +102,40 @@ CREATE TABLE `actor_i18n`
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
+#-- aip
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `aip`;
+
+
+CREATE TABLE `aip`
+(
+	`id` INTEGER  NOT NULL,
+	`type_id` INTEGER,
+	`uuid` VARCHAR(36),
+	`filename` VARCHAR(1024),
+	`size_on_disk` BIGINT,
+	`digital_object_count` INTEGER,
+	`created_at` DATETIME,
+	`part_of` INTEGER,
+	PRIMARY KEY (`id`),
+	CONSTRAINT `aip_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `object` (`id`)
+		ON DELETE CASCADE,
+	INDEX `aip_FI_2` (`type_id`),
+	CONSTRAINT `aip_FK_2`
+		FOREIGN KEY (`type_id`)
+		REFERENCES `term` (`id`)
+		ON DELETE SET NULL,
+	INDEX `aip_FI_3` (`part_of`),
+	CONSTRAINT `aip_FK_3`
+		FOREIGN KEY (`part_of`)
+		REFERENCES `object` (`id`)
+		ON DELETE SET NULL
+)Engine=InnoDB;
+
+#-----------------------------------------------------------------------------
 #-- contact_information
 #-----------------------------------------------------------------------------
 

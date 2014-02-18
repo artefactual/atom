@@ -67,7 +67,10 @@ class QubitTaxonomy extends BaseTaxonomy
     COPYRIGHT_STATUS_ID = 69,
 
     // Metadata templates
-    INFORMATION_OBJECT_TEMPLATE_ID = 70;
+    INFORMATION_OBJECT_TEMPLATE_ID = 70,
+
+    // Metadata templates
+    AIP_TYPE_ID = 71;
 
   public static
     $lockedTaxonomies = array(

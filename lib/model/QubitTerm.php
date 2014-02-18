@@ -146,7 +146,16 @@ class QubitTerm extends BaseTerm
     RELATED_MATERIAL_DESCRIPTIONS_ID = 176,
 
     // Converse term relation
-    CONVERSE_TERM_ID = 177;
+    CONVERSE_TERM_ID = 177,
+
+    // AIP relation
+    AIP_RELATION_ID = 178,
+
+    // AIP types
+    ARTWORK_COMPONENT_ID = 179,
+    ARTWORK_MATERIAL_ID = 180,
+    SUPPORTING_DOCUMENTATION_ID = 181,
+    SUPPORTING_TECHNOLOGY_ID = 182;
 
 
   public static function isProtected($id)
