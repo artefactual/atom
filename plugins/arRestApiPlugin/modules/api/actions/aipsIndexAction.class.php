@@ -56,15 +56,24 @@ class APIAIPSIndexAction extends QubitAPIAction
     $this->queryBool->addMust(new \Elastica\Query\MatchAll());
     $this->query->setQuery($this->queryBool);
 
-    // TODO: Filter
+    // Facets
+    $facet = new \Elastica\Facet\Terms('class');
+    $facet->setField('class.id');
+    $facet->setSize(10);
+
+    $this->query->addFacet($facet);
+
+    // TODO: Add filters
     if (0 < count($this->filterBool->toArray()))
     {
       $this->query->setFilter($this->filterBool);
     }
 
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitAip')->search($this->query);
+
     // Build array from results
     $resultsES = array();
-    foreach (QubitSearch::getInstance()->index->getType('QubitAip')->search($this->query) as $hit)
+    foreach ($resultSet as $hit)
     {
       $doc = $hit->getData();
 
@@ -82,6 +91,40 @@ class APIAIPSIndexAction extends QubitAPIAction
 
       $resultsES['aips']['results'][] = $aip;
     }
+
+    $facets = array();
+    foreach ($resultSet->getFacets() as $name => $facet)
+    {
+      // Pass if the facet is empty
+      if (!isset($facet['terms']) && !isset($facet['count']))
+      {
+        continue;
+      }
+
+      foreach ($facet['terms'] as $term)
+      {
+        $facetTerm = '';
+        switch ($name)
+        {
+          case 'class':
+            if (null !== $item = QubitTerm::getById($term['term']))
+            {
+              $facetTerm = $item->getName(array('cultureFallback' => true));
+            }
+
+            break;
+
+          default:
+            $facetTerm = $term['term'];
+        }
+
+        $facets[$name]['terms'][] = array(
+          'term' => $facetTerm,
+          'count' => $term['count']);
+      }
+    }
+
+    $resultsES['aips']['facets'] = $facets;
 
     // Test data
     $results = array(
