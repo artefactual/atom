@@ -1,26 +1,25 @@
 'use strict';
 
-module.exports = function ($scope, $modal,  $modalInstance, $q, AIPService) {
+module.exports = function ($scope, $modalInstance, AIPService) {
 
-  $scope.reclassifyAIP = function (modalScope, classificationData) {
+  // Save button
+  $scope.reclassify = function () {
+    // Update .class after selection
+    $scope.aip.class = $scope.classifications[$scope.aip.class_id];
+    // Post the change
+    AIPService.reclassifyAIP($scope.aip.id, $scope.aip.class)
+      // If the update succeeded, update AIPBrowserCtrl overview (pull) and close
+      .success(function () {
+        $scope.pull();
+        $modalInstance.close($scope.aip.class);
+      }).error(function () {
+        $modalInstance.dismiss('Your new classification could not be assigned');
+      });
+  };
 
-    $q.when(modalScope.modalInstance).then(function () {
-
-      AIPService.reclassifyAIP ($scope.aip.id, classificationData.name)
-        .success(function  (data, status, aip) {
-          AIPService.getAIPs($scope.criteria);
-          aip.class = classificationData.name;
-          $modalInstance.close(classificationData.name);
-
-        }).error(function (data, status) {
-            console.error(data, status);
-            $modalInstance.dismiss('Your new classification could not be assigned');
-          });
-    });
-
-    $scope.cancel = function () {
-      $modalInstance.dismiss('cancel');
-    };
+  // Close the dialog
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
   };
 
 };

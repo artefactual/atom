@@ -8,10 +8,6 @@ module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
   // criteria contain GET params used when calling getAIPs to refresh data
   $scope.criteria = {};
 
-  $scope.data = {};
-  $scope.data.aips = {};
-  $scope.data.aips.results = { foo: 'bar' };
-
   // watch for criteria changes
   $scope.$watch('criteria', function () {
     $scope.pull();
@@ -26,13 +22,13 @@ module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
   };
 
   // TODO: Load from server (/taxonomy endpoint?)
-  $scope.classifications = [
-    { id: 1, name: 'Artwork component' },
-    { id: 2, name: 'Artwork material' },
-    { id: 3, name: 'Supporting documentation' },
-    { id: 4, name: 'Supporting technology' },
-    { id: 5, name: 'Unclassified' }
-  ];
+  $scope.classifications = {
+    1: 'Artwork component',
+    2: 'Artwork material',
+    3: 'Supporting documentation',
+    4: 'Supporting technology',
+    5: 'Unclassified'
+  };
 
   // Support overview toggling
 
@@ -49,38 +45,22 @@ module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
   ];
   $scope.template = $scope.templates[0];
 
-  $scope.open = function (aip) {
-
+  $scope.openReclassifyModal = function (aip) {
+    // Current AIP selected equals to AIP in the modal
     $scope.aip = aip;
-
+    // It happens that $modal.open returns a promise :)
     var modalInstance = $modal.open({
       templateUrl: ATOM_CONFIG.viewsPath + '/partials/reclassify-aips.html',
       backdrop: true,
-      controller: function ($scope, $modalInstance) {
-
-        $scope.reclassify = function () {
-          AIPService.reclassifyAIP($scope.aip.id, $scope.aip.class)
-            .success(function () {
-              $scope.pull();
-              $modalInstance.close($scope.aip.class);
-            }).error(function () {
-              $modalInstance.dismiss('Your new classification could not be assigned');
-            });
-        };
-
-        $scope.cancel = function () {
-          $modalInstance.dismiss('cancel');
-        };
-
-      },
-      scope: $scope,
+      controller: 'AIPReclassifyCtrl',
+      scope: $scope, // TODO: isolate with .new()?
       resolve: {
         classifications: function () {
           return $scope.classifications;
         }
       }
     });
-
+    // This is going to happen only if the $modal succeeded
     modalInstance.result.then(function (result) {
       aip.class = result;
     });

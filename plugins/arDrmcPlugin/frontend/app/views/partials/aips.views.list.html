@@ -1,4 +1,4 @@
-<div class="browse-view-list" ng-hide="showBrowseView" >
+<div class="browse-view-list" ng-hide="showBrowseView">
   <div class="table">
     <table dir="ltr" class="table table-bordered">
       <thead>
@@ -11,18 +11,15 @@
           <th><a ng-click="predicate = 'partof'; reverse=!reverse">Part of</a></th>
         </tr>
       </thead>
-
       <tbody>
-
         <tr ng-cloak ng-repeat="(key, aip) in data.aips.results | orderBy:predicate:reverse">
           <td><a ui-sref="aips.view({ id: aip.uuid })">{{ aip.name }}</a></td>
           <td>{{ aip.size | UnitFilter:1 }}</td>
           <td>{{ aip.created_at }}</td>
-          <td><a role="button" ng-click="open(aip)">{{ aip.class }}</a></td>
+          <td><a role="button" ng-click="openReclassifyModal(aip)">{{ aip.class }}</a></td>
           <td>{{ aip.parent.title }}</td>
           <td>{{ aip.partof.title }}</td>
         </tr>
-
       </tbody>
     </table>
   </div>

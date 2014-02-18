@@ -1,29 +1,25 @@
 <div id="classify-aip-modal">
+
   <div class="modal-header">
-    <button type="button" ng-click="close()" class="close" data-dismiss="modal">×</button>
-    <h2>Classify AIPs</h2>
+    <button type="button" ng-click="cancel()" class="close">×</button>
+    <h2>Reclassify AIP</h2>
   </div>
 
   <div class="modal-body classify-aip-modal">
-
     <h3>{{ aip.name }}</h3>
-
     <dl>
       <dt>Parent</dt>
-        <dd>{{ aip.parent.title }}</dd>
+      <dd>{{ aip.parent.title }}</dd>
       <dt>Part of</dt>
-        <dd>{{ aip.partof.title }}</dd>
+      <dd>{{ aip.partof.title }}</dd>
     </dl>
-
     <label>Classify as:</label>
-
-    <select ng-model="aip.class" ng-options="item.id as item.name for item in classifications"></select>
-
+    <select ng-model="aip.class_id" ng-options="key as value for (key, value) in classifications"></select>
   </div>
 
   <div class="modal-footer">
     <button class="btn btn-save" ng-click="reclassify()"><span class="btn-save"></span>Save</button>
-    <button class="btn btn-cancel" ng-click="close()"><span class="btn-cancel"></span>Cancel</button>
+    <button class="btn btn-cancel" ng-click="cancel()"><span class="btn-cancel"></span>Cancel</button>
   </div>
 
 </div>
