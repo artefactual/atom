@@ -17,13 +17,21 @@
 			"id": "name",
 			"order": 1
 		},
+		"description": {
+			"name": "description",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "description",
+			"order": 2
+		},
 		"class": {
 			"name": "class",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
 			"id": "class",
-			"order": 2
+			"order": 3
 		},
 		"classid": {
 			"name": "classid",
@@ -31,7 +39,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "classid",
-			"order": 3
+			"order": 4
 		},
 		"size": {
 			"name": "size",
@@ -39,7 +47,15 @@
 			"typeLabel": "number",
 			"required": false,
 			"id": "size",
-			"order": 4
+			"order": 5
+		},
+		"objectquantity": {
+			"name": "objectquantity",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "objectquantity",
+			"order": 6
 		},
 		"createdat": {
 			"name": "createdat",
@@ -47,7 +63,15 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "createdat",
-			"order": 5
+			"order": 7
+		},
+		"subdirectoryquantity": {
+			"name": "subdirectoryquantity",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "subdirectoryquantity",
+			"order": 8
 		}
 	}
 }
