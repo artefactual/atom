@@ -55,27 +55,44 @@
             </div>
             <div class="field">
               <h3>Total AIPs</h3>
-              <div>{{ data.overview.total.count }}</div>
+              <div>
+                {{ data.overview.total.count }}
+                <span>&nbsp({{ data.overview['total'].size | UnitFilter: 2 }})</span>
+              </div>
             </div>
             <div class="field">
               <h3>Artwork Component AIPs</h3>
-              <div>{{ data.overview['Artwork Component'].count }}</div>
+              <div>{{ data.overview['Artwork component'].count }}
+                <span>&nbsp({{ data.overview['Artwork component'].size | UnitFilter: 2 }})</span>
+              </div>
             </div>
              <div class="field">
               <h3>Artwork Material AIPs</h3>
-              <div>{{ data.overview['Artwork Material'].count }}</div>
+              <div>
+                {{ data.overview['Artwork material'].count }}
+                <span>&nbsp({{ data.overview['Artwork material'].size | UnitFilter: 2 }})</span>
+              </div>
             </div>
             <div class="field">
               <h3>Supporting Documentation AIPs</h3>
-              <div>{{ data.overview['Supporting Documentation'].count }}</div>
+              <div>
+                {{ data.overview['Supporting documentation'].count }}
+                <span>&nbsp({{ data.overview['Supporting documentation'].size | UnitFilter: 2 }})</span>
+              </div>
             </div>
             <div class="field">
               <h3>Supporting Technology AIPs</h3>
-              <div>{{ data.overview['Supporting Technology'].count }}</div>
+              <div>
+                {{ data.overview['Supporting technology'].count }}
+                <span>&nbsp({{ data.overview['Supporting technology'].size | UnitFilter: 2 }})</span>
+              </div>
             </div>
             <div class="field">
               <h3>Unclassified AIPs</h3>
-              <div>{{ data.overview['Unclassified'].count }}</div>
+              <div>
+                {{ data.overview['Unclassified'].count }}
+                <span>&nbsp({{ data.overview['Unclassified'].size | UnitFilter: 2 }})</span>
+              </div>
             </div>
           </section>
 
