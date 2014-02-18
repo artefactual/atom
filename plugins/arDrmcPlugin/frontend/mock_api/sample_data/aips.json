@@ -1,0 +1,1602 @@
+[
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1976-12-03 22:32:37 EST",
+        "name": "Electron",
+        "size": 96508028,
+        "uuid": "2a9ca251-1363-4fcb-a062-662abe626f59"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1977-07-20 02:02:32 EST",
+        "name": "Man-Bull",
+        "size": 15372338,
+        "uuid": "0606b1f6-f217-48b2-93a1-b65d682c33cf"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1993-02-16 16:09:10 EST",
+        "name": "Jack of Hearts",
+        "size": 61560407,
+        "uuid": "241a4ac6-59fd-43ba-884f-d54829922d35"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "2007-04-30 03:20:37 EST",
+        "name": "Bob",
+        "size": 92020691,
+        "uuid": "243b2cbc-ff97-4374-950c-9646b1d4f463"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1998-01-02 09:08:17 EST",
+        "name": "Wong",
+        "size": 28081766,
+        "uuid": "593ecf9f-06d6-4fa3-a507-4567c5e2497e"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1997-12-11 14:07:30 EST",
+        "name": "Exodus",
+        "size": 34532697,
+        "uuid": "0a5c61bb-5cef-4341-aa28-a33d03f90959"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "2002-08-11 06:17:17 EST",
+        "name": "Madison Jeffries",
+        "size": 43742064,
+        "uuid": "f157f91f-4055-44ac-8b40-ba01763a3111"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1988-10-24 02:33:04 EST",
+        "name": "Arranger",
+        "size": 69829213,
+        "uuid": "6c474538-c892-4ca1-8bbc-2d196830235e"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1979-09-27 07:31:36 EST",
+        "name": "Alkhema",
+        "size": 44639193,
+        "uuid": "16fc8f05-aba9-4807-b8e4-f65b31307e38"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1972-08-14 03:02:32 EST",
+        "name": "Magician",
+        "size": 45605550,
+        "uuid": "40c7772d-2888-46b2-af00-0bf2fe770065"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1974-11-12 18:06:35 EST",
+        "name": "Cyclops",
+        "size": 17309053,
+        "uuid": "072abbf6-e311-4a35-8939-77c043b67a22"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1990-03-07 21:58:42 EST",
+        "name": "Warhawk",
+        "size": 98720323,
+        "uuid": "22319661-9cbb-4a20-bbc3-1c2af4f18054"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1980-03-06 17:57:46 EST",
+        "name": "Demogoblin",
+        "size": 98636198,
+        "uuid": "bc6bac6d-faa7-45e3-a2cb-7114a685678c"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1980-02-14 10:40:54 EST",
+        "name": "Deadpool",
+        "size": 24704943,
+        "uuid": "2a2fafdb-6266-401b-b6ad-3b9859805a96"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1993-06-04 06:43:56 EST",
+        "name": "Ariel",
+        "size": 25698452,
+        "uuid": "27b13474-f11b-46ec-907a-ed3c7cbf1cca"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "2007-08-25 22:26:59 EST",
+        "name": "Brainchild",
+        "size": 39209348,
+        "uuid": "da616cde-713a-42dc-8707-f05d0fa856cc"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1989-05-17 00:25:20 EST",
+        "name": "Guido Carosella",
+        "size": 10543307,
+        "uuid": "5e3f23fc-5e17-4121-8282-2cd474ccffab"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "2003-12-16 08:44:19 EST",
+        "name": "Boobytrap",
+        "size": 65082919,
+        "uuid": "8e6ddaa9-5b54-4a51-b192-d4f427b3b255"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1995-12-06 00:48:25 EST",
+        "name": "Black Cat",
+        "size": 7386711,
+        "uuid": "c36fd773-a6b2-47d5-94fb-1882baa11a97"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "2006-03-22 16:54:23 EST",
+        "name": "Inferno",
+        "size": 46880989,
+        "uuid": "c2833ea4-eb86-49a4-afd5-510d325d993f"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1971-10-22 10:20:33 EST",
+        "name": "Chan Luichow",
+        "size": 13074476,
+        "uuid": "663a86e4-b8f7-451e-9e04-97118edcf7a9"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1984-06-01 01:44:41 EST",
+        "name": "Hydro",
+        "size": 37415521,
+        "uuid": "db632019-6a68-4230-8dfe-2e8cc3e16c6b"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1980-03-27 06:13:49 EST",
+        "name": "Freakmaster",
+        "size": 26717309,
+        "uuid": "249d293e-1384-4d28-9dee-336a1c776176"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1992-06-27 09:26:06 EST",
+        "name": "Illyana Rasputin",
+        "size": 58472050,
+        "uuid": "140c8770-4f0f-455d-95f6-e15c25fb029b"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "2000-06-07 04:44:50 EST",
+        "name": "Zebediah Killgrave",
+        "size": 9345412,
+        "uuid": "aaad4f5e-880e-4701-9d8d-cb832704cd62"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "2004-06-10 06:40:15 EST",
+        "name": "Whistler",
+        "size": 66863453,
+        "uuid": "a312a159-a4f2-4e06-8cf3-d12c2f1d06c1"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1990-08-18 16:39:51 EST",
+        "name": "Kosmos",
+        "size": 74177858,
+        "uuid": "79dd2548-07ac-4480-85c9-f178898220c8"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2004-12-23 05:08:02 EST",
+        "name": "Hera",
+        "size": 77813351,
+        "uuid": "db322b93-a707-4bdc-8316-44c8be41bdad"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "2000-10-25 11:36:29 EST",
+        "name": "Nox",
+        "size": 25496680,
+        "uuid": "f1befc3a-e7d9-4c4b-a6d4-93f4fe4d82ee"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1999-10-05 14:00:44 EST",
+        "name": "Sin-Eater",
+        "size": 85711212,
+        "uuid": "800bb07e-ca47-4513-9ba5-ab2086d2a6d0"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1988-03-02 05:01:02 EST",
+        "name": "Elektra Natchios",
+        "size": 38591117,
+        "uuid": "4d9964da-dede-4304-91de-6ec40ec165c1"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1981-07-24 03:58:57 EST",
+        "name": "Abdul Alhazred",
+        "size": 98437926,
+        "uuid": "7eae03b7-14f9-40bc-ac9e-54d6843fe695"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1991-08-15 10:49:24 EST",
+        "name": "Jarella",
+        "size": 17482780,
+        "uuid": "bfb27430-2769-4b0c-bfc8-2c1087950018"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1998-01-24 13:22:22 EST",
+        "name": "Omega Red",
+        "size": 85549351,
+        "uuid": "d47f410a-514f-4dba-bf38-2dbd4ce7b51a"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "2013-06-15 03:10:47 EST",
+        "name": "Sleepwalker",
+        "size": 17834530,
+        "uuid": "d683d426-d076-46be-acdf-fff40c1becf0"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "2006-09-17 05:16:20 EST",
+        "name": "Gambit",
+        "size": 84643538,
+        "uuid": "1dd008cd-29d1-4723-a81a-ad7e2dd6b973"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "2005-09-02 20:37:44 EST",
+        "name": "Harold H. Harold",
+        "size": 76610056,
+        "uuid": "058bc690-2255-471b-9c3e-e5f930a8673a"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "2005-09-02 03:45:04 EST",
+        "name": "Hecate",
+        "size": 31444302,
+        "uuid": "8b9cc108-c259-49f6-960f-1b291ec95ecf"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "2004-12-02 21:33:25 EST",
+        "name": "Adam II",
+        "size": 99525623,
+        "uuid": "80cc6164-53e1-4393-b12a-1bdff2323abf"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1977-08-02 21:43:23 EST",
+        "name": "Living Planet",
+        "size": 84517480,
+        "uuid": "bab1f45c-0a5e-42f0-b7da-29da10d1260a"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1974-08-04 02:43:07 EST",
+        "name": "Watcher",
+        "size": 43020492,
+        "uuid": "5e2d9a27-bb6b-40e7-9a67-0a8f1650e256"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1975-04-01 14:33:11 EST",
+        "name": "Theresa Cassidy",
+        "size": 33913044,
+        "uuid": "c7d3c384-8b15-4afa-b99f-f72b9cac3a93"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "2012-08-26 14:07:49 EST",
+        "name": "Max",
+        "size": 35959319,
+        "uuid": "49f0e1b4-4f8c-481e-baa8-3b8d86359062"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2002-01-24 02:01:47 EST",
+        "name": "Alexander Summers",
+        "size": 1831726,
+        "uuid": "052ce4fb-d380-4494-bf48-c1c44fee31df"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1995-04-05 20:25:35 EST",
+        "name": "Random",
+        "size": 47066606,
+        "uuid": "82a0fc1f-46bc-4fbe-ba03-62ecc02c467d"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1982-08-05 23:59:54 EST",
+        "name": "Hecate",
+        "size": 10371199,
+        "uuid": "67f4561f-959f-4f29-ae2e-434ff432c59e"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1982-02-20 11:26:36 EST",
+        "name": "Tempus",
+        "size": 90202353,
+        "uuid": "65c0c2b2-8f04-4dfe-91ec-f2a06f1b4dfb"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2009-01-19 13:26:00 EST",
+        "name": "Dominic Fortune",
+        "size": 3546456,
+        "uuid": "6b567073-ed99-4c74-821c-85203d9f7bcf"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2006-02-15 11:48:37 EST",
+        "name": "Warlock",
+        "size": 85544504,
+        "uuid": "989e0180-ab20-4c51-af81-66e0518047cc"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2001-10-27 05:01:22 EST",
+        "name": "Aralune",
+        "size": 34718535,
+        "uuid": "f8c744c0-88f6-4a8d-8e61-d31105d31207"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1999-12-23 02:02:58 EST",
+        "name": "Volcana",
+        "size": 11792317,
+        "uuid": "2f9f12cb-eb04-4857-869b-d2f2eea1e6e4"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "2006-08-15 20:10:33 EST",
+        "name": "Lucifer",
+        "size": 50541767,
+        "uuid": "fa88788f-bfe2-42df-8627-996b313504ac"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1979-02-10 11:59:40 EST",
+        "name": "Carmilla Black",
+        "size": 84278597,
+        "uuid": "b010485d-c384-4839-aa03-d0ef9aa488f7"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1972-11-22 11:36:11 EST",
+        "name": "Coach",
+        "size": 23261441,
+        "uuid": "e093b691-5ca3-41d1-a603-6af68ca495e3"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1988-03-05 15:29:36 EST",
+        "name": "Valkyrie",
+        "size": 26746177,
+        "uuid": "de0b9fad-8fd6-41ad-b860-993fe290e97e"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1990-02-03 07:49:48 EST",
+        "name": "Snowbird",
+        "size": 43526200,
+        "uuid": "fa6df308-4325-47a3-a8ff-a6a9e211fe4b"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1979-01-25 16:50:06 EST",
+        "name": "Lady Mastermind",
+        "size": 58296598,
+        "uuid": "be7415bf-c7e7-4756-a9cb-d6a8424edf14"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1978-01-10 18:17:12 EST",
+        "name": "Nox",
+        "size": 23683022,
+        "uuid": "596cf21c-7878-4043-8aa2-4b8ed17504e5"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "2007-10-23 01:12:03 EST",
+        "name": "Herbert Edgar Wyndham",
+        "size": 99285913,
+        "uuid": "ffe08b26-4d85-4d37-be97-226155ec190d"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1995-04-10 00:43:00 EST",
+        "name": "Frank Drake",
+        "size": 55785079,
+        "uuid": "de124fdf-04db-41d9-ab83-0dd01864361d"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1984-09-04 04:58:42 EST",
+        "name": "Achelous",
+        "size": 81361961,
+        "uuid": "692379d7-e7be-4378-9e8a-f92b7d12df4d"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1983-10-26 16:04:44 EST",
+        "name": "Mindworm",
+        "size": 47490006,
+        "uuid": "b2b827a9-1b6c-4a29-ae1d-5ae4667b82ef"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1998-03-27 12:46:26 EST",
+        "name": "Warstrike",
+        "size": 43744782,
+        "uuid": "9f6d62a6-2a91-4c58-99ab-92a045894963"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "2004-12-08 06:00:30 EST",
+        "name": "Alistair Smythe",
+        "size": 68644985,
+        "uuid": "6322ce8d-2d8b-4199-a9bf-9657267a681b"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "2007-11-16 15:42:51 EST",
+        "name": "Shaper of Worlds",
+        "size": 57720879,
+        "uuid": "d0c187d2-c5c0-4c32-a6e4-9611a956b681"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "2013-06-27 02:38:52 EST",
+        "name": "Morgan Le Fay",
+        "size": 25165795,
+        "uuid": "c381f644-05bd-4e0a-9d7b-ee5599baf635"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "2010-09-09 05:10:27 EST",
+        "name": "Demogorge the God-Eater",
+        "size": 6720446,
+        "uuid": "aa1b53ba-b303-4fae-b049-6c70d0b53dc8"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1993-02-24 14:53:06 EST",
+        "name": "Vengeance",
+        "size": 77641777,
+        "uuid": "bb27c516-2f79-43c2-ab48-87c198edb6a7"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2013-07-26 06:52:06 EST",
+        "name": "Patriot",
+        "size": 45413464,
+        "uuid": "bc0c268e-cffb-40fa-b153-72b014bbe4f5"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1998-04-26 00:43:55 EST",
+        "name": "Bob",
+        "size": 16105749,
+        "uuid": "3b16c3f1-2656-4b62-85c6-77a714eebb0c"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1973-09-28 14:57:08 EST",
+        "name": "Valkin",
+        "size": 8466952,
+        "uuid": "d27674ac-e47c-4641-b904-85aa58fc4b0e"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1991-01-18 00:42:22 EST",
+        "name": "Indech",
+        "size": 34201361,
+        "uuid": "867e2496-a2cf-472d-a908-8db6f02872f8"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "2003-10-21 05:22:48 EST",
+        "name": "Alfie O'Meggan",
+        "size": 78625368,
+        "uuid": "e037f4c9-cf01-4566-9bd8-22bddf570b17"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "2011-12-21 22:23:13 EST",
+        "name": "Lady Octopus",
+        "size": 36185178,
+        "uuid": "3b221798-2014-4b0e-a6e7-ade5263108ba"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1977-07-19 11:51:00 EST",
+        "name": "Philip Fetter",
+        "size": 11484397,
+        "uuid": "87d22bbe-8393-4577-a4e5-df59f28fbdbe"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "2003-08-08 10:47:22 EST",
+        "name": "Hijacker",
+        "size": 96904684,
+        "uuid": "a9f845aa-0835-49d2-968c-1bcc5acb6237"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1982-10-20 21:17:05 EST",
+        "name": "Elias Bogan",
+        "size": 43861961,
+        "uuid": "9217d7f8-8d59-4dcf-9e72-720c7525a0de"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "2001-10-26 19:38:25 EST",
+        "name": "Kiden Nixon",
+        "size": 47658678,
+        "uuid": "47404f59-aaea-45f9-83d3-bc6434ca83e6"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2002-02-01 11:30:58 EST",
+        "name": "Termagaira",
+        "size": 49674210,
+        "uuid": "a0b342ac-b54f-4aae-9c78-2b9ca7d62d73"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1978-12-08 13:02:29 EST",
+        "name": "U-Man",
+        "size": 15090952,
+        "uuid": "273876be-413a-4c86-9c82-1d8e95f2665b"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1990-07-11 07:57:39 EST",
+        "name": "Tower",
+        "size": 4167894,
+        "uuid": "2a70c660-660d-4f5b-ae37-018d21a0463f"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1995-05-30 22:42:04 EST",
+        "name": "Monsoon",
+        "size": 20913616,
+        "uuid": "ae4be652-63a4-4284-8fb3-3014b19b5fe4"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1975-01-26 22:13:45 EST",
+        "name": "William Baker",
+        "size": 31795765,
+        "uuid": "35015791-d760-4ede-9597-f7800fd3e22a"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2002-03-12 06:27:36 EST",
+        "name": "Douglock",
+        "size": 79342424,
+        "uuid": "b9cd4820-f95b-43ce-8d15-0e6c974bdde5"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1970-05-16 07:37:06 EST",
+        "name": "Red Skull",
+        "size": 48351607,
+        "uuid": "7de89bf8-424c-40e5-9eb0-21c2e57493f1"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1972-03-24 15:56:10 EST",
+        "name": "Tom Corsi",
+        "size": 50371712,
+        "uuid": "9969a50a-9001-43bf-aea3-cf7e5c96fe40"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1997-08-03 18:04:01 EST",
+        "name": "Belathauzer",
+        "size": 95506568,
+        "uuid": "60051257-bcc2-40d9-ae30-ff1fc5af632b"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1990-11-05 22:13:12 EST",
+        "name": "Doppelganger",
+        "size": 11171884,
+        "uuid": "ff936fd4-bfbd-4166-818c-b8d93086be41"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "2000-07-08 06:41:40 EST",
+        "name": "Cloud 9",
+        "size": 83672405,
+        "uuid": "89dbf8ca-c7f0-423f-aff1-e54fcc5361c1"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "2012-10-07 04:23:57 EST",
+        "name": "Shamrock",
+        "size": 23156025,
+        "uuid": "3a376a7a-896d-4e71-ba7f-839958964f6b"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1970-10-12 14:47:33 EST",
+        "name": "James Sanders",
+        "size": 52919394,
+        "uuid": "86594b9a-f80d-4a31-b79c-d2f1d0a42c71"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2004-06-18 02:06:40 EST",
+        "name": "Hecate",
+        "size": 92778352,
+        "uuid": "05af3762-633b-4c02-b500-7d319e04a871"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1993-03-18 04:42:46 EST",
+        "name": "Argo",
+        "size": 60717751,
+        "uuid": "33cb28af-33e5-4694-badb-33840e6800c8"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1991-11-17 03:57:39 EST",
+        "name": "Crime Master",
+        "size": 82553633,
+        "uuid": "7422ec0a-4fc7-40ec-8782-591afc80f13a"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "2007-08-18 16:14:47 EST",
+        "name": "Alexander Goodwin Pierce",
+        "size": 89801887,
+        "uuid": "de7afe5c-148e-4bfb-b648-3faa99110a58"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2013-06-09 18:54:31 EST",
+        "name": "Tattletale",
+        "size": 43144394,
+        "uuid": "0bf2c704-6934-4b0c-8931-0361f717de02"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1983-02-10 19:40:22 EST",
+        "name": "Stygyro",
+        "size": 58098009,
+        "uuid": "5baeb913-9720-405f-aed0-947a022a2637"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1978-12-03 20:54:33 EST",
+        "name": "Mindworm",
+        "size": 23410032,
+        "uuid": "32bd00f3-8493-4cb2-a20f-e8a00aac0fc7"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1986-01-04 14:00:43 EST",
+        "name": "Cable",
+        "size": 26269505,
+        "uuid": "8e4b338f-c5d4-49b6-a6cc-87c692d87a97"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2009-07-31 21:32:30 EST",
+        "name": "Neuronne",
+        "size": 6192995,
+        "uuid": "f0b687c6-1412-4c24-9a51-7c992d1b4e57"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1970-04-19 06:03:28 EST",
+        "name": "Raza",
+        "size": 23687036,
+        "uuid": "f07c5cb7-35e5-470b-9724-1c7debc8e838"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "2000-08-14 02:28:05 EST",
+        "name": "Puff Adder",
+        "size": 6313746,
+        "uuid": "67305d18-f630-4efd-9df5-c13f6df58750"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "2001-05-03 18:27:09 EST",
+        "name": "Hulk",
+        "size": 93874731,
+        "uuid": "568f4b43-d575-486a-ae8b-bccbf1fd2323"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1989-05-18 11:53:21 EST",
+        "name": "Specialist",
+        "size": 10652257,
+        "uuid": "1ea2a1fa-fb6f-4d6e-a144-984b382ab606"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "2002-09-30 14:15:27 EST",
+        "name": "Doctor Arthur Nagan",
+        "size": 28045236,
+        "uuid": "140d574f-adb7-4de7-80b2-36304ec6472b"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1986-09-23 01:48:13 EST",
+        "name": "El Aguila",
+        "size": 86903820,
+        "uuid": "ce0484eb-8a8b-491c-98a4-17a3993e90dc"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "2004-03-01 20:03:27 EST",
+        "name": "Deathstroke",
+        "size": 64222219,
+        "uuid": "7eef7ade-5533-4bb2-bb1a-643c60d64c8d"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "2007-11-12 15:04:40 EST",
+        "name": "Ben Reilly",
+        "size": 34369295,
+        "uuid": "28a68252-13b4-40b3-a209-5395af767128"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1978-03-26 13:19:57 EST",
+        "name": "Photon",
+        "size": 87558752,
+        "uuid": "c30b8635-df0e-445a-bc95-d02156f2dec0"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "2001-06-20 22:33:20 EST",
+        "name": "Rahne Sinclair",
+        "size": 33907330,
+        "uuid": "e6f38077-f599-4ec2-a207-2b2a289ee984"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1989-05-02 05:30:56 EST",
+        "name": "Crime-Buster",
+        "size": 86439323,
+        "uuid": "400087f2-b5b9-486c-9885-b0208eb56bf4"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2004-03-14 03:27:14 EST",
+        "name": "Viper",
+        "size": 89873381,
+        "uuid": "21599fdd-ef13-4368-9a1c-8094e1569459"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1976-04-25 16:57:45 EST",
+        "name": "Martinex",
+        "size": 24644254,
+        "uuid": "5581e170-5c3e-45bd-822a-c3568ad6edf0"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1976-01-11 05:23:20 EST",
+        "name": "Black Crow",
+        "size": 82100983,
+        "uuid": "73b92e03-ff66-4bd1-a8e7-14e2e0c254ba"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1987-04-22 14:13:24 EST",
+        "name": "Nuke - Frank Simpson",
+        "size": 80404307,
+        "uuid": "143b6e72-5efc-4477-bc43-eef8dff18a82"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1996-07-21 15:30:29 EST",
+        "name": "Sugar Man",
+        "size": 29354817,
+        "uuid": "0ad6c72d-010b-4e03-ab3a-f474dc15e857"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "2012-04-08 09:08:51 EST",
+        "name": "Black Queen",
+        "size": 24795778,
+        "uuid": "d3b0d964-7644-4249-9420-7e0ee12c23b9"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1994-03-10 15:21:15 EST",
+        "name": "Tomazooma",
+        "size": 45814685,
+        "uuid": "ea794637-ad58-4c07-a2b5-26c9ff1e8f20"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1992-01-22 08:42:04 EST",
+        "name": "Master Menace",
+        "size": 23631892,
+        "uuid": "837f2b31-ea57-4648-9fa9-c54d3dc5bd55"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "2011-12-31 05:50:04 EST",
+        "name": "Jean DeWolff",
+        "size": 43767792,
+        "uuid": "4468ee0b-04f6-462a-9f71-9a5d064f1c9f"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1986-07-30 20:56:46 EST",
+        "name": "Gaea",
+        "size": 46175692,
+        "uuid": "456d8e2f-6f54-426c-aeac-c059ccd64be1"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1972-12-12 00:29:56 EST",
+        "name": "Ningal",
+        "size": 24347674,
+        "uuid": "0e8ff3fe-d439-40a5-bdef-eb68e3be500a"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "2008-10-02 06:09:01 EST",
+        "name": "Coral",
+        "size": 31217635,
+        "uuid": "c6710af7-053e-45e2-a7eb-5da7cfbe33fd"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1991-04-20 22:47:32 EST",
+        "name": "Surtur",
+        "size": 99191967,
+        "uuid": "bbf35293-d642-4851-9d91-4b07e94feefe"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1987-10-06 06:01:43 EST",
+        "name": "Humus Sapien",
+        "size": 33046650,
+        "uuid": "44a991d0-14af-4fed-8cf7-6d54036ddba2"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "2009-02-06 18:25:13 EST",
+        "name": "Allatou",
+        "size": 74911285,
+        "uuid": "f22c32c8-8756-4d05-86b5-177749672f95"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2001-06-09 17:35:49 EST",
+        "name": "Scarlet Spider",
+        "size": 3940628,
+        "uuid": "0bce73c5-de30-4366-b8e3-9c6d8a20f928"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "2010-12-28 14:12:13 EST",
+        "name": "Silver",
+        "size": 68655320,
+        "uuid": "ee3f11b9-ec3f-4a88-850e-2a5c7e5e26f3"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1992-10-22 22:50:27 EST",
+        "name": "Cybelle",
+        "size": 29684059,
+        "uuid": "81062399-ee4e-46d4-808b-9a619937ba2d"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1980-11-21 14:40:44 EST",
+        "name": "Sunstreak",
+        "size": 3527189,
+        "uuid": "691b5369-c89e-4908-a844-c7a3c1d135f7"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1976-02-25 15:03:08 EST",
+        "name": "Mark Scarlotti",
+        "size": 77750335,
+        "uuid": "e6a4a641-fcfa-4fa0-80ee-a5c1aea24461"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1990-02-15 14:50:20 EST",
+        "name": "Occulus",
+        "size": 53426741,
+        "uuid": "c6f0f2f9-bc06-4445-b308-1e1ee820e4c5"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "2003-01-20 08:44:28 EST",
+        "name": "Ultimo",
+        "size": 80679404,
+        "uuid": "8932c1a1-9872-4a47-bd0d-0794c1adc237"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1987-02-22 18:35:55 EST",
+        "name": "Obituary",
+        "size": 14468907,
+        "uuid": "8c8b5663-5abe-4308-a312-5028b0233ebe"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "2005-09-18 15:08:20 EST",
+        "name": "Daniel Rand",
+        "size": 42029196,
+        "uuid": "65f32e9b-2003-4447-904f-6b30ca1d13c5"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2004-06-04 23:44:39 EST",
+        "name": "Glob",
+        "size": 44969430,
+        "uuid": "0ecf0fb4-5072-420c-bb12-847fe5601dbf"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1974-10-08 09:03:59 EST",
+        "name": "Andromeda",
+        "size": 81825669,
+        "uuid": "9131d284-9330-4fe3-9869-cbfef49662cc"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1970-11-21 12:23:20 EST",
+        "name": "Mark Scarlotti",
+        "size": 23050356,
+        "uuid": "f23a3a59-7150-4e02-9643-540f2af1cb3d"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1988-01-23 00:07:48 EST",
+        "name": "Futurist",
+        "size": 95991596,
+        "uuid": "8f07c030-da29-4027-8fb0-ff8d180040a2"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1993-09-01 02:19:10 EST",
+        "name": "John Ryker",
+        "size": 22433480,
+        "uuid": "2c5473b2-8faa-4db3-b155-0248919f606e"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "2000-06-03 21:20:32 EST",
+        "name": "Ajax",
+        "size": 4673592,
+        "uuid": "479b1e32-8d13-4908-b0d4-d1d01ff7913f"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1985-06-23 04:41:07 EST",
+        "name": "Lockdown",
+        "size": 1261976,
+        "uuid": "49330179-b81a-4e37-a68d-83ddd3f59c33"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2010-05-23 09:03:17 EST",
+        "name": "Taj Nital",
+        "size": 49575488,
+        "uuid": "39602cfa-6128-4095-9e8e-c140f547691c"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "2013-02-22 20:38:12 EST",
+        "name": "Termagaira",
+        "size": 82182523,
+        "uuid": "825ad446-c5a2-4b90-bf17-5356f4388372"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "2002-10-21 21:55:58 EST",
+        "name": "Prometheus",
+        "size": 40352562,
+        "uuid": "e65edb50-fc45-49cc-9a02-a74ef2bac968"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1981-04-13 18:11:12 EST",
+        "name": "Erik Josten",
+        "size": 26785975,
+        "uuid": "4cd226ab-c2da-4cb7-a363-865a998c2f95"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "2003-02-16 04:26:00 EST",
+        "name": "Molten Man",
+        "size": 2497811,
+        "uuid": "cd4ce378-62b3-494b-a5c9-13a6178db62e"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1984-10-06 04:19:43 EST",
+        "name": "Vagabond",
+        "size": 73578493,
+        "uuid": "4a4a08f4-b358-4050-8e22-8dbd88109270"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1999-12-19 04:40:55 EST",
+        "name": "Mogul of the Mystic Mountain",
+        "size": 85566229,
+        "uuid": "0a9b3c84-8df1-4666-b436-56cfd2f76868"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "2001-01-22 17:04:03 EST",
+        "name": "Feral",
+        "size": 85977832,
+        "uuid": "e19a5f2b-a53f-49d7-adf7-6a71ae9d0780"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1998-03-11 15:46:35 EST",
+        "name": "Geiger",
+        "size": 31870471,
+        "uuid": "202ddfff-1413-4226-a8d2-a9c9e591698e"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2006-07-12 00:10:35 EST",
+        "name": "Y'Garon",
+        "size": 19093081,
+        "uuid": "28d9a68c-15f1-41b3-8c99-eaa271b4eb58"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1989-01-06 00:20:25 EST",
+        "name": "Boobytrap",
+        "size": 4386941,
+        "uuid": "c00c1cbe-38f7-40c4-aac3-d6ae3ce8c5de"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1986-08-04 16:16:08 EST",
+        "name": "Karima Shapandar",
+        "size": 40403219,
+        "uuid": "c1efedfb-0161-4416-9938-e9414a12065c"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "2008-10-30 11:54:00 EST",
+        "name": "Archangel",
+        "size": 69259770,
+        "uuid": "b1a745e7-827b-4844-9ada-16a82af07e09"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1987-12-10 04:36:22 EST",
+        "name": "S'byll",
+        "size": 52727358,
+        "uuid": "58b203ac-ef77-4f9f-87b0-66767514f533"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1991-04-17 11:00:52 EST",
+        "name": "Captain UK",
+        "size": 39408653,
+        "uuid": "cf0e9aac-8132-4175-9c5f-05acc272e15f"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1985-07-02 00:39:55 EST",
+        "name": "Valkin",
+        "size": 14834444,
+        "uuid": "10891839-2f31-4193-b09c-05932f377ac0"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1982-12-07 03:39:38 EST",
+        "name": "Freak",
+        "size": 56496653,
+        "uuid": "a6d74867-94ff-417d-abc2-657ce3b061aa"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1996-05-24 10:14:00 EST",
+        "name": "Nightwatch",
+        "size": 81110834,
+        "uuid": "573b45d6-a0f3-41d7-b77a-68298ec4909e"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1975-12-30 22:37:19 EST",
+        "name": "Tinkerer",
+        "size": 68616624,
+        "uuid": "85c07857-7b41-4e08-a85a-7e022d35f9df"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1987-02-13 04:59:50 EST",
+        "name": "Crimebuster",
+        "size": 27895807,
+        "uuid": "7810609e-7ce9-4542-8d85-aa28f64ee88f"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "2001-05-19 05:27:06 EST",
+        "name": "Whirlwind",
+        "size": 81488061,
+        "uuid": "027d9d7d-d92b-4d4c-9955-a09467fb2007"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1974-03-06 04:55:10 EST",
+        "name": "Jack Frost",
+        "size": 50512259,
+        "uuid": "10de505e-a7a6-436c-bb74-bc2979279107"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1983-09-07 12:19:22 EST",
+        "name": "Medusa",
+        "size": 38896114,
+        "uuid": "70ec0557-783a-40a3-aaf2-cf05e116214d"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "2002-05-20 11:05:13 EST",
+        "name": "Skin",
+        "size": 37751120,
+        "uuid": "39800633-d75b-48f9-b130-67099ccbb416"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1978-03-17 20:10:28 EST",
+        "name": "Vision",
+        "size": 43462078,
+        "uuid": "f9ced08c-58b3-46b4-aff2-a7d6dc42e00d"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1996-07-22 10:36:02 EST",
+        "name": "Hardcase",
+        "size": 21440466,
+        "uuid": "b9c976ac-0a0a-4cd4-adcd-a15ab17dc970"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "2001-09-17 07:04:39 EST",
+        "name": "Mother Superior",
+        "size": 38909332,
+        "uuid": "e341c891-1fde-4b5d-80cf-2c018183253a"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "2006-12-28 14:58:22 EST",
+        "name": "Doorman",
+        "size": 78869009,
+        "uuid": "16c95522-95e2-4ad0-8b36-e43f5f680ed9"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1975-04-07 20:47:18 EST",
+        "name": "Timeslip",
+        "size": 37757118,
+        "uuid": "7902ecaf-3de1-4f11-aba1-0173803843de"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1972-12-01 19:18:08 EST",
+        "name": "Diamondback",
+        "size": 83960093,
+        "uuid": "0ed60892-2ac4-4dcb-b4c8-b8ed219c8bae"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "2001-10-23 21:01:35 EST",
+        "name": "Nuke - Frank Simpson",
+        "size": 34609845,
+        "uuid": "7155a7ff-fba8-4ef5-9c3c-cedd79ddf18e"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1992-03-05 03:38:13 EST",
+        "name": "Jared Corbo",
+        "size": 61169195,
+        "uuid": "9db842dd-10f5-40ae-820a-67ae87b5c9bb"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "1981-09-20 04:38:06 EST",
+        "name": "Abominable Snowman",
+        "size": 26492251,
+        "uuid": "650de7eb-7250-46a1-87d0-044d2470f92e"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1987-08-30 11:58:18 EST",
+        "name": "Tartarus",
+        "size": 76546069,
+        "uuid": "4f12e725-0b63-4ee3-bd82-d121ad2f9e9e"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2002-04-27 11:06:35 EST",
+        "name": "Ahmet Abdol",
+        "size": 86155372,
+        "uuid": "569fad16-4c47-4433-899f-ea278eb8fdaa"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2000-10-25 18:56:06 EST",
+        "name": "Ben Reilly",
+        "size": 90019583,
+        "uuid": "2ade0d84-8799-487d-93de-a264f150dc24"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1989-05-06 17:50:42 EST",
+        "name": "Nova",
+        "size": 61505821,
+        "uuid": "9dbaf124-aa4b-43ce-9332-f7a29e354d5c"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "2005-05-11 06:16:53 EST",
+        "name": "Adri Nital",
+        "size": 44622759,
+        "uuid": "e7b7c03b-3c12-4ac6-aee4-93efe1c7c788"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "2012-11-11 04:24:00 EST",
+        "name": "Aquarius",
+        "size": 3970562,
+        "uuid": "835ec20f-7690-4cda-882d-1239c57c0932"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1972-10-29 19:36:12 EST",
+        "name": "Auntie Freeze",
+        "size": 88596431,
+        "uuid": "dbe65d35-e514-4e3c-9ec5-fc3c782b395f"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1980-01-03 19:53:49 EST",
+        "name": "Dragonwing",
+        "size": 28142913,
+        "uuid": "b70560c2-8d28-4a73-a097-298b147fdd4b"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "2009-05-11 15:04:49 EST",
+        "name": "Black Talon",
+        "size": 76922683,
+        "uuid": "31a758d8-7660-4b8f-b389-4a39b201d1fb"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "2000-02-18 20:32:52 EST",
+        "name": "Wolf",
+        "size": 97899897,
+        "uuid": "3873417a-52d3-4c73-aae3-b84d4c775ffe"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1979-04-17 15:41:44 EST",
+        "name": "Nox",
+        "size": 12384747,
+        "uuid": "bf67ec49-0a09-41d7-9530-59ddedae6004"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1971-05-11 21:15:56 EST",
+        "name": "Darkdevil",
+        "size": 99219982,
+        "uuid": "eaacb870-86f5-48da-aa3d-4a44289607b6"
+    },
+    {
+        "class": "Supporting Technology",
+        "classid": "4",
+        "createdat": "2011-12-15 10:55:04 EST",
+        "name": "Edwin Jarvis",
+        "size": 90247012,
+        "uuid": "e7676732-a495-408f-8471-2e8bb04b9d42"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1986-03-26 20:14:33 EST",
+        "name": "Ruckus",
+        "size": 47438013,
+        "uuid": "a62eafe3-a0a4-4161-b35f-3325eb7ae05d"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1970-10-09 09:09:34 EST",
+        "name": "Marrina",
+        "size": 56358038,
+        "uuid": "7eddffc6-1101-4e03-9b41-a063346437d1"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1987-05-16 06:26:31 EST",
+        "name": "Ziggy Pig",
+        "size": 60868802,
+        "uuid": "52d6f9b8-d817-4cf1-b985-f1d32eb82104"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "2012-01-01 05:00:43 EST",
+        "name": "Baroness Blood",
+        "size": 23664754,
+        "uuid": "febf7b97-ec5d-4344-9bbc-f9797c6709a9"
+    },
+    {
+        "class": "Artwork Component",
+        "classid": "1",
+        "createdat": "1991-03-30 11:06:11 EST",
+        "name": "Preview",
+        "size": 93293295,
+        "uuid": "cc753b12-12b5-4ff4-8828-d66aef2bfb89"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1978-12-13 11:27:06 EST",
+        "name": "Living Mummy",
+        "size": 58459954,
+        "uuid": "f48ea9d2-2e5d-4524-a6be-c92a2d35bc86"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1971-07-16 04:53:08 EST",
+        "name": "Vindicator",
+        "size": 11425986,
+        "uuid": "7679c07f-7155-473d-aab2-6b4920ca1424"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1975-08-02 17:17:31 EST",
+        "name": "Shanga",
+        "size": 10475647,
+        "uuid": "3997d4d5-6b4d-4b20-be74-77ff33deaae0"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "2001-10-02 11:19:20 EST",
+        "name": "Balder",
+        "size": 76886860,
+        "uuid": "687d9ede-53d5-4d66-bf8a-a126f45ab0bb"
+    },
+    {
+        "class": "Artwork Material",
+        "classid": "2",
+        "createdat": "1986-10-12 16:09:44 EST",
+        "name": "Ghoul",
+        "size": 8623153,
+        "uuid": "c8e27752-4773-4fea-8155-ecf9a669c65a"
+    },
+    {
+        "class": "Unclassified",
+        "classid": "5",
+        "createdat": "1987-06-24 18:46:28 EST",
+        "name": "T-Ray",
+        "size": 40971950,
+        "uuid": "34186b50-50d7-4d95-a0e8-4a13d45e9a81"
+    },
+    {
+        "class": "Supporting Documentation",
+        "classid": "3",
+        "createdat": "1981-05-05 19:17:40 EST",
+        "name": "Brigade",
+        "size": 43274726,
+        "uuid": "ef0cb481-5294-400a-bc91-7e593ae51644"
+    }
+]
