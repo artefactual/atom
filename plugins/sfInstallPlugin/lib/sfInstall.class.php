@@ -347,7 +347,7 @@ class sfInstall
       return $errors;
     }
 
-    if (true !== $response->ok || 200 !== $response->status)
+    if (200 !== $response->status)
     {
       $errors[] = "Elasticsearch error.";
     }
