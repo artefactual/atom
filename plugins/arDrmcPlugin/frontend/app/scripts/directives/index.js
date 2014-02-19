@@ -7,6 +7,7 @@
   module.exports = angular.module('momaApp.directives', [])
     .directive('arContextBrowser', require('./ContextBrowserDirective'))
     .directive('arMomaToggle', require('./MomaToggleDirective'))
-    .directive('arPager', require('./PagerDirective'));
+    .directive('arPager', require('./PagerDirective'))
+    .directive('arSortHeader', require('./SortHeader'));
 
 })();

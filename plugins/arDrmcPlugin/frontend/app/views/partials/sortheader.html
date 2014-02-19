@@ -1,0 +1,11 @@
+<div>
+  <span ng-show="criteria.sort == field">
+    {{ label }}
+    <a ng-show="sortIsAsc()" ng-click="toggleSortDir()">A</a>
+    <a ng-hide="sortIsAsc()" ng-click="toggleSortDir()">B</a>
+  </span>
+  <span ng-show="criteria.sort != field">
+    {{ label }}
+    <a ng-click="toggleSortDir()"></a>
+  </span>
+</div>

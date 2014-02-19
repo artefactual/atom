@@ -3,11 +3,11 @@
     <table dir="ltr" class="table table-bordered">
       <thead>
         <tr>
-          <th><a ng-click="predicate = 'name'; reverse=!reverse">Name</a></th>
-          <th><a ng-click="predicate = 'size'; reverse=!reverse">Size</a></th>
-          <th><a ng-click="predicate = 'added'; reverse=!reverse">Added</a></th>
-          <th><a ng-click="predicate = 'class'; reverse=!reverse">Class</a></th>
-          <th><a ng-click="predicate = 'partof'; reverse=!reverse">Part of</a></th>
+          <th><ar-sort-header field="name" label="Name" criteria="criteria"></ar-sort-header></hr>
+          <th><ar-sort-header field="size" label="Size" criteria="criteria"></ar-sort-header></hr>
+          <th><ar-sort-header field="created_at" label="Added" criteria="criteria"></ar-sort-header></hr>
+          <th><ar-sort-header field="classification" label="Class" criteria="criteria"></ar-sort-header></hr>
+          <th><ar-sort-header field="partof" label="Part of" criteria="criteria"></ar-sort-header></hr>
         </tr>
       </thead>
       <tbody>
