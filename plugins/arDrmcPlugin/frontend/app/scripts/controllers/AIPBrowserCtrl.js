@@ -10,7 +10,7 @@ module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
 
   // Default page
   $scope.page = 1;
-  $scope.criteria.limit = 5;
+  $scope.criteria.limit = 10;
   $scope.criteria.sort = 'name';
 
   $scope.$watch('page', function () {
