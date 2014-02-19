@@ -12,17 +12,16 @@ module.exports = function (ATOM_CONFIG) {
     },
     link: function (scope) {
       scope.sortIsAsc = function () {
-        return (typeof scope.criteria.sort_direction == 'undefined') || scope.criteria.sort_direction != 'desc';
+        return (typeof scope.criteria.sort_direction === 'undefined') || scope.criteria.sort_direction !== 'desc';
       };
 
       scope.toggleSortDir = function () {
-        if (scope.criteria.sort != scope.field) {
+        if (scope.criteria.sort !== scope.field) {
           scope.criteria.sort_direction = 'asc';
         } else {
           scope.criteria.sort_direction = (scope.sortIsAsc()) ? 'desc' : 'asc';
         }
         scope.criteria.sort = scope.field;
-        //scope.criteria.sort_direction = (scope.sortIsAsc()) ? 'desc' : 'asc';
       };
     }
   };
