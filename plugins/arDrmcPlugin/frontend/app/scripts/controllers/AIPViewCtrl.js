@@ -15,7 +15,7 @@ module.exports = function ($scope, ATOM_CONFIG, $stateParams, AIPService) {
       $scope.aip = data.aips.results[0];
 
       // load parent AIP details, if necessary
-      if ($scope.aip.parent != '') {
+      if ($scope.aip.parent !== '') {
         AIPService.getAIPs({ uuid: $scope.aip.parent })
           .success(function (data) {
             $scope.aip.parent = data.aips.results[0];
@@ -23,7 +23,7 @@ module.exports = function ($scope, ATOM_CONFIG, $stateParams, AIPService) {
       }
 
       // load top-level parent AIP details, if necessary
-      if ($scope.aip.partof != '') {
+      if ($scope.aip.partof !== '') {
         AIPService.getAIPs({ uuid: $scope.aip.partof })
           .success(function (data) {
             $scope.aip.partof = data.aips.results[0];
