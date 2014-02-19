@@ -3,7 +3,13 @@ var path = require('path'),
     sortDir,
     criteria = {},
     filterFields = ['classification', 'class', 'uuid'],
-    aipResults = [];
+    aipResults = [],
+    synonyms = {
+      'classification': 'class',
+      'created_at': 'createdat',
+      'class_id': 'classid'
+    },
+    value;
 
 // apply optional skip
 if (query.skip) {
@@ -20,23 +26,20 @@ if (query.sort) {
   criteria.$sort = {};
   // sort by specified field and, optionally, by specified sort direction
   sortDir = (query.sort_direction) ? query.sort_direction : false;
+
+  // normalize column names
+  if (typeof synonyms[query.sort] != 'undefined') {
+    query.sort = synonyms[query.sort];
+  }
   criteria.$sort[query.sort] = (sortDir && sortDir == 'desc') ? -1 : 1;
 }
-
-// allowable filter fields
-var synonyms = {
-      'classification': 'class'
-    },
-    value;
 
 filterFields.forEach(function(field) {
   if (typeof query[field] != 'undefined') {
     if (typeof synonyms[field] != 'undefined') {
-    //if (field == 'classification') {
       value = query[field];
       field = synonyms[field];
       query[field] = value;
-    //}
     }
     criteria[field] = query[field];
   }
