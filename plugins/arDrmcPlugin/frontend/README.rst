@@ -89,6 +89,11 @@ Generate new sample data for 200 random AIPs (from /plugins/arDrmcPlugin/fronten
 
   $ ./mock_api/generate_sample_aips 200 | python -mjson.tool > mock_api/sample_data/aips.json
 
+Delete all mock API data (from /plugins/arDrmcPlugin/frontend):
+
+  $ cd mock_api
+  $ sudo rm -r -f data
+
 Configuring nginx to proxy the mock REST API server
 ```````````````````````````````````````````````````
 
