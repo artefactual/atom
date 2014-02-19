@@ -8,7 +8,7 @@ reflected in your API.
 // calculate AIP overview data
 exports.calculateOverviewData = function(aips) {
   var overview = {'total': {'size': 0, 'count': 0}},
-      classLowerCase;
+      classCaseAdjusted;
 
   // calculate overview data
   aips.forEach(function(aip) {
@@ -44,14 +44,17 @@ exports.ObjectPropertyTokenCounter.prototype = {
   },
 
   count: function(object) {
-    var self = this;
+    var self = this,
+        valuesRaw,
+        values;
 
     for (var key in object) {
       if (!this.countOnlyProperties || (this.countOnlyProperties.indexOf(key) != -1)) {
         // split object value into tokens by whitespace
-        values = object[key]
-          .toString()
-          .split(/[ ,]+/);
+        valuesRaw = object[key].toString();
+
+        // tokenizing is optional: otherwise treat as single value
+        values = (this.tokenize) ? valuesRaw.split(/[ ,]+/) : [valuesRaw];
 
         // add each value to token count
         values.forEach(function(value) {
