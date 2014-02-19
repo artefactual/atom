@@ -1,0 +1,18 @@
+<section ng-class="{ facet: true, open: !collapsed }">
+
+  <a href ng-click="toggle()">
+    <div class="facet-header">
+      <p>{{ label }}</p>
+    </div>
+  </a>
+
+  <div class="facet-body">
+    <ul>
+      <li ng-repeat="(key, value) in items" ng-class="{ active: value.active }">
+        <a href ng-click="select(key)">{{ value.label }}</a>
+        <span class="facet-count">{{ value.count }}</span>
+      </li>
+    </ul>
+  </div>
+
+</section>
