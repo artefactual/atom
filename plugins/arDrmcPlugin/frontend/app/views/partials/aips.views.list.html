@@ -7,7 +7,6 @@
           <th><a ng-click="predicate = 'size'; reverse=!reverse">Size</a></th>
           <th><a ng-click="predicate = 'added'; reverse=!reverse">Added</a></th>
           <th><a ng-click="predicate = 'class'; reverse=!reverse">Class</a></th>
-          <th><a ng-click="predicate = 'parent'; reverse=!reverse">Parent</a></th>
           <th><a ng-click="predicate = 'partof'; reverse=!reverse">Part of</a></th>
         </tr>
       </thead>
@@ -17,7 +16,6 @@
           <td>{{ aip.size | UnitFilter:1 }}</td>
           <td>{{ aip.created_at }}</td>
           <td><a role="button" ng-click="openReclassifyModal(aip)">{{ aip.class }}</a></td>
-          <td>{{ aip.parent.title }}</td>
           <td>{{ aip.partof.title }}</td>
         </tr>
       </tbody>

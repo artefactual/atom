@@ -14,11 +14,11 @@
 
   </div><!-- /span3 -->
 
-  <div class="span9 row-fluid">
+  <div id="aip-single" class="span9 row-fluid">
 
-    <div id="main-column" class="span12 aip-single">
+    <div id="main-column" class="span12">
 
-      <h3 class="aip-single-title">AIP&nbsp{{ id }}&nbsp-&nbsp{{ aip.name }}</h3>
+      <h3 class="single-title">AIP&nbsp{{ id }}&nbsp-&nbsp{{ aip.name }}</h3>
       <span>
         <a ui-sref="aips.browser">AIPs</a>
         &nbsp&raquo&nbsp{{ aip.name }}
@@ -63,7 +63,7 @@
             </ul>
           </div><!-- /contentTitle -->
 
-          <section class="aips-overview-body row-fluid">
+          <section class="overview-body row-fluid">
             <div class="field">
               <h3>AIP Name</h3>
               <div>{{ aip.name }}</div>

@@ -204,13 +204,45 @@ ul.menu-list-left li {
 // Gives wider space to fields to
 // accomodate longer titles
 
+// Facet sidebar for AIP
+
+.facet {
+
+  .facet-header {
+    a {
+    color: @white;
+    }
+
+    &:hover {
+      a {
+        color: darken(@white, 10%);
+      }
+    }
+  }
+
+  .facet-body {
+    // atom code sets this to :none with
+    // an animation on .facet-body:open
+    display: block;
+  }
+
+  // Content of .facet-header for desktops
+  p {
+    background-color: @grayLight;
+
+    &:hover {
+      background-color: darken(@grayLight, 20%);
+    }
+  }
+}
+
 #aips-overview {
 
   > div.menu-list ul li > a {
     padding-right: 6px;
   }
 
-  .aips-overview-body .field {
+  .overview-body .field {
 
     h3 {
       width: 40%;
@@ -226,31 +258,16 @@ ul.menu-list-left li {
   }
 }
 
-// AIPS view styles (general)
-
-#aips-views select.select-view-style {
+#collection-viewer select.select-view-style {
   margin-top: 6px;
   margin-left: 6px;
 }
 
 // (maybe future animations)
 
-.aips-views-container {
+.collection-viewer-container {
   position:relative;
   min-height: 200px;
-}
-
-// AIPS browse view
-
-.browse-view-list th a {
-  .fa-icon-set(@grayLight);
-
-    &:after {
-      font-size: 18px;
-      content: "\f106";
-      margin-left: 3px;
-      color: @grayDark;
-    }
 }
 
 .browse-view-browse {
@@ -296,23 +313,36 @@ ul.menu-list-left li {
   }
 }
 
-// AIPS list view
+// AIPS Browser - List view
 
-div.table {
-  padding: 0 6px;
-  width: 98%;
-  margin: 15px auto;
+.browse-view-list {
+
+  div.table {
+    padding: 0 6px;
+    width: 98%;
+    margin: 15px auto;
+  }
 
   table {
 
     a { cursor: pointer; }
 
     thead {
-      color: @grayDark;
+      color: @grayLighter;
       white-space: nowrap;
 
       th {
         background: @grayLighter;
+      }
+
+      th a {
+        .fa-icon-set(@grayLight);
+
+          &:after {
+            font-size: 18px;
+            content: "\f106";
+            margin-left: 3px;
+        }
       }
     }
 
@@ -325,11 +355,11 @@ div.table {
         &:nth-child(2n) {
           background: @grayLighter;
         }
+      }
 
-        td {
-          padding: 8px 3px;
-          line-height: 14px;
-        }
+      td {
+        padding: 8px 3px;
+        line-height: 14px;
       }
     }
   }
@@ -338,7 +368,7 @@ div.table {
 // AIPS single page
 
 // Aips single title
-.aip-single h3.aip-single-title:before {
+#aip-single h3.aip-single-title:before {
   background: @momaNodeDigitalObject center center;
   border-radius: 20px;
   width: 20px;
