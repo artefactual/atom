@@ -88,13 +88,13 @@
               <h3>AIP Class</h3>
               <div>{{ aip.class }}</div>
             </div>
-            <div class="field">
+            <div class="field" ng-show="aip.parent">
               <h3>Parent</h3>
-              <div>{{ aip.parent.title }}</div>
+              <div><a ui-sref="aips.view({ id: aip.parent.uuid })">{{ aip.parent.name }}</a></div>
             </div>
-            <div class="field">
+            <div class="field" ng=show="aip.partof">
               <h3>Part of</h3>
-              <div>{{ aip.partof.title }}</div>
+              <div><a ui-sref="aips.view({ id: aip.partof.uuid })">{{ aip.partof.name }}</a></div>
             </div>
             <div class="field">
               <h3>Description</h3>

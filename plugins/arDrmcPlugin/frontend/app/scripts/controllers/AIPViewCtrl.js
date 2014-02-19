@@ -13,7 +13,21 @@ module.exports = function ($scope, ATOM_CONFIG, $stateParams, AIPService) {
       $scope.data = data;
       console.log(data);
       $scope.aip = data.aips.results[0];
-      console.log($scope.aip);
-    });
 
+      // load parent AIP details, if necessary
+      if ($scope.aip.parent != '') {
+        AIPService.getAIPs({ uuid: $scope.aip.parent })
+          .success(function (data) {
+            $scope.aip.parent = data.aips.results[0];
+          });
+      }
+
+      // load top-level parent AIP details, if necessary
+      if ($scope.aip.partof != '') {
+        AIPService.getAIPs({ uuid: $scope.aip.partof })
+          .success(function (data) {
+            $scope.aip.partof = data.aips.results[0];
+          });
+      }
+    });
 };
