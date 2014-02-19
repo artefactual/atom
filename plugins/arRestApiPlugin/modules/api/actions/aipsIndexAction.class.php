@@ -126,6 +126,64 @@ class APIAIPSIndexAction extends QubitAPIAction
 
     $resultsES['aips']['facets'] = $facets;
 
+    // Overview
+    $overview = array();
+
+    $this->query = new \Elastica\Query();
+    $this->queryBool = new \Elastica\Query\Bool();
+    $this->queryBool->addMust(new \Elastica\Query\MatchAll());
+
+    $facet = new \Elastica\Facet\TermsStats('total_sizes');
+    $facet->setKeyField('class.id');
+    $facet->setValueField('sizeOnDisk');
+
+    $this->query->setQuery($this->queryBool);
+    $this->query->addFacet($facet);
+
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitAip')->search($this->query);
+
+    $totalSize = $totalCount = 0;
+    foreach ($resultSet->getFacets() as $name => $facet)
+    {
+      // Pass if the facet is empty
+      if (!isset($facet['terms']))
+      {
+        continue;
+      }
+
+      foreach ($facet['terms'] as $term)
+      {
+        $facetTerm = '';
+        switch ($name)
+        {
+          case 'total_sizes':
+            if (null !== $item = QubitTerm::getById($term['term']))
+            {
+              $facetTerm = $item->getName(array('cultureFallback' => true));
+            }
+
+            break;
+
+          default:
+            $facetTerm = $term['term'];
+        }
+
+        $overview[$facetTerm] = array(
+          'size' => $term['total'],
+          'count' => $term['count']);
+
+        $totalSize += $term['total'];
+        $totalCount += $term['count'];
+      }
+
+      // TODO? Update Elastica to use aggregations for the totals
+      $overview['total'] = array(
+        'size' => $totalSize,
+        'count' => $totalCount);
+    }
+
+    $resultsES['overview'] = $overview;
+
     // Test data
     $results = array(
 
