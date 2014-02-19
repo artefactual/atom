@@ -56,18 +56,39 @@ function generateAIP(name, classification) {
     'subdirectoryquantity': getRandomInt(0, 10),
     'objectquantity': getRandomInt(0, 10),
     'size': getRandomInt(100000, 100000000),
-    'createdat': dateAndTime
+    'createdat': dateAndTime,
+    'parent': '',
+    'partof': ''
   };
 }
 
 console.log('[');
 
+var parents = {},
+    previousAIP = false,
+    currentParent;
+
 for (var i = 0; i < amountToGenerate; i++) {
   var commandAfterJSON = (i < (amountToGenerate - 1)) ? ',' : '',
       name = getRandomFromArray(names),
-      classification = getRandomFromArray(classifications);
+      classification = getRandomFromArray(classifications),
+      aip = generateAIP(name, classification);
 
-  console.log('  ' + JSON.stringify(generateAIP(name, classification)) + commandAfterJSON);
+  // random change this AIP might be child of the previous AIP
+  if (previousAIP && getRandomInt(0, 1) == 1) { 
+    aip.parent = previousAIP.uuid; 
+    parents[aip.uuid] = aip.parent;
+
+    // determine top-level parent
+    currentParent = previousAIP.uuid;
+    while(typeof parents[currentParent] != 'undefined') {
+      currentParent = parents[currentParent];
+    }
+    aip.partof = currentParent;
+  }
+
+  console.log('  ' + JSON.stringify(aip) + commandAfterJSON);
+  previousAIP = aip;
 }
 
 console.log(']');

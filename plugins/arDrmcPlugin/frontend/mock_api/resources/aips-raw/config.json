@@ -72,6 +72,22 @@
 			"required": false,
 			"id": "subdirectoryquantity",
 			"order": 8
+		},
+		"parent": {
+			"name": "parent",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "parent",
+			"order": 9
+		},
+		"partof": {
+			"name": "partof",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "partof",
+			"order": 10
 		}
 	}
 }
