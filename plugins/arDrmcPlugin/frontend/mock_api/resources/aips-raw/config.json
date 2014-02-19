@@ -73,13 +73,21 @@
 			"id": "subdirectoryquantity",
 			"order": 8
 		},
+		"objects": {
+			"name": "objects",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "objects",
+			"order": 9
+		},
 		"parent": {
 			"name": "parent",
 			"type": "string",
 			"typeLabel": "string",
 			"required": false,
 			"id": "parent",
-			"order": 9
+			"order": 10
 		},
 		"partof": {
 			"name": "partof",
@@ -87,7 +95,7 @@
 			"typeLabel": "string",
 			"required": false,
 			"id": "partof",
-			"order": 10
+			"order": 11
 		}
 	}
 }

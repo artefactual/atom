@@ -26,6 +26,10 @@ if (process.argv.length != 3 || !(parseInt(amountToGenerate, 10) > 0)) {
 names = fs.readFileSync(__dirname + '/sample_data/names.txt').toString().split("\n");
 names.pop();
 
+// read list of common mime types
+commonMimeTypes = fs.readFileSync(__dirname + '/sample_data/commonmimetypes.txt').toString().split("\n");
+names.pop();
+
 // read list of classifications
 classifications = [];
 fs.readFileSync(__dirname + '/sample_data/classifications.txt').toString().split("\n").forEach(function (value, index, array) {
@@ -58,8 +62,33 @@ function generateAIP(name, classification) {
     'size': getRandomInt(100000, 100000000),
     'createdat': dateAndTime,
     'parent': '',
-    'partof': ''
+    'partof': '',
+    'objects': JSON.stringify(generateFileData())
   };
+}
+
+function generateFileData() {
+  var files = [],
+      mimetype,
+      filename;
+
+  for(var i = 0; i < getRandomInt(1, 5); i++) {
+    // sometimes the mime type will be unusual
+    if (getRandomInt(1, 4) == 1) {
+      mimetype = casual.mime_type;
+    } else {
+      mimetype = getRandomFromArray(commonMimeTypes);
+    }
+
+    filename = casual.word + '.' + casual.file_extension;
+    files.push({
+      'filepath': 'objects/' + filename,
+      'mimetype': mimetype,
+      'size': getRandomInt(10000, 10000000)
+    });
+  }
+
+  return files;
 }
 
 console.log('[');
