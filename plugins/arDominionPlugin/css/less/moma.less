@@ -63,6 +63,7 @@ h1.multiline.moma-title {
 }
 
 .moma-title-works:before { background-color: @momaNodeWork; }
+.moma-title-aips:before { background-color: @momaAips; }
 
 // Some layout mixins
 
@@ -186,7 +187,6 @@ ul.menu-list-left li {
   a.edit { margin-top: 2px; }
   a.delete { color: red; }
 
-  margin-top: 3px!important;
   border-bottom: none;
 
   li {
@@ -205,36 +205,6 @@ ul.menu-list-left li {
 // accomodate longer titles
 
 // Facet sidebar for AIP
-
-.facet {
-
-  .facet-header {
-    a {
-    color: @white;
-    }
-
-    &:hover {
-      a {
-        color: darken(@white, 10%);
-      }
-    }
-  }
-
-  .facet-body {
-    // atom code sets this to :none with
-    // an animation on .facet-body:open
-    display: block;
-  }
-
-  // Content of .facet-header for desktops
-  p {
-    background-color: @grayLight;
-
-    &:hover {
-      background-color: darken(@grayLight, 20%);
-    }
-  }
-}
 
 #aips-overview {
 
@@ -328,7 +298,7 @@ ul.menu-list-left li {
     a { cursor: pointer; }
 
     thead {
-      color: @grayLighter;
+      color: @gray;
       white-space: nowrap;
 
       th {
@@ -336,18 +306,18 @@ ul.menu-list-left li {
       }
 
       th a {
-        .fa-icon-set(@grayLight);
-
-          &:after {
-            font-size: 18px;
-            content: "\f106";
-            margin-left: 3px;
-        }
+        .fa-icon-set(@gray);
       }
+
+      th.sort-icon a:after {
+        font-size: 18px;
+        content: "\f106";
+        margin-left: 3px;
+        }
     }
 
     tbody {
-      font-size: .8em;
+      font-size: 11px;
 
       tr {
         background: #fff;
@@ -363,6 +333,14 @@ ul.menu-list-left li {
       }
     }
   }
+}
+
+// This hides an icon
+// Useful to apply with js
+// if css compiles before js does
+
+.icon-hide {
+  display: none;
 }
 
 // AIPS single page
