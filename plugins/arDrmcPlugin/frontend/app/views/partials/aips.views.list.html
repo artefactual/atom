@@ -3,15 +3,15 @@
     <table dir="ltr" class="table table-bordered">
       <thead>
         <tr>
-          <th><ar-sort-header field="name" label="Name" criteria="criteria"></ar-sort-header></hr>
-          <th><ar-sort-header field="size" label="Size" criteria="criteria"></ar-sort-header></hr>
-          <th><ar-sort-header field="created_at" label="Added" criteria="criteria"></ar-sort-header></hr>
-          <th><ar-sort-header field="classification" label="Class" criteria="criteria"></ar-sort-header></hr>
+          <th class="sort-icon"><ar-sort-header field="name" label="Name" criteria="criteria"></ar-sort-header></hr>
+          <th class="sort-icon"><ar-sort-header field="size" label="Size" criteria="criteria"></ar-sort-header></hr>
+          <th class="sort-icon"><ar-sort-header field="created_at" label="Added" criteria="criteria"></ar-sort-header></hr>
+          <th class="sort-icon"><ar-sort-header field="classification" label="Class" criteria="criteria"></ar-sort-header></hr>
           <th><ar-sort-header field="partof" label="Part of" criteria="criteria"></ar-sort-header></hr>
         </tr>
       </thead>
       <tbody>
-        <tr ng-cloak ng-repeat="(key, aip) in data.aips.results | orderBy:predicate:reverse">
+        <tr ng-repeat="(key, aip) in data.aips.results | orderBy:predicate:reverse">
           <td><a ui-sref="aips.view({ id: aip.uuid })">{{ aip.name }}</a></td>
           <td>{{ aip.size | UnitFilter:1 }}</td>
           <td>{{ aip.created_at }}</td>
