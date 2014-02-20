@@ -128,6 +128,23 @@
           templateUrl: ATOM_CONFIG.viewsPath + '/works.view.html'
         })
 
+        // Technology Records
+        .state('technology-records', {
+          abstract: true,
+          url: ATOM_CONFIG.DRMCPath + 'technology-records',
+          template: '<ui-view/>'
+        })
+        .state('technology-records.browser', {
+          url: '',
+          controller: 'TechnologyRecordBrowserCtrl',
+          templateUrl: ATOM_CONFIG.viewsPath + '/technology-records.browser.html'
+        })
+        .state('technology-records.view', {
+          url: '/{id}',
+          controller: 'TechnologyRecordViewCtrl',
+          templateUrl: ATOM_CONFIG.viewsPath + '/technology-records.view.html'
+        })
+
         // Prototypes and tests
         .state('artwork-record', {
           url: ATOM_CONFIG.DRMCPath + 'artwork-record',
@@ -138,12 +155,12 @@
           url: ATOM_CONFIG.DRMCPath + 'artwork-record-2',
           controller: 'ArtworkRecord2Ctrl',
           templateUrl: ATOM_CONFIG.viewsPath + '/artwork-record-2.html'
-        })
-        .state('technology-record', {
+        });
+        /*.state('technology-record', {
           url: ATOM_CONFIG.DRMCPath + 'technology-record',
           controller: 'TechnologyRecordCtrl',
           templateUrl: ATOM_CONFIG.viewsPath + '/technology-record.html'
-        });
+        });*/
 
     });
 
