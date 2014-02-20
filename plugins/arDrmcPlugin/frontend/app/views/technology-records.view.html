@@ -1,18 +1,178 @@
-<div class="row">
+<div id="" class="row-fluid">
 
-  <div class="span12">
+  <div class="span3">
+
+    <h3>Currently viewing</h3>
+
+    <ar-facet label="All" criteria="criteria"></ar-facet>
+    <!-- TODO: make currently viewing sidebar directive -->
+
+
+  </div><!-- /span3 -->
+
+  <div class="span9 row-fluid" ng-model="data">
+
     <div id="main-column">
 
-      <h1 class="multiline moma-title moma-title-aips">
-        Technology Records View
-        <span class="sub">Technology Records View</span>
+      <h1 class="multiline moma-title moma-title-techrecs">
+        Tech Rec Title
       </h1>
 
-      <a href ui-sref="technology-records.browser">
-        <span>Back to Technology Records Browser</span>
-      </a>
+      <section class="breadcrumb">
+        <ul>
+          <li><a ui-sref="technology-records.browser">Technology Records</a></li>
+          <li><span>{{ }}<!-- temp -->Codecs</span></li>
+        </ul>
+      </section>
 
-    </div>
-  </div>
+      <div id="content">
 
+        <section>
+
+          <div class="menu-list row-fluid" >
+            <ul class="menu-list-left inline">
+              <li><h2>Technology Metadata</h2></li>
+            </ul>
+            <ul class="menu-list-right nav nav-pills">
+              <li class="dropdown">
+                <a class="dropdown-toggle"
+                   data-toggle="dropdown"
+                   ui-sref="">
+                   More
+                   <b class="caret"></b>
+                </a>
+
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a class="duplicate" role="menuitem" tabindeex="-1" href="">Option 1</a>
+                  </li>
+                  <li>
+                    <a class="duplicate" role="menuitem" tabindeex="-1" href="">Option 2</a>
+                  </li>
+                  <li>
+                    <a class="duplicate" role="menuitem" tabindeex="-1" href="">Option 3</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a class="edit">Edit</a>
+              </li>
+            </ul>
+          </div>
+
+        </section>
+
+        <section>
+          <h2>Context Browser</h2>
+        </section>
+
+        <section class="overview-body row-fluid">
+          <div class="field">
+            <h3>Title</h3>
+            <div>{{  }}</div>
+          </div>
+          <div class="field">
+            <h3>Type</h3>
+            <div>{{  }}</div>
+          </div>
+          <div class="field">
+            <h3>Description</h3>
+            <div>{{  }}</div>
+          </div>
+           <div class="field">
+            <h3>Date(s)</h3>
+            <div>{{  }}</div>
+          </div>
+        </section>
+
+        <section>
+
+          <div class="menu-list row-fluid" >
+            <ul class="menu-list-left inline">
+              <li><h2>Metadata</h2></li>
+              <li>{{ }}</li>
+            </ul>
+            <ul class="menu-list-right nav nav-pills">
+              <li class="dropdown">
+                <a class="dropdown-toggle"
+                   data-toggle="dropdown"
+                   ui-sref="">
+                   More
+                   <b class="caret"></b>
+                </a>
+
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a class="add_child" role="menuitem" tabindeex="-1" href="">Add Child</a>
+                  </li>
+                  <li>
+                    <a class="duplicate" role="menuitem" tabindeex="-1" href="">Duplicate</a>
+                  </li>
+                  <li>
+                    <a class="delete" role="menuitem" tabindeex="-1" href="">Delete</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a class="edit">Edit</a>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+
+          <div class="menu-list row-fluid" >
+            <ul class="menu-list-left inline">
+              <li><h2>Relationships</h2></li>
+            </ul>
+            <ul class="menu-list-right nav nav-pills">
+              <li>
+                <a class="add_child">Add</a>
+              </li>
+            </ul>
+          </div>
+
+        </section>
+
+        <section>
+
+          <div class="menu-list row-fluid" >
+            <ul class="menu-list-left inline">
+              <li><h2>Digital Objects</h2></li>
+              <li></li>
+            </ul>
+            <ul class="menu-list-right nav nav-pills">
+              <li>
+                <a class="details">AIP Details</a>
+              </li>
+              <li>
+                <a class="fixity_report">Fixity Reports</a>
+              </li>
+            </ul>
+          </div>
+
+        </section>
+
+        <section>
+
+          <div class="menu-list row-fluid" >
+            <ul class="menu-list-left inline">
+              <li><h2>Supporting Technologies</h2></li>
+              <li></li>
+            </ul>
+            <ul class="menu-list-right nav nav-pills">
+              <li>
+                <a class="edit">Edit</a>
+              </li>
+            </ul>
+          </div>
+
+        </section>
+
+      </div><!-- /#content -->
+
+    </div><!-- /.span9 -->
+
+  </div><!-- /#main-column -->
 </div>

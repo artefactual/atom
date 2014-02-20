@@ -1,17 +1,32 @@
-<div class="row">
+<div id="" class="row-fluid">
 
-  <div class="span12">
-    <div id="main-column">
+  <div class="span3">
+
+    <div id="aip-search">
+      <input placeholder="Search AIPs" type="text">
+    </div>
+
+    <h3>Currently viewing</h3>
+
+    <ar-facet label="All" criteria="criteria"></ar-facet>
+    <!-- TODO: make currently viewing sidebar directive -->
+
+
+  </div><!-- /span3 -->
+
+  <div class="span9 row-fluid" ng-model="data">
+
+    <div id="main-column" class="span12">
 
       <h1 class="multiline moma-title moma-title-techrecs">
-        Showing TODO results
-        <span class="sub">Technology Records Browser</span>
+        Showing {{ data.overview.total.count }} Results
+        <span class="sub">Technology Records</span>
       </h1>
 
-      <span>Example: </span>
-      <a href ui-sref="technology-records.view">Codecs</a>
+    <span>Example 1</span>
+    <a href ui-sref="technology-records.view">Codecs</a>
 
-    </div>
-  </div>
+    </div><!-- /.span9 -->
 
+  </div><!-- /#main-column -->
 </div>
