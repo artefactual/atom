@@ -7,17 +7,11 @@ module.exports = function (ATOM_CONFIG) {
     replace: true,
     scope: {
       label: '@',
-      criteria: '='
+      field: '@',
+      terms: '=',
+      criteria: '=',
     },
     link: function (scope) {
-
-      scope.items = {
-        1: { label: 'Element A', count: 100 },
-        2: { label: 'Element B', count: 25 },
-        3: { label: 'Element C', count: 10 },
-        4: { label: 'Element D', count: 1 }
-      };
-
       scope.collapsed = false;
 
       console.log('The facet directive can see your criteria!', scope.criteria);
@@ -28,15 +22,15 @@ module.exports = function (ATOM_CONFIG) {
       };
 
       scope.select = function (key) {
-        console.log(key);
-        var item = scope.items[key];
-        if (typeof item.active === 'undefined') {
-          item.active = true;
+        var term = scope.terms[key];
+        if (typeof term.active === 'undefined' || term.active == false) {
+          term.active = true;
         } else {
-          item.active = !item.active;
+          term.active = !term.active;
         }
-      };
 
+        scope.criteria[scope.field] = scope.terms[key].term;
+      };
     }
   };
 };

@@ -8,8 +8,8 @@
 
   <div class="facet-body">
     <ul>
-      <li ng-repeat="(key, value) in items" ng-class="{ active: value.active }">
-        <a href ng-click="select(key)">{{ value.label }}</a>
+      <li ng-repeat="(key, value) in terms" ng-class="{ active: value.active }">
+        <a href ng-click="select(key)">{{ value.term }}</a>
         <span class="facet-count">{{ value.count }}</span>
       </li>
     </ul>
