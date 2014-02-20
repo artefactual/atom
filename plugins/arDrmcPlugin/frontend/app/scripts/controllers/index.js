@@ -12,9 +12,11 @@
     .controller('AIPViewCtrl', require('./AIPViewCtrl'))
     .controller('WorkBrowserCtrl', require('./WorkBrowserCtrl'))
     .controller('WorkViewCtrl', require('./WorkViewCtrl'))
+    .controller('TechnologyRecordBrowserCtrl', require('./TechnologyRecordBrowserCtrl'))
+    .controller('TechnologyRecordViewCtrl', require('./TechnologyRecordViewCtrl'))
 
     .controller('ArtworkRecordCtrl', require('./ArtworkRecordCtrl'))
-    .controller('ArtworkRecord2Ctrl', require('./ArtworkRecord2Ctrl'))
-    .controller('TechnologyRecordCtrl', require('./TechnologyRecordCtrl'));
+    .controller('ArtworkRecord2Ctrl', require('./ArtworkRecord2Ctrl'));
+    /*.controller('TechnologyRecordCtrl', require('./TechnologyRecordCtrl'));*/
 
 })();
