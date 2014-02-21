@@ -1600,6 +1600,7 @@ class QubitInformationObject extends BaseInformationObject
 
           $eventSpec = array(
             'event_type_id' => QubitTerm::CREATION_ID,
+            'entity_type_id' => $typeId,
             'history'       => $history
           );
 
