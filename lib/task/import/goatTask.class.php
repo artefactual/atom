@@ -44,7 +44,7 @@ EOF;
     $names = file(dirname(__FILE__) .'/../../../plugins/arDrmcPlugin/frontend/mock_api/sample_data/names.txt');
 
     for ($i = 1; $i <= 50; $i++) {
-        
+
       // make new info object every few AIPs
       if (!$infoObject || rand(1, 3)) {
         $infoObject = new QubitInformationObject();
@@ -53,15 +53,11 @@ EOF;
         $infoObject->save();
       }
 
-      $nameData = explode(',', $names[array_rand($names)]);
-      $nameChunk = array_slice($nameData, 1, sizeof($nameData) - 1);
-      $name = $nameChunk[0];
-
       // Store AIP data
       $aip = new QubitAip;
       $aip->typeId = rand(179, 182);
       $aip->uuid = gen_uuid();
-      $aip->filename = $name;
+      $aip->filename = $names[array_rand($names)];
       $aip->digitalObjectCount = 1;
       $aip->partOf = $infoObject->id;
 
