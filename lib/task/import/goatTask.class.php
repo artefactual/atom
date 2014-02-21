@@ -41,7 +41,7 @@ EOF;
   {
     sfContext::createInstance($this->configuration);
 
-    $names = file(dirname(__FILE__) .'/../../../plugins/arDrmcPlugin/frontend/mock_api/sample_data/classifications.txt');
+    $names = file(dirname(__FILE__) .'/../../../plugins/arDrmcPlugin/frontend/mock_api/sample_data/names.txt');
 
     for ($i = 1; $i <= 50; $i++) {
         
