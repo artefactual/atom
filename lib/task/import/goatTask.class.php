@@ -62,7 +62,7 @@ EOF;
       $aip->partOf = $infoObject->id;
 
       $aip->sizeOnDisk = rand(1000, 10000000);
-      $aip->createdAt = '2010-01-01 12:10:34 PST';
+      $aip->createdAt = date("c"); // date is in ISO 8601
 
       $aip->save();
       print '.';
