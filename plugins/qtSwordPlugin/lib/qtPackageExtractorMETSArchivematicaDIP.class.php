@@ -345,6 +345,31 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     $aip->save();
 
+    // Get TMS object ID
+    $this->document->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
+    $this->document->registerXPathNamespace('f', 'http://hul.harvard.edu/ois/xml/ns/fits/fits_output');
+
+    foreach ($this->document->xpath('//m:amdSec/m:digiprovMD/m:mdWrap[@MDTYPE="PREMIS:EVENT"]/m:xmlData/s:event') as $item)
+    {
+      $item->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
+
+      if (0 < count($value = $item->xpath('s:eventType')) && (string)$value[0] == 'registration')
+      {
+        if (0 < count($value = $item->xpath('s:eventOutcomeInformation/s:eventOutcomeDetail/s:eventOutcomeDetailNote')) && 0 == strpos((string)$value[0], 'accession#'))
+        {
+          $tmsId = substr((string)$value[0], 10);
+
+          break;
+        }
+      }
+    }
+
+    // TMS data
+    if (isset($tmsId))
+    {
+      $this->getTombstoneData($tmsId);
+    }
+
     // Main object
     if (null != ($dmdSec = $this->getMainDmdSec()))
     {
@@ -575,5 +600,83 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         }
       }
     }
+  }
+
+  protected function getTombstoneData($id)
+  {
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_FAILONERROR => true,
+        CURLOPT_URL => 'http://localhost:2403/tms/GetTombstoneData'));
+
+    // Production CURLOPT_URL => 'http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObjects.svc/GetTombstoneDataId?ObjectID='.$id
+
+    if (false === $resp = curl_exec($curl))
+    {
+      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.curl_error($curl));
+    }
+    else
+    {
+      $data = json_decode($resp, true);
+
+      $data = $data[0]; // This won't be needed in production
+
+      foreach ($data as $name => $value)
+      {
+        switch ($name)
+        {
+          case 'ErrorMsg':
+            break;
+          case 'Dated':
+            break;
+          case 'Medium':
+            break;
+          case 'Dimensions':
+            break;
+          case 'ObjectNumber':
+            break;
+          case 'CreditLine':
+            break;
+          case 'ObjectID':
+            break;
+          case 'DepartmentID':
+            break;
+          case 'ClassificationID':
+            break;
+          case 'ObjectStatusID':
+            break;
+          case 'Title':
+            break;
+          case 'DisplayName':
+            break;
+          case 'FirstName':
+            break;
+          case 'LastName':
+            break;
+          case 'AlphaSort':
+            break;
+          case 'ConstituentID':
+            break;
+          case 'SortNumber':
+            break;
+          case 'DisplayDate':
+            break;
+          case 'Department':
+            break;
+          case 'Classification':
+            break;
+          case 'ImageID':
+            break;
+          case 'Thumbnail':
+            break;
+          case 'ComponentID':
+            break;
+        }
+      }
+    }
+
+    curl_close($curl);
   }
 }
