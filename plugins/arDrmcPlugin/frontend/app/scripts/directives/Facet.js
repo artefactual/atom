@@ -23,7 +23,7 @@ module.exports = function (ATOM_CONFIG) {
 
       scope.select = function (key) {
         var term = scope.terms[key];
-        if (typeof term.active === 'undefined' || term.active == false) {
+        if (typeof term.active === 'undefined' || term.active === false) {
           term.active = true;
         } else {
           term.active = !term.active;
