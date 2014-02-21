@@ -39,22 +39,25 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
-sfContext::createInstance($this->configuration);
+    sfContext::createInstance($this->configuration);
 
-// Store AIP data
-$aip = new QubitAip;
-$aip->typeId = QubitTerm::ARTWORK_COMPONENT_ID; // TODO: Get AIP type from METS
-$aip->uuid = gen_uuid();
-$aip->filename = 'Bob';
-$aip->digitalObjectCount = 5;
-#$aip->partOf = 1;
+    $a = new QubitInformationObject();
+    $a->title = 'Buddy';
+    $a->parentId = QubitInformationObject::ROOT_ID;
+    $a->save();
 
-$aip->sizeOnDisk = 1000;
-$aip->createdAt = '2010-01-01 12:10:34 PST';
+    // Store AIP data
+    $aip = new QubitAip;
+    $aip->typeId = QubitTerm::ARTWORK_COMPONENT_ID; // TODO: Get AIP type from METS
+    $aip->uuid = gen_uuid();
+    $aip->filename = 'Bob';
+    $aip->digitalObjectCount = 5;
+    $aip->partOf = $a->id;
 
-$aip->save();
+    $aip->sizeOnDisk = 1000;
+    $aip->createdAt = '2010-01-01 12:10:34 PST';
 
-
+    $aip->save();
   }
 }
 
