@@ -41,23 +41,36 @@ EOF;
   {
     sfContext::createInstance($this->configuration);
 
-    $a = new QubitInformationObject();
-    $a->title = 'Buddy';
-    $a->parentId = QubitInformationObject::ROOT_ID;
-    $a->save();
+    $names = file(dirname(__FILE__) .'/../../../plugins/arDrmcPlugin/frontend/mock_api/sample_data/classifications.txt');
 
-    // Store AIP data
-    $aip = new QubitAip;
-    $aip->typeId = QubitTerm::ARTWORK_COMPONENT_ID; // TODO: Get AIP type from METS
-    $aip->uuid = gen_uuid();
-    $aip->filename = 'Bob';
-    $aip->digitalObjectCount = 5;
-    $aip->partOf = $a->id;
+    for ($i = 1; $i <= 50; $i++) {
+        
+      // make new info object every few AIPs
+      if (!$infoObject || rand(1, 3)) {
+        $infoObject = new QubitInformationObject();
+        $infoObject->title = generateRandomString(20);
+        $infoObject->parentId = QubitInformationObject::ROOT_ID;
+        $infoObject->save();
+      }
 
-    $aip->sizeOnDisk = 1000;
-    $aip->createdAt = '2010-01-01 12:10:34 PST';
+      $nameData = explode(',', $names[array_rand($names)]);
+      $nameChunk = array_slice($nameData, 1, sizeof($nameData) - 1);
+      $name = $nameChunk[0];
 
-    $aip->save();
+      // Store AIP data
+      $aip = new QubitAip;
+      $aip->typeId = rand(179, 182);
+      $aip->uuid = gen_uuid();
+      $aip->filename = $name;
+      $aip->digitalObjectCount = 1;
+      $aip->partOf = $infoObject->id;
+
+      $aip->sizeOnDisk = rand(1000, 10000000);
+      $aip->createdAt = '2010-01-01 12:10:34 PST';
+
+      $aip->save();
+      print '.';
+    }
   }
 }
 
@@ -81,6 +94,15 @@ function gen_uuid() {
         // 48 bits for "node"
         mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
     );
+}
+
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    return $randomString;
 }
 
 ?>
