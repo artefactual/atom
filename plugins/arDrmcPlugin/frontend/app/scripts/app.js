@@ -143,24 +143,7 @@
           url: '/{id}',
           controller: 'TechnologyRecordViewCtrl',
           templateUrl: ATOM_CONFIG.viewsPath + '/technology-records.view.html'
-        })
-
-        // Prototypes and tests
-        .state('artwork-record', {
-          url: ATOM_CONFIG.DRMCPath + 'artwork-record',
-          controller: 'ArtworkRecordCtrl',
-          templateUrl: ATOM_CONFIG.viewsPath + '/artwork-record.html'
-        })
-        .state('artwork-record-2', {
-          url: ATOM_CONFIG.DRMCPath + 'artwork-record-2',
-          controller: 'ArtworkRecord2Ctrl',
-          templateUrl: ATOM_CONFIG.viewsPath + '/artwork-record-2.html'
         });
-        /*.state('technology-record', {
-          url: ATOM_CONFIG.DRMCPath + 'technology-record',
-          controller: 'TechnologyRecordCtrl',
-          templateUrl: ATOM_CONFIG.viewsPath + '/technology-record.html'
-        });*/
 
     });
 

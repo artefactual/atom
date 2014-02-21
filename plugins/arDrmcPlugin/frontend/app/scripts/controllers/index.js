@@ -6,17 +6,20 @@
 
   module.exports = angular.module('momaApp.controllers', [])
 
+    // Dashboard
     .controller('DashboardCtrl', require('./DashboardCtrl'))
+
+    // AIPs
     .controller('AIPBrowserCtrl', require('./AIPBrowserCtrl'))
-    .controller('AIPReclassifyCtrl', require('./AIPReclassifyCtrl'))
     .controller('AIPViewCtrl', require('./AIPViewCtrl'))
+    .controller('AIPReclassifyCtrl', require('./AIPReclassifyCtrl'))
+
+    // Works
     .controller('WorkBrowserCtrl', require('./WorkBrowserCtrl'))
     .controller('WorkViewCtrl', require('./WorkViewCtrl'))
-    .controller('TechnologyRecordBrowserCtrl', require('./TechnologyRecordBrowserCtrl'))
-    .controller('TechnologyRecordViewCtrl', require('./TechnologyRecordViewCtrl'))
 
-    .controller('ArtworkRecordCtrl', require('./ArtworkRecordCtrl'))
-    .controller('ArtworkRecord2Ctrl', require('./ArtworkRecord2Ctrl'));
-    /*.controller('TechnologyRecordCtrl', require('./TechnologyRecordCtrl'));*/
+    // Technology records
+    .controller('TechnologyRecordBrowserCtrl', require('./TechnologyRecordBrowserCtrl'))
+    .controller('TechnologyRecordViewCtrl', require('./TechnologyRecordViewCtrl'));
 
 })();

@@ -1,6 +1,9 @@
 'use strict';
 
-module.exports = function () {
+module.exports = function ($scope) {
 
-  console.log('tech rec');
+  $scope.techRecord = {
+    title: 'Codec'
+  };
+
 };
