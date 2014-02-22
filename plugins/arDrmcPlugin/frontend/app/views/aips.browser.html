@@ -45,47 +45,47 @@
           <section class="overview-body row-fluid" ng-show="showOverview">
             <div class="field">
               <h3>Total AIP storage size</h3>
-              <div>{{ data.overview.total.size | UnitFilter:2 }}</div>
+              <div>{{ data.overview.total.size | UnitFilter:2 || 0 }}</div>
             </div>
             <div class="field">
               <h3>Total AIPs</h3>
               <div>
-                {{ data.overview.total.count }}
-                <span>&nbsp({{ data.overview['total'].size | UnitFilter: 2 }})</span>
+                {{ data.overview.total.count || 0 }}
+                <span>&nbsp{{ data.overview['total'].size | UnitFilter: 2 | EmptyFilter }}</span>
               </div>
             </div>
             <div class="field">
               <h3>Artwork component AIPs</h3>
-              <div>{{ data.overview['Artwork component'].count }}
-                <span>&nbsp({{ data.overview['Artwork component'].size | UnitFilter: 2 }})</span>
+              <div>{{ data.overview['Artwork component'].count || 0 }}
+                <span>&nbsp{{ data.overview['Artwork component'].size | UnitFilter: 2 | EmptyFilter }}</span>
               </div>
             </div>
              <div class="field">
               <h3>Artwork material AIPs</h3>
               <div>
-                {{ data.overview['Artwork material'].count }}
-                <span>&nbsp({{ data.overview['Artwork material'].size | UnitFilter: 2 }})</span>
+                {{ data.overview['Artwork material'].count || 0 }}
+                <span>&nbsp{{ data.overview['Artwork material'].size | UnitFilter: 2 | EmptyFilter }}</span>
               </div>
             </div>
             <div class="field">
               <h3>Supporting documentation AIPs</h3>
               <div>
-                {{ data.overview['Supporting documentation'].count }}
-                <span>&nbsp({{ data.overview['Supporting documentation'].size | UnitFilter: 2 }})</span>
+                {{ data.overview['Supporting documentation'].count || 0 }}
+                <span>&nbsp{{ data.overview['Supporting documentation'].size | UnitFilter: 2 | EmptyFilter }}</span>
               </div>
             </div>
             <div class="field">
               <h3>Supporting technology AIPs</h3>
               <div>
-                {{ data.overview['Supporting technology'].count }}
-                <span>&nbsp({{ data.overview['Supporting technology'].size | UnitFilter: 2 }})</span>
+                {{ data.overview['Supporting technology'].count || 0 }}
+                <span>&nbsp{{ data.overview['Supporting technology'].size | UnitFilter: 2 | EmptyFilter }}</span>
               </div>
             </div>
             <div class="field">
               <h3>Unclassified AIPs</h3>
               <div>
-                {{ data.overview['Unclassified'].count }}
-                <span>&nbsp({{ data.overview['Unclassified'].size | UnitFilter: 2 }})</span>
+                {{ data.overview['Unclassified'].count || 0 }}
+                <span>&nbsp{{ data.overview['Unclassified'].size | UnitFilter: 2 | EmptyFilter }}</span>
               </div>
             </div>
           </section>
