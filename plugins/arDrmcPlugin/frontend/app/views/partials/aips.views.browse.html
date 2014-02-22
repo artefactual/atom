@@ -1,13 +1,13 @@
-<div class="browse-view-browse"  class="row-fluid">
+<div class="browse-view-browse" class="row-fluid">
 
   <div class="pull-right browse-view-sort">
-    <span>Sort By</span>
+    <span>Sort by</span>
     <select ng-model="sortBy" class="browse-view-sort-by">
       <option value="name">Name</option>
       <option value="size">Size</option>
-      <option value="created_at">Date Added</option>
+      <option value="created_at">Date added</option>
       <option>Class</option>
-      <option>Object Count</option>
+      <option>Object count</option>
       <option>Part of</option>
     </select>
   </div>
@@ -52,7 +52,7 @@
       <div class="field">
         <h3>Class</h3>
         <div>
-          <a role="button" ng-click="open(aip)">{{ aip.class }}</a>
+          <a ng-click="openReclassifyModal(aip)">{{ aip.class }}</a>
         </div>
       </div>
 

@@ -2,39 +2,28 @@
 
   <div class="span3">
 
-    <div id="aip-search">
-      <input placeholder="Search AIPs" type="text">
-    </div>
+    <section id="facets">
+      <h3>Narrow your results by:</h3>
+      <ar-facet label="Classification" field="class" terms="data.aips.facets.class.terms" criteria="criteria"></ar-facet>
+      <ar-facet ng-show="false" label="All" criteria="criteria"></ar-facet>
+      <ar-facet ng-show="false" label="New AIPs" criteria="criteria"></ar-facet>
+      <ar-facet ng-show="false" label="AIP Object Type" criteria="criteria"></ar-facet>
+      <ar-facet ng-show="false" label="Keyword" criteria="criteria"></ar-facet>
+    </section>
 
-    <h3>Filter Report By</h3>
+  </div>
 
-    <ar-facet label="Classification" field="class" terms="data.aips.facets.class.terms" criteria="criteria"></ar-facet>
-    <ar-facet label="All" criteria="criteria"></ar-facet>
-    <ar-facet label="New AIPs" criteria="criteria"></ar-facet>
-    <ar-facet label="AIP Object Type" criteria="criteria"></ar-facet>
-    <ar-facet label="Keyword" criteria="criteria"></ar-facet>
-
-
-  </div><!-- /span3 -->
-
-  <div class="span9 row-fluid" ng-model="data">
+  <div class="span9 row-fluid">
 
     <div id="main-column" class="span12">
 
       <h1 class="multiline moma-title moma-title-aips">
-        Showing {{ data.overview.total.count }} Results
+        Showing {{ data.overview.total.count }} results
         <span class="sub">AIPs browser</span>
       </h1>
 
-      <section class="breadcrumb">
-        <ul>
-          <li><a ui-sref="dashboard">Dashboard</a></li>
-          <li><span>View AIPs</span></li>
-        </ul>
-      </section>
-
       <div id="facet-indicators">
-        <span ng-show="criteria.class" class="search-filter">{{ criteria.class }} <a ng-click="criteria.class = undefined"><i class="icon-remove"></i></a></span>
+        <span ng-show="criteria.class" class="search-filter">{{ criteria.class }} <a href ng-click="criteria.class = undefined"><i class="icon-remove"></i></a></span>
       </div>
 
       <div id="content">
@@ -57,7 +46,7 @@
           <!-- content -->
           <section class="overview-body row-fluid" ng-show="showOverview">
             <div class="field">
-              <h3>Total AIP Storage Size</h3>
+              <h3>Total AIP storage size</h3>
               <div>{{ data.overview.total.size | UnitFilter:2 }}</div>
             </div>
             <div class="field">
@@ -68,27 +57,27 @@
               </div>
             </div>
             <div class="field">
-              <h3>Artwork Component AIPs</h3>
+              <h3>Artwork component AIPs</h3>
               <div>{{ data.overview['Artwork component'].count }}
                 <span>&nbsp({{ data.overview['Artwork component'].size | UnitFilter: 2 }})</span>
               </div>
             </div>
              <div class="field">
-              <h3>Artwork Material AIPs</h3>
+              <h3>Artwork material AIPs</h3>
               <div>
                 {{ data.overview['Artwork material'].count }}
                 <span>&nbsp({{ data.overview['Artwork material'].size | UnitFilter: 2 }})</span>
               </div>
             </div>
             <div class="field">
-              <h3>Supporting Documentation AIPs</h3>
+              <h3>Supporting documentation AIPs</h3>
               <div>
                 {{ data.overview['Supporting documentation'].count }}
                 <span>&nbsp({{ data.overview['Supporting documentation'].size | UnitFilter: 2 }})</span>
               </div>
             </div>
             <div class="field">
-              <h3>Supporting Technology AIPs</h3>
+              <h3>Supporting technology AIPs</h3>
               <div>
                 {{ data.overview['Supporting technology'].count }}
                 <span>&nbsp({{ data.overview['Supporting technology'].size | UnitFilter: 2 }})</span>
@@ -108,29 +97,19 @@
         <section class="row-fluid">
 
           <div class="menu-list row-fluid" >
-
             <ul class="menu-list-left inline">
-              <li>
-                <h2>AIPS</h2>
-              </li>
+              <li><h2>AIPS</h2></li>
             </ul>
-
             <ul class="menu-list-right nav nav-pills">
-              <li>
-                <a class="print"
-                   ui-sref="#">
-                   Print Report
-                </a>
-              </li>
+              <li><a class="print" href>Print report</a></li>
             </ul>
-          </div><!-- /contentTitle -->
+          </div>
 
           <div id="collection-viewer" class="container-fluid">
             <span>View in</span>
             <select class="select-view-style span5" name="aips=templates" ng-model="template" ng-options="template.name for template in templates">
               <option>{{ template.name }}</option>
             </select>
-
             <!-- Location of template from ng-include -->
             <div class="collection-viewer-container">
               <div ng-include="template.url"></div>
