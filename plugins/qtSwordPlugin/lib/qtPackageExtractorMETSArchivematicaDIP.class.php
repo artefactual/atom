@@ -415,6 +415,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       // is stored in the ES index in arElasticSearchInformationObjectPdo
     }
 
+    $aip->save();
     $this->resource->save();
 
     parent::process();
