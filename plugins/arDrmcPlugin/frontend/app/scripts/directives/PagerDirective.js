@@ -1,26 +1,30 @@
 'use strict';
 
-module.exports = function (ATOM_CONFIG) {
+module.exports = function ($compile, ATOM_CONFIG) {
   return {
     restrict: 'E',
     templateUrl: ATOM_CONFIG.viewsPath + '/partials/pager.html',
     replace: true,
     scope: {
       itemsPerPage: '@',
-      totalItems: '@',
-      page: '=' // Two-way binding!
+      page: '='
     },
-    link: function (scope) {
-      scope.$watch('totalItems', function () {
+    link: function (scope, element) {
+      scope.$on('pull.success', function (_, count) {
+        scope.totalItems = count;
         scope.numberOfPages = Math.ceil(scope.totalItems / scope.itemsPerPage);
+        scope.showPrev = scope.page > 1;
+        scope.showNext = scope.page < scope.numberOfPages;
+
+        draw();
       });
 
-      scope.showPrev = true;
-      scope.showNext = true;
-
-      scope.$watch('page', function () {
-        console.log('PageDirective', 'Page has changed', scope.page);
-      });
+      scope.haveToPaginate = function () {
+        if (typeof scope.numberOfPages === 'undefined') {
+          return false;
+        }
+        return scope.numberOfPages > 1;
+      };
 
       scope.next = function () {
         if (scope.page === scope.numberOfPages) {
@@ -34,6 +38,95 @@ module.exports = function (ATOM_CONFIG) {
           return false;
         }
         scope.page--;
+      };
+
+      scope.go = function (page) {
+        scope.page = page;
+      };
+
+      scope.getFirstIndice = function () {
+        if (scope.page === 0) {
+          return 1;
+        } else {
+          return (scope.page - 1) * scope.itemsPerPage + 1;
+        }
+      };
+
+      scope.getLastIndice = function () {
+        if (scope.page === 0) {
+          return scope.totalItems;
+        } else {
+          if (scope.page * scope.itemsPerPage >= scope.totalItems) {
+            return scope.totalItems;
+          } else {
+            return scope.page * scope.itemsPerPage;
+          }
+        }
+      };
+
+      /**
+       * Draws pager in the DOM
+       */
+      var draw = function () {
+        var placeholder = element.find('.pagination');
+        var el = jQuery('<ul></ul>');
+        var last = scope.numberOfPages;
+        var total = last;
+        var max = 7;
+
+        var printLink = function (page) {
+          if (page === scope.page) {
+            el.append('<li class="active"><span>' + page + '</span></li>');
+          } else {
+            el.append('<li><a href ng-click="go(' + page + ')">' + page + '</a></li>');
+          }
+        };
+
+        getLinks(max).forEach(function (page, index) {
+          if (index === 0) {
+            printLink(1);
+            if (page === 1) {
+              return;
+            }
+            el.append('<li class="dots"><span>...</span></li>');
+          }
+          printLink(page);
+        });
+
+        if (Math.floor(max / 2) < (total - scope.page)) {
+          el.append('<li class="dots"><span>...</span></li>');
+          el.append('<li><a href ng-click="go(' + last + ')">' + last + '</a></li>');
+        }
+
+        // Add previous and next buttons
+        el.prepend('<li class="previous" ng-if="showPrev"><a href ng-click="prev()">&laquo; Previous</a></li>');
+        el.append('<li class="next" ng-if="showNext"><a href ng-click="next()">Next &raquo;</a></li>');
+
+        // Compile and render
+        var compiled = $compile(el);
+        placeholder.html(el);
+        compiled(scope);
+      };
+
+      /**
+       * Returns an array of page numbers to use in pagination links.
+       *
+       * @param {number} maxPages - Maximum number of pages
+       * @return array
+       */
+      var getLinks = function (maxPages) {
+        var links = [];
+        var tmp = scope.page - Math.floor(maxPages / 2);
+        var check = scope.numberOfPages - maxPages + 1;
+        var limit = check > 0 ? check : 1;
+        var begin = tmp > 0 ? (tmp > limit ? limit : tmp) : 1;
+
+        var i = begin;
+        while (i < begin + maxPages && i <= scope.numberOfPages) {
+          links.push(i++);
+        }
+
+        return links;
       };
     }
   };

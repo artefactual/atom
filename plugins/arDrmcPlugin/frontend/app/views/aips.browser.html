@@ -105,8 +105,6 @@
 
         </section>
 
-        <ar-pager page="page" items-per-page="{{ criteria.limit }}" total-items="{{ data.overview.total.count }}"></ar-pager>
-
         <section class="row-fluid">
 
           <div class="menu-list row-fluid" >
@@ -141,6 +139,8 @@
 
         </section>
       </div><!-- /#content -->
+
+      <ar-pager items-per-page="{{ criteria.limit }}" page="page"></ar-pager>
 
     </div><!-- /.span9 -->
 

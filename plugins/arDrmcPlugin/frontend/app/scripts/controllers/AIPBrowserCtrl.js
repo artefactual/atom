@@ -1,23 +1,18 @@
 'use strict';
 
-module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
-
-  // DEBUGGING: make it so we can examine scope from browser
-  window.scope = $scope;
-
+module.exports = function ($scope, $modal, ATOM_CONFIG, AIPService) {
   // criteria contain GET params used when calling getAIPs to refresh data
   $scope.criteria = {};
-
-  // Default page
-  $scope.page = 1;
   $scope.criteria.limit = 10;
   $scope.criteria.sort = 'name';
+  $scope.page = 1; // Don't delete this, it's an important default for the loop
 
-  $scope.$watch('page', function () {
-    $scope.criteria.skip = (($scope.page - 1) * $scope.criteria.limit);
+  // Changes in scope.page updates criteria.skip
+  $scope.$watch('page', function (value) {
+    $scope.criteria.skip = (value - 1) * $scope.criteria.limit;
   });
 
-  // watch for criteria changes
+  // Watch for criteria changes
   $scope.$watch('criteria', function () {
     $scope.pull();
   }, true); // check properties when watching
@@ -26,7 +21,7 @@ module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
     AIPService.getAIPs($scope.criteria)
       .success(function (data) {
         $scope.data = data;
-        console.log($scope.data);
+        $scope.$broadcast('pull.success', data.overview.total.count);
       });
   };
 
@@ -40,14 +35,12 @@ module.exports = function ($scope, $modal, $q, ATOM_CONFIG, AIPService) {
   };
 
   // Support overview toggling
-
   $scope.showOverview = true;
   $scope.toggleOverview = function () {
     $scope.showOverview = !$scope.showOverview;
   };
 
   // Ng-include logic
-
   $scope.templates = [
     { name: 'List View', url: ATOM_CONFIG.viewsPath + '/partials/aips.views.list.html' },
     { name: 'Browse View', url: ATOM_CONFIG.viewsPath + '/partials/aips.views.browse.html' }

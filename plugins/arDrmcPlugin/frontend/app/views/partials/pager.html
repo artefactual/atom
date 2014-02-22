@@ -1,11 +1,33 @@
-<div class="pager">
-  <ul>
-    <li class="previous" ng-show="showPrev">
-      <a href ng-click="prev()">&laquo; Previous</a>
-    </li>
-    <li>Page {{ page }} / {{ numberOfPages }}</li>
-    <li class="next" ng-show="showNext">
-      <a href ng-click="next()">Next &raquo;</a>
-    </li>
-  </ul>
-</div>
+<section ng-show="haveToPaginate()">
+
+  <div class="result-count">
+    Results {{ getFirstIndice() }} to {{ getLastIndice() }} of {{ totalItems }}
+  </div>
+
+  <!-- We could simplify this with just one .pagination and some @media -->
+
+  <div class="visible-phone">
+
+    <div class="pager">
+      <ul>
+        <li class="previous" ng-show="showPrev">
+          <a href ng-click="prev()">&laquo; Previous</a>
+        </li>
+        <li>Page {{ page }} / {{ numberOfPages }}</li>
+        <li class="next" ng-show="showNext">
+          <a href ng-click="next()">Next &raquo;</a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="hidden-phone">
+
+    <div class="pagination pagination-centered">
+      <!-- See draw() -->
+    </div>
+
+  </div>
+
+</section>

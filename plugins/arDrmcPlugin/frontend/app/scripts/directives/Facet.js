@@ -14,11 +14,8 @@ module.exports = function (ATOM_CONFIG) {
     link: function (scope) {
       scope.collapsed = false;
 
-      console.log('The facet directive can see your criteria!', scope.criteria);
-
       scope.toggle = function () {
         scope.collapsed = !scope.collapsed;
-        console.log(scope.collapsed);
       };
 
       scope.select = function (key) {
