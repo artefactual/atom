@@ -1,5 +1,6 @@
 <div class="browse-view-browse" class="row-fluid">
 
+  <!-- Connect to criteria or delete
   <div class="pull-right browse-view-sort">
     <span>Sort by</span>
     <select ng-model="sortBy" class="browse-view-sort-by">
@@ -11,8 +12,9 @@
       <option>Part of</option>
     </select>
   </div>
+  -->
 
-  <div ng-repeat="(key, aip) in data.aips.results | orderBy: sortBy" class="span12 row-fluid">
+  <div ng-repeat="(key, aip) in data.aips.results" class="span12 row-fluid">
 
     <div class="span2 offset1">
       <div><img src="http://fillmurray.com/g/200/150" /></div>
@@ -52,7 +54,7 @@
       <div class="field">
         <h3>Class</h3>
         <div>
-          <a ng-click="openReclassifyModal(aip)">{{ aip.class }}</a>
+          <a href ng-click="openReclassifyModal(aip)">{{ aip.class }}</a>
         </div>
       </div>
 
@@ -70,5 +72,6 @@
         </div>
       </div>
     </div>
+
   </div>
 </div>

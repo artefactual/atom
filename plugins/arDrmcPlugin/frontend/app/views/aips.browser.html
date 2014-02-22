@@ -37,8 +37,7 @@
             </ul>
             <ul class="menu-list-right nav nav-pills">
               <li>
-                <a ng-click="toggleOverview()" ng-show="showOverview" class="angle_double_down">Hide</a>
-                <a ng-click="toggleOverview()" ng-hide="showOverview" class="angle_double_down">Show</a>
+                <a ng-click="toggleOverview()" ng-class="{ angle_double_down: !showOverview, angle_double_up: showOverview }">{{ showOverview ? 'Hide' : 'Show' }}</a>
               </li>
             </ul>
           </div>
