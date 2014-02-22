@@ -140,6 +140,13 @@ mapping:
       size_on_disk: { type: long, index: not_analyzed, include_in_all: false }
       digital_object_count: { type: integer, index: not_analyzed, include_in_all: false }
       created_at: { type: date, index: not_analyzed, include_in_all: false }
+      digital_objects:
+        type: object
+        properties:
+          name: { type: string, index: not_analyzed, include_in_all: false }
+          size: { type: long, index: not_analyzed, include_in_all: false }
+          mime_type: { type: string, index: not_analyzed, include_in_all: false }
+          last_modified: { type: date, index: not_analyzed, include_in_all: false }
 
   term:
     _attributes:
