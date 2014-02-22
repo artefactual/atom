@@ -52,6 +52,15 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
 
     $routing->insertRouteBefore(
       'slug;default_index',
+      'api_aip_index',
+      new QubitResourceRoute(
+        '/api/aip/:uuid',
+        //'/\/api\/aip\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/',
+        array('module' => 'api', 'action' => 'aipIndex'),
+        array('requirements' => array('GET'))));
+
+    $routing->insertRouteBefore(
+      'slug;default_index',
       'api_aips_reclassify',
       new sfRequestRoute(
         '/api/aips/reclassify',
