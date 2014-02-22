@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * TODO:
+ *  - After pull.success, current page may be out of range. Reset if it happens.
+ */
+
 module.exports = function ($compile, ATOM_CONFIG) {
   return {
     restrict: 'E',
