@@ -55,7 +55,6 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'api_aip_index',
       new QubitResourceRoute(
         '/api/aip/:uuid',
-        //'/\/api\/aip\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/',
         array('module' => 'api', 'action' => 'aipIndex'),
         array('requirements' => array('GET'))));
 
