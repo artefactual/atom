@@ -1,11 +1,8 @@
-<div>
-  <span ng-show="criteria.sort == field">
-    {{ label }}
-    <a ng-show="sortIsAsc()" ng-click="toggleSortDir()"></a>
-    <a ng-hide="sortIsAsc()" ng-click="toggleSortDir()"></a>
-  </span>
-  <span ng-show="criteria.sort != field">
-    {{ label }}
-    <a ng-click="toggleSortDir()"></a>
-  </span>
+<div ng-class="{
+    'selected': criteria.sort == field,
+    'sort-asc': criteria.sort_direction == 'asc' || criteria.sort_direction == undefined,
+    'sort-desc': criteria.sort_direction == 'desc'
+  }">
+  <span>{{ label }}</span>
+  <a href ng-click="toggleSortDir()"></a>
 </div>

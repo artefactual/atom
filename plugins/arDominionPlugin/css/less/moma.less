@@ -289,56 +289,52 @@ ul.menu-list-left li {
 
 .browse-view-list {
 
-  div.table {
-    width: 98%;
-    margin: 15px auto;
-  }
-
   table {
 
-    a { cursor: pointer; }
+    font-size: 12px;
+
+    thead th,
+    tbody td {
+      padding: 6px;
+    }
 
     thead {
-      color: @gray;
+      color: @black;
+      font-weight: normal; // Bug OpenSans bold
       white-space: nowrap;
 
-      th {
-        background: @grayLighter;
-      }
-
-      th a {
+      a {
         .fa-icon-set(@gray);
+        font-size: 18px;
+        margin-left: 4px;
+        color: @grayLight;
+        content: "\f106";
       }
 
-      th.sort-icon a:after {
-        font-size: 18px;
-        content: "\f106";
-        margin-left: 3px;
-        }
+      .sort-asc a:after  { content: "\f106"; }
+      .sort-desc a:after { content: "\f107"; }
+
+      .selected span {
+        text-decoration: underline;
+      }
     }
 
     tbody {
-      font-size: 11px;
-
       tr {
         background: #fff;
-
         &:nth-child(2n) {
           background: @grayLighter;
         }
       }
-
-      td {
-        padding: 12px 6px;
-        line-height: 14px;
-      }
     }
+
   }
+
 }
 
 // AIPS single page
 
-// Aips single title
+// AIPs single title
 #aip-single h3.aip-single-title:before {
   background: @momaNodeDigitalObject center center;
   border-radius: 20px;
