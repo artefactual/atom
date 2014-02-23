@@ -64,8 +64,8 @@
       $rootScope.viewsPath = ATOM_CONFIG.viewsPath;
       $rootScope.assetsPath = ATOM_CONFIG.assetsPath;
 
-      $rootScope.headerPartialPath = ATOM_CONFIG.viewsPath + '/partials/header.html';
-      $rootScope.footerPartialPath = ATOM_CONFIG.viewsPath + '/partials/footer.html';
+      $rootScope.headerPartialPath = ATOM_CONFIG.viewsPath + '/layout/header.html';
+      $rootScope.footerPartialPath = ATOM_CONFIG.viewsPath + '/layout/footer.html';
 
     });
 

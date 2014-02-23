@@ -52,7 +52,7 @@ module.exports = function ($scope, $modal, ATOM_CONFIG, AIPService) {
     $scope.aip = aip;
     // It happens that $modal.open returns a promise :)
     var modalInstance = $modal.open({
-      templateUrl: ATOM_CONFIG.viewsPath + '/partials/reclassify-aips.html',
+      templateUrl: ATOM_CONFIG.viewsPath + '/modals/reclassify-aips.html',
       backdrop: true,
       controller: 'AIPReclassifyCtrl',
       scope: $scope, // TODO: isolate with .new()?
