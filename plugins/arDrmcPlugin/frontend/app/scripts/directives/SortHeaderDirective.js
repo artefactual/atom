@@ -11,8 +11,6 @@ module.exports = function (ATOM_CONFIG) {
       criteria: '=' // Two-way binding!
     },
     link: function (scope) {
-      // scope.criteria.sort_direction = 'asc';
-
       scope.sortIsAsc = function () {
         return (typeof scope.criteria.sort_direction === 'undefined') || scope.criteria.sort_direction !== 'desc';
       };
