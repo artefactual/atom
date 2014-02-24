@@ -1,7 +1,7 @@
 'use strict';
 
 // This allows for addition of dom
-//elements around data, and returns
+// elements around data, and returns
 // empty if field contains no data
 
 module.exports = function () {
