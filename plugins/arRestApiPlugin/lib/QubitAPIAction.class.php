@@ -23,14 +23,13 @@ class QubitAPIAction extends sfAction
   {
     $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
 
-    if (!method_exists($this, 'getData'))
+    $method = strtoupper($request->getMethod());
+    if (!method_exists($this, $method))
     {
       $this->forward404();
-
-      return;
     }
 
-    $data = $this->getData($request);
+    $data = call_user_func(array($this, $method));
 
     return $this->renderData($data);
   }

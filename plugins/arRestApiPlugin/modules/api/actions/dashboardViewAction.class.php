@@ -17,9 +17,9 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class APIDashboardIndexAction extends QubitAPIAction
+class APIDashboardViewAction extends QubitAPIAction
 {
-  protected function getData($request)
+  protected function get($request)
   {
     return array(
       'foo' => 'bar');

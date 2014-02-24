@@ -17,9 +17,9 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class APIAIPSIndexAction extends QubitAPIAction
+class APIAIPSBrowseAction extends QubitAPIAction
 {
-  protected function getData($request)
+  protected function get($request)
   {
     ProjectConfiguration::getActive()->loadHelpers('Qubit');
 

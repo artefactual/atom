@@ -34,38 +34,62 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     // there's no way to bypass some of the catch-any routes in the main yaml.
     // This is probably not being cached at all :(
 
+    /**
+     * Dashboard
+     */
+
+    // Resource: /api/dashboard
     $routing->insertRouteBefore(
       'slug;default_index',
       'api_dashboard_index',
       new sfRequestRoute(
         '/api/dashboard',
-        array('module' => 'api', 'action' => 'dashboardIndex'),
+        array('module' => 'api', 'action' => 'dashboardView'),
         array('requirements' => array('GET'))));
 
+    /**
+     * APIs
+     */
+
+    // Resource: /api/aips
     $routing->insertRouteBefore(
       'slug;default_index',
       'api_aips_index',
       new sfRequestRoute(
         '/api/aips',
-        array('module' => 'api', 'action' => 'aipsIndex'),
+        array('module' => 'api', 'action' => 'aipsBrowse'),
         array('requirements' => array('GET'))));
 
+    // Resource: /api/aip/:uuid
     $routing->insertRouteBefore(
       'slug;default_index',
       'api_aip_index',
       new QubitResourceRoute(
-        '/api/aip/:uuid',
-        array('module' => 'api', 'action' => 'aipIndex'),
+        '/api/aips/:uuid',
+        array('module' => 'api', 'action' => 'aipsView'),
         array('requirements' => array('GET'))));
 
+    // Resource: /api/aips/reclassify
     $routing->insertRouteBefore(
       'slug;default_index',
       'api_aips_reclassify',
       new sfRequestRoute(
-        '/api/aips/reclassify',
+        '/api/aips/:uuid/reclassify',
         array('module' => 'api', 'action' => 'aipsReclassify'),
         array('requirements' => array('GET'))));
 
+    /**
+     * Information objects
+     */
+
+    // Resource: /api/informationobjects
+    $routing->insertRouteBefore(
+      'slug;default_index',
+      'api_informationobjects',
+      new sfRequestRoute(
+        '/api/aips/informationobjects',
+        array('module' => 'api', 'action' => 'informationobjectsBrowse'),
+        array('requirements' => array('GET'))));
   }
 
   /**

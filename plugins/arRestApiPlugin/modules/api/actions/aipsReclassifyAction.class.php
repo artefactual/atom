@@ -19,7 +19,7 @@
 
 class APIAIPSReclassifyAction extends QubitAPIAction
 {
-  protected function getData($request)
+  protected function post($request)
   {
     return array(
       'status' => 'OK'

@@ -17,9 +17,9 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class APIAIPIndexAction extends QubitAPIAction
+class APIAIPViewAction extends QubitAPIAction
 {
-  protected function getData($request)
+  protected function get($request)
   {
     if (1 !== preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/', $request->uuid, $matches))
     {
