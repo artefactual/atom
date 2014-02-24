@@ -17,12 +17,10 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class APIAIPsReclassifyAction extends QubitAPIAction
+class APIAIPSBrowseAction extends QubitAPIAction
 {
-  protected function post($request)
+  protected function get($request)
   {
-    return array(
-      'status' => 'OK'
-    );
+
   }
 }

@@ -87,7 +87,7 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'slug;default_index',
       'api_informationobjects',
       new sfRequestRoute(
-        '/api/aips/informationobjects',
+        '/api/informationobjects',
         array('module' => 'api', 'action' => 'informationobjectsBrowse'),
         array('requirements' => array('GET'))));
   }
