@@ -51,41 +51,41 @@
               <h3>Total AIPs</h3>
               <div>
                 {{ data.overview.total.count || 0 }}
-                <span>&nbsp{{ data.overview['total'].size | UnitFilter: 2 | EmptyFilter }}</span>
+                <span>&nbsp;{{ data.overview['total'].size | UnitFilter: 2 | EmptyFilter }}</span>
               </div>
             </div>
             <div class="field">
               <h3>Artwork component AIPs</h3>
               <div>{{ data.overview['Artwork component'].count || 0 }}
-                <span>&nbsp{{ data.overview['Artwork component'].size | UnitFilter: 2 | EmptyFilter }}</span>
+                <span>&nbsp;{{ data.overview['Artwork component'].size | UnitFilter: 2 | EmptyFilter }}</span>
               </div>
             </div>
              <div class="field">
               <h3>Artwork material AIPs</h3>
               <div>
                 {{ data.overview['Artwork material'].count || 0 }}
-                <span>&nbsp{{ data.overview['Artwork material'].size | UnitFilter: 2 | EmptyFilter }}</span>
+                <span>&nbsp;{{ data.overview['Artwork material'].size | UnitFilter: 2 | EmptyFilter }}</span>
               </div>
             </div>
             <div class="field">
               <h3>Supporting documentation AIPs</h3>
               <div>
                 {{ data.overview['Supporting documentation'].count || 0 }}
-                <span>&nbsp{{ data.overview['Supporting documentation'].size | UnitFilter: 2 | EmptyFilter }}</span>
+                <span>&nbsp;{{ data.overview['Supporting documentation'].size | UnitFilter: 2 | EmptyFilter }}</span>
               </div>
             </div>
             <div class="field">
               <h3>Supporting technology AIPs</h3>
               <div>
                 {{ data.overview['Supporting technology'].count || 0 }}
-                <span>&nbsp{{ data.overview['Supporting technology'].size | UnitFilter: 2 | EmptyFilter }}</span>
+                <span>&nbsp;{{ data.overview['Supporting technology'].size | UnitFilter: 2 | EmptyFilter }}</span>
               </div>
             </div>
             <div class="field">
               <h3>Unclassified AIPs</h3>
               <div>
                 {{ data.overview['Unclassified'].count || 0 }}
-                <span>&nbsp{{ data.overview['Unclassified'].size | UnitFilter: 2 | EmptyFilter }}</span>
+                <span>&nbsp;{{ data.overview['Unclassified'].size | UnitFilter: 2 | EmptyFilter }}</span>
               </div>
             </div>
           </section>
@@ -96,7 +96,7 @@
 
           <div class="menu-list row-fluid" >
             <ul class="menu-list-left inline">
-              <li><h2>AIPS</h2></li>
+              <li><h2>AIPs</h2></li>
             </ul>
             <ul class="menu-list-right nav nav-pills">
               <li><a class="print" href>Print report</a></li>
@@ -105,13 +105,11 @@
 
           <div id="aips-templates">
             <span>View in</span>
-            <select class="span5" name="aips=templates" ng-model="template" ng-options="template.name for template in templates">
+            <select class="span5" ng-model="template" ng-options="template.name for template in templates">
               <option>{{ template.name }}</option>
             </select>
             <!-- Location of template from ng-include -->
-
             <div ng-include="template.url"></div>
-
           </div>
 
         </section>

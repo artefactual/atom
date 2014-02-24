@@ -42,8 +42,8 @@ module.exports = function ($scope, $modal, ATOM_CONFIG, AIPService) {
 
   // Ng-include logic
   $scope.templates = [
-    { name: 'List view', url: ATOM_CONFIG.viewsPath + '/partials/aips.views.list.html' },
-    { name: 'Browse view', url: ATOM_CONFIG.viewsPath + '/partials/aips.views.browse.html' }
+    { name: 'List view', url: ATOM_CONFIG.viewsPath + '/partials/aips.list-grid.html' },
+    { name: 'Browse view', url: ATOM_CONFIG.viewsPath + '/partials/aips.list-stacked.html' }
   ];
   $scope.template = $scope.templates[0];
 

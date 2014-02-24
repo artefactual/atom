@@ -31,16 +31,6 @@
 
 // Titles
 
-.moma-page-title:before {
-  border-radius: 20px;
-  width: 20px;
-  height: 20px;
-  content: "";
-  display: inline-block;
-  margin-right: .35em;
-  background: @momaNodeWork;
-}
-
 h1.moma-title {
   padding-left: 40px;
   position: relative;
@@ -78,6 +68,12 @@ h1.moma-title {
       height: auto;
     }
   }
+}
+
+// Section headers
+
+.menu-list {
+  .clearfix();
 }
 
 .menu-list-left {
@@ -225,6 +221,8 @@ h1.moma-title {
 
 .browse-view-list, .display-list {
 
+  padding: 20px;
+
   table {
 
     font-size: 12px;
@@ -357,7 +355,7 @@ section.section-supTech, section.dig-obj-bro {
 .btn-save span {
   .moma-icon();
   &:before {
-  content: "\f0c7";
+    content: "\f0c7";
   }
 }
 
