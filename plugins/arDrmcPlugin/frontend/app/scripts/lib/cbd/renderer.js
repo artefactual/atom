@@ -126,6 +126,8 @@
         'width': r.attr('width'),
         'height': r.attr('height')
       });
+      // Insert expand button
+      // n.insert('use').attr('xlink:href', '#expand-icon');
     });
 
     transition(svgNodes.exit())
@@ -293,25 +295,31 @@
     return 'children' in g && g.children(u).length;
   }
 
-  function postRender () {
-    /*
+  function postRender (graph, root) {
+    var defs = root.append('svg:defs');
+
     if (graph.isDirected() && root.select('#arrowhead').empty()) {
-      root
-        .append('svg:defs')
-          .append('svg:marker')
-            .attr('id', 'arrowhead')
-            .attr('viewBox', '0 0 10 10')
-            .attr('refX', 8)
-            .attr('refY', 5)
-            .attr('markerUnits', 'strokewidth')
-            .attr('markerWidth', 8)
-            .attr('markerHeight', 5)
-            .attr('orient', 'auto')
-            .attr('style', 'fill: #333')
-            .append('svg:path')
-              .attr('d', 'M 0 0 L 10 5 L 0 10 z');
+      defs.append('svg:marker')
+        .attr('id', 'arrowhead')
+        .attr('viewBox', '0 0 10 10')
+        .attr('refX', 8)
+        .attr('refY', 5)
+        .attr('markerUnits', 'strokewidth')
+        .attr('markerWidth', 8)
+        .attr('markerHeight', 5)
+        .attr('orient', 'auto')
+        .attr('style', 'fill: #333')
+        .append('svg:path')
+          .attr('d', 'M 0 0 L 10 5 L 0 10 z');
     }
-    */
+
+    var collapseIcon = defs.append('svg:g').attr('id', 'collapse-icon').append('svg:g');
+    collapseIcon.append('rect').attr({ x: 1, y: 6, fill: 'none', stroke: '#ffffff', 'stroke-width': 3, width: 16, height: 6 });
+    collapseIcon.append('rect').attr({ x: 1, y: 6, fill: '#999999', stroke: 'none', 'stroke-width': 3, width: 16, height: 6 });
+
+    var expandIcon = defs.append('svg:g').attr('id', 'expand-icon').append('svg:g');
+    expandIcon.append('polygon').attr({ fill: 'none', stroke: '#ffffff', 'stroke-width': 3, points: '6,17 6,12 1,12 1,6 6,6 6,1 12,1 12,6 17,6 17,12 12,12 12,17' });
+    expandIcon.append('polygon').attr({ fill: '#999999', stroke: 'none', points: '6,17 6,12 1,12 1,6 6,6 6,1 12,1 12,6 17,6 17,12 12,12 12,17' });
   }
 
   function addLabel (node, root, marginX, marginY) {
