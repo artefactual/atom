@@ -5,28 +5,27 @@
     <section id="facets">
       <h3>Narrow your results by:</h3>
       <ar-facet label="Classification" field="class" terms="data.aips.facets.class.terms" criteria="criteria"></ar-facet>
-      <ar-facet ng-if="false" label="All" criteria="criteria"></ar-facet>
-      <ar-facet ng-if="false" label="New AIPs" criteria="criteria"></ar-facet>
-      <ar-facet ng-if="false" label="AIP Object Type" criteria="criteria"></ar-facet>
-      <ar-facet ng-if="false" label="Keyword" criteria="criteria"></ar-facet>
     </section>
 
   </div>
 
-  <div class="span9 row-fluid">
+  <div class="span9">
 
-    <div id="main-column" class="span12">
+    <div id="main-column">
 
       <h1 class="multiline moma-title moma-title-aips">
         Showing {{ data.overview.total.count }} results
         <span class="sub">AIPs browser</span>
       </h1>
 
-      <div id="facet-indicators">
-        <span ng-show="criteria.class" class="search-filter">{{ criteria.class }} <a href ng-click="criteria.class = undefined"><i class="icon-remove"></i></a></span>
-      </div>
+      <section class="header-options">
+        <span ng-show="criteria.class" class="search-filter">
+          {{ criteria.class }}
+          <a href ng-click="criteria.class = undefined"><i class="icon-remove"></i></a>
+        </span>
+      </section>
 
-      <div id="content">
+      <div class="content">
 
         <section id="aips-overview">
 

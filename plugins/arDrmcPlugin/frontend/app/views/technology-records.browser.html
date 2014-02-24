@@ -1,17 +1,17 @@
-<div id="" class="row-fluid">
+<div class="row-fluid">
 
   <div class="span3">
 
-    <h3>Currently viewing</h3>
+    <section id="facets">
+      <h3>Narrow your results by:</h3>
+      <!-- TODO: add facets -->
+    </section>
 
-    <ar-facet label="All" criteria="criteria"></ar-facet>
-    <!-- TODO: make currently viewing sidebar directive -->
+  </div>
 
-  </div><!-- /span3 -->
+  <div class="span9">
 
-  <div class="span9 row-fluid" ng-model="data">
-
-    <div id="main-column" class="span12">
+    <div id="main-column">
 
       <h1 class="multiline moma-title moma-title-techrecs">
         Showing {{ data.overview.total.count }} results
@@ -19,9 +19,10 @@
       </h1>
 
       <hr />
+
       <a href ui-sref="technology-records.view">Technology record example</a>
 
-    </div><!-- /.span9 -->
+    </div>
 
-  </div><!-- /#main-column -->
+  </div>
 </div>

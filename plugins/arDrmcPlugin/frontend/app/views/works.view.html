@@ -1,8 +1,8 @@
-<div class="row">
+<div class="row-fluid">
 
   <div class="span12">
 
-    <h1 class="moma-page-title">{{ work.title }}</h1>
+    <h1 class="moma-title moma-title-works">{{ work.title }}</h1>
 
     <section class="breadcrumb">
       <ul>
@@ -85,46 +85,39 @@
 
       <ar:context-browser resource="{{ work.id }}"></ar:context-browser>
 
-      <section id="content" class="row-fluid">
+      <div class="content">
 
-        <div class="menu-list row-fluid" >
-          <ul class="menu-list-left inline">
-            <li><h2>Digital Objects</h2></li>
-          </ul>
-        </div>
-
-        <section class="overview-body row-fluid">
-          <div class="field">
-            <h3>Total Physical Storage</h3>
-            <div></div>
+        <section>
+          <div class="menu-list row-fluid">
+            <ul class="menu-list-left">
+              <li><h2>Digital objects</h2></li>
+            </ul>
           </div>
-          <div class="field">
-            <h3>Total Related AIPs</h3>
-            <div></div>
-          </div>
-          <div class="field">
-            <h3>Artwork Objects</h3>
-            <div></div>
-          </div>
-          <div class="field">
-            <h3>Documentation Objects</h3>
-            <div></div>
-          </div>
-          <div class="field">
-            <h3>Unclassified Objects</h3>
-            <div></div>
+          <div>
+            <div class="field">
+              <h3>Total physical storage</h3>
+              <div></div>
+            </div>
+            <div class="field">
+              <h3>Total related AIPs</h3>
+              <div></div>
+            </div>
+            <div class="field">
+              <h3>Artwork objects</h3>
+              <div></div>
+            </div>
+            <div class="field">
+              <h3>Documentation objects</h3>
+              <div></div>
+            </div>
+            <div class="field">
+              <h3>Unclassified objects</h3>
+              <div></div>
+            </div>
           </div>
         </section>
-      </section>
 
-      <hr />
-
-      <section>
-        <h2>Other works</h2>
-        <ul ng-repeat="item in works" class="nav nav-pills nav-stacked">
-          <li ng-class="{ active: item.id === work.id }"><a ui-sref="works.view({id:item.id})">{{ item.title }}</a></li>
-        </ul>
-      </section>
+      </div>
 
     </div>
   </div>

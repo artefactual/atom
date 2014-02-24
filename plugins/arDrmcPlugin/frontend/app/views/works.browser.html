@@ -1,6 +1,16 @@
-<div class="row">
+<div class="row-fluid">
 
-  <div class="span12">
+  <div class="span3">
+
+    <section id="facets">
+      <h3>Narrow your results by:</h3>
+      <!-- TODO: add facets -->
+    </section>
+
+  </div>
+
+  <div class="span9">
+
     <div id="main-column">
 
       <h1 class="multiline moma-title moma-title-works">
@@ -9,10 +19,9 @@
       </h1>
 
       <section class="header-options">
-        <div class="row">
-          <div class="span8">
+        <div class="row-fluid">
 
-            <!-- Inline search -->
+          <div class="span8">
             <div class="inline-search">
               <form>
                 <div class="input-append">
@@ -22,11 +31,9 @@
                 </div>
               </form>
             </div>
-
           </div>
-          <div class="span4">
 
-            <!-- Sorting -->
+          <div class="span4">
             <div id="sort-header">
               <div class="sort-options">
                 <label>Sort by:</label>
@@ -41,12 +48,12 @@
                 </div>
               </div>
             </div>
-
           </div>
+
         </div>
       </section>
 
-      <div id="content">
+      <div class="content">
 
         <article ng-repeat="work in works" class="search-result">
           <div class="search-result-description">

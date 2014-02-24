@@ -1,23 +1,16 @@
-body {
-  // Important for sidebar animation
-  position: relative !important;
-}
-
-
-.content {
-  //Imports all styles from #content
-  margin-bottom: 1em;
-  #content();
-}
-
-// Fixes cursor to non-href elements
-.nav, .panel-title a { cursor: pointer; }
-
 // Header
+// TODO: fix this in AtoM!
 
 .drmc-ma #site-name {
   margin-left: 20px;
   margin-right: 40px;
+}
+
+// Imports all styles from #content
+// TODO: fix this!
+.content {
+  margin-bottom: 1em;
+  #content();
 }
 
 // Menu lists
@@ -48,7 +41,7 @@ body {
   background: @momaNodeWork;
 }
 
-h1.multiline.moma-title {
+h1.moma-title {
   padding-left: 40px;
   position: relative;
   &:before {
@@ -201,11 +194,6 @@ ul.menu-list-left li {
   }
 }
 
-// Aips pages
-
-// Gives wider space to fields to
-// accomodate longer titles
-
 // Facet sidebar for AIP
 
 #aips-overview {
@@ -330,30 +318,6 @@ ul.menu-list-left li {
 
   }
 
-}
-
-// AIPS single page
-
-// AIPs single title
-#aip-single h3.aip-single-title:before {
-  background: @momaNodeDigitalObject center center;
-  border-radius: 20px;
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-  vertical-align: text-top;
-  content: "";
-  font-size: .7em;
-  color: @white;
-  margin-right: .45em;
-}
-
-// Supporting Technology
-
-// Additional border for paired field views
-.field-divider {
-  border-bottom: 1px solid @grayLighter;
-  padding-bottom: 2px;
 }
 
 // Supporting Tech Metabox

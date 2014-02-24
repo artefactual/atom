@@ -1,60 +1,41 @@
-<div id="" class="row-fluid">
+<div class="row-fluid">
 
-  <div class="span3">
+  <div class="span12">
 
-  </div><!-- /span3 -->
+    <h1 class="moma-title moma-title-aips">{{ aip.name }}</h1>
 
-  <div id="aip-single" class="span9 row-fluid">
+    <section class="breadcrumb">
+      <ul>
+        <li><a ui-sref="aips.browser">AIPs</a></li>
+        <li><span>{{ aip.name }}</span></li>
+      </ul>
+    </section>
 
-    <div id="main-column" class="span12">
+  </div>
 
-      <h3 class="single-title">AIP&nbsp;{{ id }}&nbsp;-&nbsp;{{ aip.name }}</h3>
-      <span>
-        <a ui-sref="aips.browser">AIPs</a>
-        &nbsp;&raquo;&nbsp;{{ aip.name }}
-      </span>
+</div>
 
-      <div id="facet-indicators">
-        <div ng-show="criteria.class">{{ criteria.class }} <span ng-click="criteria.class = undefined">[x]</span></div>
-      </div>
+<div class="row-fluid">
 
-      <div id="content">
+  <div class="span12">
+    <div id="main-column">
 
-        <section class="row-fluid">
+      <div class="content">
 
+        <section>
           <div class="menu-list row-fluid">
-
-            <ul class="menu-list-left inline">
-              <li>
-                <h2>AIP Details</h2>
-              </li>
+            <ul class="menu-list-left">
+              <li><h2>AIP details</h2></li>
             </ul>
-
             <ul class="menu-list-right nav nav-pills">
-              <li>
-                <a class="download"
-                   ui-sref="#">
-                   Download
-                </a>
-              </li>
-              <li>
-                <a class="fixity_report"
-                   ui-sref="#">
-                   Fixity Report
-                </a>
-              </li>
-              <li>
-                <a class="edit"
-                   ui-sref="#">
-                   Edit
-                </a>
-              </li>
+              <li><a href class="print">Print report</a></li>
+              <li><a href class="download">Download</a></li>
+              <li><a href class="inspect">Inspect</a></li>
             </ul>
-          </div><!-- /contentTitle -->
-
-          <section class="overview-body row-fluid">
+          </div>
+          <div>
             <div class="field">
-              <h3>AIP Name</h3>
+              <h3>AIP name</h3>
               <div>{{ aip.name }}</div>
             </div>
             <div class="field">
@@ -66,15 +47,15 @@
               <div>{{ aip.size | UnitFilter:2 }}</div>
             </div>
              <div class="field">
-              <h3>No. of subdirectories</h3>
+              <h3>Number of subdirectories</h3>
               <div>{{ aip.subdirectoryquantity }}</div>
             </div>
             <div class="field">
-              <h3>No. of objects</h3>
+              <h3>Number of objects</h3>
               <div>{{ aip.objectquantity }}</div>
             </div>
             <div class="field">
-              <h3>AIP Class</h3>
+              <h3>AIP class</h3>
               <div>{{ aip.class }}</div>
             </div>
             <div class="field" ng-show="aip.partof">
@@ -85,47 +66,13 @@
               <h3>Description</h3>
               <div>{{ aip.description }}</div>
             </div>
-          </section>
-
-        </section>
-
-        <section class="row-fluid">
-
-          <div class="menu-list row-fluid">
-
-            <ul class="menu-list-left inline">
-              <li>
-                <h2>AIP Browser</h2>
-              </li>
-            </ul>
-
-            <ul class="menu-list-right nav nav-pills">
-              <li>
-                <a class="print"
-                   ui-sref="#">
-                   Print Report
-                </a>
-              </li>
-              <li>
-                <a class="download"
-                   ui-sref="#">
-                   Download
-                </a>
-              </li>
-              <li>
-                <a class="inspect"
-                   ui-sref="#">
-                   Inspect
-                </a>
-              </li>
-            </ul>
           </div>
-
         </section>
-      </div><!-- /#content -->
 
-    </div><!-- /.span9 -->
+      </div>
 
-  </div><!-- /#main-column -->
+    </div>
+
+  </div>
 
 </div>
