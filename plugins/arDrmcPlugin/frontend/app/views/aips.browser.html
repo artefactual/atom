@@ -103,15 +103,15 @@
             </ul>
           </div>
 
-          <div id="collection-viewer" class="container-fluid">
+          <div id="aips-templates">
             <span>View in</span>
-            <select class="select-view-style span5" name="aips=templates" ng-model="template" ng-options="template.name for template in templates">
+            <select class="span5" name="aips=templates" ng-model="template" ng-options="template.name for template in templates">
               <option>{{ template.name }}</option>
             </select>
             <!-- Location of template from ng-include -->
-            <div class="collection-viewer-container">
-              <div ng-include="template.url"></div>
-            </div>
+
+            <div ng-include="template.url"></div>
+
           </div>
 
         </section>

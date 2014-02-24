@@ -80,8 +80,6 @@ h1.moma-title {
   }
 }
 
-// MetaData / Digital Objects
-
 .menu-list-left {
   float: left;
   h2 {
@@ -90,62 +88,14 @@ h1.moma-title {
     border-bottom: none!important;
     margin-right: 0px;
   }
-    li:nth-child(2n) {
-      font-family: FontAwesome;
-      font-style: normal;
-      font-weight: normal;
-      text-decoration: inherit;
-      width: 60px;
-      margin-right: -8px!important;
-      display: inline-block;
-      cursor: pointer;
-      line-height: 11px;
-      white-space: nowrap;
-      -ms-text-overflow: ellipsis;
-      -o-text-overflow: ellipsis;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      color: @black;
-      font-size: .9em;
-      &:hover {
-        overflow: visible;
-      }
-        &:before {
-          content: "\f105";
-          padding-right: 6px;
-        }
-      }
-}
-
-ul.menu-list-left li {
+  li {
   border: none!important; //still doubling border -> fix this
-}
-
-.section-digitalObjects, .section-metadata {
-  width: 49.5%;
-  height: 250px;
-  overflow: auto;
-  margin-bottom: 30px;
-  border: 1px solid @grayLighter;
-}
-
-.section-metadata .menu-list-right ul.dropdown-menu {
-  left: -115px;
-  max-width: 100px;
-}
-
-.section-digitalObjects .field {
-   h3 {
-    width: 38%;
-  }
-  > div {
-    margin-left: 40%;
   }
 }
 
 // Menu list right
 
-.menu-list-right {
+.menu-list-right, .section-list-r {
   float: right;
   margin-top: 3px !important;
   li a {
@@ -218,21 +168,19 @@ ul.menu-list-left li {
   }
 }
 
-#collection-viewer select.select-view-style {
-  margin-top: 6px;
-  margin-left: 6px;
-}
-
-// (maybe future animations)
-
-.collection-viewer-container {
-  position:relative;
-  min-height: 200px;
+#aips-templates {
+  span {
+    padding-left: 2.4%;
+  }
+  select {
+    margin-top: 7px;
+    margin-left: 6px;
+  }
 }
 
 .browse-view-browse {
 
-  // Aligns first span
+  // Overrides bootstrap first-child rules
 
   [class*="span"]:not(.span2) {
     margin-left: 0px;
@@ -275,7 +223,7 @@ ul.menu-list-left li {
 
 // AIPS Browser - List view
 
-.browse-view-list {
+.browse-view-list, .display-list {
 
   table {
 
