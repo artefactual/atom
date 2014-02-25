@@ -21,17 +21,14 @@ class QubitResourceRoute extends QubitRoute
 {
   public function bind($context, $params)
   {
-    if (isset($params['slug']))
-    {
-      $criteria = new Criteria;
-      $criteria->add(QubitSlug::SLUG, $params['slug']);
-      $criteria->addJoin(QubitSlug::OBJECT_ID, QubitObject::ID);
+    $criteria = new Criteria;
+    $criteria->add(QubitSlug::SLUG, $params['slug']);
+    $criteria->addJoin(QubitSlug::OBJECT_ID, QubitObject::ID);
 
-      $this->resource = QubitObject::get($criteria)->__get(0);
-      if (@$params['throw404'] == false && !isset($this->resource))
-      {
-        throw new sfError404Exception;
-      }
+    $this->resource = QubitObject::get($criteria)->__get(0);
+    if (@$params['throw404'] == false && !isset($this->resource))
+    {
+      throw new sfError404Exception;
     }
 
     return parent::bind($context, $params);
