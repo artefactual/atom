@@ -67,4 +67,53 @@ class QubitAPIAction extends sfAction
 
     return $this->renderData($data);
   }
+
+  /**
+   * Filter out selected facets. It uses \Elastica\Query instead of
+   * \Elastica\Filter because the former happens before faceting while the
+   * latter happens after faceting.
+   */
+  protected function filterEsFacet($name, $field, &$queryBool, $operator = 'AND', array $options = array())
+  {
+    if (!isset($this->request->$name))
+    {
+      return;
+    }
+
+    // Ensure type array
+    $this->request->$name = (array) $this->request->$name;
+
+    // Check type of the elements in the array
+    foreach ($this->request->$name as $item)
+    {
+      if (true !== ctype_digit($item))
+      {
+        return;
+      }
+    }
+
+    $query = new \Elastica\Query\Terms;
+    $query->setTerms($field, $this->request->$name);
+
+    switch (strtolower($operator))
+    {
+      case 'or':
+      case 'should':
+        $queryBool->addShould($query);
+
+        break;
+
+      case 'nor':
+      case 'not':
+      case 'must_not':
+        $queryBool->addMustNot($query);
+
+        break;
+
+      case 'and':
+      case 'must':
+      default:
+        $queryBool->addMust($query);
+    }
+  }
 }
