@@ -343,6 +343,11 @@ information_object:
       XPath:   "(arrangement | descgrp/arrangement)"
       Method:  setArrangement
 
+    controlaccess_name:
+      XPath:  "(controlaccess/name | controlaccess/controlaccess/name)"
+      Method: setActorByName
+      Parameters: [$nodeValue, "$options = array('relation_type_id' => QubitTerm::NAME_ACCESS_POINT_ID)"]
+
     controlaccess_corpname:
       XPath:   "(controlaccess/corpname | controlaccess/controlaccess/corpname)"
       Method:  setActorByName
