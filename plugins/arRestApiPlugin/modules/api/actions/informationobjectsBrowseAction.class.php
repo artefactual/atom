@@ -21,6 +21,109 @@ class APIInformationObjectsBrowseAction extends QubitAPIAction
 {
   protected function get($request)
   {
-    return array('status' => 'ok');
+    return array(
+      'results' => $this->getResults()
+    );
+  }
+
+  protected function getResults()
+  {
+    $query = new \Elastica\Query();
+    $queryBool = new \Elastica\Query\Bool();
+
+    // Limit
+    if (isset($request->limit) && ctype_digit($this->request->limit))
+    {
+      $this->query->setLimit($this->request->limit);
+    }
+
+    // Skip
+    if (isset($request->skip) && ctype_digit($this->request->skip))
+    {
+      $this->query->setFrom($this->request->skip);
+    }
+
+    // Sort and direction, default: filename, asc
+    if (!isset($this->request->sort))
+    {
+      $this->request->sort = 'filename';
+    }
+
+
+    if (!isset($this->request->sort_direction))
+    {
+      $this->request->sort_direction = 'asc';
+    }
+
+    $query->setSort(array($this->request->sort => $this->request->sort_direction));
+    $query->setFields(array(
+      'slug',
+      'identifier',
+      'inheritReferenceCode',
+      'levelOfDescriptionId',
+      'publicationStatusId',
+      'ancestors',
+      'parentId',
+      'hasDigitalObject',
+      'createdAt',
+      'updatedAt',
+      'sourceCulture',
+      'i18n'));
+
+    // Query
+    $queryBool->addMust(new \Elastica\Query\MatchAll());
+
+    // Filter: level of description
+    if (isset($this->request->levelOfDescriptionId) && ctype_digit($this->request->levelOfDescriptionId))
+    {
+      $queryBool->addMust(new \Elastica\Query\Term(array('levelOfDescriptionId' => $this->request->levelOfDescriptionId)));
+    }
+    else if (isset($this->request->levelOfDescription) && is_string($this->request->levelOfDescription))
+    {
+      switch ($this->request->levelOfDescription)
+      {
+        case 'work':
+          $levelId = 181;
+
+          break;
+
+        case 'technology-record':
+          $levelId = 182;
+
+          break;
+
+        case 'physical-component':
+          $levelId = 183;
+
+          break;
+
+        case 'digital-object':
+          $levelId = 184;
+
+          break;
+
+        case 'description':
+          $levelId = 185;
+
+          break;
+      }
+
+      $queryBool->addMust(new \Elastica\Query\Term(array('levelOfDescriptionId' => $levelId)));
+    }
+
+    $query->setQuery($queryBool);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+
+    // Build array from results
+    $results = array();
+    foreach ($resultSet as $hit)
+    {
+      $results[$hit->getId()] = $hit->getFields();
+    }
+
+    return
+      array(
+        'total_hits' => $resultSet->getTotalHits(),
+        'contents' => $results);
   }
 }
