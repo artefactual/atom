@@ -38,6 +38,13 @@ class QubitAPIAction extends sfAction
 
   public function renderData($data)
   {
+    if (count($data) == 0)
+    {
+      $this->response->setHeaderOnly(true);
+
+      return sfView::NONE;
+    }
+
     $options = 0;
     if ($this->context->getConfiguration()->isDebug() && defined('JSON_PRETTY_PRINT'))
     {
@@ -45,5 +52,19 @@ class QubitAPIAction extends sfAction
     }
 
     return $this->renderText(json_encode($data, $options));
+  }
+
+  public function forward404($message = false, $data = array())
+  {
+    if (false !== $message)
+    {
+      $this->response->setStatusCode(404, $message);
+    }
+    else
+    {
+      $this->response->setStatusCode(404);
+    }
+
+    return $this->renderData($data);
   }
 }
