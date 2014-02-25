@@ -25,9 +25,12 @@
  */
 class arRestApiPluginConfiguration extends sfPluginConfiguration
 {
+  const REGEX_UUID = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}';
+  const REGEX_ID   = '\d+';
+
   public function routingLoadConfiguration(sfEvent $event)
   {
-    $routing = $event->getSubject();
+    $this->routing = $event->getSubject();
 
     // How slow is inserting the routes here? I don't think I can obtain the
     // same results using a nested routing.yml files in arRestApiPlugin because
@@ -35,61 +38,79 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     // This is probably not being cached at all :(
 
     /**
-     * Dashboard
+     * Dashboard resources
      */
 
-    // Resource: /api/dashboard
-    $routing->insertRouteBefore(
-      'slug;default_index',
-      'api_dashboard_index',
-      new sfRequestRoute(
-        '/api/dashboard',
-        array('module' => 'api', 'action' => 'dashboardView'),
-        array('requirements' => array('GET'))));
+    $this->addRoute('GET', '/api/dashboard', array(
+      'module' => 'api',
+      'action' => 'dashboardView'));
 
     /**
-     * APIs
+     * AIP resources
      */
 
-    // Resource: /api/aips
-    $routing->insertRouteBefore(
-      'slug;default_index',
-      'api_aips_index',
-      new sfRequestRoute(
-        '/api/aips',
-        array('module' => 'api', 'action' => 'aipsBrowse'),
-        array('requirements' => array('GET'))));
+    $this->addRoute('GET', '/api/aips', array(
+      'module' => 'api',
+      'action' => 'aipsBrowse'));
 
-    // Resource: /api/aip/:uuid
-    $routing->insertRouteBefore(
-      'slug;default_index',
-      'api_aip_index',
-      new QubitResourceRoute(
-        '/api/aips/:uuid',
-        array('module' => 'api', 'action' => 'aipsView'),
-        array('requirements' => array('GET'))));
+    $this->addRoute('GET', '/api/aips/:uuid', array(
+      'module' => 'api',
+      'action' => 'aipsView',
+      'params' => array('uuid' => self::REGEX_UUID)));
 
-    // Resource: /api/aips/reclassify
-    $routing->insertRouteBefore(
-      'slug;default_index',
-      'api_aips_reclassify',
-      new sfRequestRoute(
-        '/api/aips/:uuid/reclassify',
-        array('module' => 'api', 'action' => 'aipsReclassify'),
-        array('requirements' => array('GET'))));
+    $this->addRoute('POST', '/api/aips/:uuid/reclassify', array(
+      'module' => 'api',
+      'action' => 'aipsReclassify',
+      'params' => array('uuid' => self::REGEX_UUID)));
 
     /**
-     * Information objects
+     * Information object resources
      */
 
-    // Resource: /api/informationobjects
-    $routing->insertRouteBefore(
-      'slug;default_index',
-      'api_informationobjects',
-      new sfRequestRoute(
-        '/api/informationobjects',
-        array('module' => 'api', 'action' => 'informationobjectsBrowse'),
-        array('requirements' => array('GET'))));
+    $this->addRoute('GET', '/api/informationobjects', array(
+      'module' => 'api',
+      'action' => 'informationobjectsBrowse'));
+
+    $this->addRoute('GET', '/api/informationobjects', array(
+      'module' => 'api',
+      'action' => 'informationobjectsBrowse'));
+
+    $this->addRoute('GET', '/api/informationobjects/:id', array(
+      'module' => 'api',
+      'action' => 'informationobjectsView',
+      'params' => array('id' => self::REGEX_ID)));
+  }
+
+  protected function addRoute($method, $pattern, array $options = array())
+  {
+    $defaults = $requirements = array();
+
+    $name = str_replace('/', '_', $pattern);
+
+    $requirements['sf_method'] = $method;
+
+    if (isset($options['module']))
+    {
+      $defaults['module'] = $options['module'];
+    }
+
+    if (isset($options['action']))
+    {
+      $defaults['action'] = $options['action'];
+    }
+
+    if (isset($options['params']))
+    {
+      $params = $options['params'];
+      foreach ($params as $field => $regex)
+      {
+        $requirements[$field] = $regex;
+      }
+    }
+
+    // Add route before slug;default_index
+    $this->routing->insertRouteBefore('slug;default_index', $name,
+      new sfRequestRoute($pattern, $defaults, $requirements));
   }
 
   /**

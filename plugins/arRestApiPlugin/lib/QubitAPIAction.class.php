@@ -29,9 +29,11 @@ class QubitAPIAction extends sfAction
       $this->forward404();
     }
 
-    $data = call_user_func(array($this, $method));
+    $callable = array($this, $method);
+    $params = array($request);
+    $result = call_user_func_array($callable, $params);
 
-    return $this->renderData($data);
+    return $this->renderData($result);
   }
 
   public function renderData($data)

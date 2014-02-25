@@ -21,14 +21,6 @@ class APIAIPsViewAction extends QubitAPIAction
 {
   protected function get($request)
   {
-    if (1 !== preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/', $request->uuid, $matches))
-    {
-      // TODO? Add errors to response
-      $this->forward404();
-
-      return;
-    }
-
     ProjectConfiguration::getActive()->loadHelpers('Qubit');
 
     $this->query = new \Elastica\Query();
