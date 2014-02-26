@@ -3,6 +3,6 @@
     'sort-asc': criteria.sort_direction == 'asc' || criteria.sort_direction == undefined,
     'sort-desc': criteria.sort_direction == 'desc'
   }">
-  <span>{{ label }}</span>
-  <a href ng-click="toggleSortDir()"></a>
+  <a href ng-click="toggleSortDir()" class="sort-label">{{ label }}</a>
+  <a href ng-click="toggleSortDir()" class="sort-icon"></a>
 </div>

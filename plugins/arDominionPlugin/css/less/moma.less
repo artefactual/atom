@@ -233,11 +233,17 @@ h1.moma-title {
     }
 
     thead {
-      color: @black;
-      font-weight: normal; // Bug OpenSans bold
-      white-space: nowrap;
 
-      a {
+      .sort-label {
+        color: @black;
+        font-weight: normal; // Bug OpenSans bold
+      }
+
+      .selected .sort-label {
+        text-decoration: underline;
+      }
+
+      .sort-icon {
         .fa-icon-set(@gray);
         font-size: 18px;
         margin-left: 4px;
@@ -245,12 +251,8 @@ h1.moma-title {
         content: "\f106";
       }
 
-      .sort-asc a:after  { content: "\f106"; }
-      .sort-desc a:after { content: "\f107"; }
-
-      .selected span {
-        text-decoration: underline;
-      }
+      .sort-asc .sort-icon:after  { content: "\f106"; }
+      .sort-desc .sort-icon:after { content: "\f107"; }
     }
 
     tbody {
