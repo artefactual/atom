@@ -21,26 +21,31 @@ class APIAIPsViewAction extends QubitAPIAction
 {
   protected function get($request)
   {
+    $data = $this->getResults();
+
+    return $data;
+  }
+
+  protected function getResults()
+  {
     ProjectConfiguration::getActive()->loadHelpers('Qubit');
 
-    $this->query = new \Elastica\Query();
-    $this->queryBool = new \Elastica\Query\Bool();
+    // Create query objects
+    $query = new \Elastica\Query;
+    $queryBool = new \Elastica\Query\Bool;
 
     // Query
-    $query = new \Elastica\Query\Term;
-    $query->setTerm('uuid', $request->uuid);
-    $this->queryBool->addMust($query);
-    $this->query->setQuery($this->queryBool);
+    $queryTerm = new \Elastica\Query\Term;
+    $queryTerm->setTerm('uuid', $this->request->uuid);
+    $queryBool->addMust($queryTerm);
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitAip')->search($this->query);
-    $results = $resultSet->getResults();
+    // Assign query
+    $query->setQuery($queryBool);
 
-    if (0 == count($results))
+    $results = QubitSearch::getInstance()->index->getType('QubitAip')->search($query)->getResults();
+    if (1 > count($results))
     {
-      // TODO? Add errors to response
-      $this->forward404();
-
-      return;
+      return $this->forward404();
     }
 
     $doc = $results[0]->getData();
@@ -51,14 +56,16 @@ class APIAIPsViewAction extends QubitAPIAction
     $aip['name'] = $doc['filename'];
     $aip['uuid'] = $doc['uuid'];
     $aip['size'] = $doc['sizeOnDisk'];
+    $aip['type']['id'] = $doc['type']['id'];
+    $aip['type']['name'] = get_search_i18n($doc['type'], 'name');
+    $aip['part_of']['id'] = $doc['partOf']['id'];
+    $aip['part_of']['title'] = get_search_i18n($doc['partOf'], 'title');
     $aip['digitalObjectCount'] =  $doc['digitalObjectCount'];
-    $aip['subdirectoryCount'] =  'TODO';
-    $aip['description'] =  'TODO';
+    if (isset($doc['digitalObjects']))
+    {
+      $aip['digitalObjects'] = $doc['digitalObjects'];
+    }
     $aip['created_at'] = $doc['createdAt'];
-    $aip['class'] = get_search_i18n($doc['class'][0], 'name');
-    $aip['part_of']['id'] = $doc['partOf'][0]['id'];
-    $aip['part_of']['title'] = get_search_i18n($doc['partOf'][0], 'title');
-    $aip['digitalObjects'] = $doc['digitalObjects'];
 
     return $aip;
   }
