@@ -4,7 +4,7 @@
 
     <section id="facets">
       <h3>Narrow your results by:</h3>
-      <ar-facet label="Classification" field="type" terms="data.facets.type.terms" criteria="criteria"></ar-facet>
+      <ar-facet label="Classification" facet="data.facets.type" field="criteria.type"></ar-facet>
     </section>
 
   </div>
@@ -14,7 +14,7 @@
     <div id="main-column">
 
       <h1 class="multiline moma-title moma-title-aips">
-        Showing {{ data.overview.total.count }} results
+        Showing {{ data.total }} results
         <span class="sub">AIPs browser</span>
       </h1>
 
@@ -38,13 +38,7 @@
               </li>
             </ul>
           </div>
-
-          <!-- content -->
-          <section class="overview-body row-fluid" ng-show="showOverview">
-            <div class="field">
-              <h3>Total AIP storage size</h3>
-              <div>{{ data.overview.total.size | UnitFilter:2 || 0 }}</div>
-            </div>
+          <section ng-show="showOverview">
             <div class="field">
               <h3>Total AIPs</h3>
               <div>
