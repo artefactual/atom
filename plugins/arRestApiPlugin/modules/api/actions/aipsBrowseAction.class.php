@@ -114,6 +114,9 @@ class APIAIPsBrowseAction extends QubitAPIAction
       $totalCount += $facet['count'];
     }
 
+    $results['unclassified'] = array(
+      'count' => $resultSet->getTotalHits() - $totalCount);
+
     $results['total'] = array(
       'size' => $totalSize,
       'count' => $totalCount);
