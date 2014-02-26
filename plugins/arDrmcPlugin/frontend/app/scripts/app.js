@@ -106,7 +106,7 @@
           templateUrl: ATOM_CONFIG.viewsPath + '/aips.browser.html'
         })
         .state('aips.view', {
-          url: '/{id:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}}',
+          url: '/{uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}}',
           controller: 'AIPViewCtrl',
           templateUrl: ATOM_CONFIG.viewsPath + '/aips.view.html'
         })
