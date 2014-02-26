@@ -21,17 +21,24 @@ class QubitAPIAction extends sfAction
 {
   public function execute($request)
   {
-    $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
-
     $method = strtoupper($request->getMethod());
     if (!method_exists($this, $method))
     {
       $this->forward404();
     }
 
-    $callable = array($this, $method);
-    $params = array($request);
-    $result = call_user_func_array($callable, $params);
+    // Define function callable
+    $fnCallable = array($this, $method);
+    $fnParamaters = array($request);
+
+    // Modern frameworks support application/json, Symfony1 is too old :)
+    // AngularJS uses application/x-www-form-urlencoded
+    if ('POST' == $method && 'application/json' == $request->getContentType())
+    {
+      $fnParamaters[] = json_decode($request->getContent());
+    }
+
+    $result = call_user_func_array($fnCallable, $fnParamaters);
 
     return $this->renderData($result);
   }
@@ -50,6 +57,8 @@ class QubitAPIAction extends sfAction
     {
       $options |= JSON_PRETTY_PRINT;
     }
+
+    $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
 
     return $this->renderText(json_encode($data, $options));
   }
