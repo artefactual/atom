@@ -19,10 +19,40 @@
 
 class APIAIPsReclassifyAction extends QubitAPIAction
 {
-  protected function post($request)
+  protected function post($request, $payload)
   {
+    if (null === $aip = QubitAip::getByUuid($request->uuid))
+    {
+      return $this->forward404('UUID not found');
+    }
+
+    if (!isset($payload->typeId))
+    {
+      return $this->forward404('Missing parameter typeId');
+    }
+
+    if (null === $term = QubitTerm::getById($payload->typeId))
+    {
+      return $this->forward404('Term not found');
+    }
+
+    if ($term->taxonomyId != QubitTaxonomy::AIP_TYPE_ID)
+    {
+      return $this->forward404('Term not recognized');
+    }
+
+    $aip->typeId = $term->id;
+
+    try
+    {
+      $aip->save();
+    }
+    catch (Exception $e)
+    {
+      return $this->forwardError();
+    }
+
     return array(
-      'status' => 'OK'
-    );
+      'status' => 'Saved');
   }
 }
