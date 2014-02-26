@@ -18,20 +18,16 @@ module.exports = function ($scope, $modal, ATOM_CONFIG, AIPService) {
   }, true); // check properties when watching
 
   $scope.pull = function () {
+    // This one is cached, TODO: find a better place?
+    AIPService.getTypes()
+      .success(function (data) {
+        $scope.classifications = data.terms;
+      });
     AIPService.getAIPs($scope.criteria)
       .success(function (data) {
         $scope.data = data;
         $scope.$broadcast('pull.success', data.overview.total.count);
       });
-  };
-
-  // TODO: Load from server (/taxonomy endpoint?)
-  $scope.classifications = {
-    1: 'Artwork component',
-    2: 'Artwork material',
-    3: 'Supporting documentation',
-    4: 'Supporting technology',
-    5: 'Unclassified'
   };
 
   // Support overview toggling

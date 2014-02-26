@@ -1,11 +1,5 @@
 'use strict';
 
-/**
- * TODO:
- *  - In criteria[field] should allow multiple values (array)
- *  - Selected values should be controlled by its ID
- */
-
 module.exports = function (ATOM_CONFIG) {
   return {
     restrict: 'E',
@@ -19,32 +13,28 @@ module.exports = function (ATOM_CONFIG) {
     },
     link: function (scope) {
       scope.collapsed = false;
-      scope.selections = [];
 
       scope.toggle = function () {
         scope.collapsed = !scope.collapsed;
       };
 
-      scope.$watch('criteria.' + scope.field, function (newValue, oldValue) {
-        if (!angular.equals(newValue, oldValue)) {
-          scope.selections = [newValue];
-        }
-      }, true);
-
-      /**
-       * Updates selections and criteria
-       */
       scope.select = function (id) {
-        var index = jQuery.inArray(id, scope.selections);
+        // Create array if undefined
+        if (typeof scope.criteria[scope.field] === 'undefined') {
+          scope.criteria[scope.field] = [id];
+          return;
+        }
+        // Update scope.criteria.[scope.field]
+        var index = jQuery.inArray(id, scope.criteria[scope.field]);
         if (index === -1) {
-          scope.criteria[scope.field] = id; // scope.terms[id].term;
+          scope.criteria[scope.field].push(id);
         } else {
-          delete scope.criteria[scope.field];
+          scope.criteria[scope.field].splice(index, 1);
         }
       };
 
       scope.isSelected = function (id) {
-        return jQuery.inArray(id, scope.selections) !== -1;
+        return jQuery.inArray(id, scope.criteria[scope.field]) !== -1;
       };
     }
   };

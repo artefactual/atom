@@ -14,7 +14,7 @@
   </div>
   -->
 
-  <div ng-repeat="(key, aip) in data.aips.results" class="span12 row-fluid">
+  <div ng-repeat="(key, aip) in data.results" class="span12 row-fluid">
 
     <div class="span2 offset1">
       <div><img src="http://fillmurray.com/g/200/150" /></div>
@@ -24,7 +24,7 @@
       <div class="field">
         <h3>Name</h3>
         <div>
-          <a ui-sref="aips.view({ id: aip.uuid })">{{ aip.name }}</a>
+          <a ui-sref="aips.view({ uuid: aip.uuid })">{{ aip.name }}</a>
         </div>
       </div>
 
@@ -54,7 +54,7 @@
       <div class="field">
         <h3>Class</h3>
         <div>
-          <a href ng-click="openReclassifyModal(aip)">{{ aip.class }}</a>
+          <a href ng-click="openReclassifyModal(aip)">{{ aip.type.name }}</a>
         </div>
       </div>
 

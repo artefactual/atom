@@ -20,11 +20,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="(key, aip) in data.aips.results | orderBy:predicate:reverse">
-        <td><a ui-sref="aips.view({ id: aip.uuid })">{{ aip.name }}</a></td>
+      <tr ng-repeat="(key, aip) in data.results | orderBy:predicate:reverse">
+        <td><a ui-sref="aips.view({ uuid: aip.uuid })">{{ aip.name }}</a></td>
         <td>{{ aip.size | UnitFilter: 1 }}</td>
         <td>{{ aip.created_at }}</td>
-        <td><a href ng-click="openReclassifyModal(aip)">{{ aip.class }}</a></td>
+        <td><a href ng-click="openReclassifyModal(aip)">{{ aip.type.name }}</a></td>
         <td>{{ aip.part_of.title }}</td>
       </tr>
     </tbody>

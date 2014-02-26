@@ -10,7 +10,7 @@
     <ul>
       <li ng-repeat="term in terms | orderBy:'count':true" ng-class="{ active: isSelected(term.term) }">
         <a href ng-click="select(term.term)">
-          {{ term.term }}
+          {{ term.label }}
           <span class="facet-count">{{ term.count }}</span>
         </a>
       </li>
