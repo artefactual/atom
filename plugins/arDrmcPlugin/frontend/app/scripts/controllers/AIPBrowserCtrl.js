@@ -26,7 +26,7 @@ module.exports = function ($scope, $modal, ATOM_CONFIG, AIPService) {
     AIPService.getAIPs($scope.criteria)
       .success(function (data) {
         $scope.data = data;
-        $scope.$broadcast('pull.success', data.overview.total.count);
+        $scope.$broadcast('pull.success', data.total);
       });
   };
 
