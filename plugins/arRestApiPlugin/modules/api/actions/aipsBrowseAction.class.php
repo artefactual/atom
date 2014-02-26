@@ -26,6 +26,7 @@ class APIAIPsBrowseAction extends QubitAPIAction
     $results = $this->getResults();
     $data['results'] = $results['results'];
     $data['facets'] = $results['facets'];
+    $data['total'] = $results['total'];
     $data['overview'] = $this->getOverview();
 
     return $data;
@@ -78,31 +79,46 @@ class APIAIPsBrowseAction extends QubitAPIAction
     $this->populateFacets($facets);
     $data['facets'] = $facets;
 
+    // Total this
+    $data['total'] = $resultSet->getTotalHits();
+
     return $data;
   }
 
   protected function getOverview()
   {
-    // TODO
-    return array(
-      'total' => array(
-        'size' => 1062650070958,
-        'count' => 16),
-      179 => array(
-        'size' => 332430468710,
-        'count' => 8),
-      180 => array(
-        'size' => 85899345920,
-        'count' => 4),
-      181 => array(
-        'size' => 85899345920,
-        'count' => 4),
-      182 => array(
-        'size' => 85899345920,
-        'count' => 4),
-      'unclassified' => array(
-        'size' => 418115066265,
-        'count' => 2));
+    // Create query objects
+    $query = new \Elastica\Query;
+    $queryBool = new \Elastica\Query\Bool;
+    $queryBool->addMust(new \Elastica\Query\MatchAll);
+
+    // Add facets to the query
+    $this->facetEsQuery('TermsStats', 'type', 'type.id', $query, array(
+      'valueField' => 'sizeOnDisk'));
+
+    // Assign query
+    $query->setQuery($queryBool);
+
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitAip')->search($query);
+    $facets = $resultSet->getFacets();
+
+    $results = array();
+    $totalSize = $totalCount = 0;
+    foreach ($facets['type']['terms'] as $facet)
+    {
+      $results[$facet['term']] = array(
+        'size' => $facet['total'],
+        'count' => $facet['count']);
+
+      $totalSize += $facet['total'];
+      $totalCount += $facet['count'];
+    }
+
+    $results['total'] = array(
+      'size' => $totalSize,
+      'count' => $totalCount);
+
+    return $results;
   }
 
   protected function getFacetLabel($name, $term)
