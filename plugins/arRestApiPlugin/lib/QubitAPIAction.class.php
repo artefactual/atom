@@ -131,16 +131,16 @@ class QubitAPIAction extends sfAction
     }
   }
 
-  protected function prepareEsQueryBasic(\Elastica\Query &$query)
+  protected function prepareEsQueryBasic(\Elastica\Query &$query, $sortField, $sortDirection = 'asc', $limit = 10)
   {
     if (!isset($this->request->sort))
     {
-      $this->request->sort = 'filename';
+      $this->request->sort = $sortField;
     }
 
     if (!isset($this->request->sort_direction))
     {
-      $this->request->sort_direction = 'asc';
+      $this->request->sort_direction = $sortDirection;
     }
 
     $query->setSort(array($this->request->sort => $this->request->sort_direction));
@@ -150,6 +150,10 @@ class QubitAPIAction extends sfAction
     {
       $query->setLimit($this->request->limit);
     }
+    else
+    {
+      $query->setLimit(10);
+    }
 
     // Skip
     if (isset($this->request->skip) && ctype_digit($this->request->skip))
@@ -158,12 +162,26 @@ class QubitAPIAction extends sfAction
     }
   }
 
-  protected function facetEsQuery($facetType, $name, $field, \Elastica\Query &$query)
+  protected function facetEsQuery($facetType, $name, $field, \Elastica\Query &$query, array $options = array())
   {
-    $facetType = '\\Elastica\\Facet\\'.$facetType;
-    $facet = new $facetType($name);
-    $facet->setField($field);
-    $facet->setSize(10);
+    $className = '\\Elastica\\Facet\\'.$facetType;
+
+    $facet = new $className($name);
+
+    switch ($facetType)
+    {
+      case 'Terms':
+        $facet->setField($field);
+        $facet->setSize(10);
+
+        break;
+
+      case 'TermsStats':
+        $facet->setKeyField($field);
+        $facet->setValueField($options['valueField']);
+
+        break;
+    }
 
     $query->addFacet($facet);
   }
