@@ -77,12 +77,17 @@ class QubitAPIAction extends sfAction
     return $this->renderData($data);
   }
 
+  public function forwardError()
+  {
+    $this->response->setStatusCode(500);
+  }
+
   /**
    * Filter out selected facets. It uses \Elastica\Query instead of
    * \Elastica\Filter because the former happens before faceting while the
    * latter happens after faceting.
    */
-  protected function filterEsFacet($name, $field, &$queryBool, $operator = 'AND', array $options = array())
+  protected function filterEsFacet($name, $field, \Elastica\Query\Bool &$queryBool, $operator = 'AND', array $options = array())
   {
     if (!isset($this->request->$name))
     {
@@ -123,6 +128,57 @@ class QubitAPIAction extends sfAction
       case 'must':
       default:
         $queryBool->addMust($query);
+    }
+  }
+
+  protected function prepareEsQueryBasic(\Elastica\Query &$query)
+  {
+    if (!isset($this->request->sort))
+    {
+      $this->request->sort = 'filename';
+    }
+
+    if (!isset($this->request->sort_direction))
+    {
+      $this->request->sort_direction = 'asc';
+    }
+
+    $query->setSort(array($this->request->sort => $this->request->sort_direction));
+
+    // Limit
+    if (isset($this->request->limit) && ctype_digit($this->request->limit))
+    {
+      $query->setLimit($this->request->limit);
+    }
+
+    // Skip
+    if (isset($this->request->skip) && ctype_digit($this->request->skip))
+    {
+      $query->setFrom($this->request->skip);
+    }
+  }
+
+  protected function facetEsQuery($facetType, $name, $field, \Elastica\Query &$query)
+  {
+    $facetType = '\\Elastica\\Facet\\'.$facetType;
+    $facet = new $facetType($name);
+    $facet->setField($field);
+    $facet->setSize(10);
+
+    $query->addFacet($facet);
+  }
+
+  protected function populateFacets(&$facets)
+  {
+    foreach ($facets as $name => &$facet)
+    {
+      foreach ($facet['terms'] as &$item)
+      {
+        if (method_exists($this, 'getFacetLabel') && null !== $label = $this->getFacetLabel($name, $item['term']))
+        {
+          $item['label'] = $label;
+        }
+      }
     }
   }
 }
