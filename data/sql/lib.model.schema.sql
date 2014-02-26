@@ -112,13 +112,14 @@ CREATE TABLE `aip`
 (
 	`id` INTEGER  NOT NULL,
 	`type_id` INTEGER,
-	`uuid` VARCHAR(36),
+	`uuid` VARCHAR(36)  NOT NULL,
 	`filename` VARCHAR(1024),
 	`size_on_disk` BIGINT,
 	`digital_object_count` INTEGER,
 	`created_at` DATETIME,
 	`part_of` INTEGER,
 	PRIMARY KEY (`id`),
+	UNIQUE KEY `aip_U_1` (`uuid`),
 	CONSTRAINT `aip_FK_1`
 		FOREIGN KEY (`id`)
 		REFERENCES `object` (`id`)
