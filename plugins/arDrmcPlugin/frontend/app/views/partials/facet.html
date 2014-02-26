@@ -8,7 +8,12 @@
 
   <div class="facet-body">
     <ul>
-      <li ng-repeat="term in terms | orderBy:'count':true" ng-class="{ active: isSelected(term.term) }">
+      <li ng-class="{ active: isSelected() }">
+        <a href ng-click="select()">
+          All
+        </a>
+      </li>
+      <li ng-repeat="term in facet.terms | orderBy:'count':true" ng-class="{ active: isSelected(term.term) }">
         <a href ng-click="select(term.term)">
           {{ term.label }}
           <span class="facet-count">{{ term.count }}</span>
