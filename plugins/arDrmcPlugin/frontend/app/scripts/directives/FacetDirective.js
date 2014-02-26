@@ -8,7 +8,7 @@ module.exports = function (ATOM_CONFIG) {
     scope: {
       label: '@',
       facet: '=',
-      field: '=',
+      field: '='
     },
     link: function (scope) {
       scope.collapsed = false;
