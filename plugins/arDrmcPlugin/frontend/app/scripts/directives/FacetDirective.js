@@ -7,9 +7,8 @@ module.exports = function (ATOM_CONFIG) {
     replace: true,
     scope: {
       label: '@',
-      field: '@',
-      terms: '=',
-      criteria: '=',
+      facet: '=',
+      field: '=',
     },
     link: function (scope) {
       scope.collapsed = false;
@@ -19,22 +18,30 @@ module.exports = function (ATOM_CONFIG) {
       };
 
       scope.select = function (id) {
-        // Create array if undefined
-        if (typeof scope.criteria[scope.field] === 'undefined') {
-          scope.criteria[scope.field] = [id];
+        // Empty filter if All is clicked
+        if (typeof id === 'undefined') {
+          scope.field = [];
           return;
         }
-        // Update scope.criteria.[scope.field]
-        var index = jQuery.inArray(id, scope.criteria[scope.field]);
+        // Create array if undefined
+        if (typeof scope.field === 'undefined') {
+          scope.field = [id];
+          return;
+        }
+        // Update scope.field
+        var index = jQuery.inArray(id, scope.field);
         if (index === -1) {
-          scope.criteria[scope.field].push(id);
+          scope.field.push(id);
         } else {
-          scope.criteria[scope.field].splice(index, 1);
+          scope.field.splice(index, 1);
         }
       };
 
       scope.isSelected = function (id) {
-        return jQuery.inArray(id, scope.criteria[scope.field]) !== -1;
+        if (typeof id === 'undefined') {
+          return typeof scope.field === 'undefined' || scope.field.length === 0;
+        }
+        return jQuery.inArray(id, scope.field) !== -1;
       };
     }
   };
