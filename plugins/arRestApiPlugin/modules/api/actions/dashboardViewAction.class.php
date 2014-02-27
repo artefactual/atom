@@ -22,6 +22,6 @@ class APIDashboardViewAction extends QubitAPIAction
   protected function get($request)
   {
     return array(
-      'foo' => 'bar');
+      'status' => 'ok');
   }
 }

@@ -21,41 +21,46 @@ class APIInformationObjectsBrowseAction extends QubitAPIAction
 {
   protected function get($request)
   {
-    return array(
-      'results' => $this->getResults()
-    );
+    $data = array();
+
+    $results = $this->getResults();
+    $data['results'] = $results['results'];
+    $data['facets'] = $results['facets'];
+    $data['total'] = $results['total'];
+
+    return $data;
   }
 
   protected function getResults()
   {
-    $query = new \Elastica\Query();
-    $queryBool = new \Elastica\Query\Bool();
+    ProjectConfiguration::getActive()->loadHelpers('Qubit');
 
-    // Limit
-    if (isset($request->limit) && ctype_digit($this->request->limit))
+    // Create query objects
+    $query = new \Elastica\Query;
+    $queryBool = new \Elastica\Query\Bool;
+    $queryBool->addMust(new \Elastica\Query\MatchAll);
+
+    // Pagination and sorting
+    $this->prepareEsPagination($query);
+    $this->prepareEsSorting($query, array(
+      'createdAt' => 'createdAt'));
+
+    // Filter level_id
+    if (isset($this->request->level_id) && ctype_digit($this->request->level_id))
     {
-      $this->query->setLimit($this->request->limit);
+      $queryBool->addMust(new \Elastica\Query\Term(array('levelOfDescriptionId' => $this->request->level_id)));
     }
 
-    // Skip
-    if (isset($request->skip) && ctype_digit($this->request->skip))
+    // Filter query
+    if (isset($this->request->query) && 1 !== preg_match('/^[\s\t\r\n]*$/', $this->request->query))
     {
-      $this->query->setFrom($this->request->skip);
+      $queryString = new \Elastica\Query\QueryString($this->request->query);
+      $queryString->setDefaultOperator('OR');
+
+      $queryBool->addMust($queryString);
     }
 
-    // Sort and direction, default: filename, asc
-    if (!isset($this->request->sort))
-    {
-      $this->request->sort = 'filename';
-    }
-
-
-    if (!isset($this->request->sort_direction))
-    {
-      $this->request->sort_direction = 'asc';
-    }
-
-    $query->setSort(array($this->request->sort => $this->request->sort_direction));
+    // Limit fields
     $query->setFields(array(
       'slug',
       'identifier',
@@ -70,60 +75,26 @@ class APIInformationObjectsBrowseAction extends QubitAPIAction
       'sourceCulture',
       'i18n'));
 
-    // Query
-    $queryBool->addMust(new \Elastica\Query\MatchAll());
-
-    // Filter: level of description
-    if (isset($this->request->levelOfDescriptionId) && ctype_digit($this->request->levelOfDescriptionId))
-    {
-      $queryBool->addMust(new \Elastica\Query\Term(array('levelOfDescriptionId' => $this->request->levelOfDescriptionId)));
-    }
-    else if (isset($this->request->levelOfDescription) && is_string($this->request->levelOfDescription))
-    {
-      switch ($this->request->levelOfDescription)
-      {
-        case 'work':
-          $levelId = 181;
-
-          break;
-
-        case 'technology-record':
-          $levelId = 182;
-
-          break;
-
-        case 'physical-component':
-          $levelId = 183;
-
-          break;
-
-        case 'digital-object':
-          $levelId = 184;
-
-          break;
-
-        case 'description':
-          $levelId = 185;
-
-          break;
-      }
-
-      $queryBool->addMust(new \Elastica\Query\Term(array('levelOfDescriptionId' => $levelId)));
-    }
-
+    // Assign query
     $query->setQuery($queryBool);
+
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
 
     // Build array from results
     $results = array();
     foreach ($resultSet as $hit)
     {
+      $doc = $hit->getData();
       $results[$hit->getId()] = $hit->getFields();
+      $results[$hit->getId()]['title'] = get_search_i18n($doc, 'title');
     }
+
+    $facets = array();
 
     return
       array(
-        'total_hits' => $resultSet->getTotalHits(),
-        'contents' => $results);
+        'total' => $resultSet->getTotalHits(),
+        'facets' => $facets,
+        'results' => $results);
   }
 }

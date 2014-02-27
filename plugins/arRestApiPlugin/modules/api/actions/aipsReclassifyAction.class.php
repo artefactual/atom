@@ -26,14 +26,14 @@ class APIAIPsReclassifyAction extends QubitAPIAction
       return $this->forward404('UUID not found');
     }
 
-    if (!property_exists($payload, 'typeId'))
+    if (!property_exists($payload, 'type_id'))
     {
-      return $this->forward404('Missing parameter typeId');
+      return $this->forward404('Missing parameter type_id');
     }
 
-    if (null !== $payload->typeId)
+    if (null !== $payload->type_id && is_int($payload->type_id))
     {
-      if (null === $term = QubitTerm::getById($payload->typeId))
+      if (null === $term = QubitTerm::getById($payload->type_id))
       {
         return $this->forward404('Term not found');
       }

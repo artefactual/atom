@@ -21,13 +21,32 @@ class APIInformationObjectsViewAction extends QubitAPIAction
 {
   protected function get($request)
   {
-    return array(
-      'results' => $this->getResults()
-    );
+    $data = $this->getInformationObject();
+
+    return $data;
   }
 
-  protected function getResults()
+  protected function getInformationObject()
   {
-    return array();
+    if (QubitInformationObject::ROOT_ID === (int)$this->request->id)
+    {
+      return $this->forward404('Information object not found');
+    }
+
+    $criteria = new Criteria;
+    $criteria->add(QubitInformationObject::ID, $this->request->id);
+    if (isset($this->request->level_id) and true === ctype_digit($this->request->level_id))
+    {
+      $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, $this->request->level_id);
+    }
+
+    if (null === $io = QubitInformationObject::getById($this->request->id))
+    {
+      return $this->forward404('Information object not found');
+    }
+
+    return array(
+      'id' => $io->id,
+      'level_of_description_id' => $io->levelOfDescriptionId);
   }
 }
