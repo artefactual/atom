@@ -61,7 +61,7 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     $this->addRoute('POST', '/api/aips/:uuid/reclassify', array(
       'module' => 'api',
       'action' => 'aipsReclassify',
-      'params' => array('uuid' => self::REGEX_UUID, 'typeId' => self::REGEX_ID)));
+      'params' => array('uuid' => self::REGEX_UUID)));
 
     /**
      * Information object resources
@@ -71,13 +71,24 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'informationobjectsBrowse'));
 
-    $this->addRoute('GET', '/api/informationobjects', array(
-      'module' => 'api',
-      'action' => 'informationobjectsBrowse'));
-
     $this->addRoute('GET', '/api/informationobjects/:id', array(
       'module' => 'api',
       'action' => 'informationobjectsView',
+      'params' => array('id' => self::REGEX_ID)));
+
+    $this->addRoute('GET', '/api/informationobjects/:id/tree', array(
+      'module' => 'api',
+      'action' => 'informationobjectsTree',
+      'params' => array('id' => self::REGEX_ID)));
+
+    $this->addRoute('GET', '/api/informationobjects/:id/tms', array(
+      'module' => 'api',
+      'action' => 'informationobjectsTms',
+      'params' => array('id' => self::REGEX_ID)));
+
+    $this->addRoute('POST', '/api/informationobjects/:id/associate', array(
+      'module' => 'api',
+      'action' => 'informationobjectsAssociate',
       'params' => array('id' => self::REGEX_ID)));
 
     /**
