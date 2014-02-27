@@ -3,12 +3,11 @@
 module.exports = function ($scope, $stateParams, InformationObjectService) {
 
   InformationObjectService.getWork($stateParams.id)
-    .then(function (result) {
-      $scope.work = result;
+    .then(function (response) {
+      $scope.work = response.data;
+      throw $scope.work;
     }, function (reason) {
-      console.log('Failed', reason);
-    }, function (update) {
-      console.log('Notification', update);
+      throw reason;
     });
 
 };
