@@ -30,7 +30,7 @@ module.exports = function ($http, ATOM_CONFIG) {
       method: 'POST',
       url: ATOM_CONFIG.frontendPath + 'api/aips/' + uuid + '/reclassify',
       data: {
-        typeId: typeId
+        type_id: typeId
       }
     });
   };
