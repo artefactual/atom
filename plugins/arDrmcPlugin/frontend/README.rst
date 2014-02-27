@@ -119,3 +119,11 @@ Next, change the FastCGI location criteria to::
 Restart nginx::
 
   $ sudo service nginx restart
+
+
+Environment variables
+---------------------
+
+ATOM_DRMC_TMS_URL (required)
+
+  You can use it in AtoM via: sfConfig::get('app_drmc_tms_url')
