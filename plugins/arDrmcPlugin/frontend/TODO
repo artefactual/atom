@@ -11,3 +11,7 @@ Build
 - For stylesheet, should we be using recess? csslint?
 - Write some tests, configure runner
 - Stop using globals like angular, etc... use require() instead!
+- Pager:
+  - Use ui.bootstrap pager
+  - It would be nice to manage .skip from the pager, not from the controller
+  - Having to broadcast pull.success event feels wrong
