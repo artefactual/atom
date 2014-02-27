@@ -47,13 +47,77 @@ EOF;
 
     new sfDatabaseManager($this->configuration);
 
-    // TODO
-    $levels = [
-      'Artwork record',
-      'Description',
-      'Physical component', // TODO: add extra types of physical components
-      'Digital component',
-      'Supporting technology record'
-    ];
+    $this->addLevelsOfDescriptions();
+  }
+
+  protected function addLevelsOfDescriptions()
+  {
+    // Remove AtoM's defaults
+    foreach (QubitTaxonomy::getTaxonomyTerms(QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID, array('level' => 'top')) as $item)
+    {
+      $target = array('Fonds', 'Subfonds', 'Collection', 'Series', 'Subseries', 'File', 'Item');
+      $name = $item->getName(array('culture' => 'en'));
+      if (in_array($name, $target))
+      {
+        $item->delete();
+      }
+    }
+
+    // Levels of description specific for MoMA DRMC-MA
+    $levels = array(
+      array('name' => 'Artwork record'),
+      array('name' => 'Description'),
+      array('name' => 'Physical component', 'children' => array(
+        array('name' => 'Artist supplied master'),
+        array('name' => 'Artist verified proof'),
+        array('name' => 'Archival master'),
+        array('name' => 'Exhibition format'),
+        array('name' => 'Equipment'))),
+      array('name' => 'Digital component'),
+      array('name' => 'Supporting technology record'));
+
+    // Find a specific level of description by its name (in English)
+    $find = function($name)
+    {
+      $criteria = new Criteria;
+      $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+      $criteria->add(QubitTermI18n::NAME, $name);
+      $criteria->add(QubitTermI18n::CULTURE, 'en');
+
+      return null !== QubitTerm::getOne($criteria);
+    };
+
+    // Parse $levels recursively and add the levels to the taxonomy
+    $add = function($levels, $parentId = false) use (&$find, &$add)
+    {
+      if (false === $parentId)
+      {
+        $parentId = QubitTerm::ROOT_ID;
+      }
+
+      foreach ($levels as $level)
+      {
+        // Don't duplicate
+        if (true === $find($level['name']))
+        {
+          continue;
+        }
+
+        $term = new QubitTerm;
+        $term->name  = $level['name'];
+        $term->taxonomyId = QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID;
+        // $term->code
+        $term->parentId = $parentId;
+        $term->culture = 'en';
+        $term->save();
+
+        if (isset($level['children']))
+        {
+          $add($level['children'], $term->id);
+        }
+      }
+    };
+
+    $add($levels);
   }
 }
