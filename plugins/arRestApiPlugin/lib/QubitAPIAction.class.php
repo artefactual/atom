@@ -131,28 +131,20 @@ class QubitAPIAction extends sfAction
     }
   }
 
-  protected function prepareEsQueryBasic(\Elastica\Query &$query, $sortField, $sortDirection = 'asc', $limit = 10)
+  protected function prepareEsPagination(\Elastica\Query &$query, $limit = 10)
   {
-    if (!isset($this->request->sort))
-    {
-      $this->request->sort = $sortField;
-    }
-
-    if (!isset($this->request->sort_direction))
-    {
-      $this->request->sort_direction = $sortDirection;
-    }
-
-    $query->setSort(array($this->request->sort => $this->request->sort_direction));
-
     // Limit
     if (isset($this->request->limit) && ctype_digit($this->request->limit))
     {
-      $query->setLimit($this->request->limit);
+      $limit = $this->request->limit;
+      if ($limit > 100)
+      {
+        $limit = 100;
+      }
     }
     else
     {
-      $query->setLimit(10);
+      $limit = sfConfig::get('app_hits_per_page', 10);
     }
 
     // Skip
@@ -160,6 +152,33 @@ class QubitAPIAction extends sfAction
     {
       $query->setFrom($this->request->skip);
     }
+  }
+
+  protected function prepareEsSorting(\Elastica\Query &$query, $fields = array())
+  {
+    // Stop if preferred option is not set or $fields empty
+    if (1 > count($fields) || !isset($this->request->sort))
+    {
+      return;
+    }
+
+    // Stop if the preferred option can't be found
+    if (false === array_search($this->request->sort, array_keys($fields)))
+    {
+      return;
+    }
+
+    $sortDirection = 'asc';
+    if (isset($this->request->sort_direction))
+    {
+      if ('desc' == $this->request->sort_direction)
+      {
+        $sortDirection = 'desc';
+      }
+    }
+
+    // TODO: allow $request->sort to be multi-value
+    $query->setSort(array($fields[$this->request->sort] => $sortDirection));
   }
 
   protected function facetEsQuery($facetType, $name, $field, \Elastica\Query &$query, array $options = array())

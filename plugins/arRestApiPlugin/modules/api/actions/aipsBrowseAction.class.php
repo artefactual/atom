@@ -41,8 +41,15 @@ class APIAIPsBrowseAction extends QubitAPIAction
     $queryBool = new \Elastica\Query\Bool;
     $queryBool->addMust(new \Elastica\Query\MatchAll);
 
-    // Pagination and sort
-    $this->prepareEsQueryBasic($query);
+    // Pagination and sorting
+    $this->prepareEsPagination($query);
+    $this->prepareEsSorting($query, array(
+      'name' => 'filename',
+      'size' => 'sizeOnDisk',
+      'createdAt' => 'createdAt'));
+      // TODO
+      // 'typeId' => '',
+      // 'partOf' => ''));
 
     // Filter selected facets
     $this->filterEsFacet('type', 'type.id', $queryBool);
