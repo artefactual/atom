@@ -48,6 +48,10 @@ EOF;
     new sfDatabaseManager($this->configuration);
 
     $this->addLevelsOfDescriptions();
+
+    $this->addDummyAips();
+
+    $this->addDummyTree();
   }
 
   protected function addLevelsOfDescriptions()
@@ -120,4 +124,111 @@ EOF;
 
     $add($levels);
   }
+
+  protected function addDummyAips()
+  {
+    $names = file(sfConfig::get('sf_plugins_dir').'/arDrmcPlugin/frontend/mock_api/sample_data/names.txt');
+
+    for ($i = 1; $i <= 50; $i++) {
+
+      // Make new info object every few AIPs
+      if (!$infoObject || rand(1, 3)) {
+        $infoObject = new QubitInformationObject();
+        $infoObject->title = generateRandomString(20);
+        $infoObject->parentId = QubitInformationObject::ROOT_ID;
+        $infoObject->save();
+      }
+
+      // Store AIP data
+      $aip = new QubitAip;
+      $aip->typeId = rand(179, 182);
+      $aip->uuid = gen_uuid();
+      $aip->filename = $names[array_rand($names)];
+      $aip->digitalObjectCount = 1;
+      $aip->partOf = $infoObject->id;
+      $aip->sizeOnDisk = rand(1000, 10000000);
+      $aip->createdAt = date("c"); // date is in ISO 8601
+
+      $aip->save();
+    }
+  }
+
+  protected function addDummyTree()
+  {
+    $tree = array(
+      array('id' => 1, 'level' => 'Artwork record', 'title' => 'Play Dead; Real Time', 'children' => array(
+        array('id' => 2, 'level' => 'Description', 'title' => 'MoMA 2012', 'children' => array(
+          array('id' => 3, 'level' => 'Equipment', 'title' => 'Installation documentation'),
+          array('id' => 4, 'level' => 'Description', 'title' => 'Exhibition files', 'children' => array(
+            array('id' => 5, 'level' => 'Exhibition format', 'title' => '1098.2005.a.AV'),
+            array('id' => 6, 'level' => 'Exhibition format', 'title' => '1098.2005.b.AV'),
+            array('id' => 7, 'level' => 'Exhibition format', 'title' => '1098.2005.c.AV'))))),
+        array('id' => 8, 'level' => 'Description', 'title' => 'Supplied by artist', 'children' => array(
+          array('id' => 9, 'level' => 'Artist supplied master', 'title' => '1098.2005.a.x1', 'children' => array(
+            array('id' => 10, 'level' => 'Artist verified proof', 'title' => '1098.2005.a.x2'),
+            array('id' => 11, 'level' => 'Artist verified proof', 'title' => '1098.2005.a.x3'))),
+          array('id' => 12, 'level' => 'Artist supplied master', 'title' => '1098.2005.b.x1', 'children' => array(
+            array('id' => 13, 'level' => 'Artist verified proof', 'title' => '1098.2005.b.x2'),
+            array('id' => 14, 'level' => 'Artist verified proof', 'title' => '1098.2005.b.x3'))),
+          array('id' => 15, 'level' => 'Artist supplied master', 'title' => '1098.2005.c.x1', 'children' => array(
+            array('id' => 16, 'level' => 'Artist verified proof', 'title' => '1098.2005.c.x2'),
+            array('id' => 17, 'level' => 'Artist verified proof', 'title' => '1098.2005.c.x3'))))),
+        array('id' => 30, 'level' => 'Description', 'title' => 'Digital archival masters', 'children' => array(
+          array('id' => 31, 'level' => 'Archival master', 'title' => '1098.2005.a.x4'),
+          array('id' => 32, 'level' => 'Archival master', 'title' => '1098.2005.b.x4'),
+          array('id' => 33, 'level' => 'Archival master', 'title' => '1098.2005.c.x4'))))));
+
+    $add = function($items, $parentId = false) use (&$add)
+    {
+      foreach ($items as $item)
+      {
+        if (false === $parentId)
+        {
+          $parentId = QubitInformationObject::ROOT_ID;
+        }
+
+        $io = new QubitInformationObject;
+        $io->setLevelOfDescriptionByName($item['level']);
+        $io->setPublicationStatusByName('Published');
+        $io->parentId = $parentId;
+        $io->title = $item['title'];
+        $io->culture = 'en';
+        $io->save();
+
+        if (isset($item['children']))
+        {
+          $add($item['children'], $io->id);
+        }
+      }
+    };
+
+    $add($tree);
+  }
+}
+
+function gen_uuid() {
+  return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+    // 32 bits for "time_low"
+    mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
+    // 16 bits for "time_mid"
+    mt_rand( 0, 0xffff ),
+    // 16 bits for "time_hi_and_version",
+    // four most significant bits holds version number 4
+    mt_rand( 0, 0x0fff ) | 0x4000,
+    // 16 bits, 8 bits for "clk_seq_hi_res",
+    // 8 bits for "clk_seq_low",
+    // two most significant bits holds zero and one for variant DCE1.1
+    mt_rand( 0, 0x3fff ) | 0x8000,
+    // 48 bits for "node"
+    mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+  );
+}
+
+function generateRandomString($length = 10) {
+  $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  $randomString = '';
+  for ($i = 0; $i < $length; $i++) {
+    $randomString .= $characters[rand(0, strlen($characters) - 1)];
+  }
+  return $randomString;
 }
