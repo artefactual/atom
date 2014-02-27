@@ -137,7 +137,7 @@ mapping:
     properties:
       uuid: { type: string, index: not_analyzed, include_in_all: false }
       filename: { type: string, index: not_analyzed, include_in_all: false }
-      w: { type: long, index: not_analyzed, include_in_all: false }
+      size_on_disk:: { type: long, index: not_analyzed, include_in_all: false }
       digital_object_count: { type: integer, index: not_analyzed, include_in_all: false }
       created_at: { type: date, index: not_analyzed, include_in_all: false }
       digital_objects:
