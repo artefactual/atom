@@ -298,7 +298,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     // Ignore $this->resource and create a new top-level from TMS
     $tmsObject = new QubitInformationObject;
     $tmsObject->parentId = QubitInformationObject::ROOT_ID;
-    $tmsObject->setLevelOfDescriptionByName('Work');
+    $tmsObject->levelOfDescriptionId = sfConfig::get('app_drmc_lod_artwork_record_id');
     $tmsObject->setPublicationStatusByName('Published');
     $tmsObject->title = 'TMS Object';
     $tmsObject->culture = 'en';
@@ -307,7 +307,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     // Create intermediate level "Components"
     $components = new QubitInformationObject;
     $components->parentId = $tmsObject->id;
-    $components->setLevelOfDescriptionByName('Description');
+    $components->levelOfDescriptionId = sfConfig::get('app_drmc_lod_description_id');
     $components->setPublicationStatusByName('Published');
     $components->title = 'Components';
     $components->culture = 'en';
@@ -381,7 +381,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       // Create child
       $child = new QubitInformationObject;
       $child->parentId = $components->id;
-      $child->setLevelOfDescriptionByName('Digital-component');
+      $child->levelOfDescriptionId = sfConfig::get('app_drmc_lod_digital_component_id');
       $child->setPublicationStatusByName('Published');
 
       // TODO: use UUID as unique key in the array
