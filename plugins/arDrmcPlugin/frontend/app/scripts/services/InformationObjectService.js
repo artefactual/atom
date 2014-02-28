@@ -27,13 +27,13 @@ module.exports = function ($http, $q, SETTINGS) {
   };
 
   this.getWorks = function (params) {
-    params.level = 109;
+    params.level_id = SETTINGS.drmc.lod_artwork_record_id;
     return this.get(params);
   };
 
   this.getWork = function (id) {
     return this.getById(id, {
-      level_id: 109
+      level_id: SETTINGS.drmc.lod_artwork_record_id
     });
   };
 
