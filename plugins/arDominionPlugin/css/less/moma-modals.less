@@ -1,0 +1,349 @@
+// Fullscreen modal (flexbox)
+.fs-modal-wrapper {
+
+  padding: 0;
+  margin: 0;
+
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  -webkit-flex-flow: row nowrap;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+
+  background: @momaFsModalMid;
+
+  // All icons
+  a {
+    .fa-icon-set(@white);
+    width: 40px;
+    height: 26px;
+    padding: 12px;
+    font-size: 20px;
+  }
+
+  // Top-right 'hard close' btn
+  a#fs-modal-exit {
+    top: 0;
+    position: absolute;
+    right: 0;
+    font-size: 22px;
+    padding-top: 8px;
+    padding-right: 0;
+    margin-right: -12px;
+  }
+
+  .fs-modal-body, .fs-modal-sidebar {
+    z-index: 1060;
+    height: 80%;
+    margin: auto;
+    background: @momaFsModalDarker;
+  }
+
+  .fs-modal-body {
+    order: 1;
+    flex: 60%;
+    margin-left: 5%;
+    color: @white;
+
+    .fs-modal-body-header {
+      display: -webkit-flex;
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+      flex-flow: row nowrap;
+      align-content: stretch;
+
+      height: 64px;
+
+      .pager-links {
+        padding-top: 32px;
+      }
+
+      .arrow-left.disabled,
+      .arrow-right.disabled {
+        opacity: 0.1;
+        cursor: default;
+      }
+
+      .grid-pager {
+      vertical-align: -100%;
+      text-align: center;
+      display: inline-block;
+
+        .grid, p {
+          padding: 0px 21px;
+        }
+      }
+    }
+
+    .fs-modal-body-media {
+      padding: 20px;
+
+      // or template
+      img, iframe {
+        display: block;
+        max-height: 450px;
+        overflow: hidden;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .fs-modal-sidebar {
+    order: 2;
+    flex: 35%;
+    margin-right: 5%;
+    overflow: scroll;
+    background: @momaFsModalLighter;
+
+    .content {
+      background: transparent;
+      box-shadow: none;
+      border: 0px;
+
+      section {
+        border: 0px;
+      }
+    }
+
+    // Thanks, flexbox.
+    .quick-info {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      height: 65px;
+      .clearfix();
+
+      span.picture {
+      .fa-icon-set (@grayDark);
+      font-size: 14px;
+
+        &:before {
+          content: "\f03e";
+          padding-right: 4px;
+        }
+      }
+    }
+
+    .quick-info-thumb {
+      width: 25%;
+      margin: auto;
+      padding: 4px;
+      img {
+        max-height: 56px;
+      }
+    }
+
+    .quick-info-title {
+      width: 70%;
+      margin: auto;
+      .clearfix();
+
+      h3 {
+        line-height: 14px!important;
+      }
+
+      a {
+        width: auto;
+        height: auto;
+        color: @orange;
+        font-size: 11px;
+        padding: 2px;
+        display: block;
+        word-wrap: normal;
+
+        &:before {
+          padding-right: 4px;
+          color: @gray;
+        }
+        &:first-child {
+          left: 0;
+          float: left;
+        }
+        &:last-child {
+          right: 0;
+          float: right;
+        }
+      }
+    }
+
+    a.fs-modal-toggle {
+      .fa-icon-set (@grayDark);
+      font-size: 14px;
+      display: block;
+      float: right;
+      position: relative;
+      width: 10px;
+      height: 10px;
+      margin-top: -42px;
+
+      &:before {
+        content: "\f102";
+      }
+    }
+  }
+}
+
+
+
+// Technology support modal
+
+.modal-div {
+  margin: .5em 0 1.5em 0 !important;
+  padding: 8px auto;
+  background-color: @grayLighter;
+
+  button.modal-btn-x {
+    color: @orange;
+    margin-top: 6px;
+  }
+
+  span.modal-btn-x {
+   padding-left: 4px;
+
+    &:after {
+      content: "\f00d";
+      font-family: FontAwesome;
+      font-style: normal;
+      color: @grayLight;
+    }
+  }
+
+  .first-span {
+    margin-left: 0!important;
+  }
+
+  div.select-box {
+    overflow: auto;
+    height: 150px;
+
+    h3 {
+      color: @orange;
+      margin-bottom: 8px;
+    }
+  }
+}
+
+.modal-footer {
+  * { float: left; }
+  left: 5%;
+  border-top: 1px solid @black;
+}
+
+.btn-save span {
+  .moma-icon();
+  &:before {
+  content: "\f0c7";
+  }
+}
+
+.btn-view span {
+   .moma-icon();
+  &:before {
+    content: "\f06e";
+  }
+}
+
+.btn-cancel span {
+   .moma-icon();
+  &:before {
+    content: "\f057";
+  }
+}
+
+// Video modal, using flexbox
+
+#inspectModalr {
+  background: @black;
+  display: flex;
+  display: -webkit-flex;
+  -webkit-flex-flow: row nowrap;
+  min-height: 700px;
+  width: 100%;
+  justify-content: space-around;
+
+    video {
+      position: relative;
+      max-width: 100%;
+    }
+
+  .modal-body {
+    flex-grow: 1;
+    width: 65%;
+    height: 100%;
+    order: 1;
+    margin: auto; //perfect center of x and y
+  }
+
+  .modal-footer {
+    flex-grow: 1;
+    width: 35%;
+    overflow: auto;
+    order: 2;
+    min-height: 100%;
+  }
+
+  section {
+    text-align: left;
+  }
+
+  .viewer-modal-info section > h1 {
+    padding: 8px;
+  }
+}
+
+
+// Reclassify AIP Modal
+
+.modal .modal-header {
+  padding: 6px 15px 0px 15px;
+  background-color: @grayLighter!important;
+  background-image: none;
+  border-bottom: 1px solid @gray;
+
+  > h2 {
+    color: @orange!important;
+    font-weight: normal;
+    font-size: 1.2em;
+  }
+
+  .close {
+    font-size: 30px;
+    padding-top: 5px;
+  }
+}
+
+.modal-checkbox label {
+  font-size: .75em;
+  line-height: 90%;
+}
+
+.modal .modal-body {
+
+  h3 {
+    font-weight: bold;
+    margin-bottom: 40px;
+  }
+
+  dt {
+    color: @grayLight;
+    font-size: .9em;
+    margin-bottom: -5px;
+  }
+
+  dl {
+    margin-bottom: 40px;
+  }
+}
