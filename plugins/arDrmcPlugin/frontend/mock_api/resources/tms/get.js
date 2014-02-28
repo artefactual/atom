@@ -5,16 +5,21 @@ var urlParts = url.split('/'),
 // remove empty first element
 urlParts.shift();
 
+if (query.ObjectNumber !== 'undefined') {
+  criteria.ObjectNumber = query.ObjectNumber;
+}
+
 // HTTP GET /tms/GetTombstoneData
 mainRoutes.GetTombstoneData = function() {
   var results = [];
 
+  criteria.limit = 1;
   // fetch TMS objects matching criteria
   dpd.tmsraw.get(criteria, function(tmsObjects) {
     tmsObjects.forEach(function(tmsObject) {
       results.push(tmsObject);
     });
-    setResult(results);
+    setResult(results[0]);
   });
 };
 
