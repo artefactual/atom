@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports = function ($http, ATOM_CONFIG) {
+module.exports = function ($http, SETTINGS) {
 
   this.getOverview = function () {
     return $http({
       method: 'GET',
-      url: ATOM_CONFIG.frontendPath + 'api/dashboard'
+      url: SETTINGS.frontendPath + 'api/dashboard'
     });
   };
 

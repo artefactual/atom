@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports = function ($http, $q, ATOM_CONFIG) {
+module.exports = function ($http, $q, SETTINGS) {
 
   this.getTree = function (id) {
     return $http({
       method: 'GET',
-      url: ATOM_CONFIG.frontendPath + 'api/informationobjects/' + id + '/tree'
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/tree'
     });
   };
 
@@ -13,7 +13,7 @@ module.exports = function ($http, $q, ATOM_CONFIG) {
     params = params || {};
     return $http({
       method: 'GET',
-      url: ATOM_CONFIG.frontendPath + 'api/informationobjects/' + id,
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id,
       params: params
     });
   };
@@ -21,7 +21,7 @@ module.exports = function ($http, $q, ATOM_CONFIG) {
   this.get = function (params) {
     return $http({
       method: 'GET',
-      url: ATOM_CONFIG.frontendPath + 'api/informationobjects',
+      url: SETTINGS.frontendPath + 'api/informationobjects',
       params: params
     });
   };

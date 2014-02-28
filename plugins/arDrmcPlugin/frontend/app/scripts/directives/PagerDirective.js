@@ -5,10 +5,10 @@
  *  - After pull.success, current page may be out of range. Reset if it happens.
  */
 
-module.exports = function ($compile, ATOM_CONFIG) {
+module.exports = function ($compile, SETTINGS) {
   return {
     restrict: 'E',
-    templateUrl: ATOM_CONFIG.viewsPath + '/partials/pager.html',
+    templateUrl: SETTINGS.viewsPath + '/partials/pager.html',
     replace: true,
     scope: {
       itemsPerPage: '@',

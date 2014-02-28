@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modal, ATOM_CONFIG, AIPService) {
+module.exports = function ($scope, $modal, SETTINGS, AIPService) {
   // criteria contain GET params used when calling getAIPs to refresh data
   $scope.criteria = {};
   $scope.criteria.limit = 10;
@@ -38,8 +38,8 @@ module.exports = function ($scope, $modal, ATOM_CONFIG, AIPService) {
 
   // Ng-include logic
   $scope.templates = [
-    { name: 'List view', url: ATOM_CONFIG.viewsPath + '/partials/aips.list-grid.html' },
-    { name: 'Browse view', url: ATOM_CONFIG.viewsPath + '/partials/aips.list-stacked.html' }
+    { name: 'List view', url: SETTINGS.viewsPath + '/partials/aips.list-grid.html' },
+    { name: 'Browse view', url: SETTINGS.viewsPath + '/partials/aips.list-stacked.html' }
   ];
   $scope.template = $scope.templates[0];
 
@@ -48,7 +48,7 @@ module.exports = function ($scope, $modal, ATOM_CONFIG, AIPService) {
     $scope.aip = aip;
     // It happens that $modal.open returns a promise :)
     var modalInstance = $modal.open({
-      templateUrl: ATOM_CONFIG.viewsPath + '/modals/reclassify-aips.html',
+      templateUrl: SETTINGS.viewsPath + '/modals/reclassify-aips.html',
       backdrop: true,
       controller: 'AIPReclassifyCtrl',
       scope: $scope, // TODO: isolate with .new()?

@@ -34,7 +34,7 @@
    * Settings
    */
 
-  angular.module('momaApp').constant('ATOM_CONFIG', require('./settings'));
+  angular.module('momaApp').constant('SETTINGS', require('./settings'));
 
 
   /*
@@ -45,7 +45,7 @@
    */
 
   angular.module('momaApp')
-    .run(function ($rootScope, $state, $stateParams, ATOM_CONFIG) {
+    .run(function ($rootScope, $state, $stateParams, SETTINGS) {
 
       // Add references to $state and $stateParams to the $rootScope so we can
       // access from them from our entire application
@@ -53,12 +53,12 @@
       $rootScope.$stateParams = $stateParams;
 
       // Same here
-      $rootScope.basePath = ATOM_CONFIG.basePath;
-      $rootScope.viewsPath = ATOM_CONFIG.viewsPath;
-      $rootScope.assetsPath = ATOM_CONFIG.assetsPath;
+      $rootScope.basePath = SETTINGS.basePath;
+      $rootScope.viewsPath = SETTINGS.viewsPath;
+      $rootScope.assetsPath = SETTINGS.assetsPath;
 
-      $rootScope.headerPartialPath = ATOM_CONFIG.viewsPath + '/layout/header.html';
-      $rootScope.footerPartialPath = ATOM_CONFIG.viewsPath + '/layout/footer.html';
+      $rootScope.headerPartialPath = SETTINGS.viewsPath + '/layout/header.html';
+      $rootScope.footerPartialPath = SETTINGS.viewsPath + '/layout/footer.html';
 
     });
 

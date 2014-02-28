@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = function (ATOM_CONFIG) {
+module.exports = function (SETTINGS) {
   return {
     restrict: 'E',
-    templateUrl: ATOM_CONFIG.viewsPath + '/partials/facet.html',
+    templateUrl: SETTINGS.viewsPath + '/partials/facet.html',
     replace: true,
     scope: {
       label: '@',

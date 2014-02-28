@@ -2,10 +2,10 @@
 
 var ContextBrowser = require('../lib/cbd');
 
-module.exports = function ($document, $timeout, $modal, ATOM_CONFIG, InformationObjectService, FullscreenService) {
+module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObjectService, FullscreenService) {
   return {
     restrict: 'E',
-    templateUrl: ATOM_CONFIG.viewsPath + '/partials/context-browser.html',
+    templateUrl: SETTINGS.viewsPath + '/partials/context-browser.html',
     scope: {
       resource: '@resource'
     },
@@ -192,7 +192,7 @@ module.exports = function ($document, $timeout, $modal, ATOM_CONFIG, Information
         }
         // Modal configuration
         var modalConfiguration = {
-          templateUrl: ATOM_CONFIG.viewsPath + '/modals/context-browser-node-linker.html',
+          templateUrl: SETTINGS.viewsPath + '/modals/context-browser-node-linker.html',
           backdrop: true,
           scope: scope.$new(),
           resolve: {

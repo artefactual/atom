@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports = function ($http, ATOM_CONFIG) {
+module.exports = function ($http, SETTINGS) {
 
   this.getAIP = function (uuid) {
     return $http({
       method: 'GET',
-      url: ATOM_CONFIG.frontendPath + 'api/aips/' + uuid
+      url: SETTINGS.frontendPath + 'api/aips/' + uuid
     });
   };
 
@@ -20,7 +20,7 @@ module.exports = function ($http, ATOM_CONFIG) {
     }
     return $http({
       method: 'GET',
-      url: ATOM_CONFIG.frontendPath + 'api/aips',
+      url: SETTINGS.frontendPath + 'api/aips',
       params: params
     });
   };
@@ -28,7 +28,7 @@ module.exports = function ($http, ATOM_CONFIG) {
   this.reclassifyAIP = function (uuid, typeId) {
     return $http({
       method: 'POST',
-      url: ATOM_CONFIG.frontendPath + 'api/aips/' + uuid + '/reclassify',
+      url: SETTINGS.frontendPath + 'api/aips/' + uuid + '/reclassify',
       data: {
         type_id: typeId
       }
@@ -40,7 +40,7 @@ module.exports = function ($http, ATOM_CONFIG) {
     return $http({
       cache: true,
       method: 'GET',
-      url: ATOM_CONFIG.frontendPath + 'api/taxonomies/' + taxonomyId
+      url: SETTINGS.frontendPath + 'api/taxonomies/' + taxonomyId
     });
   };
 };
