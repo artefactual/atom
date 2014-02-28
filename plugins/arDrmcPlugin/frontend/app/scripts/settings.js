@@ -11,6 +11,9 @@ module.exports = {
   // DRMC path, e.g. "/~user/atom/index.php/drmc"
   DRMCPath: Qubit.frontend + 'drmc/',
 
+  // Things like levels of description, etc...
+  drmc: Qubit.drmc,
+
   // Views, assets, etc...
   viewsPath: Qubit.relativeUrlRoot + '/plugins/arDrmcPlugin/frontend/app/views',
   assetsPath: Qubit.relativeUrlRoot + '/plugins/arDrmcPlugin/frontend/assets'
