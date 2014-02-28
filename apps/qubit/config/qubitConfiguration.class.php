@@ -27,9 +27,20 @@ class qubitConfiguration extends sfApplicationConfiguration
   {
     ProjectConfiguration::getActive()->loadHelpers('Javascript');
 
+    $drmc = array();
+    foreach (sfConfig::getAll() as $key => $value)
+    {
+      if (strpos($key, 'app_drmc_') === 0)
+      {
+        $key = substr($key, 9);
+        $drmc[$key] = $value;
+      }
+    }
+
     $data = json_encode(array(
       'relativeUrlRoot' => sfContext::getInstance()->request->getRelativeUrlRoot(),
-      'frontend' => sfContext::getInstance()->controller->genUrl('@homepage')
+      'frontend' => sfContext::getInstance()->controller->genUrl('@homepage'),
+      'drmc' => $drmc
     ));
 
     return str_ireplace('<head>', '<head>'.javascript_tag(<<<EOF
@@ -138,10 +149,55 @@ EOF
     }
     sfConfig::set('app_drmc_tms_url', $envDrmcTmsUrl);
 
-    // $levels = array();
-    // foreach (QubitTaxonomy::getTaxonomyTerms(QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID) as $item)
-    // {
-    //   $levels[$item->getName('culture' => true)] = $item;
-    // }
+    /**
+     * Adding configuration to sfConfig (caching)
+     */
+    try
+    {
+      $cache = QubitCache::getInstance();
+    }
+    catch (Exception $e)
+    {
+
+    }
+
+    $cacheKey = 'config_drmc';
+
+    // Hit the cache if config_drmc is available
+    if (isset($cache) && $cache->has($cacheKey))
+    {
+      $cacheableParams = unserialize($cache->get($cacheKey));
+    }
+    else
+    {
+      $cachableParams = array();
+
+      // Levels of descriptions
+      $criteria = new Criteria;
+      $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID);
+      foreach (QubitTerm::get($criteria) as $item)
+      {
+        $slug = str_replace('-', '_', QubitSlug::slugify($item->getName(array('culture' => 'en'))));
+        if (1 > strlen($slug))
+        {
+          continue;
+        }
+        $configurationId = 'app_drmc_lod_'.$slug.'_id';
+
+        $cacheableParams[$configurationId] = $item->id;
+      }
+
+      // Cache
+      if (isset($cache))
+      {
+        $cache->set($cacheKey, serialize($cacheableParams));
+      }
+    }
+
+    // Dump $cacheableParams in sfConfig
+    foreach ($cacheableParams as $key => $value)
+    {
+      sfConfig::set($key, $value);
+    }
   }
 }
