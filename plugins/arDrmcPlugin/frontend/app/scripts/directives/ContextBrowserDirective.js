@@ -7,7 +7,7 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
     restrict: 'E',
     templateUrl: SETTINGS.viewsPath + '/partials/context-browser.html',
     scope: {
-      resource: '@resource'
+      id: '@'
     },
     replace: true,
     link: function (scope, element) {
@@ -66,12 +66,16 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
       };
 
       // Fetch data from the server
-      InformationObjectService.getTree(scope.resource)
-        .then(function (tree) {
-          cb.init(tree);
-        }, function (reason) {
-          console.error('Error loading tree:', reason);
-        });
+      scope.$watch('id', function (value) {
+        if (value.length > 0) {
+          InformationObjectService.getTree(scope.id)
+            .then(function (response) {
+              cb.init(response.data);
+            }, function (reason) {
+              console.error('Error loading tree:', reason);
+            });
+        }
+      });
 
       // Maximize/minimize. Center the graph within the loop.
       scope.isMaximized = false;

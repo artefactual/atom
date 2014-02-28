@@ -19,6 +19,7 @@ module.exports = function ($http, $q, SETTINGS) {
   };
 
   this.get = function (params) {
+    params = params || {};
     return $http({
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/informationobjects',
@@ -27,14 +28,14 @@ module.exports = function ($http, $q, SETTINGS) {
   };
 
   this.getWorks = function (params) {
+    params = params || {};
     params.level_id = SETTINGS.drmc.lod_artwork_record_id;
     return this.get(params);
   };
 
   this.getWork = function (id) {
-    return this.getById(id, {
-      level_id: SETTINGS.drmc.lod_artwork_record_id
-    });
+    var params = { level_id: SETTINGS.drmc.lod_artwork_record_id };
+    return this.getById(id, params);
   };
 
 };
