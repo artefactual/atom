@@ -121,20 +121,27 @@ EOF
 
   protected function bootstrapDrmc()
   {
-    if (php_sapi_name() != "cli")
+    // Anticipate connection to the database, we are going to need it
+    // I hope this is not breaking anything :)
+    $databaseManager = new sfDatabaseManager($this);
+    $conn = $databaseManager->getDatabase('propel')->getConnection();
+
+    // Load env ATOM_DRMC_TMS_URL, defaults to "http://vmsqlsvcs.museum.moma.org"
+    if (false === $envDrmcTmsUrl = getenv('ATOM_DRMC_TMS_URL'))
     {
-      if (false === $envDrmcTmsUrl = getenv('ATOM_DRMC_TMS_URL'))
-      {
-        throw new sfException('ATOM_DRMC_TMS_URL environment variable not found');
-      }
-
-      $envDrmcTmsUrl = filter_var($envDrmcTmsUrl, FILTER_VALIDATE_URL);
-      if (false === $envDrmcTmsUrl)
-      {
-        throw new sfException('ATOM_DRMC_TMS_URL doesn\'t seem to be a valid URL');
-      }
-
-      sfConfig::set('app_drmc_tms_url', $envDrmcTmsUrl);
+      $envDrmcTmsUrl = 'http://vmsqlsvcs.museum.moma.org';
     }
+    $envDrmcTmsUrl = filter_var($envDrmcTmsUrl, FILTER_VALIDATE_URL);
+    if (false === $envDrmcTmsUrl)
+    {
+      throw new sfException('ATOM_DRMC_TMS_URL doesn\'t seem to be a valid URL');
+    }
+    sfConfig::set('app_drmc_tms_url', $envDrmcTmsUrl);
+
+    // $levels = array();
+    // foreach (QubitTaxonomy::getTaxonomyTerms(QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID) as $item)
+    // {
+    //   $levels[$item->getName('culture' => true)] = $item;
+    // }
   }
 }
