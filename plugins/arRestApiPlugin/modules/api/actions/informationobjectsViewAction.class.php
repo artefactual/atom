@@ -28,6 +28,8 @@ class APIInformationObjectsViewAction extends QubitAPIAction
 
   protected function getInformationObject()
   {
+    ProjectConfiguration::getActive()->loadHelpers('Qubit');
+
     if (QubitInformationObject::ROOT_ID === (int)$this->request->id)
     {
       return $this->forward404('Information object not found');
@@ -45,8 +47,26 @@ class APIInformationObjectsViewAction extends QubitAPIAction
       return $this->forward404('Information object not found');
     }
 
-    return array(
+    $data = array(
       'id' => $io->id,
-      'level_of_description_id' => $io->levelOfDescriptionId);
+      'level_of_description_id' => $io->levelOfDescriptionId,
+      'title' => $io->getTitle(array('cultureFallback' => true)));
+
+    if (sfConfig::get('app_drmc_lod_artwork_record_id') == $io->levelOfDescriptionId)
+    {
+      $data['tms'] = array(
+        'accessionNumber' => '1098.2005.a-c',
+        'objectId' => '100620',
+        'title' => 'Play Dead; Real Time',
+        'year' => '2003',
+        'artist' => 'Douglas Gordon',
+        'classification' => 'Installation',
+        'medium' => 'Three-channel video',
+        'dimensions' => '19:11 min, 14:44 min. (on larger screens), 21:58 min. (on monitor). Minimum Room Size: 24.8m x 13.07m',
+        'description' => 'Exhibition materials: 3 DVD and players, 2 projectors, 3 monitor, 2 screens. The complete work is a three-screen piece, consisting of '
+      );
+    }
+
+    return $data;
   }
 }
