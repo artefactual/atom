@@ -30,6 +30,8 @@ class arDrmcBootstrapTask extends sfBaseTask
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
+      new sfCommandOption('init', null, sfCommandOption::PARAMETER_NONE, 'Initialize'),
+      new sfCommandOption('add-dummy-data', null, sfCommandOption::PARAMETER_NONE, 'Add dummy data'),
       new sfCommandOption('verbose', 'v', sfCommandOption::PARAMETER_NONE, 'If passed, progress is displayed for each object indexed')));
 
     $this->namespace = 'drmc';
@@ -44,14 +46,18 @@ EOF;
   public function execute($arguments = array(), $options = array())
   {
     sfContext::createInstance($this->configuration);
-
     new sfDatabaseManager($this->configuration);
 
-    $this->addLevelsOfDescriptions();
+    if ($options['init'])
+    {
+      $this->addLevelsOfDescriptions();
+    }
 
-    $this->addDummyAips();
-
-    $this->addDummyTree();
+    if ($options['add-dummy-data'])
+    {
+      $this->addDummyAips();
+      $this->addDummyTree();
+    }
   }
 
   protected function addLevelsOfDescriptions()
