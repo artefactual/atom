@@ -297,7 +297,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     // Store AIP data
     $aip = new QubitAip;
-    $aip->typeId = QubitTerm::ARTWORK_COMPONENT_ID; // TODO: Get AIP type from METS
     $aip->uuid = $aipUUID;
     $aip->filename = $filename;
     $aip->digitalObjectCount = count($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects'));
@@ -346,6 +345,9 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $relation->subject = $aip;
       $relation->typeId = QubitTerm::AIP_RELATION_ID;
       $relation->save();
+
+      // Save creation event and AIP data in ES
+      QubitSearch::getInstance()->update($parent);
     }
     else
     {
@@ -379,10 +381,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         }
       }
 
-      // Storage UUIDs
-      $child->addProperty('objectUUID', $objectUUID);
-      $child->addProperty('aipUUID', $aipUUID);
-
       // Add digital object
       $digitalObject = new QubitDigitalObject;
       $digitalObject->assets[] = new QubitAsset($item);
@@ -404,6 +402,10 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         }
       }
 
+      // Storage UUIDs
+      $child->addProperty('objectUUID', $objectUUID);
+      $child->addProperty('aipUUID', $aipUUID);
+
       // Create relation with AIP
       $relation = new QubitRelation;
       $relation->object = $child;
@@ -411,12 +413,14 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $relation->typeId = QubitTerm::AIP_RELATION_ID;
       $relation->save();
 
+      // Save creation event and AIP data in ES
       // A lot more data from the METS file (object metadata, events, agents)
-      // is stored in the ES index in arElasticSearchInformationObjectPdo
+      // is obtained in arElasticSearchInformationObjectPdo
+      QubitSearch::getInstance()->update($child);
     }
 
+    // Add related digital objects to the AIP in ES
     $aip->save();
-    $this->resource->save();
 
     parent::process();
   }

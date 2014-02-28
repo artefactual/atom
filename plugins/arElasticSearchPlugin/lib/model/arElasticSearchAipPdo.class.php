@@ -162,6 +162,11 @@ class arElasticSearchAipPdo
       $serialized['digitalObjects'] = $digitalObjects;
     }
 
+    if (0 < count($digitalObjects = $this->getDigitalObjects()))
+    {
+      $serialized['digitalObjects'] = $digitalObjects;
+    }
+
     return $serialized;
   }
 }
