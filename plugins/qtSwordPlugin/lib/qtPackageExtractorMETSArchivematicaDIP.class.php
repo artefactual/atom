@@ -19,7 +19,7 @@
 
 class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 {
-  protected function processDmdSec($xml, $informationObject)
+  protected function processDmdSec($xml, $informationObject, $options = array())
   {
     $xml->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
 
@@ -40,7 +40,10 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       switch (str_replace('dcterms:', '', $item->getName()))
       {
         case 'title':
-          $informationObject->setTitle($value);
+          if (!isset($options['ignoreTitle']) || $options['ignoreTitle'] == false)
+          {
+            $informationObject->setTitle($value);
+          }
 
           break;
 
@@ -292,6 +295,24 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     $publicationStatus = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
 
+    // Ignore $this->resource and create a new top-level from TMS
+    $tmsObject = new QubitInformationObject;
+    $tmsObject->parentId = QubitInformationObject::ROOT_ID;
+    $tmsObject->setLevelOfDescriptionByName('Work');
+    $tmsObject->setPublicationStatusByName('Published');
+    $tmsObject->title = 'TMS Object';
+    $tmsObject->culture = 'en';
+    $tmsObject->save();
+
+    // Create intermediate level "Components"
+    $components = new QubitInformationObject;
+    $components->parentId = $tmsObject->id;
+    $components->setLevelOfDescriptionByName('Description');
+    $components->setPublicationStatusByName('Published');
+    $components->title = 'Components';
+    $components->culture = 'en';
+    $components->save();
+
     $parts = pathinfo($this->filename);
     $filename = $parts['basename'];
 
@@ -300,7 +321,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     $aip->uuid = $aipUUID;
     $aip->filename = $filename;
     $aip->digitalObjectCount = count($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects'));
-    $aip->partOf = $this->resource->id;
+    $aip->partOf = $tmsObject->id;
 
     // Get size on disk
     $totalSize = 0;
@@ -327,31 +348,22 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     // Main object
     if (null != ($dmdSec = $this->getMainDmdSec()))
     {
-      $parent = new QubitInformationObject;
-      list($parent, $creation) = $this->processDmdSec($dmdSec, $parent);
-      $parent->setLevelOfDescriptionByName('file');
-
-      $parent->parentId = $this->resource->id;
-      $parent->save();
+      list($components, $creation) = $this->processDmdSec($dmdSec, $components, $options = array('ignoreTitle' => true));
 
       if (count($creation))
       {
-        $this->addCreationEvent($parent, $creation);
+        $this->addCreationEvent($components, $creation);
       }
 
       // Create relation with AIP
       $relation = new QubitRelation;
-      $relation->object = $parent;
+      $relation->object = $components;
       $relation->subject = $aip;
       $relation->typeId = QubitTerm::AIP_RELATION_ID;
       $relation->save();
 
       // Save creation event and AIP data in ES
-      QubitSearch::getInstance()->update($parent);
-    }
-    else
-    {
-      $parent = $this->resource;
+      QubitSearch::getInstance()->update($components);
     }
 
     $mapping = $this->getStructMapFileToDmdSecMapping();
@@ -368,8 +380,9 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
       // Create child
       $child = new QubitInformationObject;
-      $child->setPublicationStatus($publicationStatus);
-      $child->setLevelOfDescriptionByName('item');
+      $child->parentId = $components->id;
+      $child->setLevelOfDescriptionByName('Digital-component');
+      $child->setPublicationStatusByName('Published');
 
       // TODO: use UUID as unique key in the array
       $child->title = substr($filename, 37);
@@ -387,8 +400,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $digitalObject->usageId = QubitTerm::MASTER_ID;
       $child->digitalObjects[] = $digitalObject;
 
-      // Parent must be set before saving
-      $child->parentId = $parent->id;
       $child->save();
 
       // Process metatadata from METS file
