@@ -141,6 +141,7 @@ EOF;
       if (!$infoObject || rand(1, 3)) {
         $infoObject = new QubitInformationObject();
         $infoObject->title = generateRandomString(20);
+        $infoObject->levelOfDescriptionId = sfConfig::get('app_drmc_lod_artwork_record_id');
         $infoObject->parentId = QubitInformationObject::ROOT_ID;
         $infoObject->save();
       }
