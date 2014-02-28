@@ -298,7 +298,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     // Store AIP data
     $aip = new QubitAip;
     $aip->uuid = $aipUUID;
-    $aip->filename = $filename;
+    $aip->filename = substr($filename, 0, -37);
     $aip->digitalObjectCount = count($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects'));
     $aip->partOf = $this->resource->id;
 
