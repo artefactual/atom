@@ -2,10 +2,43 @@
 
 module.exports = function ($http, $q, SETTINGS) {
 
+  // Create a map of level of descriptions IDs and its corresponding CSS class
+  this.levels = {};
+  for (var key in SETTINGS.drmc)
+  {
+    if (key.indexOf('lod_') === 0)
+    {
+      var name = key.slice(4).slice(0, -3).replace(/_/g, '-');
+      this.levels[SETTINGS.drmc[key]] = name;
+    }
+  }
+
   this.getTree = function (id) {
+    var self = this;
     return $http({
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/tree'
+    }).success(function (data)
+    {
+      // Iterate over all the elements of the tree and add a property "level"
+      // containing a CSS class for every level of description
+      function addLevelCssClass (data)
+      {
+        data.forEach(function (e)
+        {
+          if (typeof e.levelOfDescriptionId !== 'undefined')
+          {
+            e.level = self.levels[e.levelOfDescriptionId];
+          }
+
+          if (typeof e.children !== 'undefined')
+          {
+            addLevelCssClass(e.children);
+          }
+        });
+      }
+
+      addLevelCssClass(data);
     });
   };
 

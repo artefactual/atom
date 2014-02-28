@@ -187,33 +187,42 @@ text {
     stroke-width: 1px;
   }
   // Active nodes
-  .active rect.content {
-    fill: @white !important;
+  .active {
+    rect.content {
+      fill: @white !important;
+    }
+    text {
+      fill: @black !important;
+    }
   }
   // Disabled nodes
   .disabled {
 
   }
   // Hovering effect
-  .hover .content {
-    fill: lighten(@blue, 50%) !important;
+  .hover {
+    .content {
+      fill: lighten(@blue, 50%) !important;
+    }
+    text {
+      fill: @black !important;
+    }
   }
-  // Level of description colors
-  .level-work .content {
-    fill: @momaNodeWork;
-  }
-  .level-description .content {
-    fill: @momaNodeDescription;
-  }
-  .level-physical-component .content {
-    fill: @momaNodePhysicalComponent;
-  }
-  .level-digital-object .content  {
-    fill: @momaNodeDigitalObject;
-  }
+  // Node backgrounds
+  .level-artwork-record         .content { fill: @momaNodeWork; }
+  .level-description            .content { fill: @momaNodeDescription; }
+  .level-physical-component     .content { fill: @momaNodePhysicalComponent; }
+  .level-digital-object         .content { fill: @momaNodeDigitalObject; }
+  .level-artist-supplied-master .content { fill: @momaNodeArtistSuppliedMaster; }
+  .level-artist-verified-proof  .content { fill: @momaNodeArtistVerifiedProof; }
+  .level-archival-master        .content { fill: @momaNodeArchivalMaster; }
+  .level-exhibition-format      .content { fill: @momaNodeExhibitionFormat; }
+  .level-equipment              .content { fill: @momaNodeEquipment; }
   // Some color contrast tweaking
-  .level-work text,
-  .level-digital-object text { fill: @white; }
+  .level-artwork-record text,
+  .level-digital-object text,
+  .level-artist-supplied-master text,
+  .level-exhibition-format { fill: @white; }
   .level-work.hover text,
   .level-work.active text,
   .level-digital-object.hover text,
