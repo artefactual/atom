@@ -121,17 +121,20 @@ EOF
 
   protected function bootstrapDrmc()
   {
-    if (false === $envDrmcTmsUrl = getenv('ATOM_DRMC_TMS_URL'))
+    if (php_sapi_name() != "cli")
     {
-      throw new sfException('ATOM_DRMC_TMS_URL environment variable not found');
-    }
+      if (false === $envDrmcTmsUrl = getenv('ATOM_DRMC_TMS_URL'))
+      {
+        throw new sfException('ATOM_DRMC_TMS_URL environment variable not found');
+      }
 
-    $envDrmcTmsUrl = filter_var($envDrmcTmsUrl, FILTER_VALIDATE_URL);
-    if (false === $envDrmcTmsUrl)
-    {
-      throw new sfException('ATOM_DRMC_TMS_URL doesn\'t seem to be a valid URL');
-    }
+      $envDrmcTmsUrl = filter_var($envDrmcTmsUrl, FILTER_VALIDATE_URL);
+      if (false === $envDrmcTmsUrl)
+      {
+        throw new sfException('ATOM_DRMC_TMS_URL doesn\'t seem to be a valid URL');
+      }
 
-    sfConfig::set('app_drmc_tms_url', $envDrmcTmsUrl);
+      sfConfig::set('app_drmc_tms_url', $envDrmcTmsUrl);
+    }
   }
 }
