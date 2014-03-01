@@ -30,7 +30,7 @@ module.exports = function ($http, SETTINGS) {
       method: 'POST',
       url: SETTINGS.frontendPath + 'api/aips/' + uuid + '/reclassify',
       data: {
-        type_id: typeId
+        type_id: parseInt(typeId, 10)
       }
     });
   };
