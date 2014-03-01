@@ -22,29 +22,36 @@
   Graph.prototype.build = function () {
     var self = this;
 
-    var add = function (element, index, array, parent) {
-      // Add node
-      self.addNode(element.id, {
-        id: element.id,
-        level: element.level,
-        label: element.title
-      });
-
-      // Add relation
-      if (parent !== undefined) {
-        var edgeId = element.id + ':' + parent.id;
-        self.addEdge(edgeId, element.id, parent.id, { type: 'hierarchical' });
-      }
-
-      // Keep exploring down in the hierarchy
-      if (angular.isArray(element.children)) {
-        element.children.forEach(function (e, i, a) {
-          add(e, i, a, element);
+    var parseTree = function (tree, parent) {
+      for (var i in tree) {
+        var element = tree[i];
+        // Add node
+        self.addNode(element.id, {
+          id: element.id,
+          level: element.level,
+          label: element.title
         });
+        // Add relation
+        if (parent !== undefined) {
+          var edgeId = element.id + ':' + parent.id;
+          self.addEdge(edgeId, element.id, parent.id, { type: 'hierarchical' });
+        }
+        // Keep exploring down in the hierarchy
+        if (angular.isArray(element.children)) {
+          parseTree(element.children, element);
+        }
       }
     };
 
-    this.data.forEach(add);
+    // Add root node
+    var root = this.data;
+    self.addNode(root.id, {
+      id: root.id,
+      level: root.level,
+      label: root.title
+    });
+
+    parseTree(this.data.children, root);
   };
 
   Graph.prototype.filter = function (u, filterFn) {

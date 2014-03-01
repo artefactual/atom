@@ -21,43 +21,49 @@ module.exports = function ($http, $q, SETTINGS) {
     }).success(function (data)
     {
       // Iterate over all the elements of the tree and add a property "level"
-      // containing a CSS class for every level of description
+      // containing a CSS class for every level of description. Should I be
+      // doing this in cbd/graph.js?
       function addLevelCssClass (data)
       {
-        data.forEach(function (e)
+        for (var i in data)
         {
-          if (typeof e.levelOfDescriptionId !== 'undefined')
-          {
-            e.level = self.levels[e.levelOfDescriptionId];
-          }
+          var e = data[i];
+          e.level = self.levels[e.level_of_description_id];
 
           if (typeof e.children !== 'undefined')
           {
             addLevelCssClass(e.children);
           }
-        });
+        }
       }
 
-      addLevelCssClass(data);
+      data.level = self.levels[data.level_of_description_id];
+      addLevelCssClass(data.children);
     });
   };
 
   this.getById = function (id, params) {
     params = params || {};
-    return $http({
+    var configuration = {
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/informationobjects/' + id,
-      params: params
-    });
+    };
+    if (Object.keys(params).length > 0) {
+      configuration.params = params;
+    }
+    return $http(configuration);
   };
 
   this.get = function (params) {
     params = params || {};
-    return $http({
+    var configuration = {
       method: 'GET',
-      url: SETTINGS.frontendPath + 'api/informationobjects',
-      params: params
-    });
+      url: SETTINGS.frontendPath + 'api/informationobjects'
+    };
+    if (Object.keys(params).length > 0) {
+      configuration.params = params;
+    }
+    return $http(configuration);
   };
 
   this.getWorks = function (params) {
