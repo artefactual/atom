@@ -27,10 +27,8 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
           if (typeof firstSelection === 'undefined') {
             scope.firstSelection = attrs.id;
           }
-
           scope.lastSelection = scope.activeNodes[attrs.id] = attrs;
-
-          InformationObjectService.getWork(attrs.id).then(function (work) {
+          InformationObjectService.getById(attrs.id).then(function (work) {
               scope.activeNodes[attrs.id].data = work;
             });
         });
