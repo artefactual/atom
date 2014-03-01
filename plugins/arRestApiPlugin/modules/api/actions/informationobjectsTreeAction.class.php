@@ -28,28 +28,43 @@ class APIInformationObjectsTreeAction extends QubitAPIAction
 
   protected function getTree()
   {
-    // Temporary
-    return array(
-      array('id' => 1, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_artwork_record_id'), 'title' => 'Play Dead; Real Time', 'children' => array(
-        array('id' => 2, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_description_id'), 'title' => 'MoMA 2012', 'children' => array(
-          array('id' => 3, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_equipment_id'), 'title' => 'Installation documentation'),
-          array('id' => 4, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_description_id'), 'title' => 'Exhibition files', 'children' => array(
-            array('id' => 5, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_exhibition_format_id'), 'title' => '1098.2005.a.AV'),
-            array('id' => 6, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_exhibition_format_id'), 'title' => '1098.2005.b.AV'),
-            array('id' => 7, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_exhibition_format_id'), 'title' => '1098.2005.c.AV'))))),
-        array('id' => 8, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_description_id'), 'title' => 'Supplied by artist', 'children' => array(
-          array('id' => 9, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_artist_supplied_master_id'), 'title' => '1098.2005.a.x1', 'children' => array(
-            array('id' => 10, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_artist_verified_proof_id'), 'title' => '1098.2005.a.x2'),
-            array('id' => 11, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_artist_verified_proof_id'), 'title' => '1098.2005.a.x3'))),
-          array('id' => 12, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_artist_supplied_master_id'), 'title' => '1098.2005.b.x1', 'children' => array(
-            array('id' => 13, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_artist_verified_proof_id'), 'title' => '1098.2005.b.x2'),
-            array('id' => 14, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_artist_verified_proof_id'), 'title' => '1098.2005.b.x3'))),
-          array('id' => 15, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_artist_supplied_master_id'), 'title' => '1098.2005.c.x1', 'children' => array(
-            array('id' => 16, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_artist_verified_proof_id'), 'title' => '1098.2005.c.x2'),
-            array('id' => 17, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_artist_verified_proof_id'), 'title' => '1098.2005.c.x3'))))),
-        array('id' => 30, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_description_id'), 'title' => 'Digital archival masters', 'children' => array(
-          array('id' => 31, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_archival_master_id'), 'title' => '1098.2005.a.x4'),
-          array('id' => 32, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_archival_master_id'), 'title' => '1098.2005.b.x4'),
-          array('id' => 33, 'levelOfDescriptionId' => (int) sfConfig::get('app_drmc_lod_archival_master_id'), 'title' => '1098.2005.c.x4'))))));
+    $sql = <<<EOL
+SELECT
+  node.id,
+  node.level_of_description_id,
+  i18n.title,
+  node.lft, node.rgt, node.parent_id
+FROM
+  information_object AS node,
+  information_object AS parent,
+  information_object_i18n AS i18n
+WHERE
+  node.lft BETWEEN parent.lft AND parent.rgt
+  AND node.id = i18n.id
+  AND node.source_culture = i18n.culture
+  AND parent.id = ?
+ORDER BY node.lft;
+EOL;
+
+    // Build a nested set of objects.
+    // Notice that fetchAll returns objects, not arrays.
+    $data = new stdClass; // Here is where we are storing the nested set
+    $flat = array();      // Flat hashmap (id => ref-to-obj) for quick searches
+    foreach (QubitPdo::fetchAll($sql, array($this->request->id)) as $item)
+    {
+      if (isset($flat[$item->parent_id]))
+      {
+        $parent = $flat[$item->parent_id];
+        $parent->children[] = $item;
+      }
+      else
+      {
+        $data = $item;
+      }
+
+      $flat[$item->id] = $item;
+    }
+
+    return $data;
   }
 }
