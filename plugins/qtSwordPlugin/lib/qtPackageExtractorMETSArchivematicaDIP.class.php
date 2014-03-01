@@ -147,7 +147,15 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     if ($options['actorName'])
     {
-      $actor = QubitFlatfileImport::createOrFetchActor($options['actorName']);
+      if ($options['actorDate'])
+      {
+        $actor = QubitFlatfileImport::createOrFetchActor($options['actorName'], array('datesOfExistence' => $options['actorDate']));
+      }
+      else
+      {
+        $actor = QubitFlatfileImport::createOrFetchActor($options['actorName']);
+      }
+
       $event->actorId = $actor->id;
     }
 
@@ -204,7 +212,15 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       else
       {
         // Date isn't a range
-        $event->date = QubitFlatfileImport::parseDate($date);
+        if (isset($options['parseDate']) && $options['parseDate'] == false)
+        {
+          $event->date = $date;
+        }
+        else
+        {
+          $event->date = QubitFlatfileImport::parseDate($date);
+        }
+
       }
     }
 
@@ -296,13 +312,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     $publicationStatus = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
 
     // Ignore $this->resource and create a new top-level from TMS
-    $tmsObject = new QubitInformationObject;
-    $tmsObject->parentId = QubitInformationObject::ROOT_ID;
-    $tmsObject->levelOfDescriptionId = sfConfig::get('app_drmc_lod_artwork_record_id');
-    $tmsObject->setPublicationStatusByName('Published');
-    $tmsObject->title = 'TMS Object';
-    $tmsObject->culture = 'en';
-    $tmsObject->save();
+    list($tmsObject, $tmsComponentsIds) = $this->getTombstoneObjects();
 
     // Create intermediate level "Components"
     $components = new QubitInformationObject;
@@ -310,8 +320,13 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     $components->levelOfDescriptionId = sfConfig::get('app_drmc_lod_description_id');
     $components->setPublicationStatusByName('Published');
     $components->title = 'Components';
-    $components->culture = 'en';
     $components->save();
+
+    // Obtain and create components from TMS
+    foreach ($tmsComponentsIds as $tmsId)
+    {
+      $this->createTombstoneComponent($tmsId, $components->id);
+    }
 
     $parts = pathinfo($this->filename);
     $filename = $parts['basename'];
@@ -344,31 +359,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     }
 
     $aip->save();
-
-    // Get TMS object ID
-    $this->document->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
-    $this->document->registerXPathNamespace('f', 'http://hul.harvard.edu/ois/xml/ns/fits/fits_output');
-
-    foreach ($this->document->xpath('//m:amdSec/m:digiprovMD/m:mdWrap[@MDTYPE="PREMIS:EVENT"]/m:xmlData/s:event') as $item)
-    {
-      $item->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
-
-      if (0 < count($value = $item->xpath('s:eventType')) && (string)$value[0] == 'registration')
-      {
-        if (0 < count($value = $item->xpath('s:eventOutcomeInformation/s:eventOutcomeDetail/s:eventOutcomeDetailNote')) && 0 == strpos((string)$value[0], 'accession#'))
-        {
-          $tmsId = substr((string)$value[0], 10);
-
-          break;
-        }
-      }
-    }
-
-    // TMS data
-    if (isset($tmsId))
-    {
-      $this->getTombstoneData($tmsId);
-    }
 
     // Main object
     if (null != ($dmdSec = $this->getMainDmdSec()))
@@ -602,16 +592,159 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     }
   }
 
-  protected function getTombstoneData($id)
+  protected function getTombstoneObjects()
   {
+    // Create top-level from TMS
+    $tmsObject = new QubitInformationObject;
+    $tmsObject->parentId = QubitInformationObject::ROOT_ID;
+    $tmsObject->levelOfDescriptionId = sfConfig::get('app_drmc_lod_artwork_record_id');
+    $tmsObject->setPublicationStatusByName('Published');
+
+    $tmsComponentsIds = $creation = array();
+
+    // Get TMS object ID from METS file
+    $this->document->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
+    $this->document->registerXPathNamespace('f', 'http://hul.harvard.edu/ois/xml/ns/fits/fits_output');
+
+    foreach ($this->document->xpath('//m:amdSec/m:digiprovMD/m:mdWrap[@MDTYPE="PREMIS:EVENT"]/m:xmlData/s:event') as $item)
+    {
+      $item->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
+
+      if (0 < count($value = $item->xpath('s:eventType')) && (string)$value[0] == 'registration')
+      {
+        if (0 < count($value = $item->xpath('s:eventOutcomeInformation/s:eventOutcomeDetail/s:eventOutcomeDetailNote')) && 0 == strpos((string)$value[0], 'accession#'))
+        {
+          $tmsId = substr((string)$value[0], 10);
+
+          break;
+        }
+      }
+    }
+
+    // Request object from TMS API
+    if (isset($tmsId))
+    {
+      $curl = curl_init();
+
+      curl_setopt_array($curl, array(
+          CURLOPT_RETURNTRANSFER => 1,
+          CURLOPT_FAILONERROR => true,
+          CURLOPT_URL => 'http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObjects.svc'.'/GetTombstoneDataRest/ObjectID/'.$tmsId));
+
+      if (false === $resp = curl_exec($curl))
+      {
+        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.curl_error($curl));
+      }
+      else
+      {
+        $data = json_decode($resp, true);
+        $data = $data['GetTombstoneDataRestIdResult'];
+
+        foreach ($data as $name => $value)
+        {
+          if (isset($value))
+          {
+            switch ($name)
+            {
+              // Info. object fields
+              case 'Dimensions':
+                $tmsObject->physicalCharacteristics = $value;
+                break;
+              case 'Medium':
+                $tmsObject->extentAndMedium = $value;
+                break;
+              case 'ObjectID':
+                $tmsObject->identifier = $value;
+                break;
+              case 'Title':
+                $tmsObject->title = $value;
+                break;
+
+              // Properties
+              case 'ClassificationID':
+              case 'ConstituentID':
+              case 'DepartmentID':
+              case 'ImageID':
+              case 'ObjectNumber':
+              case 'ObjectStatusID':
+              case 'SortNumber':
+                $tmsObject->addProperty($name, $value);
+                break;
+
+              // Object/term relations
+              case 'Classification':
+                break;
+              case 'Department':
+                break;
+
+              // Creation event
+              case 'Dated':
+                $creation['date'] = $value;
+                break;
+              case 'DisplayName':
+                $creation['actorName'] = $value;
+                break;
+              case 'DisplayDate':
+                $creation['actorDate'] = $value;
+                break;
+
+              // Child components
+              case 'Components':
+
+                foreach (json_decode($value, true) as $item)
+                {
+                  $tmsComponentsIds[] = $item['ComponentID'];
+                }
+
+                break;
+
+              // Log error
+              case 'ErrorMsg':
+                sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.$value);
+                break;
+
+              // Nothing yet
+              case 'AlphaSort':
+              case 'CreditLine':
+              case 'FirstName':
+              case 'LastName':
+              case 'Thumbnail':
+              case 'Prints':
+                break;
+            }
+          }
+        }
+      }
+    }
+
+    curl_close($curl);
+
+    $tmsObject->save();
+
+    if (count($creation))
+    {
+      $creation['parseDate'] = false;
+      $this->addCreationEvent($tmsObject, $creation);
+    }
+
+    return array($tmsObject, $tmsComponentsIds);
+  }
+
+  protected function createTombstoneComponent($tmsId, $parentId)
+  {
+    // Create component from TMS
+    $tmsComponent = new QubitInformationObject;
+    $tmsComponent->parentId = $parentId;
+    $tmsComponent->setLevelOfDescriptionByName('TMS-Component');
+    $tmsComponent->setPublicationStatusByName('Published');
+
+    // Request component from TMS API
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_FAILONERROR => true,
-        CURLOPT_URL => 'http://localhost:2403/tms/GetTombstoneData'));
-
-    // Production CURLOPT_URL => 'http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObjects.svc/GetTombstoneDataId?ObjectID='.$id
+        CURLOPT_URL => 'http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObjects.svc'.'/GetComponentDetails/Component/'.$tmsId));
 
     if (false === $resp = curl_exec($curl))
     {
@@ -620,63 +753,63 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     else
     {
       $data = json_decode($resp, true);
-
-      $data = $data[0]; // This won't be needed in production
+      $data = $data['GetComponentDetailsResult'];
 
       foreach ($data as $name => $value)
       {
-        switch ($name)
+        if (isset($value))
         {
-          case 'ErrorMsg':
-            break;
-          case 'Dated':
-            break;
-          case 'Medium':
-            break;
-          case 'Dimensions':
-            break;
-          case 'ObjectNumber':
-            break;
-          case 'CreditLine':
-            break;
-          case 'ObjectID':
-            break;
-          case 'DepartmentID':
-            break;
-          case 'ClassificationID':
-            break;
-          case 'ObjectStatusID':
-            break;
-          case 'Title':
-            break;
-          case 'DisplayName':
-            break;
-          case 'FirstName':
-            break;
-          case 'LastName':
-            break;
-          case 'AlphaSort':
-            break;
-          case 'ConstituentID':
-            break;
-          case 'SortNumber':
-            break;
-          case 'DisplayDate':
-            break;
-          case 'Department':
-            break;
-          case 'Classification':
-            break;
-          case 'ImageID':
-            break;
-          case 'Thumbnail':
-            break;
-          case 'ComponentID':
-            break;
+          switch ($name)
+          {
+            // Info. object fields
+            case 'ComponentID':
+              $tmsComponent->identifier = $value;
+              break;
+            case 'ComponentName':
+              $tmsComponent->title = $value;
+              break;
+            case 'Dimensions':
+              $tmsComponent->physicalCharacteristics = $value;
+              break;
+            case 'PhysDesc':
+              $tmsComponent->extentAndMedium = $value;
+              break;
+
+            // Properties
+            case 'CompCount':
+            case 'ComponentNumber':
+              $tmsComponent->addProperty($name, $value);
+              break;
+
+            // Object/term relation
+            case 'ComponentType':
+              break;
+
+            // Notes
+            case 'InstallComments':
+              break;
+            case 'PrepComments':
+              break;
+            case 'StorageComments':
+              break;
+
+            // Log error
+            case 'ErrorMsg':
+              sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.$value);
+              break;
+
+            // Nothing yet
+            case 'Attributes':
+            case 'ObjectID':
+            case 'TextEntries':
+              break;
+          }
         }
       }
     }
 
     curl_close($curl);
+
+    $tmsComponent->save();
   }
 }

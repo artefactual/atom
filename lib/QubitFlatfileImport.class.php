@@ -1145,7 +1145,7 @@ class QubitFlatfileImport
     if ($result)
     {
       $actor = QubitActor::getById($result->id);
-      $allowedProperties = array('history', 'entityTypeId');
+      $allowedProperties = array('history', 'entityTypeId', 'datesOfExistence');
       QubitFlatfileImport::setPropertiesFromArray($actor, $options, $allowedProperties);
       $actor->save();
       return $actor;
@@ -1339,6 +1339,11 @@ class QubitFlatfileImport
     if (isset($options['entityTypeId']))
     {
       $actor->entityTypeId = $options['entityTypeId'];
+    }
+
+    if (isset($options['datesOfExistence']))
+    {
+      $actor->datesOfExistence = $options['datesOfExistence'];
     }
 
     $actor->save();
