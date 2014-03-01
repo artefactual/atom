@@ -1,0 +1,64 @@
+#! /usr/bin/env node
+/*
+
+Generate random sample TMS component data
+
+Examples:
+  ./generate_sample_tms_components 100 # generate 100 groups of 1 to 3 (random) sample TMS components
+
+*/
+
+var fs = require('fs'),
+    casual = require('casual'),
+    amountToGenerate = process.argv[process.argv.length-1];
+
+// show usage if arg length is wrong or final arg isn't a number
+if (process.argv.length != 3 || !(parseInt(amountToGenerate, 10) > 0)) {
+  console.log('Usage: ' + process.argv[1] + ' <number of TMS components to generate>');
+  process.exit();
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getRandomFromArray(arrayData) {
+  return arrayData[getRandomInt(0, arrayData.length - 1)]
+}
+
+function generateTMScomponent(objectId, componentId) {
+  return {
+    'ObjectID': objectId,
+    'CompCount': 1,
+    'ComponentID': componentId,
+    'ComponentName': casual.string,
+    'ComponentNumber': "1598.2001",
+    'ComponentType': 'Part of artwork',
+    'Dimensions': casual.string,
+    'ErrorMsg': null,
+    'InstallComments': casual.sentence,
+    'PhysDesc': casual.string,
+    'PrepComments': casual.sentence,
+    'StorageComments': casual.sentence,
+    'TextEntries': casual.sentence,
+    'Attributes': casual.string
+  };
+}
+
+console.log('[');
+
+var objectId = 1,
+    componentId = 1;
+
+for (var i = 0; i < amountToGenerate; i++) {
+  for (var j = 0; j < getRandomInt(1, 3); j++) {
+    var commandAfterJSON = (i < (amountToGenerate - 1)) ? ',' : '',
+        component = generateTMScomponent(objectId, componentId);
+
+    console.log('  ' + JSON.stringify(component) + commandAfterJSON);
+    componentId++;
+  }
+  objectId++;
+}
+
+console.log(']');

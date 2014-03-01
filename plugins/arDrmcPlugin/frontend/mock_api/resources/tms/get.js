@@ -5,8 +5,14 @@ var urlParts = url.split('/'),
 // remove empty first element
 urlParts.shift();
 
+// needed by GetTombstoneData
 if (query.ObjectNumber !== 'undefined') {
   criteria.ObjectNumber = query.ObjectNumber;
+}
+
+// needed by GetComponentDetails
+if (query.Component !== 'undefined') {
+  criteria.Component = query.Component;
 }
 
 // HTTP GET /tms/GetTombstoneData
@@ -20,6 +26,21 @@ mainRoutes.GetTombstoneData = function() {
       results.push(tmsObject);
     });
     setResult(results[0]);
+  });
+};
+
+mainRoutes.GetComponentDetails = function() {
+  var results = [];
+
+  criteria.limit = 1;
+  // fetch TMS objects matching criteria
+  dpd.tmscomponentraw.get(criteria, function(tmsComponents) {
+    tmsComponents.forEach(function(tmsComponent) {
+      results.push(tmsComponent);
+    });
+    setResult({
+      'GetComponentDetailsResult': results[0]
+    });
   });
 };
 
