@@ -41,6 +41,10 @@
           <a href class="expand_all dropdown-toggle" data-toggle="dropdown">Collapse all</a>
         </li>
 
+        <li ng-class="{ active: showLegend == true }">
+          <a href ng-click="toggleLegend()" class="legend">Legend</a>
+        </li>
+
       </ul>
 
     </div>
@@ -60,6 +64,22 @@
       <div class="cb-sidebar">
 
         <div class="cb-sidebar-top">
+
+          <!-- Legend -->
+          <div class="cb-legend" ng-if="showLegend">
+            <ul class="nav nav-stacked">
+              <li class="legend-artwork-record">Artwork record</li>
+              <li class="legend-description">Description</li>
+              <li class="legend-physical-component">Physical component</li>
+              <li class="legend-digital-component">Digital component</li>
+              <li class="legend-artist-supplied-master">Artist supplied master</li>
+              <li class="legend-artist-verified-proof">Artist verified proof</li>
+              <li class="legend-archival-master">Archival master</li>
+              <li class="legend-exhibition-format">Exhibition format</li>
+              <li class="legend-equipment">Equipment</li>
+              <li class="legend-supporting-technology">Supporting technology record</li>
+            </ul>
+          </div>
 
           <!-- Bulk edit -->
           <div ng-if="hasNodesSelected()" class="cb-sidebar-basic-box cb-list-active-nodes">
@@ -100,26 +120,29 @@
           </div>
 
           <!-- File list -->
-          <div ng-if="hasNodeSelected() && hasFiles()" class="cb-sidebar-basic-box">
-            <h3>File list ({{ files.length }} items)</h3>
-            <div class="node-metadata">
-              <p ng-repeat="file in files">{{ file.label }}</p>
+          <div ng-if="hasNodeSelected() && hasFiles()" class="cb-file-list">
+            <h3>Digital objects ({{ files.length }} items)</h3>
+            <table class="table">
+              <tbody>
+                <tr ng-repeat="file in files" ng-click="selectFile(file, $event)" ng-class="{ selected: file.selected == true }">
+                  <td class="name">
+                    <a href ng-click="openViewer(file)">{{ file.label }}</a>
+                  </td>
+                  <td class="size">12.04 GB</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="cb-file-options" ng-show="hasSelectedFiles()">
+              <ul class="nav">
+                <li><a class="btn" href ng-click="openViewer(files)">View all</a></li>
+                <li><a class="btn" href ng-click="cancelFileSelection()">Cancel</a></li>
+              </ul>
             </div>
           </div>
 
         </div>
 
-        <div class="cb-sidebar-bottom">
-          <!-- Legend -->
-          <div class="cb-legend">
-            <ul class="nav nav-stacked">
-              <li class="legend-work">Work</li>
-              <li class="legend-description">Description</li>
-              <li class="legend-physical-component">Physical component</li>
-              <li class="legend-digital-object">Digital object</li>
-            </ul>
-          </div>
-        </div>
+        <!-- .cb-sidebar-bottom UNUSED -->
 
       </div>
 

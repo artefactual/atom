@@ -81,9 +81,9 @@ module.exports = function ($scope, $modal, $modalInstance) {
     $modalInstance.dismiss('cancel');
   };
 
-  $scope.aipsToggle = true;
-  $scope.fitsToggle = true;
-  $scope.mediaDetailsToggle = true;
+  $scope.showAipsArea = false;
+  $scope.showFitsArea = false;
+  $scope.showMediaArea = true;
 
   $scope.prev = function () {
     if ($scope.page < 2) {

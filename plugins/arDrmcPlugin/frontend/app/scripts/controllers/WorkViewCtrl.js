@@ -9,11 +9,16 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
       throw reason;
     });
 
-  $scope.openDigitalObjectModal = function () {
+  // A list of digital objects. This is shared within the context browser
+  // directive (two-way binding);
+  $scope.files = [];
+
+  $scope.openDigitalObjectModal = function (files) {
+    if (typeof files === 'undefined') {
+    }
     var modalInstance = $modal.open({
       templateUrl: SETTINGS.viewsPath + '/modals/digital-object-viewer.html',
-      // Prevents close when clicking on backdrop
-      backdrop: 'static',
+      backdrop: 'static', // Prevents close when clicking on backdrop
       controller: 'DigitalObjectViewerCtrl',
       scope: $scope, // TODO: isolate with .new()?
     });
