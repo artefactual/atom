@@ -33,6 +33,16 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
           InformationObjectService.getById(attrs.id).then(function (work) {
               scope.activeNodes[attrs.id].data = work.data;
             });
+          // Include only digital objects
+          scope.files = cb.graph.filter(scope.lastSelection.id, function (node) {
+            return -1 < jQuery.inArray(node.level, [
+              'digital-component',
+              'artist-verified-proof',
+              'artist-supplied-master',
+              'archival-master',
+              'exhibition-format'
+            ]);
+          });
         });
       });
 
@@ -54,22 +64,7 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
       };
 
       scope.hasFiles = function () {
-        // Include only digital objects
-        var files = cb.graph.filter(scope.lastSelection.id, function (node) {
-          return -1 < jQuery.inArray(node.level, [
-            'digital-component',
-            'artist-verified-proof',
-            'artist-supplied-master',
-            'archival-master',
-            'exhibition-format'
-          ]);
-        });
-        if (typeof files === 'undefined' || files.length === 0) {
-          return false;
-        }
-        // TODO: I should do this in pin-node, hasFiles should be quicker
-        scope.files = files;
-        return true;
+        return typeof scope.files !== 'undefined' && scope.files.length > 0;
       };
       scope.hasSelectedFiles = function () {
         return scope.files.some(function (element) {
