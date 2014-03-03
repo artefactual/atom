@@ -31,7 +31,7 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
           }
           scope.lastSelection = scope.activeNodes[attrs.id] = attrs;
           InformationObjectService.getById(attrs.id).then(function (work) {
-              scope.activeNodes[attrs.id].data = work;
+              scope.activeNodes[attrs.id].data = work.data;
             });
         });
       });
@@ -54,6 +54,7 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
       };
 
       scope.hasFiles = function () {
+        // Include only digital objects
         var files = cb.graph.filter(scope.lastSelection.id, function (node) {
           return -1 < jQuery.inArray(node.level, [
             'digital-component',

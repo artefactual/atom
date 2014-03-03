@@ -66,6 +66,23 @@ class APIInformationObjectsViewAction extends QubitAPIAction
         'description' => 'Exhibition materials: 3 DVD and players, 2 projectors, 3 monitor, 2 screens. The complete work is a three-screen piece, consisting of '
       );
     }
+    else
+    {
+      $data['dc'] = array(
+        'identifier' => $io->identifier,
+        'title' => $io->getTitle(array('cultureFallback' => true)),
+        'description' => $io->getScopeAndContent(array('cultureFallback' => true))
+        // 'subjects' => ['Elephants', 'Circus', 'Zoo', 'Animals'],
+        // 'description' => 'Exhibition materials: 3 DVD and players, 2 projectors, 3 monitor, 2 screens. The complete work is a three-screen piece, consisting of one retro projection, one front projection and one monitor. See file for installation instructions. One monitor and two projections on screens 19.69 X 11.38 feet. Viewer must be able to walk around screens.',
+        // 'type' => ['image'],
+        // 'format' => 'You tell me',
+        // 'source' => 'Somewhere',
+        // 'language' => ['English'],
+        // 'isLocatedAt' => ['MoMA'],
+        // 'spatial' => ['New York'],
+        // 'rights' => 'Many rights'
+      );
+    }
 
     return $data;
   }
