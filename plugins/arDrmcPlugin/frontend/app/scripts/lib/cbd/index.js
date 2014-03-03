@@ -58,7 +58,7 @@
       }
     };
 
-    this.rootSVG.on('click', this.clickSVG);
+    this.rootSVG.on('click', jQuery.proxy(this.clickSVG, this));
 
     this.graphSVG.select('.nodes')
       .on('click', jQuery.proxy(nodeFilter, null, this.clickNode))
@@ -106,7 +106,7 @@
 
   ContextBrowser.prototype.clickSVG = function () {
     if (d3.select(d3.event.target).classed('graph-root')) {
-      console.log('You have clicked the background!');
+      this.events.emitEvent('click-background');
     }
   };
 

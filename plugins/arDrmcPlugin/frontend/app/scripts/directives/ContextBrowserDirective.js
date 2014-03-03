@@ -24,6 +24,18 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
       scope.lastSelection = undefined;
       scope.activeNodes = {};
 
+      // Fetch data from the server
+      scope.$watch('id', function (value) {
+        if (value.length > 0) {
+          InformationObjectService.getTree(scope.id)
+            .then(function (response) {
+              cb.init(response.data);
+            }, function (reason) {
+              console.error('Error loading tree:', reason);
+            });
+        }
+      });
+
       cb.events.on('pin-node', function (attrs) {
         scope.$apply(function () {
           if (typeof firstSelection === 'undefined') {
@@ -50,6 +62,27 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         scope.$apply(function () {
           delete scope.activeNodes[attrs.id];
         });
+      });
+
+      cb.events.on('click-background', function () {
+        scope.$apply(function () {
+          scope.resetSelection();
+        });
+      });
+
+      // Keyboard shortcuts
+      $document.on('keyup', function (event) {
+        // Escape shortcut
+        if (event.which === 27 && scope.isMaximized) {
+          scope.$apply(function () {
+            scope.toggleMaximizedMode();
+          });
+        // Maximized mode (f)
+        } else if (event.which === 70 && !scope.isFullscreen) {
+          scope.$apply(function () {
+            scope.toggleMaximizedMode();
+          });
+        }
       });
 
       // Selected nodes
@@ -86,18 +119,6 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         }
       };
 
-      // Fetch data from the server
-      scope.$watch('id', function (value) {
-        if (value.length > 0) {
-          InformationObjectService.getTree(scope.id)
-            .then(function (response) {
-              cb.init(response.data);
-            }, function (reason) {
-              console.error('Error loading tree:', reason);
-            });
-        }
-      });
-
       // Maximize/minimize. Center the graph within the loop.
       scope.isMaximized = false;
       scope.toggleMaximizedMode = function () {
@@ -109,20 +130,6 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         }
       });
 
-      // Keyboard shortcuts
-      $document.on('keyup', function (event) {
-        // Escape shortcut
-        if (event.which === 27 && scope.isMaximized) {
-          scope.$apply(function () {
-            scope.toggleMaximizedMode();
-          });
-        // Maximized mode (f)
-        } else if (event.which === 70 && !scope.isFullscreen) {
-          scope.$apply(function () {
-            scope.toggleMaximizedMode();
-          });
-        }
-      });
 
       scope.renderDCValue = function (value) {
         if (angular.isArray(value)) {
@@ -278,11 +285,15 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         // that there is another $digest or $apply already running, see
         // http://docs.angularjs.org/error/$rootScope:inprog
         $timeout(function () {
-          scope.activeNodes = {};
-          scope.firstSelection = undefined;
-          scope.lastSelection = undefined;
-          cb.unselectAll();
+          scope.resetSelection();
         });
+      };
+
+      scope.resetSelection = function () {
+        scope.activeNodes = {};
+        scope.firstSelection = undefined;
+        scope.lastSelection = undefined;
+        cb.unselectAll();
       };
     }
   };
