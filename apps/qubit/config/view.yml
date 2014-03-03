@@ -25,6 +25,7 @@ default:
     # graphic:
     # main:
     # print: { media: print, position: last }
+    fullWidthTreeView:
 
   javascripts:
     /vendor/jquery:
@@ -45,6 +46,7 @@ default:
     /vendor/URI.js:
     qubit:
     treeView:
+    fullWidthTreeView:
     dominion: { position: last }
 
   has_layout:     true

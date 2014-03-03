@@ -1,0 +1,6 @@
+
+#fullwidth-treeview {
+	max-height: 300px;
+	overflow: scroll;
+	border:1px solid black;
+}
