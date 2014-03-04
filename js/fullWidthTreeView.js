@@ -13,14 +13,16 @@
       if( !$('#fullwidth-treeview').length )
       {
         $('#wrapper').prepend($("<div class=\"row\"><div id=\"fullwidth-treeview\"></div></div>"));
-        $(function() {
-          $( "#fullwidth-treeview" ).resizable();
-        });
       }
 
       // initialize the jstree with json from server
       $.get(url, function(data){
         $('#fullwidth-treeview').jstree(data);
+        $('#fullwidth-treeview').resizable({ 
+          minHeight: 250,
+          maxHeight: 350,
+          handles: "s"
+        });
       });
       
     });  

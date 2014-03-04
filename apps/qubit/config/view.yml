@@ -26,6 +26,7 @@ default:
     # main:
     # print: { media: print, position: last }
     /vendor/jstree/themes/default/style.min.css:
+    /vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.min.css:
     fullWidthTreeView:
 
   javascripts:
@@ -37,7 +38,7 @@ default:
     /vendor/yui/container/container_core-min:
     /vendor/yui/menu/menu-min:
     /vendor/modernizr:
-    /vendor/jquery-ui:
+    /vendor/jquery-ui/js/jquery-ui-1.10.4.custom.min.js:
     /vendor/jquery.expander.js:
     /vendor/jquery.masonry.js:
     /vendor/jquery.imagesloaded.js:
