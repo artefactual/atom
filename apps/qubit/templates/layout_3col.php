@@ -23,20 +23,14 @@
     <div id="wrapper" class="container">
 
       <div class="row">
-          <div id="sidebar">
 
-            <br />
+        <div class="span3">
+
+          <div id="sidebar">
 
             <?php include_slot('sidebar') ?>
 
           </div>
-      </div>
-
-      <div class="row">
-
-        <div class="span3">
-
-          <?php echo get_component('repository', 'logo') ?>
 
         </div>
 

@@ -1,3 +1,5 @@
+<?php echo get_component('repository', 'logo') ?>
+
 <?php echo get_component('informationobject', 'treeView') ?>
 
 <?php // echo get_component('informationobject', 'creator', array('resource' => $resource)) ?>

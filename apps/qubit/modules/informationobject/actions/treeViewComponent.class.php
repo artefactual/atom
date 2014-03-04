@@ -32,7 +32,7 @@ class InformationObjectTreeViewComponent extends sfComponent
     // Number of siblings that we are showing above and below the current node
     // It's good to keep this number small since getTreeViewSiblings can be very
     // slow (when sorting by title or identifierTitle)
-    $numberOfPreviousOrNextSiblings = 5;
+    $numberOfPreviousOrNextSiblings = 4;
 
     $this->hasPrevSiblings = false;
     $this->hasNextSiblings = false;
