@@ -69,11 +69,13 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
     $json = array();
     $json[] = $this->collectPropertiesForJson($this->resource);
     // set as root
-    $json[0]['parent'] = '#';
+    // $json[0]['parent'] = '#';
+    $json[0]['state']  = array('selected' => true, 'opened' => true);
 
     $this->collectToArray($this->nextSiblings, $json);
     $this->collectToArray($this->prevSiblings, $json);
     $this->collectToArray($this->children, $json);
+    $this->collectToArray($this->ancestors, $json);
 
 
 
@@ -91,14 +93,28 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
 
   protected function collectPropertiesForJson($item)
   {
-        $title = '';
-        if ($item->identifier)
-        {
-          $title = $item->identifier . "&nbsp;-&nbsp;";
-        }
-        $title .= $this->render_title($item);
+    $title = '';
+    if ($item->identifier)
+    {
+      $title = $item->identifier . "&nbsp;-&nbsp;";
+    }
+    $title .= $this->render_title($item);
 
-        return array('id' => $item->getPrimaryKey(), 'parent' => ($item->parentId ? $item->parentId : '#'), 'text' => $title);
+    if(isset($item->levelOfDescription))
+    {
+      $description = $item->levelOfDescription->__toString();
+    } else {
+      $description = "";
+    }
+
+    return array(
+      'id' => $item->getPrimaryKey(), 
+      'parent' => ($item->parentId ? $item->parentId : '#'), 
+      'text' => $title,
+      'a_attr' => array("href" => $this->generateUrl() . $item->slug),
+      'icon' => $description,
+      'pub_status' =>  $item->getPublicationStatus()->__toString(),
+    );
   }
 
   protected function render_title($value)

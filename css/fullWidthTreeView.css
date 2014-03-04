@@ -1,7 +1,23 @@
 
 #fullwidth-treeview {
 	margin-top:40px;
-	min-height: 250px;
 	overflow-x: scroll;
 	border:2px solid black;
+	max-height: 450px;
+}
+
+
+.jstree-default .jstree-anchor>.jstree-themeicon {
+	background-position: initial;
+}
+
+.jstree-anchor i.File,
+.jstree-anchor i.Item {
+	background-image: url('/images/jstree-icons/file.png');
+	background-size: 24px 24px;
+}
+
+.jstree-anchor i.Collection {
+	background-image: url('/images/jstree-icons/archive.png');
+	background-size: 24px 24px;
 }
