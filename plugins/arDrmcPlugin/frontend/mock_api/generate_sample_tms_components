@@ -26,13 +26,13 @@ function getRandomFromArray(arrayData) {
   return arrayData[getRandomInt(0, arrayData.length - 1)]
 }
 
-function generateTMScomponent(objectId, componentId) {
+function generateTMScomponent(objectId, componentId, componentNumber) {
   return {
     'ObjectID': objectId,
     'CompCount': 1,
     'ComponentID': componentId,
     'ComponentName': casual.string,
-    'ComponentNumber': "1598.2001",
+    'ComponentNumber': componentNumber,
     'ComponentType': 'Part of artwork',
     'Dimensions': casual.string,
     'ErrorMsg': null,
@@ -50,12 +50,18 @@ console.log('[');
 var objectId = 1,
     componentId = 1;
 
+// for each TMS object we'll be rendering components for...
 for (var i = 0; i < amountToGenerate; i++) {
-  for (var j = 0; j < getRandomInt(1, 3); j++) {
-    var commandAfterJSON = (i < (amountToGenerate - 1)) ? ',' : '',
-        component = generateTMScomponent(objectId, componentId);
+  var firstNumber = getRandomInt(1000, 9999),
+      secondNumber = getRandomInt(1000, 9999);
 
-    console.log('  ' + JSON.stringify(component) + commandAfterJSON);
+  // render a random number of components
+  componentsToGenerate = getRandomInt(1, 3);
+  for (var j = 0; j < componentsToGenerate; j++) {
+    var commaAfterJSON = (i < (amountToGenerate - 1) || j < (componentsToGenerate - 1)) ? ',' : '',
+        component = generateTMScomponent(objectId, componentId, firstNumber + '.' + secondNumber);
+
+    console.log('  ' + JSON.stringify(component) + commaAfterJSON);
     componentId++;
   }
   objectId++;

@@ -1,0 +1,102 @@
+#! /usr/bin/env node
+/*
+
+Generate random sample TMS object data
+
+Examples:
+  ./generate_sample_tms_objects <file of JSON component data> # generate TMS objects corresponding to components
+
+*/
+
+var fs = require('fs'),
+    path = require('path'),
+    casual = require('casual'),
+    TMScomponentDataFile = process.argv[process.argv.length-1];
+
+// show usage if arg length is wrong or final arg isn't a number
+if (process.argv.length != 3 || !fs.existsSync(TMScomponentDataFile)) {
+  console.log('Usage: ' + path.basename(process.argv[1]) + ' <file of JSON component data>');
+  process.exit();
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getRandomFromArray(arrayData) {
+  return arrayData[getRandomInt(0, arrayData.length - 1)]
+}
+
+function generateTMSobject(objectId, objectNumber, componentSummary) {
+  var firstName = casual.first_name,
+      lastName = casual.last_name,
+      baseYear = casual.year,
+      numberData = objectNumber.split('.');
+
+  return {
+    'ObjectID': objectId,
+    'ObjectNumber': objectNumber,
+    'SortNumber': '  ' + numberData[1] + '  ' + numberData[0],
+    'ObjectStatusID': 1,
+    'FirstName': firstName,
+    'LastName': lastName,
+    'AlphaSort': lastName + ' ' + firstName,
+    'DisplayName': firstName + ' ' + lastName,
+    'Components': JSON.stringify(componentSummary),
+    'Classification': 'Photograph',
+    'ClassificationID': 7,
+    'ConstituentID': 41,
+    'CreditLine': casual.string,
+    'Dated': baseYear,
+    'Department': 'Photography',
+    'DepartmentID': 4,
+    'Dimensions': casual.string,
+    'DisplayDate': casual.country + ', ' + baseYear + '-' + (baseYear + getRandomInt(1, 50)),
+    'ErrorMsg': null,
+    'ImageID': 0,
+    'Medium': casual.string,
+    'ThumbNail': '',
+    'Title': casual.string
+  };
+}
+
+// read compoents
+fs.readFile(TMScomponentDataFile, 'utf8', function (err, data) {
+
+  var componentData = {},
+      components = JSON.parse(data.toString());
+
+  // summarize TMS component data
+  components.forEach(function (component) {
+    // initialize slot for related object if it's not yet been
+    if (typeof componentData[component.ObjectID] === 'undefined') {
+      componentData[component.ObjectID] = {
+        'number': component.ComponentNumber,
+        'summary': []
+      };
+    }
+
+    componentData[component.ObjectID].summary.push({
+      'ComponentID': component.ComponentID,
+      'ComponentNumber': component.ComponentNumber
+    });
+  });
+
+  // generate TMS objects using summarized TMS component data
+  console.log('[');
+
+  var processed = 0;
+  for (var objectID in componentData) {
+    var commaAfterJSON = (processed < (Object.keys(componentData).length - 1)) ? ',' : '',
+        TMSobject = generateTMSobject(
+          objectID,
+          componentData[objectID].number,
+          componentData[objectID].summary
+        );
+
+    console.log('  ' + JSON.stringify(TMSobject) + commaAfterJSON);
+    processed++;
+  }
+
+  console.log(']');
+});
