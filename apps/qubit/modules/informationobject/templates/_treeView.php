@@ -1,3 +1,16 @@
+<div id="treeview-btn-area">
+  <a href="<?php echo url_for(array(
+      'module' => 'informationobject', 
+      'action' => 'browse', 
+      'collection' => $resource->getCollectionRoot()->id 
+    )); ?>">
+    <i class="icon-list" title="Browse List"></i> 
+  </a>
+  <a href="#" id="fullwidth-treeview-toggle">
+    <i class="icon-resize-full" title="Expanded Tree View"></i> 
+  </a>
+</div>
+
 <ul id="treeview-menu" class="nav nav-tabs">
   <li class="active">
     <a href="#treeview" data-toggle="#treeview">
