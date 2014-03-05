@@ -11,7 +11,6 @@
   {
     $('#fullwidth-treeview-toggle').click(function(){
       // track and toggle state
-      dbg = this
 
       treeview_open = !treeview_open
       if( treeview_open == false )
@@ -42,5 +41,3 @@
     });
   }
 })(jQuery);
-
-var dbg = null;
