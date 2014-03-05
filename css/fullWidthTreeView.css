@@ -1,6 +1,9 @@
 
 #fullwidth-treeview-row {
 	overflow: audo;
+	margin-top: 40px;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
 }
 
 #fullwidth-treeview {
@@ -26,12 +29,13 @@
 .ui-resizable-s {
 	background-image: url('/images/resizable_grip.png');
 	height: 9px;
-	border-top: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
+	border: 1px solid #ddd;
 	cursor: ns-resize;
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-color: #eee;
+	bottom: -11px;
+	left: -1px;
 }
 
 .ui-resizable-s:hover {
