@@ -44,6 +44,21 @@
 	left: -1px;
 }
 
+.fullwidth-treeview-toggle.active {
+	border: 1px inset #eee;
+}
+
+#fullwidth-treeview-loading {
+	margin: 0px auto;
+	display:block;
+	vertical-align: middle;
+	margin-top: 23px;
+}
+
 .ui-resizable-s:hover {
 	background-color: #ddd;
 };
+
+.jstree-node {
+	border-bottom: 1px dotted #ddd;
+}

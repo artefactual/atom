@@ -6,24 +6,30 @@
 
   var treeview_open = false;
   var url = '/informationobject/fullwidthtreeview'
+  var html = "<div class=\"row\" id=\"fullwidth-treeview-row\">" + 
+               "<div id=\"fullwidth-treeview\">" +
+                "<img src=\"/images/loading.gif\" id=\"fullwidth-treeview-loading\" />" +
+               "</div>" +
+              "</div>";
 
   function init()
   {
-    $('#fullwidth-treeview-toggle').click(function(){
     $('.fullwidth-treeview-toggle').click(function(){
+      $(this).toggleClass('active');
       // track and toggle state
 
       treeview_open = !treeview_open
       if( treeview_open == false )
       {
-        $('#fullwidth-treeview-row').remove();
+        $('#fullwidth-treeview-row').animate({opacity: 0, height: "0px"}, 1000, "linear", function() { $(this).remove(); });
         return;
       }
 
       // check we've not already inserted the DOM elements for this
       if( !$('#fullwidth-treeview-row').length )
       {
-        $('#wrapper').prepend($("<div class=\"row\" id=\"fullwidth-treeview-row\"><div id=\"fullwidth-treeview\"></div></div>"));
+        $('#wrapper').prepend($(html));
+        $('#fullwidth-treeview-row').animate({height: '100px'}, 500);
       }
 
       // initialize the jstree with json from server
@@ -31,7 +37,7 @@
         $('#fullwidth-treeview').jstree(data);
         $('#fullwidth-treeview-row').resizable({ 
           handles: "s"
-        }).height('350px');
+        }).animate({height: '350px'}, 500);
 
       });
 
