@@ -6,7 +6,7 @@
     )); ?>">
     <i class="icon-list" title="Browse List"></i> 
   </a>
-  <a href="#" id="fullwidth-treeview-toggle">
+  <a href="#" class="fullwidth-treeview-toggle">
     <i class="icon-resize-full" title="Expanded Tree View"></i> 
   </a>
 </div>

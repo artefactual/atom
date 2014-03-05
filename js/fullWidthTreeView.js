@@ -10,6 +10,7 @@
   function init()
   {
     $('#fullwidth-treeview-toggle').click(function(){
+    $('.fullwidth-treeview-toggle').click(function(){
       // track and toggle state
 
       treeview_open = !treeview_open
