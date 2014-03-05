@@ -1,11 +1,12 @@
 
-#fullwidth-treeview {
-	margin-top:40px;
-	overflow-x: scroll;
-	border:2px solid black;
-	max-height: 450px;
+#fullwidth-treeview-row {
+	overflow: audo;
 }
 
+#fullwidth-treeview {
+	overflow-x: hidden;
+	height: 100%;
+}
 
 .jstree-default .jstree-anchor>.jstree-themeicon {
 	background-position: initial;
@@ -21,3 +22,18 @@
 	background-image: url('/images/jstree-icons/archive.png');
 	background-size: 24px 24px;
 }
+
+.ui-resizable-s {
+	background-image: url('/images/resizable_grip.png');
+	height: 9px;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	cursor: ns-resize;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-color: #eee;
+}
+
+.ui-resizable-s:hover {
+	background-color: #ddd;
+};

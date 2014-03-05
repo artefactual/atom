@@ -29,11 +29,10 @@
       // initialize the jstree with json from server
       $.get((window.location.pathname + url), function(data){
         $('#fullwidth-treeview').jstree(data);
-        $('#fullwidth-treeview').resizable({ 
-          minHeight: 250,
-          maxHeight: 450,
+        $('#fullwidth-treeview-row').resizable({ 
           handles: "s"
-        });
+        }).height('350px');
+
       });
 
       $("#fullwidth-treeview").bind("select_node.jstree", function(evt, data){
