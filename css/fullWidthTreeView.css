@@ -21,8 +21,14 @@
 	background-size: 24px 24px;
 }
 
-.jstree-anchor i.Collection {
+.jstree-anchor i.Collection,
+.jstree-anchor i.Fonds {
 	background-image: url('/images/jstree-icons/archive.png');
+	background-size: 24px 24px;
+}
+
+.jstree-anchor i.Series {
+	background-image: url('/images/jstree-icons/folder-open.png');
 	background-size: 24px 24px;
 }
 
