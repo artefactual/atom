@@ -27,6 +27,16 @@ function getRandomFromArray(arrayData) {
 }
 
 function generateTMScomponent(objectId, componentId, componentNumber) {
+  var textEntries = [];
+
+  for (var i = 0; i < getRandomInt(1, 3); i++) {
+    textEntries.push({
+      'General Remarks': casual.string,
+      'TextAuthor': casual.first_name + ' ' + casual.last_name,
+      'TextDate': casual.date(format = 'YYYY-MM-DD')
+    });
+  }
+
   return {
     'ObjectID': objectId,
     'CompCount': 1,
@@ -40,7 +50,7 @@ function generateTMScomponent(objectId, componentId, componentNumber) {
     'PhysDesc': casual.string,
     'PrepComments': casual.sentence,
     'StorageComments': casual.sentence,
-    'TextEntries': casual.sentence,
+    'TextEntries': JSON.stringify(textEntries),
     'Attributes': casual.string
   };
 }
