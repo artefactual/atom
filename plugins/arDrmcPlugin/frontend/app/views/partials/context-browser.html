@@ -58,16 +58,16 @@
           <div ng-show="showLegend" class="cb-legend-container">
             <a href class="cb-legend-close" ng-click="toggleLegend()"><i class="icon-remove"></i></a>
             <ul class="nav nav-stacked">
-              <li class="legend-artwork-record">Artwork record</li>
-              <li class="legend-description">Description</li>
-              <li class="legend-component">Component</li>
-              <li class="legend-artist-supplied-master">Artist supplied master</li>
-              <li class="legend-artist-verified-proof">Artist verified proof</li>
-              <li class="legend-archival-master">Archival master</li>
-              <li class="legend-exhibition-format">Exhibition format</li>
-              <li class="legend-documentation">Documentation</li>
-              <li class="legend-miscellaneous">Miscellaneous</li>
-              <li class="legend-aip">AIP</li>
+              <li class="drmc-color-artwork-record">Artwork record</li>
+              <li class="drmc-color-description">Description</li>
+              <li class="drmc-color-component">Component</li>
+              <li class="drmc-color-artist-supplied-master">Artist supplied master</li>
+              <li class="drmc-color-artist-verified-proof">Artist verified proof</li>
+              <li class="drmc-color-archival-master">Archival master</li>
+              <li class="drmc-color-exhibition-format">Exhibition format</li>
+              <li class="drmc-color-documentation">Documentation</li>
+              <li class="drmc-color-miscellaneous">Miscellaneous</li>
+              <li class="drmc-color-aip">AIP</li>
             </ul>
           </div>
         </div>
@@ -97,7 +97,7 @@
 
           <!-- Single node detail -->
           <div ng-if="hasNodeSelected()" class="cb-sidebar-basic-box">
-            <h3 class="node-level-{{ lastSelection.data.level }}">{{ lastSelection.data.title }}</h3>
+            <h3 class="drmc-color-{{ lastSelection.data.level }}">{{ lastSelection.data.title }}</h3>
             <!-- Dublin Core metadata -->
             <div ng-if="lastSelection.data.dc" class="node-metadata">
               <h4>Dublin Core metadata</h4>
