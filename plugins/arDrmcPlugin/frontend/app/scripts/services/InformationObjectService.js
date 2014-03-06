@@ -51,7 +51,10 @@ module.exports = function ($http, $q, SETTINGS) {
     if (Object.keys(params).length > 0) {
       configuration.params = params;
     }
-    return $http(configuration);
+    var self = this;
+    return $http(configuration).success(function (data) {
+      data.level = self.levels[data.level_of_description_id];
+    });
   };
 
   this.get = function (params) {
@@ -63,7 +66,10 @@ module.exports = function ($http, $q, SETTINGS) {
     if (Object.keys(params).length > 0) {
       configuration.params = params;
     }
-    return $http(configuration);
+    var self = this;
+    return $http(configuration).success(function (data) {
+      data.level = self.levels[data.level_of_description_id];
+    });
   };
 
   this.getWorks = function (params) {
