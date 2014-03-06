@@ -28,6 +28,7 @@
   background-image: url('../../../arDrmcPlugin/frontend/assets/tiny_grid/tiny_grid.png');
   background-repeat: repeat;
   line-height: 0; // This is inherited from bootstrap I guess?
+  position: relative; // For the legend
 }
 
 .cb-sidebar {
@@ -120,20 +121,54 @@
 }
 
 .cb-legend {
-  padding: 10px;
-  li {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  .cb-legend-open {
+    font-size: 24px;
+    color: @grayLight;
+    &:hover,
+    &:active {
+      color: @grayDark;
+    }
+  }
+  .cb-legend-container {
+    background-color: rgba(255, 255, 255, .8);
+    border: 1px solid @grayLight;
+    border-radius: 4px;
+    box-shadow: 1px 1px 0 rgba(125, 125, 125, .15);
+    padding: 10px;
     position: relative;
-    padding-left: 18px;
+    .cb-legend-close {
+      display: block;
+      position: absolute;
+      color: @gray;
+      top: -5px;
+      right: -5px;
+      padding: 3px 4px;
+      background-color: @white;
+      border: 3px solid @gray;
+      border-radius: 12px;
+      &:hover {
+        background-color: @gray;
+        color: @white;
+      }
+    }
+    li {
+      position: relative;
+      padding-left: 18px;
+    }
+    li:before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border-radius: 10px;
+      position: absolute;
+      top: 4px;
+      left: 0px;
+    }
   }
-  li:before {
-    content: "";
-    width: 12px;
-    height: 12px;
-    border-radius: 10px;
-    position: absolute;
-    top: 4px;
-    left: 0px;
-  }
+
 }
 
 .cb-file-list {

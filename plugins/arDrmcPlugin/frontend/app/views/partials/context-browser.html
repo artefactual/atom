@@ -34,15 +34,9 @@
           </a>
         </li>
 
-        <!-- List relationships (.list_relationships) -->
-
         <!-- Expand all -->
         <li class="dropdown">
           <a href class="expand_all dropdown-toggle" data-toggle="dropdown">Collapse all</a>
-        </li>
-
-        <li ng-class="{ active: showLegend == true }">
-          <a href ng-click="toggleLegend()" class="legend">Legend</a>
         </li>
 
       </ul>
@@ -58,15 +52,11 @@
         <!-- Container -->
         <div class="svg-container"/>
 
-      </div>
-
-      <!-- Sidebar -->
-      <div class="cb-sidebar">
-
-        <div class="cb-sidebar-top">
-
-          <!-- Legend -->
-          <div class="cb-legend" ng-if="showLegend">
+        <!-- Legend -->
+        <div ng-class="{ 'cb-legend': true, 'active': showLegend }">
+          <a href class="cb-legend-open" ng-click="toggleLegend()" ng-show="!showLegend"><i class="icon-compass"></i></a>
+          <div ng-show="showLegend" class="cb-legend-container">
+            <a href class="cb-legend-close" ng-click="toggleLegend()"><i class="icon-remove"></i></a>
             <ul class="nav nav-stacked">
               <li class="legend-artwork-record">Artwork record</li>
               <li class="legend-description">Description</li>
@@ -80,6 +70,14 @@
               <li class="legend-aip">AIP</li>
             </ul>
           </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar -->
+      <div class="cb-sidebar">
+
+        <div class="cb-sidebar-top">
 
           <!-- Bulk edit -->
           <div ng-if="hasNodesSelected()" class="cb-sidebar-basic-box cb-list-active-nodes">
