@@ -80,10 +80,9 @@
       top: 13px;
       left: 8px;
     }
-    &.node-level-work:before { background-color: @momaNodeWork; }
-    &.node-level-description:before { background-color: @momaNodeDescription; }
-    &.node-level-digital-object:before { background-color: @momaNodeDigitalObject; }
-    &.node-level-physical-component:before { background-color: @momaNodePhysicalComponent; }
+    &.node-level-artwork-record:before     { background-color: @momaNodeArtworkRecord; }
+    &.node-level-description:before        { background-color: @momaNodeDescription; }
+    &.node-level-component:before          { background-color: @momaNodeComponent; }
   }
   .node-metadata {
     padding-left: 10px;
@@ -135,15 +134,6 @@
     top: 4px;
     left: 0px;
   }
-  li.legend-artwork-record:before          { background-color: @momaNodeWork; }
-  li.legend-description:before             { background-color: @momaNodeDescription; }
-  li.legend-physical-component:before      { background-color: @momaNodePhysicalComponent; }
-  li.legend-digital-component:before       { background-color: @momaNodeDigitalObject; }
-  li.legend-artist-supplied-master:before  { background-color: @momaNodeArtistSuppliedMaster; }
-  li.legend-artist-verified-proof:before   { background-color: @momaNodeArtistVerifiedProof; }
-  li.legend-archival-master:before         { background-color: @momaNodeArchivalMaster; }
-  li.legend-exhibition-format:before       { background-color: @momaNodeExhibitionFormat; }
-  li.legend-equipment:before               { background-color: @momaNodeEquipment; }
 }
 
 .cb-file-list {
@@ -237,16 +227,6 @@ text {
       fill: @black !important;
     }
   }
-  // Node backgrounds
-  .level-artwork-record         .content { fill: @momaNodeWork; }
-  .level-description            .content { fill: @momaNodeDescription; }
-  .level-physical-component     .content { fill: @momaNodePhysicalComponent; }
-  .level-digital-object         .content { fill: @momaNodeDigitalObject; }
-  .level-artist-supplied-master .content { fill: @momaNodeArtistSuppliedMaster; }
-  .level-artist-verified-proof  .content { fill: @momaNodeArtistVerifiedProof; }
-  .level-archival-master        .content { fill: @momaNodeArchivalMaster; }
-  .level-exhibition-format      .content { fill: @momaNodeExhibitionFormat; }
-  .level-equipment              .content { fill: @momaNodeEquipment; }
   // Some color contrast tweaking
   .level-artwork-record text { fill: @white; }
 }

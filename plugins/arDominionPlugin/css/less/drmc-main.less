@@ -45,10 +45,6 @@ h1.moma-title {
   }
 }
 
-.moma-title-works:before { background-color: @momaNodeWork; }
-.moma-title-aips:before { background-color: @momaAips; }
-.moma-title-techrecs:before { background-color: @momaTechRecs; }
-
 // Some layout mixins
 
 .moma-metabox {
@@ -276,7 +272,39 @@ h1.moma-title {
 
 }
 
-// Special scroll for MOMA
+// Headings colours
+
+.moma-title-aip:before                 { background-color: @momaNodeAip; }
+.moma-title-artwork-record:before      { background-color: @momaNodeArtworkRecord; }
+.moma-title-technology-record:before   { background-color: @momaNodeTechnologyRecord; }
+
+// Context browser legend colours
+
+.legend-aip:before                     { background-color: @momaNodeAip; }
+.legend-artwork-record:before          { background-color: @momaNodeArtworkRecord; }
+.legend-description:before             { background-color: @momaNodeDescription; }
+.legend-component:before               { background-color: @momaNodeComponent; }
+.legend-artist-supplied-master:before  { background-color: @momaNodeArtistSuppliedMaster; }
+.legend-artist-verified-proof:before   { background-color: @momaNodeArtistVerifiedProof; }
+.legend-archival-master:before         { background-color: @momaNodeArchivalMaster; }
+.legend-exhibition-format:before       { background-color: @momaNodeExhibitionFormat; }
+.legend-documentation:before           { background-color: @momaNodeDocumentation; }
+.legend-miscellaneous:before           { background-color: @momaNodeMiscellaneous; }
+
+// Context browser node background colours
+
+.level-aip                    .content { fill: @momaNodeAip; }
+.level-artwork-record         .content { fill: @momaNodeArtworkRecord; }
+.level-description            .content { fill: @momaNodeDescription; }
+.level-component              .content { fill: @momaNodeComponent; }
+.level-artist-supplied-master .content { fill: @momaNodeArtistSuppliedMaster; }
+.level-artist-verified-proof  .content { fill: @momaNodeArtistVerifiedProof; }
+.level-archival-master        .content { fill: @momaNodeArchivalMaster; }
+.level-exhibition-format      .content { fill: @momaNodeExhibitionFormat; }
+.level-documentation          .content { fill: @momaNodeDocumentation; }
+.level-miscellaneous          .content { fill: @momaNodeMiscellaneous; }
+
+// Special scroll for DRMC-MA
 
 ::-webkit-scrollbar {
   background-color: rgba(0, 0, 0, 0);
