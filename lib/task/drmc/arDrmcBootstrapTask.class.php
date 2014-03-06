@@ -77,14 +77,16 @@ EOF;
     $levels = array(
       array('name' => 'Artwork record'),
       array('name' => 'Description'),
-      array('name' => 'Physical component', 'children' => array(
+      array('name' => 'Component', 'children' => array(
         array('name' => 'Artist supplied master'),
         array('name' => 'Artist verified proof'),
         array('name' => 'Archival master'),
         array('name' => 'Exhibition format'),
-        array('name' => 'Equipment'))),
-      array('name' => 'Digital component'),
-      array('name' => 'Supporting technology record'));
+        array('name' => 'Documentation'),
+        array('name' => 'Miscellaneous'))),
+      array('name' => 'Supporting technology record'),
+      array('name' => 'AIP', 'children' => array(
+        array('name' => 'Digital object'))));
 
     // Find a specific level of description by its name (in English)
     $find = function($name)
@@ -165,7 +167,7 @@ EOF;
     $tree = array(
       array('id' => 1, 'level' => 'Artwork record', 'title' => 'Play Dead; Real Time', 'children' => array(
         array('id' => 2, 'level' => 'Description', 'title' => 'MoMA 2012', 'children' => array(
-          array('id' => 3, 'level' => 'Equipment', 'title' => 'Installation documentation'),
+          array('id' => 3, 'level' => 'AIP', 'title' => 'Installation documentation'),
           array('id' => 4, 'level' => 'Description', 'title' => 'Exhibition files', 'children' => array(
             array('id' => 5, 'level' => 'Exhibition format', 'title' => '1098.2005.a.AV'),
             array('id' => 6, 'level' => 'Exhibition format', 'title' => '1098.2005.b.AV'),
