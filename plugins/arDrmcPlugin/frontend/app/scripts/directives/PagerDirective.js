@@ -98,7 +98,7 @@ module.exports = function ($compile, SETTINGS) {
           printLink(page);
         });
 
-        if (Math.floor(max / 2) < (total - scope.page)) {
+        if (Math.ceil(max / 2) < (total - scope.page)) {
           el.append('<li class="dots"><span>...</span></li>');
           el.append('<li><a href ng-click="go(' + last + ')">' + last + '</a></li>');
         }

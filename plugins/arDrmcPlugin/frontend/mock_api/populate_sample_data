@@ -66,14 +66,18 @@ var populateConfig = {
     "URL": urlBase + 'aips-raw'
   },
   {
-    "sampleData": __dirname + '/sample_data/tms.json',
+    "sampleData": __dirname + '/sample_data/tms_objects.json',
     "URL": urlBase + 'tms-raw'
+  },
+  {
+    "sampleData": __dirname + '/sample_data/tms_components.json',
+    "URL": urlBase + 'tms-component-raw'
   }]
 };
 
 populateConfig.resources.forEach(function(resource) {
   // load sample data
   var items = JSON.parse(fs.readFileSync(resource.sampleData));
-  console.log('Posting sample data to ' + resource.URL);
+  console.log('Attempting to post sample data to ' + resource.URL);
   postDataToEndpoint(resource.URL, items);
 });

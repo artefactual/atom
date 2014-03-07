@@ -8,6 +8,7 @@
   <div class="modal-body classify-aip-modal">
     <p ng-if="aip.part_of != undefined"><br />Part of {{ aip.part_of.title }}</p>
     <hr />
+
     <label>Reclassify as:</label>
     <select ng-model="aip.type.id" ng-options="key as value for (key, value) in classifications">
       <option value="">Unclassified</option>

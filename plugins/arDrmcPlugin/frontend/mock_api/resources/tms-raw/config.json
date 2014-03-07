@@ -168,6 +168,30 @@
 			"required": false,
 			"id": "ComponentID",
 			"order": 20
+		},
+		"SortNumber": {
+			"name": "SortNumber",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "SortNumber",
+			"order": 21
+		},
+		"ObjectStatusID": {
+			"name": "ObjectStatusID",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "ObjectStatusID",
+			"order": 22
+		},
+		"Components": {
+			"name": "Components",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "Components",
+			"order": 23
 		}
 	}
 }

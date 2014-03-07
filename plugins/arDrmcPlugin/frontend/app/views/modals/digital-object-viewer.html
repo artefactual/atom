@@ -1,0 +1,159 @@
+<div class="fs-modal-wrapper">
+
+  <a id="fs-modal-exit" href class="sidex" ng-click="cancel()"></a>
+
+  <!-- Modal body -->
+  <div class="fs-modal-body">
+
+    <!-- Header -->
+    <div class="fs-modal-body-header">
+      <div><a href class="picture"></a></div>
+      <div class="pager-links">
+        <a href class="arrow-left" ng-click="prev()" ng-class="{ disabled: !showPrev() }"></a>
+        <div class="grid-pager">
+          <a href class="grid"></a>
+          <p>{{ page }} of {{ total }}</p>
+        </div>
+        <a href class="arrow-right" ng-click="next()" ng-class="{ disabled: !showNext() }"></a>
+      </div>
+      <div>
+        <a href class="sidex" ng-click="cancel()"></a>
+      </div>
+    </div>
+
+    <!-- Content (viewer) -->
+    <div class="fs-modal-body-content">
+      <div class="fs-modal-body-media">
+        <ar-digital-object-preview media-type="{{ current.digital_object.media_type }}"></ar-digital-object-preview>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Sidebar -->
+  <div class="fs-modal-sidebar">
+
+    <div class="quick-info">
+      <div class="quick-info-thumb">
+        <img ng-src="{{ assetsPath }}/gordon.jpg" />
+      </div>
+      <div class="quick-info-title">
+        <h3><span class="picture"></span>{{ current.demo_title }}</h3>
+        <div>
+          <a href class="download">Download</a>
+          <a href class="print">Print report</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- AIP details -->
+      <section id="section-first">
+        <div>
+          <h2>AIP details</h2>
+          <a href ng-class="{ 'fs-modal-toggle': true, active: showAipsArea }" ng-click="showAipsArea = !showAipsArea"></a>
+        </div>
+        <div ng-show="showAipsArea">
+          <div class="field">
+            <h3>AIP name</h3>
+            <div>{{ digObj1Aip.name }}</div>
+          </div>
+          <div class="field">
+            <h3>UUID</h3>
+            <div>{{ digObj1Aip.uuid }}</div>
+          </div>
+          <div class="field">
+            <h3>Size</h3>
+            <div>{{ digObj1Aip.size }}</div>
+          </div>
+          <div class="field">
+            <h3>No. of objects</h3>
+            <div>{{ digObj1Aip.no_objects }}</div>
+          </div>
+          <div class="field">
+            <h3>AIP class</h3>
+            <div>{{ digObj1Aip.classification }}</div>
+          </div>
+          <div class="field">
+            <h3>Description</h3>
+            <div>{{ digObj1Aip.description }}</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FITS output -->
+      <section id="section-second">
+        <div>
+          <h2>FITS output</h2>
+          <a href ng-class="{ 'fs-modal-toggle': true, active: showFitsArea }" ng-click="showFitsArea = !showFitsArea"></a>
+        </div>
+        <div ng-show="showFitsArea" id="section-second">
+          <div class="field">
+            <h3>Complete name</h3>
+            <div>{{ digObj1Fits.complete_name }}</div>
+          </div>
+          <div class="field">
+            <h3>UUID AIPs</h3>
+            <div>{{ digObj1Fits.uuid }}</div>
+          </div>
+          <div class="field">
+            <h3>MIME type</h3>
+            <div>{{ digObj1Fits.mime_type }}</div>
+          </div>
+          <div class="field">
+            <h3>Format</h3>
+            <div>{{ digObj1Fits.format }}</div>
+          </div>
+          <div class="field">
+            <h3>File size</h3>
+            <div>{{ digObj1Fits.file_size }}</div>
+          </div>
+          <div class="field">
+            <h3>Dimensions</h3>
+            <div>{{ digObj1Fits.dimensions }}</div>
+          </div>
+          <div class="field">
+            <h3>Compression</h3>
+            <div>{{ digObj1Fits.compression }}</div>
+          </div>
+          <div class="field">
+            <h3>Date</h3>
+            <div>{{ digObj1Fits.date_time }}</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Digital object details -->
+      <section>
+        <div>
+          <h2>Digital object details</h2>
+          <a href ng-class="{ 'fs-modal-toggle': true, active: showMediaArea }" ng-click="showMediaArea = !showMediaArea"></a>
+        </div>
+        <div ng-show="showMediaArea">
+          <div class="field">
+            <h3>Width</h3>
+            <div>{{ digObj1Img.width }}</div>
+          </div>
+          <div class="field">
+            <h3>Height</h3>
+            <div>{{ digObj1Img.height }}</div>
+          </div>
+          <div class="field">
+            <h3>Aspect ratio</h3>
+            <div>{{ digObj1Img.res }}</div>
+          </div>
+          <div class="field">
+            <h3>Make</h3>
+            <div>{{ digObj1Img.make }}</div>
+          </div>
+          <div class="field">
+            <h3>Model</h3>
+            <div>{{ digObj1Img.model }}</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>

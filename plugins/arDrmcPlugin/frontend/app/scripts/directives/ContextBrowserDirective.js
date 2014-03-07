@@ -7,7 +7,9 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
     restrict: 'E',
     templateUrl: SETTINGS.viewsPath + '/partials/context-browser.html',
     scope: {
-      resource: '@resource'
+      id: '@',
+      openViewer: '&onOpenViewer',
+      files: '='
     },
     replace: true,
     link: function (scope, element) {
@@ -27,11 +29,9 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
           if (typeof firstSelection === 'undefined') {
             scope.firstSelection = attrs.id;
           }
-
           scope.lastSelection = scope.activeNodes[attrs.id] = attrs;
-
-          InformationObjectService.getWork(attrs.id).then(function (work) {
-              scope.activeNodes[attrs.id].data = work;
+          InformationObjectService.getById(attrs.id).then(function (work) {
+              scope.activeNodes[attrs.id].data = work.data;
             });
         });
       });
@@ -53,25 +53,55 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         return Object.keys(scope.activeNodes).length;
       };
 
-      scope.files = [];
       scope.hasFiles = function () {
+        // Include only digital objects
         var files = cb.graph.filter(scope.lastSelection.id, function (node) {
-          return node.level === 'digital-object';
+          return -1 < jQuery.inArray(node.level, [
+            'digital-component',
+            'artist-verified-proof',
+            'artist-supplied-master',
+            'archival-master',
+            'exhibition-format'
+          ]);
         });
         if (typeof files === 'undefined' || files.length === 0) {
           return false;
         }
+        // TODO: I should do this in pin-node, hasFiles should be quicker
         scope.files = files;
         return true;
       };
+      scope.hasSelectedFiles = function () {
+        return scope.files.some(function (element) {
+          return typeof element.selected !== 'undefined' && element.selected === true;
+        });
+      };
+      scope.cancelFileSelection = function () {
+        scope.files.forEach(function (element) {
+          element.selected = false;
+        });
+      };
+      scope.selectFile = function (file, $event) {
+        if (file.selected) {
+          file.selected = false;
+        } else {
+          if ($event.shiftKey) {
+            file.selected = true;
+          }
+        }
+      };
 
       // Fetch data from the server
-      InformationObjectService.getTree(scope.resource)
-        .then(function (tree) {
-          cb.init(tree);
-        }, function (reason) {
-          console.error('Error loading tree:', reason);
-        });
+      scope.$watch('id', function (value) {
+        if (value.length > 0) {
+          InformationObjectService.getTree(scope.id)
+            .then(function (response) {
+              cb.init(response.data);
+            }, function (reason) {
+              console.error('Error loading tree:', reason);
+            });
+        }
+      });
 
       // Maximize/minimize. Center the graph within the loop.
       scope.isMaximized = false;
@@ -140,6 +170,11 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         } else {
           cb.showRelationships();
         }
+      };
+
+      scope.showLegend = false;
+      scope.toggleLegend = function () {
+        scope.showLegend = !scope.showLegend;
       };
 
       scope.addChildNode = function (parentId) {

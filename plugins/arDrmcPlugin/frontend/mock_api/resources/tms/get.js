@@ -1,16 +1,19 @@
 var urlParts = url.split('/'),
     mainRoutes = {},
-    criteria = {};
+    criteria = {},
+    filterFields = ['ObjectNumber', 'ObjectID', 'Component'];
 
 // remove empty first element
 urlParts.shift();
 
-if (query.ObjectNumber !== 'undefined') {
-  criteria.ObjectNumber = query.ObjectNumber;
-}
+// set criteria using valid filter fields
+filterFields.forEach(function(field) {
+  if (typeof query[field] != 'undefined') {
+    criteria[field] = query[field];
+  }
+});
 
-// HTTP GET /tms/GetTombstoneData
-mainRoutes.GetTombstoneData = function() {
+var objectDetailRequestHandler = function() {
   var results = [];
 
   criteria.limit = 1;
@@ -23,7 +26,28 @@ mainRoutes.GetTombstoneData = function() {
   });
 };
 
-mainRoutes.GetTombstoneDataRest = function() {};
+// HTTP GET /tms/GetTombstoneData
+mainRoutes.GetTombstoneData = objectDetailRequestHandler;
+
+// HTTP GET /tms/GetTombstoneDataRest
+mainRoutes.GetTombstoneDataRest = objectDetailRequestHandler;
+
+// HTTP GET /tms/GetComponentDetails
+mainRoutes.GetComponentDetails = function() {
+  var results = [];
+
+  criteria.limit = 1;
+  // fetch TMS objects matching criteria
+  dpd.tmscomponentraw.get(criteria, function(tmsComponents) {
+    tmsComponents.forEach(function(tmsComponent) {
+      results.push(tmsComponent);
+    });
+    setResult({
+      'GetComponentDetailsResult': results[0]
+    });
+  });
+};
+
 mainRoutes.GetTombstoneDateId = function() {};
 mainRoutes.GetObjectID = function() {};
 mainRoutes.GetObjectPackageID = function() {};

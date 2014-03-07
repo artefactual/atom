@@ -89,6 +89,17 @@ Generate new sample data for 200 random AIPs (from /plugins/arDrmcPlugin/fronten
 
   $ ./mock_api/generate_sample_aips 200 | python -mjson.tool > mock_api/sample_data/aips.json
 
+TMS sample data generation is a bit odd because child data needs to be generated
+first, then parent data. TMS components are the children and TMS objects the parents.
+
+Generate new TMS compoent data corresponding to 100 potential TMS objects::
+
+  $./mock_api/generate_sample_tms_components 100 | python -mjson.tool > mock_api/sample_data/tms_components.json
+
+Generate new TMS objects using TMS component data::
+
+  $./mock_api/generate_sample_tms_objects mock_api/sample_data/tms_components.json | python -mjson.tool > mock_api/sample_data/tms_objects.json
+
 Delete all mock API data (from /plugins/arDrmcPlugin/frontend):
 
   $ cd mock_api

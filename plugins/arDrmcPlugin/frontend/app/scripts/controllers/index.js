@@ -17,6 +17,7 @@
     // Works
     .controller('WorkBrowserCtrl', require('./WorkBrowserCtrl'))
     .controller('WorkViewCtrl', require('./WorkViewCtrl'))
+    .controller('DigitalObjectViewerCtrl', require('./DigitalObjectViewerCtrl'))
 
     // Technology records
     .controller('TechnologyRecordBrowserCtrl', require('./TechnologyRecordBrowserCtrl'))

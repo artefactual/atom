@@ -1,0 +1,117 @@
+{
+	"type": "Collection",
+	"properties": {
+		"ObjectID": {
+			"name": "ObjectID",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "ObjectID",
+			"order": 0
+		},
+		"ComponentID": {
+			"name": "ComponentID",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "ComponentID",
+			"order": 1
+		},
+		"ComponentNumber": {
+			"name": "ComponentNumber",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "ComponentNumber",
+			"order": 2
+		},
+		"ComponentName": {
+			"name": "ComponentName",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "ComponentName",
+			"order": 3
+		},
+		"ComponentType": {
+			"name": "ComponentType",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "ComponentType",
+			"order": 4
+		},
+		"Attributes": {
+			"name": "Attributes",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "Attributes",
+			"order": 5
+		},
+		"Dimensions": {
+			"name": "Dimensions",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "Dimensions",
+			"order": 6
+		},
+		"InstallComments": {
+			"name": "InstallComments",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "InstallComments",
+			"order": 7
+		},
+		"PhysDesc": {
+			"name": "PhysDesc",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "PhysDesc",
+			"order": 8
+		},
+		"PrepComments": {
+			"name": "PrepComments",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "PrepComments",
+			"order": 9
+		},
+		"StorageComments": {
+			"name": "StorageComments",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "StorageComments",
+			"order": 10
+		},
+		"TextEntries": {
+			"name": "TextEntries",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "TextEntries",
+			"order": 11
+		},
+		"ErrorMsg": {
+			"name": "ErrorMsg",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "ErrorMsg",
+			"order": 12
+		},
+		"CompCount": {
+			"name": "CompCount",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "CompCount",
+			"order": 13
+		}
+	}
+}

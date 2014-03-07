@@ -1,0 +1,275 @@
+// Context browser
+
+.cb {
+  margin-bottom: 40px;
+}
+
+.cb-inner {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  -webkit-box-direction: normal;
+  -webkit-box-pack: start;
+  overflow: hidden;
+}
+
+.cb-menu {
+}
+
+.cb-body {
+  display: flex;
+  max-height: 640px;
+  overflow: hidden;
+}
+
+.cb-container {
+  flex: 3;
+  background-image: url('../../../arDrmcPlugin/frontend/assets/tiny_grid/tiny_grid.png');
+  background-repeat: repeat;
+  line-height: 0; // This is inherited from bootstrap I guess?
+}
+
+.cb-sidebar {
+  border-left: 3px solid #ccc;
+  background-color: #eee;
+  flex: 1;
+}
+
+// TODO: remove .cb-sidebar-top or give .cb-sidebar-bottom some use
+
+.cb-fullscreen,
+.cb-maximized {
+  margin-bottom: 0;
+  border-width: 0;
+  border-radius: 0;
+  box-shadow: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  .cb-body {
+    max-height: none;
+  }
+}
+
+// Context browser contents
+
+.cb-sidebar-basic-box {
+  border: 1px solid #999;
+  margin: 10px;
+  border-radius: 4px;
+  background-color: @white;
+  position: relative;
+  overflow: hidden;
+  h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 28px;
+    padding-right: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    &:before {
+      content: "";
+      width: 16px;
+      height: 16px;
+      border-radius: 8px;
+      position: absolute;
+      top: 13px;
+      left: 8px;
+    }
+    &.node-level-work:before { background-color: @momaNodeWork; }
+    &.node-level-description:before { background-color: @momaNodeDescription; }
+    &.node-level-digital-object:before { background-color: @momaNodeDigitalObject; }
+    &.node-level-physical-component:before { background-color: @momaNodePhysicalComponent; }
+  }
+  .node-metadata {
+    padding-left: 10px;
+    padding-right: 10px;
+    p {
+      font-size: 11px;
+      line-height: 1.4em;
+    }
+  }
+  .node-actions {
+    padding: 8px;
+    border-top: 1px solid #ccc;
+    background-color: #e4e1d8;
+    .btn {
+      background-image: none; // Flat, cancel bootstrap
+      i {
+        font-size: 14px;
+      }
+      &.btn-delete {
+        background-color: lighten(@red, 50%);
+      }
+      span {
+        display: none;
+      }
+    }
+  }
+}
+
+.cb-list-active-nodes {
+  background-color: @white;
+  list-style-type: none;
+  li {
+    padding: 8px 4px;
+  }
+}
+
+.cb-legend {
+  padding: 10px;
+  li {
+    position: relative;
+    padding-left: 18px;
+  }
+  li:before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-radius: 10px;
+    position: absolute;
+    top: 4px;
+    left: 0px;
+  }
+  li.legend-artwork-record:before          { background-color: @momaNodeWork; }
+  li.legend-description:before             { background-color: @momaNodeDescription; }
+  li.legend-physical-component:before      { background-color: @momaNodePhysicalComponent; }
+  li.legend-digital-component:before       { background-color: @momaNodeDigitalObject; }
+  li.legend-artist-supplied-master:before  { background-color: @momaNodeArtistSuppliedMaster; }
+  li.legend-artist-verified-proof:before   { background-color: @momaNodeArtistVerifiedProof; }
+  li.legend-archival-master:before         { background-color: @momaNodeArchivalMaster; }
+  li.legend-exhibition-format:before       { background-color: @momaNodeExhibitionFormat; }
+  li.legend-equipment:before               { background-color: @momaNodeEquipment; }
+}
+
+.cb-file-list {
+  h3 {
+    margin: 0;
+    font-size: 14px;
+    line-height: 26px;
+    padding-left: 14px;
+  }
+  table {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    border-radius: 0px;
+  }
+  tbody {
+    font-size: 11px;
+  }
+  tr {
+    &:hover td {
+      background-color: #eee;
+    }
+    &.selected td {
+      background-color: #faeabb;
+    }
+  }
+  td {
+    .user-select(none); // As we are using event.shiftKey for selection
+    padding: 2px 4px;
+    &.name {
+      text-align: left;
+    }
+    &.size {
+      text-align: center;
+      width: 50px;
+      border-left: 1px solid #ddd;
+    }
+  }
+  .cb-file-options {
+    border-bottom: 1px solid #ddd;
+    padding: 6px;
+    li {
+      display: inline-block;
+    }
+  }
+}
+
+// Context browser SVG
+
+text {
+  font-weight: 300;
+  font-family: Arial;
+  font-size: 12px;
+  cursor: default;
+  .user-select(none);
+}
+
+.graph-attach {
+
+}
+
+.nodes {
+  .node,
+  .node * {
+    cursor: pointer;
+  }
+  .content {
+    stroke: #333;
+    stroke-width: 1px;
+  }
+  // Active nodes
+  .active {
+    rect.content {
+      fill: @white !important;
+    }
+    text {
+      fill: @black !important;
+    }
+  }
+  // Disabled nodes
+  .disabled {
+
+  }
+  // Hovering effect
+  .hover {
+    .content {
+      fill: lighten(@blue, 50%) !important;
+    }
+    text {
+      fill: @black !important;
+    }
+  }
+  // Node backgrounds
+  .level-artwork-record         .content { fill: @momaNodeWork; }
+  .level-description            .content { fill: @momaNodeDescription; }
+  .level-physical-component     .content { fill: @momaNodePhysicalComponent; }
+  .level-digital-object         .content { fill: @momaNodeDigitalObject; }
+  .level-artist-supplied-master .content { fill: @momaNodeArtistSuppliedMaster; }
+  .level-artist-verified-proof  .content { fill: @momaNodeArtistVerifiedProof; }
+  .level-archival-master        .content { fill: @momaNodeArchivalMaster; }
+  .level-exhibition-format      .content { fill: @momaNodeExhibitionFormat; }
+  .level-equipment              .content { fill: @momaNodeEquipment; }
+  // Some color contrast tweaking
+  .level-artwork-record text { fill: @white; }
+}
+
+.edgeLabels {
+  rect {
+    fill: rgba(160, 160, 160, .8);
+    border: 1px solid #333;
+    padding: 4px;
+  }
+}
+
+.edgePaths {
+  path {
+    stroke: #999;
+    stroke-width: 0.5px;
+    fill: none;
+  }
+  .r-hierarchical path {
+
+  }
+  .r-associative path {
+    stroke: red;
+    stroke-width: 1px;
+  }
+}

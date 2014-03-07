@@ -83,7 +83,7 @@
         </div>
       </section>
 
-      <ar:context-browser resource="{{ work.id }}"></ar:context-browser>
+      <ar:context-browser id="{{ work.id }}" files="files" on-open-viewer="openDigitalObjectModal()"></ar:context-browser>
 
       <div class="content">
 
@@ -94,26 +94,45 @@
             </ul>
           </div>
           <div>
-            <div class="field">
-              <h3>Total physical storage</h3>
-              <div></div>
+
+            <!-- Digital object list -->
+            <div class="digital-object-list">
+              <table class="table">
+                <tbody>
+                  <tr ng-repeat="file in files" ng-class="{ selected: file.selected == true }">
+                    <td class="name">
+                      <a href ng-click="openDigitalObjectModal(file)">{{ file.label }}</a>
+                    </td>
+                    <td class="size">12.04 GB</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="field">
-              <h3>Total related AIPs</h3>
-              <div></div>
+
+            <!-- Digital object aggregation -->
+            <div class="digital-object-aggregation">
+              <div class="field">
+                <h3>Total physical storage</h3>
+                <div></div>
+              </div>
+              <div class="field">
+                <h3>Total related AIPs</h3>
+                <div></div>
+              </div>
+              <div class="field">
+                <h3>Artwork objects</h3>
+                <div></div>
+              </div>
+              <div class="field">
+                <h3>Documentation objects</h3>
+                <div></div>
+              </div>
+              <div class="field">
+                <h3>Unclassified objects</h3>
+                <div></div>
+              </div>
             </div>
-            <div class="field">
-              <h3>Artwork objects</h3>
-              <div></div>
-            </div>
-            <div class="field">
-              <h3>Documentation objects</h3>
-              <div></div>
-            </div>
-            <div class="field">
-              <h3>Unclassified objects</h3>
-              <div></div>
-            </div>
+
           </div>
         </section>
 
