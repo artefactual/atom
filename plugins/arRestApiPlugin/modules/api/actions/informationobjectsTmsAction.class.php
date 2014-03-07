@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class APIInformationObjectsTmsAction extends QubitAPIAction
+class ApiInformationObjectsTmsAction extends QubitApiAction
 {
   protected function get($request)
   {

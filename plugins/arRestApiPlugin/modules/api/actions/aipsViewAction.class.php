@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class APIAIPsViewAction extends QubitAPIAction
+class ApiAipsViewAction extends QubitApiAction
 {
   protected function get($request)
   {
@@ -45,7 +45,7 @@ class APIAIPsViewAction extends QubitAPIAction
     $results = QubitSearch::getInstance()->index->getType('QubitAip')->search($query)->getResults();
     if (1 > count($results))
     {
-      throw new sfError404Exception();
+      throw new QubitApi404Exception('AIP not found');
     }
 
     $doc = $results[0]->getData();

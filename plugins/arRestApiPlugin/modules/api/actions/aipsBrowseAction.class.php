@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class APIAIPsBrowseAction extends QubitAPIAction
+class ApiAipsBrowseAction extends QubitApiAction
 {
   protected function get($request)
   {

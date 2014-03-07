@@ -17,14 +17,14 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class APITaxonomiesBrowseAction extends QubitAPIAction
+class ApiTaxonomiesBrowseAction extends QubitApiAction
 {
   protected function get($request)
   {
     $taxonomy = QubitTaxonomy::getById($request->id);
     if (null === $taxonomy)
     {
-      throw new sfError404Exception('Taxonomy not found.');
+      throw new QubitApi404Exception('Taxonomy not found');
     }
 
     $terms = array();

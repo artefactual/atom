@@ -17,30 +17,30 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class APIAIPsReclassifyAction extends QubitAPIAction
+class ApiAipsReclassifyAction extends QubitApiAction
 {
   protected function post($request, $payload)
   {
     if (null === $aip = QubitAip::getByUuid($request->uuid))
     {
-      throw new sfError404Exception('UUID not found.');
+      throw new QubitApi404Exception('UUID not found');
     }
 
     if (!property_exists($payload, 'type_id'))
     {
-      $this->forwardError(400, 'Missing parameter type_id.');
+      throw new QubitApiException('Missing parameter type_id', 500);
     }
 
     if (null !== $payload->type_id && is_int($payload->type_id))
     {
       if (null === $term = QubitTerm::getById($payload->type_id))
       {
-        throw new sfError404Exception('Term not found.');
+        throw new QubitApi404Exception('Term not found');
       }
 
       if ($term->taxonomyId != QubitTaxonomy::AIP_TYPE_ID)
       {
-        $this->forwardError(400, 'Term not recognized.');
+        throw new QubitApiException('Term not recognized', 500);
       }
 
       $aip->typeId = $term->id;

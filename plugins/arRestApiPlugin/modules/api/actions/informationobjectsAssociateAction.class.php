@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class APIInformationObjectsAssociateAction extends QubitAPIAction
+class ApiInformationObjectsAssociateAction extends QubitApiAction
 {
   protected function post($request, $payload)
   {

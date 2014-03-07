@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class APIInformationObjectsTreeAction extends QubitAPIAction
+class ApiInformationObjectsTreeAction extends QubitApiAction
 {
   protected function get($request)
   {
@@ -46,11 +46,21 @@ WHERE
 ORDER BY node.lft;
 EOL;
 
+    $results = QubitPdo::fetchAll($sql, array($this->request->id));
+    if (0 === count($results))
+    {
+      throw new QubitApi404Exception('Informatino object not found');
+    }
+    else if (false === $results)
+    {
+      throw new QubitApiException;
+    }
+
     // Build a nested set of objects.
     // Notice that fetchAll returns objects, not arrays.
     $data = new stdClass; // Here is where we are storing the nested set
     $flat = array();      // Flat hashmap (id => ref-to-obj) for quick searches
-    foreach (QubitPdo::fetchAll($sql, array($this->request->id)) as $item)
+    foreach ($results as $item)
     {
       if (isset($flat[$item->parent_id]))
       {
