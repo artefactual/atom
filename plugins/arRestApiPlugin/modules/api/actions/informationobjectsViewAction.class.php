@@ -21,12 +21,34 @@ class APIInformationObjectsViewAction extends QubitAPIAction
 {
   protected function get($request)
   {
-    $data = $this->getInformationObject();
+    $io = $this->fetchInformationObjectOr404();
 
-    return $data;
+    return array(
+      'id' => $io->id,
+      'level_of_description_id' => $io->levelOfDescriptionId
+    );
   }
 
-  protected function getInformationObject()
+  protected function post($request, $payload)
+  {
+    $io = $this->fetchInformationObjectOr404();
+
+    // TODO: restrict to allowed fields
+    foreach($payload as $field => $value) {
+      $field = lcfirst(sfInflector::camelize($field));
+      $io->$field = $value;
+    }
+
+    $io->save();
+
+    // TODO: figure out proper response
+    return array(
+      'id' => $io->id,
+      'level_of_description_id' => $io->levelOfDescriptionId
+    );
+  }
+
+  protected function fetchInformationObjectOr404()
   {
     if (QubitInformationObject::ROOT_ID === (int)$this->request->id)
     {
@@ -45,8 +67,6 @@ class APIInformationObjectsViewAction extends QubitAPIAction
       return $this->forward404('Information object not found');
     }
 
-    return array(
-      'id' => $io->id,
-      'level_of_description_id' => $io->levelOfDescriptionId);
+    return $io;
   }
 }
