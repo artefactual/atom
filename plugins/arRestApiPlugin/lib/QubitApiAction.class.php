@@ -21,10 +21,36 @@ class QubitAPIAction extends sfAction
 {
   public function execute($request)
   {
+    $view = sfView::NONE;
+
+    try
+    {
+      $view = $this->process($request);
+    }
+    catch (QubitApi404Exception $e)
+    {
+      $this->response->setStatusCode(404, $e->getMessage());
+    }
+    catch (QubitApiException $e)
+    {
+      $this->response->setStatusCode($e->getCode(), $e->getMessage());
+    }
+    catch (Exception $e)
+    {
+      $this->response->setStatusCode(500);
+
+      throw $e;
+    }
+
+    return $view;
+  }
+
+  public function process($request)
+  {
     $method = strtoupper($request->getMethod());
     if (!method_exists($this, $method))
     {
-      $this->forward404();
+      return $this->forward404();
     }
 
     // Define function callable
@@ -32,20 +58,13 @@ class QubitAPIAction extends sfAction
     $fnParamaters = array($request);
 
     // Modern frameworks support application/json, Symfony1 is too old :)
-    // AngularJS uses application/x-www-form-urlencoded
+    // AngularJS doesn't use application/x-www-form-urlencoded
     if ('POST' == $method && 'application/json' == $request->getContentType())
     {
       $fnParamaters[] = json_decode($request->getContent());
     }
 
-    try
-    {
-      $result = call_user_func_array($fnCallable, $fnParamaters);
-    }
-    catch (sfError404Exception $e)
-    {
-      $this->forward404($e->getMessage());
-    }
+    $result = call_user_func_array($fnCallable, $fnParamaters);
 
     return $this->renderData($result);
   }
@@ -68,25 +87,6 @@ class QubitAPIAction extends sfAction
     $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
 
     return $this->renderText(json_encode($data, $options));
-  }
-
-  public function forward404($message = false, $data = array())
-  {
-    if (false !== $message)
-    {
-      $this->response->setStatusCode(404, $message);
-    }
-    else
-    {
-      $this->response->setStatusCode(404);
-    }
-
-    return $this->renderData($data);
-  }
-
-  public function forwardError($status = 500, $message = 'An error has occurred.')
-  {
-    $this->response->setStatusCode($status, $message);
   }
 
   /**
