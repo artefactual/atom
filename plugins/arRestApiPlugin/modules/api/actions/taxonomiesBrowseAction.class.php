@@ -24,7 +24,7 @@ class APITaxonomiesBrowseAction extends QubitAPIAction
     $taxonomy = QubitTaxonomy::getById($request->id);
     if (null === $taxonomy)
     {
-      return $this->forward404('Taxonomy not found');
+      throw new sfError404Exception('Taxonomy not found.');
     }
 
     $terms = array();

@@ -45,7 +45,7 @@ class APIAIPsViewAction extends QubitAPIAction
     $results = QubitSearch::getInstance()->index->getType('QubitAip')->search($query)->getResults();
     if (1 > count($results))
     {
-      return $this->forward404();
+      throw new sfError404Exception();
     }
 
     $doc = $results[0]->getData();

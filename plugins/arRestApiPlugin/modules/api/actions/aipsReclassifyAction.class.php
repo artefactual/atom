@@ -23,24 +23,24 @@ class APIAIPsReclassifyAction extends QubitAPIAction
   {
     if (null === $aip = QubitAip::getByUuid($request->uuid))
     {
-      return $this->forward404('UUID not found');
+      throw new sfError404Exception('UUID not found.');
     }
 
     if (!property_exists($payload, 'type_id'))
     {
-      return $this->forward404('Missing parameter type_id');
+      $this->forwardError(400, 'Missing parameter type_id.');
     }
 
     if (null !== $payload->type_id && is_int($payload->type_id))
     {
       if (null === $term = QubitTerm::getById($payload->type_id))
       {
-        return $this->forward404('Term not found');
+        throw new sfError404Exception('Term not found.');
       }
 
       if ($term->taxonomyId != QubitTaxonomy::AIP_TYPE_ID)
       {
-        return $this->forward404('Term not recognized');
+        $this->forwardError(400, 'Term not recognized.');
       }
 
       $aip->typeId = $term->id;
@@ -56,7 +56,7 @@ class APIAIPsReclassifyAction extends QubitAPIAction
     }
     catch (Exception $e)
     {
-      return $this->forwardError();
+      $this->forwardError();
     }
 
     return array(

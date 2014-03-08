@@ -60,7 +60,7 @@ class APIInformationObjectsViewAction extends QubitAPIAction
 
       return $doc;
     } catch(Exception $e) {
-      $this->forward404('Information object not found');
+      throw new sfError404Exception('Information object not found.');
     }
   }
 
@@ -85,7 +85,7 @@ class APIInformationObjectsViewAction extends QubitAPIAction
 
     if (QubitInformationObject::ROOT_ID === (int)$this->request->id)
     {
-      $this->forward404('Information object not found');
+      throw new sfError404Exception('Information object not found.');
     }
 
     $criteria = new Criteria;
@@ -97,7 +97,7 @@ class APIInformationObjectsViewAction extends QubitAPIAction
 
     if (null === $io = QubitInformationObject::getById($this->request->id))
     {
-      $this->forward404('Information object not found');
+      throw new sfError404Exception('Information object not found.');
     }
 
     return $io;

@@ -38,7 +38,14 @@ class QubitAPIAction extends sfAction
       $fnParamaters[] = json_decode($request->getContent());
     }
 
-    $result = call_user_func_array($fnCallable, $fnParamaters);
+    try
+    {
+      $result = call_user_func_array($fnCallable, $fnParamaters);
+    }
+    catch (sfError404Exception $e)
+    {
+      $this->forward404($e->getMessage());
+    }
 
     return $this->renderData($result);
   }
@@ -77,9 +84,9 @@ class QubitAPIAction extends sfAction
     return $this->renderData($data);
   }
 
-  public function forwardError()
+  public function forwardError($status = 500, $message = 'An error has occurred.')
   {
-    $this->response->setStatusCode(500);
+    $this->response->setStatusCode($status, $message);
   }
 
   /**
