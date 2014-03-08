@@ -73,7 +73,7 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
 
     $this->addRoute('GET,POST', '/api/informationobjects/:id', array(
       'module' => 'api',
-      'action' => 'informationobjectsView',
+      'action' => 'informationobjectsDetail',
       'params' => array('id' => self::REGEX_ID)));
 
     $this->addRoute('GET', '/api/informationobjects/:id/tree', array(
