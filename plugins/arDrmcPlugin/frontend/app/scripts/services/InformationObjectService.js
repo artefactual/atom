@@ -83,4 +83,19 @@ module.exports = function ($http, $q, SETTINGS) {
     return this.getById(id, params);
   };
 
+  this.getDigitalObject = function (id) {
+    return this.getDigitalObjects(id, true);
+  };
+
+  this.getDigitalObjects = function (id, excludeDescendants) {
+    var configuration = {
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/files'
+    };
+    if (typeof excludeDescendants !== 'undefined' && excludeDescendants === true) {
+      configuration.params = { excludeDescendants: true };
+    }
+    return $http(configuration);
+  };
+
 };
