@@ -16,57 +16,39 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
       // This layer will be the closest HTML container of the SVG
       var container = element.find('.svg-container');
 
-      var cb = window.cb = new ContextBrowser(container);
+      var cb = new ContextBrowser(container);
 
-      // There may be many nodes selected, but firstSelection should be pointing
-      // to the first one so we can do bulk edits over it
-      scope.firstSelection = undefined;
-      scope.lastSelection = undefined;
+      // List of active nodes by its id
       scope.activeNodes = {};
 
       // Fetch data from the server
       scope.$watch('id', function (value) {
-        if (value.length > 0) {
-          InformationObjectService.getTree(scope.id)
-            .then(function (response) {
-              cb.init(response.data);
-            }, function (reason) {
-              console.error('Error loading tree:', reason);
-            });
+        if (value.length < 1) {
+          return;
         }
+        InformationObjectService.getTree(scope.id)
+          .then(function (response) {
+            cb.init(response.data);
+          }, function (reason) {
+            console.error('Error loading tree:', reason);
+          });
       });
 
       cb.events.on('pin-node', function (attrs) {
-        scope.$apply(function () {
-          if (typeof firstSelection === 'undefined') {
-            scope.firstSelection = attrs.id;
-          }
-          scope.lastSelection = scope.activeNodes[attrs.id] = attrs;
-          InformationObjectService.getById(attrs.id).then(function (work) {
-              scope.activeNodes[attrs.id].data = work.data;
-            });
-          // Include only digital objects
-          scope.files = cb.graph.filter(scope.lastSelection.id, function (node) {
-            return -1 < jQuery.inArray(node.level, [
-              'digital-component',
-              'artist-verified-proof',
-              'artist-supplied-master',
-              'archival-master',
-              'exhibition-format'
-            ]);
-          });
+        scope.$apply(function (scope) {
+          scope.selectNode(attrs.id);
         });
       });
 
       cb.events.on('unpin-node', function (attrs) {
         scope.$apply(function () {
-          delete scope.activeNodes[attrs.id];
+          scope.unselectNode(attrs.id);
         });
       });
 
       cb.events.on('click-background', function () {
         scope.$apply(function () {
-          scope.resetSelection();
+          scope.unselectAll();
         });
       });
 
@@ -87,7 +69,7 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
 
       // Selected nodes
       scope.hasNodeSelected = function () {
-        return scope.lastSelection !== undefined;
+        return Object.keys(scope.activeNodes).length === 1;
       };
       scope.hasNodesSelected = function () {
         return Object.keys(scope.activeNodes).length > 1;
@@ -129,7 +111,6 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
           cb.center();
         }
       });
-
 
       scope.renderDCValue = function (value) {
         if (angular.isArray(value)) {
@@ -280,19 +261,35 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
       };
 
       scope.cancelBulkEdit = function () {
-        // Make sure that this is happening within the next digest
-        // I'm not using scope.$apply because Angular will fail if it happens
-        // that there is another $digest or $apply already running, see
-        // http://docs.angularjs.org/error/$rootScope:inprog
-        $timeout(function () {
-          scope.resetSelection();
+        scope.unselectAll();
+      };
+
+      scope.selectNode = function (id) {
+        scope.currentNode = scope.activeNodes[id] = { id: id };
+        // Fetch information from the server
+        InformationObjectService.getById(id).then(function (response) {
+          scope.currentNode.data = response.data;
+          // Retrieve a list of files or digital objects
+          InformationObjectService.getDigitalObjects(id).then(function (response) {
+            if (response.data.length > 0) {
+              scope.files = response.data;
+            } else {
+              scope.files = [];
+            }
+          }, function () {
+            scope.files = [];
+          });
         });
       };
 
-      scope.resetSelection = function () {
+      scope.unselectNode = function (id) {
+        delete scope.currentNode;
+        delete scope.activeNodes[id];
+      };
+
+      scope.unselectAll = function () {
+        delete scope.currentNode;
         scope.activeNodes = {};
-        scope.firstSelection = undefined;
-        scope.lastSelection = undefined;
         cb.unselectAll();
       };
     }

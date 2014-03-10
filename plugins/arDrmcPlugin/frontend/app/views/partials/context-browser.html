@@ -97,36 +97,36 @@
 
           <!-- Single node detail -->
           <div ng-if="hasNodeSelected()" class="cb-sidebar-basic-box">
-            <h3 class="drmc-color-{{ lastSelection.data.level }}">{{ lastSelection.data.title }}</h3>
+            <h3 class="drmc-color-{{ currentNode.data.level }}">{{ currentNode.data.title }}</h3>
             <!-- Dublin Core metadata -->
-            <div ng-if="lastSelection.data.dc" class="node-metadata">
+            <div ng-if="currentNode.data.dc" class="node-metadata">
               <h4>Dublin Core metadata</h4>
               <ul>
-                <li ng-repeat="(key, value) in lastSelection.data.dc">
+                <li ng-repeat="(key, value) in currentNode.data.dc">
                   <strong class="label">{{ key }}</strong>
                   <p>{{ renderDCValue(value) }}</p>
                 </li>
               </ul>
             </div>
             <div class="node-actions">
-              <a href class="btn btn-small" ng-click="addChildNode(lastSelection.id)"><i class="icon-plus"></i><span>Add child</span></a>
-              <a href class="btn btn-small" ng-click="editNode(lastSelection.id)"><i class="icon-edit"></i><span>Edit node</span></a>
-              <a href class="btn btn-small" ng-click="linkNodes(lastSelection.id)"><i class="icon-link"></i><span>Link node</span></a>
-              <a href class="btn btn-small" ng-click="moveNodes(lastSelection.id)"><i class="icon-move"></i><span>Move</span></a>
-              <a href class="btn btn-small btn-delete" ng-click="deleteNodes(lastSelection.id)"><i class="icon-remove"></i><span>Delete</span></a>
+              <a href class="btn btn-small" ng-click="addChildNode(currentNode.id)"><i class="icon-plus"></i><span>Add child</span></a>
+              <a href class="btn btn-small" ng-click="editNode(currentNode.id)"><i class="icon-edit"></i><span>Edit node</span></a>
+              <a href class="btn btn-small" ng-click="linkNodes(currentNode.id)"><i class="icon-link"></i><span>Link node</span></a>
+              <a href class="btn btn-small" ng-click="moveNodes(currentNode.id)"><i class="icon-move"></i><span>Move</span></a>
+              <a href class="btn btn-small btn-delete" ng-click="deleteNodes(currentNode.id)"><i class="icon-remove"></i><span>Delete</span></a>
             </div>
           </div>
 
           <!-- File list -->
           <div ng-if="hasNodeSelected() && hasFiles()" class="cb-file-list">
-            <h3>Digital objects ({{ files.length }} items)</h3>
+            <h3>{{ files.length }} digital objects</h3>
             <table class="table">
               <tbody>
                 <tr ng-repeat="file in files" ng-click="selectFile(file, $event)" ng-class="{ selected: file.selected == true }">
                   <td class="name">
-                    <a href ng-click="openViewer(file)">{{ file.label }}</a>
+                    <a href ng-click="openViewer(file)">{{ file.filename }}</a>
                   </td>
-                  <td class="size">12.04 GB</td>
+                  <td class="size">{{ file.size | UnitFilter:2 }}</td>
                 </tr>
               </tbody>
             </table>
