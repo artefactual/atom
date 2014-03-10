@@ -21,116 +21,70 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
 {
   public function execute($request)
   {
+    $start_time = microtime(TRUE);
+    $data = array();
+
     $this->setTemplate(false);
     $this->setLayout(false);
-
     $this->resource = $request->getAttribute('sf_route')->resource;
-
-    // At this point we don't need to do any ACL check on ancestors
-    $this->ancestors = $this->resource->getAncestors()->orderBy('lft');
-
-    // Number of siblings that we are showing above and below the current node
-    // It's good to keep this number small since getTreeViewSiblings can be very
-    // slow (when sorting by title or identifierTitle)
-    $numberOfPreviousOrNextSiblings = 50;
-
-    $this->hasPrevSiblings = false;
-    $this->hasNextSiblings = false;
-
-    // Child descriptions
-    if ($this->resource->hasChildren())
-    {
-      list($this->children, $this->hasNextSiblings) = $this->resource->getTreeViewChildren(array('numberOfPreviousOrNextSiblings' => $numberOfPreviousOrNextSiblings));
-    }
-    // Show siblings if there's no children, but not for root descriptions
-    else if (QubitInformationObject::ROOT_ID != $this->resource->parentId)
-    {
-      // Previous siblings
-      // Get an extra sibling just to know if the + button is necessary
-      $this->prevSiblings = $this->resource->getTreeViewSiblings(array('limit' => $numberOfPreviousOrNextSiblings + 1, 'position' => 'previous'));
-      $this->hasPrevSiblings = count($this->prevSiblings) > $numberOfPreviousOrNextSiblings;
-      if ($this->hasPrevSiblings)
-      {
-        array_pop($this->prevSiblings);
-      }
-
-      // Reverse array
-      $this->prevSiblings = array_reverse($this->prevSiblings);
-
-      // Next siblings, same logic than above with the + button
-      $this->nextSiblings = $this->resource->getTreeViewSiblings(array('limit' => $numberOfPreviousOrNextSiblings + 1, 'position' => 'next'));
-      $this->hasNextSiblings = count($this->nextSiblings) > $numberOfPreviousOrNextSiblings;
-      if ($this->hasNextSiblings)
-      {
-        array_pop($this->nextSiblings);
-      }
-    }
-
-    $json = array();
-    $json[] = $this->collectPropertiesForJson($this->resource);
-    // set as root
-    // $json[0]['parent'] = '#';
-    $json[0]['state']  = array('selected' => true, 'opened' => true);
-
-    $this->collectToArray($this->nextSiblings, $json);
-    $this->collectToArray($this->prevSiblings, $json);
-    $this->collectToArray($this->children, $json);
-    $this->collectToArray($this->ancestors, $json);
-
-
-
     $this->getResponse()->setContentType('application/json');
-    return $this->renderText(json_encode(array('core' => array('data' => $json))));
+
+    $data = $this->getItemIds($this->resource->getCollectionRoot());
+
+    array_walk($data, function(&$data){
+      // some special flags on our current active item
+      if($data['id'] == $this->resource->id)
+      {
+        $data['state'] = array('opened' => true, 'selected' => true);
+      }
+
+      // set root item's parent to hash symbol for jstree compatibility
+      if($data['parent'] == '1') {
+        $data['parent'] = '#';
+      }
+
+      $data['a_attr']['href'] = $data['slug'];
+      unset($data['slug']);
+
+    });
+
+    $end_time = microtime(TRUE);
+    return $this->renderText(json_encode(array('core' => array('data' => $data), 'time' => ($end_time - $start_time))));
   }
 
-  protected function collectToArray($collection, &$jsdat)
+  protected function getItemIds($item, $down = true)
   {
-    foreach($collection as $item)
-    {
-      $jsdat[] = $this->collectPropertiesForJson($item);
-    }
-  }
+    // Depending on if we want the ancestor tree or 
+    // the child tree we can just flip whether we 
+    // return parent's properties or node's properties
+    // rnode = relation node
+    //    the object node at the center of this query
+    // qnode = query node
+    //    the objects properties we want
 
-  protected function collectPropertiesForJson($item)
-  {
-    $title = '';
-    if ($item->identifier)
-    {
-      $title = $item->identifier . "&nbsp;-&nbsp;";
-    }
-    $title .= $this->render_title($item);
+    list($rnode, $qnode) = ($down) ? array('parent', 'node') : array('node','parent');
+    $sql = "SELECT $qnode.id, i18n.title as text, $qnode.parent_id as parent, slug.slug
+        FROM 
+          information_object AS parent,
+          information_object AS node,
+          information_object_i18n as i18n,
+          term, term_i18n, slug
+        WHERE node.lft BETWEEN parent.lft AND parent.rgt 
+          AND $qnode.id = i18n.id
+          AND $qnode.level_of_description_id = term.id
+          AND term.id = term_i18n.id
+          AND term_i18n.culture = 'en'
+          AND i18n.culture = 'en'
+          AND $qnode.id = slug.object_id
+          AND $rnode.id = :id
+        ORDER BY node.lft;";
+    $conn = Propel::getConnection();
+    $stmt = $conn->prepare($sql);
+    $stmt->bindValue(':id', $item->id);
+    $stmt->execute();
 
-    if(isset($item->levelOfDescription))
-    {
-      $description = $item->levelOfDescription->__toString();
-    } else {
-      $description = "";
-    }
+    $ids = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    return array(
-      'id' => $item->getPrimaryKey(), 
-      'parent' => ($item->parentId ? $item->parentId : '#'), 
-      'text' => $title,
-      'a_attr' => array("href" => $this->generateUrl() . $item->slug),
-      'icon' => $description,
-      'pub_status' =>  $item->getPublicationStatus()->__toString(),
-    );
-  }
-
-  protected function render_title($value)
-  {
-    // TODO Workaround for PHP bug, http://bugs.php.net/bug.php?id=47522
-    // Also, method_exists is very slow if a string is passed (class lookup), use is_object
-    if (is_object($value) && method_exists($value, '__toString'))
-    {
-      $value = $value->__toString();
-    }
-
-    if (0 < strlen($value))
-    {
-      return (string) $value;
-    }
-
-    return (sfContext::getInstance()->i18n->__('Untitled'));
+    return $ids;
   }
 }

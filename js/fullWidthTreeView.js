@@ -45,8 +45,19 @@
 
       $("#fullwidth-treeview").bind("select_node.jstree", function(evt, data){
         // when an element is clicked in the tree ... fetch it up
-        window.location = window.location.origin + data.node.a_attr.href
+        // window.location = window.location.origin + data.node.a_attr.href
+        var url = window.location.origin + '/index.php/' + data.node.a_attr.href;
+        $.get(url, function(response){
+          $('#main-column').replaceWith($(response).find('#main-column'));
+          window.history.pushState({}, $('#main-column h1').first().text(), url);
+        });
+      });
+
+      $(window).bind('popstate', function() {
+        
       });
     });
   }
 })(jQuery);
+
+var debug = {};

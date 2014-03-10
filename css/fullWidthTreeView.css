@@ -11,9 +11,9 @@
 	height: 100%;
 }
 
-.jstree-default .jstree-anchor>.jstree-themeicon {
+/*.jstree-default .jstree-anchor>.jstree-themeicon {
 	background-position: initial;
-}
+}*/
 
 .jstree-anchor i.File,
 .jstree-anchor i.Item {
@@ -59,6 +59,6 @@
 	background-color: #ddd;
 };
 
-.jstree-node {
+.jstree-default .jstree-leaf {
 	border-bottom: 1px dotted #ddd;
 }
