@@ -14,6 +14,8 @@
 
   function init()
   {
+    $('#treeview-btn-area i').tooltip({placement: "top"})
+
     $('.fullwidth-treeview-toggle').click(function(){
       $(this).toggleClass('active');
       // track and toggle state

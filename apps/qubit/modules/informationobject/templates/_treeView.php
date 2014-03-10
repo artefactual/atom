@@ -4,10 +4,10 @@
       'action' => 'browse', 
       'collection' => $resource->getCollectionRoot()->id 
     )); ?>">
-    <i class="icon-list" title="Browse List"></i> 
+    <i class="icon-list" title="Browse as list"></i> 
   </a>
   <a href="#" class="fullwidth-treeview-toggle">
-    <i class="icon-resize-full" title="Expanded Tree View"></i> 
+    <i class="icon-resize-full" title="Expanded treeview"></i> 
   </a>
 </div>
 
