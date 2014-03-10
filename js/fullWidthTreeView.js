@@ -5,7 +5,7 @@
   $(init);
 
   var treeview_open = false;
-  var url = '/informationobject/fullwidthtreeview'
+  var url = '/informationobject/fullWidthTreeView'
   var html = "<div class=\"row\" id=\"fullwidth-treeview-row\">" + 
                "<div id=\"fullwidth-treeview\">" +
                 "<img src=\"/images/loading.gif\" id=\"fullwidth-treeview-loading\" />" +
@@ -54,7 +54,7 @@
       });
 
       $(window).bind('popstate', function() {
-        
+
       });
     });
   }
