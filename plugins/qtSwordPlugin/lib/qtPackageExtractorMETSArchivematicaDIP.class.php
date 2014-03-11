@@ -642,7 +642,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
         foreach ($data as $name => $value)
         {
-          if (isset($value))
+          if (isset($value) && 0 < strlen($value))
           {
             switch ($name)
             {
@@ -673,8 +673,16 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
               // Object/term relations
               case 'Classification':
-                break;
               case 'Department':
+
+                $taxonomyId = sfConfig::get('app_drmc_lod_'.strtolower($name).'s_id');
+                $term = QubitFlatfileImport::createOrFetchTerm($taxonomyId, $value);
+
+                $newTermRelation = new QubitObjectTermRelation;
+                $newTermRelation->setTermId($term->id);
+
+                $tmsObject->objectTermRelationsRelatedByobjectId[] = $newTermRelation;
+
                 break;
 
               // Creation event
@@ -757,7 +765,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
       foreach ($data as $name => $value)
       {
-        if (isset($value))
+        if (isset($value) && 0 < strlen($value))
         {
           switch ($name)
           {
@@ -783,6 +791,15 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
             // Object/term relation
             case 'ComponentType':
+
+              $taxonomyId = sfConfig::get('app_drmc_lod_component_types_id');
+              $term = QubitFlatfileImport::createOrFetchTerm($taxonomyId, $value);
+
+              $newTermRelation = new QubitObjectTermRelation;
+              $newTermRelation->setTermId($term->id);
+
+              $tmsComponent->objectTermRelationsRelatedByobjectId[] = $newTermRelation;
+
               break;
 
             // Notes
