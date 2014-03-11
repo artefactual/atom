@@ -135,19 +135,19 @@ Restart nginx::
 Environment variables
 ---------------------
 
-ATOM_DRMC_TMS_URL (optiona, defaults to http://vmsqlsvcs.museum.moma.org)
+ATOM_DRMC_TMS_URL (optiona, defaults to http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObjects.svc)
 
   You can use it in AtoM via: sfConfig::get('app_drmc_tms_url')
 
 In Apache, you can set an environment variable within your virtual host
 configuration file:
 
-  SetEnv ATOM_DRMC_TMS_URL http://localhost:2344
+  SetEnv ATOM_DRMC_TMS_URL http://localhost:2403/tms
 
 In PHP5-FPM, use the pool file, e.g. /etc/php5/fpm/pool.d/atom.conf
 
-  env[ATOM_DRMC_TMS_URL] = "http://vmsqlsvcs.museum.moma.org"
+  env[ATOM_DRMC_TMS_URL] = "http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObjects.svc"
 
 In upstart (e.g. /etc/init/atom-worker.conf)
 
-  env ATOM_DRMC_TMS_URL=http://localhost:2344
+  env ATOM_DRMC_TMS_URL=http://localhost:2403/tms
