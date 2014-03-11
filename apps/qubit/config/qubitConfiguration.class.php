@@ -137,10 +137,10 @@ EOF
     $databaseManager = new sfDatabaseManager($this);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-    // Load env ATOM_DRMC_TMS_URL, defaults to "http://vmsqlsvcs.museum.moma.org"
+    // Load env ATOM_DRMC_TMS_URL, defaults to "http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObjects.svc"
     if (false === $envDrmcTmsUrl = getenv('ATOM_DRMC_TMS_URL'))
     {
-      $envDrmcTmsUrl = 'http://vmsqlsvcs.museum.moma.org';
+      $envDrmcTmsUrl = 'http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObjects.svc';
     }
     $envDrmcTmsUrl = filter_var($envDrmcTmsUrl, FILTER_VALIDATE_URL);
     if (false === $envDrmcTmsUrl)
