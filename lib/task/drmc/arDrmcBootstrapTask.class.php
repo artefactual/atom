@@ -201,28 +201,151 @@ EOF;
 
   protected function addDummyTree()
   {
-    $tree = array(
-      array('id' => 1, 'level' => 'Artwork record', 'title' => 'Play Dead; Real Time', 'children' => array(
-        array('id' => 2, 'level' => 'Description', 'title' => 'MoMA 2012', 'children' => array(
-          array('id' => 3, 'level' => 'AIP', 'title' => 'Installation documentation'),
-          array('id' => 4, 'level' => 'Description', 'title' => 'Exhibition files', 'children' => array(
-            array('id' => 5, 'level' => 'Exhibition format', 'title' => '1098.2005.a.AV'),
-            array('id' => 6, 'level' => 'Exhibition format', 'title' => '1098.2005.b.AV'),
-            array('id' => 7, 'level' => 'Exhibition format', 'title' => '1098.2005.c.AV'))))),
-        array('id' => 8, 'level' => 'Description', 'title' => 'Supplied by artist', 'children' => array(
-          array('id' => 9, 'level' => 'Artist supplied master', 'title' => '1098.2005.a.x1', 'children' => array(
-            array('id' => 10, 'level' => 'Artist verified proof', 'title' => '1098.2005.a.x2'),
-            array('id' => 11, 'level' => 'Artist verified proof', 'title' => '1098.2005.a.x3'))),
-          array('id' => 12, 'level' => 'Artist supplied master', 'title' => '1098.2005.b.x1', 'children' => array(
-            array('id' => 13, 'level' => 'Artist verified proof', 'title' => '1098.2005.b.x2'),
-            array('id' => 14, 'level' => 'Artist verified proof', 'title' => '1098.2005.b.x3'))),
-          array('id' => 15, 'level' => 'Artist supplied master', 'title' => '1098.2005.c.x1', 'children' => array(
-            array('id' => 16, 'level' => 'Artist verified proof', 'title' => '1098.2005.c.x2'),
-            array('id' => 17, 'level' => 'Artist verified proof', 'title' => '1098.2005.c.x3'))))),
-        array('id' => 30, 'level' => 'Description', 'title' => 'Digital archival masters', 'children' => array(
-          array('id' => 31, 'level' => 'Archival master', 'title' => '1098.2005.a.x4'),
-          array('id' => 32, 'level' => 'Archival master', 'title' => '1098.2005.b.x4'),
-          array('id' => 33, 'level' => 'Archival master', 'title' => '1098.2005.c.x4'))))));
+    $json = <<<EOT
+{
+    "id": 1,
+    "level": "Artwork record",
+    "title": "Play Dead; Real Time Pana",
+    "children": [
+        {
+            "children": [
+                {
+                    "id": 3,
+                    "level": "AIP",
+                    "title": "Installation documentation",
+                    "children": [
+                        {
+                            "id": 900,
+                            "level": "Digital object",
+                            "title": "Picture I",
+                            "filename": "pic-1.png"
+                        },
+                        {
+                            "id": 901,
+                            "level": "Digital object",
+                            "title": "Picture II",
+                            "filename": "pic-2.png"
+                        },
+                        {
+                            "id": 902,
+                            "level": "Digital object",
+                            "title": "Picture III",
+                            "filename": "pic-3.png"
+                        }
+                    ]
+                },
+                {
+                    "children": [
+                        {
+                            "id": 5,
+                            "level": "Exhibition format",
+                            "title": "1098.2005.a.AV"
+                        },
+                        {
+                            "id": 6,
+                            "level": "Exhibition format",
+                            "title": "1098.2005.b.AV"
+                        },
+                        {
+                            "id": 7,
+                            "level": "Exhibition format",
+                            "title": "1098.2005.c.AV"
+                        }
+                    ],
+                    "id": 4,
+                    "level": "Description",
+                    "title": "Exhibition files"
+                }
+            ],
+            "id": 2,
+            "level": "Description",
+            "title": "MoMA 2012"
+        },
+        {
+            "children": [
+                {
+                    "children": [
+                        {
+                            "id": 10,
+                            "level": "Artist verified proof",
+                            "title": "1098.2005.a.x2"
+                        },
+                        {
+                            "id": 11,
+                            "level": "Artist verified proof",
+                            "title": "1098.2005.a.x3"
+                        }
+                    ],
+                    "id": 9,
+                    "level": "Artist supplied master",
+                    "title": "1098.2005.a.x1"
+                },
+                {
+                    "children": [
+                        {
+                            "id": 13,
+                            "level": "Artist verified proof",
+                            "title": "1098.2005.b.x2"
+                        },
+                        {
+                            "id": 14,
+                            "level": "Artist verified proof",
+                            "title": "1098.2005.b.x3"
+                        }
+                    ],
+                    "id": 12,
+                    "level": "Artist supplied master",
+                    "title": "1098.2005.b.x1"
+                },
+                {
+                    "children": [
+                        {
+                            "id": 16,
+                            "level": "Artist verified proof",
+                            "title": "1098.2005.c.x2"
+                        },
+                        {
+                            "id": 17,
+                            "level": "Artist verified proof",
+                            "title": "1098.2005.c.x3"
+                        }
+                    ],
+                    "id": 15,
+                    "level": "Artist supplied master",
+                    "title": "1098.2005.c.x1"
+                }
+            ],
+            "id": 8,
+            "level": "Description",
+            "title": "Supplied by artist"
+        },
+        {
+            "children": [
+                {
+                    "id": 31,
+                    "level": "Archival master",
+                    "title": "1098.2005.a.x4"
+                },
+                {
+                    "id": 32,
+                    "level": "Archival master",
+                    "title": "1098.2005.b.x4"
+                },
+                {
+                    "id": 33,
+                    "level": "Archival master",
+                    "title": "1098.2005.c.x4"
+                }
+            ],
+            "id": 30,
+            "level": "Description",
+            "title": "Digital archival masters"
+        }
+    ]
+}
+EOT
+;
+    $tree = json_decode($json, true);
 
     $add = function($items, $parentId = false) use (&$add)
     {
@@ -233,12 +356,25 @@ EOF;
           $parentId = QubitInformationObject::ROOT_ID;
         }
 
+        var_dump($item['title']);
+
         $io = new QubitInformationObject;
         $io->setLevelOfDescriptionByName($item['level']);
         $io->setPublicationStatusByName('Published');
         $io->parentId = $parentId;
         $io->title = $item['title'];
         $io->culture = 'en';
+
+        if ($item['level'] === 'Digital object')
+        {
+          $item = sfConfig::get('sf_root_dir').'/lib/task/drmc/'.$item['filename'];
+
+          $do = new QubitDigitalObject;
+          $do->assets[] = new QubitAsset($item);
+          $do->usageId = QubitTerm::MASTER_ID;
+          $io->digitalObjects[] = $do;
+        }
+
         $io->save();
 
         if (isset($item['children']))
@@ -248,7 +384,7 @@ EOF;
       }
     };
 
-    $add($tree);
+    $add(array($tree));
   }
 }
 
