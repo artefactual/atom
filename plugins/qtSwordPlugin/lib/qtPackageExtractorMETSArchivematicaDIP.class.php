@@ -787,10 +787,16 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
             // Notes
             case 'InstallComments':
-              break;
             case 'PrepComments':
-              break;
             case 'StorageComments':
+
+                $note = new QubitNote;
+                $note->content = $value;
+                $note->culture = 'en';
+                $note->typeId = sfConfig::get('app_drmc_lod_'.strtolower($name).'_id');
+
+                $tmsComponent->notes[] = $note;
+
               break;
 
             // Log error
