@@ -629,7 +629,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       curl_setopt_array($curl, array(
           CURLOPT_RETURNTRANSFER => 1,
           CURLOPT_FAILONERROR => true,
-          CURLOPT_URL => sfConfig::get('app_drmc_tms_url').'/TMSAPI/TmsObjectSvc/TmsObjects.svc/GetTombstoneDataRest/ObjectID/'.$tmsId));
+          CURLOPT_URL => sfConfig::get('app_drmc_tms_url').'/GetTombstoneDataRest/ObjectID/'.$tmsId));
 
       if (false === $resp = curl_exec($curl))
       {
@@ -744,7 +744,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     curl_setopt_array($curl, array(
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_FAILONERROR => true,
-        CURLOPT_URL => sfConfig::get('app_drmc_tms_url').'/TMSAPI/TmsObjectSvc/TmsObjects.svc/GetComponentDetails/Component/'.$tmsId));
+        CURLOPT_URL => sfConfig::get('app_drmc_tms_url').'/GetComponentDetails/Component/'.$tmsId));
 
     if (false === $resp = curl_exec($curl))
     {
