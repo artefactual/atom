@@ -187,6 +187,59 @@ EOF
         $cacheableParams[$configurationId] = $item->id;
       }
 
+      // Taxonomies
+      $taxonomies = array(
+        'Classifications',
+        'Departments',
+        'Component types');
+
+      foreach ($taxonomies as $name)
+      {
+        $criteria = new Criteria;
+        $criteria->addJoin(QubitTaxonomy::ID, QubitTaxonomyI18n::ID);
+        $criteria->add(QubitTaxonomyI18n::CULTURE, 'en');
+        $criteria->add(QubitTaxonomyI18n::NAME, $name);
+
+        if (null !== $taxonomy = QubitTaxonomy::getOne($criteria))
+        {
+          $slug = str_replace('-', '_', QubitSlug::slugify($taxonomy->getName(array('culture' => 'en'))));
+          if (1 > strlen($slug))
+          {
+            continue;
+          }
+          $configurationId = 'app_drmc_lod_'.$slug.'_id';
+
+          $cacheableParams[$configurationId] = $taxonomy->id;
+        }
+      }
+
+      // Note types
+      $noteTypes = array(
+        'InstallComments',
+        'PrepComments',
+        'StorageComments');
+
+      foreach ($noteTypes as $name)
+      {
+        $criteria = new Criteria;
+        $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::NOTE_TYPE_ID);
+        $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+        $criteria->add(QubitTermI18n::CULTURE, 'en');
+        $criteria->add(QubitTermI18n::NAME, $name);
+
+        if (null !== $term = QubitTerm::getOne($criteria))
+        {
+          $slug = str_replace('-', '_', QubitSlug::slugify($term->getName(array('culture' => 'en'))));
+          if (1 > strlen($slug))
+          {
+            continue;
+          }
+          $configurationId = 'app_drmc_lod_'.$slug.'_id';
+
+          $cacheableParams[$configurationId] = $term->id;
+        }
+      }
+
       // Cache
       if (isset($cache))
       {

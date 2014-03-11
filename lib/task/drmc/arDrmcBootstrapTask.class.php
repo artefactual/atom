@@ -51,6 +51,8 @@ EOF;
     if ($options['init'])
     {
       $this->addLevelsOfDescriptions();
+      $this->addTaxonomies();
+      $this->addNoteTypes();
     }
 
     if ($options['add-dummy-data'])
@@ -131,6 +133,41 @@ EOF;
     };
 
     $add($levels);
+  }
+
+  protected function addTaxonomies()
+  {
+    $taxonomies = array(
+      'Classifications',
+      'Departments',
+      'Component types');
+
+    foreach ($taxonomies as $name)
+    {
+      $taxonomy = new QubitTaxonomy;
+      $taxonomy->parentId = QubitTaxonomy::ROOT_ID;
+      $taxonomy->name = $name;
+      $taxonomy->culture = 'en';
+      $taxonomy->save();
+    }
+  }
+
+  protected function addNoteTypes()
+  {
+    $noteTypes = array(
+      'InstallComments',
+      'PrepComments',
+      'StorageComments');
+
+    foreach ($noteTypes as $name)
+    {
+      $term = new QubitTerm;
+      $term->parentId = QubitTerm::ROOT_ID;
+      $term->taxonomyId = QubitTaxonomy::NOTE_TYPE_ID;
+      $term->name = $name;
+      $term->culture = 'en';
+      $term->save();
+    }
   }
 
   protected function addDummyAips()
