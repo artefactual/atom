@@ -320,7 +320,19 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     $components->levelOfDescriptionId = sfConfig::get('app_drmc_lod_description_id');
     $components->setPublicationStatusByName('Published');
     $components->title = 'Components';
+
+    // Add main object data in METS file to the intermediate level
+    if (null != ($dmdSec = $this->getMainDmdSec()))
+    {
+      list($components, $creation) = $this->processDmdSec($dmdSec, $components, $options = array('ignoreTitle' => true));
+    }
+
     $components->save();
+
+    if (count($creation))
+    {
+      $this->addCreationEvent($components, $creation);
+    }
 
     // Obtain and create components from TMS
     foreach ($tmsComponentsIds as $tmsId)
@@ -360,27 +372,17 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     $aip->save();
 
-    // Main object
-    if (null != ($dmdSec = $this->getMainDmdSec()))
-    {
-      list($components, $creation) = $this->processDmdSec($dmdSec, $components, $options = array('ignoreTitle' => true));
+    // Create relation between AIP and intermediate level
+    $relation = new QubitRelation;
+    $relation->object = $components;
+    $relation->subject = $aip;
+    $relation->typeId = QubitTerm::AIP_RELATION_ID;
+    $relation->save();
 
-      if (count($creation))
-      {
-        $this->addCreationEvent($components, $creation);
-      }
+    // Save creation event and AIP data in ES
+    QubitSearch::getInstance()->update($components);
 
-      // Create relation with AIP
-      $relation = new QubitRelation;
-      $relation->object = $components;
-      $relation->subject = $aip;
-      $relation->typeId = QubitTerm::AIP_RELATION_ID;
-      $relation->save();
-
-      // Save creation event and AIP data in ES
-      QubitSearch::getInstance()->update($components);
-    }
-
+    // Create digital components from files in /objects
     $mapping = $this->getStructMapFileToDmdSecMapping();
 
     foreach ($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects') as $item)
