@@ -22,7 +22,9 @@ var objectDetailRequestHandler = function() {
     tmsObjects.forEach(function(tmsObject) {
       results.push(tmsObject);
     });
-    setResult(results[0]);
+    setResult({
+      'GetTombstoneDataRestIdResult': results[0]
+    });
   });
 };
 
