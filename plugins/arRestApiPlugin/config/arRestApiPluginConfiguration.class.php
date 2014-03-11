@@ -96,8 +96,18 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'informationobjectsAssociate',
       'params' => array('id' => self::REGEX_ID)));
 
+
     /**
-     * Taxonomy and terms
+     * Actors
+     */
+
+    $this->addRoute('GET', '/api/actors', array(
+      'module' => 'api',
+      'action' => 'actorsBrowse'));
+
+
+    /**
+     * Taxonomies and terms
      */
 
     $this->addRoute('GET', '/api/taxonomies/:id', array(
