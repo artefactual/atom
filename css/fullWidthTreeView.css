@@ -62,3 +62,7 @@
 .jstree-default .jstree-leaf {
 	border-bottom: 1px dotted #ddd;
 }
+
+#treeview-menu li.disabled a {
+	color: #ddd;
+}
