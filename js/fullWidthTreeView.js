@@ -81,6 +81,9 @@
           $('#fullwidth-treeview-row').insertAfter(response.find('#main-column h1'));
           $('#main-column').replaceWith($(response.find('#main-column')));
 
+          // attach the Deupal Behaviour so blank.js does its thing.
+          Drupal.attachBehaviors(document)
+
           // update the url, TODO save the state
           window.history.pushState({}, $('#main-column h1').first().text(), url);
         });
