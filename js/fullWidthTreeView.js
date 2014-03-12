@@ -12,8 +12,33 @@
                "</div>" +
               "</div>";
 
+  // toggles between disabling Holdings tab
+  function toggleTreeviewMenu() {
+    // get the treeview/holdings tab
+    var tab = $("#treeview-menu li a[data-toggle='#treeview']").parent();
+
+    // we closing/removing treeview?
+    if(arguments[0] == 'close')
+    {
+      tab.find('a').removeClass('disabled');
+      tab.removeClass('disabled');
+    }
+
+    if(arguments[0] == 'open') {
+      // set sidebar treeview to Quick search tab & disable Holdings tab
+      $("#treeview-menu li a[data-toggle='#treeview-search']").click();
+      
+      // disable the bootstrap tab
+      tab.find('a').addClass('disabled');
+
+      // also have to disable the surrounding tab to prevent the "click" cursor
+      tab.addClass('disabled');
+    }
+  }
+
   function init()
   {
+
     $('#treeview-btn-area i').tooltip({placement: "top"})
 
     $('.fullwidth-treeview-toggle').click(function(){
@@ -24,8 +49,10 @@
       if( treeview_open == false )
       {
         $('#fullwidth-treeview-row').animate({opacity: 0, height: "0px"}, 1000, "linear", function() { $(this).remove(); });
+        toggleTreeviewMenu('close');
         return;
       }
+      toggleTreeviewMenu('open');
 
       // check we've not already inserted the DOM elements for this
       if( !$('#fullwidth-treeview-row').length )
@@ -40,9 +67,9 @@
         $('#fullwidth-treeview-row').resizable({ 
           handles: "s"
         }).animate({height: '350px'}, 500);
-
       });
 
+      // bind click events to nodes to load the informationobject's page and insert the current page
       $("#fullwidth-treeview").bind("select_node.jstree", function(evt, data){
         // when an element is clicked in the tree ... fetch it up
         // window.location = window.location.origin + data.node.a_attr.href

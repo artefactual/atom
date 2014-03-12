@@ -554,6 +554,11 @@
         var $link = $(event.target);
         var $li = $link.parent();
 
+        if($link.hasClass('disabled'))
+        {
+          return;
+        }
+
         if (!$li.hasClass('active'))
         {
           this.$menu.find('li').removeClass('active');
