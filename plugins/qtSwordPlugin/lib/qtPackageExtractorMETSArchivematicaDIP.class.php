@@ -698,6 +698,19 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
                 $creation['actorDate'] = $value;
                 break;
 
+              // Digital object
+              case 'FullImage':
+
+                $errors = array();
+                $tmsObject->importDigitalObjectFromUri($value, $errors);
+
+                foreach ($errors as $error)
+                {
+                  sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - '.$error);
+                }
+
+                break;
+
               // Child components
               case 'Components':
 
