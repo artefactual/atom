@@ -17,23 +17,8 @@
     // get the treeview/holdings tab
     var tab = $("#treeview-menu li a[data-toggle='#treeview']").parent();
 
-    // we closing/removing treeview?
-    if(arguments[0] == 'close')
-    {
-      tab.find('a').removeClass('disabled');
-      tab.removeClass('disabled');
-    }
-
-    if(arguments[0] == 'open') {
-      // set sidebar treeview to Quick search tab & disable Holdings tab
-      $("#treeview-menu li a[data-toggle='#treeview-search']").click();
-      
-      // disable the bootstrap tab
-      tab.find('a').addClass('disabled');
-
-      // also have to disable the surrounding tab to prevent the "click" cursor
-      tab.addClass('disabled');
-    }
+    tab.find('a').removeClass('disabled');
+    tab.removeClass('disabled');
   }
 
   function init()
@@ -42,24 +27,23 @@
     $('#treeview-btn-area i').tooltip({placement: "top"})
 
     $('.fullwidth-treeview-toggle').click(function(){
+      treeview_open = !treeview_open
+
+      // closing fullwidth view?
+      if( treeview_open == false )
+      {
+        // refresh the page
+        window.location.reload();
+        return false;
+      }
+
       $(this).toggleClass('active');
       // track and toggle state
 
-      treeview_open = !treeview_open
-      if( treeview_open == false )
-      {
-        $('#fullwidth-treeview-row').animate({opacity: 0, height: "0px"}, 1000, "linear", function() { $(this).remove(); });
-        toggleTreeviewMenu('close');
-        return;
-      }
       toggleTreeviewMenu('open');
 
-      // check we've not already inserted the DOM elements for this
-      if( !$('#fullwidth-treeview-row').length )
-      {
-        $('#main-column h1').after($(html));
-        $('#fullwidth-treeview-row').animate({height: '100px'}, 500);
-      }
+      $('#main-column h1').after($(html));
+      $('#fullwidth-treeview-row').animate({height: '100px'}, 500);
 
       // initialize the jstree with json from server
       $.get((window.location.pathname + url), function(data){
