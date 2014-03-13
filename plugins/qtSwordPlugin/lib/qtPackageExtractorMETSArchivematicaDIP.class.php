@@ -670,6 +670,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
               case 'ObjectNumber':
               case 'ObjectStatusID':
               case 'SortNumber':
+              case 'Thumbnail':
                 $tmsObject->addProperty($name, $value);
                 break;
 
@@ -709,6 +710,9 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
                   sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - '.$error);
                 }
 
+                // Add property
+                $tmsObject->addProperty($name, $value);
+
                 break;
 
               // Child components
@@ -731,7 +735,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
               case 'CreditLine':
               case 'FirstName':
               case 'LastName':
-              case 'Thumbnail':
               case 'Prints':
                 break;
             }
