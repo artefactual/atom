@@ -174,8 +174,8 @@ EOF;
   {
     $names = file(sfConfig::get('sf_plugins_dir').'/arDrmcPlugin/frontend/mock_api/sample_data/names.txt');
 
-    for ($i = 1; $i <= 50; $i++) {
-
+    for ($i = 1; $i <= 50; $i++)
+    {
       // Make new info object every few AIPs
       if (!$infoObject || rand(1, 3)) {
         $infoObject = new QubitInformationObject();
@@ -193,7 +193,7 @@ EOF;
       $aip->digitalObjectCount = 1;
       $aip->partOf = $infoObject->id;
       $aip->sizeOnDisk = rand(1000, 10000000);
-      $aip->createdAt = date("c"); // date is in ISO 8601
+      $aip->createdAt = date('c'); // date is in ISO 8601
 
       $aip->save();
     }
