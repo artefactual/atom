@@ -45,9 +45,13 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
 
       switch ($data['type']) {
         case 'Collection':
+        case 'Fonds':
+        case 'Subfonds':
           $data['icon'] = 'fa fa-archive';
           break;
         case 'File':
+        case 'Series':
+        case 'Subseries':
           $data['icon'] = 'fa fa-folder-o';
           break;
         case 'Item':
