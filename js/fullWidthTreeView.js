@@ -47,10 +47,13 @@
 
       // initialize the jstree with json from server
       $.get((window.location.pathname + url), function(data){
+        // configure jstree
+
+        // initialize jstree
         $('#fullwidth-treeview').jstree(data);
         $('#fullwidth-treeview-row').resizable({ 
           handles: "s"
-        }).animate({height: '350px'}, 500);
+        }).animate({height: '200px'}, 500);
       });
 
       // bind click events to nodes to load the informationobject's page and insert the current page

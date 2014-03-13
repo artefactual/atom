@@ -43,6 +43,22 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
         $data['parent'] = '#';
       }
 
+      switch ($data['type']) {
+        case 'Collection':
+          $data['icon'] = 'fa fa-archive';
+          break;
+        case 'File':
+          $data['icon'] = 'fa fa-folder-o';
+          break;
+        case 'Item':
+          $data['icon'] = 'fa fa-file-o';
+          break;
+        
+        default:
+          # code...
+          break;
+      }
+
       $data['a_attr']['href'] = $data['slug'];
       unset($data['slug']);
 
@@ -63,7 +79,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
     //    the objects properties we want
 
     list($rnode, $qnode) = ($down) ? array('parent', 'node') : array('node','parent');
-    $sql = "SELECT $qnode.id, i18n.title as text, $qnode.parent_id as parent, slug.slug
+    $sql = "SELECT $qnode.id, i18n.title as text, $qnode.parent_id as parent, slug.slug, term_i18n.name as type
         FROM 
           information_object AS parent,
           information_object AS node,

@@ -25,8 +25,9 @@ default:
     # graphic:
     # main:
     # print: { media: print, position: last }
-    /vendor/jstree/themes/default/style.min.css:
+    /vendor/jstree/themes/default/style.css:
     /vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.min.css:
+    //netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css:
     fullWidthTreeView:
 
   javascripts:

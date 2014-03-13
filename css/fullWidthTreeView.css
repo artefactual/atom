@@ -11,27 +11,6 @@
 	height: 100%;
 }
 
-/*.jstree-default .jstree-anchor>.jstree-themeicon {
-	background-position: initial;
-}*/
-
-.jstree-anchor i.File,
-.jstree-anchor i.Item {
-	background-image: url('/images/jstree-icons/file.png');
-	background-size: 24px 24px;
-}
-
-.jstree-anchor i.Collection,
-.jstree-anchor i.Fonds {
-	background-image: url('/images/jstree-icons/archive.png');
-	background-size: 24px 24px;
-}
-
-.jstree-anchor i.Series {
-	background-image: url('/images/jstree-icons/folder-open.png');
-	background-size: 24px 24px;
-}
-
 .ui-resizable-s {
 	background-image: url('/images/resizable_grip.png');
 	height: 9px;
@@ -58,10 +37,6 @@
 .ui-resizable-s:hover {
 	background-color: #ddd;
 };
-
-.jstree-default .jstree-leaf {
-	border-bottom: 1px dotted #ddd;
-}
 
 #treeview-menu li.disabled a {
 	color: #ddd;
