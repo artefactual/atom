@@ -55,7 +55,7 @@ function generateTMSobject(objectId, objectNumber, componentSummary) {
     'ErrorMsg': null,
     'ImageID': 0,
     'Medium': casual.string,
-    'ThumbNail': '',
+    'ThumbNail': 'http://placekitten.com/100/100',
     'Title': casual.string
   };
 }

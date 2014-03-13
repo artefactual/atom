@@ -87,7 +87,7 @@ function generateTMScomponent(objectId, componentId, componentNumber, attributeT
     'PrepComments': casual.sentence,
     'StorageComments': casual.sentence,
     'TextEntries': JSON.stringify(textEntries),
-    'Attributes': generateTMScomponentAttributes(attributeTaxonomy)
+    'Attributes': JSON.stringify(generateTMScomponentAttributes(attributeTaxonomy))
   };
 }
 
