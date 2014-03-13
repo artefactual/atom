@@ -73,7 +73,7 @@ class ApiActorsBrowseAction extends QubitApiAction
     {
       $doc = $hit->getData();
       $results[$hit->getId()] = $hit->getFields();
-      $results[$hit->getId()]['authorized_form_of_name'] = get_search_i18n($doc, 'authorized_form_of_name');
+      $results[$hit->getId()]['authorized_form_of_name'] = get_search_i18n($doc, 'authorizedFormOfName');
     }
 
     $facets = array();
