@@ -28,6 +28,30 @@ class ApiInformationObjectsTmsAction extends QubitApiAction
       throw new QubitApi404Exception('Information object not found');
     }
 
+    $allowedLevels = array(sfConfig::get('app_drmc_lod_artwork_record_id'), sfConfig::get('app_drmc_lod_digital_object_id'));
+    if (!in_array($this->io->levelOfDescriptionId, $allowedLevels))
+    {
+      throw new QubitApiException('TMS data not available for this level of description');
+    }
+
+    switch ($this->io->levelOfDescriptionId)
+    {
+      case sfConfig::get('app_drmc_lod_artwork_record_id'):
+        $tmsData = $this->getTmsObjectData();
+
+        break;
+
+      case sfConfig::get('app_drmc_lod_digital_object_id'):
+        $tmsData = $this->getTmsComponentData();
+
+        break;
+    }
+
+    return $tmsData;
+  }
+
+  protected function getTmsObjectData()
+  {
     $result = array();
 
     $result['title'] = $this->io->getTitle(array('sourceCulture' => true));
@@ -53,9 +77,37 @@ class ApiInformationObjectsTmsAction extends QubitApiAction
 
     $result['description'] = '';
 
-    return array(
-      'tms' => $result
-    );
+    return $result;
+  }
+
+  protected function getTmsComponentData()
+  {
+    $result = array();
+
+    $result['title'] = $this->io->getTitle(array('sourceCulture' => true));
+    $result['accessionNumber'] = $this->getProperty('ObjectNumber');
+    $result['objectId'] = $this->io->identifier;
+
+    $creationEvents = $this->io->getCreationEvents();
+    $result['year'] = $creationEvents[0]->getDate(array('sourceCulture' => true));
+    $result['artist'] = $creationEvents[0]->actor->getAuthorizedFormOfName(array('sourceCulture' => true));
+    $result['artistDate'] = $creationEvents[0]->actor->datesOfExistence;
+
+    $termRelations = $this->io->getTermRelations(sfConfig::get('app_drmc_lod_classifications_id'));
+    $result['classification'] = $termRelations[0]->term->getName(array('sourceCulture' => true));
+
+    $termRelations = $this->io->getTermRelations(sfConfig::get('app_drmc_lod_departments_id'));
+    $result['department'] = $termRelations[0]->term->getName(array('sourceCulture' => true));
+
+    $result['medium'] = $this->io->extentAndMedium;
+    $result['dimensions'] = $this->io->physicalCharacteristics;
+
+    $result['thumbnail'] = $this->getProperty('Thumbnail');
+    $result['fullImage'] = $this->getProperty('FullImage');
+
+    $result['description'] = '';
+
+    return $result;
   }
 
   protected function getProperty($name)
