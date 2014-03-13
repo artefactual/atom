@@ -21,13 +21,54 @@ class ApiInformationObjectsTmsAction extends QubitApiAction
 {
   protected function get($request)
   {
+    $this->io = QubitInformationObject::getById($request->id);
+
+    if (null === $this->io)
+    {
+      throw new QubitApi404Exception('Information object not found');
+    }
+
+    $result = array();
+
+    $result['title'] = $this->io->getTitle(array('sourceCulture' => true));
+    $result['accessionNumber'] = $this->getProperty('ObjectNumber');
+    $result['objectId'] = $this->io->identifier;
+
+    $creationEvents = $this->io->getCreationEvents();
+    $result['year'] = $creationEvents[0]->getDate(array('sourceCulture' => true));
+    $result['artist'] = $creationEvents[0]->actor->getAuthorizedFormOfName(array('sourceCulture' => true));
+    $result['artistDate'] = $creationEvents[0]->actor->datesOfExistence;
+
+    $termRelations = $this->io->getTermRelations(sfConfig::get('app_drmc_lod_classifications_id'));
+    $result['classification'] = $termRelations[0]->term->getName(array('sourceCulture' => true));
+
+    $termRelations = $this->io->getTermRelations(sfConfig::get('app_drmc_lod_departments_id'));
+    $result['department'] = $termRelations[0]->term->getName(array('sourceCulture' => true));
+
+    $result['medium'] = $this->io->extentAndMedium;
+    $result['dimensions'] = $this->io->physicalCharacteristics;
+
+    $result['thumbnail'] = $this->getProperty('Thumbnail');
+    $result['fullImage'] = $this->getProperty('FullImage');
+
+    $result['description'] = '';
+
     return array(
-      'results' => $this->getResults()
+      'tms' => $result
     );
   }
 
-  protected function getResults()
+  protected function getProperty($name)
   {
-    return array();
+    $criteria = new Criteria;
+    $this->io->addPropertysCriteria($criteria);
+    $criteria->add(QubitProperty::NAME, $name);
+
+    $property = QubitProperty::getOne($criteria);
+
+    if (null !== $property)
+    {
+      return $property->getValue(array('sourceCulture' => true));
+    }
   }
 }
