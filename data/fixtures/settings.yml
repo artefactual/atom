@@ -512,7 +512,7 @@ QubitSetting:
     editable: 1
   QubitSetting_useJobScheduler:
     name: use_job_scheduler
-    value: 0
+    value: 1
   QubitSetting_swordDepositDir:
     name: sword_deposit_dir
     value: /tmp
