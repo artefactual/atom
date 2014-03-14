@@ -37,6 +37,7 @@ class ApiInformationObjectsDetailAction extends QubitApiAction
 
     $data['id'] = $result->getId();
     $data['title'] = get_search_i18n($doc, 'title');
+    $data['level_of_description_id'] = (int)$doc['levelOfDescriptionId'];
 
     if (sfConfig::get('app_drmc_lod_artwork_record_id') == $doc['levelOfDescriptionId'])
     {
