@@ -257,6 +257,11 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     // AIP UUID
     $aipUUID = $this->getUUID($this->filename);
 
+    if (null !== QubitAip::getByUuid($aipUUID))
+    {
+      throw new sfException('There is already a AIP with the given UUID');
+    }
+
     // Find METS file
     if ($handle = opendir($this->filename))
     {
