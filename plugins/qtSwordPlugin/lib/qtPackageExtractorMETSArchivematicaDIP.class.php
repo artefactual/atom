@@ -690,7 +690,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
               case 'Classification':
               case 'Department':
 
-                $taxonomyId = sfConfig::get('app_drmc_lod_'.strtolower($name).'s_id');
+                $taxonomyId = sfConfig::get('app_drmc_taxonomy_'.strtolower($name).'s_id');
                 $term = QubitFlatfileImport::createOrFetchTerm($taxonomyId, $value);
 
                 $newTermRelation = new QubitObjectTermRelation;
@@ -829,7 +829,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
             // Object/term relation
             case 'ComponentType':
-              $taxonomyId = sfConfig::get('app_drmc_lod_component_types_id');
+              $taxonomyId = sfConfig::get('app_drmc_taxonomy_component_types_id');
               $term = QubitFlatfileImport::createOrFetchTerm($taxonomyId, $value);
 
               $newTermRelation = new QubitObjectTermRelation;
@@ -846,7 +846,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
                 $note = new QubitNote;
                 $note->content = $value;
                 $note->culture = 'en';
-                $note->typeId = sfConfig::get('app_drmc_lod_'.strtolower($name).'_id');
+                $note->typeId = sfConfig::get('app_drmc_note_type_'.strtolower($name).'_id');
 
                 $tmsComponent->notes[] = $note;
 

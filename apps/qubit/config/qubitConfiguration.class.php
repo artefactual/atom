@@ -207,7 +207,7 @@ EOF
           {
             continue;
           }
-          $configurationId = 'app_drmc_lod_'.$slug.'_id';
+          $configurationId = 'app_drmc_taxonomy_'.$slug.'_id';
 
           $cacheableParams[$configurationId] = $taxonomy->id;
         }
@@ -234,7 +234,7 @@ EOF
           {
             continue;
           }
-          $configurationId = 'app_drmc_lod_'.$slug.'_id';
+          $configurationId = 'app_drmc_note_type_'.$slug.'_id';
 
           $cacheableParams[$configurationId] = $term->id;
         }
