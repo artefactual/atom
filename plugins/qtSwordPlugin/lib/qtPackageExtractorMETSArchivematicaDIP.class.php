@@ -334,6 +334,13 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     $components->save();
 
+    $aipIo = new QubitInformationObject;
+    $aipIo->parentId = $components->id;
+    $aipIo->levelOfDescriptionId = sfConfig::get('app_drmc_lod_aip_id');
+    $aipIo->setPublicationStatusByName('Published');
+    $aipIo->title = 'AIP';
+    $aipIo->save();
+
     if (count($creation))
     {
       $this->addCreationEvent($components, $creation);
@@ -402,8 +409,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
       // Create child
       $child = new QubitInformationObject;
-      $child->parentId = $components->id;
-      $child->levelOfDescriptionId = sfConfig::get('app_drmc_lod_digital_component_id');
+      $child->parentId = $aipIo->id;
+      $child->levelOfDescriptionId = sfConfig::get('app_drmc_lod_digital_object_id');
       $child->setPublicationStatusByName('Published');
 
       // TODO: use UUID as unique key in the array
@@ -766,7 +773,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     // Create component from TMS
     $tmsComponent = new QubitInformationObject;
     $tmsComponent->parentId = $parentId;
-    $tmsComponent->setLevelOfDescriptionByName('TMS-Component');
+    $tmsComponent->levelOfDescriptionId = sfConfig::get('app_drmc_lod_description_id');
     $tmsComponent->setPublicationStatusByName('Published');
 
     // Request component from TMS API
@@ -795,26 +802,33 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
             // Info. object fields
             case 'ComponentID':
               $tmsComponent->identifier = $value;
+
               break;
+
             case 'ComponentName':
               $tmsComponent->title = $value;
+
               break;
+
             case 'Dimensions':
               $tmsComponent->physicalCharacteristics = $value;
+
               break;
+
             case 'PhysDesc':
               $tmsComponent->extentAndMedium = $value;
+
               break;
 
             // Properties
             case 'CompCount':
             case 'ComponentNumber':
               $tmsComponent->addProperty($name, $value);
+
               break;
 
             // Object/term relation
             case 'ComponentType':
-
               $taxonomyId = sfConfig::get('app_drmc_lod_component_types_id');
               $term = QubitFlatfileImport::createOrFetchTerm($taxonomyId, $value);
 
@@ -829,7 +843,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
             case 'InstallComments':
             case 'PrepComments':
             case 'StorageComments':
-
                 $note = new QubitNote;
                 $note->content = $value;
                 $note->culture = 'en';
@@ -842,12 +855,14 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
             // Log error
             case 'ErrorMsg':
               sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.$value);
+
               break;
 
             // Nothing yet
             case 'Attributes':
             case 'ObjectID':
             case 'TextEntries':
+
               break;
           }
         }
