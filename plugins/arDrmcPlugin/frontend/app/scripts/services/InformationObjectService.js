@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($http, $q, SETTINGS) {
+module.exports = function ($http, SETTINGS) {
 
   // Create a map of level of descriptions IDs and its corresponding CSS class
   this.levels = {};
