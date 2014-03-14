@@ -113,7 +113,7 @@ class ApiInformationObjectsTmsAction extends QubitApiAction
 
     if (0 < count($notes = $this->io->getNotesByType($options = array('noteTypeId' => sfConfig::get('app_drmc_note_type_installcomments_id')))))
     {
-      $this->addItemToArray($result, 'InstallComments', $notes[0]->getContent(array('sourceCulture' => true)));
+      $this->addItemToArray($result, 'installComments', $notes[0]->getContent(array('sourceCulture' => true)));
     }
 
     if (0 < count($notes = $this->io->getNotesByType($options = array('noteTypeId' => sfConfig::get('app_drmc_note_type_prepcomments_id')))))
