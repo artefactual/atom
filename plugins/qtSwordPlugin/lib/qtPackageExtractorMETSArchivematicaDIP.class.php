@@ -346,10 +346,23 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $this->addCreationEvent($components, $creation);
     }
 
+    // Mapping from TMS status to level of descriptions
+    $statusMapping = array(
+      'Archival' => sfConfig::get('app_drmc_lod_archival_master_id'),
+      'Archival submaster' => sfConfig::get('app_drmc_lod_archival_master_id'),
+      'Artist master' => sfConfig::get('app_drmc_lod_artist_supplied_master_id'),
+      'Artist proof' => sfConfig::get('app_drmc_lod_artist_verified_proof_id'),
+      'Duplication master' => sfConfig::get('app_drmc_lod_component_id'),
+      'Exhibition copy' => sfConfig::get('app_drmc_lod_exhibition_master_id'),
+      'Miscellaneous other' => sfConfig::get('app_drmc_lod_miscellaneous_id'),
+      'Repository File Source' => sfConfig::get('app_drmc_lod_component_id'),
+      'Research copy' => sfConfig::get('app_drmc_lod_component_id')
+    );
+
     // Obtain and create components from TMS
     foreach ($tmsComponentsIds as $tmsId)
     {
-      $this->createTombstoneComponent($tmsId, $components->id);
+      $this->createTombstoneComponent($tmsId, $components->id, $statusMapping);
     }
 
     $parts = pathinfo($this->filename);
@@ -634,7 +647,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         }
       }
     }
-
+$tmsId = 146765;
     // Request object from TMS API
     if (isset($tmsId))
     {
@@ -768,12 +781,12 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     return array($tmsObject, $tmsComponentsIds);
   }
 
-  protected function createTombstoneComponent($tmsId, $parentId)
+  protected function createTombstoneComponent($tmsId, $parentId, $statusMapping)
   {
     // Create component from TMS
     $tmsComponent = new QubitInformationObject;
     $tmsComponent->parentId = $parentId;
-    $tmsComponent->levelOfDescriptionId = sfConfig::get('app_drmc_lod_description_id');
+    $tmsComponent->levelOfDescriptionId = sfConfig::get('app_drmc_lod_component_id');
     $tmsComponent->setPublicationStatusByName('Published');
 
     // Request component from TMS API
@@ -799,6 +812,19 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         {
           switch ($name)
           {
+            // Level of description from status attribute
+            case 'Attributes':
+
+              foreach (json_decode($value, true) as $item)
+              {
+                if (isset($item['Status']) && 0 < strlen($item['Status']) && isset($statusMapping[$item['Status']]))
+                {
+                  $tmsComponent->levelOfDescriptionId = $statusMapping[$item['Status']];
+                }
+              }
+
+              break;
+
             // Info. object fields
             case 'ComponentID':
               $tmsComponent->identifier = $value;
@@ -852,6 +878,11 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
               break;
 
+            case 'TextEntries':
+              // TODO: Create general note
+
+              break;
+
             // Log error
             case 'ErrorMsg':
               sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.$value);
@@ -859,9 +890,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
               break;
 
             // Nothing yet
-            case 'Attributes':
             case 'ObjectID':
-            case 'TextEntries':
 
               break;
           }
