@@ -2,12 +2,14 @@
 
 module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationObjectService) {
 
-  InformationObjectService.getWork($stateParams.id)
-    .then(function (response) {
-      $scope.work = response.data;
-    }, function (reason) {
-      throw reason;
+  InformationObjectService.getWork($stateParams.id).then(function (response) {
+    $scope.work = response.data;
+    InformationObjectService.getTms($stateParams.id).then(function (response) {
+      $scope.work.tms = response.data;
     });
+  }, function (reason) {
+    throw reason;
+  });
 
   // A list of digital objects. This is shared within the context browser
   // directive (two-way binding);

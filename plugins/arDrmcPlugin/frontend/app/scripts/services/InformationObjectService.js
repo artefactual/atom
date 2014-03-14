@@ -98,4 +98,11 @@ module.exports = function ($http, $q, SETTINGS) {
     return $http(configuration);
   };
 
+  this.getTms = function (id) {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/tms'
+    });
+  };
+
 };
