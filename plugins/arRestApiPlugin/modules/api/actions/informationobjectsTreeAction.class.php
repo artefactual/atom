@@ -49,7 +49,7 @@ EOL;
     $results = QubitPdo::fetchAll($sql, array($this->request->id));
     if (0 === count($results))
     {
-      throw new QubitApi404Exception('Informatino object not found');
+      throw new QubitApi404Exception('Information object not found');
     }
     else if (false === $results)
     {
@@ -60,16 +60,33 @@ EOL;
     // Notice that fetchAll returns objects, not arrays.
     $data = new stdClass; // Here is where we are storing the nested set
     $flat = array();      // Flat hashmap (id => ref-to-obj) for quick searches
+    $add = function (&$target, $item)
+    {
+      if ($item->level_of_description_id == sfConfig::get('app_drmc_lod_digital_object_id'))
+      {
+        return;
+      }
+
+      if (!isset($target) || is_array($target))
+      {
+        $target[] = $item;
+      }
+      else
+      {
+        $target = $item;
+      }
+    };
+
     foreach ($results as $item)
     {
       if (isset($flat[$item->parent_id]))
       {
         $parent = $flat[$item->parent_id];
-        $parent->children[] = $item;
+        $add($parent->children, $item);
       }
       else
       {
-        $data = $item;
+        $add($data, $item);
       }
 
       $flat[$item->id] = $item;
