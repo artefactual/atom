@@ -94,6 +94,8 @@ class ApiInformationObjectsTmsAction extends QubitApiAction
     $this->addItemToArray($result, 'thumbnail', $this->getProperty('Thumbnail'));
     $this->addItemToArray($result, 'fullImage', $this->getProperty('FullImage'));
 
+    $result['type'] = 'Object';
+
     // TODO: Description
 
     return $result;
@@ -131,6 +133,8 @@ class ApiInformationObjectsTmsAction extends QubitApiAction
 
     $this->addItemToArray($result, 'compCount', $this->getProperty('CompCount'));
     $this->addItemToArray($result, 'componentNumber', $this->getProperty('ComponentNumber'));
+
+    $result['type'] = 'Component';
 
     return $result;
   }
