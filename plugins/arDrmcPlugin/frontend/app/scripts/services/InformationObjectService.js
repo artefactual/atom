@@ -13,6 +13,29 @@ module.exports = function ($http, SETTINGS) {
     }
   }
 
+  // List of level of descriptions components
+  var typeComponents = [
+    'component',
+    'artist-supplied-master',
+    'artist-verified-proof',
+    'archival-master',
+    'exhibition-format',
+    'documentation',
+    'miscellaneous'
+  ];
+
+  this.isComponent = function (level_of_description) {
+    var slug;
+    if (angular.isNumber(level_of_description)) {
+      slug = this.levels[level_of_description];
+    } else if (angular.isString(level_of_description)) {
+      slug = level_of_description;
+    } else {
+      throw 'Unexpected type';
+    }
+    return -1 < typeComponents.indexOf(slug);
+  };
+
   this.getTree = function (id) {
     var self = this;
     return $http({
