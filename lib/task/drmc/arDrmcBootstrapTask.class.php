@@ -50,6 +50,11 @@ EOF;
 
     if ($options['init'])
     {
+      $io = new QubitInformationObject;
+      $io->title = 'Parent Hack';
+      $io->parentId = QubitInformationObject::ROOT_ID;
+      $io->save();
+
       $this->addLevelsOfDescriptions();
       $this->addTaxonomies();
       $this->addNoteTypes();
@@ -67,7 +72,7 @@ EOF;
     // Remove AtoM's defaults
     foreach (QubitTaxonomy::getTaxonomyTerms(QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID, array('level' => 'top')) as $item)
     {
-      $target = array('Fonds', 'Subfonds', 'Collection', 'Series', 'Subseries', 'File', 'Item');
+      $target = array('Fonds', 'Subfonds', 'Collection', 'Series', 'Subseries', 'File', 'Item', 'Part');
       $name = $item->getName(array('culture' => 'en'));
       if (in_array($name, $target))
       {
@@ -77,23 +82,25 @@ EOF;
 
     // Levels of description specific for MoMA DRMC-MA
     $levels = array(
-      array('name' => 'Artwork record'),
-      array('name' => 'Description'),
-      array('name' => 'Component', 'children' => array(
-        array('name' => 'Artist supplied master'),
-        array('name' => 'Artist verified proof'),
-        array('name' => 'Archival master'),
-        array('name' => 'Exhibition format'),
-        array('name' => 'Documentation'),
-        array('name' => 'Miscellaneous'))),
-      array('name' => 'Supporting technology record'),
-      array('name' => 'AIP', 'children' => array(
-        array('name' => 'Digital object'))));
+      'Artwork record',
+      'Description',
+      'Component',
+      'Artist supplied master',
+      'Artist verified proof',
+      'Archival master',
+      'Exhibition format',
+      'Documentation',
+      'Miscellaneous',
+      'Supporting technology record',
+      'AIP',
+      'Digital object'
+    );
 
     // Find a specific level of description by its name (in English)
     $find = function($name)
     {
       $criteria = new Criteria;
+      $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID);
       $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
       $criteria->add(QubitTermI18n::NAME, $name);
       $criteria->add(QubitTermI18n::CULTURE, 'en');
@@ -101,38 +108,21 @@ EOF;
       return null !== QubitTerm::getOne($criteria);
     };
 
-    // Parse $levels recursively and add the levels to the taxonomy
-    $add = function($levels, $parentId = false) use (&$find, &$add)
+    foreach ($levels as $level)
     {
-      if (false === $parentId)
+      // Don't duplicate
+      if (true === $find($level))
       {
-        $parentId = QubitTerm::ROOT_ID;
+        continue;
       }
 
-      foreach ($levels as $level)
-      {
-        // Don't duplicate
-        if (true === $find($level['name']))
-        {
-          continue;
-        }
-
-        $term = new QubitTerm;
-        $term->name  = $level['name'];
-        $term->taxonomyId = QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID;
-        // $term->code
-        $term->parentId = $parentId;
-        $term->culture = 'en';
-        $term->save();
-
-        if (isset($level['children']))
-        {
-          $add($level['children'], $term->id);
-        }
-      }
-    };
-
-    $add($levels);
+      $term = new QubitTerm;
+      $term->name  = $level;
+      $term->taxonomyId = QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID;
+      $term->parentId = QubitTerm::ROOT_ID;
+      $term->culture = 'en';
+      $term->save();
+    }
   }
 
   protected function addTaxonomies()
@@ -205,7 +195,7 @@ EOF;
 {
     "id": 1,
     "level": "Artwork record",
-    "title": "Play Dead; Real Time Pana",
+    "title": "Play Dead; Real Time",
     "children": [
         {
             "children": [
