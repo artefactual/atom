@@ -647,7 +647,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         }
       }
     }
-$tmsId = 146765;
+
     // Request object from TMS API
     if (isset($tmsId))
     {
