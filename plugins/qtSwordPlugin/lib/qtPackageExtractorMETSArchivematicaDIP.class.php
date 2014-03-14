@@ -353,7 +353,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       'Artist master' => sfConfig::get('app_drmc_lod_artist_supplied_master_id'),
       'Artist proof' => sfConfig::get('app_drmc_lod_artist_verified_proof_id'),
       'Duplication master' => sfConfig::get('app_drmc_lod_component_id'),
-      'Exhibition copy' => sfConfig::get('app_drmc_lod_exhibition_master_id'),
+      'Exhibition copy' => sfConfig::get('app_drmc_lod_exhibition_format_id'),
       'Miscellaneous other' => sfConfig::get('app_drmc_lod_miscellaneous_id'),
       'Repository File Source' => sfConfig::get('app_drmc_lod_component_id'),
       'Research copy' => sfConfig::get('app_drmc_lod_component_id')
