@@ -28,7 +28,16 @@ class ApiInformationObjectsTmsAction extends QubitApiAction
       throw new QubitApi404Exception('Information object not found');
     }
 
-    $allowedLevels = array(sfConfig::get('app_drmc_lod_artwork_record_id'), sfConfig::get('app_drmc_lod_digital_object_id'));
+    $allowedLevels = array(
+      sfConfig::get('app_drmc_lod_artwork_record_id'),
+      sfConfig::get('app_drmc_lod_archival_master_id'),
+      sfConfig::get('app_drmc_lod_artist_supplied_master_id'),
+      sfConfig::get('app_drmc_lod_artist_verified_proof_id'),
+      sfConfig::get('app_drmc_lod_exhibition_format_id'),
+      sfConfig::get('app_drmc_lod_miscellaneous_id'),
+      sfConfig::get('app_drmc_lod_component_id')
+    );
+
     if (!in_array($this->io->levelOfDescriptionId, $allowedLevels))
     {
       throw new QubitApiException('TMS data not available for this level of description');
@@ -41,7 +50,7 @@ class ApiInformationObjectsTmsAction extends QubitApiAction
 
         break;
 
-      case sfConfig::get('app_drmc_lod_digital_object_id'):
+      default:
         $tmsData = $this->getTmsComponentData();
 
         break;
@@ -69,12 +78,12 @@ class ApiInformationObjectsTmsAction extends QubitApiAction
       }
     }
 
-    if (0 < count($termRelations = $this->io->getTermRelations(sfConfig::get('app_drmc_lod_classifications_id'))))
+    if (0 < count($termRelations = $this->io->getTermRelations(sfConfig::get('app_drmc_taxonomy_classifications_id'))))
     {
       $this->addItemToArray($result, 'classification', $termRelations[0]->term->getName(array('sourceCulture' => true)));
     }
 
-    if (0 < count($termRelations = $this->io->getTermRelations(sfConfig::get('app_drmc_lod_departments_id'))))
+    if (0 < count($termRelations = $this->io->getTermRelations(sfConfig::get('app_drmc_taxonomy_departments_id'))))
     {
       $this->addItemToArray($result, 'department', $termRelations[0]->term->getName(array('sourceCulture' => true)));
     }
@@ -94,28 +103,34 @@ class ApiInformationObjectsTmsAction extends QubitApiAction
   {
     $result = array();
 
-    $result['title'] = $this->io->getTitle(array('sourceCulture' => true));
-    $result['accessionNumber'] = $this->getProperty('ObjectNumber');
-    $result['objectId'] = $this->io->identifier;
+    $this->addItemToArray($result, 'componentName', $this->io->getTitle(array('sourceCulture' => true)));
+    $this->addItemToArray($result, 'componentID', $this->io->identifier);
 
-    $creationEvents = $this->io->getCreationEvents();
-    $result['year'] = $creationEvents[0]->getDate(array('sourceCulture' => true));
-    $result['artist'] = $creationEvents[0]->actor->getAuthorizedFormOfName(array('sourceCulture' => true));
-    $result['artistDate'] = $creationEvents[0]->actor->datesOfExistence;
+    if (0 < count($termRelations = $this->io->getTermRelations(sfConfig::get('app_drmc_taxonomy_component_types_id'))))
+    {
+      $this->addItemToArray($result, 'componentType', $termRelations[0]->term->getName(array('sourceCulture' => true)));
+    }
 
-    $termRelations = $this->io->getTermRelations(sfConfig::get('app_drmc_lod_classifications_id'));
-    $result['classification'] = $termRelations[0]->term->getName(array('sourceCulture' => true));
+    if (0 < count($notes = $this->io->getNotesByType($options = array('noteTypeId' => sfConfig::get('app_drmc_note_type_installcomments_id')))))
+    {
+      $this->addItemToArray($result, 'InstallComments', $notes[0]->getContent(array('sourceCulture' => true)));
+    }
 
-    $termRelations = $this->io->getTermRelations(sfConfig::get('app_drmc_lod_departments_id'));
-    $result['department'] = $termRelations[0]->term->getName(array('sourceCulture' => true));
+    if (0 < count($notes = $this->io->getNotesByType($options = array('noteTypeId' => sfConfig::get('app_drmc_note_type_prepcomments_id')))))
+    {
+      $this->addItemToArray($result, 'prepComments', $notes[0]->getContent(array('sourceCulture' => true)));
+    }
 
-    $result['medium'] = $this->io->extentAndMedium;
-    $result['dimensions'] = $this->io->physicalCharacteristics;
+    if (0 < count($notes = $this->io->getNotesByType($options = array('noteTypeId' => sfConfig::get('app_drmc_note_type_storagecomments_id')))))
+    {
+      $this->addItemToArray($result, 'storageComments', $notes[0]->getContent(array('sourceCulture' => true)));
+    }
 
-    $result['thumbnail'] = $this->getProperty('Thumbnail');
-    $result['fullImage'] = $this->getProperty('FullImage');
+    $this->addItemToArray($result, 'physDesc', $this->io->extentAndMedium);
+    $this->addItemToArray($result, 'dimensions', $this->io->physicalCharacteristics);
 
-    $result['description'] = '';
+    $this->addItemToArray($result, 'compCount', $this->getProperty('CompCount'));
+    $this->addItemToArray($result, 'componentNumber', $this->getProperty('ComponentNumber'));
 
     return $result;
   }
