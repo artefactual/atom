@@ -78,6 +78,7 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         return Object.keys(scope.activeNodes).length;
       };
 
+      // Files (digital objects)
       scope.hasFiles = function () {
         return typeof scope.files !== 'undefined' && scope.files.length > 0;
       };
@@ -155,6 +156,7 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         }
       };
 
+      // Legend
       scope.showLegend = false;
       scope.toggleLegend = function () {
         scope.showLegend = !scope.showLegend;
@@ -269,6 +271,7 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         // Fetch information from the server
         InformationObjectService.getById(id).then(function (response) {
           scope.currentNode.data = response.data;
+
           // Retrieve a list of files or digital objects
           InformationObjectService.getDigitalObjects(id).then(function (response) {
             if (response.data.length > 0) {
@@ -279,6 +282,13 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
           }, function () {
             scope.files = [];
           });
+
+          // Retreive TMS metadata for the component
+          if (InformationObjectService.isComponent(scope.currentNode.data.level_of_description_id)) {
+            InformationObjectService.getTms(id).then(function (response) {
+              scope.currentNode.data.tms = response.data;
+            });
+          }
         });
       };
 
