@@ -225,4 +225,14 @@ class QubitAPIAction extends sfAction
       }
     }
   }
+
+  protected function addItemToArray(&$array, $key, $value)
+  {
+    if (empty($value))
+    {
+      return;
+    }
+
+    $array[$key] = $value;
+  }
 }
