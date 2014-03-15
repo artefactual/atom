@@ -29,6 +29,7 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         InformationObjectService.getTree(scope.id)
           .then(function (response) {
             cb.init(response.data);
+            scope.rankDir = cb.renderer.rankDir;
           }, function (reason) {
             console.error('Error loading tree:', reason);
           });
@@ -301,6 +302,17 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         delete scope.currentNode;
         scope.activeNodes = {};
         cb.unselectAll();
+      };
+
+      scope.rankingDirections = {
+        'LR': 'Left-to-right',
+        'RL': 'Right-to-left',
+        'TB': 'Top-to-bottom',
+        'BT': 'Bottom-to-top'
+      };
+      scope.changeRankingDirection = function (rankDir) {
+        cb.changeRankingDirection(rankDir);
+        scope.rankDir = rankDir;
       };
     }
   };

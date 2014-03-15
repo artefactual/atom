@@ -35,6 +35,12 @@
     this.renderer.run(this.graph, this.groupSVG);
   };
 
+  ContextBrowser.prototype.changeRankingDirection = function (rankDir) {
+    this.renderer.rankDir = rankDir;
+    this.draw();
+    this.center();
+  };
+
   ContextBrowser.prototype.center = function () {
     this.zoom.reset();
   };

@@ -34,9 +34,19 @@
           </a>
         </li>
 
-        <!-- Expand all -->
+        <!-- Ranking direction -->
         <li class="dropdown">
-          <a href class="expand_all dropdown-toggle" data-toggle="dropdown">Collapse all</a>
+          <a href class="rankdir dropdown-toggle" data-toggle="dropdown">Ranking direction</a>
+          <ul class="dropdown-menu">
+            <li ng-repeat="(key, value) in rankingDirections" ng-class="{ active: rankDir == key }">
+              <a href ng-click="changeRankingDirection(key)">{{ value }}</a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Expand all -->
+        <li>
+          <a href class="expand_all" ng-click="changeRankingDirection('TB')">Collapse all</a>
         </li>
 
       </ul>

@@ -6,12 +6,14 @@
   var dagre = require('dagre');
 
   function Renderer () {
-    this.layout = dagre.layout().nodeSep(20).rankSep(80).rankDir('RL');
     this.edgeInterpolate = 'bundle';
     this.edgeTension = 0.95;
+    this.rankDir = 'RL';
   }
 
   Renderer.prototype.run = function (graph, svg) {
+    this.layout = dagre.layout().nodeSep(20).rankSep(80).rankDir(this.rankDir);
+
     // First copy the input graph so that it is not changed by the rendering
     // process.
     graph = copyAndInitGraph(graph);
