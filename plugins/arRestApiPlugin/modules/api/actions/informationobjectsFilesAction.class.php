@@ -21,11 +21,6 @@ class ApiInformationObjectsFilesAction extends QubitApiAction
 {
   protected function get($request)
   {
-    // Get a list of docs
-    // [type] = 'QubitInformationObject'
-    // [hasDigitalObject] = true
-    // [id] = $request->id AND ([id] in ancestors | if !excludeDescendants)
-
     // Create query objects
     $query = new \Elastica\Query;
     $queryBool = new \Elastica\Query\Bool;

@@ -33,8 +33,6 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
 
   protected function getResults()
   {
-    ProjectConfiguration::getActive()->loadHelpers('Qubit');
-
     // Create query objects
     $query = new \Elastica\Query;
     $queryBool = new \Elastica\Query\Bool;

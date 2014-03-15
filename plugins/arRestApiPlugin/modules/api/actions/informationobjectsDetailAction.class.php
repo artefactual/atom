@@ -33,8 +33,6 @@ class ApiInformationObjectsDetailAction extends QubitApiAction
     $doc = $result->getData();
     $data = array();
 
-    ProjectConfiguration::getActive()->loadHelpers('Qubit');
-
     $data['id'] = $result->getId();
     $data['title'] = get_search_i18n($doc, 'title');
     $data['level_of_description_id'] = (int)$doc['levelOfDescriptionId'];

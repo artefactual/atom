@@ -64,6 +64,9 @@ class QubitAPIAction extends sfAction
       $fnParamaters[] = json_decode($request->getContent());
     }
 
+    // Load Qubit helper before calling it
+    ProjectConfiguration::getActive()->loadHelpers('Qubit');
+
     $result = call_user_func_array($fnCallable, $fnParamaters);
 
     return $this->renderData($result);
