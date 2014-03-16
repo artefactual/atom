@@ -348,15 +348,15 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     // Mapping from TMS status to level of descriptions
     $statusMapping = array(
-      'Archival' => sfConfig::get('app_drmc_lod_archival_master_id'),
-      'Archival submaster' => sfConfig::get('app_drmc_lod_archival_master_id'),
-      'Artist master' => sfConfig::get('app_drmc_lod_artist_supplied_master_id'),
-      'Artist proof' => sfConfig::get('app_drmc_lod_artist_verified_proof_id'),
-      'Duplication master' => sfConfig::get('app_drmc_lod_component_id'),
-      'Exhibition copy' => sfConfig::get('app_drmc_lod_exhibition_format_id'),
-      'Miscellaneous other' => sfConfig::get('app_drmc_lod_miscellaneous_id'),
+      'Archival'               => sfConfig::get('app_drmc_lod_archival_master_id'),
+      'Archival submaster'     => sfConfig::get('app_drmc_lod_archival_master_id'),
+      'Artist master'          => sfConfig::get('app_drmc_lod_artist_supplied_master_id'),
+      'Artist proof'           => sfConfig::get('app_drmc_lod_artist_verified_proof_id'),
+      'Duplication master'     => sfConfig::get('app_drmc_lod_component_id'),
+      'Exhibition copy'        => sfConfig::get('app_drmc_lod_exhibition_format_id'),
+      'Miscellaneous other'    => sfConfig::get('app_drmc_lod_miscellaneous_id'),
       'Repository File Source' => sfConfig::get('app_drmc_lod_component_id'),
-      'Research copy' => sfConfig::get('app_drmc_lod_component_id')
+      'Research copy'          => sfConfig::get('app_drmc_lod_component_id')
     );
 
     // Obtain and create components from TMS
