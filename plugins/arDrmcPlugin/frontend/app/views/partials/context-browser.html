@@ -46,7 +46,7 @@
 
         <!-- Expand all -->
         <li>
-          <a href class="expand_all" ng-click="changeRankingDirection('TB')">Collapse all</a>
+          <a href class="expand_all">Collapse all</a>
         </li>
 
       </ul>
@@ -90,7 +90,7 @@
         <div class="cb-sidebar-top">
 
           <!-- Bulk edit -->
-          <div ng-if="hasNodesSelected()" class="cb-sidebar-basic-box cb-list-active-nodes">
+          <div ng-if="hasNodesSelected()" class="cb-sidebar-section cb-list-active-nodes">
             <h3>Bulk edit ({{ getNumberOfSelectedNodes() }} items)</h3>
             <div class="node-metadata">
               <p>
@@ -106,18 +106,59 @@
           </div>
 
           <!-- Single node detail -->
-          <div ng-if="hasNodeSelected()" class="cb-sidebar-basic-box">
+          <div ng-if="hasNodeSelected()" class="cb-sidebar-section">
             <h3 class="drmc-color-{{ currentNode.data.level }}">{{ currentNode.data.title }}</h3>
-            <!-- Dublin Core metadata -->
-            <div ng-if="currentNode.data.dc" class="node-metadata">
-              <h4>Dublin Core metadata</h4>
-              <ul>
-                <li ng-repeat="(key, value) in currentNode.data.dc">
-                  <strong class="label">{{ key }}</strong>
-                  <p>{{ renderDCValue(value) }}</p>
-                </li>
-              </ul>
+
+            <!-- TMS metadata -->
+            <div ng-if="currentNode.data.tms" class="cb-sidebar-subsection cb-sidebar-subsection-collapsible" ng-class="{ collapsed: tmsCollapsed }">
+              <h4><a href ng-click="tmsCollapsed = !tmsCollapsed">TMS metadata</a></h4>
+              <div ng-show="!tmsCollapsed" class="cb-sidebar-subsection-body cb-sidebar-kv-list">
+                <ul>
+                  <li ng-repeat="(key, value) in currentNode.data.tms">
+                    <strong class="key">{{ key }}</strong>
+                    <p class="value">{{ renderMetadataValue(value) }}</p>
+                  </li>
+                </ul>
+              </div>
             </div>
+
+            <!-- Dublin Core metadata -->
+            <div ng-if="currentNode.data.dc" class="cb-sidebar-subsection cb-sidebar-subsection-collapsible" ng-class="{ collapsed: dcCollapsed }">
+              <h4><a href ng-click="dcCollapsed = !dcCollapsed">Dublin Core metadata</a></h4>
+              <div ng-show="!dcCollapsed" class="cb-sidebar-subsection-body cb-sidebar-kv-list">
+                <ul>
+                  <li ng-repeat="(key, value) in currentNode.data.dc">
+                    <strong class="key">{{ key }}</strong>
+                    <p class="value">{{ renderMetadataValue(value) }}</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- File list -->
+            <div ng-if="hasFiles()" class="cb-sidebar-subsection cb-file-list cb-sidebar-subsection-collapsible" ng-class="{ collapsed: filesCollapsed }">
+              <h4><a href ng-click="filesCollapsed = !filesCollapsed">Files ({{ files.length }} items)</a></h4>
+              <div ng-show="!filesCollapsed" class="cb-sidebar-subsection-body cb-sidebar-table">
+                <table class="table">
+                  <tbody>
+                    <tr ng-repeat="file in files" ng-click="selectFile(file, $event)" ng-class="{ selected: file.selected == true }">
+                      <td class="name">
+                        <a href ng-click="openViewer(file)">{{ file.filename }}</a>
+                      </td>
+                      <td class="size">{{ file.size | UnitFilter:2 }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="cb-file-options" ng-show="hasSelectedFiles()">
+                  <ul class="nav">
+                    <li><a class="btn" href ng-click="openViewer(files)">View all</a></li>
+                    <li><a class="btn" href ng-click="cancelFileSelection()">Cancel</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Actions -->
             <div class="node-actions">
               <a href class="btn btn-small" ng-click="addChildNode(currentNode.id)"><i class="icon-plus"></i><span>Add child</span></a>
               <a href class="btn btn-small" ng-click="editNode(currentNode.id)"><i class="icon-edit"></i><span>Edit node</span></a>
@@ -125,32 +166,10 @@
               <a href class="btn btn-small" ng-click="moveNodes(currentNode.id)"><i class="icon-move"></i><span>Move</span></a>
               <a href class="btn btn-small btn-delete" ng-click="deleteNodes(currentNode.id)"><i class="icon-remove"></i><span>Delete</span></a>
             </div>
-          </div>
 
-          <!-- File list -->
-          <div ng-if="hasNodeSelected() && hasFiles()" class="cb-file-list">
-            <h3>{{ files.length }} digital objects</h3>
-            <table class="table">
-              <tbody>
-                <tr ng-repeat="file in files" ng-click="selectFile(file, $event)" ng-class="{ selected: file.selected == true }">
-                  <td class="name">
-                    <a href ng-click="openViewer(file)">{{ file.filename }}</a>
-                  </td>
-                  <td class="size">{{ file.size | UnitFilter:2 }}</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="cb-file-options" ng-show="hasSelectedFiles()">
-              <ul class="nav">
-                <li><a class="btn" href ng-click="openViewer(files)">View all</a></li>
-                <li><a class="btn" href ng-click="cancelFileSelection()">Cancel</a></li>
-              </ul>
-            </div>
           </div>
 
         </div>
-
-        <!-- .cb-sidebar-bottom UNUSED -->
 
       </div>
 

@@ -103,6 +103,10 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         }
       };
 
+      scope.tmsCollapsed = false;
+      scope.dcCollapsed = true;
+      scope.filesCollapsed = true;
+
       // Maximize/minimize. Center the graph within the loop.
       scope.isMaximized = false;
       scope.toggleMaximizedMode = function () {
@@ -114,7 +118,7 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         }
       });
 
-      scope.renderDCValue = function (value) {
+      scope.renderMetadataValue = function (value) {
         if (angular.isArray(value)) {
           return value.join(', ');
         } else if (angular.isString(value)) {

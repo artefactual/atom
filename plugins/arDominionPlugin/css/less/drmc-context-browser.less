@@ -37,8 +37,6 @@
   flex: 1;
 }
 
-// TODO: remove .cb-sidebar-top or give .cb-sidebar-bottom some use
-
 .cb-fullscreen,
 .cb-maximized {
   margin-bottom: 0;
@@ -57,10 +55,9 @@
 
 // Context browser contents
 
-.cb-sidebar-basic-box {
-  border: 1px solid #999;
-  margin: 10px;
-  border-radius: 4px;
+.cb-sidebar-section {
+  // Inner boxes style
+  // border: 1px solid #999; margin: 10px; border-radius: 4px;
   background-color: @white;
   position: relative;
   overflow: hidden;
@@ -85,14 +82,6 @@
     &.node-level-description:before        { background-color: @momaNodeDescription; }
     &.node-level-component:before          { background-color: @momaNodeComponent; }
   }
-  .node-metadata {
-    padding-left: 10px;
-    padding-right: 10px;
-    p {
-      font-size: 11px;
-      line-height: 1.4em;
-    }
-  }
   .node-actions {
     padding: 8px;
     border-top: 1px solid #ccc;
@@ -108,6 +97,95 @@
       span {
         display: none;
       }
+    }
+  }
+}
+
+.cb-sidebar-subsection-collapsible {
+  border-top: 1px solid @grayLighter;
+  h4 {
+    margin: 0;
+    padding: 0 6px;
+    line-height: 30px;
+    position: relative;
+    a {
+      display: block;
+      color: @grayDark;
+      position: relative;
+    }
+  }
+  h4:before {
+    position: absolute;
+    right: 12px;
+    top: 0px;
+    .fa-icon-set(@gray);
+    content: "\f102";
+  }
+  &.collapsed h4:before {
+    content: "\f103";
+  }
+}
+
+.cb-sidebar-subsection-body {
+  background-image: url('../../images/separator.png');
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
+.cb-sidebar-kv-list {
+  padding-bottom: 10px;
+  ul {
+  }
+  li {
+    padding: 4px 8px;
+  }
+  .key {
+    font-weight: normal;
+    color: @grayLight;
+    font-size: 11px;
+  }
+  .value {
+    margin: 0;
+    color: @grayDark;
+  }
+}
+
+.cb-sidebar-table {
+  table {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    border-radius: 0px;
+  }
+  tbody {
+    font-size: 11px;
+  }
+  tr {
+    &:hover td {
+      background-color: #eee;
+    }
+    &.selected td {
+      background-color: #faeabb;
+    }
+  }
+  td {
+    .user-select(none); // As we are using event.shiftKey for selection
+    padding: 2px 4px;
+    &.name {
+      text-align: left;
+    }
+    &.size {
+      text-align: center;
+      width: 50px;
+      border-left: 1px solid #ddd;
+    }
+  }
+  .cb-file-options {
+    border-bottom: 1px solid #ddd;
+    padding: 6px;
+    li {
+      display: inline-block;
     }
   }
 }
@@ -169,52 +247,6 @@
     }
   }
 
-}
-
-.cb-file-list {
-  h3 {
-    margin: 0;
-    font-size: 14px;
-    line-height: 26px;
-    padding-left: 14px;
-  }
-  table {
-    margin: 0;
-    border: 0;
-    border-top: 1px solid #bbb;
-    border-bottom: 1px solid #bbb;
-    border-radius: 0px;
-  }
-  tbody {
-    font-size: 11px;
-  }
-  tr {
-    &:hover td {
-      background-color: #eee;
-    }
-    &.selected td {
-      background-color: #faeabb;
-    }
-  }
-  td {
-    .user-select(none); // As we are using event.shiftKey for selection
-    padding: 2px 4px;
-    &.name {
-      text-align: left;
-    }
-    &.size {
-      text-align: center;
-      width: 50px;
-      border-left: 1px solid #ddd;
-    }
-  }
-  .cb-file-options {
-    border-bottom: 1px solid #ddd;
-    padding: 6px;
-    li {
-      display: inline-block;
-    }
-  }
 }
 
 // Context browser SVG
