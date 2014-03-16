@@ -64,7 +64,8 @@ class ApiInformationObjectsFilesAction extends QubitApiAction
         'id' => $hit->getId(),
         'slug' => $doc['slug'],
         'mediaTypeId' => $doc['digitalObject']['mediaTypeId'],
-        'thumbnailPath' => $doc['digitalObject']['thumbnailPath']
+        'thumbnailPath' => $doc['digitalObject']['thumbnailPath'],
+        'filename' => get_search_i18n($doc, 'title')
       );
     }
 
