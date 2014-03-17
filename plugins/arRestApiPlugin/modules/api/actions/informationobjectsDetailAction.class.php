@@ -78,13 +78,6 @@ class ApiInformationObjectsDetailAction extends QubitApiAction
       throw new QubitApi404Exception('Information object not found');
     }
 
-    $criteria = new Criteria;
-    $criteria->add(QubitInformationObject::ID, $this->request->id);
-    if (isset($this->request->level_id) && true === ctype_digit($this->request->level_id))
-    {
-      $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, $this->request->level_id);
-    }
-
     if (null === $io = QubitInformationObject::getById($this->request->id))
     {
       throw new QubitApi404Exception('Information object not found');
