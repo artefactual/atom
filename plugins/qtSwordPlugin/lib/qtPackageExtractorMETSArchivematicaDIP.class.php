@@ -332,7 +332,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         break;
 
       default:
-
         throw new sfException('Parameter not recognized '.$this->resource);
     }
 
@@ -864,7 +863,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           {
             // Level of description from status attribute
             case 'Attributes':
-
               foreach (json_decode($value, true) as $item)
               {
                 if (isset($item['Status']) && 0 < strlen($item['Status']) && isset($statusMapping[$item['Status']]))
@@ -929,7 +927,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
               break;
 
             case 'TextEntries':
-
               $content = array();
               foreach (json_decode($value, true) as $textEntry)
               {
