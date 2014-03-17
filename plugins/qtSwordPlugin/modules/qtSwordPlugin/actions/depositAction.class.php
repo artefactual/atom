@@ -26,15 +26,11 @@
 
 class qtSwordPluginDepositAction extends sfAction
 {
+  // MoMA
+  // $request->slug = "tr:SLUG" || "ar:TMS_OBJECT_ID"
+
   public function execute($request)
   {
-    if (!isset($this->getRoute()->resource))
-    {
-      return $this->generateResponse(404, 'error/ErrorBadRequest', array('summary' => $this->context->i18n->__('Not found')));
-    }
-
-    $this->resource = $this->getRoute()->resource;
-
     $this->user = $request->getAttribute('user');
 
     $this->package = array();
@@ -89,37 +85,36 @@ class qtSwordPluginDepositAction extends sfAction
         $this->package['checksum_md5'] = $request->getHttpHeader('Content-MD5');
       }
 
-      $this->informationObject = $this->resource;
-
       try
       {
         // Put the job in the background if the queue support is enabled
         if (sfConfig::get('app_use_job_scheduler', true))
         {
-          $data = $this->package + array('information_object_id' => $this->informationObject->id);
+          $data = $this->package + array('resource' => $request->slug);
 
           $client = new Net_Gearman_Client('localhost:4730');
           $handle = $client->qtSwordPluginWorker($data);
 
           // Job accepted!
+          $location = '/TODO'; # $this->context->routing->generate(null, array($this->informationObject, 'module' => 'informationobject'))
           return $this->generateResponse(202, 'deposit',
             array('headers' =>
-              array('Location' =>
-                $this->context->routing->generate(null, array($this->informationObject, 'module' => 'informationobject')))));
+              array('Location' => $location )));
+
         }
         // Otherwise, run it sinchronously (not a good idea)
         else
         {
           $extractor = qtPackageExtractorFactory::build($this->package['format'],
-            $this->package + array('resource' => $this->informationObject));
+            $this->package + array('resource' => $request->slug));
 
           $extractor->run();
 
           // Resource created!
+          $location = '/TODO'; # $this->context->routing->generate(null, array($this->informationObject, 'module' => 'informationobject'))
           return $this->generateResponse(201, 'deposit',
             array('headers' =>
-              array('Location' =>
-                $this->context->routing->generate(null, array($this->informationObject, 'module' => 'informationobject')))));
+              array('Location' => $location)));
         }
       }
       catch (qtPackageExtractorChecksumException $e)

@@ -50,11 +50,6 @@ EOF;
 
     if ($options['init'])
     {
-      $io = new QubitInformationObject;
-      $io->title = 'Parent Hack';
-      $io->parentId = QubitInformationObject::ROOT_ID;
-      $io->save();
-
       $this->addLevelsOfDescriptions();
       $this->addTaxonomies();
       $this->addNoteTypes();

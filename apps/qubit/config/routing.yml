@@ -59,12 +59,15 @@ oai:
     module: arOaiPlugin
     action: index
 
-sword/action/slug:
-  url: /sword/:action/:slug
-  class: QubitResourceRoute
+# Hack for MoMA
+# Archivematica is sending us either:
+# - "tr:SLUG" where SLUG is a slug of an existing technology record
+# - "ar:TMS_OBJECT_ID" where TMS_OBJECT_ID is the Id of an existing TMS object
+sword/deposit/slug:
+  url: /sword/deposit/:slug
   param:
     module: qtSwordPlugin
-    throw404: false
+    action: deposit
 
 sword:
   url: /sword/:action

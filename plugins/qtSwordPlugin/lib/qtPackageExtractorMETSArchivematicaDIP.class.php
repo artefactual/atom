@@ -314,10 +314,40 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - aipUUID: '.$aipUUID);
 
-    $publicationStatus = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
+    // Check Archivematica MoMA prefix
+    $momaPrefix = substr($this->resource, 0, 3);
+    $momaSuffix = substr($this->resource, 3);
+    switch ($momaPrefix)
+    {
+      case 'tr:':
+        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Technology record');
+        $this->processTechnologyRecord($momaSuffix);
 
+        break;
+
+      case 'ar:':
+        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Artwork record');
+        $this->processArtworkRecord($momaSuffix);
+
+        break;
+
+      default:
+
+        throw new sfException('Parameter not recognized '.$this->resource);
+    }
+
+    parent::process();
+  }
+
+  protected function processTechnologyRecord($parentSlug)
+  {
+    throw new sfException('Technology record support not ready yet!');
+  }
+
+  protected function processArtworkRecord($tmsObjectId)
+  {
     // Ignore $this->resource and create a new top-level from TMS
-    list($tmsObject, $tmsComponentsIds) = $this->getTombstoneObjects();
+    list($tmsObject, $tmsComponentsIds) = $this->getTombstoneObjects($tmsObjectId);
 
     // Create intermediate level "Components"
     $components = new QubitInformationObject;
@@ -325,26 +355,26 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     $components->levelOfDescriptionId = sfConfig::get('app_drmc_lod_description_id');
     $components->setPublicationStatusByName('Published');
     $components->title = 'Components';
-
-    // Add main object data in METS file to the intermediate level
-    if (null != ($dmdSec = $this->getMainDmdSec()))
-    {
-      list($components, $creation) = $this->processDmdSec($dmdSec, $components, $options = array('ignoreTitle' => true));
-    }
-
     $components->save();
 
+    // Create intermediate level "AIP"
     $aipIo = new QubitInformationObject;
     $aipIo->parentId = $components->id;
     $aipIo->levelOfDescriptionId = sfConfig::get('app_drmc_lod_aip_id');
     $aipIo->setPublicationStatusByName('Published');
     $aipIo->title = 'AIP';
-    $aipIo->save();
 
+    // Add main object data in METS file to the AIP intermediate level
+    if (null != ($dmdSec = $this->getMainDmdSec()))
+    {
+      list($aipIo, $creation) = $this->processDmdSec($dmdSec, $aipIo, $options = array('ignoreTitle' => false));
+    }
     if (count($creation))
     {
-      $this->addCreationEvent($components, $creation);
+      $this->addCreationEvent($aipIo, $creation);
     }
+
+    $aipIo->save();
 
     // Mapping from TMS status to level of descriptions
     $statusMapping = array(
@@ -483,8 +513,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     // Add related digital objects to the AIP in ES
     $aip->save();
-
-    parent::process();
   }
 
   protected function getStructMapFileToDmdSecMapping()
@@ -628,7 +656,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     }
   }
 
-  protected function getTombstoneObjects()
+  protected function getTombstoneObjects($tmsObjectId)
   {
     // Create top-level from TMS
     $tmsObject = new QubitInformationObject;
@@ -639,6 +667,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     $tmsComponentsIds = $creation = array();
 
     // Get TMS object ID from METS file
+    /*
     $this->document->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
     $this->document->registerXPathNamespace('f', 'http://hul.harvard.edu/ois/xml/ns/fits/fits_output');
 
@@ -656,122 +685,134 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         }
       }
     }
+    */
 
     // Request object from TMS API
-    if (isset($tmsId))
+    $curl = curl_init();
+
+    $url = sfConfig::get('app_drmc_tms_url').'/GetTombstoneDataRest/ObjectID/'.$tmsObjectId;
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_FAILONERROR => true,
+        CURLOPT_URL => $url));
+
+    if (false === $resp = curl_exec($curl))
     {
-      $curl = curl_init();
+      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.curl_error($curl));
+      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - URL: '.$url);
+    }
+    else
+    {
+      $data = json_decode($resp, true);
+      $data = $data['GetTombstoneDataRestIdResult'];
 
-      curl_setopt_array($curl, array(
-          CURLOPT_RETURNTRANSFER => 1,
-          CURLOPT_FAILONERROR => true,
-          CURLOPT_URL => sfConfig::get('app_drmc_tms_url').'/GetTombstoneDataRest/ObjectID/'.$tmsId));
-
-      if (false === $resp = curl_exec($curl))
+      foreach ($data as $name => $value)
       {
-        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.curl_error($curl));
-      }
-      else
-      {
-        $data = json_decode($resp, true);
-        $data = $data['GetTombstoneDataRestIdResult'];
-
-        foreach ($data as $name => $value)
+        if (isset($value) && 0 < strlen($value))
         {
-          if (isset($value) && 0 < strlen($value))
+          switch ($name)
           {
-            switch ($name)
-            {
-              // Info. object fields
-              case 'Dimensions':
-                $tmsObject->physicalCharacteristics = $value;
-                break;
-              case 'Medium':
-                $tmsObject->extentAndMedium = $value;
-                break;
-              case 'ObjectID':
-                $tmsObject->identifier = $value;
-                break;
-              case 'Title':
-                $tmsObject->title = $value;
-                break;
+            // Info. object fields
+            case 'Dimensions':
+              $tmsObject->physicalCharacteristics = $value;
 
-              // Properties
-              case 'ClassificationID':
-              case 'ConstituentID':
-              case 'DepartmentID':
-              case 'ImageID':
-              case 'ObjectNumber':
-              case 'ObjectStatusID':
-              case 'SortNumber':
-              case 'Thumbnail':
-                $tmsObject->addProperty($name, $value);
-                break;
+              break;
 
-              // Object/term relations
-              case 'Classification':
-              case 'Department':
+            case 'Medium':
+              $tmsObject->extentAndMedium = $value;
 
-                $taxonomyId = sfConfig::get('app_drmc_taxonomy_'.strtolower($name).'s_id');
-                $term = QubitFlatfileImport::createOrFetchTerm($taxonomyId, $value);
+              break;
 
-                $newTermRelation = new QubitObjectTermRelation;
-                $newTermRelation->setTermId($term->id);
+            case 'ObjectID':
+              $tmsObject->identifier = $value;
 
-                $tmsObject->objectTermRelationsRelatedByobjectId[] = $newTermRelation;
+              break;
 
-                break;
+            case 'Title':
+              $tmsObject->title = $value;
 
-              // Creation event
-              case 'Dated':
-                $creation['date'] = $value;
-                break;
-              case 'DisplayName':
-                $creation['actorName'] = $value;
-                break;
-              case 'DisplayDate':
-                $creation['actorDate'] = $value;
-                break;
+              break;
 
-              // Digital object
-              case 'FullImage':
+            // Properties
+            case 'ClassificationID':
+            case 'ConstituentID':
+            case 'DepartmentID':
+            case 'ImageID':
+            case 'ObjectNumber':
+            case 'ObjectStatusID':
+            case 'SortNumber':
+            case 'Thumbnail':
+              $tmsObject->addProperty($name, $value);
 
-                $errors = array();
-                $tmsObject->importDigitalObjectFromUri($value, $errors);
+              break;
 
-                foreach ($errors as $error)
-                {
-                  sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - '.$error);
-                }
+            // Object/term relations
+            case 'Classification':
+            case 'Department':
+              $taxonomyId = sfConfig::get('app_drmc_taxonomy_'.strtolower($name).'s_id');
+              $term = QubitFlatfileImport::createOrFetchTerm($taxonomyId, $value);
 
-                // Add property
-                $tmsObject->addProperty($name, $value);
+              $newTermRelation = new QubitObjectTermRelation;
+              $newTermRelation->setTermId($term->id);
 
-                break;
+              $tmsObject->objectTermRelationsRelatedByobjectId[] = $newTermRelation;
 
-              // Child components
-              case 'Components':
+              break;
 
-                foreach (json_decode($value, true) as $item)
-                {
-                  $tmsComponentsIds[] = $item['ComponentID'];
-                }
+            // Creation event
+            case 'Dated':
+              $creation['date'] = $value;
 
-                break;
+              break;
 
-              // Log error
-              case 'ErrorMsg':
-                sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.$value);
-                break;
+            case 'DisplayName':
+              $creation['actorName'] = $value;
 
-              // Nothing yet
-              case 'AlphaSort':
-              case 'CreditLine':
-              case 'FirstName':
-              case 'LastName':
-              case 'Prints':
-                break;
-            }
+              break;
+
+            case 'DisplayDate':
+              $creation['actorDate'] = $value;
+
+              break;
+
+            // Digital object
+            case 'FullImage':
+              $errors = array();
+              $tmsObject->importDigitalObjectFromUri($value, $errors);
+
+              foreach ($errors as $error)
+              {
+                sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - '.$error);
+              }
+
+              // Add property
+              $tmsObject->addProperty($name, $value);
+
+              break;
+
+            // Child components
+            case 'Components':
+              foreach (json_decode($value, true) as $item)
+              {
+                $tmsComponentsIds[] = $item['ComponentID'];
+              }
+
+              break;
+
+            // Log error
+            case 'ErrorMsg':
+              sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.$value);
+
+              break;
+
+            // Nothing yet
+            case 'AlphaSort':
+            case 'CreditLine':
+            case 'FirstName':
+            case 'LastName':
+            case 'Prints':
+
+              break;
           }
         }
       }
