@@ -105,7 +105,7 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
 
       scope.tmsCollapsed = false;
       scope.dcCollapsed = true;
-      scope.filesCollapsed = true;
+      scope.filesCollapsed = false;
 
       // Maximize/minimize. Center the graph within the loop.
       scope.isMaximized = false;
