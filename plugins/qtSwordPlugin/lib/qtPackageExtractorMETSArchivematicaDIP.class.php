@@ -255,9 +255,9 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     ProjectConfiguration::getActive()->loadHelpers('Qubit');
 
     // AIP UUID
-    $aipUUID = $this->getUUID($this->filename);
+    $this->aipUUID = $this->getUUID($this->filename);
 
-    if (null !== QubitAip::getByUuid($aipUUID))
+    if (null !== QubitAip::getByUuid($this->aipUUID))
     {
       throw new sfException('There is already a AIP with the given UUID');
     }
@@ -277,7 +277,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           $dirPath = sfConfig::get('sf_web_dir').
             DIRECTORY_SEPARATOR.'uploads'.
             DIRECTORY_SEPARATOR.'aips'.
-            DIRECTORY_SEPARATOR.$aipUUID.
+            DIRECTORY_SEPARATOR.$this->aipUUID.
             DIRECTORY_SEPARATOR;
 
           // Create the target directory
@@ -311,8 +311,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     }
 
     $this->document->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
-
-    sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - aipUUID: '.$aipUUID);
 
     // Check Archivematica MoMA prefix
     $momaPrefix = substr($this->resource, 0, 3);
@@ -399,7 +397,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     // Store AIP data
     $aip = new QubitAip;
-    $aip->uuid = $aipUUID;
+    $aip->uuid = $this->aipUUID;
     $aip->filename = substr($filename, 0, -37);
     $aip->digitalObjectCount = count($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects'));
     $aip->partOf = $tmsObject->id;
@@ -494,7 +492,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $property = new QubitProperty;
       $property->objectId = $child->id;
       $property->name = 'aipUUID';
-      $property->value = $aipUUID;
+      $property->value = $this->aipUUID;
       $property->save();
 
       // Create relation with AIP
