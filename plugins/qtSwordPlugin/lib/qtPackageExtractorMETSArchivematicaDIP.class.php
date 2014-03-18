@@ -338,7 +338,35 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
   protected function processTechnologyRecord($parentSlug)
   {
-    throw new sfException('Technology record support not ready yet!');
+    $criteria = new Criteria;
+    $criteria->add(QubitSlug::SLUG, $parentSlug);
+    $criteria->addJoin(QubitSlug::OBJECT_ID, QubitInformationObject::ID);
+    if (null === $resource = QubitInformationObject::getOne($criteria))
+    {
+      throw new sfException('Technology record with the given slug cannot be found');
+    }
+
+    if ($resource->levelOfDescriptionId !== sfConfig::get('app_drmc_lod_supporting_technology_record_id'))
+    {
+      throw new sfException('The given slug doesn\'t belong to a technology record');
+    }
+
+    list($aipIo, $aip) = $this->addAip($resource, $resource);
+
+    $this->addDigitalObjects($resource, $aip);
+
+    // Create relation between AIP and intermediate level
+    // $relation = new QubitRelation;
+    // $relation->object = $components;
+    // $relation->subject = $aip;
+    // $relation->typeId = QubitTerm::AIP_RELATION_ID;
+    // $relation->save();
+
+    // // Save creation event and AIP data in ES
+    // QubitSearch::getInstance()->update($components);
+
+    // // Add related digital objects to the AIP in ES
+    // $aip->save();
   }
 
   protected function processArtworkRecord($tmsObjectId)
@@ -353,25 +381,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     $components->setPublicationStatusByName('Published');
     $components->title = 'Components';
     $components->save();
-
-    // Create intermediate level "AIP"
-    $aipIo = new QubitInformationObject;
-    $aipIo->parentId = $components->id;
-    $aipIo->levelOfDescriptionId = sfConfig::get('app_drmc_lod_aip_id');
-    $aipIo->setPublicationStatusByName('Published');
-    $aipIo->title = 'AIP';
-
-    // Add main object data in METS file to the AIP intermediate level
-    if (null != ($dmdSec = $this->getMainDmdSec()))
-    {
-      list($aipIo, $creation) = $this->processDmdSec($dmdSec, $aipIo, $options = array('ignoreTitle' => false));
-    }
-    if (count($creation))
-    {
-      $this->addCreationEvent($aipIo, $creation);
-    }
-
-    $aipIo->save();
 
     // Mapping from TMS status to level of descriptions
     $statusMapping = array(
@@ -392,6 +401,52 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $this->createTombstoneComponent($tmsId, $components->id, $statusMapping);
     }
 
+    list($aipIo, $aip) = $this->addAip($components, $tmsObject);
+
+    $this->addDigitalObjects($aipIo, $aip);
+
+    // Create relation between AIP and intermediate level
+    $relation = new QubitRelation;
+    $relation->object = $components;
+    $relation->subject = $aip;
+    $relation->typeId = QubitTerm::AIP_RELATION_ID;
+    $relation->save();
+
+    // Save creation event and AIP data in ES
+    QubitSearch::getInstance()->update($components);
+
+    // Add related digital objects to the AIP in ES
+    $aip->save();
+  }
+
+  /*
+   * @param QubitInformationObject $informationObjectParent  Parent of the new AIP information object
+   * @param QubitInformationObject $partOfObject             New AIP will be link to this object using partOf
+   * @return array Two elements, new AIP information object and new AIP
+   */
+  protected function addAip($informationObjectParent, $partOfObject)
+  {
+    // Create intermediate information object "AIP"
+    $aipIo = new QubitInformationObject;
+    $aipIo->parentId = $informationObjectParent->id;
+    $aipIo->levelOfDescriptionId = sfConfig::get('app_drmc_lod_aip_id');
+    $aipIo->setPublicationStatusByName('Published');
+    $aipIo->title = 'AIP';
+
+    // Add main object data in METS file to the AIP intermediate level
+    if (null != ($dmdSec = $this->getMainDmdSec()))
+    {
+      list($aipIo, $creation) = $this->processDmdSec($dmdSec, $aipIo, $options = array('ignoreTitle' => false));
+    }
+    if (count($creation))
+    {
+      $this->addCreationEvent($aipIo, $creation);
+    }
+
+    $aipIo->save();
+
+    sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - $aipIo created '.$aipIo->id);
+
     $parts = pathinfo($this->filename);
     $filename = $parts['basename'];
 
@@ -400,7 +455,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     $aip->uuid = $this->aipUUID;
     $aip->filename = substr($filename, 0, -37);
     $aip->digitalObjectCount = count($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects'));
-    $aip->partOf = $tmsObject->id;
+    $aip->partOf = $partOfObject->id;
 
     // Get size on disk
     $totalSize = 0;
@@ -424,16 +479,13 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     $aip->save();
 
-    // Create relation between AIP and intermediate level
-    $relation = new QubitRelation;
-    $relation->object = $components;
-    $relation->subject = $aip;
-    $relation->typeId = QubitTerm::AIP_RELATION_ID;
-    $relation->save();
+    sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - $aip created '.$aip->id);
 
-    // Save creation event and AIP data in ES
-    QubitSearch::getInstance()->update($components);
+    return array($aipIo, $aip);
+  }
 
+  protected function addDigitalObjects($aipIo, $aip)
+  {
     // Create digital components from files in /objects
     $mapping = $this->getStructMapFileToDmdSecMapping();
 
@@ -468,7 +520,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $digitalObject->assets[] = new QubitAsset($item);
       $digitalObject->usageId = QubitTerm::MASTER_ID;
       $child->digitalObjects[] = $digitalObject;
-
       $child->save();
 
       // Process metatadata from METS file
@@ -483,17 +534,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       }
 
       // Storage UUIDs
-      $property = new QubitProperty;
-      $property->objectId = $child->id;
-      $property->name = 'objectUUID';
-      $property->value = $objectUUID;
-      $property->save();
-
-      $property = new QubitProperty;
-      $property->objectId = $child->id;
-      $property->name = 'aipUUID';
-      $property->value = $this->aipUUID;
-      $property->save();
+      QubitProperty::addUnique($child->id, 'objectUUID', $objectUUID);
+      QubitProperty::addUnique($child->id, 'aipUUID', $this->aipUUID);
 
       // Create relation with AIP
       $relation = new QubitRelation;
@@ -507,9 +549,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       // is obtained in arElasticSearchInformationObjectPdo
       QubitSearch::getInstance()->update($child);
     }
-
-    // Add related digital objects to the AIP in ES
-    $aip->save();
   }
 
   protected function getStructMapFileToDmdSecMapping()

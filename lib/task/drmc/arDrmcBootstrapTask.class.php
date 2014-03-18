@@ -52,7 +52,7 @@ EOF;
     {
       $this->addLevelsOfDescriptions();
       $this->addTaxonomies();
-      $this->addNoteTypes();
+      $this->addTerms();
     }
 
     if ($options['add-dummy-data'])
@@ -137,20 +137,38 @@ EOF;
     }
   }
 
-  protected function addNoteTypes()
+  protected function addTerms()
   {
-    $noteTypes = array(
-      'InstallComments',
-      'PrepComments',
-      'StorageComments');
+    $terms = array(
+      array(
+        'parentId' => QubitTerm::ROOT_ID,
+        'taxonomyId' => QubitTaxonomy::NOTE_TYPE_ID,
+        'name' => 'InstallComments'
+      ),
+      array(
+        'parentId' => QubitTerm::ROOT_ID,
+        'taxonomyId' => QubitTaxonomy::NOTE_TYPE_ID,
+        'name' => 'PrepComments'
+      ),
+      array(
+        'parentId' => QubitTerm::ROOT_ID,
+        'taxonomyId' => QubitTaxonomy::NOTE_TYPE_ID,
+        'name' => 'StorageComments'
+      ),
+      array(
+        'parentId' => QubitTerm::ROOT_ID,
+        'taxonomyId' => QubitTaxonomy::RELATION_TYPE_ID,
+        'name' => 'Supporting technology relation types'
+      )
+    );
 
-    foreach ($noteTypes as $name)
+    foreach ($terms as $item)
     {
       $term = new QubitTerm;
-      $term->parentId = QubitTerm::ROOT_ID;
-      $term->taxonomyId = QubitTaxonomy::NOTE_TYPE_ID;
-      $term->name = $name;
-      $term->culture = 'en';
+      $term->parentId = $item['parentId'];
+      $term->taxonomyId = $item['taxonomyId'];
+      $term->sourceCulture = 'en';
+      $term->setName($item['name'], array('culture' => 'en'));
       $term->save();
     }
   }
@@ -188,61 +206,59 @@ EOF;
   {
     $json = <<<EOT
 {
-    "id": 1,
     "level": "Artwork record",
     "title": "Play Dead; Real Time",
     "children": [
         {
             "children": [
                 {
-                    "id": 3,
                     "level": "AIP",
                     "title": "Installation documentation",
                     "children": [
                         {
-                            "id": 900,
                             "level": "Digital object",
                             "title": "Picture I",
                             "filename": "pic-1.png"
                         },
                         {
-                            "id": 901,
                             "level": "Digital object",
                             "title": "Picture II",
                             "filename": "pic-2.png"
                         },
                         {
-                            "id": 902,
                             "level": "Digital object",
                             "title": "Picture III",
-                            "filename": "pic-3.png"
+                            "filename": "pic-3.png",
+                            "supporting_technologies": [
+                                "Xvid",
+                                "MP3"
+                            ]
                         }
                     ]
                 },
                 {
                     "children": [
                         {
-                            "id": 5,
                             "level": "Exhibition format",
-                            "title": "1098.2005.a.AV"
+                            "title": "1098.2005.a.AV",
+                            "supporting_technologies": [
+                                "Xvid",
+                                "MP3"
+                            ]
                         },
                         {
-                            "id": 6,
                             "level": "Exhibition format",
                             "title": "1098.2005.b.AV"
                         },
                         {
-                            "id": 7,
                             "level": "Exhibition format",
                             "title": "1098.2005.c.AV"
                         }
                     ],
-                    "id": 4,
                     "level": "Description",
                     "title": "Exhibition files"
                 }
             ],
-            "id": 2,
             "level": "Description",
             "title": "MoMA 2012"
         },
@@ -251,78 +267,67 @@ EOF;
                 {
                     "children": [
                         {
-                            "id": 10,
                             "level": "Artist verified proof",
                             "title": "1098.2005.a.x2"
                         },
                         {
-                            "id": 11,
                             "level": "Artist verified proof",
-                            "title": "1098.2005.a.x3"
+                            "title": "1098.2005.a.x3",
+                            "supporting_technologies": [
+                                "JPEG 2000"
+                            ]
                         }
                     ],
-                    "id": 9,
                     "level": "Artist supplied master",
                     "title": "1098.2005.a.x1"
                 },
                 {
                     "children": [
                         {
-                            "id": 13,
                             "level": "Artist verified proof",
                             "title": "1098.2005.b.x2"
                         },
                         {
-                            "id": 14,
                             "level": "Artist verified proof",
                             "title": "1098.2005.b.x3"
                         }
                     ],
-                    "id": 12,
                     "level": "Artist supplied master",
                     "title": "1098.2005.b.x1"
                 },
                 {
                     "children": [
                         {
-                            "id": 16,
                             "level": "Artist verified proof",
                             "title": "1098.2005.c.x2"
                         },
                         {
-                            "id": 17,
                             "level": "Artist verified proof",
                             "title": "1098.2005.c.x3"
                         }
                     ],
-                    "id": 15,
                     "level": "Artist supplied master",
                     "title": "1098.2005.c.x1"
                 }
             ],
-            "id": 8,
             "level": "Description",
             "title": "Supplied by artist"
         },
         {
             "children": [
                 {
-                    "id": 31,
                     "level": "Archival master",
                     "title": "1098.2005.a.x4"
                 },
                 {
-                    "id": 32,
                     "level": "Archival master",
                     "title": "1098.2005.b.x4"
                 },
                 {
-                    "id": 33,
                     "level": "Archival master",
                     "title": "1098.2005.c.x4"
                 }
             ],
-            "id": 30,
             "level": "Description",
             "title": "Digital archival masters"
         }
@@ -340,8 +345,6 @@ EOT
         {
           $parentId = QubitInformationObject::ROOT_ID;
         }
-
-        var_dump($item['title']);
 
         $io = new QubitInformationObject;
         $io->setLevelOfDescriptionByName($item['level']);
@@ -361,6 +364,35 @@ EOT
         }
 
         $io->save();
+
+        if (isset($item['supporting_technologies']))
+        {
+          foreach ($item['supporting_technologies'] as $item)
+          {
+            // Populate or create technology record
+            $criteria = new Criteria;
+            $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, sfConfig::get('app_drmc_lod_supporting_technology_record_id'));
+            $criteria->add(QubitInformationObjectI18n::TITLE, $item);
+            $criteria->addJoin(QubitInformationObject::ID, QubitInformationObjectI18n::ID);
+            if (null === $tr = QubitInformationObject::getOne($criteria))
+            {
+              $tr = new QubitInformationObject;
+              $tr->parentId = QubitInformationObject::ROOT_ID;
+              $tr->levelOfDescriptionId = sfConfig::get('app_drmc_lod_supporting_technology_record_id');
+              $tr->setPublicationStatusByName('Published');
+              $tr->title = $item;
+              $tr->save();
+            }
+
+            // Associate technology record
+            // Technology record will be always the object?
+            $relation = new QubitRelation;
+            $relation->subjectId = $io->id;
+            $relation->objectId = $tr->id;
+            $relation->typeId = QubitTerm::AIP_RELATION_ID;
+            $relation->save();
+          }
+        }
 
         if (isset($item['children']))
         {

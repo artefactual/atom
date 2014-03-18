@@ -213,16 +213,22 @@ EOF
         }
       }
 
-      // Note types
-      $noteTypes = array(
-        'InstallComments',
-        'PrepComments',
-        'StorageComments');
+      // Terms
+      $terms = array(
+        QubitTaxonomy::NOTE_TYPE_ID => array(
+          'InstallComments',
+          'PrepComments',
+          'StorageComments'
+        ),
+        QubitTaxonomy::RELATION_TYPE_ID => array(
+          'Supporting technology relation types'
+        )
+      );
 
-      foreach ($noteTypes as $name)
+      foreach ($terms as $taxonomyId => $name)
       {
         $criteria = new Criteria;
-        $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::NOTE_TYPE_ID);
+        $criteria->add(QubitTerm::TAXONOMY_ID, $taxonomyId);
         $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
         $criteria->add(QubitTermI18n::CULTURE, 'en');
         $criteria->add(QubitTermI18n::NAME, $name);
