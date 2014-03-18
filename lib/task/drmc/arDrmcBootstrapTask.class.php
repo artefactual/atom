@@ -58,8 +58,11 @@ EOF;
     if ($options['add-dummy-data'])
     {
       $this->addDummyAips();
-      $this->addDummyArtworkRecordTree();
+
+      // The order matters, as the artwork record tree will try to reuse
+      // existing technology records
       $this->addDummyTechnologyRecordTree();
+      $this->addDummyArtworkRecordTree();
     }
   }
 
@@ -232,8 +235,8 @@ EOF;
                             "title": "Picture III",
                             "filename": "pic-3.png",
                             "supporting_technologies": [
-                                "Xvid",
-                                "MP3"
+                                "FLAC",
+                                "Vorbis"
                             ]
                         }
                     ]
@@ -244,8 +247,7 @@ EOF;
                             "level": "Exhibition format",
                             "title": "1098.2005.a.AV",
                             "supporting_technologies": [
-                                "Xvid",
-                                "MP3"
+                                "FLAC"
                             ]
                         },
                         {
@@ -276,7 +278,7 @@ EOF;
                             "level": "Artist verified proof",
                             "title": "1098.2005.a.x3",
                             "supporting_technologies": [
-                                "JPEG 2000"
+                                "WMV 8"
                             ]
                         }
                     ],
