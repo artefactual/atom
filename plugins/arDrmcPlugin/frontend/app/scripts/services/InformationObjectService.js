@@ -95,6 +95,12 @@ module.exports = function ($http, SETTINGS) {
     });
   };
 
+  this.getSupportingTechnologyRecords = function (params) {
+    params = params || {};
+    params.level_id = SETTINGS.drmc.lod_supporting_technology_record_id;
+    return this.get(params);
+  };
+
   this.getWorks = function (params) {
     params = params || {};
     params.level_id = SETTINGS.drmc.lod_artwork_record_id;

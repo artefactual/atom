@@ -1,6 +1,11 @@
 'use strict';
 
-module.exports = function () {
+module.exports = function ($scope, SETTINGS, InformationObjectService) {
 
-  console.log('tech rec');
+  InformationObjectService
+    .getSupportingTechnologyRecords().then(function (response) {
+      $scope.data = response.data;
+      console.log($scope.data);
+    });
+
 };
