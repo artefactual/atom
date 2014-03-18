@@ -1,4 +1,4 @@
-DRMC-MA: Digital Repository for Museum Collections
+DRMC: Digital Repository for Museum Collections
 ==================================================
 
 The DRMC frontend is built with AngularJS. Interaction with AtoM is through a

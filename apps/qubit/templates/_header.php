@@ -3,7 +3,7 @@
 <header id="top-bar">
 
   <h1 id="site-name">
-    <?php echo link_to('<span>DRMC-MA</span>', '@homepage', array('id' => 'logo', 'rel' => 'home', 'title' => __('Home'))) ?>
+    <?php echo link_to('<span>DRMC</span>', '@homepage', array('id' => 'logo', 'rel' => 'home', 'title' => __('Home'))) ?>
   </h1>
 
   <nav>

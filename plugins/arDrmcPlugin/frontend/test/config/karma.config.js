@@ -22,9 +22,9 @@ module.exports = function(config) {
       '../../../vendor/URI.js',
       '../../../js/qubit.js',
       '../../../js/treeView.js',
-      '../../../plugins/arDrmcPlugin/frontend/dist/DRMC-MA.js',
+      '../../../plugins/arDrmcPlugin/frontend/dist/DRMC.js',
       '../../../js/dominion.js',
-      'dist/DRMC-MA.js',
+      'dist/DRMC.js',
       'test/unit/**/*.spec.js'
     ],
 

@@ -22,14 +22,14 @@ all:
   #    js/treeView.js
   #    js/dominion.js
   #
-  # NOTE: The ones with the asterisk are now in DRMC-MA.js
+  # NOTE: The ones with the asterisk are now in DRMC.js
   #
 
   javascripts:
     -*:
-    /plugins/arDrmcPlugin/frontend/dist/DRMC-MA.vendor.js: { position: last }
+    /plugins/arDrmcPlugin/frontend/dist/DRMC.vendor.js: { position: last }
     ../vendor/bootstrap/js/bootstrap: { position: last }
-    /plugins/arDrmcPlugin/frontend/dist/DRMC-MA.app.js: { position: last }
+    /plugins/arDrmcPlugin/frontend/dist/DRMC.app.js: { position: last }
 
 
   # Stylesheets

@@ -1,9 +1,9 @@
-.. DRMC-MA documentation master file, created by
+.. DRMC documentation master file, created by
    sphinx-quickstart on Fri Feb  7 15:04:35 2014.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to DRMC-MA's documentation!
+Welcome to DRMC's documentation!
 ===================================
 
 Contents:

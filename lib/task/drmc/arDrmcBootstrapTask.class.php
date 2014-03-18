@@ -37,7 +37,7 @@ class arDrmcBootstrapTask extends sfBaseTask
     $this->namespace = 'drmc';
     $this->name = 'bootstrap';
 
-    $this->briefDescription = 'Bootstrap DRMC-MA database';
+    $this->briefDescription = 'Bootstrap DRMC database';
     $this->detailedDescription = <<<EOF
 The [drmc:bootstrap|INFO] task adds the necessary initial data to your database
 EOF;
@@ -76,7 +76,7 @@ EOF;
       }
     }
 
-    // Levels of description specific for MoMA DRMC-MA
+    // Levels of description specific for MoMA DRMC
     $levels = array(
       'Artwork record',
       'Description',

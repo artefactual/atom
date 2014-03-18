@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# DRMC-MA documentation build configuration file, created by
+# DRMC documentation build configuration file, created by
 # sphinx-quickstart on Fri Feb  7 15:04:35 2014.
 #
 # This file is execfile()d with the current directory set to its
@@ -43,7 +43,7 @@ source_suffix = '.txt'
 master_doc = 'index'
 
 # General information about the project.
-project = u'DRMC-MA'
+project = u'DRMC'
 copyright = u'2014, Artefactual Systems Inc.'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -176,7 +176,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'DRMC-MAdoc'
+htmlhelp_basename = 'DRMCdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -196,7 +196,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'DRMC-MA.tex', u'DRMC-MA Documentation',
+  ('index', 'DRMC.tex', u'DRMC Documentation',
    u'Artefactual Systems Inc.', 'manual'),
 ]
 
@@ -226,7 +226,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'drmc-ma', u'DRMC-MA Documentation',
+    ('index', 'drmc', u'DRMC Documentation',
      [u'Artefactual Systems Inc.'], 1)
 ]
 
@@ -240,8 +240,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'DRMC-MA', u'DRMC-MA Documentation',
-   u'Artefactual Systems Inc.', 'DRMC-MA', 'One line description of project.',
+  ('index', 'DRMC', u'DRMC Documentation',
+   u'Artefactual Systems Inc.', 'DRMC', 'One line description of project.',
    'Miscellaneous'),
 ]
 
