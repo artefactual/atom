@@ -128,6 +128,11 @@ class ApiInformationObjectsTmsAction extends QubitApiAction
       $this->addItemToArray($result, 'storageComments', $notes[0]->getContent(array('sourceCulture' => true)));
     }
 
+    if (0 < count($notes = $this->io->getNotesByType($options = array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID))))
+    {
+      $this->addItemToArray($result, 'textEntries', $notes[0]->getContent(array('sourceCulture' => true)));
+    }
+
     $this->addItemToArray($result, 'physDesc', $this->io->extentAndMedium);
     $this->addItemToArray($result, 'dimensions', $this->io->physicalCharacteristics);
 
