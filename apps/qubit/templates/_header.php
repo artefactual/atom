@@ -2,15 +2,9 @@
 
 <header id="top-bar">
 
-  <?php if (sfConfig::get('app_toggleLogo')): ?>
-    <?php echo link_to(image_tag('logo'), '@homepage', array('id' => 'logo', 'rel' => 'home')) ?>
-  <?php endif; ?>
-
-  <?php if (sfConfig::get('app_toggleTitle')): ?>
-    <h1 id="site-name">
-      <?php echo link_to('<span>'.sfConfig::get('app_siteTitle').'</span>', '@homepage', array('rel' => 'home', 'title' => __('Home'))) ?>
-    </h1>
-  <?php endif; ?>
+  <h1 id="site-name">
+    <?php echo link_to('<span>DRMC-MA</span>', '@homepage', array('id' => 'logo', 'rel' => 'home', 'title' => __('Home'))) ?>
+  </h1>
 
   <nav>
 
