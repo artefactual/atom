@@ -456,8 +456,17 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       }
 
       // Storage UUIDs
-      $child->addProperty('objectUUID', $objectUUID);
-      $child->addProperty('aipUUID', $aipUUID);
+      $property = new QubitProperty;
+      $property->objectId = $child->id;
+      $property->name = 'objectUUID';
+      $property->value = $objectUUID;
+      $property->save();
+
+      $property = new QubitProperty;
+      $property->objectId = $child->id;
+      $property->name = 'aipUUID';
+      $property->value = $aipUUID;
+      $property->save();
 
       // Create relation with AIP
       $relation = new QubitRelation;
