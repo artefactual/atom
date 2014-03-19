@@ -879,7 +879,42 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
               break;
 
             case 'TextEntries':
-              // TODO: Create general note
+
+              $content = array();
+              foreach (json_decode($value, true) as $textEntry)
+              {
+                $row = '';
+                foreach ($textEntry as $field => $value)
+                {
+                  if ($field == 'TextDate' && isset($value) && 0 < strlen($value))
+                  {
+                    if (isset($value) && 0 < strlen($value))
+                    {
+                      $row .= ', Date: '.$value;
+                    }
+                  }
+                  else if ($field == 'TextAuthor')
+                  {
+                    if (isset($value) && 0 < strlen($value))
+                    {
+                      $row .= ', Author: '.$value;
+                    }
+                  }
+                  else
+                  {
+                    $row .= $field.': '.$value;
+                  }
+                }
+
+                $content[] = $row;
+              }
+
+              $note = new QubitNote;
+              $note->culture = 'en';
+              $note->content = implode($content, "\n");
+              $note->typeId = QubitTerm::GENERAL_NOTE_ID;
+
+              $tmsComponent->notes[] = $note;
 
               break;
 
