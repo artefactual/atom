@@ -75,6 +75,7 @@ class ApiAipsBrowseAction extends QubitApiAction
       $aip['type']['name'] = get_search_i18n($doc['type'], 'name');
       $aip['part_of']['id'] = $doc['partOf']['id'];
       $aip['part_of']['title'] = get_search_i18n($doc['partOf'], 'title');
+      $aip['digital_object_count'] = $doc['digitalObjectCount'];
 
       $data['results'][] = $aip;
     }

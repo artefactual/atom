@@ -58,7 +58,7 @@ class ApiAipsViewAction extends QubitApiAction
     $aip['type']['name'] = get_search_i18n($doc['type'], 'name');
     $aip['part_of']['id'] = $doc['partOf']['id'];
     $aip['part_of']['title'] = get_search_i18n($doc['partOf'], 'title');
-    $aip['digitalObjectCount'] =  $doc['digitalObjectCount'];
+    $aip['digital_object_count'] =  $doc['digitalObjectCount'];
     if (isset($doc['digitalObjects']))
     {
       $aip['digitalObjects'] = $doc['digitalObjects'];
