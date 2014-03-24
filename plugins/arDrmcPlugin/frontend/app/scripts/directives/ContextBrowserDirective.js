@@ -297,6 +297,13 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         });
       };
 
+      scope.isDeletable = function (node) {
+        if (typeof node.data === 'undefined') {
+          return;
+        }
+        return !InformationObjectService.hasTmsOrigin(node.data.level_of_description_id);
+      };
+
       scope.unselectNode = function (id) {
         delete scope.currentNode;
         delete scope.activeNodes[id];

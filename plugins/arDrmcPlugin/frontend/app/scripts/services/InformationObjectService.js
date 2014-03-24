@@ -24,6 +24,11 @@ module.exports = function ($http, SETTINGS) {
     'miscellaneous'
   ];
 
+  // List of level of descriptions originated from TMS
+  var tmsTypes = typeComponents.concat([
+    'artwork-record'
+  ]);
+
   this.isComponent = function (level_of_description) {
     var slug;
     if (angular.isNumber(level_of_description)) {
@@ -34,6 +39,19 @@ module.exports = function ($http, SETTINGS) {
       throw 'Unexpected type';
     }
     return -1 < typeComponents.indexOf(slug);
+  };
+
+  this.hasTmsOrigin = function (level_of_description) {
+    var slug;
+    if (angular.isNumber(level_of_description)) {
+      slug = this.levels[level_of_description];
+    } else if (angular.isString(level_of_description)) {
+      slug = level_of_description;
+    } else {
+      throw 'Unexpected type';
+    }
+    console.log(slug, tmsTypes, tmsTypes.indexOf(slug));
+    return -1 < tmsTypes.indexOf(slug);
   };
 
   this.getTree = function (id) {
