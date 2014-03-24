@@ -180,7 +180,8 @@ EOF;
     for ($i = 1; $i <= 50; $i++)
     {
       // Make new info object every few AIPs
-      if (!$infoObject || rand(1, 3)) {
+      if (!$infoObject || rand(1, 3))
+      {
         $infoObject = new QubitInformationObject();
         $infoObject->title = generateRandomString(20);
         $infoObject->levelOfDescriptionId = sfConfig::get('app_drmc_lod_artwork_record_id');
