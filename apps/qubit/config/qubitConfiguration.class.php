@@ -134,8 +134,15 @@ EOF
   {
     // Anticipate connection to the database, we are going to need it
     // I hope this is not breaking anything :)
-    $databaseManager = new sfDatabaseManager($this);
-    $conn = $databaseManager->getDatabase('propel')->getConnection();
+    try
+    {
+      $databaseManager = new sfDatabaseManager($this);
+      $conn = $databaseManager->getDatabase('propel')->getConnection();
+    }
+    catch (Exception $e)
+    {
+      return;
+    }
 
     // Load env ATOM_DRMC_TMS_URL, defaults to "http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObjects.svc"
     if (false === $envDrmcTmsUrl = getenv('ATOM_DRMC_TMS_URL'))
