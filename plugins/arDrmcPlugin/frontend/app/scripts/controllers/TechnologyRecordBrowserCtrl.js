@@ -3,9 +3,10 @@
 module.exports = function ($scope, SETTINGS, InformationObjectService) {
 
   InformationObjectService
-    .getSupportingTechnologyRecords().then(function (response) {
+    .getSupportingTechnologyRecords({
+      only_root: true
+    }).then(function (response) {
       $scope.data = response.data;
-      console.log($scope.data);
     });
 
 };

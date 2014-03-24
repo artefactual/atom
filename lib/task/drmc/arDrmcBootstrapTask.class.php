@@ -58,7 +58,8 @@ EOF;
     if ($options['add-dummy-data'])
     {
       $this->addDummyAips();
-      $this->addDummyTree();
+      $this->addDummyArtworkRecordTree();
+      $this->addDummyTechnologyRecordTree();
     }
   }
 
@@ -203,7 +204,7 @@ EOF;
     }
   }
 
-  protected function addDummyTree()
+  protected function addDummyArtworkRecordTree()
   {
     $json = <<<EOT
 {
@@ -404,9 +405,110 @@ EOT
 
     $add(array($tree));
   }
+
+  protected function addDummyTechnologyRecordTree()
+  {
+    $json = <<<EOT
+{
+    "title": "Codecs",
+    "children": [
+        {
+            "title": "Video codecs",
+            "children": [
+                {
+                    "title": "Open source",
+                    "children": [
+                        {
+                            "title": "x264"
+                        },
+                        {
+                            "title": "x265"
+                        },
+                        {
+                            "title": "Xvid"
+                        }
+                    ]
+                },
+                {
+                    "title": "Propietary",
+                    "children": [
+                        {
+                            "title": "WMV 7"
+                        },
+                        {
+                            "title": "WMV 8"
+                        },
+                        {
+                            "title": "WMV 9"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Audio codecs",
+            "children": [
+                {
+                    "title": "Open source",
+                    "children": [
+                        {
+                            "title": "FLAC"
+                        },
+                        {
+                            "title": "Vorbis"
+                        }
+                    ]
+                },
+                {
+                    "title": "Propietary",
+                    "children": [
+                        {
+                            "title": "WMA"
+                        },
+                        {
+                            "title": "MP3"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+EOT
+;
+    $tree = json_decode($json, true);
+
+    $add = function($items, $parentId = false) use (&$add)
+    {
+      foreach ($items as $item)
+      {
+        if (false === $parentId)
+        {
+          $parentId = QubitInformationObject::ROOT_ID;
+        }
+
+        $io = new QubitInformationObject;
+        $io->setLevelOfDescriptionByName('Supporting technology record');
+        $io->setPublicationStatusByName('Published');
+        $io->parentId = $parentId;
+        $io->title = $item['title'];
+        $io->culture = 'en';
+
+        $io->save();
+
+        if (isset($item['children']))
+        {
+          $add($item['children'], $io->id);
+        }
+      }
+    };
+
+    $add(array($tree));
+  }
 }
 
-function gen_uuid() {
+function gen_uuid()
+{
   return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
     // 32 bits for "time_low"
     mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),

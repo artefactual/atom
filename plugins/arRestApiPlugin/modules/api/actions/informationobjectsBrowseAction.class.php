@@ -49,6 +49,12 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
       $queryBool->addMust(new \Elastica\Query\Term(array('levelOfDescriptionId' => $this->request->level_id)));
     }
 
+    // Show only root elements
+    if (isset($this->request->only_root) && true === filter_var($this->request->only_root, FILTER_VALIDATE_BOOLEAN))
+    {
+      $queryBool->addMust(new \Elastica\Query\Term(array('parentId' => QubitInformationObject::ROOT_ID)));
+    }
+
     // Filter query
     if (isset($this->request->query) && 1 !== preg_match('/^[\s\t\r\n]*$/', $this->request->query))
     {
