@@ -46,7 +46,7 @@
     <?php $doc = $hit->getData() ?>
     <div class="brick">
       <div class="preview">
-      <?php if (NULL !=  $doc['digitalObject']['thumbnailPath']): ?>
+      <?php if (!empty($doc['digitalObject']['thumbnailPath'])): ?>
         <?php echo link_to(image_tag($doc['digitalObject']['thumbnailPath']), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
       <?php else: ?>
         <?php echo link_to(image_tag('question-mark'), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
