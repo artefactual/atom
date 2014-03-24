@@ -3,6 +3,8 @@
 /**
  * TODO:
  *  - After pull.success, current page may be out of range. Reset if it happens.
+ *  - We should be using angular-ui Pagination directive,
+      specially because on-select-page is a much better approach!
  */
 
 module.exports = function ($compile, SETTINGS) {
