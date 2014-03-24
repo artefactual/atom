@@ -67,6 +67,13 @@ EOL;
         return;
       }
 
+      // Cleanups of data coming from MySQL/PDO
+      $item->id = (int)$item->id;
+      $item->level_of_description_id = (int)$item->level_of_description_id;
+      unset($item->lft);
+      unset($item->rgt);
+      unset($item->parent_id);
+
       if (!isset($target) || is_array($target))
       {
         $target[] = $item;
