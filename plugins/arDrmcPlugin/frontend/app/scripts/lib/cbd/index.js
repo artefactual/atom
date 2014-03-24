@@ -202,8 +202,8 @@
         type: 'associative'
       });
       this.draw();
-      console.log(type);
     }
+    console.log(type);
   };
 
   module.exports = ContextBrowser;

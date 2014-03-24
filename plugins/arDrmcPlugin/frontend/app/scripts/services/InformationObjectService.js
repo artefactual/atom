@@ -50,7 +50,6 @@ module.exports = function ($http, SETTINGS) {
     } else {
       throw 'Unexpected type';
     }
-    console.log(slug, tmsTypes, tmsTypes.indexOf(slug));
     return -1 < tmsTypes.indexOf(slug);
   };
 
@@ -110,6 +109,13 @@ module.exports = function ($http, SETTINGS) {
     var self = this;
     return $http(configuration).success(function (data) {
       data.level = self.levels[data.level_of_description_id];
+    });
+  };
+
+  this.delete = function (id) {
+    return $http({
+      method: 'DELETE',
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id
     });
   };
 

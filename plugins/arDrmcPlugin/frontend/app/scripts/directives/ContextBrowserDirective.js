@@ -185,8 +185,17 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         } else {
           throw 'I don\'t know what you are trying to do!';
         }
-        cb.deleteNodes(candidates);
-        scope.activeNodes = {};
+
+        if (candidates.length > 1) {
+          throw 'Not supported yet!';
+        }
+
+        InformationObjectService.delete(candidates[0]).then(function () {
+          cb.deleteNodes(candidates);
+          scope.activeNodes = {};
+        }, function () {
+          throw 'Error deleting ' + candidates[0];
+        });
       };
 
       scope.moveNodes = function (ids) {

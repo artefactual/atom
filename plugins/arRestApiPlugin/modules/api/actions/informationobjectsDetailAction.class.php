@@ -71,6 +71,13 @@ class ApiInformationObjectsDetailAction extends QubitApiAction
     return $this->get($request);
   }
 
+  protected function delete()
+  {
+    $io = $this->fetchInformationObjectOr404();
+
+    return array('status' => 'deleted');
+  }
+
   protected function fetchInformationObjectOr404()
   {
     if (QubitInformationObject::ROOT_ID === (int)$this->request->id)
