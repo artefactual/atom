@@ -149,13 +149,11 @@ class arElasticSearchAipPdo
       $serialized['type'] = $node->serialize();
     }
 
-    /* FIX dynamic introduction of [dates] within [aip.partOf] is not allowed]
     if (null !== $this->part_of)
     {
-      $node = new arElasticSearchInformationObjectPdo($this->part_of);
-      $serialized['partOf'] = $node->serialize();
+      $serialized['partOf']['id'] = $this->part_of;
+      $serialized['partOf']['i18n'] = arElasticSearchModelBase::serializeI18ns($this->part_of, array('QubitInformationObject'), array('fields' => array('title')));
     }
-    */
 
     if (0 < count($digitalObjects = $this->getDigitalObjects()))
     {

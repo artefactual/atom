@@ -12,6 +12,7 @@ mapping:
   # Other notes:
   # - Field names are camelized
   # - Objects can be embedded using _foreign_types
+  # - Objects can be embedded using _patial_foreign_types, specifying properties and i18n fields
   # - The other matters, embedded types must be defined first
 
   #
@@ -130,8 +131,11 @@ mapping:
   #
 
   aip:
+    _partial_foreign_types:
+      part_of:
+        _i18nFields: [title]
+        dynamic: strict
     _foreign_types:
-      part_of: information_object
       type: term
     dynamic: strict
     properties:
