@@ -113,13 +113,23 @@ class arElasticSearchAipPdo
     if (null !== $this->type_id)
     {
       $node = new arElasticSearchTermPdo($this->type_id);
-      $serialized['class'][] = $node->serialize();
+      $serialized['type'][] = $node->serialize();
     }
 
     if (null !== $this->part_of)
     {
-      $node = new arElasticSearchInformationObjectPdo($this->part_of);
-      $serialized['partOf'][] = $node->serialize();
+      $serialized['partOf']['id'] = $this->part_of;
+      $serialized['partOf']['i18n'] = arElasticSearchModelBase::serializeI18ns($this->part_of, array('QubitInformationObject'), array('fields' => array('title')));
+    }
+
+    if (0 < count($digitalObjects = $this->getDigitalObjects()))
+    {
+      $serialized['digitalObjects'] = $digitalObjects;
+    }
+
+    if (0 < count($digitalObjects = $this->getDigitalObjects()))
+    {
+      $serialized['digitalObjects'] = $digitalObjects;
     }
 
     return $serialized;

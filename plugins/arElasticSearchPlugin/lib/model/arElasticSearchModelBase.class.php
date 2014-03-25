@@ -63,7 +63,7 @@ abstract class arElasticSearchModelBase
       $this->getCount()));
   }
 
-  public static function serializeI18ns($id, array $classes)
+  public static function serializeI18ns($id, array $classes, $options = array())
   {
     if (1 > count($classes))
     {
@@ -102,8 +102,9 @@ abstract class arElasticSearchModelBase
 
         foreach (get_object_vars($item) as $key => $value)
         {
-          // Pass if the column is unneeded or null
-          if (in_array($key, array('id', 'culture')) || is_null($value))
+          // Pass if the column is unneeded or null, or if it's not set in options fields
+          if (in_array($key, array('id', 'culture')) || is_null($value)
+            || (isset($options['fields']) && !in_array($key, $options['fields'])))
           {
             continue;
           }
