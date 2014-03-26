@@ -232,24 +232,27 @@ EOF
         )
       );
 
-      foreach ($terms as $taxonomyId => $name)
+      foreach ($terms as $taxonomyId => $names)
       {
-        $criteria = new Criteria;
-        $criteria->add(QubitTerm::TAXONOMY_ID, $taxonomyId);
-        $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-        $criteria->add(QubitTermI18n::CULTURE, 'en');
-        $criteria->add(QubitTermI18n::NAME, $name);
-
-        if (null !== $term = QubitTerm::getOne($criteria))
+        foreach ($names as $name)
         {
-          $slug = str_replace('-', '_', QubitSlug::slugify($term->getName(array('culture' => 'en'))));
-          if (1 > strlen($slug))
-          {
-            continue;
-          }
-          $configurationId = 'app_drmc_note_type_'.$slug.'_id';
+          $criteria = new Criteria;
+          $criteria->add(QubitTerm::TAXONOMY_ID, $taxonomyId);
+          $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+          $criteria->add(QubitTermI18n::CULTURE, 'en');
+          $criteria->add(QubitTermI18n::NAME, $name);
 
-          $cacheableParams[$configurationId] = $term->id;
+          if (null !== $term = QubitTerm::getOne($criteria))
+          {
+            $slug = str_replace('-', '_', QubitSlug::slugify($term->getName(array('culture' => 'en'))));
+            if (1 > strlen($slug))
+            {
+              continue;
+            }
+            $configurationId = 'app_drmc_term_'.$slug.'_id';
+
+            $cacheableParams[$configurationId] = $term->id;
+          }
         }
       }
 

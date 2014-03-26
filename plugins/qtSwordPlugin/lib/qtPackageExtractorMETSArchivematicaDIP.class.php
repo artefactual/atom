@@ -957,7 +957,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
               $note = new QubitNote;
               $note->content = $value;
               $note->culture = 'en';
-              $note->typeId = sfConfig::get('app_drmc_note_type_'.strtolower($name).'_id');
+              $note->typeId = sfConfig::get('app_drmc_term_'.strtolower($name).'_id');
 
               $tmsComponent->notes[] = $note;
 

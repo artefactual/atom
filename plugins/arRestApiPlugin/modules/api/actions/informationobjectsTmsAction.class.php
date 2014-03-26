@@ -113,17 +113,17 @@ class ApiInformationObjectsTmsAction extends QubitApiAction
       $this->addItemToArray($result, 'componentType', $termRelations[0]->term->getName(array('sourceCulture' => true)));
     }
 
-    if (0 < count($notes = $this->io->getNotesByType($options = array('noteTypeId' => sfConfig::get('app_drmc_note_type_installcomments_id')))))
+    if (0 < count($notes = $this->io->getNotesByType($options = array('noteTypeId' => sfConfig::get('app_drmc_term_installcomments_id')))))
     {
       $this->addItemToArray($result, 'installComments', $notes[0]->getContent(array('sourceCulture' => true)));
     }
 
-    if (0 < count($notes = $this->io->getNotesByType($options = array('noteTypeId' => sfConfig::get('app_drmc_note_type_prepcomments_id')))))
+    if (0 < count($notes = $this->io->getNotesByType($options = array('noteTypeId' => sfConfig::get('app_drmc_term_prepcomments_id')))))
     {
       $this->addItemToArray($result, 'prepComments', $notes[0]->getContent(array('sourceCulture' => true)));
     }
 
-    if (0 < count($notes = $this->io->getNotesByType($options = array('noteTypeId' => sfConfig::get('app_drmc_note_type_storagecomments_id')))))
+    if (0 < count($notes = $this->io->getNotesByType($options = array('noteTypeId' => sfConfig::get('app_drmc_term_storagecomments_id')))))
     {
       $this->addItemToArray($result, 'storageComments', $notes[0]->getContent(array('sourceCulture' => true)));
     }
