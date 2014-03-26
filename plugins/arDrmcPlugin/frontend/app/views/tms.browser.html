@@ -1,0 +1,30 @@
+<div class="row-fluid">
+
+  <div class="span12">
+
+    <div id="main-column">
+
+      <h1 class="multiline moma-title drmc-color-supporting-technology-record">
+        Do a search by ObjectId
+        <span class="sub">TMS</span>
+      </h1>
+
+      <input class="span6" ng-model="query" ng-change="search()" placeholder="Type ObjectId"/>
+
+      <hr />
+
+      <h1>{{ results.Title }}</h1>
+
+      <div class="row">
+        <div class="span6">
+          <pre>
+            {{ results | json }}
+          </pre>
+        </div>
+        <div class="span6">
+          <img ng-src="{{ thumbnail }}" ng-if="thumbnail != false"/>
+        </div>
+      </div>
+
+  </div>
+</div>

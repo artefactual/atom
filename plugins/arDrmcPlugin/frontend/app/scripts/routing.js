@@ -68,6 +68,18 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       url: '/{id}',
       controller: 'TechnologyRecordViewCtrl',
       templateUrl: SETTINGS.viewsPath + '/technology-records.view.html'
+    })
+
+    // Technology Records
+    .state('tms', {
+      abstract: true,
+      url: SETTINGS.DRMCPath + 'tms',
+      template: '<ui-view/>'
+    })
+    .state('tms.browser', {
+      url: '',
+      controller: 'TmsBrowserCtrl',
+      templateUrl: SETTINGS.viewsPath + '/tms.browser.html'
     });
 
 };

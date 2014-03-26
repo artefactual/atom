@@ -27,6 +27,9 @@
     .controller('TechnologyRecordBrowserCtrl', require('./TechnologyRecordBrowserCtrl'))
     .controller('TechnologyRecordViewCtrl', require('./TechnologyRecordViewCtrl'))
     .controller('EditDCMetadataCtrl', require('./EditDCMetadataCtrl'))
-    .controller('AddSupportingTechnologyCtrl', require('./AddSupportingTechnologyCtrl'));
+    .controller('AddSupportingTechnologyCtrl', require('./AddSupportingTechnologyCtrl'))
+
+    // TMS
+    .controller('TmsBrowserCtrl', require('./TmsBrowserCtrl'));
 
 })();
