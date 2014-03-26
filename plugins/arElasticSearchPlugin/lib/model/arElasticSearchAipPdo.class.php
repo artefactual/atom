@@ -99,6 +99,39 @@ class arElasticSearchAipPdo
     return $this;
   }
 
+  protected function getDigitalObjects()
+  {
+    $sql  = 'SELECT
+                do.name,
+                do.byte_size,
+                do.mime_type,
+                obj.updated_at';
+    $sql .= ' FROM '.QubitDigitalObject::TABLE_NAME.' do';
+    $sql .= ' JOIN '.QubitRelation::TABLE_NAME.' relation
+                ON do.information_object_id = relation.object_id';
+    $sql .= ' JOIN '.QubitObject::TABLE_NAME.' obj
+                ON do.id = obj.id';
+    $sql .= ' WHERE relation.subject_id = ?
+                AND relation.type_id = ?';
+
+    self::$statements['do'] = self::$conn->prepare($sql);
+    self::$statements['do']->execute(array($this->id, QubitTerm::AIP_RELATION_ID));
+
+    $digitalObjects = array();
+    foreach (self::$statements['do']->fetchAll(PDO::FETCH_OBJ) as $item)
+    {
+      $do = array();
+      $do['name'] = $item->name;
+      $do['size'] = $item->byte_size;
+      $do['mimeType'] = $item->mime_type;
+      $do['lastModified'] = arElasticSearchPluginUtil::convertDate($item->updated_at);
+
+      $digitalObjects[] = $do;
+    }
+
+    return $digitalObjects;
+  }
+
   public function serialize()
   {
     $serialized = array();
@@ -113,7 +146,7 @@ class arElasticSearchAipPdo
     if (null !== $this->type_id)
     {
       $node = new arElasticSearchTermPdo($this->type_id);
-      $serialized['type'][] = $node->serialize();
+      $serialized['type'] = $node->serialize();
     }
 
     if (null !== $this->part_of)
