@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationObjectService) {
+module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationObjectService, ModalDigitalObjectViewerService) {
 
   // TODO: Use https://github.com/angular-ui/ui-router/wiki#resolve
   InformationObjectService.getArtworkRecordWithTms($stateParams.id).then(function (data) {
@@ -13,16 +13,8 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
   // directive (two-way binding);
   $scope.files = [];
 
-  $scope.openDigitalObjectModal = function () {
-    var modalInstance = $modal.open({
-      templateUrl: SETTINGS.viewsPath + '/modals/digital-object-viewer.html',
-      backdrop: 'static', // Prevents close when clicking on backdrop
-      controller: 'DigitalObjectViewerCtrl',
-      scope: $scope, // TODO: isolate with .new()?
-    });
-    modalInstance.result.then(function (result) {
-      console.log(result);
-    });
+  $scope.openViewer = function () {
+    ModalDigitalObjectViewerService.open();
   };
 
   $scope.selectNode = function () {

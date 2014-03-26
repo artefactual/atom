@@ -16,6 +16,7 @@
     .factory('FullscreenService', require('./FullscreenService'))
 
     // Global modals
-    .service('ModalEditDcMetadataService', require('./ModalEditDcMetadataService'));
+    .service('ModalEditDcMetadataService', require('./ModalEditDcMetadataService'))
+    .service('ModalDigitalObjectViewerService', require('./ModalDigitalObjectViewerService'));
 
 })();
