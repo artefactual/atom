@@ -67,12 +67,19 @@ EOL;
         return;
       }
 
+      // TODO: don't reuse PDO item.
+
       // Cleanups of data coming from MySQL/PDO
       $item->id = (int)$item->id;
       $item->level_of_description_id = (int)$item->level_of_description_id;
       unset($item->lft);
       unset($item->rgt);
       unset($item->parent_id);
+
+      if (empty($item->title))
+      {
+        $item->title = 'Untitled';
+      }
 
       if (!isset($target) || is_array($target))
       {
