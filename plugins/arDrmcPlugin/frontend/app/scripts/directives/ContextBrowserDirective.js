@@ -8,8 +8,9 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
     templateUrl: SETTINGS.viewsPath + '/partials/context-browser.html',
     scope: {
       id: '@',
-      openViewer: '&onOpenViewer',
-      files: '='
+      files: '=',
+      _openViewer: '&onOpenViewer',
+      _selectNode: '&onSelectNode'
     },
     replace: true,
     link: function (scope, element) {
@@ -97,7 +98,7 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         if ($event.shiftKey) {
           file.selected = !file.selected;
         } else {
-          scope.openViewer(file);
+          scope._openViewer(file);
         }
       };
 
@@ -286,7 +287,8 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         // Fetch information from the server
         InformationObjectService.getById(id).then(function (response) {
           scope.currentNode.data = response.data;
-
+          // Invoke corresponding function injected in the scope
+          scope._selectNode();
           // Retrieve a list of files or digital objects
           InformationObjectService.getDigitalObjects(id).then(function (response) {
             if (response.data.length > 0) {

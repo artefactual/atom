@@ -156,12 +156,19 @@ module.exports = function ($http, SETTINGS) {
     return $http(configuration);
   };
 
-
-
   this.getTms = function (id) {
     return $http({
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/tms'
+    });
+  };
+
+  this.getAips = function (id) {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/aips'
+    }).then(function (response) {
+      return response.data;
     });
   };
 

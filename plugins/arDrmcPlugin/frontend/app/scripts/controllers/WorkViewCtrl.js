@@ -15,9 +15,7 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
   // directive (two-way binding);
   $scope.files = [];
 
-  $scope.openDigitalObjectModal = function (files) {
-    if (typeof files === 'undefined') {
-    }
+  $scope.openDigitalObjectModal = function () {
     var modalInstance = $modal.open({
       templateUrl: SETTINGS.viewsPath + '/modals/digital-object-viewer.html',
       backdrop: 'static', // Prevents close when clicking on backdrop
@@ -26,6 +24,12 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
     });
     modalInstance.result.then(function (result) {
       console.log(result);
+    });
+  };
+
+  $scope.selectNode = function () {
+    InformationObjectService.getAips($stateParams.id).then(function (data) {
+      $scope.aggregation = data.overview;
     });
   };
 };

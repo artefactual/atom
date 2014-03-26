@@ -85,56 +85,89 @@
         </div>
       </section>
 
-      <ar:context-browser id="{{ work.id }}" files="files" on-open-viewer="openDigitalObjectModal()"></ar:context-browser>
+      <ar:context-browser id="{{ work.id }}" files="files" on-open-viewer="openDigitalObjectModal()" on-select-node="selectNode()"></ar:context-browser>
 
       <div class="content">
 
-        <section>
+        <section ng-if="aggregation != undefined">
           <div class="menu-list">
             <ul class="menu-list-left">
               <li><h2>Digital objects</h2></li>
             </ul>
           </div>
           <div>
+            <div class="digital-object-aggregation">
+              <div class="field">
+                <h3>Total AIPs</h3>
+                <div>
+                  {{ aggregation.total.count || 0 }}
+                  <span>&nbsp;{{ aggregation.total.size | UnitFilter:2 | EmptyFilter }}</span>
+                </div>
+              </div>
+              <div class="field">
+                <h3>Artwork component AIPs</h3>
+                <div>{{ aggregation[179].count || 0 }}
+                  <span>&nbsp;{{ aggregation[179].size | UnitFilter:2 | EmptyFilter }}</span>
+                </div>
+              </div>
+               <div class="field">
+                <h3>Artwork material AIPs</h3>
+                <div>
+                  {{ aggregation[180].count || 0 }}
+                  <span>&nbsp;{{ aggregation[180].size | UnitFilter:2 | EmptyFilter }}</span>
+                </div>
+              </div>
+              <div class="field">
+                <h3>Supporting documentation AIPs</h3>
+                <div>
+                  {{ aggregation[181].count || 0 }}
+                  <span>&nbsp;{{ aggregation[181].size | UnitFilter:2 | EmptyFilter }}</span>
+                </div>
+              </div>
+              <div class="field">
+                <h3>Supporting technology AIPs</h3>
+                <div>
+                  {{ aggregation[182].count || 0 }}
+                  <span>&nbsp;{{ aggregation[182].size | UnitFilter:2 | EmptyFilter }}</span>
+                </div>
+              </div>
+              <div class="field">
+                <h3>Unclassified AIPs</h3>
+                <div>
+                  {{ aggregation.unclassified.count || 0 }}
+                  <span>&nbsp;{{ aggregation.unclassified.size | UnitFilter:2 | EmptyFilter }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-            <!-- Digital object list -->
+        <section ng-if="files.length > 0">
+          <div class="menu-list">
+            <ul class="menu-list-left">
+              <li><h2>Digital object browser</h2></li>
+            </ul>
+          </div>
+          <div>
             <div class="digital-object-list">
               <table class="table">
+                <thead>
+                  <th>Preview</th>
+                  <th>Filename</th>
+                </thead>
                 <tbody>
                   <tr ng-repeat="file in files" ng-class="{ selected: file.selected == true }">
-                    <td class="name">
-                      <a href ng-click="openDigitalObjectModal(file)">{{ file.label }}</a>
+                    <!-- TODO layout from css -->
+                    <td class="preview" width="20%">
+                      <img width="100%" ng-src="{{ file.thumbnailPath }}"/>
                     </td>
-                    <td class="size">12.04 GB</td>
+                    <td class="name">
+                      <a href ng-click="openDigitalObjectModal(file)">{{ file.filename }}</a>
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-
-            <!-- Digital object aggregation -->
-            <div class="digital-object-aggregation">
-              <div class="field">
-                <h3>Total physical storage</h3>
-                <div></div>
-              </div>
-              <div class="field">
-                <h3>Total related AIPs</h3>
-                <div></div>
-              </div>
-              <div class="field">
-                <h3>Artwork objects</h3>
-                <div></div>
-              </div>
-              <div class="field">
-                <h3>Documentation objects</h3>
-                <div></div>
-              </div>
-              <div class="field">
-                <h3>Unclassified objects</h3>
-                <div></div>
-              </div>
-            </div>
-
           </div>
         </section>
 
