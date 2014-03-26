@@ -163,6 +163,15 @@ module.exports = function ($http, SETTINGS) {
     });
   };
 
+  this.create = function (data) {
+    var configuration = {
+      method: 'POST',
+      url: SETTINGS.frontendPath + 'api/informationobjects',
+      data: data
+    };
+    return $http(configuration);
+  };
+
   this.update = function (id, data) {
     var configuration = {
       method: 'PUT',

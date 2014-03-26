@@ -16,22 +16,41 @@ module.exports = function ($scope, InformationObjectService, $modalInstance, Act
     conditions: 'Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).'
   };
 
-  $scope.resource = resource;
+  // New record?
+  $scope.new = true;
+
+  // Edit mode, when we receive a resoruce
+  if (resource !== false) {
+    $scope.resource = resource;
+    $scope.new = false;
+  }
+
+  // Title, based in new
+  if ($scope.new) {
+    $scope.title = 'Add supporting technology record';
+  } else {
+    $scope.title = 'Edit supporting technology record';
+  }
 
   // HACK: form scoping issue within modals, see
   // - http://stackoverflow.com/a/19931221/2628967
   // - https://github.com/angular-ui/bootstrap/issues/969
   $scope.form = {};
 
-  var id = 1;
-
   // Save changes
   $scope.save = function () {
-    InformationObjectService.update(id, $scope.form.dc).then(function () {
-      $scope.submitted = true;
+    InformationObjectService.update(resource.id, $scope.form.dc).then(function () {
       $modalInstance.close();
     }, function () {
       $modalInstance.dismiss('Dublin Core metadata could not be saved');
+    });
+  };
+
+  $scope.create = function () {
+    InformationObjectService.create($scope.form.dc).then(function () {
+      $modalInstance.close();
+    }, function () {
+      $modalInstance.dismiss('Dublin Core metadata could not be create');
     });
   };
 
@@ -77,7 +96,4 @@ module.exports = function ($scope, InformationObjectService, $modalInstance, Act
     var revertType = $scope.selectedTypes.splice(r, 1).pop();
     $scope.dcTypes.push(revertType);
   };
-
-  // Form submission
-  $scope.submitted = false;
 };

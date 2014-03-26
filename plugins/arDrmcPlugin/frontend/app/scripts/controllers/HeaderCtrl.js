@@ -1,16 +1,10 @@
 'use strict';
 
-module.exports = function ($scope, $modal, SETTINGS) {
+module.exports = function ($scope, SETTINGS, ModalEditDcMetadataService) {
 
-  $scope.openSupportingTechnologyModal = function () {
-    var modalInstance = $modal.open({
-      templateUrl: SETTINGS.viewsPath + '/modals/add-supporting-technology.html',
-      backdrop: true,
-      controller: 'AddSupportingTechnologyCtrl',
-      scope: $scope
-    });
-    modalInstance.result.then(function (result) {
-      console.log('tech modal result', result);
+  $scope.openEditDcModal = function () {
+    ModalEditDcMetadataService.create().result.then(function () {
+      console.log('Muuuu');
     });
   };
 
