@@ -33,7 +33,7 @@ class ApiInformationObjectsFilesAction extends QubitApiAction
     else
     {
       $queryId = new \Elastica\Query\Bool;
-      $queryId->addShould(new \Elastica\Query\Term(array('_id' => $request->id)));
+      // $queryId->addShould(new \Elastica\Query\Term(array('_id' => $request->id)));
       $queryId->addShould(new \Elastica\Query\Term(array('ancestors' => $request->id)));
       $queryBool->addMust($queryId);
     }
