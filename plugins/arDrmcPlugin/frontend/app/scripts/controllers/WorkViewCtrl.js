@@ -2,13 +2,11 @@
 
 module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationObjectService) {
 
-  InformationObjectService.getWork($stateParams.id).then(function (response) {
-    $scope.work = response.data;
-    InformationObjectService.getTms($stateParams.id).then(function (response) {
-      $scope.work.tms = response.data;
-    });
-  }, function (reason) {
-    throw reason;
+  // TODO: Use https://github.com/angular-ui/ui-router/wiki#resolve
+  InformationObjectService.getArtworkRecordWithTms($stateParams.id).then(function (data) {
+    $scope.work = data;
+  }, function (response) {
+    throw response;
   });
 
   // A list of digital objects. This is shared within the context browser

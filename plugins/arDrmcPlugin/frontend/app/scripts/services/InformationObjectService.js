@@ -156,10 +156,28 @@ module.exports = function ($http, SETTINGS) {
     return $http(configuration);
   };
 
+  /**
+   * From here, successCallback is returning the contents of the response
+   * instead of the response object
+   */
+
   this.getTms = function (id) {
     return $http({
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/tms'
+    }).then(function (response) {
+      return response.data;
+    });
+  };
+
+  this.getArtworkRecordWithTms = function (id) {
+    var self = this;
+    return this.getWork(id).then(function (response) {
+      var data = response.data;
+      self.getTms(id).then(function (tms) {
+        data.tms = tms;
+      });
+      return data;
     });
   };
 
