@@ -108,7 +108,7 @@
     padding: 0 6px;
     line-height: 30px;
     position: relative;
-    a {
+    > a {
       display: block;
       color: @grayDark;
       position: relative;
@@ -150,6 +150,36 @@
   }
 }
 
+// A list of stacked thumbnails using flexbox
+
+.cb-sidebar-thumbnails {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  .item {
+    padding: 5%;
+    width: 40%;
+    height: auto;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(200, 200, 200, .15);
+    }
+    &.selected {
+      background-color: rgba(200, 200, 200, .25);
+    }
+  }
+  .preview {
+    img {
+      width: 100%;
+    }
+  }
+  .footer {
+    font-size: 12px;
+  }
+}
+
+// A list class in the context browser sidebar
+
 .cb-sidebar-table {
   table {
     margin: 0;
@@ -181,13 +211,6 @@
       border-left: 1px solid #ddd;
     }
   }
-  .cb-file-options {
-    border-bottom: 1px solid #ddd;
-    padding: 6px;
-    li {
-      display: inline-block;
-    }
-  }
 }
 
 .cb-list-active-nodes {
@@ -197,6 +220,42 @@
     padding: 8px 4px;
   }
 }
+
+// File actions (view all, cancel)
+
+.cb-file-options {
+  border-bottom: 1px solid #ddd;
+  padding: 6px;
+  li {
+    display: inline-block;
+  }
+}
+
+// File list modes selector, applied over h4
+
+.cb-file-list-mode-select {
+  position: relative;
+  .modes {
+    position: absolute;
+    right: 32px;
+    top: 0px;
+    .mode {
+      padding: 0 4px;
+      display: inline-block;
+      color: @grayDark;
+      font-weight: normal;
+      font-size: 14px;
+      &.active,
+      &:hover,
+      &:active,
+      &:focus {
+        color: @orange;
+      }
+    }
+  }
+}
+
+// Context browser legend
 
 .cb-legend {
   position: absolute;

@@ -156,6 +156,8 @@ module.exports = function ($http, SETTINGS) {
     return $http(configuration);
   };
 
+
+
   this.getTms = function (id) {
     return $http({
       method: 'GET',

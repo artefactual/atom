@@ -65,7 +65,7 @@ class QubitAPIAction extends sfAction
     }
 
     // Load Qubit helper before calling it
-    ProjectConfiguration::getActive()->loadHelpers('Qubit');
+    ProjectConfiguration::getActive()->loadHelpers(array('Asset', 'Qubit'));
 
     $result = call_user_func_array($fnCallable, $fnParamaters);
 

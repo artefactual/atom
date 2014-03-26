@@ -94,14 +94,15 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         });
       };
       scope.selectFile = function (file, $event) {
-        if (file.selected) {
-          file.selected = false;
+        if ($event.shiftKey) {
+          file.selected = !file.selected;
         } else {
-          if ($event.shiftKey) {
-            file.selected = true;
-          }
+          scope.openViewer(file);
         }
       };
+
+      // File list modes
+      scope.fileListViewMode = 'list';
 
       scope.tmsCollapsed = false;
       scope.dcCollapsed = true;

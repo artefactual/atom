@@ -137,18 +137,39 @@
 
             <!-- File list -->
             <div ng-if="hasFiles()" class="cb-sidebar-subsection cb-file-list cb-sidebar-subsection-collapsible" ng-class="{ collapsed: filesCollapsed }">
-              <h4><a href ng-click="filesCollapsed = !filesCollapsed">Files ({{ files.length }} items)</a></h4>
-              <div ng-show="!filesCollapsed" class="cb-sidebar-subsection-body cb-sidebar-table">
-                <table class="table">
-                  <tbody>
-                    <tr ng-repeat="file in files" ng-click="selectFile(file, $event)" ng-class="{ selected: file.selected == true }">
-                      <td class="name">
-                        <a href ng-click="openViewer(file)">{{ file.filename }}</a>
-                      </td>
-                      <td class="size">{{ file.size | UnitFilter:2 }}</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <h4 class="cb-file-list-mode-select">
+                <a href ng-click="filesCollapsed = !filesCollapsed">Files ({{ files.length }} items)</a>
+                <div class="modes" ng-show="!filesCollapsed">
+                  <a ng-class="{ mode: true, 'mode-list': true, active: fileListViewMode  == 'list' }" href ng-click="fileListViewMode = 'list'"><i class="icon icon-align-justify"></i></a>
+                  <a ng-class="{ mode: true, 'mode-thumbnails': true, active: fileListViewMode  == 'thumbnails' }" href ng-click="fileListViewMode = 'thumbnails'"><i class="icon icon-th-large"></i></a>
+                </div>
+              </h4>
+              <div ng-if="!filesCollapsed">
+                <!-- Mode "list" -->
+                <div ng-if="fileListViewMode == 'list'" class="cb-sidebar-subsection-body cb-sidebar-table">
+                  <table class="table">
+                    <tbody>
+                      <tr ng-repeat="file in files" ng-click="selectFile(file, $event)" ng-class="{ selected: file.selected == true }">
+                        <td class="name">
+                          <a href>{{ file.filename }}</a>
+                        </td>
+                        <td class="size">{{ file.size | UnitFilter:2 }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- Mode "thumbnails" -->
+                <div ng-if="fileListViewMode == 'thumbnails'" class="cb-sidebar-subsection-body cb-sidebar-thumbnails">
+                  <div ng-click="selectFile(file, $event)" ng-repeat="file in files" ng-class="{ item: true, selected: file.selected == true }">
+                    <div class="preview">
+                      <img ng-src="{{ file.thumbnailPath }}"/>
+                    </div>
+                    <div class="footer">
+                      {{ file.filename }}
+                    </div>
+                  </div>
+                </div>
+                <!-- Selection options -->
                 <div class="cb-file-options" ng-show="hasSelectedFiles()">
                   <ul class="nav">
                     <li><a class="btn" href ng-click="openViewer(files)">View all</a></li>
