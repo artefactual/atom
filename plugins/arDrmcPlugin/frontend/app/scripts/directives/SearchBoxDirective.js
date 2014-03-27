@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($document, $location, $state, $stateParams, SETTINGS, SearchService) {
+module.exports = function ($rootScope, $document, $location, $state, $stateParams, SETTINGS, SearchService) {
   return {
     restrict: 'E',
     templateUrl: SETTINGS.viewsPath + '/partials/search-box.html',
@@ -93,6 +93,13 @@ module.exports = function ($document, $location, $state, $stateParams, SETTINGS,
           delete scope.results;
         });
       };
+
+      // Clean search field if the user changes the page
+      $rootScope.$on('$stateChangeSuccess', function () {
+        if (!$state.includes('search')) {
+          scope.query = '';
+        }
+      });
     }
   };
 };
