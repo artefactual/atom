@@ -199,132 +199,46 @@
   }
 }
 
+// General modal styles
 
+.modal {
+  height: 10px;
 
-// Technology support modal
+  .modal-header {
+    padding: 6px 15px 0px 15px;
+    background-color: @grayLighter!important;
+    background-image: none;
+    border-bottom: 1px solid @gray;
 
-.modal-div {
-  margin: .5em 0 1.5em 0 !important;
-  padding: 8px auto;
-  background-color: @grayLighter;
+    > h2 {
+      color: @orange!important;
+      font-weight: normal;
+      font-size: 1.2em;
+    }
 
-  button.modal-btn-x {
-    color: @orange;
-    margin-top: 6px;
-  }
-
-  span.modal-btn-x {
-   padding-left: 4px;
-
-    &:after {
-      content: "\f00d";
-      font-family: FontAwesome;
-      font-style: normal;
-      color: @grayLight;
+    .close {
+      font-size: 30px;
+      padding-top: 5px;
     }
   }
-
-  .first-span {
-    margin-left: 0!important;
-  }
-
-  div.select-box {
-    overflow: auto;
-    height: 150px;
-
-    h3 {
-      color: @orange;
-      margin-bottom: 8px;
-    }
-  }
-}
-
-.modal-footer {
-  * { float: left; }
-  left: 5%;
-  border-top: 1px solid @black;
-}
-
-.btn-save span {
-  .moma-icon();
-  &:before {
-  content: "\f0c7";
-  }
-}
-
-.btn-view span {
-   .moma-icon();
-  &:before {
-    content: "\f06e";
-  }
-}
-
-.btn-cancel span {
-   .moma-icon();
-  &:before {
-    content: "\f057";
-  }
-}
-
-// Video modal, using flexbox
-
-#inspectModalr {
-  background: @black;
-  display: flex;
-  display: -webkit-flex;
-  -webkit-flex-flow: row nowrap;
-  min-height: 700px;
-  width: 100%;
-  justify-content: space-around;
-
-    video {
-      position: relative;
-      max-width: 100%;
-    }
 
   .modal-body {
-    flex-grow: 1;
-    width: 65%;
-    height: 100%;
-    order: 1;
-    margin: auto; //perfect center of x and y
+    background: @white;
   }
 
-  .modal-footer {
-    flex-grow: 1;
-    width: 35%;
-    overflow: auto;
-    order: 2;
-    min-height: 100%;
+  // Form validation
+  input:focus:invalid:focus,
+  textarea:focus:invalid:focus, {
+    border-color: @momaOrangeDark;
+    box-shadow: none;
   }
 
-  section {
-    text-align: left;
-  }
-
-  .viewer-modal-info section > h1 {
-    padding: 8px;
-  }
-}
-
-
-// Reclassify AIP Modal
-
-.modal .modal-header {
-  padding: 6px 15px 0px 15px;
-  background-color: @grayLighter!important;
-  background-image: none;
-  border-bottom: 1px solid @gray;
-
-  > h2 {
-    color: @orange!important;
-    font-weight: normal;
-    font-size: 1.2em;
-  }
-
-  .close {
-    font-size: 30px;
-    padding-top: 5px;
+  input:focus:valid:focus,
+  textarea:focus:invalid:focus,
+  textarea:focus,
+  select:focus.ng-dirty {
+    border-color: @momaGreenLight;
+    box-shadow: none;
   }
 }
 
@@ -333,7 +247,9 @@
   line-height: 90%;
 }
 
-.modal .modal-body {
+// Reclassify AIP Modal
+
+.reclassify-modal .modal-body {
 
   h3 {
     font-weight: bold;
@@ -348,5 +264,132 @@
 
   dl {
     margin-bottom: 40px;
+  }
+}
+
+// Edit DC Modal
+.edit-modal {
+  width: 140%;
+  margin-left: -20%;
+
+  .modal-header {
+    height: 35px;
+
+    h2 {
+      line-height: .7;
+    }
+  }
+
+  form {
+    width: 100%;
+
+    h3 {
+    font-size: 14px;
+    margin-bottom: 18px;
+    margin-top: 10px;
+    }
+  }
+
+  .modal-body {
+    padding-left: 125px;
+    padding-top: 20px;
+
+    // Type
+    .dc-edit-type {
+      h3 {
+        margin-bottom: 8px;
+      }
+
+      ul {
+        float: left;
+        position: relative;
+
+        li {
+          float: left;
+          border-right: 1px solid @grayLighter;
+          padding: 0px 4px;
+          a { font-size: 12px; }
+        }
+      }
+    }
+
+    .required::after {
+      content: '*';
+      color: @orange;
+    }
+
+    .tooltip {
+      max-width: 108px;
+    }
+
+    // Specific to fields where input is not flush
+    // with the left-hand side of the form element
+    div.section .tooltip {
+      left: -118px !important;
+    }
+  }
+
+  // Removes orange outline
+  select {
+    outline: none;
+  }
+}
+
+// Add Supporting Technology Modal
+
+.add-tech-modal {
+  width: 140%;
+  margin-left: -20%;
+
+  .modal-header {
+    height: 35px;
+
+    h2 {
+      line-height: .7;
+    }
+  }
+
+  .modal-body .add-tech-wrap {
+    display: flex;
+    display: box;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+
+  .modal-body .add-tech-full {
+    width: 100%;
+    min-height: 150px;
+
+    input, select {
+      width: 95%;
+      height: 20px;
+      margin: 12px auto 0;
+    }
+  }
+
+  .modal-body .add-tech-half {
+    width: 48%;
+    min-height: 150px;
+
+    h3 {
+      font-size: 15px;
+      margin-bottom: 8px;
+      }
+
+    > div {
+      padding-left: 6px;
+      width: 95%;
+    }
+
+    &:nth-of-type(2) {
+      margin-left: .5%;
+      padding: 8px 0 8px 8px;
+    }
+
+    &:nth-of-type(3) {
+      padding: 8px 0 8px 8px;
+      border: 1px solid @grayLighter;
+      border-radius: 4px;
+    }
   }
 }

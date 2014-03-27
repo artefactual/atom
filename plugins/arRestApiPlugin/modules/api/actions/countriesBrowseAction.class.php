@@ -17,10 +17,17 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ApiAipsViewAction extends QubitApiAction
+class ApiCountriesBrowseAction extends QubitApiAction
 {
   protected function get($request)
   {
-    return QubitApiAip::getResults($request);
+    // allow optional specification of culture
+    $culture = (isset($this->request->culture)) ? $this->request->culture : 'en';
+
+    // retrieve list of countries
+    $cultureInstance = sfCultureInfo::getInstance($culture);
+    $countries = $cultureInstance->getCountries();
+
+    return $countries;
   }
 }

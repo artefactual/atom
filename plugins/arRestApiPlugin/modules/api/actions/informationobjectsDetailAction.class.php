@@ -37,25 +37,18 @@ class ApiInformationObjectsDetailAction extends QubitApiAction
     $data['title'] = get_search_i18n($doc, 'title');
     $data['level_of_description_id'] = (int)$doc['levelOfDescriptionId'];
 
-    $data['dc'] = array(
-      'identifier' => $doc['identifier'],
-      'title' => get_search_i18n($doc, 'title')
-      // 'description' => $io->getScopeAndContent(array('cultureFallback' => true))
-      // 'subjects' => ['Elephants', 'Circus', 'Zoo', 'Animals'],
-      // 'description' => 'Exhibition materials: 3 DVD and players, 2 projectors, 3 monitor, 2 screens. The complete work is a three-screen piece, consisting of one retro projection, one front projection and one monitor. See file for installation instructions. One monitor and two projections on screens 19.69 X 11.38 feet. Viewer must be able to walk around screens.',
-      // 'type' => ['image'],
-      // 'format' => 'You tell me',
-      // 'source' => 'Somewhere',
-      // 'language' => ['English'],
-      // 'isLocatedAt' => ['MoMA'],
-      // 'spatial' => ['New York'],
-      // 'rights' => 'Many rights'
-    );
+    $data['dc'] = array();
+    $this->addItemToArray($data['dc'], 'identifier', $doc['identifier']);
+    $this->addItemToArray($data['dc'], 'title', get_search_i18n($doc, 'title'));
+    $this->addItemToArray($data['dc'], 'description', get_search_i18n($doc, 'scopeAndContent'));
+    $this->addItemToArray($data['dc'], 'format', 'This is the format');
+    $this->addItemToArray($data['dc'], 'source', 'This is the source');
+    $this->addItemToArray($data['dc'], 'rights', 'These are the rights');
 
     return $data;
   }
 
-  protected function post($request, $payload)
+  protected function put($request, $payload)
   {
     $io = $this->fetchInformationObjectOr404();
 

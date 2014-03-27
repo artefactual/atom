@@ -23,46 +23,11 @@ function getRandomInt(min, max) {
 }
 
 function getRandomFromArray(arrayData) {
-  return arrayData[getRandomInt(0, arrayData.length - 1)];
+  return arrayData[getRandomInt(0, arrayData.length - 1)]
 }
 
-function generateAttributeTaxonomy() {
-  var attributeTaxonomy = {},
-      attributeTypes = [
-        'Format',
-        'Media Format',
-        'Source',
-        'Standard',
-        'Status'
-      ];
+function generateTMScomponent(objectId, componentId, componentNumber) {
 
-  // add 10 dummy terms to each attribute type
-  attributeTypes.forEach(function(attributeType) {
-    attributeTaxonomy[attributeType] = [];
-    for(var i = 0; i < 10; i++) {
-      attributeTaxonomy[attributeType].push(casual.word);
-    }
-  });
-
-  return attributeTaxonomy;
-}
-
-function generateTMScomponentAttributes(attributeTaxonomy) {
-  var attributes = [];
-
-  for(var attributeType in attributeTaxonomy) {
-    if (getRandomInt(1, 2) == 1) {
-      // add this attribute type with random taxonomy value
-      var attribute = {};
-      attribute[attributeType] = getRandomFromArray(attributeTaxonomy[attributeType]);
-      attributes.push(attribute);
-    }
-  }
-
-  return attributes;
-}
-
-function generateTMScomponent(objectId, componentId, componentNumber, attributeTaxonomy) {
   var textEntries = [];
 
   for (var i = 0; i < getRandomInt(1, 3); i++) {
@@ -87,15 +52,14 @@ function generateTMScomponent(objectId, componentId, componentNumber, attributeT
     'PrepComments': casual.sentence,
     'StorageComments': casual.sentence,
     'TextEntries': JSON.stringify(textEntries),
-    'Attributes': JSON.stringify(generateTMScomponentAttributes(attributeTaxonomy))
+    'Attributes': casual.string
   };
 }
 
 console.log('[');
 
 var objectId = 1,
-    componentId = 1,
-    attributeTaxonomy = generateAttributeTaxonomy();
+    componentId = 1;
 
 // for each TMS object we'll be rendering components for...
 for (var i = 0; i < amountToGenerate; i++) {
@@ -106,7 +70,7 @@ for (var i = 0; i < amountToGenerate; i++) {
   componentsToGenerate = getRandomInt(1, 3);
   for (var j = 0; j < componentsToGenerate; j++) {
     var commaAfterJSON = (i < (amountToGenerate - 1) || j < (componentsToGenerate - 1)) ? ',' : '',
-        component = generateTMScomponent(objectId, componentId, firstNumber + '.' + secondNumber, attributeTaxonomy);
+        component = generateTMScomponent(objectId, componentId, firstNumber + '.' + secondNumber);
 
     console.log('  ' + JSON.stringify(component) + commaAfterJSON);
     componentId++;

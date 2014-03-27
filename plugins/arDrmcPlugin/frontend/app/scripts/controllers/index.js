@@ -6,6 +6,10 @@
 
   module.exports = angular.module('momaApp.controllers', [])
 
+    // Layout
+    .controller('HeaderCtrl', require('./HeaderCtrl'))
+    .controller('FooterCtrl', require('./FooterCtrl'))
+
     // Dashboard
     .controller('DashboardCtrl', require('./DashboardCtrl'))
 
@@ -21,6 +25,8 @@
 
     // Technology records
     .controller('TechnologyRecordBrowserCtrl', require('./TechnologyRecordBrowserCtrl'))
-    .controller('TechnologyRecordViewCtrl', require('./TechnologyRecordViewCtrl'));
+    .controller('TechnologyRecordViewCtrl', require('./TechnologyRecordViewCtrl'))
+    .controller('EditDCMetadataCtrl', require('./EditDCMetadataCtrl'))
+    .controller('AddSupportingTechnologyCtrl', require('./AddSupportingTechnologyCtrl'));
 
 })();

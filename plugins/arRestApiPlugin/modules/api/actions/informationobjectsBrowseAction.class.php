@@ -101,4 +101,19 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
         'facets' => $facets,
         'results' => $results);
   }
+
+  protected function post($request, $payload)
+  {
+    $io = new QubitInformationObject();
+    $io->parentId = QubitInformationObject::ROOT_ID;
+
+    // TODO: restrict to allowed fields
+    foreach ($payload as $field => $value)
+    {
+      $field = lcfirst(sfInflector::camelize($field));
+      $io->$field = $value;
+    }
+
+    $io->save();
+  }
 }

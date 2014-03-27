@@ -40,30 +40,60 @@
 
   <nav>
 
-    <div id="manage-menu" data-toggle="tooltip" data-title="Manage">
-
-      <a class="top-item" data-toggle="dropdown" data-target="#">Manage</a>
-
+    <div id="user-menu">
+      <a class="top-item top-dropdown" data-toggle="dropdown" data-target="#">@{{ user.username }}</a>
       <div class="top-dropdown-container">
-
         <div class="top-dropdown-arrow">
           <div class="arrow"></div>
         </div>
+        <div class="top-dropdown-header">
+          <img ng-src="{{ user.gravatar }}"/>
+          &nbsp;Hi, {{ user.name }}!
+        </div>
+        <div class="top-dropdown-body">
+          <ul>
+            <li><a href>Profile (WIP)</a></li>
+            <li><a href>Log out (WIP)</a></li>
+          </ul>
+        </div>
+        <div class="top-dropdown-bottom"></div>
+      </div>
+    </div>
 
+    <div id="manage-menu" data-toggle="tooltip" data-title="Manage">
+      <a class="top-item" data-toggle="dropdown" data-target="#">Manage</a>
+      <div class="top-dropdown-container">
+        <div class="top-dropdown-arrow">
+          <div class="arrow"></div>
+        </div>
         <div class="top-dropdown-header">Manage</div>
-
         <div class="top-dropdown-body">
           <ul>
             <li class="leaf" id="node_taxonomies">
-              <a target="_self" ng-href="{{ basePath }}/taxonomy/list">Taxonomies</a>
+              <a ng-href="{{ basePath }}/taxonomy/list">Taxonomies</a>
             </li>
           </ul>
         </div>
-
         <div class="top-dropdown-bottom"></div>
-
       </div>
+    </div>
 
+    <div id="add-menu" data-toggle="tooltip" data-title="Add">
+      <a class="top-item" data-toggle="dropdown" data-target="#">Add</a>
+      <div class="top-dropdown-container">
+        <div class="top-dropdown-arrow">
+          <div class="arrow"></div>
+        </div>
+        <div class="top-dropdown-header">Add</div>
+        <div class="top-dropdown-body">
+          <ul>
+            <li class="leaf">
+              <a href ng-click="openSupportingTechnologyModal()">Supporting technology record</a>
+            </li>
+          </ul>
+        </div>
+        <div class="top-dropdown-bottom"></div>
+      </div>
     </div>
 
   </nav>

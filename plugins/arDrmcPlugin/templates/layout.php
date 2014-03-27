@@ -10,7 +10,7 @@
   </head>
   <body ng-app="momaApp" class="drmc">
 
-    <ng-include src="headerPartialPath"></ng-include>
+    <ng-include src="headerPartialPath" ng-controller="HeaderCtrl"></ng-include>
 
     <div id="wrapper" class="container">
 
@@ -18,7 +18,7 @@
 
     </div>
 
-    <ng-include src="footerPartialPath"></ng-include>
+    <ng-include src="footerPartialPath" ng-controller="FooterCtrl"></ng-include>
 
   </body>
 </html>

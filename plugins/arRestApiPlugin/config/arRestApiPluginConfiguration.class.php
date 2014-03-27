@@ -58,6 +58,11 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'aipsView',
       'params' => array('uuid' => self::REGEX_UUID)));
 
+    $this->addRoute('GET', '/api/aips/:uuid/download', array(
+      'module' => 'api',
+      'action' => 'aipsDownloadView',
+      'params' => array('uuid' => self::REGEX_UUID)));
+
     $this->addRoute('POST', '/api/aips/:uuid/reclassify', array(
       'module' => 'api',
       'action' => 'aipsReclassify',
@@ -67,11 +72,11 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
      * Information object resources
      */
 
-    $this->addRoute('GET', '/api/informationobjects', array(
+    $this->addRoute('GET,POST', '/api/informationobjects', array(
       'module' => 'api',
       'action' => 'informationobjectsBrowse'));
 
-    $this->addRoute('GET,POST,DELETE', '/api/informationobjects/:id', array(
+    $this->addRoute('GET,PUT,DELETE', '/api/informationobjects/:id', array(
       'module' => 'api',
       'action' => 'informationobjectsDetail',
       'params' => array('id' => self::REGEX_ID)));
@@ -114,6 +119,14 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'taxonomiesBrowse',
       'params' => array('id' => self::REGEX_ID)));
+
+    /**
+     * Fixed value lists
+     */
+
+    $this->addRoute('GET', '/api/countries', array(
+      'module' => 'api',
+      'action' => 'countriesBrowse'));
   }
 
   protected function addRoute($method, $pattern, array $options = array())

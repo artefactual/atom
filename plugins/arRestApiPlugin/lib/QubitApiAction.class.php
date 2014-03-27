@@ -59,7 +59,7 @@ class QubitAPIAction extends sfAction
 
     // Modern frameworks support application/json, Symfony1 is too old :)
     // AngularJS doesn't use application/x-www-form-urlencoded
-    if ('POST' == $method && 'application/json' == $request->getContentType())
+    if (('PUT' == $method || 'POST' == $method) && 'application/json' == $request->getContentType())
     {
       $fnParamaters[] = json_decode($request->getContent());
     }

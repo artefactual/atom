@@ -125,6 +125,11 @@ module.exports = function ($http, SETTINGS) {
     return this.get(params);
   };
 
+  this.getSupportingTechnologyRecord = function (id) {
+    var params = { level_id: SETTINGS.drmc.lod_supporting_technology_record_id };
+    return this.getById(id, params);
+  };
+
   this.getWorks = function (params) {
     params = params || {};
     params.level_id = SETTINGS.drmc.lod_artwork_record_id;
@@ -158,4 +163,12 @@ module.exports = function ($http, SETTINGS) {
     });
   };
 
+  this.update = function (id, data) {
+    var configuration = {
+      method: 'PUT',
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id,
+      data: data
+    };
+    return $http(configuration);
+  };
 };

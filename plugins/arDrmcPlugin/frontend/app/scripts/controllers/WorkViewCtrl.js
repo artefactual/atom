@@ -28,5 +28,4 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
       console.log(result);
     });
   };
-
 };
