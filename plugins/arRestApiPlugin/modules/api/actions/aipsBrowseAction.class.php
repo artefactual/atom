@@ -55,6 +55,15 @@ class ApiAipsBrowseAction extends QubitApiAction
     // Add facets to the query
     $this->facetEsQuery('Terms', 'type', 'type.id', $query);
 
+    // Filter query
+    if (isset($this->request->query) && 1 !== preg_match('/^[\s\t\r\n]*$/', $this->request->query))
+    {
+      $queryText = new \Elastica\Query\Text();
+      $queryText->setFieldQuery('filename.autocomplete', $this->request->query);
+
+      $queryBool->addMust($queryText);
+    }
+
     // Assign query
     $query->setQuery($queryBool);
 
@@ -66,16 +75,26 @@ class ApiAipsBrowseAction extends QubitApiAction
       $doc = $hit->getData();
 
       $aip = array();
-      $aip['id'] = $hit->getId();
-      $aip['name'] = $doc['filename'];
-      $aip['uuid'] = $doc['uuid'];
-      $aip['size'] = $doc['sizeOnDisk'];
-      $aip['created_at'] = $doc['createdAt'];
-      $aip['type']['id'] = $doc['type']['id'];
-      $aip['type']['name'] = get_search_i18n($doc['type'], 'name');
-      $aip['part_of']['id'] = $doc['partOf']['id'];
-      $aip['part_of']['title'] = get_search_i18n($doc['partOf'], 'title');
-      $aip['digital_object_count'] = $doc['digitalObjectCount'];
+
+      $this->addItemToArray($aip, 'id', $hit->getId());
+      $this->addItemToArray($aip, 'name', $doc['filename']);
+      $this->addItemToArray($aip, 'uuid', $doc['uuid']);
+      $this->addItemToArray($aip, 'size', $doc['sizeOnDisk']);
+      $this->addItemToArray($aip, 'created_at', $doc['createdAt']);
+
+      if (isset($doc['type']))
+      {
+        $this->addItemToArray($aip['type'], 'id', $doc['type']['id']);
+        $this->addItemToArray($aip['type'], 'name', get_search_i18n($doc['type'], 'name'));
+      }
+
+      if (isset($doc['type']))
+      {
+        $this->addItemToArray($aip['part_of'], 'id', $doc['partOf']['id']);
+        $this->addItemToArray($aip['part_of'], 'title', get_search_i18n($doc['partOf'], 'title'));
+      }
+
+      $this->addItemToArray($aip, 'digital_object_count', $doc['filename']);
 
       $data['results'][] = $aip;
     }

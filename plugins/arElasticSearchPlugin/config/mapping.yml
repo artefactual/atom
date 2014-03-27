@@ -126,6 +126,32 @@ mapping:
           name: { type: string, index: not_analyzed, include_in_all: false }
           type: { type: string, index: not_analyzed, include_in_all: false }
 
+  tms_object:
+    _attributes:
+      nested_only: true
+    _foreign_types:
+      classification: term
+      department: term
+    dynamic: strict
+    properties:
+      accession_number: { type: string, index: not_analyzed, include_in_all: false }
+      full_image: { type: string, index: not_analyzed, include_in_all: false }
+      thumbnail: { type: string, index: not_analyzed, include_in_all: false }
+
+  tms_component:
+    _attributes:
+      nested_only: true
+    _foreign_types:
+      component_type: term
+      install_comments: note
+      prep_comments: note
+      storage_comments: note
+      text_entries: note
+    dynamic: strict
+    properties:
+      comp_count: { type: integer, index: not_analyzed, include_in_all: false }
+      component_number: { type: string, index: not_analyzed, include_in_all: false }
+
   #
   # Main types
   #
@@ -140,7 +166,19 @@ mapping:
     dynamic: strict
     properties:
       uuid: { type: string, index: not_analyzed, include_in_all: false }
-      filename: { type: string, index: not_analyzed, include_in_all: false }
+      filename:
+        type: multi_field
+        fields:
+          filename:
+            type: string
+            index: not_analyzed
+          autocomplete:
+            include_in_all: false
+            index_analyzer: autocomplete
+            store: true
+            search_analyzer: standard
+            term_vector: with_positions_offsets
+            type: string
       size_on_disk: { type: long, index: not_analyzed, include_in_all: false }
       digital_object_count: { type: integer, index: not_analyzed, include_in_all: false }
       created_at: { type: date, index: not_analyzed, include_in_all: false }
@@ -213,6 +251,8 @@ mapping:
       dates: event
       aip: aip
       mets_data: mets_data
+      tms_object: tms_object
+      tms_component: tms_component
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }

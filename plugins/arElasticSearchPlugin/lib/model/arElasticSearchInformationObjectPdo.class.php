@@ -664,6 +664,20 @@ class arElasticSearchInformationObjectPdo
     }
   }
 
+  public function getNotesByType($typeId)
+  {
+    $sql  = 'SELECT
+                id, source_culture';
+    $sql .= ' FROM '.QubitNote::TABLE_NAME;
+    $sql .= ' WHERE object_id = ?';
+    $sql .= ' AND type_id = '.$typeId;
+
+    self::$statements['noteByType'] = self::$conn->prepare($sql);
+    self::$statements['noteByType']->execute(array($this->__get('id')));
+
+    return self::$statements['noteByType']->fetchAll(PDO::FETCH_OBJ);
+  }
+
   public function getThumbnailPath()
   {
     if (!$this->__isset('digital_object_id'))
@@ -1289,9 +1303,76 @@ class arElasticSearchInformationObjectPdo
       $serialized['metsData'] = $metsData;
     }
 
+    // TMS object
+    if (null !== $accessionNumber = $this->getProperty('ObjectNumber'))
+    {
+      $serialized['tmsObject']['accessionNumber'] = $accessionNumber;
+    }
+
+    if (null !== $thumbnail = $this->getProperty('Thumbnail'))
+    {
+      $serialized['tmsObject']['thumbnail'] = $thumbnail;
+    }
+
+    if (null !== $fullImage = $this->getProperty('FullImage'))
+    {
+      $serialized['tmsObject']['fullImage'] = $fullImage;
+    }
+
+    foreach ($this->getDirectlyRelatedTerms(sfConfig::get('app_drmc_taxonomy_classifications_id')) as $item)
+    {
+      $node = new arElasticSearchTermPdo($item->id);
+      $serialized['tmsObject']['classification'][] = $node->serialize();
+    }
+
+    foreach ($this->getDirectlyRelatedTerms(sfConfig::get('app_drmc_taxonomy_departments_id')) as $item)
+    {
+      $node = new arElasticSearchTermPdo($item->id);
+      $serialized['tmsObject']['department'][] = $node->serialize();
+    }
+
+    // TMS component
+    if (null !== $compCount = $this->getProperty('CompCount'))
+    {
+      $serialized['tmsComponent']['compCount'] = $compCount;
+    }
+
+    if (null !== $componentNumber = $this->getProperty('ComponentNumber'))
+    {
+      $serialized['tmsComponent']['componentNumber'] = $componentNumber;
+    }
+
+    foreach ($this->getNotesByType(sfConfig::get('app_drmc_term_installcomments_id')) as $note)
+    {
+      $serialized['tmsComponent']['installComments'][] = arElasticSearchNote::serialize($note);
+    }
+
+    foreach ($this->getNotesByType(sfConfig::get('app_drmc_term_prepcomments_id')) as $note)
+    {
+      $serialized['tmsComponent']['prepComments'][] = arElasticSearchNote::serialize($note);
+    }
+
+    foreach ($this->getNotesByType(sfConfig::get('app_drmc_term_storagecomments_id')) as $note)
+    {
+      $serialized['tmsComponent']['storageComments'][] = arElasticSearchNote::serialize($note);
+    }
+
+    foreach ($this->getNotesByType(QubitTerm::GENERAL_NOTE_ID) as $note)
+    {
+      $serialized['tmsComponent']['textEntries'][] = arElasticSearchNote::serialize($note);
+    }
+
+    foreach ($this->getDirectlyRelatedTerms(sfConfig::get('app_drmc_taxonomy_component_types_id')) as $item)
+    {
+      $node = new arElasticSearchTermPdo($item->id);
+      $serialized['tmsComponent']['componentType'][] = $node->serialize();
+    }
+
+    // Timestamps
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);
     $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($this->updated_at);
 
+    // Languages
     $serialized['sourceCulture'] = $this->source_culture;
     $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($this->id, array('QubitInformationObject'));
 

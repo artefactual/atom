@@ -101,6 +101,10 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'informationobjectsAips',
       'params' => array('id' => self::REGEX_ID)));
 
+    $this->addRoute('GET', '/api/informationobjects/tms', array(
+      'module' => 'api',
+      'action' => 'informationobjectsTmsBrowse'));
+
     $this->addRoute('POST', '/api/informationobjects/:id/associate', array(
       'module' => 'api',
       'action' => 'informationobjectsAssociate',
@@ -132,6 +136,14 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     $this->addRoute('GET', '/api/countries', array(
       'module' => 'api',
       'action' => 'countriesBrowse'));
+
+    /**
+     * Search
+     */
+
+    $this->addRoute('GET', '/api/search/autocomplete', array(
+      'module' => 'api',
+      'action' => 'searchAutocomplete'));
   }
 
   protected function addRoute($method, $pattern, array $options = array())

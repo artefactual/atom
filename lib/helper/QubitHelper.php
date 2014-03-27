@@ -307,10 +307,14 @@ function get_search_i18n($hit, $fieldName, $cultureFallback = true, $allowEmpty 
   return $value;
 }
 
-function get_search_i18n_highlight(\Elastica\Result $hit, $fieldName)
+function get_search_i18n_highlight(\Elastica\Result $hit, $field, $options = array())
 {
   $highlights = $hit->getHighlights();
-  $field = 'i18n.'.sfContext::getInstance()->user->getCulture().'.'.$fieldName;
+
+  if (!isset($options['notI18n']) || $options['notI18n'] === false)
+  {
+    $field = 'i18n.'.sfContext::getInstance()->user->getCulture().'.'.$field;
+  }
 
   if (isset($highlights[$field]))
   {
