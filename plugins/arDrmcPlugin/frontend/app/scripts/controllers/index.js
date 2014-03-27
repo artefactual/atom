@@ -30,6 +30,9 @@
     .controller('AddSupportingTechnologyCtrl', require('./AddSupportingTechnologyCtrl'))
 
     // TMS
-    .controller('TmsBrowserCtrl', require('./TmsBrowserCtrl'));
+    .controller('TmsBrowserCtrl', require('./TmsBrowserCtrl'))
+
+    // Search
+    .controller('SearchCtrl', require('./SearchCtrl'));
 
 })();

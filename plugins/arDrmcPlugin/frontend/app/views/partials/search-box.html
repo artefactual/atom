@@ -1,0 +1,55 @@
+<div id="search-form-wrapper">
+
+  <form name="form" ng-submit="submit()">
+
+    <input type="text" ng-model="query" placeholder="Search"/>
+
+    <div ng-show="showRealm" id="search-realm" class="search-popover">
+
+      <div ng-if="results != undefined">
+        <ul>
+          <li ng-repeat="result in results">{{ result | json }}</li>
+        </ul>
+        <hr />
+      </div>
+
+      <div>
+        <label>
+          <input type="radio" ng-model="realm" value="all"/>
+          All
+        </label>
+      </div>
+
+      <div>
+        <label>
+          <input type="radio" ng-model="realm" value="aips"/>
+          AIPs
+        </label>
+      </div>
+
+      <div>
+        <label>
+          <input type="radio" ng-model="realm" value="works"/>
+          Artwork records
+        </label>
+      </div>
+
+      <div>
+        <label>
+          <input type="radio" ng-model="realm" value="components"/>
+          Components
+        </label>
+      </div>
+
+      <div>
+        <label>
+          <input type="radio" ng-model="realm" value="technology-records"/>
+          Supporting technology records
+        </label>
+      </div>
+
+    </div>
+
+  </form>
+
+</div>

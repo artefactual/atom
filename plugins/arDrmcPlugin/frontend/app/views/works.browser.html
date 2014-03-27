@@ -55,19 +55,7 @@
 
       <div class="content">
 
-        <article ng-repeat="(id, work) in data.results" class="search-result">
-          <div class="search-result-description">
-            <p class="title"><a ui-sref="works.view({id: id})">{{ work.title || 'Untitled' }}</a></p>
-            <div ng-if="work.tms != undefined">
-              <ul class="result-details">
-                <li class="reference-code">{{ work.tms.objectId }}</li>
-                <li class="dates">{{ work.tms.year }}</li>
-              </ul>
-              <p>{{ work.tms.description }}</p>
-              <p class="creation-details">{{ work.tms.accessionNumber }}</p>
-            </div>
-          </div>
-        </article>
+        <ng-include src="viewsPath + '/partials/works.list.html'"></ng-include>
 
       </div>
 

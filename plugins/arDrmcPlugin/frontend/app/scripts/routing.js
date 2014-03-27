@@ -70,7 +70,7 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       templateUrl: SETTINGS.viewsPath + '/technology-records.view.html'
     })
 
-    // Technology Records
+    // TMS
     .state('tms', {
       abstract: true,
       url: SETTINGS.DRMCPath + 'tms',
@@ -80,6 +80,20 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       url: '',
       controller: 'TmsBrowserCtrl',
       templateUrl: SETTINGS.viewsPath + '/tms.browser.html'
+    })
+
+    // Search
+    .state('search', {
+      abstract: true,
+      url: SETTINGS.DRMCPath + 'search',
+      template: '<ui-view/>'
+    })
+    .state('search.entity', {
+      url: '/{entity}',
+      controller: 'SearchCtrl',
+      templateUrl: function (stateParams) {
+        return SETTINGS.viewsPath + '/' + stateParams.entity + '.search.html';
+      }
     });
 
 };

@@ -132,8 +132,22 @@ module.exports = function ($http, SETTINGS) {
 
   this.getWorks = function (params) {
     params = params || {};
-    params.level_id = SETTINGS.drmc.lod_artwork_record_id;
-    return this.get(params);
+    params.type = 'objects';
+    return this.getTmsBrowse(params);
+  };
+
+  this.getComponents = function (params) {
+    params = params || {};
+    params.type = 'components';
+    return this.getTmsBrowse(params);
+  };
+
+  this.getTmsBrowse = function (params) {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/informationobjects/tms',
+      params: params
+    });
   };
 
   this.getWork = function (id) {
