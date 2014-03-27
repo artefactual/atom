@@ -15,8 +15,8 @@
     </metadata>
    </record>
 <?php endforeach ?>
-  </ListRecords>
   <?php if($remaining > 0):?>
     <resumptionToken><?php echo $resumptionToken?></resumptionToken>
   <?php endif?>
+  </ListRecords>
 <?php endif?>
