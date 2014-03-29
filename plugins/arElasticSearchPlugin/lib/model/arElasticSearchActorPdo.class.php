@@ -136,6 +136,8 @@ class arElasticSearchActorPdo
 
     $serialized['entityTypeId'] = $this->entity_type_id;
 
+    $serialized['descriptionIdentifier'] = $this->description_identifier;
+
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);
     $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($this->updated_at);
 

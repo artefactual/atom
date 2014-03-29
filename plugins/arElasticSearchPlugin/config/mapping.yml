@@ -174,6 +174,7 @@ mapping:
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }
+      description_identifier: { type:string, index: not_analyzed }
       entity_type_id: { type: integer, index: not_analyzed, include_in_all: false }
 
   repository:
