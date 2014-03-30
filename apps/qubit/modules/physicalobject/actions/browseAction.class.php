@@ -36,6 +36,13 @@ class PhysicalObjectBrowseAction extends sfAction
     // Do source culture fallback
     $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitPhysicalObject');
 
+    if (isset($request->subquery))
+    {
+      $criteria->addJoin(QubitPhysicalObject::ID, QubitPhysicalObjectI18n::ID);
+      $criteria->add(QubitPhysicalObjectI18n::CULTURE, $this->context->user->getCulture());
+      $criteria->add(QubitPhysicalObjectI18n::NAME, "$request->subquery%", Criteria::LIKE);
+    }
+
     switch ($request->sort)
     {
       case 'nameDown':
