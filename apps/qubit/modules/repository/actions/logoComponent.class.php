@@ -38,7 +38,7 @@ class RepositoryLogoComponent extends sfComponent
 
     if ($this->resource instanceof QubitInformationObject)
     {
-      if (!sfConfig::get('app_multi_repository') || null === $this->resource = $this->resource->getRepository(array('inherit' => true)))
+      if (null === $this->resource = $this->resource->getRepository(array('inherit' => true)))
       {
         return sfView::NONE;
       }
