@@ -323,9 +323,9 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
 
       scope.isDeletable = function (node) {
         if (typeof node.data === 'undefined') {
-          return;
+          return false;
         }
-        return !InformationObjectService.hasTmsOrigin(node.data.level_of_description_id);
+        return cb.graph.predecessors(node.id).length === 0 && !InformationObjectService.hasTmsOrigin(node.data.level_of_description_id);
       };
 
       scope.unselectNode = function (id) {
