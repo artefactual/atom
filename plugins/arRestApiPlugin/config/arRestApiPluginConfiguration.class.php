@@ -133,6 +133,23 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'actorsBrowse'));
 
+    $this->addRoute('GET', '/api/actors/:id', array(
+      'module' => 'api',
+      'action' => 'actorsDetail'));
+
+    $this->addRoute('POST', '/api/actors', array(
+      'module' => 'api',
+      'action' => 'actorsCreate'));
+
+    $this->addRoute('PUT', '/api/actors/:id', array(
+      'module' => 'api',
+      'action' => 'actorsUpdate',
+      'params' => array('id' => self::REGEX_ID)));
+
+    $this->addRoute('DELETE', '/api/actors/:id', array(
+      'module' => 'api',
+      'action' => 'actorsDelete',
+      'params' => array('id' => self::REGEX_ID)));
 
     /**
      * Taxonomies and terms
