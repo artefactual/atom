@@ -168,7 +168,20 @@
     this.draw();
   };
 
+  ContextBrowser.prototype.cancelNodeSelection = function (selection) {
+    var nodes = this.graphSVG.selectAll('.node');
+    if (typeof selection !== 'undefined') {
+      nodes = nodes.data(selection, function (d) { return d; });
+    }
+    nodes
+      .classed('disabled', false)
+      .attr('style', 'opacity: 1;');
+  };
+
+  // It would be nice to use promises here
   ContextBrowser.prototype.promptNodeSelection = function (options) {
+    var self = this;
+
     options = options || {};
     if (!options.hasOwnProperty('action')) {
       throw 'Missing action attribute (function callback)';
@@ -191,6 +204,12 @@
     $nodes.one('click', '.node', function (event) {
       var $node = jQuery(event.target).closest('.node');
       var id = d3.select($node.get(0)).datum();
+      // Make sure that we are not allowing an excluded item
+      if (exclusionList.indexOf(id) > -1) {
+        self.cancelNodeSelection(exclusionList);
+        return;
+      }
+      // Invoke callback
       options.action.call(null, id);
     });
   };
