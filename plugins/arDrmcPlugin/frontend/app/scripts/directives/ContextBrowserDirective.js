@@ -170,8 +170,9 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
       };
 
       scope.addChildNode = function (parentId) {
+        // TODO: Use a modal
         var label = prompt('Insert label');
-        if (label.length === 0) {
+        if (!label) {
           return;
         }
         var data = {
@@ -215,10 +216,15 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         } else {
           throw 'I don\'t know what you are trying to do!';
         }
+        var exclusionList = cb.graph.descendants(ids, { onlyId: true, andSelf: true });
         cb.promptNodeSelection({
-          exclude: source,
+          exclude: exclusionList,
           action: function (target) {
-            cb.moveNodes(source, target);
+            InformationObjectService.move(source, target).then(function () {
+              cb.moveNodes(source, target);
+            }, function () {
+              cb.cancelNodeSelection();
+            });
           }
         });
       };
