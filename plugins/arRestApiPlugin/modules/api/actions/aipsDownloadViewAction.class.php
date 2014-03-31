@@ -108,7 +108,7 @@ class ApiAipsDownloadViewAction extends QubitApiAction
     // create array representing access details
     $logMessageData = array();
     $logMessageData[] = date('Y-m-d H:i:s');
-    $logMessageData[] = $this->getUser()->getUserID();
+    $logMessageData[] = $this->getUser()->getUserName();
     $logMessageData[] = str_replace('|', ' ', $request->reason);
     $logMessageData[] = $request->relative_path_to_file;
 
