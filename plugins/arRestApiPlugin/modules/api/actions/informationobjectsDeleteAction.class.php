@@ -21,8 +21,6 @@ class ApiInformationObjectsDeleteAction extends QubitApiAction
 {
   protected function delete($request)
   {
-    $io = $this->fetchInformationObjectOr404();
-
     if (QubitInformationObject::ROOT_ID === (int)$this->request->id)
     {
       throw new QubitApi404Exception('Information object not found');
