@@ -78,7 +78,7 @@ class QubitAPIAction extends sfAction
     {
       $this->response->setHeaderOnly(true);
 
-      $this->response->setStatusCode(404);
+      $this->response->setStatusCode(204);
 
       return sfView::NONE;
     }
