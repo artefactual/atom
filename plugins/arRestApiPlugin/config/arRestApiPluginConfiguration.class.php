@@ -95,6 +95,11 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'informationobjectsDelete',
       'params' => array('id' => self::REGEX_ID)));
 
+    $this->addRoute('POST', '/api/informationobjects/:id/move', array(
+      'module' => 'api',
+      'action' => 'informationobjectsMove',
+      'params' => array('id' => self::REGEX_ID)));
+
     $this->addRoute('GET', '/api/informationobjects/:id/tree', array(
       'module' => 'api',
       'action' => 'informationobjectsTree',
