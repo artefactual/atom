@@ -32,7 +32,5 @@ class ApiInformationObjectsDeleteAction extends QubitApiAction
     }
 
     $io->delete();
-
-    return sfView::NONE;
   }
 }
