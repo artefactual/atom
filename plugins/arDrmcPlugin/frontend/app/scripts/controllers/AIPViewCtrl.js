@@ -40,7 +40,7 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
       window.scope = $scope;
       // criteria contain GET params used when calling getFiles to refresh data
       $scope.criteria = {};
-      $scope.criteria.limit = 3;
+      $scope.criteria.limit = 10;
       $scope.criteria.sort = 'name';
       $scope.page = 1; // Don't delete this, it's an important default for the loop
 
