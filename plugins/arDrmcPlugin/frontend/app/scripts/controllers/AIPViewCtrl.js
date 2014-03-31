@@ -3,6 +3,12 @@
 module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, InformationObjectService, ModalDigitalObjectViewerService) {
 
   $scope.openDownloadModal = function (relativePathWithinAip) {
+    if (typeof relativePathWithinAip !== 'undefined') {
+      $scope.downloadDescription = relativePathWithinAip;
+    } else {
+      $scope.downloadDescription = 'AIP ' + $scope.aip.name + ' (' + $scope.aip.uuid + ')';
+    }
+
     // $modal.open returns a promise
     var modalInstance = $modal.open({
       templateUrl: SETTINGS.viewsPath + '/modals/download-aip-or-aip-file.html',
@@ -37,7 +43,6 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
         ModalDigitalObjectViewerService.open();
       };
 
-      window.scope = $scope;
       // criteria contain GET params used when calling getFiles to refresh data
       $scope.criteria = {};
       $scope.criteria.limit = 10;
