@@ -31,6 +31,23 @@ class ApiInformationObjectsDeleteAction extends QubitApiAction
       throw new QubitApi404Exception('Information object not found');
     }
 
-    $io->delete();
+    // Check user authorization
+    // if (!QubitAcl::check($this->resource, 'delete'))
+    // {
+    //   throw new QubitApiForbiddenException('You are not allowed to delete this object');
+    // }
+
+    // Remove descendants firsts!
+    foreach ($io->descendants->andSelf()->orderBy('rgt') as $item)
+    {
+      // Delete related digitalObjects
+      foreach ($item->digitalObjects as $digitalObject)
+      {
+        $digitalObject->informationObjectId = null;
+        $digitalObject->delete();
+      }
+
+      $item->delete();
+    }
   }
 }
