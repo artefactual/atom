@@ -54,6 +54,48 @@
     parseTree(this.data.children, root);
   };
 
+  /**
+   * I could be using .children if I move to CDigraph, but there's something
+   * that it's blocking me from moving to that type of graph, can't remember
+   * now. The following function mimics children() using predecessors.
+   * Named "descendants" to avoid conflicts with BaseGraph.
+   */
+  Graph.prototype.descendants = function (u, options) {
+    var self = this;
+    var children = [];
+    options = options || {};
+    options.onlyId = typeof options.onlyId !== 'undefined' && options.onlyId === true;
+    options.andSelf = typeof options.andSelf !== 'undefined' && options.andSelf === true;
+
+    var push = function (u) {
+      if (options.onlyId) {
+        children.push(u);
+      } else {
+        var node = self.node(u);
+        children.push(node);
+      }
+    };
+
+    var walk = function (u) {
+      var p = self.predecessors(u);
+      if (p.length === 0) {
+        return;
+      }
+      p.forEach(function (e) {
+        push(e);
+        walk(e);
+      });
+    };
+
+    if (options.andSelf) {
+      push(u);
+    }
+
+    walk(u);
+
+    return children;
+  };
+
   Graph.prototype.filter = function (u, filterFn) {
     var self = this;
     var list = [];
