@@ -76,11 +76,11 @@ EOF;
     
     if (($options['index']))
     {
-        QubitSearch::enable();
+      QubitSearch::enable();
     }
     else
     {
-        QubitSearch::disable();        
+      QubitSearch::disable();        
     }
     
     $this->logSection("Load digital objects from {$arguments['filename']}...");
