@@ -7,10 +7,40 @@
     <div ng-show="showRealm" id="search-realm" class="search-popover">
 
       <div ng-if="results != undefined">
-        <ul>
-          <li ng-repeat="result in results">{{ result | json }}</li>
-        </ul>
-        <hr />
+
+        <section ng-if="results.totals.aips > 0">
+          <ul>
+            <li ng-repeat="(uuid, aip) in results.aips">
+              <a ui-sref="aips.view({ uuid: uuid })" ng-bind-html="aip.name"></a>
+            </li>
+            <li class="showall">
+              <a ui-sref="search.entity({ entity: 'aips' })">all matching AIPs</a>
+            </li>
+          </ul>
+        </section>
+
+        <section ng-if="results.totals.artworks > 0">
+          <ul>
+            <li ng-repeat="(id, work) in results.artworks">
+              <a ui-sref="works.view({ id: id })" ng-bind-html="work.title"></a>
+            </li>
+            <li class="showall">
+              <a ui-sref="search.entity({ entity: 'works' })">all matching Artworks</a>
+            </li>
+          </ul>
+        </section>
+
+        <section ng-if="results.totals.components > 0">
+          <ul>
+            <li ng-repeat="(id, comp) in results.components">
+              <a ng-bind-html="comp.title"></a>
+            </li>
+            <li class="showall">
+              <a ui-sref="search.entity({ entity: 'components' })">all matching Components</a>
+            </li>
+          </ul>
+        </section>
+
       </div>
 
       <div>
