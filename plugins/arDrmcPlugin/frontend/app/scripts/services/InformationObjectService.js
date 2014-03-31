@@ -223,4 +223,14 @@ module.exports = function ($http, SETTINGS) {
       url: SETTINGS.frontendPath + 'api/informationobjects/' + id
     });
   };
+
+  this.move = function (id, parentId) {
+    return $http({
+      method: 'POST',
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/move',
+      data: {
+        parent_id: parentId
+      }
+    });
+  };
 };
