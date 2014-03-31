@@ -141,7 +141,7 @@ class ApiSearchAutocompleteAction extends QubitApiAction
       $results['aips'][$doc['uuid']] = $result;
     }
 
-    $results['aips']['total'] = $aips->getTotalHits();
+    $results['totals']['aips'] = $aips->getTotalHits();
 
     foreach ($artworks->getResults() as $hit)
     {
@@ -154,7 +154,7 @@ class ApiSearchAutocompleteAction extends QubitApiAction
       $results['artworks'][$hit->getId()] = $result;
     }
 
-    $results['artworks']['total'] = $artworks->getTotalHits();
+    $results['totals']['artworks'] = $artworks->getTotalHits();
 
     foreach ($components->getResults() as $hit)
     {
@@ -168,7 +168,7 @@ class ApiSearchAutocompleteAction extends QubitApiAction
       $results['components'][$hit->getId()] = $result;
     }
 
-    $results['components']['total'] = $components->getTotalHits();
+    $results['totals']['components'] = $components->getTotalHits();
 
     return $results;
   }
