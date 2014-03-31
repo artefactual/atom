@@ -522,6 +522,29 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $child->digitalObjects[] = $digitalObject;
       $child->save();
 
+
+      // Attempt to parse relative path within AIP from METS
+      $node = $this->document->xpath('//m:mets/m:fileSec/m:fileGrp[@USE="original"]/m:file[@ID="file-'. $objectUUID .'"]/m:FLocat');
+
+      $relativePathWithinDataDir = false;
+      foreach($node[0]->attributes('xlink', true) as $attribute => $value) {
+        if ($attribute == 'href')
+        {
+          $relativePathWithinDataDir = $value;
+        }
+      }
+
+      // If relative path within AIP was found, store as property
+      if ($relativePathWithinDataDir)
+      {
+        // use property to augment digital object with relative path within AIP
+        $property = new QubitProperty;
+        $property->objectId = $child->id;
+        $property->setName('original_relative_path_within_aip');
+        $property->setValue($relativePathWithinDataDir);
+        $property->save();
+      }
+
       // Process metatadata from METS file
       if (null !== ($dmdSec = $this->searchFileDmdSec($objectUUID, $mapping)))
       {

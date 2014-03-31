@@ -117,6 +117,8 @@ class arElasticSearchInformationObjectPdo
          pubstat.status_id as publication_status_id,
          do.id as digital_object_id,
          do.media_type_id as media_type_id,
+         do.mime_type as mime_type,
+         do.byte_size as byte_size,
          do.name as filename
        FROM '.QubitInformationObject::TABLE_NAME.' io
        JOIN '.QubitObject::TABLE_NAME.' obj
@@ -131,6 +133,9 @@ class arElasticSearchInformationObjectPdo
 
       self::$statements['informationObject'] = self::$conn->prepare($sql);
     }
+file_put_contents('/tmp/mike.txt', "zoo\n", file_append);
+
+file_put_contents('/tmp/mike.txt', $sql ."\n", file_append);
 
     // Do select
     self::$statements['informationObject']->execute(array(':id' => $id));
@@ -1217,6 +1222,8 @@ class arElasticSearchInformationObjectPdo
     {
       $serialized['digitalObject']['mediaTypeId'] = $this->media_type_id;
       $serialized['digitalObject']['usageId'] = $this->usage_id;
+      $serialized['digitalObject']['mimeType'] = $this->mime_type;
+      $serialized['digitalObject']['byteSize'] = $this->byte_size;
 
       if (QubitTerm::EXTERNAL_URI_ID == $this->usage_id)
       {
@@ -1375,6 +1382,12 @@ class arElasticSearchInformationObjectPdo
     // Languages
     $serialized['sourceCulture'] = $this->source_culture;
     $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($this->id, array('QubitInformationObject'));
+
+    // AIP file-specific
+    if ($this->getProperty('original_relative_path_within_aip'))
+    {
+      $serialized['originalRelativePathWithinAip'] = $this->getProperty('original_relative_path_within_aip');
+    }
 
     return $serialized;
   }

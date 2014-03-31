@@ -156,6 +156,7 @@ class QubitAPIAction extends sfAction
     {
       $limit = sfConfig::get('app_hits_per_page', 10);
     }
+    $query->setSize($limit);
 
     // Skip
     if (isset($this->request->skip) && ctype_digit($this->request->skip))

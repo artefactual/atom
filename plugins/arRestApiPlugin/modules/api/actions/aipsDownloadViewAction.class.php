@@ -78,8 +78,14 @@ class ApiAipsDownloadViewAction extends QubitApiAction
     // log access to AIP/file
     $this->logAccessAttempt($request, $aip['id']);
 
-    // proxy download
-    $this->proxyDownload($downloadUrl, $filename);
+    if ($request->show_url)
+    {
+      // optionally return URL for debugging purposes
+      return array('url' => $downloadUrl);
+    } else {
+      // proxy download
+      $this->proxyDownload($downloadUrl, $filename);
+    }
   }
 
   /*

@@ -75,16 +75,24 @@
               <li><h2>AIP file list</h2></li>
             </ul>
             <ul class="menu-list-right nav nav-pills">
-              <li><a href class="print">Print report</a></li>
-              <li><a href class="download">Download</a></li>
-              <li><a href class="inspect">Inspect</a></li>
+              <li><a ng-click="openDownloadModal()" class="download">Download</a>
             </ul>
           </div>
-          <div>
-            <div class="field">
-              <h3>Foobar</h3>
-              <div><a href ng-click="openViewer()">Open digital object viewer</a></div>
-            </div>
+
+          <!-- AIP browser -->
+          <div class="aip-browser">
+            <table class="table table-bordered">
+              <tbody>
+                <tr ng-repeat="(key, aipFile) in aipFiles | orderBy:predicate:reverse">
+                  <td><a href ng-click="openViewer()">{{ aipFile.filename }}</a></td>
+                  <td>{{ aipFile.mimeType }}</td>
+                  <td>{{ aipFile.byteSize }}</td>
+                  <td><a ng-click="openDownloadModal(aipFile.originalRelativePathWithinAip)">Download</a></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <ar-pager items-per-page="{{ criteria.limit }}" page="page"></ar-pager>
           </div>
         </section>
 

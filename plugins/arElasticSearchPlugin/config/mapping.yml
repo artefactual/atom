@@ -268,11 +268,14 @@ mapping:
       direct_subjects: { type: integer, index: not_analyzed, include_in_all: false }
       direct_places: { type: integer, index: not_analyzed, include_in_all: false }
       has_digital_object: { type: boolean, index: not_analyzed, include_in_all: false }
+      original_relative_path_within_aip: { type: string, index: not_analyzed, include_in_all: false }
       digital_object:
         type: object
         properties:
           media_type_id: { type: integer, index: not_analyzed, include_in_all: false }
           usage_id: { type: integer, index: not_analyzed, include_in_all: false }
+          byte_size: { type: integer, index: not_analyzed, include_in_all: false }
+          mime_type: { type: string, index: not_analyzed, include_in_all: false }
           thumbnail_path: { type: string, index: not_analyzed }
       alternative_identifiers:
         type: object

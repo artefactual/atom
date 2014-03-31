@@ -25,6 +25,12 @@ class ApiInformationObjectsFilesAction extends QubitApiAction
     $query = new \Elastica\Query;
     $queryBool = new \Elastica\Query\Bool;
 
+    // Pagination and sorting
+    $this->prepareEsPagination($query);
+    $this->prepareEsSorting($query, array(
+      'name' => 'filename',
+      'size' => 'byteSize'));      
+
     // Find document give its id and optionally its descendants
     if (isset($request->excludeDescendants) && true === filter_var($request->excludeDescendants, FILTER_VALIDATE_BOOLEAN))
     {
@@ -47,7 +53,8 @@ class ApiInformationObjectsFilesAction extends QubitApiAction
 
     try
     {
-      $results = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query)->getResults();
+      $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+      $results = $resultSet->getResults();
     }
     catch (\Elastica\Exception\NotFoundException $e)
     {
@@ -60,15 +67,27 @@ class ApiInformationObjectsFilesAction extends QubitApiAction
     {
       $doc = $hit->getData();
 
-      $data[] = array(
+      $item = array(
         'id' => $hit->getId(),
         'slug' => $doc['slug'],
         'mediaTypeId' => $doc['digitalObject']['mediaTypeId'],
+        'mimeType' => $doc['digitalObject']['mimeType'],
+        'byteSize' => $doc['digitalObject']['byteSize'],
         'thumbnailPath' => image_path($doc['digitalObject']['thumbnailPath'], true),
         'filename' => get_search_i18n($doc, 'title')
       );
+
+      if ($doc['originalRelativePathWithinAip'])
+      {
+        $item['originalRelativePathWithinAip'] = $doc['originalRelativePathWithinAip'];
+      }
+
+      $data[] = $item;
     }
 
-    return $data;
+    return array(
+      'results' => $data,
+      'total' => $resultSet->getTotalHits()
+    );
   }
 }

@@ -291,8 +291,8 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
           scope._selectNode();
           // Retrieve a list of files or digital objects
           InformationObjectService.getDigitalObjects(id).then(function (response) {
-            if (response.data.length > 0) {
-              scope.files = response.data;
+            if (response.data.results.length > 0) {
+              scope.files = response.data.results;
             } else {
               scope.files = [];
             }

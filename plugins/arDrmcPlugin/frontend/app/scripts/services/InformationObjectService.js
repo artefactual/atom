@@ -159,10 +159,12 @@ module.exports = function ($http, SETTINGS) {
     return this.getDigitalObjects(id, true);
   };
 
-  this.getDigitalObjects = function (id, excludeDescendants) {
+  this.getDigitalObjects = function (id, excludeDescendants, params) {
+    params = params || {};
     var configuration = {
       method: 'GET',
-      url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/files'
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/files',
+      params: params
     };
     if (typeof excludeDescendants !== 'undefined' && excludeDescendants === true) {
       configuration.params = { excludeDescendants: true };
