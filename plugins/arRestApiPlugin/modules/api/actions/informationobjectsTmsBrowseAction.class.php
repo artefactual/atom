@@ -70,10 +70,10 @@ class ApiInformationObjectsTmsBrowseAction extends QubitApiAction
     // Filter query
     if (isset($this->request->query) && 1 !== preg_match('/^[\s\t\r\n]*$/', $this->request->query))
     {
-      $queryString = new \Elastica\Query\QueryString($this->request->query);
-      $queryString->setDefaultOperator('OR');
+      $queryText = new \Elastica\Query\Text();
+      $queryText->setFieldQuery('i18n.en.title.autocomplete', $this->request->query);
 
-      $queryBool->addMust($queryString);
+      $queryBool->addMust($queryText);
     }
 
     // Limit fields
@@ -157,10 +157,10 @@ class ApiInformationObjectsTmsBrowseAction extends QubitApiAction
     // Filter query
     if (isset($this->request->query) && 1 !== preg_match('/^[\s\t\r\n]*$/', $this->request->query))
     {
-      $queryString = new \Elastica\Query\QueryString($this->request->query);
-      $queryString->setDefaultOperator('OR');
+      $queryText = new \Elastica\Query\Text();
+      $queryText->setFieldQuery('i18n.en.title.autocomplete', $this->request->query);
 
-      $queryBool->addMust($queryString);
+      $queryBool->addMust($queryText);
     }
 
     // Limit fields
