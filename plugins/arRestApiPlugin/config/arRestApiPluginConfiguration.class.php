@@ -129,6 +129,7 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'taxonomiesBrowse',
       'params' => array('id' => self::REGEX_ID)));
 
+
     /**
      * Fixed value lists
      */
@@ -136,6 +137,15 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     $this->addRoute('GET', '/api/countries', array(
       'module' => 'api',
       'action' => 'countriesBrowse'));
+
+
+    /**
+     * Recent activity
+     */
+    $this->addRoute('GET', '/api/activity/downloads', array(
+      'module' => 'api',
+      'action' => 'activityDownloads'));
+
 
     /**
      * Search
