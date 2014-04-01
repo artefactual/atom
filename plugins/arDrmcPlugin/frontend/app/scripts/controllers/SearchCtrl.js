@@ -37,12 +37,17 @@ module.exports = function ($scope, $stateParams, SearchService) {
   });
 
   function search () {
-    SearchService.search($stateParams.entity, $scope.criteria)
-      .then(function (response) {
-        $scope.data = response.data;
-        $scope.$broadcast('pull.success', response.data.total);
-      }, function (reason) {
-        console.log('Failed', reason);
-      });
+    if (null !== $scope.criteria.query && $scope.criteria.query.length > 2) {
+      SearchService.search($stateParams.entity, $scope.criteria)
+        .then(function (response) {
+          $scope.data = response.data;
+          $scope.$broadcast('pull.success', response.data.total);
+        }, function (reason) {
+          console.log('Failed', reason);
+          delete $scope.data;
+        });
+    } else {
+      delete $scope.data;
+    }
   }
 };
