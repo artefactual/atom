@@ -15,10 +15,15 @@
   // toggles between disabling Holdings tab
   function toggleTreeviewMenu() {
     // get the treeview/holdings tab
-    var tab = $("#treeview-menu li a[data-toggle='#treeview']").parent();
+    var holdings_tab = $("#treeview-menu li a[data-toggle='#treeview']").parent();
 
-    tab.find('a').removeClass('disabled');
-    tab.removeClass('disabled');
+    // activate the search tab
+    $("#treeview-menu li a[data-toggle='#treeview-search']").click();
+
+    // disable the holdings tab
+    holdings_tab.find('a').addClass('disabled');
+    holdings_tab.addClass('disabled');
+   
   }
 
   function init()
@@ -40,7 +45,7 @@
       $(this).toggleClass('active');
       // track and toggle state
 
-      toggleTreeviewMenu('open');
+      toggleTreeviewMenu();
 
       $('#main-column h1').after($(html));
       $('#fullwidth-treeview-row').animate({height: '100px'}, 500);
