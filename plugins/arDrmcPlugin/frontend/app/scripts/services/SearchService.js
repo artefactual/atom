@@ -24,17 +24,15 @@ module.exports = function ($http, SETTINGS, AIPService, InformationObjectService
     return $http(configuration);
   };
 
-  this.search = function (query, entity) {
+  this.search = function (entity, params) {
     // WIP This is going to need some work
     switch (entity) {
       case 'aips':
-        return AIPService.getAIPs({
-          query: query
-        });
-      case 'artworks':
-        return InformationObjectService.getWorks(query);
+        return AIPService.getAIPs(params);
+      case 'works':
+        return InformationObjectService.getWorks(params);
       case 'components':
-        return InformationObjectService.getComponents(query);
+        return InformationObjectService.getComponents(params);
     }
   };
 };

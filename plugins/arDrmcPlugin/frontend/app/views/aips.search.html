@@ -1,6 +1,44 @@
 <!-- Uses SearchCtrl controller -->
 
-<h1 class="multiline">
-  AIPs
-  <span class="sub">{{ query }}</span>
-</h1>
+<div class="row-fluid">
+
+  <div class="span3">
+
+    <section id="facets">
+      <h3>Narrow your results by:</h3>
+      <ar-facet label="Classification" facet="data.facets.type" field="criteria.type"></ar-facet>
+    </section>
+
+  </div>
+
+  <div class="span9">
+
+    <div id="main-column">
+
+      <h1 class="multiline moma-title drmc-color-aip">
+        Showing {{ data.total }} results
+        <span class="sub">AIPs search</span>
+      </h1>
+
+      <section class="header-options">
+        <span ng-show="criteria.type" class="search-filter">
+          {{ criteria.type }}
+          <a href ng-click="criteria.type = undefined"><i class="icon-remove"></i></a>
+        </span>
+      </section>
+
+      <div class="content">
+
+        <section class="row-fluid">
+          <ng-include src="viewsPath + '/partials/aips.list-stacked.html'"></ng-include>
+        </section>
+
+      </div>
+
+      <ar-pager items-per-page="{{ criteria.limit }}" page="page"></ar-pager>
+
+    </div>
+
+  </div>
+
+</div>

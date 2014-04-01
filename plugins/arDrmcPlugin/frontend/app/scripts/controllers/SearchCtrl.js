@@ -5,19 +5,33 @@
  * state with other controllers via SearchService.
  */
 module.exports = function ($scope, $stateParams, SearchService) {
+  $scope.criteria = {};
+  $scope.criteria.limit = 10;
+  $scope.page = 1; // Don't delete this, it's an important default for the loop
+
+  // Changes in scope.page updates criteria.skip
+  $scope.$watch('page', function (value) {
+    $scope.criteria.skip = (value - 1) * $scope.criteria.limit;
+  });
+
   // TODO: watch changes only in SearchService.query, not working for me!
   // Instead of a pull mechanism, I could push changes using $broadcast...
   $scope.$watch(function () {
-    $scope.query = SearchService.query;
+    $scope.criteria.query = SearchService.query;
   });
 
-  $scope.$watch('query', function (newValue, oldValue) {
-    if (newValue && newValue !== oldValue) {
-      search();
-    }
-  });
+  // Watch for criteria changes
+  $scope.$watch('criteria', function () {
+    search();
+  }, true); // check properties when watching
 
   function search () {
-    SearchService.search($scope.query, $stateParams.entity);
+    SearchService.search($stateParams.entity, $scope.criteria)
+      .then(function (response) {
+        $scope.data = response.data;
+        $scope.$broadcast('pull.success', response.data.total);
+      }, function (reason) {
+        console.log('Failed', reason);
+      });
   }
 };

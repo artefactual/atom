@@ -1,6 +1,39 @@
 <!-- Uses SearchCtrl controller -->
 
-<h1 class="multiline">
-  Components
-  <span class="sub">{{ query }}</span>
-</h1>
+<div class="row-fluid">
+
+  <div class="span3">
+
+    <section id="facets">
+      <h3>Narrow your results by:</h3>
+    </section>
+
+  </div>
+
+  <div class="span9">
+
+    <div id="main-column">
+
+      <h1 class="multiline moma-title drmc-color-aip">
+        Showing {{ data.total }} results
+        <span class="sub">Components search</span>
+      </h1>
+
+      <section class="header-options">
+      </section>
+
+      <div class="content">
+
+        <section class="row-fluid">
+          <ng-include src="viewsPath + '/partials/components.list.html'"></ng-include>
+        </section>
+
+      </div>
+
+      <ar-pager items-per-page="{{ criteria.limit }}" page="page"></ar-pager>
+
+    </div>
+
+  </div>
+
+</div>
