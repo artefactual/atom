@@ -44,6 +44,7 @@ default:
     /vendor/jquery.masonry.js:
     /vendor/jquery.imagesloaded.js:
     /vendor/jstree/jstree.js:
+    /vendor/jstree/jstreegrid.js:
     # /vendor/jquery.infinitescroll.js:
     /vendor/bootstrap/js/bootstrap:
     # /vendor/chosen/chosen.jquery.js:

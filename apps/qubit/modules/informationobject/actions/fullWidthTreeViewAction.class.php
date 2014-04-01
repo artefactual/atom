@@ -43,6 +43,11 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
         $data['parent'] = '#';
       }
 
+      // populate columns
+      $data['data']['identifier'] = $data['identifier'];
+      $data['data']['type']       = $data['type'];
+      unset($data['identifier']);
+
       switch ($data['type']) {
         case 'Collection':
         case 'Fonds':
@@ -83,7 +88,9 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
     //    the objects properties we want
 
     list($rnode, $qnode) = ($down) ? array('parent', 'node') : array('node','parent');
-    $sql = "SELECT $qnode.id, i18n.title as text, $qnode.parent_id as parent, slug.slug, term_i18n.name as type
+    $sql = "SELECT $qnode.id, 
+        i18n.title as text, $qnode.identifier as identifier, 
+        $qnode.parent_id as parent, slug.slug, term_i18n.name as type
         FROM 
           information_object AS parent,
           information_object AS node,

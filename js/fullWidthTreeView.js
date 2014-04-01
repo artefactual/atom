@@ -52,7 +52,18 @@
 
       // initialize the jstree with json from server
       $.get((window.location.pathname + url), function(data){
-        // configure jstree
+        // configure jstree grid columns
+        data.plugins = ['grid'];
+        data.grid = {
+          columns: [
+            {width: 580, value: 'title'},
+            {width: 90, value: 'identifier'},
+            {width: 75, value: 'type'}
+          ],
+          width: 150
+        }
+
+        debug = data;
 
         // initialize jstree
         $('#fullwidth-treeview').jstree(data);

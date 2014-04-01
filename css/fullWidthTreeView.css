@@ -1,6 +1,5 @@
 
 #fullwidth-treeview-row {
-	overflow: audo;
 	margin-top: 10px;
 	margin-bottom: 20px;
 	border: 1px solid #ddd;
@@ -19,7 +18,7 @@
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-color: #eee;
-	bottom: -11px;
+	bottom: -2px;
 	left: -1px;
 }
 
@@ -40,4 +39,8 @@
 
 #treeview-menu li.disabled a {
 	color: #ddd;
+}
+
+#jstree-grid-wrapper {
+	position: absolute;
 }
