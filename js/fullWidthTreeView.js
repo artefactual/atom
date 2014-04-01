@@ -58,7 +58,8 @@
           columns: [
             {width: 580, value: 'title'},
             {width: 90, value: 'identifier'},
-            {width: 75, value: 'type'}
+            {width: 75, value: 'type'},
+            {width: 85, value: 'status'}
           ],
           width: 150
         }
