@@ -74,7 +74,7 @@ EOF;
       throw new sfException('You must specify a valid filename');
     }
     
-    if (($options['index']))
+    if ($options['index'])
     {
       QubitSearch::enable();
     }
