@@ -1,0 +1,13 @@
+<div class="row-fluid">
+
+  <ul class="nav nav-tabs">
+
+    <li ng-repeat="tab in tabs" ng-class="{ active: tab.active }" class="span4">
+      <a ui-sref="search.entity({ entity: tab.entity })">
+        {{ tab.name }}
+      </a>
+    </li>
+
+  </ul>
+
+</div>

@@ -9,6 +9,12 @@ module.exports = function ($scope, $stateParams, SearchService) {
   $scope.criteria.limit = 10;
   $scope.page = 1; // Don't delete this, it's an important default for the loop
 
+  $scope.tabs = [
+    { name: 'AIPs', entity: 'aips', active: $stateParams.entity === 'aips' },
+    { name: 'Artwork records', entity: 'works', active: $stateParams.entity === 'works' },
+    { name: 'Components', entity: 'components', active: $stateParams.entity === 'components' }
+  ];
+
   // Changes in scope.page updates criteria.skip
   $scope.$watch('page', function (value) {
     $scope.criteria.skip = (value - 1) * $scope.criteria.limit;
