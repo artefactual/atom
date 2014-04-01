@@ -23,26 +23,44 @@ class ApiActivityDownloadsAction extends QubitApiAction
   {
     $data = array();
 
-    $results = $this->getResults();
-    $data['results'] = $results['results'];
+    $data['results'] = $this->getResults();
 
     return $data;
   }
 
   protected function getResults()
   {
-    // TODO: get this to actually work
+    $results = array();
+    $limit = ($this->request->limit) ? $this->request->limit : 10;
+
+    // pull download log data in reverse chronological order
     $criteria = new Criteria;
     $criteria->add(QubitProperty::NAME, 'aip_file_download');
-    //$criteria->add(QubitPropertyI18n::CULTURE, sfPropel::getDefaultCulture());
+    $criteria->addJoin(QubitProperty::ID, QubitPropertyI18n::ID);
+    $criteria->addDescendingOrderByColumn(QubitPropertyI18n::VALUE);
+
+    $criteria->setLimit($limit);
 
     $properties = QubitProperty::get($criteria);
 
-    if (null !== $properties)
+    // deserialize property values
+    foreach($properties as $property)
     {
-      return array();
+      $columns = explode('|', $property->value);
+      $download = array(
+        'date' => $columns[0],
+        'username' => $columns[1],
+        'reason' => trim($columns[2])
+      );
+
+      if ($columns[3])
+      {
+        $download['file'] = $columns[3];
+      }
+
+      $results[] = $download;
     }
 
-    return $properties;
+    return $results;
   }
 }
