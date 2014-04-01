@@ -126,7 +126,7 @@ class ApiInformationObjectsTmsBrowseAction extends QubitApiAction
 
     return
       array(
-        'total' => $resultSet->count(),
+        'total' => $resultSet->getTotalHits(),
         'facets' => $facets,
         'results' => $results);
   }
@@ -210,7 +210,7 @@ class ApiInformationObjectsTmsBrowseAction extends QubitApiAction
 
     return
       array(
-        'total' => $resultSet->count(),
+        'total' => $resultSet->getTotalHits(),
         'facets' => $facets,
         'results' => $results);
   }
