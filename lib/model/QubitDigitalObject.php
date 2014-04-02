@@ -1455,6 +1455,22 @@ class QubitDigitalObject extends BaseDigitalObject
   }
 
   /**
+   * Get public URL to asset; if asset path is a public URL,
+   * returns that path instead of constructing on the current server.
+   *
+   * @return string URL to asset
+   */
+  public function getPublicPath()
+  {
+    if ($this->usageId == QubitTerm::EXTERNAL_URI_ID) {
+      return $this->getPath();
+    } else {
+      return public_path($this->getFullPath(), true);
+    }
+  }
+
+
+  /**
    * Get absolute path to asset
    *
    * @return string absolute path to asset
