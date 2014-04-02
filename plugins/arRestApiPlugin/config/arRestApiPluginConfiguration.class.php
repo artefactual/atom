@@ -146,6 +146,10 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'activityDownloads'));
 
+    $this->addRoute('GET', '/api/activity/ingestion', array(
+      'module' => 'api',
+      'action' => 'activityIngestion'));
+
 
     /**
      * Search
