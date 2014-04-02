@@ -61,7 +61,7 @@ class DigitalObjectShowDownloadComponent extends sfComponent
     if ((QubitTerm::IMAGE_ID != $this->resource->mediaTypeId || QubitTerm::REFERENCE_ID == $this->usageType)
         && QubitAcl::check($this->resource->informationObject, 'readMaster'))
     {
-      $this->link = public_path($this->resource->getFullPath(), true);
+      $this->link = $this->resource->getPublicPath();
     }
   }
 }
