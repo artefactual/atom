@@ -72,13 +72,27 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
      * Information object resources
      */
 
-    $this->addRoute('GET,POST', '/api/informationobjects', array(
+    $this->addRoute('GET', '/api/informationobjects', array(
       'module' => 'api',
       'action' => 'informationobjectsBrowse'));
 
-    $this->addRoute('GET,PUT,DELETE', '/api/informationobjects/:id', array(
+    $this->addRoute('POST', '/api/informationobjects', array(
       'module' => 'api',
-      'action' => 'informationobjectsDetail',
+      'action' => 'informationobjectsCreate'));
+
+    $this->addRoute('GET', '/api/informationobjects/:id', array(
+      'module' => 'api',
+      'action' => 'informationobjectsRead',
+      'params' => array('id' => self::REGEX_ID)));
+
+    $this->addRoute('PUT', '/api/informationobjects/:id', array(
+      'module' => 'api',
+      'action' => 'informationobjectsUpdate',
+      'params' => array('id' => self::REGEX_ID)));
+
+    $this->addRoute('DELETE', '/api/informationobjects/:id', array(
+      'module' => 'api',
+      'action' => 'informationobjectsDelete',
       'params' => array('id' => self::REGEX_ID)));
 
     $this->addRoute('GET', '/api/informationobjects/:id/tree', array(
@@ -150,8 +164,6 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
   {
     $defaults = $requirements = array();
 
-    $name = str_replace('/', '_', $pattern);
-
     $requirements['sf_method'] = explode(',', $method);
 
     if (isset($options['module']))
@@ -162,6 +174,11 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     if (isset($options['action']))
     {
       $defaults['action'] = $options['action'];
+      $name = 'api_'.$options['action'];
+    }
+    else
+    {
+      $name = 'api_'.str_replace('/', '_', $pattern);
     }
 
     if (isset($options['params']))

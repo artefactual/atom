@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ApiInformationObjectsDetailAction extends QubitApiAction
+class ApiInformationObjectsReadAction extends QubitApiAction
 {
   protected function get($request)
   {
@@ -62,13 +62,6 @@ class ApiInformationObjectsDetailAction extends QubitApiAction
     $io->save();
 
     return $this->get($request);
-  }
-
-  protected function delete()
-  {
-    $io = $this->fetchInformationObjectOr404();
-
-    return array('status' => 'deleted');
   }
 
   protected function fetchInformationObjectOr404()

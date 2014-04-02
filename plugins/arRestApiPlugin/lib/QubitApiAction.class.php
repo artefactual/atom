@@ -74,9 +74,11 @@ class QubitAPIAction extends sfAction
 
   public function renderData($data)
   {
-    if (count($data) == 0)
+    if ($data === sfView::NONE || count($data) == 0)
     {
       $this->response->setHeaderOnly(true);
+
+      $this->response->setStatusCode(404);
 
       return sfView::NONE;
     }
