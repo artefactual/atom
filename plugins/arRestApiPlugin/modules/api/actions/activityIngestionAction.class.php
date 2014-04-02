@@ -26,48 +26,55 @@ class ApiActivityIngestionAction extends QubitApiAction
 
   protected function getResults()
   {
-    // Create query objects
-    $query = new \Elastica\Query;
-    $queryBool = new \Elastica\Query\Bool;
-    $queryBool->addMust(new \Elastica\Query\Term(array('levelOfDescriptionId' => 462)));
+    // TODO: fetch art record level of description
+    // TODO: check if username, that SWORD was accessed with, is in METS
 
-    // Pagination and sorting
-    $this->prepareEsPagination($query);
-    $this->prepareEsSorting($query, array(
-      'createdAt' => 'createdAt'));
+    $sql = <<<EOL
+SELECT
+  ii.title,
+  aip.filename,
+  aip.size_on_disk,
+  aip.created_at
+FROM
+  aip AS aip 
+INNER JOIN information_object i
+  ON aip.part_of=i.id
+INNER JOIN information_object_i18n ii
+  ON i.id=ii.id
+WHERE
+  i.level_of_description_id=369
+ORDER BY aip.created_at DESC LIMIT 3;
+EOL;
 
-    // Limit fields
-    $query->setFields(array(
-      'slug',
-      'identifier',
-      'inheritReferenceCode',
-      'levelOfDescriptionId',
-      'publicationStatusId',
-      'ancestors',
-      'parentId',
-      'hasDigitalObject',
-      'createdAt',
-      'updatedAt',
-      'sourceCulture',
-      'i18n'));
-
-    // Assign query
-    $query->setQuery($queryBool);
-
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
-
-    // Build array from results
-    $results = array();
-    foreach ($resultSet as $hit)
+    $results = QubitPdo::fetchAll($sql, array($this->request->id));
+    if (0 === count($results))
     {
-      $doc = $hit->getData();
-      $results[$hit->getId()] = $hit->getFields();
+      throw new QubitApi404Exception('Information object not found');
+    }
+    else if (false === $results)
+    {
+      throw new QubitApiException;
+    }
+
+    $aipCreations = array();
+
+    foreach ($results as $item)
+    {
+      $date = new DateTime($item->created_at);
+      $createdAt = $date->format('Y-m-d');
+      
+      array_push($aipCreations, array(
+        'artwork_title' => $item->title,
+        'aip_title' => $item->filename,
+        'size_on_disk' => $item->size_on_disk,
+        'created_at' => $createdAt
+      ));
     }
 
     return
       array(
-        'total' => $resultSet->getTotalHits(),
-        'results' => $results
+        //'total' => $resultSet->getTotalHits(),
+        'results' => $aipCreations
       );
   }
 }
