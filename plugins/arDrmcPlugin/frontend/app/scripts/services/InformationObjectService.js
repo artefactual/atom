@@ -112,13 +112,6 @@ module.exports = function ($http, SETTINGS) {
     });
   };
 
-  this.delete = function (id) {
-    return $http({
-      method: 'DELETE',
-      url: SETTINGS.frontendPath + 'api/informationobjects/' + id
-    });
-  };
-
   this.getSupportingTechnologyRecords = function (params) {
     params = params || {};
     params.level_id = SETTINGS.drmc.lod_supporting_technology_record_id;
@@ -222,5 +215,12 @@ module.exports = function ($http, SETTINGS) {
       data: data
     };
     return $http(configuration);
+  };
+
+  this.delete = function (id) {
+    return $http({
+      method: 'DELETE',
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id
+    });
   };
 };

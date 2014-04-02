@@ -171,11 +171,17 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
 
       scope.addChildNode = function (parentId) {
         var label = prompt('Insert label');
-        var id = Math.random() * 100;
         if (label.length === 0) {
           return;
         }
-        cb.addNode(id, label, 'description', parentId);
+        var data = {
+          title: label,
+          parent_id: parentId,
+          level_of_description: 'Description'
+        };
+        InformationObjectService.create(data).then(function (response) {
+          cb.addNode(response.data.id, label, 'description', response.data.parent_id);
+        });
       };
 
       scope.deleteNodes = function (ids) {
