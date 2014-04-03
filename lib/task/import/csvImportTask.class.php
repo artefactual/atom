@@ -346,7 +346,9 @@ EOF;
         'physicalObjectName',
         'physicalObjectLocation',
         'physicalObjectType',
-        'physicalStorageLocation'
+        'physicalStorageLocation',
+        'digitalObjectPath',
+        'digitalObjectURI'
       ),
 
       /* these values get exploded and stored to the rowStatusVars array */
@@ -1021,6 +1023,30 @@ EOF;
                  QubitTerm::CREATION_ID,
                  $eventData
                );
+            }
+          }
+
+          // This will import only a single digital object;
+          // if both a URI and path are provided, the former is preferred.
+          if ($uri = $self->rowStatusVars['digitalObjectURI']) {
+            $do = new QubitDigitalObject;
+            try {
+              $do->importFromURI($uri);
+              $do->informationObject = $self->object;
+              $do->save($conn);
+              // importFromURI can raise if the download hits a timeout
+            } catch (Exception $e) {
+              $self->logError($e->getMessage());
+            }
+          } elseif ($path = $self->rowStatusVars['digitalObjectPath']) {
+            if (false === $content = file_get_contents($path)) {
+              $this->logError("Unable to read file: ".$path);
+            } else {
+              $do = new QubitDigitalObject;
+              $do->assets[] = new QubitAsset($path, $content);
+              $do->usageId = QubitTerm::MASTER_ID;
+              $do->informationObject = $self->object;
+              $do->save($conn);
             }
           }
         }
