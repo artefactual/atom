@@ -29,7 +29,8 @@
         self.addNode(element.id, {
           id: element.id,
           level: element.level,
-          label: element.title
+          label: element.title,
+          collapsible: angular.isArray(element.children) && element.children.length > 0
         });
         // Add relation
         if (parent !== undefined) {

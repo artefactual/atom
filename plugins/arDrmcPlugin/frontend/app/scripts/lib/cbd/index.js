@@ -51,15 +51,18 @@
     var cb = this;
     var nodeFilter = function (fn) {
       var $this = jQuery(this);
-      if ($this.has(d3.event.target)) {
-        var node = jQuery(d3.event.target).closest('.node').get(0);
+      var target = d3.event.target.correspondingUseElement ? d3.event.target.correspondingUseElement : d3.event.target;
+      if ($this.has(target)) {
+        var node = jQuery(target).closest('.node').get(0);
         fn.call(
           // Context: node (this)
           node,
           // Param 1: context browser
           cb,
           // Param 2: datum
-          d3.select(node).datum()
+          d3.select(node).datum(),
+          // Param 3: index (REMOVE?)
+          0
         );
       }
     };
@@ -84,6 +87,17 @@
     this.graphSVG.selectAll('.node').classed('active', false);
   };
 
+  ContextBrowser.prototype.collapse = function (datum) {
+    var node = this.graph.node(datum);
+    if (!node.collapsible) {
+      return;
+    }
+    node.collapsed = node.collapsed || false;
+    node.collapsed = !node.collapsed;
+
+    this.draw();
+  };
+
   /**
    * Handler for click events. Allows selection of nodes by updating CSS classes
    * and firing events to a watcher.
@@ -94,6 +108,12 @@
    * @param {number} index - Index
    */
   ContextBrowser.prototype.clickNode = function (context, datum, index) {
+    var target = d3.event.target.correspondingUseElement ? d3.event.target.correspondingUseElement : d3.event.target;
+    if (jQuery(target).closest('.collapse').length) {
+      context.collapse.call(context, datum);
+      d3.event.stopPropagation();
+      return;
+    }
     var n = d3.select(this);
     if (!n.classed('active')) {
       if (!d3.event.shiftKey) {
@@ -111,7 +131,8 @@
   };
 
   ContextBrowser.prototype.clickSVG = function () {
-    if (d3.select(d3.event.target).classed('graph-root')) {
+    var target = d3.event.target.correspondingUseElement ? d3.event.target.correspondingUseElement : d3.event.target;
+    if (d3.select(target).classed('graph-root')) {
       this.events.emitEvent('click-background');
     }
   };

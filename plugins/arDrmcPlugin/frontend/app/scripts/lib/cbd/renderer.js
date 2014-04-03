@@ -114,8 +114,9 @@
 
     svgNodes.each(function (u) {
       var n = d3.select(this);
+      var node = g.node(u);
       // Add label
-      addLabel(g.node(u), n, 10, 10);
+      addLabel(node, n, 10, 10);
       // Add .content class
       var r = n.select('rect').classed('content', true);
       // Insert background
@@ -128,8 +129,17 @@
         'width': r.attr('width'),
         'height': r.attr('height')
       });
-      // Insert expand button
-      // n.insert('use').attr('xlink:href', '#expand-icon');
+
+      // Expand/collapse icon
+      if (node.collapsible) {
+        if (node.collapsed) {
+          n.append('g').classed('collapse', true)
+           .append('use').attr('xlink:href', '#expand-icon');
+        } else {
+          n.append('g').classed('collapse', true)
+           .append('use').attr('xlink:href', '#collapse-icon');
+        }
+      }
     });
 
     transition(svgNodes.exit())
