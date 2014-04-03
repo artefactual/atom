@@ -24,7 +24,7 @@
 
       <section class="header-options">
         <span ng-show="criteria.type" class="search-filter">
-          {{ criteria.type }}
+          {{ getTermLabel('type', criteria.type) }}
           <a href ng-click="criteria.type = undefined"><i class="icon-remove"></i></a>
         </span>
       </section>

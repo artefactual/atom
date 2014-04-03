@@ -24,6 +24,17 @@
       </h1>
 
       <section class="header-options">
+
+        <span ng-show="criteria.classification" class="search-filter">
+          {{ getTermLabel('classification', criteria.classification) }}
+          <a href ng-click="criteria.classification = undefined"><i class="icon-remove"></i></a>
+        </span>
+
+        <span ng-show="criteria.department" class="search-filter">
+          {{ getTermLabel('department', criteria.department) }}
+          <a href ng-click="criteria.department = undefined"><i class="icon-remove"></i></a>
+        </span>
+
       </section>
 
       <div class="content">

@@ -50,4 +50,15 @@ module.exports = function ($scope, $stateParams, SearchService) {
         delete $scope.data;
       });
   }
+
+  $scope.getTermLabel = function (facet, id) {
+    if (undefined === $scope.data) {
+      return id;
+    }
+    for (var term in $scope.data.facets[facet].terms) {
+      if (parseInt($scope.data.facets[facet].terms[term].term) === parseInt(id)) {
+        return $scope.data.facets[facet].terms[term].label;
+      }
+    }
+  };
 };
