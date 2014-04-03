@@ -76,6 +76,14 @@ class ApiInformationObjectsTmsBrowseAction extends QubitApiAction
       $queryBool->addMust($queryText);
     }
 
+    // Filter selected facets
+    $this->filterEsFacet('classification', 'tmsObject.classification.id', $queryBool);
+    $this->filterEsFacet('department', 'tmsObject.department.id', $queryBool);
+
+    // Add facets to the query
+    $this->facetEsQuery('Terms', 'classification', 'tmsObject.classification.id', $query);
+    $this->facetEsQuery('Terms', 'department', 'tmsObject.department.id', $query);
+
     // Limit fields
     $query->setFields(array(
       'slug',
@@ -122,7 +130,8 @@ class ApiInformationObjectsTmsBrowseAction extends QubitApiAction
       $results[$hit->getId()] = $result;
     }
 
-    $facets = array();
+    $facets = $resultSet->getFacets();
+    $this->populateFacets($facets);
 
     return
       array(
@@ -213,5 +222,16 @@ class ApiInformationObjectsTmsBrowseAction extends QubitApiAction
         'total' => $resultSet->getTotalHits(),
         'facets' => $facets,
         'results' => $results);
+  }
+
+  protected function getFacetLabel($name, $term)
+  {
+    if ($name === 'classification' || $name === 'department')
+    {
+      if (null !== $item = QubitTerm::getById($term))
+      {
+        return $item->getName(array('cultureFallback' => true));
+      }
+    }
   }
 }
