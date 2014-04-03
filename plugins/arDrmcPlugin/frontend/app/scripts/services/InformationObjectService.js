@@ -123,12 +123,14 @@ module.exports = function ($http, SETTINGS) {
     return this.getById(id, params);
   };
 
+  /* Radda to point this to /api/informationobjects/works */
   this.getWorks = function (params) {
     params = params || {};
-    params.type = 'objects';
-    return this.getTmsBrowse(params);
+    params.level_id = SETTINGS.drmc.lod_artwork_record_id;
+    return this.get(params);
   };
 
+  /* Radda to point this to /api/informationobjects/components */
   this.getComponents = function (params) {
     params = params || {};
     params.type = 'components';
