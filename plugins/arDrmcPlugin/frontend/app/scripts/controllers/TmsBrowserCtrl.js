@@ -40,7 +40,7 @@ module.exports = function ($scope, $http) {
   };
 
   $scope.zoom = function () {
-    console.log($scope.results.FullImage);
     $scope.thumbnail = $scope.results.FullImage;
+    $scope.zoomed = true;
   };
 };

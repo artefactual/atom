@@ -23,16 +23,26 @@
       <hr />
 
       <div ng-show="found">
-        <h1>{{ results.Title }} (matching {{ query }})</h1>
+        <h1 class="multiline">
+          {{ results.Title }}
+          <span class="sub">
+            <br />
+            Object ID: <code>{{ results.ObjectID }}</code><br /><br />
+            Accession Number: <code>{{ results.ObjectNumber }}</code>
+          </span>
+        </h1>
         <div class="row">
           <div class="span6">
-            <pre>
-{{ results | json }}
-            </pre>
+            <table class="table table-bordered">
+              <tr ng-repeat="(key, value) in results">
+                <td>{{ key }}</td>
+                <td>{{ value }}</td>
+              </tr>
+            </table>
           </div>
           <div class="span6" ng-if="thumbnail != false">
             <img ng-src="{{ thumbnail }}"/><br /><br />
-            <a class="btn" hrer ng-click="zoom()">View full image</a>
+            <a class="btn" hrer ng-click="zoom()" ng-if="!zoomed">View full image</a>
           </div>
         </div>
       </div>
