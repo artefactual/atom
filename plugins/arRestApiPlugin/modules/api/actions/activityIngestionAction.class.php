@@ -26,8 +26,31 @@ class ApiActivityIngestionAction extends QubitApiAction
 
   protected function getResults()
   {
-    // TODO: fetch art record level of description
     // TODO: check if username, that SWORD was accessed with, is in METS
+    //       ...could use "Archivematica user" in METS
+    $sql = <<<EOL
+SELECT
+  term.id
+FROM
+  taxonomy_i18n AS taxonomy
+LEFT JOIN term AS term
+  ON taxonomy.id=term.taxonomy_id
+INNER JOIN term_i18n AS term_i18n
+  ON term.id=term_i18n.id
+WHERE
+  taxonomy.name='Levels of description'
+  AND taxonomy.culture='en'
+  AND term_i18n.name = 'Artwork record'
+  AND term_i18n.culture='en'
+EOL;
+
+    $levelOfDescription = QubitPdo::fetchOne($sql, array($this->request->id));
+    if (null === $levelOfDescription)
+    {
+      throw new QubitApi404Exception('Level of description not found');
+    }
+
+    $artworkRecordLevelOfDescriptionId = $levelOfDescription->id;
 
     $sql = <<<EOL
 SELECT
@@ -42,11 +65,11 @@ INNER JOIN information_object i
 INNER JOIN information_object_i18n ii
   ON i.id=ii.id
 WHERE
-  i.level_of_description_id=369
+  i.level_of_description_id=?
 ORDER BY aip.created_at DESC LIMIT 3;
 EOL;
 
-    $results = QubitPdo::fetchAll($sql, array($this->request->id));
+    $results = QubitPdo::fetchAll($sql, array($artworkRecordLevelOfDescriptionId));
     if (0 === count($results))
     {
       throw new QubitApi404Exception('Information object not found');
