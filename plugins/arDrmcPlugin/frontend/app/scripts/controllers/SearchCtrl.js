@@ -32,7 +32,10 @@ module.exports = function ($scope, $stateParams, SearchService) {
   }, true); // check properties when watching
 
   // Perfom query after entity changes
-  $scope.$watch($stateParams.entity, function () {
+  $scope.$watch($stateParams.entity, function (newVal, oldVal) {
+    if (newVal === oldVal) {
+      return;
+    }
     search();
   });
 
