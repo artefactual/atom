@@ -5,25 +5,40 @@
     <div id="main-column">
 
       <h1 class="multiline moma-title drmc-color-supporting-technology-record">
-        Do a search by ObjectId
-        <span class="sub">TMS</span>
+        TMS lookup
+        <span class="sub">Search by Object ID or Accession Number</span>
       </h1>
 
-      <input class="span6" ng-model="query" ng-change="search()" placeholder="Type ObjectId"/>
+
+
+      </form>
+
+      <form name="queryForm" ng-submit="submit()">
+        <div class="input-append" style="width: 50%;">
+          <input class="span6" ng-model="query" placeholder="e.g. 930.2012 or 152406"/>
+          <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+      </form>
 
       <hr />
 
-      <h1>{{ results.Title }}</h1>
+      <div ng-show="found">
+        <h1>{{ results.Title }} (matching {{ query }})</h1>
+        <div class="row">
+          <div class="span6">
+            <pre>
+{{ results | json }}
+            </pre>
+          </div>
+          <div class="span6" ng-if="thumbnail != false">
+            <img ng-src="{{ thumbnail }}"/><br /><br />
+            <a class="btn" hrer ng-click="zoom()">View full image</a>
+          </div>
+        </div>
+      </div>
 
-      <div class="row">
-        <div class="span6">
-          <pre>
-            {{ results | json }}
-          </pre>
-        </div>
-        <div class="span6">
-          <img ng-src="{{ thumbnail }}" ng-if="thumbnail != false"/>
-        </div>
+      <div ng-show="submitted && !found">
+        <h1>No results</h1>
       </div>
 
   </div>
