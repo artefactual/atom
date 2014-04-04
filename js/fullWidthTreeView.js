@@ -87,6 +87,7 @@
           // insert the new object information into the existing page
           response = $(response);
           $('#fullwidth-treeview-row').insertAfter(response.find('#main-column h1'));
+          $('#fullwidth-treeview-header').insertAfter(response.find('#main-column h1'));
           $('#main-column').replaceWith($(response.find('#main-column')));
 
           // attach the Deupal Behaviour so blank.js does its thing.
