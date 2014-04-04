@@ -1311,6 +1311,11 @@ file_put_contents('/tmp/mike.txt', $sql ."\n", file_append);
     }
 
     // TMS object
+    if (null !== $collectionDate = $this->getProperty('Dated'))
+    {
+      $serialized['tmsObject']['collectionDate'] = $collectionDate;
+    }
+
     if (null !== $accessionNumber = $this->getProperty('ObjectNumber'))
     {
       $serialized['tmsObject']['accessionNumber'] = $accessionNumber;
