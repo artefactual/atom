@@ -58,7 +58,7 @@
       // initialize the jstree with json from server
       $.get((window.location.pathname + url), function(data){
         // configure jstree grid columns
-        data.plugins = ['grid', 'wholerow'];
+        data.plugins = ['grid'];
         data.grid = {
           columns: [
             {width: 640, value: 'title'},

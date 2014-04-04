@@ -71,9 +71,6 @@
 	border: 1px solid #fff;
 }
 
-.jstree-wholerow-clicked, .jstree-wholerow-hovered {
-	background-color: rgba(190, 235, 255, 0.46);
-}
 .jstree-grid-col-0,
 .jstree-grid-col-1,
 .jstree-grid-col-2,
