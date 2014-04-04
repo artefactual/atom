@@ -93,6 +93,7 @@
           $('#main-column .breadcrumb').replaceWith($(response.find('#main-column .breadcrumb')));
           $('#main-column .row').replaceWith($(response.find('#main-column .row')));
 
+          // attach the Drupal Behaviour so blank.js does its thing.
           Drupal.attachBehaviors(document)
 
           // update the url, TODO save the state
