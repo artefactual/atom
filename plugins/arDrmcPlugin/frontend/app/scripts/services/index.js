@@ -7,7 +7,7 @@
   module.exports = angular.module('momaApp.services', [])
 
     // Communication with the backend
-    .service('DashboardService', require('./DashboardService'))
+    .service('AuthenticationService', require('./AuthenticationService'))
     .service('InformationObjectService', require('./InformationObjectService'))
     .service('AIPService', require('./AIPService'))
     .service('ActorsService', require('./ActorsService'))

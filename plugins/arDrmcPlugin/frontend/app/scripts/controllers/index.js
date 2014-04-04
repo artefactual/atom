@@ -10,6 +10,9 @@
     .controller('HeaderCtrl', require('./HeaderCtrl'))
     .controller('FooterCtrl', require('./FooterCtrl'))
 
+    // Login
+    .controller('LoginCtrl', require('./LoginCtrl'))
+
     // Dashboard
     .controller('DashboardCtrl', require('./DashboardCtrl'))
     .controller('DashboardRecentActivityCtrl', require('./DashboardRecentActivityCtrl'))

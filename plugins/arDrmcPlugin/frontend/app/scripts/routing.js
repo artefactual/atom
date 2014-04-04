@@ -7,14 +7,27 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
   $locationProvider.hashPrefix('!');
 
   // Default route
-  $urlRouterProvider.otherwise(SETTINGS.DRMCPath + 'dashboard');
+  $urlRouterProvider.otherwise(SETTINGS.DRMCPath + '404');
 
   // Define ui-router states
   $stateProvider
 
+    // Login page
+    .state('login', {
+      url: SETTINGS.DRMCPath + 'login',
+      controller: 'LoginCtrl',
+      templateUrl: SETTINGS.viewsPath + '/login.html'
+    })
+
+    // 404 page
+    .state('404', {
+      url: SETTINGS.DRMCPath + '404',
+      templateUrl: SETTINGS.viewsPath + '/404.html'
+    })
+
     // Dashboard
     .state('dashboard', {
-      url: SETTINGS.DRMCPath + 'dashboard',
+      url: SETTINGS.DRMCPath.replace(/\/$/, ''),
       controller: 'DashboardCtrl',
       templateUrl: SETTINGS.viewsPath + '/dashboard.html'
     })
