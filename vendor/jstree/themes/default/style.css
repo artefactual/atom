@@ -348,7 +348,7 @@
   background: transparent;
 }
 .jstree-default.jstree-checkbox-no-clicked > .jstree-wholerow-ul .jstree-wholerow-clicked.jstree-wholerow-hovered {
-  background: #e7f4f9;
+  background: rgb(231,244,249,0.7);
 }
 #jstree-dnd.jstree-default .jstree-ok,
 #jstree-dnd.jstree-default .jstree-er {
@@ -382,16 +382,10 @@
   box-sizing: border-box;
 }
 .jstree-default .jstree-wholerow-hovered {
-  background: #e7f4f9;
+  background: rgb(231,244,249,0.7);
 }
 .jstree-default .jstree-wholerow-clicked {
-  background: #beebff;
-  background: -moz-linear-gradient(top, #beebff 0%, #a8e4ff 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #beebff), color-stop(100%, #a8e4ff));
-  background: -webkit-linear-gradient(top, #beebff 0%, #a8e4ff 100%);
-  background: -o-linear-gradient(top, #beebff 0%, #a8e4ff 100%);
-  background: -ms-linear-gradient(top, #beebff 0%, #a8e4ff 100%);
-  background: linear-gradient(to bottom, #beebff 0%, #a8e4ff 100%);
+  background: rgb(231,244,249,0.5);
   /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@color1', endColorstr='@color2',GradientType=0 );*/
 }
 .jstree-default .jstree-node {
@@ -869,10 +863,10 @@
     height: 40px;
   }
   .jstree-default-responsive .jstree-wholerow-hovered {
-    background: #e7f4f9;
+    background: rgb(231,244,249,0.7);
   }
   .jstree-default-responsive .jstree-wholerow-clicked {
-    background: #beebff;
+    background: rgb(231,244,249,0.5);
   }
   .jstree-default-responsive .jstree-children .jstree-last > .jstree-wholerow {
     box-shadow: inset 0 -6px 3px -5px #666666;

@@ -44,3 +44,12 @@
 #jstree-grid-wrapper {
 	position: absolute;
 }
+
+.jstree-grid-cell {
+	background-color: #eee;
+	border: 1px solid #fff;
+}
+
+.jstree-wholerow-clicked, .jstree-wholerow-hovered {
+	background-color: rgba(190, 235, 255, 0.46);
+}
