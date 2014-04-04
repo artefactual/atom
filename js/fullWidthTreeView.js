@@ -6,7 +6,12 @@
 
   var treeview_open = false;
   var url = '/informationobject/fullWidthTreeView'
-  var html = "<div id=\"fullwidth-treeview-row\">" + 
+  var html =  "<div id=\"fullwidth-treeview-header\">" +
+               "<div class=\"title\">Title</div>" +
+               "<div class=\"identifier\">Identifier</div>" +
+               "<div class=\"type\">Type</div>" +
+              "</div>" +
+              "<div id=\"fullwidth-treeview-row\">" + 
                "<div id=\"fullwidth-treeview\">" +
                 "<img src=\"/images/loading.gif\" id=\"fullwidth-treeview-loading\" />" +
                "</div>" +
