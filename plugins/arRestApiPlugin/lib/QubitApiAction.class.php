@@ -211,6 +211,12 @@ class QubitAPIAction extends sfAction
         $facet->setValueField($options['valueField']);
 
         break;
+
+      case 'DateHistogram':
+        $facet->setField($field);
+        $facet->setInterval($options['interval']);
+
+        break;
     }
 
     $query->addFacet($facet);
