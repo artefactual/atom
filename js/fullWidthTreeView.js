@@ -84,7 +84,7 @@
 
         // when an element is clicked in the tree ... fetch it up
         // window.location = window.location.origin + data.node.a_attr.href
-        var url = window.location.origin + '/index.php/' + data.node.a_attr.href;
+        var url = window.location.protocol + "//" + window.location.host + '/index.php/' + data.node.a_attr.href;
         $.get(url, function(response){
           response = $(response);
 
