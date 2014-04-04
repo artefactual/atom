@@ -79,6 +79,9 @@
 
       // bind click events to nodes to load the informationobject's page and insert the current page
       $("#fullwidth-treeview").bind("select_node.jstree", function(evt, data){
+        // open node if possible
+        data.instance.open_node(data.node);
+
         // when an element is clicked in the tree ... fetch it up
         // window.location = window.location.origin + data.node.a_attr.href
         var url = window.location.origin + '/index.php/' + data.node.a_attr.href;
