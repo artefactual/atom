@@ -12,6 +12,8 @@
 
     // Dashboard
     .controller('DashboardCtrl', require('./DashboardCtrl'))
+    .controller('DashboardRecentActivityCtrl', require('./DashboardRecentActivityCtrl'))
+    .controller('DashboardIngestionCtrl', require('./DashboardIngestionCtrl'))
 
     // AIPs
     .controller('AIPBrowserCtrl', require('./AIPBrowserCtrl'))
