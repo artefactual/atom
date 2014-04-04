@@ -131,12 +131,17 @@
       });
 
       // Expand/collapse icon
+      // TODO: put this out of the .node
       if (node.collapsible) {
+        var x = (r.attr('width') / -2) - 20;
+        var y = (r.attr('height') / -2) - 20;
         if (node.collapsed) {
           n.append('g').classed('collapse', true)
+           .attr('transform', 'translate(' + x + ',' + y + ')')
            .append('use').attr('xlink:href', '#expand-icon');
         } else {
           n.append('g').classed('collapse', true)
+           .attr('transform', 'translate(' + x + ',' + y + ')')
            .append('use').attr('xlink:href', '#collapse-icon');
         }
       }
@@ -326,12 +331,12 @@
     }
 
     var collapseIcon = defs.append('svg:g').attr('id', 'collapse-icon').append('svg:g');
-    collapseIcon.append('rect').attr({ x: 1, y: 6, fill: 'none', stroke: '#ffffff', 'stroke-width': 3, width: 16, height: 6 });
-    collapseIcon.append('rect').attr({ x: 1, y: 6, fill: '#999999', stroke: 'none', 'stroke-width': 3, width: 16, height: 6 });
+    collapseIcon.append('rect').attr({ x: 1, y: 6, fill: 'none', stroke: '#333333', 'stroke-width': 3, width: 16, height: 6 });
+    collapseIcon.append('rect').attr({ x: 1, y: 6, fill: '#ff2200', stroke: 'none', 'stroke-width': 3, width: 16, height: 6 });
 
     var expandIcon = defs.append('svg:g').attr('id', 'expand-icon').append('svg:g');
-    expandIcon.append('polygon').attr({ fill: 'none', stroke: '#ffffff', 'stroke-width': 3, points: '6,17 6,12 1,12 1,6 6,6 6,1 12,1 12,6 17,6 17,12 12,12 12,17' });
-    expandIcon.append('polygon').attr({ fill: '#999999', stroke: 'none', points: '6,17 6,12 1,12 1,6 6,6 6,1 12,1 12,6 17,6 17,12 12,12 12,17' });
+    expandIcon.append('polygon').attr({ fill: 'none', stroke: '#333333', 'stroke-width': 3, points: '6,17 6,12 1,12 1,6 6,6 6,1 12,1 12,6 17,6 17,12 12,12 12,17' });
+    expandIcon.append('polygon').attr({ fill: '#22ff22', stroke: 'none', points: '6,17 6,12 1,12 1,6 6,6 6,1 12,1 12,6 17,6 17,12 12,12 12,17' });
   }
 
   function addLabel (node, root, marginX, marginY) {
@@ -373,6 +378,9 @@
     // Init labels if they were not present in the source graph
     copy.nodes().forEach(function (u) {
       var value = copy.node(u);
+      if (value.hidden) {
+        copy.delNode(u);
+      }
       if (value === undefined) {
         value = {};
         copy.node(u, value);

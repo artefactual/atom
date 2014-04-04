@@ -95,6 +95,11 @@
     node.collapsed = node.collapsed || false;
     node.collapsed = !node.collapsed;
 
+    this.graph.descendants(datum, { andSelf: false }).forEach(function (element) {
+      element.hidden = node.collapsed;
+      element.collapsed = false;
+    });
+
     this.draw();
   };
 
