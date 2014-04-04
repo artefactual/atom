@@ -152,6 +152,18 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
 
 
     /**
+     * Summaries
+     */
+    $this->addRoute('GET', '/api/summary/ingestion', array(
+      'module' => 'api',
+      'action' => 'summaryIngestion'));
+
+    $this->addRoute('GET', '/api/summary/artworkbymonth', array(
+      'module' => 'api',
+      'action' => 'summaryArtworkByMonth'));
+
+
+    /**
      * Search
      */
 
