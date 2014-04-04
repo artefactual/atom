@@ -75,6 +75,9 @@
         $('#fullwidth-treeview-row').resizable({ 
           handles: "s"
         }).animate({height: '200px'}, 500);
+
+        // scroll to active node
+        $('li [selected_on_load]')[0].scrollIntoView(false);
       });
 
       // bind click events to nodes to load the informationobject's page and insert the current page

@@ -36,6 +36,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
       if($data['id'] == $this->resource->id)
       {
         $data['state'] = array('opened' => true, 'selected' => true);
+        $data['li_attr'] = array('selected_on_load' => true);
       }
 
       // set root item's parent to hash symbol for jstree compatibility
