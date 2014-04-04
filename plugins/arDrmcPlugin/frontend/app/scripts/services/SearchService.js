@@ -10,6 +10,29 @@ module.exports = function ($http, SETTINGS, AIPService, InformationObjectService
     this.query = q;
   };
 
+  this.searches = [
+    {
+      name: 'AIPs',
+      entity: 'aips'
+    },
+    {
+      name: 'Artwork records',
+      entity: 'works'
+    },
+    {
+      name: 'Components',
+      entity: 'components'
+    },
+    {
+      name: 'Supporting technology records',
+      entity: 'technology-records'
+    },
+    {
+      name: 'Files',
+      entity: 'files'
+    }
+  ];
+
   this.autocomplete = function (query, params) {
     params = params || {};
     params.query = query;

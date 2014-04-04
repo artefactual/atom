@@ -5,15 +5,13 @@
  * state with other controllers via SearchService.
  */
 module.exports = function ($scope, $stateParams, SearchService) {
+  // Search state
   $scope.criteria = {};
   $scope.criteria.limit = 10;
   $scope.page = 1; // Don't delete this, it's an important default for the loop
 
-  $scope.tabs = [
-    { name: 'AIPs', entity: 'aips', active: $stateParams.entity === 'aips' },
-    { name: 'Artwork records', entity: 'works', active: $stateParams.entity === 'works' },
-    { name: 'Components', entity: 'components', active: $stateParams.entity === 'components' }
-  ];
+  // Reference to types of searches
+  $scope.tabs = SearchService.searches;
 
   // Changes in scope.page updates criteria.skip
   $scope.$watch('page', function (value) {
