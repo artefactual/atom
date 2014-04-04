@@ -61,7 +61,7 @@
         data.plugins = ['grid'];
         data.grid = {
           columns: [
-            {width: 643, value: 'title', title: 'title'},
+            {width: 643, value: 'title', title: '_DATA_'},
             {width: 100, value: 'identifier', title: 'identifier'},
             {width: 100, value: 'type', title: 'type'}
           ],
