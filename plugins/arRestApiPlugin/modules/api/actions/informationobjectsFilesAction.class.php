@@ -29,7 +29,7 @@ class ApiInformationObjectsFilesAction extends QubitApiAction
     $this->prepareEsPagination($query);
     $this->prepareEsSorting($query, array(
       'name' => 'filename',
-      'size' => 'byteSize'));      
+      'size' => 'byteSize'));
 
     // Find document give its id and optionally its descendants
     if (isset($request->excludeDescendants) && true === filter_var($request->excludeDescendants, FILTER_VALIDATE_BOOLEAN))
