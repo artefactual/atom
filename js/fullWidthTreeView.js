@@ -86,14 +86,13 @@
         // window.location = window.location.origin + data.node.a_attr.href
         var url = window.location.origin + '/index.php/' + data.node.a_attr.href;
         $.get(url, function(response){
-          // copy the treeview to the new object information response
-          // insert the new object information into the existing page
           response = $(response);
-          $('#fullwidth-treeview-row').insertAfter(response.find('#main-column h1'));
-          $('#fullwidth-treeview-header').insertAfter(response.find('#main-column h1'));
-          $('#main-column').replaceWith($(response.find('#main-column')));
 
-          // attach the Deupal Behaviour so blank.js does its thing.
+          // insert new content into page
+          $('#main-column h1').replaceWith($(response.find('#main-column h1')));
+          $('#main-column .breadcrumb').replaceWith($(response.find('#main-column .breadcrumb')));
+          $('#main-column .row').replaceWith($(response.find('#main-column .row')));
+
           Drupal.attachBehaviors(document)
 
           // update the url, TODO save the state
