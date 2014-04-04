@@ -46,13 +46,14 @@ class ApiSummaryIngestionAction extends QubitApiAction
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
 
-
-    // Derive level of description type cound from facets
+    // Derive level of description type count from facets
     $counts = array();
+
     $levelOfDescriptionInfo = array(
-      358 => 'Artwork record',
-      359 => 'Supporting technology record'
+      sfConfig::get('app_drmc_lod_artwork_record_id')               => 'artwork',
+      sfConfig::get('app_drmc_lod_supporting_technology_record_id') => 'supporting_technology'
     );
+
     $facets = $resultSet->getFacets();
 
     foreach($facets['levelOfDescriptionId']['terms'] as $term) {
@@ -63,14 +64,7 @@ class ApiSummaryIngestionAction extends QubitApiAction
         $counts[$description] = $term['count'];
       }
     }
+
     return $counts;
-
-    $this->populateFacets($facets);
-    $data['facets'] = $facets;
-
-    return
-      array(
-        'counts' => $counts
-      );
   }
 }
