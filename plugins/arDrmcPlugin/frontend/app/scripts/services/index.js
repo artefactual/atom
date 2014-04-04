@@ -12,6 +12,7 @@
     .service('AIPService', require('./AIPService'))
     .service('ActorsService', require('./ActorsService'))
     .service('SearchService', require('./SearchService'))
+    .service('StatisticsService', require('./StatisticsService'))
 
     // Mixins
     .factory('FullscreenService', require('./FullscreenService'))

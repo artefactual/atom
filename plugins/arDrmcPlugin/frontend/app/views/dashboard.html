@@ -1,133 +1,28 @@
 <h5 id="dash-h5">Recent additions</h5>
-
 <div id="artwork-record-header"><a ng-href="#/artwork-record" >
   <img ng-src="{{ assetsPath }}/moma-top-img.png" /></a>
 </div>
 
-<div id="Dashboard" class="row-fluid">
+<tabset>
+  <tab ng-repeat="tab in tabs" select="selectTab(tab)" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled">
+    <div ng-include="tab.template"></div>
+  </tab>
+</tabset>
 
-  <div class="span3">
-    <div id="dash-sidebar">
+<!-- Notice lazy load using ngIf -->
 
-      <section class="list-menu dash-col-stats">
-        <h4>Collection Stats</h4>
-        <ul>
-          <li><span>256</span>Works in the DRMC</li>
-          <li><span>1</span>Components</li>
-        </ul>
-      </section>
+<script type="text/ng-template" id="tmpl-recent-activity">
+  <div ng-if="tab.active" ng-controller="DashboardRecentActivityCtrl">
+    <h4>Download activity</h4>
+    <pre>{{ downloadActivity | json }}</pre>
 
-      <section class="list-menu dash-col-updates">
-        <h4>Recent Updates</h4>
-        <ul>
-          <li>
-            <a href="#" class="dash-update" onclick="return false;">Tetris - 1988 NES Release - 24x723rbwsdd7</a>
-          </li>
-          <li>
-            <a href="#" class="dash-update" onclick="return false;">Tetris - 1984 IBM Edition - Compiled source code</a>
-          </li>
-          <li>
-            <a href="#" class="dash-update" onclick="return false;">Adventure! - 1990 (video game)</a>
-          </li>
-          <li>
-            <a href="#" class="dash-update" onclick="return false;">Ms. Pac Man - 1982 Midway Arcade</a>
-          </li>
-        </ul>
-        <div class="btn btn-mini">
-          View All
-        </div>
-      </section>
+    <h4>Ingestion activity</h4>
+    <pre>{{ ingestionActivity | json }}</pre>
+  </div>
+</script>
 
-      <section class="list-menu dash-col-works">
-        <h4>Works by Type</h4>
-        <ul>
-          <li>
-            <img ng-src="{{ assetsPath }}/pie-chart2.png" />
-          </li>
-        </ul>
-      </section>
-
-    </div><!--dash-sidebar -->
-  </div><!-- /span3 -->
-
-  <div class="span9">
-
-    <div id="main-column" class="row-fluid">
-
-      <div id="content">
-
-        <section id="fix-check" class="row-fluid">
-
-          <h2>Fixity Checks</h2>
-
-          <ul class="well inline">
-            <li id="fc-sta" class="pull-left moma-btn-success">
-              Status
-              <div></div>
-            </li>
-            <li id="fc-inp" class="pull-left">
-              <form class="controls-row">
-                <input type="text" value="20" class="span2" disabled>
-                <input type="text" value="3 weeks 1 day 4 hours" class="span4" disabled>
-                <input type="text" value="Tetris-1998-NES-4f439-oe23" class="span6" disabled>
-              </form>
-            </li>
-            <li id="fc-sum">
-              <a href="#" onclick="return false">Summary<div></div></a>
-            </li>
-            <li id="fc-fr">
-              <a href="#" onclick="return false">Full report<div></div></a>
-            </li>
-            <li id="fc-set">
-              <a href="#" onclick="return false">Settings<div></div></a>
-            </li>
-          </ul>
-
-        </section>
-
-        <section id="AIP-ov">
-
-          <div class="menu-list">
-            <h2 class="menu-list-left">AIP Overview</h2>
-            <ul class="menu-list-right">
-              <li class="section-menu">
-                <a href="#" onclick="return false">View AIP Reports</a>
-              </li>
-            </ul>
-          </div>
-
-          <aside class="row-fluid">
-            <div id="AIP-ov-stat" class="well span3">
-              <ul>
-                <li>
-                  <span>Total AIP storage size</span>
-                  <input type="text" value="125.4 TB" disabled></input>
-                </li>
-                <li>
-                  <span>Total no. of AIPs</span>
-                  <input type="text" value="3462" disabled></input>
-                </li>
-              </ul>
-            </div>
-            <div id="AIP-ov-MIME" class="span4">
-              <h4>AIP Objects by MIME Type</h4>
-              <div id="svg_donut"></div>
-              <!-- <img ng-src="{{ assetsPath }}/green-pie.png" /> -->
-            </div>
-            <div id="AIP-ov-cla" class="span5">
-              <h4>Classified AIPs</h4>
-              <img ng-src="{{ assetsPath }}/purple-graph.png" />
-            </div>
-          </aside>
-
-        </section>
-
-      </div><!-- /#content -->
-
-    </div><!-- /.span9 -->
-
-  </div><!-- /#main-column -->
-
-</div>
-
-
+<script type="text/ng-template" id="tmpl-ingestion">
+  <div ng-if="tab.active" ng-controller="DashboardIngestionCtrl">
+    {{ tab.title }}
+  </div>
+</script>
