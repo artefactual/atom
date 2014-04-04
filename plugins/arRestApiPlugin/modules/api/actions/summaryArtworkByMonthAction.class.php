@@ -34,9 +34,12 @@ class ApiSummaryArtworkByMonthAction extends QubitApiAction
     $query = new \Elastica\Query;
     $queryBool = new \Elastica\Query\Bool;
 
-    // get all artwork records
+    // Get all artwork records
     $queryMatch = new \Elastica\Query\Match;
-    $queryMatch->setField('levelOfDescriptionId', 358);
+    $queryMatch->setField(
+      'levelOfDescriptionId',
+      sfConfig::get('app_drmc_lod_artwork_record_id')
+    );
     $queryBool->addShould($queryMatch);
 
     // Assign query
@@ -47,36 +50,24 @@ class ApiSummaryArtworkByMonthAction extends QubitApiAction
 
     // Add facets to the query to get total level of description types
     $this->facetEsQuery('DateHistogram', 'createdAt', 'createdAt', $query, array('interval' => 'month'));
+
+    // TODO: change createdAt to the acquisition date from TMS
     $this->facetEsQuery('DateHistogram', 'createdAt', 'createdAt', $query, array('interval' => 'month'));
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
 
-
-    // Derive level of description type cound from facets
-    $counts = array();
-    $levelOfDescriptionInfo = array(
-      358 => 'Artwork record',
-      359 => 'Supporting technology record'
-    );
     $facets = $resultSet->getFacets();
-return $facets;
 
-    foreach($facets['levelOfDescriptionId']['terms'] as $term) {
-      $termId = $term['term'];
-      if (isset($levelOfDescriptionInfo[$termId]))
-      {
-        $description = $levelOfDescriptionInfo[$termId];
-        $counts[$description] = $term['count'];
-      }
+    // convert timestamps to dates
+    foreach($facets['createdAt']['entries'] as $index => $entry)
+    {
+      $timestamp = $facets['createdAt']['entries'][$index]['time'];
+      $facets['createdAt']['entries'][$index]['date'] = date('Y-m-d', $timestamp);
+      unset($facets['createdAt']['entries'][$index]['time']);
     }
-    return $counts;
 
-    $this->populateFacets($facets);
-    $data['facets'] = $facets;
-
-    return
-      array(
-        'counts' => $counts
-      );
+    return array(
+      'creation' => $facets['createdAt']['entries']
+    );
   }
 }
