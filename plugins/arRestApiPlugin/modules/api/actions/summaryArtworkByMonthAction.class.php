@@ -48,10 +48,8 @@ class ApiSummaryArtworkByMonthAction extends QubitApiAction
     // We don't need details, just facet results
     $query->setLimit(0);
 
-    // Add facets to the query to get total level of description types
-    $this->facetEsQuery('DateHistogram', 'createdAt', 'createdAt', $query, array('interval' => 'month'));
-
-    // TODO: change createdAt to the acquisition date from TMS
+    // Add facets to the months in which artwork records were collected and created
+    $this->facetEsQuery('DateHistogram', 'collectionDate', 'tmsObject.collectionDate', $query, array('interval' => 'month'));
     $this->facetEsQuery('DateHistogram', 'createdAt', 'createdAt', $query, array('interval' => 'month'));
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
@@ -59,15 +57,19 @@ class ApiSummaryArtworkByMonthAction extends QubitApiAction
     $facets = $resultSet->getFacets();
 
     // convert timestamps to dates
-    foreach($facets['createdAt']['entries'] as $index => $entry)
+    foreach($facets as $facetName => $facet)
     {
-      $timestamp = $facets['createdAt']['entries'][$index]['time'];
-      $facets['createdAt']['entries'][$index]['date'] = date('Y-m-d', $timestamp);
-      unset($facets['createdAt']['entries'][$index]['time']);
+      foreach($facets[$facetName]['entries'] as $index => $entry)
+      {
+        $timestamp = $facets[$facetName]['entries'][$index]['time'];
+        $facets[$facetNet]['entries'][$index]['date'] = date('Y-m-d', $timestamp);
+        unset($facets[$facetName]['entries'][$index]['time']);
+      }
     }
 
     return array(
-      'creation' => $facets['createdAt']['entries']
+      'creation' => $facets['createdAt']['entries'],
+      'collection' => $facets['collectionDate']['entries']
     );
   }
 }
