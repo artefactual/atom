@@ -69,7 +69,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
           break;
       }
 
-      $data['a_attr']['href'] = $data['slug'];
+      $data['a_attr']['href'] = &$data['slug'];
       unset($data['slug']);
 
     });
