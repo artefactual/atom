@@ -52,10 +52,10 @@
 }
 
 #fullwidth-treeview-loading {
-	margin: 0px auto;
-	display:block;
-	vertical-align: middle;
-	margin-top: 23px;
+	position: absolute;
+	left: 53%;
+	top:111px;
+	z-index: 1;
 }
 
 .ui-resizable-s:hover {

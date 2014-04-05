@@ -5,7 +5,8 @@
   $(init);
 
   var treeview_open = false;
-  var url = '/informationobject/fullWidthTreeView'
+  var url = '/informationobject/fullWidthTreeView';
+  var loading = "<div id=\"fullwidth-treeview-loading\"><img src=\"/images/loading.gif\" /></div>";
   var html =  "<div id=\"fullwidth-treeview-header\">" +
                "<div class=\"title\">Title</div>" +
                "<div class=\"identifier\">Identifier</div>" +
@@ -13,9 +14,10 @@
               "</div>" +
               "<div id=\"fullwidth-treeview-row\">" + 
                "<div id=\"fullwidth-treeview\">" +
-                "<img src=\"/images/loading.gif\" id=\"fullwidth-treeview-loading\" />" +
                "</div>" +
-              "</div>";
+              "</div>" +
+              loading;
+  var loader = null;
 
   // toggles between disabling Holdings tab
   function toggleTreeviewMenu() {
@@ -43,6 +45,7 @@
       if( treeview_open == false )
       {
         // refresh the page
+        loader.css('z-index', '1');
         window.location.reload();
         return false;
       }
@@ -78,13 +81,20 @@
         var active_node = null;
         if( active_node = $('li [selected_on_load]')[0] )
         {
-          active_node.scrollIntoView(false);
+          active_node.scrollIntoView(true);
+          $('body')[0].scrollIntoView(true);
         }
-        
+
+        // hide loader
+        loader = $('#fullwidth-treeview-loading');
+        loader.css('z-index', '-1');
       });
 
       // bind click events to nodes to load the informationobject's page and insert the current page
       $("#fullwidth-treeview").bind("select_node.jstree", function(evt, data){
+        // set icon to spinner
+        loader.css('z-index', '1');
+
         // open node if possible
         data.instance.open_node(data.node);
 
@@ -104,6 +114,9 @@
 
           // update the url, TODO save the state
           window.history.pushState({}, $('#main-column h1').first().text(), url);
+
+          // remove loading icon
+          loader.css('z-index', '-1');
         });
       });
 
