@@ -202,6 +202,10 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'summaryStorageUsedByMediaCategory'));
 
+    $this->addRoute('GET', '/api/summary/mediacategorycount', array(
+      'module' => 'api',
+      'action' => 'summaryMediaCategoryCount'));
+
 
     /**
      * Search
