@@ -75,11 +75,13 @@
         }).animate({height: '200px'}, 500);
 
         // scroll to active node
-        $('li [selected_on_load]')[0].scrollIntoView(false);
+        var active_node = null;
+        if( active_node = $('li [selected_on_load]')[0] )
+        {
+          active_node.scrollIntoView(false);
+        }
+        
       });
-
-      // bind expanding nodes to makeTooltips
-      $("#fullwidth-treeview").bind("open_node.jstree", makeTooltips);
 
       // bind click events to nodes to load the informationobject's page and insert the current page
       $("#fullwidth-treeview").bind("select_node.jstree", function(evt, data){
