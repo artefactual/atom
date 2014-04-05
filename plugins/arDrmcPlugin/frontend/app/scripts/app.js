@@ -47,19 +47,14 @@
   angular.module('momaApp')
     .run(function ($rootScope, SETTINGS, $state, $stateParams, AuthenticationService) {
 
-      // Add references to $state and $stateParams to the $rootScope so we can
-      // access from them from our entire application
+      // Share information with $rootScope so it's globally available from our views
       $rootScope.$state = $state;
       $rootScope.$stateParams = $stateParams;
-
-      // Same here
       $rootScope.basePath = SETTINGS.basePath;
       $rootScope.viewsPath = SETTINGS.viewsPath;
       $rootScope.assetsPath = SETTINGS.assetsPath;
 
-      $rootScope.headerPartialPath = SETTINGS.viewsPath + '/layout/header.html';
-      $rootScope.footerPartialPath = SETTINGS.viewsPath + '/layout/footer.html';
-
+      // Redirect users to the login page
       var allowedNames = ['login', '404'];
       $rootScope.$on('$stateChangeStart', function (event, toState) {
         if (allowedNames.indexOf(toState.name) === -1 && !AuthenticationService.isAuthenticated()) {
