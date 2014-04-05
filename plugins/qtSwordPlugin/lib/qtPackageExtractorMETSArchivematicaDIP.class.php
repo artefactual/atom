@@ -512,6 +512,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         if ($objectUUID == $this->getUUID($k))
         {
           $child->title = $this->getOriginalFilename($k);
+
+          break;
         }
       }
 
@@ -522,27 +524,43 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $child->digitalObjects[] = $digitalObject;
       $child->save();
 
-
       // Attempt to parse relative path within AIP from METS
-      $node = $this->document->xpath('//m:mets/m:fileSec/m:fileGrp[@USE="original"]/m:file[@ID="file-'. $objectUUID .'"]/m:FLocat');
-
-      $relativePathWithinDataDir = false;
-      foreach($node[0]->attributes('xlink', true) as $attribute => $value) {
-        if ($attribute == 'href')
-        {
-          $relativePathWithinDataDir = $value;
-        }
-      }
-
-      // If relative path within AIP was found, store as property
-      if ($relativePathWithinDataDir)
+      if (false !== $nodes = $this->document->xpath('//m:mets/m:fileSec/m:fileGrp[@USE="original"]/m:file'))
       {
-        // use property to augment digital object with relative path within AIP
-        $property = new QubitProperty;
-        $property->objectId = $child->id;
-        $property->setName('original_relative_path_within_aip');
-        $property->setValue($relativePathWithinDataDir);
-        $property->save();
+        $relativePathWithinDataDir = false;
+        // Search for the file that matches this $objectUUID
+        foreach ($nodes as $file)
+        {
+          $attrs = $file->attributes();
+          $uuid = $this->getUUID($attrs['ID']);
+          if ($uuid == $objectUUID && isset($file->FLocat))
+          {
+            foreach ($file->FLocat->attributes('xlink', true) as $attribute => $value)
+            {
+              if ($attribute == 'href')
+              {
+                $relativePathWithinDataDir = $value;
+
+                break;
+              }
+            }
+
+            break;
+          }
+        }
+
+        // If relative path within AIP was found, store as property
+        if (false !== $relativePathWithinDataDir)
+        {
+          // Use property to augment digital object with relative path within AIP
+          $property = new QubitProperty;
+          $property->objectId = $child->id;
+          $property->setName('original_relative_path_within_aip');
+          $property->setValue($relativePathWithinDataDir);
+          $property->save();
+
+          sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             '.$relativePathWithinDataDir);
+        }
       }
 
       // Process metatadata from METS file

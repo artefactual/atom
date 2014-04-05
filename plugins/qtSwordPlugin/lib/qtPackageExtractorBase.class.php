@@ -193,6 +193,7 @@ class qtPackageExtractorBase
       // Ultimate check to make sure the file/directory exists
       if (!is_readable($this->filename))
       {
+        sfContext::getInstance()->getLogger()->info('File/directory does not exist or is not readable: '.$this->filename.'.');
         throw new Exception('File/directory does not exist or is not readable: '.$this->filename.'.');
       }
     }
