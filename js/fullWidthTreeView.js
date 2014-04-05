@@ -68,8 +68,6 @@
           width: 150
         }
 
-        debug = data;
-
         // initialize jstree
         $('#fullwidth-treeview').jstree(data);
         $('#fullwidth-treeview-row').resizable({ 
@@ -79,6 +77,9 @@
         // scroll to active node
         $('li [selected_on_load]')[0].scrollIntoView(false);
       });
+
+      // bind expanding nodes to makeTooltips
+      $("#fullwidth-treeview").bind("open_node.jstree", makeTooltips);
 
       // bind click events to nodes to load the informationobject's page and insert the current page
       $("#fullwidth-treeview").bind("select_node.jstree", function(evt, data){
@@ -111,5 +112,3 @@
     });
   }
 })(jQuery);
-
-var debug = {};
