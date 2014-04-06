@@ -17,31 +17,41 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Example:
+ *
+ *  $ curl -v \
+ *    http://HOSTNAME:8001/api/aips/UUID/download?reason=REASON&relative_path_to_file=PATH
+ *
+ */
 class ApiAipsDownloadViewAction extends QubitApiAction
 {
-  /*
-    Example:
-
-    curl -v http://127.0.0.1:8001/api/aips/5d20ba4c-5d13-417f-912b-97f724ec726d/
-      download?reason=Study&relative_path_to_file=objects/lion.svg
-
-  */
   protected function get($request)
   {
-    // get AIP data from ES to verify it exists and to log access
+    if (!isset($request->reason))
+    {
+      throw new QubitApiBadRequestException('Missing parameter: reason');
+    }
+
+    if (strlen($request->reason) < 10)
+    {
+      throw new QubitApiBadRequestException('Parameter reason is not long enough');
+    }
+
+    // Get AIP data from ES to verify it exists and to log access
     $aip = QubitApiAip::getResults($request);
 
-    // get configuration needed to access storage service
+    // Get configuration needed to access storage service
     $ssConfig = array();
-    $ssEnvVars  = array(
+    $ssEnvVars = array(
       'ARCHIVEMATICA_SS_HOST' => '127.0.0.1',
       'ARCHIVEMATICA_SS_PORT' => '8000'
     );
 
-    // determine configuration based on environment variable settings
-    foreach($ssEnvVars as $var => $default)
+    // Determine configuration based on environment variable settings
+    foreach ($ssEnvVars as $var => $default)
     {
-      // get Archivematica storage service host
+      // Get Archivematica storage service host
       $value = getenv($var);
 
       if (!$value && !$default)
@@ -52,22 +62,31 @@ class ApiAipsDownloadViewAction extends QubitApiAction
       $ssConfig[$var] = ($value) ? $value : $default;
     }
 
-    // assemble storage server URL
+    // Assemble storage server URL
     $storageServiceUrl = 'http://'. $ssConfig['ARCHIVEMATICA_SS_HOST'];
     $storageServiceUrl .= ':'. $ssConfig['ARCHIVEMATICA_SS_PORT'];
     $aipUrl = $storageServiceUrl .'/api/v2/file';
 
-    // determine filename of AIP via REST call to storage server
+    // Determine filename of AIP via REST call to storage server
     $aipInfoUrl = $aipUrl .'/'. $request->uuid .'?format=json';
-    $aipInfo = json_decode(file_get_contents($aipInfoUrl));
+    if (false === $aipInfoJson = file_get_contents($aipInfoUrl))
+    {
+      throw new QubitApiException('Archivematica Storage Service not accessible');
+    }
+
+    if (null === $aipInfo = json_decode($aipInfoJson))
+    {
+      throw new QubitApiException('Error decoding JSON retrieved from Archivematica Storage Service');
+    }
+
     $filename = basename($aipInfo->current_full_path);
 
-    // formalate URL depending on whether a single file is being extracted
+    // Formalate URL depending on whether a single file is being extracted
     $downloadUrl = $aipUrl .'/'. $request->uuid .'/';
     $downloadUrl .= ($request->relative_path_to_file) ? 'extract_file/' : 'download/';
 
-    // if a single file is being extracted, augment with relative path to file
-    if ($request->relative_path_to_file)
+    // If a single file is being extracted, augment with relative path to file
+    if (isset($request->relative_path_to_file))
     {
       $filenameWithoutExtension = pathinfo($filename, PATHINFO_FILENAME);
       $relativePathToFile = $filenameWithoutExtension .'/data/' . $request->relative_path_to_file;
@@ -75,15 +94,17 @@ class ApiAipsDownloadViewAction extends QubitApiAction
       $filename = basename($relativePathToFile);
     }
 
-    // log access to AIP/file
+    // Log access to AIP/file
     $this->logAccessAttempt($request, $aip['id']);
 
     if ($request->show_url)
     {
-      // optionally return URL for debugging purposes
+      // Optionally return URL for debugging purposes
       return array('url' => $downloadUrl);
-    } else {
-      // proxy download
+    }
+    else
+    {
+      // Proxy download
       $this->proxyDownload($downloadUrl, $filename);
     }
   }
