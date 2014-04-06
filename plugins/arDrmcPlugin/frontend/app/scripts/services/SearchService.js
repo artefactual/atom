@@ -56,6 +56,10 @@ module.exports = function ($http, SETTINGS, AIPService, InformationObjectService
         return InformationObjectService.getWorks(params);
       case 'components':
         return InformationObjectService.getComponents(params);
+      case 'technology-records':
+        return InformationObjectService.getSupportingTechnologyRecords(params);
+      case 'files':
+        return InformationObjectService.getFiles(params);
     }
   };
 };

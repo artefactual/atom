@@ -112,15 +112,23 @@ module.exports = function ($http, $q, SETTINGS) {
     });
   };
 
+  this.getSupportingTechnologyRecord = function (id) {
+    var params = { level_id: SETTINGS.drmc.lod_supporting_technology_record_id };
+    return this.getById(id, params);
+  };
+
+  // TODO: Create individual endpoint to manage facets
   this.getSupportingTechnologyRecords = function (params) {
     params = params || {};
     params.level_id = SETTINGS.drmc.lod_supporting_technology_record_id;
     return this.get(params);
   };
 
-  this.getSupportingTechnologyRecord = function (id) {
-    var params = { level_id: SETTINGS.drmc.lod_supporting_technology_record_id };
-    return this.getById(id, params);
+  // TODO: Create individual endpoint to manage facets
+  this.getFiles = function (params) {
+    params = params || {};
+    params.level_id = SETTINGS.drmc.lod_digital_object_id;
+    return this.get(params);
   };
 
   this.getWorks = function (params) {
