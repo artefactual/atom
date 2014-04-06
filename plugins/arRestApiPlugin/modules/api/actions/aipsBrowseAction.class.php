@@ -88,7 +88,7 @@ class ApiAipsBrowseAction extends QubitApiAction
         $this->addItemToArray($aip['type'], 'name', get_search_i18n($doc['type'], 'name'));
       }
 
-      if (isset($doc['type']))
+      if (isset($doc['partOf']))
       {
         $this->addItemToArray($aip['part_of'], 'id', $doc['partOf']['id']);
         $this->addItemToArray($aip['part_of'], 'title', get_search_i18n($doc['partOf'], 'title'));
