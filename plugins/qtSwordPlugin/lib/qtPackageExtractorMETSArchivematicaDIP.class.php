@@ -109,7 +109,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           break;
 
         case 'identifier':
-          $informationObject->identifier = $value;
+          // This field is used to store a relation with a TMS Component by the id
+          $this->relatedComponentId = $value;
 
           break;
 
@@ -406,6 +407,20 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $components->save();
     }
 
+    list($aipIo, $aip) = $this->addAip($components, $tmsObject);
+
+    $this->addDigitalObjects($aipIo, $aip);
+
+    // Add related digital objects to the AIP in ES
+    $aip->save();
+
+    // Create relation between AIP and artwork
+    $relation = new QubitRelation;
+    $relation->object = $tmsObject;
+    $relation->subject = $aip;
+    $relation->typeId = QubitTerm::AIP_RELATION_ID;
+    $relation->save();
+
     // Mapping from TMS status to level of descriptions
     $statusMapping = array(
       'Archival'               => sfConfig::get('app_drmc_lod_archival_master_id'),
@@ -422,28 +437,19 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     // Obtain and create components from TMS
     if (isset($tmsComponentsIds))
     {
+      $tmsComponentsIoIds = array();
       foreach ($tmsComponentsIds as $tmsId)
       {
-        $this->createTombstoneComponent($tmsId, $components->id, $statusMapping);
+        $tmsComponentsIoIds[] = $this->createTombstoneComponent($tmsId, $components->id, $statusMapping, $aip->id);
       }
+
+      // Save info object components ids as property of the artwork
+      // because they are not directly related but added as part of the artwork in ES
+      QubitProperty::addUnique($tmsObject->id, 'childComponents', serialize($tmsComponentsIoIds));
     }
 
-    list($aipIo, $aip) = $this->addAip($components, $tmsObject);
-
-    $this->addDigitalObjects($aipIo, $aip);
-
-    // Create relation between AIP and intermediate level
-    $relation = new QubitRelation;
-    $relation->object = $components;
-    $relation->subject = $aip;
-    $relation->typeId = QubitTerm::AIP_RELATION_ID;
-    $relation->save();
-
-    // Save creation event and AIP data in ES
-    QubitSearch::getInstance()->update($components);
-
-    // Add related digital objects to the AIP in ES
-    $aip->save();
+    // Save AIP and components data for the artwork in ES
+    QubitSearch::getInstance()->update($tmsObject);
   }
 
   /*
@@ -605,14 +611,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       QubitProperty::addUnique($child->id, 'objectUUID', $objectUUID);
       QubitProperty::addUnique($child->id, 'aipUUID', $this->aipUUID);
 
-      // Create relation with AIP
-      $relation = new QubitRelation;
-      $relation->object = $child;
-      $relation->subject = $aip;
-      $relation->typeId = QubitTerm::AIP_RELATION_ID;
-      $relation->save();
-
-      // Save creation event and AIP data in ES
+      // Save creation event in ES
       // A lot more data from the METS file (object metadata, events, agents)
       // is obtained in arElasticSearchInformationObjectPdo
       QubitSearch::getInstance()->update($child);
@@ -901,8 +900,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
                 $tmsComponentsIds[] = $item['ComponentID'];
               }
 
-              break;
-
             // Log error
             case 'ErrorMsg':
               sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.$value);
@@ -935,7 +932,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     return array($tmsObject, $tmsComponentsIds);
   }
 
-  protected function createTombstoneComponent($tmsId, $parentId, $statusMapping)
+  protected function createTombstoneComponent($tmsId, $parentId, $statusMapping, $aipId)
   {
     // Create component from TMS
     $tmsComponent = new QubitInformationObject;
@@ -1088,5 +1085,17 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     curl_close($curl);
 
     $tmsComponent->save();
+
+    // Create relation with AIP if Dublin Core identifier match with TMS Component id
+    if (isset($this->relatedComponentId) && $this->relatedComponentId == $tmsId)
+    {
+      $relation = new QubitRelation;
+      $relation->object = $tmsComponent;
+      $relation->subjectId = $aipId;
+      $relation->typeId = QubitTerm::AIP_RELATION_ID;
+      $relation->save();
+    }
+
+    return $tmsComponent->id;
   }
 }
