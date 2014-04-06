@@ -20,8 +20,8 @@
 
     // Create layers
     svg
-      .selectAll('g.edgePaths, g.edgeLabels, g.nodes')
-      .data(['edgePaths', 'edgeLabels', 'nodes'])
+      .selectAll('g.edgePaths, g.edgeLabels, g.nodes, g.expandCollapseIcons')
+      .data(['edgePaths', 'edgeLabels', 'nodes', 'expandCollapseIcons'])
       .enter()
         .append('g')
         .attr('class', function (d) {
@@ -49,6 +49,9 @@
     positionNodes(result, svgNodes);
     positionEdgeLabels(result, svgEdgeLabels);
     positionEdgePaths(result, svgEdgePaths, this.edgeTension, this.edgeInterpolate);
+
+    // Expand/collapse icons
+    drawAndPositionExpandCollapseIcons(result, graph, svg.select('g.expandCollapseIcons'), svg.select('g.nodes'));
 
     postRender(result, svg);
 
@@ -129,22 +132,6 @@
         'width': r.attr('width'),
         'height': r.attr('height')
       });
-
-      // Expand/collapse icon
-      // TODO: put this out of the .node
-      if (node.collapsible) {
-        var x = (r.attr('width') / -2) - 20;
-        var y = (r.attr('height') / -2) - 20;
-        if (node.collapsed) {
-          n.append('g').classed('collapse', true)
-           .attr('transform', 'translate(' + x + ',' + y + ')')
-           .append('use').attr('xlink:href', '#expand-icon');
-        } else {
-          n.append('g').classed('collapse', true)
-           .attr('transform', 'translate(' + x + ',' + y + ')')
-           .append('use').attr('xlink:href', '#collapse-icon');
-        }
-      }
     });
 
     transition(svgNodes.exit())
@@ -152,6 +139,34 @@
       .remove();
 
     return svgNodes;
+  }
+
+  // This needs to be optimized!
+  function drawAndPositionExpandCollapseIcons (layout, g, root, rootNodes) {
+    var collapseUse = { id: '#collapse-icon', width: 25, height: 8 };
+    var expandUse = { id: '#expand-icon', width: 25, height: 8 };
+
+    root.selectAll('*').remove();
+
+    rootNodes.selectAll('g.node').each(function (u) {
+      var node = g.node(u);
+      var nodeLayout = layout.node(u);
+      if (!node.collapsible) {
+        return;
+      }
+      var x = nodeLayout.x - nodeLayout.width / 2;
+      var y = nodeLayout.y - nodeLayout.height / 2;
+      if (node.collapsed) {
+        x -= expandUse.width;
+        y += expandUse.height;
+      } else {
+        x -= collapseUse.width;
+        y += collapseUse.height;
+      }
+      root.insert('g').classed('collapse', node.collapsed)
+        .attr('transform', 'translate(' + x + ',' + y + ')').datum(u)
+        .append('use').attr('xlink:href', node.collapsed === true ? expandUse.id : collapseUse.id);
+    });
   }
 
   function drawEdgeLabels (g, root) {
@@ -331,12 +346,12 @@
     }
 
     var collapseIcon = defs.append('svg:g').attr('id', 'collapse-icon').append('svg:g');
-    collapseIcon.append('rect').attr({ x: 1, y: 6, fill: 'none', stroke: '#333333', 'stroke-width': 3, width: 16, height: 6 });
-    collapseIcon.append('rect').attr({ x: 1, y: 6, fill: '#ff2200', stroke: 'none', 'stroke-width': 3, width: 16, height: 6 });
+    collapseIcon.append('rect').attr({ x: 1, y: 6, fill: 'none', stroke: '#333333', 'stroke-width': 1, width: 16, height: 6 });
+    collapseIcon.append('rect').attr({ x: 1, y: 6, fill: '#999999', stroke: 'none', 'stroke-width': 1, width: 16, height: 6 });
 
     var expandIcon = defs.append('svg:g').attr('id', 'expand-icon').append('svg:g');
-    expandIcon.append('polygon').attr({ fill: 'none', stroke: '#333333', 'stroke-width': 3, points: '6,17 6,12 1,12 1,6 6,6 6,1 12,1 12,6 17,6 17,12 12,12 12,17' });
-    expandIcon.append('polygon').attr({ fill: '#22ff22', stroke: 'none', points: '6,17 6,12 1,12 1,6 6,6 6,1 12,1 12,6 17,6 17,12 12,12 12,17' });
+    expandIcon.append('polygon').attr({ fill: 'none', stroke: '#333333', 'stroke-width': 1, points: '6,17 6,12 1,12 1,6 6,6 6,1 12,1 12,6 17,6 17,12 12,12 12,17' });
+    expandIcon.append('polygon').attr({ fill: '#999999', stroke: 'none', points: '6,17 6,12 1,12 1,6 6,6 6,1 12,1 12,6 17,6 17,12 12,12 12,17' });
   }
 
   function addLabel (node, root, marginX, marginY) {

@@ -55,6 +55,12 @@
     parseTree(this.data.children, root);
   };
 
+  Graph.prototype.updateCollapsible = function (u, collapsed) {
+    var node = this.node(u);
+    node.collapsible = this.predecessors(u).length > 0;
+    node.collapsed = typeof collapsed !== 'undefined' ? collapsed : false;
+  };
+
   /**
    * I could be using .children if I move to CDigraph, but there's something
    * that it's blocking me from moving to that type of graph, can't remember

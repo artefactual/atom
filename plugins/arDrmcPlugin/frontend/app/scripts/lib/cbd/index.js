@@ -73,6 +73,9 @@
       .on('click', jQuery.proxy(nodeFilter, null, this.clickNode))
       .on('mouseover', jQuery.proxy(nodeFilter, null, this.hoverNode))
       .on('mouseout', jQuery.proxy(nodeFilter, null, this.hoverNode));
+
+    this.graphSVG.select('.expandCollapseIcons')
+      .on('click', jQuery.proxy(this.clickExpandCollapseIcon, this));
   };
 
   ContextBrowser.prototype.showRelationships = function () {
@@ -103,6 +106,16 @@
     this.draw();
   };
 
+  ContextBrowser.prototype.clickExpandCollapseIcon = function () {
+    var target = d3.event.target.correspondingUseElement ? d3.event.target.correspondingUseElement : d3.event.target;
+    var jg = jQuery(target).closest('g');
+    if (!jg.length) {
+      return;
+    }
+    var id = d3.select(target).datum();
+    this.collapse(id);
+  };
+
   /**
    * Handler for click events. Allows selection of nodes by updating CSS classes
    * and firing events to a watcher.
@@ -113,12 +126,6 @@
    * @param {number} index - Index
    */
   ContextBrowser.prototype.clickNode = function (context, datum, index) {
-    var target = d3.event.target.correspondingUseElement ? d3.event.target.correspondingUseElement : d3.event.target;
-    if (jQuery(target).closest('.collapse').length) {
-      context.collapse.call(context, datum);
-      d3.event.stopPropagation();
-      return;
-    }
     var n = d3.select(this);
     if (!n.classed('active')) {
       if (!d3.event.shiftKey) {
@@ -137,7 +144,12 @@
 
   ContextBrowser.prototype.clickSVG = function () {
     var target = d3.event.target.correspondingUseElement ? d3.event.target.correspondingUseElement : d3.event.target;
-    if (d3.select(target).classed('graph-root')) {
+    var n = d3.select(target);
+    // I have no idea why!
+    if (typeof n.getAttribute === 'undefined') {
+      return;
+    }
+    if (n.classed('graph-root')) {
       this.events.emitEvent('click-background');
     }
   };
@@ -165,18 +177,21 @@
       level = 'description';
     }
     this.graph.addNode(id, {
-      id: Math.floor(Math.random() * 11),
+      id: id,
       level: level,
       label: label
     });
     this.graph.addEdge(id + ':' + parentId, id, parentId);
+    this.graph.updateCollapsible(parentId, false);
     this.draw();
   };
 
   ContextBrowser.prototype.deleteNodes = function (nodes) {
     var self = this;
-    nodes.forEach(function (element) {
-      self.graph.delNode(element);
+    nodes.forEach(function (u) {
+      var parents = self.graph.successors(u);
+      self.graph.delNode(u);
+      self.graph.updateCollapsible(parents[0]);
     });
     this.draw();
   };
