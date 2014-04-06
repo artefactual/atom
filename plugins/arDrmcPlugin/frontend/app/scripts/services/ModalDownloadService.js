@@ -11,6 +11,8 @@ module.exports = function ($modal, $window, SETTINGS) {
       // https://github.com/angular-ui/bootstrap/issues/969#issuecomment-33128068
       $scope.modalContainer = {};
 
+      $scope.minLength = 10;
+
       // Resolved
       $scope.downloadDescription = downloadDescription;
       $scope.title = title;

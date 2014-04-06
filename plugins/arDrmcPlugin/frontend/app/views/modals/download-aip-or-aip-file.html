@@ -11,12 +11,12 @@
       <p>
         <label>Downloading: <code>{{ downloadDescription }}</code></label>
       </p>
-      <label>Reason for download</label>
-      <textarea name="reason" ng-model="modalContainer.reason" ng-required="true" ng-minlength="10"></textarea>
+      <label>Reason for download (min. length {{ minLength }} characters)</label>
+      <textarea name="reason" ng-model="modalContainer.reason" ng-required="true" ng-minlength="{{ minLength }}"></textarea>
     </div>
 
     <div class="modal-footer">
-      <button class="btn btn-primary" type="submit" ng-disabled="!modalContainer.form.$valid">
+      <button ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': !modalContainer.form.$valid }" type="submit" ng-disabled="!modalContainer.form.$valid">
         {{ modalContainer.form.$valid ? 'Download' : 'What\'s the reason?' }}
       </button>
       <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
@@ -25,3 +25,5 @@
   </form>
 
 </div>
+
+enterpreteneur
