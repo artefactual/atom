@@ -25,7 +25,7 @@
         <td>{{ aip.size | UnitFilter:1 }}</td>
         <td>{{ aip.created_at }}</td>
         <td><a href ng-click="openReclassifyModal(aip)">{{ aip.type.name || 'Unclassified' }}</a></td>
-        <td>{{ aip.part_of.title }}</td>
+        <td><a ui-sref="works.view({ id: aip.part_of.id })">{{ aip.part_of.title }}</a></td>
       </tr>
     </tbody>
   </table>
