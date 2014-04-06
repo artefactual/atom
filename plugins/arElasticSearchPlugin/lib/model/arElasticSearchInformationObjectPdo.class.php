@@ -1380,6 +1380,16 @@ file_put_contents('/tmp/mike.txt', $sql ."\n", file_append);
       $serialized['tmsComponent']['componentType'][] = $node->serialize();
     }
 
+    // TMS child components
+    if (null !== $childComponents = $this->getProperty('childComponents'))
+    {
+      foreach (unserialize($childComponents) as $item)
+      {
+        $node = new arElasticSearchInformationObjectPdo($item);
+        $serialized['tmsChildComponents'][] = $node->serialize();
+      }
+    }
+
     // Timestamps
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);
     $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($this->updated_at);

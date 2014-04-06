@@ -164,7 +164,8 @@ mapping:
         dynamic: strict
     _foreign_types:
       type: term
-    dynamic: strict
+      digital_objects: information_object
+    dynamic: true
     properties:
       uuid: { type: string, index: not_analyzed, include_in_all: false }
       filename:
@@ -183,13 +184,6 @@ mapping:
       size_on_disk: { type: long, index: not_analyzed, include_in_all: false }
       digital_object_count: { type: integer, index: not_analyzed, include_in_all: false }
       created_at: { type: date, index: not_analyzed, include_in_all: false }
-      digital_objects:
-        type: object
-        properties:
-          name: { type: string, index: not_analyzed, include_in_all: false }
-          size: { type: long, index: not_analyzed, include_in_all: false }
-          mime_type: { type: string, index: not_analyzed, include_in_all: false }
-          last_modified: { type: date, index: not_analyzed, include_in_all: false }
 
   term:
     _attributes:
@@ -254,7 +248,8 @@ mapping:
       mets_data: mets_data
       tms_object: tms_object
       tms_component: tms_component
-    dynamic: strict
+      tms_child_components: information_object
+    dynamic: true
     properties:
       slug: { type: string, index: not_analyzed }
       identifier: { type: string, index: not_analyzed }
