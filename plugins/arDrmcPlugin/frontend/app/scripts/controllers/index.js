@@ -7,6 +7,7 @@
   module.exports = angular.module('momaApp.controllers', [])
 
     // Layout
+    .controller('BodyCtrl', require('./BodyCtrl'))
     .controller('HeaderCtrl', require('./HeaderCtrl'))
     .controller('FooterCtrl', require('./FooterCtrl'))
 

@@ -8,7 +8,7 @@
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
   </head>
-  <body ng-app="momaApp" class="drmc">
+  <body ng-app="momaApp" class="drmc" ng-controller="BodyCtrl">
 
     <ng-include src="headerPartialPath" ng-controller="HeaderCtrl"></ng-include>
 
