@@ -50,12 +50,22 @@ class ApiSearchAutocompleteAction extends QubitApiAction
         'fields' => array('uuid', 'filename')),
       array(
         'type' => 'QubitInformationObject',
-        'level' => 'tmsObject',
+        'level' => 'work',
         'field' => sprintf('i18n.%s.title', $culture),
-        'fields' => array('identifier', sprintf('i18n.%s.title', $culture))),
+        'fields' => array('identifier', sprintf('i18n.%s.title', $culture), 'levelOfDescriptionId')),
       array(
         'type' => 'QubitInformationObject',
-        'level' => 'tmsComponent',
+        'level' => 'component',
+        'field' => sprintf('i18n.%s.title', $culture),
+        'fields' => array('identifier', sprintf('i18n.%s.title', $culture), 'levelOfDescriptionId')),
+      array(
+        'type' => 'QubitInformationObject',
+        'level' => 'technology-record',
+        'field' => sprintf('i18n.%s.title', $culture),
+        'fields' => array('identifier', sprintf('i18n.%s.title', $culture), 'levelOfDescriptionId')),
+      array(
+        'type' => 'QubitInformationObject',
+        'level' => 'file',
         'field' => sprintf('i18n.%s.title', $culture),
         'fields' => array('identifier', sprintf('i18n.%s.title', $culture), 'levelOfDescriptionId'))) as $item)
     {
@@ -79,38 +89,65 @@ class ApiSearchAutocompleteAction extends QubitApiAction
       $queryText = new \Elastica\Query\Text();
       $queryText->setFieldQuery($item['field'].'.autocomplete', $queryString);
 
-      if ('tmsObject' == $item['level'])
+      switch ($item['level'])
       {
-        $queryBool = new \Elastica\Query\Bool;
-        $queryBool->addMust($queryText);
+        case 'aip':
+          $query->setQuery($queryText);
 
-        // Filter to TMS Objects
-        $queryBool->addMust(new \Elastica\Query\Term(array('levelOfDescriptionId' => sfConfig::get('app_drmc_lod_artwork_record_id'))));
+          break;
 
-        $query->setQuery($queryBool);
-      }
-      else if ('tmsComponent' == $item['level'])
-      {
-        $queryBool = new \Elastica\Query\Bool;
-        $queryBool->addMust($queryText);
+        case 'work':
+          $queryBool = new \Elastica\Query\Bool;
+          $queryBool->addMust($queryText);
 
-        // Filter to TMS Objects
-        $componentLevels = array(
-          sfConfig::get('app_drmc_lod_archival_master_id'),
-          sfConfig::get('app_drmc_lod_artist_supplied_master_id'),
-          sfConfig::get('app_drmc_lod_artist_verified_proof_id'),
-          sfConfig::get('app_drmc_lod_exhibition_format_id'),
-          sfConfig::get('app_drmc_lod_miscellaneous_id'),
-          sfConfig::get('app_drmc_lod_component_id')
-        );
+          // Filter to Artwork Records
+          $queryBool->addMust(new \Elastica\Query\Term(array('levelOfDescriptionId' => sfConfig::get('app_drmc_lod_artwork_record_id'))));
 
-        $queryBool->addMust(new \Elastica\Query\Terms('levelOfDescriptionId', $componentLevels));
+          $query->setQuery($queryBool);
 
-        $query->setQuery($queryBool);
-      }
-      else
-      {
-        $query->setQuery($queryText);
+          break;
+
+        case 'component':
+          $queryBool = new \Elastica\Query\Bool;
+          $queryBool->addMust($queryText);
+
+          // Filter to Components
+          $componentLevels = array(
+            sfConfig::get('app_drmc_lod_archival_master_id'),
+            sfConfig::get('app_drmc_lod_artist_supplied_master_id'),
+            sfConfig::get('app_drmc_lod_artist_verified_proof_id'),
+            sfConfig::get('app_drmc_lod_exhibition_format_id'),
+            sfConfig::get('app_drmc_lod_miscellaneous_id'),
+            sfConfig::get('app_drmc_lod_component_id')
+          );
+
+          $queryBool->addMust(new \Elastica\Query\Terms('levelOfDescriptionId', $componentLevels));
+
+          $query->setQuery($queryBool);
+
+          break;
+
+        case 'technology-record':
+          $queryBool = new \Elastica\Query\Bool;
+          $queryBool->addMust($queryText);
+
+          // Filter to Technology Records
+          $queryBool->addMust(new \Elastica\Query\Term(array('levelOfDescriptionId' => sfConfig::get('app_drmc_lod_supporting_technology_record_id'))));
+
+          $query->setQuery($queryBool);
+
+          break;
+
+        case 'file':
+          $queryBool = new \Elastica\Query\Bool;
+          $queryBool->addMust($queryText);
+
+          // Filter to Digital Objects
+          $queryBool->addMust(new \Elastica\Query\Term(array('levelOfDescriptionId' => sfConfig::get('app_drmc_lod_digital_object_id'))));
+
+          $query->setQuery($queryBool);
+
+          break;
       }
 
       $search->setQuery($query);
@@ -123,14 +160,17 @@ class ApiSearchAutocompleteAction extends QubitApiAction
     $aips = $resultSets[0];
     $artworks = $resultSets[1];
     $components = $resultSets[2];
+    $techRecords = $resultSets[3];
+    $files = $resultSets[4];
 
     // Return a 404 response if there are no results
-    if (0 == $aips->getTotalHits() + $artworks->getTotalHits() + $components->getTotalHits())
+    if (0 == $aips->getTotalHits() + $artworks->getTotalHits() + $components->getTotalHits() + $techRecords->getTotalHits() + $files->getTotalHits())
     {
       throw new QubitApi404Exception('No results found found');
     }
 
     $results = array();
+
     foreach ($aips->getResults() as $hit)
     {
       $doc = $hit->getData();
@@ -169,6 +209,32 @@ class ApiSearchAutocompleteAction extends QubitApiAction
     }
 
     $results['totals']['components'] = $components->getTotalHits();
+
+    foreach ($techRecords->getResults() as $hit)
+    {
+      $doc = $hit->getData();
+      $result = array();
+
+      $this->addItemToArray($result, 'identifier', $doc['identifier']);
+      $this->addItemToArray($result, 'title', get_search_i18n_highlight($hit, 'title.autocomplete'));
+
+      $results['technology_records'][$hit->getId()] = $result;
+    }
+
+    $results['totals']['technology_records'] = $techRecords->getTotalHits();
+
+    foreach ($files->getResults() as $hit)
+    {
+      $doc = $hit->getData();
+      $result = array();
+
+      $this->addItemToArray($result, 'identifier', $doc['identifier']);
+      $this->addItemToArray($result, 'title', get_search_i18n_highlight($hit, 'title.autocomplete'));
+
+      $results['files'][$hit->getId()] = $result;
+    }
+
+    $results['totals']['files'] = $files->getTotalHits();
 
     return $results;
   }

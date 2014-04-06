@@ -107,6 +107,18 @@ module.exports = function ($rootScope, $document, $location, $state, $stateParam
               comp.title = $sce.trustAsHtml(comp.title);
             }
           }
+          for (key in results.data.technology_records) {
+            var techRecord = results.data.technology_records[key];
+            if (techRecord.hasOwnProperty('title')){
+              techRecord.title = $sce.trustAsHtml(techRecord.title);
+            }
+          }
+          for (key in results.data.files) {
+            var file = results.data.files[key];
+            if (file.hasOwnProperty('title')){
+              file.title = $sce.trustAsHtml(file.title);
+            }
+          }
           scope.results = results.data;
         }, function () {
           delete scope.results;
