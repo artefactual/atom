@@ -1,38 +1,13 @@
 'use strict';
 
-module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, InformationObjectService, ModalDigitalObjectViewerService) {
+module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, InformationObjectService, ModalDigitalObjectViewerService, ModalDownloadService) {
 
-  $scope.openDownloadModal = function (relativePathWithinAip) {
-    if (typeof relativePathWithinAip !== 'undefined') {
-      $scope.downloadDescription = relativePathWithinAip;
-    } else {
-      $scope.downloadDescription = 'AIP ' + $scope.aip.name + ' (' + $scope.aip.uuid + ')';
-    }
+  $scope.downloadFile = function (aipFile) {
+    ModalDownloadService.downloadFile($scope.aip.name, $scope.aip.uuid, aipFile.originalRelativePathWithinAip);
+  };
 
-    // $modal.open returns a promise
-    var modalInstance = $modal.open({
-      templateUrl: SETTINGS.viewsPath + '/modals/download-aip-or-aip-file.html',
-      backdrop: true,
-      scope: $scope, // TODO: isolate with .new()?
-    });
-    // This is going to happen only if the $modal succeeded
-    modalInstance.result.then(function (reason) {
-      var downloadUrl = '/api/aips/' + $scope.aip.uuid + '/download?reason=' + encodeURIComponent(reason);
-
-      if (typeof relativePathWithinAip !== 'undefined') {
-        downloadUrl += '&relative_path_to_file=' + encodeURIComponent(relativePathWithinAip);
-      }
-
-      window.location = downloadUrl;
-    });
-
-    $scope.download = function (reason) {
-      modalInstance.close(reason);
-    };
-
-    $scope.cancel = function () {
-      modalInstance.dismiss('cancel');
-    };
+  $scope.downloadAip = function () {
+    ModalDownloadService.downloadAip($scope.aip.name, $scope.aip.uuid);
   };
 
   AIPService.getAIP($stateParams.uuid)

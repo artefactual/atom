@@ -19,6 +19,7 @@
 
     // Global modals
     .service('ModalEditDcMetadataService', require('./ModalEditDcMetadataService'))
-    .service('ModalDigitalObjectViewerService', require('./ModalDigitalObjectViewerService'));
+    .service('ModalDigitalObjectViewerService', require('./ModalDigitalObjectViewerService'))
+    .service('ModalDownloadService', require('./ModalDownloadService'));
 
 })();
