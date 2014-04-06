@@ -837,6 +837,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
               break;
 
             // Properties
+            case 'AccessionISODate':
             case 'ClassificationID':
             case 'ConstituentID':
             case 'DepartmentID':

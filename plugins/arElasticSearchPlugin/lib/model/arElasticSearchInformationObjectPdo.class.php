@@ -1316,6 +1316,11 @@ file_put_contents('/tmp/mike.txt', $sql ."\n", file_append);
       $serialized['tmsObject']['collectionDate'] = $collectionDate;
     }
 
+    if (null !== $dateCollected = $this->getProperty('AccessionISODate'))
+    {
+      $serialized['tmsObject']['dateCollected'] = arElasticSearchPluginUtil::convertDate($dateCollected);
+    }
+
     if (null !== $accessionNumber = $this->getProperty('ObjectNumber'))
     {
       $serialized['tmsObject']['accessionNumber'] = $accessionNumber;
