@@ -38,10 +38,6 @@ module.exports = function ($scope, $stateParams, SearchService) {
   });
 
   function search () {
-    if (null === $scope.criteria.query || $scope.criteria.query.length < 3) {
-      delete $scope.data;
-      return;
-    }
     SearchService.search($stateParams.entity, $scope.criteria)
       .then(function (response) {
         $scope.data = response.data;
