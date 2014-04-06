@@ -120,9 +120,13 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'informationobjectsAips',
       'params' => array('id' => self::REGEX_ID)));
 
-    $this->addRoute('GET', '/api/informationobjects/tms', array(
+    $this->addRoute('GET', '/api/informationobjects/works', array(
       'module' => 'api',
-      'action' => 'informationobjectsTmsBrowse'));
+      'action' => 'informationobjectsWorksBrowse'));
+
+    $this->addRoute('GET', '/api/informationobjects/components', array(
+      'module' => 'api',
+      'action' => 'informationobjectsComponentsBrowse'));
 
     $this->addRoute('POST', '/api/informationobjects/:id/associate', array(
       'module' => 'api',
