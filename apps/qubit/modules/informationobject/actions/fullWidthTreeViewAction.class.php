@@ -42,6 +42,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
       // set root item's parent to hash symbol for jstree compatibility
       if($data['parent'] == '1') {
         $data['parent'] = '#';
+        $data['icon'] = 'fa fa-archive';
       }
 
       // populate columns
@@ -49,26 +50,6 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
       $data['data']['type']       = &$data['type'];
       $data['data']['status']     = &$data['status'];
       unset($data['identifier']);
-
-      switch ($data['type']) {
-        case 'Collection':
-        case 'Fonds':
-        case 'Subfonds':
-          $data['icon'] = 'fa fa-archive';
-          break;
-        case 'File':
-        case 'Series':
-        case 'Subseries':
-          $data['icon'] = 'fa fa-folder-o';
-          break;
-        case 'Item':
-          $data['icon'] = 'fa fa-file-o';
-          break;
-        
-        default:
-          # code...
-          break;
-      }
 
       $data['a_attr']['href'] = &$data['slug'];
       unset($data['slug']);

@@ -61,7 +61,7 @@
       // initialize the jstree with json from server
       $.get((window.location.pathname + url), function(data){
         // configure jstree grid columns
-        data.plugins = ['grid'];
+        data.plugins = ['grid','types'];
         data.grid = {
           columns: [
             {width: 643, value: 'title', title: '_DATA_'},
@@ -69,6 +69,40 @@
             {width: 95, value: 'type', title: 'type'}
           ],
           width: 150
+        }
+
+        data.types = {
+          'default': {
+            'icon': 'fa fa-save'
+          },
+
+          // Item
+          'Item': {
+            'icon': 'fa fa-file-o'
+          },
+
+          // File, Series, Subseries
+          'File': {
+            'icon': 'fa fa-folder-o'
+          },
+          'Series': {
+            'icon': 'fa fa-folder-o'
+          },
+          'Subseries': {
+            'icon': 'fa fa-folder-o'
+          },
+          
+          // Collection, Fonds, Subfonds
+          'Fonds': {
+            'icon': 'fa fa-folder'
+          },
+          'Subfonds': {
+            'icon': 'fa fa-archive'
+          },
+          'Collection': {
+            'icon': 'fa fa-archive'
+          },
+
         }
 
         // initialize jstree
