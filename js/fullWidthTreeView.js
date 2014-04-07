@@ -45,7 +45,7 @@
       if( treeview_open == false )
       {
         // refresh the page
-        loader.css('z-index', '1');
+        loader.toggle();
         window.location.reload();
         return false;
       }
@@ -121,13 +121,13 @@
 
         // hide loader
         loader = $('#fullwidth-treeview-loading');
-        loader.css('z-index', '-1');
+        loader.toggle();
       });
 
       // bind click events to nodes to load the informationobject's page and insert the current page
       $("#fullwidth-treeview").bind("select_node.jstree", function(evt, data){
         // set icon to spinner
-        loader.css('z-index', '1');
+        loader.toggle();
 
         // open node if possible
         data.instance.open_node(data.node);
@@ -152,7 +152,7 @@
           }
 
           // remove loading icon
-          loader.css('z-index', '-1');
+          loader.toggle();
         });
       });
 
