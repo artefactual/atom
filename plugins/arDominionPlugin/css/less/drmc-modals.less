@@ -1,3 +1,12 @@
+// UI-Bootstrap assigns z-index to .modal and .modal-backdrop via its internal
+// template (see template/modal/window.html or template/modal/backdrop.html).
+// But Chrome fullscreen uses z-index 2147483647 (largest 32-bit signed number).
+// This hack overrides .modal and .modal-backdrop but we should look at a better
+// solution at some point.
+.modal, .modal-backdrop {
+  z-index: 2147483647 !important;
+}
+
 // Fullscreen modal (flexbox)
 .fs-modal-wrapper {
 
