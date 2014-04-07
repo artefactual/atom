@@ -206,6 +206,10 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'summaryMediaCategoryCount'));
 
+    $this->addRoute('GET', '/api/summary/mediafilesizebycollectionyear', array(
+      'module' => 'api',
+      'action' => 'summaryMediaFilesizeByYear'));
+
 
     /**
      * Search
