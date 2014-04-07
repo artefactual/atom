@@ -331,7 +331,7 @@
 						wideValClass = col.wideValueClassPrefix + wideValClass;
 					}
 					// get the title
-					title = objData.data.type;
+					title = objData.data[col.title];
 
 					// strip out HTML
 					title = title.replace(htmlstripre, '');
