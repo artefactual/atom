@@ -73,18 +73,16 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
     list($rnode, $qnode) = ($down) ? array('parent', 'node') : array('node','parent');
     $sql = "SELECT $qnode.id, 
         i18n.title as text, $qnode.identifier as identifier, 
-        $qnode.parent_id as parent, slug.slug, term_i18n.name as type,
+        $qnode.parent_id as parent, slug.slug, IFNULL(term_type.name, '') as type,
         status_term.name as status
         FROM 
-          information_object AS parent,
+          (information_object AS parent,
           information_object AS node,
           information_object_i18n as i18n,
-          term, term_i18n, slug, status, term_i18n as status_term
+          slug, status, term_i18n as status_term) 
+          LEFT JOIN term_i18n AS term_type ON ($qnode.level_of_description_id = term_type.id AND term_type.culture = 'en')
         WHERE node.lft BETWEEN parent.lft AND parent.rgt 
           AND $qnode.id = i18n.id
-          AND $qnode.level_of_description_id = term.id
-          AND term.id = term_i18n.id
-          AND term_i18n.culture = 'en'
           AND i18n.culture = 'en'
           AND status.object_id = node.id
           AND $qnode.id = slug.object_id

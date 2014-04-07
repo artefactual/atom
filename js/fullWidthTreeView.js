@@ -73,12 +73,12 @@
 
         data.types = {
           'default': {
-            'icon': 'fa fa-save'
+            'icon': 'fa fa-folder'
           },
 
           // Item
           'Item': {
-            'icon': 'fa fa-file-o'
+            'icon': 'fa fa-file-text-o'
           },
 
           // File, Series, Subseries
@@ -91,12 +91,15 @@
           'Subseries': {
             'icon': 'fa fa-folder-o'
           },
+          'subfonds': {
+            'icon': 'fa fa-folder-o'
+          },
+          'Sous-fonds': {
+            'icon': 'fa fa-folder-o'
+          },
           
           // Collection, Fonds, Subfonds
           'Fonds': {
-            'icon': 'fa fa-folder'
-          },
-          'Subfonds': {
             'icon': 'fa fa-archive'
           },
           'Collection': {
