@@ -198,13 +198,15 @@
 
   ContextBrowser.prototype.moveNodes = function (nodes, target) {
     var self = this;
-    nodes.forEach(function (element) {
-      var edges = self.graph.outEdges(element);
+    nodes.forEach(function (u) {
+      var edges = self.graph.outEdges(u);
       if (edges.length !== 1) {
         return false;
       }
       self.graph.delEdge(edges.pop());
-      self.graph.addEdge(element + ':' + target, element, target);
+      self.graph.addEdge(u + ':' + target, u, target);
+      self.graph.updateParentCollapsible(u);
+      self.graph.updateParentCollapsible(target);
     });
     this.draw();
   };
