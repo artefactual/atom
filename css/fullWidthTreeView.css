@@ -75,6 +75,11 @@
 	border: 1px solid #fff;
 }
 
+/* IE9 text-overflow ellipsis fix */
+.jstree-node > a:before {
+  content: '';
+}
+
 .jstree-grid-col-0,
 .jstree-grid-col-1,
 .jstree-grid-col-2,

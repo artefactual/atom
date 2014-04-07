@@ -66,7 +66,7 @@
           columns: [
             {width: 643, value: 'title', title: '_DATA_'},
             {width: 100, value: 'identifier', title: 'identifier'},
-            {width: 100, value: 'type', title: 'type'}
+            {width: 95, value: 'type', title: 'type'}
           ],
           width: 150
         }
@@ -113,7 +113,9 @@
           Drupal.attachBehaviors(document)
 
           // update the url, TODO save the state
-          window.history.pushState({}, $('#main-column h1').first().text(), url);
+          if(window.history.pushState) {
+            window.history.pushState({}, $('#main-column h1').first().text(), url);
+          }
 
           // remove loading icon
           loader.css('z-index', '-1');
