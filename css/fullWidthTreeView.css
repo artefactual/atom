@@ -80,11 +80,11 @@
   content: '';
 }
 
-.jstree-grid-col-0,
-.jstree-grid-col-1,
-.jstree-grid-col-2,
-.jstree-grid-col-3,
-.jstree-grid-col-4,
-.jstree-grid-col-5 {
+.jstree-node > a,
+.jstree-node >  .jstree-grid-cell span {
+	overflow: hidden;
 	text-overflow: ellipsis;
+	white-space: nowrap;
+	line-height: 10px;
+	width: 100%;
 }
