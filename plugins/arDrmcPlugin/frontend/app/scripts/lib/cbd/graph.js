@@ -61,14 +61,6 @@
     node.collapsed = typeof collapsed !== 'undefined' ? collapsed : false;
   };
 
-  Graph.prototype.updateParentCollapsible = function (u, collapsed) {
-    var successors = this.successors(u);
-    if (successors.length < 1) {
-      return;
-    }
-    this.updateCollapsible(successors[0], collapsed);
-  };
-
   /**
    * I could be using .children if I move to CDigraph, but there's something
    * that it's blocking me from moving to that type of graph, can't remember

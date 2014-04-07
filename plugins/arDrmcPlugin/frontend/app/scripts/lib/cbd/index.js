@@ -203,11 +203,21 @@
       if (edges.length !== 1) {
         return false;
       }
+      // Remember parentId before we move
+      var parentId = null;
+      var successors = self.graph.successors(u);
+      if (successors.length > 0) {
+        parentId = successors[0];
+      }
+      // Update edges
       self.graph.delEdge(edges.pop());
       self.graph.addEdge(u + ':' + target, u, target);
-      self.graph.updateParentCollapsible(u);
-      self.graph.updateParentCollapsible(target);
+      // Update collapsibles
+      if (parentId !== null) {
+        self.graph.updateCollapsible(parentId);
+      }
     });
+    self.graph.updateCollapsible(target);
     this.draw();
   };
 
