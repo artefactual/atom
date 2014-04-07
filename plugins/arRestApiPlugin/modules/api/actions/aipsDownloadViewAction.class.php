@@ -30,12 +30,12 @@ class ApiAipsDownloadViewAction extends QubitApiAction
   {
     if (!isset($request->reason))
     {
-      throw new QubitApiBadRequestException('Missing parameter: reason');
+      throw new QubitApiException('Missing parameter: reason', 500);
     }
 
     if (strlen($request->reason) < 10)
     {
-      throw new QubitApiBadRequestException('Parameter reason is not long enough');
+      throw new QubitApiException('Parameter reason is not long enough');
     }
 
     // Get AIP data from ES to verify it exists and to log access
@@ -69,16 +69,24 @@ class ApiAipsDownloadViewAction extends QubitApiAction
 
     // Determine filename of AIP via REST call to storage server
     $aipInfoUrl = $aipUrl .'/'. $request->uuid .'?format=json';
-    if (false === $aipInfoJson = file_get_contents($aipInfoUrl))
-    {
-      throw new QubitApiException('Archivematica Storage Service not accessible');
-    }
+    $ch = curl_init($aipInfoUrl);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // storage server redirects
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FAILONERROR, true);
+    $aipInfoJson = curl_exec($ch);
 
-    if (null === $aipInfo = json_decode($aipInfoJson))
+    // handle possible errors
+    if ($aipInfoJson === false)
     {
-      throw new QubitApiException('Error decoding JSON retrieved from Archivematica Storage Service');
+      $error = curl_error($ch);
+      curl_close($ch);
+      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting storage service data: '. $error);
+      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - URL: '. $aipInfoUrl);
+      throw new QubitApiException('Error: '. $error, 500);
     }
+    curl_close($ch);
 
+    $aipInfo = json_decode($aipInfoJson);
     $filename = basename($aipInfo->current_full_path);
 
     // Formalate URL depending on whether a single file is being extracted
