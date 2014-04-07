@@ -147,6 +147,30 @@ class QubitAPIAction extends sfAction
     }
   }
 
+  protected function filterEsRangeFacet($from, $to, $field, \Elastica\Query\Bool &$queryBool, array $options = array())
+  {
+    if (!isset($this->request->$from) && !isset($this->request->$to))
+    {
+      return;
+    }
+
+    $range = array();
+
+    if (isset($this->request->$from))
+    {
+      $range['gte'] = $this->request->$from;
+    }
+
+    if (isset($this->request->$to))
+    {
+      $range['lte'] = $this->request->$to;
+    }
+
+    $query = new \Elastica\Query\Range($field, $range);
+
+    $queryBool->addMust($query);
+  }
+
   protected function prepareEsPagination(\Elastica\Query &$query, $limit = 10)
   {
     // Limit
@@ -221,6 +245,12 @@ class QubitAPIAction extends sfAction
       case 'DateHistogram':
         $facet->setField($field);
         $facet->setInterval($options['interval']);
+
+        break;
+
+      case 'Range':
+        $facet->setField($field);
+        $facet->setRanges($options['ranges']);
 
         break;
     }

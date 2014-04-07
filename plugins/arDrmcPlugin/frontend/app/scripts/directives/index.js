@@ -11,6 +11,7 @@
     .directive('arFacet', require('./FacetDirective'))
     .directive('arPager', require('./PagerDirective'))
     .directive('arToggleSlide', require('./ToggleSlideDirective'))
-    .directive('arSearchBox', require('./SearchBoxDirective'));
+    .directive('arSearchBox', require('./SearchBoxDirective'))
+    .directive('arRangeFacet', require('./RangeFacetDirective'));
 
 })();

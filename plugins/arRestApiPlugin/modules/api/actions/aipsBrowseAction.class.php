@@ -51,9 +51,20 @@ class ApiAipsBrowseAction extends QubitApiAction
 
     // Filter selected facets
     $this->filterEsFacet('type', 'type.id', $queryBool);
+    $this->filterEsRangeFacet('sizeFrom', 'sizeTo', 'sizeOnDisk', $queryBool);
 
     // Add facets to the query
     $this->facetEsQuery('Terms', 'type', 'type.id', $query);
+
+    $ranges = array(
+      array('to' => 512000),
+      array('from' => 512000, 'to' => 1048576),
+      array('from' => 1048576, 'to' => 2097152),
+      array('from' => 2097152, 'to' => 5242880),
+      array('from' => 5242880, 'to' => 10485760),
+      array('from' => 10485760));
+
+    $this->facetEsQuery('Range', 'size', 'sizeOnDisk', $query, array('ranges' => $ranges));
 
     // Filter query
     if (isset($this->request->query) && 1 !== preg_match('/^[\s\t\r\n]*$/', $this->request->query))

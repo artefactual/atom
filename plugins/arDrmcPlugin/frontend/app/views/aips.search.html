@@ -9,6 +9,7 @@
     <section id="facets">
       <h3>Narrow your results by:</h3>
       <ar-facet label="Classification" facet="data.facets.type" field="criteria.type"></ar-facet>
+      <ar-range-facet label="Size" facet="data.facets.size" from="criteria.sizeFrom" to="criteria.sizeTo" callback="getSizeRangeLabel(arg1, arg2)"></ar-range-facet>
     </section>
 
   </div>
@@ -23,10 +24,17 @@
       </h1>
 
       <section class="header-options">
+
         <span ng-if="criteria.type" class="search-filter">
           {{ getTermLabel('type', criteria.type) }}
           <a href ng-click="criteria.type = undefined"><i class="icon-remove"></i></a>
         </span>
+
+        <span ng-if="criteria.sizeFrom || criteria.sizeTo" class="search-filter">
+          {{ getSizeRangeLabel(criteria.sizeFrom, criteria.sizeTo) }}
+          <a href ng-click="criteria.sizeFrom = undefined; criteria.sizeTo = undefined"><i class="icon-remove"></i></a>
+        </span>
+
       </section>
 
       <div class="content">

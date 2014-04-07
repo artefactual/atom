@@ -4,7 +4,7 @@
  * SearchCtrl contains the business logic for all our share pages. It shares
  * state with other controllers via SearchService.
  */
-module.exports = function ($scope, $stateParams, SearchService) {
+module.exports = function ($scope, $stateParams, SearchService, $filter) {
   // Search state
   $scope.criteria = {};
   $scope.criteria.limit = 10;
@@ -56,6 +56,18 @@ module.exports = function ($scope, $stateParams, SearchService) {
       if (parseInt($scope.data.facets[facet].terms[term].term) === parseInt(id)) {
         return $scope.data.facets[facet].terms[term].label;
       }
+    }
+  };
+
+  $scope.getSizeRangeLabel = function (from, to) {
+    if (typeof from !== 'undefined' && typeof to !== 'undefined') {
+      return 'Between ' + $filter('UnitFilter')(from) + ' and ' + $filter('UnitFilter')(to);
+    }
+    if (typeof from !== 'undefined') {
+      return 'Bigger than ' + $filter('UnitFilter')(from);
+    }
+    if (typeof to !== 'undefined') {
+      return 'Smaller than ' + $filter('UnitFilter')(to);
     }
   };
 };
