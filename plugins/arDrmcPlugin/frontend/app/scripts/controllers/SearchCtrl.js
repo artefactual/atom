@@ -70,4 +70,12 @@ module.exports = function ($scope, $stateParams, SearchService, $filter) {
       return 'Smaller than ' + $filter('UnitFilter')(to);
     }
   };
+
+  $scope.getDateRangeLabel = function (facet, from, to) {
+    for (var range in $scope.data.facets[facet].ranges) {
+      if ($scope.data.facets[facet].ranges[range].from === from && $scope.data.facets[facet].ranges[range].to === to) {
+        return $scope.data.facets[facet].ranges[range].label;
+      }
+    }
+  };
 };

@@ -9,7 +9,8 @@
     <section id="facets">
       <h3>Narrow your results by:</h3>
       <ar-facet label="Classification" facet="data.facets.type" field="criteria.type"></ar-facet>
-      <ar-range-facet label="Size" facet="data.facets.size" from="criteria.sizeFrom" to="criteria.sizeTo" callback="getSizeRangeLabel(arg1, arg2)"></ar-range-facet>
+      <ar-range-facet type="size" label="Size" facet="data.facets.size" from="criteria.sizeFrom" to="criteria.sizeTo" callback="getSizeRangeLabel(arg1, arg2)"></ar-range-facet>
+      <ar-range-facet type="date" label="Ingested date" facet="data.facets.ingestedDate" from="criteria.ingestedFrom" to="criteria.ingestedTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
     </section>
 
   </div>
@@ -33,6 +34,11 @@
         <span ng-if="criteria.sizeFrom || criteria.sizeTo" class="search-filter">
           {{ getSizeRangeLabel(criteria.sizeFrom, criteria.sizeTo) }}
           <a href ng-click="criteria.sizeFrom = undefined; criteria.sizeTo = undefined"><i class="icon-remove"></i></a>
+        </span>
+
+        <span ng-if="criteria.ingestedFrom || criteria.ingestedTo" class="search-filter">
+          {{ getDateRangeLabel('ingestedDate', criteria.ingestedFrom, criteria.ingestedTo) }}
+          <a href ng-click="criteria.ingestedFrom = undefined; criteria.ingestedTo = undefined"><i class="icon-remove"></i></a>
         </span>
 
       </section>

@@ -6,6 +6,7 @@ module.exports = function (SETTINGS) {
     templateUrl: SETTINGS.viewsPath + '/partials/range-facet.html',
     replace: true,
     scope: {
+      type: '@',
       label: '@',
       facet: '=',
       from: '=',
@@ -29,6 +30,9 @@ module.exports = function (SETTINGS) {
       };
 
       scope.getLabel = function (from, to) {
+        if (scope.label === 'Ingested date') {
+          return scope.callback({arg1: 'ingestedDate', arg2: from, arg3: to});
+        }
         return scope.callback({arg1: from, arg2: to});
       };
     }

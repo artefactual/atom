@@ -52,11 +52,12 @@ class ApiAipsBrowseAction extends QubitApiAction
     // Filter selected facets
     $this->filterEsFacet('type', 'type.id', $queryBool);
     $this->filterEsRangeFacet('sizeFrom', 'sizeTo', 'sizeOnDisk', $queryBool);
+    $this->filterEsRangeFacet('ingestedFrom', 'ingestedTo', 'createdAt', $queryBool);
 
     // Add facets to the query
     $this->facetEsQuery('Terms', 'type', 'type.id', $query);
 
-    $ranges = array(
+    $sizeRanges = array(
       array('to' => 512000),
       array('from' => 512000, 'to' => 1048576),
       array('from' => 1048576, 'to' => 2097152),
@@ -64,7 +65,24 @@ class ApiAipsBrowseAction extends QubitApiAction
       array('from' => 5242880, 'to' => 10485760),
       array('from' => 10485760));
 
-    $this->facetEsQuery('Range', 'size', 'sizeOnDisk', $query, array('ranges' => $ranges));
+    $this->facetEsQuery('Range', 'size', 'sizeOnDisk', $query, array('ranges' => $sizeRanges));
+
+    $now = new DateTime();
+    $now->setTime(0, 0);
+
+    $ingestedRanges = array(
+      array('to' => $now->modify('-1 year')->getTimestamp().'000'),
+      array('from' => $now->getTimestamp().'000'),
+      array('from' => $now->modify('+11 months')->getTimestamp().'000'),
+      array('from' => $now->modify('+1 month')->modify('-7 days')->getTimestamp().'000'));
+
+    $this->ingestedRangesLabels = array(
+      'Older than a year',
+      'From last year',
+      'From last month',
+      'From last week');
+
+    $this->facetEsQuery('Range', 'ingestedDate', 'createdAt', $query, array('ranges' => $ingestedRanges));
 
     // Filter query
     if (isset($this->request->query) && 1 !== preg_match('/^[\s\t\r\n]*$/', $this->request->query))
@@ -160,14 +178,19 @@ class ApiAipsBrowseAction extends QubitApiAction
     return $results;
   }
 
-  protected function getFacetLabel($name, $term)
+  protected function getFacetLabel($name, $id)
   {
     if ($name === 'type')
     {
-      if (null !== $item = QubitTerm::getById($term))
+      if (null !== $item = QubitTerm::getById($id))
       {
         return $item->getName(array('cultureFallback' => true));
       }
+    }
+
+    if ($name === 'ingestedDate')
+    {
+      return $this->ingestedRangesLabels[$id];
     }
   }
 }

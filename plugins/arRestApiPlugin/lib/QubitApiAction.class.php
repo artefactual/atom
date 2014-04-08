@@ -262,11 +262,25 @@ class QubitAPIAction extends sfAction
   {
     foreach ($facets as $name => &$facet)
     {
-      foreach ($facet['terms'] as &$item)
+      if (isset($facet['terms']))
       {
-        if (method_exists($this, 'getFacetLabel') && null !== $label = $this->getFacetLabel($name, $item['term']))
+        foreach ($facet['terms'] as &$item)
         {
-          $item['label'] = $label;
+          if (method_exists($this, 'getFacetLabel') && null !== $label = $this->getFacetLabel($name, $item['term']))
+          {
+            $item['label'] = $label;
+          }
+        }
+      }
+
+      if (isset($facet['ranges']))
+      {
+        foreach ($facet['ranges'] as $key => &$item)
+        {
+          if (method_exists($this, 'getFacetLabel') && null !== $label = $this->getFacetLabel($name, $key))
+          {
+            $item['label'] = $label;
+          }
         }
       }
     }
