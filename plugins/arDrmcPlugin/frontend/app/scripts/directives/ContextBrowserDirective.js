@@ -315,7 +315,7 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
           // Retreive TMS metadata for the component
           if (InformationObjectService.isComponent(scope.currentNode.data.level_of_description_id)) {
             InformationObjectService.getTms(id).then(function (response) {
-              scope.currentNode.data.tms = response.data;
+              scope.currentNode.data.tms = response;
             });
           }
         });
