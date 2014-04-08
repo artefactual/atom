@@ -17,6 +17,14 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
+/**
+ * Action Handler for FullWidth TreeView 
+ *
+ * @package AccesstoMemory
+ * @subpackage model
+ * @author Andy Koch <koch.andy@gmail.com>
+  */
 class InformationObjectFullWidthTreeViewAction extends sfAction
 {
   public function execute($request)
