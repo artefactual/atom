@@ -1382,7 +1382,7 @@ file_put_contents('/tmp/mike.txt', $sql ."\n", file_append);
     foreach ($this->getDirectlyRelatedTerms(sfConfig::get('app_drmc_taxonomy_component_types_id')) as $item)
     {
       $node = new arElasticSearchTermPdo($item->id);
-      $serialized['tmsComponent']['componentType'][] = $node->serialize();
+      $serialized['tmsComponent']['type'][] = $node->serialize();
     }
 
     // TMS child components

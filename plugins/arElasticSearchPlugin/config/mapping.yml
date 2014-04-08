@@ -144,7 +144,7 @@ mapping:
     _attributes:
       nested_only: true
     _foreign_types:
-      component_type: term
+      type: term
       install_comments: note
       prep_comments: note
       storage_comments: note
