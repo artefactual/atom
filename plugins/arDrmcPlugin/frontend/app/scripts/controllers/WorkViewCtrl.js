@@ -15,6 +15,9 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
     if (work.hasOwnProperty('tms') && work.tms.hasOwnProperty('year')) {
       title += ' (' + work.tms.year + ')';
     }
+    if (work.hasOwnProperty('tms') && work.tms.hasOwnProperty('artist')) {
+      title += ', ' + work.tms.artist;
+    }
     return title;
   }
 
