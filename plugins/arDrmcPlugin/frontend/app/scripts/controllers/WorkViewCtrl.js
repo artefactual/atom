@@ -5,9 +5,18 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
   // TODO: Use https://github.com/angular-ui/ui-router/wiki#resolve
   InformationObjectService.getArtworkRecordWithTms($stateParams.id).then(function (data) {
     $scope.work = data;
+    $scope.title = getTitle(data);
   }, function (response) {
     throw response;
   });
+
+  function getTitle (work) {
+    var title = work.title;
+    if (work.hasOwnProperty('tms') && work.tms.hasOwnProperty('year')) {
+      title += ' (' + work.tms.year + ')';
+    }
+    return title;
+  }
 
   // A list of digital objects. This is shared within the context browser
   // directive (two-way binding);
