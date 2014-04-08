@@ -37,7 +37,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
     $this->resource = $request->getAttribute('sf_route')->resource;
     $this->getResponse()->setContentType('application/json');
 
-    $data = $this->getItemIds($this->resource->getCollectionRoot());
+    $data = $this->getItemIds($this->resource->getCollectionRoot(), !$this->getUser()->user);
 
     array_walk($data, function(&$data){
       // some special flags on our current active item
@@ -68,7 +68,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
     return $this->renderText(json_encode(array('core' => array('data' => $data), 'time' => ($end_time - $start_time))));
   }
 
-  protected function getItemIds($item, $down = true)
+  protected function getItemIds($item, $drafts = true)
   {
     // Depending on if we want the ancestor tree or 
     // the child tree we can just flip whether we 
@@ -78,24 +78,25 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
     // qnode = query node
     //    the objects properties we want
 
-    list($rnode, $qnode) = ($down) ? array('parent', 'node') : array('node','parent');
-    $sql = "SELECT $qnode.id, 
-        i18n.title as text, $qnode.identifier as identifier, 
-        $qnode.parent_id as parent, slug.slug, IFNULL(term_type.name, '') as type,
+    $drafts_sql = ($drafts) ? "AND status.status_id <> " . QubitTerm::PUBLICATION_STATUS_DRAFT_ID : "" ;
+    $sql = "SELECT node.id, 
+        i18n.title as text, IFNULL(node.identifier, '') as identifier, 
+        node.parent_id as parent, slug.slug, IFNULL(term_type.name, '') as type,
         status_term.name as status
         FROM 
           (information_object AS parent,
           information_object AS node,
           information_object_i18n as i18n,
           slug, status, term_i18n as status_term) 
-          LEFT JOIN term_i18n AS term_type ON ($qnode.level_of_description_id = term_type.id AND term_type.culture = 'en')
+          LEFT JOIN term_i18n AS term_type ON (node.level_of_description_id = term_type.id AND term_type.culture = 'en')
         WHERE node.lft BETWEEN parent.lft AND parent.rgt 
-          AND $qnode.id = i18n.id
+          AND node.id = i18n.id
           AND i18n.culture = 'en'
           AND status.object_id = node.id
-          AND $qnode.id = slug.object_id
-          AND $rnode.id = :id
+          AND node.id = slug.object_id
+          AND parent.id = :id
           AND status_term.id = status.status_id AND status_term.`culture` = 'en'
+          $drafts_sql
         ORDER BY node.lft;";
     $conn = Propel::getConnection();
     $stmt = $conn->prepare($sql);
