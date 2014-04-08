@@ -30,8 +30,14 @@ module.exports = function (SETTINGS) {
       };
 
       scope.getLabel = function (from, to) {
-        if (scope.label === 'Ingested date') {
-          return scope.callback({arg1: 'ingestedDate', arg2: from, arg3: to});
+        if (scope.label === 'Date ingested' || scope.label === 'Date materials ingested') {
+          return scope.callback({arg1: 'dateIngested', arg2: from, arg3: to});
+        }
+        if (scope.label === 'Date collected') {
+          return scope.callback({arg1: 'dateCollected', arg2: from, arg3: to});
+        }
+        if (scope.label === 'Date created') {
+          return scope.callback({arg1: 'dateCreated', arg2: from, arg3: to});
         }
         return scope.callback({arg1: from, arg2: to});
       };
