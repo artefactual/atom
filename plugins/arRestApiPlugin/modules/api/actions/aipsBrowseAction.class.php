@@ -82,7 +82,7 @@ class ApiAipsBrowseAction extends QubitApiAction
       'From last month',
       'From last week');
 
-    $this->facetEsQuery('Range', 'ingestedDate', 'createdAt', $query, array('ranges' => $ingestedRanges));
+    $this->facetEsQuery('Range', 'dateIngested', 'createdAt', $query, array('ranges' => $ingestedRanges));
 
     // Filter query
     if (isset($this->request->query) && 1 !== preg_match('/^[\s\t\r\n]*$/', $this->request->query))
@@ -188,7 +188,7 @@ class ApiAipsBrowseAction extends QubitApiAction
       }
     }
 
-    if ($name === 'ingestedDate')
+    if ($name === 'dateIngested')
     {
       return $this->ingestedRangesLabels[$id];
     }
