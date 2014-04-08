@@ -1124,6 +1124,11 @@ file_put_contents('/tmp/mike.txt', $sql ."\n", file_append);
               $event['linkingAgentIdentifier'][] = $linkingAgentIdentifier;
             }
 
+            if (isset($event['type']) && isset($event['dateTime']) && $event['type'] == 'ingestion')
+            {
+              $metsData['dateIngested'] = $event['dateTime'];
+            }
+
             $metsData['event'][] = $event;
           }
 
