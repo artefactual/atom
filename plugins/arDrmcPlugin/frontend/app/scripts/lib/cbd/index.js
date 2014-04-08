@@ -95,7 +95,7 @@
     if (!node.collapsible) {
       return;
     }
-    node.collapsed = typeof collapsed !== 'undefined' ? collapsed : node.collapsed;
+    node.collapsed = typeof collapsed !== 'undefined' ? collapsed : !node.collapsed;
     var status = node.collapsed;
     this.graph.descendants(datum, { andSelf: false }).forEach(function (element) {
       element.hidden = status;
