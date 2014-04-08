@@ -117,18 +117,20 @@ module.exports = function ($http, $q, SETTINGS) {
     return this.getById(id, params);
   };
 
-  // TODO: Create individual endpoint to manage facets
   this.getSupportingTechnologyRecords = function (params) {
-    params = params || {};
-    params.level_id = SETTINGS.drmc.lod_supporting_technology_record_id;
-    return this.get(params);
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/informationobjects/technologyrecords',
+      params: params
+    });
   };
 
-  // TODO: Create individual endpoint to manage facets
   this.getFiles = function (params) {
-    params = params || {};
-    params.level_id = SETTINGS.drmc.lod_digital_object_id;
-    return this.get(params);
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/informationobjects/files',
+      params: params
+    });
   };
 
   this.getWorks = function (params) {

@@ -128,6 +128,14 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'informationobjectsComponentsBrowse'));
 
+    $this->addRoute('GET', '/api/informationobjects/technologyrecords', array(
+      'module' => 'api',
+      'action' => 'informationobjectsTechnologyRecordsBrowse'));
+
+    $this->addRoute('GET', '/api/informationobjects/files', array(
+      'module' => 'api',
+      'action' => 'informationobjectsFilesBrowse'));
+
     $this->addRoute('POST', '/api/informationobjects/:id/associate', array(
       'module' => 'api',
       'action' => 'informationobjectsAssociate',
