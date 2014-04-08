@@ -328,6 +328,12 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         return cb.graph.predecessors(node.id).length === 0 && !InformationObjectService.hasTmsOrigin(node.data.level_of_description_id);
       };
 
+      scope.collapseAll = function () {
+        cb.graph.predecessors(scope.id).forEach(function (u) {
+          cb.collapse(u);
+        });
+      };
+
       scope.unselectNode = function (id) {
         delete scope.currentNode;
         delete scope.activeNodes[id];

@@ -90,19 +90,17 @@
     this.graphSVG.selectAll('.node').classed('active', false);
   };
 
-  ContextBrowser.prototype.collapse = function (datum) {
+  ContextBrowser.prototype.collapse = function (datum, collapsed) {
     var node = this.graph.node(datum);
     if (!node.collapsible) {
       return;
     }
-    node.collapsed = node.collapsed || false;
-    node.collapsed = !node.collapsed;
-
+    node.collapsed = typeof collapsed !== 'undefined' ? collapsed : node.collapsed;
+    var status = node.collapsed;
     this.graph.descendants(datum, { andSelf: false }).forEach(function (element) {
-      element.hidden = node.collapsed;
+      element.hidden = status;
       element.collapsed = false;
     });
-
     this.draw();
   };
 
