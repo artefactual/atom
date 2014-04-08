@@ -1835,27 +1835,52 @@ class QubitInformationObject extends BaseInformationObject
     }
   }
 
+  /**
+   * Returns a date string YYYY-MM-DD when given a date from an EAD <unitdate> @normal attribute
+   *
+   * @param $date  A date string from an EAD file, e.g. 19601103
+   * @return Will return a MySQL friendly YYYY-MM-DD date string (uses '-0' if missing a field)
+   */
+  private function getNormalizedDate($date)
+  {
+    if (strpos($date, '-') !== false)
+    {
+      return $date; // Already in YYYY-MM-DD format (hopefully)
+    }
+
+    // Check to see if date is proper length, either 4 for year only,
+    // 6 for year & month, or 8 for year & month & day
+    if (!in_array(strlen($date), array(4, 6, 8)))
+    {
+      return null;
+    }
+
+    $year = $month = $day = 0;
+
+    switch (true)
+    {
+      case strlen($date) >= 4: $year  = (int)substr($date, 0, 4);
+      case strlen($date) >= 6: $month = (int)substr($date, 4, 2);
+      case strlen($date) == 8: $day   = (int)substr($date, 6, 2);
+    }
+
+    if ($year === 0)
+    {
+      return null; // Garbage date
+    }
+
+    return "$year-$month-$day";
+  }
+
   public function setDates($date, $options = array())
   {
-    // parse the normalized dates into an Event start and end date
-    $normalizedDate = array();
+    $normalizedDate = array('start' => null, 'end' => null);
+
     if (isset($options['normalized_dates']))
     {
-      preg_match('/(?P<start>(\d{4}|\d{3}|\d{2}|\d{1})(-\d{2}|-\d{1})?(-\d{2}|-\d{1})?)\/?(?P<end>(\d{4}|\d{3}|\d{2}|\d{1})(-\d{2}|-\d{1})?(-\d{2}|-\d{1})?)?/', $options['normalized_dates'], $matches);
-      $normalizedDate['start'] = $this->getDefaultDateValue($matches['start']);
-      if (isset($matches['end']))
-      {
-        $normalizedDate['end'] = $this->getDefaultDateValue($matches['end']);
-      }
-      else
-      {
-        $normalizedDate['end'] = null;
-      }
-    }
-    else
-    {
-      $normalizedDate['start'] = null;
-      $normalizedDate['end'] = null;
+      $dates = explode('/', $options['normalized_dates']);
+      $normalizedDate['start'] = $this->getNormalizedDate($dates[0]);
+      $normalizedDate['end'] = (count($dates) > 1) ? $this->getNormalizedDate($dates[1]) : null;
     }
 
     // determine the Event type
