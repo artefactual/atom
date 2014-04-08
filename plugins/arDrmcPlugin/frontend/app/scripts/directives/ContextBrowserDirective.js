@@ -330,7 +330,7 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
 
       scope.collapseAll = function () {
         cb.graph.predecessors(scope.id).forEach(function (u) {
-          cb.collapse(u);
+          cb.collapse(u, true);
         });
       };
 
