@@ -88,19 +88,20 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
           information_object AS node,
           information_object_i18n as i18n,
           slug, status, term_i18n as status_term) 
-          LEFT JOIN term_i18n AS term_type ON (node.level_of_description_id = term_type.id AND term_type.culture = 'en')
+          LEFT JOIN term_i18n AS term_type ON (node.level_of_description_id = term_type.id AND term_type.culture = :culture)
         WHERE node.lft BETWEEN parent.lft AND parent.rgt 
           AND node.id = i18n.id
-          AND i18n.culture = 'en'
+          AND i18n.culture = :culture
           AND status.object_id = node.id
           AND node.id = slug.object_id
           AND parent.id = :id
-          AND status_term.id = status.status_id AND status_term.`culture` = 'en'
+          AND status_term.id = status.status_id AND status_term.`culture` = :culture
           $drafts_sql
         ORDER BY node.lft;";
     $conn = Propel::getConnection();
     $stmt = $conn->prepare($sql);
     $stmt->bindValue(':id', $item->id);
+    $stmt->bindValue(':culture', $this->getUser()->getCulture());
     $stmt->execute();
 
     $ids = $stmt->fetchAll(PDO::FETCH_ASSOC);
