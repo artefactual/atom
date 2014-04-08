@@ -6,17 +6,15 @@
 
   var treeview_open = false;
   var url = '/informationobject/fullWidthTreeView';
-  var loading = "<div id=\"fullwidth-treeview-loading\"><img src=\"/images/loading.gif\" /></div>";
   var html =  "<div id=\"fullwidth-treeview-header\">" +
-               "<div class=\"title\">Title</div>" +
+               "<div class=\"title\">Title <img src=\"/images/loading.gif\" id=\"fullwidth-treeview-loading\" /></div>" +
                "<div class=\"identifier\">Identifier</div>" +
                "<div class=\"type\">Type</div>" +
               "</div>" +
               "<div id=\"fullwidth-treeview-row\">" + 
                "<div id=\"fullwidth-treeview\">" +
                "</div>" +
-              "</div>" +
-              loading;
+              "</div>";
   var loader = null;
 
   // toggles between disabling Holdings tab

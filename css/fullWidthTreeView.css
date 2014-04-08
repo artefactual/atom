@@ -52,10 +52,9 @@
 }
 
 #fullwidth-treeview-loading {
-	position: absolute;
-	left: 53%;
-	top:111px;
-	z-index: 1;
+	float: right;
+	margin-right: 110px;
+	margin-top: 4px;
 }
 
 .ui-resizable-s:hover {
