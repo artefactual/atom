@@ -70,19 +70,19 @@ class ApiAipsBrowseAction extends QubitApiAction
     $now = new DateTime();
     $now->setTime(0, 0);
 
-    $ingestedRanges = array(
+    $dateRanges = array(
       array('to' => $now->modify('-1 year')->getTimestamp().'000'),
       array('from' => $now->getTimestamp().'000'),
       array('from' => $now->modify('+11 months')->getTimestamp().'000'),
       array('from' => $now->modify('+1 month')->modify('-7 days')->getTimestamp().'000'));
 
-    $this->ingestedRangesLabels = array(
+    $this->dateRangesLabels = array(
       'Older than a year',
       'From last year',
       'From last month',
       'From last week');
 
-    $this->facetEsQuery('Range', 'dateIngested', 'createdAt', $query, array('ranges' => $ingestedRanges));
+    $this->facetEsQuery('Range', 'dateIngested', 'createdAt', $query, array('ranges' => $dateRanges));
 
     // Filter query
     if (isset($this->request->query) && 1 !== preg_match('/^[\s\t\r\n]*$/', $this->request->query))
@@ -190,7 +190,7 @@ class ApiAipsBrowseAction extends QubitApiAction
 
     if ($name === 'dateIngested')
     {
-      return $this->ingestedRangesLabels[$id];
+      return $this->dateRangesLabels[$id];
     }
   }
 }
