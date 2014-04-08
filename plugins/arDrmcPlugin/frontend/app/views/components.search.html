@@ -8,6 +8,9 @@
 
     <section id="facets">
       <h3>Narrow your results by:</h3>
+      <ar-facet label="Classification" facet="data.facets.classification" field="criteria.class"></ar-facet>
+      <ar-facet label="Type" facet="data.facets.type" field="criteria.type"></ar-facet>
+      <ar-range-facet type="date" label="Date materials ingested" facet="data.facets.dateIngested" from="criteria.ingestedFrom" to="criteria.ingestedTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
     </section>
 
   </div>
@@ -22,6 +25,22 @@
       </h1>
 
       <section class="header-options">
+
+        <span ng-if="criteria.class" class="search-filter">
+          {{ getTermLabel('classification', criteria.class) }}
+          <a href ng-click="criteria.class = undefined"><i class="icon-remove"></i></a>
+        </span>
+
+        <span ng-if="criteria.type" class="search-filter">
+          {{ getTermLabel('type', criteria.type) }}
+          <a href ng-click="criteria.type = undefined"><i class="icon-remove"></i></a>
+        </span>
+
+        <span ng-if="criteria.ingestedFrom || criteria.ingestedTo" class="search-filter">
+          {{ getDateRangeLabel('dateIngested', criteria.ingestedFrom, criteria.ingestedTo) }}
+          <a href ng-click="criteria.ingestedFrom = undefined; criteria.ingestedTo = undefined"><i class="icon-remove"></i></a>
+        </span>
+
       </section>
 
       <div class="content">

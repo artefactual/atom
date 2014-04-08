@@ -61,6 +61,32 @@ class ApiInformationObjectsComponentsBrowseAction extends QubitApiAction
       $queryBool->addMust($queryText);
     }
 
+    // Filter selected facets
+    $this->filterEsFacet('class', 'tmsComponent.type.id', $queryBool);
+    $this->filterEsFacet('type', 'levelOfDescriptionId', $queryBool);
+    $this->filterEsRangeFacet('ingestedFrom', 'ingestedTo', 'aips.createdAt', $queryBool);
+
+    // Add facets to the query
+    $this->facetEsQuery('Terms', 'classification', 'tmsComponent.type.id', $query);
+    $this->facetEsQuery('Terms', 'type', 'levelOfDescriptionId', $query);
+
+    $now = new DateTime();
+    $now->setTime(0, 0);
+
+    $dateRanges = array(
+      array('to' => $now->modify('-1 year')->getTimestamp().'000'),
+      array('from' => $now->getTimestamp().'000'),
+      array('from' => $now->modify('+11 months')->getTimestamp().'000'),
+      array('from' => $now->modify('+1 month')->modify('-7 days')->getTimestamp().'000'));
+
+    $this->dateRangesLabels = array(
+      'Older than a year',
+      'From last year',
+      'From last month',
+      'From last week');
+
+    $this->facetEsQuery('Range', 'dateIngested', 'aips.createdAt', $query, array('ranges' => $dateRanges));
+
     // Limit fields
     $query->setFields(array(
       'slug',
@@ -104,12 +130,29 @@ class ApiInformationObjectsComponentsBrowseAction extends QubitApiAction
       $results[$hit->getId()] = $result;
     }
 
-    $facets = array();
+    $facets = $resultSet->getFacets();
+    $this->populateFacets($facets);
 
     return
       array(
         'total' => $resultSet->getTotalHits(),
         'facets' => $facets,
         'results' => $results);
+  }
+
+  protected function getFacetLabel($name, $id)
+  {
+    if ($name === 'classification' || $name === 'type')
+    {
+      if (null !== $item = QubitTerm::getById($id))
+      {
+        return $item->getName(array('cultureFallback' => true));
+      }
+    }
+
+    if ($name === 'dateIngested')
+    {
+      return $this->dateRangesLabels[$id];
+    }
   }
 }
