@@ -71,7 +71,7 @@
 
         data.types = {
           'default': {
-            'icon': 'fa fa-folder'
+            'icon': 'fa fa-folder-o'
           },
 
           // Item
