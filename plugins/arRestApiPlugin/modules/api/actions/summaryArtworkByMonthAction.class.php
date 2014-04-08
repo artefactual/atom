@@ -56,13 +56,14 @@ class ApiSummaryArtworkByMonthAction extends QubitApiAction
 
     $facets = $resultSet->getFacets();
 
-    // convert timestamps to dates
+    // convert timestamps to month indicators
     foreach($facets as $facetName => $facet)
     {
       foreach($facets[$facetName]['entries'] as $index => $entry)
       {
-        $timestamp = $facets[$facetName]['entries'][$index]['time'];
-        $facets[$facetNet]['entries'][$index]['date'] = date('Y-m-d', $timestamp);
+        // convert millisecond timestamps to YYYY-MM format
+        $timestamp = $entry['time'] / 1000;
+        $facets[$facetName]['entries'][$index]['month'] = substr(date('Y-m-d', $timestamp), 0, 7);
         unset($facets[$facetName]['entries'][$index]['time']);
       }
     }

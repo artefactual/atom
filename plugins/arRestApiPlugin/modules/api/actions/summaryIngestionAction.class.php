@@ -51,7 +51,8 @@ class ApiSummaryIngestionAction extends QubitApiAction
 
     $levelOfDescriptionInfo = array(
       sfConfig::get('app_drmc_lod_artwork_record_id')               => 'artwork',
-      sfConfig::get('app_drmc_lod_supporting_technology_record_id') => 'supporting_technology'
+      sfConfig::get('app_drmc_lod_supporting_technology_record_id') => 'supporting_technology',
+      sfConfig::get('app_drmc_lod_component_id')                    => 'component'
     );
 
     $facets = $resultSet->getFacets();
