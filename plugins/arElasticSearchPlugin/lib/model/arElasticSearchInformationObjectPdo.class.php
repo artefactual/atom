@@ -1301,7 +1301,7 @@ file_put_contents('/tmp/mike.txt', $sql ."\n", file_append);
     foreach ($this->getAips() as $item)
     {
       $node = new arElasticSearchAipPdo($item->id);
-      $serialized['aip'][] = $node->serialize();
+      $serialized['aips'][] = $node->serialize();
     }
 
     // METS data

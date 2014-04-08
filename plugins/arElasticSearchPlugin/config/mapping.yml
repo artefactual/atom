@@ -245,7 +245,7 @@ mapping:
       subjects: term
       places: term
       dates: event
-      aip: aip
+      aips: aip
       mets_data: mets_data
       tms_object: tms_object
       tms_component: tms_component
