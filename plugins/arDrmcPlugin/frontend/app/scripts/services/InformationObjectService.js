@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($http, SETTINGS) {
+module.exports = function ($http, $q, SETTINGS) {
 
   // Create a map of level of descriptions IDs and its corresponding CSS class
   this.levels = {};
@@ -182,12 +182,12 @@ module.exports = function ($http, SETTINGS) {
   };
 
   this.getArtworkRecordWithTms = function (id) {
-    var self = this;
-    return this.getWork(id).then(function (response) {
-      var data = response.data;
-      self.getTms(id).then(function (tms) {
-        data.tms = tms;
-      });
+    return $q.all([
+      this.getWork(id),
+      this.getTms(id)
+    ]).then(function (responses) {
+      var data = responses[0].data;
+      data.tms = responses[1];
       return data;
     });
   };
