@@ -5,6 +5,7 @@
   var angular = require('angular');
 
   require('../../vendor/angular-ui.js');
+  require('../../vendor/cookies.js');
 
   /*
    * Define module and dependencies
@@ -18,7 +19,8 @@
     require('./filters').name,
 
     'ui.router',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngCookies'
 
   ]);
 
