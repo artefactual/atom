@@ -30,12 +30,12 @@ class ApiAipsDownloadViewAction extends QubitApiAction
   {
     if (!isset($request->reason))
     {
-      throw new QubitApiException('Missing parameter: reason', 500);
+      throw new QubitApiBadRequestException('Missing parameter: reason');
     }
 
     if (strlen($request->reason) < 10)
     {
-      throw new QubitApiException('Parameter reason is not long enough');
+      throw new QubitApiBadRequestException('Parameter reason is not long enough');
     }
 
     // Get AIP data from ES to verify it exists and to log access
