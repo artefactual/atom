@@ -371,16 +371,40 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
   protected function processArtworkRecord($tmsObjectId)
   {
-    // Ignore $this->resource and create a new top-level from TMS
-    list($tmsObject, $tmsComponentsIds) = $this->getTombstoneObjects($tmsObjectId);
+    // Check for existing Artwork
+    $criteria = new Criteria;
+    $criteria->add(QubitInformationObject::IDENTIFIER, $tmsObjectId);
+    $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, sfConfig::get('app_drmc_lod_artwork_record_id'));
 
-    // Create intermediate level "Components"
-    $components = new QubitInformationObject;
-    $components->parentId = $tmsObject->id;
-    $components->levelOfDescriptionId = sfConfig::get('app_drmc_lod_description_id');
-    $components->setPublicationStatusByName('Published');
-    $components->title = 'Components';
-    $components->save();
+    if (null !== $tmsObject = QubitInformationObject::getOne($criteria))
+    {
+      $criteria = new Criteria;
+      $criteria->add(QubitInformationObject::PARENT_ID, $tmsObject->id);
+      $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, sfConfig::get('app_drmc_lod_description_id'));
+
+      if (null === $components = QubitInformationObject::getOne($criteria))
+      {
+        $components = new QubitInformationObject;
+        $components->parentId = $tmsObject->id;
+        $components->levelOfDescriptionId = sfConfig::get('app_drmc_lod_description_id');
+        $components->setPublicationStatusByName('Published');
+        $components->title = 'Components';
+        $components->save();
+      }
+    }
+    else
+    {
+      // Create a new top-level from TMS
+      list($tmsObject, $tmsComponentsIds) = $this->getTombstoneObjects($tmsObjectId);
+
+      // Create intermediate level "Components"
+      $components = new QubitInformationObject;
+      $components->parentId = $tmsObject->id;
+      $components->levelOfDescriptionId = sfConfig::get('app_drmc_lod_description_id');
+      $components->setPublicationStatusByName('Published');
+      $components->title = 'Components';
+      $components->save();
+    }
 
     // Mapping from TMS status to level of descriptions
     $statusMapping = array(
@@ -396,9 +420,12 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     );
 
     // Obtain and create components from TMS
-    foreach ($tmsComponentsIds as $tmsId)
+    if (isset($tmsComponentsIds))
     {
-      $this->createTombstoneComponent($tmsId, $components->id, $statusMapping);
+      foreach ($tmsComponentsIds as $tmsId)
+      {
+        $this->createTombstoneComponent($tmsId, $components->id, $statusMapping);
+      }
     }
 
     list($aipIo, $aip) = $this->addAip($components, $tmsObject);
