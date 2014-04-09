@@ -80,8 +80,8 @@ class ApiAipsDownloadViewAction extends QubitApiAction
     {
       $error = curl_error($ch);
       curl_close($ch);
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting storage service data: '. $error);
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - URL: '. $aipInfoUrl);
+      sfContext::getInstance()->getLogger()->error('METSArchivematicaDIP - Error getting storage service data: '. $error);
+      sfContext::getInstance()->getLogger()->error('METSArchivematicaDIP - URL: '. $aipInfoUrl);
       throw new QubitApiException('Error: '. $error, 500);
     }
     curl_close($ch);
@@ -158,7 +158,24 @@ class ApiAipsDownloadViewAction extends QubitApiAction
 
     ob_clean();
     flush();
-    readfile($url);
+
+    // Proxy file from storage server
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // storage server redirects
+    curl_setopt($ch, CURLOPT_FAILONERROR, true);
+    $response = curl_exec($ch);
+
+    // handle possible errors
+    if ($response === false)
+    {
+      $error = curl_error($ch);
+      curl_close($ch);
+      sfContext::getInstance()->getLogger()->error('METSArchivematicaDIP - Error proxying file from storage service data: '. $error);
+      sfContext::getInstance()->getLogger()->error('METSArchivematicaDIP - URL: '. $aipInfoUrl);
+      throw new QubitApiException('Error: '. $error, 500);
+    }
+    curl_close($ch);
+
     exit;
   }
 }
