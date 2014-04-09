@@ -227,6 +227,15 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     $this->addRoute('GET', '/api/search/autocomplete', array(
       'module' => 'api',
       'action' => 'searchAutocomplete'));
+
+
+    /**
+     * Users and authentication
+     */
+
+    $this->addRoute('GET', '/api/users/authenticate', array(
+      'module' => 'api',
+      'action' => 'usersAuthenticate'));
   }
 
   protected function addRoute($method, $pattern, array $options = array())
