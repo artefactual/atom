@@ -156,12 +156,12 @@ class QubitAPIAction extends sfAction
 
     $range = array();
 
-    if (isset($this->request->$from))
+    if (isset($this->request->$from) && ctype_digit($this->request->$from))
     {
       $range['gte'] = $this->request->$from;
     }
 
-    if (isset($this->request->$to))
+    if (isset($this->request->$to) && ctype_digit($this->request->$to))
     {
       $range['lte'] = $this->request->$to;
     }
@@ -253,6 +253,7 @@ class QubitAPIAction extends sfAction
         $facet->setRanges($options['ranges']);
 
         break;
+
     }
 
     $query->addFacet($facet);

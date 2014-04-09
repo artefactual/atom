@@ -82,6 +82,23 @@ class ApiInformationObjectsWorksBrowseAction extends QubitApiAction
     $this->facetEsQuery('Range', 'dateCreated', 'dates.startDate', $query, array('ranges' => $dateRanges));
     $this->facetEsQuery('Range', 'dateIngested', 'aips.createdAt', $query, array('ranges' => $dateRanges));
 
+    // Range facet with script to facet total size
+    $sizeRanges = array(
+      array('to' => 512000),
+      array('from' => 512000, 'to' => 1048576),
+      array('from' => 1048576, 'to' => 2097152),
+      array('from' => 2097152, 'to' => 5242880),
+      array('from' => 5242880, 'to' => 10485760),
+      array('from' => 10485760));
+
+    $scriptStr = 'sum=0; foreach( size : doc[\'aips.sizeOnDisk\'].values) { sum = sum + size }; return sum;';
+
+    $rangeFacet = new \Elastica\Facet\Range('totalSize');
+    $rangeFacet->setKeyValueScripts($scriptStr, $scriptStr);
+    $rangeFacet->setRanges($sizeRanges);
+
+    $query->addFacet($rangeFacet);
+
     // Limit fields
     $query->setFields(array(
       'slug',
@@ -101,8 +118,36 @@ class ApiInformationObjectsWorksBrowseAction extends QubitApiAction
       'creators',
       'aips'));
 
-    // Assign query
-    $query->setQuery($queryBool);
+    // Filter materials total size, must be a filter to use scripts and
+    // must be a filtered query so it happens before faceting
+    if ((isset($this->request->totalSizeFrom) && ctype_digit($this->request->totalSizeFrom))
+      || (isset($this->request->totalSizeTo) && ctype_digit($this->request->totalSizeTo)))
+    {
+      $scriptStr = 'sum=0; foreach( size : doc[\'aips.sizeOnDisk\'].values) { sum = sum + size }; ';
+
+      if (isset($this->request->totalSizeFrom) && isset($this->request->totalSizeTo))
+      {
+        $scriptStr .= $this->request->totalSizeFrom.' < sum && sum < '.$this->request->totalSizeTo.';';
+      }
+      else if (isset($this->request->totalSizeFrom) && ctype_digit($this->request->totalSizeFrom))
+      {
+        $scriptStr .= $this->request->totalSizeFrom.' < sum;';
+      }
+      else if (isset($this->request->totalSizeTo) && ctype_digit($this->request->totalSizeTo))
+      {
+        $scriptStr .= 'sum < '.$this->request->totalSizeTo.';';
+      }
+
+      $script = new \Elastica\Script($scriptStr);
+      $scriptFilter = new \Elastica\Filter\Script($scriptStr);
+      $filteredQuery = new \Elastica\Query\Filtered($queryBool, $scriptFilter);
+
+      $query->setQuery($filteredQuery);
+    }
+    else
+    {
+      $query->setQuery($queryBool);
+    }
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
 
