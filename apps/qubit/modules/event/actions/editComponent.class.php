@@ -101,6 +101,10 @@ class EventEditComponent extends sfComponent
         {
           $value = substr($matches[0], 0, 4).'-'.substr($matches[0], 4, 2).'-'.substr($matches[0], 6, 2);
         }
+        elseif (isset($value) && preg_match('/^\d{6}\z/', trim($value), $matches))
+        {
+          $value = substr($matches[0], 0, 4).'-'.substr($matches[0], 4, 2);
+        }
 
         $this->event[$field->getName()] = $value;
 
