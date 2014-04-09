@@ -59,9 +59,19 @@
       // Redirect users to the login page
       var allowedNames = ['login', '404'];
       $rootScope.$on('$stateChangeStart', function (event, toState) {
-        if (allowedNames.indexOf(toState.name) === -1 && !AuthenticationService.isAuthenticated()) {
-          event.preventDefault();
-          $state.go('login');
+        // if not on a public URL, check authentication
+        if (allowedNames.indexOf(toState.name) === -1) {
+          AuthenticationService.isAuthenticated()
+            .then(function(data) {
+              // authentication has succeeded
+              event.preventDefault();
+            },
+            function(data) {
+              // authentication has failed
+              // TODO: display feedback on login page
+              event.preventDefault();
+              $state.go('login');
+            });
         }
       });
 
