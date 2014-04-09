@@ -9,12 +9,6 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
   // Default route
   $urlRouterProvider.otherwise(SETTINGS.DRMCPath + '404');
 
-  function redirectIfNotAuthorized($state, AuthenticationService) {
-    if (!AuthenticationService.isAuthenticated()) {
-      $state.go('login');
-    }
-  }
-
   // Define ui-router states
   $stateProvider
 
@@ -35,99 +29,84 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
     .state('dashboard', {
       url: SETTINGS.DRMCPath.replace(/\/$/, ''),
       controller: 'DashboardCtrl',
-      templateUrl: SETTINGS.viewsPath + '/dashboard.html',
-      onEnter: redirectIfNotAuthorized
+      templateUrl: SETTINGS.viewsPath + '/dashboard.html'
     })
 
     // AIPs
     .state('aips', {
       abstract: true,
       url: SETTINGS.DRMCPath + 'aips',
-      template: '<ui-view/>',
-      onEnter: redirectIfNotAuthorized
+      template: '<ui-view/>'
     })
     .state('aips.browser', {
       url: '',
       controller: 'AIPBrowserCtrl',
-      templateUrl: SETTINGS.viewsPath + '/aips.browser.html',
-      onEnter: redirectIfNotAuthorized
+      templateUrl: SETTINGS.viewsPath + '/aips.browser.html'
     })
     .state('aips.view', {
       url: '/{uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}}',
       controller: 'AIPViewCtrl',
-      templateUrl: SETTINGS.viewsPath + '/aips.view.html',
-      onEnter: redirectIfNotAuthorized
+      templateUrl: SETTINGS.viewsPath + '/aips.view.html'
     })
 
     // Works
     .state('works', {
       abstract: true,
       url: SETTINGS.DRMCPath + 'works',
-      template: '<ui-view/>',
-      onEnter: redirectIfNotAuthorized
+      template: '<ui-view/>'
     })
     .state('works.browser', {
       url: '',
       controller: 'WorkBrowserCtrl',
-      templateUrl: SETTINGS.viewsPath + '/works.browser.html',
-      onEnter: redirectIfNotAuthorized
+      templateUrl: SETTINGS.viewsPath + '/works.browser.html'
     })
     .state('works.view', {
       url: '/{id}',
       controller: 'WorkViewCtrl',
-      templateUrl: SETTINGS.viewsPath + '/works.view.html',
-      onEnter: redirectIfNotAuthorized
+      templateUrl: SETTINGS.viewsPath + '/works.view.html'
     })
 
     // Technology Records
     .state('technology-records', {
       abstract: true,
       url: SETTINGS.DRMCPath + 'technology-records',
-      template: '<ui-view/>',
-      onEnter: redirectIfNotAuthorized
+      template: '<ui-view/>'
     })
     .state('technology-records.browser', {
       url: '',
       controller: 'TechnologyRecordBrowserCtrl',
-      templateUrl: SETTINGS.viewsPath + '/technology-records.browser.html',
-      onEnter: redirectIfNotAuthorized
-
+      templateUrl: SETTINGS.viewsPath + '/technology-records.browser.html'
     })
     .state('technology-records.view', {
       url: '/{id}',
       controller: 'TechnologyRecordViewCtrl',
-      templateUrl: SETTINGS.viewsPath + '/technology-records.view.html',
-      onEnter: redirectIfNotAuthorized
+      templateUrl: SETTINGS.viewsPath + '/technology-records.view.html'
     })
 
     // TMS
     .state('tms', {
       abstract: true,
       url: SETTINGS.DRMCPath + 'tms',
-      template: '<ui-view/>',
-      onEnter: redirectIfNotAuthorized
+      template: '<ui-view/>'
     })
     .state('tms.browser', {
       url: '',
       controller: 'TmsBrowserCtrl',
-      templateUrl: SETTINGS.viewsPath + '/tms.browser.html',
-      onEnter: redirectIfNotAuthorized
+      templateUrl: SETTINGS.viewsPath + '/tms.browser.html'
     })
 
     // Search
     .state('search', {
       abstract: true,
       url: SETTINGS.DRMCPath + 'search',
-      template: '<ui-view/>',
-      onEnter: redirectIfNotAuthorized
+      template: '<ui-view/>'
     })
     .state('search.entity', {
       url: '/{entity}',
       controller: 'SearchCtrl',
       templateUrl: function (stateParams) {
         return SETTINGS.viewsPath + '/' + stateParams.entity + '.search.html';
-      },
-      onEnter: redirectIfNotAuthorized
+      }
     });
 
 };
