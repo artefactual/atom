@@ -2112,6 +2112,9 @@ class QubitInformationObject extends BaseInformationObject
       $fullType = ucfirst($label);
     }
 
+    $name = trim($name);
+    $location = trim($location);
+
     // if a type has been provided, look it up
     $term = ($fullType)
       ? QubitFlatfileImport::createOrFetchTerm(
@@ -2120,20 +2123,45 @@ class QubitInformationObject extends BaseInformationObject
         )
       : false;
 
-    $object = new QubitPhysicalObject();
-    $object->name = trim($name);
-
-    if ($location)
+    // Check for an existing physical object within this collection with the same name
+    if ($this->parentId)
     {
-      $object->location = trim($location);
+      // Get collection id, note we must loop through parent ids here
+      // as opposed to calling getCollectionRoot() because these objects 
+      // aren't fully formed yet.
+
+      $topLevelParent = $this->parent;
+      while ($topLevelParent->parent && $topLevelParent->parent->id != QubitInformationObject::ROOT_ID)
+      {
+        $topLevelParent = $topLevelParent->parent;
+      }
+
+      $object = QubitPhysicalObject::checkPhysicalObjectExistsInCollection(
+        $name, 
+        $location,
+        ($term) ? $term->id : null,
+        $topLevelParent->id
+      );
     }
 
-    if ($term)
+    // There was no existing physical object to attach, create a new one.
+    if (!isset($object) || $object === null)
     {
-      $object->typeId = $term->id;
-    }
+      $object = new QubitPhysicalObject();
+      $object->name = $name;
 
-    $object->save();
+      if ($location)
+      {
+        $object->location = $location;
+      }
+
+      if ($term)
+      {
+        $object->typeId = $term->id;
+      }
+
+      $object->save();
+    }
 
     $this->addPhysicalObject($object);
   }
