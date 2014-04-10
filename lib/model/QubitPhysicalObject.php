@@ -109,6 +109,68 @@ class QubitPhysicalObject extends BasePhysicalObject
     $criteria->addJoin(QubitRelation::OBJECT_ID, QubitInformationObject::ID);
     $criteria->add(QubitPhysicalObject::ID, $this->id);
 
-    return QubitQuery::createFromCriteria($criteria, 'QubitInformationObject', $options);
+    return QubitInformationObject::get($criteria);
+  }
+
+  /**
+   * Get physical objects by name and location
+   *
+   * @param name  The name of the physical object
+   * @param location  The location of the physical object
+   * @param typeId  The type id of the physical object (Box, etc.)
+   * @return QubitQuery collection of Physical Objects
+   */
+  public static function getPhysicalObjectsByNameAndLocation($name, $location, $typeId)
+  {
+    $criteria = new Criteria;
+    $criteria->addJoin(QubitPhysicalObject::ID, QubitPhysicalObjectI18n::ID);
+
+    if ($typeId)
+    {
+      $criteria->add(QubitPhysicalObject::TYPE_ID, $typeId);
+    }
+
+    if ($location)
+    {
+      $criteria->add(QubitPhysicalObjectI18n::LOCATION, $location);
+    }
+
+    $criteria->add(QubitPhysicalObjectI18n::NAME, $name);
+
+    return QubitPhysicalObject::get($criteria);
+  }
+
+  /**
+   * Get whether or not a physical object matching name/location/type
+   * exists in the current collection already.
+   *
+   * @param name  The name of the physical object
+   * @param location  The location of the physical object
+   * @param typeId  The type id of the physical object (Box, etc.)
+   * @param collectionId  The collection id to check inside for the physical object
+   * @return A physical object if found matching, otherwise null
+   */
+  public static function checkPhysicalObjectExistsInCollection($name, $location, $typeId, $collectionId)
+  {
+    $objs = QubitPhysicalObject::getPhysicalObjectsByNameAndLocation($name, $location, $typeId);
+    foreach ($objs as $physObj)
+    {
+      $ios = $physObj->getInformationObjects();
+      foreach ($ios as $io)
+      {
+        $topLevelParent = $io->parent;
+        while ($topLevelParent->parent && $topLevelParent->parent->id != QubitInformationObject::ROOT_ID)
+        {
+          $topLevelParent = $topLevelParent->parent;
+        }
+
+        if ($topLevelParent->id === $collectionId)
+        {
+          return $physObj;
+        }
+      }
+    }
+
+    return null;
   }
 }
