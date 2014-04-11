@@ -21,18 +21,26 @@ class ApiUsersAuthenticateAction extends QubitApiAction
 {
   protected function get($request)
   {
+    if (!$this->context->user->isAuthenticated())
+    {
+      throw new QubitApiNotAuthorizedException();
+    }
+
+    return 'Authenticated.';
+  }
+
+  protected function post($request)
+  {
     $results = array();
     $error = null;
 
     $user = QubitUser::checkCredentials($request->username, $request->password, $error);
 
-    if(!$user)
+    if($user !== null)
     {
       throw new QubitApiNotAuthorizedException();
     } else {
-      $results['username'] = $user->username;
+      $this->signIn($user);
     }
-
-   return $results;
   }
 }
