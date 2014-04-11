@@ -1,7 +1,29 @@
-<h1>Log in</h1>
+<div id="wrapper" class="container">
 
-<form ng-submit="submit()">
-  <input name="username" ng-model="form.username" />
-  <input name="password" ng-model="form.password" />
-  <input type="submit" />
-</form>
+  <div class="row">
+    <div class="offset4 span4">
+      <div id="content" class="login">
+
+        <h1>Please log in</h1>
+        
+        <form ng-submit="submit()">
+          <input type="hidden" name="next" value="http://10.10.10.10:8003/user" id="next" />
+          <div class="form-item form-item-email">
+            <label for="email">Email <span class="form-required" title="This field is required.">*</span></label>
+            <input ng-model="form.username" type="text" name="email" autofocus="autofocus" class="input-block-level" id="email" />
+          </div>
+
+          <div class="form-item form-item-password">
+            <label for="password">Password <span class="form-required" title="This field is required.">*</span></label>
+            <input ng-model="form.password" type="password" name="password" class="input-block-level" id="password" />
+          </div>
+
+          <section class="actions">
+            <button type="submit" class="btn btn-primary btn-block btn-large">Log in</button>
+          </section>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

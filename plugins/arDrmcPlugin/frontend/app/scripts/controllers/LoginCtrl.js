@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, AuthenticationService) {
+module.exports = function ($scope, AuthenticationService, $state) {
 
   $scope.form = {};
 
@@ -12,7 +12,7 @@ module.exports = function ($scope, AuthenticationService) {
     if ($scope.form.username && $scope.form.password) {
       AuthenticationService.authenticate($scope.form.username,  $scope.form.password)
       .success(function () {
-
+        $state.go('dashboard');
       })
       .error(function () {
         $scope.notifyOfError();
