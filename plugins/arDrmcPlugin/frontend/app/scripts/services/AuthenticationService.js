@@ -7,9 +7,9 @@ module.exports = function ($cookies, $http, $q, SETTINGS) {
     return $http({
       method: 'POST',
       url: authenticationUrl,
-      params: {
-        username: 'demo@example.com',
-        password: 'demo'
+      data: {
+        username: username,
+        password: password
       }
     });
   };
