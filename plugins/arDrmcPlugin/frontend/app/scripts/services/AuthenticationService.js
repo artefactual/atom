@@ -20,4 +20,11 @@ module.exports = function ($cookies, $http, $q, SETTINGS) {
       url: authenticationUrl
     });
   };
+
+  this.logOut = function () {
+    return $http({
+      method: 'DELETE',
+      url: authenticationUrl
+    });
+  };
 };

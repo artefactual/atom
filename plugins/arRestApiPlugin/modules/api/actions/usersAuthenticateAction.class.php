@@ -41,4 +41,11 @@ class ApiUsersAuthenticateAction extends QubitApiAction
       throw new QubitApiNotAuthorizedException();
     }
   }
+
+  protected function delete($request)
+  {
+    $this->context->user->signOut();
+
+    return 'Logged out.';
+  }
 }
