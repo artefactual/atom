@@ -11,13 +11,13 @@ module.exports = function ($cookies, $http, $q, SETTINGS) {
         username: 'demo@example.com',
         password: 'demo'
       }
-    })
+    });
   };
 
   this.isAuthenticated = function () {
     return $http({
       method: 'GET',
       url: authenticationUrl
-    })
+    });
   };
 };

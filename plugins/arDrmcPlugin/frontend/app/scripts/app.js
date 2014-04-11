@@ -62,11 +62,11 @@
         // if not on a public URL, check authentication
         if (allowedNames.indexOf(toState.name) === -1) {
           AuthenticationService.isAuthenticated()
-            .then(function(data) {
+            .then(function() {
               // authentication has succeeded
               event.preventDefault();
             },
-            function(data) {
+            function() {
               // authentication has failed
               // TODO: display feedback on login page
               event.preventDefault();
