@@ -17,22 +17,6 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ApiUsersAuthenticateAction extends QubitApiAction
+class QubitApiNotAuthorizedException extends Exception
 {
-  protected function get($request)
-  {
-    $results = array();
-    $error = null;
-
-    $user = QubitUser::checkCredentials($request->username, $request->password, $error);
-
-    if(!$user)
-    {
-      throw new QubitApiNotAuthorizedException();
-    } else {
-      $results['username'] = $user->username;
-    }
-
-   return $results;
-  }
 }

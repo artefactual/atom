@@ -31,6 +31,10 @@ class QubitAPIAction extends sfAction
     {
       $this->response->setStatusCode(404, $e->getMessage());
     }
+    catch (QubitApiNotAuthorizedException $e)
+    {
+      $this->response->setStatusCode(401);
+    }
     catch (QubitApiForbiddenException $e)
     {
       $this->response->setStatusCode(403, $e->getMessage());
