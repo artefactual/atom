@@ -28,48 +28,71 @@
               <li><h2>Dublin Core metadata</h2></li>
             </ul>
             <ul class="menu-list-right nav nav-pills">
-              <li>
-                <a class="edit" href ng-click="openEditDcModal()">Edit</a>
-              </li>
+              <li><a class="edit" href ng-click="edit()">Edit</a></li>
+              <li><a class="add_child" href ng-click="addChild()">Add child</a></li>
             </ul>
           </div>
           <div>
 
-            <div class="field" ng-show="techRecord.dc.identifier != undefined">
+            <div class="field" ng-show="techRecord.identifier != undefined">
               <h3>Identifier</h3>
-              <div>{{ techRecord.dc.identifier }}</div>
+              <div>{{ techRecord.identifier }}</div>
             </div>
-            <div class="field" ng-show="techRecord.dc.title != undefined">
+            <div class="field" ng-show="techRecord.title != undefined">
               <h3>Title</h3>
-              <div>{{ techRecord.dc.title }}</div>
+              <div>{{ techRecord.title }}</div>
             </div>
-            <div class="field" ng-show="techRecord.dc.description != undefined">
+            <div class="field" ng-show="techRecord.description != undefined">
               <h3>Description</h3>
-              <div>{{ techRecord.dc.description }}</div>
+              <div>{{ techRecord.description }}</div>
             </div>
-            <div class="field" ng-show="false">
+            <div class="field" ng-show="techRecord.names != undefined">
               <h3>Name(s)</h3>
-              <div></div>
+              <div>
+                <ul>
+                  <li ng-repeat="name in techRecord.names">
+                    <ul>
+                      <li ng-if="name.authorized_form_of_name != undefined">
+                        {{ name.authorized_form_of_name }} <span ng-if="name.type != undefined">({{ name.type }})</span>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div class="field" ng-show="false">
+            <div class="field" ng-show="techRecord.dates != undefined">
               <h3>Date(s)</h3>
-              <div></div>
+              <div>
+                <ul>
+                  <li ng-repeat="date in techRecord.dates">
+                    <ul>
+                      <li ng-if="date.start_date != undefined">Start date: {{ date.start_date }}</li>
+                      <li ng-if="date.end_date != undefined">End date: {{ date.end_date }}</li>
+                      <li ng-if="date.date != undefined">({{ date.date }})</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div class="field" ng-show="false">
+            <div class="field" ng-show="techRecord.types != undefined">
               <h3>Type</h3>
-              <div></div>
+              <div>
+                <ul>
+                  <li ng-repeat="type in techRecord.types">{{ type.name }}</li>
+                </ul>
+              </div>
             </div>
-            <div class="field" ng-show="techRecord.dc.format != undefined">
+            <div class="field" ng-show="techRecord.format != undefined">
               <h3>Format</h3>
-              <div>{{ techRecord.dc.format }}</div>
+              <div>{{ techRecord.format }}</div>
             </div>
-            <div class="field" ng-show="techRecord.dc.source != undefined">
+            <div class="field" ng-show="techRecord.source != undefined">
               <h3>Source</h3>
-              <div>{{ techRecord.dc.source }}</div>
+              <div>{{ techRecord.source }}</div>
             </div>
-            <div class="field" ng-show="techRecord.dc.rights != undefined">
+            <div class="field" ng-show="techRecord.rights != undefined">
               <h3>Rights</h3>
-              <div>{{ techRecord.dc.rights }}</div>
+              <div>{{ techRecord.rights }}</div>
             </div>
           </div>
 

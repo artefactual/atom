@@ -2,7 +2,7 @@
 
 var ContextBrowser = require('../lib/cbd');
 
-module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObjectService, FullscreenService) {
+module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObjectService, FullscreenService, ModalLinkSupportingTechnologyService) {
   return {
     restrict: 'E',
     templateUrl: SETTINGS.viewsPath + '/partials/context-browser.html',
@@ -61,8 +61,8 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
           scope.$apply(function () {
             scope.toggleMaximizedMode();
           });
-        // Maximized mode (f)
-        } else if (event.which === 70 && !scope.isFullscreen) {
+        // Maximized mode (shift+f)
+        } else if (event.which === 70 && event.ctrlKey && !scope.isFullscreen) {
           scope.$apply(function () {
             scope.toggleMaximizedMode();
           });
@@ -100,6 +100,10 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         } else {
           scope._openViewer(file);
         }
+      };
+      scope.openTechModal = function (id) {
+        // scope._openTechModalViewer(file);
+        ModalLinkSupportingTechnologyService.open(id);
       };
 
       // File list modes
@@ -181,7 +185,7 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
           level_of_description: 'Description'
         };
         InformationObjectService.create(data).then(function (response) {
-          cb.addNode(response.data.id, label, 'description', response.data.parent_id);
+          cb.addNode(response.id, label, 'description', response.parent_id);
         });
       };
 

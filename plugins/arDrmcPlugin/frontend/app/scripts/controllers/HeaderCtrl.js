@@ -3,9 +3,7 @@
 module.exports = function ($scope, SETTINGS, ModalEditDcMetadataService) {
 
   $scope.openEditDcModal = function () {
-    ModalEditDcMetadataService.create().result.then(function () {
-      console.log('Muuuu');
-    });
+    ModalEditDcMetadataService.create();
   };
 
   // Current user. This is just a mockup for the view. Auth not implemented yet.

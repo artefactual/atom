@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationObjectService, ModalEditDcMetadataService) {
+module.exports = function ($scope, $stateParams, InformationObjectService, ModalEditDcMetadataService) {
 
   $scope.pull = function () {
     InformationObjectService.getSupportingTechnologyRecord($stateParams.id).then(function (response) {
@@ -13,10 +13,16 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
   // Pull during initialization
   $scope.pull();
 
-  $scope.openEditDcModal = function () {
-    var modal = ModalEditDcMetadataService.edit($scope.techRecord);
-    // Pull again when the modal succeeds
-    modal.result.then(function () {
+  // Edit metadata of the current technology record
+  $scope.edit = function () {
+    ModalEditDcMetadataService.edit($scope.techRecord.id).result.then(function () {
+      $scope.pull();
+    });
+  };
+
+  // Add new child
+  $scope.addChild = function () {
+    ModalEditDcMetadataService.create($scope.techRecord.id).result.then(function () {
       $scope.pull();
     });
   };

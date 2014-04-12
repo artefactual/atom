@@ -1,127 +1,122 @@
-<div class="edit-modal">
+<div>
 
   <div class="modal-header">
     <button type="button" ng-click="cancel()" class="close">×</button>
     <h2>{{ title }}</h2>
   </div>
 
-  <form name="form" ng-submit="submit()" novalidate>
+  <form name="modalContainer.form" ng-submit="submit()" novalidate>
     <div class="modal-body">
-      <section name="elements">
 
-        <div class="form-item">
-          <label>Identifier</label>
-          <input type="text" name="identifier" ng-model="resource.dc.identifier" tooltip="{{ tooltips.identifier }}" tooltip-trigger="focus" tooltip-placement="left"/>
-        </div>
+      <div class="form-item">
+        <label>Identifier</label>
+        <input type="text" name="identifier" ng-model="resource.identifier" tooltip="{{ tooltips.identifier }}" tooltip-trigger="focus" tooltip-placement="bottom"/>
+      </div>
 
-        <div class="form-item">
-          <label class="required">Title</label>
-          <input type="text" name="title" ng-model="resource.dc.title" tooltip="{{ tooltips.title }}" tooltip-trigger="focus" tooltip-placement="left" required />
-        </div>
+      <div class="form-item">
+        <label class="required">Title</label>
+        <input type="text" name="title" ng-model="resource.title" tooltip="{{ tooltips.title }}" tooltip-trigger="focus" tooltip-placement="bottom" required/>
+      </div>
 
-        <div class="section">
-          <h4>Name(s)</h4>
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th style="width: 60%">Actor name</th>
-                <th style="width: 40%">Type</th>
-              </tr>
-            </thead>
+      <div class="form-item">
+        <label class="required">Parent</label>
+        <input ng-if="resource.parent_id > 1" type="text" ng-model="resource.parent" ng-disabled="true"/>
+        <input ng-if="resource.parent_id == 1" type="text" value="Root elemement" ng-disabled="true"/>
+        <input ng-if="resource.parent_id == undefined" type="text" value="You are creating a root element" ng-disabled="true"/>
+      </div>
 
-            <tbody>
-              <tr class="even">
-                <td>
-                  <input type="text" ng-model="actors" typeahead="actor as actor for actor in searchActors($viewValue) | filter:$viewValue | limitTo:15" typeahead-loading="loadingActors">
-                  <i ng-show="loadingActors" class="glyphicon glyphicon-refresh"></i>
-                </td>
-                <td>
-                  <select ng-model="form.dc.actorType">
-                    <option value="contribution">Contribution</option>
-                    <option value="creation" selected="selected">Creation</option>
-                    <option value="publication">Publication</option>
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <div class="form-item">
+        <h4>Name(s)</h4>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th style="width: 60%">Actor name</th>
+              <th style="width: 40%">Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input type="text" ng-model="resource.names.0.authorized_form_of_name" typeahead="actor.key as actor.authorized_form_of_name for actor in searchActor($viewValue)" typeahead-on-select="onSelectActor($item, $modal, $label)"/>
+              </td>
+              <td>
+                <select ng-model="resource.names.0.type_id" ng-options="type.id as type.name for type in eventTypesTaxonomy">
+                  <option value=""></option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-          <h4>Date(s)</h4>
-          <table class="table table-bordered multiRow">
-            <thead>
-              <tr>
-                <th style="width: 40%">Date</th>
-                <th style="width: 30%">Start</th>
-                <th style="width: 30%">End</th>
-              </tr>
-            </thead>
+      <div class="form-item">
+        <h4>Date(s)</h4>
+        <table class="table table-bordered multiRow">
+          <thead>
+            <tr>
+              <th style="width: 40%">Date</th>
+              <th style="width: 30%">Start</th>
+              <th style="width: 30%">End</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div>
+                  <input type="text" ng-model="resource.dates.0.date" tooltip="{{ tooltips.date }}" tooltip-trigger="focus" tooltip-placement="bottom"/>
+                </div>
+              </td>
+              <td>
+                <input type="date" ng-model="resource.dates.0.start_date"/>
+              </td>
+              <td>
+                <div>
+                  <input type="date" ng-model="resource.dates.0.end_date"/>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-            <tbody>
-              <tr>
-                <td>
-                  <div>
-                    <input type="text" ng-model="form.dc.date" tooltip="{{ tooltips.date }}" tooltip-trigger="focus" tooltip-placement="left" />
-                  </div>
-                </td>
-                <td>
-                  <div>
-                    <input type="text" ng-model="form.dc.dateStart" tooltip="{{ tooltips.dateStart }}" tooltip-trigger="focus" tooltip-placement="left" />
-                  </div>
-                </td>
-                <td>
-                  <div>
-                    <input type="text" ng-model="form.dc.dateEnd" tooltip="{{ tooltips.dateEnd }}" tooltip-trigger="focus" tooltip-placement="left" />
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="form-item">
+        <label>Description</label>
+        <textarea rows="4" cols="30" name="description" ng-model="resource.description" tooltip="{{ tooltips.description }}" tooltip-trigger="focus" tooltip-placement="bottom"></textarea>
+      </div>
 
-        <div class="form-item">
-          <label>Description</label>
-          <textarea rows="4" cols="30" name="description" ng-model="resource.dc.description" tooltip="{{ tooltips.description }}" tooltip-trigger="focus" tooltip-placement="left"></textarea>
-        </div>
+      <div class="form-item">
+        <label>Type</label>
+        <select name="types" ng-model="resource.types.0.id" ng-options="type.id as type.name for type in dcTypesTaxonomy">
+          <option value=""></option>
+        </select>
+      </div>
 
-        <div class="row-fluid form-item dc-edit-type">
-          <h3 tooltip="{{ tooltips.type }}" tooltip-placement="left">Type</h3>
+      <div class="form-item">
+        <label>Format</label>
+        <textarea rows="4" cols="30" name="format" ng-model="resource.format" tooltip="{{ tooltips.format }}" tooltip-trigger="focus" tooltip-placement="bottom"></textarea>
+      </div>
 
-            <ul class="nav">
-              <li ng-repeat="selected in selectedTypes">
-                <a href ng-click="reversePushType(selected)">
-                  {{ selected }}
-                </a>
-              </li>
-              <!-- NG-CLICK on here to revert back to other array -->
-            </ul>
-          <select ng-model="type" ng-change="pushType(type)" ng-options="type for type in dcTypes">
-          </select>
-        </div>
+      <div class="form-item">
+        <label>Source</label>
+        <textarea rows="4" cols="30" name="source" ng-model="resource.source" tooltip="{{ tooltips.source }}" tooltip-trigger="focus" tooltip-placement="bottom"></textarea>
+      </div>
 
-        <div class="form-item">
-          <label>Format</label>
-          <textarea rows="4" cols="30" name="format" ng-model="resource.dc.format" tooltip="{{ tooltips.format }}" tooltip-trigger="focus" tooltip-placement="left"></textarea>
-        </div>
+      <div class="form-item">
+        <label>Rights</label>
+        <textarea rows="4" cols="30" name="rights" ng-model="resource.rights" tooltip="{{ tooltips.conditions }}" tooltip-trigger="focus" tooltip-placement="bottom"></textarea>
+      </div>
 
-        <div class="form-item">
-          <label>Source</label>
-          <textarea rows="4" cols="30" name="source" ng-model="resource.dc.source" tooltip="{{ tooltips.source }}" tooltip-trigger="focus" tooltip-placement="left"></textarea>
-        </div>
-
-        <div class="form-item">
-          <label>Rights</label>
-          <textarea rows="4" cols="30" name="rights" ng-model="resource.dc.rights" tooltip="{{ tooltips.conditions }}" tooltip-trigger="focus" tooltip-placement="left"></textarea>
-        </div>
-      </section>
     </div>
 
     <div class="modal-footer">
-      <span ng-show="form.$invalid">Please fill out all of the required fields.</span>
-
-      <button class="btn btn-primary" type="submit" ng-click="create()" ng-show="new">Create</button>
-      <button class="btn btn-primary" type="submit" ng-click="save()" ng-show="!new">Save</button>
+      <div class="modal-footer-message" ng-show="modalContainer.form.$invalid">
+        Please fill out all of the required fields.
+      </div>
+      <button type="submit" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': modalContainer.form.$invalid }" ng-disabled="modalContainer.form.$invalid">{{ new ? 'Create' : 'Update' }}</button>
+      <button class="btn" ng-click="reset($event)">Reset</button>
       <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
     </div>
+
   </form>
 
 </div>

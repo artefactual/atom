@@ -10,7 +10,9 @@
     .directive('arDigitalObjectPreview', require('./DigitalObjectPreviewDirective'))
     .directive('arFacet', require('./FacetDirective'))
     .directive('arPager', require('./PagerDirective'))
+    .directive('arSearchBox', require('./SearchBoxDirective'))
+    .directive('arMultiselect', require('./MultiselectDirective'))
+    .directive('arMultiselectPopup', require('./MultiselectPopupDirective'))
     .directive('arToggleSlide', require('./ToggleSlideDirective'))
     .directive('arSearchBox', require('./SearchBoxDirective'));
-
 })();

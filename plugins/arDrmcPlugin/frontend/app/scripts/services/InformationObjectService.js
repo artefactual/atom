@@ -207,7 +207,9 @@ module.exports = function ($http, $q, SETTINGS) {
       url: SETTINGS.frontendPath + 'api/informationobjects',
       data: data
     };
-    return $http(configuration);
+    return $http(configuration).then(function (response) {
+      return response.data;
+    });
   };
 
   this.update = function (id, data) {
@@ -216,7 +218,9 @@ module.exports = function ($http, $q, SETTINGS) {
       url: SETTINGS.frontendPath + 'api/informationobjects/' + id,
       data: data
     };
-    return $http(configuration);
+    return $http(configuration).then(function (response) {
+      return response.data;
+    });
   };
 
   this.delete = function (id) {
@@ -234,5 +238,14 @@ module.exports = function ($http, $q, SETTINGS) {
         parent_id: parentId
       }
     });
+  };
+
+  /**
+   * Supporting technology records
+   */
+
+  this.createSupportingTechnologyRecord = function (data) {
+    data.level_of_description_id = SETTINGS.drmc.lod_supporting_technology_record_id;
+    return this.create(data);
   };
 };

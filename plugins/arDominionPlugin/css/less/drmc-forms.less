@@ -1,0 +1,53 @@
+// Cancel default's bs2
+
+form {
+  margin: 0;
+}
+
+// AngularJS form validation
+// TODO: Disabled until we figure how to avoid it for fields that don't require
+// any type of validation
+
+// input.ng-dirty.ng-valid,
+// select.ng-dirty.ng-valid, {
+//   border: 1px solid @momaGreenLight;
+//   box-shadow: none;
+// }
+
+// input.ng-dirty.ng-invalid,
+// select.ng-dirty.ng-invalid {
+//   border: 1px solid @momaOrangeDark;
+//   box-shadow: none;
+// }
+
+// .multiselect-dropdown
+
+.multiselect-wrapper {
+  display:block;
+
+  .dropdown-menu {
+    max-height: 300px;
+    overflow-y: auto;
+    display: block;
+    width: 98%;
+    box-sizing: border-box;
+    padding: 2px;
+
+    li, a, input {
+      min-width: 100%;
+    }
+  }
+  .dropdown-menu > li > a {
+    padding: 3px 10px;
+    cursor: pointer;
+  }
+
+  .multiselect-header {
+    margin-left: 10px;
+    margin-bottom: 5px;
+
+      button {
+        color: @grayDark;
+    }
+  }
+}

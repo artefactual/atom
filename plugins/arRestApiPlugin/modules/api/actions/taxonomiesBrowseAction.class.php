@@ -30,7 +30,9 @@ class ApiTaxonomiesBrowseAction extends QubitApiAction
     $terms = array();
     foreach (QubitTaxonomy::getTaxonomyTerms($taxonomy->id) as $item)
     {
-      $terms[$item->id] = $item->getName(array('cultureFallback' => true));
+      $terms[] = array(
+        'id' => (int)$item->id,
+        'name' => $item->getName(array('cultureFallback' => true)));
     }
 
     return array(

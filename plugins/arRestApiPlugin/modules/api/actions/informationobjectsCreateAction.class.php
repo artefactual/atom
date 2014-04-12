@@ -24,6 +24,11 @@ class ApiInformationObjectsCreateAction extends QubitApiAction
    */
   protected function post($request, $payload)
   {
+    if (QubitInformationObject::ROOT_ID === (int)$request->id)
+    {
+      throw new QubitApiForbiddenException;
+    }
+
     $this->io = new QubitInformationObject();
     $this->io->parentId = QubitInformationObject::ROOT_ID;
     $this->io->setPublicationStatusByName('Published');
@@ -47,11 +52,153 @@ class ApiInformationObjectsCreateAction extends QubitApiAction
   {
     switch ($field)
     {
+      case 'identifier':
       case 'level_of_description_id':
       case 'parent_id':
       case 'title':
         $field = lcfirst(sfInflector::camelize($field));
         $this->io->$field = $value;
+
+        break;
+
+      case 'description':
+        $this->io->scopeAndContent = $value;
+
+        break;
+
+      case 'format':
+        $this->io->extentAndMedium = $value;
+
+        break;
+
+      case 'source':
+        $this->io->locationOfOriginals = $value;
+
+        break;
+
+      case 'rights':
+        $this->io->accessConditions = $value;
+
+        break;
+
+      case 'names':
+        // Multi-value not supported yet!
+        if (is_array($value))
+        {
+          $value = array_pop($value);
+        }
+        if (empty($value) || empty($value->type_id))
+        {
+          break;
+        }
+        $event = false;
+        if ($this->request->getMethod() === 'PUT')
+        {
+          foreach ($this->io->getActorEvents() as $item)
+          {
+            $event = $item;
+
+            break;
+          }
+        }
+
+        // The user passed a name but not the ID so I'll create
+        if (isset($value->authorized_form_of_name) && !isset($value->actor_id))
+        {
+          $actor = new QubitActor;
+          $actor->authorizedFormOfName = $value->authorized_form_of_name;
+          $actor->save();
+
+          $value->actor_id = $actor->id;
+        }
+
+        if ($event !== false)
+        {
+          $event->typeId = $value->type_id;
+          $event->actorId = $value->actor_id;
+          $event->save();
+        }
+        else
+        {
+          $event = new QubitEvent;
+          $event->typeId = $value->type_id;
+          $event->actorId = $value->actor_id;
+
+          $this->io->events[] = $event;
+        }
+
+        break;
+
+      case 'dates':
+        // Multi-value not supported yet!
+        if (is_array($value))
+        {
+          $value = array_pop($value);
+        }
+        if (empty($value))
+        {
+          break;
+        }
+        $event = false;
+        if ($this->request->getMethod() === 'PUT')
+        {
+          foreach ($this->io->getDates() as $item)
+          {
+            $event = $item;
+
+            break;
+          }
+        }
+
+        if ($event !== false)
+        {
+          $event->startDate = $value->start_date;
+          $event->endDate = $value->end_date;
+          $event->date = $value->date;
+          $event->save();
+        }
+        else
+        {
+          $event = new QubitEvent;
+          $event->startDate = $value->start_date;
+          $event->endDate = $value->end_date;
+          $event->date = $value->date;
+          $event->typeId = QubitTerm::CREATION_ID;
+
+          $this->io->events[] = $event;
+        }
+
+        break;
+
+      case 'types':
+        // Multi-value not supported yet!
+        if (is_array($value))
+        {
+          $value = array_pop($value);
+        }
+        if (empty($value))
+        {
+          break;
+        }
+        $relation = false;
+        foreach ($this->io->getTermRelations(QubitTaxonomy::DC_TYPE_ID) as $item)
+        {
+          $relation = $item;
+
+          break;
+        }
+        if ($relation !== false)
+        {
+          $relation->termId = $value->id;
+          $relation->save();
+        }
+        else
+        {
+          $relation = new QubitObjectTermRelation;
+          $relation->termId = $value->id;
+
+          $this->io->objectTermRelationsRelatedByobjectId[] = $relation;
+        }
 
         break;
 

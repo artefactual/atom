@@ -32,8 +32,8 @@
     // Technology records
     .controller('TechnologyRecordBrowserCtrl', require('./TechnologyRecordBrowserCtrl'))
     .controller('TechnologyRecordViewCtrl', require('./TechnologyRecordViewCtrl'))
-    .controller('EditDCMetadataCtrl', require('./EditDCMetadataCtrl'))
-    .controller('AddSupportingTechnologyCtrl', require('./AddSupportingTechnologyCtrl'))
+    .controller('EditDcMetadataCtrl', require('./EditDcMetadataCtrl'))
+    .controller('LinkSupportingTechnologyCtrl', require('./LinkSupportingTechnologyCtrl'))
 
     // TMS
     .controller('TmsBrowserCtrl', require('./TmsBrowserCtrl'))

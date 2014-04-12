@@ -129,7 +129,6 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'informationobjectsAssociate',
       'params' => array('id' => self::REGEX_ID)));
 
-
     /**
      * Actors
      */
@@ -165,7 +164,6 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'taxonomiesBrowse',
       'params' => array('id' => self::REGEX_ID)));
 
-
     /**
      * Fixed value lists
      */
@@ -174,10 +172,10 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'countriesBrowse'));
 
-
     /**
      * Recent activity
      */
+
     $this->addRoute('GET', '/api/activity/downloads', array(
       'module' => 'api',
       'action' => 'activityDownloads'));
@@ -186,10 +184,10 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'activityIngestion'));
 
-
     /**
      * Summaries
      */
+
     $this->addRoute('GET', '/api/summary/ingestion', array(
       'module' => 'api',
       'action' => 'summaryIngestion'));
@@ -209,7 +207,6 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     $this->addRoute('GET', '/api/summary/mediafilesizebycollectionyear', array(
       'module' => 'api',
       'action' => 'summaryMediaFilesizeByYear'));
-
 
     /**
      * Search

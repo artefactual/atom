@@ -1,0 +1,15 @@
+<div class="dropdown multiselect-wrapper">
+  <ul class="dropdown-menu">
+    <li class="multiselect-dropdown-header">
+      <input type="text" ng-model="searchText.label" autofocus="autofocus" placeholder="Search for Technologies" />
+    </li>
+    <li class="multiselect-header" ng-show="multiple">
+      <button class="btn btn-mini" ng-click="checkAll()"><i class="icon-ok"></i> Check all</button>
+      <button class="btn btn-mini" ng-click="uncheckAll()"><i class="icon-remove"></i> Uncheck all</button>
+    </li>
+    <li class="multiselect-list" ng-repeat="i in items | filter:searchText">
+      <a ng-click="select(i); focus()">
+        <i ng-class="{'icon-ok': i.checked, 'icon-empty': !i.checked}"></i>{{i.label}}</a>
+    </li>
+  </ul>
+</div>
