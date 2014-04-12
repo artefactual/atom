@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($cookies, $http, $q, SETTINGS) {
+module.exports = function ($http, $q, SETTINGS) {
   var authenticationUrl = SETTINGS.frontendPath + 'api/users/authenticate',
       self = this;
 
