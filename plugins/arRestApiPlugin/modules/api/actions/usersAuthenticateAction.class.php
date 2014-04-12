@@ -51,8 +51,8 @@ class ApiUsersAuthenticateAction extends QubitApiAction
   protected function currentUserData()
   {
     return array(
-      'username' => $this->context->user->getUserName(),
-      'email'    => $this->context->user->getQubitUser()->email
+      'username' => $this->context->user->user->username,
+      'email'    => $this->context->user->user->email
     );
   }
 }
