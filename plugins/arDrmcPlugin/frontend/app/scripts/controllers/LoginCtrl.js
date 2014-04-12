@@ -4,9 +4,9 @@ module.exports = function ($scope, $window, AuthenticationService, $state) {
 
   $scope.form = {};
 
-  $scope.notifyOfError = function ($error) {
+  function notifyOfError ($error) {
     $window.alert($error);
-  };
+  }
 
   $scope.submit = function () {
     if ($scope.form.username && $scope.form.password) {
@@ -15,10 +15,10 @@ module.exports = function ($scope, $window, AuthenticationService, $state) {
         $state.go('dashboard');
       })
       .error(function () {
-        $scope.notifyOfError('Incorrect username or password.');
+        notifyOfError('Incorrect username or password.');
       });
     } else {
-      $scope.notifyOfError('Please enter both a username and a password.');
+      notifyOfError('Please enter both a username and a password.');
     }
   };
 };
