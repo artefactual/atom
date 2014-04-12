@@ -1,16 +1,14 @@
 'use strict';
 
-module.exports = function ($scope, AuthenticationService, $state) {
+module.exports = function ($scope, $window, AuthenticationService, $state) {
 
   $scope.form = {};
 
   $scope.notifyOfError = function ($error) {
-    window.alert($error);
+    $window.alert($error);
   };
 
   $scope.submit = function () {
-    console.log('UN:' + $scope.form.username);
-    console.log('PW:' + $scope.form.password);
     if ($scope.form.username && $scope.form.password) {
       AuthenticationService.authenticate($scope.form.username,  $scope.form.password)
       .success(function () {
