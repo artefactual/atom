@@ -4,6 +4,10 @@ module.exports = function ($cookies, $http, $q, SETTINGS) {
   var authenticationUrl = SETTINGS.frontendPath + 'api/users/authenticate',
       self = this;
 
+  function setUserData (user) {
+    self.user = user;
+  }
+
   this.authenticate = function (username, password) {
     return $http({
       method: 'POST',
@@ -13,16 +17,15 @@ module.exports = function ($cookies, $http, $q, SETTINGS) {
         password: password
       }
     })
-    .success(function (user) {
-      self.user = user;
-    });
+    .success(setUserData);
   };
 
   this.isAuthenticated = function () {
     return $http({
       method: 'GET',
       url: authenticationUrl
-    });
+    })
+    .success(setUserData);
   };
 
   this.logOut = function () {

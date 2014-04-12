@@ -25,6 +25,7 @@ class ApiUsersAuthenticateAction extends QubitApiAction
     {
       throw new QubitApiNotAuthorizedException();
     }
+    return $this->currentUserData();
   }
 
   protected function post($request, $payload)
@@ -36,10 +37,7 @@ class ApiUsersAuthenticateAction extends QubitApiAction
 
     if ($this->context->user->authenticate($payload->username, $payload->password))
     {
-      return array(
-        'username' => $this->context->user->getUserName(),
-        'email'    => $this->context->user->getQubitUser()->email
-      );
+      return $this->currentUserData();
     } else {
       throw new QubitApiNotAuthorizedException();
     }
@@ -48,5 +46,13 @@ class ApiUsersAuthenticateAction extends QubitApiAction
   protected function delete($request)
   {
     $this->context->user->signOut();
+  }
+
+  protected function currentUserData()
+  {
+    return array(
+      'username' => $this->context->user->getUserName(),
+      'email'    => $this->context->user->getQubitUser()->email
+    );
   }
 }
