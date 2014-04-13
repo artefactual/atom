@@ -32,4 +32,54 @@ information_object:
       Method:  setCollectionTypeId
       Parameters: [QubitTerm::PUBLISHED_MATERIAL_ID]
 
+    sourceStandard:
+      XPath: "." # not really a match, just use self
+      Method: setSourceStandard
+      Parameters: ["'http://www.loc.gov/standards/mods/v3/mods-3-5.xsd'"]
+
+    publicationStatus:
+      XPath: "." # not really a match, just use self
+      Method: setStatus
+      Parameters: ["array('typeId' => QubitTerm::STATUS_TYPE_PUBLICATION_ID, 'statusId' => sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID))"]
+
+
     # each of the following XPath expressions are relative to the current matched node:
+
+    title:
+      XPath: "titleInfo/title"
+      Method: setTitle
+
+    dates:
+      XPath: "originInfo/dateCreated"
+      Method: setDates
+      Parameters: [$nodeValue, "$options = array('date_type' => 'creation')"]
+
+    controlaccess_subject:
+      XPath: "subject"
+      Method: setTermRelationByName
+      Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue)"]
+
+    identifier:
+      XPath: "identifier"
+      Method: setIdentifier
+
+    # langmaterial:
+      # XPath: "language"
+      # Method:
+
+    repository:
+      XPath: "(location/physicalLocation)[2]"
+      Method: setRepositoryByName
+
+    creator:
+      XPath: "name/namePart"
+      Method: setActorByName
+      Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID)"]
+
+    accessrestrict:
+      XPath: "accessCondition"
+      Method: setAccessConditions
+
+    digital_object:
+      XPath: "(location/url)[1]"
+      Method: importDigitalObjectFromUri
