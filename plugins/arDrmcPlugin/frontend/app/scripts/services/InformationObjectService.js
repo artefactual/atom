@@ -123,6 +123,28 @@ module.exports = function ($http, $q, SETTINGS) {
       url: SETTINGS.frontendPath + 'api/informationobjects/technologyrecords',
       params: params
     });
+
+  this.getSupportingTechnologyRecordsOf = function (id) {
+    // Mocked version
+    var deferred = $q.defer();
+    setTimeout(function () {
+      deferred.resolve([
+        {
+          id: 1,
+          object_id: id,
+          name: 'Windows 7',
+          type_id: 1
+        },
+        {
+          id: 2,
+          object_id: id,
+          name: 'Windows 8',
+          description: 'Good bye start menu',
+          type_id: 2
+        }
+      ]);
+    }, 250);
+    return deferred.promise;
   };
 
   this.getFiles = function (params) {

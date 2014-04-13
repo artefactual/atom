@@ -6,6 +6,7 @@ module.exports = function ($modal, SETTINGS) {
       templateUrl: SETTINGS.viewsPath + '/modals/link-supporting-technology.html',
       backdrop: 'static',
       controller: 'LinkSupportingTechnologyCtrl',
+      windowClass: 'modal-large',
       resolve: {
         id: function () {
           return id;

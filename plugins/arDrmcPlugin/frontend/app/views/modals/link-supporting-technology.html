@@ -2,49 +2,64 @@
 
   <div class="modal-header">
     <button type="button" ng-click="cancel()" class="close">×</button>
-    <h2>Supporting Technology Relationships</h2>
+    <h2 class="multiline">
+      Supporting technology relationships
+      <span class="sub">{{ title }}</span>
+    </h2>
   </div>
 
-  <div class="modal-body">
+  <form name="modalContainer.form" ng-submit="submit()" novalidate>
+    <div class="modal-body">
 
-    <section>
-      <ar-multiselect multiple="true" ng-model="resource.data" uncheck-all="uncheckAll()" options="c.name for c in resource.data" change="selected()" >
-      </ar-multiselect>
-    </section>
+      <section>
+        <label>Search for related supporting technologies</label>
+        <input type="text" ng-model="modalContainer.search" placeholder="Insert your search here..." typeahead="match.title as match.title for match in searchSupportingTechnology($viewValue)" typeahead-on-select="onSelectSupportingTechnology($item)"></select>
+      </section>
 
-    <div class="modal-section-half">
-      <h3>Current Selections: {{ selectedData.length }} </h3>
-      <button class="btn btn-mini" ng-click="uncheckAll()"><i class="icon-remove"></i>Remove All</button>
-      <div>
-        <ul class="nav">
-          <li ng-repeat="(id, item) in selectedData track by $index | filter:item.selectedData">
-            <a href><i class="icon-remove"></i>{{ item.name }}</a>
-          </li>
-        </ul>
+      <section>
+        <label>Current selections</label>
+        <table class="table table-bordered table-condensed" ng-if="relationships.length > 0">
+          <thead>
+            <th>Name</th>
+            <th>Relation type</th>
+            <th>Relation description</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in relationships">
+              <td>{{ item.name }}</td>
+              <td ng-if="item.$editing == undefined || !item.$editing">{{ getRelationName(item.type_id) }}</td>
+              <td ng-if="item.$editing"><select ng-model="item.type_id" ng-options="type.id as type.name for type in dcRelationTypes"></select></td>
+              <td ng-if="item.$editing == undefined || !item.$editing">{{ item.description }}</td>
+              <td ng-if="item.$editing"><input type="text" ng-model="item.description"/></td>
+              <td>
+                <a href ng-click="item.$editing = true" ng-if="item.$editing == undefined || !item.$editing">Edit</a>
+                <a href ng-click="item.$editing = false" ng-if="item.$editing">Ok</a>
+                | <a href ng-click="delete($index)">Delete</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="alert" ng-if="relationships.length == 0">You haven't selected any supporting technology record yet!</div>
+      </section>
+
+      <section>
+        <label ng-non-bindable>Debugging {{ relationships }}</label>
+        <pre>
+{{ relationships | json }}
+        </pre>
+      </section>
+
       </div>
+
     </div>
 
-    <div class="modal-section-half">
-      <h3>Define Relationship</h3>
-
-      <div>
-        <label>Relationship type</label>
-        <select>
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
-          <option>Option 4</option>
-        </select>
-
-        <label>Descriptive note</label>
-        <textarea rows="3"></textarea>
-      </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary">Save</button>
+      <button class="btn" ng-click="deleteAll()" ng-if="relationships.length > 1">Remove all the relationships</button>
+      <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
     </div>
-  </div>
 
-  <div class="modal-footer">
-    <button class="btn btn-save" ng-click="reclassify()"><span class="btn-save"></span>Save</button>
-    <button class="btn btn-cancel" ng-click="cancel()"><span class="btn-cancel"></span>Cancel</button>
-  </div>
+  </form>
 
 </div>

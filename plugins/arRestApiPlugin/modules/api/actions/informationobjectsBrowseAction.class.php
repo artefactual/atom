@@ -90,6 +90,7 @@ class ApiInformationObjectsBrowseAction extends QubitApiAction
     {
       $doc = $hit->getData();
       $results[$hit->getId()] = $hit->getFields();
+      $results[$hit->getId()]['id'] = (int)$hit->getId();
       $results[$hit->getId()]['title'] = get_search_i18n($doc, 'title');
     }
 
