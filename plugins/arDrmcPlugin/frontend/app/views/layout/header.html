@@ -40,23 +40,26 @@
   <nav>
 
     <div id="user-menu">
-      <a class="top-item top-dropdown" data-toggle="dropdown" data-target="#">@{{ user.username }}</a>
-      <div class="top-dropdown-container">
-        <div class="top-dropdown-arrow">
-          <div class="arrow"></div>
+      <div ng-show="user">
+        <a class="top-item top-dropdown" data-toggle="dropdown" data-target="#">@{{ user.username }}</a>
+        <div class="top-dropdown-container">
+          <div class="top-dropdown-arrow">
+            <div class="arrow"></div>
+          </div>
+          <div class="top-dropdown-header">
+            <img ng-src="{{ user.gravatar }}"/>
+            &nbsp;Hi, {{ user.username }}!
+          </div>
+          <div class="top-dropdown-body">
+            <ul>
+              <li><a href>Profile (WIP)</a></li>
+              <li><a ng-click="logOut()">Log out</a></li>
+            </ul>
+          </div>
+          <div class="top-dropdown-bottom"></div>
         </div>
-        <div class="top-dropdown-header">
-          <img ng-src="{{ user.gravatar }}"/>
-          &nbsp;Hi, {{ user.name }}!
-        </div>
-        <div class="top-dropdown-body">
-          <ul>
-            <li><a href>Profile (WIP)</a></li>
-            <li><a href>Log out (WIP)</a></li>
-          </ul>
-        </div>
-        <div class="top-dropdown-bottom"></div>
       </div>
+      <a ng-hide="user" ui-sref="login">Log in</a>
     </div>
 
     <div id="manage-menu" data-toggle="tooltip" data-title="Manage">
