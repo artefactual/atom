@@ -109,8 +109,8 @@ class sfModsPlugin implements ArrayAccess
 
         if (isset($this->resource->repository))
         {
-          $list[] = $resource->repository->identifier;
-          $list[] = $resource->repository;
+          $list[] = $this->resource->repository->identifier;
+          $list[] = $this->resource->repository;
 
           if (null !== $contact = $this->resource->repository->getPrimaryContact())
           {
