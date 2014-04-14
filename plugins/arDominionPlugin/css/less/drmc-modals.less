@@ -32,6 +32,7 @@
     border-bottom: 1px solid @grayLighter;
     background-color: @white;
     background-image: none;
+
     .close {
       font-size: 30px;
       padding-top: 5px;
@@ -58,6 +59,7 @@
 
   padding: 0;
   margin: 0;
+  overflow-x: auto;
 
   display: -webkit-box;
   display: -moz-box;
@@ -66,7 +68,6 @@
   display: flex;
 
   -webkit-flex-flow: row nowrap;
-  justify-content: center;
 
   width: 100%;
   height: 100%;
@@ -87,8 +88,9 @@
 
   .fs-modal-body {
     order: 1;
-    flex: 75%;
+    flex: 2 0 auto;
     color: @white;
+    min-width: 460px;
 
     .fs-modal-body-header {
       display: -webkit-flex;
@@ -137,8 +139,8 @@
 
   .fs-modal-sidebar {
     order: 2;
-    flex: 25%;
-    overflow: scroll;
+    flex: 0 auto;
+    overflow: auto;
     background: @fsModalLighter;
 
     .content {
@@ -157,16 +159,7 @@
 
 .fs-modal-wrapper {
 
-   // General icon styles
-  a {
-    .fa-icon-set(@white);
-    width: 40px;
-    height: 26px;
-    padding: 12px;
-    font-size: 20px;
-  }
-
-  // Top-right 'hard close' btn
+  // modal close
   a#fs-modal-exit {
     top: 0;
     position: absolute;
@@ -177,93 +170,163 @@
     margin-right: -12px;
   }
 
-  // Sidebar close one
-  .fs-modal-sidebar a.sidex {
-    color: @black;
-    position: absolute;
-    right: 0;
-    display: block;
-    width: 20px;
-    height: 20px;
-    padding: 0;
-    margin: 0;
+  // icon styles
+  a {
+    .fa-icon-set(@white);
+    width: 40px;
+    height: 26px;
+    padding: 12px;
+    font-size: 20px;
   }
 
-  .quick-info {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: stretch;
-    height: 65px;
-    .clearfix();
+  .fs-modal-sidebar {
+    min-width: 208px;
 
-    span.picture {
-    .fa-icon-set (@grayDark);
-    font-size: 14px;
+    // Sidebar close one
+    a.sidex {
+      color: @momaGray;
+      position: relative;
+      float: right;
+      display: block;
+      width: 20px;
+      height: 20px;
+      padding: 0;
+      margin-right: -3px;
+    }
 
-      &:before {
-        content: "\f03e";
-        padding-right: 4px;
+    .quick-info {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      height: 65px;
+      margin-top: 8px;
+      .clearfix();
+
+      span.picture {
+      .fa-icon-set (@grayDark);
+      font-size: 14px;
+
+        &:before {
+          content: "\f03e";
+          padding-right: 4px;
+        }
+      }
+
+      .quick-info-thumb {
+        min-width: 25%;
+        margin: auto;
+        padding: 4px;
+        img {
+          max-height: 56px;
+        }
+      }
+
+      .quick-info-title {
+        width: 70%;
+        margin: auto;
+        .clearfix();
+
+        h4 {
+          line-height: 14px!important;
+        }
+
+        a {
+          width: auto;
+          height: auto;
+          color: @orange;
+          font-size: 8px;
+          padding: 2px;
+          display: inline-block;
+          white-space: nowrap;
+          float: left;
+
+          &:before {
+            padding-right: 4px;
+            color: @gray;
+          }
+        }
       }
     }
-  }
 
-  .quick-info-thumb {
-    width: 25%;
-    margin: auto;
-    padding: 4px;
-    img {
-      max-height: 56px;
+    a.fs-modal-toggle {
+      .fa-icon-set (@grayDark);
+      font-size: 14px;
+      display: block;
+      float: right;
+      position: relative;
+      width: 10px;
+      height: 10px;
+      margin-top: -42px;
+
+      &:before {
+        content: "\f103";
+      }
+      &.active:before {
+        content: "\f102" !important;
+      }
+    }
+
+    h2 {
+      color: @momaGrayDark;
+    }
+  }
+}
+
+// Generic popup modal styles
+
+.modal-wrapper {
+
+  .modal-header {
+    height: 35px;
+
+    h2 {
+      line-height: .7;
     }
   }
 
-  .quick-info-title {
-    width: 70%;
-    margin: auto;
-    .clearfix();
+  .modal-body {
+    max-height: 500px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+
+    section {
+      overflow: hidden;
+      min-height: 300px;
+      width: 100%;
+      margin: 12px auto 5px auto;
+    }
+  }
+
+  .modal-section-half {
+    width: 48%;
+    min-height: 150px;
+    border-radius: 4px;
 
     h3 {
-      line-height: 14px!important;
+      font-size: 15px;
+      margin-bottom: 8px;
+      }
+
+    > div {
+      padding-left: 6px;
+      width: 95%;
     }
 
-    a {
-      width: auto;
-      height: auto;
-      color: @orange;
-      font-size: 11px;
-      padding: 2px;
-      display: block;
-      word-wrap: normal;
+    // First modal half
+    &:nth-of-type(1) {
+      padding: 8px 0 8px 8px;
+      border: 1px solid @grayLighter;
 
-      &:before {
-        padding-right: 4px;
-        color: @gray;
-      }
-      &:first-child {
-        left: 0;
-        float: left;
-      }
-      &:last-child {
-        right: 0;
-        float: right;
+      ul > li > a {
+        color: @black !important;
       }
     }
-  }
 
-  a.fs-modal-toggle {
-    .fa-icon-set (@grayDark);
-    font-size: 14px;
-    display: block;
-    float: right;
-    position: relative;
-    width: 10px;
-    height: 10px;
-    margin-top: -42px;
-
-    &:before {
-      content: "\f103";
-    }
-    &.active:before {
-      content: "\f102" !important;
+    // Second modal half
+    &:nth-of-type(2) {
+      margin-left: .5%;
+      padding: 8px 0 8px 8px;
     }
   }
 }
