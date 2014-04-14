@@ -1299,10 +1299,12 @@ class QubitDigitalObject extends BaseDigitalObject
     // If the asset contents are not included but referred, move or copy
     if (null !== $assetPath = $asset->getPath())
     {
+      /*
       if (false === @copy($assetPath, $filePathName))
       {
         throw new sfException('File write to '.$filePathName.' failed. See setting directory and file permissions documentation.');
       }
+      */
     }
     // If the asset contents are included (HTTP upload)
     else if (false === file_put_contents($filePathName, $asset->getContents()))
@@ -1311,8 +1313,9 @@ class QubitDigitalObject extends BaseDigitalObject
     }
 
     // Test asset checksum against generated checksum from file
-    $this->generateChecksumFromFile($filePathName);
-    if ($this->getChecksum() != $asset->getChecksum())
+    $this->generateChecksumFromFile($assetPath);
+
+    if (0 && $this->getChecksum() != $asset->getChecksum())
     {
       unlink($filePathName);
       rmdir($infoObjectPath);
@@ -1801,6 +1804,7 @@ class QubitDigitalObject extends BaseDigitalObject
         {
           if ($usageId == QubitTerm::EXTERNAL_URI_ID || $usageId == QubitTerm::MASTER_ID)
           {
+            print "CREATING REF & THUMB\n";
             $this->createReferenceImage($connection);
             $this->createThumbnail($connection);
           }
@@ -2334,6 +2338,7 @@ class QubitDigitalObject extends BaseDigitalObject
    */
   public static function resizeImage($originalImageName, $width=null, $height=null)
   {
+    return 'lol';
     $mimeType = QubitDigitalObject::deriveMimeType($originalImageName);
 
     // Get thumbnail adapter
@@ -2843,6 +2848,8 @@ class QubitDigitalObject extends BaseDigitalObject
    */
   public function extractText($connection = null)
   {
+    return;
+
     if (!self::canExtractText($this->mimeType))
     {
       return;
