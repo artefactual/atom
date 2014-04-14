@@ -67,20 +67,23 @@ class ApiInformationObjectsFilesAction extends QubitApiAction
     {
       $doc = $hit->getData();
 
-      $item = array(
-        'id' => $hit->getId(),
-        'slug' => $doc['slug'],
-        'mediaTypeId' => $doc['digitalObject']['mediaTypeId'],
-        'mimeType' => $doc['digitalObject']['mimeType'],
-        'byteSize' => $doc['digitalObject']['byteSize'],
-        'thumbnailPath' => image_path($doc['digitalObject']['thumbnailPath'], true),
-        'filename' => get_search_i18n($doc, 'title')
-      );
+      $item = array();
 
-      if ($doc['originalRelativePathWithinAip'])
-      {
-        $item['originalRelativePathWithinAip'] = $doc['originalRelativePathWithinAip'];
-      }
+      $item['id'] = (int)$hit->getId();
+
+      // TODO: change keys notation from camelCase to camel_case
+
+      $this->addItemToArray($item, 'slug', $doc['slug']);
+      $this->addItemToArray($item, 'filename', get_search_i18n($doc, 'title'));
+      $this->addItemToArray($item, 'originalRelativePathWithinAip', $doc['originalRelativePathWithinAip']);
+      $this->addItemToArray($item, 'mediaTypeId', $doc['digitalObject']['mediaTypeId']);
+      $this->addItemToArray($item, 'mimeType', $doc['digitalObject']['mimeType']);
+      $this->addItemToArray($item, 'byteSize', $doc['digitalObject']['byteSize']);
+      $this->addItemToArray($item, 'thumbnailPath', image_path($doc['digitalObject']['thumbnailPath'], true));
+
+      // Why "aip" is a list in the ES document?
+      $this->addItemToArray($item, 'aip_uuid', $doc['aip'][0]['uuid']);
+      $this->addItemToArray($item, 'aip_title', $doc['aip'][0]['filename']);
 
       $data[] = $item;
     }
