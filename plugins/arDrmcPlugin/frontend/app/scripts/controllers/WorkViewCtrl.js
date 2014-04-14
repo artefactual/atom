@@ -1,7 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationObjectService, ModalDigitalObjectViewerService) {
-
+module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationObjectService, ModalDigitalObjectViewerService, ModalDownloadService) {
   // TODO: Use https://github.com/angular-ui/ui-router/wiki#resolve
   InformationObjectService.getArtworkRecordWithTms($stateParams.id).then(function (data) {
     $scope.work = data;
@@ -33,5 +32,13 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
     InformationObjectService.getAips($stateParams.id).then(function (data) {
       $scope.aggregation = data.overview;
     });
+  };
+
+  $scope.downloadFile = function (file) {
+    ModalDownloadService.downloadFile(file.aip_name, file.aip_uuid, file.originalRelativePathWithinAip);
+  };
+
+  $scope.downloadAip = function (file) {
+    ModalDownloadService.downloadAip(file.aip_name, file.aip_uuid);
   };
 };
