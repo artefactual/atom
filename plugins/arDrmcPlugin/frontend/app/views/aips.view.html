@@ -49,11 +49,11 @@
               <h3>Number of objects</h3>
               <div>{{ aip.digital_object_count }}</div>
             </div>
-            <div class="field" ng-show="aip.partof">
-              <h3>Part of</h3>
-              <div><a ui-sref="aips.view({ id: aip.partof.uuid })">{{ aip.partof.name }}</a></div>
-            </div>
             <div class="field">
+              <h3>Part of</h3>
+              <div><a ui-sref="works.view({ id: aip.part_of.id })">{{ aip.part_of.title }}</a></div>
+            </div>
+            <div class="field" ng-if="aip.description != undefined">
               <h3>Description</h3>
               <div>{{ aip.description }}</div>
             </div>
