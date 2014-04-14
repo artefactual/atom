@@ -1124,6 +1124,11 @@ file_put_contents('/tmp/mike.txt', $sql ."\n", file_append);
               $event['linkingAgentIdentifier'][] = $linkingAgentIdentifier;
             }
 
+            if (isset($event['type']) && isset($event['dateTime']) && $event['type'] == 'ingestion')
+            {
+              $metsData['dateIngested'] = $event['dateTime'];
+            }
+
             $metsData['event'][] = $event;
           }
 
@@ -1301,7 +1306,7 @@ file_put_contents('/tmp/mike.txt', $sql ."\n", file_append);
     foreach ($this->getAips() as $item)
     {
       $node = new arElasticSearchAipPdo($item->id);
-      $serialized['aip'][] = $node->serialize();
+      $serialized['aips'][] = $node->serialize();
     }
 
     // METS data
@@ -1314,6 +1319,11 @@ file_put_contents('/tmp/mike.txt', $sql ."\n", file_append);
     if (null !== $collectionDate = $this->getProperty('Dated'))
     {
       $serialized['tmsObject']['collectionDate'] = $collectionDate;
+    }
+
+    if (null !== $dateCollected = $this->getProperty('AccessionISODate'))
+    {
+      $serialized['tmsObject']['dateCollected'] = arElasticSearchPluginUtil::convertDate($dateCollected);
     }
 
     if (null !== $accessionNumber = $this->getProperty('ObjectNumber'))
@@ -1377,7 +1387,17 @@ file_put_contents('/tmp/mike.txt', $sql ."\n", file_append);
     foreach ($this->getDirectlyRelatedTerms(sfConfig::get('app_drmc_taxonomy_component_types_id')) as $item)
     {
       $node = new arElasticSearchTermPdo($item->id);
-      $serialized['tmsComponent']['componentType'][] = $node->serialize();
+      $serialized['tmsComponent']['type'][] = $node->serialize();
+    }
+
+    // TMS child components
+    if (null !== $childComponents = $this->getProperty('childComponents'))
+    {
+      foreach (unserialize($childComponents) as $item)
+      {
+        $node = new arElasticSearchInformationObjectPdo($item);
+        $serialized['tmsChildComponents'][] = $node->serialize();
+      }
     }
 
     // Timestamps

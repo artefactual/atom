@@ -10,6 +10,29 @@ module.exports = function ($http, SETTINGS, AIPService, InformationObjectService
     this.query = q;
   };
 
+  this.searches = [
+    {
+      name: 'AIPs',
+      entity: 'aips'
+    },
+    {
+      name: 'Artwork records',
+      entity: 'works'
+    },
+    {
+      name: 'Components',
+      entity: 'components'
+    },
+    {
+      name: 'Supporting technology records',
+      entity: 'technology-records'
+    },
+    {
+      name: 'Files',
+      entity: 'files'
+    }
+  ];
+
   this.autocomplete = function (query, params) {
     params = params || {};
     params.query = query;
@@ -24,17 +47,19 @@ module.exports = function ($http, SETTINGS, AIPService, InformationObjectService
     return $http(configuration);
   };
 
-  this.search = function (query, entity) {
+  this.search = function (entity, params) {
     // WIP This is going to need some work
     switch (entity) {
       case 'aips':
-        return AIPService.getAIPs({
-          query: query
-        });
-      case 'artworks':
-        return InformationObjectService.getWorks(query);
+        return AIPService.getAIPs(params);
+      case 'works':
+        return InformationObjectService.getWorks(params);
       case 'components':
-        return InformationObjectService.getComponents(query);
+        return InformationObjectService.getComponents(params);
+      case 'technology-records':
+        return InformationObjectService.getSupportingTechnologyRecords(params);
+      case 'files':
+        return InformationObjectService.getFiles(params);
     }
   };
 };

@@ -112,35 +112,39 @@ module.exports = function ($http, $q, SETTINGS) {
     });
   };
 
-  this.getSupportingTechnologyRecords = function (params) {
-    params = params || {};
-    params.level_id = SETTINGS.drmc.lod_supporting_technology_record_id;
-    return this.get(params);
-  };
-
   this.getSupportingTechnologyRecord = function (id) {
     var params = { level_id: SETTINGS.drmc.lod_supporting_technology_record_id };
     return this.getById(id, params);
   };
 
-  /* Radda to point this to /api/informationobjects/works */
-  this.getWorks = function (params) {
-    params = params || {};
-    params.level_id = SETTINGS.drmc.lod_artwork_record_id;
-    return this.get(params);
-  };
-
-  /* Radda to point this to /api/informationobjects/components */
-  this.getComponents = function (params) {
-    params = params || {};
-    params.type = 'components';
-    return this.getTmsBrowse(params);
-  };
-
-  this.getTmsBrowse = function (params) {
+  this.getSupportingTechnologyRecords = function (params) {
     return $http({
       method: 'GET',
-      url: SETTINGS.frontendPath + 'api/informationobjects/tms',
+      url: SETTINGS.frontendPath + 'api/informationobjects/technologyrecords',
+      params: params
+    });
+  };
+
+  this.getFiles = function (params) {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/informationobjects/files',
+      params: params
+    });
+  };
+
+  this.getWorks = function (params) {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/informationobjects/works',
+      params: params
+    });
+  };
+
+  this.getComponents = function (params) {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/informationobjects/components',
       params: params
     });
   };

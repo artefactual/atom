@@ -70,6 +70,7 @@ mapping:
     properties:
       filename: { type: string, index: not_analyzed, include_in_all: false }
       last_modified: { type: date, index: not_analyzed, include_in_all: false }
+      date_ingested: { type: date, index: not_analyzed, include_in_all: false }
       size: { type: long, index: not_analyzed, include_in_all: false }
       mime_type: { type: string, index: not_analyzed, include_in_all: false }
       exiftool_raw_output: { type: string, index: not_analyzed, include_in_all: false }
@@ -138,12 +139,13 @@ mapping:
       accession_number: { type: string, index: not_analyzed, include_in_all: false }
       full_image: { type: string, index: not_analyzed, include_in_all: false }
       thumbnail: { type: string, index: not_analyzed, include_in_all: false }
+      date_collected: { type: date, index: not_analyzed, include_in_all: false }
 
   tms_component:
     _attributes:
       nested_only: true
     _foreign_types:
-      component_type: term
+      type: term
       install_comments: note
       prep_comments: note
       storage_comments: note
@@ -164,7 +166,8 @@ mapping:
         dynamic: strict
     _foreign_types:
       type: term
-    dynamic: strict
+      digital_objects: information_object
+    dynamic: true
     properties:
       uuid: { type: string, index: not_analyzed, include_in_all: false }
       filename:
@@ -183,13 +186,6 @@ mapping:
       size_on_disk: { type: long, index: not_analyzed, include_in_all: false }
       digital_object_count: { type: integer, index: not_analyzed, include_in_all: false }
       created_at: { type: date, index: not_analyzed, include_in_all: false }
-      digital_objects:
-        type: object
-        properties:
-          name: { type: string, index: not_analyzed, include_in_all: false }
-          size: { type: long, index: not_analyzed, include_in_all: false }
-          mime_type: { type: string, index: not_analyzed, include_in_all: false }
-          last_modified: { type: date, index: not_analyzed, include_in_all: false }
 
   term:
     _attributes:
@@ -250,11 +246,12 @@ mapping:
       subjects: term
       places: term
       dates: event
-      aip: aip
+      aips: aip
       mets_data: mets_data
       tms_object: tms_object
       tms_component: tms_component
-    dynamic: strict
+      tms_child_components: information_object
+    dynamic: true
     properties:
       slug: { type: string, index: not_analyzed }
       identifier: { type: string, index: not_analyzed }

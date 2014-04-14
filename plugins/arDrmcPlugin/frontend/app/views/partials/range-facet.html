@@ -1,0 +1,23 @@
+<section ng-class="{ facet: true, open: !collapsed }">
+
+  <a href ng-click="toggle()">
+    <div class="facet-header">
+      <p>{{ label }}</p>
+    </div>
+  </a>
+
+  <div class="facet-body">
+    <ul>
+      <li ng-class="{ active: isSelected() }">
+        <a href ng-click="select()">All</a>
+      </li>
+      <li ng-repeat="range in facet.ranges | orderBy:'count':true" ng-if="range.count > 0" ng-class="{ active: isSelected(range.from, range.to) }">
+        <a href ng-click="select(range.from, range.to)">
+          {{ getLabel(range.from, range.to) }}
+          <span class="facet-count">{{ range.count }}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</section>

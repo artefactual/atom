@@ -102,34 +102,17 @@ class arElasticSearchAipPdo
   protected function getDigitalObjects()
   {
     $sql  = 'SELECT
-                do.name,
-                do.byte_size,
-                do.mime_type,
-                obj.updated_at';
-    $sql .= ' FROM '.QubitDigitalObject::TABLE_NAME.' do';
-    $sql .= ' JOIN '.QubitRelation::TABLE_NAME.' relation
-                ON do.information_object_id = relation.object_id';
-    $sql .= ' JOIN '.QubitObject::TABLE_NAME.' obj
-                ON do.id = obj.id';
-    $sql .= ' WHERE relation.subject_id = ?
-                AND relation.type_id = ?';
+                prop.object_id';
+    $sql .= ' FROM '.QubitProperty::TABLE_NAME.' prop';
+    $sql .= ' JOIN '.QubitPropertyI18n::TABLE_NAME.' prop_i18n
+                ON prop.id = prop_i18n.id';
+    $sql .= ' WHERE prop_i18n.value = ?
+                AND prop.name = ?';
 
     self::$statements['do'] = self::$conn->prepare($sql);
-    self::$statements['do']->execute(array($this->id, QubitTerm::AIP_RELATION_ID));
+    self::$statements['do']->execute(array($this->uuid, 'aipUUID'));
 
-    $digitalObjects = array();
-    foreach (self::$statements['do']->fetchAll(PDO::FETCH_OBJ) as $item)
-    {
-      $do = array();
-      $do['name'] = $item->name;
-      $do['size'] = $item->byte_size;
-      $do['mimeType'] = $item->mime_type;
-      $do['lastModified'] = arElasticSearchPluginUtil::convertDate($item->updated_at);
-
-      $digitalObjects[] = $do;
-    }
-
-    return $digitalObjects;
+    return self::$statements['do']->fetchAll(PDO::FETCH_OBJ);
   }
 
   public function serialize()
@@ -155,14 +138,10 @@ class arElasticSearchAipPdo
       $serialized['partOf']['i18n'] = arElasticSearchModelBase::serializeI18ns($this->part_of, array('QubitInformationObject'), array('fields' => array('title')));
     }
 
-    if (0 < count($digitalObjects = $this->getDigitalObjects()))
+    foreach ($this->getDigitalObjects() as $item)
     {
-      $serialized['digitalObjects'] = $digitalObjects;
-    }
-
-    if (0 < count($digitalObjects = $this->getDigitalObjects()))
-    {
-      $serialized['digitalObjects'] = $digitalObjects;
+      $node = new arElasticSearchInformationObjectPdo($item->object_id);
+      $serialized['digitalObjects'][] = $node->serialize();
     }
 
     return $serialized;

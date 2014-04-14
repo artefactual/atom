@@ -8,7 +8,6 @@
 
     <section id="facets">
       <h3>Narrow your results by:</h3>
-      <ar-facet label="Classification" facet="data.facets.type" field="criteria.type"></ar-facet>
       <ar-range-facet type="size" label="Size" facet="data.facets.size" from="criteria.sizeFrom" to="criteria.sizeTo" callback="getSizeRangeLabel(arg1, arg2)"></ar-range-facet>
       <ar-range-facet type="date" label="Date ingested" facet="data.facets.dateIngested" from="criteria.ingestedFrom" to="criteria.ingestedTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
     </section>
@@ -19,17 +18,12 @@
 
     <div id="main-column">
 
-      <h1 class="multiline moma-title drmc-color-aip">
+      <h1 class="multiline moma-title drmc-color-description">
         Showing {{ data.total }} results
-        <span class="sub">AIPs search</span>
+        <span class="sub">Files search</span>
       </h1>
 
       <section class="header-options">
-
-        <span ng-if="criteria.type" class="search-filter">
-          {{ getTermLabel('type', criteria.type) }}
-          <a href ng-click="criteria.type = undefined"><i class="icon-remove"></i></a>
-        </span>
 
         <span ng-if="criteria.sizeFrom || criteria.sizeTo" class="search-filter">
           {{ getSizeRangeLabel(criteria.sizeFrom, criteria.sizeTo) }}
@@ -46,7 +40,7 @@
       <div class="content">
 
         <section class="row-fluid">
-          <ng-include src="viewsPath + '/partials/aips.list-stacked.html'"></ng-include>
+          <ng-include src="viewsPath + '/partials/files.list.html'"></ng-include>
         </section>
 
       </div>

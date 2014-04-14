@@ -1,6 +1,78 @@
 <!-- Uses SearchCtrl controller -->
 
-<h1 class="multiline">
-  Artwork records
-  <span class="sub">{{ query }}</span>
-</h1>
+<ng-include src="viewsPath + '/partials/search-tabs.html'"></ng-include>
+
+<div class="row-fluid">
+
+  <div class="span3">
+
+    <section id="facets">
+      <h3>Narrow your results by:</h3>
+      <ar-facet label="Classification" facet="data.facets.classification" field="criteria.classification"></ar-facet>
+      <ar-facet label="Department" facet="data.facets.department" field="criteria.department"></ar-facet>
+      <ar-range-facet type="date" label="Date collected" facet="data.facets.dateCollected" from="criteria.collectedFrom" to="criteria.collectedTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
+      <ar-range-facet type="date" label="Date created" facet="data.facets.dateCreated" from="criteria.createdFrom" to="criteria.createdTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
+      <ar-range-facet type="date" label="Date materials ingested" facet="data.facets.dateIngested" from="criteria.ingestedFrom" to="criteria.ingestedTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
+      <ar-range-facet type="size" label="Materials total size" facet="data.facets.totalSize" from="criteria.totalSizeFrom" to="criteria.totalSizeTo" callback="getSizeRangeLabel(arg1, arg2)"></ar-range-facet>
+    </section>
+
+  </div>
+
+  <div class="span9">
+
+    <div id="main-column">
+
+      <h1 class="multiline moma-title drmc-color-artwork-record">
+        Showing {{ data.total }} results
+        <span class="sub">Artwork records search</span>
+      </h1>
+
+      <section class="header-options">
+
+        <span ng-if="criteria.classification" class="search-filter">
+          {{ getTermLabel('classification', criteria.classification) }}
+          <a href ng-click="criteria.classification = undefined"><i class="icon-remove"></i></a>
+        </span>
+
+        <span ng-if="criteria.department" class="search-filter">
+          {{ getTermLabel('department', criteria.department) }}
+          <a href ng-click="criteria.department = undefined"><i class="icon-remove"></i></a>
+        </span>
+
+        <span ng-if="criteria.collectedFrom || criteria.collectedTo" class="search-filter">
+          {{ getDateRangeLabel('dateCollected', criteria.collectedFrom, criteria.collectedTo) }}
+          <a href ng-click="criteria.collectedFrom = undefined; criteria.collectedTo = undefined"><i class="icon-remove"></i></a>
+        </span>
+
+        <span ng-if="criteria.createdFrom || criteria.createdTo" class="search-filter">
+          {{ getDateRangeLabel('dateCreated', criteria.createdFrom, criteria.createdTo) }}
+          <a href ng-click="criteria.ingestedFrom = undefined; criteria.ingestedTo = undefined"><i class="icon-remove"></i></a>
+        </span>
+
+        <span ng-if="criteria.ingestedFrom || criteria.ingestedTo" class="search-filter">
+          {{ getDateRangeLabel('dateIngested', criteria.ingestedFrom, criteria.ingestedTo) }}
+          <a href ng-click="criteria.ingestedFrom = undefined; criteria.ingestedTo = undefined"><i class="icon-remove"></i></a>
+        </span>
+
+        <span ng-if="criteria.totalSizeFrom || criteria.totalSizeTo" class="search-filter">
+          {{ getSizeRangeLabel(criteria.totalSizeFrom, criteria.totalSizeTo) }}
+          <a href ng-click="criteria.totalSizeFrom = undefined; criteria.totalSizeTo = undefined"><i class="icon-remove"></i></a>
+        </span>
+
+      </section>
+
+      <div class="content">
+
+        <section class="row-fluid">
+          <ng-include src="viewsPath + '/partials/works.list.html'"></ng-include>
+        </section>
+
+      </div>
+
+      <ar-pager items-per-page="{{ criteria.limit }}" page="page"></ar-pager>
+
+    </div>
+
+  </div>
+
+</div>

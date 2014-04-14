@@ -51,9 +51,38 @@ class ApiAipsBrowseAction extends QubitApiAction
 
     // Filter selected facets
     $this->filterEsFacet('type', 'type.id', $queryBool);
+    $this->filterEsRangeFacet('sizeFrom', 'sizeTo', 'sizeOnDisk', $queryBool);
+    $this->filterEsRangeFacet('ingestedFrom', 'ingestedTo', 'createdAt', $queryBool);
 
     // Add facets to the query
     $this->facetEsQuery('Terms', 'type', 'type.id', $query);
+
+    $sizeRanges = array(
+      array('to' => 512000),
+      array('from' => 512000, 'to' => 1048576),
+      array('from' => 1048576, 'to' => 2097152),
+      array('from' => 2097152, 'to' => 5242880),
+      array('from' => 5242880, 'to' => 10485760),
+      array('from' => 10485760));
+
+    $this->facetEsQuery('Range', 'size', 'sizeOnDisk', $query, array('ranges' => $sizeRanges));
+
+    $now = new DateTime();
+    $now->setTime(0, 0);
+
+    $dateRanges = array(
+      array('to' => $now->modify('-1 year')->getTimestamp().'000'),
+      array('from' => $now->getTimestamp().'000'),
+      array('from' => $now->modify('+11 months')->getTimestamp().'000'),
+      array('from' => $now->modify('+1 month')->modify('-7 days')->getTimestamp().'000'));
+
+    $this->dateRangesLabels = array(
+      'Older than a year',
+      'From last year',
+      'From last month',
+      'From last week');
+
+    $this->facetEsQuery('Range', 'dateIngested', 'createdAt', $query, array('ranges' => $dateRanges));
 
     // Filter query
     if (isset($this->request->query) && 1 !== preg_match('/^[\s\t\r\n]*$/', $this->request->query))
@@ -88,13 +117,13 @@ class ApiAipsBrowseAction extends QubitApiAction
         $this->addItemToArray($aip['type'], 'name', get_search_i18n($doc['type'], 'name'));
       }
 
-      if (isset($doc['type']))
+      if (isset($doc['partOf']))
       {
         $this->addItemToArray($aip['part_of'], 'id', $doc['partOf']['id']);
         $this->addItemToArray($aip['part_of'], 'title', get_search_i18n($doc['partOf'], 'title'));
       }
 
-      $this->addItemToArray($aip, 'digital_object_count', $doc['filename']);
+      $this->addItemToArray($aip, 'digital_object_count', $doc['digitalObjectCount']);
 
       $data['results'][] = $aip;
     }
@@ -149,14 +178,19 @@ class ApiAipsBrowseAction extends QubitApiAction
     return $results;
   }
 
-  protected function getFacetLabel($name, $term)
+  protected function getFacetLabel($name, $id)
   {
     if ($name === 'type')
     {
-      if (null !== $item = QubitTerm::getById($term))
+      if (null !== $item = QubitTerm::getById($id))
       {
         return $item->getName(array('cultureFallback' => true));
       }
+    }
+
+    if ($name === 'dateIngested')
+    {
+      return $this->dateRangesLabels[$id];
     }
   }
 }

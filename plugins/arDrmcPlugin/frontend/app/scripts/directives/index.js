@@ -13,6 +13,7 @@
     .directive('arMultiselect', require('./MultiselectDirective'))
     .directive('arMultiselectPopup', require('./MultiselectPopupDirective'))
     .directive('arToggleSlide', require('./ToggleSlideDirective'))
-    .directive('arSearchBox', require('./SearchBoxDirective'));
+    .directive('arSearchBox', require('./SearchBoxDirective'))
+    .directive('arRangeFacet', require('./RangeFacetDirective'));
 
 })();

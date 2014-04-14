@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($rootScope, $document, $location, $state, $stateParams, SETTINGS, SearchService) {
+module.exports = function ($rootScope, $document, $location, $state, $stateParams, $sce, SETTINGS, SearchService) {
   return {
     restrict: 'E',
     templateUrl: SETTINGS.viewsPath + '/partials/search-box.html',
@@ -83,11 +83,44 @@ module.exports = function ($rootScope, $document, $location, $state, $stateParam
 
       // Perform a search
       var search = function (query) {
-        if (!angular.isDefined(query) || !query.length) {
+        if (!angular.isDefined(query) || query.length < 3) {
           return;
         }
         var options = { realm: scope.realm };
         SearchService.autocomplete(query, options).then(function (results) {
+          // Turn properties with <em> highlight to trusted html
+          // TODO: Is there a workaround? Five loops here seems to me like a
+          // terrible idea!
+          for (var key in results.data.aips) {
+            var aip = results.data.aips[key];
+            if (aip.hasOwnProperty('name')) {
+              aip.name = $sce.trustAsHtml(aip.name);
+            }
+          }
+          for (key in results.data.artworks) {
+            var artwork = results.data.artworks[key];
+            if (artwork.hasOwnProperty('title')) {
+              artwork.title = $sce.trustAsHtml(artwork.title);
+            }
+          }
+          for (key in results.data.components) {
+            var comp = results.data.components[key];
+            if (comp.hasOwnProperty('title')) {
+              comp.title = $sce.trustAsHtml(comp.title);
+            }
+          }
+          for (key in results.data.technology_records) {
+            var techRecord = results.data.technology_records[key];
+            if (techRecord.hasOwnProperty('title')) {
+              techRecord.title = $sce.trustAsHtml(techRecord.title);
+            }
+          }
+          for (key in results.data.files) {
+            var file = results.data.files[key];
+            if (file.hasOwnProperty('title')) {
+              file.title = $sce.trustAsHtml(file.title);
+            }
+          }
           scope.results = results.data;
         }, function () {
           delete scope.results;
