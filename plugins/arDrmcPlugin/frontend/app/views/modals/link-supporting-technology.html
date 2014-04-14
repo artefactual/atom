@@ -8,58 +8,46 @@
     </h2>
   </div>
 
-  <form name="modalContainer.form" ng-submit="submit()" novalidate>
-    <div class="modal-body">
+  <div class="modal-body">
 
-      <section>
-        <label>Search for related supporting technologies</label>
-        <input type="text" ng-model="modalContainer.search" placeholder="Insert your search here..." typeahead="match.title as match.title for match in searchSupportingTechnology($viewValue)" typeahead-on-select="onSelectSupportingTechnology($item)"></select>
-      </section>
+    <section class="form-item">
+      <label>Search for related supporting technologies</label>
+      <input type="text" ng-model="modalContainer.search" placeholder="Insert your search here..." typeahead="match.title as match.title for match in searchSupportingTechnology($viewValue)" typeahead-on-select="onSelectSupportingTechnology($item)"></select>
+    </section>
 
-      <section>
-        <label>Current selections</label>
-        <table class="table table-bordered table-condensed" ng-if="relationships.length > 0">
-          <thead>
-            <th>Name</th>
-            <th>Relation type</th>
-            <th>Relation description</th>
-            <th></th>
-          </thead>
-          <tbody>
-            <tr ng-repeat="item in relationships">
-              <td>{{ item.name }}</td>
-              <td ng-if="item.$editing == undefined || !item.$editing">{{ getRelationName(item.type_id) }}</td>
-              <td ng-if="item.$editing"><select ng-model="item.type_id" ng-options="type.id as type.name for type in dcRelationTypes"></select></td>
-              <td ng-if="item.$editing == undefined || !item.$editing">{{ item.description }}</td>
-              <td ng-if="item.$editing"><input type="text" ng-model="item.description"/></td>
-              <td>
-                <a href ng-click="item.$editing = true" ng-if="item.$editing == undefined || !item.$editing">Edit</a>
-                <a href ng-click="item.$editing = false" ng-if="item.$editing">Ok</a>
-                | <a href ng-click="delete($index)">Delete</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="alert" ng-if="relationships.length == 0">You haven't selected any supporting technology record yet!</div>
-      </section>
+    <section class="form-item">
+      <label>Current selections</label>
+      <table class="table table-bordered table-condensed" ng-if="relationships.length > 0">
+        <thead>
+          <th>Name</th>
+          <th>Relation type</th>
+          <th>Relation description</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in relationships">
+            <td>{{ item.name }}</td>
+            <td ng-if="item.$editing == undefined || !item.$editing">{{ getRelationName(item.type_id) }}</td>
+            <td ng-if="item.$editing"><select ng-model="item.type_id" ng-options="type.id as type.name for type in dcRelationTypes"></select></td>
+            <td ng-if="item.$editing == undefined || !item.$editing">{{ item.description }}</td>
+            <td ng-if="item.$editing"><input type="text" ng-model="item.description"/></td>
+            <td>
+              <a href class="btn btn-mini" ng-click="item.$editing = true" ng-if="item.$editing == undefined || !item.$editing"><i class="icon icon-edit"></i></a>
+              <a href class="btn btn-mini" ng-click="item.$editing = false" ng-if="item.$editing"><i class="icon icon-save"></i></a>
+              <a href class="btn btn-mini" ng-click="delete($index)"><i class="icon icon-remove"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="alert" ng-if="relationships.length == 0">You haven't selected any supporting technology record yet!</div>
+    </section>
 
-      <section>
-        <label ng-non-bindable>Debugging {{ relationships }}</label>
-        <pre>
-{{ relationships | json }}
-        </pre>
-      </section>
+  </div>
 
-      </div>
-
-    </div>
-
-    <div class="modal-footer">
-      <button type="submit" class="btn btn-primary">Save</button>
-      <button class="btn" ng-click="deleteAll()" ng-if="relationships.length > 1">Remove all the relationships</button>
-      <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
-    </div>
-
-  </form>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="save()">Save</button>
+    <button class="btn" ng-click="deleteAll()" ng-if="relationships.length > 1">Remove all the relationships</button>
+    <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
+  </div>
 
 </div>

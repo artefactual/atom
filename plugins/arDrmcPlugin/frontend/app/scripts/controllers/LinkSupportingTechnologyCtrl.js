@@ -25,11 +25,9 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, id)
 
   pull();
 
-  // Form submission callback
-  $scope.submit = function () {
-    if ($scope.modalContainer.form.$invalid) {
-      return;
-    }
+  // Save changes
+  $scope.save = function () {
+
   };
 
   // Close the dialog
