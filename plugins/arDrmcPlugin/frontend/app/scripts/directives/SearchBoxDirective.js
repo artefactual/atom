@@ -91,31 +91,31 @@ module.exports = function ($rootScope, $document, $location, $state, $stateParam
           // Turn properties with <em> highlight to trusted html
           for (var key in results.data.aips) {
             var aip = results.data.aips[key];
-            if (aip.hasOwnProperty('name')){
+            if (aip.hasOwnProperty('name')) {
               aip.name = $sce.trustAsHtml(aip.name);
             }
           }
           for (key in results.data.artworks) {
             var artwork = results.data.artworks[key];
-            if (artwork.hasOwnProperty('title')){
+            if (artwork.hasOwnProperty('title')) {
               artwork.title = $sce.trustAsHtml(artwork.title);
             }
           }
           for (key in results.data.components) {
             var comp = results.data.components[key];
-            if (comp.hasOwnProperty('title')){
+            if (comp.hasOwnProperty('title')) {
               comp.title = $sce.trustAsHtml(comp.title);
             }
           }
           for (key in results.data.technology_records) {
             var techRecord = results.data.technology_records[key];
-            if (techRecord.hasOwnProperty('title')){
+            if (techRecord.hasOwnProperty('title')) {
               techRecord.title = $sce.trustAsHtml(techRecord.title);
             }
           }
           for (key in results.data.files) {
             var file = results.data.files[key];
-            if (file.hasOwnProperty('title')){
+            if (file.hasOwnProperty('title')) {
               file.title = $sce.trustAsHtml(file.title);
             }
           }
