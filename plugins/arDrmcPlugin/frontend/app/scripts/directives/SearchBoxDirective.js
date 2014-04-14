@@ -89,6 +89,8 @@ module.exports = function ($rootScope, $document, $location, $state, $stateParam
         var options = { realm: scope.realm };
         SearchService.autocomplete(query, options).then(function (results) {
           // Turn properties with <em> highlight to trusted html
+          // TODO: Is there a workaround? Five loops here seems to me like a
+          // terrible idea!
           for (var key in results.data.aips) {
             var aip = results.data.aips[key];
             if (aip.hasOwnProperty('name')) {
