@@ -336,7 +336,7 @@
         .attr('viewBox', '0 0 10 10')
         .attr('refX', 8)
         .attr('refY', 5)
-        .attr('markerUnits', 'strokewidth')
+        .attr('markerUnits', 'strokeWidth')
         .attr('markerWidth', 8)
         .attr('markerHeight', 5)
         .attr('orient', 'auto')
