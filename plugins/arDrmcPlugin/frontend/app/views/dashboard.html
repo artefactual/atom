@@ -1,28 +1,45 @@
+<!-- TODO: this is just a mock-up -->
 <h5 id="dash-h5">Recent additions</h5>
 <div id="artwork-record-header"><a ng-href="#/artwork-record" >
   <img ng-src="{{ assetsPath }}/moma-top-img.png" /></a>
 </div>
 
 <tabset>
-  <tab ng-repeat="tab in tabs" select="selectTab(tab)" heading="{{ tab.title }}" active="tab.active" disabled="tab.disabled">
-    <div ng-include="tab.template"></div>
+  <h5>Recent activity</h5>
+  <tab heading="Downloads">
+    <table class="table table-bordered">
+      <thead>
+        <th>Date/time</th>
+        <th>Object</th>
+        <th>Reason</th>
+        <th>User</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in downloadActivity">
+          <td>{{ item.date }}</td>
+          <td>{{ item.file }}</td>
+          <td>{{ item.reason }}</td>
+          <td>{{ item.username || 'Unknown' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </tab>
+  <tab heading="Ingests">
+    <table class="table table-bordered">
+      <thead>
+        <th>Date/time</th>
+        <th>AIP</th>
+        <th>Artwork</th>
+        <th>Size</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in ingestionActivity">
+          <td>{{ item.created_at }}</td>
+          <td>{{ item.aip_title }}</td>
+          <td>{{ item.artwork_title }}</td>
+          <td>{{ item.size_on_disk | UnitFilter:2 }}</td>
+        </tr>
+      </tbody>
+    </table>
   </tab>
 </tabset>
-
-<!-- Notice lazy load using ngIf -->
-
-<script type="text/ng-template" id="tmpl-recent-activity">
-  <div ng-if="tab.active" ng-controller="DashboardRecentActivityCtrl">
-    <h4>Download activity</h4>
-    <pre>{{ downloadActivity | json }}</pre>
-
-    <h4>Ingestion activity</h4>
-    <pre>{{ ingestionActivity | json }}</pre>
-  </div>
-</script>
-
-<script type="text/ng-template" id="tmpl-ingestion">
-  <div ng-if="tab.active" ng-controller="DashboardIngestionCtrl">
-    {{ tab.title }}
-  </div>
-</script>
