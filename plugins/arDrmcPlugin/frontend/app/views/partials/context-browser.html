@@ -163,7 +163,7 @@
                 </div>
                 <!-- Mode "thumbnails" -->
                 <div ng-if="fileListViewMode == 'thumbnails'" class="cb-sidebar-subsection-body cb-sidebar-thumbnails">
-                  <div ng-click="openViewer(file, $event)" ng-keydown="selectFile(file, $event, $index)" ng-repeat="file in files" ng-class="{ item: true, selected: file.selected == true }">
+                  <div ng-click="selectFile(file, $event, $index)" ng-repeat="file in files" ng-class="{ item: true, selected: file.selected == true }">
                     <div class="preview">
                       <img ng-src="{{ file.thumbnailPath }}"/>
                     </div>
