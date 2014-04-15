@@ -1682,7 +1682,8 @@ class QubitInformationObject extends BaseInformationObject
     $childTags = array(
       'extent' => 'Extent', 
       'dimensions' => 'Dimensions', 
-      'genreform' => 'Form of material'
+      'genreform' => 'Form of material',
+      'physfacet' => 'Physical facet'
     );
 
     foreach ($childTags as $tag => $headingText)
