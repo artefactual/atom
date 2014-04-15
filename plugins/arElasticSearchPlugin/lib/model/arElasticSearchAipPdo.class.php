@@ -138,11 +138,13 @@ class arElasticSearchAipPdo
       $serialized['partOf']['i18n'] = arElasticSearchModelBase::serializeI18ns($this->part_of, array('QubitInformationObject'), array('fields' => array('title')));
     }
 
+    /*
     foreach ($this->getDigitalObjects() as $item)
     {
       $node = new arElasticSearchInformationObjectPdo($item->object_id);
       $serialized['digitalObjects'][] = $node->serialize();
     }
+    */
 
     return $serialized;
   }
