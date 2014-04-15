@@ -13,6 +13,7 @@
         <th>AIP</th>
         <th>Artwork</th>
         <th>Size</th>
+        <th>User</th>
       </thead>
       <tbody>
         <tr ng-repeat="item in ingestionActivity">
@@ -20,6 +21,7 @@
           <td>{{ item.aip_title }}</td>
           <td>{{ item.artwork_title }}</td>
           <td>{{ item.size_on_disk | UnitFilter:2 }}</td>
+          <td>{{ item.user}}</td>
         </tr>
       </tbody>
     </table>
@@ -42,6 +44,68 @@
       </tbody>
     </table>   
   </tab>
+  <tab heading="Logins">
+    <div>Login Tab</div> 
+  </tab>  
+</tabset>
+
+<div class="row-fluid">
+<!-- Storage -->
+  <tabset class="span4">
+    <h5>Storage</h5>
+    <tab heading="Codec">
+    <ar-dash-board-storage-codec></ar-dash-board-storage-codec>
+    </tab>  
+    <tab heading="Formats">
+      <div>Formats Tab</div> 
+    </tab>
+    <tab heading="Departments">
+      <div>Login Tab</div> 
+    </tab>  
+  </tabset>
+
+  <!-- Monthly Total (By GB) -->
+  <tabset class="span8">
+    <h5>Monthly Total (By GB)</h5>
+    <tab heading="Codec">
+    <div>Codec Tab</div>
+    </tab>  
+    <tab heading="Formats">
+      <div>Formats Tab</div> 
+    </tab>
+    <tab heading="Departments">
+      <div>Login Tab</div> 
+    </tab>  
+  </tabset>
+</div>
+
+<div class="row-fluid">
+<!-- Running Total (By GB) -->
+<tabset class="span6">
+  <h5>Running Total (By GB)</h5>
+  <tab heading="Codec">
+  <div>Codec Tab</div>
+  </tab>  
+  <tab heading="Formats">
+    <div>Formats Tab</div> 
+  </tab>
+  <tab heading="Departments">
+    <div>Login Tab</div> 
+  </tab>  
+</tabset>
+
+<!-- Artiwork Sizes (Average vs Median) -->
+<tabset class="span6">
+  <h5>Artiwork Sizes (Average vs Median)</h5>
+  <tab heading="Codec">
+  <div>Codec Tab</div>
+  </tab>  
+  <tab heading="Formats">
+    <div>Formats Tab</div> 
+  </tab>
+  <tab heading="Departments">
+    <div>Login Tab</div> 
+  </tab>  
 </tabset>
 
 <div class="row-fluid">
