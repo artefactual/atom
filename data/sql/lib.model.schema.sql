@@ -961,9 +961,7 @@ CREATE TABLE `rights`
 	`id` INTEGER  NOT NULL,
 	`start_date` DATE,
 	`end_date` DATE,
-	`restriction` TINYINT default 1,
 	`basis_id` INTEGER,
-	`act_id` INTEGER,
 	`rights_holder_id` INTEGER,
 	`copyright_status_id` INTEGER,
 	`copyright_status_date` DATE,
@@ -980,19 +978,44 @@ CREATE TABLE `rights`
 		FOREIGN KEY (`basis_id`)
 		REFERENCES `term` (`id`)
 		ON DELETE SET NULL,
-	INDEX `rights_FI_3` (`act_id`),
+	INDEX `rights_FI_3` (`rights_holder_id`),
 	CONSTRAINT `rights_FK_3`
-		FOREIGN KEY (`act_id`)
-		REFERENCES `term` (`id`)
-		ON DELETE SET NULL,
-	INDEX `rights_FI_4` (`rights_holder_id`),
-	CONSTRAINT `rights_FK_4`
 		FOREIGN KEY (`rights_holder_id`)
 		REFERENCES `actor` (`id`)
 		ON DELETE SET NULL,
-	INDEX `rights_FI_5` (`copyright_status_id`),
-	CONSTRAINT `rights_FK_5`
+	INDEX `rights_FI_4` (`copyright_status_id`),
+	CONSTRAINT `rights_FK_4`
 		FOREIGN KEY (`copyright_status_id`)
+		REFERENCES `term` (`id`)
+		ON DELETE SET NULL
+)Engine=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- granted_right
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `granted_right`;
+
+
+CREATE TABLE `granted_right`
+(
+	`rights_id` INTEGER  NOT NULL,
+	`act_id` INTEGER,
+	`restriction` TINYINT default 1,
+	`start_date` DATE,
+	`end_date` DATE,
+	`notes` TEXT,
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`serial_number` INTEGER default 0 NOT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `granted_right_FI_1` (`rights_id`),
+	CONSTRAINT `granted_right_FK_1`
+		FOREIGN KEY (`rights_id`)
+		REFERENCES `rights` (`id`)
+		ON DELETE CASCADE,
+	INDEX `granted_right_FI_2` (`act_id`),
+	CONSTRAINT `granted_right_FK_2`
+		FOREIGN KEY (`act_id`)
 		REFERENCES `term` (`id`)
 		ON DELETE SET NULL
 )Engine=InnoDB;

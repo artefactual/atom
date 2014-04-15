@@ -291,14 +291,20 @@ propel:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     start_date: bu_date
     end_date: bu_date
-    restriction: { type: boolean, default: true }
     basis_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
-    act_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
     rights_holder_id: { type: integer, foreignTable: actor, foreignReference: id, onDelete: setnull }
     copyright_status_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }i
     copyright_status_date: bu_date
     copyright_jurisdiction: varchar(1024)
     statute_determination_date: bu_date
+
+  granted_right:
+    rights_id: { type: integer, required: true, foreignTable: rights, foreignReference: id, onDelete: cascade } 
+    act_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    restriction: { type: boolean, default: true }
+    start_date: bu_date
+    end_date: bu_date
+    notes: longvarchar
 
   rights_i18n:
     rights_note: longvarchar
