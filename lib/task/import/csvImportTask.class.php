@@ -123,6 +123,21 @@ EOF;
       'Language note'
     );
 
+    QubitFlatfileImport::createOrFetchTerm(
+      QubitTaxonomy::RAD_NOTE_ID,
+      'Cast note'
+    );
+
+    QubitFlatfileImport::createOrFetchTerm(
+      QubitTaxonomy::RAD_NOTE_ID,
+      'Credits note'
+    );
+
+    QubitFlatfileImport::createOrFetchTerm(
+      QubitTaxonomy::RAD_NOTE_ID,
+      'Signatures note'
+    );
+
     // Load taxonomies into variables to avoid use of magic numbers
     $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
       QubitTaxonomy::DESCRIPTION_STATUS_ID       => 'descriptionStatusTypes',
@@ -282,6 +297,15 @@ EOF;
         ),
         'archivistNote' => array(
           'typeId' => array_search("Archivist's note", $termData['noteTypes'])
+        ),
+        'radNoteCast' => array(
+          'typeId' => array_search('Cast note', $termData['radNoteTypes'])
+        ),
+        'radNoteCredits' => array(
+          'typeId' => array_search('Credits note', $termData['radNoteTypes'])
+        ),
+        'radNoteSignaturesInscriptions' => array(
+          'typeId' => array_search('Signatures note', $termData['radNoteTypes'])
         ),
         'radNoteConservation' => array(
           'typeId' => array_search('Conservation', $termData['radNoteTypes'])
