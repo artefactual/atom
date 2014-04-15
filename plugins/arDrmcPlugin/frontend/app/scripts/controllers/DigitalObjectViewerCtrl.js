@@ -66,6 +66,8 @@ module.exports = function ($scope, $modal, $modalInstance, files) {
     },
   };
 
+  console.log('digobjviewer files:', files);
+
   var keys = Object.keys($scope.digitalObjects);
   $scope.page = 1;
   $scope.total = keys.length;

@@ -25,16 +25,6 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
   $scope.files = [];
   $scope.viewerFiles = [];
 
-  // If one file selected, use file
-  // if > 1, use viewerFiles
-  $scope.openViewer = function () {
-    if ($scope.viewerFiles.length > 1) {
-      ModalDigitalObjectViewerService.open($scope.viewerFiles);
-    } else {
-      ModalDigitalObjectViewerService.open($scope.files);
-    }
-  };
-
   $scope.selectNode = function () {
     InformationObjectService.getAips($stateParams.id).then(function (data) {
       $scope.aggregation = data.overview;

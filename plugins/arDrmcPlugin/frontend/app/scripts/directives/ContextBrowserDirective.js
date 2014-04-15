@@ -2,15 +2,12 @@
 
 var ContextBrowser = require('../lib/cbd');
 
-module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObjectService, FullscreenService, ModalLinkSupportingTechnologyService) {
+module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObjectService, FullscreenService, ModalLinkSupportingTechnologyService, ModalDigitalObjectViewerService) {
   return {
     restrict: 'E',
     templateUrl: SETTINGS.viewsPath + '/partials/context-browser.html',
     scope: {
       id: '@',
-      files: '=',
-      viewerFiles: '=',
-      _openViewer: '&onOpenViewer',
       _selectNode: '&onSelectNode'
     },
     replace: true,
@@ -107,8 +104,18 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
           }
           file.selected = !file.selected;
         } else {
-          scope._openViewer(file);
+          scope.openViewer(file);
         }
+      };
+
+      // If one file selected, use file
+      // if > 1, use viewerFiles
+      scope.openViewer = function (file) {
+        ModalDigitalObjectViewerService.open(file);
+      };
+
+      scope.openAllInViewer = function () {
+        ModalDigitalObjectViewerService.open(scope.viewerFiles);
       };
 
       scope.openTechModal = function (id) {

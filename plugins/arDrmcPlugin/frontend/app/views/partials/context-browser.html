@@ -163,7 +163,7 @@
                 </div>
                 <!-- Mode "thumbnails" -->
                 <div ng-if="fileListViewMode == 'thumbnails'" class="cb-sidebar-subsection-body cb-sidebar-thumbnails">
-                  <div ng-click="selectFile(file, $event)" ng-repeat="file in files" ng-class="{ item: true, selected: file.selected == true }">
+                  <div ng-click="openViewer(file, $event)" ng-keydown="selectFile(file, $event, $index)" ng-repeat="file in files" ng-class="{ item: true, selected: file.selected == true }">
                     <div class="preview">
                       <img ng-src="{{ file.thumbnailPath }}"/>
                     </div>
@@ -175,13 +175,12 @@
                 <!-- Selection options -->
                 <div class="cb-file-options" ng-show="hasSelectedFiles()">
                   <ul class="nav">
-                    <li><a class="btn btn-small" href ng-click="openViewer()">View all</a></li>
+                    <li><a class="btn btn-small" href ng-click="openAllInViewer()">View all</a></li>
                     <li><a class="btn btn-small" href ng-click="cancelFileSelection()">Cancel</a></li>
                     {{ files }}
                   </ul>
                 </div>
               </div>
-              <div class="btn-small btn" ng-click="openViewer()">Outside directive: click for multi-file viewer</div>
             </div>
 
             <!-- Actions -->
