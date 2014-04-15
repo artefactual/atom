@@ -10,6 +10,10 @@ module.exports = function ($modal, SETTINGS) {
 
   this.open = function (files) {
     configuration.resolve.files = function () {
+      // Use only the first three items in the array
+      if (files.length > 3) {
+        files = files.slice(0, 3);
+      }
       return files;
     };
     return $modal.open(configuration);

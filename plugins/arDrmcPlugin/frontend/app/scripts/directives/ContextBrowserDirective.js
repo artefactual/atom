@@ -94,14 +94,8 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
         });
       };
 
-      scope.viewerFiles = [];
-      scope.selectFile = function (file, $event, $index) {
+      scope.selectFile = function (file, $event) {
         if ($event.shiftKey) {
-          if (file.selected === true) {
-            scope.viewerFiles.splice($index, 1);
-          } else {
-            scope.viewerFiles.push(file);
-          }
           file.selected = !file.selected;
         } else {
           scope.openViewer(file);
@@ -111,11 +105,18 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
       // If one file selected, use file
       // if > 1, use viewerFiles
       scope.openViewer = function (file) {
-        ModalDigitalObjectViewerService.open(file);
-      };
-
-      scope.openAllInViewer = function () {
-        ModalDigitalObjectViewerService.open(scope.viewerFiles);
+        // Open the viewer with multiple files
+        if (angular.isUndefined(file)) {
+          var selectedFiles = scope.files.filter(function (element) {
+            return element.selected === true;
+          });
+          if (selectedFiles.length) {
+            ModalDigitalObjectViewerService.open(selectedFiles);
+          }
+        // Open the viewer with just one file
+        } else {
+          ModalDigitalObjectViewerService.open(file);
+        }
       };
 
       scope.openTechModal = function (id) {
