@@ -149,7 +149,7 @@
                 <div ng-if="fileListViewMode == 'list'" class="cb-sidebar-subsection-body cb-sidebar-table">
                   <table class="table">
                     <tbody>
-                      <tr ng-repeat="file in files" ng-click="selectFile(file, $event)" ng-class="{ selected: file.selected == true }">
+                      <tr ng-repeat="file in files" ng-click="selectFile(file, $event, $index)" ng-class="{ selected: file.selected == true }">
                         <td class="name">
                           <a href>{{ file.filename }}</a>
                         </td>
@@ -157,6 +157,9 @@
                       </tr>
                     </tbody>
                   </table>
+                  <ul ng-repeat="file in files">
+                    <pre><li>{{ file.selected | json }}</li></pre>
+                  </ul>
                 </div>
                 <!-- Mode "thumbnails" -->
                 <div ng-if="fileListViewMode == 'thumbnails'" class="cb-sidebar-subsection-body cb-sidebar-thumbnails">
@@ -172,11 +175,13 @@
                 <!-- Selection options -->
                 <div class="cb-file-options" ng-show="hasSelectedFiles()">
                   <ul class="nav">
-                    <li><a class="btn btn-small btn-primary" href ng-click="openViewer(files)">View all</a></li>
+                    <li><a class="btn btn-small" href ng-click="openViewer()">View all</a></li>
                     <li><a class="btn btn-small" href ng-click="cancelFileSelection()">Cancel</a></li>
+                    {{ files }}
                   </ul>
                 </div>
               </div>
+              <div class="btn-small btn" ng-click="openViewer()">Outside directive: click for multi-file viewer</div>
             </div>
 
             <!-- Actions -->

@@ -23,9 +23,16 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
   // A list of digital objects. This is shared within the context browser
   // directive (two-way binding);
   $scope.files = [];
+  $scope.viewerFiles = [];
 
+  // If one file selected, use file
+  // if > 1, use viewerFiles
   $scope.openViewer = function () {
-    ModalDigitalObjectViewerService.open();
+    if ($scope.viewerFiles.length > 1) {
+      ModalDigitalObjectViewerService.open($scope.viewerFiles);
+    } else {
+      ModalDigitalObjectViewerService.open($scope.files);
+    }
   };
 
   $scope.selectNode = function () {

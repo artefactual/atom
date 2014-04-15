@@ -85,8 +85,8 @@
         </div>
       </section>
 
-      <ar:context-browser id="{{ work.id }}" files="files" on-open-viewer="openViewer()" on-select-node="selectNode()"></ar:context-browser>
-
+      <ar:context-browser id="{{ work.id }}" files="files" viewer-files="viewerFiles" on-open-viewer="openViewer()" on-select-node="selectNode()"></ar:context-browser>
+      <a ng-click="openViewer()">click to see</a>
       <div class="content">
 
         <section ng-if="aggregation != undefined">

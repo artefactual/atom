@@ -9,10 +9,12 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
     scope: {
       id: '@',
       files: '=',
+      viewerFiles: '=',
       _openViewer: '&onOpenViewer',
       _selectNode: '&onSelectNode'
     },
     replace: true,
+    transclude: true,
     link: function (scope, element) {
       // This layer will be the closest HTML container of the SVG
       var container = element.find('.svg-container');
@@ -94,13 +96,21 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
           element.selected = false;
         });
       };
-      scope.selectFile = function (file, $event) {
+
+      scope.viewerFiles = [];
+      scope.selectFile = function (file, $event, $index) {
         if ($event.shiftKey) {
+          if (file.selected === true) {
+            scope.viewerFiles.splice($index, 1);
+          } else {
+            scope.viewerFiles.push(file);
+          }
           file.selected = !file.selected;
         } else {
           scope._openViewer(file);
         }
       };
+
       scope.openTechModal = function (id) {
         // scope._openTechModalViewer(file);
         ModalLinkSupportingTechnologyService.open(id);

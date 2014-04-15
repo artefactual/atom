@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modal, $modalInstance) {
+module.exports = function ($scope, $modal, $modalInstance, files) {
 
   $scope.digitalObjects = {
     1: {
