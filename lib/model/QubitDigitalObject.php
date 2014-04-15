@@ -1297,14 +1297,13 @@ class QubitDigitalObject extends BaseDigitalObject
 
     // Write file
     // If the asset contents are not included but referred, move or copy
+    /*
     if (null !== $assetPath = $asset->getPath())
     {
-      /*
       if (false === @copy($assetPath, $filePathName))
       {
         throw new sfException('File write to '.$filePathName.' failed. See setting directory and file permissions documentation.');
       }
-      */
     }
     // If the asset contents are included (HTTP upload)
     else if (false === file_put_contents($filePathName, $asset->getContents()))
@@ -1315,7 +1314,7 @@ class QubitDigitalObject extends BaseDigitalObject
     // Test asset checksum against generated checksum from file
     $this->generateChecksumFromFile($assetPath);
 
-    if (0 && $this->getChecksum() != $asset->getChecksum())
+    if ($this->getChecksum() != $asset->getChecksum())
     {
       unlink($filePathName);
       rmdir($infoObjectPath);
@@ -1336,7 +1335,8 @@ class QubitDigitalObject extends BaseDigitalObject
       $pathToDir .= '/'.$dir;
       @chmod($pathToDir, 0755);
     }
-
+    */
+    
     // Save digital object in database
     $this->setName($cleanFileName);
     $this->setPath($relativePath);
@@ -1804,7 +1804,6 @@ class QubitDigitalObject extends BaseDigitalObject
         {
           if ($usageId == QubitTerm::EXTERNAL_URI_ID || $usageId == QubitTerm::MASTER_ID)
           {
-            print "CREATING REF & THUMB\n";
             $this->createReferenceImage($connection);
             $this->createThumbnail($connection);
           }
