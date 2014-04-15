@@ -15,6 +15,6 @@
     .directive('arMultiselectPopup', require('./MultiselectPopupDirective'))
     .directive('arToggleSlide', require('./ToggleSlideDirective'))
     .directive('arSearchBox', require('./SearchBoxDirective'))
-    .directive('arRangeFacet', require('./RangeFacetDirective'));
-
+    .directive('arRangeFacet', require('./RangeFacetDirective'))
+    .directive('arDashBoardStorageCodec', require('./DashboardStorageCodecDirective'));
 })();
