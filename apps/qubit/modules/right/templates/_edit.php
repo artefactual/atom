@@ -19,13 +19,13 @@
     </caption><thead>
       <tr>
         <th>
-          <?php echo __('Act') ?>
-        </th><th>
-          <?php echo __('Restriction') ?>
+          <?php echo __('Basis') ?>
         </th><th>
           <?php echo __('Start') ?>
         </th><th>
           <?php echo __('End') ?>
+        </th><th>
+          <?php echo __('Act') ?>
         </th><th style="text-align: center; width: 10%">
           <?php echo image_tag('delete', array('align' => 'top', 'class' => 'deleteIcon')) ?>
         </th>
@@ -34,13 +34,17 @@
       <?php foreach ($rights as $item): ?>
         <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?> related_obj_<?php echo $item->id ?>" id="<?php echo url_for(array($item->object, 'module' => 'right')) ?>">
           <td>
-            <?php echo $item->object->act ?>
-          </td><td>
-            <?php echo $item->object->restriction ? __('Allow') : __('Disallow') ?>
+            <?php echo $item->object->basis ?>
           </td><td>
             <?php echo Qubit::renderDate($item->object->startDate) ?>
           </td><td>
             <?php echo Qubit::renderDate($item->object->endDate) ?>
+          </td><td>
+            <ul>
+            <?php foreach ($item->object->grantedRights as $act): ?>
+              <li><?php echo $act->restriction ? __('Allow') : __('Disallow') ?></li>
+            <?php endforeach ?>
+            </ul>
           </td><td style="text-align: center">
             <input class="multiDelete" name="deleteRights<?php echo $suffix ?>[]" type="checkbox" value="<?php echo url_for(array($item->object, 'module' => 'right')) ?>"/>
           </td>
@@ -135,12 +139,8 @@ content
 
     <h3><?php echo __('Rights') ?></h3>
 
-    <?php echo $form->act
-      ->help(__('The action which is permitted or restricted.'))
-      ->renderRow() ?>
-
-    <?php echo $form->restriction
-      ->help(__('A condition or limitation on the act.'))
+    <?php echo $form->basis
+      ->help(__('Basis for the permissions granted or for the restriction of rights'))
       ->renderRow() ?>
 
     <?php echo $form->startDate
@@ -163,10 +163,6 @@ content
 
     <?php echo $form->rightsNote
       ->label(__('Rights note(s)'))
-      ->renderRow() ?>
-
-    <?php echo $form->basis
-      ->help(__('Basis for the permissions granted or for the restriction of rights'))
       ->renderRow() ?>
 
     <fieldset route="<?php echo $sf_context->routing->generate(null, array(QubitTerm::getById(QubitTerm::RIGHT_BASIS_COPYRIGHT_ID), 'module' => 'term')) ?>">

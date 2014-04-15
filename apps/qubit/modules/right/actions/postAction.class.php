@@ -24,12 +24,28 @@ class RightPostAction extends sfAction
 
   public function execute($request)
   {
-    
-    // Add rights component
-    $this->rightEditComponent = new RightEditComponent($this->context, 'right', 'edit');
-    $this->rightEditComponent->resource = $this->resource;
-    $this->rightEditComponent->execute($this->request);
+  	$this->setLayout(false);
+  	$this->setTemplate(null);
 
-    $this->rightEditComponent->processForm();
+  	print_r($request->getParameterHolder());
+  	die();
+
+  	if( $id = $request->getParameter('id') ) {
+  		$right = QubitRights::getById($id);
+  	} else {
+  		$right = new QubitRights;
+  	}
+
+  	// validate/load existing associated objects
+  	$basis = QubitTerm::getById($request->getParameter('basis'));
+  	
+	    
+ 	// $right = new QubitRights;
+	// $right->act = $sourceRight->act;
+	// $right->startDate = $sourceRight->startDate;
+	// $right->endDate = $sourceRight->endDate;
+	// $right->basis = $sourceRight->basis;
+
+    return $this->renderText("SUCCESS\n");
   }
 }

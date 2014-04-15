@@ -1,6 +1,9 @@
-<form action="/rights/post" method="post" role="form">
+<form action="/right/post" method="post" role="form">
+
 
   <div class="form-group">
+    <input type="hidden" name="id" value="<?php echo $right->id ?>">
+
     <label for="basis" class="control-label">Basis</label>
     <div class="">
       <select name="basis">
@@ -112,5 +115,12 @@
         $this.toggle($this.hasClass(type));
       });
     })
+
+    // add event listener for submit buttons
+    jQuery('.modal').on('click', '.btn-primary', function(){
+      var $this = jQuery(this);
+      var form = jQuery(this).parent().parent().find('form');
+      jQuery.post(form.attr('action'), form.serialize());
+    });
   })();
 </script>
