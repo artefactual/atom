@@ -6,8 +6,10 @@
 
   <div id="search-bar">
 
+    <!-- Header search box -->
     <ar-search-box></ar-search-box>
 
+    <!-- Browse menu -->
     <div id="browse-menu">
       <a class="top-item top-dropdown" data-toggle="dropdown">Browse</a>
       <div class="top-dropdown-container">
@@ -39,9 +41,12 @@
 
   <nav>
 
+    <!-- User dropdown (login) -->
     <div id="user-menu">
+
+      <!-- For authenticated users -->
       <div ng-show="user">
-        <a class="top-item top-dropdown" data-toggle="dropdown" data-target="#">@{{ user.username }}</a>
+        <a class="top-item top-dropdown" data-toggle="dropdown" data-target="#">{{ user.username }}</a>
         <div class="top-dropdown-container">
           <div class="top-dropdown-arrow">
             <div class="arrow"></div>
@@ -52,16 +57,21 @@
           </div>
           <div class="top-dropdown-body">
             <ul>
-              <li><a href>Profile (WIP)</a></li>
-              <li><a ng-click="logOut()">Log out</a></li>
+              <li><a href ng-click="logOut()">Log out</a></li>
             </ul>
           </div>
           <div class="top-dropdown-bottom"></div>
         </div>
       </div>
-      <a ng-hide="user" class="top-item" ui-sref="login">Log in</a>
+
+      <!-- For unauthenticated users -->
+      <div ng-hide="user">
+        <a ng-hide="user" class="top-item top-dropdown" ui-sref="login">Log in</a>
+      </div>
+
     </div>
 
+    <!-- Manage menu -->
     <div id="manage-menu" data-toggle="tooltip" data-title="Manage">
       <a class="top-item" data-toggle="dropdown" data-target="#">Manage</a>
       <div class="top-dropdown-container">
@@ -80,6 +90,7 @@
       </div>
     </div>
 
+    <!-- Add menu -->
     <div id="add-menu" data-toggle="tooltip" data-title="Add">
       <a class="top-item" data-toggle="dropdown" data-target="#">Add</a>
       <div class="top-dropdown-container">

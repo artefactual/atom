@@ -5,23 +5,25 @@
       <div id="content" class="login">
 
         <h1>Please log in</h1>
-        
-        <ng-form name="loginForm">
+
+        <form name="loginForm" ng-submit="submit()" novalidate>
+
           <div class="form-item form-item-email">
             <label for="email">Email <span class="form-required" title="This field is required.">*</span></label>
-            <input type="text" name="username" ng-model="username" autofocus="autofocus" class="input-block-level" id="email" ng-required="true" />
+            <input type="text" name="username" ng-model="username" autofocus="autofocus" class="input-block-level" id="email" ng-required="true"/>
           </div>
 
           <div class="form-item form-item-password">
             <label for="password">Password <span class="form-required" title="This field is required.">*</span></label>
-            <input type="password" name="password" ng-model="password" class="input-block-level" id="password" ng-required="true" />
+            <input type="password" name="password" ng-model="password" class="input-block-level" id="password" ng-required="true"/>
           </div>
 
           <section class="actions">
-            <button type="button" ng-click="submit()" class="btn btn-primary btn-block btn-large">Log in</button>
+            <button type="submit" class="btn btn-primary btn-block btn-large">Log in</button>
           </section>
 
-        </ng-form>
+        <form>
+
       </div>
     </div>
   </div>
