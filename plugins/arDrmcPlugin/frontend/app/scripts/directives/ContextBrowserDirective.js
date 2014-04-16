@@ -2,17 +2,16 @@
 
 var ContextBrowser = require('../lib/cbd');
 
-module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObjectService, FullscreenService, ModalLinkSupportingTechnologyService) {
+module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObjectService, FullscreenService, ModalLinkSupportingTechnologyService, ModalDigitalObjectViewerService) {
   return {
     restrict: 'E',
     templateUrl: SETTINGS.viewsPath + '/partials/context-browser.html',
     scope: {
       id: '@',
-      files: '=',
-      _openViewer: '&onOpenViewer',
       _selectNode: '&onSelectNode'
     },
     replace: true,
+    transclude: true,
     link: function (scope, element) {
       // This layer will be the closest HTML container of the SVG
       var container = element.find('.svg-container');
@@ -94,13 +93,32 @@ module.exports = function ($document, $timeout, $modal, SETTINGS, InformationObj
           element.selected = false;
         });
       };
+
       scope.selectFile = function (file, $event) {
         if ($event.shiftKey) {
           file.selected = !file.selected;
         } else {
-          scope._openViewer(file);
+          scope.openViewer(file);
         }
       };
+
+      // If one file selected, use file
+      // if > 1, use viewerFiles
+      scope.openViewer = function (file) {
+        // Open the viewer with multiple files
+        if (angular.isUndefined(file)) {
+          var selectedFiles = scope.files.filter(function (element) {
+            return element.selected === true;
+          });
+          if (selectedFiles.length) {
+            ModalDigitalObjectViewerService.open(selectedFiles);
+          }
+        // Open the viewer with just one file
+        } else {
+          ModalDigitalObjectViewerService.open(file);
+        }
+      };
+
       scope.openTechModal = function (id) {
         // scope._openTechModalViewer(file);
         ModalLinkSupportingTechnologyService.open(id);
