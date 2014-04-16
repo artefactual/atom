@@ -123,6 +123,7 @@ module.exports = function ($http, $q, SETTINGS) {
       url: SETTINGS.frontendPath + 'api/informationobjects/technologyrecords',
       params: params
     });
+  };
 
   this.getSupportingTechnologyRecordsOf = function (id) {
     // Mocked version
@@ -274,4 +275,5 @@ module.exports = function ($http, $q, SETTINGS) {
     data.level_of_description_id = SETTINGS.drmc.lod_supporting_technology_record_id;
     return this.create(data);
   };
+
 };
