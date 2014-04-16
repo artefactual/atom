@@ -91,7 +91,7 @@
     order: 1;
     flex: 2 0 auto;
     color: @white;
-    min-width: 460px;
+    min-width: 350px;
 
     .fs-modal-body-header {
       display: -webkit-flex;
@@ -152,11 +152,6 @@
       border-top: none !important;
     }
   }
-}
-
-// DRMC: Digital Object Viewer
-
-.fs-modal-wrapper {
 
   // modal close
   a#fs-modal-exit {
@@ -168,8 +163,16 @@
     padding-right: 0;
     margin-right: -12px;
   }
+}
 
-  // icon styles
+// DRMC: Digital Object Viewer
+
+.fs-modal-wrapper {
+
+  // overwrites default
+  .fs-modal-body { flex: 2 0; }
+
+  // general fs icon styles
   a {
     .fa-icon-set(@white);
     width: 40px;
@@ -179,7 +182,7 @@
   }
 
   .fs-modal-sidebar {
-    min-width: 208px;
+    min-width: 200px;
 
     // Sidebar close one
     a.sidex {
@@ -197,40 +200,25 @@
       display: flex;
       flex-wrap: nowrap;
       align-items: stretch;
-      height: 65px;
+      max-height: 65px;
       margin-top: 8px;
       .clearfix();
 
-      a.audio,
-      a.image
-      a.text
-      a.video
-      a.other {
-      .fa-icon-set (@grayDark);
-      font-size: 14px;
-
-        &:before {
-          content: "\f03e";
-          padding-right: 4px;
-        }
-      }
-
-      .quick-info-thumb {
-        min-width: 25%;
-        margin: auto;
-        padding: 4px;
-        img {
-          max-height: 56px;
-        }
+      // Sidebar thumbnail
+      a.quick-info-thumb {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 85px;
+        padding: 8px 4px;
       }
 
       .quick-info-title {
-        width: 70%;
-        margin: auto;
+        margin: 0 auto;
         .clearfix();
 
         h4 {
           line-height: 14px!important;
+          margin-bottom: 0;
 
           // ng-switch icon
           a:before {
@@ -246,7 +234,6 @@
           padding: 2px;
           display: inline-block;
           white-space: nowrap;
-          float: left;
 
           &:before {
             padding-right: 4px;
@@ -269,6 +256,7 @@
       &:before {
         content: "\f103";
       }
+
       &.active:before {
         content: "\f102" !important;
       }
@@ -278,6 +266,12 @@
       color: @momaGrayDark;
       cursor: pointer;
     }
+  }
+
+  .fs-modal-body-content {
+    padding: 10px;
+    max-width: 60%;
+    margin: 15% auto;
   }
 }
 

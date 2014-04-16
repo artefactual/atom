@@ -34,10 +34,8 @@
     <a href ng-click="unselect($index)" class="sidex"></a>
 
     <div class="quick-info">
-      <a href ng-click="select(item)">
-        <div class="quick-info-thumb">
-          <img ng-src="{{ item.thumbnailPath }}" />
-        </div>
+      <a href ng-click="select(item)" class="quick-info-thumb">
+        <img ng-src="{{ item.thumbnailPath }}" />
       </a>
       <div class="quick-info-title">
         <h4>
@@ -45,7 +43,7 @@
           {{ item.filename }}
         </h4>
         <div>
-          <a href class="download" ng-click="download(item)"></a>
+          <a href class="download" ng-click="download(item)">Download</a>
         </div>
       </div>
     </div>
