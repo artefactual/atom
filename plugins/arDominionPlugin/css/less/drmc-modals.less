@@ -124,18 +124,6 @@
         }
       }
     }
-
-    .fs-modal-body-media {
-      padding: 20px;
-
-      // or template
-      img, iframe {
-        display: block;
-        max-height: 450px;
-        overflow: hidden;
-        margin: 0 auto;
-      }
-    }
   }
 
   .fs-modal-sidebar {
@@ -143,6 +131,7 @@
     flex: 0 auto;
     overflow: auto;
     background: @fsModalLighter;
+    border-top: 4px solid transparent;
 
     .content {
       background: transparent;
@@ -152,6 +141,15 @@
       section {
         border: 0px;
       }
+    }
+
+    &.active {
+      border-top: 4px solid @orange;
+    }
+
+    //
+    &.unique {
+      border-top: none !important;
     }
   }
 }
@@ -203,7 +201,11 @@
       margin-top: 8px;
       .clearfix();
 
-      span.picture {
+      a.audio,
+      a.image
+      a.text
+      a.video
+      a.other {
       .fa-icon-set (@grayDark);
       font-size: 14px;
 
@@ -229,6 +231,11 @@
 
         h4 {
           line-height: 14px!important;
+
+          // ng-switch icon
+          a:before {
+            font-size: 14px;
+          }
         }
 
         a {
