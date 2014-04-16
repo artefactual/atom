@@ -2,23 +2,9 @@
   <h3><?php echo __('Related right') ?></h3>
   <div>
 
-    <a data-target="#basisModal<?php echo $resource->id ?>" role="button" class="btn" data-toggle="modal">Edit</a>
-
-    <div class="modal fade hide" id="basisModal<?php echo $resource->id ?>" tabindex="-1" 
-      role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" 
-      data-remote="/right/modal?id=<?php echo $resource->id ?>">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Set/Modify Rights</h3>
-      </div>
-      <div class="modal-body">
-      </div>
-      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-        <button class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-    
+    <a role="button" class="btn" data-id="<?php echo $resource->id ?>" data-modal="true">Edit</a>
+    <a role="button" class="btn" data-modal="true">Edit</a>
+   
     <?php if (isset($inherit)): ?>
       <?php echo link_to(render_title($inherit), array($inherit, 'module' => 'informationobject'), array('title' => __('Inherited from %1%', array('%1%' => $inherit)))) ?>
     <?php endif; ?>
