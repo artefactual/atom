@@ -302,23 +302,44 @@ class sfEadPlugin
     {
       $physDescContent .= '<extent encodinganalog="' . $this->getMetadataParameter('extent') . '">' . escape_dc(esc_specialchars($extentAndMedium)) . '</extent>';
     }
-    else
+    else // AtoM uses <dl> / <dd> / <dt> tags to specify children of <extent>.
     {
-      while (($pos = strpos($extentAndMedium, '<dt>')) !== false)
-      {
-        $extentAndMedium = substr($extentAndMedium, $pos + 4);
-        $term = trim(substr($extentAndMedium, 0, strpos($extentAndMedium, '</dt>')));
-        if ($term == 'extent' || $term == 'dimensions')
-        {
-          $pos = strpos($extentAndMedium, '<dd>') + 4;
-          $value = trim(substr($extentAndMedium, $pos, strpos($extentAndMedium, '</dd>') - $pos));
+      $physDescContent .=  '<extent encodinganalog="' . $this->getMetadataParameter('extent') . '">';
 
-          $physDescContent .=  '<' . $term . ' encodinganalog="' . $this->getMetadataParameter('extent') . '">' . escape_dc(esc_specialchars($value)) . '</' . $term . '>';
+      $extentXml = new SimpleXMLIterator($extentAndMedium);
+      $extentTag = '';
+
+      foreach ($extentXml as $extentElement)
+      {
+        if ($extentElement->getName() === 'dt')
+        {
+          $extentTag = $extentElement->__toString();
+        }
+        elseif ($extentElement->getName() === 'dd')
+        {
+          switch (strtolower($extentTag))
+          {
+            case 'extent':
+              $physDescContent .= $extentElement->__toString();
+              break;
+
+            case 'form of material':
+              $physDescContent = '<genreform>' . $extentElement->__toString() . "</genreform>$physDescContent";
+              break;
+
+            case 'physical facet':
+              $physDescContent = '<physfacet>' . $extentElement->__toString() . "</physfacet>$physDescContent";
+              break;
+
+            default:
+              throw new sfException('Invalid extent tag $extentTag found');
+          }
         }
       }
+
+      $physDescContent .= '</extent>';
     }
 
     return $physDescContent;
   }
-
 }
