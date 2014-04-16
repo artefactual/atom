@@ -53,7 +53,7 @@
 // TODO: there are tons of things here that are unneeded or specific to the
 // digital object viewer.
 
-// Generic Fullscreen Modal
+// General Fullscreen Modal
 
 .fs-modal-wrapper {
 
@@ -84,7 +84,6 @@
     height: 100%;
     margin: auto;
     background: @fsModalDarker;
-    border: 1px solid @grayLighter;
   }
 
   .fs-modal-body {
@@ -131,7 +130,6 @@
     flex: 0 auto;
     overflow: auto;
     background: @fsModalLighter;
-    border-top: 4px solid transparent;
 
     .content {
       background: transparent;
@@ -142,15 +140,17 @@
         border: 0px;
       }
     }
+  }
+}
 
-    &.active {
-      border-top: 4px solid @orange;
-    }
+// DRMC: Digital Object Viewer
 
-    //
-    &.unique {
-      border-top: none !important;
-    }
+.fs-modal-wrapper {
+
+  .fs-modal-wrapper {
+
+    // Overwrites default
+    .fs-modal-body { flex: 2 0; }
   }
 
   // modal close
@@ -163,16 +163,8 @@
     padding-right: 0;
     margin-right: -12px;
   }
-}
 
-// DRMC: Digital Object Viewer
-
-.fs-modal-wrapper {
-
-  // overwrites default
-  .fs-modal-body { flex: 2 0; }
-
-  // general fs icon styles
+  // icon styles
   a {
     .fa-icon-set(@white);
     width: 40px;
@@ -181,7 +173,21 @@
     font-size: 20px;
   }
 
+  .fs-modal-body-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 80%;
+
+    .image, .video, .other, .text, .audio {
+      text-align: center;
+    }
+  }
+
   .fs-modal-sidebar {
+    border: 1px solid @grayLighter;
+    border-top: 3px solid transparent;
     min-width: 200px;
 
     // Sidebar close one
@@ -204,12 +210,12 @@
       margin-top: 8px;
       .clearfix();
 
-      // Sidebar thumbnail
-      a.quick-info-thumb {
+      .quick-info-thumb {
+        min-width: 30%;
         margin: 0 auto;
-        width: 100%;
-        max-width: 85px;
-        padding: 8px 4px;
+        img {
+          max-height: 65px;
+        }
       }
 
       .quick-info-title {
@@ -217,13 +223,13 @@
         .clearfix();
 
         h4 {
-          line-height: 14px!important;
+          line-height: 8px!important;
           margin-bottom: 0;
+        }
 
-          // ng-switch icon
-          a:before {
-            font-size: 14px;
-          }
+        // ng-switch icon
+        a:before {
+          font-size: 14px;
         }
 
         a {
@@ -256,7 +262,6 @@
       &:before {
         content: "\f103";
       }
-
       &.active:before {
         content: "\f102" !important;
       }
@@ -268,14 +273,18 @@
     }
   }
 
-  .fs-modal-body-content {
-    padding: 10px;
-    max-width: 60%;
-    margin: 15% auto;
+  // Border to highlight active sidebar
+  .fs-modal-sidebar.active {
+    border-top: 3px solid @orange;
+  }
+
+  // Border for only one sidebar view
+  .fs-mofal-sidebar.unique {
+    border-top: none !important;
   }
 }
 
-// Generic popup modal styles
+// General popup modal styles
 
 .modal-wrapper {
 
