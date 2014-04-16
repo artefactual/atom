@@ -21,14 +21,16 @@
 // render a modal edit rights form for a given resource
 class RightPostAction extends sfAction
 {
+  protected $validationErrors = [];
 
   public function execute($request)
   {
+    $this->request = &$request;
+
   	$this->setLayout(false);
   	$this->setTemplate(null);
 
   	print_r($request->getParameterHolder());
-  	die();
 
   	if( $id = $request->getParameter('id') ) {
   		$right = QubitRights::getById($id);
@@ -36,16 +38,96 @@ class RightPostAction extends sfAction
   		$right = new QubitRights;
   	}
 
-  	// validate/load existing associated objects
-  	$basis = QubitTerm::getById($request->getParameter('basis'));
-  	
-	    
- 	// $right = new QubitRights;
-	// $right->act = $sourceRight->act;
-	// $right->startDate = $sourceRight->startDate;
-	// $right->endDate = $sourceRight->endDate;
-	// $right->basis = $sourceRight->basis;
+  	// validate and apply basis
+  	if(! $this->validateParams() )
+    {
+      var_dump($this->validationErrors);
+      return $this->renderText("\n\nfalse\n");
+    }
+    $right->basisId = $request->getParameter('basis');
 
-    return $this->renderText("SUCCESS\n");
+    $right->startDate = $request->getParameter('startDate');
+    $right->endDate = $request->getParameter('endDate');
+    $right->rightsNote = $request->getParameter('rightsNote');
+
+    // handle specific basis types
+    switch ($right->basisId) {
+      case QubitTerm::RIGHT_BASIS_COPYRIGHT_ID:
+        $this->processCopyrightProperties();
+        break;
+      case QubitTerm::RIGHT_BASIS_LICENSE_ID:
+        $this->processLicenseProperties();
+        break;
+      case QubitTerm::RIGHT_BASIS_STATUTE_ID:
+        $this->processStatuteProperties();
+        break;
+    }
+
+    $result = $right->save();
+
+  	if( $request->getParameter('copyrightStatusId') )
+  	{
+      $copyrightStatus = QubitTerm::getById($request->getParameter('copyrightStatusId'));
+  	}
+  
+	  return $this->renderText("\n\ntrue\n");
+  }
+
+  protected function processLicenseProperties()
+  {
+
+  }
+
+  protected function processCopyrightProperties()
+  {
+
+  }
+
+  protected function processStatuteProperties()
+  {
+
+  }
+
+  protected function validateParams()
+  {
+    return (
+      $this->validateBasis('basis')
+      &&
+      $this->validateDateString('startDate')
+      &&
+      $this->validateDateString('endDate')
+    );
+  }
+
+  protected function validateDateString($value)
+  {
+    // expecting yyyyy-mm-dd
+    $date = explode('-', $this->request->getParameter($value));
+    if(! checkdate($date[1], $date[2], $date[0]))
+    {
+      $this->validationErrors[] = array('Invalid Date', $date, $value);
+      return false;
+    }
+
+    return true;
+  }
+    
+  protected function validateBasis($value)
+  {
+    $new_basis = QubitTerm::getById($this->request->getParameter($value));
+    $valid_basis = [];
+
+    foreach(QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_BASIS_ID) as $basis)
+    {
+      $valid_basis[] = $basis;
+    }
+
+    if(! in_array($new_basis, $valid_basis) )
+    {
+      $this->validationErrors[] = array('Invalid Basis', $basis_id, $value);
+      return false;
+    }
+
+    return true;
   }
 }
