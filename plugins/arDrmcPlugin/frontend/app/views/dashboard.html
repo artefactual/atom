@@ -54,7 +54,11 @@
   <tabset class="span4">
     <h5>Storage</h5>
     <tab heading="Codec">
-    <ar-dash-board-storage-codec></ar-dash-board-storage-codec>
+      <ar-dash-board-storage-codec></ar-dash-board-storage-codec>
+    <h2>Collection totals</h2>
+    <div ng-repeat="item in storageCodecCollection">
+      <div><strong>{{ item.count | number }}</strong> : <span>{{ item.type }}</span></div>
+    </div>
     </tab>  
     <tab heading="Formats">
       <div>Formats Tab</div> 
@@ -68,7 +72,7 @@
   <tabset class="span8">
     <h5>Monthly Total (By GB)</h5>
     <tab heading="Codec">
-    <div>Codec Tab</div>
+      <ar-dash-board-monthly-total-codec></ar-dash-board-monthly-total-codec>
     </tab>  
     <tab heading="Formats">
       <div>Formats Tab</div> 
@@ -84,7 +88,7 @@
 <tabset class="span6">
   <h5>Running Total (By GB)</h5>
   <tab heading="Codec">
-  <div>Codec Tab</div>
+    <div>Codec Tab</div>
   </tab>  
   <tab heading="Formats">
     <div>Formats Tab</div> 
@@ -98,7 +102,7 @@
 <tabset class="span6">
   <h5>Artiwork Sizes (Average vs Median)</h5>
   <tab heading="Codec">
-  <div>Codec Tab</div>
+    <div>Codec Tab</div>
   </tab>  
   <tab heading="Formats">
     <div>Formats Tab</div> 
