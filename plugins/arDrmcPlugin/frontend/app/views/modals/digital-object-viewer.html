@@ -5,19 +5,23 @@
 
     <!-- Header -->
     <div class="fs-modal-body-header">
+
+      <!-- This element is a new flex element -->
       <div>
-        <a ng-class="getMediaTypeCssClass(current)"></a>
-      </div>
-      <div class="pager-links">
-        <a href class="arrow-left" ng-click="prev()" ng-class="{ disabled: !showPrev() }"></a>
-        <div class="grid-pager">
-          <a href class="grid"></a>
-          <p>{{ page }} of {{ total }}</p>
+        <div>
+          <a ng-class="getMediaTypeCssClass(current)"></a>
         </div>
-        <a href class="arrow-right" ng-click="next()" ng-class="{ disabled: !showNext() }"></a>
-      </div>
-      <div>
-        <a href class="sidex" ng-click="cancel()"></a>
+        <div class="pager-links">
+          <a href class="arrow-left" ng-click="prev()" ng-class="{ disabled: !showPrev() }"></a>
+          <div class="grid-pager">
+            <a href class="grid"></a>
+            <p>{{ page }} of {{ total }}</p>
+          </div>
+          <a href class="arrow-right" ng-click="next()" ng-class="{ disabled: !showNext() }"></a>
+        </div>
+        <div>
+          <a href class="sidex" ng-click="cancel()"></a>
+        </div>
       </div>
     </div>
 
@@ -25,7 +29,6 @@
     <div class="fs-modal-body-content">
       <ar-digital-object-preview file="current"></ar-digital-object-preview>
     </div>
-
   </div>
 
   <!-- Sidebar -->
@@ -37,7 +40,7 @@
       <a href ng-click="select(item)" class="quick-info-thumb">
         <img ng-src="{{ item.thumbnail_path }}" />
       </a>
-      <div class="quick-info-title">
+      <div ng-click="select(item)" class="quick-info-title">
         <h4>
           <a ng-class="getMediaTypeCssClass(item)"></a>
           {{ item.filename }}
@@ -57,27 +60,27 @@
           <a href ng-class="{ 'fs-modal-toggle': true, active: showAipsArea }" ></a>
         </div>
         <div ng-show="showAipsArea">
-          <div class="field">
+          <div ng-if="item.filename" class="field">
             <h3>AIP name</h3>
             <div>{{ item.filename }}</div>
           </div>
-          <div class="field">
+          <div ng-if="item.uuid" class="field">
             <h3>UUID</h3>
             <div></div>
           </div>
-          <div class="field">
+          <div ng-if="item.byteSize" class="field">
             <h3>Size</h3>
             <div>{{ item.byte_size | UnitFilter:2 }}</div>
           </div>
-          <div class="field">
+          <div ng-if="item.objCount" class="field">
             <h3>No. of objects</h3>
             <div></div>
           </div>
-          <div class="field">
+          <div ng-if="item.class" class="field">
             <h3>AIP class</h3>
             <div></div>
           </div>
-          <div class="field">
+          <div ng-if="item.description" class="field">
             <h3>Description</h3>
             <div></div>
           </div>
@@ -91,35 +94,35 @@
           <a href ng-class="{ 'fs-modal-toggle': true, active: showFitsArea }" ></a>
         </div>
         <div ng-show="showFitsArea">
-          <div class="field">
+          <div ng-if="item.complete_name" class="field">
             <h3>Complete name</h3>
             <div></div>
           </div>
-          <div class="field">
+          <div ng-if="item.uuid" class="field">
             <h3>UUID AIPs</h3>
             <div></div>
           </div>
-          <div class="field">
+          <div ng-if="item.mimeType" class="field">
             <h3>MIME type</h3>
             <div>{{ item.mime_type }}</div>
           </div>
-          <div class="field">
+          <div ng-if="item.format" class="field">
             <h3>Format</h3>
             <div></div>
           </div>
-          <div class="field">
+          <div ng-if="item.byteSize" class="field">
             <h3>File size</h3>
             <div>{{ item.byte_size | UnitFilter:2 }}</div>
           </div>
-          <div class="field">
+          <div ng-if="item.dimensions" class="field">
             <h3>Dimensions</h3>
             <div></div>
           </div>
-          <div class="field">
+          <div ng-if="item.compression" class="field">
             <h3>Compression</h3>
             <div></div>
           </div>
-          <div class="field">
+          <div ng-if="item.date" class="field">
             <h3>Date</h3>
             <div></div>
           </div>
@@ -133,23 +136,23 @@
           <a href ng-class="{ 'fs-modal-toggle': true, active: showMediaArea }" ></a>
         </div>
         <div ng-show="showMediaArea">
-          <div class="field">
+          <div ng-if="item.width" class="field">
             <h3>Width</h3>
             <div></div>
           </div>
-          <div class="field">
+          <div ng-if="item.height" class="field">
             <h3>Height</h3>
             <div></div>
           </div>
-          <div class="field">
+          <div ng-if="item.ratio" class="field">
             <h3>Aspect ratio</h3>
             <div></div>
           </div>
-          <div class="field">
+          <div ng-if="item.make" class="field">
             <h3>Make</h3>
             <div></div>
           </div>
-          <div class="field">
+          <div ng-if="item.model"class="field">
             <h3>Model</h3>
             <div></div>
           </div>
