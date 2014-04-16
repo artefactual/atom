@@ -118,7 +118,6 @@
 
     // add event listener for submit buttons
     jQuery('.modal').on('click', '.btn-primary', function(){
-      var $this = jQuery(this);
       var form = jQuery(this).parent().parent().find('form');
       jQuery.post(form.attr('action'), form.serialize());
     });
