@@ -63,7 +63,6 @@
 // General Fullscreen Modal
 
 .fs-modal-wrapper {
-
   padding: 0;
   margin: 0;
   overflow-x: auto;
@@ -95,46 +94,14 @@
 
   .fs-modal-body {
     order: 1;
-    flex: 2 0 auto;
+    flex: 1 0 auto;
     color: @white;
     min-width: 350px;
-
-    .fs-modal-body-header {
-      display: -webkit-flex;
-      display: flex;
-
-      align-items: center;
-      justify-content: space-between;
-      flex-flow: row nowrap;
-      align-content: stretch;
-
-      height: 64px;
-
-      .pager-links {
-        padding-top: 32px;
-      }
-
-      .arrow-left.disabled,
-      .arrow-right.disabled {
-        opacity: 0.1;
-        cursor: default;
-      }
-
-      .grid-pager {
-      vertical-align: -100%;
-      text-align: center;
-      display: inline-block;
-
-        .grid, p {
-          padding: 0px 21px;
-        }
-      }
-    }
   }
 
   .fs-modal-sidebar {
     order: 2;
-    flex: 0 auto;
+    flex: 0 0 auto;
     overflow: auto;
     background: @fsModalLighter;
 
@@ -154,13 +121,77 @@
 
 .fs-modal-wrapper {
 
-  .fs-modal-wrapper {
+  // Overwrites default
+  .fs-modal-body {
+    order: 1;
+    color: @white;
+    display: flex;
+    flex: 2 0 auto;
 
-    // Overwrites default
-    .fs-modal-body { flex: 2 0; }
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    height: 100%;
+
+    .fs-modal-body-header {
+      order: 1;
+      flex: 0 1 80px;
+
+      align-self: stretch;
+
+      // MUST be first child to make new flex element
+      > div {
+        display: flex;
+
+        align-items: center;
+        justify-content: space-between;
+        flex-flow: row nowrap;
+
+        height: 50px;
+
+        .pager-links {
+          padding-top: 32px;
+        }
+
+        .arrow-left.disabled,
+        .arrow-right.disabled {
+          opacity: 0.1;
+          cursor: default;
+        }
+
+        .grid-pager {
+          vertical-align: -100%;
+          text-align: center;
+          display: inline-block;
+
+          .grid, p {
+            padding: 0px 21px;
+          }
+        }
+      }
+    }
+
+    .fs-modal-body-content {
+      order: 1;
+      flex: 0 1 auto;
+
+      .image {
+        max-height: 100%;
+        height: 100%;
+
+        // temporary, until spacing issue
+        // is resovled
+        padding-top: 50px;
+
+        img {
+          text-align: center;
+        }
+      }
+    }
   }
 
-  // modal close
+  // Modal close
   a#fs-modal-exit {
     top: 0;
     position: absolute;
@@ -180,58 +211,50 @@
     font-size: 20px;
   }
 
-  .fs-modal-body-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    height: 80%;
-
-    .image, .video, .other, .text, .audio {
-      text-align: center;
-    }
-  }
-
   .fs-modal-sidebar {
     border: 1px solid @grayLighter;
     border-top: 3px solid transparent;
-    min-width: 200px;
+    min-width: 220px;
+    max-width: 400px;
 
-    // Sidebar close one
-    a.sidex {
-      color: @momaGray;
+    flex: 1 0 auto;
+
+    // Close one sidebar
+    button.close {
+      color: @momaGrayDark;
       position: relative;
       float: right;
-      display: block;
       width: 20px;
       height: 20px;
+      background: none;
+      border: 0;
+      box-shadow: none;
       padding: 0;
-      margin-right: -3px;
     }
 
+    // Top title and img
     .quick-info {
       display: flex;
       flex-wrap: nowrap;
       align-items: stretch;
       max-height: 65px;
-      margin-top: 8px;
+      margin-top: 10px;
       .clearfix();
 
       .quick-info-thumb {
-        min-width: 30%;
-        margin: 0 auto;
-        img {
-          max-height: 65px;
-        }
+        width: 75px;
+        max-width: 100%;
+        max-height: 70px;
+        padding-top: 8px;
       }
 
       .quick-info-title {
-        margin: 0 auto;
         .clearfix();
 
         h4 {
           line-height: 8px!important;
           margin-bottom: 0;
+          cursor: pointer;
         }
 
         // ng-switch icon
@@ -256,6 +279,13 @@
       }
     }
 
+    // Section titles
+    h2 {
+      color: @momaGrayDark;
+      cursor: pointer;
+    }
+
+    // Toggles sidebar sections
     a.fs-modal-toggle {
       .fa-icon-set (@grayDark);
       font-size: 14px;
@@ -274,9 +304,14 @@
       }
     }
 
-    h2 {
-      color: @momaGrayDark;
-      cursor: pointer;
+    // From base style, makes field names wider
+    .content .field {
+      > h3 {
+        width: 35%;
+      }
+      > div {
+        margin-left: 35%;
+      }
     }
   }
 
@@ -286,8 +321,8 @@
   }
 
   // Border for only one sidebar view
-  .fs-mofal-sidebar.unique {
-    border-top: none !important;
+  .fs-modal-sidebar.unique {
+    border-top: transparent !important;
   }
 }
 

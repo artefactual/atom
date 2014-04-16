@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modal, $modalInstance, files, ModalDigitalObjectViewerService) {
+module.exports = function ($scope, $modal, $modalInstance, files, InformationObjectService, ModalDigitalObjectViewerService) {
 
   // Share files with the model
   // Make sure that we convert into array when files is just one object
@@ -24,15 +24,22 @@ module.exports = function ($scope, $modal, $modalInstance, files, ModalDigitalOb
     $modalInstance.dismiss('cancel');
   };
 
-  $scope.download = function () {
+  $scope.download = function (itemFile) {
+    var itemId = itemFile.id;
+
+    InformationObjectService.getById(itemId).then(function (response) {
+      $scope.itemToDownload = response;
+    });
+
+    // TODO: Finish download work
 
   };
 
   // Defaults for the sidebar.
   // Notice that ng-repeat will inherit this and then rewrite
-  $scope.showAipsArea = false;
+  $scope.showAipsArea = true;
   $scope.showFitsArea = false;
-  $scope.showMediaArea = true;
+  $scope.showMediaArea = false;
 
   $scope.prev = function () {
     if ($scope.page < 2) {
@@ -62,7 +69,12 @@ module.exports = function ($scope, $modal, $modalInstance, files, ModalDigitalOb
   };
 
   $scope.unselect = function (index) {
-    $scope.files.splice(index, 1);
+    if($scope.files > 1) {
+      $scope.files.splice(index, 1);
+    } else {
+      $modalInstance.dismiss('cancel');
+    }
+
     // TODO: destroy scope
     // TODO: update pages
     // TODO: update current

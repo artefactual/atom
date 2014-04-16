@@ -32,9 +32,8 @@
   </div>
 
   <!-- Sidebar -->
-  <div ng-class="{ 'fs-modal-sidebar': true, active: current === item, unique: files.length == 1 }" ng-repeat="item in files">
-
-    <a href ng-click="unselect($index)" class="sidex"></a>
+  <div ng-class="{ 'fs-modal-sidebar': true, active: current === item, unique: files.length === 1 }" ng-repeat="item in files track by $index">
+    <button ng-click="unselect($index)" class="btn close">x</button>
 
     <div class="quick-info">
       <a href ng-click="select(item)" class="quick-info-thumb">
