@@ -125,6 +125,29 @@ module.exports = function ($http, $q, SETTINGS) {
     });
   };
 
+  this.getSupportingTechnologyRecordsOf = function (id) {
+    // Mocked version
+    var deferred = $q.defer();
+    setTimeout(function () {
+      deferred.resolve([
+        {
+          id: 1,
+          object_id: id,
+          name: 'Windows 7',
+          type_id: 1
+        },
+        {
+          id: 2,
+          object_id: id,
+          name: 'Windows 8',
+          description: 'Good bye start menu',
+          type_id: 2
+        }
+      ]);
+    }, 250);
+    return deferred.promise;
+  };
+
   this.getFiles = function (params) {
     return $http({
       method: 'GET',
@@ -252,4 +275,5 @@ module.exports = function ($http, $q, SETTINGS) {
     data.level_of_description_id = SETTINGS.drmc.lod_supporting_technology_record_id;
     return this.create(data);
   };
+
 };
