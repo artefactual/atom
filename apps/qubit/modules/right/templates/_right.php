@@ -1,4 +1,4 @@
-<div class="field">
+<div class="field" id="right<?php echo $resource->id ?>">
   <h3><?php echo __('Related right') ?></h3>
   <div>
 

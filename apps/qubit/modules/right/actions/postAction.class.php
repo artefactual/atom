@@ -28,9 +28,8 @@ class RightPostAction extends sfAction
     $this->request = &$request;
 
   	$this->setLayout(false);
-  	$this->setTemplate(null);
 
-  	print_r($request->getParameterHolder());
+  	// print_r($request->getParameterHolder());
 
   	if( $id = $request->getParameter('id') ) {
   		$right = QubitRights::getById($id);
@@ -42,7 +41,8 @@ class RightPostAction extends sfAction
   	if(! $this->validateParams() )
     {
       var_dump($this->validationErrors);
-      return $this->renderText("\n\nfalse\n");
+      $this->setTemplate(null);
+      return $this->renderText(json_encode($this->validationErrors));
     }
     $right->basisId = $request->getParameter('basis');
 
@@ -70,7 +70,10 @@ class RightPostAction extends sfAction
       $copyrightStatus = QubitTerm::getById($request->getParameter('copyrightStatusId'));
   	}
   
-	  return $this->renderText("\n\ntrue\n");
+    // find the newly modifid resource and 
+    // render it with _right template
+    // ajax will update the page with it
+	  $this->resource = QubitRights::getById($right->id);
   }
 
   protected function processLicenseProperties()

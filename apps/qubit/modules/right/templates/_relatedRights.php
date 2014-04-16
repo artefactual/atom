@@ -1,3 +1,5 @@
+<!-- go go rights go! -->
+
 <?php if ($resource instanceof QubitInformationObject): ?>
 
   <?php foreach ($ancestors as $item): ?>
@@ -34,17 +36,22 @@
 
     function setFieldsForBasis()
     {
-      console.log('updating fields for basis');
       var selected = container.find('select[name=basis]')[0];
       var type = false;
       if(selected) {
         type = jQuery(selected.selectedOptions[0]).text().toLowerCase();
       }
 
-      jQuery('#modalContainer .basis-group').each(function(){
+      container.find('.basis-group').each(function(){
         $this = jQuery(this);
         $this.toggle($this.hasClass(type));
       });
+    }
+
+    function postModalSuccess(data) {
+      // inject new rights view into page
+      jQuery('#rightsArea').find('#'+jQuery(data).attr('id')).replaceWith(data);
+      container.find('.modal').modal('hide');
     }
 
     // setup Edit button events
@@ -53,7 +60,6 @@
     // display the modal
     // call any prep required
     jQuery('#rightsArea').on('click', '[data-modal=true]', function(event){
-      event.preventDefault();
       
       // clear anything in the modalContainer
       container.empty()
@@ -70,15 +76,17 @@
         container.find('.modal').modal('show');
         setFieldsForBasis();
       });
+
+      return false;
     });
 
     // add event listener for basis select changes
     container.on('change','select[name="basis"]', setFieldsForBasis);
 
-    // // add event listener for submit buttons
-    // jQuery('.modal').on('click', '.btn-primary', function(){
-    //   var form = jQuery(this).parent().parent().find('form');
-    //   jQuery.post(form.attr('action'), form.serialize());
-    // });
+    // add event listener for submit buttons
+    container.on('click', '.btn-primary', function(){
+      var form = container.find('form');
+      jQuery.post(form.attr('action'), form.serialize(), postModalSuccess);
+    });
   })();
 </script>
