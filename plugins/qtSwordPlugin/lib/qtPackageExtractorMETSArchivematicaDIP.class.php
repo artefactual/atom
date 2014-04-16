@@ -913,9 +913,11 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
                 $tmsComponentsIds[] = $item['ComponentID'];
               }
 
+              break;
+
             // Log error
             case 'ErrorMsg':
-              sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.$value);
+              sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - ErrorMsg: '.$value);
 
               break;
 
@@ -955,15 +957,17 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     // Request component from TMS API
     $curl = curl_init();
+    $url = sfConfig::get('app_drmc_tms_url').'/GetComponentDetails/Component/'.$tmsId;
 
     curl_setopt_array($curl, array(
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_FAILONERROR => true,
-        CURLOPT_URL => sfConfig::get('app_drmc_tms_url').'/GetComponentDetails/Component/'.$tmsId));
+        CURLOPT_URL => $url));
 
     if (false === $resp = curl_exec($curl))
     {
       sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.curl_error($curl));
+      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - URL: '.$url);
     }
     else
     {
@@ -1082,7 +1086,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
             // Log error
             case 'ErrorMsg':
-              sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.$value);
+              sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - ErrorMsg: '.$value);
 
               break;
 
