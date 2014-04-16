@@ -5,7 +5,9 @@
 
     <!-- Header -->
     <div class="fs-modal-body-header">
-      <div><a href class="picture"></a></div>
+      <div>
+        <a ng-class="getMediaTypeCssClass(current)"></a>
+      </div>
       <div class="pager-links">
         <a href class="arrow-left" ng-click="prev()" ng-class="{ disabled: !showPrev() }"></a>
         <div class="grid-pager">
@@ -21,26 +23,29 @@
 
     <!-- Content (viewer) -->
     <div class="fs-modal-body-content">
-      <div class="fs-modal-body-media">
-        <ar-digital-object-preview media-type="{{ current.digital_object.media_type }}"></ar-digital-object-preview>
-      </div>
+      <ar-digital-object-preview file="current"></ar-digital-object-preview>
     </div>
+
   </div>
 
   <!-- Sidebar -->
-  <div class="fs-modal-sidebar" ng-repeat="item in files">
+  <div ng-class="{ 'fs-modal-sidebar': true, active: current === item, unique: files.length == 1 }" ng-repeat="item in files">
 
-    <a href class="sidex"></a>
+    <a href ng-click="unselect($index)" class="sidex"></a>
 
     <div class="quick-info">
-      <div class="quick-info-thumb">
-        <img ng-src="{{ assetsPath }}/gordon.jpg" />
-      </div>
+      <a href ng-click="select(item)">
+        <div class="quick-info-thumb">
+          <img ng-src="{{ item.thumbnailPath }}" />
+        </div>
+      </a>
       <div class="quick-info-title">
-        <h4><span class="picture"></span>{{ current.demo_title }}</h4>
+        <h4>
+          <a ng-class="getMediaTypeCssClass(item)"></a>
+          {{ item.filename }}
+        </h4>
         <div>
-          <a href class="download">Download</a>
-          <a href class="print">Print report</a>
+          <a href class="download" ng-click="download(item)"></a>
         </div>
       </div>
     </div>
@@ -48,7 +53,7 @@
     <div class="content">
 
       <!-- AIP details -->
-      <section id="section-first">
+      <section>
         <div ng-click="showAipsArea = !showAipsArea">
           <h2>AIP details</h2>
           <a href ng-class="{ 'fs-modal-toggle': true, active: showAipsArea }" ></a>
@@ -56,69 +61,69 @@
         <div ng-show="showAipsArea">
           <div class="field">
             <h3>AIP name</h3>
-            <div>{{ digObj1Aip.name }}</div>
+            <div>{{ item.filename }}</div>
           </div>
           <div class="field">
             <h3>UUID</h3>
-            <div>{{ digObj1Aip.uuid }}</div>
+            <div></div>
           </div>
           <div class="field">
             <h3>Size</h3>
-            <div>{{ digObj1Aip.size }}</div>
+            <div>{{ item.byteSize | UnitFilter:2 }}</div>
           </div>
           <div class="field">
             <h3>No. of objects</h3>
-            <div>{{ digObj1Aip.no_objects }}</div>
+            <div></div>
           </div>
           <div class="field">
             <h3>AIP class</h3>
-            <div>{{ digObj1Aip.classification }}</div>
+            <div></div>
           </div>
           <div class="field">
             <h3>Description</h3>
-            <div>{{ digObj1Aip.description }}</div>
+            <div></div>
           </div>
         </div>
       </section>
 
       <!-- FITS output -->
-      <section id="section-second">
+      <section>
         <div ng-click="showFitsArea = !showFitsArea">
           <h2>FITS output</h2>
           <a href ng-class="{ 'fs-modal-toggle': true, active: showFitsArea }" ></a>
         </div>
-        <div ng-show="showFitsArea" id="section-second">
+        <div ng-show="showFitsArea">
           <div class="field">
             <h3>Complete name</h3>
-            <div>{{ digObj1Fits.complete_name }}</div>
+            <div></div>
           </div>
           <div class="field">
             <h3>UUID AIPs</h3>
-            <div>{{ digObj1Fits.uuid }}</div>
+            <div></div>
           </div>
           <div class="field">
             <h3>MIME type</h3>
-            <div>{{ digObj1Fits.mime_type }}</div>
+            <div>{{ item.mimeType }}</div>
           </div>
           <div class="field">
             <h3>Format</h3>
-            <div>{{ digObj1Fits.format }}</div>
+            <div></div>
           </div>
           <div class="field">
             <h3>File size</h3>
-            <div>{{ digObj1Fits.file_size }}</div>
+            <div>{{ item.byteSize | UnitFilter:2 }}</div>
           </div>
           <div class="field">
             <h3>Dimensions</h3>
-            <div>{{ digObj1Fits.dimensions }}</div>
+            <div></div>
           </div>
           <div class="field">
             <h3>Compression</h3>
-            <div>{{ digObj1Fits.compression }}</div>
+            <div></div>
           </div>
           <div class="field">
             <h3>Date</h3>
-            <div>{{ digObj1Fits.date_time }}</div>
+            <div></div>
           </div>
         </div>
       </section>
@@ -132,27 +137,28 @@
         <div ng-show="showMediaArea">
           <div class="field">
             <h3>Width</h3>
-            <div>{{ digObj1Img.width }}</div>
+            <div></div>
           </div>
           <div class="field">
             <h3>Height</h3>
-            <div>{{ digObj1Img.height }}</div>
+            <div></div>
           </div>
           <div class="field">
             <h3>Aspect ratio</h3>
-            <div>{{ digObj1Img.res }}</div>
+            <div></div>
           </div>
           <div class="field">
             <h3>Make</h3>
-            <div>{{ digObj1Img.make }}</div>
+            <div></div>
           </div>
           <div class="field">
             <h3>Model</h3>
-            <div>{{ digObj1Img.model }}</div>
+            <div></div>
           </div>
         </div>
       </section>
     </div>
+
   </div>
 
 </div>
