@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modal, $modalInstance, files, InformationObjectService, ModalDigitalObjectViewerService) {
+module.exports = function ($scope, $q, $modal, $stateParams, $modalInstance, files, InformationObjectService, ModalDigitalObjectViewerService) {
 
   // Share files with the model
   // Make sure that we convert into array when files is just one object
@@ -30,9 +30,7 @@ module.exports = function ($scope, $modal, $modalInstance, files, InformationObj
     InformationObjectService.getById(itemId).then(function (response) {
       $scope.itemToDownload = response;
     });
-
     // TODO: Finish download work
-
   };
 
   // Defaults for the sidebar.
@@ -74,10 +72,6 @@ module.exports = function ($scope, $modal, $modalInstance, files, InformationObj
     } else {
       $modalInstance.dismiss('cancel');
     }
-
-    // TODO: destroy scope
-    // TODO: update pages
-    // TODO: update current
   };
 
   $scope.showPrev = function () {
@@ -88,4 +82,20 @@ module.exports = function ($scope, $modal, $modalInstance, files, InformationObj
     return $scope.page < $scope.total;
   };
 
+  // Get list of files for compare view
+  InformationObjectService.getById($stateParams.id).then(function (response) {
+
+    var deferred = $q.defer();
+
+    setTimeout(function () {
+      // $q so browser can load viewer first before loading all files
+      InformationObjectService.getDigitalObjects($stateParams.id).then(function (response) {
+        return response;
+      });
+
+      deferred.resolve(response);
+    }, 750);
+
+    return deferred.promise;
+  });
 };
