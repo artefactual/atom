@@ -6,7 +6,7 @@
 
     <section class="breadcrumb">
       <ul>
-        <li><a ui-sref="works.browser">Works</a></li>
+        <li><a ui-sref="main.works.browser">Works</a></li>
         <li><span>{{ work.title }}</span></li>
       </ul>
     </section>
@@ -168,7 +168,7 @@
                     </td>
                     <td>{{ file.byteSize | UnitFilter:2 }}</td>
                     <td>
-                      <a href ui-sref="aips.view({ uuid: file.aip_uuid })">{{ file.aip_title }}</a><br />
+                      <a href ui-sref="main.aips.view({ uuid: file.aip_uuid })">{{ file.aip_title }}</a><br />
                       (<a href ng-click="downloadAip(file)">download</a>)
                     </td>
                     <td><a href class="btn" ng-click="downloadFile(file)">Download file</a></td>

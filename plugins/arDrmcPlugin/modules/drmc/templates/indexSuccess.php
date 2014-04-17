@@ -10,16 +10,8 @@
   </head>
   <body ng-app="momaApp" class="drmc" ng-controller="BodyCtrl">
 
-    <ng-include src="headerPartialPath" ng-controller="HeaderCtrl"></ng-include>
-
-    <div id="wrapper" class="container">
-
-      <!-- View placeholder -->
-      <ui-view autoscroll="false"/>
-
-    </div>
-
-    <ng-include src="footerPartialPath" ng-controller="FooterCtrl"></ng-include>
+    <!-- View placeholder -->
+    <ui-view autoscroll="false"/>
 
   </body>
 </html>

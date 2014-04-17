@@ -6,7 +6,7 @@
 
     <section class="breadcrumb">
       <ul>
-        <li><a ui-sref="aips.browser">AIPs</a></li>
+        <li><a ui-sref="main.aips.browser">AIPs</a></li>
         <li><span>{{ aip.name }}</span></li>
       </ul>
     </section>
@@ -51,7 +51,7 @@
             </div>
             <div class="field">
               <h3>Part of</h3>
-              <div><a ui-sref="works.view({ id: aip.part_of.id })">{{ aip.part_of.title }}</a></div>
+              <div><a ui-sref="main.works.view({ id: aip.part_of.id })">{{ aip.part_of.title }}</a></div>
             </div>
             <div class="field" ng-if="aip.description != undefined">
               <h3>Description</h3>

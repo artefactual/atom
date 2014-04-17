@@ -11,10 +11,10 @@
         <section ng-if="results.totals.aips > 0">
           <ul>
             <li ng-repeat="(uuid, aip) in results.aips">
-              <a ui-sref="aips.view({ uuid: uuid })" ng-bind-html="aip.name"></a>
+              <a ui-sref="main.aips.view({ uuid: uuid })" ng-bind-html="aip.name"></a>
             </li>
             <li class="showall">
-              <a ui-sref="search.entity({ entity: 'aips' })">all matching AIPs</a>
+              <a ui-sref="main.search.entity({ entity: 'aips' })">all matching AIPs</a>
             </li>
           </ul>
         </section>
@@ -22,10 +22,10 @@
         <section ng-if="results.totals.artworks > 0">
           <ul>
             <li ng-repeat="(id, work) in results.artworks">
-              <a ui-sref="works.view({ id: id })" ng-bind-html="work.title"></a>
+              <a ui-sref="main.works.view({ id: id })" ng-bind-html="work.title"></a>
             </li>
             <li class="showall">
-              <a ui-sref="search.entity({ entity: 'works' })">all matching Artworks</a>
+              <a ui-sref="main.search.entity({ entity: 'works' })">all matching Artworks</a>
             </li>
           </ul>
         </section>
@@ -36,7 +36,7 @@
               <a ng-bind-html="comp.title"></a>
             </li>
             <li class="showall">
-              <a ui-sref="search.entity({ entity: 'components' })">all matching Components</a>
+              <a ui-sref="main.search.entity({ entity: 'components' })">all matching Components</a>
             </li>
           </ul>
         </section>
@@ -44,10 +44,10 @@
         <section ng-if="results.totals.technology_records > 0">
           <ul>
             <li ng-repeat="(id, techRecord) in results.technology_records">
-              <a ui-sref="technology-records.view({ id: id })" ng-bind-html="techRecord.title"></a>
+              <a ui-sref="main.technology-records.view({ id: id })" ng-bind-html="techRecord.title"></a>
             </li>
             <li class="showall">
-              <a ui-sref="search.entity({ entity: 'technology-records' })">all matching Technology Records</a>
+              <a ui-sref="main.search.entity({ entity: 'technology-records' })">all matching Technology Records</a>
             </li>
           </ul>
         </section>
@@ -58,7 +58,7 @@
               <a ng-bind-html="file.title"></a>
             </li>
             <li class="showall">
-              <a ui-sref="search.entity({ entity: 'files' })">all matching Files</a>
+              <a ui-sref="main.search.entity({ entity: 'files' })">all matching Files</a>
             </li>
           </ul>
         </section>

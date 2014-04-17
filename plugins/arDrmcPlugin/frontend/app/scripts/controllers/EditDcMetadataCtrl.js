@@ -92,7 +92,7 @@ module.exports = function ($scope, $state, $modalInstance, SETTINGS, Information
   var create = function () {
     InformationObjectService.createSupportingTechnologyRecord($scope.resource).then(function (data) {
       if (parentId === null) {
-        $state.go('technology-records.view', { id: data.id });
+        $state.go('main.technology-records.view', { id: data.id });
       }
       $modalInstance.close();
     }, function () {

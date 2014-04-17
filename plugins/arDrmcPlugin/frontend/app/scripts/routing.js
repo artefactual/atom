@@ -25,83 +25,89 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       templateUrl: SETTINGS.viewsPath + '/404.html'
     })
 
+    // Includes header and footer, used in most of the pages.
+    .state('main', {
+      abstract: true,
+      templateUrl: SETTINGS.viewsPath + '/layout/main.html'
+    })
+
     // Dashboard
-    .state('dashboard', {
+    .state('main.dashboard', {
       url: SETTINGS.DRMCPath.replace(/\/$/, ''),
       controller: 'DashboardCtrl',
       templateUrl: SETTINGS.viewsPath + '/dashboard.html'
     })
 
     // AIPs
-    .state('aips', {
+    .state('main.aips', {
       abstract: true,
       url: SETTINGS.DRMCPath + 'aips',
       template: '<ui-view/>'
     })
-    .state('aips.browser', {
+    .state('main.aips.browser', {
       url: '',
       controller: 'AIPBrowserCtrl',
       templateUrl: SETTINGS.viewsPath + '/aips.browser.html'
     })
-    .state('aips.view', {
+    .state('main.aips.view', {
       url: '/{uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}}',
       controller: 'AIPViewCtrl',
       templateUrl: SETTINGS.viewsPath + '/aips.view.html'
     })
 
     // Works
-    .state('works', {
+    .state('main.works', {
       abstract: true,
       url: SETTINGS.DRMCPath + 'works',
       template: '<ui-view/>'
     })
-    .state('works.browser', {
+    .state('main.works.browser', {
       url: '',
       controller: 'WorkBrowserCtrl',
       templateUrl: SETTINGS.viewsPath + '/works.browser.html'
     })
-    .state('works.view', {
+    .state('main.works.view', {
       url: '/{id}',
       controller: 'WorkViewCtrl',
       templateUrl: SETTINGS.viewsPath + '/works.view.html'
     })
 
     // Technology Records
-    .state('technology-records', {
+    .state('main.technology-records', {
       abstract: true,
       url: SETTINGS.DRMCPath + 'technology-records',
       template: '<ui-view/>'
     })
-    .state('technology-records.browser', {
+    .state('main.technology-records.browser', {
       url: '',
       controller: 'TechnologyRecordBrowserCtrl',
       templateUrl: SETTINGS.viewsPath + '/technology-records.browser.html'
     })
-    .state('technology-records.view', {
+    .state('main.technology-records.view', {
       url: '/{id}',
       controller: 'TechnologyRecordViewCtrl',
       templateUrl: SETTINGS.viewsPath + '/technology-records.view.html'
     })
 
     // TMS
-    .state('tms', {
+    .state('main.tms', {
       abstract: true,
       url: SETTINGS.DRMCPath + 'tms',
       template: '<ui-view/>'
     })
-    .state('tms.browser', {
+    .state('main.tms.browser', {
       url: '',
       controller: 'TmsBrowserCtrl',
       templateUrl: SETTINGS.viewsPath + '/tms.browser.html'
     })
 
     // Search
-    .state('search', {
+    .state('main.search', {
       abstract: true,
       url: SETTINGS.DRMCPath + 'search',
       template: '<ui-view/>'
     })
-    .state('search.entity', {
+    .state('main.search.entity', {
       url: '/{entity}',
       controller: 'SearchCtrl',
       templateUrl: function (stateParams) {

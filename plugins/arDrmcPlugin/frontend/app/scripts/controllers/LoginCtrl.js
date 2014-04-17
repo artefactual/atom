@@ -15,7 +15,7 @@ module.exports = function ($scope, $window, AuthenticationService, $state) {
     // authentication process (see $setValidity(), etc...)
     AuthenticationService.authenticate($scope.username, $scope.password)
       .success(function () {
-        $state.go('dashboard');
+        $state.go('main.dashboard');
       }).error(function () {
         notifyOfError('Incorrect username or password.');
       });

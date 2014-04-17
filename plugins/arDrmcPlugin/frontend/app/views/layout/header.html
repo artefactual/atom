@@ -1,7 +1,7 @@
 <header id="top-bar">
 
   <h1 id="site-name">
-    <a ui-sref="dashboard">DRMC</a>
+    <a ui-sref="main.dashboard">DRMC</a>
   </h1>
 
   <div id="search-bar">
@@ -20,16 +20,16 @@
         <div class="top-dropdown-body">
           <ul>
             <li ng-class="{ active: $state.includes('aips.browser') }">
-              <a ui-sref="aips.browser">AIPs</a>
+              <a href ui-sref="main.aips.browser">AIPs</a>
             </li>
             <li ng-class="{ active: $state.includes('works.browser') }">
-              <a ui-sref="works.browser">Artwork records</a>
+              <a href ui-sref="main.works.browser">Artwork records</a>
             </li>
             <li ng-class="{ active: $state.includes('technology-records.browser') }">
-              <a ui-sref="technology-records.browser">Supporting technology records</a>
+              <a href ui-sref="main.technology-records.browser">Supporting technology records</a>
             </li>
             <li ng-class="{ active: $state.includes('tms.browser') }">
-              <a ui-sref="tms.browser">TMS</a>
+              <a href ui-sref="main.tms.browser">TMS</a>
             </li>
           </ul>
         </div>
