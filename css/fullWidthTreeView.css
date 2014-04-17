@@ -11,19 +11,6 @@
 	padding-left: 7px;
 }
 
-/* match these with value from fullWirthTree.js var html / data grid columns */
-#fullwidth-treeview-header div.title {
-	width: 638px;
-}
-
-#fullwidth-treeview-header div.identifier {
-	width: 94px;
-}
-
-#fullwidth-treeview-header div.type {
-		width: 115px;
-}
-
 #fullwidth-treeview-row {
 	margin-bottom: 20px;
 	border: 1px solid #ddd;
@@ -65,25 +52,8 @@
 	color: #ddd;
 }
 
-#jstree-grid-wrapper {
-	position: absolute;
-}
-
-.jstree-grid-cell {
-	background-color: #eee;
-	border: 1px solid #fff;
-}
-
-/* IE9 text-overflow ellipsis fix */
-.jstree-node > a:before {
-  content: '';
-}
-
-.jstree-node > a,
-.jstree-node >  .jstree-grid-cell span {
+#fullwidth-treeview-row a.jstree-anchor {
+	width: 96.5%;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	white-space: nowrap;
-	line-height: 10px;
-	width: 100%;
 }
