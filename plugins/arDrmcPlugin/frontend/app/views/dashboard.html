@@ -4,7 +4,7 @@
   <img ng-src="{{ assetsPath }}/moma-top-img.png" /></a>
 </div>
 <!-- Recent activity -->
-<tabset>
+<tabset class="dashboard-widget">
   <h5>Recent activity</h5>
   <tab heading="Ingests">
     <table class="table table-bordered">
@@ -44,14 +44,11 @@
       </tbody>
     </table>   
   </tab>
-  <tab heading="Logins">
-    <div>Login Tab</div> 
-  </tab>  
 </tabset>
 
 <div class="row-fluid">
 <!-- Storage -->
-  <tabset class="span4">
+  <tabset class="span4 dashboard-widget">
     <h5>Storage</h5>
     <tab heading="Codec">
       <ar-dash-board-storage-codec></ar-dash-board-storage-codec>
@@ -69,7 +66,7 @@
   </tabset>
 
   <!-- Monthly Total (By GB) -->
-  <tabset class="span8">
+  <tabset class="span8 dashboard-widget">
     <h5>Monthly Total (By GB)</h5>
     <tab heading="Codec">
       <ar-dash-board-monthly-total-codec><div id="graph"></div></ar-dash-board-monthly-total-codec>
@@ -85,7 +82,7 @@
 
 <div class="row-fluid">
 <!-- Running Total (By GB) -->
-<tabset class="span6">
+<tabset class="span6 dashboard-widget">
   <h5>Running Total (By GB)</h5>
   <tab heading="Codec">
     <div>Codec Tab</div>
@@ -99,7 +96,7 @@
 </tabset>
 
 <!-- Artiwork Sizes (Average vs Median) -->
-<tabset class="span6">
+<tabset class="span6 dashboard-widget">
   <h5>Artiwork Sizes (Average vs Median)</h5>
   <tab heading="Codec">
     <div>Codec Tab</div>
