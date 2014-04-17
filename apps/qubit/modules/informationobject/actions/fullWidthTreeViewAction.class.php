@@ -56,7 +56,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
       }
 
       // not used currently
-      unset($data['identifier'], $data['type'], $data['status']);
+      unset($data['identifier'], $data['status']);
 
       $data['a_attr']['href'] = &$data['slug'];
       unset($data['slug']);
