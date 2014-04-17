@@ -102,6 +102,12 @@
         handles: "s"
       }).animate({height: '200px'}, 500);
 
+      // hack for options like delay and container not working with selector option
+      jQuery.fn['tooltip'].defaults.container = '#fullwidth-treeview';
+      jQuery.fn['tooltip'].defaults.delay = 300;
+      jQuery.fn['tooltip'].defaults.placement = 'top';
+      jQuery('#fullwidth-treeview').tooltip({selector: 'a.jstree-anchor'});
+
       // scroll to active node
       var active_node = null;
       if( active_node = $('li [selected_on_load]')[0] )

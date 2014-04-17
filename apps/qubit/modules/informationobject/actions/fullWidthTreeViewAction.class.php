@@ -40,7 +40,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
     $data = $this->getItemIds($this->resource->getCollectionRoot(), !$this->getUser()->user);
 
     array_walk($data, function(&$data){
-
+      $data['a_attr']['title'] = $data['text'];
       $data['text'] = ($data['status'] == 'draft' ? '(Draft) ' : '') . "<u>{$data['type']}</u> {$data['text']}";
       // some special flags on our current active item
       if($data['id'] == $this->resource->id)
@@ -55,11 +55,8 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
         $data['icon'] = 'fa fa-archive';
       }
 
-      // populate columns
-      $data['data']['identifier'] = &$data['identifier'];
-      $data['data']['type']       = &$data['type'];
-      $data['data']['status']     = &$data['status'];
-      unset($data['identifier']);
+      // not used currently
+      unset($data['identifier'], $data['type'], $data['status']);
 
       $data['a_attr']['href'] = &$data['slug'];
       unset($data['slug']);
