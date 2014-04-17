@@ -95,6 +95,9 @@ class InformationObjectIndexAction extends sfAction
   {
     $this->resource = $this->getRoute()->resource;
 
+    $this->getResponse()->addStylesheet('fullWidthTreeView', 'last');
+    $this->getResponse()->addJavascript('fullWidthTreeView', 'last');
+
     // Check that this isn't the root
     if (!isset($this->resource->parent))
     {

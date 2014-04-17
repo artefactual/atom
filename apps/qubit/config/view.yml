@@ -28,7 +28,6 @@ default:
     /vendor/jstree/themes/default/style.css:
     /vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.min.css:
     //netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css:
-    fullWidthTreeView:
 
   javascripts:
     /vendor/jquery:
@@ -51,7 +50,6 @@ default:
     /vendor/URI.js:
     qubit:
     treeView:
-    fullWidthTreeView:
     dominion: { position: last }
 
   has_layout:     true
