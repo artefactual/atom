@@ -7,6 +7,7 @@
   <div class="modal-body">
     <form action="/right/post" method="post" role="form">
       <div class="form-group">
+        <input type="hidden" name="object_slug" value="<?php echo $object->slug ?>">
         <input type="hidden" name="id" value="<?php echo $right->id ?>">
 
         <label for="basis" class="control-label">Basis</label>

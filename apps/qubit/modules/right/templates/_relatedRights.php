@@ -1,4 +1,3 @@
-<!-- go go rights go! -->
 
 <?php if ($resource instanceof QubitInformationObject): ?>
 
@@ -28,7 +27,16 @@
 
 <?php endif; ?>
 
+<a data-modal="true"><h2>Create New Right</h2></a>
+
 <div id="modalContainer"></div>
+
+<style type="text/css">
+  .act-description:hover {
+    cursor: pointer;
+    background-color:#eee;
+  }
+</style>
 
 <script type="text/javascript">
   (function(){
@@ -49,7 +57,17 @@
     }
 
     function postModalSuccess(data) {
-      // inject new rights view into page
+      // look for pre-existing instance of rights html
+      var target = false;
+      if(  target = jQuery('#rightsArea').find('#'+jQuery(data).attr('id')) )
+      {
+        // replace it with the new one
+        target.replaceWith(data);
+      } else {
+        // append new rights html as last right in #rightsArea
+        jQuery('#rightsArea > div.field:last').after(data);
+      }
+
       jQuery('#rightsArea').find('#'+jQuery(data).attr('id')).replaceWith(data);
       container.find('.modal').modal('hide');
     }
@@ -71,6 +89,8 @@
       if($this.attr('data-id')) {
         data.id = $this.attr('data-id');
       }
+      // extract slug from end of url.
+      data.object_slug = document.location.href.match(/[\w\d-]*$/)[0];
       jQuery.get('/right/modal', data, function(data) {
         container.append(data);
         container.find('.modal').modal('show');
@@ -86,7 +106,10 @@
     // add event listener for submit buttons
     container.on('click', '.btn-primary', function(){
       var form = container.find('form');
-      jQuery.post(form.attr('action'), form.serialize(), postModalSuccess);
+      var data = form.serialize();
+      // extract slug from end of url.
+      data.object_slug = document.location.href.match(/[\w\d-]*$/)[0];
+      jQuery.post(form.attr('action'), data, postModalSuccess);
     });
   })();
 </script>

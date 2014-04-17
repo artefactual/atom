@@ -27,6 +27,8 @@ class RightPostAction extends sfAction
   {
     $this->request = &$request;
 
+    $this->object = self::loadInformationObject($request->getParameter('object_slug'));
+
   	$this->setLayout(false);
 
   	// print_r($request->getParameterHolder());
@@ -35,6 +37,9 @@ class RightPostAction extends sfAction
   		$right = QubitRights::getById($id);
   	} else {
   		$right = new QubitRights;
+
+      // set the related object
+
   	}
 
   	// validate and apply basis
@@ -64,6 +69,19 @@ class RightPostAction extends sfAction
     }
 
     $result = $right->save();
+
+    // if this is a new right instance
+    // then we need to record a relation
+    // record to associate to its parent
+    // object
+    if( ! $request->getParameter('id') )
+    {
+      $relation = new QubitRelation;
+      $relation->objectId = $right->id;
+      $relation->typeId = QubitTerm::RIGHT_ID;
+      $relation->subjectId = $this->object->id;
+      $relation->save();
+    }
 
   	if( $request->getParameter('copyrightStatusId') )
   	{
@@ -96,16 +114,21 @@ class RightPostAction extends sfAction
     return (
       $this->validateBasis('basis')
       &&
-      $this->validateDateString('startDate')
+      $this->validateDateString('startDate', true)
       &&
-      $this->validateDateString('endDate')
+      $this->validateDateString('endDate', true)
     );
   }
 
-  protected function validateDateString($value)
+  protected function validateDateString($value, $allowNull=false)
   {
+    $value = $this->request->getParameter($value);
     // expecting yyyyy-mm-dd
-    $date = explode('-', $this->request->getParameter($value));
+    if($allowNull && empty($value)) {
+      return true;
+    }
+
+    $date = explode('-', $value);
     if(! checkdate($date[1], $date[2], $date[0]))
     {
       $this->validationErrors[] = array('Invalid Date', $date, $value);
@@ -132,5 +155,15 @@ class RightPostAction extends sfAction
     }
 
     return true;
+  }
+
+  static function loadInformationObject($slug)
+  {
+    $object = QubitObject::getBySlug($slug);
+    if (!isset($object))
+    {
+      throw new sfError404Exception;
+    }
+    return $object;
   }
 }

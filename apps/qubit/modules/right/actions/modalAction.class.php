@@ -24,6 +24,9 @@ class RightModalAction extends sfAction
 
   public function execute($request)
   {
+    $this->object = self::loadInformationObject($request->getParameter('object_slug'));
+
+
     if($id = $request->getParameter('id'))
     {
       $this->right = QubitRights::getById($id);
@@ -61,5 +64,15 @@ class RightModalAction extends sfAction
         'selected' => ($item->id == $this->right->copyrightStatusId ? ' selected' : '')
       );
     }
+  }
+
+  static function loadInformationObject($slug)
+  {
+    $object = QubitObject::getBySlug($slug);
+    if (!isset($object))
+    {
+      throw new sfError404Exception;
+    }
+    return $object;
   }
 }

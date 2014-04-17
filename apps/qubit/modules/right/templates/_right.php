@@ -2,8 +2,7 @@
   <h3><?php echo __('Related right') ?></h3>
   <div>
 
-    <a role="button" class="btn" data-id="<?php echo $resource->id ?>" data-modal="true">Edit</a>
-    <a role="button" class="btn" data-modal="true">Edit</a>
+    <a role="button" class="btn btn-mini" data-id="<?php echo $resource->id ?>" data-modal="true">Edit</a>
    
     <?php if (isset($inherit)): ?>
       <?php echo link_to(render_title($inherit), array($inherit, 'module' => 'informationobject'), array('title' => __('Inherited from %1%', array('%1%' => $inherit)))) ?>
@@ -64,15 +63,6 @@
         </div>
       </div>
     <?php endforeach?>
-
-    <style type="text/css">
-      .act-description:hover {
-        cursor: pointer;
-        background-color:#eee;
-      }
-    </style>
-
-
 
   </div>
 </div>
