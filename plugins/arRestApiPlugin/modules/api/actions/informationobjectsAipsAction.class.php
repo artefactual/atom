@@ -51,12 +51,12 @@ class ApiInformationObjectsAipsAction extends QubitApiAction
     $query->setQuery($queryBool);
 
     // Filter
-    $filterExists = new \Elastica\Filter\Exists('aip');
+    $filterExists = new \Elastica\Filter\Exists('aips');
     $query->setFilter($filterExists);
 
     // Add facets to the query
-    $this->facetEsQuery('TermsStats', 'type', 'aip.type.id', $query, array(
-      'valueField' => 'sizeOnDisk'));
+    $this->facetEsQuery('TermsStats', 'type', 'aips.type.id', $query, array(
+      'valueField' => 'aips.sizeOnDisk'));
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
     $facets = $resultSet->getFacets();
