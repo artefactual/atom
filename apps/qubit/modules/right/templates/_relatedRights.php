@@ -58,17 +58,25 @@
 
     function postModalSuccess(data) {
       // look for pre-existing instance of rights html
-      var target = false;
-      if(  target = jQuery('#rightsArea').find('#'+jQuery(data).attr('id')) )
+      var target = jQuery('#rightsArea').find('#'+jQuery(data).attr('id'));
+      if(target.length)
       {
         // replace it with the new one
         target.replaceWith(data);
       } else {
         // append new rights html as last right in #rightsArea
-        jQuery('#rightsArea > div.field:last').after(data);
+        var append = jQuery('#rightsArea > div.field:last');
+        if(append.length)
+        {
+          append.after(data);
+        } else { 
+          // if no existing rights to append to, use first anchor
+          // as a reference point
+          jQuery('#rightsArea > a:first').after(data);
+        }
       }
 
-      jQuery('#rightsArea').find('#'+jQuery(data).attr('id')).replaceWith(data);
+      // jQuery('#rightsArea').find('#'+jQuery(data).attr('id')).replaceWith(data);
       container.find('.modal').modal('hide');
     }
 
