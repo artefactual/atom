@@ -25,7 +25,6 @@ default:
     # graphic:
     # main:
     # print: { media: print, position: last }
-    /vendor/jstree/themes/default/style.css:
     /vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.min.css:
     //netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css:
 
@@ -42,8 +41,6 @@ default:
     /vendor/jquery.expander.js:
     /vendor/jquery.masonry.js:
     /vendor/jquery.imagesloaded.js:
-    /vendor/jstree/jstree.js:
-    /vendor/jstree/jstreegrid.js:
     # /vendor/jquery.infinitescroll.js:
     /vendor/bootstrap/js/bootstrap:
     # /vendor/chosen/chosen.jquery.js:
