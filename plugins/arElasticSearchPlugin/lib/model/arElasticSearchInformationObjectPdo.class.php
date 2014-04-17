@@ -739,9 +739,7 @@ class arElasticSearchInformationObjectPdo
     if (!isset(self::$statements['rights']))
     {
       $sql  = 'SELECT
-                  restriction,
                   basis_id,
-                  act_id,
                   rights_holder_id,
                   copyright_status_id';
       $sql .= ' FROM '.QubitRights::TABLE_NAME.' rights';
