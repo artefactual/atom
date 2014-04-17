@@ -265,3 +265,49 @@ section#AIP-ov {
   }
 
 }
+
+/*------------------------ */
+// rickshaw line chart style
+/* graph */
+.rickshaw_legend .swatch {
+  width: 30px;
+  height: 5px;
+  border: 1px solid rgba(0,0,0,.2);
+}
+rs-y-axis{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+}
+rs-x-axis{
+  position: relative;
+  left: 40px;
+  height: 40px;
+}
+rs-chart{
+  position: relative;
+  left: 40px;
+}
+.dashboard-rs-graph{
+  .tab-pane > .ng-scope{
+    position: relative;
+    rs-legend {
+      background: none;
+      ul{
+        left: 10%;
+        position: relative;
+        width:420px;
+        li{
+          display: inline-block;
+          text-align: left;
+          .label{
+            background: none;
+            color: #000;
+            text-shadow: none;
+          }
+        }
+      }
+    }    
+  }
+}

@@ -66,13 +66,23 @@
   </tabset>
 
   <!-- Monthly Total (By GB) -->
-  <tabset class="span8 dashboard-widget">
+  <tabset class="span8 dashboard-widget dashboard-rs-graph">
     <h5>Monthly Total (By GB)</h5>
     <tab heading="Codec">
-      <ar-dash-board-monthly-total-codec><div id="graph"></div></ar-dash-board-monthly-total-codec>
+      <ar-dash-board-monthly-total-codec>
+        <rs-y-axis></rs-y-axis>
+        <rs-chart></rs-chart>        
+        <rs-x-axis></rs-x-axis>
+        <rs-legend></rs-legend>
+      </ar-dash-board-monthly-total-codec>
     </tab>  
     <tab heading="Formats">
-      <div>Formats Tab</div> 
+      <ar-dash-board-monthly-total-format>
+        <rs-y-axis></rs-y-axis>
+        <rs-chart></rs-chart>        
+        <rs-x-axis></rs-x-axis>
+        <rs-legend></rs-legend>
+      </ar-dash-board-monthly-total-format>
     </tab>
     <tab heading="Departments">
       <div>Login Tab</div> 
@@ -82,30 +92,35 @@
 
 <div class="row-fluid">
 <!-- Running Total (By GB) -->
-<tabset class="span6 dashboard-widget">
-  <h5>Running Total (By GB)</h5>
-  <tab heading="Codec">
-    <div>Codec Tab</div>
-  </tab>  
-  <tab heading="Formats">
-    <div>Formats Tab</div> 
-  </tab>
-  <tab heading="Departments">
-    <div>Login Tab</div> 
-  </tab>  
-</tabset>
+  <tabset class="span6 dashboard-widget dashboard-rs-graph">
+    <h5>Running Total (By GB)</h5>
+    <tab heading="Codec">
+      <ar-dash-board-running-total-codec>
+        <rs-y-axis></rs-y-axis>
+        <rs-chart></rs-chart>        
+        <rs-x-axis></rs-x-axis>
+        <rs-legend></rs-legend>
+      </ar-dash-board-running-total-codec>
+    </tab>  
+    <tab heading="Formats">
+      <div>Formats Tab</div> 
+    </tab>
+    <tab heading="Departments">
+      <div>Login Tab</div> 
+    </tab>  
+  </tabset>
 
-<!-- Artiwork Sizes (Average vs Median) -->
-<tabset class="span6 dashboard-widget">
-  <h5>Artiwork Sizes (Average vs Median)</h5>
-  <tab heading="Codec">
-    <div>Codec Tab</div>
-  </tab>  
-  <tab heading="Formats">
-    <div>Formats Tab</div> 
-  </tab>
-  <tab heading="Departments">
-    <div>Login Tab</div> 
-  </tab>  
-</tabset>
+  <!-- Artiwork Sizes (Average vs Median) -->
+  <tabset class="span6 dashboard-widget">
+    <h5>Artiwork Sizes (Average vs Median)</h5>
+    <tab heading="Codec">
+      <div>Codec Tab</div>
+    </tab>  
+    <tab heading="Formats">
+      <div>Formats Tab</div> 
+    </tab>
+    <tab heading="Departments">
+      <div>Login Tab</div> 
+    </tab>  
+  </tabset>
 </div>
