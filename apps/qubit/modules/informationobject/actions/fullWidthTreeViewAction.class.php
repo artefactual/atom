@@ -41,7 +41,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
 
     array_walk($data, function(&$data){
 
-      $data['text'] = ($data['status'] == 'draft' ? '(Draft) ' : '') . $data['text'];
+      $data['text'] = ($data['status'] == 'draft' ? '(Draft) ' : '') . "<u>{$data['type']}</u> {$data['text']}";
       // some special flags on our current active item
       if($data['id'] == $this->resource->id)
       {
