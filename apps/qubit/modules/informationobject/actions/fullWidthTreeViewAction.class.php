@@ -40,6 +40,8 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
     $data = $this->getItemIds($this->resource->getCollectionRoot(), !$this->getUser()->user);
 
     array_walk($data, function(&$data){
+
+      $data['text'] = ($data['status'] == 'draft' ? '(Draft) ' : '') . $data['text'];
       // some special flags on our current active item
       if($data['id'] == $this->resource->id)
       {
