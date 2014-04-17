@@ -69,7 +69,7 @@ module.exports = function ($scope, $modal, $modalInstance, files, InformationObj
   };
 
   $scope.unselect = function (index) {
-    if($scope.files > 1) {
+    if($scope.files.length > 1) {
       $scope.files.splice(index, 1);
     } else {
       $modalInstance.dismiss('cancel');
