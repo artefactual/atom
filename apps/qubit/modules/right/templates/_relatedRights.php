@@ -76,6 +76,9 @@
         }
       }
 
+      // clear blank values
+      Drupal.attachBehaviors(document);
+
       // jQuery('#rightsArea').find('#'+jQuery(data).attr('id')).replaceWith(data);
       container.find('.modal').modal('hide');
     }
