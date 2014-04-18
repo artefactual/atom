@@ -83,19 +83,17 @@ module.exports = function ($scope, $q, $modal, $stateParams, $modalInstance, fil
   };
 
   // Get list of files for compare view
-  InformationObjectService.getById($stateParams.id).then(function (response) {
+  InformationObjectService.getById($stateParams.id).then(function () {
 
     var deferred = $q.defer();
 
     setTimeout(function () {
       // $q so browser can load viewer first before loading all files
       InformationObjectService.getDigitalObjects($stateParams.id).then(function (response) {
-        return response;
+        $scope.allFiles = response.data.results;
+        return $scope.allFiles;
       });
-
-      deferred.resolve(response);
-    }, 750);
-
+    }, 100);
     return deferred.promise;
   });
 };

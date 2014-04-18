@@ -15,7 +15,7 @@
           <a href class="arrow-left" ng-click="prev()" ng-class="{ disabled: !showPrev() }"></a>
           <div class="grid-pager">
             <a href class="grid"></a>
-            <p>{{ page }} of {{ total }}</p>
+            <p>{{ page }} of {{ allFiles.length }}</p>
           </div>
           <a href class="arrow-right" ng-click="next()" ng-class="{ disabled: !showNext() }"></a>
         </div>
