@@ -1390,6 +1390,11 @@ file_put_contents('/tmp/mike.txt', $sql ."\n", file_append);
       $serialized['tmsComponent']['type'][] = $node->serialize();
     }
 
+    if (null !== $artworkThumbnail = $this->getProperty('artworkThumbnail'))
+    {
+      $serialized['tmsComponent']['artworkThumbnail'] = $artworkThumbnail;
+    }
+
     // TMS child components
     if (null !== $childComponents = $this->getProperty('childComponents'))
     {

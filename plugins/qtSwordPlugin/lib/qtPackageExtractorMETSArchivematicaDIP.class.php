@@ -901,7 +901,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
             case 'ObjectNumber':
             case 'ObjectStatusID':
             case 'SortNumber':
-            case 'Thumbnail':
               $tmsObject->addProperty($name, $value);
 
               break;
@@ -947,6 +946,12 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
               }
 
               // Add property
+              $tmsObject->addProperty($name, $value);
+
+              break;
+
+            case 'Thumbnail':
+              $this->artworkThumbnail = $value;
               $tmsObject->addProperty($name, $value);
 
               break;
@@ -1145,6 +1150,12 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     }
 
     curl_close($curl);
+
+    // Add thumbnail from artwork
+    if (isset($this->artworkThumbnail))
+    {
+      $tmsComponent->addProperty('artworkThumbnail', $this->artworkThumbnail);
+    }
 
     $tmsComponent->save();
 

@@ -1,16 +1,25 @@
-<article ng-repeat="(id, work) in data.results" class="search-result">
+<article ng-repeat="(id, work) in data.results" ng-class="work.thumbnail != undefined ? 'search-result has-preview' : 'search-result'">
+
+  <div class="search-result-preview" ng-if="work.thumbnail != undefined">
+    <a ui-sref="main.works.view({id: id})">
+      <div class="preview-container">
+        <img ng-src="{{ work.thumbnail }}" />
+      </div>
+    </a>
+  </div>
+
   <div class="search-result-description">
     <p class="title"><a ui-sref="main.works.view({id: id})">{{ work.title || 'Untitled' }}</a></p>
     <div>
       <ul class="result-details">
-        <li class="reference-code">{{ work.id }}</li>
-        <li class="dates">{{ work.year }}</li>
-        <li class="publication-status">{{ work.artist + ' (' + work.artist_date + ')' }}</li>
+        <li ng-if="work.id" class="reference-code">{{ work.id }}</li>
+        <li ng-if="work.year" class="dates">{{ work.year }}</li>
+        <li ng-if="work.artist" class="publication-status">{{ work.artist }}<span ng-if="work.artist_date" >{{ ' (' + work.artist_date + ')' }}</span></li>
       </ul>
       <p>{{ work.medium }}</p>
-      <p class="creation-details">{{ work.accession_number }}</p>
-      <p class="creation-details">{{ work.classification }}</p>
-      <p class="creation-details">{{ work.department }}</p>
+      <p ng-if="work.accession_number" class="creation-details">{{ work.accession_number }}</p>
+      <p ng-if="work.classification" class="creation-details">{{ work.classification }}</p>
+      <p ng-if="work.department" class="creation-details">{{ work.department }}</p>
     </div>
   </div>
 </article>

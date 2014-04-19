@@ -165,13 +165,15 @@ class ApiInformationObjectsComponentsBrowseAction extends QubitApiAction
       $this->addItemToArray($result, 'name', get_search_i18n($doc, 'title'));
       $this->addItemToArray($result, 'phys_desc', get_search_i18n($doc, 'extentAndMedium'));
       $this->addItemToArray($result, 'dimensions', get_search_i18n($doc, 'physicalCharacteristics'));
-      $this->addItemToArray($result, 'type', get_search_i18n($doc['tmsComponent']['componentType'][0], 'name'));
+      $this->addItemToArray($result, 'type', get_search_i18n($doc['tmsComponent']['type'][0], 'name'));
       $this->addItemToArray($result, 'install_comments', get_search_i18n($doc['tmsComponent']['installComments'][0], 'content'));
       $this->addItemToArray($result, 'prep_comments', get_search_i18n($doc['tmsComponent']['prepComments'][0], 'content'));
       $this->addItemToArray($result, 'storage_comments', get_search_i18n($doc['tmsComponent']['storageComments'][0], 'content'));
       $this->addItemToArray($result, 'text_entries', get_search_i18n($doc['tmsComponent']['textEntries'][0], 'content'));
       $this->addItemToArray($result, 'count', $doc['tmsComponent']['compCount']);
       $this->addItemToArray($result, 'number', $doc['tmsComponent']['componentNumber']);
+      $this->addItemToArray($result, 'lod_name', $this->getFacetLabel('classification', $doc['levelOfDescriptionId']));
+      $this->addItemToArray($result, 'thumbnail', $doc['tmsComponent']['artworkThumbnail']);
 
       $results[$hit->getId()] = $result;
     }

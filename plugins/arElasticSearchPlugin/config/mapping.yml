@@ -154,6 +154,7 @@ mapping:
     properties:
       comp_count: { type: integer, index: not_analyzed, include_in_all: false }
       component_number: { type: string, index: not_analyzed, include_in_all: false }
+      artworkThumbnail: { type: string, index: not_analyzed, include_in_all: false }
 
   #
   # Main types
