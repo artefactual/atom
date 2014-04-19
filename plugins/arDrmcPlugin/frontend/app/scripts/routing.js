@@ -42,7 +42,7 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
     .state('main.aips', {
       abstract: true,
       url: SETTINGS.DRMCPath + 'aips',
-      template: '<ui-view/>'
+      template: '<ui-view autoscroll="false"/>'
     })
     .state('main.aips.browser', {
       url: '',
@@ -59,7 +59,7 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
     .state('main.works', {
       abstract: true,
       url: SETTINGS.DRMCPath + 'works',
-      template: '<ui-view/>'
+      template: '<ui-view autoscroll="false"/>'
     })
     .state('main.works.browser', {
       url: '',
@@ -76,7 +76,7 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
     .state('main.technology-records', {
       abstract: true,
       url: SETTINGS.DRMCPath + 'technology-records',
-      template: '<ui-view/>'
+      template: '<ui-view autoscroll="false"/>'
     })
     .state('main.technology-records.browser', {
       url: '',
@@ -93,7 +93,7 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
     .state('main.tms', {
       abstract: true,
       url: SETTINGS.DRMCPath + 'tms',
-      template: '<ui-view/>'
+      template: '<ui-view autoscroll="false"/>'
     })
     .state('main.tms.browser', {
       url: '',
@@ -105,7 +105,7 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
     .state('main.search', {
       abstract: true,
       url: SETTINGS.DRMCPath + 'search',
-      template: '<ui-view/>'
+      template: '<ui-view autoscroll="false"/>'
     })
     .state('main.search.entity', {
       url: '/{entity}',
