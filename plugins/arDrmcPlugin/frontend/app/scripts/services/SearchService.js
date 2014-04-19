@@ -13,23 +13,28 @@ module.exports = function ($http, SETTINGS, AIPService, InformationObjectService
   this.searches = [
     {
       name: 'AIPs',
-      entity: 'aips'
+      entity: 'aips',
+      cssClass: 'drmc-color-aip'
     },
     {
       name: 'Artwork records',
-      entity: 'works'
+      entity: 'works',
+      cssClass: 'drmc-color-artwork-record'
     },
     {
       name: 'Components',
-      entity: 'components'
+      entity: 'components',
+      cssClass: 'drmc-color-component'
     },
     {
       name: 'Supporting technology records',
-      entity: 'technology-records'
+      entity: 'technology-records',
+      cssClass: 'drmc-color-supporting-technology-record'
     },
     {
       name: 'Files',
-      entity: 'files'
+      entity: 'files',
+      cssClass: 'drmc-color-file'
     }
   ];
 

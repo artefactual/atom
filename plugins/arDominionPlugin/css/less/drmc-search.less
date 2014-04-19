@@ -1,3 +1,33 @@
+.search-current-query {
+  line-height: 50px;
+  font-size: 24px;
+  margin-bottom: -4px;
+  .prefix {
+    color: #999;
+  }
+  .value {
+  }
+}
+
 .search-tabs {
-  margin-top: 20px;
+  ul {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  li > a {
+    position: relative;
+    padding-left: 30px;
+    &:before {
+      border-radius: 14px;
+      width: 14px;
+      height: 14px;
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 11px;
+    }
+  }
+  .active > a:before {
+    box-shadow: 1px 1px 1px rgba(125, 125, 125, .3);
+  }
 }

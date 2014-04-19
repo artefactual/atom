@@ -1,9 +1,18 @@
 // Header
-// TODO: fix this in AtoM!
 
+// TODO: fix this in AtoM!
 .drmc #site-name {
   margin-left: 20px;
   margin-right: 40px;
+}
+
+// TODO: this should be possible in Dominion by using bs2?
+.top-dropdown-container .divider {
+  height: 1px;
+  margin: 9px 1px;
+  overflow: hidden;
+  background-color: #e5e5e5;
+  border-bottom: 1px solid #fff;
 }
 
 // Imports all styles from #content
@@ -55,12 +64,12 @@ h1.moma-title {
   float: left;
   h2 {
     padding-right: 0;
-    border-top: none!important;
-    border-bottom: none!important;
+    border-top: none !important;
+    border-bottom: none !important;
     margin-right: 0px;
   }
   li {
-  border: none!important; //still doubling border -> fix this
+  border: none !important; //still doubling border -> fix this
   }
 }
 
@@ -236,6 +245,7 @@ h1.moma-title {
 .drmc-color-exhibition-format:before             { background-color: @momaNodeExhibitionFormat; }
 .drmc-color-documentation:before                 { background-color: @momaNodeDocumentation; }
 .drmc-color-miscellaneous:before                 { background-color: @momaNodeMiscellaneous; }
+.drmc-color-file:before                          { background-color: @momaNodeFile; }
 
 // Context browser node background colours
 
