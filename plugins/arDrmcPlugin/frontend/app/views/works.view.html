@@ -6,7 +6,7 @@
 
     <section class="breadcrumb">
       <ul>
-        <li><a ui-sref="main.works.browser">Works</a></li>
+        <li><a ui-sref="main.search.entity({ entity: 'works'})">Works</a></li>
         <li><span>{{ work.title }}</span></li>
       </ul>
     </section>
@@ -85,7 +85,8 @@
         </div>
       </section>
 
-      <ar:context-browser id="{{ work.id }}" on-select-node="selectNode()"></ar:context-browser>
+      <ar:context-browser-artwork id="{{ work.id }}" on-select-node="selectNode()"></ar:context-browser-artwork>
+
       <div class="content">
 
         <section ng-if="aggregation != undefined">

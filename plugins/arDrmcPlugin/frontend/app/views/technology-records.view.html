@@ -6,7 +6,7 @@
 
     <section class="breadcrumb">
       <ul>
-        <li><a ui-sref="main.technology-records.browser">Technology records</a></li>
+        <li><a ui-sref="main.search.entity({ entity: 'technology-records'})">Supporting technology records</a></li>
         <li><span>{{ techRecord.title }}</span></li>
       </ul>
     </section>
@@ -100,7 +100,7 @@
 
       </div>
 
-      <ar:context-browser id="{{ techRecord.id }}"></ar:context-browser>
+      <ar:context-browser-technology id="{{ techRecord.id }}"></ar:context-browser-technology>
 
     </div>
   </div>

@@ -134,18 +134,25 @@
 }
 
 .cb-sidebar-kv-list {
-  padding-bottom: 10px;
   ul {
+    padding-top: 4px;
   }
   li {
-    padding: 4px 8px;
+    padding: 0px 4px 4px 8px;
   }
   .key {
     font-weight: normal;
     color: @grayLight;
     font-size: 11px;
+    text-transform: uppercase;
+    &:after {
+      margin-left: 2px;
+      margin-right: 5px;
+      content: '»';
+    }
   }
   .value {
+    display: inline;
     margin: 0;
     color: @grayDark;
   }

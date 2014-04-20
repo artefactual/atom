@@ -5,7 +5,8 @@
   var angular = require('angular');
 
   module.exports = angular.module('momaApp.directives', [])
-    .directive('arContextBrowser', require('./ContextBrowserDirective'))
+    .directive('arContextBrowserArtwork', require('./ContextBrowserArtworkDirective'))
+    .directive('arContextBrowserTechnology', require('./ContextBrowserTechnologyDirective'))
     .directive('arSortHeader', require('./SortHeaderDirective'))
     .directive('arDigitalObjectPreview', require('./DigitalObjectPreviewDirective'))
     .directive('arFacet', require('./FacetDirective'))

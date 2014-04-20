@@ -1,0 +1,133 @@
+<div ng-class="{ cb: true, content: true, 'cb-fullscreen': isFullscreen, 'cb-maximized': isMaximized }">
+
+  <section class="cb-inner">
+
+    <!-- Header -->
+    <div class="cb-menu menu-list">
+
+      <!-- Heading -->
+      <ul class="menu-list-left">
+        <li><h2>Context browser</h2></li>
+      </ul>
+
+      <!-- Menu -->
+      <ul class="menu-list-right nav nav-pills">
+
+        <!-- Toogle relationships -->
+        <li ng-class="{ active: areRelationshipsHidden }">
+          <a href class="hide_relationships" ng-click="hideRelationships()">
+            {{ areRelationshipsHidden ? 'Show relationships' : 'Hide relationships' }}
+          </a>
+        </li>
+
+        <!-- Fullscreen -->
+        <li ng-class="{ active: isFullscreen }">
+          <a href ng-click="toggleFullscreenMode()" class="fullscreen">
+            {{ isFullscreen ? 'Exit fullscreen' : 'Fullscreen' }}
+          </a>
+        </li>
+
+        <!-- Maximize -->
+        <li ng-if="!isFullscreen">
+          <a href ng-click="toggleMaximizedMode()" ng-class="{ maximize: !isMaximized, minimize: isMaximized }">
+            {{ isMaximized ? 'Minimize' : 'Maximize' }}
+          </a>
+        </li>
+
+        <!-- Ranking direction -->
+        <li class="dropdown">
+          <a href class="rankdir dropdown-toggle" data-toggle="dropdown">Ranking direction</a>
+          <ul class="dropdown-menu">
+            <li ng-repeat="(key, value) in rankingDirections" ng-class="{ active: rankDir == key }">
+              <a href ng-click="changeRankingDirection(key)">{{ value }}</a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Collapse all -->
+        <li>
+          <a href ng-click="collapseAll()" class="expand_all">Collapse all</a>
+        </li>
+
+      </ul>
+
+    </div>
+
+    <!-- Body -->
+    <div class="cb-body">
+
+      <!-- Context browser -->
+      <div class="cb-container">
+
+        <!-- Container -->
+        <div class="svg-container"/>
+
+        <!-- Legend -->
+        <div ng-class="{ 'cb-legend': true, 'active': showLegend }">
+          <a href class="cb-legend-open" ng-click="toggleLegend()" ng-show="!showLegend"><i class="icon-compass"></i></a>
+          <div ng-show="showLegend" class="cb-legend-container">
+            <a href class="cb-legend-close" ng-click="toggleLegend()"><i class="icon-remove"></i></a>
+            <ul class="nav nav-stacked">
+              <li class="drmc-color-description">Description</li>
+              <li class="drmc-color-supporting-technology-record">Supporting technology record</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar -->
+      <div class="cb-sidebar">
+
+        <!-- Bulk edit -->
+        <div ng-if="hasNodesSelected()" class="cb-sidebar-section cb-bulk-edit">
+          <h3>Bulk edit ({{ getNumberOfSelectedNodes() }} items)</h3>
+          <div class="node-metadata">
+            <ul>
+              <li ng-repeat="node in activeNodes">{{ node.data.title }}</li>
+            </ul>
+          </div>
+          <div class="node-actions">
+            <!-- <a href class="btn btn-small" ng-click="moveNodes('selected')"><i class="icon-move"></i><span>Move</span></a> -->
+            <!-- <a href class="btn btn-small" ng-click="linkNodes('selected')"><i class="icon-link"></i><span>Link</span></a> -->
+            <!-- <a href class="btn btn-small btn-delete" ng-show="isDeletable(currentNode)" ng-click="deleteNodes('selected')"><i class="icon-remove"></i><span>Delete</span></a> -->
+            <a href class="btn btn-small" ng-click="cancelBulkEdit()">Cancel</a>
+          </div>
+        </div>
+
+        <!-- Single node detail -->
+        <div ng-if="hasNodeSelected()" class="cb-sidebar-section">
+          <!-- Heading -->
+          <h3 class="drmc-color-{{ currentNode.data.level }}">{{ currentNode.data.title }}</h3>
+
+          <!-- Dublin Core metadata -->
+          <div ng-if="currentNode.hasDc" class="cb-sidebar-subsection cb-sidebar-subsection-collapsible" ng-class="{ collapsed: dcCollapsed }">
+            <h4><a href ng-click="dcCollapsed = !dcCollapsed">Dublin Core metadata</a></h4>
+            <div ng-show="!dcCollapsed" class="cb-sidebar-subsection-body cb-sidebar-kv-list">
+              <ul>
+                <li ng-repeat="dcField in dcFields | filter:hasDcField">
+                  <strong class="key">{{ dcField }}</strong>
+                  <p class="value">{{ renderMetadataValue(currentNode.data[dcField]) }}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="node-actions">
+            <a href class="btn btn-small" ng-click="addChildNode(currentNode.id)"><i class="icon-plus"></i><span>Add child</span></a>
+            <a href class="btn btn-small" ng-click="editNode(currentNode.id)"><i class="icon-edit"></i><span>Edit node</span></a>
+            <a href class="btn btn-small" ng-click="linkNodes(currentNode.id)"><i class="icon-link"></i><span>Link node</span></a>
+            <a href class="btn btn-small" ng-click="moveNodes(currentNode.id)"><i class="icon-move"></i><span>Move</span></a>
+            <a href class="btn btn-small" ng-click="crudRelatedObjects(currentNode.id)"><i class="icon-wrench"></i><span>Manage relationships</span></a>
+            <a href class="btn btn-small btn-delete" ng-show="isDeletable(currentNode)" ng-click="deleteNodes(currentNode.id)"><i class="icon-remove"></i><span>Delete</span></a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

@@ -61,11 +61,6 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       url: SETTINGS.DRMCPath + 'works',
       template: '<ui-view autoscroll="false"/>'
     })
-    .state('main.works.browser', {
-      url: '',
-      controller: 'WorkBrowserCtrl',
-      templateUrl: SETTINGS.viewsPath + '/works.browser.html'
-    })
     .state('main.works.view', {
       url: '/{id}',
       controller: 'WorkViewCtrl',
@@ -77,11 +72,6 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       abstract: true,
       url: SETTINGS.DRMCPath + 'technology-records',
       template: '<ui-view autoscroll="false"/>'
-    })
-    .state('main.technology-records.browser', {
-      url: '',
-      controller: 'TechnologyRecordBrowserCtrl',
-      templateUrl: SETTINGS.viewsPath + '/technology-records.browser.html'
     })
     .state('main.technology-records.view', {
       url: '/{id}',
