@@ -211,6 +211,18 @@ EOF;
         'references',
         'requires') as $type)
       {
+        // Make sure that the term hasn't been added already
+        $criteria = new Criteria;
+        $criteria->add(QubitTerm::PARENT_ID, QubitTerm::ROOT_ID);
+        $criteria->add(QubitTerm::TAXONOMY_ID, $taxonomy->id);
+        $criteria->add(QubitTermI18n::CULTURE, 'en');
+        $criteria->add(QubitTermI18n::NAME, $type);
+        $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+        if (null !== QubitTerm::getOne($criteria))
+        {
+          continue;
+        }
+
         $term = new QubitTerm;
         $term->parentId = QubitTerm::ROOT_ID;
         $term->taxonomyId = $taxonomy->id;
