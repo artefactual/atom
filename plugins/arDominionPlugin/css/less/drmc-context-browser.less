@@ -195,26 +195,35 @@
     border-top: 1px solid #bbb;
     border-bottom: 1px solid #bbb;
     border-radius: 0px;
+    table-layout: fixed;
+    width:100%;
+    background-color: #eee;
   }
   tbody {
     font-size: 11px;
   }
   tr {
+    cursor: pointer;
     &:hover td {
-      background-color: #eee;
+      background-color: @white;
     }
     &.selected td {
       background-color: #faeabb;
+      a { color: @black; }
     }
   }
   td {
     .user-select(none); // As we are using event.shiftKey for selection
     padding: 2px 4px;
+    border-top: none;
     &.name {
       text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     &.size {
-      text-align: center;
+      text-align: right;
       width: 50px;
       border-left: 1px solid #ddd;
     }
