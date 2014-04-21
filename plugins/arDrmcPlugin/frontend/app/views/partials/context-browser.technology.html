@@ -115,12 +115,11 @@
 
           <!-- Actions -->
           <div class="node-actions">
-            <a href class="btn btn-small" ng-click="addChildNode(currentNode.id)"><i class="icon-plus"></i><span>Add child</span></a>
-            <a href class="btn btn-small" ng-click="editNode(currentNode.id)"><i class="icon-edit"></i><span>Edit node</span></a>
-            <a href class="btn btn-small" ng-click="linkNodes(currentNode.id)"><i class="icon-link"></i><span>Link node</span></a>
-            <a href class="btn btn-small" ng-click="moveNodes(currentNode.id)"><i class="icon-move"></i><span>Move</span></a>
-            <a href class="btn btn-small" ng-click="crudRelatedObjects(currentNode.id)"><i class="icon-wrench"></i><span>Manage relationships</span></a>
-            <a href class="btn btn-small btn-delete" ng-show="isDeletable(currentNode)" ng-click="deleteNodes(currentNode.id)"><i class="icon-remove"></i><span>Delete</span></a>
+            <a href class="btn btn-small" ng-click="addChildNode(currentNode.id)" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip="Add" tooltip-popup-delay="500"><i class="icon-plus"></i></a>
+            <a href class="btn btn-small" ng-click="editNode(currentNode.id)" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip="Edit" tooltip-popup-delay="500"><i class="icon-edit"></i></a>
+            <a href class="btn btn-small" ng-click="linkNodes(currentNode.id)" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip="Link" tooltip-popup-delay="500"><i class="icon-link"></i></a>
+            <a href class="btn btn-small" ng-click="moveNodes(currentNode.id)" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip="Move" tooltip-popup-delay="500"><i class="icon-move"></i></a>
+            <a href class="btn btn-small btn-delete" ng-show="isDeletable(currentNode)" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip="Delete" ng-click="deleteNodes(currentNode.id)" tooltip-popup-delay="500"><i class="icon-remove"></i></a>
           </div>
         </div>
 
