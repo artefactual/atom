@@ -6,6 +6,7 @@ module.exports = function ($modal, SETTINGS, InformationObjectService, ModalDigi
     templateUrl: SETTINGS.viewsPath + '/partials/context-browser.artwork.html',
     scope: {
       id: '@',
+      files: '=files',
       _selectNode: '&onSelectNode'
     },
     controller: 'ContextBrowserCtrl',
