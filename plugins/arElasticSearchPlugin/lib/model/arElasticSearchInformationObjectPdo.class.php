@@ -133,9 +133,6 @@ class arElasticSearchInformationObjectPdo
 
       self::$statements['informationObject'] = self::$conn->prepare($sql);
     }
-file_put_contents('/tmp/mike.txt', "zoo\n", file_append);
-
-file_put_contents('/tmp/mike.txt', $sql ."\n", file_append);
 
     // Do select
     self::$statements['informationObject']->execute(array(':id' => $id));
@@ -332,7 +329,7 @@ file_put_contents('/tmp/mike.txt', $sql ."\n", file_append);
     }
 
     $identifiers = array();
-    $this->ancestors =$this->getAncestors();
+    $this->ancestors = $this->getAncestors();
 
     foreach (array_merge(is_array($this->ancestors) ? $this->ancestors : array(), array($this)) as $item)
     {
@@ -345,6 +342,31 @@ file_put_contents('/tmp/mike.txt', $sql ."\n", file_append);
     $refcode .= implode(sfConfig::get('app_separator_character', '-'), $identifiers);
 
     return $refcode;
+  }
+
+  /**
+   * This is just for DRMC supportig technologies. It's slow but affordable.
+   */
+  public function getInheritedTitle()
+  {
+    $title = array();
+    if (!isset($this->ancestors))
+    {
+      $this->getAncestors();
+    }
+
+    foreach (array_merge(is_array($this->ancestors) ? $this->ancestors : array(), array($this)) as $item)
+    {
+      if ($item->id == QubitInformationObject::ROOT_ID)
+      {
+        continue;
+      }
+
+      $io = QubitInformationObject::getById($item->id);
+      $title[] = $io->getTitle(array('cultureFallback' => true));
+    }
+
+    return implode(' » ', $title);
   }
 
   protected function loadEvents()
@@ -1403,6 +1425,11 @@ file_put_contents('/tmp/mike.txt', $sql ."\n", file_append);
         $node = new arElasticSearchInformationObjectPdo($item);
         $serialized['tmsChildComponents'][] = $node->serialize();
       }
+    }
+
+    if ($this->level_of_description_id === sfConfig::get('app_drmc_lod_supporting_technology_record_id'))
+    {
+      $serialized['inheritedTitle'] = $this->getInheritedTitle();
     }
 
     // Timestamps
