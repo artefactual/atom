@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modalInstance, InformationObjectService, id) {
+module.exports = function ($scope, $modalInstance, InformationObjectService, TaxonomyService, id) {
 
   // HACK: form scoping issue within modals, see
   // - http://stackoverflow.com/a/19931221/2628967
@@ -12,22 +12,20 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, id)
       $scope.title = response.data.title;
     });
     InformationObjectService.getSupportingTechnologyRecordsOf(id).then(function (data) {
-      $scope.relationships = data;
+      $scope.relationships = data.results;
     });
-    $scope.dcRelationTypes = [
-      { id: 1, name: 'isPartOf' },
-      { id: 2, name: 'isFormatOf' },
-      { id: 3, name: 'isVersionOf' },
-      { id: 4, name: 'references' },
-      { id: 5, name: 'requires' }
-    ];
+    TaxonomyService.getTerms('SUPORTING_TECHNOLOGY_RELATION_TYPES').then(function (data) {
+      $scope.dcRelationTypes = data.terms;
+    });
   };
 
   pull();
 
   // Save changes
   $scope.save = function () {
-
+    return InformationObjectService.setSupportingTechnologyRecords(id, $scope.relationships).then(function () {
+      $modalInstance.close();
+    });
   };
 
   // Close the dialog
@@ -53,9 +51,11 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, id)
       return;
     }
     $scope.relationships.push({
-      object_id: id,
-      name: item.title
+      technology_record_id: item.id,
+      name: item.title,
+      type_id: $scope.dcRelationTypes[0].id
     });
+    delete $scope.search;
   };
 
   $scope.delete = function (index) {
@@ -64,19 +64,6 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, id)
 
   $scope.deleteAll = function () {
     $scope.relationships = [];
-  };
-
-  $scope.getRelationName = function (typeId) {
-    if (angular.isUndefined(typeId)) {
-      return '';
-    }
-    for (var i = 0; i < $scope.dcRelationTypes.length; i++) {
-      var type = $scope.dcRelationTypes[i];
-      if (type.id === typeId) {
-        return type.name;
-      }
-    }
-    return '?';
   };
 
 };

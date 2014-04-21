@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (SETTINGS, InformationObjectService, ModalEditDcMetadataService, ModalLinkSupportingTechnologyService) {
+module.exports = function (SETTINGS, InformationObjectService, ModalEditDcMetadataService) {
   return {
     restrict: 'E',
     templateUrl: SETTINGS.viewsPath + '/partials/context-browser.technology.html',
@@ -64,10 +64,6 @@ module.exports = function (SETTINGS, InformationObjectService, ModalEditDcMetada
           return false;
         }
         return scope.cb.graph.predecessors(node.id).length === 0;
-      };
-
-      scope.crudRelatedObjects = function (id) {
-        ModalLinkSupportingTechnologyService.open(id);
       };
 
     }

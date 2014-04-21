@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($modal, SETTINGS, InformationObjectService, ModalDigitalObjectViewerService) {
+module.exports = function ($modal, SETTINGS, InformationObjectService, ModalDigitalObjectViewerService, ModalLinkSupportingTechnologyService) {
   return {
     restrict: 'E',
     templateUrl: SETTINGS.viewsPath + '/partials/context-browser.artwork.html',
@@ -197,6 +197,10 @@ module.exports = function ($modal, SETTINGS, InformationObjectService, ModalDigi
             });
           }
         });
+      };
+
+      scope.crudRelatedTechnologies = function (id) {
+        ModalLinkSupportingTechnologyService.open(id);
       };
 
     }

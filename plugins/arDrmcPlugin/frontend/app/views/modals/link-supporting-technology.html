@@ -27,9 +27,8 @@
         <tbody>
           <tr ng-repeat="item in relationships">
             <td>{{ item.name }}</td>
-            <td ng-if="item.$editing == undefined || !item.$editing">{{ getRelationName(item.type_id) }}</td>
-            <td ng-if="item.$editing"><select ng-model="item.type_id" ng-options="type.id as type.name for type in dcRelationTypes"></select></td>
-            <td ng-if="item.$editing == undefined || !item.$editing">{{ item.description }}</td>
+            <td><select ng-model="item.type_id" ng-options="type.id as type.name for type in dcRelationTypes"></select></td>
+            <td ng-if="item.$editing == undefined || !item.$editing">{{ item.description || 'N/A' }}</td>
             <td ng-if="item.$editing"><input type="text" ng-model="item.description"/></td>
             <td>
               <a href class="btn btn-mini" ng-click="item.$editing = true" ng-if="item.$editing == undefined || !item.$editing"><i class="icon icon-edit"></i></a>

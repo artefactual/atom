@@ -120,32 +120,26 @@ module.exports = function ($http, $q, SETTINGS) {
   this.getSupportingTechnologyRecords = function (params) {
     return $http({
       method: 'GET',
-      url: SETTINGS.frontendPath + 'api/informationobjects/technologyrecords',
+      url: SETTINGS.frontendPath + 'api/informationobjects/technologies',
       params: params
     });
   };
 
+  this.setSupportingTechnologyRecords = function (id, relationships) {
+    return $http({
+      method: 'POST',
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/technologies',
+      data: relationships
+    });
+  };
+
   this.getSupportingTechnologyRecordsOf = function (id) {
-    // Mocked version
-    var deferred = $q.defer();
-    setTimeout(function () {
-      deferred.resolve([
-        {
-          id: 1,
-          object_id: id,
-          name: 'Windows 7',
-          type_id: 1
-        },
-        {
-          id: 2,
-          object_id: id,
-          name: 'Windows 8',
-          description: 'Good bye start menu',
-          type_id: 2
-        }
-      ]);
-    }, 250);
-    return deferred.promise;
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/technologies'
+    }).then(function (response) {
+      return response.data;
+    });
   };
 
   this.getFiles = function (params) {
