@@ -284,65 +284,6 @@
   }
 }
 
-// General popup modal styles
-
-.modal-wrapper {
-
-  .modal-header {
-    height: 35px;
-
-    h2 {
-      line-height: .7;
-    }
-  }
-
-  .modal-body {
-    max-height: 500px;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-
-    section {
-      overflow: hidden;
-      min-height: 300px;
-      width: 100%;
-      margin: 12px auto 5px auto;
-    }
-  }
-
-  .modal-section-half {
-    width: 48%;
-    min-height: 150px;
-    border-radius: 4px;
-
-    h3 {
-      font-size: 15px;
-      margin-bottom: 8px;
-      }
-
-    > div {
-      padding-left: 6px;
-      width: 95%;
-    }
-
-    // First modal half
-    &:nth-of-type(1) {
-      padding: 8px 0 8px 8px;
-      border: 1px solid @grayLighter;
-
-      ul > li > a {
-        color: @black !important;
-      }
-    }
-
-    // Second modal half
-    &:nth-of-type(2) {
-      margin-left: .5%;
-      padding: 8px 0 8px 8px;
-    }
-  }
-}
-
 // Footer message, normally for validation warnings
 
 .modal-footer-message {
