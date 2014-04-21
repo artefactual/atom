@@ -66,8 +66,7 @@ module.exports = function () {
       var xAxis = new myrickshaw.Graph.Axis.X({
         graph: graph,
         element: element.find('rs-x-axis')[0],
-        orientation: 'bottom',
-        tickFormat: myrickshaw.Fixtures.Number.formatKMBT
+        orientation: 'bottom'
       });
       xAxis.render();
 

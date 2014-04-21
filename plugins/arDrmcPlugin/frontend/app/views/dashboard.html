@@ -61,7 +61,7 @@
       <div>Formats Tab</div> 
     </tab>
     <tab heading="Departments">
-      <div>Login Tab</div> 
+      <div>Departments Tab</div> 
     </tab>  
   </tabset>
 
@@ -85,7 +85,7 @@
       </ar-dash-board-monthly-total-format>
     </tab>
     <tab heading="Departments">
-      <div>Login Tab</div> 
+      <div>Departments Tab</div> 
     </tab>  
   </tabset>
 </div>
@@ -106,21 +106,20 @@
       <div>Formats Tab</div> 
     </tab>
     <tab heading="Departments">
-      <div>Login Tab</div> 
+      <div>Departments Tab</div> 
     </tab>  
   </tabset>
 
   <!-- Artiwork Sizes (Average vs Median) -->
-  <tabset class="span6 dashboard-widget">
-    <h5>Artiwork Sizes (Average vs Median)</h5>
-    <tab heading="Codec">
-      <div>Codec Tab</div>
-    </tab>  
-    <tab heading="Formats">
-      <div>Formats Tab</div> 
-    </tab>
-    <tab heading="Departments">
-      <div>Login Tab</div> 
-    </tab>  
-  </tabset>
+  <div class="span6 dashboard-widget dashboard-rs-graph">
+    <div class="rs-graph-pane">
+      <h5>Artwork Sizes (Average vs Median)</h5>
+      <ar-dash-board-artwork-sizes-codec>
+        <rs-y-axis></rs-y-axis>
+        <rs-chart></rs-chart>        
+        <rs-x-axis></rs-x-axis>
+        <rs-legend></rs-legend>
+      </ar-dash-board-artwork-sizes-codec>
+    </div>
+  </div>
 </div>
