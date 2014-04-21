@@ -129,10 +129,21 @@ EOF;
     $taxonomies = array(
       'Classifications',
       'Departments',
-      'Component types');
+      'Component types',
+      'Supporting technologies relation types');
 
     foreach ($taxonomies as $name)
     {
+      $criteria = new Criteria;
+      $criteria->add(QubitTaxonomy::PARENT_ID, QubitTaxonomy::ROOT_ID);
+      $criteria->add(QubitTaxonomyI18n::NAME, $name);
+      $criteria->add(QubitTaxonomyI18n::CULTURE, 'en');
+      $criteria->addJoin(QubitTaxonomy::ID, QubitTaxonomyI18n::ID);
+      if (null !== QubitTaxonomy::getOne($criteria))
+      {
+        continue;
+      }
+
       $taxonomy = new QubitTaxonomy;
       $taxonomy->parentId = QubitTaxonomy::ROOT_ID;
       $taxonomy->name = $name;
@@ -168,12 +179,45 @@ EOF;
 
     foreach ($terms as $item)
     {
+      $criteria = new Criteria;
+      $criteria->add(QubitTerm::PARENT_ID, $item['parentId']);
+      $criteria->add(QubitTerm::TAXONOMY_ID, $item['taxonomyId']);
+      $criteria->add(QubitTermI18n::NAME, $item['name']);
+      $criteria->add(QubitTermI18n::CULTURE, 'en');
+      $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+      if (null !== QubitTerm::getOne($criteria))
+      {
+        continue;
+      }
+
       $term = new QubitTerm;
       $term->parentId = $item['parentId'];
       $term->taxonomyId = $item['taxonomyId'];
       $term->sourceCulture = 'en';
       $term->setName($item['name'], array('culture' => 'en'));
       $term->save();
+    }
+
+    $criteria = new Criteria;
+    $criteria->add(QubitTaxonomyI18n::NAME, 'Supporting technologies relation types');
+    $criteria->add(QubitTaxonomyI18n::CULTURE, 'en');
+    $criteria->addJoin(QubitTaxonomy::ID, QubitTaxonomyI18n::ID);
+    if (null !== $taxonomy = QubitTaxonomy::getOne($criteria))
+    {
+      foreach (array(
+        'isPartOf',
+        'isFormatOf',
+        'isVersionOf',
+        'references',
+        'requires') as $type)
+      {
+        $term = new QubitTerm;
+        $term->parentId = QubitTerm::ROOT_ID;
+        $term->taxonomyId = $taxonomy->id;
+        $term->sourceCulture = 'en';
+        $term->setName($type, array('culture' => 'en'));
+        $term->save();
+      }
     }
   }
 

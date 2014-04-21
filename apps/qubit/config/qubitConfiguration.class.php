@@ -198,7 +198,8 @@ EOF
       $taxonomies = array(
         'Classifications',
         'Departments',
-        'Component types');
+        'Component types',
+        'Supporting technologies relation types');
 
       foreach ($taxonomies as $name)
       {
