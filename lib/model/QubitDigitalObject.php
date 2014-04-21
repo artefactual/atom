@@ -1674,7 +1674,8 @@ class QubitDigitalObject extends BaseDigitalObject
         $repoDir = 'null';
       }
 
-      return '/'.QubitSetting::getByName('upload_dir')->__toString().'/r/'.$repoDir.'/'.$checksum[0].'/'.$checksum[1].'/'.$checksum;
+      return '/'.QubitSetting::getByName('upload_dir')->__toString().'/r/'.
+            $repoDir.'/'.$checksum[0].'/'.$checksum[1].'/'.$checksum[2].'/'.$checksum;
     }
     else
     {

@@ -176,6 +176,42 @@ EOF;
     }
 
     $this->logSection('Successfully Loaded '.self::$count.' digital objects.');
+
+    $this->logSection('Generating digital object checksums...');
+    $this->generateChecksums();
+    $this->logSection('Finished!');
+  }
+
+  // Since we're attaching to an existing uploads folder in this branch,
+  // we had to comment out various file copy operations, which broke
+  // the code that generated digital object checksums. It doesn't seem to
+  // break anything having blank checksums, but it's nice to generate them.
+  private function generateChecksums()
+  {
+    $algorithm = 'sha256';
+    $rows = QubitPdo::fetchAll('SELECT id, name, path FROM digital_object');
+    $n = 0;
+
+    foreach ($rows as $row)
+    {
+      $id = $row->id;
+      $filePath = '.' . $row->path . $row->name;
+
+      $checksum = hash_file($algorithm, $filePath);
+
+      $q = 'UPDATE digital_object SET checksum_type=? WHERE id=?';
+      QubitPdo::prepareAndExecute($q, array($algorithm, $id));
+
+      $q = 'UPDATE digital_object SET checksum=? WHERE id=?';
+      QubitPdo::prepareAndExecute($q, array($checksum, $id));
+
+      if (++$n % 10 == 0)
+      {
+        print '.';
+      }
+    }
+
+    print "\n";
   }
 
   protected function getIdFromIdentifier($identifier)
