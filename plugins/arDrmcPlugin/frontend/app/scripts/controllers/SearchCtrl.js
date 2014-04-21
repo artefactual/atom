@@ -26,7 +26,7 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, $modal,
 
   // Watch for criteria changes
   $scope.$watch('criteria', function () {
-    search();
+    $scope.search();
   }, true); // check properties when watching
 
   // Perfom query after entity changes
@@ -34,10 +34,10 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, $modal,
     if (newVal === oldVal) {
       return;
     }
-    search();
+    $scope.search();
   });
 
-  function search () {
+  $scope.search = function () {
     SearchService.search($stateParams.entity, $scope.criteria)
       .then(function (response) {
         $scope.data = response.data;
@@ -52,7 +52,7 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, $modal,
           $scope.classifications = data.terms;
         });
     }
-  }
+  };
 
   $scope.getTermLabel = function (facet, id) {
     if (undefined === $scope.data) {
