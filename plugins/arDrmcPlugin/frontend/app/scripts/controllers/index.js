@@ -32,7 +32,6 @@
     .controller('ContextBrowserCtrl', require('./ContextBrowserCtrl'))
 
     // AIPs, works, technology records...
-    .controller('AIPBrowserCtrl', require('./AIPBrowserCtrl'))
     .controller('AIPViewCtrl', require('./AIPViewCtrl'))
     .controller('WorkViewCtrl', require('./WorkViewCtrl'))
     .controller('TechnologyRecordViewCtrl', require('./TechnologyRecordViewCtrl'))
