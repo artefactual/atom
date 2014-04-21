@@ -46,7 +46,7 @@ class ApiInformationobjectsRelatedTechnologiesReadAction extends QubitApiAction
       );
 
       $this->addItemToArray($item, 'description', $relation->description);
-      $this->addItemToArray($item, 'name', QubitInformationObject::getById($relation->objectId)->getTitle());
+      $this->addItemToArray($item, 'name', $this->getHierarchicalName($relation->objectId));
 
       $results[] = $item;
     }
@@ -56,5 +56,23 @@ class ApiInformationobjectsRelatedTechnologiesReadAction extends QubitApiAction
     );
 
     return $data;
+  }
+
+  // TODO: This is in ES actually, see inherited_title
+  protected function getHierarchicalName($id)
+  {
+    $name = array();
+    $io = QubitInformationObject::getById($id);
+    foreach ($io->getAncestors()->andSelf()->orderBy('lft') as $item)
+    {
+      if ($item->id == QubitInformationObject::ROOT_ID)
+      {
+        continue;
+      }
+
+      $name[] = $item->getTitle(array('cultureFallback' => true));
+    }
+
+    return implode(' » ', $name);
   }
 }

@@ -94,6 +94,7 @@ class ApiInformationObjectsTechnologyRecordsBrowseAction extends QubitApiAction
     $query->setFields(array(
       'slug',
       'identifier',
+      'inheritedTitle',
       'inheritReferenceCode',
       'levelOfDescriptionId',
       'publicationStatusId',
@@ -150,6 +151,7 @@ class ApiInformationObjectsTechnologyRecordsBrowseAction extends QubitApiAction
 
       $this->addItemToArray($result, 'identifier', $doc['identifier']);
       $this->addItemToArray($result, 'title', get_search_i18n($doc, 'title'));
+      $this->addItemToArray($result, 'inherited_title', $doc['inheritedTitle']);
       $this->addItemToArray($result, 'date', get_search_i18n($doc['dates'][0], 'date'));
       $this->addItemToArray($result, 'creator', get_search_i18n($doc['creators'][0], 'authorizedFormOfName'));
       $this->addItemToArray($result, 'creator_date', get_search_i18n($doc['creators'][0], 'datesOfExistence'));

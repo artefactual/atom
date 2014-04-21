@@ -35,12 +35,12 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, Tax
 
   $scope.searchSupportingTechnology = function (viewValue) {
     return InformationObjectService.getSupportingTechnologyRecords({ query: viewValue }).then(function (response) {
-      var matches = [];
-      angular.forEach(response.data.results, function (item) {
-        matches.push(item);
+        var matches = [];
+        angular.forEach(response.data.results, function (item) {
+          matches.push(item);
+        });
+        return matches;
       });
-      return matches;
-    });
   };
 
   $scope.onSelectSupportingTechnology = function (item) {
@@ -52,10 +52,10 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, Tax
     }
     $scope.relationships.push({
       technology_record_id: item.id,
-      name: item.title,
+      name: item.inherited_title,
       type_id: $scope.dcRelationTypes[0].id
     });
-    delete $scope.search;
+    delete $scope.modalContainer.search;
   };
 
   $scope.delete = function (index) {

@@ -118,6 +118,7 @@ module.exports = function ($http, $q, SETTINGS) {
   };
 
   this.getSupportingTechnologyRecords = function (params) {
+    params = params || {};
     return $http({
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/informationobjects/technologies',

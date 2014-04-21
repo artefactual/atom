@@ -12,28 +12,31 @@
 
     <section class="form-item">
       <label>Search for related supporting technologies</label>
-      <input type="text" ng-model="modalContainer.search" placeholder="Insert your search here..." typeahead="match.title as match.title for match in searchSupportingTechnology($viewValue)" typeahead-on-select="onSelectSupportingTechnology($item)"></select>
+      <input type="text" ng-model="modalContainer.search" placeholder="Insert your search here..." typeahead="match.title as match.inherited_title for match in searchSupportingTechnology($viewValue)" typeahead-on-select="onSelectSupportingTechnology($item)"></select>
     </section>
 
     <section class="form-item">
       <label>Current selections</label>
-      <table class="table table-bordered table-condensed" ng-if="relationships.length > 0">
-        <thead>
-          <th>Name</th>
-          <th>Relation type</th>
-          <th>Relation description</th>
-          <th></th>
-        </thead>
+      <table class="table table-bordered" ng-if="relationships.length > 0">
         <tbody>
           <tr ng-repeat="item in relationships">
-            <td>{{ item.name }}</td>
-            <td><select ng-model="item.type_id" ng-options="type.id as type.name for type in dcRelationTypes"></select></td>
-            <td ng-if="item.$editing == undefined || !item.$editing">{{ item.description || 'N/A' }}</td>
-            <td ng-if="item.$editing"><input type="text" ng-model="item.description"/></td>
             <td>
-              <a href class="btn btn-mini" ng-click="item.$editing = true" ng-if="item.$editing == undefined || !item.$editing"><i class="icon icon-edit"></i></a>
-              <a href class="btn btn-mini" ng-click="item.$editing = false" ng-if="item.$editing"><i class="icon icon-save"></i></a>
-              <a href class="btn btn-mini" ng-click="delete($index)"><i class="icon icon-remove"></i></a>
+              <div class="form-item" style="margin-top:  6px;">
+                <input type="text" ng-model="item.name" ng-disabled="true"/>
+              </div>
+              <div class="row-fluid">
+                <div class="form-item span6">
+                  <label>Type</label>
+                  <select ng-model="item.type_id" ng-options="type.id as type.name for type in dcRelationTypes"></select>
+                </div>
+                <div class="form-item span6">
+                  <label>Description</label>
+                  <input type="text" ng-model="item.description"/>
+                </div>
+              </div>
+            </td>
+            <td>
+              <a href class="btn btn-mini btn-danger" ng-click="delete($index)">Delete</a>
             </td>
           </tr>
         </tbody>
