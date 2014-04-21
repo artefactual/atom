@@ -40,7 +40,13 @@
       <div class="content">
 
         <section class="row-fluid">
-          <ng-include src="viewsPath + '/partials/technology-records.list.html'"></ng-include>
+
+          <article ng-repeat="(id, technologyRecord) in data.results" class="search-result">
+            <div class="search-result-description">
+              <p class="title"><a ui-sref="main.technology-records.view({id: id})">{{ technologyRecord.title || 'Untitled' }}</a></p>
+            </div>
+          </article>
+
         </section>
 
       </div>

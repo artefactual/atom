@@ -40,7 +40,13 @@
       <div class="content">
 
         <section class="row-fluid">
-          <ng-include src="viewsPath + '/partials/files.list.html'"></ng-include>
+
+          <article ng-repeat="(id, file) in data.results" class="search-result">
+            <div class="search-result-description">
+              <p class="title">{{ file.title || 'Untitled' }}</p>
+            </div>
+          </article>
+
         </section>
 
       </div>
