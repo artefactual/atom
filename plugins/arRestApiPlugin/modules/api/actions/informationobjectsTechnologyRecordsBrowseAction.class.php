@@ -154,6 +154,8 @@ class ApiInformationObjectsTechnologyRecordsBrowseAction extends QubitApiAction
       $this->addItemToArray($result, 'creator', get_search_i18n($doc['creators'][0], 'authorizedFormOfName'));
       $this->addItemToArray($result, 'creator_date', get_search_i18n($doc['creators'][0], 'datesOfExistence'));
 
+      // TODO: Both are necessary?
+      $result['id'] = (int)$hit->getId();
       $results[$hit->getId()] = $result;
     }
 
