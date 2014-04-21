@@ -27,40 +27,6 @@
         <span class="sub">Artwork records search</span>
       </h1>
 
-      <section class="header-options">
-
-        <span ng-if="criteria.classification" class="search-filter">
-          {{ getTermLabel('classification', criteria.classification) }}
-          <a href ng-click="criteria.classification = undefined"><i class="icon-remove"></i></a>
-        </span>
-
-        <span ng-if="criteria.department" class="search-filter">
-          {{ getTermLabel('department', criteria.department) }}
-          <a href ng-click="criteria.department = undefined"><i class="icon-remove"></i></a>
-        </span>
-
-        <span ng-if="criteria.collectedFrom || criteria.collectedTo" class="search-filter">
-          {{ getDateRangeLabel('dateCollected', criteria.collectedFrom, criteria.collectedTo) }}
-          <a href ng-click="criteria.collectedFrom = undefined; criteria.collectedTo = undefined"><i class="icon-remove"></i></a>
-        </span>
-
-        <span ng-if="criteria.createdFrom || criteria.createdTo" class="search-filter">
-          {{ getDateRangeLabel('dateCreated', criteria.createdFrom, criteria.createdTo) }}
-          <a href ng-click="criteria.ingestedFrom = undefined; criteria.ingestedTo = undefined"><i class="icon-remove"></i></a>
-        </span>
-
-        <span ng-if="criteria.ingestedFrom || criteria.ingestedTo" class="search-filter">
-          {{ getDateRangeLabel('dateIngested', criteria.ingestedFrom, criteria.ingestedTo) }}
-          <a href ng-click="criteria.ingestedFrom = undefined; criteria.ingestedTo = undefined"><i class="icon-remove"></i></a>
-        </span>
-
-        <span ng-if="criteria.totalSizeFrom || criteria.totalSizeTo" class="search-filter">
-          {{ getSizeRangeLabel(criteria.totalSizeFrom, criteria.totalSizeTo) }}
-          <a href ng-click="criteria.totalSizeFrom = undefined; criteria.totalSizeTo = undefined"><i class="icon-remove"></i></a>
-        </span>
-
-      </section>
-
       <div class="content">
 
         <section class="row-fluid">
