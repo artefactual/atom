@@ -47,9 +47,9 @@ class QubitApiAip
     $aip['name'] = $doc['filename'];
     $aip['uuid'] = $doc['uuid'];
     $aip['size'] = $doc['sizeOnDisk'];
-    $aip['type']['id'] = $doc['type']['id'];
+    $aip['type']['id'] = (int)$doc['type']['id'];
     $aip['type']['name'] = get_search_i18n($doc['type'], 'name');
-    $aip['part_of']['id'] = $doc['partOf']['id'];
+    $aip['part_of']['id'] = (int)$doc['partOf']['id'];
     $aip['part_of']['title'] = get_search_i18n($doc['partOf'], 'title');
     $aip['digital_object_count'] =  $doc['digitalObjectCount'];
     if (isset($doc['digitalObjects'])) // TODO: should be digital_objects
