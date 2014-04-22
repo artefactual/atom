@@ -46,21 +46,15 @@ class InformationObjectEditRightsAction extends sfAction
   {
     switch ($name)
     {
-      case 'id':
-        $this->form->setValidator('id', new sfValidatorString);
-        $this->form->setWidget('id', new sfWidgetFormInputHidden);
-        $this->form->setDefault('id', $this->resource->id);
-        break;
-
       case 'endDate':
+        $this->form->setDefault('endDate', ($this->right->endDate));
         $this->form->setValidator('endDate', new sfValidatorString);
         $this->form->setWidget('endDate', new sfWidgetFormInput);
         $this->form->getWidgetSchema()->endDate->setLabel($this->context->i18n->__('End'));
         break;
 
       case 'startDate':
-        $dt = new DateTime;
-        $this->form->setDefault('startDate', $dt->format('Y-m-d'));
+        $this->form->setDefault('startDate', $this->right->startDate);
         $this->form->setValidator('startDate', new sfValidatorString);
         $this->form->setWidget('startDate', new sfWidgetFormInput);
         $this->form->getWidgetSchema()->startDate->setLabel($this->context->i18n->__('Start'));
@@ -71,12 +65,14 @@ class InformationObjectEditRightsAction extends sfAction
         $choices[0] = $this->context->i18n->__('Disallow');
         $this->form->setValidator('restriction', new sfValidatorBoolean);
         $this->form->setWidget('restriction', new sfWidgetFormSelect(array('choices' => $choices)));
+        $this->form->setDefault('restriction', $this->right->restriction);
         break;
 
       case 'statuteDeterminationDate':
       case 'copyrightStatusDate':
         $this->form->setValidator($name, new sfValidatorString);
         $this->form->setWidget($name, new sfWidgetFormInput);
+        $this->form->setDefault($name, $this->right[$name]);
         break;
 
       case 'act':
@@ -86,6 +82,7 @@ class InformationObjectEditRightsAction extends sfAction
         }
         $this->form->setValidator('act', new sfValidatorString);
         $this->form->setWidget('act', new sfWidgetFormSelect(array('choices' => $choices)));
+        $this->form->setDefault('act', $this->context->routing->generate(null, array($this->right->act, 'module' => 'term')));
         break;
 
       case 'basis':
@@ -95,11 +92,11 @@ class InformationObjectEditRightsAction extends sfAction
           {
             $this->form->setDefault('basis', $this->context->routing->generate(null, array($item, 'module' => 'term')));
           }
-
           $choices[$this->context->routing->generate(null, array($item, 'module' => 'term'))] = $item->__toString();
         }
         $this->form->setValidator('basis', new sfValidatorString);
         $this->form->setWidget('basis', new sfWidgetFormSelect(array('choices' => $choices)));
+        $this->form->setDefault('basis', $this->context->routing->generate(null, array($this->right->basis, 'module' => 'term')));
         break;
 
       case 'copyrightStatus':
@@ -109,16 +106,20 @@ class InformationObjectEditRightsAction extends sfAction
         }
         $this->form->setValidator('copyrightStatus', new sfValidatorString);
         $this->form->setWidget('copyrightStatus', new sfWidgetFormSelect(array('choices' => $choices)));
+        $this->form->setDefault('copyrightStatus', $this->context->routing->generate(null, array($this->right->copyrightStatus, 'module' => 'term')));
         break;
 
       case 'rightsHolder':
         $this->form->setValidator('rightsHolder', new sfValidatorString);
         $this->form->setWidget('rightsHolder', new sfWidgetFormSelect(array('choices' => array())));
+        // var_dump( $this->context->routing->generate(null, array($this->right->rightsHolder, 'module' => 'actor')) ); die();
+        $this->form->setDefault('rightsHolder', $this->context->routing->generate(null, array($this->right->rightsHolder, 'module' => 'actor')));
         break;
 
       case 'copyrightJurisdiction':
         $this->form->setValidator('copyrightJurisdiction', new sfValidatorI18nChoiceCountry);
         $this->form->setWidget('copyrightJurisdiction', new sfWidgetFormI18nChoiceCountry(array('add_empty' => true, 'culture' => $this->context->user->getCulture())));
+        $this->form->setDefault('copyrightJurisdiction', $this->right->copyrightJurisdiction);
         break;
 
       case 'copyrightNote':
@@ -129,12 +130,14 @@ class InformationObjectEditRightsAction extends sfAction
       case 'rightsNote':
         $this->form->setValidator($name, new sfValidatorString);
         $this->form->setWidget($name, new sfWidgetFormTextarea);
+        $this->form->setDefault($name, $this->right[$name]);
         break;
 
       case 'licenseIdentifier':
       case 'licenseTerms':
         $this->form->setValidator($name, new sfValidatorString);
         $this->form->setWidget($name, new sfWidgetFormInput);
+        $this->form->setDefault($name, $this->right[$name]);
         break;
     }
   }
@@ -165,9 +168,6 @@ class InformationObjectEditRightsAction extends sfAction
 
   public function processForm()
   {
-    // load existing right, or create a new one
-    $this->right = new QubitRights;
-
     // attach each value in the form
     // to the new/existing rights object
     foreach ($this->form as $field)
@@ -180,7 +180,7 @@ class InformationObjectEditRightsAction extends sfAction
 
     // if new right, then create QubitRelation
     // to associate it to the resource
-    if (!$this->form->getValue('id'))
+    if ( $this->right->relationsRelatedByobjectId[0] === null )
     {
       $this->relation = new QubitRelation;
       $this->relation->object = $this->right;
@@ -190,9 +190,42 @@ class InformationObjectEditRightsAction extends sfAction
     }
   }
 
+  protected function getObject($id)
+  {
+    $results = QubitRelation::getRelatedSubjectsByObjectId('QubitInformationObject', $id);
+    return $results[0];
+    if( $results !== NULL ){
+      return $results[0];
+    } else {
+      return false;
+    }
+  }
+
+  protected function newRightWithDefaults()
+  {
+    $right = new QubitRights;
+    $dt = new DateTime;
+    $right->startDate = $dt->format('Y-m-d');
+    $right->restriction = "0";
+
+    return $right;
+  }
+
   protected function earlyExecute()
   {
-    $this->resource = $this->getRoute()->resource;
+    $resource = $this->getRoute()->resource;
+    $type = get_class($resource);
+
+    switch ($type) {
+      case 'QubitRights':
+        $this->resource = $this->getObject($resource->id);
+        $this->right = $resource;
+        break;
+      case 'QubitInformationObject':
+        $this->resource = $resource;
+        $this->right = $this->newRightWithDefaults();
+        break;
+    }
 
     // Check that this isn't the root
     if (!isset($this->resource->parent))
