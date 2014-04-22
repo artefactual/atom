@@ -65,6 +65,7 @@
         </section>
 
         <section>
+
           <div class="menu-list">
             <ul class="menu-list-left">
               <li><h2>AIP file list</h2></li>
@@ -75,10 +76,15 @@
           </div>
 
           <!-- AIP browser -->
-          <div class="aip-browser">
-            <table class="table">
+          <div class="browse-view-list">
+            <table class="table table-bordered">
+              <thead>
+                <th>Name</th>
+                <th>MIME</th>
+                <th colspan="2">Size</th>
+              </thead>
               <tbody>
-                <tr ng-repeat="aipFile in aipFiles | orderBy:predicate:reverse">
+                <tr ng-repeat="aipFile in files | orderBy:predicate:reverse">
                   <td><a href ng-click="openViewer()">{{ aipFile.filename }}</a></td>
                   <td>{{ aipFile.mimeType }}</td>
                   <td>{{ aipFile.byteSize | UnitFilter:2 }}</td>
@@ -86,12 +92,13 @@
                 </tr>
               </tbody>
             </table>
-
-            <ar-pager items-per-page="{{ criteria.limit }}" page="page"></ar-pager>
           </div>
+
         </section>
 
       </div>
+
+      <ar-pager items-per-page="{{ criteria.limit }}" page="page"></ar-pager>
 
     </div>
 
