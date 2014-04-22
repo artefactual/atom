@@ -182,26 +182,23 @@ h1.moma-title {
   }
 }
 
-// AIPS Browser - List view
+// This is for embedded tables with sorting like the on the AIP overview or
+// the AIP file list. It includes some styles for the sorting elements.
 
-.browse-view-list, .display-list {
+.browse-view-list {
 
   padding: 20px;
 
   table {
 
-    font-size: 12px;
-
-    thead th,
-    tbody td {
-      padding: 6px;
+    th {
+      font-weight: normal;
     }
 
     thead {
 
       .sort-label {
         color: @black;
-        font-weight: normal; // Bug OpenSans bold
       }
 
       .selected .sort-label {
@@ -218,15 +215,6 @@ h1.moma-title {
 
       .sort-asc .sort-icon:after  { content: "\f106"; }
       .sort-desc .sort-icon:after { content: "\f107"; }
-    }
-
-    tbody {
-      tr {
-        background: #fff;
-        &:nth-child(2n) {
-          background: @grayLighter;
-        }
-      }
     }
 
   }
