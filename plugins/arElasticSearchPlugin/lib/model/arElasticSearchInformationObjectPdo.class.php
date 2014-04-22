@@ -1336,7 +1336,7 @@ class arElasticSearchInformationObjectPdo
       $serialized['creators'][] = $node->serialize();
     }
 
-    // Aips
+    // Aips related
     foreach ($this->getAips() as $item)
     {
       $node = new arElasticSearchAipPdo($item->id);
@@ -1350,95 +1350,111 @@ class arElasticSearchInformationObjectPdo
     }
 
     // TMS object
-    if (null !== $collectionDate = $this->getProperty('Dated'))
+    if ($this->level_of_description_id === sfConfig::get('app_drmc_lod_artwork_record_id'))
     {
-      $serialized['tmsObject']['collectionDate'] = $collectionDate;
-    }
-
-    if (null !== $dateCollected = $this->getProperty('AccessionISODate'))
-    {
-      $serialized['tmsObject']['dateCollected'] = arElasticSearchPluginUtil::convertDate($dateCollected);
-    }
-
-    if (null !== $accessionNumber = $this->getProperty('ObjectNumber'))
-    {
-      $serialized['tmsObject']['accessionNumber'] = $accessionNumber;
-    }
-
-    if (null !== $thumbnail = $this->getProperty('Thumbnail'))
-    {
-      $serialized['tmsObject']['thumbnail'] = $thumbnail;
-    }
-
-    if (null !== $fullImage = $this->getProperty('FullImage'))
-    {
-      $serialized['tmsObject']['fullImage'] = $fullImage;
-    }
-
-    foreach ($this->getDirectlyRelatedTerms(sfConfig::get('app_drmc_taxonomy_classifications_id')) as $item)
-    {
-      $node = new arElasticSearchTermPdo($item->id);
-      $serialized['tmsObject']['classification'][] = $node->serialize();
-    }
-
-    foreach ($this->getDirectlyRelatedTerms(sfConfig::get('app_drmc_taxonomy_departments_id')) as $item)
-    {
-      $node = new arElasticSearchTermPdo($item->id);
-      $serialized['tmsObject']['department'][] = $node->serialize();
-    }
-
-    // TMS component
-    if (null !== $compCount = $this->getProperty('CompCount'))
-    {
-      $serialized['tmsComponent']['compCount'] = $compCount;
-    }
-
-    if (null !== $componentNumber = $this->getProperty('ComponentNumber'))
-    {
-      $serialized['tmsComponent']['componentNumber'] = $componentNumber;
-    }
-
-    foreach ($this->getNotesByType(sfConfig::get('app_drmc_term_installcomments_id')) as $note)
-    {
-      $serialized['tmsComponent']['installComments'][] = arElasticSearchNote::serialize($note);
-    }
-
-    foreach ($this->getNotesByType(sfConfig::get('app_drmc_term_prepcomments_id')) as $note)
-    {
-      $serialized['tmsComponent']['prepComments'][] = arElasticSearchNote::serialize($note);
-    }
-
-    foreach ($this->getNotesByType(sfConfig::get('app_drmc_term_storagecomments_id')) as $note)
-    {
-      $serialized['tmsComponent']['storageComments'][] = arElasticSearchNote::serialize($note);
-    }
-
-    foreach ($this->getNotesByType(QubitTerm::GENERAL_NOTE_ID) as $note)
-    {
-      $serialized['tmsComponent']['textEntries'][] = arElasticSearchNote::serialize($note);
-    }
-
-    foreach ($this->getDirectlyRelatedTerms(sfConfig::get('app_drmc_taxonomy_component_types_id')) as $item)
-    {
-      $node = new arElasticSearchTermPdo($item->id);
-      $serialized['tmsComponent']['type'][] = $node->serialize();
-    }
-
-    if (null !== $artworkThumbnail = $this->getProperty('artworkThumbnail'))
-    {
-      $serialized['tmsComponent']['artworkThumbnail'] = $artworkThumbnail;
-    }
-
-    // TMS child components
-    if (null !== $childComponents = $this->getProperty('childComponents'))
-    {
-      foreach (unserialize($childComponents) as $item)
+      if (null !== $collectionDate = $this->getProperty('Dated'))
       {
-        $node = new arElasticSearchInformationObjectPdo($item);
-        $serialized['tmsChildComponents'][] = $node->serialize();
+        $serialized['tmsObject']['collectionDate'] = $collectionDate;
+      }
+
+      if (null !== $dateCollected = $this->getProperty('AccessionISODate'))
+      {
+        $serialized['tmsObject']['dateCollected'] = arElasticSearchPluginUtil::convertDate($dateCollected);
+      }
+
+      if (null !== $accessionNumber = $this->getProperty('ObjectNumber'))
+      {
+        $serialized['tmsObject']['accessionNumber'] = $accessionNumber;
+      }
+
+      if (null !== $thumbnail = $this->getProperty('Thumbnail'))
+      {
+        $serialized['tmsObject']['thumbnail'] = $thumbnail;
+      }
+
+      if (null !== $fullImage = $this->getProperty('FullImage'))
+      {
+        $serialized['tmsObject']['fullImage'] = $fullImage;
+      }
+
+      foreach ($this->getDirectlyRelatedTerms(sfConfig::get('app_drmc_taxonomy_classifications_id')) as $item)
+      {
+        $node = new arElasticSearchTermPdo($item->id);
+        $serialized['tmsObject']['classification'][] = $node->serialize();
+      }
+
+      foreach ($this->getDirectlyRelatedTerms(sfConfig::get('app_drmc_taxonomy_departments_id')) as $item)
+      {
+        $node = new arElasticSearchTermPdo($item->id);
+        $serialized['tmsObject']['department'][] = $node->serialize();
+      }
+
+      // TMS child components
+      if (null !== $childComponents = $this->getProperty('childComponents'))
+      {
+        foreach (unserialize($childComponents) as $item)
+        {
+          $node = new arElasticSearchInformationObjectPdo($item);
+          $serialized['tmsChildComponents'][] = $node->serialize();
+        }
       }
     }
 
+    // TMS component
+    $componentLevels = array(
+      sfConfig::get('app_drmc_lod_archival_master_id'),
+      sfConfig::get('app_drmc_lod_artist_supplied_master_id'),
+      sfConfig::get('app_drmc_lod_artist_verified_proof_id'),
+      sfConfig::get('app_drmc_lod_exhibition_format_id'),
+      sfConfig::get('app_drmc_lod_miscellaneous_id'),
+      sfConfig::get('app_drmc_lod_component_id')
+    );
+
+    if (in_array($this->level_of_description_id, $componentLevels))
+    {
+      if (null !== $compCount = $this->getProperty('CompCount'))
+      {
+        $serialized['tmsComponent']['compCount'] = $compCount;
+      }
+
+      if (null !== $componentNumber = $this->getProperty('ComponentNumber'))
+      {
+        $serialized['tmsComponent']['componentNumber'] = $componentNumber;
+      }
+
+      foreach ($this->getNotesByType(sfConfig::get('app_drmc_term_installcomments_id')) as $note)
+      {
+        $serialized['tmsComponent']['installComments'][] = arElasticSearchNote::serialize($note);
+      }
+
+      foreach ($this->getNotesByType(sfConfig::get('app_drmc_term_prepcomments_id')) as $note)
+      {
+        $serialized['tmsComponent']['prepComments'][] = arElasticSearchNote::serialize($note);
+      }
+
+      foreach ($this->getNotesByType(sfConfig::get('app_drmc_term_storagecomments_id')) as $note)
+      {
+        $serialized['tmsComponent']['storageComments'][] = arElasticSearchNote::serialize($note);
+      }
+
+      foreach ($this->getNotesByType(QubitTerm::GENERAL_NOTE_ID) as $note)
+      {
+        $serialized['tmsComponent']['textEntries'][] = arElasticSearchNote::serialize($note);
+      }
+
+      foreach ($this->getDirectlyRelatedTerms(sfConfig::get('app_drmc_taxonomy_component_types_id')) as $item)
+      {
+        $node = new arElasticSearchTermPdo($item->id);
+        $serialized['tmsComponent']['type'][] = $node->serialize();
+      }
+
+      if (null !== $artworkThumbnail = $this->getProperty('artworkThumbnail'))
+      {
+        $serialized['tmsComponent']['artworkThumbnail'] = $artworkThumbnail;
+      }
+    }
+
+    // DRMC Tech Records
     if ($this->level_of_description_id === sfConfig::get('app_drmc_lod_supporting_technology_record_id'))
     {
       $serialized['inheritedTitle'] = $this->getInheritedTitle();
@@ -1454,6 +1470,12 @@ class arElasticSearchInformationObjectPdo
       }
     }
 
+    // AIP file-specific
+    if ($this->getProperty('original_relative_path_within_aip'))
+    {
+      $serialized['originalRelativePathWithinAip'] = $this->getProperty('original_relative_path_within_aip');
+    }
+
     // Timestamps
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);
     $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($this->updated_at);
@@ -1461,12 +1483,6 @@ class arElasticSearchInformationObjectPdo
     // Languages
     $serialized['sourceCulture'] = $this->source_culture;
     $serialized['i18n'] = arElasticSearchModelBase::serializeI18ns($this->id, array('QubitInformationObject'));
-
-    // AIP file-specific
-    if ($this->getProperty('original_relative_path_within_aip'))
-    {
-      $serialized['originalRelativePathWithinAip'] = $this->getProperty('original_relative_path_within_aip');
-    }
 
     return $serialized;
   }
