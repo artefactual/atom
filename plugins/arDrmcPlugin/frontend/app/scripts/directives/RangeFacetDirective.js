@@ -21,6 +21,11 @@ module.exports = function (SETTINGS) {
       };
 
       scope.select = function (from, to) {
+        if (scope.from === from && scope.to === to) {
+          scope.from = undefined;
+          scope.to = undefined;
+          return;
+        }
         scope.from = from;
         scope.to = to;
       };
