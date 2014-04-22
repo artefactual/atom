@@ -56,7 +56,9 @@ module.exports = function (SETTINGS, InformationObjectService, ModalEditDcMetada
       };
 
       scope.editNode = function (id) {
-        ModalEditDcMetadataService.edit(id);
+        ModalEditDcMetadataService.edit(id).result.then(function () {
+          scope.pull();
+        });
       };
 
       scope.isDeletable = function (node) {

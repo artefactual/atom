@@ -22,13 +22,6 @@ module.exports = function ($scope, $element, $document, InformationObjectService
    * Fetcher
    */
 
-  scope.$watch('id', function (value) {
-    if (value.length < 1) {
-      return;
-    }
-    scope.pull();
-  });
-
   scope.pull = function () {
     InformationObjectService.getTree(scope.id)
       .then(function (response) {
@@ -40,6 +33,17 @@ module.exports = function ($scope, $element, $document, InformationObjectService
         console.error('Error loading tree:', reason);
       });
   };
+
+  scope.$watch('id', function (value) {
+    if (value.length < 1) {
+      return;
+    }
+    scope.pull();
+  });
+
+  scope.$on('reload', function () {
+    scope.pull();
+  });
 
 
   /**

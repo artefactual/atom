@@ -17,6 +17,7 @@ module.exports = function ($scope, $stateParams, InformationObjectService, Modal
   $scope.edit = function () {
     ModalEditDcMetadataService.edit($scope.techRecord.id).result.then(function () {
       $scope.pull();
+      $scope.$broadcast('reload');
     });
   };
 
@@ -24,6 +25,7 @@ module.exports = function ($scope, $stateParams, InformationObjectService, Modal
   $scope.addChild = function () {
     ModalEditDcMetadataService.create($scope.techRecord.id).result.then(function () {
       $scope.pull();
+      $scope.$broadcast('reload');
     });
   };
 
