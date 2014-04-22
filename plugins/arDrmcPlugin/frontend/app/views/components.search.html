@@ -29,18 +29,19 @@
 
         <section class="row-fluid">
 
-          <article ng-repeat="(id, result) in data.results" ng-class="result.thumbnail != undefined ? 'search-result has-preview' : 'search-result'">
+          <article ng-repeat="(id, result) in data.results" ng-class="result.artwork_thumbnail != undefined ? 'search-result has-preview' : 'search-result'">
 
-            <div class="search-result-preview" ng-if="result.thumbnail != undefined">
+            <div class="search-result-preview" ng-if="result.artwork_thumbnail != undefined">
               <a>
                 <div class="preview-container">
-                  <img ng-src="{{ result.thumbnail }}" />
+                  <img ng-src="{{ result.artwork_thumbnail }}" />
                 </div>
               </a>
             </div>
 
             <div class="search-result-description">
-              <p class="title">{{ result.name || 'Untitled' }}</p>
+              <p class="title"><a ui-sref="main.works.view({ id: result.artwork_id })">{{ result.name || 'Untitled' }}</a></p>
+              <div><p>Artwork: <a ui-sref="main.works.view({ id: result.artwork_id })">{{ result.artwork_title || 'Untitled' }}</a></p></div>
               <div>
                 <ul class="result-details">
                   <li ng-if="result.id" class="reference-code">{{ result.id }}</li>

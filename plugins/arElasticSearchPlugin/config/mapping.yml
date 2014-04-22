@@ -150,11 +150,16 @@ mapping:
       prep_comments: note
       storage_comments: note
       text_entries: note
+    _partial_foreign_types:
+      artwork:
+        _i18nFields: [title]
+        dynamic: strict
+        properties:
+          thumbnail: { type: string, index: not_analyzed, include_in_all: false }
     dynamic: strict
     properties:
       comp_count: { type: integer, index: not_analyzed, include_in_all: false }
       component_number: { type: string, index: not_analyzed, include_in_all: false }
-      artworkThumbnail: { type: string, index: not_analyzed, include_in_all: false }
 
   #
   # Main types

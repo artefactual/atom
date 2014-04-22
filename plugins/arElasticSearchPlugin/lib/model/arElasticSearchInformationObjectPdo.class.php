@@ -913,6 +913,20 @@ class arElasticSearchInformationObjectPdo
     return self::$statements['aip']->fetch(PDO::FETCH_OBJ);
   }
 
+  protected function getArtworkId()
+  {
+    $sql  = 'SELECT id';
+    $sql .= ' FROM '.QubitInformationObject::TABLE_NAME;
+    $sql .= ' WHERE lft < ?
+                AND rgt > ?
+                AND level_of_description_id = ?';
+
+    self::$statements['artwork'] = self::$conn->prepare($sql);
+    self::$statements['artwork']->execute(array($this->__get('lft'), $this->__get('rgt'), sfConfig::get('app_drmc_lod_artwork_record_id')));
+
+    return self::$statements['artwork']->fetchColumn();
+  }
+
   protected function getMetsData()
   {
     if ((null !== $aipUUID = $this->getProperty('aipUUID'))
@@ -1448,9 +1462,15 @@ class arElasticSearchInformationObjectPdo
         $serialized['tmsComponent']['type'][] = $node->serialize();
       }
 
+      if (null !== $artworkId = $this->getArtworkId())
+      {
+        $serialized['tmsComponent']['artwork']['id'] = $artworkId;
+        $serialized['tmsComponent']['artwork']['i18n'] = arElasticSearchModelBase::serializeI18ns($artworkId, array('QubitInformationObject'), array('fields' => array('title')));
+      }
+
       if (null !== $artworkThumbnail = $this->getProperty('artworkThumbnail'))
       {
-        $serialized['tmsComponent']['artworkThumbnail'] = $artworkThumbnail;
+        $serialized['tmsComponent']['artwork']['thumbnail'] = $artworkThumbnail;
       }
     }
 
