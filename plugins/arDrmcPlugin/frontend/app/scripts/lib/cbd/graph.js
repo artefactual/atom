@@ -25,13 +25,17 @@
     var parseTree = function (tree, parent) {
       for (var i in tree) {
         var element = tree[i];
-        // Add node
-        self.addNode(element.id, {
+        var data = {
           id: element.id,
           level: element.level,
           label: element.title,
           collapsible: angular.isArray(element.children) && element.children.length > 0
-        });
+        };
+        if (element.hasOwnProperty('supporting_technologies_count')) {
+          data.supporting_technologies_count = element.supporting_technologies_count;
+        }
+        // Add node
+        self.addNode(element.id, data);
         // Add relation
         if (parent !== undefined) {
           var edgeId = element.id + ':' + parent.id;

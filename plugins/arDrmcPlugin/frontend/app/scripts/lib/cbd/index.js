@@ -76,6 +76,9 @@
 
     this.graphSVG.select('.expandCollapseIcons')
       .on('click', jQuery.proxy(this.clickExpandCollapseIcon, this));
+
+    this.graphSVG.select('.supportingTechnologyIcons')
+      .on('click', jQuery.proxy(this.clickSupportingTechnologyIcon, this));
   };
 
   ContextBrowser.prototype.showRelationships = function () {
@@ -112,6 +115,16 @@
     }
     var id = d3.select(target).datum();
     this.collapse(id);
+  };
+
+  ContextBrowser.prototype.clickSupportingTechnologyIcon = function () {
+    var target = d3.event.target.correspondingUseElement ? d3.event.target.correspondingUseElement : d3.event.target;
+    var jg = jQuery(target).closest('g');
+    if (!jg.length) {
+      return;
+    }
+    var id = d3.select(target).datum();
+    this.events.emitEvent('click-supporting-technology-icon', [{ id: id }]);
   };
 
   /**

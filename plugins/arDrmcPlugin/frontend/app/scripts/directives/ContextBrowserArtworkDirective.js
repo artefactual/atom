@@ -15,6 +15,17 @@ module.exports = function ($modal, SETTINGS, InformationObjectService, ModalDigi
     link: function (scope) {
 
       /**
+       * cbd events (specific to artworks)
+       */
+
+      scope.cb.events.on('click-supporting-technology-icon', function (attrs) {
+        scope.$apply(function (scope) {
+          scope.crudRelatedTechnologies(attrs.id);
+        });
+      });
+
+
+      /**
        * File browser
        * TODO: make a directive for this
        */
@@ -201,7 +212,9 @@ module.exports = function ($modal, SETTINGS, InformationObjectService, ModalDigi
       };
 
       scope.crudRelatedTechnologies = function (id) {
-        ModalLinkSupportingTechnologyService.open(id);
+        ModalLinkSupportingTechnologyService.open(id).result.then(function () {
+          scope.pull();
+        });
       };
 
     }

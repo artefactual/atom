@@ -30,20 +30,32 @@ class ApiInformationObjectsTreeAction extends QubitApiAction
   {
     $sql = <<<EOL
 SELECT
-  node.id,
-  node.level_of_description_id,
-  i18n.title,
-  node.lft, node.rgt, node.parent_id
+  a.*,
+  CASE WHEN b.hits IS NULL THEN 0 ELSE 1 END supporting_technologies_count
 FROM
-  information_object AS node,
-  information_object AS parent,
-  information_object_i18n AS i18n
-WHERE
-  node.lft BETWEEN parent.lft AND parent.rgt
-  AND node.id = i18n.id
-  AND node.source_culture = i18n.culture
-  AND parent.id = ?
-ORDER BY node.lft;
+  (SELECT
+     node.id,
+     node.level_of_description_id,
+     i18n.title,
+     node.lft, node.rgt, node.parent_id
+   FROM
+     information_object AS node,
+     information_object AS parent,
+     information_object_i18n AS i18n
+   WHERE
+     node.lft BETWEEN parent.lft AND parent.rgt
+     AND node.id = i18n.id
+     AND node.source_culture = i18n.culture
+     AND parent.id = ?
+   ORDER BY node.lft) a
+LEFT JOIN
+  (SELECT
+     subject_id, COUNT(*) hits
+   FROM relation
+   WHERE
+     relation.type_id IN (378, 379, 380, 381, 382)
+   GROUP BY subject_id
+  ) b ON (a.id = b.subject_id)
 EOL;
 
     $results = QubitPdo::fetchAll($sql, array($this->request->id));
@@ -72,6 +84,7 @@ EOL;
       // Cleanups of data coming from MySQL/PDO
       $item->id = (int)$item->id;
       $item->level_of_description_id = (int)$item->level_of_description_id;
+      $item->supporting_technologies_count = (int)$item->supporting_technologies_count;
       unset($item->lft);
       unset($item->rgt);
       unset($item->parent_id);

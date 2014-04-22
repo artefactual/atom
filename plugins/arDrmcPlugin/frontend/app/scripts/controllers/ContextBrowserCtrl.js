@@ -26,14 +26,20 @@ module.exports = function ($scope, $element, $document, InformationObjectService
     if (value.length < 1) {
       return;
     }
+    scope.pull();
+  });
+
+  scope.pull = function () {
     InformationObjectService.getTree(scope.id)
       .then(function (response) {
+        container.empty();
         cb.init(response.data);
         scope.rankDir = cb.renderer.rankDir;
+        scope.unselectAll();
       }, function (reason) {
         console.error('Error loading tree:', reason);
       });
-  });
+  };
 
 
   /**

@@ -20,8 +20,8 @@
 
     // Create layers
     svg
-      .selectAll('g.edgePaths, g.edgeLabels, g.nodes, g.expandCollapseIcons')
-      .data(['edgePaths', 'edgeLabels', 'nodes', 'expandCollapseIcons'])
+      .selectAll('g.edgePaths, g.edgeLabels, g.nodes, g.expandCollapseIcons', 'g.supportingTechnologyIcons')
+      .data(['edgePaths', 'edgeLabels', 'nodes', 'expandCollapseIcons', 'supportingTechnologyIcons'])
       .enter()
         .append('g')
         .attr('class', function (d) {
@@ -52,6 +52,7 @@
 
     // Expand/collapse icons
     drawAndPositionExpandCollapseIcons(result, graph, svg.select('g.expandCollapseIcons'), svg.select('g.nodes'));
+    drawAndPositionSupportingTechnologyIcons(result, graph, svg.select('g.supportingTechnologyIcons'), svg.select('g.nodes'));
 
     postRender(result, svg);
 
@@ -166,6 +167,23 @@
       root.insert('g').classed('collapse', node.collapsed)
         .attr('transform', 'translate(' + x + ',' + y + ')').datum(u)
         .append('use').attr('xlink:href', node.collapsed === true ? expandUse.id : collapseUse.id);
+    });
+  }
+
+  function drawAndPositionSupportingTechnologyIcons (layout, g, root, rootNodes) {
+    root.selectAll('*').remove();
+
+    rootNodes.selectAll('g.node').each(function (u) {
+      var node = g.node(u);
+      if (!node.hasOwnProperty('supporting_technologies_count') || node.supporting_technologies_count === 0) {
+        return;
+      }
+      var nodeLayout = layout.node(u);
+      var x = (nodeLayout.x - nodeLayout.width / 2);
+      var y = (nodeLayout.y - nodeLayout.height / 2);
+      root.insert('g').classed('supporting-technologies', true)
+        .attr('transform', 'translate(' + x + ',' + y + ')').datum(u)
+        .append('use').attr('xlink:href', '#supporting-technology-icon');
     });
   }
 
@@ -352,6 +370,14 @@
     var expandIcon = defs.append('svg:g').attr('id', 'expand-icon').append('svg:g');
     expandIcon.append('polygon').attr({ fill: 'none', stroke: '#333333', 'stroke-width': 1, points: '6,17 6,12 1,12 1,6 6,6 6,1 12,1 12,6 17,6 17,12 12,12 12,17' });
     expandIcon.append('polygon').attr({ fill: '#999999', stroke: 'none', points: '6,17 6,12 1,12 1,6 6,6 6,1 12,1 12,6 17,6 17,12 12,12 12,17' });
+
+    var dependencyIcon = defs.append('svg:g').attr('id', 'supporting-technology-icon').append('svg:g');
+    dependencyIcon.append('circle').attr({ cx: '5.25', cy: '-3.75', r: '13', stroke: 'none', fill: '#000000' });
+    dependencyIcon.append('circle').attr({ cx: '5.25', cy: '-3.75', r: '10', stroke: '#fff', 'stroke-width': '2', fill: 'none' });
+    dependencyIcon.append('text').classed('fa-icon', true).attr({ 'fill': '#ffffff' })
+      .html(function () {
+        return '&#xf0ad;';
+      });
   }
 
   function addLabel (node, root, marginX, marginY) {
