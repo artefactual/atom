@@ -2,17 +2,23 @@
 
   <div class="modal-header">
     <button type="button" ng-click="cancel()" class="close">×</button>
-    <h2>Reclassify AIP {{ aip.name }}</h2>
+    <h2 class="multiline">
+      Reclassify AIP
+      <span class="sub">{{ modalContainer.name }}</span>
+    </h2>
   </div>
 
-  <div class="modal-body classify-aip-modal">
-    <p ng-if="aip.part_of != undefined"><br />Part of {{ aip.part_of.title }}</p>
-    <hr />
+  <div class="modal-body">
 
-    <label>Reclassify as:</label>
-    <select ng-model="aip.type.id" ng-options="class.id as class.name for class in classifications">
-      <option value="">Unclassified</option>
-    </select>
+    <p>Part of {{ modalContainer.part_of_title }}.</p>
+
+    <div class="form-item">
+      <label>Reclassify as:</label>
+      <select ng-model="modalContainer.type_id" ng-options="class.id as class.name for class in classifications">
+        <option value="">Unclassified</option>
+      </select>
+    </div>
+
   </div>
 
   <div class="modal-footer">

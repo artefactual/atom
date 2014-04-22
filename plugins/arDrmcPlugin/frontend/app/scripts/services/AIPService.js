@@ -34,13 +34,4 @@ module.exports = function ($http, SETTINGS) {
       }
     });
   };
-
-  this.getTypes = function () {
-    var taxonomyId = 71;
-    return $http({
-      cache: true,
-      method: 'GET',
-      url: SETTINGS.frontendPath + 'api/taxonomies/' + taxonomyId
-    });
-  };
 };

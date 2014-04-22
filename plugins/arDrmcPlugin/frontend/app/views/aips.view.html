@@ -35,7 +35,7 @@
             </div>
             <div class="field">
               <h3>Class</h3>
-              <div>{{ aip.type.name || 'Unclassified' }}</div>
+              <div><a href ng-click="openReclassifyModal(aip)">{{ aip.type.name || 'Unclassified' }}</a></div>
             </div>
             <div class="field">
               <h3>UUID</h3>

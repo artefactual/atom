@@ -46,12 +46,6 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, $modal,
         console.log('Failed', reason);
         delete $scope.data;
       });
-    if ($stateParams.entity === 'aips') {
-      SearchService.getAIPTypes()
-        .success(function (data) {
-          $scope.classifications = data.terms;
-        });
-    }
   };
 
   $scope.getTermLabel = function (facet, id) {
@@ -89,27 +83,6 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, $modal,
   $scope.showOverview = true;
   $scope.toggleOverview = function () {
     $scope.showOverview = !$scope.showOverview;
-  };
-
-  $scope.openReclassifyModal = function (aip) {
-    // Current AIP selected equals to AIP in the modal
-    $scope.aip = aip;
-    // It happens that $modal.open returns a promise :)
-    var modalInstance = $modal.open({
-      templateUrl: SETTINGS.viewsPath + '/modals/reclassify-aips.html',
-      backdrop: true,
-      controller: 'AIPReclassifyCtrl',
-      scope: $scope, // TODO: isolate with .new()?
-      resolve: {
-        classifications: function () {
-          return $scope.classifications;
-        }
-      }
-    });
-    // This is going to happen only if the $modal succeeded
-    modalInstance.result.then(function (result) {
-      aip.class = result;
-    });
   };
 
   $scope.openViewer = function (file) {

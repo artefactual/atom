@@ -5,6 +5,7 @@ module.exports = function ($http, SETTINGS) {
   // Temporary hack to deal with constant IDs in AtoM
   // This should be probably a feature provided by the API
   var taxonomies = {
+    'AIP_TYPES': 71,
     'EVENT_TYPE': 40,
     'DC_TYPES': 54,
     'SUPORTING_TECHNOLOGY_RELATION_TYPES': SETTINGS.drmc.taxonomy_supporting_technologies_relation_types_id

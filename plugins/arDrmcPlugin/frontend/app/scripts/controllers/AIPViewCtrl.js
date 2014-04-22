@@ -1,12 +1,20 @@
 'use strict';
 
-module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, InformationObjectService, ModalDigitalObjectViewerService, ModalDownloadService) {
+module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, InformationObjectService, ModalDigitalObjectViewerService, ModalDownloadService, ModalReclassifyAipService) {
 
   AIPService.getAIP($stateParams.uuid)
     .success(function (data) {
       $scope.aip = data;
       pullFiles();
     });
+
+  $scope.openReclassifyModal = function () {
+    ModalReclassifyAipService.open($scope.aip.uuid, $scope.aip.part_of.title).result.then(function (data) {
+      $scope.aip.type.id = data.type_id;
+      $scope.aip.type.name = data.type;
+    });
+  };
+
 
   /**
    * Interaction with modals

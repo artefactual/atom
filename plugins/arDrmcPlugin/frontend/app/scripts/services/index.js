@@ -23,6 +23,7 @@
     .service('ModalEditDcMetadataService', require('./ModalEditDcMetadataService'))
     .service('ModalDigitalObjectViewerService', require('./ModalDigitalObjectViewerService'))
     .service('ModalLinkSupportingTechnologyService', require('./ModalLinkSupportingTechnologyService'))
-    .service('ModalDownloadService', require('./ModalDownloadService'));
+    .service('ModalDownloadService', require('./ModalDownloadService'))
+    .service('ModalReclassifyAipService', require('./ModalReclassifyAipService'));
 
 })();

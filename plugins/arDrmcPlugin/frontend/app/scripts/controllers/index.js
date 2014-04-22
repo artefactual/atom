@@ -27,6 +27,7 @@
 
     // Search
     .controller('SearchCtrl', require('./SearchCtrl'))
+    .controller('AipSearchCtrl', require('./AipSearchCtrl'))
 
     // Context browser
     .controller('ContextBrowserCtrl', require('./ContextBrowserCtrl'))

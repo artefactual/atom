@@ -1,21 +1,40 @@
 'use strict';
 
-module.exports = function ($scope, $modalInstance, AIPService) {
+module.exports = function ($scope, $modalInstance, AIPService, TaxonomyService, uuid) {
 
-  // Save button
+  $scope.modalContainer = {};
+
+  AIPService.getAIP(uuid).then(function (response) {
+    $scope.modalContainer.type_id = response.data.type.id;
+    $scope.modalContainer.part_of_id = response.data.part_of.id;
+    $scope.modalContainer.part_of_title = response.data.part_of.title;
+    $scope.modalContainer.name = response.data.name;
+  });
+
+  TaxonomyService.getTerms('AIP_TYPES')
+    .then(function (types) {
+      $scope.classifications = types.terms;
+    });
+
   $scope.reclassify = function () {
-    // Post the change
-    AIPService.reclassifyAIP($scope.aip.uuid, $scope.aip.type.id)
-      // If the update succeeded, update AIPBrowserCtrl overview (pull) and close
+    AIPService.reclassifyAIP(uuid, $scope.modalContainer.type_id)
       .success(function () {
-        $scope.search();
-        $modalInstance.close($scope.aip.type.id);
+        var r = {
+          type_id: $scope.modalContainer.type_id
+        };
+        for (var i = 0; i < $scope.classifications.length; i++) {
+          var current = $scope.classifications[i];
+          if (current.id === $scope.modalContainer.type_id) {
+            r.type = current.name;
+            break;
+          }
+        }
+        $modalInstance.close(r);
       }).error(function () {
-        $modalInstance.dismiss('Your new classification could not be assigned');
+        $modalInstance.dismiss('failed');
       });
   };
 
-  // Close the dialog
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
