@@ -2,6 +2,16 @@
 
 module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, InformationObjectService, ModalDigitalObjectViewerService, ModalDownloadService) {
 
+  AIPService.getAIP($stateParams.uuid)
+    .success(function (data) {
+      $scope.aip = data;
+      pullFiles();
+    });
+
+  /**
+   * Interaction with modals
+   */
+
   $scope.downloadFile = function (aipFile) {
     ModalDownloadService.downloadFile($scope.aip.name, $scope.aip.uuid, aipFile.originalRelativePathWithinAip);
   };
@@ -10,37 +20,40 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
     ModalDownloadService.downloadAip($scope.aip.name, $scope.aip.uuid);
   };
 
-  AIPService.getAIP($stateParams.uuid)
-    .success(function (data) {
-      $scope.aip = data;
+  $scope.openViewer = function () {
+    ModalDigitalObjectViewerService.open();
+  };
 
-      $scope.openViewer = function () {
-        ModalDigitalObjectViewerService.open();
-      };
 
-      // criteria contain GET params used when calling getFiles to refresh data
-      $scope.criteria = {};
-      $scope.criteria.limit = 10;
-      $scope.criteria.sort = 'name';
-      $scope.page = 1; // Don't delete this, it's an important default for the loop
+  /**
+   * File list widget
+   */
 
-      // Changes in scope.page updates criteria.skip
-      $scope.$watch('page', function (value) {
-        $scope.criteria.skip = (value - 1) * $scope.criteria.limit;
+  $scope.criteria = {};
+  $scope.criteria.limit = 4;
+  $scope.criteria.sort = 'name';
+  $scope.page = 1;
+  $scope.files = [];
+
+  var pullFiles = function () {
+    InformationObjectService.getDigitalObjects($scope.aip.part_of.id, false, $scope.criteria)
+      .success(function (data) {
+        $scope.files = data.results;
+        $scope.$broadcast('pull.success', data.total);
       });
+  };
 
-      // Watch for criteria changes
-      $scope.$watch('criteria', function () {
-        $scope.pull();
-      }, true); // check properties when watching
+  // Watch for criteria changes
+  $scope.$watch('criteria', function () {
+    if (!$scope.files.length) {
+      return;
+    }
+    pullFiles();
+  }, true);
 
-      $scope.pull = function () {
-        // retrieve AIP files
-        InformationObjectService.getDigitalObjects(data.part_of.id, false, $scope.criteria)
-          .success(function (data) {
-            $scope.aipFiles = data.results;
-            $scope.$broadcast('pull.success', data.total);
-          });
-      };
-    });
+  // Changes in scope.page updates criteria.skip
+  $scope.$watch('page', function (value) {
+    $scope.criteria.skip = (value - 1) * $scope.criteria.limit;
+  });
+
 };
