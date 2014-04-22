@@ -1,12 +1,15 @@
-// Header
 
+// Header
 // TODO: fix this in AtoM!
+
 .drmc #site-name {
   margin-left: 20px;
   margin-right: 40px;
 }
 
+// Header menu
 // TODO: this should be possible in Dominion by using bs2?
+
 .top-dropdown-container .divider {
   height: 1px;
   margin: 9px 1px;
@@ -17,25 +20,10 @@
 
 // Imports all styles from #content
 // TODO: fix this!
+
 .content {
   margin-bottom: 1em;
   #content();
-}
-
-// Menu lists
-
-.menu-list {
-  border-top: 1px solid @borderLineColor;
-  border-bottom: 1px solid @borderLineColor;
-  font-size: .9em;
-}
-
-.menu-list li > a {
-  padding-right: 2px;
-  padding-left: 7px;
-  &:last-child {
-    padding-right: 6px;
-  }
 }
 
 // Titles
@@ -55,10 +43,22 @@ h1.moma-title {
   }
 }
 
-// Section headers
+// Menu lists
+// TODO: simplify
 
 .menu-list {
+  border-top: 1px solid @borderLineColor;
+  border-bottom: 1px solid @borderLineColor;
+  font-size: .9em;
   .clearfix();
+}
+
+.menu-list li > a {
+  padding-right: 2px;
+  padding-left: 7px;
+  &:last-child {
+    padding-right: 6px;
+  }
 }
 
 .menu-list-left {
@@ -70,11 +70,9 @@ h1.moma-title {
     margin-right: 0px;
   }
   li {
-  border: none !important; //still doubling border -> fix this
+    border: none !important; //still doubling border -> fix this
   }
 }
-
-// Menu list right
 
 .menu-list-right {
   float: right;
@@ -88,96 +86,19 @@ h1.moma-title {
   }
 }
 
+// TODO: What is this for?
+
 .menu-list-right li,
 .dc-edit-type ul li,
 .dc-edit-coverage ul li,
 .fs-modal-wrapper {
-
   border-bottom: none;
-
   li {
     a { color: @orange; }
     a:hover { border-bottom: none; }
     a:before {
-    .fa-icon-set(@grayLight);
-    padding-right: 4px;
-    }
-  }
-}
-
-// Facet sidebar for AIP
-
-#aips-overview {
-
-  > div.menu-list ul li > a {
-    padding-right: 6px;
-  }
-
-  .overview-body .field {
-
-    h3 {
-      width: 40%;
-    }
-
-    div {
-      float: right;
-      width: 56.5%;
-      text-align: left;
-      margin-top: -22px;
-      padding-left: 0px;
-    }
-  }
-}
-
-#aips-templates {
-  span {
-    padding-left: 2.4%;
-  }
-  select {
-    margin-top: 7px;
-    margin-left: 6px;
-  }
-}
-
-.browse-view-browse {
-
-  // Overrides bootstrap first-child rules
-
-  [class*="span"]:not(.span2) {
-    margin-left: 0px;
-  }
-
-  .span12 {
-    border-bottom: 1px solid @grayLighter;
-    margin-top: 20px;
-    padding-bottom: 8px;
-  }
-
-  .span12:first-child {
-    border-top: 1px solid @grayLighter;
-    padding-top: 15px;
-  }
-
-  .span12:last-child {
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-  }
-
-  .browse-view-sort {
-    padding-right: 2%;
-    margin-top: -40px;
-    width: 35%;
-
-    span {
-      display: inline-block;
-      float: left;
-      padding: 2% 4% 0 0;
-      width: 20%;
-    }
-
-    select {
-      width: 75%;
-      right: 0;
+      .fa-icon-set(@grayLight);
+      padding-right: 4px;
     }
   }
 }
