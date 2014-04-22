@@ -4,7 +4,7 @@
  * SearchCtrl contains the business logic for all our share pages. It shares
  * state with other controllers via SearchService.
  */
-module.exports = function ($scope, $stateParams, SearchService, $filter, $modal, SETTINGS) {
+module.exports = function ($scope, $stateParams, SearchService, $filter, $modal, SETTINGS, ModalDigitalObjectViewerService) {
   // Search state
   $scope.criteria = {};
   $scope.criteria.limit = 10;
@@ -110,5 +110,9 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, $modal,
     modalInstance.result.then(function (result) {
       aip.class = result;
     });
+  };
+
+  $scope.openViewer = function (file) {
+    ModalDigitalObjectViewerService.open(file);
   };
 };

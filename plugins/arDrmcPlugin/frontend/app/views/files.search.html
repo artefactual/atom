@@ -27,10 +27,30 @@
 
         <section class="row-fluid">
 
-          <article ng-repeat="(id, file) in data.results" class="search-result">
-            <div class="search-result-description">
-              <p class="title">{{ file.title || 'Untitled' }}</p>
+          <article ng-repeat="(id, result) in data.results" ng-class="result.thumbnail_path != undefined ? 'search-result has-preview' : 'search-result'">
+
+            <div class="search-result-preview" ng-if="result.thumbnail_path != undefined">
+              <a>
+                <div class="preview-container">
+                  <img ng-src="{{ basePath + result.thumbnail_path }}" />
+                </div>
+              </a>
             </div>
+
+            <div class="search-result-description">
+              <p class="title"><a href ng-click="openViewer(result)">{{ result.filename || 'Untitled' }}</a></p>
+              <div><p><a ui-sref="main.aips.view({ uuid: result.aip_uuid })">{{ result.aip_title || 'Untitled' }}</a></p></div>
+              <div>
+                <ul class="result-details">
+                  <li ng-if="result.identifier" class="reference-code">{{ result.identifier }}</li>
+                  <li ng-if="result.mime_type" class="dates">{{ result.mime_type }}</li>
+                  <li ng-if="result.date_ingested" class="dates">{{ result.date_ingested }}</li>
+                </ul>
+                <p>{{ result.media_type }}</p>
+                <p ng-if="result.size_in_aip" class="creation-details">{{ result.size_in_aip | UnitFilter:2 }}</p>
+              </div>
+            </div>
+
           </article>
 
         </section>

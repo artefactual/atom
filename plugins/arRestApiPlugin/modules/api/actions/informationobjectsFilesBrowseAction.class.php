@@ -100,7 +100,11 @@ class ApiInformationObjectsFilesBrowseAction extends QubitApiAction
       'i18n',
       'dates',
       'creators',
-      'metsData'));
+      'metsData',
+      'digitalObject',
+      'aipUuid',
+      'aipName',
+      'originalRelativePathWithinAip'));
 
     // Assign query
     $query->setQuery($queryBool);
@@ -115,10 +119,23 @@ class ApiInformationObjectsFilesBrowseAction extends QubitApiAction
       $result = array();
 
       $this->addItemToArray($result, 'identifier', $doc['identifier']);
-      $this->addItemToArray($result, 'title', get_search_i18n($doc, 'title'));
-      $this->addItemToArray($result, 'date', get_search_i18n($doc['dates'][0], 'date'));
-      $this->addItemToArray($result, 'creator', get_search_i18n($doc['creators'][0], 'authorizedFormOfName'));
-      $this->addItemToArray($result, 'creator_date', get_search_i18n($doc['creators'][0], 'datesOfExistence'));
+      $this->addItemToArray($result, 'filename', get_search_i18n($doc, 'title'));
+      $this->addItemToArray($result, 'slug', $doc['slug']);
+      $this->addItemToArray($result, 'media_type_id', $doc['digitalObject']['mediaTypeId']);
+      $this->addItemToArray($result, 'byte_size', $doc['digitalObject']['byteSize']);
+      $this->addItemToArray($result, 'size_in_aip', $doc['metsData']['size']);
+      $this->addItemToArray($result, 'date_ingested', $doc['metsData']['dateIngested']);
+      $this->addItemToArray($result, 'mime_type', $doc['digitalObject']['mimeType']);
+      $this->addItemToArray($result, 'thumbnail_path', $doc['digitalObject']['thumbnailPath']);
+
+      if (isset($doc['digitalObject']['mediaTypeId']) && !empty($doc['digitalObject']['mediaTypeId']))
+      {
+        $this->addItemToArray($result, 'media_type', $this->getFacetLabel('mediaType', $doc['digitalObject']['mediaTypeId']));
+      }
+
+      $this->addItemToArray($result, 'aip_uuid', $doc['aipUuid']);
+      $this->addItemToArray($result, 'aip_title', $doc['aipName']);
+      $this->addItemToArray($result, 'original_relative_path_within_aip', $doc['originalRelativePathWithinAip']);
 
       $results[$hit->getId()] = $result;
     }
@@ -135,6 +152,14 @@ class ApiInformationObjectsFilesBrowseAction extends QubitApiAction
 
   protected function getFacetLabel($name, $id)
   {
+    if ($name === 'mediaType')
+    {
+      if (null !== $item = QubitTerm::getById($id))
+      {
+        return $item->getName(array('cultureFallback' => true));
+      }
+    }
+
     if ($name === 'dateIngested')
     {
       return $this->dateRangesLabels[$id];

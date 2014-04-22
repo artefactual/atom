@@ -901,6 +901,18 @@ class arElasticSearchInformationObjectPdo
     return self::$statements['aips']->fetchAll(PDO::FETCH_OBJ);
   }
 
+  protected function getAip($uuid)
+  {
+    $sql  = 'SELECT *';
+    $sql .= ' FROM '.QubitAip::TABLE_NAME;
+    $sql .= ' WHERE uuid = ?';
+
+    self::$statements['aip'] = self::$conn->prepare($sql);
+    self::$statements['aip']->execute(array($uuid));
+
+    return self::$statements['aip']->fetch(PDO::FETCH_OBJ);
+  }
+
   protected function getMetsData()
   {
     if ((null !== $aipUUID = $this->getProperty('aipUUID'))
@@ -1430,6 +1442,16 @@ class arElasticSearchInformationObjectPdo
     if ($this->level_of_description_id === sfConfig::get('app_drmc_lod_supporting_technology_record_id'))
     {
       $serialized['inheritedTitle'] = $this->getInheritedTitle();
+    }
+
+    // From AIP
+    if (null !== $aipUUID = $this->getProperty('aipUUID'))
+    {
+      if (false !== $aip = $this->getAip($aipUUID))
+      {
+        $serialized['aipUuid'] = $aip->uuid;
+        $serialized['aipName'] = $aip->filename;
+      }
     }
 
     // Timestamps
