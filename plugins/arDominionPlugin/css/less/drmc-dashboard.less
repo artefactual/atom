@@ -253,6 +253,7 @@ section#AIP-ov {
 .dashboard-widget{
   .nav{
     margin-bottom: 0;
+    cursor: pointer;
     li.active a{
       background: @white;
     }
@@ -274,38 +275,47 @@ section#AIP-ov {
   height: 5px;
   border: 1px solid rgba(0,0,0,.2);
 }
-rs-y-axis{
+rs-y-axis {
   position: absolute;
   top: 0;
   bottom: 0;
   width: 40px;
 }
-rs-x-axis{
+rs-x-axis {
   position: relative;
   left: 40px;
   height: 40px;
 }
-rs-chart{
+rs-chart {
   position: relative;
   left: 40px;
 }
-.dashboard-rs-graph{
-  ar-dash-board-artwork-sizes-codec .rickshaw_graph .x_ticks_d3 text{
+.dashboard-rs-graph {
+  .x_grid_d3 {
+    display: none;
+  }
+  .rickshaw_graph text {
+    opacity: 0.8;
+  }
+  ar-dash-board-line-chart[chart-name="artwork-sizes"] .rickshaw_graph .x_ticks_d3 text {
     font-size: 6px;
   }
+  .tab-content {
+    overflow: hidden; 
+  }
   .tab-pane > .ng-scope,
-  .rs-graph-pane > .ng-isolate-scope{
+  .rs-graph-pane > .ng-isolate-scope {
     position: relative;
     rs-legend {
       background: none;
-      ul{
+      ul {
         left: 10%;
         position: relative;
         width:420px;
-        li{
+        li {
           display: inline-block;
           text-align: left;
-          .label{
+          .label {
             background: none;
             color: #000;
             text-shadow: none;

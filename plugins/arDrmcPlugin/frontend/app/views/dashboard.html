@@ -13,7 +13,6 @@
         <th>AIP</th>
         <th>Artwork</th>
         <th>Size</th>
-        <th>User</th>
       </thead>
       <tbody>
         <tr ng-repeat="item in ingestionActivity">
@@ -21,7 +20,6 @@
           <td>{{ item.aip_title }}</td>
           <td>{{ item.artwork_title }}</td>
           <td>{{ item.size_on_disk | UnitFilter:2 }}</td>
-          <td>{{ item.user}}</td>
         </tr>
       </tbody>
     </table>
@@ -69,20 +67,20 @@
   <tabset class="span8 dashboard-widget dashboard-rs-graph">
     <h5>Monthly Total (By GB)</h5>
     <tab heading="Codec">
-      <ar-dash-board-monthly-total-codec>
+      <ar-dash-board-line-chart chart-name="monthly-total-codec" width="640" height="240" xper-tick="100" yper-tick="40">
         <rs-y-axis></rs-y-axis>
         <rs-chart></rs-chart>        
         <rs-x-axis></rs-x-axis>
         <rs-legend></rs-legend>
-      </ar-dash-board-monthly-total-codec>
+      </ar-dash-board-line-chart>
     </tab>  
     <tab heading="Formats">
-      <ar-dash-board-monthly-total-format>
+      <ar-dash-board-line-chart chart-name="monthly-total-formats" width="640" height="240" xper-tick="100" yper-tick="20">
         <rs-y-axis></rs-y-axis>
         <rs-chart></rs-chart>        
         <rs-x-axis></rs-x-axis>
         <rs-legend></rs-legend>
-      </ar-dash-board-monthly-total-format>
+      </ar-dash-board-line-chart>
     </tab>
     <tab heading="Departments">
       <div>Departments Tab</div> 
@@ -95,12 +93,12 @@
   <tabset class="span6 dashboard-widget dashboard-rs-graph">
     <h5>Running Total (By GB)</h5>
     <tab heading="Codec">
-      <ar-dash-board-running-total-codec>
+      <ar-dash-board-line-chart chart-name="running-total-codec" width="440" height="240" xper-tick="100" yper-tick="20">
         <rs-y-axis></rs-y-axis>
         <rs-chart></rs-chart>        
         <rs-x-axis></rs-x-axis>
         <rs-legend></rs-legend>
-      </ar-dash-board-running-total-codec>
+      </ar-dash-board-line-chart>
     </tab>  
     <tab heading="Formats">
       <div>Formats Tab</div> 
@@ -114,12 +112,12 @@
   <div class="span6 dashboard-widget dashboard-rs-graph">
     <div class="rs-graph-pane">
       <h5>Artwork Sizes (Average vs Median)</h5>
-      <ar-dash-board-artwork-sizes-codec>
+      <ar-dash-board-line-chart chart-name="artwork-sizes" width="510" height="240" xper-tick="10" yper-tick="40">
         <rs-y-axis></rs-y-axis>
         <rs-chart></rs-chart>        
         <rs-x-axis></rs-x-axis>
         <rs-legend></rs-legend>
-      </ar-dash-board-artwork-sizes-codec>
+      </ar-dash-board-line-chart>
     </div>
   </div>
 </div>

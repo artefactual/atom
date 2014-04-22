@@ -17,8 +17,5 @@
     .directive('arSearchBox', require('./SearchBoxDirective'))
     .directive('arRangeFacet', require('./RangeFacetDirective'))
     .directive('arDashBoardStorageCodec', require('./DashboardStorageCodecDirective'))
-    .directive('arDashBoardMonthlyTotalCodec', require('./DashboardMonthlyTotalCodecDirective'))
-    .directive('arDashBoardMonthlyTotalFormat', require('./DashboardMonthlyTotalFormatsDirective'))
-    .directive('arDashBoardRunningTotalCodec', require('./DashboardRunningTotalCodecDirective'))
-    .directive('arDashBoardArtworkSizesCodec', require('./DashboardArtworkSizesCodecDirective'));
+    .directive('arDashBoardLineChart', require('./DashboardLineChartDirective'));
 })();
