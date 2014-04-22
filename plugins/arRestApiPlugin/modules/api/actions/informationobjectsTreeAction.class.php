@@ -51,14 +51,17 @@ FROM
 LEFT JOIN
   (SELECT
      subject_id, COUNT(*) hits
-   FROM relation
+   FROM relation, term
    WHERE
-     relation.type_id IN (378, 379, 380, 381, 382)
+     relation.type_id = term.id
+     AND term.taxonomy_id = ?
    GROUP BY subject_id
   ) b ON (a.id = b.subject_id)
 EOL;
 
-    $results = QubitPdo::fetchAll($sql, array($this->request->id));
+    $results = QubitPdo::fetchAll($sql, array(
+      $this->request->id,
+      sfConfig::get('app_drmc_taxonomy_supporting_technologies_relation_types_id')));
     if (0 === count($results))
     {
       throw new QubitApi404Exception('Information object not found');
