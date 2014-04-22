@@ -1,5 +1,6 @@
 <div class="field">
   <h3><?php echo __('Related right') ?></h3>
+  <a href="<?php echo url_for("editRight/{$resource->slug}") ?>">Edit</a>
   <div>
 
     <?php if (isset($inherit)): ?>
