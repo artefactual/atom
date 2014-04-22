@@ -2,17 +2,20 @@
 
 var myrickshaw = require('rickshaw');
 
-module.exports = function () {
+module.exports = function (StatisticsService) {
   return {
     restrict: 'E',
     scope: {
     },
     link: function (scope, element, attrs) {
+      var service;
+
       var palette = new myrickshaw.Color.Palette();
       // the D3 bits...
       var dataset = [];
       switch (attrs.chartName) {
         case 'artwork-sizes':
+          service = StatisticsService.getArtworkSizesByYearSummary();
           dataset = [
             {
               name: 'Average GB per artwork',
@@ -28,6 +31,7 @@ module.exports = function () {
           break;
 
         case 'monthly-total-codec':
+          //service = StatisticsService.getMonthlyTotalByCodec();
           dataset = [
             {
               name: 'Uncompressed 10-bit',
@@ -68,6 +72,7 @@ module.exports = function () {
           break;
 
         case 'monthly-total-formats':
+          //service = StatisticsService.getMonthlyTotalByCodec();
           dataset = [
             {
               name: 'MOV',
@@ -103,6 +108,7 @@ module.exports = function () {
           break;
 
         case 'running-total-codec':
+          //service = StatisticsService.getRunningTotalByCodec();
           dataset = [
             {
               name: 'Uncompressed 10-bit',
@@ -142,6 +148,13 @@ module.exports = function () {
           ];
           break;
       }
+      /*
+      service.then(function (responses) {
+        console.log(responses);
+        dataset = responses.data.results;
+      });
+      */
+
       var max = Number.MIN_VALUE;
       for (var i = 0; i < dataset.length; i++) {
         for (var j = 0; j < dataset[i].data.length; j++) {
@@ -164,7 +177,7 @@ module.exports = function () {
         orientation: 'bottom',
         pixelsPerTick: attrs.xperTick
       });
-      console.log(attrs.xPerTick);
+
       xAxis.render();
 
       var yAxis = new myrickshaw.Graph.Axis.Y({

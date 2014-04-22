@@ -40,4 +40,39 @@ module.exports = function ($http, SETTINGS) {
     });
   };
 
+  this.getArtworkSizesByYearSummary = function () {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/summary/mediafilesizebycollectionyear'
+    });
+  };
+  /*
+  this.getMonthlyTotalByCodec = function () {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'end point needed'
+    });
+  };
+
+  this.getMonthlyTotalByFormats = function () {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'end point needed'
+    });
+  };
+
+  this.getRunningTotalByCodec = function () {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'end point needed'
+    });
+  };
+
+  this.getRunningTotalByFormats = function () {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'end point needed'
+    });
+  };
+  */
 };
