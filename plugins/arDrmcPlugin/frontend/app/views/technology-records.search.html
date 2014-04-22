@@ -30,7 +30,8 @@
           <article ng-repeat="(id, result) in data.results" class="search-result">
 
             <div class="search-result-description">
-              <p class="title"><a ui-sref="main.technology-records.view({id: id})">{{ result.inherited_title || 'Untitled' }}</a></p>
+              <p class="title"><a ui-sref="main.technology-records.view({id: id})">{{ result.title || 'Untitled' }}</a></p>
+              <div ng-if="result.inherited_title"><p>{{ result.inherited_title }}</p></div>
               <div>
                 <ul class="result-details">
                   <li ng-if="result.identifier" class="reference-code">{{ result.identifier }}</li>
