@@ -23,24 +23,27 @@
         <span class="sub">Supporting technology records search</span>
       </h1>
 
-      <section class="header-options">
-
-        <span ng-if="criteria.ingestedFrom || criteria.ingestedTo" class="search-filter">
-          {{ getDateRangeLabel('dateIngested', criteria.ingestedFrom, criteria.ingestedTo) }}
-          <a href ng-click="criteria.ingestedFrom = undefined; criteria.ingestedTo = undefined"><i class="icon-remove"></i></a>
-        </span>
-
-        <span ng-if="criteria.totalSizeFrom || criteria.totalSizeTo" class="search-filter">
-          {{ getSizeRangeLabel(criteria.totalSizeFrom, criteria.totalSizeTo) }}
-          <a href ng-click="criteria.totalSizeFrom = undefined; criteria.totalSizeTo = undefined"><i class="icon-remove"></i></a>
-        </span>
-
-      </section>
-
       <div class="content">
 
         <section class="row-fluid">
-          <ng-include src="viewsPath + '/partials/technology-records.list.html'"></ng-include>
+
+          <article ng-repeat="(id, result) in data.results" class="search-result">
+
+            <div class="search-result-description">
+              <p class="title"><a ui-sref="main.technology-records.view({id: id})">{{ result.inherited_title || 'Untitled' }}</a></p>
+              <div>
+                <ul class="result-details">
+                  <li ng-if="result.identifier" class="reference-code">{{ result.identifier }}</li>
+                  <li ng-if="result.date" class="dates">{{ result.date }}</li>
+                  <li ng-if="result.creator" class="publication-status">{{ result.creator }}</li>
+                </ul>
+                <p>{{ result.format }}</p>
+                <p ng-if="result.description" class="creation-details">{{ result.description }}</p>
+              </div>
+            </div>
+
+          </article>
+
         </section>
 
       </div>

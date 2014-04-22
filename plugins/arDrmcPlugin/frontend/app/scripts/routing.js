@@ -44,11 +44,6 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       url: SETTINGS.DRMCPath + 'aips',
       template: '<ui-view autoscroll="false"/>'
     })
-    .state('main.aips.browser', {
-      url: '',
-      controller: 'AIPBrowserCtrl',
-      templateUrl: SETTINGS.viewsPath + '/aips.browser.html'
-    })
     .state('main.aips.view', {
       url: '/{uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}}',
       controller: 'AIPViewCtrl',

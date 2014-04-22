@@ -119,7 +119,8 @@ class ApiInformationObjectsComponentsBrowseAction extends QubitApiAction
       'sourceCulture',
       'i18n',
       'tmsComponent',
-      'aips'));
+      'aips',
+      'artwork'));
 
     // Filter materials total size, must be a filter to use scripts and
     // must be a filtered query so it happens before faceting
@@ -173,7 +174,9 @@ class ApiInformationObjectsComponentsBrowseAction extends QubitApiAction
       $this->addItemToArray($result, 'count', $doc['tmsComponent']['compCount']);
       $this->addItemToArray($result, 'number', $doc['tmsComponent']['componentNumber']);
       $this->addItemToArray($result, 'lod_name', $this->getFacetLabel('classification', $doc['levelOfDescriptionId']));
-      $this->addItemToArray($result, 'thumbnail', $doc['tmsComponent']['artworkThumbnail']);
+      $this->addItemToArray($result, 'artwork_id', $doc['tmsComponent']['artwork']['id']);
+      $this->addItemToArray($result, 'artwork_title', get_search_i18n($doc['tmsComponent']['artwork'], 'title'));
+      $this->addItemToArray($result, 'artwork_thumbnail', $doc['tmsComponent']['artwork']['thumbnail']);
 
       $results[$hit->getId()] = $result;
     }

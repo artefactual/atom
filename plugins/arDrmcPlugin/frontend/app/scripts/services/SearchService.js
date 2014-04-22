@@ -67,4 +67,8 @@ module.exports = function ($http, SETTINGS, AIPService, InformationObjectService
         return InformationObjectService.getFiles(params);
     }
   };
+
+  this.getAIPTypes = function () {
+    return AIPService.getTypes();
+  };
 };

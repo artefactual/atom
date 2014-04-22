@@ -8,7 +8,7 @@ module.exports = function ($scope, $modalInstance, AIPService) {
     AIPService.reclassifyAIP($scope.aip.uuid, $scope.aip.type.id)
       // If the update succeeded, update AIPBrowserCtrl overview (pull) and close
       .success(function () {
-        $scope.pull();
+        $scope.search();
         $modalInstance.close($scope.aip.type.id);
       }).error(function () {
         $modalInstance.dismiss('Your new classification could not be assigned');

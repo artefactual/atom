@@ -10,7 +10,7 @@
     <hr />
 
     <label>Reclassify as:</label>
-    <select ng-model="aip.type.id" ng-options="key as value for (key, value) in classifications">
+    <select ng-model="aip.type.id" ng-options="class.id as class.name for class in classifications">
       <option value="">Unclassified</option>
     </select>
   </div>

@@ -8,7 +8,7 @@
 
       <div ng-if="results != undefined">
 
-        <section ng-if="results.totals.aips > 0">
+        <section class="drmc-color-aip" ng-if="results.totals.aips > 0">
           <ul>
             <li ng-repeat="(uuid, aip) in results.aips">
               <a ui-sref="main.aips.view({ uuid: uuid })" ng-bind-html="aip.name"></a>
@@ -19,7 +19,7 @@
           </ul>
         </section>
 
-        <section ng-if="results.totals.artworks > 0">
+        <section class="drmc-color-artwork-record" ng-if="results.totals.artworks > 0">
           <ul>
             <li ng-repeat="(id, work) in results.artworks">
               <a ui-sref="main.works.view({ id: id })" ng-bind-html="work.title"></a>
@@ -30,7 +30,7 @@
           </ul>
         </section>
 
-        <section ng-if="results.totals.components > 0">
+        <section class="drmc-color-component" ng-if="results.totals.components > 0">
           <ul>
             <li ng-repeat="(id, comp) in results.components">
               <a ng-bind-html="comp.title"></a>
@@ -41,7 +41,7 @@
           </ul>
         </section>
 
-        <section ng-if="results.totals.technology_records > 0">
+        <section class="drmc-color-supporting-technology-record" ng-if="results.totals.technology_records > 0">
           <ul>
             <li ng-repeat="(id, techRecord) in results.technology_records">
               <a ui-sref="main.technology-records.view({ id: id })" ng-bind-html="techRecord.title"></a>
@@ -52,7 +52,7 @@
           </ul>
         </section>
 
-        <section ng-if="results.totals.files > 0">
+        <section class="drmc-color-file" ng-if="results.totals.files > 0">
           <ul>
             <li ng-repeat="(id, file) in results.files">
               <a ng-bind-html="file.title"></a>
@@ -65,46 +65,50 @@
 
       </div>
 
-      <div>
-        <label>
-          <input type="radio" ng-model="realm" value="all"/>
-          All
-        </label>
-      </div>
+      <div class="search-realm">
 
-      <div>
-        <label>
-          <input type="radio" ng-model="realm" value="aips"/>
-          AIPs
-        </label>
-      </div>
+        <div>
+          <label>
+            <input type="radio" ng-model="realm" value="all"/>
+            All
+          </label>
+        </div>
 
-      <div>
-        <label>
-          <input type="radio" ng-model="realm" value="works"/>
-          Artwork records
-        </label>
-      </div>
+        <div>
+          <label>
+            <input type="radio" ng-model="realm" value="aips"/>
+            AIPs
+          </label>
+        </div>
 
-      <div>
-        <label>
-          <input type="radio" ng-model="realm" value="components"/>
-          Components
-        </label>
-      </div>
+        <div>
+          <label>
+            <input type="radio" ng-model="realm" value="works"/>
+            Artwork records
+          </label>
+        </div>
 
-      <div>
-        <label>
-          <input type="radio" ng-model="realm" value="technology-records"/>
-          Supporting technology records
-        </label>
-      </div>
+        <div>
+          <label>
+            <input type="radio" ng-model="realm" value="components"/>
+            Components
+          </label>
+        </div>
 
-      <div>
-        <label>
-          <input type="radio" ng-model="realm" value="files"/>
-          Files
-        </label>
+        <div>
+          <label>
+            <input type="radio" ng-model="realm" value="technology-records"/>
+            Supporting technology records
+          </label>
+        </div>
+
+        <div>
+          <label>
+            <input type="radio" ng-model="realm" value="files"/>
+            Files
+          </label>
+        </div>
+
       </div>
 
     </div>

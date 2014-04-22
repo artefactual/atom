@@ -24,29 +24,101 @@
         <span class="sub">AIPs search</span>
       </h1>
 
-      <section class="header-options">
-
-        <span ng-if="criteria.type" class="search-filter">
-          {{ getTermLabel('type', criteria.type) }}
-          <a href ng-click="criteria.type = undefined"><i class="icon-remove"></i></a>
-        </span>
-
-        <span ng-if="criteria.sizeFrom || criteria.sizeTo" class="search-filter">
-          {{ getSizeRangeLabel(criteria.sizeFrom, criteria.sizeTo) }}
-          <a href ng-click="criteria.sizeFrom = undefined; criteria.sizeTo = undefined"><i class="icon-remove"></i></a>
-        </span>
-
-        <span ng-if="criteria.ingestedFrom || criteria.ingestedTo" class="search-filter">
-          {{ getDateRangeLabel('dateIngested', criteria.ingestedFrom, criteria.ingestedTo) }}
-          <a href ng-click="criteria.ingestedFrom = undefined; criteria.ingestedTo = undefined"><i class="icon-remove"></i></a>
-        </span>
-
-      </section>
-
       <div class="content">
 
+        <section>
+          <div class="menu-list" >
+            <ul class="menu-list-left">
+              <li><h2>Overview</h2></li>
+            </ul>
+            <ul class="menu-list-right nav nav-pills">
+              <li>
+                <a href ng-click="toggleOverview()" ng-class="{ angle_double_down: !showOverview, angle_double_up: showOverview }">{{ showOverview ? 'Hide' : 'Show' }}</a>
+              </li>
+            </ul>
+          </div>
+          <section ng-show="showOverview">
+            <div class="field">
+              <h3>Total AIPs</h3>
+              <div>
+                {{ data.overview.total.count || 0 }}
+                <span>&nbsp;{{ data.overview.total.size | UnitFilter:2 | EmptyFilter }}</span>
+              </div>
+            </div>
+            <div class="field">
+              <h3>Artwork component AIPs</h3>
+              <div>{{ data.overview[179].count || 0 }}
+                <span>&nbsp;{{ data.overview[179].size | UnitFilter:2 | EmptyFilter }}</span>
+              </div>
+            </div>
+             <div class="field">
+              <h3>Artwork material AIPs</h3>
+              <div>
+                {{ data.overview[180].count || 0 }}
+                <span>&nbsp;{{ data.overview[180].size | UnitFilter:2 | EmptyFilter }}</span>
+              </div>
+            </div>
+            <div class="field">
+              <h3>Supporting documentation AIPs</h3>
+              <div>
+                {{ data.overview[181].count || 0 }}
+                <span>&nbsp;{{ data.overview[181].size | UnitFilter:2 | EmptyFilter }}</span>
+              </div>
+            </div>
+            <div class="field">
+              <h3>Supporting technology AIPs</h3>
+              <div>
+                {{ data.overview[182].count || 0 }}
+                <span>&nbsp;{{ data.overview[182].size | UnitFilter:2 | EmptyFilter }}</span>
+              </div>
+            </div>
+            <div class="field">
+              <h3>Unclassified AIPs</h3>
+              <div>
+                {{ data.overview.unclassified.count || 0 }}
+                <span>&nbsp;{{ data.overview.unclassified.size | UnitFilter:2 | EmptyFilter }}</span>
+              </div>
+            </div>
+          </section>
+        </section>
+
         <section class="row-fluid">
-          <ng-include src="viewsPath + '/partials/aips.list-stacked.html'"></ng-include>
+
+          <h2>AIPs</h2>
+
+          <div class="browse-view-list" ng-hide="showBrowseView">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>
+                    <ar-sort-header field="name" label="Name" criteria="criteria"></ar-sort-header>
+                  </th>
+                  <th>
+                    <ar-sort-header field="size" label="Size" criteria="criteria"></ar-sort-header>
+                  </th>
+                  <th>
+                    <ar-sort-header field="createdAt" label="Added" criteria="criteria"></ar-sort-header>
+                  </th>
+                  <th>
+                    <ar-sort-header field="typeId" label="Class" criteria="criteria"></ar-sort-header>
+                  </th>
+                  <th>
+                    <ar-sort-header field="partOf" label="Part of" criteria="criteria"></ar-sort-header>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="(key, aip) in data.results | orderBy:predicate:reverse">
+                  <td><a ui-sref="main.aips.view({ uuid: aip.uuid })">{{ aip.name }}</a></td>
+                  <td>{{ aip.size | UnitFilter:1 }}</td>
+                  <td>{{ aip.created_at }}</td>
+                  <td><a href ng-click="openReclassifyModal(aip)">{{ aip.type.name || 'Unclassified' }}</a></td>
+                  <td><a ui-sref="main.works.view({ id: aip.part_of.id })">{{ aip.part_of.title }}</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
         </section>
 
       </div>
