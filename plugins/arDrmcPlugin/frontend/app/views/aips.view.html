@@ -20,6 +20,12 @@
   <div class="span12">
     <div id="main-column">
 
+      <section ng-if="!files.length">
+        <div class="alert alert-info">
+          No files have been found on this AIP.
+        </div>
+      </section>
+
       <div class="content">
 
         <section>
@@ -64,7 +70,7 @@
           </div>
         </section>
 
-        <section>
+        <section ng-if="files.length">
 
           <div class="menu-list">
             <ul class="menu-list-left">
