@@ -28,7 +28,7 @@
     // Search
     .controller('SearchCtrl', require('./SearchCtrl'))
     .controller('AipSearchCtrl', require('./AipSearchCtrl'))
-    .controller('FilesSearchCtrl', require('./FilesSearchCtrl'))
+    .controller('FileSearchCtrl', require('./FileSearchCtrl'))
 
     // Context browser
     .controller('ContextBrowserCtrl', require('./ContextBrowserCtrl'))
