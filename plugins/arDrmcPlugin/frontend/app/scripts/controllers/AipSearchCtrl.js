@@ -9,4 +9,10 @@ module.exports = function ($scope, ModalReclassifyAipService) {
     });
   };
 
+  // Support AIP overview toggling
+  $scope.showOverview = true;
+  $scope.toggleOverview = function () {
+    $scope.showOverview = !$scope.showOverview;
+  };
+
 };
