@@ -99,6 +99,7 @@ class ApiInformationObjectsTechnologyRecordsBrowseAction extends QubitApiAction
       'levelOfDescriptionId',
       'publicationStatusId',
       'ancestors',
+      'collectionRootId',
       'parentId',
       'hasDigitalObject',
       'createdAt',
@@ -157,6 +158,11 @@ class ApiInformationObjectsTechnologyRecordsBrowseAction extends QubitApiAction
 
       $this->addItemToArray($result, 'description', get_search_i18n($doc, 'scopeAndContent'));
       $this->addItemToArray($result, 'format', get_search_i18n($doc, 'extentAndMedium'));
+
+      $collectionRoot = array();
+      $this->addItemToArray($collectionRoot, 'id', $doc['collectionRootId']);
+      // TODO: collection root title
+      $this->addItemToArray($result, 'collection_root', $collectionRoot);
 
       // TODO: Both are necessary?
       $result['id'] = (int)$hit->getId();

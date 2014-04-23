@@ -1235,8 +1235,10 @@ class arElasticSearchInformationObjectPdo
       $serialized['alternativeIdentifiers'] = $alternativeIdentifiers;
     }
 
+    $serialized['collectionRootId'] = (int)$this->getCollectionRoot()->id;
+
     // NB: this will include the ROOT_ID
-    foreach ($this->getAncestors() as $ancestor)
+    foreach ($this->getAncestors() as $key => $ancestor)
     {
       $serialized['ancestors'][] = $ancestor->id;
     }
