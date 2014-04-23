@@ -254,8 +254,6 @@ abstract class BaseDigitalObject extends QubitObject implements ArrayAccess
 
   protected function insert($connection = null)
   {
-    $this->updateNestedSet($connection);
-
     parent::insert($connection);
 
     return $this;
@@ -263,33 +261,6 @@ abstract class BaseDigitalObject extends QubitObject implements ArrayAccess
 
   protected function update($connection = null)
   {
-    // Update nested set keys only if parent id has changed
-    if (isset($this->values['parentId']))
-    {
-      // Get the "original" parentId before any updates
-      $offset = 0;
-      $originalParentId = null;
-      foreach ($this->tables as $table)
-      {
-        foreach ($table->getColumns() as $column)
-        {
-          if ('parentId' == $column->getPhpName())
-          {
-            $originalParentId = $this->row[$offset];
-            break;
-          }
-          $offset++;
-        }
-      }
-
-      // If updated value of parentId is different then original value,
-      // update the nested set
-      if ($originalParentId != $this->values['parentId'])
-      {
-        $this->updateNestedSet($connection);
-      }
-    }
-
     parent::update($connection);
 
     return $this;
@@ -303,8 +274,6 @@ abstract class BaseDigitalObject extends QubitObject implements ArrayAccess
     }
 
     $this->clear();
-    $this->deleteFromNestedSet($connection);
-
     parent::delete($connection);
 
     return $this;
@@ -371,130 +340,6 @@ abstract class BaseDigitalObject extends QubitObject implements ArrayAccess
   public function addDescendantsCriteria(Criteria $criteria)
   {
     return $criteria->add(QubitDigitalObject::LFT, $this->lft, Criteria::GREATER_THAN)->add(QubitDigitalObject::RGT, $this->rgt, Criteria::LESS_THAN);
-  }
-
-  protected function updateNestedSet($connection = null)
-  {
-// HACK Try to prevent modifying left and right values anywhere except in this
-// method.  Perhaps it would be more logical to use protected visibility for
-// these values?
-unset($this->values['lft']);
-unset($this->values['rgt']);
-    if (!isset($connection))
-    {
-      $connection = QubitTransactionFilter::getConnection(QubitDigitalObject::DATABASE_NAME);
-    }
-
-    if (!isset($this->lft) || !isset($this->rgt))
-    {
-      $delta = 2;
-    }
-    else
-    {
-      $delta = $this->rgt - $this->lft + 1;
-    }
-
-    if (null === $parent = $this->__get('parent', array('connection' => $connection)))
-    {
-      $statement = $connection->prepare('
-        SELECT MAX('.QubitDigitalObject::RGT.')
-        FROM '.QubitDigitalObject::TABLE_NAME);
-      $statement->execute();
-      $row = $statement->fetch();
-      $max = $row[0];
-
-      if (!isset($this->lft) || !isset($this->rgt))
-      {
-        $this->lft = $max + 1;
-        $this->rgt = $max + 2;
-
-        return $this;
-      }
-
-      $shift = $max + 1 - $this->lft;
-    }
-    else
-    {
-      $parent->clear();
-
-      if (isset($this->lft) && isset($this->rgt) && $this->lft <= $parent->lft && $this->rgt >= $parent->rgt)
-      {
-        throw new PropelException('An object cannot be a descendant of itself.');
-      }
-
-      $statement = $connection->prepare('
-        UPDATE '.QubitDigitalObject::TABLE_NAME.'
-        SET '.QubitDigitalObject::LFT.' = '.QubitDigitalObject::LFT.' + ?
-        WHERE '.QubitDigitalObject::LFT.' >= ?');
-      $statement->execute(array($delta, $parent->rgt));
-
-      $statement = $connection->prepare('
-        UPDATE '.QubitDigitalObject::TABLE_NAME.'
-        SET '.QubitDigitalObject::RGT.' = '.QubitDigitalObject::RGT.' + ?
-        WHERE '.QubitDigitalObject::RGT.' >= ?');
-      $statement->execute(array($delta, $parent->rgt));
-
-      if (!isset($this->lft) || !isset($this->rgt))
-      {
-        $this->lft = $parent->rgt;
-        $this->rgt = $parent->rgt + 1;
-        $parent->rgt += 2;
-
-        return $this;
-      }
-
-      if ($this->lft > $parent->rgt)
-      {
-        $this->lft += $delta;
-        $this->rgt += $delta;
-      }
-
-      $shift = $parent->rgt - $this->lft;
-    }
-
-    $statement = $connection->prepare('
-      UPDATE '.QubitDigitalObject::TABLE_NAME.'
-      SET '.QubitDigitalObject::LFT.' = '.QubitDigitalObject::LFT.' + ?, '.QubitDigitalObject::RGT.' = '.QubitDigitalObject::RGT.' + ?
-      WHERE '.QubitDigitalObject::LFT.' >= ?
-      AND '.QubitDigitalObject::RGT.' <= ?');
-    $statement->execute(array($shift, $shift, $this->lft, $this->rgt));
-
-    $this->deleteFromNestedSet($connection);
-
-    if ($shift > 0)
-    {
-      $this->lft -= $delta;
-      $this->rgt -= $delta;
-    }
-
-    $this->lft += $shift;
-    $this->rgt += $shift;
-
-    return $this;
-  }
-
-  protected function deleteFromNestedSet($connection = null)
-  {
-    if (!isset($connection))
-    {
-      $connection = QubitTransactionFilter::getConnection(QubitDigitalObject::DATABASE_NAME);
-    }
-
-    $delta = $this->rgt - $this->lft + 1;
-
-    $statement = $connection->prepare('
-      UPDATE '.QubitDigitalObject::TABLE_NAME.'
-      SET '.QubitDigitalObject::LFT.' = '.QubitDigitalObject::LFT.' - ?
-      WHERE '.QubitDigitalObject::LFT.' >= ?');
-    $statement->execute(array($delta, $this->rgt));
-
-    $statement = $connection->prepare('
-      UPDATE '.QubitDigitalObject::TABLE_NAME.'
-      SET '.QubitDigitalObject::RGT.' = '.QubitDigitalObject::RGT.' - ?
-      WHERE '.QubitDigitalObject::RGT.' >= ?');
-    $statement->execute(array($delta, $this->rgt));
-
-    return $this;
   }
 
   public function isInTree()
