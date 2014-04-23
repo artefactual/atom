@@ -109,6 +109,31 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
     {
     }
 
+    if ('accessionsRelatedByacquisitionTypeId' == $name)
+    {
+      return true;
+    }
+
+    if ('accessionsRelatedByprocessingPriorityId' == $name)
+    {
+      return true;
+    }
+
+    if ('accessionsRelatedByprocessingStatusId' == $name)
+    {
+      return true;
+    }
+
+    if ('accessionsRelatedByresourceTypeId' == $name)
+    {
+      return true;
+    }
+
+    if ('deaccessions' == $name)
+    {
+      return true;
+    }
+
     if ('actorsRelatedByentityTypeId' == $name)
     {
       return true;
@@ -224,12 +249,12 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       return true;
     }
 
-    if ('rightssRelatedByactId' == $name)
+    if ('rightssRelatedBycopyrightStatusId' == $name)
     {
       return true;
     }
 
-    if ('rightssRelatedBycopyrightStatusId' == $name)
+    if ('grantedRights' == $name)
     {
       return true;
     }
@@ -250,31 +275,6 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
     }
 
     if ('termI18ns' == $name)
-    {
-      return true;
-    }
-
-    if ('accessionsRelatedByacquisitionTypeId' == $name)
-    {
-      return true;
-    }
-
-    if ('accessionsRelatedByprocessingPriorityId' == $name)
-    {
-      return true;
-    }
-
-    if ('accessionsRelatedByprocessingStatusId' == $name)
-    {
-      return true;
-    }
-
-    if ('accessionsRelatedByresourceTypeId' == $name)
-    {
-      return true;
-    }
-
-    if ('deaccessions' == $name)
     {
       return true;
     }
@@ -321,6 +321,91 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
     }
     catch (sfException $e)
     {
+    }
+
+    if ('accessionsRelatedByacquisitionTypeId' == $name)
+    {
+      if (!isset($this->refFkValues['accessionsRelatedByacquisitionTypeId']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['accessionsRelatedByacquisitionTypeId'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['accessionsRelatedByacquisitionTypeId'] = self::getaccessionsRelatedByacquisitionTypeIdById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['accessionsRelatedByacquisitionTypeId'];
+    }
+
+    if ('accessionsRelatedByprocessingPriorityId' == $name)
+    {
+      if (!isset($this->refFkValues['accessionsRelatedByprocessingPriorityId']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['accessionsRelatedByprocessingPriorityId'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['accessionsRelatedByprocessingPriorityId'] = self::getaccessionsRelatedByprocessingPriorityIdById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['accessionsRelatedByprocessingPriorityId'];
+    }
+
+    if ('accessionsRelatedByprocessingStatusId' == $name)
+    {
+      if (!isset($this->refFkValues['accessionsRelatedByprocessingStatusId']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['accessionsRelatedByprocessingStatusId'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['accessionsRelatedByprocessingStatusId'] = self::getaccessionsRelatedByprocessingStatusIdById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['accessionsRelatedByprocessingStatusId'];
+    }
+
+    if ('accessionsRelatedByresourceTypeId' == $name)
+    {
+      if (!isset($this->refFkValues['accessionsRelatedByresourceTypeId']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['accessionsRelatedByresourceTypeId'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['accessionsRelatedByresourceTypeId'] = self::getaccessionsRelatedByresourceTypeIdById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['accessionsRelatedByresourceTypeId'];
+    }
+
+    if ('deaccessions' == $name)
+    {
+      if (!isset($this->refFkValues['deaccessions']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['deaccessions'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['deaccessions'] = self::getdeaccessionsById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['deaccessions'];
     }
 
     if ('actorsRelatedByentityTypeId' == $name)
@@ -714,23 +799,6 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       return $this->refFkValues['rightssRelatedBybasisId'];
     }
 
-    if ('rightssRelatedByactId' == $name)
-    {
-      if (!isset($this->refFkValues['rightssRelatedByactId']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['rightssRelatedByactId'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['rightssRelatedByactId'] = self::getrightssRelatedByactIdById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['rightssRelatedByactId'];
-    }
-
     if ('rightssRelatedBycopyrightStatusId' == $name)
     {
       if (!isset($this->refFkValues['rightssRelatedBycopyrightStatusId']))
@@ -746,6 +814,23 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       }
 
       return $this->refFkValues['rightssRelatedBycopyrightStatusId'];
+    }
+
+    if ('grantedRights' == $name)
+    {
+      if (!isset($this->refFkValues['grantedRights']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['grantedRights'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['grantedRights'] = self::getgrantedRightsById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['grantedRights'];
     }
 
     if ('statussRelatedBytypeId' == $name)
@@ -814,91 +899,6 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
       }
 
       return $this->refFkValues['termI18ns'];
-    }
-
-    if ('accessionsRelatedByacquisitionTypeId' == $name)
-    {
-      if (!isset($this->refFkValues['accessionsRelatedByacquisitionTypeId']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['accessionsRelatedByacquisitionTypeId'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['accessionsRelatedByacquisitionTypeId'] = self::getaccessionsRelatedByacquisitionTypeIdById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['accessionsRelatedByacquisitionTypeId'];
-    }
-
-    if ('accessionsRelatedByprocessingPriorityId' == $name)
-    {
-      if (!isset($this->refFkValues['accessionsRelatedByprocessingPriorityId']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['accessionsRelatedByprocessingPriorityId'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['accessionsRelatedByprocessingPriorityId'] = self::getaccessionsRelatedByprocessingPriorityIdById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['accessionsRelatedByprocessingPriorityId'];
-    }
-
-    if ('accessionsRelatedByprocessingStatusId' == $name)
-    {
-      if (!isset($this->refFkValues['accessionsRelatedByprocessingStatusId']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['accessionsRelatedByprocessingStatusId'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['accessionsRelatedByprocessingStatusId'] = self::getaccessionsRelatedByprocessingStatusIdById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['accessionsRelatedByprocessingStatusId'];
-    }
-
-    if ('accessionsRelatedByresourceTypeId' == $name)
-    {
-      if (!isset($this->refFkValues['accessionsRelatedByresourceTypeId']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['accessionsRelatedByresourceTypeId'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['accessionsRelatedByresourceTypeId'] = self::getaccessionsRelatedByresourceTypeIdById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['accessionsRelatedByresourceTypeId'];
-    }
-
-    if ('deaccessions' == $name)
-    {
-      if (!isset($this->refFkValues['deaccessions']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['deaccessions'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['deaccessions'] = self::getdeaccessionsById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['deaccessions'];
     }
 
     try
@@ -1124,6 +1124,106 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
     $criteria->addJoin(QubitTerm::PARENT_ID, QubitTerm::ID);
 
     return $criteria;
+  }
+
+  public static function addaccessionsRelatedByacquisitionTypeIdCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitAccession::ACQUISITION_TYPE_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getaccessionsRelatedByacquisitionTypeIdById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addaccessionsRelatedByacquisitionTypeIdCriteriaById($criteria, $id);
+
+    return QubitAccession::get($criteria, $options);
+  }
+
+  public function addaccessionsRelatedByacquisitionTypeIdCriteria(Criteria $criteria)
+  {
+    return self::addaccessionsRelatedByacquisitionTypeIdCriteriaById($criteria, $this->id);
+  }
+
+  public static function addaccessionsRelatedByprocessingPriorityIdCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitAccession::PROCESSING_PRIORITY_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getaccessionsRelatedByprocessingPriorityIdById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addaccessionsRelatedByprocessingPriorityIdCriteriaById($criteria, $id);
+
+    return QubitAccession::get($criteria, $options);
+  }
+
+  public function addaccessionsRelatedByprocessingPriorityIdCriteria(Criteria $criteria)
+  {
+    return self::addaccessionsRelatedByprocessingPriorityIdCriteriaById($criteria, $this->id);
+  }
+
+  public static function addaccessionsRelatedByprocessingStatusIdCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitAccession::PROCESSING_STATUS_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getaccessionsRelatedByprocessingStatusIdById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addaccessionsRelatedByprocessingStatusIdCriteriaById($criteria, $id);
+
+    return QubitAccession::get($criteria, $options);
+  }
+
+  public function addaccessionsRelatedByprocessingStatusIdCriteria(Criteria $criteria)
+  {
+    return self::addaccessionsRelatedByprocessingStatusIdCriteriaById($criteria, $this->id);
+  }
+
+  public static function addaccessionsRelatedByresourceTypeIdCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitAccession::RESOURCE_TYPE_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getaccessionsRelatedByresourceTypeIdById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addaccessionsRelatedByresourceTypeIdCriteriaById($criteria, $id);
+
+    return QubitAccession::get($criteria, $options);
+  }
+
+  public function addaccessionsRelatedByresourceTypeIdCriteria(Criteria $criteria)
+  {
+    return self::addaccessionsRelatedByresourceTypeIdCriteriaById($criteria, $this->id);
+  }
+
+  public static function adddeaccessionsCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitDeaccession::SCOPE_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getdeaccessionsById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::adddeaccessionsCriteriaById($criteria, $id);
+
+    return QubitDeaccession::get($criteria, $options);
+  }
+
+  public function adddeaccessionsCriteria(Criteria $criteria)
+  {
+    return self::adddeaccessionsCriteriaById($criteria, $this->id);
   }
 
   public static function addactorsRelatedByentityTypeIdCriteriaById(Criteria $criteria, $id)
@@ -1586,26 +1686,6 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
     return self::addrightssRelatedBybasisIdCriteriaById($criteria, $this->id);
   }
 
-  public static function addrightssRelatedByactIdCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitRights::ACT_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getrightssRelatedByactIdById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addrightssRelatedByactIdCriteriaById($criteria, $id);
-
-    return QubitRights::get($criteria, $options);
-  }
-
-  public function addrightssRelatedByactIdCriteria(Criteria $criteria)
-  {
-    return self::addrightssRelatedByactIdCriteriaById($criteria, $this->id);
-  }
-
   public static function addrightssRelatedBycopyrightStatusIdCriteriaById(Criteria $criteria, $id)
   {
     $criteria->add(QubitRights::COPYRIGHT_STATUS_ID, $id);
@@ -1624,6 +1704,26 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
   public function addrightssRelatedBycopyrightStatusIdCriteria(Criteria $criteria)
   {
     return self::addrightssRelatedBycopyrightStatusIdCriteriaById($criteria, $this->id);
+  }
+
+  public static function addgrantedRightsCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitGrantedRight::ACT_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getgrantedRightsById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addgrantedRightsCriteriaById($criteria, $id);
+
+    return QubitGrantedRight::get($criteria, $options);
+  }
+
+  public function addgrantedRightsCriteria(Criteria $criteria)
+  {
+    return self::addgrantedRightsCriteriaById($criteria, $this->id);
   }
 
   public static function addstatussRelatedBytypeIdCriteriaById(Criteria $criteria, $id)
@@ -1704,106 +1804,6 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
   public function addtermI18nsCriteria(Criteria $criteria)
   {
     return self::addtermI18nsCriteriaById($criteria, $this->id);
-  }
-
-  public static function addaccessionsRelatedByacquisitionTypeIdCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitAccession::ACQUISITION_TYPE_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getaccessionsRelatedByacquisitionTypeIdById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addaccessionsRelatedByacquisitionTypeIdCriteriaById($criteria, $id);
-
-    return QubitAccession::get($criteria, $options);
-  }
-
-  public function addaccessionsRelatedByacquisitionTypeIdCriteria(Criteria $criteria)
-  {
-    return self::addaccessionsRelatedByacquisitionTypeIdCriteriaById($criteria, $this->id);
-  }
-
-  public static function addaccessionsRelatedByprocessingPriorityIdCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitAccession::PROCESSING_PRIORITY_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getaccessionsRelatedByprocessingPriorityIdById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addaccessionsRelatedByprocessingPriorityIdCriteriaById($criteria, $id);
-
-    return QubitAccession::get($criteria, $options);
-  }
-
-  public function addaccessionsRelatedByprocessingPriorityIdCriteria(Criteria $criteria)
-  {
-    return self::addaccessionsRelatedByprocessingPriorityIdCriteriaById($criteria, $this->id);
-  }
-
-  public static function addaccessionsRelatedByprocessingStatusIdCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitAccession::PROCESSING_STATUS_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getaccessionsRelatedByprocessingStatusIdById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addaccessionsRelatedByprocessingStatusIdCriteriaById($criteria, $id);
-
-    return QubitAccession::get($criteria, $options);
-  }
-
-  public function addaccessionsRelatedByprocessingStatusIdCriteria(Criteria $criteria)
-  {
-    return self::addaccessionsRelatedByprocessingStatusIdCriteriaById($criteria, $this->id);
-  }
-
-  public static function addaccessionsRelatedByresourceTypeIdCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitAccession::RESOURCE_TYPE_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getaccessionsRelatedByresourceTypeIdById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addaccessionsRelatedByresourceTypeIdCriteriaById($criteria, $id);
-
-    return QubitAccession::get($criteria, $options);
-  }
-
-  public function addaccessionsRelatedByresourceTypeIdCriteria(Criteria $criteria)
-  {
-    return self::addaccessionsRelatedByresourceTypeIdCriteriaById($criteria, $this->id);
-  }
-
-  public static function adddeaccessionsCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitDeaccession::SCOPE_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getdeaccessionsById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::adddeaccessionsCriteriaById($criteria, $id);
-
-    return QubitDeaccession::get($criteria, $options);
-  }
-
-  public function adddeaccessionsCriteria(Criteria $criteria)
-  {
-    return self::adddeaccessionsCriteriaById($criteria, $this->id);
   }
 
   public function getCurrenttermI18n(array $options = array())

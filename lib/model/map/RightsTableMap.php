@@ -39,9 +39,7 @@ class RightsTableMap extends TableMap {
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'object', 'ID', true, null, null);
 		$this->addColumn('START_DATE', 'startDate', 'DATE', false, null, null);
 		$this->addColumn('END_DATE', 'endDate', 'DATE', false, null, null);
-		$this->addColumn('RESTRICTION', 'restriction', 'BOOLEAN', false, null, true);
 		$this->addForeignKey('BASIS_ID', 'basisId', 'INTEGER', 'term', 'ID', false, null, null);
-		$this->addForeignKey('ACT_ID', 'actId', 'INTEGER', 'term', 'ID', false, null, null);
 		$this->addForeignKey('RIGHTS_HOLDER_ID', 'rightsHolderId', 'INTEGER', 'actor', 'ID', false, null, null);
 		$this->addForeignKey('COPYRIGHT_STATUS_ID', 'copyrightStatusId', 'INTEGER', 'term', 'ID', false, null, null);
 		$this->addColumn('COPYRIGHT_STATUS_DATE', 'copyrightStatusDate', 'DATE', false, null, null);
@@ -58,9 +56,9 @@ class RightsTableMap extends TableMap {
 	{
     $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('termRelatedBybasisId', 'term', RelationMap::MANY_TO_ONE, array('basis_id' => 'id', ), 'SET NULL', null);
-    $this->addRelation('termRelatedByactId', 'term', RelationMap::MANY_TO_ONE, array('act_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('actor', 'actor', RelationMap::MANY_TO_ONE, array('rights_holder_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('termRelatedBycopyrightStatusId', 'term', RelationMap::MANY_TO_ONE, array('copyright_status_id' => 'id', ), 'SET NULL', null);
+    $this->addRelation('grantedRight', 'grantedRight', RelationMap::ONE_TO_MANY, array('id' => 'rights_id', ), 'CASCADE', null);
     $this->addRelation('rightsI18n', 'rightsI18n', RelationMap::ONE_TO_MANY, array('id' => 'id', ), 'CASCADE', null);
 	} // buildRelations()
 
