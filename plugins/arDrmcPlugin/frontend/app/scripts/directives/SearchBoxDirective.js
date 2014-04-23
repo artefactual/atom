@@ -12,6 +12,13 @@ module.exports = function ($rootScope, $document, $location, $state, $stateParam
       // Default realm
       scope.realm = 'all';
 
+      scope.clear = function () {
+        input.blur();
+        scope.showRealm = false;
+        scope.query = undefined;
+        delete scope.results;
+      };
+
       // References to the DOM
       var input = element.find('input[type=text]');
       var radio = element.find('input[type=radio]');
@@ -26,9 +33,8 @@ module.exports = function ($rootScope, $document, $location, $state, $stateParam
         switch (event.which) {
           // Escape
           case 27:
-            input.val('');
             scope.$apply(function () {
-              scope.showRealm = false;
+              scope.clear();
             });
             break;
           // Enter
@@ -60,30 +66,27 @@ module.exports = function ($rootScope, $document, $location, $state, $stateParam
         }
       });
 
-      // When the user picks a new realm, do a search and focus input
+      // When the user selects a realm, re-focus input
       radio.on('click', function () {
         input.focus();
-        search(input.val());
       });
 
-      // Submit form, TODO this below is just a quick hack!
       scope.submit = function () {
+        delete scope.results;
         if (!scope.form.$valid) {
           return;
         }
         // Route user to the corresponding search page
-        if (!$state.includes('search') || $stateParams.entity !== scope.realm) {
-          var entity = scope.realm === 'all' ? 'aips' : scope.realm;
-          $state.go('main.search.entity', { entity: entity }).then(function () {
-            scope.showRealm = false;
-            SearchService.setQuery(scope.query, scope.realm);
-          });
-        }
+        SearchService.setQuery(scope.query, scope.realm);
+        var entity = scope.realm === 'all' ? 'aips' : scope.realm;
+        $state.go('main.search.entity', { entity: entity }).then(function () {
+          scope.clear();
+        });
       };
 
       // Perform a search
       var search = function (query) {
-        if (!angular.isDefined(query) || query.length < 3) {
+        if (!angular.isDefined(query)) {
           return;
         }
         var options = { realm: scope.realm };
@@ -125,6 +128,11 @@ module.exports = function ($rootScope, $document, $location, $state, $stateParam
         }, function () {
           delete scope.results;
         });
+      };
+
+      scope.showAll = function (entity) {
+        scope.realm = entity;
+        scope.submit();
       };
 
       // Clean search field if the user changes the page

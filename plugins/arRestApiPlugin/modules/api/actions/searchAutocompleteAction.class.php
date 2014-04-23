@@ -57,7 +57,7 @@ class ApiSearchAutocompleteAction extends QubitApiAction
         'type' => 'QubitInformationObject',
         'level' => 'component',
         'field' => sprintf('i18n.%s.title', $culture),
-        'fields' => array('identifier', sprintf('i18n.%s.title', $culture), 'levelOfDescriptionId')),
+        'fields' => array('identifier', sprintf('i18n.%s.title', $culture), 'levelOfDescriptionId', 'tmsComponent')),
       array(
         'type' => 'QubitInformationObject',
         'level' => 'technology-record',
@@ -67,7 +67,7 @@ class ApiSearchAutocompleteAction extends QubitApiAction
         'type' => 'QubitInformationObject',
         'level' => 'file',
         'field' => sprintf('i18n.%s.title', $culture),
-        'fields' => array('identifier', sprintf('i18n.%s.title', $culture), 'levelOfDescriptionId'))) as $item)
+        'fields' => array('identifier', sprintf('i18n.%s.title', $culture), 'levelOfDescriptionId', 'slug', 'digitalObject', 'aipUuid', 'aipName', 'originalRelativePathWithinAip'))) as $item)
     {
       $search = new \Elastica\Search($client);
       $search
@@ -204,6 +204,7 @@ class ApiSearchAutocompleteAction extends QubitApiAction
       $this->addItemToArray($result, 'identifier', $doc['identifier']);
       $this->addItemToArray($result, 'title', get_search_i18n_highlight($hit, 'title.autocomplete'));
       $this->addItemToArray($result, 'level_of_description_id', $doc['levelOfDescriptionId']);
+      $this->addItemToArray($result, 'artwork_id', $doc['tmsComponent']['artwork']['id']);
 
       $results['components'][$hit->getId()] = $result;
     }
@@ -230,6 +231,15 @@ class ApiSearchAutocompleteAction extends QubitApiAction
 
       $this->addItemToArray($result, 'identifier', $doc['identifier']);
       $this->addItemToArray($result, 'title', get_search_i18n_highlight($hit, 'title.autocomplete'));
+      $this->addItemToArray($result, 'filename', get_search_i18n($doc, 'title'));
+      $this->addItemToArray($result, 'slug', $doc['slug']);
+      $this->addItemToArray($result, 'media_type_id', $doc['digitalObject']['mediaTypeId']);
+      $this->addItemToArray($result, 'byte_size', $doc['digitalObject']['byteSize']);
+      $this->addItemToArray($result, 'mime_type', $doc['digitalObject']['mimeType']);
+      $this->addItemToArray($result, 'thumbnail_path', $doc['digitalObject']['thumbnailPath']);
+      $this->addItemToArray($result, 'aip_uuid', $doc['aipUuid']);
+      $this->addItemToArray($result, 'aip_title', $doc['aipName']);
+      $this->addItemToArray($result, 'original_relative_path_within_aip', $doc['originalRelativePathWithinAip']);
 
       $results['files'][$hit->getId()] = $result;
     }
