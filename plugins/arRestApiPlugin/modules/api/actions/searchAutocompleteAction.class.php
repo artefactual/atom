@@ -62,7 +62,7 @@ class ApiSearchAutocompleteAction extends QubitApiAction
         'type' => 'QubitInformationObject',
         'level' => 'technology-record',
         'field' => sprintf('i18n.%s.title', $culture),
-        'fields' => array('identifier', sprintf('i18n.%s.title', $culture), 'levelOfDescriptionId')),
+        'fields' => array('identifier', sprintf('i18n.%s.title', $culture), 'levelOfDescriptionId', 'collectionRootId')),
       array(
         'type' => 'QubitInformationObject',
         'level' => 'file',
@@ -218,6 +218,7 @@ class ApiSearchAutocompleteAction extends QubitApiAction
 
       $this->addItemToArray($result, 'identifier', $doc['identifier']);
       $this->addItemToArray($result, 'title', get_search_i18n_highlight($hit, 'title.autocomplete'));
+      $this->addItemToArray($result, 'collection_root_id', $doc['collectionRootId']);
 
       $results['technology_records'][$hit->getId()] = $result;
     }

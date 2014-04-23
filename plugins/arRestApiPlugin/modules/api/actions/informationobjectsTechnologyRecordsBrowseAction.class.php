@@ -153,16 +153,12 @@ class ApiInformationObjectsTechnologyRecordsBrowseAction extends QubitApiAction
       $this->addItemToArray($result, 'identifier', $doc['identifier']);
       $this->addItemToArray($result, 'title', get_search_i18n($doc, 'title'));
       $this->addItemToArray($result, 'inherited_title', $doc['inheritedTitle']);
+      $this->addItemToArray($result, 'collection_root_id', $doc['collectionRootId']);
       $this->addItemToArray($result, 'date', get_search_i18n($doc['dates'][0], 'date'));
       $this->addItemToArray($result, 'creator', get_search_i18n($doc['creators'][0], 'authorizedFormOfName'));
 
       $this->addItemToArray($result, 'description', get_search_i18n($doc, 'scopeAndContent'));
       $this->addItemToArray($result, 'format', get_search_i18n($doc, 'extentAndMedium'));
-
-      $collectionRoot = array();
-      $this->addItemToArray($collectionRoot, 'id', $doc['collectionRootId']);
-      // TODO: collection root title
-      $this->addItemToArray($result, 'collection_root', $collectionRoot);
 
       // TODO: Both are necessary?
       $result['id'] = (int)$hit->getId();

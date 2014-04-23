@@ -43,8 +43,8 @@
 
         <section class="drmc-color-supporting-technology-record" ng-if="results.totals.technology_records > 0">
           <ul>
-            <li ng-repeat="(id, techRecord) in results.technology_records">
-              <a ng-click="clear()" ui-sref="main.technology-records.view({ id: id })" ng-bind-html="techRecord.title"></a>
+            <li ng-repeat="techRecord in results.technology_records">
+              <a ng-click="clear()" ui-sref="main.technology-records.view({ id: techRecord.collection_root_id })" ng-bind-html="techRecord.title"></a>
             </li>
             <li class="showall">
               <a href ng-click="showAll('technology-records')">all matching Technology Records</a>
