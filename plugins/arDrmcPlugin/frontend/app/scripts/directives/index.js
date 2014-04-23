@@ -18,4 +18,5 @@
     .directive('arRangeFacet', require('./RangeFacetDirective'))
     .directive('arDashBoardStorageCodec', require('./DashboardStorageCodecDirective'))
     .directive('arDashBoardLineChart', require('./DashboardLineChartDirective'));
+
 })();

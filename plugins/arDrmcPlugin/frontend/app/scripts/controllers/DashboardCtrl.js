@@ -10,6 +10,7 @@ module.exports = function ($scope, $q, StatisticsService) {
     var ingestionActivity = StatisticsService.getIngestionActivity();
     var ingestionSummary = StatisticsService.getIngestionSummary();
     var artworkByMonthSummary = StatisticsService.getArtworkByMonthSummary();
+    //var artworkSizesByYearSummary = StatisticsService.getArtworkSizesByYearSummary();
 
     $q.all([downloadActivity, ingestionActivity, ingestionSummary, artworkByMonthSummary]).then(function (responses) {
       $scope.downloadActivity = responses[0].data.results;

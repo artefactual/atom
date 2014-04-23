@@ -49,7 +49,8 @@
   <tabset class="span4 dashboard-widget">
     <h5>Storage</h5>
     <tab heading="Codec">
-      <ar-dash-board-storage-codec></ar-dash-board-storage-codec>
+      <ar-dash-board-storage-codec chart-data="{{ storageCodec }}" width="175">
+      </ar-dash-board-storage-codec>
     <h2>Collection totals</h2>
     <div ng-repeat="item in storageCodecCollection">
       <div><strong>{{ item.count | number }}</strong> : <span>{{ item.type }}</span></div>
