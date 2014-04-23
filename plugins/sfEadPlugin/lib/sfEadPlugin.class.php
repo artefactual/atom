@@ -295,18 +295,36 @@ class sfEadPlugin
 
   public function renderEadPhysDesc($extentAndMedium)
   {
+    $dlStartTag = '<dl>';
+    $dlEndTag = '</dl>';
+
     $physDescContent = '';
+    $extentAndMedium = trim($extentAndMedium);
+
+    $dlPos = strpos($extentAndMedium, $dlStartTag);
+    $dlEndPos = strpos($extentAndMedium, $dlEndTag);
 
     // Check if extentAndMedium contains a HTML definition list
-    if (strpos($extentAndMedium, '<dl>') === false)
+    if ($dlPos === false)
     {
       $physDescContent .= '<extent encodinganalog="' . $this->getMetadataParameter('extent') . '">' . escape_dc(esc_specialchars($extentAndMedium)) . '</extent>';
     }
     else // AtoM uses <dl> / <dd> / <dt> tags to specify children of <extent>.
     {
-      $physDescContent .=  '<extent encodinganalog="' . $this->getMetadataParameter('extent') . '">';
+      // Check for free text before <dl>
+      if ($dlPos !== 0)
+      {
+        $physDescContent = substr($extentAndMedium, 0, $dlPos);
+      }
 
-      $extentXml = new SimpleXMLIterator($extentAndMedium);
+      if ($dlPos === false || $dlEndPos === false)
+      {
+        throw new sfException('Mismatching <dl></dl> tags in EAD found');
+      }
+
+      // Only parse part between <dl>...</dl> tags in the XML parser
+      $dlXml = substr($extentAndMedium, $dlPos, $dlEndPos - $dlPos + strlen($dlEndTag));
+      $extentXml = new SimpleXMLIterator($dlXml);
       $extentTag = '';
 
       foreach ($extentXml as $extentElement)
@@ -320,24 +338,33 @@ class sfEadPlugin
           switch (strtolower($extentTag))
           {
             case 'extent':
-              $physDescContent .= $extentElement->__toString();
+              $physDescContent .= '<extent encodinganalog="' . $this->getMetadataParameter('extent') . '">';
+              $physDescContent .= $extentElement->__toString() . '</extent>';
               break;
 
             case 'form of material':
-              $physDescContent = '<genreform>' . $extentElement->__toString() . "</genreform>$physDescContent";
+              $physDescContent .= '<genreform>' . $extentElement->__toString() . "</genreform>";
               break;
 
             case 'physical facet':
-              $physDescContent = '<physfacet>' . $extentElement->__toString() . "</physfacet>$physDescContent";
+              $physDescContent .= '<physfacet>' . $extentElement->__toString() . "</physfacet>";
+              break;
+
+            case 'dimensions':
+              $physDescContent .= '<dimensions>' . $extentElement->__toString() . "</dimensions>";
               break;
 
             default:
-              throw new sfException('Invalid extent tag $extentTag found');
+              throw new sfException("Invalid extent tag $extentTag found");
           }
         }
       }
 
-      $physDescContent .= '</extent>';
+      // Check for free text after <dl>
+      if ($dlEndPos && $dlEndPos !== strlen($extentAndMedium))
+      {
+        $physDescContent .= substr($extentAndMedium, $dlEndPos + strlen($dlEndTag));
+      }
     }
 
     return $physDescContent;
