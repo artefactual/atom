@@ -88,4 +88,10 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, $modal,
   $scope.openViewer = function (file) {
     ModalDigitalObjectViewerService.open(file);
   };
+
+  $scope.unsetQuery = function () {
+    $scope.criteria.query = undefined;
+    SearchService.setQuery($scope.criteria.query, $stateParams.entity);
+    $scope.search();
+  };
 };
