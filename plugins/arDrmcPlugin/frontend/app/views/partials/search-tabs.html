@@ -1,6 +1,7 @@
 <div class="search-current-query" ng-if="criteria.query">
-  <span class="prefix">&raquo;</span>
-  <span class="value">{{ criteria.query }}</span>
+  <span class="prefix">Query &raquo;</span>
+  <span class="value">"{{ criteria.query }}"</span>
+  <a ng-click="unsetQuery()"><i class="icon-remove"></i></a>
 </div>
 
 <div class="search-tabs">
