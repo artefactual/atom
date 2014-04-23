@@ -52,7 +52,7 @@
           </ul>
         </section>
 
-        <section class="drmc-color-file" ng-if="results.totals.files > 0" ng-controller="FilesSearchCtrl">
+        <section class="drmc-color-file" ng-if="results.totals.files > 0" ng-controller="FileSearchCtrl">
           <ul>
             <li ng-repeat="(id, file) in results.files">
               <a href ng-click="clear(); openViewer(file)" ng-bind-html="file.title"></a>
