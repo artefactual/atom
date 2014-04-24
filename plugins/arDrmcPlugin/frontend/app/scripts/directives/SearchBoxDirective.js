@@ -86,7 +86,8 @@ module.exports = function ($rootScope, $document, $location, $state, $stateParam
 
       // Perform a search
       var search = function (query) {
-        if (!angular.isDefined(query)) {
+        if (!angular.isDefined(query) || query.length < 1) {
+          delete scope.results;
           return;
         }
         var options = { realm: scope.realm };

@@ -163,12 +163,6 @@ class ApiSearchAutocompleteAction extends QubitApiAction
     $techRecords = $resultSets[3];
     $files = $resultSets[4];
 
-    // Return a 404 response if there are no results
-    if (0 == $aips->getTotalHits() + $artworks->getTotalHits() + $components->getTotalHits() + $techRecords->getTotalHits() + $files->getTotalHits())
-    {
-      throw new QubitApi404Exception('No results found found');
-    }
-
     $results = array();
 
     foreach ($aips->getResults() as $hit)
