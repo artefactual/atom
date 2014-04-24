@@ -77,8 +77,21 @@
 
 
         <?php foreach ($form['grantedRights'] as $i => $gr): ?>
-          <fieldset class="collapsible">
-            <legend><?php echo "Item ".($i+1) ?></legend>
+          <?php $collapsed = ($i < sizeof($form['grantedRights']) ? ' collapsed' : '') ?>
+          <fieldset class="collapsible<?php echo $collapsed ?>">
+            <?php 
+              // build a title
+              if( $gr['act']->getValue() && $gr['restriction']->getValue() !== null )
+              {
+                $act = $this->context->routing->parse(Qubit::pathInfo($gr['act']->getValue()));
+                $act = $act['_sf_route']->resource;
+                $restriction = $gr['restriction']->getValue() === '0' ? __('Disallow') : __('Allow');
+                $title = "{$act} {$restriction}";
+              } else {
+                $title = "Item ".($i+1);
+              }
+            ?>
+            <legend><?php echo $title ?></legend>
             <?php echo $gr['id']->render() ?>
             <?php echo $gr['act']->renderRow() ?>
             <?php echo $gr['restriction']->renderRow() ?>
