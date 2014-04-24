@@ -18,6 +18,52 @@
         </a>
       </li>
     </ul>
+
+    <div ng-class="{ 'range-picker': true, open: !collapsedRangePicker }">
+
+      <a href ng-click="toggleRangePicker()">
+        <div class="range-picker-header">
+          <p>Select range</p>
+        </div>
+      </a>
+
+      <div class="range-picker-body">
+
+        <div class="range-picker-fields" ng-show="type == 'size'">
+
+          <label>From</label>
+          <div class="row-fluid">
+            <input class="span8" type="text" ng-model="sizeRangePickerFrom"/>
+            <select class="span4" ng-model="sizeRangePickerFromUnit" ng-options="unit.label for unit in units"></select>
+          </div>
+
+          <label>To</label>
+          <div class="row-fluid">
+            <input class="span8" type="text" ng-model="sizeRangePickerTo"/>
+            <select class="span4" ng-model="sizeRangePickerToUnit" ng-options="unit.label for unit in units"></select>
+          </div>
+
+        </div>
+
+        <div class="range-picker-fields" ng-show="type == 'date'">
+
+          <label>From</label>
+          <input type="date" ng-model="dateRangePickerFrom"/>
+
+          <label>To</label>
+          <input type="date" ng-model="dateRangePickerTo"/>
+
+        </div>
+
+        <div class="range-picker-buttons">
+          <button class="btn" ng-click="resetRangePicker()">Reset</button>
+          <button class="btn" ng-click="submitRangePicker()">Submit</button>
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 
 </section>
