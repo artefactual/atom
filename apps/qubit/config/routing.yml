@@ -79,8 +79,15 @@ slug;default_index:
   param:
     action: index
 
-rightsEdit:
+editRight/slug:
   url: /editRight/:slug
+  class: QubitResourceRoute
+  param:
+    module: informationobject
+    action: editRights
+
+slug/newRight:
+  url: /:slug/newRight
   class: QubitResourceRoute
   param:
     module: informationobject
