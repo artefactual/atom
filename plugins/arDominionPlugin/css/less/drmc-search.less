@@ -1,3 +1,5 @@
+// Current query label in search results
+
 .search-current-query {
   line-height: 50px;
   font-size: 24px;
@@ -16,6 +18,8 @@
     cursor: pointer;
   }
 }
+
+// Header search tabs
 
 .search-tabs {
   ul {
@@ -48,6 +52,8 @@
   }
 }
 
+// Header search popover
+
 .search-popover {
   section {
     position: relative;
@@ -67,24 +73,43 @@
   }
 }
 
-.facet {
-  .range-picker {
-    margin-top: 5px;
+// Facet range picker
 
-    .range-picker-buttons {
-      text-align: right;
+.facet .range-picker {
+  margin-top: 5px;
 
-      button {
-        margin-left: 5px;
+  .range-picker-buttons {
+    text-align: right;
+    button {
+      margin-left: 5px;
+    }
+  }
+
+  .range-picker-header p {
+    background-color: @grayLighter;
+    color: @gray;
+    &:after {
+      color: @gray;
+      content: "\f107";
+    }
+    &:hover {
+      background-color: @grayLight;
+      color: @white;
+      &:after {
+        color: @white;
       }
     }
+  }
 
+  .range-picker-body {
+    display: none;
+    padding: 5px;
+  }
+
+  &.open {
     .range-picker-header p {
-      background-color: @grayLighter;
-      color: @gray;
       &:after {
-        color: @gray;
-        content: "\f107";
+        content: "\f106";
       }
       &:hover {
         background-color: @grayLight;
@@ -96,28 +121,8 @@
     }
 
     .range-picker-body {
-      display: none;
-      padding: 5px;
-    }
-
-    &.open {
-      .range-picker-header p {
-        &:after {
-          content: "\f106";
-        }
-        &:hover {
-          background-color: @grayLight;
-          color: @white;
-          &:after {
-            color: @white;
-          }
-        }
-      }
-
-      .range-picker-body {
-        display: block;
-        .animation(fadeInDown, .2s);
-      }
+      display: block;
+      .animation(fadeInDown, .2s);
     }
   }
 }
