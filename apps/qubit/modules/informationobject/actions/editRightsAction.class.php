@@ -19,15 +19,13 @@
 
 class InformationObjectEditRightsAction extends sfAction
 {
+  var $new = false;
   // Arrays not allowed in class constants
   public static
     $NAMES = array(
-      'id',
-      'act',
       'basis',
       'endDate',
       'startDate',
-      'restriction',
       'rightsHolder',
       'rightsNote',
       'copyrightStatus',
@@ -60,29 +58,11 @@ class InformationObjectEditRightsAction extends sfAction
         $this->form->getWidgetSchema()->startDate->setLabel($this->context->i18n->__('Start'));
         break;
 
-      case 'restriction':
-        $choices[1] = $this->context->i18n->__('Allow');
-        $choices[0] = $this->context->i18n->__('Disallow');
-        $this->form->setValidator('restriction', new sfValidatorBoolean);
-        $this->form->setWidget('restriction', new sfWidgetFormSelect(array('choices' => $choices)));
-        $this->form->setDefault('restriction', $this->right->restriction);
-        break;
-
       case 'statuteDeterminationDate':
       case 'copyrightStatusDate':
         $this->form->setValidator($name, new sfValidatorString);
         $this->form->setWidget($name, new sfWidgetFormInput);
         $this->form->setDefault($name, $this->right[$name]);
-        break;
-
-      case 'act':
-        foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_ACT_ID) as $item)
-        {
-          $choices[$this->context->routing->generate(null, array($item, 'module' => 'term'))] = $item->__toString();
-        }
-        $this->form->setValidator('act', new sfValidatorString);
-        $this->form->setWidget('act', new sfWidgetFormSelect(array('choices' => $choices)));
-        $this->form->setDefault('act', $this->context->routing->generate(null, array($this->right->act, 'module' => 'term')));
         break;
 
       case 'basis':
@@ -112,7 +92,6 @@ class InformationObjectEditRightsAction extends sfAction
       case 'rightsHolder':
         $this->form->setValidator('rightsHolder', new sfValidatorString);
         $this->form->setWidget('rightsHolder', new sfWidgetFormSelect(array('choices' => array())));
-        // var_dump( $this->context->routing->generate(null, array($this->right->rightsHolder, 'module' => 'actor')) ); die();
         $this->form->setDefault('rightsHolder', $this->context->routing->generate(null, array($this->right->rightsHolder, 'module' => 'actor')));
         break;
 
@@ -203,6 +182,7 @@ class InformationObjectEditRightsAction extends sfAction
 
   protected function newRightWithDefaults()
   {
+    $this->new = true;
     $right = new QubitRights;
     $dt = new DateTime;
     $right->startDate = $dt->format('Y-m-d');
@@ -240,24 +220,85 @@ class InformationObjectEditRightsAction extends sfAction
     }
   }
 
+  protected function grantedRightFormSetup($grantedRight)
+  {
+    // if new, unsaved right, then id can be set to 0
+    $grantedRight->id = (integer) $grantedRight->id;
+
+    // 'id', 'act', 'startDate', 'endDate', 'restriction', 'notes'
+    $form = new sfForm;
+    $form->getWidgetSchema()->setNameFormat('grantedRight[%s][]');
+
+    $form->setValidator('id', new sfValidatorInteger);
+    $form->setWidget('id', new sfWidgetFormInputHidden);
+    $form->setDefault('id', $grantedRight->id);
+
+    foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_ACT_ID) as $item)
+    {
+      $choices[$this->context->routing->generate(null, array($item, 'module' => 'term'))] = $item->__toString();
+    }
+    $form->setValidator('act', new sfValidatorString);
+    $form->setWidget('act', new sfWidgetFormSelect(array('choices' => $choices)));
+    $form->setDefault('act', $this->context->routing->generate(null, array($grantedRight->act, 'module' => 'term')));
+
+    $form->setValidator('startDate', new sfValidatorString);
+    $form->setWidget('startDate', new sfWidgetFormInput);
+    $form->getWidgetSchema()->startDate->setLabel($this->context->i18n->__('Start'));
+    $form->setDefault('startDate', ($grantedRight->startDate));
+
+    $form->setValidator('endDate', new sfValidatorString);
+    $form->setWidget('endDate', new sfWidgetFormInput);
+    $form->getWidgetSchema()->endDate->setLabel($this->context->i18n->__('End'));
+    $form->setDefault('endDate', ($grantedRight->endDate));
+
+    $res_choices[1] = $this->context->i18n->__('Allow');
+    $res_choices[0] = $this->context->i18n->__('Disallow');
+    $form->setValidator('restriction', new sfValidatorBoolean);
+    $form->setWidget('restriction', new sfWidgetFormSelect(array('choices' => $res_choices)));
+    $form->setDefault('restriction', $grantedRight->restriction);
+
+    $form->setValidator('notes', new sfValidatorString);
+    $form->setWidget('notes', new sfWidgetFormTextarea);
+    $form->setDefault('notes', $grantedRight->notes);
+
+    return $form;
+  }
+
   protected function formSetup()
   {
     $this->form = new sfForm;
     $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
-
-    if (isset($this->nameFormat))
-    {
-      $this->form->getWidgetSchema()->setNameFormat($this->nameFormat);
-    }
-    else
-    {
-      $this->form->getWidgetSchema()->setNameFormat('editRight[%s]');
-    }
+    $this->form->getWidgetSchema()->setNameFormat('right[%s]');
 
     foreach ($this::$NAMES as $name)
     {
       $this->addField($name);
     }
+
+    // handle related act records:
+    // if new rights, generate one empty act by default
+    // if existing rights, look at related act records
+    // and generate an act row for each one.
+
+    $subForm = new sfForm();
+    if( sizeof($this->right->grantedRights)  )
+    {
+      foreach ($this->right->grantedRights as $i => $gr) {
+        $subForm->embedForm($i, $this->grantedRightFormSetup($gr));
+      }
+    } else {
+      $gr = new QubitGrantedRight;
+      $subForm->embedForm(0, $this->grantedRightFormSetup($gr));
+    }
+    
+    // finally store a blank GrantedRight form that'll be used
+    // by javascript as a reference for adding new grantedRights
+    // forms
+
+    $gr = new QubitGrantedRight;
+    $subForm->embedForm(sizeof($subForm), $this->grantedRightFormSetup($gr));
+
+    $this->form->embedForm('grantedRights', $subForm);
   }
 
 
@@ -269,7 +310,7 @@ class InformationObjectEditRightsAction extends sfAction
     if ($request->isMethod('post'))
     {
       $params = $request->getPostParameters();
-      $this->form->bind($params['editRight']);
+      $this->form->bind($params['right']);
       if ($this->form->isValid()){
         $this->processForm();
         $this->redirect(array($this->resource, 'module' => 'informationobject'));

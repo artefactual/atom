@@ -12,12 +12,9 @@
   <?php echo $form->renderGlobalErrors() ?>
 
   <form method="post">
-
-    <?php echo $form->renderHiddenFields() ?>
-
     <div id="content">
       <fieldset class="collapsible">
-        <legend><?php echo __('Add New Rights Basis') ?></legend>
+        <legend><?php echo __('Rights Basis') ?></legend>
 
           <?php echo $form->basis
             ->renderRow() ?>
@@ -55,12 +52,6 @@
           <?php echo $form->statuteNote
             ->renderRow() ?>
 
-          <?php echo $form->act
-            ->renderRow() ?>
-
-          <?php echo $form->restriction
-            ->renderRow() ?>
-
           <?php echo $form->startDate
             ->renderRow() ?>
 
@@ -78,6 +69,42 @@
             ->label(__('Rights note(s)'))
             ->renderRow() ?>
 
+
+      </fieldset>
+
+      <fieldset class="collapsible">
+        <legend><?php echo __('Act / Granted Rights') ?></legend>
+
+
+        <?php foreach ($form['grantedRights'] as $i => $gr): ?>
+          <?php if($i+1 < sizeof($form['grantedRights'])): ?>
+            <fieldset class="collapsible <?php echo ($i < sizeof($form['grantedRights']) ? ''  : 'collapsed') ?>">
+              <legend><?php echo "Item ".($i+1) ?></legend>
+              <?php echo $gr['id']->render() ?>
+
+              <?php echo $gr['act']->renderRow() ?>
+
+              <?php echo $gr['restriction']->renderRow() ?>
+
+              <?php echo $gr['startDate']->renderRow() ?>
+
+              <?php echo $gr['endDate']->renderRow() ?>
+            </fieldset>
+          <?php else: ?>
+            <fieldset class="collapsible collapsed">
+              <legend class="newItem">New Item</legend>
+              <?php echo $gr['id']->render() ?>
+
+              <?php echo $gr['act']->renderRow() ?>
+
+              <?php echo $gr['restriction']->renderRow() ?>
+
+              <?php echo $gr['startDate']->renderRow() ?>
+
+              <?php echo $gr['endDate']->renderRow() ?>
+            </fieldset>
+          <?php endif; ?>
+        <?php endforeach; ?>
 
       </fieldset>
 
@@ -111,7 +138,9 @@
         }
       }
 
-      jQuery('#editRight_basis').on('change', BasisSelect.update).trigger('change');
+      jQuery('#right_basis').on('change', BasisSelect.update).trigger('change');
+
+      jQuery('#content').on('click', '.newItem a span', function(){ console.log('test'); });
 
     })();
   </script>
