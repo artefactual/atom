@@ -253,7 +253,7 @@ EOF;
       $aip = new QubitAip;
       $aip->typeId = rand(179, 182);
       $aip->uuid = gen_uuid();
-      $aip->filename = $names[array_rand($names)];
+      $aip->filename = trim($names[array_rand($names)]);
       $aip->digitalObjectCount = 1;
       $aip->partOf = $infoObject->id;
       $aip->sizeOnDisk = rand(1000, 10000000);
