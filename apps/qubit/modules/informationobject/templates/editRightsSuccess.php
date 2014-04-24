@@ -77,7 +77,7 @@
 
 
         <?php foreach ($form['grantedRights'] as $i => $gr): ?>
-          <?php $collapsed = ($i < sizeof($form['grantedRights']) ? ' collapsed' : '') ?>
+          <?php $collapsed = ($i+1 < sizeof($form['grantedRights']) ? ' collapsed' : '') ?>
           <fieldset class="collapsible<?php echo $collapsed ?>">
             <?php 
               // build a title
