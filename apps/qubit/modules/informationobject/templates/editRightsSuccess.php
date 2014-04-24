@@ -77,37 +77,30 @@
 
 
         <?php foreach ($form['grantedRights'] as $i => $gr): ?>
-          <?php if($i+1 < sizeof($form['grantedRights'])): ?>
-            <fieldset class="collapsible <?php echo ($i < sizeof($form['grantedRights']) ? ''  : 'collapsed') ?>">
-              <legend><?php echo "Item ".($i+1) ?></legend>
-              <?php echo $gr['id']->render() ?>
-
-              <?php echo $gr['act']->renderRow() ?>
-
-              <?php echo $gr['restriction']->renderRow() ?>
-
-              <?php echo $gr['startDate']->renderRow() ?>
-
-              <?php echo $gr['endDate']->renderRow() ?>
-            </fieldset>
-          <?php else: ?>
-            <fieldset class="collapsible collapsed">
-              <legend class="newItem">New Item</legend>
-              <?php echo $gr['id']->render() ?>
-
-              <?php echo $gr['act']->renderRow() ?>
-
-              <?php echo $gr['restriction']->renderRow() ?>
-
-              <?php echo $gr['startDate']->renderRow() ?>
-
-              <?php echo $gr['endDate']->renderRow() ?>
-            </fieldset>
-          <?php endif; ?>
+          <fieldset class="collapsible">
+            <legend><?php echo "Item ".($i+1) ?></legend>
+            <?php echo $gr['id']->render() ?>
+            <?php echo $gr['act']->renderRow() ?>
+            <?php echo $gr['restriction']->renderRow() ?>
+            <?php echo $gr['startDate']->renderRow() ?>
+            <?php echo $gr['endDate']->renderRow() ?>
+          </fieldset>
         <?php endforeach; ?>
 
-      </fieldset>
+        <fieldset class="collapsible" id="blank">
+          <legend>Blank Item</legend>
+            <?php echo $form['blank']['id']->render() ?>
+            <?php echo $form['blank']['act']->renderRow() ?>
+            <?php echo $form['blank']['restriction']->renderRow() ?>
+            <?php echo $form['blank']['startDate']->renderRow() ?>
+            <?php echo $form['blank']['endDate']->renderRow() ?>
+        </fieldset>
 
+        <fieldset>
+          <legend><a class="newItem">New Item</a></legend>
+        </fieldset>
+
+      </fieldset>
     </div>
 
     <section class="actions">
@@ -138,9 +131,26 @@
         }
       }
 
+      jQuery('#blank').toggle(false);
+
       jQuery('#right_basis').on('change', BasisSelect.update).trigger('change');
 
-      jQuery('#content').on('click', '.newItem a span', function(){ console.log('test'); });
+      jQuery('#content').on('click', 'a.newItem', function(){
+        var blank = jQuery('#blank');
+        var added = blank.clone().insertBefore(blank);
+        // fix the added fieldset: name attributes, etc
+        added.removeAttr('id');
+        var count = jQuery('.fieldset-wrapper fieldset').length - 3;
+        added.find('[name]').each(function(){
+          $this = jQuery(this);
+          $this.attr('name', $this.attr('name').replace('[blank]', '[grantedRights]['+count+']'));
+          // right_blank_act becomes right_grantedRights_0_act
+          $this.attr('id', $this.attr('id').replace('_blank_', '_grantedRights_'+count+'_'));
+        })
+        added.find('legend').replaceWith("<legend>Item "+(count+1)+"</legend>");
+        Drupal.behaviors.collapse.attach();
+        added.toggle(true);
+      });
 
     })();
   </script>
