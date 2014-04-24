@@ -41,7 +41,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
 
     array_walk($data, function(&$data){
       $data['a_attr']['title'] = $data['text'];
-      $data['text'] = ($data['status'] == 'draft' ? '(Draft) ' : '') . "<u>{$data['type']}</u> {$data['text']}";
+      $data['text'] = ((int) $data['status_id'] == QubitTerm::PUBLICATION_STATUS_DRAFT_ID ? '(Draft) ' : '') . "<u>{$data['type']}</u> {$data['text']}";
       // some special flags on our current active item
       if($data['id'] == $this->resource->id)
       {
@@ -56,7 +56,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
       }
 
       // not used currently
-      unset($data['identifier'], $data['status']);
+      unset($data['identifier'], $data['status'], $data['status_id']);
 
       $data['a_attr']['href'] = &$data['slug'];
       unset($data['slug']);
@@ -69,19 +69,11 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
 
   protected function getItemIds($item, $drafts = true)
   {
-    // Depending on if we want the ancestor tree or 
-    // the child tree we can just flip whether we 
-    // return parent's properties or node's properties
-    // rnode = relation node
-    //    the object node at the center of this query
-    // qnode = query node
-    //    the objects properties we want
-
     $drafts_sql = ($drafts) ? "AND status.status_id <> " . QubitTerm::PUBLICATION_STATUS_DRAFT_ID : "" ;
     $sql = "SELECT node.id, 
         i18n.title as text, IFNULL(node.identifier, '') as identifier, 
         node.parent_id as parent, slug.slug, IFNULL(term_type.name, '') as type,
-        status_term.name as status
+        status_term.name as status, status_id
         FROM 
           (information_object AS parent,
           information_object AS node,
