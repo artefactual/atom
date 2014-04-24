@@ -1,31 +1,33 @@
 'use strict';
 
-module.exports = function ($rootScope, $document, $location, $state, $stateParams, $sce, SETTINGS, SearchService) {
+module.exports = function ($rootScope, $window, $document, $location, $state, $stateParams, $sce, SETTINGS, SearchService) {
   return {
     restrict: 'E',
     templateUrl: SETTINGS.viewsPath + '/partials/search-box.html',
     replace: true,
     link: function (scope, element) {
-      // Realm visibility
+      // Visibility options
       scope.showRealm = false;
+      scope.allowInputBlur = true;
 
       // Default realm
       scope.realm = 'all';
 
-      scope.clear = function () {
-        input.blur();
-        scope.showRealm = false;
-        scope.query = undefined;
-        delete scope.results;
-      };
-
-      // References to the DOM
+      // Reference to the input
       var input = element.find('input[type=text]');
-      var radio = element.find('input[type=radio]');
 
       // Autocomplete listener
-      input.on('input', function (event) {
-        search(event.target.value);
+      scope.$watch('query', function () {
+        search(scope.query);
+      });
+
+      // Hack input blur. Don't loose input focus if realm is open
+      input.on('blur', function () {
+        if (!scope.allowInputBlur) {
+          input.focus();
+        } else {
+          scope.showRealm = false;
+        }
       });
 
       // Listen to keyup events like ESC, etc...
@@ -58,21 +60,25 @@ module.exports = function ($rootScope, $document, $location, $state, $stateParam
         if (isTouching && !scope.showRealm) {
           scope.$apply(function () {
             scope.showRealm = true;
+            scope.allowInputBlur = false;
           });
         } else if (!isTouching && scope.showRealm) {
           scope.$apply(function () {
-            scope.showRealm = false;
+            scope.allowInputBlur = true;
+            input.blur();
           });
         }
       });
 
-      // When the user selects a realm, re-focus input
-      radio.on('click', function () {
-        input.focus();
+      // Listen for browser loosing focus and hide realm
+      angular.element($window).on('blur', function () {
+        scope.$apply(function () {
+          scope.allowInputBlur = true;
+          scope.showRealm = false;
+        });
       });
 
       scope.submit = function () {
-        delete scope.results;
         if (!scope.form.$valid) {
           return;
         }
@@ -84,7 +90,19 @@ module.exports = function ($rootScope, $document, $location, $state, $stateParam
         });
       };
 
-      // Perform a search
+      scope.clear = function () {
+        scope.showRealm = false;
+        scope.allowInputBlur = true;
+        input.blur();
+        scope.query = undefined;
+        delete scope.results;
+      };
+
+      scope.showAll = function (entity) {
+        scope.realm = entity;
+        scope.submit();
+      };
+
       var search = function (query) {
         if (!angular.isDefined(query) || query.length < 1) {
           delete scope.results;
@@ -129,11 +147,6 @@ module.exports = function ($rootScope, $document, $location, $state, $stateParam
         }, function () {
           delete scope.results;
         });
-      };
-
-      scope.showAll = function (entity) {
-        scope.realm = entity;
-        scope.submit();
       };
 
       // Clean search field if the user changes the page
