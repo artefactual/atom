@@ -3,7 +3,7 @@
 module.exports = function ($scope, ModalReclassifyAipService) {
 
   // Default sorting options
-  $scope.criteria.sort_direction = 'asc';
+  $scope.criteria.sort_direction = 'desc';
   $scope.criteria.sort = 'createdAt';
 
   $scope.openReclassifyModal = function (aip) {
