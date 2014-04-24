@@ -38,7 +38,7 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
    */
 
   $scope.criteria = {};
-  $scope.criteria.limit = 4;
+  $scope.criteria.limit = 10;
   $scope.criteria.sort = 'name';
   $scope.page = 1;
   $scope.files = [];
