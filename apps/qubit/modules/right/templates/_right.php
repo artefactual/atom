@@ -7,10 +7,6 @@
       <?php echo link_to(render_title($inherit), array($inherit, 'module' => 'informationobject'), array('title' => __('Inherited from %1%', array('%1%' => $inherit)))) ?>
     <?php endif; ?>
 
-    <?php echo render_show(__('Act'), render_value($resource->act)) ?>
-
-    <?php echo render_show(__('Restriction'), render_value($resource->restriction ? __('Allow') : __('Disallow'))) ?>
-
     <?php echo render_show(__('Start date'), render_value(Qubit::renderDate($resource->startDate))) ?>
 
     <?php echo render_show(__('End date'), render_value(Qubit::renderDate($resource->endDate))) ?>
@@ -52,6 +48,16 @@
       <?php echo render_show(__('Statute note'), render_value($resource->getStatuteNote(array('cultureFallback' => true)))) ?>
 
     <?php endif; ?>
+
+    <blockquote>
+    <?php foreach($resource->grantedRights as $grantedRight): ?>
+          <hr />
+          <?php echo render_show(__('Act'), render_value($grantedRight->act)) ?>
+          <?php echo render_show(__('Restriction'), render_value($grantedRight->restriction ? __('Allow') : __('Disallow'))) ?>
+          <?php echo render_show(__('Start date'), render_value(Qubit::renderDate($grantedRight->startDate))) ?>
+          <?php echo render_show(__('End date'), render_value(Qubit::renderDate($grantedRight->endDate))) ?>
+    <?php endforeach; ?>
+    </blockquote>
 
   </div>
 </div>
