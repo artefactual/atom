@@ -56,7 +56,7 @@
     $('#fullwidth-treeview-row').animate({height: '100px'}, 500);
 
     // initialize the jstree with json from server
-    $.get((window.location.pathname + url), function(data){
+    $.get((window.location.pathname.match("^[^;]*")[0] + url), function(data){
       // configure jstree grid columns
       data.plugins = ['types'];
       data.types = {
