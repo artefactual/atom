@@ -41,7 +41,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
 
     array_walk($data, function(&$data){
       $data['a_attr']['title'] = $data['text'];
-      $data['text'] = ((int) $data['status_id'] == QubitTerm::PUBLICATION_STATUS_DRAFT_ID ? '(Draft) ' : '') . "<u>{$data['type']}</u> {$data['text']}";
+      $data['text'] = ((int) $data['status_id'] == QubitTerm::PUBLICATION_STATUS_DRAFT_ID ? '('.$data['status'].') ' : '') . "<u>{$data['type']}</u> {$data['text']}";
       // some special flags on our current active item
       if($data['id'] == $this->resource->id)
       {
