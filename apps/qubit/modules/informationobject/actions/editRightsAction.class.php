@@ -125,7 +125,6 @@ class InformationObjectEditRightsAction extends sfAction
   {
     switch ($field->getName())
     {
-      case 'act':
       case 'basis':
       case 'copyrightStatus':
       case 'rightsHolder':
@@ -138,6 +137,32 @@ class InformationObjectEditRightsAction extends sfAction
           $this->right[$field->getName()] = $params['_sf_route']->resource;
         }
 
+        break;
+
+      case 'grantedRights':
+        foreach($field->getValue() as $data)
+        {
+          $grantedRight = null;
+
+          // try and find pre-existing record with this id
+          $grantedRight = QubitGrantedRight::getById($data['id']);
+          
+          // none found, so make a new one
+          if(! $grantedRight)
+          {
+            $grantedRight = new QubitGrantedRight;
+          }
+
+          $actparams = $this->context->routing->parse(Qubit::pathInfo($data['act']));
+
+          $grantedRight->act            = $actparams['_sf_route']->resource;
+          $grantedRight->restriction    = $data['restriction'];
+          $grantedRight->startDate      = $data['startDate'];
+          $grantedRight->endDate        = $data['endDate'];
+
+          $this->right->grantedRights[] = $grantedRight;
+        }
+      case 'blank':
         break;
 
       default:
@@ -227,6 +252,7 @@ class InformationObjectEditRightsAction extends sfAction
 
     // 'id', 'act', 'startDate', 'endDate', 'restriction', 'notes'
     $form = new sfForm;
+    $form->getValidatorSchema()->setOption('allow_extra_fields', true);
     $form->getWidgetSchema()->setNameFormat('grantedRight[%s][]');
 
     $form->setValidator('id', new sfValidatorInteger);
@@ -281,6 +307,7 @@ class InformationObjectEditRightsAction extends sfAction
     // and generate an act row for each one.
 
     $subForm = new sfForm();
+    $subForm->getValidatorSchema()->setOption('allow_extra_fields', true);
     if( sizeof($this->right->grantedRights)  )
     {
       foreach ($this->right->grantedRights as $i => $gr) {
