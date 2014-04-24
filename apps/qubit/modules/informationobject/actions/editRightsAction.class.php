@@ -296,7 +296,7 @@ class InformationObjectEditRightsAction extends sfAction
     // forms
 
     $gr = new QubitGrantedRight;
-    $subForm->embedForm(sizeof($subForm), $this->grantedRightFormSetup($gr));
+    $this->form->embedForm('blank', $this->grantedRightFormSetup($gr));
 
     $this->form->embedForm('grantedRights', $subForm);
   }
