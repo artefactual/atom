@@ -39,6 +39,12 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
 
       $authenticated = $this->ldapAuthenticate($username, $password);
 
+      // fallback to non-LDAP authentication
+      if (!$authenticated)
+      {
+        $authenticated = parent::authenticate($username, $password);
+      }
+
       if ($authenticated)
       {
         // load user using username or, if one doesn't exist,
