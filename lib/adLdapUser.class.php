@@ -113,6 +113,16 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
       array_push($users, $username);
     }
 
+    // add non-LDAP AtoM users to user list
+    $criteria = new Criteria;
+    $criteria->add(QubitUser::SALT, null, Criteria::ISNOTNULL);
+    $normalUsers = QubitUser::get($criteria);
+
+    foreach ($normalUsers as $user)
+    {
+      array_push($users, $user->username);
+    }
+
     sort($users);
 
     return $users;
