@@ -1,0 +1,11 @@
+Dependencies
+------------
+
+* php 5.4.0 or newer
+* php5-ldap
+
+
+Environment variables
+---------------------
+
+* ... TODO! (ARCHIVEMATICA_SS_HOST, etc...)
