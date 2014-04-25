@@ -28,7 +28,7 @@ module.exports = function ($http, $q, SETTINGS) {
     .success(setUserData);
   };
 
-  this.isMemberOf = function(group) {
+  this.isMemberOf = function (group) {
     return self.user.groups.indexOf(group) !== -1;
   };
 
