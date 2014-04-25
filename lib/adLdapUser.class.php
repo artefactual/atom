@@ -17,6 +17,8 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// TODO: Should we be doing this from ProjectConfiguration? Or maybe a Symfony
+// plugin with its own vendor directory?
 include (dirname(__FILE__) . "/../vendor/adLDAP/adLDAP.php");
 
 class adLdapUser extends myUser implements Zend_Acl_Role_Interface
