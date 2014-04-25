@@ -125,7 +125,7 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
    * The code in this function is a workaround, explained here:
    * http://sourceforge.net/p/adldap/discussion/358759/thread/17c74ca8/
    */
-  private static function paginatedSearch($adldap, $filter, $fields, $pageSize = 500)
+  public static function paginatedSearch($adldap, $filter, $fields, $pageSize = 500)
   {
     $cookie = '';
     $result = [];
