@@ -17,6 +17,7 @@ all:
   read_only: false
 
   # LDAP authentication
+  # TODO: These are some defaults for MoMA that SHOULD NOT be in this repository
   ldap_account_suffix: @museum.moma.org
   ldap_base_dn: DC=MUSEUM,DC=MOMA,DC=ORG
   ldap_domain_controllers: momadc01.museum.moma.org # comma-separated list
