@@ -21,6 +21,7 @@ module.exports = function (grunt) {
 
   // Build task
   grunt.registerTask('build', [
+    'lint',
     'build-js',
     'build-css'
   ]);
