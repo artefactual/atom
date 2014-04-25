@@ -23,85 +23,84 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
 {
   public function authenticate($username, $password)
   {
-    // allow Active Directory LDAP authentication to be overridden during development
+    // Allow Active Directory LDAP authentication to be overridden during development
     $configuration = sfContext::getInstance()->getConfiguration();
-
     if ($configuration->isDebug() || 'dev' == $configuration->getEnvironment())
     {
       return parent::authenticate($username, $password);
-    } else {
-      $authenticated = false;
-      // anonymous is not a real user
-      if ($username == 'anonymous')
+    }
+
+    $authenticated = false;
+
+    // Anonymous is not a real user
+    if ($username == 'anonymous')
+    {
+      return false;
+    }
+
+    $authenticated = $this->ldapAuthenticate($username, $password);
+
+    // Fallback to non-LDAP authentication
+    if (!$authenticated)
+    {
+      $authenticated = parent::authenticate($username, $password);
+    }
+
+    if ($authenticated)
+    {
+      // Load user using username or, if one doesn't exist, create it
+      $criteria = new Criteria;
+      $criteria->add(QubitUser::USERNAME, $username);
+      $user = QubitUser::getOne($criteria);
+
+      if ($user == null)
       {
-        return false;
-      }
+        $user = new QubitUser();
+        $user->username = $username;
 
-      $authenticated = $this->ldapAuthenticate($username, $password);
-
-      // fallback to non-LDAP authentication
-      if (!$authenticated)
-      {
-        $authenticated = parent::authenticate($username, $password);
-      }
-
-      if ($authenticated)
-      {
-        // load user using username or, if one doesn't exist,
-        // create it
-        $criteria = new Criteria;
-        $criteria->add(QubitUser::USERNAME, $username);
-        $user = QubitUser::getOne($criteria);
-
-        if ($user == null)
+        // Set LDAP-derived user properties
+        $info = $this->ldapUserInfo($username);
+        if (false !== $info)
         {
-          $user = new QubitUser();
-          $user->username = $username;
-
-          // set LDAP-derived user properties
-          $info = $this->ldapUserInfo($username);
-          if ($info)
+          foreach ($info as $field => $value)
           {
-            foreach ($info as $field => $value)
-            {
-              $user->$field = $value;
-            }
-          }
-
-          $user->save();
-
-          // if user being created is the LDAP administrator, make user
-          // an administrator
-          if ($username === getenv('DRMC_LDAP_ADMIN_USERNAME'))
-          {
-            $aclUserGroup = new QubitAclUserGroup;
-            $aclUserGroup->userId = $user->id;
-            $aclUserGroup->groupId = QubitAclGroup::ADMINISTRATOR_ID;
-            $aclUserGroup->save();
+            $user->$field = $value;
           }
         }
 
-        // sign in user
-        $this->signIn($user);
+        $user->save();
+
+        // If user being created is the LDAP administrator, make user
+        // an administrator
+        if ($username === getenv('ATOM_DRMC_LDAP_ADMIN_USERNAME'))
+        {
+          $aclUserGroup = new QubitAclUserGroup;
+          $aclUserGroup->userId = $user->id;
+          $aclUserGroup->groupId = QubitAclGroup::ADMINISTRATOR_ID;
+          $aclUserGroup->save();
+        }
       }
 
-      return $authenticated;
+      // Sign in user
+      $this->signIn($user);
     }
+
+    return $authenticated;
   }
 
-  // get username of all users
-  static function allUsers()
+  // Get username of all users
+  public static function allUsers()
   {
     $adldap = adLdapUser::getAdLdapConnection();
 
     $filter = "(&(objectClass=user)(memberOf=". sfConfig::get('app_ldap_user_group') ."))";
     $fields = array('sAMAccountName');
 
-    // do chunked fetch of all users
-    $rawResults = adLdapUser::paginated_search($adldap, $filter, $fields);
+    // Do chunked fetch of all users
+    $rawResults = adLdapUser::paginatedSearch($adldap, $filter, $fields);
     unset($rawResults['count']);
 
-    // simplify results to make them like normal ADLDAP->user()->all() method
+    // Simplify results to make them like normal ADLDAP->user()->all() method
     $users = array();
 
     foreach ($rawResults as $userData)
@@ -113,16 +112,18 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
     }
 
     sort($users);
+
     return $users;
   }
 
-  /* ADLDAP doesn't support full searches, giving the following error:
-     "Partial search results returned: Sizelimit exceeded"
-  
-     The code in this function is a workaround, explained here:
-     http://sourceforge.net/p/adldap/discussion/358759/thread/17c74ca8/
-  */
-  static function paginated_search($adldap, $filter, $fields, $pageSize = 500)
+  /**
+   * ADLDAP doesn't support full searches, giving the following error:
+   * "Partial search results returned: Sizelimit exceeded"
+   *
+   * The code in this function is a workaround, explained here:
+   * http://sourceforge.net/p/adldap/discussion/358759/thread/17c74ca8/
+   */
+  private static function paginatedSearch($adldap, $filter, $fields, $pageSize = 500)
   {
     $cookie = '';
     $result = [];
@@ -141,19 +142,20 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
 
       ldap_control_paged_result_response($adldap->getLdapConnection(), $sr, $cookie);
 
-    } while ($cookie !== null && $cookie != '');
+    } while (!empty($cookie));
 
     return $result;
   }
 
   private function getAdLdapConnection()
   {
-    $admin_username = getenv('DRMC_LDAP_ADMIN_USERNAME');
-    $admin_password = getenv('DRMC_LDAP_ADMIN_PASSWORD');
+    $admin_username = getenv('ATOM_DRMC_LDAP_ADMIN_USERNAME');
+    $admin_password = getenv('ATOM_DRMC_LDAP_ADMIN_PASSWORD');
 
     if (!$admin_username || !$admin_password)
     {
-      $exceptionMessage = 'The DRMC_LDAP_ADMIN_USERNAME and DRMC_LDAP_ADMIN_PASSWORD environment variables must be set';
+      $exceptionMessage = 'The ATOM_DRMC_LDAP_ADMIN_USERNAME and ATOM_DRMC_LDAP_ADMIN_PASSWORD environment variables must be set';
+
       throw new sfConfigurationException($exceptionMessage);
     }
 
@@ -164,8 +166,9 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
       'base_dn'            => sfConfig::get('app_ldap_base_dn'),
       'domain_controllers' => explode(',', sfConfig::get('app_ldap_domain_controllers'))
     );
- 
-    try {
+
+    try
+    {
       $adldap = new \adLDAP\adLDAP($options);
     }
     catch (adLDAPException $e)
@@ -180,25 +183,21 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
   {
     $adldap = $this->getAdLdapConnection();
 
-    // make sure user has necessary group membership before authenticating
+    // TODO: make sure user has necessary group membership before authenticating
 
-
-    // authenticate via LDAP
-    return $adldap->user()->authenticate(
-      $username,
-      $password
-    );
+    // Authenticate via LDAP
+    return $adldap->user()->authenticate($username, $password);
   }
 
-  static function ldapUserInfo($username)
+  public static function ldapUserInfo($username)
   {
     $adldap = adLdapUser::getAdLdapConnection();
 
     $infoCollection = $adldap->user()->infoCollection($username);
 
-    // check to see if user is the admin or part of the DRMC LDAP user group
+    // Check to see if user is the admin or part of the DRMC LDAP user group
     // TODO: see if there's a way to retool things so user()->inGroup can be used
-    if ($username != getenv('DRMC_LDAP_ADMIN_USERNAME'))
+    if ($username != getenv('ATOM_DRMC_LDAP_ADMIN_USERNAME'))
     {
       if (
         is_array($infoCollection->memberof)
@@ -206,7 +205,8 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
       )
       {
         return false;
-      } elseif (
+      }
+      else if (
         is_string($infoCollection->memberof)
         && $infoCollection->memberof != sfConfig::get('app_ldap_user_group')
       )
@@ -226,8 +226,8 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
       'mail' => 'email'
     );
 
-    // translate LDAP properties to AtoM user properties
-    foreach($ldapUserPropertiesToAtomUserProperties as $ldapProperty => $atomProperty)
+    // Translate LDAP properties to AtoM user properties
+    foreach ($ldapUserPropertiesToAtomUserProperties as $ldapProperty => $atomProperty)
     {
       if (isset($infoCollection->$ldapProperty))
       {
