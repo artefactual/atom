@@ -42,7 +42,7 @@
               <?php if ((null === $resource->repository || 0 != $resource->repository->uploadLimit) && QubitDigitalObject::isUploadAllowed()): ?>
                 <li><?php echo link_to(__('Import digital objects'), array($resource, 'module' => 'informationobject', 'action' => 'multiFileUpload')) ?></li>
               <?php endif; // upload quota is non-zero ?>
-              <li><?php echo link_to(__('Create New Rights'), array($resource . '/newRight')) ?></li>
+              <li><?php echo link_to(__('Create New Rights'), array($resource,  'sf_route' => 'slug/newRight')) ?></li>
             </ul>
           </div>
         </li>
