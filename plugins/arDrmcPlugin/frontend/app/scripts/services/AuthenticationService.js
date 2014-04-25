@@ -29,7 +29,7 @@ module.exports = function ($http, $q, SETTINGS) {
   };
 
   this.isMemberOf = function(group) {
-    return self.user.groups.indexOf(group) != -1;
+    return self.user.groups.indexOf(group) !== -1;
   };
 
   this.logOut = function () {
