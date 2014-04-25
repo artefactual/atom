@@ -25,6 +25,7 @@ class ApiUsersAuthenticateAction extends QubitApiAction
     {
       throw new QubitApiNotAuthorizedException();
     }
+
     return $this->currentUserData();
   }
 
@@ -55,7 +56,7 @@ class ApiUsersAuthenticateAction extends QubitApiAction
   {
     $groups = array();
 
-    foreach($this->context->user->user->getAclGroups() as $group)
+    foreach ($this->context->user->user->getAclGroups() as $group)
     {
       array_push($groups, $group->name);
     }
