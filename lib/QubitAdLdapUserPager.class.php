@@ -53,26 +53,26 @@ class QubitAdLdapUserPager extends sfPropelPager
     $this->setLastPage(ceil($this->nbResults / $this->maxPerPage));
 
     $index = 0;
-    foreach($ldapUsers as $userId => $username)
+    foreach ($ldapUsers as $userId => $username)
     {
-      // if result is in selection range, then add it to results
+      // If result is in selection range, then add it to results
       if (($index >= $skip) && ($index < ($skip + $limit)))
       {
-        // look up user by username
+        // Look up user by username
         $criteria = new Criteria;
         $criteria->add(QubitUser::USERNAME, $username);
 
         $user = QubitUser::getOne($criteria);
 
-        // create user if it doesn't already exist
+        // Create user if it doesn't already exist
         if ($user == null)
         {
           $user = new QubitUser();
           $user->username = $username;
 
-          // set LDAP-derived user properties
+          // Set LDAP-derived user properties
           $info = adLdapUser::ldapUserInfo($username);
-          if ($info)
+          if (false !== $info)
           {
             foreach($info as $field => $value)
             {
