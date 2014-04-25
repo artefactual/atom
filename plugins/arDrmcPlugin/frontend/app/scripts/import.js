@@ -9,6 +9,5 @@
   require('ui-router');
   require('wolfy87-eventemitter');
   require('../../vendor/angular-ui.js');
-  require('../../../../../vendor/jquery-ui.js');
 
 })();
