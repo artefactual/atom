@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $state, SETTINGS, ModalEditDcMetadataService, AuthenticationService) {
+module.exports = function ($scope, $state, md5, SETTINGS, ModalEditDcMetadataService, AuthenticationService) {
 
   $scope.openEditDcModal = function () {
     ModalEditDcMetadataService.create();
@@ -17,7 +17,6 @@ module.exports = function ($scope, $state, SETTINGS, ModalEditDcMetadataService,
 
   $scope.$watch(getCurrentUser, function (user) {
     if (typeof user !== 'undefined') {
-      // TODO: use md5 to figure out gravatar ID
       // TODO: is there a user human name we can pull from a profile?
       $scope.user = {
         username: user.username,

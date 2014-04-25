@@ -5,6 +5,7 @@
   var angular = require('angular');
 
   require('../../vendor/angular-ui.js');
+  require('../../vendor/angular-md5.js');
 
   /*
    * Define module and dependencies
@@ -18,7 +19,8 @@
     require('./filters').name,
 
     'ui.router',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'angular-md5'
 
   ]);
 

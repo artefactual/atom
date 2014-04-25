@@ -56,8 +56,18 @@ class UserListAction extends sfAction
         $criteria->add(QubitUser::ACTIVE, 1);
     }
 
-    $this->pager = new QubitPager('QubitUser');
-    $this->pager->setCriteria($criteria);
+    // make sure LDAP user class is the active class
+    $this->ldapMode = get_class($this->context->user) == 'adLdapUser';
+
+    // if normal AtoM authentication is enabled, use normal list of users
+    if (!$this->ldapMode)
+    {
+      $this->pager = new QubitPager('QubitUser');
+      $this->pager->setCriteria($criteria);
+    } else {
+      $this->pager = new QubitAdLdapUserPager('QubitUser');
+    }
+
     $this->pager->setMaxPerPage($request->limit);
     $this->pager->setPage($request->page);
 

@@ -1,5 +1,6 @@
 <h1><?php echo __('List users') ?></h1>
 
+<?php if (!$ldapMode): ?>
 <section class="header-options">
   <div class="row">
     <div class="span6">
@@ -14,6 +15,7 @@
   <li<?php if ('onlyInactive' != $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Show active only'), array('filter' => 'onlyActive') + $sf_request->getParameterHolder()->getAll()) ?></li>
   <li<?php if ('onlyInactive' == $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Show inactive only'), array('filter' => 'onlyInactive') + $sf_request->getParameterHolder()->getAll()) ?></li>
 </ul>
+<?php endif; ?>
 
 <table class="table table-bordered sticky-enabled">
   <thead>
@@ -53,8 +55,10 @@
 
 <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
 
+<?php if (!$ldapMode): ?>
 <section class="actions">
   <ul>
     <li><?php echo link_to(__('Add new'), array('module' => 'user', 'action' => 'add'), array('class' => 'c-btn')) ?></li>
   </ul>
-</div>
+</section>
+<?php endif; ?>

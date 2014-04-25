@@ -50,9 +50,17 @@ class ApiUsersAuthenticateAction extends QubitApiAction
 
   protected function currentUserData()
   {
+    $groups = array();
+
+    foreach($this->context->user->user->getAclGroups() as $group)
+    {
+      array_push($groups, $group->name);
+    }
+
     return array(
       'username' => $this->context->user->user->username,
-      'email'    => $this->context->user->user->email
+      'email'    => $this->context->user->user->email,
+      'groups'   => $groups
     );
   }
 }

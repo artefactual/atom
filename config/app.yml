@@ -16,6 +16,12 @@ all:
   # Enable read only mode
   read_only: false
 
+  # LDAP authentication
+  ldap_account_suffix: @museum.moma.org
+  ldap_base_dn: DC=MUSEUM,DC=MOMA,DC=ORG
+  ldap_domain_controllers: momadc01.museum.moma.org # comma-separated list
+  ldap_user_group: CN=DRMC MA,OU=DRMC,OU=Service Accounts,DC=MUSEUM,DC=MOMA,DC=ORG
+
   # Used in the repo template
   # google_maps_api_key: ...
 
