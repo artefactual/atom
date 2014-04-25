@@ -35,7 +35,7 @@
 
     <div class="quick-info">
       <a href ng-click="select(item)" class="quick-info-thumb">
-        <img ng-src="{{ item.thumbnailPath }}" />
+        <img ng-src="{{ item.thumbnail_path }}" />
       </a>
       <div class="quick-info-title">
         <h4>
@@ -67,7 +67,7 @@
           </div>
           <div class="field">
             <h3>Size</h3>
-            <div>{{ item.byteSize | UnitFilter:2 }}</div>
+            <div>{{ item.byte_size | UnitFilter:2 }}</div>
           </div>
           <div class="field">
             <h3>No. of objects</h3>
@@ -101,7 +101,7 @@
           </div>
           <div class="field">
             <h3>MIME type</h3>
-            <div>{{ item.mimeType }}</div>
+            <div>{{ item.mime_type }}</div>
           </div>
           <div class="field">
             <h3>Format</h3>
@@ -109,7 +109,7 @@
           </div>
           <div class="field">
             <h3>File size</h3>
-            <div>{{ item.byteSize | UnitFilter:2 }}</div>
+            <div>{{ item.byte_size | UnitFilter:2 }}</div>
           </div>
           <div class="field">
             <h3>Dimensions</h3>

@@ -126,7 +126,7 @@ class ApiInformationObjectsFilesBrowseAction extends QubitApiAction
       $this->addItemToArray($result, 'size_in_aip', $doc['metsData']['size']);
       $this->addItemToArray($result, 'date_ingested', $doc['metsData']['dateIngested']);
       $this->addItemToArray($result, 'mime_type', $doc['digitalObject']['mimeType']);
-      $this->addItemToArray($result, 'thumbnail_path', $doc['digitalObject']['thumbnailPath']);
+      $this->addItemToArray($result, 'thumbnail_path', image_path($doc['digitalObject']['thumbnailPath'], true));
 
       if (isset($doc['digitalObject']['mediaTypeId']) && !empty($doc['digitalObject']['mediaTypeId']))
       {

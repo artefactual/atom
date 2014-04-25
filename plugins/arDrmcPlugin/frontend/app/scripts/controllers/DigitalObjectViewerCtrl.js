@@ -12,7 +12,7 @@ module.exports = function ($scope, $modal, $modalInstance, files, ModalDigitalOb
 
   // Get class by media type
   $scope.getMediaTypeCssClass = function (file) {
-    return ModalDigitalObjectViewerService.mediaTypes[file.mediaTypeId].class;
+    return ModalDigitalObjectViewerService.mediaTypes[file.media_type_id].class;
   };
 
   $scope.page = 1;

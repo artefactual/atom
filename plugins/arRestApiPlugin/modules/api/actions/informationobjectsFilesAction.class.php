@@ -71,19 +71,17 @@ class ApiInformationObjectsFilesAction extends QubitApiAction
 
       $item['id'] = (int)$hit->getId();
 
-      // TODO: change keys notation from camelCase to camel_case
-
       $this->addItemToArray($item, 'slug', $doc['slug']);
       $this->addItemToArray($item, 'filename', get_search_i18n($doc, 'title'));
-      $this->addItemToArray($item, 'originalRelativePathWithinAip', $doc['originalRelativePathWithinAip']);
-      $this->addItemToArray($item, 'mediaTypeId', $doc['digitalObject']['mediaTypeId']);
-      $this->addItemToArray($item, 'mimeType', $doc['digitalObject']['mimeType']);
-      $this->addItemToArray($item, 'byteSize', $doc['digitalObject']['byteSize']);
-      $this->addItemToArray($item, 'thumbnailPath', image_path($doc['digitalObject']['thumbnailPath'], true));
+      $this->addItemToArray($item, 'media_type_id', $doc['digitalObject']['mediaTypeId']);
+      $this->addItemToArray($item, 'mime_type', $doc['digitalObject']['mimeType']);
+      $this->addItemToArray($item, 'byte_size', $doc['digitalObject']['byteSize']);
+      $this->addItemToArray($item, 'thumbnail_path', image_path($doc['digitalObject']['thumbnailPath'], true));
 
       // Why "aip" is a list in the ES document?
       $this->addItemToArray($item, 'aip_uuid', $doc['aip'][0]['uuid']);
       $this->addItemToArray($item, 'aip_title', $doc['aip'][0]['filename']);
+      $this->addItemToArray($item, 'original_relative_path_within_aip', $doc['originalRelativePathWithinAip']);
 
       $data[] = $item;
     }

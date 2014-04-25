@@ -92,8 +92,8 @@
               <tbody>
                 <tr ng-repeat="aipFile in files | orderBy:predicate:reverse">
                   <td><a href ng-click="openViewer()">{{ aipFile.filename }}</a></td>
-                  <td>{{ aipFile.mimeType }}</td>
-                  <td>{{ aipFile.byteSize | UnitFilter:2 }}</td>
+                  <td>{{ aipFile.mime_type }}</td>
+                  <td>{{ aipFile.byte_size | UnitFilter:2 }}</td>
                   <td><a href ng-click="downloadFile(aipFile)">Download</a></td>
                 </tr>
               </tbody>

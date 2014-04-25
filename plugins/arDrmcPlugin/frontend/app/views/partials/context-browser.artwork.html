@@ -152,7 +152,7 @@
                       <td class="name">
                         <a href>{{ file.filename }}</a>
                       </td>
-                      <td class="size">{{ file.byteSize | UnitFilter:2 }}</td>
+                      <td class="size">{{ file.byte_size | UnitFilter:2 }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -162,7 +162,7 @@
               <div ng-if="fileListViewMode == 'thumbnails'" class="cb-sidebar-subsection-body cb-sidebar-thumbnails">
                 <div ng-click="selectFile(file, $event, $index)" ng-repeat="file in files" ng-class="{ item: true, selected: file.selected == true }">
                   <div class="preview">
-                    <img ng-src="{{ file.thumbnailPath }}"/>
+                    <img ng-src="{{ file.thumbnail_path }}"/>
                   </div>
                   <div class="footer">
                     {{ file.filename }}

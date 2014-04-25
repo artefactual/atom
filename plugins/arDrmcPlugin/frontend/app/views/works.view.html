@@ -162,12 +162,12 @@
                   <tr ng-repeat="file in files" ng-class="{ selected: file.selected == true }">
                     <!-- TODO layout from css -->
                     <td class="preview" width="20%">
-                      <a href ng-click="downloadFile(file)"><img width="100%" ng-src="{{ file.thumbnailPath }}"/></a>
+                      <a href ng-click="downloadFile(file)"><img width="100%" ng-src="{{ file.thumbnail_path }}"/></a>
                     </td>
                     <td class="name">
                       <a href ng-click="openDigitalObjectModal(file)">{{ file.filename }}</a>
                     </td>
-                    <td>{{ file.byteSize | UnitFilter:2 }}</td>
+                    <td>{{ file.byte_size | UnitFilter:2 }}</td>
                     <td>
                       <a href ui-sref="main.aips.view({ uuid: file.aip_uuid })">{{ file.aip_title }}</a><br />
                       (<a href ng-click="downloadAip(file)">download</a>)

@@ -21,7 +21,7 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
    */
 
   $scope.downloadFile = function (aipFile) {
-    ModalDownloadService.downloadFile($scope.aip.name, $scope.aip.uuid, aipFile.originalRelativePathWithinAip);
+    ModalDownloadService.downloadFile($scope.aip.name, $scope.aip.uuid, aipFile.original_relative_path_within_aip);
   };
 
   $scope.downloadAip = function () {

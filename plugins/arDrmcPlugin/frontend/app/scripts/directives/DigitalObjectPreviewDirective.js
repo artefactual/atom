@@ -9,7 +9,7 @@ module.exports = function ($compile, $http, ModalDigitalObjectViewerService) {
     },
     link: function (scope, element) {
       // template: '<div><iframe width="420" height="315" src="//www.youtube.com/embed/Q-XD6fuf0ho" frameborder="0" allowfullscreen></iframe></div>',
-      var mediaTypeId = scope.file.mediaTypeId;
+      var mediaTypeId = scope.file.media_type_id;
       var templateUrl = ModalDigitalObjectViewerService.mediaTypes[mediaTypeId].templateUrl;
 
       // Fetch the template, bind it to a new scope and compile

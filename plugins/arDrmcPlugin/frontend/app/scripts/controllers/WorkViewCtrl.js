@@ -32,7 +32,7 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
   };
 
   $scope.downloadFile = function (file) {
-    ModalDownloadService.downloadFile(file.aip_name, file.aip_uuid, file.originalRelativePathWithinAip);
+    ModalDownloadService.downloadFile(file.aip_name, file.aip_uuid, file.original_relative_path_within_aip);
   };
 
   $scope.downloadAip = function (file) {
