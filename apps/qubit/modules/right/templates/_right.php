@@ -1,14 +1,14 @@
-<div class="field">
+<div class="field" id="right<?php echo $resource->id ?>">
   <h3><?php echo __('Related right') ?></h3>
   <div>
 
+    <a role="button" class="btn btn-mini" data-id="<?php echo $resource->id ?>" data-modal="true">Edit</a>
+   
     <?php if (isset($inherit)): ?>
       <?php echo link_to(render_title($inherit), array($inherit, 'module' => 'informationobject'), array('title' => __('Inherited from %1%', array('%1%' => $inherit)))) ?>
     <?php endif; ?>
 
-    <?php echo render_show(__('Act'), render_value($resource->act)) ?>
-
-    <?php echo render_show(__('Restriction'), render_value($resource->restriction ? __('Allow') : __('Disallow'))) ?>
+    <?php echo render_show(__('Basis'), render_value($resource->basis)) ?>
 
     <?php echo render_show(__('Start date'), render_value(Qubit::renderDate($resource->startDate))) ?>
 
@@ -19,8 +19,6 @@
     <?php endif; ?>
 
     <?php echo render_show(__('Rights note(s)'), render_value($resource->getRightsNote(array('cultureFallback' => true)))) ?>
-
-    <?php echo render_show(__('Basis'), render_value($resource->basis)) ?>
 
     <?php if (QubitTerm::RIGHT_BASIS_COPYRIGHT_ID == $resource->basisId): ?>
 
@@ -51,6 +49,20 @@
       <?php echo render_show(__('Statute note'), render_value($resource->getStatuteNote(array('cultureFallback' => true)))) ?>
 
     <?php endif; ?>
+
+    <?php foreach($resource->grantedRights as $item): ?>
+      <div class="field act-description">
+        <h3>Act</h3>
+        <div>
+          <?php echo render_value($item->restriction ? __('Allow') : __('Disallow')) ?> <?php echo render_value($item->act) ?> 
+          <i>from</i> <?php echo render_value(Qubit::renderDate($item->startDate)) ?>
+          <?php if($item->endDate): ?>
+            <i>thru</i>
+            <?php echo render_value(Qubit::renderDate($item->endDate)) ?>
+          <?php endif; ?>
+        </div>
+      </div>
+    <?php endforeach?>
 
   </div>
 </div>

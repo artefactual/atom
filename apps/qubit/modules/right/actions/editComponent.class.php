@@ -173,6 +173,11 @@ class RightEditComponent extends sfComponent
     }
   }
 
+  // Handle processing the form for creating or editing
+  // an instance of the Rights object. This processForm
+  // method is called from:
+  // 
+  // /qubit/modules/informationobject/actions/editAction.class.php
   public function processForm()
   {
     if (isset($this->nameFormat))
@@ -185,6 +190,9 @@ class RightEditComponent extends sfComponent
       $params = $this->request->editRights;
     }
 
+    // the params array contains n new/edited rights.
+    // loop over each set of rights and process them
+    // $item == rights instance params
     foreach ((array)$params as $item)
     {
       // Continue only if user typed something
@@ -201,14 +209,20 @@ class RightEditComponent extends sfComponent
         continue;
       }
 
+      // Bind the params to the form
+      // and check if form is valid.
       $this->form->bind($item);
       if ($this->form->isValid())
       {
+        // if we have an id, then this is 
+        // a pre-existing Rights object
+        // load this Rights object as $this->rights
         if (isset($item['id']))
         {
           $params = $this->context->routing->parse(Qubit::pathInfo($item['id']));
           $this->right = $params['_sf_route']->resource;
         }
+        // make a new instance of Rights object
         else
         {
           $this->right = new QubitRights;
@@ -222,8 +236,12 @@ class RightEditComponent extends sfComponent
           }
         }
 
+        // save the Rights instance
         $this->right->save();
 
+        // If this is a new Right instance
+        // then generate a new relation
+        // record associated to the object.
         if (!isset($item['id']))
         {
           $this->relation = new QubitRelation;

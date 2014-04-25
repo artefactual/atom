@@ -1,0 +1,1 @@
+<?php echo get_partial('right/right', array('resource' => $resource)) ?>
