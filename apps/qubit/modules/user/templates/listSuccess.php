@@ -1,20 +1,20 @@
 <h1><?php echo __('List users') ?></h1>
 
 <?php if (!$ldapMode): ?>
-<section class="header-options">
-  <div class="row">
-    <div class="span6">
-      <?php echo get_component('search', 'inlineSearch', array(
-        'label' => __('Search users'),
-        'route' => url_for(array('module' => 'user', 'action' => 'list')))) ?>
+  <section class="header-options">
+    <div class="row">
+      <div class="span6">
+        <?php echo get_component('search', 'inlineSearch', array(
+          'label' => __('Search users'),
+          'route' => url_for(array('module' => 'user', 'action' => 'list')))) ?>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<ul class="nav nav-pills">
-  <li<?php if ('onlyInactive' != $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Show active only'), array('filter' => 'onlyActive') + $sf_request->getParameterHolder()->getAll()) ?></li>
-  <li<?php if ('onlyInactive' == $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Show inactive only'), array('filter' => 'onlyInactive') + $sf_request->getParameterHolder()->getAll()) ?></li>
-</ul>
+  <ul class="nav nav-pills">
+    <li<?php if ('onlyInactive' != $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Show active only'), array('filter' => 'onlyActive') + $sf_request->getParameterHolder()->getAll()) ?></li>
+    <li<?php if ('onlyInactive' == $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Show inactive only'), array('filter' => 'onlyInactive') + $sf_request->getParameterHolder()->getAll()) ?></li>
+  </ul>
 <?php endif; ?>
 
 <table class="table table-bordered sticky-enabled">
@@ -56,9 +56,9 @@
 <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
 
 <?php if (!$ldapMode): ?>
-<section class="actions">
-  <ul>
-    <li><?php echo link_to(__('Add new'), array('module' => 'user', 'action' => 'add'), array('class' => 'c-btn')) ?></li>
-  </ul>
-</section>
+  <section class="actions">
+    <ul>
+      <li><?php echo link_to(__('Add new'), array('module' => 'user', 'action' => 'add'), array('class' => 'c-btn')) ?></li>
+    </ul>
+  </section>
 <?php endif; ?>
