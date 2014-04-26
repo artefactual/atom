@@ -115,7 +115,7 @@ class arElasticSearchAipPdo
     return self::$statements['do']->fetchAll(PDO::FETCH_OBJ);
   }
 
-  protected function getPartOfLevelOfDescriptionID($id)
+  protected function getPartOfLevelOfDescriptionId($id)
   {
     $sql  = 'SELECT
                 level_of_description_id';
@@ -150,7 +150,7 @@ class arElasticSearchAipPdo
       $serialized['partOf']['id'] = $this->part_of;
       $serialized['partOf']['i18n'] = arElasticSearchModelBase::serializeI18ns($this->part_of, array('QubitInformationObject'), array('fields' => array('title')));
 
-      if (null !== $lod = $this->getPartOfLevelOfDescriptionID($this->part_of))
+      if (null !== $lod = $this->getPartOfLevelOfDescriptionId($this->part_of))
       {
         $serialized['partOf']['levelOfDescriptionId'] = $lod;
       }
