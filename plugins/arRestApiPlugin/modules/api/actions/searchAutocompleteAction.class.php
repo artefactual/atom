@@ -231,7 +231,7 @@ class ApiSearchAutocompleteAction extends QubitApiAction
       $this->addItemToArray($result, 'media_type_id', $doc['digitalObject']['mediaTypeId']);
       $this->addItemToArray($result, 'byte_size', $doc['digitalObject']['byteSize']);
       $this->addItemToArray($result, 'mime_type', $doc['digitalObject']['mimeType']);
-      $this->addItemToArray($result, 'thumbnail_path', $doc['digitalObject']['thumbnailPath']);
+      $this->addItemToArray($result, 'thumbnail_path', image_path($doc['digitalObject']['thumbnailPath'], true));
       $this->addItemToArray($result, 'aip_uuid', $doc['aipUuid']);
       $this->addItemToArray($result, 'aip_title', $doc['aipName']);
       $this->addItemToArray($result, 'original_relative_path_within_aip', $doc['originalRelativePathWithinAip']);
