@@ -77,17 +77,37 @@ module.exports = function (SETTINGS) {
         if (scope.type === 'date') {
           if (scope.dateRangePickerFrom !== undefined) {
             scope.from = new Date(scope.dateRangePickerFrom).getTime();
+          } else {
+            scope.from = scope.dateRangePickerFrom = undefined;
           }
           if (scope.dateRangePickerTo !== undefined) {
             scope.to = new Date(scope.dateRangePickerTo).getTime();
+          } else {
+            scope.to = scope.dateRangePickerTo = undefined;
           }
         }
         if (scope.type === 'size') {
-          if (scope.sizeRangePickerFrom !== undefined) {
+          if (scope.sizeRangePickerFrom !== undefined && !isNaN(scope.sizeRangePickerFrom)) {
             scope.from = parseInt(scope.sizeRangePickerFrom) * scope.sizeRangePickerFromUnit.value;
+          } else {
+            scope.from = scope.sizeRangePickerFrom = undefined;
           }
-          if (scope.sizeRangePickerTo !== undefined) {
+          if (scope.sizeRangePickerTo !== undefined && !isNaN(scope.sizeRangePickerTo)) {
             scope.to = parseInt(scope.sizeRangePickerTo) * scope.sizeRangePickerToUnit.value;
+          } else {
+            scope.to = scope.sizeRangePickerTo = undefined;
+          }
+        }
+        if (scope.type === 'dateYear') {
+          if (scope.dateRangePickerFrom !== undefined && scope.dateRangePickerFrom.match(/\d{4}/)) {
+            scope.from = new Date(scope.dateRangePickerFrom).getTime();
+          } else {
+            scope.from = scope.dateRangePickerFrom = undefined;
+          }
+          if (scope.dateRangePickerTo !== undefined && scope.dateRangePickerTo.match(/\d{4}/)) {
+            scope.to = new Date(scope.dateRangePickerTo).getTime();
+          } else {
+            scope.to = scope.dateRangePickerTo = undefined;
           }
         }
       };
