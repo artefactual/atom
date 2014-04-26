@@ -59,30 +59,7 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
 
       if ($user == null)
       {
-        $user = new QubitUser();
-        $user->username = $username;
-
-        // Set LDAP-derived user properties
-        $info = $this->ldapUserInfo($username);
-        if (false !== $info)
-        {
-          foreach ($info as $field => $value)
-          {
-            $user->$field = $value;
-          }
-        }
-
-        $user->save();
-
-        // If user being created is the LDAP administrator, make user
-        // an administrator
-        if ($username === getenv('ATOM_DRMC_LDAP_ADMIN_USERNAME'))
-        {
-          $aclUserGroup = new QubitAclUserGroup;
-          $aclUserGroup->userId = $user->id;
-          $aclUserGroup->groupId = QubitAclGroup::ADMINISTRATOR_ID;
-          $aclUserGroup->save();
-        }
+        $user = $this->createUserFromLdapInfo($username);
       }
     }
 
@@ -93,6 +70,36 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
     }
 
     return $authenticated;
+  }
+
+  protected function createUserFromLdapInfo($username)
+  {
+    $user = new QubitUser();
+    $user->username = $username;
+
+    // Set LDAP-derived user properties
+    $info = $this->ldapUserInfo($username);
+    if (false !== $info)
+    {
+      foreach ($info as $field => $value)
+      {
+        $user->$field = $value;
+      }
+    }
+
+    $user->save();
+
+    // If user being created is the LDAP administrator, make user
+    // an administrator
+    if ($username === getenv('ATOM_DRMC_LDAP_ADMIN_USERNAME'))
+    {
+      $aclUserGroup = new QubitAclUserGroup;
+      $aclUserGroup->userId = $user->id;
+      $aclUserGroup->groupId = QubitAclGroup::ADMINISTRATOR_ID;
+      $aclUserGroup->save();
+    }
+
+    return $user;
   }
 
   // Get username of all users
