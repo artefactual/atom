@@ -347,37 +347,77 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     parent::process();
   }
 
-  protected function processTechnologyRecord($parentSlug)
+  protected function processTechnologyRecord($momaSuffix)
   {
-    $criteria = new Criteria;
-    $criteria->add(QubitSlug::SLUG, $parentSlug);
-    $criteria->addJoin(QubitSlug::OBJECT_ID, QubitInformationObject::ID);
-    if (null === $resource = QubitInformationObject::getOne($criteria))
+    if (ctype_digit($momaSuffix))
     {
-      throw new sfException('Technology record with the given slug cannot be found');
+      $resource = QubitInformationObject::getById($momaSuffix);
+    }
+    else
+    {
+      $criteria = new Criteria;
+      $criteria->add(QubitSlug::SLUG, $momaSuffix);
+      $criteria->addJoin(QubitSlug::OBJECT_ID, QubitInformationObject::ID);
+
+      $resource = QubitInformationObject::getOne($criteria);
+    }
+
+    if (null === $resource)
+    {
+      throw new sfException('Technology record with the given slug/id cannot be found');
     }
 
     if ($resource->levelOfDescriptionId !== sfConfig::get('app_drmc_lod_supporting_technology_record_id'))
     {
-      throw new sfException('The given slug doesn\'t belong to a technology record');
+      throw new sfException('The given slug/id doesn\'t belong to a technology record');
     }
 
-    list($aipIo, $aip) = $this->addAip($resource, $resource);
+    // Get root technology record
+    if ($resource->parentId != QubitInformationObject::ROOT_ID)
+    {
+      $criteria = new Criteria;
+      $criteria->add(QubitInformationObject::LFT, $resource->lft, Criteria::LESS_THAN);
+      $criteria->add(QubitInformationObject::RGT, $resource->rgt, Criteria::GREATER_THAN);
+      $criteria->add(QubitInformationObject::PARENT_ID, QubitInformationObject::ROOT_ID);
 
-    $this->addDigitalObjects($resource, $aip);
+      $rootTechRecord = QubitInformationObject::getOne($criteria);
+    }
 
-    // Create relation between AIP and intermediate level
-    // $relation = new QubitRelation;
-    // $relation->object = $components;
-    // $relation->subject = $aip;
-    // $relation->typeId = QubitTerm::AIP_RELATION_ID;
-    // $relation->save();
+    if (isset($rootTechRecord))
+    {
+      list($aipIo, $aip) = $this->addAip($resource, $rootTechRecord);
+    }
+    else
+    {
+      list($aipIo, $aip) = $this->addAip($resource, $resource);
+    }
 
-    // // Save creation event and AIP data in ES
-    // QubitSearch::getInstance()->update($components);
+    $this->addDigitalObjects($aipIo, $aip);
 
-    // // Add related digital objects to the AIP in ES
-    // $aip->save();
+    // Create relation between AIP and tech record
+    $relation = new QubitRelation;
+    $relation->object = $resource;
+    $relation->subject = $aip;
+    $relation->typeId = QubitTerm::AIP_RELATION_ID;
+    $relation->save();
+
+    if (isset($rootTechRecord))
+    {
+      // Create relation between AIP and the root tech record
+      $relation = new QubitRelation;
+      $relation->object = $rootTechRecord;
+      $relation->subject = $aip;
+      $relation->typeId = QubitTerm::AIP_RELATION_ID;
+      $relation->save();
+
+      // Add AIP to the root tech record in ES
+      QubitSearch::getInstance()->update($rootTechRecord);
+    }
+
+    // Add related digital objects to the AIP in ES
+    // and save AIP data for the tech record in ES
+    QubitSearch::getInstance()->update($aip);
+    QubitSearch::getInstance()->update($resource);
   }
 
   protected function processArtworkRecord($tmsObjectId)
