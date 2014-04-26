@@ -114,7 +114,10 @@
                   <td>{{ aip.size | UnitFilter:1 }}</td>
                   <td>{{ aip.created_at }}</td>
                   <td><a href ng-click="openReclassifyModal(aip)">{{ aip.type.name || 'Unclassified' }}</a></td>
-                  <td><a ui-sref="main.works.view({ id: aip.part_of.id })">{{ aip.part_of.title }}</a></td>
+                  <td>
+                    <a ng-if="aip.part_of.level_of_description_id == artworkId" ui-sref="main.works.view({ id: aip.part_of.id })">{{ aip.part_of.title }}</a>
+                    <a ng-if="aip.part_of.level_of_description_id == techId" ui-sref="main.technology-records.view({ id: aip.part_of.id })">{{ aip.part_of.title }}</a>
+                  </td>
                 </tr>
               </tbody>
             </table>

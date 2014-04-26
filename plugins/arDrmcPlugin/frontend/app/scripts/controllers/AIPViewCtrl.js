@@ -8,6 +8,10 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
       pullFiles();
     });
 
+  // Levels of description to determine part_of link
+  $scope.artworkId = parseInt(SETTINGS.drmc.lod_artwork_record_id);
+  $scope.techId = parseInt(SETTINGS.drmc.lod_supporting_technology_record_id);
+
   $scope.openReclassifyModal = function () {
     ModalReclassifyAipService.open($scope.aip.uuid, $scope.aip.part_of.title).result.then(function (data) {
       $scope.aip.type.id = data.type_id;

@@ -121,6 +121,7 @@ class ApiAipsBrowseAction extends QubitApiAction
       {
         $this->addItemToArray($aip['part_of'], 'id', $doc['partOf']['id']);
         $this->addItemToArray($aip['part_of'], 'title', get_search_i18n($doc['partOf'], 'title'));
+        $this->addItemToArray($aip['part_of'], 'level_of_description_id', $doc['partOf']['levelOfDescriptionId']);
       }
 
       $this->addItemToArray($aip, 'digital_object_count', $doc['digitalObjectCount']);
