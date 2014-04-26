@@ -40,11 +40,14 @@ class ApiInformationObjectsTechnologyRecordsBrowseAction extends QubitApiAction
     $this->prepareEsSorting($query, array(
       'createdAt' => 'createdAt'));
 
-    // Filter to TMS Objects (artworks)
+    // Filter to technology records
     $queryBool->addMust(new \Elastica\Query\Term(array('levelOfDescriptionId' => sfConfig::get('app_drmc_lod_supporting_technology_record_id'))));
 
     // Filter to root technology records
-    $queryBool->addMust(new \Elastica\Query\Term(array('parentId' => QubitInformationObject::ROOT_ID)));
+    if (isset($this->request->onlyRoot) && $this->request->onlyRoot === 'true')
+    {
+      $queryBool->addMust(new \Elastica\Query\Term(array('parentId' => QubitInformationObject::ROOT_ID)));
+    }
 
     // Filter query
     if (isset($this->request->query) && 1 !== preg_match('/^[\s\t\r\n]*$/', $this->request->query))
