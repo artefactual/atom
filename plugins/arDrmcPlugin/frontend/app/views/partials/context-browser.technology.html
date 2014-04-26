@@ -100,6 +100,18 @@
           <!-- Heading -->
           <h3 class="drmc-color-{{ currentNode.data.level }}">{{ currentNode.data.title }}</h3>
 
+          <!-- Id  -->
+          <div class="cb-sidebar-subsection">
+            <div class="cb-sidebar-subsection-body cb-sidebar-kv-list">
+              <ul>
+                <li>
+                  <strong class="key">ID</strong>
+                  <p class="value">{{ currentNode.id }}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <!-- Dublin Core metadata -->
           <div ng-if="currentNode.hasDc" class="cb-sidebar-subsection cb-sidebar-subsection-collapsible" ng-class="{ collapsed: dcCollapsed }">
             <h4><a href ng-click="dcCollapsed = !dcCollapsed">Dublin Core metadata</a></h4>
