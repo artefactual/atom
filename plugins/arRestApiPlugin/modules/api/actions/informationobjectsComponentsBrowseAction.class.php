@@ -55,8 +55,23 @@ class ApiInformationObjectsComponentsBrowseAction extends QubitApiAction
     // Filter query
     if (isset($this->request->query) && 1 !== preg_match('/^[\s\t\r\n]*$/', $this->request->query))
     {
-      $queryText = new \Elastica\Query\Text();
-      $queryText->setFieldQuery('i18n.en.title.autocomplete', $this->request->query);
+      $culture = sfContext::getInstance()->user->getCulture();
+
+      $queryFields = array(
+        'i18n.'.$culture.'.title.autocomplete',
+        'identifier',
+        'i18n.'.$culture.'.extentAndMedium',
+        'i18n.'.$culture.'.physicalCharacteristics',
+        'tmsComponent.componentNumber',
+        'tmsComponent.installComments.i18n.'.$culture.'.content',
+        'tmsComponent.prepComments.i18n.'.$culture.'.content',
+        'tmsComponent.storageComments.i18n.'.$culture.'.content',
+        'tmsComponent.textEntries.i18n.'.$culture.'.content',
+        'tmsComponent.artwork.i18n.'.$culture.'.title'
+      );
+
+      $queryText = new \Elastica\Query\QueryString($this->request->query);
+      $queryText->setFields($queryFields);
 
       $queryBool->addMust($queryText);
     }

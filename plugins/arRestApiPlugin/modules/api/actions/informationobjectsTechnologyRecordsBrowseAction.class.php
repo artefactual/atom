@@ -49,8 +49,21 @@ class ApiInformationObjectsTechnologyRecordsBrowseAction extends QubitApiAction
     // Filter query
     if (isset($this->request->query) && 1 !== preg_match('/^[\s\t\r\n]*$/', $this->request->query))
     {
-      $queryText = new \Elastica\Query\Text();
-      $queryText->setFieldQuery('i18n.en.title.autocomplete', $this->request->query);
+      $culture = sfContext::getInstance()->user->getCulture();
+
+      $queryFields = array(
+        'i18n.'.$culture.'.title.autocomplete',
+        'identifier',
+        'inheritedTitle',
+        'names.i18n.'.$culture.'.authorizedFormOfName',
+        'i18n.'.$culture.'.scopeAndContent',
+        'i18n.'.$culture.'.extentAndMedium',
+        'i18n.'.$culture.'.locationOfOriginals',
+        'i18n.'.$culture.'.accessConditions'
+      );
+
+      $queryText = new \Elastica\Query\QueryString($this->request->query);
+      $queryText->setFields($queryFields);
 
       $queryBool->addMust($queryText);
     }
@@ -159,7 +172,6 @@ class ApiInformationObjectsTechnologyRecordsBrowseAction extends QubitApiAction
       $this->addItemToArray($result, 'collection_root_id', $doc['collectionRootId']);
       $this->addItemToArray($result, 'date', get_search_i18n($doc['dates'][0], 'date'));
       $this->addItemToArray($result, 'creator', get_search_i18n($doc['creators'][0], 'authorizedFormOfName'));
-
       $this->addItemToArray($result, 'description', get_search_i18n($doc, 'scopeAndContent'));
       $this->addItemToArray($result, 'format', get_search_i18n($doc, 'extentAndMedium'));
 

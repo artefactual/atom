@@ -46,8 +46,17 @@ class ApiInformationObjectsFilesBrowseAction extends QubitApiAction
     // Filter query
     if (isset($this->request->query) && 1 !== preg_match('/^[\s\t\r\n]*$/', $this->request->query))
     {
-      $queryText = new \Elastica\Query\Text();
-      $queryText->setFieldQuery('i18n.en.title.autocomplete', $this->request->query);
+      $culture = sfContext::getInstance()->user->getCulture();
+
+      $queryFields = array(
+        'i18n.'.$culture.'.title.autocomplete',
+        'identifier',
+        'aipUuid',
+        'aipName'
+      );
+
+      $queryText = new \Elastica\Query\QueryString($this->request->query);
+      $queryText->setFields($queryFields);
 
       $queryBool->addMust($queryText);
     }
