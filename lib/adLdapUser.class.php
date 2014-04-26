@@ -42,14 +42,16 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
 
     $authenticated = $this->ldapAuthenticate($username, $password);
 
-    // Fallback to non-LDAP authentication
+    // Fallback to non-LDAP authentication if need be and load/create user data
     if (!$authenticated)
     {
       $authenticated = parent::authenticate($username, $password);
-    }
 
-    if ($authenticated)
-    {
+      // Load user using username or, if one doesn't exist, create it
+      $criteria = new Criteria;
+      $criteria->add(QubitUser::EMAIL, $username);
+      $user = QubitUser::getOne($criteria);
+    } else {
       // Load user using username or, if one doesn't exist, create it
       $criteria = new Criteria;
       $criteria->add(QubitUser::USERNAME, $username);
@@ -82,8 +84,11 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
           $aclUserGroup->save();
         }
       }
+    }
 
-      // Sign in user
+    // Sign in user if authentication was successful
+    if ($authenticated)
+    {
       $this->signIn($user);
     }
 
