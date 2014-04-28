@@ -40,14 +40,33 @@ class ApiInformationObjectsTechnologyRecordsBrowseAction extends QubitApiAction
     $this->prepareEsSorting($query, array(
       'createdAt' => 'createdAt'));
 
-    // Filter to TMS Objects (artworks)
+    // Filter to technology records
     $queryBool->addMust(new \Elastica\Query\Term(array('levelOfDescriptionId' => sfConfig::get('app_drmc_lod_supporting_technology_record_id'))));
+
+    // Filter to root technology records
+    if (isset($this->request->onlyRoot) && $this->request->onlyRoot === 'true')
+    {
+      $queryBool->addMust(new \Elastica\Query\Term(array('parentId' => QubitInformationObject::ROOT_ID)));
+    }
 
     // Filter query
     if (isset($this->request->query) && 1 !== preg_match('/^[\s\t\r\n]*$/', $this->request->query))
     {
-      $queryText = new \Elastica\Query\Text();
-      $queryText->setFieldQuery('i18n.en.title.autocomplete', $this->request->query);
+      $culture = sfContext::getInstance()->user->getCulture();
+
+      $queryFields = array(
+        'i18n.'.$culture.'.title.autocomplete',
+        'identifier',
+        'inheritedTitle',
+        'names.i18n.'.$culture.'.authorizedFormOfName',
+        'i18n.'.$culture.'.scopeAndContent',
+        'i18n.'.$culture.'.extentAndMedium',
+        'i18n.'.$culture.'.locationOfOriginals',
+        'i18n.'.$culture.'.accessConditions'
+      );
+
+      $queryText = new \Elastica\Query\QueryString($this->request->query);
+      $queryText->setFields($queryFields);
 
       $queryBool->addMust($queryText);
     }
@@ -156,7 +175,6 @@ class ApiInformationObjectsTechnologyRecordsBrowseAction extends QubitApiAction
       $this->addItemToArray($result, 'collection_root_id', $doc['collectionRootId']);
       $this->addItemToArray($result, 'date', get_search_i18n($doc['dates'][0], 'date'));
       $this->addItemToArray($result, 'creator', get_search_i18n($doc['creators'][0], 'authorizedFormOfName'));
-
       $this->addItemToArray($result, 'description', get_search_i18n($doc, 'scopeAndContent'));
       $this->addItemToArray($result, 'format', get_search_i18n($doc, 'extentAndMedium'));
 

@@ -57,7 +57,10 @@
             </div>
             <div class="field">
               <h3>Part of</h3>
-              <div><a ui-sref="main.works.view({ id: aip.part_of.id })">{{ aip.part_of.title }}</a></div>
+              <div>
+                <a ng-if="aip.part_of.level_of_description_id == artworkId" ui-sref="main.works.view({ id: aip.part_of.id })">{{ aip.part_of.title }}</a>
+                <a ng-if="aip.part_of.level_of_description_id == techId" ui-sref="main.technology-records.view({ id: aip.part_of.id })">{{ aip.part_of.title }}</a>
+              </div>
             </div>
             <div class="field" ng-if="aip.description != undefined">
               <h3>Description</h3>

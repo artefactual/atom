@@ -55,6 +55,16 @@
 
         </div>
 
+        <div class="range-picker-fields" ng-show="type == 'dateYear'">
+
+          <label>From</label>
+          <input type="text" ng-model="dateRangePickerFrom" placeholder="Year"/>
+
+          <label>To</label>
+          <input type="text" ng-model="dateRangePickerTo" placeholder="Year"/>
+
+        </div>
+
         <div class="range-picker-buttons">
           <button class="btn" ng-click="resetRangePicker()">Reset</button>
           <button class="btn" ng-click="submitRangePicker()">Submit</button>

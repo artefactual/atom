@@ -115,6 +115,19 @@ class arElasticSearchAipPdo
     return self::$statements['do']->fetchAll(PDO::FETCH_OBJ);
   }
 
+  protected function getPartOfLevelOfDescriptionId($id)
+  {
+    $sql  = 'SELECT
+                level_of_description_id';
+    $sql .= ' FROM '.QubitInformationObject::TABLE_NAME;
+    $sql .= ' WHERE id = ?';
+
+    self::$statements['partOf'] = self::$conn->prepare($sql);
+    self::$statements['partOf']->execute(array($id));
+
+    return self::$statements['partOf']->fetchColumn();
+  }
+
   public function serialize()
   {
     $serialized = array();
@@ -136,6 +149,11 @@ class arElasticSearchAipPdo
     {
       $serialized['partOf']['id'] = $this->part_of;
       $serialized['partOf']['i18n'] = arElasticSearchModelBase::serializeI18ns($this->part_of, array('QubitInformationObject'), array('fields' => array('title')));
+
+      if (null !== $lod = $this->getPartOfLevelOfDescriptionId($this->part_of))
+      {
+        $serialized['partOf']['levelOfDescriptionId'] = $lod;
+      }
     }
 
     foreach ($this->getDigitalObjects() as $item)
