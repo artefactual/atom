@@ -40,6 +40,13 @@ class InformationObjectEditRightsAction extends sfAction
       'statuteDeterminationDate',
       'statuteNote');
 
+  protected function dateWidget()
+  {
+    $widget = new sfWidgetFormInput;
+    $widget->setAttribute('type', 'date');
+    return $widget;
+  }
+
   protected function addField($name)
   {
     switch ($name)
@@ -47,21 +54,21 @@ class InformationObjectEditRightsAction extends sfAction
       case 'endDate':
         $this->form->setDefault('endDate', ($this->right->endDate));
         $this->form->setValidator('endDate', new sfValidatorString);
-        $this->form->setWidget('endDate', new sfWidgetFormInput);
+        $this->form->setWidget('endDate', $this->dateWidget());
         $this->form->getWidgetSchema()->endDate->setLabel($this->context->i18n->__('End'));
         break;
 
       case 'startDate':
         $this->form->setDefault('startDate', $this->right->startDate);
         $this->form->setValidator('startDate', new sfValidatorString);
-        $this->form->setWidget('startDate', new sfWidgetFormInput);
+        $this->form->setWidget('startDate', $this->dateWidget());
         $this->form->getWidgetSchema()->startDate->setLabel($this->context->i18n->__('Start'));
         break;
 
       case 'statuteDeterminationDate':
       case 'copyrightStatusDate':
         $this->form->setValidator($name, new sfValidatorString);
-        $this->form->setWidget($name, new sfWidgetFormInput);
+        $this->form->setWidget($name, $this->dateWidget());
         $this->form->setDefault($name, $this->right[$name]);
         break;
 
@@ -269,12 +276,12 @@ class InformationObjectEditRightsAction extends sfAction
     $form->setDefault('act', $this->context->routing->generate(null, array($grantedRight->act, 'module' => 'term')));
 
     $form->setValidator('startDate', new sfValidatorString);
-    $form->setWidget('startDate', new sfWidgetFormInput);
+    $form->setWidget('startDate', $this->dateWidget());
     $form->getWidgetSchema()->startDate->setLabel($this->context->i18n->__('Start'));
     $form->setDefault('startDate', ($grantedRight->startDate));
 
     $form->setValidator('endDate', new sfValidatorString);
-    $form->setWidget('endDate', new sfWidgetFormInput);
+    $form->setWidget('endDate', $this->dateWidget());
     $form->getWidgetSchema()->endDate->setLabel($this->context->i18n->__('End'));
     $form->setDefault('endDate', ($grantedRight->endDate));
 
