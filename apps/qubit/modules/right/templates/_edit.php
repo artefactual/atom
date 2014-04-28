@@ -19,9 +19,7 @@
     </caption><thead>
       <tr>
         <th>
-          <?php echo __('Act') ?>
-        </th><th>
-          <?php echo __('Restriction') ?>
+          <?php echo __('Basis') ?>
         </th><th>
           <?php echo __('Start') ?>
         </th><th>
@@ -34,9 +32,7 @@
       <?php foreach ($rights as $item): ?>
         <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?> related_obj_<?php echo $item->id ?>" id="<?php echo url_for(array($item->object, 'module' => 'right')) ?>">
           <td>
-            <?php echo $item->object->act ?>
-          </td><td>
-            <?php echo $item->object->restriction ? __('Allow') : __('Disallow') ?>
+            <?php echo Qubit::renderDate($item->object->basis) ?>
           </td><td>
             <?php echo Qubit::renderDate($item->object->startDate) ?>
           </td><td>
