@@ -16,47 +16,33 @@
       <fieldset class="collapsible">
         <legend><?php echo __('Rights Basis') ?></legend>
 
-          <?php echo $form->basis
-            ->renderRow() ?>
+          <?php echo $form->basis->renderRow() ?>
 
-          <?php echo $form->copyrightStatus
-            ->renderRow() ?>
+          <?php echo $form->copyrightStatus->renderRow() ?>
 
           <?php echo $form->copyrightStatusDate->renderRow() ?>
 
-          <?php echo $form->copyrightJurisdiction
+          <?php echo $form->copyrightJurisdiction->renderRow() ?>
 
-            ->renderRow() ?>
+          <?php echo $form->copyrightNote->renderRow() ?>
 
-          <?php echo $form->copyrightNote
-            ->renderRow() ?>
+          <?php echo $form->licenseIdentifier->renderRow() ?>
 
-          <?php echo $form->licenseIdentifier
-            ->renderRow() ?>
+          <?php echo $form->licenseTerms->renderRow() ?>
 
-          <?php echo $form->licenseTerms
-            ->renderRow() ?>
+          <?php echo $form->licenseNote->renderRow() ?>
 
-          <?php echo $form->licenseNote
-            ->renderRow() ?>
+          <?php echo $form->statuteJurisdiction->renderRow() ?>
 
-          <?php echo $form->statuteJurisdiction
-            ->renderRow() ?>
+          <?php echo $form->statuteCitation->renderRow() ?>
 
-          <?php echo $form->statuteCitation
-            ->renderRow() ?>
+          <?php echo $form->statuteDeterminationDate->renderRow() ?>
 
-          <?php echo $form->statuteDeterminationDate
-            ->renderRow() ?>
+          <?php echo $form->statuteNote->renderRow() ?>
 
-          <?php echo $form->statuteNote
-            ->renderRow() ?>
+          <?php echo $form->startDate->renderRow() ?>
 
-          <?php echo $form->startDate
-            ->renderRow() ?>
-
-          <?php echo $form->endDate
-            ->renderRow() ?>
+          <?php echo $form->endDate->renderRow() ?>
 
           <div class="form-item">
             <?php echo $form->rightsHolder->renderLabel() ?>
@@ -65,9 +51,7 @@
             <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'rightsholder', 'action' => 'autocomplete')) ?>"/>
           </div>
 
-          <?php echo $form->rightsNote
-            ->label(__('Rights note(s)'))
-            ->renderRow() ?>
+          <?php echo $form->rightsNote->label(__('Rights note(s)'))->renderRow() ?>
 
 
       </fieldset>
