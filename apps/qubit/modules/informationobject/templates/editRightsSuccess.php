@@ -97,6 +97,7 @@
             <?php echo $gr['restriction']->renderRow() ?>
             <?php echo $gr['startDate']->renderRow() ?>
             <?php echo $gr['endDate']->renderRow() ?>
+            <?php echo $gr['notes']->renderRow() ?>
           </fieldset>
         <?php endforeach; ?>
 
@@ -107,6 +108,7 @@
             <?php echo $form['blank']['restriction']->renderRow() ?>
             <?php echo $form['blank']['startDate']->renderRow() ?>
             <?php echo $form['blank']['endDate']->renderRow() ?>
+            <?php echo $form['blank']['notes']->renderRow() ?>
         </fieldset>
 
         <fieldset>

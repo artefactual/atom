@@ -161,7 +161,7 @@ class InformationObjectEditRightsAction extends sfAction
           $grantedRight->restriction    = $data['restriction'];
           $grantedRight->startDate      = $data['startDate'];
           $grantedRight->endDate        = $data['endDate'];
-
+          $grantedRight->notes          = $data['notes'];
         }
       case 'blank':
         break;
