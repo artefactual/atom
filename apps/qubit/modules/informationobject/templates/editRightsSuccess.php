@@ -72,7 +72,7 @@
                 $restriction = $gr['restriction']->getValue() === '0' ? __('Disallow') : __('Allow');
                 $title = "{$act} {$restriction}";
               } else {
-                $title = "Item ".($i+1);
+                $title = "Granted Right ".($i+1);
               }
             ?>
             <legend><?php echo $title ?></legend>
@@ -96,7 +96,7 @@
         </fieldset>
 
         <fieldset>
-          <legend><a class="newItem">New Item</a></legend>
+          <legend><a class="newItem">New Granted Right</a></legend>
         </fieldset>
 
       </fieldset>
@@ -146,7 +146,7 @@
           // right_blank_act becomes right_grantedRights_0_act
           $this.attr('id', $this.attr('id').replace('_blank_', '_grantedRights_'+count+'_'));
         })
-        added.find('legend').replaceWith("<legend>Item "+(count+1)+"</legend>");
+        added.find('legend').replaceWith("<legend>New Granted Right "+(count+1)+"</legend>");
         Drupal.behaviors.collapse.attach();
         added.toggle(true);
       });
