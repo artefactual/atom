@@ -166,8 +166,9 @@ class InformationObjectEditRightsAction extends sfAction
 
           $grantedRight->act            = $actparams['_sf_route']->resource;
           $grantedRight->restriction    = $data['restriction'];
-          $grantedRight->startDate      = $data['startDate'];
-          $grantedRight->endDate        = $data['endDate'];
+          // empty dates come in as empty strings, but propel wants 'null' or it'll default to today's date
+          $grantedRight->startDate      = strlen($data['startDate'] > 0) ? $data['startDate'] : null;
+          $grantedRight->endDate        = strlen($data['endDate'] > 0)   ? $data['endDate']   : null;
           $grantedRight->notes          = $data['notes'];
         }
       case 'blank':
