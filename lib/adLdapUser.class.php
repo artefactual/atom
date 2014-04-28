@@ -207,20 +207,10 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
   {
     $adldap = $this->getAdLdapConnection();
 
-    // TODO: make sure user has necessary group membership before authenticating
-
-    // Authenticate via LDAP
-    return $adldap->user()->authenticate($username, $password);
-  }
-
-  public static function ldapUserInfo($username)
-  {
-    $adldap = adLdapUser::getAdLdapConnection();
-
-    $infoCollection = $adldap->user()->infoCollection($username);
-
     // Check to see if user is the admin or part of the DRMC LDAP user group
     // TODO: see if there's a way to retool things so user()->inGroup can be used
+    $infoCollection = $adldap->user()->infoCollection($username);
+
     if ($username != getenv('ATOM_DRMC_LDAP_ADMIN_USERNAME'))
     {
       if (
@@ -238,6 +228,16 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
         return false;
       }
     }
+
+    // Authenticate via LDAP
+    return $adldap->user()->authenticate($username, $password);
+  }
+
+  public static function ldapUserInfo($username)
+  {
+    $adldap = adLdapUser::getAdLdapConnection();
+
+    $infoCollection = $adldap->user()->infoCollection($username);
 
     if (!$infoCollection)
     {
