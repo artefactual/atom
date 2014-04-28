@@ -56,6 +56,7 @@
           <?php echo render_show(__('Restriction'), render_value($grantedRight->restriction ? __('Allow') : __('Disallow'))) ?>
           <?php echo render_show(__('Start date'), render_value(Qubit::renderDate($grantedRight->startDate))) ?>
           <?php echo render_show(__('End date'), render_value(Qubit::renderDate($grantedRight->endDate))) ?>
+          <?php echo render_show(__('Notes'), render_value(Qubit::renderDate($grantedRight->notes))) ?>
     <?php endforeach; ?>
     </blockquote>
 
