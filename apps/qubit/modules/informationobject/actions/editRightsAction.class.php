@@ -145,12 +145,14 @@ class InformationObjectEditRightsAction extends sfAction
           $grantedRight = null;
 
           // try and find pre-existing record with this id
-          $grantedRight = QubitGrantedRight::getById($data['id']);
+          $grantedRight = $this->right->grantedRightsFindById((int) $data['id']);
           
           // none found, so make a new one
           if(! $grantedRight)
           {
             $grantedRight = new QubitGrantedRight;
+            // relate it to the right
+            $this->right->grantedRights[] =& $grantedRight;
           }
 
           $actparams = $this->context->routing->parse(Qubit::pathInfo($data['act']));
@@ -160,7 +162,6 @@ class InformationObjectEditRightsAction extends sfAction
           $grantedRight->startDate      = $data['startDate'];
           $grantedRight->endDate        = $data['endDate'];
 
-          $this->right->grantedRights[] = $grantedRight;
         }
       case 'blank':
         break;

@@ -61,4 +61,16 @@ class QubitRights extends BaseRights
 
     parent::delete($connection);
   }
+
+  public function grantedRightsFindById($id)
+  {
+    foreach($this->grantedRights as $gr)
+    {
+      if($gr->id === $id)
+      {
+        return $gr;
+      }
+    }
+     return false;
+  }
 }
