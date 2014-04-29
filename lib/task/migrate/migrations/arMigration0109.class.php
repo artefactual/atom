@@ -18,7 +18,7 @@
  */
 
 /*
- * Add job table & job management menu link
+ * Add job table
  *
  * @package    AccesstoMemory
  * @subpackage migration
@@ -55,6 +55,8 @@ CREATE TABLE `job` (
   CONSTRAINT `fk_job_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB;
 sql;
+
+    QubitPdo::modify($sql);
 
     return true;
   }
