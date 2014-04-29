@@ -44,6 +44,15 @@ propel:
     created_at: timestamp
     part_of: { type: integer, foreignTable: object, foreignReference: id, onDelete: setnull }
 
+  job:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    name: varchar(255)
+    status_id: { type: integer, required: true, foreignTable: status, foreignReference: id, onDelete: cascade }
+    created_at: { type: timestamp, required: true }
+    completed_at: timestamp
+    job_id: integer
+    user_id: { type: integer, required: true, foreignTable: user, foreignReference: id }
+
   contact_information:
     actor_id: { type: integer, required: true, foreignTable: actor, foreignReference: id, onDelete: cascade }
     primary_contact: boolean

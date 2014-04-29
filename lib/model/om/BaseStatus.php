@@ -183,6 +183,11 @@ abstract class BaseStatus implements ArrayAccess
       }
     }
 
+    if ('jobs' == $name)
+    {
+      return true;
+    }
+
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
   }
 
@@ -222,6 +227,23 @@ abstract class BaseStatus implements ArrayAccess
 
         $offset++;
       }
+    }
+
+    if ('jobs' == $name)
+    {
+      if (!isset($this->refFkValues['jobs']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['jobs'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['jobs'] = self::getjobsById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['jobs'];
     }
 
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
@@ -551,6 +573,26 @@ abstract class BaseStatus implements ArrayAccess
     $criteria->addJoin(QubitStatus::STATUS_ID, QubitTerm::ID);
 
     return $criteria;
+  }
+
+  public static function addjobsCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitJob::STATUS_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getjobsById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addjobsCriteriaById($criteria, $id);
+
+    return QubitJob::get($criteria, $options);
+  }
+
+  public function addjobsCriteria(Criteria $criteria)
+  {
+    return self::addjobsCriteriaById($criteria, $this->id);
   }
 
   public function __call($name, $args)

@@ -52,6 +52,7 @@ class StatusTableMap extends TableMap {
     $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('object_id' => 'id', ), 'CASCADE', null);
     $this->addRelation('termRelatedBytypeId', 'term', RelationMap::MANY_TO_ONE, array('type_id' => 'id', ), 'CASCADE', null);
     $this->addRelation('termRelatedBystatusId', 'term', RelationMap::MANY_TO_ONE, array('status_id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('job', 'job', RelationMap::ONE_TO_MANY, array('id' => 'status_id', ), 'CASCADE', null);
 	} // buildRelations()
 
 } // StatusTableMap
