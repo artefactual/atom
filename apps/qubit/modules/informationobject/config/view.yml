@@ -12,6 +12,9 @@ editRightsSuccess:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/autocomplete/autocomplete-min:
     autocomplete:
+    description:
+  stylesheets:
+    edit:
 
 editPhysicalObjectsSuccess:
   javascripts:
