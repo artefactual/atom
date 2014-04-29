@@ -47,7 +47,15 @@
                 // don't work */);
                 if (undefined === $sidebar.offset())
                 {
-                  $description.addClass('description-bottom');
+                  // hack: assume tooltip is max 175px wide
+                  // check if there is >= 175px of space
+                  // to the left of the #content div.
+                  // if so then render description-left
+                  if( jQuery('#content')[0].offsetLeft >= 175  ) {
+                    $description.addClass('description-left');
+                  } else {
+                    $description.addClass('description-bottom');
+                  }
                 }
                 else if (0 == $sidebar.height() || ($this.offset().top <= $sidebar.offset().top + $sidebar.height()))
                 {
