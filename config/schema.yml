@@ -47,10 +47,8 @@ propel:
   job:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     name: varchar(255)
-    status_id: { type: integer, required: true, foreignTable: status, foreignReference: id, onDelete: cascade }
-    created_at: { type: timestamp, required: true }
+    status_id: { type: integer, required: true }
     completed_at: timestamp
-    job_id: integer
     user_id: { type: integer, required: true, foreignTable: user, foreignReference: id }
 
   contact_information:

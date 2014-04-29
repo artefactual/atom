@@ -147,22 +147,15 @@ CREATE TABLE `job`
 	`id` INTEGER  NOT NULL,
 	`name` VARCHAR(255),
 	`status_id` INTEGER  NOT NULL,
-	`created_at` DATETIME  NOT NULL,
 	`completed_at` DATETIME,
-	`job_id` INTEGER,
 	`user_id` INTEGER  NOT NULL,
 	PRIMARY KEY (`id`),
 	CONSTRAINT `job_FK_1`
 		FOREIGN KEY (`id`)
 		REFERENCES `object` (`id`)
 		ON DELETE CASCADE,
-	INDEX `job_FI_2` (`status_id`),
+	INDEX `job_FI_2` (`user_id`),
 	CONSTRAINT `job_FK_2`
-		FOREIGN KEY (`status_id`)
-		REFERENCES `status` (`id`)
-		ON DELETE CASCADE,
-	INDEX `job_FI_3` (`user_id`),
-	CONSTRAINT `job_FK_3`
 		FOREIGN KEY (`user_id`)
 		REFERENCES `user` (`id`)
 )Engine=InnoDB;

@@ -10,9 +10,7 @@ abstract class BaseJob extends QubitObject implements ArrayAccess
     ID = 'job.ID',
     NAME = 'job.NAME',
     STATUS_ID = 'job.STATUS_ID',
-    CREATED_AT = 'job.CREATED_AT',
     COMPLETED_AT = 'job.COMPLETED_AT',
-    JOB_ID = 'job.JOB_ID',
     USER_ID = 'job.USER_ID';
 
   public static function addSelectColumns(Criteria $criteria)
@@ -24,9 +22,7 @@ abstract class BaseJob extends QubitObject implements ArrayAccess
     $criteria->addSelectColumn(QubitJob::ID);
     $criteria->addSelectColumn(QubitJob::NAME);
     $criteria->addSelectColumn(QubitJob::STATUS_ID);
-    $criteria->addSelectColumn(QubitJob::CREATED_AT);
     $criteria->addSelectColumn(QubitJob::COMPLETED_AT);
-    $criteria->addSelectColumn(QubitJob::JOB_ID);
     $criteria->addSelectColumn(QubitJob::USER_ID);
 
     return $criteria;
@@ -72,13 +68,6 @@ abstract class BaseJob extends QubitObject implements ArrayAccess
     parent::__construct();
 
     $this->tables[] = Propel::getDatabaseMap(QubitJob::DATABASE_NAME)->getTable(QubitJob::TABLE_NAME);
-  }
-
-  public static function addJoinstatusCriteria(Criteria $criteria)
-  {
-    $criteria->addJoin(QubitJob::STATUS_ID, QubitStatus::ID);
-
-    return $criteria;
   }
 
   public static function addJoinuserCriteria(Criteria $criteria)

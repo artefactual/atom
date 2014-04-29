@@ -39,20 +39,15 @@ class arMigration0109
     // Create AIP table
     $sql = <<<sql
 CREATE TABLE `job` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `status_id` int(11) NOT NULL,
-  `created_at` datetime NOT NULL,
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `completed_at` datetime DEFAULT NULL,
-  `job_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
+  `status_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_job_1` (`id`),
-  KEY `fk_job_2` (`status_id`),
-  KEY `fk_job_3` (`user_id`),
-  CONSTRAINT `fk_job_1` FOREIGN KEY (`id`) REFERENCES `object` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_job_2` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_job_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  KEY `job_FI_3` (`user_id`),
+  CONSTRAINT `job_FK_1` FOREIGN KEY (`id`) REFERENCES `object` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `job_FK_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB;
 sql;
 

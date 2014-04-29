@@ -38,10 +38,8 @@ class JobTableMap extends TableMap {
 		// columns
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'object', 'ID', true, null, null);
 		$this->addColumn('NAME', 'name', 'VARCHAR', false, 255, null);
-		$this->addForeignKey('STATUS_ID', 'statusId', 'INTEGER', 'status', 'ID', true, null, null);
-		$this->addColumn('CREATED_AT', 'createdAt', 'TIMESTAMP', true, null, null);
+		$this->addColumn('STATUS_ID', 'statusId', 'INTEGER', true, null, null);
 		$this->addColumn('COMPLETED_AT', 'completedAt', 'TIMESTAMP', false, null, null);
-		$this->addColumn('JOB_ID', 'jobId', 'INTEGER', false, null, null);
 		$this->addForeignKey('USER_ID', 'userId', 'INTEGER', 'user', 'ID', true, null, null);
 		// validators
 	} // initialize()
@@ -52,7 +50,6 @@ class JobTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
-    $this->addRelation('status', 'status', RelationMap::MANY_TO_ONE, array('status_id' => 'id', ), 'CASCADE', null);
     $this->addRelation('user', 'user', RelationMap::MANY_TO_ONE, array('user_id' => 'id', ), null, null);
 	} // buildRelations()
 

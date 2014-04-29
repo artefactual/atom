@@ -24,5 +24,58 @@
  */
 
 class QubitJob extends BaseJob {
+  private $notes = array();
 
-} // QubitJob
+  /**
+   * Set the job status to error
+   *
+   * @param string  $errorNote  Optional note to give additional error information
+   */
+  public function setStatusError($errorNote = null)
+  {
+    if ($errorNote !== null)
+    {
+      $note = new QubitNote;
+      $note->content = $errorNote;
+
+      if (!isset($this->id))
+      {
+        throw new sfException('Tried to set a job status on a job that is not saved yet');
+      }
+
+      $note->objectId = $this->id;
+      $this->notes[] = $note;
+    }
+
+    $this->statusId = QubitTerm::JOB_STATUS_ERROR_ID;
+  }
+
+  /**
+   * Set the job status to in progress
+   */
+  public function setStatusInProgress()
+  {
+    $this->statusId = QubitTerm::JOB_STATUS_IN_PROGRESS_ID;
+  }
+
+  /**
+   * Set the job status to complete
+   */
+  public function setStatusCompleted()
+  {
+    $this->statusId = QubitTerm::JOB_STATUS_COMPLETED_ID;
+  }
+
+  /**
+   * Save the job along with its notes
+   */
+  public function save($connection = null)
+  {
+    parent::save($connection);
+
+    foreach ($this->notes as $note)
+    {
+      $note->save();
+    }
+  }
+} 
