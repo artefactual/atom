@@ -15,7 +15,6 @@
     <div id="content">
       <fieldset class="collapsible">
         <legend><?php echo __('Rights Basis') ?></legend>
-
           <?php echo $form->basis
             ->help(__('Basis for the permissions granted or for the restriction of rights'))
             ->renderRow() ?>
@@ -111,20 +110,15 @@
             <legend><?php echo $title ?></legend>
             <?php echo $gr['id']->render() ?>
             <?php echo $gr['act']
-              ->help(__('The action which is permitted or restricted.'))
-              ->renderRow() ?>
+               ->renderRow(null, null, __('The action which is permitted or restricted.')) ?>
             <?php echo $gr['restriction']
-              ->help(__('A condition or limitation on the act.'))
-              ->renderRow() ?>
+              ->renderRow(null, null, __('A condition or limitation on the act.')) ?>
             <?php echo $gr['startDate']
-              ->help(__('The beginning date of the permission granted.'))
-              ->renderRow() ?>
+              ->renderRow(null, null, __('The beginning date of the permission granted.')) ?>
             <?php echo $gr['endDate']
-              ->help(__('The ending date of the permission granted. Omit end date if the ending date is unknown.'))
-              ->renderRow() ?>
+              ->renderRow(null, null, __('The ending date of the permission granted. Omit end date if the ending date is unknown.')) ?>
             <?php echo $gr['notes']
-              ->help(__('Notes for this Granted Right.'))
-              ->renderRow() ?>
+              ->renderRow(null, null, __('Notes for this Granted Right.')) ?>
           </fieldset>
         <?php endforeach; ?>
 
@@ -132,20 +126,15 @@
           <legend>Blank Item</legend>
             <?php echo $form['blank']['id']->render() ?>
             <?php echo $form['blank']['act']
-              ->help(__('The action which is permitted or restricted.'))
-              ->renderRow() ?>
+              ->renderRow(null, null, __('The action which is permitted or restricted.')) ?>
             <?php echo $form['blank']['restriction']
-              ->help(__('A condition or limitation on the act.'))
-              ->renderRow() ?>
+              ->renderRow(null, null, __('A condition or limitation on the act.')) ?>
             <?php echo $form['blank']['startDate']
-              ->help(__('The beginning date of the permission granted.'))
-              ->renderRow() ?>
+              ->renderRow(null, null, __('The beginning date of the permission granted.')) ?>
             <?php echo $form['blank']['endDate']
-              ->help(__('The ending date of the permission granted. Omit end date if the ending date is unknown.'))
-              ->renderRow() ?>
+              ->renderRow(null, null, __('The ending date of the permission granted. Omit end date if the ending date is unknown.')) ?>
             <?php echo $form['blank']['notes']
-              ->help(__('Notes for this Granted Right.'))
-              ->renderRow() ?>
+              ->renderRow(null, null, __('Notes for this Granted Right.')) ?>
         </fieldset>
 
         <fieldset>
@@ -201,6 +190,7 @@
         })
         added.find('legend').replaceWith("<legend>New Granted Right "+(count+1)+"</legend>");
         Drupal.behaviors.collapse.attach();
+        Drupal.behaviors.description.attach();
         added.toggle(true);
       });
 
