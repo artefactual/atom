@@ -86,6 +86,6 @@ all:
       prefix: %SF_APP_DIR%/template
 
   user:
-    class: adLdapUser
+    class: myUser
     param:
       timeout: 1800 # Session timeout in seconds
