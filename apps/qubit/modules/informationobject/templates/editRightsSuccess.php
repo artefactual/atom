@@ -16,33 +16,61 @@
       <fieldset class="collapsible">
         <legend><?php echo __('Rights Basis') ?></legend>
 
-          <?php echo $form->basis->renderRow() ?>
+          <?php echo $form->basis
+            ->help(__('Basis for the permissions granted or for the restriction of rights'))
+            ->renderRow() ?>
 
-          <?php echo $form->copyrightStatus->renderRow() ?>
+          <?php echo $form->copyrightStatus
+            ->help(__('A coded designation for the copyright status of the object at the time the rights statement is recorded.'))
+            ->renderRow() ?>
 
-          <?php echo $form->copyrightStatusDate->renderRow() ?>
+          <?php echo $form->copyrightStatusDate
+            ->help(__('The date the copyright status applies.'))
+            ->renderRow() ?>
 
-          <?php echo $form->copyrightJurisdiction->renderRow() ?>
+          <?php echo $form->copyrightJurisdiction
+            ->help(__('The country whose copyright laws apply.'))
+            ->renderRow() ?>
 
-          <?php echo $form->copyrightNote->renderRow() ?>
+          <?php echo $form->copyrightNote
+            ->help(__('Notes regarding the copyright.'))
+            ->renderRow() ?>
 
-          <?php echo $form->licenseIdentifier->renderRow() ?>
+          <?php echo $form->licenseIdentifier
+            ->help(__('Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses). Used to identify the granting agreement uniquely within the repository system.'))
+            ->renderRow() ?>
 
-          <?php echo $form->licenseTerms->renderRow() ?>
+          <?php echo $form->licenseTerms
+            ->help(__('Text describing the license or agreement by which permission was granted or link to full-text hosted online. This can contain the actual text of the license or agreement or a paraphrase or summary.'))
+            ->renderRow() ?>
 
-          <?php echo $form->licenseNote->renderRow() ?>
+          <?php echo $form->licenseNote
+            ->help(__('Additional information about the license, such as contact persons, action dates, or interpretations. The note may also indicated the location of the license, if it is available online or embedded in the object itself.'))
+            ->renderRow() ?>
 
-          <?php echo $form->statuteJurisdiction->renderRow() ?>
+          <?php echo $form->statuteJurisdiction
+            ->help(__('The country or other political body that has enacted the statute.'))
+            ->renderRow() ?>
 
-          <?php echo $form->statuteCitation->renderRow() ?>
+          <?php echo $form->statuteCitation
+            ->help(__('An identifying designation for the statute. Use standard citation form when applicable, e.g. bibliographic citation.'))
+            ->renderRow() ?>
 
-          <?php echo $form->statuteDeterminationDate->renderRow() ?>
+          <?php echo $form->statuteDeterminationDate
+            ->help(__('Date that the decision to ascribe the right to this statute was made. As context for any future review/re-interpretation.'))
+            ->renderRow() ?>
 
-          <?php echo $form->statuteNote->renderRow() ?>
+          <?php echo $form->statuteNote
+            ->help(__('Additional information about the statute.'))
+            ->renderRow() ?>
 
-          <?php echo $form->startDate->renderRow() ?>
+          <?php echo $form->startDate
+            ->help(__('The beginning date of the permission granted.'))
+            ->renderRow() ?>
 
-          <?php echo $form->endDate->renderRow() ?>
+          <?php echo $form->endDate
+            ->help(__('The ending date of the permission granted. Omit end date if the ending date is unknown.'))
+            ->renderRow() ?>
 
           <div class="form-item">
             <?php echo $form->rightsHolder->renderLabel() ?>
@@ -77,10 +105,18 @@
             ?>
             <legend><?php echo $title ?></legend>
             <?php echo $gr['id']->render() ?>
-            <?php echo $gr['act']->renderRow() ?>
-            <?php echo $gr['restriction']->renderRow() ?>
-            <?php echo $gr['startDate']->renderRow() ?>
-            <?php echo $gr['endDate']->renderRow() ?>
+            <?php echo $gr['act']
+              ->help(__('The action which is permitted or restricted.'))
+              ->renderRow() ?>
+            <?php echo $gr['restriction']
+              ->help(__('A condition or limitation on the act.'))
+              ->renderRow() ?>
+            <?php echo $gr['startDate']
+              ->help(__('The beginning date of the permission granted.'))
+              ->renderRow() ?>
+            <?php echo $gr['endDate']
+              ->help(__('The ending date of the permission granted. Omit end date if the ending date is unknown.'))
+              ->renderRow() ?>
             <?php echo $gr['notes']->renderRow() ?>
           </fieldset>
         <?php endforeach; ?>
