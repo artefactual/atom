@@ -3,7 +3,7 @@ browseSuccess:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:
 
-editRightsSuccess:
+editRightSuccess:
   javascripts:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:

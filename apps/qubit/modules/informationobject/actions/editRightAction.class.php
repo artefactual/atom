@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class InformationObjectEditRightsAction extends sfAction
+class InformationObjectEditRightAction extends sfAction
 {
   // Arrays not allowed in class constants
   public static
