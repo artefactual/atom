@@ -739,9 +739,7 @@ class arElasticSearchInformationObjectPdo
     if (!isset(self::$statements['rights']))
     {
       $sql  = 'SELECT
-                  basis_id,
-                  rights_holder_id,
-                  copyright_status_id';
+                  rights.*';
       $sql .= ' FROM '.QubitRights::TABLE_NAME.' rights';
       $sql .= ' JOIN '.QubitRelation::TABLE_NAME.' rel
                   ON rights.id = rel.object_id';
