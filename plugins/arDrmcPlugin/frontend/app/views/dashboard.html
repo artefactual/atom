@@ -52,87 +52,8 @@
       <ar-dash-board-storage-codec chart-data="{{ storageCodec }}" width="175">
       </ar-dash-board-storage-codec>
     <h2>Collection totals</h2>
-    <div ng-repeat="item in storageCodecCollection">
-      <div><strong>{{ item.count | number }}</strong> : <span>{{ item.type }}</span></div>
-    </div>
-    </tab>  
-    <tab heading="Formats">
-      <div>Formats Tab</div> 
-    </tab>
-    <tab heading="Departments">
-      <div>Login Tab</div> 
-    </tab>  
-  </tabset>
-
-  <!-- Monthly Total (By GB) -->
-  <tabset class="span8 dashboard-widget dashboard-rs-graph">
-    <h5>Monthly Total (By GB)</h5>
-    <tab heading="Codec">
-      <ar-dash-board-line-chart chart-name="monthly-total-codec" width="640" height="240" xper-tick="100" yper-tick="40">
-        <rs-y-axis></rs-y-axis>
-        <rs-chart></rs-chart>        
-        <rs-x-axis></rs-x-axis>
-        <rs-legend></rs-legend>
-      </ar-dash-board-line-chart>
-    </tab>  
-    <tab heading="Formats">
-      <ar-dash-board-line-chart chart-name="monthly-total-formats" width="640" height="240" xper-tick="100" yper-tick="20">
-        <rs-y-axis></rs-y-axis>
-        <rs-chart></rs-chart>        
-        <rs-x-axis></rs-x-axis>
-        <rs-legend></rs-legend>
-      </ar-dash-board-line-chart>
-    </tab>
-    <tab heading="Departments">
-      <div>Login Tab</div> 
-    </tab>  
-  </tabset>
-</div>
-
-<div class="row-fluid">
-<!-- Running Total (By GB) -->
-  <tabset class="span6 dashboard-widget dashboard-rs-graph">
-    <h5>Running Total (By GB)</h5>
-    <tab heading="Codec">
-      <ar-dash-board-line-chart chart-name="running-total-codec" width="440" height="240" xper-tick="100" yper-tick="20">
-        <rs-y-axis></rs-y-axis>
-        <rs-chart></rs-chart>        
-        <rs-x-axis></rs-x-axis>
-        <rs-legend></rs-legend>
-      </ar-dash-board-line-chart>
-    </tab>  
-    <tab heading="Formats">
-      <div>Formats Tab</div> 
-    </tab>
-    <tab heading="Departments">
-      <div>Login Tab</div> 
-    </tab>  
-  </tabset>
-
-<<<<<<< HEAD
-<!-- Artiwork Sizes (Average vs Median) -->
-<tabset class="span6 dashboard-widget">
-  <h5>Artiwork Sizes (Average vs Median)</h5>
-  <tab heading="Codec">
-    <div>Codec Tab</div>
-  </tab>  
-  <tab heading="Formats">
-    <div>Formats Tab</div> 
-  </tab>
-  <tab heading="Departments">
-    <div>Login Tab</div> 
-  </tab>  
-</tabset>
-
-<div class="row-fluid">
-<!-- Storage -->
-  <tabset class="span4 dashboard-widget">
-    <h5>Storage</h5>
-    <tab heading="Codec">
-      <ar-dash-board-storage-codec></ar-dash-board-storage-codec>
-    <h2>Collection totals</h2>
-    <div ng-repeat="item in storageCodecCollection">
-      <div><strong>{{ item.count | number }}</strong> : <span>{{ item.type }}</span></div>
+    <div ng-repeat="(item, count) in ingestionSummary">
+      <div><strong>{{ count | number }}</strong> : <span>{{ item }}</span></div>
     </div>
     </tab>  
     <tab heading="Formats">
@@ -147,19 +68,11 @@
   <tabset class="span8 dashboard-widget dashboard-rs-graph">
     <h5>Monthly Total (By GB)</h5>
     <tab heading="Codec">
-      <ar-dash-board-line-chart chart-name="monthly-total-codec" width="640" height="240" xper-tick="100" yper-tick="40">
-        <rs-y-axis></rs-y-axis>
-        <rs-chart></rs-chart>        
-        <rs-x-axis></rs-x-axis>
-        <rs-legend></rs-legend>
+      <ar-dash-board-line-chart chart-data="{{ monthlyTotalCodec }}" width="640" height="240" xper-tick="100" yper-tick="40">
       </ar-dash-board-line-chart>
     </tab>  
     <tab heading="Formats">
-      <ar-dash-board-line-chart chart-name="monthly-total-formats" width="640" height="240" xper-tick="100" yper-tick="20">
-        <rs-y-axis></rs-y-axis>
-        <rs-chart></rs-chart>        
-        <rs-x-axis></rs-x-axis>
-        <rs-legend></rs-legend>
+      <ar-dash-board-line-chart chart-data="{{ monthlyTotalFormats }}" width="640" height="240" xper-tick="100" yper-tick="20">
       </ar-dash-board-line-chart>
     </tab>
     <tab heading="Departments">
@@ -173,25 +86,13 @@
   <tabset class="span6 dashboard-widget dashboard-rs-graph">
     <h5>Running Total (By GB)</h5>
     <tab heading="Codec">
-      <ar-dash-board-line-chart chart-name="running-total-codec" width="440" height="240" xper-tick="100" yper-tick="20">
-        <rs-y-axis></rs-y-axis>
-        <rs-chart></rs-chart>        
-        <rs-x-axis></rs-x-axis>
-        <rs-legend></rs-legend>
+      <ar-dash-board-line-chart chart-data="{{ runningTotalCodec }}" width="440" height="240" xper-tick="100" yper-tick="20">
       </ar-dash-board-line-chart>
-=======
-  <!-- Artiwork Sizes (Average vs Median) -->
-  <tabset class="span6 dashboard-widget">
-    <h5>Artiwork Sizes (Average vs Median)</h5>
-    <tab heading="Codec">
-      <div>Codec Tab</div>
->>>>>>> Rickshaw line chart for Monthly and Running total tab
     </tab>  
     <tab heading="Formats">
       <div>Formats Tab</div> 
     </tab>
     <tab heading="Departments">
-<<<<<<< HEAD
       <div>Departments Tab</div> 
     </tab>  
   </tabset>
@@ -200,18 +101,8 @@
   <div class="span6 dashboard-widget dashboard-rs-graph">
     <div class="rs-graph-pane">
       <h5>Artwork Sizes (Average vs Median)</h5>
-      <ar-dash-board-line-chart chart-name="artwork-sizes" width="510" height="240" xper-tick="10" yper-tick="40">
-        <rs-y-axis></rs-y-axis>
-        <rs-chart></rs-chart>        
-        <rs-x-axis></rs-x-axis>
-        <rs-legend></rs-legend>
+      <ar-dash-board-line-chart chart-data="{{ artworkSizes }}" width="510" height="240" xper-tick="50" yper-tick="40">
       </ar-dash-board-line-chart>
     </div>
   </div>
 </div>
-=======
-      <div>Login Tab</div> 
-    </tab>  
-  </tabset>
-</div>
->>>>>>> Rickshaw line chart for Monthly and Running total tab
