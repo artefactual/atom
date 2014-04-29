@@ -43,6 +43,8 @@ EOF;
     $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, sfConfig::get('app_drmc_lod_artwork_record_id'));
     $items = QubitInformationObject::get($criteria);
 
+    $image_media_term = QubitFlatfileImport::createOrFetchTerm(QubitTaxonomy::MEDIA_TYPE_ID, 'Image');
+
     // add random collection dates
     foreach($items as $item) {
       // add random collection date to information object
@@ -61,9 +63,10 @@ EOF;
       {
         $do = new QubitDigitalObject;
         $do->informationObject = $item;
-        $do->byteSize = rand(1000, 10000000);
-        $do->save();
       }
+      $do->byteSize = rand(1000, 10000000);
+      $do->mediaTypeId = $image_media_term->id;
+      $do->save();
 
       print '.';
     }
