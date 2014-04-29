@@ -9,3 +9,35 @@ Environment variables
 ---------------------
 
 * ... TODO! (ARCHIVEMATICA_SS_HOST, etc...)
+
+
+LDAP configuration
+------------------
+
+# Install php5-ldap and make sure that the module is being loaded.
+
+# Define the following environment variables (e.g. in your PHP pool):
+
+  env[ATOM_DRMC_LDAP_ADMIN_USERNAME] = "foo"
+  env[ATOM_DRMC_LDAP_ADMIN_PASSWORD] = "bar"
+
+# Create apps/qubit/config/factories.yml if it doesn't exist yet (this file is
+  not tracked by git) with the following contents:
+
+  all:
+    user:
+      class: adLdapUser
+
+# Create apps/qubit/config/app.yml if it doesn't exist yet (this file is not
+  tracked by git) with the following contents:
+
+  all:
+    ldap_account_suffix: "@example.com"
+    ldap_base_dn: DC=EXAMPLE,DC=COM
+    ldap_domain_controllers: ad01.example.com
+    ldap_user_group: CN=AtoM users,OU=Archivists,OU=Groups,DC=EXAMPLE,DC=COM
+
+# Clear the Symfony cache and restart your pool.
+
+NOTE: This application will check if existing LDAP users are member of the group
+defined in ldap_user_group.
