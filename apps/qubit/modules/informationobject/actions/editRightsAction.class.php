@@ -158,8 +158,6 @@ class InformationObjectEditRightsAction extends sfAction
           if(! $grantedRight)
           {
             $grantedRight = new QubitGrantedRight;
-            // relate it to the right
-            $this->right->grantedRights[] =& $grantedRight;
           }
 
           $actparams = $this->context->routing->parse(Qubit::pathInfo($data['act']));
@@ -170,6 +168,12 @@ class InformationObjectEditRightsAction extends sfAction
           $grantedRight->startDate      = strlen($data['startDate'] > 0) ? $data['startDate'] : null;
           $grantedRight->endDate        = strlen($data['endDate'] > 0)   ? $data['endDate']   : null;
           $grantedRight->notes          = $data['notes'];
+
+          // relate it to the Right if it is new
+          if(! $grantedRight->id)
+          {
+            $this->right->grantedRights[] = $grantedRight;
+          }
         }
       case 'blank':
         break;
