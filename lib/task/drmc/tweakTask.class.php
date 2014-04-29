@@ -24,11 +24,6 @@ class drmcTweaksTask extends sfBaseTask
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'qubit'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-      new sfCommandOption('noindex', null, sfCommandOption::PARAMETER_OPTIONAL, 'Set to \'true\' to skip indexing on imported objects'),
-      new sfCommandOption('taxonomy', null, sfCommandOption::PARAMETER_OPTIONAL, 'Set the taxonomy id to insert the SKOS concepts into'),
-      new sfCommandOption('schema', null, sfCommandOption::PARAMETER_OPTIONAL, 'Schema to use if importing a CSV file'),
-      new sfCommandOption('output', null, sfCommandOption::PARAMETER_OPTIONAL, 'Filename to output results in CSV format'),
-      new sfCommandOption('v', null, sfCommandOption::PARAMETER_OPTIONAL, 'Verbose output'),
     ));
 
     $this->namespace        = 'drmc';
@@ -43,34 +38,36 @@ EOF;
   {
     sfContext::createInstance($this->configuration);
 
-    # get appropriate info objects
+    // get appropriate info objects
     $criteria = new Criteria;
     $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, sfConfig::get('app_drmc_lod_artwork_record_id'));
     $items = QubitInformationObject::get($criteria);
 
-    # add random collection dates
+    // add random collection dates
     foreach($items as $item) {
-      # add random byte size to associated digital object
-      $criteria = new Criteria;
-      $criteria->add(QubitDigitalObject::INFORMATION_OBJECT_ID, $item->id);
-      $do = QubitDigitalObject::getOne($criteria);
-
-      # if digital object doesn't exist, make one with random size
-      if (!$do)
-      {
-        $do = new QubitDigitalObject;
-        $do->information_object_id = $item->id;
-        $do->byteSize = 333;
-        $do->save();
-      }
-
-      # add random collection date to information object
+      // add random collection date to information object
       $random = mt_rand(1262055681, 1399488461);
       $randomDate = date("Y-m-d", $random);
       $item->addProperty('Dated', $randomDate);
       $item->save();
+
+      // add random byte size to associated digital object
+      $criteria = new Criteria;
+      $criteria->add(QubitDigitalObject::INFORMATION_OBJECT_ID, $item->id);
+      $do = QubitDigitalObject::getOne($criteria);
+
+      // if digital object doesn't exist, make one with random size
+      if (!$do)
+      {
+        $do = new QubitDigitalObject;
+        $do->informationObject = $item;
+        $do->byteSize = rand(1000, 10000000);
+        $do->save();
+      }
+
+      print '.';
     }
 
-    print 'Tweaks made.';
+    print "\nTweaks made.\n";
   }
 }
