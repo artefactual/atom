@@ -182,7 +182,7 @@ class InformationObjectEditRightsAction extends sfAction
     }
   }
 
-  public function processForm()
+  protected function processForm()
   {
     // attach each value in the form
     // to the new/existing rights object
