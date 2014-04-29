@@ -19,7 +19,6 @@
 
 class InformationObjectEditRightsAction extends sfAction
 {
-  var $new = false;
   // Arrays not allowed in class constants
   public static
     $NAMES = array(
@@ -220,7 +219,6 @@ class InformationObjectEditRightsAction extends sfAction
 
   protected function newRightWithDefaults()
   {
-    $this->new = true;
     $right = new QubitRights;
     $dt = new DateTime;
     $right->startDate = $dt->format('Y-m-d');

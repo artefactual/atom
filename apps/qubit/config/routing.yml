@@ -86,6 +86,13 @@ editRight/slug:
     module: informationobject
     action: editRights
 
+editRight/slug:
+  url: /deleteRight/:slug
+  class: QubitResourceRoute
+  param:
+    module: informationobject
+    action: deleteRights
+
 slug/newRight:
   url: /:slug/newRight
   class: QubitResourceRoute
