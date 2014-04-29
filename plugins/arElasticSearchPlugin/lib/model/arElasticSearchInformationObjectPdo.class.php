@@ -1405,6 +1405,16 @@ class arElasticSearchInformationObjectPdo
         $serialized['tmsObject']['department'][] = $node->serialize();
       }
 
+      if (null !== $serialized['dates'][0]['startDate'])
+      {
+        $serialized['tmsObject']['dateCreated'][] = $serialized['dates'][0]['startDate'];
+      }
+
+      if (null !== $serialized['dates'][0]['endDate'])
+      {
+        $serialized['tmsObject']['dateCreated'][] = $serialized['dates'][0]['endDate'];
+      }
+
       // TMS child components
       if (null !== $childComponents = $this->getProperty('childComponents'))
       {

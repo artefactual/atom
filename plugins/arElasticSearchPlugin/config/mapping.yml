@@ -140,6 +140,7 @@ mapping:
       full_image: { type: string, index: not_analyzed, include_in_all: false }
       thumbnail: { type: string, index: not_analyzed, include_in_all: false }
       date_collected: { type: date, index: not_analyzed, include_in_all: false }
+      date_created: { type: date, index: not_analyzed, include_in_all: false }
 
   tms_component:
     _attributes:
