@@ -77,9 +77,14 @@
             <?php echo $form->rightsHolder->render(array('class' => 'form-autocomplete')) ?>
             <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'rightsholder', 'action' => 'add')) ?> #authorizedFormOfName"/>
             <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'rightsholder', 'action' => 'autocomplete')) ?>"/>
+            <?php echo $form->rightsHolder
+              ->help(__('Name of the person(s) or organization(s) which has the authority to grant permissions or set rights restrictions.'))
+              ->renderHelp() ?>
           </div>
 
-          <?php echo $form->rightsNote->label(__('Rights note(s)'))->renderRow() ?>
+          <?php echo $form->rightsNote
+            ->help(__('Notes for this Rights Basis.'))
+            ->label(__('Rights note(s)'))->renderRow() ?>
 
 
       </fieldset>
@@ -117,18 +122,30 @@
             <?php echo $gr['endDate']
               ->help(__('The ending date of the permission granted. Omit end date if the ending date is unknown.'))
               ->renderRow() ?>
-            <?php echo $gr['notes']->renderRow() ?>
+            <?php echo $gr['notes']
+              ->help(__('Notes for this Granted Right.'))
+              ->renderRow() ?>
           </fieldset>
         <?php endforeach; ?>
 
         <fieldset class="collapsible" id="blank">
           <legend>Blank Item</legend>
             <?php echo $form['blank']['id']->render() ?>
-            <?php echo $form['blank']['act']->renderRow() ?>
-            <?php echo $form['blank']['restriction']->renderRow() ?>
-            <?php echo $form['blank']['startDate']->renderRow() ?>
-            <?php echo $form['blank']['endDate']->renderRow() ?>
-            <?php echo $form['blank']['notes']->renderRow() ?>
+            <?php echo $form['blank']['act']
+              ->help(__('The action which is permitted or restricted.'))
+              ->renderRow() ?>
+            <?php echo $form['blank']['restriction']
+              ->help(__('A condition or limitation on the act.'))
+              ->renderRow() ?>
+            <?php echo $form['blank']['startDate']
+              ->help(__('The beginning date of the permission granted.'))
+              ->renderRow() ?>
+            <?php echo $form['blank']['endDate']
+              ->help(__('The ending date of the permission granted. Omit end date if the ending date is unknown.'))
+              ->renderRow() ?>
+            <?php echo $form['blank']['notes']
+              ->help(__('Notes for this Granted Right.'))
+              ->renderRow() ?>
         </fieldset>
 
         <fieldset>
