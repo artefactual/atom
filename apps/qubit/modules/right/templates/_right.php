@@ -1,10 +1,11 @@
 <div class="field">
-  <h3><?php echo __('Related right') ?></h3>
-  
   <?php if (!isset($inherit)): ?>
+    <h3><?php echo __('Related right') ?></h3>
     <a href="<?php echo url_for("editRight/{$resource->slug}") ?>">Edit</a>
     | 
     <a class="deleteRightBasis" data-href="<?php echo url_for("deleteRight/{$resource->slug}") ?>">Delete</a>
+  <?php else: ?>
+    <h3><?php echo __('Inherited right') ?></h3>    
   <?php endif; ?>
   <div>
 
