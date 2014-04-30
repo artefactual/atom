@@ -24,10 +24,16 @@
 
     <div id="main-column">
 
-      <h1 class="multiline moma-title drmc-color-supporting-technology-record">
-        Showing {{ data.total }} results
-        <span class="sub">Supporting technology records search</span>
-      </h1>
+      <div class="row-fluid">
+        <h1 class="multiline moma-title drmc-color-supporting-technology-record span9">
+          Showing {{ data.total }} results
+          <span class="sub">Supporting technology records search</span>
+        </h1>
+
+        <div id="save-search" class="span3">
+          <a href ng-click="openSaveSearchModal(criteria)"><i class="icon-save"></i>Save search</a>
+        </div>
+      </div>
 
       <div class="content">
 

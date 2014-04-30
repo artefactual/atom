@@ -17,10 +17,16 @@
 
     <div id="main-column">
 
-      <h1 class="multiline moma-title drmc-color-aip">
-        Showing {{ data.total }} results
-        <span class="sub">AIPs search</span>
-      </h1>
+      <div class="row-fluid">
+        <h1 class="multiline moma-title drmc-color-aip span9">
+          Showing {{ data.total }} results
+          <span class="sub">AIPs search</span>
+        </h1>
+
+        <div id="save-search" class="span3">
+          <a href ng-click="openSaveSearchModal(criteria)"><i class="icon-save"></i>Save search</a>
+        </div>
+      </div>
 
       <!-- ································································· -->
       <!-- AipSearchCtrl                                                     -->
