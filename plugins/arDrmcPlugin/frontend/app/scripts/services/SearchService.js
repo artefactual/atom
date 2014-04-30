@@ -67,4 +67,43 @@ module.exports = function ($http, SETTINGS, AIPService, InformationObjectService
         return InformationObjectService.getFiles(params);
     }
   };
+
+  this.getSearchById = function (id) {
+    var configuration = {
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/searches/' + id,
+    };
+    return $http(configuration).then(function (response) {
+      return response.data;
+    });
+  };
+
+  this.createSearch = function (data) {
+    var configuration = {
+      method: 'POST',
+      url: SETTINGS.frontendPath + 'api/searches',
+      data: data
+    };
+    return $http(configuration).then(function (response) {
+      return response.data;
+    });
+  };
+
+  this.updateSearch = function (id, data) {
+    var configuration = {
+      method: 'PUT',
+      url: SETTINGS.frontendPath + 'api/searches/' + id,
+      data: data
+    };
+    return $http(configuration).then(function (response) {
+      return response.data;
+    });
+  };
+
+  this.deleteSearch = function (id) {
+    return $http({
+      method: 'DELETE',
+      url: SETTINGS.frontendPath + 'api/searches/' + id
+    });
+  };
 };
