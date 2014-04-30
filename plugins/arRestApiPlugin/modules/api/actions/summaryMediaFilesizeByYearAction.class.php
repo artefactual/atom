@@ -45,7 +45,7 @@ class ApiSummaryMediaFilesizeByYearAction extends QubitApiAction
 
     // Use a term stats facet to calculate total bytes used per media category
     $facetName = 'collection_year_file_stats';
-    $this->facetEsQuery('TermsStats', $facetName, 'tmsObject.collectionDate', $query, array('valueField' => 'digitalObject.byteSize'));
+    $this->facetEsQuery('TermsStats', $facetName, 'tmsObject.collectionYear', $query, array('valueField' => 'digitalObject.byteSize'));
  
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
 
@@ -58,14 +58,21 @@ class ApiSummaryMediaFilesizeByYearAction extends QubitApiAction
       $facets[$facetName]['terms'][$index]['average'] = $average;
 
       // convert millisecond timestamp to human-readable
-      $date = date('Y-m-d', intval($term['term']) / 1000);  
-      $facets[$facetName]['terms'][$index]['date'] = $date;
+      $facets[$facetName]['terms'][$index]['year'] = intval($term['term']);
 
       // strip out extra data
       foreach(array('count', 'total_count', 'min', 'max', 'mean', 'term', 'total') as $element) {
         unset($facets[$facetName]['terms'][$index][$element]);
       }
     }
+
+    // sort by year
+    function compare_year($a, $b)
+    {
+      return $a['year'] > $b['year'];
+    }
+
+    usort($facets[$facetName]['terms'], 'compare_year');
 
     return $facets[$facetName]['terms'];
   }
