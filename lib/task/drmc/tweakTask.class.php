@@ -44,6 +44,12 @@ EOF;
     $items = QubitInformationObject::get($criteria);
 
     $image_media_term = QubitFlatfileImport::createOrFetchTerm(QubitTaxonomy::MEDIA_TYPE_ID, 'Image');
+    $mime_types = array(
+      'image/jpeg',
+      'image/gif',
+      'text/html',
+      'application/pdf'
+    );
 
     // add random collection dates
     foreach($items as $item) {
@@ -66,6 +72,8 @@ EOF;
       }
       $do->byteSize = rand(1000, 10000000);
       $do->mediaTypeId = $image_media_term->id;
+      $mime_type = $mime_types[(rand(0, count($mime_types)-1))];
+      $do->mimeType = $mime_type;
       $do->save();
 
       print '.';
