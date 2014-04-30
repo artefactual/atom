@@ -39,6 +39,8 @@
     .controller('TechnologyRecordViewCtrl', require('./TechnologyRecordViewCtrl'))
 
     // TMS lookup
-    .controller('TmsBrowserCtrl', require('./TmsBrowserCtrl'));
+    .controller('TmsBrowserCtrl', require('./TmsBrowserCtrl'))
 
+    // Reports
+    .controller('ReportsBrowserCtrl', require('./ReportsBrowserCtrl'));
 })();
