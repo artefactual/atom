@@ -10,26 +10,40 @@ module.exports = function () {
     },
     template: '<div><rs-y-axis></rs-y-axis><rs-chart></rs-chart><rs-x-axis></rs-x-axis><rs-legend></rs-legend></div>',
     link: function (scope, element, attrs) {
-      // var datum = angular.fromJson(attrs.chartData);
 
       attrs.$observe('data', function (newAttrs) {
+        var max = Number.MIN_VALUE;
 
+        console.log('observing');
         if (newAttrs) {
-          var datum = newAttrs;
+          var datum = JSON.parse(newAttrs);
 
           // ---------------------------
           // from line chart directive
           // ---------------------------
 
+          // set graph x/y values
+          for (var i = 0; i < datum.length; i++
+            ) {
+            datum[i].x = parseInt(datum[i].year);
+            datum[i].y = datum[i].average;
+            max = Math.max(max, datum[i].y);
+          }
+
+          console.log('aaaa');
+          console.log(datum);
+          /*
           var palette = new myrickshaw.Color.Palette();
-          var max = Number.MIN_VALUE;
           for (var y = 0; y < datum.length; y++
             ) {
-            datum[y].color = palette.color();
-            for (var j = 0; j < datum[y].data.length; j++) {
-              max = Math.max(max, datum[y].data[j].y);
-            }
+            //datum[y].color = palette.color();
+            //for (var j = 0; j < datum[y].data.length; j++) {
+            //  max = Math.max(max, datum[y].data[j].y);
+            //}
+            //
           }
+          */
+
           // round up to 10th
           max = Math.ceil(max / 10) * 10;
 
@@ -37,7 +51,7 @@ module.exports = function () {
             element: element.find('rs-chart')[0],
             width: attrs.width,
             height: attrs.height,
-            series: datum,
+            series: [{color: 'steelblue', data: datum}],
             max: max
           });
 
