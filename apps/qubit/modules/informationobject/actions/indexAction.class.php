@@ -101,6 +101,7 @@ class InformationObjectIndexAction extends sfAction
     $this->getResponse()->addStylesheet('/vendor/jstree/themes/default/style', 'last');
     $this->getResponse()->addJavascript('fullWidthTreeView', 'last');
     $this->getResponse()->addJavascript('/vendor/jstree/jstree.min.js', 'last');
+    $this->getResponse()->addJavascript('history.js', 'last');
 
     // Check that this isn't the root
     if (!isset($this->resource->parent))

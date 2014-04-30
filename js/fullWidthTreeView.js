@@ -1,5 +1,15 @@
 (function ($) {
 
+    // handle older browser using hash/anchor urls
+    if(window.location.hash)
+    {
+      var url = window.location.hash.match("\/([^?]*)");
+      if(url[1].length){
+        window.location = url[1];
+        return;
+      }
+    }
+
   "use strict";
 
   $(init);
@@ -144,9 +154,7 @@
         Drupal.attachBehaviors(document)
 
         // update the url, TODO save the state
-        if(window.history.pushState) {
-          window.history.pushState({}, $('#main-column h1').first().text(), url);
-        }
+        History.pushState(null, $('#main-column h1').first().text(), url);
 
         // remove loading icon
         loader.toggle();
