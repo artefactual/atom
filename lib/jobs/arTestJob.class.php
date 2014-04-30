@@ -18,29 +18,28 @@
  */
 
 /**
- * A base for a Gearman job in AtoM
+ * A bare bones worker to test Gearman / AtoM jobs
  *
- * @package    AccesstoMemory
+ * @package    symfony
  * @subpackage jobs
- * @author     Mike G <mikeg@artefactual.com>
  */
 
-class arBaseJob extends Net_Gearman_Job_Common
+class arTestJob extends arBaseJob
 {
   public function run($parameters)
   {
-    $this->logger = sfContext::getInstance()->getLogger();
-    
-    if (!isset($parameters['id']))
+    parent::run($parameters);
+    print "Got a test job! id: {$this->job->id}\n";
+
+    if (isset($parameters['error']))
     {
-      throw sfException('Called a Gearman worker without specifying a QubitJob id.');
+      $this->job->setStatusError('The test worker broke!');
+    }
+    else
+    {
+      $this->job->setStatusCompleted();
     }
 
-    $this->job = QubitJob::getById($parameters['id']);
-
-    if ($this->job === null)
-    {
-      throw sfException('Called a Gearman worker with an invalid QubitJob id.');
-    }
+    $this->job->save();
   }
 }

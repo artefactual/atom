@@ -63,7 +63,7 @@ EOF;
       $worker = new Net_Gearman_Worker(array('localhost:4730'));
 
       // Register abilities (jobs)
-      foreach (array('qtSwordPluginWorker', 'arTest') as $item)
+      foreach (array('qtSwordPluginWorker', 'arTestJob') as $item)
       {
         $worker->addAbility($item);
 

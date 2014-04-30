@@ -80,6 +80,11 @@
 <section class="actions">
   <ul>
     <li>
+      <a class="c-btn" href=<?php echo '"' . url_for(array('module' => 'jobs', 'action' => 'export')) . '"'; ?>>
+      Export history CSV
+      </a>
+    </li>
+    <li>
       <a class="c-btn c-btn-delete" href=<?php echo '"' . url_for(array('module' => 'jobs', 'action' => 'delete')) . '"'; ?>>
       Clear inactive jobs
       </a>

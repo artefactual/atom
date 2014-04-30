@@ -176,6 +176,69 @@ class QubitJob extends BaseJob {
   }
 
   /**
+   * Generate a CSV with a jobs history for all jobs in $jbos.
+   * @param  array $jobs  The array of jobs to write information to CSV for
+   */
+  public static function getCSVString($jobs)
+  {
+    $output = array(
+      array('startDate', 'endDate', 'jobName', 'jobStatus', 'jobInfo', 'jobUser')
+    );
+
+    foreach ($jobs as $job)
+    {
+      // Get notes, separated by | if multiple
+      $notes = $job->getNotes();
+      $notesString = '';
+      foreach ($notes as $note)
+      {
+        $notesString .= ' | ' . $note->content;
+      }
+
+      // Get user name
+      $name = 'None';
+      if ($job->userId != null)
+      {
+        $user = QubitUser::getById($job->userId);
+      }
+      
+      if ($user)
+      {
+        $name = $user->username;
+      }
+
+      $output[] = array(
+        $job->createdAt,
+        $job->completedAt,
+        $job->name,
+        $job->getStatusString(),
+        $notesString,
+        $name
+      );
+    }
+
+    var_dump($output);
+
+    ob_start();
+
+    $fp = fopen('php://stdout','w');
+
+    foreach ($output as $row)
+    {
+      fputcsv($fp, $row);
+    }
+
+    fclose($fp);
+
+    $ret = ob_get_contents();
+    ob_end_clean();
+
+    var_dump($ret);
+
+    return $ret;
+  }
+
+  /**
    * Save the job along with its notes
    */
   public function save($connection = null)

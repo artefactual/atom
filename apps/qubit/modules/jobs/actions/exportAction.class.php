@@ -18,28 +18,14 @@
  */
 
 /**
- * A bare bones worker to test Gearman / AtoM jobs
- *
- * @package    symfony
+ * @package    AccesstoMemory
  * @subpackage jobs
+ * @author     Mike G <mikeg@artefactual.com>
  */
-
-class arTest extends arBaseJob
+class JobsExportAction extends DefaultBrowseAction
 {
-  public function run($parameters)
+  public function execute($request)
   {
-    parent::run($parameters);
-    print "Got a test job! id: {$this->job->id}\n";
-
-    if (isset($parameters['error']))
-    {
-      $this->job->setStatusError('The test worker broke!');
-    }
-    else
-    {
-      $this->job->setStatusCompleted();
-    }
-
-    $this->job->save();
+    parent::execute($request);
   }
 }
