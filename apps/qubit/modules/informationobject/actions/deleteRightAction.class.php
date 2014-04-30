@@ -17,11 +17,21 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class InformationObjectDeleteRightsAction extends sfAction
+class InformationObjectDeleteRightAction extends sfAction
 {
-  public function executeDeleteRights($request)
+  public function execute($request)
   {
-    var_dump($this);
-    die();
+    $this->setLayout(null);
+    $this->setTemplate(null);
+
+    $this->right = $this->getRoute()->resource;
+
+    $this->right->delete();
+
+    throw new sfException("LoLZ", 1);
+    
+
+    // TODO delete relations
+    return $this->renderText(json_encode(true));
   }
 }
