@@ -94,6 +94,11 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
       return true;
     }
 
+    if ('drmcQuerys' == $name)
+    {
+      return true;
+    }
+
     if ('notes' == $name)
     {
       return true;
@@ -154,6 +159,23 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
       return $this->refFkValues['aclUserGroups'];
     }
 
+    if ('drmcQuerys' == $name)
+    {
+      if (!isset($this->refFkValues['drmcQuerys']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['drmcQuerys'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['drmcQuerys'] = self::getdrmcQuerysById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['drmcQuerys'];
+    }
+
     if ('notes' == $name)
     {
       if (!isset($this->refFkValues['notes']))
@@ -212,6 +234,26 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
   public function addaclUserGroupsCriteria(Criteria $criteria)
   {
     return self::addaclUserGroupsCriteriaById($criteria, $this->id);
+  }
+
+  public static function adddrmcQuerysCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitDrmcQuery::USER_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getdrmcQuerysById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::adddrmcQuerysCriteriaById($criteria, $id);
+
+    return QubitDrmcQuery::get($criteria, $options);
+  }
+
+  public function adddrmcQuerysCriteria(Criteria $criteria)
+  {
+    return self::adddrmcQuerysCriteriaById($criteria, $this->id);
   }
 
   public static function addnotesCriteriaById(Criteria $criteria, $id)
