@@ -15,14 +15,16 @@ module.exports = function ($scope, $q, StatisticsService) {
     var ingestionSummary = StatisticsService.getIngestionSummary();
     var storageCodec = StatisticsService.getRunningTotalByCodec();
     var storageFormats = StatisticsService.getRunningTotalByFormats();
+    var artworkSizes = StatisticsService.getArtworkSizesByYearSummary();
 
     $scope.responses = {};
-    $q.all([downloadActivity, ingestionActivity, ingestionSummary, storageCodec, storageFormats]).then(function (responses) {
+    $q.all([downloadActivity, ingestionActivity, ingestionSummary, storageCodec, storageFormats, artworkSizes]).then(function (responses) {
       $scope.responses.downloadActivity = responses[0].data.results;
       $scope.responses.ingestionActivity = responses[1].data.results;
       $scope.responses.ingestionSummary = responses[2].data.results;
       $scope.responses.storageCodec = responses[3].data.results;
       $scope.responses.storageFormats = responses[4].data.results;
+      $scope.responses.artworkSizes = responses[5].data.results;
     });
 
   };
