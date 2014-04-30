@@ -27,6 +27,48 @@ class QubitJob extends BaseJob {
   private $notes = array();
 
   /**
+   * Run a job via gearman
+   *
+   * @param string  $jobName  The name of the ability the worker will execute
+   *
+   * @param array   $jobParams  Whatever parameters need to be passed to the worker. 
+   * You can set 'name' to specify the job name, otherwise the class name is used.
+   *
+   * @param string  $gearmanPath  Optional parameter specifying the host / port where
+   * Gearman is running. Defaults to localhost and the default Gearman port.
+   */
+  public static function runJob($jobName, $jobParams = array(), $gearmanPath = 'localhost:4730')
+  {
+    try
+    {
+      $job = new QubitJob;
+
+      // You can specify 'name' => 'whatever' to make the name human friendly.
+      $job->name = isset($jobParams['name']) ? $jobParams['name'] : $jobName;
+      $job->statusId = QubitTerm::JOB_STATUS_IN_PROGRESS_ID;
+
+      $sfUser = sfContext::getInstance()->user;
+      if ($sfUser !== null && $sfUser->isAuthenticated())
+      {
+        $job->userId = $sfUser->getUserID();
+      }
+
+      $job->save();
+
+      // Pass in the job id to the worker so it can update status
+      $jobParams['id'] = $job->id; 
+
+      // Send a Gearman client request to start the job in any available workers...
+      $gmClient = new Net_Gearman_Client($gearmanPath);
+      $gmClient->$jobName($jobParams);
+    }
+    catch (Exception $e)
+    {
+      throw new sfException("Gearman failed to start a job: $e");
+    }
+  }
+
+  /**
    * Set the job status to error
    *
    * @param string  $errorNote  Optional note to give additional error information
@@ -35,16 +77,7 @@ class QubitJob extends BaseJob {
   {
     if ($errorNote !== null)
     {
-      $note = new QubitNote;
-      $note->content = $errorNote;
-
-      if (!isset($this->id))
-      {
-        throw new sfException('Tried to set a job status on a job that is not saved yet');
-      }
-
-      $note->objectId = $this->id;
-      $this->notes[] = $note;
+      $this->addNoteText($errorNote);
     }
 
     $this->statusId = QubitTerm::JOB_STATUS_ERROR_ID;
@@ -67,6 +100,82 @@ class QubitJob extends BaseJob {
   }
 
   /**
+   * Get a string representing the job creation date.
+   * @return  string  The job's creation date in a human readable string.
+   */
+  public function getCreationDateString()
+  {
+    $creationDate = DateTime::createFromFormat('Y-m-d H:i:s', $this->createdAt);
+    return $creationDate->format('Y-m-d h:i A');
+  }
+
+  /**
+   * Get a string representing the job status.
+   * @return  string  The job's status in a human readable string.
+   */
+  public function getStatusString()
+  {
+    if (!isset($this->statusId))
+    {
+      return 'unknown';
+    }
+
+    switch ($this->statusId)
+    {
+      case QubitTerm::JOB_STATUS_COMPLETED_ID:
+        return 'completed';
+      case QubitTerm::JOB_STATUS_IN_PROGRESS_ID:
+        return 'running';
+      case QubitTerm::JOB_STATUS_ERROR_ID:
+        return 'error';
+      default:
+        return 'unknown';
+    }
+  }
+
+  /**
+   * Add a basic note to this job
+   * @param  string  $contents  The text for the note
+   */
+  public function addNoteText($contents)
+  {
+    $note = new QubitNote;
+    $note->content = $contents;
+
+    if (!isset($this->id))
+    {
+      throw new sfException('Tried to add a note to a job that is not saved yet');
+    }
+
+    $note->objectId = $this->id;
+    $this->notes[] = $note;
+  }
+
+  /**
+   * Get the notes attached to this job
+   * @return  QubitQuery  An query of the notes for this job
+   */
+  public function getNotes()
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitNote::OBJECT_ID, $this->id);
+
+    return QubitNote::get($criteria);
+  }
+
+  /**
+   * Add a basic note to this job
+   * @param  myUser  $user  the currently logged in user.
+   */
+  public static function getJobsByUser($user)
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitJob::USER_ID, $user->getUserID());
+
+    return QubitJob::get($criteria);
+  }
+
+  /**
    * Save the job along with its notes
    */
   public function save($connection = null)
@@ -77,5 +186,23 @@ class QubitJob extends BaseJob {
     {
       $note->save();
     }
+  }
+
+  /**
+   * Delete the job along with its notes
+   */
+  public function delete($connection = null)
+  {
+    parent::delete($connection);
+
+    foreach ($this->notes as $note)
+    {
+      $note->delete();
+    }
+  }
+
+  public function __toString()
+  {
+    return $this->name;
   }
 } 
