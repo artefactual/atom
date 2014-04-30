@@ -59,6 +59,11 @@ class QubitRights extends BaseRights
       $item->delete();
     }
 
+    // remove any related granted rights
+    foreach ($this->grantedRights as $gr) {
+      $gr->delete();
+    }
+
     parent::delete($connection);
   }
 
