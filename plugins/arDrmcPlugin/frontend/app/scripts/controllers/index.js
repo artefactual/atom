@@ -19,6 +19,7 @@
     .controller('DigitalObjectViewerCtrl', require('./DigitalObjectViewerCtrl'))
     .controller('AIPReclassifyCtrl', require('./AIPReclassifyCtrl'))
     .controller('LinkSupportingTechnologyCtrl', require('./LinkSupportingTechnologyCtrl'))
+    .controller('SaveSearchCtrl', require('./SaveSearchCtrl'))
 
     // Dashboard
     .controller('DashboardCtrl', require('./DashboardCtrl'))

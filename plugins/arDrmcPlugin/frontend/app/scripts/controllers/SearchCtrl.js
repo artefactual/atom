@@ -4,7 +4,7 @@
  * SearchCtrl contains the business logic for all our share pages. It shares
  * state with other controllers via SearchService.
  */
-module.exports = function ($scope, $stateParams, SearchService, $filter) {
+module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSaveSearchService) {
   // Search state
   $scope.criteria = {};
   $scope.criteria.limit = 10;
@@ -83,5 +83,9 @@ module.exports = function ($scope, $stateParams, SearchService, $filter) {
     $scope.criteria.query = undefined;
     SearchService.setQuery($scope.criteria.query, $stateParams.entity);
     $scope.search();
+  };
+
+  $scope.openSaveSearchModal = function (criteria) {
+    ModalSaveSearchService.create(criteria);
   };
 };

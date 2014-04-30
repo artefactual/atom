@@ -24,6 +24,7 @@
     .service('ModalDigitalObjectViewerService', require('./ModalDigitalObjectViewerService'))
     .service('ModalLinkSupportingTechnologyService', require('./ModalLinkSupportingTechnologyService'))
     .service('ModalDownloadService', require('./ModalDownloadService'))
-    .service('ModalReclassifyAipService', require('./ModalReclassifyAipService'));
+    .service('ModalReclassifyAipService', require('./ModalReclassifyAipService'))
+    .service('ModalSaveSearchService', require('./ModalSaveSearchService'));
 
 })();
