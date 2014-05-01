@@ -88,7 +88,7 @@
 
       </fieldset>
 
-      <fieldset class="collapsible">
+      <fieldset class="collapsible grantedRights">
         <legend><?php echo __('Act / Granted Rights') ?></legend>
 
 
@@ -109,6 +109,7 @@
             ?>
             <legend><?php echo $title ?></legend>
             <?php echo $gr['id']->render() ?>
+            <?php echo $gr['delete']->render() ?>
             <?php echo $gr['act']
                ->renderRow(null, null, __('The action which is permitted or restricted.')) ?>
             <?php echo $gr['restriction']
@@ -119,12 +120,15 @@
               ->renderRow(null, null, __('The ending date of the permission granted. Omit end date if the ending date is unknown.')) ?>
             <?php echo $gr['notes']
               ->renderRow(null, null, __('Notes for this Granted Right.')) ?>
+            <a class="c-btn c-btn-delete" style="float:right;">Delete</a><div style="clear:both;"></div>
           </fieldset>
+
         <?php endforeach; ?>
 
         <fieldset class="collapsible" id="blank">
           <legend>Blank Item</legend>
             <?php echo $form['blank']['id']->render() ?>
+            <?php echo $form['blank']['delete']->render() ?>
             <?php echo $form['blank']['act']
               ->renderRow(null, null, __('The action which is permitted or restricted.')) ?>
             <?php echo $form['blank']['restriction']
@@ -135,12 +139,10 @@
               ->renderRow(null, null, __('The ending date of the permission granted. Omit end date if the ending date is unknown.')) ?>
             <?php echo $form['blank']['notes']
               ->renderRow(null, null, __('Notes for this Granted Right.')) ?>
+            <a class="c-btn c-btn-delete" style="float:right;">Delete</a><div style="clear:both;"></div>
         </fieldset>
 
-        <fieldset>
-          <legend><a class="newItem">New Granted Right</a></legend>
-        </fieldset>
-
+        <a class="c-btn c-btn-submit newItem">Add Granted Right</a>
       </fieldset>
     </div>
 
@@ -172,6 +174,23 @@
         }
       }
 
+      var updateGrantedRightsNamesAndIds = function() {
+        jQuery('fieldset.grantedRights fieldset').each(function(fsetindex){
+          if(jQuery(this).attr('id') == 'blank') { return true; }
+          jQuery(this).find('[name]').each(function(fieldindex){
+            $this = jQuery(this);
+
+            // in case we're working on the blank template
+            $this.attr('name', $this.attr('name').replace('[blank]', '[grantedRights]['+fsetindex+']'));
+            $this.attr('id', $this.attr('id').replace('_blank_', '_grantedRights_'+fsetindex+'_'));
+
+            $this.attr('name', $this.attr('name').replace(/\[\d+\]/, '['+fsetindex+']'));
+            $this.attr('id', $this.attr('id').replace(/_\d+_/, '_'+fsetindex+'_'));
+
+          });
+        });          
+      }
+
       jQuery('#blank').toggle(false);
 
       jQuery('#right_basis').on('change', BasisSelect.update).trigger('change');
@@ -181,17 +200,38 @@
         var added = blank.clone().insertBefore(blank);
         // fix the added fieldset: name attributes, etc
         added.removeAttr('id');
-        var count = jQuery('.fieldset-wrapper fieldset').length - 3;
-        added.find('[name]').each(function(){
-          $this = jQuery(this);
-          $this.attr('name', $this.attr('name').replace('[blank]', '[grantedRights]['+count+']'));
-          // right_blank_act becomes right_grantedRights_0_act
-          $this.attr('id', $this.attr('id').replace('_blank_', '_grantedRights_'+count+'_'));
-        })
-        added.find('legend').replaceWith("<legend>New Granted Right "+(count+1)+"</legend>");
+        added.find('legend').replaceWith("<legend>New Granted Right</legend>");
+
+        // yank out the fieldset-wrapper dic that collapse adds
+        // because it is about to add another. =(
+        var fswrapper = added.find('.fieldset-wrapper');
+        html = fswrapper.html()
+        fswrapper.replaceWith(html);
+
         Drupal.behaviors.collapse.attach();
         Drupal.behaviors.description.attach();
-        added.toggle(true);
+
+        updateGrantedRightsNamesAndIds();
+        added.show(400);
+      });
+
+      // Granted Rights Delete X
+      jQuery('#content').on('click', '.c-btn-delete', function(){
+        var fieldset = jQuery(this).parents('fieldset').first()
+
+        // check if this right has been saved / has an id
+        var id = fieldset.find('[name*=id]').attr('value');
+
+        if(id === "0") // unsaved granted right
+        {
+          fieldset.hide(400, function(){
+            this.remove();
+            updateGrantedRightsNamesAndIds();
+          });
+        } else {  // saved granted right
+          fieldset.find('[name*=delete]').attr('value', 'true');
+          fieldset.hide(400);
+        }
       });
 
     })();

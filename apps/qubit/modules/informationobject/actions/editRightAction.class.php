@@ -152,6 +152,15 @@ class InformationObjectEditRightAction extends sfAction
 
           // try and find pre-existing record with this id
           $grantedRight = $this->right->grantedRightsFindById((int) $data['id']);
+
+          // if one was found, but user 
+          // has requested it be deleted
+          // then lets delete it.
+          if($data['delete'] === "true")
+          {
+            $grantedRight->delete();
+            continue;
+          }
           
           // none found, so make a new one
           if(! $grantedRight)
@@ -269,6 +278,9 @@ class InformationObjectEditRightAction extends sfAction
     $form->setValidator('id', new sfValidatorInteger);
     $form->setWidget('id', new sfWidgetFormInputHidden);
     $form->setDefault('id', $grantedRight->id);
+
+    $form->setValidator('delete', new sfValidatorString);
+    $form->setWidget('delete', new sfWidgetFormInputHidden);
 
     foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_ACT_ID) as $item)
     {
