@@ -25,13 +25,7 @@ class InformationObjectDeleteRightAction extends sfAction
     $this->setTemplate(null);
 
     $this->right = $this->getRoute()->resource;
-
     $this->right->delete();
-
-    throw new sfException("LoLZ", 1);
-    
-
-    // TODO delete relations
     return $this->renderText(json_encode(true));
   }
 }
