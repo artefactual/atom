@@ -98,6 +98,11 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       templateUrl: function (stateParams) {
         return SETTINGS.viewsPath + '/' + stateParams.entity + '.search.html';
       }
+    })
+    .state('main.search.slug', {
+      url: '/{slug}',
+      controller: 'SearchCtrl',
+      template: '<div ng-include="include"></div>'
     });
 
 };

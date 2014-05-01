@@ -19,7 +19,7 @@ module.exports = function ($scope, $state, ModalSaveSearchService, SearchService
   };
 
   $scope.runSearch = function () {
-    // TODO
+    $state.go('main.search.slug', { slug: $scope.$parent.data.results[$scope.selectedSearches[0]].slug });
   };
 
   $scope.editSearch = function () {
