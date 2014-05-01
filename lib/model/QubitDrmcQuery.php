@@ -4,7 +4,7 @@
 /**
  * Skeleton subclass for representing a row from the 'drmc_query' table.
  *
- * 
+ *
  *
  * You should add additional methods to this class to meet the
  * application requirements.  This class will only be generated as
@@ -12,6 +12,20 @@
  *
  * @package    lib.model
  */
-class QubitDrmcQuery extends BaseDrmcQuery {
+class QubitDrmcQuery extends BaseDrmcQuery
+{
+  /**
+   * Additional save functionality (e.g. update search index)
+   *
+   * @param mixed $connection a database connection object
+   * @return QubitDrmcQuery self-reference
+   */
+  public function save($connection = null)
+  {
+    parent::save($connection);
 
-} // QubitDrmcQuery
+    QubitSearch::getInstance()->update($this);
+
+    return $this;
+  }
+}
