@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationObjectService, ModalDigitalObjectViewerService, ModalDownloadService) {
+module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationObjectService, ModalDigitalObjectViewerService, ModalDownloadService, AuthenticationService) {
   // TODO: Use https://github.com/angular-ui/ui-router/wiki#resolve
   InformationObjectService.getArtworkRecordWithTms($stateParams.id).then(function (data) {
     $scope.work = data;
@@ -38,4 +38,17 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
   $scope.downloadAip = function (file) {
     ModalDownloadService.downloadAip(file.aip_name, file.aip_uuid);
   };
+
+  // Get current user details/privileges
+  var getCurrentUser = function () {
+    return AuthenticationService.user;
+  };
+
+  $scope.$watch(getCurrentUser, function (user) {
+    if (typeof user !== 'undefined') {
+      $scope.user = user;
+    } else {
+      delete $scope.user;
+    }
+  });
 };

@@ -43,7 +43,7 @@
           {{ item.filename }}
         </h4>
         <div>
-          <a href class="download" ng-click="download(item)">Download</a>
+          <a href class="download" ng-click="download(item)" ng-show="user.canEdit()">Download</a>
         </div>
       </div>
     </div>

@@ -80,7 +80,7 @@
               <li><h2>AIP file list</h2></li>
             </ul>
             <ul class="menu-list-right nav nav-pills">
-              <li><a href ng-click="downloadAip()" class="download">Download</a>
+              <li><a href ng-click="downloadAip()" class="download" ng-show="user.canContribute()">Download</a>
             </ul>
           </div>
 
@@ -97,7 +97,7 @@
                   <td><a href ng-click="openViewer(item)">{{ item.filename }}</a></td>
                   <td>{{ item.mime_type }}</td>
                   <td>{{ item.byte_size | UnitFilter:2 }}</td>
-                  <td><a href ng-click="downloadFile(item)">Download</a></td>
+                  <td><a href ng-click="downloadFile(item)" ng-show="user.canEdit()">Download</a></td>
                 </tr>
               </tbody>
             </table>

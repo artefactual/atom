@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modal, $modalInstance, files, ModalDigitalObjectViewerService) {
+module.exports = function ($scope, $modal, $modalInstance, files, ModalDigitalObjectViewerService, AuthenticationService) {
 
   // Share files with the model
   // Make sure that we convert into array when files is just one object
@@ -76,4 +76,16 @@ module.exports = function ($scope, $modal, $modalInstance, files, ModalDigitalOb
     return $scope.page < $scope.total;
   };
 
+  // Get current user details/privileges
+  var getCurrentUser = function () {
+    return AuthenticationService.user;
+  };
+
+  $scope.$watch(getCurrentUser, function (user) {
+    if (typeof user !== 'undefined') {
+      $scope.user = user;
+    } else {
+      delete $scope.user;
+    }
+  });
 };

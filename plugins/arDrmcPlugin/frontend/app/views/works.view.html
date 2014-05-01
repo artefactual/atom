@@ -170,9 +170,9 @@
                     <td>{{ file.byte_size | UnitFilter:2 }}</td>
                     <td>
                       <a href ui-sref="main.aips.view({ uuid: file.aip_uuid })">{{ file.aip_title }}</a><br />
-                      (<a href ng-click="downloadAip(file)">download</a>)
+                      (<a href ng-click="downloadAip(file)" ng-show="user.canEdit()">download</a>)
                     </td>
-                    <td><a href class="btn" ng-click="downloadFile(file)">Download file</a></td>
+                    <td><a href class="btn" ng-click="downloadFile(file)" ng-show="user.canEdit()">Download file</a></td>
                   </tr>
                 </tbody>
               </table>
