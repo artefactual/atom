@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $state, $stateParams, $modalInstance, SETTINGS, id, criteria, SearchService) {
+module.exports = function ($scope, $rootScope, $state, $stateParams, $modalInstance, SETTINGS, id, criteria, SearchService) {
 
   // HACK: form scoping issue within modals, see
   // - http://stackoverflow.com/a/19931221/2628967
@@ -17,7 +17,7 @@ module.exports = function ($scope, $state, $stateParams, $modalInstance, SETTING
     $scope.resource.type = $stateParams.entity;
   } else {
     SearchService.getSearchById(id).then(function (response) {
-      $scope.resource = response.data;
+      $scope.resource = response;
     });
   }
 
@@ -35,6 +35,7 @@ module.exports = function ($scope, $state, $stateParams, $modalInstance, SETTING
     }, function () {
       $modalInstance.dismiss('Search could not be saved');
     });
+    $rootScope.$broadcast('searchesChanged');
   };
 
   // Create new record

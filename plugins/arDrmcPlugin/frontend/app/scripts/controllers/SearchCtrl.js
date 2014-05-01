@@ -94,4 +94,9 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
   $scope.toggleOverview = function () {
     $scope.showOverview = !$scope.showOverview;
   };
+
+  $scope.$on('searchesChanged', function () {
+    $scope.search();
+  });
+
 };

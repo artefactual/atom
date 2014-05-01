@@ -28,4 +28,11 @@ class QubitDrmcQuery extends BaseDrmcQuery
 
     return $this;
   }
+
+  public function delete($connection = null)
+  {
+    QubitSearch::getInstance()->delete($this);
+
+    parent::delete($connection);
+  }
 }

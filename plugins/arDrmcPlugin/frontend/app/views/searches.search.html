@@ -25,7 +25,10 @@
         </h1>
       </div>
 
-      <div class="content">
+      <!-- ································································· -->
+      <!-- SearchSearchCtrl                                                     -->
+      <!-- ································································· -->
+      <div class="content" ng-controller="SearchSearchCtrl">
 
         <section>
           <div class="menu-list" >
@@ -82,28 +85,45 @@
                   <th>
                     <ar-sort-header field="description" label="Description" criteria="criteria"></ar-sort-header>
                   </th>
+                  <th>
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="(key, search) in data.results | orderBy:predicate:reverse">
+                <tr ng-repeat="(id, search) in data.results">
                   <td><a href>{{ search.name }}</a></td>
                   <td>{{ search.type }}</td>
                   <td>{{ search.created_at }}</td>
                   <td>{{ search.updated_at }}</td>
                   <td>{{ search.user.name }}</td>
                   <td>{{ search.description }}</td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      name="selectedSearches[]"
+                      value="{{ id }}"
+                      ng-checked="selectedSearches.indexOf(id) > -1"
+                      ng-click="toggleSelection(id)">
+                  </td>
                 </tr>
               </tbody>
             </table>
+
+            <div id="manage-search-buttons">
+              <button class="btn" ng-disabled="selectedSearches.length != 1" ng-click="runSearch()"><i class="icon-share"></i>{{ ' Execute search' }}</button>
+              <button class="btn" ng-disabled="selectedSearches.length != 1" ng-click="editSearch()"><i class="icon-edit"></i>{{ ' Edit search' }}</button>
+              <button class="btn" ng-disabled="selectedSearches.length < 1" ng-click="deleteSearches()"><i class="icon-remove"></i>{{ selectedSearches.length <= 1 ? ' Delete search' : ' Delete searches' }}</button>
+            </div>
+
           </div>
 
         </section>
 
       </div>
 
-      <ar-pager items-per-page="{{ criteria.limit }}" page="page"></ar-pager>
-
     </div>
+
+    <ar-pager items-per-page="{{ criteria.limit }}" page="page"></ar-pager>
 
   </div>
 
