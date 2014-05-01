@@ -42,5 +42,6 @@
     .controller('TmsBrowserCtrl', require('./TmsBrowserCtrl'))
 
     // Reports
-    .controller('ReportsBrowserCtrl', require('./ReportsBrowserCtrl'));
+    .controller('ReportsBrowserCtrl', require('./ReportsBrowserCtrl'))
+    .controller('GenerateReportCtrl', require('./GenerateReportCtrl'));
 })();

@@ -1,151 +1,78 @@
-
 <div class="row-fluid reports-wrapper">
 
-  <div class="span12">
+  <div class="span3">
 
-    <h1>Activity report: <br />Amount downloaded</h1>
+    <section id="facets">
+      <h3>Narrow your results by:</h3>
+      <ar-facet label="Classification" facet="data.facets.type" field="criteria.type"></ar-facet>
+      <ar-range-facet type="size" label="Size" facet="data.facets.size" from="criteria.sizeFrom" to="criteria.sizeTo" callback="getSizeRangeLabel(arg1, arg2)"></ar-range-facet>
+      <ar-range-facet type="date" label="Date ingested" facet="data.facets.dateIngested" from="criteria.ingestedFrom" to="criteria.ingestedTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
+    </section>
+
+  </div>
+
+  <div class="span9">
 
     <div id="main-column">
 
+      <h1>Manage saved reports</h1>
+
+      <section class="breadcrumb">
+        <ul>
+          <li><a ui-sref="main.dashboard">Dashboard</a></li>
+          <li><a href ui-sref="main.reports.browser">Reports</a></li>
+        </ul>
+      </section>
+
       <div class="content">
+        <section>
+          <div class="menu-list" >
+            <ul class="menu-list-left">
+              <li><h2>Reports overview</h2></li>
+            </ul>
+            <ul class="menu-list-right nav nav-pills">
+              <li>
+                <a href class="icon-plus" ng-click="openGenerateReportModal()">Generate new report</a>
+              </li>
+              <li>
+                <a href ng-click="toggleReportsOverview()" ng-class="{ angle_double_down: !showReportsOverview, angle_double_up: showReportsOverview }">{{ showReportsOverview ? 'Hide' : 'Show' }}</a>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <section ng-show="showReportsOverview">
+          <div class="field">
+            <h3>Total count</h3>
+            <div>
+              {{ data.overview.total.count || 0 }}
+              <span>&nbsp;{{ data.overview.total.size | UnitFilter:2 | EmptyFilter }}</span>
+            </div>
+          </div>
+        </section>
 
         <section>
           <div class="menu-list" >
             <ul class="menu-list-left">
-              <li><h2>Report overview</h2></li>
+              <li><h2>Saved reports</h2></li>
             </ul>
             <ul class="menu-list-right nav nav-pills">
-              <li><a href class="download">Download (CSV)</a><li>
-              <li><a href class="save">Save</a><li>
-              <li><a href ng-click="toggleOverview()" ng-class="{ angle_double_down: !showOverview, angle_double_up: showOverview }">{{ showOverview ? 'Hide' : 'Show' }}</a></li>
+              <li>
+                <a href ng-click="toggleSavedReports()" ng-class="{ angle_double_down: !showSavedReports, angle_double_up: showSavedReports }">{{ showSavedReports ? 'Hide' : 'Show' }}</a>
+              </li>
             </ul>
           </div>
-          <section ng-show="showOverview">
-            <div class="field">
-              <h3>Run from</h3>
-              <div></div>
+        </section>
+        <section ng-show="showSavedReports">
+          <div class="field">
+            <h3>Saved reports</h3>
+            <div>
+              {{ data.overview.total.count || 0 }}
+              <span>&nbsp;{{ data.overview.total.size | UnitFilter:2 | EmptyFilter }}</span>
             </div>
-            <div class="field">
-              <h3>Report start date</h3>
-              <div></div>
-            </div>
-             <div class="field">
-              <h3>Rrport end date</h3>
-              <div></div>
-            </div>
-            <div class="field">
-              <h3>Saved report description</h3>
-              <div></div>
-            </div>
-          </section>
+          </div>
         </section>
       </div>
 
-      <div class="reports-body">
-
-          <tabset class="reports-wrapper">
-            <tab heading="Total">
-              <table class="table table-bordered">
-                <h3>All results</h3>
-                <thead>
-                  <th>AIP name</th>
-                  <th>AIP classification</th>
-                  <th>UUID</th>
-                  <th>Part of</th>
-                  <th>Attached to</th>
-                  <th>Department</th>
-                  <th>Ingest Date</th>
-                  <th>Ingested By</th>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="item in downloadActivity">
-                    <td>{{ item.date }}</td>
-                    <td>{{ item.file }}</td>
-                    <td>{{ item.reason }}</td>
-                    <td>{{ item.username || 'Unknown' }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </tab>
-            <tab heading="By user">
-              <table class="table table-bordered">
-                <h3>User name here</h3>
-                <thead>
-                  <th>AIP name</th>
-                  <th>AIP classification</th>
-                  <th>UUID</th>
-                  <th>Part of</th>
-                  <th>Attached to</th>
-                  <th>Department</th>
-                  <th>Ingest Date</th>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="item in ingestionActivity">
-                    <td>{{ item.created_at }}</td>
-                    <td>{{ item.aip_title }}</td>
-                    <td>{{ item.artwork_title }}</td>
-                    <td>{{ item.size_on_disk | UnitFilter:2 }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </tab>
-            <tab heading="By department">
-              <table class="table table-bordered">
-                <h3>Department name here</h3>
-                <thead>
-                  <th>AIP name</th>
-                  <th>AIP classification</th>
-                  <th>UUID</th>
-                  <th>Part of</th>
-                  <th>Attached to</th>
-                  <th>Ingest Date</th>
-                  <th>Ingested By</th>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="item in ingestionActivity">
-                    <td>{{ item.created_at }}</td>
-                    <td>{{ item.aip_title }}</td>
-                    <td>{{ item.artwork_title }}</td>
-                    <td>{{ item.size_on_disk | UnitFilter:2 }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </tab>
-          </tabset>
-
-
-
-
-<tab heading="By department">
-              <table class="table table-bordered">
-                <h3>Department name here</h3>
-                <thead>
-                  <th>User</th>
-                  <th>Download type</th>
-                  <th>Download date-time</th>
-                  <th>Name</th>
-                  <th>UUID</th>
-                  <th>Total Filesize</th>
-                  <th>Parent artwork</th>
-                  <th>Attached to</th>
-                  <th>Download reason</th>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="item in ingestionActivity">
-                    <td>{{ item.created_at }}</td>
-                    <td>{{ item.aip_title }}</td>
-                    <td>{{ item.artwork_title }}</td>
-                    <td>{{ item.size_on_disk | UnitFilter:2 }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </tab>
-      </div>
-
-      <ar-pager items-per-page="{{ criteria.limit }}" page="page"></ar-pager>
-
     </div>
-
   </div>
-
 </div>
