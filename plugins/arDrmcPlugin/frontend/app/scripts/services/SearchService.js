@@ -35,6 +35,11 @@ module.exports = function ($http, SETTINGS, AIPService, InformationObjectService
       name: 'Files',
       entity: 'files',
       cssClass: 'drmc-color-file'
+    },
+    {
+      name: 'Saved searches',
+      entity: 'searches',
+      cssClass: 'drmc-icon-searches'
     }
   ];
 
@@ -65,7 +70,17 @@ module.exports = function ($http, SETTINGS, AIPService, InformationObjectService
         return InformationObjectService.getSupportingTechnologyRecords(params);
       case 'files':
         return InformationObjectService.getFiles(params);
+      case 'searches':
+        return this.getSearches(params);
     }
+  };
+
+  this.getSearches = function (params) {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/searches',
+      params: params
+    });
   };
 
   this.getSearchById = function (id) {

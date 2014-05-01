@@ -88,4 +88,10 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
   $scope.openSaveSearchModal = function (criteria) {
     ModalSaveSearchService.create(criteria);
   };
+
+  // Support overview toggling (AIPs and searches)
+  $scope.showOverview = true;
+  $scope.toggleOverview = function () {
+    $scope.showOverview = !$scope.showOverview;
+  };
 };
