@@ -238,6 +238,29 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'searchAutocomplete'));
 
+    $this->addRoute('GET', '/api/searches', array(
+      'module' => 'api',
+      'action' => 'searchesBrowse'));
+
+    $this->addRoute('POST', '/api/searches', array(
+      'module' => 'api',
+      'action' => 'searchesCreate'));
+
+    $this->addRoute('GET', '/api/searches/:id', array(
+      'module' => 'api',
+      'action' => 'searchesRead',
+      'params' => array('id' => self::REGEX_ID)));
+
+    $this->addRoute('PUT', '/api/searches/:id', array(
+      'module' => 'api',
+      'action' => 'searchesUpdate',
+      'params' => array('id' => self::REGEX_ID)));
+
+    $this->addRoute('DELETE', '/api/searches/:id', array(
+      'module' => 'api',
+      'action' => 'searchesDelete',
+      'params' => array('id' => self::REGEX_ID)));
+
 
     /**
      * Users and authentication
