@@ -23,7 +23,7 @@
         </tr>
       </tbody>
     </table>
-  </tab>  
+  </tab>
   <tab heading="Downloads">
     <table class="table table-bordered">
       <thead>
@@ -40,7 +40,7 @@
           <td>{{ item.username || 'Unknown' }}</td>
         </tr>
       </tbody>
-    </table>   
+    </table>
   </tab>
 </tabset>
 
@@ -49,35 +49,38 @@
   <tabset class="span4 dashboard-widget">
     <h5>Storage</h5>
     <tab heading="Codec">
-      <ar-dash-board-storage-codec chart-data="{{ storageCodec }}" width="175">
-      </ar-dash-board-storage-codec>
+      <ar-dashboard-graph type="pie" chart-data="{{ storageCodec }}" width="175"></ar-dashboard-graph>
+      <!-- <ar-dashboard-storage-codec chart-data="{{ storageCodec }}" width="175"> -->
+      <!-- </ar-dashboard-storage-codec> -->
     <h2>Collection totals</h2>
     <div ng-repeat="(item, count) in ingestionSummary">
       <div><strong>{{ count | number }}</strong> : <span>{{ item }}</span></div>
     </div>
-    </tab>  
+    </tab>
     <tab heading="Formats">
-      <div>Formats Tab</div> 
+      <div>Formats Tab</div>
     </tab>
     <tab heading="Departments">
-      <div>Departments Tab</div> 
-    </tab>  
+      <div>Departments Tab</div>
+    </tab>
   </tabset>
 
   <!-- Monthly Total (By GB) -->
   <tabset class="span8 dashboard-widget dashboard-rs-graph">
     <h5>Monthly Total (By GB)</h5>
     <tab heading="Codec">
-      <ar-dash-board-line-chart chart-data="{{ monthlyTotalCodec }}" width="640" height="240" xper-tick="100" yper-tick="40">
-      </ar-dash-board-line-chart>
-    </tab>  
+      <ar-dashboard-graph type="line" chart-data="{{ monthlyTotalCodec }}" width="640" height="240" xper-tick="100" yper-tick="40"></ar-dashboard-graph>
+      <!-- <ar-dashboard-line-chart chart-data="{{ monthlyTotalCodec }}" width="640" height="240" xper-tick="100" yper-tick="40">
+      </ar-dashboard-line-chart> -->
+    </tab>
     <tab heading="Formats">
-      <ar-dash-board-line-chart chart-data="{{ monthlyTotalFormats }}" width="640" height="240" xper-tick="100" yper-tick="20">
-      </ar-dash-board-line-chart>
+      <ar-dashboard-graph type="line" chart-data="{{ monthlyTotalFormats }}" width="640" height="240" xper-tick="100" yper-tick="20"></ar-dashboard-graph>
+      <!-- <ar-dashboard-line-chart chart-data="{{ monthlyTotalFormats }}" width="640" height="240" xper-tick="100" yper-tick="20">
+      </ar-dashboard-line-chart> -->
     </tab>
     <tab heading="Departments">
-      <div>Departments Tab</div> 
-    </tab>  
+      <div>Departments Tab</div>
+    </tab>
   </tabset>
 </div>
 
@@ -86,23 +89,23 @@
   <tabset class="span6 dashboard-widget dashboard-rs-graph">
     <h5>Running Total (By GB)</h5>
     <tab heading="Codec">
-      <ar-dash-board-line-chart chart-data="{{ runningTotalCodec }}" width="440" height="240" xper-tick="100" yper-tick="20">
-      </ar-dash-board-line-chart>
-    </tab>  
+      <ar-dashboard-line-chart chart-data="{{ runningTotalCodec }}" width="440" height="240" xper-tick="100" yper-tick="20">
+      </ar-dashboard-line-chart>
+    </tab>
     <tab heading="Formats">
-      <div>Formats Tab</div> 
+      <div>Formats Tab</div>
     </tab>
     <tab heading="Departments">
-      <div>Departments Tab</div> 
-    </tab>  
+      <div>Departments Tab</div>
+    </tab>
   </tabset>
 
   <!-- Artiwork Sizes (Average vs Median) -->
   <div class="span6 dashboard-widget dashboard-rs-graph">
     <div class="rs-graph-pane">
       <h5>Artwork Sizes (Average vs Median)</h5>
-      <ar-dash-board-line-chart chart-data="{{ artworkSizes }}" width="510" height="240" xper-tick="50" yper-tick="40">
-      </ar-dash-board-line-chart>
+      <ar-dashboard-line-chart chart-data="{{ artworkSizes }}" width="510" height="240" xper-tick="50" yper-tick="40">
+      </ar-dashboard-line-chart>
     </div>
   </div>
 </div>
