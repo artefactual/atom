@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $rootScope, $state, $stateParams, $modalInstance, SETTINGS, id, criteria, SearchService) {
+module.exports = function ($scope, $rootScope, $state, $stateParams, $modalInstance, SETTINGS, id, criteria, entity, SearchService) {
 
   // HACK: form scoping issue within modals, see
   // - http://stackoverflow.com/a/19931221/2628967
@@ -14,7 +14,7 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, $modalInsta
   if ($scope.new) {
     $scope.resource = {};
     $scope.resource.criteria = criteria;
-    $scope.resource.type = $stateParams.entity;
+    $scope.resource.type = entity;
   } else {
     SearchService.getSearchById(id).then(function (response) {
       $scope.resource = response;

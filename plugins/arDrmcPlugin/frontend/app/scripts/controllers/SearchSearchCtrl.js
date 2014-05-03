@@ -6,6 +6,7 @@ module.exports = function ($scope, $state, ModalSaveSearchService, SearchService
   $scope.criteria.sort_direction = 'desc';
   $scope.criteria.sort = 'createdAt';
 
+  // Store ids of searches with checkbox selected
   $scope.selectedSearches = [];
 
   // Toggle selected search

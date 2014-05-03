@@ -21,13 +21,37 @@ class ApiSearchesReadAction extends QubitApiAction
 {
   protected function get($request)
   {
-    try
+    if (ctype_digit($this->request->idorslug))
     {
-      $result = QubitSearch::getInstance()->index->getType('QubitDrmcQuery')->getDocument($this->request->id);
+      try
+      {
+        $result = QubitSearch::getInstance()->index->getType('QubitDrmcQuery')->getDocument($this->request->idorslug);
+      }
+      catch (\Elastica\Exception\NotFoundException $e)
+      {
+        throw new QubitApi404Exception('Search not found');
+      }
     }
-    catch (\Elastica\Exception\NotFoundException $e)
+    else
     {
-      throw new QubitApi404Exception('Search not found');
+      $query = new \Elastica\Query;
+      $queryBool = new \Elastica\Query\Bool;
+
+      $queryText = new \Elastica\Query\QueryString($this->request->idorslug);
+      $queryText->setFields(array('slug'));
+
+      $queryBool->addMust($queryText);
+      $query->setQuery($queryBool);
+
+      $resultSet = QubitSearch::getInstance()->index->getType('QubitDrmcQuery')->search($query);
+
+      if ($resultSet->getTotalHits() < 1)
+      {
+        throw new QubitApi404Exception('Search not found');
+      }
+
+      $result = $resultSet->getResults();
+      $result = $result[0];
     }
 
     $doc = $result->getData();

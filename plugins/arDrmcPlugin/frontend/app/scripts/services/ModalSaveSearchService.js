@@ -20,11 +20,15 @@ module.exports = function ($modal, SETTINGS) {
       return angular.isDefined(options.criteria) ? options.criteria : null;
     };
 
+    configuration.resolve.entity = function () {
+      return angular.isDefined(options.entity) ? options.entity : null;
+    };
+
     return $modal.open(configuration);
   };
 
-  this.create = function (criteria) {
-    return open({ criteria: criteria });
+  this.create = function (criteria, entity) {
+    return open({ criteria: criteria, entity: entity });
   };
 
   this.edit = function (id) {

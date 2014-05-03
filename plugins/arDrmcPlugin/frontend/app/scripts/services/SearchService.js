@@ -93,6 +93,16 @@ module.exports = function ($http, SETTINGS, AIPService, InformationObjectService
     });
   };
 
+  this.getSearchBySlug = function (slug) {
+    var configuration = {
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/searches/' + slug,
+    };
+    return $http(configuration).then(function (response) {
+      return response.data;
+    });
+  };
+
   this.createSearch = function (data) {
     var configuration = {
       method: 'POST',

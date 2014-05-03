@@ -53,7 +53,7 @@
               <div>
                 {{ search.date + ' (' + search.user + ')' }}
                 <span>{{ ' » ' }}</span>
-                <a href>{{ search.name }}</a>
+                <a href ui-sref="main.search.slug({ slug: search.slug })">{{ search.name }}</a>
               </div>
             </div>
           </section>
@@ -91,7 +91,7 @@
               </thead>
               <tbody>
                 <tr ng-repeat="(id, search) in data.results">
-                  <td><a href>{{ search.name }}</a></td>
+                  <td><a href ui-sref="main.search.slug({ slug: search.slug })">{{ search.name }}</a></td>
                   <td>{{ search.type }}</td>
                   <td>{{ search.created_at }}</td>
                   <td>{{ search.updated_at }}</td>

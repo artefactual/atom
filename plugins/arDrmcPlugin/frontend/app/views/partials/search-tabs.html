@@ -6,7 +6,7 @@
 
 <div class="search-tabs">
   <ul class="nav nav-tabs">
-    <li ng-repeat="tab in tabs" ng-class="{ active: $stateParams.entity == tab.entity }">
+    <li ng-repeat="tab in tabs" ng-class="{ active: selectedEntity == tab.entity }">
       <a ng-class="[tab.cssClass]" ui-sref="main.search.entity({ entity: tab.entity })">{{ tab.name }}</a>
     </li>
   </ul>

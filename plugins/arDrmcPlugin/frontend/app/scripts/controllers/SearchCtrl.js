@@ -4,11 +4,24 @@
  * SearchCtrl contains the business logic for all our share pages. It shares
  * state with other controllers via SearchService.
  */
-module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSaveSearchService) {
-  // Search state
+module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSaveSearchService, SETTINGS) {
   $scope.criteria = {};
   $scope.criteria.limit = 10;
   $scope.page = 1; // Don't delete this, it's an important default for the loop
+  $scope.selectedEntity = $stateParams.entity;
+
+  // If coming with slug: load template, obtain search, load values and make search
+  if ($stateParams.slug !== undefined) {
+    SearchService.getSearchBySlug($stateParams.slug).then(function (response) {
+      $stateParams.entity = $scope.selectedEntity = response.type;
+      $scope.criteria = response.criteria;
+      $scope.include = SETTINGS.viewsPath + '/' + response.type + '.search.html';
+      SearchService.setQuery(response.criteria.query);
+      $scope.search();
+    }, function (response) {
+      throw response;
+    });
+  }
 
   // Reference to types of searches
   $scope.tabs = SearchService.searches;
@@ -28,14 +41,6 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
   $scope.$watch('criteria', function () {
     $scope.search();
   }, true); // check properties when watching
-
-  // Perfom query after entity changes
-  $scope.$watch($stateParams.entity, function (newVal, oldVal) {
-    if (newVal === oldVal) {
-      return;
-    }
-    $scope.search();
-  });
 
   $scope.search = function () {
     SearchService.search($stateParams.entity, $scope.criteria)
@@ -86,7 +91,7 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
   };
 
   $scope.openSaveSearchModal = function (criteria) {
-    ModalSaveSearchService.create(criteria);
+    ModalSaveSearchService.create(criteria, $scope.selectedEntity);
   };
 
   // Support overview toggling (AIPs and searches)

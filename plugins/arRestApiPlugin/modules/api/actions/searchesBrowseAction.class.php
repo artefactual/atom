@@ -179,6 +179,7 @@ class ApiSearchesBrowseAction extends QubitApiAction
     $results['latest']['Last search added']['date'] = $lastCreated['createdAt'];
     $results['latest']['Last search added']['user'] = $lastCreated['user']['name'];
     $results['latest']['Last search added']['name'] = $lastCreated['name'];
+    $results['latest']['Last search added']['slug'] = $lastCreated['slug'];
 
     // Last updated
     $query = new \Elastica\Query;
@@ -196,6 +197,7 @@ class ApiSearchesBrowseAction extends QubitApiAction
     $results['latest']['Last search modified']['date'] = $lastUpdated['createdAt'];
     $results['latest']['Last search modified']['user'] = $lastUpdated['user']['name'];
     $results['latest']['Last search modified']['name'] = $lastUpdated['name'];
+    $results['latest']['Last search modified']['slug'] = $lastCreated['slug'];
 
     return $results;
   }
