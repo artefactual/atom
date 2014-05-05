@@ -28,7 +28,12 @@ class arTestJob extends arBaseJob
 {
   public function run($parameters)
   {
-    parent::run($parameters);
+    // This will be an array of required parameter names
+    $this->addRequiredParameters(array()); 
+
+    // parent::run() will check parameters and throw an exception if any are missing
+    parent::run($parameters); 
+
     print "Got a test job! id: {$this->job->id}\n";
 
     if (isset($parameters['error']))
@@ -40,6 +45,7 @@ class arTestJob extends arBaseJob
       $this->job->setStatusCompleted();
     }
 
+    // Don't forget to set the job status & save at the end!
     $this->job->save();
   }
 }

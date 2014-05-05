@@ -62,8 +62,14 @@ EOF;
       // Connect this worker to gearmand
       $worker = new Net_Gearman_Worker(array('localhost:4730'));
 
+      $abilities = array(
+        'qtSwordPluginWorker',
+        'arTestJob',
+        'arDeleteInformationObjectJob'
+      );
+
       // Register abilities (jobs)
-      foreach (array('qtSwordPluginWorker', 'arTestJob') as $item)
+      foreach ($abilities as $item)
       {
         $worker->addAbility($item);
 

@@ -27,20 +27,69 @@
 
 class arBaseJob extends Net_Gearman_Job_Common
 {
+  private $requiredParameters = array();
+
   public function run($parameters)
   {
+    $this->addRequiredParameters(array('id', 'name'));
+    $this->checkRequiredParameters($parameters);
+
     $this->logger = sfContext::getInstance()->getLogger();
-    
-    if (!isset($parameters['id']))
-    {
-      throw sfException('Called a Gearman worker without specifying a QubitJob id.');
-    }
 
     $this->job = QubitJob::getById($parameters['id']);
 
     if ($this->job === null)
     {
-      throw sfException('Called a Gearman worker with an invalid QubitJob id.');
+      throw Exception('Called a Gearman worker with an invalid QubitJob id.');
     }
+  }
+
+  protected function addRequiredParameters($params)
+  {
+    $this->requiredParameters = array_merge($this->requiredParameters, $params);
+  }
+
+  protected function checkRequiredParameters($parameters)
+  {
+    foreach ($this->requiredParameters as $paramName)
+    {
+      if (!isset($parameters[$paramName]))
+      {
+        throw new Exception("Required parameter not found for job: $paramName");
+      }
+    }
+  }
+
+  /**
+   * A wrapper to log error messages and set the QubitJob status to error.
+   * This will also attach the error message as a note in the QubitJob.
+   *
+   * @param string  $message  the error message
+   */
+  protected function error($message)
+  {
+    if (!isset($this->job) || !isset($this->job->name))
+    {
+      throw new Exception('Called arBaseJob::error() before QubitJob fetched.');
+    }
+
+    $this->logger->err(sprintf('Job %d "%s": %s', $this->job->id, $this->job->name, $message));
+    $this->job->setStatusError($message);
+    $this->job->save();
+  }
+
+  /**
+   * A wrapper to log info messages.
+   *
+   * @param string  $message  the error message
+   */
+  protected function info($message)
+  {
+    if (!isset($this->job->name))
+    {
+      throw new Exception('Called arBaseJob::info() before QubitJob fetched.');
+    }
+
+    $this->logger->info(sprintf('Job %d "%s": %s', $this->job->id, $this->job->name, $message));
   }
 }

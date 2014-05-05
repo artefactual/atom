@@ -44,7 +44,13 @@ class QubitJob extends BaseJob {
       $job = new QubitJob;
 
       // You can specify 'name' => 'whatever' to make the name human friendly.
-      $job->name = isset($jobParams['name']) ? $jobParams['name'] : $jobName;
+      // Default is we just use the job class name.
+      if (!isset($jobParams['name']))
+      {
+        $jobParams['name'] = $jobName;
+      }
+
+      $job->name = $jobParams['name'];
       $job->statusId = QubitTerm::JOB_STATUS_IN_PROGRESS_ID;
 
       $sfUser = sfContext::getInstance()->user;
@@ -216,8 +222,6 @@ class QubitJob extends BaseJob {
         $name
       );
     }
-
-    var_dump($output);
 
     ob_start();
 
