@@ -40,13 +40,13 @@ class arBaseJob extends Net_Gearman_Job_Common
 
     if ($this->job === null)
     {
-      throw Exception('Called a Gearman worker with an invalid QubitJob id.');
+      throw new Exception('Called a Gearman worker with an invalid QubitJob id.');
     }
   }
 
-  protected function addRequiredParameters($params)
+  protected function addRequiredParameters($parameters)
   {
-    $this->requiredParameters = array_merge($this->requiredParameters, $params);
+    $this->requiredParameters = array_merge($this->requiredParameters, $parameters);
   }
 
   protected function checkRequiredParameters($parameters)
@@ -73,7 +73,7 @@ class arBaseJob extends Net_Gearman_Job_Common
       throw new Exception('Called arBaseJob::error() before QubitJob fetched.');
     }
 
-    $this->logger->err(sprintf('Job %d "%s": %s', $this->job->id, $this->job->name, $message));
+    $this->logger->err($this->formatLogMsg($message));
     $this->job->setStatusError($message);
     $this->job->save();
   }
@@ -90,6 +90,16 @@ class arBaseJob extends Net_Gearman_Job_Common
       throw new Exception('Called arBaseJob::info() before QubitJob fetched.');
     }
 
-    $this->logger->info(sprintf('Job %d "%s": %s', $this->job->id, $this->job->name, $message));
+    $this->logger->info($this->formatLogMsg($message));
+  }
+
+  /**
+   * Adds valuable meta-data to log messages.
+   *
+   * @param string  $message  the log message
+   */
+  private function formatLogMsg($message)
+  {
+    return sprintf('Job %d "%s": %s', $this->job->id, $this->job->name, $message);
   }
 }

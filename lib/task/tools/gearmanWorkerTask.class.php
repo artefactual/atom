@@ -32,14 +32,15 @@ class gearmanWorkerTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
     ));
 
+    $this->addArguments(array(
+      new sfCommandArgument('abilities', sfCommandArgument::REQUIRED, 'A comma separated string indicating which jobs this worker can do.')
+    ));
+
     $this->namespace        = 'tools';
     $this->name             = 'gearman-worker';
     $this->briefDescription = 'Gearman worker daemon';
     $this->detailedDescription = <<<EOF
-The [tools:gearman-worker|INFO] start a gearman worker.
-Call it with:
-
-  [php symfony tools:gearman-worker|INFO]
+Usage: php symfony [tools:gearman-worker|INFO] "myAbility1, myAbility2, ..."
 EOF;
   }
 
@@ -59,25 +60,21 @@ EOF;
 
     try
     {
-      // Connect this worker to gearmand
       $worker = new Net_Gearman_Worker(array('localhost:4730'));
 
-      $abilities = array(
-        'qtSwordPluginWorker',
-        'arTestJob',
-        'arDeleteInformationObjectJob'
-      );
+      $abilities = explode(',', $arguments['abilities']);
 
       // Register abilities (jobs)
-      foreach ($abilities as $item)
+      foreach ($abilities as $ability)
       {
-        $worker->addAbility($item);
+        $ability = trim($ability);
+        $worker->addAbility($ability);
 
-        $this->logSection('gearman-worker', 'New ability: '.$item);
+        $this->logSection('gearman-worker', 'New ability: ' . $ability);
       }
 
       $this->logSection('gearman-worker', 'Running worker...');
-      $this->logSection('gearman-worker', 'PID '.getmypid());
+      $this->logSection('gearman-worker', 'PID ' . getmypid());
 
       $counter = 0;
 

@@ -35,7 +35,7 @@ class arDeleteInformationObjectJob extends arBaseJob
     try
     {
       $ioId = $parameters['information_object_id'];
-      
+
       if (($io = QubitInformationObject::getById($ioId)) === null)
       {
         $this->error("Invalid information object id: $ioId");
