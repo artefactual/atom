@@ -19,6 +19,17 @@
 
 class ApiUsersAuthenticateAction extends QubitApiAction
 {
+  private static $groupNames = array(
+    QubitAclGroup::ROOT_ID          => 'root',
+    QubitAclGroup::ANONYMOUS_ID     => 'anonymous',
+    QubitAclGroup::AUTHENTICATED_ID => 'authenticated',
+    QubitAclGroup::ADMINISTRATOR_ID => 'administrator',
+    QubitAclGroup::ADMIN_ID         => 'administrator',
+    QubitAclGroup::EDITOR_ID        => 'editor',
+    QubitAclGroup::CONTRIBUTOR_ID   => 'contributor',
+    QubitAclGroup::TRANSLATOR_ID    => 'translator'
+  );
+
   protected function get($request)
   {
     if (!$this->context->user->isAuthenticated())
@@ -58,18 +69,7 @@ class ApiUsersAuthenticateAction extends QubitApiAction
 
     foreach ($this->context->user->user->getAclGroups() as $group)
     {
-      $groupNames = array(
-        QubitAclGroup::ROOT_ID          => 'root',
-        QubitAclGroup::ANONYMOUS_ID     => 'anonymous',
-        QubitAclGroup::AUTHENTICATED_ID => 'authenticated',
-        QubitAclGroup::ADMINISTRATOR_ID => 'administrator',
-        QubitAclGroup::ADMIN_ID         => 'administrator',
-        QubitAclGroup::EDITOR_ID        => 'editor',
-        QubitAclGroup::CONTRIBUTOR_ID   => 'contributor',
-        QubitAclGroup::TRANSLATOR_ID    => 'translator'
-      );
-
-      array_push($groups, $groupNames[$group->id]);
+      array_push($groups, self::$groupNames[$group->id]);
     }
 
     return array(
