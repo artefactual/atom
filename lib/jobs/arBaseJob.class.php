@@ -44,11 +44,22 @@ class arBaseJob extends Net_Gearman_Job_Common
     }
   }
 
+  /**
+   * Add a parameter name to a list of required parameters.
+   *
+   * @param   $parameters  the parameters passed to this job that are required
+   */
   protected function addRequiredParameters($parameters)
   {
     $this->requiredParameters = array_merge($this->requiredParameters, $parameters);
   }
 
+  /**
+   * Check if all required parameters are present in $parameters,
+   * if one is missing throw an exception.
+   *
+   * @param   $parameters  the parameters passed to this job
+   */
   protected function checkRequiredParameters($parameters)
   {
     foreach ($this->requiredParameters as $paramName)

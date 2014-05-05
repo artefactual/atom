@@ -26,6 +26,12 @@
 
 class arDeleteInformationObjectJob extends arBaseJob
 {
+  /**
+   * Delete an archival description and all associated child
+   * records and digital objects.
+   *
+   * @param   $parameters  the parameters passed to this job
+   */
   public function run($parameters)
   {
     $this->addRequiredParameters(array('information_object_id'));
@@ -53,6 +59,12 @@ class arDeleteInformationObjectJob extends arBaseJob
     }
   }
 
+  /**
+   * Delete an archival description and all associated child
+   * records and digital objects.
+   *
+   * @param   $io  the QubitInformationObject which you want to delete.
+   */
   private function deleteInformationObject($io)
   {
     $parent = $io->parent;
