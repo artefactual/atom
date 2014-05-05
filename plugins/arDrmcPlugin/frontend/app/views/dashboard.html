@@ -1,11 +1,13 @@
 <!-- TODO: this is just a mock-up -->
 <h5 id="dash-h5">Recent additions</h5>
-<div id="artwork-record-header"><a ng-href="#/artwork-record" >
-  <img ng-src="{{ assetsPath }}/moma-top-img.png" /></a>
+<div class="dashboard-header">
+  <a ng-href="#/artwork-record" >
+    <img ng-src="{{ assetsPath }}/moma-top-img.png" />
+  </a>
 </div>
 <!-- Recent activity -->
-<tabset class="dashboard-widget">
-  <h5>Recent activity</h5>
+<tabset class="dashboard-widget dashboard-top-widget">
+  <h3><a class="graph-list">Recent activity</a></h3>
   <tab heading="Ingests">
     <table class="table table-bordered">
       <thead>
@@ -46,16 +48,16 @@
 
 <div class="row-fluid">
 <!-- Storage -->
-  <tabset class="span4 dashboard-widget">
-    <h5>Storage</h5>
+  <tabset class="span5 dashboard-widget dashboard-rs-graph">
+    <h3><a class="graph-pie">Artwork Storage</a></h3>
     <tab heading="Codec">
-      <ar-dashboard-graph type="pie" chart-data="{{ storageCodec }}" width="175"></ar-dashboard-graph>
+      <ar-dashboard-graph type="pie" chart-data="{{ storageCodec }}" width="175" height="160" class="graph-center"></ar-dashboard-graph>
       <!-- <ar-dashboard-storage-codec chart-data="{{ storageCodec }}" width="175"> -->
       <!-- </ar-dashboard-storage-codec> -->
-    <h2>Collection totals</h2>
-    <div ng-repeat="(item, count) in ingestionSummary">
-      <div><strong>{{ count | number }}</strong> : <span>{{ item }}</span></div>
-    </div>
+      <h2>Collection totals</h2>
+      <div ng-repeat="(item, count) in ingestionSummary">
+        <div><strong>{{ count | number }}</strong> : <span>{{ item }}</span></div>
+      </div>
     </tab>
     <tab heading="Formats">
       <div>Formats Tab</div>
@@ -66,8 +68,8 @@
   </tabset>
 
   <!-- Monthly Total (By GB) -->
-  <tabset class="span8 dashboard-widget dashboard-rs-graph">
-    <h5>Monthly Total (By GB)</h5>
+  <tabset class="span7 dashboard-widget dashboard-rs-graph">
+    <h3><a class="graph-line">Monthly Total (By GB)</a></h3>
     <tab heading="Codec">
       <ar-dashboard-graph type="line" chart-data="{{ monthlyTotalCodec }}" width="640" height="240" xper-tick="100" yper-tick="40"></ar-dashboard-graph>
       <!-- <ar-dashboard-line-chart chart-data="{{ monthlyTotalCodec }}" width="640" height="240" xper-tick="100" yper-tick="40">
@@ -87,10 +89,9 @@
 <div class="row-fluid">
 <!-- Running Total (By GB) -->
   <tabset class="span6 dashboard-widget dashboard-rs-graph">
-    <h5>Running Total (By GB)</h5>
+    <h3><a class="graph-line">Running Total (By GB)</a></h3>
     <tab heading="Codec">
-      <ar-dashboard-line-chart chart-data="{{ runningTotalCodec }}" width="440" height="240" xper-tick="100" yper-tick="20">
-      </ar-dashboard-line-chart>
+    <ar-dashboard-graph type="line" chart-data="{{ runningTotalCodec }}" width="440" height="240" xper-tick="100" yper-tick="20"></ar-dashboard-graph>
     </tab>
     <tab heading="Formats">
       <div>Formats Tab</div>
@@ -100,12 +101,13 @@
     </tab>
   </tabset>
 
-  <!-- Artiwork Sizes (Average vs Median) -->
-  <div class="span6 dashboard-widget dashboard-rs-graph">
-    <div class="rs-graph-pane">
-      <h5>Artwork Sizes (Average vs Median)</h5>
-      <ar-dashboard-line-chart chart-data="{{ artworkSizes }}" width="510" height="240" xper-tick="50" yper-tick="40">
-      </ar-dashboard-line-chart>
-    </div>
-  </div>
+  <!-- Artwork Sizes (Average vs Median) -->
+  <tabset class="span6 dashboard-widget dashboard-rs-graph">
+    <h3><a class="graph-line">Artwork Sizes (Average vs Median)</a></h3>
+    <tab heading="Codec">
+      <ar-dashboard-graph type="line" chart-data="{{ artworkSizes }}" width="510" height="260" xper-tick="50" yper-tick="40"></ar-dashboard-graph>
+      <!-- <ar-dashboard-line-chart chart-data="{{ artworkSizes }}" width="510" height="240" xper-tick="50" yper-tick="40">
+      </ar-dashboard-line-chart> -->
+    </tab>
+  </tabset>
 </div>

@@ -3,9 +3,22 @@
  * existing stylesheets.
  */
 
+.dashboard-header {
+  position: absolute;
+  right: 0;
+  left: 0;
+  img {
+    width: 100%;
+    max-width: none;
+    height: 110px;
+  }
+}
+
 /*------------------------ */
 // dashboard tabset
-.dashboard-widget{
+.dashboard-top-widget { margin-top: 130px; }
+.dashboard-widget {
+
   .nav{
     margin-bottom: 0;
     cursor: pointer;
@@ -13,11 +26,17 @@
       background: @white;
     }
   }
+
   .tab-content{
     background: @white;
     padding: 20px;
     border: 1px solid #ddd;
     border-top: none;
+  }
+
+  h3 > a {
+    .fa-icon-set(@black);
+    &:before { padding-right: 5px; }
   }
 }
 
@@ -44,14 +63,18 @@ rs-chart {
   left: 40px;
 }
 .dashboard-rs-graph {
+
   .x_grid_d3 {
     display: none;
   }
+
   .rickshaw_graph text {
     opacity: 0.8;
   }
+
   .tab-content {
-    overflow: hidden; 
+    overflow: auto;
+    height: 380px;
   }
   .tab-pane > .ng-scope,
   .rs-graph-pane > .ng-isolate-scope {
@@ -72,6 +95,11 @@ rs-chart {
           }
         }
       }
-    }    
+    }
   }
 }
+
+.graph-center {
+  padding-left: 9%;
+}
+
