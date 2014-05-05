@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, InformationObjectService, ModalDigitalObjectViewerService, ModalDownloadService, ModalReclassifyAipService, AuthenticationService) {
+module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, InformationObjectService, ModalDigitalObjectViewerService, ModalDownloadService, ModalReclassifyAipService) {
 
   AIPService.getAIP($stateParams.uuid)
     .success(function (data) {
@@ -54,19 +54,6 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
         $scope.$broadcast('pull.success', data.total);
       });
   };
-
-  // Get current user details/privileges
-  var getCurrentUser = function () {
-    return AuthenticationService.user;
-  };
-
-  $scope.$watch(getCurrentUser, function (user) {
-    if (typeof user !== 'undefined') {
-      $scope.user = user;
-    } else {
-      delete $scope.user;
-    }
-  });
 
   // Watch for criteria changes
   $scope.$watch('criteria', function () {

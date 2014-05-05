@@ -2,7 +2,7 @@
 
 var ContextBrowser = require('../lib/cbd');
 
-module.exports = function ($scope, $element, $document, InformationObjectService, FullscreenService, AuthenticationService) {
+module.exports = function ($scope, $element, $document, InformationObjectService, FullscreenService) {
 
   // Aliases (not needed, just avoiding the refactor now)
   var scope = $scope;
@@ -313,19 +313,6 @@ module.exports = function ($scope, $element, $document, InformationObjectService
   };
 
   $document.on('keyup', onKeyUp);
-
-  // Get current user details/privileges
-  var getCurrentUser = function () {
-    return AuthenticationService.user;
-  };
-
-  $scope.$watch(getCurrentUser, function (user) {
-    if (typeof user !== 'undefined') {
-      $scope.user = user;
-    } else {
-      delete $scope.user;
-    }
-  });
 
 
   /**
