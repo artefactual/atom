@@ -67,8 +67,6 @@ class arDeleteInformationObjectJob extends arBaseJob
    */
   private function deleteInformationObject($io)
   {
-    $parent = $io->parent;
-
     foreach ($io->descendants->andSelf()->orderBy('rgt') as $item)
     {
       // Delete related digitalObjects
