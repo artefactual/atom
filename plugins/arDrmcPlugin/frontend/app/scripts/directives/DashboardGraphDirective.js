@@ -19,7 +19,7 @@ module.exports = function () {
         // ---------------------------
 
         var w = attrs.width,
-          h = attrs.width,
+          h = attrs.height,
           r = w / 2 * 0.8,
           //inner =  w * 0.1,
           color = myd3.scale.category20c();
@@ -90,7 +90,6 @@ module.exports = function () {
 
         var palette = new myrickshaw.Color.Palette();
         var max = Number.MIN_VALUE;
-        console.log('dataset', dataset);
         for (var y = 0; y < dataset.length; y++
           ) {
           dataset[y].color = palette.color();
