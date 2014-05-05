@@ -1,48 +1,17 @@
 'use strict';
 
-module.exports = function ($http, $q, SETTINGS) {
-  var authenticationUrl = SETTINGS.frontendPath + 'api/users/authenticate',
-      self = this;
+var User = require('../lib/user');
 
-  // user data includes helpers to make privilege checking in templates easier
-  function setUserData (user) {
-    self.user = user;
+module.exports = function ($rootScope, $http, SETTINGS) {
 
-    self.user.isMemberOf = function (group) {
-      return self.user.groups.indexOf(group) !== -1;
-    };
+  var authenticationUrl = SETTINGS.frontendPath + 'api/users/authenticate';
 
-    self.user.isMemberOfOneOf = function (groups) {
-      var result = false;
-      groups.forEach(function (group) {
-        if (self.user.isMemberOf(group)) {
-          result = true;
-        }
-      });
-      return result;
-    };
-
-    self.user.canAdministrate = function () {
-      return self.user.isMemberOf('administrator');
-    };
-
-    self.user.canEdit = function () {
-      return self.user.isMemberOfOneOf([
-        'administrator',
-        'editor'
-      ]);
-    };
-
-    self.user.canContribute = function () {
-      return self.user.canEdit() || self.user.isMemberOf('contributors');
-    };
-
-    self.user.canRead = function () {
-      return self.user.isMemberOf('authenticated');
-    };
-  }
+  // Notice that a reference to the user object (User) is stored in
+  // $rootScope.user so it can be used across all our models. An alternative
+  // would be to have an extra service like UserService maybe?
 
   this.authenticate = function (username, password) {
+    var self = this;
     return $http({
       method: 'POST',
       url: authenticationUrl,
@@ -50,25 +19,31 @@ module.exports = function ($http, $q, SETTINGS) {
         username: username,
         password: password
       }
-    })
-    .success(setUserData);
+    }).success(function (data) {
+      $rootScope.user = self.user = new User(data);
+    });
   };
 
   this.isAuthenticated = function () {
+    var self = this;
     return $http({
       method: 'GET',
       url: authenticationUrl
-    })
-    .success(setUserData);
+    }).success(function (data) {
+      $rootScope.user = self.user = new User(data);
+    });
   };
 
   this.logOut = function () {
+    var self = this;
     return $http({
       method: 'DELETE',
       url: authenticationUrl
     })
     .success(function () {
+      delete $rootScope.user;
       delete self.user;
     });
   };
+
 };
