@@ -29,26 +29,9 @@ class ObjectImportAction extends sfAction
 {
   public function execute($request)
   {
+    $this->timer = new QubitTimer;
     $file = $request->getFiles('file');
-    $importType = $request->getParameter('importType', 'xml');
 
-    ob_start();
-
-    foreach ($file as $k => $v)
-    {
-      fprintf($fp, "%s => %s\n", $k, $v);
-    }
-
-    fprintf($fp, "%s\n", $importType);
-    $result = ob_get_clean();
-
-    $fp = fopen('/tmp/lol', 'a'); 
-
-    fprintf($fp, "%s\n", $result); 
-
-    fclose($fp);
-
-    return;
     // Import type, CSV or XML?
     $importType = $request->getParameter('importType', 'xml');
 
