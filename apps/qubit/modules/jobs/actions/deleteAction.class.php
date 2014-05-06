@@ -31,14 +31,12 @@ class JobsDeleteAction extends sfAction
    */
   public function execute($request)
   {
-    $sfUser = sfContext::getInstance()->user;
-    if ($sfUser === null || $sfUser->isAuthenticated() === false)
+    if (!$this->context->user || !$this->context->user->isAuthenticated())
     {
-      $this->forward404();
-      return;
+      QubitAcl::forwardUnauthorized();
     }
 
-    $jobs = QubitJob::getJobsByUser($sfUser);
+    $jobs = QubitJob::getJobsByUser($this->context->user);
 
     foreach ($jobs as $job)
     {

@@ -27,5 +27,12 @@ class JobsBrowseAction extends DefaultBrowseAction
   public function execute($request)
   {
     parent::execute($request);
+
+    $this->user = $this->context->user; //sfContext::getInstance()->user;
+
+    if (!$this->user || !$this->user->isAuthenticated())
+    {
+      QubitAcl::forwardUnauthorized();
+    }
   }
 }

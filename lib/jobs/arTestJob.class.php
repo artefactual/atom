@@ -34,7 +34,7 @@ class arTestJob extends arBaseJob
     // parent::run() will check parameters and throw an exception if any are missing
     parent::run($parameters);
 
-    print "Got a test job! id: {$this->job->id}\n";
+    $this->info("Got a test job! id: {$this->job->id}\n");
 
     if (isset($parameters['error']))
     {

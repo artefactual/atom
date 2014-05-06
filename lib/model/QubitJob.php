@@ -24,7 +24,8 @@
  */
 
 class QubitJob extends BaseJob {
-  private $notes = array();
+  private
+    $notes = array();
 
   /**
    * Run a job via gearman
@@ -116,7 +117,7 @@ class QubitJob extends BaseJob {
   private function formatDate($date)
   {
     $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $date);
-    return $dateTime->format('Y-m-d h:i A');
+    return $dateTime ? $dateTime->format('Y-m-d h:i A') : 'N/A';
   }
 
   /**
@@ -201,69 +202,6 @@ class QubitJob extends BaseJob {
     $criteria->add(QubitJob::USER_ID, $user->getUserID());
 
     return QubitJob::get($criteria);
-  }
-
-  /**
-   * Generate a CSV with a jobs history for all jobs in $jobs.
-   * @param  array $jobs  The array of jobs to write information to CSV for
-   */
-  public static function getCSVString($jobs)
-  {
-    $output = array(
-      array('startDate', 'endDate', 'jobName', 'jobStatus', 'jobInfo', 'jobUser')
-    );
-
-    foreach ($jobs as $job)
-    {
-      // Get notes, separated by | if multiple
-      $notes = $job->getNotes();
-      $notesString = '';
-      foreach ($notes as $note)
-      {
-        if (strlen($notesString) > 0)
-        {
-          $notesString .= ' | ';
-        }
-
-        $notesString .= $note->content;
-      }
-
-      // Get user name
-      $name = 'None';
-      if ($job->userId != null)
-      {
-        $user = QubitUser::getById($job->userId);
-      }
-      
-      if (isset($user))
-      {
-        $name = $user->username;
-      }
-
-      $output[] = array(
-        $job->getCreationDateString(),
-        $job->getCompletionDateString(),
-        $job->name,
-        $job->getStatusString(),
-        $notesString,
-        $name
-      );
-    }
-
-    ob_start();
-
-    $fp = fopen('php://output', 'w'); 
-    foreach ($output as $row)
-    {
-      fputcsv($fp, $row);
-    }
-
-    fclose($fp);
-
-    $ret = ob_get_contents();
-    ob_end_clean();
-
-    return $ret;
   }
 
   /**

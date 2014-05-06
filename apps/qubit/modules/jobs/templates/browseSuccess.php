@@ -1,9 +1,3 @@
-
-<?php $sfUser = sfContext::getInstance()->user; ?>
-<?php if (!$sfUser || !$sfUser->isAuthenticated()): ?>
-  <?php QubitAcl::forwardUnauthorized(); ?>
-<?php endif; ?>
-
 <h1>Manage jobs</h1>
 
 <table class="table table-bordered sticky-enabled sticky-table" style="margin-top:20px;">
@@ -19,10 +13,10 @@
   </thead>
 
   <!-- Allow administrators see all jobs, not just their own -->
-  <?php if ($sfUser->isAdministrator()): ?>
+  <?php if ($this->context->user->isAdministrator()): ?>
     <?php $jobs = QubitJob::getAll(); ?>
   <?php else: ?>
-    $jobs = QubitJob::getJobsByUser($sfUser);
+    $jobs = QubitJob::getJobsByUser($user);
   <?php endif; ?>
 
   <?php if ($jobs->count() === 0): ?>
@@ -39,7 +33,7 @@
       <td><?php echo $job->getCreationDateString(); ?></td>
 
       <!-- End date -->
-      <td><?php echo $job->getCreationDateString(); ?></td>
+      <td><?php echo $job->getCompletionDateString(); ?></td>
 
       <!-- Job name -->
       <td><?php echo $job; ?></td>
@@ -76,7 +70,7 @@
   <?php endforeach; ?>
 </table>
 
-<?php if ($sfUser->isAdministrator()): ?>
+<?php if ($this->context->user->isAdministrator()): ?>
   <div class="messages" style="background-color:#FFFFCC">
     <i class="icon-info-sign" style="color:#336699"></i>&nbsp;You may only clear jobs belonging to you.
   </div>
@@ -84,14 +78,12 @@
 <section class="actions">
   <ul>
     <li>
-      <a class="c-btn" href=<?php echo '"' . url_for(array('module' => 'jobs', 'action' => 'export')) . '"'; ?>>
-      Export history CSV
-      </a>
+      <?php echo link_to(__('Export history CSV'), array('module' => 'jobs', 'action' => 'export'),
+        array('class' => 'c-btn')) ?>
     </li>
     <li>
-      <a class="c-btn c-btn-delete" href=<?php echo '"' . url_for(array('module' => 'jobs', 'action' => 'delete')) . '"'; ?>>
-      Clear inactive jobs
-      </a>
+      <?php echo link_to(__('Clear inactive jobs'), array('module' => 'jobs', 'action' => 'delete'),
+        array('class' => 'c-btn c-btn-delete')) ?>
     </li>
   </ul>
 </section>
