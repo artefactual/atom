@@ -21,7 +21,9 @@
     "dagre": "~0.4.5",
     "jquery": "~2.1.0",
     "wolfy87-eventemitter": "~4.2.6",
-    "angular-ui-router": "~0.2.10"
+    "angular-ui-router": "~0.2.10",
+    "angular-hotkeys": "~1.1.0",
+    "mousetrap": "0.0.1"
   },
   "scripts": {
     "test": "grunt test"
