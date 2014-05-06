@@ -37,6 +37,7 @@ class ApiAipsBrowseAction extends QubitApiAction
     // Create query objects
     $query = new \Elastica\Query;
     $queryBool = new \Elastica\Query\Bool;
+    $filterBool = new \Elastica\Filter\Bool;
     $queryBool->addMust(new \Elastica\Query\MatchAll);
 
     // Pagination and sorting
@@ -50,7 +51,8 @@ class ApiAipsBrowseAction extends QubitApiAction
       // 'partOf' => ''));
 
     // Filter selected facets
-    $this->filterEsFacet('type', 'type.id', $queryBool);
+    $this->filterEsFacet('type', 'type.id', $filterBool);
+
     $this->filterEsRangeFacet('sizeFrom', 'sizeTo', 'sizeOnDisk', $queryBool);
     $this->filterEsRangeFacet('ingestedFrom', 'ingestedTo', 'createdAt', $queryBool);
 
@@ -103,6 +105,12 @@ class ApiAipsBrowseAction extends QubitApiAction
 
     // Assign query
     $query->setQuery($queryBool);
+
+    // Set filter
+    if (0 < count($filterBool->toArray()))
+    {
+      $query->setFilter($filterBool);
+    }
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitAip')->search($query);
 

@@ -36,6 +36,7 @@ class ApiSearchesBrowseAction extends QubitApiAction
   {
     // Create query objects
     $query = new \Elastica\Query;
+    $filterBool = new \Elastica\Filter\Bool;
     $queryBool = new \Elastica\Query\Bool;
     $queryBool->addMust(new \Elastica\Query\MatchAll);
 
@@ -50,18 +51,11 @@ class ApiSearchesBrowseAction extends QubitApiAction
       'user' => 'user.name'));
 
     // Filter selected facets
-    $this->filterEsFacet('user', 'user.id', $queryBool);
+    $this->filterEsFacet('user', 'user.id', $filterBool);
+    $this->filterEsFacet('type', 'type', $filterBool, 'AND', array('noInteger' => true));
+
     $this->filterEsRangeFacet('createdFrom', 'createdTo', 'createdAt', $queryBool);
     $this->filterEsRangeFacet('updatedFrom', 'updatedTo', 'updatedAt', $queryBool);
-
-    // Type needs QueryString
-    if (isset($this->request->type))
-    {
-      $queryText = new \Elastica\Query\QueryString($this->request->type);
-      $queryText->setFields(array('type'));
-
-      $queryBool->addMust($queryText);
-    }
 
     // Add facets to the query
     $this->facetEsQuery('Terms', 'type', 'type', $query);
@@ -107,6 +101,12 @@ class ApiSearchesBrowseAction extends QubitApiAction
       $queryText->setFields($queryFields);
 
       $queryBool->addMust($queryText);
+    }
+
+    // Set filter
+    if (0 < count($filterBool->toArray()))
+    {
+      $query->setFilter($filterBool);
     }
 
     // Assign query

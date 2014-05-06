@@ -33,6 +33,7 @@ class ApiInformationObjectsWorksBrowseAction extends QubitApiAction
   {
     // Create query objects
     $query = new \Elastica\Query;
+    $filterBool = new \Elastica\Filter\Bool;
     $queryBool = new \Elastica\Query\Bool;
 
     // Pagination and sorting
@@ -64,8 +65,9 @@ class ApiInformationObjectsWorksBrowseAction extends QubitApiAction
     }
 
     // Filter selected facets
-    $this->filterEsFacet('classification', 'tmsObject.classification.id', $queryBool);
-    $this->filterEsFacet('department', 'tmsObject.department.id', $queryBool);
+    $this->filterEsFacet('classification', 'tmsObject.classification.id', $filterBool);
+    $this->filterEsFacet('department', 'tmsObject.department.id', $filterBool);
+
     $this->filterEsRangeFacet('collectedFrom', 'collectedTo', 'tmsObject.dateCollected', $queryBool);
     $this->filterEsRangeFacet('createdFrom', 'createdTo', 'tmsObject.dateCreated', $queryBool);
     $this->filterEsRangeFacet('ingestedFrom', 'ingestedTo', 'aips.createdAt', $queryBool);
@@ -158,6 +160,12 @@ class ApiInformationObjectsWorksBrowseAction extends QubitApiAction
     else
     {
       $query->setQuery($queryBool);
+    }
+
+    // Set filter
+    if (0 < count($filterBool->toArray()))
+    {
+      $query->setFilter($filterBool);
     }
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);

@@ -8,8 +8,8 @@
 
     <section id="facets">
       <h3>Narrow your results by:</h3>
-      <ar-facet label="Classification" facet="data.facets.classification" field="criteria.class"></ar-facet>
-      <ar-facet label="Type" facet="data.facets.type" field="criteria.type"></ar-facet>
+      <ar-facet label="Classification" facet="data.facets.classification" field="criteria['class[]']"></ar-facet>
+      <ar-facet label="Type" facet="data.facets.type" field="criteria['type[]']"></ar-facet>
       <ar-range-facet type="date" label="Date materials ingested" facet="data.facets.dateIngested" from="criteria.ingestedFrom" to="criteria.ingestedTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
       <ar-range-facet type="size" label="Materials total size" facet="data.facets.totalSize" from="criteria.totalSizeFrom" to="criteria.totalSizeTo" callback="getSizeRangeLabel(arg1, arg2)"></ar-range-facet>
     </section>
