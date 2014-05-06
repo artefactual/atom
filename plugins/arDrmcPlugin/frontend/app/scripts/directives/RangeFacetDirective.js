@@ -57,7 +57,7 @@ module.exports = function (SETTINGS) {
         if (scope.label === 'Date ingested' || scope.label === 'Date materials ingested') {
           return scope.callback({arg1: 'dateIngested', arg2: from, arg3: to});
         }
-        if (scope.label === 'Date of acquisition') {
+        if (scope.label === 'Date collected') {
           return scope.callback({arg1: 'dateCollected', arg2: from, arg3: to});
         }
         if (scope.label === 'Date created') {
