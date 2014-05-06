@@ -6,30 +6,25 @@ module.exports = function ($scope, $q, StatisticsService) {
   $scope.dashboardGraphs.radioModel = 'number';
   /**
    * Run queries parallely
+   * Alphabetized by name
    */
 
-  $scope.pull = function () {
-    //var downloadActivity = StatisticsService.getDownloadActivity();
+  var pull = function () {
+    //var artworkByMonthSummary = StatisticsService.getArtworkByMonthSummary();
+    var downloadActivity = StatisticsService.getDownloadActivity();
+    var ingestionActivity = StatisticsService.getIngestionActivity();
+    //var ingestionSummary = StatisticsService.getIngestionSummary();
+    var storageCodec = StatisticsService.getRunningTotalByFormats();
 
-    $scope.storageCodec = StatisticsService.getRunningTotalByFormats().then(function (response) {
-      $scope.storageCodec = response.data.results;
-    });
-
-    $scope.$watch('storageCodec', function (oldVal, newVal) {
-      if (newVal) {
-      } else {
-        return;
-      }
-    });
-
-
-    /*$q.all([downloadActivity, storageCodec]).then(function (responses) {
+    $scope.responses = {};
+    $q.all([downloadActivity, ingestionActivity, storageCodec]).then(function (responses) {
       $scope.responses.downloadActivity = responses[0].data.results;
-      $scope.responses.storageCodec = responses[1].data.results;
-    });*/
+      $scope.responses.ingestionActivity = responses[1].data.results;
+      $scope.responses.storageCodec = responses[2].data.results;
+    });
 
   };
-  $scope.pull();
+  pull();
   // TODO: DashboardIngestionCtrl and DashboardRecentActivityCtrl... unused now!
 
 };

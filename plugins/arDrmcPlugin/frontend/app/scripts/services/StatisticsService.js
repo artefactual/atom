@@ -9,6 +9,9 @@ module.exports = function ($http, SETTINGS) {
    * - /api/activity/ingestion
    * - /api/summary/ingestion
    * - /api/summary/artworkbymonth
+   * - /api/summary/mediafilesizebycollectionyear
+   * - /api/summary/mediacategorycount
+   * - /api/summary/storagebymediacategory
    *
    */
 
