@@ -69,7 +69,7 @@ class ApiUsersAuthenticateAction extends QubitApiAction
 
     foreach ($this->context->user->user->getAclGroups() as $group)
     {
-      array_push($groups, self::$groupNames[$group->id]);
+      array_push($groups, $group->name);
     }
 
     return array(

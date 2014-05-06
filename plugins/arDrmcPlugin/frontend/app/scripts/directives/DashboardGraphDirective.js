@@ -6,8 +6,8 @@ var myrickshaw = require('rickshaw');
 module.exports = function () {
   return {
     restrict: 'E',
+    replace: true,
     scope: {
-
     },
     template: '<rs-y-axis></rs-y-axis><rs-chart></rs-chart><rs-x-axis></rs-x-axis><rs-legend></rs-legend>',
     link: function (scope, element, attrs) {

@@ -34,6 +34,16 @@ module.exports = function ($rootScope, $http, SETTINGS) {
     });
   };
 
+  this.isMemberOf = function (group) {
+    var self = this;
+    return self.user.groups.indexOf(group) !== -1;
+  };
+
+  this.isMemberOf = function (group) {
+    var self = this;
+    return self.user.groups.indexOf(group) !== -1;
+  };
+
   this.logOut = function () {
     var self = this;
     return $http({
