@@ -9,7 +9,7 @@ module.exports = function () {
     replace: true,
     scope: {
     },
-    template: '<rs-y-axis></rs-y-axis><rs-chart></rs-chart><rs-x-axis></rs-x-axis><rs-legend></rs-legend>',
+    template: '<div><rs-y-axis></rs-y-axis><rs-chart></rs-chart><rs-x-axis></rs-x-axis><rs-legend></rs-legend></div>',
     link: function (scope, element, attrs) {
       // var datum = angular.fromJson(attrs.chartData);
 
