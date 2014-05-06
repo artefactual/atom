@@ -1,43 +1,47 @@
 'use strict';
 
-module.exports = function ($scope, $q, $modal, $stateParams, $modalInstance, files, InformationObjectService, ModalDigitalObjectViewerService) {
+module.exports = function ($scope, $q, $modal, $stateParams, $modalInstance, hotkeys, InformationObjectService, ModalDigitalObjectViewerService, files, index) {
 
-  // Share files with the model
-  // Make sure that we convert into array when files is just one object
-  if (angular.isArray(files)) {
-    $scope.files = files;
-  } else {
-    $scope.files = [files];
-  }
+  // Reference provided list of files from the model
+  $scope.files = files;
+
+  // Set page and current file based in the index parameter, which may be not
+  // defined when the user is not visualizing a file in particular
+  index = index === null ? 0 : index;
+  $scope.current = $scope.files[index];
+  $scope.page = index + 1;
+  $scope.total = $scope.files.length;
 
   // Get class by media type
-  $scope.getMediaTypeCssClass = function (file) {
-    return ModalDigitalObjectViewerService.mediaTypes[file.media_type_id].class;
+  $scope.getMediaType = function () {
+    // file.class = ModalDigitalObjectViewerService.mediaTypes[file.media_type_id].class;
   };
-
-  $scope.page = 1;
-  $scope.total = $scope.files.length;
-  $scope.current = $scope.files[$scope.page - 1];
 
   // Close the dialog
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
 
-  $scope.download = function (itemFile) {
-    var itemId = itemFile.id;
-
-    InformationObjectService.getById(itemId).then(function (response) {
-      $scope.itemToDownload = response;
-    });
-    // TODO: Finish download work
+  // Download files
+  $scope.download = function (file) {
+    console.log(file, 'TODO');
   };
+
+
+  /**
+   * Sidebar
+   */
 
   // Defaults for the sidebar.
   // Notice that ng-repeat will inherit this and then rewrite
   $scope.showAipsArea = true;
   $scope.showFitsArea = false;
   $scope.showMediaArea = false;
+
+
+  /**
+   * Pager and selection
+   */
 
   $scope.prev = function () {
     if ($scope.page < 2) {
@@ -55,6 +59,24 @@ module.exports = function ($scope, $q, $modal, $stateParams, $modalInstance, fil
     $scope.current = $scope.files[$scope.page++];
   };
 
+  $scope.showPrev = function () {
+    return $scope.page > 1;
+  };
+
+  $scope.showNext = function () {
+    return $scope.page < $scope.total;
+  };
+
+  var go = function (index) {
+    $scope.page = index + 1;
+    $scope.current = $scope.files[index];
+  };
+
+
+  /**
+   * Sidebar selection
+   */
+
   $scope.select = function (item) {
     $scope.current = item;
     // Update page
@@ -66,34 +88,105 @@ module.exports = function ($scope, $q, $modal, $stateParams, $modalInstance, fil
     }
   };
 
-  $scope.unselect = function (index) {
-    if($scope.files.length > 1) {
-      $scope.files.splice(index, 1);
+  $scope.getSidebarFiles = function () {
+    return [$scope.current];
+  };
+
+
+  /**
+   * Comparing files
+   */
+
+  $scope.showCompareSelector = false;
+  $scope.comparingFiles = [$scope.current];
+  var comparingFilesLimit = 3;
+
+  var selectForCompare = function (file, index) {
+    if (file.comparing) {
+      file.comparing = false;
+    } else if ($scope.comparingFiles.length < comparingFilesLimit) {
+      file.comparing = true;
+    }
+    console.log(index);
+  };
+
+  $scope.onCompareItemClick = function (file, index, $event) {
+    if ($event.shiftKey) {
+      selectForCompare(file, index);
+    } else {
+      go(index);
+      $scope.closeCompareSelector();
+    }
+  };
+
+  $scope.openCompareSelector = function () {
+    $scope.showCompareSelector = !$scope.showCompareSelector;
+  };
+
+  $scope.closeCompareSelector = function () {
+    $scope.showCompareSelector = false;
+  };
+
+  $scope.compare = function () {
+    $scope.comparingFiles = [];
+    for (var i in $scope.files) {
+      var f = $scope.files[i];
+      if (f.comparing) {
+        $scope.comparingFiles.push(f);
+      }
+    }
+    $scope.closeCompareSelector();
+  };
+
+  $scope.uncompare = function (file, index) {
+    if ($scope.comparingFiles.length > 1) {
+      $scope.comparingFiles.splice(index, 1);
+      file.comparing = false;
     } else {
       $modalInstance.dismiss('cancel');
     }
   };
 
-  $scope.showPrev = function () {
-    return $scope.page > 1;
-  };
 
-  $scope.showNext = function () {
-    return $scope.page < $scope.total;
-  };
+  /**
+   * Shortcuts
+   */
 
-  // Get list of files for compare view
-  InformationObjectService.getById($stateParams.id).then(function () {
-
-    var deferred = $q.defer();
-
-    setTimeout(function () {
-      // $q so browser can load viewer first before loading all files
-      InformationObjectService.getDigitalObjects($stateParams.id).then(function (response) {
-        $scope.allFiles = response.data.results;
-        return $scope.allFiles;
-      });
-    }, 100);
-    return deferred.promise;
+  hotkeys.add({
+    combo: 'left',
+    callback: function () {
+      if ($scope.showCompareSelector) {
+        return;
+      }
+      $scope.prev();
+    }
   });
+
+  hotkeys.add({
+    combo: 'right',
+    callback: function () {
+      if ($scope.showCompareSelector) {
+        return;
+      }
+      $scope.next();
+    }
+  });
+
+  hotkeys.add({
+    combo: 'c',
+    callback: function () {
+      if ($scope.showCompareSelector) {
+        $scope.closeCompareSelector();
+      } else {
+        $scope.openCompareSelector();
+      }
+    }
+  });
+
+  $scope.$on('$destroy', function () {
+    hotkeys.del('left');
+    hotkeys.del('right');
+    hotkeys.del('c');
+  });
+
 };

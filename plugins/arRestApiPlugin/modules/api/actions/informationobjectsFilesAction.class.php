@@ -77,6 +77,7 @@ class ApiInformationObjectsFilesAction extends QubitApiAction
       $this->addItemToArray($item, 'mime_type', $doc['digitalObject']['mimeType']);
       $this->addItemToArray($item, 'byte_size', $doc['digitalObject']['byteSize']);
       $this->addItemToArray($item, 'thumbnail_path', image_path($doc['digitalObject']['thumbnailPath'], true));
+      $this->addItemToArray($item, 'master_path', image_path($doc['digitalObject']['masterPath'], true));
 
       // Why "aip" is a list in the ES document?
       $this->addItemToArray($item, 'aip_uuid', $doc['aip'][0]['uuid']);

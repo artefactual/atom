@@ -1,0 +1,346 @@
+// Digital object viewer
+
+.digital-object-viewer {
+}
+
+// Body
+
+.dov-modal-body {
+  order: 1;
+  color: @white;
+  display: flex;
+  flex: 2 0 auto;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  min-width: 350px;
+
+  // Close button
+  #dov-modal-exit {
+    top: 0;
+    position: absolute;
+    right: 0;
+    font-size: 22px;
+    padding-top: 8px;
+    padding-right: 0;
+    margin-right: -12px;
+  }
+}
+
+.dov-modal-body-header {
+  order: 1;
+  flex: 0 1 80px;
+
+  align-self: stretch;
+
+  // MUST be first child to make new flex element
+  > div {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+
+    height: 50px;
+
+    .pager-links {
+      padding-top: 32px;
+    }
+
+    .arrow-left.disabled,
+    .arrow-right.disabled {
+      opacity: 0.1;
+      cursor: default;
+    }
+
+    .grid-pager {
+      vertical-align: -100%;
+      text-align: center;
+      display: inline-block;
+
+      .grid, p {
+        padding: 0px 21px;
+      }
+    }
+  }
+}
+
+.dov-modal-body-content {
+  order: 2;
+  flex: 0 1 100%;
+  min-width: 90%;
+
+  .video {
+
+    video {
+      margin: 0 auto;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .text {
+    width: 90%;
+
+    object {
+      width: 100%;
+      min-height: 90%;
+    }
+  }
+
+  .image {
+    padding-top: 50px;
+    img {
+      display: block;
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+
+  .audio {
+    padding-top: 50px;
+    audio {
+      margin: 0 auto;
+      display: block;
+    }
+  }
+}
+
+// Sidebar
+
+.dov-modal-sidebar {
+  border: 1px solid @grayLighter;
+  border-top: 3px solid transparent;
+  min-width: 220px;
+  max-width: 400px;
+  background: @fsModalLighter;
+  overflow-y: auto;
+
+  // This first flex option is a ratio; sidebar items are all set at 1
+  // Modal content's flex value is '2', meaning it is twice as big as each sidebar
+  flex: 1;
+  order: 2;
+
+  .content {
+    background: transparent;
+    box-shadow: none;
+    border: 0px;
+
+    section {
+      border: 0px;
+    }
+  }
+
+  // Close button
+  .close {
+    color: @momaGrayDark;
+    position: relative;
+    float: right;
+    width: 20px;
+    height: 20px;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  section:first-child {
+    border-top: 1px solid @grayLighter !important;
+    margin-top: 10px;
+  }
+
+  h2 {
+    color: @momaGrayDark;
+    cursor: pointer;
+  }
+
+  // Toggles sidebar sections
+  a.dov-modal-toggle {
+    .fa-icon-set (@grayDark);
+    font-size: 14px;
+    display: block;
+    float: right;
+    position: relative;
+    width: 10px;
+    height: 10px;
+    margin-top: -42px;
+
+    &:before {
+      content: "\f103";
+    }
+    &.active:before {
+      content: "\f102" !important;
+    }
+  }
+
+  // From base style, makes field names wider
+  .content .field {
+    > h3 {
+      width: 35%;
+    }
+    > div {
+      margin-left: 35%;
+      overflow: auto;
+    }
+  }
+
+  // Border to highlight active sidebar
+  .dov-modal-sidebar.active {
+    border-top: 3px solid @orange;
+  }
+
+  // Border for only one sidebar view
+  .dov-modal-sidebar.unique {
+    border-top: transparent !important;
+  }
+}
+
+// Quick info heading widget in the sidebar
+
+.quick-info {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  height: 65px;
+  margin-top: 10px;
+  .clearfix();
+}
+
+.quick-info-thumb {
+  padding-top: 8px;
+  padding-right: 0;
+  width: 60px;
+  height: 25px;
+  overflow-y: hidden;
+  img {
+    width: 100%;
+  }
+}
+
+.quick-info-title {
+  .clearfix();
+  padding-left: 8px;
+
+  h4 {
+    line-height: 12px !important;
+    margin-bottom: 0;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &:hover {
+      white-space: normal;
+      word-break: break-all;
+      overflow: visible;
+      background: @white !important;
+    }
+  }
+
+  a {
+    width: auto;
+    height: auto;
+    color: @orange;
+    font-size: 8px;
+    padding: 2px;
+    display: inline-block;
+    white-space: nowrap;
+
+    &:before {
+      font-size: 14px;
+      padding-right: 4px;
+      color: @gray;
+    }
+  }
+}
+
+// Section: Viewer icons
+
+.fullscreen-modal {
+  a {
+    .fa-icon-set(@white);
+    width: 40px;
+    height: 26px;
+    padding: 12px;
+    font-size: 20px;
+  }
+}
+
+// Compare view
+
+.dov-compare-view {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  background-color: @black;
+}
+
+.dov-compare-view-header {
+  min-height: 50px;
+  max-height: 50px;
+  order: 0;
+  flex: 1 1 auto;
+  background-color: @white;
+  h3 {
+    margin: 0;
+    line-height: 50px;
+    padding-left: 8px;
+  }
+  .sidex {
+    float: right;
+    color: @black;
+    padding: 0 4px;
+  }
+}
+
+.dov-compare-view-body {
+  order: 1;
+  flex: 1 1 auto;
+  background-color: @grayDark;
+  overflow: auto;
+  ul {
+    margin: 0;
+  }
+}
+
+.dov-compare-view-footer {
+  min-height: 50px;
+  max-height: 50px;
+  line-height: 50px;
+  padding: 0 16px;
+  order: 2;
+  flex: 1 1 auto;
+  background-color: rgba(0, 0, 0, .15);
+  vertical-align: center;
+  .c-btn {
+    background-color: @grayDark;
+    color: @white;
+  }
+}
+
+.dov-compare-list {
+  list-style: none;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content: space-around;
+  li {
+    cursor: pointer;
+    width: 30%;
+    max-width: 240px;
+    max-height: 175px;
+    text-align: center;
+    overflow: hidden;
+    margin: 1%;
+    border: 3px solid transparent;
+    img {
+      width: 100%;
+    }
+    &.active {
+      border-color: @orange;
+    }
+  }
+}
