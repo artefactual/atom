@@ -69,7 +69,7 @@ class ApiInformationObjectsWorksBrowseAction extends QubitApiAction
     $this->filterEsFacet('department', 'tmsObject.department.id', $filterBool);
 
     $this->filterEsRangeFacet('collectedFrom', 'collectedTo', 'tmsObject.dateCollected', $queryBool);
-    $this->filterEsRangeFacet('createdFrom', 'createdTo', 'tmsObject.dateCreated', $queryBool);
+    $this->filterEsRangeFacet('createdFrom', 'createdTo', 'dates.startDate', $queryBool);
     $this->filterEsRangeFacet('ingestedFrom', 'ingestedTo', 'aips.createdAt', $queryBool);
 
     // Add facets to the query
@@ -92,7 +92,7 @@ class ApiInformationObjectsWorksBrowseAction extends QubitApiAction
       'From last week');
 
     $this->facetEsQuery('Range', 'dateCollected', 'tmsObject.dateCollected', $query, array('ranges' => $dateRanges));
-    $this->facetEsQuery('Range', 'dateCreated', 'tmsObject.dateCreated', $query, array('ranges' => $dateRanges));
+    $this->facetEsQuery('Range', 'dateCreated', 'dates.startDate', $query, array('ranges' => $dateRanges));
     $this->facetEsQuery('Range', 'dateIngested', 'aips.createdAt', $query, array('ranges' => $dateRanges));
 
     // Range facet with script to facet total size

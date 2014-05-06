@@ -212,9 +212,26 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       else
       {
         // Date isn't a range
-        $event->date = $date;
-        $event->startDate = QubitFlatfileImport::parseDate($date);
-        $event->endDate = QubitFlatfileImport::parseDate($date);
+        if (isset($options['parseDate']) && $options['parseDate'] == false)
+        {
+          $event->date = $date;
+        }
+        else
+        {
+          $event->date = QubitFlatfileImport::parseDate($date);
+        }
+      }
+    }
+
+    if ($options['tmsDate'])
+    {
+      if (strlen($options['tmsDate']) == 4 && ctype_digit($options['tmsDate']))
+      {
+        $event->startDate = QubitFlatfileImport::parseDate($options['tmsDate'].'0101');
+      }
+      else
+      {
+        $event->startDate = QubitFlatfileImport::parseDate($options['tmsDate']);
       }
     }
 
@@ -944,6 +961,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
             // Creation event
             case 'Dated':
               $creation['date'] = $value;
+              $creation['tmsDate'] = $value;
 
               break;
 
@@ -1012,6 +1030,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     if (count($creation))
     {
+      $creation['parseDate'] = false;
       $this->addCreationEvent($tmsObject, $creation);
     }
 
