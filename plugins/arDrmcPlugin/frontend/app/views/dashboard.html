@@ -17,11 +17,16 @@
         <th>Size</th>
       </thead>
       <tbody>
-        <tr ng-repeat="item in ingestionActivity">
+        <tr ng-repeat="item in responses.ingestionActivity">
           <td>{{ item.created_at }}</td>
           <td>{{ item.aip_title }}</td>
           <td>{{ item.artwork_title }}</td>
           <td>{{ item.size_on_disk | UnitFilter:2 }}</td>
+        </tr>
+        <tr>
+          <td>
+            <div ng-if="responses.ingestionActivity.length < 1">There is no recent ingestion activity to display</div>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -35,11 +40,16 @@
         <th>User</th>
       </thead>
       <tbody>
-        <tr ng-repeat="item in downloadActivity">
+        <tr ng-repeat="item in responses.downloadActivity">
           <td>{{ item.date }}</td>
           <td>{{ item.file }}</td>
           <td>{{ item.reason }}</td>
           <td>{{ item.username || 'Unknown' }}</td>
+        </tr>
+        <tr>
+          <td>
+            <div ng-if="responses.downloadActivity.length < 1">There are no recent downloads to display</div>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -59,10 +69,7 @@
           <label class="btn" ng-model="dashboardGraphs.radioModel" btn-radio="'size'">Size (GB)</label>
         </div>
       </div>
-
-      <ar-dashboard-graph type="pie" chart-data="{{ storageCodec }}" width="150" height="160" class="graph-pie"></ar-dashboard-graph>
-      {{ dashboardGraphs }}
-      {{ storageCodec }}
+      <ar:graph-pie data="{{ responses.storageCodec }}" width="150" height="160" class="graph-pie"></ar:graph-pie>
       <h1><strong>Collection totals</strong></h1>
       <div ng-repeat="(item, count) in ingestionSummary">
         <div><strong>{{ count | number }}</strong> : <span>{{ item }}</span></div>
