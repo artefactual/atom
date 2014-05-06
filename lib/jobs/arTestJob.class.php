@@ -29,10 +29,10 @@ class arTestJob extends arBaseJob
   public function run($parameters)
   {
     // This will be an array of required parameter names
-    $this->addRequiredParameters(array()); 
+    $this->addRequiredParameters(array());
 
     // parent::run() will check parameters and throw an exception if any are missing
-    parent::run($parameters); 
+    parent::run($parameters);
 
     print "Got a test job! id: {$this->job->id}\n";
 
@@ -46,6 +46,7 @@ class arTestJob extends arBaseJob
     }
 
     // Don't forget to set the job status & save at the end!
+    $this->job->completedAt = new DateTime('now'); // Don't forget to record when the job finished
     $this->job->save();
   }
 }

@@ -36,6 +36,8 @@ class QubitJob extends BaseJob {
    *
    * @param string  $gearmanPath  Optional parameter specifying the host / port where
    * Gearman is running. Defaults to localhost and the default Gearman port.
+   *
+   * @return  QubitJob  The job that was just created for the running job
    */
   public static function runJob($jobName, $jobParams = array(), $gearmanPath = 'localhost:4730')
   {
@@ -72,6 +74,8 @@ class QubitJob extends BaseJob {
     {
       throw new sfException("Gearman failed to start a job: $e");
     }
+
+    return $job;
   }
 
   /**
@@ -106,13 +110,31 @@ class QubitJob extends BaseJob {
   }
 
   /**
+   * Get a string representing a date.
+   * @return  string  The job's creation date in a human readable string.
+   */
+  private function formatDate($date)
+  {
+    $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $date);
+    return $dateTime->format('Y-m-d h:i A');
+  }
+
+  /**
    * Get a string representing the job creation date.
    * @return  string  The job's creation date in a human readable string.
    */
   public function getCreationDateString()
   {
-    $creationDate = DateTime::createFromFormat('Y-m-d H:i:s', $this->createdAt);
-    return $creationDate->format('Y-m-d h:i A');
+    return $this->formatDate($this->createdAt);
+  }
+
+  /**
+   * Get a string representing the job completion date.
+   * @return  string  The job's creation date in a human readable string.
+   */
+  public function getCompletionDateString()
+  {
+    return $this->formatDate($this->completedAt);
   }
 
   /**
@@ -182,7 +204,7 @@ class QubitJob extends BaseJob {
   }
 
   /**
-   * Generate a CSV with a jobs history for all jobs in $jbos.
+   * Generate a CSV with a jobs history for all jobs in $jobs.
    * @param  array $jobs  The array of jobs to write information to CSV for
    */
   public static function getCSVString($jobs)
@@ -198,7 +220,12 @@ class QubitJob extends BaseJob {
       $notesString = '';
       foreach ($notes as $note)
       {
-        $notesString .= ' | ' . $note->content;
+        if (strlen($notesString) > 0)
+        {
+          $notesString .= ' | ';
+        }
+
+        $notesString .= $note->content;
       }
 
       // Get user name
@@ -208,14 +235,14 @@ class QubitJob extends BaseJob {
         $user = QubitUser::getById($job->userId);
       }
       
-      if ($user)
+      if (isset($user))
       {
         $name = $user->username;
       }
 
       $output[] = array(
-        $job->createdAt,
-        $job->completedAt,
+        $job->getCreationDateString(),
+        $job->getCompletionDateString(),
         $job->name,
         $job->getStatusString(),
         $notesString,
@@ -225,8 +252,7 @@ class QubitJob extends BaseJob {
 
     ob_start();
 
-    $fp = fopen('php://stdout','w');
-
+    $fp = fopen('php://output', 'w'); 
     foreach ($output as $row)
     {
       fputcsv($fp, $row);
@@ -236,8 +262,6 @@ class QubitJob extends BaseJob {
 
     $ret = ob_get_contents();
     ob_end_clean();
-
-    var_dump($ret);
 
     return $ret;
   }

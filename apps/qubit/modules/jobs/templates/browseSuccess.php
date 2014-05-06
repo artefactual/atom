@@ -9,10 +9,11 @@
 <table class="table table-bordered sticky-enabled sticky-table" style="margin-top:20px;">
   <thead class="tableheader-processed">
     <tr>
-      <th width="15%">Start date (YYYY-MM-DD)</th>
+      <th width="15%">Start date</th>
+      <th width="15%">End date</th>
       <th width="20%">Job name</th>
       <th width="10%">Job status</th>
-      <th width="45%">Info</th>
+      <th width="30%">Info</th>
       <th width="15%">User</th>
     </tr>
   </thead>
@@ -35,6 +36,9 @@
   <?php foreach ($jobs as $job): ?>
     <tr>
       <!-- Creation date -->
+      <td><?php echo $job->getCreationDateString(); ?></td>
+
+      <!-- End date -->
       <td><?php echo $job->getCreationDateString(); ?></td>
 
       <!-- Job name -->

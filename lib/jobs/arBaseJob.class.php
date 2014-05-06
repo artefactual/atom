@@ -35,7 +35,6 @@ class arBaseJob extends Net_Gearman_Job_Common
     $this->checkRequiredParameters($parameters);
 
     $this->logger = sfContext::getInstance()->getLogger();
-
     $this->job = QubitJob::getById($parameters['id']);
 
     if ($this->job === null)

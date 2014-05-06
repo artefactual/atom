@@ -26,6 +26,28 @@ class JobsExportAction extends DefaultBrowseAction
 {
   public function execute($request)
   {
-    parent::execute($request);
+    $sfUser = sfContext::getInstance()->user;
+    if (!$sfUser || !$sfUser->isAuthenticated())
+    {
+      QubitAcl::forwardUnauthorized();
+    }
+
+    if ($sfUser->isAdministrator())
+    {
+      $jobs = QubitJob::getAll();
+    }
+    else
+    {
+      $jobs = QubitDev::getJobsByUser($sfUser);
+    }
+
+    $csvFilename = 'atom-job-history-' . strftime('%Y-%m-%d') . '.csv';
+
+    $response = $this->getResponse();
+    $response->setContentType('text/csv');
+    $response->setHttpHeader('Content-Disposition', 'attachment; filename="' . $csvFilename . '"');
+    $response->setContent(QubitJob::getCSVString($jobs));
+
+    return sfView::NONE;
   }
 }

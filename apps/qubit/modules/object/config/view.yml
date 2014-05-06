@@ -4,3 +4,10 @@ importSelectSuccess:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
     /plugins/sfDrupalPlugin/vendor/drupal/misc/textarea:
+    /vendor/jquery.js:
+    /vendor/jquery-ui.js:
+    /vendor/plupload-2.1.1/js/plupload.full.min.js:
+    /vendor/plupload-2.1.1/js/jquery.ui.plupload/jquery.ui.plupload.js:
+
+  stylesheets:
+    /vendor/plupload-2.1.1/js/jquery.ui.plupload/css/jquery.ui.plupload.css:
