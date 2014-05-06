@@ -67,12 +67,13 @@ module.exports = function ($http, SETTINGS) {
       url: SETTINGS.frontendPath + 'end point needed'
     });
   };
+  */
 
   this.getRunningTotalByFormats = function () {
     return $http({
       method: 'GET',
-      url: SETTINGS.frontendPath + 'end point needed'
+      url: SETTINGS.frontendPath + 'api/summary/storagebymediacategory'
     });
   };
-  */
+
 };
