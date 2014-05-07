@@ -55,6 +55,7 @@ class ObjectTableMap extends TableMap {
     $this->addRelation('aipRelatedByid', 'aip', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('aipRelatedBypartOf', 'aip', RelationMap::ONE_TO_MANY, array('id' => 'part_of', ), 'SET NULL', null);
     $this->addRelation('digitalObject', 'digitalObject', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('drmcQuery', 'drmcQuery', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('event', 'event', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('function', 'function', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('informationObject', 'informationObject', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);

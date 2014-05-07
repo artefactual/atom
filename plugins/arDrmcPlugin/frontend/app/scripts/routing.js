@@ -92,6 +92,11 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       url: SETTINGS.DRMCPath + 'search',
       template: '<ui-view autoscroll="false"/>'
     })
+    .state('main.search.slug', {
+      url: '/{slug:\\d{4}-\\d{2}-\\d{2}-\\d{2}-\\d{2}-\\d{2}-.+}',
+      controller: 'SearchCtrl',
+      template: '<div ng-include="include"></div>'
+    })
     .state('main.search.entity', {
       url: '/{entity}',
       controller: 'SearchCtrl',

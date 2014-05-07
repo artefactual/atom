@@ -8,8 +8,8 @@
 
     <section id="facets">
       <h3>Narrow your results by:</h3>
-      <ar-facet label="Classification" facet="data.facets.classification" field="criteria.classification"></ar-facet>
-      <ar-facet label="Department" facet="data.facets.department" field="criteria.department"></ar-facet>
+      <ar-facet label="Classification" facet="data.facets.classification" field="criteria['classification[]']"></ar-facet>
+      <ar-facet label="Department" facet="data.facets.department" field="criteria['department[]']"></ar-facet>
       <ar-range-facet type="dateYear" label="Date of acquisition" facet="data.facets.dateCollected" from="criteria.collectedFrom" to="criteria.collectedTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
       <ar-range-facet type="dateYear" label="Date created" facet="data.facets.dateCreated" from="criteria.createdFrom" to="criteria.createdTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
       <ar-range-facet type="date" label="Date materials ingested" facet="data.facets.dateIngested" from="criteria.ingestedFrom" to="criteria.ingestedTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
@@ -22,10 +22,16 @@
 
     <div id="main-column">
 
-      <h1 class="multiline moma-title drmc-color-artwork-record">
-        Showing {{ data.total }} results
-        <span class="sub">Artwork records search</span>
-      </h1>
+      <div class="row-fluid">
+        <h1 class="multiline moma-title drmc-color-artwork-record span9">
+          Showing {{ data.total }} results
+          <span class="sub">Artwork records search</span>
+        </h1>
+
+        <div id="save-search" class="span3">
+          <a href ng-click="openSaveSearchModal(criteria)"><i class="icon-save"></i>Save search</a>
+        </div>
+      </div>
 
       <div class="content">
 

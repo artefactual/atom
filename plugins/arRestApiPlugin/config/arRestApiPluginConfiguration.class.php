@@ -27,6 +27,7 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
 {
   const REGEX_UUID = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}';
   const REGEX_ID   = '\d+';
+  const REGEX_SEARCH = '\d+|\d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}-.+';
 
   public function routingLoadConfiguration(sfEvent $event)
   {
@@ -237,6 +238,34 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     $this->addRoute('GET', '/api/search/autocomplete', array(
       'module' => 'api',
       'action' => 'searchAutocomplete'));
+
+    $this->addRoute('GET', '/api/searches', array(
+      'module' => 'api',
+      'action' => 'searchesBrowse'));
+
+    $this->addRoute('POST', '/api/searches', array(
+      'module' => 'api',
+      'action' => 'searchesCreate'));
+
+    $this->addRoute('GET', '/api/searches/:id', array(
+      'module' => 'api',
+      'action' => 'searchesRead',
+      'params' => array('id' => self::REGEX_ID)));
+
+    $this->addRoute('GET', '/api/searches/:idorslug', array(
+      'module' => 'api',
+      'action' => 'searchesRead',
+      'params' => array('idorslug' => self::REGEX_SEARCH)));
+
+    $this->addRoute('PUT', '/api/searches/:id', array(
+      'module' => 'api',
+      'action' => 'searchesUpdate',
+      'params' => array('id' => self::REGEX_ID)));
+
+    $this->addRoute('DELETE', '/api/searches/:id', array(
+      'module' => 'api',
+      'action' => 'searchesDelete',
+      'params' => array('id' => self::REGEX_ID)));
 
 
     /**

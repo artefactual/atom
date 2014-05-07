@@ -19,6 +19,7 @@
     .controller('DigitalObjectViewerCtrl', require('./DigitalObjectViewerCtrl'))
     .controller('AIPReclassifyCtrl', require('./AIPReclassifyCtrl'))
     .controller('LinkSupportingTechnologyCtrl', require('./LinkSupportingTechnologyCtrl'))
+    .controller('SaveSearchCtrl', require('./SaveSearchCtrl'))
 
     // Dashboard
     .controller('DashboardCtrl', require('./DashboardCtrl'))
@@ -29,6 +30,7 @@
     .controller('SearchCtrl', require('./SearchCtrl'))
     .controller('AipSearchCtrl', require('./AipSearchCtrl'))
     .controller('FileSearchCtrl', require('./FileSearchCtrl'))
+    .controller('SearchSearchCtrl', require('./SearchSearchCtrl'))
 
     // Context browser
     .controller('ContextBrowserCtrl', require('./ContextBrowserCtrl'))

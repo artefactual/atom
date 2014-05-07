@@ -63,6 +63,9 @@ module.exports = function (SETTINGS) {
         if (scope.label === 'Date created') {
           return scope.callback({arg1: 'dateCreated', arg2: from, arg3: to});
         }
+        if (scope.label === 'Date updated') {
+          return scope.callback({arg1: 'dateUpdated', arg2: from, arg3: to});
+        }
         return scope.callback({arg1: from, arg2: to});
       };
 

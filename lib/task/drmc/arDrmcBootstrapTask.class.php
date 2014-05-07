@@ -53,6 +53,7 @@ EOF;
       $this->addLevelsOfDescriptions();
       $this->addTaxonomies();
       $this->addTerms();
+      $this->addDrmcQueryTable();
     }
 
     if ($options['add-dummy-data'])
@@ -231,6 +232,45 @@ EOF;
         $term->save();
       }
     }
+  }
+
+  protected function addDrmcQueryTable()
+  {
+    $sql = <<<sql
+
+DROP TABLE IF EXISTS `drmc_query`;
+
+sql;
+
+    QubitPdo::modify($sql);
+
+    $sql = <<<sql
+
+CREATE TABLE `drmc_query`
+(
+  `id` INTEGER  NOT NULL,
+  `type` VARCHAR(20),
+  `name` VARCHAR(255),
+  `description` VARCHAR(1024),
+  `query` TEXT,
+  `user_id` INTEGER,
+  `created_at` DATETIME  NOT NULL,
+  `updated_at` DATETIME  NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `drmc_query_FK_1`
+    FOREIGN KEY (`id`)
+    REFERENCES `object` (`id`)
+    ON DELETE CASCADE,
+  INDEX `drmc_query_FI_2` (`user_id`),
+  CONSTRAINT `drmc_query_FK_2`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE SET NULL
+)Engine=InnoDB;
+
+sql;
+
+    QubitPdo::modify($sql);
   }
 
   protected function addDummyAips()

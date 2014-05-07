@@ -18,10 +18,4 @@ module.exports = function ($scope, ModalReclassifyAipService, SETTINGS) {
     });
   };
 
-  // Support AIP overview toggling
-  $scope.showOverview = true;
-  $scope.toggleOverview = function () {
-    $scope.showOverview = !$scope.showOverview;
-  };
-
 };

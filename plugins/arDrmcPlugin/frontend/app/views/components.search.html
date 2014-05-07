@@ -8,8 +8,8 @@
 
     <section id="facets">
       <h3>Narrow your results by:</h3>
-      <ar-facet label="Classification" facet="data.facets.classification" field="criteria.class"></ar-facet>
-      <ar-facet label="Type" facet="data.facets.type" field="criteria.type"></ar-facet>
+      <ar-facet label="Classification" facet="data.facets.classification" field="criteria['class[]']"></ar-facet>
+      <ar-facet label="Type" facet="data.facets.type" field="criteria['type[]']"></ar-facet>
       <ar-range-facet type="date" label="Date materials ingested" facet="data.facets.dateIngested" from="criteria.ingestedFrom" to="criteria.ingestedTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
       <ar-range-facet type="size" label="Materials total size" facet="data.facets.totalSize" from="criteria.totalSizeFrom" to="criteria.totalSizeTo" callback="getSizeRangeLabel(arg1, arg2)"></ar-range-facet>
     </section>
@@ -20,10 +20,16 @@
 
     <div id="main-column">
 
-      <h1 class="multiline moma-title drmc-color-component">
-        Showing {{ data.total }} results
-        <span class="sub">Components search</span>
-      </h1>
+      <div class="row-fluid">
+        <h1 class="multiline moma-title drmc-color-component span9">
+          Showing {{ data.total }} results
+          <span class="sub">Components search</span>
+        </h1>
+
+        <div id="save-search" class="span3">
+          <a href ng-click="openSaveSearchModal(criteria)"><i class="icon-save"></i>Save search</a>
+        </div>
+      </div>
 
       <div class="content">
 

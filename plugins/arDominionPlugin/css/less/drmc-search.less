@@ -22,7 +22,7 @@
     margin-top: 10px;
     margin-bottom: 10px;
   }
-  li > a {
+  li > a:not(.drmc-icon-searches) {
     position: relative;
     padding-left: 30px;
     &:before {
@@ -35,8 +35,16 @@
       top: 11px;
     }
   }
-  .active > a:before {
+  .active > a:not(.drmc-icon-searches):before {
     box-shadow: 1px 1px 1px rgba(125, 125, 125, .3);
+  }
+  li > a.drmc-icon-searches:before {
+    content: "\f0c7";
+    font-variant: normal;
+    font-family: "FontAwesome";
+    font-size: 16px;
+    margin-right: 10px;
+    color: @gray;
   }
 }
 
@@ -112,4 +120,26 @@
       }
     }
   }
+}
+
+#main-column #save-search {
+  margin-top: 30px;
+  text-align: right;
+
+  a {
+    color: @gray;
+
+    i:before {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+
+    &:hover {
+      color: @orange;
+    }
+  }
+}
+
+#manage-search-buttons {
+  text-align: right;
 }

@@ -1,0 +1,130 @@
+<ng-include src="viewsPath + '/partials/search-tabs.html'"></ng-include>
+
+<div class="row-fluid">
+
+  <div class="span3">
+
+    <section id="facets">
+      <h3>Narrow your results by:</h3>
+      <ar-facet label="Type" facet="data.facets.type" field="criteria['type[]']"></ar-facet>
+      <ar-facet label="User" facet="data.facets.user" field="criteria['user[]']"></ar-facet>
+      <ar-range-facet type="date" label="Date created" facet="data.facets.dateCreated" from="criteria.createdFrom" to="criteria.createdTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
+      <ar-range-facet type="date" label="Date updated" facet="data.facets.dateUpdated" from="criteria.updatedFrom" to="criteria.updatedTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
+    </section>
+
+  </div>
+
+  <div class="span9">
+
+    <div id="main-column">
+
+      <div class="row-fluid">
+        <h1 class="multiline moma-title drmc-icon-searches span9">
+          Showing {{ data.total }} results
+          <span class="sub">Searches search</span>
+        </h1>
+      </div>
+
+      <!-- ································································· -->
+      <!-- SearchSearchCtrl                                                     -->
+      <!-- ································································· -->
+      <div class="content" ng-controller="SearchSearchCtrl">
+
+        <section>
+          <div class="menu-list" >
+            <ul class="menu-list-left">
+              <li><h2>Overview</h2></li>
+            </ul>
+            <ul class="menu-list-right nav nav-pills">
+              <li>
+                <a href ng-click="toggleOverview()" ng-class="{ angle_double_down: !showOverview, angle_double_up: showOverview }">{{ showOverview ? 'Hide' : 'Show' }}</a>
+              </li>
+            </ul>
+          </div>
+          <section ng-show="showOverview">
+            <div class="field" ng-repeat="(label, count) in data.overview.counts">
+              <h3>{{ label }}</h3>
+              <div>
+                {{ count }}
+              </div>
+            </div>
+            <div class="field" ng-repeat="(label, search) in data.overview.latest">
+              <h3>{{ label }}</h3>
+              <div>
+                {{ search.date + ' (' + search.user + ')' }}
+                <span>{{ ' » ' }}</span>
+                <a href ui-sref="main.search.slug({ slug: search.slug })">{{ search.name }}</a>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section class="row-fluid">
+
+          <h2>Searches</h2>
+
+          <div class="browse-view-list" ng-hide="showBrowseView">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>
+                    <ar-sort-header field="name" label="Name" criteria="criteria"></ar-sort-header>
+                  </th>
+                  <th>
+                    <ar-sort-header field="type" label="Type" criteria="criteria"></ar-sort-header>
+                  </th>
+                  <th>
+                    <ar-sort-header field="createdAt" label="Added" criteria="criteria"></ar-sort-header>
+                  </th>
+                  <th>
+                    <ar-sort-header field="updatedAt" label="Updated" criteria="criteria"></ar-sort-header>
+                  </th>
+                  <th>
+                    <ar-sort-header field="user" label="User" criteria="criteria"></ar-sort-header>
+                  </th>
+                  <th>
+                    <ar-sort-header field="description" label="Description" criteria="criteria"></ar-sort-header>
+                  </th>
+                  <th>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="(id, search) in data.results">
+                  <td><a href ui-sref="main.search.slug({ slug: search.slug })">{{ search.name }}</a></td>
+                  <td>{{ search.type }}</td>
+                  <td>{{ search.created_at }}</td>
+                  <td>{{ search.updated_at }}</td>
+                  <td>{{ search.user.name }}</td>
+                  <td>{{ search.description }}</td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      name="selectedSearches[]"
+                      value="{{ id }}"
+                      ng-checked="selectedSearches.indexOf(id) > -1"
+                      ng-click="toggleSelection(id)">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div id="manage-search-buttons">
+              <button class="btn" ng-disabled="selectedSearches.length != 1" ng-click="runSearch()"><i class="icon-share"></i>{{ ' Execute search' }}</button>
+              <button class="btn" ng-disabled="selectedSearches.length != 1" ng-click="editSearch()"><i class="icon-edit"></i>{{ ' Edit search' }}</button>
+              <button class="btn" ng-disabled="selectedSearches.length < 1" ng-click="deleteSearches()"><i class="icon-remove"></i>{{ selectedSearches.length <= 1 ? ' Delete search' : ' Delete searches' }}</button>
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+
+    <ar-pager items-per-page="{{ criteria.limit }}" page="page"></ar-pager>
+
+  </div>
+
+</div>
