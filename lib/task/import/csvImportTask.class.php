@@ -469,16 +469,6 @@ EOF;
         if (
           isset($self->rowStatusVars['qubitParentSlug'])
           && $self->rowStatusVars['qubitParentSlug']
-          && isset($self->rowStatusVars['parentId'])
-          && $self->rowStatusVars['parentId']
-        )
-        {
-          throw new sfException('Both parentId and qubitParentSlug are set: only one should be set.');
-        }
-
-        if (
-          isset($self->rowStatusVars['qubitParentSlug'])
-          && $self->rowStatusVars['qubitParentSlug']
         )
         {
           $parentId = getIdCorrespondingToSlug($self->rowStatusVars['qubitParentSlug']);
