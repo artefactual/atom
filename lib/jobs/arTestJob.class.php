@@ -46,7 +46,8 @@ class arTestJob extends arBaseJob
     }
 
     // Don't forget to set the job status & save at the end!
-    $this->job->completedAt = new DateTime('now'); // Don't forget to record when the job finished
     $this->job->save();
+
+    return true;
   }
 }

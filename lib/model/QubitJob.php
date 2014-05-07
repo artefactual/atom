@@ -92,6 +92,7 @@ class QubitJob extends BaseJob {
     }
 
     $this->statusId = QubitTerm::JOB_STATUS_ERROR_ID;
+    $this->completedAt = new DateTime('now');
   }
 
   /**
@@ -108,6 +109,7 @@ class QubitJob extends BaseJob {
   public function setStatusCompleted()
   {
     $this->statusId = QubitTerm::JOB_STATUS_COMPLETED_ID;
+    $this->completedAt = new DateTime('now');
   }
 
   /**

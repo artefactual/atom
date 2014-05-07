@@ -45,7 +45,7 @@ class arDeleteInformationObjectJob extends arBaseJob
       if (($io = QubitInformationObject::getById($ioId)) === null)
       {
         $this->error("Invalid information object id: $ioId");
-        return;
+        return false;
       }
 
       $this->deleteInformationObject($io);
@@ -56,7 +56,10 @@ class arDeleteInformationObjectJob extends arBaseJob
     catch (Exception $e)
     {
       $this->error('Unhandled exception - ' . $e);
+      return false;
     }
+
+    return true;
   }
 
   /**
