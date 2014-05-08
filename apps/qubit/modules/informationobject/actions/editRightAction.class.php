@@ -43,6 +43,7 @@ class InformationObjectEditRightAction extends sfAction
   {
     $widget = new sfWidgetFormInput;
     $widget->setAttribute('type', 'date');
+
     return $widget;
   }
 
@@ -55,6 +56,7 @@ class InformationObjectEditRightAction extends sfAction
         $this->form->setValidator('endDate', new sfValidatorString);
         $this->form->setWidget('endDate', $this->dateWidget());
         $this->form->getWidgetSchema()->endDate->setLabel($this->context->i18n->__('End'));
+
         break;
 
       case 'startDate':
@@ -62,6 +64,7 @@ class InformationObjectEditRightAction extends sfAction
         $this->form->setValidator('startDate', new sfValidatorString);
         $this->form->setWidget('startDate', $this->dateWidget());
         $this->form->getWidgetSchema()->startDate->setLabel($this->context->i18n->__('Start'));
+
         break;
 
       case 'statuteDeterminationDate':
@@ -69,6 +72,7 @@ class InformationObjectEditRightAction extends sfAction
         $this->form->setValidator($name, new sfValidatorString);
         $this->form->setWidget($name, $this->dateWidget());
         $this->form->setDefault($name, $this->right[$name]);
+
         break;
 
       case 'basis':
@@ -83,6 +87,7 @@ class InformationObjectEditRightAction extends sfAction
         $this->form->setValidator('basis', new sfValidatorString);
         $this->form->setWidget('basis', new sfWidgetFormSelect(array('choices' => $choices)));
         $this->form->setDefault('basis', $this->context->routing->generate(null, array($this->right->basis, 'module' => 'term')));
+
         break;
 
       case 'copyrightStatus':
@@ -90,21 +95,25 @@ class InformationObjectEditRightAction extends sfAction
         {
           $choices[$this->context->routing->generate(null, array($item, 'module' => 'term'))] = $item->__toString();
         }
+
         $this->form->setValidator('copyrightStatus', new sfValidatorString);
         $this->form->setWidget('copyrightStatus', new sfWidgetFormSelect(array('choices' => $choices)));
         $this->form->setDefault('copyrightStatus', $this->context->routing->generate(null, array($this->right->copyrightStatus, 'module' => 'term')));
+
         break;
 
       case 'rightsHolder':
         $this->form->setValidator('rightsHolder', new sfValidatorString);
         $this->form->setWidget('rightsHolder', new sfWidgetFormSelect(array('choices' => array())));
         $this->form->setDefault('rightsHolder', $this->context->routing->generate(null, array($this->right->rightsHolder, 'module' => 'actor')));
+
         break;
 
       case 'copyrightJurisdiction':
         $this->form->setValidator('copyrightJurisdiction', new sfValidatorI18nChoiceCountry);
         $this->form->setWidget('copyrightJurisdiction', new sfWidgetFormI18nChoiceCountry(array('add_empty' => true, 'culture' => $this->context->user->getCulture())));
         $this->form->setDefault('copyrightJurisdiction', $this->right->copyrightJurisdiction);
+
         break;
 
       case 'copyrightNote':
@@ -116,6 +125,7 @@ class InformationObjectEditRightAction extends sfAction
         $this->form->setValidator($name, new sfValidatorString);
         $this->form->setWidget($name, new sfWidgetFormTextarea);
         $this->form->setDefault($name, $this->right[$name]);
+
         break;
 
       case 'licenseIdentifier':
@@ -123,6 +133,7 @@ class InformationObjectEditRightAction extends sfAction
         $this->form->setValidator($name, new sfValidatorString);
         $this->form->setWidget($name, new sfWidgetFormInput);
         $this->form->setDefault($name, $this->right[$name]);
+
         break;
     }
   }
@@ -159,6 +170,7 @@ class InformationObjectEditRightAction extends sfAction
           if($data['delete'] === "true")
           {
             $grantedRight->delete();
+
             continue;
           }
           
@@ -169,9 +181,9 @@ class InformationObjectEditRightAction extends sfAction
           }
 
           $actparams = $this->context->routing->parse(Qubit::pathInfo($data['act']));
-
           $grantedRight->act            = $actparams['_sf_route']->resource;
           $grantedRight->restriction    = $data['restriction'];
+
           // empty dates come in as empty strings, but propel wants 'null' or it'll default to today's date
           $grantedRight->startDate      = strlen($data['startDate'] > 0) ? $data['startDate'] : null;
           $grantedRight->endDate        = strlen($data['endDate'] > 0)   ? $data['endDate']   : null;
@@ -183,6 +195,7 @@ class InformationObjectEditRightAction extends sfAction
             $this->right->grantedRights[] = $grantedRight;
           }
         }
+
       case 'blank':
         break;
 
@@ -218,12 +231,8 @@ class InformationObjectEditRightAction extends sfAction
   protected function getObject($id)
   {
     $results = QubitRelation::getRelatedSubjectsByObjectId('QubitInformationObject', $id);
+
     return $results[0];
-    if( $results !== NULL ){
-      return $results[0];
-    } else {
-      return false;
-    }
   }
 
   protected function newRightWithDefaults()
@@ -245,10 +254,12 @@ class InformationObjectEditRightAction extends sfAction
       case 'QubitRights':
         $this->resource = $this->getObject($resource->id);
         $this->right = $resource;
+
         break;
       case 'QubitInformationObject':
         $this->resource = $resource;
         $this->right = $this->newRightWithDefaults();
+
         break;
     }
 
@@ -286,6 +297,7 @@ class InformationObjectEditRightAction extends sfAction
     {
       $choices[$this->context->routing->generate(null, array($item, 'module' => 'term'))] = $item->__toString();
     }
+
     $form->setValidator('act', new sfValidatorString);
     $form->setWidget('act', new sfWidgetFormSelect(array('choices' => $choices)));
     $form->setDefault('act', $this->context->routing->generate(null, array($grantedRight->act, 'module' => 'term')));
@@ -328,7 +340,6 @@ class InformationObjectEditRightAction extends sfAction
     // if new rights, generate one empty act by default
     // if existing rights, look at related act records
     // and generate an act row for each one.
-
     $subForm = new sfForm();
     $subForm->getValidatorSchema()->setOption('allow_extra_fields', true);
     if( sizeof($this->right->grantedRights)  )
@@ -344,10 +355,8 @@ class InformationObjectEditRightAction extends sfAction
     // finally store a blank GrantedRight form that'll be used
     // by javascript as a reference for adding new grantedRights
     // forms
-
     $gr = new QubitGrantedRight;
     $this->form->embedForm('blank', $this->grantedRightFormSetup($gr));
-
     $this->form->embedForm('grantedRights', $subForm);
   }
 
