@@ -25,7 +25,7 @@
         </tr>
         <tr>
           <td>
-            <div ng-if="responses.ingestionActivity.length < 1">There is no recent ingestion activity to display</div>
+            <span ng-if="responses.ingestionActivity.length < 1">There is no recent ingestion activity to display</span>
           </td>
         </tr>
       </tbody>
@@ -60,42 +60,27 @@
 <!-- Storage -->
 
   <tabset class="span5 dashboard-widget dashboard-rs-graph">
-    <h3><a class="graph-pie">Artwork Storage</a></h3>
+    <h3><a class="graph-pie">Artwork Storage Totals</a></h3>
     <tab heading="Codec">
-      <div class="pull-right">
+      <div class="dashboard-toggle-btn">
         View total:&nbsp
         <div class="btn-group">
-          <label class="btn" ng-model="dashboardGraphs.radioModel" btn-radio="'number'">Count</label>
-          <label class="btn" ng-model="dashboardGraphs.radioModel" btn-radio="'size'">Size (GB)</label>
+          <label class="btn" ng-model="radioModel" btn-radio="'number'" uncheckable>Count</label>
+          <label class="btn" ng-model="radioModel" btn-radio="'size'" uncheckable>Size (GB)</label>
         </div>
       </div>
-      <ar:graph-pie data="{{ responses.storageCodec }}" width="150" height="160" class="graph-pie"></ar:graph-pie>
+      <ar:graph-pie data="{{ responses.storageCodec }}" width="150" height="350" class="graph-pie"></ar:graph-pie>
       <h1><strong>Collection totals</strong></h1>
-      <div ng-repeat="(item, count) in ingestionSummary">
+      <div ng-repeat="(item, count) in responses.ingestionSummary">
         <div><strong>{{ count | number }}</strong> : <span>{{ item }}</span></div>
       </div>
     </tab>
-
-    <tab heading="Formats">
-      <div>Formats Tab</div>
-    </tab>
   </tabset>
-
   <!-- Monthly Total (By GB) -->
   <tabset class="span7 dashboard-widget dashboard-rs-graph">
     <h3><a class="graph-line">Monthly Total (By GB)</a></h3>
     <tab heading="Codec">
-<!--       <ar-dashboard-graph type="line" chart-data="{{ monthlyTotalCodec }}" width="640" height="240" xper-tick="100" yper-tick="40"></ar-dashboard-graph>
- -->      <!-- <ar-dashboard-line-chart chart-data="{{ monthlyTotalCodec }}" width="640" height="240" xper-tick="100" yper-tick="40">
-      </ar-dashboard-line-chart> -->
-    </tab>
-    <tab heading="Formats">
-<!--       <ar-dashboard-graph type="line" chart-data="{{ monthlyTotalFormats }}" width="640" height="240" xper-tick="100" yper-tick="20"></ar-dashboard-graph>
- -->      <!-- <ar-dashboard-line-chart chart-data="{{ monthlyTotalFormats }}" width="640" height="240" xper-tick="100" yper-tick="20">
-      </ar-dashboard-line-chart> -->
-    </tab>
-    <tab heading="Departments">
-      <div>Departments Tab</div>
+    <!--<ar:graph-line data="{{ responses.monthlyTotalCodec }}" width="640" height="240" xper-tick="100" yper-tick="40"></ar:graph-line>-->
     </tab>
   </tabset>
 </div>
@@ -105,13 +90,7 @@
   <tabset class="span6 dashboard-widget dashboard-rs-graph">
     <h3><a class="graph-line">Running Total (By GB)</a></h3>
     <tab heading="Codec">
-<!--     <ar-dashboard-graph type="line" chart-data="{{ runningTotalCodec }}" width="440" height="240" xper-tick="100" yper-tick="20"></ar-dashboard-graph>
- -->    </tab>
-    <tab heading="Formats">
-      <div>Formats Tab</div>
-    </tab>
-    <tab heading="Departments">
-      <div>Departments Tab</div>
+    <!--<ar-dashboard-graph type="line" chart-data="{{ runningTotalCodec }}" width="440" height="240" xper-tick="100" yper-tick="20"></ar-dashboard-graph>-->
     </tab>
   </tabset>
 
@@ -119,9 +98,7 @@
   <tabset class="span6 dashboard-widget dashboard-rs-graph">
     <h3><a class="graph-line">Artwork Sizes (Average vs Median)</a></h3>
     <tab heading="Codec">
-<!--       <ar-dashboard-graph type="line" chart-data="{{ artworkSizes }}" width="510" height="260" xper-tick="50" yper-tick="40"></ar-dashboard-graph>
- -->      <!-- <ar-dashboard-line-chart chart-data="{{ artworkSizes }}" width="510" height="240" xper-tick="50" yper-tick="40">
-      </ar-dashboard-line-chart> -->
+    <!--<ar-dashboard-graph type="line" chart-data="{{ artworkSizes }}" width="510" height="260" xper-tick="50" yper-tick="40"></ar-dashboard-graph>-->
     </tab>
   </tabset>
 </div>
