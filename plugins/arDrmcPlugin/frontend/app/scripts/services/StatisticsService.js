@@ -14,21 +14,21 @@ module.exports = function ($http, SETTINGS) {
    * - /api/summary/storagebymediacategory
    *
    */
-
+   //var downloadActivity
   this.getDownloadActivity = function () {
     return $http({
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/activity/downloads'
     });
   };
-
+  // var ingestionActivity
   this.getIngestionActivity = function () {
     return $http({
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/activity/ingestion'
     });
   };
-
+  // var ingestionSummary
   this.getIngestionSummary = function () {
     return $http({
       method: 'GET',
@@ -63,15 +63,15 @@ module.exports = function ($http, SETTINGS) {
       url: SETTINGS.frontendPath + 'end point needed'
     });
   };
-
+*/
+  // var storageCodec
   this.getRunningTotalByCodec = function () {
     return $http({
       method: 'GET',
-      url: SETTINGS.frontendPath + 'end point needed'
+      url: SETTINGS.frontendPath + 'api/summary/mediacategorycount'
     });
   };
-  */
-
+  // var storageFormats
   this.getRunningTotalByFormats = function () {
     return $http({
       method: 'GET',
