@@ -10,7 +10,6 @@ Drupal.behaviors.deleteBasisRightAction = {
       }
       
       jQuery.get(href, success($this));
-
     });
   }
 }

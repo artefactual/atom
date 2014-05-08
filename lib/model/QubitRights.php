@@ -76,6 +76,7 @@ class QubitRights extends BaseRights
         return $gr;
       }
     }
-     return false;
+
+    return false;
   }
 }
