@@ -224,11 +224,12 @@ class InformationObjectEditRightAction extends sfAction
       $this->relation->object = $this->right;
       $this->relation->typeId = QubitTerm::RIGHT_ID;
       $this->relation->subject = $this->resource;
+
       $this->relation->save();
     }
   }
 
-  protected function getObject($id)
+  protected function getQubitInformationObject($id)
   {
     $results = QubitRelation::getRelatedSubjectsByObjectId('QubitInformationObject', $id);
 
@@ -252,7 +253,7 @@ class InformationObjectEditRightAction extends sfAction
 
     switch ($type) {
       case 'QubitRights':
-        $this->resource = $this->getObject($resource->id);
+        $this->resource = $this->getQubitInformationObject($resource->id);
         $this->right = $resource;
 
         break;
