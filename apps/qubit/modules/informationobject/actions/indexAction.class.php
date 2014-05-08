@@ -95,6 +95,11 @@ class InformationObjectIndexAction extends sfAction
   {
     $this->resource = $this->getRoute()->resource;
 
+    // specified here instead of view.yml so plugins calling
+    // calling inheriting and calling parent::execute also
+    // automatically load the file(s)
+    $this->getResponse()->addJavascript('deleteBasisRight.js');
+
     // Check that this isn't the root
     if (!isset($this->resource->parent))
     {
