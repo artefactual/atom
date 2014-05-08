@@ -13,9 +13,11 @@ module.exports = function () {
       attrs.$observe('data', function (newAttrs) {
 
         if (newAttrs && attrs.width) {
-          //Width and height
+          // Width and height
+          // Pies are round (w = h)
           var w = attrs.width;
-          var h = attrs.height;
+          var h = attrs.width;
+          var color = arD3.scale.category20();
 
           newAttrs = JSON.parse(newAttrs);
 
@@ -31,9 +33,6 @@ module.exports = function () {
             .value(function (d) {
               return d.count;
             });
-
-          //Easy colors accessible via a 10-step ordinal scale
-          var color = arD3.scale.category10();
 
           //Create SVG element
           var svg = arD3.select(element[0])
@@ -57,14 +56,14 @@ module.exports = function () {
             .attr('d', arc);
 
           //Labels
-          arcs.append('text')
+          /*arcs.append('svg:text')
             .attr('transform', function (d) {
               return 'translate(' + arc.centroid(d) + ')';
             })
             .attr('text-anchor', 'middle')
             .text(function (d) {
               return d.data.media_type;
-            });
+            });*/
 
           // Legend
           var label_width = Number.MIN_VALUE;
@@ -73,10 +72,10 @@ module.exports = function () {
             label_width = Math.max(label_width, dataset[i].media_type.length);
           }
           // round up to 10th
-          label_width = label_width * 8;
+          label_width = label_width * 9;
           var label_height = dataset.length * 20;
 
-          var legend = svg.append('svg')
+          var legend = arD3.select(element[0]).append('svg')
             .attr('class', 'legend')
             .attr('width', label_width)
             .attr('height', label_height)
@@ -92,12 +91,20 @@ module.exports = function () {
 
           legend.append('text')
             .attr('x', 24)
-            .attr('y', 9)
-            .attr('dy', '.35em')
+            .attr('y', 14)
+            //.attr('dy', '.35em')
             .text(function (d) {
-              var label = dataset[d].media_type;
-              return label;
+              var value = dataset[d].count;
+              return value;
             });
+
+          legend.append('text')
+          .attr('x', 54)
+          .attr('y', 14)
+          .text(function (d) {
+            var label = dataset[d].media_type;
+            return label;
+          });
         }
       });
     }

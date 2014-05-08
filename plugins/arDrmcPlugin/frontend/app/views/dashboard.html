@@ -69,7 +69,7 @@
           <label class="btn" ng-model="radioModel" btn-radio="'size'" uncheckable>Size (GB)</label>
         </div>
       </div>
-      <ar:graph-pie data="{{ responses.storageCodec }}" width="150" height="350" class="graph-pie"></ar:graph-pie>
+      <ar:graph-pie data="{{ responses.storageCodec }}" width="200" class="graph-pie"></ar:graph-pie>
       <h1><strong>Collection totals</strong></h1>
       <div ng-repeat="(item, count) in responses.ingestionSummary">
         <div><strong>{{ count | number }}</strong> : <span>{{ item }}</span></div>
