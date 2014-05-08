@@ -21,9 +21,6 @@ class InformationObjectDeleteRightAction extends sfAction
 {
   public function execute($request)
   {
-    $this->setLayout(null);
-    $this->setTemplate(null);
-
     $this->right = $this->getRoute()->resource;
     $this->right->delete();
 
