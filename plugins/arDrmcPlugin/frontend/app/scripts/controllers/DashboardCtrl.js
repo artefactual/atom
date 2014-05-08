@@ -2,7 +2,6 @@
 
 module.exports = function ($scope, $q, StatisticsService) {
 
-  $scope.radioModel = 'size';
   /**
    * Run queries parallely
    * Alphabetized by name
@@ -29,7 +28,5 @@ module.exports = function ($scope, $q, StatisticsService) {
 
   };
   pull();
-  console.log('scope in ctrl at end', $scope);
   // TODO: DashboardIngestionCtrl and DashboardRecentActivityCtrl... unused now!
-
 };
