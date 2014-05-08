@@ -157,7 +157,7 @@ class InformationObjectEditRightAction extends sfAction
         break;
 
       case 'grantedRights':
-        foreach($field->getValue() as $data)
+        foreach ($field->getValue() as $data)
         {
           $grantedRight = null;
 
@@ -167,7 +167,7 @@ class InformationObjectEditRightAction extends sfAction
           // if one was found, but user 
           // has requested it be deleted
           // then lets delete it.
-          if($data['delete'] === "true")
+          if ("true" === $data['delete'])
           {
             $grantedRight->delete();
 
@@ -175,7 +175,7 @@ class InformationObjectEditRightAction extends sfAction
           }
           
           // none found, so make a new one
-          if(! $grantedRight)
+          if (false === $grantedRight)
           {
             $grantedRight = new QubitGrantedRight;
           }
@@ -190,7 +190,7 @@ class InformationObjectEditRightAction extends sfAction
           $grantedRight->notes          = $data['notes'];
 
           // relate it to the Right if it is new
-          if(! $grantedRight->id)
+          if (null === $grantedRight->id)
           {
             $this->right->grantedRights[] = $grantedRight;
           }
@@ -208,7 +208,7 @@ class InformationObjectEditRightAction extends sfAction
   {
     // attach each value in the form
     // to the new/existing rights object
-    foreach ($this->form as $field)
+    foreach($this->form as $field)
     {
       $this->processField($field);
     }
@@ -218,7 +218,7 @@ class InformationObjectEditRightAction extends sfAction
 
     // if new right, then create QubitRelation
     // to associate it to the resource
-    if ( $this->right->relationsRelatedByobjectId[0] === null )
+    if(null === $this->right->relationsRelatedByobjectId[0])
     {
       $this->relation = new QubitRelation;
       $this->relation->object = $this->right;
@@ -342,7 +342,7 @@ class InformationObjectEditRightAction extends sfAction
     // and generate an act row for each one.
     $subForm = new sfForm();
     $subForm->getValidatorSchema()->setOption('allow_extra_fields', true);
-    if( sizeof($this->right->grantedRights)  )
+    if (0 < count($this->right->grantedRights))
     {
       foreach ($this->right->grantedRights as $i => $gr) {
         $subForm->embedForm($i, $this->grantedRightFormSetup($gr));
