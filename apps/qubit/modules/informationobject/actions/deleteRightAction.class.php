@@ -26,6 +26,7 @@ class InformationObjectDeleteRightAction extends sfAction
 
     $this->right = $this->getRoute()->resource;
     $this->right->delete();
+
     return $this->renderText(json_encode(true));
   }
 }
