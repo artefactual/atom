@@ -70,6 +70,7 @@ module.exports = function ($http, SETTINGS) {
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/summary/mediacategorycount'
     });
+
   };
   // var storageFormats
   this.getRunningTotalByFormats = function () {

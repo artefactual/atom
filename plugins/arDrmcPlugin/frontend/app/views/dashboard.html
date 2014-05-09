@@ -61,15 +61,15 @@
 
   <tabset class="span5 dashboard-widget dashboard-rs-graph">
     <h3><a class="graph-pie">Artwork Storage by Codec</a></h3>
-    <tab heading="Size (GB)">
-      <ar:graph-pie data="{{ responses.storageCodec }}" width="200" class="graph-pie"></ar:graph-pie>
+    <tab heading="Count">
+      <ar:graph-pie data="{{ responses.storageCodec }}" access-key="count" format-key="media_type" width="200" class="graph-pie"></ar:graph-pie>
       <h1><strong>Collection totals</strong></h1>
       <div ng-repeat="(item, count) in responses.ingestionSummary">
         <div><strong>{{ count | number }}</strong> : <span>{{ item }}</span></div>
       </div>
     </tab>
-    <tab heading="Count">
-<!--       <ar:graph-pie data="{{ responses.storageCodec }}" width="200" class="graph-pie"></ar:graph-pie> -->
+    <tab heading="Size (GB)">
+      <ar:graph-pie data="{{ responses.storageFormats }}" access-key="total" format-key="media_type" width="200" class="graph-pie"></ar:graph-pie>
       <h1><strong>Collection totals</strong></h1>
       <div ng-repeat="(item, count) in responses.ingestionSummary">
         <div><strong>{{ count | number }}</strong> : <span>{{ item }}</span></div>

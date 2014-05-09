@@ -9,19 +9,27 @@ module.exports = function () {
     },
     template: '<rs-y-axis></rs-y-axis><rs-chart></rs-chart><rs-x-axis></rs-x-axis><rs-legend></rs-legend>',
     link: function (scope, element, attrs) {
-      // var datum = angular.fromJson(attrs.chartData);
-      attrs.$observe('data', function (newAttrs) {
 
-        if (newAttrs && attrs.width) {
-          // Width and height
-          // Pies are round (w = h)
+      // Attributes for this directive
+      // w = width and height of pie graph
+      // access-key: variable core data key from API
+      // format-key: variable format key from API
+
+      attrs.$observe('data', function (dataset) {
+
+        if (dataset && attrs.width) {
           var w = attrs.width;
           var h = attrs.width;
           var color = arD3.scale.category20();
 
-          newAttrs = JSON.parse(newAttrs);
+          dataset = JSON.parse(dataset);
 
-          var dataset = newAttrs;
+          angular.forEach(dataset, function (obj, key) {
+            dataset[key].accessKey = dataset[key][attrs.accessKey];
+            dataset[key].formatKey = dataset[key][attrs.formatKey];
+            delete dataset[key][attrs.accessKey];
+            delete dataset[key][attrs.formatKey];
+          });
 
           var outerRadius = w / 2;
           var innerRadius = 0;
@@ -31,16 +39,16 @@ module.exports = function () {
 
           var pie = arD3.layout.pie()
             .value(function (d) {
-              return d.count;
+              return d.accessKey;
             });
 
-          //Create SVG element
+          // Create SVG element
           var svg = arD3.select(element[0])
             .append('svg')
             .attr('width', w)
             .attr('height', h);
 
-          //Set up groups
+          // Set up groups
           var arcs = svg.selectAll('g.arc')
             .data(pie(dataset))
             .enter()
@@ -48,7 +56,7 @@ module.exports = function () {
             .attr('class', 'arc')
             .attr('transform', 'translate(' + outerRadius + ',' + outerRadius + ')');
 
-          //Draw arc paths
+          // Draw arc paths
           arcs.append('path')
             .attr('fill', function (d, i) {
               return color(i);
@@ -69,10 +77,10 @@ module.exports = function () {
           var label_width = Number.MIN_VALUE;
 
           for (var i = 0; i < dataset.length; i++) {
-            label_width = Math.max(label_width, dataset[i].media_type.length);
+            label_width = Math.max(label_width, dataset[i].formatKey.length);
           }
           // round up to 10th
-          label_width = label_width * 9;
+          label_width = label_width * 13;
           var label_height = dataset.length * 20;
 
           var legend = arD3.select(element[0]).append('svg')
@@ -89,20 +97,21 @@ module.exports = function () {
             .attr('height', 18)
             .style('fill', color);
 
+          // Add digits
           legend.append('text')
             .attr('x', 24)
             .attr('y', 14)
-            //.attr('dy', '.35em')
             .text(function (d) {
-              var value = dataset[d].count;
+              var value = dataset[d].accessKey;
               return value;
             });
 
+          // Add text
           legend.append('text')
-          .attr('x', 54)
+          .attr('x', 94)
           .attr('y', 14)
           .text(function (d) {
-            var label = dataset[d].media_type;
+            var label = dataset[d].formatKey;
             return label;
           });
         }
