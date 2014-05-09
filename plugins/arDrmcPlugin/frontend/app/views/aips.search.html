@@ -23,7 +23,7 @@
           <span class="sub">AIPs search</span>
         </h1>
 
-        <div id="save-search" class="span3">
+        <div id="save-search" class="span3" ng-if="!$stateParams.slug">
           <a href ng-click="openSaveSearchModal(criteria)"><i class="icon-save"></i>Save search</a>
         </div>
       </div>
