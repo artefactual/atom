@@ -13,6 +13,7 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
   // If coming with slug: load template, obtain search, load values and make search
   if ($stateParams.slug !== undefined) {
     SearchService.getSearchBySlug($stateParams.slug).then(function (response) {
+      $scope.name = response.name;
       $stateParams.entity = $scope.selectedEntity = response.type;
       $scope.criteria = response.criteria;
       $scope.include = SETTINGS.viewsPath + '/' + response.type + '.search.html';
