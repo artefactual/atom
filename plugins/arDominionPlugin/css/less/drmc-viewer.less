@@ -69,40 +69,42 @@
 .dov-modal-body-content {
   order: 2;
   flex: 0 1 100%;
-  min-width: 90%;
+  width: 100%;
+  height: 100%;
+
+  .video,
+  .text,
+  .image,
+  .audio {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+  }
 
   .video {
-
     video {
-      margin: 0 auto;
-      width: 100%;
-      height: auto;
+      max-width: 800px;
     }
   }
 
   .text {
-    width: 90%;
-
     object {
       width: 100%;
-      min-height: 90%;
+      height: 100%;
     }
   }
 
   .image {
     padding-top: 50px;
     img {
-      display: block;
-      margin: 0 auto;
-      text-align: center;
+      max-width: 800px;
     }
   }
 
   .audio {
     padding-top: 50px;
     audio {
-      margin: 0 auto;
-      display: block;
+      max-width: 800px;
     }
   }
 }
@@ -112,7 +114,8 @@
 .dov-modal-sidebar {
   border: 1px solid @grayLighter;
   border-top: 3px solid transparent;
-  min-width: 220px;
+  width: 400px;
+  min-width: 400px;
   max-width: 400px;
   background: @fsModalLighter;
   overflow-y: auto;
@@ -121,6 +124,16 @@
   // Modal content's flex value is '2', meaning it is twice as big as each sidebar
   flex: 1;
   order: 2;
+
+  // Top border to highlight active sidebar
+  &.active {
+    border-top: 3px solid @orange;
+  }
+
+  // Top border for only one sidebar view
+  &.unique {
+    border-top: transparent !important;
+  }
 
   .content {
     background: transparent;
@@ -183,16 +196,6 @@
       margin-left: 35%;
       overflow: auto;
     }
-  }
-
-  // Border to highlight active sidebar
-  .dov-modal-sidebar.active {
-    border-top: 3px solid @orange;
-  }
-
-  // Border for only one sidebar view
-  .dov-modal-sidebar.unique {
-    border-top: transparent !important;
   }
 }
 
@@ -319,6 +322,15 @@
     background-color: @grayDark;
     color: @white;
   }
+  .help {
+    float: right;
+    color: @grayLight;
+    text-align: right;
+    code {
+      background-color: rgba(255, 255, 255, .25);
+      border-color: transparent;
+    }
+  }
 }
 
 .dov-compare-list {
@@ -329,18 +341,22 @@
   align-content: space-around;
   li {
     cursor: pointer;
-    width: 30%;
-    max-width: 240px;
-    max-height: 175px;
-    text-align: center;
-    overflow: hidden;
+    user-select: none;
+    width: 240px;
+    height: 180px;
     margin: 1%;
-    border: 3px solid transparent;
+    border: 3px solid @grayDarker;
+    box-shadow: 0 0 4px rgba(0, 0, 0, .25);
+    border-radius: 3px;
+    background-color: @black;
     img {
-      width: 100%;
+      height: 100%;
     }
     &.active {
-      border-color: @orange;
+      border-color: @orange !important;
+    }
+    &:hover {
+      border-color: @blue;
     }
   }
 }
