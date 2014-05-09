@@ -1,25 +1,43 @@
 'use strict';
 
-module.exports = function ($compile, $http, ModalDigitalObjectViewerService) {
+module.exports = function ($compile, $http, $timeout, ModalDigitalObjectViewerService) {
   return {
-    restrict: 'E',
+    restrict: 'A',
     replace: true,
     scope: {
       file: '='
     },
     link: function (scope, element) {
-      // template: '<div><iframe width="420" height="315" src="//www.youtube.com/embed/Q-XD6fuf0ho" frameborder="0" allowfullscreen></iframe></div>',
-      var mediaTypeId = scope.file.media_type_id;
-      var templateUrl = ModalDigitalObjectViewerService.mediaTypes[mediaTypeId].templateUrl;
 
-      // Fetch the template, bind it to a new scope and compile
-      // TODO: doesn't AngularJS have a mixing for this?
+      // Fetch the template and compile it, linked to this scope
       // TODO: should make use of preLink / postLink (compile vs link)?
-      $http.get(templateUrl).then(function (response) {
-        var templateScope = scope.$new();
-        element.html(response.data);
-        $compile(element.contents())(templateScope);
+      var render = function () {
+        var mediaTypeId = scope.file.media_type_id;
+        var templateUrl = ModalDigitalObjectViewerService.mediaTypes[mediaTypeId].templateUrl;
+
+        // Fetch the template, bind it to a new scope and compile
+        $http.get(templateUrl).then(function (response) {
+          var templateScope = scope.$new();
+          element.html(response.data);
+          $compile(element.contents())(templateScope);
+        });
+      };
+
+      // Whenever scope.file changes we have to render again
+      scope.$watch('file', function () {
+        render();
       });
+
+      var dovModalBody = element.parent();
+      $timeout(function () {
+        var w = dovModalBody.width();
+        var h = dovModalBody.height();
+        dovModalBody.find('dov-modal-body-content .text object').remove().css({
+          'width': w,
+          'height': h
+        });
+      }, 0);
+
     }
   };
 };

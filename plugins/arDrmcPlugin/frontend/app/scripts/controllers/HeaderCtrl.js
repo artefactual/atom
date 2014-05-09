@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $state, md5, SETTINGS, ModalEditDcMetadataService, AuthenticationService) {
+module.exports = function ($scope, $state, SETTINGS, ModalEditDcMetadataService, AuthenticationService) {
 
   $scope.openEditDcModal = function () {
     ModalEditDcMetadataService.create();

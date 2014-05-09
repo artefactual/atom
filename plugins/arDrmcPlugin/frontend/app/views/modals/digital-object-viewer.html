@@ -1,162 +1,184 @@
-<div class="fs-modal-wrapper">
+<!-- Modal body -->
+<div class="dov-modal-body">
 
-  <!-- Modal body -->
-  <div class="fs-modal-body">
-
-    <!-- Header -->
-    <div class="fs-modal-body-header">
+  <!-- Header -->
+  <div class="dov-modal-body-header">
+    <!-- This element is a new flex element -->
+    <div>
+      <!-- Media type icon -->
       <div>
-        <a ng-class="getMediaTypeCssClass(current)"></a>
+        <a ng-class="getMediaType(current)"></a>
       </div>
+
+      <!-- Pager -->
       <div class="pager-links">
         <a href class="arrow-left" ng-click="prev()" ng-class="{ disabled: !showPrev() }"></a>
         <div class="grid-pager">
-          <a href class="grid"></a>
-          <p>{{ page }} of {{ total }}</p>
+          <a href class="grid" ng-click="openCompareSelector()"></a>
+          <p>{{ page }} of {{ files.length }}</p>
         </div>
         <a href class="arrow-right" ng-click="next()" ng-class="{ disabled: !showNext() }"></a>
       </div>
+
+      <!-- Close button -->
       <div>
         <a href class="sidex" ng-click="cancel()"></a>
       </div>
     </div>
-
-    <!-- Content (viewer) -->
-    <div class="fs-modal-body-content">
-      <ar-digital-object-preview file="current"></ar-digital-object-preview>
-    </div>
-
   </div>
 
-  <!-- Sidebar -->
-  <div ng-class="{ 'fs-modal-sidebar': true, active: current === item, unique: files.length == 1 }" ng-repeat="item in files">
+  <!-- Content (viewer) -->
+  <div ar-digital-object-preview class="dov-modal-body-content" file="current"></div>
 
-    <a href ng-click="unselect($index)" class="sidex"></a>
+</div>
 
-    <div class="quick-info">
-      <a href ng-click="select(item)" class="quick-info-thumb">
-        <img ng-src="{{ item.thumbnail_path }}" />
-      </a>
-      <div class="quick-info-title">
-        <h4>
-          <a ng-class="getMediaTypeCssClass(item)"></a>
-          {{ item.filename }}
-        </h4>
-        <div>
-          <a href class="download" ng-click="download(item)" ng-show="user.canEdit()">Download</a>
-        </div>
+<!-- Sidebar -->
+<div ng-class="{ 'dov-modal-sidebar': true, active: current === item, unique: comparingFiles.length == 1 }" ng-repeat="item in comparingFiles track by $index">
+  <button ng-if="comparingFiles.length > 1" ng-click="uncompare(item, $index)" class="btn close">x</button>
+
+  <div class="quick-info">
+    <a href ng-click="select(item)" ng-if="item.class !== 'audio'" class="quick-info-thumb">
+      <img ng-src="{{ item.thumbnail_path }}" />
+    </a>
+    <div ng-click="select(item)" class="quick-info-title">
+      <h4>
+        <a ng-class="getMediaType(item)"></a>
+        {{ item.filename }}
+      </h4>
+      <div>
+        <a href class="download" ng-click="download(item)">Download</a>
       </div>
     </div>
-
-    <div class="content">
-
-      <!-- AIP details -->
-      <section>
-        <div ng-click="showAipsArea = !showAipsArea">
-          <h2>AIP details</h2>
-          <a href ng-class="{ 'fs-modal-toggle': true, active: showAipsArea }" ></a>
-        </div>
-        <div ng-show="showAipsArea">
-          <div class="field">
-            <h3>AIP name</h3>
-            <div>{{ item.filename }}</div>
-          </div>
-          <div class="field">
-            <h3>UUID</h3>
-            <div></div>
-          </div>
-          <div class="field">
-            <h3>Size</h3>
-            <div>{{ item.byte_size | UnitFilter:2 }}</div>
-          </div>
-          <div class="field">
-            <h3>No. of objects</h3>
-            <div></div>
-          </div>
-          <div class="field">
-            <h3>AIP class</h3>
-            <div></div>
-          </div>
-          <div class="field">
-            <h3>Description</h3>
-            <div></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- FITS output -->
-      <section>
-        <div ng-click="showFitsArea = !showFitsArea">
-          <h2>FITS output</h2>
-          <a href ng-class="{ 'fs-modal-toggle': true, active: showFitsArea }" ></a>
-        </div>
-        <div ng-show="showFitsArea">
-          <div class="field">
-            <h3>Complete name</h3>
-            <div></div>
-          </div>
-          <div class="field">
-            <h3>UUID AIPs</h3>
-            <div></div>
-          </div>
-          <div class="field">
-            <h3>MIME type</h3>
-            <div>{{ item.mime_type }}</div>
-          </div>
-          <div class="field">
-            <h3>Format</h3>
-            <div></div>
-          </div>
-          <div class="field">
-            <h3>File size</h3>
-            <div>{{ item.byte_size | UnitFilter:2 }}</div>
-          </div>
-          <div class="field">
-            <h3>Dimensions</h3>
-            <div></div>
-          </div>
-          <div class="field">
-            <h3>Compression</h3>
-            <div></div>
-          </div>
-          <div class="field">
-            <h3>Date</h3>
-            <div></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Digital object details -->
-      <section>
-        <div ng-click="showMediaArea = !showMediaArea">
-          <h2>Digital object details</h2>
-          <a href ng-class="{ 'fs-modal-toggle': true, active: showMediaArea }" ></a>
-        </div>
-        <div ng-show="showMediaArea">
-          <div class="field">
-            <h3>Width</h3>
-            <div></div>
-          </div>
-          <div class="field">
-            <h3>Height</h3>
-            <div></div>
-          </div>
-          <div class="field">
-            <h3>Aspect ratio</h3>
-            <div></div>
-          </div>
-          <div class="field">
-            <h3>Make</h3>
-            <div></div>
-          </div>
-          <div class="field">
-            <h3>Model</h3>
-            <div></div>
-          </div>
-        </div>
-      </section>
-    </div>
-
   </div>
 
+  <div class="content">
+
+    <!-- AIP details -->
+    <section>
+      <div ng-click="showAipsArea = !showAipsArea">
+        <h2>AIP details</h2>
+        <a href ng-class="{ 'dov-modal-toggle': true, active: showAipsArea }" ></a>
+      </div>
+      <div ng-show="showAipsArea">
+        <div ng-if="item.filename" class="field">
+          <h3>AIP name</h3>
+          <div>{{ item.filename }}</div>
+        </div>
+        <div ng-if="item.uuid" class="field">
+          <h3>UUID</h3>
+          <div></div>
+        </div>
+        <div ng-if="item.byteSize" class="field">
+          <h3>Size</h3>
+          <div>{{ item.byte_size | UnitFilter:2 }}</div>
+        </div>
+        <div ng-if="item.objCount" class="field">
+          <h3>No. of objects</h3>
+          <div></div>
+        </div>
+        <div ng-if="item.class" class="field">
+          <h3>AIP class</h3>
+          <div></div>
+        </div>
+        <div ng-if="item.description" class="field">
+          <h3>Description</h3>
+          <div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FITS output -->
+    <section>
+      <div ng-click="showFitsArea = !showFitsArea">
+        <h2>FITS output</h2>
+        <a href ng-class="{ 'dov-modal-toggle': true, active: showFitsArea }" ></a>
+      </div>
+      <div ng-show="showFitsArea">
+        <div ng-if="item.complete_name" class="field">
+          <h3>Complete name</h3>
+          <div></div>
+        </div>
+        <div ng-if="item.uuid" class="field">
+          <h3>UUID AIPs</h3>
+          <div></div>
+        </div>
+        <div ng-if="item.mimeType" class="field">
+          <h3>MIME type</h3>
+          <div>{{ item.mime_type }}</div>
+        </div>
+        <div ng-if="item.format" class="field">
+          <h3>Format</h3>
+          <div></div>
+        </div>
+        <div ng-if="item.byteSize" class="field">
+          <h3>File size</h3>
+          <div>{{ item.byte_size | UnitFilter:2 }}</div>
+        </div>
+        <div ng-if="item.dimensions" class="field">
+          <h3>Dimensions</h3>
+          <div></div>
+        </div>
+        <div ng-if="item.compression" class="field">
+          <h3>Compression</h3>
+          <div></div>
+        </div>
+        <div ng-if="item.date" class="field">
+          <h3>Date</h3>
+          <div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Digital object details -->
+    <section>
+      <div ng-click="showMediaArea = !showMediaArea">
+        <h2>Digital object details</h2>
+        <a href ng-class="{ 'dov-modal-toggle': true, active: showMediaArea }" ></a>
+      </div>
+      <div ng-show="showMediaArea">
+        <div ng-if="item.width" class="field">
+          <h3>Width</h3>
+          <div></div>
+        </div>
+        <div ng-if="item.height" class="field">
+          <h3>Height</h3>
+          <div></div>
+        </div>
+        <div ng-if="item.ratio" class="field">
+          <h3>Aspect ratio</h3>
+          <div></div>
+        </div>
+        <div ng-if="item.make" class="field">
+          <h3>Make</h3>
+          <div></div>
+        </div>
+        <div ng-if="item.model"class="field">
+          <h3>Model</h3>
+          <div></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- Compare sub-modal -->
+<div class="dov-compare-view" ng-show="showCompareSelector">
+  <div class="dov-compare-view-header">
+    <h3>
+      Select up to three files
+      <a href class="sidex" ng-click="closeCompareSelector()"></a>
+    </h3>
+  </div>
+  <div class="dov-compare-view-body">
+    <ul class="dov-compare-list">
+      <li ng-class="{ active: file.comparing }" ng-repeat="file in files track by $index" ng-click="onCompareItemClick(file, $index, $event)" ng-style="getCompareThumbnailStyle(file)">
+        <img ng-show="false" ng-src="{{ file.thumbnail_path }}"/>
+      </li>
+    </ul>
+  </div>
+  <div class="dov-compare-view-footer">
+    <button class="c-btn" ng-click="compare()">Compare</button>
+    <button class="c-btn" ng-click="closeCompareSelector()">Cancel</button>
+    <p class="help">To compare, select up to three files with <code>[shift + click]</code>. Click on a single file to open it.</p>
+  </div>
 </div>

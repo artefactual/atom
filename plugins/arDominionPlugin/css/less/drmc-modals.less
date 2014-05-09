@@ -63,238 +63,24 @@
 
 }
 
-// Fullscreen modal (flexbox)
-// TODO: there are tons of things here that are unneeded or specific to the
-// digital object viewer.
+// Fullscreen modal
 
-// General Fullscreen Modal
-
-.fs-modal-wrapper {
-
+.fullscreen-modal {
   padding: 0;
   margin: 0;
-  overflow-x: auto;
-
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
+  overflow: hidden;
   display: flex;
-
-  -webkit-flex-flow: row nowrap;
-
+  flex-flow: row nowrap;
   width: 100%;
   height: 100%;
   position: fixed;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-
+  left: 0px; top: 0px; right: 0px; bottom: 0px;
   background: @fsModalMid;
-
-  .fs-modal-body, .fs-modal-sidebar {
-    z-index: 1060;
-    height: 100%;
-    margin: auto;
-    background: @fsModalDarker;
-  }
-
-  .fs-modal-body {
-    order: 1;
-    flex: 2 0 auto;
-    color: @white;
-    min-width: 350px;
-
-    .fs-modal-body-header {
-      display: -webkit-flex;
-      display: flex;
-
-      align-items: center;
-      justify-content: space-between;
-      flex-flow: row nowrap;
-      align-content: stretch;
-
-      height: 64px;
-
-      .pager-links {
-        padding-top: 32px;
-      }
-
-      .arrow-left.disabled,
-      .arrow-right.disabled {
-        opacity: 0.1;
-        cursor: default;
-      }
-
-      .grid-pager {
-      vertical-align: -100%;
-      text-align: center;
-      display: inline-block;
-
-        .grid, p {
-          padding: 0px 21px;
-        }
-      }
-    }
-  }
-
-  .fs-modal-sidebar {
-    order: 2;
-    flex: 0 auto;
-    overflow: auto;
-    background: @fsModalLighter;
-
-    .content {
-      background: transparent;
-      box-shadow: none;
-      border: 0px;
-
-      section {
-        border: 0px;
-      }
-    }
-  }
-}
-
-// DRMC: Digital Object Viewer
-
-.fs-modal-wrapper {
-
-  .fs-modal-wrapper {
-
-    // Overwrites default
-    .fs-modal-body { flex: 2 0; }
-  }
-
-  // modal close
-  a#fs-modal-exit {
+  // Cancel properties inherited from .modal
+  border-radius: 0;
+  border-top: 0;
+  &.fade.in {
     top: 0;
-    position: absolute;
-    right: 0;
-    font-size: 22px;
-    padding-top: 8px;
-    padding-right: 0;
-    margin-right: -12px;
-  }
-
-  // icon styles
-  a {
-    .fa-icon-set(@white);
-    width: 40px;
-    height: 26px;
-    padding: 12px;
-    font-size: 20px;
-  }
-
-  .fs-modal-body-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    height: 80%;
-
-    .image, .video, .other, .text, .audio {
-      text-align: center;
-    }
-  }
-
-  .fs-modal-sidebar {
-    border: 1px solid @grayLighter;
-    border-top: 3px solid transparent;
-    min-width: 200px;
-
-    // Sidebar close one
-    a.sidex {
-      color: @momaGray;
-      position: relative;
-      float: right;
-      display: block;
-      width: 20px;
-      height: 20px;
-      padding: 0;
-      margin-right: -3px;
-    }
-
-    .quick-info {
-      display: flex;
-      flex-wrap: nowrap;
-      align-items: stretch;
-      max-height: 65px;
-      margin-top: 8px;
-      .clearfix();
-
-      .quick-info-thumb {
-        min-width: 30%;
-        margin: 0 auto;
-        img {
-          max-height: 65px;
-        }
-      }
-
-      .quick-info-title {
-        margin: 0 auto;
-        .clearfix();
-
-        h4 {
-          line-height: 8px!important;
-          margin-bottom: 0;
-        }
-
-        // ng-switch icon
-        a:before {
-          font-size: 14px;
-        }
-
-        a {
-          width: auto;
-          height: auto;
-          color: @orange;
-          font-size: 8px;
-          padding: 2px;
-          display: inline-block;
-          white-space: nowrap;
-
-          &:before {
-            padding-right: 4px;
-            color: @gray;
-          }
-        }
-      }
-    }
-
-    a.fs-modal-toggle {
-      .fa-icon-set (@grayDark);
-      font-size: 14px;
-      display: block;
-      float: right;
-      position: relative;
-      width: 10px;
-      height: 10px;
-      margin-top: -42px;
-
-      &:before {
-        content: "\f103";
-      }
-      &.active:before {
-        content: "\f102" !important;
-      }
-    }
-
-    h2 {
-      color: @momaGrayDark;
-      cursor: pointer;
-    }
-  }
-
-  // Border to highlight active sidebar
-  .fs-modal-sidebar.active {
-    border-top: 3px solid @orange;
-  }
-
-  // Border for only one sidebar view
-  .fs-mofal-sidebar.unique {
-    border-top: none !important;
   }
 }
 

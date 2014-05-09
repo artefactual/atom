@@ -4,9 +4,6 @@
 
   var angular = require('angular');
 
-  require('../../vendor/angular-ui.js');
-  require('../../vendor/angular-md5.js');
-
   /*
    * Define module and dependencies
    */
@@ -20,7 +17,7 @@
 
     'ui.router',
     'ui.bootstrap',
-    'angular-md5'
+    'cfp.hotkeys'
 
   ]);
 

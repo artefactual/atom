@@ -1,46 +1,56 @@
 'use strict';
 
-module.exports = function ($scope, $modal, $modalInstance, files, ModalDigitalObjectViewerService) {
+module.exports = function ($scope, $q, $modal, $stateParams, $modalInstance, hotkeys, InformationObjectService, ModalDigitalObjectViewerService, files, index) {
 
-  // Share files with the model
-  // Make sure that we convert into array when files is just one object
-  if (angular.isArray(files)) {
-    $scope.files = files;
-  } else {
-    $scope.files = [files];
-  }
+  // Full collection of files that the viewer is browsing
+  $scope.files = files;
 
-  // Get class by media type
-  $scope.getMediaTypeCssClass = function (file) {
+  // Set page and current file based in the index parameter, which may be not
+  // defined when the user is not visualizing a file in particular
+  index = index === null ? 0 : index;
+  $scope.current = $scope.files[index];
+  $scope.page = index + 1;
+  $scope.total = $scope.files.length;
+
+  // Return CSS class give file.media_type_id obtained from the mediaTypes
+  // object available in ModalDigitalObjectViewerService
+  $scope.getMediaType = function (file) {
     return ModalDigitalObjectViewerService.mediaTypes[file.media_type_id].class;
   };
-
-  $scope.page = 1;
-  $scope.total = $scope.files.length;
-  $scope.current = $scope.files[$scope.page - 1];
 
   // Close the dialog
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
 
-  $scope.download = function () {
-
+  // Download files
+  $scope.download = function (file) {
+    console.log(file, 'TODO');
   };
 
-  // Defaults for the sidebar.
-  // Notice that ng-repeat will inherit this and then rewrite
-  $scope.showAipsArea = false;
+
+  /**
+   * Sidebar
+   */
+
+  // Defaults for the sidebar. The sidebar is repetable in comparing mode, so
+  // notice that ng-repeat will build a new scope for each sidebar and the
+  // following properties will be inherited
+  $scope.showAipsArea = true;
   $scope.showFitsArea = false;
-  $scope.showMediaArea = true;
+  $scope.showMediaArea = false;
+
+
+  /**
+   * Pager and selection
+   */
 
   $scope.prev = function () {
     if ($scope.page < 2) {
       return;
     }
-    var prevPage = $scope.page - 2;
-    $scope.current = $scope.files[prevPage];
-    $scope.page--;
+    $scope.current = $scope.files[--$scope.page - 1];
+    $scope.comparingFiles = [$scope.current];
   };
 
   $scope.next = function () {
@@ -48,7 +58,27 @@ module.exports = function ($scope, $modal, $modalInstance, files, ModalDigitalOb
       return;
     }
     $scope.current = $scope.files[$scope.page++];
+    $scope.comparingFiles = [$scope.current];
   };
+
+  $scope.showPrev = function () {
+    return $scope.page > 1;
+  };
+
+  $scope.showNext = function () {
+    return $scope.page < $scope.total;
+  };
+
+  var go = function (index) {
+    $scope.page = index + 1;
+    $scope.current = $scope.files[index];
+    $scope.comparingFiles = [$scope.current];
+  };
+
+
+  /**
+   * Sidebar selection
+   */
 
   $scope.select = function (item) {
     $scope.current = item;
@@ -61,19 +91,112 @@ module.exports = function ($scope, $modal, $modalInstance, files, ModalDigitalOb
     }
   };
 
-  $scope.unselect = function (index) {
-    $scope.files.splice(index, 1);
-    // TODO: destroy scope
-    // TODO: update pages
-    // TODO: update current
+
+  /**
+   * Comparing files
+   * This should totally go to its own directive :(
+   */
+
+  $scope.showCompareSelector = false;
+  $scope.comparingFiles = [$scope.current];
+  var comparingFilesLimit = 3;
+
+  $scope.openCompareSelector = function () {
+    $scope.showCompareSelector = true;
   };
 
-  $scope.showPrev = function () {
-    return $scope.page > 1;
+  $scope.closeCompareSelector = function () {
+    $scope.showCompareSelector = false;
   };
 
-  $scope.showNext = function () {
-    return $scope.page < $scope.total;
+  $scope.compare = function () {
+    // Update list with files that have been selected
+    $scope.comparingFiles = $scope.files.filter(function (file) {
+      return file.comparing === true;
+    });
+    $scope.current = $scope.comparingFiles[0];
+    $scope.closeCompareSelector();
   };
+
+  var selectForCompare = function (file) {
+    if (file.comparing) {
+      file.comparing = false;
+    } else if ($scope.comparingFiles.length < comparingFilesLimit) {
+      file.comparing = true;
+    }
+  };
+
+  $scope.onCompareItemClick = function (file, index, $event) {
+    if ($event.shiftKey) {
+      selectForCompare(file, index);
+    } else {
+      go(index);
+      $scope.closeCompareSelector();
+    }
+  };
+
+  $scope.uncompare = function (file, index) {
+    if ($scope.comparingFiles.length > 1) {
+      file.comparing = false;
+      var removed = $scope.comparingFiles.splice(index, 1);
+      if ($scope.current === removed[0]) {
+        $scope.current = $scope.comparingFiles[0];
+      }
+    } else {
+      $modalInstance.dismiss('cancel');
+    }
+  };
+
+  // Build style attr for each thumbnail. It could be done inline with an
+  // expression but this is going to give me more control for unknown media types
+  $scope.getCompareThumbnailStyle = function (file) {
+    return {
+      'background-image': 'url(' + file.thumbnail_path + ')',
+      'background-repeat': 'no-repeat',
+      'background-size': 'cover'
+    };
+  };
+
+
+  /**
+   * Shortcuts
+   */
+
+  hotkeys.add({
+    combo: 'left',
+    callback: function () {
+      if ($scope.showCompareSelector) {
+        return;
+      }
+      $scope.prev();
+    }
+  });
+
+  hotkeys.add({
+    combo: 'right',
+    callback: function () {
+      if ($scope.showCompareSelector) {
+        return;
+      }
+      $scope.next();
+    }
+  });
+
+  hotkeys.add({
+    combo: 'c',
+    callback: function () {
+      if ($scope.showCompareSelector) {
+        $scope.closeCompareSelector();
+      } else {
+        $scope.openCompareSelector();
+      }
+    }
+  });
+
+  $scope.$on('$destroy', function () {
+    hotkeys.del('left');
+    hotkeys.del('right');
+    hotkeys.del('c');
+  });
 
 };

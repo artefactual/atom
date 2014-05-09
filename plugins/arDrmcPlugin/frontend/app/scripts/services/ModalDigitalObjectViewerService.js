@@ -1,11 +1,30 @@
 'use strict';
 
 module.exports = function ($modal, SETTINGS) {
+
   var configuration = {
     templateUrl: SETTINGS.viewsPath + '/modals/digital-object-viewer.html',
     backdrop: true,
     resolve: {},
+    windowClass: 'fullscreen-modal digital-object-viewer',
     controller: 'DigitalObjectViewerCtrl'
+  };
+
+  this.open = function (files, index) {
+    configuration.resolve.files = function () {
+      // Make sure that we convert into array when files is just one object
+      if (!angular.isArray(files)) {
+        files = new Array(files);
+      }
+      return files;
+    };
+    configuration.resolve.index = function () {
+      if (angular.isUndefined(index)) {
+        index = 0;
+      }
+      return index;
+    };
+    return $modal.open(configuration);
   };
 
   // Media types
@@ -37,14 +56,4 @@ module.exports = function ($modal, SETTINGS) {
     }
   };
 
-  this.open = function (files) {
-    configuration.resolve.files = function () {
-      // Use only the first three items in the array
-      if (files.length > 3) {
-        files = files.slice(0, 3);
-      }
-      return files;
-    };
-    return $modal.open(configuration);
-  };
 };
