@@ -18,7 +18,6 @@ module.exports = function () {
         if (graphSpecification) {
           // process data for each line of the graph
           JSON.parse(graphSpecification).forEach(function (lineData) {
-
             // set graph x/y values and increase max y if needed
             for (var i = 0; i < lineData.data.length; i++) {
               lineData.data[i].x = parseInt(lineData.data[i][lineData.xProperty]);
@@ -43,7 +42,7 @@ module.exports = function () {
             graph: graph,
             element: element.find('rs-x-axis')[0],
             orientation: 'bottom',
-            pixelsPerTick: attrs.xperTick
+            pixelsPerTick: attrs.xperTick,
           });
           xAxis.render();
 

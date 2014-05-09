@@ -78,9 +78,9 @@
   </tabset>
   <!-- Monthly Total (By GB) -->
   <tabset class="span7 dashboard-widget dashboard-rs-graph">
-    <h3><a class="graph-line">Monthly Total (By GB)</a></h3>
-    <tab heading="Codec">
-    <!--<ar:graph-line data="{{ responses.monthlyTotalCodec }}" width="640" height="240" xper-tick="100" yper-tick="40"></ar:graph-line>-->
+    <h3><a class="graph-line">Monthly Totals</a></h3>
+    <tab heading="All">
+    <ar:graph-line data="{{ responses.monthlyTotals }}" type="line" width="640" height="240" xper-tick="100" yper-tick="40"></ar:graph-line>
     </tab>
   </tabset>
 </div>

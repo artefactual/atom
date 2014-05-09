@@ -49,21 +49,15 @@ module.exports = function ($http, SETTINGS) {
       url: SETTINGS.frontendPath + 'api/summary/mediafilesizebycollectionyear'
     });
   };
-  /*
+
+  // This does not return codecs, only totals
   this.getMonthlyTotalByCodec = function () {
     return $http({
       method: 'GET',
-      url: SETTINGS.frontendPath + 'end point needed'
+      url: SETTINGS.frontendPath + 'api/summary/artworkbymonth'
     });
   };
 
-  this.getMonthlyTotalByFormats = function () {
-    return $http({
-      method: 'GET',
-      url: SETTINGS.frontendPath + 'end point needed'
-    });
-  };
-*/
   // var storageCodec
   this.getRunningTotalByCodec = function () {
     return $http({

@@ -15,9 +15,10 @@ module.exports = function ($scope, $q, StatisticsService) {
     var storageCodec = StatisticsService.getRunningTotalByCodec();
     var storageFormats = StatisticsService.getRunningTotalByFormats();
     var artworkSizes = StatisticsService.getArtworkSizesByYearSummary();
+    var monthlyTotals = StatisticsService.getMonthlyTotalByCodec();
 
     $scope.responses = {};
-    $q.all([downloadActivity, ingestionActivity, ingestionSummary, storageCodec, storageFormats, artworkSizes]).then(function (responses) {
+    $q.all([downloadActivity, ingestionActivity, ingestionSummary, storageCodec, storageFormats, artworkSizes, monthlyTotals]).then(function (responses) {
       $scope.responses.downloadActivity = responses[0].data.results;
       $scope.responses.ingestionActivity = responses[1].data.results;
       $scope.responses.ingestionSummary = responses[2].data.results;
@@ -37,6 +38,13 @@ module.exports = function ($scope, $q, StatisticsService) {
         xProperty: 'year',
         yProperty: 'average',
         data: responses[5].data.results
+      }];
+      $scope.responses.monthlyTotals = [{
+        name: 'Month',
+        color: 'hotpink',
+        xProperty: 'month',
+        yProperty: 'count',
+        data: responses[6].data.results.collection
       }];
     });
 
