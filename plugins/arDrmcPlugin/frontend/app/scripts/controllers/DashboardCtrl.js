@@ -23,7 +23,13 @@ module.exports = function ($scope, $q, StatisticsService) {
       $scope.responses.ingestionSummary = responses[2].data.results;
       $scope.responses.storageCodec = responses[3].data.results;
       $scope.responses.storageFormats = responses[4].data.results;
-      $scope.responses.artworkSizes = responses[5].data.results;
+      $scope.responses.artworkSizes = [{
+        name: 'Average',
+        color: 'steelblue',
+        xProperty: 'year',
+        yProperty: 'average',
+        data: responses[5].data.results
+      }];
     });
 
   };

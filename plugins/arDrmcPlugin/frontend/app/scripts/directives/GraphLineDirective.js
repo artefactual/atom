@@ -11,47 +11,31 @@ module.exports = function () {
     template: '<div><rs-y-axis></rs-y-axis><rs-chart></rs-chart><rs-x-axis></rs-x-axis><rs-legend></rs-legend></div>',
     link: function (scope, element, attrs) {
 
-      attrs.$observe('data', function (newAttrs) {
-        var max = Number.MIN_VALUE;
+      attrs.$observe('data', function (graphSpecification) {
+        var series = [],
+            max = Number.MIN_VALUE;
 
-        console.log('observing');
-        if (newAttrs) {
-          var datum = JSON.parse(newAttrs);
+        if (graphSpecification) {
+          // process data for each line of the graph
+          JSON.parse(graphSpecification).forEach(function (lineData) {
 
-          // ---------------------------
-          // from line chart directive
-          // ---------------------------
+            // set graph x/y values and increase max y if needed
+            for (var i = 0; i < lineData.data.length; i++) {
+              lineData.data[i].x = parseInt(lineData.data[i][lineData.xProperty]);
+              lineData.data[i].y = lineData.data[i][lineData.yProperty];
+              max = Math.max(max, lineData.data[i].y);
+            }
+            series.push(lineData);
+          });
 
-          // set graph x/y values
-          for (var i = 0; i < datum.length; i++
-            ) {
-            datum[i].x = parseInt(datum[i].year);
-            datum[i].y = datum[i].average;
-            max = Math.max(max, datum[i].y);
-          }
-
-          console.log('aaaa');
-          console.log(datum);
-          /*
-          var palette = new myrickshaw.Color.Palette();
-          for (var y = 0; y < datum.length; y++
-            ) {
-            //datum[y].color = palette.color();
-            //for (var j = 0; j < datum[y].data.length; j++) {
-            //  max = Math.max(max, datum[y].data[j].y);
-            //}
-            //
-          }
-          */
-
-          // round up to 10th
+          // round max up to 10th
           max = Math.ceil(max / 10) * 10;
 
           var graph = new myrickshaw.Graph({
             element: element.find('rs-chart')[0],
             width: attrs.width,
             height: attrs.height,
-            series: [{color: 'steelblue', data: datum}],
+            series: series,
             max: max
           });
 
