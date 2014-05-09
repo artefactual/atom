@@ -23,6 +23,14 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
     });
   }
 
+  // Remove query when leaving loaded search
+  $scope.$on('$locationChangeSuccess', function (event, next, current) {
+    if (current.indexOf('/search/saved/') !== -1) {
+      $scope.criteria.query = undefined;
+      SearchService.setQuery($scope.criteria.query);
+    }
+  });
+
   // Reference to types of searches
   $scope.tabs = SearchService.searches;
 
