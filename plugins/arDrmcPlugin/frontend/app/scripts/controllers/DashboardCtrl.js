@@ -21,8 +21,16 @@ module.exports = function ($scope, $q, StatisticsService) {
       $scope.responses.downloadActivity = responses[0].data.results;
       $scope.responses.ingestionActivity = responses[1].data.results;
       $scope.responses.ingestionSummary = responses[2].data.results;
-      $scope.responses.storageCodec = responses[3].data.results;
-      $scope.responses.storageFormats = responses[4].data.results;
+      $scope.responses.storageCodec = {
+        accessKey: 'count',
+        formatKey: 'media_type',
+        data: responses[3].data.results
+      };
+      $scope.responses.storageFormats = {
+        accessKey: 'total',
+        formatKey: 'media_type',
+        data: responses[4].data.results
+      };
       $scope.responses.artworkSizes = [{
         name: 'Average',
         color: 'steelblue',

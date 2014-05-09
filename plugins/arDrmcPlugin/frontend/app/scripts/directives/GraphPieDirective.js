@@ -15,20 +15,22 @@ module.exports = function () {
       // access-key: variable core data key from API
       // format-key: variable format key from API
 
-      attrs.$observe('data', function (dataset) {
+      attrs.$observe('data', function (graphSpecification) {
 
-        if (dataset && attrs.width) {
-          var w = attrs.width;
-          var h = attrs.width;
-          var color = arD3.scale.category20();
+        if (graphSpecification && attrs.width) {
 
-          dataset = JSON.parse(dataset);
+          graphSpecification = JSON.parse(graphSpecification);
+
+          var dataset = graphSpecification.data,
+              w = attrs.width,
+              h = attrs.width,
+              color = arD3.scale.category20();
 
           angular.forEach(dataset, function (obj, key) {
-            dataset[key].accessKey = dataset[key][attrs.accessKey];
-            dataset[key].formatKey = dataset[key][attrs.formatKey];
-            delete dataset[key][attrs.accessKey];
-            delete dataset[key][attrs.formatKey];
+            dataset[key].accessKey = dataset[key][graphSpecification.accessKey];
+            dataset[key].formatKey = dataset[key][graphSpecification.formatKey];
+            delete dataset[key][graphSpecification.accessKey];
+            delete dataset[key][graphSpecification.formatKey];
           });
 
           var outerRadius = w / 2;
