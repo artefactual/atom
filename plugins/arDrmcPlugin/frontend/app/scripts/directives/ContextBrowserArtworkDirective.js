@@ -49,27 +49,17 @@ module.exports = function ($modal, SETTINGS, InformationObjectService, ModalDigi
         });
       };
 
-      scope.selectFile = function (file, $event) {
+      scope.selectFile = function (file, $event, $index) {
         if ($event.shiftKey) {
           file.selected = !file.selected;
         } else {
-          scope.openFileViewer(file);
+          ModalDigitalObjectViewerService.open(scope.files, $index);
         }
       };
 
-      scope.openFileViewer = function (file) {
-        // Open the viewer with multiple files
-        if (angular.isUndefined(file)) {
-          var selectedFiles = scope.files.filter(function (element) {
-            return element.selected === true;
-          });
-          if (selectedFiles.length) {
-            ModalDigitalObjectViewerService.open(selectedFiles);
-          }
-        // Open the viewer with just one file
-        } else {
-          ModalDigitalObjectViewerService.open(file);
-        }
+      scope.openAndCompareFiles = function () {
+        // TODO: pass selected files
+        ModalDigitalObjectViewerService.open(scope.files);
       };
 
 

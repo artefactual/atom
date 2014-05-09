@@ -148,7 +148,7 @@
               <div ng-if="fileListViewMode == 'list'" class="cb-sidebar-subsection-body cb-sidebar-table">
                 <table class="table">
                   <tbody>
-                    <tr ng-repeat="file in files" ng-click="selectFile(file, $event, $index)" ng-class="{ selected: file.selected == true }">
+                    <tr ng-repeat="file in files track by $index" ng-click="selectFile(file, $event, $index)" ng-class="{ selected: file.selected == true }">
                       <td class="name">
                         <a href>{{ file.filename }}</a>
                       </td>
@@ -173,7 +173,7 @@
               <!-- Selection options -->
               <div class="cb-file-options" ng-show="hasSelectedFiles()">
                 <ul class="nav">
-                  <li><a class="btn btn-small" href ng-click="openFileViewer()">View all</a></li>
+                  <li><a class="btn btn-small" href ng-click="openAndCompareFiles()">Compare</a></li>
                   <li><a class="btn btn-small" href ng-click="cancelFileSelection()">Cancel</a></li>
                 </ul>
               </div>

@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = function ($compile, $http, ModalDigitalObjectViewerService) {
+module.exports = function ($compile, $http, $timeout, ModalDigitalObjectViewerService) {
   return {
-    restrict: 'E',
+    restrict: 'A',
     replace: true,
     scope: {
       file: '='
@@ -27,6 +27,16 @@ module.exports = function ($compile, $http, ModalDigitalObjectViewerService) {
       scope.$watch('file', function () {
         render();
       });
+
+      var dovModalBody = element.parent();
+      $timeout(function () {
+        var w = dovModalBody.width();
+        var h = dovModalBody.height();
+        dovModalBody.find('dov-modal-body-content .text object').remove().css({
+          'width': w,
+          'height': h
+        });
+      }, 0);
 
     }
   };

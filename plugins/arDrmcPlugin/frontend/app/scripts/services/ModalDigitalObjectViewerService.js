@@ -19,6 +19,9 @@ module.exports = function ($modal, SETTINGS) {
       return files;
     };
     configuration.resolve.index = function () {
+      if (angular.isUndefined(index)) {
+        index = 0;
+      }
       return index;
     };
     return $modal.open(configuration);

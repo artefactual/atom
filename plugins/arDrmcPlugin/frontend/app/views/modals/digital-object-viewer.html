@@ -28,14 +28,13 @@
   </div>
 
   <!-- Content (viewer) -->
-  <div class="dov-modal-body-content" ng-class="getMediaType(current)">
-    <ar-digital-object-preview file="current"></ar-digital-object-preview>
-  </div>
+  <div ar-digital-object-preview class="dov-modal-body-content" file="current"></div>
+
 </div>
 
 <!-- Sidebar -->
-<div ng-class="{ 'dov-modal-sidebar': true, active: current === item, unique: files.length === 1 }" ng-repeat="item in getSidebarFiles() track by $index">
-  <button ng-click="uncompare(file, $index)" class="btn close">x</button>
+<div ng-class="{ 'dov-modal-sidebar': true, active: current === item, unique: comparingFiles.length == 1 }" ng-repeat="item in comparingFiles track by $index">
+  <button ng-if="comparingFiles.length > 1" ng-click="uncompare(item, $index)" class="btn close">x</button>
 
   <div class="quick-info">
     <a href ng-click="select(item)" ng-if="item.class !== 'audio'" class="quick-info-thumb">
@@ -163,7 +162,7 @@
 </div>
 
 <!-- Compare sub-modal -->
-<div class="dov-compare-view" ng-if="showCompareSelector">
+<div class="dov-compare-view" ng-show="showCompareSelector">
   <div class="dov-compare-view-header">
     <h3>
       Select up to three files
@@ -172,13 +171,14 @@
   </div>
   <div class="dov-compare-view-body">
     <ul class="dov-compare-list">
-      <li ng-class="{ active: file.comparing }" ng-repeat="file in files track by $index" ng-click="onCompareItemClick(file, $index, $event)">
-        <img ng-src="{{ file.thumbnail_path }}"/>
+      <li ng-class="{ active: file.comparing }" ng-repeat="file in files track by $index" ng-click="onCompareItemClick(file, $index, $event)" ng-style="getCompareThumbnailStyle(file)">
+        <img ng-show="false" ng-src="{{ file.thumbnail_path }}"/>
       </li>
     </ul>
   </div>
   <div class="dov-compare-view-footer">
     <button class="c-btn" ng-click="compare()">Compare</button>
     <button class="c-btn" ng-click="closeCompareSelector()">Cancel</button>
+    <p class="help">To compare, select up to three files with <code>[shift + click]</code>. Click on a single file to open it.</p>
   </div>
 </div>
