@@ -1,0 +1,62 @@
+/*------------------------ */
+// rickshaw line chart style
+/* graph */
+.rickshaw_legend .swatch {
+  width: 30px;
+  height: 5px;
+}
+rs-y-axis {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+}
+rs-x-axis {
+  position: relative;
+  left: 40px;
+  height: 40px;
+}
+rs-chart {
+  position: relative;
+  left: 40px;
+}
+.dashboard-rs-graph {
+
+  .graph-pie svg {
+  margin: 16px 0px 10px 9%;
+}
+
+  .x_grid_d3 {
+    display: none;
+  }
+
+  .rickshaw_graph text {
+    opacity: 0.8;
+  }
+
+  .tab-content {
+    overflow: auto;
+    height: 380px;
+  }
+  .tab-pane > .ng-scope,
+  .rs-graph-pane > .ng-isolate-scope {
+    position: relative;
+    rs-legend {
+      background: none;
+      ul {
+        left: 10%;
+        position: relative;
+        width:420px;
+        li {
+          display: inline-block;
+          text-align: left;
+          .label {
+            background: none;
+            color: #000;
+            text-shadow: none;
+          }
+        }
+      }
+    }
+  }
+}
