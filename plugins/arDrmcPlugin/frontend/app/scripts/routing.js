@@ -93,7 +93,7 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       template: '<ui-view autoscroll="false"/>'
     })
     .state('main.search.slug', {
-      url: '/{slug:\\d{4}-\\d{2}-\\d{2}-\\d{2}-\\d{2}-\\d{2}-.+}',
+      url: '/saved/{slug:\\d{4}-\\d{2}-\\d{2}-\\d{2}-\\d{2}-\\d{2}-.+}',
       controller: 'SearchCtrl',
       template: '<div ng-include="include"></div>'
     })
