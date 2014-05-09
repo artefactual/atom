@@ -162,12 +162,12 @@ class InformationObjectEditRightAction extends sfAction
           $grantedRight = null;
 
           // try and find pre-existing record with this id
-          $grantedRight = $this->right->grantedRightsFindById((int) $data['id']);
+          $grantedRight = $this->right->grantedRightsFindById($data['id']);
 
           // if one was found, but user 
           // has requested it be deleted
           // then lets delete it.
-          if ("true" === $data['delete'])
+          if (null !== $grantedRight && "true" === $data['delete'])
           {
             $grantedRight->delete();
 
@@ -229,9 +229,11 @@ class InformationObjectEditRightAction extends sfAction
     }
   }
 
-  protected function getQubitInformationObject($id)
+  protected function getRelatedInformationObject($id)
   {
-    $results = QubitRelation::getRelatedSubjectsByObjectId('QubitInformationObject', $id);
+    $results = QubitRelation::getRelatedSubjectsByObjectId(
+        'QubitInformationObject', $id, array('typeId' => QubitTerm::RIGHT_ID)
+    );
 
     return $results[0];
   }
@@ -249,14 +251,14 @@ class InformationObjectEditRightAction extends sfAction
   protected function earlyExecute()
   {
     $resource = $this->getRoute()->resource;
-    $type = get_class($resource);
 
-    switch ($type) {
+    switch (get_class($resource)) {
       case 'QubitRights':
-        $this->resource = $this->getQubitInformationObject($resource->id);
+        $this->resource = $this->getRelatedInformationObject($resource->id);
         $this->right = $resource;
 
         break;
+
       case 'QubitInformationObject':
         $this->resource = $resource;
         $this->right = $this->newRightWithDefaults();
@@ -280,7 +282,10 @@ class InformationObjectEditRightAction extends sfAction
   protected function grantedRightFormSetup($grantedRight)
   {
     // if new, unsaved right, then id can be set to 0
-    $grantedRight->id = (integer) $grantedRight->id;
+    if (null === $grantedRight->id)
+    {
+      $grantedRight->id = 0;
+    }
 
     // 'id', 'act', 'startDate', 'endDate', 'restriction', 'notes'
     $form = new sfForm;
@@ -348,9 +353,10 @@ class InformationObjectEditRightAction extends sfAction
       foreach ($this->right->grantedRights as $i => $gr) {
         $subForm->embedForm($i, $this->grantedRightFormSetup($gr));
       }
-    } else {
-      $gr = new QubitGrantedRight;
-      $subForm->embedForm(0, $this->grantedRightFormSetup($gr));
+    }
+    else
+    {
+      $subForm->embedForm(0, $this->grantedRightFormSetup(new QubitGrantedRight));
     }
     
     // finally store a blank GrantedRight form that'll be used
@@ -371,7 +377,8 @@ class InformationObjectEditRightAction extends sfAction
     {
       $params = $request->getPostParameters();
       $this->form->bind($params['right']);
-      if ($this->form->isValid()){
+      if ($this->form->isValid())
+      {
         $this->processForm();
         $this->redirect(array($this->resource, 'module' => 'informationobject'));
       }
