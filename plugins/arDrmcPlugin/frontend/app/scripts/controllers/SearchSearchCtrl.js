@@ -24,14 +24,18 @@ module.exports = function ($scope, $state, ModalSaveSearchService, SearchService
   };
 
   $scope.editSearch = function () {
-    ModalSaveSearchService.edit($scope.selectedSearches[0]);
+    ModalSaveSearchService.edit($scope.selectedSearches[0]).result.then(function () {
+      $scope.$parent.search();
+      $scope.selectedSearches = [];
+    });
   };
 
   $scope.deleteSearches = function () {
     for (var key in $scope.selectedSearches) {
       $scope.deleteSearch($scope.selectedSearches[key]);
     }
-    this.$emit('searchesChanged');
+    $scope.$parent.search();
+    $scope.selectedSearches = [];
   };
 
   $scope.deleteSearch = function (id) {
@@ -41,9 +45,5 @@ module.exports = function ($scope, $state, ModalSaveSearchService, SearchService
       throw 'Error deleting search ' + id;
     });
   };
-
-  $scope.$on('searchesChanged', function () {
-    $scope.selectedSearches = [];
-  });
 
 };

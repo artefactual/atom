@@ -109,8 +109,4 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
     $scope.showOverview = !$scope.showOverview;
   };
 
-  $scope.$on('searchesChanged', function () {
-    $scope.search();
-  });
-
 };
