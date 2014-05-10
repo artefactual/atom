@@ -16,12 +16,22 @@ module.exports = function () {
             max = Number.MIN_VALUE;
 
         if (graphSpecification) {
+          var xLabels = [];
+
           // process data for each line of the graph
           JSON.parse(graphSpecification).forEach(function (lineData) {
             // set graph x/y values and increase max y if needed
             for (var i = 0; i < lineData.data.length; i++) {
-              lineData.data[i].x = parseInt(lineData.data[i][lineData.xProperty]);
+              // store index as X value because Rickshaw accepts only sequential value
+              lineData.data[i].x = i;
+
+              // store real X value as a label to be diplayed using a custom formatter
+              xLabels[i] = parseInt(lineData.data[i][lineData.xProperty]);
+
+              // store y value data
               lineData.data[i].y = lineData.data[i][lineData.yProperty];
+
+              // determine whether a new Y data ceiling should be set
               max = Math.max(max, lineData.data[i].y);
             }
             series.push(lineData);
@@ -38,11 +48,17 @@ module.exports = function () {
             max: max
           });
 
+          // use custom X axis formatter so we can use arbitrary X values
+          var format = function (i) {
+            return (typeof xLabels[i] !== 'undefined') ? xLabels[i] : '';
+          };
+
           var xAxis = new myrickshaw.Graph.Axis.X({
             graph: graph,
             element: element.find('rs-x-axis')[0],
             orientation: 'bottom',
             pixelsPerTick: attrs.xperTick,
+            tickFormat: format
           });
           xAxis.render();
 
