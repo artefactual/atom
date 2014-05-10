@@ -57,6 +57,11 @@ EOF;
       $random = mt_rand(1262055681, 1399488461);
       $randomDate = date("Y-m-d", $random);
       $item->addProperty('Dated', $randomDate);
+
+      // assign random create date within the last year
+      $randomDatetime = rand(time()-(86400 * 365) , time());
+      $item->createdAt = date('Y-m-d', $randomDatetime);
+
       $item->save();
 
       // add random byte size to associated digital object
