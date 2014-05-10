@@ -65,8 +65,8 @@ class ApiInformationObjectsWorksBrowseAction extends QubitApiAction
     }
 
     // Filter selected facets
-    $this->filterEsFacet('classification', 'tmsObject.classification.id', $filterBool);
-    $this->filterEsFacet('department', 'tmsObject.department.id', $filterBool);
+    $this->filterEsFacetFilter('classification', 'tmsObject.classification.id', $filterBool);
+    $this->filterEsFacetFilter('department', 'tmsObject.department.id', $filterBool);
 
     $this->filterEsRangeFacet('collectedFrom', 'collectedTo', 'tmsObject.dateCollected', $queryBool);
     $this->filterEsRangeFacet('createdFrom', 'createdTo', 'tmsObject.dateCreated', $queryBool);

@@ -51,7 +51,7 @@ class ApiAipsBrowseAction extends QubitApiAction
       // 'partOf' => ''));
 
     // Filter selected facets
-    $this->filterEsFacet('type', 'type.id', $filterBool);
+    $this->filterEsFacetFilter('type', 'type.id', $filterBool);
 
     $this->filterEsRangeFacet('sizeFrom', 'sizeTo', 'sizeOnDisk', $queryBool);
     $this->filterEsRangeFacet('ingestedFrom', 'ingestedTo', 'createdAt', $queryBool);

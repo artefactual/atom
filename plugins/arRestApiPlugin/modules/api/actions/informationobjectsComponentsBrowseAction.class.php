@@ -78,8 +78,8 @@ class ApiInformationObjectsComponentsBrowseAction extends QubitApiAction
     }
 
     // Filter selected facets
-    $this->filterEsFacet('class', 'tmsComponent.type.id', $filterBool);
-    $this->filterEsFacet('type', 'levelOfDescriptionId', $filterBool);
+    $this->filterEsFacetFilter('class', 'tmsComponent.type.id', $filterBool);
+    $this->filterEsFacetFilter('type', 'levelOfDescriptionId', $filterBool);
 
     $this->filterEsRangeFacet('ingestedFrom', 'ingestedTo', 'aips.createdAt', $queryBool);
 

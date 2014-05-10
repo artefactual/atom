@@ -51,8 +51,8 @@ class ApiSearchesBrowseAction extends QubitApiAction
       'user' => 'user.name'));
 
     // Filter selected facets
-    $this->filterEsFacet('user', 'user.id', $filterBool);
-    $this->filterEsFacet('type', 'type', $filterBool, 'AND', array('noInteger' => true));
+    $this->filterEsFacetFilter('user', 'user.id', $filterBool);
+    $this->filterEsFacetFilter('type', 'type', $filterBool, 'AND', array('noInteger' => true));
 
     $this->filterEsRangeFacet('createdFrom', 'createdTo', 'createdAt', $queryBool);
     $this->filterEsRangeFacet('updatedFrom', 'updatedTo', 'updatedAt', $queryBool);
