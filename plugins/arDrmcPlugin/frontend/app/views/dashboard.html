@@ -60,7 +60,7 @@
 <!-- Storage -->
 
   <tabset class="span5 dashboard-widget dashboard-rs-graph">
-    <h3><a class="graph-pie">Artwork Storage by Codec</a></h3>
+    <h3><a class="icon-chart-pie">Artwork Storage by Codec</a></h3>
     <tab heading="Count">
       <ar:graph-pie data="{{ responses.storageCodec }}" width="200" class="graph-pie"></ar:graph-pie>
       <h1><strong>Collection totals</strong></h1>
@@ -78,7 +78,7 @@
   </tabset>
   <!-- Monthly Total (By GB) -->
   <tabset class="span7 dashboard-widget dashboard-rs-graph">
-    <h3><a class="graph-line">Monthly Totals</a></h3>
+    <h3><a class="icon-chart-line">Monthly Totals</a></h3>
     <tab heading="All">
     <ar:graph-line data="{{ responses.monthlyTotals }}" type="line" width="640" height="240" xper-tick="100" yper-tick="40"></ar:graph-line>
     </tab>
@@ -88,7 +88,7 @@
 <div class="row-fluid">
 <!-- Running Total (By GB) -->
   <tabset class="span6 dashboard-widget dashboard-rs-graph">
-    <h3><a class="graph-line">Running Total (By GB)</a></h3>
+    <h3><a class="icon-chart-line">Running Total (By GB)</a></h3>
     <tab heading="Codec">
     <!--<ar-dashboard-graph type="line" chart-data="{{ runningTotalCodec }}" width="440" height="240" xper-tick="100" yper-tick="20"></ar-dashboard-graph>-->
     </tab>
@@ -96,7 +96,7 @@
 
   <!-- Artwork Sizes (Average vs Median) -->
   <tabset class="span6 dashboard-widget dashboard-rs-graph">
-    <h3><a class="graph-line">Artwork Sizes (Average vs Median)</a></h3>
+    <h3><a class="icon-chart-line">Artwork Sizes (Average vs Median)</a></h3>
     <tab heading="Codec">
     <ar:graph-line type="line" data="{{ responses.artworkSizes }}" width="440" height="260" xper-tick="50" yper-tick="40"></ar:graph-line>
     </tab>
