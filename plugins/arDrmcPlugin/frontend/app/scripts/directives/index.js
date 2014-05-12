@@ -16,8 +16,6 @@
     .directive('arToggleSlide', require('./ToggleSlideDirective'))
     .directive('arSearchBox', require('./SearchBoxDirective'))
     .directive('arRangeFacet', require('./RangeFacetDirective'))
-    .directive('arDashboardStorageCodec', require('./DashboardStorageCodecDirective'))
-    .directive('arDashboardLineChart', require('./DashboardLineChartDirective'))
     .directive('arGraphLine', require('./GraphLineDirective'))
     .directive('arGraphPie', require('./GraphPieDirective'));
 })();
