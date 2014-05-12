@@ -333,7 +333,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
         case 'name':
           $queryField = new \Elastica\Query\QueryString($query);
-          $queryField->setDefaultField('names.i18n.'.$culture.'.name');
+          $queryField->setDefaultField('names.i18n.'.$culture.'.authorizedFormOfName');
           $queryField->setDefaultOperator('OR');
 
           break;
