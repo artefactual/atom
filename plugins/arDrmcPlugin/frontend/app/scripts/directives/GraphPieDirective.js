@@ -5,9 +5,10 @@ var arD3 = require('d3');
 module.exports = function () {
   return {
     restrict: 'E',
+    replace: true,
     scope: {
     },
-    template: '<rs-y-axis></rs-y-axis><rs-chart></rs-chart><rs-x-axis></rs-x-axis><rs-legend></rs-legend>',
+    template: '<div><rs-y-axis></rs-y-axis><rs-chart></rs-chart><rs-x-axis></rs-x-axis><rs-legend></rs-legend></div>',
     link: function (scope, element, attrs) {
 
       // Attributes for this directive

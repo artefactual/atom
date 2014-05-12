@@ -57,43 +57,33 @@
 </tabset>
 
 <div class="row-fluid">
-<!-- Storage -->
-
-  <tabset class="span5 dashboard-widget dashboard-rs-graph">
+  <!-- Storage -->
+  <tabset class="span7 dashboard-widget dashboard-rs-graph">
     <h3><a class="icon-chart-pie">Artwork Storage by Codec</a></h3>
     <tab heading="Count">
       <ar:graph-pie data="{{ responses.storageCodec }}" width="200" class="graph-pie"></ar:graph-pie>
-      <h1><strong>Collection totals</strong></h1>
-      <div ng-repeat="(item, count) in responses.ingestionSummary">
-        <div><strong>{{ count | number }}</strong> : <span>{{ item }}</span></div>
-      </div>
     </tab>
     <tab heading="Size (GB)">
       <ar:graph-pie data="{{ responses.storageFormats }}" width="200" class="graph-pie"></ar:graph-pie>
-      <h1><strong>Collection totals</strong></h1>
-      <div ng-repeat="(item, count) in responses.ingestionSummary">
-        <div><strong>{{ count | number }}</strong> : <span>{{ item }}</span></div>
-      </div>
     </tab>
   </tabset>
-  <!-- Monthly Total (By GB) -->
-  <tabset class="span7 dashboard-widget dashboard-rs-graph">
-    <h3><a class="icon-chart-line">Monthly Totals</a></h3>
-    <tab heading="All">
-    <ar:graph-line data="{{ responses.monthlyTotals }}" type="line" width="640" height="240" xper-tick="100" yper-tick="40"></ar:graph-line>
-    </tab>
-  </tabset>
+
+  <div class="span4 dashboard-widget dashboard-widget-notab">
+    <h3><a href class="details">Collection totals</a></h3>
+    <ul>
+      <li ng-repeat="(item, count) in responses.ingestionSummary"><strong>{{ count | number }}</strong> : <span>{{ item }}</span></li>
+    </ul>
+  </div>
 </div>
 
 <div class="row-fluid">
-<!-- Running Total (By GB) -->
+  <!-- Monthly Total (By GB) -->
   <tabset class="span6 dashboard-widget dashboard-rs-graph">
-    <h3><a class="icon-chart-line">Running Total (By GB)</a></h3>
-    <tab heading="Codec">
-    <!--<ar-dashboard-graph type="line" chart-data="{{ runningTotalCodec }}" width="440" height="240" xper-tick="100" yper-tick="20"></ar-dashboard-graph>-->
+    <h3><a class="icon-chart-line">Monthly Totals</a></h3>
+    <tab heading="All">
+    <ar:graph-line data="{{ responses.monthlyTotals }}" type="line" width="580" height="260" xper-tick="100" yper-tick="40"></ar:graph-line>
     </tab>
   </tabset>
-
   <!-- Artwork Sizes (Average vs Median) -->
   <tabset class="span6 dashboard-widget dashboard-rs-graph">
     <h3><a class="icon-chart-line">Artwork Sizes (Average vs Median)</a></h3>

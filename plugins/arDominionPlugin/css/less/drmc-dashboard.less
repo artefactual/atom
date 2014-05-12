@@ -1,10 +1,3 @@
-/**
- * This file was used for the prototypes. TODO: cleanup, integrate and reuse
- * existing stylesheets.
- */
-
-
-
 .dashboard-header {
   position: absolute;
   right: 0;
@@ -16,8 +9,7 @@
   }
 }
 
-/*------------------------ */
-// dashboard tabset
+// Dashboard widgets
 .dashboard-top-widget {
   margin-top: 130px;
 }
@@ -27,16 +19,20 @@
   .nav{
     margin-bottom: 0;
     cursor: pointer;
+
     li.active a{
       background: @white;
     }
   }
 
-  .tab-content{
+  .tab-content {
     background: @white;
     padding: 20px;
     border: 1px solid #ddd;
     border-top: none;
+    overflow-x: scroll;
+    min-height: 240px;
+    max-height: 380px;
   }
 
   h3 > a {
@@ -45,4 +41,15 @@
   }
 }
 
-
+.dashboard-widget-notab {
+  ul {
+    list-style: none;
+    background: @white;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 46px 0 0 0;
+    overflow: auto;
+    min-height: 240px;
+    max-height: 380px;
+  }
+}
