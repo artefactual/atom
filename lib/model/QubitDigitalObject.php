@@ -1567,6 +1567,23 @@ class QubitDigitalObject extends BaseDigitalObject
   }
 
   /**
+   * Find QubitDigitalObject by PATH and FILE
+   *
+   * @param string  a string expected to match on the PATH column
+   * @param string  a string expected to match on the FILE column
+   */
+  public static function getByPathFile($path, $name)
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitDigitalObject::PATH, $path);
+    $criteria->add(QubitDigitalObject::NAME, $name);
+
+    $result = QubitDigitalObject::getOne($criteria);
+
+    return $result;
+  }
+
+  /**
    * Get a representation for the given $usageId.  Currently only searches
    * direct children of current digital object.
    *
