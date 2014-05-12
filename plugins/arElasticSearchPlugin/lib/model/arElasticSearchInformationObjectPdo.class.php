@@ -1390,6 +1390,8 @@ class arElasticSearchInformationObjectPdo
       if (null !== $collectionDate = $this->getProperty('Dated'))
       {
         $serialized['tmsObject']['collectionDate'] = $collectionDate;
+        $dateComponents = date_parse($collectionDate);
+        $serialized['tmsObject']['collectionYear'] = $dateComponents['year'];
       }
 
       if (null !== $dateCollected = $this->getProperty('AccessionISODate'))

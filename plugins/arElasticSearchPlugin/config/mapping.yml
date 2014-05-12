@@ -136,6 +136,7 @@ mapping:
     dynamic: strict
     properties:
       collection_date: { type: date, index: not_analyzed, include_in_all: false }
+      collection_year: { type: string, index: not_analyzed, include_in_all: false }
       accession_number: { type: string, index: not_analyzed, include_in_all: false }
       full_image: { type: string, index: not_analyzed, include_in_all: false }
       thumbnail: { type: string, index: not_analyzed, include_in_all: false }

@@ -23,8 +23,6 @@
 
     // Dashboard
     .controller('DashboardCtrl', require('./DashboardCtrl'))
-    .controller('DashboardRecentActivityCtrl', require('./DashboardRecentActivityCtrl'))
-    .controller('DashboardIngestionCtrl', require('./DashboardIngestionCtrl'))
 
     // Search
     .controller('SearchCtrl', require('./SearchCtrl'))

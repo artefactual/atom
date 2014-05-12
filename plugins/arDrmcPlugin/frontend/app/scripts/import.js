@@ -10,6 +10,7 @@
   window.angular = require('angular');
 
   require('d3');
+  require('rickshaw');
   require('dagre');
   require('ui-router');
   require('wolfy87-eventemitter');

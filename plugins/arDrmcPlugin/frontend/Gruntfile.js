@@ -148,6 +148,7 @@ module.exports = function (grunt) {
           alias: [
             'jquery:jquery',
             'd3:d3',
+            'rickshaw:rickshaw',
             'dagre:dagre',
             'angular:angular',
             'ui-router:ui-router',
@@ -164,6 +165,7 @@ module.exports = function (grunt) {
           external: [
             'jquery',
             'd3',
+            'rickshaw',
             'dagre',
             'angular',
             'ui-router',

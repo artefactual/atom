@@ -1,29 +1,13 @@
 <!-- TODO: this is just a mock-up -->
 <h5 id="dash-h5">Recent additions</h5>
-<div id="artwork-record-header"><a ng-href="#/artwork-record" >
-  <img ng-src="{{ assetsPath }}/moma-top-img.png" /></a>
+<div class="dashboard-header">
+  <a ng-href="#/artwork-record" >
+    <img ng-src="{{ assetsPath }}/moma-top-img.png" />
+  </a>
 </div>
-
-<tabset>
-  <h5>Recent activity</h5>
-  <tab heading="Downloads">
-    <table class="table table-bordered">
-      <thead>
-        <th>Date/time</th>
-        <th>Object</th>
-        <th>Reason</th>
-        <th>User</th>
-      </thead>
-      <tbody>
-        <tr ng-repeat="item in downloadActivity">
-          <td>{{ item.date }}</td>
-          <td>{{ item.file }}</td>
-          <td>{{ item.reason }}</td>
-          <td>{{ item.username || 'Unknown' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </tab>
+<!-- Recent activity -->
+<tabset class="dashboard-widget dashboard-top-widget">
+  <h3><a class="graph-list">Recent activity</a></h3>
   <tab heading="Ingests">
     <table class="table table-bordered">
       <thead>
@@ -33,13 +17,78 @@
         <th>Size</th>
       </thead>
       <tbody>
-        <tr ng-repeat="item in ingestionActivity">
+        <tr ng-repeat="item in responses.ingestionActivity">
           <td>{{ item.created_at }}</td>
           <td>{{ item.aip_title }}</td>
           <td>{{ item.artwork_title }}</td>
           <td>{{ item.size_on_disk | UnitFilter:2 }}</td>
         </tr>
+        <tr>
+          <td>
+            <span ng-if="responses.ingestionActivity.length < 1">There is no recent ingestion activity to display</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </tab>
+  <tab heading="Downloads">
+    <table class="table table-bordered">
+      <thead>
+        <th>Date/time</th>
+        <th>Object</th>
+        <th>Reason</th>
+        <th>User</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in responses.downloadActivity">
+          <td>{{ item.date }}</td>
+          <td>{{ item.file }}</td>
+          <td>{{ item.reason }}</td>
+          <td>{{ item.username || 'Unknown' }}</td>
+        </tr>
+        <tr>
+          <td>
+            <div ng-if="responses.downloadActivity.length < 1">There are no recent downloads to display</div>
+          </td>
+        </tr>
       </tbody>
     </table>
   </tab>
 </tabset>
+
+<div class="row-fluid">
+  <!-- Storage -->
+  <tabset class="span7 dashboard-widget dashboard-rs-graph">
+    <h3><a class="icon-chart-pie">Artwork Storage by Codec</a></h3>
+    <tab heading="Count">
+      <ar:graph-pie data="{{ responses.storageCodec }}" width="200" class="graph-pie"></ar:graph-pie>
+    </tab>
+    <tab heading="Size (GB)">
+      <ar:graph-pie data="{{ responses.storageFormats }}" width="200" class="graph-pie"></ar:graph-pie>
+    </tab>
+  </tabset>
+
+  <div class="span4 dashboard-widget dashboard-widget-notab">
+    <h3><a href class="details">Collection totals</a></h3>
+    <ul>
+      <li ng-repeat="(item, count) in responses.ingestionSummary"><strong>{{ count | number }}</strong> : <span>{{ item }}</span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <!-- Monthly Total (By GB) -->
+  <tabset class="span6 dashboard-widget dashboard-rs-graph">
+    <h3><a class="icon-chart-line">Monthly Totals</a></h3>
+    <tab heading="All">
+    <ar:graph-line data="{{ responses.monthlyTotals }}" type="line" width="580" height="260" xper-tick="100" yper-tick="40"></ar:graph-line>
+    </tab>
+  </tabset>
+  <!-- Artwork Sizes (Average vs Median) -->
+  <tabset class="span6 dashboard-widget dashboard-rs-graph">
+    <h3><a class="icon-chart-line">Artwork Sizes (Average vs Median)</a></h3>
+    <tab heading="Codec">
+    <ar:graph-line type="line" data="{{ responses.artworkSizes }}" width="440" height="260" xper-tick="50" yper-tick="40"></ar:graph-line>
+    </tab>
+  </tabset>
+</div>

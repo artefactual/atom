@@ -1,248 +1,55 @@
-/**
- * This file was used for the prototypes. TODO: cleanup, integrate and reuse
- * existing stylesheets.
- */
-
-// Interface colors (dashboard is the only file using it)
-
-@momaGreen: rgba(78, 115, 91, 1);               //#CEDFC8;
-@momaGreenLight: rgba(128,198,90,.5);
-@momaBlue: rgba(0, 136, 204, 0.1);              //0088cc
-@momaBlueDark: rgba(0, 136, 204, 1);
-@momaBlueMid: rgba(0, 136, 204, .35);
-@momaBlueLight: rgba(182, 205, 242, 1);         // #c97bc9
-@momaGray: #dfe4e6;
-@momaOrangeDark: rgba(201, 74, 0, 1);           //#cc6040
-@momaViolet: rgba(201, 123, 201,1);             //#c97BC9
-
-
-body {
-  //Important for sidebar animation
-  position: relative !important;
-}
-
-/*------------------------ */
-// header
-#artwork-record-header img {
-  border-radius: 5px;
-  border: 2px solid @black;
-  margin-bottom: 10px;
-}
-
-#dash-h5 {
-  margin-bottom: -1px;
-  color: @black;
-}
-
-
-/* ------------------------ */
-// sidebar
-
-#dash-sidebar {
-  padding-left: 7%;
-  h4 {
-    font-size: 1.4em;
-    display: block;
-    padding: inherit 0;
-    font-family: 'Open Sans Semibold';
+.dashboard-header {
+  position: absolute;
+  right: 0;
+  left: 0;
+  img {
+    width: 100%;
+    max-width: none;
+    height: 110px;
   }
+}
+
+// Dashboard widgets
+.dashboard-top-widget {
+  margin-top: 130px;
+}
+
+.dashboard-widget {
+
+  .nav{
+    margin-bottom: 0;
+    cursor: pointer;
+
+    li.active a{
+      background: @white;
+    }
+  }
+
+  .tab-content {
+    background: @white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-top: none;
+    overflow-x: scroll;
+    min-height: 240px;
+    max-height: 380px;
+  }
+
+  h3 > a {
+    .fa-icon-set(@black);
+    &:before { padding-right: 5px; }
+  }
+}
+
+.dashboard-widget-notab {
   ul {
-    border-top: 2px solid @black;
-    li span {
-      display: inline-block;
-      padding: 2px 6px;
-      width: 2.5em;
-      text-align: center;
-      margin-right: 6px;
-      background: @momaBlueMid;
-      font-family: 'Open Sans Semibold';
-    }
-  }
-  section {
-    margin-top: 30px;
-  }
-  .dash-col-updates {
-    overflow: hidden;
-    border-radius: 4px;
-    font-size: .9em;
-    padding-bottom: 4px;
-    li {
-      font-style: italic;
-      line-height: 11px;
-      padding: 2px inherit;
-    }
-    .btn {
-      .moma-btn(@momaBlueLight);
-       width: 22%;
-       padding: 2px 4px;
-       margin-top: 6px;
-    }
-    a {
-      white-space: pre-wrap;
-      color: @black;
-      display: inline-block;
-    }
-  }
-}
-
-//#content span9
-
-//First section ------------
-section#fix-check {
-  ul {
-    margin: 1em;
-    min-height: 6em;
-    li {
-      margin-top: 0;
-      margin-bottom: -1em;
-      min-height: 6em;
-      display: inline-block;
-      padding-top: 3px;
-      border-right: 1px solid @grayLighter;
-      border-left: 1px solid @grayLighter;
-      input {
-        height: 2.5em;
-        display: inline-block;
-        position: relative;
-        text-align: center;
-      }
-    }
-    li#fc-sta {
-      width: 7%;
-      text-align: center;
-      div {
-        margin-top: 14px;
-      }
-      div:after {
-        content: "\f058";
-        font-family: FontAwesome;
-        font-size: 3em;
-        color: #F7F7F7;
-      }
-    }
-
-    li#fc-inp {
-      width: 55%;
-      clear: none;
-      margin-left: 1%;
-      border-right: none;
-      border-left: none;
-      input {
-        margin-top: 1.5em;
-        height: 2em;
-      }
-      span {
-          font-size: .8em;
-          color: @gray;
-        }
-    }
-
-    li#fc-set, li#fc-fr, li#fc-sum  {
-      text-align: center;
-      width: 6%;
-      float: right;
-      margin-right: 8px;
-      text-align: center;
-      font-size: .9em;
-      white-space: nowrap;
-      a {
-        color: @orange;
-      }
-    }
-  }
-}
-
-li#fc-set div {
-  margin-top: 1em;
-    &:after {
-    color: @grayLight;
-    content: "\f085";
-    font-family: FontAwesome;
-    font-size: 2em;
-    padding: 8px 5px;
-  }
-}
-
-li#fc-fr div {
-  margin-top: 1em;
-    &:after {
-    color: @grayLight;
-    content: "\f00b";
-    font-family: FontAwesome;
-    font-size: 2em;
-    padding: 8px 5px;
-  }
-}
-
-li#fc-sum div {
-  margin-top: 1em;
-    &:after {
-    color: @grayLight;
-    content: "\f06e";
-    font-family: FontAwesome;
-    font-size: 2em;
-    padding: 8px 5px;
-    margin-top: 8px;
-  }
-}
-
-
-//Third section ------------
-section#AIP-ov {
-  h2 {
-    border-bottom: none;
-  }
-  li.section-menu {
-    padding: .8em .8em 0 0;
-    color: @grayLight;
-    .moma-icon();
-    &:before {
-      content: "\f022";
-    }
-    }
-  aside {
-    margin: 1em;
-  }
-  aside ul {
-    margin: 1em;
-    li {
-      display: inline-block;
-    }
-    input {
-      height: 2.5em;
-      float: left;
-      max-width: 4em;
-      }
-  } //ul
-  div#AIP-ov-MIME, div#AIP-ov-cla {
-    margin-top: -15px;
-    h4 {
-      font-size: 1.1em;
-      font-family: 'Open Sans Semibold';
-      text-align: center;
-    }
-    #svg_donut {
-      margin-top: -30px;
-      margin-left: -10px;
-    }
-    img {
-      width: 94%;
-    }
-  }
-}
-
-.moma-btn-success {
-  background: @momaGreenLight;
-}
-
-/*------------------------ */
-// D3 graoh
-#svg_donut {
-  margin-top: -15px;
-  width: 100%;
-  margin: -15px auto inherit auto;
-  .slice text {
-    font-size: .8em;
-    font-family: 'Open Sans Semibold';
+    list-style: none;
+    background: @white;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 46px 0 0 0;
+    overflow: auto;
+    min-height: 240px;
+    max-height: 380px;
   }
 }
