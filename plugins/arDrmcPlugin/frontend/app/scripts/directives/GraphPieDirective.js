@@ -2,7 +2,7 @@
 
 var arD3 = require('d3');
 
-module.exports = function () {
+module.exports = function ($filter) {
   return {
     restrict: 'E',
     replace: true,
@@ -105,8 +105,15 @@ module.exports = function () {
             .attr('x', 24)
             .attr('y', 14)
             .text(function (d) {
-              var value = dataset[d].accessKey;
-              return value;
+              var value;
+
+              if (attrs.unitFilter === 'on') {
+                value = $filter('UnitFilter')(dataset[d].accessKey, 2, true);
+                return value;
+              } else {
+                value = dataset[d].accessKey;
+                return value;
+              }
             });
 
           // Add text
