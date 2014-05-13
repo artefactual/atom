@@ -79,27 +79,6 @@ slug;default_index:
   param:
     action: index
 
-editRight/slug:
-  url: /editRight/:slug
-  class: QubitResourceRoute
-  param:
-    module: informationobject
-    action: editRight
-
-deleteRight/slug:
-  url: /deleteRight/:slug
-  class: QubitResourceRoute
-  param:
-    module: informationobject
-    action: deleteRight
-
-slug/newRight:
-  url: /:slug/newRight
-  class: QubitResourceRoute
-  param:
-    module: informationobject
-    action: editRight
-
 slug/default:
   url: /:slug/:module/:action
   class: QubitResourceRoute

@@ -1,9 +1,9 @@
 <div class="field">
   <?php if (!isset($inherit)): ?>
     <h3><?php echo __('Related right') ?></h3>
-    <a href="<?php echo url_for("editRight/{$resource->slug}") ?>">Edit</a>
-    | 
-    <a href="<?php echo url_for("deleteRight/{$resource->slug}") ?>"  class="deleteRightBasis">Delete</a>
+    <a href="<?php echo url_for(array('module' => 'right', 'action' => 'edit', 'slug' => $resource->slug)) ?>">Edit</a>
+    |
+    <a href="<?php echo url_for(array('module' => 'right', 'action' => 'delete', 'slug' => $resource->slug)) ?>"  class="deleteRightBasis">Delete</a>
   <?php else: ?>
     <h3><?php echo __('Inherited right') ?></h3>    
   <?php endif; ?>
@@ -12,6 +12,8 @@
     <?php if (isset($inherit)): ?>
       <?php echo link_to(render_title($inherit), array($inherit, 'module' => 'informationobject'), array('title' => __('Inherited from %1%', array('%1%' => $inherit)))) ?>
     <?php endif; ?>
+
+    <?php echo render_show(__('Basis'), render_value($resource->basis)) ?>
 
     <?php echo render_show(__('Start date'), render_value(Qubit::renderDate($resource->startDate))) ?>
 
@@ -22,8 +24,6 @@
     <?php endif; ?>
 
     <?php echo render_show(__('Rights note(s)'), render_value($resource->getRightsNote(array('cultureFallback' => true)))) ?>
-
-    <?php echo render_show(__('Basis'), render_value($resource->basis)) ?>
 
     <?php if (QubitTerm::RIGHT_BASIS_COPYRIGHT_ID == $resource->basisId): ?>
 

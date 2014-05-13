@@ -45,7 +45,7 @@
 
               <li class="divider"></li>
               
-              <li><?php echo link_to(__('Create New Rights'), array($resource,  'sf_route' => 'slug/newRight')) ?></li>
+              <li><?php echo link_to(__('Create New Rights'), array($resource,  'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'edit')) ?></li>
             </ul>
           </div>
         </li>
