@@ -61,10 +61,10 @@
   <tabset class="span7 dashboard-widget dashboard-rs-graph">
     <h3><a class="icon-chart-pie">Artwork Storage by Codec</a></h3>
     <tab heading="Count">
-      <ar:graph-pie data="{{ responses.storageCodec }}" width="200" class="graph-pie"></ar:graph-pie>
+      <ar:graph-pie data="{{ responses.storageCodec }}" width="200" unit-filter="off" class="graph-pie"></ar:graph-pie>
     </tab>
     <tab heading="Size (GB)">
-      <ar:graph-pie data="{{ responses.storageFormats }}" width="200" class="graph-pie"></ar:graph-pie>
+      <ar:graph-pie data="{{ responses.storageFormats }}" width="200" unit-filter="on" class="graph-pie"></ar:graph-pie>
     </tab>
   </tabset>
 
