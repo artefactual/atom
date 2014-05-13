@@ -304,6 +304,13 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
           break;
 
+        case 'referenceCode':
+          $queryField = new \Elastica\Query\QueryString($query);
+          $queryField->setFields(array('inheritReferenceCode.autocomplete'));
+          $queryField->setDefaultOperator('AND');
+
+          break;
+
         case 'title':
           $queryField = new \Elastica\Query\QueryString($query);
           $queryField->setDefaultField('i18n.'.$culture.'.title');
