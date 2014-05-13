@@ -1083,6 +1083,45 @@ class QubitInformationObject extends BaseInformationObject
     }
   }
 
+  /**
+   * Get the total digital object count for this & all descendents to this
+   * information object -- excluding drafts.
+   *
+   * @return int  The total digital object count.
+   */
+  public function getDescendentDigitalObjectCountNoDrafts()
+  {
+    $sql = '
+      SELECT information_object_id FROM digital_object
+      WHERE information_object_id IN (
+        SELECT id FROM information_object WHERE lft > ? and rgt < ?
+      )
+    ';
+
+    $rows = QubitPdo::fetchAll($sql, array($this->lft, $this->rgt));
+
+    // Convert SQL rows into just an array of integers with all the ids...
+    $ids = array_map(function($x) {
+        return (int)$x->information_object_id;
+      },
+      $rows
+    );
+
+    $sql = '
+      SELECT count(1) FROM status
+      WHERE type_id = ? AND status_id = ?
+      AND object_id IN
+    ';
+
+    $sql .= '(' . implode(', ', $ids) . ')';
+    $params = array(
+      QubitTerm::STATUS_TYPE_PUBLICATION_ID,
+      QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID
+    );
+
+    return QubitPdo::fetchColumn($sql, $params);
+  }
+
   /****************
    Import methods
   *****************/

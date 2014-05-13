@@ -64,19 +64,7 @@ class DigitalObjectImageflowComponent extends sfComponent
     }
 
     // Get total number of descendant digital objects
-    $this->total = 0;
-    if (isset($this->resource))
-    {
-      $criteria = new Criteria;
-      $criteria->addJoin(QubitInformationObject::ID, QubitDigitalObject::INFORMATION_OBJECT_ID);
-      $criteria->add(QubitInformationObject::LFT, $this->resource->lft, Criteria::GREATER_THAN);
-      $criteria->add(QubitInformationObject::RGT, $this->resource->rgt, Criteria::LESS_THAN);
-
-      // Hide drafts
-      $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
-
-      $this->total = BasePeer::doCount($criteria)->fetchColumn(0);
-    }
+    $this->total = $this->resource->getDescendentDigitalObjectCountNoDrafts();
 
     if (1 > count($this->thumbnails))
     {
