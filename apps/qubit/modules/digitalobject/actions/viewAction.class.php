@@ -33,10 +33,16 @@ class DigitalObjectViewAction extends sfAction
 
     $this->resource = QubitDigitalObject::getByPathFile($pathinfo['dirname'], $pathinfo['basename']);
 
-    //Check user authorization
+    // Resource Found?
+    if (null === $this->resource)
+    {
+      $this->forward404();
+    }
+
+    // Do appropriate ACL check(s)
     if (!QubitAcl::check($this->resource, 'readMaster'))
     {
-      QubitAcl::forwardToSecureAction();
+      $this->redirect('/images/generic-icons/blank.png');
     }
 
     $this->getResponse()->setContentType($this->resource->mimeType);
