@@ -37,18 +37,6 @@
   font-style: normal;
 }
 
-// Class names for these icons can be found
-// at the bottom of drmc-icon-font.less
-@font-face {
-  font-family: 'fontello';
-  src: url('../vendor/fonts/font-icon-package-fontello/fontello.eot?51048976');
-  src: url('../vendor/fonts/font-icon-package-fontello/fontello.eot?51048976#iefix') format('embedded-opentype'),
-       url('../vendor/fonts/font-icon-package-fontello/fontello.woff?51048976') format('woff'),
-       url('../vendor/fonts/font-icon-package-fontello/fontello.ttf?51048976') format('truetype'),
-       url('../vendor/fonts/font-icon-package-fontello/fontello.svg?51048976#fontello') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
 
 /*
  * Load Twitter Bootstrap
@@ -77,32 +65,22 @@
 @import "less/buttons.less";
 @import "less/legacy.less";
 
+// DRMC
 @import "less/drmc-variables.less";
+@import "less/drmc-icon-font.less";
 @import "less/drmc-main.less";
 @import "less/drmc-dashboard.less";
 @import "less/drmc-context-browser.less";
 @import "less/drmc-forms.less";
 @import "less/drmc-modals.less";
-@import "less/drmc-mixins.less";
 @import "less/drmc-icons.less";
 @import "less/drmc-search.less";
 @import "less/drmc-graphs.less";
 @import "less/drmc-moma.less";
 @import "less/drmc-viewer.less";
-@import "less/drmc-icon-font.less";
 @import "../../arDrmcPlugin/frontend/node_modules/rickshaw/rickshaw.css";
 // TODO
 // Merge css/* (including classic)
 // Use html.js if possible
 // Review Caribou and Trillium code in case I forgot something
 //   - Like .throbbing
-
-
-
-
-
-
-
-
-
-

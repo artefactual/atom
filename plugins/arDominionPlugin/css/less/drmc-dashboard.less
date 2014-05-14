@@ -1,58 +1,48 @@
 .dashboard-header {
-  position: absolute;
-  right: 0;
-  left: 0;
-  img {
-    width: 100%;
-    max-width: none;
-    height: 110px;
-  }
-}
 
-// Dashboard widgets
-.dashboard-top-widget {
-  margin-top: 130px;
-  .tab-content {
-    min-height: 0 !important;
+  height: 130px;
+
+  .banner {
+    position: absolute;
+    right: 0;
+    left: 0;
+    img {
+      height: 110px;
+    }
   }
+
 }
 
 .dashboard-widget {
 
-  .nav{
+  margin-top: 20px;
+
+  h3 {
+    font-weight: normal;
+    line-height: 32px;
+    color: @gray;
+    &:before {
+      padding-right: 5px;
+    }
+  }
+
+  .nav {
     margin-bottom: 0;
     cursor: pointer;
 
-    li.active a{
+    li.active a {
       background: @white;
     }
   }
 
   .tab-content {
     background: @white;
+    overflow: hidden;
     padding: 20px;
     border: 1px solid #ddd;
     border-top: none;
-    overflow-x: scroll;
     min-height: 240px;
     max-height: 380px;
   }
 
-  h3 > a {
-    .fa-icon-set(@black);
-    &:before { padding-right: 5px; }
-  }
-}
-
-.dashboard-widget-notab {
-  ul {
-    list-style: none;
-    background: @white;
-    border: 1px solid #ddd;
-    padding: 20px;
-    margin: 46px 0 0 0;
-    overflow: auto;
-    min-height: 240px;
-    max-height: 380px;
-  }
 }
