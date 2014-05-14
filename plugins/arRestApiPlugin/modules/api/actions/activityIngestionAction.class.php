@@ -26,50 +26,30 @@ class ApiActivityIngestionAction extends QubitApiAction
 
   protected function getResults()
   {
-    // TODO: check if username, that SWORD was accessed with, is in METS
-    //       ...could use "Archivematica user" in METS
     $sql = <<<EOL
 SELECT
-  term.id
-FROM
-  taxonomy_i18n AS taxonomy
-LEFT JOIN term AS term
-  ON taxonomy.id=term.taxonomy_id
-INNER JOIN term_i18n AS term_i18n
-  ON term.id=term_i18n.id
-WHERE
-  taxonomy.name='Levels of description'
-  AND taxonomy.culture='en'
-  AND term_i18n.name = 'Artwork record'
-  AND term_i18n.culture='en'
-EOL;
-
-    $levelOfDescription = QubitPdo::fetchOne($sql, array($this->request->id));
-    if (null === $levelOfDescription)
-    {
-      throw new QubitApi404Exception('Level of description not found');
-    }
-
-    $artworkRecordLevelOfDescriptionId = $levelOfDescription->id;
-
-    $sql = <<<EOL
-SELECT
-  ii.title,
+  io.id,
+  io18n.title,
   aip.filename,
   aip.size_on_disk,
-  aip.created_at
+  aip.created_at,
+  digital_object.path
 FROM
-  aip AS aip 
-INNER JOIN information_object i
-  ON aip.part_of=i.id
-INNER JOIN information_object_i18n ii
-  ON i.id=ii.id
+  aip
+INNER JOIN information_object io
+  ON aip.part_of = io.id
+INNER JOIN information_object_i18n io18n
+  ON io.id = io18n.id
+INNER JOIN digital_object
+  ON io.id = digital_object.information_object_id
 WHERE
-  i.level_of_description_id=?
-ORDER BY aip.created_at DESC LIMIT 3;
+  io.level_of_description_id = ?
+ORDER BY
+  aip.created_at DESC
+LIMIT 3;
 EOL;
 
-    $results = QubitPdo::fetchAll($sql, array($artworkRecordLevelOfDescriptionId));
+    $results = QubitPdo::fetchAll($sql, array(sfConfig::get('app_drmc_lod_artwork_record_id')));
     if (0 === count($results))
     {
       throw new QubitApi404Exception('Information object not found');
@@ -85,11 +65,13 @@ EOL;
     {
       $date = new DateTime($item->created_at);
       $createdAt = $date->format('Y-m-d');
-      
+
       array_push($aipCreations, array(
+        'id' => $item->id,
         'artwork_title' => $item->title,
         'aip_title' => $item->filename,
         'size_on_disk' => $item->size_on_disk,
+        'thumbnail_path' => $item->path,
         'created_at' => $createdAt
       ));
     }
@@ -101,3 +83,4 @@ EOL;
       );
   }
 }
+
