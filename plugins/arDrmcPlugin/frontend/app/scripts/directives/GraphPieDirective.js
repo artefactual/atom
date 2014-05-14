@@ -107,7 +107,7 @@ module.exports = function ($filter) {
             .text(function (d) {
               var value;
 
-              if (attrs.unitFilter === 'on') {
+              if (angular.isDefined(attrs.unitFilter) && attrs.unitFilter === 'on') {
                 value = $filter('UnitFilter')(dataset[d].accessKey, 2, true);
                 return value;
               } else {
