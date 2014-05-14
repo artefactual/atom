@@ -1110,10 +1110,17 @@ class QubitInformationObject extends BaseInformationObject
     $sql = '
       SELECT count(1) FROM status
       WHERE type_id = ? AND status_id = ?
-      AND object_id IN
     ';
 
-    $sql .= '(' . implode(', ', $ids) . ')';
+    if (count($ids) > 0)
+    {
+      $sql .= ' AND object_id IN (' . implode(', ', $ids) . ')';
+    }
+    else
+    {
+      return 0;
+    }
+
     $params = array(
       QubitTerm::STATUS_TYPE_PUBLICATION_ID,
       QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID
