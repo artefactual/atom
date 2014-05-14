@@ -38,52 +38,53 @@ EOF;
   {
     sfContext::createInstance($this->configuration);
 
-    // get appropriate info objects
+    // Get appropriate info objects
     $criteria = new Criteria;
     $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, sfConfig::get('app_drmc_lod_artwork_record_id'));
     $items = QubitInformationObject::get($criteria);
 
-    $image_media_term = QubitFlatfileImport::createOrFetchTerm(QubitTaxonomy::MEDIA_TYPE_ID, 'Image');
-    $mime_types = array(
+    $imageMediaTerm = QubitFlatfileImport::createOrFetchTerm(QubitTaxonomy::MEDIA_TYPE_ID, 'Image');
+    $mimeTypes = array(
       'image/jpeg',
       'image/gif',
       'text/html',
       'application/pdf'
     );
 
-    // add random collection dates
-    foreach($items as $item) {
-      // add random collection date to information object
+    // Add random collection dates
+    foreach ($items as $item)
+    {
+      // Add random collection date to information object
       $random = mt_rand(1262055681, 1399488461);
       $randomDate = date("Y-m-d", $random);
       $item->addProperty('Dated', $randomDate);
 
-      // assign random create date within the last year
+      // Assign random create date within the last year
       $randomDatetime = rand(time()-(86400 * 365) , time());
       $item->createdAt = date('Y-m-d', $randomDatetime);
 
       $item->save();
 
-      // add random byte size to associated digital object
+      // Add random byte size to associated digital object
       $criteria = new Criteria;
       $criteria->add(QubitDigitalObject::INFORMATION_OBJECT_ID, $item->id);
       $do = QubitDigitalObject::getOne($criteria);
 
-      // if digital object doesn't exist, make one with random size
+      // If digital object doesn't exist, make one with random size
       if (!$do)
       {
         $do = new QubitDigitalObject;
         $do->informationObject = $item;
       }
       $do->byteSize = rand(1000, 10000000);
-      $do->mediaTypeId = $image_media_term->id;
-      $mime_type = $mime_types[(rand(0, count($mime_types)-1))];
-      $do->mimeType = $mime_type;
+      $do->mediaTypeId = $imageMediaTerm->id;
+      $mimeType = $mimeTypes[(rand(0, count($mimeTypes)-1))];
+      $do->mimeType = $mimeType;
       $do->save();
 
-      print '.';
+      $this->logSection('INFO', '.');
     }
 
-    print "\nTweaks made.\n";
+    $this->logSection('INFO', 'Tweaks made');
   }
 }
