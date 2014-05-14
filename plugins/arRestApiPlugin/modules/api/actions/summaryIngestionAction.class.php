@@ -38,7 +38,7 @@ class ApiSummaryIngestionAction extends QubitApiAction
     // Assign query
     $query->setQuery($queryBool);
 
-    // We don't need details, just facet rsults
+    // We don't need details, just facet results
     $query->setLimit(0);
 
     // Add facets to the query to get total level of description types
@@ -50,19 +50,22 @@ class ApiSummaryIngestionAction extends QubitApiAction
     $counts = array();
 
     $levelOfDescriptionInfo = array(
-      sfConfig::get('app_drmc_lod_artwork_record_id')               => 'artwork',
-      sfConfig::get('app_drmc_lod_supporting_technology_record_id') => 'supporting_technology',
-      sfConfig::get('app_drmc_lod_component_id')                    => 'component'
+      sfConfig::get('app_drmc_lod_artwork_record_id')               => 'Artwork',
+      sfConfig::get('app_drmc_lod_supporting_technology_record_id') => 'Supporting technology',
+      sfConfig::get('app_drmc_lod_component_id')                    => 'Component'
     );
 
     $facets = $resultSet->getFacets();
 
-    foreach($facets['levelOfDescriptionId']['terms'] as $term) {
+    foreach ($facets['levelOfDescriptionId']['terms'] as $term)
+    {
       $termId = $term['term'];
       if (isset($levelOfDescriptionInfo[$termId]))
       {
-        $description = $levelOfDescriptionInfo[$termId];
-        $counts[$description] = $term['count'];
+        $counts[] = array(
+          'total' => $term['count'],
+          'type' => $levelOfDescriptionInfo[$termId]
+        );
       }
     }
 
