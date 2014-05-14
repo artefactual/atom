@@ -151,7 +151,6 @@ module.exports = function (grunt) {
             'rickshaw:rickshaw',
             'dagre:dagre',
             'angular:angular',
-            'ui-router:ui-router',
             'wolfy87-eventemitter:wolfy87-eventemitter'
           ]
         }
@@ -168,7 +167,6 @@ module.exports = function (grunt) {
             'rickshaw',
             'dagre',
             'angular',
-            'ui-router',
             'wolfy87-eventemitter'
           ]
         }
