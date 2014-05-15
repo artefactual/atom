@@ -1,0 +1,31 @@
+<div class="row-fluid reports-wrapper">
+
+  <h1>view page</h1>
+
+  <div class="span3">
+
+    <section id="facets">
+      <h3>Filter reports by:</h3>
+      <!-- TODO : Wire directives when data is ready -->
+      <ar-facet label="Report Type" facet="data.facets.type" field="criteria.type"></ar-facet>
+      <ar-range-facet type="date" label="Date ingested" facet="data.facets.dateIngested" from="criteria.ingestedFrom" to="criteria.ingestedTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
+    </section>
+
+  </div>
+
+  <div class="span9">
+
+    <div id="main-column">
+
+      <h1>View Report</h1>
+
+      <section class="breadcrumb">
+        <ul>
+          <li><a ui-sref="main.dashboard">Dashboard</a></li>
+          <li><a href ui-sref="main.reports.browser">View Report</a></li>
+        </ul>
+      </section>
+
+    </div>
+  </div>
+</div>

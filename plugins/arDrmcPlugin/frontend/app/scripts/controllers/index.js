@@ -43,5 +43,6 @@
 
     // Reports
     .controller('ReportsBrowserCtrl', require('./ReportsBrowserCtrl'))
-    .controller('GenerateReportCtrl', require('./GenerateReportCtrl'));
+    .controller('GenerateReportCtrl', require('./GenerateReportCtrl'))
+    .controller('ReportsViewCtrl', require('./ReportsViewCtrl'));
 })();

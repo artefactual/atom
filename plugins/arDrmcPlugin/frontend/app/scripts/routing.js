@@ -93,9 +93,14 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       template: '<ui-view autoscroll="false"/>'
     })
     .state('main.reports.browser', {
-      url: SETTINGS.DRMCPath + '/{id}',
+      url: SETTINGS.DRMCPath,
       controller: 'ReportsBrowserCtrl',
       templateUrl: SETTINGS.viewsPath + '/reports.browser.html'
+    })
+    .state('main.reports.view', {
+      url: '/{id}',
+      controller: 'ReportsViewCtrl',
+      templateUrl: SETTINGS.viewsPath + '/reports.view.html'
     })
 
     // Search

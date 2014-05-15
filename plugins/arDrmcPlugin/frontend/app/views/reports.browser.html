@@ -25,6 +25,7 @@
       </section>
 
       <div class="content">
+
         <section>
           <div class="menu-list" >
             <ul class="menu-list-left">
@@ -37,7 +38,22 @@
             </ul>
           </div>
         </section>
+
         <section ng-show="showReportsOverview">
+          <div class="field">
+            <h3>Total count</h3>
+            <div>
+              {{ data.overview.total.count || 0 }}
+              <span>&nbsp;{{ data.overview.total.size | UnitFilter:2 | EmptyFilter }}</span>
+            </div>
+          </div>
+          <div class="field">
+            <h3>Total count</h3>
+            <div>
+              {{ data.overview.total.count || 0 }}
+              <span>&nbsp;{{ data.overview.total.size | UnitFilter:2 | EmptyFilter }}</span>
+            </div>
+          </div>
           <div class="field">
             <h3>Total count</h3>
             <div>
@@ -54,6 +70,7 @@
             </ul>
           </div>
         </section>
+
         <section ng-show="showSavedReports">
           <div class="field">
             <h3>Saved reports</h3>
@@ -63,6 +80,7 @@
             </div>
           </div>
         </section>
+
       </div>
 
     </div>
