@@ -284,6 +284,15 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     $this->addRoute('GET,POST,DELETE', '/api/users/authenticate', array(
       'module' => 'api',
       'action' => 'usersAuthenticate'));
+
+    /**
+     * Fixity reports
+     */
+
+    $this->addRoute('POST', '/api/fixityreports/:uuid', array(
+      'module' => 'api',
+      'action' => 'fixityReportsCreate',
+      'params' => array('uuid' => self::REGEX_UUID)));
   }
 
   protected function addRoute($method, $pattern, array $options = array())
