@@ -249,6 +249,15 @@ class RightEditAction extends sfAction
       return $results[0];
     }
 
+    $results = QubitRelation::getRelatedSubjectsByObjectId(
+      'QubitAccession', $id, array('typeId' => QubitTerm::RIGHT_ID)
+    );
+
+    if (0 < count($results))
+    {
+      return $results[0];
+    }
+
     return null;
   }
 
@@ -260,6 +269,26 @@ class RightEditAction extends sfAction
     $right->restriction = "0";
 
     return $right;
+  }
+
+  protected function setRedirect($type)
+  {
+    switch ($type) {
+      case 'QubitInformationObject':
+        $this->redirect_to = array($this->resource, 'module' => 'informationobject');
+
+        break;
+
+      case 'QubitDigitalObject':
+        $this->redirect_to = array($this->resource, 'module' => 'digitalobject', 'action' => 'edit');
+
+        break;
+
+      case 'QubitAccession':
+        $this->redirect_to = array($this->resource, 'module' => 'accession', 'action' => 'edit');
+
+        break;
+    }
   }
 
   protected function earlyExecute()
@@ -283,16 +312,13 @@ class RightEditAction extends sfAction
       $this->right = $this->newRightWithDefaults();
     }
 
-    switch ($type) {
-      case 'QubitInformationObject':
-        $this->redirect_to = array($this->resource, 'module' => 'informationobject');
+    // set where we redirect to after processing the new/changed right
+    $this->setRedirect($type);
 
-        break;
-
-      case 'QubitDigitalObject':
-        $this->redirect_to = array($this->resource, 'module' => 'digitalobject', 'action' => 'edit');
-
-        break;
+    // if we haven't got a resource, we have a problem houston
+    if (null === $this->resource)
+    {
+      $this->forward404();
     }
 
     // Check that this isn't the root
