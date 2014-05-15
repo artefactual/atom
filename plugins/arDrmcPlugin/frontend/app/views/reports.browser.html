@@ -3,9 +3,9 @@
   <div class="span3">
 
     <section id="facets">
-      <h3>Narrow your results by:</h3>
-      <ar-facet label="Classification" facet="data.facets.type" field="criteria.type"></ar-facet>
-      <ar-range-facet type="size" label="Size" facet="data.facets.size" from="criteria.sizeFrom" to="criteria.sizeTo" callback="getSizeRangeLabel(arg1, arg2)"></ar-range-facet>
+      <h3>Filter reports by:</h3>
+      <!-- TODO : Wire directives when data is ready -->
+      <ar-facet label="Report Type" facet="data.facets.type" field="criteria.type"></ar-facet>
       <ar-range-facet type="date" label="Date ingested" facet="data.facets.dateIngested" from="criteria.ingestedFrom" to="criteria.ingestedTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
     </section>
 
@@ -15,7 +15,7 @@
 
     <div id="main-column">
 
-      <h1>Manage saved reports</h1>
+      <h1>Manage reports</h1>
 
       <section class="breadcrumb">
         <ul>
@@ -32,10 +32,7 @@
             </ul>
             <ul class="menu-list-right nav nav-pills">
               <li>
-                <a href class="icon-plus" ng-click="openGenerateReportModal()">Generate new report</a>
-              </li>
-              <li>
-                <a href ng-click="toggleReportsOverview()" ng-class="{ angle_double_down: !showReportsOverview, angle_double_up: showReportsOverview }">{{ showReportsOverview ? 'Hide' : 'Show' }}</a>
+                <a href class="icon-plus" ng-click="openGenerateReportModal()">New report</a>
               </li>
             </ul>
           </div>
@@ -54,11 +51,6 @@
           <div class="menu-list" >
             <ul class="menu-list-left">
               <li><h2>Saved reports</h2></li>
-            </ul>
-            <ul class="menu-list-right nav nav-pills">
-              <li>
-                <a href ng-click="toggleSavedReports()" ng-class="{ angle_double_down: !showSavedReports, angle_double_up: showSavedReports }">{{ showSavedReports ? 'Hide' : 'Show' }}</a>
-              </li>
             </ul>
           </div>
         </section>

@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modal, SETTINGS) {
+module.exports = function ($scope, $modal, SETTINGS, ReportsService) {
 
   $scope.openGenerateReportModal = function () {
     var modalConfig =  $modal.open ({
