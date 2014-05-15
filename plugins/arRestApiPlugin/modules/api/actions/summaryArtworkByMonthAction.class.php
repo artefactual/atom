@@ -56,15 +56,17 @@ class ApiSummaryArtworkByMonthAction extends QubitApiAction
 
     $facets = $resultSet->getFacets();
 
-    // convert timestamps to month indicators
+    // convert timestamps to month indicators and calculate running total
     foreach($facets as $facetName => $facet)
     {
+      $total = 0;
 
       foreach($facets[$facetName]['entries'] as $index => $entry)
       {
-        $mediaType = $term['term'];
-        $facets['media_type_count']['terms'][$index]['media_type'] = $mediaType;
-        unset($facets['media_type_count']['terms'][$index]['term']);
+        // calculate running total
+        $total += $entry['count'];
+        $facets[$facetName]['entries'][$index]['count'] = $total;
+
         // convert millisecond timestamps to YYYY-MM format
         $timestamp = $entry['time'] / 1000;
         $facets[$facetName]['entries'][$index]['year'] = substr(date('Y-m-d', $timestamp), 0, 4);
