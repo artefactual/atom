@@ -229,13 +229,27 @@ class RightEditAction extends sfAction
     }
   }
 
-  protected function getRelatedInformationObject($id)
+  protected function getRelatedObject($id)
   {
     $results = QubitRelation::getRelatedSubjectsByObjectId(
         'QubitInformationObject', $id, array('typeId' => QubitTerm::RIGHT_ID)
     );
 
-    return $results[0];
+    if (0 < count($results))
+    {
+      return $results[0];
+    }
+
+    $results = QubitRelation::getRelatedSubjectsByObjectId(
+      'QubitDigitalObject', $id, array('typeId' => QubitTerm::RIGHT_ID)
+    );
+
+    if (0 < count($results))
+    {
+      return $results[0];
+    }
+
+    return null;
   }
 
   protected function newRightWithDefaults()
@@ -250,24 +264,39 @@ class RightEditAction extends sfAction
 
   protected function earlyExecute()
   {
-    $resource = $this->getRoute()->resource;
+    $object = $this->getRoute()->resource;
+    $type = get_class($object);
 
-    switch (get_class($resource)) {
-      case 'QubitRights':
-        $this->resource = $this->getRelatedInformationObject($resource->id);
-        $this->right = $resource;
+
+    // editing an existing QubitRights - need to determine if the rights
+    // are associated to InformationObject, Accession or DigitalObject
+    if ('QubitRights' === $type)
+    {
+      $this->resource = $this->getRelatedObject($object->id);
+      $type = get_class($this->resource);
+      $this->right = $object;
+    }
+    // we're creating new rights object on the object provided
+    else
+    {
+      $this->resource = $object;
+      $this->right = $this->newRightWithDefaults();
+    }
+
+    switch ($type) {
+      case 'QubitInformationObject':
+        $this->redirect_to = array($this->resource, 'module' => 'informationobject');
 
         break;
 
-      case 'QubitInformationObject':
-        $this->resource = $resource;
-        $this->right = $this->newRightWithDefaults();
+      case 'QubitDigitalObject':
+        $this->redirect_to = array($this->resource, 'module' => 'digitalobject', 'action' => 'edit');
 
         break;
     }
 
     // Check that this isn't the root
-    if (!isset($this->resource->parent))
+    if ('QubitInformationObject' == $type && !isset($this->resource->parent))
     {
       $this->forward404();
     }
@@ -380,7 +409,7 @@ class RightEditAction extends sfAction
       if ($this->form->isValid())
       {
         $this->processForm();
-        $this->redirect(array($this->resource, 'module' => 'informationobject'));
+        $this->redirect($this->redirect_to);
       }
     }
   }

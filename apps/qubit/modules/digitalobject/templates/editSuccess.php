@@ -39,6 +39,8 @@
             ->renderRow() ?>
         <?php endif; ?>
 
+        <?php echo get_partial('right/edit', array('resource' => $resource)) ?>
+
       </fieldset>
 
       <?php foreach ($representations as $usageId => $representation): ?>
@@ -50,6 +52,8 @@
           <?php if (isset($representation)): ?>
 
             <?php echo get_component('digitalobject', 'editRepresentation', array('resource' => $resource, 'representation' => $representation)) ?>
+
+            <?php echo get_partial('right/edit', array('resource' => $representation)) ?>
 
           <?php else: ?>
 
