@@ -31,7 +31,9 @@ class RightEditAction extends sfAction
       'copyrightStatusDate',
       'copyrightJurisdiction',
       'copyrightNote',
-      'licenseIdentifier',
+      'identifierType',
+      'identifierValue',
+      'identifierRole',
       'licenseTerms',
       'licenseNote',
       'statuteJurisdiction',
@@ -128,7 +130,9 @@ class RightEditAction extends sfAction
 
         break;
 
-      case 'licenseIdentifier':
+      case 'identifierType':
+      case 'identifierValue':
+      case 'identifierRole':
       case 'licenseTerms':
         $this->form->setValidator($name, new sfValidatorString);
         $this->form->setWidget($name, new sfWidgetFormInput);

@@ -309,7 +309,9 @@ propel:
   rights_i18n:
     rights_note: longvarchar
     copyright_note: longvarchar
-    license_identifier: longvarchar
+    identifier_value: longvarchar
+    identifier_type: longvarchar
+    identifier_role: longvarchar
     license_terms: longvarchar
     license_note: longvarchar
     statute_jurisdiction: longvarchar

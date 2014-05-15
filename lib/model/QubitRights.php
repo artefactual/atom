@@ -79,4 +79,24 @@ class QubitRights extends BaseRights
 
     return false;
   }
+
+  public function save($connection = null)
+  {
+    parent::save($connection);
+
+    // Save updated grantedRights
+    foreach ($this->grantedRights as $grantedRight)
+    {
+      $grantedRight->indexOnSave = false;
+      $grantedRight->rights = $this;
+
+      try
+      {
+        $grantedRight->save();
+      }
+      catch (PropelException $e)
+      {
+      }
+    }
+  }
 }

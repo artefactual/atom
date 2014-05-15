@@ -38,7 +38,9 @@ class RightsI18nTableMap extends TableMap {
 		// columns
 		$this->addColumn('RIGHTS_NOTE', 'rightsNote', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('COPYRIGHT_NOTE', 'copyrightNote', 'LONGVARCHAR', false, null, null);
-		$this->addColumn('LICENSE_IDENTIFIER', 'licenseIdentifier', 'LONGVARCHAR', false, null, null);
+		$this->addColumn('IDENTIFIER_VALUE', 'identifierValue', 'LONGVARCHAR', false, null, null);
+		$this->addColumn('IDENTIFIER_TYPE', 'identifierType', 'LONGVARCHAR', false, null, null);
+		$this->addColumn('IDENTIFIER_ROLE', 'identifierRole', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('LICENSE_TERMS', 'licenseTerms', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('LICENSE_NOTE', 'licenseNote', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('STATUTE_JURISDICTION', 'statuteJurisdiction', 'LONGVARCHAR', false, null, null);

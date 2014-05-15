@@ -240,21 +240,6 @@ abstract class BaseRights extends QubitObject implements ArrayAccess
   {
     parent::save($connection);
 
-    // Save updated grantedRights
-    foreach ($this->grantedRights as $grantedRight)
-    {
-      $grantedRight->indexOnSave = false;
-      $grantedRight->rights = $this;
-
-      try
-      {
-        $grantedRight->save();
-      }
-      catch (PropelException $e)
-      {
-      }
-    }
-
     foreach ($this->rightsI18ns as $rightsI18n)
     {
       $rightsI18n->id = $this->id;

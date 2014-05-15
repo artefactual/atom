@@ -19,6 +19,12 @@
 
     <?php echo render_show(__('End date'), render_value(Qubit::renderDate($resource->endDate))) ?>
 
+    <?php echo render_show(__('Documentation Identifier Type'), render_value($resource->identifierType)) ?>
+
+    <?php echo render_show(__('Documentation Identifier Value'), render_value($resource->identifierValue)) ?>
+
+    <?php echo render_show(__('Documentation Identifier Role'), render_value($resource->identifierRole)) ?>
+
     <?php if (isset($resource->rightsHolder)): ?>
       <?php echo render_show(__('Rights holder'), link_to(render_value($resource->rightsHolder), array($resource->rightsHolder, 'module' => 'rightsholder'))) ?>
     <?php endif; ?>

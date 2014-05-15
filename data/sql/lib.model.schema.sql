@@ -1031,7 +1031,9 @@ CREATE TABLE `rights_i18n`
 (
 	`rights_note` TEXT,
 	`copyright_note` TEXT,
-	`license_identifier` TEXT,
+	`identifier_value` TEXT,
+	`identifier_type` TEXT,
+	`identifier_role` TEXT,
 	`license_terms` TEXT,
 	`license_note` TEXT,
 	`statute_jurisdiction` TEXT,

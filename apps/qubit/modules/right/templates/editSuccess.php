@@ -35,10 +35,6 @@
             ->help(__('Notes regarding the copyright.'))
             ->renderRow() ?>
 
-          <?php echo $form->licenseIdentifier
-            ->help(__('Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses). Used to identify the granting agreement uniquely within the repository system.'))
-            ->renderRow() ?>
-
           <?php echo $form->licenseTerms
             ->help(__('Text describing the license or agreement by which permission was granted or link to full-text hosted online. This can contain the actual text of the license or agreement or a paraphrase or summary.'))
             ->renderRow() ?>
@@ -85,6 +81,20 @@
             ->help(__('Notes for this Rights Basis.'))
             ->label(__('Rights note(s)'))->renderRow() ?>
 
+          <h3>Documentation Identifier</h3>
+          <div class="well">
+            <?php echo $form->identifierType
+              ->help(__('Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses). Used to identify the granting agreement uniquely within the repository system.'))
+              ->renderRow() ?>
+
+            <?php echo $form->identifierValue
+              ->help(__('Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses). Used to identify the granting agreement uniquely within the repository system.'))
+              ->renderRow() ?>
+
+            <?php echo $form->identifierRole
+              ->help(__('Can be text value or URI (e.g. to Creative Commons, GNU or other online licenses). Used to identify the granting agreement uniquely within the repository system.'))
+              ->renderRow() ?>
+          </div>
 
       </fieldset>
 
