@@ -1,21 +1,21 @@
 'use strict';
 
-module.exports = function ($q) {
+module.exports = function ($q, $timeout) {
 
-  var deferred = $q.defer();
-
-  this.asyncReport = function (response) {
-    setTimeout(function () {
-      deferred.resolve();
-    }, 2000);
-    return deferred.promise;
+  var resolution = {
+    'report1': 'report1Stuff',
+    'report2': 'report2Stuff',
+    'report3': 'report3Stuff',
+    'report4': 'report4Stuff',
+    'report5': 'report5Stuff'
   };
 
-  var reportData = {
-    'report1': 'report1Stuff',
-    'report2': 'report1Stuff',
-    'report3': 'report1Stuff',
-    'report4': 'report1Stuff',
-    'report5': 'report1Stuff'
+  this.asyncReportData = function () {
+    var deferred = $q.defer();
+
+    $timeout(function () {
+      deferred.resolve(resolution);
+    }, 2000);
+    return deferred.promise;
   };
 };

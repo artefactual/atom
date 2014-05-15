@@ -19,6 +19,12 @@ module.exports = function ($scope, $modal, SETTINGS, ReportsService) {
     });
   };
 
+  ReportsService.asyncReportData().then(function (response) {
+    return response;
+  }).then(function (asyncData) {
+    $scope.asyncData = asyncData;
+  });
+
   // Support Reports saved reports toggling
   $scope.showSavedReports = true;
   $scope.toggleSavedReports = function () {
