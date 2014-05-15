@@ -18,4 +18,5 @@ module.exports = function ($q, $timeout) {
     }, 2000);
     return deferred.promise;
   };
+
 };
