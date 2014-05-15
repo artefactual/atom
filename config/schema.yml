@@ -107,6 +107,16 @@ propel:
     description: longvarchar
     date: varchar(1024)
 
+  fixity_report:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    success: boolean
+    message: varchar(255)
+    failures: longvarchar
+    aip_id: { type: integer, foreignTable: aip, foreignReference: id, onDelete: setnull }
+    uuid: varchar(36)
+    time_started: timestamp
+    time_completed: timestamp
+
   function:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     type_id: { type: integer, foreignTable: term, foreignReference: id }

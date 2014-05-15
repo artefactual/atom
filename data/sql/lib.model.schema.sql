@@ -330,6 +330,35 @@ CREATE TABLE `event_i18n`
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
+#-- fixity_report
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `fixity_report`;
+
+
+CREATE TABLE `fixity_report`
+(
+	`id` INTEGER  NOT NULL,
+	`success` TINYINT,
+	`message` VARCHAR(255),
+	`failures` TEXT,
+	`aip_id` INTEGER,
+	`uuid` VARCHAR(36),
+	`time_started` DATETIME,
+	`time_completed` DATETIME,
+	PRIMARY KEY (`id`),
+	CONSTRAINT `fixity_report_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `object` (`id`)
+		ON DELETE CASCADE,
+	INDEX `fixity_report_FI_2` (`aip_id`),
+	CONSTRAINT `fixity_report_FK_2`
+		FOREIGN KEY (`aip_id`)
+		REFERENCES `aip` (`id`)
+		ON DELETE SET NULL
+)Engine=InnoDB;
+
+#-----------------------------------------------------------------------------
 #-- function
 #-----------------------------------------------------------------------------
 

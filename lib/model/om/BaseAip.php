@@ -76,6 +76,64 @@ abstract class BaseAip extends QubitObject implements ArrayAccess
     $this->tables[] = Propel::getDatabaseMap(QubitAip::DATABASE_NAME)->getTable(QubitAip::TABLE_NAME);
   }
 
+  public function __isset($name)
+  {
+    $args = func_get_args();
+
+    try
+    {
+      return call_user_func_array(array($this, 'QubitObject::__isset'), $args);
+    }
+    catch (sfException $e)
+    {
+    }
+
+    if ('fixityReports' == $name)
+    {
+      return true;
+    }
+
+    throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
+  }
+
+  public function __get($name)
+  {
+    $args = func_get_args();
+
+    $options = array();
+    if (1 < count($args))
+    {
+      $options = $args[1];
+    }
+
+    try
+    {
+      return call_user_func_array(array($this, 'QubitObject::__get'), $args);
+    }
+    catch (sfException $e)
+    {
+    }
+
+    if ('fixityReports' == $name)
+    {
+      if (!isset($this->refFkValues['fixityReports']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['fixityReports'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['fixityReports'] = self::getfixityReportsById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['fixityReports'];
+    }
+
+    throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
+  }
+
   public static function addJointypeCriteria(Criteria $criteria)
   {
     $criteria->addJoin(QubitAip::TYPE_ID, QubitTerm::ID);
@@ -88,5 +146,25 @@ abstract class BaseAip extends QubitObject implements ArrayAccess
     $criteria->addJoin(QubitAip::PART_OF, QubitObject::ID);
 
     return $criteria;
+  }
+
+  public static function addfixityReportsCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitFixityReport::AIP_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getfixityReportsById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addfixityReportsCriteriaById($criteria, $id);
+
+    return QubitFixityReport::get($criteria, $options);
+  }
+
+  public function addfixityReportsCriteria(Criteria $criteria)
+  {
+    return self::addfixityReportsCriteriaById($criteria, $this->id);
   }
 }
