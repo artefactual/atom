@@ -59,23 +59,30 @@ class ApiFixityReportsBrowseAction extends QubitApiAction
 
       $report = array();
 
-      $report['success'] = (bool)$doc['success'];
+      if (isset($doc['success']))
+      {
+        $report['success'] = (bool)$doc['success'];
+      }
+
       $this->addItemToArray($report, 'message', $doc['message']);
       $this->addItemToArray($report, 'time_started', $doc['timeStarted']);
       $this->addItemToArray($report, 'time_completed', $doc['timeCompleted']);
 
-      foreach ($doc['failures'] as $esFail)
+      if (isset($doc['failures']))
       {
-        $fail = array();
+        foreach ($doc['failures'] as $esFail)
+        {
+          $fail = array();
 
-        $this->addItemToArray($fail, 'type', $esFail['type']);
-        $this->addItemToArray($fail, 'path', $esFail['path']);
-        $this->addItemToArray($fail, 'hash_type', $esFail['hashType']);
-        $this->addItemToArray($fail, 'expected_hash', $esFail['expectedHash']);
-        $this->addItemToArray($fail, 'actual_hash', $esFail['actualHash']);
-        $this->addItemToArray($fail, 'message', $esFail['message']);
+          $this->addItemToArray($fail, 'type', $esFail['type']);
+          $this->addItemToArray($fail, 'path', $esFail['path']);
+          $this->addItemToArray($fail, 'hash_type', $esFail['hashType']);
+          $this->addItemToArray($fail, 'expected_hash', $esFail['expectedHash']);
+          $this->addItemToArray($fail, 'actual_hash', $esFail['actualHash']);
+          $this->addItemToArray($fail, 'message', $esFail['message']);
 
-        $report['failures'][] = $fail;
+          $report['failures'][] = $fail;
+        }
       }
 
       $data['results'][$hit->getId()] = $report;
