@@ -12,19 +12,19 @@ module.exports = function ($scope, $q, StatisticsService) {
     var downloadActivity = StatisticsService.getDownloadActivity();
     var ingestionActivity = StatisticsService.getIngestionActivity();
     var ingestionSummary = StatisticsService.getIngestionSummary();
-    var storageCodec = StatisticsService.getRunningTotalByCodec();
+    var countByDepartment = StatisticsService.getRunningTotalByDepartment();
     var storageFormats = StatisticsService.getRunningTotalByFormats();
     var artworkSizes = StatisticsService.getArtworkSizesByYearSummary();
     var monthlyTotals = StatisticsService.getMonthlyTotalByCodec();
 
     $scope.responses = {};
-    $q.all([downloadActivity, ingestionActivity, ingestionSummary, storageCodec, storageFormats, artworkSizes, monthlyTotals]).then(function (responses) {
+    $q.all([downloadActivity, ingestionActivity, ingestionSummary, countByDepartment, storageFormats, artworkSizes, monthlyTotals]).then(function (responses) {
       $scope.responses.downloadActivity = responses[0].data.results;
       $scope.responses.ingestionActivity = responses[1].data.results;
       $scope.responses.ingestionSummary = responses[2].data.results;
-      $scope.responses.storageCodec = {
+      $scope.responses.countByDepartment = {
         accessKey: 'count',
-        formatKey: 'media_type',
+        formatKey: 'department',
         data: responses[3].data.results
       };
       $scope.responses.storageFormats = {

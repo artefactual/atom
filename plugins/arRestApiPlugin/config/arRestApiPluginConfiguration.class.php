@@ -223,9 +223,9 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'summaryStorageUsedByMediaCategory'));
 
-    $this->addRoute('GET', '/api/summary/mediacategorycount', array(
+    $this->addRoute('GET', '/api/summary/departmentartworkcount', array(
       'module' => 'api',
-      'action' => 'summaryMediaCategoryCount'));
+      'action' => 'summaryDepartmentArtworkCount'));
 
     $this->addRoute('GET', '/api/summary/mediafilesizebycollectionyear', array(
       'module' => 'api',
