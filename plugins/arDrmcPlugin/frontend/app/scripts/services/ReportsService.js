@@ -7,14 +7,19 @@ module.exports = function ($q, $timeout) {
     [
       {
         'name': 'Media and Performance Art',
+        'id': 22,
+        'type_id': 19,
+        'type': 'Characteristic reports',
         'results': [
           {
-            'The user': 'Ben',
+            'user': 'Ben',
             'aips_downloaded': 1,
             'files_downloaded': 4,
-            'Total_filesize': 361707,
+            'total_filesize': 361707,
+            'last_modified': '2014-04-29',
+            'created_at': '1999-10-10',
             'parent_artwork': {
-              'Id': 12345,
+              'id': 12345,
               'name': 'Semiotics of the Kitchen'
             }
           },
@@ -22,22 +27,29 @@ module.exports = function ($q, $timeout) {
             'user': 'Kate',
             'aips_downloaded': 2,
             'files_downloaded': 9,
-            'Total_filesize': 524000,
+            'total_filesize': 524000,
+            'last_modified': '2014-03-29',
+            'created_at': '1999-10-11',
             'parent_artwork': {
               'id': 345,
-              'Name': 'Official Welcome'
+              'name': 'Official Welcome'
             }
           }
         ]
       },
       {
         'name': 'Architecture and Design ',
+        'id': 24,
+        'type_id': 18,
+        'type': 'Fixity report',
         'results': [
           {
             'The user': 'Ben',
             'aips_downloaded': 1,
             'files_downloaded': 4,
-            'Total_filesize': 550283,
+            'total_filesize': 550283,
+            'last_modified': '2012-04-29',
+            'created_at': '1989-07-10',
             'parent_artwork': {
               'Id': 3445,
               'Name': 'SimCity 2000'
@@ -47,7 +59,9 @@ module.exports = function ($q, $timeout) {
             'user': 'Kate',
             'aips_downloaded': 10,
             'files_downloaded': 59,
-            'Total_filesize': 54353,
+            'total_filesize': 54353,
+            'last_modified': '2011-01-29',
+            'created_at': '1800-01-20',
             'parent_artwork': {
               'id': 234,
               'Name': 'Space Invaders'
