@@ -38,6 +38,33 @@ EOF;
   {
     sfContext::createInstance($this->configuration);
 
+    $departmentTaxonomyId = sfConfig::get('app_drmc_taxonomy_departments_id');
+
+    // create example department terms if they don't exist
+    $exampleDepartments = array(
+      'Drawings and Prints',
+      'Archives',
+      'Film',
+      'Library',
+      'MPA'
+    );
+
+    foreach($exampleDepartments as $department)
+    {
+      QubitFlatfileImport::createOrFetchTerm($departmentTaxonomyId, $department);
+    }
+
+    // load department terms and create simpler array to pick random ones from
+    $departmentTerms = QubitFlatfileImport::getTaxonomyTerms($departmentTaxonomyId);
+    $departments = array();
+    foreach($departmentTerms as $departmentTerm)
+    {
+      array_push($departments, array(
+        'id'   => $departmentTerm->id,
+        'name' => $departmentTerm->name
+      ));
+    }
+
     // get appropriate info objects
     $criteria = new Criteria;
     $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, sfConfig::get('app_drmc_lod_artwork_record_id'));
@@ -63,6 +90,13 @@ EOF;
       $item->createdAt = date('Y-m-d', $randomDatetime);
 
       $item->save();
+
+      // add random department to information object
+      $randomDepartment = rand(0, count($departments) - 1);
+      QubitFlatfileImport::createObjectTermRelation(
+        $item->id,
+        $departments[$randomDepartment]['id']
+      );
 
       // add random byte size to associated digital object
       $criteria = new Criteria;
