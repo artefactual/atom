@@ -30,6 +30,10 @@ class ApiSummaryMediaCategoryCountAction extends QubitApiAction
 
   protected function getResults()
   {
+    // load department terms
+    $departmentTaxonomyId = sfConfig::get('app_drmc_taxonomy_departments_id');
+    $departmentTerms = QubitFlatfileImport::getTaxonomyTerms($departmentTaxonomyId);
+
     // Create query objects
     $query = new \Elastica\Query;
     $queryBool = new \Elastica\Query\Bool;
@@ -43,19 +47,20 @@ class ApiSummaryMediaCategoryCountAction extends QubitApiAction
     // We don't need details, just facet results
     $query->setLimit(0);
 
-    $this->facetEsQuery('Terms', 'media_type_count', 'digitalObject.mimeType', $query);
+    $this->facetEsQuery('Terms', 'department_count', 'tmsObject.department.id', $query);
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
 
     $facets = $resultSet->getFacets();
 
-    foreach($facets['media_type_count']['terms'] as $index => $term)
+    foreach($facets['department_count']['terms'] as $index => $term)
     {
-      $mediaType = $term['term'];
-      $facets['media_type_count']['terms'][$index]['media_type'] = $mediaType;
-      unset($facets['media_type_count']['terms'][$index]['term']);
+      $departmentId = $term['term'];
+      $departmentName = $departmentTerms[$departmentId]->name;
+      $facets['department_count']['terms'][$index]['department'] = $departmentName;
+      unset($facets['department_count']['terms'][$index]['term']);
     }
 
-    return $facets['media_type_count']['terms'];
+    return $facets['department_count']['terms'];
   }
 }
