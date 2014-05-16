@@ -38,7 +38,7 @@ class ApiFixityReportsCreateAction extends QubitApiAction
 
     $this->response->setStatusCode(201);
 
-    return array('id' => $report->id);
+    return array('id' => $this->report->id);
   }
 
   protected function processField($field, $value)
