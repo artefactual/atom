@@ -439,3 +439,25 @@ mapping:
         properties:
           id: { type: integer, index: not_analyzed, include_in_all: false }
           name: { type: string, index: not_analyzed, include_in_all: false }
+
+  fixity_report:
+    dynamic: strict
+    properties:
+      success: { type: boolean, index: not_analyzed, include_in_all: false }
+      message: { type: string, index: not_analyzed, include_in_all: false }
+      time_started: { type: date, index: not_analyzed, include_in_all: false }
+      time_completed: { type: date, index: not_analyzed, include_in_all: false }
+      aip:
+        type: object
+        properties:
+          uuid: { type: string, index: not_analyzed, include_in_all: false }
+          name: { type: string, index: not_analyzed, include_in_all: false }
+      failures:
+        type: object
+        properties:
+          type: { type: string, index: not_analyzed, include_in_all: false }
+          path: { type: string, index: not_analyzed, include_in_all: false }
+          hash_type: { type: string, index: not_analyzed, include_in_all: false }
+          expected_hash: { type: string, index: not_analyzed, include_in_all: false }
+          actual_hash: { type: string, index: not_analyzed, include_in_all: false }
+          message: { type: string, index: not_analyzed, include_in_all: false }

@@ -4,7 +4,7 @@
 /**
  * Skeleton subclass for representing a row from the 'fixity_report' table.
  *
- * 
+ *
  *
  * You should add additional methods to this class to meet the
  * application requirements.  This class will only be generated as
@@ -12,6 +12,27 @@
  *
  * @package    lib.model
  */
-class QubitFixityReport extends BaseFixityReport {
+class QubitFixityReport extends BaseFixityReport
+{
+  /**
+   * Additional save functionality (e.g. update search index)
+   *
+   * @param mixed $connection a database connection object
+   * @return QubitFixityReport self-reference
+   */
+  public function save($connection = null)
+  {
+    parent::save($connection);
 
-} // QubitFixityReport
+    QubitSearch::getInstance()->update($this);
+
+    return $this;
+  }
+
+  public function delete($connection = null)
+  {
+    QubitSearch::getInstance()->delete($this);
+
+    parent::delete($connection);
+  }
+}
