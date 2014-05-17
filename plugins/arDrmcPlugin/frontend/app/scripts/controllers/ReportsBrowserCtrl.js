@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modal, SETTINGS, ReportsService, $timeout) {
+module.exports = function ($scope, $modal, SETTINGS, ReportsService) {
 
   $scope.openGenerateReportModal = function () {
     var modalConfig =  $modal.open ({
@@ -19,16 +19,12 @@ module.exports = function ($scope, $modal, SETTINGS, ReportsService, $timeout) {
     });
   };
 
-  ReportsService.asyncReportData().then(function (response) {
+  ReportsService.getAll().then(function (response) {
+    console.log('response in contrl', response);
     return response;
   }).then(function (response) {
-    $scope.reports = response.mockData;
+    $scope.response = response;
   });
-
-  // this function also temporary
-  $timeout(function () {
-    console.log($scope.reports);
-  }, 2200);
 
   // Support Reports saved reports toggling
   $scope.showSavedReports = true;
