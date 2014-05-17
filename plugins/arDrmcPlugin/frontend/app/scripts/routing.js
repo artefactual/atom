@@ -93,7 +93,7 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       template: '<ui-view autoscroll="false"/>'
     })
     .state('main.reports.browser', {
-      url: SETTINGS.DRMCPath,
+      url: '',
       controller: 'ReportsBrowserCtrl',
       templateUrl: SETTINGS.viewsPath + '/reports.browser.html'
     })
