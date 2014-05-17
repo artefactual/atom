@@ -9,7 +9,7 @@ module.exports = function ($scope, $q, StatisticsService) {
       StatisticsService.getDownloadActivity(),
       StatisticsService.getIngestionActivity(),
       StatisticsService.getIngestionSummary(),
-      StatisticsService.getRunningTotalByCodec(),
+      StatisticsService.getRunningTotalByDepartment(),
       StatisticsService.getRunningTotalByFormats(),
       StatisticsService.getArtworkSizesByYearSummary(),
       StatisticsService.getMonthlyTotalByCodec()
@@ -23,9 +23,9 @@ module.exports = function ($scope, $q, StatisticsService) {
         formatKey: 'type',
         data: responses[2].data.results
       };
-      $scope.storageCodec = {
+      $scope.countByDepartment = {
         accessKey: 'count',
-        formatKey: 'media_type',
+        formatKey: 'department',
         data: responses[3].data.results
       };
       $scope.storageFormats = {
@@ -46,6 +46,13 @@ module.exports = function ($scope, $q, StatisticsService) {
         xProperty: 'month',
         yProperty: 'count',
         data: responses[6].data.results.collection
+      }];
+      $scope.responses.monthlyTotalsByCreation = [{
+        name: 'Month',
+        color: 'hotpink',
+        xProperty: 'month',
+        yProperty: 'count',
+        data: responses[6].data.results.creation
       }];
     });
 

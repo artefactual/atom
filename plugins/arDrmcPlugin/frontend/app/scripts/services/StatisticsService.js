@@ -10,7 +10,7 @@ module.exports = function ($http, SETTINGS) {
    * - /api/summary/ingestion
    * - /api/summary/artworkbymonth
    * - /api/summary/mediafilesizebycollectionyear
-   * - /api/summary/mediacategorycount
+   * - /api/summary/departmentartworkcount
    * - /api/summary/storagebymediacategory
    *
    */
@@ -59,10 +59,10 @@ module.exports = function ($http, SETTINGS) {
   };
 
   // var storageCodec
-  this.getRunningTotalByCodec = function () {
+  this.getRunningTotalByDepartment = function () {
     return $http({
       method: 'GET',
-      url: SETTINGS.frontendPath + 'api/summary/mediacategorycount'
+      url: SETTINGS.frontendPath + 'api/summary/departmentartworkcount'
     });
 
   };
