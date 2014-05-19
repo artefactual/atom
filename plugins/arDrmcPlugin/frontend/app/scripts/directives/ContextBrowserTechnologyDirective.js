@@ -6,6 +6,7 @@ module.exports = function (SETTINGS, InformationObjectService, ModalEditDcMetada
     templateUrl: SETTINGS.viewsPath + '/partials/context-browser.technology.html',
     scope: {
       id: '@',
+      user: '='
     },
     controller: 'ContextBrowserCtrl',
     replace: true,
