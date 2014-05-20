@@ -20,5 +20,8 @@
   require('../../node_modules/angular-ui-router/release/angular-ui-router.js');
   require('../../vendor/angular-ui.js'); // ... and this ones not even npm
 
+  // TODO: use bower!
+  require('../../../../../vendor/bootstrap/js/bootstrap.js');
+
 })();
 
