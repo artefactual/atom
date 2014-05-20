@@ -47,7 +47,7 @@ module.exports = function ($scope, $q, StatisticsService) {
         yProperty: 'count',
         data: responses[6].data.results.collection
       }];
-      $scope.responses.monthlyTotalsByCreation = [{
+      $scope.monthlyTotalsByCreation = [{
         name: 'Month',
         color: 'hotpink',
         xProperty: 'month',
