@@ -62,6 +62,13 @@ CREATE TABLE `granted_right`
 		ON DELETE SET NULL
 )Engine=InnoDB;
 
+
+ALTER TABLE `rights_i18n` CHANGE `license_identifier` `identifier_value` TEXT  CHARACTER SET utf8  COLLATE utf8_unicode_ci  NULL;
+ALTER TABLE `rights_i18n` ADD `identifier_type` TEXT  CHARACTER SET utf8  COLLATE utf8_unicode_ci  NULL  AFTER `culture`;
+ALTER TABLE `rights_i18n` MODIFY COLUMN `identifier_type` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci AFTER `identifier_value`;
+ALTER TABLE `rights_i18n` ADD `identifier_role` TEXT  CHARACTER SET utf8  COLLATE utf8_unicode_ci  NULL  AFTER `culture`;
+ALTER TABLE `rights_i18n` MODIFY COLUMN `identifier_role` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci AFTER `identifier_type`;
+
 INSERT IGNORE INTO granted_right (rights_id, act_id, restriction) SELECT id, act_id, restriction from rights;
 
 ALTER TABLE rights DROP restriction;
@@ -70,15 +77,6 @@ DROP INDEX rights_FI_3 ON rights;
 ALTER TABLE rights DROP act_id;
 
 sql;
-
-  /*
-    CHANGES SUMMARY:
-    add `granted_right` table
-
-    move act_id and restriction column values from `rights` to `granted_right`
-    drop act_id and restriction from `rights` (drop `rights`.act_id index???)
-
-   */
 
     QubitPdo::modify($sql);
 
