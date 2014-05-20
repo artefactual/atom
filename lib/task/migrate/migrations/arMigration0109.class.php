@@ -72,7 +72,7 @@ ALTER TABLE `rights_i18n` MODIFY COLUMN `identifier_role` TEXT CHARACTER SET utf
 INSERT IGNORE INTO granted_right (rights_id, act_id, restriction) SELECT id, act_id, restriction from rights;
 
 ALTER TABLE rights DROP restriction;
-ALTER TABLE rights DROP FOREIGN KEY rights_FK_3;
+ALTER TABLE rights DROP FOREIGN KEY rights_ibfk_3;
 DROP INDEX rights_FI_3 ON rights;
 ALTER TABLE rights DROP act_id;
 
