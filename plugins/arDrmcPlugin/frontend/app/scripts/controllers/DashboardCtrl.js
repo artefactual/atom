@@ -44,6 +44,7 @@ module.exports = function ($scope, $q, StatisticsService) {
         name: 'Month',
         color: 'hotpink',
         xProperty: 'month',
+        xLabelFormat: 'yearAndMonth',
         yProperty: 'count',
         data: responses[6].data.results.collection
       }];

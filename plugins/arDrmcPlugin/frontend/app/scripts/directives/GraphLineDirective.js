@@ -26,7 +26,16 @@ module.exports = function () {
               lineData.data[i].x = i;
 
               // store real X value as a label to be diplayed using a custom formatter
-              xLabels[i] = parseInt(lineData.data[i][lineData.xProperty]);
+              if (typeof lineData.xLabelFormat !== 'undefined') {
+                if (lineData.xLabelFormat === 'yearAndMonth')
+                {
+                  xLabels[i] = lineData.data[i].year + '-' + lineData.data[i].month;
+                } else {
+                  console.log('Invalid xLabelFormat.');
+                }
+              } else {
+                xLabels[i] = parseInt(lineData.data[i][lineData.xProperty]);
+              }
 
               // store y value data
               lineData.data[i].y = lineData.data[i][lineData.yProperty];
