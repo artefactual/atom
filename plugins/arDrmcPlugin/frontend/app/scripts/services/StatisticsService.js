@@ -8,7 +8,7 @@ module.exports = function ($http, SETTINGS) {
    * - /api/activity/downloads
    * - /api/activity/ingestion
    * - /api/summary/ingestion
-   * - /api/summary/artworkbymonth
+   * - /api/summary/artworkbydate
    * - /api/summary/mediafilesizebycollectionyear
    * - /api/summary/departmentartworkcount
    * - /api/summary/storagebymediacategory
@@ -39,7 +39,7 @@ module.exports = function ($http, SETTINGS) {
   this.getArtworkByMonthSummary = function () {
     return $http({
       method: 'GET',
-      url: SETTINGS.frontendPath + 'api/summary/artworkbymonth'
+      url: SETTINGS.frontendPath + 'api/summary/artworkbydate'
     });
   };
 
@@ -54,7 +54,7 @@ module.exports = function ($http, SETTINGS) {
   this.getMonthlyTotalByCodec = function () {
     return $http({
       method: 'GET',
-      url: SETTINGS.frontendPath + 'api/summary/artworkbymonth'
+      url: SETTINGS.frontendPath + 'api/summary/artworkbydate'
     });
   };
 

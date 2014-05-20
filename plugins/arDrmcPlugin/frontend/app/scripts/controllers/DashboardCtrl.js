@@ -40,11 +40,10 @@ module.exports = function ($scope, $q, StatisticsService) {
         yProperty: 'average',
         data: responses[5].data.results
       }];
-      $scope.monthlyTotals = [{
+      $scope.yearlyTotalsByCollectionDate = [{
         name: 'Month',
         color: 'hotpink',
-        xProperty: 'month',
-        xLabelFormat: 'yearAndMonth',
+        xProperty: 'year',
         yProperty: 'count',
         data: responses[6].data.results.collection
       }];
@@ -52,6 +51,7 @@ module.exports = function ($scope, $q, StatisticsService) {
         name: 'Month',
         color: 'hotpink',
         xProperty: 'month',
+        xLabelFormat: 'yearAndMonth',
         yProperty: 'count',
         data: responses[6].data.results.creation
       }];

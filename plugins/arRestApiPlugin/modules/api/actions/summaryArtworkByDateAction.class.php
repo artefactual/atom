@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ApiSummaryArtworkByMonthAction extends QubitApiAction
+class ApiSummaryArtworkByDateAction extends QubitApiAction
 {
   protected function get($request)
   {
@@ -49,7 +49,7 @@ class ApiSummaryArtworkByMonthAction extends QubitApiAction
     $query->setLimit(0);
 
     // Add facets to the months in which artwork records were collected and created
-    $this->facetEsQuery('DateHistogram', 'collectionDate', 'tmsObject.collectionDate', $query, array('interval' => 'month'));
+    $this->facetEsQuery('DateHistogram', 'collectionDate', 'tmsObject.collectionDate', $query, array('interval' => 'year'));
     $this->facetEsQuery('DateHistogram', 'createdAt', 'createdAt', $query, array('interval' => 'month'));
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
@@ -70,10 +70,13 @@ class ApiSummaryArtworkByMonthAction extends QubitApiAction
         // convert millisecond timestamps to YYYY-MM format
         $timestamp = $entry['time'] / 1000;
         $facets[$facetName]['entries'][$index]['year'] = substr(date('Y-m-d', $timestamp), 0, 4);
-        unset($facets[$facetName]['entries'][$index]['time']);
 
-        $timestamp = $entry['time'] / 1000;
-        $facets[$facetName]['entries'][$index]['month'] = substr(date('Y-m-d', $timestamp), 5, 2);
+        if ($facetName == 'createdAt')
+        {
+          $timestamp = $entry['time'] / 1000;
+          $facets[$facetName]['entries'][$index]['month'] = substr(date('Y-m-d', $timestamp), 5, 2);
+        }
+
         unset($facets[$facetName]['entries'][$index]['time']);
       }
     }
