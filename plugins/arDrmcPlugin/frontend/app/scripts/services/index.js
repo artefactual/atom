@@ -14,6 +14,7 @@
     .service('ActorsService', require('./ActorsService'))
     .service('SearchService', require('./SearchService'))
     .service('StatisticsService', require('./StatisticsService'))
+    .service('IntegrityCheckService', require('./IntegrityCheckService'))
 
     // Mixins
     .factory('FullscreenService', require('./FullscreenService'))
