@@ -8,7 +8,7 @@
       <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo esc_entities($sf_request->query) ?>" placeholder="<?php echo __('Search') ?>"/>
     <?php endif; ?>
 
-    <div id="search-realm" class="search-popover">
+    <div id="search-realm" class="search-popover" style="display: none;">
 
       <?php if (sfConfig::get('app_multi_repository')): ?>
 
