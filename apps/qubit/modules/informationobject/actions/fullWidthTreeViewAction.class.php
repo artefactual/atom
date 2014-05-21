@@ -80,6 +80,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
           information_object_i18n as i18n,
           slug, status, term_i18n as status_term) 
           LEFT JOIN term_i18n AS term_type ON (node.level_of_description_id = term_type.id AND term_type.culture = :culture)
+          LEFT JOIN information_object as p2 on node.lft BETWEEN p2.lft and p2.rgt AND p2.`level_of_description_id` IN (226,227,285)
         WHERE node.lft BETWEEN parent.lft AND parent.rgt 
           AND node.id = i18n.id
           AND i18n.culture = :culture
@@ -87,6 +88,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
           AND node.id = slug.object_id
           AND parent.id = :id
           AND status_term.id = status.status_id AND status_term.`culture` = :culture
+          AND p2.level_of_description_id IS NULL
           $drafts_sql
         ORDER BY node.lft;";
     $conn = Propel::getConnection();
