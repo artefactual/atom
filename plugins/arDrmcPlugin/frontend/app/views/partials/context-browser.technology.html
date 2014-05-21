@@ -15,28 +15,28 @@
 
         <!-- Toogle relationships -->
         <li ng-class="{ active: areRelationshipsHidden }">
-          <a href class="hide_relationships" ng-click="hideRelationships()">
+          <a href class="drmc-icon-hide-relationships" ng-click="hideRelationships()">
             {{ areRelationshipsHidden ? 'Show relationships' : 'Hide relationships' }}
           </a>
         </li>
 
         <!-- Fullscreen -->
         <li ng-class="{ active: isFullscreen }">
-          <a href ng-click="toggleFullscreenMode()" class="fullscreen">
+          <a href ng-click="toggleFullscreenMode()" class="drmc-icon-fullscreen">
             {{ isFullscreen ? 'Exit fullscreen' : 'Fullscreen' }}
           </a>
         </li>
 
         <!-- Maximize -->
         <li ng-if="!isFullscreen">
-          <a href ng-click="toggleMaximizedMode()" ng-class="{ maximize: !isMaximized, minimize: isMaximized }">
+          <a href ng-click="toggleMaximizedMode()" ng-class="{ 'drmc-icon-maximize': !isMaximized, 'drmc-icon-minimize': isMaximized }">
             {{ isMaximized ? 'Minimize' : 'Maximize' }}
           </a>
         </li>
 
         <!-- Ranking direction -->
         <li class="dropdown">
-          <a href class="rankdir dropdown-toggle" data-toggle="dropdown">Ranking direction</a>
+          <a href class="drmc-icon-rankdir dropdown-toggle" data-toggle="dropdown">Ranking direction</a>
           <ul class="dropdown-menu">
             <li ng-repeat="(key, value) in rankingDirections" ng-class="{ active: rankDir == key }">
               <a href ng-click="changeRankingDirection(key)">{{ value }}</a>
@@ -46,7 +46,7 @@
 
         <!-- Collapse all -->
         <li>
-          <a href ng-click="collapseAll()" class="expand_all">Collapse all</a>
+          <a href ng-click="collapseAll()" class="drmc-icon-expand-all">Collapse all</a>
         </li>
 
       </ul>

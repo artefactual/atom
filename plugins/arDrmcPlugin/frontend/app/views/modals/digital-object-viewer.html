@@ -11,17 +11,17 @@
 
     <!-- Pager -->
     <div class="pager-links">
-      <a href class="arrow-left" ng-click="prev()" ng-class="{ disabled: !showPrev() }"></a>
+      <a href class="drmc-icon-arrow-left" ng-click="prev()" ng-class="{ disabled: !showPrev() }"></a>
       <div class="grid-pager">
-        <a href class="grid" ng-click="openCompareSelector()"></a>
+        <a href class="drmc-icon-grid" ng-click="openCompareSelector()"></a>
         <p>{{ page }} of {{ files.length }}</p>
       </div>
-      <a href class="arrow-right" ng-click="next()" ng-class="{ disabled: !showNext() }"></a>
+      <a href class="drmc-icon-arrow-right" ng-click="next()" ng-class="{ disabled: !showNext() }"></a>
     </div>
 
     <!-- Close button -->
     <div class="close-button">
-      <a href class="sidex" ng-click="cancel()"></a>
+      <a href class="drmc-icon-sidex" ng-click="cancel()"></a>
     </div>
 
   </div>
@@ -32,9 +32,7 @@
 </div>
 
 <!-- Sidebar -->
-<div ng-class="{ 'dov-modal-sidebar': true, active: current === item, unique: comparingFiles.length == 1 }" ng-repeat="item in comparingFiles track by $index">
-  <button ng-if="comparingFiles.length > 1" ng-click="uncompare(item, $index)" class="btn close">x</button>
-
+<div ng-class="{ 'dov-modal-sidebar': true, active: current === item, unique: comparingFiles.length == 1, first: $index == 0 }" ng-repeat="item in comparingFiles track by $index">
   <div class="quick-info">
     <div class="quick-info-thumb">
       <a href ng-click="select(item)" ng-if="item.class !== 'audio'">
@@ -42,13 +40,10 @@
       </a>
     </div>
     <div ng-click="select(item)" class="quick-info-title">
-      <h4>
-        <a ng-class="getMediaTypeCssClass(item)"></a>
-        {{ item.filename }}
-      </h4>
-      <div>
-        <a href class="download" ng-click="download(item)">Download</a>
-      </div>
+      <h4 ng-class="getMediaTypeCssClass(item)">{{ item.filename }}</h4>
+    </div>
+    <div class="quick-info-close" ng-if="comparingFiles.length > 1">
+      <a href ng-click="uncompare(item, $index)" class="drmc-icon-close"></a>
     </div>
   </div>
 
@@ -57,8 +52,10 @@
     <!-- AIP details -->
     <section>
       <div ng-click="showAipsArea = !showAipsArea">
-        <h2>AIP details</h2>
-        <a href ng-class="{ 'dov-modal-toggle': true, active: showAipsArea }" ></a>
+        <h2>
+          AIP details
+          <span ng-class="{ 'dov-modal-toggle': true, active: showAipsArea }"></span>
+        </h2>
       </div>
       <div ng-show="showAipsArea">
         <div ng-if="item.filename" class="field">
@@ -91,8 +88,10 @@
     <!-- FITS output -->
     <section>
       <div ng-click="showFitsArea = !showFitsArea">
-        <h2>FITS output</h2>
-        <a href ng-class="{ 'dov-modal-toggle': true, active: showFitsArea }" ></a>
+        <h2>
+          FITS output
+          <span ng-class="{ 'dov-modal-toggle': true, active: showFitsArea }"></span>
+        </h2>
       </div>
       <div ng-show="showFitsArea">
         <div ng-if="item.complete_name" class="field">
@@ -133,8 +132,10 @@
     <!-- Digital object details -->
     <section>
       <div ng-click="showMediaArea = !showMediaArea">
-        <h2>Digital object details</h2>
-        <a href ng-class="{ 'dov-modal-toggle': true, active: showMediaArea }" ></a>
+        <h2>
+          Digital object details
+          <span ng-class="{ 'dov-modal-toggle': true, active: showMediaArea }"></span>
+        </h2>
       </div>
       <div ng-show="showMediaArea">
         <div ng-if="item.width" class="field">
@@ -153,7 +154,7 @@
           <h3>Make</h3>
           <div></div>
         </div>
-        <div ng-if="item.model"class="field">
+        <div ng-if="item.model" class="field">
           <h3>Model</h3>
           <div></div>
         </div>
@@ -167,7 +168,7 @@
   <div class="dov-compare-view-header">
     <h3>
       Select up to three files
-      <a href class="sidex" ng-click="closeCompareSelector()"></a>
+      <a href class="drmc-icon-sidex" ng-click="closeCompareSelector()"></a>
     </h3>
   </div>
   <div class="dov-compare-view-body">

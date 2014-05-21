@@ -1,23 +1,3 @@
-// Digital object viewer
-
-.digital-object-viewer {
-
-  // Navigation icons
-  .media-type-icon a,
-  .grid,
-  .arrow-left,
-  .arrow-right {
-    width: 40px;
-    height: 26px;
-    padding: 12px;
-    font-size: 20px;
-    &:before {
-      .fa-icon-set(@white);
-    }
-  }
-
-}
-
 // Flexbox layout for body and sidebar(s)
 
 .digital-object-viewer {
@@ -71,32 +51,68 @@
   justify-content: space-between;
   align-items: stretch;
 
-  .media-type-icon,
-  .pager-links,
-  .close-button {
+  .media-type-icon {
+    flex: 0 1 64px;
+  }
+
+  .pager-links {
     flex: 0 1 auto;
+  }
+
+  .close-button {
+    align-self: flex-start;
+    flex: 0 1 32px;
   }
 }
 
+// Header: media icon, pager, close button...
+
 .dov-modal-body-header {
 
-  .pager-links {
-    padding-top: 20px;
+  .media-type-icon {
+    text-align: center;
+    a {
+      line-height: 64px;
+      .fa-icon-set(@white);
+      font-size: 32px;
+    }
   }
 
-  .arrow-left.disabled,
-  .arrow-right.disabled {
-    opacity: 0.1;
-    cursor: default;
+  // .pager-links uses flexbox too :)
+  // One row, three columns: left arrow, .grid-pager, right arrow
+
+  .pager-links {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
   }
 
   .grid-pager {
-    vertical-align: -100%;
+    align-self: flex-end;
     text-align: center;
-    display: inline-block;
+  }
 
-    .grid, p {
-      padding: 0px 21px;
+  .drmc-icon-grid,
+  .drmc-icon-arrow-left,
+  .drmc-icon-arrow-right {
+    &:before {
+      .fa-icon-set(@white);
+      padding: 0 10px;
+      font-size: 24px;
+    }
+    &.disabled {
+      opacity: 0.1;
+      cursor: default;
+    }
+  }
+
+  .close-button {
+    text-align: center;
+    padding-top: 7px;
+    .drmc-icon-sidex {
+      .fa-icon-set(@white);
+      font-size: 24px;
     }
   }
 
@@ -110,46 +126,28 @@
   .image,
   .audio {
     text-align: center;
-    width: 100%;
-    height: 100%;
   }
 
-  .video {
-    video {
-      max-width: 800px;
-    }
-  }
-
-  .text {
-    object {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .image {
-    img {
-      max-width: 800px;
-    }
-  }
-
-  .audio {
-    audio {
-      max-width: 800px;
-    }
+  .video video,
+  .text object,
+  .image img,
+  .audio audio {
+    max-width: 800px;
   }
 }
 
 // Sidebar
 
 .dov-modal-sidebar {
-  border: 1px solid @grayLighter;
   border-top: 3px solid transparent;
   width: 400px;
-  min-width: 400px;
   max-width: 400px;
-  background: @fsModalLighter;
+  background-color: @white;
   overflow-y: auto;
+
+  &:not(.first) {
+    border-left: 1px solid @grayLighter;
+  }
 
   // Top border to highlight active sidebar
   &.active {
@@ -162,54 +160,16 @@
   }
 
   .content {
-    background: transparent;
+    // Cancel inherited properties
     box-shadow: none;
     border: 0px;
-
     section {
       border: 0px;
     }
-  }
 
-  // Close button
-  .close {
-    color: @momaGrayDark;
-    position: relative;
-    float: right;
-    width: 20px;
-    height: 20px;
-    background: none;
-    border: 0;
-    box-shadow: none;
-    padding: 0;
-  }
-
-  section:first-child {
-    border-top: 1px solid @grayLighter !important;
-    margin-top: 10px;
-  }
-
-  h2 {
-    color: @momaGrayDark;
-    cursor: pointer;
-  }
-
-  // Toggles sidebar sections
-  a.dov-modal-toggle {
-    .fa-icon-set (@grayDark);
-    font-size: 14px;
-    display: block;
-    float: right;
-    position: relative;
-    width: 10px;
-    height: 10px;
-    margin-top: -42px;
-
-    &:before {
-      content: "\f103";
-    }
-    &.active:before {
-      content: "\f102" !important;
+    section:first-child {
+      border-top: 1px solid @grayLighter !important;
+      margin-top: 10px;
     }
   }
 
@@ -223,6 +183,23 @@
       overflow: auto;
     }
   }
+
+  h2 {
+    color: @momaGrayDark;
+    cursor: pointer;
+  }
+
+  // Toggle icon
+  .dov-modal-toggle {
+    float: right;
+    &:before {
+      .fa-icon-set (@grayDark);
+      content: "\f103";
+    }
+    &.active:before {
+      content: "\f102";
+    }
+  }
 }
 
 // Quick info heading widget in the sidebar.
@@ -231,8 +208,7 @@
   height: 70px;
   display: flex;
   flex-flow: row nowrap;
-  align-items: stretch;
-  justify-content: flex-start;
+  justify-content: space-between;
   // Make sure that large thumbs don't break the layout
   overflow: hidden;
   .clearfix();
@@ -250,15 +226,30 @@
 }
 
 .quick-info-title {
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   h4 {
     margin: 0;
+    padding-right: 20px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .download:before {
+  h4:before {
     .fa-icon-set(@grayLight, 4px);
+  }
+}
+
+.quick-info-close {
+  flex: 0 0 20px;
+  text-align: center;
+  .drmc-icon-close {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+  .drmc-icon-close:before {
+    .fa-icon-set(@gray);
+    font-size: 18px;
   }
 }
 

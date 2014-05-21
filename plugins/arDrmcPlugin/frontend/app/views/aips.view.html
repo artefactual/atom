@@ -20,7 +20,7 @@
   <div class="span12">
     <div id="main-column">
 
-      <section ng-if="!files.length">
+      <section ng-if="!files.length" class="ng-cloak">
         <div class="alert alert-info">
           No files have been found on this AIP.
         </div>
@@ -80,7 +80,7 @@
               <li><h2>AIP file list</h2></li>
             </ul>
             <ul class="menu-list-right nav nav-pills">
-              <li><a href ng-click="downloadAip()" class="download" ng-show="user.canContribute()">Download</a>
+              <li><a href ng-click="downloadAip()" class="drmc-icon-download" ng-show="user.canContribute()">Download</a>
             </ul>
           </div>
 

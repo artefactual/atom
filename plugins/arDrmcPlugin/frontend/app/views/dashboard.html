@@ -74,7 +74,7 @@
 
   <!-- Storage -->
   <div class="span8 dashboard-widget">
-    <h3 class="fontello icon-chart-pie">Artwork storage by codec</h3>
+    <h3 class="fontello drmc-icon-chart-pie">Artwork storage by codec</h3>
     <tabset class="dashboard-rs-graph">
       <tab heading="Count">
         <ar:graph-pie data="{{ countByDepartment }}" width="200" unit-filter="off" class="graph-pie"></ar:graph-pie>
@@ -87,7 +87,7 @@
 
   <!-- Collection totals -->
   <div class="span4 dashboard-widget">
-    <h3 class="fontello icon-chart-pie">Collection totals</h3>
+    <h3 class="fontello drmc-icon-chart-pie">Collection totals</h3>
     <tabset>
       <tab heading="All">
         <ar:graph-pie data="{{ ingestionSummary }}" width="200" class="graph-pie"></ar:graph-pie>
@@ -101,7 +101,7 @@
 
   <!-- Monthly totals -->
   <div class="span6 dashboard-widget">
-    <h3 class="fontello icon-chart-line">Monthly totals</h3>
+    <h3 class="fontello drmc-icon-chart-line">Monthly totals</h3>
     <tabset class="dashboard-rs-graph">
       <tab heading="Collection date">
         <ar:graph-line data="{{ yearlyTotalsByCollectionDate }}" type="line" width="460" height="260" xper-tick="100" yper-tick="40"></ar:graph-line>
@@ -114,7 +114,7 @@
 
   <!-- Artwork sizes (average vs median) -->
   <div class="span6 dashboard-widget">
-    <h3 class="fontello icon-chart-line">Artwork sizes (average vs median)</h3>
+    <h3 class="fontello drmc-icon-chart-line">Artwork sizes (average vs median)</h3>
     <tabset class="dashboard-rs-graph">
       <tab heading="All">
         <ar:graph-line type="line" data="{{ artworkSizes }}" width="460" height="260" xper-tick="50" yper-tick="40"></ar:graph-line>
