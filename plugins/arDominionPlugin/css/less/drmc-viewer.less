@@ -1,3 +1,6 @@
+// New to Flexbox? Have this somewhere close if you are planning to edit the
+// following stylesheet: http://css-tricks.com/snippets/css/a-guide-to-flexbox/
+
 // Flexbox layout for body and sidebar(s)
 
 .digital-object-viewer {
@@ -62,6 +65,48 @@
   .close-button {
     align-self: flex-start;
     flex: 0 1 32px;
+  }
+}
+
+// Flexbox layout for the compare view
+
+.dov-compare-view {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+}
+
+.dov-compare-view-header {
+  flex: 0 1 50px;
+}
+
+.dov-compare-view-body {
+  flex: 1 1 auto;
+}
+
+.dov-compare-view-footer {
+  flex: 0 1 50px;
+}
+
+// Flexbox layout for the compare view footer
+
+.dov-compare-view-footer {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Flexbox layout for the compare list (ul tag, thumnails)
+
+.dov-compare-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center; // flex-start;
+  list-style: none;
+  li {
+    flex: 0 1 240px;
+    height: 180px;
   }
 }
 
@@ -258,18 +303,11 @@
 .dov-compare-view {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
   overflow: hidden;
   background-color: @black;
 }
 
 .dov-compare-view-header {
-  min-height: 50px;
-  max-height: 50px;
-  order: 0;
-  flex: 1 1 auto;
   background-color: @white;
   h3 {
     margin: 0;
@@ -284,8 +322,6 @@
 }
 
 .dov-compare-view-body {
-  order: 1;
-  flex: 1 1 auto;
   background-color: @grayDark;
   overflow: auto;
   ul {
@@ -294,22 +330,16 @@
 }
 
 .dov-compare-view-footer {
-  min-height: 50px;
-  max-height: 50px;
-  line-height: 50px;
-  padding: 0 16px;
-  order: 2;
-  flex: 1 1 auto;
   background-color: rgba(0, 0, 0, .15);
-  vertical-align: center;
   .c-btn {
     background-color: @grayDark;
+    margin-right: 10px;
     color: @white;
   }
   .help {
-    float: right;
     color: @grayLight;
-    text-align: right;
+    margin: 0;
+    padding-right: 20px;
     code {
       background-color: rgba(255, 255, 255, .25);
       border-color: transparent;
@@ -318,30 +348,23 @@
 }
 
 .dov-compare-list {
-  list-style: none;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-content: space-around;
   li {
     cursor: pointer;
     user-select: none;
-    width: 240px;
-    height: 180px;
     margin: 1%;
     border: 3px solid @grayDarker;
     box-shadow: 0 0 4px rgba(0, 0, 0, .25);
     border-radius: 3px;
     background-color: @black;
-    img {
-      height: 100%;
-    }
     &.active {
       border-color: @orange !important;
     }
     &:hover {
       border-color: @blue;
     }
+  }
+  img {
+    height: 100%;
   }
 }
 
