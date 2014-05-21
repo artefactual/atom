@@ -68,6 +68,12 @@ class ApiFixityReportsBrowseAction extends QubitApiAction
       $this->addItemToArray($report, 'time_started', $doc['timeStarted']);
       $this->addItemToArray($report, 'time_completed', $doc['timeCompleted']);
 
+      if (isset($doc['timeCompleted']) && isset($doc['timeStarted']))
+      {
+        $duration = strtotime($doc['timeCompleted']) - strtotime($doc['timeStarted']);
+        $this->addItemToArray($report, 'duration', $duration);
+      }
+
       if (isset($doc['failures']))
       {
         foreach ($doc['failures'] as $esFail)
