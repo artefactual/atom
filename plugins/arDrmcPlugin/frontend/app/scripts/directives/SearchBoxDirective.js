@@ -84,7 +84,7 @@ module.exports = function ($rootScope, $window, $document, $location, $state, $s
         }
         // Route user to the corresponding search page
         SearchService.setQuery(scope.query, scope.realm);
-        var entity = scope.realm === 'all' ? 'aips' : scope.realm;
+        var entity = scope.realm === 'all' ? 'works' : scope.realm;
         $state.go('main.search.entity', { entity: entity }).then(function () {
           scope.clear();
         });

@@ -12,11 +12,6 @@ module.exports = function ($http, SETTINGS, AIPService, InformationObjectService
 
   this.searches = [
     {
-      name: 'AIPs',
-      entity: 'aips',
-      cssClass: 'drmc-color-aip'
-    },
-    {
       name: 'Artwork records',
       entity: 'works',
       cssClass: 'drmc-color-artwork-record'
@@ -27,14 +22,19 @@ module.exports = function ($http, SETTINGS, AIPService, InformationObjectService
       cssClass: 'drmc-color-component'
     },
     {
-      name: 'Supporting technology records',
-      entity: 'technology-records',
-      cssClass: 'drmc-color-supporting-technology-record'
+      name: 'AIPs',
+      entity: 'aips',
+      cssClass: 'drmc-color-aip'
     },
     {
       name: 'Files',
       entity: 'files',
       cssClass: 'drmc-color-file'
+    },
+    {
+      name: 'Supporting technology records',
+      entity: 'technology-records',
+      cssClass: 'drmc-color-supporting-technology-record'
     },
     {
       name: 'Saved searches',
