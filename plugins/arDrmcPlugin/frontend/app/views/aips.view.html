@@ -28,6 +28,7 @@
 
       <div class="content">
 
+        <!-- AIP Details -->
         <section>
           <div class="menu-list">
             <ul class="menu-list-left">
@@ -73,6 +74,7 @@
           </div>
         </section>
 
+        <!-- Files, if available -->
         <section ng-if="files.length">
 
           <div class="menu-list">
@@ -102,7 +104,38 @@
               </tbody>
             </table>
           </div>
+        </section>
 
+        <!-- Fixity Reports -->
+        <section>
+
+          <div class="menu-list">
+            <ul class="menu-list-left">
+              <li><h2>Fixity reports</h2></li>
+            </ul>
+          </div>
+
+          <div class="browse-view-list">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Start time</th>
+                  <th>End time</th>
+                  <th>Duration</th>
+                  <th>Outcome</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="status in fixityStatus">
+                  <td>{{ status.time_started }}</td>
+                  <td>{{ status.time_completed }}</td>
+                  <td></td>
+                  <td>{{ status.success }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
         </section>
 
       </div>

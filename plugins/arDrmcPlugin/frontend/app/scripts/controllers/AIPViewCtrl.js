@@ -70,7 +70,7 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
 
   FixityReportService.getFixityStatus($stateParams.uuid)
     .success(function (data) {
-      return data;
+      $scope.fixityStatus = data.results;
     });
 
 };
