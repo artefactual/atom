@@ -16,10 +16,13 @@ module.exports = function ($compile, $http, $timeout, ModalDigitalObjectViewerSe
         var templateUrl = ModalDigitalObjectViewerService.mediaTypes[mediaTypeId].templateUrl;
 
         // Fetch the template, bind it to a new scope and compile
-        $http.get(templateUrl).then(function (response) {
-          var templateScope = scope.$new();
+        $http({
+          method: 'GET',
+          url: templateUrl,
+          cache: true
+        }).then(function (response) {
           element.html(response.data);
-          $compile(element.contents())(templateScope);
+          $compile(element.contents())(scope.$new());
         });
       };
 
