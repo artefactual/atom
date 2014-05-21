@@ -27,13 +27,13 @@
           </ul>
           <ul class="menu-list-right nav nav-pills">
             <li>
-              <a href >Status:&nbsp&nbsp<span class="badge badge-success">2</span></a>
+              <a href >Status:&nbsp&nbsp<span class="badge badge-important">2</span></a>
             </li>
           </ul>
         </div>
       </section>
 
-      <div class="row integrity-checker-widget">
+      <div class="row-fluid integrity-checker-widget">
         <div class="span2">
           <h3 class="muted">Status</h3>
           <span class="muted label label-important">SO NOT OK</span>
@@ -49,32 +49,63 @@
           <span class="muted">4</span>
         </div>
 
-        <div class="span3">
+        <div class="span4">
           <h3>Time to check collection</h3>
           <span class="muted">1 week 2 days 2 bike rides</span>
         </div>
       </div>
 
       <div class="browse-view-list">
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>AIP name</th>
-              <th>Time completed</th>
-              <th>Duration</th>
-              <th>Outcome</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- TODO Filter properly -->
-            <tr ng-repeat="(key, aip) in data.results | orderBy:predicate:reverse">
-              <td><a ui-sref="main.aips.view({ uuid: aip.uuid })">{{ aip.name }}</a></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
+
+      <tabset>
+
+        <!-- All -->
+        <tab heading="All">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>AIP name</th>
+                <th>Time completed</th>
+                <th>Duration</th>
+                <th>Outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- TODO Filter properly -->
+              <tr ng-repeat="(key, aip) in data.results | orderBy:predicate:reverse">
+                <td><a ui-sref="main.aips.view({ uuid: aip.uuid })">{{ aip.name }}</a></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </tab>
+
+        <!-- Failed -->
+        <tab heading="Failed">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>AIP name</th>
+                <th>Time completed</th>
+                <th>Duration</th>
+                <th>Outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- TODO Filter properly -->
+              <tr ng-repeat="(key, aip) in data.results | orderBy:predicate:reverse">
+                <td><a ui-sref="main.aips.view({ uuid: aip.uuid })">{{ aip.name }}</a></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </tab>
+
+    </tabset>
       </div>
 
     </div>
