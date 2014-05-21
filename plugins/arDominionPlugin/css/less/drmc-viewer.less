@@ -110,6 +110,18 @@
   }
 }
 
+// Flexbox layout in pager links
+
+.dov-modal-body-header .pager-links {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  .grid-pager {
+    align-self: flex-end;
+  }
+}
+
 // Header: media icon, pager, close button...
 
 .dov-modal-body-header {
@@ -123,18 +135,11 @@
     }
   }
 
-  // .pager-links uses flexbox too :)
-  // One row, three columns: left arrow, .grid-pager, right arrow
-
   .pager-links {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
+    color: @white;
   }
 
   .grid-pager {
-    align-self: flex-end;
     text-align: center;
   }
 
@@ -305,6 +310,7 @@
   top: 0; left: 0; right: 0; bottom: 0;
   overflow: hidden;
   background-color: @black;
+  .user-select(none);
 }
 
 .dov-compare-view-header {
@@ -343,6 +349,7 @@
     code {
       background-color: rgba(255, 255, 255, .25);
       border-color: transparent;
+      font-weight: bold;
     }
   }
 }
@@ -365,20 +372,5 @@
   }
   img {
     height: 100%;
-  }
-}
-
-// Body
-
-.dov-modal-body {
-  color: @white;
-  #dov-modal-exit {
-    top: 0;
-    position: absolute;
-    right: 0;
-    font-size: 22px;
-    padding-top: 8px;
-    padding-right: 0;
-    margin-right: -12px;
   }
 }
