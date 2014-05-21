@@ -39,17 +39,12 @@ class InformationObjectFileListAction extends sfAction
     {
       case 'sortBy':
         $choices = array(
-          'referenceCode' => $this->context->i18n->__('Reference code'),
+          'identifier' => $this->context->i18n->__('Folder ID'),
           'title' => $this->context->i18n->__('Title'),
           'startDate' => $this->context->i18n->__('Date (based on start date)')
         );
 
-        if ($this->getUser()->isAuthenticated())
-        {
-          $choices['locations'] = $this->context->i18n->__('Retrieval information');
-        }
-
-        $this->form->setDefault($name, 'referenceCode');
+        $this->form->setDefault($name, 'identifier');
         $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
         $this->form->setWidget($name, new sfWidgetFormChoice(array(
           'expanded' => true,
@@ -132,12 +127,12 @@ class InformationObjectFileListAction extends sfAction
 
         $this->results[$parentTitle][] = array(
           'resource' => $item,
-          'referenceCode' => QubitInformationObject::getStandardsBasedInstance($item)->referenceCode,
+          'identifier' => QubitInformationObject::getStandardsBasedInstance($item)->identifier,
           'title' => $item->getTitle(array('cultureFallback' => true)),
           'dates' => (isset($creationDates)) ? Qubit::renderDateStartEnd($creationDates->getDate(array('cultureFallback' => true)), $creationDates->startDate, $creationDates->endDate) : '&nbsp;',
           'startDate' => (isset($creationDates)) ? $creationDates->startDate : null,
-          'accessConditions' => $item->getAccessConditions(array('cultureFallback' => true)),
-          'locations' => self::getLocationString($item)
+          'descriptionStatus' => QubitInformationObject::getStandardsBasedInstance($item)->descriptionStatus,
+          'digitalobject' => $item->getDigitalObject()
         );
 
         $this->resultCount++;

@@ -35,8 +35,7 @@ class InformationObjectReportsAction extends sfAction
         if (!in_array($this->resource->sourceStandard, array('Dublin Core Simple version 1.1', 'MODS version 3.3')))
         {
           $choices = array(
-            $this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'fileList')) => $this->context->i18n->__('File list'),
-            $this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'itemList')) => $this->context->i18n->__('Item list'),
+            $this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'fileList')) => $this->context->i18n->__('Folder inventory'),
           );
         }
         else
