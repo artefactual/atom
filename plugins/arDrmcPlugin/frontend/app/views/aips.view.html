@@ -131,7 +131,7 @@
                   <td>{{ key }}</td>
                   <td>{{ status.time_started }}</td>
                   <td>{{ status.time_completed }}</td>
-                  <td>{{ status.duration }}</td>
+                  <td>{{ status.duration | ConvertSecondsFilter }}</td>
                   <td>{{ status.success }}</td>
                 </tr>
               </tbody>
