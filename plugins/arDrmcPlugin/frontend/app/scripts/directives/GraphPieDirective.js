@@ -83,7 +83,7 @@ module.exports = function ($filter) {
             label_width = Math.max(label_width, dataset[i].formatKey.length);
           }
           // round up to 10th
-          label_width = label_width * 13;
+          label_width = label_width * 30;
           var label_height = dataset.length * 20;
 
           var legend = arD3.select(element[0]).append('svg')

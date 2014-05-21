@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ApiSummaryStorageUsedByMediaCategoryAction extends QubitApiAction
+class ApiSummaryStorageUsedByCodecAction extends QubitApiAction
 {
   protected function get($request)
   {
@@ -43,24 +43,42 @@ class ApiSummaryStorageUsedByMediaCategoryAction extends QubitApiAction
     // We don't need details, just facet results
     $query->setLimit(0);
 
-    // Use a term stats facet to calculate total bytes used per media category
-    $this->facetEsQuery('TermsStats', 'media_type_storage_stats', 'digitalObject.mimeType', $query, array('valueField' => 'digitalObject.byteSize'));
- 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+    // Use a term stats facet to calculate total bytes used per codec type
+    $codecTypes = array(
+      'general_track_stats' => 'generalTracks',
+      'video_track_stats'   => 'videoTracks',
+      'audio_track_stats'   => 'audioTracks'
+    );
+
+    // Add facet for each codec type
+    foreach($codecTypes as $facetName => $mediaInfoPropName)
+    {
+      $this->facetEsQuery('TermsStats', $facetName, 'digitalObjects.metsData.mediainfo.'. $mediaInfoPropName .'.codec', $query, array('valueField' => 'digitalObjects.digitalObject.byteSize'));
+    }
+
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitAip')->search($query);
 
     $facets = $resultSet->getFacets();
 
-    foreach($facets['media_type_storage_stats']['terms'] as $index => $term)
-    {
-      $mediaType = $term['term'];
-      $facets['media_type_storage_stats']['terms'][$index]['media_type'] = $mediaType;
+    // Amalgamate facet data for each codec type
+    $results = array();
 
-      // strip out extra data
-      foreach(array('count', 'total_count', 'min', 'max', 'mean', 'term') as $element) {
-        unset($facets['media_type_storage_stats']['terms'][$index][$element]);
+    foreach($codecTypes as $facetName => $mediaInfoPropName)
+    {
+      foreach($facets[$facetName]['terms'] as $index => $term)
+      {
+        $mediaType = $term['term'];
+        $facets[$facetName]['terms'][$index]['codec'] = strtoupper($mediaType);
+
+        // strip out extra data
+        foreach(array('count', 'total_count', 'min', 'max', 'mean', 'term') as $element) {
+          unset($facets[$facetName]['terms'][$index][$element]);
+        }
       }
+
+      $results = array_merge($results, $facets[$facetName]['terms']);
     }
 
-    return $facets['media_type_storage_stats']['terms'];
+    return $results;
   }
 }

@@ -11,7 +11,7 @@ module.exports = function ($http, SETTINGS) {
    * - /api/summary/artworkbydate
    * - /api/summary/mediafilesizebycollectionyear
    * - /api/summary/departmentartworkcount
-   * - /api/summary/storagebymediacategory
+   * - /api/summary/storagebycodec
    *
    */
    //var downloadActivity
@@ -67,10 +67,10 @@ module.exports = function ($http, SETTINGS) {
 
   };
   // var storageFormats
-  this.getRunningTotalByFormats = function () {
+  this.getRunningTotalByCodec = function () {
     return $http({
       method: 'GET',
-      url: SETTINGS.frontendPath + 'api/summary/storagebymediacategory'
+      url: SETTINGS.frontendPath + 'api/summary/storagebycodec'
     });
   };
 

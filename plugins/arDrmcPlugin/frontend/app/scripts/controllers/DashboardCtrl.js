@@ -10,7 +10,7 @@ module.exports = function ($scope, $q, StatisticsService) {
       StatisticsService.getIngestionActivity(),
       StatisticsService.getIngestionSummary(),
       StatisticsService.getRunningTotalByDepartment(),
-      StatisticsService.getRunningTotalByFormats(),
+      StatisticsService.getRunningTotalByCodec(),
       StatisticsService.getArtworkSizesByYearSummary(),
       StatisticsService.getMonthlyTotalByCodec()
     ];
@@ -28,9 +28,9 @@ module.exports = function ($scope, $q, StatisticsService) {
         formatKey: 'department',
         data: responses[3].data.results
       };
-      $scope.storageFormats = {
+      $scope.storageCodecs = {
         accessKey: 'total',
-        formatKey: 'media_type',
+        formatKey: 'codec',
         data: responses[4].data.results
       };
       $scope.artworkSizes = [{
