@@ -14,7 +14,7 @@ module.exports = function ($scope, $q, $modal, $stateParams, $modalInstance, hot
 
   // Return CSS class give file.media_type_id obtained from the mediaTypes
   // object available in ModalDigitalObjectViewerService
-  $scope.getMediaType = function (file) {
+  $scope.getMediaTypeCssClass = function (file) {
     return ModalDigitalObjectViewerService.mediaTypes[file.media_type_id].class;
   };
 

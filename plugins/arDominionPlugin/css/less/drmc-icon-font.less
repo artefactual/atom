@@ -38,10 +38,11 @@
 // Font-Awesome, TODO: remove this in favor of fontello?
 // This sets parent styles for pseudo class icon use (:after, :before)
 
-.fa-icon-set (@color) {
+.fa-icon-set (@color, @padding-right: 0) {
   color: @color;
   font-family: FontAwesome;
   font-style: normal;
   font-weight: normal;
   text-decoration: inherit;
+  padding-right: @padding-right;
 }

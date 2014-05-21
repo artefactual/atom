@@ -3,28 +3,27 @@
 
   <!-- Header -->
   <div class="dov-modal-body-header">
-    <!-- This element is a new flex element -->
-    <div>
-      <!-- Media type icon -->
-      <div>
-        <a ng-class="getMediaType(current)"></a>
-      </div>
 
-      <!-- Pager -->
-      <div class="pager-links">
-        <a href class="arrow-left" ng-click="prev()" ng-class="{ disabled: !showPrev() }"></a>
-        <div class="grid-pager">
-          <a href class="grid" ng-click="openCompareSelector()"></a>
-          <p>{{ page }} of {{ files.length }}</p>
-        </div>
-        <a href class="arrow-right" ng-click="next()" ng-class="{ disabled: !showNext() }"></a>
-      </div>
-
-      <!-- Close button -->
-      <div>
-        <a href class="sidex" ng-click="cancel()"></a>
-      </div>
+    <!-- Media type icon -->
+    <div class="media-type-icon">
+      <a ng-class="getMediaTypeCssClass(current)"></a>
     </div>
+
+    <!-- Pager -->
+    <div class="pager-links">
+      <a href class="arrow-left" ng-click="prev()" ng-class="{ disabled: !showPrev() }"></a>
+      <div class="grid-pager">
+        <a href class="grid" ng-click="openCompareSelector()"></a>
+        <p>{{ page }} of {{ files.length }}</p>
+      </div>
+      <a href class="arrow-right" ng-click="next()" ng-class="{ disabled: !showNext() }"></a>
+    </div>
+
+    <!-- Close button -->
+    <div class="close-button">
+      <a href class="sidex" ng-click="cancel()"></a>
+    </div>
+
   </div>
 
   <!-- Content (viewer) -->
@@ -37,12 +36,14 @@
   <button ng-if="comparingFiles.length > 1" ng-click="uncompare(item, $index)" class="btn close">x</button>
 
   <div class="quick-info">
-    <a href ng-click="select(item)" ng-if="item.class !== 'audio'" class="quick-info-thumb">
-      <img ng-src="{{ item.thumbnail_path }}" />
-    </a>
+    <div class="quick-info-thumb">
+      <a href ng-click="select(item)" ng-if="item.class !== 'audio'">
+        <img ng-src="{{ item.thumbnail_path }}" />
+      </a>
+    </div>
     <div ng-click="select(item)" class="quick-info-title">
       <h4>
-        <a ng-class="getMediaType(item)"></a>
+        <a ng-class="getMediaTypeCssClass(item)"></a>
         {{ item.filename }}
       </h4>
       <div>
