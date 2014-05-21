@@ -41,7 +41,7 @@ module.exports = function ($scope, $q, StatisticsService) {
         data: responses[5].data.results
       }];
       $scope.yearlyTotalsByCollectionDate = [{
-        name: 'Month',
+        name: 'Year',
         color: 'hotpink',
         xProperty: 'year',
         yProperty: 'count',
