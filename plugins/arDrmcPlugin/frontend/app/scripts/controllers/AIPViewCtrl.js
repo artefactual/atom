@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, InformationObjectService, ModalDigitalObjectViewerService, ModalDownloadService, ModalReclassifyAipService) {
+module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, InformationObjectService, ModalDigitalObjectViewerService, ModalDownloadService, ModalReclassifyAipService, FixityReportService) {
 
   AIPService.getAIP($stateParams.uuid)
     .success(function (data) {
@@ -67,5 +67,10 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
   $scope.$watch('page', function (value) {
     $scope.criteria.skip = (value - 1) * $scope.criteria.limit;
   });
+
+  FixityReportService.getFixityStatus($stateParams.uuid)
+    .success(function (data) {
+      return data;
+    });
 
 };
