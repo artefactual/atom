@@ -64,7 +64,7 @@ class DigitalObjectImageflowComponent extends sfComponent
     }
 
     // Get total number of descendant digital objects
-    $this->total = $this->resource->getDescendentDigitalObjectCountNoDrafts();
+    $this->total = $this->resource->getDescendentDigitalObjectCount();
 
     if (1 > count($this->thumbnails))
     {
