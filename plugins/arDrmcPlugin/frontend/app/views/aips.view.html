@@ -127,12 +127,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="(key, status) in fixityStatus">
+                <tr ng-repeat="(key, status) in fixityStatus" ng-class="{ 'success': status.success, 'error': !status.success }">
                   <td>{{ key }}</td>
                   <td>{{ status.time_started }}</td>
                   <td>{{ status.time_completed }}</td>
                   <td>{{ status.duration | ConvertSecondsFilter }}</td>
-                  <td>{{ status.success }}</td>
+                  <td >{{ status.success }}</td>
                 </tr>
               </tbody>
             </table>
