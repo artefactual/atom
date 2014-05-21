@@ -119,6 +119,7 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
+                  <th>Report ID</th>
                   <th>Start time</th>
                   <th>End time</th>
                   <th>Duration</th>
@@ -126,10 +127,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="status in fixityStatus">
+                <tr ng-repeat="(key, status) in fixityStatus">
+                  <td>{{ key }}</td>
                   <td>{{ status.time_started }}</td>
                   <td>{{ status.time_completed }}</td>
-                  <td></td>
+                  <td>{{ status.duration }}</td>
                   <td>{{ status.success }}</td>
                 </tr>
               </tbody>
