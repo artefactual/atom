@@ -200,7 +200,18 @@
     <?php echo render_show(__('Physical characteristics and technical requirements'), render_value($resource->getPhysicalCharacteristics(array('cultureFallback' => true)))) ?>
   <?php endif; ?>
 
-  <?php echo render_show(__('Finding aids'), render_value($resource->getFindingAids(array('cultureFallback' => true)))) ?>
+  <?php
+    // appending a custom link to fileList report
+    $link = link_to(__('folder-level list'), array('module' => 'informationobject', 'action' => 'fileList', $resource));
+    $value = "A {$link} for this {$resource->levelOfDescription} is available in electronic form.";
+    if (0 < strlen($resource->getFindingAids(array('cultureFallback' => true))))
+    {
+      $value .= '<br /><br />';
+      $value .= render_value($resource->getFindingAids(array('cultureFallback' => true)));
+    }
+   
+    echo render_show(__('Finding aids'),  $value);
+  ?>
 
 </section> <!-- /section#conditionsOfAccessAndUseArea -->
 
