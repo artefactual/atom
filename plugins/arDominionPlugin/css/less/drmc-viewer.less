@@ -6,15 +6,17 @@
 .digital-object-viewer {
   display: flex;
   flex-flow: row nowrap;
-  flex-start: justify-content;
+  align-items: stretch;
+  justify-content: flex-start;
 }
 
 .dov-modal-body {
-  flex: 2 0 auto;
+  flex: 1 1 auto; // Flexible, absorb free space
+  overflow: hidden; // Avoid content overflow
 }
 
 .dov-modal-sidebar {
-  flex: 1 0 auto;
+  flex: 0 0 400px; // Inflexible.
 }
 
 // Flexbox layout for the digital object viewer body
@@ -26,11 +28,12 @@
 }
 
 .dov-modal-body-header {
-  flex: 0 1 64px;
+  flex: 0 0 64px; // Inflexible
 }
 
 .dov-modal-body-content {
-  flex: 1 1 auto;
+  flex: 1 1 auto; // Flexible, absorb free space
+  overflow: hidden; // Avoid content overflow
 }
 
 // Flexbox layout for the viewport
@@ -77,15 +80,16 @@
 }
 
 .dov-compare-view-header {
-  flex: 0 1 50px;
+  flex: 0 0 50px; // Inflexible
 }
 
 .dov-compare-view-body {
-  flex: 1 1 auto;
+  flex: 1 1 auto; // Flexible, absorb free space.
+  overflow-y: auto;
 }
 
 .dov-compare-view-footer {
-  flex: 0 1 50px;
+  flex: 0 0 50px; // Inflexible
 }
 
 // Flexbox layout for the compare view footer
@@ -168,21 +172,33 @@
 
 }
 
-// MIME types
+// Viewport settings for the different media types
 
 .dov-modal-body-content {
+  position: relative;
+
   .video,
   .text,
   .image,
   .audio {
+    padding: 20px;
     text-align: center;
+    width: 100%;
+    height: 100%;
   }
 
   .video video,
-  .text object,
   .image img,
   .audio audio {
-    max-width: 800px;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .text object {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100%;
+    height: 100%;
   }
 }
 

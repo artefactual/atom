@@ -31,16 +31,6 @@ module.exports = function ($compile, $http, $timeout, ModalDigitalObjectViewerSe
         render();
       });
 
-      var dovModalBody = element.parent();
-      $timeout(function () {
-        var w = dovModalBody.width();
-        var h = dovModalBody.height();
-        dovModalBody.find('dov-modal-body-content .text object').remove().css({
-          'width': w,
-          'height': h
-        });
-      }, 0);
-
     }
   };
 };
