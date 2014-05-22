@@ -3,6 +3,16 @@
 module.exports = function () {
 
   return function (input) {
-    console.log(input);
+    if (!input) {
+      return;
+    }
+
+    var date = new Date(input);
+    if (angular.isUndefined(date)) {
+      return;
+    }
+
+    return date.toLocaleDateString() + ' @ ' + date.toLocaleTimeString();
   };
+
 };

@@ -71,4 +71,5 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
     .success(function (data) {
       $scope.fixityStatus = data.results;
     });
+
 };
