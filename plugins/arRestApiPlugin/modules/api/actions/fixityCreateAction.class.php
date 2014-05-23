@@ -51,6 +51,11 @@ class ApiFixityCreateAction extends QubitApiAction
 
         break;
 
+      case 'collection_check_id':
+        $this->report->collectionCheckId = $value;
+
+        break;
+
       case 'failures':
         $this->report->failures = json_encode($value);
 

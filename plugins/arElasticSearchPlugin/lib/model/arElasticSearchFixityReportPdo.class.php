@@ -122,6 +122,11 @@ class arElasticSearchFixityReportPdo
     $serialized['timeStarted'] = arElasticSearchPluginUtil::convertDate($this->time_started);
     $serialized['timeCompleted'] = arElasticSearchPluginUtil::convertDate($this->time_completed);
 
+    if (null !== $this->collection_check_id)
+    {
+      $serialized['collectionCheckId'] = $this->collection_check_id;
+    }
+
     $serialized['aip']['uuid'] = $this->uuid;
 
     if (null !== $this->aip_id && null !== $name = $this->getAipName($this->aip_id))
