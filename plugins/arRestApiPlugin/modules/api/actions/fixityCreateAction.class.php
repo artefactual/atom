@@ -21,12 +21,24 @@ class ApiFixityCreateAction extends QubitApiAction
 {
   protected function post($request, $payload)
   {
-    $this->report = new QubitFixityReport;
-    $this->report->uuid = $request->uuid;
-
-    if (null !== $aip = QubitAip::getByUuid($request->uuid))
+    if (isset($payload->session_uuid))
     {
-      $this->report->aipId = $aip->id;
+      $criteria = new Criteria;
+      $criteria->add(QubitFixityReport::UUID, $request->uuid);
+      $criteria->add(QubitFixityReport::SESSION_UUID, $payload->session_uuid);
+
+      $this->report = QubitFixityReport::getOne($criteria);
+    }
+
+    if(!isset($this->report))
+    {
+      $this->report = new QubitFixityReport;
+      $this->report->uuid = $request->uuid;
+
+      if (null !== $aip = QubitAip::getByUuid($request->uuid))
+      {
+        $this->report->aipId = $aip->id;
+      }
     }
 
     foreach ($payload as $field => $value)
