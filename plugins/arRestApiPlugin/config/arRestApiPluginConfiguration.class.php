@@ -111,6 +111,11 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'informationobjectsFiles',
       'params' => array('id' => self::REGEX_ID)));
 
+    $this->addRoute('GET', '/api/informationobjects/:id/mets', array(
+      'module' => 'api',
+      'action' => 'informationobjectsMets',
+      'params' => array('id' => self::REGEX_ID)));
+
     $this->addRoute('GET', '/api/informationobjects/:id/tms', array(
       'module' => 'api',
       'action' => 'informationobjectsTms',
