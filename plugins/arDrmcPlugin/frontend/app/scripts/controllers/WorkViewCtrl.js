@@ -40,4 +40,8 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
     ModalDownloadService.downloadAip(file.aip_name, file.aip_uuid);
   };
 
+  $scope.openDigitalObjectModal = function (files, index) {
+    ModalDigitalObjectViewerService.open(files, index);
+  };
+
 };

@@ -87,7 +87,7 @@
 
       <ar:context-browser-artwork id="{{ work.id }}" user="user" files="files" on-select-node="selectNode()"></ar:context-browser-artwork>
 
-      <div class="content">
+      <div class="content" ng-if="aggregation != undefined || files.length > 0">
 
         <section ng-if="aggregation != undefined">
           <div class="menu-list">
@@ -159,13 +159,13 @@
                   <th></th>
                 </thead>
                 <tbody>
-                  <tr ng-repeat="file in files" ng-class="{ selected: file.selected == true }">
+                  <tr ng-repeat="file in files track by $index" ng-class="{ selected: file.selected == true }">
                     <!-- TODO layout from css -->
                     <td class="preview" width="20%">
                       <a href ng-click="downloadFile(file)"><img width="100%" ng-src="{{ file.thumbnail_path }}"/></a>
                     </td>
                     <td class="name">
-                      <a href ng-click="openDigitalObjectModal(file)">{{ file.filename }}</a>
+                      <a href ng-click="openDigitalObjectModal(files, $index)">{{ file.filename }}</a>
                     </td>
                     <td>{{ file.byte_size | UnitFilter:2 }}</td>
                     <td>
