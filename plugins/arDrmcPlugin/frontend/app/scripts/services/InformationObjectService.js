@@ -151,6 +151,13 @@ module.exports = function ($http, $q, SETTINGS) {
     });
   };
 
+  this.getMets = function (id) {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/mets'
+    });
+  };
+
   this.getWorks = function (params) {
     return $http({
       method: 'GET',
