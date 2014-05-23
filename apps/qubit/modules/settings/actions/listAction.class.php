@@ -62,6 +62,7 @@ class SettingsListAction extends sfAction
     $this->oaiRepositoryForm = new SettingsOaiRepositoryForm;
     $this->jobSchedulingForm = new SettingsJobSchedulingForm;
     $this->securityForm = new SettingsSecurityForm;
+    $this->permissionsForm = new SettingsPermissionsForm;
 
     $this->initializeDefaultPageElementsForm();
 
@@ -163,6 +164,11 @@ class SettingsListAction extends sfAction
           $this->updateSecuritySettings($this->securityForm);
           $this->redirect('settings/list');
         }
+      }
+
+      if (null !== $request->permissions)
+      {
+
       }
 
       if (null !== $languageCode = $request->languageCode)
