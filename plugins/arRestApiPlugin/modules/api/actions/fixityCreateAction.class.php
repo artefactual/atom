@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ApiFixityReportsCreateAction extends QubitApiAction
+class ApiFixityCreateAction extends QubitApiAction
 {
   protected function post($request, $payload)
   {

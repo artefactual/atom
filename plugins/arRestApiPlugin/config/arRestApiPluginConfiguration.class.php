@@ -289,14 +289,14 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
      * Fixity reports
      */
 
-    $this->addRoute('POST', '/api/fixityreports/:uuid', array(
+    $this->addRoute('POST', '/api/fixity/:uuid', array(
       'module' => 'api',
-      'action' => 'fixityReportsCreate',
+      'action' => 'fixityCreate',
       'params' => array('uuid' => self::REGEX_UUID)));
 
-    $this->addRoute('GET', '/api/fixityreports/:uuid', array(
+    $this->addRoute('GET', '/api/fixity/:uuid', array(
       'module' => 'api',
-      'action' => 'fixityReportsBrowse',
+      'action' => 'fixityBrowse',
       'params' => array('uuid' => self::REGEX_UUID)));
   }
 
