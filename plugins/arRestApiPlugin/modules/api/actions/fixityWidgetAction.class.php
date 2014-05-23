@@ -67,6 +67,42 @@ class ApiFixityWidgetAction extends QubitApiAction
       $data['lastChecks'][$hit->getId()] = $report;
     }
 
+    // Last reports failed
+    $query = new \Elastica\Query;
+    $queryBool = new \Elastica\Query\Bool;
+
+    $queryBool->addMust(new \Elastica\Query\Term(array('success' => false)));
+
+    $this->prepareEsPagination($query);
+    $query->setSort(array('timeStarted' => 'desc'));
+
+    $query->setQuery($queryBool);
+
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitFixityReport')->search($query);
+
+    foreach ($resultSet as $hit)
+    {
+      $doc = $hit->getData();
+
+      $report = array();
+
+      if (isset($doc['success']))
+      {
+        $report['outcome'] = (bool)$doc['success'];
+      }
+
+      $this->addItemToArray($report, 'time_completed', $doc['timeCompleted']);
+      $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
+
+      if (isset($doc['timeCompleted']) && isset($doc['timeStarted']))
+      {
+        $duration = strtotime($doc['timeCompleted']) - strtotime($doc['timeStarted']);
+        $this->addItemToArray($report, 'duration', $duration);
+      }
+
+      $data['lastFails'][$hit->getId()] = $report;
+    }
+
     // Currently checking
     $query = new \Elastica\Query;
     $queryBool = new \Elastica\Query\Bool;
