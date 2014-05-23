@@ -296,7 +296,7 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
 
     $this->addRoute('GET', '/api/fixity/:uuid', array(
       'module' => 'api',
-      'action' => 'fixityBrowse',
+      'action' => 'fixityRead',
       'params' => array('uuid' => self::REGEX_UUID)));
   }
 
