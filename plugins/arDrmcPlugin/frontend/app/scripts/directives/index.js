@@ -10,6 +10,7 @@
     .directive('arContextBrowserTechnology', require('./ContextBrowserTechnologyDirective'))
     .directive('arSortHeader', require('./SortHeaderDirective'))
     .directive('arDigitalObjectPreview', require('./DigitalObjectPreviewDirective'))
+    .directive('arDigitalObjectViewerSidebar', require('./DigitalObjectViewerSidebarDirective'))
     .directive('arFacet', require('./FacetDirective'))
     .directive('arPager', require('./PagerDirective'))
     .directive('arToggleSlide', require('./ToggleSlideDirective'))

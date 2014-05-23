@@ -30,18 +30,6 @@ module.exports = function ($scope, $q, $modal, $stateParams, $modalInstance, hot
 
 
   /**
-   * Sidebar
-   */
-
-  // Defaults for the sidebar. The sidebar is repetable in comparing mode, so
-  // notice that ng-repeat will build a new scope for each sidebar and the
-  // following properties will be inherited
-  $scope.showAipsArea = true;
-  $scope.showFitsArea = false;
-  $scope.showMediaArea = false;
-
-
-  /**
    * Pager and selection
    */
 

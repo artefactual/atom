@@ -1,0 +1,85 @@
+<section class="content">
+
+  <!-- AIP details -->
+  <section>
+    <div ng-click="showAipsArea = !showAipsArea">
+      <h2>
+        AIP details
+        <span ng-class="{ 'dov-modal-toggle': true, active: showAipsArea }"></span>
+      </h2>
+    </div>
+    <div ng-show="showAipsArea">
+      <div class="field">
+        <h3>Name</h3>
+        <div><a href ng-click="close()" ui-sref="main.aips.view({ uuid: file.aip_uuid })">{{ file.aip_title }}</a></div>
+      </div>
+      <div class="field">
+        <h3>UUID</h3>
+        <div>{{ file.aip_uuid }}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FITS output -->
+  <section>
+    <div ng-click="showCharacterizationArea = !showCharacterizationArea">
+      <h2>
+        Characterization
+        <span ng-class="{ 'dov-modal-toggle': true, active: showCharacterizationArea }"></span>
+      </h2>
+    </div>
+
+    <div ng-show="showCharacterizationArea" ng-if="mediaType == 'video'">
+      <pre>{{ mets | json }}</pre>
+    </div>
+
+    <div ng-show="showCharacterizationArea" ng-if="mediaType == 'audio'">
+      <pre>{{ mets | json }}</pre>
+    </div>
+
+    <div ng-show="showCharacterizationArea" ng-if="mediaType == 'image'">
+      <pre>{{ mets | json }}</pre>
+    </div>
+
+    <div ng-show="showCharacterizationArea" ng-if="mediaType == 'other'">
+      <pre>{{ mets | json }}</pre>
+    </div>
+
+    <div ng-show="showCharacterizationArea" ng-if="mediaType == 'text'">
+      <div ng-if="mets.document.title != undefined" class="field">
+        <h3>Title</h3>
+        <div>{{ mets.document.title }}</div>
+      </div>
+      <div ng-if="mets.document.pageCount != undefined" class="field">
+        <h3>Page count</h3>
+        <div>{{ mets.document.pageCount }}</div>
+      </div>
+      <div ng-if="mets.document.isTagged != undefined" class="field">
+        <h3>Is tagged</h3>
+        <div>{{ mets.document.isTagged }}</div>
+      </div>
+      <div ng-if="mets.document.hasForms != undefined" class="field">
+        <h3>Has forms</h3>
+        <div>{{ mets.document.hasForms }}</div>
+      </div>
+      <div ng-if="mets.document.isRightsManaged != undefined" class="field">
+        <h3>Are rights managed</h3>
+        <div>{{ mets.document.isRightsManaged }}</div>
+      </div>
+      <div ng-if="mets.document.hasAnnotations != undefined" class="field">
+        <h3>Has annotations</h3>
+        <div>{{ mets.document.hasAnnotations }}</div>
+      </div>
+      <div ng-if="mets.document.isProtected != undefined" class="field">
+        <h3>Is protected</h3>
+        <div>{{ mets.document.isProtected }}</div>
+      </div>
+      <div ng-if="mets.document.hasOutline != undefined" class="field">
+        <h3>Has outline</h3>
+        <div>{{ mets.document.hasOutline }}</div>
+      </div>
+    </div>
+
+  </section>
+
+</section>

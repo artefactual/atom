@@ -33,6 +33,7 @@
 
 <!-- Sidebar -->
 <div ng-class="{ 'dov-modal-sidebar': true, active: current === item, unique: comparingFiles.length == 1, first: $index == 0 }" ng-repeat="item in comparingFiles track by $index">
+
   <div class="quick-info">
     <div class="quick-info-thumb">
       <a href ng-click="select(item)" ng-if="item.class !== 'audio'">
@@ -47,120 +48,8 @@
     </div>
   </div>
 
-  <div class="content">
+  <ar:digital-object-viewer-sidebar file="item" on-close="cancel()"></ar:digital-object-viewer-sidebar>
 
-    <!-- AIP details -->
-    <section>
-      <div ng-click="showAipsArea = !showAipsArea">
-        <h2>
-          AIP details
-          <span ng-class="{ 'dov-modal-toggle': true, active: showAipsArea }"></span>
-        </h2>
-      </div>
-      <div ng-show="showAipsArea">
-        <div ng-if="item.filename" class="field">
-          <h3>AIP name</h3>
-          <div>{{ item.filename }}</div>
-        </div>
-        <div ng-if="item.uuid" class="field">
-          <h3>UUID</h3>
-          <div></div>
-        </div>
-        <div ng-if="item.byteSize" class="field">
-          <h3>Size</h3>
-          <div>{{ item.byte_size | UnitFilter:2 }}</div>
-        </div>
-        <div ng-if="item.objCount" class="field">
-          <h3>No. of objects</h3>
-          <div></div>
-        </div>
-        <div ng-if="item.class" class="field">
-          <h3>AIP class</h3>
-          <div></div>
-        </div>
-        <div ng-if="item.description" class="field">
-          <h3>Description</h3>
-          <div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FITS output -->
-    <section>
-      <div ng-click="showFitsArea = !showFitsArea">
-        <h2>
-          FITS output
-          <span ng-class="{ 'dov-modal-toggle': true, active: showFitsArea }"></span>
-        </h2>
-      </div>
-      <div ng-show="showFitsArea">
-        <div ng-if="item.complete_name" class="field">
-          <h3>Complete name</h3>
-          <div></div>
-        </div>
-        <div ng-if="item.uuid" class="field">
-          <h3>UUID AIPs</h3>
-          <div></div>
-        </div>
-        <div ng-if="item.mimeType" class="field">
-          <h3>MIME type</h3>
-          <div>{{ item.mime_type }}</div>
-        </div>
-        <div ng-if="item.format" class="field">
-          <h3>Format</h3>
-          <div></div>
-        </div>
-        <div ng-if="item.byteSize" class="field">
-          <h3>File size</h3>
-          <div>{{ item.byte_size | UnitFilter:2 }}</div>
-        </div>
-        <div ng-if="item.dimensions" class="field">
-          <h3>Dimensions</h3>
-          <div></div>
-        </div>
-        <div ng-if="item.compression" class="field">
-          <h3>Compression</h3>
-          <div></div>
-        </div>
-        <div ng-if="item.date" class="field">
-          <h3>Date</h3>
-          <div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Digital object details -->
-    <section>
-      <div ng-click="showMediaArea = !showMediaArea">
-        <h2>
-          Digital object details
-          <span ng-class="{ 'dov-modal-toggle': true, active: showMediaArea }"></span>
-        </h2>
-      </div>
-      <div ng-show="showMediaArea">
-        <div ng-if="item.width" class="field">
-          <h3>Width</h3>
-          <div></div>
-        </div>
-        <div ng-if="item.height" class="field">
-          <h3>Height</h3>
-          <div></div>
-        </div>
-        <div ng-if="item.ratio" class="field">
-          <h3>Aspect ratio</h3>
-          <div></div>
-        </div>
-        <div ng-if="item.make" class="field">
-          <h3>Make</h3>
-          <div></div>
-        </div>
-        <div ng-if="item.model" class="field">
-          <h3>Model</h3>
-          <div></div>
-        </div>
-      </div>
-    </section>
-  </div>
 </div>
 
 <!-- Compare sub-modal -->
