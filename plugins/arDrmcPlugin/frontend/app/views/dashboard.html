@@ -29,7 +29,7 @@
             <th>Size</th>
           </thead>
           <tbody>
-            <tr ng-repeat="item in ingestionActivity">
+            <tr ng-repeat="item in ingestionActivity | limitTo:10">
               <td>{{ item.created_at }}</td>
               <td>{{ item.aip_title }}</td>
               <td>{{ item.artwork_title }}</td>
@@ -52,7 +52,7 @@
             <th>User</th>
           </thead>
           <tbody>
-            <tr ng-repeat="item in downloadActivity">
+            <tr ng-repeat="item in downloadActivity | limitTo:10">
               <td>{{ item.date }}</td>
               <td>{{ item.file }}</td>
               <td>{{ item.reason }}</td>

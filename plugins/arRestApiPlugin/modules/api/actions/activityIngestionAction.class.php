@@ -46,7 +46,7 @@ WHERE
   io.level_of_description_id = ?
 ORDER BY
   aip.created_at DESC
-LIMIT 3;
+LIMIT 20;
 EOL;
 
     $results = QubitPdo::fetchAll($sql, array(sfConfig::get('app_drmc_lod_artwork_record_id')));
