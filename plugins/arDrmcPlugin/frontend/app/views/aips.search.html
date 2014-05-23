@@ -116,7 +116,7 @@
               </thead>
               <tbody>
                 <tr ng-repeat="(key, aip) in data.results | orderBy:predicate:reverse">
-                  <td><a ui-sref="main.aips.view({ uuid: aip.uuid })">{{ aip.name }}</a></td>
+                  <td><a href ui-sref="main.aips.view({ uuid: aip.uuid })">{{ aip.name }}</a></td>
                   <td>{{ aip.size | UnitFilter:1 }}</td>
                   <td>{{ aip.created_at }}</td>
                   <td><a href ng-click="openReclassifyModal(aip)">{{ aip.type.name || 'Unclassified' }}</a></td>
