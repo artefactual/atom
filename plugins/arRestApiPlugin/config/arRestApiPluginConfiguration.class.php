@@ -298,6 +298,10 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'fixityRead',
       'params' => array('uuid' => self::REGEX_UUID)));
+
+    $this->addRoute('GET', '/api/fixitywidget', array(
+      'module' => 'api',
+      'action' => 'fixityWidget'));
   }
 
   protected function addRoute($method, $pattern, array $options = array())
