@@ -4,9 +4,13 @@
   <div class="span12 dashboard-header">
     <h5>Recent additions</h5>
     <div class="banner">
-      <a href ng-repeat="item in ingestionActivity | limitTo:20" ui-sref="main.works.view({ id: item.id })">
-        <img ng-src="{{ item.thumbnail_path }}"/>
-      </a>
+      <div class="banner-wrapper">
+        <div class="banner-item" ng-repeat="item in ingestionActivity | limitTo:20">
+          <a href ui-sref="main.works.view({ id: item.id })">
+            <img ng-src="{{ item.thumbnail_path }}"/>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 
