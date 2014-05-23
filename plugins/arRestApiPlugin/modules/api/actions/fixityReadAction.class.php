@@ -44,8 +44,7 @@ class ApiFixityReadAction extends QubitApiAction
 
     // Pagination and sorting
     $this->prepareEsPagination($query);
-    $this->prepareEsSorting($query, array(
-      'time' => 'timeCompleted'));
+    $query->setSort(array('timeStarted' => 'desc'));
 
     // Assign query
     $query->setQuery($queryBool);
