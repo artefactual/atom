@@ -9,4 +9,11 @@ module.exports = function (SETTINGS, $http) {
     });
   };
 
+  this.getDashboardFixity = function () {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/fixitywidget'
+    });
+  };
+
 };

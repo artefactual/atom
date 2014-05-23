@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $q, StatisticsService) {
+module.exports = function ($scope, $q, StatisticsService, FixityService) {
 
   var pull = function () {
 
@@ -81,5 +81,10 @@ module.exports = function ($scope, $q, StatisticsService) {
   };
 
   pull();
+
+  FixityService.getDashboardFixity().success(function (data) {
+    console.log(data);
+    $scope.fixityStats = data;
+  });
 
 };
