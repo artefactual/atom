@@ -51,8 +51,8 @@ class ApiFixityCreateAction extends QubitApiAction
 
         break;
 
-      case 'collection_check_id':
-        $this->report->collectionCheckId = $value;
+      case 'session_uuid':
+        $this->report->sessionUuid = $value;
 
         break;
 

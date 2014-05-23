@@ -447,7 +447,7 @@ mapping:
       message: { type: string, index: not_analyzed, include_in_all: false }
       time_started: { type: date, index: not_analyzed, include_in_all: false }
       time_completed: { type: date, index: not_analyzed, include_in_all: false }
-      collection_check_id: { type: integer, index: not_analyzed, include_in_all: false }
+      session_uuid: { type: string, index: not_analyzed, include_in_all: false }
       aip:
         type: object
         properties:

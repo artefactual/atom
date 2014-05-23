@@ -66,7 +66,6 @@ class ApiFixityReadAction extends QubitApiAction
       $this->addItemToArray($report, 'message', $doc['message']);
       $this->addItemToArray($report, 'time_started', $doc['timeStarted']);
       $this->addItemToArray($report, 'time_completed', $doc['timeCompleted']);
-      $this->addItemToArray($report, 'collection_check_id', $doc['collectionCheckId']);
 
       if (isset($doc['timeCompleted']) && isset($doc['timeStarted']))
       {

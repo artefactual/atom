@@ -40,7 +40,7 @@ class FixityReportTableMap extends TableMap {
 		$this->addColumn('SUCCESS', 'success', 'BOOLEAN', false, null, null);
 		$this->addColumn('MESSAGE', 'message', 'VARCHAR', false, 255, null);
 		$this->addColumn('FAILURES', 'failures', 'LONGVARCHAR', false, null, null);
-		$this->addColumn('COLLECTION_CHECK_ID', 'collectionCheckId', 'INTEGER', false, null, null);
+		$this->addColumn('SESSION_UUID', 'sessionUuid', 'VARCHAR', false, 36, null);
 		$this->addForeignKey('AIP_ID', 'aipId', 'INTEGER', 'aip', 'ID', false, null, null);
 		$this->addColumn('UUID', 'uuid', 'VARCHAR', false, 36, null);
 		$this->addColumn('TIME_STARTED', 'timeStarted', 'TIMESTAMP', false, null, null);

@@ -342,7 +342,7 @@ CREATE TABLE `fixity_report`
 	`success` TINYINT,
 	`message` VARCHAR(255),
 	`failures` TEXT,
-	`collection_check_id` INTEGER,
+	`session_uuid` VARCHAR(36),
 	`aip_id` INTEGER,
 	`uuid` VARCHAR(36),
 	`time_started` DATETIME,

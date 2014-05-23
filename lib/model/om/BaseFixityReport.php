@@ -11,7 +11,7 @@ abstract class BaseFixityReport extends QubitObject implements ArrayAccess
     SUCCESS = 'fixity_report.SUCCESS',
     MESSAGE = 'fixity_report.MESSAGE',
     FAILURES = 'fixity_report.FAILURES',
-    COLLECTION_CHECK_ID = 'fixity_report.COLLECTION_CHECK_ID',
+    SESSION_UUID = 'fixity_report.SESSION_UUID',
     AIP_ID = 'fixity_report.AIP_ID',
     UUID = 'fixity_report.UUID',
     TIME_STARTED = 'fixity_report.TIME_STARTED',
@@ -27,7 +27,7 @@ abstract class BaseFixityReport extends QubitObject implements ArrayAccess
     $criteria->addSelectColumn(QubitFixityReport::SUCCESS);
     $criteria->addSelectColumn(QubitFixityReport::MESSAGE);
     $criteria->addSelectColumn(QubitFixityReport::FAILURES);
-    $criteria->addSelectColumn(QubitFixityReport::COLLECTION_CHECK_ID);
+    $criteria->addSelectColumn(QubitFixityReport::SESSION_UUID);
     $criteria->addSelectColumn(QubitFixityReport::AIP_ID);
     $criteria->addSelectColumn(QubitFixityReport::UUID);
     $criteria->addSelectColumn(QubitFixityReport::TIME_STARTED);

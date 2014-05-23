@@ -112,7 +112,7 @@ propel:
     success: boolean
     message: varchar(255)
     failures: longvarchar
-    collection_check_id: integer
+    session_uuid: varchar(36)
     aip_id: { type: integer, foreignTable: aip, foreignReference: id, onDelete: setnull }
     uuid: varchar(36)
     time_started: timestamp

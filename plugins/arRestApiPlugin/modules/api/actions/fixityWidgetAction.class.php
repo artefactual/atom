@@ -56,7 +56,11 @@ class ApiFixityWidgetAction extends QubitApiAction
       }
 
       $this->addItemToArray($report, 'time_completed', $doc['timeCompleted']);
-      $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
+
+      if (isset($doc['aip']['name']))
+      {
+        $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
+      }
 
       if (isset($doc['timeCompleted']) && isset($doc['timeStarted']))
       {
@@ -92,7 +96,11 @@ class ApiFixityWidgetAction extends QubitApiAction
       }
 
       $this->addItemToArray($report, 'time_completed', $doc['timeCompleted']);
-      $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
+
+      if (isset($doc['aip']['name']))
+      {
+        $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
+      }
 
       if (isset($doc['timeCompleted']) && isset($doc['timeStarted']))
       {
@@ -152,7 +160,7 @@ class ApiFixityWidgetAction extends QubitApiAction
                 MIN(time_started) as min,
                 MAX(time_completed) as max
                 FROM fixity_report
-                GROUP BY collection_check_id
+                GROUP BY session_uuid
                 ORDER BY time_started DESC';
 
     $result = QubitPdo::fetchOne($sql);
