@@ -48,6 +48,15 @@
     }
   }
 
+  // Badge with fail count
+  ul.menu-list-right li{
+    margin-top: 6px;
+
+    span.badge {
+      margin-right: 8px;
+    }
+  }
+
   .nav {
     margin-bottom: 0;
     a {
@@ -69,6 +78,7 @@
     min-height: 240px;
     max-height: 380px;
   }
+}
 
   .tab-like-content {
     background: @white;
@@ -100,4 +110,13 @@
       padding:6px 9px;
     }
   }
-}
+
+  .moma-error {
+    background: @momaError;
+    color: @white;
+    a {
+      color: @white;
+      text-decoration: underline;
+    }
+  }
+

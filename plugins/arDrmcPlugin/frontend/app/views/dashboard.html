@@ -15,7 +15,7 @@
   </div>
 
   <!-- Fixity Checker -->
-  <div class="span12 dashboard-widget">
+  <div class="span12 dashboard-widget integrity-checker-widget">
     <div class="content">
 
       <section>
@@ -31,7 +31,7 @@
         </div>
       </section>
 
-      <div class="row-fluid integrity-checker-widget">
+      <div class="row-fluid">
 
         <div class="span2">
           <h3 class="muted">Status</h3>
@@ -69,11 +69,10 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- TODO Filter properly -->
-                <tr ng-repeat="(key, aip) in fixityStats.lastChecks | orderBy:predicate:reverse">
+                <tr ng-repeat="(key, aip) in fixityStats.lastChecks" ng-class="{ 'moma-success' : aip.outcome, 'moma-error' : !aip.outcome }">
                   <td><a ui-sref="main.aips.view({ uuid: aip.uuid })">{{ aip.aip_name }}</a></td>
-                  <td>{{ aip.time_completed }}</td>
-                  <td>{{ aip.duration }}</td>
+                  <td>{{ aip.time_completed | DateStampFilter }}</td>
+                  <td>{{ aip.duration | ConvertSecondsFilter }}</td>
                   <td>{{ aip.outcome }}</td>
                 </tr>
               </tbody>
@@ -92,10 +91,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="(key, aip) in fixityStats.lastFails | orderBy:predicate:reverse">
+                <tr ng-repeat="(key, aip) in fixityStats.lastFails" ng-class="{ 'moma-success' : aip.outcome, 'moma-error' : !aip.outcome }">
                   <td><a ui-sref="main.aips.view({ uuid: aip.uuid })">{{ aip.aip_name }}</a></td>
-                  <td>{{ aip.time_completed }}</td>
-                  <td>{{ aip.duration }}</td>
+                  <td>{{ aip.time_completed | DateStampFilter }}</td>
+                  <td>{{ aip.duration | ConvertSecondsFilter}}</td>
                   <td>{{ aip.outcome }}</td>
                 </tr>
               </tbody>
