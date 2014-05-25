@@ -14,9 +14,7 @@
     </div>
   </div>
 
-</div>
-
-<div class="row">
+  <!-- Fixity Checker -->
   <div class="span12 dashboard-widget">
     <div class="content">
 
@@ -34,6 +32,7 @@
       </section>
 
       <div class="row-fluid integrity-checker-widget">
+
         <div class="span2">
           <h3 class="muted">Status</h3>
           <span class="muted label" ng-class="{ 'label-important': fixityStats.lastFails, 'label-success': !fixityStats.lastFails }">{{ fixityStats.lastFails.outcome ? 'OK' : 'Not OK' }}</span>
@@ -56,55 +55,54 @@
       </div>
 
       <div class="browse-view-list">
+        <tabset>
 
-      <tabset>
+          <!-- All -->
+          <tab heading="All">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>AIP name</th>
+                  <th>Time completed</th>
+                  <th>Duration</th>
+                  <th>Outcome</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- TODO Filter properly -->
+                <tr ng-repeat="(key, aip) in fixityStats.lastChecks | orderBy:predicate:reverse">
+                  <td><a ui-sref="main.aips.view({ uuid: aip.uuid })">{{ aip.aip_name }}</a></td>
+                  <td>{{ aip.time_completed }}</td>
+                  <td>{{ aip.duration }}</td>
+                  <td>{{ aip.outcome }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </tab>
 
-        <!-- All -->
-        <tab heading="All">
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>AIP name</th>
-                <th>Time completed</th>
-                <th>Duration</th>
-                <th>Outcome</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- TODO Filter properly -->
-              <tr ng-repeat="(key, aip) in fixityStats.lastChecks | orderBy:predicate:reverse">
-                <td><a ui-sref="main.aips.view({ uuid: aip.uuid })">{{ aip.aip_name }}</a></td>
-                <td>{{ aip.time_completed }}</td>
-                <td>{{ aip.duration }}</td>
-                <td>{{ aip.outcome }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </tab>
+          <!-- Failed -->
+          <tab heading="Failed">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>AIP name</th>
+                  <th>Time completed</th>
+                  <th>Duration</th>
+                  <th>Outcome</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="(key, aip) in fixityStats.lastFails | orderBy:predicate:reverse">
+                  <td><a ui-sref="main.aips.view({ uuid: aip.uuid })">{{ aip.aip_name }}</a></td>
+                  <td>{{ aip.time_completed }}</td>
+                  <td>{{ aip.duration }}</td>
+                  <td>{{ aip.outcome }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </tab>
 
-        <!-- Failed -->
-        <tab heading="Failed">
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>AIP name</th>
-                <th>Time completed</th>
-                <th>Duration</th>
-                <th>Outcome</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="(key, aip) in fixityStats.lastFails | orderBy:predicate:reverse">
-                <td><a ui-sref="main.aips.view({ uuid: aip.uuid })">{{ aip.aip_name }}</a></td>
-                <td>{{ aip.time_completed }}</td>
-                <td>{{ aip.duration }}</td>
-                <td>{{ aip.outcome }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </tab>
-
-    </tabset>
+        </tabset>
       </div>
 
     </div>
@@ -164,10 +162,6 @@
     </tabset>
   </div>
 
-</div>
-
-<div class="row">
-
   <!-- Storage -->
   <div class="span6 dashboard-widget">
     <h3 class="fontello drmc-icon-chart-pie">Storage</h3>
@@ -211,6 +205,7 @@
 <!-- Second row -->
 <div class="row">
 
+  <!-- Monthly totals -->
   <div class="span6 dashboard-widget">
     <h3 class="fontello drmc-icon-chart-line">Running totals</h3>
     <tabset class="dashboard-rs-graph">
