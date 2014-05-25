@@ -34,6 +34,14 @@ class ApiFixityWidgetAction extends QubitApiAction
     $filter = new \Elastica\Filter\Exists('timeCompleted');
     $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filter);
 
+    // Start H
+    // Query for UUID
+    $queryTerm = new \Elastica\Query\Term;
+    $queryTerm->setTerm('uuid', $request->uuid);
+    // This breaks. Maybe it adds mandatory field, and can't find it == break?
+    //$queryBool->addMust($queryTerm);
+    // End H
+
     $queryBool->addMust($filteredQuery);
 
     $this->prepareEsPagination($query);
@@ -61,6 +69,13 @@ class ApiFixityWidgetAction extends QubitApiAction
       {
         $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
       }
+
+      // Begin H
+      if (isset($doc['uuid']))
+      {
+        $this->addItemToArray($report, 'uuid', $doc['uuid']);
+      }
+      // End H
 
       if (isset($doc['timeCompleted']) && isset($doc['timeStarted']))
       {
