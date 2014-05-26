@@ -70,6 +70,15 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
   FixityService.getAIPFixity($stateParams.uuid)
     .success(function (data) {
       $scope.fixityStatus = data.results;
+    }).then(function () {
+      // Get count of failed fixity checks
+      $scope.fails = [];
+      angular.forEach($scope.fixityStatus, function (i) {
+        if(i.failures) {
+          $scope.fails.push(i);
+        }
+        $scope.fixityFailsCount = $scope.fails.length;
+      });
     });
 
 };

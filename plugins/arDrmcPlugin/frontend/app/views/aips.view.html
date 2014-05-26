@@ -113,6 +113,11 @@
             <ul class="menu-list-left">
               <li><h2>Fixity reports</h2></li>
             </ul>
+            <ul class="menu-list-right nav nav-pills">
+              <li>
+                Status:&nbsp&nbsp<span class="badge menu-badge" ng-class="{ 'badge-important': fixityFailsCount, 'badge-success': !fixityFailsCount }">{{ fixityFailsCount }}</span>
+              </li>
+            </ul>
           </div>
 
           <div class="browse-view-list">
@@ -127,7 +132,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="(key, status) in fixityStatus" ng-class="{ 'success': status.success, 'error': !status.success }">
+                <tr ng-repeat="(key, status) in fixityStatus" ng-class="{ 'moma-success': status.success, 'moma-error': !status.success }">
                   <td>{{ key }}</td>
                   <td>{{ (status.time_started | DateStampFilter) || 'none' }}</td>
                   <td>{{ (status.time_completed | DateStampFilter) || 'none' }}</td>

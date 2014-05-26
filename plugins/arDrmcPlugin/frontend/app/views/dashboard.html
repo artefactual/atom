@@ -25,7 +25,7 @@
           </ul>
           <ul class="menu-list-right nav nav-pills">
             <li>
-              Status:&nbsp&nbsp<span class="badge" ng-class="{ 'badge-important': fixityStats.lastFails, 'badge-success': !fixityStats.lastFails }">{{ fixityFailsCount }}</span>
+              Status:&nbsp&nbsp<span class="badge menu-badge" ng-class="{ 'badge-important': fixityStats.lastFails, 'badge-success': !fixityStats.lastFails }">{{ fixityFailsCount }}</span>
             </li>
           </ul>
         </div>
@@ -40,7 +40,9 @@
 
         <div class="span4">
           <h3>Currently checking</h3>
-          <span class="muted">{{ fixityStats.currentlyChecking }}</span>
+          <span class="muted" ng-repeat="aip in fixityStats.currentlyChecking">
+            <a href ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a>
+          </span>
         </div>
 
         <div class="span2">
@@ -70,7 +72,7 @@
               </thead>
               <tbody>
                 <tr ng-repeat="(key, aip) in fixityStats.lastChecks" ng-class="{ 'moma-success' : aip.outcome, 'moma-error' : !aip.outcome }">
-                  <td><a ui-sref="main.aips.view({ uuid: aip.uuid })">{{ aip.aip_name }}</a></td>
+                  <td><a href ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a></td>
                   <td>{{ aip.time_completed | DateStampFilter }}</td>
                   <td>{{ aip.duration | ConvertSecondsFilter }}</td>
                   <td>{{ aip.outcome }}</td>
