@@ -27,6 +27,19 @@
  */
 class QubitSetting extends BaseSetting
 {
+  public static
+    $premisAccessRightValueDefaults = array(
+      'allow_master'          => 0,
+      'allow_reference'       => 0,
+      'allow_thumb'           => 0,
+      'conditional_master'    => 0,
+      'conditional_reference' => 0,
+      'conditional_thumb'     => 0,
+      'disallow_master'       => 0,
+      'disallow_reference'    => 0,
+      'disallow_thumb'        => 0
+    );
+
   public function __toString()
   {
     if (null == $value = $this->value)

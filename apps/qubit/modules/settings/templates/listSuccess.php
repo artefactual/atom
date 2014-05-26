@@ -359,84 +359,61 @@
 
   <form action="<?php echo url_for('settings/list') ?>" method="post">
 
-    <?php echo $permissionsForm->permissions['act']->render() ?>
+    <?php echo $permissionsForm['granted_right']->render() ?>
 
-    <?php foreach ($permissionsForm->permissions as $act => $form): ?>
-    <?php if ($act == 'act') continue; // skip rendering act ?>
-    <div class="well well-large grantedRight <?php echo $act ?>">
+    <div class="well well-large" style="background-color: #fff">
       <div><?php echo __('Allow') ?></div>
       <div class="well well-small">
         <div>
-          <?php echo $form['allow_master']->renderLabelName() ?>
-          <?php echo $form['allow_master']->render(array('style' => 'display: inline; width: auto;')) ?>
+          <?php echo $permissionsForm['permissions']['allow_master']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['allow_master']->render(array('style' => 'display: inline; width: auto;')) ?>
         </div>
         <div>
-          <?php echo $form['allow_reference']->renderLabelName() ?>
-          <?php echo $form['allow_reference']->render(array('style' => 'display: inline; width: auto;')) ?>
+          <?php echo $permissionsForm['permissions']['allow_reference']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['allow_reference']->render(array('style' => 'display: inline; width: auto;')) ?>
         </div>
         <div>
-          <?php echo $form['allow_thumb']->renderLabelName() ?>
-          <?php echo $form['allow_thumb']->render(array('style' => 'display: inline; width: auto;')) ?>
+          <?php echo $permissionsForm['permissions']['allow_thumb']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['allow_thumb']->render(array('style' => 'display: inline; width: auto;')) ?>
         </div>
       </div>
 
       <div><?php echo __('Conditional') ?></div>
       <div class="well well-small">
         <div>
-          <?php echo $form['conditional_master']->renderLabelName() ?>
-          <?php echo $form['conditional_master']->render(array('style' => 'display: inline; width: auto;')) ?>
+          <?php echo $permissionsForm['permissions']['conditional_master']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['conditional_master']->render(array('style' => 'display: inline; width: auto;')) ?>
         </div>
         <div>
-          <?php echo $form['conditional_reference']->renderLabelName() ?>
-          <?php echo $form['conditional_reference']->render(array('style' => 'display: inline; width: auto;')) ?>
+          <?php echo $permissionsForm['permissions']['conditional_reference']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['conditional_reference']->render(array('style' => 'display: inline; width: auto;')) ?>
         </div>
         <div>
-          <?php echo $form['conditional_thumb']->renderLabelName() ?>
-          <?php echo $form['conditional_thumb']->render(array('style' => 'display: inline; width: auto;')) ?>
+          <?php echo $permissionsForm['permissions']['conditional_thumb']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['conditional_thumb']->render(array('style' => 'display: inline; width: auto;')) ?>
         </div>
       </div>
 
       <div><?php echo __('Disallow') ?></div>
       <div class="well well-small">
         <div>
-          <?php echo $form['disallow_master']->renderLabelName() ?>
-          <?php echo $form['disallow_master']->render(array('style' => 'display: inline; width: auto;')) ?>
+          <?php echo $permissionsForm['permissions']['disallow_master']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['disallow_master']->render(array('style' => 'display: inline; width: auto;')) ?>
         </div>
         <div>
-          <?php echo $form['disallow_reference']->renderLabelName() ?>
-          <?php echo $form['disallow_reference']->render(array('style' => 'display: inline; width: auto;')) ?>
+          <?php echo $permissionsForm['permissions']['disallow_reference']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['disallow_reference']->render(array('style' => 'display: inline; width: auto;')) ?>
         </div>
         <div>
-          <?php echo $form['disallow_thumb']->renderLabelName() ?>
-          <?php echo $form['disallow_thumb']->render(array('style' => 'display: inline; width: auto;')) ?>
+          <?php echo $permissionsForm['permissions']['disallow_thumb']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['disallow_thumb']->render(array('style' => 'display: inline; width: auto;')) ?>
         </div>
       </div>
+      <div style="text-align: right;">
+        <input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/>
+      </div>
     </div>
-    <?php endforeach; ?>
   
-    <input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/>
   </form>
 
 </fieldset>
-
-<script type="text/javascript">
-  (function ($)
-  {
-    Drupal.behaviors.settingPermissions = {
-      attach: function (context)
-        {
-          Drupal.behaviors.settingPermissions.render();
-          $("#permissions_act").on('change', Drupal.behaviors.settingPermissions.render)
-        },
-      render: function()
-      {
-        var nodes = $('.grantedRight');
-        var act = $( "#permissions_act option:selected" ).text();
-        nodes.hide();
-        $('.grantedRight.' + act).show();
-      }
-    };
-  })(jQuery);
-
-</script>
-

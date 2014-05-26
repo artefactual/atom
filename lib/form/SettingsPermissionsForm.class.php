@@ -27,7 +27,21 @@
  */
 class SettingsPermissionsForm extends sfForm
 {
-  protected function newSubForm($act)
+  
+  protected function getGrantedRightChoices()
+  {
+    $choices = null;
+    $routing  = sfContext::getInstance()->getRouting();
+
+    foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_ACT_ID) as $gr)
+    {
+      $choices[$gr->slug] = $gr->__toString();
+    }
+
+    return $choices;
+  }
+
+  protected function newSubForm()
   {
     $choices = array('0' => 'Disallowed', '1' => 'Allowed');
     $form = new sfForm;
@@ -56,24 +70,34 @@ class SettingsPermissionsForm extends sfForm
       'disallow_thumb'         => 'View/Download Thumbnail representation'
     ));
 
+    $form->setDefaults(unserialize($this->premisAccessRightValues->value));
+
     return $form;
   }
 
   public function configure()
-  {
-    $this->routing  = sfContext::getInstance()->getRouting();
-    $this->acts = QubitTaxonomy::getTermsById(QubitTaxonomy::RIGHT_ACT_ID);
-    $formCollection = new sfForm;
-
-    foreach ($this->acts as $i => $act)
+  { 
+    $this->premisAccessRight = QubitSetting::getByName('premisAccessRight');
+    $this->premisAccessRightValues = QubitSetting::getByName('premisAccessRightValues');
+    
+    if (null === $this->premisAccessRightValues)
     {
-      $choices[$this->routing->generate(null, array($act, 'module' => 'term'))] = $act->__toString();
-      $formCollection->embedForm($act->__toString(), $this->newSubForm($act));
+      $this->premisAccessRightValues = QubitSetting::createNewSetting(
+        'premisAccessRightValues', serialize(QubitSetting::$premisAccessRightValueDefaults)
+      );
+      $this->premisAccessRightValues->save();
     }
 
-    $formCollection->setValidator('act', new sfValidatorString);
-    $formCollection->setWidget('act', new sfWidgetFormSelect(array('choices' => $choices)));
+    if (null === $this->premisAccessRight)
+    {
+      $this->premisAccessRight = QubitSetting::createNewSetting('premisAccessRight', 'delete');
+      $this->premisAccessRight->save();
+    }
 
-    $this->embedForm('permissions', $formCollection);
+    $this->setWidget(
+      'granted_right', new sfWidgetFormSelect(array('choices' => $this->getGrantedRightChoices()))
+    );
+    $this->getWidget('granted_right')->setDefault($this->premisAccessRight->value);
+    $this->embedForm('permissions', $this->newSubForm());
   }
 }
