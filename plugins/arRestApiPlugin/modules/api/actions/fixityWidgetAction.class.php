@@ -99,7 +99,8 @@ class ApiFixityWidgetAction extends QubitApiAction
         $report['outcome'] = (bool)$doc['success'];
       }
 
-      if (isset($doc['aip']['uuid'])) {
+      if (isset($doc['aip']['uuid']))
+      {
         $this->addItemToArray($report, 'aip_uuid', $doc['aip']['uuid']);
       }
 

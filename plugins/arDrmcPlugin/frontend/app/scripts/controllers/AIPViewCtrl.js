@@ -74,7 +74,7 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
       // Get count of failed fixity checks
       $scope.fails = [];
       angular.forEach($scope.fixityStatus, function (i) {
-        if(i.failures) {
+        if (i.failures) {
           $scope.fails.push(i);
         }
         $scope.fixityFailsCount = $scope.fails.length;
