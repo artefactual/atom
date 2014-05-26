@@ -113,7 +113,7 @@ EOF;
 
       /* import columns that should be redirected to QubitInformationObject
          properties (and optionally transformed)
-      
+
          Example:
          'columnMap' => array(
            'Archival History' => 'archivalHistory',
@@ -265,7 +265,7 @@ EOF;
       if ($data)
       {
         if (isset($self->object) && is_object($self->object))
-        { 
+        {
           $parsedDate = $self->parseDateLoggingErrors($data);
           if ($parsedDate) {
             $self->object->date = $parsedDate;
@@ -336,4 +336,4 @@ function setObjectPropertyToTermIdLookedUpFromTermNameArray(&$self, $property, $
       );
     }
   }
-  }
+}
