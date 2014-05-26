@@ -83,14 +83,14 @@ class SettingsPermissionsForm extends sfForm
     if (null === $this->premisAccessRightValues)
     {
       $this->premisAccessRightValues = QubitSetting::createNewSetting(
-        'premisAccessRightValues', serialize(QubitSetting::$premisAccessRightValueDefaults)
+        'premisAccessRightValues', serialize(QubitSetting::$premisAccessRightValueDefaults), array('deleteable' => false)
       );
       $this->premisAccessRightValues->save();
     }
 
     if (null === $this->premisAccessRight)
     {
-      $this->premisAccessRight = QubitSetting::createNewSetting('premisAccessRight', 'delete');
+      $this->premisAccessRight = QubitSetting::createNewSetting('premisAccessRight', 'delete', array('deleteable' => false));
       $this->premisAccessRight->save();
     }
 
