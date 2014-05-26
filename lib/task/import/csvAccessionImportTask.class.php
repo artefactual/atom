@@ -146,7 +146,8 @@ EOF;
         'donorPostalCode',
         'donorTelephone',
         'donorEmail',
-        'creators'
+        'creators',
+        'qubitParentSlug'
       ),
 
       /* import logic to load accession */
@@ -237,6 +238,23 @@ EOF;
 
             // create relation between accession and donor
             $self->createRelation($self->object->id, $actor->id, QubitTerm::DONOR_ID);
+          }
+          
+          // Link accession to existing description
+          if (
+            isset($self->rowStatusVars['qubitParentSlug'])
+            && $self->rowStatusVars['qubitParentSlug']
+          )
+          {
+            $query = "SELECT object_id FROM slug WHERE slug=?";
+            $statement = QubitFlatfileImport::sqlQuery($query, array($self->rowStatusVars['qubitParentSlug']));
+            $result = $statement->fetch(PDO::FETCH_OBJ);
+            if ($result)
+            {
+              $self->createRelation($result->object_id, $self->object->id, QubitTerm::ACCESSION_ID);
+            } else {
+              throw new sfException('Could not find information object matching slug "'. $self->rowStatusVars['qubitParentSlug'] .'"');
+            }
           }
         }
       }
