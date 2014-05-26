@@ -2,7 +2,7 @@
 
 module.exports = function (SETTINGS, $http) {
 
-  this.getAIPFixity = function (uuid) {
+  this.getAipFixity = function (uuid) {
     return $http({
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/fixity/' + uuid
