@@ -13,16 +13,17 @@ module.exports = function () {
     var remSeconds = seconds % minute;
 
     if (seconds < minute) {
-      return (seconds + 's');
+      return seconds + 's';
     } else if (seconds > minute && seconds < hour) {
       // bigger than 1 minute, smaller than 1 hour
-      return (minutes + 'm' + remSeconds + 's');
+      return minutes + 'm' + remSeconds + 's';
     } else if (seconds > hour) {
       // bigger than 1 hour
-      return (hours + 'h' + remMinutes + 'm' + remSeconds + 's');
+      return hours + 'h' + remMinutes + 'm' + remSeconds + 's';
     } else if (!Number(seconds)) {
       // Not available
-      return 'none';
+      return;
     }
   };
+
 };

@@ -25,7 +25,7 @@
           </ul>
           <ul class="menu-list-right nav nav-pills">
             <li>
-              Status:&nbsp&nbsp<span class="badge menu-badge" ng-class="{ 'moma-error': fixityStats.lastFails, 'badge-success': !fixityStats.lastFails }">{{ fixityFailsCount }}</span>
+              Status:&nbsp&nbsp<span class="badge menu-badge" ng-class="{ 'badge-important': fixityStats.lastFails, 'badge-success': !fixityStats.lastFails }">{{ fixityFailsCount }}</span>
             </li>
           </ul>
         </div>
@@ -33,27 +33,28 @@
 
       <div class="row-fluid">
 
-        <div class="span2">
+        <div class="span2 integrity-status-field">
           <h3 class="muted">Status</h3>
-          <span class="muted label" ng-class="{ 'moma-error': fixityStats.lastFails, 'label-success': !fixityStats.lastFails }">{{ fixityStats.lastFails.outcome ? 'OK' : 'Not OK' }}</span>
+          <span class="muted label" ng-class="{ 'label-important': fixityStats.lastFails, 'label-success': !fixityStats.lastFails }">{{ fixityStats.lastFails.outcome ? 'OK' : 'Not OK' }}</span>
         </div>
 
-        <div class="span4">
+        <div class="span4 integrity-status-field">
           <h3>Currently checking</h3>
           <span class="muted" ng-repeat="aip in fixityStats.currentlyChecking">
             <a href ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a>
           </span>
         </div>
 
-        <div class="span2">
+        <div class="span2 integrity-status-field">
           <h3>Checks in 24hr</h3>
           <span class="muted">{{ fixityStats.checksLastDay }}</span>
         </div>
 
-        <div class="span4">
+        <div class="span4 integrity-status-field">
           <h3>Time to check collection</h3>
           <span class="muted">{{ fixityStats.timeToCheckCollection }}</span>
         </div>
+
       </div>
 
       <div class="browse-view-list">
@@ -71,7 +72,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="(key, aip) in fixityStats.lastChecks" ng-class="{ 'moma-success' : aip.outcome, 'moma-error' : !aip.outcome }">
+                <tr ng-repeat="(key, aip) in fixityStats.lastChecks" ng-class="{ 'success' : aip.outcome, 'error' : !aip.outcome }">
                   <td><a href ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a></td>
                   <td>{{ aip.time_completed | DateStampFilter }}</td>
                   <td>{{ aip.duration | ConvertSecondsFilter }}</td>
@@ -93,8 +94,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="(key, aip) in fixityStats.lastFails" ng-class="{ 'moma-success' : aip.outcome, 'moma-error' : !aip.outcome }">
-                  <td><a ui-sref="main.aips.view({ uuid: aip.uuid })">{{ aip.aip_name }}</a></td>
+                <tr ng-repeat="(key, aip) in fixityStats.lastFails" ng-class="{ 'success' : aip.outcome, 'error' : !aip.outcome }">
+                  <td><a ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a></td>
                   <td>{{ aip.time_completed | DateStampFilter }}</td>
                   <td>{{ aip.duration | ConvertSecondsFilter}}</td>
                   <td>{{ aip.outcome }}</td>

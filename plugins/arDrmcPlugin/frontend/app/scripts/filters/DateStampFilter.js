@@ -3,7 +3,7 @@
 module.exports = function () {
 
   return function (input) {
-    if (!input) {
+    if (angular.isUndefined(input)) {
       return;
     }
 

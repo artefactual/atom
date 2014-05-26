@@ -8,6 +8,20 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
       pullFiles();
     });
 
+  FixityService.getAipFixity($stateParams.uuid)
+    .success(function (data) {
+      $scope.fixityStatus = data.results;
+    }).then(function () {
+      // Get count of failed fixity checks
+      $scope.fails = [];
+      angular.forEach($scope.fixityStatus, function (i) {
+        if (i.failures) {
+          $scope.fails.push(i);
+        }
+        $scope.fixityFailsCount = $scope.fails.length;
+      });
+    });
+
   // Levels of description to determine part_of link
   $scope.artworkId = parseInt(SETTINGS.drmc.lod_artwork_record_id);
   $scope.techId = parseInt(SETTINGS.drmc.lod_supporting_technology_record_id);
@@ -66,19 +80,5 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
   $scope.$watch('page', function (value) {
     $scope.criteria.skip = (value - 1) * $scope.criteria.limit;
   });
-
-  FixityService.getAIPFixity($stateParams.uuid)
-    .success(function (data) {
-      $scope.fixityStatus = data.results;
-    }).then(function () {
-      // Get count of failed fixity checks
-      $scope.fails = [];
-      angular.forEach($scope.fixityStatus, function (i) {
-        if (i.failures) {
-          $scope.fails.push(i);
-        }
-        $scope.fixityFailsCount = $scope.fails.length;
-      });
-    });
 
 };

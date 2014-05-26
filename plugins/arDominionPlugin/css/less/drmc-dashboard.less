@@ -71,43 +71,30 @@
   }
 }
 
-  .tab-like-content {
-    background: @white;
-    overflow: hidden;
-    padding: 20px;
-    border: 1px solid #ddd;
-  }
+.short-widget-content {
+  max-height: 300px;
+  overflow: scroll;
+  background: @white;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
 
-  .short-widget-content {
-    max-height: 300px;
-    overflow: scroll;
-  }
+.integrity-checker-widget {
+  // reset from bootstrap
+  margin-left: 0;
 
-  .integrity-checker-widget {
-    // reset from bootstrap
-    margin-left: 0;
+  .integrity-status-field {
+    text-align: center;
 
-    div {
-      text-align: center;
-    }
-
-    div > h3 {
+    h3 {
       line-height: 16px;
     }
 
-    div > span {
+    span {
       border-radius: 4px;
       border: 1px solid @grayLighter;
-      padding:6px 9px;
+      padding: 6px 9px;
     }
   }
-
-  .moma-error {
-    background-color: darken(@momaNodeAip, 30%);
-    color: @white;
-    a {
-      color: @white;
-      text-decoration: underline;
-    }
-  }
+}
 

@@ -132,7 +132,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="(key, status) in fixityStatus" ng-class="{ 'moma-success': status.success, 'moma-error': !status.success }">
+                <tr ng-repeat="(key, status) in fixityStatus" ng-class="{ 'success': status.success, 'error': !status.success }">
                   <td>{{ key }}</td>
                   <td>{{ (status.time_started | DateStampFilter) || 'none' }}</td>
                   <td>{{ (status.time_completed | DateStampFilter) || 'none' }}</td>
