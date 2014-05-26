@@ -20,7 +20,7 @@
 
   <!-- Recent activity -->
   <div class="span12 dashboard-widget">
-    <h3 class="graph-list">Recent activity</h3>
+    <h3 class="graph-list icon-list">Recent activity</h3>
     <tabset>
 
       <!-- Ingests -->
@@ -77,51 +77,66 @@
 <div class="row">
 
   <!-- Storage -->
-  <div class="span8 dashboard-widget">
-    <h3 class="fontello drmc-icon-chart-pie">Artwork storage by codec</h3>
+  <div class="span6 dashboard-widget">
+    <h3 class="fontello drmc-icon-chart-pie">Storage</h3>
     <tabset class="dashboard-rs-graph">
-      <tab heading="Count">
-        <ar:graph-pie data="{{ countByDepartment }}" width="200" unit-filter="off" class="graph-pie"></ar:graph-pie>
+      <tab heading="Codec">
+        <ar:graph-pie data="{{ storageCodecs }}" width="200" unit-filter="on" class="graph-pie" color="colorC"></ar:graph-pie>
       </tab>
-      <tab heading="Size">
-        <ar:graph-pie data="{{ storageCodecs }}" width="200" unit-filter="on" class="graph-pie"></ar:graph-pie>
+      <tab heading="Format">
+        <ar:graph-pie data="{{ storageFormats }}" width="200" unit-filter="on" class="graph-pie" color="colorC"></ar:graph-pie>
+      </tab>
+      <tab heading="Department">
+        <ar:graph-pie data="{{ countByDepartment }}" width="200" unit-filter="off" class="graph-pie" color="colorA"></ar:graph-pie>
       </tab>
     </tabset>
+
+    <div class="dashboard-widget">
+      <h3 class="icon-list">Collection totals</h3>
+      <div class="tab-like-content short-widget-content">
+        <ul class="unstyled" ng-repeat="items in ingestionSummary.data">
+          <li><strong>{{ items.type }}</strong>&nbsp&nbsp{{ items.total }}</li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Collection totals -->
-  <div class="span4 dashboard-widget">
-    <h3 class="fontello drmc-icon-chart-pie">Collection totals</h3>
-    <tabset>
-      <tab heading="All">
-        <ar:graph-pie data="{{ ingestionSummary }}" width="200" class="graph-pie"></ar:graph-pie>
+  <div class="span6 dashboard-widget">
+    <h3 class="fontello drmc-icon-chart-line">Monthly totals</h3>
+    <tabset class="dashboard-rs-graph">
+      <tab heading="Collection date">
+        <ar:graph-line data="{{ yearlyCountsByCollectionDate }}" type="line" width="460" height="280" xper-tick="100" yper-tick="40"></ar:graph-line>
+      </tab>
+      <tab heading="Ingest date">
+        <ar:graph-line data="{{ monthlyCountsByCreation }}" type="line" width="460" height="280" xper-tick="100" yper-tick="40"></ar:graph-line>
       </tab>
     </tabset>
   </div>
 
 </div>
 
+<!-- Second row -->
 <div class="row">
 
-  <!-- Monthly totals -->
   <div class="span6 dashboard-widget">
-    <h3 class="fontello drmc-icon-chart-line">Total artworks</h3>
+    <h3 class="fontello drmc-icon-chart-line">Running totals</h3>
     <tabset class="dashboard-rs-graph">
       <tab heading="Collection date">
-        <ar:graph-line data="{{ yearlyTotalsByCollectionDate }}" type="line" width="460" height="260" xper-tick="100" yper-tick="40"></ar:graph-line>
+        <ar:graph-line data="{{ yearlyTotalsByCollectionDate }}" type="bar" width="460" height="280" xper-tick="100" yper-tick="40"></ar:graph-line>
       </tab>
-      <tab heading="Ingestion date">
-        <ar:graph-line data="{{ monthlyTotalsByCreation }}" type="line" width="460" height="260" xper-tick="100" yper-tick="40"></ar:graph-line>
+      <tab heading="Ingest date">
+        <ar:graph-line data="{{ monthlyTotalsByCreation }}" type="line" width="460" height="280" xper-tick="100" yper-tick="40"></ar:graph-line>
       </tab>
     </tabset>
   </div>
 
   <!-- Artwork sizes (average vs median) -->
   <div class="span6 dashboard-widget">
-    <h3 class="fontello drmc-icon-chart-line">Average artwork size</h3>
+    <h3 class="fontello drmc-icon-chart-line">Average sizes</h3>
     <tabset class="dashboard-rs-graph">
       <tab heading="All">
-        <ar:graph-line type="line" data="{{ artworkSizes }}" width="460" height="260" xper-tick="50" yper-tick="40"></ar:graph-line>
+        <ar:graph-line type="line" data="{{ artworkSizes }}" width="460" height="280" xper-tick="50" yper-tick="40"></ar:graph-line>
       </tab>
     </tabset>
   </div>

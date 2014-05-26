@@ -12,6 +12,7 @@ module.exports = function ($http, SETTINGS) {
    * - /api/summary/mediafilesizebycollectionyear
    * - /api/summary/departmentartworkcount
    * - /api/summary/storagebycodec
+   * - /api/summary/storagebymediacategory
    *
    */
    //var downloadActivity
@@ -50,15 +51,15 @@ module.exports = function ($http, SETTINGS) {
     });
   };
 
-  // This does not return codecs, only totals
-  this.getMonthlyTotalByCodec = function () {
+  // Artwork counts and running totals by ingestion month and collection year
+  this.getArtworkCountsAndTotalsByDate = function () {
     return $http({
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/summary/artworkbydate'
     });
   };
 
-  // var storageCodec
+  // Artwork count per department
   this.getRunningTotalByDepartment = function () {
     return $http({
       method: 'GET',
@@ -66,11 +67,20 @@ module.exports = function ($http, SETTINGS) {
     });
 
   };
-  // var storageFormats
+
+  // Storage used per codec
   this.getRunningTotalByCodec = function () {
     return $http({
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/summary/storagebycodec'
+    });
+  };
+
+  // Storage used per media category
+  this.getRunningTotalByFormat = function () {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/summary/storagebymediacategory'
     });
   };
 

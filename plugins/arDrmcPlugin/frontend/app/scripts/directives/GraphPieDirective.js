@@ -23,9 +23,16 @@ module.exports = function ($filter) {
           graphSpecification = JSON.parse(graphSpecification);
 
           var dataset = graphSpecification.data,
-              w = attrs.width,
-              h = attrs.width,
-              color = arD3.scale.category20();
+                w = attrs.width,
+                h = attrs.width,
+                color;
+          if (attrs.color === 'colorA') {
+            color = arD3.scale.category10();
+          } else if (attrs.color === 'colorC') {
+            color = arD3.scale.category20c();
+          } else {
+            color = arD3.scale.category20b();
+          }
 
           angular.forEach(dataset, function (obj, key) {
             dataset[key].accessKey = dataset[key][graphSpecification.accessKey];
@@ -77,13 +84,14 @@ module.exports = function ($filter) {
             });*/
 
           // Legend
-          var label_width = Number.MIN_VALUE;
+          var label_width = attrs.width;
 
           for (var i = 0; i < dataset.length; i++) {
             label_width = Math.max(label_width, dataset[i].formatKey.length);
           }
-          // round up to 10th
-          label_width = label_width * 30;
+
+          // Label_width plus size of rectangle and padding
+          label_width = label_width + 20;
           var label_height = dataset.length * 20;
 
           var legend = arD3.select(element[0]).append('svg')

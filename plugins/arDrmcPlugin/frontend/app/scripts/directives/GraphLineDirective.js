@@ -46,8 +46,8 @@ module.exports = function () {
             series.push(lineData);
           });
 
-          // round max up to 10th
-          max = Math.ceil(max / 10) * 10;
+          // add padding to max
+          max = max + (max / 10);
 
           var graph = new myrickshaw.Graph({
             element: element.find('rs-chart')[0],
@@ -86,7 +86,7 @@ module.exports = function () {
           });
           lineLegend.render();
 
-          graph.setRenderer('line');
+          graph.setRenderer(attrs.type);
           graph.render();
         }
       });

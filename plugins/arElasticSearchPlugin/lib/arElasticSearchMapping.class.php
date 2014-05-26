@@ -135,7 +135,7 @@ class arElasticSearchMapping
     // Next iteration to embed nested types
     foreach ($this->mapping as $typeName => &$typeProperties)
     {
-      $this->processForeignTypes($typeProperties);
+      $this->mapping[$typeName] = $this->processForeignTypes($typeProperties);
     }
   }
 
@@ -275,14 +275,15 @@ class arElasticSearchMapping
   }
 
   /**
-   * Given a mapping, adds other objects within it
+   * Given a mapping, recursively add other objects within it
    */
-  protected function processForeignTypes(array &$typeProperties)
+  protected function processForeignTypes($typeProperties, $maxDepth = 3, $currentDepth = 0)
   {
-    // Stop execution if any foreign type was assigned
-    if (!isset($typeProperties['_foreign_types']))
+    $currentDepth++;
+
+    if ($currentDepth > $maxDepth)
     {
-      return;
+      return $typeProperties;
     }
 
     foreach ($typeProperties['_foreign_types'] as $fieldName => $foreignTypeName)
@@ -295,13 +296,21 @@ class arElasticSearchMapping
         throw new sfException("$foreignTypeName could not be found within the mappings.");
       }
 
-      $mapping = $this->mapping[$foreignTypeNameCamelized];
+      // recurse
+      $mapping = $this->processForeignTypes(
+        $this->mapping[$foreignTypeNameCamelized],
+        $maxDepth,
+        $currentDepth
+      );
 
       // Add id of the foreign resource
       $mapping['properties']['id'] = array('type' => 'integer', 'index' => 'not_analyzed', 'include_in_all' => 'false');
 
       $typeProperties['properties'][$fieldNameCamelized] = $mapping;
     }
+    unset($typeProperties['_foreign_types']);
+
+    return $typeProperties;
   }
 
   /**

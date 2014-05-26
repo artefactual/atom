@@ -65,7 +65,8 @@ class ApiSummaryArtworkByDateAction extends QubitApiAction
       {
         // calculate running total
         $total += $entry['count'];
-        $facets[$facetName]['entries'][$index]['count'] = $total;
+        $facets[$facetName]['entries'][$index]['count'] = $entry['count'];
+        $facets[$facetName]['entries'][$index]['total'] = $total;
 
         // convert millisecond timestamps to YYYY-MM format
         $timestamp = $entry['time'] / 1000;

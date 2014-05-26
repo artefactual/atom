@@ -11,8 +11,9 @@ module.exports = function ($scope, $q, StatisticsService) {
       StatisticsService.getIngestionSummary(),
       StatisticsService.getRunningTotalByDepartment(),
       StatisticsService.getRunningTotalByCodec(),
+      StatisticsService.getRunningTotalByFormat(),
       StatisticsService.getArtworkSizesByYearSummary(),
-      StatisticsService.getMonthlyTotalByCodec()
+      StatisticsService.getArtworkCountsAndTotalsByDate()
     ];
 
     $q.all(queries).then(function (responses) {
@@ -33,27 +34,47 @@ module.exports = function ($scope, $q, StatisticsService) {
         formatKey: 'codec',
         data: responses[4].data.results
       };
+      $scope.storageFormats = {
+        accessKey: 'total',
+        formatKey: 'media_type',
+        data: responses[5].data.results
+      };
       $scope.artworkSizes = [{
         name: 'Average',
         color: 'steelblue',
         xProperty: 'year',
         yProperty: 'average',
-        data: responses[5].data.results
+        data: responses[6].data.results
+      }];
+      $scope.yearlyCountsByCollectionDate = [{
+        name: 'Year',
+        color: 'hotpink',
+        xProperty: 'year',
+        yProperty: 'count',
+        data: responses[7].data.results.collection
+      }];
+      $scope.monthlyCountsByCreation = [{
+        name: 'Month',
+        color: 'hotpink',
+        xProperty: 'month',
+        xLabelFormat: 'yearAndMonth',
+        yProperty: 'count',
+        data: responses[7].data.results.creation
       }];
       $scope.yearlyTotalsByCollectionDate = [{
         name: 'Year',
         color: 'hotpink',
         xProperty: 'year',
-        yProperty: 'count',
-        data: responses[6].data.results.collection
+        yProperty: 'total',
+        data: responses[7].data.results.collection
       }];
       $scope.monthlyTotalsByCreation = [{
         name: 'Month',
         color: 'hotpink',
         xProperty: 'month',
         xLabelFormat: 'yearAndMonth',
-        yProperty: 'count',
-        data: responses[6].data.results.creation
+        yProperty: 'total',
+        data: responses[7].data.results.creation
       }];
     });
 

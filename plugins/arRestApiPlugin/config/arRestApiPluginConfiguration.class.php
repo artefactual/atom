@@ -224,6 +224,10 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'summaryArtworkByDate'));
 
+    $this->addRoute('GET', '/api/summary/storagebymediacategory', array(
+      'module' => 'api',
+      'action' => 'summaryStorageUsedByMediaCategory'));
+
     $this->addRoute('GET', '/api/summary/storagebycodec', array(
       'module' => 'api',
       'action' => 'summaryStorageUsedByCodec'));
