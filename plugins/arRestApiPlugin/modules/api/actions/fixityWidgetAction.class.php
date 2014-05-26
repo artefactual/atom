@@ -34,14 +34,6 @@ class ApiFixityWidgetAction extends QubitApiAction
     $filter = new \Elastica\Filter\Exists('timeCompleted');
     $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filter);
 
-    // Start H
-    // Query for UUID
-    $queryTerm = new \Elastica\Query\Term;
-    $queryTerm->setTerm('uuid', $request->uuid);
-    // This breaks. Maybe it adds mandatory field, and can't find it == break?
-    //$queryBool->addMust($queryTerm);
-    // End H
-
     $queryBool->addMust($filteredQuery);
 
     $this->prepareEsPagination($query);
@@ -70,12 +62,9 @@ class ApiFixityWidgetAction extends QubitApiAction
         $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
       }
 
-      // Begin H
-      if (isset($doc['uuid']))
-      {
-        $this->addItemToArray($report, 'uuid', $doc['uuid']);
+      if (isset($doc['aip']['uuid'])) {
+        $this->addItemToArray($report, 'aip_uuid', $doc['aip']['uuid']);
       }
-      // End H
 
       if (isset($doc['timeCompleted']) && isset($doc['timeStarted']))
       {
@@ -108,6 +97,10 @@ class ApiFixityWidgetAction extends QubitApiAction
       if (isset($doc['success']))
       {
         $report['outcome'] = (bool)$doc['success'];
+      }
+
+      if (isset($doc['aip']['uuid'])) {
+        $this->addItemToArray($report, 'aip_uuid', $doc['aip']['uuid']);
       }
 
       $this->addItemToArray($report, 'time_completed', $doc['timeCompleted']);
@@ -144,15 +137,22 @@ class ApiFixityWidgetAction extends QubitApiAction
     $resultSet = QubitSearch::getInstance()->index->getType('QubitFixityReport')->search($query);
     $resultSet = $resultSet->getResults();
 
-    $data['currentlyChecking'] = null;
-
-    if (count($resultSet) > 0)
+    foreach ($resultSet as $hit)
     {
-      $doc = $resultSet[0]->getData();
+      $doc = $hit->getData();
+
+      $report = array();
+
+      if (isset($doc['aip']['uuid'])) {
+        $this->addItemToArray($report, 'aip_uuid', $doc['aip']['uuid']);
+      }
+
       if (isset($doc['aip']['name']))
       {
-        $data['currentlyChecking'] = $doc['aip']['name'];
+        $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
       }
+
+      $data['currentlyChecking'][$hit->getId()] = $report;
     }
 
     // Checks in 24 hours
