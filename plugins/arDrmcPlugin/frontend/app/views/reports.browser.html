@@ -43,36 +43,33 @@
           <div class="field">
             <h3>No. of reports</h3>
             <div>
-              {{ reports.length || 0 }}
+              {{ reportsOverview.overviewMockSamples.length || 0 }}
             </div>
           </div>
           <div class="field">
             <h3>Last report added</h3>
             <div>
-            <!-- unsure if this will come from API, will format later if necessary -->
-              TODO
-              <span>&nbsp;{{ data.overview.total.size | UnitFilter:2 | EmptyFilter }}</span>
+              {{ reportsOverview.overviewMockStats.last_report_added_date || 'none' }}
+              &nbsp>&nbsp
+              <a href>{{ reportsOverview.overviewMockStats.last_report_added_name || 'N/A' }}</a>
             </div>
           </div>
           <div class="field">
             <h3>Activity reports</h3>
             <div>
-              {{ data.overview.total.count || 0 }}
-              <span>&nbsp;{{ data.overview.total.size | UnitFilter:2 | EmptyFilter }}</span>
+              {{ reportsOverview.overviewMockStats.activity_reports || 0 }}
             </div>
           </div>
           <div class="field">
             <h3>Fixity reports</h3>
             <div>
-              {{ data.overview.total.count || 0 }}
-              <span>&nbsp;{{ data.overview.total.size | UnitFilter:2 | EmptyFilter }}</span>
+              {{ reportsOverview.overviewMockStats.fixity_reports || 0 }}
             </div>
           </div>
           <div class="field">
             <h3>Characteristic reports</h3>
             <div>
-              {{ data.overview.total.count || 0 }}
-              <span>&nbsp;{{ data.overview.total.size | UnitFilter:2 | EmptyFilter }}</span>
+              {{ reportsOverview.overviewMockStats.characteristic_reports || 0 }}
             </div>
           </div>
         </section>
@@ -93,14 +90,15 @@
                 <th>Report type</th>
                 <th>Created</th>
                 <th>Description</th>
-                <th></th>
+                <th><input type="checkbox" /></th>
               </thead>
               <tbody>
-                <tr ng-repeat="report in reports track by $index | orderBy:predicate:reverse">
+                <tr ng-repeat="report in reportsSaved.savedReportMockData">
                   <td><a href ui-sref="main.reports.view({ id: report })" >{{ report.name }}</a></td>
                   <td>{{ report.type }}</td>
-                  <td>{{ report.results.created_at }}</td>
-                  <td><a href ng-click="downloadFile(item)" ng-show="user.canEdit()">Download</a></td>
+                  <td>{{ report.created_at }}</td>
+                  <td>{{ report.description }}</td>
+                  <td><input type="checkbox" /></td>
                 </tr>
               </tbody>
             </table>

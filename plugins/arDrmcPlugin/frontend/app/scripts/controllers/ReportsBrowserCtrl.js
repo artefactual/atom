@@ -20,10 +20,12 @@ module.exports = function ($scope, $modal, SETTINGS, ReportsService) {
   };
 
   ReportsService.getAll().then(function (response) {
-    console.log('response in contrl', response);
     return response;
   }).then(function (response) {
-    $scope.response = response;
+    // From q.all, in order
+    $scope.reportsOverview = response[0];
+    $scope.reportsSaved = response[1];
+    console.log($scope);
   });
 
   // Support Reports saved reports toggling
