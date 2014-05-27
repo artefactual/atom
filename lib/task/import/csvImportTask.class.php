@@ -573,13 +573,28 @@ EOF;
                   $type = 'Box';
                 }
 
+                $physicalObjectTypeId = array_search(
+                  $type,
+                  $self->getStatus('physicalObjectTypes')
+                );
+
+                // Create new physical object type if not found
+                if ($physicalObjectTypeId === false)
+                {
+                  $newType = new QubitTerm;
+                  $newType->name = $type;
+                  $newType->culture = isset($self->object->culture) ? $self->object->culture : 'en';
+                  $newType->taxonomyId = QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID;
+                  $newType->parentId = QubitTerm::ROOT_ID;
+
+                  $newType->save();
+                  $physicalObjectTypeId = $newType->id;
+                }
+
                 $container = $self->createOrFetchPhysicalObject(
                   $name,
                   $location,
-                  array_search(
-                    $type,
-                    $self->getStatus('physicalObjectTypes')
-                  )
+                  $physicalObjectTypeId
                 );
 
                 // associate container with information object
