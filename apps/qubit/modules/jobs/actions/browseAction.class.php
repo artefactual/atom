@@ -28,11 +28,30 @@ class JobsBrowseAction extends DefaultBrowseAction
   {
     parent::execute($request);
 
-    $this->user = $this->context->user; //sfContext::getInstance()->user;
+    $this->user = $this->context->user;
 
     if (!$this->user || !$this->user->isAuthenticated())
     {
       QubitAcl::forwardUnauthorized();
     }
+
+    if (!isset($request->limit))
+    {
+      $request->limit = sfConfig::get('app_hits_per_page');
+    }
+
+    $criteria = new Criteria;
+
+    // Filter out the history of other users' jobs if not an administrator.
+    if (!$this->user->isAdministrator())
+    {
+      $criteria->add(QubitJob::USER_ID, $this->user->getUserID());
+    }
+
+    // Page results
+    $this->pager = new QubitPager('QubitJob');
+    $this->pager->setCriteria($criteria);
+    $this->pager->setMaxPerPage($request->limit);
+    $this->pager->setPage($request->page);
   }
 }

@@ -12,28 +12,15 @@
     </tr>
   </thead>
 
-  <!-- Allow administrators see all jobs, not just their own -->
-  <?php if ($this->context->user->isAdministrator()): ?>
-    <?php $jobs = QubitJob::getAll(); ?>
-  <?php else: ?>
-    $jobs = QubitJob::getJobsByUser($user);
-  <?php endif; ?>
-
-  <?php if ($jobs->count() === 0): ?>
-    <div class="messages error" style="margin-top:20px;">
-      <ul>
-          <li>There are no jobs to report on.</li>
-      </ul>
-    </div>
-  <?php endif; ?>
+  <?php $jobs = $pager->getResults() ?>
 
   <?php foreach ($jobs as $job): ?>
     <tr>
       <!-- Creation date -->
-      <td><?php echo $job->getCreationDateString(); ?></td>
+      <td><?php echo $job->getCreationDateString() ?></td>
 
       <!-- End date -->
-      <td><?php echo $job->getCompletionDateString(); ?></td>
+      <td><?php echo $job->getCompletionDateString() ?></td>
 
       <!-- Job name -->
       <td><?php echo $job; ?></td>
@@ -48,7 +35,7 @@
           <i class="icon-cogs" style="color:#666666"></i>
         <?php endif; ?>
 
-        <?php echo ucfirst($job->getStatusString()); ?>
+        <?php echo ucfirst($job->getStatusString()) ?>
       </td>
 
       <!-- Job notes -->
@@ -61,7 +48,7 @@
       <!-- User who created the job -->
       <td>
         <?php if (isset($job->userId)): ?>
-          <?php $user = QubitUser::getById($job->userId); ?>
+          <?php $user = QubitUser::getById($job->userId) ?>
           <?php echo $user ? $user->__toString() : 'Deleted user'; ?>
         <?php else: ?>
           Command line
@@ -70,11 +57,26 @@
   <?php endforeach; ?>
 </table>
 
-<?php if ($this->context->user->isAdministrator()): ?>
+<?php echo get_partial('default/pager', array('pager' => $pager)) ?>
+
+<!-- User tips -->
+<?php if ($this->context->user->isAdministrator() && $jobs->count()): ?>
   <div class="messages" style="background-color:#FFFFCC">
     <i class="icon-info-sign" style="color:#336699"></i>&nbsp;You may only clear jobs belonging to you.
   </div>
 <?php endif; ?>
+
+<?php if (!$jobs->count()): ?>
+  <div class="messages error" style="margin-top:20px;">
+    <ul>
+        <li>There are no jobs to report on.</li>
+    </ul>
+  </div>
+<?php endif; ?>
+
+<?php $jobs->rewind() ?>
+
+<!-- Action buttons -->
 <section class="actions">
   <ul>
     <li>

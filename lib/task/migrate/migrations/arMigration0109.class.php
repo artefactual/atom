@@ -41,13 +41,13 @@ class arMigration0109
 CREATE TABLE `job` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `status_id` int(11) NOT NULL,
   `completed_at` datetime DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `status_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `job_FI_3` (`user_id`),
-  CONSTRAINT `job_FK_1` FOREIGN KEY (`id`) REFERENCES `object` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `job_FK_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  KEY `job_FI_2` (`user_id`),
+  CONSTRAINT `job_FK_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `job_FK_1` FOREIGN KEY (`id`) REFERENCES `object` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 sql;
 
