@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ApiFixityWidgetAction extends QubitApiAction
+class ApiFixityStatusAction extends QubitApiAction
 {
   protected function get($request)
   {
@@ -56,15 +56,8 @@ class ApiFixityWidgetAction extends QubitApiAction
       }
 
       $this->addItemToArray($report, 'time_completed', $doc['timeCompleted']);
-
-      if (isset($doc['aip']['name']))
-      {
-        $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
-      }
-
-      if (isset($doc['aip']['uuid'])) {
-        $this->addItemToArray($report, 'aip_uuid', $doc['aip']['uuid']);
-      }
+      $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
+      $this->addItemToArray($report, 'aip_uuid', $doc['aip']['uuid']);
 
       if (isset($doc['timeCompleted']) && isset($doc['timeStarted']))
       {
@@ -99,17 +92,9 @@ class ApiFixityWidgetAction extends QubitApiAction
         $report['outcome'] = (bool)$doc['success'];
       }
 
-      if (isset($doc['aip']['uuid']))
-      {
-        $this->addItemToArray($report, 'aip_uuid', $doc['aip']['uuid']);
-      }
-
       $this->addItemToArray($report, 'time_completed', $doc['timeCompleted']);
-
-      if (isset($doc['aip']['name']))
-      {
-        $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
-      }
+      $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
+      $this->addItemToArray($report, 'aip_uuid', $doc['aip']['uuid']);
 
       if (isset($doc['timeCompleted']) && isset($doc['timeStarted']))
       {
@@ -144,14 +129,8 @@ class ApiFixityWidgetAction extends QubitApiAction
 
       $report = array();
 
-      if (isset($doc['aip']['uuid'])) {
-        $this->addItemToArray($report, 'aip_uuid', $doc['aip']['uuid']);
-      }
-
-      if (isset($doc['aip']['name']))
-      {
-        $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
-      }
+      $this->addItemToArray($report, 'aip_uuid', $doc['aip']['uuid']);
+      $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
 
       $data['currentlyChecking'][$hit->getId()] = $report;
     }

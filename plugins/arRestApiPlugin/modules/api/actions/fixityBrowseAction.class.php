@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ApiFixityReadAction extends QubitApiAction
+class ApiFixityBrowseAction extends QubitApiAction
 {
   protected function get($request)
   {
