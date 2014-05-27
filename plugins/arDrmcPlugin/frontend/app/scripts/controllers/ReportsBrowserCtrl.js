@@ -19,24 +19,9 @@ module.exports = function ($scope, $modal, SETTINGS, ReportsService) {
     });
   };
 
-  ReportsService.getAll().then(function (response) {
-    return response;
-  }).then(function (response) {
-    // From q.all, in order
-    $scope.reportsOverview = response[0];
-    $scope.reportsSaved = response[1];
+  ReportsService.reportsBrowseData().then(function (data) {
+    $scope.reportsData = data;
     console.log($scope);
   });
 
-  // Support Reports saved reports toggling
-  $scope.showSavedReports = true;
-  $scope.toggleSavedReports = function () {
-    $scope.showSavedReports = !$scope.showSavedReports;
-  };
-
-    // Support Reports overview toggling
-  $scope.showReportsOverview = true;
-  $scope.toggleReportsOverview = function () {
-    $scope.showReportsOverview = !$scope.showReportsOverview;
-  };
 };

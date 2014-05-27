@@ -2,14 +2,23 @@
 
 module.exports = function ($q, $timeout) {
 
-  var overviewData = {
-    'overviewMockSamples':
+  var reportsBrowse = {
+    'browseOverview': {
+      'last_report_added_date': '1954-11-01T00:06:10Z',
+      'last_report_added-name': 'A report about memes and their relationship to mimes',
+      'activity_reports': 0,
+      'fixity_reports': 1,
+      'characteristic_reports': 1
+    },
+    'browseSamples':
     [
       {
         'name': 'Media and Performance Art',
         'id': 22,
         'type_id': 19,
         'type': 'Characteristic reports',
+        'created_at': '1999-10-11',
+        'description': 'All works added in a fiscal year',
         'results': [
           {
             'user': 'Ben',
@@ -17,7 +26,7 @@ module.exports = function ($q, $timeout) {
             'files_downloaded': 4,
             'total_filesize': 361707,
             'last_modified': '2014-04-29',
-            'created_at': '1999-10-10',
+            'created_at': '1999-10-11',
             'parent_artwork': {
               'id': 12345,
               'name': 'Semiotics of the Kitchen'
@@ -38,10 +47,12 @@ module.exports = function ($q, $timeout) {
         ]
       },
       {
-        'name': 'Architecture and Design ',
+        'name': 'Architecture and Design',
         'id': 24,
         'type_id': 18,
         'type': 'Fixity report',
+        'created_at': '1099-10-11',
+        'description': 'All fixes on all buildings',
         'results': [
           {
             'The user': 'Ben',
@@ -69,25 +80,23 @@ module.exports = function ($q, $timeout) {
           }
         ]
       }
-    ],
-    'overviewMockStats': {
-      'last_report_added_date': '1954-11-01T00:06:10Z',
-      'last_report_added-name': 'A report about memes and their relationship to mimes',
-      'activity_reports': 2,
-      'fixity_reports': 2,
-      'characteristic_reports': 1
-    }
+    ]
   };
 
-  var savedReportData = {
-    'savedReportMockData':
-    [
+  var reportsView = {
+    'savedOverview': {
+      'run_from': 'Oct-Nov 2013',
+      'report_start_date': '2013-10-01',
+      'report_end_date': '2013-12-01',
+      'saved_report_description': 'Download report for period during curation dept Review'
+    },
+    'savedReports': [
       {
         'name': 'The Dancing Troubadors',
         'id': 22,
         'type_id': 19,
         'type': 'Characteristic reports',
-        'description': 'Description description description description description',
+        'description': 'Description description',
         'created_at': '1999-10-10',
         'results': [
           {
@@ -121,7 +130,7 @@ module.exports = function ($q, $timeout) {
         'id': 24,
         'type_id': 18,
         'type': 'Fixity report',
-        'description': 'Description description description description description',
+        'description': 'Description description',
         'created_at': '1999-10-10',
         'results': [
           {
@@ -155,7 +164,7 @@ module.exports = function ($q, $timeout) {
         'id': 97,
         'type_id': 18,
         'type': 'Activity report',
-        'description': 'Description description description description description',
+        'description': 'Description description',
         'created_at': '2009-10-10',
         'results': [
           {
@@ -189,7 +198,7 @@ module.exports = function ($q, $timeout) {
         'id': 55,
         'type_id': 18,
         'type': 'Characteristic report',
-        'description': 'Description description description description description',
+        'description': 'Description description',
         'created_at': '2002-01-15',
         'results': [
           {
@@ -223,7 +232,7 @@ module.exports = function ($q, $timeout) {
         'id': 29,
         'type_id': 19,
         'type': 'Characteristic report',
-        'description': 'Description description description description description',
+        'description': 'Description description',
         'created_at': '1919-12-10',
         'results': [
           {
@@ -255,22 +264,24 @@ module.exports = function ($q, $timeout) {
     ]
   };
 
-  this.asyncReportData = function () {
+  // Remove $q.all when endpoints ready. No need
+  // for chained loading
+  this.reportsBrowseData = function () {
     var deferred = $q.defer();
 
     $timeout(function () {
       console.log('async report');
-      deferred.resolve(overviewData);
+      deferred.resolve(reportsBrowse);
     }, Math.random() * 100);
     return deferred.promise;
   };
 
-  this.asyncSavedReportData = function () {
+  this.reportsViewData = function () {
     var deferred = $q.defer();
 
     $timeout(function () {
       console.log('async saved report');
-      deferred.resolve(savedReportData);
+      deferred.resolve(reportsView);
     }, Math.random() * 500);
     return deferred.promise;
   };
@@ -278,8 +289,8 @@ module.exports = function ($q, $timeout) {
   // See InformationObjectService for more reference examples
   this.getAll = function () {
     return $q.all([
-      this.asyncReportData(),
-      this.asyncSavedReportData()
+      this.reportsBrowseData(),
+      this.reportsViewData()
     ]).then(function (response) {
       return response;
     });

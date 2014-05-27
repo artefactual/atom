@@ -39,37 +39,37 @@
           </div>
         </section>
 
-        <section ng-show="showReportsOverview">
+        <section>
           <div class="field">
             <h3>No. of reports</h3>
             <div>
-              {{ reportsOverview.overviewMockSamples.length || 0 }}
+              {{ reportsData.browseSamples.length || 0 }}
             </div>
           </div>
           <div class="field">
             <h3>Last report added</h3>
             <div>
-              {{ reportsOverview.overviewMockStats.last_report_added_date || 'none' }}
+              {{ reportsData.browseOverview.last_report_added_date | DateStampFilter }}
               &nbsp>&nbsp
-              <a href>{{ reportsOverview.overviewMockStats.last_report_added_name || 'N/A' }}</a>
+              <a href>{{ reportsData.browseOverview.last_report_added_name || 'N/A' }}</a>
             </div>
           </div>
           <div class="field">
             <h3>Activity reports</h3>
             <div>
-              {{ reportsOverview.overviewMockStats.activity_reports || 0 }}
+              {{ reportsData.browseOverview.activity_reports || 0 }}
             </div>
           </div>
           <div class="field">
             <h3>Fixity reports</h3>
             <div>
-              {{ reportsOverview.overviewMockStats.fixity_reports || 0 }}
+              {{ reportsData.browseOverview.fixity_reports || 0 }}
             </div>
           </div>
           <div class="field">
             <h3>Characteristic reports</h3>
             <div>
-              {{ reportsOverview.overviewMockStats.characteristic_reports || 0 }}
+              {{ reportsData.browseOverview.characteristic_reports || 0 }}
             </div>
           </div>
         </section>
@@ -93,7 +93,7 @@
                 <th><input type="checkbox" /></th>
               </thead>
               <tbody>
-                <tr ng-repeat="report in reportsSaved.savedReportMockData | limitTo: 15">
+                <tr ng-repeat="report in reportsData.browseSamples | limitTo: 15">
                   <td><a href ui-sref="main.reports.view({ id: report })" >{{ report.name }}</a></td>
                   <td>{{ report.type }}</td>
                   <td>{{ report.created_at }}</td>
@@ -102,7 +102,6 @@
                 </tr>
               </tbody>
             </table>
-            <pre>{{ reports.results | json }}</pre>
           </div>
         </section>
 

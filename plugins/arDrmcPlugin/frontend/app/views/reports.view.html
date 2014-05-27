@@ -30,26 +30,29 @@
           </div>
         </section>
 
-        <section ng-show="showReportsOverview">
+        <section>
           <div class="field">
             <h3>Run from</h3>
             <div>
-
+              {{ viewData.savedOverview.run_from }}
             </div>
           </div>
           <div class="field">
             <h3>Report start date</h3>
             <div>
+              {{ viewData.savedOverview.report_start_date }}
             </div>
           </div>
           <div class="field">
             <h3>Report end date</h3>
             <div>
+              {{ viewData.savedOverview.report_end_date }}
             </div>
           </div>
           <div class="field">
             <h3>Saved report description</h3>
             <div>
+              {{ viewData.savedOverview.saved_report_description }}
             </div>
           </div>
         </section>
@@ -67,8 +70,8 @@
               <th>Parent department</th>
             </thead>
             <tbody>
-              <tr ng-repeat="item in dataByUser | limitTo: 5">
-                <td>{{ item.date }}</td>
+              <tr ng-repeat="report in reportsView.savedReports">
+                <td>{{  }}</td>
                 <td>{{ item.date }}</td>
                 <td>{{ item.file }}</td>
                 <td>{{ item.reason }}</td>
