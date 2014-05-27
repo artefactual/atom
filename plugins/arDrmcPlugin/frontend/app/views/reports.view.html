@@ -1,17 +1,6 @@
 <div class="row-fluid reports-wrapper">
 
-  <div class="span3">
-
-    <section id="facets">
-      <h3>Filter reports by:</h3>
-      <!-- TODO : Wire directives when data is ready -->
-      <ar-facet label="Report Type" facet="data.facets.type" field="criteria.type"></ar-facet>
-      <ar-range-facet type="date" label="Date ingested" facet="data.facets.dateIngested" from="criteria.ingestedFrom" to="criteria.ingestedTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
-    </section>
-
-  </div>
-
-  <div class="span9">
+  <div class="span12">
 
     <div id="main-column">
 
@@ -25,6 +14,79 @@
 
         {{ report }}
       </section>
+
+      <div class="content">
+
+        <section>
+          <div class="menu-list" >
+            <ul class="menu-list-left">
+              <li><h2>Report overview</h2></li>
+            </ul>
+            <ul class="menu-list-right nav nav-pills">
+              <li>
+                <a href class="drmc-icon-download">Download Report (CSV)</a>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section ng-show="showReportsOverview">
+          <div class="field">
+            <h3>Run from</h3>
+            <div>
+
+            </div>
+          </div>
+          <div class="field">
+            <h3>Report start date</h3>
+            <div>
+            </div>
+          </div>
+          <div class="field">
+            <h3>Report end date</h3>
+            <div>
+            </div>
+          </div>
+          <div class="field">
+            <h3>Saved report description</h3>
+            <div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <tabset class="dashboard-rs-graph">
+        <tab heading="Total">
+          <table class="table">
+            <thead>
+              <th>Artworks with downloaded materials</th>
+              <th>No. AIPs downloaded</th>
+              <th>No. files downloaded</th>
+              <th>Total filesize</th>
+              <th>Parent department</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in dataByUser | limitTo: 5">
+                <td>{{ item.date }}</td>
+                <td>{{ item.date }}</td>
+                <td>{{ item.file }}</td>
+                <td>{{ item.reason }}</td>
+                <td>{{ item.username || 'Unknown' }}</td>
+              </tr>
+              <tr ng-if="!ingestionActivity.length">
+                <td colspan="4"><span>There are no recent downloads to display</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </tab>
+        <tab heading="By user">
+          more stuff
+        </tab>
+        <tab heading="by department">
+          Stuff
+        </tab>
+      </tabset>
 
     </div>
   </div>
