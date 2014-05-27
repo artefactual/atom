@@ -26,8 +26,12 @@ class QubitCache
     if (!isset(self::$instance))
     {
       $cacheClass = sfConfig::get('app_cache_engine');
+      if (!array_key_exists('storeCacheInfo', $options))
+      {
+        $options['storeCacheInfo'] = true;
+      }
 
-      self::$instance = new $cacheClass;
+      self::$instance = new $cacheClass($options);
     }
 
     return self::$instance;
