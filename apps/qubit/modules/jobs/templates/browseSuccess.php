@@ -1,67 +1,67 @@
 <h1>Manage jobs</h1>
 
-<ul class="nav nav-pills">
+<ul class="nav nav-tabs">
   <li<?php if ('all' === $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('All jobs'), array('filter' => 'all') + $sf_request->getParameterHolder()->getAll()) ?></li>
   <li<?php if ('active' === $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Active jobs'), array('filter' => 'active') + $sf_request->getParameterHolder()->getAll()) ?></li>
+
+  <table class="table table-bordered sticky-enabled sticky-table" style="margin-top:20px;">
+    <thead class="tableheader-processed">
+      <tr>
+        <th width="15%">Start date</th>
+        <th width="15%">End date</th>
+        <th width="20%">Job name</th>
+        <th width="10%">Job status</th>
+        <th width="30%">Info</th>
+        <th width="15%">User</th>
+      </tr>
+    </thead>
+
+    <?php $jobs = $pager->getResults() ?>
+    <?php $autoRefresh = $sf_request->autoRefresh; ?>
+
+    <?php foreach ($jobs as $job): ?>
+      <tr>
+        <!-- Creation date -->
+        <td><?php echo $job->getCreationDateString() ?></td>
+
+        <!-- End date -->
+        <td><?php echo $job->getCompletionDateString() ?></td>
+
+        <!-- Job name -->
+        <td><?php echo $job; ?></td>
+
+        <!-- Job status -->
+        <td>
+          <?php if ($job->statusId == QubitTerm::JOB_STATUS_COMPLETED_ID): ?>
+            <i class="icon-check-sign" style="color:#00CC00"></i>
+          <?php elseif ($job->statusId == QubitTerm::JOB_STATUS_ERROR_ID): ?>
+            <i class="icon-warning-sign" style="color:#CC0000"></i>
+          <?php elseif ($job->statusId == QubitTerm::JOB_STATUS_IN_PROGRESS_ID): ?>
+            <i class="icon-cogs" style="color:#666666"></i>
+          <?php endif; ?>
+
+          <?php echo ucfirst($job->getStatusString()) ?>
+        </td>
+
+        <!-- Job notes -->
+        <td>
+          <?php foreach ($job->getNotes() as $note): ?>
+            <p><?php echo $note->__toString(); ?></p>
+          <?php endforeach; ?>
+        </td>
+
+        <!-- User who created the job -->
+        <td>
+          <?php if (isset($job->userId)): ?>
+            <?php $user = QubitUser::getById($job->userId) ?>
+            <?php echo $user ? $user->__toString() : 'Deleted user'; ?>
+          <?php else: ?>
+            Command line
+          <?php endif; ?>
+      </tr>
+    <?php endforeach; ?>
+  </table>
 </ul>
-
-<table class="table table-bordered sticky-enabled sticky-table" style="margin-top:20px;">
-  <thead class="tableheader-processed">
-    <tr>
-      <th width="15%">Start date</th>
-      <th width="15%">End date</th>
-      <th width="20%">Job name</th>
-      <th width="10%">Job status</th>
-      <th width="30%">Info</th>
-      <th width="15%">User</th>
-    </tr>
-  </thead>
-
-  <?php $jobs = $pager->getResults() ?>
-  <?php $autoRefresh = $sf_request->autoRefresh; ?>
-
-  <?php foreach ($jobs as $job): ?>
-    <tr>
-      <!-- Creation date -->
-      <td><?php echo $job->getCreationDateString() ?></td>
-
-      <!-- End date -->
-      <td><?php echo $job->getCompletionDateString() ?></td>
-
-      <!-- Job name -->
-      <td><?php echo $job; ?></td>
-
-      <!-- Job status -->
-      <td>
-        <?php if ($job->statusId == QubitTerm::JOB_STATUS_COMPLETED_ID): ?>
-          <i class="icon-check-sign" style="color:#00CC00"></i>
-        <?php elseif ($job->statusId == QubitTerm::JOB_STATUS_ERROR_ID): ?>
-          <i class="icon-warning-sign" style="color:#CC0000"></i>
-        <?php elseif ($job->statusId == QubitTerm::JOB_STATUS_IN_PROGRESS_ID): ?>
-          <i class="icon-cogs" style="color:#666666"></i>
-        <?php endif; ?>
-
-        <?php echo ucfirst($job->getStatusString()) ?>
-      </td>
-
-      <!-- Job notes -->
-      <td>
-        <?php foreach ($job->getNotes() as $note): ?>
-          <p><?php echo $note->__toString(); ?></p>
-        <?php endforeach; ?>
-      </td>
-
-      <!-- User who created the job -->
-      <td>
-        <?php if (isset($job->userId)): ?>
-          <?php $user = QubitUser::getById($job->userId) ?>
-          <?php echo $user ? $user->__toString() : 'Deleted user'; ?>
-        <?php else: ?>
-          Command line
-        <?php endif; ?>
-    </tr>
-  <?php endforeach; ?>
-</table>
 
 <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
 
