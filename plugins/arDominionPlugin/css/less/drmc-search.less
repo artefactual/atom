@@ -1,8 +1,18 @@
+// Search heading, contains current query and saved search tab (see below)
+
+.search-heading {
+  margin-top: 10px;
+  font-size: 24px;
+  div, span {
+    display: inline-block;
+    line-height: 50px;
+  }
+}
+
 // Current query label in search results
 
 .search-current-query {
   line-height: 50px;
-  font-size: 24px;
   margin-bottom: -4px;
   .prefix {
     color: #999;
@@ -15,21 +25,36 @@
   }
   a:hover {
     color: #666;
-    cursor: pointer;
   }
 }
 
-// Name of the saved search (part of search-tabs.html)
+// Name of the saved search
 
 .saved-search-tag {
   background-color: @grayLight;
   color: @white;
-  padding: 4px 10px;
+  margin-right: 4px;
+  padding: 0 12px;
   border-radius: 4px;
   box-shadow: inset 2px 2px 2px rgba(0, 0, 0, .15), inset -2px -2px 2px rgba(0, 0, 0, .15);
   &:before {
-    .fa-icon-set(@white, 8px);
-    content: '\f0c7';
+    .fa-icon-set(@white, 12px);
+    content: '\f0c7'; // Disk icon
+  }
+}
+
+// Heading with count
+
+.title-search-browser {
+  padding-left: 40px;
+  position: relative;
+  &:before {
+    position: absolute;
+    left: 0px;
+    top: 10px;
+    font-size: 34px;
+    content: '\f0c7'; // Disk icon
+    .fa-icon-set(@gray, 8px);
   }
 }
 
@@ -40,7 +65,7 @@
     margin-top: 10px;
     margin-bottom: 10px;
   }
-  li > a:not(.drmc-icon-searches) {
+  li a {
     position: relative;
     padding-left: 30px;
     &:before {
@@ -53,16 +78,17 @@
       top: 11px;
     }
   }
-  .active > a:not(.drmc-icon-searches):before {
+  .active a:before {
     box-shadow: 1px 1px 1px rgba(125, 125, 125, .3);
   }
-  li > a.drmc-icon-searches:before {
-    content: "\f0c7";
-    font-variant: normal;
-    font-family: "FontAwesome";
-    font-size: 16px;
-    margin-right: 10px;
-    color: @gray;
+  .drmc-icon-searches {
+    &:before {
+      font-size: 18px;
+      margin-top: -2px;
+      .fa-icon-set(@gray, 10px);
+      content: '\f0c7';
+      box-shadow: none !important;
+    }
   }
 }
 
