@@ -19,10 +19,6 @@ module.exports = function ($scope, $state, ModalSaveSearchService, SearchService
     }
   };
 
-  $scope.runSearch = function () {
-    $state.go('main.search.slug', { slug: $scope.$parent.data.results[$scope.selectedSearches[0]].slug });
-  };
-
   $scope.editSearch = function () {
     ModalSaveSearchService.edit($scope.selectedSearches[0]).result.then(function () {
       $scope.$parent.search();
