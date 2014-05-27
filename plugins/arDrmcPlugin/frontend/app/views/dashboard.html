@@ -212,11 +212,11 @@
   <div class="span6 dashboard-widget">
     <h3 class="fontello drmc-icon-chart-line">Running totals</h3>
     <tabset class="dashboard-rs-graph">
-      <tab heading="Collection date">
-        <ar:graph-line data="{{ yearlyTotalsByCollectionDate }}" type="bar" width="460" height="280" xper-tick="100" yper-tick="40"></ar:graph-line>
-      </tab>
       <tab heading="Ingest date">
         <ar:graph-line data="{{ monthlyTotalsByCreation }}" type="line" width="460" height="280" xper-tick="100" yper-tick="40"></ar:graph-line>
+      </tab>
+      <tab heading="Collection date">
+        <ar:graph-line data="{{ yearlyTotalsByCollectionDate }}" type="bar" width="460" height="280" xper-tick="100" yper-tick="40"></ar:graph-line>
       </tab>
     </tabset>
   </div>
