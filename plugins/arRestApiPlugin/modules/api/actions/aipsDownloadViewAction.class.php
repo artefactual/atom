@@ -127,24 +127,18 @@ class ApiAipsDownloadViewAction extends QubitApiAction
   */
   protected function logAccessAttempt($request, $aipId)
   {
-    // use property to augment AIP with access info
-    $property = new QubitProperty;
-    $property->objectId = $aipId;
+    // Log access to AIP
+    $logEntry = new QubitAccessLog;
+    $logEntry->objectId = $aipId;
+    $logEntry->username = $this->getUser()->getUserName();
 
-    // access type can either by a full AIP or an AIP file
+    // Access type can either by a full AIP or an AIP file
     $accessType = ($request->relative_path_to_file) ? 'aip_file_download' : 'aip_download';
-
-    // create array representing access details
-    $logMessageData = array();
-    $logMessageData[] = date('Y-m-d H:i:s');
-    $logMessageData[] = $this->getUser()->getUserName();
-    $logMessageData[] = str_replace('|', ' ', $request->reason);
-    $logMessageData[] = $request->relative_path_to_file;
-
-    // save access details
-    $property->setName($accessType);
-    $property->setValue(implode('|', $logMessageData));
-    $property->save();
+    $logEntry->accessType = $accessType;
+    $logEntry->reason = $request->reason;
+    $logEntry->relativePathToFile = $request->relative_path_to_file;
+    $logEntry->accessDate = date('Y-m-d H:i:s');
+    $logEntry->save();
   }
 
   protected function proxyDownload($url, $filename)

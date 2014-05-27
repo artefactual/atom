@@ -35,27 +35,25 @@ class ApiActivityDownloadsAction extends QubitApiAction
 
     // pull download log data in reverse chronological order
     $criteria = new Criteria;
-    $criteria->add(QubitProperty::NAME, 'aip_file_download');
-    $criteria->addJoin(QubitProperty::ID, QubitPropertyI18n::ID);
-    $criteria->addDescendingOrderByColumn(QubitPropertyI18n::VALUE);
+    $criteria->add(QubitAccessLog::ACCESS_TYPE, 'aip_download');
+    $criteria->addOr(QubitAccessLog::ACCESS_TYPE, 'aip_file_download');
+    $criteria->addDescendingOrderByColumn(QubitAccessLog::ACCESS_DATE);
 
     $criteria->setLimit($limit);
 
-    $properties = QubitProperty::get($criteria);
+    $entries = QubitAccessLog::get($criteria);
 
-    // deserialize property values
-    foreach($properties as $property)
+    foreach($entries as $entry)
     {
-      $columns = explode('|', $property->value);
       $download = array(
-        'date' => $columns[0],
-        'username' => $columns[1],
-        'reason' => trim($columns[2])
+        'date' => $entry->accessDate,
+        'username' => $entry->username,
+        'reason' => $entry->reason
       );
 
-      if ($columns[3])
+      if ($entry->relativePathToFile)
       {
-        $download['file'] = $columns[3];
+        $download['file'] = $entry->relativePathToFile;
       }
 
       $results[] = $download;

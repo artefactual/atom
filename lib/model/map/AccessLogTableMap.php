@@ -39,6 +39,10 @@ class AccessLogTableMap extends TableMap {
 		$this->addPrimaryKey('ID', 'id', 'INTEGER', true, null, null);
 		$this->addForeignKey('OBJECT_ID', 'objectId', 'INTEGER', 'object', 'ID', true, null, null);
 		$this->addColumn('ACCESS_DATE', 'accessDate', 'TIMESTAMP', false, null, null);
+		$this->addColumn('ACCESS_TYPE', 'accessType', 'VARCHAR', false, 1024, null);
+		$this->addColumn('USERNAME', 'username', 'VARCHAR', false, 1024, null);
+		$this->addColumn('REASON', 'reason', 'VARCHAR', false, 1024, null);
+		$this->addColumn('RELATIVE_PATH_TO_FILE', 'relativePathToFile', 'VARCHAR', false, 1024, null);
 		// validators
 	} // initialize()
 

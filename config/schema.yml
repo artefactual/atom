@@ -4,6 +4,10 @@ propel:
     id: { type: integer, primaryKey: true, autoIncrement: true, inheritanceKey: false }
     object_id: { type: integer, required: true, foreignTable: object, foreignReference: id, onDelete: cascade }
     access_date: { type: timestamp }
+    access_type: varchar(1024)
+    username: varchar(1024)
+    reason: varchar(1024)
+    relative_path_to_file: varchar(1024)
     _indexes:
       1: [access_date, object_id]
 

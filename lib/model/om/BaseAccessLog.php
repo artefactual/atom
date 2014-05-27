@@ -9,13 +9,21 @@ abstract class BaseAccessLog implements ArrayAccess
 
     ID = 'access_log.ID',
     OBJECT_ID = 'access_log.OBJECT_ID',
-    ACCESS_DATE = 'access_log.ACCESS_DATE';
+    ACCESS_DATE = 'access_log.ACCESS_DATE',
+    ACCESS_TYPE = 'access_log.ACCESS_TYPE',
+    USERNAME = 'access_log.USERNAME',
+    REASON = 'access_log.REASON',
+    RELATIVE_PATH_TO_FILE = 'access_log.RELATIVE_PATH_TO_FILE';
 
   public static function addSelectColumns(Criteria $criteria)
   {
     $criteria->addSelectColumn(QubitAccessLog::ID);
     $criteria->addSelectColumn(QubitAccessLog::OBJECT_ID);
     $criteria->addSelectColumn(QubitAccessLog::ACCESS_DATE);
+    $criteria->addSelectColumn(QubitAccessLog::ACCESS_TYPE);
+    $criteria->addSelectColumn(QubitAccessLog::USERNAME);
+    $criteria->addSelectColumn(QubitAccessLog::REASON);
+    $criteria->addSelectColumn(QubitAccessLog::RELATIVE_PATH_TO_FILE);
 
     return $criteria;
   }
