@@ -115,9 +115,16 @@ module.exports = function ($filter) {
             .text(function (d) {
               var value;
 
-              if (angular.isDefined(attrs.unitFilter) && attrs.unitFilter === 'on') {
-                value = $filter('UnitFilter')(dataset[d].accessKey, 2, true);
-                return value;
+              if (angular.isDefined(attrs.unitFilter)) {
+                if (attrs.unitFilter === 'size') {
+                  value = $filter('UnitFilter')(dataset[d].accessKey, 2, true);
+                  return value;
+                }
+                if (attrs.unitFilter === 'artworks') {
+                  value = dataset[d].accessKey;
+                  return value + ' work(s)';
+                }
+                console.log('Incorrect unit-filter attribute: ' + attrs.unitFilter);
               } else {
                 value = dataset[d].accessKey;
                 return value;
