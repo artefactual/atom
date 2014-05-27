@@ -40,9 +40,10 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
     $scope.criteria.skip = (value - 1) * $scope.criteria.limit;
   });
 
-  // TODO: watch changes only in SearchService.query, not working for me!
-  // Instead of a pull mechanism, I could push changes using $broadcast...
+  // Put a watcher on SearchService.query and update the criteria object.
   $scope.$watch(function () {
+    return SearchService.query;
+  }, function () {
     $scope.criteria.query = SearchService.query;
   });
 
