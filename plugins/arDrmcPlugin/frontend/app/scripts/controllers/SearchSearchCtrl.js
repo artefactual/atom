@@ -19,27 +19,27 @@ module.exports = function ($scope, $state, ModalSaveSearchService, SearchService
     }
   };
 
-  $scope.editSearch = function () {
+  $scope.edit = function () {
     ModalSaveSearchService.edit($scope.selectedSearches[0]).result.then(function () {
       $scope.$parent.search();
       $scope.selectedSearches = [];
     });
   };
 
-  $scope.deleteSearches = function () {
-    for (var key in $scope.selectedSearches) {
-      $scope.deleteSearch($scope.selectedSearches[key]);
-    }
-    $scope.$parent.search();
-    $scope.selectedSearches = [];
-  };
-
-  $scope.deleteSearch = function (id) {
+  var _delete = function (id) {
     SearchService.deleteSearch(id).then(function () {
       console.log('Deleted search ' + id);
     }, function () {
       throw 'Error deleting search ' + id;
     });
+  };
+
+  $scope.delete = function () {
+    for (var key in $scope.selectedSearches) {
+      _delete($scope.selectedSearches[key]);
+    }
+    $scope.$parent.search();
+    $scope.selectedSearches = [];
   };
 
 };

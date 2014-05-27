@@ -19,6 +19,20 @@
   }
 }
 
+// Name of the saved search (part of search-tabs.html)
+
+.saved-search-tag {
+  background-color: @grayLight;
+  color: @white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  box-shadow: inset 2px 2px 2px rgba(0, 0, 0, .15), inset -2px -2px 2px rgba(0, 0, 0, .15);
+  &:before {
+    .fa-icon-set(@white, 8px);
+    content: '\f0c7';
+  }
+}
+
 // Header search tabs
 
 .search-tabs {
