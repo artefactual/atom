@@ -82,6 +82,7 @@ module.exports = function ($scope, $q, StatisticsService, FixityService) {
 
   pull();
 
+
   FixityService.getStatusFixity().then(function (response) {
     $scope.fixityStats = response.data;
   });
