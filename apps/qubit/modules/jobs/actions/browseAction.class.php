@@ -29,6 +29,7 @@ class JobsBrowseAction extends DefaultBrowseAction
     parent::execute($request);
 
     $this->user = $this->context->user;
+    $this->refreshInterval = 10000;
 
     if (!$this->user || !$this->user->isAuthenticated())
     {
@@ -40,12 +41,27 @@ class JobsBrowseAction extends DefaultBrowseAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
+    if (!isset($request->filter))
+    {
+      $request->filter = 'all';
+    }
+
+    if (!isset($request->autoRefresh))
+    {
+      $request->autoRefresh = false;
+    }
+
     $criteria = new Criteria;
 
     // Filter out the history of other users' jobs if not an administrator.
     if (!$this->user->isAdministrator())
     {
       $criteria->add(QubitJob::USER_ID, $this->user->getUserID());
+    }
+
+    if ($request->filter === 'active')
+    {
+      $criteria->add(QubitJob::STATUS_ID, QubitTerm::JOB_STATUS_IN_PROGRESS_ID);
     }
 
     // Page results

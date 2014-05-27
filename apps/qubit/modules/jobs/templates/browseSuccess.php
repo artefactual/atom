@@ -1,5 +1,10 @@
 <h1>Manage jobs</h1>
 
+<ul class="nav nav-pills">
+  <li<?php if ('all' === $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('All jobs'), array('filter' => 'all') + $sf_request->getParameterHolder()->getAll()) ?></li>
+  <li<?php if ('active' === $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Active jobs'), array('filter' => 'active') + $sf_request->getParameterHolder()->getAll()) ?></li>
+</ul>
+
 <table class="table table-bordered sticky-enabled sticky-table" style="margin-top:20px;">
   <thead class="tableheader-processed">
     <tr>
@@ -13,6 +18,7 @@
   </thead>
 
   <?php $jobs = $pager->getResults() ?>
+  <?php $autoRefresh = $sf_request->autoRefresh; ?>
 
   <?php foreach ($jobs as $job): ?>
     <tr>
@@ -74,18 +80,36 @@
   </div>
 <?php endif; ?>
 
-<?php $jobs->rewind() ?>
-
 <!-- Action buttons -->
 <section class="actions">
   <ul>
     <li>
-      <?php echo link_to(__('Export history CSV'), array('module' => 'jobs', 'action' => 'export'),
-        array('class' => 'c-btn')) ?>
+      <a class="c-btn" onClick="window.location.reload()"><i class="icon-refresh icon-large" ></i> Refresh</a>
     </li>
     <li>
-      <?php echo link_to(__('Clear inactive jobs'), array('module' => 'jobs', 'action' => 'delete'),
-        array('class' => 'c-btn c-btn-delete')) ?>
+        <?php $autoRefreshIcons = sprintf("c-btn %s icon-large", $autoRefresh ? 'icon-ok-circle' : 'icon-circle-blank') ?>
+        <?php echo link_to(__(' Auto refresh'), array('module' => 'jobs', 'action' => 'browse',
+         'autoRefresh' => !$autoRefresh) + $sf_request->getParameterHolder()->getAll(),
+         array('class' => $autoRefreshIcons)) ?>
     </li>
+    <?php if ($jobs->count()): ?>
+      <li>
+        <?php echo link_to(__('Export history CSV'), array('module' => 'jobs', 'action' => 'export'),
+          array('class' => 'c-btn')) ?>
+      </li>
+      <li>
+        <?php echo link_to(__('Clear inactive jobs'), array('module' => 'jobs', 'action' => 'delete'),
+          array('class' => 'c-btn c-btn-delete')) ?>
+      </li>
+    <?php endif; ?>
   </ul>
 </section>
+
+<!-- Refresh after specified interval if auto-refresh enabled -->
+<?php if ($autoRefresh): ?>
+  <script>
+    setTimeout(function() {
+      window.location.reload(1);
+    }, <?php echo $refreshInterval ?>);
+  </script>
+<?php endif; ?>
