@@ -38,7 +38,7 @@ class arMigration0109
   {
     // Create AIP table
     $sql = <<<sql
-CREATE TABLE `job` (
+CREATE TABLE IF NOT EXISTS `job` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `status_id` int(11) NOT NULL,
