@@ -4,11 +4,11 @@
 
     <div id="main-column">
 
-      <h1>View Report</h1>
+      <h1><strong>Activity report:</strong> {{ viewData.report_type }}</h1>
 
       <section class="breadcrumb">
         <ul>
-          <li><a ui-sref="main.dashboard">Dashboard</a></li>
+          <li><a ui-sref="main.reports">Reports</a></li>
           <li><a href ui-sref="main.reports.browser">View Report</a></li>
         </ul>
 
@@ -61,33 +61,106 @@
 
       <tabset class="dashboard-rs-graph">
         <tab heading="Total">
-          <table class="table">
+          <table class="table table-bordered">
             <thead>
-              <th>Artworks with downloaded materials</th>
+              <th>Users</th>
               <th>No. AIPs downloaded</th>
               <th>No. files downloaded</th>
               <th>Total filesize</th>
-              <th>Parent department</th>
+              <th>Parent artwork</th>
             </thead>
             <tbody>
-              <tr ng-repeat="report in reportsView.savedReports">
-                <td>{{  }}</td>
-                <td>{{ item.date }}</td>
-                <td>{{ item.file }}</td>
-                <td>{{ item.reason }}</td>
-                <td>{{ item.username || 'Unknown' }}</td>
-              </tr>
-              <tr ng-if="!ingestionActivity.length">
-                <td colspan="4"><span>There are no recent downloads to display</span></td>
+              <tr ng-repeat="report in viewData.savedReports.all_depts_totals.results">
+                <td>{{ report.user_count }}</td>
+                <td>{{ report.aips_downloaded }}</td>
+                <td>{{ report.files_downloaded }}</td>
+                <td>{{ report.total_filesize }}</td>
+                <td>{{ report.parent_artwork }}</td>
               </tr>
             </tbody>
           </table>
         </tab>
         <tab heading="By user">
-          more stuff
+          <table class="table table-bordered">
+            <thead>
+              <th>Users</th>
+              <th>No. AIPs downloaded</th>
+              <th>No. files downloaded</th>
+              <th>Total filesize</th>
+              <th>Parent artwork</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="report in viewData.savedReports.all_depts_totals.results">
+                <td>{{ report.user_count }}</td>
+                <td>{{ report.aips_downloaded }}</td>
+                <td>{{ report.files_downloaded }}</td>
+                <td>{{ report.total_filesize }}</td>
+                <td>{{ report.parent_artwork }}</td>
+              </tr>
+            </tbody>
+          </table>
         </tab>
-        <tab heading="by department">
-          Stuff
+
+        <tab heading="By department">
+          <h2>Media and performance art</h2>
+          <table class="table table-bordered">
+            <thead>
+              <th>User</th>
+              <th>Aips downloaded</th>
+              <th>Files downloaded</th>
+              <th>Total filesize</th>
+              <th>Parent artwork</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="report in viewData.savedReports.media_and_performance_dept.results">
+                <td>{{ report.user }}</td>
+                <td>{{ report.aips_downloaded }}</td>
+                <td>{{ report.files_downloaded }}</td>
+                <td>{{ report.total_filesize }}</td>
+                <td><a href>{{ report.parent_artwork }}</a></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>Architecture and design</h2>
+          <table class="table table-bordered">
+            <thead>
+              <th>User</th>
+              <th>Aips downloaded</th>
+              <th>Files downloaded</th>
+              <th>Total filesize</th>
+              <th>Parent artwork</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="report in viewData.savedReports.architecture_and_design_dept.results">
+                <td>{{ report.user }}</td>
+                <td>{{ report.aips_downloaded }}</td>
+                <td>{{ report.files_downloaded }}</td>
+                <td>{{ report.total_filesize }}</td>
+                <td><a href>{{ report.parent_artwork }}</a></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>Total: all departments</h2>
+          <table class="table table-bordered">
+            <thead>
+              <th>Users</th>
+              <th>Aips downloaded</th>
+              <th>Files downloaded</th>
+              <th>Total filesize</th>
+              <th>Parent artwork</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="report in viewData.savedReports.all_depts_totals.results">
+                <td>{{ report.user_count }}</td>
+                <td>{{ report.aips_downloaded }}</td>
+                <td>{{ report.files_downloaded }}</td>
+                <td>{{ report.total_filesize }}</td>
+                <td>{{ report.parent_artwork }}</td>
+              </tr>
+            </tbody>
+          </table>
         </tab>
       </tabset>
 

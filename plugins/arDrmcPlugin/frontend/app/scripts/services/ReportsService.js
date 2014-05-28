@@ -90,178 +90,90 @@ module.exports = function ($q, $timeout) {
       'report_end_date': '2013-12-01',
       'saved_report_description': 'Download report for period during curation dept Review'
     },
-    'savedReports': [
+    'savedReports': {
+    // By department
+      'media_and_performance_dept':
       {
-        'name': 'The Dancing Troubadors',
-        'id': 22,
-        'type_id': 19,
-        'type': 'Characteristic reports',
-        'description': 'Description description',
-        'created_at': '1999-10-10',
+        'dept_name': 'Media and Performance Art',
         'results': [
           {
             'user': 'Ben',
             'aips_downloaded': 1,
             'files_downloaded': 4,
             'total_filesize': 361707,
-            'last_modified': '2014-04-29',
-            'created_at': '1999-10-10',
-            'parent_artwork': {
-              'id': 12345,
-              'name': 'Semiotics of the Kitchen'
-            }
+            'parent_artwork': 'Semiotics of the Kitchen'
+          },
+          {
+            'user': 'Ben',
+            'aips_downloaded': 1,
+            'files_downloaded': 4,
+            'total_filesize': 561707,
+            'parent_artwork': 'Official Welcome'
           },
           {
             'user': 'Kate',
             'aips_downloaded': 2,
             'files_downloaded': 9,
             'total_filesize': 524000,
-            'last_modified': '2014-03-29',
-            'created_at': '1999-10-11',
-            'parent_artwork': {
-              'id': 345,
-              'name': 'Official Welcome'
-            }
-          }
-        ]
-      },
-      {
-        'name': 'Out of the Box Engineering Peritology',
-        'id': 24,
-        'type_id': 18,
-        'type': 'Fixity report',
-        'description': 'Description description',
-        'created_at': '1999-10-10',
-        'results': [
-          {
-            'The user': 'Ben',
-            'aips_downloaded': 1,
-            'files_downloaded': 4,
-            'total_filesize': 550283,
-            'last_modified': '2012-04-29',
-            'created_at': '1989-07-10',
-            'parent_artwork': {
-              'Id': 3445,
-              'Name': 'SimCity 2000'
-            }
+            'parent_artwork': 'Official Welcome'
           },
           {
             'user': 'Kate',
-            'aips_downloaded': 10,
-            'files_downloaded': 59,
-            'total_filesize': 54353,
-            'last_modified': '2011-01-29',
-            'created_at': '1800-01-20',
-            'parent_artwork': {
-              'id': 234,
-              'Name': 'Space Invaders'
-            }
+            'aips_downloaded': 0,
+            'files_downloaded': 4,
+            'total_filesize': 64000,
+            'parent_artwork': 'Play Dead; Real Time'
           }
         ]
       },
+      'architecture_and_design_dept':
       {
-        'name': 'The Work of Young Architects in the Middle West',
-        'id': 97,
-        'type_id': 18,
-        'type': 'Activity report',
-        'description': 'Description description',
-        'created_at': '2009-10-10',
+        'dept_name': 'Architecture and Design',
         'results': [
           {
-            'The user': 'Ben',
+            'user': 'Ben',
             'aips_downloaded': 1,
             'files_downloaded': 4,
-            'total_filesize': 550283,
-            'last_modified': '2012-04-29',
-            'created_at': '1989-07-10',
-            'parent_artwork': {
-              'Id': 3445,
-              'Name': 'SimCity 2000'
-            }
+            'total_filesize': 351707,
+            'parent_artwork': 'Sim City 2000'
+          },
+          {
+            'user': 'Ben',
+            'aips_downloaded': 1,
+            'files_downloaded': 4,
+            'total_filesize': 551707,
+            'parent_artwork': 'Space Invaders'
           },
           {
             'user': 'Kate',
-            'aips_downloaded': 10,
-            'files_downloaded': 59,
-            'total_filesize': 54353,
-            'last_modified': '2011-01-29',
-            'created_at': '1800-01-20',
-            'parent_artwork': {
-              'id': 234,
-              'Name': 'Space Invaders'
-            }
+            'aips_downloaded': 2,
+            'files_downloaded': 0,
+            'total_filesize': 524000,
+            'parent_artwork': 'Tetris'
+          },
+          {
+            'user': 'Kate',
+            'aips_downloaded': 0,
+            'files_downloaded': 4,
+            'total_filesize': 44000,
+            'parent_artwork': 'The Sims'
           }
         ]
       },
+      'all_depts_totals':
       {
-        'name': 'Persian Fresco Painting',
-        'id': 55,
-        'type_id': 18,
-        'type': 'Characteristic report',
-        'description': 'Description description',
-        'created_at': '2002-01-15',
+        'dept_name': 'All',
         'results': [
           {
-            'The user': 'Ben',
-            'aips_downloaded': 1,
-            'files_downloaded': 4,
-            'total_filesize': 550283,
-            'last_modified': '2012-04-29',
-            'created_at': '1989-07-10',
-            'parent_artwork': {
-              'Id': 3445,
-              'Name': 'SimCity 2000'
-            }
-          },
-          {
-            'user': 'Kate',
-            'aips_downloaded': 10,
-            'files_downloaded': 59,
-            'total_filesize': 54353,
-            'last_modified': '2011-01-29',
-            'created_at': '1800-01-20',
-            'parent_artwork': {
-              'id': 234,
-              'Name': 'Space Invaders'
-            }
-          }
-        ]
-      },
-      {
-        'name': 'The science of enscientology',
-        'id': 29,
-        'type_id': 19,
-        'type': 'Characteristic report',
-        'description': 'Description description',
-        'created_at': '1919-12-10',
-        'results': [
-          {
-            'The user': 'Ben',
-            'aips_downloaded': 1,
-            'files_downloaded': 4,
-            'total_filesize': 550283,
-            'last_modified': '2012-04-29',
-            'created_at': '1989-07-10',
-            'parent_artwork': {
-              'Id': 3445,
-              'Name': 'SimCity 2000'
-            }
-          },
-          {
-            'user': 'Kate',
-            'aips_downloaded': 10,
-            'files_downloaded': 59,
-            'total_filesize': 54353,
-            'last_modified': '2011-01-29',
-            'created_at': '1800-01-20',
-            'parent_artwork': {
-              'id': 234,
-              'Name': 'Space Invaders'
-            }
+            'user_count': '2',
+            'aips_downloaded': '8',
+            'files_downloaded': '24',
+            'total_filesize': '24555',
+            'parent_artwork': '7'
           }
         ]
       }
-    ]
+    }
   };
 
   // Remove $q.all when endpoints ready. No need
