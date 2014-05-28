@@ -132,7 +132,7 @@ class ApiSearchesBrowseAction extends QubitApiAction
       $this->addItemToArray($search['user'], 'id', $doc['user']['id']);
       $this->addItemToArray($search['user'], 'name', $doc['user']['name']);
 
-      $data['results'][$hit->getId()] = $search;
+      $data['results'][] = $search;
     }
 
     // Facets
