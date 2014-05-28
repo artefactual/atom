@@ -31,7 +31,26 @@ class ApiSearchesUpdateAction extends QubitApiAction
       throw new QubitApi404Exception('Search not found');
     }
 
-    $this->search->userId = $this->context->user->getUserID();
+    // Check if user is the creator of the query or is an admin
+    $allowed = true;
+    if ($this->search->userId !== $this->context->user->getUserID())
+    {
+      $allowed = false;
+      foreach ($this->context->user->getAclGroups() as $group)
+      {
+        if ($group->id == QubitAclGroup::ADMINISTRATOR_ID || $group->id == QubitAclGroup::ADMIN_ID)
+        {
+          $allowed = true;
+
+          break;
+        }
+      }
+    }
+
+    if (!$allowed)
+    {
+      throw new QubitApiNotAuthorizedException();
+    }
 
     foreach ($payload as $field => $value)
     {

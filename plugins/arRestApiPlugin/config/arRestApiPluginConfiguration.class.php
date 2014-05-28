@@ -27,7 +27,7 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
 {
   const REGEX_UUID = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}';
   const REGEX_ID   = '\d+';
-  const REGEX_SEARCH = '\d+|\d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}-.+';
+  const REGEX_SLUG = '[0-9A-Za-z-]+';
 
   public function routingLoadConfiguration(sfEvent $event)
   {
@@ -256,15 +256,11 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'searchesCreate'));
 
-    $this->addRoute('GET', '/api/searches/:id', array(
+    $this->addRoute('GET', '/api/searches/:input', array(
       'module' => 'api',
       'action' => 'searchesRead',
-      'params' => array('id' => self::REGEX_ID)));
-
-    $this->addRoute('GET', '/api/searches/:idorslug', array(
-      'module' => 'api',
-      'action' => 'searchesRead',
-      'params' => array('idorslug' => self::REGEX_SEARCH)));
+      // TODO: Should we have two routes instead?
+      'params' => array('input' => self::REGEX_ID . '|' . self::REGEX_SLUG)));
 
     $this->addRoute('PUT', '/api/searches/:id', array(
       'module' => 'api',

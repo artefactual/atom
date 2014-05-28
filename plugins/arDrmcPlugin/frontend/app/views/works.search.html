@@ -1,5 +1,3 @@
-<!-- Uses SearchCtrl controller -->
-
 <ng-include src="viewsPath + '/partials/search-tabs.html'"></ng-include>
 
 <div class="row-fluid">
@@ -22,7 +20,7 @@
 
     <div id="main-column">
 
-      <div class="row-fluid">
+      <div class="row-fluid" ng-if="!name">
         <h1 class="multiline moma-title drmc-color-artwork-record span9">
           Showing {{ data.total }} results
           <span class="sub">Artwork records search</span>

@@ -26,11 +26,26 @@ class ApiSearchesDeleteAction extends QubitApiAction
       throw new QubitApi404Exception('Search not found');
     }
 
-    // Check user authorization
-    // if (!QubitAcl::check($this->resource, 'delete'))
-    // {
-    //   throw new QubitApiForbiddenException('You are not allowed to delete this object');
-    // }
+    // Check if user is the creator of the query or is an admin
+    $allowed = true;
+    if ($search->userId !== $this->context->user->getUserID())
+    {
+      $allowed = false;
+      foreach ($this->context->user->user->getAclGroups() as $group)
+      {
+        if ($group->id == QubitAclGroup::ADMINISTRATOR_ID || $group->id == QubitAclGroup::ADMIN_ID)
+        {
+          $allowed = true;
+
+          break;
+        }
+      }
+    }
+
+    if (!$allowed)
+    {
+      throw new QubitApiNotAuthorizedException();
+    }
 
     $search->delete();
   }

@@ -107,7 +107,7 @@ class QubitAPIAction extends sfAction
    * \Elastica\Query because the former happens after faceting while the
    * latter happens before faceting.
    */
-  protected function filterEsFacet($name, $field, \Elastica\Filter\Bool &$filterBool, $operator = 'AND', array $options = array())
+  protected function filterEsFacetFilter($name, $field, \Elastica\Filter\Bool &$filterBool, $operator = 'AND', array $options = array())
   {
     if (!isset($this->request->$name))
     {
@@ -151,6 +151,58 @@ class QubitAPIAction extends sfAction
       case 'must':
       default:
         $filterBool->addMust($filter);
+    }
+  }
+
+  /**
+   * Filter out selected facets. It uses \Elastica\Query instead of
+   * \Elastica\Filter because the later happens after faceting while the
+   * former happens before faceting.
+   */
+  protected function filterEsFacetQuery($name, $field, \Elastica\Query\Bool &$queryBool, $operator = 'AND', array $options = array())
+  {
+    if (!isset($this->request->$name))
+    {
+      return;
+    }
+
+    // Ensure type array
+    $this->request->$name = (array) $this->request->$name;
+
+    // Check type of the elements in the array
+    if (!$options['noInteger'])
+    {
+      foreach ($this->request->$name as $item)
+      {
+        if (true !== ctype_digit($item))
+        {
+          return;
+        }
+      }
+    }
+
+    $query = new \Elastica\Query\Terms;
+    $query->setTerms($field, $this->request->$name);
+
+    switch (strtolower($operator))
+    {
+      case 'or':
+      case 'should':
+        $queryBool->addShould($query);
+
+        break;
+
+      case 'nor':
+      case 'not':
+      case 'must_not':
+        $queryBool->addMustNot($query);
+
+        break;
+
+      case 'and':
+      case 'must':
+      default:
+        $queryBool->addMust($query);
     }
   }
 

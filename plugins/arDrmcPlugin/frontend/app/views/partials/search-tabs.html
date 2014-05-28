@@ -1,7 +1,13 @@
-<div class="search-current-query" ng-if="criteria.query">
-  <span class="prefix">Query &raquo;</span>
-  <span class="value">"{{ criteria.query }}"</span>
-  <a ng-click="unsetQuery()"><i class="icon-remove"></i></a>
+<div ng-if="criteria.query || name" class="search-heading">
+
+  <span class="saved-search-tag" ng-if="name">{{ name }}</span>
+
+  <div class="search-current-query" ng-if="criteria.query">
+    <span class="prefix">Search &raquo;</span>
+    <span class="value">"{{ criteria.query }}"</span>
+    <a href ng-click="unsetQuery()"><i class="icon-remove"></i></a>
+  </div>
+
 </div>
 
 <div class="search-tabs">
