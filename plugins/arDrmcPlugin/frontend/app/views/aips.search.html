@@ -115,7 +115,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="(key, aip) in data.results | orderBy:predicate:reverse">
+                <tr ng-repeat="(key, aip) in data.results">
                   <td><a href ui-sref="main.aips.view({ uuid: aip.uuid })">{{ aip.name }}</a></td>
                   <td>{{ aip.size | UnitFilter:1 }}</td>
                   <td>{{ aip.created_at }}</td>

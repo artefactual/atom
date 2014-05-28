@@ -93,7 +93,7 @@
                 <th colspan="2">Size</th>
               </thead>
               <tbody>
-                <tr ng-repeat="item in files track by $index | orderBy:predicate:reverse">
+                <tr ng-repeat="item in files track by $index">
                   <td><a href ng-click="openViewer(files, $index)">{{ item.filename }}</a></td>
                   <td>{{ item.mime_type }}</td>
                   <td>{{ item.byte_size | UnitFilter:2 }}</td>
