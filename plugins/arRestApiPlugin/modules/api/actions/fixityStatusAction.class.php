@@ -50,6 +50,8 @@ class ApiFixityStatusAction extends QubitApiAction
 
       $report = array();
 
+      $this->addItemToArray($report, 'id', (int)$hit->getId());
+
       if (isset($doc['success']))
       {
         $report['outcome'] = (bool)$doc['success'];
@@ -65,7 +67,7 @@ class ApiFixityStatusAction extends QubitApiAction
         $this->addItemToArray($report, 'duration', $duration);
       }
 
-      $data['lastChecks'][$hit->getId()] = $report;
+      $data['lastChecks'][] = $report;
     }
 
     // Last reports failed
@@ -87,6 +89,8 @@ class ApiFixityStatusAction extends QubitApiAction
 
       $report = array();
 
+      $this->addItemToArray($report, 'id', (int)$hit->getId());
+
       if (isset($doc['success']))
       {
         $report['outcome'] = (bool)$doc['success'];
@@ -102,7 +106,7 @@ class ApiFixityStatusAction extends QubitApiAction
         $this->addItemToArray($report, 'duration', $duration);
       }
 
-      $data['lastFails'][$hit->getId()] = $report;
+      $data['lastFails'][] = $report;
     }
 
     // Currently checking
@@ -129,10 +133,12 @@ class ApiFixityStatusAction extends QubitApiAction
 
       $report = array();
 
+      $this->addItemToArray($report, 'id', (int)$hit->getId());
+
       $this->addItemToArray($report, 'aip_uuid', $doc['aip']['uuid']);
       $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
 
-      $data['currentlyChecking'][$hit->getId()] = $report;
+      $data['currentlyChecking'][] = $report;
     }
 
     // Checks in 24 hours

@@ -28,7 +28,7 @@
             </ul>
             <ul class="menu-list-right nav nav-pills">
               <li>
-                Status:&nbsp&nbsp<span class="badge menu-badge" ng-class="{ 'badge-important': fixityStats.lastFails, 'badge-success': !fixityStats.lastFails }">{{ fixityFailsCount }}</span>
+                Status:&nbsp&nbsp<span class="badge menu-badge" ng-class="{ 'badge-important': fixityStats.lastFails, 'badge-success': !fixityStats.lastFails }">{{ fixityStats.lastFails.length }}</span>
               </li>
             </ul>
           </div>
@@ -41,9 +41,17 @@
             <span class="muted label" ng-class="{ 'label-important': fixityStats.lastFails, 'label-success': !fixityStats.lastFails }">{{ fixityStats.lastFails.outcome ? 'OK' : 'Not OK' }}</span>
           </div>
 
-          <div class="span4 integrity-status-field">
+          <div ng-show="fixityStats.currentlyChecking" class="span4 integrity-status-field">
             <h3>Currently checking</h3>
-            <span class="muted" ng-repeat="aip in fixityStats.currentlyChecking">
+            <span ng-repeat="aip in fixityStats.currentlyChecking">
+              <a href ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a>
+            </span>
+          </div>
+
+          <!-- if no checks currently running -->
+          <div ng-hide="fixityStats.currentlyChecking" class="span4 integrity-status-field">
+            <h3>Last repository-wide fixity audit</h3>
+            <span>
               <a href ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a>
             </span>
           </div>
@@ -55,7 +63,7 @@
 
           <div class="span4 integrity-status-field">
             <h3>Time to check collection</h3>
-            <span class="muted">{{ fixityStats.timeToCheckCollection }}</span>
+            <span class="muted">{{ fixityStats.timeToCheckCollection | ConvertSecondsFilter }}</span>
           </div>
 
         </div>
@@ -108,6 +116,9 @@
             </tab>
 
           </tabset>
+
+          <button class="btn fixity-checker-view-all">View all</button>
+
         </div>
 
       </div>

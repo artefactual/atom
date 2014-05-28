@@ -82,10 +82,8 @@ module.exports = function ($scope, $q, StatisticsService, FixityService) {
 
   pull();
 
-  FixityService.getDashboardFixity().success(function (data) {
-    $scope.fixityStats = data;
-  }).then(function () {
-    $scope.fixityFailsCount = Object.keys($scope.fixityStats.lastFails).length;
+  FixityService.getStatusFixity().then(function (response) {
+    $scope.fixityStats = response.data;
   });
 
 };

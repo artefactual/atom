@@ -9,7 +9,7 @@ module.exports = function (SETTINGS, $http) {
     });
   };
 
-  this.getDashboardFixity = function () {
+  this.getStatusFixity = function () {
     return $http({
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/fixity/status'
