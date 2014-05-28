@@ -90,7 +90,7 @@ module.exports = function ($q, $timeout) {
       'report_end_date': '2013-12-01',
       'saved_report_description': 'Download report for period during curation dept Review'
     },
-    'savedReports': {
+    'savedReportsByDept': {
     // By department
       'media_and_performance_dept':
       {
@@ -123,6 +123,14 @@ module.exports = function ($q, $timeout) {
             'files_downloaded': 4,
             'total_filesize': 64000,
             'parent_artwork': 'Play Dead; Real Time'
+          },
+          {
+            'table_total': true,
+            'user': 2,
+            'aips_downloaded': 4,
+            'files_downloaded': 12,
+            'total_filesize': 1143.3,
+            'parent_artwork': 3
           }
         ]
       },
@@ -157,6 +165,14 @@ module.exports = function ($q, $timeout) {
             'files_downloaded': 4,
             'total_filesize': 44000,
             'parent_artwork': 'The Sims'
+          },
+          {
+            'table_total': true,
+            'user': 2,
+            'aips_downloaded': 4,
+            'files_downloaded': 12,
+            'total_filesize': 1154.5,
+            'parent_artwork': 4
           }
         ]
       },
@@ -173,6 +189,72 @@ module.exports = function ($q, $timeout) {
           }
         ]
       }
+    },
+    'savedReportsByUser': {
+      'results_ben': [
+        {
+          'artwork_w_downloaded_mats': 2,
+          'no_aips_downloaded': 1,
+          'no_files_downloaded': 4,
+          'total_filesize': 34333,
+          'parent_work': 'Semiotics of the Kitchen',
+          'parent_department': 'Media and Performance Art'
+        },
+        {
+          'artwork_w_downloaded_mats': 2,
+          'no_aips_downloaded': 1,
+          'no_files_downloaded': 4,
+          'total_filesize': 534333,
+          'parent_work': 'Space Invaders',
+          'parent_department': 'Architecture and Design'
+        },
+        // totals of two above
+        {
+          'table_total': true,
+          'artwork_w_downloaded_mats': 4,
+          'no_aips_downloaded': 2,
+          'no_files_downloaded': 8,
+          'total_filesize': 568666,
+          'parent_department': 2
+        }
+      ],
+      'results_kate': [
+        {
+          'artwork_w_downloaded_mats': 2,
+          'no_aips_downloaded': 2,
+          'no_files_downloaded': 0,
+          'total_filesize': 600,
+          'parent_work': 'where\'s my fucking peanut',
+          'parent_department': 'Prints and Illustrated Books'
+        },
+        {
+          'artwork_w_downloaded_mats': 2,
+          'no_aips_downloaded': 0,
+          'no_files_downloaded': 3,
+          'total_filesize': 66.69,
+          'parent_work': 'Wendy and Lucy',
+          'parent_department': 'Film'
+        },
+        // totals of two above
+        {
+          'table_total': true,
+          'artwork_w_downloaded_mats': 4,
+          'no_aips_downloaded': 2,
+          'no_files_downloaded': 3,
+          'total_filesize': 6686.66,
+          'parent_department': 2
+        }
+      ],
+      'results_all': [
+        {
+          'table_total': true,
+          'artwork_w_downloaded_mats': 8,
+          'no_aips_downloaded': 4,
+          'no_files_downloaded': 11,
+          'total_filesize': 1.55,
+          'parent_department': 4
+        }
+      ]
     }
   };
 
