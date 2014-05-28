@@ -26,11 +26,17 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
     $scope.criteria.query = SearchService.query;
   });
 
+  // We want to load the saved search only once. Next loop may be only an update
+  // of the criteria. TODO: Actually, once the user updates the query we should
+  // probably close the saved search and stop showing to the user the saved
+  // search name.
+  var isSavedSearchLoaded = false;
+
   // Watch for criteria changes
   $scope.$watch('criteria', function () {
-    // Saved search? If we have its permalink...
-    if (angular.isDefined($stateParams.slug)) {
+    if (angular.isDefined($stateParams.slug) && !isSavedSearchLoaded) {
       savedSearch();
+      isSavedSearchLoaded = true;
     } else {
       search();
     }
@@ -62,9 +68,7 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
   };
 
   $scope.unsetQuery = function () {
-    $scope.criteria.query = undefined;
-    SearchService.setQuery($scope.criteria.query, $stateParams.entity);
-    search();
+    SearchService.setQuery(null, $stateParams.entity);
   };
 
   // Support overview toggling (AIPs and searches)
@@ -81,8 +85,7 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
   // Remove query when leaving loaded search
   $scope.$on('$locationChangeSuccess', function (event, next, current) {
     if (current.indexOf('/search/saved/') !== -1) {
-      $scope.criteria.query = undefined;
-      SearchService.setQuery($scope.criteria.query);
+      SearchService.setQuery(null, $stateParams.entity);
     }
   });
 
