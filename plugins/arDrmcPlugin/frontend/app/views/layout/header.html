@@ -68,46 +68,6 @@
 
     </div>
 
-    <!-- Manage menu -->
-    <div id="manage-menu" data-toggle="tooltip" data-title="Manage" ng-show="user.canAdministrate()">
-      <a class="top-item" data-toggle="dropdown" data-target="#">Manage</a>
-      <div class="top-dropdown-container">
-        <div class="top-dropdown-arrow">
-          <div class="arrow"></div>
-        </div>
-        <div class="top-dropdown-header">Manage</div>
-        <div class="top-dropdown-body">
-          <ul>
-            <li class="leaf" id="node_taxonomies">
-              <a target="_self" ng-href="{{ basePath }}/taxonomy/list">Taxonomies</a>
-              <a target="_self" ng-href="{{ basePath }}/user/list">Users</a>
-              <a target="_self" ng-href="{{ basePath }}/aclGroup/list">Groups</a>
-            </li>
-          </ul>
-        </div>
-        <div class="top-dropdown-bottom"></div>
-      </div>
-    </div>
-
-    <!-- Add menu -->
-    <div id="add-menu" data-toggle="tooltip" data-title="Add">
-      <a class="top-item" data-toggle="dropdown" data-target="#">Add</a>
-      <div class="top-dropdown-container">
-        <div class="top-dropdown-arrow">
-          <div class="arrow"></div>
-        </div>
-        <div class="top-dropdown-header">Add</div>
-        <div class="top-dropdown-body">
-          <ul>
-            <li class="leaf">
-              <a href ng-click="openEditDcModal()">Supporting technology record</a>
-            </li>
-          </ul>
-        </div>
-        <div class="top-dropdown-bottom"></div>
-      </div>
-    </div>
-
     <!-- Reports menu -->
     <div id="reports-menu" data-toggle="tooltip" data-title="Add">
       <a class="top-item" data-toggle="dropdown" data-target="#">View</a>
@@ -143,6 +103,46 @@
             </li>
             <li class="leaf">
               <a href>Granular ingest (characteristic)</a>
+            </li>
+          </ul>
+        </div>
+        <div class="top-dropdown-bottom"></div>
+      </div>
+    </div>
+
+    <!-- Manage menu -->
+    <div id="manage-menu" data-toggle="tooltip" data-title="Manage" ng-show="user.canAdministrate()">
+      <a class="top-item" data-toggle="dropdown" data-target="#">Manage</a>
+      <div class="top-dropdown-container">
+        <div class="top-dropdown-arrow">
+          <div class="arrow"></div>
+        </div>
+        <div class="top-dropdown-header">Manage</div>
+        <div class="top-dropdown-body">
+          <ul>
+            <li class="leaf" id="node_taxonomies">
+              <a target="_self" ng-href="{{ basePath }}/taxonomy/list">Taxonomies</a>
+              <a target="_self" ng-href="{{ basePath }}/user/list">Users</a>
+              <a target="_self" ng-href="{{ basePath }}/aclGroup/list">Groups</a>
+            </li>
+          </ul>
+        </div>
+        <div class="top-dropdown-bottom"></div>
+      </div>
+    </div>
+
+    <!-- Add menu -->
+    <div id="add-menu" data-toggle="tooltip" data-title="Add">
+      <a class="top-item" data-toggle="dropdown" data-target="#">Add</a>
+      <div class="top-dropdown-container">
+        <div class="top-dropdown-arrow">
+          <div class="arrow"></div>
+        </div>
+        <div class="top-dropdown-header">Add</div>
+        <div class="top-dropdown-body">
+          <ul>
+            <li class="leaf">
+              <a href ng-click="openEditDcModal()">Supporting technology record</a>
             </li>
           </ul>
         </div>
