@@ -1,10 +1,12 @@
 <h1>Manage jobs</h1>
-
-<ul class="nav nav-tabs">
-  <li<?php if ('all' === $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('All jobs'), array('filter' => 'all') + $sf_request->getParameterHolder()->getAll()) ?></li>
-  <li<?php if ('active' === $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Active jobs'), array('filter' => 'active') + $sf_request->getParameterHolder()->getAll()) ?></li>
-
-  <table class="table table-bordered sticky-enabled sticky-table" style="margin-top:20px;">
+<div>
+  <ul class="nav nav-tabs" style="margin:0px;padding:0px">
+    <li<?php if ('all' === $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('All jobs'), array('filter' => 'all') + $sf_request->getParameterHolder()->getAll()) ?></li>
+    <li<?php if ('active' === $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Active jobs'), array('filter' => 'active') + $sf_request->getParameterHolder()->getAll()) ?></li>
+  </ul>
+</div>
+<div class="tab-content">
+  <table class="table table-bordered sticky-enabled sticky-table">
     <thead class="tableheader-processed">
       <tr>
         <th width="15%">Start date</th>
@@ -28,7 +30,7 @@
         <td><?php echo $job->getCompletionDateString() ?></td>
 
         <!-- Job name -->
-        <td><?php echo $job; ?></td>
+        <td><?php echo $job ?></td>
 
         <!-- Job status -->
         <td>
@@ -61,7 +63,7 @@
       </tr>
     <?php endforeach; ?>
   </table>
-</ul>
+</div>
 
 <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
 
