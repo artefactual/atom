@@ -16,9 +16,20 @@
   }
 
   ContextBrowser.prototype.init = function (data) {
-    // SVG layout
-    this.rootSVG = d3.select(this.container.get(0)).append('svg').attr('height', '100%').attr('class', 'graph-root');
+
+    // Main SVG
+    this.rootSVG = d3.select(this.container.get(0))
+      .append('svg')
+      .attr({
+        'height': '100%',
+        'width': '100%',
+        'class': 'graph-root'
+      });
+
+    // Is this needed?
     this.graphSVG = this.rootSVG.append('svg').attr('class', 'graph-attach');
+
+    // Container element for pan/zoom
     this.groupSVG = this.graphSVG.append('g');
 
     this.graph = new Graph(data);
