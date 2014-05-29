@@ -13,11 +13,11 @@ module.exports = function ($q, $timeout) {
     'browseSamples':
     [
       {
-        'name': 'Media and Performance Art',
+        'name': 'Media and performance Art',
         'id': 22,
         'type_id': 19,
         'type': 'Characteristic reports',
-        'created_at': '1999-10-11',
+        'created_at': '2014-02-08T18:03:42Z',
         'description': 'All works added in a fiscal year',
         'results': [
           {
@@ -25,8 +25,8 @@ module.exports = function ($q, $timeout) {
             'aips_downloaded': 1,
             'files_downloaded': 4,
             'total_filesize': 361707,
-            'last_modified': '2014-04-29',
-            'created_at': '1999-10-11',
+            'last_modified': '2011-02-08T19:03:42Z',
+            'created_at': '2014-03-08T19:03:42Z',
             'parent_artwork': {
               'id': 12345,
               'name': 'Semiotics of the Kitchen'
@@ -37,8 +37,8 @@ module.exports = function ($q, $timeout) {
             'aips_downloaded': 2,
             'files_downloaded': 9,
             'total_filesize': 524000,
-            'last_modified': '2014-03-29',
-            'created_at': '1999-10-11',
+            'last_modified': '2014-02-08T02:03:42Z',
+            'created_at': '2014-02-08T14:03:42Z',
             'parent_artwork': {
               'id': 345,
               'name': 'Official Welcome'
@@ -47,11 +47,11 @@ module.exports = function ($q, $timeout) {
         ]
       },
       {
-        'name': 'Architecture and Design',
+        'name': 'Architecture and design',
         'id': 24,
         'type_id': 18,
         'type': 'Fixity report',
-        'created_at': '1099-10-11',
+        'created_at': '2014-02-08T08:03:42Z',
         'description': 'All fixes on all buildings',
         'results': [
           {
@@ -59,8 +59,8 @@ module.exports = function ($q, $timeout) {
             'aips_downloaded': 1,
             'files_downloaded': 4,
             'total_filesize': 550283,
-            'last_modified': '2012-04-29',
-            'created_at': '1989-07-10',
+            'last_modified': '2004-02-08T17:03:42Z',
+            'created_at': '2014-02-08T18:03:42Z',
             'parent_artwork': {
               'Id': 3445,
               'Name': 'SimCity 2000'
@@ -71,8 +71,8 @@ module.exports = function ($q, $timeout) {
             'aips_downloaded': 10,
             'files_downloaded': 59,
             'total_filesize': 54353,
-            'last_modified': '2011-01-29',
-            'created_at': '1800-01-20',
+            'last_modified': '2014-02-08T18:03:42Z',
+            'created_at': '2014-02-08T18:03:42Z',
             'parent_artwork': {
               'id': 234,
               'Name': 'Space Invaders'
@@ -85,13 +85,14 @@ module.exports = function ($q, $timeout) {
 
   var reportsView = {
     'savedOverview': {
-      'run_from': 'Oct-Nov 2013',
-      'report_start_date': '2013-10-01',
-      'report_end_date': '2013-12-01',
-      'saved_report_description': 'Download report for period during curation dept Review'
+      'report_type': 'Amount downloaded',
+      'run_from': '2010-02-08T18:03:42Z',
+      'report_start_date': '2013-12-10T10:23:12Z',
+      'report_end_date': '2014-01-08T19:45:30Z',
+      'saved_report_description': 'Download report for period during curation department review'
     },
     'savedReportsByDept': {
-    // By department
+      // By department
       'media_and_performance_dept':
       {
         'dept_name': 'Media and Performance Art',
@@ -121,28 +122,27 @@ module.exports = function ($q, $timeout) {
             'user': 'Kate',
             'aips_downloaded': 0,
             'files_downloaded': 4,
-            'total_filesize': 64000,
+            'total_filesize': 640020,
             'parent_artwork': 'Play Dead; Real Time'
-          },
-          {
-            'table_total': true,
-            'user': 2,
-            'aips_downloaded': 4,
-            'files_downloaded': 12,
-            'total_filesize': 1143.3,
-            'parent_artwork': 3
           }
-        ]
+        ],
+        'overview': {
+          'table_total': true,
+          'user': 2,
+          'aips_downloaded': 4,
+          'files_downloaded': 12,
+          'total_filesize': 115911433,
+          'parent_artwork': 3
+        }
       },
       'architecture_and_design_dept':
       {
-        'dept_name': 'Architecture and Design',
         'results': [
           {
             'user': 'Ben',
             'aips_downloaded': 1,
             'files_downloaded': 4,
-            'total_filesize': 351707,
+            'total_filesize': 32251707,
             'parent_artwork': 'Sim City 2000'
           },
           {
@@ -166,26 +166,25 @@ module.exports = function ($q, $timeout) {
             'total_filesize': 44000,
             'parent_artwork': 'The Sims'
           },
-          {
-            'table_total': true,
-            'user': 2,
-            'aips_downloaded': 4,
-            'files_downloaded': 12,
-            'total_filesize': 1154.5,
-            'parent_artwork': 4
-          }
-        ]
+        ],
+        'overview': {
+          'table_total': true,
+          'user': 2,
+          'aips_downloaded': 8,
+          'files_downloaded': 24,
+          'total_filesize': 245433,
+          'parent_artwork': 7
+        }
       },
       'all_depts_totals':
       {
-        'dept_name': 'All',
         'results': [
           {
-            'user_count': '2',
-            'aips_downloaded': '8',
-            'files_downloaded': '24',
-            'total_filesize': '24555',
-            'parent_artwork': '7'
+            'user_count': 2,
+            'aips_downloaded': 8,
+            'files_downloaded': 24,
+            'total_filesize': 229444555,
+            'parent_artwork': 7
           }
         ]
       }
@@ -196,7 +195,7 @@ module.exports = function ($q, $timeout) {
           'artwork_w_downloaded_mats': 2,
           'no_aips_downloaded': 1,
           'no_files_downloaded': 4,
-          'total_filesize': 34333,
+          'total_filesize': 324333,
           'parent_work': 'Semiotics of the Kitchen',
           'parent_department': 'Media and Performance Art'
         },
@@ -231,7 +230,7 @@ module.exports = function ($q, $timeout) {
           'artwork_w_downloaded_mats': 2,
           'no_aips_downloaded': 0,
           'no_files_downloaded': 3,
-          'total_filesize': 66.69,
+          'total_filesize': 6669,
           'parent_work': 'Wendy and Lucy',
           'parent_department': 'Film'
         },
@@ -241,7 +240,7 @@ module.exports = function ($q, $timeout) {
           'artwork_w_downloaded_mats': 4,
           'no_aips_downloaded': 2,
           'no_files_downloaded': 3,
-          'total_filesize': 6686.66,
+          'total_filesize': 668666,
           'parent_department': 2
         }
       ],
@@ -251,7 +250,7 @@ module.exports = function ($q, $timeout) {
           'artwork_w_downloaded_mats': 8,
           'no_aips_downloaded': 4,
           'no_files_downloaded': 11,
-          'total_filesize': 1.55,
+          'total_filesize': 152225,
           'parent_department': 4
         }
       ]
@@ -264,7 +263,6 @@ module.exports = function ($q, $timeout) {
     var deferred = $q.defer();
 
     $timeout(function () {
-      console.log('async report');
       deferred.resolve(reportsBrowse);
     }, Math.random() * 100);
     return deferred.promise;
@@ -274,7 +272,6 @@ module.exports = function ($q, $timeout) {
     var deferred = $q.defer();
 
     $timeout(function () {
-      console.log('async saved report');
       deferred.resolve(reportsView);
     }, Math.random() * 500);
     return deferred.promise;

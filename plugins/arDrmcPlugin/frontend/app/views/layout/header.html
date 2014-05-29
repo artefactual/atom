@@ -69,22 +69,8 @@
     </div>
 
     <!-- Reports menu -->
-    <div id="reports-menu" data-toggle="tooltip" data-title="Add">
-      <a class="top-item" data-toggle="dropdown" data-target="#">View</a>
-      <div class="top-dropdown-container">
-        <div class="top-dropdown-arrow">
-          <div class="arrow"></div>
-        </div>
-        <div class="top-dropdown-header">View</div>
-        <div class="top-dropdown-body">
-          <ul>
-            <li class="leaf">
-              <a href ui-sref="main.reports.browser">Reports browser</a>
-            </li>
-          </ul>
-        </div>
-        <div class="top-dropdown-bottom"></div>
-      </div>
+    <div id="reports-menu" data-toggle="tooltip" data-title="Reports" ng-show="user.canAdministrate()">
+      <a href ui-sref="main.reports.browser" class="top-item">Reports</a>
     </div>
 
     <!-- Manage menu -->
