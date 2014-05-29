@@ -56,7 +56,25 @@ class ApiAipsBrowseAction extends QubitApiAction
     $this->filterEsRangeFacet('sizeFrom', 'sizeTo', 'sizeOnDisk', $queryBool);
     $this->filterEsRangeFacet('ingestedFrom', 'ingestedTo', 'createdAt', $queryBool);
 
+    $this->filterEsFacetFilter('format', 'digitalObjects.metsData.mediainfo.generalTracks.format', $filterBool, 'AND', array('noInteger' => true));
+    $this->filterEsFacetFilter('videoCodec', 'digitalObjects.metsData.mediainfo.videoTracks.codec', $filterBool, 'AND', array('noInteger' => true));
+    $this->filterEsFacetFilter('audioCodec', 'digitalObjects.metsData.mediainfo.audioTracks.codec', $filterBool, 'AND', array('noInteger' => true));
+    $this->filterEsFacetFilter('resolution', 'digitalObjects.metsData.mediainfo.videoTracks.resolution', $filterBool);
+    $this->filterEsFacetFilter('chromaSubSampling', 'digitalObjects.metsData.mediainfo.videoTracks.chromaSubsampling', $filterBool, 'AND', array('noInteger' => true));
+    $this->filterEsFacetFilter('colorSpace', 'digitalObjects.metsData.mediainfo.videoTracks.colorSpace', $filterBool, 'AND', array('noInteger' => true));
+    $this->filterEsFacetFilter('sampleRate', 'digitalObjects.metsData.mediainfo.audioTracks.samplingRate', $filterBool);
+    $this->filterEsFacetFilter('bitDepth', 'digitalObjects.metsData.mediainfo.videoTracks.bitDepth', $filterBool);
+
     // Add facets to the query
+    $this->facetEsQuery('Terms', 'format', 'digitalObjects.metsData.mediainfo.generalTracks.format', $query);
+    $this->facetEsQuery('Terms', 'videoCodec', 'digitalObjects.metsData.mediainfo.videoTracks.codec', $query);
+    $this->facetEsQuery('Terms', 'audioCodec', 'digitalObjects.metsData.mediainfo.audioTracks.codec', $query);
+    $this->facetEsQuery('Terms', 'resolution', 'digitalObjects.metsData.mediainfo.videoTracks.resolution', $query);
+    $this->facetEsQuery('Terms', 'chromaSubSampling', 'digitalObjects.metsData.mediainfo.videoTracks.chromaSubsampling', $query);
+    $this->facetEsQuery('Terms', 'colorSpace', 'digitalObjects.metsData.mediainfo.videoTracks.colorSpace', $query);
+    $this->facetEsQuery('Terms', 'sampleRate', 'digitalObjects.metsData.mediainfo.audioTracks.samplingRate', $query);
+    $this->facetEsQuery('Terms', 'bitDepth', 'digitalObjects.metsData.mediainfo.videoTracks.bitDepth', $query);
+
     $this->facetEsQuery('Terms', 'type', 'type.id', $query);
 
     $sizeRanges = array(
@@ -197,17 +215,40 @@ class ApiAipsBrowseAction extends QubitApiAction
 
   protected function getFacetLabel($name, $id)
   {
-    if ($name === 'type')
+    switch ($name)
     {
-      if (null !== $item = QubitTerm::getById($id))
-      {
-        return $item->getName(array('cultureFallback' => true));
-      }
-    }
+      case 'type':
+        if (null !== $item = QubitTerm::getById($id))
+        {
+          return $item->getName(array('cultureFallback' => true));
+        }
 
-    if ($name === 'dateIngested')
-    {
-      return $this->dateRangesLabels[$id];
+        break;
+
+      case 'dateIngested':
+        return $this->dateRangesLabels[$id];
+
+        break;
+
+      case 'format':
+      case 'videoCodec':
+      case 'audioCodec':
+      case 'chromaSubSampling':
+      case 'colorSpace':
+        return $id;
+
+        break;
+
+      case 'resolution':
+      case 'bitDepth':
+        return $id.' bits';
+
+        break;
+
+      case 'sampleRate':
+        return $id.' Hz';
+
+        break;
     }
   }
 }
