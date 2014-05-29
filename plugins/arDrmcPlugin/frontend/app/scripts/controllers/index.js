@@ -20,6 +20,7 @@
     .controller('AIPReclassifyCtrl', require('./AIPReclassifyCtrl'))
     .controller('LinkSupportingTechnologyCtrl', require('./LinkSupportingTechnologyCtrl'))
     .controller('SaveSearchCtrl', require('./SaveSearchCtrl'))
+    .controller('GenerateReportCtrl', require('./GenerateReportCtrl'))
 
     // Dashboard
     .controller('DashboardCtrl', require('./DashboardCtrl'))
@@ -43,6 +44,6 @@
 
     // Reports
     .controller('ReportsBrowserCtrl', require('./ReportsBrowserCtrl'))
-    .controller('GenerateReportCtrl', require('./GenerateReportCtrl'))
     .controller('ReportsViewCtrl', require('./ReportsViewCtrl'));
+
 })();
