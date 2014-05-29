@@ -1,0 +1,213 @@
+<div class="row-fluid reports-wrapper">
+
+  <div class="span12">
+
+    <div id="main-column">
+
+      <h1>Activity report: {{ viewData.savedOverview.report_type }}</h1>
+
+      <section class="breadcrumb">
+        <ul>
+          <li><a ui-sref="main.reports.browser">Reports</a></li>
+          <li><span>Activity report: {{ viewData.savedOverview.report_type }}</span></li>
+        </ul>
+      </section>
+
+      <div class="content">
+
+        <section>
+          <div class="menu-list" >
+            <ul class="menu-list-left">
+              <li><h2>Report overview</h2></li>
+            </ul>
+            <ul class="menu-list-right nav nav-pills">
+              <li>
+                <a href class="drmc-icon-download">Download report (CSV)</a>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Overview -->
+        <section>
+          <div class="field">
+            <h3>Run from</h3>
+            <div>
+              {{ viewData.savedOverview.run_from | DateStampFilter }}
+            </div>
+          </div>
+          <div class="field">
+            <h3>Report start date</h3>
+            <div>
+              {{ viewData.savedOverview.report_start_date | DateStampFilter }}
+            </div>
+          </div>
+          <div class="field">
+            <h3>Report end date</h3>
+            <div>
+              {{ viewData.savedOverview.report_end_date | DateStampFilter }}
+            </div>
+          </div>
+          <div class="field">
+            <h3>Saved report description</h3>
+            <div>
+              {{ viewData.savedOverview.saved_report_description }}
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <tabset>
+        <!-- By user -->
+        <tab heading="By user">
+          <h2 class="reports-title">Ben: total</h2>
+          <table class="table table-bordered">
+            <thead>
+              <th>Artworks with downloaded materials</th>
+              <th>No. AIPs downloaded</th>
+              <th>No. files downloaded</th>
+              <th>Total filesize</th>
+              <th>Parent artwork</th>
+              <th>Parent department</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="report in viewData.savedReportsByUser.results_ben" ng-class="{ 'warning': report.table_total }">
+                <td>{{ report.artwork_w_downloaded_mats }}</td>
+                <td>{{ report.no_aips_downloaded }}</td>
+                <td>{{ report.no_files_downloaded }}</td>
+                <td>{{ report.total_filesize | UnitFilter }}</td>
+                <td>{{ report.parent_work }}</td>
+                <td>{{ report.parent_department }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2 class="reports-title">Kate: total</h2>
+          <table class="table table-bordered">
+            <thead>
+              <th>Artworks with downloaded materials</th>
+              <th>No. AIPs downloaded</th>
+              <th>No. files downloaded</th>
+              <th>Total filesize</th>
+              <th>Parent artwork</th>
+              <th>Parent department</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="report in viewData.savedReportsByUser.results_kate" ng-class="{ 'warning': report.table_total }">
+                <td>{{ report.artwork_w_downloaded_mats }}</td>
+                <td>{{ report.no_aips_downloaded }}</td>
+                <td>{{ report.no_files_downloaded }}</td>
+                <td>{{ report.total_filesize | UnitFilter }}</td>
+                <td>{{ report.parent_work }}</td>
+                <td>{{ report.parent_department }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2 class="reports-title">All users: total</h2>
+          <table class="table table-bordered">
+            <thead>
+              <th>Artworks with downloaded materials</th>
+              <th>No. AIPs downloaded</th>
+              <th>No. files downloaded</th>
+              <th>Total filesize</th>
+              <th>Parent artwork(s)</th>
+              <th>Parent department(s)</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="report in viewData.savedReportsByUser.results_all" ng-class="{ 'info': report.table_total }">
+                <td>{{ report.artwork_w_downloaded_mats }}</td>
+                <td>{{ report.no_aips_downloaded }}</td>
+                <td>{{ report.no_files_downloaded }}</td>
+                <td>{{ report.total_filesize | UnitFilter }}</td>
+                <td>{{ report.parent_work }}</td>
+                <td>{{ report.parent_department }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </tab>
+
+        <!-- By department -->
+        <tab heading="By department">
+          <h2 class="reports-title">Media and performance art</h2>
+          <table class="table table-bordered">
+            <thead>
+              <th>User</th>
+              <th>AIPs downloaded</th>
+              <th>Files downloaded</th>
+              <th>Total filesize</th>
+              <th>Parent artwork</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="report in viewData.savedReportsByDept.media_and_performance_dept.results">
+                <td>{{ report.user }}</td>
+                <td>{{ report.aips_downloaded }}</td>
+                <td>{{ report.files_downloaded }}</td>
+                <td>{{ report.total_filesize | UnitFilter }}</td>
+                <td><a href>{{ report.parent_artwork }}</a></td>
+              </tr>
+              <tr class="warning">
+                <td>{{ viewData.savedReportsByDept.media_and_performance_dept.overview.user }}</td>
+                <td>{{ viewData.savedReportsByDept.media_and_performance_dept.overview.aips_downloaded }}</td>
+                <td>{{ viewData.savedReportsByDept.media_and_performance_dept.overview.files_downloaded }}</td>
+                <td>{{ viewData.savedReportsByDept.media_and_performance_dept.overview.total_filesize | UnitFilter }}</td>
+                <td>{{ viewData.savedReportsByDept.media_and_performance_dept.overview.parent_artwork }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2 class="reports-title">Architecture and design</h2>
+          <table class="table table-bordered">
+            <thead>
+              <th>User</th>
+              <th>AIPs downloaded</th>
+              <th>Files downloaded</th>
+              <th>Total filesize</th>
+              <th>Parent artwork</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="report in viewData.savedReportsByDept.architecture_and_design_dept.results">
+                <td>{{ report.user }}</td>
+                <td>{{ report.aips_downloaded }}</td>
+                <td>{{ report.files_downloaded }}</td>
+                <td>{{ report.total_filesize | UnitFilter }}</td>
+                <td><a href>{{ report.parent_artwork }}</a></td>
+              </tr>
+              <tr class="warning">
+                <td>{{ viewData.savedReportsByDept.architecture_and_design_dept.overview.user }}</td>
+                <td>{{ viewData.savedReportsByDept.architecture_and_design_dept.overview.aips_downloaded }}</td>
+                <td>{{ viewData.savedReportsByDept.architecture_and_design_dept.overview.files_downloaded }}</td>
+                <td>{{ viewData.savedReportsByDept.architecture_and_design_dept.overview.total_filesize | UnitFilter }}</td>
+                <td>{{ viewData.savedReportsByDept.architecture_and_design_dept.overview.parent_artwork }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2 class="reports-title">Total: all departments</h2>
+          <table class="table table-bordered">
+            <thead>
+              <th>Users</th>
+              <th>AIPs downloaded</th>
+              <th>Files downloaded</th>
+              <th>Total filesize(s)</th>
+              <th>Parent artwork(s)</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="report in viewData.savedReportsByDept.all_depts_totals.results" class="info">
+                <td>{{ report.user_count }}</td>
+                <td>{{ report.aips_downloaded }}</td>
+                <td>{{ report.files_downloaded }}</td>
+                <td>{{ report.total_filesize | UnitFilter }}</td>
+                <td>{{ report.parent_artwork }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </tab>
+      </tabset>
+
+    </div>
+
+  </div>
+
+</div>

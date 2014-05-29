@@ -86,6 +86,23 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       templateUrl: SETTINGS.viewsPath + '/tms.browser.html'
     })
 
+    // Reports
+    .state('main.reports', {
+      abstract: true,
+      url: SETTINGS.DRMCPath + 'reports',
+      template: '<ui-view autoscroll="false"/>'
+    })
+    .state('main.reports.browser', {
+      url: '',
+      controller: 'ReportsBrowserCtrl',
+      templateUrl: SETTINGS.viewsPath + '/reports.browser.html'
+    })
+    .state('main.reports.view', {
+      url: '/{id}',
+      controller: 'ReportsViewCtrl',
+      templateUrl: SETTINGS.viewsPath + '/reports.view.html'
+    })
+
     // Search
     .state('main.search', {
       abstract: true,

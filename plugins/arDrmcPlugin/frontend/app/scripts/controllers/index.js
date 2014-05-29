@@ -20,6 +20,7 @@
     .controller('AIPReclassifyCtrl', require('./AIPReclassifyCtrl'))
     .controller('LinkSupportingTechnologyCtrl', require('./LinkSupportingTechnologyCtrl'))
     .controller('SaveSearchCtrl', require('./SaveSearchCtrl'))
+    .controller('GenerateReportCtrl', require('./GenerateReportCtrl'))
 
     // Dashboard
     .controller('DashboardCtrl', require('./DashboardCtrl'))
@@ -39,6 +40,10 @@
     .controller('TechnologyRecordViewCtrl', require('./TechnologyRecordViewCtrl'))
 
     // TMS lookup
-    .controller('TmsBrowserCtrl', require('./TmsBrowserCtrl'));
+    .controller('TmsBrowserCtrl', require('./TmsBrowserCtrl'))
+
+    // Reports
+    .controller('ReportsBrowserCtrl', require('./ReportsBrowserCtrl'))
+    .controller('ReportsViewCtrl', require('./ReportsViewCtrl'));
 
 })();
