@@ -33,19 +33,19 @@
           <div class="field">
             <h3>Run from</h3>
             <div>
-              {{ viewData.savedOverview.run_from | DateStampFilter }}
+              {{ viewData.savedOverview.run_from | date: 'short' }}
             </div>
           </div>
           <div class="field">
             <h3>Report start date</h3>
             <div>
-              {{ viewData.savedOverview.report_start_date | DateStampFilter }}
+              {{ viewData.savedOverview.report_start_date | date: 'short' }}
             </div>
           </div>
           <div class="field">
             <h3>Report end date</h3>
             <div>
-              {{ viewData.savedOverview.report_end_date | DateStampFilter }}
+              {{ viewData.savedOverview.report_end_date | date: 'short' }}
             </div>
           </div>
           <div class="field">

@@ -44,7 +44,7 @@
             <div>
               <a href>{{ reportsData.browseOverview.last_report_added_name || 'N/A' }}</a>
               &nbsp;&raquo;&nbsp;
-              {{ reportsData.browseOverview.last_report_added_date | DateStampFilter }}
+              {{ reportsData.browseOverview.last_report_added_date | date: 'short' }}
             </div>
           </div>
           <div class="field">
@@ -89,7 +89,7 @@
                 <tr ng-repeat="report in reportsData.browseSamples">
                   <td><a href ui-sref="main.reports.view({ id: report.id })">{{ report.name }}</a></td>
                   <td>{{ report.type }}</td>
-                  <td>{{ report.created_at | DateStampFilter }}</td>
+                  <td>{{ report.created_at | date: 'short' }}</td>
                   <td>{{ report.description }}</td>
                 <!-- will be to delete one or more reports -->
                   <td><input type="checkbox" /></td>

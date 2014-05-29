@@ -85,7 +85,7 @@
                 <tbody>
                   <tr ng-repeat="(key, aip) in fixityStats.lastChecks" ng-class="{ 'success' : aip.outcome, 'error' : !aip.outcome }">
                     <td><a href ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a></td>
-                    <td>{{ aip.time_completed | DateStampFilter }}</td>
+                    <td>{{ aip.time_completed | date: 'short' }}</td>
                     <td>{{ aip.duration | ConvertSecondsFilter }}</td>
                     <td>{{ aip.outcome }}</td>
                   </tr>
@@ -107,7 +107,7 @@
                 <tbody>
                   <tr ng-repeat="(key, aip) in fixityStats.lastFails" ng-class="{ 'success' : aip.outcome, 'error' : !aip.outcome }">
                     <td><a ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a></td>
-                    <td>{{ aip.time_completed | DateStampFilter }}</td>
+                    <td>{{ aip.time_completed | date: 'short' }}</td>
                     <td>{{ aip.duration | ConvertSecondsFilter}}</td>
                     <td>{{ aip.outcome }}</td>
                   </tr>

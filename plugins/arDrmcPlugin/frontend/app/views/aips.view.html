@@ -134,8 +134,8 @@
               <tbody>
                 <tr ng-repeat="(key, status) in fixityStatus" ng-class="{ 'success': status.success, 'error': !status.success }">
                   <td>{{ key }}</td>
-                  <td>{{ (status.time_started | DateStampFilter) || 'none' }}</td>
-                  <td>{{ (status.time_completed | DateStampFilter) || 'none' }}</td>
+                  <td>{{ (status.time_started | date: 'short') || 'none' }}</td>
+                  <td>{{ (status.time_completed | date: 'short') || 'none' }}</td>
                   <td>{{ status.duration | ConvertSecondsFilter }}</td>
                   <td>{{ status.success }}</td>
                 </tr>
