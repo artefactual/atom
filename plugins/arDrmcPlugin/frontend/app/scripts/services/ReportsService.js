@@ -70,7 +70,6 @@ module.exports = function ($q, $timeout) {
           }
         ],
         'overview': {
-          'table_total': true,
           'user': 2,
           'aips_downloaded': 4,
           'files_downloaded': 12,
@@ -111,7 +110,6 @@ module.exports = function ($q, $timeout) {
           },
         ],
         'overview': {
-          'table_total': true,
           'user': 2,
           'aips_downloaded': 8,
           'files_downloaded': 24,

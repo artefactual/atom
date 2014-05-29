@@ -21,7 +21,6 @@ module.exports = function ($scope, $modal, SETTINGS, ReportsService) {
 
   ReportsService.reportsBrowseData().then(function (data) {
     $scope.reportsData = data;
-    console.log($scope);
   });
 
 };

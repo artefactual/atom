@@ -121,4 +121,5 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
         return SETTINGS.viewsPath + '/' + stateParams.entity + '.search.html';
       }
     });
+
 };

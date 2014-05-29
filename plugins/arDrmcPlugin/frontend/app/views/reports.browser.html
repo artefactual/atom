@@ -20,7 +20,7 @@
       <div class="content">
 
         <section>
-          <div class="menu-list" >
+          <div class="menu-list">
             <ul class="menu-list-left">
               <li><h2>Reports overview</h2></li>
             </ul>
@@ -68,7 +68,7 @@
         </section>
 
         <section>
-          <div class="menu-list" >
+          <div class="menu-list">
             <ul class="menu-list-left">
               <li><h2>Saved reports</h2></li>
             </ul>
@@ -87,10 +87,11 @@
               </thead>
               <tbody>
                 <tr ng-repeat="report in reportsData.browseSamples">
-                  <td><a href ui-sref="main.reports.view({ id: report.id })" >{{ report.name }}</a></td>
+                  <td><a href ui-sref="main.reports.view({ id: report.id })">{{ report.name }}</a></td>
                   <td>{{ report.type }}</td>
                   <td>{{ report.created_at | DateStampFilter }}</td>
                   <td>{{ report.description }}</td>
+                <!-- will be to delete one or more reports -->
                   <td><input type="checkbox" /></td>
                 </tr>
               </tbody>
