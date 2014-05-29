@@ -9,10 +9,7 @@ module.exports = function ($scope, $modalInstance) {
   // Create object to define
   $scope.report = {};
 
-  // Set a default report
-  $scope.report.type_id = 500;
   $scope.generateReport = function () {
-    console.log($scope.report.type_id);
     $modalInstance.close('with result');
   };
 
@@ -67,7 +64,5 @@ module.exports = function ($scope, $modalInstance) {
       'name': 'File-level report'
     }
   ];
-
-  console.log($scope.reportTypes);
 
 };

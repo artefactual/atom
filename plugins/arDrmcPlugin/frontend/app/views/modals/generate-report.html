@@ -8,8 +8,10 @@
   <h3>Choose report type</h3>
 
   <select ng-model="report.type_id" ng-options="report.id as report.name for report in reportTypes">
+    <option value="">None selected</option>
   </select>
 
+  <a href ng-click="report={}">Clear all fields</a>
 </div>
 
 <div class="modal-footer">
