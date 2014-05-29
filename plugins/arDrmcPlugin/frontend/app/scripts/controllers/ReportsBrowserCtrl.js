@@ -3,7 +3,7 @@
 module.exports = function ($scope, $modal, SETTINGS, ReportsService) {
 
   $scope.openGenerateReportModal = function () {
-    var modalConfig =  $modal.open ({
+    $modal.open ({
       templateUrl: SETTINGS.viewsPath + '/modals/generate-report.html',
       backdrop: true,
       controller: 'GenerateReportCtrl',
@@ -13,9 +13,6 @@ module.exports = function ($scope, $modal, SETTINGS, ReportsService) {
           return $scope.data;
         }
       }
-    });
-
-    modalConfig.result.then(function () {
     });
   };
 
