@@ -9,6 +9,14 @@
       <ar-facet label="Classification" facet="data.facets.type" field="criteria['type[]']"></ar-facet>
       <ar-range-facet type="size" label="Size" facet="data.facets.size" from="criteria.sizeFrom" to="criteria.sizeTo" callback="getSizeRangeLabel(arg1, arg2)"></ar-range-facet>
       <ar-range-facet type="date" label="Date ingested" facet="data.facets.dateIngested" from="criteria.ingestedFrom" to="criteria.ingestedTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
+      <ar-facet label="Format" facet="data.facets.format" field="criteria['format[]']"></ar-facet>
+      <ar-facet label="Video codec" facet="data.facets.videoCodec" field="criteria['videoCodec[]']"></ar-facet>
+      <ar-facet label="Audio codec" facet="data.facets.audioCodec" field="criteria['audioCodec[]']"></ar-facet>
+      <ar-facet label="Resolution" facet="data.facets.resolution" field="criteria['resolution[]']"></ar-facet>
+      <ar-facet label="Chroma sub sampling" facet="data.facets.chromaSubSampling" field="criteria['chromaSubSampling[]']"></ar-facet>
+      <ar-facet label="Color space" facet="data.facets.colorSpace" field="criteria['colorSpace[]']"></ar-facet>
+      <ar-facet label="Sample rate" facet="data.facets.sampleRate" field="criteria['sampleRate[]']"></ar-facet>
+      <ar-facet label="Bit depth" facet="data.facets.bitDepth" field="criteria['bitDepth[]']"></ar-facet>
     </section>
 
   </div>
