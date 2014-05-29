@@ -1,116 +1,18 @@
-<!-- TODO: this view is inconsistent with other modals and forms, fix!  -->
-
 <div class="modal-header">
   <button type="button" ng-click="cancel()" class="close">×</button>
-  <h2>Generate new report</h2>
+  <h2 class="multiline">Generate new report</h2>
 </div>
 
 <div class="modal-body">
-  <section class="content row-fluid">
 
-    <div class="reports-widget">
-      <div class="menu-list">
-        <ul class="menu-list-left">
-          <li><h2>Choose report type</h2></li>
-        </ul>
-      </div>
+  <h3>Choose report type</h3>
 
-      <div class="row-fluid">
-        <div class="span4 offset1">
-          <h4>Activity reports</h4>
-          <ul>
-            <li>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" value="option1" checked/>
-                High-level ingest report
-              </label>
-            </li>
-            <li>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" value="option2" checked/>
-                Granular ingest report
-              </label>
-            </li>
-            <li>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" value="option3" checked/>
-                General download report
-              </label>
-            </li>
-            <li>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" value="option4" checked/>
-                Amount downloaded report
-              </label>
-            </li>
-          </ul>
-        </div>
-        <div class="span3">
-          <h4><strong>Fixity reports</strong></h4>
-          <ul>
-            <li>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" value="option5" checked/>
-                Fixity report
-              </label>
-            </li>
-            <li>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" value="option6" checked/>
-                Fixity error log
-              </label>
-            </li>
-          </ul>
-        </div>
-        <div class="span4">
-          <h4>Characteristics reports</strong></h4>
-          <ul>
-            <li>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" value="option7" checked/>
-                Component level file report
-              </label>
-            </li>
-            <li>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" value="option8" checked/>
-                File-level report
-              </label>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+  <select ng-model="report.type_id" ng-options="report.id as report.name for report in reportTypes">
+  </select>
 
-    <div class="reports-widget">
-      <div class="menu-list" >
-        <ul class="menu-list-left">
-          <li><h2>Choose date range</h2></li>
-        </ul>
-      </div>
-
-      <div class="span3">
-        <ul>
-          <li>
-            <label class="radio">
-              <input type="radio" name="optionsRadios" value="option1" checked/>
-              All time
-            </label>
-          </li>
-          <li>
-            <label class="radio">
-              <input type="radio" name="optionsRadios" value="option2" checked/>
-              Specific date range
-            </label>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-  </section>
 </div>
 
 <div class="modal-footer">
-  <button class="btn btn-primary">Add</button>
+  <button ng-click="generateReport()" class="btn btn-primary">Generate report</button>
   <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
 </div>
