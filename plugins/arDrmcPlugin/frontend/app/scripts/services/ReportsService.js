@@ -14,71 +14,15 @@ module.exports = function ($q, $timeout) {
     [
       {
         'name': 'Media and performance Art',
-        'id': 22,
-        'type_id': 19,
         'type': 'Characteristic reports',
         'created_at': '2014-02-08T18:03:42Z',
-        'description': 'All works added in a fiscal year',
-        'results': [
-          {
-            'user': 'Ben',
-            'aips_downloaded': 1,
-            'files_downloaded': 4,
-            'total_filesize': 361707,
-            'last_modified': '2011-02-08T19:03:42Z',
-            'created_at': '2014-03-08T19:03:42Z',
-            'parent_artwork': {
-              'id': 12345,
-              'name': 'Semiotics of the Kitchen'
-            }
-          },
-          {
-            'user': 'Kate',
-            'aips_downloaded': 2,
-            'files_downloaded': 9,
-            'total_filesize': 524000,
-            'last_modified': '2014-02-08T02:03:42Z',
-            'created_at': '2014-02-08T14:03:42Z',
-            'parent_artwork': {
-              'id': 345,
-              'name': 'Official Welcome'
-            }
-          }
-        ]
+        'description': 'All works added in a fiscal year'
       },
       {
         'name': 'Architecture and design',
-        'id': 24,
-        'type_id': 18,
         'type': 'Fixity report',
         'created_at': '2014-02-08T08:03:42Z',
-        'description': 'All fixes on all buildings',
-        'results': [
-          {
-            'The user': 'Ben',
-            'aips_downloaded': 1,
-            'files_downloaded': 4,
-            'total_filesize': 550283,
-            'last_modified': '2004-02-08T17:03:42Z',
-            'created_at': '2014-02-08T18:03:42Z',
-            'parent_artwork': {
-              'Id': 3445,
-              'Name': 'SimCity 2000'
-            }
-          },
-          {
-            'user': 'Kate',
-            'aips_downloaded': 10,
-            'files_downloaded': 59,
-            'total_filesize': 54353,
-            'last_modified': '2014-02-08T18:03:42Z',
-            'created_at': '2014-02-08T18:03:42Z',
-            'parent_artwork': {
-              'id': 234,
-              'Name': 'Space Invaders'
-            }
-          }
-        ]
+        'description': 'All fixes on all buildings'
       }
     ]
   };
@@ -92,7 +36,6 @@ module.exports = function ($q, $timeout) {
       'saved_report_description': 'Download report for period during curation department review'
     },
     'savedReportsByDept': {
-      // By department
       'media_and_performance_dept':
       {
         'dept_name': 'Media and Performance Art',
