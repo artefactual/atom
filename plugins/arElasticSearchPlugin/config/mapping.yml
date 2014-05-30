@@ -265,6 +265,11 @@ mapping:
         dynamic: strict
         properties:
           levelOfDescriptionId: { type: integer, index: not_analyzed, include_in_all: false }
+          department:
+            type: object
+            properties:
+              id: { type: integer, index: not_analyzed, include_in_all: false }
+              name: { type: string, index: not_analyzed, include_in_all: false }
     _foreign_types:
       type: term
       digital_objects: information_object

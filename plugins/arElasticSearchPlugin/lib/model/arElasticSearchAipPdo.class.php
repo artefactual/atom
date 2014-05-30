@@ -149,6 +149,26 @@ class arElasticSearchAipPdo
     }
   }
 
+  protected function getPartOfDepartments()
+  {
+    $sql  = 'SELECT
+                current.id as id,
+                i18n.name as name';
+    $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' otr';
+    $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' current
+                ON otr.term_id = current.id';
+    $sql .= ' JOIN '.QubitTermI18n::TABLE_NAME.' i18n
+                ON otr.term_id = i18n.id';
+    $sql .= ' WHERE otr.object_id = ?
+                AND current.taxonomy_id = ?
+                AND i18n.culture = ?';
+
+    self::$statements['parOfDepartments'] = self::$conn->prepare($sql);
+    self::$statements['parOfDepartments']->execute(array($this->part_of, sfConfig::get('app_drmc_taxonomy_departments_id'), 'en'));
+
+    return self::$statements['parOfDepartments']->fetchAll(PDO::FETCH_OBJ);
+  }
+
   public function serialize()
   {
     $serialized = array();
@@ -174,6 +194,19 @@ class arElasticSearchAipPdo
       if (null !== $lod = $this->getPartOfLevelOfDescriptionId($this->part_of))
       {
         $serialized['partOf']['levelOfDescriptionId'] = $lod;
+      }
+
+      if (0 < count($departments = $this->getPartOfDepartments()))
+      {
+        if (null !== $id = $departments[0]->id)
+        {
+          $serialized['partOf']['department']['id'] = $id;
+        }
+
+        if (null !== $name = $departments[0]->name)
+        {
+          $serialized['partOf']['department']['name'] = $name;
+        }
       }
     }
 
