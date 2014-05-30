@@ -16,6 +16,7 @@
     .directive('arToggleSlide', require('./ToggleSlideDirective'))
     .directive('arSearchBox', require('./SearchBoxDirective'))
     .directive('arRangeFacet', require('./RangeFacetDirective'))
+    .directive('arDateRangeField', require('./DateRangeFieldDirective'))
     .directive('arGraphLine', require('./GraphLineDirective'))
     .directive('arGraphPie', require('./GraphPieDirective'));
 

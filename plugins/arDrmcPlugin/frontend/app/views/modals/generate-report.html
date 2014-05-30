@@ -11,6 +11,11 @@
     <option value="">None selected</option>
   </select>
 
+  <div class="form-item ar-date-range-field" ng-model="criteria.range">
+    <input class="from" ng-model="criteria.range.from" type="date"/>
+    <input class="to" ng-model="criteria.range.to" type="date"/>
+  </div>
+
   <a href ng-click="report={}">Clear all fields</a>
 </div>
 
