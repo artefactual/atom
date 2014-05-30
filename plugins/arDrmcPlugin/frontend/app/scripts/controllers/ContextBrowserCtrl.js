@@ -87,6 +87,15 @@ module.exports = function ($scope, $element, $document, InformationObjectService
 
 
   /**
+   * cbd misc
+   */
+
+  scope.center = function () {
+    scope.cb.center();
+  };
+
+
+  /**
    * Node generic actions
    */
 
