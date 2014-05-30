@@ -7,16 +7,17 @@
 
   <h3>Choose report type</h3>
 
-  <select ng-model="report.type_id" ng-options="report.id as report.name for report in reportTypes">
+  <select class="span4" ng-model="report.type_id" ng-options="report.id as report.name for report in reportTypes">
     <option value="">None selected</option>
   </select>
 
-  <div class="form-item ar-date-range-field" ng-model="criteria.range">
-    <input class="from" ng-model="criteria.range.from" type="date"/>
-    <input class="to" ng-model="criteria.range.to" type="date"/>
+  <div class="form-item ar-date-range-field span3" ng-model="criteria.range">
+    <input class="from" type="date" placeholder="from" />
+    <input class="to" type="date" placeholder="to" />
+    <p class="error" ng-if="datesInvalid">Please enter valid date range.</p>
   </div>
 
-  <a href ng-click="report={}">Clear all fields</a>
+  <a href ng-click="resetFields()">Clear all fields</a>
 </div>
 
 <div class="modal-footer">

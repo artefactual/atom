@@ -2,15 +2,29 @@
 
 module.exports = function ($scope, $modalInstance) {
 
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-
   // Create object to define
   $scope.report = {};
+  $scope.criteria = {};
+  $scope.criteria.range = {};
 
+  // Checks for valid dates and generate report
   $scope.generateReport = function () {
-    $modalInstance.close('with result');
+    if ($scope.criteria.range.from !== undefined && $scope.criteria.range.from !== undefined) {
+      if($scope.criteria.range.from < $scope.criteria.range.to) {
+        $scope.datesInvalid = false;
+        $modalInstance.close('with result');
+      } else {
+        $scope.datesInvalid = true;
+      }
+    } else {
+      $scope.datesUndefined = true;
+    }
+  };
+
+  // Reset all fields to empty
+  $scope.resetFields = function () {
+    $scope.report = {};
+    $scope.criteria.range = {};
   };
 
   $scope.reportTypes = [
@@ -64,5 +78,9 @@ module.exports = function ($scope, $modalInstance) {
       'name': 'File-level report'
     }
   ];
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
 
 };
