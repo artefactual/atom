@@ -327,6 +327,14 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     $this->addRoute('GET', '/api/fixity/status', array(
       'module' => 'api',
       'action' => 'fixityStatus'));
+
+    /**
+     * Reports
+     */
+
+    $this->addRoute('GET', '/api/report', array(
+      'module' => 'api',
+      'action' => 'reportsGenerate'));
   }
 
   protected function addRoute($method, $pattern, array $options = array())
