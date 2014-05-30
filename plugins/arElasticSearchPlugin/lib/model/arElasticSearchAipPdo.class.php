@@ -188,6 +188,11 @@ class arElasticSearchAipPdo
       $serialized['ingestionUser'] = $ingestionUser;
     }
 
+    if (null !== $attachedTo = $this->getProperty('attachedTo'))
+    {
+      $serialized['attachedTo'] = $attachedTo;
+    }
+
     return $serialized;
   }
 }

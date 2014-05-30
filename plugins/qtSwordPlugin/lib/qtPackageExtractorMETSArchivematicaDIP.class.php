@@ -612,6 +612,9 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       }
     }
 
+    // Add parent title of the AIP information object as attachedTo property for the AIP
+    QubitProperty::addUnique($aip->id, 'attachedTo', $informationObjectParent->getTitle(array('sourceCulture' => true)));
+
     sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - $aip created '.$aip->id);
 
     return array($aipIo, $aip);
