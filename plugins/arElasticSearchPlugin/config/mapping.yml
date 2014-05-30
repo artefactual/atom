@@ -287,6 +287,7 @@ mapping:
       size_on_disk: { type: long, index: not_analyzed, include_in_all: false }
       digital_object_count: { type: integer, index: not_analyzed, include_in_all: false }
       created_at: { type: date, index: not_analyzed, include_in_all: false }
+      ingestion_user: { type: string, index: not_analyzed, include_in_all: false }
 
   term:
     _attributes:

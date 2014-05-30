@@ -128,6 +128,27 @@ class arElasticSearchAipPdo
     return self::$statements['partOf']->fetchColumn();
   }
 
+  protected function getProperty($name)
+  {
+    $sql  = 'SELECT
+                i18n.value';
+    $sql .= ' FROM '.QubitProperty::TABLE_NAME.' node';
+    $sql .= ' JOIN '.QubitPropertyI18n::TABLE_NAME.' i18n
+                ON node.id = i18n.id';
+    $sql .= ' WHERE node.source_culture = i18n.culture
+                AND node.object_id = ?
+                AND node.name = ?';
+
+    self::$statements['property'] = self::$conn->prepare($sql);
+    self::$statements['property']->execute(array($this->__get('id'), $name));
+    $result = self::$statements['property']->fetch(PDO::FETCH_ASSOC);
+
+    if(false !== $result)
+    {
+      return $result['value'];
+    }
+  }
+
   public function serialize()
   {
     $serialized = array();
@@ -160,6 +181,11 @@ class arElasticSearchAipPdo
     {
       $node = new arElasticSearchInformationObjectPdo($item->object_id);
       $serialized['digitalObjects'][] = $node->serialize();
+    }
+
+    if (null !== $ingestionUser = $this->getProperty('ingestionUser'))
+    {
+      $serialized['ingestionUser'] = $ingestionUser;
     }
 
     return $serialized;

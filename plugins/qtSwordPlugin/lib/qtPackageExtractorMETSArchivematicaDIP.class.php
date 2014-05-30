@@ -521,7 +521,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     $relation->typeId = QubitTerm::AIP_RELATION_ID;
     $relation->save();
 
-    // Add related digital objects to the AIP in ES
+    // Add related digital objects and ingestionUser to the AIP in ES
     // and save AIP and components data for the artwork in ES
     QubitSearch::getInstance()->update($aip);
     QubitSearch::getInstance()->update($tmsObject);
@@ -590,6 +590,27 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     }
 
     $aip->save();
+
+    // Get AIP ingenstion username
+    foreach ($this->document->xpath('//m:amdSec/m:digiprovMD/m:mdWrap[@MDTYPE="PREMIS:AGENT"]/m:xmlData/m:agent') as $agent)
+    {
+      $agent->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+      $agentType = $agent->xpath('m:agentIdentifier/m:agentIdentifierType');
+
+      if (0 < count($agentType) && (string)$agentType[0] === 'Archivematica user pk')
+      {
+        if (0 < count($agentName = $agent->xpath('m:agentName')))
+        {
+          $agentName = (string)$agentName[0];
+          $agentName = split(',', $agentName);
+          $agentName = substr($agentName[0], 10, strlen($agentName[0]) - 11);
+
+          QubitProperty::addUnique($aip->id, 'ingestionUser', $agentName);
+
+          break;
+        }
+      }
+    }
 
     sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - $aip created '.$aip->id);
 
