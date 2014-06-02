@@ -6,31 +6,28 @@ module.exports = function () {
     require: 'ngModel',
     link: function (scope, element, attrs, ngModelCtrl) {
 
-      // js doesn't allow to define properties of a
-      // nested object unless you define it first?
-      scope.criteria = {};
-      scope.criteria.range = {};
-      scope.criteria.range.from = undefined;
-      scope.criteria.range.to = undefined;
+      // Reference to DOM elements
+      var $from = element.find('.from');
+      var $to = element.find('.to');
 
-      // get value when changed
-      scope.$watch('criteria.range.from', function (newVal) {
-        if (newVal) {
+      // DOM listener
+      var listener = function () {
+        scope.$apply (function () {
           ngModelCtrl.$setViewValue({
-            from: newVal,
-            to: scope.criteria.range.to
+            from: $from.val(),
+            to:   $to.val()
           });
-        }
-      });
+        });
+      };
 
-      scope.$watch('criteria.range.to', function (newVal) {
-        if (newVal) {
-          ngModelCtrl.$setViewValue({
-            to: newVal,
-            from: scope.criteria.range.from
-          });
-        }
-      });
+      $from.on('change', listener);
+      $to.on('change', listener);
+
+      // Update the view when the model changes
+      ngModelCtrl.$render = function () {
+        $from.get(0).valueAsDate = new Date(ngModelCtrl.$viewValue.from);
+        $to.get(0).valueAsDate = new Date(ngModelCtrl.$viewValue.to);
+      };
     }
   };
 };
