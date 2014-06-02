@@ -133,7 +133,6 @@ mapping:
   acl_entry:
     dynamic: strict
     properties:
-      object_id: { type: integer, index: not_analyzed, include_in_all: false }
       user_ids: { type: integer, index: not_analyzed, include_in_all: false }
       group_ids: { type: integer, index: not_analyzed, include_in_all: false }
       action: { type: string, index: not_analyzed, include_in_all: false }

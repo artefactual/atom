@@ -17,39 +17,22 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class arElasticSearchAclEntry extends arElasticSearchModelBase
+/**
+ * A basic Acl entry class that we'll use to index certain rights in ElasticSearch.
+ *
+ * @package AccesstoMemory
+ * @subpackage lib
+ */
+class QubitAclEntry
 {
-  public function populate()
+  public
+    $id,
+    $action,
+    $grantDeny,
+    $userIds = array(),
+    $groupIds = array();
+
+  public function __construct()
   {
-    // Todo: pull PREMIS right rules here and repopulate all
-    // info objects / digital object Acl rules
-  }
-
-  public static function serialize($object)
-  {
-    $serialized = array();
-    $fields = array(
-      'id',
-      'userIds',
-      'groupIds',
-      'action',
-      'grantDeny'
-    );
-
-    foreach ($fields as $field)
-    {
-      $serialized[$field] = $object->$field;
-    }
-
-    return $serialized;
-  }
-
-  public static function update($object)
-  {
-    $data = self::serialize($object);
-
-    QubitSearch::getInstance()->addDocument($data, 'QubitAclEntry');
-
-    return true;
   }
 }
