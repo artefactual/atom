@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($q, $timeout) {
+module.exports = function ($q, $timeout, $http, SETTINGS) {
 
   var reportsBrowse = {
     'browseOverview': {
@@ -228,4 +228,21 @@ module.exports = function ($q, $timeout) {
     });
   };
 
+  this.generateReport = function (params) {
+    params = params || {};
+
+    var configuration = {
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/report',
+      params: params
+    };
+
+    if (Object.keys(params).length > 0) {
+      configuration.params = {
+        'type': params.type
+      };
+    }
+
+    return $http(configuration);
+  };
 };

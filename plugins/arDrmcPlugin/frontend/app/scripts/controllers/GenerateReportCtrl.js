@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modalInstance) {
+module.exports = function ($scope, $modalInstance, ReportsService) {
 
   // Create object to define
   $scope.report = {};
@@ -8,17 +8,10 @@ module.exports = function ($scope, $modalInstance) {
   $scope.criteria.range = {};
 
   // Checks for valid dates and generate report
-  $scope.generateReport = function () {
-    if ($scope.criteria.range.from !== undefined && $scope.criteria.range.from !== undefined) {
-      if($scope.criteria.range.from < $scope.criteria.range.to) {
-        $scope.datesInvalid = false;
-        $modalInstance.close('with result');
-      } else {
-        $scope.datesInvalid = true;
-      }
-    } else {
-      $scope.datesUndefined = true;
-    }
+  $scope.generateReport = function (params) {
+    ReportsService.generateReport(params).success(function (response) {
+      $modalInstance.close(response);
+    });
   };
 
   // Reset all fields to empty
@@ -28,54 +21,37 @@ module.exports = function ($scope, $modalInstance) {
   };
 
   $scope.reportTypes = [
-  // For now, number are arbitrary
     {
-      'id': 500,
-      'type_id': 20,
-      'type_name': 'activity',
-      'name': 'High-level ingest report'
+      'name': 'High-level ingest report',
+      'type': 'high_level_ingest'
     },
     {
-      'id': 501,
-      'type_id': 20,
-      'type_name': 'activity',
-      'name': 'Granular ingest report'
+      'name': 'Granular ingest report',
+      'type': 'granular_ingest'
     },
     {
-      'id': 502,
-      'type_id': 20,
-      'type_name': 'activity',
-      'name': 'General download report'
+      'name': 'General download report',
+      'type': 'general_download'
     },
     {
-      'id': 503,
-      'type_id': 20,
-      'type_name': 'activity',
-      'name': 'Amount downloaded report'
+      'name': 'Amount downloaded report',
+      'type': 'amount_downloaded'
     },
     {
-      'id': 504,
-      'type_id': 21,
-      'type_name': 'fixity',
-      'name': 'Full fixity report'
+      'name': 'Full fixity report',
+      'type': 'fixity'
     },
     {
-      'id': 505,
-      'type_id': 21,
-      'type_name': 'fixity',
-      'name': 'Fixity error report'
+      'name': 'Fixity error report',
+      'type': 'fixity_error'
     },
     {
-      'id': 506,
-      'type_id': 22,
-      'type_name': 'characteristic',
-      'name': 'Component-level report'
+      'name': 'Component-level report',
+      'type': 'component_level'
     },
     {
-      'id': 507,
-      'type_id': 22,
-      'type_name': 'characteristic',
-      'name': 'File-level report'
+      'name': 'File-level report',
+      'type': 'file_level'
     }
   ];
 
