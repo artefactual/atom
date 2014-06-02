@@ -50,11 +50,8 @@ LIMIT 20;
 EOL;
 
     $results = QubitPdo::fetchAll($sql, array(sfConfig::get('app_drmc_lod_artwork_record_id')));
-    if (0 === count($results))
-    {
-      throw new QubitApi404Exception('Information object not found');
-    }
-    else if (false === $results)
+
+    if (false === $results)
     {
       throw new QubitApiException;
     }
@@ -78,9 +75,7 @@ EOL;
 
     return
       array(
-        //'total' => $resultSet->getTotalHits(),
         'results' => $aipCreations
       );
   }
 }
-
