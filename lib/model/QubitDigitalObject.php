@@ -1355,7 +1355,8 @@ class QubitDigitalObject extends BaseDigitalObject
     $uriComponents = parse_url($uri);
 
     // Initialize web browser
-    $browser = new sfWebBrowser(array(), null, array('Timeout' => 10));
+    $timeout = sfConfig::get("app_download_timeout");
+    $browser = new sfWebBrowser(array(), null, array('Timeout' => $timeout));
     $browser->get($uri);
 
     if ($browser->get($uri)->responseIsError() || 1 > strlen(($filename = basename($uriComponents['path']))))
