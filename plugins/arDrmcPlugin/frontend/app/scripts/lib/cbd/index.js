@@ -15,7 +15,7 @@
     this.events = new EventEmitter();
   }
 
-  ContextBrowser.prototype.init = function (data) {
+  ContextBrowser.prototype.init = function (data, filter) {
 
     // Main SVG
     this.rootSVG = d3.select(this.container.get(0))
@@ -35,11 +35,18 @@
     this.graph = new Graph(data);
     this.renderer = new Renderer();
 
+    if (typeof filter === 'function') {
+      this.graph.nodes().forEach(function (u) {
+        filter.call(this, u);
+      });
+    }
+
     this.draw();
 
     // Configure zoom
     this.zoom = new Zoom(this.rootSVG);
     this.setupEvents();
+
   };
 
   ContextBrowser.prototype.draw = function () {
@@ -241,6 +248,21 @@
     });
     self.graph.updateCollapsible(target);
     this.draw();
+  };
+
+  ContextBrowser.prototype.toggleNodesVisibility = function (filter, value) {
+    var self = this;
+    var changed = false;
+    this.graph.nodes().forEach(function (u) {
+      var node = self.graph.node(u);
+      if (filter.call(this, node)) {
+        node.hidden = !value;
+        changed = true;
+      }
+    });
+    if (changed) {
+      this.draw();
+    }
   };
 
   ContextBrowser.prototype.cancelNodeSelection = function (selection) {

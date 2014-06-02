@@ -23,10 +23,17 @@ module.exports = function ($scope, $element, $document, InformationObjectService
    */
 
   scope.pull = function () {
+    var self = this;
     InformationObjectService.getTree(scope.id)
       .then(function (response) {
         container.empty();
-        cb.init(response.data);
+        cb.init(response.data, function (u) {
+          var node = self.cb.graph.node(u);
+          // Hide AIPs
+          if (node.level === 'aip') {
+            node.hidden = true;
+          }
+        });
         scope.rankDir = cb.renderer.rankDir;
         scope.unselectAll();
       }, function (reason) {
@@ -91,7 +98,7 @@ module.exports = function ($scope, $element, $document, InformationObjectService
    */
 
   scope.center = function () {
-    scope.cb.center();
+    cb.center();
   };
 
 
