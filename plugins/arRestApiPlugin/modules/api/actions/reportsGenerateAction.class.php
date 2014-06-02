@@ -32,6 +32,7 @@ class ApiReportsGenerateAction extends QubitApiAction
       switch ($request->type)
       {
         case 'granular_ingest':
+        case 'high_level_ingest':
           $type = QubitFlatfileImport::camelize($request->type);
 
           $this->$type();
@@ -91,15 +92,102 @@ class ApiReportsGenerateAction extends QubitApiAction
       // Add results grouped by user and department
       if (isset($aip['ingestion_user']))
       {
-        $this->results['byUser'][$aip['ingestion_user']]['results'][] = $aip;
+        $this->results['by_user'][$aip['ingestion_user']]['results'][] = $aip;
       }
 
       if (isset($aip['part_of']['department']))
       {
-        $this->results['byDepartment'][$aip['part_of']['department']]['results'][] = $aip;
+        $this->results['by_department'][$aip['part_of']['department']]['results'][] = $aip;
       }
     }
 
     // TODO: Add counts for each table (last row)
+  }
+
+  protected function highLevelIngest()
+  {
+    // New artworks
+    $this->queryBool->addMust(new \Elastica\Query\Term(array('levelOfDescriptionId' => sfConfig::get('app_drmc_lod_artwork_record_id'))));
+    $this->filterEsRangeFacet('from', 'to', 'createdAt', $this->queryBool);
+    $this->query->setQuery($this->queryBool);
+
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
+
+    $this->results['new_artworks'] = $resultSet->getTotalHits();
+
+    // Store new artworks to calculate the amount of artworks with material added
+    $newWorks = array();
+    foreach ($resultSet as $hit)
+    {
+      $newWorks[] = $hit->getId();
+    }
+
+    // New tech records
+    $this->query = new \Elastica\Query;
+    $this->queryBool = new \Elastica\Query\Bool;
+    $this->queryBool->addMust(new \Elastica\Query\MatchAll);
+
+    $this->queryBool->addMust(new \Elastica\Query\Term(array('levelOfDescriptionId' => sfConfig::get('app_drmc_lod_supporting_technology_record_id'))));
+    $this->filterEsRangeFacet('from', 'to', 'createdAt', $this->queryBool);
+    $this->query->setQuery($this->queryBool);
+
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
+
+    $this->results['new_tech_records'] = $resultSet->getTotalHits();
+
+    // AIPs ingested
+    $this->query = new \Elastica\Query;
+    $this->queryBool = new \Elastica\Query\Bool;
+    $this->queryBool->addMust(new \Elastica\Query\MatchAll);
+
+    $this->filterEsRangeFacet('from', 'to', 'createdAt', $this->queryBool);
+    $this->query->setQuery($this->queryBool);
+
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitAip')->search($this->query);
+
+    $this->results['aips_ingested'] = $resultSet->getTotalHits();
+
+    $works = array();
+
+    // Files ingested and total filesize ingested
+    $this->results['files_ingested'] = 0;
+    $this->results['total_filesize_ingested'] = 0;
+
+    foreach ($resultSet as $hit)
+    {
+      $doc = $hit->getData();
+
+      if (isset($doc['digitalObjectCount']))
+      {
+        $this->results['files_ingested'] += $doc['digitalObjectCount'];
+      }
+
+      if (isset($doc['sizeOnDisk']))
+      {
+        $this->results['total_filesize_ingested'] += $doc['sizeOnDisk'];
+      }
+
+      // Check if it's part of an Artwork to calculate the amount of artworks with material added
+      if (isset($doc['partOf']['levelOfDescriptionId']) && $doc['partOf']['levelOfDescriptionId'] == sfConfig::get('app_drmc_lod_artwork_record_id'))
+      {
+        $works[] = $doc['partOf']['id'];
+      }
+    }
+
+    // Remove new artworks from all the artworks (can't use array_diff to keep duplicates)
+    foreach ($newWorks as $work)
+    {
+      $pos = array_search($work, $works);
+      unset($works[$pos]);
+    }
+
+    // Now remove duplicates
+    $works = array_unique($works, SORT_STRING);
+
+    // Artworks with new materials added
+    $this->results['artworks_with_materials_added'] = count($works);
+
+    // Aggregate
+    $this->results['aggregate'] = $this->results['artworks_with_materials_added'] + $this->results['new_artworks'];
   }
 }
