@@ -104,7 +104,7 @@ mapping:
       codec_settings_cabac: { type: string, index: not_analyzed, include_in_all: false }
       codec_settings_ref_frames: { type: integer, index: not_analyzed, include_in_all: false }
       codec_extensions_usually_used: { type: string, index: not_analyzed, include_in_all: false }
-      file_size: { type: integer, index: not_analyzed, include_in_all: false }
+      file_size: { type: long, index: not_analyzed, include_in_all: false }
       duration: { type: integer, index: not_analyzed, include_in_all: false }
       bit_rate: { type: integer, index: not_analyzed, include_in_all: false }
       bit_rate_mode: { type: string, index: not_analyzed, include_in_all: false }
@@ -130,11 +130,11 @@ mapping:
       scan_type: { type: string, index: not_analyzed, include_in_all: false }
       interlacement: { type: string, index: not_analyzed, include_in_all: false }
       bits_pixel_frame: { type: float, index: not_analyzed, include_in_all: false }
-      stream_size: { type: integer, index: not_analyzed, include_in_all: false }
+      stream_size: { type: long, index: not_analyzed, include_in_all: false }
       proportion_of_this_stream: { type: float, index: not_analyzed, include_in_all: false }
-      header_size: { type: integer, index: not_analyzed, include_in_all: false }
-      data_size: { type: integer, index: not_analyzed, include_in_all: false }
-      footer_size: { type: integer, index: not_analyzed, include_in_all: false }
+      header_size: { type: long, index: not_analyzed, include_in_all: false }
+      data_size: { type: long, index: not_analyzed, include_in_all: false }
+      footer_size: { type: long, index: not_analyzed, include_in_all: false }
       language: { type: string, index: not_analyzed, include_in_all: false }
       color_primaries: { type: string, index: not_analyzed, include_in_all: false }
       transfer_characteristics: { type: string, index: not_analyzed, include_in_all: false }
