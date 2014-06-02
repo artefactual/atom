@@ -247,14 +247,13 @@ module.exports = function ($scope, $element, $document, InformationObjectService
    * Relationships
    */
 
-  scope.areRelationshipsHidden = false;
-
+  scope.showRelationships = true;
   scope.hideRelationships = function () {
-    scope.areRelationshipsHidden = !scope.areRelationshipsHidden;
-    if (scope.areRelationshipsHidden) {
-      cb.hideRelationships();
-    } else {
+    scope.showRelationships = !scope.showRelationships;
+    if (scope.showRelationships) {
       cb.showRelationships();
+    } else {
+      cb.hideRelationships();
     }
   };
 

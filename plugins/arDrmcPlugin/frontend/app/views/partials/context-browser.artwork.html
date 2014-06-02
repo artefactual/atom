@@ -14,9 +14,9 @@
       <ul class="menu-list-right nav nav-pills">
 
         <!-- Toogle relationships -->
-        <li ng-class="{ active: areRelationshipsHidden }">
+        <li ng-class="{ active: showRelationships }">
           <a href class="drmc-icon-hide-relationships" ng-click="hideRelationships()">
-            {{ areRelationshipsHidden ? 'Show relationships' : 'Hide relationships' }}
+            Relationships
           </a>
         </li>
 
@@ -33,7 +33,7 @@
         </li>
 
         <!-- Maximize -->
-        <li ng-if="!isFullscreen">
+        <li ng-if="!isFullscreen" ng-class="{ active: isMaximized }">
           <a href ng-click="toggleMaximizedMode()" ng-class="{ 'drmc-icon-maximize': !isMaximized, 'drmc-icon-minimize': isMaximized }">
             {{ isMaximized ? 'Minimize' : 'Maximize' }}
           </a>
