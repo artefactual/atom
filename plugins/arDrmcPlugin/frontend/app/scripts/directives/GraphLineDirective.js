@@ -13,7 +13,8 @@ module.exports = function () {
 
       attrs.$observe('data', function (graphSpecification) {
         var series = [],
-            max = Number.MIN_VALUE;
+            max = Number.MIN_VALUE,
+            dataFound = false;
 
         if (graphSpecification) {
           var xLabels = [];
@@ -22,6 +23,9 @@ module.exports = function () {
           JSON.parse(graphSpecification).forEach(function (lineData) {
             // set graph x/y values and increase max y if needed
             for (var i = 0; i < lineData.data.length; i++) {
+              // note that data has been found
+              dataFound = true;
+
               // store index as X value because Rickshaw accepts only sequential value
               lineData.data[i].x = i;
 
@@ -49,45 +53,47 @@ module.exports = function () {
           // add padding to max
           max = max + (max / 10);
 
-          var graph = new myrickshaw.Graph({
-            element: element.find('rs-chart')[0],
-            width: attrs.width,
-            height: attrs.height,
-            series: series,
-            max: max
-          });
+          if (dataFound) {
+            var graph = new myrickshaw.Graph({
+              element: element.find('rs-chart')[0],
+              width: attrs.width,
+              height: attrs.height,
+              series: series,
+              max: max
+            });
 
-          // use custom X axis formatter so we can use arbitrary X values
-          var format = function (i) {
-            return (typeof xLabels[i] !== 'undefined') ? xLabels[i] : '';
-          };
+            // use custom X axis formatter so we can use arbitrary X values
+            var format = function (i) {
+              return (typeof xLabels[i] !== 'undefined') ? xLabels[i] : '';
+            };
 
-          var xAxis = new myrickshaw.Graph.Axis.X({
-            graph: graph,
-            element: element.find('rs-x-axis')[0],
-            orientation: 'bottom',
-            pixelsPerTick: attrs.xperTick,
-            tickFormat: format
-          });
-          xAxis.render();
+            var xAxis = new myrickshaw.Graph.Axis.X({
+              graph: graph,
+              element: element.find('rs-x-axis')[0],
+              orientation: 'bottom',
+              pixelsPerTick: attrs.xperTick,
+              tickFormat: format
+            });
+            xAxis.render();
 
-          var yAxis = new myrickshaw.Graph.Axis.Y({
-            graph: graph,
-            element: element.find('rs-y-axis')[0],
-            pixelsPerTick: attrs.yperTick,
-            orientation: 'left',
-            tickFormat: myrickshaw.Fixtures.Number.formatKMBT
-          });
-          yAxis.render();
+            var yAxis = new myrickshaw.Graph.Axis.Y({
+              graph: graph,
+              element: element.find('rs-y-axis')[0],
+              pixelsPerTick: attrs.yperTick,
+              orientation: 'left',
+              tickFormat: myrickshaw.Fixtures.Number.formatKMBT
+            });
+            yAxis.render();
 
-          var lineLegend = new myrickshaw.Graph.Legend({
-            graph: graph,
-            element: element.find('rs-legend')[0]
-          });
-          lineLegend.render();
+            var lineLegend = new myrickshaw.Graph.Legend({
+              graph: graph,
+              element: element.find('rs-legend')[0]
+            });
+            lineLegend.render();
 
-          graph.setRenderer(attrs.type);
-          graph.render();
+            graph.setRenderer(attrs.type);
+            graph.render();
+          }
         }
       });
     }
