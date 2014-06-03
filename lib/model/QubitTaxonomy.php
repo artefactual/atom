@@ -70,7 +70,10 @@ class QubitTaxonomy extends BaseTaxonomy
     INFORMATION_OBJECT_TEMPLATE_ID = 70,
 
     // Metadata templates
-    AIP_TYPE_ID = 71;
+    AIP_TYPE_ID = 71,
+
+    // Access log types
+    ACCESS_LOG_ENTRY_TYPE_ID = 72;
 
   public static
     $lockedTaxonomies = array(

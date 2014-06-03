@@ -16,16 +16,19 @@ CREATE TABLE `access_log`
 	`object_id` INTEGER  NOT NULL,
 	`access_date` DATETIME,
 	`access_type` VARCHAR(1024),
-	`username` VARCHAR(1024),
+	`user_id` INTEGER  NOT NULL,
 	`reason` VARCHAR(1024),
-	`relative_path_to_file` VARCHAR(1024),
 	PRIMARY KEY (`id`),
 	KEY `1`(`access_date`, `object_id`),
 	INDEX `access_log_FI_1` (`object_id`),
 	CONSTRAINT `access_log_FK_1`
 		FOREIGN KEY (`object_id`)
 		REFERENCES `object` (`id`)
-		ON DELETE CASCADE
+		ON DELETE CASCADE,
+	INDEX `access_log_FI_2` (`user_id`),
+	CONSTRAINT `access_log_FK_2`
+		FOREIGN KEY (`user_id`)
+		REFERENCES `user` (`id`)
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------

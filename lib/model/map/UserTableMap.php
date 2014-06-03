@@ -53,6 +53,7 @@ class UserTableMap extends TableMap {
     $this->addRelation('actor', 'actor', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('aclPermission', 'aclPermission', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), 'CASCADE', null);
     $this->addRelation('aclUserGroup', 'aclUserGroup', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), 'CASCADE', null);
+    $this->addRelation('accessLog', 'accessLog', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), null, null);
     $this->addRelation('drmcQuery', 'drmcQuery', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), 'SET NULL', null);
     $this->addRelation('note', 'note', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), null, null);
 	} // buildRelations()

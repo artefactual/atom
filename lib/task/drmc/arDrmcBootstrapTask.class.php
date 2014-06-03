@@ -278,15 +278,7 @@ sql;
   {
     $sql = <<<sql
 
-DROP TABLE IF EXISTS `fixity_report`;
-
-sql;
-
-    QubitPdo::modify($sql);
-
-    $sql = <<<sql
-
-CREATE TABLE `fixity_report`
+CREATE TABLE IF NOT EXISTS `fixity_report`
 (
   `id` INTEGER  NOT NULL,
   `success` TINYINT,

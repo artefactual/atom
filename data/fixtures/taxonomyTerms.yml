@@ -717,6 +717,12 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       en: 'AIP types'
+  QubitTaxonomy_access_log_entry_types:
+    source_culture: en
+    id: 72
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'Access log entry types'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
@@ -4692,6 +4698,24 @@ QubitTerm:
       it: 'DACS, 2nd ed. Society of American Archivists'
       pt: 'DACS, 2ª ed. Society of American Archivists'
       sl: 'Arhivsko popisovanje: vsebinski standard (DACS), 2. izdaja, Društvo ameriških arhivistov'
+  QubitTerm_access_log_standard_entry:
+    taxonomy_id: 72
+    id: 358
+    source_culture: en
+    name:
+      en: 'Access'
+  QubitTerm_access_log_aip_download_entry:
+    taxonomy_id: 72
+    id: 359
+    source_culture: en
+    name:
+      en: 'AIP download'
+  QubitTerm_access_log_aip_file_download_entry:
+    taxonomy_id: 72
+    id: 360
+    source_culture: en
+    name:
+      en: 'AIP file download'
 QubitNote:
   QubitNote_1:
     object_id: QubitTerm_111
