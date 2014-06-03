@@ -136,8 +136,8 @@
                   <td>{{ key }}</td>
                   <td>{{ (status.time_started | date: 'short') || 'none' }}</td>
                   <td>{{ (status.time_completed | date: 'short') || 'none' }}</td>
-                  <td>{{ status.duration | ConvertSecondsFilter }}</td>
-                  <td>{{ status.success }}</td>
+                  <td>{{ (status.duration | ConvertSecondsFilter) || 'none' }}</td>
+                  <td>{{ status.statusAlert }}</td>
                 </tr>
               </tbody>
             </table>

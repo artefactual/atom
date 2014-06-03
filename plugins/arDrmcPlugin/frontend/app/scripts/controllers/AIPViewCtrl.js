@@ -8,15 +8,22 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
       pullFiles();
     });
 
-  FixityService.getAipFixity($stateParams.uuid)
-    .success(function (data) {
+  FixityService.getAipFixity($stateParams.uuid).success(function (data) {
       $scope.fixityStatus = data.results;
     }).then(function () {
       // Get count of failed fixity checks
       $scope.fails = [];
+
+      // This creates human-readable output of fixity status
+      // Also counts number of failed fixity checks
       angular.forEach($scope.fixityStatus, function (i) {
         if (i.failures) {
           $scope.fails.push(i);
+          i.statusAlert = 'Failed';
+        } else if (angular.isArray(i)) {
+          i.statusAlert = 'No information available';
+        } else {
+          i.statusAlert = 'Success';
         }
         $scope.fixityFailsCount = $scope.fails.length;
       });
