@@ -94,13 +94,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
       return;
     }
 
-    // If there are still documents in the batch queue, send them
-    if ($this->config['batch_mode'] && count($this->batchDocs) > 0)
-    {
-      $this->index->addDocuments($this->batchDocs);
-      $this->index->flush();
-    }
-
+    $this->flushBatch();
     $this->index->refresh();
   }
 
@@ -241,6 +235,20 @@ class arElasticSearchPlugin extends QubitSearchEngine
   // ---------------------------------------------------------------------------
 
   /**
+   * Adds any batch documents to the index and flushes the batch.
+   */
+  public function flushBatch()
+  {
+    // If there are still documents in the batch queue, send them
+    if ($this->config['batch_mode'] && count($this->batchDocs) > 0)
+    {
+      $this->index->addDocuments($this->batchDocs);
+      $this->index->flush();
+      $this->batchDocs = array();
+    }
+  }
+
+  /**
    * Centralize document addition to keep control of the batch queue
    */
   public function addDocument($data, $type)
@@ -266,11 +274,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
       // If we have a full batch, send in bulk
       if (count($this->batchDocs) >= $this->batchSize)
       {
-        $this->index->addDocuments($this->batchDocs);
-
-        $this->index->flush();
-
-        $this->batchDocs = array();
+        $this->flushBatch();
       }
     }
     else

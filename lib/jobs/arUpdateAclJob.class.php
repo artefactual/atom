@@ -40,9 +40,6 @@ class arUpdateAclJob extends arBaseJob
     // parent::run() will check parameters and throw an exception if any are missing
     parent::run($parameters);
 
-    $oldBatchSize = QubitSearch::getInstance()->batchSize;
-    QubitSearch::getInstance()->batchSize = count($parameters['objectIds']);
-
     foreach ($parameters['objectIds'] as $objectId)
     {
       $aclEntry = new QubitAclEntry;
@@ -56,7 +53,9 @@ class arUpdateAclJob extends arBaseJob
       arElasticSearchAclEntry::update($aclEntry);
     }
 
-    QubitSearch::getInstance()->batchSize = $oldBatchSize;
+    // TODO: Update MySQL acl entries?
+
+    QubitSearch::getInstance()->flushBatch();
 
     // Don't forget to set the job status & save at the end!
     $this->job->setStatusCompleted();
