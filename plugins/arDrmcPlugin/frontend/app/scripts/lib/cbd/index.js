@@ -156,18 +156,26 @@
    */
   ContextBrowser.prototype.clickNode = function (context, datum, index) {
     var n = d3.select(this);
+    var shiftKey = d3.event ? d3.event.shiftKey : false;
+    var target = d3.event ? d3.event.target : undefined;
     if (!n.classed('active')) {
-      if (!d3.event.shiftKey) {
+      if (!shiftKey) {
         context.graphSVG.selectAll('.node.active').each(function (datum, index) {
           d3.select(this).classed('active', false);
-          context.events.emitEvent('unpin-node', [{ id: datum, index: index }, d3.event.target]);
+          if (target !== undefined) {
+            context.events.emitEvent('unpin-node', [{ id: datum, index: index }, target]);
+          }
         });
       }
       n.classed('active', true);
-      context.events.emitEvent('pin-node', [{ id: datum, index: index }, d3.event.target]);
+      if (target !== undefined) {
+        context.events.emitEvent('pin-node', [{ id: datum, index: index }, target]);
+      }
     } else {
       n.classed('active', false);
-      context.events.emitEvent('unpin-node', [{ id: datum, index: index }, d3.event.target]);
+      if (target !== undefined) {
+        context.events.emitEvent('unpin-node', [{ id: datum, index: index }, target]);
+      }
     }
   };
 
@@ -197,6 +205,11 @@
     } else if (d3.event.type === 'mouseout') {
       d3.select(this).classed('hover', false);
     }
+  };
+
+  ContextBrowser.prototype.selectRootNode = function () {
+    var node = this.graphSVG.select('.node');
+    this.clickNode.call(node.node(), this, node.datum(), 0);
   };
 
   // Graph contents manipulation

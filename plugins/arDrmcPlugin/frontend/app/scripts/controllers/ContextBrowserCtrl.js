@@ -22,11 +22,16 @@ module.exports = function ($scope, $element, $document, InformationObjectService
    * Fetcher
    */
 
+  var firstPull = true;
   scope.pull = function () {
     var self = this;
     InformationObjectService.getTree(scope.id)
       .then(function (response) {
+
+        // Empty container
         container.empty();
+
+        // Init context browser
         cb.init(response.data, function (u) {
           var node = self.cb.graph.node(u);
           // Hide AIPs
@@ -34,8 +39,18 @@ module.exports = function ($scope, $element, $document, InformationObjectService
             node.hidden = true;
           }
         });
+
+        // Define ranking direction
         scope.rankDir = cb.renderer.rankDir;
-        scope.unselectAll();
+
+        if (firstPull) {
+          firstPull = false;
+          cb.selectRootNode();
+          scope.selectNode(scope.id);
+        } else {
+          scope.unselectAll();
+        }
+
       }, function (reason) {
         console.error('Error loading tree:', reason);
       });
