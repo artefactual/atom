@@ -9,10 +9,13 @@ module.exports = function (SETTINGS, $http) {
     });
   };
 
-  this.getStatusFixity = function () {
+  this.getStatusFixity = function (params) {
     return $http({
       method: 'GET',
-      url: SETTINGS.frontendPath + 'api/fixity/status'
+      url: SETTINGS.frontendPath + 'api/fixity/status',
+      params: {
+        limit: params
+      }
     });
   };
 

@@ -82,8 +82,19 @@ module.exports = function ($scope, $q, StatisticsService, FixityService) {
 
   pull();
 
-  FixityService.getStatusFixity().then(function (response) {
-    $scope.fixityStats = response.data;
+  // getStatusFixity accept parameter defining number of responses
+  // of 'recent fixity checks' returned by service
+  FixityService.getStatusFixity(5).success(function (data) {
+    console.log(data);
+    $scope.fixityStats = data;
+  }).then(function () {
+    if($scope.fixityStats.lastFails.length > 0) {
+      $scope.hasFails = true;
+    }
   });
 
+  $scope.showOverview = false;
+  $scope.toggleOverview = function () {
+    $scope.showOverview = !$scope.showOverview;
+  };
 };

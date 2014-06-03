@@ -28,7 +28,10 @@
             </ul>
             <ul class="menu-list-right nav nav-pills">
               <li>
-                Status:&nbsp&nbsp<span class="badge menu-badge" ng-class="{ 'badge-important': fixityStats.lastFails, 'badge-success': !fixityStats.lastFails }">{{ fixityStats.lastFails.length }}</span>
+                Status:&nbsp&nbsp<span class="badge menu-badge" ng-class="{ 'badge-important': hasFails, 'badge-success': !hasFails }">{{ fixityStats.lastFails.length }}</span>
+              </li>
+              <li>
+                <a href ng-click="toggleOverview()" ng-class="{ 'drmc-icon-angle-double-down': !showOverview, 'drmc-icon-angle-double-up': showOverview }">{{ showOverview ? 'Hide Details' : 'Show Details' }}</a>
               </li>
             </ul>
           </div>
@@ -38,7 +41,7 @@
 
           <div class="span2 integrity-status-field">
             <h3 class="muted">Status</h3>
-            <span class="muted label" ng-class="{ 'label-important': fixityStats.lastFails, 'label-success': !fixityStats.lastFails }">{{ fixityStats.lastFails.outcome ? 'OK' : 'Not OK' }}</span>
+            <span class="muted label" ng-class="{ 'label-important': hasFails, 'label-success': !hasFails }">{{ hasFails ? 'Not OK' : 'OK' }}</span>
           </div>
 
           <div ng-show="fixityStats.currentlyChecking" class="span4 integrity-status-field">
@@ -69,10 +72,37 @@
         </div>
 
         <div class="browse-view-list">
-          <tabset>
+
+          <tabset ng-show="showOverview">
+
+            <!-- Failed -->
+            <tab heading="Failed" active="tab.active">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>AIP name</th>
+                    <th>Time completed</th>
+                    <th>Duration</th>
+                    <th>Outcome</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="(key, aip) in fixityStats.lastFails" ng-class="{ 'success' : aip.outcome, 'error' : !aip.outcome }">
+                    <td><a ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a></td>
+                    <td>{{ aip.time_completed | date: 'short' }}</td>
+                    <td>{{ aip.duration | ConvertSecondsFilter }}</td>
+                    <td>{{ aip.outcome }}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- TODO: Add link to full error reports page -->
+              <button class="btn fixity-checker-view-all">View all</button>
+
+            </tab>
 
             <!-- All -->
-            <tab heading="All">
+            <tab heading="Recent">
               <table class="table table-bordered">
                 <thead>
                   <tr>
@@ -91,33 +121,13 @@
                   </tr>
                 </tbody>
               </table>
-            </tab>
 
-            <!-- Failed -->
-            <tab heading="Failed">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>AIP name</th>
-                    <th>Time completed</th>
-                    <th>Duration</th>
-                    <th>Outcome</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="(key, aip) in fixityStats.lastFails" ng-class="{ 'success' : aip.outcome, 'error' : !aip.outcome }">
-                    <td><a ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a></td>
-                    <td>{{ aip.time_completed | date: 'short' }}</td>
-                    <td>{{ aip.duration | ConvertSecondsFilter}}</td>
-                    <td>{{ aip.outcome }}</td>
-                  </tr>
-                </tbody>
-              </table>
+              <!-- TODO: Add link to full error reports page -->
+              <button class="btn fixity-checker-view-all">View all</button>
+
             </tab>
 
           </tabset>
-
-          <button class="btn fixity-checker-view-all">View all</button>
 
         </div>
 
