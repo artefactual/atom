@@ -237,7 +237,7 @@ module.exports = function ($q, $timeout, $http, SETTINGS) {
       params: params
     };
 
-    if (Object.keys(params).length > 0) {
+    if (angular.isDefined(params.type)) {
       configuration.params = {
         'type': params.type
       };

@@ -7,8 +7,8 @@
 
   <h3>Choose report type</h3>
 
-  <select class="span4" ng-model="report" ng-options="report.name for report in reportTypes">
-    <option value="">None selected</option>
+  <select class="span4" ng-model="reportType" ng-options="report.name for report in reportTypes">
+    <option value="">Select a type</option>
   </select>
 
   <div class="form-item ar-date-range-field span3" ng-model="criteria.range">
@@ -21,6 +21,6 @@
 </div>
 
 <div class="modal-footer">
-  <button ng-click="generateReport(report)" class="btn btn-primary">Generate report</button>
+  <button ng-click="generateReport(reportType)" class="btn btn-primary">Generate report</button>
   <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
 </div>
