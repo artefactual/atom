@@ -367,6 +367,39 @@ CREATE TABLE `fixity_report`
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
+#-- fixity_recovery
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `fixity_recovery`;
+
+
+CREATE TABLE `fixity_recovery`
+(
+	`id` INTEGER  NOT NULL,
+	`success` TINYINT,
+	`message` VARCHAR(255),
+	`fixity_report_id` INTEGER,
+	`time_started` DATETIME,
+	`time_completed` DATETIME,
+	`user_id` INTEGER,
+	PRIMARY KEY (`id`),
+	CONSTRAINT `fixity_recovery_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `object` (`id`)
+		ON DELETE CASCADE,
+	INDEX `fixity_recovery_FI_2` (`fixity_report_id`),
+	CONSTRAINT `fixity_recovery_FK_2`
+		FOREIGN KEY (`fixity_report_id`)
+		REFERENCES `fixity_report` (`id`)
+		ON DELETE SET NULL,
+	INDEX `fixity_recovery_FI_3` (`user_id`),
+	CONSTRAINT `fixity_recovery_FK_3`
+		FOREIGN KEY (`user_id`)
+		REFERENCES `user` (`id`)
+		ON DELETE SET NULL
+)Engine=InnoDB;
+
+#-----------------------------------------------------------------------------
 #-- function
 #-----------------------------------------------------------------------------
 

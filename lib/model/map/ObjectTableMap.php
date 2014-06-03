@@ -49,7 +49,6 @@ class ObjectTableMap extends TableMap {
 	 */
 	public function buildRelations()
 	{
-    $this->addRelation('aclPermission', 'aclPermission', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);
     $this->addRelation('accessLog', 'accessLog', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);
     $this->addRelation('actor', 'actor', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('aipRelatedByid', 'aip', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
@@ -58,6 +57,7 @@ class ObjectTableMap extends TableMap {
     $this->addRelation('drmcQuery', 'drmcQuery', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('event', 'event', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('fixityReport', 'fixityReport', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('fixityRecovery', 'fixityRecovery', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('function', 'function', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('informationObject', 'informationObject', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('note', 'note', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);
@@ -75,6 +75,7 @@ class ObjectTableMap extends TableMap {
     $this->addRelation('status', 'status', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);
     $this->addRelation('taxonomy', 'taxonomy', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('term', 'term', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('aclPermission', 'aclPermission', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);
     $this->addRelation('accession', 'accession', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('deaccession', 'deaccession', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
 	} // buildRelations()

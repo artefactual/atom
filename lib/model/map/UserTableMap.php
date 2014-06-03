@@ -55,6 +55,7 @@ class UserTableMap extends TableMap {
     $this->addRelation('aclUserGroup', 'aclUserGroup', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), 'CASCADE', null);
     $this->addRelation('accessLog', 'accessLog', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), null, null);
     $this->addRelation('drmcQuery', 'drmcQuery', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), 'SET NULL', null);
+    $this->addRelation('fixityRecovery', 'fixityRecovery', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), 'SET NULL', null);
     $this->addRelation('note', 'note', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), null, null);
 	} // buildRelations()
 
