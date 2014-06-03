@@ -90,9 +90,13 @@ module.exports = function ($scope, $q, StatisticsService, FixityService) {
   }).then(function () {
     if($scope.fixityStats.lastFails.length > 0) {
       $scope.hasFails = true;
+      $scope.showOverview = true;
     }
   });
 
+  // Set visibility of fixity details to false by default
+  // If failed fixity checks exist, this value will be set
+  // to true in then() following service call
   $scope.showOverview = false;
   $scope.toggleOverview = function () {
     $scope.showOverview = !$scope.showOverview;
