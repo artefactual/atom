@@ -91,7 +91,7 @@
                     <td><a ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a></td>
                     <td>{{ aip.time_completed | date: 'short' }}</td>
                     <td>{{ aip.duration | ConvertSecondsFilter }}</td>
-                    <td>{{ aip.outcome }}</td>
+                    <td>Failed</td>
                   </tr>
                 </tbody>
               </table>
@@ -117,7 +117,7 @@
                     <td><a href ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a></td>
                     <td>{{ aip.time_completed | date: 'short' }}</td>
                     <td>{{ aip.duration | ConvertSecondsFilter }}</td>
-                    <td>{{ aip.outcome }}</td>
+                    <td>{{ aip.statusAlert }}</td>
                   </tr>
                 </tbody>
               </table>

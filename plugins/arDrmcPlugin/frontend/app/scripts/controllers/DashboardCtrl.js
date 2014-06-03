@@ -85,13 +85,23 @@ module.exports = function ($scope, $q, StatisticsService, FixityService) {
   // getStatusFixity accept parameter defining number of responses
   // of 'recent fixity checks' returned by service
   FixityService.getStatusFixity(5).success(function (data) {
-    console.log(data);
     $scope.fixityStats = data;
   }).then(function () {
     if($scope.fixityStats.lastFails.length > 0) {
       $scope.hasFails = true;
       $scope.showOverview = true;
     }
+  }).then(function () {
+    angular.forEach($scope.fixityStats.lastChecks, function (i) {
+      // Convert boolean to human-friendly string
+      if (i.outcome === false) {
+        i.statusAlert = 'Failed';
+      } else if (i.outcome === true) {
+        i.statusAlert = 'Success';
+      } else {
+        return;
+      }
+    });
   });
 
   // Set visibility of fixity details to false by default
