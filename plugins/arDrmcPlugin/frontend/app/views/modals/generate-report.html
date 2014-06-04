@@ -1,26 +1,61 @@
-<div class="modal-header">
-  <button type="button" ng-click="cancel()" class="close">×</button>
-  <h2 class="multiline">Generate new report</h2>
-</div>
-
-<div class="modal-body">
-
-  <h3>Choose report type</h3>
-
-  <select class="span4" ng-model="reportType" ng-options="report.name for report in reportTypes">
-    <option value="">Select a type</option>
-  </select>
-
-  <div class="form-item ar-date-range-field span3" ng-model="criteria.range">
-    <input class="from" type="date" placeholder="from" />
-    <input class="to" type="date" placeholder="to" />
-    <p class="error" ng-if="datesInvalid">Please enter valid date range.</p>
+<div class="modal-generate-report">
+  <div class="modal-header">
+    <button type="button" ng-click="cancel()" class="close">×</button>
+    <h2 class="multiline">Generate new report</h2>
   </div>
 
-  <a href ng-click="resetFields()">Clear all fields</a>
-</div>
+  <div class="modal-body">
 
-<div class="modal-footer">
-  <button ng-click="generateReport(reportType)" class="btn btn-primary">Generate report</button>
-  <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
+    <!-- Select report type -->
+    <div class="row-fluid">
+      <div class="span5">
+        <h3 class="input-title">Choose report type<span class="input-required">*</span></h3>
+        <select ng-model="criteria.reportType" ng-options="report.name for report in reportTypes">
+          <option value="">Select a type</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+
+      <!-- Select dates -->
+      <div class="span6 form-item">
+        <h3 class="input-title">Choose date range</h3>
+
+        <div class="form-item">
+          <input type="radio" value="all" ng-model="criteria.range" />
+          All
+        </div>
+        <div class="form-item">
+          <input type="radio" value="" ng-model="criteria.range" />
+          Specified date range
+        </div>
+
+        <div class="row-fluid ar-date-range-field" ng-model="criteria.range">
+          <input class="from span6" type="date" placeholder="from" />
+          <input class="to span6" type="date" placeholder="to" />
+          <p class="error" ng-if="datesInvalid">Please enter valid date range.</p>
+        </div>
+      </div>
+
+      <!-- Save report -->
+      <div class="span6 form-item">
+        <h3 class="input-title">Save report as</h3>
+
+        <label for="savedName">Name: </label>
+        <input type="text" ng-model="criteria.savedName" name="savedName" />
+
+        <label for="savedDescription">Description: </label>
+        <textarea rows="4" cols="30" ng-model="criteria.savedDescription" name="savedDescription"></textarea>
+      </div>
+
+    </div>
+
+    <a class="pull-right" href ng-click="resetFields()">Clear all fields</a>
+  </div>
+
+  <div class="modal-footer">
+    <button ng-click="generateReport(reportType)" class="btn btn-primary">Generate report</button>
+    <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
+  </div>
 </div>

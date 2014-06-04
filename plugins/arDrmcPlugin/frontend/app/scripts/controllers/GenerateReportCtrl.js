@@ -2,23 +2,9 @@
 
 module.exports = function ($scope, $modalInstance, ReportsService) {
 
-  // Create object to define
-  $scope.report = {};
+  // Create object to define and set defaults
   $scope.criteria = {};
-  $scope.criteria.range = {};
-
-  // Checks for valid dates and generate report
-  $scope.generateReport = function (params) {
-    ReportsService.generateReport(params).success(function (response) {
-      $modalInstance.close(response);
-    });
-  };
-
-  // Reset all fields to empty
-  $scope.resetFields = function () {
-    $scope.report = {};
-    $scope.criteria.range = {};
-  };
+  $scope.criteria.range = 'all';
 
   $scope.reportTypes = [
     {
@@ -54,6 +40,20 @@ module.exports = function ($scope, $modalInstance, ReportsService) {
       'type': 'file_level'
     }
   ];
+
+  // Checks for valid dates and generate report (with or without save)
+  $scope.generateReport = function (criteria) {
+    ReportsService.generateReport(criteria).success(function (response) {
+      $modalInstance.close(response);
+    });
+  };
+
+  // Reset all fields to empty
+  $scope.resetFields = function () {
+    $scope.criteria.reportType = {};
+    $scope.criteria.range.value = {};
+    $scope.radioOpt = 'all';
+  };
 
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
