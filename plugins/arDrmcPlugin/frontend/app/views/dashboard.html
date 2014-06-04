@@ -54,9 +54,7 @@
           <!-- if no checks currently running -->
           <div ng-hide="fixityStats.currentlyChecking" class="span4 integrity-status-field">
             <h3>Last repository-wide fixity audit</h3>
-            <span>
-              <a href ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a>
-            </span>
+            <span class="muted">{{ fixityStats.timeSinceLastCheck | ConvertSecondsFilter }}</span>
           </div>
 
           <div class="span2 integrity-status-field">

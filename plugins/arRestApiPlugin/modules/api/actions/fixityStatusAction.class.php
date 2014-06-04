@@ -174,7 +174,7 @@ class ApiFixityStatusAction extends QubitApiAction
     $results = QubitPdo::fetchAll($sql);
 
     // If there is a currently checking session uuid and match the first result
-    // get the time of the last completed collection check
+    // get the time of the last completed check
     if (isset($results[0]))
     {
       if (isset($currentlyCheckingSessionUuid) && $currentlyCheckingSessionUuid == $results[0]->session_uuid)
@@ -195,6 +195,13 @@ class ApiFixityStatusAction extends QubitApiAction
     {
       $duration = strtotime($result->max) - strtotime($result->min);
       $data['timeToCheckCollection'] = $duration;
+    }
+
+    // If there isn't a currently checking result obtain the time since last check
+    if (!isset($data['currentlyChecking']) && isset($results[0]->max))
+    {
+      $duration = time() - strtotime($result->max);
+      $data['timeSinceLastCheck'] = $duration;
     }
 
     return $data;
