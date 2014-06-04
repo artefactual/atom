@@ -87,7 +87,7 @@ module.exports = function ($scope, $q, StatisticsService, FixityService) {
   FixityService.getStatusFixity(5).success(function (data) {
     $scope.fixityStats = data;
   }).then(function () {
-    if($scope.fixityStats.lastFails.length > 0) {
+    if ($scope.fixityStats.lastFails.length > 0) {
       $scope.hasFails = true;
       $scope.showOverview = true;
     }
