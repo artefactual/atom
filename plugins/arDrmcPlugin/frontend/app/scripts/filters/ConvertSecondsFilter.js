@@ -2,27 +2,30 @@
 
 module.exports = function () {
 
-  return function (seconds) {
-    var minute = 60;
-    var hour = minute * 60;
+  return function (time) {
 
-    var hours = Math.floor(seconds / hour);
-    var minutes = Math.floor(seconds / minute);
-
-    var remMinutes = seconds % hours;
-    var remSeconds = seconds % minute;
-
-    if (seconds < minute) {
-      return seconds + 's';
-    } else if (seconds > minute && seconds < hour) {
-      // bigger than 1 minute, smaller than 1 hour
-      return minutes + 'm' + remSeconds + 's';
-    } else if (seconds > hour) {
-      // bigger than 1 hour
-      return hours + 'h' + remMinutes + 'm' + remSeconds + 's';
-    } else if (!Number(seconds)) {
+    if (!Number(time)) {
       // Not available
       return;
+    } else {
+      // Calculate
+      var days = Math.floor(time / 86400);
+      time -= days * 86400;
+      var hours = Math.floor(time / 3600);
+      time -= hours * 3600;
+      var minutes = Math.floor(time / 60);
+      time -= minutes * 60;
+      var seconds = time;
+      // Return
+      if (days > 0) {
+        return days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's';
+      } else if (hours > 0) {
+        return hours + 'h ' + minutes + 'm ' + seconds + 's';
+      } else if (minutes > 0) {
+        return minutes + 'm ' + seconds + 's';
+      } else {
+        return seconds + 's';
+      }
     }
   };
 
