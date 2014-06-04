@@ -47,6 +47,11 @@ EOF;
       )
     ));
 
+    $this->addOptions(array(
+      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'qubit'),
+      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
+    ));
+
     // TODO: add capability to define ad-hoc arguments
   }
 
@@ -59,6 +64,8 @@ EOF;
     {
       throw new sfException('You must specify a valid filename');
     }
+
+    sfContext::createInstance($this->configuration);
 
     // initialized data connection in case it's needed
     $databaseManager = new sfDatabaseManager($this->configuration);
