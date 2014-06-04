@@ -139,6 +139,12 @@ class ApiFixityStatusAction extends QubitApiAction
       $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
 
       $data['currentlyChecking'][] = $report;
+
+      // Store session_uuid of currently checking
+      if (isset($doc['sessionUuid']))
+      {
+        $currentlyCheckingSessionUuid = $doc['sessionUuid'];
+      }
     }
 
     // Checks in 24 hours
@@ -159,12 +165,30 @@ class ApiFixityStatusAction extends QubitApiAction
     // Time to check colection
     $sql  = 'SELECT
                 MIN(time_started) as min,
-                MAX(time_completed) as max
+                MAX(time_completed) as max,
+                session_uuid
                 FROM fixity_report
                 GROUP BY session_uuid
                 ORDER BY time_started DESC';
 
-    $result = QubitPdo::fetchOne($sql);
+    $results = QubitPdo::fetchAll($sql);
+
+    // If there is a currently checking session uuid and match the first result
+    // get the time of the last completed collection check
+    if (isset($results[0]))
+    {
+      if (isset($currentlyCheckingSessionUuid) && $currentlyCheckingSessionUuid == $results[0]->session_uuid)
+      {
+        if (isset($results[1]))
+        {
+          $result = $results[1];
+        }
+      }
+      else
+      {
+        $result = $results[0];
+      }
+    }
 
     $data['timeToCheckCollection'] = null;
     if (isset($result->min) && isset($result->max))
