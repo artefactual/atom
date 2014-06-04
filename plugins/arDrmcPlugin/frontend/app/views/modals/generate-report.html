@@ -7,71 +7,73 @@
   <form name="modalContainer.form" ng-submit="submit()" novalidate>
     <div class="modal-body">
 
-        <!-- Select report type -->
-        <section class="form-item">
-          <label>Choose report type<span class="input-required">*</span></label>
-          <select ng-model="criteria.reportType" ng-options="report.name for report in reportTypes">
-            <option value="">Select a type</option>
-          </select>
-        </section>
+      <!-- Select report type -->
+      <section class="form-item">
+        <label>Choose report type<span class="input-required">*</span></label>
+        <select name="reportType" ng-model="criteria.reportType" ng-options="report.name for report in reportTypes" required>
+          <option value="">Select a type</option>
+        </select>
+      </section>
 
-          <!-- Select dates -->
-        <section class="form-item">
-          <label>Choose date range</label>
-            <input type="radio" value="all" ng-model="dateRange" />
-              All
-          </label>
+      <!-- Select dates -->
+      <section class="form-item">
+        Choose date range
 
-          <label>
-            <input type="radio" value="specified" ng-model="dateRange" />
-            Specified date range
-          </label>
+        <label>
+          <input type="radio" name="dateRange" value="all" ng-model="modalContainer.dateRange"/>
+          All
+        </label>
 
-          <div class="row-fluid ar-date-range-field" ng-model="criteria.range" ng-if="dateRange == 'specified'">
+        <label>
+          <input type="radio" name="dateRange" value="specified" ng-model="modalContainer.dateRange"/>
+          Specified date range
+        </label>
 
-            <table class="table table-bordered multiRow">
-              <thead>
-                <tr>
-                  <th style="width: 30%">From</th>
-                  <th style="width: 30%">To</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div>
-                      <input class="from" type="date" placeholder="from" />
-                    </div>
-                  </td>
-                  <td>
-                    <input class="to" type="date" placeholder="to" />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="row-fluid ar-date-range-field" ng-model="criteria.range" ng-if="modalContainer.dateRange == 'specified'">
 
-          </div>
-        </section>
+          <table class="table table-bordered multiRow">
+            <thead>
+              <tr>
+                <th>From</th>
+                <th>To</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div>
+                    <input class="from" type="date"/>
+                  </div>
+                </td>
+                <td>
+                  <input class="to" type="date"/>
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
-        <hr>
+        </div>
+      </section>
 
-        <!-- Save report -->
-        <section class="form-item">
-          <h3 class="input-title">Save report as</h3>
+      <hr>
 
-          <label for="savedName">Name </label>
-          <input type="text" ng-model="criteria.savedName" name="savedName" />
+      <!-- Save report -->
+      <section class="form-item">
+        <h3 class="input-title">Save report as</h3>
 
-          <label for="savedDescription">Description </label>
-          <textarea rows="4" cols="30" ng-model="criteria.savedDescription" name="savedDescription"></textarea>
-        </section>
+        <label for="savedName">Name </label>
+        <input type="text" name="name" ng-model="criteria.name" name="savedName" required />
 
-      <a class="pull-right" href ng-click="resetFields()">Clear all fields</a>
+        <label for="savedDescription">Description </label>
+        <textarea rows="4" cols="30" name="description" ng-model="criteria.description" required></textarea>
+      </section>
+
     </div>
 
     <div class="modal-footer">
-      <button type="submit" ng-click="generateReport(reportType)" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': modalContainer.form.$invalid }" ng-disabled="modalContainer.form.$invalid">Save & exit</button>
-      <button type="submit" ng-click="generateReport(reportType)" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': modalContainer.form.$invalid }" ng-disabled="modalContainer.form.$invalid">>Save & view</button>
+      <button type="submit" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': modalContainer.form.$invalid }" ng-disabled="modalContainer.form.$invalid">Save</button>
+      <button type="submit" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': modalContainer.form.$invalid }" ng-disabled="modalContainer.form.$invalid">Save and open</button>
+      <button class="btn" ng-click="reset()">Reset</button>
       <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
     </div>
   </form>

@@ -25,6 +25,9 @@ module.exports = function () {
 
       // Update the view when the model changes
       ngModelCtrl.$render = function () {
+        if (angular.isUndefined(ngModelCtrl.$viewValue)) {
+          ngModelCtrl.$viewValue = {};
+        }
         $from.get(0).valueAsDate = new Date(ngModelCtrl.$viewValue.from);
         $to.get(0).valueAsDate = new Date(ngModelCtrl.$viewValue.to);
       };
