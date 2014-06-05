@@ -19,21 +19,17 @@
       <section class="form-item">
         Choose date range
 
-        <div class="form-item">
-          <label>
-            <input type="radio" name="dateRange" value="all" ng-model="modalContainer.dateRange"/>
-            All
-          </label>
-        </div>
+        <label>
+          <input type="radio" name="dateRange" value="all" ng-model="modalContainer.dateRange"/>
+          All
+        </label>
 
-        <div class="form-item">
-          <label>
-            <input type="radio" name="dateRange" value="specified" ng-model="modalContainer.dateRange"/>
-            Specified date range
-          </label>
-        </div>
+        <label>
+          <input type="radio" name="dateRange" value="specified" ng-model="modalContainer.dateRange"/>
+          Specified date range
+        </label>
 
-        <div class="row-fluid ar-date-range-field" name="range" ng-model="criteria.range" ng-if="modalContainer.dateRange == 'specified'">
+        <div class="ar-date-range-field" name="range" ng-model="criteria.range" ng-if="modalContainer.dateRange == 'specified'">
           <div class="alert" ng-if="modalContainer.form.range.$invalid && modalContainer.form.range.$dirty">
             Please enter valid dates
           </div>
