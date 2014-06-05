@@ -42,7 +42,7 @@ class DigitalObjectViewAction extends sfAction
     // Do appropriate ACL check(s)
     if (!QubitAcl::check($this->resource, 'readMaster'))
     {
-      $this->redirect('/images/generic-icons/blank.png');
+      $this->forward404();
     }
 
     $this->getResponse()->setContentType($this->resource->mimeType);
