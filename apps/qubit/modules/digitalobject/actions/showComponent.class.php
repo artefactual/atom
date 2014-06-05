@@ -41,14 +41,25 @@ class DigitalObjectShowComponent extends sfComponent
       $this->usageType = QubitTerm::THUMBNAIL_ID;
     }
 
-    if (QubitTerm::REFERENCE_ID == $this->usageType && !QubitAcl::check($this->resource->informationObject, 'readReference'))
+    if (
+        QubitTerm::MASTER_ID == $this->usageType && !QubitAcl::check($this->resource->informationObject, 'readMaster')
+        ||
+        QubitTerm::REFERENCE_ID == $this->usageType && !QubitAcl::check($this->resource->informationObject, 'readReference')
+        ||
+        QubitTerm::THUMBNAIL_ID == $this->usageType && !QubitAcl::check($this->resource->informationObject, 'read')
+       )
     {
-      return sfView::NONE;
+      $showThumbnail = true;
     }
 
     // Figure out which show component to call
     switch ($this->resource->mediaTypeId)
     {
+      case $showThumbnail:
+        $this->showComponent = 'showThumbnail';
+
+        break;
+
       case QubitTerm::IMAGE_ID:
 
         if ($this->resource->showAsCompoundDigitalObject())
