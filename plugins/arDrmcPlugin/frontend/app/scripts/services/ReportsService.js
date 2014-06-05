@@ -237,7 +237,6 @@ module.exports = function ($q, $timeout, $http, SETTINGS) {
     };
 
     if (angular.isDefined(data)) {
-      console.log('/data',data);
       configuration.data = data;
     }
 
@@ -250,5 +249,12 @@ module.exports = function ($q, $timeout, $http, SETTINGS) {
     // }
 
     return $http(configuration);
+  };
+
+  this.getData = function (type) {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/report?type=' + type
+    });
   };
 };
