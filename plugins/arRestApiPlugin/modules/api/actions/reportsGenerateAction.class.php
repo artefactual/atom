@@ -33,6 +33,7 @@ class ApiReportsGenerateAction extends QubitApiAction
       {
         case 'granular_ingest':
         case 'high_level_ingest':
+        case 'fixity':
           $type = QubitFlatfileImport::camelize($request->type);
 
           $this->$type();
@@ -189,5 +190,75 @@ class ApiReportsGenerateAction extends QubitApiAction
 
     // Aggregate
     $this->results['aggregate'] = $this->results['artworks_with_materials_added'] + $this->results['new_artworks'];
+  }
+
+  protected function fixity()
+  {
+    // Date range
+    $this->filterEsRangeFacet('from', 'to', 'timeStarted', $this->queryBool);
+
+    $this->query->setSort(array('timeStarted' => 'desc'));
+    $this->query->setQuery($this->queryBool);
+
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitFixityReport')->search($this->query);
+
+    foreach ($resultSet as $hit)
+    {
+      $doc = $hit->getData();
+
+      // Store session_uuid for currently running check (not included in the results)
+      if (!isset($doc['timeCompleted']) && isset($doc['sessionUuid']))
+      {
+        $currentlyChecking = $doc['sessionUuid'];
+
+        continue;
+      }
+
+      $fixity = array();
+
+      if (isset($doc['success']))
+      {
+        $fixity['success'] = (bool)$doc['success'];
+      }
+
+      $this->addItemToArray($fixity, 'time_started', $doc['timeStarted']);
+      $this->addItemToArray($fixity, 'time_completed', $doc['timeCompleted']);
+
+      if (isset($doc['timeCompleted']) && isset($doc['timeStarted']))
+      {
+        $duration = strtotime($doc['timeCompleted']) - strtotime($doc['timeStarted']);
+        $this->addItemToArray($fixity, 'duration', $duration);
+      }
+
+      $this->addItemToArray($fixity['aip'], 'uuid', $doc['aip']['uuid']);
+      $this->addItemToArray($fixity['aip'], 'name', $doc['aip']['name']);
+      $this->addItemToArray($fixity['aip'], 'part_of', $doc['aip']['partOf']);
+      $this->addItemToArray($fixity['aip'], 'attached_to', $doc['aip']['attachedTo']);
+
+
+      // Add results grouped by session_uuid
+      if (isset($doc['sessionUuid']))
+      {
+        $this->results[$doc['sessionUuid']]['results'][] = $fixity;
+      }
+    }
+
+    // Remove current check
+    if (isset($currentlyChecking) && isset($this->results[$currentlyChecking]))
+    {
+      unset($this->results[$currentlyChecking]);
+    }
+
+    // Remove individual checks
+    $resultsCopy = $this->results;
+    foreach ($resultsCopy as $sessionUuid => $results)
+    {
+      if (count($results['results']) == 1)
+      {
+        unset($this->results[$sessionUuid]);
+      }
+    }
+
+    // TODO: Add counts for each table (last row)
   }
 }
