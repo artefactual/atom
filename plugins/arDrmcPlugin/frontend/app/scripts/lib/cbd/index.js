@@ -138,7 +138,7 @@
   ContextBrowser.prototype.clickSupportingTechnologyIcon = function () {
     var target = d3.event.target.correspondingUseElement ? d3.event.target.correspondingUseElement : d3.event.target;
     var jg = jQuery(target).closest('g');
-    if (!jg.length) {
+    if (!jg.length || d3.select(jg.get(0)).classed('nested-supporting-technologies')) {
       return;
     }
     var id = d3.select(target).datum();

@@ -15,7 +15,9 @@
     this.layout = dagre.layout().nodeSep(20).rankSep(80).rankDir(this.rankDir);
 
     // First copy the input graph so that it is not changed by the rendering
-    // process.
+    // process. masterGraph references to the original graph, which we are going
+    // to need for future reference.
+    var masterGraph = graph;
     graph = copyAndInitGraph(graph);
 
     // Create layers
@@ -52,7 +54,7 @@
 
     // Expand/collapse icons
     drawAndPositionExpandCollapseIcons(result, graph, svg.select('g.expandCollapseIcons'), svg.select('g.nodes'));
-    drawAndPositionSupportingTechnologyIcons(result, graph, svg.select('g.supportingTechnologyIcons'), svg.select('g.nodes'));
+    drawAndPositionSupportingTechnologyIcons(result, graph, masterGraph, svg.select('g.supportingTechnologyIcons'), svg.select('g.nodes'));
 
     postRender(result, svg);
 
@@ -170,20 +172,48 @@
     });
   }
 
-  function drawAndPositionSupportingTechnologyIcons (layout, g, root, rootNodes) {
+  function drawAndPositionSupportingTechnologyIcons (layout, g, mg, root, rootNodes) {
     root.selectAll('*').remove();
 
     rootNodes.selectAll('g.node').each(function (u) {
       var node = g.node(u);
-      if (!node.hasOwnProperty('supporting_technologies_count') || node.supporting_technologies_count === 0) {
+      var nodeLayout, x, y;
+
+      // Add dependency icon
+      if (node.hasOwnProperty('supporting_technologies_count') && node.supporting_technologies_count > 0) {
+        nodeLayout = layout.node(u);
+        x = (nodeLayout.x - nodeLayout.width / 2);
+        y = (nodeLayout.y - nodeLayout.height / 2);
+        root.insert('g').classed('supporting-technologies', true)
+          .attr('transform', 'translate(' + x + ',' + y + ')').datum(u)
+          .append('use').attr('xlink:href', '#supporting-technology-icon');
+
         return;
       }
-      var nodeLayout = layout.node(u);
-      var x = (nodeLayout.x - nodeLayout.width / 2);
-      var y = (nodeLayout.y - nodeLayout.height / 2);
-      root.insert('g').classed('supporting-technologies', true)
-        .attr('transform', 'translate(' + x + ',' + y + ')').datum(u)
-        .append('use').attr('xlink:href', '#supporting-technology-icon');
+
+      // Ignore uncollapsed nodes
+      if (!node.collapsed) {
+        return;
+      }
+
+      // Is the dependency nested somewhere?
+      var nested = mg.descendants(u, { onlyId: true }).some(function (u) {
+          var n = mg.node(u);
+          if (typeof n === 'undefined') {
+            return false;
+          }
+          return n.hasOwnProperty('supporting_technologies_count') && n.supporting_technologies_count > 0;
+        });
+
+      // Add nested dependency icon
+      if (nested) {
+        nodeLayout = layout.node(u);
+        x = (nodeLayout.x - nodeLayout.width / 2);
+        y = (nodeLayout.y - nodeLayout.height / 2);
+        root.insert('g').classed('nested-supporting-technologies', true)
+          .attr('transform', 'translate(' + x + ',' + y + ')').datum(u)
+          .append('use').attr('xlink:href', '#nested-supporting-technology-icon');
+      }
     });
   }
 
@@ -375,6 +405,14 @@
     dependencyIcon.append('circle').attr({ cx: '5.25', cy: '-3.75', r: '13', stroke: 'none', fill: '#000000' });
     dependencyIcon.append('circle').attr({ cx: '5.25', cy: '-3.75', r: '10', stroke: '#fff', 'stroke-width': '2', fill: 'none' });
     dependencyIcon.append('text').classed('fa-icon', true).attr({ 'fill': '#ffffff' })
+      .html(function () {
+        return '&#xf0ad;';
+      });
+
+    var nestedDependencyIcon = defs.append('svg:g').attr('id', 'nested-supporting-technology-icon').append('svg:g');
+    nestedDependencyIcon.append('circle').attr({ cx: '5.25', cy: '-3.75', r: '13', stroke: 'none', fill: '#ff8800' });
+    nestedDependencyIcon.append('circle').attr({ cx: '5.25', cy: '-3.75', r: '10', stroke: '#fff', 'stroke-width': '2', fill: 'none' });
+    nestedDependencyIcon.append('text').classed('fa-icon', true).attr({ 'fill': '#ffffff' })
       .html(function () {
         return '&#xf0ad;';
       });
