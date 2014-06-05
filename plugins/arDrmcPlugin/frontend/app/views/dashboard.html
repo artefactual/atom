@@ -1,7 +1,7 @@
 <div class="row">
 
   <!-- Recent additions -->
-  <div class="span12 dashboard-header">
+  <div class="span12 dashboard-header" ng-if="ingestionActivity.length">
     <h5>Recent additions</h5>
     <div class="banner">
       <div class="banner-wrapper">
@@ -14,34 +14,31 @@
     </div>
   </div>
 
-  <!-- Recent activity -->
   <div class="span12 dashboard-widget">
 
-    <!-- Fixity Checker -->
+    <!-- Fixity checker -->
     <div class="dashboard-widget integrity-checker-widget">
       <div class="content">
 
-        <section>
-          <div class="menu-list" >
-            <ul class="menu-list-left">
-              <li><h2>Fixity Reports</h2></li>
-            </ul>
-            <ul class="menu-list-right nav nav-pills">
-              <li>
-                Status:&nbsp&nbsp<span class="badge menu-badge" ng-class="{ 'badge-important': hasFails, 'badge-success': !hasFails }">{{ fixityStats.lastFails.length }}</span>
-              </li>
-              <li>
-                <a href ng-click="toggleOverview()" ng-class="{ 'drmc-icon-angle-double-down': !showOverview, 'drmc-icon-angle-double-up': showOverview }">{{ showOverview ? 'Hide Details' : 'Show Details' }}</a>
-              </li>
-            </ul>
-          </div>
-        </section>
+        <div class="menu-list" >
+          <ul class="menu-list-left">
+            <li><h2>Fixity reports</h2></li>
+          </ul>
+          <ul class="menu-list-right nav nav-pills">
+            <li>
+              <a href ng-click="toggleOverview()" ng-class="{ 'drmc-icon-angle-double-down': !showOverview, 'drmc-icon-angle-double-up': showOverview }">{{ showOverview ? 'Hide' : 'Show' }} details</a>
+            </li>
+          </ul>
+        </div>
 
         <div class="row-fluid">
 
           <div class="span2 integrity-status-field">
             <h3 class="muted">Status</h3>
-            <span class="muted label" ng-class="{ 'label-important': hasFails, 'label-success': !hasFails }">{{ hasFails ? 'Not OK' : 'OK' }}</span>
+            <span class="muted label" ng-class="{ 'label-important': hasFails, 'label-success': !hasFails }">
+              {{ hasFails ? 'Not OK' : 'OK' }}
+              <i ng-if="hasFails">({{ fixityStats.lastFails.length }})</i>
+            </span>
           </div>
 
           <div ng-show="fixityStats.currentlyChecking" class="span4 integrity-status-field">
@@ -132,60 +129,65 @@
       </div>
     </div>
 
-    <h3 class="graph-list icon-list">Recent activity</h3>
-    <tabset>
+    <!-- Recent activity -->
+    <div>
+      <h3 class="graph-list icon-list">Recent activity</h3>
+      <tabset>
 
-      <!-- Ingests -->
-      <tab heading="Ingests">
-        <table class="table">
-          <thead>
-            <th>Date/time</th>
-            <th>AIP</th>
-            <th>Artwork</th>
-            <th>Size</th>
-          </thead>
-          <tbody>
-            <tr ng-repeat="item in ingestionActivity | limitTo:10">
-              <td>{{ item.created_at }}</td>
-              <td>{{ item.aip_title }}</td>
-              <td>{{ item.artwork_title }}</td>
-              <td>{{ item.size_on_disk | UnitFilter:2 }}</td>
-            </tr>
-            <tr ng-if="!ingestionActivity.length">
-              <td colspan="4"><span>There is no recent ingestion activity to display</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </tab>
+        <!-- Ingests -->
+        <tab heading="Ingests">
+          <table class="table">
+            <thead>
+              <th>Date/time</th>
+              <th>AIP</th>
+              <th>Artwork</th>
+              <th>Size</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in ingestionActivity | limitTo:10">
+                <td>{{ item.created_at }}</td>
+                <td>{{ item.aip_title }}</td>
+                <td>{{ item.artwork_title }}</td>
+                <td>{{ item.size_on_disk | UnitFilter:2 }}</td>
+              </tr>
+              <tr ng-if="!ingestionActivity.length">
+                <td colspan="4"><span>There is no recent ingestion activity to display</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </tab>
 
-      <!-- Downloads -->
-      <tab heading="Downloads">
-        <table class="table">
-          <thead>
-            <th>Date/time</th>
-            <th>Object</th>
-            <th>Reason</th>
-            <th>User</th>
-          </thead>
-          <tbody>
-            <tr ng-repeat="item in downloadActivity | limitTo:10">
-              <td>{{ item.date }}</td>
-              <td>{{ item.file }}</td>
-              <td>{{ item.reason }}</td>
-              <td>{{ item.username || 'Unknown' }}</td>
-            </tr>
-            <tr ng-if="!ingestionActivity.length">
-              <td colspan="4"><span>There are no recent downloads to display</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </tab>
+        <!-- Downloads -->
+        <tab heading="Downloads">
+          <table class="table">
+            <thead>
+              <th>Date/time</th>
+              <th>Object</th>
+              <th>Reason</th>
+              <th>User</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in downloadActivity | limitTo:10">
+                <td>{{ item.date }}</td>
+                <td>{{ item.file }}</td>
+                <td>{{ item.reason }}</td>
+                <td>{{ item.username || 'Unknown' }}</td>
+              </tr>
+              <tr ng-if="!ingestionActivity.length">
+                <td colspan="4"><span>There are no recent downloads to display</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </tab>
 
-    </tabset>
+      </tabset>
+    </div>
+
   </div>
 
-  <!-- Storage -->
   <div class="span6 dashboard-widget">
+
+    <!-- Storage -->
     <h3 class="fontello drmc-icon-chart-pie">Storage</h3>
     <tabset class="dashboard-rs-graph">
       <tab heading="Codec">
@@ -199,6 +201,7 @@
       </tab>
     </tabset>
 
+    <!-- Collection totals -->
     <div class="dashboard-widget">
       <h3 class="icon-list">Collection totals</h3>
       <div class="tab-like-content short-widget-content">
@@ -210,6 +213,7 @@
 
   </div>
 
+  <!-- Monthly totals -->
   <div class="span6 dashboard-widget">
     <h3 class="fontello drmc-icon-chart-line">Monthly totals</h3>
     <tabset class="dashboard-rs-graph">
@@ -224,7 +228,6 @@
 
 </div>
 
-<!-- Second row -->
 <div class="row">
 
   <!-- Monthly totals -->
