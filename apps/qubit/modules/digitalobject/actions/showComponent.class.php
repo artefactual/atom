@@ -56,7 +56,7 @@ class DigitalObjectShowComponent extends sfComponent
     switch ($this->resource->mediaTypeId)
     {
       case $showThumbnail:
-        $this->showComponent = 'showThumbnail';
+        $this->showComponent = 'showGenericIcon';
 
         break;
 

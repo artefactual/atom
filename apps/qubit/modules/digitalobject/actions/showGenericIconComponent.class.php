@@ -24,7 +24,7 @@
  * @subpackage digital object
  * @author     David Juhasz <david@artefactual.com>
  */
-class DigitalObjectShowThumbnailComponent extends sfComponent
+class DigitalObjectShowGenericIconComponent extends sfComponent
 {
   /**
    * Show a representation of a digital object image.
