@@ -460,6 +460,8 @@ mapping:
         properties:
           uuid: { type: string, index: not_analyzed, include_in_all: false }
           name: { type: string, index: not_analyzed, include_in_all: false }
+          partOf: { type: string, index: not_analyzed, include_in_all: false }
+          attachedTo: { type: string, index: not_analyzed, include_in_all: false }
       failures:
         type: object
         properties:

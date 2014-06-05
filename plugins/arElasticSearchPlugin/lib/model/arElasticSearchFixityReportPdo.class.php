@@ -99,6 +99,24 @@ class arElasticSearchFixityReportPdo
     return $this;
   }
 
+  protected function getAipPartOfTitle($id)
+  {
+    $sql  = 'SELECT
+                i18n.title';
+    $sql .= ' FROM '.QubitInformationObjectI18n::TABLE_NAME.' i18n';
+    $sql .= ' JOIN '.QubitInformationObject::TABLE_NAME.' inf';
+    $sql .= ' ON inf.id = i18n.id';
+    $sql .= ' JOIN '.QubitAip::TABLE_NAME.' aip';
+    $sql .= ' ON aip.part_of = inf.id';
+    $sql .= ' WHERE aip.id = ?';
+    $sql .= ' AND i18n.culture = ?';
+
+    self::$statements['aipPartOfTitle'] = self::$conn->prepare($sql);
+    self::$statements['aipPartOfTitle']->execute(array($id, 'en'));
+
+    return self::$statements['aipPartOfTitle']->fetchColumn();
+  }
+
   protected function getAipName($id)
   {
     $sql  = 'SELECT
@@ -110,6 +128,23 @@ class arElasticSearchFixityReportPdo
     self::$statements['aipName']->execute(array($id));
 
     return self::$statements['aipName']->fetchColumn();
+  }
+
+  protected function getAipAttachedTo($id)
+  {
+    $sql  = 'SELECT
+                i18n.value';
+    $sql .= ' FROM '.QubitProperty::TABLE_NAME.' node';
+    $sql .= ' JOIN '.QubitPropertyI18n::TABLE_NAME.' i18n
+                ON node.id = i18n.id';
+    $sql .= ' WHERE node.source_culture = i18n.culture
+                AND node.object_id = ?
+                AND node.name = ?';
+
+    self::$statements['aipAttachedTo'] = self::$conn->prepare($sql);
+    self::$statements['aipAttachedTo']->execute(array($id, 'attachedTo'));
+
+    return self::$statements['aipAttachedTo']->fetchColumn();
   }
 
   public function serialize()
@@ -129,9 +164,22 @@ class arElasticSearchFixityReportPdo
 
     $serialized['aip']['uuid'] = $this->uuid;
 
-    if (null !== $this->aip_id && null !== $name = $this->getAipName($this->aip_id))
+    if (isset($this->aip_id))
     {
-      $serialized['aip']['name'] = $name;
+      if (false !== $name = $this->getAipName($this->aip_id))
+      {
+        $serialized['aip']['name'] = $name;
+      }
+
+      if (false !== $partOfTitle = $this->getAipPartOfTitle($this->aip_id))
+      {
+        $serialized['aip']['partOf'] = $partOfTitle;
+      }
+
+      if (false !== $attachedTo = $this->getAipAttachedTo($this->aip_id))
+      {
+        $serialized['aip']['attachedTo'] = $attachedTo;
+      }
     }
 
     if (isset($this->failures))
