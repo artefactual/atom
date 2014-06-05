@@ -31,6 +31,41 @@ module.exports = function () {
         $from.get(0).valueAsDate = new Date(ngModelCtrl.$viewValue.from);
         $to.get(0).valueAsDate = new Date(ngModelCtrl.$viewValue.to);
       };
+
+      var validate = function (value) {
+        if (!angular.isObject(value) || value === {}) {
+          ngModelCtrl.$setValidity('range', false);
+          return undefined;
+        }
+        if (angular.isUndefined(value.from) || angular.isUndefined(value.to)) {
+          ngModelCtrl.$setValidity('range', false);
+          return undefined;
+        }
+        var from = $from.get(0).valueAsDate;
+        var to = $to.get(0).valueAsDate;
+        if (to <= from) {
+          ngModelCtrl.$setValidity('range', false);
+          return undefined;
+        }
+        ngModelCtrl.$setValidity('range', true);
+        return value;
+      };
+
+      var convertDate = function (value) {
+        if (ngModelCtrl.$invalid) {
+          return value;
+        }
+        var from = $from.get(0).valueAsDate;
+        var to = $to.get(0).valueAsDate;
+        return {
+          from: from.toISOString(),
+          to: to.toISOString()
+        };
+      };
+
+      ngModelCtrl.$formatters.push(validate);
+      ngModelCtrl.$parsers.push(validate);
+      ngModelCtrl.$parsers.push(convertDate);
     }
   };
 };
