@@ -80,8 +80,14 @@ class ApiAipsDownloadViewAction extends QubitApiAction
     {
       $error = curl_error($ch);
       curl_close($ch);
-      sfContext::getInstance()->getLogger()->error('METSArchivematicaDIP - Error getting storage service data: '. $error);
-      sfContext::getInstance()->getLogger()->error('METSArchivematicaDIP - URL: '. $aipInfoUrl);
+
+      $logger = sfContext::getInstance()->getLogger();
+      if (method_exists($logger, 'error'))
+      {
+        sfContext::getInstance()->getLogger()->error('METSArchivematicaDIP - Error getting storage service data: '. $error);
+        sfContext::getInstance()->getLogger()->error('METSArchivematicaDIP - URL: '. $aipInfoUrl);
+      }
+
       throw new QubitApiException('Error: '. $error, 500);
     }
     curl_close($ch);
