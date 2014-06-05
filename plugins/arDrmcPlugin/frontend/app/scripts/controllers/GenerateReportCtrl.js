@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modalInstance) {
+module.exports = function ($state, $scope, $modalInstance, ReportsService) {
 
   $scope.reportTypes = [
     {
@@ -46,20 +46,34 @@ module.exports = function ($scope, $modalInstance) {
   // Create object to define and set defaults
   $scope.criteria = {};
 
+  var copy = {};
+  angular.copy($scope.criteria, copy);
+
   // Checks for valid dates and generate report (with or without save)
   $scope.submit = function () {
-    console.log($scope.criteria);
+    if ($scope.modalContainer.form.$invalid) {
+      return;
+    }
     if ($scope.modalContainer.dateRange === 'all') {
       delete $scope.criteria.range;
     }
+    // Access to the server
+    ReportsService.generateReport($scope.criteria).then(function (data) {
+      $scope.id = data.id;
+    });
+    // Close
+    $modalInstance.close();
+  };
+
+  $scope.submitAndOpen = function () {
+    $scope.submit();
+    $state.go('main.reports.view', { id: $scope.id });
   };
 
   // Reset all fields to empty
   $scope.reset = function () {
-    $scope.criteria.reportType = {};
-    $scope.criteria.range = 'all';
-    $scope.criteria.savedName = {};
-    $scope.criteria.savedDescription = {};
+    angular.copy(copy.criteria, $scope.criteria);
+    $scope.modalContainer.dateRange = 'all';
   };
 
   $scope.cancel = function () {
