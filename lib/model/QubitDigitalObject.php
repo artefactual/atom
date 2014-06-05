@@ -1073,7 +1073,14 @@ class QubitDigitalObject extends BaseDigitalObject
       // archives: zip, rar, tar
       'application/x-tar'             => 'archive.png',
       'application/zip'               => 'archive.png',
-      'application/x-rar-compressed'  => 'archive.png'),
+      'application/x-rar-compressed'  => 'archive.png',
+      // images
+      'image/jpeg'                    => 'image.png',
+      'image/jpg'                     => 'image.png',
+      'image/jpe'                     => 'image.png',
+      'image/gif'                     => 'image.png',
+      'image/png'                     => 'image.png'
+      ),
 
     $qubitGenericReference = array(
       '*/*' => 'no_reference_rep.png');
