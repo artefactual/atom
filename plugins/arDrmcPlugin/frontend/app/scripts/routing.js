@@ -98,9 +98,11 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       templateUrl: SETTINGS.viewsPath + '/reports.browser.html'
     })
     .state('main.reports.view', {
-      url: '/{id}',
+      url: '/{type}/{id}',
       controller: 'ReportsViewCtrl',
-      templateUrl: SETTINGS.viewsPath + '/reports.view.html'
+      templateUrl: function (stateParams) {
+        return SETTINGS.viewsPath + '/partials/' + stateParams.type + '.html';
+      }
     })
 
     // Search

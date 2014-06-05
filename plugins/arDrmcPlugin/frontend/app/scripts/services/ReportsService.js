@@ -13,14 +13,16 @@ module.exports = function ($q, $timeout, $http, SETTINGS) {
     'browseSamples':
     [
       {
+        'id': 400,
         'name': 'Media and performance Art',
-        'type': 'Characteristic reports',
+        'type': 'high_level_ingest',
         'created_at': '2014-02-08T18:03:42Z',
         'description': 'All works added in a fiscal year'
       },
       {
+        'id': 401,
         'name': 'Architecture and design',
-        'type': 'Fixity report',
+        'type': 'granular_ingest',
         'created_at': '2014-02-08T08:03:42Z',
         'description': 'All fixes on all buildings'
       }

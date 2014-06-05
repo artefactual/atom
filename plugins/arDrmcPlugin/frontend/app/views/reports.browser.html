@@ -83,15 +83,15 @@
                 <th>Report type</th>
                 <th>Created</th>
                 <th>Description</th>
-                <th><input type="checkbox" /></th>
+                <th>Delete</th>
               </thead>
               <tbody>
                 <tr ng-repeat="report in reportsData.browseSamples">
-                  <td><a href ui-sref="main.reports.view({ id: report.id })">{{ report.name }}</a></td>
+                  <!-- <td><a href ui-sref="main.reports.view({ id: report.id })">{{ report.name }}</a></td> -->
+                  <td><a href ui-sref="main.reports.view({ id: report.id, type: report.type })">{{ report.name }} - High-level ingest (activity)</a>
                   <td>{{ report.type }}</td>
                   <td>{{ report.created_at | date: 'short' }}</td>
                   <td>{{ report.description }}</td>
-                <!-- will be to delete one or more reports -->
                   <td><input type="checkbox" /></td>
                 </tr>
               </tbody>
