@@ -1060,10 +1060,20 @@ class QubitDigitalObject extends BaseDigitalObject
 
     // Qubit generic icon list
     $qubitGenericThumbs = array(
-      'application/x-msaccess'        => 'icon-ms-access.gif',
-      'application/vnd.ms-excel'      => 'icon-ms-excel.gif',
-      'application/msword'            => 'icon-ms-word.gif',
-      'application/vnd.ms-powerpoint' => 'icon-ms-powerpoint.gif'),
+      'application/vnd.ms-excel'      => 'excel.png',
+      'application/msword'            => 'word.png',
+      'application/vnd.ms-powerpoint' => 'powerpoint.png',
+      'audio/*'                       => 'audio.png',
+      'video/*'                       => 'video.png',
+      'application/pdf'               => 'pdf.png',
+      // text & rich text
+      'text/plain'                    => 'text.png',
+      'application/rtf'               => 'text.png',
+      'text/richtext'                 => 'text.png',
+      // archives: zip, rar, tar
+      'application/x-tar'             => 'archive.png',
+      'application/zip'               => 'archive.png',
+      'application/x-rar-compressed'  => 'archive.png'),
 
     $qubitGenericReference = array(
       '*/*' => 'no_reference_rep.png');
@@ -1697,7 +1707,7 @@ class QubitDigitalObject extends BaseDigitalObject
     if ('unknown' == $mimeType)
     {
       // Use "blank" icon for unknown file types
-      return $genericIconPath = $genericIconDir.'/blank.png';
+      return $genericIconPath = $genericIconDir.'/unknown.png';
     }
 
     // Check the list for a generic icon matching this mime-type
@@ -1720,7 +1730,7 @@ class QubitDigitalObject extends BaseDigitalObject
     else
     {
       // Use "blank" icon for unknown file types
-      $genericIconPath = $genericIconDir.'/blank.png';
+      $genericIconPath = $genericIconDir.'/unknown.png';
     }
 
     return $genericIconPath;
