@@ -40,17 +40,27 @@ class arUpdateAclJob extends arBaseJob
     // parent::run() will check parameters and throw an exception if any are missing
     parent::run($parameters);
 
+    printf('Entering acl job task' . "\n");
+
+    $n = 0;
     foreach ($parameters['objectIds'] as $objectId)
     {
-      $aclEntry = new QubitAclEntry;
+      $aclEntry = new QubitElasticAclEntry;
 
       $aclEntry->id = (string)$objectId;
-      $aclEntry->grantDeny = $parameters['grantDeny'];
       $aclEntry->action = $parameters['action'];
-      $aclEntry->groupIds = $parameters['groupIds'];
-      $aclEntry->userIds = $parameters['userIds'];
 
-      arElasticSearchAclEntry::update($aclEntry);
+      $grantDeny = $parameters['grantDeny'] ? 'grant' : 'deny';
+
+      $aclEntry->$grantDeny->groupIds = $parameters['groupIds'];
+      $aclEntry->$grantDeny->userIds = $parameters['userIds'];
+
+      arElasticSearchInformationObject::updateAcl($objectId, $aclEntry);
+
+      if (++$n % 100 == 0)
+      {
+        print '.';
+      }
     }
 
     // TODO: Update MySQL acl entries?
@@ -60,6 +70,8 @@ class arUpdateAclJob extends arBaseJob
     // Don't forget to set the job status & save at the end!
     $this->job->setStatusCompleted();
     $this->job->save();
+
+    printf('Done acl job task' . "\n");
 
     return true;
   }

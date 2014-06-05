@@ -83,6 +83,20 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     }
   }
 
+  public static function updateAcl($id, $acl)
+  {
+    $node = new arElasticSearchInformationObjectPdo($id);
+
+    $serialized = $node->serialize();
+    $serialized['aclEntry'] = array(
+      'action' => $acl->action,
+      'grant' => $acl->grant,
+      'deny' => $acl->deny
+    );
+
+    QubitSearch::getInstance()->addDocument($serialized, 'QubitInformationObject');
+  }
+
   public static function update($object)
   {
     $node = new arElasticSearchInformationObjectPdo($object->id);
