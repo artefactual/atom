@@ -228,20 +228,24 @@ module.exports = function ($q, $timeout, $http, SETTINGS) {
     });
   };
 
-  this.generateReport = function (params) {
-    params = params || {};
-
+  this.generateReport = function (data) {
     var configuration = {
-      method: 'GET',
-      url: SETTINGS.frontendPath + 'api/report',
-      params: params
+      method: 'POST',
+      url: SETTINGS.frontendPath + 'api/report'
     };
 
-    if (angular.isDefined(params.type)) {
-      configuration.params = {
-        'type': params.type
-      };
+    if (angular.isDefined(data)) {
+      console.log('/data',data);
+      configuration.data = data;
     }
+
+    // Only required if using GET!
+    // Convert range object into a flat pair of params: from and to
+    // if (angular.isDefined(params.range)) {
+    //  params.from = params.range.from;
+    //  params.to = params.range.to;
+    //  delete params.range;
+    // }
 
     return $http(configuration);
   };
