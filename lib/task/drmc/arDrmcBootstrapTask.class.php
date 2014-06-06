@@ -50,11 +50,12 @@ EOF;
 
     if ($options['init'])
     {
-      $this->addLevelsOfDescriptions();
-      $this->addTaxonomies();
-      $this->addTerms();
+      //$this->addLevelsOfDescriptions();
+      //$this->addTaxonomies();
+      //$this->addTerms();
       $this->addSavedQueryTable();
-      $this->addFixityReportTable();
+      //$this->addFixityReportTable();
+      $this->addSavedQueryTypes();
     }
 
     if ($options['add-dummy-data'])
@@ -274,6 +275,8 @@ EOF;
 
   protected function addSavedQueryTable()
   {
+    QubitPdo::modify($sql);
+
     $sql = <<<sql
 
 DROP TABLE IF EXISTS `saved_query`;
@@ -347,6 +350,50 @@ CREATE TABLE IF NOT EXISTS `fixity_report`
 sql;
 
     QubitPdo::modify($sql);
+  }
+
+  protected function addSavedQueryTypes()
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitTaxonomy::PARENT_ID, QubitTaxonomy::ROOT_ID);
+    $criteria->add(QubitTaxonomyI18n::NAME, 'Saved query types');
+    $criteria->add(QubitTaxonomyI18n::CULTURE, 'en');
+    $criteria->addJoin(QubitTaxonomy::ID, QubitTaxonomyI18n::ID);
+    if (null !== QubitTaxonomy::getOne($criteria))
+    {
+      continue;
+    }
+
+    $taxonomy = new QubitTaxonomy;
+    $taxonomy->parentId = QubitTaxonomy::ROOT_ID;
+    $taxonomy->name = 'Saved query types';
+    $taxonomy->culture = 'en';
+    $taxonomy->save();
+
+    if (isset($taxonomy->id))
+    {
+      foreach (array('Search', 'Report') as $type)
+      {
+        // Make sure that the term hasn't been added already
+        $criteria = new Criteria;
+        $criteria->add(QubitTerm::PARENT_ID, QubitTerm::ROOT_ID);
+        $criteria->add(QubitTerm::TAXONOMY_ID, $taxonomy->id);
+        $criteria->add(QubitTermI18n::CULTURE, 'en');
+        $criteria->add(QubitTermI18n::NAME, $type);
+        $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+        if (null !== QubitTerm::getOne($criteria))
+        {
+          continue;
+        }
+
+        $term = new QubitTerm;
+        $term->parentId = QubitTerm::ROOT_ID;
+        $term->taxonomyId = $taxonomy->id;
+        $term->sourceCulture = 'en';
+        $term->setName($type, array('culture' => 'en'));
+        $term->save();
+      }
+    }
   }
 
   protected function addDummyAips()
