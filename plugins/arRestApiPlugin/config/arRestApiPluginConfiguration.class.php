@@ -344,6 +344,12 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     $this->addRoute('GET', '/api/reports/browse', array(
       'module' => 'api',
       'action' => 'reportsBrowse'));
+
+    $this->addRoute('DELETE', '/api/reports/:id', array(
+      'module' => 'api',
+      'action' => 'reportsDelete',
+      'params' => array('id' => self::REGEX_ID)));
+
   }
 
   protected function addRoute($method, $pattern, array $options = array())
