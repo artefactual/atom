@@ -41,6 +41,7 @@ class ApiReportsGenerateAction extends QubitApiAction
       case 'granular_ingest':
       case 'high_level_ingest':
       case 'fixity':
+      case 'fixity_error':
         $type = QubitFlatfileImport::camelize($request->type);
 
         $this->$type();
@@ -263,5 +264,75 @@ class ApiReportsGenerateAction extends QubitApiAction
     }
 
     // TODO: Add counts for each table (last row)
+  }
+
+  protected function fixityError()
+  {
+    // Date range
+    $this->filterEsRangeFacet('from', 'to', 'timeStarted', $this->queryBool);
+
+    // Only errors
+    $this->queryBool->addMust(new \Elastica\Query\Term(array('success' => false)));
+
+    $this->query->setSort(array('timeCompleted' => 'desc'));
+    $this->query->setQuery($this->queryBool);
+
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitFixityReport')->search($this->query);
+
+    foreach ($resultSet as $hit)
+    {
+      $doc = $hit->getData();
+
+      $fixity = array();
+
+      $this->addItemToArray($fixity, 'fail_time', $doc['timeCompleted']);
+      $this->addItemToArray($fixity['aip'], 'uuid', $doc['aip']['uuid']);
+      $this->addItemToArray($fixity['aip'], 'name', $doc['aip']['name']);
+      $this->addItemToArray($fixity['aip'], 'part_of', $doc['aip']['partOf']);
+      $this->addItemToArray($fixity['aip'], 'attached_to', $doc['aip']['attachedTo']);
+
+      // Get last fixity recovery data
+      // TODO: Add fixity recovery data to fixity_reports in ES
+      $sql = <<<sql
+
+SELECT
+  rec.time_started,
+  rec.time_completed,
+  rec.success,
+  user.username
+FROM
+  fixity_recovery rec
+JOIN user
+  ON rec.user_id = user.id
+WHERE
+  rec.fixity_report_id = ?
+ORDER BY
+  rec.time_completed DESC
+LIMIT 1;
+
+sql;
+
+      $result = QubitPdo::fetchOne($sql, array($hit->getId()));
+
+      if (false !== $result)
+      {
+        if (isset($result->success))
+        {
+          $fixity['recovery']['success'] = (bool)$result->success;
+        }
+
+        $this->addItemToArray($fixity['recovery'], 'user', $result->username);
+        $this->addItemToArray($fixity['recovery'], 'time_started', $result->time_started);
+        $this->addItemToArray($fixity['recovery'], 'time_completed', $result->time_completed);
+
+        if (isset($result->time_started) && isset($result->time_completed))
+        {
+          $duration = strtotime($result->time_completed) - strtotime($result->time_started);
+          $this->addItemToArray($fixity['recovery'], 'duration', $duration);
+        }
+      }
+
+      $this->results[] = $fixity;
+    }
   }
 }
