@@ -23,7 +23,7 @@
  * @package    AccesstoMemory
  * @subpackage arElasticSearchPlugin
  */
-class arElasticSearchDrmcQueryPdo
+class arElasticSearchSavedQueryPdo
 {
   public
     $i18ns;
@@ -74,45 +74,29 @@ class arElasticSearchDrmcQueryPdo
 
   protected function loadData($id)
   {
-    if (!isset(self::$statements['drmcQuery']))
+    if (!isset(self::$statements['savedQuery']))
     {
       $sql  = 'SELECT *';
-      $sql .= ' FROM '.QubitDrmcQuery::TABLE_NAME;
+      $sql .= ' FROM '.QubitSavedQuery::TABLE_NAME;
       $sql .= ' WHERE id = :id';
 
-      self::$statements['drmcQuery'] = self::$conn->prepare($sql);
+      self::$statements['savedQuery'] = self::$conn->prepare($sql);
     }
 
     // Do select
-    self::$statements['drmcQuery']->execute(array(':id' => $id));
+    self::$statements['savedQuery']->execute(array(':id' => $id));
 
     // Get first result
-    $this->data = self::$statements['drmcQuery']->fetch(PDO::FETCH_ASSOC);
+    $this->data = self::$statements['savedQuery']->fetch(PDO::FETCH_ASSOC);
 
     if (false === $this->data)
     {
-      throw new sfException("Couldn't find DRMC query (id:'.$id.')");
+      throw new sfException("Couldn't find saved query (id:'.$id.')");
     }
 
-    self::$statements['drmcQuery']->closeCursor();
+    self::$statements['savedQuery']->closeCursor();
 
     return $this;
-  }
-
-  protected function getDigitalObjects()
-  {
-    $sql  = 'SELECT
-                prop.object_id';
-    $sql .= ' FROM '.QubitProperty::TABLE_NAME.' prop';
-    $sql .= ' JOIN '.QubitPropertyI18n::TABLE_NAME.' prop_i18n
-                ON prop.id = prop_i18n.id';
-    $sql .= ' WHERE prop_i18n.value = ?
-                AND prop.name = ?';
-
-    self::$statements['do'] = self::$conn->prepare($sql);
-    self::$statements['do']->execute(array($this->uuid, 'aipUUID'));
-
-    return self::$statements['do']->fetchAll(PDO::FETCH_OBJ);
   }
 
   protected function getUserName($id)
@@ -135,8 +119,9 @@ class arElasticSearchDrmcQueryPdo
     $serialized['id'] = $this->id;
     $serialized['name'] = $this->name;
     $serialized['description'] = $this->description;
-    $serialized['type'] = $this->type;
-    $serialized['query'] = $this->query;
+    $serialized['typeId'] = $this->type_id;
+    $serialized['scope'] = $this->scope;
+    $serialized['params'] = $this->params;
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);
     $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($this->updated_at);
 

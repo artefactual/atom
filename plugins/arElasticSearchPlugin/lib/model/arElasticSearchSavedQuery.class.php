@@ -17,24 +17,24 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class arElasticSearchDrmcQuery extends arElasticSearchModelBase
+class arElasticSearchSavedQuery extends arElasticSearchModelBase
 {
   public function populate()
   {
     $sql  = 'SELECT id';
-    $sql .= ' FROM '.QubitDrmcQuery::TABLE_NAME;
+    $sql .= ' FROM '.QubitSavedQuery::TABLE_NAME;
 
-    $queries = QubitPdo::fetchAll($sql, array('QubitDrmcQuery'));
+    $queries = QubitPdo::fetchAll($sql, array('QubitSavedQuery'));
 
     $this->count = count($queries);
 
     // Loop through results, and add to search index
     foreach ($queries as $key => $item)
     {
-      $node = new arElasticSearchDrmcQueryPdo($item->id);
+      $node = new arElasticSearchSavedQueryPdo($item->id);
       $data = $node->serialize();
 
-      QubitSearch::getInstance()->addDocument($data, 'QubitDrmcQuery');
+      QubitSearch::getInstance()->addDocument($data, 'QubitSavedQuery');
 
       $this->logEntry($data['name'], $key + 1);
     }
@@ -42,9 +42,9 @@ class arElasticSearchDrmcQuery extends arElasticSearchModelBase
 
   public static function update($object)
   {
-    $node = new arElasticSearchDrmcQueryPdo($object->id);
+    $node = new arElasticSearchSavedQueryPdo($object->id);
 
-    QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitDrmcQuery');
+    QubitSearch::getInstance()->addDocument($node->serialize(), 'QubitSavedQuery');
 
     return true;
   }

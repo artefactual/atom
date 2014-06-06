@@ -419,7 +419,7 @@ mapping:
             term_vector: with_positions_offsets
             type: string
 
-  drmc_query:
+  saved_query:
     _attributes:
       timestamp: true
     dynamic: strict
@@ -438,8 +438,9 @@ mapping:
             term_vector: with_positions_offsets
             type: string
       description: { type: string, index: not_analyzed, include_in_all: false }
-      type: { type: string, index: not_analyzed, include_in_all: false }
-      query: { type: string, index: not_analyzed, include_in_all: false }
+      type_id: { type: integer, index: not_analyzed, include_in_all: false }
+      scope: { type: string, index: not_analyzed, include_in_all: false }
+      params: { type: string, index: not_analyzed, include_in_all: false }
       slug: { type: string, index: not_analyzed, include_in_all: false }
       user:
         type: object
