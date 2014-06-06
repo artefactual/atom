@@ -332,6 +332,7 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
      * Reports
      */
 
+    // '/api/reports' doesn't work, using report instead for the moment
     $this->addRoute('GET', '/api/report', array(
       'module' => 'api',
       'action' => 'reportsGenerate'));
