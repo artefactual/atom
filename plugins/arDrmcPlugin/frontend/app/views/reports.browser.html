@@ -90,7 +90,7 @@
               </thead>
               <tbody>
                 <tr ng-repeat="report in browseData.results">
-                  <td><a href ui-sref="main.reports.view({ slug: report.slug })">{{ report.name }}, {{ report.id }}</a></td>
+                  <td><a href ui-sref="main.reports.view({ slug: report.slug })">{{ report.name }}</a></td>
                   <td>{{ report.type }}</td>
                   <td>{{ report.created_at | date: 'short' }}</td>
                   <td>{{ report.description }}</td>
