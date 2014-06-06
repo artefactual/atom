@@ -98,10 +98,20 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       templateUrl: SETTINGS.viewsPath + '/reports.browser.html'
     })
     .state('main.reports.view', {
-      url: '/{type}/{id}',
+      url: '/{id}',
       controller: 'ReportsViewCtrl',
-      templateUrl: function (stateParams) {
-        return SETTINGS.viewsPath + '/partials/' + stateParams.type + '.html';
+      resolve: {
+        routeData: function (ReportsService) {
+          // TODO: make dynamic
+          var A = 'high_level_ingest';
+
+          return ReportsService.getData(A).then(function (response) {
+            return response;
+          });
+        }
+      },
+      templateUrl: function () {
+        return SETTINGS.viewsPath + '/partials/' + 'high_level_ingest' + '.html';
       }
     })
 
