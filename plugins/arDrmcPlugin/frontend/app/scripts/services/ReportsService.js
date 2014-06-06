@@ -30,4 +30,11 @@ module.exports = function ($http, SETTINGS) {
     return $http(configuration);
   };
 
+  this.deleteReport = function (id) {
+    return $http({
+      method: 'DELETE',
+      url: SETTINGS.frontendPath + 'api/reports/' + id
+    });
+  };
+
 };

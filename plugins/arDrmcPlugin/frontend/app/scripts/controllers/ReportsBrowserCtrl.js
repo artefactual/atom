@@ -22,7 +22,7 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
     ReportsService.getBrowse().then(function (response) {
       $scope.browseData = response.data;
 
-      var activityReportCount = $scope.browseData.overview.counts['Hight-level ingest reports'] + $scope.browseData.overview.counts['Granular ingest reports'] + $scope.browseData.overview.counts['General download reports'] + $scope.browseData.overview.counts['Amount downloaded reports'];
+      var activityReportCount = $scope.browseData.overview.counts['High-level ingest reports'] + $scope.browseData.overview.counts['Granular ingest reports'] + $scope.browseData.overview.counts['General download reports'] + $scope.browseData.overview.counts['Amount downloaded reports'];
       if (angular.isDefined(activityReportCount) && !isNaN(activityReportCount)) {
         $scope.activityReportCount = activityReportCount;
       }
@@ -36,6 +36,34 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
       if (angular.isDefined(characteristicReportCount) && !isNaN(characteristicReportCount)) {
         $scope.characteristicReportCount = characteristicReportCount;
       }
+    });
+  };
+
+  $scope.selectedReports = [];
+
+  // Toggle selected report
+  $scope.toggleSelection = function (id) {
+    console.log(id);
+    var index = $scope.selectedReports.indexOf(id);
+    if (index > -1) {
+      $scope.selectedReports.splice(index, 1);
+    } else {
+      $scope.selectedReports.push(id);
+    }
+  };
+
+  $scope.delete = function () {
+    for (var key in $scope.selectedReports) {
+      _delete($scope.selectedReports[key]);
+    }
+    $scope.selectedReports = [];
+  };
+
+  var _delete = function (id) {
+    ReportsService.deleteReport(id).then(function () {
+      pull();
+    }, function () {
+      throw 'Error deleting search ' + id;
     });
   };
 

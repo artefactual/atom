@@ -89,15 +89,20 @@
                 <th>Delete</th>
               </thead>
               <tbody>
-                <tr ng-repeat="result in browseData.results">
-                  <td><a href ui-sref="main.reports.view({ slug: result.slug })">{{ result.name }}</a></td>
-                  <td>{{ result.type }}</td>
-                  <td>{{ result.created_at | date: 'short' }}</td>
-                  <td>{{ result.description }}</td>
-                  <td><input type="checkbox" /></td>
+                <tr ng-repeat="report in browseData.results">
+                  <td><a href ui-sref="main.reports.view({ slug: report.slug })">{{ report.name }}, {{ report.id }}</a></td>
+                  <td>{{ report.type }}</td>
+                  <td>{{ report.created_at | date: 'short' }}</td>
+                  <td>{{ report.description }}</td>
+                  <td><input type="checkbox" name="selectedReports[]" ng-checked="selectedReports.indexOf(id) > -1" value="{{ report.id }}" ng-click="toggleSelection(report.id)"/></td>
                 </tr>
               </tbody>
             </table>
+
+            <!-- This is placed purposefully away from the delete checkboxes
+            so the user doesn't delete a report too easily -->
+            <button class="btn" ng-disabled="selectedReports.length < 1" ng-click="delete()"><i class="icon-remove"></i> Delete</button>
+
           </div>
         </section>
 
