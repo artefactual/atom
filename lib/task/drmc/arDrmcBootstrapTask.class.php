@@ -275,6 +275,13 @@ EOF;
 
   protected function addSavedQueryTable()
   {
+    // Drop old drmc_query table if exists
+    $sql = <<<sql
+
+DROP TABLE IF EXISTS `saved_query`;
+
+sql;
+
     QubitPdo::modify($sql);
 
     $sql = <<<sql
