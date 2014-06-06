@@ -94,7 +94,7 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
     })
     .state('main.reports.browser', {
       url: '',
-      controller: 'ReportsBrowserCtrl',
+      controller: 'SearchCtrl',
       templateUrl: SETTINGS.viewsPath + '/reports.browser.html'
     })
     .state('main.reports.view', {
