@@ -84,6 +84,16 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
     {
     }
 
+    if ('aclPermissions' == $name)
+    {
+      return true;
+    }
+
+    if ('aclUserGroups' == $name)
+    {
+      return true;
+    }
+
     if ('accessLogs' == $name)
     {
       return true;
@@ -94,17 +104,12 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
       return true;
     }
 
+    if ('fixityRecoverys' == $name)
+    {
+      return true;
+    }
+
     if ('notes' == $name)
-    {
-      return true;
-    }
-
-    if ('aclPermissions' == $name)
-    {
-      return true;
-    }
-
-    if ('aclUserGroups' == $name)
     {
       return true;
     }
@@ -128,57 +133,6 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
     }
     catch (sfException $e)
     {
-    }
-
-    if ('accessLogs' == $name)
-    {
-      if (!isset($this->refFkValues['accessLogs']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['accessLogs'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['accessLogs'] = self::getaccessLogsById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['accessLogs'];
-    }
-
-    if ('drmcQuerys' == $name)
-    {
-      if (!isset($this->refFkValues['drmcQuerys']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['drmcQuerys'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['drmcQuerys'] = self::getdrmcQuerysById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['drmcQuerys'];
-    }
-
-    if ('notes' == $name)
-    {
-      if (!isset($this->refFkValues['notes']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['notes'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['notes'] = self::getnotesById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['notes'];
     }
 
     if ('aclPermissions' == $name)
@@ -215,7 +169,115 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
       return $this->refFkValues['aclUserGroups'];
     }
 
+    if ('accessLogs' == $name)
+    {
+      if (!isset($this->refFkValues['accessLogs']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['accessLogs'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['accessLogs'] = self::getaccessLogsById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['accessLogs'];
+    }
+
+    if ('drmcQuerys' == $name)
+    {
+      if (!isset($this->refFkValues['drmcQuerys']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['drmcQuerys'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['drmcQuerys'] = self::getdrmcQuerysById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['drmcQuerys'];
+    }
+
+    if ('fixityRecoverys' == $name)
+    {
+      if (!isset($this->refFkValues['fixityRecoverys']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['fixityRecoverys'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['fixityRecoverys'] = self::getfixityRecoverysById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['fixityRecoverys'];
+    }
+
+    if ('notes' == $name)
+    {
+      if (!isset($this->refFkValues['notes']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['notes'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['notes'] = self::getnotesById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['notes'];
+    }
+
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
+  }
+
+  public static function addaclPermissionsCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitAclPermission::USER_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getaclPermissionsById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addaclPermissionsCriteriaById($criteria, $id);
+
+    return QubitAclPermission::get($criteria, $options);
+  }
+
+  public function addaclPermissionsCriteria(Criteria $criteria)
+  {
+    return self::addaclPermissionsCriteriaById($criteria, $this->id);
+  }
+
+  public static function addaclUserGroupsCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitAclUserGroup::USER_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getaclUserGroupsById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addaclUserGroupsCriteriaById($criteria, $id);
+
+    return QubitAclUserGroup::get($criteria, $options);
+  }
+
+  public function addaclUserGroupsCriteria(Criteria $criteria)
+  {
+    return self::addaclUserGroupsCriteriaById($criteria, $this->id);
   }
 
   public static function addaccessLogsCriteriaById(Criteria $criteria, $id)
@@ -258,6 +320,26 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
     return self::adddrmcQuerysCriteriaById($criteria, $this->id);
   }
 
+  public static function addfixityRecoverysCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitFixityRecovery::USER_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getfixityRecoverysById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addfixityRecoverysCriteriaById($criteria, $id);
+
+    return QubitFixityRecovery::get($criteria, $options);
+  }
+
+  public function addfixityRecoverysCriteria(Criteria $criteria)
+  {
+    return self::addfixityRecoverysCriteriaById($criteria, $this->id);
+  }
+
   public static function addnotesCriteriaById(Criteria $criteria, $id)
   {
     $criteria->add(QubitNote::USER_ID, $id);
@@ -276,45 +358,5 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
   public function addnotesCriteria(Criteria $criteria)
   {
     return self::addnotesCriteriaById($criteria, $this->id);
-  }
-
-  public static function addaclPermissionsCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitAclPermission::USER_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getaclPermissionsById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addaclPermissionsCriteriaById($criteria, $id);
-
-    return QubitAclPermission::get($criteria, $options);
-  }
-
-  public function addaclPermissionsCriteria(Criteria $criteria)
-  {
-    return self::addaclPermissionsCriteriaById($criteria, $this->id);
-  }
-
-  public static function addaclUserGroupsCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitAclUserGroup::USER_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getaclUserGroupsById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addaclUserGroupsCriteriaById($criteria, $id);
-
-    return QubitAclUserGroup::get($criteria, $options);
-  }
-
-  public function addaclUserGroupsCriteria(Criteria $criteria)
-  {
-    return self::addaclUserGroupsCriteriaById($criteria, $this->id);
   }
 }
