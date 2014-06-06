@@ -25,6 +25,10 @@ class ApiReportsGenerateAction extends QubitApiAction
     $this->queryBool = new \Elastica\Query\Bool;
     $this->queryBool->addMust(new \Elastica\Query\MatchAll);
 
+    // ES only gets 10 results if size is not set
+    // Max int32 value may cause OutOfMemoryError
+    $this->query->setSize(99999);
+
     $this->results = array();
 
     if (!isset($request->type))
@@ -138,6 +142,7 @@ class ApiReportsGenerateAction extends QubitApiAction
     $this->query = new \Elastica\Query;
     $this->queryBool = new \Elastica\Query\Bool;
     $this->queryBool->addMust(new \Elastica\Query\MatchAll);
+    $this->query->setSize(99999);
 
     $this->filterEsRangeFacet('from', 'to', 'createdAt', $this->queryBool);
     $this->query->setQuery($this->queryBool);
