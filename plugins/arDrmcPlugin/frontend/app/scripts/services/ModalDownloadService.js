@@ -21,7 +21,6 @@ module.exports = function ($modal, $window, SETTINGS) {
         if (!$scope.modalContainer.form.$valid) {
           return;
         }
-        console.log($scope.modalContainer.reason);
         $modalInstance.close($scope.modalContainer.reason);
       };
 
@@ -31,24 +30,24 @@ module.exports = function ($modal, $window, SETTINGS) {
     }
   };
 
-  var open = function (aip, uuid, relativePathWithinAip) {
+  var open = function (aip, uuid, fileId) {
     return $modal.open(configuration).result.then(function (reason) {
       var url = '/api/aips/' + uuid + '/download?reason=' + $window.encodeURIComponent(reason);
-      if (typeof relativePathWithinAip !== 'undefined') {
-        url += '&relative_path_to_file=' + $window.encodeURIComponent(relativePathWithinAip);
+      if (typeof fileId !== 'undefined') {
+        url += '&file_id=' + $window.encodeURIComponent(fileId);
       }
       $window.open(url, '_blank');
     });
   };
 
-  this.downloadFile = function (aip, uuid, relativePathWithinAip) {
+  this.downloadFile = function (aip, uuid, fileId, fileDescription) {
     configuration.resolve.title = function () {
       return 'Download file';
     };
     configuration.resolve.downloadDescription = function () {
-      return relativePathWithinAip;
+      return fileDescription;
     };
-    return open(aip, uuid, relativePathWithinAip);
+    return open(aip, uuid, fileId);
   };
 
   this.downloadAip = function (aip, uuid) {

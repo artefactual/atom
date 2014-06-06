@@ -21,7 +21,7 @@
  * Example:
  *
  *  $ curl -v \
- *    http://HOSTNAME:8001/api/aips/UUID/download?reason=REASON&relative_path_to_file=PATH
+ *    http://HOSTNAME:8001/api/aips/UUID/download?reason=REASON&file_id=FILE_INFORMATION_OBJECT_ID
  *
  */
 class ApiAipsDownloadViewAction extends QubitApiAction
@@ -93,13 +93,19 @@ class ApiAipsDownloadViewAction extends QubitApiAction
 
     // Formalate URL depending on whether a single file is being extracted
     $downloadUrl = $aipUrl .'/'. $request->uuid .'/';
-    $downloadUrl .= ($request->relative_path_to_file) ? 'extract_file/' : 'download/';
+    $downloadUrl .= ($request->file_id) ? 'extract_file/' : 'download/';
 
     // If a single file is being extracted, augment with relative path to file
-    if (isset($request->relative_path_to_file))
+    if (isset($request->file_id))
     {
+      // Retrieve relative path to file
+      $criteria = new Criteria;
+      $criteria->add(QubitProperty::NAME, 'original_relative_path_within_aip');
+      $criteria->add(QubitProperty::OBJECT_ID, $request->file_id);
+      $property = QubitProperty::getOne($criteria);
+
       $filenameWithoutExtension = pathinfo($filename, PATHINFO_FILENAME);
-      $relativePathToFile = $filenameWithoutExtension .'/data/' . $request->relative_path_to_file;
+      $relativePathToFile = $filenameWithoutExtension .'/data/' . $property->value;
       $downloadUrl .= '?relative_path_to_file='. urlencode($relativePathToFile);
       $filename = basename($relativePathToFile);
     }
@@ -131,29 +137,17 @@ class ApiAipsDownloadViewAction extends QubitApiAction
   {
     // Log access to AIP
     $logEntry = new QubitAccessLog;
-    $logEntry->objectId = $aipId;
+    $logEntry->objectId = ($request->file_id) ? $request->file_id : $aipId;
     $logEntry->userId = $this->getUser()->getUserID();
 
     // Access type can either by a full AIP or an AIP file
-    $accessType = ($request->relative_path_to_file)
+    $accessType = ($request->file_id)
       ? QubitTerm::ACCESS_LOG_AIP_FILE_DOWNLOAD_ENTRY : QubitTerm::ACCESS_LOG_AIP_DOWNLOAD_ENTRY;
     $logEntry->accessType = $accessType;
     $logEntry->reason = $request->reason;
     $logEntry->accessDate = date('Y-m-d H:i:s');
 
     $logEntry->save();
-
-    // If an AIP file is being downloaded, take note of relative path
-    if ($request->relative_path_to_file)
-    {
-      // use property to augment AIP with access info
-      $property = new QubitProperty;
-      $property->objectId = $logEntry->id;
-
-      $property->setName('relative_path_to_file');
-      $property->setValue($request->relative_path_to_file);
-      $property->save();
-    }
   }
 
   protected function proxyDownload($url, $filename)
