@@ -26,21 +26,21 @@ class ApiReportsCreateAction extends QubitApiAction
       throw new QubitApiNotAuthorizedException();
     }
 
-    $this->search = new QubitSavedQuery;
-    $this->search->userId = $this->context->user->getUserID();
-    $this->search->typeId = sfConfig::get('app_drmc_term_report_id');
+    $this->report = new QubitSavedQuery;
+    $this->report->userId = $this->context->user->getUserID();
+    $this->report->typeId = sfConfig::get('app_drmc_term_report_id');
 
     foreach ($payload as $field => $value)
     {
       $this->processField($field, $value);
     }
 
-    $this->search->save();
+    $this->report->save();
 
     $this->response->setStatusCode(201);
 
     return array(
-      'id' => (int)$this->search->id);
+      'id' => (int)$this->report->id);
   }
 
   protected function processField($field, $value)
@@ -49,17 +49,17 @@ class ApiReportsCreateAction extends QubitApiAction
     {
       case 'name':
       case 'description':
-        $this->search->$field = $value;
+        $this->report->$field = $value;
 
         break;
 
       case 'range':
-        $this->search->params = serialize($value);
+        $this->report->params = serialize($value);
 
         break;
 
       case 'type':
-        $this->search->scope = $value;
+        $this->report->scope = $value;
 
         break;
     }
