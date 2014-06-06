@@ -27,28 +27,26 @@ class ApiReportsGenerateAction extends QubitApiAction
 
     $this->results = array();
 
-    if (isset($request->type))
-    {
-      switch ($request->type)
-      {
-        case 'granular_ingest':
-        case 'high_level_ingest':
-        case 'fixity':
-          $type = QubitFlatfileImport::camelize($request->type);
-
-          $this->$type();
-
-          break;
-
-        default:
-          throw new QubitApi404Exception('Type not available');
-
-          break;
-      }
-    }
-    else
+    if (!isset($request->type))
     {
       throw new QubitApi404Exception('Type not set');
+    }
+
+    switch ($request->type)
+    {
+      case 'granular_ingest':
+      case 'high_level_ingest':
+      case 'fixity':
+        $type = QubitFlatfileImport::camelize($request->type);
+
+        $this->$type();
+
+        break;
+
+      default:
+        throw new QubitApi404Exception('Type not available');
+
+        break;
     }
 
     return $this->results;
