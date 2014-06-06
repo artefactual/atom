@@ -16,7 +16,7 @@ CREATE TABLE `access_log`
 	`object_id` INTEGER  NOT NULL,
 	`access_date` DATETIME,
 	`access_type` VARCHAR(1024),
-	`user_id` INTEGER  NOT NULL,
+	`user_id` INTEGER,
 	`reason` VARCHAR(1024),
 	PRIMARY KEY (`id`),
 	KEY `1`(`access_date`, `object_id`),
