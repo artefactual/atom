@@ -66,7 +66,7 @@ class ApiReportsBrowseAction extends QubitApiAction
       'fixity' => 'Fixity',
       'fixity_error' => 'Fixity error',
       'granular_ingest' => 'Granular ingest',
-      'high_level_ingest' => 'Hight-level ingest',
+      'high_level_ingest' => 'High-level ingest',
       'general_download' => 'General download',
       'amount_downloaded' => 'Amount downloaded',
       'component_level' => 'Component level',
