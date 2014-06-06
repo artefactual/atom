@@ -50,11 +50,11 @@ EOF;
 
     if ($options['init'])
     {
-      //$this->addLevelsOfDescriptions();
-      //$this->addTaxonomies();
-      //$this->addTerms();
+      $this->addLevelsOfDescriptions();
+      $this->addTaxonomies();
+      $this->addTerms();
       $this->addSavedQueryTable();
-      //$this->addFixityReportTable();
+      $this->addFixityReportTable();
       $this->addSavedQueryTypes();
     }
 
