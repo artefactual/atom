@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modal, SETTINGS, ReportsService) {
+module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTINGS) {
 
   $scope.openGenerateReportModal = function () {
     $modal.open({
@@ -19,8 +19,23 @@ module.exports = function ($scope, $modal, SETTINGS, ReportsService) {
   };
 
   var pull = function () {
-    ReportsService.reportsBrowseData().then(function (data) {
-      $scope.reportsData = data;
+    ReportsService.getBrowse().then(function (response) {
+      $scope.browseData = response.data;
+
+      var activityReportCount = $scope.browseData.overview.counts['Hight-level ingest reports'] + $scope.browseData.overview.counts['Granular ingest reports'] + $scope.browseData.overview.counts['General download reports'] + $scope.browseData.overview.counts['Amount downloaded reports'];
+      if (angular.isDefined(activityReportCount) && !isNaN(activityReportCount)) {
+        $scope.activityReportCount = activityReportCount;
+      }
+
+      var fixityReportCount = $scope.browseData.overview.counts['Fixity error reports'] + $scope.browseData.overview.counts['Fixity reports'];
+      if (angular.isDefined(fixityReportCount) && !isNaN(fixityReportCount)) {
+        $scope.fixityReportCount = fixityReportCount;
+      }
+
+      var characteristicReportCount = $scope.browseData.overview.counts['File level reports'] + $scope.browseData.overview.counts['Component level reports'];
+      if (angular.isDefined(characteristicReportCount) && !isNaN(characteristicReportCount)) {
+        $scope.characteristicReportCount = characteristicReportCount;
+      }
     });
   };
 

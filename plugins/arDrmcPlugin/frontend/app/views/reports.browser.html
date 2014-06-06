@@ -17,7 +17,10 @@
 
       <h1>Manage reports</h1>
 
-      <div class="content">
+      <!-- ································································· -->
+      <!-- ReportsBrowserCtrl                                                -->
+      <!-- ································································· -->
+      <div class="content" ng-controller="ReportsBrowserCtrl">
 
         <section>
           <div class="menu-list">
@@ -36,33 +39,33 @@
           <div class="field">
             <h3>No. of reports</h3>
             <div>
-              {{ reportsData.browseSamples.length || 0 }}
+              {{ browseData.overview.counts['Total searches'] || 0 }}
             </div>
           </div>
           <div class="field">
             <h3>Last report added</h3>
             <div>
-              <a href>{{ reportsData.browseOverview.last_report_added_name || 'N/A' }}</a>
+              <a href>{{ browseData.overview.latest['Last search added'].name || 'N/A' }}</a>
               &nbsp;&raquo;&nbsp;
-              {{ reportsData.browseOverview.last_report_added_date | date: 'short' }}
+              {{ browseData.overview.latest['Last search added'].date | date: 'short' }}
             </div>
           </div>
           <div class="field">
             <h3>Activity reports</h3>
             <div>
-              {{ reportsData.browseOverview.activity_reports || 0 }}
+              {{ activityReportCount || 0 }}
             </div>
           </div>
           <div class="field">
             <h3>Fixity reports</h3>
             <div>
-              {{ reportsData.browseOverview.fixity_reports || 0 }}
+              {{ fixityReportCount || 0 }}
             </div>
           </div>
           <div class="field">
             <h3>Characteristic reports</h3>
             <div>
-              {{ reportsData.browseOverview.characteristic_reports || 0 }}
+              {{ characteristicReportCount || 0 }}
             </div>
           </div>
         </section>
@@ -86,11 +89,11 @@
                 <th>Delete</th>
               </thead>
               <tbody>
-                <tr ng-repeat="report in reportsData.browseSamples">
-                  <td><a href ui-sref="main.reports.view({ id: report.id, type: report.type })">{{ report.name }}</a></td>
-                  <td>{{ report.type }}</td>
-                  <td>{{ report.created_at | date: 'short' }}</td>
-                  <td>{{ report.description }}</td>
+                <tr ng-repeat="result in browseData.results">
+                  <td><a href ui-sref="main.reports.view({ slug: result.slug })">{{ result.name }}</a></td>
+                  <td>{{ result.type }}</td>
+                  <td>{{ result.created_at | date: 'short' }}</td>
+                  <td>{{ result.description }}</td>
                   <td><input type="checkbox" /></td>
                 </tr>
               </tbody>
