@@ -4,35 +4,35 @@ module.exports = function ($state, $scope, $modalInstance, ReportsService) {
 
   $scope.reportTypes = [
     {
-      'name': 'High-level ingest report',
+      'name': 'High-level ingest report (activity)',
       'type': 'high_level_ingest'
     },
     {
-      'name': 'Granular ingest report',
+      'name': 'Granular ingest report (activity)',
       'type': 'granular_ingest'
     },
     {
-      'name': 'General download report',
+      'name': 'General download report (activity)',
       'type': 'general_download'
     },
     {
-      'name': 'Amount downloaded report',
+      'name': 'Amount downloaded report (activity)',
       'type': 'amount_downloaded'
     },
     {
-      'name': 'Full fixity report',
+      'name': 'Full fixity report (fixity)',
       'type': 'fixity'
     },
     {
-      'name': 'Fixity error report',
+      'name': 'Fixity error report (fixity)',
       'type': 'fixity_error'
     },
     {
-      'name': 'Component-level report',
+      'name': 'Component-level report (characteristic)',
       'type': 'component_level'
     },
     {
-      'name': 'File-level report',
+      'name': 'File-level report (characteristic)',
       'type': 'file_level'
     }
   ];
