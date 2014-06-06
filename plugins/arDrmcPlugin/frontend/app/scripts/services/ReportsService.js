@@ -14,10 +14,10 @@ module.exports = function ($q, $timeout, $http, SETTINGS) {
     [
       {
         'id': 400,
-        'name': 'Media and performance Art',
+        'name': 'June 5th curatorial report',
         'type': 'high_level_ingest',
-        'created_at': '2014-02-08T18:03:42Z',
-        'description': 'All works added in a fiscal year'
+        'created_at': '2014-06-05T14:03:42Z',
+        'description': 'A little mock until I\'m ready'
       },
       {
         'id': 401,
