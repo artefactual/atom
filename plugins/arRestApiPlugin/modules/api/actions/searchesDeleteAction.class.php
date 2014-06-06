@@ -21,7 +21,7 @@ class ApiSearchesDeleteAction extends QubitApiAction
 {
   protected function delete($request)
   {
-    if (null === $search = QubitDrmcQuery::getById($this->request->id))
+    if (null === $search = QubitSavedQuery::getById($this->request->id))
     {
       throw new QubitApi404Exception('Search not found');
     }

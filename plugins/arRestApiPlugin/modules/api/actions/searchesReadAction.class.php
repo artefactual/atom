@@ -25,7 +25,7 @@ class ApiSearchesReadAction extends QubitApiAction
     {
       try
       {
-        $result = QubitSearch::getInstance()->index->getType('QubitDrmcQuery')->getDocument($request->input);
+        $result = QubitSearch::getInstance()->index->getType('QubitSavedQuery')->getDocument($request->input);
       }
       catch (\Elastica\Exception\NotFoundException $e)
       {
@@ -41,9 +41,11 @@ class ApiSearchesReadAction extends QubitApiAction
       $queryText->setFields(array('slug'));
 
       $queryBool->addMust($queryText);
+      $queryBool->addMust(new \Elastica\Query\Term(array('termId' => sfConfig::get('app_drmc_term_search_id'))));
+
       $query->setQuery($queryBool);
 
-      $resultSet = QubitSearch::getInstance()->index->getType('QubitDrmcQuery')->search($query);
+      $resultSet = QubitSearch::getInstance()->index->getType('QubitSavedQuery')->search($query);
 
       if ($resultSet->getTotalHits() < 1)
       {
@@ -59,9 +61,9 @@ class ApiSearchesReadAction extends QubitApiAction
 
     $this->addItemToArray($search, 'id', $result->getId());
     $this->addItemToArray($search, 'name', $doc['name']);
-    $this->addItemToArray($search, 'type', $doc['type']);
+    $this->addItemToArray($search, 'type', $doc['scope']);
     $this->addItemToArray($search, 'description', $doc['description']);
-    $this->addItemToArray($search, 'criteria', unserialize($doc['query']));
+    $this->addItemToArray($search, 'criteria', unserialize($doc['params']));
 
     return $search;
   }

@@ -38,7 +38,7 @@ class ApiSearchesBrowseAction extends QubitApiAction
     $query = new \Elastica\Query;
     $filterBool = new \Elastica\Filter\Bool;
     $queryBool = new \Elastica\Query\Bool;
-    $queryBool->addMust(new \Elastica\Query\MatchAll);
+    $queryBool->addMust(new \Elastica\Query\Term(array('typeId' => sfConfig::get('app_drmc_term_search_id'))));
 
     // Pagination and sorting
     $this->prepareEsPagination($query);
@@ -47,18 +47,18 @@ class ApiSearchesBrowseAction extends QubitApiAction
       'description' => 'description',
       'createdAt' => 'createdAt',
       'updatedAt' => 'updatedAt',
-      'type' => 'type',
+      'type' => 'scope',
       'user' => 'user.name'));
 
     // Filter selected facets
     $this->filterEsFacetFilter('user', 'user.id', $filterBool);
-    $this->filterEsFacetFilter('type', 'type', $filterBool, 'AND', array('noInteger' => true));
+    $this->filterEsFacetFilter('type', 'scope', $filterBool, 'AND', array('noInteger' => true));
 
     $this->filterEsRangeFacet('createdFrom', 'createdTo', 'createdAt', $queryBool);
     $this->filterEsRangeFacet('updatedFrom', 'updatedTo', 'updatedAt', $queryBool);
 
     // Add facets to the query
-    $this->facetEsQuery('Terms', 'type', 'type', $query);
+    $this->facetEsQuery('Terms', 'type', 'scope', $query);
     $this->facetEsQuery('Terms', 'user', 'user.id', $query);
 
     // Type facet labels
@@ -92,7 +92,7 @@ class ApiSearchesBrowseAction extends QubitApiAction
     {
       $queryFields = array(
         'name.autocomplete',
-        'type',
+        'scope',
         'user.name',
         'description'
       );
@@ -112,7 +112,7 @@ class ApiSearchesBrowseAction extends QubitApiAction
     // Assign query
     $query->setQuery($queryBool);
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitDrmcQuery')->search($query);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitSavedQuery')->search($query);
 
     $data = array();
     foreach ($resultSet as $hit)
@@ -123,12 +123,12 @@ class ApiSearchesBrowseAction extends QubitApiAction
 
       $this->addItemToArray($search, 'id', $hit->getId());
       $this->addItemToArray($search, 'name', $doc['name']);
-      $this->addItemToArray($search, 'type', $doc['type']);
+      $this->addItemToArray($search, 'type', $doc['scope']);
       $this->addItemToArray($search, 'description', $doc['description']);
       $this->addItemToArray($search, 'created_at', $doc['createdAt']);
       $this->addItemToArray($search, 'updated_at', $doc['updatedAt']);
       $this->addItemToArray($search, 'slug', $doc['slug']);
-      $this->addItemToArray($search, 'criteria', unserialize($doc['query']));
+      $this->addItemToArray($search, 'criteria', unserialize($doc['params']));
       $this->addItemToArray($search['user'], 'id', $doc['user']['id']);
       $this->addItemToArray($search['user'], 'name', $doc['user']['name']);
 
@@ -150,14 +150,14 @@ class ApiSearchesBrowseAction extends QubitApiAction
   {
     $query = new \Elastica\Query;
     $queryBool = new \Elastica\Query\Bool;
-    $queryBool->addMust(new \Elastica\Query\MatchAll);
+    $queryBool->addMust(new \Elastica\Query\Term(array('typeId' => sfConfig::get('app_drmc_term_search_id'))));
 
-    $this->facetEsQuery('Terms', 'type', 'type', $query);
+    $this->facetEsQuery('Terms', 'type', 'scope', $query);
 
     $query->setQuery($queryBool);
     $query->setSort(array('createdAt' => 'desc'));
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitDrmcQuery')->search($query);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitSavedQuery')->search($query);
     $facets = $resultSet->getFacets();
     $this->populateFacets($facets);
 
@@ -174,30 +174,38 @@ class ApiSearchesBrowseAction extends QubitApiAction
 
     // Last created
     $esResullts = $resultSet->getResults();
-    $lastCreated = $esResullts[0]->getData();
 
-    $results['latest']['Last search added']['date'] = $lastCreated['createdAt'];
-    $results['latest']['Last search added']['user'] = $lastCreated['user']['name'];
-    $results['latest']['Last search added']['name'] = $lastCreated['name'];
-    $results['latest']['Last search added']['slug'] = $lastCreated['slug'];
+    if (count($esResullts) >0)
+    {
+      $lastCreated = $esResullts[0]->getData();
+
+      $results['latest']['Last search added']['date'] = $lastCreated['createdAt'];
+      $results['latest']['Last search added']['user'] = $lastCreated['user']['name'];
+      $results['latest']['Last search added']['name'] = $lastCreated['name'];
+      $results['latest']['Last search added']['slug'] = $lastCreated['slug'];
+    }
 
     // Last updated
     $query = new \Elastica\Query;
     $queryBool = new \Elastica\Query\Bool;
-    $queryBool->addMust(new \Elastica\Query\MatchAll);
+    $queryBool->addMust(new \Elastica\Query\Term(array('typeId' => sfConfig::get('app_drmc_term_search_id'))));
 
     $query->setQuery($queryBool);
     $query->setSort(array('updatedAt' => 'desc'));
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitDrmcQuery')->search($query);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitSavedQuery')->search($query);
 
     $esResullts = $resultSet->getResults();
-    $lastUpdated = $esResullts[0]->getData();
 
-    $results['latest']['Last search modified']['date'] = $lastUpdated['createdAt'];
-    $results['latest']['Last search modified']['user'] = $lastUpdated['user']['name'];
-    $results['latest']['Last search modified']['name'] = $lastUpdated['name'];
-    $results['latest']['Last search modified']['slug'] = $lastCreated['slug'];
+    if (count($esResullts) >0)
+    {
+      $lastUpdated = $esResullts[0]->getData();
+
+      $results['latest']['Last search modified']['date'] = $lastUpdated['createdAt'];
+      $results['latest']['Last search modified']['user'] = $lastUpdated['user']['name'];
+      $results['latest']['Last search modified']['name'] = $lastUpdated['name'];
+      $results['latest']['Last search modified']['slug'] = $lastCreated['slug'];
+    }
 
     return $results;
   }

@@ -26,7 +26,7 @@ class ApiSearchesUpdateAction extends QubitApiAction
       throw new QubitApiNotAuthorizedException();
     }
 
-    if (null === $this->search = QubitDrmcQuery::getById($request->id))
+    if (null === $this->search = QubitSavedQuery::getById($request->id))
     {
       throw new QubitApi404Exception('Search not found');
     }
@@ -71,13 +71,17 @@ class ApiSearchesUpdateAction extends QubitApiAction
     {
       case 'name':
       case 'description':
-      case 'type':
         $this->search->$field = $value;
 
         break;
 
       case 'criteria':
-        $this->search->query = serialize($value);
+        $this->search->params = serialize($value);
+
+        break;
+
+      case 'type':
+        $this->search->scope = $value;
 
         break;
     }
