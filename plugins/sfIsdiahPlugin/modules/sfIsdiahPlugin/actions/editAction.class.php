@@ -58,7 +58,9 @@ class sfIsdiahPluginEditAction extends RepositoryEditAction
       'language',
       'script',
       'descSources',
-      'maintenanceNotes');
+      'maintenanceNotes',
+      'geographicSubregion',
+      'thematicArea');
 
   protected function earlyExecute()
   {
