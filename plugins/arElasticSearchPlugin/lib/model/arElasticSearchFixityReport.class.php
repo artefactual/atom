@@ -26,7 +26,7 @@ class arElasticSearchFixityReport extends arElasticSearchModelBase
 
     $reports = QubitPdo::fetchAll($sql, array('QubitFixityReport'));
 
-    $this->count = count($queries);
+    $this->count = count($reports);
 
     // Loop through results, and add to search index
     foreach ($reports as $key => $item)
