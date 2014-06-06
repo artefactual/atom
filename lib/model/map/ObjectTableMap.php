@@ -55,7 +55,6 @@ class ObjectTableMap extends TableMap {
     $this->addRelation('aipRelatedByid', 'aip', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('aipRelatedBypartOf', 'aip', RelationMap::ONE_TO_MANY, array('id' => 'part_of', ), 'SET NULL', null);
     $this->addRelation('digitalObject', 'digitalObject', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
-    $this->addRelation('drmcQuery', 'drmcQuery', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('event', 'event', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('fixityReport', 'fixityReport', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('fixityRecovery', 'fixityRecovery', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
@@ -71,6 +70,7 @@ class ObjectTableMap extends TableMap {
     $this->addRelation('relationRelatedBysubjectId', 'relation', RelationMap::ONE_TO_MANY, array('id' => 'subject_id', ), null, null);
     $this->addRelation('relationRelatedByobjectId', 'relation', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), null, null);
     $this->addRelation('rights', 'rights', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('savedQuery', 'savedQuery', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('slug', 'slug', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);
     $this->addRelation('staticPage', 'staticPage', RelationMap::ONE_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('status', 'status', RelationMap::ONE_TO_MANY, array('id' => 'object_id', ), 'CASCADE', null);
