@@ -2,22 +2,6 @@
 
 module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTINGS) {
 
-  $scope.openGenerateReportModal = function () {
-    $modal.open({
-      templateUrl: SETTINGS.viewsPath + '/modals/generate-report.html',
-      backdrop: true,
-      controller: 'GenerateReportCtrl',
-      windowClass: 'modal-large',
-      resolve: {
-        data: function () {
-          return $scope.data;
-        }
-      }
-    }).result.then(function () {
-      pull();
-    });
-  };
-
   var pull = function () {
     ReportsService.getBrowse().then(function (response) {
       $scope.browseData = response.data;
@@ -36,6 +20,23 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
       if (angular.isDefined(characteristicReportCount) && !isNaN(characteristicReportCount)) {
         $scope.characteristicReportCount = characteristicReportCount;
       }
+    });
+  };
+
+  $scope.openGenerateReportModal = function () {
+    $modal.open({
+      templateUrl: SETTINGS.viewsPath + '/modals/generate-report.html',
+      backdrop: true,
+      controller: 'GenerateReportCtrl',
+      windowClass: 'modal-large',
+      resolve: {
+        data: function () {
+          return $scope.data;
+        }
+      }
+    }).result.then(function () {
+      //TODO: This doesn't update page
+      pull();
     });
   };
 
@@ -63,7 +64,7 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
     ReportsService.deleteReport(id).then(function () {
       pull();
     }, function () {
-      throw 'Error deleting search ' + id;
+      throw 'Error deleting report ' + id;
     });
   };
 

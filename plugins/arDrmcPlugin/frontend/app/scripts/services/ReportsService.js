@@ -12,7 +12,8 @@ module.exports = function ($http, SETTINGS) {
   this.generateReport = function (data) {
     var configuration = {
       method: 'POST',
-      url: SETTINGS.frontendPath + 'api/report'
+      url: SETTINGS.frontendPath + 'api/report',
+      data: data
     };
 
     if (angular.isDefined(data)) {
