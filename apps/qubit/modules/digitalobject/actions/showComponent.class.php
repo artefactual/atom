@@ -49,13 +49,13 @@ class DigitalObjectShowComponent extends sfComponent
         (QubitTerm::THUMBNAIL_ID == $this->usageType && !QubitAcl::check($this->resource->informationObject, 'read'))
        )
     {
-      $showThumbnail = true;
+      $showGenericIcon = true;
     }
 
     // Figure out which show component to call
     switch ($this->resource->mediaTypeId)
     {
-      case $showThumbnail:
+      case $showGenericIcon:
         $this->showComponent = 'showGenericIcon';
 
         break;
