@@ -337,6 +337,10 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'reportsGenerate'));
 
+    $this->addRoute('GET', '/api/reportcsv', array(
+      'module' => 'api',
+      'action' => 'reportsGenerateCsv'));
+
     $this->addRoute('POST', '/api/report', array(
       'module' => 'api',
       'action' => 'reportsCreate'));
