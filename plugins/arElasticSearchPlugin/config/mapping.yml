@@ -384,6 +384,7 @@ mapping:
           byte_size: { type: integer, index: not_analyzed, include_in_all: false }
           mime_type: { type: string, index: not_analyzed, include_in_all: false }
           thumbnail_path: { type: string, index: not_analyzed }
+          checksum: { type: string, index: not_analyzed, include_in_all: false }
       alternative_identifiers:
         type: object
         properties:
@@ -402,8 +403,12 @@ mapping:
             search_analyzer: standard
             term_vector: with_positions_offsets
             type: string
+      # TODO: Wrap this fields in part_of_aip object
       aip_uuid: { type: string, index: not_analyzed, include_in_all: false }
       aip_name: { type: string, index: not_analyzed, include_in_all: false }
+      aip_part_of: { type: string, index: not_analyzed, include_in_all: false }
+      aip_part_of_department_name: { type: string, index: not_analyzed, include_in_all: false }
+      aip_attached_to: { type: string, index: not_analyzed, include_in_all: false }
       # Used only for DRMC / Supporting technologies
       inherited_title:
         type: multi_field
