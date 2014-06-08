@@ -350,6 +350,12 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'reportsDelete',
       'params' => array('id' => self::REGEX_ID)));
 
+    $this->addRoute('GET', '/api/reports/:input', array(
+      'module' => 'api',
+      'action' => 'reportsRead',
+      // TODO: Should we have two routes instead?
+      'params' => array('input' => self::REGEX_ID . '|' . self::REGEX_SLUG)));
+
   }
 
   protected function addRoute($method, $pattern, array $options = array())
