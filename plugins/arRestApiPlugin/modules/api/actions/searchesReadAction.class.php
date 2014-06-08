@@ -41,7 +41,7 @@ class ApiSearchesReadAction extends QubitApiAction
       $queryText->setFields(array('slug'));
 
       $queryBool->addMust($queryText);
-      $queryBool->addMust(new \Elastica\Query\Term(array('termId' => sfConfig::get('app_drmc_term_search_id'))));
+      $queryBool->addMust(new \Elastica\Query\Term(array('typeId' => sfConfig::get('app_drmc_term_search_id'))));
 
       $query->setQuery($queryBool);
 
