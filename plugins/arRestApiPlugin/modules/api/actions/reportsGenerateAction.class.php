@@ -604,7 +604,7 @@ sql;
     }
 
     // Get totals
-    $artworks = array();
+    $artworks = $users = array();
     $countAips = $countFiles = $countSize = 0;
 
     foreach ($grouped['totals'] as $log)
@@ -624,6 +624,11 @@ sql;
         $artworks[] = $log['part_of'];
       }
 
+      if (isset($log['user']) && !in_array($log['user'], $users))
+      {
+        $users[] = $log['user'];
+      }
+
       if (isset($log['size']))
       {
         $countSize += $log['size'];
@@ -631,6 +636,7 @@ sql;
     }
 
     $counts = array(
+      'users' => count($users),
       'aips' => $countAips,
       'files' => $countFiles,
       'artworks' => count($artworks),
