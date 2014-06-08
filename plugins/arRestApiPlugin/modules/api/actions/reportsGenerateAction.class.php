@@ -43,6 +43,7 @@ class ApiReportsGenerateAction extends QubitApiAction
       case 'fixity':
       case 'fixity_error':
       case 'general_download':
+      case 'amount_downloaded':
         $type = QubitFlatfileImport::camelize($request->type);
 
         $this->$type();
@@ -435,5 +436,206 @@ sql;
     }
 
     // TODO: Add counts for each table (last row)
+  }
+
+  protected function amountDownloaded()
+  {
+    $sql  = 'SELECT
+                access.object_id,
+                access.access_type,
+                user.username';
+    $sql .= ' FROM '.QubitAccessLog::TABLE_NAME.' access';
+    $sql .= ' JOIN '.QubitUser::TABLE_NAME.' user
+                ON access.user_id = user.id';
+    $sql .= ' WHERE access.access_type in (?, ?)';
+
+    if (isset($this->request->from) && ctype_digit($this->request->from))
+    {
+      $date = new DateTime();
+      $date->setTimestamp((int)($this->request->from / 1000));
+
+      $sql .= ' AND access.access_date >= "'.$date->format('Y-m-d H:i:s').'"';
+    }
+
+    if (isset($this->request->to) && ctype_digit($this->request->to))
+    {
+      $date = new DateTime();
+      $date->setTimestamp((int)($this->request->to / 1000));
+
+      $sql .= ' AND access.access_date <= "'.$date->format('Y-m-d H:i:s').'"';
+    }
+
+    $sql .= ' ORDER BY access.access_date';
+
+    $results = QubitPdo::fetchAll($sql, array(QubitTerm::ACCESS_LOG_AIP_FILE_DOWNLOAD_ENTRY, QubitTerm::ACCESS_LOG_AIP_DOWNLOAD_ENTRY));
+
+    foreach ($results as $result)
+    {
+      $accessLog = array();
+
+      $this->addItemToArray($accessLog, 'user', $result->username);
+
+      // Get AIP/file data from ES
+      if ($result->access_type == QubitTerm::ACCESS_LOG_AIP_DOWNLOAD_ENTRY)
+      {
+        $this->addItemToArray($accessLog, 'type', 'AIP');
+
+        try
+        {
+          $esResult = QubitSearch::getInstance()->index->getType('QubitAip')->getDocument($result->object_id);
+          $doc = $esResult->getData();
+
+          $this->addItemToArray($accessLog, 'part_of', get_search_i18n($doc['partOf'], 'title'));
+          $this->addItemToArray($accessLog, 'department', $doc['partOf']['department']['name']);
+          $this->addItemToArray($accessLog, 'size', (int)$doc['sizeOnDisk']);
+        }
+        catch (\Elastica\Exception\NotFoundException $e)
+        {
+          // AIP not found
+        }
+      }
+      else
+      {
+        $this->addItemToArray($accessLog, 'type', 'File');
+
+        try
+        {
+          $esResult = QubitSearch::getInstance()->index->getType('QubitInformationObject')->getDocument($result->object_id);
+          $doc = $esResult->getData();
+
+          $this->addItemToArray($accessLog, 'part_of', $doc['aipPartOf']);
+          $this->addItemToArray($accessLog, 'department', $doc['aipPartOfDepartmentName']);
+          $this->addItemToArray($accessLog, 'size', (int)$doc['metsData']['size']);
+        }
+        catch (\Elastica\Exception\NotFoundException $e)
+        {
+          // File not found
+        }
+      }
+
+      // Add results grouped by user and department
+      if (isset($accessLog['user']))
+      {
+        $grouped['by_user'][$accessLog['user']][] = $accessLog;
+      }
+
+      if (isset($accessLog['department']))
+      {
+        $grouped['by_department'][$accessLog['department']][] = $accessLog;
+      }
+
+      $grouped['totals'][] = $accessLog;
+    }
+
+    // Get counts grouped by department
+    foreach ($grouped['by_department'] as $department => $logs)
+    {
+      $artworks = array();
+      $countAips = $countFiles = $countSize = 0;
+
+      foreach ($logs as $log)
+      {
+        if (isset($log['type']) && $log['type'] == 'AIP')
+        {
+          $countAips ++;
+        }
+
+        if (isset($log['type']) && $log['type'] == 'File')
+        {
+          $countFiles ++;
+        }
+
+        if (isset($log['part_of']) && !in_array($log['part_of'], $artworks))
+        {
+          $artworks[] = $log['part_of'];
+        }
+
+        if (isset($log['size']))
+        {
+          $countSize += $log['size'];
+        }
+      }
+
+      $counts = array(
+        'aips' => $countAips,
+        'files' => $countFiles,
+        'artworks' => count($artworks),
+        'size' => $countSize);
+
+      $this->results['by_department'][$department][] = $counts;
+    }
+
+    // Get counts grouped by user
+    foreach ($grouped['by_user'] as $user => $logs)
+    {
+      $artworks = array();
+      $countAips = $countFiles = $countSize = 0;
+
+      foreach ($logs as $log)
+      {
+        if (isset($log['type']) && $log['type'] == 'AIP')
+        {
+          $countAips ++;
+        }
+
+        if (isset($log['type']) && $log['type'] == 'File')
+        {
+          $countFiles ++;
+        }
+
+        if (isset($log['part_of']) && !in_array($log['part_of'], $artworks))
+        {
+          $artworks[] = $log['part_of'];
+        }
+
+        if (isset($log['size']))
+        {
+          $countSize += $log['size'];
+        }
+      }
+
+      $counts = array(
+        'aips' => $countAips,
+        'files' => $countFiles,
+        'artworks' => count($artworks),
+        'size' => $countSize);
+
+      $this->results['by_user'][$user][] = $counts;
+    }
+
+    // Get totals
+    $artworks = array();
+    $countAips = $countFiles = $countSize = 0;
+
+    foreach ($grouped['totals'] as $log)
+    {
+      if (isset($log['type']) && $log['type'] == 'AIP')
+      {
+        $countAips ++;
+      }
+
+      if (isset($log['type']) && $log['type'] == 'File')
+      {
+        $countFiles ++;
+      }
+
+      if (isset($log['part_of']) && !in_array($log['part_of'], $artworks))
+      {
+        $artworks[] = $log['part_of'];
+      }
+
+      if (isset($log['size']))
+      {
+        $countSize += $log['size'];
+      }
+    }
+
+    $counts = array(
+      'aips' => $countAips,
+      'files' => $countFiles,
+      'artworks' => count($artworks),
+      'size' => $countSize);
+
+    $this->results['totals'] = $counts;
   }
 }
