@@ -42,6 +42,7 @@ class ApiReportsGenerateAction extends QubitApiAction
       case 'high_level_ingest':
       case 'fixity':
       case 'fixity_error':
+      case 'general_download':
         $type = QubitFlatfileImport::camelize($request->type);
 
         $this->$type();
@@ -334,5 +335,105 @@ sql;
 
       $this->results[] = $fixity;
     }
+  }
+
+  protected function generalDownload()
+  {
+    $sql  = 'SELECT
+                access.access_date,
+                access.object_id,
+                access.access_type,
+                access.reason,
+                user.username';
+    $sql .= ' FROM '.QubitAccessLog::TABLE_NAME.' access';
+    $sql .= ' JOIN '.QubitUser::TABLE_NAME.' user
+                ON access.user_id = user.id';
+    $sql .= ' WHERE access.access_type in (?, ?)';
+
+    if (isset($this->request->from) && ctype_digit($this->request->from))
+    {
+      $date = new DateTime();
+      $date->setTimestamp((int)($this->request->from / 1000));
+
+      $sql .= ' AND access.access_date >= "'.$date->format('Y-m-d H:i:s').'"';
+    }
+
+    if (isset($this->request->to) && ctype_digit($this->request->to))
+    {
+      $date = new DateTime();
+      $date->setTimestamp((int)($this->request->to / 1000));
+
+      $sql .= ' AND access.access_date <= "'.$date->format('Y-m-d H:i:s').'"';
+    }
+
+    $sql .= ' ORDER BY access.access_date';
+
+    $results = QubitPdo::fetchAll($sql, array(QubitTerm::ACCESS_LOG_AIP_FILE_DOWNLOAD_ENTRY, QubitTerm::ACCESS_LOG_AIP_DOWNLOAD_ENTRY));
+
+    foreach ($results as $result)
+    {
+      $accessLog = array();
+
+      $this->addItemToArray($accessLog, 'user', $result->username);
+      $this->addItemToArray($accessLog, 'date', arElasticSearchPluginUtil::convertDate($result->access_date));
+      $this->addItemToArray($accessLog, 'reason', $result->reason);
+
+      // Get AIP/file data from ES
+      if ($result->access_type == QubitTerm::ACCESS_LOG_AIP_DOWNLOAD_ENTRY)
+      {
+        $this->addItemToArray($accessLog, 'type', 'AIP');
+
+        try
+        {
+          $esResult = QubitSearch::getInstance()->index->getType('QubitAip')->getDocument($result->object_id);
+          $doc = $esResult->getData();
+
+          $this->addItemToArray($accessLog, 'name', $doc['filename']);
+          $this->addItemToArray($accessLog, 'uuid', $doc['uuid']);
+          $this->addItemToArray($accessLog, 'part_of', get_search_i18n($doc['partOf'], 'title'));
+          $this->addItemToArray($accessLog, 'department', $doc['partOf']['department']['name']);
+          $this->addItemToArray($accessLog, 'attached_to', $doc['attachedTo']);
+          $this->addItemToArray($accessLog, 'size', (int)$doc['sizeOnDisk']);
+        }
+        catch (\Elastica\Exception\NotFoundException $e)
+        {
+          // AIP not found
+        }
+      }
+      else
+      {
+        $this->addItemToArray($accessLog, 'type', 'File');
+
+        try
+        {
+          $esResult = QubitSearch::getInstance()->index->getType('QubitInformationObject')->getDocument($result->object_id);
+          $doc = $esResult->getData();
+
+          $this->addItemToArray($accessLog, 'name', $doc['metsData']['filename']);
+          $this->addItemToArray($accessLog, 'uuid', $doc['aipUuid']);
+          $this->addItemToArray($accessLog, 'part_of', $doc['aipPartOf']);
+          $this->addItemToArray($accessLog, 'department', $doc['aipPartOfDepartmentName']);
+          $this->addItemToArray($accessLog, 'attached_to', $doc['aipAttachedTo']);
+          $this->addItemToArray($accessLog, 'size', (int)$doc['metsData']['size']);
+        }
+        catch (\Elastica\Exception\NotFoundException $e)
+        {
+          // File not found
+        }
+      }
+
+      // Add results grouped by user and department
+      if (isset($accessLog['user']))
+      {
+        $this->results['by_user'][$accessLog['user']]['results'][] = $accessLog;
+      }
+
+      if (isset($accessLog['department']))
+      {
+        $this->results['by_department'][$accessLog['department']]['results'][] = $accessLog;
+      }
+    }
+
+    // TODO: Add counts for each table (last row)
   }
 }
