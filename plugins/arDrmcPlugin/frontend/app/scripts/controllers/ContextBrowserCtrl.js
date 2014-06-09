@@ -291,9 +291,10 @@ module.exports = function ($scope, $element, $document, $modal, InformationObjec
     }
     // Modal configuration
     var modalConfiguration = {
-      templateUrl: SETTINGS.viewsPath + '/modals/context-browser-node-linker.html',
+      templateUrl: SETTINGS.viewsPath + '/modals/create-associative-relationship.html',
       backdrop: true,
       scope: scope.$new(),
+      controller: 'CreateAssociativeRelationshipCtrl',
       resolve: {
         sources: function () {
           var r = [];
@@ -305,33 +306,6 @@ module.exports = function ($scope, $element, $document, $modal, InformationObjec
           }
           return r;
         }
-      },
-      controller: function ($scope, $modalInstance, sources, target) {
-        $scope.modalContainer = {};
-        // Associative relationships types
-        $scope.types = [
-          { id: 1, name: 'hasVersion' },
-          { id: 2, name: 'hasPart' },
-          { id: 3, name: 'hasFormat' },
-          { id: 4, name: 'hasVersion' },
-          { id: 5, name: 'isReferencedBy' },
-          { id: 6, name: 'isReplacedBy' },
-          { id: 7, name: 'isRequiredBy' },
-          { id: 8, name: 'conformsTo' }
-        ];
-        $scope.sources = sources;
-        $scope.target = target;
-        $scope.submit = function () {
-          if ($scope.modalContainer.form.$invalid) {
-            return;
-          }
-          // modalContainer.type
-          // modalContainer.note
-          $modalInstance.close();
-        };
-        $scope.cancel = function () {
-          $modalInstance.dismiss('Cancel');
-        };
       }
     };
     // Prompt the user
@@ -344,8 +318,8 @@ module.exports = function ($scope, $element, $document, $modal, InformationObjec
             label: scope.cb.graph.node(target).label
           };
         };
-        $modal.open(modalConfiguration).result.then(function (type) {
-          console.log('buuuu', type);
+        $modal.open(modalConfiguration).result.then(function () {
+          // console.log('buuuu', type);
           // scope.cb.createAssociativeRelationship(source, target, type);
         });
       }
