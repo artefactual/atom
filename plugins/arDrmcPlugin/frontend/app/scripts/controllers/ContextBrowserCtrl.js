@@ -2,7 +2,7 @@
 
 var ContextBrowser = require('../lib/cbd');
 
-module.exports = function ($scope, $element, $document, InformationObjectService, FullscreenService) {
+module.exports = function ($scope, $element, $document, $modal, InformationObjectService, FullscreenService, SETTINGS) {
 
   // Aliases (not needed, just avoiding the refactor now)
   var scope = $scope;
@@ -279,6 +279,78 @@ module.exports = function ($scope, $element, $document, InformationObjectService
   /**
    * Node action
    */
+
+  scope.linkNodes = function (ids) {
+    var source = [];
+    if (typeof ids === 'number') {
+      source.push(ids);
+    } else if (typeof ids === 'string' && ids === 'selected') {
+      source = source.concat(Object.keys(scope.activeNodes));
+    } else {
+      throw 'I don\'t know what you are trying to do!';
+    }
+    // Modal configuration
+    var modalConfiguration = {
+      templateUrl: SETTINGS.viewsPath + '/modals/context-browser-node-linker.html',
+      backdrop: true,
+      scope: scope.$new(),
+      resolve: {
+        sources: function () {
+          var r = [];
+          for (var i = 0; i < source.length; i++) {
+            r.push({
+              id: source[i],
+              label: scope.cb.graph.node(source[i]).label
+            });
+          }
+          return r;
+        }
+      },
+      controller: function ($scope, $modalInstance, sources, target) {
+        $scope.modalContainer = {};
+        // Associative relationships types
+        $scope.types = [
+          { id: 1, name: 'hasVersion' },
+          { id: 2, name: 'hasPart' },
+          { id: 3, name: 'hasFormat' },
+          { id: 4, name: 'hasVersion' },
+          { id: 5, name: 'isReferencedBy' },
+          { id: 6, name: 'isReplacedBy' },
+          { id: 7, name: 'isRequiredBy' },
+          { id: 8, name: 'conformsTo' }
+        ];
+        $scope.sources = sources;
+        $scope.target = target;
+        $scope.submit = function () {
+          if ($scope.modalContainer.form.$invalid) {
+            return;
+          }
+          // modalContainer.type
+          // modalContainer.note
+          $modalInstance.close();
+        };
+        $scope.cancel = function () {
+          $modalInstance.dismiss('Cancel');
+        };
+      }
+    };
+    // Prompt the user
+    scope.cb.promptNodeSelection({
+      exclude: source,
+      action: function (target) {
+        modalConfiguration.resolve.target = function () {
+          return {
+            id: target,
+            label: scope.cb.graph.node(target).label
+          };
+        };
+        $modal.open(modalConfiguration).result.then(function (type) {
+          console.log('buuuu', type);
+          // scope.cb.createAssociativeRelationship(source, target, type);
+        });
+      }
+    });
+  };
 
   scope.moveNodes = function (ids) {
     var source = [];

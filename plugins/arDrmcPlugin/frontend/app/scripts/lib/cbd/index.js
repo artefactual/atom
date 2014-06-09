@@ -238,8 +238,15 @@
     this.draw();
   };
 
+  /**
+   * Expects an array of nodes where each member doesn't include any of the
+   * other nodes between its ancestors (different subtrees?).
+   */
   ContextBrowser.prototype.moveNodes = function (nodes, target) {
     var self = this;
+    if (!(nodes instanceof Array)) {
+      nodes = [nodes];
+    }
     nodes.forEach(function (u) {
       var edges = self.graph.outEdges(u);
       if (edges.length !== 1) {

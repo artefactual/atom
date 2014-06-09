@@ -21,6 +21,7 @@
     .controller('LinkSupportingTechnologyCtrl', require('./LinkSupportingTechnologyCtrl'))
     .controller('SaveSearchCtrl', require('./SaveSearchCtrl'))
     .controller('GenerateReportCtrl', require('./GenerateReportCtrl'))
+    .controller('CreateAssociativeRelationshipCtrl', require('./CreateAssociativeRelationshipCtrl'))
 
     // Dashboard
     .controller('DashboardCtrl', require('./DashboardCtrl'))

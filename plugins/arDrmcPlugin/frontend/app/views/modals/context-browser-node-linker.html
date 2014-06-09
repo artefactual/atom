@@ -1,13 +1,42 @@
-<div class="modal-header">
-  <h3>Create associative relationship</h3>
-</div>
-<div class="modal-body">
-  <p>Select relationship type</p>
-  <p>From: {{ source | json }}</p>
-  <select ng-model="selected" ng-change="change(selected)" ng-options="item as item.name for item in items"></select>
-  <p>To: {{ target | json }}</p>
-</div>
-<div class="modal-footer">
-  <button class="btn btn-primary" ng-click="save()">Save</button>
-  <button class="btn" ng-click="cancel()">Cancel</button>
+<div>
+
+  <div class="modal-header">
+    <h3>Create associative relationship</h3>
+  </div>
+
+  <form name="modalContainer.form" ng-submit="submit()" novalidate>
+
+    <div class="modal-body">
+      <p>Select relationship type</p>
+
+      <div class="form-item">
+        <label>From</label>
+        <div>{{ sources.0.label }}</div>
+      </div>
+
+      <div class="form-item">
+        <label>To</label>
+        <div>{{ target.label }}</div>
+      </div>
+
+      <div class="form-item">
+        <label>Type</label>
+        <select ng-model="modalContainer.type" ng-options="item.id as item.name for item in types" required>
+          <option value="">Select a type</option>
+        </select>
+      </div>
+
+      <div class="form-item">
+        <label>Note</label>
+        <textarea ng-model="modalContainer.note"></textarea>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': modalContainer.form.$invalid }">Save</button>
+      <button class="btn" ng-click="cancel()">Cancel</button>
+    </div>
+
+  </form>
+
 </div>
