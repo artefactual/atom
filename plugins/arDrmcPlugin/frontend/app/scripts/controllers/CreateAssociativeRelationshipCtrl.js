@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modalInstance, TaxonomyService, sources, target) {
+module.exports = function ($scope, $modalInstance, InformationObjectService, TaxonomyService, sources, target) {
 
   // HACK: form scoping issue within modals, see
   // - http://stackoverflow.com/a/19931221/2628967
@@ -20,9 +20,12 @@ module.exports = function ($scope, $modalInstance, TaxonomyService, sources, tar
     if ($scope.modalContainer.form.$invalid) {
       return;
     }
-    // modalContainer.type
-    // modalContainer.note
-    $modalInstance.close();
+    // TODO: this method will only accept one source for now
+    InformationObjectService.associate(sources[0], target).then(function () {
+      $modalInstance.close($scope.modalContainer.obj.type);
+    }, function (reason) {
+      $modalInstance.dismiss(reason);
+    });
   };
 
   $scope.cancel = function () {

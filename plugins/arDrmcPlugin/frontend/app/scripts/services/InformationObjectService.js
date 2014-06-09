@@ -278,4 +278,19 @@ module.exports = function ($http, $q, SETTINGS) {
     return this.create(data);
   };
 
+  /**
+   * Associative relationships
+   */
+
+  this.associate = function (id, target) {
+    return $http({
+      method: 'POST',
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/associate',
+      data: {
+        type_id: SETTINGS.drmc.todo,
+        target: target
+      }
+    });
+  };
+
 };

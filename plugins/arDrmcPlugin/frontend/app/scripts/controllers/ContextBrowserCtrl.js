@@ -318,9 +318,8 @@ module.exports = function ($scope, $element, $document, $modal, InformationObjec
             label: scope.cb.graph.node(target).label
           };
         };
-        $modal.open(modalConfiguration).result.then(function () {
-          // console.log('buuuu', type);
-          // scope.cb.createAssociativeRelationship(source, target, type);
+        $modal.open(modalConfiguration).result.then(function (type) {
+          scope.cb.createAssociativeRelationship(source, target, type);
         }, function () {
           scope.cb.cancelNodeSelection();
         });

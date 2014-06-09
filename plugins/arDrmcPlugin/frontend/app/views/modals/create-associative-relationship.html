@@ -19,14 +19,14 @@
 
       <div class="form-item">
         <label>Type</label>
-        <select ng-model="modalContainer.type" ng-options="item.id as item.name for item in modalContainer.types" required>
+        <select ng-model="modalContainer.obj.type" ng-options="item.id as item.name for item in modalContainer.types" required>
           <option value="">Select a type</option>
         </select>
       </div>
 
       <div class="form-item">
         <label>Note</label>
-        <textarea ng-model="modalContainer.note"></textarea>
+        <textarea ng-model="modalContainer.obj.note"></textarea>
       </div>
     </div>
 
