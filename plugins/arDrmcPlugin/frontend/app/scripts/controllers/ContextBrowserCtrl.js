@@ -321,6 +321,8 @@ module.exports = function ($scope, $element, $document, $modal, InformationObjec
         $modal.open(modalConfiguration).result.then(function () {
           // console.log('buuuu', type);
           // scope.cb.createAssociativeRelationship(source, target, type);
+        }, function () {
+          scope.cb.cancelNodeSelection();
         });
       }
     });
