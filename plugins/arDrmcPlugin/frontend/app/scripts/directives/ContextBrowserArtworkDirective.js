@@ -135,7 +135,7 @@ module.exports = function ($modal, SETTINGS, InformationObjectService, ModalDigi
       };
 
       scope.isDeletable = function (node) {
-        if (typeof node.data === 'undefined') {
+        if (typeof node === 'undefined' || typeof node.data === 'undefined') {
           return false;
         }
         return scope.cb.graph.predecessors(node.id).length === 0 && !InformationObjectService.hasTmsOrigin(node.data.level_of_description_id);

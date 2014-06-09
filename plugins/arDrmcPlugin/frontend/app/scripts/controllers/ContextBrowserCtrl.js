@@ -132,6 +132,9 @@ module.exports = function ($scope, $element, $document, InformationObjectService
    * Selection
    */
 
+  // TODO: Should I stop using a dictionary? The idea was to use the key to hold
+  // the Id, but js won't let me store integers just strings, which is
+  // unfortunate for direct access.
   scope.activeNodes = {};
 
   scope.hasNodeSelected = function () {
@@ -286,7 +289,20 @@ module.exports = function ($scope, $element, $document, InformationObjectService
     } else {
       throw 'I don\'t know what you are trying to do!';
     }
-    var exclusionList = scope.cb.graph.descendants(ids, { onlyId: true, andSelf: true });
+    // Build a list of descendants
+    var exclusionList = [];
+    source.forEach(function (v) {
+      var descendants = scope.cb.graph.descendants(v, { onlyId: true, andSelf: true });
+      for (var i = 0; i < descendants.length; i++) {
+        // Remember that we are dealing with strings here (see activeNodes) :(
+        var nv = String(descendants[i]);
+        // Avoid to add the same id twice
+        if (exclusionList.indexOf(nv) === -1) {
+          exclusionList.push(nv);
+        }
+      }
+    });
+    // Prompt
     scope.cb.promptNodeSelection({
       exclude: exclusionList,
       action: function (target) {
