@@ -37,6 +37,7 @@ class QubitInformationObjectAcl extends QubitAcl
     'publish' => 'Publish',
     'readMaster' => 'Access master',
     'readReference' => 'Access reference',
+    'readThumbnail' => 'Access thumbnail'
   );
 
   public static function getParentForIsAllowed($resource, $action)
