@@ -1000,6 +1000,43 @@ class arElasticSearchInformationObjectPdo
     return self::$statements['artwork']->fetchColumn();
   }
 
+  protected function getArtworkDepartmentName($artworkId)
+  {
+    $sql  = 'SELECT
+                i18n.name';
+    $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' otr';
+    $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' current
+                ON otr.term_id = current.id';
+    $sql .= ' JOIN '.QubitTermI18n::TABLE_NAME.' i18n
+                ON otr.term_id = i18n.id';
+    $sql .= ' WHERE otr.object_id = ?
+                AND current.taxonomy_id = ?
+                AND i18n.culture = ?';
+
+    self::$statements['artworkDepartmentName'] = self::$conn->prepare($sql);
+    self::$statements['artworkDepartmentName']->execute(array($artworkId, sfConfig::get('app_drmc_taxonomy_departments_id'), 'en'));
+
+    return self::$statements['artworkDepartmentName']->fetchColumn();
+  }
+
+  protected function getArtworkArtist($artworkId)
+  {
+    $sql  = 'SELECT i18n.authorized_form_of_name';
+    $sql .= ' FROM '.QubitActor::TABLE_NAME.' actor';
+    $sql .= ' JOIN '.QubitEvent::TABLE_NAME.' event
+                ON actor.id = event.actor_id';
+    $sql .= ' JOIN '.QubitActorI18n::TABLE_NAME.' i18n
+                ON actor.id = i18n.id';
+    $sql .= ' WHERE event.information_object_id = ?
+                AND event.type_id = ?
+                AND i18n.culture = ?';
+
+    self::$statements['artworkArtist'] = self::$conn->prepare($sql);
+    self::$statements['artworkArtist']->execute(array($artworkId, QubitTerm::CREATION_ID, 'en'));
+
+    return self::$statements['artworkArtist']->fetchColumn();
+  }
+
   protected function getMetsData()
   {
     if ((null !== $aipUUID = $this->getProperty('aipUUID'))
@@ -2071,6 +2108,16 @@ class arElasticSearchInformationObjectPdo
       {
         $serialized['tmsComponent']['artwork']['id'] = $artworkId;
         $serialized['tmsComponent']['artwork']['i18n'] = arElasticSearchModelBase::serializeI18ns($artworkId, array('QubitInformationObject'), array('fields' => array('title')));
+
+        if (false !== $departmentName = $this->getArtworkDepartmentName($artworkId))
+        {
+          $serialized['tmsComponent']['artwork']['departmentName'] = $departmentName;
+        }
+
+        if (false !== $artist = $this->getArtworkArtist($artworkId))
+        {
+          $serialized['tmsComponent']['artwork']['artist'] = $artist;
+        }
       }
 
       if (null !== $artworkThumbnail = $this->getProperty('artworkThumbnail'))

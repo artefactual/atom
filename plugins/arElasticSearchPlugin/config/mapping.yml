@@ -249,6 +249,8 @@ mapping:
         dynamic: strict
         properties:
           thumbnail: { type: string, index: not_analyzed, include_in_all: false }
+          departmentName: { type: string, index: not_analyzed, include_in_all: false }
+          artist: { type: string, index: not_analyzed, include_in_all: false }
     dynamic: strict
     properties:
       comp_count: { type: integer, index: not_analyzed, include_in_all: false }
