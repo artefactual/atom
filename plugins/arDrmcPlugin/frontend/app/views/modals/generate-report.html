@@ -70,6 +70,7 @@
     </div>
 
     <div class="modal-footer">
+      <button ng-click="generate()" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': modalContainer.form.$invalid }" ng-disabled="modalContainer.form.$invalid">Preview</button>
       <button type="submit" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': modalContainer.form.$invalid }" ng-disabled="modalContainer.form.$invalid">Save</button>
       <button class="btn" ng-click="submitAndOpen()" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': modalContainer.form.$invalid }" ng-disabled="modalContainer.form.$invalid">Save and open</button>
       <button class="btn" ng-click="reset()">Reset</button>

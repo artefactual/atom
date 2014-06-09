@@ -58,11 +58,16 @@ module.exports = function ($state, $scope, $modalInstance, ReportsService) {
       delete $scope.criteria.range;
     }
     // Access to the server
-    ReportsService.generateReport($scope.criteria).then(function (data) {
+    ReportsService.saveReport($scope.criteria).then(function (data) {
       $scope.id = data.id;
     });
     // Close
     $modalInstance.close();
+  };
+
+  // Use parameters from modal to generate a preview (not save) a report
+  $scope.generate = function () {
+    $state.go('main.reports.preview', { type: $scope.criteria.type });
   };
 
   $scope.submitAndOpen = function () {

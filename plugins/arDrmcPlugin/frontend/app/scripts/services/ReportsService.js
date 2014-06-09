@@ -9,7 +9,15 @@ module.exports = function ($http, SETTINGS) {
     });
   };
 
-  this.generateReport = function (data) {
+  this.getGenerated = function (params) {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/report',
+      params: { type: params }
+    });
+  };
+
+  this.saveReport = function (data) {
     var configuration = {
       method: 'POST',
       url: SETTINGS.frontendPath + 'api/report',
