@@ -49,7 +49,7 @@ class DigitalObjectShowComponent extends sfComponent
     if (
         (QubitTerm::REFERENCE_ID == $this->usageType && !QubitAcl::check($this->resource->informationObject, 'readReference'))
         ||
-        (QubitTerm::THUMBNAIL_ID == $this->usageType && !QubitAcl::check($this->resource->informationObject, 'read'))
+        (QubitTerm::THUMBNAIL_ID == $this->usageType && !QubitAcl::check($this->resource->informationObject, 'readThumbnail'))
        )
     {
       $showGenericIcon = true;
