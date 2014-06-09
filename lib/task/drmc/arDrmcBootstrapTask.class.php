@@ -132,7 +132,8 @@ EOF;
       'Classifications',
       'Departments',
       'Component types',
-      'Supporting technologies relation types');
+      'Supporting technologies relation types',
+      'Associative relationship types');
 
     foreach ($taxonomies as $name)
     {
@@ -212,6 +213,42 @@ EOF;
         'isVersionOf',
         'references',
         'requires') as $type)
+      {
+        // Make sure that the term hasn't been added already
+        $criteria = new Criteria;
+        $criteria->add(QubitTerm::PARENT_ID, QubitTerm::ROOT_ID);
+        $criteria->add(QubitTerm::TAXONOMY_ID, $taxonomy->id);
+        $criteria->add(QubitTermI18n::CULTURE, 'en');
+        $criteria->add(QubitTermI18n::NAME, $type);
+        $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+        if (null !== QubitTerm::getOne($criteria))
+        {
+          continue;
+        }
+
+        $term = new QubitTerm;
+        $term->parentId = QubitTerm::ROOT_ID;
+        $term->taxonomyId = $taxonomy->id;
+        $term->sourceCulture = 'en';
+        $term->setName($type, array('culture' => 'en'));
+        $term->save();
+      }
+    }
+
+    $criteria = new Criteria;
+    $criteria->add(QubitTaxonomyI18n::NAME, 'Associative relationship types');
+    $criteria->add(QubitTaxonomyI18n::CULTURE, 'en');
+    $criteria->addJoin(QubitTaxonomy::ID, QubitTaxonomyI18n::ID);
+    if (null !== $taxonomy = QubitTaxonomy::getOne($criteria))
+    {
+      // TODO: this list is probably going to be different after Ben's review
+      foreach (array(              // Reciprocity:
+        'hasPart',                 //    isPartOf
+        'hasFormat',               //    isFormatOf
+        'hasVersion',              //    isVersionOf
+        'isReferencedBy',          //    references
+        'isReplacedBy',            //    replaces
+        'isRequiredBy') as $type)  //    requires
       {
         // Make sure that the term hasn't been added already
         $criteria = new Criteria;
