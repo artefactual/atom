@@ -230,7 +230,8 @@ EOF
           'StorageComments'
         ),
         QubitTaxonomy::RELATION_TYPE_ID => array(
-          'Supporting technology relation types'
+          'Supporting technology relation types',
+          'Associative relationship types'
         )
       );
 

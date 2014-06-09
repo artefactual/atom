@@ -177,6 +177,11 @@ EOF;
         'parentId' => QubitTerm::ROOT_ID,
         'taxonomyId' => QubitTaxonomy::RELATION_TYPE_ID,
         'name' => 'Supporting technology relation types'
+      ),
+      array(
+        'parentId' => QubitTerm::ROOT_ID,
+        'taxonomyId' => QubitTaxonomy::RELATION_TYPE_ID,
+        'name' => 'Associative relationship types'
       )
     );
 
