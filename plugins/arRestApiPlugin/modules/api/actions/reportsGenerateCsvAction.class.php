@@ -45,6 +45,7 @@ class ApiReportsGenerateCsvAction extends QubitApiAction
       case 'fixity_error':
       case 'general_download':
       case 'amount_downloaded':
+      case 'component_level':
         $type = QubitFlatfileImport::camelize($request->type);
 
         $this->$type();
@@ -665,6 +666,145 @@ sql;
     $counts[] = count($artworks);
 
     fputcsv($this->csv, $counts);
+  }
+
+  protected function componentLevel()
+  {
+    // CSV header
+    fputcsv($this->csv, array(
+      'Artwork',
+      'Artist',
+      'Department',
+      'Component',
+      'Status',
+      'Total Filesize',
+      'No. associated AIPs',
+      'No. associated files',
+      'Fixity status',
+      'Fixity date'));
+
+    $componentLevels = array(
+      sfConfig::get('app_drmc_lod_archival_master_id'),
+      sfConfig::get('app_drmc_lod_artist_supplied_master_id'),
+      sfConfig::get('app_drmc_lod_artist_verified_proof_id'),
+      sfConfig::get('app_drmc_lod_exhibition_format_id'),
+      sfConfig::get('app_drmc_lod_miscellaneous_id'),
+      sfConfig::get('app_drmc_lod_component_id')
+    );
+
+    $this->queryBool->addMust(new \Elastica\Query\Terms('levelOfDescriptionId', $componentLevels));
+    $this->filterEsRangeFacet('from', 'to', 'createdAt', $this->queryBool);
+    $this->query->setQuery($this->queryBool);
+    $this->query->setSort(array('createdAt' => 'desc'));
+
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
+
+    foreach ($resultSet as $hit)
+    {
+      $doc = $hit->getData();
+
+      $component = array();
+
+      $this->addItemToArray($component, 'artwork', get_search_i18n($doc['tmsComponent']['artwork'], 'title'));
+      $this->addItemToArray($component, 'artist', $doc['tmsComponent']['artwork']['artist']);
+      $this->addItemToArray($component, 'department', $doc['tmsComponent']['artwork']['departmentName']);
+      $this->addItemToArray($component, 'component', get_search_i18n($doc, 'title'));
+
+      if (isset($doc['levelOfDescriptionId']))
+      {
+        $this->addItemToArray($component, 'status', $this->getTermName($doc['levelOfDescriptionId']));
+      }
+
+      // Defaults for each component
+      $countAips = $countFiles = $countSize = 0;
+      $fixitySuccess = $lastFixityDate = null;
+
+      // Calculate counts and obtain fixity data
+      if (isset($doc['aips']))
+      {
+        // If there are AIPS make true fixity success by default
+        $fixitySuccess = true;
+
+        foreach ($doc['aips'] as $aip)
+        {
+          $countAips++;
+          $countFiles += $aip['digitalObjectCount'];
+          $countSize += $aip['sizeOnDisk'];
+
+          // Get last fixity check for the AIP
+          // TODO? Add fixity data to components in ES and update component when fixity checks are added
+          $fixityQuery = new \Elastica\Query;
+          $fixityQueryBool = new \Elastica\Query\Bool;
+          $fixityQueryBool->addMust(new \Elastica\Query\Term(array('aip.uuid' => $aip['uuid'])));
+
+          $fixityQuery->setQuery($fixityQueryBool);
+          $fixityQuery->setSort(array('timeCompleted' => 'desc'));
+          $fixityQuery->setLimit(1);
+
+          $fixityResultSet = QubitSearch::getInstance()->index->getType('QubitFixityReport')->search($fixityQuery);
+          $fixityResults = $fixityResultSet->getResults();
+
+          if (count($fixityResults) == 1)
+          {
+            $fixityDoc = $fixityResults[0]->getData();
+
+            // If there last check failed set global fixity status as false
+            if (isset($fixityDoc['success']) && !(bool)$fixityDoc['success'])
+            {
+              $fixitySuccess = false;
+            }
+
+            // Update last check date
+            if (isset($fixityDoc['timeCompleted']) && (!isset($lastFixityDate) || $fixityDoc['timeCompleted'] > $lastFixityDate))
+            {
+              $lastFixityDate = $fixityDoc['timeCompleted'];
+            }
+          }
+        }
+      }
+
+      $component['aips_count'] = $countAips;
+      $component['files_count'] = $countFiles;
+      $component['size_count'] = $countSize;
+      $component['fixity_success'] = $fixitySuccess;
+      $component['last_fixity_date'] = $lastFixityDate;
+
+      $componentCsv = array();
+
+      $componentCsv[] = isset($component['artwork']) ? $component['artwork'] : '';
+      $componentCsv[] = isset($component['artist']) ? $component['artist'] : '';
+      $componentCsv[] = isset($component['department']) ? $component['department'] : '';
+      $componentCsv[] = isset($component['component']) ? $component['component'] : '';
+      $componentCsv[] = isset($component['status']) ? $component['status'] : '';
+      $componentCsv[] = isset($component['size_count']) ? $component['size_count'] : '';
+      $componentCsv[] = isset($component['aips_count']) ? $component['aips_count'] : '';
+      $componentCsv[] = isset($component['files_count']) ? $component['files_count'] : '';
+
+      if (!isset($component['fixity_success']))
+      {
+        $componentCsv[] = '';
+      }
+      else if ($component['fixity_success'])
+      {
+        $componentCsv[] = 'Verified';
+      }
+      else
+      {
+        $componentCsv[] = 'Failed';
+      }
+
+      $componentCsv[] = isset($component['last_fixity_date']) ? $component['last_fixity_date'] : '';
+
+      fputcsv($this->csv, $componentCsv);
+    }
+  }
+
+  protected function getTermName($id)
+  {
+    if (null !== $item = QubitTerm::getById($id))
+    {
+      return $item->getName(array('cultureFallback' => true));
+    }
   }
 
   protected function convertSeconds($time)
