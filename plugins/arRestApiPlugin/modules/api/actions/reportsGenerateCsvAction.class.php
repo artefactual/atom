@@ -46,6 +46,7 @@ class ApiReportsGenerateCsvAction extends QubitApiAction
       case 'general_download':
       case 'amount_downloaded':
       case 'component_level':
+      case 'video_characteristics':
         $type = QubitFlatfileImport::camelize($request->type);
 
         $this->$type();
@@ -796,6 +797,156 @@ sql;
       $componentCsv[] = isset($component['last_fixity_date']) ? $component['last_fixity_date'] : '';
 
       fputcsv($this->csv, $componentCsv);
+    }
+  }
+
+  protected function videoCharacteristics()
+  {
+    // CSV header
+    fputcsv($this->csv, array(
+      'Filename',
+      'Part of',
+      'Total file size',
+      'Format',
+      'Video streams',
+      'Audio streams',
+      'Codec ID',
+      'Codec',
+      'Duration',
+      'Width',
+      'Height',
+      'Display aspect ratio',
+      'Frame rate',
+      'Color space',
+      'Chroma subsampling',
+      'Bit depth',
+      'Sample rate',
+      'Compression mode',
+      'Fixity status',
+      'Fixity date'));
+
+    $this->queryBool->addMust(new \Elastica\Query\Term(array('digitalObject.mediaTypeId' => QubitTerm::VIDEO_ID)));
+    $this->filterEsRangeFacet('from', 'to', 'createdAt', $this->queryBool);
+    $this->query->setQuery($this->queryBool);
+
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
+
+    foreach ($resultSet as $hit)
+    {
+      $doc = $hit->getData();
+
+      $video = array();
+
+      // TODO? Get data from all the tracks
+      $this->addItemToArray($video, 'filename', $doc['metsData']['filename']);
+      $this->addItemToArray($video, 'part_of', $doc['aipPartOf']);
+      $this->addItemToArray($video, 'size', $doc['metsData']['size']);
+      $this->addItemToArray($video, 'format', $doc['metsData']['mediainfo']['generalTracks'][0]['format']);
+
+      if (isset($doc['metsData']['mediainfo']['videoTracks']))
+      {
+        $video['video_streams_count'] = count($doc['metsData']['mediainfo']['videoTracks']);
+      }
+
+      if (isset($doc['metsData']['mediainfo']['audioTracks']))
+      {
+        $video['audio_streams_count'] = count($doc['metsData']['mediainfo']['audioTracks']);
+      }
+
+      // TODO? Get data from all the tracks
+      // PUID ?
+      $this->addItemToArray($video, 'codec_id', $doc['metsData']['mediainfo']['videoTracks'][0]['codecId']);
+      $this->addItemToArray($video, 'codec', $doc['metsData']['mediainfo']['videoTracks'][0]['codec']);
+      $this->addItemToArray($video, 'duration', $doc['metsData']['mediainfo']['videoTracks'][0]['duration']);
+      $this->addItemToArray($video, 'width', $doc['metsData']['mediainfo']['videoTracks'][0]['width']);
+      // Original width ?
+      $this->addItemToArray($video, 'height', $doc['metsData']['mediainfo']['videoTracks'][0]['height']);
+      // Original height ?
+      $this->addItemToArray($video, 'display_aspect_ratio', $doc['metsData']['mediainfo']['videoTracks'][0]['displayAspectRatio']);
+      $this->addItemToArray($video, 'frame_rate', $doc['metsData']['mediainfo']['videoTracks'][0]['frameRate']);
+      // Standard ?
+      $this->addItemToArray($video, 'color_space', $doc['metsData']['mediainfo']['videoTracks'][0]['colorSpace']);
+      $this->addItemToArray($video, 'chroma_subsampling', $doc['metsData']['mediainfo']['videoTracks'][0]['chromaSubsampling']);
+      $this->addItemToArray($video, 'bit_depth', $doc['metsData']['mediainfo']['videoTracks'][0]['bitDepth']);
+
+      // Fron first audio track
+      $this->addItemToArray($video, 'sample_rate', $doc['metsData']['mediainfo']['audioTracks'][0]['samplingRate']);
+      $this->addItemToArray($video, 'compression_mode', $doc['metsData']['mediainfo']['audioTracks'][0]['compressionMode']);
+
+      // Get last fixity check for the file AIP
+      // TODO? Add fixity data to files in ES and update file when fixity checks are added
+      $fixitySuccess = $lastFixityDate = null;
+      if (isset($doc['aipUuid']))
+      {
+        $fixityQuery = new \Elastica\Query;
+        $fixityQueryBool = new \Elastica\Query\Bool;
+        $fixityQueryBool->addMust(new \Elastica\Query\Term(array('aip.uuid' => $doc['aipUuid'])));
+
+        $fixityQuery->setQuery($fixityQueryBool);
+        $fixityQuery->setSort(array('timeCompleted' => 'desc'));
+        $fixityQuery->setLimit(1);
+
+        $fixityResultSet = QubitSearch::getInstance()->index->getType('QubitFixityReport')->search($fixityQuery);
+        $fixityResults = $fixityResultSet->getResults();
+
+        if (count($fixityResults) == 1)
+        {
+          $fixityDoc = $fixityResults[0]->getData();
+
+          // If the last check failed set global fixity status as false
+          if (isset($fixityDoc['success']))
+          {
+            $fixitySuccess = (bool)$fixityDoc['success'];
+          }
+
+          // Update last check date
+          if (isset($fixityDoc['timeCompleted']))
+          {
+            $lastFixityDate = $fixityDoc['timeCompleted'];
+          }
+        }
+      }
+
+      $video['fixity_success'] = $fixitySuccess;
+      $video['fixity_date'] = $lastFixityDate;
+
+      $videoCsv = array();
+
+      $videoCsv[] = isset($video['filename']) ? $video['filename'] : '';
+      $videoCsv[] = isset($video['part_of']) ? $video['part_of'] : '';
+      $videoCsv[] = isset($video['size']) ? $video['size'] : '';
+      $videoCsv[] = isset($video['format']) ? $video['format'] : '';
+      $videoCsv[] = isset($video['video_streams_count']) ? $video['video_streams_count'] : '';
+      $videoCsv[] = isset($video['audio_streams_count']) ? $video['audio_streams_count'] : '';
+      $videoCsv[] = isset($video['codec_id']) ? $video['codec_id'] : '';
+      $videoCsv[] = isset($video['codec']) ? $video['codec'] : '';
+      $videoCsv[] = isset($video['duration']) ? $this->convertSeconds($video['duration']) : '';
+      $videoCsv[] = isset($video['width']) ? $video['width'] : '';
+      $videoCsv[] = isset($video['height']) ? $video['height'] : '';
+      $videoCsv[] = isset($video['display_aspect_ratio']) ? $video['display_aspect_ratio'] : '';
+      $videoCsv[] = isset($video['frame_rate']) ? $video['frame_rate'] : '';
+      $videoCsv[] = isset($video['color_space']) ? $video['color_space'] : '';
+      $videoCsv[] = isset($video['chroma_subsampling']) ? $video['chroma_subsampling'] : '';
+      $videoCsv[] = isset($video['bit_depth']) ? $video['bit_depth'] : '';
+      $videoCsv[] = isset($video['sample_rate']) ? $video['sample_rate'] : '';
+      $videoCsv[] = isset($video['compression_mode']) ? $video['compression_mode'] : '';
+
+      if (!isset($video['fixity_success']))
+      {
+        $videoCsv[] = '';
+      }
+      else if ($video['fixity_success'])
+      {
+        $videoCsv[] = 'Verified';
+      }
+      else
+      {
+        $videoCsv[] = 'Failed';
+      }
+
+      $videoCsv[] = isset($video['fixity_date']) ? $video['fixity_date'] : '';
+
+      fputcsv($this->csv, $videoCsv);
     }
   }
 
