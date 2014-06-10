@@ -52,12 +52,18 @@ class DigitalObjectImageflowComponent extends sfComponent
 
     foreach (QubitDigitalObject::get($criteria) as $item)
     {
-      $thumbnail = $item->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID);
-
-      if (!$thumbnail)
+      // ensure the user has permissions to see a thumbnail
+      if (false === QubitAcl::check($item, 'readThumbnail'))
       {
-        $thumbnail = QubitDigitalObject::getGenericRepresentation($item->mimeType, QubitTerm::THUMBNAIL_ID);
-        $thumbnail->setParent($item);
+        $thumbnail = QubitDigitalObject::getGenericRepresentation($item->mimeType);
+      } else {
+        $thumbnail = $item->getRepresentationByUsage(QubitTerm::THUMBNAIL_ID);
+
+        if (!$thumbnail)
+        {
+          $thumbnail = QubitDigitalObject::getGenericRepresentation($item->mimeType, QubitTerm::THUMBNAIL_ID);
+          $thumbnail->setParent($item);
+        }
       }
 
       $this->thumbnails[] = $thumbnail;
