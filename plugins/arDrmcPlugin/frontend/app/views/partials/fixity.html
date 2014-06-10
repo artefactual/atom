@@ -18,32 +18,45 @@
   </section>
 </div>
 
-<h2 class="reports-title"></h2>
-<table class="table table-bordered">
-  <thead>
-    <th>AIP name</th>
-    <th>UUID</th>
-    <th>Part of</th>
-    <th>Attached to</th>
-    <th>Start time</th>
-    <th>End time</th>
-    <th>Duration</th>
-    <th>Outcome</th>
-  </thead>
-  <tbody>
-    <!-- TODO: data must be rearranged -->
-    <tr ng-repeat="item in reportData." ng-class="{ 'warning': report.table_total }">
-      <td>{{ item.aip.name }}</td>
-      <td>{{ item.aip.uuid }}</td>
-      <td>{{ item.aip.part_of }}</td>
-      <td>{{ item.aip.attached_to }}</td>
-      <td>{{ item.fail_time }}</td>
-      <td>{{ item.recovery.time_started }}</td>
-      <td>{{ item.recovery.time_completed }}</td>
-      <td>{{ item.recovery.duration }}</td>
-      <td>{{ item.recovery.user }}</td>
-      <td>{{ item.recovery.success }}</td>
-    </tr>
-  </tbody>
-</table>
+<!--  Checking each collection referenced by uuid. There many be many
+      collections checked, each need their own table. Use nested
+      ng-repeats for this. -->
+<div ng-repeat="(uuid, logs) in reportData">
+  <h2 class="reports-title">Collection reference: {{ uuid }}</h2>
+  <table class="table table-bordered">
+    <thead>
+      <th>AIP name</th>
+      <th>UUID</th>
+      <th>Part of</th>
+      <th>Attached to</th>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Duration</th>
+      <th>Outcome</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="log in logs.results">
+        <td>{{ log.aip.name }}</td>
+        <td>{{ log.aip.uuid }}</td>
+        <td>{{ log.aip.part_of }}</td>
+        <td>{{ log.aip.attached_to }}</td>
+        <td>{{ log.time_started }}</td>
+        <td>{{ log.time_completed }}</td>
+        <td>{{ log.duration }}</td>
+        <td>{{ log.success }}</td>
+      </tr>
+      <!-- TODO: This section not done. waiting on data -->
+      <tr ng-if="table.totals">
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 

@@ -1,0 +1,132 @@
+<h1>Activity report: Amount downloaded</h1>
+
+<div class="content">
+  <section>
+    <div class="menu-list" >
+      <ul class="menu-list-left">
+        <li><h2>Report overview</h2></li>
+      </ul>
+      <ul class="menu-list-right nav nav-pills">
+        <li>
+          <a href class="drmc-icon-save"><i class="icon-save"></i>Save report</a>
+        </li>
+        <li>
+          <a href class="drmc-icon-download">Download (no save) (CSV)</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<div class="reports-tab">
+  <tabset>
+    <!-- By user -->
+    <tab heading="By user">
+      <!-- Note: there are two ng-repeats working together for this -->
+      <div ng-repeat="(user, table) in reportData.by_user">
+        <h2 class="reports-title">{{ user }}</h2>
+        <table class="table table-bordered">
+          <thead>
+            <th>Artworks with downloaded materials</th>
+            <th>AIPs downloaded</th>
+            <th>Files downloaded</th>
+            <th>Total filesize</th>
+            <th>Parent department</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in table">
+              <td>{{ item.artworks }}</td>
+              <td>{{ item.aips }}</td>
+              <td>{{ item.size | UnitFilter }}</td>
+              <td>{{ item.files }}</td>
+              <td>{{ }}</td>
+            </tr>
+            <!-- TODO: This section not done. waiting on data -->
+            <tr ng-if="table.totals">
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Totals -->
+      <h2 class="reports-title">All users: total</h2>
+      <table class="table table-bordered">
+        <thead>
+          <th>Artworks with downloaded materials</th>
+          <th>No. AIPs downloaded</th>
+          <th>No. files downloaded</th>
+          <th>Total filesize</th>
+          <th>Parent artwork(s)</th>
+          <th>Parent department(s)</th>
+        </thead>
+        <tbody>
+          <!-- TODO: This section not done. waiting on data -->
+          <tr ng-repeat="report in viewData.savedReportsByUser.results_all" ng-class="{ 'info': report.table_total }">
+            <td>{{ reportData.artwork_w_downloaded_mats }}</td>
+            <td>{{ reportData.no_aips_downloaded }}</td>
+            <td>{{ reportData.no_files_downloaded }}</td>
+            <td>{{ reportData.total_filesize | UnitFilter }}</td>
+            <td>{{ reportData.parent_work }}</td>
+            <td>{{ reportData.parent_department }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+
+    <!-- By department -->
+    <tab heading="By department">
+      <div ng-repeat="(department, table) in reportData.by_department">
+        <h2 class="reports-title">{{ department }}</h2>
+        <table class="table table-bordered">
+          <thead>
+            <th>User</th>
+            <th>AIPs downloaded</th>
+            <th>Files downloaded</th>
+            <th>Total filesize</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in table">
+              <td>{{ item.user }}</td>
+              <td>{{ item.aips }}</td>
+              <td>{{ item.files }}</td>
+              <td>{{ item.size | UnitFilter }}</td>
+            </tr>
+            <!-- TODO: This section not done. waiting on data -->
+            <tr ng-if="table.totals">
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Totals -->
+      <!-- TODO: This section not done. waiting on data -->
+      <h2 class="reports-title">Total: all departments</h2>
+      <table class="table table-bordered">
+        <thead>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="report in viewData.savedReportsByDept.all_depts_totals.results" class="info">
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+  </tabset>
+</div>

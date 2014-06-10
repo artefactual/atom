@@ -1,0 +1,59 @@
+<h1>Activity report: Component level</h1>
+
+<div class="content">
+  <section>
+    <div class="menu-list" >
+      <ul class="menu-list-left">
+        <li><h2>Report overview</h2></li>
+      </ul>
+      <ul class="menu-list-right nav nav-pills">
+        <li>
+          <a href class="drmc-icon-save"><i class="icon-save"></i>Save report</a>
+        </li>
+        <li>
+          <a href class="drmc-icon-download">Download (no save) (CSV)</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<!-- Note: there are three ng-repeats working together for this -->
+<div ng-repeat="(department, table) in reportData">
+  <h2 class="reports-title">{{ department }}</h2>
+  <table class="table table-bordered">
+    <thead>
+      <th>Artwork</th>
+      <th>Artist</th>
+      <th>Component</th>
+      <th>Status</th>
+      <th>Total filesize</th>
+      <th>Associated AIPs</th>
+      <th>Associated files</th>
+      <th>Fixity status outcome</th>
+    </thead>
+    <tbody ng-repeat="(title, item) in table">
+      <tr ng-repeat="unit in item">
+        <td>{{ unit.artwork }}</td>
+        <td>{{ unit.artist }}</td>
+        <td>{{ unit.component }}</td>
+        <td>{{ unit.status }}</td>
+        <td>{{ unit.size_count | UnitFilter }}</td>
+        <td>{{ unit.aips_count || '' }}</td>
+        <td>{{ unit.files_count || '' }}</td>
+        <td>{{ unit.fixity_success }}</td>
+      </tr>
+      <!-- TODO: This section not done. waiting on data -->
+      <tr ng-if="table.totals">
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

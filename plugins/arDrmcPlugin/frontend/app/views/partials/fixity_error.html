@@ -18,7 +18,7 @@
   </section>
 </div>
 
-<h2 class="reports-title"></h2>
+<!-- Global collection check, all data can be placed in one table -->
 <table class="table table-bordered">
   <thead>
     <th>AIP name</th>
@@ -33,17 +33,28 @@
     <th>Outcome</th>
   </thead>
   <tbody>
-    <tr ng-repeat="item in reportData" ng-class="{ 'warning': report.table_total }">
-      <td>{{ item.aip.name }}</td>
-      <td>{{ item.aip.uuid }}</td>
-      <td>{{ item.aip.part_of }}</td>
-      <td>{{ item.aip.attached_to }}</td>
-      <td>{{ item.fail_time }}</td>
-      <td>{{ item.recovery.time_started }}</td>
-      <td>{{ item.recovery.time_completed }}</td>
-      <td>{{ item.recovery.duration }}</td>
-      <td>{{ item.recovery.user }}</td>
-      <td>{{ item.recovery.success }}</td>
+    <tr ng-repeat="log in reportData">
+      <td>{{ log.aip.name }}</td>
+      <td>{{ log.aip.uuid }}</td>
+      <td>{{ log.aip.part_of }}</td>
+      <td>{{ log.aip.attached_to }}</td>
+      <td>{{ log.fail_time }}</td>
+      <td>{{ log.recovery.time_started }}</td>
+      <td>{{ log.recovery.time_completed }}</td>
+      <td>{{ log.recovery.duration }}</td>
+      <td>{{ log.recovery.user }}</td>
+      <td>{{ log.recovery.success }}</td>
     </tr>
+    <!-- TODO: This section not done. waiting on data -->
+      <tr ng-if="table.totals">
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
   </tbody>
 </table>

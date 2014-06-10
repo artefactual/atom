@@ -1,0 +1,73 @@
+<h1>Activity report: Video characteristics</h1>
+
+<div class="content">
+  <section>
+    <div class="menu-list" >
+      <ul class="menu-list-left">
+        <li><h2>Report overview</h2></li>
+      </ul>
+      <ul class="menu-list-right nav nav-pills">
+        <li>
+          <a href class="drmc-icon-save"><i class="icon-save"></i>Save report</a>
+        </li>
+        <li>
+          <a href class="drmc-icon-download">Download (no save) (CSV)</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<div>
+  <h2 class="reports-title">{{ department }}</h2>
+  <table class="table table-bordered">
+    <thead>
+      <th>Filename</th>
+      <th>Part of</th>
+      <th>Parent component</th>
+      <th>Total filesize</th>
+      <th>Format</th>
+      <th>PUID</th>
+      <th>ID</th>
+      <th>Codec ID</th>
+      <th>Codec</th>
+      <th>Duration</th>
+      <th>Bit rate</th>
+      <th>Width</th>
+      <th>Original width</th>
+      <th>Height</th>
+      <th>Original height</th>
+      <th>Frame rate</th>
+      <th>Standard</th>
+      <th>Color space</th>
+      <th>Chroma subsampling</th>
+      <th>Bit depth</th>
+      <th>Compression mode</th>
+    </thead>
+    <tbody ng-repeat="(title, item) in reportData">
+      <tr>
+        <td>{{ item.filename }}</td>
+        <td>{{ item.part_of }}</td>
+        <td>{{ item. }}</td>
+        <td>{{ item.size | UnitFilter }}</td>
+        <td>{{ item.format }}</td>
+        <td>{{ item. }}</td>
+        <td>{{ item. }}</td>
+        <td>{{ item.codec_id }}</td>
+        <td>{{ item.codec }}</td>
+        <td>{{ item.duration }}</td>
+        <td>{{ item.sample_rate }}</td>
+        <td>{{ item.width }}</td>
+        <td>{{ item. }}</td>
+        <td>{{ item.height }}</td>
+        <td>{{ item. }}</td>
+        <td>{{ item.frame_rate }}</td>
+        <td>{{ item. }}</td>
+        <td>{{ item.color_space }}</td>
+        <td>{{ item.chroma_subsampling }}</td>
+        <td>{{ item.bit_depth }}</td>
+        <td>{{ item.compression_mode }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

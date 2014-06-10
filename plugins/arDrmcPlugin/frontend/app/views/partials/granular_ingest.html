@@ -1,4 +1,4 @@
-<h1>Activity report: General download</h1>
+<h1>Activity report: Granular ingest</h1>
 
 <div class="content">
   <section>
@@ -18,6 +18,7 @@
   </section>
 </div>
 
+
 <div class="reports-tab">
   <tabset>
     <!-- By user -->
@@ -27,27 +28,23 @@
         <h2 class="reports-title">{{ user }}</h2>
         <table class="table table-bordered">
           <thead>
-            <th>Download type</th>
-            <th>Download date</th>
-            <th>Name</th>
+            <th>AIP name</th>
+            <th>AIP classification</th>
             <th>UUID</th>
-            <th>Total filesize</th>
-            <th>Parent artwork</th>
+            <th>Part of</th>
             <th>Attached to</th>
-            <th>Parent department</th>
-            <th>Download reason</th>
+            <th>Department</th>
+            <th>Ingest date</th>
           </thead>
           <tbody>
             <tr ng-repeat="item in table.results">
-              <td>{{ item.type }}</td>
-              <td>{{ item.date | date: 'short' }}</td>
               <td>{{ item.name }}</td>
+              <td>{{ item.classification || 'Unclassified' }}</td>
               <td>{{ item.uuid }}</td>
-              <td>{{ item.size | UnitFilter }}</td>
+              <td>{{ item.part_of.title }}</td>
               <td>{{ item.attached_to }}</td>
-              <td>{{ item.part_of }}</td>
-              <td>{{ item.department }}</td>
-              <td>{{ item.reason }}</td>
+              <td>{{ item.part_of.department }}</td>
+              <td>{{ item.ingestion_date | date: 'short' }}</td>
             </tr>
             <!-- Waiting for totals data -->
             <tr ng-if="table.totals" class="warning">
@@ -64,6 +61,20 @@
           </tbody>
         </table>
       </div>
+
+      <!-- Totals -->
+      <!-- TODO: This section not done. waiting on data -->
+      <h2 class="reports-title">Total: all departments</h2>
+      <table class="table table-bordered">
+        <thead>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="report in viewData.savedReportsByDept.all_depts_totals.results" class="info">
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
     </tab>
 
     <!-- By department -->
@@ -72,25 +83,23 @@
         <h2 class="reports-title">{{ department }}</h2>
         <table class="table table-bordered">
           <thead>
-            <th>User</th>
-            <th>Download type</th>
-            <th>Download date</th>
-            <th>Name</th>
+            <th>AIP name</th>
+            <th>AIP classification</th>
             <th>UUID</th>
-            <th>Total filesize</th>
+            <th>Part of</th>
             <th>Attached to</th>
-            <th>Download reason</th>
+            <th>Ingest date</th>
+            <th>Ingested by</th>
           </thead>
           <tbody>
             <tr ng-repeat="item in table.results">
-              <td>{{ item.user }}</td>
-              <td>{{ item.type }}</td>
-              <td>{{ item.date | date: 'short' }}</td>
               <td>{{ item.name }}</td>
+              <td>{{ item.type }}</td>
               <td>{{ item.uuid }}</td>
-              <td>{{ item.size | UnitFilter }}</td>
+              <td>{{ item.part_of.title }}</td>
               <td>{{ item.attached_to }}</td>
-              <td>{{ item.reason }}</td>
+              <td>{{ item.ingestion_date | date: 'short' }}</td>
+              <td>{{ item.ingestion_user }}</td>
             </tr>
             <!-- Waiting for totals data -->
             <tr ng-if="table.totals">
@@ -106,7 +115,20 @@
           </tbody>
         </table>
       </div>
+
+      <!-- Totals -->
+      <!-- TODO: This section not done. waiting on data -->
+      <h2 class="reports-title">Total: all departments</h2>
+      <table class="table table-bordered">
+        <thead>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="report in viewData.savedReportsByDept.all_depts_totals.results" class="info">
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
     </tab>
   </tabset>
 </div>
-
