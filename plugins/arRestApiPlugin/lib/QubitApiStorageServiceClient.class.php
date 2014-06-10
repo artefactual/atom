@@ -57,7 +57,6 @@ class QubitApiStorageServiceClient
     $storageServiceUrl .= ':'. $this->config['ARCHIVEMATICA_SS_PORT'];
     $url = $storageServiceUrl .'/'. $urlPath;
 
-    file_put_contents('/tmp/goat.txt', $url);
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // allow redirects
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
