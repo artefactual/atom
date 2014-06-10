@@ -45,7 +45,7 @@ class ApiReportsGenerateAction extends QubitApiAction
       case 'general_download':
       case 'amount_downloaded':
       case 'component_level':
-      case 'file_level':
+      case 'video_characteristics':
         $type = QubitFlatfileImport::camelize($request->type);
 
         $this->$type();
@@ -744,7 +744,7 @@ sql;
     // TODO: Add totals row by artwork and department
   }
 
-  protected function fileLevel()
+  protected function videoCharacteristics()
   {
     $this->queryBool->addMust(new \Elastica\Query\Term(array('digitalObject.mediaTypeId' => QubitTerm::VIDEO_ID)));
     $this->filterEsRangeFacet('from', 'to', 'createdAt', $this->queryBool);
