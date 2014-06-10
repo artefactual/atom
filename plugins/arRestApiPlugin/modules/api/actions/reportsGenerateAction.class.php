@@ -532,7 +532,7 @@ sql;
     // Get counts grouped by department
     foreach ($grouped['by_department'] as $department => $logs)
     {
-      $artworks = array();
+      $artworks = $users = array();
       $countAips = $countFiles = $countSize = 0;
 
       foreach ($logs as $log)
@@ -552,6 +552,11 @@ sql;
           $artworks[] = $log['part_of'];
         }
 
+        if (isset($log['user']) && !in_array($log['user'], $users))
+        {
+          $users[] = $log['user'];
+        }
+
         if (isset($log['size']))
         {
           $countSize += $log['size'];
@@ -562,7 +567,8 @@ sql;
         'aips' => $countAips,
         'files' => $countFiles,
         'artworks' => count($artworks),
-        'size' => $countSize);
+        'size' => $countSize,
+        'users' => count($users));
 
       $this->results['by_department'][$department][] = $counts;
     }
@@ -570,7 +576,7 @@ sql;
     // Get counts grouped by user
     foreach ($grouped['by_user'] as $user => $logs)
     {
-      $artworks = array();
+      $artworks = $departments = array();
       $countAips = $countFiles = $countSize = 0;
 
       foreach ($logs as $log)
@@ -590,6 +596,11 @@ sql;
           $artworks[] = $log['part_of'];
         }
 
+        if (isset($log['department']) && !in_array($log['department'], $departments))
+        {
+          $departments[] = $log['department'];
+        }
+
         if (isset($log['size']))
         {
           $countSize += $log['size'];
@@ -600,13 +611,14 @@ sql;
         'aips' => $countAips,
         'files' => $countFiles,
         'artworks' => count($artworks),
-        'size' => $countSize);
+        'size' => $countSize,
+        'departments' => count($departments));
 
       $this->results['by_user'][$user][] = $counts;
     }
 
     // Get totals
-    $artworks = $users = array();
+    $artworks = $users = $departments = array();
     $countAips = $countFiles = $countSize = 0;
 
     foreach ($grouped['totals'] as $log)
@@ -631,6 +643,11 @@ sql;
         $users[] = $log['user'];
       }
 
+      if (isset($log['department']) && !in_array($log['department'], $departments))
+      {
+        $departments[] = $log['department'];
+      }
+
       if (isset($log['size']))
       {
         $countSize += $log['size'];
@@ -642,7 +659,8 @@ sql;
       'aips' => $countAips,
       'files' => $countFiles,
       'artworks' => count($artworks),
-      'size' => $countSize);
+      'size' => $countSize,
+      'departments' => count($departments));
 
     $this->results['totals'] = $counts;
   }
