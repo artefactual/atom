@@ -54,6 +54,10 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'aipsBrowse'));
 
+    $this->addRoute('GET', '/api/aips/status', array(
+      'module' => 'api',
+      'action' => 'aipsStorageServiceStatus'));
+
     $this->addRoute('GET', '/api/aips/:uuid', array(
       'module' => 'api',
       'action' => 'aipsView',
