@@ -548,7 +548,8 @@ sql;
       'AIPs downloaded',
       'Files downloaded',
       'Total filesize',
-      'Parent artworks'));
+      'Parent artworks',
+      'Departments'));
 
     $sql  = 'SELECT
                 access.object_id,
@@ -627,7 +628,7 @@ sql;
     }
 
     // Get totals
-    $artworks = $users = array();
+    $artworks = $users = $departments = array();
     $countAips = $countFiles = $countSize = 0;
 
     foreach ($logs as $log)
@@ -652,6 +653,11 @@ sql;
         $users[] = $log['user'];
       }
 
+      if (isset($log['department']) && !in_array($log['department'], $departments))
+      {
+        $departments[] = $log['department'];
+      }
+
       if (isset($log['size']))
       {
         $countSize += $log['size'];
@@ -665,6 +671,7 @@ sql;
     $counts[] = $countFiles;
     $counts[] = $countSize;
     $counts[] = count($artworks);
+    $counts[] = count($departments);
 
     fputcsv($this->csv, $counts);
   }
