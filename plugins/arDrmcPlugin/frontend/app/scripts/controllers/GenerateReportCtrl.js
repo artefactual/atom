@@ -28,12 +28,12 @@ module.exports = function ($state, $scope, $modalInstance, ReportsService) {
       'type': 'fixity_error'
     },
     {
-      'name': 'Component-level report (characteristic)',
-      'type': 'component_level'
+      'name': 'Video characteristics report (characteristic)',
+      'type': 'video_characteristics'
     },
     {
-      'name': 'File-level report (characteristic)',
-      'type': 'file_level'
+      'name': 'Component-level report (characteristic)',
+      'type': 'component_level'
     }
   ];
 
