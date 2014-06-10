@@ -94,6 +94,9 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
       'deny' => $acl->deny
     );
 
+    // TODO: use ElasticSearch's update API to speed things up here,
+    // addDocument() on an existing document updates it, but it
+    // updates the *entire* document instead of just the properties that need change.
     QubitSearch::getInstance()->addDocument($serialized, 'QubitInformationObject');
   }
 

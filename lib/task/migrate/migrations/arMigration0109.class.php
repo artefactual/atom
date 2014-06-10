@@ -36,7 +36,7 @@ class arMigration0109
    */
   public function up($configuration)
   {
-    // Create AIP table
+    // Create job table
     $sql = <<<sql
 CREATE TABLE IF NOT EXISTS `job` (
   `id` int(11) NOT NULL,
