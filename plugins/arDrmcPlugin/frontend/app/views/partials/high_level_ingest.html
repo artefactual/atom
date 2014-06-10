@@ -1,63 +1,42 @@
-<div class="row-fluid reports-wrapper">
+<h1>Activity report: High-level ingest</h1>
 
-  <div class="span12">
-
-    <div id="main-column">
-
-      <h1>Activity report: High-level ingest</h1>
-
-      <section class="breadcrumb">
-        <ul>
-          <li><a ui-sref="main.reports.browser">Reports</a></li>
-          <li><span>{{ reportMeta.category }}:&nbsp{{ reportMeta.title }}</span></li>
-        </ul>
-      </section>
-
-      <div class="content">
-        <section>
-          <div class="menu-list" >
-            <ul class="menu-list-left">
-              <li><h2>Report overview</h2></li>
-            </ul>
-            <ul class="menu-list-right nav nav-pills">
-              <li>
-                <a href class="drmc-icon-download">Download report (CSV)</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <div class="field">
-              <h3>Report ID</h3>
-              <div>{{ reportId }}</div>
-            </div>
-        </section>
-      </div>
-
-      <table class="table table-bordered">
-        <thead>
-          <th>New artwork records</th>
-          <th>Artworks with materials added</th>
-          <th>Aggregate</th>
-          <th>New supporting tech records</th>
-          <th>AIPs ingested</th>
-          <th>Files ingested</th>
-          <th>Total filesize ingested</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{ highLevelIngest.new_artworks }}</td>
-            <td>{{ highLevelIngest.artworks_with_materials_added }}</td>
-            <td>{{ highLevelIngest.aggregate }}</td>
-            <td>{{ highLevelIngest.new_tech_records }}</td>
-            <td>{{ highLevelIngest.aips_ingested }}</td>
-            <td>{{ highLevelIngest.files_ingested }}</td>
-            <td>{{ highLevelIngest.total_filesize_ingested | UnitFilter: 2 }}</td>
-          </tr>
-        </tbody>
-      </table>
-
+<div class="content">
+  <section>
+    <div class="menu-list" >
+      <ul class="menu-list-left">
+        <li><h2>Report overview</h2></li>
+      </ul>
+      <ul class="menu-list-right nav nav-pills">
+        <li>
+          <a href class="drmc-icon-save"><i class="icon-save"></i>Save</a>
+        </li>
+        <li>
+          <a href class="drmc-icon-download">Download (no save) (CSV)</a>
+        </li>
+      </ul>
     </div>
-
-  </div>
-
+  </section>
 </div>
+
+<table class="table table-bordered">
+  <thead>
+    <th>New artwork records</th>
+    <th>Artworks with materials added</th>
+    <th>Aggregate</th>
+    <th>New supporting tech records</th>
+    <th>AIPs ingested</th>
+    <th>Files ingested</th>
+    <th>Total filesize ingested</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ reportData.new_artworks }}</td>
+      <td>{{ reportData.artworks_with_materials_added }}</td>
+      <td>{{ reportData.aggregate }}</td>
+      <td>{{ reportData.new_tech_records }}</td>
+      <td>{{ reportData.aips_ingested }}</td>
+      <td>{{ reportData.files_ingested }}</td>
+      <td>{{ reportData.total_filesize_ingested | UnitFilter: 2 }}</td>
+    </tr>
+  </tbody>
+</table>

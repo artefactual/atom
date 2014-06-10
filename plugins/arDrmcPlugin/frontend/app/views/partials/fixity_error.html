@@ -1,0 +1,49 @@
+<h1>Fixity report: Fixity error</h1>
+
+<div class="content">
+  <section>
+    <div class="menu-list" >
+      <ul class="menu-list-left">
+        <li><h2>Report overview</h2></li>
+      </ul>
+      <ul class="menu-list-right nav nav-pills">
+        <li>
+          <a href class="drmc-icon-save"><i class="icon-save"></i>Save report</a>
+        </li>
+        <li>
+          <a href class="drmc-icon-download">Download (no save) (CSV)</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<h2 class="reports-title"></h2>
+<table class="table table-bordered">
+  <thead>
+    <th>AIP name</th>
+    <th>UUID</th>
+    <th>Part of</th>
+    <th>Attached to</th>
+    <th>Fail time</th>
+    <th>Replaced start</th>
+    <th>Replaced end</th>
+    <th>Duration</th>
+    <th>By</th>
+    <th>Outcome</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in reportData" ng-class="{ 'warning': report.table_total }">
+      <td>{{ item.aip.name }}</td>
+      <td>{{ item.aip.uuid }}</td>
+      <td>{{ item.aip.part_of }}</td>
+      <td>{{ item.aip.attached_to }}</td>
+      <td>{{ item.fail_time }}</td>
+      <td>{{ item.recovery.time_started }}</td>
+      <td>{{ item.recovery.time_completed }}</td>
+      <td>{{ item.recovery.duration }}</td>
+      <td>{{ item.recovery.user }}</td>
+      <td>{{ item.recovery.success }}</td>
+    </tr>
+  </tbody>
+</table>
