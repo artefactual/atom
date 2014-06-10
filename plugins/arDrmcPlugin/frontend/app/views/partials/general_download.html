@@ -23,8 +23,8 @@
     <!-- By user -->
     <tab heading="By user">
       <!-- Note: there are two ng-repeats working together for this -->
-      <div ng-repeat="report in reportData.by_user">
-        <h2 class="reports-title">{{ report.user }}</h2>
+      <div ng-repeat="(user, table) in reportData.by_user">
+        <h2 class="reports-title">{{ user }}</h2>
         <table class="table table-bordered">
           <thead>
             <th>Download type</th>
@@ -38,7 +38,7 @@
             <th>Download reason</th>
           </thead>
           <tbody>
-            <tr ng-repeat="item in report.results" ng-class="{ 'warning': report.table_total }">
+            <tr ng-repeat="item in table.results">
               <td>{{ item.type }}</td>
               <td>{{ item.date | date: 'short' }}</td>
               <td>{{ item.name }}</td>
@@ -49,10 +49,24 @@
               <td>{{ item.department }}</td>
               <td>{{ item.reason }}</td>
             </tr>
+            <!-- Waiting for totals data -->
+            <tr ng-if="table.totals" class="warning">
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
+      <!-- Totals -->
+      <!-- TODO: This section not done. waiting on data
       <h2 class="reports-title">All users: total</h2>
       <table class="table table-bordered">
         <thead>
@@ -74,12 +88,13 @@
           </tr>
         </tbody>
       </table>
+      -->
     </tab>
 
     <!-- By department -->
     <tab heading="By department">
-      <div ng-repeat="report in reportData.by_department">
-        <h2 class="reports-title">{{ report.user }}</h2>
+      <div ng-repeat="(department, table) in reportData.by_department">
+        <h2 class="reports-title">{{ department }}</h2>
         <table class="table table-bordered">
           <thead>
             <th>User</th>
@@ -92,7 +107,7 @@
             <th>Download reason</th>
           </thead>
           <tbody>
-            <tr ng-repeat="item in report.results" ng-class="{ 'warning': report.table_total }">
+            <tr ng-repeat="item in table.results">
               <td>{{ item.user }}</td>
               <td>{{ item.type }}</td>
               <td>{{ item.date | date: 'short' }}</td>
@@ -102,12 +117,23 @@
               <td>{{ item.attached_to }}</td>
               <td>{{ item.reason }}</td>
             </tr>
+            <!-- Waiting for totals data -->
+            <tr ng-if="table.totals" class="warning">
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
       <!-- Totals -->
-      <!-- TODO: This section not done. waiting on data -->
+      <!-- TODO: This section not done. waiting on data
       <h2 class="reports-title">Total: all departments</h2>
       <table class="table table-bordered">
         <thead>
@@ -120,6 +146,7 @@
         </tbody>
       </table>
     </tab>
+     -->
   </tabset>
 </div>
 
