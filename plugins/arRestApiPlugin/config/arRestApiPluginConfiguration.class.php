@@ -115,6 +115,11 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'informationobjectsTree',
       'params' => array('id' => self::REGEX_ID)));
 
+    $this->addRoute('GET', '/api/informationobjects/:id/tree/associations', array(
+      'module' => 'api',
+      'action' => 'informationobjectsTreeAssociations',
+      'params' => array('id' => self::REGEX_ID)));
+
     $this->addRoute('GET', '/api/informationobjects/:id/files', array(
       'module' => 'api',
       'action' => 'informationobjectsFiles',
