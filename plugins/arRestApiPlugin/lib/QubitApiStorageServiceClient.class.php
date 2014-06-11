@@ -30,7 +30,8 @@ class QubitApiStorageServiceClient
     $ssConfig = array();
     $ssEnvVars = array(
       'ARCHIVEMATICA_SS_HOST' => '127.0.0.1',
-      'ARCHIVEMATICA_SS_PORT' => '8000'
+      'ARCHIVEMATICA_SS_PORT' => '8000',
+      'ARCHIVEMATICA_SS_PIPELINE_UUID' => ''
     );
 
     // Determine configuration based on environment variable settings
@@ -52,6 +53,16 @@ class QubitApiStorageServiceClient
 
   public function get($urlPath)
   {
+    return $this->request($urlPath);
+  }
+
+  public function post($urlPath, $postData)
+  {
+    return $this->request($urlPath, $postData);
+  }
+
+  private function request($urlPath, $postData = FALSE)
+  {
     // Assemble storage server URL
     $storageServiceUrl = 'http://'. $this->config['ARCHIVEMATICA_SS_HOST'];
     $storageServiceUrl .= ':'. $this->config['ARCHIVEMATICA_SS_PORT'];
@@ -61,6 +72,28 @@ class QubitApiStorageServiceClient
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // allow redirects
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_FAILONERROR, true);
+
+    if ($postData)
+    {
+      curl_setopt($ch,CURLOPT_POST, count($postData));
+
+      if (is_array($postData))
+      {
+        // Serialize POST data
+        $postBody = '';
+        foreach($postData as $key => $value)
+        {
+          $postBody .= $key .'='. urlencode($value) .'&';
+        }
+        rtrim($postBody, '&');
+      } else {
+        $postBody = $postData;
+      }
+
+      curl_setopt($ch, CURLOPT_POSTFIELDS, $postBody);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+    }
+
     $result = curl_exec($ch);
 
     // handle possible errors
@@ -68,8 +101,10 @@ class QubitApiStorageServiceClient
     {
       $error = curl_error($ch);
       curl_close($ch);
-      sfContext::getInstance()->getLogger()->error('Error getting storage service data: '. $error);
-      sfContext::getInstance()->getLogger()->error('URL: '. $url);
+
+      sfContext::getInstance()->getLogger()->err('Error getting storage service data: '. $error);
+      sfContext::getInstance()->getLogger()->err('URL: '. $url);
+
       throw new QubitApiException('Error: '. $error, 500);
     }
     curl_close($ch);

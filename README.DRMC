@@ -5,10 +5,18 @@ Dependencies
 * php5-ldap
 
 
-Environment variables
----------------------
+Storage service configuration
+-----------------------------
 
-* ... TODO! (ARCHIVEMATICA_SS_HOST, etc...)
+The Archivematica service handles storage of AIPs. The DRMC interfaces with
+it to allow the downloading of AIPs/AIP files and the recovery of AIPs.
+
+# To interface with the Archivematica Storage Service, define these
+  environment variables (e.g. in your PHP pool):
+
+  env[ARCHIVEMATICA_SS_HOST] = "127.0.0.1"
+  env[ARCHIVEMATICA_SS_PORT] = "8000"
+  env[ARCHIVEMATICA_SS_PIPELINE_UUID] = "6117c5fa-d63f-44d8-9920-89468c68683e"
 
 
 LDAP configuration

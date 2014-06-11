@@ -73,6 +73,11 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'aipsReclassify',
       'params' => array('uuid' => self::REGEX_UUID)));
 
+    $this->addRoute('POST', '/api/aips/:uuid/recover', array(
+      'module' => 'api',
+      'action' => 'aipsRecover',
+      'params' => array('uuid' => self::REGEX_UUID)));
+
     /**
      * Information object resources
      */
