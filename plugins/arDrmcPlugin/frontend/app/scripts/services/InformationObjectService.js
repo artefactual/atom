@@ -282,14 +282,20 @@ module.exports = function ($http, $q, SETTINGS) {
    * Associative relationships
    */
 
-  this.associate = function (id, target) {
+  this.associate = function (source_id, target_id, type_id, options) {
+    var data = {
+      target_id: target_id,
+      type_id: type_id
+    };
+    if (angular.isDefined(options)) {
+      if (angular.isDefined(options.note)) {
+        data.note = options.note;
+      }
+    }
     return $http({
       method: 'POST',
-      url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/associate',
-      data: {
-        type_id: SETTINGS.drmc.todo,
-        target: target
-      }
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + source_id + '/associate',
+      data: data
     });
   };
 

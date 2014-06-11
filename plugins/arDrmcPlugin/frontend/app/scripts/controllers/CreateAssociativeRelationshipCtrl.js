@@ -21,7 +21,11 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, Tax
       return;
     }
     // TODO: this method will only accept one source for now
-    InformationObjectService.associate(sources[0], target).then(function () {
+    var options = {};
+    if (angular.isDefined($scope.modalContainer.obj.note)) {
+      options.note = $scope.modalContainer.obj.note;
+    }
+    InformationObjectService.associate(sources[0].id, target.id, $scope.modalContainer.obj.type, options).then(function () {
       $modalInstance.close($scope.modalContainer.obj.type);
     }, function (reason) {
       $modalInstance.dismiss(reason);
