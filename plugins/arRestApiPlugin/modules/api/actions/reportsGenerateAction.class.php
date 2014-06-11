@@ -109,7 +109,57 @@ class ApiReportsGenerateAction extends QubitApiAction
       }
     }
 
-    // TODO: Add counts for each table (last row)
+    // Get counts by department
+    foreach ($this->results['by_department'] as $department => $ingests)
+    {
+      $artworks = $users = array();
+
+      foreach ($ingests['results'] as $ingest)
+      {
+        if (isset($ingest['part_of']['title']) && !in_array($ingest['part_of']['title'], $artworks))
+        {
+          $artworks[] = $ingest['part_of']['title'];
+        }
+
+        if (isset($ingest['ingestion_user']) && !in_array($ingest['ingestion_user'], $users))
+        {
+          $users[] = $ingest['ingestion_user'];
+        }
+      }
+
+      $counts = array(
+        'aips' => count($ingests['results']),
+        'artworks' => count($artworks),
+        'users' => count($users));
+
+      $this->results['by_department'][$department]['totals'] = $counts;
+    }
+
+    // Get counts by user
+    foreach ($this->results['by_user'] as $user => $ingests)
+    {
+      $artworks = $departments = array();
+
+      foreach ($ingests['results'] as $ingest)
+      {
+        if (isset($ingest['part_of']['title']) && !in_array($ingest['part_of']['title'], $artworks))
+        {
+          $artworks[] = $ingest['part_of']['title'];
+        }
+
+        if (isset($ingest['part_of']['department']) && !in_array($ingest['part_of']['department'], $departments))
+        {
+          $departments[] = $ingest['part_of']['department'];
+        }
+      }
+
+      $counts = array(
+        'aips' => count($ingests['results']),
+        'artworks' => count($artworks),
+        'departments' => count($departments));
+
+      $this->results['by_user'][$user]['totals'] = $counts;
+    }
   }
 
   protected function highLevelIngest()
@@ -267,7 +317,44 @@ class ApiReportsGenerateAction extends QubitApiAction
       }
     }
 
-    // TODO: Add counts for each table (last row)
+    // Get totals by collection check
+    foreach ($this->results as $collection => $fixities)
+    {
+      $artworks = array();
+      $verifiedCount = 0;
+
+      foreach ($fixities['results'] as $fixity)
+      {
+        if (isset($fixity['aip']['part_of']) && !in_array($fixity['aip']['part_of'], $artworks))
+        {
+          $artworks[] = $fixity['aip']['part_of'];
+        }
+
+        if (isset($fixity['success']) && $fixity['success'])
+        {
+          $verifiedCount++;
+        }
+      }
+
+      $start = $fixities['results'][count($fixities['results']) - 1]['time_started'];
+      $end = $fixities['results'][0]['time_completed'];
+      $duration = 0;
+
+      if (isset($start) && isset($end))
+      {
+        $duration = strtotime($end) - strtotime($start);
+      }
+
+      $totals = array(
+        'aips' => count($fixities['results']),
+        'artworks' => count($artworks),
+        'time_started' => $start,
+        'time_completed' => $end,
+        'duration' => $duration,
+        'verified' => $verifiedCount);
+
+      $this->results[$collection]['totals'] = $totals;
+    }
   }
 
   protected function fixityError()
@@ -336,8 +423,38 @@ sql;
         }
       }
 
-      $this->results[] = $fixity;
+      $this->results['results'][] = $fixity;
     }
+
+    // Get totals row
+    $artworks = $users = array();
+    $verifiedCount = 0;
+
+    foreach ($this->results['results'] as $fixity)
+    {
+      if (isset($fixity['aip']['part_of']) && !in_array($fixity['aip']['part_of'], $artworks))
+      {
+        $artworks[] = $fixity['aip']['part_of'];
+      }
+
+      if (isset($fixity['recovery']['user']) && !in_array($fixity['recovery']['user'], $users))
+      {
+        $users[] = $fixity['recovery']['user'];
+      }
+
+      if (isset($fixity['recovery']['success']) && $fixity['recovery']['success'])
+      {
+        $verifiedCount++;
+      }
+    }
+
+    $totals = array(
+      'aips' => count($this->results['results']),
+      'artworks' => count($artworks),
+      'users' => count($users),
+      'verified' => $verifiedCount);
+
+    $this->results['totals'] = $totals;
   }
 
   protected function generalDownload()
@@ -437,7 +554,69 @@ sql;
       }
     }
 
-    // TODO: Add counts for each table (last row)
+    // Get counts by department
+    foreach ($this->results['by_department'] as $department => $accessLogs)
+    {
+      $artworks = $users = array();
+      $size = 0;
+
+      foreach ($accessLogs['results'] as $accessLog)
+      {
+        if (isset($accessLog['part_of']) && !in_array($accessLog['part_of'], $artworks))
+        {
+          $artworks[] = $accessLog['part_of'];
+        }
+
+        if (isset($accessLog['user']) && !in_array($accessLog['user'], $users))
+        {
+          $users[] = $accessLog['user'];
+        }
+
+        if (isset($accessLog['size']))
+        {
+          $size += $accessLog['size'];
+        }
+      }
+
+      $counts = array(
+        'size' => $size,
+        'artworks' => count($artworks),
+        'users' => count($users));
+
+      $this->results['by_department'][$department]['totals'] = $counts;
+    }
+
+    // Get counts by user
+    foreach ($this->results['by_user'] as $user => $accessLogs)
+    {
+      $artworks = $departments = array();
+      $size = 0;
+
+      foreach ($accessLogs['results'] as $accessLog)
+      {
+        if (isset($accessLog['part_of']) && !in_array($accessLog['part_of'], $artworks))
+        {
+          $artworks[] = $accessLog['part_of'];
+        }
+
+        if (isset($accessLog['department']) && !in_array($accessLog['department'], $departments))
+        {
+          $departments[] = $accessLog['department'];
+        }
+
+        if (isset($accessLog['size']))
+        {
+          $size += $accessLog['size'];
+        }
+      }
+
+      $counts = array(
+        'size' => $size,
+        'artworks' => count($artworks),
+        'departments' => count($departments));
+
+      $this->results['by_user'][$user]['totals'] = $counts;
+    }
   }
 
   protected function amountDownloaded()
@@ -525,11 +704,10 @@ sql;
       {
         $grouped['by_department'][$accessLog['department']][] = $accessLog;
       }
-
-      $grouped['totals'][] = $accessLog;
     }
 
     // Get counts grouped by department
+    $totalArtworks = $totalUsers = $totalAips = $totalFiles = $totalSize = 0;
     foreach ($grouped['by_department'] as $department => $logs)
     {
       $artworks = $users = array();
@@ -570,10 +748,27 @@ sql;
         'size' => $countSize,
         'users' => count($users));
 
-      $this->results['by_department'][$department][] = $counts;
+      $this->results['by_department'][$department] = $counts;
+
+      // Totals by all departments
+      $totalArtworks += count($artworks);
+      $totalUsers += count($users);
+      $totalAips += $countAips;
+      $totalFiles += $countFiles;
+      $totalSize += $countSize;
     }
 
+    $totalCounts = array(
+      'aips' => $totalAips,
+      'files' => $totalFiles,
+      'artworks' => $totalArtworks,
+      'size' => $totalSize,
+      'users' => $totalUsers);
+
+    $this->results['by_department']['Totals'] = $totalCounts;
+
     // Get counts grouped by user
+    $totalArtworks = $totalDepartments = $totalAips = $totalFiles = $totalSize = 0;
     foreach ($grouped['by_user'] as $user => $logs)
     {
       $artworks = $departments = array();
@@ -614,55 +809,24 @@ sql;
         'size' => $countSize,
         'departments' => count($departments));
 
-      $this->results['by_user'][$user][] = $counts;
+      $this->results['by_user'][$user] = $counts;
+
+      // Totals by all users
+      $totalArtworks += count($artworks);
+      $totalDepartments += count($departments);
+      $totalAips += $countAips;
+      $totalFiles += $countFiles;
+      $totalSize += $countSize;
     }
 
-    // Get totals
-    $artworks = $users = $departments = array();
-    $countAips = $countFiles = $countSize = 0;
+    $totalCounts = array(
+      'aips' => $totalAips,
+      'files' => $totalFiles,
+      'artworks' => $totalArtworks,
+      'size' => $totalSize,
+      'departments' => $totalDepartments);
 
-    foreach ($grouped['totals'] as $log)
-    {
-      if (isset($log['type']) && $log['type'] == 'AIP')
-      {
-        $countAips ++;
-      }
-
-      if (isset($log['type']) && $log['type'] == 'File')
-      {
-        $countFiles ++;
-      }
-
-      if (isset($log['part_of']) && !in_array($log['part_of'], $artworks))
-      {
-        $artworks[] = $log['part_of'];
-      }
-
-      if (isset($log['user']) && !in_array($log['user'], $users))
-      {
-        $users[] = $log['user'];
-      }
-
-      if (isset($log['department']) && !in_array($log['department'], $departments))
-      {
-        $departments[] = $log['department'];
-      }
-
-      if (isset($log['size']))
-      {
-        $countSize += $log['size'];
-      }
-    }
-
-    $counts = array(
-      'users' => count($users),
-      'aips' => $countAips,
-      'files' => $countFiles,
-      'artworks' => count($artworks),
-      'size' => $countSize,
-      'departments' => count($departments));
-
-    $this->results['totals'] = $counts;
+    $this->results['by_user']['Totals'] = $totalCounts;
   }
 
   protected function componentLevel()
@@ -755,11 +919,90 @@ sql;
       // Add results grouped by department and artwork
       if (isset($component['department']) && isset($component['artwork']))
       {
-        $this->results[$component['department']][$component['artwork']][] = $component;
+        $this->results[$component['department']][$component['artwork']]['results'][] = $component;
       }
     }
 
-    // TODO: Add totals row by artwork and department
+    // Get counts grouped for artworks and departments
+    foreach ($this->results as $department => $works)
+    {
+      $totalArtworks = $totalAips = $totalFiles = $totalSize = $totalVerified = 0;
+      $totalArtists = array();
+
+      foreach ($works as $work => $components)
+      {
+        $status = array();
+        $artist = '';
+        $countAips = $countFiles = $countSize = $countVerified = 0;
+
+        foreach ($components['results'] as $component)
+        {
+          if (isset($component['status']) && !in_array($component['status'], $status))
+          {
+            $status[] = $component['status'];
+          }
+
+          if (isset($component['fixity_success']) && $component['fixity_success'])
+          {
+            $countVerified++;
+          }
+
+          if (isset($component['aips_count']))
+          {
+            $countAips += $component['aips_count'];
+          }
+
+          if (isset($component['files_count']))
+          {
+            $countFiles += $component['files_count'];
+          }
+
+          if (isset($component['size_count']))
+          {
+            $countSize += $component['size_count'];
+          }
+
+          if (isset($component['artist']))
+          {
+            $artist = $component['artist'];
+          }
+        }
+
+        $counts = array(
+          'artwork' => $work,
+          'artist' => $artist,
+          'components' => count($components['results']),
+          'status' => count($status),
+          'aips' => $countAips,
+          'files' => $countFiles,
+          'size' => $countSize,
+          'verified' => $countVerified);
+
+        $this->results[$department][$work]['totals'] = $counts;
+
+        // Totals by department
+        $totalArtworks ++;
+        $totalAips += $countAips;
+        $totalFiles += $countFiles;
+        $totalSize += $countSize;
+        $totalVerified += $countVerified;
+
+        if (isset($artist) && !in_array($artist, $totalArtists))
+        {
+          $totalArtists[] = $artist;
+        }
+      }
+
+      $totalCounts = array(
+        'aips' => $totalAips,
+        'files' => $totalFiles,
+        'artworks' => $totalArtworks,
+        'size' => $totalSize,
+        'artists' => count($totalArtists),
+        'verified' => $totalVerified);
+
+      $this->results[$department]['totals'] = $totalCounts;
+    }
   }
 
   protected function videoCharacteristics()
