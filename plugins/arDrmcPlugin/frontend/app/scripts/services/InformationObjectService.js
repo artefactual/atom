@@ -90,7 +90,7 @@ module.exports = function ($http, $q, SETTINGS) {
                 if (angular.isUndefined(k.associations)) {
                   k.associations = [];
                 }
-                k.associations.push(as.object_id);
+                k.associations.push(as);
               }
             }
           }

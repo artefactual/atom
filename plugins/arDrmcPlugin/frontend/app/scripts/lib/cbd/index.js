@@ -92,6 +92,9 @@
       .on('mouseover', jQuery.proxy(nodeFilter, null, this.hoverNode))
       .on('mouseout', jQuery.proxy(nodeFilter, null, this.hoverNode));
 
+    this.graphSVG.select('.edgePaths')
+      .on('click', jQuery.proxy(this.clickPath, this));
+
     this.graphSVG.select('.expandCollapseIcons')
       .on('click', jQuery.proxy(this.clickExpandCollapseIcon, this));
 
@@ -177,6 +180,17 @@
         context.events.emitEvent('unpin-node', [{ id: datum, index: index }, target]);
       }
     }
+  };
+
+  ContextBrowser.prototype.clickPath = function () {
+    var target = d3.event.target;
+    var jg = jQuery(target).closest('g');
+    if (!jg.length) {
+      return;
+    }
+    var datum = d3.select(target).datum();
+    var edge = this.graph.edge(datum);
+    this.events.emitEvent('click-path', [{ id: datum, edge: edge, event: d3.event }, target]);
   };
 
   ContextBrowser.prototype.clickSVG = function () {

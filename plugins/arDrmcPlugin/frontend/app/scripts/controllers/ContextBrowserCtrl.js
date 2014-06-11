@@ -33,7 +33,6 @@ module.exports = function ($scope, $element, $document, $modal, InformationObjec
         // Init context browser
         cb.init(tree, function (u) {
           var node = self.cb.graph.node(u);
-          console.log(node);
           // Hide AIPs
           if (node.level === 'aip') {
             node.hidden = true;
@@ -84,10 +83,22 @@ module.exports = function ($scope, $element, $document, $modal, InformationObjec
     });
   });
 
+  // TODO: this is not working, see ContextBrowser.prototype.clickSVG
   cb.events.on('click-background', function () {
     scope.$apply(function () {
       scope.unselectAll();
     });
+  });
+
+  cb.events.on('click-path', function (attrs) {
+    var type;
+    try {
+      type = attrs.edge.type;
+    } catch (e) {}
+    if (!angular.isDefined(type)) {
+      return false;
+    }
+    console.log('Edge clicked', type);
   });
 
 

@@ -60,6 +60,24 @@
     });
 
     parseTree(this.data.children, root);
+
+    // Add associations now that all the edges and vectors have been added
+    self.eachNode(function (n, e) {
+      if (!e.hasOwnProperty('associations')) {
+        return;
+      }
+      e.associations.forEach(function (u) {
+        var edgeId = e.id + ':' + u.object_id + ':associative'; // u.id (relation.id)?
+        self.addEdge(edgeId, e.id, u.object_id, {
+          type: 'associative',
+          relationId: u.id,
+          typeId: u.type_id, // TODO: label: '...'
+          objectId: u.object_id,
+          subjectId: u.subject_id,
+          constraint: false // TODO: https://github.com/cpettitt/dagre/issues/110
+        });
+      });
+    });
   };
 
   Graph.prototype.updateCollapsible = function (u, collapsed) {
@@ -134,26 +152,6 @@
     go(u);
 
     return list;
-  };
-
-  /**
-   * This method is like copy() (see BaseGraph), but ignores edges that are not
-   * hierarchical.
-   */
-  Graph.prototype.copyHierarchicalGraph = function () {
-    var copy = new this.constructor();
-    copy.graph(this.graph());
-    this.eachNode(function (u, value) {
-      copy.addNode(u, value);
-    });
-    this.eachEdge(function (e, u, v, value) {
-      // Copy only hierarchical edges
-      if (value.type === undefined ||  value.type === 'hierarchical') {
-        copy.addEdge(e, u, v, value);
-      }
-    });
-    copy._nextId = this._nextId;
-    return copy;
   };
 
   module.exports = Graph;

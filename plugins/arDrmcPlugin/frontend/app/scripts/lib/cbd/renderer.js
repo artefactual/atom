@@ -52,7 +52,7 @@
     positionEdgeLabels(result, svgEdgeLabels);
     positionEdgePaths(result, svgEdgePaths, this.edgeTension, this.edgeInterpolate);
 
-    // Expand/collapse icons
+    // Icons and associations
     drawAndPositionExpandCollapseIcons(result, graph, svg.select('g.expandCollapseIcons'), svg.select('g.nodes'));
     drawAndPositionSupportingTechnologyIcons(result, graph, masterGraph, svg.select('g.supportingTechnologyIcons'), svg.select('g.nodes'));
 
@@ -62,26 +62,7 @@
   };
 
   function runLayout (graph, layout) {
-    // Pass to dagre a copy of the graph discarding every edge that is not
-    // hierarchical. We want the layout to be defined only by hierarchical edges
-    // See https://github.com/cpettitt/dagre/issues/110
-    var result = layout.run(graph.copyHierarchicalGraph());
-
-    // Re-add associative edges and define a control point
-    // That point will be used later by positionEdgePaths
-    graph.eachEdge(function (e, u, v, value) {
-      if (value.type === 'associative') {
-        var src = result.node(u);
-        var tgt = result.node(v);
-        value.points = [
-          findMidPoint([
-            { x: src.x + 100, y: src.y },
-            { x: tgt.x + 100, y: tgt.y }
-          ])
-        ];
-        result.addEdge(e, u, v, value);
-      }
-    });
+    var result = layout.run(graph);
 
     // Copy labels to the result graph
     graph.eachNode(function (u, value) {
@@ -312,22 +293,12 @@
       var source = g.node(g.incidentNodes(e)[0]);
       var target = g.node(g.incidentNodes(e)[1]);
 
-      var points, p0, p1;
+      var points = value.points.slice();
+      var p0 = points.length === 0 ? target : points[0];
+      var p1 = points.length === 0 ? source : points[points.length - 1];
 
-      // For associative relationships
-      if (typeof value.type !== 'undefined' && value.type === 'associative') {
-        points = value.points.slice();
-        points.unshift(sideMiddlePoint(source));
-        points.push(sideMiddlePoint(target));
-      // For hierarchical relationships
-      } else {
-        points = value.points.slice();
-        p0 = points.length === 0 ? target : points[0];
-        p1 = points.length === 0 ? source : points[points.length - 1];
-
-        points.unshift(intersectRect(source, p0));
-        points.push(intersectRect(target, p1)); // TODO: use bpodgursky's shortening algorithm here
-      }
+      points.unshift(intersectRect(source, p0));
+      points.push(intersectRect(target, p1)); // TODO: use bpodgursky's shortening algorithm here
 
       return d3.svg.line()
         .x(function (d) {
