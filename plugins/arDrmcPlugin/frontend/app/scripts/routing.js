@@ -100,7 +100,7 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
     .state('main.reports.preview', {
       url: '/preview/{type}',
       controller: 'ReportsViewCtrl',
-      template: '<div ng-include="include"></div>'
+      templateUrl: SETTINGS.viewsPath + '/reports.view.html'
     })
     .state('main.reports.view', {
       url: '/saved/{slug}',
