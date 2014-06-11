@@ -51,21 +51,57 @@
             </div>
           </div>
           <div class="field">
-            <h3>Activity reports</h3>
+            <h3>High level ingest reports</h3>
             <div>
-              {{ activityReportCount || 0 }}
+              {{ browseData.overview.counts['High-level ingest reports'] || 0 }}
             </div>
           </div>
           <div class="field">
-            <h3>Fixity reports</h3>
+            <h3>Amount downloaded reports</h3>
             <div>
-              {{ fixityReportCount || 0 }}
+              {{ browseData.overview.counts['Amount downloaded reports'] || 0 }}
             </div>
           </div>
           <div class="field">
-            <h3>Characteristic reports</h3>
+            <h3>High level ingest reports</h3>
             <div>
-              {{ characteristicReportCount || 0 }}
+              {{ browseData.overview.counts['High-level ingest reports'] || 0 }}
+            </div>
+          </div>
+          <div class="field">
+            <h3>General download reports</h3>
+            <div>
+              {{ browseData.overview.counts['General download reports'] || 0 }}
+            </div>
+          </div>
+          <div class="field">
+            <h3>Granular ingest reports</h3>
+            <div>
+              {{ browseData.overview.counts['Granular ingest reports'] || 0 }}
+            </div>
+          </div>
+          <div class="field">
+            <h3>Fixity log reports</h3>
+            <div>
+              {{ browseData.overview.counts['Fixity'] || 0 }}
+            </div>
+          </div>
+          <div class="field">
+            <h3>Fixity error reports</h3>
+            <div>
+              {{ browseData.overview.counts['Fixity error reports'] || 0 }}
+            </div>
+          </div>
+          <div class="field">
+            <h3>Component level reports</h3>
+            <div>
+              {{ browseData.overview.counts['Component level reports'] || 0 }}
+            </div>
+          </div>
+          <div class="field">
+            <h3>Video characteristic reports</h3>
+            <div>
+              {{ browseData.overview.counts['Video characteristic reports'] || 0 }}
             </div>
           </div>
         </section>

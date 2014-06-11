@@ -1,25 +1,10 @@
 'use strict';
 
-module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTINGS) {
+module.exports = function ($scope, $modal, $state, $stateParams, ReportsService, SETTINGS) {
 
   var pull = function () {
     ReportsService.getBrowse().then(function (response) {
       $scope.browseData = response.data;
-
-      var activityReportCount = $scope.browseData.overview.counts['High-level ingest reports'] + $scope.browseData.overview.counts['Granular ingest reports'] + $scope.browseData.overview.counts['General download reports'] + $scope.browseData.overview.counts['Amount downloaded reports'];
-      if (angular.isDefined(activityReportCount) && !isNaN(activityReportCount)) {
-        $scope.activityReportCount = activityReportCount;
-      }
-
-      var fixityReportCount = $scope.browseData.overview.counts['Fixity error reports'] + $scope.browseData.overview.counts['Fixity reports'];
-      if (angular.isDefined(fixityReportCount) && !isNaN(fixityReportCount)) {
-        $scope.fixityReportCount = fixityReportCount;
-      }
-
-      var characteristicReportCount = $scope.browseData.overview.counts['File level reports'] + $scope.browseData.overview.counts['Component level reports'];
-      if (angular.isDefined(characteristicReportCount) && !isNaN(characteristicReportCount)) {
-        $scope.characteristicReportCount = characteristicReportCount;
-      }
     });
   };
 
@@ -44,7 +29,6 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
 
   // Toggle selected report
   $scope.toggleSelection = function (id) {
-    console.log(id);
     var index = $scope.selectedReports.indexOf(id);
     if (index > -1) {
       $scope.selectedReports.splice(index, 1);

@@ -4,6 +4,24 @@
     <h2 class="multiline">Save report</h2>
   </div>
 
+  <section>
+    <div class="content">
+      <section>
+        <h2>Parameters</h2>
+        <div>
+          <div class="field">
+            <h3>type</h3>
+            <div>{{ criteria.type }}</div>
+          </div>
+          <div class="field" ng-repeat="(label, value) in resource.criteria" ng-if="value != undefined">
+            <h3>{{ label }}</h3>
+            <div>{{ value }}</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
   <form name="modalContainer.form" ng-submit="submit()" novalidate>
     <div class="modal-body">
 
@@ -19,8 +37,6 @@
           <textarea rows="4" cols="30" name="description" ng-model="criteria.description" required></textarea>
         </div>
       </section>
-
-      <h3>Type: {{ criteria.type }}</h3>
 
     </div>
 
