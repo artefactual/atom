@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($state, $scope, $modalInstance, ReportsService) {
+module.exports = function ($state, $scope, $modalInstance) {
 
   $scope.reportTypes = [
     {
@@ -49,31 +49,10 @@ module.exports = function ($state, $scope, $modalInstance, ReportsService) {
   var copy = {};
   angular.copy($scope.criteria, copy);
 
-  // Checks for valid dates and generate report (with or without save)
-  $scope.submit = function () {
-    if ($scope.modalContainer.form.$invalid) {
-      return;
-    }
-    if ($scope.modalContainer.dateRange === 'all') {
-      delete $scope.criteria.range;
-    }
-    // Access to the server
-    ReportsService.saveReport($scope.criteria).then(function (data) {
-      $scope.id = data.id;
-    });
-    // Close
-    $modalInstance.close();
-  };
-
   // Use parameters from modal to generate a preview (not save) a report
   $scope.generate = function () {
     $modalInstance.close();
     $state.go('main.reports.preview', { type: $scope.criteria.type });
-  };
-
-  $scope.submitAndOpen = function () {
-    $scope.submit();
-    $state.go('main.reports.view', { id: $scope.id });
   };
 
   // Reset all fields to empty

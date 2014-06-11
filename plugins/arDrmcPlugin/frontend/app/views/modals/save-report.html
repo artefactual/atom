@@ -1,0 +1,33 @@
+<div class="modal-generate-report">
+  <div class="modal-header">
+    <button type="button" ng-click="cancel()" class="close">×</button>
+    <h2 class="multiline">Save report</h2>
+  </div>
+
+  <form name="modalContainer.form" ng-submit="submit()" novalidate>
+    <div class="modal-body">
+
+      <section class="form-item">
+
+        <div class="form-item">
+          <label for="name">Name<span class="input-required">*</span></label>
+          <input type="text" name="name" ng-model="criteria.name" name="savedName" required/>
+        </div>
+
+        <div class="form-item">
+          <label for="description">Description<span class="input-required">*</span></label>
+          <textarea rows="4" cols="30" name="description" ng-model="criteria.description" required></textarea>
+        </div>
+      </section>
+
+      <h3>Type: {{ criteria.type }}</h3>
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': modalContainer.form.$invalid }" ng-disabled="modalContainer.form.$invalid">Save</button>
+      <button class="btn" ng-click="reset()">Reset</button>
+      <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>
