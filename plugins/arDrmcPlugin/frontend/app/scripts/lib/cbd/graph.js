@@ -34,6 +34,9 @@
         if (element.hasOwnProperty('supporting_technologies_count')) {
           data.supporting_technologies_count = element.supporting_technologies_count;
         }
+        if (element.hasOwnProperty('associations')) {
+          data.associations = element.associations;
+        }
         // Add node
         self.addNode(element.id, data);
         // Add relation

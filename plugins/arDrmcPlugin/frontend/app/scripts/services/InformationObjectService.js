@@ -55,30 +55,55 @@ module.exports = function ($http, $q, SETTINGS) {
 
   this.getTree = function (id) {
     var self = this;
-    return $http({
-      method: 'GET',
-      url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/tree'
-    }).success(function (data)
-    {
-      // Iterate over all the elements of the tree and add a property "level"
-      // containing a CSS class for every level of description. Should I be
-      // doing this in cbd/graph.js?
-      function addLevelCssClass (data)
-      {
-        for (var i in data)
-        {
-          var e = data[i];
-          e.level = self.levels[e.level_of_description_id];
+    var queries = [
+      // Obtain tree
+      $http({
+        method: 'GET',
+        url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/tree'
+      }),
+      // Obtain associations
+      $http({
+        method: 'GET',
+        url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/tree/associations'
+      })
+    ];
+    return $q.all(queries).then(function (responses) {
+      var _t = responses[0].data;
+      var _a = responses[1].data;
 
-          if (typeof e.children !== 'undefined')
-          {
-            addLevelCssClass(e.children);
+      // Recursive function
+      function i (set) {
+        if (!angular.isArray(set)) {
+          set = [set];
+        }
+        for (var j in set) {
+          // Current item
+          var k = set[j];
+          // Set level
+          k.level = self.levels[k.level_of_description_id];
+          // Add associations. There may be more than one, so we won't break the
+          // loop after the first match.
+          if (_a.length) {
+            for (var l = 0; l < _a.length; l++) {
+              var as = _a[l];
+              if (as.object_id === k.id) {
+                if (angular.isUndefined(k.associations)) {
+                  k.associations = [];
+                }
+                k.associations.push(as.object_id);
+              }
+            }
+          }
+          // Recursivity
+          if (angular.isDefined(k.children) && k.children !== null) {
+            i(k.children);
           }
         }
       }
 
-      data.level = self.levels[data.level_of_description_id];
-      addLevelCssClass(data.children);
+      i(_t);
+
+      return _t;
     });
   };
 

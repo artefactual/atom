@@ -26,14 +26,14 @@ module.exports = function ($scope, $element, $document, $modal, InformationObjec
   scope.pull = function () {
     var self = this;
     InformationObjectService.getTree(scope.id)
-      .then(function (response) {
-
+      .then(function (tree) {
         // Empty container
         container.empty();
 
         // Init context browser
-        cb.init(response.data, function (u) {
+        cb.init(tree, function (u) {
           var node = self.cb.graph.node(u);
+          console.log(node);
           // Hide AIPs
           if (node.level === 'aip') {
             node.hidden = true;
