@@ -4,7 +4,7 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
 
   var getGenerated = function () {
     ReportsService.getGenerated($stateParams.type).then(function (response) {
-      $scope.include = SETTINGS.viewsPath + '/partials/' + $stateParams.type + '.html';
+      $scope.include = SETTINGS.viewsPath + '/partials/report_' + $stateParams.type + '.html';
       $scope.reportData = response.data;
     });
   };
