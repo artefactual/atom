@@ -114,7 +114,7 @@
         <!-- Single node detail -->
         <div ng-if="hasNodeSelected()" class="cb-sidebar-section">
           <!-- Heading -->
-          <h3 class="drmc-color-{{ currentNode.data.level }}">{{ currentNode.data.title }}</h3>
+          <h3 class="drmc-color-{{ currentNode.data.level }}">{{ currentNode.data.title || 'Untitled' }}</h3>
 
           <!-- TMS metadata -->
           <div ng-if="currentNode.data.tms" class="cb-sidebar-subsection cb-sidebar-subsection-collapsible" ng-class="{ collapsed: tmsCollapsed }">
