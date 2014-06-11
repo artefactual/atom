@@ -13,7 +13,7 @@ module.exports = function ($http, SETTINGS) {
     return $http({
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/report',
-      params: { type: params }
+      params: params
     });
   };
 

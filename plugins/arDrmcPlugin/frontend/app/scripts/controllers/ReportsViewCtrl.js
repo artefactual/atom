@@ -3,7 +3,11 @@
 module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTINGS) {
 
   var getGenerated = function () {
-    ReportsService.getGenerated($stateParams.type).then(function (response) {
+    // format dates back to UNIX timestamp before submitting
+    $stateParams.to = new Date($stateParams.to).getTime();
+    $stateParams.from = new Date($stateParams.from).getTime();
+
+    ReportsService.getGenerated($stateParams).then(function (response) {
       $scope.include = SETTINGS.viewsPath + '/partials/report_' + $stateParams.type + '.html';
       $scope.reportData = response.data;
     });

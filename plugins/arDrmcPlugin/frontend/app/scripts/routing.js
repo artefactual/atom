@@ -98,7 +98,7 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       templateUrl: SETTINGS.viewsPath + '/reports.browser.html'
     })
     .state('main.reports.preview', {
-      url: '/preview/{type}',
+      url: '/preview/{type}/{to}/{from}',
       controller: 'ReportsViewCtrl',
       templateUrl: SETTINGS.viewsPath + '/reports.view.html'
     })
