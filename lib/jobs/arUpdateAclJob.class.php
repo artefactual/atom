@@ -32,9 +32,8 @@ class arUpdateAclJob extends arBaseJob
     $this->addRequiredParameters(array(
       'objectIds',
       'action',
-      'grantDeny',
-      'userIds',
-      'groupIds'
+      'grant',
+      'deny'
     ));
 
     // parent::run() will check parameters and throw an exception if any are missing
@@ -47,13 +46,10 @@ class arUpdateAclJob extends arBaseJob
     {
       $aclEntry = new QubitElasticAclEntry;
 
-      $aclEntry->id = (string)$objectId;
+      $aclEntry->id = $objectId;
       $aclEntry->action = $parameters['action'];
-
-      $grantDeny = $parameters['grantDeny'] ? 'grant' : 'deny';
-
-      $aclEntry->$grantDeny->groupIds = $parameters['groupIds'];
-      $aclEntry->$grantDeny->userIds = $parameters['userIds'];
+      $aclEntry->grant = $parameters['grant'];
+      $aclEntry->deny = $parameters['deny'];
 
       arElasticSearchInformationObject::updateAcl($objectId, $aclEntry);
 

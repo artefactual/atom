@@ -61,6 +61,16 @@ class DigitalObjectBrowseAction extends DefaultBrowseAction
 
     parent::execute($request);
 
+    $userId = sfContext::getInstance()->getUser()->getUserID();
+    $groupIds = array_map(
+      function($x)
+      {
+        return (int)$x->id;
+      },
+
+      sfContext::getInstance()->getUser()->getAclGroups()
+    );
+
     // Create query object
     $this->queryBool->addMust(new \Elastica\Query\Term(array('hasDigitalObject' => true)));
 
@@ -77,6 +87,21 @@ class DigitalObjectBrowseAction extends DefaultBrowseAction
 
     // Filter drafts
     QubitAclSearch::filterDrafts($this->filterBool);
+
+    // Set Acl rule filters
+
+    if ($userId)
+    {
+      $this->filterBool->addShould(new \Elastica\Filter\Term(array('aclEntry.grant.userIds' => array($userId))));
+      $this->filterBool->addMustNot(new \Elastica\Filter\Term(array('aclEntry.deny.userIds' => array($userId))));
+    }
+
+    $this->filterBool->addMustNot(new \Elastica\Filter\Term(array('aclEntry.deny.groupIds' => array($groupIds))));
+
+    foreach ($groupIds as $groupId)
+    {
+      $this->filterBool->addShould(new \Elastica\Filter\Term(array('aclEntry.grant.groupIds' => $groupId)));
+    }
 
     // Set filter
     if (0 < count($this->filterBool->toArray()))
