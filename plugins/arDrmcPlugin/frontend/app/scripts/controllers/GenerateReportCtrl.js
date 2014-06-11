@@ -67,6 +67,7 @@ module.exports = function ($state, $scope, $modalInstance, ReportsService) {
 
   // Use parameters from modal to generate a preview (not save) a report
   $scope.generate = function () {
+    $modalInstance.close();
     $state.go('main.reports.preview', { type: $scope.criteria.type });
   };
 

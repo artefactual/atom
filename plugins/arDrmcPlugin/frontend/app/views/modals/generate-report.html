@@ -4,77 +4,56 @@
     <h2 class="multiline">Generate new report</h2>
   </div>
 
-  <form name="modalContainer.form" ng-submit="submit()" novalidate>
-    <div class="modal-body">
+  <div class="modal-body">
 
-      <!-- Select report type -->
-      <section class="form-item">
-        <label>Choose report type<span class="input-required">*</span></label>
-        <select name="type" ng-model="criteria.type" ng-options="report.type as report.name for report in reportTypes" required>
-          <option value="">Select a type</option>
-        </select>
-      </section>
+    <!-- Select report type -->
+    <section class="form-item">
+      <label>Choose report type<span class="input-required">*</span></label>
+      <select name="type" ng-model="criteria.type" ng-options="report.type as report.name for report in reportTypes" required>
+        <option value="">Select a type</option>
+      </select>
+    </section>
 
-      <!-- Select dates -->
-      <section class="form-item">
-        Choose date range
+    <!-- Select dates -->
+    <section class="form-item">
+      Choose date range
 
-        <label>
-          <input type="radio" name="dateRange" value="all" ng-model="modalContainer.dateRange"/>
-          All
-        </label>
+      <label>
+        <input type="radio" name="dateRange" value="all" ng-model="modalContainer.dateRange"/>
+        All
+      </label>
 
-        <label>
-          <input type="radio" name="dateRange" value="specified" ng-model="modalContainer.dateRange"/>
-          Specified date range
-        </label>
+      <label>
+        <input type="radio" name="dateRange" value="specified" ng-model="modalContainer.dateRange"/>
+        Specified date range
+      </label>
 
-        <div class="ar-date-range-field" name="range" ng-model="criteria.range" ng-if="modalContainer.dateRange == 'specified'">
-          <div class="alert" ng-if="modalContainer.form.range.$invalid && modalContainer.form.range.$dirty">
-            Please enter valid dates
+      <div class="ar-date-range-field" name="range" ng-model="criteria.range" ng-if="modalContainer.dateRange == 'specified'">
+        <div class="alert" ng-if="modalContainer.form.range.$invalid && modalContainer.form.range.$dirty">
+          Please enter valid dates
+        </div>
+        <div class="row-fluid">
+          <div class="form-item span6">
+            <label>
+              From
+              <input class="from" type="date"/>
+            </label>
           </div>
-          <div class="row-fluid">
-            <div class="form-item span6">
-              <label>
-                From
-                <input class="from" type="date"/>
-              </label>
-            </div>
-            <div class="form-item span6">
-              <label>
-                To
-                <input class="to" type="date"/>
-              </label>
-            </div>
+          <div class="form-item span6">
+            <label>
+              To
+              <input class="to" type="date"/>
+            </label>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <hr/>
+  </div>
 
-      <!-- Save report -->
-      <section class="form-item">
-        <h3 class="input-title">Save report as</h3>
-
-        <div class="form-item">
-          <label for="name">Name<span class="input-required">*</span></label>
-          <input type="text" name="name" ng-model="criteria.name" name="savedName" required/>
-        </div>
-
-        <div class="form-item">
-          <label for="description">Description<span class="input-required">*</span></label>
-          <textarea rows="4" cols="30" name="description" ng-model="criteria.description" required></textarea>
-        </div>
-      </section>
-
-    </div>
-
-    <div class="modal-footer">
-      <button ng-click="generate()" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': modalContainer.form.$invalid }" ng-disabled="modalContainer.form.$invalid">Preview</button>
-      <button type="submit" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': modalContainer.form.$invalid }" ng-disabled="modalContainer.form.$invalid">Save</button>
-      <button class="btn" ng-click="submitAndOpen()" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': modalContainer.form.$invalid }" ng-disabled="modalContainer.form.$invalid">Save and open</button>
-      <button class="btn" ng-click="reset()">Reset</button>
-      <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
-    </div>
-  </form>
+  <div class="modal-footer">
+    <button ng-click="generate()" class="btn btn-primary">Generate & view</button>
+    <button class="btn" ng-click="reset()">Reset</button>
+    <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
+  </div>
 </div>
