@@ -24,6 +24,7 @@ class ApiInformationObjectsTreeAssociationsAction extends QubitApiAction
     $sql = <<<EOL
 SELECT
   node.id,
+  relation.id as relation_id,
   relation.type_id,
   relation.object_id
 FROM
@@ -54,6 +55,7 @@ EOL;
     foreach ($results as $item)
     {
       $data[] = array(
+        'id' => (int)$item->relation_id,
         'type_id' => (int)$item->type_id,
         'subject_id' => (int)$item->id,
         'object_id' => (int)$item->object_id

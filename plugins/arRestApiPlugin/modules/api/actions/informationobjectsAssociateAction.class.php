@@ -60,6 +60,7 @@ class ApiInformationObjectsAssociateAction extends QubitApiAction
     $io->save();
 
     return array(
+      'id' => (int)$relation->id,
       'source_id' => (int)$io->id,
       'target_id' => (int)$payload->target_id,
       'type_id' => (int)$payload->type_id
