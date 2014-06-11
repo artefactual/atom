@@ -155,7 +155,12 @@ class QubitTerm extends BaseTerm
     ARTWORK_COMPONENT_ID = 179,
     ARTWORK_MATERIAL_ID = 180,
     SUPPORTING_DOCUMENTATION_ID = 181,
-    SUPPORTING_TECHNOLOGY_ID = 182;
+    SUPPORTING_TECHNOLOGY_ID = 182,
+
+    // Job statuses
+    JOB_STATUS_IN_PROGRESS_ID = 183,
+    JOB_STATUS_COMPLETED_ID = 184,
+    JOB_STATUS_ERROR_ID = 185;
 
 
   public static function isProtected($id)

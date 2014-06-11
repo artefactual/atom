@@ -126,6 +126,12 @@ class arElasticSearchMapping
       $this->processPropertyAttributes($typeName, $typeProperties);
     }
 
+    // Next iteration to embed partial foreing types
+    foreach ($this->mapping as $typeName => &$typeProperties)
+    {
+      $this->processPartialForeignTypes($typeProperties);
+    }
+
     // Next iteration to embed nested types
     foreach ($this->mapping as $typeName => &$typeProperties)
     {
@@ -150,6 +156,7 @@ class arElasticSearchMapping
       {
         case '_attributes':
         case '_foreign_types':
+        case '_partial_foreign_types':
           unset($mapping[$key]);
 
           break;
@@ -196,34 +203,14 @@ class arElasticSearchMapping
           $nestedI18nFields = array();
           foreach ($this->getI18nFields(lcfirst(sfInflector::camelize($typeName))) as $fieldName)
           {
-            $nestedI18nFields[$fieldName] = array(
-              'type' => 'multi_field',
-              'fields' => array(
-                $fieldName => array(
-                  'type' => 'string',
-                  'index' => 'analyzed',
-                  'include_in_all' => true),
-                'untouched' => array(
-                  'type' => 'string',
-                  'index' => 'not_analyzed',
-                  'include_in_all' => false)));
+            $nestedI18nFields[$fieldName] = $this->getI18nFieldMapping($fieldName);
           }
 
           if (isset($typeProperties['_attributes']['i18nExtra']))
           {
             foreach ($this->getI18nFields(lcfirst(sfInflector::camelize($typeProperties['_attributes']['i18nExtra']))) as $fieldName)
             {
-              $nestedI18nFields[$fieldName] = array(
-                'type' => 'multi_field',
-                'fields' => array(
-                  $fieldName => array(
-                    'type' => 'string',
-                    'index' => 'analyzed',
-                    'include_in_all' => true),
-                  'untouched' => array(
-                    'type' => 'string',
-                    'index' => 'not_analyzed',
-                    'include_in_all' => false)));
+              $nestedI18nFields[$fieldName] = $this->getI18nFieldMapping($fieldName);
             }
           }
 
@@ -243,21 +230,7 @@ class arElasticSearchMapping
           }
 
           // i18n documents (one per culture)
-          $nestedI18nObjects = array();
-          foreach ($languages as $setting)
-          {
-            $culture = $setting->getValue(array('sourceCulture' => true));
-            $nestedI18nObjects[$culture] = array(
-              'type' => 'object',
-              'dynamic' => 'strict',
-              'include_in_parent' => false,
-              'properties' => $nestedI18nFields);
-          }
-
-          // Create a list of languages for faceting
-          $nestedI18nObjects['languages'] = array(
-            'type' => 'string',
-            'index' => 'not_analyzed');
+          $nestedI18nObjects = $this->getNestedI18nObjects($languages, $nestedI18nFields);
 
           // Main i18n object
           $this->setIfNotSet($typeProperties['properties'], 'i18n', array(
@@ -332,6 +305,59 @@ class arElasticSearchMapping
   }
 
   /**
+   * Given a mapping, adds partial foreing objects within it
+   */
+  protected function processPartialForeignTypes(array &$typeProperties)
+  {
+    // Stop execution if any partial foreign type was assigned
+    if (!isset($typeProperties['_partial_foreign_types']))
+    {
+      return;
+    }
+
+    foreach ($typeProperties['_partial_foreign_types'] as $fieldName => $mapping)
+    {
+      $fieldNameCamelized = lcfirst(sfInflector::camelize($fieldName));
+
+      if (isset($mapping['_i18nFields']))
+      {
+        $languages = QubitSetting::getByScope('i18n_languages');
+        if (1 > count($languages))
+        {
+          throw new sfException('The database settings don\'t content any language.');
+        }
+
+        // Add source culture propertie
+        $this->setIfNotSet($mapping['properties'], 'sourceCulture', array('type' => 'string', 'index' => 'not_analyzed', 'include_in_all' => false));
+
+        $nestedI18nFields = array();
+        foreach ($mapping['_i18nFields'] as $i18nFieldName)
+        {
+          $i18nFieldNameCamelized = lcfirst(sfInflector::camelize($i18nFieldName));
+
+          // Create mapping for i18n field
+          $nestedI18nFields[$i18nFieldNameCamelized] = $this->getI18nFieldMapping($i18nFieldNameCamelized);
+        }
+
+        // i18n documents (one per culture)
+        $nestedI18nObjects = $this->getNestedI18nObjects($languages, $nestedI18nFields);
+
+        // Main i18n object
+        $this->setIfNotSet($mapping['properties'], 'i18n', array(
+          'type' => 'object',
+          'dynamic' => 'strict',
+          'include_in_root' => true,
+          'properties' => $nestedI18nObjects));
+      }
+
+      // Add id of the partial foreign resource
+      $mapping['properties']['id'] = array('type' => 'integer', 'index' => 'not_analyzed', 'include_in_all' => 'false');
+
+      $typeProperties['properties'][$fieldNameCamelized] = $mapping;
+    }
+  }
+
+  /**
    * Exclude nested types if there are not root objects using them
    */
   protected function excludeNestedOnlyTypes()
@@ -362,5 +388,41 @@ class arElasticSearchMapping
     {
       $entry[$key] = $value;
     }
+  }
+
+  protected function getI18nFieldMapping($fieldName)
+  {
+    return   array(
+      'type' => 'multi_field',
+      'fields' => array(
+        $fieldName => array(
+          'type' => 'string',
+          'index' => 'analyzed',
+          'include_in_all' => true),
+        'untouched' => array(
+          'type' => 'string',
+          'index' => 'not_analyzed',
+          'include_in_all' => false)));
+  }
+
+  protected function getNestedI18nObjects($languages, $nestedI18nFields)
+  {
+    $mapping = array();
+    foreach ($languages as $setting)
+    {
+      $culture = $setting->getValue(array('sourceCulture' => true));
+      $mapping[$culture] = array(
+        'type' => 'object',
+        'dynamic' => 'strict',
+        'include_in_parent' => false,
+        'properties' => $nestedI18nFields);
+    }
+
+    // Create a list of languages for faceting
+    $mapping['languages'] = array(
+      'type' => 'string',
+      'index' => 'not_analyzed');
+
+    return $mapping;
   }
 }

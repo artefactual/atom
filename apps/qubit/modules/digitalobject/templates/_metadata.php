@@ -8,15 +8,13 @@
     <?php echo render_show(__('Access'), __('Restricted')) ?>
   <?php endif; ?>
 
-  <?php if (QubitAcl::check($resource->informationObject, 'readMaster')): ?>
-    <?php if (QubitTerm::EXTERNAL_URI_ID == $resource->usageId): ?>
-      <?php if (check_field_visibility('app_element_visibility_digital_object_url')): ?>
-        <?php echo render_show(__('URL'), render_value($resource->path)) ?>
-      <?php endif; ?>
-    <?php else: ?>
-      <?php if (check_field_visibility('app_element_visibility_digital_object_file_name')): ?>
-        <?php echo render_show(__('Filename'), $resource->name) ?>
-      <?php endif; ?>
+  <?php if (QubitTerm::EXTERNAL_URI_ID == $resource->usageId): ?>
+    <?php if (check_field_visibility('app_element_visibility_digital_object_url')): ?>
+      <?php echo render_show(__('URL'), render_value($resource->path)) ?>
+    <?php endif; ?>
+  <?php else: ?>
+    <?php if (check_field_visibility('app_element_visibility_digital_object_file_name')): ?>
+      <?php echo render_show(__('Filename'), $resource->name) ?>
     <?php endif; ?>
   <?php endif; ?>
 

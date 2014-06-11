@@ -18,30 +18,34 @@
  */
 
 /**
- * Context menu for the repository logo
- *
- * @package AccesstoMemory
- * @subpackage repository
+ * @package    AccesstoMemory
+ * @subpackage jobs
+ * @author     Mike G <mikeg@artefactual.com>
  */
-class RepositoryLogoComponent extends sfComponent
+class JobsDeleteAction extends sfAction
 {
+  /**
+   * Display a paginated hitlist of information objects (top-level only)
+   *
+   * @param sfRequest $request
+   */
   public function execute($request)
   {
-    if (isset($request->getAttribute('sf_route')->resource))
+    if (!$this->context->user || !$this->context->user->isAuthenticated())
     {
-      $this->resource = $request->getAttribute('sf_route')->resource;
-    }
-    else
-    {
-      return sfView::NONE;
+      QubitAcl::forwardUnauthorized();
     }
 
-    if ($this->resource instanceof QubitInformationObject)
+    $jobs = QubitJob::getJobsByUser($this->context->user);
+
+    foreach ($jobs as $job)
     {
-      if (null === $this->resource = $this->resource->getRepository(array('inherit' => true)))
+      if ($job->statusId != QubitTerm::JOB_STATUS_IN_PROGRESS_ID)
       {
-        return sfView::NONE;
+        $job->delete();
       }
     }
+
+    $this->redirect(array('module' => 'jobs', 'action' => 'browse'));
   }
 }

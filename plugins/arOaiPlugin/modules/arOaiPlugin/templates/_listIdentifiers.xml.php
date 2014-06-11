@@ -9,8 +9,8 @@
       <setSpec><?php echo QubitOai::getSetSpec($record->getLft(), $collectionsTable)?></setSpec>
     </header>
 <?php endforeach; ?>
-  </ListIdentifiers>
   <?php if($remaining > 0):?>
     <resumptionToken><?php echo $resumptionToken?></resumptionToken>
   <?php endif?>
+  </ListIdentifiers>
 <?php endif?>

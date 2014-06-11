@@ -18,30 +18,36 @@
  */
 
 /**
- * Context menu for the repository logo
+ * A bare bones worker to test Gearman / AtoM jobs
  *
- * @package AccesstoMemory
- * @subpackage repository
+ * @package    symfony
+ * @subpackage jobs
  */
-class RepositoryLogoComponent extends sfComponent
+
+class arTestJob extends arBaseJob
 {
-  public function execute($request)
+  public function run($parameters)
   {
-    if (isset($request->getAttribute('sf_route')->resource))
+    // This will be an array of required parameter names
+    $this->addRequiredParameters(array());
+
+    // parent::run() will check parameters and throw an exception if any are missing
+    parent::run($parameters);
+
+    $this->info("Got a test job! id: {$this->job->id}\n");
+
+    if (isset($parameters['error']))
     {
-      $this->resource = $request->getAttribute('sf_route')->resource;
+      $this->job->setStatusError('The test worker broke!');
     }
     else
     {
-      return sfView::NONE;
+      $this->job->setStatusCompleted();
     }
 
-    if ($this->resource instanceof QubitInformationObject)
-    {
-      if (null === $this->resource = $this->resource->getRepository(array('inherit' => true)))
-      {
-        return sfView::NONE;
-      }
-    }
+    // Don't forget to set the job status & save at the end!
+    $this->job->save();
+
+    return true;
   }
 }

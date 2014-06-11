@@ -17,11 +17,21 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class PhysicalObjectBrowseAction extends sfAction
+/**
+ * @package    AccesstoMemory
+ * @subpackage jobs
+ * @author     Mike G <mikeg@artefactual.com>
+ */
+class JobsBrowseAction extends DefaultBrowseAction
 {
   public function execute($request)
   {
-    if (!$this->getUser()->isAuthenticated())
+    parent::execute($request);
+
+    $this->user = $this->context->user;
+    $this->refreshInterval = 10000;
+
+    if (!$this->user || !$this->user->isAuthenticated())
     {
       QubitAcl::forwardUnauthorized();
     }
@@ -31,43 +41,31 @@ class PhysicalObjectBrowseAction extends sfAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
-    $criteria = new Criteria;
-
-    // Do source culture fallback
-    $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitPhysicalObject');
-
-    if (isset($request->subquery))
+    if (!isset($request->filter))
     {
-      $criteria->addJoin(QubitPhysicalObject::ID, QubitPhysicalObjectI18n::ID);
-      $criteria->add(QubitPhysicalObjectI18n::CULTURE, $this->context->user->getCulture());
-      $criteria->add(QubitPhysicalObjectI18n::NAME, "$request->subquery%", Criteria::LIKE);
+      $request->filter = 'all';
     }
 
-    switch ($request->sort)
+    if (!isset($request->autoRefresh))
     {
-      case 'nameDown':
-        $criteria->addDescendingOrderByColumn('name');
+      $request->autoRefresh = false;
+    }
 
-        break;
+    $criteria = new Criteria;
 
-      case 'locationDown':
-        $criteria->addDescendingOrderByColumn('location');
+    // Filter out the history of other users' jobs if not an administrator.
+    if (!$this->user->isAdministrator())
+    {
+      $criteria->add(QubitJob::USER_ID, $this->user->getUserID());
+    }
 
-        break;
-
-      case 'locationUp':
-        $criteria->addAscendingOrderByColumn('location');
-
-        break;
-
-      case 'nameUp':
-      default:
-        $request->sort = 'nameUp';
-        $criteria->addAscendingOrderByColumn('name');
+    if ($request->filter === 'active')
+    {
+      $criteria->add(QubitJob::STATUS_ID, QubitTerm::JOB_STATUS_IN_PROGRESS_ID);
     }
 
     // Page results
-    $this->pager = new QubitPager('QubitPhysicalObject');
+    $this->pager = new QubitPager('QubitJob');
     $this->pager->setCriteria($criteria);
     $this->pager->setMaxPerPage($request->limit);
     $this->pager->setPage($request->page);

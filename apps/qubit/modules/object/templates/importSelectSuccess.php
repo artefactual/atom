@@ -12,7 +12,6 @@
 <?php end_slot() ?>
 
 <?php slot('content') ?>
-
   <?php if ($sf_user->hasFlash('error')): ?>
     <div class="messages error">
       <h3><?php echo __('Error encountered') ?></h3>

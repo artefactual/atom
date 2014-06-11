@@ -39,12 +39,14 @@ EOF;
    */
   protected function configure()
   {
+    $this->addOptions(array(
+      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
+      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
+      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+    ));
+
     $this->addArguments(array(
-      new sfCommandArgument(
-        'filename',
-        sfCommandArgument::REQUIRED,
-        'The custom logic file (containing PHP logic).'
-      )
+      new sfCommandArgument('filename', sfCommandArgument::REQUIRED,'The custom logic file (containing PHP logic).')
     ));
 
     // TODO: add capability to define ad-hoc arguments
@@ -61,6 +63,7 @@ EOF;
     }
 
     // initialized data connection in case it's needed
+    $sf_context = sfContext::createInstance($this->configuration);
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
