@@ -68,11 +68,21 @@
           <div class="browse-view-list">
             <table class="table table-bordered">
               <thead>
-                <th>Name</th>
-                <th>Report type</th>
-                <th>Created</th>
-                <th>Description</th>
-                <th>User</th>
+                <th>
+                  <ar-sort-header field="name" label="Name" criteria="criteria"></ar-sort-header>
+                </th>
+                <th>
+                  <ar-sort-header field="type" label="Added" criteria="criteria"></ar-sort-header>
+                </th>
+                <th>
+                  <ar-sort-header field="createdAt" label="Added" criteria="criteria"></ar-sort-header>
+                </th>
+                <th>
+                  <ar-sort-header field="description" label="Description" criteria="criteria"></ar-sort-header>
+                </th>
+                <th>
+                  <ar-sort-header field="user['name']" label="User" criteria="criteria"></ar-sort-header>
+                </th>
                 <th>Delete</th>
               </thead>
               <tbody>
