@@ -205,8 +205,11 @@
     <div class="dashboard-widget">
       <h3 class="icon-list">Collection totals</h3>
       <div class="tab-like-content short-widget-content">
-        <ul class="unstyled" ng-repeat="items in ingestionSummary.data">
-          <li><strong>{{ items.type }}</strong>&nbsp&nbsp{{ items.total }}</li>
+        <ul class="unstyled">
+          <li ng-repeat="item in ingestionSummary.data">
+            <strong>{{ item.type }}</strong>
+            &nbsp&nbsp{{ item.total }}
+          </li>
         </ul>
       </div>
     </div>
