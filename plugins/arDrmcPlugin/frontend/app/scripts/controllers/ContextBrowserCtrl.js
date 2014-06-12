@@ -2,7 +2,7 @@
 
 var ContextBrowser = require('../lib/cbd');
 
-module.exports = function ($scope, $element, $document, $modal, InformationObjectService, FullscreenService, SETTINGS) {
+module.exports = function ($scope, $element, $document, $modal, ModalAssociativeRelationship, InformationObjectService, FullscreenService) {
 
   // Aliases (not needed, just avoiding the refactor now)
   var scope = $scope;
@@ -300,36 +300,19 @@ module.exports = function ($scope, $element, $document, $modal, InformationObjec
     } else {
       throw 'I don\'t know what you are trying to do!';
     }
-    // Modal configuration
-    var modalConfiguration = {
-      templateUrl: SETTINGS.viewsPath + '/modals/create-associative-relationship.html',
-      backdrop: true,
-      scope: scope.$new(),
-      controller: 'CreateAssociativeRelationshipCtrl',
-      resolve: {
-        sources: function () {
-          var r = [];
-          for (var i = 0; i < source.length; i++) {
-            r.push({
-              id: source[i],
-              label: scope.cb.graph.node(source[i]).label
-            });
-          }
-          return r;
-        }
-      }
-    };
     // Prompt the user
     scope.cb.promptNodeSelection({
       exclude: source,
       action: function (target) {
-        modalConfiguration.resolve.target = function () {
-          return {
-            id: target,
-            label: scope.cb.graph.node(target).label
-          };
-        };
-        $modal.open(modalConfiguration).result.then(function (type) {
+        var s = [];
+        for (var i = 0; i < source.length; i++) {
+          s.push({
+            id: source[i],
+            label: scope.cb.graph.node(source[i]).label
+          });
+        }
+        var t = { id: target, label: scope.cb.graph.node(target).label };
+        ModalAssociativeRelationship.create(s, t).result.then(function (type) {
           scope.cb.createAssociativeRelationship(source, target, type);
         }, function () {
           scope.cb.cancelNodeSelection();

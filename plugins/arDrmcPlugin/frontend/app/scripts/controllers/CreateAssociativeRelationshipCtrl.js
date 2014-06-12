@@ -1,11 +1,14 @@
 'use strict';
 
-module.exports = function ($scope, $modalInstance, InformationObjectService, TaxonomyService, sources, target) {
+module.exports = function ($scope, $modalInstance, InformationObjectService, TaxonomyService, id, sources, target) {
 
   // HACK: form scoping issue within modals, see
   // - http://stackoverflow.com/a/19931221/2628967
   // - https://github.com/angular-ui/bootstrap/issues/969
   $scope.modalContainer = {};
+
+  // New record?
+  $scope.new = id === null;
 
   // Associative relationships types
   TaxonomyService.getTerms('ASSOCIATIVE_RELATIONSHIP_TYPES').then(function (data) {
