@@ -44,7 +44,7 @@ EOL;
 
     if (0 === count($results))
     {
-      throw new QubitApi404Exception('Information object not found');
+      return array();
     }
     else if (false === $results)
     {
