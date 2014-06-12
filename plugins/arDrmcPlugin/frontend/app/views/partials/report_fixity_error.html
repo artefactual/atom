@@ -1,42 +1,44 @@
 <h1>Fixity report: Fixity error</h1>
 
-<!-- Global collection check, all data can be placed in one table -->
-<table class="table table-bordered">
-  <thead>
-    <th>AIP name</th>
-    <th>UUID</th>
-    <th>Part of</th>
-    <th>Attached to</th>
-    <th>Fail time</th>
-    <th>Replaced start</th>
-    <th>Replaced end</th>
-    <th>Duration</th>
-    <th>By</th>
-    <th>Outcome</th>
-  </thead>
-  <tbody>
-    <tr ng-repeat="log in reportData">
-      <td>{{ log.aip.name }}</td>
-      <td>{{ log.aip.uuid }}</td>
-      <td>{{ log.aip.part_of }}</td>
-      <td>{{ log.aip.attached_to }}</td>
-      <td>{{ log.fail_time }}</td>
-      <td>{{ log.recovery.time_started }}</td>
-      <td>{{ log.recovery.time_completed }}</td>
-      <td>{{ log.recovery.duration }}</td>
-      <td>{{ log.recovery.user }}</td>
-      <td>{{ log.recovery.success }}</td>
-    </tr>
-    <!-- TODO: This section not done. waiting on data -->
-      <tr ng-if="table.totals">
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+<div class="reports-unit">
+  <table class="table table-bordered">
+    <thead>
+      <th>AIP name</th>
+      <th>UUID</th>
+      <th>Part of</th>
+      <th>Attached to</th>
+      <th>Fail time</th>
+      <th>Replaced start</th>
+      <th>Replaced end</th>
+      <th>Duration</th>
+      <th>By</th>
+      <th>Outcome</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in reportData.results">
+        <td>{{ item.aip.name }}</td>
+        <td>{{ item.aip.uuid }}</td>
+        <td>{{ item.aip.part_of }}</td>
+        <td>{{ item.aip.attached_to }}</td>
+        <td>{{ item.fail_time }}</td>
+        <td>{{ item.recovery.time_started }}</td>
+        <td>{{ item.recovery.time_completed }}</td>
+        <td>{{ item.recovery.duration }}</td>
+        <td>{{ item.recovery.user }}</td>
+        <td>{{ item.recovery.success }}</td>
       </tr>
-  </tbody>
-</table>
+      <tr class="warning">
+        <td>({{ reportData.totals.aips }})</td>
+        <td></td>
+        <td>({{ reportData.totals.artworks }})</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>({{ reportData.totals.users }})</td>
+        <td>({{ reportData.totals.verified }})</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

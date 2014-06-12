@@ -1,24 +1,26 @@
 <h1>Activity report: High-level ingest</h1>
 
-<table class="table table-bordered">
-  <thead>
-    <th>New artwork records</th>
-    <th>Artworks with materials added</th>
-    <th>Aggregate</th>
-    <th>New supporting tech records</th>
-    <th>AIPs ingested</th>
-    <th>Files ingested</th>
-    <th>Total filesize ingested</th>
-  </thead>
-  <tbody>
-    <tr>
-      <td>{{ reportData.new_artworks }}</td>
-      <td>{{ reportData.artworks_with_materials_added }}</td>
-      <td>{{ reportData.aggregate }}</td>
-      <td>{{ reportData.new_tech_records }}</td>
-      <td>{{ reportData.aips_ingested }}</td>
-      <td>{{ reportData.files_ingested }}</td>
-      <td>{{ reportData.total_filesize_ingested | UnitFilter: 2 }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="reports-unit">
+  <table class="table table-bordered">
+    <thead>
+      <th>New artwork records</th>
+      <th>Artworks with materials added</th>
+      <th>Aggregate</th>
+      <th>New supporting tech records</th>
+      <th>AIPs ingested</th>
+      <th>Files ingested</th>
+      <th>Total filesize ingested</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ reportData.new_artworks }}</td>
+        <td>{{ reportData.artworks_with_materials_added }}</td>
+        <td>{{ reportData.aggregate }}</td>
+        <td>{{ reportData.new_tech_records }}</td>
+        <td>{{ reportData.aips_ingested }}</td>
+        <td>{{ reportData.files_ingested }}</td>
+        <td>{{ reportData.total_filesize_ingested | UnitFilter }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

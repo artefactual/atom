@@ -1,10 +1,9 @@
 <h1>Activity report: Granular ingest</h1>
 
-<div class="reports-tab">
+<div class="reports-unit">
   <tabset>
     <!-- By user -->
     <tab heading="By user">
-      <!-- Note: there are two ng-repeats working together for this -->
       <div ng-repeat="(user, table) in reportData.by_user">
         <h2 class="reports-title">{{ user }}</h2>
         <table class="table table-bordered">
@@ -27,35 +26,18 @@
               <td>{{ item.part_of.department }}</td>
               <td>{{ item.ingestion_date | date: 'short' }}</td>
             </tr>
-            <!-- Waiting for totals data -->
-            <tr ng-if="table.totals" class="warning">
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
+            <tr class="warning">
+              <td>({{ table.totals.aips }})</td>
+              <td></td>
+              <td></td>
+              <td>({{ table.totals.artworks }})</td>
+              <td></td>
+              <td>({{ table.totals.departments }})</td>
+              <td></td>
             </tr>
           </tbody>
         </table>
       </div>
-
-      <!-- Totals -->
-      <!-- TODO: This section not done. waiting on data -->
-      <h2 class="reports-title">Total: all departments</h2>
-      <table class="table table-bordered">
-        <thead>
-          <th></th>
-        </thead>
-        <tbody>
-          <tr ng-repeat="report in viewData.savedReportsByDept.all_depts_totals.results" class="info">
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
     </tab>
 
     <!-- By department -->
@@ -82,34 +64,18 @@
               <td>{{ item.ingestion_date | date: 'short' }}</td>
               <td>{{ item.ingestion_user }}</td>
             </tr>
-            <!-- Waiting for totals data -->
-            <tr ng-if="table.totals">
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
+            <tr class="warning">
+              <td>({{ table.totals.aips }})</td>
+              <td></td>
+              <td></td>
+              <td>({{ table.totals.artworks }})</td>
+              <td></td>
+              <td></td>
+              <td>({{ table.totals.users }})</td>
             </tr>
           </tbody>
         </table>
       </div>
-
-      <!-- Totals -->
-      <!-- TODO: This section not done. waiting on data -->
-      <h2 class="reports-title">Total: all departments</h2>
-      <table class="table table-bordered">
-        <thead>
-          <th></th>
-        </thead>
-        <tbody>
-          <tr ng-repeat="report in viewData.savedReportsByDept.all_depts_totals.results" class="info">
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
     </tab>
   </tabset>
 </div>

@@ -1,7 +1,6 @@
 <h1>Activity report: Component level</h1>
 
-<!-- Note: there are three ng-repeats working together for this -->
-<div ng-repeat="(department, table) in reportData">
+<div class="reports-unit" ng-repeat="(department, table) in reportData">
   <h2 class="reports-title">{{ department }}</h2>
   <table class="table table-bordered">
     <thead>
@@ -14,27 +13,28 @@
       <th>Associated files</th>
       <th>Fixity status outcome</th>
     </thead>
-    <tbody ng-repeat="(title, item) in table">
-      <tr ng-repeat="unit in item">
+    <tbody ng-repeat="item in table.results">
+      <tr ng-repeat="unit in item.results">
         <td>{{ unit.artwork }}</td>
         <td>{{ unit.artist }}</td>
         <td>{{ unit.component }}</td>
         <td>{{ unit.status }}</td>
         <td>{{ unit.size_count | UnitFilter }}</td>
-        <td>{{ unit.aips_count || '' }}</td>
-        <td>{{ unit.files_count || '' }}</td>
-        <td>{{ unit.fixity_success }}</td>
+        <td>{{ unit.aips_count }}</td>
+        <td>{{ unit.files_count }}</td>
+        <td>{{ unit.fixity_success || 'unknown' }}</td>
       </tr>
-      <!-- TODO: This section not done. waiting on data -->
-      <tr ng-if="table.totals">
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
-        <td>-</td>
+    </tbody>
+    <tbody>
+      <tr class="warning">
+        <td>({{ table.totals.artworks }})</td>
+        <td>({{ table.totals.artists }})</td>
+        <td></td>
+        <td></td>
+        <td>({{ table.totals.size | UnitFilter }})</td>
+        <td>({{ table.totals.aips }})</td>
+        <td>({{ table.totals.files }})</td>
+        <td>({{ table.totals.verified }})</td>
       </tr>
     </tbody>
   </table>

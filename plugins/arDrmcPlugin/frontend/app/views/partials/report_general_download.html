@@ -1,10 +1,9 @@
 <h1>Activity report: General download</h1>
 
-<div class="reports-tab">
+<div class="reports-unit">
   <tabset>
     <!-- By user -->
     <tab heading="By user">
-      <!-- Note: there are two ng-repeats working together for this -->
       <div ng-repeat="(user, table) in reportData.by_user">
         <h2 class="reports-title">{{ user }}</h2>
         <table class="table table-bordered">
@@ -31,17 +30,16 @@
               <td>{{ item.department }}</td>
               <td>{{ item.reason }}</td>
             </tr>
-            <!-- Waiting for totals data -->
-            <tr ng-if="table.totals" class="warning">
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
+            <tr class="warning">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>({{ table.totals.size | UnitFilter }})</td>
+              <td>({{ table.totals.artworks }})</td>
+              <td></td>
+              <td>({{ table.totals.departments }})</td>
+              <td></td>
             </tr>
           </tbody>
         </table>
@@ -74,16 +72,15 @@
               <td>{{ item.attached_to }}</td>
               <td>{{ item.reason }}</td>
             </tr>
-            <!-- Waiting for totals data -->
-            <tr ng-if="table.totals">
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
+            <tr class="warning">
+              <td>({{ table.totals.users }})</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>({{ table.totals.size | UnitFilter }})</td>
+              <td>({{ table.totals.artworks }})</td>
+              <td></td>
             </tr>
           </tbody>
         </table>
