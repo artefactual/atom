@@ -15,7 +15,7 @@ module.exports = function () {
 
     if (size <= 0) {
       return 0;
-    };
+    }
 
     var sizes = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
     var unit = 0;
