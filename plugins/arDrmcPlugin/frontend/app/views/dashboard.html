@@ -190,14 +190,14 @@
     <!-- Storage -->
     <h3 class="fontello drmc-icon-chart-pie">Storage</h3>
     <tabset class="dashboard-rs-graph">
+      <tab heading="Department">
+        <ar:graph-pie data="{{ countByDepartment }}" width="200" unit-filter="artworks" class="graph-pie" color="colorA"></ar:graph-pie>
+      </tab>
       <tab heading="Codec">
         <ar:graph-pie data="{{ storageCodecs }}" width="200" unit-filter="size" class="graph-pie" color="colorC"></ar:graph-pie>
       </tab>
       <tab heading="Format">
         <ar:graph-pie data="{{ storageFormats }}" width="200" unit-filter="size" class="graph-pie" color="colorC"></ar:graph-pie>
-      </tab>
-      <tab heading="Department">
-        <ar:graph-pie data="{{ countByDepartment }}" width="200" unit-filter="artworks" class="graph-pie" color="colorA"></ar:graph-pie>
       </tab>
     </tabset>
 
@@ -220,11 +220,11 @@
   <div class="span6 dashboard-widget">
     <h3 class="fontello drmc-icon-chart-line">Monthly totals</h3>
     <tabset class="dashboard-rs-graph">
-      <tab heading="Collection date">
-        <ar:graph-line data="{{ yearlyCountsByCollectionDate }}" type="line" width="460" height="280" xper-tick="100" yper-tick="40"></ar:graph-line>
-      </tab>
       <tab heading="Ingest date">
         <ar:graph-line data="{{ monthlyCountsByCreation }}" type="line" width="460" height="280" xper-tick="100" yper-tick="40"></ar:graph-line>
+      </tab>
+      <tab heading="Collection date">
+        <ar:graph-line data="{{ yearlyCountsByCollectionDate }}" type="line" width="460" height="280" xper-tick="100" yper-tick="40"></ar:graph-line>
       </tab>
     </tabset>
   </div>
