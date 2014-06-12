@@ -64,7 +64,6 @@
             </ul>
           </div>
         </section>
-
         <section>
           <div class="browse-view-list">
             <table class="table table-bordered">
@@ -73,6 +72,7 @@
                 <th>Report type</th>
                 <th>Created</th>
                 <th>Description</th>
+                <th>User</th>
                 <th>Delete</th>
               </thead>
               <tbody>
@@ -81,6 +81,7 @@
                   <td>{{ report.type }}</td>
                   <td>{{ report.created_at | date: 'short' }}</td>
                   <td>{{ report.description }}</td>
+                  <td>{{ report.user.name }}</td>
                   <td><input type="checkbox" name="selectedReports[]" ng-checked="selectedReports.indexOf(id) > -1" value="{{ report.id }}" ng-click="toggleSelection(report.id)"/></td>
                 </tr>
               </tbody>
