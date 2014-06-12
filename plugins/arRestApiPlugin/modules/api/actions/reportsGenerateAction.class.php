@@ -765,7 +765,7 @@ sql;
       'size' => $totalSize,
       'users' => $totalUsers);
 
-    $this->results['by_department']['Totals'] = $totalCounts;
+    $this->results['department_totals'] = $totalCounts;
 
     // Get counts grouped by user
     $totalArtworks = $totalDepartments = $totalAips = $totalFiles = $totalSize = 0;
@@ -826,7 +826,7 @@ sql;
       'size' => $totalSize,
       'departments' => $totalDepartments);
 
-    $this->results['by_user']['Totals'] = $totalCounts;
+    $this->results['user_totals'] = $totalCounts;
   }
 
   protected function componentLevel()
@@ -919,7 +919,7 @@ sql;
       // Add results grouped by department and artwork
       if (isset($component['department']) && isset($component['artwork']))
       {
-        $this->results[$component['department']][$component['artwork']]['results'][] = $component;
+        $this->results[$component['department']]['results'][$component['artwork']]['results'][] = $component;
       }
     }
 
@@ -929,7 +929,7 @@ sql;
       $totalArtworks = $totalAips = $totalFiles = $totalSize = $totalVerified = 0;
       $totalArtists = array();
 
-      foreach ($works as $work => $components)
+      foreach ($works['results'] as $work => $components)
       {
         $status = array();
         $artist = '';
@@ -978,7 +978,7 @@ sql;
           'size' => $countSize,
           'verified' => $countVerified);
 
-        $this->results[$department][$work]['totals'] = $counts;
+        $this->results[$department]['results'][$work]['totals'] = $counts;
 
         // Totals by department
         $totalArtworks ++;
