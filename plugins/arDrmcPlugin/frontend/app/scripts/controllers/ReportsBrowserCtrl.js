@@ -2,12 +2,6 @@
 
 module.exports = function ($scope, $modal, $state, $stateParams, ReportsService, SETTINGS) {
 
-  var pull = function () {
-    ReportsService.getBrowse().then(function (response) {
-      $scope.browseData = response.data;
-    });
-  };
-
   $scope.openGenerateReportModal = function () {
     $modal.open({
       templateUrl: SETTINGS.viewsPath + '/modals/generate-report.html',
@@ -21,7 +15,7 @@ module.exports = function ($scope, $modal, $state, $stateParams, ReportsService,
       }
     }).result.then(function () {
       //TODO: This doesn't update page
-      pull();
+      //pull();
     });
   };
 
@@ -46,12 +40,12 @@ module.exports = function ($scope, $modal, $state, $stateParams, ReportsService,
 
   var _delete = function (id) {
     ReportsService.deleteReport(id).then(function () {
-      pull();
+      //pull();
     }, function () {
       throw 'Error deleting report ' + id;
     });
   };
 
-  pull();
+  //pull();
 
 };

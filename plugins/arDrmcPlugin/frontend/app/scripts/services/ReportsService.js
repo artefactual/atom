@@ -2,10 +2,11 @@
 
 module.exports = function ($http, SETTINGS) {
 
-  this.getBrowse = function () {
+  this.getBrowse = function (params) {
     return $http({
       method: 'GET',
-      url: SETTINGS.frontendPath + 'api/reports/browse'
+      url: SETTINGS.frontendPath + 'api/reports/browse',
+      params: params
     });
   };
 

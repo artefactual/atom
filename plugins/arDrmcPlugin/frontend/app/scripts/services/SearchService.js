@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($http, SETTINGS, AIPService, InformationObjectService) {
+module.exports = function ($http, SETTINGS, AIPService, InformationObjectService, ReportsService) {
   // Shared query between controllers, originated in the header search box
   this.query = null;
   this.setQuery = function (q) {
@@ -72,6 +72,8 @@ module.exports = function ($http, SETTINGS, AIPService, InformationObjectService
         return InformationObjectService.getFiles(params);
       case 'searches':
         return this.getSearches(params);
+      case 'reports':
+        return ReportsService.getBrowse(params);
     }
   };
 
