@@ -527,6 +527,7 @@
     }
   }
 
+  /* Unused
   function sideMiddlePoint (rect) {
     var ex = rect.x + rect.width / 2;
     var ey = rect.y;
@@ -535,6 +536,7 @@
       y: ey
     };
   }
+  */
 
   function intersectRect (rect, point) {
     var x = rect.x;
