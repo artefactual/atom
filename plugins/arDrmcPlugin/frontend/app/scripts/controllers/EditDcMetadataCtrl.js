@@ -144,4 +144,5 @@ module.exports = function ($scope, $state, $modalInstance, SETTINGS, Information
     $scope.resource.names[0].actor_id = $item.id;
     $scope.resource.names[0].authorized_form_of_name = $item.authorized_form_of_name;
   };
+
 };
