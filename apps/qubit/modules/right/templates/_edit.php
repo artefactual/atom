@@ -4,5 +4,5 @@
   <?php endforeach; ?>
 <?php endif; ?>
 <div class="field">
-  <?php echo link_to(__('Create New Rights'), array($resource,  'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'edit')) ?>
+  <?php echo link_to(__('Create new rights'), array($resource,  'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'edit')) ?>
  </div>
