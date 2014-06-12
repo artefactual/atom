@@ -10,12 +10,16 @@
         <h2>Parameters</h2>
         <div>
           <div class="field">
-            <h3>type</h3>
+            <h3>Report type</h3>
             <div>{{ criteria.type }}</div>
           </div>
-          <div class="field" ng-repeat="(label, value) in resource.criteria" ng-if="value != undefined">
-            <h3>{{ label }}</h3>
-            <div>{{ value }}</div>
+          <div class="field" ng-if="criteria.from != undefined">
+            <h3>From</h3>
+            <div>{{ criteria.from | date: 'shortDate' }}</div>
+          </div>
+          <div class="field" ng-if="criteria.to != undefined">
+            <h3>To</h3>
+            <div>{{ criteria.to | date: 'shortDate' }}</div>
           </div>
         </div>
       </section>
