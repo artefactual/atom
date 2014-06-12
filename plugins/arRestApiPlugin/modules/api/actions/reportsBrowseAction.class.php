@@ -172,8 +172,8 @@ class ApiReportsBrowseAction extends QubitApiAction
       $results['counts'][$facet['label'].' reports'] = $facet['count'];
     }
 
-    // Total searches
-    $results['counts']['Total searches'] = $resultSet->getTotalHits();
+    // Total reports
+    $results['counts']['Total reports'] = $resultSet->getTotalHits();
 
     // Last created
     $esResullts = $resultSet->getResults();
@@ -182,32 +182,10 @@ class ApiReportsBrowseAction extends QubitApiAction
     {
       $lastCreated = $esResullts[0]->getData();
 
-      $results['latest']['Last search added']['date'] = $lastCreated['createdAt'];
-      $results['latest']['Last search added']['user'] = $lastCreated['user']['name'];
-      $results['latest']['Last search added']['name'] = $lastCreated['name'];
-      $results['latest']['Last search added']['slug'] = $lastCreated['slug'];
-    }
-
-    // Last updated
-    $query = new \Elastica\Query;
-    $queryBool = new \Elastica\Query\Bool;
-    $queryBool->addMust(new \Elastica\Query\Term(array('typeId' => sfConfig::get('app_drmc_term_report_id'))));
-
-    $query->setQuery($queryBool);
-    $query->setSort(array('updatedAt' => 'desc'));
-
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitSavedQuery')->search($query);
-
-    $esResullts = $resultSet->getResults();
-
-    if (count($esResullts) >0)
-    {
-      $lastUpdated = $esResullts[0]->getData();
-
-      $results['latest']['Last search modified']['date'] = $lastUpdated['createdAt'];
-      $results['latest']['Last search modified']['user'] = $lastUpdated['user']['name'];
-      $results['latest']['Last search modified']['name'] = $lastUpdated['name'];
-      $results['latest']['Last search modified']['slug'] = $lastCreated['slug'];
+      $results['latest']['Last report added']['date'] = $lastCreated['createdAt'];
+      $results['latest']['Last report added']['user'] = $lastCreated['user']['name'];
+      $results['latest']['Last report added']['name'] = $lastCreated['name'];
+      $results['latest']['Last report added']['slug'] = $lastCreated['slug'];
     }
 
     return $results;

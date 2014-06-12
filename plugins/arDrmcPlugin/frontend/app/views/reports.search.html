@@ -29,79 +29,25 @@
             </ul>
             <ul class="menu-list-right nav nav-pills">
               <li>
-                <a href class="icon-plus" ng-click="openGenerateReportModal()">New report</a>
+                <a href ng-click="toggleOverview()" ng-class="{ 'drmc-icon-angle-double-down': !showOverview, 'drmc-icon-angle-double-up': showOverview }">{{ showOverview ? 'Hide' : 'Show' }}</a>
               </li>
             </ul>
           </div>
         </section>
 
-        <section>
-          <div class="field">
-            <h3>No. of reports</h3>
+        <section ng-show="showOverview">
+          <div class="field" ng-repeat="(label, count) in data.overview.counts">
+            <h3>{{ label }}</h3>
             <div>
-              {{ browseData.overview.counts['Total searches'] || 0 }}
+              {{ count }}
             </div>
           </div>
-          <div class="field">
-            <h3>Last report added</h3>
+          <div class="field" ng-repeat="(label, search) in data.overview.latest">
+            <h3>{{ label }}</h3>
             <div>
-              <a href>{{ browseData.overview.latest['Last search added'].name || 'N/A' }}</a>
-              &nbsp;&raquo;&nbsp;
-              {{ browseData.overview.latest['Last search added'].date | date: 'short' }}
-            </div>
-          </div>
-          <div class="field">
-            <h3>High level ingest reports</h3>
-            <div>
-              {{ browseData.overview.counts['High-level ingest reports'] || 0 }}
-            </div>
-          </div>
-          <div class="field">
-            <h3>Amount downloaded reports</h3>
-            <div>
-              {{ browseData.overview.counts['Amount downloaded reports'] || 0 }}
-            </div>
-          </div>
-          <div class="field">
-            <h3>High level ingest reports</h3>
-            <div>
-              {{ browseData.overview.counts['High-level ingest reports'] || 0 }}
-            </div>
-          </div>
-          <div class="field">
-            <h3>General download reports</h3>
-            <div>
-              {{ browseData.overview.counts['General download reports'] || 0 }}
-            </div>
-          </div>
-          <div class="field">
-            <h3>Granular ingest reports</h3>
-            <div>
-              {{ browseData.overview.counts['Granular ingest reports'] || 0 }}
-            </div>
-          </div>
-          <div class="field">
-            <h3>Fixity log reports</h3>
-            <div>
-              {{ browseData.overview.counts['Fixity'] || 0 }}
-            </div>
-          </div>
-          <div class="field">
-            <h3>Fixity error reports</h3>
-            <div>
-              {{ browseData.overview.counts['Fixity error reports'] || 0 }}
-            </div>
-          </div>
-          <div class="field">
-            <h3>Component level reports</h3>
-            <div>
-              {{ browseData.overview.counts['Component level reports'] || 0 }}
-            </div>
-          </div>
-          <div class="field">
-            <h3>Video characteristic reports</h3>
-            <div>
-              {{ browseData.overview.counts['Video characteristic reports'] || 0 }}
+              <a href>{{ search.name }}</a>
+              <span>&nbsp;&raquo;&nbsp;</span>
+              {{ search.date + ' (' + search.user + ')' }}
             </div>
           </div>
         </section>
@@ -110,6 +56,11 @@
           <div class="menu-list">
             <ul class="menu-list-left">
               <li><h2>Saved reports</h2></li>
+            </ul>
+            <ul class="menu-list-right nav nav-pills">
+              <li>
+                <a href class="icon-plus" ng-click="openGenerateReportModal()">New report</a>
+              </li>
             </ul>
           </div>
         </section>
