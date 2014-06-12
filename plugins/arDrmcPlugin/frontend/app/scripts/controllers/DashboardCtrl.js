@@ -82,33 +82,27 @@ module.exports = function ($scope, $q, StatisticsService, FixityService) {
 
   pull();
 
-  // getStatusFixity accept parameter defining number of responses
-  // of 'recent fixity checks' returned by service
-  FixityService.getStatusFixity(5).success(function (data) {
-    $scope.fixityStats = data;
-  }).then(function () {
-    if ($scope.fixityStats.lastFails.length > 0) {
-      $scope.hasFails = true;
+  $scope.showOverview = false;
+  $scope.toggleOverview = function () {
+    $scope.showOverview = !$scope.showOverview;
+  };
+
+  $scope.fixityHasFails = false;
+  FixityService.getStatusFixity({ limit: 5 }).then(function (response) {
+    $scope.fixityStats = response.data;
+    if ($scope.fixityStats.hasOwnProperty('lastFails') && $scope.fixityStats.lastFails.length > 0) {
+      $scope.fixityHasFails = true;
       $scope.showOverview = true;
     }
-  }).then(function () {
-    angular.forEach($scope.fixityStats.lastChecks, function (i) {
-      // Convert boolean to human-friendly string
-      if (i.outcome === false) {
-        i.statusAlert = 'Failed';
-      } else if (i.outcome === true) {
-        i.statusAlert = 'Success';
+    // Convert boolean to human-friendly string
+    angular.forEach($scope.fixityStats.lastChecks, function (e) {
+      if (e.outcome === false) {
+        e.statusAlert = 'Failed';
+      } else if (e.outcome === true) {
+        e.statusAlert = 'Success';
       } else {
         return;
       }
     });
   });
-
-  // Set visibility of fixity details to false by default
-  // If failed fixity checks exist, this value will be set
-  // to true in then() following service call
-  $scope.showOverview = false;
-  $scope.toggleOverview = function () {
-    $scope.showOverview = !$scope.showOverview;
-  };
 };

@@ -10,12 +10,11 @@ module.exports = function (SETTINGS, $http) {
   };
 
   this.getStatusFixity = function (params) {
+    params = params || {};
     return $http({
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/fixity/status',
-      params: {
-        limit: params
-      }
+      params: params
     });
   };
 

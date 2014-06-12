@@ -20,7 +20,7 @@
     <div class="dashboard-widget integrity-checker-widget">
       <div class="content">
 
-        <div class="menu-list" >
+        <div class="menu-list">
           <ul class="menu-list-left">
             <li><h2>Fixity reports</h2></li>
           </ul>
@@ -35,9 +35,9 @@
 
           <div class="span2 integrity-status-field">
             <h3 class="muted">Status</h3>
-            <span class="muted label" ng-class="{ 'label-important': hasFails, 'label-success': !hasFails }">
-              {{ hasFails ? 'Not OK' : 'OK' }}
-              <i ng-if="hasFails">({{ fixityStats.lastFails.length }})</i>
+            <span class="muted label" ng-class="{ 'label-important': fixityHasFails, 'label-success': !fixityHasFails }">
+              {{ fixityHasFails ? 'Not OK' : 'OK' }}
+              <i ng-if="fixityHasFails">({{ fixityStats.lastFails.length }})</i>
             </span>
           </div>
 
