@@ -9,9 +9,13 @@ module.exports = function () {
       precision = 1;
     }
 
-    if (typeof size === 'undefined' || size <= 0 || size === null || isNaN(size)) {
+    if (typeof size === 'undefined' || size === null || isNaN(size)) {
       return;
     }
+
+    if (size <= 0) {
+      return 0;
+    };
 
     var sizes = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB'];
     var unit = 0;
