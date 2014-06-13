@@ -3,8 +3,11 @@
     <div id="main-column">
       <section class="breadcrumb">
         <ul>
-          <li><a ui-sref="main.reports.browser">Reports</a></li>
-          <li><span>Activity report: {{ viewData.savedOverview.report_type }}</span></li>
+          <li><a ui-sref="main.search.entity({ entity: 'reports' })">Reports</a></li>
+          <li>
+            <span ng-if="!savedReport">New report</span>
+            <span ng-if="savedReport">Saved report: {{ reportName || 'Untitled' }}</span>
+          </li>
         </ul>
       </section>
 
