@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $q, StatisticsService, FixityService, AipRecoveryService) {
+module.exports = function ($scope, $q, StatisticsService, FixityService, AIPService) {
 
   var pull = function () {
 
@@ -14,7 +14,7 @@ module.exports = function ($scope, $q, StatisticsService, FixityService, AipReco
       StatisticsService.getRunningTotalByFormat(),
       StatisticsService.getArtworkSizesByYearSummary(),
       StatisticsService.getArtworkCountsAndTotalsByDate(),
-      AipRecoveryService.getUuidsOfAipsMatchingStatus('RECOVER_REQ')
+      AIPService.getUuidsOfAipsMatchingStatus('RECOVER_REQ')
     ];
 
     $q.all(queries).then(function (responses) {
@@ -77,7 +77,7 @@ module.exports = function ($scope, $q, StatisticsService, FixityService, AipReco
         yProperty: 'total',
         data: responses[7].data.results.creation
       }];
-      $scope.AipsPendingRecovery = responses[8].data.uuids;
+      $scope.aipsPendingRecovery = responses[8].data.uuids;
     });
 
   };
@@ -119,17 +119,17 @@ module.exports = function ($scope, $q, StatisticsService, FixityService, AipReco
   // Check if AIP is pending recovery
   $scope.isPendingRecovery = function (uuid) {
     if (
-      typeof uuid === 'undefined' || typeof $scope.AipsPendingRecovery === 'undefined'
+      typeof uuid === 'undefined' || typeof $scope.aipsPendingRecovery === 'undefined'
     ) {
       return false;
     }
 
-    return $scope.AipsPendingRecovery.indexOf(uuid) !== -1;
+    return $scope.aipsPendingRecovery.indexOf(uuid) !== -1;
   };
 
   // Allow request for AIP recovery
   $scope.requestRecover = function (uuid) {
-    AipRecoveryService.recoverAip(uuid)
+    AIPService.recoverAip(uuid)
       .success(function () {
         pull();
       })

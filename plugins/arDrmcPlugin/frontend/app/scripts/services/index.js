@@ -16,7 +16,6 @@
     .service('StatisticsService', require('./StatisticsService'))
     .service('FixityService', require('./FixityService'))
     .service('ReportsService', require('./ReportsService'))
-    .service('AipRecoveryService', require('./AipRecoveryService'))
 
     // Mixins
     .factory('FullscreenService', require('./FullscreenService'))
