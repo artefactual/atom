@@ -86,7 +86,7 @@ module.exports = function ($http, $q, SETTINGS) {
           if (_a.length) {
             for (var l = 0; l < _a.length; l++) {
               var as = _a[l];
-              if (as.subject_id === k.id) {
+              if (as.subject.id === k.id) {
                 if (angular.isUndefined(k.associations)) {
                   k.associations = [];
                 }

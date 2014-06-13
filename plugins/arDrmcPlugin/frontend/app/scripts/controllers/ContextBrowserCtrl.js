@@ -99,9 +99,13 @@ module.exports = function ($scope, $element, $document, $modal, ModalAssociative
       return false;
     }
     if (type === 'associative') {
-      ModalAssociativeRelationship.edit(attrs.edge.relationId).result.then(function (result) {
-        if (result === 'deleted') {
+      ModalAssociativeRelationship.edit(attrs.edge.relationId).result.then(function (response) {
+        if (response === 'deleted') {
           scope.cb.graph.delEdge(attrs.id);
+          scope.cb.draw();
+        } else if (response.action === 'updated') {
+          var edge = scope.cb.graph.edge(attrs.id);
+          edge.label = response.type.name;
           scope.cb.draw();
         }
       });
@@ -311,8 +315,8 @@ module.exports = function ($scope, $element, $document, $modal, ModalAssociative
           id: target,
           label: scope.cb.graph.node(target).label
         };
-        ModalAssociativeRelationship.create(s, t).result.then(function (relation_id, type_id) {
-          scope.cb.createAssociativeRelationship(relation_id, s.id, t.id, type_id);
+        ModalAssociativeRelationship.create(s, t).result.then(function (response) {
+          scope.cb.createAssociativeRelationship(response.id, s, t, response.type);
         }, function () {
           scope.cb.cancelNodeSelection();
         });

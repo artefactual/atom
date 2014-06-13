@@ -22,6 +22,15 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, Tax
     $scope.modalContainer.types = data.terms;
   });
 
+  function getTypeName (id) {
+    for (var i = 0; i < $scope.modalContainer.types.length; i++) {
+      var item = $scope.modalContainer.types[i];
+      if (id === item.id) {
+        return item.name;
+      }
+    }
+  }
+
   if ($scope.new) {
     $scope.source = source;
     $scope.target = target;
@@ -59,14 +68,28 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, Tax
     }
     if ($scope.new) {
       InformationObjectService.associate(source.id, target.id, $scope.modalContainer.obj.type, options).then(function (response) {
-        $modalInstance.close(response.data.id, $scope.modalContainer.obj.type);
+        $modalInstance.close({
+          action: 'added',
+          id: response.data.id,
+          type: {
+            id: $scope.modalContainer.obj.type,
+            name: getTypeName($scope.modalContainer.obj.type)
+          }
+        });
       }, function () {
         $modalInstance.dismiss('Error');
       });
     } else {
       options.type_id = $scope.modalContainer.obj.type;
-      InformationObjectService.updateAssociation(id, options).then(function () {
-        $modalInstance.close(id, $scope.modalContainer.obj.type);
+      InformationObjectService.updateAssociation(id, options).then(function (response) {
+        $modalInstance.close({
+          action: 'updated',
+          id: id,
+          type: {
+            id: $scope.modalContainer.obj.type,
+            name: getTypeName($scope.modalContainer.obj.type)
+          }
+        });
       }, function () {
         $modalInstance.dismiss('Error');
       });

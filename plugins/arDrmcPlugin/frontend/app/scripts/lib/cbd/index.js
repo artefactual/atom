@@ -345,8 +345,8 @@
     });
   };
 
-  ContextBrowser.prototype.createAssociativeRelationship = function (relation_id, source_id, target_id, type_id) {
-    this.graph.addAssociativeEdge(relation_id, source_id, target_id, type_id);
+  ContextBrowser.prototype.createAssociativeRelationship = function (relation_id, source, target, type) {
+    this.graph.addAssociativeEdge(relation_id, source, target, type);
     this.draw();
   };
 
