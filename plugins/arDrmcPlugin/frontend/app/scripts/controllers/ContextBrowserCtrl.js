@@ -98,7 +98,9 @@ module.exports = function ($scope, $element, $document, $modal, ModalAssociative
     if (!angular.isDefined(type)) {
       return false;
     }
-    console.log('Edge clicked', type);
+    if (type === 'associative') {
+      ModalAssociativeRelationship.edit(attrs.edge.relationId);
+    }
   });
 
 
