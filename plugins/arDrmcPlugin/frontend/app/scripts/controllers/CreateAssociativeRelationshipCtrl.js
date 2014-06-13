@@ -81,7 +81,7 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, Tax
       });
     } else {
       options.type_id = $scope.modalContainer.obj.type;
-      InformationObjectService.updateAssociation(id, options).then(function (response) {
+      InformationObjectService.updateAssociation(id, options).then(function () {
         $modalInstance.close({
           action: 'updated',
           id: id,
