@@ -19,25 +19,23 @@ module.exports = function ($http, SETTINGS) {
   };
 
   this.saveReport = function (data) {
-    var configuration = {
+    data = data || {};
+    if (angular.isDefined(data.from) || angular.isDefined(data.to)) {
+      data.range = {};
+      if (angular.isDefined(data.from)) {
+        data.range.from = new Date(data.from).getTime();
+        delete data.from;
+      }
+      if (angular.isDefined(data.to)) {
+        data.range.to = new Date(data.to).getTime();
+        delete data.to;
+      }
+    }
+    return $http({
       method: 'POST',
       url: SETTINGS.frontendPath + 'api/report',
       data: data
-    };
-
-    if (angular.isDefined(data)) {
-      // configuration.data = data;
-    }
-
-    // Only required if using GET!
-    // Convert range object into a flat pair of params: from and to
-    // if (angular.isDefined(params.range)) {
-    //  params.from = params.range.from;
-    //  params.to = params.range.to;
-    //  delete params.range;
-    // }
-
-    return $http(configuration);
+    });
   };
 
   this.getReportBySlug = function (slug) {

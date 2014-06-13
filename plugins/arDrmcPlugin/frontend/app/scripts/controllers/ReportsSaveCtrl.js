@@ -27,7 +27,7 @@ module.exports = function ($scope, $state, $modalInstance, ReportsService, data)
     });
     // Close
     $modalInstance.close();
-    $state.go('main.reports.browser');
+    $state.go('main.search.entity', { 'entity': 'reports' });
   };
 
   // Reset all fields to empty
