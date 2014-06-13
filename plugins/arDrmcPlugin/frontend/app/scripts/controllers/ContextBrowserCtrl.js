@@ -311,8 +311,8 @@ module.exports = function ($scope, $element, $document, $modal, ModalAssociative
           id: target,
           label: scope.cb.graph.node(target).label
         };
-        ModalAssociativeRelationship.create(s, t).result.then(function (type) {
-          scope.cb.createAssociativeRelationship(s.id, t.id, type);
+        ModalAssociativeRelationship.create(s, t).result.then(function (relation_id, type_id) {
+          scope.cb.createAssociativeRelationship(relation_id, s.id, t.id, type_id);
         }, function () {
           scope.cb.cancelNodeSelection();
         });

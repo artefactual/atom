@@ -15,7 +15,7 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, Tax
   // $scope.target: { id: ..., label: ... }
   // id (if editing)
   // $scope.modalContainer.obj.type
-  // $scope.modalContainer.obj.note
+  // $scope.modalContainer.obj.description
 
   // Associative relationships types
   TaxonomyService.getTerms('ASSOCIATIVE_RELATIONSHIP_TYPES').then(function (data) {
@@ -41,7 +41,7 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, Tax
         $scope.modalContainer.obj.type = data.type.id;
       }
       if (data.hasOwnProperty('description')) {
-        $scope.modalContainer.obj.note = data.description;
+        $scope.modalContainer.obj.description = data.description;
       }
     }, function (response) {
       console.log(response.statusText);
@@ -53,16 +53,24 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, Tax
     if ($scope.modalContainer.form.$invalid) {
       return;
     }
-    // TODO: this method will only accept one source for now
     var options = {};
-    if (angular.isDefined($scope.modalContainer.obj.note)) {
-      options.note = $scope.modalContainer.obj.note;
+    if (angular.isDefined($scope.modalContainer.obj.description)) {
+      options.description = $scope.modalContainer.obj.description;
     }
-    InformationObjectService.associate(source.id, target.id, $scope.modalContainer.obj.type, options).then(function () {
-      $modalInstance.close($scope.modalContainer.obj.type);
-    }, function (reason) {
-      $modalInstance.dismiss(reason);
-    });
+    if ($scope.new) {
+      InformationObjectService.associate(source.id, target.id, $scope.modalContainer.obj.type, options).then(function (response) {
+        $modalInstance.close(response.data.id, $scope.modalContainer.obj.type);
+      }, function () {
+        $modalInstance.dismiss('Error');
+      });
+    } else {
+      options.type_id = $scope.modalContainer.obj.type;
+      InformationObjectService.updateAssociation(id, options).then(function () {
+        $modalInstance.close(id, $scope.modalContainer.obj.type);
+      }, function () {
+        $modalInstance.dismiss('Error');
+      });
+    }
   };
 
   $scope.delete = function ($event) {

@@ -312,10 +312,8 @@ module.exports = function ($http, $q, SETTINGS) {
       target_id: target_id,
       type_id: type_id
     };
-    if (angular.isDefined(options)) {
-      if (angular.isDefined(options.note)) {
-        data.note = options.note;
-      }
+    if (angular.isDefined(options) && angular.isDefined(options.description)) {
+      data.description = options.description;
     }
     return $http({
       method: 'POST',
@@ -328,6 +326,14 @@ module.exports = function ($http, $q, SETTINGS) {
     return $http({
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/informationobjects/association/' + id
+    });
+  };
+
+  this.updateAssociation = function (id, data) {
+    return $http({
+      method: 'PUT',
+      url: SETTINGS.frontendPath + 'api/informationobjects/association/' + id,
+      data: data
     });
   };
 

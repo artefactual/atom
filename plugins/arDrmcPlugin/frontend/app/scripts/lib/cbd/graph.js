@@ -67,16 +67,20 @@
         return;
       }
       e.associations.forEach(function (u) {
-        var edgeId = e.id + ':' + u.object_id + ':associative'; // u.id (relation.id)?
-        self.addEdge(edgeId, e.id, u.object_id, {
-          type: 'associative',
-          relationId: u.id,
-          typeId: u.type_id, // TODO: label: '...'
-          objectId: u.object_id,
-          subjectId: u.subject_id,
-          constraint: false // TODO: https://github.com/cpettitt/dagre/issues/110
-        });
+        self.addAssociativeEdge(u.id, e.id, u.object_id, u.type_id);
       });
+    });
+  };
+
+  Graph.prototype.addAssociativeEdge = function (relation_id, source_id, target_id, type_id) {
+    var edgeId = source_id + ':' + target_id + ':associative';
+    this.addEdge(edgeId, source_id, target_id, {
+      type: 'associative',
+      relationId: relation_id,
+      typeId: type_id, // TODO: label: '...'
+      subjectId: source_id,
+      objectId: target_id,
+      constraint: false // TODO: https://github.com/cpettitt/dagre/issues/110
     });
   };
 

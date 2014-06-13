@@ -345,13 +345,9 @@
     });
   };
 
-  ContextBrowser.prototype.createAssociativeRelationship = function (source, target, type) {
-    this.graph.addEdge(source + ':' + target, source, target, {
-      type: 'associative'
-      // label? :)
-    });
+  ContextBrowser.prototype.createAssociativeRelationship = function (relation_id, source_id, target_id, type_id) {
+    this.graph.addAssociativeEdge(relation_id, source_id, target_id, type_id);
     this.draw();
-    console.log(type);
   };
 
   module.exports = ContextBrowser;
