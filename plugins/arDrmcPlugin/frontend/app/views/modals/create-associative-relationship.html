@@ -2,7 +2,7 @@
 
   <div class="modal-header">
     <button type="button" ng-click="cancel()" class="close">×</button>
-    <h2>Create associative relationship</h2>
+    <h2>{{ new ? 'Add associative relationship' : 'Edit associative relationship' }}</h2>
   </div>
 
   <form name="modalContainer.form" ng-submit="submit()" novalidate>
@@ -10,7 +10,7 @@
     <div class="modal-body">
       <div class="form-item">
         <label>From</label>
-        <div>{{ sources.0.label }}</div>
+        <div>{{ source.label }}</div>
       </div>
 
       <div class="form-item">
@@ -32,7 +32,7 @@
     </div>
 
     <div class="modal-footer">
-      <button type="submit" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': modalContainer.form.$invalid }">Save</button>
+      <button type="submit" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': modalContainer.form.$invalid }">{{ new ? 'Create' : 'Update' }}</button>
       <button class="btn" ng-click="cancel()">Cancel</button>
     </div>
 
