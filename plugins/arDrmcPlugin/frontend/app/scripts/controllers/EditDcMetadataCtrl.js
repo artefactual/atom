@@ -72,13 +72,6 @@ module.exports = function ($scope, $state, $modalInstance, SETTINGS, Information
     $scope.dcTypesTaxonomy = data.terms;
   });
 
-  // Title, based in new
-  if ($scope.new) {
-    $scope.title = 'Add supporting technology record';
-  } else {
-    $scope.title = 'Edit supporting technology record';
-  }
-
   // Update existing record
   var update = function () {
     InformationObjectService.update($scope.resource.id, $scope.resource).then(function () {
