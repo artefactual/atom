@@ -24,9 +24,19 @@
         <td>{{ unit.files_count }}</td>
         <td>{{ unit.fixity_success || 'unknown' }}</td>
       </tr>
+      <tr class="warning">
+        <td>{{ item.totals.artwork }}</td>
+        <td>{{ item.totals.artist }}</td>
+        <td>{{ item.totals.components }}</td>
+        <td>{{ item.totals.status }}</td>
+        <td>{{ item.totals.size | UnitFilter }}</td>
+        <td>{{ item.totals.aips }}</td>
+        <td>{{ item.totals.files }}</td>
+        <td>{{ item.totals.verified || 'unknown' }}</td>
+      </tr>
     </tbody>
     <tbody>
-      <tr class="warning">
+      <tr class="info">
         <td>({{ table.totals.artworks }})</td>
         <td>({{ table.totals.artists }})</td>
         <td></td>
@@ -34,7 +44,7 @@
         <td>({{ table.totals.size | UnitFilter }})</td>
         <td>({{ table.totals.aips }})</td>
         <td>({{ table.totals.files }})</td>
-        <td>({{ table.totals.verified }})</td>
+        <td>({{ table.totals.verified || 'unknown' }})</td>
       </tr>
     </tbody>
   </table>

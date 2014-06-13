@@ -25,6 +25,7 @@
       <th>Chroma subsampling</th>
       <th>Bit depth</th>
       <th>Compression mode</th>
+      <th>Fixity status</th>
     </thead>
     <tbody ng-repeat="(title, item) in reportData">
       <tr>
@@ -49,6 +50,7 @@
         <td>{{ item.chroma_subsampling }}</td>
         <td>{{ item.bit_depth }}</td>
         <td>{{ item.compression_mode }}</td>
+        <td>{{ item.fixity_success }} - {{ item.fixity_date }}</td>
       </tr>
     </tbody>
   </table>
