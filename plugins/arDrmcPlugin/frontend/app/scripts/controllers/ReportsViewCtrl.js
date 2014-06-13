@@ -13,6 +13,7 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
     // Store params in scope to show in overview
     $scope.reportParams = {};
     if (angular.isDefined($stateParams.slug)) {
+      $scope.savedReport = true;
       // Load name. description and params from saved report
       ReportsService.getReportBySlug($stateParams.slug).then(function (response) {
         if (typeof response.data.name !== 'undefined') {
@@ -20,6 +21,12 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
         }
         if (typeof response.data.description !== 'undefined') {
           $scope.reportDescription = response.data.description;
+        }
+        if (typeof response.data.user_name !== 'undefined') {
+          $scope.reportUser = response.data.user_name;
+        }
+        if (typeof response.data.created_at !== 'undefined') {
+          $scope.reportDate = response.data.created_at;
         }
         if (typeof response.data.type !== 'undefined') {
           $scope.reportParams.type = response.data.type;
@@ -44,6 +51,9 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
       getReportResults();
     }
   };
+
+  // Store if it's a saved report to hide Save button
+  $scope.savedReport = false;
 
   getReportData();
 

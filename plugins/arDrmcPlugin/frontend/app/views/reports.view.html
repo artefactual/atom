@@ -16,12 +16,53 @@
             </ul>
             <ul class="menu-list-right nav nav-pills">
               <li>
-                <a href ng-click="openSaveReportModal()" class="drmc-icon-save"><i class="icon-save"></i>Save</a>
+                <a href ng-if="!savedReport" ng-click="openSaveReportModal()" class="drmc-icon-save"><i class="icon-save"></i>Save</a>
               </li>
               <li>
-                <a href ng-click="download()" class="drmc-icon-download">Download (no save) (CSV)</a>
+                <a href ng-click="download()" class="drmc-icon-download">Download (CSV)</a>
               </li>
             </ul>
+          </div>
+        </section>
+
+        <section>
+          <div class="field" ng-if="reportName">
+            <h3>Name</h3>
+            <div>
+              {{ reportName }}
+            </div>
+          </div>
+          <div class="field" ng-if="reportDescription">
+            <h3>Description</h3>
+            <div>
+              {{ reportDescription }}
+            </div>
+          </div>
+           <div class="field" ng-if="reportUser">
+            <h3>Saved by</h3>
+            <div>
+              {{ reportUser }}
+            </div>
+          </div>
+          <div class="field" ng-if="reportDate">
+            <h3>Saved at</h3>
+            <div>
+              {{ reportDate | date: 'short' }}
+            </div>
+          </div>
+          <div class="field">
+            <h3>Date range</h3>
+            <div ng-if="reportParams.from || reportParams.to">
+              <div ng-if="reportParams.from">
+                From: {{ reportParams.to | date: 'short' }}
+              </div>
+              <div ng-if="reportParams.to">
+                To: {{ reportParams.to | date: 'short' }}
+              </div>
+            </div>
+            <div ng-if="!reportParams.from && !reportParams.to">
+              All time
+            </div>
           </div>
         </section>
       </div>
