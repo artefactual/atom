@@ -100,7 +100,7 @@ module.exports = function ($scope, $element, $document, $modal, ModalAssociative
     }
     if (type === 'associative') {
       ModalAssociativeRelationship.edit(attrs.edge.relationId).result.then(function (response) {
-        if (response === 'deleted') {
+        if (response.action === 'deleted') {
           scope.cb.graph.delEdge(attrs.id);
           scope.cb.draw();
         } else if (response.action === 'updated') {
