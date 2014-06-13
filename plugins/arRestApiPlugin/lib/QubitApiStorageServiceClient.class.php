@@ -71,7 +71,6 @@ class QubitApiStorageServiceClient
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1); // allow redirects
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_FAILONERROR, true);
 
     if ($postData)
     {
@@ -91,7 +90,8 @@ class QubitApiStorageServiceClient
       }
 
       curl_setopt($ch, CURLOPT_POSTFIELDS, $postBody);
-      curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+      $headers = array('Content-type: application/json', 'Content-Length: '. strlen($postBody));
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     }
 
     $result = curl_exec($ch);

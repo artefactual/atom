@@ -79,6 +79,7 @@
                     <th>Time completed</th>
                     <th>Duration</th>
                     <th>Outcome</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -87,6 +88,10 @@
                     <td>{{ aip.time_completed | date: 'short' }}</td>
                     <td>{{ aip.duration | ConvertSecondsFilter }}</td>
                     <td>Failed</td>
+                    <td>
+                      <span ng-show='isPendingRecovery(aip.aip_uuid)'>(Pending)</span>
+                      <a href ng-hide='isPendingRecovery(aip.aip_uuid)' ng-click='requestRecover(aip.aip_uuid)'>Recover</a>
+                    </td>
                   </tr>
                 </tbody>
               </table>

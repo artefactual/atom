@@ -19,7 +19,7 @@
 
 class ApiAipsRecoverAction extends QubitApiAction
 {
-  protected function post($request, $payload)
+  protected function post($request)
   {
     if (null === $aip = QubitAip::getByUuid($request->uuid))
     {
@@ -29,9 +29,8 @@ class ApiAipsRecoverAction extends QubitApiAction
     $urlPath = 'api/v2/file/'. $request->uuid .'/recover_aip/?format=json';
     $client = new QubitApiStorageServiceClient($urlPath);
 
-    # TODO: need setting for pipeline ID?
     $postData = array(
-      "event_reason" => $request->reason,
+      "event_reason" => 'Request from DRMC',
       "pipeline" => $client->config['ARCHIVEMATICA_SS_PIPELINE_UUID'],
       "user_id" => $this->context->user->getUserID(),
       "user_email" => $this->context->user->user->email

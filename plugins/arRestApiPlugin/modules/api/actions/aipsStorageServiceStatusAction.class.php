@@ -40,6 +40,8 @@ class ApiAipsStorageServiceStatusAction extends QubitApiAction
       }
     }
 
-    return $uuids;
+    return array(
+      'uuids' => $uuids
+    );
   }
 }
