@@ -79,4 +79,14 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
     $modal.close();
   };
 
+  $scope.download = function () {
+    ReportsService.download($stateParams).then(function (response) {
+      var element = angular.element('<a/>');
+      element.attr({
+        href: 'data:attachment/csv;charset=utf-8,' + encodeURI(response.data),
+        target: '_blank',
+        download: $stateParams.type + '.csv'
+      })[0].click();
+    });
+  };
 };
