@@ -21,7 +21,7 @@
         <td>{{ item.aip.attached_to }}</td>
         <td>{{ item.time_started }}</td>
         <td>{{ item.time_completed }}</td>
-        <td>{{ item.duration }}</td>
+        <td>{{ item.duration | ConvertSecondsFilter }}</td>
         <td>{{ item.success }}</td>
       </tr>
       <tr class="warning">
@@ -31,7 +31,7 @@
         <td></td>
         <td>({{ table.totals.time_started }})</td>
         <td>({{ table.totals.time_completed }})</td>
-        <td>({{ table.totals.duration }})</td>
+        <td>({{ table.totals.duration | ConvertSecondsFilter }})</td>
         <td>({{ table.totals.verified }})</td>
       </tr>
     </tbody>

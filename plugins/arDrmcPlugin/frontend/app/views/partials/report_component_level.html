@@ -22,7 +22,7 @@
         <td>{{ unit.size_count | UnitFilter }}</td>
         <td>{{ unit.aips_count }}</td>
         <td>{{ unit.files_count }}</td>
-        <td>{{ unit.fixity_success || 'unknown' }}</td>
+        <td>{{ unit.fixity_success || 'unknown' }} - {{ unit.last_fixity_date || 'unknown' }}</td>
       </tr>
       <tr class="warning">
         <td>{{ item.totals.artwork }}</td>
