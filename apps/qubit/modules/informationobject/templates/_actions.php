@@ -46,6 +46,7 @@
               <li class="divider"></li>
               
               <li><?php echo link_to(__('Create new rights'), array($resource,  'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'edit')) ?></li>
+              <li><?php echo link_to(__('Manage rights inheritance'), array($resource,  'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'manage')) ?></li>
             </ul>
           </div>
         </li>
