@@ -22,7 +22,7 @@
                 <a href ng-if="!savedReport" ng-click="openSaveReportModal()" class="drmc-icon-save"><i class="icon-save"></i>Save</a>
               </li>
               <li>
-                <a href ng-click="download()" class="drmc-icon-download">Download (CSV)</a>
+                <a target="_self" ng-href="{{ downloadCsvLink }}" class="drmc-icon-download">Download (CSV)</a>
               </li>
             </ul>
           </div>

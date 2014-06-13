@@ -2,6 +2,18 @@
 
 module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTINGS) {
 
+  var getDownloadCsvLink = function () {
+    if (typeof $scope.reportParams.type !== 'undefined') {
+      $scope.downloadCsvLink = SETTINGS.frontendPath + 'api/reportcsv?type=' + $scope.reportParams.type;
+      if (typeof $scope.reportParams.from !== 'undefined') {
+        $scope.downloadCsvLink = $scope.downloadCsvLink + '&from=' + $scope.reportParams.from;
+      }
+      if (typeof $scope.reportParams.to !== 'undefined') {
+        $scope.downloadCsvLink = $scope.downloadCsvLink + '&to=' + $scope.reportParams.to;
+      }
+    }
+  };
+
   var getReportResults = function () {
     ReportsService.getReportResults($scope.reportParams).then(function (response) {
       $scope.include = SETTINGS.viewsPath + '/partials/report_' + $scope.reportParams.type + '.html';
@@ -37,6 +49,7 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
         if (typeof response.data.range !== 'undefined' && typeof response.data.range.from !== 'undefined') {
           $scope.reportParams.from = response.data.range.from;
         }
+        getDownloadCsvLink();
         getReportResults();
       });
     } else if (angular.isDefined($stateParams.type)) {
@@ -48,12 +61,14 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
       if ($stateParams.to !== null) {
         $scope.reportParams.to = new Date($stateParams.to).getTime();
       }
+      getDownloadCsvLink();
       getReportResults();
     }
   };
 
-  // Store if it's a saved report to hide Save button
+  // Store if it's a saved report to hide Save button, and link to download CSV
   $scope.savedReport = false;
+  $scope.downloadCsvLink = '';
 
   getReportData();
 
@@ -89,14 +104,4 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
     $modal.close();
   };
 
-  $scope.download = function () {
-    ReportsService.download($stateParams).then(function (response) {
-      var element = angular.element('<a/>');
-      element.attr({
-        href: 'data:attachment/csv;charset=utf-8,' + encodeURI(response.data),
-        target: '_blank',
-        download: $stateParams.type + '.csv'
-      })[0].click();
-    });
-  };
 };
