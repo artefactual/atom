@@ -92,15 +92,15 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       url: SETTINGS.DRMCPath + 'reports',
       template: '<ui-view autoscroll="false"/>'
     })
-    .state('main.reports.preview', {
-      url: '/preview/{type}/{to}/{from}',
-      controller: 'ReportsViewCtrl',
-      templateUrl: SETTINGS.viewsPath + '/reports.view.html'
-    })
     .state('main.reports.view', {
+      url: '/view?type&from&to',
+      controller: 'ReportsViewCtrl',
+      templateUrl: SETTINGS.viewsPath + '/reports.view.html',
+    })
+    .state('main.reports.slug', {
       url: '/saved/{slug}',
       controller: 'ReportsViewCtrl',
-      template: '<div ng-include="include"></div>'
+      templateUrl: SETTINGS.viewsPath + '/reports.view.html'
     })
 
     // Search

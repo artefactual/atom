@@ -51,11 +51,15 @@ module.exports = function ($state, $scope, $modalInstance, $filter) {
 
   // Use parameters from modal to generate a preview (not save) a report
   $scope.generate = function () {
-    // Format $stateParams object to send over url to view page
-    var to = $filter('date')($scope.criteria.range.to, 'yyyy-MM-dd');
-    var from = $filter('date')($scope.criteria.range.from, 'yyyy-MM-dd');
+    // Format dates
+    if (typeof $scope.criteria.range !== 'undefined' && typeof $scope.criteria.range.to !== 'undefined') {
+      $scope.criteria.to = $filter('date')($scope.criteria.range.to, 'yyyy-MM-dd');
+    }
+    if (typeof $scope.criteria.range !== 'undefined' && typeof $scope.criteria.range.from !== 'undefined') {
+      $scope.criteria.from = $filter('date')($scope.criteria.range.from, 'yyyy-MM-dd');
+    }
     $modalInstance.close();
-    $state.go('main.reports.preview', { type: $scope.criteria.type, to: to, from: from });
+    $state.go('main.reports.view', $scope.criteria);
   };
 
   // Reset all fields to empty

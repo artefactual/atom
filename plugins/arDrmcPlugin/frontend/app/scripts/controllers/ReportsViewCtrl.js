@@ -2,18 +2,50 @@
 
 module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTINGS) {
 
-  var getGenerated = function () {
-    // format dates back to UNIX timestamp before submitting
-    $stateParams.to = new Date($stateParams.to).getTime();
-    $stateParams.from = new Date($stateParams.from).getTime();
-
-    ReportsService.getGenerated($stateParams).then(function (response) {
-      $scope.include = SETTINGS.viewsPath + '/partials/report_' + $stateParams.type + '.html';
+  var getReportResults = function () {
+    ReportsService.getReportResults($scope.reportParams).then(function (response) {
+      $scope.include = SETTINGS.viewsPath + '/partials/report_' + $scope.reportParams.type + '.html';
       $scope.reportData = response.data;
     });
   };
 
-  getGenerated();
+  var getReportData = function () {
+    // Store params in scope to show in overview
+    $scope.reportParams = {};
+    if (angular.isDefined($stateParams.slug)) {
+      // Load name. description and params from saved report
+      ReportsService.getReportBySlug($stateParams.slug).then(function (response) {
+        if (typeof response.data.name !== 'undefined') {
+          $scope.reportName = response.data.name;
+        }
+        if (typeof response.data.description !== 'undefined') {
+          $scope.reportDescription = response.data.description;
+        }
+        if (typeof response.data.type !== 'undefined') {
+          $scope.reportParams.type = response.data.type;
+        }
+        if (typeof response.data.range !== 'undefined' && typeof response.data.range.to !== 'undefined') {
+          $scope.reportParams.to = response.data.range.to;
+        }
+        if (typeof response.data.range !== 'undefined' && typeof response.data.range.from !== 'undefined') {
+          $scope.reportParams.from = response.data.range.from;
+        }
+        getReportResults();
+      });
+    } else if (angular.isDefined($stateParams.type)) {
+      // Load params from stateParams
+      $scope.reportParams.type = $stateParams.type;
+      if ($stateParams.from !== null) {
+        $scope.reportParams.from = new Date($stateParams.from).getTime();
+      }
+      if ($stateParams.to !== null) {
+        $scope.reportParams.to = new Date($stateParams.to).getTime();
+      }
+      getReportResults();
+    }
+  };
+
+  getReportData();
 
   $scope.openSaveReportModal = function () {
     $modal.open({

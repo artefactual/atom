@@ -10,7 +10,7 @@ module.exports = function ($http, SETTINGS) {
     });
   };
 
-  this.getGenerated = function (params) {
+  this.getReportResults = function (params) {
     return $http({
       method: 'GET',
       url: SETTINGS.frontendPath + 'api/report',
@@ -38,6 +38,13 @@ module.exports = function ($http, SETTINGS) {
     // }
 
     return $http(configuration);
+  };
+
+  this.getReportBySlug = function (slug) {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/reports/' + slug,
+    });
   };
 
   this.deleteReport = function (id) {
