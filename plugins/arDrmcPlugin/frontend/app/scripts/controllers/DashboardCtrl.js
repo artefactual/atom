@@ -129,4 +129,5 @@ module.exports = function ($scope, $q, StatisticsService, FixityService, AIPServ
         console.log('Error requesting AIP recovery');
       });
   };
+
 };

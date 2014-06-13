@@ -63,7 +63,7 @@ module.exports = function (SETTINGS, InformationObjectService, ModalEditDcMetada
       };
 
       scope.isDeletable = function (node) {
-        if (typeof node.data === 'undefined') {
+        if (typeof node === 'undefined' || typeof node.data === 'undefined') {
           return false;
         }
         return scope.cb.graph.predecessors(node.id).length === 0;

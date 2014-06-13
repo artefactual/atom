@@ -55,30 +55,55 @@ module.exports = function ($http, $q, SETTINGS) {
 
   this.getTree = function (id) {
     var self = this;
-    return $http({
-      method: 'GET',
-      url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/tree'
-    }).success(function (data)
-    {
-      // Iterate over all the elements of the tree and add a property "level"
-      // containing a CSS class for every level of description. Should I be
-      // doing this in cbd/graph.js?
-      function addLevelCssClass (data)
-      {
-        for (var i in data)
-        {
-          var e = data[i];
-          e.level = self.levels[e.level_of_description_id];
+    var queries = [
+      // Obtain tree
+      $http({
+        method: 'GET',
+        url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/tree'
+      }),
+      // Obtain associations
+      $http({
+        method: 'GET',
+        url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/tree/associations'
+      })
+    ];
+    return $q.all(queries).then(function (responses) {
+      var _t = responses[0].data;
+      var _a = responses[1].data;
 
-          if (typeof e.children !== 'undefined')
-          {
-            addLevelCssClass(e.children);
+      // Recursive function
+      function i (set) {
+        if (!angular.isArray(set)) {
+          set = [set];
+        }
+        for (var j in set) {
+          // Current item
+          var k = set[j];
+          // Set level
+          k.level = self.levels[k.level_of_description_id];
+          // Add associations. There may be more than one, so we won't break the
+          // loop after the first match.
+          if (_a.length) {
+            for (var l = 0; l < _a.length; l++) {
+              var as = _a[l];
+              if (as.subject_id === k.id) {
+                if (angular.isUndefined(k.associations)) {
+                  k.associations = [];
+                }
+                k.associations.push(as);
+              }
+            }
+          }
+          // Recursivity
+          if (angular.isDefined(k.children) && k.children !== null) {
+            i(k.children);
           }
         }
       }
 
-      data.level = self.levels[data.level_of_description_id];
-      addLevelCssClass(data.children);
+      i(_t);
+
+      return _t;
     });
   };
 
@@ -276,6 +301,41 @@ module.exports = function ($http, $q, SETTINGS) {
   this.createSupportingTechnologyRecord = function (data) {
     data.level_of_description_id = SETTINGS.drmc.lod_supporting_technology_record_id;
     return this.create(data);
+  };
+
+  /**
+   * Associative relationships
+   */
+
+  this.associate = function (source_id, target_id, type_id, options) {
+    var data = {
+      target_id: target_id,
+      type_id: type_id
+    };
+    if (angular.isDefined(options)) {
+      if (angular.isDefined(options.note)) {
+        data.note = options.note;
+      }
+    }
+    return $http({
+      method: 'POST',
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + source_id + '/associate',
+      data: data
+    });
+  };
+
+  this.getAssociation = function (id) {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/informationobjects/association/' + id
+    });
+  };
+
+  this.deleteAssociation = function (id) {
+    return $http({
+      method: 'DELETE',
+      url: SETTINGS.frontendPath + 'api/informationobjects/association/' + id
+    });
   };
 
 };

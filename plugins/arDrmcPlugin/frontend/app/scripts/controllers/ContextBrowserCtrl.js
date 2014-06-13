@@ -2,7 +2,7 @@
 
 var ContextBrowser = require('../lib/cbd');
 
-module.exports = function ($scope, $element, $document, InformationObjectService, FullscreenService) {
+module.exports = function ($scope, $element, $document, $modal, ModalAssociativeRelationship, InformationObjectService, FullscreenService) {
 
   // Aliases (not needed, just avoiding the refactor now)
   var scope = $scope;
@@ -26,13 +26,12 @@ module.exports = function ($scope, $element, $document, InformationObjectService
   scope.pull = function () {
     var self = this;
     InformationObjectService.getTree(scope.id)
-      .then(function (response) {
-
+      .then(function (tree) {
         // Empty container
         container.empty();
 
         // Init context browser
-        cb.init(response.data, function (u) {
+        cb.init(tree, function (u) {
           var node = self.cb.graph.node(u);
           // Hide AIPs
           if (node.level === 'aip') {
@@ -84,10 +83,29 @@ module.exports = function ($scope, $element, $document, InformationObjectService
     });
   });
 
+  // TODO: this is not working, see ContextBrowser.prototype.clickSVG
   cb.events.on('click-background', function () {
     scope.$apply(function () {
       scope.unselectAll();
     });
+  });
+
+  cb.events.on('click-path', function (attrs) {
+    var type;
+    try {
+      type = attrs.edge.type;
+    } catch (e) {}
+    if (!angular.isDefined(type)) {
+      return false;
+    }
+    if (type === 'associative') {
+      ModalAssociativeRelationship.edit(attrs.edge.relationId).result.then(function (result) {
+        if (result === 'deleted') {
+          scope.cb.graph.delEdge(attrs.id);
+          scope.cb.draw();
+        }
+      });
+    }
   });
 
 
@@ -132,6 +150,9 @@ module.exports = function ($scope, $element, $document, InformationObjectService
    * Selection
    */
 
+  // TODO: Should I stop using a dictionary? The idea was to use the key to hold
+  // the Id, but js won't let me store integers just strings, which is
+  // unfortunate for direct access.
   scope.activeNodes = {};
 
   scope.hasNodeSelected = function () {
@@ -277,6 +298,28 @@ module.exports = function ($scope, $element, $document, InformationObjectService
    * Node action
    */
 
+  scope.linkNode = function (id) {
+    // Prompt the user
+    scope.cb.promptNodeSelection({
+      exclude: [id],
+      action: function (target) {
+        var s = {
+          id: id,
+          label: scope.cb.graph.node(id).label
+        };
+        var t = {
+          id: target,
+          label: scope.cb.graph.node(target).label
+        };
+        ModalAssociativeRelationship.create(s, t).result.then(function (type) {
+          scope.cb.createAssociativeRelationship(s.id, t.id, type);
+        }, function () {
+          scope.cb.cancelNodeSelection();
+        });
+      }
+    });
+  };
+
   scope.moveNodes = function (ids) {
     var source = [];
     if (typeof ids === 'number') {
@@ -286,7 +329,20 @@ module.exports = function ($scope, $element, $document, InformationObjectService
     } else {
       throw 'I don\'t know what you are trying to do!';
     }
-    var exclusionList = scope.cb.graph.descendants(ids, { onlyId: true, andSelf: true });
+    // Build a list of descendants
+    var exclusionList = [];
+    source.forEach(function (v) {
+      var descendants = scope.cb.graph.descendants(v, { onlyId: true, andSelf: true });
+      for (var i = 0; i < descendants.length; i++) {
+        // Remember that we are dealing with strings here (see activeNodes) :(
+        var nv = String(descendants[i]);
+        // Avoid to add the same id twice
+        if (exclusionList.indexOf(nv) === -1) {
+          exclusionList.push(nv);
+        }
+      }
+    });
+    // Prompt
     scope.cb.promptNodeSelection({
       exclude: exclusionList,
       action: function (target) {

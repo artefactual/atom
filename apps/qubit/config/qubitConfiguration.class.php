@@ -199,7 +199,8 @@ EOF
         'Classifications',
         'Departments',
         'Component types',
-        'Supporting technologies relation types');
+        'Supporting technologies relation types',
+        'Associative relationship types');
 
       foreach ($taxonomies as $name)
       {

@@ -8,7 +8,8 @@ module.exports = function ($http, SETTINGS) {
     'AIP_TYPES': 71,
     'EVENT_TYPE': 40,
     'DC_TYPES': 54,
-    'SUPORTING_TECHNOLOGY_RELATION_TYPES': SETTINGS.drmc.taxonomy_supporting_technologies_relation_types_id
+    'SUPORTING_TECHNOLOGY_RELATION_TYPES': SETTINGS.drmc.taxonomy_supporting_technologies_relation_types_id,
+    'ASSOCIATIVE_RELATIONSHIP_TYPES': SETTINGS.drmc.taxonomy_associative_relationship_types_id
   };
 
   this.getTerms = function (taxonomy) {

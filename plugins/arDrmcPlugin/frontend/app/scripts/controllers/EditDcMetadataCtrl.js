@@ -72,13 +72,6 @@ module.exports = function ($scope, $state, $modalInstance, SETTINGS, Information
     $scope.dcTypesTaxonomy = data.terms;
   });
 
-  // Title, based in new
-  if ($scope.new) {
-    $scope.title = 'Add supporting technology record';
-  } else {
-    $scope.title = 'Edit supporting technology record';
-  }
-
   // Update existing record
   var update = function () {
     InformationObjectService.update($scope.resource.id, $scope.resource).then(function () {
@@ -144,4 +137,5 @@ module.exports = function ($scope, $state, $modalInstance, SETTINGS, Information
     $scope.resource.names[0].actor_id = $item.id;
     $scope.resource.names[0].authorized_form_of_name = $item.authorized_form_of_name;
   };
+
 };

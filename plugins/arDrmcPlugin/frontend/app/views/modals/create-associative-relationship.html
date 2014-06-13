@@ -1,0 +1,42 @@
+<div>
+
+  <div class="modal-header">
+    <button type="button" ng-click="cancel()" class="close">×</button>
+    <h2>{{ new ? 'Add associative relationship' : 'Edit associative relationship' }}</h2>
+  </div>
+
+  <form name="modalContainer.form" ng-submit="submit()" novalidate>
+
+    <div class="modal-body">
+      <div class="form-item">
+        <label>From</label>
+        <input type="text" ng-value="source.label" readonly/>
+      </div>
+
+      <div class="form-item">
+        <label>To</label>
+        <input type="text" ng-value="target.label" readonly/>
+      </div>
+
+      <div class="form-item">
+        <label>Type</label>
+        <select ng-model="modalContainer.obj.type" ng-options="item.id as item.name for item in modalContainer.types" required>
+          <option value="">Select a type</option>
+        </select>
+      </div>
+
+      <div class="form-item">
+        <label>Note</label>
+        <textarea ng-model="modalContainer.obj.note"></textarea>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid }" ng-disabled="modalContainer.form.$invalid">{{ new ? 'Create' : 'Update' }}</button>
+      <button ng-if="!new" class="btn btn-danger" ng-click="delete($event)">Delete</button>
+      <button class="btn" ng-click="cancel()">Cancel</button>
+    </div>
+
+  </form>
+
+</div>

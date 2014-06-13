@@ -92,6 +92,9 @@
       .on('mouseover', jQuery.proxy(nodeFilter, null, this.hoverNode))
       .on('mouseout', jQuery.proxy(nodeFilter, null, this.hoverNode));
 
+    this.graphSVG.select('.edgePaths')
+      .on('click', jQuery.proxy(this.clickPath, this));
+
     this.graphSVG.select('.expandCollapseIcons')
       .on('click', jQuery.proxy(this.clickExpandCollapseIcon, this));
 
@@ -179,6 +182,17 @@
     }
   };
 
+  ContextBrowser.prototype.clickPath = function () {
+    var target = d3.event.target;
+    var jg = jQuery(target).closest('g');
+    if (!jg.length) {
+      return;
+    }
+    var datum = d3.select(target).datum();
+    var edge = this.graph.edge(datum);
+    this.events.emitEvent('click-path', [{ id: datum, edge: edge, event: d3.event }, target]);
+  };
+
   ContextBrowser.prototype.clickSVG = function () {
     var target = d3.event.target.correspondingUseElement ? d3.event.target.correspondingUseElement : d3.event.target;
     var n = d3.select(target);
@@ -238,8 +252,15 @@
     this.draw();
   };
 
+  /**
+   * Expects an array of nodes where each member doesn't include any of the
+   * other nodes between its ancestors (different subtrees?).
+   */
   ContextBrowser.prototype.moveNodes = function (nodes, target) {
     var self = this;
+    if (!(nodes instanceof Array)) {
+      nodes = [nodes];
+    }
     nodes.forEach(function (u) {
       var edges = self.graph.outEdges(u);
       if (edges.length !== 1) {
@@ -325,13 +346,11 @@
   };
 
   ContextBrowser.prototype.createAssociativeRelationship = function (source, target, type) {
-    for (var i in source) {
-      var src = source[i];
-      this.graph.addEdge(src + ':' + target, src, target, {
-        type: 'associative'
-      });
-      this.draw();
-    }
+    this.graph.addEdge(source + ':' + target, source, target, {
+      type: 'associative'
+      // label? :)
+    });
+    this.draw();
     console.log(type);
   };
 

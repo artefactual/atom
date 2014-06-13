@@ -27,6 +27,7 @@
     .service('ModalLinkSupportingTechnologyService', require('./ModalLinkSupportingTechnologyService'))
     .service('ModalDownloadService', require('./ModalDownloadService'))
     .service('ModalReclassifyAipService', require('./ModalReclassifyAipService'))
-    .service('ModalSaveSearchService', require('./ModalSaveSearchService'));
+    .service('ModalSaveSearchService', require('./ModalSaveSearchService'))
+    .service('ModalAssociativeRelationship', require('./ModalAssociativeRelationship'));
 
 })();

@@ -106,9 +106,7 @@
             </ul>
           </div>
           <div class="node-actions">
-            <!-- <a href class="btn btn-small" ng-click="moveNodes('selected')"><i class="icon-move"></i><span>Move</span></a> -->
-            <!-- <a href class="btn btn-small" ng-click="linkNodes('selected')"><i class="icon-link"></i><span>Link</span></a> -->
-            <!-- <a href class="btn btn-small btn-delete" ng-show="isDeletable(currentNode)" ng-click="deleteNodes('selected')"><i class="icon-remove"></i><span>Delete</span></a> -->
+            <a href class="btn btn-small" ng-click="moveNodes('selected')"><i class="icon-move"></i><span>Move</span></a>
             <a href class="btn btn-small" ng-click="cancelBulkEdit()">Cancel</a>
           </div>
         </div>
@@ -116,7 +114,7 @@
         <!-- Single node detail -->
         <div ng-if="hasNodeSelected()" class="cb-sidebar-section">
           <!-- Heading -->
-          <h3 class="drmc-color-{{ currentNode.data.level }}">{{ currentNode.data.title }}</h3>
+          <h3 class="drmc-color-{{ currentNode.data.level }}">{{ currentNode.data.title || 'Untitled' }}</h3>
 
           <!-- TMS metadata -->
           <div ng-if="currentNode.data.tms" class="cb-sidebar-subsection cb-sidebar-subsection-collapsible" ng-class="{ collapsed: tmsCollapsed }">
@@ -193,7 +191,7 @@
           <!-- Actions -->
           <div class="node-actions" ng-show="user.canContribute()">
             <a href class="btn btn-small" ng-click="addChildNode(currentNode.id)" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip="Add" tooltip-popup-delay="500"><i class="icon-plus"></i></a>
-            <a href class="btn btn-small" ng-click="linkNodes(currentNode.id)" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip="Link" tooltip-popup-delay="500"><i class="icon-link"></i></a>
+            <a href class="btn btn-small" ng-click="linkNode(currentNode.id)" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip="Link" tooltip-popup-delay="500"><i class="icon-link"></i></a>
             <a href class="btn btn-small" ng-click="moveNodes(currentNode.id)" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip="Move" tooltip-popup-delay="500"><i class="icon-move"></i></a>
             <a href class="btn btn-small" ng-click="crudRelatedTechnologies(currentNode.id)" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip="Supporting technologies" tooltip-popup-delay="500"><i class="icon-wrench"></i></a>
             <a href class="btn btn-small btn-delete" ng-show="isDeletable(currentNode)" ng-click="deleteNodes(currentNode.id)" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip="Delete" tooltip-popup-delay="500"><i class="icon-remove"></i></a>

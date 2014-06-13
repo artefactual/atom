@@ -115,6 +115,11 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'informationobjectsTree',
       'params' => array('id' => self::REGEX_ID)));
 
+    $this->addRoute('GET', '/api/informationobjects/:id/tree/associations', array(
+      'module' => 'api',
+      'action' => 'informationobjectsTreeAssociations',
+      'params' => array('id' => self::REGEX_ID)));
+
     $this->addRoute('GET', '/api/informationobjects/:id/files', array(
       'module' => 'api',
       'action' => 'informationobjectsFiles',
@@ -133,6 +138,16 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     $this->addRoute('GET', '/api/informationobjects/:id/aips', array(
       'module' => 'api',
       'action' => 'informationobjectsAips',
+      'params' => array('id' => self::REGEX_ID)));
+
+    $this->addRoute('GET', '/api/informationobjects/association/:id', array(
+      'module' => 'api',
+      'action' => 'informationobjectsReadAssociation',
+      'params' => array('id' => self::REGEX_ID)));
+
+    $this->addRoute('DELETE', '/api/informationobjects/association/:id', array(
+      'module' => 'api',
+      'action' => 'informationobjectsDeleteAssociation',
       'params' => array('id' => self::REGEX_ID)));
 
     $this->addRoute('POST', '/api/informationobjects/:id/associate', array(
