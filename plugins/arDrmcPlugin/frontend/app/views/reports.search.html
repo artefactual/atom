@@ -42,12 +42,12 @@
               {{ count }}
             </div>
           </div>
-          <div class="field" ng-repeat="(label, search) in data.overview.latest">
+          <div class="field" ng-repeat="(label, report) in data.overview.latest">
             <h3>{{ label }}</h3>
             <div>
-              <a href>{{ search.name }}</a>
+              <a href ui-sref="main.reports.slug({ slug: report.slug })">{{ report.name }}</a>
               <span>&nbsp;&raquo;&nbsp;</span>
-              {{ search.date + ' (' + search.user + ')' }}
+              {{ report.date + ' (' + report.user + ')' }}
             </div>
           </div>
         </section>
