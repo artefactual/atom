@@ -23,10 +23,7 @@ class ApiInformationObjectsTreeAssociationsAction extends QubitApiAction
   {
     $sql = <<<EOL
 SELECT
-  node.id,
-  relation.id as relation_id,
-  relation.type_id,
-  relation.object_id
+  relation.id
 FROM
  information_object AS node,
  information_object AS parent,
@@ -54,11 +51,22 @@ EOL;
     $data = array();
     foreach ($results as $item)
     {
+      $rel = QubitRelation::getById($item->id);
+
       $data[] = array(
-        'id' => (int)$item->relation_id,
-        'type_id' => (int)$item->type_id,
-        'subject_id' => (int)$item->id,
-        'object_id' => (int)$item->object_id
+        'id' => (int)$rel->id,
+        'type' => array(
+          'id' => (int)$rel->type->id,
+          'name' => $rel->type->__toString()
+        ),
+        'subject' => array(
+          'id' => (int)$rel->subject->id,
+          'title' => $rel->subject->__toString()
+        ),
+        'object' => array(
+          'id' => (int)$rel->object->id,
+          'title' => $rel->object->__toString()
+        )
       );
     }
 
