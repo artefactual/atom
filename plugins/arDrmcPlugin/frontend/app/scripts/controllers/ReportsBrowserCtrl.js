@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modal, $state, $stateParams, ReportsService, SETTINGS) {
+module.exports = function ($scope, $modal, $state, ReportsService, SETTINGS) {
 
   $scope.openGenerateReportModal = function () {
     $modal.open({
@@ -13,9 +13,6 @@ module.exports = function ($scope, $modal, $state, $stateParams, ReportsService,
           return $scope.data;
         }
       }
-    }).result.then(function () {
-      //TODO: This doesn't update page
-      //pull();
     });
   };
 
@@ -35,17 +32,15 @@ module.exports = function ($scope, $modal, $state, $stateParams, ReportsService,
     for (var key in $scope.selectedReports) {
       _delete($scope.selectedReports[key]);
     }
+    $scope.$parent.updateResults();
     $scope.selectedReports = [];
   };
 
   var _delete = function (id) {
     ReportsService.deleteReport(id).then(function () {
-      //pull();
     }, function () {
       throw 'Error deleting report ' + id;
     });
   };
-
-  //pull();
 
 };

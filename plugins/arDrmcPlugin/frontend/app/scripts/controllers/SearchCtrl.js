@@ -125,4 +125,8 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
     }
   };
 
+  $scope.updateResults = function () {
+    search();
+  };
+
 };
