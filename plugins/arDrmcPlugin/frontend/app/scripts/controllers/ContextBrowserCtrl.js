@@ -99,7 +99,12 @@ module.exports = function ($scope, $element, $document, $modal, ModalAssociative
       return false;
     }
     if (type === 'associative') {
-      ModalAssociativeRelationship.edit(attrs.edge.relationId);
+      ModalAssociativeRelationship.edit(attrs.edge.relationId).result.then(function (result) {
+        if (result === 'deleted') {
+          scope.cb.graph.delEdge(attrs.id);
+          scope.cb.draw();
+        }
+      });
     }
   });
 
@@ -307,7 +312,7 @@ module.exports = function ($scope, $element, $document, $modal, ModalAssociative
           label: scope.cb.graph.node(target).label
         };
         ModalAssociativeRelationship.create(s, t).result.then(function (type) {
-          scope.cb.createAssociativeRelationship(s, t, type);
+          scope.cb.createAssociativeRelationship(s.id, t.id, type);
         }, function () {
           scope.cb.cancelNodeSelection();
         });

@@ -324,4 +324,18 @@ module.exports = function ($http, $q, SETTINGS) {
     });
   };
 
+  this.getAssociation = function (id) {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/informationobjects/association/' + id
+    });
+  };
+
+  this.deleteAssociation = function (id) {
+    return $http({
+      method: 'DELETE',
+      url: SETTINGS.frontendPath + 'api/informationobjects/association/' + id
+    });
+  };
+
 };

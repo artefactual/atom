@@ -10,6 +10,13 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, Tax
   // New record?
   $scope.new = id === null;
 
+  // Resource (TODO: this needs some rearrangements!)
+  // $scope.source: { id: ..., label: ... }
+  // $scope.target: { id: ..., label: ... }
+  // id (if editing)
+  // $scope.modalContainer.obj.type
+  // $scope.modalContainer.obj.note
+
   // Associative relationships types
   TaxonomyService.getTerms('ASSOCIATIVE_RELATIONSHIP_TYPES').then(function (data) {
     $scope.modalContainer.types = data.terms;
@@ -20,7 +27,25 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, Tax
     $scope.target = target;
   } else {
     InformationObjectService.getAssociation(id).then(function (response) {
-      console.log(response);
+      var data = response.data;
+      $scope.source = {
+        id: data.subject.id,
+        label: data.subject.title
+      };
+      $scope.target = {
+        id: data.object.id,
+        label: data.object.title
+      };
+      $scope.modalContainer.obj = $scope.modalContainer.obj || {};
+      if (data.hasOwnProperty('type') && data.type.hasOwnProperty('id')) {
+        $scope.modalContainer.obj.type = data.type.id;
+      }
+      if (data.hasOwnProperty('description')) {
+        $scope.modalContainer.obj.note = data.description;
+      }
+    }, function (response) {
+      console.log(response.statusText);
+      $modalInstance.dismiss('Object not found');
     });
   }
 
@@ -37,6 +62,16 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, Tax
       $modalInstance.close($scope.modalContainer.obj.type);
     }, function (reason) {
       $modalInstance.dismiss(reason);
+    });
+  };
+
+  $scope.delete = function ($event) {
+    // I don't understand why the default is to submit?
+    $event.preventDefault();
+    InformationObjectService.deleteAssociation(id).then(function () {
+      $modalInstance.close('deleted');
+    }, function (response) {
+      console.log('Delete failed:', response.statusText);
     });
   };
 

@@ -32,7 +32,8 @@
     </div>
 
     <div class="modal-footer">
-      <button type="submit" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid, 'btn-danger': modalContainer.form.$invalid }">{{ new ? 'Create' : 'Update' }}</button>
+      <button type="submit" ng-class="{ btn: true, 'btn-primary': modalContainer.form.$valid }" ng-disabled="modalContainer.form.$invalid">{{ new ? 'Create' : 'Update' }}</button>
+      <button ng-if="!new" class="btn btn-danger" ng-click="delete($event)">Delete</button>
       <button class="btn" ng-click="cancel()">Cancel</button>
     </div>
 
