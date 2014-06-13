@@ -108,14 +108,6 @@ module.exports = function ($scope, $q, StatisticsService, FixityService, AIPServ
     });
   });
 
-  // Set visibility of fixity details to false by default
-  // If failed fixity checks exist, this value will be set
-  // to true in then() following service call
-  $scope.showOverview = false;
-  $scope.toggleOverview = function () {
-    $scope.showOverview = !$scope.showOverview;
-  };
-
   // Check if AIP is pending recovery
   $scope.isPendingRecovery = function (uuid) {
     if (
