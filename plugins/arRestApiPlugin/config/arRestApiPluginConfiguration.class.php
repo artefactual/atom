@@ -150,6 +150,11 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'informationobjectsDeleteAssociation',
       'params' => array('id' => self::REGEX_ID)));
 
+    $this->addRoute('PUT', '/api/informationobjects/association/:id', array(
+      'module' => 'api',
+      'action' => 'informationobjectsUpdateAssociation',
+      'params' => array('id' => self::REGEX_ID)));
+
     $this->addRoute('POST', '/api/informationobjects/:id/associate', array(
       'module' => 'api',
       'action' => 'informationobjectsAssociate',
