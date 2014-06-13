@@ -23,9 +23,9 @@
         <td>{{ item.fail_time }}</td>
         <td>{{ item.recovery.time_started }}</td>
         <td>{{ item.recovery.time_completed }}</td>
-        <td>{{ item.recovery.duration }}</td>
+        <td>{{ item.recovery.duration | ConvertSecondsFilter }}</td>
         <td>{{ item.recovery.user }}</td>
-        <td>{{ item.recovery.success }}</td>
+        <td>{{ item.recovery.success ? 'Verified' : 'Failed' }}</td>
       </tr>
       <tr class="warning">
         <td>({{ reportData.totals.aips }})</td>
@@ -37,7 +37,7 @@
         <td></td>
         <td></td>
         <td>({{ reportData.totals.users }})</td>
-        <td>({{ reportData.totals.verified }})</td>
+        <td>({{ reportData.totals.verified }} Verified)</td>
       </tr>
     </tbody>
   </table>

@@ -58,6 +58,7 @@
             <th>Name</th>
             <th>UUID</th>
             <th>Total filesize</th>
+            <th>Parent artwork</th>
             <th>Attached to</th>
             <th>Download reason</th>
           </thead>
@@ -69,6 +70,7 @@
               <td>{{ item.name }}</td>
               <td>{{ item.uuid }}</td>
               <td>{{ item.size | UnitFilter }}</td>
+              <td>{{ item.part_of }}</td>
               <td>{{ item.attached_to }}</td>
               <td>{{ item.reason }}</td>
             </tr>
@@ -80,6 +82,7 @@
               <td></td>
               <td>({{ table.totals.size | UnitFilter }})</td>
               <td>({{ table.totals.artworks }})</td>
+              <td></td>
               <td></td>
             </tr>
           </tbody>

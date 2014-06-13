@@ -32,7 +32,7 @@
         <td>{{ item.totals.size | UnitFilter }}</td>
         <td>{{ item.totals.aips }}</td>
         <td>{{ item.totals.files }}</td>
-        <td>{{ item.totals.verified || 'unknown' }}</td>
+        <td>{{ item.totals.verified }} Verified</td>
       </tr>
     </tbody>
     <tbody>
@@ -44,7 +44,7 @@
         <td>({{ table.totals.size | UnitFilter }})</td>
         <td>({{ table.totals.aips }})</td>
         <td>({{ table.totals.files }})</td>
-        <td>({{ table.totals.verified || 'unknown' }})</td>
+        <td>({{ table.totals.verified }} Verified)</td>
       </tr>
     </tbody>
   </table>
