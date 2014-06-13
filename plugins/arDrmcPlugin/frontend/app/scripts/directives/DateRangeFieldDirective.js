@@ -21,7 +21,7 @@ module.exports = function () {
       };
 
       $from.on('change', listener);
-      $to.on('change', listener);
+      $to.on('blur', listener);
 
       // Update the view when the model changes
       ngModelCtrl.$render = function () {
@@ -33,12 +33,18 @@ module.exports = function () {
       };
 
       var validate = function (value) {
+        ngModelCtrl.$setValidity('range', false);
         if (!angular.isObject(value) || value === {}) {
           ngModelCtrl.$setValidity('range', false);
           return undefined;
         }
         if (angular.isUndefined(value.from) || angular.isUndefined(value.to)) {
           ngModelCtrl.$setValidity('range', false);
+          return undefined;
+        }
+        if (value.to === '' || value.from === '') {
+          ngModelCtrl.$setValidity('range', false);
+          ngModelCtrl.$setPristine('range', true);
           return undefined;
         }
         var from = $from.get(0).valueAsDate;
