@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modalInstance, InformationObjectService, TaxonomyService, id, sources, target) {
+module.exports = function ($scope, $modalInstance, InformationObjectService, TaxonomyService, id, source, target) {
 
   // HACK: form scoping issue within modals, see
   // - http://stackoverflow.com/a/19931221/2628967
@@ -15,9 +15,14 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, Tax
     $scope.modalContainer.types = data.terms;
   });
 
-  // Make modal resolves accessible from the model
-  $scope.sources = sources;
-  $scope.target = target;
+  if ($scope.new) {
+    $scope.source = source;
+    $scope.target = target;
+  } else {
+    InformationObjectService.getAssociation(id).then(function (response) {
+      console.log(response);
+    });
+  }
 
   $scope.submit = function () {
     if ($scope.modalContainer.form.$invalid) {
@@ -28,7 +33,7 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, Tax
     if (angular.isDefined($scope.modalContainer.obj.note)) {
       options.note = $scope.modalContainer.obj.note;
     }
-    InformationObjectService.associate(sources[0].id, target.id, $scope.modalContainer.obj.type, options).then(function () {
+    InformationObjectService.associate(source.id, target.id, $scope.modalContainer.obj.type, options).then(function () {
       $modalInstance.close($scope.modalContainer.obj.type);
     }, function (reason) {
       $modalInstance.dismiss(reason);

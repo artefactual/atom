@@ -291,29 +291,21 @@ module.exports = function ($scope, $element, $document, $modal, ModalAssociative
    * Node action
    */
 
-  scope.linkNodes = function (ids) {
-    var source = [];
-    if (typeof ids === 'number') {
-      source.push(ids);
-    } else if (typeof ids === 'string' && ids === 'selected') {
-      source = source.concat(Object.keys(scope.activeNodes));
-    } else {
-      throw 'I don\'t know what you are trying to do!';
-    }
+  scope.linkNode = function (id) {
     // Prompt the user
     scope.cb.promptNodeSelection({
-      exclude: source,
+      exclude: [id],
       action: function (target) {
-        var s = [];
-        for (var i = 0; i < source.length; i++) {
-          s.push({
-            id: source[i],
-            label: scope.cb.graph.node(source[i]).label
-          });
-        }
-        var t = { id: target, label: scope.cb.graph.node(target).label };
+        var s = {
+          id: id,
+          label: scope.cb.graph.node(id).label
+        };
+        var t = {
+          id: target,
+          label: scope.cb.graph.node(target).label
+        };
         ModalAssociativeRelationship.create(s, t).result.then(function (type) {
-          scope.cb.createAssociativeRelationship(source, target, type);
+          scope.cb.createAssociativeRelationship(s, t, type);
         }, function () {
           scope.cb.cancelNodeSelection();
         });

@@ -9,7 +9,7 @@ module.exports = function ($modal, SETTINGS) {
   };
 
   // Parameters injected in the controller
-  var params = ['id', 'sources', 'target'];
+  var params = ['id', 'source', 'target'];
 
   var open = function (options) {
     options = options || {};
@@ -24,9 +24,9 @@ module.exports = function ($modal, SETTINGS) {
     return $modal.open(configuration);
   };
 
-  this.create = function (sources, target) {
+  this.create = function (source, target) {
     return open({
-      sources: sources,
+      source: source,
       target: target
     });
   };
