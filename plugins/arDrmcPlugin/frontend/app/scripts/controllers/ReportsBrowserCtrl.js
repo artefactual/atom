@@ -2,6 +2,10 @@
 
 module.exports = function ($scope, $q, $modal, $state, ReportsService, SETTINGS) {
 
+  // Default sorting options
+  $scope.criteria.sort_direction = 'desc';
+  $scope.criteria.sort = 'createdAt';
+
   $scope.openGenerateReportModal = function () {
     $modal.open({
       templateUrl: SETTINGS.viewsPath + '/modals/generate-report.html',
@@ -16,6 +20,7 @@ module.exports = function ($scope, $q, $modal, $state, ReportsService, SETTINGS)
     });
   };
 
+  // Store ids of searches with checkbox selected
   $scope.selectedReports = [];
 
   // Toggle selected report
