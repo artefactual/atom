@@ -37,6 +37,16 @@ module.exports = function ($http, SETTINGS) {
     }
   ];
 
+  this.getTitleByType = function (type) {
+    console.log(type);
+    for (var i = 0; i < this.types.length; i++) {
+      var t = this.types[i];
+      if (t.type === type) {
+        return t.name;
+      }
+    }
+  };
+
   this.getBrowse = function (params) {
     return $http({
       method: 'GET',
