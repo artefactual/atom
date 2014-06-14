@@ -30,12 +30,6 @@ module.exports = function ($scope, $state, $modalInstance, ReportsService, data)
     $state.go('main.search.entity', { 'entity': 'reports' });
   };
 
-  // Reset all fields to empty
-  $scope.reset = function () {
-    angular.copy(copy.criteria, $scope.criteria);
-    $scope.modalContainer.dateRange = 'all';
-  };
-
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
