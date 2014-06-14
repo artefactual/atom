@@ -81,8 +81,7 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
       resolve: {
         // Bring data about current generated report into modal
         data: function () {
-          var s = $scope.reportParams;
-          return s;
+          return $scope.reportParams;
         }
       }
     });
