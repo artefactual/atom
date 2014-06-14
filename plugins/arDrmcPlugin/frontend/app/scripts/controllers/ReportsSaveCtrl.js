@@ -10,9 +10,6 @@ module.exports = function ($scope, $state, $modalInstance, ReportsService, data)
   // Create object to define and set defaults
   $scope.criteria = data;
 
-  var copy = {};
-  angular.copy($scope.criteria, copy);
-
   // Checks for valid dates and generate report (with or without save)
   $scope.submit = function () {
     if ($scope.modalContainer.form.$invalid) {
@@ -21,13 +18,13 @@ module.exports = function ($scope, $state, $modalInstance, ReportsService, data)
     if ($scope.modalContainer.dateRange === 'all') {
       delete $scope.criteria.range;
     }
-    // Access to the server
-    ReportsService.saveReport($scope.criteria).then(function (data) {
-      $scope.id = data.id;
+    // Save report
+    ReportsService.saveReport($scope.criteria).then(function (response) {
+      $modalInstance.close(response.data.id);
+    }, function (response) {
+      console.log('Error saving report', response);
+      $modalInstance.dismiss('error');
     });
-    // Close
-    $modalInstance.close();
-    $state.go('main.search.entity', { 'entity': 'reports' });
   };
 
   $scope.cancel = function () {
