@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function () {
+module.exports = function ($filter) {
   return {
     restrict: 'C',
     require: 'ngModel',
@@ -21,7 +21,7 @@ module.exports = function () {
       };
 
       $from.on('change', listener);
-      $to.on('blur', listener);
+      $to.on('change', listener);
 
       // Update the view when the model changes
       ngModelCtrl.$render = function () {
@@ -33,7 +33,6 @@ module.exports = function () {
       };
 
       var validate = function (value) {
-        ngModelCtrl.$setValidity('range', false);
         if (!angular.isObject(value) || value === {}) {
           ngModelCtrl.$setValidity('range', false);
           return undefined;
@@ -44,7 +43,6 @@ module.exports = function () {
         }
         if (value.to === '' || value.from === '') {
           ngModelCtrl.$setValidity('range', false);
-          ngModelCtrl.$setPristine('range', true);
           return undefined;
         }
         var from = $from.get(0).valueAsDate;
@@ -61,11 +59,17 @@ module.exports = function () {
         if (ngModelCtrl.$invalid) {
           return value;
         }
-        var from = $from.get(0).valueAsDate;
-        var to = $to.get(0).valueAsDate;
+        var format = 'yyyy-MM-dd';
+        if (angular.isDefined(attrs.dateFormat)) {
+          if (attrs.dateFormat === 'iso') {
+            format = 'yyyy-MM-ddTHH:mm:ss:Z';
+          } else {
+            format = attrs.dateFormat;
+          }
+        }
         return {
-          from: from.toISOString(),
-          to: to.toISOString()
+          from: $filter('date')($from.get(0).value, format),
+          to: $filter('date')($to.get(0).value, format)
         };
       };
 
