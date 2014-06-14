@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($state, $scope, $modalInstance, $filter, ReportsService) {
+module.exports = function ($state, $scope, $modalInstance, ReportsService) {
 
   $scope.reportTypes = ReportsService.types;
 
@@ -16,15 +16,7 @@ module.exports = function ($state, $scope, $modalInstance, $filter, ReportsServi
   var copy = {};
   angular.copy($scope.criteria, copy);
 
-  // Use parameters from modal to generate a preview (not save) a report
-  $scope.generate = function () {
-    // Format dates
-    if (typeof $scope.criteria.range !== 'undefined' && typeof $scope.criteria.range.to !== 'undefined') {
-      $scope.criteria.to = $filter('date')($scope.criteria.range.to, 'yyyy-MM-dd');
-    }
-    if (typeof $scope.criteria.range !== 'undefined' && typeof $scope.criteria.range.from !== 'undefined') {
-      $scope.criteria.from = $filter('date')($scope.criteria.range.from, 'yyyy-MM-dd');
-    }
+  $scope.submit = function () {
     $modalInstance.close();
     $state.go('main.reports.view', $scope.criteria);
   };

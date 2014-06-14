@@ -5,33 +5,34 @@
     <h2>Generate new report</h2>
   </div>
 
-  <div class="modal-body">
+  <form name="form" ng-submit="submit()">
 
-    <!-- Select report type -->
-    <section class="form-item">
-      <label>Choose report type<span class="input-required">*</span></label>
-      <select name="type" ng-model="criteria.type" ng-options="report.type as report.name for report in reportTypes" required>
-        <option value="">Select a type</option>
-      </select>
-    </section>
+    <div class="modal-body">
 
-    <!-- Select dates -->
-    <section class="form-item">
-      <p>Choose date range</p>
-      <label>
-        <input type="radio" name="dateRange" value="all" ng-model="modalContainer.dateRange"/>
-        All
-      </label>
-      <label>
-        <input type="radio" name="dateRange" value="specified" ng-model="modalContainer.dateRange"/>
-        Specified date range
-      </label>
+      <!-- Select report type -->
+      <section class="form-item">
+        <label>Choose report type<span class="input-required">*</span></label>
+        <select name="type" ng-model="criteria.type" ng-options="report.type as report.name for report in reportTypes" required>
+          <option value="">Select a type</option>
+        </select>
+      </section>
 
-      <form name="rangePicker">
-        <div class="ar-date-range-field" name="range" ng-model="criteria.range" ng-if="modalContainer.dateRange == 'specified'">
-          <div class="alert" ng-if="rangePicker.range.$dirty && rangePicker.range.$invalid">
-            Please enter valid dates
-          </div>
+      <!-- Select dates -->
+      <section class="form-item">
+
+        <section class="form-item">
+          <p>Choose date range</p>
+          <label>
+            <input type="radio" name="dateRange" value="all" ng-model="modalContainer.dateRange"/>
+            All
+          </label>
+          <label>
+            <input type="radio" name="dateRange" value="specified" ng-model="modalContainer.dateRange"/>
+            Specified date range
+          </label>
+        </section>
+
+        <section class="ar-date-range-field" date-format="yyyy-MM-dd" name="range" ng-model="criteria.range" ng-if="modalContainer.dateRange == 'specified'">
           <div class="row-fluid">
             <div class="form-item span6">
               <label>
@@ -46,16 +47,18 @@
               </label>
             </div>
           </div>
-        </div>
-      </form>
-    </section>
+        </section>
 
-  </div>
+      </section>
 
-  <div class="modal-footer">
-    <button ng-click="generate()" ng-disabled="!criteria.type" class="btn btn-primary">Open</button>
-    <button class="btn" ng-click="reset()">Reset</button>
-    <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
-  </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Open</button>
+      <button class="btn" ng-click="reset()">Reset</button>
+      <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
+    </div>
+
+  </form>
 
 </div>
