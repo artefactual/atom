@@ -2,6 +2,41 @@
 
 module.exports = function ($http, SETTINGS) {
 
+  this.types = [
+    {
+      'name': 'High-level ingest report (activity)',
+      'type': 'high_level_ingest'
+    },
+    {
+      'name': 'Granular ingest report (activity)',
+      'type': 'granular_ingest'
+    },
+    {
+      'name': 'General download report (activity)',
+      'type': 'general_download'
+    },
+    {
+      'name': 'Amount downloaded report (activity)',
+      'type': 'amount_downloaded'
+    },
+    {
+      'name': 'Full fixity report (fixity)',
+      'type': 'fixity'
+    },
+    {
+      'name': 'Fixity error report (fixity)',
+      'type': 'fixity_error'
+    },
+    {
+      'name': 'Video characteristics report (characteristic)',
+      'type': 'video_characteristics'
+    },
+    {
+      'name': 'Component-level report (characteristic)',
+      'type': 'component_level'
+    }
+  ];
+
   this.getBrowse = function (params) {
     return $http({
       method: 'GET',
