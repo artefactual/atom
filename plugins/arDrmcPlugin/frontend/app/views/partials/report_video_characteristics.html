@@ -1,0 +1,43 @@
+<div class="reports-unit">
+  <h2 class="reports-title">{{ department }}</h2>
+  <table class="table table-bordered">
+    <thead>
+      <th>Filename</th>
+      <th>Part of</th>
+      <th>Total filesize</th>
+      <th>Format</th>
+      <th>Codec ID</th>
+      <th>Codec</th>
+      <th>Duration</th>
+      <th>Bit rate</th>
+      <th>Width</th>
+      <th>Height</th>
+      <th>Frame rate</th>
+      <th>Color space</th>
+      <th>Chroma subsampling</th>
+      <th>Bit depth</th>
+      <th>Compression mode</th>
+      <th>Fixity status</th>
+    </thead>
+    <tbody ng-repeat="(title, item) in reportData">
+      <tr>
+        <td>{{ item.filename }}</td>
+        <td>{{ item.part_of }}</td>
+        <td>{{ item.size | UnitFilter }}</td>
+        <td>{{ item.format }}</td>
+        <td>{{ item.codec_id }}</td>
+        <td>{{ item.codec }}</td>
+        <td>{{ item.duration | ConvertSecondsFilter }}</td>
+        <td>{{ item.sample_rate }}</td>
+        <td>{{ item.width }}</td>
+        <td>{{ item.height }}</td>
+        <td>{{ item.frame_rate }}</td>
+        <td>{{ item.color_space }}</td>
+        <td>{{ item.chroma_subsampling }}</td>
+        <td>{{ item.bit_depth }}</td>
+        <td>{{ item.compression_mode }}</td>
+        <td>{{ item.fixity_success || 'unknown' }} - {{ item.fixity_date || 'unknown' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

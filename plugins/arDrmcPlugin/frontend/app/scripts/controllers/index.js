@@ -45,6 +45,7 @@
 
     // Reports
     .controller('ReportsBrowserCtrl', require('./ReportsBrowserCtrl'))
-    .controller('ReportsViewCtrl', require('./ReportsViewCtrl'));
+    .controller('ReportsViewCtrl', require('./ReportsViewCtrl'))
+    .controller('ReportsSaveCtrl', require('./ReportsSaveCtrl'));
 
 })();

@@ -79,7 +79,10 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
 
   // Saved search modal
   $scope.openSaveSearchModal = function (criteria) {
-    ModalSaveSearchService.create(criteria, $scope.selectedEntity);
+    ModalSaveSearchService.create(criteria, $scope.selectedEntity).result.then(function (result) {
+      // TODO: Move to saved search using result (id)
+      console.log(result);
+    });
   };
 
   // Remove query when leaving loaded search
@@ -123,6 +126,10 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
         return $scope.data.facets[facet].ranges[range].label;
       }
     }
+  };
+
+  $scope.updateResults = function () {
+    search();
   };
 
 };

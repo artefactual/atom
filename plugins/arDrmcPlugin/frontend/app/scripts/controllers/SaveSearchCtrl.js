@@ -21,13 +21,6 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, $modalInsta
     });
   }
 
-  // Title, based in new
-  if ($scope.new) {
-    $scope.title = 'Save search';
-  } else {
-    $scope.title = 'Edit search';
-  }
-
   // Update existing record
   var update = function () {
     SearchService.updateSearch($scope.resource.id, $scope.resource).then(function () {
@@ -40,8 +33,8 @@ module.exports = function ($scope, $rootScope, $state, $stateParams, $modalInsta
 
   // Create new record
   var create = function () {
-    SearchService.createSearch($scope.resource).then(function () {
-      $modalInstance.close();
+    SearchService.createSearch($scope.resource).then(function (data) {
+      $modalInstance.close(data.id);
     }, function () {
       $modalInstance.dismiss('Search could not be created');
     });

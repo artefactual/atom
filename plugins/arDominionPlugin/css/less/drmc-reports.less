@@ -1,21 +1,23 @@
-.reports-wrapper {
-  margin-top: 10px;
-
-  .reports-widget {
-    border: 1px solid @grayLighter;
-    border-radius: 4px;
-
-    input[type=radio] {
-      margin-top: 4px;
-    }
-  }
-
-  table th,
-  table td {
-    text-align: center;
-  }
+.drmc-icon-save i {
+  .fa-icon-set (@grayLight, @padding-right: 4px);
 }
 
-.reports-title {
-  color: @orange;
+.reports-unit {
+  .reports-title {
+    color: @orange;
+  }
+  .nav-tabs > .active a {
+    background: @white;
+    cursor: pointer;
+  }
+  .tab-content {
+    margin-top: -20px;
+    background: @white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-top: none;
+  }
+  .warning > td, .info > td {
+    font-weight: bold;
+  }
 }

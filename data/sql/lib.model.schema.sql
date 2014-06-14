@@ -248,35 +248,6 @@ CREATE TABLE `digital_object`
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- drmc_query
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `drmc_query`;
-
-
-CREATE TABLE `drmc_query`
-(
-	`id` INTEGER  NOT NULL,
-	`type` VARCHAR(20),
-	`name` VARCHAR(255),
-	`description` VARCHAR(1024),
-	`query` TEXT,
-	`user_id` INTEGER,
-	`created_at` DATETIME  NOT NULL,
-	`updated_at` DATETIME  NOT NULL,
-	PRIMARY KEY (`id`),
-	CONSTRAINT `drmc_query_FK_1`
-		FOREIGN KEY (`id`)
-		REFERENCES `object` (`id`)
-		ON DELETE CASCADE,
-	INDEX `drmc_query_FI_2` (`user_id`),
-	CONSTRAINT `drmc_query_FK_2`
-		FOREIGN KEY (`user_id`)
-		REFERENCES `user` (`id`)
-		ON DELETE SET NULL
-)Engine=InnoDB;
-
-#-----------------------------------------------------------------------------
 #-- event
 #-----------------------------------------------------------------------------
 
@@ -1138,6 +1109,41 @@ CREATE TABLE `rights_holder`
 		FOREIGN KEY (`id`)
 		REFERENCES `actor` (`id`)
 		ON DELETE CASCADE
+)Engine=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- saved_query
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `saved_query`;
+
+
+CREATE TABLE `saved_query`
+(
+	`id` INTEGER  NOT NULL,
+	`type_id` INTEGER,
+	`scope` VARCHAR(50),
+	`name` VARCHAR(255),
+	`description` VARCHAR(1024),
+	`user_id` INTEGER,
+	`params` TEXT,
+	`created_at` DATETIME  NOT NULL,
+	`updated_at` DATETIME  NOT NULL,
+	PRIMARY KEY (`id`),
+	CONSTRAINT `saved_query_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `object` (`id`)
+		ON DELETE CASCADE,
+	INDEX `saved_query_FI_2` (`type_id`),
+	CONSTRAINT `saved_query_FK_2`
+		FOREIGN KEY (`type_id`)
+		REFERENCES `term` (`id`)
+		ON DELETE SET NULL,
+	INDEX `saved_query_FI_3` (`user_id`),
+	CONSTRAINT `saved_query_FK_3`
+		FOREIGN KEY (`user_id`)
+		REFERENCES `user` (`id`)
+		ON DELETE SET NULL
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------

@@ -113,40 +113,38 @@ h1.moma-title {
 }
 
 // This is for embedded tables with sorting like the on the AIP overview or
-// the AIP file list. It includes some styles for the sorting elements.
+// the AIP file list. It includes some styles for the sorting elements. Also
+// used in reports, etc...
 
 .browse-view-list {
 
   padding: 20px;
 
-  table {
+  table th {
+    font-weight: normal;
+  }
 
-    th {
-      font-weight: normal;
-    }
+  .sort-label {
+    color: @black;
+  }
 
-    thead {
+  .selected .sort-label {
+    text-decoration: underline;
+  }
 
-      .sort-label {
-        color: @black;
-      }
+  .sort-icon {
+    .fa-icon-set(@gray, 4px);
+    font-size: 13px;
+    margin-top: 1px;
+    color: @grayLight;
+    content: "\f106";
+  }
 
-      .selected .sort-label {
-        text-decoration: underline;
-      }
+  .sort-asc .sort-icon:after  { content: "\f106"; }
+  .sort-desc .sort-icon:after { content: "\f107"; }
 
-      .sort-icon {
-        .fa-icon-set(@gray);
-        font-size: 18px;
-        margin-left: 4px;
-        color: @grayLight;
-        content: "\f106";
-      }
-
-      .sort-asc .sort-icon:after  { content: "\f106"; }
-      .sort-desc .sort-icon:after { content: "\f107"; }
-    }
-
+  .options {
+    text-align: right;
   }
 
 }

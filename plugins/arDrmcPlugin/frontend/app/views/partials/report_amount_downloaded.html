@@ -1,0 +1,95 @@
+<div class="reports-unit">
+  <tabset>
+    <!-- By user -->
+    <tab heading="By user">
+      <div ng-repeat="(user, table) in reportData.by_user">
+        <h2 class="reports-title">{{ user }}</h2>
+        <table class="table table-bordered">
+          <thead>
+            <th>Artworks with downloaded materials</th>
+            <th>AIPs downloaded</th>
+            <th>Files downloaded</th>
+            <th>Total filesize</th>
+            <th>Parent departments</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ table.artworks }}</td>
+              <td>{{ table.aips }}</td>
+              <td>{{ table.files }}</td>
+              <td>{{ table.size | UnitFilter }}</td>
+              <td>{{ table.departments }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Totals -->
+      <h2 class="reports-title">All users: total</h2>
+      <table class="table table-bordered">
+        <thead>
+          <th>Artworks with downloaded materials</th>
+          <th>No. AIPs downloaded</th>
+          <th>No. files downloaded</th>
+          <th>Total filesize</th>
+          <th>Parent Department</th>
+        </thead>
+        <tbody>
+          <tr class="info">
+            <td>({{ reportData.user_totals.artworks }})</td>
+            <td>({{ reportData.user_totals.aips }})</td>
+            <td>({{ reportData.user_totals.files }})</td>
+            <td>({{ reportData.user_totals.size | UnitFilter }})</td>
+            <td>({{ reportData.user_totals.departments }})</td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+
+    <!-- By department -->
+    <tab heading="By department">
+      <div ng-repeat="(department, table) in reportData.by_department">
+        <h2 class="reports-title">{{ department }}</h2>
+        <table class="table table-bordered">
+          <thead>
+            <th>Users</th>
+            <th>AIPs downloaded</th>
+            <th>Files downloaded</th>
+            <th>Total filesize</th>
+            <th>Parent artworks</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ table.users }}</td>
+              <td>{{ table.aips }}</td>
+              <td>{{ table.files }}</td>
+              <td>{{ table.size | UnitFilter }}</td>
+              <td>{{ table.artworks }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Totals -->
+      <h2 class="reports-title">Total: all departments</h2>
+      <table class="table table-bordered">
+        <thead>
+          <th>Users</th>
+          <th>AIPs downloaded</th>
+          <th>Files downloaded</th>
+          <th>Total filesize</th>
+          <th>Parent artworks</th>
+        </thead>
+        <tbody>
+          <tr class="info">
+            <td>({{ reportData.department_totals.users }})</td>
+            <td>({{ reportData.department_totals.aips }})</td>
+            <td>({{ reportData.department_totals.files }})</td>
+            <td>({{ reportData.department_totals.size | UnitFilter }})</td>
+            <td>({{ reportData.department_totals.artworks }})</td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+  </tabset>
+</div>

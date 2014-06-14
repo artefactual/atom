@@ -1,0 +1,115 @@
+<div class="row-fluid">
+
+  <div class="span3">
+
+    <section id="facets">
+      <h3>Filter reports by:</h3>
+      <ar-facet label="Type" facet="data.facets.type" field="criteria['type[]']"></ar-facet>
+      <ar-facet label="User" facet="data.facets.user" field="criteria['user[]']"></ar-facet>
+      <ar-range-facet type="date" label="Date created" facet="data.facets.dateCreated" from="criteria.createdFrom" to="criteria.createdTo" callback="getDateRangeLabel(arg1, arg2, arg3)"></ar-range-facet>
+    </section>
+
+  </div>
+
+  <div class="span9">
+
+    <div id="main-column">
+
+      <h1>Manage reports</h1>
+
+      <!-- ································································· -->
+      <!-- ReportsBrowserCtrl                                                -->
+      <!-- ································································· -->
+      <div class="content" ng-controller="ReportsBrowserCtrl">
+
+        <section>
+          <div class="menu-list">
+            <ul class="menu-list-left">
+              <li><h2>Reports overview</h2></li>
+            </ul>
+            <ul class="menu-list-right nav nav-pills">
+              <li>
+                <a href ng-click="toggleOverview()" ng-class="{ 'drmc-icon-angle-double-down': !showOverview, 'drmc-icon-angle-double-up': showOverview }">{{ showOverview ? 'Hide' : 'Show' }}</a>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section ng-show="showOverview">
+          <div class="field" ng-repeat="(label, count) in data.overview.counts">
+            <h3>{{ label }}</h3>
+            <div>
+              {{ count }}
+            </div>
+          </div>
+          <div class="field" ng-repeat="(label, report) in data.overview.latest">
+            <h3>{{ label }}</h3>
+            <div>
+              <a href ui-sref="main.reports.slug({ slug: report.slug })">{{ report.name }}</a>
+              <span>&nbsp;&raquo;&nbsp;</span>
+              {{ report.date + ' (' + report.user + ')' }}
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="menu-list">
+            <ul class="menu-list-left">
+              <li><h2>Saved reports</h2></li>
+            </ul>
+            <ul class="menu-list-right nav nav-pills">
+              <li>
+                <a href class="icon-plus" ng-click="openGenerateReportModal()">New report</a>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <div class="browse-view-list">
+            <table class="table table-bordered">
+              <thead>
+                <th>
+                  <ar-sort-header field="name" label="Name" criteria="criteria"></ar-sort-header>
+                </th>
+                <th>
+                  <ar-sort-header field="type" label="Type" criteria="criteria"></ar-sort-header>
+                </th>
+                <th>
+                  <ar-sort-header field="createdAt" label="Added" criteria="criteria"></ar-sort-header>
+                </th>
+                <th>
+                  <ar-sort-header field="description" label="Description" criteria="criteria"></ar-sort-header>
+                </th>
+                <th>
+                  <ar-sort-header field="user['name']" label="User" criteria="criteria"></ar-sort-header>
+                </th>
+                <th>Delete</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="report in data.results">
+                  <td><a href ui-sref="main.reports.slug({ slug: report.slug })">{{ report.name }}</a></td>
+                  <td>{{ report.type }}</td>
+                  <td>{{ report.created_at | date: 'short' }}</td>
+                  <td>{{ report.description }}</td>
+                  <td>{{ report.user.name }}</td>
+                  <td><input type="checkbox" name="selectedReports[]" ng-checked="selectedReports.indexOf(id) > -1" value="{{ report.id }}" ng-click="toggleSelection(report.id)"/></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="options">
+              <button class="btn" ng-disabled="selectedReports.length < 1" ng-click="delete()"><i class="icon-remove"></i> Delete</button>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+
+    </div>
+
+    <ar-pager items-per-page="{{ criteria.limit }}" page="page"></ar-pager>
+
+  </div>
+
+</div>

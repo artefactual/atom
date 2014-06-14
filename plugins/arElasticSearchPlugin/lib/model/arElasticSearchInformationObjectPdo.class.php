@@ -119,7 +119,8 @@ class arElasticSearchInformationObjectPdo
          do.media_type_id as media_type_id,
          do.mime_type as mime_type,
          do.byte_size as byte_size,
-         do.name as filename
+         do.name as filename,
+         do.checksum as checksum
        FROM '.QubitInformationObject::TABLE_NAME.' io
        JOIN '.QubitObject::TABLE_NAME.' obj
          ON io.id = obj.id
@@ -930,6 +931,61 @@ class arElasticSearchInformationObjectPdo
     return self::$statements['aip']->fetch(PDO::FETCH_OBJ);
   }
 
+  protected function getAipPartOfTitle($id)
+  {
+    $sql  = 'SELECT
+                i18n.title';
+    $sql .= ' FROM '.QubitInformationObjectI18n::TABLE_NAME.' i18n';
+    $sql .= ' JOIN '.QubitInformationObject::TABLE_NAME.' inf';
+    $sql .= ' ON inf.id = i18n.id';
+    $sql .= ' JOIN '.QubitAip::TABLE_NAME.' aip';
+    $sql .= ' ON aip.part_of = inf.id';
+    $sql .= ' WHERE aip.id = ?';
+    $sql .= ' AND i18n.culture = ?';
+
+    self::$statements['aipPartOfTitle'] = self::$conn->prepare($sql);
+    self::$statements['aipPartOfTitle']->execute(array($id, 'en'));
+
+    return self::$statements['aipPartOfTitle']->fetchColumn();
+  }
+
+  protected function getAipAttachedTo($id)
+  {
+    $sql  = 'SELECT
+                i18n.value';
+    $sql .= ' FROM '.QubitProperty::TABLE_NAME.' node';
+    $sql .= ' JOIN '.QubitPropertyI18n::TABLE_NAME.' i18n
+                ON node.id = i18n.id';
+    $sql .= ' WHERE node.source_culture = i18n.culture
+                AND node.object_id = ?
+                AND node.name = ?';
+
+    self::$statements['aipAttachedTo'] = self::$conn->prepare($sql);
+    self::$statements['aipAttachedTo']->execute(array($id, 'attachedTo'));
+
+    return self::$statements['aipAttachedTo']->fetchColumn();
+  }
+
+  protected function getAipPartOfDepartments($id)
+  {
+    $sql  = 'SELECT
+                current.id as id,
+                i18n.name as name';
+    $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' otr';
+    $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' current
+                ON otr.term_id = current.id';
+    $sql .= ' JOIN '.QubitTermI18n::TABLE_NAME.' i18n
+                ON otr.term_id = i18n.id';
+    $sql .= ' WHERE otr.object_id = ?
+                AND current.taxonomy_id = ?
+                AND i18n.culture = ?';
+
+    self::$statements['parOfDepartments'] = self::$conn->prepare($sql);
+    self::$statements['parOfDepartments']->execute(array($id, sfConfig::get('app_drmc_taxonomy_departments_id'), 'en'));
+
+    return self::$statements['parOfDepartments']->fetchAll(PDO::FETCH_OBJ);
+  }
+
   protected function getArtworkId()
   {
     $sql  = 'SELECT id';
@@ -942,6 +998,43 @@ class arElasticSearchInformationObjectPdo
     self::$statements['artwork']->execute(array($this->__get('lft'), $this->__get('rgt'), sfConfig::get('app_drmc_lod_artwork_record_id')));
 
     return self::$statements['artwork']->fetchColumn();
+  }
+
+  protected function getArtworkDepartmentName($artworkId)
+  {
+    $sql  = 'SELECT
+                i18n.name';
+    $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' otr';
+    $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' current
+                ON otr.term_id = current.id';
+    $sql .= ' JOIN '.QubitTermI18n::TABLE_NAME.' i18n
+                ON otr.term_id = i18n.id';
+    $sql .= ' WHERE otr.object_id = ?
+                AND current.taxonomy_id = ?
+                AND i18n.culture = ?';
+
+    self::$statements['artworkDepartmentName'] = self::$conn->prepare($sql);
+    self::$statements['artworkDepartmentName']->execute(array($artworkId, sfConfig::get('app_drmc_taxonomy_departments_id'), 'en'));
+
+    return self::$statements['artworkDepartmentName']->fetchColumn();
+  }
+
+  protected function getArtworkArtist($artworkId)
+  {
+    $sql  = 'SELECT i18n.authorized_form_of_name';
+    $sql .= ' FROM '.QubitActor::TABLE_NAME.' actor';
+    $sql .= ' JOIN '.QubitEvent::TABLE_NAME.' event
+                ON actor.id = event.actor_id';
+    $sql .= ' JOIN '.QubitActorI18n::TABLE_NAME.' i18n
+                ON actor.id = i18n.id';
+    $sql .= ' WHERE event.information_object_id = ?
+                AND event.type_id = ?
+                AND i18n.culture = ?';
+
+    self::$statements['artworkArtist'] = self::$conn->prepare($sql);
+    self::$statements['artworkArtist']->execute(array($artworkId, QubitTerm::CREATION_ID, 'en'));
+
+    return self::$statements['artworkArtist']->fetchColumn();
   }
 
   protected function getMetsData()
@@ -1811,6 +1904,7 @@ class arElasticSearchInformationObjectPdo
       $serialized['digitalObject']['usageId'] = $this->usage_id;
       $serialized['digitalObject']['mimeType'] = $this->mime_type;
       $serialized['digitalObject']['byteSize'] = $this->byte_size;
+      $serialized['digitalObject']['checksum'] = $this->checksum;
 
       if (QubitTerm::EXTERNAL_URI_ID == $this->usage_id)
       {
@@ -2014,6 +2108,16 @@ class arElasticSearchInformationObjectPdo
       {
         $serialized['tmsComponent']['artwork']['id'] = $artworkId;
         $serialized['tmsComponent']['artwork']['i18n'] = arElasticSearchModelBase::serializeI18ns($artworkId, array('QubitInformationObject'), array('fields' => array('title')));
+
+        if (false !== $departmentName = $this->getArtworkDepartmentName($artworkId))
+        {
+          $serialized['tmsComponent']['artwork']['departmentName'] = $departmentName;
+        }
+
+        if (false !== $artist = $this->getArtworkArtist($artworkId))
+        {
+          $serialized['tmsComponent']['artwork']['artist'] = $artist;
+        }
       }
 
       if (null !== $artworkThumbnail = $this->getProperty('artworkThumbnail'))
@@ -2035,6 +2139,24 @@ class arElasticSearchInformationObjectPdo
       {
         $serialized['aipUuid'] = $aip->uuid;
         $serialized['aipName'] = $aip->filename;
+
+        if (false !== $partOfTitle = $this->getAipPartOfTitle($aip->id))
+        {
+          $serialized['aipPartOf'] = $partOfTitle;
+        }
+
+        if (false !== $attachedTo = $this->getAipAttachedTo($aip->id))
+        {
+          $serialized['aipAttachedTo'] = $attachedTo;
+        }
+
+        if (0 < count($aipPartOfDepartments = $this->getAipPartOfDepartments($aip->part_of)))
+        {
+          if (null !== $name = $aipPartOfDepartments[0]->name)
+          {
+            $serialized['aipPartOfDepartmentName'] = $name;
+          }
+        }
       }
     }
 

@@ -249,6 +249,8 @@ mapping:
         dynamic: strict
         properties:
           thumbnail: { type: string, index: not_analyzed, include_in_all: false }
+          departmentName: { type: string, index: not_analyzed, include_in_all: false }
+          artist: { type: string, index: not_analyzed, include_in_all: false }
     dynamic: strict
     properties:
       comp_count: { type: integer, index: not_analyzed, include_in_all: false }
@@ -265,6 +267,11 @@ mapping:
         dynamic: strict
         properties:
           levelOfDescriptionId: { type: integer, index: not_analyzed, include_in_all: false }
+          department:
+            type: object
+            properties:
+              id: { type: integer, index: not_analyzed, include_in_all: false }
+              name: { type: string, index: not_analyzed, include_in_all: false }
     _foreign_types:
       type: term
       digital_objects: information_object
@@ -287,6 +294,8 @@ mapping:
       size_on_disk: { type: long, index: not_analyzed, include_in_all: false }
       digital_object_count: { type: integer, index: not_analyzed, include_in_all: false }
       created_at: { type: date, index: not_analyzed, include_in_all: false }
+      ingestion_user: { type: string, index: not_analyzed, include_in_all: false }
+      attached_to: { type: string, index: not_analyzed, include_in_all: false }
 
   term:
     _attributes:
@@ -377,6 +386,7 @@ mapping:
           byte_size: { type: integer, index: not_analyzed, include_in_all: false }
           mime_type: { type: string, index: not_analyzed, include_in_all: false }
           thumbnail_path: { type: string, index: not_analyzed }
+          checksum: { type: string, index: not_analyzed, include_in_all: false }
       alternative_identifiers:
         type: object
         properties:
@@ -395,8 +405,12 @@ mapping:
             search_analyzer: standard
             term_vector: with_positions_offsets
             type: string
+      # TODO: Wrap this fields in part_of_aip object
       aip_uuid: { type: string, index: not_analyzed, include_in_all: false }
       aip_name: { type: string, index: not_analyzed, include_in_all: false }
+      aip_part_of: { type: string, index: not_analyzed, include_in_all: false }
+      aip_part_of_department_name: { type: string, index: not_analyzed, include_in_all: false }
+      aip_attached_to: { type: string, index: not_analyzed, include_in_all: false }
       # Used only for DRMC / Supporting technologies
       inherited_title:
         type: multi_field
@@ -412,7 +426,7 @@ mapping:
             term_vector: with_positions_offsets
             type: string
 
-  drmc_query:
+  saved_query:
     _attributes:
       timestamp: true
     dynamic: strict
@@ -431,8 +445,9 @@ mapping:
             term_vector: with_positions_offsets
             type: string
       description: { type: string, index: not_analyzed, include_in_all: false }
-      type: { type: string, index: not_analyzed, include_in_all: false }
-      query: { type: string, index: not_analyzed, include_in_all: false }
+      type_id: { type: integer, index: not_analyzed, include_in_all: false }
+      scope: { type: string, index: not_analyzed, include_in_all: false }
+      params: { type: string, index: not_analyzed, include_in_all: false }
       slug: { type: string, index: not_analyzed, include_in_all: false }
       user:
         type: object
@@ -453,6 +468,8 @@ mapping:
         properties:
           uuid: { type: string, index: not_analyzed, include_in_all: false }
           name: { type: string, index: not_analyzed, include_in_all: false }
+          partOf: { type: string, index: not_analyzed, include_in_all: false }
+          attachedTo: { type: string, index: not_analyzed, include_in_all: false }
       failures:
         type: object
         properties:

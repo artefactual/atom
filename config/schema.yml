@@ -85,16 +85,6 @@ propel:
     lft: { type: integer, required: true, nestedSetLeftKey: true }
     rgt: { type: integer, required: true, nestedSetRightKey: true }
 
-  drmc_query:
-    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
-    type: varchar(20)
-    name: varchar(255)
-    description: varchar(1024)
-    query: longvarchar
-    user_id: { type: integer, foreignTable: user, foreignReference: id, onDelete: setnull }
-    created_at:
-    updated_at:
-
   event:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     start_date: bu_date
@@ -345,6 +335,17 @@ propel:
 
   rights_holder:
     id: { type: integer, required: true, primaryKey: true, foreignTable: actor, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+
+  saved_query:
+    id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
+    type_id: { type: integer, foreignTable: term, foreignReference: id, onDelete: setnull }
+    scope: varchar(50)
+    name: varchar(255)
+    description: varchar(1024)
+    user_id: { type: integer, foreignTable: user, foreignReference: id, onDelete: setnull }
+    params: longvarchar
+    created_at:
+    updated_at:
 
   setting:
     name: varchar(255)

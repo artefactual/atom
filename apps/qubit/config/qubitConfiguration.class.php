@@ -200,7 +200,8 @@ EOF
         'Departments',
         'Component types',
         'Supporting technologies relation types',
-        'Associative relationship types');
+        'Associative relationship types',
+        'Saved query types');
 
       foreach ($taxonomies as $name)
       {
@@ -231,6 +232,10 @@ EOF
         ),
         QubitTaxonomy::RELATION_TYPE_ID => array(
           'Supporting technology relation types'
+        ),
+        $cacheableParams['app_drmc_taxonomy_saved_query_types_id'] => array(
+          'Search',
+          'Report'
         )
       );
 

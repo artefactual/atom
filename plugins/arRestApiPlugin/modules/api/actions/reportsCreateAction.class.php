@@ -17,52 +17,30 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ApiSearchesUpdateAction extends QubitApiAction
+class ApiReportsCreateAction extends QubitApiAction
 {
-  protected function put($request, $payload)
+  protected function post($request, $payload)
   {
     if (!$this->context->user->isAuthenticated())
     {
       throw new QubitApiNotAuthorizedException();
     }
 
-    if (null === $this->search = QubitSavedQuery::getById($request->id))
-    {
-      throw new QubitApi404Exception('Search not found');
-    }
-
-    // Check if user is the creator of the query or is an admin
-    $allowed = true;
-    if ($this->search->userId !== $this->context->user->getUserID())
-    {
-      $allowed = false;
-      foreach ($this->context->user->getAclGroups() as $group)
-      {
-        if ($group->id == QubitAclGroup::ADMINISTRATOR_ID || $group->id == QubitAclGroup::ADMIN_ID)
-        {
-          $allowed = true;
-
-          break;
-        }
-      }
-    }
-
-    if (!$allowed)
-    {
-      throw new QubitApiNotAuthorizedException();
-    }
+    $this->report = new QubitSavedQuery;
+    $this->report->userId = $this->context->user->getUserID();
+    $this->report->typeId = sfConfig::get('app_drmc_term_report_id');
 
     foreach ($payload as $field => $value)
     {
       $this->processField($field, $value);
     }
 
-    $this->search->save();
+    $this->report->save();
 
     $this->response->setStatusCode(201);
 
     return array(
-      'id' => (int)$this->search->id);
+      'id' => (int)$this->report->id);
   }
 
   protected function processField($field, $value)
@@ -71,17 +49,17 @@ class ApiSearchesUpdateAction extends QubitApiAction
     {
       case 'name':
       case 'description':
-        $this->search->$field = $value;
+        $this->report->$field = $value;
 
         break;
 
-      case 'criteria':
-        $this->search->params = serialize($value);
+      case 'range':
+        $this->report->params = serialize($value);
 
         break;
 
       case 'type':
-        $this->search->scope = $value;
+        $this->report->scope = $value;
 
         break;
     }

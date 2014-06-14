@@ -2,7 +2,7 @@
 
 
 /**
- * This class defines the structure of the 'drmc_query' table.
+ * This class defines the structure of the 'saved_query' table.
  *
  *
  *
@@ -13,12 +13,12 @@
  *
  * @package    lib.model.map
  */
-class DrmcQueryTableMap extends TableMap {
+class SavedQueryTableMap extends TableMap {
 
 	/**
 	 * The (dot-path) name of this class
 	 */
-	const CLASS_NAME = 'lib.model.map.DrmcQueryTableMap';
+	const CLASS_NAME = 'lib.model.map.SavedQueryTableMap';
 
 	/**
 	 * Initialize the table attributes, columns and validators
@@ -30,18 +30,19 @@ class DrmcQueryTableMap extends TableMap {
 	public function initialize()
 	{
 	  // attributes
-		$this->setName('drmc_query');
-		$this->setPhpName('drmcQuery');
-		$this->setClassname('QubitDrmcQuery');
+		$this->setName('saved_query');
+		$this->setPhpName('savedQuery');
+		$this->setClassname('QubitSavedQuery');
 		$this->setPackage('lib.model');
 		$this->setUseIdGenerator(false);
 		// columns
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'object', 'ID', true, null, null);
-		$this->addColumn('TYPE', 'type', 'VARCHAR', false, 20, null);
+		$this->addForeignKey('TYPE_ID', 'typeId', 'INTEGER', 'term', 'ID', false, null, null);
+		$this->addColumn('SCOPE', 'scope', 'VARCHAR', false, 50, null);
 		$this->addColumn('NAME', 'name', 'VARCHAR', false, 255, null);
 		$this->addColumn('DESCRIPTION', 'description', 'VARCHAR', false, 1024, null);
-		$this->addColumn('QUERY', 'query', 'LONGVARCHAR', false, null, null);
 		$this->addForeignKey('USER_ID', 'userId', 'INTEGER', 'user', 'ID', false, null, null);
+		$this->addColumn('PARAMS', 'params', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('CREATED_AT', 'createdAt', 'TIMESTAMP', true, null, null);
 		$this->addColumn('UPDATED_AT', 'updatedAt', 'TIMESTAMP', true, null, null);
 		// validators
@@ -53,7 +54,8 @@ class DrmcQueryTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('term', 'term', RelationMap::MANY_TO_ONE, array('type_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('user', 'user', RelationMap::MANY_TO_ONE, array('user_id' => 'id', ), 'SET NULL', null);
 	} // buildRelations()
 
-} // DrmcQueryTableMap
+} // SavedQueryTableMap

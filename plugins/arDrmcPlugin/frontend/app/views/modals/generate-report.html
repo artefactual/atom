@@ -1,116 +1,64 @@
-<!-- TODO: this view is inconsistent with other modals and forms, fix!  -->
+<div>
 
-<div class="modal-header">
-  <button type="button" ng-click="cancel()" class="close">×</button>
-  <h2>Generate new report</h2>
-</div>
+  <div class="modal-header">
+    <button type="button" ng-click="cancel()" class="close">×</button>
+    <h2>Generate new report</h2>
+  </div>
 
-<div class="modal-body">
-  <section class="content row-fluid">
+  <form name="form" ng-submit="submit()">
 
-    <div class="reports-widget">
-      <div class="menu-list">
-        <ul class="menu-list-left">
-          <li><h2>Choose report type</h2></li>
-        </ul>
-      </div>
+    <div class="modal-body">
 
-      <div class="row-fluid">
-        <div class="span4 offset1">
-          <h4>Activity reports</h4>
-          <ul>
-            <li>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" value="option1" checked/>
-                High-level ingest report
+      <!-- Select report type -->
+      <section class="form-item">
+        <label>Choose report type<span class="input-required">*</span></label>
+        <select name="type" ng-model="criteria.type" ng-options="report.type as report.name for report in reportTypes" required>
+          <option value="">Select a type</option>
+        </select>
+      </section>
+
+      <!-- Select dates -->
+      <section class="form-item">
+
+        <section class="form-item">
+          <p>Choose date range</p>
+          <label>
+            <input type="radio" name="dateRange" value="all" ng-model="modalContainer.dateRange"/>
+            All
+          </label>
+          <label>
+            <input type="radio" name="dateRange" value="specified" ng-model="modalContainer.dateRange"/>
+            Specified date range
+          </label>
+        </section>
+
+        <section class="ar-date-range-field" date-format="yyyy-MM-dd" name="range" ng-model="criteria.range" ng-if="modalContainer.dateRange == 'specified'">
+          <div class="row-fluid">
+            <div class="form-item span6">
+              <label>
+                From
+                <input class="from" type="date"/>
               </label>
-            </li>
-            <li>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" value="option2" checked/>
-                Granular ingest report
+            </div>
+            <div class="form-item span6">
+              <label>
+                To
+                <input class="to" type="date"/>
               </label>
-            </li>
-            <li>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" value="option3" checked/>
-                General download report
-              </label>
-            </li>
-            <li>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" value="option4" checked/>
-                Amount downloaded report
-              </label>
-            </li>
-          </ul>
-        </div>
-        <div class="span3">
-          <h4><strong>Fixity reports</strong></h4>
-          <ul>
-            <li>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" value="option5" checked/>
-                Fixity report
-              </label>
-            </li>
-            <li>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" value="option6" checked/>
-                Fixity error log
-              </label>
-            </li>
-          </ul>
-        </div>
-        <div class="span4">
-          <h4>Characteristics reports</strong></h4>
-          <ul>
-            <li>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" value="option7" checked/>
-                Component level file report
-              </label>
-            </li>
-            <li>
-              <label class="radio">
-                <input type="radio" name="optionsRadios" value="option8" checked/>
-                File-level report
-              </label>
-            </li>
-          </ul>
-        </div>
-      </div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+
     </div>
 
-    <div class="reports-widget">
-      <div class="menu-list" >
-        <ul class="menu-list-left">
-          <li><h2>Choose date range</h2></li>
-        </ul>
-      </div>
-
-      <div class="span3">
-        <ul>
-          <li>
-            <label class="radio">
-              <input type="radio" name="optionsRadios" value="option1" checked/>
-              All time
-            </label>
-          </li>
-          <li>
-            <label class="radio">
-              <input type="radio" name="optionsRadios" value="option2" checked/>
-              Specific date range
-            </label>
-          </li>
-        </ul>
-      </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary" ng-disabled="form.$invalid">Open</button>
+      <button class="btn" ng-click="reset()">Reset</button>
+      <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
     </div>
 
-  </section>
-</div>
+  </form>
 
-<div class="modal-footer">
-  <button class="btn btn-primary">Add</button>
-  <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
 </div>

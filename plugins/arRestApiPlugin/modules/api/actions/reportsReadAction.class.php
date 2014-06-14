@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ApiSearchesReadAction extends QubitApiAction
+class ApiReportsReadAction extends QubitApiAction
 {
   protected function get($request)
   {
@@ -29,7 +29,7 @@ class ApiSearchesReadAction extends QubitApiAction
       }
       catch (\Elastica\Exception\NotFoundException $e)
       {
-        throw new QubitApi404Exception('Search not found');
+        throw new QubitApi404Exception('Report not found');
       }
     }
     else
@@ -41,7 +41,7 @@ class ApiSearchesReadAction extends QubitApiAction
       $queryText->setFields(array('slug'));
 
       $queryBool->addMust($queryText);
-      $queryBool->addMust(new \Elastica\Query\Term(array('typeId' => sfConfig::get('app_drmc_term_search_id'))));
+      $queryBool->addMust(new \Elastica\Query\Term(array('typeId' => sfConfig::get('app_drmc_term_report_id'))));
 
       $query->setQuery($queryBool);
 
@@ -49,7 +49,7 @@ class ApiSearchesReadAction extends QubitApiAction
 
       if ($resultSet->getTotalHits() < 1)
       {
-        throw new QubitApi404Exception('Search not found');
+        throw new QubitApi404Exception('Report not found');
       }
 
       $result = $resultSet->getResults();
@@ -57,14 +57,16 @@ class ApiSearchesReadAction extends QubitApiAction
     }
 
     $doc = $result->getData();
-    $search = array();
+    $report = array();
 
-    $this->addItemToArray($search, 'id', $result->getId());
-    $this->addItemToArray($search, 'name', $doc['name']);
-    $this->addItemToArray($search, 'type', $doc['scope']);
-    $this->addItemToArray($search, 'description', $doc['description']);
-    $this->addItemToArray($search, 'criteria', unserialize($doc['params']));
+    $this->addItemToArray($report, 'id', $result->getId());
+    $this->addItemToArray($report, 'name', $doc['name']);
+    $this->addItemToArray($report, 'type', $doc['scope']);
+    $this->addItemToArray($report, 'description', $doc['description']);
+    $this->addItemToArray($report, 'range', unserialize($doc['params']));
+    $this->addItemToArray($report, 'created_at', $doc['createdAt']);
+    $this->addItemToArray($report, 'user_name', $doc['user']['name']);
 
-    return $search;
+    return $report;
   }
 }

@@ -327,6 +327,39 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     $this->addRoute('GET', '/api/fixity/status', array(
       'module' => 'api',
       'action' => 'fixityStatus'));
+
+    /**
+     * Reports
+     */
+
+    // '/api/reports' doesn't work, using report instead for the moment
+    $this->addRoute('GET', '/api/report', array(
+      'module' => 'api',
+      'action' => 'reportsGenerate'));
+
+    $this->addRoute('GET', '/api/reportcsv', array(
+      'module' => 'api',
+      'action' => 'reportsGenerateCsv'));
+
+    $this->addRoute('POST', '/api/report', array(
+      'module' => 'api',
+      'action' => 'reportsCreate'));
+
+    $this->addRoute('GET', '/api/reports/browse', array(
+      'module' => 'api',
+      'action' => 'reportsBrowse'));
+
+    $this->addRoute('DELETE', '/api/reports/:id', array(
+      'module' => 'api',
+      'action' => 'reportsDelete',
+      'params' => array('id' => self::REGEX_ID)));
+
+    $this->addRoute('GET', '/api/reports/:input', array(
+      'module' => 'api',
+      'action' => 'reportsRead',
+      // TODO: Should we have two routes instead?
+      'params' => array('input' => self::REGEX_ID . '|' . self::REGEX_SLUG)));
+
   }
 
   protected function addRoute($method, $pattern, array $options = array())

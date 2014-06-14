@@ -1,0 +1,79 @@
+<div class="reports-unit">
+  <tabset>
+    <!-- By user -->
+    <tab heading="By user">
+      <div ng-repeat="(user, table) in reportData.by_user">
+        <h2 class="reports-title">{{ user }}</h2>
+        <table class="table table-bordered">
+          <thead>
+            <th>AIP name</th>
+            <th>AIP classification</th>
+            <th>UUID</th>
+            <th>Part of</th>
+            <th>Attached to</th>
+            <th>Department</th>
+            <th>Ingest date</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in table.results">
+              <td>{{ item.name }}</td>
+              <td>{{ item.classification || 'Unclassified' }}</td>
+              <td>{{ item.uuid }}</td>
+              <td>{{ item.part_of.title }}</td>
+              <td>{{ item.attached_to }}</td>
+              <td>{{ item.part_of.department }}</td>
+              <td>{{ item.ingestion_date | date: 'short' }}</td>
+            </tr>
+            <tr class="warning">
+              <td>({{ table.totals.aips }})</td>
+              <td></td>
+              <td></td>
+              <td>({{ table.totals.artworks }})</td>
+              <td></td>
+              <td>({{ table.totals.departments }})</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </tab>
+
+    <!-- By department -->
+    <tab heading="By department">
+      <div ng-repeat="(department, table) in reportData.by_department">
+        <h2 class="reports-title">{{ department }}</h2>
+        <table class="table table-bordered">
+          <thead>
+            <th>AIP name</th>
+            <th>AIP classification</th>
+            <th>UUID</th>
+            <th>Part of</th>
+            <th>Attached to</th>
+            <th>Ingest date</th>
+            <th>Ingested by</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in table.results">
+              <td>{{ item.name }}</td>
+              <td>{{ item.type || 'Unclassified' }}</td>
+              <td>{{ item.uuid }}</td>
+              <td>{{ item.part_of.title }}</td>
+              <td>{{ item.attached_to }}</td>
+              <td>{{ item.ingestion_date | date: 'short' }}</td>
+              <td>{{ item.ingestion_user }}</td>
+            </tr>
+            <tr class="warning">
+              <td>({{ table.totals.aips }})</td>
+              <td></td>
+              <td></td>
+              <td>({{ table.totals.artworks }})</td>
+              <td></td>
+              <td></td>
+              <td>({{ table.totals.users }})</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </tab>
+  </tabset>
+</div>

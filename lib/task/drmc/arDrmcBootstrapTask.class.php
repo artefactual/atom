@@ -53,8 +53,9 @@ EOF;
       $this->addLevelsOfDescriptions();
       $this->addTaxonomies();
       $this->addTerms();
-      $this->addDrmcQueryTable();
+      $this->addSavedQueryTable();
       $this->addFixityReportTable();
+      $this->addSavedQueryTypes();
     }
 
     if ($options['add-dummy-data'])
@@ -272,11 +273,12 @@ EOF;
     }
   }
 
-  protected function addDrmcQueryTable()
+  protected function addSavedQueryTable()
   {
+    // Drop old drmc_query table if exists
     $sql = <<<sql
 
-DROP TABLE IF EXISTS `drmc_query`;
+DROP TABLE IF EXISTS `saved_query`;
 
 sql;
 
@@ -284,23 +286,37 @@ sql;
 
     $sql = <<<sql
 
-CREATE TABLE `drmc_query`
+DROP TABLE IF EXISTS `saved_query`;
+
+sql;
+
+    QubitPdo::modify($sql);
+
+    $sql = <<<sql
+
+CREATE TABLE `saved_query`
 (
   `id` INTEGER  NOT NULL,
-  `type` VARCHAR(20),
+  `type_id` INTEGER,
+  `scope` VARCHAR(50),
   `name` VARCHAR(255),
   `description` VARCHAR(1024),
-  `query` TEXT,
   `user_id` INTEGER,
+  `params` TEXT,
   `created_at` DATETIME  NOT NULL,
   `updated_at` DATETIME  NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `drmc_query_FK_1`
+  CONSTRAINT `saved_query_FK_1`
     FOREIGN KEY (`id`)
     REFERENCES `object` (`id`)
     ON DELETE CASCADE,
-  INDEX `drmc_query_FI_2` (`user_id`),
-  CONSTRAINT `drmc_query_FK_2`
+  INDEX `saved_query_FI_2` (`type_id`),
+  CONSTRAINT `saved_query_FK_2`
+    FOREIGN KEY (`type_id`)
+    REFERENCES `term` (`id`)
+    ON DELETE SET NULL,
+  INDEX `saved_query_FI_3` (`user_id`),
+  CONSTRAINT `saved_query_FK_3`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
     ON DELETE SET NULL
@@ -341,6 +357,50 @@ CREATE TABLE IF NOT EXISTS `fixity_report`
 sql;
 
     QubitPdo::modify($sql);
+  }
+
+  protected function addSavedQueryTypes()
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitTaxonomy::PARENT_ID, QubitTaxonomy::ROOT_ID);
+    $criteria->add(QubitTaxonomyI18n::NAME, 'Saved query types');
+    $criteria->add(QubitTaxonomyI18n::CULTURE, 'en');
+    $criteria->addJoin(QubitTaxonomy::ID, QubitTaxonomyI18n::ID);
+    if (null !== QubitTaxonomy::getOne($criteria))
+    {
+      continue;
+    }
+
+    $taxonomy = new QubitTaxonomy;
+    $taxonomy->parentId = QubitTaxonomy::ROOT_ID;
+    $taxonomy->name = 'Saved query types';
+    $taxonomy->culture = 'en';
+    $taxonomy->save();
+
+    if (isset($taxonomy->id))
+    {
+      foreach (array('Search', 'Report') as $type)
+      {
+        // Make sure that the term hasn't been added already
+        $criteria = new Criteria;
+        $criteria->add(QubitTerm::PARENT_ID, QubitTerm::ROOT_ID);
+        $criteria->add(QubitTerm::TAXONOMY_ID, $taxonomy->id);
+        $criteria->add(QubitTermI18n::CULTURE, 'en');
+        $criteria->add(QubitTermI18n::NAME, $type);
+        $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+        if (null !== QubitTerm::getOne($criteria))
+        {
+          continue;
+        }
+
+        $term = new QubitTerm;
+        $term->parentId = QubitTerm::ROOT_ID;
+        $term->taxonomyId = $taxonomy->id;
+        $term->sourceCulture = 'en';
+        $term->setName($type, array('culture' => 'en'));
+        $term->save();
+      }
+    }
   }
 
   protected function addDummyAips()

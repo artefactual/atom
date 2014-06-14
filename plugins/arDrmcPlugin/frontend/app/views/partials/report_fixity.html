@@ -1,0 +1,38 @@
+<div class="reports-unit" ng-repeat="(uuid, table) in reportData">
+  <h2 class="reports-title">Collection reference: {{ uuid }}</h2>
+  <table class="table table-bordered">
+    <thead>
+      <th>AIP name</th>
+      <th>UUID</th>
+      <th>Part of</th>
+      <th>Attached to</th>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Duration</th>
+      <th>Outcome</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="item in table.results">
+        <td>{{ item.aip.name }}</td>
+        <td>{{ item.aip.uuid }}</td>
+        <td>{{ item.aip.part_of }}</td>
+        <td>{{ item.aip.attached_to }}</td>
+        <td>{{ item.time_started }}</td>
+        <td>{{ item.time_completed }}</td>
+        <td>{{ item.duration | ConvertSecondsFilter }}</td>
+        <td>{{ item.success ? 'Verified' : 'Failed' }}</td>
+      </tr>
+      <tr class="warning">
+        <td>({{ table.totals.aips }})</td>
+        <td></td>
+        <td>({{ table.totals.artworks }})</td>
+        <td></td>
+        <td>({{ table.totals.time_started }})</td>
+        <td>({{ table.totals.time_completed }})</td>
+        <td>({{ table.totals.duration | ConvertSecondsFilter }})</td>
+        <td>({{ table.totals.verified }} Verified)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

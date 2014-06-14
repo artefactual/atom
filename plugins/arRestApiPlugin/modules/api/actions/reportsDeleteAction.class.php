@@ -17,18 +17,18 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ApiSearchesDeleteAction extends QubitApiAction
+class ApiReportsDeleteAction extends QubitApiAction
 {
   protected function delete($request)
   {
-    if (null === $search = QubitSavedQuery::getById($this->request->id))
+    if (null === $report = QubitSavedQuery::getById($this->request->id))
     {
-      throw new QubitApi404Exception('Search not found');
+      throw new QubitApi404Exception('Report not found');
     }
 
     // Check if user is the creator of the query or is an admin
     $allowed = true;
-    if ($search->userId !== $this->context->user->getUserID())
+    if ($report->userId !== $this->context->user->getUserID())
     {
       $allowed = false;
       foreach ($this->context->user->user->getAclGroups() as $group)
@@ -47,6 +47,6 @@ class ApiSearchesDeleteAction extends QubitApiAction
       throw new QubitApiNotAuthorizedException();
     }
 
-    $search->delete();
+    $report->delete();
   }
 }

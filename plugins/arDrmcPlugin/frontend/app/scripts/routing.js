@@ -92,13 +92,13 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
       url: SETTINGS.DRMCPath + 'reports',
       template: '<ui-view autoscroll="false"/>'
     })
-    .state('main.reports.browser', {
-      url: '',
-      controller: 'ReportsBrowserCtrl',
-      templateUrl: SETTINGS.viewsPath + '/reports.browser.html'
-    })
     .state('main.reports.view', {
-      url: '/{id}',
+      url: '/view?type&from&to',
+      controller: 'ReportsViewCtrl',
+      templateUrl: SETTINGS.viewsPath + '/reports.view.html',
+    })
+    .state('main.reports.slug', {
+      url: '/saved/{slug}',
       controller: 'ReportsViewCtrl',
       templateUrl: SETTINGS.viewsPath + '/reports.view.html'
     })

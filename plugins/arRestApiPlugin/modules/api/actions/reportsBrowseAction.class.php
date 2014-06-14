@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class ApiSearchesBrowseAction extends QubitApiAction
+class ApiReportsBrowseAction extends QubitApiAction
 {
   protected function get($request)
   {
@@ -38,7 +38,7 @@ class ApiSearchesBrowseAction extends QubitApiAction
     $query = new \Elastica\Query;
     $filterBool = new \Elastica\Filter\Bool;
     $queryBool = new \Elastica\Query\Bool;
-    $queryBool->addMust(new \Elastica\Query\Term(array('typeId' => sfConfig::get('app_drmc_term_search_id'))));
+    $queryBool->addMust(new \Elastica\Query\Term(array('typeId' => sfConfig::get('app_drmc_term_report_id'))));
 
     // Pagination and sorting
     $this->prepareEsPagination($query);
@@ -63,11 +63,14 @@ class ApiSearchesBrowseAction extends QubitApiAction
 
     // Type facet labels
     $this->typeLabels = array(
-      'aips' => 'AIPs',
-      'works' => 'Artwork records',
-      'technology-records' => 'Supporting technology records',
-      'components' => 'Components',
-      'files' => 'Files');
+      'fixity' => 'Fixity',
+      'fixity_error' => 'Fixity error',
+      'granular_ingest' => 'Granular ingest',
+      'high_level_ingest' => 'High-level ingest',
+      'general_download' => 'General download',
+      'amount_downloaded' => 'Amount downloaded',
+      'component_level' => 'Component level',
+      'file_level' => 'File level');
 
     $now = new DateTime();
     $now->setTime(0, 0);
@@ -128,7 +131,7 @@ class ApiSearchesBrowseAction extends QubitApiAction
       $this->addItemToArray($search, 'created_at', $doc['createdAt']);
       $this->addItemToArray($search, 'updated_at', $doc['updatedAt']);
       $this->addItemToArray($search, 'slug', $doc['slug']);
-      $this->addItemToArray($search, 'criteria', unserialize($doc['params']));
+      $this->addItemToArray($search, 'range', unserialize($doc['params']));
       $this->addItemToArray($search['user'], 'id', $doc['user']['id']);
       $this->addItemToArray($search['user'], 'name', $doc['user']['name']);
 
@@ -150,7 +153,7 @@ class ApiSearchesBrowseAction extends QubitApiAction
   {
     $query = new \Elastica\Query;
     $queryBool = new \Elastica\Query\Bool;
-    $queryBool->addMust(new \Elastica\Query\Term(array('typeId' => sfConfig::get('app_drmc_term_search_id'))));
+    $queryBool->addMust(new \Elastica\Query\Term(array('typeId' => sfConfig::get('app_drmc_term_report_id'))));
 
     $this->facetEsQuery('Terms', 'type', 'scope', $query);
 
@@ -166,11 +169,11 @@ class ApiSearchesBrowseAction extends QubitApiAction
     // Totals by entity
     foreach ($facets['type']['terms'] as $facet)
     {
-      $results['counts'][$facet['label'].' searches'] = $facet['count'];
+      $results['counts'][$facet['label'].' reports'] = $facet['count'];
     }
 
-    // Total searches
-    $results['counts']['Total searches'] = $resultSet->getTotalHits();
+    // Total reports
+    $results['counts']['Total reports'] = $resultSet->getTotalHits();
 
     // Last created
     $esResullts = $resultSet->getResults();
@@ -179,32 +182,10 @@ class ApiSearchesBrowseAction extends QubitApiAction
     {
       $lastCreated = $esResullts[0]->getData();
 
-      $results['latest']['Last search added']['date'] = $lastCreated['createdAt'];
-      $results['latest']['Last search added']['user'] = $lastCreated['user']['name'];
-      $results['latest']['Last search added']['name'] = $lastCreated['name'];
-      $results['latest']['Last search added']['slug'] = $lastCreated['slug'];
-    }
-
-    // Last updated
-    $query = new \Elastica\Query;
-    $queryBool = new \Elastica\Query\Bool;
-    $queryBool->addMust(new \Elastica\Query\Term(array('typeId' => sfConfig::get('app_drmc_term_search_id'))));
-
-    $query->setQuery($queryBool);
-    $query->setSort(array('updatedAt' => 'desc'));
-
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitSavedQuery')->search($query);
-
-    $esResullts = $resultSet->getResults();
-
-    if (count($esResullts) >0)
-    {
-      $lastUpdated = $esResullts[0]->getData();
-
-      $results['latest']['Last search modified']['date'] = $lastUpdated['createdAt'];
-      $results['latest']['Last search modified']['user'] = $lastUpdated['user']['name'];
-      $results['latest']['Last search modified']['name'] = $lastUpdated['name'];
-      $results['latest']['Last search modified']['slug'] = $lastCreated['slug'];
+      $results['latest']['Last report added']['date'] = $lastCreated['createdAt'];
+      $results['latest']['Last report added']['user'] = $lastCreated['user']['name'];
+      $results['latest']['Last report added']['name'] = $lastCreated['name'];
+      $results['latest']['Last report added']['slug'] = $lastCreated['slug'];
     }
 
     return $results;

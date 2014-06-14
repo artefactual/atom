@@ -12,7 +12,7 @@
  *
  * @package    lib.model
  */
-class QubitDrmcQuery extends BaseDrmcQuery
+class QubitSavedQuery extends BaseSavedQuery
 {
   /**
    * Additional save functionality (e.g. update search index)

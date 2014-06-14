@@ -99,17 +99,17 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
       return true;
     }
 
-    if ('drmcQuerys' == $name)
-    {
-      return true;
-    }
-
     if ('fixityRecoverys' == $name)
     {
       return true;
     }
 
     if ('notes' == $name)
+    {
+      return true;
+    }
+
+    if ('savedQuerys' == $name)
     {
       return true;
     }
@@ -186,23 +186,6 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
       return $this->refFkValues['accessLogs'];
     }
 
-    if ('drmcQuerys' == $name)
-    {
-      if (!isset($this->refFkValues['drmcQuerys']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['drmcQuerys'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['drmcQuerys'] = self::getdrmcQuerysById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['drmcQuerys'];
-    }
-
     if ('fixityRecoverys' == $name)
     {
       if (!isset($this->refFkValues['fixityRecoverys']))
@@ -235,6 +218,23 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
       }
 
       return $this->refFkValues['notes'];
+    }
+
+    if ('savedQuerys' == $name)
+    {
+      if (!isset($this->refFkValues['savedQuerys']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['savedQuerys'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['savedQuerys'] = self::getsavedQuerysById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['savedQuerys'];
     }
 
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
@@ -300,26 +300,6 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
     return self::addaccessLogsCriteriaById($criteria, $this->id);
   }
 
-  public static function adddrmcQuerysCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitDrmcQuery::USER_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getdrmcQuerysById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::adddrmcQuerysCriteriaById($criteria, $id);
-
-    return QubitDrmcQuery::get($criteria, $options);
-  }
-
-  public function adddrmcQuerysCriteria(Criteria $criteria)
-  {
-    return self::adddrmcQuerysCriteriaById($criteria, $this->id);
-  }
-
   public static function addfixityRecoverysCriteriaById(Criteria $criteria, $id)
   {
     $criteria->add(QubitFixityRecovery::USER_ID, $id);
@@ -358,5 +338,25 @@ abstract class BaseUser extends QubitActor implements ArrayAccess
   public function addnotesCriteria(Criteria $criteria)
   {
     return self::addnotesCriteriaById($criteria, $this->id);
+  }
+
+  public static function addsavedQuerysCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitSavedQuery::USER_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getsavedQuerysById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addsavedQuerysCriteriaById($criteria, $id);
+
+    return QubitSavedQuery::get($criteria, $options);
+  }
+
+  public function addsavedQuerysCriteria(Criteria $criteria)
+  {
+    return self::addsavedQuerysCriteriaById($criteria, $this->id);
   }
 }

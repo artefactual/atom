@@ -128,6 +128,47 @@ class arElasticSearchAipPdo
     return self::$statements['partOf']->fetchColumn();
   }
 
+  protected function getProperty($name)
+  {
+    $sql  = 'SELECT
+                i18n.value';
+    $sql .= ' FROM '.QubitProperty::TABLE_NAME.' node';
+    $sql .= ' JOIN '.QubitPropertyI18n::TABLE_NAME.' i18n
+                ON node.id = i18n.id';
+    $sql .= ' WHERE node.source_culture = i18n.culture
+                AND node.object_id = ?
+                AND node.name = ?';
+
+    self::$statements['property'] = self::$conn->prepare($sql);
+    self::$statements['property']->execute(array($this->__get('id'), $name));
+    $result = self::$statements['property']->fetch(PDO::FETCH_ASSOC);
+
+    if(false !== $result)
+    {
+      return $result['value'];
+    }
+  }
+
+  protected function getPartOfDepartments()
+  {
+    $sql  = 'SELECT
+                current.id as id,
+                i18n.name as name';
+    $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' otr';
+    $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' current
+                ON otr.term_id = current.id';
+    $sql .= ' JOIN '.QubitTermI18n::TABLE_NAME.' i18n
+                ON otr.term_id = i18n.id';
+    $sql .= ' WHERE otr.object_id = ?
+                AND current.taxonomy_id = ?
+                AND i18n.culture = ?';
+
+    self::$statements['parOfDepartments'] = self::$conn->prepare($sql);
+    self::$statements['parOfDepartments']->execute(array($this->part_of, sfConfig::get('app_drmc_taxonomy_departments_id'), 'en'));
+
+    return self::$statements['parOfDepartments']->fetchAll(PDO::FETCH_OBJ);
+  }
+
   public function serialize()
   {
     $serialized = array();
@@ -154,12 +195,35 @@ class arElasticSearchAipPdo
       {
         $serialized['partOf']['levelOfDescriptionId'] = $lod;
       }
+
+      if (0 < count($departments = $this->getPartOfDepartments()))
+      {
+        if (null !== $id = $departments[0]->id)
+        {
+          $serialized['partOf']['department']['id'] = $id;
+        }
+
+        if (null !== $name = $departments[0]->name)
+        {
+          $serialized['partOf']['department']['name'] = $name;
+        }
+      }
     }
 
     foreach ($this->getDigitalObjects() as $item)
     {
       $node = new arElasticSearchInformationObjectPdo($item->object_id);
       $serialized['digitalObjects'][] = $node->serialize();
+    }
+
+    if (null !== $ingestionUser = $this->getProperty('ingestionUser'))
+    {
+      $serialized['ingestionUser'] = $ingestionUser;
+    }
+
+    if (null !== $attachedTo = $this->getProperty('attachedTo'))
+    {
+      $serialized['attachedTo'] = $attachedTo;
     }
 
     return $serialized;

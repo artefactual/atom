@@ -26,8 +26,9 @@ class ApiSearchesCreateAction extends QubitApiAction
       throw new QubitApiNotAuthorizedException();
     }
 
-    $this->search = new QubitDrmcQuery;
+    $this->search = new QubitSavedQuery;
     $this->search->userId = $this->context->user->getUserID();
+    $this->search->typeId = sfConfig::get('app_drmc_term_search_id');
 
     foreach ($payload as $field => $value)
     {
@@ -48,13 +49,17 @@ class ApiSearchesCreateAction extends QubitApiAction
     {
       case 'name':
       case 'description':
-      case 'type':
         $this->search->$field = $value;
 
         break;
 
       case 'criteria':
-        $this->search->query = serialize($value);
+        $this->search->params = serialize($value);
+
+        break;
+
+      case 'type':
+        $this->search->scope = $value;
 
         break;
     }

@@ -1,0 +1,92 @@
+<div class="reports-unit">
+  <tabset>
+    <!-- By user -->
+    <tab heading="By user">
+      <div ng-repeat="(user, table) in reportData.by_user">
+        <h2 class="reports-title">{{ user }}</h2>
+        <table class="table table-bordered">
+          <thead>
+            <th>Download type</th>
+            <th>Download date</th>
+            <th>Name</th>
+            <th>UUID</th>
+            <th>Total filesize</th>
+            <th>Parent artwork</th>
+            <th>Attached to</th>
+            <th>Parent department</th>
+            <th>Download reason</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in table.results">
+              <td>{{ item.type }}</td>
+              <td>{{ item.date | date: 'short' }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.uuid }}</td>
+              <td>{{ item.size | UnitFilter }}</td>
+              <td>{{ item.part_of }}</td>
+              <td>{{ item.attached_to }}</td>
+              <td>{{ item.department }}</td>
+              <td>{{ item.reason }}</td>
+            </tr>
+            <tr class="warning">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>({{ table.totals.size | UnitFilter }})</td>
+              <td>({{ table.totals.artworks }})</td>
+              <td></td>
+              <td>({{ table.totals.departments }})</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </tab>
+
+    <!-- By department -->
+    <tab heading="By department">
+      <div ng-repeat="(department, table) in reportData.by_department">
+        <h2 class="reports-title">{{ department }}</h2>
+        <table class="table table-bordered">
+          <thead>
+            <th>User</th>
+            <th>Download type</th>
+            <th>Download date</th>
+            <th>Name</th>
+            <th>UUID</th>
+            <th>Total filesize</th>
+            <th>Parent artwork</th>
+            <th>Attached to</th>
+            <th>Download reason</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in table.results">
+              <td>{{ item.user }}</td>
+              <td>{{ item.type }}</td>
+              <td>{{ item.date | date: 'short' }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.uuid }}</td>
+              <td>{{ item.size | UnitFilter }}</td>
+              <td>{{ item.part_of }}</td>
+              <td>{{ item.attached_to }}</td>
+              <td>{{ item.reason }}</td>
+            </tr>
+            <tr class="warning">
+              <td>({{ table.totals.users }})</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>({{ table.totals.size | UnitFilter }})</td>
+              <td>({{ table.totals.artworks }})</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </tab>
+  </tabset>
+</div>
+
