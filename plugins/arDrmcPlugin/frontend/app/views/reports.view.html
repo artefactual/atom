@@ -1,6 +1,7 @@
-<div class="row-fluid">
+<div class="row">
   <div class="span12">
     <div id="main-column">
+
       <section class="breadcrumb">
         <ul>
           <li><a ui-sref="main.search.entity({ entity: 'reports' })">Reports</a></li>
@@ -12,8 +13,9 @@
       </section>
 
       <div class="content">
+
         <section>
-          <div class="menu-list" >
+          <div class="menu-list">
             <ul class="menu-list-left">
               <li><h2>Report overview</h2></li>
             </ul>
@@ -68,9 +70,10 @@
             </div>
           </div>
         </section>
+
       </div>
 
-      <!-- this includes the template of the proper report type -->
+      <!-- Include nested report view -->
       <div ng-include="include"></div>
 
     </div>
