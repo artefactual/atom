@@ -97,9 +97,9 @@
               </tbody>
             </table>
 
-            <!-- This is placed purposefully away from the delete checkboxes
-            so the user doesn't delete a report too easily -->
-            <button class="btn" ng-disabled="selectedReports.length < 1" ng-click="delete()"><i class="icon-remove"></i> Delete</button>
+            <div class="options">
+              <button class="btn" ng-disabled="selectedReports.length < 1" ng-click="delete()"><i class="icon-remove"></i> Delete</button>
+            </div>
 
           </div>
         </section>
