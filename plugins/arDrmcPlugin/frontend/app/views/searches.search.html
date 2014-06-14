@@ -88,7 +88,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="(id, search) in data.results">
+                <tr ng-repeat="search in data.results">
                   <td><a href ui-sref="main.search.slug({ slug: search.slug })">{{ search.name }}</a></td>
                   <td>{{ search.type }}</td>
                   <td>{{ search.created_at }}</td>
@@ -96,7 +96,7 @@
                   <td>{{ search.user.name }}</td>
                   <td>{{ search.description }}</td>
                   <td>
-                    <input type="checkbox" name="selectedSearches[]" value="{{ id }}" ng-checked="selectedSearches.indexOf(id) > -1" ng-click="toggleSelection(id)"/>
+                    <input type="checkbox" name="selectedSearches[]" value="{{ search.id }}" ng-checked="selectedSearches.indexOf(search.id) > -1" ng-click="toggleSelection(search.id)"/>
                   </td>
                 </tr>
               </tbody>

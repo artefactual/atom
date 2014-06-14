@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $state, ModalSaveSearchService, SearchService) {
+module.exports = function ($scope, $state, $q, ModalSaveSearchService, SearchService) {
 
   // Default sorting options
   $scope.criteria.sort_direction = 'desc';
@@ -21,25 +21,21 @@ module.exports = function ($scope, $state, ModalSaveSearchService, SearchService
 
   $scope.edit = function () {
     ModalSaveSearchService.edit($scope.selectedSearches[0]).result.then(function () {
-      $scope.$parent.search();
+      $scope.$parent.updateResults();
       $scope.selectedSearches = [];
     });
   };
 
-  var _delete = function (id) {
-    SearchService.deleteSearch(id).then(function () {
-      console.log('Deleted search ' + id);
-    }, function () {
-      throw 'Error deleting search ' + id;
-    });
-  };
-
   $scope.delete = function () {
+    var queries = [];
     for (var key in $scope.selectedSearches) {
-      _delete($scope.selectedSearches[key]);
+      var id = $scope.selectedSearches[key];
+      queries.push(SearchService.deleteSearch(id));
     }
-    $scope.$parent.search();
-    $scope.selectedSearches = [];
+    $q.all(queries).then(function () {
+      $scope.$parent.updateResults();
+      $scope.selectedSearches = [];
+    });
   };
 
 };

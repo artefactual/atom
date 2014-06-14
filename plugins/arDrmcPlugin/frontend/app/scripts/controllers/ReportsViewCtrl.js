@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTINGS) {
+module.exports = function ($scope, $modal, $state, $stateParams, ReportsService, SETTINGS) {
 
   // Assign to $scope.downloadCsvLink the corresponding href attribute to
   // download the report in CSV from the API
@@ -102,6 +102,8 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
           return $scope.reportParams;
         }
       }
+    }).result.then(function () {
+      $state.go('main.search.entity', { 'entity': 'reports' });
     });
   };
 
