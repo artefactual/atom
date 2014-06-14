@@ -2,18 +2,22 @@
 
 module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTINGS) {
 
+  // Assign to $scope.downloadCsvLink the corresponding href attribute to
+  // download the report in CSV from the API
   var getDownloadCsvLink = function () {
-    if (typeof $scope.reportParams.type !== 'undefined') {
-      $scope.downloadCsvLink = SETTINGS.frontendPath + 'api/reportcsv?type=' + $scope.reportParams.type;
-      if (typeof $scope.reportParams.from !== 'undefined') {
-        $scope.downloadCsvLink = $scope.downloadCsvLink + '&from=' + $scope.reportParams.from;
-      }
-      if (typeof $scope.reportParams.to !== 'undefined') {
-        $scope.downloadCsvLink = $scope.downloadCsvLink + '&to=' + $scope.reportParams.to;
-      }
+    if (angular.isUndefined($scope.reportParams.type)) {
+      return;
+    }
+    $scope.downloadCsvLink = SETTINGS.frontendPath + 'api/reportcsv?type=' + $scope.reportParams.type;
+    if (angular.isDefined($scope.reportParams.from)) {
+      $scope.downloadCsvLink = $scope.downloadCsvLink + '&from=' + $scope.reportParams.from;
+    }
+    if (angular.isDefined($scope.reportParams.to)) {
+      $scope.downloadCsvLink = $scope.downloadCsvLink + '&to=' + $scope.reportParams.to;
     }
   };
 
+  // Fetch results from the server based in the given parameters
   var getReportResults = function () {
     ReportsService.getReportResults($scope.reportParams).then(function (response) {
       $scope.include = SETTINGS.viewsPath + '/partials/report_' + $scope.reportParams.type + '.html';
@@ -21,39 +25,55 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
     });
   };
 
+  // Obtain the report parameters. We may have to load them from the server if
+  // this is a saved report, or from $stateParams if the report has not been
+  // saved yet
   var getReportData = function () {
-    // Store params in scope to show in overview
+
+    // This object is going to hold the parameters of the report
     $scope.reportParams = {};
-    if (angular.isDefined($stateParams.slug)) {
-      $scope.savedReport = true;
-      // Load name. description and params from saved report
+
+    if ($scope.savedReport) {
+
+      // Load name, description and params from saved report
       ReportsService.getReportBySlug($stateParams.slug).then(function (response) {
-        if (typeof response.data.name !== 'undefined') {
-          $scope.reportName = response.data.name;
+        var data = response.data;
+
+        // Report properties
+        if (angular.isDefined(data.name)) {
+          $scope.reportName = data.name;
         }
-        if (typeof response.data.description !== 'undefined') {
-          $scope.reportDescription = response.data.description;
+        if (angular.isDefined(data.description)) {
+          $scope.reportDescription = data.description;
         }
-        if (typeof response.data.user_name !== 'undefined') {
-          $scope.reportUser = response.data.user_name;
+        if (angular.isDefined(data.user_name)) {
+          $scope.reportDescription = data.user_name;
         }
-        if (typeof response.data.created_at !== 'undefined') {
-          $scope.reportDate = response.data.created_at;
+        if (angular.isDefined(data.created_at)) {
+          $scope.reportDate = data.created_at;
         }
-        if (typeof response.data.type !== 'undefined') {
-          $scope.reportParams.type = response.data.type;
+
+        // Report parameters
+        if (angular.isDefined(data.type)) {
+          $scope.reportParams.type = data.type;
         }
-        if (typeof response.data.range !== 'undefined' && typeof response.data.range.to !== 'undefined') {
-          $scope.reportParams.to = response.data.range.to;
+        if (angular.isDefined(data.range)) {
+          if (angular.isDefined(data.range.from)) {
+            $scope.reportParams.from = data.range.from;
+          }
+          if (angular.isDefined(data.range.to)) {
+            $scope.reportParams.to = data.range.to;
+          }
         }
-        if (typeof response.data.range !== 'undefined' && typeof response.data.range.from !== 'undefined') {
-          $scope.reportParams.from = response.data.range.from;
-        }
+
         getDownloadCsvLink();
         getReportResults();
+        $scope.title = ReportsService.getTitleByType($scope.reportParams.type);
+
       });
+
     } else if (angular.isDefined($stateParams.type)) {
-      // Load params from stateParams
+
       $scope.reportParams.type = $stateParams.type;
       if ($stateParams.from !== null) {
         $scope.reportParams.from = new Date($stateParams.from).getTime();
@@ -61,17 +81,15 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
       if ($stateParams.to !== null) {
         $scope.reportParams.to = new Date($stateParams.to).getTime();
       }
+
       getDownloadCsvLink();
       getReportResults();
+      $scope.title = ReportsService.getTitleByType($scope.reportParams.type);
+
     }
   };
 
-  // Store if it's a saved report to hide Save button, and link to download CSV
-  $scope.savedReport = false;
-  $scope.downloadCsvLink = '';
-
-  getReportData();
-
+  // Open modal
   $scope.openSaveReportModal = function () {
     $modal.open({
       templateUrl: SETTINGS.viewsPath + '/modals/save-report.html',
@@ -102,5 +120,10 @@ module.exports = function ($scope, $modal, $stateParams, ReportsService, SETTING
     // Close
     $modal.close();
   };
+
+  // Is this a saved report?
+  $scope.savedReport = angular.isDefined($stateParams.slug);
+
+  getReportData();
 
 };
