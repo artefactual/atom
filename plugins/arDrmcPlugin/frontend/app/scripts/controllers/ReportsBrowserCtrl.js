@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $modal, $state, ReportsService, SETTINGS) {
+module.exports = function ($scope, $q, $modal, $state, ReportsService, SETTINGS) {
 
   $scope.openGenerateReportModal = function () {
     $modal.open({
@@ -29,17 +29,16 @@ module.exports = function ($scope, $modal, $state, ReportsService, SETTINGS) {
   };
 
   $scope.delete = function () {
+    var queries = [];
     for (var key in $scope.selectedReports) {
-      _delete($scope.selectedReports[key]);
+      var id = $scope.selectedReports[key];
+      queries.push(ReportsService.deleteReport(id));
     }
-    $scope.$parent.updateResults();
-    $scope.selectedReports = [];
-  };
-
-  var _delete = function (id) {
-    ReportsService.deleteReport(id).then(function () {
-    }, function () {
-      throw 'Error deleting report ' + id;
+    $q.all(queries).then(function () {
+      $scope.$parent.updateResults();
+      $scope.selectedReports = [];
+    }, function (responses) {
+      console.log('Error deleting saved reports', responses);
     });
   };
 
