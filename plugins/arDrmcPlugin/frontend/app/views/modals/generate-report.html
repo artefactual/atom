@@ -2,7 +2,7 @@
 
   <div class="modal-header">
     <button type="button" ng-click="cancel()" class="close">×</button>
-    <h2 class="multiline">Generate new report</h2>
+    <h2>Generate new report</h2>
   </div>
 
   <div class="modal-body">
@@ -24,13 +24,11 @@
 
     <!-- Select dates -->
     <section class="form-item">
-      Choose date range
-
+      <p>Choose date range</p>
       <label>
         <input type="radio" name="dateRange" value="all" ng-model="modalContainer.dateRange"/>
         All
       </label>
-
       <label>
         <input type="radio" name="dateRange" value="specified" ng-model="modalContainer.dateRange"/>
         Specified date range
@@ -62,8 +60,9 @@
   </div>
 
   <div class="modal-footer">
-    <button ng-click="generate()" ng-disabled="!criteria.type" class="btn btn-primary">Generate & view</button>
+    <button ng-click="generate()" ng-disabled="!criteria.type" class="btn btn-primary">Open</button>
     <button class="btn" ng-click="reset()">Reset</button>
     <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
   </div>
+
 </div>
