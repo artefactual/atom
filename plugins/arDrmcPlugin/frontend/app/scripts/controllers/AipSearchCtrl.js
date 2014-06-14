@@ -11,10 +11,8 @@ module.exports = function ($scope, ModalReclassifyAipService, SETTINGS) {
   $scope.techId = parseInt(SETTINGS.drmc.lod_supporting_technology_record_id);
 
   $scope.openReclassifyModal = function (aip) {
-    ModalReclassifyAipService.open(aip.uuid, aip.part_of.title).result.then(function (data) {
-      aip.type = aip.type || {};
-      aip.type.id = data.type_id;
-      aip.type.name = data.type;
+    ModalReclassifyAipService.open(aip.uuid, aip.part_of.title).result.then(function () {
+      $scope.$parent.updateResults();
     });
   };
 
