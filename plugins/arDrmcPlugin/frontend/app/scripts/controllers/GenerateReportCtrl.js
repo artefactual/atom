@@ -17,6 +17,12 @@ module.exports = function ($state, $scope, $modalInstance, ReportsService) {
   angular.copy($scope.criteria, copy);
 
   $scope.submit = function () {
+    // Extract properties from the range object
+    // TODO: update directive so nesting is not required?
+    $scope.criteria.from = $scope.criteria.range.from;
+    $scope.criteria.to = $scope.criteria.range.to;
+    delete $scope.criteria.range;
+    // Close modal and forward
     $modalInstance.close();
     $state.go('main.reports.view', $scope.criteria);
   };
