@@ -8,18 +8,18 @@
 
         <p>Log in</p>
 
-        <form name="loginForm" ng-submit="submit()" novalidate>
+        <form name="form" ng-submit="submit()" novalidate>
 
           <div class="form-item form-item-email">
-            <input type="text" name="username" ng-model="username" autofocus="autofocus" class="input-block-level" id="email" ng-required="true" placeholder="someone@example.com"/>
+            <input type="email" ng-model="username" autofocus="autofocus" class="input-block-level" required placeholder="someone@example.com"/>
           </div>
 
           <div class="form-item form-item-password">
-            <input type="password" name="password" ng-model="password" class="input-block-level" id="password" ng-required="true" placeholder="Password"/>
+            <input type="password" ng-model="password" class="input-block-level" required placeholder="Password"/>
           </div>
 
           <section class="actions">
-            <button type="submit" class="btn btn-primary btn-block btn-large">Log in</button>
+            <button type="submit" class="btn btn-primary btn-block btn-large" ng-disabled="form.$invalid">Log in</button>
           </section>
 
         <form>
