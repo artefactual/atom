@@ -23,11 +23,11 @@
       <section class="moma-tms" ng-if="work.tms != undefiend">
         <div class="row-fluid">
 
-          <div class="span5" ng-if="work.tms.fullImage != undefined">
+          <div class="span4 tms-img" ng-if="work.tms.fullImage != undefined">
             <img ng-src="{{ work.tms.fullImage }}" />
           </div>
 
-          <div ng-class="{ content: true, span7: work.tms.fullImage != undefined, span12: work.tms.fullImage == undefined }">
+          <div class="tms-info" ng-class="{ content: true, span8: work.tms.fullImage != undefined, span12: work.tms.fullImage == undefined }">
             <section>
               <div class="menu-list">
                 <ul class="menu-list-left">
