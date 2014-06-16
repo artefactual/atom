@@ -56,9 +56,12 @@ class ApiSummaryStorageUsedByCodecAction extends QubitApiAction
       $this->facetEsQuery('TermsStats', $facetName, 'digitalObjects.metsData.mediainfo.'. $mediaInfoPropName .'.codec', $query, array('valueField' => 'digitalObjects.digitalObject.byteSize'));
     }
 
-    try {
+    try
+    {
       $resultSet = QubitSearch::getInstance()->index->getType('QubitAip')->search($query);
-    } catch (Exception $e) {
+    }
+    catch (Exception $e)
+    {
       return array();
     }
 

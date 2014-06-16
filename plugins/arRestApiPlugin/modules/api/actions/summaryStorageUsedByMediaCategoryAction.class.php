@@ -45,7 +45,7 @@ class ApiSummaryStorageUsedByMediaCategoryAction extends QubitApiAction
 
     // Use a term stats facet to calculate total bytes used per media category
     $this->facetEsQuery('TermsStats', 'media_type_storage_stats', 'digitalObject.mimeType', $query, array('valueField' => 'digitalObject.byteSize'));
- 
+
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
 
     $facets = $resultSet->getFacets();
@@ -56,7 +56,8 @@ class ApiSummaryStorageUsedByMediaCategoryAction extends QubitApiAction
       $facets['media_type_storage_stats']['terms'][$index]['media_type'] = $mediaType;
 
       // strip out extra data
-      foreach(array('count', 'total_count', 'min', 'max', 'mean', 'term') as $element) {
+      foreach(array('count', 'total_count', 'min', 'max', 'mean', 'term') as $element)
+      {
         unset($facets['media_type_storage_stats']['terms'][$index][$element]);
       }
     }
