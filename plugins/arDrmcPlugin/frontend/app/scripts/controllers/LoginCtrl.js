@@ -1,14 +1,9 @@
 'use strict';
 
-module.exports = function ($scope, $window, AuthenticationService, $state) {
-
-  function notifyOfError ($error) {
-    $window.alert($error);
-  }
+module.exports = function ($scope, $state, AuthenticationService) {
 
   $scope.submit = function () {
-    if (!$scope.loginForm.$valid) {
-      notifyOfError('Please enter both a username and a password.');
+    if ($scope.form.$invalid) {
       return;
     }
     // TODO: Make use of FormController to validate the form as part of the
