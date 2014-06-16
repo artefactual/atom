@@ -8,6 +8,10 @@
 
         <p>Log in</p>
 
+        <div class="alert" ng-if="error">
+          {{ error }}
+        </div>
+
         <form name="form" ng-submit="submit()" novalidate>
 
           <div class="form-item form-item-email">

@@ -12,7 +12,7 @@ module.exports = function ($scope, $state, AuthenticationService) {
       .success(function () {
         $state.go('main.dashboard');
       }).error(function () {
-        notifyOfError('Incorrect username or password.');
+        $scope.error = 'Incorrect username or password.';
       });
   };
 
