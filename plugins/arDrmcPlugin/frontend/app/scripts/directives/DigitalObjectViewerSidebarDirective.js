@@ -12,7 +12,7 @@ module.exports = function (SETTINGS, InformationObjectService, ModalDigitalObjec
     link: function (scope) {
 
       scope.showAipsArea = true;
-      scope.showCharacterizationArea = false;
+      scope.showCharacterizationArea = true;
       scope.showMediaArea = false;
 
       scope.$watch('file', function (value) {
