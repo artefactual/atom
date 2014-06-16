@@ -197,7 +197,7 @@ mapping:
           markup_basis: { type: string, index: not_analyzed, include_in_all: false }
           markup_basis_version: { type: string, index: not_analyzed, include_in_all: false }
           markup_language: { type: string, index: not_analyzed, include_in_all: false }
-      event:
+      format_identification_event:
         type: object
         properties:
           type: { type: string, index: not_analyzed, include_in_all: false }
@@ -210,7 +210,20 @@ mapping:
             properties:
               type: { type: string, index: not_analyzed, include_in_all: false }
               value: { type: string, index: not_analyzed, include_in_all: false }
-      agent:
+      other_events:
+        type: object
+        properties:
+          type: { type: string, index: not_analyzed, include_in_all: false }
+          dateTime: { type: date, index: not_analyzed, include_in_all: false }
+          detail: { type: string, index: not_analyzed, include_in_all: false }
+          outcome: { type: string, index: not_analyzed, include_in_all: false }
+          outcomeDetailNote: { type: string, index: not_analyzed, include_in_all: false }
+          linkingAgentIdentifier:
+            type: object
+            properties:
+              type: { type: string, index: not_analyzed, include_in_all: false }
+              value: { type: string, index: not_analyzed, include_in_all: false }
+      agents:
         type: object
         properties:
           identifier_type: { type: string, index: not_analyzed, include_in_all: false }
