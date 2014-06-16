@@ -14,6 +14,7 @@
     require('./directives').name,
     require('./controllers').name,
     require('./filters').name,
+    require('./modules').name,
 
     'ui.router',
     'ui.bootstrap',
@@ -44,7 +45,7 @@
    */
 
   angular.module('momaApp')
-    .run(function ($rootScope, SETTINGS, $state, $stateParams, AuthenticationService) {
+    .run(function ($rootScope, SETTINGS, $state, $stateParams) {
 
       // Share information with $rootScope so it's globally available from our views
       $rootScope.$state = $state;
@@ -52,25 +53,6 @@
       $rootScope.basePath = SETTINGS.basePath;
       $rootScope.viewsPath = SETTINGS.viewsPath;
       $rootScope.assetsPath = SETTINGS.assetsPath;
-
-      // Redirect users to the login page
-      var allowedNames = ['login', '404'];
-      $rootScope.$on('$stateChangeStart', function (event, toState) {
-        // if not on a public URL, check authentication
-        if (allowedNames.indexOf(toState.name) === -1) {
-          AuthenticationService.isAuthenticated()
-            .then(function () {
-              // authentication has succeeded
-              event.preventDefault();
-            },
-            function () {
-              // authentication has failed
-              // TODO: display feedback on login page
-              event.preventDefault();
-              $state.go('login');
-            });
-        }
-      });
 
     });
 
