@@ -69,7 +69,15 @@ EOF
       sfConfig::set('app_read_only', filter_var($readOnly, FILTER_VALIDATE_BOOLEAN));
     }
 
-    $this->bootstrapDrmc();
+    // bootstrapDrmc assumes that the environment is configured, which may be
+    // not the case, e.g. during installation, etc...
+    try
+    {
+      $this->bootstrapDrmc();
+    }
+    catch (Exception $e)
+    {
+    }
   }
 
   /**
@@ -132,17 +140,8 @@ EOF
 
   protected function bootstrapDrmc()
   {
-    // Anticipate connection to the database, we are going to need it
-    // I hope this is not breaking anything :)
-    try
-    {
-      $databaseManager = new sfDatabaseManager($this);
-      $conn = $databaseManager->getDatabase('propel')->getConnection();
-    }
-    catch (Exception $e)
-    {
-      return;
-    }
+    $databaseManager = new sfDatabaseManager($this);
+    $conn = $databaseManager->getDatabase('propel')->getConnection();
 
     // Load env ATOM_DRMC_TMS_URL, defaults to "http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObjects.svc"
     if (false === $envDrmcTmsUrl = getenv('ATOM_DRMC_TMS_URL'))
