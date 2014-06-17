@@ -69,15 +69,56 @@ class arInheritRightsJob extends arBaseJob
 
         // lastly, copy all rights from $io to $descendants
         foreach ($io->getRights() as $parentRelation) {
-          // duplicate the right
+          $right = $parentRelation->object;
+          // duplicate the right 
+          $newRight = new QubitRights;
+          $newRight->startDate                   = $right->startDate;
+          $newRight->endDate                     = $right->endDate;
+          $newRight->basisId                     = $right->basisId;
+          $newRight->rightsHolderId              = $right->rightsHolderId;
+          $newRight->copyrightStatusId           = $right->copyrightStatusId;
+          $newRight->copyrightStatusDate         = $right->copyrightStatusDate;
+          $newRight->copyrightJurisdiction       = $right->copyrightJurisdiction;
+          $newRight->statuteDeterminationDate    = $right->statuteDeterminationDate;
+          $newRight->sourceCulture               = $right->sourceCulture;
+ 
+          $newRight->rightsNote                  = $right->rightsNote;
+          $newRight->copyrightNote               = $right->copyrightNote;
+          $newRight->identifierValue             = $right->identifierValue;
+          $newRight->identifierType              = $right->identifierType;
+          $newRight->identifierRole              = $right->identifierRole;
+          $newRight->licenseTerms                = $right->licenseTerms;
+          $newRight->licenseNote                 = $right->licenseNote;
+          $newRight->statuteJurisdiction         = $right->statuteJurisdiction;
+          $newRight->statuteCitation             = $right->statuteCitation;
+          $newRight->statuteNote                 = $right->statuteNote;
+          $newRight->culture                     = $right->culture;
 
           // duplicate the related granted_rights
+          foreach($right->grantedRights as $gr)
+          {
+            $newGr = new QubitGrantedRight;
+            $newGr->rightsId      = $gr->rightsId;
+            $newGr->actId         = $gr->actId;
+            $newGr->restriction   = $gr->restriction;
+            $newGr->startDate     = $gr->startDate;
+            $newGr->endDate       = $gr->endDate;
+            $newGr->notes         = $gr->notes;
+
+            $newRight->grantedRights[] = $newGr;
+          }
+
+          $newRight->save();
 
           // create a relation record associating the new right to the descendant
+          $newRelation = new QubitRelation;
+          $newRelation->objectId  = $newRight->getId();
+          $newRelation->typeId    = QubitTerm::RIGHT_ID;
+          $newRelation->subjectId = $descendant->getId();
+          
+          $newRelation->save();
         }
       }
-
-      // finally apply rights of $io to all descendant objects
 
       $this->job->setStatusCompleted();
       $this->job->save();
