@@ -97,7 +97,8 @@ module.exports = function ($modal, SETTINGS, InformationObjectService, ModalDigi
           // Invoke corresponding function injected in the scope
           scope._selectNode();
           // Retrieve a list of files or digital objects
-          InformationObjectService.getDigitalObjects(id).then(function (response) {
+          // TODO: pager?
+          InformationObjectService.getDigitalObjects(id, false, { limit: 100 }).then(function (response) {
             if (response.data.results.length > 0) {
               scope.files = response.data.results;
             } else {

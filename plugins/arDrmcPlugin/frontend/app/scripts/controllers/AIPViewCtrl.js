@@ -40,6 +40,7 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
     });
   };
 
+
   /**
    * Interaction with modals
    */
@@ -73,7 +74,7 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
   $scope.files = [];
 
   var pullFiles = function () {
-    InformationObjectService.getDigitalObjects($scope.aip.part_of.id, false, $scope.criteria)
+    AIPService.getFiles($scope.aip.uuid, $scope.criteria)
       .success(function (data) {
         $scope.files = data.results;
         $scope.$broadcast('pull.success', data.total);

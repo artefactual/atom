@@ -63,6 +63,11 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'aipsView',
       'params' => array('uuid' => self::REGEX_UUID)));
 
+    $this->addRoute('GET', '/api/aips/:uuid/files', array(
+      'module' => 'api',
+      'action' => 'aipsFiles',
+      'params' => array('id' => self::REGEX_UUID)));
+
     $this->addRoute('GET', '/api/aips/:uuid/download', array(
       'module' => 'api',
       'action' => 'aipsDownloadView',

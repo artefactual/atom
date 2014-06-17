@@ -235,21 +235,15 @@ class QubitAPIAction extends sfAction
     $queryBool->addMust($query);
   }
 
-  protected function prepareEsPagination(\Elastica\Query &$query, $limit = 10)
+  protected function prepareEsPagination(\Elastica\Query &$query, $limit = null)
   {
-    // Limit
-    if (isset($this->request->limit) && ctype_digit($this->request->limit))
+    $limit = empty($limit) ? sfConfig::get('app_hits_per_page', 10) : $limit;
+    $limit = $this->request->getGetParameter('limit', $limit);
+    if ($limit > 100)
     {
-      $limit = $this->request->limit;
-      if ($limit > 100)
-      {
-        $limit = 100;
-      }
+      $limit = 100;
     }
-    else
-    {
-      $limit = sfConfig::get('app_hits_per_page', 10);
-    }
+
     $query->setSize($limit);
 
     // Skip

@@ -17,6 +17,15 @@ module.exports = function ($http, SETTINGS) {
     });
   };
 
+  this.getFiles = function (uuid, params) {
+    params = params || {};
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/aips/' + uuid + '/files',
+      params: params
+    });
+  };
+
   this.reclassifyAIP = function (uuid, typeId) {
     return $http({
       method: 'POST',
