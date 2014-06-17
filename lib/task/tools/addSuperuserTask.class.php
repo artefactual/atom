@@ -57,9 +57,10 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
-    if (!function_exists('readline'))
+    $needsData = !$arguments['username'] || !$options['email'] || !$options['password'];
+    if ($needsData && !function_exists('readline'))
     {
-      throw new Exception('This tasks needs the PHP readline extension.');
+      throw new Exception('This tasks needs the PHP readline extension: not all the parameters have been supplied.');
     }
 
     sfContext::createInstance($this->configuration);
