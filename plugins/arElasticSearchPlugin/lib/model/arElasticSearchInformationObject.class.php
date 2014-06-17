@@ -88,6 +88,8 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
     $node = new arElasticSearchInformationObjectPdo($id);
 
     $serialized = $node->serialize();
+
+
     $serialized['aclEntry'] = array(
       'action' => $acl->action,
       'grant' => $acl->grant,

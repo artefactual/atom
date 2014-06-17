@@ -42,6 +42,8 @@ class arBaseJob extends Net_Gearman_Job_Common
       throw new Exception('Called a Gearman worker with an invalid QubitJob id.');
     }
 
+
+
     return true;
   }
 

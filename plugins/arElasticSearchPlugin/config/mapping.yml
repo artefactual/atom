@@ -145,6 +145,16 @@ mapping:
       digital_object_count: { type: integer, index: not_analyzed, include_in_all: false }
       created_at: { type: date, index: not_analyzed, include_in_all: false }
 
+  acl_entry:
+    dynamic: strict
+    properties:
+      action: { type: string, index: not_analyzed, include_in_all: false }
+      grant:
+        type: object
+        properties:
+          user_ids: { type: integer, index: not_analyzed, include_in_all: false }
+          group_ids: { type: integer, index: not_analyzed, include_in_all: false }
+
   term:
     _attributes:
       i18n: true
@@ -207,6 +217,8 @@ mapping:
       dates: event
       aip: aip
       mets_data: mets_data
+      acl_view_draft: acl_entry
+      acl_view_thumb: acl_entry
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }
@@ -246,17 +258,3 @@ mapping:
             search_analyzer: standard
             term_vector: with_positions_offsets
             type: string
-      acl_entry:
-        type: object
-        properties:
-          action: { type: string, index: not_analyzed, include_in_all: false }
-          grant:
-            type: object
-            properties:
-              user_ids: { type: integer, index: not_analyzed, include_in_all: false }
-              group_ids: { type: integer, index: not_analyzed, include_in_all: false }
-          deny:
-            type: object
-            properties:
-              user_ids: { type: integer, index: not_analyzed, include_in_all: false }
-              group_ids: { type: integer, index: not_analyzed, include_in_all: false }

@@ -49,7 +49,6 @@ class arUpdateAclJob extends arBaseJob
       $aclEntry->id = $objectId;
       $aclEntry->action = $parameters['action'];
       $aclEntry->grant = $parameters['grant'];
-      $aclEntry->deny = $parameters['deny'];
 
       arElasticSearchInformationObject::updateAcl($objectId, $aclEntry);
 
