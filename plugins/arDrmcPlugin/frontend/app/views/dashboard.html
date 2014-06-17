@@ -43,6 +43,7 @@
 
           <div ng-show="fixityStats.currentlyChecking" class="span4 integrity-status-field">
             <h3>Currently checking</h3>
+            <img ng-src="{{ assetsPath + '/loading.gif' }}" />
             <span ng-repeat="aip in fixityStats.currentlyChecking">
               <a href ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a>
             </span>
