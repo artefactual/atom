@@ -15,7 +15,7 @@ CREATE TABLE `access_log`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`object_id` INTEGER  NOT NULL,
 	`access_date` DATETIME,
-	`access_type` VARCHAR(1024),
+	`access_type` INTEGER,
 	`user_id` INTEGER,
 	`reason` VARCHAR(1024),
 	PRIMARY KEY (`id`),
@@ -25,8 +25,12 @@ CREATE TABLE `access_log`
 		FOREIGN KEY (`object_id`)
 		REFERENCES `object` (`id`)
 		ON DELETE CASCADE,
-	INDEX `access_log_FI_2` (`user_id`),
+	INDEX `access_log_FI_2` (`access_type`),
 	CONSTRAINT `access_log_FK_2`
+		FOREIGN KEY (`access_type`)
+		REFERENCES `term` (`id`),
+	INDEX `access_log_FI_3` (`user_id`),
+	CONSTRAINT `access_log_FK_3`
 		FOREIGN KEY (`user_id`)
 		REFERENCES `user` (`id`)
 )Engine=InnoDB;

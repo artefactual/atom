@@ -541,6 +541,13 @@ abstract class BaseAccessLog implements ArrayAccess
     return $criteria;
   }
 
+  public static function addJointermCriteria(Criteria $criteria)
+  {
+    $criteria->addJoin(QubitAccessLog::ACCESS_TYPE, QubitTerm::ID);
+
+    return $criteria;
+  }
+
   public static function addJoinuserCriteria(Criteria $criteria)
   {
     $criteria->addJoin(QubitAccessLog::USER_ID, QubitUser::ID);

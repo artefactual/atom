@@ -4,7 +4,7 @@ propel:
     id: { type: integer, primaryKey: true, autoIncrement: true, inheritanceKey: false }
     object_id: { type: integer, required: true, foreignTable: object, foreignReference: id, onDelete: cascade }
     access_date: { type: timestamp }
-    access_type: varchar(1024)
+    access_type: { type: integer, required: true, foreignTable: term, foreignReference: id }
     user_id: { type: integer, required: false, foreignTable: user, foreignReference: id }
     reason: varchar(1024)
     _indexes:
