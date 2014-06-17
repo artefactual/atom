@@ -1,12 +1,8 @@
 <div class="field">
-  <?php if (!isset($inherit)): ?>
     <h3><?php echo __('Related right') ?></h3>
     <a href="<?php echo url_for(array('module' => 'right', 'action' => 'edit', 'slug' => $resource->slug)) ?>">Edit</a>
     |
     <a href="<?php echo url_for(array('module' => 'right', 'action' => 'delete', 'slug' => $resource->slug)) ?>"  class="deleteRightBasis">Delete</a>
-  <?php else: ?>
-    <h3><?php echo __('Inherited right') ?></h3>    
-  <?php endif; ?>
   <div>
 
     <?php if (isset($inherit)): ?>
