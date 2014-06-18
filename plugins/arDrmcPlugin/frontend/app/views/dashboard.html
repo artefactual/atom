@@ -36,7 +36,7 @@
           <div class="span2 integrity-status-field">
             <h3 class="muted">Status</h3>
             <span class="muted label" ng-class="{ 'label-important': fixityHasFails, 'label-success': !fixityHasFails }">
-              {{ fixityHasFails ? 'Not OK' : 'OK' }}
+              {{ fixityHasFails ? 'Error' : 'OK' }}
               <i ng-if="fixityHasFails">({{ fixityStats.lastFailsCount }})</i>
             </span>
           </div>
