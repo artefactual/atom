@@ -32,13 +32,12 @@ class arUpdateAclJob extends arBaseJob
     $this->addRequiredParameters(array(
       'objectIds',
       'action',
-      'grant',
-      'deny'
+      'userIds',
+      'groupIds'
     ));
 
     // parent::run() will check parameters and throw an exception if any are missing
     parent::run($parameters);
-
     printf('Entering acl job task' . "\n");
 
     $n = 0;
@@ -48,7 +47,9 @@ class arUpdateAclJob extends arBaseJob
 
       $aclEntry->id = $objectId;
       $aclEntry->action = $parameters['action'];
-      $aclEntry->grant = $parameters['grant'];
+      $aclEntry->userIds = $parameters['userIds'];
+      $aclEntry->groupIds = $parameters['groupIds'];
+
 
       arElasticSearchInformationObject::updateAcl($objectId, $aclEntry);
 

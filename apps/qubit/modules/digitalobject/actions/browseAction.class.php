@@ -92,15 +92,12 @@ class DigitalObjectBrowseAction extends DefaultBrowseAction
 
     if ($userId)
     {
-      $this->filterBool->addShould(new \Elastica\Filter\Term(array('aclEntry.grant.userIds' => array($userId))));
-      $this->filterBool->addMustNot(new \Elastica\Filter\Term(array('aclEntry.deny.userIds' => array($userId))));
+      $this->filterBool->addShould(new \Elastica\Filter\Term(array('aclViewThumb.userIds' => array($userId))));
     }
-
-    $this->filterBool->addMustNot(new \Elastica\Filter\Term(array('aclEntry.deny.groupIds' => array($groupIds))));
 
     foreach ($groupIds as $groupId)
     {
-      $this->filterBool->addShould(new \Elastica\Filter\Term(array('aclEntry.grant.groupIds' => $groupId)));
+      $this->filterBool->addShould(new \Elastica\Filter\Term(array('aclViewThumb.groupIds' => $groupId)));
     }
 
     // Set filter

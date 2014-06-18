@@ -17,13 +17,6 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class QubitAclUserAndGroupIds
-{
-  public
-    $userIds = array(),
-    $groupIds = array();
-}
-
 /**
  * A basic Acl entry class that we'll use to index certain rights in ElasticSearch.
  *
@@ -34,12 +27,12 @@ class QubitElasticAclEntry
 {
   public
     $action,
-    $grant,
-    $deny;
+    $userIds,
+    $groupIds;
 
   public function __construct()
   {
-    $grant = new QubitAclUserAndGroupIds;
-    $deny = new QubitAclUserAndGroupIds;
+    $userIds = array();
+    $groupIds = array();
   }
 }

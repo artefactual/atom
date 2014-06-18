@@ -146,14 +146,13 @@ mapping:
       created_at: { type: date, index: not_analyzed, include_in_all: false }
 
   acl_entry:
+    _attributes:
+      nested_only: true
     dynamic: strict
     properties:
       action: { type: string, index: not_analyzed, include_in_all: false }
-      grant:
-        type: object
-        properties:
-          user_ids: { type: integer, index: not_analyzed, include_in_all: false }
-          group_ids: { type: integer, index: not_analyzed, include_in_all: false }
+      user_ids: { type: integer, index: not_analyzed, include_in_all: false }
+      group_ids: { type: integer, index: not_analyzed, include_in_all: false }
 
   term:
     _attributes:

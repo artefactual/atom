@@ -89,11 +89,15 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
     $serialized = $node->serialize();
 
+    switch ($acl->action)
+    {
+      case 'viewThumbnail': $action = 'aclViewThumb'; break;
+      case 'viewDraft': $action = 'aclViewDraft'; break;
+    }
 
-    $serialized['aclEntry'] = array(
-      'action' => $acl->action,
-      'grant' => $acl->grant,
-      'deny' => $acl->deny
+    $serialized[$action] = array(
+      'userIds' => $acl->userIds,
+      'groupIds' => $acl->groupIds
     );
 
     // TODO: use ElasticSearch's update API to speed things up here,
