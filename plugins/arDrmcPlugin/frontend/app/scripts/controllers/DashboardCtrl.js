@@ -111,6 +111,8 @@ module.exports = function ($scope, $q, StatisticsService, FixityService, AIPServ
   });
 
   // Check if AIP is pending recovery
+  // TODO: this is running for each loop, it will slow things! It should be
+  // precomputed after the XHR succeeds (in pull())
   $scope.isPendingRecovery = function (uuid) {
     if (
       typeof uuid === 'undefined' || typeof $scope.aipsPendingRecovery === 'undefined'
