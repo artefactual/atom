@@ -91,7 +91,7 @@
                     <td>Failed</td>
                     <td ng-show="aipsPendingRecovery != undefined">
                       <span ng-show='isPendingRecovery(aip.aip_uuid)'>Pending</span>
-                      <a href ng-hide='isPendingRecovery(aip.aip_uuid)' ng-click='requestRecover(aip.aip_uuid)'>Recover</a>
+                      <a href class="btn" ng-hide='isPendingRecovery(aip.aip_uuid)' ng-click='requestRecover(aip.aip_uuid)'>Recover</a>
                     </td>
                   </tr>
                 </tbody>
