@@ -109,6 +109,8 @@ class ApiFixityStatusAction extends QubitApiAction
       $data['lastFails'][] = $report;
     }
 
+    $data['lastFailsCount'] = $resultSet->getTotalHits();
+
     // Currently checking
     $query = new \Elastica\Query;
     $queryBool = new \Elastica\Query\Bool;
