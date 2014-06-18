@@ -70,7 +70,7 @@ class ApiFixityBrowseAction extends QubitApiAction
       if (isset($doc['timeCompleted']) && isset($doc['timeStarted']))
       {
         $duration = strtotime($doc['timeCompleted']) - strtotime($doc['timeStarted']);
-        $this->addItemToArray($report, 'duration', $duration);
+        $report['duration'] = $duration;
       }
 
       if (isset($doc['failures']))

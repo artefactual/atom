@@ -37,7 +37,7 @@
             <h3 class="muted">Status</h3>
             <span class="muted label" ng-class="{ 'label-important': fixityHasFails, 'label-success': !fixityHasFails }">
               {{ fixityHasFails ? 'Not OK' : 'OK' }}
-              <i ng-if="fixityHasFails">({{ fixityStats.lastFails.length }})</i>
+              <i ng-if="fixityHasFails">({{ fixityStats.lastFailsCount }})</i>
             </span>
           </div>
 
@@ -123,7 +123,7 @@
               </table>
 
               <!-- TODO: Add link to full error reports page -->
-              <a href ui-sref="main.reports.view({ type: 'fixity_error' })" class="btn fixity-checker-view-all">View all</a>
+              <a href ui-sref="main.reports.view({ type: 'fixity' })" class="btn fixity-checker-view-all">View all</a>
 
             </tab>
 

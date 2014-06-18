@@ -4,6 +4,10 @@ module.exports = function () {
 
   return function (time) {
 
+    if (time === 0) {
+      return '0s';
+    }
+
     if (!Number(time)) {
       return;
     }

@@ -64,7 +64,7 @@ class ApiFixityStatusAction extends QubitApiAction
       if (isset($doc['timeCompleted']) && isset($doc['timeStarted']))
       {
         $duration = strtotime($doc['timeCompleted']) - strtotime($doc['timeStarted']);
-        $this->addItemToArray($report, 'duration', $duration);
+        $report['duration'] = $duration;
       }
 
       $data['lastChecks'][] = $report;
@@ -103,19 +103,23 @@ class ApiFixityStatusAction extends QubitApiAction
       if (isset($doc['timeCompleted']) && isset($doc['timeStarted']))
       {
         $duration = strtotime($doc['timeCompleted']) - strtotime($doc['timeStarted']);
-        $this->addItemToArray($report, 'duration', $duration);
+        $report['duration'] = $duration;
       }
 
       $data['lastFails'][] = $report;
     }
 
+    $data['lastFailsCount'] = $resultSet->getTotalHits();
+
     // Currently checking
     $query = new \Elastica\Query;
     $queryBool = new \Elastica\Query\Bool;
+    $filterBool = new \Elastica\Filter\Bool;
 
     $queryAll = new \Elastica\Query\MatchAll();
-    $filter = new \Elastica\Filter\Missing('timeCompleted');
-    $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filter);
+    $filterBool->addMust(new \Elastica\Filter\Missing('timeCompleted'));
+    $filterBool->addMust(new \Elastica\Filter\Exists('timeStarted'));
+    $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filterBool);
 
     $queryBool->addMust($filteredQuery);
 
