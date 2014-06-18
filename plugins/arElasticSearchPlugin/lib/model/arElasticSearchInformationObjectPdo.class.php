@@ -1324,7 +1324,7 @@ class arElasticSearchInformationObjectPdo
               $agent['type'] = (string)$value[0];
             }
 
-            $metsData['agent'][] = $agent;
+            $metsData['agents'][] = $agent;
           }
 
           // Mediainfo tracks
