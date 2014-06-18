@@ -43,7 +43,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
       $data['a_attr']['title'] = $data['text'];
       $data['text'] = ((int) $data['status_id'] == QubitTerm::PUBLICATION_STATUS_DRAFT_ID ? '('.$data['status'].') ' : '') . "<u>{$data['type']}</u> {$data['text']}";
       // some special flags on our current active item
-      if($data['id'] == $this->resource->id)
+      if($data['id'] == func_get_arg(2)['resourceId'])
       {
         $data['state'] = array('opened' => true, 'selected' => true);
         $data['li_attr'] = array('selected_on_load' => true);
@@ -61,7 +61,7 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
       $data['a_attr']['href'] = &$data['slug'];
       unset($data['slug']);
 
-    });
+    }, array('resourceId' => $this->resource->id));
 
     $end_time = microtime(TRUE);
     return $this->renderText(json_encode(array('core' => array('data' => $data), 'time' => ($end_time - $start_time))));
