@@ -43,7 +43,8 @@ class InformationObjectFullWidthTreeViewAction extends sfAction
       $data['a_attr']['title'] = $data['text'];
       $data['text'] = ((int) $data['status_id'] == QubitTerm::PUBLICATION_STATUS_DRAFT_ID ? '('.$data['status'].') ' : '') . "<u>{$data['type']}</u> {$data['text']}";
       // some special flags on our current active item
-      if($data['id'] == func_get_arg(2)['resourceId'])
+      $arg = func_get_arg(2);
+      if($data['id'] == $arg['resourceId']);
       {
         $data['state'] = array('opened' => true, 'selected' => true);
         $data['li_attr'] = array('selected_on_load' => true);
