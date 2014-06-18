@@ -20,69 +20,65 @@
   <div class="span12">
     <div id="main-column">
 
-      <section class="moma-tms" ng-if="work.tms != undefiend">
-        <div class="row-fluid">
+      <section class="tms-work-widget" ng-if="work.tms != undefiend">
 
-          <div class="span4 tms-img" ng-if="work.tms.fullImage != undefined">
-            <img ng-src="{{ work.tms.fullImage }}" />
-          </div>
-
-          <div class="tms-info" ng-class="{ content: true, span8: work.tms.fullImage != undefined, span12: work.tms.fullImage == undefined }">
-            <section>
-              <div class="menu-list">
-                <ul class="menu-list-left">
-                  <li><h2>TMS metadata</h2></li>
-                </ul>
-              </div>
-              <div>
-                <div class="field" ng-if="work.tms.accessionNumber != undefined">
-                  <h3>Accession number</h3>
-                  <div>{{ work.tms.accessionNumber }}</div>
-                </div>
-                <div class="field" ng-if="work.tms.objectId != undefined">
-                  <h3>Object ID</h3>
-                  <div>{{ work.tms.objectId }}</div>
-                </div>
-                <div class="field" ng-if="work.tms.title != undefined">
-                  <h3>Title</h3>
-                  <div>{{ work.tms.title }}</div>
-                </div>
-                <div class="field" ng-if="work.tms.year != undefined">
-                  <h3>Year</h3>
-                  <div>{{ work.tms.year }}</div>
-                </div>
-                <div class="field" ng-if="work.tms.artist != undefined">
-                  <h3>Artist</h3>
-                  <div>
-                    {{ work.tms.artist }}
-                    <span ng-if="works.tms.artistDate != undefined">{{ work.tms.artistDate }}</span>
-                  </div>
-                </div>
-                <div class="field" ng-if="work.tms.classification != undefined">
-                  <h3>Classification</h3>
-                  <div>{{ work.tms.classification }}</div>
-                </div>
-                <div class="field" ng-if="work.tms.department != undefined">
-                  <h3>Department</h3>
-                  <div>{{ work.tms.department }}</div>
-                </div>
-                <div class="field" ng-if="work.tms.medium != undefined">
-                  <h3>Medium</h3>
-                  <div>{{ work.tms.medium }}</div>
-                </div>
-                <div class="field" ng-if="work.tms.dimensions != undefined">
-                  <h3>Dimensions</h3>
-                  <div>{{ work.tms.dimensions }}</div>
-                </div>
-                <div class="field" ng-if="work.tms.description != undefined">
-                  <h3>Description</h3>
-                  <div>{{ work.tms.description }}</div>
-                </div>
-              </div>
-            </section>
-          </div>
-
+        <div class="tms-img" ng-if="work.tms.fullImage != undefined">
+          <img ng-src="{{ work.tms.fullImage }}" />
         </div>
+
+        <div class="tms-info content">
+          <div class="menu-list">
+            <ul class="menu-list-left">
+              <li><h2>TMS metadata</h2></li>
+            </ul>
+          </div>
+          <div>
+            <div class="field" ng-if="work.tms.accessionNumber != undefined">
+              <h3>Accession number</h3>
+              <div>{{ work.tms.accessionNumber }}</div>
+            </div>
+            <div class="field" ng-if="work.tms.objectId != undefined">
+              <h3>Object ID</h3>
+              <div>{{ work.tms.objectId }}</div>
+            </div>
+            <div class="field" ng-if="work.tms.title != undefined">
+              <h3>Title</h3>
+              <div>{{ work.tms.title }}</div>
+            </div>
+            <div class="field" ng-if="work.tms.year != undefined">
+              <h3>Year</h3>
+              <div>{{ work.tms.year }}</div>
+            </div>
+            <div class="field" ng-if="work.tms.artist != undefined">
+              <h3>Artist</h3>
+              <div>
+                {{ work.tms.artist }}
+                <span ng-if="works.tms.artistDate != undefined">{{ work.tms.artistDate }}</span>
+              </div>
+            </div>
+            <div class="field" ng-if="work.tms.classification != undefined">
+              <h3>Classification</h3>
+              <div>{{ work.tms.classification }}</div>
+            </div>
+            <div class="field" ng-if="work.tms.department != undefined">
+              <h3>Department</h3>
+              <div>{{ work.tms.department }}</div>
+            </div>
+            <div class="field" ng-if="work.tms.medium != undefined">
+              <h3>Medium</h3>
+              <div>{{ work.tms.medium }}</div>
+            </div>
+            <div class="field" ng-if="work.tms.dimensions != undefined">
+              <h3>Dimensions</h3>
+              <div>{{ work.tms.dimensions }}</div>
+            </div>
+            <div class="field" ng-if="work.tms.description != undefined">
+              <h3>Description</h3>
+              <div>{{ work.tms.description }}</div>
+            </div>
+          </div>
+        </div>
+
       </section>
 
       <ar:context-browser-artwork id="{{ work.id }}" user="user" files="files" on-select-node="selectNode()"></ar:context-browser-artwork>
