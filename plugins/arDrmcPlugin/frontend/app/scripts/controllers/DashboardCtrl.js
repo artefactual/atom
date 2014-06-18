@@ -78,6 +78,8 @@ module.exports = function ($scope, $q, StatisticsService, FixityService, AIPServ
         data: responses[7].data.results.creation
       }];
       $scope.aipsPendingRecovery = responses[8].data.uuids;
+    }, function (responses) {
+      console.log('Something went wrong', responses);
     });
 
   };
