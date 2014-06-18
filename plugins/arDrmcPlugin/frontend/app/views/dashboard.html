@@ -52,7 +52,7 @@
           <!-- if no checks currently running -->
           <div ng-hide="fixityStats.currentlyChecking" class="span4 integrity-status-field">
             <h3>Last repository-wide fixity audit</h3>
-            <span class="muted">{{ fixityStats.timeSinceLastCheck | ConvertSecondsFilter }}</span>
+            <span class="muted">{{ fixityStats.timeSinceLastCheck | ConvertSecondsFilter }} ago</span>
           </div>
 
           <div class="span2 integrity-status-field">
