@@ -151,6 +151,8 @@ class ApiInformationObjectsFilesBrowseAction extends QubitApiAction
       $doc = $hit->getData();
       $result = array();
 
+      $result['id'] = (int)$hit->getId();
+
       $this->addItemToArray($result, 'identifier', $doc['identifier']);
       $this->addItemToArray($result, 'filename', get_search_i18n($doc, 'title'));
       $this->addItemToArray($result, 'slug', $doc['slug']);
