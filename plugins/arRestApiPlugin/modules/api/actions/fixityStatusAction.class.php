@@ -112,10 +112,12 @@ class ApiFixityStatusAction extends QubitApiAction
     // Currently checking
     $query = new \Elastica\Query;
     $queryBool = new \Elastica\Query\Bool;
+    $filterBool = new \Elastica\Filter\Bool;
 
     $queryAll = new \Elastica\Query\MatchAll();
-    $filter = new \Elastica\Filter\Missing('timeCompleted');
-    $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filter);
+    $filterBool->addMust(new \Elastica\Filter\Missing('timeCompleted'));
+    $filterBool->addMust(new \Elastica\Filter\Exists('timeStarted'));
+    $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filterBool);
 
     $queryBool->addMust($filteredQuery);
 
