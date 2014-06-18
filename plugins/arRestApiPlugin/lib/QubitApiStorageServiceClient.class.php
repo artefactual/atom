@@ -40,7 +40,7 @@ class QubitApiStorageServiceClient
       // Get Archivematica storage service host
       $value = getenv($var);
 
-      if (false !== $value && empty($default))
+      if (false === $value && empty($default))
       {
         throw new QubitApiException($var + ' not configured', 500);
       }
