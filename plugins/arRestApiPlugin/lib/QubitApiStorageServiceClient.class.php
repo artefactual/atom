@@ -40,7 +40,7 @@ class QubitApiStorageServiceClient
       // Get Archivematica storage service host
       $value = getenv($var);
 
-      if (!$value && !$default)
+      if (false !== $value && empty($default))
       {
         throw new QubitApiException($var + ' not configured', 500);
       }
@@ -105,7 +105,7 @@ class QubitApiStorageServiceClient
       sfContext::getInstance()->getLogger()->err('Error getting storage service data: '. $error);
       sfContext::getInstance()->getLogger()->err('URL: '. $url);
 
-      throw new QubitApiException('Error: '. $error, 500);
+      throw new QubitApiException('QubitApiStorageServiceClient error: '. $error, 500);
     }
     curl_close($ch);
 
