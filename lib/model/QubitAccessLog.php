@@ -23,7 +23,7 @@ class QubitAccessLog extends BaseAccessLog
     $sql  = 'SELECT access_log.object_id, COUNT(access_log.object_id) AS count';
     $sql .= ' FROM access_log';
     $sql .= ' LEFT JOIN status ON (access_log.object_id = status.object_id)';
-    $sql .= ' WHERE access_date BETWEEN DATE_SUB(:now, INTERVAL 1 WEEK) AND :now';
+    $sql .= ' WHERE date BETWEEN DATE_SUB(:now, INTERVAL 1 WEEK) AND :now';
     $sql .= ' AND (status_id != :draft OR status_id IS NULL)';
     $sql .= ' GROUP BY (object_id)';
     $sql .= ' ORDER BY count DESC';

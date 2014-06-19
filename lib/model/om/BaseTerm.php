@@ -109,6 +109,11 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
     {
     }
 
+    if ('accessLogs' == $name)
+    {
+      return true;
+    }
+
     if ('actorsRelatedByentityTypeId' == $name)
     {
       return true;
@@ -326,6 +331,23 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
     }
     catch (sfException $e)
     {
+    }
+
+    if ('accessLogs' == $name)
+    {
+      if (!isset($this->refFkValues['accessLogs']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['accessLogs'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['accessLogs'] = self::getaccessLogsById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['accessLogs'];
     }
 
     if ('actorsRelatedByentityTypeId' == $name)
@@ -1146,6 +1168,26 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
     $criteria->addJoin(QubitTerm::PARENT_ID, QubitTerm::ID);
 
     return $criteria;
+  }
+
+  public static function addaccessLogsCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitAccessLog::TYPE_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getaccessLogsById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addaccessLogsCriteriaById($criteria, $id);
+
+    return QubitAccessLog::get($criteria, $options);
+  }
+
+  public function addaccessLogsCriteria(Criteria $criteria)
+  {
+    return self::addaccessLogsCriteriaById($criteria, $this->id);
   }
 
   public static function addactorsRelatedByentityTypeIdCriteriaById(Criteria $criteria, $id)

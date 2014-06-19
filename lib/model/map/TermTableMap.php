@@ -54,6 +54,7 @@ class TermTableMap extends TableMap {
     $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('taxonomy', 'taxonomy', RelationMap::MANY_TO_ONE, array('taxonomy_id' => 'id', ), 'CASCADE', null);
     $this->addRelation('termRelatedByparentId', 'term', RelationMap::MANY_TO_ONE, array('parent_id' => 'id', ), null, null);
+    $this->addRelation('accessLog', 'accessLog', RelationMap::ONE_TO_MANY, array('id' => 'type_id', ), null, null);
     $this->addRelation('actorRelatedByentityTypeId', 'actor', RelationMap::ONE_TO_MANY, array('id' => 'entity_type_id', ), 'SET NULL', null);
     $this->addRelation('actorRelatedBydescriptionStatusId', 'actor', RelationMap::ONE_TO_MANY, array('id' => 'description_status_id', ), 'SET NULL', null);
     $this->addRelation('actorRelatedBydescriptionDetailId', 'actor', RelationMap::ONE_TO_MANY, array('id' => 'description_detail_id', ), 'SET NULL', null);

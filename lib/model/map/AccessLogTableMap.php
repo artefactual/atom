@@ -38,8 +38,8 @@ class AccessLogTableMap extends TableMap {
 		// columns
 		$this->addPrimaryKey('ID', 'id', 'INTEGER', true, null, null);
 		$this->addForeignKey('OBJECT_ID', 'objectId', 'INTEGER', 'object', 'ID', true, null, null);
-		$this->addColumn('ACCESS_DATE', 'accessDate', 'TIMESTAMP', false, null, null);
-		$this->addColumn('ACCESS_TYPE', 'accessType', 'VARCHAR', false, 1024, null);
+		$this->addColumn('DATE', 'date', 'TIMESTAMP', false, null, null);
+		$this->addForeignKey('TYPE_ID', 'typeId', 'INTEGER', 'term', 'ID', true, null, null);
 		$this->addForeignKey('USER_ID', 'userId', 'INTEGER', 'user', 'ID', false, null, null);
 		$this->addColumn('REASON', 'reason', 'VARCHAR', false, 1024, null);
 		// validators
@@ -51,6 +51,7 @@ class AccessLogTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('object_id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('term', 'term', RelationMap::MANY_TO_ONE, array('type_id' => 'id', ), null, null);
     $this->addRelation('user', 'user', RelationMap::MANY_TO_ONE, array('user_id' => 'id', ), null, null);
 	} // buildRelations()
 
