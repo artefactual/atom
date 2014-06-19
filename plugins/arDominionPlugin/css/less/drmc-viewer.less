@@ -251,15 +251,25 @@
   }
 
   h2 {
-    color: @momaGrayDark;
+    color: @orange;
     cursor: pointer;
+  }
+
+  h4 {
+    color: @grayDark;
+    font-size: 14px;
+    margin-left: 10px;
+  }
+
+  h5 {
+    margin-left: 20px;
   }
 
   // Toggle icon
   .dov-modal-toggle {
     float: right;
     &:before {
-      .fa-icon-set (@grayDark);
+      .fa-icon-set (@orange);
       content: "\f103";
     }
     &.active:before {

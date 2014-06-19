@@ -1287,7 +1287,14 @@ class arElasticSearchInformationObjectPdo
               $metsData['dateIngested'] = $event['dateTime'];
             }
 
-            $metsData['event'][] = $event;
+            if (isset($event['type']) && $event['type'] == 'format identification')
+            {
+              $metsData['formatIdentificationEvent'] = $event;
+            }
+            else
+            {
+              $metsData['otherEvents'][] = $event;
+            }
           }
 
           // Agents
@@ -1317,7 +1324,7 @@ class arElasticSearchInformationObjectPdo
               $agent['type'] = (string)$value[0];
             }
 
-            $metsData['agent'][] = $agent;
+            $metsData['agents'][] = $agent;
           }
 
           // Mediainfo tracks

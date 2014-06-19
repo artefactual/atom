@@ -224,6 +224,8 @@ class ApiSearchAutocompleteAction extends QubitApiAction
       $doc = $hit->getData();
       $result = array();
 
+      $result['id'] = (int)$hit->getId();
+
       $this->addItemToArray($result, 'identifier', $doc['identifier']);
       $this->addItemToArray($result, 'title', get_search_i18n_highlight($hit, 'title.autocomplete'));
       $this->addItemToArray($result, 'filename', get_search_i18n($doc, 'title'));

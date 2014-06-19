@@ -20,7 +20,6 @@
     </div>
   </section>
 
-  <!-- FITS output -->
   <section>
     <div ng-click="showCharacterizationArea = !showCharacterizationArea">
       <h2>
@@ -29,55 +28,202 @@
       </h2>
     </div>
 
-    <div ng-show="showCharacterizationArea" ng-if="mediaType == 'video'">
-      <pre>{{ mets | json }}</pre>
-    </div>
+    <div ng-show="showCharacterizationArea">
 
-    <div ng-show="showCharacterizationArea" ng-if="mediaType == 'audio'">
-      <pre>{{ mets | json }}</pre>
-    </div>
+      <div ng-if="mets.filename != undefined" class="field">
+        <h3>Filename</h3>
+        <div>{{ mets.filename }}</div>
+      </div>
+      <div ng-if="mets.size != undefined" class="field">
+        <h3>Size</h3>
+        <div>{{ mets.size | UnitFilter:2 }}</div>
+      </div>
+      <div ng-if="mets.mimeType != undefined" class="field">
+        <h3>MIME type</h3>
+        <div>{{ mets.mimeType }}</div>
+      </div>
 
-    <div ng-show="showCharacterizationArea" ng-if="mediaType == 'image'">
-      <pre>{{ mets | json }}</pre>
-    </div>
+      <div ng-if="mets.formatIdentificationEvent != undefined">
 
-    <div ng-show="showCharacterizationArea" ng-if="mediaType == 'other'">
-      <pre>{{ mets | json }}</pre>
-    </div>
+        <h4>Format identification</h4>
 
-    <div ng-show="showCharacterizationArea" ng-if="mediaType == 'text'">
-      <div ng-if="mets.document.title != undefined" class="field">
-        <h3>Title</h3>
-        <div>{{ mets.document.title }}</div>
+        <div ng-if="mets.formatIdentificationEvent.detail != undefined" class="field">
+          <h3>Detail</h3>
+          <div>{{ mets.formatIdentificationEvent.detail }}</div>
+        </div>
+        <div ng-if="mets.formatIdentificationEvent.outcome != undefined" class="field">
+          <h3>Outcome</h3>
+          <div>{{ mets.formatIdentificationEvent.outcome }}</div>
+        </div>
+        <div ng-if="mets.formatIdentificationEvent.outcomeDetailNote != undefined" class="field">
+          <h3>Outcome detail note</h3>
+          <div>{{ mets.formatIdentificationEvent.outcomeDetailNote }}</div>
+        </div>
+        <div ng-if="mets.formatIdentificationEvent.dateTime != undefined" class="field">
+          <h3>Date</h3>
+          <div>{{ mets.formatIdentificationEvent.dateTime | date:'short' }}</div>
+        </div>
+
       </div>
-      <div ng-if="mets.document.pageCount != undefined" class="field">
-        <h3>Page count</h3>
-        <div>{{ mets.document.pageCount }}</div>
+
+      <div ng-if="mets.document != undefined || mets.text != undefined || mets.audio != undefined">
+
+        <h4>FITS</h4>
+
+        <div ng-if="mets.document != undefined">
+
+          <h5>Document</h5>
+
+          <div ng-if="mets.document.title != undefined" class="field">
+            <h3>Title</h3>
+            <div>{{ mets.document.title }}</div>
+          </div>
+          <div ng-if="mets.document.author != undefined" class="field">
+            <h3>Author</h3>
+            <div>{{ mets.document.author }}</div>
+          </div>
+          <div ng-if="mets.document.pageCount != undefined" class="field">
+            <h3>Page count</h3>
+            <div>{{ mets.document.pageCount }}</div>
+          </div>
+          <div ng-if="mets.document.wordCount != undefined" class="field">
+            <h3>Word count</h3>
+            <div>{{ mets.document.wordCount }}</div>
+          </div>
+          <div ng-if="mets.document.characterCount != undefined" class="field">
+            <h3>Character count</h3>
+            <div>{{ mets.document.characterCount }}</div>
+          </div>
+          <div ng-if="mets.document.language != undefined" class="field">
+            <h3>Language</h3>
+            <div>{{ mets.document.language }}</div>
+          </div>
+          <div ng-if="mets.document.isTagged != undefined" class="field">
+            <h3>Is tagged</h3>
+            <div>{{ mets.document.isTagged }}</div>
+          </div>
+          <div ng-if="mets.document.hasForms != undefined" class="field">
+            <h3>Has forms</h3>
+            <div>{{ mets.document.hasForms }}</div>
+          </div>
+          <div ng-if="mets.document.isRightsManaged != undefined" class="field">
+            <h3>Are rights managed</h3>
+            <div>{{ mets.document.isRightsManaged }}</div>
+          </div>
+          <div ng-if="mets.document.hasAnnotations != undefined" class="field">
+            <h3>Has annotations</h3>
+            <div>{{ mets.document.hasAnnotations }}</div>
+          </div>
+          <div ng-if="mets.document.isProtected != undefined" class="field">
+            <h3>Is protected</h3>
+            <div>{{ mets.document.isProtected }}</div>
+          </div>
+          <div ng-if="mets.document.hasOutline != undefined" class="field">
+            <h3>Has outline</h3>
+            <div>{{ mets.document.hasOutline }}</div>
+          </div>
+
+        </div>
+
+        <div ng-if="mets.text != undefined">
+
+          <h5>Text</h5>
+
+          <div ng-if="mets.text.linebreak != undefined" class="field">
+            <h3>Linebreak</h3>
+            <div>{{ mets.text.linebreak }}</div>
+          </div>
+          <div ng-if="mets.text.charset != undefined" class="field">
+            <h3>Charset</h3>
+            <div>{{ mets.text.charset }}</div>
+          </div>
+          <div ng-if="mets.text.markupBasis != undefined" class="field">
+            <h3>Markup basis</h3>
+            <div>{{ mets.text.markupBasis }}</div>
+          </div>
+          <div ng-if="mets.text.markupBasisVersion != undefined" class="field">
+            <h3>Markup basis version</h3>
+            <div>{{ mets.text.markupBasisVersion }}</div>
+          </div>
+          <div ng-if="mets.text.markupLanguage != undefined" class="field">
+            <h3>Markup language</h3>
+            <div>{{ mets.text.markupLanguage }}</div>
+          </div>
+
+        </div>
+
+        <div ng-if="mets.audio != undefined">
+
+          <h5>Audio</h5>
+
+          <div ng-if="mets.audio.bitDepth != undefined" class="field">
+            <h3>Bit depth</h3>
+            <div>{{ mets.audio.bitDepth }}</div>
+          </div>
+          <div ng-if="mets.audio.sampleRate != undefined" class="field">
+            <h3>Sample rate</h3>
+            <div>{{ mets.audio.sampleRate }}</div>
+          </div>
+          <div ng-if="mets.audio.channels != undefined" class="field">
+            <h3>Channels</h3>
+            <div>{{ mets.audio.channels }}</div>
+          </div>
+          <div ng-if="mets.audio.dataEncoding != undefined" class="field">
+            <h3>Data encoding</h3>
+            <div>{{ mets.audio.dataEncoding }}</div>
+          </div>
+          <div ng-if="mets.audio.offset != undefined" class="field">
+            <h3>Offset</h3>
+            <div>{{ mets.audio.offset }}</div>
+          </div>
+          <div ng-if="mets.audio.byteOrder != undefined" class="field">
+            <h3>Byte order</h3>
+            <div>{{ mets.audio.byteOrder }}</div>
+          </div>
+
+        </div>
+
       </div>
-      <div ng-if="mets.document.isTagged != undefined" class="field">
-        <h3>Is tagged</h3>
-        <div>{{ mets.document.isTagged }}</div>
+
+      <div ng-if="mets.mediainfo != undefined">
+
+        <h4>Mediainfo</h4>
+
+        <div ng-if="mets.mediainfo.generalTracks != undefined" ng-repeat="track in mets.mediainfo.generalTracks">
+
+          <h5>General track</h5>
+
+          <div ng-repeat="(label, value) in track" class="field">
+            <h3>{{ label | UncamelizeFilter }}</h3>
+            <div>{{ value }}</div>
+          </div>
+
+        </div>
+
+        <div ng-if="mets.mediainfo.videoTracks != undefined" ng-repeat="(id, track) in mets.mediainfo.videoTracks">
+
+          <h5>Video track #{{ id + 1 }}</h5>
+
+          <div ng-repeat="(label, value) in track" class="field">
+            <h3>{{ label | UncamelizeFilter }}</h3>
+            <div>{{ value }}</div>
+          </div>
+
+        </div>
+
+        <div ng-if="mets.mediainfo.audioTracks != undefined" ng-repeat="(id, track) in mets.mediainfo.audioTracks">
+
+          <h5>Audio track #{{ id + 1 }}</h5>
+
+          <div ng-repeat="(label, value) in track" class="field">
+            <h3>{{ label | UncamelizeFilter }}</h3>
+            <div>{{ value }}</div>
+          </div>
+
+        </div>
+
       </div>
-      <div ng-if="mets.document.hasForms != undefined" class="field">
-        <h3>Has forms</h3>
-        <div>{{ mets.document.hasForms }}</div>
-      </div>
-      <div ng-if="mets.document.isRightsManaged != undefined" class="field">
-        <h3>Are rights managed</h3>
-        <div>{{ mets.document.isRightsManaged }}</div>
-      </div>
-      <div ng-if="mets.document.hasAnnotations != undefined" class="field">
-        <h3>Has annotations</h3>
-        <div>{{ mets.document.hasAnnotations }}</div>
-      </div>
-      <div ng-if="mets.document.isProtected != undefined" class="field">
-        <h3>Is protected</h3>
-        <div>{{ mets.document.isProtected }}</div>
-      </div>
-      <div ng-if="mets.document.hasOutline != undefined" class="field">
-        <h3>Has outline</h3>
-        <div>{{ mets.document.hasOutline }}</div>
-      </div>
+
     </div>
 
   </section>
