@@ -137,15 +137,14 @@ class ApiAipsDownloadViewAction extends QubitApiAction
   {
     // Log access to AIP
     $logEntry = new QubitAccessLog;
-    $logEntry->objectId = ($request->file_id) ? $request->file_id : $aipId;
+    $logEntry->objectId = isset($request->file_id) ? $request->file_id : $aipId;
     $logEntry->userId = $this->getUser()->getUserID();
 
     // Access type can either by a full AIP or an AIP file
-    $accessTypeId = ($request->file_id)
+    $logEntry->typeId = isset($request->file_id)
       ? QubitTerm::ACCESS_LOG_AIP_FILE_DOWNLOAD_ENTRY : QubitTerm::ACCESS_LOG_AIP_DOWNLOAD_ENTRY;
-    $logEntry->accessTypeId = $accessTypeId;
     $logEntry->reason = $request->reason;
-    $logEntry->accessDate = date('Y-m-d H:i:s');
+    $logEntry->date = date('Y-m-d H:i:s');
 
     $logEntry->save();
   }

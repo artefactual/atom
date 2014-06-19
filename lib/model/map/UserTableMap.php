@@ -51,12 +51,12 @@ class UserTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('actor', 'actor', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
-    $this->addRelation('aclPermission', 'aclPermission', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), 'CASCADE', null);
-    $this->addRelation('aclUserGroup', 'aclUserGroup', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), 'CASCADE', null);
     $this->addRelation('accessLog', 'accessLog', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), null, null);
     $this->addRelation('fixityRecovery', 'fixityRecovery', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), 'SET NULL', null);
     $this->addRelation('note', 'note', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), null, null);
     $this->addRelation('savedQuery', 'savedQuery', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), 'SET NULL', null);
+    $this->addRelation('aclPermission', 'aclPermission', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), 'CASCADE', null);
+    $this->addRelation('aclUserGroup', 'aclUserGroup', RelationMap::ONE_TO_MANY, array('id' => 'user_id', ), 'CASCADE', null);
 	} // buildRelations()
 
 } // UserTableMap

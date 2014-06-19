@@ -1172,7 +1172,7 @@ abstract class BaseTerm extends QubitObject implements ArrayAccess
 
   public static function addaccessLogsCriteriaById(Criteria $criteria, $id)
   {
-    $criteria->add(QubitAccessLog::ACCESS_TYPE_ID, $id);
+    $criteria->add(QubitAccessLog::TYPE_ID, $id);
 
     return $criteria;
   }

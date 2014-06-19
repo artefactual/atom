@@ -36,28 +36,40 @@ class arMigration0111
    */
   public function up($configuration)
   {
-    // Add access type column
-    $sql = "ALTER TABLE access_log ADD COLUMN access_type_id INTEGER";
+    /**
+     * Add type_id column, index and constraint
+     */
+
+    $sql = "ALTER TABLE access_log ADD COLUMN type_id INTEGER NOT NULL";
     QubitPdo::modify($sql);
 
-    // Create index for access type column
-    $sql = "CREATE INDEX access_log_FI_2 ON access_log (access_type_id)";
+    $sql = "CREATE INDEX access_log_FI_2 ON access_log (type_id)";
     QubitPdo::modify($sql);
 
-    // Add constraint
     $sql = <<<sql
-
 ALTER TABLE `access_log`
 ADD CONSTRAINT `access_log_FK_2`
-FOREIGN KEY (`access_type_id`)
+FOREIGN KEY (`type_id`)
 REFERENCES `term` (`id`);
-
 sql;
-
     QubitPdo::modify($sql);
 
-    // Add user ID column
-    $sql = "ALTER TABLE access_log ADD COLUMN user_id INTEGER  NOT NULL";
+    /**
+     * Add user_id column, index and constraint
+     */
+
+    $sql = "ALTER TABLE access_log ADD COLUMN user_id INTEGER NOT NULL";
+    QubitPdo::modify($sql);
+
+    $sql = "CREATE INDEX access_log_FI_3 ON access_log (user_id)";
+    QubitPdo::modify($sql);
+
+    $sql = <<<sql
+ALTER TABLE `access_log`
+ADD CONSTRAINT `access_log_FK_3`
+FOREIGN KEY (`user_id`)
+REFERENCES `term` (`id`);
+sql;
     QubitPdo::modify($sql);
 
     // Add reason column
@@ -90,7 +102,7 @@ sql;
     }
 
     // Update existing access log
-    $sql = "UPDATE access_log SET access_type_id= ? WHERE access_type_id IS NULL";
+    $sql = "UPDATE access_log SET type_id = ? WHERE type_id IS NULL";
     QubitPdo::modify($sql, array(QubitTerm::ACCESS_LOG_STANDARD_ENTRY));
 
     return true;

@@ -3,8 +3,8 @@ propel:
   access_log:
     id: { type: integer, primaryKey: true, autoIncrement: true, inheritanceKey: false }
     object_id: { type: integer, required: true, foreignTable: object, foreignReference: id, onDelete: cascade }
-    access_date: { type: timestamp }
-    access_type_id: { type: integer, required: true, foreignTable: term, foreignReference: id }
+    date: { type: timestamp }
+    type_id: { type: integer, required: true, foreignTable: term, foreignReference: id }
     user_id: { type: integer, required: false, foreignTable: user, foreignReference: id }
     reason: varchar(1024)
     _indexes:
