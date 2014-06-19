@@ -1,15 +1,21 @@
-'use strict';
+(function () {
 
-module.exports = function () {
+  'use strict';
 
-  return function (string) {
+  var angular = require('angular');
 
-    if (!angular.isString(string)) {
-      return;
-    }
+  module.exports = function () {
 
-    return string.charAt(0).toUpperCase() + string.substr(1).replace(/[A-Z]/g, ' $&').toLowerCase();
+    return function (string) {
+
+      if (!angular.isString(string)) {
+        return;
+      }
+
+      return string.charAt(0).toUpperCase() + string.substr(1).replace(/[A-Z]/g, ' $&').toLowerCase();
+
+    };
 
   };
 
-};
+})();
