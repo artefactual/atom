@@ -37,11 +37,11 @@ class arMigration0111
   public function up($configuration)
   {
     // Add access type column
-    $sql = "ALTER TABLE access_log ADD COLUMN access_type INTEGER";
+    $sql = "ALTER TABLE access_log ADD COLUMN access_type_id INTEGER";
     QubitPdo::modify($sql);
 
     // Create index for access type column
-    $sql = "CREATE INDEX access_log_FI_2 ON access_log (access_type)";
+    $sql = "CREATE INDEX access_log_FI_2 ON access_log (access_type_id)";
     QubitPdo::modify($sql);
 
     // Add constraint
@@ -49,7 +49,7 @@ class arMigration0111
 
 ALTER TABLE `access_log`
 ADD CONSTRAINT `access_log_FK_2`
-FOREIGN KEY (`access_type`)
+FOREIGN KEY (`access_type_id`)
 REFERENCES `term` (`id`);
 
 sql;
@@ -90,7 +90,7 @@ sql;
     }
 
     // Update existing access log
-    $sql = "UPDATE access_log SET access_type= ? WHERE access_type IS NULL";
+    $sql = "UPDATE access_log SET access_type_id= ? WHERE access_type_id IS NULL";
     QubitPdo::modify($sql, array(QubitTerm::ACCESS_LOG_STANDARD_ENTRY));
 
     return true;
