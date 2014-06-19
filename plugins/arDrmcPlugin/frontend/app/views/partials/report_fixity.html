@@ -13,7 +13,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="item in table.results">
-        <td>{{ item.aip.name }}</td>
+        <td>{{ item.aip.name || 'Not in the DRMC' }}</td>
         <td>{{ item.aip.uuid }}</td>
         <td>{{ item.aip.part_of }}</td>
         <td>{{ item.aip.attached_to }}</td>
