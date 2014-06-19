@@ -3,7 +3,7 @@ Dependencies
 
 * php 5.4.0 or newer
 * php5-ldap
-
+* nodejs, npm, grunt-cli
 
 Storage service configuration
 -----------------------------
