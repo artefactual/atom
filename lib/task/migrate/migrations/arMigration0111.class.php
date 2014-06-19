@@ -72,6 +72,11 @@ REFERENCES `term` (`id`);
 sql;
     QubitPdo::modify($sql);
 
+    /**
+     * TODO
+     * Rename column, s/access_date/date
+     */
+
     // Add reason column
     $sql = "ALTER TABLE access_log ADD COLUMN reason VARCHAR(1024) DEFAULT NULL";
     QubitPdo::modify($sql);

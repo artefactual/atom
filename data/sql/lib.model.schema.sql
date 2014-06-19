@@ -19,7 +19,7 @@ CREATE TABLE `access_log`
 	`user_id` INTEGER,
 	`reason` VARCHAR(1024),
 	PRIMARY KEY (`id`),
-	KEY `1`(`access_date`, `object_id`),
+	KEY `1`(`date`, `object_id`),
 	INDEX `access_log_FI_1` (`object_id`),
 	CONSTRAINT `access_log_FK_1`
 		FOREIGN KEY (`object_id`)

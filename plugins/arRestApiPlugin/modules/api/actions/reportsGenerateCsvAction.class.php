@@ -441,22 +441,22 @@ sql;
       'Download reason'));
 
     $sql  = 'SELECT
-                access.access_date,
+                access.date,
                 access.object_id,
-                access.access_type,
+                access.type_id,
                 access.reason,
                 user.username';
     $sql .= ' FROM '.QubitAccessLog::TABLE_NAME.' access';
     $sql .= ' JOIN '.QubitUser::TABLE_NAME.' user
                 ON access.user_id = user.id';
-    $sql .= ' WHERE access.access_type in (?, ?)';
+    $sql .= ' WHERE access.type_id in (?, ?)';
 
     if (isset($this->request->from) && ctype_digit($this->request->from))
     {
       $date = new DateTime();
       $date->setTimestamp((int)($this->request->from / 1000));
 
-      $sql .= ' AND access.access_date >= "'.$date->format('Y-m-d H:i:s').'"';
+      $sql .= ' AND access.date >= "'.$date->format('Y-m-d H:i:s').'"';
     }
 
     if (isset($this->request->to) && ctype_digit($this->request->to))
@@ -464,10 +464,10 @@ sql;
       $date = new DateTime();
       $date->setTimestamp((int)($this->request->to / 1000));
 
-      $sql .= ' AND access.access_date <= "'.$date->format('Y-m-d H:i:s').'"';
+      $sql .= ' AND access.date <= "'.$date->format('Y-m-d H:i:s').'"';
     }
 
-    $sql .= ' ORDER BY access.access_date';
+    $sql .= ' ORDER BY access.date';
 
     $results = QubitPdo::fetchAll($sql, array(QubitTerm::ACCESS_LOG_AIP_FILE_DOWNLOAD_ENTRY, QubitTerm::ACCESS_LOG_AIP_DOWNLOAD_ENTRY));
 
@@ -476,11 +476,11 @@ sql;
       $accessLog = array();
 
       $this->addItemToArray($accessLog, 'user', $result->username);
-      $this->addItemToArray($accessLog, 'date', arElasticSearchPluginUtil::convertDate($result->access_date));
+      $this->addItemToArray($accessLog, 'date', arElasticSearchPluginUtil::convertDate($result->date));
       $this->addItemToArray($accessLog, 'reason', $result->reason);
 
       // Get AIP/file data from ES
-      if ($result->access_type == QubitTerm::ACCESS_LOG_AIP_DOWNLOAD_ENTRY)
+      if ($result->type_id == QubitTerm::ACCESS_LOG_AIP_DOWNLOAD_ENTRY)
       {
         $this->addItemToArray($accessLog, 'type', 'AIP');
 
@@ -553,19 +553,19 @@ sql;
 
     $sql  = 'SELECT
                 access.object_id,
-                access.access_type,
+                access.type_id,
                 user.username';
     $sql .= ' FROM '.QubitAccessLog::TABLE_NAME.' access';
     $sql .= ' JOIN '.QubitUser::TABLE_NAME.' user
                 ON access.user_id = user.id';
-    $sql .= ' WHERE access.access_type in (?, ?)';
+    $sql .= ' WHERE access.type_id in (?, ?)';
 
     if (isset($this->request->from) && ctype_digit($this->request->from))
     {
       $date = new DateTime();
       $date->setTimestamp((int)($this->request->from / 1000));
 
-      $sql .= ' AND access.access_date >= "'.$date->format('Y-m-d H:i:s').'"';
+      $sql .= ' AND access.date >= "'.$date->format('Y-m-d H:i:s').'"';
     }
 
     if (isset($this->request->to) && ctype_digit($this->request->to))
@@ -573,10 +573,10 @@ sql;
       $date = new DateTime();
       $date->setTimestamp((int)($this->request->to / 1000));
 
-      $sql .= ' AND access.access_date <= "'.$date->format('Y-m-d H:i:s').'"';
+      $sql .= ' AND access.date <= "'.$date->format('Y-m-d H:i:s').'"';
     }
 
-    $sql .= ' ORDER BY access.access_date';
+    $sql .= ' ORDER BY access.date';
 
     $results = QubitPdo::fetchAll($sql, array(QubitTerm::ACCESS_LOG_AIP_FILE_DOWNLOAD_ENTRY, QubitTerm::ACCESS_LOG_AIP_DOWNLOAD_ENTRY));
 
@@ -587,7 +587,7 @@ sql;
       $this->addItemToArray($accessLog, 'user', $result->username);
 
       // Get AIP/file data from ES
-      if ($result->access_type == QubitTerm::ACCESS_LOG_AIP_DOWNLOAD_ENTRY)
+      if ($result->type_id == QubitTerm::ACCESS_LOG_AIP_DOWNLOAD_ENTRY)
       {
         $this->addItemToArray($accessLog, 'type', 'AIP');
 
