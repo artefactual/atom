@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $q, StatisticsService, FixityService, AIPService) {
+module.exports = function ($scope, $q, $interval, StatisticsService, FixityService, AIPService) {
 
   var pull = function () {
 
@@ -91,24 +91,34 @@ module.exports = function ($scope, $q, StatisticsService, FixityService, AIPServ
     $scope.showOverview = !$scope.showOverview;
   };
 
-  $scope.fixityHasFails = false;
-  FixityService.getStatusFixity({ limit: 5 }).then(function (response) {
-    $scope.fixityStats = response.data;
-    if ($scope.fixityStats.hasOwnProperty('lastFails') && $scope.fixityStats.lastFails.length > 0) {
-      $scope.fixityHasFails = true;
-      $scope.showOverview = true;
-    }
-    // Convert boolean to human-friendly string
-    angular.forEach($scope.fixityStats.lastChecks, function (e) {
-      if (e.outcome === false) {
-        e.statusAlert = 'Failed';
-      } else if (e.outcome === true) {
-        e.statusAlert = 'Success';
+  var getFixityWidgetData = function () {
+    FixityService.getStatusFixity({ limit: 5 }).then(function (response) {
+      $scope.fixityStats = response.data;
+      if ($scope.fixityStats.hasOwnProperty('lastFails') && $scope.fixityStats.lastFails.length > 0) {
+        $scope.fixityHasFails = true;
+        $scope.showOverview = true;
       } else {
-        return;
+        $scope.fixityHasFails = false;
+        $scope.showOverview = false;
       }
+      // Convert boolean to human-friendly string
+      angular.forEach($scope.fixityStats.lastChecks, function (e) {
+        if (e.outcome === false) {
+          e.statusAlert = 'Failed';
+        } else if (e.outcome === true) {
+          e.statusAlert = 'Success';
+        } else {
+          return;
+        }
+      });
     });
-  });
+  };
+
+  // First call
+  getFixityWidgetData();
+
+  // Update each second
+  $interval(getFixityWidgetData, 1000);
 
   // Check if AIP is pending recovery
   // TODO: this is running for each loop, it will slow things! It should be
