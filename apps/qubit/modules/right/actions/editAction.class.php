@@ -105,8 +105,13 @@ class RightEditAction extends sfAction
         break;
 
       case 'rightsHolder':
+        $choices = array();
+        if ($this->right->rightsHolder)
+        {
+          $choices[$this->context->routing->generate(null, array($this->right->rightsHolder, 'module' => 'actor'))] = $this->right->rightsHolder->__toString();
+        }
         $this->form->setValidator('rightsHolder', new sfValidatorString);
-        $this->form->setWidget('rightsHolder', new sfWidgetFormSelect(array('choices' => array())));
+        $this->form->setWidget('rightsHolder', new sfWidgetFormSelect(array('choices' => $choices)));
         $this->form->setDefault('rightsHolder', $this->context->routing->generate(null, array($this->right->rightsHolder, 'module' => 'actor')));
 
         break;
