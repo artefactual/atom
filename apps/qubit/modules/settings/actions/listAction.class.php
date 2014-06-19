@@ -62,6 +62,7 @@ class SettingsListAction extends sfAction
     $this->oaiRepositoryForm = new SettingsOaiRepositoryForm;
     $this->jobSchedulingForm = new SettingsJobSchedulingForm;
     $this->securityForm = new SettingsSecurityForm;
+    $this->permissionsForm = new SettingsPermissionsForm;
 
     $this->initializeDefaultPageElementsForm();
 
@@ -163,6 +164,34 @@ class SettingsListAction extends sfAction
           $this->updateSecuritySettings($this->securityForm);
           $this->redirect('settings/list');
         }
+      }
+
+      if (null !== $request->permissions && null !== $request->granted_right)
+      {
+        $requestGrantedRight = QubitTaxonomy::getBySlug($request->granted_right);
+        $permissions = array_map(function($v){ return (int) (bool) $v; }, $request->permissions);
+
+        // validate granted_right exists
+        if (null === $requestGrantedRight)
+        {
+          throw new sfException('invalid new PremisAccessRight value');
+        }
+
+        if (array_keys($request->permissions) !== array_keys(QubitSetting::$premisAccessRightValueDefaults))
+        {
+          throw new sfException('invalid new permissions values for premisAccessRightValues');
+        }
+
+        $premisAccessRight = QubitSetting::getByName('premisAccessRight');
+        $premisAccessRightValues = QubitSetting::getByName('premisAccessRightValues');
+
+        $premisAccessRight->value = $requestGrantedRight->slug;
+        $premisAccessRight->save();
+        
+        $premisAccessRightValues->value = serialize($request->permissions);
+        $premisAccessRightValues->save();
+
+        $this->redirect('settings/list');
       }
 
       if (null !== $languageCode = $request->languageCode)

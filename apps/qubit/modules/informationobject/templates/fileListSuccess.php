@@ -18,29 +18,29 @@
     </ul>
   </div>
 
-  <table>
+ <table>
     <thead>
       <tr>
         <th><?php echo __('#') ?></th>
-        <th><?php echo __('Reference code') ?></th>
+        <th><?php echo __('Folder ID') ?></th>
         <th><?php echo __('Title') ?></th>
         <th><?php echo __('Dates') ?></th>
-        <th><?php echo __('Access restrictions') ?></th>
-      <?php if ($sf_user->isAuthenticated()): ?>
-        <th><?php echo __('Retrieval information') ?></th>
-      <?php endif; ?>
+        <th><?php echo __('Disclosure Status') ?></th>
       </tr>
     </thead><tbody>
     <?php foreach ($items as $item): ?>
       <tr>
         <td class="row-number"><?php echo $row++ ?></td>
-        <td><?php echo $item['referenceCode'] ?></td>
-        <td><?php echo $item['title'] ?></td>
+        <td><?php echo $item['identifier'] ?></td>
+        <td>
+          <?php if (is_object($item['digitalobject'])): ?>
+            <?php echo link_to($item['title'], $item['digitalobject']->getFullPath()) ?>
+          <?php else: ?>
+            <?php echo $item['title'] ?>
+          <?php endif; ?>
+        </td>
         <td><?php echo $item['dates'] ?></td>
-        <td><?php echo isset($item['accessConditions']) ? $item['accessConditions'] : __('None') ?></td>
-      <?php if ($sf_user->isAuthenticated()): ?>
-        <td><?php echo $item['locations'] ?></td>
-      <?php endif; ?>
+        <td><?php echo isset($item['descriptionStatus']) ? $item['descriptionStatus'] : __('None') ?></td>
       </tr>
     <?php endforeach; ?>
     </tbody>

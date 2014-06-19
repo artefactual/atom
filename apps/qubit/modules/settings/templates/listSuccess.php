@@ -13,6 +13,7 @@
       <li><a href="#oaiRepositoryArea"><?php echo __('OAI repository') ?></a></li>
       <li><a href="#jobSchedulingArea"><?php echo __('Job scheduling') ?></a></li>
       <li><a href="#securityArea"><?php echo __('Security') ?></a></li>
+      <li><a href="#permissionsArea"><?php echo __('Permissions') ?></a></li>
     </ul>
   </div>
 
@@ -346,6 +347,73 @@
         </tr>
       </tbody>
     </table>
+  </form>
+
+</fieldset>
+
+<fieldset class="collapsible" id="permissionsArea">
+
+  <legend><?php echo __('Permissions') ?></legend>
+
+  <p><?php echo __('Administrate PREMIS Access Permissions') ?></p>
+
+  <form action="<?php echo url_for('settings/list') ?>" method="post">
+
+    <?php echo $permissionsForm['granted_right']->render() ?>
+
+    <div class="well well-large" style="background-color: #fff">
+      <div><?php echo __('Allow') ?></div>
+      <div class="well well-small">
+        <div>
+          <?php echo $permissionsForm['permissions']['allow_master']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['allow_master']->render(array('style' => 'display: inline; width: auto;')) ?>
+        </div>
+        <div>
+          <?php echo $permissionsForm['permissions']['allow_reference']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['allow_reference']->render(array('style' => 'display: inline; width: auto;')) ?>
+        </div>
+        <div>
+          <?php echo $permissionsForm['permissions']['allow_thumb']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['allow_thumb']->render(array('style' => 'display: inline; width: auto;')) ?>
+        </div>
+      </div>
+
+      <div><?php echo __('Conditional') ?></div>
+      <div class="well well-small">
+        <div>
+          <?php echo $permissionsForm['permissions']['conditional_master']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['conditional_master']->render(array('style' => 'display: inline; width: auto;')) ?>
+        </div>
+        <div>
+          <?php echo $permissionsForm['permissions']['conditional_reference']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['conditional_reference']->render(array('style' => 'display: inline; width: auto;')) ?>
+        </div>
+        <div>
+          <?php echo $permissionsForm['permissions']['conditional_thumb']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['conditional_thumb']->render(array('style' => 'display: inline; width: auto;')) ?>
+        </div>
+      </div>
+
+      <div><?php echo __('Disallow') ?></div>
+      <div class="well well-small">
+        <div>
+          <?php echo $permissionsForm['permissions']['disallow_master']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['disallow_master']->render(array('style' => 'display: inline; width: auto;')) ?>
+        </div>
+        <div>
+          <?php echo $permissionsForm['permissions']['disallow_reference']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['disallow_reference']->render(array('style' => 'display: inline; width: auto;')) ?>
+        </div>
+        <div>
+          <?php echo $permissionsForm['permissions']['disallow_thumb']->renderLabelName() ?>
+          <?php echo $permissionsForm['permissions']['disallow_thumb']->render(array('style' => 'display: inline; width: auto;')) ?>
+        </div>
+      </div>
+      <div style="text-align: right;">
+        <input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/>
+      </div>
+    </div>
+  
   </form>
 
 </fieldset>
