@@ -37,11 +37,23 @@ class arMigration0111
   public function up($configuration)
   {
     // Add access type column
-    $sql = "ALTER TABLE access_log ADD COLUMN access_type INTEGER  NOT NULL";
+    $sql = "ALTER TABLE access_log ADD COLUMN access_type INTEGER";
     QubitPdo::modify($sql);
 
     // Create index for access type column
     $sql = "CREATE INDEX access_log_FI_2 ON access_log (access_type)";
+    QubitPdo::modify($sql);
+
+    // Add constraint
+    $sql = <<<sql
+
+ALTER TABLE `access_log`
+ADD CONSTRAINT `access_log_FK_2`
+FOREIGN KEY (`access_type`)
+REFERENCES `term` (`id`);
+
+sql;
+
     QubitPdo::modify($sql);
 
     // Add user ID column
@@ -64,7 +76,8 @@ class arMigration0111
     // Add "AIP types" terms
     foreach (array(
       QubitTerm::ACCESS_LOG_STANDARD_ENTRY => 'Access',
-      QubitTerm::ACCESS_LOG_DOWNLOAD_ENTRY => 'Download') as $id => $value)
+      QubitTerm::ACCESS_LOG_AIP_DOWNLOAD_ENTRY => 'AIP download',
+      QubitTerm::ACCESS_LOG_AIP_FILE_DOWNLOAD_ENTRY => 'AIP file download') as $id => $value)
     {
       QubitMigrate::bumpTerm($id, $configuration);
       $term = new QubitTerm;
