@@ -4,7 +4,7 @@ module.exports = function () {
 
   return function (string) {
 
-    if (!String(string)) {
+    if (!angular.isString(string)) {
       return;
     }
 
