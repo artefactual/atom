@@ -126,6 +126,18 @@ mapping:
           name: { type: string, index: not_analyzed, include_in_all: false }
           type: { type: string, index: not_analyzed, include_in_all: false }
 
+  physical_object:
+    _attributes:
+      i18n: true
+      nested_only: true
+    dynamic: strict
+
+  property:
+    _attributes:
+      i18n: true
+      nested_only: true
+    dynamic: strict
+
   #
   # Main types
   #
@@ -218,6 +230,13 @@ mapping:
       mets_data: mets_data
       acl_view_draft: acl_entry
       acl_view_thumb: acl_entry
+      physical_objects: physical_object
+      title_statement_of_responsibility: property
+      general_notes: note
+      alpha_numeric_notes: note
+      conservation_notes: note
+      physical_description_notes: note
+      continuation_of_title_notes: note
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }
@@ -239,6 +258,7 @@ mapping:
           media_type_id: { type: integer, index: not_analyzed, include_in_all: false }
           usage_id: { type: integer, index: not_analyzed, include_in_all: false }
           thumbnail_path: { type: string, index: not_analyzed }
+          filename: { type: string, index: not_analyzed }
       alternative_identifiers:
         type: object
         properties:

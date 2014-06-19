@@ -9,6 +9,9 @@ all:
   #  Positive integer  => Number of gigabytes
   upload_limit: -1
 
+  # Timeout for fetching digital objects from external services, in seconds
+  download_timeout: 10
+
   # Use sfMemcacheCache if you want a distributed cache.
   # sfAPCCache can do the trick for a single instance (sfAPCuCache in PHP 5.5).
   cache_engine:

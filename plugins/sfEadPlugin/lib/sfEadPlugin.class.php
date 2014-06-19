@@ -287,7 +287,7 @@ class sfEadPlugin
         break;
 
       default:
-        $result = 'type="'.strtolower($physcalObject->type).'"';
+        $result = 'type="'.escape_dc(esc_specialchars(strtolower($physcalObject->type))).'"';
     }
 
     return $result;

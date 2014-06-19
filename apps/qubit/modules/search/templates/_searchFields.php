@@ -30,6 +30,7 @@
               <option value="name"<?php echo $item['field'] == 'name' ? ' selected="selected"' : '' ?>><?php echo __('Name access points') ?></option>
               <option value="place"<?php echo $item['field'] == 'place' ? ' selected="selected"' : '' ?>><?php echo __('Place access points') ?></option>
               <option value="identifier"<?php echo $item['field'] == 'identifier' ? ' selected="selected"' : '' ?>><?php echo __('Identifier') ?></option>
+              <option value="referenceCode"<?php echo $item['field'] == 'referenceCode' ? ' selected="selected"' : '' ?>><?php echo __('Reference code') ?></option>
             </select>
           </div>
         </div>
@@ -66,6 +67,7 @@
           <option value="name"><?php echo __('Name access points') ?></option>
           <option value="place"><?php echo __('Place access points') ?></option>
           <option value="identifier"><?php echo __('Identifier') ?></option>
+          <option value="referenceCode"><?php echo __('Reference code') ?></option>
         </select>
       </div>
     </div>

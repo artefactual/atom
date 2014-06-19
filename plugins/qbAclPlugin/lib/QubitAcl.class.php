@@ -694,6 +694,7 @@ class QubitAcl
     // Build access control list
     $allows = $bans = $ids = array();
     $forceBan = false;
+
     if (0 < count($permissions))
     {
       foreach ($permissions as $permission)
@@ -732,22 +733,25 @@ class QubitAcl
           case 'viewDraft':
             if (null !== $repository = $permission->getConstants(array('name' => 'repository')))
             {
-              $criteria2 = new Criteria;
-              $criteria2->add(QubitSlug::SLUG, $repository);
-              $criteria2->addJoin(QubitSlug::OBJECT_ID, QubitInformationObject::REPOSITORY_ID);
+              $repoId = QubitPdo::fetchColumn('SELECT object_id FROM slug WHERE slug=?', array($repository));
+              $sql = 'SELECT id FROM information_object WHERE repository_id=?';
 
-              if (0 < count($results = QubitInformationObject::get($criteria2)))
+              // Stay within the query limit
+              if ($criteria->getLimit() > 0)
               {
-                foreach ($results as $item)
-                {
-                  $ids[] = $item->id;
-                }
-
-                // Special case because isAllowed() on ROOT will return true if
-                // user has grant permission on ANY repository. This will force
-                // showing ONLY resources in allowed repositories
-                $forceBan = true;
+                $sql .= ' LIMIT ' . $criteria->getLimit();
               }
+
+              $rows = QubitPdo::fetchAll($sql, array($repoId));
+              foreach ($rows as $row)
+              {
+                $ids[] = $row->id;
+              }
+
+              // Special case because isAllowed() on ROOT will return true if
+              // user has grant permission on ANY repository. This will force
+              // showing ONLY resources in allowed repositories
+              $forceBan = count($rows) > 0;
             }
 
             break;
@@ -757,96 +761,102 @@ class QubitAcl
         }
       }
 
+      $resourceCache = array(); // Hydrating tons of ORM objects via getById() is very slow, cache results
+
       foreach ($ids as $id)
       {
-        if (!isset($resourceAccess[$id]))
+        if (array_key_exists($id, $resourceCache))
         {
-          $resource = call_user_func(array($rootClass, 'getById'), $id);
-          $resourceAccess[$id] = self::isAllowed($user, $resource, $action);
+          continue;
+        }
 
-          if ($resourceAccess[$id])
-          {
-            $allows[] = $id;
-          }
-          else
-          {
-            $bans[] = $id;
-          }
+        $resource = call_user_func(array($rootClass, 'getById'), $id);
+        $resourceCache[$id] = $resource;
+
+        if (self::isAllowed($user, $resource, $action))
+        {
+          $allows[] = $id;
+        }
+        else
+        {
+          $bans[] = $id;
         }
       }
     }
 
+    $isAllowedActionOnRoot = QubitAcl::isAllowed($user, $root, $action);
+
     // Special cases - avoid adding unnecessary criteria
-    if (0 == count($allows) && !QubitAcl::isAllowed($user, $root, $action))
+    if (0 == count($allows) && !$isAllowedActionOnRoot)
     {
       return false; // No allows, always false
     }
-    else if (!$forceBan && 0 == count($bans) && QubitAcl::isAllowed($user, $root, $action))
+    else if (!$forceBan && 0 == count($bans) && $isAllowedActionOnRoot)
     {
       return true; // No bans, always true
     }
 
-    // If more allows then bans, then add list of allowed resources
-    $criterion = null;
+    // If more allows than bans, then add list of allowed resources. Otherwise, add list of banned resources.
     if (count($allows) >= count($bans))
     {
-      while ($resourceId = array_shift($allows))
-      {
-        $resource = call_user_func(array($rootClass, 'getById'), $resourceId);
-
-        // If object has no children include it by id
-        if (1 == ($resource->rgt - $resource->lft))
-        {
-          $subCriterion = $criteria->getNewCriterion(constant("$rootClass::ID"), $resourceId);
-        }
-
-        // Else, include object and all children
-        else
-        {
-          $subCriterion = $criteria->getNewCriterion(constant("$rootClass::LFT"), $resource->lft, Criteria::GREATER_EQUAL);
-          $subCriterion2 = $criteria->getNewCriterion(constant("$rootClass::RGT"), $resource->rgt, Criteria::LESS_EQUAL);
-          $subCriterion->addAnd($subCriterion2);
-        }
-
-        if (isset($criterion))
-        {
-          $criterion->addOr($subCriterion);
-        }
-        else
-        {
-          $criterion = $subCriterion;
-        }
-      }
+      $criterion = self::getAllowedResourcesCriterion($criteria, $rootClass, $resourceCache, $allows, true);
     }
-
-    // Otherwise, add list of banned resources
     else
     {
-      while ($resourceId = array_shift($bans))
+      $criterion = self::getAllowedResourcesCriterion($criteria, $rootClass, $resourceCache, $bans, false);
+    }
+
+    return $criterion;
+  }
+
+  /**
+   * Get a Criteria query either including allowed object ids, or filter out denied object ids.
+   *
+   * @param Criteria  $criteria  The Criteria object passed to getFilterCriterion
+   * @param string  $rootClass  The class name of the resource being checked on.
+   * @param array  $resourceCache  A cache of objects so we don't need to call getById() frequently.
+   * @param array  $resourceIds  An array of object ids which we are either allowed / denied to view.
+   * @param boolean  $allow  Which type of access the ids in the array represent, allow access (true) or deny (false).
+   *
+   * @return Criterion
+   */
+  private static function getAllowedResourcesCriterion($criteria, $rootClass, $resourceCache, $resourceIds, $allow)
+  {
+    while ($resourceId = array_shift($resourceIds))
+    {
+      if (array_key_exists($resourceId, $resourceCache))
+      {
+        $resource = $resourceCache[$resourceId];
+      }
+      else
       {
         $resource = call_user_func(array($rootClass, 'getById'), $resourceId);
+      }
 
-        // If object has no children, remove it by id
-        if (1 == ($resource->rgt - $resource->lft))
-        {
-          $subCriterion = $criteria->getNewCriterion(constant("$rootClass::ID"), $resourceId, Criteria::NOT_EQUAL);
-        }
+      // If object has no children include it by id and carry on
+      if (1 == ($resource->rgt - $resource->lft))
+      {
+        $criterion = $criteria->getNewCriterion(
+          constant("$rootClass::ID"),
+          $resourceId,
+          $allow ? Criteria::EQUAL : Criteria::NOT_EQUAL
+        );
+      }
+      else // Else, include object and all children
+      {
+        $criterion = $criteria->getNewCriterion(
+          constant("$rootClass::LFT"),
+          $resource->lft,
+          $allow ? Criteria::GREATER_EQUAL : Criteria::LESS_EQUAL
+        );
 
-        else
-        {
-          $subCriterion = $criteria->getNewCriterion(constant("$rootClass::LFT"), $resource->lft, Criteria::LESS_THAN);
-          $subCriterion2 = $criteria->getNewCriterion(constant("$rootClass::RGT"), $resource->rgt, Criteria::GREATER_THAN);
-          $subCriterion->addOr($subCriterion2);
-        }
+        $criterion2 = $criteria->getNewCriterion(
+          constant("$rootClass::RGT"),
+          $resource->rgt,
+          $allow ? Criteria::LESS_EQUAL : Criteria::GREAT_EQUAL
+        );
 
-        if (isset($criterion))
-        {
-          $criterion->addAnd($subCriterion);
-        }
-        else
-        {
-          $criterion = $subCriterion;
-        }
+        $criterion->addAnd($criterion2);
       }
     }
 

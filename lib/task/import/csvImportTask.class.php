@@ -469,16 +469,6 @@ EOF;
         if (
           isset($self->rowStatusVars['qubitParentSlug'])
           && $self->rowStatusVars['qubitParentSlug']
-          && isset($self->rowStatusVars['parentId'])
-          && $self->rowStatusVars['parentId']
-        )
-        {
-          throw new sfException('Both parentId and qubitParentSlug are set: only one should be set.');
-        }
-
-        if (
-          isset($self->rowStatusVars['qubitParentSlug'])
-          && $self->rowStatusVars['qubitParentSlug']
         )
         {
           $parentId = getIdCorrespondingToSlug($self->rowStatusVars['qubitParentSlug']);
@@ -583,13 +573,28 @@ EOF;
                   $type = 'Box';
                 }
 
+                $physicalObjectTypeId = array_search(
+                  $type,
+                  $self->getStatus('physicalObjectTypes')
+                );
+
+                // Create new physical object type if not found
+                if ($physicalObjectTypeId === false)
+                {
+                  $newType = new QubitTerm;
+                  $newType->name = $type;
+                  $newType->culture = isset($self->object->culture) ? $self->object->culture : 'en';
+                  $newType->taxonomyId = QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID;
+                  $newType->parentId = QubitTerm::ROOT_ID;
+
+                  $newType->save();
+                  $physicalObjectTypeId = $newType->id;
+                }
+
                 $container = $self->createOrFetchPhysicalObject(
                   $name,
                   $location,
-                  array_search(
-                    $type,
-                    $self->getStatus('physicalObjectTypes')
-                  )
+                  $physicalObjectTypeId
                 );
 
                 // associate container with information object
@@ -747,10 +752,13 @@ EOF;
           // add material-related term relation
           if (isset($self->rowStatusVars['radGeneralMaterialDesignation']))
           {
-            $self->createObjectTermRelation(
-              $self->object->id,
-              $self->rowStatusVars['radGeneralMaterialDesignation']
-            );
+            foreach($self->rowStatusVars['radGeneralMaterialDesignation'] as $material)
+            {
+              $self->createObjectTermRelation(
+                $self->object->id,
+                $material
+              );
+            }
           }
 
           // add copyright info
@@ -1074,19 +1082,21 @@ EOF;
     {
       if ($data)
       {
-        $materialIndex = array_search(
-          $data,
-          $self->getStatus('materialTypes')
-        );
+        $data = explode('|', $data);
 
-        if (is_numeric($materialIndex))
+        foreach ($data as $value)
         {
-          $self->rowStatusVars['radGeneralMaterialDesignation'] = array_search(
-            $data,
+          $materialIndex = array_search(
+            $value,
             $self->getStatus('materialTypes')
           );
-        } else {
-          throw new sfException('Invalid material type:'. $self->rowStatusVars['radGeneralMaterialDesignation']);
+
+          if (is_numeric($materialIndex))
+          {
+            $self->rowStatusVars['radGeneralMaterialDesignation'][] = $materialIndex;
+          } else {
+            throw new sfException('Invalid material type:'. $value);
+          }
         }
       }
     });

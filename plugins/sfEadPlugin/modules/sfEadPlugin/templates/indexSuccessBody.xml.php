@@ -392,6 +392,16 @@
           <?php endforeach; ?>
         <?php endif; ?>
 
+        <?php foreach($radNotes as $name => $xmlType): ?>
+            <?php $noteTypeId = array_search($name, $termData['radNoteTypes']); ?>
+
+            <?php if (0 < count($notes = $descendant->getNotesByType(array('noteTypeId' => $noteTypeId)))): ?>
+              <?php foreach ($notes as $note): ?>
+                <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></odd>
+              <?php endforeach; ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+
       <?php if ($descendant->rgt == $descendant->lft + 1): ?>
         </c>
       <?php else: ?>

@@ -102,7 +102,7 @@ class QubitXmlImport
       'dublinCore' => 'dc',
       'metadata' => 'dc',
       //'mets' => 'mets',
-      //'mods' => 'mods',
+      'mods' => 'mods',
       'ead' => 'ead',
       'add' => 'alouette',
       'http://www.w3.org/2004/02/skos/core#' => 'skos'

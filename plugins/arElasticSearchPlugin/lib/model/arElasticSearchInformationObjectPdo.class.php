@@ -218,14 +218,21 @@ class arElasticSearchInformationObjectPdo
       }
       else
       {
-        foreach (array_reverse($this->ancestors) as $item)
+        if (is_array($this->ancestors) && count($this->ancestors) > 0)
         {
-          if (isset($item->repository_id))
+          foreach (array_reverse($this->ancestors) as $item)
           {
-            $this->repository = QubitRepository::getById($item->repository_id);
+            if (isset($item->repository_id))
+            {
+              $this->repository = QubitRepository::getById($item->repository_id);
 
-            break;
+              break;
+            }
           }
+        }
+        else
+        {
+          $this->repository = null;
         }
       }
     }
@@ -664,6 +671,27 @@ class arElasticSearchInformationObjectPdo
     }
   }
 
+  public function getNotesByType($typeId)
+  {
+    $sql = 'SELECT
+              id, source_culture
+              FROM '.QubitNote::TABLE_NAME.
+              ' WHERE object_id = ? AND type_id = ?';
+
+    return QubitPdo::fetchAll($sql, array($this->__get('id'), $typeId));
+  }
+
+  public function getTermIdByNameAndTaxonomy($name, $taxonomyId, $culture = 'en')
+  {
+    $sql = 'SELECT t.id
+              FROM term t
+              LEFT JOIN term_i18n ti
+              ON t.id=ti.id
+              WHERE t.taxonomy_id=? AND ti.name=? AND ti.culture=?';
+
+    return QubitPdo::fetchColumn($sql, array($taxonomyId, $name, $culture));
+  }
+
   public function getThumbnailPath()
   {
     if (!$this->__isset('digital_object_id'))
@@ -823,7 +851,7 @@ class arElasticSearchInformationObjectPdo
     return $alternativeIdentifiers;
   }
 
-  protected function getProperty($name)
+  protected function getPropertyValue($name)
   {
     $sql  = 'SELECT
                 i18n.value';
@@ -834,14 +862,28 @@ class arElasticSearchInformationObjectPdo
                 AND node.object_id = ?
                 AND node.name = ?';
 
-    self::$statements['property'] = self::$conn->prepare($sql);
-    self::$statements['property']->execute(array($this->__get('id'), $name));
-    $result = self::$statements['property']->fetch(PDO::FETCH_ASSOC);
+    self::$statements['propertyValue'] = self::$conn->prepare($sql);
+    self::$statements['propertyValue']->execute(array($this->__get('id'), $name));
+    $result = self::$statements['propertyValue']->fetch(PDO::FETCH_ASSOC);
 
     if(false !== $result)
     {
       return $result['value'];
     }
+  }
+
+  protected function getProperty($name)
+  {
+    $sql  = 'SELECT
+                prop.id, prop.source_culture';
+    $sql .= ' FROM '.QubitProperty::TABLE_NAME.' prop';
+    $sql .= ' WHERE prop.object_id = ?
+                AND prop.name = ?';
+
+    self::$statements['property'] = self::$conn->prepare($sql);
+    self::$statements['property']->execute(array($this->__get('id'), $name));
+
+    return self::$statements['property']->fetch(PDO::FETCH_OBJ);
   }
 
   protected function getAips()
@@ -860,10 +902,27 @@ class arElasticSearchInformationObjectPdo
     return self::$statements['aips']->fetchAll(PDO::FETCH_OBJ);
   }
 
+  protected function getPhysicalObjects()
+  {
+    $sql  = 'SELECT
+                phys.id,
+                phys.source_culture';
+    $sql .= ' FROM '.QubitPhysicalObject::TABLE_NAME.' phys';
+    $sql .= ' JOIN '.QubitRelation::TABLE_NAME.' relation
+                ON phys.id = relation.subject_id';
+    $sql .= ' WHERE relation.object_id = ?
+                AND relation.type_id = ?';
+
+    self::$statements['physicalObjects'] = self::$conn->prepare($sql);
+    self::$statements['physicalObjects']->execute(array($this->__get('id'), QubitTerm::HAS_PHYSICAL_OBJECT_ID));
+
+    return self::$statements['physicalObjects']->fetchAll(PDO::FETCH_OBJ);
+  }
+
   protected function getMetsData()
   {
-    if ((null !== $aipUUID = $this->getProperty('aipUUID'))
-      && (null !== $objectUUID = $this->getProperty('objectUUID')))
+    if ((null !== $aipUUID = $this->getPropertyValue('aipUUID'))
+      && (null !== $objectUUID = $this->getPropertyValue('objectUUID')))
     {
       // Get METS file
       $metsFile = sfConfig::get('sf_web_dir').
@@ -1203,6 +1262,7 @@ class arElasticSearchInformationObjectPdo
     {
       $serialized['digitalObject']['mediaTypeId'] = $this->media_type_id;
       $serialized['digitalObject']['usageId'] = $this->usage_id;
+      $serialized['digitalObject']['filename'] = $this->filename;
 
       if (QubitTerm::EXTERNAL_URI_ID == $this->usage_id)
       {
@@ -1274,6 +1334,55 @@ class arElasticSearchInformationObjectPdo
     {
       $node = new arElasticSearchActorPdo($item->id);
       $serialized['creators'][] = $node->serialize();
+    }
+
+    // Physical objects
+    foreach ($this->getPhysicalObjects() as $item)
+    {
+      $serialized['physicalObjects'][] = arElasticSearchPhysicalObject::serialize($item);
+    }
+
+    // Notes
+    foreach ($this->getNotesByType(QubitTerm::GENERAL_NOTE_ID) as $item)
+    {
+      $serialized['generalNotes'][] = arElasticSearchNote::serialize($item);
+    }
+
+    if (null !== $termId = $this->getTermIdByNameAndTaxonomy('Alpha-numeric designations', QubitTaxonomy::RAD_NOTE_ID))
+    {
+      foreach ($this->getNotesByType($termId) as $item)
+      {
+        $serialized['alphaNumericNotes'][] = arElasticSearchNote::serialize($item);
+      }
+    }
+
+    if (null !== $termId = $this->getTermIdByNameAndTaxonomy('Conservation', QubitTaxonomy::RAD_NOTE_ID))
+    {
+      foreach ($this->getNotesByType($termId) as $item)
+      {
+        $serialized['conservationNotes'][] = arElasticSearchNote::serialize($item);
+      }
+    }
+
+    if (null !== $termId = $this->getTermIdByNameAndTaxonomy('Physical description', QubitTaxonomy::RAD_NOTE_ID))
+    {
+      foreach ($this->getNotesByType($termId) as $item)
+      {
+        $serialized['physicalDescriptionNotes'][] = arElasticSearchNote::serialize($item);
+      }
+    }
+
+    if (null !== $termId = $this->getTermIdByNameAndTaxonomy('Continuation of title', QubitTaxonomy::RAD_TITLE_NOTE_ID))
+    {
+      foreach ($this->getNotesByType($termId) as $item)
+      {
+        $serialized['continuationOfTitleNotes'][] = arElasticSearchNote::serialize($item);
+      }
+    }
+
+    if (false !== $item = $this->getProperty('titleStatementOfResponsibility'))
+    {
+      $serialized['titleStatementOfResponsibility'] = arElasticSearchProperty::serialize($item);
     }
 
     // Aips

@@ -1083,6 +1083,43 @@ class QubitInformationObject extends BaseInformationObject
     }
   }
 
+  /**
+   * Get the total digital object count for this & all descendents to this
+   * information object.
+   *
+   * @return int  The total digital object count.
+   */
+  public function getDescendentDigitalObjectCount()
+  {
+    $sql = '
+      SELECT id FROM information_object
+      WHERE lft > ? and rgt < ?
+    ';
+
+    $rows = QubitPdo::fetchAll($sql, array($this->lft, $this->rgt));
+
+    // Convert SQL rows into just an array of integers with all the ids...
+    $ids = array_map(
+      function($row)
+      {
+        return (int)$row->id;
+      },
+      $rows
+    );
+
+    if (!count($ids))
+    {
+      return 0;
+    }
+
+    $sql = '
+      SELECT count(1) FROM digital_object
+      WHERE information_object_id IN (' . implode(',', $ids) . ')
+    ';
+
+    return QubitPdo::fetchColumn($sql);
+  }
+
   /****************
    Import methods
   *****************/
