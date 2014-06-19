@@ -1,6 +1,8 @@
 'use strict';
 
-module.exports = function ($scope, $q, $interval, StatisticsService, FixityService, AIPService) {
+module.exports = function ($scope, $q, $timeout, StatisticsService, FixityService, AIPService) {
+
+  var timer;
 
   var pull = function () {
 
@@ -111,14 +113,14 @@ module.exports = function ($scope, $q, $interval, StatisticsService, FixityServi
           return;
         }
       });
+      // Update on success and error
+      timer = $timeout(getFixityWidgetData, 1000);
+    }, function () {
+      timer = $timeout(getFixityWidgetData, 1000);
     });
   };
 
-  // First call
   getFixityWidgetData();
-
-  // Update each second
-  $interval(getFixityWidgetData, 1000);
 
   // Check if AIP is pending recovery
   // TODO: this is running for each loop, it will slow things! It should be
@@ -143,5 +145,9 @@ module.exports = function ($scope, $q, $interval, StatisticsService, FixityServi
         console.log('Error requesting AIP recovery');
       });
   };
+
+  $scope.$on('$destroy', function () {
+    $timeout.cancel(timer);
+  });
 
 };
