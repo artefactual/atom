@@ -34,12 +34,19 @@ module.exports = function ($filter) {
             color = arD3.scale.category20b();
           }
 
+          // Normalize dataset
           angular.forEach(dataset, function (obj, key) {
             dataset[key].accessKey = dataset[key][graphSpecification.accessKey];
             dataset[key].formatKey = dataset[key][graphSpecification.formatKey];
             delete dataset[key][graphSpecification.accessKey];
             delete dataset[key][graphSpecification.formatKey];
           });
+
+          // Sort dataset by accessKey
+          var compare = function (a , b) {
+            return (a.accessKey < b.accessKey) ? -1 : 1;
+          };
+          dataset.sort(compare);
 
           var outerRadius = w / 2;
           var innerRadius = 0;
@@ -99,7 +106,7 @@ module.exports = function ($filter) {
             .attr('width', label_width)
             .attr('height', label_height)
             .selectAll('g')
-            .data(color.domain().slice().reverse())
+            .data(color.domain().slice())
             .enter().append('g')
             .attr('transform', function (d, i) { return 'translate(0,' + i * 20 + ')'; });
 
