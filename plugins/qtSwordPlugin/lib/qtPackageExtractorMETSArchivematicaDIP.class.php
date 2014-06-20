@@ -686,7 +686,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       {
         // This is actually not too bad, maybe normalization failed but we still
         // want to have an information object
-        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             [path->DIP] File cannot be found or read: '.$absolutePathWithinDip);
+        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -              [path->DIP] File cannot be found or read: '.$absolutePathWithinDip);
       }
 
       $child->save();
