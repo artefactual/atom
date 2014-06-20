@@ -89,11 +89,11 @@ module.exports = function ($scope, $q, $timeout, StatisticsService, FixityServic
   pull();
 
   // If the user changes the overview state, it's not changed again on update
-  $scope.isOverviewToggled = false;
+  var isOverviewToggled = false;
   $scope.showOverview = false;
   $scope.toggleOverview = function () {
     $scope.showOverview = !$scope.showOverview;
-    $scope.isOverviewToggled = true;
+    isOverviewToggled = true;
   };
 
   var getFixityWidgetData = function () {
@@ -101,12 +101,12 @@ module.exports = function ($scope, $q, $timeout, StatisticsService, FixityServic
       $scope.fixityStats = response.data;
       if ($scope.fixityStats.hasOwnProperty('lastFails') && $scope.fixityStats.lastFails.length > 0) {
         $scope.fixityHasFails = true;
-        if (!$scope.isOverviewToggled) {
+        if (!isOverviewToggled) {
           $scope.showOverview = true;
         }
       } else {
         $scope.fixityHasFails = false;
-        if (!$scope.isOverviewToggled) {
+        if (!isOverviewToggled) {
           $scope.showOverview = false;
         }
       }
