@@ -43,7 +43,7 @@ module.exports = function ($filter) {
           });
 
           // Sort dataset by accessKey
-          var compare = function (a , b) {
+          var compare = function (a, b) {
             return (a.accessKey < b.accessKey) ? -1 : 1;
           };
           dataset.sort(compare);
