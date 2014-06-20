@@ -46,7 +46,7 @@ module.exports = function ($filter) {
           var compare = function (a, b) {
             return (a.accessKey < b.accessKey) ? -1 : 1;
           };
-          dataset.sort(compare);
+          dataset.sort(compare).reverse();
 
           var outerRadius = w / 2;
           var innerRadius = 0;
