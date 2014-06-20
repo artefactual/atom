@@ -89,7 +89,8 @@ module.exports = function ($compile, SETTINGS) {
           }
         };
 
-        getLinks(max).forEach(function (page, index) {
+        var pageNumbers = getLinks(max);
+        pageNumbers.forEach(function (page, index) {
           if (index === 0) {
             printLink(1);
             if (page === 1) {
@@ -100,7 +101,9 @@ module.exports = function ($compile, SETTINGS) {
           printLink(page);
         });
 
-        if (Math.ceil(max / 2) < (total - scope.page)) {
+        // Add link to last page if the last page number shown isn't the last page
+        var lastPageNumberShown = pageNumbers[pageNumbers.length - 1];
+        if (lastPageNumberShown < total) {
           el.append('<li class="dots"><span>...</span></li>');
           el.append('<li><a href ng-click="go(' + last + ')">' + last + '</a></li>');
         }
