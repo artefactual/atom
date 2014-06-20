@@ -710,7 +710,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       }
 
       // Storage UUIDs
-      QubitProperty::addUnique($child->id, 'objectUUID', $objectUUID);
+      QubitProperty::addUnique($child->id, 'objectUUID', $uuid);
       QubitProperty::addUnique($child->id, 'aipUUID', $this->aipUUID);
 
       // Save creation event in ES
