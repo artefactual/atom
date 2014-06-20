@@ -202,10 +202,13 @@ class ApiFixityStatusAction extends QubitApiAction
     }
 
     // If there isn't a currently checking result obtain the time since last check
-    if (!isset($data['currentlyChecking']) && isset($results[0]->max))
+    if (!isset($data['currentlyChecking']) && isset($result->max))
     {
-      $duration = time() - strtotime($result->max);
-      $data['timeSinceLastCheck'] = $duration;
+      // Obtain actual time from UTC timezone (fixity report dates are being sent like that)
+      $date = new DateTime('now', new DateTimeZone('UTC'));
+
+      // Using strtotime() with $date->format() because $date->getTimeStamp() changes timezone
+      $data['timeSinceLastCheck'] =  strtotime($date->format('Y-m-d H:i:s')) - strtotime($result->max);
     }
 
     return $data;
