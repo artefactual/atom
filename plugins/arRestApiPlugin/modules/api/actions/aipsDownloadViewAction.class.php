@@ -172,8 +172,8 @@ class ApiAipsDownloadViewAction extends QubitApiAction
     {
       $error = curl_error($ch);
       curl_close($ch);
-      sfContext::getInstance()->getLogger()->error('METSArchivematicaDIP - Error proxying file from storage service data: '. $error);
-      sfContext::getInstance()->getLogger()->error('METSArchivematicaDIP - URL: '. $aipInfoUrl);
+      sfContext::getInstance()->getLogger()->err('METSArchivematicaDIP - Error proxying file from storage service data: '. $error);
+      sfContext::getInstance()->getLogger()->err('METSArchivematicaDIP - URL: '. $aipInfoUrl);
       throw new QubitApiException('Error: '. $error, 500);
     }
     curl_close($ch);
