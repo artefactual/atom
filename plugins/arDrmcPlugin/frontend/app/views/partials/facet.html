@@ -1,4 +1,4 @@
-<section ng-class="{ facet: true, open: !collapsed }">
+<section ng-if="facet.terms.length > 0" ng-class="{ facet: true, open: !collapsed }">
 
   <a href ng-click="toggle()">
     <div class="facet-header">
