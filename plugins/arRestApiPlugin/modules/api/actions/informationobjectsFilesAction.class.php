@@ -38,15 +38,10 @@ class ApiInformationObjectsFilesAction extends QubitApiAction
     }
     else
     {
-      $queryId = new \Elastica\Query\Bool;
-      // $queryId->addShould(new \Elastica\Query\Term(array('_id' => $request->id)));
-      $queryId->addShould(new \Elastica\Query\Term(array('ancestors' => $request->id)));
-      $queryBool->addMust($queryId);
+      $queryBool->addMust(new \Elastica\Query\Term(array('ancestors' => $request->id)));
     }
 
-    $queryDo = new \Elastica\Query\Term;
-    $queryDo->setTerm('hasDigitalObject', true);
-    $queryBool->addMust($queryDo);
+    $queryBool->addMust(new \Elastica\Query\Term(array('levelOfDescriptionId' => sfConfig::get('app_drmc_lod_digital_object_id'))));
 
     // Assign query
     $query->setQuery($queryBool);
@@ -76,8 +71,17 @@ class ApiInformationObjectsFilesAction extends QubitApiAction
       $this->addItemToArray($item, 'media_type_id', $doc['digitalObject']['mediaTypeId']);
       $this->addItemToArray($item, 'mime_type', $doc['digitalObject']['mimeType']);
       $this->addItemToArray($item, 'byte_size', $doc['digitalObject']['byteSize']);
-      $this->addItemToArray($item, 'thumbnail_path', image_path($doc['digitalObject']['thumbnailPath'], true));
-      $this->addItemToArray($item, 'master_path', image_path($doc['digitalObject']['masterPath'], true));
+
+      if (!empty($doc['digitalObject']['thumbnailPath']))
+      {
+        $this->addItemToArray($item, 'thumbnail_path', image_path($doc['digitalObject']['thumbnailPath'], true));
+      }
+
+      if (!empty($doc['digitalObject']['masterPath']))
+      {
+        $this->addItemToArray($item, 'master_path', image_path($doc['digitalObject']['masterPath'], true));
+      }
+
       $this->addItemToArray($item, 'aip_uuid', $doc['aipUuid']);
       $this->addItemToArray($item, 'aip_title', $doc['aipName']);
       $this->addItemToArray($item, 'original_relative_path_within_aip', $doc['originalRelativePathWithinAip']);
