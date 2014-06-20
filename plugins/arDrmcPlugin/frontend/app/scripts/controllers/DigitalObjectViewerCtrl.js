@@ -15,7 +15,13 @@ module.exports = function ($scope, $q, $modal, $stateParams, $modalInstance, hot
   // Return CSS class give file.media_type_id obtained from the mediaTypes
   // object available in ModalDigitalObjectViewerService
   $scope.getMediaTypeCssClass = function (file) {
-    return 'drmc-icon-' + ModalDigitalObjectViewerService.mediaTypes[file.media_type_id].class;
+    if (angular.isUndefined(file) || angular.isUndefined(file.media_type_id)) {
+      return;
+    }
+    var mt = ModalDigitalObjectViewerService.mediaTypes[file.media_type_id];
+    if (angular.isDefined(mt) && angular.isDefined(mt.class)) {
+      return 'drmc-icon-' + mt.class;
+    }
   };
 
   // Close the dialog
