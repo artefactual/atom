@@ -19,7 +19,12 @@ module.exports = function (SETTINGS, InformationObjectService, ModalDigitalObjec
         InformationObjectService.getMets(value.id).then(function (response) {
           scope.mets = response.data;
         });
-        scope.mediaType = ModalDigitalObjectViewerService.mediaTypes[value.media_type_id].class;
+        if (angular.isDefined(value.media_type_id)) {
+          var mt = ModalDigitalObjectViewerService.mediaTypes[value.media_type_id];
+          if (angular.isDefined(mt) && angular.isDefined(mt.class)) {
+            scope.mediaType = ModalDigitalObjectViewerService.mediaTypes[value.media_type_id].class;
+          }
+        }
       });
 
       scope.close = function () {

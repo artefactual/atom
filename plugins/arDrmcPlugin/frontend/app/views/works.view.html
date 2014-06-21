@@ -145,8 +145,8 @@
             </ul>
           </div>
           <div>
-            <div class="digital-object-list">
-              <table class="table">
+            <div class="browse-view-list">
+              <table class="table table-bordered">
                 <thead>
                   <th>Preview</th>
                   <th>Filename</th>
@@ -158,17 +158,18 @@
                   <tr ng-repeat="file in files track by $index" ng-class="{ selected: file.selected == true }">
                     <!-- TODO layout from css -->
                     <td class="preview" width="20%">
-                      <a href ng-click="downloadFile(file)"><img width="100%" ng-src="{{ file.thumbnail_path }}"/></a>
+                      <a href ng-click="openDigitalObjectModal(files, $index)"><img width="100%" ng-src="{{ file.thumbnail_path }}"/></a>
                     </td>
                     <td class="name">
                       <a href ng-click="openDigitalObjectModal(files, $index)">{{ file.filename }}</a>
+                      <span class="block-detail" ng-if="file.puid">{{ file.puid }}</span>
+                      <span class="block-detail" ng-if="file.mime_type">{{ file.mime_type }}</span>
                     </td>
-                    <td>{{ file.byte_size | UnitFilter:2 }}</td>
+                    <td class="size">{{ file.byte_size | UnitFilter:2 }}</td>
                     <td>
-                      <a href ui-sref="main.aips.view({ uuid: file.aip_uuid })">{{ file.aip_title }}</a><br />
-                      (<a href ng-click="downloadAip(file)" ng-show="user.canEdit()">download</a>)
+                      <a href ui-sref="main.aips.view({ uuid: file.aip_uuid })">{{ file.aip_title }}</a>
                     </td>
-                    <td><a href class="btn" ng-click="downloadFile(file)" ng-show="user.canEdit()">Download file</a></td>
+                    <td><a href class="btn btn-small" ng-click="downloadFile(file)" ng-show="user.canEdit()">Download</a></td>
                   </tr>
                 </tbody>
               </table>

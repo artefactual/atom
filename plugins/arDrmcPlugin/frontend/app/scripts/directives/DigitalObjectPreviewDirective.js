@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($compile, $http, $timeout, ModalDigitalObjectViewerService) {
+module.exports = function ($compile, $http, $timeout, SETTINGS, ModalDigitalObjectViewerService) {
   return {
     restrict: 'A',
     replace: true,
@@ -12,8 +12,13 @@ module.exports = function ($compile, $http, $timeout, ModalDigitalObjectViewerSe
       // Fetch the template and compile it, linked to this scope
       // TODO: should make use of preLink / postLink (compile vs link)?
       var render = function () {
-        var mediaTypeId = scope.file.media_type_id;
-        var templateUrl = ModalDigitalObjectViewerService.mediaTypes[mediaTypeId].templateUrl;
+        var templateUrl = SETTINGS.viewsPath + '/partials/digital-object-preview.other.html';
+        if (angular.isDefined(scope.file.media_type_id)) {
+          var mt = ModalDigitalObjectViewerService.mediaTypes[scope.file.media_type_id];
+          if (angular.isDefined(mt.templateUrl)) {
+            templateUrl = mt.templateUrl;
+          }
+        }
 
         // Fetch the template, bind it to a new scope and compile
         $http({

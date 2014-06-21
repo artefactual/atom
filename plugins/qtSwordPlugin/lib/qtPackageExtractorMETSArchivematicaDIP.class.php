@@ -375,7 +375,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       list($aipIo, $aip) = $this->addAip($resource, $resource);
     }
 
-    $this->addDigitalObjects($aipIo, $aip);
+    $this->addDigitalObjects($aipIo);
 
     // Create relation between AIP and tech record
     $relation = new QubitRelation;
@@ -495,7 +495,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     {
       list($aipIo, $aip) = $this->addAip($component, $tmsObject);
 
-      $this->addDigitalObjects($aipIo, $aip);
+      $this->addDigitalObjects($aipIo);
 
       // Create relation between AIP and component
       $relation = new QubitRelation;
@@ -511,7 +511,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     {
       list($aipIo, $aip) = $this->addAip($components, $tmsObject);
 
-      $this->addDigitalObjects($aipIo, $aip);
+      $this->addDigitalObjects($aipIo);
     }
 
     // Create relation between AIP and artwork
@@ -620,87 +620,86 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     return array($aipIo, $aip);
   }
 
-  protected function addDigitalObjects($aipIo, $aip)
+  /**
+   * Given the AIP information object ($aipIo), this function will nest one file
+   * information object for each file referenced in the METS file. Additionally,
+   * a digital object will be attached if the file has been included in the DIP.
+   *
+   * @param $aipIo QubitInformationObject
+   */
+  protected function addDigitalObjects($aipIo)
   {
-    // Create digital components from files in /objects
     $mapping = $this->getStructMapFileToDmdSecMapping();
 
-    foreach ($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects') as $item)
+    $files = $this->document->xpath('//m:mets/m:fileSec/m:fileGrp[@USE="original"]/m:file');
+    if (false === $files || count($files) === 0)
     {
-      $parts = pathinfo($item);
-      $filename = $parts['basename'];
+      sfContext::getInstance()->getLogger()->err('METSArchivematicaDIP - addDigitalObjects(): fileGrp not found');
+      return;
+    }
 
-      // Object UUID
-      $objectUUID = $this->getUUID($filename);
+    foreach ($files as $file)
+    {
+      // Obtain UUID
+      $uuid = $this->getUUID($file->attributes()->ID);
+      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - objectUUID: '.$uuid);
 
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - objectUUID: '.$objectUUID);
+      // Check availability of FLocat
+      if (!isset($file->FLocat))
+      {
+        sfContext::getInstance()->getLogger()->err('METSArchivematicaDIP - FLocat not found');
+        continue;
+      }
 
-      // Create child
+      // Store relative path within AIP
+      $fLocatAttrs = $file->FLocat->attributes('xlink', true);
+      if (empty($fLocatAttrs->href))
+      {
+        sfContext::getInstance()->getLogger()->err('METSArchivematicaDIP - FLocat[href] not found or empty');
+        continue;
+      }
+
+      // Paths
+      $relativePathWithinAip = $fLocatAttrs->href;
+      $relativePathWithinAipParts = pathinfo($relativePathWithinAip);
+      $relativePathWithinDip = 'objects'.DIRECTORY_SEPARATOR.$uuid.'-'.$relativePathWithinAipParts['basename'];
+      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             [path->AIP] '.$relativePathWithinAip);
+      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             [path->DIP] '.$relativePathWithinDip);
+
+      // Create child file information object
       $child = new QubitInformationObject;
       $child->parentId = $aipIo->id;
       $child->levelOfDescriptionId = sfConfig::get('app_drmc_lod_digital_object_id');
       $child->setPublicationStatusByName('Published');
+      $child->title = $relativePathWithinAipParts['basename'];
 
-      // TODO: use UUID as unique key in the array
-      $child->title = substr($filename, 37);
-      foreach ($mapping as $k => $v)
+      $absolutePathWithinDip = $this->filename.DIRECTORY_SEPARATOR.$relativePathWithinDip;
+      if (is_readable($absolutePathWithinDip))
       {
-        if ($objectUUID == $this->getUUID($k))
-        {
-          $child->title = $this->getOriginalFilename($k);
-
-          break;
-        }
+        // Add digital object
+        $digitalObject = new QubitDigitalObject;
+        $digitalObject->assets[] = new QubitAsset($absolutePathWithinDip);
+        $digitalObject->usageId = QubitTerm::MASTER_ID;
+        $child->digitalObjects[] = $digitalObject;
+      }
+      else
+      {
+        // This is actually not too bad, maybe normalization failed but we still
+        // want to have an information object
+        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -              [path->DIP] File cannot be found or read: '.$absolutePathWithinDip);
       }
 
-      // Add digital object
-      $digitalObject = new QubitDigitalObject;
-      $digitalObject->assets[] = new QubitAsset($item);
-      $digitalObject->usageId = QubitTerm::MASTER_ID;
-      $child->digitalObjects[] = $digitalObject;
       $child->save();
 
-      // Attempt to parse relative path within AIP from METS
-      if (false !== $nodes = $this->document->xpath('//m:mets/m:fileSec/m:fileGrp[@USE="original"]/m:file'))
-      {
-        $relativePathWithinDataDir = false;
-        // Search for the file that matches this $objectUUID
-        foreach ($nodes as $file)
-        {
-          $attrs = $file->attributes();
-          $uuid = $this->getUUID($attrs['ID']);
-          if ($uuid == $objectUUID && isset($file->FLocat))
-          {
-            foreach ($file->FLocat->attributes('xlink', true) as $attribute => $value)
-            {
-              if ($attribute == 'href')
-              {
-                $relativePathWithinDataDir = $value;
+      // Use property to augment digital object with relative path within AIP
+      $property = new QubitProperty;
+      $property->objectId = $child->id;
+      $property->setName('original_relative_path_within_aip');
+      $property->setValue($relativePathWithinDataDir);
+      $property->save();
 
-                break;
-              }
-            }
-
-            break;
-          }
-        }
-
-        // If relative path within AIP was found, store as property
-        if (false !== $relativePathWithinDataDir)
-        {
-          // Use property to augment digital object with relative path within AIP
-          $property = new QubitProperty;
-          $property->objectId = $child->id;
-          $property->setName('original_relative_path_within_aip');
-          $property->setValue($relativePathWithinDataDir);
-          $property->save();
-
-          sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             '.$relativePathWithinDataDir);
-        }
-      }
-
-      // Process metatadata from METS file
-      if (null !== ($dmdSec = $this->searchFileDmdSec($objectUUID, $mapping)))
+      // Process metatadata
+      if (null !== ($dmdSec = $this->searchFileDmdSec($uuid, $mapping)))
       {
         list($child, $creation) = $this->processDmdSec($dmdSec, $child);
 
@@ -711,7 +710,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       }
 
       // Storage UUIDs
-      QubitProperty::addUnique($child->id, 'objectUUID', $objectUUID);
+      QubitProperty::addUnique($child->id, 'objectUUID', $uuid);
       QubitProperty::addUnique($child->id, 'aipUUID', $this->aipUUID);
 
       // Save creation event in ES
@@ -719,6 +718,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       // is obtained in arElasticSearchInformationObjectPdo
       QubitSearch::getInstance()->update($child);
     }
+
+    return;
   }
 
   protected function getStructMapFileToDmdSecMapping()
