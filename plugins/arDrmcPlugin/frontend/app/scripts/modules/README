@@ -1,0 +1,8 @@
+Instead of grouping files by their type (e.g. controlers, directives,
+services), this directory will serve as a container where files are grouped
+by feature, understood as high-level sections of the application, often
+corresponding to top-level routes.
+
+Related links:
+- ng-boilerplate (https://github.com/ngbp/ngbp)
+- Scalabe apps (http://goo.gl/fJknAx)

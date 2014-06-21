@@ -6,13 +6,16 @@ module.exports = function ($scope, $state, AuthenticationService) {
     if ($scope.form.$invalid) {
       return;
     }
+    $scope.loading = true;
     // TODO: Make use of FormController to validate the form as part of the
     // authentication process (see $setValidity(), etc...)
-    AuthenticationService.authenticate($scope.username, $scope.password)
-      .success(function () {
+    AuthenticationService.validate($scope.username, $scope.password)
+      .then(function () {
         $state.go('main.dashboard');
-      }).error(function () {
+      }, function () {
         $scope.error = 'Incorrect username or password.';
+      }).finally(function () {
+        $scope.loading = false;
       });
   };
 
