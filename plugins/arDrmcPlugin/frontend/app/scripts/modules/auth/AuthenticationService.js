@@ -43,7 +43,6 @@
 
     this.restoreSession = function () {
       var deferred = $q.defer();
-      console.log($sessionStorage.credentials);
       if (angular.isUndefined($sessionStorage.credentials)) {
         deferred.reject();
         return deferred.promise;
