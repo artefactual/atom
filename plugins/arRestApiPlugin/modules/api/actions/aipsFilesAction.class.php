@@ -65,8 +65,8 @@ class ApiAipsFilesAction extends QubitApiAction
       $this->addItemToArray($item, 'thumbnail_path', image_path($doc['digitalObject']['thumbnailPath'], true));
       $this->addItemToArray($item, 'master_path', image_path($doc['digitalObject']['masterPath'], true));
       $this->addItemToArray($item, 'original_relative_path_within_aip', $doc['originalRelativePathWithinAip']);
-      $this->addItemToArray($result, 'aip_uuid', $doc['aipUuid']);
-      $this->addItemToArray($result, 'aip_title', $doc['aipName']);
+      $this->addItemToArray($item, 'aip_uuid', $doc['aipUuid']);
+      $this->addItemToArray($item, 'aip_title', $doc['aipName']);
 
       $data[] = $item;
     }
