@@ -61,6 +61,7 @@
     <ul class="dov-compare-list">
       <li ng-class="{ active: file.comparing }" ng-repeat="file in files track by $index" ng-click="onCompareItemClick(file, $index, $event)" ng-style="getCompareThumbnailStyle(file)">
         <img ng-show="false" ng-src="{{ file.thumbnail_path }}"/>
+        <p>{{ file.filename }}</p>
       </li>
     </ul>
   </div>
