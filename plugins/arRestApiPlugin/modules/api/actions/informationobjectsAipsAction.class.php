@@ -45,7 +45,6 @@ class ApiInformationObjectsAipsAction extends QubitApiAction
     $queryBool = new \Elastica\Query\Bool;
     $queryBool->addShould(new \Elastica\Query\Term(array('_id' => $this->request->id)));
     $queryBool->addShould(new \Elastica\Query\Term(array('ancestors' => $this->request->id)));
-    $queryBool->addMust(new \Elastica\Query\Term(array('hasDigitalObject' => false)));
 
     // Assign query
     $query->setQuery($queryBool);
