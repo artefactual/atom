@@ -72,7 +72,7 @@
 
         <div ng-if="mets.document != undefined">
 
-          <h5>Document</h5>
+          <h5><span class="label">Document</span></h5>
 
           <div ng-if="mets.document.title != undefined" class="field">
             <h3>Title</h3>
@@ -127,7 +127,7 @@
 
         <div ng-if="mets.text != undefined">
 
-          <h5>Text</h5>
+          <h5><span class="label">Text</span></h5>
 
           <div ng-if="mets.text.linebreak != undefined" class="field">
             <h3>Linebreak</h3>
@@ -154,7 +154,7 @@
 
         <div ng-if="mets.audio != undefined">
 
-          <h5>Audio</h5>
+          <h5><span class="label">Audio</span></h5>
 
           <div ng-if="mets.audio.bitDepth != undefined" class="field">
             <h3>Bit depth</h3>
@@ -191,7 +191,7 @@
 
         <div ng-if="mets.mediainfo.generalTracks != undefined" ng-repeat="track in mets.mediainfo.generalTracks">
 
-          <h5>General track</h5>
+          <h5><span class="label">General track</span></h5>
 
           <div ng-repeat="(label, value) in track" class="field">
             <h3>{{ label | UncamelizeFilter }}</h3>
@@ -202,7 +202,7 @@
 
         <div ng-if="mets.mediainfo.videoTracks != undefined" ng-repeat="(id, track) in mets.mediainfo.videoTracks">
 
-          <h5>Video track #{{ id + 1 }}</h5>
+          <h5><span class="label">Video track #{{ id + 1 }}</span></h5>
 
           <div ng-repeat="(label, value) in track" class="field">
             <h3>{{ label | UncamelizeFilter }}</h3>
@@ -213,7 +213,7 @@
 
         <div ng-if="mets.mediainfo.audioTracks != undefined" ng-repeat="(id, track) in mets.mediainfo.audioTracks">
 
-          <h5>Audio track #{{ id + 1 }}</h5>
+          <h5><span class="label">Audio track #{{ id + 1 }}</span></h5>
 
           <div ng-repeat="(label, value) in track" class="field">
             <h3>{{ label | UncamelizeFilter }}</h3>
