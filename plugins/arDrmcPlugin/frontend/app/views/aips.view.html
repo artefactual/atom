@@ -82,7 +82,7 @@
               <li><h2>AIP file list</h2></li>
             </ul>
             <ul class="menu-list-right nav nav-pills">
-              <li><a href ng-click="downloadAip()" class="drmc-icon-download" ng-show="user.canContribute()">Download</a>
+              <li><a href ng-click="downloadAip()" class="drmc-icon-download" ng-show="user.canContribute()">Download AIP</a>
             </ul>
           </div>
 
@@ -91,13 +91,15 @@
             <table class="table table-bordered">
               <thead>
                 <th>Name</th>
+                <th>PUID</th>
                 <th>MIME</th>
                 <th colspan="2">Size</th>
               </thead>
               <tbody>
                 <tr ng-repeat="item in files track by $index">
                   <td><a href ng-click="openViewer(files, $index)">{{ item.filename }}</a></td>
-                  <td>{{ item.mime_type }}</td>
+                  <td>{{ item.puid || 'N/A' }}</td>
+                  <td>{{ item.mime_type || 'N/A' }}</td>
                   <td>{{ item.byte_size | UnitFilter:2 }}</td>
                   <td><a href ng-click="downloadFile(item)" ng-show="user.canEdit()">Download</a></td>
                 </tr>
