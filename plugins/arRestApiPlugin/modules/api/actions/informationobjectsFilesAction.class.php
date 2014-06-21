@@ -68,9 +68,13 @@ class ApiInformationObjectsFilesAction extends QubitApiAction
 
       $this->addItemToArray($item, 'slug', $doc['slug']);
       $this->addItemToArray($item, 'filename', get_search_i18n($doc, 'title'));
+
+      $this->addItemToArray($item, 'puid', $doc['metsData']['puid']);
+      $this->addItemToArray($item, 'mime_type', $doc['metsData']['mimeType']);
+      $this->addItemToArray($item, 'byte_size', $doc['metsData']['size']);
+
+      // Not needed?
       $this->addItemToArray($item, 'media_type_id', $doc['digitalObject']['mediaTypeId']);
-      $this->addItemToArray($item, 'mime_type', $doc['digitalObject']['mimeType']);
-      $this->addItemToArray($item, 'byte_size', $doc['digitalObject']['byteSize']);
 
       if (!empty($doc['digitalObject']['thumbnailPath']))
       {

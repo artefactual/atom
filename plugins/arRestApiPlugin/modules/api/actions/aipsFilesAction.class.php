@@ -59,10 +59,12 @@ class ApiAipsFilesAction extends QubitApiAction
 
       $this->addItemToArray($item, 'slug', $doc['slug']);
       $this->addItemToArray($item, 'filename', get_search_i18n($doc, 'title'));
-      $this->addItemToArray($item, 'media_type_id', $doc['digitalObject']['mediaTypeId']);
-      $this->addItemToArray($item, 'mime_type', $doc['digitalObject']['mimeType']);
 
-      $this->addItemToArray($item, 'byte_size', $doc['metsData']['byteSize']);
+      $this->addItemToArray($item, 'puid', $doc['metsData']['puid']);
+      $this->addItemToArray($item, 'mime_type', $doc['metsData']['mimeType']);
+      $this->addItemToArray($item, 'byte_size', $doc['metsData']['size']);
+
+      $this->addItemToArray($item, 'media_type_id', $doc['digitalObject']['mediaTypeId']);
 
       if (!empty($doc['digitalObject']['thumbnailPath']))
       {
@@ -74,9 +76,9 @@ class ApiAipsFilesAction extends QubitApiAction
         $this->addItemToArray($item, 'master_path', image_path($doc['digitalObject']['masterPath'], true));
       }
 
-      $this->addItemToArray($item, 'original_relative_path_within_aip', $doc['originalRelativePathWithinAip']);
       $this->addItemToArray($item, 'aip_uuid', $doc['aipUuid']);
       $this->addItemToArray($item, 'aip_title', $doc['aipName']);
+      $this->addItemToArray($item, 'original_relative_path_within_aip', $doc['originalRelativePathWithinAip']);
 
       $data[] = $item;
     }
