@@ -1081,784 +1081,791 @@ class arElasticSearchInformationObjectPdo
     {
       if (false !== strrpos($item['ID'], $objectUUID))
       {
-        $amdSecId = $item['ADMID'];
+        $amdSecId = (string)$item['ADMID'];
 
         break;
       }
     }
 
-    if (isset($amdSecId))
+    if (empty($amdSecId))
     {
-      $metsData = array();
-
-      // Object
-      $objectXpath = '//m:amdSec[@ID="'.(string)$amdSecId.'"]/m:techMD/m:mdWrap[@MDTYPE="PREMIS:OBJECT"]/m:xmlData/s:object/';
-
-      if (0 < count($value = $document->xpath($objectXpath.'s:originalName')))
-      {
-        $metsData['filename'] = end(explode('/', (string)$value[0]));
-      }
-
-      if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/repInfo/lastModified')))
-      {
-        $metsData['lastModified'] = arElasticSearchPluginUtil::convertDate((string)$value[0]);
-      }
-
-      if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:size')))
-      {
-        $metsData['size'] = (string)$value[0];
-      }
-
-      if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/fileUtilityOutput/mimetype')))
-      {
-        $metsData['mimeType'] = (string)$value[0];
-      }
-
-      // Exiftool rawOutput
-      $exiftoolXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/exiftool/rawOutput';
-
-      if (0 < count($value = $document->xpath($exiftoolXpath)))
-      {
-        $metsData['exiftoolRawOutput'] = (string)$value[0];
-      }
-
-      // Audio
-      $audioXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:metadata/f:audio/';
-
-      if (0 < count($value = $document->xpath($audioXpath.'f:bitDepth')))
-      {
-        $metsData['audio']['bitDepth'] = (string)$value[0];
-      }
-
-      if (0 < count($value = $document->xpath($audioXpath.'f:sampleRate')))
-      {
-        $metsData['audio']['sampleRate'] = (string)$value[0];
-      }
-
-      if (0 < count($value = $document->xpath($audioXpath.'f:channels')))
-      {
-        $metsData['audio']['channels'] = (string)$value[0];
-      }
-
-      if (0 < count($value = $document->xpath($audioXpath.'f:audioDataEncoding')))
-      {
-        $metsData['audio']['dataEncoding'] = (string)$value[0];
-      }
-
-      if (0 < count($value = $document->xpath($audioXpath.'f:offset')))
-      {
-        $metsData['audio']['offset'] = (string)$value[0];
-      }
-
-      if (0 < count($value = $document->xpath($audioXpath.'f:byteOrder')))
-      {
-        $metsData['audio']['byteOrder'] = (string)$value[0];
-      }
-
-      // Document
-      $documentXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:metadata/f:document/';
-
-      if (0 < count($value = $document->xpath($documentXpath.'f:title')))
-      {
-        $metsData['document']['title'] = (string)$value[0];
-      }
-
-      if (0 < count($value = $document->xpath($documentXpath.'f:author')))
-      {
-        $metsData['document']['author'] = (string)$value[0];
-      }
-
-      if (0 < count($value = $document->xpath($documentXpath.'f:pageCount')))
-      {
-        $metsData['document']['pageCount'] = (string)$value[0];
-      }
-
-      if (0 < count($value = $document->xpath($documentXpath.'f:wordCount')))
-      {
-        $metsData['document']['wordCount'] = (string)$value[0];
-      }
-
-      if (0 < count($value = $document->xpath($documentXpath.'f:characterCount')))
-      {
-        $metsData['document']['characterCount'] = (string)$value[0];
-      }
-
-      if (0 < count($value = $document->xpath($documentXpath.'f:language')))
-      {
-        $metsData['document']['language'] = (string)$value[0];
-      }
-
-      if (0 < count($value = $document->xpath($documentXpath.'f:isProtected')))
-      {
-        $metsData['document']['isProtected'] = (string)$value[0] == 'yes' ? true : false;
-      }
-
-      if (0 < count($value = $document->xpath($documentXpath.'f:isRightsManaged')))
-      {
-        $metsData['document']['isRightsManaged'] = (string)$value[0] == 'yes' ? true : false;
-      }
-
-      if (0 < count($value = $document->xpath($documentXpath.'f:isTagged')))
-      {
-        $metsData['document']['isTagged'] = (string)$value[0] == 'yes' ? true : false;
-      }
-
-      if (0 < count($value = $document->xpath($documentXpath.'f:hasOutline')))
-      {
-        $metsData['document']['hasOutline'] = (string)$value[0] == 'yes' ? true : false;
-      }
-
-      if (0 < count($value = $document->xpath($documentXpath.'f:hasAnnotations')))
-      {
-        $metsData['document']['hasAnnotations'] = (string)$value[0] == 'yes' ? true : false;
-      }
-
-      if (0 < count($value = $document->xpath($documentXpath.'f:hasForms')))
-      {
-        $metsData['document']['hasForms'] = (string)$value[0] == 'yes' ? true : false;
-      }
-
-      // Text
-      $textXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:metadata/f:text/';
-
-      if (0 < count($value = $document->xpath($textXpath.'f:linebreak')))
-      {
-        $metsData['text']['linebreak'] = (string)$value[0];
-      }
-
-      if (0 < count($value = $document->xpath($textXpath.'f:charset')))
-      {
-        $metsData['text']['charset'] = (string)$value[0];
-      }
-
-      if (0 < count($value = $document->xpath($textXpath.'f:markupBasis')))
-      {
-        $metsData['text']['markupBasis'] = (string)$value[0];
-      }
-
-      if (0 < count($value = $document->xpath($textXpath.'f:markupBasisVersion')))
-      {
-        $metsData['text']['markupBasisVersion'] = (string)$value[0];
-      }
-
-      if (0 < count($value = $document->xpath($textXpath.'f:markupLanguage')))
-      {
-        $metsData['text']['markupLanguage'] = (string)$value[0];
-      }
-
-      // Events
-      foreach ($document->xpath('//m:amdSec[@ID="'.(string)$amdSecId.'"]/m:digiprovMD/m:mdWrap[@MDTYPE="PREMIS:EVENT"]/m:xmlData/s:event') as $item)
-      {
-        $event = array();
-
-        $item->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
-
-        if (0 < count($value = $item->xpath('s:eventType')))
-        {
-          $event['type'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $item->xpath('s:eventDateTime')))
-        {
-          $event['dateTime'] = arElasticSearchPluginUtil::convertDate((string)$value[0]);
-        }
-
-        if (0 < count($value = $item->xpath('s:eventDetail')))
-        {
-          $event['detail'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $item->xpath('s:eventOutcomeInformation/s:eventOutcome')))
-        {
-          $event['outcome'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $item->xpath('s:eventOutcomeInformation/s:eventOutcomeDetail/s:eventOutcomeDetailNote')))
-        {
-          $event['outcomeDetailNote'] = (string)$value[0];
-        }
-
-        foreach ($item->xpath('s:linkingAgentIdentifier') as $linkingAgent)
-        {
-          $linkingAgentIdentifier = array();
-
-          $linkingAgent->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
-
-          if (0 < count($value = $linkingAgent->xpath('s:linkingAgentIdentifierType')))
-          {
-            $linkingAgentIdentifier['type'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $linkingAgent->xpath('s:linkingAgentIdentifierValue')))
-          {
-            $linkingAgentIdentifier['value'] = (string)$value[0];
-          }
-
-          $event['linkingAgentIdentifier'][] = $linkingAgentIdentifier;
-        }
-
-        if (isset($event['type']) && isset($event['dateTime']) && $event['type'] == 'ingestion')
-        {
-          $metsData['dateIngested'] = $event['dateTime'];
-        }
-
-        if (isset($event['type']) && $event['type'] == 'format identification')
-        {
-          $metsData['formatIdentificationEvent'] = $event;
-        }
-        else
-        {
-          $metsData['otherEvents'][] = $event;
-        }
-      }
-
-      // Agents
-      foreach ($document->xpath('//m:amdSec[@ID="'.(string)$amdSecId.'"]/m:digiprovMD/m:mdWrap[@MDTYPE="PREMIS:AGENT"]/m:xmlData/m:agent') as $item)
-      {
-        $agent = array();
-
-        $item->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
-
-        if (0 < count($value = $item->xpath('m:agentIdentifier/m:agentIdentifierType')))
-        {
-          $agent['identifierType'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $item->xpath('m:agentIdentifier/m:agentIdentifierValue')))
-        {
-          $agent['identifierValue'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $item->xpath('m:agentName')))
-        {
-          $agent['name'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $item->xpath('m:agentType')))
-        {
-          $agent['type'] = (string)$value[0];
-        }
-
-        $metsData['agents'][] = $agent;
-      }
-
-      // Mediainfo tracks
-      $mediainfoXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/s:Mediainfo/s:File/s:track';
-
-      foreach ($document->xpath($mediainfoXpath) as $track)
-      {
-        $track->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
-
-        $esTrack = array();
-
-        if (0 < count($value = $track->xpath('s:Count')))
-        {
-          $esTrack['count'] = (integer)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Video_Format_List')))
-        {
-          $esTrack['videoFormatList'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Video_Format_WithHint_List')))
-        {
-          $esTrack['videoFormatWithHintList'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Codecs_Video')))
-        {
-          $esTrack['codecsVideo'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Video_Language_List')))
-        {
-          $esTrack['videoLanguageList'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Audio_Format_List')))
-        {
-          $esTrack['audioFormatList'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Audio_Format_WithHint_List')))
-        {
-          $esTrack['audioFormatWithHintList'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Audio_codecs')))
-        {
-          $esTrack['audioCodecs'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Audio_Language_List')))
-        {
-          $esTrack['audioLanguageList'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Complete_name')))
-        {
-          $esTrack['completeName'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:File_name')))
-        {
-          $esTrack['fileName'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:File_extension')))
-        {
-          $esTrack['fileExtension'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Format')))
-        {
-          $esTrack['format'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Format_Info')))
-        {
-          $esTrack['formatInfo'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Format_Url')))
-        {
-          $esTrack['formatUrl'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Format_profile')))
-        {
-          $esTrack['formatProfile'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Format_settings')))
-        {
-          $esTrack['formatSettings'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Format_settings__CABAC')))
-        {
-          $esTrack['formatSettingsCabac'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Format_settings__ReFrames')))
-        {
-          $esTrack['formatSettingsReFrames'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Format_settings__GOP')))
-        {
-          $esTrack['formatSettingsGop'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Format_Extensions_usually_used')))
-        {
-          $esTrack['formatExtensionsUsuallyUsed'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Commercial_name')))
-        {
-          $esTrack['commercialName'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Internet_media_type')))
-        {
-          $esTrack['internetMediaType'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Codec_ID')))
-        {
-          $esTrack['codecId'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Codec_ID_Info')))
-        {
-          $esTrack['codecIdInfo'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Codec_ID_Url')))
-        {
-          $esTrack['codecIdUrl'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Codec')))
-        {
-          $esTrack['codec'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Codec_Family')))
-        {
-          $esTrack['codecFamily'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Codec_Info')))
-        {
-          $esTrack['codecInfo'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Codec_Url')))
-        {
-          $esTrack['codecUrl'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Codec_CC')))
-        {
-          $esTrack['codecCc'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Codec_profile')))
-        {
-          $esTrack['codecProfile'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Codec_settings')))
-        {
-          $esTrack['codecSettings'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Codec_settings__CABAC')))
-        {
-          $esTrack['codecSettingsCabac'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Codec_Settings_RefFrames')))
-        {
-          $esTrack['codecSettingsRefFrames'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Codec_Extensions_usually_used')))
-        {
-          $esTrack['codecExtensionsUsuallyUsed'] = (string)$value[0];
-        }
-
-        foreach ($track->xpath('s:File_size') as $item)
-        {
-          if (ctype_digit((string)$item))
-          {
-            $esTrack['fileSize'] = (integer)$item;
-
-            break;
-          }
-        }
-
-        foreach ($track->xpath('s:Duration') as $item)
-        {
-          if (ctype_digit((string)$item))
-          {
-            $esTrack['duration'] = (integer)$item;
-
-            break;
-          }
-        }
-
-        foreach ($track->xpath('s:Bit_rate') as $item)
-        {
-          if (ctype_digit((string)$item))
-          {
-            $esTrack['bitRate'] = (integer)$item;
-
-            break;
-          }
-        }
-
-        if (0 < count($value = $track->xpath('s:Bit_rate_mode')))
-        {
-          $esTrack['bitRateMode'] = (string)$value[0];
-        }
-
-        foreach ($track->xpath('s:Overall_bit_rate') as $item)
-        {
-          if (ctype_digit((string)$item))
-          {
-            $esTrack['overallBitRate'] = (integer)$item;
-
-            break;
-          }
-        }
-
-        foreach ($track->xpath('s:Channel_s_') as $item)
-        {
-          if (ctype_digit((string)$item))
-          {
-            $esTrack['channels'] = (integer)$item;
-
-            break;
-          }
-        }
-
-        if (0 < count($value = $track->xpath('s:Channel_positions')))
-        {
-          $esTrack['channelPositions'] = (string)$value[0];
-        }
-
-        foreach ($track->xpath('s:Sampling_rate') as $item)
-        {
-          if (ctype_digit((string)$item))
-          {
-            $esTrack['samplingRate'] = (integer)$item;
-
-            break;
-          }
-        }
-
-        foreach ($track->xpath('s:Samples_count') as $item)
-        {
-          if (ctype_digit((string)$item))
-          {
-            $esTrack['samplesCount'] = (integer)$item;
-
-            break;
-          }
-        }
-
-        if (0 < count($value = $track->xpath('s:Compression_mode')))
-        {
-          $esTrack['compressionMode'] = (string)$value[0];
-        }
-
-        foreach ($track->xpath('s:Width') as $item)
-        {
-          if (ctype_digit((string)$item))
-          {
-            $esTrack['width'] = (integer)$item;
-
-            break;
-          }
-        }
-
-        foreach ($track->xpath('s:Height') as $item)
-        {
-          if (ctype_digit((string)$item))
-          {
-            $esTrack['height'] = (integer)$item;
-
-            break;
-          }
-        }
-
-        foreach ($track->xpath('s:Pixel_aspect_ratio') as $item)
-        {
-          if (is_float(floatval((string)$item)))
-          {
-            $esTrack['pixelAspectRatio'] = floatval((string)$item);
-
-            break;
-          }
-        }
-
-        foreach ($track->xpath('s:Display_aspect_ratio') as $item)
-        {
-          if (strrpos((string)$item, ':') !== false)
-          {
-            $esTrack['displayAspectRatio'] = (string)$item;
-
-            break;
-          }
-        }
-
-        foreach ($track->xpath('s:Rotation') as $item)
-        {
-          if (is_float(floatval((string)$item)))
-          {
-            $esTrack['rotation'] = floatval((string)$item);
-
-            break;
-          }
-        }
-
-        if (0 < count($value = $track->xpath('s:Frame_rate_mode')))
-        {
-          $esTrack['frameRateMode'] = (string)$value[0];
-        }
-
-        foreach ($track->xpath('s:Frame_rate') as $item)
-        {
-          if (is_float(floatval((string)$item)))
-          {
-            $esTrack['frameRate'] = floatval((string)$item);
-
-            break;
-          }
-        }
-
-        foreach ($track->xpath('s:Frame_count') as $item)
-        {
-          if (ctype_digit((string)$item))
-          {
-            $esTrack['frameCount'] = (integer)$item;
-
-            break;
-          }
-        }
-
-        foreach ($track->xpath('s:Resolution') as $item)
-        {
-          if (ctype_digit((string)$item))
-          {
-            $esTrack['resolution'] = (integer)$item;
-
-            break;
-          }
-        }
-
-        if (0 < count($value = $track->xpath('s:Colorimetry')))
-        {
-          $esTrack['colorimetry'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Color_space')))
-        {
-          $esTrack['colorSpace'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Chroma_subsampling')))
-        {
-          $esTrack['chromaSubsampling'] = (string)$value[0];
-        }
-
-        foreach ($track->xpath('s:Bit_depth') as $item)
-        {
-          if (ctype_digit((string)$item))
-          {
-            $esTrack['bitDepth'] = (integer)$item;
-
-            break;
-          }
-        }
-
-        if (0 < count($value = $track->xpath('s:Scan_type')))
-        {
-          $esTrack['scanType'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Interlacement')))
-        {
-          $esTrack['interlacement'] = (string)$value[0];
-        }
-
-        foreach ($track->xpath('s:Bits__Pixel_Frame_') as $item)
-        {
-          if (is_float(floatval((string)$item)))
-          {
-            $esTrack['bitsPixelFrame'] = floatval((string)$item);
-
-            break;
-          }
-        }
-
-        foreach ($track->xpath('s:Stream_size') as $item)
-        {
-          if (ctype_digit((string)$item))
-          {
-            $esTrack['streamSize'] = (integer)$item;
-
-            break;
-          }
-        }
-
-        foreach ($track->xpath('s:Proportion_of_this_stream') as $item)
-        {
-          if (is_float(floatval((string)$item)))
-          {
-            $esTrack['proportionOfThisStream'] = floatval((string)$item);
-
-            break;
-          }
-        }
-
-        foreach ($track->xpath('s:HeaderSize') as $item)
-        {
-          if (ctype_digit((string)$item))
-          {
-            $esTrack['headerSize'] = (integer)$item;
-
-            break;
-          }
-        }
-
-        foreach ($track->xpath('s:DataSize') as $item)
-        {
-          if (ctype_digit((string)$item))
-          {
-            $esTrack['dataSize'] = (integer)$item;
-
-            break;
-          }
-        }
-
-        foreach ($track->xpath('s:FooterSize') as $item)
-        {
-          if (ctype_digit((string)$item))
-          {
-            $esTrack['footerSize'] = (integer)$item;
-
-            break;
-          }
-        }
-
-        if (0 < count($value = $track->xpath('s:Language')))
-        {
-          $esTrack['language'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Color_primaries')))
-        {
-          $esTrack['colorPrimaries'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Transfer_characteristics')))
-        {
-          $esTrack['transferCharacteristics'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:Matrix_coefficients')))
-        {
-          $esTrack['matrixCoefficients'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:IsStreamable')))
-        {
-          $esTrack['isStreamable'] = (string)$value[0] !== 'No';
-        }
-
-        if (0 < count($value = $track->xpath('s:Writing_application')))
-        {
-          $esTrack['writingApplication'] = (string)$value[0];
-        }
-
-        if (0 < count($value = $track->xpath('s:File_last_modification_date')))
-        {
-          $esTrack['fileLastModificationDate'] = arElasticSearchPluginUtil::convertDate((string)$value[0]);
-        }
-
-        if (0 < count($value = $track->xpath('s:File_last_modification_date__local_')))
-        {
-          $esTrack['fileLastModificationDateLocal'] = arElasticSearchPluginUtil::convertDate((string)$value[0]);
-        }
-
-        // Add track by type
-        $type = $track->xpath('@type');
-        switch ($type[0])
-        {
-          case 'General':
-            $metsData['mediainfo']['generalTracks'][] = $esTrack;
-
-            break;
-
-          case 'Video':
-            $metsData['mediainfo']['videoTracks'][] = $esTrack;
-
-            break;
-
-          case 'Audio':
-            $metsData['mediainfo']['audioTracks'][] = $esTrack;
-
-            break;
-        }
-      }
-
-      return $metsData;
+      return;
     }
+
+    $metsData = array();
+
+    // Object
+    $objectXpath = '//m:amdSec[@ID="'.$amdSecId.'"]/m:techMD/m:mdWrap[@MDTYPE="PREMIS:OBJECT"]/m:xmlData/s:object/';
+
+    if (0 < count($value = $document->xpath($objectXpath.'s:originalName')))
+    {
+      $metsData['filename'] = end(explode('/', (string)$value[0]));
+    }
+
+    if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/repInfo/lastModified')))
+    {
+      $metsData['lastModified'] = arElasticSearchPluginUtil::convertDate((string)$value[0]);
+    }
+
+    if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:size')))
+    {
+      $metsData['size'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/fileUtilityOutput/mimetype')))
+    {
+      $metsData['mimeType'] = (string)$value[0];
+    }
+
+    // Exiftool rawOutput
+    $exiftoolXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/exiftool/rawOutput';
+
+    if (0 < count($value = $document->xpath($exiftoolXpath)))
+    {
+      $metsData['exiftoolRawOutput'] = (string)$value[0];
+    }
+
+    // Audio
+    $audioXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:metadata/f:audio/';
+
+    if (0 < count($value = $document->xpath($audioXpath.'f:bitDepth')))
+    {
+      $metsData['audio']['bitDepth'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($audioXpath.'f:sampleRate')))
+    {
+      $metsData['audio']['sampleRate'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($audioXpath.'f:channels')))
+    {
+      $metsData['audio']['channels'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($audioXpath.'f:audioDataEncoding')))
+    {
+      $metsData['audio']['dataEncoding'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($audioXpath.'f:offset')))
+    {
+      $metsData['audio']['offset'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($audioXpath.'f:byteOrder')))
+    {
+      $metsData['audio']['byteOrder'] = (string)$value[0];
+    }
+
+    // Document
+    $documentXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:metadata/f:document/';
+
+    if (0 < count($value = $document->xpath($documentXpath.'f:title')))
+    {
+      $metsData['document']['title'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($documentXpath.'f:author')))
+    {
+      $metsData['document']['author'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($documentXpath.'f:pageCount')))
+    {
+      $metsData['document']['pageCount'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($documentXpath.'f:wordCount')))
+    {
+      $metsData['document']['wordCount'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($documentXpath.'f:characterCount')))
+    {
+      $metsData['document']['characterCount'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($documentXpath.'f:language')))
+    {
+      $metsData['document']['language'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($documentXpath.'f:isProtected')))
+    {
+      $metsData['document']['isProtected'] = (string)$value[0] == 'yes' ? true : false;
+    }
+
+    if (0 < count($value = $document->xpath($documentXpath.'f:isRightsManaged')))
+    {
+      $metsData['document']['isRightsManaged'] = (string)$value[0] == 'yes' ? true : false;
+    }
+
+    if (0 < count($value = $document->xpath($documentXpath.'f:isTagged')))
+    {
+      $metsData['document']['isTagged'] = (string)$value[0] == 'yes' ? true : false;
+    }
+
+    if (0 < count($value = $document->xpath($documentXpath.'f:hasOutline')))
+    {
+      $metsData['document']['hasOutline'] = (string)$value[0] == 'yes' ? true : false;
+    }
+
+    if (0 < count($value = $document->xpath($documentXpath.'f:hasAnnotations')))
+    {
+      $metsData['document']['hasAnnotations'] = (string)$value[0] == 'yes' ? true : false;
+    }
+
+    if (0 < count($value = $document->xpath($documentXpath.'f:hasForms')))
+    {
+      $metsData['document']['hasForms'] = (string)$value[0] == 'yes' ? true : false;
+    }
+
+    // Text
+    $textXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:metadata/f:text/';
+
+    if (0 < count($value = $document->xpath($textXpath.'f:linebreak')))
+    {
+      $metsData['text']['linebreak'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($textXpath.'f:charset')))
+    {
+      $metsData['text']['charset'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($textXpath.'f:markupBasis')))
+    {
+      $metsData['text']['markupBasis'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($textXpath.'f:markupBasisVersion')))
+    {
+      $metsData['text']['markupBasisVersion'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($textXpath.'f:markupLanguage')))
+    {
+      $metsData['text']['markupLanguage'] = (string)$value[0];
+    }
+
+    // Events
+    foreach ($document->xpath('//m:amdSec[@ID="'.$amdSecId.'"]/m:digiprovMD/m:mdWrap[@MDTYPE="PREMIS:EVENT"]/m:xmlData/s:event') as $item)
+    {
+      $event = array();
+
+      $item->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
+
+      if (0 < count($value = $item->xpath('s:eventType')))
+      {
+        $event['type'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $item->xpath('s:eventDateTime')))
+      {
+        $event['dateTime'] = arElasticSearchPluginUtil::convertDate((string)$value[0]);
+      }
+
+      if (0 < count($value = $item->xpath('s:eventDetail')))
+      {
+        $event['detail'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $item->xpath('s:eventOutcomeInformation/s:eventOutcome')))
+      {
+        $event['outcome'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $item->xpath('s:eventOutcomeInformation/s:eventOutcomeDetail/s:eventOutcomeDetailNote')))
+      {
+        $event['outcomeDetailNote'] = (string)$value[0];
+      }
+
+      foreach ($item->xpath('s:linkingAgentIdentifier') as $linkingAgent)
+      {
+        $linkingAgentIdentifier = array();
+
+        $linkingAgent->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
+
+        if (0 < count($value = $linkingAgent->xpath('s:linkingAgentIdentifierType')))
+        {
+          $linkingAgentIdentifier['type'] = (string)$value[0];
+        }
+
+        if (0 < count($value = $linkingAgent->xpath('s:linkingAgentIdentifierValue')))
+        {
+          $linkingAgentIdentifier['value'] = (string)$value[0];
+        }
+
+        $event['linkingAgentIdentifier'][] = $linkingAgentIdentifier;
+      }
+
+      if (isset($event['type']) && isset($event['dateTime']) && $event['type'] == 'ingestion')
+      {
+        $metsData['dateIngested'] = $event['dateTime'];
+      }
+
+      if (isset($event['type']) && $event['type'] == 'format identification')
+      {
+        $metsData['formatIdentificationEvent'] = $event;
+      }
+      else
+      {
+        $metsData['otherEvents'][] = $event;
+      }
+    }
+
+    // Agents
+    foreach ($document->xpath('//m:amdSec[@ID="'.$amdSecId.'"]/m:digiprovMD/m:mdWrap[@MDTYPE="PREMIS:AGENT"]/m:xmlData/m:agent') as $item)
+    {
+      $agent = array();
+
+      $item->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+
+      if (0 < count($value = $item->xpath('m:agentIdentifier/m:agentIdentifierType')))
+      {
+        $agent['identifierType'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $item->xpath('m:agentIdentifier/m:agentIdentifierValue')))
+      {
+        $agent['identifierValue'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $item->xpath('m:agentName')))
+      {
+        $agent['name'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $item->xpath('m:agentType')))
+      {
+        $agent['type'] = (string)$value[0];
+      }
+
+      $metsData['agents'][] = $agent;
+    }
+
+    // Mediainfo tracks
+    $mediainfoXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/s:Mediainfo/s:File/s:track';
+
+    foreach ($document->xpath($mediainfoXpath) as $track)
+    {
+      $track->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
+
+      $esTrack = array();
+
+      if (0 < count($value = $track->xpath('s:Count')))
+      {
+        $esTrack['count'] = (integer)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Video_Format_List')))
+      {
+        $esTrack['videoFormatList'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Video_Format_WithHint_List')))
+      {
+        $esTrack['videoFormatWithHintList'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Codecs_Video')))
+      {
+        $esTrack['codecsVideo'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Video_Language_List')))
+      {
+        $esTrack['videoLanguageList'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Audio_Format_List')))
+      {
+        $esTrack['audioFormatList'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Audio_Format_WithHint_List')))
+      {
+        $esTrack['audioFormatWithHintList'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Audio_codecs')))
+      {
+        $esTrack['audioCodecs'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Audio_Language_List')))
+      {
+        $esTrack['audioLanguageList'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Complete_name')))
+      {
+        $esTrack['completeName'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:File_name')))
+      {
+        $esTrack['fileName'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:File_extension')))
+      {
+        $esTrack['fileExtension'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Format')))
+      {
+        $esTrack['format'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Format_Info')))
+      {
+        $esTrack['formatInfo'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Format_Url')))
+      {
+        $esTrack['formatUrl'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Format_profile')))
+      {
+        $esTrack['formatProfile'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Format_settings')))
+      {
+        $esTrack['formatSettings'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Format_settings__CABAC')))
+      {
+        $esTrack['formatSettingsCabac'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Format_settings__ReFrames')))
+      {
+        $esTrack['formatSettingsReFrames'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Format_settings__GOP')))
+      {
+        $esTrack['formatSettingsGop'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Format_Extensions_usually_used')))
+      {
+        $esTrack['formatExtensionsUsuallyUsed'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Commercial_name')))
+      {
+        $esTrack['commercialName'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Internet_media_type')))
+      {
+        $esTrack['internetMediaType'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Codec_ID')))
+      {
+        $esTrack['codecId'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Codec_ID_Info')))
+      {
+        $esTrack['codecIdInfo'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Codec_ID_Url')))
+      {
+        $esTrack['codecIdUrl'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Codec')))
+      {
+        $esTrack['codec'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Codec_Family')))
+      {
+        $esTrack['codecFamily'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Codec_Info')))
+      {
+        $esTrack['codecInfo'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Codec_Url')))
+      {
+        $esTrack['codecUrl'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Codec_CC')))
+      {
+        $esTrack['codecCc'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Codec_profile')))
+      {
+        $esTrack['codecProfile'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Codec_settings')))
+      {
+        $esTrack['codecSettings'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Codec_settings__CABAC')))
+      {
+        $esTrack['codecSettingsCabac'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Codec_Settings_RefFrames')))
+      {
+        $esTrack['codecSettingsRefFrames'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Codec_Extensions_usually_used')))
+      {
+        $esTrack['codecExtensionsUsuallyUsed'] = (string)$value[0];
+      }
+
+      foreach ($track->xpath('s:File_size') as $item)
+      {
+        if (ctype_digit((string)$item))
+        {
+          $esTrack['fileSize'] = (integer)$item;
+
+          break;
+        }
+      }
+
+      foreach ($track->xpath('s:Duration') as $item)
+      {
+        if (ctype_digit((string)$item))
+        {
+          $esTrack['duration'] = (integer)$item;
+
+          break;
+        }
+      }
+
+      foreach ($track->xpath('s:Bit_rate') as $item)
+      {
+        if (ctype_digit((string)$item))
+        {
+          $esTrack['bitRate'] = (integer)$item;
+
+          break;
+        }
+      }
+
+      if (0 < count($value = $track->xpath('s:Bit_rate_mode')))
+      {
+        $esTrack['bitRateMode'] = (string)$value[0];
+      }
+
+      foreach ($track->xpath('s:Overall_bit_rate') as $item)
+      {
+        if (ctype_digit((string)$item))
+        {
+          $esTrack['overallBitRate'] = (integer)$item;
+
+          break;
+        }
+      }
+
+      foreach ($track->xpath('s:Channel_s_') as $item)
+      {
+        if (ctype_digit((string)$item))
+        {
+          $esTrack['channels'] = (integer)$item;
+
+          break;
+        }
+      }
+
+      if (0 < count($value = $track->xpath('s:Channel_positions')))
+      {
+        $esTrack['channelPositions'] = (string)$value[0];
+      }
+
+      foreach ($track->xpath('s:Sampling_rate') as $item)
+      {
+        if (ctype_digit((string)$item))
+        {
+          $esTrack['samplingRate'] = (integer)$item;
+
+          break;
+        }
+      }
+
+      foreach ($track->xpath('s:Samples_count') as $item)
+      {
+        if (ctype_digit((string)$item))
+        {
+          $esTrack['samplesCount'] = (integer)$item;
+
+          break;
+        }
+      }
+
+      if (0 < count($value = $track->xpath('s:Compression_mode')))
+      {
+        $esTrack['compressionMode'] = (string)$value[0];
+      }
+
+      foreach ($track->xpath('s:Width') as $item)
+      {
+        if (ctype_digit((string)$item))
+        {
+          $esTrack['width'] = (integer)$item;
+
+          break;
+        }
+      }
+
+      foreach ($track->xpath('s:Height') as $item)
+      {
+        if (ctype_digit((string)$item))
+        {
+          $esTrack['height'] = (integer)$item;
+
+          break;
+        }
+      }
+
+      foreach ($track->xpath('s:Pixel_aspect_ratio') as $item)
+      {
+        if (is_float(floatval((string)$item)))
+        {
+          $esTrack['pixelAspectRatio'] = floatval((string)$item);
+
+          break;
+        }
+      }
+
+      foreach ($track->xpath('s:Display_aspect_ratio') as $item)
+      {
+        if (strrpos((string)$item, ':') !== false)
+        {
+          $esTrack['displayAspectRatio'] = (string)$item;
+
+          break;
+        }
+      }
+
+      foreach ($track->xpath('s:Rotation') as $item)
+      {
+        if (is_float(floatval((string)$item)))
+        {
+          $esTrack['rotation'] = floatval((string)$item);
+
+          break;
+        }
+      }
+
+      if (0 < count($value = $track->xpath('s:Frame_rate_mode')))
+      {
+        $esTrack['frameRateMode'] = (string)$value[0];
+      }
+
+      foreach ($track->xpath('s:Frame_rate') as $item)
+      {
+        if (is_float(floatval((string)$item)))
+        {
+          $esTrack['frameRate'] = floatval((string)$item);
+
+          break;
+        }
+      }
+
+      foreach ($track->xpath('s:Frame_count') as $item)
+      {
+        if (ctype_digit((string)$item))
+        {
+          $esTrack['frameCount'] = (integer)$item;
+
+          break;
+        }
+      }
+
+      foreach ($track->xpath('s:Resolution') as $item)
+      {
+        if (ctype_digit((string)$item))
+        {
+          $esTrack['resolution'] = (integer)$item;
+
+          break;
+        }
+      }
+
+      if (0 < count($value = $track->xpath('s:Colorimetry')))
+      {
+        $esTrack['colorimetry'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Color_space')))
+      {
+        $esTrack['colorSpace'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Chroma_subsampling')))
+      {
+        $esTrack['chromaSubsampling'] = (string)$value[0];
+      }
+
+      foreach ($track->xpath('s:Bit_depth') as $item)
+      {
+        if (ctype_digit((string)$item))
+        {
+          $esTrack['bitDepth'] = (integer)$item;
+
+          break;
+        }
+      }
+
+      if (0 < count($value = $track->xpath('s:Scan_type')))
+      {
+        $esTrack['scanType'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Interlacement')))
+      {
+        $esTrack['interlacement'] = (string)$value[0];
+      }
+
+      foreach ($track->xpath('s:Bits__Pixel_Frame_') as $item)
+      {
+        if (is_float(floatval((string)$item)))
+        {
+          $esTrack['bitsPixelFrame'] = floatval((string)$item);
+
+          break;
+        }
+      }
+
+      foreach ($track->xpath('s:Stream_size') as $item)
+      {
+        if (ctype_digit((string)$item))
+        {
+          $esTrack['streamSize'] = (integer)$item;
+
+          break;
+        }
+      }
+
+      foreach ($track->xpath('s:Proportion_of_this_stream') as $item)
+      {
+        if (is_float(floatval((string)$item)))
+        {
+          $esTrack['proportionOfThisStream'] = floatval((string)$item);
+
+          break;
+        }
+      }
+
+      foreach ($track->xpath('s:HeaderSize') as $item)
+      {
+        if (ctype_digit((string)$item))
+        {
+          $esTrack['headerSize'] = (integer)$item;
+
+          break;
+        }
+      }
+
+      foreach ($track->xpath('s:DataSize') as $item)
+      {
+        if (ctype_digit((string)$item))
+        {
+          $esTrack['dataSize'] = (integer)$item;
+
+          break;
+        }
+      }
+
+      foreach ($track->xpath('s:FooterSize') as $item)
+      {
+        if (ctype_digit((string)$item))
+        {
+          $esTrack['footerSize'] = (integer)$item;
+
+          break;
+        }
+      }
+
+      if (0 < count($value = $track->xpath('s:Language')))
+      {
+        $esTrack['language'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Color_primaries')))
+      {
+        $esTrack['colorPrimaries'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Transfer_characteristics')))
+      {
+        $esTrack['transferCharacteristics'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:Matrix_coefficients')))
+      {
+        $esTrack['matrixCoefficients'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:IsStreamable')))
+      {
+        $esTrack['isStreamable'] = (string)$value[0] !== 'No';
+      }
+
+      if (0 < count($value = $track->xpath('s:Writing_application')))
+      {
+        $esTrack['writingApplication'] = (string)$value[0];
+      }
+
+      if (0 < count($value = $track->xpath('s:File_last_modification_date')))
+      {
+        $esTrack['fileLastModificationDate'] = arElasticSearchPluginUtil::convertDate((string)$value[0]);
+      }
+
+      if (0 < count($value = $track->xpath('s:File_last_modification_date__local_')))
+      {
+        $esTrack['fileLastModificationDateLocal'] = arElasticSearchPluginUtil::convertDate((string)$value[0]);
+      }
+
+      // Add track by type
+      $type = $track->xpath('@type');
+      switch ($type[0])
+      {
+        case 'General':
+          $metsData['mediainfo']['generalTracks'][] = $esTrack;
+
+          break;
+
+        case 'Video':
+          $metsData['mediainfo']['videoTracks'][] = $esTrack;
+
+          break;
+
+        case 'Audio':
+          $metsData['mediainfo']['audioTracks'][] = $esTrack;
+
+          break;
+      }
+    }
+
+    if (empty($metsData))
+    {
+      return;
+    }
+
+    return $metsData;
   }
 
   public function serialize()
