@@ -40,29 +40,6 @@ class ApiUsersAuthenticateAction extends QubitApiAction
     return $this->currentUserData();
   }
 
-  protected function post($request, $payload)
-  {
-    $results = array();
-    $error = null;
-
-    if (empty($payload->password))
-    {
-      throw new QubitApiNotAuthorizedException();
-    }
-
-    if (!$this->context->user->authenticate($payload->username, $payload->password))
-    {
-      throw new QubitApiNotAuthorizedException();
-    }
-
-    return $this->currentUserData();
-  }
-
-  protected function delete($request)
-  {
-    $this->context->user->signOut();
-  }
-
   protected function currentUserData()
   {
     $groups = array();
