@@ -4,7 +4,7 @@
 
   var User = require('../../lib/user');
 
-  module.exports = function ($rootScope, $http, $state, SETTINGS, $window) {
+  module.exports = function ($rootScope, $http, $state, SETTINGS, $window, $sessionStorage, $q) {
 
     // Notice that a reference to the user object (User) is stored in
     // $rootScope.user so it can be used across all our models. An alternative
@@ -24,6 +24,10 @@
         ignoreAuthModule: true
       }).success(function (data) {
         $rootScope.user = self.user = new User(data);
+        $sessionStorage.credentials = {
+          username: username,
+          password: password
+        };
       }).error(function () {
         removeAuthHeader();
       });
@@ -33,7 +37,25 @@
       removeAuthHeader();
       delete this.user;
       delete $rootScope.user;
+      delete $sessionStorage.credentials;
       $state.go('login');
+    };
+
+    this.restoreSession = function () {
+      var deferred = $q.defer();
+      console.log($sessionStorage.credentials);
+      if (angular.isUndefined($sessionStorage.credentials)) {
+        deferred.reject();
+        return deferred.promise;
+      }
+      var credentials = $sessionStorage.credentials;
+      this.validate(credentials.username, credentials.password).then(function () {
+        deferred.resolve();
+      }, function () {
+        deferred.reject();
+        delete $sessionStorage.credentials;
+      });
+      return deferred.promise;
     };
 
     var addAuthHeader = function (username, password) {

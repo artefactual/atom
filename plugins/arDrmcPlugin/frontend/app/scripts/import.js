@@ -17,6 +17,7 @@
   // These folks dont use module.exports. TODO: use browserify-shim?
   window.Mousetrap = require('../../node_modules/mousetrap/mousetrap.js');
   require('../../node_modules/angular-hotkeys/src/hotkeys.js');
+  require('../../node_modules/ng-storage/ngStorage.js');
   require('../../node_modules/angular-ui-router/release/angular-ui-router.js');
   require('../../vendor/angular-ui.js'); // ... and this ones not even npm
 
