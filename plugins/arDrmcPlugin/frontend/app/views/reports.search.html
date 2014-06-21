@@ -25,7 +25,7 @@
         <section>
           <div class="menu-list">
             <ul class="menu-list-left">
-              <li><h2>Reports overview</h2></li>
+              <li><h2>Overview</h2></li>
             </ul>
             <ul class="menu-list-right nav nav-pills">
               <li>
@@ -47,7 +47,7 @@
             <div>
               <a href ui-sref="main.reports.slug({ slug: report.slug })">{{ report.name }}</a>
               <span>&nbsp;&raquo;&nbsp;</span>
-              {{ report.date + ' (' + report.user + ')' }}
+              {{ report.date | date:'short' }} ({{ report.user }})
             </div>
           </div>
         </section>
