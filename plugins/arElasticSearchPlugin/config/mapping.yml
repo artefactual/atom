@@ -159,6 +159,7 @@ mapping:
       mediainfo: mediainfo
     dynamic: strict
     properties:
+      puid: { type: string, index: not_analyzed, include_in_all: false }
       filename: { type: string, index: not_analyzed, include_in_all: false }
       last_modified: { type: date, index: not_analyzed, include_in_all: false }
       date_ingested: { type: date, index: not_analyzed, include_in_all: false }

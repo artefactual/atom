@@ -1102,6 +1102,11 @@ class arElasticSearchInformationObjectPdo
       $metsData['filename'] = end(explode('/', (string)$value[0]));
     }
 
+    if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:format/s:formatRegistry[s:formatRegistryName="PRONOM"]/s:formatRegistryKey')))
+    {
+      $metsData['puid'] = (string)$value[0];
+    }
+
     if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/repInfo/lastModified')))
     {
       $metsData['lastModified'] = arElasticSearchPluginUtil::convertDate((string)$value[0]);
