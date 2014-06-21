@@ -37,6 +37,14 @@ class QubitAip extends BaseAip
 
     QubitSearch::getInstance()->update($this);
 
+    // Update part_of artwork in ES
+    if (isset($this->partOf) && null !== $partOf = QubitInformationObject::getById($this->partOf))
+    {
+      QubitSearch::getInstance()->update($partOf);
+    }
+
+    // TODO: Update attached_to and childs
+
     return $this;
   }
 
