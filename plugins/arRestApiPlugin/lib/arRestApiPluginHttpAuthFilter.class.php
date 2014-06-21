@@ -30,20 +30,14 @@ class arRestApiPluginHttpAuthFilter extends sfFilter
         exit;
       }
 
-      $user = QubitUser::checkCredentials($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], $error);
+      $user = sfContext::getInstance()->getUser();
 
-      if (null === $user)
+      if (!$user->authenticate($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']))
       {
         $this->sendHeaders();
 
-        return;
+        exit;
       }
-
-      $user = new myUser(new sfEventDispatcher(), new sfNoStorage());
-      $user->authenticate($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
-
-      // We'll need username/email details later
-      sfContext::getInstance()->request->setAttribute('user', $user);
     }
 
     $filterChain->execute();
@@ -51,7 +45,10 @@ class arRestApiPluginHttpAuthFilter extends sfFilter
 
   private function sendHeaders()
   {
-    // header('WWW-Authenticate: Basic realm="Secure area"');
+    // We avoid using WWW-Authentication, otherwise the browser will prompt the
+    // user for credentials even when using XHR
+    // Don't: header('WWW-Authenticate: Basic realm="Secure area"');
+
     header('HTTP/1.0 401 Unauthorized');
   }
 }
