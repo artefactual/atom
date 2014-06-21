@@ -82,7 +82,12 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
   };
 
   // Watch for criteria changes
-  $scope.$watch('criteria', function () {
+  $scope.$watch('criteria', function (newValue, oldValue) {
+    // Reset page
+    if (angular.isDefined(oldValue) && newValue.skip === oldValue.skip) {
+      $scope.page = 1;
+      newValue.skip = 0;
+    }
     if (!$scope.files.length) {
       return;
     }

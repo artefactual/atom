@@ -33,7 +33,12 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
   var isSavedSearchLoaded = false;
 
   // Watch for criteria changes
-  $scope.$watch('criteria', function () {
+  $scope.$watch('criteria', function (newValue, oldValue) {
+    // Reset page
+    if (angular.isDefined(oldValue) && newValue.skip === oldValue.skip) {
+      $scope.page = 1;
+      newValue.skip = 0;
+    }
     if (angular.isDefined($stateParams.slug) && !isSavedSearchLoaded) {
       savedSearch();
       isSavedSearchLoaded = true;
@@ -56,7 +61,6 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
   var savedSearch = function () {
     SearchService.getSearchBySlug($stateParams.slug).then(function (response) {
       $scope.name = response.name;
-      console.log($scope.name);
       $stateParams.entity = $scope.selectedEntity = response.type;
       $scope.criteria = response.criteria;
       $scope.include = SETTINGS.viewsPath + '/' + response.type + '.search.html';
