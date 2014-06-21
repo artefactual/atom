@@ -32,7 +32,6 @@
      * http interceptor temporary to avoid more HTTP requests going on. TODO.
      */
     .run(function ($rootScope, $state, AUTH_EVENTS) {
-      window.alert('qwef');
       $rootScope.$on(AUTH_EVENTS.loginRequired, function () {
         $state.go('login');
       });
