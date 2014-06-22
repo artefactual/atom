@@ -180,6 +180,7 @@
       // }
 
       // Is the dependency nested somewhere?
+      var predecessors = mg.predecessors(u);
       var nested = mg.descendants(u, { onlyId: true }).filter(function (u) {
           var n = mg.node(u);
           if (typeof n === 'undefined') {
@@ -187,9 +188,10 @@
           }
           return n.hasOwnProperty('supporting_technologies_count') && n.supporting_technologies_count > 0;
         });
-      var predecessors = mg.predecessors(u);
+
       if (!nested.some(function (u) {
-        return -1 < predecessors.indexOf(u);
+        var node = mg.node(u);
+        return node.hidden && -1 < predecessors.indexOf(u);
       })) {
         return;
       }
