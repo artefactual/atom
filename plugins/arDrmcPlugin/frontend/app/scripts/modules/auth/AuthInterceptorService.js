@@ -6,7 +6,7 @@
 
     return {
       responseError: function (response) {
-        if (response.status === 401 && !response.config.ignoreAuthModule) {
+        if (response.status === 401) {
           var deferred = $q.defer();
           $rootScope.$broadcast(AUTH_EVENTS.loginRequired, response);
           return deferred.promise;

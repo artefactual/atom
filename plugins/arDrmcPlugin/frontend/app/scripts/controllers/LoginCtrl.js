@@ -16,6 +16,8 @@ module.exports = function ($scope, $state, AuthenticationService) {
         $scope.error = 'Incorrect username or password.';
       }).finally(function () {
         $scope.loading = false;
+        delete $scope.username;
+        delete $scope.password;
       });
   };
 

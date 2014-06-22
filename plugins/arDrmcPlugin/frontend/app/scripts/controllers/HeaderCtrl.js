@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $state, SETTINGS, ModalEditDcMetadataService, AuthenticationService) {
+module.exports = function ($rootScope, $scope, $state, SETTINGS, ModalEditDcMetadataService, AuthenticationService) {
 
   $scope.openEditDcModal = function () {
     ModalEditDcMetadataService.create();
@@ -10,5 +10,9 @@ module.exports = function ($scope, $state, SETTINGS, ModalEditDcMetadataService,
     AuthenticationService.logOut();
     $state.go('login');
   };
+
+  if (angular.isUndefined($rootScope.user)) {
+    AuthenticationService.load();
+  }
 
 };
