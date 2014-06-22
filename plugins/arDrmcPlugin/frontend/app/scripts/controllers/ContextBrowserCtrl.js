@@ -352,6 +352,7 @@ module.exports = function ($scope, $element, $document, $modal, ModalAssociative
       action: function (target) {
         InformationObjectService.move(source, target).then(function () {
           scope.cb.moveNodes(source, target);
+          scope.selectNode(target);
         }, function () {
           scope.cb.cancelNodeSelection();
         });
