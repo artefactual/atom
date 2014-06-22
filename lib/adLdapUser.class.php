@@ -19,7 +19,8 @@
 
 // TODO: Should we be doing this from ProjectConfiguration? Or maybe a Symfony
 // plugin with its own vendor directory?
-include (dirname(__FILE__) . "/../vendor/adLDAP/adLDAP.php");
+include dirname(__FILE__).'/../vendor/adLDAP/adLDAP.php';
+include dirname(__FILE__).'/../vendor/password_compat/password.php';
 
 class adLdapUser extends myUser implements Zend_Acl_Role_Interface
 {
