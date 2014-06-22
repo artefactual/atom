@@ -172,29 +172,35 @@
         return;
       }
 
-      // Ignore uncollapsed nodes
-      if (!node.collapsed) {
-        return;
-      }
+      // Ignore uncollapsed nodes if they don't have hidden elements
+      // if (!node.collapsed && mg.predecessors(u).some(function (u) {
+      //     return mg.node(u).hasOwnProperty('hidden');
+      //   })) {
+      //   return;
+      // }
 
       // Is the dependency nested somewhere?
-      var nested = mg.descendants(u, { onlyId: true }).some(function (u) {
+      var nested = mg.descendants(u, { onlyId: true }).filter(function (u) {
           var n = mg.node(u);
           if (typeof n === 'undefined') {
             return false;
           }
           return n.hasOwnProperty('supporting_technologies_count') && n.supporting_technologies_count > 0;
         });
+      var predecessors = mg.predecessors(u);
+      if (!nested.some(function (u) {
+        return -1 < predecessors.indexOf(u);
+      })) {
+        return;
+      }
 
       // Add nested dependency icon
-      if (nested) {
-        nodeLayout = layout.node(u);
-        x = (nodeLayout.x - nodeLayout.width / 2);
-        y = (nodeLayout.y - nodeLayout.height / 2);
-        root.insert('g').classed('nested-supporting-technologies', true)
-          .attr('transform', 'translate(' + x + ',' + y + ')').datum(u)
-          .append('use').attr('xlink:href', '#nested-supporting-technology-icon');
-      }
+      nodeLayout = layout.node(u);
+      x = (nodeLayout.x - nodeLayout.width / 2);
+      y = (nodeLayout.y - nodeLayout.height / 2);
+      root.insert('g').classed('nested-supporting-technologies', true)
+        .attr('transform', 'translate(' + x + ',' + y + ')').datum(u)
+        .append('use').attr('xlink:href', '#nested-supporting-technology-icon');
     });
   }
 
