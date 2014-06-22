@@ -40,6 +40,30 @@ class ApiInformationObjectsMoveAction extends QubitApiAction
 
     $io->save();
 
+    // Update descendants in the ES index
+    $sql = <<<sql
+
+SELECT
+  id
+FROM
+  information_object
+WHERE
+  lft > ?
+AND
+  rgt < ?;
+
+sql;
+
+    $results = QubitPdo::fetchAll($sql, array($io->lft, $io->rgt));
+
+    foreach ($results as $item)
+    {
+      $node = new arElasticSearchInformationObjectPdo($item->id);
+      $data = $node->serialize();
+
+      QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
+    }
+
     // TODO: return full object
     return array(
       'id' => (int)$io->id,
