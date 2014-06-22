@@ -51,13 +51,13 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
       $criteria = new Criteria;
       $criteria->add(QubitUser::EMAIL, $username);
       $user = QubitUser::getOne($criteria);
-    } else {
+    }
+    else
+    {
       // Load user using username or, if one doesn't exist, create it
       $criteria = new Criteria;
       $criteria->add(QubitUser::USERNAME, $username);
-      $user = QubitUser::getOne($criteria);
-
-      if ($user == null)
+      if (null === $user = QubitUser::getOne($criteria))
       {
         $user = $this->createUserFromLdapInfo($username);
       }
@@ -125,7 +125,7 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
       array_push($users, $username);
     }
 
-    // add non-LDAP AtoM users to user list
+    // Add non-LDAP AtoM users to user list
     $criteria = new Criteria;
     $criteria->add(QubitUser::SALT, null, Criteria::ISNOTNULL);
     $normalUsers = QubitUser::get($criteria);
@@ -171,6 +171,10 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
     return $result;
   }
 
+  /**
+   * Establishes connection with Active Directory.
+   * TODO: Should we make this static to reuse the same connection?
+   */
   private function getAdLdapConnection()
   {
     $admin_username = getenv('ATOM_DRMC_LDAP_ADMIN_USERNAME');
@@ -203,9 +207,46 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
     return $adldap;
   }
 
+  /**
+   * ldapAuthenticate caches the result of _ldapAuthenticate with a short TTL
+   * to avoid hitting the directory.
+   */
   private function ldapAuthenticate($username, $password)
   {
-    $adldap = $this->getAdLdapConnection();
+    try
+    {
+      // Try to load a cache engine
+      $cache = QubitCache::getInstance();
+    }
+    catch (Exception $e)
+    {
+      return $this->_ldapAuthenticate($username, $password);
+    }
+
+    $cacheKey = 'adldap-hash'.$username;
+
+    // Look up cache entry and verify hash if exists
+    if ($cache->has($cacheKey) && (null !== $hash = $cache->get($cacheKey))
+    {
+      return password_verify($password, $hash);
+    }
+
+    // Authenticate against LDAP
+    if (!$this->_ldapAuthenticate($username, $password))
+    {
+      return false;
+    }
+
+    // Cache entry
+    $hash = password_hash($password, PASSWORD_BCRYPT, array('cost' => 10));
+    $cache->set($cacheKey, $hash, 120);
+
+    return true;
+  }
+
+  private function _ldapAuthenticate($username, $password)
+  {
+    $adldap = adLdapUser::getAdLdapConnection();
 
     // Check to see if user is the admin or part of the DRMC LDAP user group
     // TODO: see if there's a way to retool things so user()->inGroup can be used
