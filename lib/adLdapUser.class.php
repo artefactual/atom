@@ -224,7 +224,7 @@ class adLdapUser extends myUser implements Zend_Acl_Role_Interface
       return $this->_ldapAuthenticate($username, $password);
     }
 
-    $cacheKey = 'adldap-hash'.$username;
+    $cacheKey = 'adldap-hash:'.$username;
 
     // Look up cache entry and verify hash if exists
     if ($cache->has($cacheKey) && (null !== $hash = $cache->get($cacheKey)))
