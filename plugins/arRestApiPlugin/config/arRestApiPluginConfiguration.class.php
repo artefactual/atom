@@ -311,7 +311,7 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
      * Users and authentication
      */
 
-    $this->addRoute('GET', '/api/users/authenticate', array(
+    $this->addRoute('GET,POST,DELETE', '/api/users/authenticate', array(
       'module' => 'api',
       'action' => 'usersAuthenticate'));
 
