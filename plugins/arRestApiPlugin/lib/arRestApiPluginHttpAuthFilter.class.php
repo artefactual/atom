@@ -21,29 +21,44 @@ class arRestApiPluginHttpAuthFilter extends sfFilter
 {
   public function execute($filterChain)
   {
-    if ($this->isFirstCall())
+    if (!$this->isFirstCall())
     {
-      if (!isset($_SERVER['PHP_AUTH_USER']))
-      {
-        $this->sendHeaders();
+      $filterChain->execute();
 
-        exit;
-      }
+      return;
+    }
 
-      $user = sfContext::getInstance()->getUser();
+    $context = $this->getContext();
 
-      if (!$user->authenticate($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']))
-      {
-        $this->sendHeaders();
+    // If the user have been already authenticated (e.g. via cookies/session),
+    // we can just ignore the Authorization header and let it pass.
+    if ($context->getUser()->isAuthenticated())
+    {
+      $filterChain->execute();
 
-        exit;
-      }
+      return;
+    }
+
+    // Have the user sent us the Authorization header?
+    if (null === $context->getRequest()->getHttpHeader('Authorization'))
+    {
+      $filterChain->execute();
+
+      return;
+    }
+
+    // Authenticate
+    if (!$context->getUser()->authenticate($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']))
+    {
+      $this->sendUnauthorizedHeader();
+
+      throw new sfStopException();
     }
 
     $filterChain->execute();
   }
 
-  private function sendHeaders()
+  protected function sendUnauthorizedHeader()
   {
     // We avoid using WWW-Authentication, otherwise the browser will prompt the
     // user for credentials even when using XHR

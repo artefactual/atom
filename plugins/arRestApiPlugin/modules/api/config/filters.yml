@@ -6,7 +6,10 @@ httpAuthFilter:
 transaction: ~
 history: ~
 rendering: ~
-security: ~
+
+security:
+  class: arRestApiPluginBasicSecurityFilter
+
 settings: ~
 QubitLimitIp: ~
 QubitSslRequirement: ~

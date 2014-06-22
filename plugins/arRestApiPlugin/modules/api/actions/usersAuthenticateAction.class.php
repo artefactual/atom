@@ -47,12 +47,12 @@ class ApiUsersAuthenticateAction extends QubitApiAction
 
     if (empty($payload->password))
     {
-      throw new QubitApiNotAuthorizedException();
+      throw new QubitApiBadRequestException;
     }
 
     if (!$this->context->user->authenticate($payload->username, $payload->password))
     {
-      throw new QubitApiNotAuthorizedException();
+      throw new QubitApiBadRequestException;
     }
 
     return $this->currentUserData();
