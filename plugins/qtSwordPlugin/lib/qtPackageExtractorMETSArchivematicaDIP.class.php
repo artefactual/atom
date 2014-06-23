@@ -631,7 +631,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
   {
     $mapping = $this->getStructMapFileToDmdSecMapping();
 
-    $files = $this->document->xpath('//m:mets/m:fileSec/m:fileGrp[@USE="original"]/m:file');
+    $files = $this->document->xpath('//m:mets/m:fileSec/m:fileGrp/m:file');
     if (false === $files || count($files) === 0)
     {
       sfContext::getInstance()->getLogger()->err('METSArchivematicaDIP - addDigitalObjects(): fileGrp not found');
@@ -640,9 +640,13 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     foreach ($files as $file)
     {
-      // Obtain UUID
+      // Parent fileGrp
+      $parent = current($file->xpath('parent::*'));
+
+      // Obtain use and UUID
+      $use = (string)$parent['USE'];
       $uuid = $this->getUUID($file->attributes()->ID);
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - objectUUID: '.$uuid);
+      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - objectUUID: '.$uuid.' ('.$use.')');
 
       // Check availability of FLocat
       if (!isset($file->FLocat))
@@ -659,10 +663,11 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         continue;
       }
 
-      // Paths
+      // AIP paths
       $relativePathWithinAip = $fLocatAttrs->href;
       $relativePathWithinAipParts = pathinfo($relativePathWithinAip);
       $relativePathWithinDip = 'objects'.DIRECTORY_SEPARATOR.$uuid.'-'.$relativePathWithinAipParts['basename'];
+      $absolutePathWithinDip = $this->filename.DIRECTORY_SEPARATOR.$relativePathWithinDip;
       sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             [path->AIP] '.$relativePathWithinAip);
       sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             [path->DIP] '.$relativePathWithinDip);
 
@@ -673,20 +678,23 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $child->setPublicationStatusByName('Published');
       $child->title = $relativePathWithinAipParts['basename'];
 
-      $absolutePathWithinDip = $this->filename.DIRECTORY_SEPARATOR.$relativePathWithinDip;
-      if (is_readable($absolutePathWithinDip))
+      // Files other than the ones under USE="original" are not included
+      if ($use === 'original')
       {
-        // Add digital object
-        $digitalObject = new QubitDigitalObject;
-        $digitalObject->assets[] = new QubitAsset($absolutePathWithinDip);
-        $digitalObject->usageId = QubitTerm::MASTER_ID;
-        $child->digitalObjects[] = $digitalObject;
-      }
-      else
-      {
-        // This is actually not too bad, maybe normalization failed but we still
-        // want to have an information object
-        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -              [path->DIP] File cannot be found or read: '.$absolutePathWithinDip);
+        if (is_readable($absolutePathWithinDip))
+        {
+          // Add digital object
+          $digitalObject = new QubitDigitalObject;
+          $digitalObject->assets[] = new QubitAsset($absolutePathWithinDip);
+          $digitalObject->usageId = QubitTerm::MASTER_ID;
+          $child->digitalObjects[] = $digitalObject;
+        }
+        else
+        {
+          // This is actually not too bad, maybe normalization failed but we still
+          // want to have an information object
+          sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -              [path->DIP] File cannot be found or read: '.$absolutePathWithinDip);
+        }
       }
 
       $child->save();
