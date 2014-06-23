@@ -703,7 +703,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $property = new QubitProperty;
       $property->objectId = $child->id;
       $property->setName('original_relative_path_within_aip');
-      $property->setValue($relativePathWithinDataDir);
+      $property->setValue($relativePathWithinAip);
       $property->save();
 
       // Process metatadata
