@@ -49,7 +49,7 @@ propel:
     name: varchar(255)
     status_id: { type: integer, required: true }
     completed_at: timestamp
-    user_id: { type: integer, required: false, foreignTable: user, foreignReference: id }
+    user_id: { type: integer, required: false }
 
   contact_information:
     actor_id: { type: integer, required: true, foreignTable: actor, foreignReference: id, onDelete: cascade }
