@@ -13,12 +13,10 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
       $scope.fixityChecks = response.data.results;
       $scope.fixityFailsCount = 0;
       angular.forEach(response.data.results, function (v) {
-        console.log(v);
         if (angular.isUndefined(v.success) || v.success === false) {
           $scope.fixityFailsCount = $scope.fixityFailsCount + 1;
         }
       });
-      console.log($scope.fixityFailsCount);
     });
 
   // Levels of description to determine part_of link
