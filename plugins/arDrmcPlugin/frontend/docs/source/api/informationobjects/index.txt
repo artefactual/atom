@@ -1,0 +1,15 @@
+Information Objects REST API
+============================
+
+The information object-related REST endpoints allow information object data
+to be accessed and modified.
+
+.. toctree::
+   :maxdepth: 1
+
+   browse
+   detail
+   files
+   works
+   components
+   technologies

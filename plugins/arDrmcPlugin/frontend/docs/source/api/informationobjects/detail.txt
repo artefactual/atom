@@ -1,0 +1,33 @@
+Information Object Detail
+=========================
+
+The information object detail REST API endpoint provides data about
+information objects that exist in the system.
+
+.. http:get:: /api/informationobjects/<id>
+
+   Summary of information object data.
+
+   **Example request**:
+
+   .. sourcecode:: http
+
+      GET /api/informationobjects/528 HTTP/1.1
+      Host: example.com
+
+   **Example response**:
+
+   .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Content-Type: application/json
+
+    {
+        "id": 528,
+        "level_of_description_id": 376,
+        "parent_id": 527,
+        "parent": "Play Dead; Real Time",
+        "title": "MoMA 2012"
+    }
+
+   :statuscode 200: no error

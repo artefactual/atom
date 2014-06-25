@@ -9,12 +9,18 @@ Welcome to DRMC's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    /api/intro
-   /api/aip
+   /api/aips/index
    /api/tms
-
+   /api/informationobjects/index
+   /api/actors
+   /api/taxonomies
+   /api/countries
+   /api/activity/index
+   /api/summary/index
+   /api/users
 
 Indices and tables
 ==================
