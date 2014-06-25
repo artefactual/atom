@@ -62,14 +62,7 @@ class DigitalObjectBrowseAction extends DefaultBrowseAction
     parent::execute($request);
 
     $userId = sfContext::getInstance()->getUser()->getUserID();
-    $groupIds = array_map(
-      function($x)
-      {
-        return (int)$x->id;
-      },
-
-      sfContext::getInstance()->getUser()->getAclGroups()
-    );
+    $groupIds = sfContext::getInstance()->getUser()->getGroupIds();
 
     // Create query object
     $this->queryBool->addMust(new \Elastica\Query\Term(array('hasDigitalObject' => true)));
@@ -82,22 +75,23 @@ class DigitalObjectBrowseAction extends DefaultBrowseAction
 
     // Set sort and limit
     $this->query->setSort(array('updatedAt' => 'desc'));
-
     $this->query->setQuery($this->queryBool);
 
     // Filter drafts
-    QubitAclSearch::filterDrafts($this->filterBool);
+    //QubitAclSearch::filterDrafts($this->filterBool);
 
-    // Set Acl rule filters
-
-    if ($userId)
+    // Set Acl rule filters if user isn't an administrator
+    if (!in_array(QubitAclGroup::ADMINISTRATOR_ID, $groupIds))
     {
-      $this->filterBool->addShould(new \Elastica\Filter\Term(array('aclViewThumb.userIds' => array($userId))));
-    }
+      if ($userId)
+      {
+        $this->filterBool->addShould(new \Elastica\Filter\Term(array('aclViewThumb.userIds' => array($userId))));
+      }
 
-    foreach ($groupIds as $groupId)
-    {
-      $this->filterBool->addShould(new \Elastica\Filter\Term(array('aclViewThumb.groupIds' => $groupId)));
+      foreach ($groupIds as $groupId)
+      {
+        $this->filterBool->addShould(new \Elastica\Filter\Term(array('aclViewThumb.groupIds' => $groupId)));
+      }
     }
 
     // Set filter

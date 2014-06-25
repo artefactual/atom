@@ -152,6 +152,25 @@ class myUser extends sfBasicSecurityUser implements Zend_Acl_Role_Interface
     }
   }
 
+  /**
+   * Return all group IDs this user belongs to.
+   *
+   * @return array  An array of group ID integers the user belongs to.
+   */
+  public function getGroupIds()
+  {
+    $groupIds = array_map(
+      function($x)
+      {
+        return (int)$x->id;
+      },
+
+      $this->getAclGroups()
+    );
+
+    return $groupIds;
+  }
+
   public function hasGroup($checkGroups)
   {
     $hasGroup = false;

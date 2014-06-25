@@ -26,6 +26,15 @@
 
 class arUpdateAclJob extends arBaseJob
 {
+  /**
+   * Add Acl rules to elastic search.
+   *
+   * @param  array $parameters  - Information about what info objects to update
+   * what Acl action it's for, and which users/groups gain access to said objects.
+   *
+   * If objectIds contains only ROOT_ID (id=1), assume we're updating *ALL* information objects
+   * with these rules.
+   */
   public function run($parameters)
   {
     // This will be an array of required parameter names
@@ -40,8 +49,26 @@ class arUpdateAclJob extends arBaseJob
     parent::run($parameters);
     printf('Entering acl job task' . "\n");
 
+    $ids = $parameters['objectIds'];
+
+    // ROOT_ID is the only thing in the objectIds list, let's update
+    // all information objects to use these rules
+    if (count($ids) === 1 && $ids[0] === QubitInformationObject::ROOT_ID)
+    {
+      $rows = QubitPdo::fetchAll(
+        'SELECT id FROM information_object WHERE id <> ?',
+        array(QubitInformationObject::ROOT_ID)
+      );
+
+      array_pop($ids); // Throw away ROOT_ID & add all info object ids
+      foreach ($rows as $row)
+      {
+        $ids[] = $row->id;
+      }
+    }
+
     $n = 0;
-    foreach ($parameters['objectIds'] as $objectId)
+    foreach ($ids as $objectId)
     {
       $aclEntry = new QubitElasticAclEntry;
 
@@ -50,11 +77,11 @@ class arUpdateAclJob extends arBaseJob
       $aclEntry->userIds = $parameters['userIds'];
       $aclEntry->groupIds = $parameters['groupIds'];
 
-
       arElasticSearchInformationObject::updateAcl($objectId, $aclEntry);
 
       if (++$n % 100 == 0)
       {
+        QubitInformationObject::clearCache();
         print '.';
       }
     }

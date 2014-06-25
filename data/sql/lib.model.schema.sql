@@ -148,16 +148,12 @@ CREATE TABLE `job`
 	`name` VARCHAR(255),
 	`status_id` INTEGER  NOT NULL,
 	`completed_at` DATETIME,
-	`user_id` INTEGER  NOT NULL,
+	`user_id` INTEGER,
 	PRIMARY KEY (`id`),
 	CONSTRAINT `job_FK_1`
 		FOREIGN KEY (`id`)
 		REFERENCES `object` (`id`)
-		ON DELETE CASCADE,
-	INDEX `job_FI_2` (`user_id`),
-	CONSTRAINT `job_FK_2`
-		FOREIGN KEY (`user_id`)
-		REFERENCES `user` (`id`)
+		ON DELETE CASCADE
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
