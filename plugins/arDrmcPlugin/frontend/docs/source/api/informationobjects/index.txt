@@ -9,7 +9,14 @@ to be accessed and modified.
 
    browse
    detail
+   move
+   tree/index
    files
+   files_browse
+   tms
    works
    components
    technologies
+   aips
+   associate
+   associations
