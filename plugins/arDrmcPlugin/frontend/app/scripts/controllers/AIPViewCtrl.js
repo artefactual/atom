@@ -8,15 +8,17 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
       pullFiles();
     });
 
-  FixityService.getAipFixity($stateParams.uuid).success(function (data) {
+  FixityService.getAipFixity($stateParams.uuid).then(function (response) {
       // TODO: stop using hashes!
-      $scope.fixityChecks = data.results;
+      $scope.fixityChecks = response.data.results;
       $scope.fixityFailsCount = 0;
-      angular.forEach(data.results, function (v) {
-        if (angular.isDefined(v.success) && v.success === true) {
-          $scope.fixityFailsCount++;
+      angular.forEach(response.data.results, function (v) {
+        console.log(v);
+        if (angular.isUndefined(v.success) || v.success === false) {
+          $scope.fixityFailsCount = $scope.fixityFailsCount + 1;
         }
       });
+      console.log($scope.fixityFailsCount);
     });
 
   // Levels of description to determine part_of link

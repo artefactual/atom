@@ -117,7 +117,9 @@
             </ul>
             <ul class="menu-list-right nav nav-pills">
               <li>
-                Status:&nbsp&nbsp<span class="badge menu-badge" ng-class="{ 'badge-important': fixityFailsCount, 'badge-success': !fixityFailsCount }">{{ fixityFailsCount }}</span>
+                Status:&nbsp&nbsp
+                <span ng-if="fixityFailsCount > 0" class="badge menu-badge badge-important">{{ fixityFailsCount }}</span>
+                <span ng-if="fixityFailsCount == 0" class="badge menu-badge badge-success">OK</span>
               </li>
             </ul>
           </div>
