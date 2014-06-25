@@ -299,6 +299,20 @@ module.exports = function ($scope, $element, $document, $modal, ModalAssociative
 
 
   /**
+   * AIPs
+   */
+
+  // Visibility of AIP nodes defaults to false
+  scope.showAips = false;
+  scope.toggleAips = function () {
+    scope.showAips = !scope.showAips;
+    scope.cb.toggleNodesVisibility(function (node) {
+      return node.level === 'aip';
+    }, scope.showAips);
+  };
+
+
+  /**
    * Node action
    */
 

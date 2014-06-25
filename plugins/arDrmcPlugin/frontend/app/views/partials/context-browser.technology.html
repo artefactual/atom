@@ -18,6 +18,11 @@
           <a href class="drmc-icon-hide-relationships" ng-click="hideRelationships()">Relationships</a>
         </li>
 
+        <!-- Toggle AIPs -->
+        <li ng-class="{ active: showAips }">
+          <a href class="drmc-icon-cb-aips" ng-click="toggleAips()">AIPs</a>
+        </li>
+
         <!-- Fullscreen -->
         <li ng-class="{ active: isFullscreen }">
           <a href ng-click="toggleFullscreenMode()" class="drmc-icon-fullscreen">
