@@ -134,12 +134,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="(key, status) in fixityStatus" ng-class="{ 'success': status.success, 'error': !status.success }">
+                <tr ng-repeat="(key, status) in fixityChecks" ng-class="{ 'success': status.success, 'error': !status.success }">
                   <td>{{ key }}</td>
                   <td>{{ (status.time_started | date: 'short') || 'none' }}</td>
                   <td>{{ (status.time_completed | date: 'short') || 'none' }}</td>
                   <td>{{ (status.duration | ConvertSecondsFilter) || 'none' }}</td>
-                  <td>{{ status.statusAlert }}</td>
+                  <td>{{ status.success ? 'Success' : 'Failed' }}</td>
                 </tr>
               </tbody>
             </table>

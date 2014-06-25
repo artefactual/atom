@@ -9,23 +9,13 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
     });
 
   FixityService.getAipFixity($stateParams.uuid).success(function (data) {
-      $scope.fixityStatus = data.results;
-    }).then(function () {
-      // Get count of failed fixity checks
-      $scope.fails = [];
-
-      // This creates human-readable output of fixity status
-      // Also counts number of failed fixity checks
-      angular.forEach($scope.fixityStatus, function (i) {
-        if (i.failures) {
-          $scope.fails.push(i);
-          i.statusAlert = 'Failed';
-        } else if (angular.isArray(i)) {
-          i.statusAlert = 'No information available';
-        } else {
-          i.statusAlert = 'Success';
+      // TODO: stop using hashes!
+      $scope.fixityChecks = data.results;
+      $scope.fixityFailsCount = 0;
+      angular.forEach(data.results, function (v) {
+        if (angular.isDefined(v.success) && v.success === true) {
+          $scope.fixityFailsCount++;
         }
-        $scope.fixityFailsCount = $scope.fails.length;
       });
     });
 
