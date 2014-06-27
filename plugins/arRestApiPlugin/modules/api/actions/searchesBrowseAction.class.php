@@ -125,8 +125,8 @@ class ApiSearchesBrowseAction extends QubitApiAction
       $this->addItemToArray($search, 'name', $doc['name']);
       $this->addItemToArray($search, 'type', $doc['scope']);
       $this->addItemToArray($search, 'description', $doc['description']);
-      $this->addItemToArray($search, 'created_at', $doc['createdAt']);
-      $this->addItemToArray($search, 'updated_at', $doc['updatedAt']);
+      $this->addItemToArray($search, 'created_at', arRestApiPluginUtils::convertDate($doc['createdAt']));
+      $this->addItemToArray($search, 'updated_at', arRestApiPluginUtils::convertDate($doc['updatedAt']));
       $this->addItemToArray($search, 'slug', $doc['slug']);
       $this->addItemToArray($search, 'criteria', unserialize($doc['params']));
       $this->addItemToArray($search['user'], 'id', $doc['user']['id']);
@@ -179,7 +179,7 @@ class ApiSearchesBrowseAction extends QubitApiAction
     {
       $lastCreated = $esResullts[0]->getData();
 
-      $results['latest']['Last search added']['date'] = $lastCreated['createdAt'];
+      $results['latest']['Last search added']['date'] = arRestApiPluginUtils::convertDate($lastCreated['createdAt']);
       $results['latest']['Last search added']['user'] = $lastCreated['user']['name'];
       $results['latest']['Last search added']['name'] = $lastCreated['name'];
       $results['latest']['Last search added']['slug'] = $lastCreated['slug'];
@@ -201,7 +201,7 @@ class ApiSearchesBrowseAction extends QubitApiAction
     {
       $lastUpdated = $esResullts[0]->getData();
 
-      $results['latest']['Last search modified']['date'] = $lastUpdated['createdAt'];
+      $results['latest']['Last search modified']['date'] = arRestApiPluginUtils::convertDate($lastUpdated['createdAt']);
       $results['latest']['Last search modified']['user'] = $lastUpdated['user']['name'];
       $results['latest']['Last search modified']['name'] = $lastUpdated['name'];
       $results['latest']['Last search modified']['slug'] = $lastCreated['slug'];

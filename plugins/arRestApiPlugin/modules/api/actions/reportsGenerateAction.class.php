@@ -279,8 +279,8 @@ class ApiReportsGenerateAction extends QubitApiAction
         $fixity['success'] = (bool)$doc['success'];
       }
 
-      $this->addItemToArray($fixity, 'time_started', $doc['timeStarted']);
-      $this->addItemToArray($fixity, 'time_completed', $doc['timeCompleted']);
+      $this->addItemToArray($fixity, 'time_started', arRestApiPluginUtils::convertDate($doc['timeStarted']));
+      $this->addItemToArray($fixity, 'time_completed', arRestApiPluginUtils::convertDate($doc['timeCompleted']));
 
       if (isset($doc['timeCompleted']) && isset($doc['timeStarted']))
       {
@@ -376,7 +376,7 @@ class ApiReportsGenerateAction extends QubitApiAction
 
       $fixity = array();
 
-      $this->addItemToArray($fixity, 'fail_time', $doc['timeCompleted']);
+      $this->addItemToArray($fixity, 'fail_time', arRestApiPluginUtils::convertDate($doc['timeCompleted']));
       $this->addItemToArray($fixity['aip'], 'uuid', $doc['aip']['uuid']);
       $this->addItemToArray($fixity['aip'], 'name', $doc['aip']['name']);
       $this->addItemToArray($fixity['aip'], 'part_of', $doc['aip']['partOf']);
@@ -413,8 +413,8 @@ sql;
         }
 
         $this->addItemToArray($fixity['recovery'], 'user', $result->username);
-        $this->addItemToArray($fixity['recovery'], 'time_started', $result->time_started);
-        $this->addItemToArray($fixity['recovery'], 'time_completed', $result->time_completed);
+        $this->addItemToArray($fixity['recovery'], 'time_started', arRestApiPluginUtils::convertDate($result->time_started));
+        $this->addItemToArray($fixity['recovery'], 'time_completed', arRestApiPluginUtils::convertDate($result->time_completed));
 
         if (isset($result->time_started) && isset($result->time_completed))
         {

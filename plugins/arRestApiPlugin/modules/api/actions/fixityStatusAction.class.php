@@ -57,7 +57,7 @@ class ApiFixityStatusAction extends QubitApiAction
         $report['outcome'] = (bool)$doc['success'];
       }
 
-      $this->addItemToArray($report, 'time_completed', $doc['timeCompleted']);
+      $this->addItemToArray($report, 'time_completed', arRestApiPluginUtils::convertDate($doc['timeCompleted']));
       $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
       $this->addItemToArray($report, 'aip_uuid', $doc['aip']['uuid']);
 
@@ -96,7 +96,7 @@ class ApiFixityStatusAction extends QubitApiAction
         $report['outcome'] = (bool)$doc['success'];
       }
 
-      $this->addItemToArray($report, 'time_completed', $doc['timeCompleted']);
+      $this->addItemToArray($report, 'time_completed', arRestApiPluginUtils::convertDate($doc['timeCompleted']));
       $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
       $this->addItemToArray($report, 'aip_uuid', $doc['aip']['uuid']);
 
@@ -204,11 +204,10 @@ class ApiFixityStatusAction extends QubitApiAction
     // If there isn't a currently checking result obtain the time since last check
     if (!isset($data['currentlyChecking']) && isset($result->max))
     {
-      // Obtain actual time from UTC timezone (fixity report dates are being sent like that)
-      $date = new DateTime('now', new DateTimeZone('UTC'));
+      $now = new DateTime('now');
 
-      // Using strtotime() with $date->format() because $date->getTimeStamp() changes timezone
-      $data['timeSinceLastCheck'] =  strtotime($date->format('Y-m-d H:i:s')) - strtotime($result->max);
+      // Using strtotime() with $now->format() because $now->getTimeStamp() changes timezone
+      $data['timeSinceLastCheck'] =  strtotime($now->format('Y-m-d H:i:s')) - strtotime($result->max);
     }
 
     return $data;

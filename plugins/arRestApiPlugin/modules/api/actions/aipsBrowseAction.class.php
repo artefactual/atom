@@ -143,7 +143,7 @@ class ApiAipsBrowseAction extends QubitApiAction
       $this->addItemToArray($aip, 'name', $doc['filename']);
       $this->addItemToArray($aip, 'uuid', $doc['uuid']);
       $this->addItemToArray($aip, 'size', $doc['sizeOnDisk']);
-      $this->addItemToArray($aip, 'created_at', $doc['createdAt']);
+      $this->addItemToArray($aip, 'created_at', arRestApiPluginUtils::convertDate($doc['createdAt']));
 
       if (isset($doc['type']))
       {

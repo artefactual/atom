@@ -65,8 +65,9 @@ class ApiFixityBrowseAction extends QubitApiAction
       }
 
       $this->addItemToArray($report, 'message', $doc['message']);
-      $this->addItemToArray($report, 'time_started', $doc['timeStarted']);
-      $this->addItemToArray($report, 'time_completed', $doc['timeCompleted']);
+
+      $this->addItemToArray($report, 'time_started', arRestApiPluginUtils::convertDate($doc['timeStarted']));
+      $this->addItemToArray($report, 'time_completed', arRestApiPluginUtils::convertDate($doc['timeCompleted']));
 
       if (isset($doc['timeCompleted']) && isset($doc['timeStarted']))
       {

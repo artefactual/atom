@@ -61,7 +61,8 @@ EOL;
     foreach ($results as $item)
     {
       $date = new DateTime($item->created_at);
-      $createdAt = $date->format('Y-m-d');
+      $timezone = new DateTimeZone('UTC');
+      $createdAt = $date->->setTimezone($timezone)->format('Y-m-d');
 
       array_push($aipCreations, array(
         'id' => $item->id,

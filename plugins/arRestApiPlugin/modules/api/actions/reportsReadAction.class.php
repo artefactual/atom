@@ -64,7 +64,7 @@ class ApiReportsReadAction extends QubitApiAction
     $this->addItemToArray($report, 'type', $doc['scope']);
     $this->addItemToArray($report, 'description', $doc['description']);
     $this->addItemToArray($report, 'range', unserialize($doc['params']));
-    $this->addItemToArray($report, 'created_at', $doc['createdAt']);
+    $this->addItemToArray($report, 'created_at', arRestApiPluginUtils::convertDate($doc['createdAt']));
     $this->addItemToArray($report, 'user_name', $doc['user']['name']);
 
     return $report;

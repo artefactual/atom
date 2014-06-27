@@ -70,8 +70,15 @@ class ApiActorsBrowseAction extends QubitApiAction
     foreach ($resultSet as $hit)
     {
       $doc = $hit->getData();
-      $results[$hit->getId()] = $hit->getFields();
-      $results[$hit->getId()]['authorized_form_of_name'] = get_search_i18n($doc, 'authorizedFormOfName');
+
+      $result = array();
+
+      $this->addItemToArray($result, 'slug', $doc['slug']);
+      $this->addItemToArray($result, 'created_at', arRestApiPluginUtils::convertDate($doc['createdAt']));
+      $this->addItemToArray($result, 'updated_at', arRestApiPluginUtils::convertDate($doc['updatedAt']));
+      $this->addItemToArray($result, 'authorized_form_of_name', get_search_i18n($doc, 'authorizedFormOfName'));
+
+      $results[$hit->getId()] = $result;
     }
 
     $facets = array();
