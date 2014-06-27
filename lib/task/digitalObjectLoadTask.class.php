@@ -85,43 +85,37 @@ EOF;
       throw new sfException('Import file must contain an \'information_object_id\' or an \'identifier\' column, and a \'filename\' column');
     }
 
-    $idKey = array_search('information_object_id', $header);
     $fileKey = array_search('filename', $header);
-    $identifierKey = array_search('identifier', $header);
+
+    // If information_object_id column is available, use it for id
+    $idKey = array_search('information_object_id', $header);
+
+    // If no id, then lookup by identifier
+    if ($idKey === false)
+    {
+      $idKey = array_search('identifier', $header);
+      $idType = 'identifier';
+    }
 
     // Build hash on information_object.id, with array value if information
     // object has multiple digital objects attached
     while ($item = fgetcsv($fh, 1000))
     {
-      $id = $identifier = $filename = null;
+      $id = $item[$idKey];
+      $filename = $item[$fileKey];
 
-      // Avoid looking for 'false' key
-      if ($idKey !== false)
+      if (0 == strlen($id) || 0 == strlen($filename))
       {
-        $id = $item[$idKey];
-      }
-      if ($identifierKey !== false)
-      {
-        $identifier = $item[$identifierKey];
-      }
-      if ($fileKey !== false)
-      {
-        $filename = $item[$fileKey];
+        $this->log("Row $totalObjCount: missing $idType");
+
+        continue;
       }
 
-      // No information_object_id specified, try looking up id via identifier
-      if (strlen($id) < 1 && strlen($identifier) > 0)
+      if (0 == strlen($id) || 0 == strlen($filename))
       {
-        if (null !== $ret = $this->getIdFromIdentifier($identifier))
-        {
-          $id = $ret;
-        }
-        else
-        {
-          $this->log("Couldn't find information object with identifier: $identifier");
+        $this->log("Row $totalObjCount: missing filename");
 
-          continue;
-        }
+        continue;
       }
 
       if (!isset($digitalObjects[$id]))
@@ -142,35 +136,60 @@ EOF;
 
     $this->curObjNum = 0;
 
+    // Set up prepared query based on identifier type
+    $sql = 'SELECT io.id, do.id FROM '.QubitInformationObject::TABLE_NAME.' io
+      LEFT JOIN '.QubitDigitalObject::TABLE_NAME.' do ON io.id = do.information_object_id';
+
+    if ($idType == 'id')
+    {
+      $sql .= ' WHERE id = ?';
+    }
+    else
+    {
+      $sql .= ' WHERE identifier = ?';
+    }
+
+    $ioQuery = QubitPdo::prepare($sql);
+
     // Loop through $digitalObject hash and add digital objects to db
     foreach ($digitalObjects as $key => $item)
     {
-      if (null === $informationObject = QubitInformationObject::getById($key))
+      // No information_object_id specified, try looking up id via identifier
+      if (!$ioQuery->execute(array($key)))
       {
-        $this->curObjNum++;
-        $this->log("Invalid information_object id $key");
+        $this->log("Couldn't find information object with $idType: $key");
 
         continue;
       }
 
+      // Fetch results
+      $results = $ioQuery->fetch();
+
       if (!is_array($item))
       {
-        self::addDigitalObject($informationObject, $item, $options);
+        // Skip if this information object already has a digital object attached
+        if ($results[1] !== null)
+        {
+          $this->log(sprintf('Information object $idType: %s already has a digital object. Skipping.', $key));
+
+          continue;
+        }
+
+        self::addDigitalObject($results[0], $item, $options);
       }
       else
       {
         // If more than one digital object linked to this information object
         for ($i=0; $i < count($item); $i++)
         {
-          $informationObject->title = basename($item[$i]);
           // Create new information objects, to maintain one-to-one
           // relationship with digital objects
           $informationObject = new QubitInformationObject;
-          $informationObject->parent = QubitInformationObject::getById($key);
+          $informationObject->parent = QubitInformationObject::getById($results[0]);
           $informationObject->title = basename($item[$i]);
           $informationObject->save($options['conn']);
 
-          self::addDigitalObject($informationObject, $item[$i], $options);
+          self::addDigitalObject($informationObject->id, $item[$i], $options);
         }
       }
     }
@@ -178,33 +197,13 @@ EOF;
     $this->logSection('Successfully Loaded '.self::$count.' digital objects.');
   }
 
-  protected function getIdFromIdentifier($identifier)
-  {
-    $sql = 'SELECT id from information_object where identifier = ?';
-    $id = QubitPdo::fetchColumn($sql, array($identifier));
-
-    if ($id)
-    {
-      return $id;
-    }
-  }
-
-  protected function addDigitalObject($informationObject, $path, $options = array())
+  protected function addDigitalObject($ioId, $path, $options = array())
   {
     $this->curObjNum++;
 
     if (isset($options['path']))
     {
       $path = $options['path'].$path;
-    }
-
-    $sql = 'SELECT id FROM digital_object WHERE information_object_id = ?';
-
-    if (QubitPdo::fetchColumn($sql, array($informationObject->id)))
-    {
-      $this->log(sprintf('Information object id:%s (%s) already has a digital object. Skipping.', $informationObject->id, $informationObject->identifier));
-
-      return;
     }
 
     // read file contents
@@ -220,7 +219,7 @@ EOF;
 
     // Create digital object
     $do = new QubitDigitalObject;
-    $do->informationObject = $informationObject;
+    $do->informationObjectId = $ioId;
     $do->usageId = QubitTerm::MASTER_ID;
     $do->assets[] = new QubitAsset($filename, $content);
     $do->save($options['conn']);
