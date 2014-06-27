@@ -96,6 +96,10 @@ EOF;
       $idKey = array_search('identifier', $header);
       $idType = 'identifier';
     }
+    else
+    {
+      $idType = 'id';
+    }
 
     // Build hash on information_object.id, with array value if information
     // object has multiple digital objects attached
@@ -142,7 +146,7 @@ EOF;
 
     if ($idType == 'id')
     {
-      $sql .= ' WHERE id = ?';
+      $sql .= ' WHERE io.id = ?';
     }
     else
     {
