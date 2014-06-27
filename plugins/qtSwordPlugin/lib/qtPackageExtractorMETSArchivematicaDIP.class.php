@@ -693,7 +693,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         {
           // This is actually not too bad, maybe normalization failed but we still
           // want to have an information object
-          sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -              [path->DIP] File cannot be found or read: '.$absolutePathWithinDip);
+          sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             [path->DIP] File cannot be found or read: '.$absolutePathWithinDip);
         }
       }
 
@@ -705,6 +705,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $property->setName('original_relative_path_within_aip');
       $property->setValue($relativePathWithinAip);
       $property->save();
+
+      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -  PROPERTY '.$relativePathWithinAip);
 
       // Process metatadata
       if (null !== ($dmdSec = $this->searchFileDmdSec($uuid, $mapping)))

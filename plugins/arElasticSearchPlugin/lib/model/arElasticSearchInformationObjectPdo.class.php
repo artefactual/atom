@@ -1077,7 +1077,7 @@ class arElasticSearchInformationObjectPdo
     }
 
     // Obtain amdSec id for objectUUID
-    foreach ($document->xpath('//m:fileSec/m:fileGrp[@USE="original"]/m:file') as $item)
+    foreach ($document->xpath('//m:fileSec/m:fileGrp/m:file') as $item)
     {
       if (false !== strrpos($item['ID'], $objectUUID))
       {
