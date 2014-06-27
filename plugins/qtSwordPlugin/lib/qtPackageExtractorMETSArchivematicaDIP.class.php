@@ -706,8 +706,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $property->setValue($relativePathWithinAip);
       $property->save();
 
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -  PROPERTY '.$relativePathWithinAip);
-
       // Process metatadata
       if (null !== ($dmdSec = $this->searchFileDmdSec($uuid, $mapping)))
       {
