@@ -1452,7 +1452,16 @@ class QubitDigitalObject extends BaseDigitalObject
    */
   public function getFullPath()
   {
-    return $this->getPath().$this->getName();
+    if (QubitTerm::EXTERNAL_URI_ID != $this->usageId)
+    {
+      return $this->getPath().$this->getName();
+    }
+    else
+    {
+      // For remote resources 'path' contains the complete URL and concatenating
+      // 'name' is not desirable
+      return $this->getPath();
+    }
   }
 
   /**
