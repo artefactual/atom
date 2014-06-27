@@ -28,7 +28,7 @@ class importBulkTask extends sfBaseTask
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'qubit'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-      new sfCommandOption('noindex', null, sfCommandOption::PARAMETER_OPTIONAL, 'Set to \'true\' to skip indexing on imported objects'),
+      new sfCommandOption('index', null, sfCommandOption::PARAMETER_NONE, 'Set to enable indexing on imported objects'),
       new sfCommandOption('taxonomy', null, sfCommandOption::PARAMETER_OPTIONAL, 'Set the taxonomy id to insert the SKOS concepts into'),
       new sfCommandOption('schema', null, sfCommandOption::PARAMETER_OPTIONAL, 'Schema to use if importing a CSV file'),
       new sfCommandOption('output', null, sfCommandOption::PARAMETER_OPTIONAL, 'Filename to output results in CSV format'),
@@ -55,7 +55,7 @@ EOF;
     }
 
     // Set indexing preference
-    if ($options['noindex'])
+    if (!$options['index'])
     {
       QubitSearch::disable();
     }
@@ -71,7 +71,7 @@ EOF;
     }
 
     // TODO: Add some colour
-    $this->log("Importing ".count($files)." files from ".$arguments['folder']." (indexing is ".($options['noindex'] ? "DISABLED" : "ENABLED").") ...\n");
+    $this->log("Importing ".count($files)." files from ".$arguments['folder']." (indexing is ".($options['index'] ? "ENABLED" : "DISABLED").") ...\n");
 
     $count = 0;
     $total = count($files);

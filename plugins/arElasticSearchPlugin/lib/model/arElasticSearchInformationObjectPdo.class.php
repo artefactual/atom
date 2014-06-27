@@ -218,14 +218,21 @@ class arElasticSearchInformationObjectPdo
       }
       else
       {
-        foreach (array_reverse($this->ancestors) as $item)
+        if (is_array($this->ancestors) && count($this->ancestors) > 0)
         {
-          if (isset($item->repository_id))
+          foreach (array_reverse($this->ancestors) as $item)
           {
-            $this->repository = QubitRepository::getById($item->repository_id);
+            if (isset($item->repository_id))
+            {
+              $this->repository = QubitRepository::getById($item->repository_id);
 
-            break;
+              break;
+            }
           }
+        }
+        else
+        {
+          $this->repository = null;
         }
       }
     }
