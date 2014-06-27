@@ -73,6 +73,10 @@ class ApiFixityCreateAction extends QubitApiAction
 
         break;
 
+      // fixity-checker reports times using UTC epoch integers.
+      // DateTime::date_timestamp_set will do the conversion to local time.
+      // Remember that AtoM uses local times in the database :(
+
       case 'started':
         $date = new DateTime();
         $date->setTimestamp($value);
