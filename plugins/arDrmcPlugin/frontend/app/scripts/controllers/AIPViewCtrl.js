@@ -9,8 +9,7 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
     });
 
   FixityService.getAipFixity($stateParams.uuid).then(function (response) {
-      // TODO: stop using hashes!
-      $scope.fixityChecks = response.data.results;
+      $scope.fixityReports = response.data.results;
       $scope.fixityFailsCount = 0;
       angular.forEach(response.data.results, function (v) {
         if (angular.isUndefined(v.success) || v.success === false) {

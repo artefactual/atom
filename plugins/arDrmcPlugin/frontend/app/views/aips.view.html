@@ -109,7 +109,7 @@
         </section>
 
         <!-- Fixity Reports -->
-        <section ng-if="fixityChecks != undefined">
+        <section ng-if="fixityReports != undefined">
 
           <div class="menu-list">
             <ul class="menu-list-left">
@@ -136,12 +136,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="(key, status) in fixityChecks" ng-class="{ 'success': status.success, 'error': !status.success }">
-                  <td>{{ key }}</td>
-                  <td>{{ (status.time_started | date: 'short') || 'none' }}</td>
-                  <td>{{ (status.time_completed | date: 'short') || 'none' }}</td>
-                  <td>{{ (status.duration | ConvertSecondsFilter) || 'none' }}</td>
-                  <td>{{ status.success ? 'Success' : 'Failed' }}</td>
+                <tr ng-repeat="report in fixityReports" ng-class="{ 'success': report.success, 'error': !report.success }">
+                  <td>{{ report.id }}</td>
+                  <td>{{ (report.time_started | date:'short') || 'none' }}</td>
+                  <td>{{ (report.time_completed | date:'short') || 'none' }}</td>
+                  <td>{{ (report.duration | ConvertSecondsFilter) || 'none' }}</td>
+                  <td>{{ report.success ? 'Success' : 'Failed' }}</td>
                 </tr>
               </tbody>
             </table>

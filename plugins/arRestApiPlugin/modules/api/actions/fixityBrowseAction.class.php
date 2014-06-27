@@ -57,6 +57,7 @@ class ApiFixityBrowseAction extends QubitApiAction
       $doc = $hit->getData();
 
       $report = array();
+      $report['id'] = $hit->getId();
 
       if (isset($doc['success']))
       {
@@ -90,7 +91,7 @@ class ApiFixityBrowseAction extends QubitApiAction
         }
       }
 
-      $data['results'][$hit->getId()] = $report;
+      $data['results'][] = $report;
     }
 
     // Total this
