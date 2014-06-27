@@ -22,7 +22,7 @@
               <td>{{ item.part_of.title }}</td>
               <td>{{ item.attached_to }}</td>
               <td>{{ item.part_of.department }}</td>
-              <td>{{ item.ingestion_date | date: 'short' }}</td>
+              <td>{{ item.ingestion_date | date:'short' }}</td>
             </tr>
             <tr class="warning">
               <td>({{ table.totals.aips }})</td>
@@ -59,7 +59,7 @@
               <td>{{ item.uuid }}</td>
               <td>{{ item.part_of.title }}</td>
               <td>{{ item.attached_to }}</td>
-              <td>{{ item.ingestion_date | date: 'short' }}</td>
+              <td>{{ item.ingestion_date | date:'short' }}</td>
               <td>{{ item.ingestion_user }}</td>
             </tr>
             <tr class="warning">

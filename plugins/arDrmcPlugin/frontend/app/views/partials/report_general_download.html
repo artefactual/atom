@@ -19,7 +19,7 @@
           <tbody>
             <tr ng-repeat="item in table.results">
               <td>{{ item.type }}</td>
-              <td>{{ item.date | date: 'short' }}</td>
+              <td>{{ item.date | date:'short' }}</td>
               <td>{{ item.name }}</td>
               <td>{{ item.uuid }}</td>
               <td>{{ item.size | UnitFilter }}</td>
@@ -64,7 +64,7 @@
             <tr ng-repeat="item in table.results">
               <td>{{ item.user }}</td>
               <td>{{ item.type }}</td>
-              <td>{{ item.date | date: 'short' }}</td>
+              <td>{{ item.date | date:'short' }}</td>
               <td>{{ item.name }}</td>
               <td>{{ item.uuid }}</td>
               <td>{{ item.size | UnitFilter }}</td>

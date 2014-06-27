@@ -54,17 +54,17 @@
           <div class="field" ng-if="reportDate">
             <h3>Saved at</h3>
             <div>
-              {{ reportDate | date: 'short' }}
+              {{ reportDate | date:'short' }}
             </div>
           </div>
           <div class="field">
             <h3>Date range</h3>
             <div ng-if="reportParams.from || reportParams.to">
               <div ng-if="reportParams.from">
-                From: {{ reportParams.from | date: 'short' }}
+                From: {{ reportParams.from | date:'short' }}
               </div>
               <div ng-if="reportParams.to">
-                To: {{ reportParams.to | date: 'short' }}
+                To: {{ reportParams.to | date:'short' }}
               </div>
             </div>
             <div ng-if="!reportParams.from && !reportParams.to">

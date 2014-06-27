@@ -90,7 +90,7 @@
                       <a ng-if="aip.aip_name" href ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a>
                       {{ !aip.aip_name ? 'Not in the DRMC' : '' }}
                     </td>
-                    <td>{{ aip.time_completed | date: 'short' }}</td>
+                    <td>{{ aip.time_completed | date:'short' }}</td>
                     <td>{{ aip.duration | ConvertSecondsFilter }}</td>
                     <td>Failed</td>
                     <td ng-show="aipsPendingRecovery != undefined">
@@ -122,7 +122,7 @@
                       <a ng-if="aip.aip_name" href ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a>
                       {{ !aip.aip_name ? 'Not in the DRMC' : '' }}
                     </td>
-                    <td>{{ aip.time_completed | date: 'short' }}</td>
+                    <td>{{ aip.time_completed | date:'short' }}</td>
                     <td>{{ aip.duration | ConvertSecondsFilter }}</td>
                     <td>{{ aip.statusAlert }}</td>
                   </tr>
