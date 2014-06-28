@@ -666,35 +666,37 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       // AIP paths
       $relativePathWithinAip = $fLocatAttrs->href;
       $relativePathWithinAipParts = pathinfo($relativePathWithinAip);
-      $relativePathWithinDip = 'objects'.DIRECTORY_SEPARATOR.$uuid.'-'.$relativePathWithinAipParts['basename'];
-      $absolutePathWithinDip = $this->filename.DIRECTORY_SEPARATOR.$relativePathWithinDip;
       sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             [path->AIP] '.$relativePathWithinAip);
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             [path->DIP] '.$relativePathWithinDip);
+
+      // DIP paths
+      if (false === $absolutePathWithinDip = $this->getAccessCopyPath($uuid))
+      {
+        // This is actually not too bad, maybe normalization failed but we still
+        // want to have an information object
+        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             Access copy cannot be found in the DIP');
+      }
+      else
+      {
+        $absolutePathWithinDipParts = pathinfo($absolutePathWithinDip);
+        $relativePathWithinDip = 'objects'.DIRECTORY_SEPARATOR.$absolutePathWithinDipParts['basename'];
+        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             [path->DIP] '.$relativePathWithinDip);
+      }
 
       // Create child file information object
       $child = new QubitInformationObject;
       $child->parentId = $aipIo->id;
       $child->levelOfDescriptionId = sfConfig::get('app_drmc_lod_digital_object_id');
       $child->setPublicationStatusByName('Published');
-      $child->title = $relativePathWithinAipParts['basename'];
+      $child->title = $relativePathWithinAipParts['basename']; // Notice that we use the filename of the original file, not the access copy
 
       // Files other than the ones under USE="original" are not included
-      if ($use === 'original')
+      if ($use === 'original' && false !== $absolutePathWithinDip && is_readable($absolutePathWithinDip))
       {
-        if (is_readable($absolutePathWithinDip))
-        {
-          // Add digital object
-          $digitalObject = new QubitDigitalObject;
-          $digitalObject->assets[] = new QubitAsset($absolutePathWithinDip);
-          $digitalObject->usageId = QubitTerm::MASTER_ID;
-          $child->digitalObjects[] = $digitalObject;
-        }
-        else
-        {
-          // This is actually not too bad, maybe normalization failed but we still
-          // want to have an information object
-          sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             [path->DIP] File cannot be found or read: '.$absolutePathWithinDip);
-        }
+        // Add digital object
+        $digitalObject = new QubitDigitalObject;
+        $digitalObject->assets[] = new QubitAsset($absolutePathWithinDip);
+        $digitalObject->usageId = QubitTerm::MASTER_ID;
+        $child->digitalObjects[] = $digitalObject;
       }
 
       $child->save();
@@ -774,32 +776,16 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     return $explore($items);
   }
 
-  /**
-   * Find the original filename
-   * simple_load_string() is used to make xpath queries faster
-   */
-  protected function getOriginalFilename($fileid)
+  protected function getAccessCopyPath($uuid)
   {
-    if (false !== $file = $this->document->xpath('//m:fileSec/m:fileGrp[@USE="original"]/m:file[@ID="'.$fileid.'"]'))
+    $glob = $this->filename.DIRECTORY_SEPARATOR.'objects'.DIRECTORY_SEPARATOR.$uuid.'*';
+    $matches = glob($glob, GLOB_NOSORT);
+    if (empty($matches))
     {
-      if (null !== $admId = $file[0]['ADMID'])
-      {
-        $fileData = $file[0];
-        $fileData = simplexml_load_string($fileData->asXML());
-
-        if (false !== $xmlData = $this->document->xpath('//m:amdSec[@ID="'.(string)$admId.'"]/m:techMD/m:mdWrap/m:xmlData'))
-        {
-          $xmlData = $xmlData[0];
-          $xmlData = simplexml_load_string($xmlData->asXML());
-
-          $xmlData->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
-          if (false !== $originalName = $xmlData->xpath('//s:object//s:originalName'))
-          {
-            return end(explode('/', (string)$originalName[0]));
-          }
-        }
-      }
+      return false;
     }
+
+    return current($matches);
   }
 
   protected function getMainDmdSec()
