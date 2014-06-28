@@ -102,6 +102,8 @@
 
       <ar:context-browser-technology id="{{ techRecord.id }}" user="user" files="files" on-select-node="selectNode()"></ar:context-browser-technology>
 
+      <ng-include src="viewsPath + '/partials/aip-overview.html'" ng-if="aggregation != undefined || files.length > 0"></ng-include>
+
     </div>
   </div>
 

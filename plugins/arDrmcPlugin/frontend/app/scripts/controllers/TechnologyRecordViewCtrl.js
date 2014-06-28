@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $stateParams, InformationObjectService, ModalEditDcMetadataService) {
+module.exports = function ($scope, $stateParams, InformationObjectService, ModalEditDcMetadataService, ModalDigitalObjectViewerService, ModalDownloadService) {
 
   $scope.pull = function () {
     InformationObjectService.getSupportingTechnologyRecord($stateParams.id).then(function (response) {
@@ -18,7 +18,9 @@ module.exports = function ($scope, $stateParams, InformationObjectService, Modal
   $scope.files = [];
 
   $scope.selectNode = function () {
-
+    InformationObjectService.getAips($stateParams.id).then(function (data) {
+      $scope.aggregation = data.overview;
+    });
   };
 
   // Edit metadata of the current technology record
@@ -35,6 +37,28 @@ module.exports = function ($scope, $stateParams, InformationObjectService, Modal
       $scope.pull();
       $scope.$broadcast('reload');
     });
+  };
+
+
+  // TODO: downloadFile, downloadAip and openDigitalObjectModal is used both in
+  // WorkViewCtrl and TechnologyRecordViewctrl, inside aip-overview.html. Create
+  // a directive that can be shared instead of having duplicated functionality.
+
+  $scope.downloadFile = function (file) {
+    ModalDownloadService.downloadFile(
+      file.aip_name,
+      file.aip_uuid,
+      file.id,
+      file.original_relative_path_within_aip
+    );
+  };
+
+  $scope.downloadAip = function (file) {
+    ModalDownloadService.downloadAip(file.aip_name, file.aip_uuid);
+  };
+
+  $scope.openDigitalObjectModal = function (files, index) {
+    ModalDigitalObjectViewerService.open(files, index);
   };
 
 };

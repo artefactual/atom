@@ -24,13 +24,16 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
   // A list of digital objects. This is shared within the context browser
   // directive (two-way binding);
   $scope.files = [];
-  $scope.viewerFiles = [];
 
   $scope.selectNode = function () {
     InformationObjectService.getAips($stateParams.id).then(function (data) {
       $scope.aggregation = data.overview;
     });
   };
+
+  // TODO: downloadFile, downloadAip and openDigitalObjectModal is used both in
+  // WorkViewCtrl and TechnologyRecordViewctrl, inside aip-overview.html. Create
+  // a directive that can be shared instead of having duplicated functionality.
 
   $scope.downloadFile = function (file) {
     ModalDownloadService.downloadFile(

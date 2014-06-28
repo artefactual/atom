@@ -1,0 +1,96 @@
+  <div class="content">
+
+    <section ng-if="aggregation != undefined">
+      <div class="menu-list">
+        <ul class="menu-list-left">
+          <li><h2>AIPs overview</h2></li>
+        </ul>
+      </div>
+      <div>
+        <div class="digital-object-aggregation">
+          <div class="field">
+            <h3>Total AIPs</h3>
+            <div>
+              {{ aggregation.total.count || 0 }}
+              <span>&nbsp;{{ aggregation.total.size | UnitFilter:2 | EmptyFilter }}</span>
+            </div>
+          </div>
+          <div class="field">
+            <h3>Artwork component AIPs</h3>
+            <div>{{ aggregation[179].count || 0 }}
+              <span>&nbsp;{{ aggregation[179].size | UnitFilter:2 | EmptyFilter }}</span>
+            </div>
+          </div>
+           <div class="field">
+            <h3>Artwork material AIPs</h3>
+            <div>
+              {{ aggregation[180].count || 0 }}
+              <span>&nbsp;{{ aggregation[180].size | UnitFilter:2 | EmptyFilter }}</span>
+            </div>
+          </div>
+          <div class="field">
+            <h3>Supporting documentation AIPs</h3>
+            <div>
+              {{ aggregation[181].count || 0 }}
+              <span>&nbsp;{{ aggregation[181].size | UnitFilter:2 | EmptyFilter }}</span>
+            </div>
+          </div>
+          <div class="field">
+            <h3>Supporting technology AIPs</h3>
+            <div>
+              {{ aggregation[182].count || 0 }}
+              <span>&nbsp;{{ aggregation[182].size | UnitFilter:2 | EmptyFilter }}</span>
+            </div>
+          </div>
+          <div class="field">
+            <h3>Unclassified AIPs</h3>
+            <div>
+              {{ aggregation.unclassified.count || 0 }}
+              <span>&nbsp;{{ aggregation.unclassified.size | UnitFilter:2 | EmptyFilter }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section ng-if="files.length > 0">
+      <div class="menu-list">
+        <ul class="menu-list-left">
+          <li><h2>Digital object browser</h2></li>
+        </ul>
+      </div>
+      <div>
+        <div class="browse-view-list">
+          <table class="table table-bordered">
+            <thead>
+              <th>Preview</th>
+              <th>Filename</th>
+              <th>Size</th>
+              <th>AIP</th>
+              <th></th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="file in files track by $index" ng-class="{ selected: file.selected == true }">
+                <!-- TODO layout from css -->
+                <td class="preview" width="20%">
+                  <a href ng-click="openDigitalObjectModal(files, $index)"><img width="100%" ng-src="{{ file.thumbnail_path }}"/></a>
+                </td>
+                <td class="name">
+                  <a href ng-click="openDigitalObjectModal(files, $index)">{{ file.filename }}</a>
+                  <span class="block-detail" ng-if="file.puid">{{ file.puid }}</span>
+                  <span class="block-detail" ng-if="file.mime_type">{{ file.mime_type }}</span>
+                </td>
+                <td class="size">{{ file.byte_size | UnitFilter:2 }}</td>
+                <td>
+                  <a href ui-sref="main.aips.view({ uuid: file.aip_uuid })">{{ file.aip_title }}</a>
+                </td>
+                <td><a href class="btn btn-small" ng-click="downloadFile(file)" ng-show="user.canEdit()">Download</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
