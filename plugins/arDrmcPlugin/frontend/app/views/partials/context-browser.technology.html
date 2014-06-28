@@ -118,6 +118,9 @@
             </div>
           </div>
 
+          <!-- File list -->
+          <ng-include src="viewsPath + '/partials/context-browser.sidebar-files.html'" ng-if="hasFiles()"></ng-include>
+
           <!-- Dublin Core metadata -->
           <div ng-if="currentNode.hasDc" class="cb-sidebar-subsection cb-sidebar-subsection-collapsible" ng-class="{ collapsed: dcCollapsed }">
             <h4><a href ng-click="dcCollapsed = !dcCollapsed">Dublin Core metadata</a></h4>

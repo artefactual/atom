@@ -2,11 +2,15 @@
 
 var ContextBrowser = require('../lib/cbd');
 
-module.exports = function ($scope, $element, $document, $modal, ModalAssociativeRelationship, InformationObjectService, FullscreenService) {
+module.exports = function ($scope, $rootScope, $element, $document, $modal, ModalAssociativeRelationship, ModalDigitalObjectViewerService, InformationObjectService, FullscreenService) {
 
   // Aliases (not needed, just avoiding the refactor now)
   var scope = $scope;
   var element = $element;
+
+  // Our directive has an isolated model, so we need to import the following
+  // reference manually. Is there a better solution?
+  scope.viewsPath = $rootScope.viewsPath;
 
 
   /**
@@ -313,8 +317,83 @@ module.exports = function ($scope, $element, $document, $modal, ModalAssociative
 
 
   /**
+   * File browser
+   * TODO: make a directive for this
+   */
+
+  scope.fileListViewMode = 'list';
+  scope.filesCollapsed = false;
+
+  scope.hasFiles = function () {
+    return typeof scope.files !== 'undefined' && scope.files.length > 0;
+  };
+
+  scope.hasSelectedFiles = function () {
+    return scope.files.some(function (element) {
+      return typeof element.selected !== 'undefined' && element.selected === true;
+    });
+  };
+
+  scope.cancelFileSelection = function () {
+    scope.files.forEach(function (element) {
+      element.selected = false;
+    });
+  };
+
+  scope.selectFile = function (file, $event, $index) {
+    if ($event.shiftKey) {
+      file.selected = !file.selected;
+    } else {
+      ModalDigitalObjectViewerService.open(scope.files, $index);
+    }
+  };
+
+  scope.openAndCompareFiles = function () {
+    // TODO: pass selected files
+    ModalDigitalObjectViewerService.open(scope.files);
+  };
+
+
+  /**
    * Node action
    */
+
+  scope.selectNode = function (id) {
+    scope.currentNode = scope.activeNodes[id] = { id: id };
+    // Fetch information from the server
+    InformationObjectService.getById(id).then(function (response) {
+      scope.currentNode.data = response.data;
+      // Check if there are DC fields
+      scope.currentNode.hasDc = Object.keys(scope.currentNode.data).some(function (element) {
+        if (element === 'title') {
+          return false;
+        }
+        return -1 < scope.dcFields.indexOf(element);
+      });
+      // Invoke corresponding function injected in the scope
+      scope._selectNode();
+      // Retrieve a list of files or digital objects
+      // TODO: pager?
+      InformationObjectService.getDigitalObjects(id, false, { limit: 100 }).then(function (response) {
+        if (response.data.results.length > 0) {
+          scope.files = response.data.results;
+        } else {
+          scope.files = [];
+        }
+      }, function () {
+        scope.files = [];
+      });
+      // Retrieve TMS metadata for the component
+      if (InformationObjectService.isComponent(scope.currentNode.data.level_of_description_id)) {
+        InformationObjectService.getTms(id).then(function (response) {
+          scope.currentNode.data.tms = response;
+          // We don't need this
+          delete scope.currentNode.data.tms.compCount;
+          delete scope.currentNode.data.tms.componentID;
+        });
+      }
+    });
+  };
 
   scope.linkNode = function (id) {
     // Prompt the user

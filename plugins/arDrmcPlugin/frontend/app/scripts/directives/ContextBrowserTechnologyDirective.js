@@ -6,7 +6,9 @@ module.exports = function (SETTINGS, InformationObjectService, ModalEditDcMetada
     templateUrl: SETTINGS.viewsPath + '/partials/context-browser.technology.html',
     scope: {
       id: '@',
-      user: '='
+      user: '=',
+      files: '=',
+      _selectNode: '&onSelectNode'
     },
     controller: 'ContextBrowserCtrl',
     replace: true,
@@ -23,21 +25,6 @@ module.exports = function (SETTINGS, InformationObjectService, ModalEditDcMetada
       /**
        * Node actions
        */
-
-      scope.selectNode = function (id) {
-        scope.currentNode = scope.activeNodes[id] = { id: id };
-        // Fetch information from the server
-        InformationObjectService.getById(id).then(function (response) {
-          scope.currentNode.data = response.data;
-          // Check if there are DC fields
-          scope.currentNode.hasDc = Object.keys(scope.currentNode.data).some(function (element) {
-            if (element === 'title') {
-              return false;
-            }
-            return -1 < scope.dcFields.indexOf(element);
-          });
-        });
-      };
 
       scope.addChildNode = function (parentId) {
         // TODO: Use a modal

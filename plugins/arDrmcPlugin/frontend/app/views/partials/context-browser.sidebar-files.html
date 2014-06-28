@@ -1,0 +1,44 @@
+<div class="cb-sidebar-subsection cb-file-list cb-sidebar-subsection-collapsible" ng-class="{ collapsed: filesCollapsed }">
+  <h4 class="cb-file-list-mode-select">
+    <a href ng-click="filesCollapsed = !filesCollapsed">Files ({{ files.length }} items)</a>
+    <div class="modes" ng-show="!filesCollapsed">
+      <a ng-class="{ mode: true, 'mode-list': true, active: fileListViewMode  == 'list' }" href ng-click="fileListViewMode = 'list'"><i class="icon icon-align-justify"></i></a>
+      <a ng-class="{ mode: true, 'mode-thumbnails': true, active: fileListViewMode  == 'thumbnails' }" href ng-click="fileListViewMode = 'thumbnails'"><i class="icon icon-th-large"></i></a>
+    </div>
+  </h4>
+  <div ng-if="!filesCollapsed">
+    <!-- Mode "list" -->
+    <div ng-if="fileListViewMode == 'list'" class="cb-sidebar-subsection-body cb-sidebar-table">
+      <table class="table">
+        <tbody>
+          <tr ng-repeat="file in files track by $index" ng-click="selectFile(file, $event, $index)" ng-class="{ selected: file.selected == true }">
+            <td class="name">
+              <a href>{{ file.filename }}</a>
+            </td>
+            <td class="size">{{ file.byte_size | UnitFilter:2 }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mode "thumbnails" -->
+    <div ng-if="fileListViewMode == 'thumbnails'" class="cb-sidebar-subsection-body cb-sidebar-thumbnails">
+      <div ng-click="selectFile(file, $event, $index)" ng-repeat="file in files" ng-class="{ item: true, selected: file.selected == true }">
+        <div class="preview">
+          <img ng-src="{{ file.thumbnail_path }}"/>
+        </div>
+        <div class="footer">
+          {{ file.filename }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Selection options -->
+    <div class="cb-file-options" ng-show="hasSelectedFiles()">
+      <ul class="nav">
+        <li><a class="btn btn-small" href ng-click="openAndCompareFiles()">Compare</a></li>
+        <li><a class="btn btn-small" href ng-click="cancelFileSelection()">Cancel</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

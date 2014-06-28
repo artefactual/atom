@@ -13,6 +13,14 @@ module.exports = function ($scope, $stateParams, InformationObjectService, Modal
   // Pull during initialization
   $scope.pull();
 
+  // A list of digital objects. This is shared within the context browser
+  // directive (two-way binding);
+  $scope.files = [];
+
+  $scope.selectNode = function () {
+
+  };
+
   // Edit metadata of the current technology record
   $scope.edit = function () {
     ModalEditDcMetadataService.edit($scope.techRecord.id).result.then(function () {
