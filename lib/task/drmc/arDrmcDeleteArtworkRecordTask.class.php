@@ -87,7 +87,7 @@ EOF;
 
     // Delete AIPs for this specific artwork
     $criteria = new Criteria;
-    $criteria->add(QubitAip::PART_OF, $item->id);
+    $criteria->add(QubitAip::PART_OF, $artwork->id);
     foreach (QubitAip::get($criteria) as $aip)
     {
       $this->logSection('END', 'Removing AIP '.$aip->id);
