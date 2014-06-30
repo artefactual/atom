@@ -258,7 +258,7 @@ mapping:
         fields:
           inheritReferenceCode:
             type: string
-            index: not_analyzed
+            index: analyzed
           autocomplete:
             include_in_all: false
             index_analyzer: autocomplete
