@@ -62,7 +62,7 @@ EOL;
     {
       $date = new DateTime($item->created_at);
       $timezone = new DateTimeZone('UTC');
-      $createdAt = $date->->setTimezone($timezone)->format('Y-m-d');
+      $createdAt = $date->setTimezone($timezone)->format('Y-m-d');
 
       array_push($aipCreations, array(
         'id' => $item->id,
