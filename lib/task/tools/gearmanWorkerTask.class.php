@@ -23,7 +23,7 @@
  * @package    symfony
  * @subpackage task
  */
-class gearmanWorkerTask extends sfBaseTask
+class gearmanWorkerTask extends arBaseTask
 {
   protected function configure()
   {
