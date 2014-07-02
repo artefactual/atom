@@ -93,6 +93,11 @@ abstract class BaseAip extends QubitObject implements ArrayAccess
       return true;
     }
 
+    if ('fixityRecoverys' == $name)
+    {
+      return true;
+    }
+
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
   }
 
@@ -131,6 +136,23 @@ abstract class BaseAip extends QubitObject implements ArrayAccess
       return $this->refFkValues['fixityReports'];
     }
 
+    if ('fixityRecoverys' == $name)
+    {
+      if (!isset($this->refFkValues['fixityRecoverys']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['fixityRecoverys'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['fixityRecoverys'] = self::getfixityRecoverysById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['fixityRecoverys'];
+    }
+
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
   }
 
@@ -166,5 +188,25 @@ abstract class BaseAip extends QubitObject implements ArrayAccess
   public function addfixityReportsCriteria(Criteria $criteria)
   {
     return self::addfixityReportsCriteriaById($criteria, $this->id);
+  }
+
+  public static function addfixityRecoverysCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitFixityRecovery::AIP_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getfixityRecoverysById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addfixityRecoverysCriteriaById($criteria, $id);
+
+    return QubitFixityRecovery::get($criteria, $options);
+  }
+
+  public function addfixityRecoverysCriteria(Criteria $criteria)
+  {
+    return self::addfixityRecoverysCriteriaById($criteria, $this->id);
   }
 }

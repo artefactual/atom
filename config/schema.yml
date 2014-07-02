@@ -115,10 +115,11 @@ propel:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }
     success: boolean
     message: varchar(255)
-    fixity_report_id: { type: integer, foreignTable: fixity_report, foreignReference: id, onDelete: setnull }
+    aip_id: { type: integer, foreignTable: aip, foreignReference: id, onDelete: setnull }
     time_started: timestamp
     time_completed: timestamp
     user_id: { type: integer, foreignTable: user, foreignReference: id, onDelete: setnull }
+    storage_service_event_id: { type: integer, required: true }
 
   function:
     id: { type: integer, required: true, primaryKey: true, foreignTable: object, foreignReference: id, onDelete: cascade, inheritanceKey: true }

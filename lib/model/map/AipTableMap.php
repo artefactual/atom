@@ -56,6 +56,7 @@ class AipTableMap extends TableMap {
     $this->addRelation('term', 'term', RelationMap::MANY_TO_ONE, array('type_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('objectRelatedBypartOf', 'object', RelationMap::MANY_TO_ONE, array('part_of' => 'id', ), 'SET NULL', null);
     $this->addRelation('fixityReport', 'fixityReport', RelationMap::ONE_TO_MANY, array('id' => 'aip_id', ), 'SET NULL', null);
+    $this->addRelation('fixityRecovery', 'fixityRecovery', RelationMap::ONE_TO_MANY, array('id' => 'aip_id', ), 'SET NULL', null);
 	} // buildRelations()
 
 } // AipTableMap

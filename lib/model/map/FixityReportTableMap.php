@@ -55,7 +55,6 @@ class FixityReportTableMap extends TableMap {
 	{
     $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('aip', 'aip', RelationMap::MANY_TO_ONE, array('aip_id' => 'id', ), 'SET NULL', null);
-    $this->addRelation('fixityRecovery', 'fixityRecovery', RelationMap::ONE_TO_MANY, array('id' => 'fixity_report_id', ), 'SET NULL', null);
 	} // buildRelations()
 
 } // FixityReportTableMap

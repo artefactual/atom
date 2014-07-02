@@ -15,8 +15,7 @@ module.exports = function ($scope, $q, $timeout, StatisticsService, FixityServic
       StatisticsService.getRunningTotalByCodec(),
       StatisticsService.getRunningTotalByFormat(),
       StatisticsService.getArtworkSizesByYearSummary(),
-      StatisticsService.getArtworkCountsAndTotalsByDate(),
-      AIPService.getUuidsOfAipsMatchingStatus('RECOVER_REQ')
+      StatisticsService.getArtworkCountsAndTotalsByDate()
     ];
 
     $q.all(queries).then(function (responses) {
@@ -79,7 +78,6 @@ module.exports = function ($scope, $q, $timeout, StatisticsService, FixityServic
         yProperty: 'total',
         data: responses[7].data.results.creation
       }];
-      $scope.aipsPendingRecovery = responses[8].data.uuids;
     }, function (responses) {
       console.log('Something went wrong', responses);
     });
@@ -129,22 +127,9 @@ module.exports = function ($scope, $q, $timeout, StatisticsService, FixityServic
 
   getFixityWidgetData();
 
-  // Check if AIP is pending recovery
-  // TODO: this is running for each loop, it will slow things! It should be
-  // precomputed after the XHR succeeds (in pull())
-  $scope.isPendingRecovery = function (uuid) {
-    if (
-      typeof uuid === 'undefined' || typeof $scope.aipsPendingRecovery === 'undefined'
-    ) {
-      return false;
-    }
-
-    return $scope.aipsPendingRecovery.indexOf(uuid) !== -1;
-  };
-
   // Allow request for AIP recovery
-  $scope.requestRecover = function (uuid) {
-    AIPService.recoverAip(uuid)
+  $scope.requestRecover = function (reportId) {
+    AIPService.recoverAip(reportId)
       .success(function () {
         pull();
       })

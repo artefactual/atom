@@ -10,10 +10,11 @@ abstract class BaseFixityRecovery extends QubitObject implements ArrayAccess
     ID = 'fixity_recovery.ID',
     SUCCESS = 'fixity_recovery.SUCCESS',
     MESSAGE = 'fixity_recovery.MESSAGE',
-    FIXITY_REPORT_ID = 'fixity_recovery.FIXITY_REPORT_ID',
+    AIP_ID = 'fixity_recovery.AIP_ID',
     TIME_STARTED = 'fixity_recovery.TIME_STARTED',
     TIME_COMPLETED = 'fixity_recovery.TIME_COMPLETED',
-    USER_ID = 'fixity_recovery.USER_ID';
+    USER_ID = 'fixity_recovery.USER_ID',
+    STORAGE_SERVICE_EVENT_ID = 'fixity_recovery.STORAGE_SERVICE_EVENT_ID';
 
   public static function addSelectColumns(Criteria $criteria)
   {
@@ -24,10 +25,11 @@ abstract class BaseFixityRecovery extends QubitObject implements ArrayAccess
     $criteria->addSelectColumn(QubitFixityRecovery::ID);
     $criteria->addSelectColumn(QubitFixityRecovery::SUCCESS);
     $criteria->addSelectColumn(QubitFixityRecovery::MESSAGE);
-    $criteria->addSelectColumn(QubitFixityRecovery::FIXITY_REPORT_ID);
+    $criteria->addSelectColumn(QubitFixityRecovery::AIP_ID);
     $criteria->addSelectColumn(QubitFixityRecovery::TIME_STARTED);
     $criteria->addSelectColumn(QubitFixityRecovery::TIME_COMPLETED);
     $criteria->addSelectColumn(QubitFixityRecovery::USER_ID);
+    $criteria->addSelectColumn(QubitFixityRecovery::STORAGE_SERVICE_EVENT_ID);
 
     return $criteria;
   }
@@ -74,9 +76,9 @@ abstract class BaseFixityRecovery extends QubitObject implements ArrayAccess
     $this->tables[] = Propel::getDatabaseMap(QubitFixityRecovery::DATABASE_NAME)->getTable(QubitFixityRecovery::TABLE_NAME);
   }
 
-  public static function addJoinfixityReportCriteria(Criteria $criteria)
+  public static function addJoinaipCriteria(Criteria $criteria)
   {
-    $criteria->addJoin(QubitFixityRecovery::FIXITY_REPORT_ID, QubitFixityReport::ID);
+    $criteria->addJoin(QubitFixityRecovery::AIP_ID, QubitAip::ID);
 
     return $criteria;
   }

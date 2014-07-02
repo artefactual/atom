@@ -54,10 +54,6 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'aipsBrowse'));
 
-    $this->addRoute('GET', '/api/aips/status', array(
-      'module' => 'api',
-      'action' => 'aipsStorageServiceStatus'));
-
     $this->addRoute('GET', '/api/aips/:uuid', array(
       'module' => 'api',
       'action' => 'aipsView',
@@ -76,11 +72,6 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
     $this->addRoute('POST', '/api/aips/:uuid/reclassify', array(
       'module' => 'api',
       'action' => 'aipsReclassify',
-      'params' => array('uuid' => self::REGEX_UUID)));
-
-    $this->addRoute('POST', '/api/aips/:uuid/recover', array(
-      'module' => 'api',
-      'action' => 'aipsRecover',
       'params' => array('uuid' => self::REGEX_UUID)));
 
     /**
@@ -334,7 +325,20 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'fixityStatus'));
 
     /**
-     * Reports
+     * AIP recovery
+     */
+
+    $this->addRoute('POST', '/api/recover/:id', array(
+      'module' => 'api',
+      'action' => 'recoverRequest',
+      'params' => array('id' => self::REGEX_ID)));
+
+    $this->addRoute('POST', '/api/recover/results', array(
+      'module' => 'api',
+      'action' => 'recoverResults'));
+
+    /**
+     * reports
      */
 
     // '/api/reports' doesn't work, using report instead for the moment

@@ -106,6 +106,31 @@ class ApiFixityStatusAction extends QubitApiAction
         $report['duration'] = $duration;
       }
 
+      // Determine whether a recovery, for this AIP, is awaiting approval
+      $criteria = new Criteria;
+
+      $criteria->add(QubitFixityRecovery::AIP_ID, $doc['aip']['id']);
+      $criteria->add(QubitFixityRecovery::TIME_COMPLETED, null, Criteria::ISNULL);
+
+      $report['recoveryPending'] = (null != QubitFixityRecovery::getOne($criteria));
+
+      // Add result of most recent recovery resolved for this AIP (if not awaiting administrator approval)
+      $criteria = new Criteria;
+
+      $criteria->add(QubitFixityRecovery::AIP_ID, $doc['aip']['id']);
+      $criteria->add(QubitFixityRecovery::TIME_COMPLETED, null, Criteria::ISNOTNULL);
+      $criteria->addDescendingOrderByColumn(QubitFixityRecovery::ID);
+
+      if (null != ($recovery = QubitFixityRecovery::getOne($criteria)) && null != $recovery->timeCompleted)
+      {
+        $report['lastRecoveryResolved'] = array(
+          'outcome' => (bool)$recovery->success,
+          'message' => $recovery->message,
+          'timeStarted' => $recovery->timeStarted,
+          'timeCompleted' => $recovery->timeCompleted
+        );
+      }
+
       $data['lastFails'][] = $report;
     }
 

@@ -166,6 +166,8 @@ class arElasticSearchFixityReportPdo
 
     if (isset($this->aip_id))
     {
+      $serialized['aip']['id'] = $this->aip_id;
+
       if (false !== $name = $this->getAipName($this->aip_id))
       {
         $serialized['aip']['name'] = $name;

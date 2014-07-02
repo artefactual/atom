@@ -480,6 +480,7 @@ mapping:
       aip:
         type: object
         properties:
+          id: { type: integer, index: not_analyzed, include_in_all: false }
           uuid: { type: string, index: not_analyzed, include_in_all: false }
           name: { type: string, index: not_analyzed, include_in_all: false }
           partOf: { type: string, index: not_analyzed, include_in_all: false }

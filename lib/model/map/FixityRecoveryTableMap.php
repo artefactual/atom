@@ -39,10 +39,11 @@ class FixityRecoveryTableMap extends TableMap {
 		$this->addForeignPrimaryKey('ID', 'id', 'INTEGER' , 'object', 'ID', true, null, null);
 		$this->addColumn('SUCCESS', 'success', 'BOOLEAN', false, null, null);
 		$this->addColumn('MESSAGE', 'message', 'VARCHAR', false, 255, null);
-		$this->addForeignKey('FIXITY_REPORT_ID', 'fixityReportId', 'INTEGER', 'fixity_report', 'ID', false, null, null);
+		$this->addForeignKey('AIP_ID', 'aipId', 'INTEGER', 'aip', 'ID', false, null, null);
 		$this->addColumn('TIME_STARTED', 'timeStarted', 'TIMESTAMP', false, null, null);
 		$this->addColumn('TIME_COMPLETED', 'timeCompleted', 'TIMESTAMP', false, null, null);
 		$this->addForeignKey('USER_ID', 'userId', 'INTEGER', 'user', 'ID', false, null, null);
+		$this->addColumn('STORAGE_SERVICE_EVENT_ID', 'storageServiceEventId', 'INTEGER', true, null, null);
 		// validators
 	} // initialize()
 
@@ -52,7 +53,7 @@ class FixityRecoveryTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
-    $this->addRelation('fixityReport', 'fixityReport', RelationMap::MANY_TO_ONE, array('fixity_report_id' => 'id', ), 'SET NULL', null);
+    $this->addRelation('aip', 'aip', RelationMap::MANY_TO_ONE, array('aip_id' => 'id', ), 'SET NULL', null);
     $this->addRelation('user', 'user', RelationMap::MANY_TO_ONE, array('user_id' => 'id', ), 'SET NULL', null);
 	} // buildRelations()
 
