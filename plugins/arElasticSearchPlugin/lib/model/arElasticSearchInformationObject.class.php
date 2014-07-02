@@ -85,9 +85,21 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
 
   public static function updateAcl($id, $acl)
   {
-    $node = new arElasticSearchInformationObjectPdo($id);
+    try
+    {
+      $serialized = QubitSearch::getInstance()->getDocument($id);
+    }
+    catch (\Elastica\Exception\NotFoundException $e)
+    {
+      print "Document $id not found, adding\n";
 
-    $serialized = $node->serialize();
+      $node = new arElasticSearchInformationObjectPdo($id);
+      $serialized = $node->serialize();
+
+      QubitSearch::getInstance()->addDocument($serialized, 'QubitInformationObject');
+    }
+
+    $serialized = array('id' => $id);
 
     switch ($acl->action)
     {
@@ -100,10 +112,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
       'groupIds' => $acl->groupIds
     );
 
-    // TODO: use ElasticSearch's update API to speed things up here,
-    // addDocument() on an existing document updates it, but it
-    // updates the *entire* document instead of just the properties that need change.
-    QubitSearch::getInstance()->addDocument($serialized, 'QubitInformationObject');
+    QubitSearch::getInstance()->addDocument($serialized, 'QubitInformationObject', true);
   }
 
   public static function update($object)

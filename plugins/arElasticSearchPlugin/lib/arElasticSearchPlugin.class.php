@@ -236,22 +236,32 @@ class arElasticSearchPlugin extends QubitSearchEngine
 
   /**
    * Adds any batch documents to the index and flushes the batch.
+   * Set update to true to use ES's update API instead of re-adding the documents.
    */
-  public function flushBatch()
+  public function flushBatch($update = false)
   {
     // If there are still documents in the batch queue, send them
     if ($this->config['batch_mode'] && count($this->batchDocs) > 0)
     {
-      $this->index->addDocuments($this->batchDocs);
+      if ($update)
+      {
+        $this->index->updateDocuments($this->batchDocs);
+      }
+      else
+      {
+        $this->index->addDocuments($this->batchDocs);
+      }
+
       $this->index->flush();
       $this->batchDocs = array();
     }
   }
 
   /**
-   * Centralize document addition to keep control of the batch queue
+   * Centralize document addition to keep control of the batch queue.
+   * Set update to true to use ES's update API instead of re-adding the document.
    */
-  public function addDocument($data, $type)
+  public function addDocument($data, $type, $update = false)
   {
     if (!isset($data['id']))
     {
@@ -279,9 +289,25 @@ class arElasticSearchPlugin extends QubitSearchEngine
     }
     else
     {
-      $this->index->getType($type)->addDocument($document);
+      if ($update)
+      {
+        $this->index->getType($type)->updateDocument($document);
+      }
+      else
+      {
+        $this->index->getType($type)->addDocument($document);
+      }
+
       $this->index->flush();
     }
+  }
+
+  /**
+   * Get an existing document, throw an exception otherwise.
+   */
+  public function getDocument($id, $type)
+  {
+    return $this->index->getType($type)->getDocument($id);
   }
 
   /**
