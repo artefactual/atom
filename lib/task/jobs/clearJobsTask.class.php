@@ -18,20 +18,20 @@
  */
 
 /**
- * List AtoM job information
+ * Clear the AtoM jobs table
  *
  * @package    symfony
  * @subpackage task
  * @author     Mike Gale <mikeg@artefactual.com>
  */
-class listJobsTask extends sfBaseTask
+class clearJobsTask extends sfBaseTask
 {
     protected $namespace        = 'jobs';
-    protected $name             = 'list';
-    protected $briefDescription = 'List AtoM jobs';
+    protected $name             = 'clear';
+    protected $briefDescription = 'Clear AtoM jobs';
 
     protected $detailedDescription = <<<EOF
-List AtoM jobs. If no options are set it will list ALL the jobs.
+Clears jobs
 EOF;
 
   /**
@@ -43,8 +43,6 @@ EOF;
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-      new sfCommandOption('completed', null, sfCommandOption::PARAMETER_NONE, 'List only completed jobs'),
-      new sfCommandOption('running', null, sfCommandOption::PARAMETER_NONE, 'List only running jobs'),
     ));
   }
 
@@ -58,37 +56,33 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-    $criteria = new Criteria;
-    if ($options['completed'])
+    if (!function_exists('readline'))
     {
-      $criteria->add(QubitJob::STATUS_ID, QubitTerm::JOB_STATUS_COMPLETED_ID);
-      $criteria->add(QubitJob::STATUS_ID, QubitTerm::JOB_STATUS_ERROR_ID);
+      throw new Exception('This tasks needs the PHP readline extension.');
     }
 
-    if ($options['running'])
+    $sql = 'SELECT count(1) FROM job WHERE status_id=?';
+    $runningJobCount = QubitPdo::fetchColumn($sql, array(QubitTerm::JOB_STATUS_IN_PROGRESS_ID));
+    
+    if ($runningJobCount > 0)
     {
-      $criteria->add(QubitJob::STATUS_ID, QubitTerm::JOB_STATUS_IN_PROGRESS_ID);
+      print "WARNING: AtoM reports there are jobs currently running. It is *highly* recommended you make sure ".
+            "there aren't any jobs actually running.\n\n";
     }
 
-    $jobs = QubitJob::get($criteria);
+    $confirmed = readline('Are you SURE you want to clear all jobs in the database? Type "clear" to confirm: ');
+    if ($confirmed !== 'clear')
+    {
+      $this->logSection('jobs:clear', 'Aborting.');
+      return;
+    }
+
+    $jobs = QubitJob::getAll();
     foreach ($jobs as $job)
     {
-      print "$job->name\n";
-      print " Status: " . $job->getStatusString() . "\n";
-      print " Started: " . $job->getCreationDateString() . "\n";
-      print " Completed: " . $job->getCompletionDateString() . "\n";
-      print " User: " . $this->getUserString() . "\n\n";
-    }
-  }
-
-  private function getUserString($job)
-  {
-    if (isset($job->userId))
-    {
-      $user = QubitUser::getById($job->userId);
-      return $user ? $user->__toString() : 'Deleted user';
+      $job->delete();
     }
 
-    return 'Command line';
+    $this->logSection('jobs:clear', 'All jobs cleared successfully!');
   }
 }
