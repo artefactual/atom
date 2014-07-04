@@ -18,7 +18,7 @@
  */
 
 /**
- * A bare bones worker to test Gearman / AtoM jobs
+ * Update Acl status on information objects in ElasticSearch
  *
  * @package    symfony
  * @subpackage jobs
@@ -88,7 +88,7 @@ class arUpdateAclJob extends arBaseJob
 
     // TODO: Update MySQL acl entries?
 
-    QubitSearch::getInstance()->flushBatch();
+    QubitSearch::getInstance()->flushBatch(true);
 
     // Don't forget to set the job status & save at the end!
     $this->job->setStatusCompleted();

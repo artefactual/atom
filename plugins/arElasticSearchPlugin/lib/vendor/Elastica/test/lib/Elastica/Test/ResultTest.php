@@ -4,6 +4,7 @@ namespace Elastica\Test;
 
 use Elastica\Client;
 use Elastica\Document;
+use Elastica\Result;
 use Elastica\Type\Mapping;
 use Elastica\Test\Base as BaseTest;
 
@@ -37,6 +38,8 @@ class ResultTest extends BaseTest
         $this->assertEquals($docId, $result->getId());
         $this->assertGreaterThan(0, $result->getScore());
         $this->assertInternalType('array', $result->getData());
+        $this->assertTrue(isset($result->username));
+        $this->assertEquals('hans', $result->username);
     }
 
     public function testGetIdNoSource()
@@ -99,5 +102,20 @@ class ResultTest extends BaseTest
             getType($resultSet->getTotalTime()),
             'Total Time should be an integer'
          );
+    }
+    
+    public function testHasFields()
+    {
+        $data = array('value set');
+
+        $result = new Result(array());
+        $this->assertFalse($result->hasFields());
+        
+        $result = new Result(array('_source' => $data));
+        $this->assertFalse($result->hasFields());
+        
+        $result = new Result(array('fields' => $data));
+        $this->assertTrue($result->hasFields());
+        $this->assertEquals($data, $result->getFields());
     }
 }

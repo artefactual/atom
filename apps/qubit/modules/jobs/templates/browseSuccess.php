@@ -55,6 +55,7 @@
         <!-- User who created the job -->
         <td>
           <?php echo QubitJob::getUserString($job); ?>
+        </td>
       </tr>
     <?php endforeach; ?>
   </table>

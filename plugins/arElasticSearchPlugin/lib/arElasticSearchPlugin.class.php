@@ -261,7 +261,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
    * Centralize document addition to keep control of the batch queue.
    * Set update to true to use ES's update API instead of re-adding the document.
    */
-  public function addDocument($data, $type, $update = false)
+  public function addDocument($data, $type)
   {
     if (!isset($data['id']))
     {
@@ -289,15 +289,7 @@ class arElasticSearchPlugin extends QubitSearchEngine
     }
     else
     {
-      if ($update)
-      {
-        $this->index->getType($type)->updateDocument($document);
-      }
-      else
-      {
-        $this->index->getType($type)->addDocument($document);
-      }
-
+      $this->index->getType($type)->addDocument($document);
       $this->index->flush();
     }
   }

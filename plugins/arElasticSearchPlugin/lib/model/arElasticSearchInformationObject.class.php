@@ -87,7 +87,7 @@ class arElasticSearchInformationObject extends arElasticSearchModelBase
   {
     try
     {
-      $serialized = QubitSearch::getInstance()->getDocument($id);
+      $serialized = QubitSearch::getInstance()->getDocument($id, 'QubitInformationObject');
     }
     catch (\Elastica\Exception\NotFoundException $e)
     {
