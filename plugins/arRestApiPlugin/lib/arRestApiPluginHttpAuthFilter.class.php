@@ -39,7 +39,12 @@ class arRestApiPluginHttpAuthFilter extends sfFilter
       return;
     }
 
-    // Have the user sent us the Authorization header?
+    // We want to give the anonymous user a chance to access to the requested
+    // resource. Obviously, we want to discard cases where the user has sent us
+    // the Authorization header.
+    // Unfortunately, sfWebRequest::getHttpHeader() won't work for that specific
+    // header in mod_php (never makes it into $_SERVER), so we are just going to
+    // check if PHP_AUTH_USER and PHP_AUTH_PW are set.
     if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']))
     {
       $filterChain->execute();
