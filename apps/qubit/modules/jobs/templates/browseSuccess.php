@@ -54,12 +54,7 @@
 
         <!-- User who created the job -->
         <td>
-          <?php if (isset($job->userId)): ?>
-            <?php $user = QubitUser::getById($job->userId) ?>
-            <?php echo $user ? $user->__toString() : 'Deleted user'; ?>
-          <?php else: ?>
-            Command line
-          <?php endif; ?>
+          <?php echo QubitJob::getUserString($job); ?>
       </tr>
     <?php endforeach; ?>
   </table>

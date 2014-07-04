@@ -165,6 +165,21 @@ class QubitJob extends BaseJob {
   }
 
   /**
+   * Get a string representation of a job's user name
+   * @return  string  The user name
+   */
+  static public function getUserString($job)
+  {
+    if (isset($job->userId))
+    {
+      $user = QubitUser::getById($job->userId);
+      return $user ? $user->__toString() : 'Deleted user';
+    }
+
+    return 'Command line';
+  }
+
+  /**
    * Add a basic note to this job
    * @param  string  $contents  The text for the note
    */

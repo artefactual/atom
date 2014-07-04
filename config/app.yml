@@ -15,7 +15,7 @@ all:
   # Use sfMemcacheCache if you want a distributed cache.
   # sfAPCCache can do the trick for a single instance (sfAPCuCache in PHP 5.5).
   cache_engine:
-    class: sfMemcacheCache
+    class: sfAPCCache
     param:
       storeCacheInfo: yes
 

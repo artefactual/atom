@@ -58,7 +58,7 @@ EOF;
 
     if (!function_exists('readline'))
     {
-      throw new Exception('This tasks needs the PHP readline extension.');
+      throw new Exception('This task needs the PHP readline extension.');
     }
 
     $sql = 'SELECT count(1) FROM job WHERE status_id=?';

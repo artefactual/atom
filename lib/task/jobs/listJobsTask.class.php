@@ -77,18 +77,7 @@ EOF;
       print " Status: " . $job->getStatusString() . "\n";
       print " Started: " . $job->getCreationDateString() . "\n";
       print " Completed: " . $job->getCompletionDateString() . "\n";
-      print " User: " . $this->getUserString() . "\n\n";
+      print " User: " . QubitJob::getUserString($job) . "\n\n";
     }
-  }
-
-  private function getUserString($job)
-  {
-    if (isset($job->userId))
-    {
-      $user = QubitUser::getById($job->userId);
-      return $user ? $user->__toString() : 'Deleted user';
-    }
-
-    return 'Command line';
   }
 }
