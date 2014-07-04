@@ -1,0 +1,19 @@
+# Prepend arRestApiPluginHttpAuthFilter to the chain
+httpAuthFilter:
+  class: arRestApiPluginHttpAuthFilter
+
+# Inherit filters, cascade mechanism
+transaction: ~
+history: ~
+rendering: ~
+
+security:
+  class: arRestApiPluginBasicSecurityFilter
+
+settings: ~
+QubitLimitIp: ~
+QubitSslRequirement: ~
+QubitMeta: ~
+QubitLimitResults: ~
+cache: ~
+execution: ~
