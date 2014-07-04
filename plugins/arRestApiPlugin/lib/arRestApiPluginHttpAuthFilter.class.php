@@ -40,7 +40,7 @@ class arRestApiPluginHttpAuthFilter extends sfFilter
     }
 
     // Have the user sent us the Authorization header?
-    if (null === $context->getRequest()->getHttpHeader('Authorization'))
+    if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']))
     {
       $filterChain->execute();
 
