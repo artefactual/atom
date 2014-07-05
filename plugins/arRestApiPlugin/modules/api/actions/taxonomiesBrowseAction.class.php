@@ -28,14 +28,38 @@ class ApiTaxonomiesBrowseAction extends QubitApiAction
     }
 
     $terms = array();
-    foreach (QubitTaxonomy::getTaxonomyTerms($taxonomy->id) as $item)
+    foreach (QubitTaxonomy::getTaxonomyTerms($taxonomy->id) as $term)
     {
-      $terms[] = array(
-        'id' => (int)$item->id,
-        'name' => $item->getName(array('cultureFallback' => true)));
+      $item = array();
+
+      if (isset($request->culture))
+      {
+        $name = $term->getName(array('culture' => $request->culture, 'cultureFallback' => true));
+      }
+      else
+      {
+        $name = $term->getName(array('cultureFallback' => true));
+      }
+
+      $notes = array();
+      foreach ($term->getNotesByType($options = array('noteTypeId' => QubitTerm::SCOPE_NOTE_ID)) as $note)
+      {
+        if (isset($request->culture))
+        {
+          $notes[] = $note->getContent(array('culture' => $request->culture, 'cultureFallback' => true));
+        }
+        else
+        {
+          $notes[] = $note->getContent(array('cultureFallback' => true));
+        }
+      }
+
+      $this->addItemToArray($item, 'name', $name);
+      $this->addItemToArray($item, 'notes', $notes);
+
+      $terms[] = $item;
     }
 
-    return array(
-      'terms' => $terms);
+    return $terms;
   }
 }
