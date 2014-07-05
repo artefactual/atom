@@ -102,7 +102,7 @@ module.exports = function ($scope, $stateParams, SearchService, $filter, ModalSa
    */
 
   $scope.getTermLabel = function (facet, id) {
-    if (undefined === $scope.data) {
+    if (typeof $scope.data === undefined) {
       return id;
     }
     for (var term in $scope.data.facets[facet].terms) {

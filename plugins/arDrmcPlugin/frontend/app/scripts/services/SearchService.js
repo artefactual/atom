@@ -88,7 +88,7 @@ module.exports = function ($http, SETTINGS, AIPService, InformationObjectService
   this.getSearchById = function (id) {
     var configuration = {
       method: 'GET',
-      url: SETTINGS.frontendPath + 'api/searches/' + id,
+      url: SETTINGS.frontendPath + 'api/searches/' + id
     };
     return $http(configuration).then(function (response) {
       return response.data;
@@ -98,7 +98,7 @@ module.exports = function ($http, SETTINGS, AIPService, InformationObjectService
   this.getSearchBySlug = function (slug) {
     var configuration = {
       method: 'GET',
-      url: SETTINGS.frontendPath + 'api/searches/' + slug,
+      url: SETTINGS.frontendPath + 'api/searches/' + slug
     };
     return $http(configuration).then(function (response) {
       return response.data;

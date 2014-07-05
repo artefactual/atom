@@ -6,10 +6,15 @@ module.exports = function ($scope, $state, $modalInstance, SETTINGS, Information
     identifier: 'The unambiguous reference code used to uniquely identify this resource.',
     title: 'The name given to this resource.',
     name: 'Identify and record the name(s) and type(s) of the unit of description.',
-    date: 'Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to display free-text date information including typographical marks to express approximation, uncertainty or qualification.',
+    date: 'Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as ' +
+          'appropriate. The Date display field can be used to display free-text date information including typographical marks to express approximation, ' +
+          'uncertainty or qualification.',
     description: 'An abstract, table of contents or description of the resource\'s scope and contents.',
-    type: 'The nature or genre of the resource. Assign as many types as applicable. The Type options are limited to the DCMI Type vocabulary. Assign the \'Collection\' value if this resource is the top-level for a set of lower-level (child) resources. Please note: if this resource is linked to a digital object, the image, text, sound or moving image types are added automatically upon output, so do not duplicate those values here.',
-    format: 'The file format, physical medium or dimensions of the resource. Please note: If this resource is linked to a digital object, the internet media types (MIME) will be added automatically upon output, so don\'t duplicate those values here.',
+    type: 'The nature or genre of the resource. Assign as many types as applicable. The Type options are limited to the DCMI Type vocabulary. Assign the ' +
+          '\'Collection\' value if this resource is the top-level for a set of lower-level (child) resources. Please note: if this resource is linked to a ' +
+          'digital object, the image, text, sound or moving image types are added automatically upon output, so do not duplicate those values here.',
+    format: 'The file format, physical medium or dimensions of the resource. Please note: If this resource is linked to a digital object, the internet media ' +
+            'types (MIME) will be added automatically upon output, so don\'t duplicate those values here.',
     source: 'Related material(s) from which this resource is derived.',
     conditions: 'Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).'
   };

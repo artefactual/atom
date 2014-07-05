@@ -80,7 +80,7 @@ module.exports = function ($filter) {
             })
             .attr('d', arc);
 
-          //Labels
+          // Labels
           /*arcs.append('svg:text')
             .attr('transform', function (d) {
               return 'translate(' + arc.centroid(d) + ')';
@@ -108,7 +108,9 @@ module.exports = function ($filter) {
             .selectAll('g')
             .data(color.domain().slice())
             .enter().append('g')
-            .attr('transform', function (d, i) { return 'translate(0,' + i * 20 + ')'; });
+            .attr('transform', function (d, i) {
+              return 'translate(0,' + i * 20 + ')';
+            });
 
           legend.append('rect')
             .attr('width', 18)

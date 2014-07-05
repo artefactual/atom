@@ -17,7 +17,7 @@
     "grunt-contrib-less": "~0.10.0",
     "grunt-contrib-uglify": "~0.3.1",
     "grunt-contrib-watch": "~0.6.0",
-    "grunt-jscs-checker": "~0.4.1",
+    "grunt-jscs": "~0.6.1",
     "grunt-karma": "~0.8.2",
     "grunt-recess": "~0.6.0",
     "jquery": "~2.1.0",

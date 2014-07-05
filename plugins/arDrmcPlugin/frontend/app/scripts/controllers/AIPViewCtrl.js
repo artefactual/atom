@@ -1,6 +1,7 @@
 'use strict';
 
-module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, InformationObjectService, ModalDigitalObjectViewerService, ModalDownloadService, ModalReclassifyAipService, FixityService) {
+module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, InformationObjectService, ModalDigitalObjectViewerService, ModalDownloadService,
+  ModalReclassifyAipService, FixityService) {
 
   AIPService.getAIP($stateParams.uuid)
     .success(function (data) {

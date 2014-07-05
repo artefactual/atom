@@ -4,7 +4,7 @@ module.exports = function (grunt) {
 
   // Load tasks
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-jscs-checker');
+  grunt.loadNpmTasks('grunt-jscs');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-less');
@@ -27,7 +27,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build-css', [
-    'less',
+    'less'
   ]);
 
   grunt.registerTask('build-js', [
@@ -41,7 +41,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build-js-after-changes', [
     'lint',
     'browserify:app',
-    'copy',
+    'copy'
   ]);
 
   // Lint task
@@ -170,7 +170,7 @@ module.exports = function (grunt) {
             'wolfy87-eventemitter'
           ]
         }
-      },
+      }
 
     },
 

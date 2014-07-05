@@ -2,7 +2,8 @@
 
 var ContextBrowser = require('../lib/cbd');
 
-module.exports = function ($scope, $rootScope, $element, $document, $modal, ModalAssociativeRelationship, ModalDigitalObjectViewerService, InformationObjectService, FullscreenService) {
+module.exports = function ($scope, $rootScope, $element, $document, $modal, ModalAssociativeRelationship, ModalDigitalObjectViewerService,
+  InformationObjectService, FullscreenService) {
 
   // Aliases (not needed, just avoiding the refactor now)
   var scope = $scope;

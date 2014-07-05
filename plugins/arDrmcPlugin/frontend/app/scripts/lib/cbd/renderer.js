@@ -377,8 +377,17 @@
     collapseIcon.append('rect').attr({ x: 1, y: 6, fill: '#999999', stroke: 'none', 'stroke-width': 1, width: 16, height: 6 });
 
     var expandIcon = defs.append('svg:g').attr('id', 'expand-icon').append('svg:g');
-    expandIcon.append('polygon').attr({ fill: 'none', stroke: '#333333', 'stroke-width': 1, points: '6,17 6,12 1,12 1,6 6,6 6,1 12,1 12,6 17,6 17,12 12,12 12,17' });
-    expandIcon.append('polygon').attr({ fill: '#999999', stroke: 'none', points: '6,17 6,12 1,12 1,6 6,6 6,1 12,1 12,6 17,6 17,12 12,12 12,17' });
+    expandIcon.append('polygon').attr({
+      fill: 'none',
+      stroke: '#333333',
+      'stroke-width': 1,
+      points: '6,17 6,12 1,12 1,6 6,6 6,1 12,1 12,6 17,6 17,12 12,12 12,17'
+    });
+    expandIcon.append('polygon').attr({
+      fill: '#999999',
+      stroke: 'none',
+      points: '6,17 6,12 1,12 1,6 6,6 6,1 12,1 12,6 17,6 17,12 12,12 12,17'
+    });
 
     var dependencyIcon = defs.append('svg:g').attr('id', 'supporting-technology-icon').append('svg:g');
     dependencyIcon.append('circle').attr({ cx: '5.25', cy: '-3.75', r: '13', stroke: 'none', fill: '#000000' });

@@ -95,7 +95,7 @@ module.exports = function ($locationProvider, $stateProvider, $urlRouterProvider
     .state('main.reports.view', {
       url: '/view?type&from&to',
       controller: 'ReportsViewCtrl',
-      templateUrl: SETTINGS.viewsPath + '/reports.view.html',
+      templateUrl: SETTINGS.viewsPath + '/reports.view.html'
     })
     .state('main.reports.slug', {
       url: '/saved/{slug}',

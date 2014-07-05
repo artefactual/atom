@@ -12,7 +12,7 @@
       'thumbnail': '<div class="thumb thumb-preview">' +
                    '  <!-- This could make use of the background tile hack in HTML5 -->            ' +
                    '  <img ng-src="{{ thumbnailPath }}" width="{{ width }}" height="{{ height }}"/>' +
-                   '</div>',
+                   '</div>'
     };
 
     // PUID => MIME types
@@ -25,7 +25,7 @@
       }
       var regex = /^[^\/]*$/;
       var matches = mediaType.match(regex);
-      if (null === matches) {
+      if (matches === null) {
         return null;
       }
       return matches[0];
@@ -68,7 +68,7 @@
           // Get top-level media type and its corresponding icon
           var topLevelType = getTopLevelType(scope.mediaType);
           scope.getIcon = function () {
-            if (!scope.mediaType.length || null === topLevelType) {
+            if (!scope.mediaType.length || topLevelType === null) {
               return icons.unknown;
             }
             return icons[topLevelType];

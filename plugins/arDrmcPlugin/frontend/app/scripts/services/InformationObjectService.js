@@ -4,10 +4,8 @@ module.exports = function ($http, $q, SETTINGS) {
 
   // Create a map of level of descriptions IDs and its corresponding CSS class
   this.levels = {};
-  for (var key in SETTINGS.drmc)
-  {
-    if (key.indexOf('lod_') === 0)
-    {
+  for (var key in SETTINGS.drmc) {
+    if (key.indexOf('lod_') === 0) {
       var name = key.slice(4).slice(0, -3).replace(/_/g, '-');
       this.levels[SETTINGS.drmc[key]] = name;
     }
@@ -111,7 +109,7 @@ module.exports = function ($http, $q, SETTINGS) {
     params = params || {};
     var configuration = {
       method: 'GET',
-      url: SETTINGS.frontendPath + 'api/informationobjects/' + id,
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id
     };
     if (Object.keys(params).length > 0) {
       configuration.params = params;

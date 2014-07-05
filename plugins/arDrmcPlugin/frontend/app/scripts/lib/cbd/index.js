@@ -66,7 +66,7 @@
   ContextBrowser.prototype.setupEvents = function () {
     // d3.selection.on doesn't support event delegation
     // Mimic it. Maybe I should just use jQuery.on() or setup events per node.
-    var cb = this;
+    var self = this;
     var nodeFilter = function (fn) {
       var $this = jQuery(this);
       var target = d3.event.target.correspondingUseElement ? d3.event.target.correspondingUseElement : d3.event.target;
@@ -76,7 +76,7 @@
           // Context: node (this)
           node,
           // Param 1: context browser
-          cb,
+          self,
           // Param 2: datum
           d3.select(node).datum(),
           // Param 3: index (REMOVE?)
@@ -302,7 +302,9 @@
   ContextBrowser.prototype.cancelNodeSelection = function (selection) {
     var nodes = this.graphSVG.selectAll('.node');
     if (typeof selection !== 'undefined') {
-      nodes = nodes.data(selection, function (d) { return d; });
+      nodes = nodes.data(selection, function (d) {
+        return d;
+      });
     }
     nodes
       .classed('disabled', false)
@@ -326,7 +328,9 @@
 
     // Disable excluded nodes
     this.graphSVG.selectAll('.node')
-      .data(exclusionList, function (d) { return d; })
+      .data(exclusionList, function (d) {
+        return d;
+      })
       .classed('disabled', true)
       .attr('style', 'opacity: 0.2;');
 

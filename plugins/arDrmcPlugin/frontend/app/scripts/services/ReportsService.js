@@ -85,7 +85,7 @@ module.exports = function ($http, SETTINGS) {
   this.getReportBySlug = function (slug) {
     return $http({
       method: 'GET',
-      url: SETTINGS.frontendPath + 'api/reports/' + slug,
+      url: SETTINGS.frontendPath + 'api/reports/' + slug
     });
   };
 
