@@ -72,6 +72,27 @@ class Mapping
     }
 
     /**
+     * Gets the mapping properties
+     *
+     * @return  array                     $properties Properties
+     */
+    public function getProperties()
+    {
+        return $this->getParam('properties');
+    }
+
+    /**
+     * Sets the mapping _meta
+     * @param array $meta metadata
+     * @return \Elastica\Type\Mapping Mapping object
+     * @link http://www.elasticsearch.org/guide/reference/mapping/meta.html
+     */
+    public function setMeta(array $meta)
+    {
+        return $this->setParam('_meta', $meta);
+    }
+
+    /**
      * Returns mapping type
      *
      * @return \Elastica\Type Type
@@ -135,6 +156,40 @@ class Mapping
         $this->_mapping[$key] = $value;
 
         return $this;
+    }
+
+    /**
+     * Get raw parameters
+     *
+     * @see setParam
+     * @param  string                    $key   Key name
+     * @return mixed                     $value Key value
+     */
+    public function getParam($key)
+    {
+        return isset($this->_mapping[$key])?$this->_mapping[$key]:null;
+    }
+
+    /**
+     * Sets params for the "_all" field
+     *
+     * @param array                       $params _all Params (enabled, store, term_vector, analyzer)
+     * @return \Elastica\Type\Mapping
+     */
+    public function setAllField(array $params)
+    {
+        return $this->setParam('_all', $params);
+    }
+
+    /**
+     * Enables the "_all" field
+     *
+     * @param  bool                      $enabled OPTIONAL (default = true)
+     * @return \Elastica\Type\Mapping
+     */
+    public function enableAllField($enabled = true)
+    {
+        return $this->setAllField(array('enabled' => $enabled));
     }
 
     /**

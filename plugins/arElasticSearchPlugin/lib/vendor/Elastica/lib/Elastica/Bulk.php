@@ -44,6 +44,11 @@ class Bulk
     protected $_type = '';
 
     /**
+     * @var array request parameters to the bulk api
+     */
+    protected $_requestParams = array();
+
+    /**
      * @param \Elastica\Client $client
      */
     public function __construct(Client $client)
@@ -119,14 +124,14 @@ class Bulk
      */
     public function getPath()
     {
-        $path = '/';
+        $path = '';
         if ($this->hasIndex()) {
-            $path.= $this->getIndex() . '/';
+            $path .= $this->getIndex() . '/';
             if ($this->hasType()) {
-                $path.= $this->getType() . '/';
+                $path .= $this->getType() . '/';
             }
         }
-        $path.= '_bulk';
+        $path .= '_bulk';
         return $path;
     }
 
@@ -188,6 +193,57 @@ class Bulk
     }
 
     /**
+     * @param \Elastica\Script $data
+     * @param string $opType
+     * @return \Elastica\Bulk
+     */
+    public function addScript(Script $script, $opType = null)
+    {
+        $action = AbstractDocumentAction::create($script, $opType);
+
+        return $this->addAction($action);
+    }
+
+    /**
+     * @param \Elastica\Document[] $scripts
+     * @param string $opType
+     * @return \Elastica\Bulk
+     */
+    public function addScripts(array $scripts, $opType = null)
+    {
+        foreach ($scripts as $document) {
+            $this->addScript($document, $opType);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param \Elastica\Script|\Elastica\Document\array $data
+     * @param string $opType
+     * @return \Elastica\Bulk
+     */
+    public function addData($data, $opType = null)
+    {
+        if(!is_array($data)){
+            $data = array($data);
+        }
+
+        foreach ($data as $actionData){
+
+            if ($actionData instanceOf Script) {
+                $this->addScript($actionData, $opType);
+            }else if ($actionData instanceof Document) {
+                $this->addDocument($actionData, $opType);
+            }else{
+                throw new \InvalidArgumentException("Data should be a Document, a Script or an array containing Documents and/or Scripts");
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @param array $data
      * @return \Elastica\Bulk
      * @throws \Elastica\Exception\InvalidException
@@ -222,6 +278,24 @@ class Bulk
         }
 
         return $this;
+    }
+
+    /**
+     * Set a url parameter on the request bulk request.
+     * @var string $name name of the parameter
+     * @var string $value value of the parameter
+     */
+    public function setRequestParam($name, $value) {
+        $this->_requestParams[ $name ] = $value;
+    }
+
+    /**
+     * Set the amount of time that the request will wait the shards to come on line.
+     * Requires Elasticsearch version >= 0.90.8.
+     * @var string $time timeout in Elasticsearch time format
+     */
+    public function setShardTimeout($time) {
+        $this->setRequestParam( 'timeout', $time );
     }
 
     /**
@@ -266,7 +340,7 @@ class Bulk
         $path = $this->getPath();
         $data = $this->toString();
 
-        $response = $this->_client->request($path, Request::PUT, $data);
+        $response = $this->_client->request($path, Request::PUT, $data, $this->_requestParams);
 
         return $this->_processResponse($response);
     }
@@ -298,15 +372,15 @@ class Bulk
                 $bulkResponseData = reset($item);
 
                 if ($action instanceof AbstractDocumentAction) {
-                    $document = $action->getDocument();
-                    if ($document->isAutoPopulate()
+                    $data = $action->getData();
+                    if ($data instanceof Document && $data->isAutoPopulate()
                         || $this->_client->getConfigValue(array('document', 'autoPopulate'), false)
                     ) {
-                        if (!$document->hasId() && isset($bulkResponseData['_id'])) {
-                            $document->setId($bulkResponseData['_id']);
+                        if (!$data->hasId() && isset($bulkResponseData['_id'])) {
+                            $data->setId($bulkResponseData['_id']);
                         }
                         if (isset($bulkResponseData['_version'])) {
-                            $document->setVersion($bulkResponseData['_version']);
+                            $data->setVersion($bulkResponseData['_version']);
                         }
                     }
                 }

@@ -13,8 +13,12 @@ class DocumentTest extends BaseTest
 {
     public function testAddFile()
     {
+        $fileName = '/dev/null';
+        if(!file_exists($fileName)){
+            $this->markTestSkipped("File {$fileName} does not exist.");
+        }
         $doc = new Document();
-        $returnValue = $doc->addFile('key', '/dev/null');
+        $returnValue = $doc->addFile('key', $fileName);
         $this->assertInstanceOf('Elastica\Document', $returnValue);
     }
 
@@ -279,18 +283,27 @@ class DocumentTest extends BaseTest
         }
     }
 
-    public function testSetScript()
+    public function testUpsert()
     {
         $document = new Document();
 
-        $script = new Script('ctx._source.counter += count');
-        $script->setParam('count', 1);
+        $upsert = new Document();
+        $upsert->setData(array('someproperty' => 'somevalue'));
 
-        $this->assertFalse($document->hasScript());
+        $this->assertFalse($document->hasUpsert());
 
-        $document->setScript($script);
+        $document->setUpsert($upsert);
 
-        $this->assertTrue($document->hasScript());
-        $this->assertSame($script, $document->getScript());
+        $this->assertTrue($document->hasUpsert());
+        $this->assertSame($upsert, $document->getUpsert());
+    }
+
+    public function testDocAsUpsert()
+    {
+        $document = new Document();
+
+        $this->assertFalse($document->getDocAsUpsert());
+        $this->assertSame($document, $document->setDocAsUpsert(true));
+        $this->assertTrue($document->getDocAsUpsert());
     }
 }
