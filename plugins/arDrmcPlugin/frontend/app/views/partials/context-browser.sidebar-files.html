@@ -25,7 +25,7 @@
     <div ng-if="fileListViewMode == 'thumbnails'" class="cb-sidebar-subsection-body cb-sidebar-thumbnails">
       <div ng-click="selectFile(file, $event, $index)" ng-repeat="file in files" ng-class="{ item: true, selected: file.selected == true }">
         <div class="preview">
-          <img ng-src="{{ file.thumbnail_path }}"/>
+          <ar:digital-object-thumbnail thumbnail-path="{{ file.thumbnail_path }}" media-type="{{ file.mime_type }}" width="110px" height="110px"></ar:digital-object-thumbnail>
         </div>
         <div class="footer">
           {{ file.filename }}

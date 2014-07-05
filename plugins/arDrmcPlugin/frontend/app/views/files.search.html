@@ -42,14 +42,10 @@
 
         <section class="row-fluid">
 
-          <article ng-repeat="(id, result) in data.results" ng-class="result.thumbnail_path != undefined ? 'search-result has-preview' : 'search-result'">
+          <article ng-repeat="(id, result) in data.results" class="search-result has-preview">
 
-            <div class="search-result-preview" ng-if="result.thumbnail_path != undefined">
-              <a>
-                <div class="preview-container">
-                  <img ng-src="{{ basePath + result.thumbnail_path }}" />
-                </div>
-              </a>
+            <div class="search-result-preview">
+              <ar:digital-object-thumbnail thumbnail-path="{{ result.thumbnail_path }}" media-type="{{ result.mime_type }}" width="100%" height="120px" on-click="openViewer(result)"></ar:digital-object-thumbnail>
             </div>
 
             <div class="search-result-description">

@@ -36,12 +36,10 @@
 
   <div class="quick-info">
     <div class="quick-info-thumb">
-      <a href ng-click="select(item)" ng-if="item.class !== 'audio'">
-        <img ng-src="{{ item.thumbnail_path }}" />
-      </a>
+      <ar:digital-object-thumbnail thumbnail-path="{{ item.thumbnail_path }}" media-type="{{ item.mime_type }}" width="60px" height="60px" on-click="select(item)"></ar:digital-object-thumbnail>
     </div>
     <div ng-click="select(item)" class="quick-info-title">
-      <h4 ng-class="getMediaTypeCssClass(item)">{{ item.filename }}</h4>
+      <h4>{{ item.filename }}</h4>
     </div>
     <div class="quick-info-close" ng-if="comparingFiles.length > 1">
       <a href ng-click="uncompare(item, $index)" class="drmc-icon-close"></a>
@@ -59,9 +57,9 @@
   </div>
   <div class="dov-compare-view-body">
     <ul class="dov-compare-list">
-      <li ng-class="{ active: file.comparing }" ng-repeat="file in files track by $index" ng-click="onCompareItemClick(file, $index, $event)" ng-style="getCompareThumbnailStyle(file)">
-        <img ng-show="false" ng-src="{{ file.thumbnail_path }}"/>
-        <p>{{ file.filename }}</p>
+      <li ng-class="{ active: file.comparing }" ng-repeat="file in files track by $index" ng-click="onCompareItemClick(file, $index, $event)">
+        <ar:digital-object-thumbnail thumbnail-path="{{ file.thumbnail_path }}" media-type="{{ file.mime_type }}" width="100%" height="100%"></ar:digital-object-thumbnail>
+        <div class="footer">{{ file.filename }}</div>
       </li>
     </ul>
   </div>

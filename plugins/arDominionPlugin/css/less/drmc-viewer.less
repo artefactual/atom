@@ -111,7 +111,12 @@
   li {
     flex: 0 1 240px;
     height: 180px;
-    p {
+    position: relative;
+    .footer {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      .text-overflow();
+      margin: 0;
       background-color: @black;
       opacity: 0.8;
       color: @white;
@@ -310,10 +315,8 @@
 .quick-info-thumb {
   flex: 0 1 80px;
   align-self: center;
-  text-align: center;
-  img {
-    width: 60px;
-    height: 500px;
+  .thumb {
+    margin: 0 auto;
   }
 }
 

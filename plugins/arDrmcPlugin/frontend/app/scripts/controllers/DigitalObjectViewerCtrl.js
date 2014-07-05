@@ -141,16 +141,6 @@ module.exports = function ($scope, $q, $modal, $stateParams, $modalInstance, hot
     }
   };
 
-  // Build style attr for each thumbnail. It could be done inline with an
-  // expression but this is going to give me more control for unknown media types
-  $scope.getCompareThumbnailStyle = function (file) {
-    return {
-      'background-image': 'url(' + file.thumbnail_path + ')',
-      'background-repeat': 'no-repeat',
-      'background-size': 'cover'
-    };
-  };
-
 
   /**
    * Shortcuts

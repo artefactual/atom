@@ -164,6 +164,28 @@ h1.moma-title {
   cursor: pointer;
 }
 
+// Thumbnails (see DigitalObjectThumbnailDirective)
+
+.thumb {
+}
+
+.thumb-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .icon {
+    color: @gray;
+    text-shadow: 1px 1px 1px @grayLighter;
+    font-size: 60px;
+  }
+}
+
+.thumb-preview {
+  background-size: cover; // contain? auto?
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
 // DRMC colors
 
 .drmc-color-aip:before                           { background-color: @momaNodeAip; }
