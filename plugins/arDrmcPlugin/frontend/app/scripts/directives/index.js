@@ -11,6 +11,7 @@
     .directive('arSortHeader', require('./SortHeaderDirective'))
     .directive('arDigitalObjectPreview', require('./DigitalObjectPreviewDirective'))
     .directive('arDigitalObjectViewerSidebar', require('./DigitalObjectViewerSidebarDirective'))
+    .directive('arDigitalObjectThumbnail', require('./DigitalObjectThumbnailDirective'))
     .directive('arFacet', require('./FacetDirective'))
     .directive('arPager', require('./PagerDirective'))
     .directive('arToggleSlide', require('./ToggleSlideDirective'))

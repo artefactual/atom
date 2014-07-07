@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($compile, $http, $timeout, SETTINGS, ModalDigitalObjectViewerService) {
+module.exports = function ($compile, $http, SETTINGS, ModalDigitalObjectViewerService) {
   return {
     restrict: 'A',
     replace: true,
