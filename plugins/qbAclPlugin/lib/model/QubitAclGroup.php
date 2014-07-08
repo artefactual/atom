@@ -76,4 +76,31 @@ class QubitAclGroup extends BaseAclGroup implements Zend_Acl_Role_Interface
       self::AUTHENTICATED_ID,
       self::ADMINISTRATOR_ID));
   }
+
+  /**
+   * Get an array of group IDs based on group name.
+   *
+   * @param string $name The name of the group.
+   * @param array $options Optional parameters, set culture here
+   *
+   * @return array An array with all the group IDs matching the name
+   */
+  public static function getGroupIdsByName($name, $options)
+  {
+    $c = new Criteria;
+    $c->add(QubitAclGroupI18n::NAME, $name);
+
+    if (isset($options['culture']))
+    {
+      $c->addAnd(QubitAclGroupI18n::CULTURE, $options['culture']);
+    }
+
+    $groupIds = array();
+    foreach (QubitAclGroupI18n::get($c) as $group)
+    {
+      $groupIds[] = (int)$group->id;
+    }
+
+    return $groupIds;
+  }
 }
