@@ -5,11 +5,11 @@ Dependencies
 * php5-ldap
 * nodejs, npm, grunt-cli
 
-Storage service configuration
------------------------------
+Storage service client configuration
+------------------------------------
 
-The Archivematica service handles storage of AIPs. The DRMC interfaces with
-it to allow the downloading of AIPs/AIP files and the recovery of AIPs.
+The Archivematica storage service handles storage of AIPs. The DRMC interfaces
+with it to allow the downloading of AIPs/AIP files and the recovery of AIPs.
 
 # To interface with the Archivematica Storage Service, define these
   environment variables (e.g. in your PHP pool):
@@ -49,3 +49,32 @@ LDAP configuration
 
 NOTE: This application will check if existing LDAP users are member of the group
 defined in ldap_user_group.
+
+
+Storage service AIP recovery process and configuration
+------------------------------------------------------
+
+AIP recovery support allows a DRMC administrator to replace a corrupt version
+of a stored AIP with a correct version (restored from a backup, for example).
+
+The AIP recovery process involves copying the recovered version of the AIP
+into a dedicated recovery directory accessible by the storage service. You can
+determine the location of this directory by clicking "Locations" in the storage
+service administration web interface and finding the path assocated with AIP
+recovery.
+
+The DRMC's AIP recovery integration requires the storage service be configured
+to report back to the DRMC when a storage service administrator has made a
+decision about an AIP restore request (approving or rejecting it) or if an
+approved AIP restore request has failed.
+
+To configure the storage service to report AIP restore progress back to the
+DRMC, click "Administration" in the storage service administration web
+interface enter the following into the field labelled "Recover request
+notification url" (replacing the DRMC server address placeholder with your
+own DRMC server's address): 
+
+  http://<DRMC server address>/api/recover/results
+
+For authentication purposes, you'll also need to enter a valid DRMC username
+and password into the two fields below it. Click "Save" when you're done.
