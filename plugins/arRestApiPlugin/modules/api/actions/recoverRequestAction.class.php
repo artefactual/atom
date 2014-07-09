@@ -58,7 +58,7 @@ class ApiRecoverRequestAction extends QubitApiAction
     if ($results == null)
     {
       $results = array(
-        'message' => 'Error relaying recovery request.'
+        'message' => 'Error '. $client->status .' relaying recovery request.'
       );
     } else {
       // Record start of recovery process

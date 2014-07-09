@@ -19,6 +19,8 @@
 
 class QubitApiStorageServiceClient
 {
+  public $status;
+
   function __construct($urlPath)
   {
     $this->setConfig();
@@ -95,6 +97,7 @@ class QubitApiStorageServiceClient
     }
 
     $result = curl_exec($ch);
+    $this->status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
     // handle possible errors
     if ($result === false)
