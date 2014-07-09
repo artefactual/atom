@@ -163,7 +163,7 @@ class QubitAclSearch
    *
    * @param  \Elastica\Filter\Bool $filterBool Search query object
    */
-  public static function filterDraftsByES(&$filterBool)
+  public static function filterDraftsByES(&$filterBool, $action)
   {
     // Merge this with filterDrafts?
     $userId = sfContext::getInstance()->getUser()->getUserID();
@@ -174,12 +174,12 @@ class QubitAclSearch
     {
       if ($userId)
       {
-        $filterBool->addShould(new \Elastica\Filter\Term(array('aclViewDraft.userIds' => array($userId))));
+        $filterBool->addShould(new \Elastica\Filter\Term(array("$action.userIds" => array($userId))));
       }
 
       foreach ($groupIds as $groupId)
       {
-        $filterBool->addShould(new \Elastica\Filter\Term(array('aclViewDraft.groupIds' => $groupId)));
+        $filterBool->addShould(new \Elastica\Filter\Term(array("$action.groupIds" => $groupId)));
       }
     }
   }
