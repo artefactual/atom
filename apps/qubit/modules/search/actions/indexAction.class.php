@@ -182,7 +182,8 @@ class SearchIndexAction extends DefaultBrowseAction
           'field' => sprintf('i18n.%s.title', $this->context->user->getCulture())))));
 
     // Filter drafts
-    QubitAclSearch::filterDrafts($this->filterBool);
+    //QubitAclSearch::filterDrafts($this->filterBool);
+    QubitAclSearch::filterDraftsByES($this->filterBool, 'aclViewDraft');
 
     // Set filter
     if (0 < count($this->filterBool->toArray()))

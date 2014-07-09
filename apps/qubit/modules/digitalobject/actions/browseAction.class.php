@@ -79,20 +79,7 @@ class DigitalObjectBrowseAction extends DefaultBrowseAction
 
     // Filter drafts
     //QubitAclSearch::filterDrafts($this->filterBool);
-
-    // Set Acl rule filters if user isn't an administrator
-    if (!in_array(QubitAclGroup::ADMINISTRATOR_ID, $groupIds))
-    {
-      if ($userId)
-      {
-        $this->filterBool->addShould(new \Elastica\Filter\Term(array('aclViewThumb.userIds' => array($userId))));
-      }
-
-      foreach ($groupIds as $groupId)
-      {
-        $this->filterBool->addShould(new \Elastica\Filter\Term(array('aclViewThumb.groupIds' => $groupId)));
-      }
-    }
+    QubitAclSearch::filterDraftsByES($this->filterBool, 'aclViewThumb');
 
     // Set filter
     if (0 < count($this->filterBool->toArray()))

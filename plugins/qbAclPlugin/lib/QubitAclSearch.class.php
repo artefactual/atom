@@ -159,6 +159,83 @@ class QubitAclSearch
   }
 
   /**
+   * Filter search query by resource ES ACL entries.
+   *
+   * @param  \Elastica\Filter\Bool $filterBool Search query object
+   */
+  public static function filterDraftsByES(&$filterBool)
+  {
+    // Merge this with filterDrafts?
+    $userId = sfContext::getInstance()->getUser()->getUserID();
+    $groupIds = sfContext::getInstance()->getUser()->getGroupIds();
+
+    // Set Acl rule filters if user isn't an administrator
+    if (!in_array(QubitAclGroup::ADMINISTRATOR_ID, $groupIds))
+    {
+      if ($userId)
+      {
+        $filterBool->addShould(new \Elastica\Filter\Term(array('aclViewDraft.userIds' => array($userId))));
+      }
+
+      foreach ($groupIds as $groupId)
+      {
+        $filterBool->addShould(new \Elastica\Filter\Term(array('aclViewDraft.groupIds' => $groupId)));
+      }
+    }
+  }
+
+  /**
+   * Check ES for whether or not the current user has access to a specific
+   * action.
+   *
+   * @param  int $id The id of the ES document
+   * @param  string $action the action to check again, e.g. aclViewThumb, aclViewDraft
+   */
+  public static function check($id, $action)
+  {
+    $docType = 'QubitInformationObject';
+
+    $userId = sfContext::getInstance()->getUser()->getUserID();
+    $groupIds = sfContext::getInstance()->getUser()->getGroupIds();
+
+    $query = new \Elastica\Query\Bool;
+    $query->addMust(new \Elastica\Query\Term(array('_id' => $id)));
+
+    $results = QubitSearch::getInstance()->index->getType($docType)->search($query)->getResults();
+    if (!count($results))
+    {
+      return false;
+    }
+
+    // Should only ever have 1 element since _id corresponds to
+    // our information_object.id which is unique.
+    $doc = $results[0]->getData();
+
+    if (!isset($doc[$action]))
+    {
+      throw new sfException("ElasticSearch ACL rules requested on a $docType (id: $id) document not found.");
+    }
+
+    $allowedUserIds = $doc[$action]['userIds'];
+    $allowedGroupIds = $doc[$action]['groupIds'];
+
+    if (in_array($userId, $allowedUserIds))
+    {
+      return true;
+    }
+
+    foreach ($groupIds as $groupId)
+    {
+      if (in_array($groupId, $allowedGroupIds))
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
    * Filter search query by resource specific ACL
    *
    * @param  \Elastica\Filter\Bool $filterBool Search query object

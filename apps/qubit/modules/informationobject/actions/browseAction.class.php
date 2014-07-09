@@ -130,26 +130,6 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     }
   }
 
-  protected function filterElasticSearchDrafts()
-  {
-    $userId = sfContext::getInstance()->getUser()->getUserID();
-    $groupIds = sfContext::getInstance()->getUser()->getGroupIds();
-
-    // Set Acl rule filters if user isn't an administrator
-    if (!in_array(QubitAclGroup::ADMINISTRATOR_ID, $groupIds))
-    {
-      if ($userId)
-      {
-        $this->filterBool->addShould(new \Elastica\Filter\Term(array('aclViewDraft.userIds' => array($userId))));
-      }
-
-      foreach ($groupIds as $groupId)
-      {
-        $this->filterBool->addShould(new \Elastica\Filter\Term(array('aclViewDraft.groupIds' => $groupId)));
-      }
-    }
-  }
-
   public function execute($request)
   {
     parent::execute($request);
@@ -235,8 +215,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
     // Filter drafts
     //QubitAclSearch::filterDrafts($this->filterBool);
-
-    $this->filterElasticSearchDrafts();
+    QubitAclSearch::filterDraftsByES($this->filterBool, 'aclViewDraft');
 
     // Set filter
     if (0 < count($this->filterBool->toArray()))

@@ -1717,8 +1717,8 @@ class QubitInformationObject extends BaseInformationObject
   {
     $physicalDescription = '';
     $childTags = array(
-      'extent' => 'Extent', 
-      'dimensions' => 'Dimensions', 
+      'extent' => 'Extent',
+      'dimensions' => 'Dimensions',
       'genreform' => 'Form of material',
       'physfacet' => 'Physical facet'
     );
@@ -1730,7 +1730,7 @@ class QubitInformationObject extends BaseInformationObject
       {
         $physicalDescription .= "<dt>{$headingText}</dt><dd>" . QubitXmlImport::replaceLineBreaks($nodeList->item(0)) . "</dd>";
 
-        // Remove the children nodes as we go so we're 
+        // Remove the children nodes as we go so we're
         // left with any remaining node text in physDescNode.
         $physDescNode->removeChild($nodeList->item(0));
       }
@@ -2271,6 +2271,7 @@ class QubitInformationObject extends BaseInformationObject
     foreach (QubitInformationObject::get($criteria) as $item)
     {
       // ACL checks
+      // TODO: Check ES viewDraft here?
       if (QubitAcl::check($item, 'read'))
       {
         $firstChild = $item;
@@ -2438,7 +2439,7 @@ class QubitInformationObject extends BaseInformationObject
         $last = $item;
 
         // ACL checks
-        if (!QubitAcl::check($item, 'read'))
+        if (!QubitAcl::check($item, 'read') || !QubitAclSearch::check($item->id, 'aclViewDraft'))
         {
           continue;
         }
