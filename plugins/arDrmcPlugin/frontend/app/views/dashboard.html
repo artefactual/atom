@@ -94,7 +94,7 @@
                     <td>{{ aip.duration | ConvertSecondsFilter }}</td>
                     <td>Failed</td>
                     <td>
-                      <span ng-show="aip.recoveryPending">Pending</span>
+                      <span ng-show="aip.recoveryPending">Pending admin approval</span>
                       <a href class="btn" ng-hide="aip.recoveryPending" ng-click="requestRecover(aip.id)">Recover</a>
                       <span ng-show="aip.lastRecoveryResolved" class="recovery-status label {{ aip.lastRecoveryResolved.outcome ? 'label-success' : 'label-important' }}">
                         {{ aip.lastRecoveryResolved.message }} ({{ aip.lastRecoveryResolved.timeCompleted}})

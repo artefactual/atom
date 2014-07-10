@@ -125,7 +125,7 @@ class ApiFixityStatusAction extends QubitApiAction
       {
         $report['lastRecoveryResolved'] = array(
           'outcome' => (bool)$recovery->success,
-          'message' => $recovery->message,
+          'message' => $this->simplifyRestoreResponseMessage($recovery->message),
           'timeStarted' => $recovery->timeStarted,
           'timeCompleted' => $recovery->timeCompleted
         );
@@ -236,5 +236,21 @@ class ApiFixityStatusAction extends QubitApiAction
     }
 
     return $data;
+  }
+
+  protected function simplifyRestoreResponseMessage($message)
+  {
+    if (strpos($message, 'APPROVE:') === 0)
+    {
+      $message = 'Recovery successful';
+    } else if (strpos($message, 'REJECT:') === 0)
+    {
+      $message = 'Recovery rejected';
+    } else if (strpos($message, 'APPROVE (failed):') === 0)
+    {
+      $message = 'Recovery failed';
+    }
+
+    return $message;
   }
 }
