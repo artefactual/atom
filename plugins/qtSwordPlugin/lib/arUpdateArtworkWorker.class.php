@@ -27,12 +27,12 @@ class arUpdateArtworkWorker extends Net_Gearman_Job_Common
       array('message' => $message)));
   }
 
-  public function run($tmsId)
+  public function run($id)
   {
     $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
 
     $this->log('A new job has started to being processed.');
-    $this->log(sprintf('TMSObject ID: %s', $tmsId));
+    $this->log(sprintf('TMSObject ID: %s', $id));
     $this->log('Job finished.');
 
     return true;

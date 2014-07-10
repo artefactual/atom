@@ -23,7 +23,7 @@ class qtSwordPluginUpdateArtworkAction extends sfAction
   {
     $this->response->setHeaderOnly(true);
 
-    if ($request->isMethod('post') && ctype_digit($request->tmsId))
+    if ($request->isMethod('post') && ctype_digit($request->id))
     {
       try
       {
@@ -31,7 +31,7 @@ class qtSwordPluginUpdateArtworkAction extends sfAction
         if (sfConfig::get('app_use_job_scheduler', true))
         {
           $client = new Net_Gearman_Client('localhost:4730');
-          $handle = $client->arUpdateArtworkWorker($request->tmsId);
+          $handle = $client->arUpdateArtworkWorker($request->id);
 
           // Job accepted!
           $this->response->setStatusCode(202);

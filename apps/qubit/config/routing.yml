@@ -69,8 +69,8 @@ sword/deposit/slug:
     module: qtSwordPlugin
     action: deposit
 
-sword/updateartwork/tmsId:
-  url: /sword/updateartwork/:tmsId
+sword/updateartwork/id:
+  url: /sword/updateartwork/:id
   param:
     module: qtSwordPlugin
     action: updateArtwork
