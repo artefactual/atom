@@ -23,6 +23,17 @@ class qtSwordPluginHttpAuthFilter extends sfFilter
   {
     if ($this->isFirstCall())
     {
+      $context = $this->getContext();
+
+      // If the user have been already authenticated (e.g. via cookies/session),
+      // we can just ignore the Authorization header and let it pass.
+      if ($context->getUser()->isAuthenticated())
+      {
+        $filterChain->execute();
+
+        return;
+      }
+
       if (!isset($_SERVER['PHP_AUTH_USER']))
       {
         $this->sendHeaders();
