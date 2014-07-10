@@ -219,6 +219,13 @@ module.exports = function ($http, $q, SETTINGS) {
     return $http(configuration);
   };
 
+  this.updateArtworkTms = function (id) {
+    return $http({
+      method: 'POST',
+      url: SETTINGS.frontendPath + 'sword/updateartwork/' + id
+    });
+  };
+
   /**
    * From here, successCallback is returning the contents of the response
    * instead of the response object

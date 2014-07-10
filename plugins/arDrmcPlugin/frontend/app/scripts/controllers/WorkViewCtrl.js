@@ -6,6 +6,11 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
   InformationObjectService.getArtworkRecordWithTms($stateParams.id).then(function (data) {
     $scope.work = data;
     $scope.title = getTitle(data);
+    // TODO: compare LastModifiedDate from TMS
+    InformationObjectService.updateArtworkTms($stateParams.id).then(function (response) {
+      // TODO: check response to see if it's updating and add timer to reload artwork
+      console.log(response);
+    });
   }, function (response) {
     throw response;
   });
