@@ -5,18 +5,31 @@
   module.exports = function ($compile) {
 
     var templates = {
-      'icon':      '<div class="thumb">' +
-                   '  <span ng-if="mediaType">ICON: {{ mediaType }} (mediaType)</span>' +
-                   '  <span ng-if="!mediaType">ICON: Unknown mediaType</span>' +
+      'icon':      '<div class="thumb thumb-icon">' +
+                   '  <span ng-class="getIcon()">ICON: {{ getIcon() }} class (mediaType)</span>' +
                    '</div>',
 
-      'thumbnail': '<div class="thumb">' +
+      'thumbnail': '<div class="thumb thumb-preview">' +
+                   '  <!-- This could make use of the background tile hack in HTML5 -->            ' +
                    '  <img ng-src="{{ thumbnailPath }}" width="{{ width }}" height="{{ height }}"/>' +
                    '</div>',
     };
 
     // PUID => MIME types
     // http://www.nationalarchives.gov.uk/documents/DROID_SignatureFile_V74.xml
+
+    // Extract the top-level media type from a MIME type
+    function getTopLevelType (mediaType) {
+      if (!angular.isString(mediaType)) {
+        return null;
+      }
+      var regex = /^[^\/]*$/;
+      var matches = mediaType.match(regex);
+      if (null === matches) {
+        return null;
+      }
+      return matches[0];
+    }
 
     // Relate each major Internet media type with an icon
     // Omitted: example, message and model
@@ -26,7 +39,8 @@
       'image': 'icon-picture',
       'multipart': 'icon-envelope-alt',
       'text': 'icon-file-text-alt',
-      'video': 'icon-film'
+      'video': 'icon-film',
+      'unknown': 'icon-?'
     };
 
     console.log(icons);
@@ -42,12 +56,24 @@
       },
       compile: function () {
         return function postLink (scope, element) {
+
+          // Load the right template and compile it
           var template = templates.thumbnail;
           if (!scope.thumbnailPath.length) {
             template = templates.icon;
           }
           element.html(template).show();
           $compile(element.contents())(scope);
+
+          // Get top-level media type and its corresponding icon
+          var topLevelType = getTopLevelType(scope.mediaType);
+          scope.getIcon = function () {
+            if (!scope.mediaType.length || null === topLevelType) {
+              return icons.unknown;
+            }
+            return icons[topLevelType];
+          };
+
         };
       }
     };

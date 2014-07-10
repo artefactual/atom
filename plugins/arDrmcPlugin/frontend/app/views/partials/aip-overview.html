@@ -72,8 +72,8 @@
           <tbody>
             <tr ng-repeat="file in files track by $index" ng-class="{ selected: file.selected == true }">
               <!-- TODO layout from css -->
-              <td class="preview" width="20%">
-                <a href ng-click="openDigitalObjectModal(files, $index)"><img width="100%" ng-src="{{ file.thumbnail_path }}"/></a>
+              <td class="preview">
+                <ar:digital-object-thumbnail thumbnail-path="{{ file.thumbnail_path }}" media-type="video" width="200" height="200" on-click="openDigitalObjectModal(files, $index)"></ar:digital-object-thumbnail>
               </td>
               <td class="name">
                 <a href ng-click="openDigitalObjectModal(files, $index)">{{ file.filename }}</a>
