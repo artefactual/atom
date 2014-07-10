@@ -378,7 +378,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           $tmsComponent->setPublicationStatusByName('Published');
 
           // Get TMS Component data
-          $tmsComponentsIoIds[] = arFetchTms::getTmsComponentData($tmsId, $artworkThumbnail);
+          $tmsComponentsIoIds[] = arFetchTms::getTmsComponentData($tmsComponent, $tmsId, $artworkThumbnail);
         }
 
         // Save info object components ids as property of the artwork

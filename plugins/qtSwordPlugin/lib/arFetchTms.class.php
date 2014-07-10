@@ -198,7 +198,7 @@ class arFetchTms
     return array($tmsComponentsIds, $artworkThumbnail);
   }
 
-  public static function createTombstoneComponent($tmsId, $artworkThumbnail)
+  public static function getTmsComponentData($tmsComponent, $tmsComponentId, $artworkThumbnail)
   {
     // Mapping from TMS status to level of descriptions
     $statusMapping = array(
@@ -215,7 +215,7 @@ class arFetchTms
 
     // Request component from TMS API
     $curl = curl_init();
-    $url = sfConfig::get('app_drmc_tms_url').'/GetComponentDetails/Component/'.$tmsId;
+    $url = sfConfig::get('app_drmc_tms_url').'/GetComponentDetails/Component/'.$tmsComponentId;
 
     curl_setopt_array($curl, array(
         CURLOPT_RETURNTRANSFER => 1,
