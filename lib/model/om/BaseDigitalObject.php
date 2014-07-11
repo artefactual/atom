@@ -339,7 +339,7 @@ abstract class BaseDigitalObject extends QubitObject implements ArrayAccess
 
   public function addDescendantsCriteria(Criteria $criteria)
   {
-    return $criteria->add(QubitDigitalObject::LFT, $this->lft, Criteria::GREATER_THAN)->add(QubitDigitalObject::RGT, $this->rgt, Criteria::LESS_THAN);
+    return $criteria->add(QubitDigitalObject::PARENT_ID, $this->id);
   }
 
   public function isInTree()
