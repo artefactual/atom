@@ -258,6 +258,7 @@
     <?php endforeach; ?>
   <?php endif; ?>
 
+  <?php if (!$options['current-level-only']): ?>
   <dsc type="combined">
 
     <?php $nestedRgt = array() ?>
@@ -418,5 +419,6 @@
     <?php endforeach; ?>
 
   </dsc>
+  <?php endif; ?>
 </archdesc>
 </ead>
