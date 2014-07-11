@@ -53,15 +53,7 @@ class eadExportTask extends sfBaseTask
    */
   public function execute($arguments = array(), $options = array())
   {
-    if (!is_dir($arguments['folder']))
-    {
-      throw new sfException('You must specify a valid folder');
-    }
-
-    if (!is_writable($arguments['folder']))
-    {
-      throw new sfException("Can't write to this folder");
-    }
+    $this->checkForValidFolder($arguments['folder']);
 
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
@@ -81,18 +73,9 @@ class eadExportTask extends sfBaseTask
     $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
     $sf_context = sfContext::createInstance($configuration);
 
-    $whereClause = "parent_id=1";
-
-    if ($options['criteria'])
-    {
-      $whereClause .= ' AND '. $options['criteria'];
-    }
-
-    $sql = "SELECT * FROM information_object i INNER JOIN information_object_i18n i18n ON i.id=i18n.id WHERE ". $whereClause;
-
     $itemsExported = 0;
 
-    foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row)
+    foreach($conn->query($this->exportQuerySql($options['criteria']), PDO::FETCH_ASSOC) as $row)
     {
       $resource = QubitInformationObject::getById($row['id']);
 
@@ -119,5 +102,30 @@ class eadExportTask extends sfBaseTask
 
       $itemsExported++;
     }
+  }
+
+  protected function checkForValidFolder($folder)
+  {
+    if (!is_dir($folder))
+    {
+      throw new sfException('You must specify a valid folder');
+    }
+
+    if (!is_writable($folder))
+    {
+      throw new sfException("Can't write to this folder");
+    }
+  }
+
+  protected function exportQuerySql($criteria)
+  {
+    $whereClause = "parent_id=1";
+
+    if ($criteria)
+    {
+      $whereClause .= ' AND '. $criteria;
+    }
+
+    return "SELECT * FROM information_object i INNER JOIN information_object_i18n i18n ON i.id=i18n.id WHERE ". $whereClause;
   }
 }
