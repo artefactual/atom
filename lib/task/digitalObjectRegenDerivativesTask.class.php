@@ -30,7 +30,8 @@ class digitalObjectRegenDerivativesTask extends sfBaseTask
       new sfCommandOption('slug', 'l', sfCommandOption::PARAMETER_OPTIONAL, 'Information object slug', null),
       new sfCommandOption('index', 'i', sfCommandOption::PARAMETER_NONE, 'Update search index (defaults to false)', null),
       new sfCommandOption('force', 'f', sfCommandOption::PARAMETER_NONE, 'No confirmation message', null),
-      new sfCommandOption('only-externals', 'o', sfCommandOption::PARAMETER_NONE, 'Only external objects', null)
+      new sfCommandOption('only-externals', 'o', sfCommandOption::PARAMETER_NONE, 'Only external objects', null),
+      new sfCommandOption('json', 'j', sfCommandOption::PARAMETER_OPTIONAL, 'Limit regenerating derivatives to IDs in a JSON file', null),
     ));
 
     $this->namespace = 'digitalobject';
@@ -84,6 +85,12 @@ EOF;
       $query .= ' AND do.usage_id = '.QubitTerm::EXTERNAL_URI_ID;
     }
 
+    if ($options['json'])
+    {
+      $ids = json_decode(file_get_contents($options['json']));
+      $query .= ' AND do.id IN (' . implode(', ', $ids) . ')';
+    }
+
     // Final confirmation
     if (!$options['force'])
     {
@@ -99,7 +106,7 @@ EOF;
         $confirm[] = 'Continuing will regenerate the dervivatives for ALL digital objects';
       }
 
-      $confirm[] = 'This will PERMANENTLY DELETE any existing derivatives';
+      $confirm[] = 'This will PERMANENTLY DELETE existing derivatives you chose to regenerate';
       $confirm[] = '';
       $confirm[] = 'Continue? (y/N)';
 
