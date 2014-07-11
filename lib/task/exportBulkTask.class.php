@@ -43,8 +43,7 @@ class eadExportTask extends sfBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'), 
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-      new sfCommandOption('rows-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Output total rows imported every n rows.'),
-      new sfCommandOption('skip-rows', null, sfCommandOption::PARAMETER_OPTIONAL, 'Skip n rows before importing.'),
+      new sfCommandOption('items-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Indicate progress every n items.'),
       new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria')
     ));
   }
@@ -91,6 +90,8 @@ class eadExportTask extends sfBaseTask
 
     $sql = "SELECT * FROM information_object i INNER JOIN information_object_i18n i18n ON i.id=i18n.id WHERE ". $whereClause;
 
+    $itemsExported = 0;
+
     foreach($conn->query($sql, PDO::FETCH_ASSOC) as $row)
     {
       $resource = QubitInformationObject::getById($row['id']);
@@ -110,7 +111,13 @@ class eadExportTask extends sfBaseTask
       $filePath = $arguments['folder'] .'/'. $filename;
       file_put_contents($filePath, $output);
 
-      print '.';
+      // if progress indicator should be displayed, display it
+      if (!isset($options['items-until-update']) || !($itemsExported % $options['items-until-update']))
+      {
+        print '.';
+      }
+
+      $itemsExported++;
     }
   }
 }
