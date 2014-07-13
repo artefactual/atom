@@ -32,7 +32,34 @@ class arUpdateArtworkWorker extends Net_Gearman_Job_Common
     $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
 
     $this->log('A new job has started to being processed.');
-    $this->log(sprintf('TMSObject ID: %s', $id));
+    $this->log(sprintf('UpdateArtworkTMS - Artwork ID: %s', $id));
+
+    // Store artwork being updated in cache
+    try
+    {
+      $cache = QubitCache::getInstance();
+    }
+    catch (Exception $e)
+    {
+      $this->log(sprintf('UpdateArtworkTMS - Cache could not be accessed: %s', $e->getMessage()));
+    }
+
+    if (isset($cache))
+    {
+      $cache->set('updating_artwork', $id);
+      $this->log('UpdateArtworkTMS - Artwork ID stored in cache');
+    }
+
+    // Update artwork
+    sleep(10);
+
+    // Remove artwork id from cache
+    if (isset($cache))
+    {
+      $cache->remove('updating_artwork');
+      $this->log('UpdateArtworkTMS - Artwork ID removed from cache');
+    }
+
     $this->log('Job finished.');
 
     return true;
