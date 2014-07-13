@@ -49,7 +49,7 @@ class ApiSummaryArtworkByDateAction extends QubitApiAction
     $query->setLimit(0);
 
     // Add facets to the months in which artwork records were collected and created
-    $this->facetEsQuery('DateHistogram', 'collectionDate', 'tmsObject.collectionDate', $query, array('interval' => 'year'));
+    $this->facetEsQuery('DateHistogram', 'collectionDate', 'tmsObject.dateCollected', $query, array('interval' => 'year'));
     $this->facetEsQuery('DateHistogram', 'createdAt', 'createdAt', $query, array('interval' => 'month'));
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
