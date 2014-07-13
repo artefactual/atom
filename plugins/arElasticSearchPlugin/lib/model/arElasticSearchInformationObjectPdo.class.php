@@ -2038,6 +2038,8 @@ class arElasticSearchInformationObjectPdo
       if (null !== $dateCollected = $this->getProperty('AccessionISODate'))
       {
         $serialized['tmsObject']['dateCollected'] = arElasticSearchPluginUtil::convertDate($dateCollected);
+        $dateComponents = date_parse($dateCollected);
+        $serialized['tmsObject']['yearCollected'] = $dateComponents['year'];
       }
 
       if (null !== $accessionNumber = $this->getProperty('ObjectNumber'))
