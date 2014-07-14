@@ -12,6 +12,8 @@ prod:
     class: QubitSessionStorage
     param:
       session_name: symfony
+      session_cookie_httponly: true
+      session_cookie_secure: true
 
 test:
   storage:
