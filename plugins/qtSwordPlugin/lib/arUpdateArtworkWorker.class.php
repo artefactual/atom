@@ -34,7 +34,9 @@ class arUpdateArtworkWorker extends Net_Gearman_Job_Common
     $this->log('A new job has started to being processed.');
     $this->log(sprintf('UpdateArtworkTMS - Artwork ID: %s', $id));
 
+    /*
     // Store artwork being updated in cache
+    // This is not working as APC uses diferents caches for php-cli and Apache
     try
     {
       $cache = QubitCache::getInstance();
@@ -49,15 +51,52 @@ class arUpdateArtworkWorker extends Net_Gearman_Job_Common
       $cache->set('updating_artwork', $id);
       $this->log('UpdateArtworkTMS - Artwork ID stored in cache');
     }
+    */
+
+    // Store artwork being updated in cache.
+    // Using APC stream dump so it can be accessed from CLI and Apache
+    $cacheFileLoaded = false;
+
+    try
+    {
+      // Check if dump file exists
+      if (ini_get('apc.enable_cli') && false !== $dump_file = stream_resolve_include_path('apc.dump'))
+      {
+        // Load file dump
+        if (false !== apc_bin_loadfile($dump_file))
+        {
+          // Save updating artwork and dump file
+          apc_store('updating_artwork', $id);
+          apc_bin_dumpfile(array(), null, 'apc.dump');
+
+          $cacheFileLoaded = true;
+        }
+      }
+    }
+    catch (Exception $e)
+    {
+      $this->log(sprintf('UpdateArtworkTMS - Cache could not be accessed: %s', $e->getMessage()));
+    }
 
     // Update artwork
     sleep(10);
 
+    /*
     // Remove artwork id from cache
+    // This is not working as APC uses diferents caches for php-cli and Apache
     if (isset($cache))
     {
       $cache->remove('updating_artwork');
       $this->log('UpdateArtworkTMS - Artwork ID removed from cache');
+    }
+    */
+
+    // Remove artwork id from cache
+    if ($cacheFileLoaded)
+    {
+      // Remove updating artwork and dump file. Not working with apc_delete() and apc_delete_file()
+      apc_store('updating_artwork', null);
+      apc_bin_dumpfile(array(), null, 'apc.dump');
     }
 
     $this->log('Job finished.');

@@ -43,7 +43,9 @@ class ApiInformationObjectsWorksStatusAction extends QubitApiAction
     // TODO: Check if it's up to date with TMS (LastModifiedDate from property and TMS field)
     $results['updated'] = false;
 
+    /*
     // Check if it's being updated ('updating_artwork' key in cache)
+    // This is not working as APC uses diferents caches for php-cli and Apache
     $results['updating'] = false;
     try
     {
@@ -51,6 +53,31 @@ class ApiInformationObjectsWorksStatusAction extends QubitApiAction
       if ($this->io->id == $cache->get('updating_artwork'))
       {
         $results['updating'] = true;
+      }
+    }
+    catch (Exception $e)
+    {
+
+    }
+    */
+
+    // Check if it's being updated ('updating_artwork' key in cache)
+    // Using APC stream dump so it can be accessed from CLI and Apache
+    $results['updating'] = false;
+    try
+    {
+      // Check if dump file exists
+      if (extension_loaded('apc') && ini_get('apc.enabled')
+        && false !== $dump_file = stream_resolve_include_path('apc.dump'))
+      {
+        // Load file dump
+        if (false !== apc_bin_loadfile($dump_file))
+        {
+          if ($this->io->id == apc_fetch('updating_artwork'))
+          {
+            $results['updating'] = true;
+          }
+        }
       }
     }
     catch (Exception $e)
