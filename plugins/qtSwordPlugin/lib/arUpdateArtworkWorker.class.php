@@ -32,7 +32,29 @@ class arUpdateArtworkWorker extends Net_Gearman_Job_Common
     $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
 
     $this->log('A new job has started to being processed.');
-    $this->log(sprintf('UpdateArtworkTMS - Artwork ID: %s', $id));
+
+    if (null === $artwork = QubitInformationObject::getById($id))
+    {
+      $this->log('UpdateArtworkTMS - Information object not found');
+
+      return $this->finishJob();
+    }
+
+    if ($artwork->levelOfDescriptionId != sfConfig::get('app_drmc_lod_artwork_record_id'))
+    {
+      $this->log('UpdateArtworkTMS - Status not available for this level of description');
+
+      return $this->finishJob();
+    }
+
+    if (null === $artwork->identifier)
+    {
+      $this->log('UpdateArtworkTMS - TMS object ID not found');
+
+      return $this->finishJob();
+    }
+
+    $this->log(sprintf('UpdateArtworkTMS - Artwork ID: %s', $artwork->id));
 
     /*
     // Store artwork being updated in cache
@@ -79,7 +101,37 @@ class arUpdateArtworkWorker extends Net_Gearman_Job_Common
     }
 
     // Update artwork
-    sleep(10);
+    list($tmsComponentsIds, $artworkThumbnail) = arFetchTms::getTmsObjectData($artwork, $artwork->identifier);
+
+    // Update all descendants in ES
+    $sql = <<<sql
+
+SELECT
+  id
+FROM
+  information_object
+WHERE
+  lft > ?
+AND
+  rgt < ?;
+
+sql;
+
+    $results = QubitPdo::fetchAll($sql, array($artwork->lft, $artwork->rgt));
+
+    foreach ($results as $item)
+    {
+      $node = new arElasticSearchInformationObjectPdo($item->id);
+      $data = $node->serialize();
+
+      QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
+    }
+
+    // TODO:
+    // - Fix nested set problem
+    // - Update TMS data for components
+    // - Update artwork AIPs
+    // - Update relations
 
     /*
     // Remove artwork id from cache
@@ -99,6 +151,11 @@ class arUpdateArtworkWorker extends Net_Gearman_Job_Common
       apc_bin_dumpfile(array(), null, 'apc.dump');
     }
 
+    return $this->finishJob();
+  }
+
+  protected function finishJob()
+  {
     $this->log('Job finished.');
 
     return true;

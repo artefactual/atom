@@ -110,10 +110,34 @@ class arFetchTms
               $taxonomyId = sfConfig::get('app_drmc_taxonomy_'.strtolower($name).'s_id');
               $term = QubitFlatfileImport::createOrFetchTerm($taxonomyId, $value);
 
-              $newTermRelation = new QubitObjectTermRelation;
-              $newTermRelation->setTermId($term->id);
+              // Check for existing term relation
+              if (isset($tmsObject->id))
+              {
+                $criteria = new Criteria;
+                $criteria->add(QubitObjectTermRelation::OBJECT_ID, $tmsObject->id);
+                $criteria->addJoin(QubitObjectTermRelation::TERM_ID, QubitTerm::ID);
+                $criteria->add(QubitTerm::TAXONOMY_ID, $taxonomyId);
 
-              $tmsObject->objectTermRelationsRelatedByobjectId[] = $newTermRelation;
+                $termRelation = QubitObjectTermRelation::getOne($criteria);
+              }
+
+              // Update
+              if (isset($termRelation))
+              {
+                $termRelation->setTermId($term->id);
+                $termRelation->save();
+              }
+              // Or create new one
+              else
+              {
+                $termRelation = new QubitObjectTermRelation;
+                $termRelation->setTermId($term->id);
+
+                $tmsObject->objectTermRelationsRelatedByobjectId[] = $termRelation;
+              }
+
+              // Unset term relation for next loop
+              unset($termRelation);
 
               break;
 
@@ -135,12 +159,21 @@ class arFetchTms
 
             // Digital object
             case 'FullImage':
-              $errors = array();
-              $tmsObject->importDigitalObjectFromUri($value, $errors);
-
-              foreach ($errors as $error)
+              // Delete actual digital object if exists
+              if (null !== $digitalObject = $tmsObject->getDigitalObject())
               {
-                sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - '.$error);
+                // TODO: Update digital object
+              }
+              else
+              {
+                // Create digital object from URI
+                $errors = array();
+                $tmsObject->importDigitalObjectFromUri($value, $errors);
+
+                foreach ($errors as $error)
+                {
+                  sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - '.$error);
+                }
               }
 
               // Add property
@@ -188,11 +221,26 @@ class arFetchTms
 
     if (count($creation))
     {
-      $event = new QubitEvent;
-      $event->informationObjectId = $tmsObject->id;
-      $event->typeId = QubitTerm::CREATION_ID;
+      // Check for existing creation event
+      if (isset($tmsObject->id))
+      {
+        $criteria = new Criteria;
+        $criteria->add(QubitEvent::INFORMATION_OBJECT_ID, $tmsObject->id);
+        $criteria->add(QubitEvent::TYPE_ID, QubitTerm::CREATION_ID);
 
-      qtSwordPlugin::addDataToCreationEvent($event, $creation);
+        $creationEvent = QubitEvent::getOne($criteria);
+      }
+
+      // Or create new one
+      if (!isset($creationEvent))
+      {
+        $creationEvent = new QubitEvent;
+        $creationEvent->informationObjectId = $tmsObject->id;
+        $creationEvent->typeId = QubitTerm::CREATION_ID;
+      }
+
+      // Add data
+      qtSwordPlugin::addDataToCreationEvent($creationEvent, $creation);
     }
 
     return array($tmsComponentsIds, $artworkThumbnail);
