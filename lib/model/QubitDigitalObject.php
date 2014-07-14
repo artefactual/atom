@@ -1252,6 +1252,29 @@ class QubitDigitalObject extends BaseDigitalObject
   }
 
   /**
+   * The nested set is disabled for QubitDigitalObject
+   */
+  protected function updateNestedSet($connection = null)
+  {
+  }
+
+  /**
+   * The nested set is disabled for QubitDigitalObject
+   */
+  protected function deleteFromNestedSet($connection = null)
+  {
+  }
+
+  /**
+   * Get descendants based on parent id instead via lft/rgt,
+   * since the nested set is disabled.
+   */
+  public function addDescendantsCriteria(Criteria $criteria)
+  {
+    return $criteria->add(QubitDigitalObject::PARENT_ID, $this->id);
+  }
+
+  /**
    * Create a digital object representation of an asset
    *
    * @param mixed parent object (digital object or information object)
