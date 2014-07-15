@@ -70,6 +70,4 @@
   <?php endforeach; ?>
 </section>
 
-<section>
-  <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
-</section>
+<?php echo get_partial('default/pager', array('pager' => $pager)) ?>
