@@ -70,8 +70,24 @@ class DigitalObjectBrowseAction extends DefaultBrowseAction
       $this->queryBool->addMust(new \Elastica\Query\Term(array('ancestors' => $this->resource->id)));
     }
 
-    // Set sort and limit
-    $this->query->setSort(array('updatedAt' => 'desc'));
+    // Sorting
+    switch ($request->sort)
+    {
+      case 'lastUpdated':
+        $this->query->setSort(array('updatedAt' => 'desc'));
+
+        break;
+
+      case 'identifier':
+        $this->query->setSort(array('identifier' => 'asc'));
+
+        break;
+
+      case 'alphabetic':
+      default:
+        $field = sprintf('i18n.%s.title.untouched', $this->context->user->getCulture());
+        $this->query->setSort(array($field => 'asc'));
+    }
 
     $this->query->setQuery($this->queryBool);
 

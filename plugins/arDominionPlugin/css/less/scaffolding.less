@@ -495,7 +495,9 @@ th {
 
 // Top facets
 
-#header-facets {
+.header-facets {
+
+  float: right;
 
   .top-facet {
     margin-top: @baseLineHeight;
@@ -1160,6 +1162,11 @@ section .vcard:last-child > .field:last-child > div {
   float: right;
   text-align: right;
   margin-top: 2px;
+
+  &.shared {
+    margin-top: 24px;
+    margin-left: 20px;
+  }
 
   label {
     float: left;

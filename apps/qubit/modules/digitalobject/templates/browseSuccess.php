@@ -12,7 +12,15 @@
   </div>
   <div class="span6">
 
-    <div id="header-facets" class="pull-right">
+    <?php echo get_partial('default/sortPicker',
+      array(
+        'class' => 'shared',
+        'options' => array(
+          'alphabetic' => __('Alphabetic (title)'),
+          'identifier' => __('Alphabetic (identifier)'),
+          'lastUpdated' => __('Most recent')))) ?>
+
+    <div class="header-facets">
       <?php echo get_partial('search/singleFacet', array(
         'target' => '#facet-mediatype',
         'label' => __('Media type'),
@@ -62,6 +70,4 @@
   <?php endforeach; ?>
 </section>
 
-<section>
-  <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
-</section>
+<?php echo get_partial('default/pager', array('pager' => $pager)) ?>
