@@ -31,6 +31,16 @@ class QubitSessionStorage extends sfSessionStorage
       }
     }
 
+    // Ignore session_cookie_secure if we are not using HTTPS
+    if (isset($options['session_cookie_secure']) && true === $options['session_cookie_secure'])
+    {
+      $request = sfContext::getInstance()->getRequest();
+      if (!$request->isSecure())
+      {
+        unset($options['session_cookie_secure']);
+      }
+    }
+
     parent::initialize($options);
   }
 }
