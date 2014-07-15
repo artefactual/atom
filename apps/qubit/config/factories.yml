@@ -2,12 +2,6 @@
 # http://www.symfony-project.org/reference/1_4/en/05-Factories
 
 prod:
-  logger:
-    class:   sfNoLogger
-    param:
-      level:   err
-      loggers: ~
-
   storage:
     class: QubitSessionStorage
     param:
@@ -48,7 +42,7 @@ dev:
         sf_file_debug:
           class: sfFileLogger
           param:
-            level: warning
+            level: debug
             file: %SF_LOG_DIR%/%SF_APP%_%SF_ENVIRONMENT%.log
 
 all:
@@ -91,3 +85,14 @@ all:
     class: myUser
     param:
       timeout: 1800 # Session timeout in seconds
+
+  logger:
+    class: sfAggregateLogger
+    param:
+      level: warning
+      loggers:
+        sf_file_debug:
+          class: sfFileLogger
+          param:
+            level: warning
+            file: %SF_LOG_DIR%/%SF_APP%_%SF_ENVIRONMENT%.log
