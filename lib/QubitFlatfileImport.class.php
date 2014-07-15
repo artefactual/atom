@@ -1296,8 +1296,13 @@ class QubitFlatfileImport
   {
     $object = new QubitPhysicalObject;
     $object->name = $name;
-    $object->location = $location;
     $object->typeId = $typeId;
+
+    if ($location)
+    {
+      $object->location = $location;
+    }
+
     $object->save();
     return $object;
   }
