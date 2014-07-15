@@ -522,92 +522,76 @@ EOF;
 
           // add physical objects
           if (
-            (
-              isset($self->rowStatusVars['physicalObjectName'])
-              && $self->rowStatusVars['physicalObjectName']
-            )
-            || (
-              isset($self->rowStatusVars['physicalObjectLocation'])
-              && $self->rowStatusVars['physicalObjectLocation']
-            )
+            isset($self->rowStatusVars['physicalObjectName'])
+            && $self->rowStatusVars['physicalObjectName']
           )
           {
-            if (
-              $self->rowStatusVars['physicalObjectName']
-              && $self->rowStatusVars['physicalObjectLocation']
-            )
+            $names = explode('|', $self->rowStatusVars['physicalObjectName']);
+            $locations = explode('|', $self->rowStatusVars['physicalObjectLocation']);
+            $types = (isset($self->rowStatusVars['physicalObjectType']))
+              ? explode('|', $self->rowStatusVars['physicalObjectType'])
+              : array();
+
+            foreach($names as $index => $name)
             {
-              $names = explode('|', $self->rowStatusVars['physicalObjectName']);
-              $locations = explode('|', $self->rowStatusVars['physicalObjectLocation']);
-              $types = (isset($self->rowStatusVars['physicalObjectType']))
-                ? explode('|', $self->rowStatusVars['physicalObjectType'])
-                : array();
-
-              foreach($names as $index => $name)
+              // if location column populated
+              if ($self->rowStatusVars['physicalObjectLocation'])
               {
-                // if location column populated
-                if ($self->rowStatusVars['physicalObjectLocation'])
+                // if current index applicable
+                if (isset($locations[$index]))
                 {
-                  // if current index applicable
-                  if (isset($locations[$index]))
-                  {
-                    $location = $locations[$index];
-                  } else {
-                    $location = $locations[0];
-                  }
+                  $location = $locations[$index];
                 } else {
-                  $location = $name;
+                  $location = $locations[0];
                 }
-
-                // if location column populated
-                if ($self->rowStatusVars['physicalObjectType'])
-                {
-                  // if current index applicable
-                  if (isset($types[$index]))
-                  {
-                    $type = $types[$index];
-                  } else {
-                    $type = $types[0];
-                  }
-                } else {
-                  $type = 'Box';
-                }
-
-                $physicalObjectTypeId = array_search(
-                  $type,
-                  $self->getStatus('physicalObjectTypes')
-                );
-
-                // Create new physical object type if not found
-                if ($physicalObjectTypeId === false)
-                {
-                  $newType = new QubitTerm;
-                  $newType->name = $type;
-                  $newType->culture = isset($self->object->culture) ? $self->object->culture : 'en';
-                  $newType->taxonomyId = QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID;
-                  $newType->parentId = QubitTerm::ROOT_ID;
-
-                  $newType->save();
-                  $physicalObjectTypeId = $newType->id;
-                }
-
-                $container = $self->createOrFetchPhysicalObject(
-                  $name,
-                  $location,
-                  $physicalObjectTypeId
-                );
-
-                // associate container with information object
-                $self->createRelation(
-                  $container->id,
-                  $self->object->id,
-                  QubitTerm::HAS_PHYSICAL_OBJECT_ID
-                );
+              } else {
+                $location = '';
               }
-            } else {
-              throw new sfException('Both physicalObjectName and physicalObjectLocation '
-                     . 'required to create a physical object. (physicalObjectName: "'. $self->rowStatusVars['physicalObjectName']
-                     . '", physicalObjectLocation: "'. $self->rowStatusVars['physicalObjectLocation'] .'")');
+
+              // if object type column populated
+              if ($self->rowStatusVars['physicalObjectType'])
+              {
+                // if current index applicable
+                if (isset($types[$index]))
+                {
+                  $type = $types[$index];
+                } else {
+                  $type = $types[0];
+                }
+              } else {
+                $type = 'Box';
+              }
+
+              $physicalObjectTypeId = array_search(
+                $type,
+                $self->getStatus('physicalObjectTypes')
+              );
+
+              // Create new physical object type if not found
+              if ($physicalObjectTypeId === false)
+              {
+                $newType = new QubitTerm;
+                $newType->name = $type;
+                $newType->culture = isset($self->object->culture) ? $self->object->culture : 'en';
+                $newType->taxonomyId = QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID;
+                $newType->parentId = QubitTerm::ROOT_ID;
+
+                $newType->save();
+                $physicalObjectTypeId = $newType->id;
+              }
+
+              $container = $self->createOrFetchPhysicalObject(
+                $name,
+                $location,
+                $physicalObjectTypeId
+              );
+
+              // associate container with information object
+              $self->createRelation(
+                $container->id,
+                $self->object->id,
+                QubitTerm::HAS_PHYSICAL_OBJECT_ID
+              );
             }
           }
 
