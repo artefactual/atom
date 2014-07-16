@@ -79,7 +79,7 @@ module.exports = function () {
             xAxis.render();
 
             // allow optional use of Y axis formatter passed in as attribute
-            var yFormat = (typeof scope.yFilter !== 'undefined') ? yFilter : myrickshaw.Fixtures.Number.formatKMBT;
+            var yFormat = (typeof scope.yFilter !== 'undefined') ? scope.yFilter : myrickshaw.Fixtures.Number.formatKMBT;
 
             var yAxis = new myrickshaw.Graph.Axis.Y({
               graph: graph,
