@@ -86,8 +86,10 @@ module.exports = function ($scope, $q, $timeout, $filter, StatisticsService, Fix
 
   pull();
 
-  // Expose unit filter so it can be supplied, as an attribute, to directives
-  $scope.unitFilter = $filter('UnitFilter');
+  // Expose rounded version of unit filter so it can be supplied, as an attribute, to directives
+  $scope.unitFilterRounded = function (value) {
+    return $filter('UnitFilter')(value, 2);
+  };
 
   // If the user changes the overview state, it's not changed again on update
   var isOverviewToggled = false;
