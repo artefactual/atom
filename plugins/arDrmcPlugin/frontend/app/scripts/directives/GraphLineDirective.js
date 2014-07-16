@@ -55,6 +55,11 @@ module.exports = function () {
           // add padding to max
           max = max + (max / 10);
 
+          // set optional element ID
+          if (typeof attrs.id !== 'undefined') {
+            element.attr('id', attrs.id);
+          }
+
           if (dataFound) {
             var graph = new myrickshaw.Graph({
               element: element.find('rs-chart')[0],
