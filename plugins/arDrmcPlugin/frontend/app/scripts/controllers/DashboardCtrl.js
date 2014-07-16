@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ($scope, $q, $timeout, StatisticsService, FixityService, AIPService) {
+module.exports = function ($scope, $q, $timeout, $filter, StatisticsService, FixityService, AIPService) {
 
   var timer;
 
@@ -85,6 +85,9 @@ module.exports = function ($scope, $q, $timeout, StatisticsService, FixityServic
   };
 
   pull();
+
+  // Expose unit filter so it can be supplied, as an attribute, to directives
+  $scope.unitFilter = $filter('UnitFilter');
 
   // If the user changes the overview state, it's not changed again on update
   var isOverviewToggled = false;

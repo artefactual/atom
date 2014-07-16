@@ -47,7 +47,15 @@ class ApiSummaryMediaFilesizeByYearAction extends QubitApiAction
     $facetName = 'collection_year_file_stats';
     $this->facetEsQuery('TermsStats', $facetName, 'tmsObject.yearCollected', $query, array('valueField' => 'aips.sizeOnDisk'));
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+    // Return empty results if search fails
+    try
+    {
+      $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+    }
+    catch (Exception $e)
+    {
+      return array();
+    }
 
     $facets = $resultSet->getFacets();
 

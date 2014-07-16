@@ -7,11 +7,13 @@ module.exports = function () {
     restrict: 'E',
     replace: true,
     scope: {
+      'yFilter': '=yFilter'
     },
     template: '<div><rs-y-axis></rs-y-axis><rs-chart></rs-chart><rs-x-axis></rs-x-axis><rs-legend></rs-legend></div>',
     link: function (scope, element, attrs) {
 
       attrs.$observe('data', function (graphSpecification) {
+
         var series = [],
             max = Number.MIN_VALUE,
             dataFound = false;
@@ -63,7 +65,7 @@ module.exports = function () {
             });
 
             // use custom X axis formatter so we can use arbitrary X values
-            var format = function (i) {
+            var xFormat = function (i) {
               return (typeof xLabels[i] !== 'undefined') ? xLabels[i] : '';
             };
 
@@ -72,16 +74,19 @@ module.exports = function () {
               element: element.find('rs-x-axis')[0],
               orientation: 'bottom',
               pixelsPerTick: attrs.xperTick,
-              tickFormat: format
+              tickFormat: xFormat
             });
             xAxis.render();
+
+            // allow optional use of Y axis formatter passed in as attribute
+            var yFormat = (typeof scope.yFilter !== 'undefined') ? yFilter : myrickshaw.Fixtures.Number.formatKMBT;
 
             var yAxis = new myrickshaw.Graph.Axis.Y({
               graph: graph,
               element: element.find('rs-y-axis')[0],
               pixelsPerTick: attrs.yperTick,
               orientation: 'left',
-              tickFormat: myrickshaw.Fixtures.Number.formatKMBT
+              tickFormat: yFormat
             });
             yAxis.render();
 
