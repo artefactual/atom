@@ -8,6 +8,16 @@
   height: 5px;
 }
 
+rs-x-axis {
+  position: relative;
+  left: 40px;
+  height: 40px;
+}
+
+#average_artwork_size_graph > rs-x-axis {
+  left: 100px;
+}
+
 rs-y-axis {
   position: absolute;
   top: 0;
@@ -15,15 +25,17 @@ rs-y-axis {
   width: 40px;
 }
 
-rs-x-axis {
-  position: relative;
-  left: 40px;
-  height: 40px;
+#average_artwork_size_graph > rs-y-axis {
+  width: 100px;
 }
 
 rs-chart {
   position: relative;
   left: 40px;
+}
+
+#average_artwork_size_graph > rs-chart {
+  left: 100px;
 }
 
 .dashboard-rs-graph {
