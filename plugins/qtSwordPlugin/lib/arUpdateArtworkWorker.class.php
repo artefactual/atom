@@ -149,6 +149,11 @@ sql;
       $this->log('UpdateArtworkTMS - Artwork ID removed from cache');
     }
 
+    // Save ES documents in the batch queue
+    // We need to call the magic method explictly
+    // because the object isn't destroyed in a worker
+    QubitSearch::getInstance()->__destruct();
+
     return $this->finishJob();
   }
 
