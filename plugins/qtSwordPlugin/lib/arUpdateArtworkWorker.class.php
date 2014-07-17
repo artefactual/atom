@@ -92,7 +92,6 @@ class arUpdateArtworkWorker extends Net_Gearman_Job_Common
 
     $this->log(sprintf('UpdateArtworkTMS - Artwork ID: %s', $artwork->id));
 
-
     // Store artwork being updated in cache
     // This requires Symfony using sfMemcacheCache to work with the frontend
     try
