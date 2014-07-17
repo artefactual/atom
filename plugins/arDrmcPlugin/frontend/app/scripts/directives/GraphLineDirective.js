@@ -9,7 +9,7 @@ module.exports = function () {
     scope: {
       'yFilter': '=yFilter'
     },
-    template: '<div><rs-y-axis></rs-y-axis><rs-chart></rs-chart><rs-x-axis></rs-x-axis><rs-legend></rs-legend></div>',
+    template: '<div><rs-y-axis></rs-y-axis><rs-chart></rs-chart><rs-x-axis></rs-x-axis></div>',
     link: function (scope, element, attrs) {
 
       attrs.$observe('data', function (graphSpecification) {
@@ -94,12 +94,6 @@ module.exports = function () {
               tickFormat: yFormat
             });
             yAxis.render();
-
-            var lineLegend = new myrickshaw.Graph.Legend({
-              graph: graph,
-              element: element.find('rs-legend')[0]
-            });
-            lineLegend.render();
 
             graph.setRenderer(attrs.type);
             graph.render();
