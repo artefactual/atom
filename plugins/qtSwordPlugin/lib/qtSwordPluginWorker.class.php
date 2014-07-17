@@ -38,6 +38,42 @@ class qtSwordPluginWorker extends Net_Gearman_Job_Common
       throw new sfException('ERROR: Read-write access needed in {sf_web_dir}/{app_upload_dir}!');
     }
 
+    // Clear cache of all classes
+    foreach (array(
+      'QubitAccessLog',
+      'QubitActorI18n',
+      'QubitContactInformation',
+      'QubitContactInformationI18n',
+      'QubitEventI18n',
+      'QubitFunctionI18n',
+      'QubitInformationObjectI18n',
+      'QubitKeymap',
+      'QubitMenu',
+      'QubitMenuI18n',
+      'QubitNote',
+      'QubitNoteI18n',
+      'QubitOaiHarvest',
+      'QubitOaiRepository',
+      'QubitObject',
+      'QubitOtherName',
+      'QubitOtherNameI18n',
+      'QubitPhysicalObjectI18n',
+      'QubitProperty',
+      'QubitPropertyI18n',
+      'QubitRelationI18n',
+      'QubitRepositoryI18n',
+      'QubitRightsI18n',
+      'QubitSetting',
+      'QubitSettingI18n',
+      'QubitSlug',
+      'QubitStaticPageI18n',
+      'QubitStatus',
+      'QubitTaxonomyI18n',
+      'QubitTermI18n') as $className)
+    {
+      $className::clearCache();
+    }
+
     if (isset($package['location']))
     {
       $this->log(sprintf('A package was deposited by reference.'));
