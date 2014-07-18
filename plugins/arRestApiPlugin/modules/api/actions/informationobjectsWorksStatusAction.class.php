@@ -51,13 +51,16 @@ class ApiInformationObjectsWorksStatusAction extends QubitApiAction
 
     // Check if it's being updated ('updating_artwork' key in cache)
     // This requires Symfony using sfMemcacheCache to work with the Gearman worker
-    $results['updating'] = false;
     try
     {
       $cache = QubitCache::getInstance();
       if ($this->io->id == $cache->get('updating_artwork'))
       {
         $results['updating'] = true;
+      }
+      else
+      {
+        $results['updating'] = false;
       }
     }
     catch (Exception $e)
