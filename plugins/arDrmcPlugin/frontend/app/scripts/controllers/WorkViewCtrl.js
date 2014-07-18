@@ -47,13 +47,11 @@ module.exports = function (
         $scope.updating = true;
         timer = $timeout(getStatus, 2000);
         return;
-      } else {
-        if ($scope.updating) {
-          $scope.updating = false;
-          // Reload page
-          // TODO: reload only TMS metadata and context browser
-          $state.go('main.works.view', { id: $stateParams.id }, { reload: true });
-        }
+      } else if ($scope.updating) {
+        $scope.updating = false;
+        // Reload page
+        // TODO: reload only TMS metadata and context browser
+        $state.go('main.works.view', { id: $stateParams.id }, { reload: true });
       }
 
       if (!data.hasOwnProperty('updated')) {
