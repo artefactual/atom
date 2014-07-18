@@ -100,7 +100,7 @@ class arFetchTms
             case 'ObjectNumber':
             case 'ObjectStatusID':
             case 'SortNumber':
-              $tmsObject->addProperty($name, $value);
+              self::addProperty($name, $value, $tmsObject);
 
               break;
 
@@ -177,13 +177,13 @@ class arFetchTms
               }
 
               // Add property
-              $tmsObject->addProperty($name, $value);
+              self::addProperty($name, $value, $tmsObject);
 
               break;
 
             case 'Thumbnail':
               $artworkThumbnail = $value;
-              $tmsObject->addProperty($name, $value);
+              self::addProperty($name, $value, $tmsObject);
 
               break;
 
@@ -322,7 +322,7 @@ class arFetchTms
             // Properties
             case 'CompCount':
             case 'ComponentNumber':
-              $tmsComponent->addProperty($name, $value);
+              self::addProperty($name, $value, $tmsComponent);
 
               break;
 
@@ -416,5 +416,18 @@ class arFetchTms
     $tmsComponent->save();
 
     return $tmsComponent->id;
+  }
+
+  public static function addProperty($name, $value, $io)
+  {
+    if (isset($io->id) && null !== $property = QubitProperty::getOneByObjectIdAndName($io->id, $name))
+    {
+      $property->value = $value;
+      $property->save();
+    }
+    else
+    {
+      $io->addProperty($name, $value);
+    }
   }
 }
