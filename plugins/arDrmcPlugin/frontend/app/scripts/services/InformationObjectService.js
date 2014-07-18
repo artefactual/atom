@@ -231,6 +231,15 @@ module.exports = function ($http, $q, SETTINGS) {
    * instead of the response object
    */
 
+  this.getArtworkStatus = function (id) {
+    return $http({
+      method: 'GET',
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/status'
+    }).then(function (response) {
+      return response.data;
+    });
+  };
+
   this.getTms = function (id) {
     return $http({
       method: 'GET',

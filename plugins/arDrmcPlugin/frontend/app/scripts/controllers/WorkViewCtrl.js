@@ -1,16 +1,21 @@
 'use strict';
 
-module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationObjectService, ModalDigitalObjectViewerService, ModalDownloadService) {
+module.exports = function (
+  $scope,
+  $state,
+  $stateParams,
+  $modal,
+  $timeout,
+  SETTINGS,
+  InformationObjectService,
+  ModalDigitalObjectViewerService,
+  ModalDownloadService) {
 
   // TODO: Use https://github.com/angular-ui/ui-router/wiki#resolve
   InformationObjectService.getArtworkRecordWithTms($stateParams.id).then(function (data) {
     $scope.work = data;
     $scope.title = getTitle(data);
-    // TODO: compare LastModifiedDate from TMS
-    InformationObjectService.updateArtworkTms($stateParams.id).then(function (response) {
-      // TODO: check response to see if it's updating and add timer to reload artwork
-      console.log(response);
-    });
+    getStatus();
   }, function (response) {
     throw response;
   });
@@ -24,6 +29,49 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
       title += ', ' + work.tms.artist;
     }
     return title;
+  }
+
+  var timer;
+  $scope.updating = false;
+
+  // Checks if the artwork is up to date with the TMS and if it's being updated.
+  // If the artwork isn't updated it calls a Gearman Worker that fetch the TMS
+  // and updates all the tree. If the job is accepted it checks the status after 2 secs.
+  // If the artwork is being updated the status is checked every 2 secs, and when
+  // the job finish the page is reloaded.
+  function getStatus () {
+    InformationObjectService.getArtworkStatus($stateParams.id).then(function (data) {
+      if (!data.hasOwnProperty('updating')) {
+        console.log('Couldn\'t check if the Artwork is being updated');
+      } else if (data.updating) {
+        $scope.updating = true;
+        timer = $timeout(getStatus, 2000);
+        return;
+      } else {
+        if ($scope.updating) {
+          $scope.updating = false;
+          // Reload page
+          // TODO: reload only TMS metadata and context browser
+          $state.go('main.works.view', { id: $stateParams.id }, { reload: true });
+        }
+      }
+
+      if (!data.hasOwnProperty('updated')) {
+        console.log('Couldn\'t check if the Artwork is up to date');
+      } else if (!data.updated) {
+        // Call worker
+        InformationObjectService.updateArtworkTms($stateParams.id).then(function (response) {
+          if (!response.hasOwnProperty('status') || response.status !== 202) {
+            console.log('Couldn\'t update the Artwork');
+          } else {
+            $scope.updating = true;
+            timer = $timeout(getStatus, 2000);
+          }
+        });
+      } else {
+        console.log('Artwork is up to date');
+      }
+    });
   }
 
   // A list of digital objects. This is shared within the context browser
@@ -56,5 +104,9 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
   $scope.openDigitalObjectModal = function (files, index) {
     ModalDigitalObjectViewerService.open(files, index);
   };
+
+  $scope.$on('$destroy', function () {
+    $timeout.cancel(timer);
+  });
 
 };
