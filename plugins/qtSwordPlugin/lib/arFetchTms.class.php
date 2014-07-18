@@ -96,6 +96,7 @@ class arFetchTms
             case 'ClassificationID':
             case 'ConstituentID':
             case 'DepartmentID':
+            case 'LastModifiedCheckDate':
             case 'ImageID':
             case 'ObjectNumber':
             case 'ObjectStatusID':
