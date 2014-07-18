@@ -40,8 +40,14 @@ class ApiInformationObjectsWorksStatusAction extends QubitApiAction
 
     $results = array();
 
-    // TODO: Check if it's up to date with TMS (LastModifiedDate from property and TMS field)
-    $results['updated'] = false;
+    // Get last modified date from TMS and database
+    $tmsDate = arFetchTms::getLastModifiedCheckDate($this->io->identifier);
+    $atomDate = $this->io->getPropertyByName('LastModifiedCheckDate')->value;
+
+    if (isset($tmsDate) && isset($atomDate))
+    {
+      $results['updated'] = $tmsDate === $atomDate;
+    }
 
     // Check if it's being updated ('updating_artwork' key in cache)
     // This requires Symfony using sfMemcacheCache to work with the Gearman worker

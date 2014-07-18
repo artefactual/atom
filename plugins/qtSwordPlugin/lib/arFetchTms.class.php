@@ -419,6 +419,38 @@ class arFetchTms
     return $tmsComponent->id;
   }
 
+  public static function getLastModifiedCheckDate($tmsObjectId)
+  {
+    // Request object from TMS API
+    $curl = curl_init();
+
+    $url = sfConfig::get('app_drmc_tms_url').'/GetTombstoneDataRest/ObjectID/'.$tmsObjectId;
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_FAILONERROR => true,
+        CURLOPT_URL => $url));
+
+    if (false === $resp = curl_exec($curl))
+    {
+      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.curl_error($curl));
+      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - URL: '.$url);
+    }
+    else
+    {
+      $data = json_decode($resp, true);
+      $data = $data['GetTombstoneDataRestIdResult'];
+
+      if (isset($data['LastModifiedCheckDate']))
+      {
+        return $data['LastModifiedCheckDate'];
+      }
+    }
+
+    curl_close($curl);
+
+    return null;
+  }
+
   public static function addProperty($name, $value, $io)
   {
     if (isset($io->id) && null !== $property = QubitProperty::getOneByObjectIdAndName($io->id, $name))
