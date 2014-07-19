@@ -108,37 +108,7 @@ class arFetchTms
             // Object/term relations
             case 'Classification':
             case 'Department':
-              $taxonomyId = sfConfig::get('app_drmc_taxonomy_'.strtolower($name).'s_id');
-              $term = QubitFlatfileImport::createOrFetchTerm($taxonomyId, $value);
-
-              // Check for existing term relation
-              if (isset($tmsObject->id))
-              {
-                $criteria = new Criteria;
-                $criteria->add(QubitObjectTermRelation::OBJECT_ID, $tmsObject->id);
-                $criteria->addJoin(QubitObjectTermRelation::TERM_ID, QubitTerm::ID);
-                $criteria->add(QubitTerm::TAXONOMY_ID, $taxonomyId);
-
-                $termRelation = QubitObjectTermRelation::getOne($criteria);
-              }
-
-              // Update
-              if (isset($termRelation))
-              {
-                $termRelation->setTermId($term->id);
-                $termRelation->save();
-              }
-              // Or create new one
-              else
-              {
-                $termRelation = new QubitObjectTermRelation;
-                $termRelation->setTermId($term->id);
-
-                $tmsObject->objectTermRelationsRelatedByobjectId[] = $termRelation;
-              }
-
-              // Unset term relation for next loop
-              unset($termRelation);
+              self::addOrUpdateObjectTermRelation($name, $value, $tmsObject);
 
               break;
 
@@ -329,13 +299,7 @@ class arFetchTms
 
             // Object/term relation
             case 'ComponentType':
-              $taxonomyId = sfConfig::get('app_drmc_taxonomy_component_types_id');
-              $term = QubitFlatfileImport::createOrFetchTerm($taxonomyId, $value);
-
-              $newTermRelation = new QubitObjectTermRelation;
-              $newTermRelation->setTermId($term->id);
-
-              $tmsComponent->objectTermRelationsRelatedByobjectId[] = $newTermRelation;
+              self::addOrUpdateObjectTermRelation('component_type', $value, $tmsComponent);
 
               break;
 
@@ -461,6 +425,38 @@ class arFetchTms
     else
     {
       $io->addProperty($name, $value);
+    }
+  }
+
+  public static function addOrUpdateObjectTermRelation($name, $value, $io)
+  {
+    $taxonomyId = sfConfig::get('app_drmc_taxonomy_'.strtolower($name).'s_id');
+    $term = QubitFlatfileImport::createOrFetchTerm($taxonomyId, $value);
+
+    // Check for existing term relation
+    if (isset($io->id))
+    {
+      $criteria = new Criteria;
+      $criteria->add(QubitObjectTermRelation::OBJECT_ID, $io->id);
+      $criteria->addJoin(QubitObjectTermRelation::TERM_ID, QubitTerm::ID);
+      $criteria->add(QubitTerm::TAXONOMY_ID, $taxonomyId);
+
+      $termRelation = QubitObjectTermRelation::getOne($criteria);
+    }
+
+    // Update
+    if (isset($termRelation))
+    {
+      $termRelation->setTermId($term->id);
+      $termRelation->save();
+    }
+    // Or create new one
+    else
+    {
+      $termRelation = new QubitObjectTermRelation;
+      $termRelation->setTermId($term->id);
+
+      $io->objectTermRelationsRelatedByobjectId[] = $termRelation;
     }
   }
 }
