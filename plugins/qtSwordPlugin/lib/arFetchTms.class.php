@@ -375,7 +375,7 @@ class arFetchTms
     // Add thumbnail from artwork
     if (isset($artworkThumbnail))
     {
-      $tmsComponent->addProperty('artworkThumbnail', $artworkThumbnail);
+      self::addOrUpdateProperty('artworkThumbnail', $artworkThumbnail, $tmsComponent);
     }
 
     $tmsComponent->save();
