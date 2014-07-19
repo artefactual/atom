@@ -56,8 +56,8 @@ class arFetchTms
 
     if (false === $resp = curl_exec($curl))
     {
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.curl_error($curl));
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - URL: '.$url);
+      sfContext::getInstance()->getLogger()->info('arFetchTms - Error getting Tombstone data: '.curl_error($curl));
+      sfContext::getInstance()->getLogger()->info('arFetchTms - URL: '.$url);
     }
     else
     {
@@ -143,7 +143,7 @@ class arFetchTms
 
                 foreach ($errors as $error)
                 {
-                  sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - '.$error);
+                  sfContext::getInstance()->getLogger()->info('arFetchTms - '.$error);
                 }
               }
 
@@ -169,7 +169,7 @@ class arFetchTms
 
             // Log error
             case 'ErrorMsg':
-              sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - ErrorMsg: '.$value);
+              sfContext::getInstance()->getLogger()->info('arFetchTms - ErrorMsg: '.$value);
 
               break;
 
@@ -243,8 +243,8 @@ class arFetchTms
 
     if (false === $resp = curl_exec($curl))
     {
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.curl_error($curl));
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - URL: '.$url);
+      sfContext::getInstance()->getLogger()->info('arFetchTms - Error getting Tombstone data: '.curl_error($curl));
+      sfContext::getInstance()->getLogger()->info('arFetchTms - URL: '.$url);
     }
     else
     {
@@ -347,7 +347,7 @@ class arFetchTms
 
             // Log error
             case 'ErrorMsg':
-              sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - ErrorMsg: '.$value);
+              sfContext::getInstance()->getLogger()->info('arFetchTms - ErrorMsg: '.$value);
 
               break;
 
@@ -386,8 +386,8 @@ class arFetchTms
 
     if (false === $resp = curl_exec($curl))
     {
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Error getting Tombstone data: '.curl_error($curl));
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - URL: '.$url);
+      sfContext::getInstance()->getLogger()->info('arFetchTms - Error getting Tombstone data: '.curl_error($curl));
+      sfContext::getInstance()->getLogger()->info('arFetchTms - URL: '.$url);
     }
     else
     {
