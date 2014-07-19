@@ -307,12 +307,7 @@ class arFetchTms
             case 'InstallComments':
             case 'PrepComments':
             case 'StorageComments':
-              $note = new QubitNote;
-              $note->content = $value;
-              $note->culture = 'en';
-              $note->typeId = sfConfig::get('app_drmc_term_'.strtolower($name).'_id');
-
-              $tmsComponent->notes[] = $note;
+              self::addOrUpdateNote(sfConfig::get('app_drmc_term_'.strtolower($name).'_id'), $value, $tmsComponent);
 
               break;
 
@@ -346,12 +341,7 @@ class arFetchTms
                 $content[] = $row;
               }
 
-              $note = new QubitNote;
-              $note->culture = 'en';
-              $note->content = implode($content, "\n");
-              $note->typeId = QubitTerm::GENERAL_NOTE_ID;
-
-              $tmsComponent->notes[] = $note;
+              self::addOrUpdateNote(QubitTerm::GENERAL_NOTE_ID, implode($content, "\n"), $tmsComponent);
 
               break;
 
@@ -457,6 +447,35 @@ class arFetchTms
       $termRelation->setTermId($term->id);
 
       $io->objectTermRelationsRelatedByobjectId[] = $termRelation;
+    }
+  }
+
+  public static function addOrUpdateNote($typeId, $content, $io)
+  {
+    // Check for existing note
+    if (isset($io->id))
+    {
+      $criteria = new Criteria;
+      $criteria->add(QubitNote::OBJECT_ID, $io->id);
+      $criteria->add(QubitNote::TYPE_ID, $typeId);
+
+      $note = QubitNote::getOne($criteria);
+    }
+
+    // Update
+    if (isset($note))
+    {
+      $note->content = $content;
+      $note->save();
+    }
+    // Or create new one
+    else
+    {
+      $note = new QubitNote;
+      $note->content = $content;
+      $note->typeId = $typeId;
+
+      $io->notes[] = $note;
     }
   }
 }
