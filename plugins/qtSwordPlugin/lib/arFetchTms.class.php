@@ -130,14 +130,26 @@ class arFetchTms
 
             // Digital object
             case 'FullImage':
-              // Delete actual digital object if exists
+              // Update digital object if exists
               if (null !== $digitalObject = $tmsObject->getDigitalObject())
               {
-                // TODO: Update digital object
+                $criteria = new Criteria;
+                $criteria->add(QubitDigitalObject::PARENT_ID, $digitalObject->id);
+
+                $children = QubitDigitalObject::get($criteria);
+
+                // Delete derivatives
+                foreach ($children as $child)
+                {
+                  $child->delete();
+                }
+
+                // Import new one
+                $digitalObject->importFromUri($value);
               }
               else
               {
-                // Create digital object from URI
+                // Or create new one
                 $errors = array();
                 $tmsObject->importDigitalObjectFromUri($value, $errors);
 
