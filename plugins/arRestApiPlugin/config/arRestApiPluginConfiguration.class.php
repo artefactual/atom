@@ -187,6 +187,11 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'action' => 'informationobjectsWorksStatus',
       'params' => array('id' => self::REGEX_ID)));
 
+    $this->addRoute('POST', '/api/informationobjects/:id/updatetms', array(
+      'module' => 'api',
+      'action' => 'informationobjectsWorksUpdateTms',
+      'params' => array('id' => self::REGEX_ID)));
+
     /**
      * Actors
      */

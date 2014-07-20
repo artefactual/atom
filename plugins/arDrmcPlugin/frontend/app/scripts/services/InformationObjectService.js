@@ -222,7 +222,7 @@ module.exports = function ($http, $q, SETTINGS) {
   this.updateArtworkTms = function (id) {
     return $http({
       method: 'POST',
-      url: SETTINGS.frontendPath + 'sword/updateartwork/' + id
+      url: SETTINGS.frontendPath + 'api/informationobjects/' + id + '/updatetms'
     });
   };
 

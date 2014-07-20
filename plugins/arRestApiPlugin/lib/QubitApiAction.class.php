@@ -82,7 +82,7 @@ class QubitAPIAction extends sfAction
 
   public function renderData($data)
   {
-    if ($data === 'CSV')
+    if ($data === 'CSV' || $data === 'HEADER')
     {
       return sfView::NONE;
     }
