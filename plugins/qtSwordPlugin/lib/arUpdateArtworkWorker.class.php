@@ -114,20 +114,17 @@ class arUpdateArtworkWorker extends Net_Gearman_Job_Common
 
     // Get intermediate level
     $criteria = new Criteria;
-    $criteria->add(QubitInformationObject::PARENT_ID, $tmsObject->id);
+    $criteria->add(QubitInformationObject::PARENT_ID, $artwork->id);
     $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, sfConfig::get('app_drmc_lod_description_id'));
     $components = QubitInformationObject::getOne($criteria);
 
     // Get actual artwork components in DRMC
     $componentsLevels = array(
       sfConfig::get('app_drmc_lod_archival_master_id'),
-      sfConfig::get('app_drmc_lod_archival_master_id'),
       sfConfig::get('app_drmc_lod_artist_supplied_master_id'),
       sfConfig::get('app_drmc_lod_artist_verified_proof_id'),
-      sfConfig::get('app_drmc_lod_component_id'),
       sfConfig::get('app_drmc_lod_exhibition_format_id'),
       sfConfig::get('app_drmc_lod_miscellaneous_id'),
-      sfConfig::get('app_drmc_lod_component_id'),
       sfConfig::get('app_drmc_lod_component_id')
     );
 
@@ -175,7 +172,11 @@ class arUpdateArtworkWorker extends Net_Gearman_Job_Common
 
     // Save info object components ids as property of the artwork
     // because they are not directly related but added as part of the artwork in ES
-    QubitProperty::addUnique($artwork->id, 'childComponents', serialize($tmsComponentsIoIds));
+    $property = $artwork->getPropertyByName('childComponents');
+    $property->setName('childComponents');
+    $property->setValue(serialize($tmsComponentsIoIds));
+    $property->setObjectId($artwork->id);
+    $property->save();
 
     // Update non already updated descendants in ES
     $sql = <<<sql
