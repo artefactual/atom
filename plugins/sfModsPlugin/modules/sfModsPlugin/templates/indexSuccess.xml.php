@@ -9,38 +9,46 @@
     <title><?php echo esc_specialchars($resource->title) ?></title>
   </titleInfo>
 
-  <?php foreach ($mods->name as $item): ?>
-    <name type="<?php echo $item->actor->entityType ?>">
-      <namePart><?php echo esc_specialchars($item->actor) ?></namePart>
-      <role><?php echo $item->type->getRole() ?></role>
-    </name>
-  <?php endforeach; ?>
+  <?php if (0 < count($mods->name)): ?>
+    <?php foreach ($mods->name as $item): ?>
+      <name type="<?php echo $item->actor->entityType ?>">
+        <namePart><?php echo esc_specialchars($item->actor) ?></namePart>
+        <role><?php echo $item->type->getRole() ?></role>
+      </name>
+    <?php endforeach; ?>
+  <?php endif; ?>
 
-  <?php foreach ($mods->typeOfResource as $item): ?>
-    <typeOfResource><?php echo esc_specialchars($item->term) ?></typeOfResource>
-  <?php endforeach; ?>
+  <?php if (0 < count($mods->typeOfResource)): ?>
+    <?php foreach ($mods->typeOfResource as $item): ?>
+      <typeOfResource><?php echo esc_specialchars($item->term) ?></typeOfResource>
+    <?php endforeach; ?>
+  <?php endif; ?>
 
   <originInfo>
-    <?php foreach ($resource->getDates() as $item): ?>
+    <?php if (0 < count($resource->getDates())): ?>
+      <?php foreach ($resource->getDates() as $item): ?>
 
-      <place><?php echo $item->getPlace() ?></place>
+        <place><?php echo $item->getPlace() ?></place>
 
-      <?php switch ($item->typeId): case QubitTerm::CREATION_ID: ?>
-          <dateCreated><?php echo $item->getDate(array('cultureFallback' => true)) ?></dateCreated>
-          <?php break ?>
-        <?php case QubitTerm::PUBLICATION_ID: ?>
-          <dateIssued><?php echo $item->getDate(array('cultureFallback' => true)) ?></dateIssued>
-          <?php break ?>
-        <?php default: ?>
-          <dateOther><?php echo $item->getDate(array('cultureFallback' => true)) ?> (<?php echo $item->type ?>)</dateOther>
-      <?php endswitch; ?>
+        <?php switch ($item->typeId): case QubitTerm::CREATION_ID: ?>
+            <dateCreated><?php echo $item->getDate(array('cultureFallback' => true)) ?></dateCreated>
+            <?php break ?>
+          <?php case QubitTerm::PUBLICATION_ID: ?>
+            <dateIssued><?php echo $item->getDate(array('cultureFallback' => true)) ?></dateIssued>
+            <?php break ?>
+          <?php default: ?>
+            <dateOther><?php echo $item->getDate(array('cultureFallback' => true)) ?> (<?php echo $item->type ?>)</dateOther>
+        <?php endswitch; ?>
 
-    <?php endforeach; ?>
+      <?php endforeach; ?>
+    <?php endif; ?>
   </originInfo>
 
-  <?php foreach ($resource->language as $code): ?>
-    <language><?php echo format_language($code) ?></language>
-  <?php endforeach; ?>
+  <?php if (0 < count($resource->language)): ?>
+    <?php foreach ($resource->language as $code): ?>
+      <language><?php echo format_language($code) ?></language>
+    <?php endforeach; ?>
+  <?php endif; ?>
 
   <?php if (isset($reosurce->digitalObjects[0]->mimeType)): ?>
     <physicalDescription>
@@ -48,9 +56,11 @@
     </physicalDescription>
   <?php endif; ?>
 
-  <?php foreach ($resource->getSubjectAccessPoints() as $item): ?>
-    <subject><?php echo esc_specialchars($item->term) ?></subject>
-  <?php endforeach; ?>
+  <?php if (0 < count($resource->getSubjectAccessPoints())): ?>
+    <?php foreach ($resource->getSubjectAccessPoints() as $item): ?>
+      <subject><?php echo esc_specialchars($item->term) ?></subject>
+    <?php endforeach; ?>
+  <?php endif; ?>
 
   <identifier><?php echo esc_specialchars($mods->identifier) ?></identifier>
 
@@ -60,15 +70,19 @@
       <url usage="primary display">http://<?php echo $sf_request->getHost().$sf_request->getRelativeUrlRoot().$resource->digitalObjects[0]->getFullPath() ?></url>
     <?php endif; ?>
 
-    <?php foreach ($mods->physicalLocation as $item): ?>
-      <physicalLocation><?php echo esc_specialchars($item) ?></physicalLocation>
-    <?php endforeach; ?>
+    <?php if (0 < count($mods->physicalLocation)): ?>
+      <?php foreach ($mods->physicalLocation as $item): ?>
+        <physicalLocation><?php echo esc_specialchars($item) ?></physicalLocation>
+      <?php endforeach; ?>
+    <?php endif; ?>
 
   </location>
 
-  <?php foreach ($resource->getChildren() as $item): ?>
-    <relatedItem id="<?php echo $item->identifier ?>" type="constituent"><?php $mods = new sfModsPlugin($item); echo esc_specialchars($mods) ?></relatedItem>
-  <?php endforeach; ?>
+  <?php if (0 < count($resource->getChildren())): ?>
+    <?php foreach ($resource->getChildren() as $item): ?>
+      <relatedItem id="<?php echo $item->identifier ?>" type="constituent"><?php $mods = new sfModsPlugin($item); echo esc_specialchars($mods) ?></relatedItem>
+    <?php endforeach; ?>
+  <?php endif; ?>
 
   <accessCondition><?php echo esc_specialchars($resource->getAccessConditions(array('cultureFallback' => true))) ?></accessCondition>
 
