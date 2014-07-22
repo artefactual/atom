@@ -44,6 +44,7 @@ class eadExportTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
       new sfCommandOption('items-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Indicate progress every n items.'),
+      new sfCommandOption('format', null, sfCommandOption::PARAMETER_OPTIONAL, 'XML format ("ead" or "mods")', 'ead'),
       new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria'),
       new sfCommandOption('current-level-only', null, sfCommandOption::PARAMETER_NONE, 'Do not export child descriptions of exported items'),
       new sfCommandOption('site-url', null, sfCommandOption::PARAMETER_REQUIRED, 'The base URL of your AtoM site (example: "http://www.example.com").', false),
@@ -55,9 +56,10 @@ class eadExportTask extends sfBaseTask
    */
   public function execute($arguments = array(), $options = array())
   {
-    // Make sure arguments are valid
-    $siteBaseUrl = $this->checkAndNormalizeSiteUrl($options['site-url']);
+    // Clean up and check arguments and options
     $this->checkForValidFolder($arguments['folder']);
+    $options['format'] = strtolower($options['format']);
+    $this->checkForValidExportFormat($options['format']);
 
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
@@ -71,11 +73,13 @@ class eadExportTask extends sfBaseTask
     include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
     include($appRoot .'/lib/helper/QubitHelper.php');
 
-    $iso639convertor = new fbISO639_Map;
-    $eadLevels = array('class', 'collection', 'file', 'fonds', 'item', 'otherlevel', 'recordgrp', 'series', 'subfonds', 'subgrp', 'subseries');
-
     $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
     $sf_context = sfContext::createInstance($configuration);
+
+    $iso639convertor = new fbISO639_Map;
+    $eadLevels = array('class', 'collection', 'file', 'fonds', 'item', 'otherlevel', 'recordgrp', 'series', 'subfonds', 'subgrp', 'subseries');
+    $pluginName = 'sf'. ucfirst($options['format']) .'Plugin';
+    $exportTemplate = 'plugins/'. $pluginName .'/modules/'. $pluginName .'/templates/indexSuccess.xml.php';
 
     $itemsExported = 0;
 
@@ -90,11 +94,11 @@ class eadExportTask extends sfBaseTask
       $ead = new sfEadPlugin($resource);
 
       ob_start();
-      include('plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccess.xml.php');
+      include($exportTemplate);
       $output = ob_get_contents();
       ob_end_clean();
 
-      $filename = 'ead_'. $row['id'] .'.xml';
+      $filename = $options['format'] .'_'. $row['id'] .'.xml';
       $filePath = $arguments['folder'] .'/'. $filename;
       file_put_contents($filePath, $output);
 
@@ -106,6 +110,8 @@ class eadExportTask extends sfBaseTask
 
       $itemsExported++;
     }
+
+    print "\nExport complete.\n";
   }
 
   protected function checkAndNormalizeSiteUrl($url)
@@ -136,6 +142,16 @@ class eadExportTask extends sfBaseTask
     if (!is_writable($folder))
     {
       throw new sfException("Can't write to this folder");
+    }
+  }
+
+  protected function checkForValidExportFormat($format)
+  {
+    $validFormats = array('ead', 'mods');
+
+    if (!in_array($format, $validFormats))
+    {
+      throw new sfException('Invalid format. Allowed formats: '. join(', ', $validFormats));
     }
   }
 
