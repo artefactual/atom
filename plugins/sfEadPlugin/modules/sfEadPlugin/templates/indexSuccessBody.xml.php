@@ -1,6 +1,6 @@
 <ead>
 <eadheader langencoding="iso639-2b" countryencoding="iso3166-1" dateencoding="iso8601" repositoryencoding="iso15511" scriptencoding="iso15924" relatedencoding="DC">
-  <?php echo $ead->renderEadId() ?>
+  <?php echo $ead->renderEadId($siteBaseUrl) ?>
   <filedesc>
     <titlestmt>
       <?php if (0 < strlen($value = $resource->getTitle(array('cultureFallback' => true)))): ?>
