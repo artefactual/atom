@@ -36,6 +36,7 @@ class eadExportTask extends sfBaseTask
   protected function configure()
   {
     $this->addArguments(array(
+      new sfCommandArgument('site-url', sfCommandArgument::REQUIRED, 'The base URL of your AtoM site (example: "http://www.example.com").'),
       new sfCommandArgument('folder', sfCommandArgument::REQUIRED, 'The destination folder for XML export files.')
     ));
 
@@ -54,6 +55,8 @@ class eadExportTask extends sfBaseTask
    */
   public function execute($arguments = array(), $options = array())
   {
+    // Make sure arguments are valid
+    $siteBaseUrl = $this->checkAndNormalizeSiteUrl($arguments['site-url']);
     $this->checkForValidFolder($arguments['folder']);
 
     $databaseManager = new sfDatabaseManager($this->configuration);
@@ -103,6 +106,19 @@ class eadExportTask extends sfBaseTask
 
       $itemsExported++;
     }
+  }
+
+  protected function checkAndNormalizeSiteUrl($url)
+  {
+    if (filter_var($url, FILTER_VALIDATE_URL) === False)
+    {
+      throw new sfException('Invalid URL');
+    }
+
+    // Add trailing slash to URL if it's not already there
+    $url = (substr($url, -1) != '/') ? $url .'/' : $url;
+
+    return $url;
   }
 
   protected function checkForValidFolder($folder)
