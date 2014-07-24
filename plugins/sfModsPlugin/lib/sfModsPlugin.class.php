@@ -144,7 +144,45 @@ class sfModsPlugin implements ArrayAccess
       case 'typeOfResource':
 
         return $this->resource->getTermRelations(QubitTaxonomy::MODS_RESOURCE_TYPE_ID);
+
+      case 'materialTypes':
+
+        $materialTypes = array();
+
+        foreach ($this->resource->getTermRelations(QubitTaxonomy::MATERIAL_TYPE_ID) as $relation)
+        {
+          array_push($materialTypes, $relation->term->getName(array('cultureFallback' => true)));
+        }
+
+        return $materialTypes;
+
+      case 'languageNotes':
+
+        return $this->getNoteTexts(QubitTerm::LANGUAGE_NOTE_ID);
+
+      case 'generalNotes':
+
+        foreach (QubitTerm::getRADNotes() as $term)
+        {
+          if ($term->getName() == 'General note')
+          {
+            return $this->getNoteTexts($term->id);
+          }
+        }
     }
+  }
+
+  public function getNoteTexts($noteTypeId)
+  {
+    $notes = array();
+
+    $noteData = $this->resource->getNotesByType(array('noteTypeId' => $noteTypeId));
+    foreach ($noteData as $note)
+    {
+      array_push($notes, $note->getContent(array('cultureFallback' => true)));
+    }
+
+    return $notes;
   }
 
   public function offsetGet($offset)

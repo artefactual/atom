@@ -11,7 +11,7 @@
 
   <?php if (0 < count($mods->name)): ?>
     <?php foreach ($mods->name as $item): ?>
-      <name type="<?php echo $item->actor->entityType ?>">
+      <name<?php if ($item->actor->entityType): ?> type="<?php echo $item->actor->entityType ?>"<?php endif; ?>>
         <namePart><?php echo esc_specialchars($item->actor) ?></namePart>
         <role><?php echo $item->type->getRole() ?></role>
       </name>
@@ -58,11 +58,45 @@
 
   <?php if (0 < count($resource->getSubjectAccessPoints())): ?>
     <?php foreach ($resource->getSubjectAccessPoints() as $item): ?>
-      <subject><?php echo esc_specialchars($item->term) ?></subject>
+      <subject><topic><?php echo esc_specialchars($item->term) ?></topic></subject>
     <?php endforeach; ?>
   <?php endif; ?>
 
-  <identifier><?php echo esc_specialchars($mods->identifier) ?></identifier>
+  <identifier type="local"><?php echo esc_specialchars($mods->identifier) ?></identifier>
+
+  <?php if ($extentAndMedium = $resource->getExtentAndMedium(array('cultureFallback' => true))): ?>
+    <physicalDescription><extent><?php echo esc_specialchars($extentAndMedium) ?></extent></physicalDescription>
+  <?php endif; ?>
+
+  <?php if ($scopeAndContent = $resource->getScopeAndContent(array('cultureFallback' => true))): ?>
+  <abstract><?php echo esc_specialchars($scopeAndContent) ?></abstract>
+  <?php endif; ?>
+
+  <?php if (0 < count($materialTypes = $mods->materialTypes)): ?>
+    <?php foreach ($materialTypes as $materialType): ?>
+      <note type="gmd"><?php echo esc_specialchars($materialType) ?></note>
+    <?php endforeach; ?>
+  <?php endif; ?>
+
+  <?php if ($locationOfOriginals = $resource->getLocationOfOriginals(array('cultureFallback' => true))): ?>
+    <note type="originalLocation"><?php echo esc_specialchars($locationOfOriginals) ?></note>
+  <?php endif; ?>
+
+  <?php if ($otherFormats = $resource->getLocationOfCopies(array('cultureFallback' => true))): ?>
+    <note type="otherFormats"><?php echo esc_specialchars($otherFormats) ?></note>
+  <?php endif; ?>
+
+  <?php if (count($generalNotes = $mods->generalNotes)): ?>
+    <?php foreach ($generalNotes as $generalNote): ?>
+      <note><?php echo esc_specialchars($generalNote) ?></note>
+    <?php endforeach; ?>
+  <?php endif; ?>
+
+  <?php if (count($languageNotes = $mods->languageNotes)): ?>
+    <?php foreach ($languageNotes as $languageNote): ?>
+      <note type="language"><?php echo esc_specialchars($languageNote) ?></note>
+    <?php endforeach; ?>
+  <?php endif; ?>
 
   <location>
 
@@ -77,6 +111,14 @@
     <?php endif; ?>
 
   </location>
+
+  <?php $places = $resource->getPlaceAccessPoints(); ?>
+
+  <?php if (count($places)): ?>
+    <?php foreach ($places as $place): ?>
+      <subject><geographic><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geographic></subject>
+    <?php endforeach; ?>
+  <?php endif; ?>
 
   <?php if (QubitInformationObject::ROOT_ID != $resource->parentId): ?>
     <?php $parent = QubitInformationObject::getById($resource->parentId); ?>
