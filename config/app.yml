@@ -21,3 +21,6 @@ all:
 
   # Google Analitycs
   # google_analytics_api_key: ...
+
+  # Gearman job server (lists are not supported yet)
+  gearman_job_server: 127.0.0.1:4730

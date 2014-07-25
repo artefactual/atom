@@ -92,7 +92,7 @@ class qtSwordPluginDepositAction extends sfAction
         {
           $data = $this->package + array('resource' => $request->slug);
 
-          $client = new Net_Gearman_Client('localhost:4730');
+          $client = new Net_Gearman_Client(sfConfig::get('app_gearman_job_server', '127.0.0.1:4730'));
           $handle = $client->qtSwordPluginWorker($data);
 
           // Job accepted!
