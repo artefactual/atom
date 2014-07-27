@@ -60,7 +60,7 @@ EOF;
     try
     {
       // Connect this worker to gearmand
-      $worker = new Net_Gearman_Worker(array('localhost:4730'));
+      $worker = new Net_Gearman_Worker(array(sfConfig::get('app_gearman_job_server')));
 
       // Register abilities (jobs)
       foreach (array('qtSwordPluginWorker') as $item)
