@@ -19,6 +19,9 @@ all:
   # Enable read only mode
   read_only: false
 
+  # gearmand address
+  gearman_job_server: 127.0.0.1:4730
+
   # Used in the repo template
   # google_maps_api_key: ...
 
