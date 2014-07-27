@@ -25,9 +25,16 @@ class QubitCache
   {
     if (!isset(self::$instance))
     {
-      $cacheClass = sfConfig::get('app_cache_engine');
+      if (null === $cacheClass = sfConfig::get('app_cache_engine'))
+      {
+        $cacheClass = sfConfig::get('app_cache_engine_class', 'sfApcCache');
+      }
+      if (null !== $params = sfConfig::get('app_cache_engine_param'))
+      {
+        $options += sfConfig::get('app_cache_engine_param');
+      }
 
-      self::$instance = new $cacheClass;
+      self::$instance = new $cacheClass($options);
     }
 
     return self::$instance;
