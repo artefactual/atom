@@ -54,7 +54,7 @@ class ApiInformationObjectsWorksStatusAction extends QubitApiAction
     try
     {
       $cache = QubitCache::getInstance();
-      if ($this->io->id == $cache->get('updating_artwork'))
+      if ($cache instanceof sfMemcacheCache && $this->io->id == $cache->get('updating_artwork'))
       {
         $results['updating'] = true;
       }

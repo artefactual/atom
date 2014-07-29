@@ -67,10 +67,14 @@ class arUpdateArtworkWorker extends Net_Gearman_Job_Common
       $this->log(sprintf('UpdateArtworkTMS - Cache could not be accessed: %s', $e->getMessage()));
     }
 
-    if (isset($cache))
+    if (isset($cache) && $cache instanceof sfMemcacheCache)
     {
       $cache->set('updating_artwork', $id);
       $this->log('UpdateArtworkTMS - Artwork ID stored in cache');
+    }
+    else
+    {
+      $this->log(sprintf('UpdateArtworkTMS - Cache needs to be configured to use sfMemcacheCache'));
     }
 
     // Update artwork
@@ -196,7 +200,7 @@ sql;
 
     // Remove artwork id from cache
     // This requires Symfony using sfMemcacheCache to work with the frontend
-    if (isset($cache))
+    if (isset($cache) && $cache instanceof sfMemcacheCache)
     {
       $cache->remove('updating_artwork');
       $this->log('UpdateArtworkTMS - Artwork ID removed from cache');
