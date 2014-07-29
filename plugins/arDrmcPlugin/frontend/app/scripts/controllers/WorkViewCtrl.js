@@ -41,33 +41,17 @@ module.exports = function (
   // the job finish the page is reloaded.
   function getStatus () {
     InformationObjectService.getArtworkStatus($stateParams.id).then(function (data) {
-      if (!data.hasOwnProperty('updating')) {
-        console.log('Couldn\'t check if the Artwork is being updated');
-      } else if (data.updating) {
+      if (!data.hasOwnProperty('status') || data.status === 'unknow') {
+        console.log('Couldn\'t check the Artwork status');
+      } else if (data.status === 'updating') {
         $scope.updating = true;
         timer = $timeout(getStatus, 2000);
         return;
-      } else if ($scope.updating) {
+      } else if (data.status === 'updated' && $scope.updating) {
         $scope.updating = false;
         // Reload page
         // TODO: reload only TMS metadata and context browser
         $state.go('main.works.view', { id: $stateParams.id }, { reload: true });
-      }
-
-      if (!data.hasOwnProperty('updated')) {
-        console.log('Couldn\'t check if the Artwork is up to date');
-      } else if (!data.updated) {
-        // Call worker
-        InformationObjectService.updateArtworkTms($stateParams.id).then(function (response) {
-          if (!response.hasOwnProperty('status') || response.status !== 202) {
-            console.log('Couldn\'t update the Artwork');
-          } else {
-            $scope.updating = true;
-            timer = $timeout(getStatus, 2000);
-          }
-        });
-      } else {
-        console.log('Artwork is up to date');
       }
     });
   }

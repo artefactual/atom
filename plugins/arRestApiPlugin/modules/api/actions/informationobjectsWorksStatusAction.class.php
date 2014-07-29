@@ -38,18 +38,6 @@ class ApiInformationObjectsWorksStatusAction extends QubitApiAction
       throw new QubitApiException('TMS object ID not found');
     }
 
-    $results = array();
-
-    // Get last modified date from TMS and database
-    $fetchTms = new arFetchTms;
-    $tmsDate = $fetchTms->getLastModifiedCheckDate($this->io->identifier);
-    $atomDate = $this->io->getPropertyByName('LastModifiedCheckDate')->value;
-
-    if (isset($tmsDate) && isset($atomDate))
-    {
-      $results['updated'] = $tmsDate === $atomDate;
-    }
-
     // Check if it's being updated ('updating_artwork' key in cache)
     // This requires Symfony using sfMemcacheCache to work with the Gearman worker
     try
@@ -57,11 +45,7 @@ class ApiInformationObjectsWorksStatusAction extends QubitApiAction
       $cache = QubitCache::getInstance();
       if ($cache instanceof sfMemcacheCache && $this->io->id == $cache->get('updating_artwork'))
       {
-        $results['updating'] = true;
-      }
-      else
-      {
-        $results['updating'] = false;
+        return array('status' => 'updating');
       }
     }
     catch (Exception $e)
@@ -69,6 +53,44 @@ class ApiInformationObjectsWorksStatusAction extends QubitApiAction
 
     }
 
-    return $results;
+    // Get and check last modified date from TMS and database
+    $fetchTms = new arFetchTms;
+    $tmsDate = $fetchTms->getLastModifiedCheckDate($this->io->identifier);
+    $atomDate = $this->io->getPropertyByName('LastModifiedCheckDate')->value;
+
+    if (isset($tmsDate) && isset($atomDate))
+    {
+      if ($tmsDate === $atomDate)
+      {
+        return array('status' => 'updated');
+      }
+      else
+      {
+        // If the dates don't match call arUpdateArtworkWorker
+        try
+        {
+          // Put the job in the background if the queue support is enabled
+          if (sfConfig::get('app_use_job_scheduler', true))
+          {
+            $client = new Net_Gearman_Client('localhost:4730');
+            $handle = $client->arUpdateArtworkWorker($this->io->id);
+
+            // Job accepted!
+            return array('status' => 'updating');
+          }
+          // Otherwise, run it sinchronously (not a good idea)
+          else
+          {
+            // TODO?
+          }
+        }
+        catch (Exception $e)
+        {
+
+        }
+      }
+    }
+
+    return array('status' => 'unknow');
   }
 }
