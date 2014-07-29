@@ -41,7 +41,7 @@ module.exports = function (
   // the job finish the page is reloaded.
   function getStatus () {
     InformationObjectService.getArtworkStatus($stateParams.id).then(function (data) {
-      if (!data.hasOwnProperty('status') || data.status === 'unknow') {
+      if (!data.hasOwnProperty('status') || data.status === 'unknown') {
         console.log('Couldn\'t check the Artwork status');
       } else if (data.status === 'updating') {
         $scope.updating = true;

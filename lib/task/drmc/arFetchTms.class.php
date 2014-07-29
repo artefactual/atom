@@ -104,134 +104,136 @@ class arFetchTms
 
       foreach ($data as $name => $value)
       {
-        if (isset($value) && 0 < strlen($value))
+        if (!isset($value) || 0 == strlen($value))
         {
-          switch ($name)
-          {
-            // Info. object fields
-            case 'Dimensions':
-              $tmsObject->physicalCharacteristics = $value;
+          continue;
+        }
 
-              break;
+        switch ($name)
+        {
+          // Info. object fields
+          case 'Dimensions':
+            $tmsObject->physicalCharacteristics = $value;
 
-            case 'Medium':
-              $tmsObject->extentAndMedium = $value;
+            break;
 
-              break;
+          case 'Medium':
+            $tmsObject->extentAndMedium = $value;
 
-            case 'ObjectID':
-              $tmsObject->identifier = $value;
+            break;
 
-              break;
+          case 'ObjectID':
+            $tmsObject->identifier = $value;
 
-            case 'Title':
-              $tmsObject->title = $value;
+            break;
 
-              break;
+          case 'Title':
+            $tmsObject->title = $value;
 
-            // Properties
-            case 'AccessionISODate':
-            case 'ClassificationID':
-            case 'ConstituentID':
-            case 'DepartmentID':
-            case 'LastModifiedCheckDate':
-            case 'ImageID':
-            case 'ObjectNumber':
-            case 'ObjectStatusID':
-            case 'SortNumber':
-              $this->addOrUpdateProperty($name, $value, $tmsObject);
+            break;
 
-              break;
+          // Properties
+          case 'AccessionISODate':
+          case 'ClassificationID':
+          case 'ConstituentID':
+          case 'DepartmentID':
+          case 'LastModifiedCheckDate':
+          case 'ImageID':
+          case 'ObjectNumber':
+          case 'ObjectStatusID':
+          case 'SortNumber':
+            $this->addOrUpdateProperty($name, $value, $tmsObject);
 
-            // Object/term relations
-            case 'Classification':
-            case 'Department':
-              $this->addOrUpdateObjectTermRelation($name, $value, $tmsObject);
+            break;
 
-              break;
+          // Object/term relations
+          case 'Classification':
+          case 'Department':
+            $this->addOrUpdateObjectTermRelation($name, $value, $tmsObject);
 
-            // Creation event
-            case 'Dated':
-              $creation['date'] = $value;
+            break;
 
-              break;
+          // Creation event
+          case 'Dated':
+            $creation['date'] = $value;
 
-            case 'DisplayName':
-              $creation['actorName'] = $value;
+            break;
 
-              break;
+          case 'DisplayName':
+            $creation['actorName'] = $value;
 
-            case 'DisplayDate':
-              $creation['actorDate'] = $value;
+            break;
 
-              break;
+          case 'DisplayDate':
+            $creation['actorDate'] = $value;
 
-            // Digital object
-            case 'FullImage':
-              // Update digital object if exists
-              if (null !== $digitalObject = $tmsObject->getDigitalObject())
+            break;
+
+          // Digital object
+          case 'FullImage':
+            // Update digital object if exists
+            if (null !== $digitalObject = $tmsObject->getDigitalObject())
+            {
+              $criteria = new Criteria;
+              $criteria->add(QubitDigitalObject::PARENT_ID, $digitalObject->id);
+
+              $children = QubitDigitalObject::get($criteria);
+
+              // Delete derivatives
+              foreach ($children as $child)
               {
-                $criteria = new Criteria;
-                $criteria->add(QubitDigitalObject::PARENT_ID, $digitalObject->id);
-
-                $children = QubitDigitalObject::get($criteria);
-
-                // Delete derivatives
-                foreach ($children as $child)
-                {
-                  $child->delete();
-                }
-
-                // Import new one
-                $digitalObject->importFromUri($value);
-              }
-              else
-              {
-                // Or create new one
-                $errors = array();
-                $tmsObject->importDigitalObjectFromUri($value, $errors);
-
-                foreach ($errors as $error)
-                {
-                  $this->logger->info('arFetchTms - '.$error);
-                }
+                $child->delete();
               }
 
-              // Add property
-              $this->addOrUpdateProperty($name, $value, $tmsObject);
+              // Import new one
+              $digitalObject->importFromUri($value);
+            }
+            else
+            {
+              // Or create new one
+              $errors = array();
+              $tmsObject->importDigitalObjectFromUri($value, $errors);
 
-              break;
-
-            case 'Thumbnail':
-              $artworkThumbnail = $value;
-              $this->addOrUpdateProperty($name, $value, $tmsObject);
-
-              break;
-
-            // Child components
-            case 'Components':
-              foreach (json_decode($value, true) as $item)
+              foreach ($errors as $error)
               {
-                $tmsComponentsIds[] = $item['ComponentID'];
+                $this->logger->info('arFetchTms - '.$error);
               }
+            }
 
-              break;
+            // Add property
+            $this->addOrUpdateProperty($name, $value, $tmsObject);
 
-            // Log error
-            case 'ErrorMsg':
-              $this->logger->info('arFetchTms - ErrorMsg: '.$value);
+            break;
 
-              break;
+          case 'Thumbnail':
+            $artworkThumbnail = $value;
+            $this->addOrUpdateProperty($name, $value, $tmsObject);
 
-            // Nothing yet
-            case 'AlphaSort':
-            case 'CreditLine':
-            case 'FirstName':
-            case 'LastName':
-            case 'Prints':
+            break;
 
-              break;
-          }
+          // Child components
+          case 'Components':
+            foreach (json_decode($value, true) as $item)
+            {
+              $tmsComponentsIds[] = $item['ComponentID'];
+            }
+
+            break;
+
+          // Log error
+          case 'ErrorMsg':
+            $this->logger->info('arFetchTms - ErrorMsg: '.$value);
+
+            break;
+
+          // Nothing yet
+          case 'AlphaSort':
+          case 'CreditLine':
+          case 'FirstName':
+          case 'LastName':
+          case 'Prints':
+
+            break;
         }
       }
     }
@@ -274,109 +276,111 @@ class arFetchTms
 
       foreach ($data as $name => $value)
       {
-        if (isset($value) && 0 < strlen($value))
+        if (!isset($value) || 0 == strlen($value))
         {
-          switch ($name)
-          {
-            // Level of description from status attribute
-            case 'Attributes':
-              foreach (json_decode($value, true) as $item)
+          continue;
+        }
+
+        switch ($name)
+        {
+          // Level of description from status attribute
+          case 'Attributes':
+            foreach (json_decode($value, true) as $item)
+            {
+              if (isset($item['Status']) && 0 < strlen($item['Status']) && isset($this->statusMapping[$item['Status']]))
               {
-                if (isset($item['Status']) && 0 < strlen($item['Status']) && isset($this->statusMapping[$item['Status']]))
+                $tmsComponent->levelOfDescriptionId = $this->statusMapping[$item['Status']];
+              }
+            }
+
+            break;
+
+          // Info. object fields
+          case 'ComponentID':
+            $tmsComponent->identifier = $value;
+
+            break;
+
+          case 'ComponentName':
+            $tmsComponent->title = $value;
+
+            break;
+
+          case 'Dimensions':
+            $tmsComponent->physicalCharacteristics = $value;
+
+            break;
+
+          case 'PhysDesc':
+            $tmsComponent->extentAndMedium = $value;
+
+            break;
+
+          // Properties
+          case 'CompCount':
+          case 'ComponentNumber':
+            $this->addOrUpdateProperty($name, $value, $tmsComponent);
+
+            break;
+
+          // Object/term relation
+          case 'ComponentType':
+            $this->addOrUpdateObjectTermRelation('component_type', $value, $tmsComponent);
+
+            break;
+
+          // Notes
+          case 'InstallComments':
+          case 'PrepComments':
+          case 'StorageComments':
+            $this->addOrUpdateNote(sfConfig::get('app_drmc_term_'.strtolower($name).'_id'), $value, $tmsComponent);
+
+            break;
+
+          case 'TextEntries':
+            $content = array();
+            foreach (json_decode($value, true) as $textEntry)
+            {
+              $row = '';
+              foreach ($textEntry as $field => $value)
+              {
+                if ($field == 'TextDate' && isset($value) && 0 < strlen($value))
                 {
-                  $tmsComponent->levelOfDescriptionId = $this->statusMapping[$item['Status']];
+                  if (isset($value) && 0 < strlen($value))
+                  {
+                    $row .= ', Date: '.$value;
+                  }
+                }
+                else if ($field == 'TextAuthor')
+                {
+                  if (isset($value) && 0 < strlen($value))
+                  {
+                    $row .= ', Author: '.$value;
+                  }
+                }
+                else
+                {
+                  $row .= $field.': '.$value;
                 }
               }
 
-              break;
+              $content[] = $row;
+            }
 
-            // Info. object fields
-            case 'ComponentID':
-              $tmsComponent->identifier = $value;
+            $this->addOrUpdateNote(QubitTerm::GENERAL_NOTE_ID, implode($content, "\n"), $tmsComponent);
 
-              break;
+            break;
 
-            case 'ComponentName':
-              $tmsComponent->title = $value;
+          // Log error
+          case 'ErrorMsg':
+            $this->logger->info('arFetchTms - ErrorMsg: '.$value);
 
-              break;
+            break;
 
-            case 'Dimensions':
-              $tmsComponent->physicalCharacteristics = $value;
+          // Nothing yet
+          case 'ObjectID':
 
-              break;
-
-            case 'PhysDesc':
-              $tmsComponent->extentAndMedium = $value;
-
-              break;
-
-            // Properties
-            case 'CompCount':
-            case 'ComponentNumber':
-              $this->addOrUpdateProperty($name, $value, $tmsComponent);
-
-              break;
-
-            // Object/term relation
-            case 'ComponentType':
-              $this->addOrUpdateObjectTermRelation('component_type', $value, $tmsComponent);
-
-              break;
-
-            // Notes
-            case 'InstallComments':
-            case 'PrepComments':
-            case 'StorageComments':
-              $this->addOrUpdateNote(sfConfig::get('app_drmc_term_'.strtolower($name).'_id'), $value, $tmsComponent);
-
-              break;
-
-            case 'TextEntries':
-              $content = array();
-              foreach (json_decode($value, true) as $textEntry)
-              {
-                $row = '';
-                foreach ($textEntry as $field => $value)
-                {
-                  if ($field == 'TextDate' && isset($value) && 0 < strlen($value))
-                  {
-                    if (isset($value) && 0 < strlen($value))
-                    {
-                      $row .= ', Date: '.$value;
-                    }
-                  }
-                  else if ($field == 'TextAuthor')
-                  {
-                    if (isset($value) && 0 < strlen($value))
-                    {
-                      $row .= ', Author: '.$value;
-                    }
-                  }
-                  else
-                  {
-                    $row .= $field.': '.$value;
-                  }
-                }
-
-                $content[] = $row;
-              }
-
-              $this->addOrUpdateNote(QubitTerm::GENERAL_NOTE_ID, implode($content, "\n"), $tmsComponent);
-
-              break;
-
-            // Log error
-            case 'ErrorMsg':
-              $this->logger->info('arFetchTms - ErrorMsg: '.$value);
-
-              break;
-
-            // Nothing yet
-            case 'ObjectID':
-
-              break;
-          }
+            break;
         }
       }
     }

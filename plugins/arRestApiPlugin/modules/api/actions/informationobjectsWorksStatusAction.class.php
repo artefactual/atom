@@ -91,6 +91,6 @@ class ApiInformationObjectsWorksStatusAction extends QubitApiAction
       }
     }
 
-    return array('status' => 'unknow');
+    return array('status' => 'unknown');
   }
 }
