@@ -14,7 +14,7 @@ all:
   cache_engine:
     class: sfMemcacheCache
     param:
-      storeCacheInfo: yes
+      storeCacheInfo: true
 
   # Enable read only mode
   read_only: false
