@@ -33,42 +33,6 @@ class arUpdateArtworkWorker extends Net_Gearman_Job_Common
 
     $this->log('A new job has started to being processed.');
 
-    // Clear cache of all classes
-    foreach (array(
-      'QubitAccessLog',
-      'QubitActorI18n',
-      'QubitContactInformation',
-      'QubitContactInformationI18n',
-      'QubitEventI18n',
-      'QubitFunctionI18n',
-      'QubitInformationObjectI18n',
-      'QubitKeymap',
-      'QubitMenu',
-      'QubitMenuI18n',
-      'QubitNote',
-      'QubitNoteI18n',
-      'QubitOaiHarvest',
-      'QubitOaiRepository',
-      'QubitObject',
-      'QubitOtherName',
-      'QubitOtherNameI18n',
-      'QubitPhysicalObjectI18n',
-      'QubitProperty',
-      'QubitPropertyI18n',
-      'QubitRelationI18n',
-      'QubitRepositoryI18n',
-      'QubitRightsI18n',
-      'QubitSetting',
-      'QubitSettingI18n',
-      'QubitSlug',
-      'QubitStaticPageI18n',
-      'QubitStatus',
-      'QubitTaxonomyI18n',
-      'QubitTermI18n') as $className)
-    {
-      $className::clearCache();
-    }
-
     if (null === $artwork = QubitInformationObject::getById($id))
     {
       $this->log('UpdateArtworkTMS - Information object not found');
@@ -237,11 +201,6 @@ sql;
       $cache->remove('updating_artwork');
       $this->log('UpdateArtworkTMS - Artwork ID removed from cache');
     }
-
-    // Save ES documents in the batch queue
-    // We need to call the magic method explictly
-    // because the object isn't destroyed in a worker
-    QubitSearch::getInstance()->__destruct();
 
     return $this->finishJob();
   }

@@ -74,6 +74,7 @@ EOF;
       $this->logSection('gearman-worker', 'PID '.getmypid());
 
       $counter = 0;
+      $storedLastJob = null;
 
       // The worker loop!
       $worker->beginWork(
@@ -83,8 +84,53 @@ EOF;
         // Another option would be to catch the ProperException from the worker
         // and restablish the connection when needed. Also, the persistent mode
         // could be disabled for this worker. See issue #4182.
-        function() use (&$counter)
+        // If a new job has been executed: clear cache of all classes and save ES
+        // documents in the batch queue (we need to call the magic method explictly
+        // because the object isn't destroyed in a worker)
+        function($idle, $lastJob) use (&$counter, &$storedLastJob)
         {
+          if ($storedLastJob != $lastJob)
+          {
+            $storedLastJob = $lastJob;
+
+            QubitSearch::getInstance()->__destruct();
+
+            foreach (array(
+              'QubitAccessLog',
+              'QubitActorI18n',
+              'QubitContactInformation',
+              'QubitContactInformationI18n',
+              'QubitEventI18n',
+              'QubitFunctionI18n',
+              'QubitInformationObjectI18n',
+              'QubitKeymap',
+              'QubitMenu',
+              'QubitMenuI18n',
+              'QubitNote',
+              'QubitNoteI18n',
+              'QubitOaiHarvest',
+              'QubitOaiRepository',
+              'QubitObject',
+              'QubitOtherName',
+              'QubitOtherNameI18n',
+              'QubitPhysicalObjectI18n',
+              'QubitProperty',
+              'QubitPropertyI18n',
+              'QubitRelationI18n',
+              'QubitRepositoryI18n',
+              'QubitRightsI18n',
+              'QubitSetting',
+              'QubitSettingI18n',
+              'QubitSlug',
+              'QubitStaticPageI18n',
+              'QubitStatus',
+              'QubitTaxonomyI18n',
+              'QubitTermI18n') as $className)
+            {
+              $className::clearCache();
+            }
+          }
+
           if (30 == $counter++)
           {
             $counter = 0;
