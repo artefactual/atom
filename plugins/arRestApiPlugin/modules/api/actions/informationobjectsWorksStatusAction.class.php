@@ -58,36 +58,34 @@ class ApiInformationObjectsWorksStatusAction extends QubitApiAction
     $tmsDate = $fetchTms->getLastModifiedCheckDate($this->io->identifier);
     $atomDate = $this->io->getPropertyByName('LastModifiedCheckDate')->value;
 
-    if (isset($tmsDate) && isset($atomDate))
+    if (isset($tmsDate) && isset($atomDate)
+      && $tmsDate === $atomDate)
     {
-      if ($tmsDate === $atomDate)
+      return array('status' => 'updated');
+    }
+    else if (isset($tmsDate))
+    {
+      // If the dates don't match or the date is not stored call arUpdateArtworkWorker
+      try
       {
-        return array('status' => 'updated');
+        // Put the job in the background if the queue support is enabled
+        if (sfConfig::get('app_use_job_scheduler', true))
+        {
+          $client = new Net_Gearman_Client('localhost:4730');
+          $handle = $client->arUpdateArtworkWorker($this->io->id);
+
+          // Job accepted!
+          return array('status' => 'updating');
+        }
+        // Otherwise, run it sinchronously (not a good idea)
+        else
+        {
+          // TODO?
+        }
       }
-      else
+      catch (Exception $e)
       {
-        // If the dates don't match call arUpdateArtworkWorker
-        try
-        {
-          // Put the job in the background if the queue support is enabled
-          if (sfConfig::get('app_use_job_scheduler', true))
-          {
-            $client = new Net_Gearman_Client('localhost:4730');
-            $handle = $client->arUpdateArtworkWorker($this->io->id);
 
-            // Job accepted!
-            return array('status' => 'updating');
-          }
-          // Otherwise, run it sinchronously (not a good idea)
-          else
-          {
-            // TODO?
-          }
-        }
-        catch (Exception $e)
-        {
-
-        }
       }
     }
 
