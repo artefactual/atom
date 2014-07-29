@@ -354,8 +354,10 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $tmsObject->levelOfDescriptionId = sfConfig::get('app_drmc_lod_artwork_record_id');
       $tmsObject->setPublicationStatusByName('Published');
 
+      $fetchTms = new arFetchTms;
+
       // Get TMS Object data
-      list($tmsComponentsIds, $artworkThumbnail) = arFetchTms::getTmsObjectData($tmsObject, $tmsObjectId);
+      list($tmsComponentsIds, $artworkThumbnail) = $fetchTms->getTmsObjectData($tmsObject, $tmsObjectId);
 
       // Create intermediate level "Components"
       $components = new QubitInformationObject;
@@ -378,7 +380,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           $tmsComponent->setPublicationStatusByName('Published');
 
           // Get TMS Component data
-          $tmsComponentsIoIds[] = arFetchTms::getTmsComponentData($tmsComponent, $tmsId, $artworkThumbnail);
+          $tmsComponentsIoIds[] = $fetchTms->getTmsComponentData($tmsComponent, $tmsId, $artworkThumbnail);
         }
 
         // Save info object components ids as property of the artwork

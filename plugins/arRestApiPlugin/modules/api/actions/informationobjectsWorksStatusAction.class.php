@@ -41,7 +41,8 @@ class ApiInformationObjectsWorksStatusAction extends QubitApiAction
     $results = array();
 
     // Get last modified date from TMS and database
-    $tmsDate = arFetchTms::getLastModifiedCheckDate($this->io->identifier);
+    $fetchTms = new arFetchTms;
+    $tmsDate = $fetchTms->getLastModifiedCheckDate($this->io->identifier);
     $atomDate = $this->io->getPropertyByName('LastModifiedCheckDate')->value;
 
     if (isset($tmsDate) && isset($atomDate))

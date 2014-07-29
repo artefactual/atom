@@ -19,7 +19,59 @@
 
 class arFetchTms
 {
-  public static function getTmsObjectData($tmsObject, $tmsObjectId)
+  protected
+    $tmsBaseUrl,
+    $statusMapping,
+    $logger;
+
+  public function __construct()
+  {
+    $this->tmsBaseUrl = sfConfig::get('app_drmc_tms_url');
+
+    // Mapping from TMS status to level of descriptions
+    $this->statusMapping = array(
+      'Archival'               => sfConfig::get('app_drmc_lod_archival_master_id'),
+      'Archival submaster'     => sfConfig::get('app_drmc_lod_archival_master_id'),
+      'Artist master'          => sfConfig::get('app_drmc_lod_artist_supplied_master_id'),
+      'Artist proof'           => sfConfig::get('app_drmc_lod_artist_verified_proof_id'),
+      'Duplication master'     => sfConfig::get('app_drmc_lod_component_id'),
+      'Exhibition copy'        => sfConfig::get('app_drmc_lod_exhibition_format_id'),
+      'Miscellaneous other'    => sfConfig::get('app_drmc_lod_miscellaneous_id'),
+      'Repository File Source' => sfConfig::get('app_drmc_lod_component_id'),
+      'Research copy'          => sfConfig::get('app_drmc_lod_component_id')
+    );
+
+    $this->logger = sfContext::getInstance()->getLogger();
+  }
+
+  protected function getTmsData($path)
+  {
+    $data = null;
+    $url = $this->tmsBaseUrl.$path;
+
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_FAILONERROR => true,
+        CURLOPT_URL => $url));
+
+    if (false === $resp = curl_exec($curl))
+    {
+      $this->logger->info('arFetchTms - Error getting Tombstone data: '.curl_error($curl));
+      $this->logger->info('arFetchTms - URL: '.$url);
+    }
+    else
+    {
+      $data = json_decode($resp, true);
+    }
+
+    curl_close($curl);
+
+    return $data;
+  }
+
+  public function getTmsObjectData($tmsObject, $tmsObjectId)
   {
     $tmsComponentsIds = $creation = array();
     $artworkThumbnail = null;
@@ -46,22 +98,8 @@ class arFetchTms
     */
 
     // Request object from TMS API
-    $curl = curl_init();
-
-    $url = sfConfig::get('app_drmc_tms_url').'/GetTombstoneDataRest/ObjectID/'.$tmsObjectId;
-    curl_setopt_array($curl, array(
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_FAILONERROR => true,
-        CURLOPT_URL => $url));
-
-    if (false === $resp = curl_exec($curl))
+    if (null !== $data = $this->getTmsData('/GetTombstoneDataRest/ObjectID/'.$tmsObjectId))
     {
-      sfContext::getInstance()->getLogger()->info('arFetchTms - Error getting Tombstone data: '.curl_error($curl));
-      sfContext::getInstance()->getLogger()->info('arFetchTms - URL: '.$url);
-    }
-    else
-    {
-      $data = json_decode($resp, true);
       $data = $data['GetTombstoneDataRestIdResult'];
 
       foreach ($data as $name => $value)
@@ -101,14 +139,14 @@ class arFetchTms
             case 'ObjectNumber':
             case 'ObjectStatusID':
             case 'SortNumber':
-              self::addOrUpdateProperty($name, $value, $tmsObject);
+              $this->addOrUpdateProperty($name, $value, $tmsObject);
 
               break;
 
             // Object/term relations
             case 'Classification':
             case 'Department':
-              self::addOrUpdateObjectTermRelation($name, $value, $tmsObject);
+              $this->addOrUpdateObjectTermRelation($name, $value, $tmsObject);
 
               break;
 
@@ -155,18 +193,18 @@ class arFetchTms
 
                 foreach ($errors as $error)
                 {
-                  sfContext::getInstance()->getLogger()->info('arFetchTms - '.$error);
+                  $this->logger->info('arFetchTms - '.$error);
                 }
               }
 
               // Add property
-              self::addOrUpdateProperty($name, $value, $tmsObject);
+              $this->addOrUpdateProperty($name, $value, $tmsObject);
 
               break;
 
             case 'Thumbnail':
               $artworkThumbnail = $value;
-              self::addOrUpdateProperty($name, $value, $tmsObject);
+              $this->addOrUpdateProperty($name, $value, $tmsObject);
 
               break;
 
@@ -181,7 +219,7 @@ class arFetchTms
 
             // Log error
             case 'ErrorMsg':
-              sfContext::getInstance()->getLogger()->info('arFetchTms - ErrorMsg: '.$value);
+              $this->logger->info('arFetchTms - ErrorMsg: '.$value);
 
               break;
 
@@ -197,8 +235,6 @@ class arFetchTms
         }
       }
     }
-
-    curl_close($curl);
 
     $tmsObject->save();
 
@@ -229,38 +265,11 @@ class arFetchTms
     return array($tmsComponentsIds, $artworkThumbnail);
   }
 
-  public static function getTmsComponentData($tmsComponent, $tmsComponentId, $artworkThumbnail)
+  public function getTmsComponentData($tmsComponent, $tmsComponentId, $artworkThumbnail)
   {
-    // Mapping from TMS status to level of descriptions
-    $statusMapping = array(
-      'Archival'               => sfConfig::get('app_drmc_lod_archival_master_id'),
-      'Archival submaster'     => sfConfig::get('app_drmc_lod_archival_master_id'),
-      'Artist master'          => sfConfig::get('app_drmc_lod_artist_supplied_master_id'),
-      'Artist proof'           => sfConfig::get('app_drmc_lod_artist_verified_proof_id'),
-      'Duplication master'     => sfConfig::get('app_drmc_lod_component_id'),
-      'Exhibition copy'        => sfConfig::get('app_drmc_lod_exhibition_format_id'),
-      'Miscellaneous other'    => sfConfig::get('app_drmc_lod_miscellaneous_id'),
-      'Repository File Source' => sfConfig::get('app_drmc_lod_component_id'),
-      'Research copy'          => sfConfig::get('app_drmc_lod_component_id')
-    );
-
     // Request component from TMS API
-    $curl = curl_init();
-    $url = sfConfig::get('app_drmc_tms_url').'/GetComponentDetails/Component/'.$tmsComponentId;
-
-    curl_setopt_array($curl, array(
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_FAILONERROR => true,
-        CURLOPT_URL => $url));
-
-    if (false === $resp = curl_exec($curl))
+    if (null !== $data = $this->getTmsData('/GetComponentDetails/Component/'.$tmsComponentId))
     {
-      sfContext::getInstance()->getLogger()->info('arFetchTms - Error getting Tombstone data: '.curl_error($curl));
-      sfContext::getInstance()->getLogger()->info('arFetchTms - URL: '.$url);
-    }
-    else
-    {
-      $data = json_decode($resp, true);
       $data = $data['GetComponentDetailsResult'];
 
       foreach ($data as $name => $value)
@@ -273,9 +282,9 @@ class arFetchTms
             case 'Attributes':
               foreach (json_decode($value, true) as $item)
               {
-                if (isset($item['Status']) && 0 < strlen($item['Status']) && isset($statusMapping[$item['Status']]))
+                if (isset($item['Status']) && 0 < strlen($item['Status']) && isset($this->statusMapping[$item['Status']]))
                 {
-                  $tmsComponent->levelOfDescriptionId = $statusMapping[$item['Status']];
+                  $tmsComponent->levelOfDescriptionId = $this->statusMapping[$item['Status']];
                 }
               }
 
@@ -305,13 +314,13 @@ class arFetchTms
             // Properties
             case 'CompCount':
             case 'ComponentNumber':
-              self::addOrUpdateProperty($name, $value, $tmsComponent);
+              $this->addOrUpdateProperty($name, $value, $tmsComponent);
 
               break;
 
             // Object/term relation
             case 'ComponentType':
-              self::addOrUpdateObjectTermRelation('component_type', $value, $tmsComponent);
+              $this->addOrUpdateObjectTermRelation('component_type', $value, $tmsComponent);
 
               break;
 
@@ -319,7 +328,7 @@ class arFetchTms
             case 'InstallComments':
             case 'PrepComments':
             case 'StorageComments':
-              self::addOrUpdateNote(sfConfig::get('app_drmc_term_'.strtolower($name).'_id'), $value, $tmsComponent);
+              $this->addOrUpdateNote(sfConfig::get('app_drmc_term_'.strtolower($name).'_id'), $value, $tmsComponent);
 
               break;
 
@@ -353,13 +362,13 @@ class arFetchTms
                 $content[] = $row;
               }
 
-              self::addOrUpdateNote(QubitTerm::GENERAL_NOTE_ID, implode($content, "\n"), $tmsComponent);
+              $this->addOrUpdateNote(QubitTerm::GENERAL_NOTE_ID, implode($content, "\n"), $tmsComponent);
 
               break;
 
             // Log error
             case 'ErrorMsg':
-              sfContext::getInstance()->getLogger()->info('arFetchTms - ErrorMsg: '.$value);
+              $this->logger->info('arFetchTms - ErrorMsg: '.$value);
 
               break;
 
@@ -372,12 +381,10 @@ class arFetchTms
       }
     }
 
-    curl_close($curl);
-
     // Add thumbnail from artwork
     if (isset($artworkThumbnail))
     {
-      self::addOrUpdateProperty('artworkThumbnail', $artworkThumbnail, $tmsComponent);
+      $this->addOrUpdateProperty('artworkThumbnail', $artworkThumbnail, $tmsComponent);
     }
 
     $tmsComponent->save();
@@ -385,25 +392,11 @@ class arFetchTms
     return $tmsComponent->id;
   }
 
-  public static function getLastModifiedCheckDate($tmsObjectId)
+  public function getLastModifiedCheckDate($tmsObjectId)
   {
     // Request object from TMS API
-    $curl = curl_init();
-
-    $url = sfConfig::get('app_drmc_tms_url').'/GetTombstoneDataRest/ObjectID/'.$tmsObjectId;
-    curl_setopt_array($curl, array(
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_FAILONERROR => true,
-        CURLOPT_URL => $url));
-
-    if (false === $resp = curl_exec($curl))
+    if (null !== $data = $this->getTmsData('/GetTombstoneDataRest/ObjectID/'.$tmsObjectId))
     {
-      sfContext::getInstance()->getLogger()->info('arFetchTms - Error getting Tombstone data: '.curl_error($curl));
-      sfContext::getInstance()->getLogger()->info('arFetchTms - URL: '.$url);
-    }
-    else
-    {
-      $data = json_decode($resp, true);
       $data = $data['GetTombstoneDataRestIdResult'];
 
       if (isset($data['LastModifiedCheckDate']))
@@ -412,12 +405,10 @@ class arFetchTms
       }
     }
 
-    curl_close($curl);
-
     return null;
   }
 
-  public static function addOrUpdateProperty($name, $value, $io)
+  protected function addOrUpdateProperty($name, $value, $io)
   {
     if (isset($io->id) && null !== $property = QubitProperty::getOneByObjectIdAndName($io->id, $name))
     {
@@ -430,7 +421,7 @@ class arFetchTms
     }
   }
 
-  public static function addOrUpdateObjectTermRelation($name, $value, $io)
+  protected function addOrUpdateObjectTermRelation($name, $value, $io)
   {
     $taxonomyId = sfConfig::get('app_drmc_taxonomy_'.strtolower($name).'s_id');
     $term = QubitFlatfileImport::createOrFetchTerm($taxonomyId, $value);
@@ -462,7 +453,7 @@ class arFetchTms
     }
   }
 
-  public static function addOrUpdateNote($typeId, $content, $io)
+  protected function addOrUpdateNote($typeId, $content, $io)
   {
     // Check for existing note
     if (isset($io->id))

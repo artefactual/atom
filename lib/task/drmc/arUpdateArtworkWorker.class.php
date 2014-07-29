@@ -77,8 +77,10 @@ class arUpdateArtworkWorker extends Net_Gearman_Job_Common
       $this->log(sprintf('UpdateArtworkTMS - Cache needs to be configured to use sfMemcacheCache'));
     }
 
+    $fetchTms = new arFetchTms;
+
     // Update artwork
-    list($tmsComponentsIds, $artworkThumbnail) = arFetchTms::getTmsObjectData($artwork, $artwork->identifier);
+    list($tmsComponentsIds, $artworkThumbnail) = $fetchTms->getTmsObjectData($artwork, $artwork->identifier);
 
     // Get intermediate level
     $criteria = new Criteria;
@@ -108,7 +110,7 @@ class arUpdateArtworkWorker extends Net_Gearman_Job_Common
       if (isset($component->identifier) && false !== $key = array_search($component->identifier, $tmsComponentsIds))
       {
         // Update
-        $tmsComponentsIoIds[] = arFetchTms::getTmsComponentData($component, $component->identifier, $artworkThumbnail);
+        $tmsComponentsIoIds[] = $fetchTms->getTmsComponentData($component, $component->identifier, $artworkThumbnail);
 
         // Remove from array
         unset($tmsComponentsIds[$key]);
