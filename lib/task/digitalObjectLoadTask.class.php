@@ -46,6 +46,7 @@ class digitalObjectLoadTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
       new sfCommandOption('path', 'p', sfCommandOption::PARAMETER_OPTIONAL, 'Path prefix for digital objects', null),
+      new sfCommandOption('index', 'i', sfCommandOption::PARAMETER_NONE, 'Update search index (defaults to false)', null),
     ));
 
     $this->namespace = 'digitalobject';
@@ -73,7 +74,14 @@ EOF;
       throw new sfException('You must specify a valid filename');
     }
 
-    QubitSearch::disable();
+    if ($options['index'])
+    {
+      QubitSearch::enable();
+    }
+    else
+    {
+      QubitSearch::disable();
+    }
 
     $this->logSection("Load digital objects from {$arguments['filename']}...");
 
@@ -199,6 +207,12 @@ EOF;
     }
 
     $this->logSection('Successfully Loaded '.self::$count.' digital objects.');
+
+    // Warn user to manually update search index
+    if (!$options['index'])
+    {
+      $this->logSection('Please update the search index manually to reflect any changes');
+    }
   }
 
   protected function addDigitalObject($ioId, $path, $options = array())
