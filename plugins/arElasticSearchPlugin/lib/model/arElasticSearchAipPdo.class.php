@@ -155,16 +155,6 @@ class arElasticSearchAipPdo
       $serialized['partOf']['i18n'] = arElasticSearchModelBase::serializeI18ns($this->part_of, array('QubitInformationObject'), array('fields' => array('title')));
     }
 
-    if (0 < count($digitalObjects = $this->getDigitalObjects()))
-    {
-      $serialized['digitalObjects'] = $digitalObjects;
-    }
-
-    if (0 < count($digitalObjects = $this->getDigitalObjects()))
-    {
-      $serialized['digitalObjects'] = $digitalObjects;
-    }
-
     return $serialized;
   }
 }
