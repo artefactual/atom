@@ -169,7 +169,7 @@
                   // Give user chance to type something, one second may still
                   // be too little,
                   // http://developer.yahoo.com/yui/autocomplete/#delay
-                  autoComplete.queryDelay = 1;
+                  autoComplete.queryDelay = parseFloat($(select).data('autocomplete-delay')) || 1;
 
                   // Add other fields from the form to the autocomplete request
                   if ($(this).attr('name') == 'relatedAuthorityRecord[subType]')
