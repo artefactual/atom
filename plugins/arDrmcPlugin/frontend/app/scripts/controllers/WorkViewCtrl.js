@@ -1,11 +1,21 @@
 'use strict';
 
-module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationObjectService, ModalDigitalObjectViewerService, ModalDownloadService) {
+module.exports = function (
+  $scope,
+  $state,
+  $stateParams,
+  $modal,
+  $timeout,
+  SETTINGS,
+  InformationObjectService,
+  ModalDigitalObjectViewerService,
+  ModalDownloadService) {
 
   // TODO: Use https://github.com/angular-ui/ui-router/wiki#resolve
   InformationObjectService.getArtworkRecordWithTms($stateParams.id).then(function (data) {
     $scope.work = data;
     $scope.title = getTitle(data);
+    getStatus();
   }, function (response) {
     throw response;
   });
@@ -19,6 +29,31 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
       title += ', ' + work.tms.artist;
     }
     return title;
+  }
+
+  var timer;
+  $scope.updating = false;
+
+  // Checks if the artwork is up to date with the TMS and if it's being updated.
+  // If the artwork isn't updated it calls a Gearman Worker that fetch the TMS
+  // and updates all the tree. If the job is accepted it checks the status after 2 secs.
+  // If the artwork is being updated the status is checked every 2 secs, and when
+  // the job finish the page is reloaded.
+  function getStatus () {
+    InformationObjectService.getArtworkStatus($stateParams.id).then(function (data) {
+      if (!data.hasOwnProperty('status') || data.status === 'unknown') {
+        console.log('Couldn\'t check the Artwork status');
+      } else if (data.status === 'updating') {
+        $scope.updating = true;
+        timer = $timeout(getStatus, 2000);
+        return;
+      } else if (data.status === 'updated' && $scope.updating) {
+        $scope.updating = false;
+        // Reload page
+        // TODO: reload only TMS metadata and context browser
+        $state.go('main.works.view', { id: $stateParams.id }, { reload: true });
+      }
+    });
   }
 
   // A list of digital objects. This is shared within the context browser
@@ -51,5 +86,9 @@ module.exports = function ($scope, $stateParams, $modal, SETTINGS, InformationOb
   $scope.openDigitalObjectModal = function (files, index) {
     ModalDigitalObjectViewerService.open(files, index);
   };
+
+  $scope.$on('$destroy', function () {
+    $timeout.cancel(timer);
+  });
 
 };

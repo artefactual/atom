@@ -20,6 +20,12 @@
   <div class="span12">
     <div id="main-column">
 
+      <section ng-if="updating" class="ng-cloak">
+        <div class="alert alert-info">
+          The TMS metadata for the Artwork record and its components is being updated
+        </div>
+      </section>
+
       <section class="tms-work-widget" ng-if="work.tms != undefiend">
 
         <div class="tms-img" ng-if="work.tms.fullImage != undefined">

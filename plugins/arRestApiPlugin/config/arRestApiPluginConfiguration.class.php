@@ -182,6 +182,11 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
       'module' => 'api',
       'action' => 'informationobjectsFilesBrowse'));
 
+    $this->addRoute('GET', '/api/informationobjects/:id/status', array(
+      'module' => 'api',
+      'action' => 'informationobjectsWorksStatus',
+      'params' => array('id' => self::REGEX_ID)));
+
     /**
      * Actors
      */
