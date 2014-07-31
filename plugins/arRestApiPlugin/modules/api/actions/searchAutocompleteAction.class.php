@@ -86,7 +86,7 @@ class ApiSearchAutocompleteAction extends QubitApiAction
                   'number_of_fragments' => 0, // Request the entire field
               ))));
 
-      $queryText = new \Elastica\Query\Text();
+      $queryText = new \Elastica\Query\Match;
       $queryText->setFieldQuery($item['field'].'.autocomplete', $queryString);
 
       switch ($item['level'])
