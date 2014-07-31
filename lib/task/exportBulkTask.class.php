@@ -90,7 +90,12 @@ class eadExportTask extends sfBaseTask
       $exportLanguage = sfContext::getInstance()->user->getCulture();
       $sourceLanguage = $resource->getSourceCulture();
 
-      $ead = new sfEadPlugin($resource);
+      if ($options['format'] == 'ead')
+      {
+        $ead = new sfEadPlugin($resource);
+      } else {
+        $mods = new sfModsPlugin($resource);
+      }
 
       ob_start();
       include($exportTemplate);

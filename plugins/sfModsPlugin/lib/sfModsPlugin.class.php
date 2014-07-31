@@ -169,6 +169,10 @@ class sfModsPlugin implements ArrayAccess
             return $this->getNoteTexts($term->id);
           }
         }
+
+      case 'hasRightsAccess':
+
+        return $this->determineIfResourceHasRightsAct('Display');
     }
   }
 
@@ -183,6 +187,33 @@ class sfModsPlugin implements ArrayAccess
     }
 
     return $notes;
+  }
+
+  public function getIdForRightsActTerm($termName)
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::RIGHT_ACT_ID);
+    $criteria->add(QubitTerm::SOURCE_CULTURE, 'en');
+    $criteria->addJoin(QubitTermI18n::ID, QubitTerm::ID);
+    $criteria->add(QubitTermI18n::NAME, $termName);
+
+    if ($term = QubitTerm::getOne($criteria))
+    {
+      return $term->id;
+    }
+
+    return false;
+  }
+
+  public function determineIfResourceHasRightsAct($actName)
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitInformationObject::ID, $this->resource->id);
+    $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitInformationObject::ID);
+    $criteria->addJoin(QubitRights::ID, QubitRelation::OBJECT_ID);
+    $criteria->add(QubitRights::ACT_ID, $this->getIdForRightsActTerm($actName));
+
+    return QubitRights::getOne($criteria);
   }
 
   public function offsetGet($offset)

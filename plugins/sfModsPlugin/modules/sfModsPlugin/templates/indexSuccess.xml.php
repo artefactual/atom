@@ -98,6 +98,10 @@
     <?php endforeach; ?>
   <?php endif; ?>
 
+  <?php if ($mods->hasRightsAccess): ?>
+    <accessCondition type="restriction on access"></accessCondition>
+  <?php endif; ?>
+
   <location>
 
     <?php if (isset($resource->digitalObjects[0])): ?>
@@ -127,7 +131,7 @@
 
   <?php if (0 < count($resource->getChildren())): ?>
     <?php foreach ($resource->getChildren() as $item): ?>
-      <relatedItem id="<?php echo $item->identifier ?>" type="constituent"><?php $mods = new sfModsPlugin($item); echo esc_specialchars($mods) ?></relatedItem>
+      <relatedItem id="<?php echo $item->identifier ?>" type="constituent"><?php $childMods = new sfModsPlugin($item); echo esc_specialchars($childMods) ?></relatedItem>
     <?php endforeach; ?>
   <?php endif; ?>
 
