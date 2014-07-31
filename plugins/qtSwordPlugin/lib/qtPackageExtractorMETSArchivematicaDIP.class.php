@@ -295,20 +295,64 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     $this->document->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
 
+    // Check if there is a logical structMap and create a
+    // level of descriptions and dmd sections mapping
+    $logicalStructMap = $this->document->xpath('//m:structMap[@TYPE="logical"]');
+    $this->lodMapping = $this->dmdMapping = array();
+
+    if (false !== $logicalStructMap && 0 < count($logicalStructMap))
+    {
+      $logicalStructMap[0]->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+
+      foreach ($logicalStructMap[0]->xpath('.//m:div') as $item)
+      {
+        if (null === $lodName = (string)$item['TYPE'])
+        {
+          continue;
+        }
+
+        $sql  = 'SELECT
+                    term.id';
+        $sql .= ' FROM '.QubitTerm::TABLE_NAME.' term';
+        $sql .= ' JOIN '.QubitTermI18n::TABLE_NAME.' i18n
+                    ON term.id = i18n.id';
+        $sql .= ' WHERE i18n.name = ?
+                    AND term.taxonomy_id = ?';
+
+        if (false !== $id = QubitPdo::fetchColumn($sql, array($lodName, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID)))
+        {
+          $this->lodMapping[$lodName] = $id;
+        }
+        else
+        {
+          // If a level of description is not found, the upload process is stoped
+          throw new sfException('Level of description not found: '.$lodName);
+        }
+
+        $dmdId = (string)$item['DMDID'];
+        $fileId = (string)$item->fptr['FILEID'];
+
+        if (strlen($fileId) > 0 && strlen($dmdId) > 0)
+        {
+          $this->dmdMapping[$fileId] = $dmdId;
+        }
+      }
+    }
+
     sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - aipUUID: '.$aipUUID);
 
-    $publicationStatus = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
+    $this->publicationStatus = sfConfig::get('app_defaultPubStatus', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
 
     $parts = pathinfo($this->filename);
     $filename = $parts['basename'];
 
     // Store AIP data
-    $aip = new QubitAip;
-    $aip->typeId = QubitTerm::ARTWORK_COMPONENT_ID; // TODO: Get AIP type from METS
-    $aip->uuid = $aipUUID;
-    $aip->filename = $filename;
-    $aip->digitalObjectCount = count($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects'));
-    $aip->partOf = $this->resource->id;
+    $this->aip = new QubitAip;
+    $this->aip->typeId = QubitTerm::ARTWORK_COMPONENT_ID; // TODO: Get AIP type from METS
+    $this->aip->uuid = $aipUUID;
+    $this->aip->filename = $filename;
+    $this->aip->digitalObjectCount = count($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects'));
+    $this->aip->partOf = $this->resource->id;
 
     // Get size on disk
     $totalSize = 0;
@@ -321,16 +365,16 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       }
     }
 
-    $aip->sizeOnDisk = $totalSize;
+    $this->aip->sizeOnDisk = $totalSize;
 
     // Get AIP creation date
     $metsHdr = $this->document->xpath('//m:metsHdr');
     if (isset($metsHdr) && null !== $createdAt = $metsHdr[0]['CREATEDATE'])
     {
-      $aip->createdAt = $createdAt;
+      $this->aip->createdAt = $createdAt;
     }
 
-    $aip->save();
+    $this->aip->save();
 
     // Main object
     if (null != ($dmdSec = $this->getMainDmdSec()))
@@ -350,7 +394,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       // Create relation with AIP
       $relation = new QubitRelation;
       $relation->object = $parent;
-      $relation->subject = $aip;
+      $relation->subject = $this->aip;
       $relation->typeId = QubitTerm::AIP_RELATION_ID;
       $relation->save();
     }
@@ -359,69 +403,84 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $parent = $this->resource;
     }
 
-    $mapping = $this->getStructMapFileToDmdSecMapping();
-
-    foreach ($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects') as $item)
+    if (false !== $logicalStructMap && 0 < count($logicalStructMap))
     {
-      $parts = pathinfo($item);
-      $filename = $parts['basename'];
+      // Hierarchical method over logical structMap
+      $this->addChildsFromLogicalStructMap($logicalStructMap[0], $parent);
+    }
+    else
+    {
+      // Get dmd sections mapping from physical structMap
+      $this->dmdMapping = $this->getStructMapFileToDmdSecMapping();
 
-      // Object UUID
-      $objectUUID = $this->getUUID($filename);
-
-      sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - objectUUID: '.$objectUUID);
-
-      // Create child
-      $child = new QubitInformationObject;
-      $child->setPublicationStatus($publicationStatus);
-      $child->setLevelOfDescriptionByName('item');
-
-      // TODO: use UUID as unique key in the array
-      $child->title = substr($filename, 37);
-      foreach ($mapping as $k => $v)
+      // Non hierarchical method over physical structMap
+      foreach ($this->getFilesFromDirectory($this->filename.DIRECTORY_SEPARATOR.'/objects') as $item)
       {
-        if ($objectUUID == $this->getUUID($k))
+        $parts = pathinfo($item);
+        $filename = $parts['basename'];
+
+        // Object UUID
+        $objectUUID = $this->getUUID($filename);
+
+        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - objectUUID: '.$objectUUID);
+
+        // Create child
+        $child = new QubitInformationObject;
+        $child->setPublicationStatus($publicationStatus);
+        $child->setLevelOfDescriptionByName('item');
+        $child->parentId = $parent->id;
+
+        // TODO: use UUID as unique key in the array
+        $child->title = substr($filename, 37);
+        foreach ($this->dmdMapping as $k => $v)
         {
-          $child->title = $this->getOriginalFilename($k);
+          if ($objectUUID == $this->getUUID($k))
+          {
+            $child->title = $this->getOriginalFilename($k);
+          }
         }
-      }
 
-      // Storage UUIDs
-      $child->addProperty('objectUUID', $objectUUID);
-      $child->addProperty('aipUUID', $aipUUID);
+        // Storage UUIDs
+        $child->addProperty('objectUUID', $objectUUID);
+        $child->addProperty('aipUUID', $aipUUID);
 
-      // Add digital object
-      $digitalObject = new QubitDigitalObject;
-      $digitalObject->assets[] = new QubitAsset($item);
-      $digitalObject->usageId = QubitTerm::MASTER_ID;
-      $child->digitalObjects[] = $digitalObject;
+        // Add digital object
+        $digitalObject = new QubitDigitalObject;
+        $digitalObject->assets[] = new QubitAsset($item);
+        $digitalObject->usageId = QubitTerm::MASTER_ID;
+        $child->digitalObjects[] = $digitalObject;
 
-      // Parent must be set before saving
-      $child->parentId = $parent->id;
-      $child->save();
-
-      // Process metatadata from METS file
-      if (null !== ($dmdSec = $this->searchFileDmdSec($objectUUID, $mapping)))
-      {
-        list($child, $creation) = $this->processDmdSec($dmdSec, $child);
-
-        if (count($creation))
+        // Process metatadata from METS file
+        if (null !== ($dmdSec = $this->searchFileDmdSec($objectUUID)))
         {
-          $this->addCreationEvent($child, $creation);
+          list($child, $creation) = $this->processDmdSec($dmdSec, $child);
+
+          // Must be saved after the dmd section is processed
+          // and before adding the creation event
+          $child->save();
+
+          if (count($creation))
+          {
+            $this->addCreationEvent($child, $creation);
+          }
         }
+        else
+        {
+          $child->save();
+        }
+
+        // Create relation with AIP
+        $relation = new QubitRelation;
+        $relation->object = $child;
+        $relation->subject = $this->aip;
+        $relation->typeId = QubitTerm::AIP_RELATION_ID;
+        $relation->save();
+
+        // Save creation event and AIP data in ES
+        // A lot more data from the METS file (object metadata, events, agents)
+        // is obtained in arElasticSearchInformationObjectPdo
+        QubitSearch::getInstance()->update($child);
       }
-
-      // Create relation with AIP
-      $relation = new QubitRelation;
-      $relation->object = $child;
-      $relation->subject = $aip;
-      $relation->typeId = QubitTerm::AIP_RELATION_ID;
-      $relation->save();
-
-      // Save creation event and AIP data in ES
-      // A lot more data from the METS file (object metadata, events, agents)
-      // is obtained in arElasticSearchInformationObjectPdo
-      QubitSearch::getInstance()->update($child);
     }
 
     // Update resource in ES
@@ -555,7 +614,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - dmdSec not found!');
   }
 
-  protected function searchFileDmdSec($uuid, $mapping)
+  protected function searchFileDmdSec($uuid)
   {
     $node = $this->document->xpath('//m:mets/m:fileSec/m:fileGrp[@USE="original"]');
 
@@ -570,9 +629,9 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       {
         $id = (string)$item['ID'];
 
-        if (isset($mapping[$id]))
+        if (isset($this->dmdMapping[$id]))
         {
-          $dmdId = $mapping[$id];
+          $dmdId = $this->dmdMapping[$id];
 
           $dmdSec = $this->document->xpath('//m:mets/m:dmdSec[@ID="'.$dmdId.'"]');
           if (0 < count($dmdSec))
@@ -582,5 +641,99 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         }
       }
     }
+  }
+
+  protected function addChildsFromLogicalStructMap($structMap, $parent)
+  {
+    foreach ($structMap->div as $item)
+    {
+      // Create child
+      $child = new QubitInformationObject;
+      $child->parentId = $parent->id;
+      $child->setPublicationStatus($this->publicationStatus);
+
+      if (null !== $item['LABEL'])
+      {
+        $child->title = (string)$item['LABEL'];
+      }
+
+      if (null !== $item['TYPE'])
+      {
+        $child->levelOfDescriptionId = $this->lodMapping[(string)$item['TYPE']];
+      }
+
+      // Store AIP UUID
+      $child->addProperty('aipUUID', $this->aip->uuid);
+
+      // Add digital object and objectUUID if there is a ftpr child
+      if (count($item->fptr) > 0 && null !== $item->fptr[0]['FILEID'])
+      {
+        // Object UUID
+        $objectUUID = $this->getUUID((string)$item->fptr[0]['FILEID']);
+        $child->addProperty('objectUUID', $objectUUID);
+
+        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - objectUUID: '.$objectUUID);
+
+        // Digital object
+        $absolutePathWithinDip = $this->getAccessCopyPath($objectUUID);
+
+        if (false !== $absolutePathWithinDip && is_readable($absolutePathWithinDip))
+        {
+          $digitalObject = new QubitDigitalObject;
+          $digitalObject->assets[] = new QubitAsset($absolutePathWithinDip);
+          $digitalObject->usageId = QubitTerm::MASTER_ID;
+          $child->digitalObjects[] = $digitalObject;
+        }
+      }
+
+      // Process metatadata from METS file
+      if (isset($objectUUID) && null !== ($dmdSec = $this->searchFileDmdSec($objectUUID)))
+      {
+        list($child, $creation) = $this->processDmdSec($dmdSec, $child);
+
+        // Must be saved after the dmd section is processed
+        // and before adding the creation event
+        $child->save();
+
+        if (count($creation))
+        {
+          $this->addCreationEvent($child, $creation);
+        }
+      }
+      else
+      {
+        $child->save();
+      }
+
+      // Create relation with AIP
+      $relation = new QubitRelation;
+      $relation->object = $child;
+      $relation->subject = $this->aip;
+      $relation->typeId = QubitTerm::AIP_RELATION_ID;
+      $relation->save();
+
+      // Add childs
+      if (count($item->div) > 0)
+      {
+        $this->addChildsFromLogicalStructMap($item, $child);
+      }
+
+      // Save creation event and AIP data in ES
+      // A lot more data from the METS file (object metadata, events, agents)
+      // is obtained in arElasticSearchInformationObjectPdo
+      QubitSearch::getInstance()->update($child);
+    }
+  }
+
+  protected function getAccessCopyPath($uuid)
+  {
+    $glob = $this->filename.DIRECTORY_SEPARATOR.'objects'.DIRECTORY_SEPARATOR.$uuid.'*';
+    $matches = glob($glob, GLOB_NOSORT);
+    if (empty($matches))
+    {
+      return false;
+    }
+
+    return current($matches);
   }
 }
