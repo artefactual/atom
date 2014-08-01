@@ -40,8 +40,29 @@
 
       <?php echo get_partial('search/facet', array(
         'target' => '#facet-province',
-        'label' => __('Region'),
+        'label' => __('Geographic Region'),
         'facet' => 'regions',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+
+      <?php echo get_partial('search/facet', array(
+        'target' => '#facet-geographicsubregion',
+        'label' => __('Geographic Subregion'),
+        'facet' => 'geographicSubregions',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+
+      <?php echo get_partial('search/facet', array(
+        'target' => '#facet-locality',
+        'label' => __('Locality'),
+        'facet' => 'locality',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+
+      <?php echo get_partial('search/facet', array(
+        'target' => '#facet-thematicarea',
+        'label' => __('Thematic Area'),
+        'facet' => 'thematicAreas',
         'pager' => $pager,
         'filters' => $filters)) ?>
 

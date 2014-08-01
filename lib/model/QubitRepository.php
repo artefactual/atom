@@ -310,6 +310,70 @@ class QubitRepository extends BaseRepository
     $this->objectTermRelationsRelatedByobjectId[] = $relation;
   }
 
+  public function setThematicAreaByName($name)
+  {
+    // see if type term already exists
+    $criteria = new Criteria;
+    $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+    $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::THEMATIC_AREA_ID);
+    $criteria->add(QubitTermI18n::NAME, $name);
+
+    if (null === $term = QubitTerm::getOne($criteria))
+    {
+      $term = new QubitTerm;
+      $term->setTaxonomyId(QubitTaxonomy::THEMATIC_AREA_ID);
+      $term->setName($name);
+      $term->setRoot();
+      $term->save();
+    }
+
+    foreach (self::getTermRelations(QubitTaxonomy::THEMATIC_AREA_ID) as $item)
+    {
+      // Faster than $item->term == $term
+      if ($item->termId == $term->id)
+      {
+        return;
+      }
+    }
+
+    $relation = new QubitObjectTermRelation;
+    $relation->term = $term;
+
+    $this->objectTermRelationsRelatedByobjectId[] = $relation;
+  }
+
+  public function setGeographicSubregionByName($name)
+  {
+    // see if type term already exists
+    $criteria = new Criteria;
+    $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+    $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID);
+    $criteria->add(QubitTermI18n::NAME, $name);
+
+    if (null === $term = QubitTerm::getOne($criteria))
+    {
+      $term = new QubitTerm;
+      $term->setTaxonomyId(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID);
+      $term->setName($name);
+      $term->setRoot();
+      $term->save();
+    }
+
+    foreach (self::getTermRelations(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID) as $item)
+    {
+      // Faster than $item->term == $term
+      if ($item->termId == $term->id)
+      {
+        return;
+      }
+    }
+
+    $relation = new QubitObjectTermRelation;
+    $relation->term = $term;
+
+    $this->objectTermRelationsRelatedByobjectId[] = $relation;
+  }
+
   /**
    * Get the current repository uploads directory
    *

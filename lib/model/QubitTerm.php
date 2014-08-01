@@ -438,6 +438,16 @@ class QubitTerm extends BaseTerm
     return QubitTaxonomy::getTermsById(QubitTaxonomy::MODS_TITLE_TYPE_ID, $options);
   }
 
+  public static function getThematicAreas($options = array())
+  {
+    return QubitTaxonomy::getTermsById(QubitTaxonomy::THEMATIC_AREA_ID, $options);
+  }
+
+  public static function getGeographicSubregions($options = array())
+  {
+    return QubitTaxonomy::getTermsById(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID, $options);
+  }
+
   /**
    * Return a list of all Physical Object terms
    *
