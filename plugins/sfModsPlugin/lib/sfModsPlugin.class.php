@@ -173,6 +173,10 @@ class sfModsPlugin implements ArrayAccess
       case 'hasRightsAccess':
 
         return $this->determineIfResourceHasRightsAct('Display');
+
+      case 'hasRightsReplicate':
+
+        return $this->determineIfResourceHasRightsAct('Replicate');
     }
   }
 

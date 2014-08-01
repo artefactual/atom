@@ -102,6 +102,10 @@
     <accessCondition type="restriction on access"></accessCondition>
   <?php endif; ?>
 
+  <?php if ($mods->hasRightsReplicate): ?>
+    <accessCondition type="use and reproduction"></accessCondition>
+  <?php endif; ?>
+
   <location>
 
     <?php if (isset($resource->digitalObjects[0])): ?>
