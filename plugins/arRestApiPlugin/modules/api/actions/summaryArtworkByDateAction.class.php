@@ -52,7 +52,18 @@ class ApiSummaryArtworkByDateAction extends QubitApiAction
     $this->facetEsQuery('DateHistogram', 'collectionDate', 'tmsObject.dateCollected', $query, array('interval' => 'year'));
     $this->facetEsQuery('DateHistogram', 'createdAt', 'createdAt', $query, array('interval' => 'month'));
 
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+    // Return empty results if search fails
+    try
+    {
+      $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+    }
+    catch (Exception $e)
+    {
+      return array(
+        'creation' => array(),
+        'collection' => array()
+      );
+    }
 
     $facets = $resultSet->getFacets();
 
