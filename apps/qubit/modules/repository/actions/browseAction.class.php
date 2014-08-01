@@ -39,6 +39,18 @@ class RepositoryBrowseAction extends DefaultBrowseAction
       'regions' =>
         array('type' => 'term',
               'field' => 'contactInformations.i18n.en.region.untouched',
+              'size' => 10),
+      'geographicSubregions' =>
+        array('type' => 'term',
+              'field' => 'geographicSubregions',
+              'size' => 10),
+      'locality' =>
+        array('type' => 'term',
+              'field' => 'contactInformations.i18n.en.city.untouched',
+              'size' => 10),
+      'thematicAreas' =>
+        array('type' => 'term',
+              'field' => 'thematicAreas',
               'size' => 10));
 
   protected function populateFacet($name, $ids)
@@ -46,6 +58,8 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     switch ($name)
     {
       case 'types':
+      case 'geographicSubregions':
+      case 'thematicAreas':
         $criteria = new Criteria;
         $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
 
@@ -57,6 +71,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
         break;
 
       case 'regions':
+      case 'locality':
         foreach ($ids as $key => $count)
         {
           $this->types[$key] = $key;

@@ -679,6 +679,22 @@ QubitTaxonomy:
     parent_id: QubitTaxonomy_root
     name:
       en: 'AIP types'
+  QubitTaxonomy_thematic_areas:
+    source_culture: en
+    id: 72
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'Thematic Area'
+    note:
+      en: 'These themes can assist in identifying major collecting areas, but should not be taken as comprehensive. Used as optional access point for ISDIAH repository records.'
+  QubitTaxonomy_geographic_subregions:
+    source_culture: en
+    id: 73
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'Geographic Subregion'
+    note:
+      en: 'Geographic subregions, based on local standards/common terminology if available. Used as optional access point for ISDIAH repository records in multi-repository databases.'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
@@ -4442,6 +4458,167 @@ QubitTerm:
       gl: 'DACS, 2nd ed. Society of American Archivists'
       it: 'DACS, 2nd ed. Society of American Archivists'
       sl: 'Arhivsko popisovanje: vsebinski standard (DACS), 2. izdaja, Društvo ameriških arhivistov'
+  QubitTerm_thematic_areas_aboriginal:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Aboriginal Peoples
+      fr: Peuples autochtones
+  QubitTerm_thematic_areas_agriculture:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Agriculture
+      fr: Agriculture
+  QubitTerm_thematic_areas_arts:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Arts and Culture
+      fr: Arts et culture
+  QubitTerm_thematic_areas_communication:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Communication
+      fr: Communication
+  QubitTerm_thematic_areas_education:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Education
+      fr: Éducation
+  QubitTerm_thematic_areas_environment:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Environment
+      fr: Environnement
+  QubitTerm_thematic_areas_family:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Family / Domestic Life
+      fr: Vie privée
+  QubitTerm_thematic_areas_genealogical:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Genealogical
+      fr: Généalogique
+  QubitTerm_thematic_areas_geography:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Geography
+      fr: Géographie
+  QubitTerm_thematic_areas_industry:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Industry, Manufacturing and Commerce
+      fr: Industries, fabrication, et commerce
+  QubitTerm_thematic_areas_labour:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Labour
+      fr: Travail
+  QubitTerm_thematic_areas_law:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Law and Justice
+      fr: Droit et justice
+  QubitTerm_thematic_areas_medicine:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Medicine and Health
+      fr: Médecine et santé
+  QubitTerm_thematic_areas_military:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Military
+      fr: Forces armées
+  QubitTerm_thematic_areas_natural_resources:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Natural Resources
+      fr: Richesses naturelles
+  QubitTerm_thematic_areas_politics:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Politics and Government
+      fr: Politique et gouvernement
+  QubitTerm_thematic_areas_populations:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Populations
+      fr: Populations
+  QubitTerm_thematic_areas_recreation:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Recreation / Leisure / Sports
+      fr: Loisirs et sports
+  QubitTerm_thematic_areas_religion:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Religion
+      fr: Religion
+  QubitTerm_thematic_areas_science:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Science and Technology
+      fr: Sciences et technologie
+  QubitTerm_thematic_areas_social_organizations:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Social Organizations and Activities
+      fr: Vie sociale
+  QubitTerm_thematic_areas_transportation:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Transportation
+      fr: Transport
+  QubitTerm_thematic_areas_travel:
+    taxonomy_id: QubitTaxonomy_thematic_areas
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Travel and Exploration
+      fr: Voyages et exploration
 QubitNote:
   QubitNote_1:
     object_id: QubitTerm_111

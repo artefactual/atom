@@ -51,6 +51,16 @@ class arElasticSearchRepository extends arElasticSearchModelBase
       $serialized['types'][] = $relation->termId;
     }
 
+    foreach ($object->getTermRelations(QubitTaxonomy::THEMATIC_AREA_ID) as $relation)
+    {
+      $serialized['thematicAreas'][] = $relation->termId;
+    }
+
+    foreach ($object->getTermRelations(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID) as $relation)
+    {
+      $serialized['geographicSubregions'][] = $relation->termId;
+    }
+
     foreach ($object->contactInformations as $contactInformation)
     {
       $serialized['contactInformations'][] = arElasticSearchContactInformation::serialize($contactInformation);
