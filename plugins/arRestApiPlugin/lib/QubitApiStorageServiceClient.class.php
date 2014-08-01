@@ -55,12 +55,25 @@ class QubitApiStorageServiceClient
 
   public function get($urlPath)
   {
+    $this->verifyPipelineExists();
     return $this->request($urlPath);
   }
 
   public function post($urlPath, $postData)
   {
+    $this->verifyPipelineExists();
     return $this->request($urlPath, $postData);
+  }
+
+  private function verifyPipelineExists()
+  {
+    $uuid = $this->config['ARCHIVEMATICA_SS_PIPELINE_UUID'];
+
+    $this->request('api/v2/pipeline/'. $uuid);
+    if ($this->status == 404)
+    {
+      throw new QubitApi404Exception('QubitApiStorageServiceClient pipeline UUID "'. $uuid .'" not found: '. $error, 404);
+    }
   }
 
   private function request($urlPath, $postData = FALSE)
