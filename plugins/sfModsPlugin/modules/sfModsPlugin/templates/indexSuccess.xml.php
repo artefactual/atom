@@ -92,6 +92,12 @@
     <?php endforeach; ?>
   <?php endif; ?>
 
+  <?php if (count($alphanumericNotes = $mods->alphanumericNotes)): ?>
+    <?php foreach ($alphanumericNotes as $alphanumericNote): ?>
+      <note type="numbering"><?php echo esc_specialchars($alphanumericNote) ?></note>
+    <?php endforeach; ?>
+  <?php endif; ?>
+
   <?php if (count($languageNotes = $mods->languageNotes)): ?>
     <?php foreach ($languageNotes as $languageNote): ?>
       <note type="language"><?php echo esc_specialchars($languageNote) ?></note>
