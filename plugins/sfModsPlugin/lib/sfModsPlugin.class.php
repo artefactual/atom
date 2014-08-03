@@ -160,15 +160,13 @@ class sfModsPlugin implements ArrayAccess
 
         return $this->getNoteTexts(QubitTerm::LANGUAGE_NOTE_ID);
 
+      case 'alphanumericNotes':
+
+        return $this->getMatchingRadNotesByName('Alpha-numeric designations');
+
       case 'generalNotes':
 
-        foreach (QubitTerm::getRADNotes() as $term)
-        {
-          if ($term->getName() == 'General note')
-          {
-            return $this->getNoteTexts($term->id);
-          }
-        }
+        return $this->getMatchingRadNotesByName('General note');
 
       case 'hasRightsAccess':
 
@@ -177,6 +175,17 @@ class sfModsPlugin implements ArrayAccess
       case 'hasRightsReplicate':
 
         return $this->determineIfResourceHasRightsAct('Replicate');
+    }
+  }
+
+  public function getMatchingRadNotesByName($noteTypeName)
+  {
+    foreach (QubitTerm::getRADNotes() as $term)
+    {
+      if ($term->getName() == $noteTypeName)
+      {
+        return $this->getNoteTexts($term->id);
+      }
     }
   }
 
