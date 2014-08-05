@@ -155,7 +155,7 @@ class sfEadPlugin
     return $hasNonBlankNotes;
   }
 
-  public function renderEadId()
+  public function renderEadId($siteBaseUrl = false)
   {
     $countryCode = $mainAgencyCode = '';
 
@@ -177,7 +177,9 @@ class sfEadPlugin
       }
     }
 
-    $url = url_for(array($this->resource, 'module' => 'informationobject'), $absolute = true);
+    $url = ($siteBaseUrl)
+      ? $siteBaseUrl . $this->resource->slug
+      : url_for(array($this->resource, 'module' => 'informationobject'), $absolute = true);
 
     if (null === $identifier = $this->resource->descriptionIdentifier)
     {
