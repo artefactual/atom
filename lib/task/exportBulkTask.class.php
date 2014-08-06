@@ -36,7 +36,6 @@ class eadExportTask extends sfBaseTask
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('site-url', sfCommandArgument::REQUIRED, 'The base URL of your AtoM site (example: "http://www.example.com").'),
       new sfCommandArgument('folder', sfCommandArgument::REQUIRED, 'The destination folder for XML export files.')
     ));
 
@@ -58,7 +57,7 @@ class eadExportTask extends sfBaseTask
   public function execute($arguments = array(), $options = array())
   {
     // Make sure arguments are valid
-    $siteBaseUrl = $this->checkAndNormalizeSiteUrl($arguments['site-url']);
+    $siteBaseUrl = $this->checkAndNormalizeSiteUrl($options['site-url']);
     $this->checkForValidFolder($arguments['folder']);
     $options['format'] = strtolower($options['format']);
     $this->checkForValidExportFormat($options['format']);
