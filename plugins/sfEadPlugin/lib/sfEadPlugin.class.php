@@ -183,7 +183,7 @@ class sfEadPlugin
 
     if (null === $identifier = $this->resource->descriptionIdentifier)
     {
-      $identifier = url_for($this->resource, $absolute = true);
+      $identifier = $this->resource->slug;
     }
 
     $encodinganalog = $this->getMetadataParameter('eadid');
