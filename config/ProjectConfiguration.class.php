@@ -45,9 +45,6 @@ class ProjectConfiguration extends sfProjectConfiguration
       'sfTranslatePlugin',
       'sfWebBrowserPlugin',
 
-      // Rest API plugin required for Hierarchical DIP Upload
-      'arRestApiPlugin',
-`
       // sfInstallPlugin and sfPluginAdminPlugin depend on sfPropelPlugin, so
       // must be enabled last
       'sfInstallPlugin',

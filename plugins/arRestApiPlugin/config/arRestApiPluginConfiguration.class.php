@@ -29,6 +29,10 @@ class arRestApiPluginConfiguration extends sfPluginConfiguration
   const REGEX_ID   = '\d+';
   const REGEX_SLUG = '[0-9A-Za-z-]+';
 
+  public static
+    $summary = 'REST API plugin. Required for Hierarchical DIP Upload',
+    $version = '1.0.0';
+
   public function routingLoadConfiguration(sfEvent $event)
   {
     $this->routing = $event->getSubject();
