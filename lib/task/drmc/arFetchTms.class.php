@@ -171,6 +171,10 @@ class arFetchTms
 
           // Digital object
           case 'FullImage':
+            // Encode filename in the URL
+            $filename = basename(parse_url($value, PHP_URL_PATH));
+            $value = str_replace($filename, rawurlencode($filename), $value);
+
             // Update digital object if exists
             if (null !== $digitalObject = $tmsObject->getDigitalObject())
             {
