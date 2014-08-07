@@ -81,7 +81,7 @@ class qtSwordPlugin
           $event->endDate = $parsedDates[1];
 
           // if date range is similar to ISO 8601 then make it a normal date range
-          if ($this->likeISO8601Date(trim($dates[0])))
+          if (self::likeISO8601Date(trim($dates[0])))
           {
             if ($event->startDate == $event->endDate)
             {
@@ -95,7 +95,7 @@ class qtSwordPlugin
         }
 
         // If date is a single ISO 8601 date then truncate off time
-        if ($this->likeISO8601Date(trim($event->date)))
+        if (self::likeISO8601Date(trim($event->date)))
         {
           $date = substr(trim($event->date), 0, 10);
         }
@@ -113,5 +113,28 @@ class qtSwordPlugin
     }
 
     $event->save();
+  }
+
+  public static function likeISO8601Date($date)
+  {
+    $date = substr($date, 0, 19).'Z';
+
+    if (preg_match('/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z$/', $date, $parts) == true)
+    {
+      $time = gmmktime($parts[4], $parts[5], $parts[6], $parts[2], $parts[3], $parts[1]);
+
+      $input_time = strtotime($date);
+
+      if ($input_time === false)
+      {
+        return false;
+      }
+
+      return $input_time == $time;
+    }
+    else
+    {
+      return false;
+    }
   }
 }

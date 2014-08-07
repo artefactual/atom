@@ -139,29 +139,6 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     return array($informationObject, $creation);
   }
 
-  protected function likeISO8601Date($date)
-  {
-    $date = substr($date, 0, 19).'Z';
-
-    if (preg_match('/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z$/', $date, $parts) == true)
-    {
-      $time = gmmktime($parts[4], $parts[5], $parts[6], $parts[2], $parts[3], $parts[1]);
-
-      $input_time = strtotime($date);
-
-      if ($input_time === false)
-      {
-        return false;
-      }
-
-      return $input_time == $time;
-    }
-    else
-    {
-      return false;
-    }
-  }
-
   protected function process()
   {
     ProjectConfiguration::getActive()->loadHelpers('Qubit');
