@@ -25,7 +25,8 @@
 class sfEadPlugin
 {
   public
-    $resource;
+    $resource,
+    $siteBaseUrl;
 
   public static
     $ENCODING_MAP = array(
@@ -155,9 +156,25 @@ class sfEadPlugin
     return $hasNonBlankNotes;
   }
 
+  public function getAssetPath($do, $getReference = false)
+  {
+    if ($getReference)
+    {
+      $do = $do->reference;
+    }
+
+    if ($this->siteBaseUrl !== false)
+    {
+      return $this->siteBaseUrl . ltrim($do->getFullPath(), '/');
+    }
+
+    return public_path($do->getFullPath(), true);
+  }
+
   public function renderEadId($siteBaseUrl = false)
   {
     $countryCode = $mainAgencyCode = '';
+    $this->siteBaseUrl = $siteBaseUrl;
 
     if (null !== $this->resource->getRepository(array('inherit' => true)))
     {
