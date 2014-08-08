@@ -1,4 +1,0 @@
-autoload:
-  vendor_elastica_lib:
-    path:      %SF_PLUGINS_DIR%/arElasticSearchPlugin/lib/vendor/Elastica/lib
-    recursive: on
