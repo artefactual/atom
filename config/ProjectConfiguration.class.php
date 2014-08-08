@@ -73,7 +73,7 @@ class ProjectConfiguration extends sfProjectConfiguration
     }
 
     $loader->registerNamespaces(array(
-      'Elastica' => __DIR__.'/../plugins/arElasticSearchPlugin/lib/vendor/Elastica/lib'));
+      'Elastica' => __DIR__.'/../vendor/Elastica/lib'));
 
     $loader->register();
 
