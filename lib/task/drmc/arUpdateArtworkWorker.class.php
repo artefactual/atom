@@ -137,7 +137,7 @@ class arUpdateArtworkWorker extends Net_Gearman_Job_Common
       $tmsComponent->setPublicationStatusByName('Published');
 
       // Update TMS Component data
-      $tmsComponentsIoIds[] = arFetchTms::getTmsComponentData($tmsComponent, $tmsId, $artworkThumbnail);
+      $tmsComponentsIoIds[] = $fetchTms->getTmsComponentData($tmsComponent, $tmsId, $artworkThumbnail);
     }
 
     // Save info object components ids as property of the artwork
