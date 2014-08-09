@@ -203,12 +203,24 @@ class ApiAipsBrowseAction extends QubitApiAction
       $totalCount += $facet['count'];
     }
 
-    $results['unclassified'] = array(
-      'count' => $resultSet->getTotalHits() - $totalCount);
+    // Get unclassified counts (missing type.id)
+    $results['unclassified']['count'] = $results['unclassified']['size'] = 0;
+    foreach ($resultSet as $hit)
+    {
+      $doc = $hit->getData();
+
+      if (isset($doc['type']['id']))
+      {
+        continue;
+      }
+
+      $results['unclassified']['size'] += $doc['sizeOnDisk'];
+      $results['unclassified']['count'] ++;
+    }
 
     $results['total'] = array(
-      'size' => $totalSize,
-      'count' => $totalCount);
+      'size' => $totalSize + $results['unclassified']['size'],
+      'count' => $totalCount + $results['unclassified']['count']);
 
     return $results;
   }

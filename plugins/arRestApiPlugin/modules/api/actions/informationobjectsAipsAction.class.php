@@ -43,21 +43,16 @@ class ApiInformationObjectsAipsAction extends QubitApiAction
     // Create query objects
     $query = new \Elastica\Query;
     $queryBool = new \Elastica\Query\Bool;
-    $queryBool->addShould(new \Elastica\Query\Term(array('_id' => $this->request->id)));
-    $queryBool->addShould(new \Elastica\Query\Term(array('ancestors' => $this->request->id)));
+    $queryBool->addMust(new \Elastica\Query\Term(array('partOf.id' => $this->request->id)));
+
+    // Add facets to the query
+    $this->facetEsQuery('TermsStats', 'type', 'type.id', $query, array(
+      'valueField' => 'sizeOnDisk'));
 
     // Assign query
     $query->setQuery($queryBool);
 
-    // Filter
-    $filterExists = new \Elastica\Filter\Exists('aips');
-    $query->setFilter($filterExists);
-
-    // Add facets to the query
-    $this->facetEsQuery('TermsStats', 'type', 'aips.type.id', $query, array(
-      'valueField' => 'aips.sizeOnDisk'));
-
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitAip')->search($query);
     $facets = $resultSet->getFacets();
 
     $results = array();
@@ -72,12 +67,24 @@ class ApiInformationObjectsAipsAction extends QubitApiAction
       $totalCount += $facet['count'];
     }
 
-    $results['unclassified'] = array(
-      'count' => $resultSet->getTotalHits() - $totalCount);
+    // Get unclassified counts (missing type.id)
+    $results['unclassified']['count'] = $results['unclassified']['size'] = 0;
+    foreach ($resultSet as $hit)
+    {
+      $doc = $hit->getData();
+
+      if (isset($doc['type']['id']))
+      {
+        continue;
+      }
+
+      $results['unclassified']['size'] += $doc['sizeOnDisk'];
+      $results['unclassified']['count'] ++;
+    }
 
     $results['total'] = array(
-      'size' => $totalSize,
-      'count' => $totalCount);
+      'size' => $totalSize + $results['unclassified']['size'],
+      'count' => $totalCount + $results['unclassified']['count']);
 
     return $results;
   }
