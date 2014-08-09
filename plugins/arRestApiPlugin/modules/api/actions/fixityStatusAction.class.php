@@ -83,6 +83,8 @@ class ApiFixityStatusAction extends QubitApiAction
 
     $resultSet = QubitSearch::getInstance()->index->getType('QubitFixityReport')->search($query);
 
+    $failsRecovered = 0;
+
     foreach ($resultSet as $hit)
     {
       $doc = $hit->getData();
@@ -129,12 +131,22 @@ class ApiFixityStatusAction extends QubitApiAction
           'timeStarted' => $recovery->timeStarted,
           'timeCompleted' => $recovery->timeCompleted
         );
+
+        // Note if last recovery occurred after failure was reported and add to fails recovered total
+        $reportTimestamp = strtotime($doc['timeStarted']);
+        $recoveredTimestamp = strtotime($recovery->timeStarted);
+
+        if ($recovery->success && ($recoveredTimestamp > $reportTimestamp))
+        {
+          $report['lastRecoveryResolved']['fixesFailure'] = true;
+          $failsRecovered++;
+        }
       }
 
       $data['lastFails'][] = $report;
     }
 
-    $data['lastFailsCount'] = $resultSet->getTotalHits();
+    $data['unrecoveredFailsCount'] = $resultSet->getTotalHits() - $failsRecovered;
 
     // Currently checking
     $query = new \Elastica\Query;

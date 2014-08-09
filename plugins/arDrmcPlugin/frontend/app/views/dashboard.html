@@ -37,7 +37,7 @@
             <h3 class="muted">Status</h3>
             <span class="muted label" ng-class="{ 'label-important': fixityHasFails, 'label-success': !fixityHasFails }">
               {{ fixityHasFails ? 'Error' : 'OK' }}
-              <i ng-if="fixityHasFails">({{ fixityStats.lastFailsCount }})</i>
+              <i ng-if="fixityHasFails">({{ fixityStats.unrecoveredFailsCount }})</i>
             </span>
           </div>
 
@@ -95,7 +95,7 @@
                     <td>Failed</td>
                     <td>
                       <span ng-show="aip.recoveryPending">Pending admin approval</span>
-                      <a href class="btn" ng-hide="aip.recoveryPending" ng-click="requestRecover(aip.id)">Recover</a>
+                      <a href class="btn" ng-hide="aip.lastRecoveryResolved.fixesFailure" ng-click="requestRecover(aip.id)">Recover</a>
                       <span ng-show="aip.lastRecoveryResolved" class="recovery-status label {{ aip.lastRecoveryResolved.outcome ? 'label-success' : 'label-important' }}">
                         {{ aip.lastRecoveryResolved.message }} ({{ aip.lastRecoveryResolved.timeCompleted}})
                       </span>

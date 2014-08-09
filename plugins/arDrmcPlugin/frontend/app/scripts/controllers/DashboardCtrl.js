@@ -102,7 +102,7 @@ module.exports = function ($scope, $q, $timeout, $filter, StatisticsService, Fix
   var getFixityWidgetData = function () {
     FixityService.getStatusFixity({ limit: 5 }).then(function (response) {
       $scope.fixityStats = response.data;
-      if ($scope.fixityStats.hasOwnProperty('lastFails') && $scope.fixityStats.lastFails.length > 0) {
+      if ($scope.fixityStats.hasOwnProperty('lastFails') && $scope.fixityStats.unrecoveredFailsCount > 0) {
         $scope.fixityHasFails = true;
         if (!isOverviewToggled) {
           $scope.showOverview = true;
