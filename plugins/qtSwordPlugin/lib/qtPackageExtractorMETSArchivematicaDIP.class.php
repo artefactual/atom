@@ -530,6 +530,18 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
    */
   protected function addDigitalObjects($aipIo)
   {
+    // Create child file information object for AIP METS file before checking fileGrp
+    $child = new QubitInformationObject;
+    $child->parentId = $aipIo->id;
+    $child->levelOfDescriptionId = sfConfig::get('app_drmc_lod_digital_object_id');
+    $child->setPublicationStatusByName('Published');
+    $child->title = 'METS.'.$this->aipUUID.'.xml';
+    $child->save();
+
+    // Store relative path within AIP and AIP UUID
+    QubitProperty::addUnique($child->id, 'original_relative_path_within_aip', 'METS.'.$this->aipUUID.'.xml');
+    QubitProperty::addUnique($child->id, 'aipUUID', $this->aipUUID);
+
     $mapping = $this->getStructMapFileToDmdSecMapping();
 
     $files = $this->document->xpath('//m:mets/m:fileSec/m:fileGrp/m:file');
