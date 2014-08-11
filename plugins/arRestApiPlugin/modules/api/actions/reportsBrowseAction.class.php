@@ -70,7 +70,7 @@ class ApiReportsBrowseAction extends QubitApiAction
       'general_download' => 'General download',
       'amount_downloaded' => 'Amount downloaded',
       'component_level' => 'Component level',
-      'file_level' => 'File level');
+      'video_characteristics' => 'Video characteristics');
 
     $now = new DateTime();
     $now->setTime(0, 0);
