@@ -136,12 +136,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="report in fixityReports" ng-class="{ 'success': report.success, 'error': !report.success }">
+                <tr ng-repeat="report in fixityReports" ng-class="{ 'success': report.success, 'error': report.success === false }">
                   <td>{{ report.id }}</td>
                   <td>{{ (report.time_started | date:'short') || 'none' }}</td>
                   <td>{{ (report.time_completed | date:'short') || 'none' }}</td>
                   <td>{{ (report.duration | ConvertSecondsFilter) || 'none' }}</td>
-                  <td>{{ report.success ? 'Success' : 'Failed' }}</td>
+                  <td ng-if="report.success === undefined">In progress</td>
+                  <td ng-if="report.success !== undefined">{{ report.success ? 'Success' : 'Failed' }}</td>
                 </tr>
               </tbody>
             </table>
