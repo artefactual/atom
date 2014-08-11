@@ -607,19 +607,14 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         $child->digitalObjects[] = $digitalObject;
       }
 
-      $child->save();
-
-      // Use property to augment digital object with relative path within AIP
-      $property = new QubitProperty;
-      $property->objectId = $child->id;
-      $property->setName('original_relative_path_within_aip');
-      $property->setValue($relativePathWithinAip);
-      $property->save();
-
       // Process metatadata
+      // Child must be saved after processDmdSec. Saving it twice in the job
+      // makes the second one inefficient
       if (null !== ($dmdSec = $this->searchFileDmdSec($uuid, $mapping)))
       {
         list($child, $creation) = $this->processDmdSec($dmdSec, $child);
+
+        $child->save();
 
         if (count($creation))
         {
@@ -630,6 +625,17 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           qtSwordPlugin::addDataToCreationEvent($event, $creation);
         }
       }
+      else
+      {
+        $child->save();
+      }
+
+      // Use property to augment digital object with relative path within AIP
+      $property = new QubitProperty;
+      $property->objectId = $child->id;
+      $property->setName('original_relative_path_within_aip');
+      $property->setValue($relativePathWithinAip);
+      $property->save();
 
       // Storage UUIDs
       QubitProperty::addUnique($child->id, 'objectUUID', $uuid);
