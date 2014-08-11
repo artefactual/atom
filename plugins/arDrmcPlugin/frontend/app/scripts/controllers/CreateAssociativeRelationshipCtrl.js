@@ -100,7 +100,9 @@ module.exports = function ($scope, $modalInstance, InformationObjectService, Tax
     // I don't understand why the default is to submit?
     $event.preventDefault();
     InformationObjectService.deleteAssociation(id).then(function () {
-      $modalInstance.close('deleted');
+      $modalInstance.close({
+        action: 'deleted'
+      });
     }, function (response) {
       console.log('Delete failed:', response.statusText);
     });
