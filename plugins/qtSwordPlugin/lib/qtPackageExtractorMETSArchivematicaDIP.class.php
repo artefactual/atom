@@ -569,6 +569,13 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $relativePathWithinAipParts = pathinfo($relativePathWithinAip);
       sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             [path->AIP] '.$relativePathWithinAip);
 
+      // Don't add METS file in submissionDocumentation
+      if ($use == 'submissionDocumentation' && $relativePathWithinAipParts['basename'] == 'METS.xml')
+      {
+        sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP -             METS file in submissionDocumentation is not added');
+        continue;
+      }
+
       // DIP paths
       if (false === $absolutePathWithinDip = $this->getAccessCopyPath($uuid))
       {
