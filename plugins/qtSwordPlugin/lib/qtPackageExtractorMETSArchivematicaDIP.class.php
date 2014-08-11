@@ -536,6 +536,17 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     $child->levelOfDescriptionId = sfConfig::get('app_drmc_lod_digital_object_id');
     $child->setPublicationStatusByName('Published');
     $child->title = 'METS.'.$this->aipUUID.'.xml';
+
+    // Add digital object
+    $metsPath = $this->filename.DIRECTORY_SEPARATOR.'METS.'.$this->aipUUID.'.xml';
+    if (is_readable($metsPath))
+    {
+      $digitalObject = new QubitDigitalObject;
+      $digitalObject->assets[] = new QubitAsset($metsPath);
+      $digitalObject->usageId = QubitTerm::MASTER_ID;
+      $child->digitalObjects[] = $digitalObject;
+    }
+
     $child->save();
 
     // Store relative path within AIP and AIP UUID

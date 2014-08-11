@@ -95,6 +95,7 @@ class ApiInformationObjectsFilesAction extends QubitApiAction
        && $item['filename'] == 'METS.'.$item['aip_uuid'].'.xml')
       {
         $this->addItemToArray($item, 'mime_type', 'application/xml');
+        $this->addItemToArray($item, 'byte_size', $doc['digitalObject']['byteSize']);
       }
 
       $data[] = $item;
