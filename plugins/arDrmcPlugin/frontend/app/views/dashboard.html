@@ -48,6 +48,7 @@
               <a ng-if="aip.aip_name" href ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a>
               {{ !aip.aip_name ? 'Not in the DRMC' : '' }}
             </span>
+            <p ng-if="!fixityStats.currentlyChecking[0].aip_name">UUID: {{ fixityStats.currentlyChecking[0].aip_uuid }}</p>
           </div>
 
           <!-- if no checks currently running -->
@@ -78,6 +79,7 @@
                 <thead>
                   <tr>
                     <th>AIP name</th>
+                    <th>AIP UUID</th>
                     <th>Time completed</th>
                     <th>Duration</th>
                     <th>Outcome</th>
@@ -90,6 +92,7 @@
                       <a ng-if="aip.aip_name" href ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a>
                       {{ !aip.aip_name ? 'Not in the DRMC' : '' }}
                     </td>
+                    <td>{{ aip.aip_uuid }}</td>
                     <td>{{ aip.time_completed | date:'short' }}</td>
                     <td>{{ aip.duration | ConvertSecondsFilter }}</td>
                     <td>Failed</td>
@@ -114,6 +117,7 @@
                 <thead>
                   <tr>
                     <th>AIP name</th>
+                    <th>AIP UUID</th>
                     <th>Time completed</th>
                     <th>Duration</th>
                     <th>Outcome</th>
@@ -125,6 +129,7 @@
                       <a ng-if="aip.aip_name" href ui-sref="main.aips.view({ uuid: aip.aip_uuid })">{{ aip.aip_name }}</a>
                       {{ !aip.aip_name ? 'Not in the DRMC' : '' }}
                     </td>
+                    <td>{{ aip.aip_uuid }}</td>
                     <td>{{ aip.time_completed | date:'short' }}</td>
                     <td>{{ aip.duration | ConvertSecondsFilter }}</td>
                     <td>{{ aip.statusAlert }}</td>
