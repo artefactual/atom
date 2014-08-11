@@ -286,7 +286,7 @@ class QubitAPIAction extends sfAction
 
     $facet = new $className($name);
 
-    if ($faceType != 'DateHistogram')
+    if ($facetType != 'DateHistogram')
     {
       $setSize = (isset($options['setSize'])) ? $options['setSize'] : 10;
       $facet->setSize($setSize);
