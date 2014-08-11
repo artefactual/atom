@@ -368,7 +368,7 @@ sql;
     $criteria->addJoin(QubitTaxonomy::ID, QubitTaxonomyI18n::ID);
     if (null !== QubitTaxonomy::getOne($criteria))
     {
-      continue;
+      return;
     }
 
     $taxonomy = new QubitTaxonomy;
