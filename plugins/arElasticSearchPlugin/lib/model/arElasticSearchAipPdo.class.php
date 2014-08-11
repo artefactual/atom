@@ -149,6 +149,28 @@ class arElasticSearchAipPdo
     }
   }
 
+  protected function getPartOfYearCollected($id)
+  {
+    $sql  = 'SELECT
+                i18n.value';
+    $sql .= ' FROM '.QubitProperty::TABLE_NAME.' node';
+    $sql .= ' JOIN '.QubitPropertyI18n::TABLE_NAME.' i18n
+                ON node.id = i18n.id';
+    $sql .= ' WHERE node.source_culture = i18n.culture
+                AND node.object_id = ?
+                AND node.name = ?';
+
+    self::$statements['property'] = self::$conn->prepare($sql);
+    self::$statements['property']->execute(array($id, 'AccessionISODate'));
+    $result = self::$statements['property']->fetch(PDO::FETCH_ASSOC);
+
+    if(false !== $result)
+    {
+      $dateComponents = date_parse($result['value']);
+      return $dateComponents['year'];
+    }
+  }
+
   protected function getPartOfDepartments()
   {
     $sql  = 'SELECT
@@ -194,6 +216,11 @@ class arElasticSearchAipPdo
       if (null !== $lod = $this->getPartOfLevelOfDescriptionId($this->part_of))
       {
         $serialized['partOf']['levelOfDescriptionId'] = $lod;
+      }
+
+      if (null !== $yearCollected = $this->getPartOfYearCollected($this->part_of))
+      {
+        $serialized['partOf']['year_collected'] = $yearCollected;
       }
 
       if (0 < count($departments = $this->getPartOfDepartments()))

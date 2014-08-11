@@ -45,12 +45,12 @@ class ApiSummaryMediaFilesizeByYearAction extends QubitApiAction
 
     // Use a term stats facet to calculate total bytes used per media category
     $facetName = 'collection_year_file_stats';
-    $this->facetEsQuery('TermsStats', $facetName, 'tmsObject.yearCollected', $query, array('valueField' => 'aips.sizeOnDisk'));
+    $this->facetEsQuery('TermsStats', $facetName, 'partOf.year_collected', $query, array('valueField' => 'sizeOnDisk'));
 
     // Return empty results if search fails
     try
     {
-      $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+      $resultSet = QubitSearch::getInstance()->index->getType('QubitAip')->search($query);
     }
     catch (Exception $e)
     {
