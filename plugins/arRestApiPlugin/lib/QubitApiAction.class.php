@@ -286,11 +286,13 @@ class QubitAPIAction extends sfAction
 
     $facet = new $className($name);
 
+    $setSize = (isset($options['setSize'])) ? $options['setSize'] : 10;
+    $facet->setSize($setSize);
+
     switch ($facetType)
     {
       case 'Terms':
         $facet->setField($field);
-        $facet->setSize(10);
 
         break;
 
