@@ -89,7 +89,7 @@ class ApiAipsDownloadViewAction extends QubitApiAction
     curl_close($ch);
 
     $aipInfo = json_decode($aipInfoJson);
-    $filename = basename($aipInfo->current_full_path);
+    $filename = basename($aipInfo->current_full_path) .'.tar';
 
     // Formalate URL depending on whether a single file is being extracted
     $downloadUrl = $aipUrl .'/'. $request->uuid .'/';
