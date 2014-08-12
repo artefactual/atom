@@ -90,12 +90,12 @@ class ApiInformationObjectsFilesAction extends QubitApiAction
       $this->addItemToArray($item, 'aip_title', $doc['aipName']);
       $this->addItemToArray($item, 'original_relative_path_within_aip', $doc['originalRelativePathWithinAip']);
 
-      // Add fixed mime_type to AIP METS file and get size
+      // Add mime_type and size to AIP METS file
       // from digital object instead of metsData. See #7002
       if (isset($item['filename']) && isset($item['aip_uuid'])
-       && $item['filename'] == 'METS.'.$item['aip_uuid'].'.xml')
+       && false !== strpos($item['filename'], $item['aip_uuid']))
       {
-        $this->addItemToArray($item, 'mime_type', 'application/xml');
+        $this->addItemToArray($item, 'mime_type', $doc['digitalObject']['mimeType']);
         $this->addItemToArray($item, 'byte_size', $doc['digitalObject']['byteSize']);
       }
 
