@@ -210,6 +210,7 @@ class ApiFixityStatusAction extends QubitApiAction
                 session_uuid
                 FROM fixity_report
                 GROUP BY session_uuid
+                HAVING COUNT(*) > 1
                 ORDER BY time_started DESC';
 
     $results = QubitPdo::fetchAll($sql);
