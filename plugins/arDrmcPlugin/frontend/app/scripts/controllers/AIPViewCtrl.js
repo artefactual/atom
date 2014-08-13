@@ -13,7 +13,7 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
       $scope.fixityReports = response.data.results;
       $scope.fixityFailsCount = 0;
       angular.forEach(response.data.results, function (v) {
-        if (angular.isUndefined(v.success) || v.success === false) {
+        if (angular.isDefined(v.success) && v.success === false) {
           $scope.fixityFailsCount = $scope.fixityFailsCount + 1;
         }
       });
