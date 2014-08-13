@@ -149,42 +149,33 @@ class ApiFixityStatusAction extends QubitApiAction
     $data['unrecoveredFailsCount'] = $resultSet->getTotalHits() - $failsRecovered;
 
     // Currently checking
-    $query = new \Elastica\Query;
-    $queryBool = new \Elastica\Query\Bool;
-    $filterBool = new \Elastica\Filter\Bool;
+    $sql  = 'SELECT
+                fix.id,
+                fix.uuid,
+                fix.session_uuid,
+                aip.filename
+                FROM fixity_report fix
+                LEFT JOIN aip
+                ON fix.aip_id = aip.id
+                WHERE fix.time_started =
+                  (SELECT MAX(time_started) FROM fixity_report)
+                AND fix.time_completed IS NULL';
 
-    $queryAll = new \Elastica\Query\MatchAll();
-    $filterBool->addMust(new \Elastica\Filter\Missing('timeCompleted'));
-    $filterBool->addMust(new \Elastica\Filter\Exists('timeStarted'));
-    $filteredQuery = new \Elastica\Query\Filtered($queryAll, $filterBool);
-
-    $queryBool->addMust($filteredQuery);
-
-    $query->setLimit(1);
-    $query->setSort(array('timeStarted' => 'desc'));
-
-    $query->setQuery($queryBool);
-
-    $resultSet = QubitSearch::getInstance()->index->getType('QubitFixityReport')->search($query);
-    $resultSet = $resultSet->getResults();
-
-    foreach ($resultSet as $hit)
+    if (false !== $currentlyChecking = QubitPdo::fetchOne($sql))
     {
-      $doc = $hit->getData();
-
       $report = array();
 
-      $this->addItemToArray($report, 'id', (int)$hit->getId());
+      $this->addItemToArray($report, 'id', $currentlyChecking->id);
 
-      $this->addItemToArray($report, 'aip_uuid', $doc['aip']['uuid']);
-      $this->addItemToArray($report, 'aip_name', $doc['aip']['name']);
+      $this->addItemToArray($report, 'aip_uuid', $currentlyChecking->uuid);
+      $this->addItemToArray($report, 'aip_name', $currentlyChecking->filename);
 
       $data['currentlyChecking'][] = $report;
 
       // Store session_uuid of currently checking
-      if (isset($doc['sessionUuid']))
+      if (isset($currentlyChecking->session_uuid))
       {
-        $currentlyCheckingSessionUuid = $doc['sessionUuid'];
+        $currentlyCheckingSessionUuid = $currentlyChecking->session_uuid;
       }
     }
 
