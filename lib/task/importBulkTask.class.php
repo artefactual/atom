@@ -105,12 +105,12 @@ EOF;
       unset($importer);
 
       $count++;
-      $split = microtime(true) - $start;
+      $split = round(microtime(true) - $start, 2);
 
       // Store details if output is specified
       if ($options['output'])
       {
-        $rows[] = array($count, $split, memory_get_usage());
+        $rows[] = array($file, $split . 's', memory_get_usage() . 'B');
       }
 
       if ($options['v'])
@@ -123,12 +123,17 @@ EOF;
     if ($options['output'])
     {
       $fh = fopen($options['output'], 'w+');
+
+      fputcsv($fh, array('File', 'Time elapsed (secs)', 'Memory used'));
       foreach ($rows as $row)
       {
         fputcsv($fh, $row);
       }
 
-      fputcsv($fh, array('', $timer->elapsed(), memory_get_peak_usage()));
+      fputcsv($fh, array()); // Blank row to separate our summary info
+      fputcsv($fh, array('Total time elapsed:', $timer->elapsed() . 's'));
+      fputcsv($fh, array('Peak memory usage:', round(memory_get_peak_usage() / 1048576, 2) . 'MB'));
+
       fclose($fh);
     }
 
