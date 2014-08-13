@@ -383,8 +383,10 @@ class ApiReportsGenerateAction extends QubitApiAction
       $this->addItemToArray($fixity['aip'], 'attached_to', $doc['aip']['attachedTo']);
 
       // Get last fixity recovery data
-      // TODO: Add fixity recovery data to fixity_reports in ES
-      $sql = <<<sql
+      if (isset($doc['aip']['id']))
+      {
+        // TODO: Add fixity recovery data to fixity_reports in ES
+        $sql = <<<sql
 
 SELECT
   rec.time_started,
@@ -396,30 +398,31 @@ FROM
 JOIN user
   ON rec.user_id = user.id
 WHERE
-  rec.fixity_report_id = ?
+  rec.aip_id = ?
 ORDER BY
   rec.time_completed DESC
 LIMIT 1;
 
 sql;
 
-      $result = QubitPdo::fetchOne($sql, array($hit->getId()));
+        $result = QubitPdo::fetchOne($sql, array($doc['aip']['id']));
 
-      if (false !== $result)
-      {
-        if (isset($result->success))
+        if (false !== $result)
         {
-          $fixity['recovery']['success'] = (bool)$result->success;
-        }
+          if (isset($result->success))
+          {
+            $fixity['recovery']['success'] = (bool)$result->success;
+          }
 
-        $this->addItemToArray($fixity['recovery'], 'user', $result->username);
-        $this->addItemToArray($fixity['recovery'], 'time_started', arRestApiPluginUtils::convertDate($result->time_started));
-        $this->addItemToArray($fixity['recovery'], 'time_completed', arRestApiPluginUtils::convertDate($result->time_completed));
+          $this->addItemToArray($fixity['recovery'], 'user', $result->username);
+          $this->addItemToArray($fixity['recovery'], 'time_started', arRestApiPluginUtils::convertDate($result->time_started));
+          $this->addItemToArray($fixity['recovery'], 'time_completed', arRestApiPluginUtils::convertDate($result->time_completed));
 
-        if (isset($result->time_started) && isset($result->time_completed))
-        {
-          $duration = strtotime($result->time_completed) - strtotime($result->time_started);
-          $this->addItemToArray($fixity['recovery'], 'duration', $duration);
+          if (isset($result->time_started) && isset($result->time_completed))
+          {
+            $duration = strtotime($result->time_completed) - strtotime($result->time_started);
+            $this->addItemToArray($fixity['recovery'], 'duration', $duration);
+          }
         }
       }
 
