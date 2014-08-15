@@ -140,7 +140,7 @@
             <a href class="btn btn-small" ng-click="editNode(currentNode.id)" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip="Edit" tooltip-popup-delay="500"><i class="icon-edit"></i></a>
             <a href class="btn btn-small" ng-click="linkNode(currentNode.id)" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip="Link" tooltip-popup-delay="500"><i class="icon-link"></i></a>
             <a href class="btn btn-small" ng-click="moveNodes(currentNode.id)" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip="Move" tooltip-popup-delay="500"><i class="icon-move"></i></a>
-            <a href class="btn btn-small btn-delete" ng-show="isDeletable(currentNode)" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip="Delete" ng-click="deleteNodes(currentNode.id)" tooltip-popup-delay="500"><i class="icon-remove"></i></a>
+            <a href class="btn btn-small btn-delete" ng-show="user.canAdministrate() && isDeletable(currentNode)" tooltip-placement="bottom" tooltip-append-to-body="true" tooltip="Delete" ng-click="deleteNodes(currentNode.id)" tooltip-popup-delay="500"><i class="icon-remove"></i></a>
           </div>
         </div>
 
