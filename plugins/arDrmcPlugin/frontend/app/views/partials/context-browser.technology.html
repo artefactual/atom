@@ -118,21 +118,11 @@
             </div>
           </div>
 
+          <!-- Dublin Core metadata -->
+          <ar:context-browser-metadata metadata="currentNode.data"></ar:context-browser-metadata>
+
           <!-- File list -->
           <ng-include src="viewsPath + '/partials/context-browser.sidebar-files.html'" ng-if="hasFiles()"></ng-include>
-
-          <!-- Dublin Core metadata -->
-          <div ng-if="currentNode.hasDc" class="cb-sidebar-subsection cb-sidebar-subsection-collapsible" ng-class="{ collapsed: dcCollapsed }">
-            <h4><a href ng-click="dcCollapsed = !dcCollapsed">Dublin Core metadata</a></h4>
-            <div ng-show="!dcCollapsed" class="cb-sidebar-subsection-body cb-sidebar-kv-list">
-              <ul>
-                <li ng-repeat="dcField in dcFields | filter:hasDcField">
-                  <strong class="key">{{ dcField }}</strong>
-                  <p class="value">{{ renderMetadataValue(currentNode.data[dcField]) }}</p>
-                </li>
-              </ul>
-            </div>
-          </div>
 
           <!-- Actions -->
           <div class="node-actions">
