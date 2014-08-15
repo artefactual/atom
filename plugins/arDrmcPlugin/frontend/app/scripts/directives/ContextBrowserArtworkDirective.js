@@ -36,7 +36,9 @@ module.exports = function ($modal, SETTINGS, InformationObjectService, ModalLink
         componentName: 'Name',
         componentType: 'Component type',
         componentNumber: 'Number',
-        type: 'Type'
+        type: 'Type',
+        status: 'Status',
+        mediaFormat: 'Media format'
       };
 
 

@@ -139,6 +139,9 @@ class ApiInformationObjectsTmsAction extends QubitApiAction
     $this->addItemToArray($result, 'compCount', $this->getProperty('CompCount'));
     $this->addItemToArray($result, 'componentNumber', $this->getProperty('ComponentNumber'));
 
+    $this->addItemToArray($result, 'status', $this->getProperty('Status'));
+    $this->addItemToArray($result, 'mediaFormat', $this->getProperty('Media Format'));
+
     $result['type'] = 'Component';
 
     return $result;
