@@ -2107,6 +2107,16 @@ class arElasticSearchInformationObjectPdo
         $serialized['tmsComponent']['compCount'] = $compCount;
       }
 
+      if (null !== $status = $this->getProperty('Status'))
+      {
+        $serialized['tmsComponent']['status'] = $status;
+      }
+
+      if (null !== $mediaFormat = $this->getProperty('Media Format'))
+      {
+        $serialized['tmsComponent']['mediaFormat'] = $mediaFormat;
+      }
+
       if (null !== $componentNumber = $this->getProperty('ComponentNumber'))
       {
         $serialized['tmsComponent']['componentNumber'] = $componentNumber;
