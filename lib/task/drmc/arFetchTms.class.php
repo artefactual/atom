@@ -287,13 +287,43 @@ class arFetchTms
 
         switch ($name)
         {
-          // Level of description from status attribute
           case 'Attributes':
             foreach (json_decode($value, true) as $item)
             {
+              // Level of description from status attribute
               if (isset($item['Status']) && 0 < strlen($item['Status']) && isset($this->statusMapping[$item['Status']]))
               {
                 $tmsComponent->levelOfDescriptionId = $this->statusMapping[$item['Status']];
+              }
+
+              // Add property for each attribute
+              $count = 0;
+              $propertyName = $propertyValue = null;
+              foreach ($item as $key => $value)
+              {
+                if (!isset($key) || 0 == strlen($key) || !isset($value) || 0 == strlen($value))
+                {
+                  continue;
+                }
+
+                // Get property name from first key
+                if ($count == 0)
+                {
+                  $propertyName = $key;
+                  $propertyValue = $value;
+                }
+                else
+                {
+                  $propertyValue .= '. '.$key;
+                  $propertyValue .= ': '.$value;
+                }
+
+                $count ++;
+              }
+
+              if (isset($propertyName) && isset($propertyValue))
+              {
+                $this->addOrUpdateProperty($propertyName, $propertyValue, $tmsComponent);
               }
             }
 
