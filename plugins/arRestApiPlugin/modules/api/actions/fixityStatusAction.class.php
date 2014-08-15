@@ -109,21 +109,14 @@ class ApiFixityStatusAction extends QubitApiAction
       }
 
       // Determine whether a recovery, for this AIP, is awaiting approval
-      $criteria = new Criteria;
-
-      $criteria->add(QubitFixityRecovery::AIP_ID, $doc['aip']['id']);
-      $criteria->add(QubitFixityRecovery::TIME_COMPLETED, null, Criteria::ISNULL);
-
-      $report['recoveryPending'] = (null != QubitFixityRecovery::getOne($criteria));
+      $report['recoveryPending'] = arRestApiPluginUtils::aipIsPendingRecovery($doc['aip']['id']);
 
       // Add result of most recent recovery resolved for this AIP (if not awaiting administrator approval)
       $criteria = new Criteria;
 
-      $criteria->add(QubitFixityRecovery::AIP_ID, $doc['aip']['id']);
-      $criteria->add(QubitFixityRecovery::TIME_COMPLETED, null, Criteria::ISNOTNULL);
-      $criteria->addDescendingOrderByColumn(QubitFixityRecovery::ID);
+      $recovery = arRestApiPluginUtils::getMostRecentAipRecoveryAttempt($doc['aip']['id']);
 
-      if (null != ($recovery = QubitFixityRecovery::getOne($criteria)) && null != $recovery->timeCompleted)
+      if (null != $recovery && null != $recovery->timeCompleted)
       {
         $report['lastRecoveryResolved'] = array(
           'outcome' => (bool)$recovery->success,
@@ -133,10 +126,7 @@ class ApiFixityStatusAction extends QubitApiAction
         );
 
         // Note if last recovery occurred after failure was reported and add to fails recovered total
-        $reportTimestamp = strtotime($doc['timeStarted']);
-        $recoveredTimestamp = strtotime($recovery->timeStarted);
-
-        if ($recovery->success && ($recoveredTimestamp > $reportTimestamp))
+        if (arRestApiPluginUtils::recoveryResolvesFailureReport($doc['timeStarted'], $recovery))
         {
           $report['lastRecoveryResolved']['fixesFailure'] = true;
           $failsRecovered++;

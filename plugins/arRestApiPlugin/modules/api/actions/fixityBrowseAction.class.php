@@ -52,6 +52,8 @@ class ApiFixityBrowseAction extends QubitApiAction
     $resultSet = QubitSearch::getInstance()->index->getType('QubitFixityReport')->search($query);
 
     $data = array();
+    $data['last_recovery'] = array();
+
     foreach ($resultSet as $hit)
     {
       $doc = $hit->getData();
@@ -59,9 +61,27 @@ class ApiFixityBrowseAction extends QubitApiAction
       $report = array();
       $report['id'] = $hit->getId();
 
+      // If status for a specific AIP is being requested, check if a recovery is pending
+      if (isset($this->request->uuid) && !isset($data['last_recovery']['pending']))
+      {
+        $data['last_recovery']['pending'] = arRestApiPluginUtils::aipIsPendingRecovery($doc['aip']['id']);
+      }
+
       if (isset($doc['success']))
       {
         $report['success'] = (bool)$doc['success'];
+
+        $recovery = arRestApiPluginUtils::getMostRecentAipRecoveryAttempt($doc['aip']['id']);
+
+        // If info for a specific AIP is being requested, add last recovery's details to feed
+        if (isset($this->request->uuid) && !isset($data['last_recovery']['message']))
+        {
+          $data['last_recovery']['message'] = $recovery->message;
+          $data['last_recovery']['time_completed'] = $recovery->timeCompleted;
+          $data['last_recovery']['success'] = (bool)$recovery->success;
+        }
+
+        $report['recovery_needed'] = !arRestApiPluginUtils::aipIsPendingRecovery($doc['aip']['id']) && !arRestApiPluginUtils::recoveryResolvesFailureReport($doc['timeStarted'], $recovery);
       }
 
       $this->addItemToArray($report, 'message', $doc['message']);

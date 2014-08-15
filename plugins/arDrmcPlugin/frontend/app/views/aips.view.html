@@ -119,7 +119,11 @@
               <li>
                 Status:&nbsp&nbsp
                 <span ng-if="fixityFailsCount > 0" class="badge menu-badge badge-important">{{ fixityFailsCount }}</span>
-                <span ng-if="fixityFailsCount == 0" class="badge menu-badge badge-success">OK</span>
+                <span ng-if="fixityFailsCount == 0" class="badge menu-badge badge-success">{{ recovery.pending ? 'PENDING' : 'OK' }}</span>
+
+                <span ng-show="!recovery.pending" class="recovery-status label {{ recovery.success ? 'label-success' : 'label-important' }}">
+                  {{ recovery.message }} ({{ recovery.timeCompleted}})TC
+                </span>
               </li>
             </ul>
           </div>

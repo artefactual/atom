@@ -12,8 +12,16 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
   FixityService.getAipFixity($stateParams.uuid).then(function (response) {
       $scope.fixityReports = response.data.results;
       $scope.fixityFailsCount = 0;
+
+      $scope.recovery = {
+        'pending': response.data.last_recovery.pending,
+        'message': response.data.last_recovery.message,
+        'success': response.data.last_recovery.success,
+        'timeCompleted': response.data.last_recovery.time_completed
+      };
+
       angular.forEach(response.data.results, function (v) {
-        if (angular.isDefined(v.success) && v.success === false) {
+        if (angular.isDefined(v.success) && v.success === false && v.recovery_needed === true) {
           $scope.fixityFailsCount = $scope.fixityFailsCount + 1;
         }
       });

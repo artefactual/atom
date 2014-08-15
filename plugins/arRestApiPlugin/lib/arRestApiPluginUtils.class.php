@@ -70,4 +70,47 @@ class arRestApiPluginUtils
 
     return $dt->setTimezone($timezone)->format($format);
   }
+
+  /**
+   * Check if an AIP is pending recovery.
+   */
+  public static function aipIsPendingRecovery($aipId)
+  {
+    // Determine whether a recovery, for this AIP, is awaiting approval
+    $criteria = new Criteria;
+
+    $criteria->add(QubitFixityRecovery::AIP_ID, $aipId);
+    $criteria->add(QubitFixityRecovery::TIME_COMPLETED, null, Criteria::ISNULL);
+
+    return (null != QubitFixityRecovery::getOne($criteria));
+  }
+
+  /**
+   * Get the most recent QubitFixityRecovery object associated with an AIP.
+   */
+  public static function getMostRecentAipRecoveryAttempt($aipId)
+  {
+    $criteria = new Criteria;
+
+    $criteria->add(QubitFixityRecovery::AIP_ID, $aipId);
+    $criteria->add(QubitFixityRecovery::TIME_COMPLETED, null, Criteria::ISNOTNULL);
+    $criteria->addDescendingOrderByColumn(QubitFixityRecovery::ID);
+
+    return QubitFixityRecovery::getOne($criteria);
+  }
+
+  /**
+   * Determine whether a recovery resolves a reported failure.
+   */
+  public static function recoveryResolvesFailureReport($reportTimeStarted, $recovery)
+  {
+    if (null != $recovery && null != $recovery->timeCompleted)
+    {
+      // Convert report time and recovery time to timestamps
+      $reportTimestamp = strtotime($reportTimeStarted);
+      $recoveredTimestamp = strtotime($recovery->timeStarted);
+
+      return $recovery->success && ($recoveredTimestamp > $reportTimestamp);
+    }
+  }
 }
