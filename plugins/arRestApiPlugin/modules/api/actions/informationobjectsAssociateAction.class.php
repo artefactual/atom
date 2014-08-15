@@ -51,7 +51,7 @@ class ApiInformationObjectsAssociateAction extends QubitApiAction
     $relation = new QubitRelation;
     $relation->typeId = $payload->type_id; // RELATED_MATERIAL_DESCRIPTIONS_ID
     $relation->objectId = $payload->target_id;
-    if (isset($paylaod->description))
+    if (isset($payload->description))
     {
       $relation->description = $payload->description;
     }
