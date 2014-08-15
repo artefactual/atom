@@ -40,7 +40,7 @@ INNER JOIN information_object io
   ON aip.part_of = io.id
 INNER JOIN information_object_i18n io18n
   ON io.id = io18n.id
-INNER JOIN digital_object
+LEFT JOIN digital_object
   ON io.id = digital_object.information_object_id
 WHERE
   io.level_of_description_id = ?
