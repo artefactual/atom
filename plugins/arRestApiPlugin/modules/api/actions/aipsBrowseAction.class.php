@@ -51,19 +51,19 @@ class ApiAipsBrowseAction extends QubitApiAction
       // 'partOf' => ''));
 
     // Filter selected facets
-    $this->filterEsFacetFilter('type', 'type.id', $filterBool);
+    $this->filterEsFacetQuery('type', 'type.id', $queryBool);
 
     $this->filterEsRangeFacet('sizeFrom', 'sizeTo', 'sizeOnDisk', $queryBool);
     $this->filterEsRangeFacet('ingestedFrom', 'ingestedTo', 'createdAt', $queryBool);
 
-    $this->filterEsFacetFilter('format', 'digitalObjects.metsData.mediainfo.generalTracks.format', $filterBool, 'AND', array('noInteger' => true));
-    $this->filterEsFacetFilter('videoCodec', 'digitalObjects.metsData.mediainfo.videoTracks.codec', $filterBool, 'AND', array('noInteger' => true));
-    $this->filterEsFacetFilter('audioCodec', 'digitalObjects.metsData.mediainfo.audioTracks.codec', $filterBool, 'AND', array('noInteger' => true));
-    $this->filterEsFacetFilter('resolution', 'digitalObjects.metsData.mediainfo.videoTracks.resolution', $filterBool);
-    $this->filterEsFacetFilter('chromaSubSampling', 'digitalObjects.metsData.mediainfo.videoTracks.chromaSubsampling', $filterBool, 'AND', array('noInteger' => true));
-    $this->filterEsFacetFilter('colorSpace', 'digitalObjects.metsData.mediainfo.videoTracks.colorSpace', $filterBool, 'AND', array('noInteger' => true));
-    $this->filterEsFacetFilter('sampleRate', 'digitalObjects.metsData.mediainfo.audioTracks.samplingRate', $filterBool);
-    $this->filterEsFacetFilter('bitDepth', 'digitalObjects.metsData.mediainfo.videoTracks.bitDepth', $filterBool);
+    $this->filterEsFacetQuery('format', 'digitalObjects.metsData.mediainfo.generalTracks.format', $queryBool, 'AND', array('noInteger' => true));
+    $this->filterEsFacetQuery('videoCodec', 'digitalObjects.metsData.mediainfo.videoTracks.codec', $queryBool, 'AND', array('noInteger' => true));
+    $this->filterEsFacetQuery('audioCodec', 'digitalObjects.metsData.mediainfo.audioTracks.codec', $queryBool, 'AND', array('noInteger' => true));
+    $this->filterEsFacetQuery('resolution', 'digitalObjects.metsData.mediainfo.videoTracks.resolution', $queryBool);
+    $this->filterEsFacetQuery('chromaSubSampling', 'digitalObjects.metsData.mediainfo.videoTracks.chromaSubsampling', $queryBool, 'AND', array('noInteger' => true));
+    $this->filterEsFacetQuery('colorSpace', 'digitalObjects.metsData.mediainfo.videoTracks.colorSpace', $queryBool, 'AND', array('noInteger' => true));
+    $this->filterEsFacetQuery('sampleRate', 'digitalObjects.metsData.mediainfo.audioTracks.samplingRate', $queryBool);
+    $this->filterEsFacetQuery('bitDepth', 'digitalObjects.metsData.mediainfo.videoTracks.bitDepth', $queryBool);
 
     // Add facets to the query
     $this->facetEsQuery('Terms', 'format', 'digitalObjects.metsData.mediainfo.generalTracks.format', $query);
