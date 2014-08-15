@@ -193,47 +193,6 @@ module.exports = function ($scope, $rootScope, $element, $document, $modal, Moda
 
 
   /**
-   * Dublin Core metadata
-   */
-
-  scope.dcCollapsed = true;
-
-  scope.dcFields = [
-    'identifier',
-    'title',
-    'description',
-    'names',
-    'dates',
-    'types',
-    'format',
-    'source',
-    'rights'
-  ];
-
-  scope.hasDcField = function (field) {
-    return typeof scope.currentNode.data[field] !== 'undefined';
-  };
-
-  // TODO: this should be a filter
-  scope.renderMetadataValue = function (value) {
-    if (angular.isArray(value)) {
-      if (value.length && angular.isObject(value[0])) {
-        var items = [];
-        for (var i in value) {
-          items.push(scope.renderMetadataValue(value[i]));
-        }
-        return items.join(' | ');
-      }
-      return value.join(', ');
-    } else if (angular.isString(value)) {
-      return value;
-    } else {
-      return String(value);
-    }
-  };
-
-
-  /**
    * Legend
    */
 
@@ -364,13 +323,6 @@ module.exports = function ($scope, $rootScope, $element, $document, $modal, Moda
     // Fetch information from the server
     InformationObjectService.getById(id).then(function (response) {
       scope.currentNode.data = response.data;
-      // Check if there are DC fields
-      scope.currentNode.hasDc = Object.keys(scope.currentNode.data).some(function (element) {
-        if (element === 'title') {
-          return false;
-        }
-        return -1 < scope.dcFields.indexOf(element);
-      });
       // Invoke corresponding function injected in the scope
       scope._selectNode();
       // Retrieve a list of files or digital objects

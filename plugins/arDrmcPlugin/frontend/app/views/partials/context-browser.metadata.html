@@ -1,0 +1,27 @@
+<div class="cb-sidebar-subsection cb-sidebar-subsection-collapsible" ng-class="{ collapsed: collapsed }">
+
+  <h4><a href ng-click="toggle()">Dublin Core metadata</a></h4>
+
+  <div ng-if="metadata != undefined && !collapsed" class="cb-sidebar-subsection-body cb-sidebar-kv-list">
+    <ul>
+      <li ng-repeat="name in fields | filter:hasField">
+
+        <strong class="key">{{ name }}</strong>
+
+        <div class="value" ng-if="isList(metadata[name])">
+          <ul>
+            <li ng-repeat="i in metadata[name]">
+              {{ renderObject(i, name) }}
+            </li>
+          </ul>
+        </div>
+
+        <p class="value" ng-if="!isList(metadata[name])">
+          {{ renderField(name) }}
+        </p>
+
+      </li>
+    </ul>
+  </div>
+
+</div>

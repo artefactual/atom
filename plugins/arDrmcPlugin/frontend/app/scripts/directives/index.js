@@ -8,6 +8,7 @@
 
     .directive('arContextBrowserArtwork', require('./ContextBrowserArtworkDirective'))
     .directive('arContextBrowserTechnology', require('./ContextBrowserTechnologyDirective'))
+    .directive('arContextBrowserMetadata', require('./ContextBrowserMetadataDirective'))
     .directive('arSortHeader', require('./SortHeaderDirective'))
     .directive('arDigitalObjectPreview', require('./DigitalObjectPreviewDirective'))
     .directive('arDigitalObjectViewerSidebar', require('./DigitalObjectViewerSidebarDirective'))
