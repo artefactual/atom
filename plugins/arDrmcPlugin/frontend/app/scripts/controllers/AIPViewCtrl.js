@@ -12,7 +12,9 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
   FixityService.getAipFixity($stateParams.uuid).then(function (response) {
       var lastRecoveryAddedToResults = false,
           recoveryTimeStarted,
-          recoveryTimeCompleted;
+          recoveryTimeCompleted,
+          recoveryTimeStartedDate,
+          reportTimeStartedDate;
 
       // If recovery state/end time exist, make them compatible, for display, with report times
       if (typeof response.data.last_recovery.time_completed !== 'undefined') {
@@ -42,8 +44,15 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
           $scope.fixityFailsCount = $scope.fixityFailsCount + 1;
         }
 
-        // Add the recovery data to the list of fixiy reports, if applicable
-        if (!lastRecoveryAddedToResults && (recoveryTimeStarted > v.time_started)) {
+        // Add the recovery data to the list of fixiy reports, if the last recovery
+        // hasn't already been shown and is was started before the current report
+        recoveryTimeStartedDate = new Date(recoveryTimeStarted);
+        reportTimeStartedDate = new Date(v.time_started);
+
+        if (
+          !lastRecoveryAddedToResults &&
+          (recoveryTimeStartedDate.getTime() > reportTimeStartedDate.getTime())
+        ) {
           appendRecoveryData($scope.fixityReports);
           lastRecoveryAddedToResults = true;
         }
