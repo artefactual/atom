@@ -100,7 +100,7 @@
                       <span ng-show="aip.recoveryPending">Pending admin approval</span>
                       <a href class="btn" ng-hide="aip.recoveryPending || aip.lastRecoveryResolved.fixesFailure" ng-click="requestRecover(aip.id)">Recover</a>
                       <span ng-show="aip.lastRecoveryResolved" class="recovery-status label {{ aip.lastRecoveryResolved.outcome ? 'label-success' : 'label-important' }}">
-                        {{ aip.lastRecoveryResolved.message }} ({{ aip.lastRecoveryResolved.timeCompleted}})
+                        {{ aip.lastRecoveryResolved.message }}
                       </span>
                     </td>
                   </tr>
