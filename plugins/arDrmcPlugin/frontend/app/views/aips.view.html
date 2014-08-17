@@ -136,7 +136,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="report in fixityReports" ng-class="{ 'success': report.success, 'error': report.success === false }">
+                <tr ng-repeat="report in fixityReports" ng-class="{ 'success': report.success, 'error': report.success === false, 'info': report.id === undefined }">
                   <td>{{ report.id ? report.id : 'AIP recovery' }}</td>
                   <td><span ng-if="report.time_started !== undefined">{{ (report.time_started | date:'short') || 'none' }}</span></td>
                   <td><span ng-if="report.time_completed !== undefined">{{ (report.time_completed | date:'short') || 'none' }}</span></td>
