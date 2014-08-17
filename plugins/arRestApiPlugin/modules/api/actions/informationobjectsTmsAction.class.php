@@ -139,8 +139,11 @@ class ApiInformationObjectsTmsAction extends QubitApiAction
     $this->addItemToArray($result, 'compCount', $this->getProperty('CompCount'));
     $this->addItemToArray($result, 'componentNumber', $this->getProperty('ComponentNumber'));
 
-    $this->addItemToArray($result, 'status', $this->getProperty('Status'));
-    $this->addItemToArray($result, 'mediaFormat', $this->getProperty('Media Format'));
+    // TODO: Know the possibles attributes in TMS to be able to add formated keys
+    foreach ($this->io->getProperties(null, 'tms_attributes') as $property)
+    {
+      $this->addItemToArray($result, strtolower($property->name), $property->value);
+    }
 
     $result['type'] = 'Component';
 

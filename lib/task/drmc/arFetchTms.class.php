@@ -323,7 +323,7 @@ class arFetchTms
 
               if (isset($propertyName) && isset($propertyValue))
               {
-                $this->addOrUpdateProperty($propertyName, $propertyValue, $tmsComponent);
+                $this->addOrUpdateProperty($propertyName, $propertyValue, $tmsComponent, array('scope' => 'tms_attributes'));
               }
             }
 
@@ -446,16 +446,21 @@ class arFetchTms
     return null;
   }
 
-  protected function addOrUpdateProperty($name, $value, $io)
+  protected function addOrUpdateProperty($name, $value, $io, $options = array())
   {
     if (isset($io->id) && null !== $property = QubitProperty::getOneByObjectIdAndName($io->id, $name))
     {
+      if (isset($options['scope']))
+      {
+        $property->scope = $options['scope'];
+      }
+
       $property->value = $value;
       $property->save();
     }
     else
     {
-      $io->addProperty($name, $value);
+      $io->addProperty($name, $value, $options);
     }
   }
 
