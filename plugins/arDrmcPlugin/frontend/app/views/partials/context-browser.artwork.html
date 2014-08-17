@@ -119,7 +119,7 @@
               <ul>
                 <li ng-repeat="(key, value) in currentNode.data.tms">
                   <strong class="key">{{ tmsFieldNameMap[key] || key }}</strong>
-                  <p class="value">{{ renderMetadataValue(value) }}</p>
+                  <p class="value">{{ value }}</p>
                 </li>
               </ul>
             </div>
