@@ -10,21 +10,51 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
     });
 
   FixityService.getAipFixity($stateParams.uuid).then(function (response) {
-      $scope.fixityReports = response.data.results;
-      $scope.fixityFailsCount = 0;
+      var lastRecoveryAddedToResults = false,
+          recoveryTimeStarted,
+          recoveryTimeCompleted;
 
-      $scope.recovery = {
-        'pending': response.data.last_recovery.pending,
-        'message': response.data.last_recovery.message,
-        'success': response.data.last_recovery.success,
-        'timeCompleted': response.data.last_recovery.time_completed
+      // If recovery state/end time exist, make them compatible, for display, with report times
+      if (typeof response.data.last_recovery.time_completed !== 'undefined') {
+        recoveryTimeStarted = response.data.last_recovery.time_completed.replace(' ', 'T');
+      }
+
+      if (typeof response.data.last_recovery.time_completed !== 'undefined') {
+        recoveryTimeCompleted = response.data.last_recovery.time_completed.replace(' ', 'T');
+      }
+
+      // Logic to append recovery data to list of fixity reports
+      var appendRecoveryData = function (fixityReports) {
+        fixityReports.push({
+          'success': response.data.last_recovery.success,
+          'recovery_message': response.data.last_recovery.message,
+          'time_started': recoveryTimeStarted,
+          'time_completed': recoveryTimeCompleted
+        });
       };
+
+      $scope.fixityReports = [];
+      $scope.fixityFailsCount = 0;
+      $scope.recoveryPending = response.data.last_recovery.pending;
 
       angular.forEach(response.data.results, function (v) {
         if (angular.isDefined(v.success) && v.success === false && v.recovery_needed === true) {
           $scope.fixityFailsCount = $scope.fixityFailsCount + 1;
         }
+
+        // Add the recovery data to the list of fixiy reports, if applicable
+        if (!lastRecoveryAddedToResults && (recoveryTimeStarted > v.time_started)) {
+          appendRecoveryData($scope.fixityReports);
+          lastRecoveryAddedToResults = true;
+        }
+
+        $scope.fixityReports.push(v);
       });
+
+      // If last recovery data exists and hasn't been added, add it
+      if (!lastRecoveryAddedToResults && typeof response.data.last_recovery.success !== 'undefined') {
+        appendRecoveryData($scope.fixityReports);
+      }
     });
 
   // Levels of description to determine part_of link

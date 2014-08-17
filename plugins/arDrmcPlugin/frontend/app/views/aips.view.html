@@ -119,11 +119,7 @@
               <li>
                 Status:&nbsp&nbsp
                 <span ng-if="fixityFailsCount > 0" class="badge menu-badge badge-important">{{ fixityFailsCount }}</span>
-                <span ng-if="fixityFailsCount == 0" class="badge menu-badge badge-success">{{ recovery.pending ? 'PENDING' : 'OK' }}</span>
-
-                <span ng-show="!recovery.pending" class="recovery-status label {{ recovery.success ? 'label-success' : 'label-important' }}">
-                  {{ recovery.message }} ({{ recovery.timeCompleted}})TC
-                </span>
+                <span ng-if="fixityFailsCount == 0" class="badge menu-badge badge-success">{{ recoveryPending ? 'PENDING' : 'OK' }}</span>
               </li>
             </ul>
           </div>
@@ -141,12 +137,16 @@
               </thead>
               <tbody>
                 <tr ng-repeat="report in fixityReports" ng-class="{ 'success': report.success, 'error': report.success === false }">
-                  <td>{{ report.id }}</td>
-                  <td>{{ (report.time_started | date:'short') || 'none' }}</td>
-                  <td>{{ (report.time_completed | date:'short') || 'none' }}</td>
-                  <td>{{ (report.duration | ConvertSecondsFilter) || 'none' }}</td>
+                  <td>{{ report.id ? report.id : 'AIP recovery' }}</td>
+                  <td><span ng-if="report.time_started !== undefined">{{ (report.time_started | date:'short') || 'none' }}</span></td>
+                  <td><span ng-if="report.time_completed !== undefined">{{ (report.time_completed | date:'short') || 'none' }}</span></td>
+                  <td><span ng-if="report.duration !== undefined">{{ (report.duration | ConvertSecondsFilter) || 'none' }}</span></td>
                   <td ng-if="report.success === undefined">In progress</td>
-                  <td ng-if="report.success !== undefined">{{ report.success ? 'Success' : 'Failed' }}</td>
+                  <td ng-if="report.success !== undefined">{{ report.success ? 'Success' : 'Failed' }}
+                    <span ng-show="report.recovery_message" class="recovery-status label {{ report.success ? 'label-success' : 'label-important' }}">
+                      {{ report.recovery_message }}
+                    </span>
+                  </td>
                 </tr>
               </tbody>
             </table>

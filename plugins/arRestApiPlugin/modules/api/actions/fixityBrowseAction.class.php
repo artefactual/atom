@@ -77,6 +77,7 @@ class ApiFixityBrowseAction extends QubitApiAction
         if (isset($this->request->uuid) && !isset($data['last_recovery']['message']))
         {
           $data['last_recovery']['message'] = $recovery->message;
+          $data['last_recovery']['time_started'] = $recovery->timeStarted;
           $data['last_recovery']['time_completed'] = $recovery->timeCompleted;
           $data['last_recovery']['success'] = (bool)$recovery->success;
         }
