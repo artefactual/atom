@@ -18,11 +18,11 @@ module.exports = function ($scope, $modal, SETTINGS, $stateParams, AIPService, I
 
       // If recovery state/end time exist, make them compatible, for display, with report times
       if (typeof response.data.last_recovery.time_completed !== 'undefined') {
-        recoveryTimeStarted = response.data.last_recovery.time_completed.replace(' ', 'T');
+        recoveryTimeStarted = response.data.last_recovery.time_completed.replace(' ', 'T') + '+0000';
       }
 
       if (typeof response.data.last_recovery.time_completed !== 'undefined') {
-        recoveryTimeCompleted = response.data.last_recovery.time_completed.replace(' ', 'T');
+        recoveryTimeCompleted = response.data.last_recovery.time_completed.replace(' ', 'T') + '+0000';
       }
 
       // Logic to append recovery data to list of fixity reports
