@@ -55,6 +55,9 @@ class FunctionBrowseAction extends sfAction
 
     switch ($request->sort)
     {
+      case 'identifier':
+        $criteria->addAscendingOrderByColumn(QubitFunction::DESCRIPTION_IDENTIFIER);
+        //And then back to authorised form of name
       case 'alphabetic':
         $criteria->addAscendingOrderByColumn('authorized_form_of_name');
 
