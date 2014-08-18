@@ -57,6 +57,9 @@ class RightsHolderBrowseAction extends sfAction
 
     switch ($request->sort)
     {
+      case 'identifier':
+      $criteria->addAscendingOrderByColumn(QubitActor::DESCRIPTION_IDENTIFIER);
+      // and continue to sort by alphabetic
       case 'alphabetic':
         $criteria->addAscendingOrderByColumn('authorized_form_of_name');
 

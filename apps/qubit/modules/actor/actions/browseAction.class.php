@@ -88,6 +88,11 @@ class ActorBrowseAction extends DefaultBrowseAction
 
         break;
 
+      case 'identifier':
+        $this->query->setSort(array('descriptionIdentifier' => 'asc'));
+
+        break;
+
       case 'lastUpdated':
       default:
         $this->query->setSort(array('updatedAt' => 'desc'));
