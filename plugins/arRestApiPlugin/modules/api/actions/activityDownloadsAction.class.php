@@ -45,16 +45,33 @@ class ApiActivityDownloadsAction extends QubitApiAction
 
     foreach ($entries as $entry)
     {
-      $download = array(
-        'date' => $entry->date,
-        'username' => $entry->user->getUsername(),
-        'reason' => $entry->reason
-      );
+      $downloadType = ($entry->typeId == QubitTerm::ACCESS_LOG_AIP_FILE_DOWNLOAD_ENTRY) ? 'File' : 'AIP';
 
       if ($entry->typeId == QubitTerm::ACCESS_LOG_AIP_FILE_DOWNLOAD_ENTRY)
       {
         $file = QubitInformationObject::getById($entry->objectId);
-        $download['file'] = $file->title;
+        $downloadFile = $file->title;
+        $downloadUUID = null;
+      }
+      else
+      {
+        $aip = QubitAip::getById($entry->objectId);
+        $downloadFile = $aip->filename;
+        $downloadUUID = $aip->uuid;
+      }
+
+      $download = array(
+        'objectId' => $entry->objectId,
+        'date' => $entry->date,
+        'username' => $entry->user->getUsername(),
+        'reason' => $entry->reason,
+        'file' => $downloadFile,
+        'type' => $downloadType
+      );
+
+      if (!is_null($downloadUUID))
+      {
+        $download['uuid'] = $downloadUUID;
       }
 
       $results[] = $download;

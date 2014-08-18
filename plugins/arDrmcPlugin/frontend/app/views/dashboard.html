@@ -182,6 +182,7 @@
           <table class="table">
             <thead>
               <th>Date/time</th>
+              <th>Type</th>
               <th>Object</th>
               <th>Reason</th>
               <th>User</th>
@@ -189,7 +190,10 @@
             <tbody>
               <tr ng-repeat="item in downloadActivity | limitTo:10">
                 <td>{{ item.date }}</td>
-                <td>{{ item.file }}</td>
+                <td>{{ item.type }}</td>
+                <td>
+                  <span ng-if="item.type == 'File'">{{ item.file }}</span>
+                  <a ng-if="item.type == 'AIP'" href ui-sref="main.aips.view({ uuid: item.uuid })">{{ item.file }}</a></td>
                 <td>{{ item.reason }}</td>
                 <td>{{ item.username || 'Unknown' }}</td>
               </tr>
