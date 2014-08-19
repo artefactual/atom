@@ -22,6 +22,7 @@ class arFetchTms
   protected
     $tmsBaseUrl,
     $statusMapping,
+    $componentLevels,
     $logger;
 
   public function __construct()
@@ -40,6 +41,8 @@ class arFetchTms
       'Repository File Source' => sfConfig::get('app_drmc_lod_component_id'),
       'Research copy'          => sfConfig::get('app_drmc_lod_component_id')
     );
+
+    $this->componentLevels = array_unique(array_values($this->statusMapping));
 
     $this->logger = sfContext::getInstance()->getLogger();
   }
@@ -456,20 +459,10 @@ class arFetchTms
     $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, sfConfig::get('app_drmc_lod_description_id'));
     $components = QubitInformationObject::getOne($criteria);
 
-    // Get actual artwork components in DRMC
-    $componentsLevels = array(
-      sfConfig::get('app_drmc_lod_archival_master_id'),
-      sfConfig::get('app_drmc_lod_artist_supplied_master_id'),
-      sfConfig::get('app_drmc_lod_artist_verified_proof_id'),
-      sfConfig::get('app_drmc_lod_exhibition_format_id'),
-      sfConfig::get('app_drmc_lod_miscellaneous_id'),
-      sfConfig::get('app_drmc_lod_component_id')
-    );
-
     $criteria = new Criteria;
     $criteria->add(QubitInformationObject::LFT, $artwork->lft, Criteria::GREATER_THAN);
     $criteria->add(QubitInformationObject::RGT, $artwork->rgt, Criteria::LESS_THAN);
-    $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, $componentsLevels, Criteria::IN);
+    $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, $this->componentsLevels, Criteria::IN);
 
     $tmsComponentsIoIds = array();
     foreach (QubitInformationObject::get($criteria) as $component)
