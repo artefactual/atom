@@ -29,8 +29,8 @@ class arUpdateCollectionTmsTask extends sfBaseTask
       new sfCommandOption('force', null, sfCommandOption::PARAMETER_OPTIONAL, 'If set to \'true\' forces the update of all Artworks', false),
     ));
 
-    $this->namespace = 'tms';
-    $this->name  = 'update';
+    $this->namespace = 'drmc';
+    $this->name  = 'tms-update';
     $this->briefDescription = 'Updates TMS data for all Artworks in the collection.';
     $this->detailedDescription = <<<EOF
 Updates the TMS data for all the Artworks in the collection
