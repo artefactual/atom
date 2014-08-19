@@ -76,10 +76,10 @@ EOF;
     $total = count($artworks);
     $count = 0;
 
+    $fetchTms = new arFetchTms;
+
     foreach ($artworks as $artwork)
     {
-      $fetchTms = new arFetchTms;
-
       // Determine if the artwork needs to be updated
       $needsUpdate = true;
       if (!$options['force'])
