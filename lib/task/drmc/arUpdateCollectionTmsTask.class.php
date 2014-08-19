@@ -25,7 +25,6 @@ class arUpdateCollectionTmsTask extends sfBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'qubit'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-      new sfCommandOption('log-path', null, sfCommandOption::PARAMETER_OPTIONAL, 'Path to log file'),
       new sfCommandOption('force', null, sfCommandOption::PARAMETER_OPTIONAL, 'If set to \'true\' forces the update of all Artworks', false),
     ));
 
@@ -51,22 +50,7 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-    // Determine log type and create/open file if needed
-    if (empty($options['log-path']))
-    {
-      $this->logTo = 'console';
-    }
-    else if (false === $this->logFile = @fopen($options['log-path'], 'a'))
-    {
-      $this->logTo = 'console';
-      $this->writeLog(sprintf('Couldn\'t create/open log file in: %s', $options['log-path']));
-    }
-    else
-    {
-      $this->logTo = 'file';
-    }
-
-    $this->writeLog(sprintf('Collection TMS data update started at %s', date('Y-m-d H:i:s')));
+    $this->logSection('tms-update:', sprintf('Collection TMS data update started at %s', date('Y-m-d H:i:s')));
 
     // Get artworks
     $criteria = new Criteria;
@@ -99,36 +83,14 @@ EOF;
         // Update artwork
         $fetchTms->updateArtwork($artwork);
 
-        $this->writeLog(sprintf(' - Artwork: \'%s\' has been updated (%ss) (%s/%s)', $artwork->title, $timer->elapsed(), ++$count, $total));
+        $this->logSection('tms-update:', sprintf(' - Artwork: \'%s\' has been updated (%ss) (%s/%s)', $artwork->title, $timer->elapsed(), ++$count, $total));
       }
       else
       {
-        $this->writeLog(sprintf(' - Artwork: \'%s\' is already updated (%ss) (%s/%s)', $artwork->title, $timer->elapsed(), ++$count, $total));
+        $this->logSection('tms-update:', sprintf(' - Artwork: \'%s\' is already updated (%ss) (%s/%s)', $artwork->title, $timer->elapsed(), ++$count, $total));
       }
     }
 
-    $this->writeLog(sprintf('Collection TMS data updated for %s artworks in %s seconds.', $total, $timer->elapsed()));
-
-    // Close log file if openned
-    if (false !== $this->logFile)
-    {
-      fclose($this->logFile);
-    }
-  }
-
-  protected function writeLog($message)
-  {
-    switch ($this->logTo)
-    {
-      case 'console':
-        $this->logSection('tms-update:', $message);
-
-        break;
-
-      case 'file':
-        fwrite($this->logFile, $message."\n");
-
-        break;
-    }
+    $this->logSection('tms-update:', sprintf('Collection TMS data updated for %s artworks in %s seconds.', $total, $timer->elapsed()));
   }
 }
