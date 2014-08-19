@@ -23,7 +23,8 @@ class arFetchTms
     $tmsBaseUrl,
     $statusMapping,
     $componentLevels,
-    $logger;
+    $logger,
+    $searchInstance;
 
   public function __construct()
   {
@@ -45,6 +46,8 @@ class arFetchTms
     $this->componentLevels = array_unique(array_values($this->statusMapping));
 
     $this->logger = sfContext::getInstance()->getLogger();
+
+    $this->searchInstance = QubitSearch::getInstance();
   }
 
   protected function getTmsData($path)
@@ -532,7 +535,7 @@ sql;
         $node = new arElasticSearchInformationObjectPdo($item->id);
         $data = $node->serialize();
 
-        QubitSearch::getInstance()->addDocument($data, 'QubitInformationObject');
+        $this->searchInstance->addDocument($data, 'QubitInformationObject');
       }
     }
 
@@ -555,11 +558,11 @@ sql;
       $node = new arElasticSearchAipPdo($item->id);
       $data = $node->serialize();
 
-      QubitSearch::getInstance()->addDocument($data, 'QubitAip');
+      $this->searchInstance->addDocument($data, 'QubitAip');
     }
 
     // Add components data for the artwork in ES
-    QubitSearch::getInstance()->update($artwork);
+    $this->searchInstance->update($artwork);
   }
 
   protected function addOrUpdateProperty($name, $value, $io, $options = array())
