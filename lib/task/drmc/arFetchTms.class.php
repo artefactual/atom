@@ -22,7 +22,9 @@ class arFetchTms
   protected
     $tmsBaseUrl,
     $statusMapping,
-    $logger;
+    $componentLevels,
+    $logger,
+    $searchInstance;
 
   public function __construct()
   {
@@ -41,7 +43,11 @@ class arFetchTms
       'Research copy'          => sfConfig::get('app_drmc_lod_component_id')
     );
 
+    $this->componentLevels = array_unique(array_values($this->statusMapping));
+
     $this->logger = sfContext::getInstance()->getLogger();
+
+    $this->searchInstance = QubitSearch::getInstance();
   }
 
   protected function getTmsData($path)
@@ -444,6 +450,119 @@ class arFetchTms
     }
 
     return null;
+  }
+
+  public function updateArtwork($artwork)
+  {
+    list($tmsComponentsIds, $artworkThumbnail) = $this->getTmsObjectData($artwork, $artwork->identifier);
+
+    // Get intermediate level
+    $criteria = new Criteria;
+    $criteria->add(QubitInformationObject::PARENT_ID, $artwork->id);
+    $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, sfConfig::get('app_drmc_lod_description_id'));
+    $components = QubitInformationObject::getOne($criteria);
+
+    $criteria = new Criteria;
+    $criteria->add(QubitInformationObject::LFT, $artwork->lft, Criteria::GREATER_THAN);
+    $criteria->add(QubitInformationObject::RGT, $artwork->rgt, Criteria::LESS_THAN);
+    $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, $this->componentsLevels, Criteria::IN);
+
+    $tmsComponentsIoIds = array();
+    foreach (QubitInformationObject::get($criteria) as $component)
+    {
+      // Update or delete actual components
+      if (isset($component->identifier) && false !== $key = array_search($component->identifier, $tmsComponentsIds))
+      {
+        // Update
+        $tmsComponentsIoIds[] = $this->getTmsComponentData($component, $component->identifier, $artworkThumbnail);
+
+        // Remove from array
+        unset($tmsComponentsIds[$key]);
+      }
+      else
+      {
+        // Move childs to parent of the component
+        foreach ($component->getChildren() as $child)
+        {
+          $child->parentId = $component->parentId;
+        }
+
+        // Delete (this also deletes relations with AIPs and other components)
+        $component->delete();
+      }
+    }
+
+    // Create new components with the remaining TMS ids in the array
+    foreach ($tmsComponentsIds as $tmsId)
+    {
+      $tmsComponent = new QubitInformationObject;
+      $tmsComponent->parentId = isset($components) ? $components->id : $artwork->id;
+      $tmsComponent->levelOfDescriptionId = sfConfig::get('app_drmc_lod_component_id');
+      $tmsComponent->setPublicationStatusByName('Published');
+
+      // Update TMS Component data
+      $tmsComponentsIoIds[] = $this->getTmsComponentData($tmsComponent, $tmsId, $artworkThumbnail);
+    }
+
+    // Save info object components ids as property of the artwork
+    // because they are not directly related but added as part of the artwork in ES
+    $property = $artwork->getPropertyByName('childComponents');
+    $property->setName('childComponents');
+    $property->setValue(serialize($tmsComponentsIoIds));
+    $property->setObjectId($artwork->id);
+    $property->save();
+
+    // Update non already updated descendants in ES
+    $sql = <<<sql
+
+SELECT
+  id
+FROM
+  information_object
+WHERE
+  lft > ?
+AND
+  rgt < ?;
+
+sql;
+
+    $results = QubitPdo::fetchAll($sql, array($artwork->lft, $artwork->rgt));
+
+    foreach ($results as $item)
+    {
+      if (!in_array($item->id, $tmsComponentsIoIds))
+      {
+        $node = new arElasticSearchInformationObjectPdo($item->id);
+        $data = $node->serialize();
+
+        $this->searchInstance->addDocument($data, 'QubitInformationObject');
+      }
+    }
+
+    // Update artwork AIPs in ES
+    $sql = <<<sql
+
+SELECT
+  id
+FROM
+  aip
+WHERE
+  part_of = ?;
+
+sql;
+
+    $results = QubitPdo::fetchAll($sql, array($artwork->id));
+
+    foreach ($results as $item)
+    {
+      $node = new arElasticSearchAipPdo($item->id);
+      $data = $node->serialize();
+
+      $this->searchInstance->addDocument($data, 'QubitAip');
+    }
+
+    // Add components data for the artwork in ES
+    $this->searchInstance->update($artwork);
   }
 
   protected function addOrUpdateProperty($name, $value, $io, $options = array())
