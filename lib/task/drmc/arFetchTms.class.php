@@ -446,7 +446,7 @@ class arFetchTms
     return null;
   }
 
-  public function updateArtwork ($artwork)
+  public function updateArtwork($artwork)
   {
     list($tmsComponentsIds, $artworkThumbnail) = $this->getTmsObjectData($artwork, $artwork->identifier);
 
