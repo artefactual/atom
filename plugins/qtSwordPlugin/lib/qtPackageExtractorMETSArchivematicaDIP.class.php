@@ -649,8 +649,12 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
   protected function addChildsFromLogicalStructMap($structMap, $parent)
   {
-    foreach ($structMap->div as $item)
+    $structMap->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+
+    foreach ($structMap->xpath('m:div') as $item)
     {
+      $item->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+
       // Create child
       $child = new QubitInformationObject;
       $child->parentId = $parent->id;
@@ -670,10 +674,10 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $child->addProperty('aipUUID', $this->aip->uuid);
 
       // Add digital object and objectUUID if there is a ftpr child
-      if (count($item->fptr) > 0 && null !== $item->fptr[0]['FILEID'])
+      if (count($fptr = $item->xpath('m:fptr')) > 0 && null !== $fptr[0]['FILEID'])
       {
         // Object UUID
-        $objectUUID = $this->getUUID((string)$item->fptr[0]['FILEID']);
+        $objectUUID = $this->getUUID((string)$fptr[0]['FILEID']);
         $child->addProperty('objectUUID', $objectUUID);
 
         sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - objectUUID: '.$objectUUID);
@@ -717,7 +721,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       $relation->save();
 
       // Add childs
-      if (count($item->div) > 0)
+      if (count($item->xpath('m:div')) > 0)
       {
         $this->addChildsFromLogicalStructMap($item, $child);
       }
