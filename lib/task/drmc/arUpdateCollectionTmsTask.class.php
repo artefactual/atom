@@ -21,11 +21,12 @@ class arUpdateCollectionTmsTask extends sfBaseTask
 {
   protected function configure()
   {
+
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'qubit'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-      new sfCommandOption('force', null, sfCommandOption::PARAMETER_OPTIONAL, 'If set to \'true\' forces the update of all Artworks', false),
+      new sfCommandOption('force', null, sfCommandOption::PARAMETER_NONE, 'Forces the update of all Artworks'),
     ));
 
     $this->namespace = 'drmc';
