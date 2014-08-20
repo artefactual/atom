@@ -21,7 +21,6 @@ class arUpdateCollectionTmsTask extends sfBaseTask
 {
   protected function configure()
   {
-
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'qubit'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
