@@ -78,3 +78,12 @@ own DRMC server's address):
 
 For authentication purposes, you'll also need to enter a valid DRMC username
 and password into the two fields below it. Click "Save" when you're done.
+
+
+Periodic jobs (cron)
+-------------------------------------------------------------------------------
+
+* php symfony drmc:tms-update
+
+  Every day at 5am EST,
+  https://projects.artefactual.com/issues/6917#change-27359
