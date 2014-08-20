@@ -406,40 +406,40 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     $this->aip->save();
 
-    // Main object
-    if (null != ($dmdSec = $this->getMainDmdSec()))
-    {
-      $parent = new QubitInformationObject;
-      list($parent, $creation) = $this->processDmdSec($dmdSec, $parent);
-      $parent->setLevelOfDescriptionByName('file');
-
-      $parent->parentId = $this->resource->id;
-      $parent->save();
-
-      if (count($creation))
-      {
-        $this->addCreationEvent($parent, $creation);
-      }
-
-      // Create relation with AIP
-      $relation = new QubitRelation;
-      $relation->object = $parent;
-      $relation->subject = $this->aip;
-      $relation->typeId = QubitTerm::AIP_RELATION_ID;
-      $relation->save();
-    }
-    else
-    {
-      $parent = $this->resource;
-    }
-
     if (false !== $logicalStructMap && 0 < count($logicalStructMap))
     {
       // Hierarchical method over logical structMap
-      $this->addChildsFromLogicalStructMap($logicalStructMap[0], $parent);
+      $this->addChildsFromLogicalStructMap($logicalStructMap[0], $this->resource);
     }
     else
     {
+      // Main object
+      if (null != ($dmdSec = $this->getMainDmdSec()))
+      {
+        $parent = new QubitInformationObject;
+        list($parent, $creation) = $this->processDmdSec($dmdSec, $parent);
+        $parent->setLevelOfDescriptionByName('file');
+
+        $parent->parentId = $this->resource->id;
+        $parent->save();
+
+        if (count($creation))
+        {
+          $this->addCreationEvent($parent, $creation);
+        }
+
+        // Create relation with AIP
+        $relation = new QubitRelation;
+        $relation->object = $parent;
+        $relation->subject = $this->aip;
+        $relation->typeId = QubitTerm::AIP_RELATION_ID;
+        $relation->save();
+      }
+      else
+      {
+        $parent = $this->resource;
+      }
+
       // Get dmd sections mapping from physical structMap
       $this->dmdMapping = $this->getStructMapFileToDmdSecMapping();
 
