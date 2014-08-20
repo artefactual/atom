@@ -295,13 +295,39 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     $this->document->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
 
-    // Check if there is a logical structMap and create a
-    // level of descriptions and dmd sections mapping
+    // Check if there is a logical structMap and create
+    // mapping for level of descriptions, dmd sections
+    // and FILEID to UUID
     $logicalStructMap = $this->document->xpath('//m:structMap[@TYPE="logical"]');
-    $this->lodMapping = $this->dmdMapping = array();
+    $this->lodMapping = $this->dmdMapping = $this->fileIdUuidMapping = array();
 
     if (false !== $logicalStructMap && 0 < count($logicalStructMap))
     {
+      $this->document->registerXPathNamespace('p', 'info:lc/xmlns/premis-v2');
+
+      // FILEID to UUID mapping
+      foreach ($this->document->xpath('//m:fileSec/m:fileGrp[@USE="original"]/m:file') as $file)
+      {
+        // Get premis:objectIdentifiers in amd section for each file
+        if (isset($file['ADMID']) && isset($file['ID'])
+         && false !== $identifiers = $this->document->xpath('//m:amdSec[@ID="'.(string)$file['ADMID'].'"]//p:objectIdentifier'))
+        {
+          // Find UUID type
+          foreach ($identifiers as $item)
+          {
+            $item->registerXPathNamespace('p', 'info:lc/xmlns/premis-v2');
+
+            if (count($type = $item->xpath('p:objectIdentifierType')) > 0
+              && count($value = $item->xpath('p:objectIdentifierValue')) > 0
+              && 'UUID' == (string)$type[0])
+            {
+              // Add to mapping
+              $this->fileIdUuidMapping[(string)$file['ID']] = (string)$value[0];
+            }
+          }
+        }
+      }
+
       $logicalStructMap[0]->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
 
       foreach ($logicalStructMap[0]->xpath('.//m:div') as $item)
