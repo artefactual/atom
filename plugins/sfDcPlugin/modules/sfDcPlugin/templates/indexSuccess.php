@@ -24,6 +24,8 @@
     <?php echo include_partial('default/breadcrumb', array('resource' => $resource, 'objects' => $resource->getAncestors()->andSelf()->orderBy('lft'))) ?>
   <?php endif; ?>
 
+  <?php echo get_partial('informationobject/translationsLinks', array('resource' => $resource, 'translations' => $translations)) ?>
+
 <?php end_slot() ?>
 
 <?php slot('context-menu') ?>
