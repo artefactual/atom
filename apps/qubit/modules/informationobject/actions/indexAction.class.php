@@ -130,16 +130,5 @@ class InformationObjectIndexAction extends sfAction
         $this->digitalObjectLink = $request->getUriPrefix().$request->getRelativeUrlRoot().$this->resource->digitalObjects[0]->getFullPath();
       }
     }
-
-    // Get other cultures available
-    $currentCulture = $this->getUser()->getCulture();
-    $this->translations = array();
-    foreach ($this->resource->informationObjectI18ns as $i18n)
-    {
-      if ($i18n->culture !== $currentCulture)
-      {
-        $this->translations[$i18n->culture] = isset($i18n->title) ? $i18n->title : $this->resource->getTitle(array('sourceCulture' => true));
-      }
-    }
   }
 }
