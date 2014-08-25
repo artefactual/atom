@@ -681,6 +681,12 @@ EOF;
                 {
                   $actorOptions['history'] = $self->rowStatusVars['nameAccessPointHistories'][$index];
                 }
+
+                if (isset($self->object->repositoryId))
+                {
+                  $actorOptions['repositoryId'] = $self->object->repositoryId;
+                }
+
                 $actor = $self->createOrFetchActor($name, $actorOptions);
                 $self->createRelation($self->object->id, $actor->id, QubitTerm::NAME_ACCESS_POINT_ID);
               }
