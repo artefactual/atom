@@ -32,7 +32,7 @@ class importBulkTask extends sfBaseTask
       new sfCommandOption('taxonomy', null, sfCommandOption::PARAMETER_OPTIONAL, 'Set the taxonomy id to insert the SKOS concepts into'),
       new sfCommandOption('schema', null, sfCommandOption::PARAMETER_OPTIONAL, 'Schema to use if importing a CSV file'),
       new sfCommandOption('output', null, sfCommandOption::PARAMETER_OPTIONAL, 'Filename to output results in CSV format'),
-      new sfCommandOption('v', null, sfCommandOption::PARAMETER_OPTIONAL, 'Verbose output'),
+      new sfCommandOption('verbose', '-v', sfCommandOption::PARAMETER_NONE, 'Verbose output'),
     ));
 
     $this->namespace        = 'import';
@@ -113,7 +113,7 @@ EOF;
         $rows[] = array($file, $split . 's', memory_get_usage() . 'B');
       }
 
-      if ($options['v'])
+      if ($options['verbose'])
       {
         $this->log(basename($file)." imported (".round($split, 2)." s) (".$count."/".$total.")");
       }
