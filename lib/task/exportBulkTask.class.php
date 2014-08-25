@@ -46,8 +46,7 @@ class eadExportTask extends sfBaseTask
       new sfCommandOption('items-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Indicate progress every n items.'),
       new sfCommandOption('format', null, sfCommandOption::PARAMETER_OPTIONAL, 'XML format ("ead" or "mods")', 'ead'),
       new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria'),
-      new sfCommandOption('current-level-only', null, sfCommandOption::PARAMETER_NONE, 'Do not export child descriptions of exported items'),
-      new sfCommandOption('site-url', null, sfCommandOption::PARAMETER_REQUIRED, 'The base URL of your AtoM site (example: "http://www.example.com").', false),
+      new sfCommandOption('current-level-only', null, sfCommandOption::PARAMETER_NONE, 'Do not export child descriptions of exported items')
     ));
   }
 
@@ -57,7 +56,6 @@ class eadExportTask extends sfBaseTask
   public function execute($arguments = array(), $options = array())
   {
     // Make sure arguments are valid
-    $siteBaseUrl = $this->checkAndNormalizeSiteUrl($options['site-url']);
     $this->checkForValidFolder($arguments['folder']);
     $options['format'] = strtolower($options['format']);
     $this->checkForValidExportFormat($options['format']);
@@ -118,24 +116,6 @@ class eadExportTask extends sfBaseTask
     }
 
     print "\nExport complete.\n";
-  }
-
-  protected function checkAndNormalizeSiteUrl($url)
-  {
-    if (!$url)
-    {
-      return false;
-    }
-
-    if (filter_var($url, FILTER_VALIDATE_URL) === False)
-    {
-      throw new sfException('Invalid URL');
-    }
-
-    // Add trailing slash to URL if it's not already there
-    $url = (substr($url, -1) != '/') ? $url .'/' : $url;
-
-    return $url;
   }
 
   protected function checkForValidFolder($folder)

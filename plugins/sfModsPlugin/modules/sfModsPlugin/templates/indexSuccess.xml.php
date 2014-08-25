@@ -63,6 +63,7 @@
   <?php endif; ?>
 
   <identifier type="local"><?php echo esc_specialchars($mods->identifier) ?></identifier>
+  <identifier type="uri"><?php echo esc_specialchars($mods->uri) ?></identifier>
 
   <?php if ($extentAndMedium = $resource->getExtentAndMedium(array('cultureFallback' => true))): ?>
     <physicalDescription><extent><?php echo esc_specialchars($extentAndMedium) ?></extent></physicalDescription>

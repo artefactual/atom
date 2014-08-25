@@ -461,11 +461,13 @@ class SettingsListAction extends sfAction
     // Get site information settings
     $this->siteTitle = (null !== $siteTitle = QubitSetting::getByName('siteTitle')) ? $siteTitle : new QubitSetting;
     $this->siteDescription = (null !== $siteDescription = QubitSetting::getByName('siteDescription')) ? $siteDescription : new QubitSetting;
+    $this->siteBaseUrl = (null !== $siteBaseUrl = QubitSetting::getByName('siteBaseUrl')) ? $siteBaseUrl : new QubitSetting;
 
     // Set defaults values
     $this->siteInformationForm->setDefaults(array(
       'site_title' => $this->siteTitle->getValue(array('culture' => $this->culture)),
-      'site_description' => $this->siteDescription->getValue(array('culture' => $this->culture))
+      'site_description' => $this->siteDescription->getValue(array('culture' => $this->culture)),
+      'site_base_url' => $this->siteBaseUrl->getValue(array('culture' => $this->culture))
     ));
 
     return $this;
@@ -494,6 +496,7 @@ class SettingsListAction extends sfAction
     $siteDescription = $thisForm->getValue('site_description');
     $siteDescSetting = QubitSetting::getByName('siteDescription');
 
+
     // Create new QubitSetting if site_description doesn't already exist
     if (null === $siteDescSetting)
     {
@@ -501,6 +504,18 @@ class SettingsListAction extends sfAction
     }
     $siteDescSetting->setValue($siteDescription);
     $siteDescSetting->save();
+
+    // Save Site Base URL
+    $siteBaseUrl = $thisForm->getValue('site_base_url');
+    $siteUrlSetting = QubitSetting::getByName('siteBaseUrl');
+
+    // Create new QubitSetting if site_description doesn't already exist
+    if (null === $siteUrlSetting)
+    {
+      $siteUrlSetting = QubitSetting::createNewSetting('siteBaseUrl', null, array('scope'=>'site_base_url', 'deleteable'=>false));
+    }
+    $siteUrlSetting->setValue($siteBaseUrl);
+    $siteUrlSetting->save();
 
     return $this;
   }

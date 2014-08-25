@@ -41,6 +41,7 @@ class purgeTask extends sfBaseTask
       new sfCommandOption('use-gitconfig', null, sfCommandOption::PARAMETER_NONE, 'Get username and email from $HOME/.gitconfig'),
       new sfCommandOption('title', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired site title'),
       new sfCommandOption('description', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired site description'),
+      new sfCommandOption('url', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired site base URL'),
       new sfCommandOption('username', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired admin username'),
       new sfCommandOption('email', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired admin email address'),
       new sfCommandOption('password', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired admin password'),
@@ -123,8 +124,17 @@ EOF;
       $siteDescription = ($sitedescription) ? $siteDescription : 'Test site';
     }
 
+    // set, or prompt for, site base URL
+    $siteBaseUrl = ($options['url']) ? $options['url'] : '';
+    if (!$siteBaseUrl)
+    {
+      $siteBaseUrl = readline("Site base URL [http://127.0.0.1]: ");
+      $siteBaseUrl = ($siteBaseUrl) ? $siteBaseUrl : 'http://127.0.0.1';
+    }
+
     $this->createSetting('siteTitle', $siteTitle);
     $this->createSetting('siteDescription', $siteDescription);
+    $this->createSetting('siteBaseUrl', $siteBaseUrl);
 
     print "\n";
 

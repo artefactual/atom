@@ -33,13 +33,15 @@ class SettingsSiteInformationForm extends sfForm
     // Build widgets
     $this->setWidgets(array(
       'site_title' => new sfWidgetFormInput,
-      'site_description' => new sfWidgetFormInput
+      'site_description' => new sfWidgetFormInput,
+      'site_base_url' => new sfWidgetFormInput
     ));
 
     // Add labels
     $this->widgetSchema->setLabels(array(
       'site_title' => __('Site title'),
-      'site_description' => __('Site description')
+      'site_description' => __('Site description'),
+      'site_base_url' => __('Site base URL')
     ));
 
     // Add helper text
@@ -52,6 +54,7 @@ class SettingsSiteInformationForm extends sfForm
     // Validators
     $this->validatorSchema['site_title'] = new sfValidatorString(array('required'=>false));
     $this->validatorSchema['site_description'] = new sfValidatorString(array('required'=>false));
+    $this->validatorSchema['site_base_url'] = new sfValidatorString(array('required'=>false));
 
     // Set decorator
     $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);
