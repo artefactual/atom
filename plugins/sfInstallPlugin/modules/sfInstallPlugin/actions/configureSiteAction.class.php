@@ -38,6 +38,9 @@ class sfInstallPluginConfigureSiteAction extends sfAction
     $this->form->setValidator('siteTitle', new sfValidatorString(array('required' => true)));
     $this->form->setWidget('siteTitle', new sfWidgetFormInput);
 
+    $this->form->setValidator('siteBaseUrl', new sfValidatorUrl(array('required' => true)));
+    $this->form->setWidget('siteBaseUrl', new sfWidgetFormInput);
+
     $this->form->setValidator('username', new sfValidatorString(array('required' => true)));
     $this->form->setWidget('username', new sfWidgetFormInput);
 

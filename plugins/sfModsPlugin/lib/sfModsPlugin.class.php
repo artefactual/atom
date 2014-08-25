@@ -92,6 +92,13 @@ class sfModsPlugin implements ArrayAccess
 
         return $this->resource->referenceCode;
 
+      case 'uri':
+
+        $baseUrl = QubitSetting::getByName('siteBaseUrl');
+        $baseUrl = ($baseUrl == null) ? 'http://'. gethostname() : $baseUrl;
+
+        return $baseUrl .'/'. $this->resource->slug;
+
       case 'name':
         $name = array();
         foreach ($this->resource->getActorEvents() as $item)

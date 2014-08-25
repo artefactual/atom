@@ -90,6 +90,18 @@
           </td>
         </tr>
         <tr>
+          <td><?php echo $siteInformationForm['site_base_url']->renderLabel(null,
+            array('title' => __('Used to create absolute URLs, pointing to resources, in XML exports'))) ?></td>
+          <td>
+            <?php if (strlen($error = $siteInformationForm['site_base_url']->renderError())): ?>
+              <?php echo $error ?>
+            <?php elseif ($sourceCultureHelper = $siteBaseUrl->getSourceCultureHelper($culture)): ?>
+              <div class="default-translation"><?php echo $sourceCultureHelper ?></div>
+            <?php endif; ?>
+            <?php echo $siteInformationForm['site_base_url']->render() ?>
+          </td>
+        </tr>
+        <tr>
           <td>&nbsp;</td>
           <td>
             <div style="float: right; margin: 3px 8px 0 0;">
