@@ -1,5 +1,5 @@
 <?php if (count($translations) > 0): ?>
-  <div id="translations-links">
+  <div class="translation-links">
     <?php echo __('Other languages available:') ?>
     <ul>
       <?php foreach ($translations as $culture => $title): ?>
