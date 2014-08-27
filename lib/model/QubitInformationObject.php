@@ -1305,38 +1305,63 @@ class QubitInformationObject extends BaseInformationObject
 
   public function setActorByName($name, $options)
   {
-    // Only create an linked Actor if the event or relation type is indicated
+    // Only create an link actor if the event or relation type is indicated
     if (!isset($options['event_type_id']) && !isset($options['relation_type_id']))
     {
       return;
     }
 
-    // See if the Actor record already exists, if not create it
+    // See if the actor record already exists
     $criteria = new Criteria;
     $criteria->addJoin(QubitActor::ID, QubitActorI18n::ID);
     $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, $name);
+    $actor = QubitActor::getOne($criteria);
 
-    if (null === $actor = QubitActor::getOne($criteria))
+    // If there is a match and the information object is in a repository,
+    // check if the actor is related to descriprions in that repository
+    if (isset($actor) && isset($this->repositoryId))
+    {
+      $sql = "SELECT id FROM information_object
+        WHERE id IN (
+          SELECT subject_id AS id FROM relation
+            WHERE object_id=? AND type_id=?
+          UNION
+          SELECT information_object_id AS id FROM event
+            WHERE actor_id=? AND type_id=?)
+        AND repository_id=?";
+
+      $relatedDescription = QubitPdo::fetchOne($sql, array(
+        $actor->id,
+        QubitTerm::NAME_ACCESS_POINT_ID,
+        $actor->id,
+        QubitTerm::CREATION_ID,
+        $this->repositoryId));
+
+      // Unset the actor if it's not related to create a new one
+      if (false === $relatedDescription)
+      {
+        unset($actor);
+      }
+    }
+
+    // Create new actor if there isn't a match or if the match
+    // is no related to descriptions in the repository
+    if (!isset($actor))
     {
       $actor = new QubitActor;
-
-      // Make root actor the parent of new actors
       $actor->parentId = QubitActor::ROOT_ID;
-
       $actor->setAuthorizedFormOfName($name);
+
       if (isset($options['entity_type_id']))
       {
-        // set actor entityTypeId
         $actor->setEntityTypeId($options['entity_type_id']);
       }
       if (isset($options['source']))
       {
-        // set actor entityTypeId
         $actor->setSources($options['source']);
       }
       if (isset($options['rules']))
       {
-        // set actor entityTypeId
         $actor->setRules($options['rules']);
       }
       if (isset($options['history']))
@@ -1347,15 +1372,17 @@ class QubitInformationObject extends BaseInformationObject
       {
         $actor->datesOfExistence = $options['dates_of_existence'];
       }
+
       $actor->save();
     }
 
     if (isset($options['event_type_id']))
     {
-      // create an event object to link the information object and actor
+      // Create an event object to link the information object and actor
       $event = new QubitEvent;
       $event->setActorId($actor->id);
       $event->setTypeId($options['event_type_id']);
+
       if (isset($options['dates']))
       {
         $event->setDate($options['dates']);
@@ -1377,7 +1404,7 @@ class QubitInformationObject extends BaseInformationObject
     }
     else if (isset($options['relation_type_id']))
     {
-      // only add Actor as name access point if they are not already linked to
+      // Only add actor as name access point if they are not already linked to
       // an event (i.e. they are not already a "creator", "accumulator", etc.)
       $existingRelation = false;
       foreach ($this->events as $existingEvent)
@@ -1717,8 +1744,8 @@ class QubitInformationObject extends BaseInformationObject
   {
     $physicalDescription = '';
     $childTags = array(
-      'extent' => 'Extent', 
-      'dimensions' => 'Dimensions', 
+      'extent' => 'Extent',
+      'dimensions' => 'Dimensions',
       'genreform' => 'Form of material',
       'physfacet' => 'Physical facet'
     );
@@ -1730,7 +1757,7 @@ class QubitInformationObject extends BaseInformationObject
       {
         $physicalDescription .= "<dt>{$headingText}</dt><dd>" . QubitXmlImport::replaceLineBreaks($nodeList->item(0)) . "</dd>";
 
-        // Remove the children nodes as we go so we're 
+        // Remove the children nodes as we go so we're
         // left with any remaining node text in physDescNode.
         $physDescNode->removeChild($nodeList->item(0));
       }
