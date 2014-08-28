@@ -1079,29 +1079,6 @@ class QubitFlatfileImport
   }
 
   /**
-   * Create a Qubit physical object or, if one already exists, fetch it
-   *
-   * @param string $name  name of physical object
-   * @param string $location  location of physical object
-   *
-   * @return QubitPhysicalObject  created or fetched physical object
-   */
-  public function createOrFetchPhysicalObject($name, $location, $typeId)
-  {
-    $query = "SELECT id FROM physical_object_i18n WHERE name=? AND location=?";
-
-    $statement = QubitFlatfileImport::sqlQuery($query, array($name, $location));
-    $result = $statement->fetch(PDO::FETCH_OBJ);
-
-    if ($result)
-    {
-      return QubitPhysicalObject::getById($result->id);
-    } else {
-      return $this->createPhysicalObject($name, $location, $typeId);
-    }
-  }
-
-  /**
    * Create a Qubit repository or, if one already exists, fetch it
    *
    * @param string $name  name of repository
