@@ -1311,6 +1311,15 @@ class QubitInformationObject extends BaseInformationObject
       return;
     }
 
+    // Information object must be saved before.
+    // The id is needed to save the events and relations when
+    // they are created instead of when the information object is saved
+    // to be able to execute raw queries over them
+    if (!isset($this->id))
+    {
+      $this->save();
+    }
+
     // See if the actor record already exists
     $criteria = new Criteria;
     $criteria->addJoin(QubitActor::ID, QubitActorI18n::ID);
@@ -1400,6 +1409,12 @@ class QubitInformationObject extends BaseInformationObject
         $event->setDescription($options['event_note']);
       }
 
+      // Needs to be saved and added to $this->events
+      // to be able to execute raw queries and to be available
+      // for the following existingRelation foreach
+      $event->informationObjectId = $this->id;
+      $event->save();
+
       $this->events[] = $event;
     }
     else if (isset($options['relation_type_id']))
@@ -1421,6 +1436,8 @@ class QubitInformationObject extends BaseInformationObject
         $relation = new QubitRelation;
         $relation->objectId = $actor->id;
         $relation->typeId = QubitTerm::NAME_ACCESS_POINT_ID;
+        $relation->subjectId = $this->id;
+        $relation->save();
 
         $this->relationsRelatedBysubjectId[] = $relation;
       }
