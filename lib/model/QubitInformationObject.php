@@ -1320,42 +1320,87 @@ class QubitInformationObject extends BaseInformationObject
       $this->save();
     }
 
-    // See if the actor record already exists
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitActor::ID, QubitActorI18n::ID);
-    $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, $name);
-    $actor = QubitActor::getOne($criteria);
-
-    // If there is a match and the information object is in a repository,
-    // check if the actor is related to descriprions in that repository
-    if (isset($actor) && isset($this->repositoryId))
+    // Get first actor with the given name and related
+    // to descriptions in the same repository.
+    // If this description is not in a repository check
+    // relations with descriptions without repository
+    if (isset($this->repositoryId))
     {
-      $sql = "SELECT id FROM information_object
-        WHERE id IN (
-          SELECT subject_id AS id FROM relation
-            WHERE object_id=? AND type_id=?
-          UNION
-          SELECT information_object_id AS id FROM event
-            WHERE actor_id=? AND type_id=?)
-        AND repository_id=?";
+      $sql = <<<sql
 
-      $relatedDescription = QubitPdo::fetchOne($sql, array(
-        $actor->id,
+SELECT act.id FROM actor act
+INNER JOIN actor_i18n i18n
+ON act.id=i18n.id
+WHERE i18n.authorized_form_of_name=?
+AND act.id IN (
+  SELECT object_id AS id FROM relation
+  WHERE subject_id IN (
+    SELECT id FROM information_object
+    WHERE repository_id=?
+  ) AND type_id=?
+  UNION SELECT subject_id AS id FROM relation
+  WHERE object_id IN (
+    SELECT id FROM information_object
+    WHERE repository_id=?
+  ) AND type_id=?
+  UNION SELECT actor_id AS id FROM event
+  WHERE information_object_id IN (
+    SELECT id FROM information_object
+    WHERE repository_id=?
+  ) AND type_id=?);
+
+sql;
+
+      $actorId = QubitPdo::fetchColumn($sql, array(
+        $name,
+        $this->repositoryId,
         QubitTerm::NAME_ACCESS_POINT_ID,
-        $actor->id,
-        QubitTerm::CREATION_ID,
-        $this->repositoryId));
+        $this->repositoryId,
+        QubitTerm::NAME_ACCESS_POINT_ID,
+        $this->repositoryId,
+        QubitTerm::CREATION_ID));
+    }
+    else
+    {
+      $sql = <<<sql
 
-      // Unset the actor if it's not related to create a new one
-      if (false === $relatedDescription)
-      {
-        unset($actor);
-      }
+SELECT act.id FROM actor act
+INNER JOIN actor_i18n i18n
+ON act.id=i18n.id
+WHERE i18n.authorized_form_of_name=?
+AND act.id IN (
+  SELECT object_id AS id FROM relation
+  WHERE subject_id IN (
+    SELECT id FROM information_object
+    WHERE repository_id IS NULL
+  ) AND type_id=?
+  UNION SELECT subject_id AS id FROM relation
+  WHERE object_id IN (
+    SELECT id FROM information_object
+    WHERE repository_id IS NULL
+  ) AND type_id=?
+  UNION SELECT actor_id AS id FROM event
+  WHERE information_object_id IN (
+    SELECT id FROM information_object
+    WHERE repository_id IS NULL
+  ) AND type_id=?
+);
+
+sql;
+
+      $actorId = QubitPdo::fetchColumn($sql, array(
+        $name,
+        QubitTerm::NAME_ACCESS_POINT_ID,
+        QubitTerm::NAME_ACCESS_POINT_ID,
+        QubitTerm::CREATION_ID));
     }
 
-    // Create new actor if there isn't a match or if the match
-    // is no related to descriptions in the repository
-    if (!isset($actor))
+    // Get actor or create a new one. If the actor exists the data is not overwritten
+    if (false !== $actorId)
+    {
+      $actor = QubitActor::getById($actorId);
+    }
+    else
     {
       $actor = new QubitActor;
       $actor->parentId = QubitActor::ROOT_ID;
