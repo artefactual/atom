@@ -144,7 +144,15 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
     if ($options['actorName'])
     {
-      $actor = QubitFlatfileImport::createOrFetchActor($options['actorName']);
+      // Check actor creation with the target repository
+      if (null === $actor = QubitActor::getByNameAndRepositoryId($options['actorName'], $this->resource->repositoryId))
+      {
+        $actor = new QubitActor;
+        $actor->parentId = QubitActor::ROOT_ID;
+        $actor->setAuthorizedFormOfName($options['actorName']);
+        $actor->save();
+      }
+
       $event->actorId = $actor->id;
     }
 
