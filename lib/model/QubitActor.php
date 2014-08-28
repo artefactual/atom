@@ -500,28 +500,26 @@ AND act.id IN (
   WHERE subject_id IN (
     SELECT id FROM information_object
     WHERE repository_id=?
-  ) AND type_id=?
+  )
   UNION SELECT subject_id AS id FROM relation
   WHERE object_id IN (
     SELECT id FROM information_object
     WHERE repository_id=?
-  ) AND type_id=?
+  )
   UNION SELECT actor_id AS id FROM event
   WHERE information_object_id IN (
     SELECT id FROM information_object
     WHERE repository_id=?
-  ) AND type_id=?);
+  )
+);
 
 sql;
 
       $actorId = QubitPdo::fetchColumn($sql, array(
         $name,
         $repositoryId,
-        QubitTerm::NAME_ACCESS_POINT_ID,
         $repositoryId,
-        QubitTerm::NAME_ACCESS_POINT_ID,
-        $repositoryId,
-        QubitTerm::CREATION_ID));
+        $repositoryId));
     }
     else
     {
@@ -536,26 +534,22 @@ AND act.id IN (
   WHERE subject_id IN (
     SELECT id FROM information_object
     WHERE repository_id IS NULL
-  ) AND type_id=?
+  )
   UNION SELECT subject_id AS id FROM relation
   WHERE object_id IN (
     SELECT id FROM information_object
     WHERE repository_id IS NULL
-  ) AND type_id=?
+  )
   UNION SELECT actor_id AS id FROM event
   WHERE information_object_id IN (
     SELECT id FROM information_object
     WHERE repository_id IS NULL
-  ) AND type_id=?
+  )
 );
 
 sql;
 
-      $actorId = QubitPdo::fetchColumn($sql, array(
-        $name,
-        QubitTerm::NAME_ACCESS_POINT_ID,
-        QubitTerm::NAME_ACCESS_POINT_ID,
-        QubitTerm::CREATION_ID));
+      $actorId = QubitPdo::fetchColumn($sql, array($name));
     }
 
     if (false !== $actorId)
