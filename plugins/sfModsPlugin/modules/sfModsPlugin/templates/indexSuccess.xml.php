@@ -137,12 +137,12 @@
 
   <?php if (QubitInformationObject::ROOT_ID != $resource->parentId): ?>
     <?php $parent = QubitInformationObject::getById($resource->parentId); ?>
-    <relatedItem key id="<?php echo $parent->identifier ?>" type="constituent"><?php $parentMods = new sfModsPlugin($parent); echo esc_specialchars($parentMods) ?></relatedItem>
+    <relatedItem ID="<?php echo $parent->identifier ?>" type="host"><titleInfo><title><?php echo esc_specialchars($parent->title) ?></title></titleInfo></relatedItem>
   <?php endif; ?>
 
   <?php if (0 < count($resource->getChildren())): ?>
-    <?php foreach ($resource->getChildren() as $item): ?>
-      <relatedItem id="<?php echo $item->identifier ?>" type="constituent"><?php $childMods = new sfModsPlugin($item); echo esc_specialchars($childMods) ?></relatedItem>
+    <?php foreach ($resource->getChildren() as $child): ?>
+      <relatedItem ID="<?php echo $child->identifier ?>" type="constituent"><titleInfo><title><?php echo esc_specialchars($child->title) ?></title></titleInfo></relatedItem>
     <?php endforeach; ?>
   <?php endif; ?>
 
