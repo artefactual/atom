@@ -1142,51 +1142,12 @@ class QubitFlatfileImport
    */
   public static function createOrFetchActor($name, $options = array())
   {
-    $query = "SELECT id FROM actor_i18n WHERE authorized_form_of_name=?";
-
-    $statement = QubitFlatfileImport::sqlQuery($query, array($name));
-    $result = $statement->fetch(PDO::FETCH_OBJ);
-
-    // If we can't find a match create new actor
-    if (false === $result)
+    // Get actor or create a new one. If the actor exists the data is not overwritten
+    if (null === $actor = QubitActor::getByNameAndRepositoryId($name, $options['repositoryId']))
     {
-      return QubitFlatfileImport::createActor($name, $options);
-    }
-
-    // If there is a match and a repositoryId option is set, check
-    // if the actor is related to descriprions in the repository.
-    if (isset($options['repositoryId']))
-    {
-      $sql = "SELECT id FROM information_object
-        WHERE id IN (
-          SELECT subject_id AS id FROM relation
-            WHERE object_id=? AND type_id=?
-          UNION
-          SELECT information_object_id AS id FROM event
-            WHERE actor_id=? AND type_id=?)
-        AND repository_id=?";
-
-      $statement = QubitFlatfileImport::sqlQuery($sql, array(
-        $result->id,
-        QubitTerm::NAME_ACCESS_POINT_ID,
-        $result->id,
-        QubitTerm::CREATION_ID,
-        $options['repositoryId']));
-
       unset($options['repositoryId']);
-
-      // If it's not related create new actor
-      if (false === $statement->fetch(PDO::FETCH_OBJ))
-      {
-        return QubitFlatfileImport::createActor($name, $options);
-      }
+      $actor = QubitFlatfileImport::createActor($name, $options);
     }
-
-    // Otherwise update and return existing actor
-    $actor = QubitActor::getById($result->id);
-    $allowedProperties = array('history', 'entityTypeId');
-    QubitFlatfileImport::setPropertiesFromArray($actor, $options, $allowedProperties);
-    $actor->save();
 
     return $actor;
   }
