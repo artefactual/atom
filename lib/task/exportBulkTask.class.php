@@ -82,7 +82,9 @@ class eadExportTask extends sfBaseTask
 
     $itemsExported = 0;
 
-    foreach($conn->query($this->exportQuerySql($options['criteria']), PDO::FETCH_ASSOC) as $row)
+    $rows = $conn->query($this->exportQuerySql($options), PDO::FETCH_ASSOC);
+
+    foreach($rows as $row)
     {
       $resource = QubitInformationObject::getById($row['id']);
 
@@ -141,15 +143,22 @@ class eadExportTask extends sfBaseTask
     }
   }
 
-  protected function exportQuerySql($criteria)
+  protected function exportQuerySql($options)
   {
-    $whereClause = "parent_id=1";
+    // EAD data nests children, so we only have to get top-level items
+    $whereClause = ($options['format'] == 'ead' || $options['current-level-only'])
+      ? "parent_id=1"
+      : "i.id != 1";
 
-    if ($criteria)
+    if ($options['criteria'])
     {
-      $whereClause .= ' AND '. $criteria;
+      $whereClause .= ' AND '. $options['criteria'];
     }
 
-    return "SELECT * FROM information_object i INNER JOIN information_object_i18n i18n ON i.id=i18n.id WHERE ". $whereClause;
+    $query = "SELECT * FROM information_object i
+      INNER JOIN information_object_i18n i18n ON i.id=i18n.id
+      WHERE ". $whereClause;
+
+    return $query;
   }
 }
