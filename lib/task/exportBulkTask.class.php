@@ -99,11 +99,21 @@ class eadExportTask extends sfBaseTask
         $mods = new sfModsPlugin($resource);
       }
 
+      // capture XML template output
       ob_start();
       include($exportTemplate);
-      $output = ob_get_contents();
+      $rawOutput = ob_get_contents();
       ob_end_clean();
 
+      // clean up XML
+      $xml = simplexml_load_string($rawOutput);
+      $dom = new DOMDocument("1.0");
+      $dom->preserveWhiteSpace = false;
+      $dom->formatOutput = true;
+      $dom->loadXML($xml->asXML());
+      $output = $dom->saveXML();
+
+      // save XML file
       $filename = $options['format'] .'_'. $row['id'] .'.xml';
       $filePath = $arguments['folder'] .'/'. $filename;
       file_put_contents($filePath, $output);
