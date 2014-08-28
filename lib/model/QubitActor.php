@@ -480,4 +480,87 @@ class QubitActor extends BaseActor
 
     return QubitInformationObject::get($criteria);
   }
+
+  public static function getByNameAndRepositoryId($name, $repositoryId = null)
+  {
+    // Get first actor with the given name and related
+    // to descriptions in the same repository.
+    // If the repository id is not set check relations
+    // with descriptions without repository
+    if (isset($repositoryId))
+    {
+      $sql = <<<sql
+
+SELECT act.id FROM actor act
+INNER JOIN actor_i18n i18n
+ON act.id=i18n.id
+WHERE i18n.authorized_form_of_name=?
+AND act.id IN (
+  SELECT object_id AS id FROM relation
+  WHERE subject_id IN (
+    SELECT id FROM information_object
+    WHERE repository_id=?
+  ) AND type_id=?
+  UNION SELECT subject_id AS id FROM relation
+  WHERE object_id IN (
+    SELECT id FROM information_object
+    WHERE repository_id=?
+  ) AND type_id=?
+  UNION SELECT actor_id AS id FROM event
+  WHERE information_object_id IN (
+    SELECT id FROM information_object
+    WHERE repository_id=?
+  ) AND type_id=?);
+
+sql;
+
+      $actorId = QubitPdo::fetchColumn($sql, array(
+        $name,
+        $repositoryId,
+        QubitTerm::NAME_ACCESS_POINT_ID,
+        $repositoryId,
+        QubitTerm::NAME_ACCESS_POINT_ID,
+        $repositoryId,
+        QubitTerm::CREATION_ID));
+    }
+    else
+    {
+      $sql = <<<sql
+
+SELECT act.id FROM actor act
+INNER JOIN actor_i18n i18n
+ON act.id=i18n.id
+WHERE i18n.authorized_form_of_name=?
+AND act.id IN (
+  SELECT object_id AS id FROM relation
+  WHERE subject_id IN (
+    SELECT id FROM information_object
+    WHERE repository_id IS NULL
+  ) AND type_id=?
+  UNION SELECT subject_id AS id FROM relation
+  WHERE object_id IN (
+    SELECT id FROM information_object
+    WHERE repository_id IS NULL
+  ) AND type_id=?
+  UNION SELECT actor_id AS id FROM event
+  WHERE information_object_id IN (
+    SELECT id FROM information_object
+    WHERE repository_id IS NULL
+  ) AND type_id=?
+);
+
+sql;
+
+      $actorId = QubitPdo::fetchColumn($sql, array(
+        $name,
+        QubitTerm::NAME_ACCESS_POINT_ID,
+        QubitTerm::NAME_ACCESS_POINT_ID,
+        QubitTerm::CREATION_ID));
+    }
+
+    if (false !== $actorId)
+    {
+      return self::getById($actorId);
+    }
+  }
 }
