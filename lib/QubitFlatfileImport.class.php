@@ -566,7 +566,7 @@ class QubitFlatfileImport
         $this->object = QubitInformationObject::getById($mapEntry->target_id);
 
         // was the keymap entry invalid?
-        if ($this->object === NULL)
+        if ($this->object === null)
         {
           // delete invalid keymap entry
           $query = "DELETE FROM keymap \r
