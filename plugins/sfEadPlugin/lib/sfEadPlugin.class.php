@@ -318,7 +318,7 @@ class sfEadPlugin
     $dlEndTag = '</dl>';
 
     $physDescContent = '';
-    $extentAndMedium = trim($extentAndMedium);
+    $extentAndMedium = trim(esc_specialchars($extentAndMedium));
 
     $dlPos = strpos($extentAndMedium, $dlStartTag);
     $dlEndPos = strpos($extentAndMedium, $dlEndTag);
