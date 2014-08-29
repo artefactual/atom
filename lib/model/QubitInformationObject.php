@@ -1025,9 +1025,11 @@ class QubitInformationObject extends BaseInformationObject
     {
       $relation = new QubitRelation;
       $relation->setSubject($physicalObject);
+      $relation->objectId = $this->id;
       $relation->setTypeId(QubitTerm::HAS_PHYSICAL_OBJECT_ID);
 
       $this->relationsRelatedByobjectId[] = $relation;
+      $relation->save();
     }
 
     return $this;
