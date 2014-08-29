@@ -1014,6 +1014,11 @@ class QubitInformationObject extends BaseInformationObject
    * Add a relation from this info object to a phyical object. Check to make
    * sure the relationship is unique.
    *
+   * If this method is called on a non-saved information object,
+   * the physical object will be put into relationsRelatedByobjectId,
+   * and a relation won't be created in the database until save() is
+   * called on the information object (as the relation requires an objectId).
+   *
    * @param QubitPhysicalObject $physicalObject Subject of relationship
    * @return QubitInformationObject this object
    */
@@ -1025,11 +1030,18 @@ class QubitInformationObject extends BaseInformationObject
     {
       $relation = new QubitRelation;
       $relation->setSubject($physicalObject);
-      $relation->objectId = $this->id;
       $relation->setTypeId(QubitTerm::HAS_PHYSICAL_OBJECT_ID);
 
+      // This method is called by non-saved info objects when importing EAD.
+      // So if we don't have an id, just ignore it; the relation objectId
+      // will be filled in and the object saved once the EAD import is done.
+      if (isset($this->id))
+      {
+        $relation->setObject($this);
+        $relation->save();
+      }
+
       $this->relationsRelatedByobjectId[] = $relation;
-      $relation->save();
     }
 
     return $this;
