@@ -50,6 +50,7 @@ EOF;
   {
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
+    sfContext::createInstance($this->configuration);
 
     if (null === $informationObject = QubitInformationObject::getBySlug($arguments['slug']))
     {
