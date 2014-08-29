@@ -489,58 +489,31 @@ class QubitActor extends BaseActor
     // with descriptions without repository
     if (isset($repositoryId))
     {
-      $sql = <<<sql
-
-SELECT act.id FROM actor act
-INNER JOIN actor_i18n i18n
-ON act.id=i18n.id
-WHERE i18n.authorized_form_of_name=?
-AND act.id IN (
-  SELECT r.object_id AS id FROM relation r
-    LEFT JOIN information_object io ON r.subject_id=io.id
-    WHERE repository_id=?
-  UNION SELECT r.subject_id AS id FROM relation r
-    LEFT JOIN information_object io ON r.object_id=io.id
-    WHERE repository_id=?
-  UNION SELECT e.actor_id AS id FROM event e
-    LEFT JOIN information_object io ON e.information_object_id=io.id
-    WHERE io.repository_id=?
-);
-
-sql;
-
-      $actorId = QubitPdo::fetchColumn($sql, array(
-        $name,
-        $repositoryId,
-        $repositoryId,
-        $repositoryId));
+      $repositoryCondition = 'WHERE io.repository_id=?';
+      $params = array($name, $repositoryId, $repositoryId, $repositoryId);
     }
     else
     {
-      $sql = <<<sql
-
-SELECT act.id FROM actor act
-INNER JOIN actor_i18n i18n
-ON act.id=i18n.id
-WHERE i18n.authorized_form_of_name=?
-AND act.id IN (
-  SELECT r.object_id AS id FROM relation r
-    LEFT JOIN information_object io ON r.subject_id=io.id
-    WHERE repository_id IS NULL
-  UNION SELECT r.subject_id AS id FROM relation r
-    LEFT JOIN information_object io ON r.object_id=io.id
-    WHERE repository_id IS NULL
-  UNION SELECT e.actor_id AS id FROM event e
-    LEFT JOIN information_object io ON e.information_object_id=io.id
-    WHERE io.repository_id IS NULL
-);
-
-sql;
-
-      $actorId = QubitPdo::fetchColumn($sql, array($name));
+      $repositoryCondition = 'WHERE io.repository_id IS NULL';
+      $params = array($name);
     }
 
-    if (false !== $actorId)
+    $sql  = 'SELECT act.id FROM actor act ';
+    $sql .= 'INNER JOIN actor_i18n i18n ON act.id=i18n.id ';
+    $sql .= 'WHERE i18n.authorized_form_of_name=? ';
+    $sql .= 'AND act.id IN (';
+    $sql .= 'SELECT r.object_id AS id FROM relation r ';
+    $sql .= 'LEFT JOIN information_object io ON r.subject_id=io.id ';
+    $sql .= $repositoryCondition;
+    $sql .= ' UNION SELECT r.subject_id AS id FROM relation r ';
+    $sql .= 'LEFT JOIN information_object io ON r.object_id=io.id ';
+    $sql .= $repositoryCondition;
+    $sql .= ' UNION SELECT e.actor_id AS id FROM event e ';
+    $sql .= 'LEFT JOIN information_object io ON e.information_object_id=io.id ';
+    $sql .= $repositoryCondition;
+    $sql .= ')';
+
+    if (false !== $actorId = QubitPdo::fetchColumn($sql, $params))
     {
       return self::getById($actorId);
     }
