@@ -496,21 +496,15 @@ INNER JOIN actor_i18n i18n
 ON act.id=i18n.id
 WHERE i18n.authorized_form_of_name=?
 AND act.id IN (
-  SELECT object_id AS id FROM relation
-  WHERE subject_id IN (
-    SELECT id FROM information_object
+  SELECT r.object_id AS id FROM relation r
+    LEFT JOIN information_object io ON r.subject_id=io.id
     WHERE repository_id=?
-  )
-  UNION SELECT subject_id AS id FROM relation
-  WHERE object_id IN (
-    SELECT id FROM information_object
+  UNION SELECT r.subject_id AS id FROM relation r
+    LEFT JOIN information_object io ON r.object_id=io.id
     WHERE repository_id=?
-  )
-  UNION SELECT actor_id AS id FROM event
-  WHERE information_object_id IN (
-    SELECT id FROM information_object
-    WHERE repository_id=?
-  )
+  UNION SELECT e.actor_id AS id FROM event e
+    LEFT JOIN information_object io ON e.information_object_id=io.id
+    WHERE io.repository_id=?
 );
 
 sql;
@@ -530,21 +524,15 @@ INNER JOIN actor_i18n i18n
 ON act.id=i18n.id
 WHERE i18n.authorized_form_of_name=?
 AND act.id IN (
-  SELECT object_id AS id FROM relation
-  WHERE subject_id IN (
-    SELECT id FROM information_object
+  SELECT r.object_id AS id FROM relation r
+    LEFT JOIN information_object io ON r.subject_id=io.id
     WHERE repository_id IS NULL
-  )
-  UNION SELECT subject_id AS id FROM relation
-  WHERE object_id IN (
-    SELECT id FROM information_object
+  UNION SELECT r.subject_id AS id FROM relation r
+    LEFT JOIN information_object io ON r.object_id=io.id
     WHERE repository_id IS NULL
-  )
-  UNION SELECT actor_id AS id FROM event
-  WHERE information_object_id IN (
-    SELECT id FROM information_object
-    WHERE repository_id IS NULL
-  )
+  UNION SELECT e.actor_id AS id FROM event e
+    LEFT JOIN information_object io ON e.information_object_id=io.id
+    WHERE io.repository_id IS NULL
 );
 
 sql;
