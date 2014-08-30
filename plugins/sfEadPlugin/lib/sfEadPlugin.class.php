@@ -205,7 +205,8 @@ class sfEadPlugin
 
     $encodinganalog = $this->getMetadataParameter('eadid');
 
-    return "<eadid identifier=\"$identifier\"$countryCode$mainAgencyCode url=\"$url\" encodinganalog=\"$encodinganalog\">{$this->resource->identifier}</eadid>";
+    $ret = "<eadid identifier=\"$identifier\"$countryCode$mainAgencyCode url=\"$url\" encodinganalog=\"$encodinganalog\">{$this->resource->identifier}</eadid>";
+    return esc_specialchars($ret);
   }
 
   public function renderEadNormalizedDate($date)
