@@ -54,6 +54,15 @@ EOF;
       new sfCommandOption('no-confirmation', 'B', sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation'),
       new sfCommandOption('verbose', 'v', sfCommandOption::PARAMETER_NONE, 'Verbose mode', null),
     ));
+
+    $this->preUpgradeTasks();
+  }
+
+  private function preUpgradeTasks()
+  {
+    // Disable auto-loading all the plugins,
+    // we want to check for missing themes.
+    sfPluginAdminPluginConfiguration::$loadPlugins = false;
   }
 
   /**
@@ -65,6 +74,7 @@ EOF;
     $database = $dbManager->getDatabase($options['connection']);
 
     sfContext::createInstance($this->configuration);
+    $this->checkMissingThemes();
 
     // Deactivate search index, must be rebuilt later anyways
     QubitSearch::disable();
@@ -299,5 +309,108 @@ EOF;
     }
 
     return $params;
+  }
+
+  private function checkMissingThemes()
+  {
+    $presentThemes = $this->getThemesInPluginDir();
+    $pluginsSetting = QubitSetting::getByNameAndScope('plugins', null);
+
+    if ($pluginsSetting === null)
+    {
+      throw new sfException('Could not get plugin settings from the database.');
+    }
+
+    $configuredPlugins = unserialize($pluginsSetting->getValue(array('sourceCulture' => true)));
+
+    // I didn't know how to check for 'current theme name' easily; either I'm missing something
+    // really obvious or the way we check that is really really weird...? So just check for known
+    // deprecated themes...
+
+    $oldThemes = array(
+      'qtTrilliumPlugin',
+      'sfAlouettePlugin'
+    );
+
+    foreach ($oldThemes as $invalidTheme)
+    {
+      if (in_array($invalidTheme, $configuredPlugins) && !in_array($invalidTheme, array_keys($presentThemes)))
+      {
+        $this->logSection('upgrade-sql', 'The theme being used in the configuration no longer exists.');
+        $chosenTheme = $this->getNewTheme($presentThemes);
+
+        // Remove our invalid theme, set it to the new chosen one, and save.
+        if (($key = array_search($invalidTheme, $configuredPlugins)) !== false)
+        {
+          unset($configuredPlugins[$key]);
+        }
+
+        $configuredPlugins[] = $chosenTheme;
+
+        $pluginsSetting->setValue(serialize($configuredPlugins), array('sourceCulture' => true));
+        $pluginsSetting->save();
+
+        $this->logSection('upgrade-sql', "AtoM theme changed to $chosenTheme.");
+      }
+    }
+  }
+
+  private function getNewTheme($themes)
+  {
+    if (!function_exists('readline'))
+    {
+      throw new Exception('This tasks needs the PHP readline extension.');
+    }
+
+    for (;;)
+    {
+      $this->logSection('upgrade-sql', 'Please enter a new theme choice:');
+
+      $n = 0;
+      foreach (array_keys($themes) as $theme)
+      {
+        print ++$n . ") $theme\n";
+      }
+
+      $choice = (int)readline('Select theme number: ');
+
+      if ($choice >= 1 && $choice <= count($themes))
+      {
+        $themeNames = array_keys($themes);
+        return $themeNames[$choice - 1];
+      }
+    }
+  }
+
+  /**
+   * Get all theme names and paths that are currently present in the plugins/ directory.
+   * @return array  An array containing the theme names and paths ($name => $path)
+   */
+  private function getThemesInPluginDir()
+  {
+    // Some of this code is duplicated in themesAction.class.php. Perhaps we could refactor?
+    // There were some key differences though.
+    $pluginPaths = $this->configuration->getAllPluginPaths();
+
+    $themes = array();
+    foreach ($pluginPaths as $name => $path)
+    {
+      $className = $name.'Configuration';
+
+      if (strpos($path, sfConfig::get('sf_plugins_dir')) === 0 &&
+          is_readable($classPath = $path.'/config/'.$className.'.class.php'))
+      {
+        require_once $classPath;
+        $class = new $className($this->configuration);
+
+        // Build a list of themes
+        if (isset($class::$summary) && 1 === preg_match('/theme/i', $class::$summary))
+        {
+          $themes[$name] = $path;
+        }
+      }
+    }
+
+    return $themes;
   }
 }
