@@ -47,7 +47,7 @@
 
   <?php if (isset($resource->repository)): ?>
     <relation><?php echo url_for(array($resource->repository, 'module' => 'repository'), true) ?></relation>
-    <relation><?php echo esc_specialchars($resource->repository) ?></relation>
+    <relation><?php echo esc_specialchars($resource->repository->authorizedFormOfName) ?></relation>
   <?php endif; ?>
 
   <?php foreach ($dc->coverage as $item): ?>
