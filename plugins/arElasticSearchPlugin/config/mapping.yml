@@ -257,7 +257,7 @@ mapping:
           label: { type: string, index: not_analyzed }
           identifier: { type: string, index: not_analyzed }
       reference_code:
-        type: multi_field
+        type: string
         fields:
           referenceCode:
             type: string
@@ -266,9 +266,9 @@ mapping:
             type: string
             index: not_analyzed
           autocomplete:
+            type: string
             include_in_all: false
             index_analyzer: autocomplete
             store: true
             search_analyzer: standard
             term_vector: with_positions_offsets
-            type: string

@@ -393,7 +393,7 @@ class arElasticSearchMapping
   protected function getI18nFieldMapping($fieldName)
   {
     return   array(
-      'type' => 'multi_field',
+      'type' => 'string',
       'fields' => array(
         $fieldName => array(
           'type' => 'string',
