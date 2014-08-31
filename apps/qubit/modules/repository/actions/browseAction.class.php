@@ -120,7 +120,6 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     }
 
     $this->query->setQuery($this->queryBool);
-    // $this->query->setFields(array('slug', 'sourceCulture', 'i18n', 'entityTypeId', 'updatedAt'));
 
     // Set filter
     if (0 < count($this->filterBool->toArray()))
