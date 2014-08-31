@@ -27,7 +27,8 @@
 class QubitUpgradeSqlTask extends sfBaseTask
 {
   protected
-    $initialVersion;
+    $initialVersion,
+    $pluginsSetting;
 
   /**
    * @see sfBaseTask
@@ -55,13 +56,7 @@ EOF;
       new sfCommandOption('verbose', 'v', sfCommandOption::PARAMETER_NONE, 'Verbose mode', null),
     ));
 
-    $this->preUpgradeTasks();
-  }
-
-  private function preUpgradeTasks()
-  {
-    // Disable auto-loading all the plugins,
-    // we want to check for missing themes.
+    // Disable plugin loading from plugins/ before this task.
     sfPluginAdminPluginConfiguration::$loadPlugins = false;
   }
 
@@ -74,7 +69,10 @@ EOF;
     $database = $dbManager->getDatabase($options['connection']);
 
     sfContext::createInstance($this->configuration);
+
+    $this->getPluginSettings();
     $this->checkMissingThemes();
+    $this->removeMissingPluginsFromSettings();
 
     // Deactivate search index, must be rebuilt later anyways
     QubitSearch::disable();
@@ -311,17 +309,54 @@ EOF;
     return $params;
   }
 
-  private function checkMissingThemes()
+  /**
+   * Get the plugin settings and store it for the class instance.
+   */
+  private function getPluginSettings()
   {
-    $presentThemes = $this->getThemesInPluginDir();
-    $pluginsSetting = QubitSetting::getByNameAndScope('plugins', null);
-
-    if ($pluginsSetting === null)
+    $this->pluginsSetting = QubitSetting::getByNameAndScope('plugins', null);
+    if ($this->pluginsSetting === null)
     {
       throw new sfException('Could not get plugin settings from the database.');
     }
+  }
 
-    $configuredPlugins = unserialize($pluginsSetting->getValue(array('sourceCulture' => true)));
+  /**
+   * Detect any plugins configured in the settings that aren't present
+   * in plugins/, and remove them from the database.
+   */
+  private function removeMissingPluginsFromSettings()
+  {
+    $configuredPlugins = unserialize($this->pluginsSetting->getValue(array('sourceCulture' => true)));
+    $pluginsPresent = $this->getPluginsPresent();
+
+    foreach ($configuredPlugins as $configPlugin)
+    {
+      if (!array_key_exists($configPlugin, $pluginsPresent))
+      {
+        if (($key = array_search($configPlugin, $configuredPlugins)) !== false)
+        {
+          unset($configuredPlugins[$key]);
+          $this->logSection(
+            'upgrade-sql',
+            "Removing plugin from settings that is no longer present on the file system: $configPlugin"
+          );
+        }
+      }
+    }
+
+    $this->pluginsSetting->setValue(serialize($configuredPlugins), array('sourceCulture' => true));
+    $this->pluginsSetting->save();
+  }
+
+  /**
+   * Check if a theme configured in setting/setting_i18n isn't present under plugins/
+   * If it isn't, prompt the user to choose one of the available themes detected in plugins/
+   */
+  private function checkMissingThemes()
+  {
+    $presentThemes = $this->getPluginsPresent(true);
+    $configuredPlugins = unserialize($this->pluginsSetting->getValue(array('sourceCulture' => true)));
 
     // I didn't know how to check for 'current theme name' easily; either I'm missing something
     // really obvious or the way we check that is really really weird...? So just check for known
@@ -347,19 +382,25 @@ EOF;
 
         $configuredPlugins[] = $chosenTheme;
 
-        $pluginsSetting->setValue(serialize($configuredPlugins), array('sourceCulture' => true));
-        $pluginsSetting->save();
+        $this->pluginsSetting->setValue(serialize($configuredPlugins), array('sourceCulture' => true));
+        $this->pluginsSetting->save();
 
         $this->logSection('upgrade-sql', "AtoM theme changed to $chosenTheme.");
       }
     }
   }
 
+  /**
+   * Change to a new theme, selected out of a list provided.
+   *
+   * @param array  $themes  The themes present in the plugins/ folder ($name => $path)
+   * @return string  The new theme name
+   */
   private function getNewTheme($themes)
   {
     if (!function_exists('readline'))
     {
-      throw new Exception('This tasks needs the PHP readline extension.');
+      throw new Exception('This task needs the PHP readline extension.');
     }
 
     for (;;)
@@ -383,34 +424,40 @@ EOF;
   }
 
   /**
-   * Get all theme names and paths that are currently present in the plugins/ directory.
+   * Get plugins that are currently present in the plugins/ directory.
+   *
+   * @param $themePluginsOnly  Whether to get all plugins or just theme plugins
    * @return array  An array containing the theme names and paths ($name => $path)
    */
-  private function getThemesInPluginDir()
+  private function getPluginsPresent($themePluginsOnly = false)
   {
-    // Some of this code is duplicated in themesAction.class.php. Perhaps we could refactor?
-    // There were some key differences though.
     $pluginPaths = $this->configuration->getAllPluginPaths();
 
-    $themes = array();
+    $plugins = array();
     foreach ($pluginPaths as $name => $path)
     {
-      $className = $name.'Configuration';
+      $className = $name . 'Configuration';
 
       if (strpos($path, sfConfig::get('sf_plugins_dir')) === 0 &&
-          is_readable($classPath = $path.'/config/'.$className.'.class.php'))
+          is_readable($classPath = $path . '/config/' . $className . '.class.php'))
       {
-        require_once $classPath;
-        $class = new $className($this->configuration);
-
-        // Build a list of themes
-        if (isset($class::$summary) && 1 === preg_match('/theme/i', $class::$summary))
+        if ($themePluginsOnly)
         {
-          $themes[$name] = $path;
+          require_once $classPath;
+          $class = new $className($this->configuration);
+
+          if (isset($class::$summary) && 1 === preg_match('/theme/i', $class::$summary))
+          {
+            $plugins[$name] = $path;
+          }
+        }
+        else
+        {
+          $plugins[$name] = $path;
         }
       }
     }
 
-    return $themes;
+    return $plugins;
   }
 }
