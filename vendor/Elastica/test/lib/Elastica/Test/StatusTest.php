@@ -36,12 +36,14 @@ class StatusTest extends BaseTest
         $index = $client->getIndex($indexName);
         $index->create(array(), true);
         $index = $this->_createIndex();
+		$index->refresh();
+		$index->optimize();
 
         $status = new Status($index->getClient());
         $names = $status->getIndexNames();
 
         $this->assertInternalType('array', $names);
-        $this->assertTrue(in_array($index->getName(), $names));
+        $this->assertContains($index->getName(), $names);
 
         foreach ($names as $name) {
             $this->assertInternalType('string', $name);
@@ -88,6 +90,12 @@ class StatusTest extends BaseTest
         $index1->addAlias($aliasName);
         $status->refresh();
         $this->assertTrue($status->aliasExists($aliasName));
+
+        $indicesWithAlias = $status->getIndicesWithAlias($aliasName);
+        $this->assertEquals(array("elastica_$indexName"), array_map(
+            function($index) {
+                return $index->getName();
+            }, $indicesWithAlias));
     }
 
     public function testServerStatus()
@@ -98,8 +106,8 @@ class StatusTest extends BaseTest
 
         $this->assertTrue(!empty($serverStatus) );
         $this->assertTrue('array' == gettype($serverStatus));
-        $this->assertArrayHasKey('ok', $serverStatus);
-        $this->assertTrue($serverStatus['ok']);
+        $this->assertArrayHasKey('status', $serverStatus);
+        $this->assertTrue($serverStatus['status'] == 200);
         $this->assertArrayHasKey('version', $serverStatus);
 
         $versionInfo = $serverStatus['version'];

@@ -1,6 +1,7 @@
 <?php
 
 namespace Elastica;
+use Elastica\Aggregation\AbstractAggregation;
 use Elastica\Exception\InvalidException;
 use Elastica\Exception\NotImplementedException;
 use Elastica\Facet\AbstractFacet;
@@ -8,6 +9,8 @@ use Elastica\Filter\AbstractFilter;
 use Elastica\Query\AbstractQuery;
 use Elastica\Query\MatchAll;
 use Elastica\Query\QueryString;
+use Elastica\Suggest\AbstractSuggest;
+use Elastica\Suggest;
 
 /**
  * Elastica query object
@@ -27,6 +30,13 @@ class Query extends Param
      * @var array Params
      */
     protected $_params = array();
+    
+    /**
+    * Suggest query or not
+    *
+    * @var int Suggest
+    */
+    protected $_suggest = 0;
 
     /**
      * Creates a query object
@@ -39,6 +49,8 @@ class Query extends Param
             $this->setRawQuery($query);
         } elseif ($query instanceof AbstractQuery) {
             $this->setQuery($query);
+        } elseif ($query instanceof Suggest) {
+            $this->setSuggest($query);
         }
     }
 
@@ -65,8 +77,15 @@ class Query extends Param
                 return $newQuery;
             case empty($query):
                 return new self(new MatchAll());
+            case is_array($query):
+                return new self($query);
             case is_string($query):
                 return new self(new QueryString($query));
+            case $query instanceof AbstractSuggest:
+                return new self(new Suggest($query));
+
+            case $query instanceof Suggest:
+                return new self($query);
 
         }
 
@@ -181,8 +200,6 @@ class Query extends Param
 
     /**
      * Sets maximum number of results for this query
-     *
-     * Setting the limit to 0, means no limit
      *
      * @param  int            $size OPTIONAL Maximal number of results for query (default = 10)
      * @return \Elastica\Query Query object
@@ -302,15 +319,37 @@ class Query extends Param
     }
 
     /**
+     * Adds an Aggregation to the query
+     *
+     * @param AbstractAggregation $agg
+     * @return \Elastica\Query Query object
+     */
+    public function addAggregation(AbstractAggregation $agg)
+    {
+        if (!array_key_exists('aggs', $this->_params)) {
+            $this->_params['aggs'] = array();
+        }
+        $this->_params['aggs'][$agg->getName()] = $agg->toArray();
+        return $this;
+    }
+
+    /**
      * Converts all query params to an array
      *
      * @return array Query array
      */
     public function toArray()
     {
-        // If no query is set, all query is chosen by default
-        if (!isset($this->_params['query'])) {
+        if (!isset($this->_params['query']) && ($this->_suggest == 0)) {
             $this->setQuery(new MatchAll());
+        }
+
+        if (isset($this->_params['facets']) && 0 === count($this->_params['facets'])) {
+            unset($this->_params['facets']);
+        }
+
+        if (isset($this->_params['post_filter']) && 0 === count($this->_params['post_filter'])) {
+            unset($this->_params['post_filter']);
         }
 
         return $this->_params;
@@ -331,4 +370,51 @@ class Query extends Param
 
         return $this->setParam('min_score', $minScore);
     }
+
+    /**
+     * Add a suggest term
+     *
+     * @param  \Elastica\Suggest $suggest suggestion object
+     */
+    public function setSuggest(Suggest $suggest)
+    {
+        $this->addParam(NULL, $suggest->toArray());
+        $this->_suggest = 1;
+    }
+
+    /**
+     * Add a Rescore
+     *
+     * @param  \Elastica\Rescore\AbstractRescore $suggest suggestion object
+     */
+    public function setRescore($rescore)
+    {
+        $this->setParam('rescore', $rescore->toArray());
+    }
+
+    /**
+     * Sets the _source field to be returned with every hit
+     *
+     * @param  array          $fields Fields to be returned
+     * @return \Elastica\Query Current object
+     * @link   http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.x/search-request-source-filtering.html
+     */
+    public function setSource(array $fields)
+    {
+        return $this->setParam('_source', $fields);
+    }
+
+    /**
+     * Sets post_filter argument for the query. The filter is applied after the query has executed
+     * @param   array $post
+     * @return  \Elastica\Query Current object
+     * @link    http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/_filtering_queries_and_aggregations.html#_post_filter
+     */
+    public function setPostFilter(array $post)
+    {
+        return $this->setParam("post_filter", $post);
+    }
 }
+
+
+

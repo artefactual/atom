@@ -10,9 +10,12 @@ use Elastica\Exception\Bulk\ResponseException;
 use Elastica\Exception\InvalidException;
 use Elastica\Exception\NotFoundException;
 use Elastica\Test\Base as BaseTest;
+use Elastica\Bulk\Action\AbstractDocument;
+use Elastica\Filter\Script;
 
 class BulkTest extends BaseTest
 {
+
     public function testSend()
     {
         $index = $this->_createIndex();
@@ -81,7 +84,8 @@ class BulkTest extends BaseTest
 {"name":"The Thing"}
 ';
 
-        $this->assertEquals($expected, (string) $bulk);
+        $expected = str_replace(PHP_EOL, "\n", $expected);
+        $this->assertEquals($expected, (string)str_replace(PHP_EOL, "\n", (string)$bulk));
 
         $response = $bulk->send();
 
@@ -126,6 +130,34 @@ class BulkTest extends BaseTest
         } catch (NotFoundException $e) {
             $this->assertTrue(true);
         }
+    }
+
+    public function testUnicodeBulkSend()
+    {
+        $index = $this->_createIndex();
+        $type = $index->getType('bulk_test');
+        $type2 = $index->getType('bulk_test2');
+        $client = $index->getClient();
+
+        $newDocument1 = $type->createDocument(1, array('name' => 'Сегодня, я вижу, особенно грустен твой взгляд,'));
+        $newDocument2 = new Document(2, array('name' => 'И руки особенно тонки, колени обняв.'));
+        $newDocument3 = $type->createDocument(3, array('name' => 'Послушай: далеко, далеко, на озере Чад / Изысканный бродит жираф.'));
+
+        $documents = array(
+            $newDocument1,
+            $newDocument2,
+            $newDocument3
+        );
+
+        $bulk = new Bulk($client);
+        $bulk->setType($type2);
+        $bulk->addDocuments($documents);
+
+        $actions = $bulk->getActions();
+
+        $this->assertSame($newDocument1, $actions[0]->getDocument());
+        $this->assertSame($newDocument2, $actions[1]->getDocument());
+        $this->assertSame($newDocument3, $actions[2]->getDocument());
     }
 
     public function testSetIndexType()
@@ -297,6 +329,27 @@ class BulkTest extends BaseTest
         );
     }
 
+    public function testCreateAbstractDocumentWithInvalidData()
+    {
+        //Wrong class type
+        try {
+            $badDocument = new \stdClass();
+            AbstractDocument::create($badDocument);
+            $this->fail('Tried to create an abstract document with an object that is not a Document or Script, but no exception was thrown');
+        } catch (\Exception $e) {
+            //Excepted exception was thrown.
+        }
+
+        //Try to create document with a script
+        try {
+            $script = new Script();
+            AbstractDocument::create($script, AbstractDocument::OP_TYPE_CREATE);
+            $this->fail('Tried to create an abstract document with a Script, but no exception was thrown');
+        } catch (\Exception $e) {
+            //Excepted exception was thrown.
+        }
+    }
+
     public function testErrorRequest()
     {
         $index = $this->_createIndex();
@@ -313,7 +366,7 @@ class BulkTest extends BaseTest
 
         $bulk = new Bulk($client);
         $bulk->addDocuments($documents);
-        
+
         try {
             $bulk->send();
             $bulk->fail('3rd document create should produce error');
@@ -349,6 +402,7 @@ class BulkTest extends BaseTest
 {"index":{}}
 {"name":"The Human Torch"}
 ';
+        $expectedJson = str_replace(PHP_EOL, "\n", $expectedJson);
         $this->assertEquals($expectedJson, $bulk->toString());
 
         $response = $bulk->send();
@@ -370,6 +424,9 @@ class BulkTest extends BaseTest
      */
     public function testUdp($clientConfig, $host, $port, $shouldFail = false)
     {
+        if (!function_exists('socket_create')) {
+            $this->markTestSkipped('Function socket_create() does not exist.');
+        }
         $client = new Client($clientConfig);
         $index = $client->getIndex('elastica_test');
         $index->create(array('index' => array('number_of_shards' => 1, 'number_of_replicas' => 0)), true);
@@ -408,6 +465,185 @@ class BulkTest extends BaseTest
                 $this->assertEquals($doc->getData(), $getDoc->getData());
             }
         }
+    }
+
+    public function testUpdate()
+    {
+        $index = $this->_createIndex();
+        $type = $index->getType('bulk_test');
+        $client = $index->getClient();
+
+        $doc1 = $type->createDocument(1, array('name' => 'John'));
+        $doc2 = $type->createDocument(2, array('name' => 'Paul'));
+        $doc3 = $type->createDocument(3, array('name' => 'George'));
+        $doc4 = $type->createDocument(4, array('name' => 'Ringo'));
+        $documents = array($doc1, $doc2, $doc3, $doc4);
+
+        //index some documents
+        $bulk = new Bulk($client);
+        $bulk->setType($type);
+        $bulk->addDocuments($documents);
+        $response = $bulk->send();
+
+        $this->assertTrue($response->isOk());
+        $this->assertFalse($response->hasError());
+
+        $index->refresh();
+
+        //test updating via document
+        $doc2 = $type->createDocument(2, array('name' => 'The Walrus'));
+        $bulk = new Bulk($client);
+        $bulk->setType($type);
+        $updateAction = new \Elastica\Bulk\Action\UpdateDocument($doc2);
+        $bulk->addAction($updateAction);
+        $response = $bulk->send();
+
+        $this->assertTrue($response->isOk());
+        $this->assertFalse($response->hasError());
+
+        $index->refresh();
+
+        $doc = $type->getDocument(2);
+        $docData = $doc->getData();
+        $this->assertEquals('The Walrus', $docData['name']);
+
+        //test updating via script
+        $script = new \Elastica\Script('ctx._source.name += param1;', array('param1' => ' was Paul'), null, 2);
+        $doc2 = new Document();
+        $script->setUpsert($doc2);
+        $updateAction = Action\AbstractDocument::create($script, Action::OP_TYPE_UPDATE);
+        $bulk = new Bulk($client);
+        $bulk->setType($type);
+        $bulk->addAction($updateAction);
+        $response = $bulk->send();
+
+        $this->assertTrue($response->isOk());
+        $this->assertFalse($response->hasError());
+
+        $index->refresh();
+
+        $doc2 = $type->getDocument(2);
+        $this->assertEquals('The Walrus was Paul', $doc2->name);
+
+        //test upsert
+        $script = new \Elastica\Script('ctx._scource.counter += count', array('count' => 1), null, 5);
+        $doc = new Document('', array('counter' => 1));
+        $script->setUpsert($doc);
+        $updateAction = Action\AbstractDocument::create($script, Action::OP_TYPE_UPDATE);
+        $bulk = new Bulk($client);
+        $bulk->setType($type);
+        $bulk->addAction($updateAction);
+        $response = $bulk->send();
+
+        $this->assertTrue($response->isOk());
+        $this->assertFalse($response->hasError());
+
+        $index->refresh();
+        $doc = $type->getDocument(5);
+        $this->assertEquals(1, $doc->counter);
+
+        //test doc_as_upsert
+        $doc = new \Elastica\Document(6, array('test' => 'test'));
+        $doc->setDocAsUpsert(true);
+        $updateAction = Action\AbstractDocument::create($doc, Action::OP_TYPE_UPDATE);
+        $bulk = new Bulk($client);
+        $bulk->setType($type);
+        $bulk->addAction($updateAction);
+        $response = $bulk->send();
+
+        $this->assertTrue($response->isOk());
+        $this->assertFalse($response->hasError());
+
+        $index->refresh();
+        $doc = $type->getDocument(6);
+        $this->assertEquals('test', $doc->test);
+
+        //test doc_as_upsert with set of documents (use of addDocuments)
+        $doc1 = new \Elastica\Document(7, array('test' => 'test1'));
+        $doc1->setDocAsUpsert(true);
+        $doc2 = new \Elastica\Document(8, array('test' => 'test2'));
+        $doc2->setDocAsUpsert(true);
+        $docs = array($doc1, $doc2);
+        $bulk = new Bulk($client);
+        $bulk->setType($type);
+        $bulk->addDocuments($docs, \Elastica\Bulk\Action::OP_TYPE_UPDATE);
+        $response = $bulk->send();
+
+        $this->assertTrue($response->isOk());
+        $this->assertFalse($response->hasError());
+
+        $index->refresh();
+        $doc = $type->getDocument(7);
+        $this->assertEquals('test1', $doc->test);
+        $doc = $type->getDocument(8);
+        $this->assertEquals('test2', $doc->test);
+
+        //test updating via document with json string as data
+        $doc3 = $type->createDocument(2);
+        $bulk = new Bulk($client);
+        $bulk->setType($type);
+        $doc3->setData('{"name" : "Paul it is"}');
+        $updateAction = new \Elastica\Bulk\Action\UpdateDocument($doc3);
+        $bulk->addAction($updateAction);
+        $response = $bulk->send();
+
+        $this->assertTrue($response->isOk());
+        $this->assertFalse($response->hasError());
+
+        $index->refresh();
+
+        $doc = $type->getDocument(2);
+        $docData = $doc->getData();
+        $this->assertEquals('Paul it is', $docData['name']);
+
+        $index->delete();
+    }
+
+    public function testGetPath()
+    {
+        $client = $this->_getClient();
+        $bulk = new Bulk($client);
+
+        $this->assertEquals('_bulk', $bulk->getPath());
+
+        $indexName = 'testIndex';
+
+        $bulk->setIndex($indexName);
+        $this->assertEquals($indexName . '/_bulk', $bulk->getPath());
+
+        $typeName = 'testType';
+        $bulk->setType($typeName);
+        $this->assertEquals($indexName . '/' . $typeName . '/_bulk', $bulk->getPath());
+    }
+
+    public function testRetry()
+    {
+        $index = $this->_createIndex();
+        $type = $index->getType('bulk_test');
+        $client = $index->getClient();
+
+        $doc1 = $type->createDocument(1, array('name' => 'Mister Fantastic'));
+        $doc1->setOpType(Action::OP_TYPE_UPDATE);
+        $doc1->setRetryOnConflict(5);
+
+        $bulk = new Bulk($client);
+        $bulk->addDocument($doc1);
+
+        $actions = $bulk->getActions();
+
+        $metadata = $actions[0]->getMetadata();
+        $this->assertEquals(5, $metadata[ '_retry_on_conflict' ]);
+
+        $script = new \Elastica\Script( '' );
+        $script->setRetryOnConflict(5);
+
+        $bulk = new Bulk($client);
+        $bulk->addScript($script);
+
+        $actions = $bulk->getActions();
+
+        $metadata = $actions[0]->getMetadata();
+        $this->assertEquals(5, $metadata[ '_retry_on_conflict' ]);
     }
 
     public function udpDataProvider()
@@ -465,8 +701,7 @@ class BulkTest extends BaseTest
                 true
             ),
             array(
-                array(
-                ),
+                array(),
                 'localhost',
                 9800,
                 true
