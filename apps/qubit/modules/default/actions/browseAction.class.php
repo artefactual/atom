@@ -75,10 +75,10 @@ class DefaultBrowseAction extends sfAction
         }
       }
 
-      if ($name != 'languages')
+      // Only add language filter to facets if languages is set
+      if ($name != 'languages' && isset($this->request->languages))
       {
-        $code = $this->request->getParameter('languages', sfConfig::get('sf_default_culture'));
-        $term = new \Elastica\Filter\Term(array('i18n.languages' => $code));
+        $term = new \Elastica\Filter\Term(array('i18n.languages' => $this->request->languages));
         $filter->addMust($term);
       }
 
@@ -96,12 +96,11 @@ class DefaultBrowseAction extends sfAction
   {
     $this->filters = array();
 
-    // Filter languages only if the languages facet is being used
-    if (isset($this::$FACETS['languages']))
+    // Filter languages only if the languages facet is being used and languages is set in the request
+    if (isset($this::$FACETS['languages']) && isset($this->request->languages))
     {
-      $code = $this->request->getParameter('languages', sfConfig::get('sf_default_culture'));
-      $this->filters['languages'] = $code;
-      $term = new \Elastica\Filter\Term(array($this::$FACETS['languages']['field'] => $code));
+      $this->filters['languages'] = $this->request->languages;
+      $term = new \Elastica\Filter\Term(array($this::$FACETS['languages']['field'] => $this->request->languages));
 
       $this->filterBool->addMust($term);
     }
@@ -172,6 +171,43 @@ class DefaultBrowseAction extends sfAction
         $facets[$name]['terms'][$term['term']] = array(
           'count' => $term['count'],
           'term' => $this->types[$term['term']]);
+      }
+
+      // Get unique descriptions count for languages facet
+      if ($name == 'languages')
+      {
+        // If the query is being filtered by language we need to execute
+        // the same query again without language filter to get the count
+        if (isset($this->filters['languages']))
+        {
+          // We're only filtering draft descriptions and other languages, so:
+          // Remove old filter (with language)
+          $queryParams = $this->query->getParams();
+          unset($queryParams['filter']);
+          $this->query->setRawQuery($queryParams);
+
+          // And create and add a new one only with drafts filtered (if needed)
+          $this->filterBool = new \Elastica\Filter\Bool;
+          QubitAclSearch::filterDrafts($this->filterBool);
+
+          if (0 < count($this->filterBool->toArray()))
+          {
+            $this->query->setFilter($this->filterBool);
+          }
+
+          $resultSetWithoutLanguageFilter = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($this->query);
+
+          $facets[$name]['terms']['unique'] = array(
+            'count' => $resultSetWithoutLanguageFilter->getTotalHits(),
+            'term' => 'Unique descriptions');
+        }
+        // Without language filter the count equals the number of hits
+        else
+        {
+          $facets[$name]['terms']['unique'] = array(
+            'count' => $resultSet->getTotalHits(),
+            'term' => 'Unique descriptions');
+        }
       }
     }
 
