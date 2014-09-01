@@ -281,8 +281,10 @@ function check_field_visibility($fieldName)
   return (is_using_cli() || sfContext::getInstance()->user->isAuthenticated()) || sfConfig::get($fieldName, false);
 }
 
-function get_search_i18n($hit, $fieldName, $cultureFallback = true, $allowEmpty = true)
+function get_search_i18n($hit, $fieldName, $cultureFallback = true, $allowEmpty = true, $selectedCulture = null)
 {
+  $userCulture = sfContext::getInstance()->user->getCulture();
+
   if ($hit instanceof \Elastica\Result)
   {
     $hit = $hit->getData();
@@ -290,9 +292,13 @@ function get_search_i18n($hit, $fieldName, $cultureFallback = true, $allowEmpty 
 
   $value = null;
 
-  if (isset($hit['i18n'][sfContext::getInstance()->user->getCulture()][$fieldName]))
+  if (isset($selectedCulture) && isset($hit['i18n'][$selectedCulture][$fieldName]))
   {
-    $value = $hit['i18n'][sfContext::getInstance()->user->getCulture()][$fieldName];
+    $value = $hit['i18n'][$selectedCulture][$fieldName];
+  }
+  else if (isset($hit['i18n'][$userCulture][$fieldName]))
+  {
+    $value = $hit['i18n'][$userCulture][$fieldName];
   }
   else if ($cultureFallback && isset($hit['i18n'][$hit['sourceCulture']][$fieldName]))
   {
@@ -307,10 +313,15 @@ function get_search_i18n($hit, $fieldName, $cultureFallback = true, $allowEmpty 
   return $value;
 }
 
-function get_search_i18n_highlight(\Elastica\Result $hit, $fieldName)
+function get_search_i18n_highlight(\Elastica\Result $hit, $fieldName, $culture = null)
 {
+  if (!isset($culture))
+  {
+    $culture = sfContext::getInstance()->user->getCulture();
+  }
+
   $highlights = $hit->getHighlights();
-  $field = 'i18n.'.sfContext::getInstance()->user->getCulture().'.'.$fieldName;
+  $field = 'i18n.'.$culture.'.'.$fieldName;
 
   if (isset($highlights[$field]))
   {
@@ -318,8 +329,13 @@ function get_search_i18n_highlight(\Elastica\Result $hit, $fieldName)
   }
 }
 
-function get_search_creation_details($hit)
+function get_search_creation_details($hit, $culture = null)
 {
+  if (!isset($culture))
+  {
+    $culture = sfContext::getInstance()->user->getCulture();
+  }
+
   if ($hit instanceof \Elastica\Result)
   {
     $hit = $hit->getData();
@@ -332,7 +348,7 @@ function get_search_creation_details($hit)
   {
     $creator = array_pop($hit['creators']);
 
-    $details[] = get_search_i18n($creator, 'authorizedFormOfName');
+    $details[] = get_search_i18n($creator, 'authorizedFormOfName', true, true, $culture);
   }
 
   // WIP, we are not showing labels for now. See #5202.

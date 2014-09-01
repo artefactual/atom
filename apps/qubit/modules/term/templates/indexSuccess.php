@@ -262,7 +262,7 @@
         </div>
       <?php endif; ?>
 
-      <?php echo get_partial('search/searchResults', array('pager' => $pager)) ?>
+      <?php echo get_partial('search/searchResults', array('pager' => $pager, 'culture' => $culture)) ?>
 
     </div>
   <?php endif; ?>
