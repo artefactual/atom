@@ -199,14 +199,14 @@ class DefaultBrowseAction extends sfAction
 
           $facets[$name]['terms']['unique'] = array(
             'count' => $resultSetWithoutLanguageFilter->getTotalHits(),
-            'term' => 'Unique descriptions');
+            'term' => 'Unique documents');
         }
         // Without language filter the count equals the number of hits
         else
         {
           $facets[$name]['terms']['unique'] = array(
             'count' => $resultSet->getTotalHits(),
-            'term' => 'Unique descriptions');
+            'term' => 'Unique documents');
         }
       }
     }
