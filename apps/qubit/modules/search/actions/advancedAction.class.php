@@ -313,42 +313,42 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
         case 'title':
           $queryField = new \Elastica\Query\QueryString($query);
-          $queryField->setDefaultField('i18n.'.$culture.'.title');
+          $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.title'));
           $queryField->setDefaultOperator('OR');
 
           break;
 
         case 'scopeAndContent':
           $queryField = new \Elastica\Query\QueryString($query);
-          $queryField->setDefaultField('i18n.'.$culture.'.scopeAndContent');
+          $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.scopeAndContent'));
           $queryField->setDefaultOperator('OR');
 
           break;
 
         case 'archivalHistory':
           $queryField = new \Elastica\Query\QueryString($query);
-          $queryField->setDefaultField('i18n.'.$culture.'.archivalHistory');
+          $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.archivalHistory'));
           $queryField->setDefaultOperator('OR');
 
           break;
 
         case 'extentAndMedium':
           $queryField = new \Elastica\Query\QueryString($query);
-          $queryField->setDefaultField('i18n.'.$culture.'.extentAndMedium');
+          $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.extentAndMedium'));
           $queryField->setDefaultOperator('OR');
 
           break;
 
         case 'subject':
           $queryField = new \Elastica\Query\QueryString($query);
-          $queryField->setDefaultField('subjects.i18n.'.$culture.'.name');
+          $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('subjects.i18n.%s.name'));
           $queryField->setDefaultOperator('OR');
 
           break;
 
         case 'name':
           $queryField = new \Elastica\Query\QueryString($query);
-          $queryField->setDefaultField('names.i18n.'.$culture.'.authorizedFormOfName');
+          $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('names.i18n.%s.authorizedFormOfName'));
           $queryField->setDefaultOperator('OR');
 
           break;
@@ -357,12 +357,12 @@ class SearchAdvancedAction extends DefaultBrowseAction
           $queryField = new \Elastica\Query\Bool();
 
           $queryPlaceTermName = new \Elastica\Query\QueryString($query);
-          $queryPlaceTermName->setDefaultField('places.i18n.'.$culture.'.name');
+          $queryPlaceTermName->setFields(arElasticSearchPluginUtil::getI18nFieldNames('places.i18n.%s.name'));
           $queryPlaceTermName->setDefaultOperator('OR');
           $queryField->addShould($queryPlaceTermName);
 
           $queryPlaceTermUseFor = new \Elastica\Query\QueryString($query);
-          $queryPlaceTermUseFor->setDefaultField('places.useFor.i18n.'.$culture.'.name');
+          $queryPlaceTermUseFor->setFields(arElasticSearchPluginUtil::getI18nFieldNames('places.useFor.i18n.%s.name'));
           $queryPlaceTermUseFor->setDefaultOperator('OR');
           $queryField->addShould($queryPlaceTermUseFor);
 

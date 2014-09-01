@@ -142,7 +142,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     {
       $queryText = new \Elastica\Query\QueryString($request->subquery);
       $queryText->setDefaultOperator('AND');
-      $queryText->setDefaultField(sprintf('i18n.%s.title', $this->context->user->getCulture()));
+      $queryText->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.title'));
 
       $this->queryBool->addMust($queryText);
     }
