@@ -109,7 +109,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
       case 'identifier':
         $this->query->addSort(array('identifier' => 'asc'));
       case 'alphabetic':
-        $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->context->user->getCulture());
+        $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->selectedCulture);
         $this->query->addSort(array($field => 'asc'));
 
         break;

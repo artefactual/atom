@@ -266,5 +266,14 @@ class DefaultBrowseAction extends sfAction
 
       $this->addFilters();
     }
+
+    if (isset($this->filters['languages']))
+    {
+      $this->selectedCulture = $this->filters['languages'];
+    }
+    else
+    {
+      $this->selectedCulture = $this->context->user->getCulture();
+    }
   }
 }
