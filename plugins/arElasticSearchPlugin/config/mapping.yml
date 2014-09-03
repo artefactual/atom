@@ -256,10 +256,10 @@ mapping:
         properties:
           label: { type: string, index: not_analyzed }
           identifier: { type: string, index: not_analyzed }
-      inherit_reference_code:
+      reference_code:
         type: multi_field
         fields:
-          inheritReferenceCode:
+          referenceCode:
             type: string
             index: analyzed
           untouched:

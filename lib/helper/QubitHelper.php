@@ -390,9 +390,9 @@ function get_search_autocomplete_string($hit)
   }
 
   if ('1' == sfConfig::get('app_inherit_code_informationobject', 1)
-    && isset($hit['inheritReferenceCode']) && !empty($hit['inheritReferenceCode']))
+    && isset($hit['referenceCode']) && !empty($hit['referenceCode']))
   {
-    $levelOfDescriptionAndIdentifier[] = $hit['inheritReferenceCode'];
+    $levelOfDescriptionAndIdentifier[] = $hit['referenceCode'];
   }
   elseif (isset($hit['identifier']) && !empty($hit['identifier']))
   {

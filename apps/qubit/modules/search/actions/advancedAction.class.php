@@ -306,7 +306,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
         case 'referenceCode':
           $queryField = new \Elastica\Query\QueryString($query);
-          $queryField->setDefaultField('inheritReferenceCode');
+          $queryField->setDefaultField('referenceCode');
           $queryField->setDefaultOperator('OR');
 
           break;

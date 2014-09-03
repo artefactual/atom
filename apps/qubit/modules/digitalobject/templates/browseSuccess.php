@@ -61,8 +61,8 @@
         <?php endif; ?>
       </div>
       <p class="description"><?php echo render_title(get_search_i18n($doc, 'title')) ?></p>
-      <?php if ('1' == sfConfig::get('app_inherit_code_informationobject', 1) && isset($doc['inheritReferenceCode']) && !empty($doc['inheritReferenceCode'])) : ?>
-        <div class="bottom"><p><?php echo $doc['inheritReferenceCode'] ?></p></div>
+      <?php if ('1' == sfConfig::get('app_inherit_code_informationobject', 1) && isset($doc['referenceCode']) && !empty($doc['referenceCode'])) : ?>
+        <div class="bottom"><p><?php echo $doc['referenceCode'] ?></p></div>
       <?php elseif (!empty($doc['identifier'])) : ?>
         <div class="bottom"><p><?php echo $doc['identifier'] ?></p></div>
       <?php endif; ?>
