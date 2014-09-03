@@ -81,10 +81,6 @@
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'autocomplete')) ?>"/>
         </div>
 
-        <?php echo render_field($form->archivalHistory
-          ->label(__('Administrative/biographical history'))
-          ->help(__('At the highest level of description, give information about the history of corporate body(ies), person(s), or family(ies) that created, assembled, accumulated, and/or maintained and used the material as a whole (DACS 2.7.6). Optionally, at subsequent levels of description, if the creator of the subordinate unit is different from the creator of the material as a whole, give information about the history of the corporate body(ies), person(s), or family(ies) that created, assembled, accumulated, and/or maintained and used that subordinate unit. (DACS 2.7.7)')), $resource, array('class' => 'resizable')) ?>
-
         <?php echo get_partial('informationobject/childLevels', array('help' => __('<strong>Identifier</strong><br />Provide a unique identifier for the materials being described in accordance with the institution’s administrative control system.<br /><strong>Level of description</strong><br />Record the level of this unit of description.<br /><strong>Title</strong><br />In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material.<br /><strong>Date</strong><br />Record a date of creation.'))) ?>
 
       </fieldset> <!-- /#identityArea -->
