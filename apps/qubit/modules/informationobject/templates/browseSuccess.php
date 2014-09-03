@@ -121,7 +121,7 @@
         'options' => array(
           'lastUpdated' => __('Most recent'),
           'alphabetic' => __('Alphabetic'),
-          'identifier' => __('Reference Code')))) ?>
+          'identifier' => __('Reference code')))) ?>
 
   </section>
 
