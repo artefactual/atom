@@ -262,6 +262,9 @@ mapping:
           inheritReferenceCode:
             type: string
             index: analyzed
+          untouched:
+            type: string
+            index: not_analyzed
           autocomplete:
             include_in_all: false
             index_analyzer: autocomplete

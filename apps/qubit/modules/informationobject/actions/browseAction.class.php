@@ -200,7 +200,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     switch ($request->sort)
     {
       case 'identifier':
-        $this->query->addSort(array('referenceCode' => 'asc'));
+        $this->query->addSort(array('inheritReferenceCode.untouched' => 'asc'));
 
       // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
