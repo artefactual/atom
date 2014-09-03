@@ -261,7 +261,13 @@ class QubitRepository extends BaseRepository
       return 0;
     }
 
-    return Qubit::getDirectorySize($repoDir, $options);
+    $size = Qubit::getDirectorySize($repoDir, $options);
+    if ($size < 0)
+    {
+      $size = 0;
+    }
+
+    return $size;
   }
 
 

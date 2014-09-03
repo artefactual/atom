@@ -2996,6 +2996,17 @@ class QubitDigitalObject extends BaseDigitalObject
    */
   public static function reachedAppUploadLimit()
   {
-    return sfConfig::get('app_upload_limit', 0) > 0 && Qubit::getDirectorySize(sfConfig::get('sf_upload_dir')) > sfConfig::get('app_upload_limit', 0) * pow(1024, 3);
+    if (sfConfig::get('app_upload_limit', 0) == 0)
+    {
+      return false;
+    }
+
+    $size = Qubit::getDirectorySize(sfConfig::get('sf_upload_dir'));
+    if ($size < 0)
+    {
+      return false;
+    }
+
+    return $size > sfConfig::get('app_upload_limit', 0) * pow(1024, 3);
   }
 }
