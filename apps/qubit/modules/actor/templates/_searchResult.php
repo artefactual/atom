@@ -8,11 +8,11 @@
 
     <ul class="result-details">
 
-      <?php if (isset($doc['descriptionIdentifier']) && !empty($doc['descriptionIdentifier'])): ?>
+      <?php if (!empty($doc['descriptionIdentifier'])): ?>
         <li class="reference-code"><?php echo $doc['descriptionIdentifier'] ?></li>
       <?php endif; ?>
 
-      <?php if (isset($doc['entityTypeId']) && isset($types[$doc['entityTypeId']])): ?>
+      <?php if (!empty($types[$doc['entityTypeId']])): ?>
         <li><?php echo $types[$doc['entityTypeId']] ?></li>
       <?php endif; ?>
 
