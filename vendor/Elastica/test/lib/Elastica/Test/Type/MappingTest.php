@@ -2,7 +2,6 @@
 
 namespace Elastica\Test\Type;
 
-use Elastica\Client;
 use Elastica\Document;
 use Elastica\Query;
 use Elastica\Query\QueryString;
@@ -50,7 +49,7 @@ class MappingTest extends BaseTest
         $result = $resultSet->current();
         $fields = $result->getFields();
 
-        $this->assertEquals($firstname, $fields['firstname']);
+        $this->assertEquals($firstname, $fields['firstname'][0]);
         $this->assertArrayNotHasKey('lastname', $fields);
         $this->assertEquals(1, count($fields));
 
@@ -58,6 +57,26 @@ class MappingTest extends BaseTest
         $document = $type->getDocument(1);
 
         $this->assertEmpty($document->getData());
+
+        $index->delete();
+    }
+
+    public function testEnableAllField()
+    {
+        $index = $this->_createIndex();
+        $type = $index->getType('test');
+
+        $mapping = new Mapping($type, array());
+
+        $mapping->enableAllField();
+
+        $data = $mapping->toArray();
+        $this->assertTrue($data[$type->getName()]['_all']['enabled']);
+
+        $response = $mapping->send();
+        $this->assertTrue($response->isOk());
+
+        $index->delete();
     }
 
     public function testEnableTtl()
@@ -74,6 +93,8 @@ class MappingTest extends BaseTest
 
         $data = $mapping->toArray();
         $this->assertTrue($data[$type->getName()]['_ttl']['enabled']);
+
+        $index->delete();
     }
 
     public function testNestedMapping()
@@ -111,13 +132,12 @@ class MappingTest extends BaseTest
             ),
         ));
 
-        //print_r($type->getMapping());
-        //exit();
         $type->addDocument($doc);
 
         $index->refresh();
         $resultSet = $type->search('ruflin');
-        //print_r($resultSet);
+
+        $index->delete();
     }
 
     public function testParentMapping()
@@ -144,6 +164,8 @@ class MappingTest extends BaseTest
 
         $data = $childmapping->toArray();
         $this->assertEquals('parenttype', $data[$childtype->getName()]['_parent']['type']);
+
+        $index->delete();
     }
 
     public function testMappingExample()
@@ -179,6 +201,8 @@ class MappingTest extends BaseTest
         );
 
         $type->addDocument($doc);
+
+        $index->delete();
     }
 
     /**
@@ -209,10 +233,14 @@ class MappingTest extends BaseTest
         
         $mapping->send();
         
+        // when running the tests, the mapping sometimes isn't available yet. Optimize index to enforce reload mapping.
+        $index->optimize();
+        
         // create a document which should create a mapping for the field: multiname.
         $testDoc = new Document('person1', array('multiname' => 'Jasper van Wanrooy'), $type);
         $index->addDocuments(array($testDoc));
-        
+        sleep(1);   //sleep 1 to ensure that the test passes every time
+
         // read the mapping from Elasticsearch and assert that the multiname.org field is "not_analyzed"
         $newMapping = $type->getMapping();
         $this->assertArrayHasKey('person', $newMapping,
@@ -228,5 +256,49 @@ class MappingTest extends BaseTest
         $this->assertArrayHasKey('index', $newMapping['person']['properties']['multiname']['fields']['org'],
             'Indexing status of the multiname.org not available. Dynamic mapping not fully applied!');
         $this->assertEquals('not_analyzed', $newMapping['person']['properties']['multiname']['fields']['org']['index']);
+
+        $index->delete();
+    }
+
+    public function testSetMeta()
+    {
+        $index = $this->_createIndex();
+        $type = $index->getType('test');
+        $mapping = new Mapping($type, array(
+            'firstname' => array('type' => 'string', 'store' => 'yes'),
+            'lastname' => array('type' => 'string')
+        ));
+        $mapping->setMeta(array('class' => 'test'));
+        $type->setMapping($mapping);
+
+        $mappingData = $type->getMapping();
+        $this->assertEquals('test', $mappingData['test']['_meta']['class']);
+
+        $index->delete();
+    }
+
+    public function testGetters()
+    {
+        $index = $this->_createIndex();
+        $type = $index->getType('test');
+        $properties = array(
+            'firstname' => array('type' => 'string', 'store' => 'yes'),
+            'lastname' => array('type' => 'string')
+        );
+        $mapping = new Mapping($type, $properties);
+        $all = array(
+           "enabled" => true,
+           "store" => "yes"
+        );
+        $mapping->setParam('_all', $all);
+        $get_all = $mapping->getParam('_all');
+
+        $this->assertEquals($get_all, $all);
+
+        $this->assertNull($mapping->getParam('_boost', $all));
+
+        $this->assertEquals($properties, $mapping->getProperties());
+
+        $index->delete();
     }
 }

@@ -65,14 +65,25 @@ class arElasticSearchPlugin extends QubitSearchEngine
   protected $enabled = true;
 
   /**
+   * Minimum version of Elasticsearch supported
+   */
+  const MIN_VERSION = '1.3.0';
+
+  /**
    * Constructor
    */
   public function __construct(array $options = array())
   {
     parent::__construct();
 
+    $this->cache = QubitCache::getInstance();
+
     $this->config = arElasticSearchPluginConfiguration::$config;
     $this->client = new \Elastica\Client($this->config['server']);
+
+    // Verify the version running in the server
+    $this->checkVersion();
+
     $this->index = $this->client->getIndex($this->config['index']['name']);
 
     // Load batch mode configuration
@@ -102,6 +113,45 @@ class arElasticSearchPlugin extends QubitSearchEngine
     }
 
     $this->index->refresh();
+  }
+
+  /**
+   * Obtain the version of the Elasticsearch server
+   */
+  private function getVersion()
+  {
+    $data = $this->client->request('/')->getData();
+    if (null === $version = @$data['version']['number'])
+    {
+      throw new \Elastica\Exception\ResponseException('Unexpected response');
+    }
+
+    return $version;
+  }
+
+  /**
+   * Check if the server version is recent enough and cache it if so to avoid
+   * hitting Elasticsearch again for each request
+   */
+  private function checkVersion()
+  {
+    // Avoid the check if the cache entry is still available
+    if ($this->cache->has('elasticsearch_version_ok'))
+    {
+      return;
+    }
+
+    // This is slow as it hits the server
+    $version = $this->getVersion();
+    if (!version_compare($version, self::MIN_VERSION, '>='))
+    {
+      $message = sprintf('The version of Elasticsearch that you are running is out of date (%s), and no longer compatible with this version of AtoM. Please upgrade to version %s or newer.', $version, self::MIN_VERSION);
+      throw new \Elastica\Exception\ClientException($message);
+    }
+
+    // We know at this point that the server meets the requirements. We cache it
+    // for an hour.
+    $this->cache->set('elasticsearch_version_ok', 1, 3600);
   }
 
   /**

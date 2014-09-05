@@ -79,7 +79,7 @@ class SearchAutocompleteAction extends sfAction
                   'number_of_fragments' => 0, // Request the entire field
               ))));
 
-      $queryText = new \Elastica\Query\Text();
+      $queryText = new \Elastica\Query\Match();
       $queryText->setFieldQuery($item['field'].'.autocomplete', $this->queryString);
 
       if (isset($request->repos) && ctype_digit($request->repos) && 'QubitInformationObject' == $item['type'])

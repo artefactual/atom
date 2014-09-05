@@ -270,7 +270,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
           $queryAncestors->setTerm('ancestors', $fonds->id);
           $query->addShould($queryAncestors);
 
-          $querySelf = new \Elastica\Query\Text();
+          $querySelf = new \Elastica\Query\Match();
           $querySelf->setFieldQuery('slug', $fonds->slug);
           $query->addShould($querySelf);
 

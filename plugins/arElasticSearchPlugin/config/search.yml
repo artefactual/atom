@@ -12,7 +12,7 @@ all:
     # Server defaults to localhost:9200 if omitted
     # It can also be used to configure a cluster of ElasticSearch nodes
     # See more info at: http://ruflin.github.com/Elastica/
-    host: localhost
+    host: 127.0.0.1
     port: 9200
 
     # This will write the JSON request in the file given
@@ -31,12 +31,97 @@ all:
       number_of_replicas: 1
 
       analysis:
+
         analyzer:
+
           # This is a special analyzer for autocomplete searches. It's used only
           # in some fields as it can make the index very big.
           autocomplete:
             tokenizer: whitespace
             filter: [lowercase, engram]
+
+          std_arabic:
+            type: standard
+            stopwords: _arabic_
+          std_armenian:
+            type: standard
+            stopwords: _armenian_
+          std_basque:
+            type: standard
+            stopwords: _basque_
+          std_brazilian:
+            type: standard
+            stopwords: _brazilian_
+          std_bulgarian:
+            type: standard
+            stopwords: _bulgarian_
+          std_catalan:
+            type: standard
+            stopwords: _catalan_
+          std_czech:
+            type: standard
+            stopwords: _czech_
+          std_danish:
+            type: standard
+            stopwords: _danish_
+          std_dutch:
+            type: standard
+            stopwords: _dutch_
+          std_english:
+            type: standard
+            stopwords: _english_
+          std_finnish:
+            type: standard
+            stopwords: _finnish_
+          std_french:
+            type: standard
+            stopwords: _french_
+          std_galician:
+            type: standard
+            stopwords: _galician_
+          std_german:
+            type: standard
+            stopwords: _german_
+          std_greek:
+            type: standard
+            stopwords: _greek_
+          std_hindi:
+            type: standard
+            stopwords: _hindi_
+          std_hungarian:
+            type: standard
+            stopwords: _hungarian_
+          std_indonesian:
+            type: standard
+            stopwords: _indonesian_
+          std_italian:
+            type: standard
+            stopwords: _italian_
+          std_norwegian:
+            type: standard
+            stopwords: _norwegian_
+          std_persian:
+            type: standard
+            stopwords: _persian_
+          std_portuguese:
+            type: standard
+            stopwords: _portuguese_
+          std_romanian:
+            type: standard
+            stopwords: _romanian_
+          std_russian:
+            type: standard
+            stopwords: _russian_
+          std_spanish:
+            type: standard
+            stopwords: _spanish_
+          std_swedish:
+            type: standard
+            stopwords: _swedish_
+          std_turkish:
+            type: standard
+            stopwords: _turkish_
+
         filter:
           engram:
             type: edgeNGram

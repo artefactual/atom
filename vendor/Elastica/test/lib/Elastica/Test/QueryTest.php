@@ -8,6 +8,7 @@ use Elastica\Query\Builder;
 use Elastica\Query\Term;
 use Elastica\Query\Text;
 use Elastica\Query;
+use Elastica\Facet\Terms;
 use Elastica\Test\Base as BaseTest;
 
 class QueryTest extends BaseTest
@@ -52,10 +53,27 @@ class QueryTest extends BaseTest
 
     public function testRawQuery()
     {
-        $textQuery = new Text();
-        $textQuery->setField('title', 'test');
+        $textQuery = new Term(array('title' => 'test'));
 
         $query1 = Query::create($textQuery);
+
+        $query2 = new Query();
+        $query2->setRawQuery(array('query' => array('term' => array('title' => 'test'))));
+
+        $this->assertEquals($query1->toArray(), $query2->toArray());
+    }
+
+    public function testArrayQuery()
+    {
+        $query = array(
+            'query' => array(
+                'text' => array(
+                    'title' => 'test'
+                )
+            )
+        );
+
+        $query1 = Query::create($query);
 
         $query2 = new Query();
         $query2->setRawQuery(array('query' => array('text' => array('title' => 'test'))));
@@ -155,5 +173,22 @@ class QueryTest extends BaseTest
         $query->setQuery($termQuery);
 
         $this->assertEquals($termQuery->toArray(), $query->getQuery());
+    }
+
+    public function testSetFacets()
+    {
+        $query = new Query();
+
+        $facet = new Terms('text');
+        $query->setFacets(array($facet));
+
+        $data = $query->toArray();
+
+        $this->assertArrayHasKey('facets', $data);
+        $this->assertEquals(array('text' => array('terms' => array())), $data['facets']);
+
+        $query->setFacets(array());
+
+        $this->assertArrayNotHasKey('facets', $query->toArray());
     }
 }

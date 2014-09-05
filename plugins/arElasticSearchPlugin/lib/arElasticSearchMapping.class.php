@@ -27,6 +27,41 @@ class arElasticSearchMapping
   protected $nestedTypes = null;
 
   /**
+   * Associative array that maps iso639-1 language codes to the different
+   * analyzers that have been defined in search.yml for each stopword list
+   * provided by Elasticsearch.
+   */
+  private static $analyzers = array(
+    'ar' => 'std_arabic',
+    'hy' => 'std_armenian',
+    'ba' => 'std_basque',
+    'br' => 'std_brazilian',
+    'bg' => 'std_bulgarian',
+    'ca' => 'std_catalan',
+    'cz' => 'std_czech',
+    'da' => 'std_danish',
+    'nl' => 'std_dutch',
+    'en' => 'std_english',
+    'fi' => 'std_finnish',
+    'fr' => 'std_french',
+    'gl' => 'std_galician',
+    'ge' => 'std_german',
+    'el' => 'std_greek',
+    'hi' => 'std_hindi',
+    'hu' => 'std_hungarian',
+    'id' => 'std_indonesian',
+    'it' => 'std_italian',
+    'no' => 'std_norwegian',
+    'fa' => 'std_persian',
+    'pt' => 'std_portuguese',
+    'ro' => 'std_romanian',
+    'ru' => 'std_russian',
+    'es' => 'std_spanish',
+    'sv' => 'std_swedish',
+    'tr' => 'std_turkish'
+  );
+
+  /**
    * Dumps schema as array
    *
    * @return array
@@ -393,7 +428,7 @@ class arElasticSearchMapping
   protected function getI18nFieldMapping($fieldName)
   {
     return   array(
-      'type' => 'multi_field',
+      'type' => 'string',
       'fields' => array(
         $fieldName => array(
           'type' => 'string',
@@ -411,6 +446,17 @@ class arElasticSearchMapping
     foreach ($languages as $setting)
     {
       $culture = $setting->getValue(array('sourceCulture' => true));
+
+      // Iterate each field and assign a custom standard analyzer (e.g.
+      // std_french in search.yml) based in the language being used. The default
+      // analyzer is standard, which does not provide a stopwords list.
+      foreach ($nestedI18nFields as $fn => &$fv)
+      {
+        $analyzer = isset(self::$analyzers[$culture]) ? self::$analyzers[$culture] : 'standard';
+
+        $fv['fields'][$fn]['analyzer'] = $analyzer;
+      }
+
       $mapping[$culture] = array(
         'type' => 'object',
         'dynamic' => 'strict',
