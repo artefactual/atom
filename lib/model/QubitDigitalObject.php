@@ -1703,7 +1703,7 @@ class QubitDigitalObject extends BaseDigitalObject
       throw new sfException('Couldn\'t find related information object for digital object');
     }
 
-    if ($this->usageId == QubitTerm::MASTER_ID)
+    if ($this->usageId == QubitTerm::MASTER_ID || $this->parent->usageId == QubitTerm::EXTERNAL_URI_ID)
     {
       $id = (string) $infoObject->id;
 
