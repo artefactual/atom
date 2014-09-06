@@ -35,7 +35,9 @@
           <?php echo render_field($form->name, $resource) ?>
         <?php endif; ?>
 
-        <?php echo $form->useFor->renderRow() ?>
+        <?php echo $form->useFor
+          ->label(__('Use for'))
+          ->renderRow() ?>
 
         <?php echo render_field($form->code, $resource) ?>
 
