@@ -60,7 +60,17 @@ class SearchAutocompleteAction extends sfAction
       array(
         'type' => 'QubitActor',
         'field' => sprintf('i18n.%s.authorizedFormOfName', $culture),
-        'fields' => array('slug', sprintf('i18n.%s.title', $culture)))) as $item)
+        'fields' => array('slug', sprintf('i18n.%s.title', $culture))),
+      array(
+        'type' => 'QubitTerm',
+        'field' => sprintf('i18n.%s.name', $culture),
+        'fields' => array('slug', sprintf('i18n.%s.name', $culture)),
+        'term_filter' => array('taxonomyId' => QubitTaxonomy::PLACE_ID)),
+      array(
+        'type' => 'QubitTerm',
+        'field' => sprintf('i18n.%s.name', $culture),
+        'fields' => array('slug', sprintf('i18n.%s.name', $culture)),
+        'term_filter' => array('taxonomyId' => QubitTaxonomy::SUBJECT_ID))) as $item)
     {
       $search = new \Elastica\Search($client);
       $search
@@ -79,24 +89,28 @@ class SearchAutocompleteAction extends sfAction
                   'number_of_fragments' => 0, // Request the entire field
               ))));
 
+      $queryBool = new \Elastica\Query\Bool;
+
+      // Match in autocomplete
       $queryText = new \Elastica\Query\Match();
       $queryText->setFieldQuery($item['field'].'.autocomplete', $this->queryString);
+      $queryBool->addMust($queryText);
+
+      // Add term_fitler
+      if (isset($item['term_filter']) && is_array($item['term_filter']))
+      {
+        $queryBool->addMust(new \Elastica\Query\Term($item['term_filter']));
+      }
 
       if (isset($request->repos) && ctype_digit($request->repos) && 'QubitInformationObject' == $item['type'])
       {
-        $queryBool = new \Elastica\Query\Bool;
-        $queryBool->addMust($queryText);
         $queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $request->repos)));
-        $query->setQuery($queryBool);
 
         // Store realm in user session
         $this->context->user->setAttribute('search-realm', $request->repos);
       }
-      else
-      {
-        $query->setQuery($queryText);
-      }
 
+      $query->setQuery($queryBool);
       $search->setQuery($query);
 
       if ('QubitInformationObject' == $item['type'])
@@ -122,9 +136,11 @@ class SearchAutocompleteAction extends sfAction
     $this->descriptions = $resultSets[0];
     $this->repositories = $resultSets[1];
     $this->actors = $resultSets[2];
+    $this->places = $resultSets[3];
+    $this->subjects = $resultSets[4];
 
     // Return a 404 response if there are no results
-    if (0 == $this->descriptions->getTotalHits() + $this->repositories->getTotalHits() + $this->actors->getTotalHits())
+    if (0 == $this->descriptions->getTotalHits() + $this->repositories->getTotalHits() + $this->actors->getTotalHits() + $this->places->getTotalHits() + $this->subjects->getTotalHits())
     {
       $this->forward404();
     }

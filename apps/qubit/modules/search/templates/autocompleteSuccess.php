@@ -42,3 +42,31 @@
     </ul>
   </section>
 <?php endif; ?>
+
+<?php if ($places->getTotalHits() > 0): ?>
+  <section>
+    <?php echo image_tag('/images/icons-small/icon-places-small.png', array('width' => '24', 'height' => '24')) ?>
+    <ul>
+      <?php foreach ($places->getResults() as $hit): ?>
+        <li><?php echo link_to(get_search_i18n_highlight($hit, 'name.autocomplete'), array('module' => 'term', 'slug' => current($hit->slug))) ?></li>
+      <?php endforeach; ?>
+      <?php if ($places->getTotalHits() > 3): ?>
+        <li class="showall"><?php echo link_to(__('all places'), array('module' => 'taxonomy', 'slug' => 'places')) ?></li>
+      <?php endif; ?>
+    </ul>
+  </section>
+<?php endif; ?>
+
+<?php if ($subjects->getTotalHits() > 0): ?>
+  <section>
+    <?php echo image_tag('/images/icons-small/icon-subjects-small.png', array('width' => '24', 'height' => '24')) ?>
+    <ul>
+      <?php foreach ($subjects->getResults() as $hit): ?>
+        <li><?php echo link_to(get_search_i18n_highlight($hit, 'name.autocomplete'), array('module' => 'term', 'slug' => current($hit->slug))) ?></li>
+      <?php endforeach; ?>
+      <?php if ($subjects->getTotalHits() > 3): ?>
+        <li class="showall"><?php echo link_to(__('all subjects'), array('module' => 'taxonomy', 'slug' => 'subjects')) ?></li>
+      <?php endif; ?>
+    </ul>
+  </section>
+<?php endif; ?>
