@@ -7,11 +7,10 @@
     <?php echo __('No results found.') ?>
 
     <?php if (isset($suggestion)): ?>
-      <?php $sf_params->set('query', esc_entities($suggestion['text'])) ?>
+      <?php $params = $sf_params->getAll() ?>
+      <?php $params['query'] = $suggestion['text'] ?>
       <span class="suggestion">
-        <?php echo __('Did you mean %1%?', array(
-          '%1%' => link_to($suggestion['text'],
-            $sf_params->getAll()))) ?>
+        <?php echo __('Did you mean %1%?', array('%1%' => link_to($suggestion['text'], $params))) ?>
       </span>
     <?php endif; ?>
 
