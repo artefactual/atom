@@ -2,7 +2,7 @@
 
   <form method="get" action="<?php echo $route ?>">
 
-    <div class="input-prepend input-append">
+    <div class="input-prepend">
 
       <?php if (isset($fields)): ?>
         <?php if (isset($sf_request->subqueryField) && 0 < strlen($sf_request->subqueryField)): ?>
