@@ -185,8 +185,7 @@
   #header-search input[type=text] {
     width: auto;
   }
-  #header-admin,
-  #header-lvl1 {
+  #top-bar {
     .hide();
   }
   #logo-and-name h1 {
@@ -194,6 +193,7 @@
     text-align: center;
   }
   #header {
+    height: 180px;
     margin-left: -20px;
     margin-right: -20px;
   }
@@ -201,9 +201,17 @@
     margin: 10px auto 0 auto;
     .input-append {
       text-align: center;
+      width: 100%;
+    }
+    form {
+      text-align: center;
     }
     input[type=text] {
-      width: 70%;
+      width: 85%;
     }
+  }
+  #header-nav {
+    display: block;
+    clear: both;
   }
 }
