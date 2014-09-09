@@ -47,6 +47,7 @@ header #logo {
   span {
     line-height: 24px;
   }
+  .text-overflow();
 }
 
 // Shared class for buttons and dropdowns elements
@@ -353,14 +354,14 @@ nav > div {
 
 @media (max-width: 979px) {
 
-  // Double height of the bar
+  // Increase height of the bar
   #top-bar {
-    height: 100px;
+    height: 150px;
   }
 
   // Hide buttons
   nav {
-    .hide();
+    clear: both;
   }
 
   // Fist row: logo
@@ -375,6 +376,7 @@ nav > div {
     .clearfix();
     margin: 0 auto;
     padding: 0 20px;
+    clear: both;
 
     #search-form-wrapper {
       width: 80%;
@@ -410,6 +412,28 @@ nav > div {
     margin: 0 -20px;
   }
 
+  #site-name {
+    float: none;
+    text-align: center;
+    margin-top: 0;
+  }
+
+  #site-slogan {
+    margin: 0 -20px;
+    padding: 0 20px;
+  }
+
+  #wrapper {
+    background-image: none;
+  }
+
 }
 
-@media (max-width: 480px) { }
+@media (max-width: 480px) {
+
+  #search-bar #browse-menu {
+    width: 3%;
+    a { text-indent: -9999px; }
+  }
+
+}
