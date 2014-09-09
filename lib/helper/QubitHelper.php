@@ -281,7 +281,7 @@ function check_field_visibility($fieldName)
   return (is_using_cli() || sfContext::getInstance()->user->isAuthenticated()) || sfConfig::get($fieldName, false);
 }
 
-function get_search_i18n($hit, $fieldName, $cultureFallback = true, $allowEmpty = true, $selectedCulture = null)
+function get_search_i18n($hit, $fieldName, $options = array())
 {
   $userCulture = sfContext::getInstance()->user->getCulture();
 
@@ -292,20 +292,22 @@ function get_search_i18n($hit, $fieldName, $cultureFallback = true, $allowEmpty 
 
   $value = null;
 
-  if (isset($selectedCulture) && isset($hit['i18n'][$selectedCulture][$fieldName]))
+  if (isset($options['culture']) && isset($hit['i18n'][$options['culture']][$fieldName]))
   {
-    $value = $hit['i18n'][$selectedCulture][$fieldName];
+    $value = $hit['i18n'][$options['culture']][$fieldName];
   }
   else if (isset($hit['i18n'][$userCulture][$fieldName]))
   {
     $value = $hit['i18n'][$userCulture][$fieldName];
   }
-  else if ($cultureFallback && isset($hit['i18n'][$hit['sourceCulture']][$fieldName]))
+  else if ((!isset($options['cultureFallback']) || $options['cultureFallback'])
+    && isset($hit['i18n'][$hit['sourceCulture']][$fieldName]))
   {
     $value = $hit['i18n'][$hit['sourceCulture']][$fieldName];
   }
 
-  if (!$allowEmpty && ($value == null || $value == ''))
+  if (($value == null || $value == '')
+    && isset($options['allowEmpty']) && !$options['allowEmpty']))
   {
     $value = sfContext::getInstance()->i18n->__('Untitled');
   }
@@ -313,15 +315,15 @@ function get_search_i18n($hit, $fieldName, $cultureFallback = true, $allowEmpty 
   return $value;
 }
 
-function get_search_i18n_highlight(\Elastica\Result $hit, $fieldName, $culture = null)
+function get_search_i18n_highlight(\Elastica\Result $hit, $fieldName, $options = array())
 {
-  if (!isset($culture))
+  if (!isset($options['culture']))
   {
-    $culture = sfContext::getInstance()->user->getCulture();
+    $options['culture'] = sfContext::getInstance()->user->getCulture();
   }
 
   $highlights = $hit->getHighlights();
-  $field = 'i18n.'.$culture.'.'.$fieldName;
+  $field = 'i18n.'.$options['culture'].'.'.$fieldName;
 
   if (isset($highlights[$field]))
   {

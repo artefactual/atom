@@ -23,7 +23,7 @@
 
   <div class="search-result-description">
 
-    <p class="title"><?php echo link_to(render_title(get_search_i18n($doc, 'title', true, false, $culture)), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></p>
+    <p class="title"><?php echo link_to(render_title(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture))), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></p>
 
     <ul class="result-details">
 
@@ -42,9 +42,9 @@
         <?php foreach ($doc['dates'] as $date): ?>
           <?php if (isset($date['startDateString'])
             || isset($date['endDateString'])
-            || null != get_search_i18n($date, 'date', true, true, $culture)): ?>
+            || null != get_search_i18n($date, 'date', array('culture' => $culture))): ?>
 
-            <li class="dates"><?php echo Qubit::renderDateStartEnd(get_search_i18n($date, 'date', true, true, $culture),
+            <li class="dates"><?php echo Qubit::renderDateStartEnd(get_search_i18n($date, 'date', array('culture' => $culture)),
               isset($date['startDateString']) ? $date['startDateString'] : null,
               isset($date['endDateString']) ? $date['endDateString'] : null) ?></li>
 
@@ -60,7 +60,7 @@
 
     </ul>
 
-    <?php if (null !== $scopeAndContent = get_search_i18n($doc, 'scopeAndContent', true, true, $culture)): ?>
+    <?php if (null !== $scopeAndContent = get_search_i18n($doc, 'scopeAndContent', array('culture' => $culture))): ?>
       <p><?php echo truncate_text($scopeAndContent, 250) ?></p>
     <?php endif; ?>
 

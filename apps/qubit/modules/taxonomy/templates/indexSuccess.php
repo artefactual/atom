@@ -62,9 +62,9 @@
         <tr>
           <td>
             <?php if ($doc['isProtected']): ?>
-              <?php echo link_to(get_search_i18n($doc, 'name', true, false), array('module' => 'term', 'slug' => $doc['slug']), array('class' => 'readOnly')) ?>
+              <?php echo link_to(get_search_i18n($doc, 'name', array('allowEmpty' => false)), array('module' => 'term', 'slug' => $doc['slug']), array('class' => 'readOnly')) ?>
             <?php else: ?>
-              <?php echo link_to(get_search_i18n($doc, 'name', true, false), array('module' => 'term', 'slug' => $doc['slug'])) ?>
+              <?php echo link_to(get_search_i18n($doc, 'name', array('allowEmpty' => false)), array('module' => 'term', 'slug' => $doc['slug'])) ?>
             <?php endif; ?>
 
             <?php if (0 < $doc['numberOfDescendants']): ?>
@@ -72,7 +72,7 @@
             <?php endif; ?>
 
             <?php if (isset($doc['useFor']) && count($doc['useFor']) > 0): ?>
-              <p><?php echo 'Use for: '.get_search_i18n(array_pop($doc['useFor']), 'name', true, false) ?><?php foreach ($doc['useFor'] as $label): ?><?php echo ', '.get_search_i18n($label, 'name', true, false) ?><?php endforeach; ?></p>
+              <p><?php echo 'Use for: '.get_search_i18n(array_pop($doc['useFor']), 'name', array('allowEmpty' => false)) ?><?php foreach ($doc['useFor'] as $label): ?><?php echo ', '.get_search_i18n($label, 'name', true, false) ?><?php endforeach; ?></p>
             <?php endif; ?>
 
           </td><td>
