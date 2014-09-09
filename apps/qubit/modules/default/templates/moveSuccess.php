@@ -16,7 +16,7 @@
               <i class="icon-remove"></i>
             </a>
           <?php else: ?>
-            <input type="text" name="query" placeholder="<?php echo __('Search') ?>" />
+            <input type="text" name="query" placeholder="<?php echo __('Search title or identifier') ?>" />
           <?php endif; ?>
           <div class="btn-group">
             <button class="btn" type="submit">
@@ -50,14 +50,16 @@
     <table class="table table-bordered sticky-enabled">
       <thead>
         <tr>
-          <th>
-            <?php echo __('Title') ?>
-          </th>
+          <th><?php echo __('Identifier') ?></th>
+          <th><?php echo __('Title') ?></th>
         </tr>
       </thead><tbody>
         <?php foreach ($results as $item): ?>
-          <tr class="<?php echo 0 == @++$row % 2 ? 'even' : 'odd' ?>">
-            <td>
+          <tr>
+            <td width="15%">
+              <?php echo $item->identifier ?>
+            </td>
+            <td width="85%">
               <?php echo link_to_if($resource->lft > $item->lft || $resource->rgt < $item->rgt, render_title($item), array($resource, 'module' => 'default', 'action' => 'move', 'parent' => $item->slug)) ?>
             </td>
           </tr>

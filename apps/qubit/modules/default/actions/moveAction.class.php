@@ -111,6 +111,10 @@ class DefaultMoveAction extends sfAction
     {
       $query = new \Elastica\Query\QueryString($request->query);
       $query->setDefaultOperator('AND');
+      $query->setFields(array(
+        'identifier',
+        'referenceCode',
+        sprintf('i18n.%s.title', sfContext::getInstance()->user->getCulture())));
       $this->queryBool->addMust($query);
     }
     else
