@@ -12,7 +12,7 @@
         <div class="input-append">
           <?php if (isset($sf_request->query)): ?>
             <input type="text" name="query" value="<?php echo esc_entities($sf_request->query) ?>" />
-            <a class="btn" href="<?php echo $cleanRoute ?>">
+            <a class="btn" href="<?php echo url_for(array($resource, 'module' => 'default', 'action' => 'move')) ?>">
               <i class="icon-remove"></i>
             </a>
           <?php else: ?>
