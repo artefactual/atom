@@ -36,8 +36,17 @@ class InformationObjectTranslationLinksComponent extends sfComponent
     {
       if ($i18n->culture !== $currentCulture)
       {
-        $this->translations[$i18n->culture] = isset($i18n->title) ? $i18n->title : $this->resource->getTitle(array('sourceCulture' => true));
+        continue;
       }
+
+      $title = isset($i18n->title) ? $i18n->title : $this->resource->getTitle(array('sourceCulture' => true));
+      $langCode = $i18n->culture;
+      $langName = format_language($langCode);
+
+      $this->translations[$langCode] = array(
+        'title' => $title,
+        'language' => ucfirst($langName)
+      );
     }
   }
 }

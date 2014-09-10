@@ -1,10 +1,12 @@
-<div class="translation-links">
-  <?php echo __('Other languages available:') ?>
-  <ul>
-    <?php foreach ($translations as $culture => $title): ?>
+<div class="btn-group translation-links">
+  <button class="btn dropdown-toggle" data-toggle="dropdown">
+    <?php echo __('Other languages available') ?>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <?php foreach ($translations as $code => $value): ?>
       <li>
-        <?php echo '['.$culture.']' ?>
-        <?php echo link_to($title, array($resource, 'module' => 'informationobject', 'sf_culture' => $culture)) ?>
+        <?php echo link_to($value['language'].' &raquo; '.$value['title'], array($resource, 'module' => 'informationobject', 'sf_culture' => $code)) ?>
       </li>
     <?php endforeach; ?>
   </ul>
