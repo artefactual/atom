@@ -701,69 +701,82 @@ class InformationObjectEditAction extends DefaultEditAction
 
   protected function updateChildLevels()
   {
-    if (is_array($updateChildLevels = $this->request->updateChildLevels) && count($updateChildLevels))
+    $updateChildLevels = $this->request->updateChildLevels;
+    if (!is_array($updateChildLevels) || 0 == count($updateChildLevels))
     {
-      foreach ($updateChildLevels as $item)
+      return;
+    }
+
+    $dsUpdateDescendants = $this->form->getValue('displayStandardUpdateDescendants');
+    $dsId = $this->form->getValue('displayStandard');
+    if (true === $dsUpdateDescendants && null !== $dsId)
+    {
+      $displayStandardId = $dsId;
+    }
+    else if (isset($this->resource->id) && isset($this->resource->displayStandardId))
+    {
+      $displayStandardId = $this->resource->displayStandardId;
+    }
+
+    foreach ($updateChildLevels as $item)
+    {
+      $childLevel = new QubitInformationObject;
+      $childLevel->identifier = $item['identifier'];
+      $childLevel->title = $item['title'];
+
+      if (null != ($pubStatus = $this->resource->getPublicationStatus()))
       {
-        $childLevel = new QubitInformationObject;
-        $childLevel->identifier = $item['identifier'];
-        $childLevel->title = $item['title'];
+        $childLevel->setPublicationStatus($pubStatus->statusId);
+      }
 
-        if (null != ($pubStatus = $this->resource->getPublicationStatus()))
+      if (0 < strlen($item['levelOfDescription']) && (null !== QubitTerm::getById($item['levelOfDescription'])))
+      {
+        $childLevel->levelOfDescriptionId = $item['levelOfDescription'];
+      }
+
+      if (!empty($displayStandardId))
+      {
+        $childLevel->displayStandardId = $displayStandardId;
+      }
+
+      if (0 < strlen($item['date']))
+      {
+        $creationEvent = new QubitEvent;
+        $creationEvent->typeId = QubitTerm::CREATION_ID;
+        $creationEvent->date = $item['date'];
+
+        if (0 < strlen($item['startDate']))
         {
-          $childLevel->setPublicationStatus($pubStatus->statusId);
-        }
-
-        if (0 < strlen($item['levelOfDescription']) && (null !== QubitTerm::getById($item['levelOfDescription'])))
-        {
-          $childLevel->levelOfDescriptionId = $item['levelOfDescription'];
-        }
-
-        if (true === $this->form->getValue('displayStandardUpdateDescendants')
-            && null !== $displayStandardId = $this->form->getValue('displayStandard'))
-        {
-          $childLevel->displayStandardId = $displayStandardId;
-        }
-
-        if (0 < strlen($item['date']))
-        {
-          $creationEvent = new QubitEvent;
-          $creationEvent->typeId = QubitTerm::CREATION_ID;
-          $creationEvent->date = $item['date'];
-
-          if (0 < strlen($item['startDate']))
+          if (preg_match('/^\d{8}\z/', trim($item['startDate']), $matches))
           {
-            if (preg_match('/^\d{8}\z/', trim($item['startDate']), $matches))
-            {
-              $creationEvent->startDate = substr($matches[0], 0, 4).'-'.substr($matches[0], 4, 2).'-'.substr($matches[0], 6, 2);
-            }
-            else
-            {
-              $creationEvent->startDate = $item['startDate'];
-            }
+            $creationEvent->startDate = substr($matches[0], 0, 4).'-'.substr($matches[0], 4, 2).'-'.substr($matches[0], 6, 2);
           }
-
-          if (0 < strlen($item['endDate']))
+          else
           {
-            if (preg_match('/^\d{8}\z/', trim($item['endDate']), $matches))
-            {
-              $creationEvent->endDate = substr($matches[0], 0, 4).'-'.substr($matches[0], 4, 2).'-'.substr($matches[0], 6, 2);
-            }
-            else
-            {
-              $creationEvent->endDate = $item['endDate'];
-            }
+            $creationEvent->startDate = $item['startDate'];
           }
-
-          $childLevel->events[] = $creationEvent;
         }
 
-        if (0 < strlen($item['levelOfDescription'])
-            || 0 < strlen($item['identifier'])
-            || 0 < strlen($item['title']))
+        if (0 < strlen($item['endDate']))
         {
-          $this->resource->informationObjectsRelatedByparentId[] = $childLevel;
+          if (preg_match('/^\d{8}\z/', trim($item['endDate']), $matches))
+          {
+            $creationEvent->endDate = substr($matches[0], 0, 4).'-'.substr($matches[0], 4, 2).'-'.substr($matches[0], 6, 2);
+          }
+          else
+          {
+            $creationEvent->endDate = $item['endDate'];
+          }
         }
+
+        $childLevel->events[] = $creationEvent;
+      }
+
+      if (0 < strlen($item['levelOfDescription'])
+          || 0 < strlen($item['identifier'])
+          || 0 < strlen($item['title']))
+      {
+        $this->resource->informationObjectsRelatedByparentId[] = $childLevel;
       }
     }
   }
