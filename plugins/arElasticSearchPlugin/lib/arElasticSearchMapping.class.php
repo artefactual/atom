@@ -264,6 +264,17 @@ class arElasticSearchMapping
             }
           }
 
+          if (isset($typeProperties['_attributes']['rawFields']))
+          {
+            foreach ($typeProperties['_attributes']['rawFields'] as $item)
+            {
+              $nestedI18nFields[$item]['fields']['untouched'] = array(
+                'type' => 'string',
+                'index' => 'not_analyzed',
+                'include_in_all' => false);
+            }
+          }
+
           // i18n documents (one per culture)
           $nestedI18nObjects = $this->getNestedI18nObjects($languages, $nestedI18nFields);
 
@@ -427,17 +438,13 @@ class arElasticSearchMapping
 
   protected function getI18nFieldMapping($fieldName)
   {
-    return   array(
+    return array(
       'type' => 'string',
       'fields' => array(
         $fieldName => array(
           'type' => 'string',
           'index' => 'analyzed',
-          'include_in_all' => true),
-        'untouched' => array(
-          'type' => 'string',
-          'index' => 'not_analyzed',
-          'include_in_all' => false)));
+          'include_in_all' => true)));
   }
 
   protected function getNestedI18nObjects($languages, $nestedI18nFields)

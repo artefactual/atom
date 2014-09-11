@@ -6,6 +6,7 @@ mapping:
   # - i18n: the i18n fields will be added automatically (it is optional)
   # - i18nExtra: to inherit i18n fields from other table
   # - autocompleteFields: a list of fields that will be analyzed with edgengram
+  # - rawFields: a list of i18n fields that will include an untouched version (not_analyzed)
   # - timestamp: adds created_at and updated_at properties
   # - nested_only: the type will be ignored but embedded within other objects
 
@@ -162,6 +163,7 @@ mapping:
       i18n: true
       timestamp: true
       autocompleteFields: [name]
+      rawFields:  [name]
     _foreign_types: { use_for: other_name, scope_notes: note }
     dynamic: strict
     properties:
@@ -183,6 +185,7 @@ mapping:
       i18n: true
       timestamp: true
       autocompleteFields: [authorizedFormOfName]
+      rawFields:  [authorizedFormOfName]
     dynamic: strict
     properties:
       slug: { type: string, index: not_analyzed }
@@ -195,6 +198,7 @@ mapping:
       i18nExtra: actor
       timestamp: true
       autocompleteFields: [authorizedFormOfName]
+      rawFields:  [authorizedFormOfName]
     _foreign_types:
       contact_informations: contact_information
       other_names: other_name
@@ -213,6 +217,7 @@ mapping:
       i18n: true
       timestamp: true
       autocompleteFields: [title]
+      rawFields:  [title]
     _foreign_types:
       repository: repository
       names: actor
