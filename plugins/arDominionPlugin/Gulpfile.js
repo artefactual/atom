@@ -12,6 +12,6 @@ gulp.task('watch', function () {
 
 gulp.task('compile-less', function () {
   gulp.src('./css/main.less')
-    .pipe(less())
+    .pipe(less({ relativeUrls: true }))
     .pipe(gulp.dest('./css'));
 });
