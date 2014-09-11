@@ -80,6 +80,9 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
+    $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
+    $sf_context = sfContext::createInstance($configuration);
+
     $this->validateOptions($options);
 
     $skipRows = ($options['skip-rows']) ? $options['skip-rows'] : 0;
