@@ -428,7 +428,7 @@ nav > div {
     background-image: none;
   }
 
-  #add-menu {
+  nav {
     .top-dropdown-container {
       right: auto;
       left: 0;
@@ -458,12 +458,15 @@ nav > div {
     margin-bottom: 10px;
   }
 
-  #add-menu {
-    float: none;
-    clear: both;
+  nav > div {
+    &.open {
+      float: none;
+      clear: both;
+    }
     .top-dropdown-container {
-      right: 0;
-      left: 0;
+      clear: both;
+      float: none;
+      left: 0; right: 0;
     }
   }
 
