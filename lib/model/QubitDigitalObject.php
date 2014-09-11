@@ -2996,7 +2996,7 @@ class QubitDigitalObject extends BaseDigitalObject
    */
   public static function reachedAppUploadLimit()
   {
-    if (sfConfig::get('app_upload_limit', 0) == 0)
+    if (sfConfig::get('app_upload_limit', 0) < 1)
     {
       return false;
     }
