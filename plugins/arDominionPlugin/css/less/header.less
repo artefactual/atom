@@ -407,9 +407,19 @@ nav > div {
 
 @media (max-width: 767px) {
 
-  // Cancel default responsive body margin
   #top-bar {
     margin: 0 -20px;
+    height: auto;
+    padding-bottom: 10px;
+  }
+
+  #add-menu {
+    float: none;
+    clear: both;
+    .top-dropdown-container {
+      right: 0;
+      left: 0;
+    }
   }
 
   #site-name {
@@ -431,9 +441,19 @@ nav > div {
 
 @media (max-width: 480px) {
 
-  #search-bar #browse-menu {
+  #browse-menu {
     width: 3%;
-    a { text-indent: -9999px; }
+    &> a {
+      text-indent: -9999px;
+    }
+  }
+
+  nav {
+    clear: both;
+  }
+
+  #search-bar {
+    margin-bottom: 10px;
   }
 
 }
