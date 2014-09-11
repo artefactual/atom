@@ -36,7 +36,7 @@ class arDominionPluginConfiguration extends sfPluginConfiguration
     }
     else
     {
-      $context->response->addStylesheet('/plugins/arDominionPlugin/css/min.css', 'last', array('media' => 'screen'));
+      $context->response->addStylesheet('/plugins/arDominionPlugin/css/main.css', 'last', array('media' => 'screen'));
     }
   }
 
