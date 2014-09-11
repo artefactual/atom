@@ -6,7 +6,7 @@
   <ul class="dropdown-menu">
     <?php foreach ($translations as $code => $value): ?>
       <li>
-        <?php echo link_to($value['language'].' &raquo; '.$value['title'], array($resource, 'module' => 'informationobject', 'sf_culture' => $code)) ?>
+        <?php echo link_to($value['language'].' &raquo; '.$value['name'], array($resource, 'module' => $module, 'sf_culture' => $code)) ?>
       </li>
     <?php endforeach; ?>
   </ul>
