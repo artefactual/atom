@@ -17,7 +17,7 @@
       <?php else: ?>
         <li>
       <?php endif; ?>
-        <?php echo link_to(__('Unique documents'), array(
+        <?php echo link_to(__('Unique records'), array(
           $facet => null,
           'page' => null) + $sf_request->getParameterHolder()->getAll()) ?>
         <span class="facet-count"><?php echo $pager->facets[$facet]['terms']['unique']['count'] ?></span>
