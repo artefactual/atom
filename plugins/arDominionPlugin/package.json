@@ -1,0 +1,17 @@
+{
+  "name": "arDominionPlugin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-less": "^1.3.5",
+    "gulp-watch": "^1.0.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
