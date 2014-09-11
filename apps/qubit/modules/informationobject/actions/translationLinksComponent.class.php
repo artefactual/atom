@@ -34,7 +34,7 @@ class InformationObjectTranslationLinksComponent extends sfComponent
     $this->translations = array();
     foreach ($this->resource->informationObjectI18ns as $i18n)
     {
-      if ($i18n->culture !== $currentCulture)
+      if ($i18n->culture == $currentCulture)
       {
         continue;
       }
