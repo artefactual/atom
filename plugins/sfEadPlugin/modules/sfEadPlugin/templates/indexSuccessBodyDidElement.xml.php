@@ -76,7 +76,7 @@
         <?php break; ?>
       <?php endif; ?>
     <?php endforeach; ?>
-    <unitid encodinganalog="<?php echo $ead->getMetadataParameter('unitid') ?>" <?php if (isset($repository)): ?><?php if ($countrycode = $repository->getCountryCode()): ?><?php echo 'countrycode="'.$countrycode.'" ' ?><?php endif;?><?php if ($repocode = $repository->getIdentifier()): ?><?php echo 'repositorycode="'.escape_dc(esc_specialchars($repocode)).'" ' ?><?php endif; ?><?php endif; ?>><?php echo escape_dc(esc_specialchars($$resourceVar->getIdentifier())) ?></unitid>
+    <unitid encodinganalog="<?php echo $ead->getMetadataParameter('unitid') ?>" <?php if (isset($repository)): ?><?php if ($countrycode = $repository->getCountryCode()): ?><?php echo 'countrycode="'.$countrycode.'" ' ?><?php endif;?><?php if ($repocode = $repository->getIdentifier()): ?><?php echo 'repositorycode="'.escape_dc(esc_specialchars($repocode)).'" ' ?><?php endif; ?><?php endif; ?>><?php echo escape_dc(esc_specialchars($$resourceVar->referenceCode)) ?></unitid>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('standardNumber')->__toString())): ?>
