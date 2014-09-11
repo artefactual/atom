@@ -9,15 +9,22 @@
 
 <?php if (QubitDigitalObject::reachedAppUploadLimit()): ?>
 
-  <div id="upload_limit_reached">
-    <div class="messages warning">
-      <?php echo __('The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your AtoM system administrator to increase the available disk space.',  array('%1%' => sfConfig::get('app_upload_limit'))) ?>
-    </div>
+  <?php slot('content') ?>
 
-    <ul class="actions links">
-      <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject')) ?></li>
-    </ul>
-  </div>
+    <section id="content">
+    </section>
+
+      <div class="messages warning">
+        <?php echo __('The maximum disk space of %1% GB available for uploading digital objects has been reached. Please contact your AtoM system administrator to increase the available disk space.',  array('%1%' => sfConfig::get('app_upload_limit'))) ?>
+      </div>
+
+    <section class="actions">
+      <ul>
+        <li><?php echo link_to(__('Cancel'), array($resource, 'module' => 'informationobject'), array('class' => 'c-btn')) ?></li>
+      </ul>
+    </section>
+
+  <?php end_slot() ?>
 
 <?php else: ?>
 
