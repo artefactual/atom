@@ -186,13 +186,16 @@ class DefaultBrowseAction extends sfAction
           unset($queryParams['filter']);
           $this->query->setRawQuery($queryParams);
 
-          // And create and add a new one only with drafts filtered (if needed)
-          $this->filterBool = new \Elastica\Filter\Bool;
-          QubitAclSearch::filterDrafts($this->filterBool);
-
-          if (0 < count($this->filterBool->toArray()))
+          // Create and add a new one only with drafts filtered (only for information object queries)
+          if ($this::INDEX_TYPE == 'QubitInformationObject')
           {
-            $this->query->setFilter($this->filterBool);
+            $this->filterBool = new \Elastica\Filter\Bool;
+            QubitAclSearch::filterDrafts($this->filterBool);
+
+            if (0 < count($this->filterBool->toArray()))
+            {
+              $this->query->setFilter($this->filterBool);
+            }
           }
 
           $resultSetWithoutLanguageFilter = QubitSearch::getInstance()->index->getType($this::INDEX_TYPE)->search($this->query);
