@@ -2,7 +2,7 @@
 
   <?php foreach ($pager->getResults() as $hit): ?>
     <?php $doc = $hit->getData() ?>
-    <?php echo get_partial('search/searchResult', array('doc' => $doc, 'pager' => $pager)) ?>
+    <?php echo get_partial('search/searchResult', array('doc' => $doc, 'pager' => $pager, 'culture' => $culture)) ?>
   <?php endforeach; ?>
 
 <?php else: ?>

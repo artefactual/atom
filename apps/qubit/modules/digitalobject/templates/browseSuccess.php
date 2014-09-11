@@ -60,7 +60,7 @@
           <?php echo link_to(image_tag('question-mark'), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
         <?php endif; ?>
       </div>
-      <p class="description"><?php echo render_title(get_search_i18n($doc, 'title')) ?></p>
+      <p class="description"><?php echo render_title(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture))) ?></p>
       <?php if ('1' == sfConfig::get('app_inherit_code_informationobject', 1) && isset($doc['referenceCode']) && !empty($doc['referenceCode'])) : ?>
         <div class="bottom"><p><?php echo $doc['referenceCode'] ?></p></div>
       <?php elseif (!empty($doc['identifier'])) : ?>

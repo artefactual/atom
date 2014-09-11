@@ -12,16 +12,29 @@
 
     <ul>
 
+      <?php if (!isset($filters[$facet])): ?>
+        <li class="active">
+      <?php else: ?>
+        <li>
+      <?php endif; ?>
+        <?php echo link_to(__('Unique documents'), array(
+          $facet => null,
+          'page' => null) + $sf_request->getParameterHolder()->getAll()) ?>
+        <span class="facet-count"><?php echo $pager->facets[$facet]['terms']['unique']['count'] ?></span>
+      </li>
+
       <?php if (isset($pager->facets[$facet])): ?>
         <?php foreach ($pager->facets[$facet]['terms'] as $id => $term): ?>
-          <li <?php if ($id == $filters[$facet]) echo 'class="active"' ?>>
-            <?php echo link_to(
-              $term['term'],
-              array(
-                $facet => $id,
-                'page' => null) + $sf_request->getParameterHolder()->getAll()) ?>
-            <span class="facet-count"><?php echo $term['count'] ?></span>
-          </li>
+          <?php if ($id != 'unique'): ?>
+            <li <?php if (isset($filters[$facet]) && $id == $filters[$facet]) echo 'class="active"' ?>>
+              <?php echo link_to(
+                $term['term'],
+                array(
+                  $facet => $id,
+                  'page' => null) + $sf_request->getParameterHolder()->getAll()) ?>
+              <span class="facet-count"><?php echo $term['count'] ?></span>
+            </li>
+          <?php endif; ?>
         <?php endforeach; ?>
       <?php endif; ?>
 

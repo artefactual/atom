@@ -25,6 +25,8 @@
  */
 class InformationObjectBrowseAction extends DefaultBrowseAction
 {
+  const INDEX_TYPE = 'QubitInformationObject';
+
   // Arrays not allowed in class constants
   public static
     $FACETS = array(
@@ -142,7 +144,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     {
       $queryText = new \Elastica\Query\QueryString($request->subquery);
       $queryText->setDefaultOperator('AND');
-      $queryText->setDefaultField(sprintf('i18n.%s.title', $this->context->user->getCulture()));
+      $queryText->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.title'));
 
       $this->queryBool->addMust($queryText);
     }
@@ -204,7 +206,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
 
       // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
-        $field = sprintf('i18n.%s.title.untouched', $this->context->user->getCulture());
+        $field = sprintf('i18n.%s.title.untouched', $this->selectedCulture);
         $this->query->addSort(array($field => 'asc'));
 
         break;

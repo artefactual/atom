@@ -98,7 +98,7 @@
 
     <?php foreach ($pager->getResults() as $hit): ?>
       <?php $doc = $hit->getData() ?>
-      <?php $authorizedFormOfName = render_title(get_search_i18n($doc, 'authorizedFormOfName')) ?>
+      <?php $authorizedFormOfName = render_title(get_search_i18n($doc, 'authorizedFormOfName', array('allowEmpty' => false, 'culture' => $selectedCulture))) ?>
       <?php $hasLogo = file_exists(sfConfig::get('sf_upload_dir').'/r/'.$doc['slug'].'/conf/logo.png') ?>
       <?php if ($hasLogo): ?>
         <div class="brick">

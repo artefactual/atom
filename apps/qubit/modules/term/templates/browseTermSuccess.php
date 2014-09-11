@@ -74,7 +74,7 @@
 
 <?php end_slot() ?>
 
-<?php echo get_partial('search/searchResults', array('pager' => $pager)) ?>
+<?php echo get_partial('search/searchResults', array('pager' => $pager, 'culture' => $selectedCulture)) ?>
 
 <?php slot('after-content') ?>
   <?php echo get_partial('default/pager', array('pager' => $pager)) ?>

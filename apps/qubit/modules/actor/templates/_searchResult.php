@@ -4,7 +4,7 @@
 
   <div class="search-result-description">
 
-    <p class="title"><?php echo link_to(get_search_i18n($doc, 'authorizedFormOfName'), array('module' => 'actor', 'slug' => $doc['slug'])) ?></p>
+    <p class="title"><?php echo link_to(get_search_i18n($doc, 'authorizedFormOfName', array('allowEmpty' => false, 'culture' => $culture)), array('module' => 'actor', 'slug' => $doc['slug'])) ?></p>
 
     <ul class="result-details">
 
@@ -16,7 +16,7 @@
         <li><?php echo $types[$doc['entityTypeId']] ?></li>
       <?php endif; ?>
 
-      <li><?php echo get_search_i18n($doc, 'datesOfExistence') ?></li>
+      <li><?php echo get_search_i18n($doc, 'datesOfExistence', array('culture' => $culture)) ?></li>
 
     </ul>
 

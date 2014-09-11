@@ -25,6 +25,8 @@
  */
 class RepositoryBrowseAction extends DefaultBrowseAction
 {
+  const INDEX_TYPE = 'QubitRepository';
+
   // Arrays not allowed in class constants
   public static
     $FACETS = array(
@@ -109,7 +111,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
       case 'identifier':
         $this->query->addSort(array('identifier' => 'asc'));
       case 'alphabetic':
-        $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->context->user->getCulture());
+        $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->selectedCulture);
         $this->query->addSort(array($field => 'asc'));
 
         break;

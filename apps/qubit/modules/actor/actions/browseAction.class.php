@@ -28,6 +28,8 @@
  */
 class ActorBrowseAction extends DefaultBrowseAction
 {
+  const INDEX_TYPE = 'QubitActor';
+
   // Arrays not allowed in class constants
   public static
     $FACETS = array(
@@ -83,7 +85,7 @@ class ActorBrowseAction extends DefaultBrowseAction
     {
       // I don't think that this is going to scale, but let's leave it for now
       case 'alphabetic':
-        $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->context->user->getCulture());
+        $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->selectedCulture);
         $this->query->setSort(array($field => 'asc'));
 
         break;

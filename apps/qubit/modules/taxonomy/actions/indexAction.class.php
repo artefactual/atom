@@ -105,20 +105,22 @@ class TaxonomyIndexAction extends sfAction
       switch ($request->subqueryField)
       {
         case 'Preferred label':
-          $queryString->setDefaultField('i18n.'.$culture.'.name');
+          $queryString->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.name'));
 
           break;
 
         case '\'Use for\' labels':
         case "\'Use for\' labels":
-           $queryString->setDefaultField('useFor.i18n.'.$culture.'.name');
+          $queryString->setFields(arElasticSearchPluginUtil::getI18nFieldNames('useFor.i18n.%s.name'));
 
           break;
 
         case 'All labels':
         default:
           // Search over preferred label (boosted by five) and "Use for" labels
-          $queryString->setFields(array('i18n.'.$culture.'.name^5', 'useFor.i18n.'.$culture.'.name'));
+          $fields = array('i18n.%s.name', 'useFor.i18n.%s.name');
+          $boost = array('i18n.%s.name' => 5);
+          $queryString->setFields(arElasticSearchPluginUtil::getI18nFieldNames($fields, null, $boost));
           $queryString->setDefaultOperator('OR');
 
           break;

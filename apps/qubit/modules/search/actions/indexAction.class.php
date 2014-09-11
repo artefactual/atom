@@ -22,6 +22,8 @@
  */
 class SearchIndexAction extends DefaultBrowseAction
 {
+  const INDEX_TYPE = 'QubitInformationObject';
+
   // Arrays not allowed in class constants
   public static
     $FACETS = array(
@@ -179,7 +181,7 @@ class SearchIndexAction extends DefaultBrowseAction
         'term' => array(
           'size' => 1,
           'sort' => 'frequency',
-          'field' => sprintf('i18n.%s.title', $this->context->user->getCulture())))));
+          'field' => sprintf('i18n.%s.title', $this->selectedCulture)))));
 
     // Filter drafts
     QubitAclSearch::filterDrafts($this->filterBool);

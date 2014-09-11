@@ -19,6 +19,8 @@
 
 class TermIndexAction extends DefaultBrowseAction
 {
+  const INDEX_TYPE = 'QubitInformationObject';
+
   // Arrays not allowed in class constants
   public static
     $FACETS = array(
@@ -91,7 +93,14 @@ class TermIndexAction extends DefaultBrowseAction
       $this->forward404();
     }
 
-    $this->culture = $this->context->user->getCulture();
+    if (isset($request->languages))
+    {
+      $this->culture = $request->languages;
+    }
+    else
+    {
+      $this->culture = $this->context->user->getCulture();
+    }
 
     if (1 > strlen($title = $this->resource->__toString()))
     {
