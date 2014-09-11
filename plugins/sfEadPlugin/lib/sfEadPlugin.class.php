@@ -321,4 +321,27 @@ class sfEadPlugin
     return $physDescContent;
   }
 
+  public static function getUnitidValue($resource)
+  {
+    if (!isset($resource->identifier))
+    {
+      return;
+    }
+
+    if (!sfConfig::get('app_inherit_code_informationobject', false))
+    {
+      return $resource->identifier;
+    }
+
+    $identifier = array();
+    foreach ($resource->ancestors->andSelf()->orderBy('lft') as $item)
+    {
+      if (isset($item->identifier))
+      {
+        $identifier[] = $item->identifier;
+      }
+    }
+
+    return implode(sfConfig::get('app_separator_character', '-'), $identifier);
+  }
 }
