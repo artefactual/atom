@@ -413,15 +413,6 @@ nav > div {
     padding-bottom: 10px;
   }
 
-  #add-menu {
-    float: none;
-    clear: both;
-    .top-dropdown-container {
-      right: 0;
-      left: 0;
-    }
-  }
-
   #site-name {
     float: none;
     text-align: center;
@@ -435,6 +426,17 @@ nav > div {
 
   #wrapper {
     background-image: none;
+  }
+
+  #add-menu {
+    .top-dropdown-container {
+      right: auto;
+      left: 0;
+      .arrow {
+        right: auto;
+        left: 10px;
+      }
+    }
   }
 
 }
@@ -454,6 +456,15 @@ nav > div {
 
   #search-bar {
     margin-bottom: 10px;
+  }
+
+  #add-menu {
+    float: none;
+    clear: both;
+    .top-dropdown-container {
+      right: 0;
+      left: 0;
+    }
   }
 
 }
