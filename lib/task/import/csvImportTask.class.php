@@ -478,8 +478,8 @@ EOF;
         if (isset($self->rowStatusVars['publicationStatus'])
           && 0 < strlen($self->rowStatusVars['publicationStatus']))
         {
-          $pubStatusTermId = array_search(
-            ucwords($self->rowStatusVars['publicationStatus']),
+          $pubStatusTermId = array_search_case_insensitive(
+            $self->rowStatusVars['publicationStatus'],
             $self->status['pubStatusTypes']
           );
           if (!$pubStatusTermId)
@@ -1130,6 +1130,11 @@ EOF;
     }
   }
 
+}
+
+function array_search_case_insensitive($search, $array)
+{
+  return array_search(strtolower($search), array_map('strtolower', $array));
 }
 
 function setupEventDateData(&$self, &$eventData, $index)
