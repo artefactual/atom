@@ -185,6 +185,8 @@
 
         <?php echo get_partial('informationobject/notes', $notesComponent->getVarHolder()->getAll()) ?>
 
+        <?php echo get_partial('informationobject/notes', $specializedNotesComponent->getVarHolder()->getAll()) ?>
+
       </fieldset> <!-- /#notesArea -->
 
       <fieldset class="collapsible collapsed" id="descriptionControlArea">

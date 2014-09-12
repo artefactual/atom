@@ -188,9 +188,22 @@
   <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Notes element').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'notesArea', 'title' => __('Edit notes element'))) ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_notes')): ?>
+
     <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID)) as $item): ?>
-      <?php echo render_show(__('Note'), render_value($item->getContent(array('cultureFallback' => true)))) ?>
+      <?php echo render_show(__('General note'), render_value($item->getContent(array('cultureFallback' => true)))) ?>
     <?php endforeach; ?>
+
+    <div class="field">
+      <h3><?php echo __('Specialized notes') ?></h3>
+      <div>
+        <ul>
+          <?php foreach ($resource->getNotesByTaxonomy(array('taxonomyId' => QubitTaxonomy::DACS_NOTE_ID)) as $item): ?>
+            <li><?php echo $item->type ?>: <?php echo $item->getContent(array('cultureFallback' => true)) ?></li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
+    </div>
+
   <?php endif; ?>
 
   <?php echo get_partial('informationobject/alternativeIdentifiersIndex', array('resource' => $resource)) ?>

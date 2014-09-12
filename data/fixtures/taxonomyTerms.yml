@@ -695,6 +695,14 @@ QubitTaxonomy:
       en: 'Geographic Subregion'
     note:
       en: 'Geographic subregions, based on local standards/common terminology if available. Used as optional access point for ISDIAH repository records in multi-repository databases.'
+  QubitTaxonomy_dacs_note:
+    source_culture: en
+    id: 74
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'DACS Note'
+    note:
+      en: 'Note types that occur specifically within the Society of American Archivists "Describing Archives: a Content Standard" (DACS).'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
@@ -4619,6 +4627,36 @@ QubitTerm:
     name:
       en: Travel and Exploration
       fr: Voyages et exploration
+  QubitTerm_dacs_note_conservation:
+    taxonomy_id: QubitTaxonomy_dacs_note
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Conservation
+  QubitTerm_dacs_note_citation:
+    taxonomy_id: QubitTaxonomy_dacs_note
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Citation
+  QubitTerm_dacs_note_alphanumeric_designations:
+    taxonomy_id: QubitTaxonomy_dacs_note
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Alphanumeric designations
+  QubitTerm_dacs_note_variant_title_information:
+    taxonomy_id: QubitTaxonomy_dacs_note
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Variant title information
+  QubitTerm_dacs_note_processing_information:
+    taxonomy_id: QubitTaxonomy_dacs_note
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Processing information
 QubitNote:
   QubitNote_1:
     object_id: QubitTerm_111

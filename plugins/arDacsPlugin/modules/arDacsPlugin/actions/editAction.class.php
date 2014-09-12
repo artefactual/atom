@@ -95,6 +95,10 @@ class arDacsPluginEditAction extends InformationObjectEditAction
     $this->notesComponent->resource = $this->resource;
     $this->notesComponent->execute($this->request, $options = array('type' => 'dacsNotes'));
 
+    $this->specializedNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+    $this->specializedNotesComponent->resource = $this->resource;
+    $this->specializedNotesComponent->execute($this->request, $options = array('type' => 'dacsSpecializedNotes'));
+
     $this->archivistsNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
     $this->archivistsNotesComponent->resource = $this->resource;
     $this->archivistsNotesComponent->execute($this->request, $options = array('type' => 'dacsArchivistsNotes'));
