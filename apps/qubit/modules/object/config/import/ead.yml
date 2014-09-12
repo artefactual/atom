@@ -426,7 +426,7 @@ information_object:
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)"]
 
     revision_history:
-      XPath:  "(processinfo/p/date | descgrp/processinfo/p/date)"
+      XPath:  "(processinfo/date | processinfo/p/date | descgrp/processinfo/date | descgrp/processinfo/p/date)"
       Method:  setRevisionHistory
 
     userestrict:
