@@ -175,6 +175,20 @@
           ->help(__('If there are materials that have a direct and significant connection to those being described by reason of closely shared responsibility or sphere of activity, provide the title, location, and, optionally, the reference number(s) of the related materials and their relationship with the materials being described. (DACS 6.3.5)'))
           ->label(__('Related archival materials')), $resource, array('class' => 'resizable')) ?>
 
+        <div class="form-item">
+          <?php echo $form->relatedMaterialDescriptions
+            ->label(__('Related descriptions'))
+            ->renderLabel() ?>
+          <?php echo $form->relatedMaterialDescriptions->render(array('class' => 'form-autocomplete')) ?>
+          <?php if (QubitAcl::check(QubitInformationObject::getRoot(), 'create')): ?>
+            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'add')) ?> #title"/>
+          <?php endif; ?>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'autocomplete')) ?>"/>
+          <?php echo $form->relatedMaterialDescriptions
+            ->help(__('To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.'))
+            ->renderHelp() ?>
+        </div>
+
         <?php echo get_partial('informationobject/notes', $publicationNotesComponent->getVarHolder()->getAll()) ?>
 
       </fieldset> <!-- /#alliedMaterialsArea -->
