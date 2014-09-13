@@ -4657,6 +4657,12 @@ QubitTerm:
     source_culture: en
     name:
       en: Processing information
+  QubitTerm_event_type_record_keeping_activity:
+    taxonomy_id: QubitTaxonomy_10
+    parent_id: QubitTerm_110
+    source_culture: en
+    name:
+      en: Record-keeping activity
 QubitNote:
   QubitNote_1:
     object_id: QubitTerm_111

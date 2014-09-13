@@ -61,6 +61,14 @@ class arMigration0110
       $term->save();
     }
 
+    // Add "Record-keeping activity" event type
+    $term = new QubitTerm;
+    $term->parentId = QubitTerm::ROOT_ID;
+    $term->taxonomyId = QubitTaxonomy::EVENT_TYPE_ID;
+    $term->sourceCulture = 'en';
+    $term->setName('Record-keeping activity', array('culture' => 'en'));
+    $term->save();
+
     return true;
   }
 }

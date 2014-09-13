@@ -33,7 +33,16 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
     {
       case 'type':
 
-        foreach (sfIsadPlugin::eventTypes() as $item)
+        if ('arDacsPlugin' == $this->request->module)
+        {
+          $eventTypes = arDacsPlugin::eventTypes();
+        }
+        else
+        {
+          $eventTypes = sfIsadPlugin::eventTypes();
+        }
+
+        foreach ($eventTypes as $item)
         {
           // Default event type is creation
           if (QubitTerm::CREATION_ID == $item->id)
