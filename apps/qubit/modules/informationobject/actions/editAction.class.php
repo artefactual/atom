@@ -633,38 +633,7 @@ class InformationObjectEditAction extends DefaultEditAction
   {
     parent::execute($request);
 
-    if ($request->hasParameter('csvimport'))
-    {
-      // if a parent ID is set, use that for parenting
-      $parentId = $request->getParameter('parent', null);
-
-      if (!empty($parentId))
-      {
-        $request->getParameterHolder()->remove('parent');
-      }
-
-      // make sure we don't pass the import ID
-      $request->getParameterHolder()->remove('id');
-
-      $this->form->bind($request->getParameterHolder()->getAll());
-      if ($this->form->isValid())
-      {
-        $this->processForm();
-
-        if (!empty($parentId))
-        {
-          $this->resource->parent = QubitInformationObject::getById($parentId);
-        }
-        else{
-          $this->resource->parent = QubitInformationObject::getById(QubitInformationObject::ROOT_ID);
-        }
-
-        $this->resource->save();
-
-        return; // don't bother adding assets etc. for output
-      }
-    }
-    elseif ($request->isMethod('post'))
+    if ($request->isMethod('post'))
     {
       $this->form->bind($request->getPostParameters());
       if ($this->form->isValid())

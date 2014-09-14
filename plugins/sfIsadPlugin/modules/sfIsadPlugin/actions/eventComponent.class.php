@@ -67,14 +67,6 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
   // TODO Refactor with parent::processForm()
   public function processForm()
   {
-    if ($this->request->hasParameter('csvimport'))
-    {
-      if ($this->request->getParameterHolder()->has('datesOfCreation'))
-      {
-        $this->request->editEvents = $this->request->getParameterHolder()->get('datesOfCreation');
-      }
-    }
-
     $params = array($this->request->editEvent);
     if (isset($this->request->editEvents))
     {
