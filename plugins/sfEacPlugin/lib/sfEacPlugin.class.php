@@ -623,15 +623,24 @@ return;
     // <descriptiveNote/>, <placeEntry/>
     foreach ($fd->find('eac:cpfDescription/eac:relations/eac:cpfRelation') as $node)
     {
-      $url = preg_replace('/^(?:[^:]+:\/\/[^\/]+)?'.preg_quote(sfContext::getInstance()->request->getPathInfoPrefix(), '/').'/', null, $node->getAttributeNS('http://www.w3.org/1999/xlink', 'href'), -1, $count);
+      // Don't try to match the whole URL, focus on extracting the path, see #6660#note-6
+      // $url = preg_replace('/^(?:[^:]+:\/\/[^\/]+)?'.preg_quote(sfContext::getInstance()->request->getPathInfoPrefix(), '/').'/', null, $node->getAttributeNS('http://www.w3.org/1999/xlink', 'href'), -1, $count);
+      $url = preg_replace('/^(?:[^:]+:\/\/[^\/]+)?(\/(index|qubit_dev)\.php)?/', null, $node->getAttributeNS('http://www.w3.org/1999/xlink', 'href'), -1, $count);
+
+      unset($item);
 
       // @href is one of our resources
       if ($node->hasAttributeNS('http://www.w3.org/1999/xlink', 'href') && 0 < $count)
       {
         $params = sfContext::getInstance()->routing->parse($url);
-        $item = $params['_sf_route']->resource;
+        if (isset($params['_sf_route']) && isset($params['_sf_route']->resource))
+        {
+          $item = $params['_sf_route']->resource;
+        }
       }
-      else
+
+      // Otherwise, create the new resource
+      if (!isset($item))
       {
         $item = new QubitActor;
         $item->authorizedFormOfName = $fd->spawn()->add($node)->find('eac:relationEntry')->text();
