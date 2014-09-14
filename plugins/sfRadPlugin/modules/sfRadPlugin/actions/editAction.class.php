@@ -281,35 +281,6 @@ class sfRadPluginEditAction extends InformationObjectEditAction
 
   protected function updateNotes()
   {
-    if ($this->request->hasParameter('csvimport'))
-    {
-      // remap notes from parameters to request object
-      if ($this->request->getParameterHolder()->has('radTitleNote'))
-      {
-        $this->request->rad_title_note = $this->request->getParameterHolder()->get('radTitleNote');
-      }
-
-      if ($this->request->getParameterHolder()->has('radTitleNoteType'))
-      {
-        $this->request->rad_title_note_type = $this->request->getParameterHolder()->get('radTitleNoteType');
-      }
-
-      if ($this->request->getParameterHolder()->has('radNote'))
-      {
-        $this->request->rad_note = $this->request->getParameterHolder()->get('radNote');
-      }
-
-      if ($this->request->getParameterHolder()->has('radNoteType'))
-      {
-        $this->request->rad_note_type = $this->request->getParameterHolder()->get('radNoteType');
-      }
-
-      if ($this->request->getParameterHolder()->has('radLanguageNote'))
-      {
-        $this->request->rad_language_note = $this->request->getParameterHolder()->get('radLanguageNote');
-      }
-    }
-
     if (isset($this->request->rad_title_note) && 0 < strlen($this->request->rad_title_note))
     {
       $note = new QubitNote;

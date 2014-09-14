@@ -343,59 +343,7 @@ class RepositoryEditAction extends DefaultEditAction
   {
     parent::execute($request);
 
-    if ($request->hasParameter('csvimport'))
-    {
-      $this->form->bind($request->getParameterHolder()->getAll());
-      if ($this->form->isValid())
-      {
-        $this->processForm();
-
-        $type = $request->getParameter('type');
-        if (!empty($type))
-        {
-          $this->resource->setTypeByName($type);
-        }
-
-        $this->resource->save();
-
-        if ($this->request->contact_type
-            || $this->request->contactPerson
-            || $this->request->streetAddress
-            || $this->request->city
-            || $this->request->region
-            || $this->request->countryCode
-            || $this->request->postalCode
-            || $this->request->telephone
-            || $this->request->fax
-            || $this->request->email
-            || $this->request->website)
-        {
-          $contactInformation = new QubitContactInformation;
-          $contactInformation->actor = $this->resource;
-          $contactInformation->contactType = $this->request->contactType;
-          $contactInformation->contactPerson = $this->request->contactPerson;
-          $contactInformation->streetAddress = $this->request->streetAddress;
-          $contactInformation->city = $this->request->city;
-          $contactInformation->region = $this->request->region;
-          $contactInformation->countryCode = $this->request->countryCode;
-          $contactInformation->postalCode = $this->request->postalCode;
-          $contactInformation->telephone = $this->request->telephone;
-          $contactInformation->fax = $this->request->fax;
-          $contactInformation->email = $this->request->email;
-          $contactInformation->website = $this->request->website;
-          $contactInformation->note = $this->request->contactInformationNote;
-
-          $contactInformation->save();
-
-          if ($this->request->primaryContact)
-          {
-            $contactInformation->makePrimaryContact();
-          }
-        }
-      }
-
-    }
-    elseif ($request->isMethod('post'))
+    if ($request->isMethod('post'))
     {
       $this->form->bind($request->getPostParameters());
       if ($this->form->isValid())
