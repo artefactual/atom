@@ -73,9 +73,6 @@
         <?php foreach ($resource->getDates() as $item): ?>
           <li>
             <?php echo Qubit::renderDateStartEnd($item->getDate(array('cultureFallback' => true)), $item->startDate, $item->endDate) ?> (<?php echo $item->getType(array('cultureFallback' => true)) ?>)
-            <?php if (isset($item->actor)): ?>
-              <?php echo link_to(render_title($item->actor), array($item->actor, 'module' => 'actor')) ?>
-            <?php endif; ?>
           </li>
         <?php endforeach; ?>
       </ul>
