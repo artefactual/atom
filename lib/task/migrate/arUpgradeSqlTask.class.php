@@ -71,8 +71,8 @@ EOF;
     sfContext::createInstance($this->configuration);
 
     $this->getPluginSettings();
-    $this->checkMissingThemes();
     $this->removeMissingPluginsFromSettings();
+    $this->checkMissingThemes();
 
     // Deactivate search index, must be rebuilt later anyways
     QubitSearch::disable();
@@ -336,11 +336,14 @@ EOF;
       {
         if (($key = array_search($configPlugin, $configuredPlugins)) !== false)
         {
+          $promptRemove = strtolower(readline("Plugin $configPlugin no longer exists. Remove it? (Y/n): "));
+          if ($promptRemove == 'n' || $promptRemove == 'no')
+          {
+            continue;
+          }
+
           unset($configuredPlugins[$key]);
-          $this->logSection(
-            'upgrade-sql',
-            "Removing plugin from settings that is no longer present on the file system: $configPlugin"
-          );
+          $this->logSection('upgrade-sql', "Removing plugin from settings: $configPlugin");
         }
       }
     }
@@ -358,35 +361,37 @@ EOF;
     $presentThemes = $this->getPluginsPresent(true);
     $configuredPlugins = unserialize($this->pluginsSetting->getValue(array('sourceCulture' => true)));
 
-    // I didn't know how to check for 'current theme name' easily; either I'm missing something
-    // really obvious or the way we check that is really really weird...? So just check for known
-    // deprecated themes...
+    // Check to see if any of the present themes in plugins/ are configured
+    // to be used in the AtoM settings. If not, we'll prompt for a new theme.
+    $themeMissing = true;
 
-    $oldThemes = array(
-      'qtTrilliumPlugin',
-      'sfAlouettePlugin'
-    );
-
-    foreach ($oldThemes as $invalidTheme)
+    foreach ($presentThemes as $presentThemeName => $presentThemePath)
     {
-      if (in_array($invalidTheme, $configuredPlugins) && !in_array($invalidTheme, array_keys($presentThemes)))
+      if (in_array($presentThemeName, $configuredPlugins))
       {
-        $this->logSection('upgrade-sql', 'The theme being used in the configuration no longer exists.');
-        $chosenTheme = $this->getNewTheme($presentThemes);
-
-        // Remove our invalid theme, set it to the new chosen one, and save.
-        if (($key = array_search($invalidTheme, $configuredPlugins)) !== false)
-        {
-          unset($configuredPlugins[$key]);
-        }
-
-        $configuredPlugins[] = $chosenTheme;
-
-        $this->pluginsSetting->setValue(serialize($configuredPlugins), array('sourceCulture' => true));
-        $this->pluginsSetting->save();
-
-        $this->logSection('upgrade-sql', "AtoM theme changed to $chosenTheme.");
+        // Valid theme configured + present in plugins/
+        $themeMissing = false;
+        break;
       }
+    }
+
+    if ($themeMissing)
+    {
+      $this->logSection('upgrade-sql', 'There is not a valid theme set currently.');
+
+      $prompt = strtolower(readline("Would you like to choose a new theme (Y/n): "));
+      if ($prompt == 'n' || $prompt == 'no')
+      {
+        return;
+      }
+
+      $chosenTheme = $this->getNewTheme($presentThemes);
+      $configuredPlugins[] = $chosenTheme;
+
+      $this->pluginsSetting->setValue(serialize($configuredPlugins), array('sourceCulture' => true));
+      $this->pluginsSetting->save();
+
+      $this->logSection('upgrade-sql', "AtoM theme changed to $chosenTheme.");
     }
   }
 
