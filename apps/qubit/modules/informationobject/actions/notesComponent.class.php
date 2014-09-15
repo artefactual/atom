@@ -100,7 +100,7 @@ class InformationObjectNotesComponent extends sfComponent
           $this->allNotes = $this->resource->getNotesByTaxonomy(array('noteTypeId' => $this->taxonomyId));
           $this->tableName = $this->context->i18n->__('Specialized note(s)');
           $this->arrayName = 'dacsSpecializedNotes';
-          $this->help = $this->context->i18n->__('TO-DO');
+          $this->help = $this->context->i18n->__('Select a note type from the drop-down menu and record, as needed, specialized information not accommodated by any of the defined elements of description, including Conservation (DACS 7.1.3), Citation (DACS 7.1.5), Alphanumeric designations (DACS 7.1.6), Variant title information (DACS 7.1.7), or Processing information (DACS 7.1.8).');
 
           $this->addField('type');
 
