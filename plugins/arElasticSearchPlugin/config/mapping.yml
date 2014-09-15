@@ -179,6 +179,7 @@ mapping:
     properties:
       slug: { type: string, index: not_analyzed }
       identifier: { type: string, index: not_analyzed }
+      date: { type: date, include_in_all: false }
 
   actor:
     _attributes:
