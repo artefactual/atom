@@ -92,17 +92,19 @@ class arDacsPlugin extends sfIsadPlugin
   public static function eventTypes()
   {
     $types = array(
-      QubitTerm::getById(QubitTerm::CUSTODY_ID),
       QubitTerm::getById(QubitTerm::CREATION_ID),
       QubitTerm::getById(QubitTerm::PUBLICATION_ID));
 
     $criteria = new Criteria;
     $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-    $criteria->add(QubitTermI18n::NAME, 'Record-keeping activity');
+    $criteria->add(QubitTermI18n::NAME, array('Broadcasting', 'Record-keeping activity'), Criteria::IN);
     $criteria->add(QubitTermI18n::CULTURE, 'en');
-    if (null !== $term = QubitTerm::getOne($criteria))
+    if (null !== $terms = QubitTerm::get($criteria))
     {
-      $types[] = $term;
+      foreach ($terms as $item)
+      {
+        $types[] = $item;
+      }
     }
 
     return $types;
