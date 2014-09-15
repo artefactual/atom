@@ -10,7 +10,8 @@
 class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
 {
   public static
-    $pluginNames;
+    $pluginNames,
+    $loadPlugins = true;
 
   /**
    * @see sfPluginConfiguration
@@ -41,7 +42,7 @@ class sfPluginAdminPluginConfiguration extends sfPluginConfiguration
 
     try
     {
-      if (1 == count($query = QubitSetting::get($criteria)))
+      if (sfPluginAdminPluginConfiguration::$loadPlugins && 1 == count($query = QubitSetting::get($criteria)))
       {
         // http://accesstomemory.org/wiki/index.php?title=Autoload
         $this->dispatcher->disconnect('autoload.filter_config', array($this->configuration, 'filterAutoloadConfig'));
