@@ -327,7 +327,7 @@ class sfEadPlugin
     // Check if extentAndMedium contains a HTML definition list
     if ($dlPos === false)
     {
-      $physDescContent .= '<extent encodinganalog="' . $this->getMetadataParameter('extent') . '">' . escape_dc(esc_specialchars($extentAndMedium)) . '</extent>';
+      $physDescContent .= '<extent encodinganalog="' . $this->getMetadataParameter('extent') . '">' . escape_dc($extentAndMedium) . '</extent>';
     }
     else // AtoM uses <dl> / <dd> / <dt> tags to specify children of <extent>.
     {
