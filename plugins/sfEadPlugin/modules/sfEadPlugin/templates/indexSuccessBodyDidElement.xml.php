@@ -61,7 +61,7 @@
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getEdition(array('cultureFallback' => true)))): ?>
-    <unittitle <?php if (0 < strlen($encoding = $ead->getMetadataParameter('editionstatement'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><edition><?php echo escape_dc(esc_specialchars($value)) ?></edition></unittitle>
+    <unittitle type="editionStat" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('editionstatement'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><edition><?php echo escape_dc(esc_specialchars($value)) ?></edition></unittitle>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('editionStatementOfResponsibility')->__toString())): ?>

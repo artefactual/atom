@@ -86,6 +86,10 @@ information_object:
       XPath: "did/unittitle[@type='parallel']"
       Method:  setAlternateTitle
 
+    edition_statement:
+      XPath: "did/unittitle[@type='editionStat']"
+      Method:  setEdition
+
     other_title:
       XPath: "did/unittitle[@type='otherInfo']"
       Method:  addProperty
