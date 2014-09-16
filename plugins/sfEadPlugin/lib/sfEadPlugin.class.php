@@ -413,4 +413,29 @@ class sfEadPlugin
 
     return implode(sfConfig::get('app_separator_character', '-'), $identifier);
   }
+
+  /**
+   * Get a string representation of the resource's level of description.
+   */
+  public static function renderLOD($resource, $eadLevels)
+  {
+    $defaultLevel = 'otherlevel';
+    $renderedLOD = '';
+    $levelOfDescription = $defaultLevel;
+
+    if ($resource->levelOfDescriptionId)
+    {
+      $levelOfDescription = strtolower($resource->getLevelOfDescription()->getName(array('culture' => 'en')));
+
+      if (!in_array($levelOfDescription, $eadLevels))
+      {
+        $renderedLOD = 'otherlevel="' . $levelOfDescription . '" ';
+        $levelOfDescription = $defaultLevel;
+      }
+    }
+
+    $renderedLOD .= 'level="' . $levelOfDescription . '"';
+
+    return $renderedLOD;
+  }
 }
