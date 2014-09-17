@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2013-10-03T11:52:47Z" product-name="messages">
+  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2014-09-17T12:06:12Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -472,6 +472,14 @@ context en inhoud van de beschrijvingseenheid. Vermeld, indien van toepassing, w
       </trans-unit>
       <trans-unit id="132">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="133">
+        <source>Related descriptions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="134">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
         <target/>
       </trans-unit>
     </body>

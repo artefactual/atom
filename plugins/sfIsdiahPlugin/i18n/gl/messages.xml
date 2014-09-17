@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2013-10-03T11:52:58Z" product-name="messages">
+  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2014-09-17T12:12:07Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -378,6 +378,34 @@
       </trans-unit>
       <trans-unit id="98">
         <source>Last updated</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Edit access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>Access Points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>Thematic area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Search for an existing term in the Thematic Areas taxonomy by typing the first few characters of the term name. This should be used to identify major collecting areas.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Geographic subregion</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Search for an existing term in the Geographic Subregion taxonomy by typing the first few characters of the term name.</source>
         <target/>
       </trans-unit>
     </body>

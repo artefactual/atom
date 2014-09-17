@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2013-10-03T11:52:11Z" product-name="messages">
+  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2014-09-17T11:56:05Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -380,10 +380,6 @@
         <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
         <target>Za povezano gradivo, "Če zapise v drugi instituciji s popisno enoto povezuje dejstvo, da si delijo provenienco, omenite povezano gradivo na ravni fonda, serij ali zbirke, za ločene enote pa navedite njihovo lokacijo, če je le-ta znana. " 1.8B18). Za sorodno gradivo, "Navedite skupine zapisov, ki so odločilno povezane, ker si delijo odgovornost ali imajo skupno dejavnost v eni ali več enotah, ki niso popisne enote." (RAD 1.8B20)</target>
       </trans-unit>
-      <trans-unit id="103">
-        <source>Associated/related material</source>
-        <target>Povezan/sorodno gradivo</target>
-      </trans-unit>
       <trans-unit id="104">
         <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
         <target>"Če popis enote še ni končan, odprt ostaja npr. fond ali serija, zapišite, da lahko pričakujemo dopolnjevanje gradiva ... Če dopolnjevanj ne bo, navedite, da se arhivska enota smatra za zaprto." (RAD 1.8B19)</target>
@@ -572,10 +568,6 @@
         <source>Finding aids</source>
         <target>Pripomočki za uporabo</target>
       </trans-unit>
-      <trans-unit id="155">
-        <source>Associated / related material</source>
-        <target>Povezano/sorodno gradivo</target>
-      </trans-unit>
       <trans-unit id="156">
         <source>Accruals</source>
         <target>Dodatno pridobivanje gradiva</target>
@@ -666,6 +658,18 @@
       </trans-unit>
       <trans-unit id="180">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
+        <target>Zabeležite citate morebitnih zunanjih virov, uporabljenih pri arhivskem popisovanju (npr. polja Obseg in Vsebina, Historiat fonda ali Opombe).</target>
+      </trans-unit>
+      <trans-unit id="181">
+        <source>Associated materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="182">
+        <source>Related materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="183">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
         <target/>
       </trans-unit>
     </body>

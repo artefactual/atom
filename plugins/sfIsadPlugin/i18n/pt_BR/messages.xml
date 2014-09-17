@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2013-10-03T11:50:39Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2014-09-17T11:50:47Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -435,11 +435,11 @@ elaboração da descrição. (ISAD 3.7.2)</target>
       </trans-unit>
       <trans-unit id="1015">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>"Identificar e registrar a(s) data(s) da unidade de descrição. Identifique o(s) tipo(s) de data(s) registrada(s). Registre uma data única ou datas-limite, como for conveniente." (ISAD 3.1.3). O campo de exibição Data pode ser usado para inserir informação de data em texto livre, incluindo marcas tipográficas para expressar aproximação, incerteza ou qualificação. Use os campos início e fim para fazer com que as datas sejam pesquisáveis. Não use quaisquer qualificadores ou símbolos tipográficos para expressar incerteza. Formatos de data aceitáveis:  AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.</target>
       </trans-unit>
       <trans-unit id="1016">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
-        <target/>
+        <target>Registre as citações usadas de qualquer fonte externa para a descrição arquivística (como os de Escopo e Contéudo, Arquivo Histórico, ou Campos de notas).</target>
       </trans-unit>
     </body>
   </file>

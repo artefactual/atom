@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-10-03T11:53:11Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2014-09-17T11:53:00Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -473,6 +473,14 @@ elaboração da descrição. (ISAD 3.7.2)</target>
       </trans-unit>
       <trans-unit id="1026">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1027">
+        <source>Related descriptions</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1028">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
         <target/>
       </trans-unit>
     </body>

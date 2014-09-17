@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2013-10-03T11:52:58Z" product-name="messages">
+  <file source-language="EN" target-language="gl" datatype="plaintext" original="messages" date="2014-09-17T12:12:06Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -284,10 +284,6 @@
         <source>Finding aids</source>
         <target>Instrumentos de descrición</target>
       </trans-unit>
-      <trans-unit id="76">
-        <source>Associated / related material</source>
-        <target>Material asociado / relacionado</target>
-      </trans-unit>
       <trans-unit id="77">
         <source>Accruals</source>
         <target>Acumulacións</target>
@@ -548,10 +544,6 @@
         <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
         <target>Para material asociado, "Se os rexistros noutra institución están asociados coa unidade que se describe en virtude do feito que comparten a mesma orixe, faga un citación ao material asociado a nivel de fondo, serie ou colección, ou para ítems individuais, indique a súa localización se esta é coñecida." (RAD 1.8B18). Para material relacionado, "Indicar os grupos de rexistros que tenn alguna relación significativa en razón de responsabilidade compartida o esferea compartida de actividade, en unha o máis unidades de material externas á unidade que se describe." (RAD 1.8B20)</target>
       </trans-unit>
-      <trans-unit id="149">
-        <source>Associated/related material</source>
-        <target>Material asociado/relacionado</target>
-      </trans-unit>
       <trans-unit id="150">
         <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
         <target>"Cando a unidade que se describe aínda non está completa, por exemplo un fondo ou unha serie aberta, crear unha nota explicando as adiciones de información que se esperan... Se no se esperádicionar máis información á unidade, indicar que a unidade se considera cerrada." (RAD 1.8B19)</target>
@@ -666,6 +658,18 @@
       </trans-unit>
       <trans-unit id="180">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="181">
+        <source>Associated materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="182">
+        <source>Related materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="183">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2013-10-03T11:50:38Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2014-09-17T12:13:46Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -137,10 +137,6 @@
       <trans-unit id="797">
         <source>Terms governing use, reproduction, and publication</source>
         <target>Termos de uso que regem, reprodução e publicação</target>
-      </trans-unit>
-      <trans-unit id="798">
-        <source>Associated / related material</source>
-        <target>Material associado/relacionado</target>
       </trans-unit>
       <trans-unit id="800">
         <source>Rules or conventions</source>
@@ -333,10 +329,6 @@
       <trans-unit id="952">
         <source>Biographical sketch</source>
         <target>Resumo biográfico</target>
-      </trans-unit>
-      <trans-unit id="953">
-        <source>Associated/related material</source>
-        <target>Material associado/relacionado</target>
       </trans-unit>
       <trans-unit id="955">
         <source>Add new archival description</source>
@@ -621,15 +613,15 @@ elaboração da descrição.</target>
       </trans-unit>
       <trans-unit id="1033">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
-        <target/>
+        <target>"Registre o idioma ou idiomas da unidade que está sendo descrita, a menos que esteja referido em outro lugar ou possa ser deduzido a partir de outros elementos da descrição. Também anote qualquer alfabeto distinto ou sistema de símbolos empregado." (RAD 1.8B14). Não duplique informações inseridas através do menu de opções nos campos de idioma ou escrita.</target>
       </trans-unit>
       <trans-unit id="1034">
         <source>For terms governing use and reproduction, "Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c). For terms governing publication, "Give information on legal or donor restrictions that may affect publication of the material." (RAD 1.8B16d)</source>
-        <target/>
+        <target>Para obter os termos que regem o uso e reprodução, "Forneça informações sobre restrições legais ou de doadores que possam afetar o uso ou a reprodução do material." (RAD 1.8B16c). Para obter os termos que regem a publicação, "Forneça informações sobre restrições legais ou de doadores que possam afetar a publicação do material." (RAD 1.8B16d)</target>
       </trans-unit>
       <trans-unit id="1035">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target/>
+        <target>Registre as citações usadas de qualquer fonte externa para a descrição arquivística (como os de Escopo e Contéudo, Arquivo Histórico, ou Campos de notas).</target>
       </trans-unit>
     </body>
   </file>

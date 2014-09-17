@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2013-10-03T11:50:53Z" product-name="messages">
+  <file source-language="EN" target-language="ja" datatype="plaintext" original="messages" date="2014-09-17T11:57:35Z" product-name="messages">
     <body>
       <trans-unit id="44">
         <source>Reference code</source>
@@ -137,10 +137,6 @@
       <trans-unit id="729">
         <source>Terms governing use, reproduction, and publication</source>
         <target>使用、複製、出版関係用語</target>
-      </trans-unit>
-      <trans-unit id="730">
-        <source>Associated / related material</source>
-        <target>他機関所蔵 / 関連資料</target>
       </trans-unit>
       <trans-unit id="732">
         <source>Rules or conventions</source>
@@ -333,10 +329,6 @@
       <trans-unit id="884">
         <source>Biographical sketch</source>
         <target>履歴の概要</target>
-      </trans-unit>
-      <trans-unit id="885">
-        <source>Associated/related material</source>
-        <target>他機関所蔵 / 関連資料</target>
       </trans-unit>
       <trans-unit id="887">
         <source>Add new archival description</source>
@@ -666,6 +658,18 @@
       </trans-unit>
       <trans-unit id="979">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="980">
+        <source>Associated materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="981">
+        <source>Related materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="982">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
         <target/>
       </trans-unit>
     </body>

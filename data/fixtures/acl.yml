@@ -5,6 +5,7 @@ QubitAclGroup:
     id: 98
     parent_id: QubitAclGroup_ROOT
     name:
+      ca: anònim
       en: anonymous
       es: anónimo
       fr: anonyme
@@ -14,12 +15,14 @@ QubitAclGroup:
       ka: ანონიმი
       pl: anonimowy
       pt: anónimo
+      pt_BR: anônimo
       sl: anonimno
       th: นิรนาม
   QubitAclGroup_authenticated:
     id: 99
     parent_id: QubitAclGroup_ROOT
     name:
+      ca: autenticat
       en: authenticated
       es: autenticado
       fr: authentifié
@@ -35,6 +38,7 @@ QubitAclGroup:
     id: 100
     parent_id: QubitAclGroup_authenticated
     name:
+      ca: administrador
       en: administrator
       es: administrador
       fr: administrateur
@@ -44,11 +48,13 @@ QubitAclGroup:
       ka: ადმინისტრატორი
       pl: administrator
       pt: administrador
+      pt_BR: administrador
       sl: skrbnik
   QubitAclGroup_editor:
     id: 101
     parent_id: QubitAclGroup_authenticated
     name:
+      ca: editor
       en: editor
       es: editor
       fr: 'auteur de la modification'
@@ -58,11 +64,13 @@ QubitAclGroup:
       ka: რედაქტორი
       pl: edytor
       pt: editor
+      pt_BR: editor
       sl: urednik
   QubitAclGroup_contributor:
     id: 102
     parent_id: QubitAclGroup_authenticated
     name:
+      ca: col·laborador
       en: contributor
       es: contribuidor
       fr: contributeur
@@ -73,11 +81,14 @@ QubitAclGroup:
       ka: 'კონტრიბუტორი, დამხმარე, ხელის შემწყობი'
       pl: kontrybutor
       pt: colaborador
+      pt_BR: colaborador
       sl: sodelavec
   QubitAclGroup_translator:
     id: 103
     parent_id: QubitAclGroup_authenticated
     name:
+      ca: traductor
+      de: Übersetzer
       en: translator
       es: traductor
       fr: traducteur
@@ -88,6 +99,7 @@ QubitAclGroup:
       ka: მთარგმნელი
       pl: tłumacz
       pt: tradutor
+      pt_BR: tradutor
       sl: prevajalec
       th: 'three dimensional วัตถุ'
 QubitAclPermission:

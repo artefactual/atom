@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2013-10-03T11:50:38Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2014-09-17T12:13:51Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -172,10 +172,6 @@
         <source>Browse accession</source>
         <target>Navegação em ingressos</target>
       </trans-unit>
-      <trans-unit id="51">
-        <source>Search accession</source>
-        <target>Pesquisar ingresso</target>
-      </trans-unit>
       <trans-unit id="52">
         <source>Related donors</source>
         <target>Doadores relacionados</target>
@@ -288,10 +284,6 @@
         <source>Create %1%</source>
         <target>Criar %1%</target>
       </trans-unit>
-      <trans-unit id="86">
-        <source>List accession record</source>
-        <target>Lista de ingressos</target>
-      </trans-unit>
       <trans-unit id="87">
         <source>Identifier</source>
         <target>Código de referência</target>
@@ -394,15 +386,15 @@
       </trans-unit>
       <trans-unit id="113">
         <source>Basic info</source>
-        <target/>
+        <target>Informação básica</target>
       </trans-unit>
       <trans-unit id="114">
         <source>Search %1%</source>
-        <target/>
+        <target>Pesquisa %1%</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Most recent</source>
-        <target/>
+        <target>Mais recente</target>
       </trans-unit>
     </body>
   </file>

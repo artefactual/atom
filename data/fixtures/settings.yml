@@ -74,6 +74,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: 'Descripció arxivística'
       de: 'Archivische Beschreibung'
       en: 'Archival description'
       es: 'Descripción archivística'
@@ -86,8 +87,10 @@ QubitSetting:
       nl: 'Archivistische beschrijving'
       pl: 'Opis archiwalny'
       pt: 'Descrição arquivística'
+      pt_BR: 'Descrição arquivística'
       sl: 'Arhivski popis'
       th: คำอธิบายจดหมายเหตุ
+      vi: 'Mô tả lưu trữ'
   QubitSetting_12:
     name: actor
     scope: ui_label
@@ -95,6 +98,8 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: 'Registre d''autoritat'
+      de: Normdatei
       en: 'Authority record'
       es: 'Registro de autoridad'
       fr: 'Notice d''autorité'
@@ -106,8 +111,10 @@ QubitSetting:
       nl: 'Geauthoriseerde beschrijving'
       pl: 'Hasło wzorcowe'
       pt: 'Registro de autoridade'
+      pt_BR: 'Registro de autoridade'
       sl: 'Zapis o ustvarjalcu'
       th: รายการควบคุม
+      vi: 'Authority record'
   QubitSetting_13:
     name: creator
     scope: ui_label
@@ -115,6 +122,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: Productor
       de: Urheber/Bestandsbildner
       en: Creator
       es: Creador
@@ -137,6 +145,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: 'Institució arxivística'
       de: Archiv
       en: 'Archival institution'
       es: 'Institución archivística'
@@ -151,9 +160,10 @@ QubitSetting:
       nl: Archiefinstelling
       pl: 'Instytucja archiwalna'
       pt: 'Instituição de arquivo'
-      pt_BR: 'Entidade custodiadora'
+      pt_BR: 'Instituição arquivística'
       sl: 'Arhivska ustanova'
       th: สถาบันจดหมายเหตุ
+      vi: 'Tổ chức lưu trữ'
   QubitSetting_15:
     name: function
     scope: ui_label
@@ -161,6 +171,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: Funció
       de: Funktion
       en: Function
       es: Función
@@ -173,6 +184,7 @@ QubitSetting:
       nl: Functie
       pl: Funkcja
       pt: Função
+      pt_BR: Função
       sl: Funkcija
       th: ฟังก์ชั่น
   QubitSetting_16:
@@ -182,6 +194,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: Terme
       de: Begriff
       en: Term
       es: Término
@@ -194,6 +207,7 @@ QubitSetting:
       nl: Term
       pl: Termin
       pt: Termo
+      pt_BR: Termo
       sl: Izraz
       th: คำศัพท์
   QubitSetting_17:
@@ -203,6 +217,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: Matèria
       de: Gegenstand
       en: Subject
       es: Materia
@@ -226,7 +241,8 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      de: Sammlung
+      ca: Fons
+      de: Fonds
       en: Fonds
       es: Fondo
       fr: collection
@@ -237,6 +253,7 @@ QubitSetting:
       nl: Archief
       pl: Zespoły
       pt: Fundos
+      pt_BR: Fundos
       sl: Fondi
       th: เอกสารระดับกลุ่ม
   QubitSetting_19:
@@ -246,7 +263,8 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      de: 'Bestände (?)'
+      ca: Fons
+      de: Bestände
       en: Holdings
       es: Fondos
       fa: دربرگيرندگي
@@ -268,6 +286,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: Lloc
       de: Ort
       en: Place
       es: Lugar
@@ -282,7 +301,7 @@ QubitSetting:
       nl: Plaats
       pl: Miejsce
       pt: Local
-      pt_BR: local
+      pt_BR: Local
       sl: Kraj
       th: จัด
   QubitSetting_21:
@@ -292,6 +311,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: Nom
       de: Name
       en: Name
       es: Nombre
@@ -306,7 +326,7 @@ QubitSetting:
       nl: Naam
       pl: Nazwa
       pt: Nome
-      pt_BR: nome
+      pt_BR: Nome
       sl: Ime
       th: ชื่อ
   QubitSetting_22:
@@ -316,6 +336,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: 'Objecte digital'
       de: 'Digitales Objekt'
       en: 'Digital object'
       es: 'Objeto digital'
@@ -328,6 +349,7 @@ QubitSetting:
       nl: 'Digitaal object'
       pl: 'Obiekt cyfrowy'
       pt: 'Objeto digital'
+      pt_BR: 'Objeto digital'
       sl: 'Digitalni objekt'
       th: วัตถุดิจิตอล
   QubitSetting_23:
@@ -337,7 +359,8 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      de: 'Physisches Objekt'
+      ca: 'Unitat d''instal·lació'
+      de: Aufbewahrung
       en: 'Physical storage'
       es: 'Unidad de almacenaje'
       fr: 'Localisation physique'
@@ -359,6 +382,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: 'Tipus de suport'
       de: Medienart
       en: 'Media type'
       es: 'Tipo de soporte'
@@ -371,7 +395,7 @@ QubitSetting:
       nl: mediatype
       pl: 'Typ medium'
       pt: 'Tipo de suporte'
-      pt_BR: Tipo
+      pt_BR: 'Tipo de mídia'
       sl: 'Vrsta medija'
       th: ประเภทสื่อ
   QubitSetting_25:
@@ -381,6 +405,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: 'Tipus de material'
       de: Materialart
       en: 'Material type'
       es: 'Tipo de material'
@@ -392,6 +417,7 @@ QubitSetting:
       nl: 'Soort materiaal'
       pl: 'Typ materiału'
       pt: 'Tipo de material'
+      pt_BR: 'Tipo de material'
       sl: 'Vrsta gradiva'
       th: ประเภทเอกสาร
   QubitSetting_facets_title:
@@ -401,11 +427,14 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
+      ca: 'Filtreu els resultats per:'
+      de: 'Grenzen Sie Ihre Trefferzahl ein durch:'
       en: 'Narrow your results by:'
       es: 'Restringir resultados por:'
       fr: 'Affiner les résultats par :'
       gl: 'Refinar os resultados por:'
       it: 'Restringi i risultati per:'
+      pt_BR: 'Limite seus resultados por:'
       sl: 'Omejite rezultate:'
   QubitSetting_26:
     name: en
