@@ -127,7 +127,7 @@ class eadExportTask extends sfBaseTask
       $itemsExported++;
     }
 
-    print "\nExport complete.\n";
+    print "\nExport complete (". $itemsExported ." descriptions exported).\n";
   }
 
   protected function checkForValidFolder($folder)
