@@ -116,7 +116,7 @@ class sfModsPlugin implements ArrayAccess
 
         if (isset($this->resource->repository))
         {
-          $list[] = $this->resource->repository;
+          $list[] = $this->resource->repository->authorizedFormOfName;
 
           if (isset($this->resource->repository->identifier))
           {
