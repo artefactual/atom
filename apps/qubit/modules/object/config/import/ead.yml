@@ -59,22 +59,22 @@ information_object:
       Method:  setRepositoryByName
 
     creator:
-      XPath:  "did/origination/name"
+      XPath:  "(did/origination/name|origination/name)"
       Method:  setActorByName
       Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID)"]
 
     creator_person:
-      XPath:   "did/origination/persname"
+      XPath:   "(did/origination/persname|origination/persname)"
       Method:  setActorByName
       Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID, 'entity_type_id' => QubitTerm::PERSON_ID)"]
 
     creator_corporate_body:
-      XPath:   "did/origination/corpname"
+      XPath:   "(did/origination/corpname|origination/corpname)"
       Method:  setActorByName
       Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID, 'entity_type_id' => QubitTerm::CORPORATE_BODY_ID)"]
 
     creator_family:
-      XPath:   "did/origination/famname"
+      XPath:   "(did/origination/famname|origination/famname)"
       Method:  setActorByName
       Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID, 'entity_type_id' => QubitTerm::FAMILY_ID)"]
 
