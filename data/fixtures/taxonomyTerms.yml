@@ -800,6 +800,21 @@ QubitTaxonomy:
       sl: 'DACS opombe'
     note:
       en: 'Note types that occur specifically within the Society of American Archivists "Describing Archives: a Content Standard" (DACS).'
+  QubitTaxonomy_vra_core_agent_role:
+    id: 75
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'Agent role'
+  QubitTaxonomy_vra_core_date_type:
+    id: 76
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'Data type'
+  QubitTaxonomy_vra_core_location_type:
+    id: 77
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'Location type'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
