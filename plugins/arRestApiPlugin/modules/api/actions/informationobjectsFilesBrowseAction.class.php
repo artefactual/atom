@@ -69,7 +69,7 @@ class ApiInformationObjectsFilesBrowseAction extends QubitApiAction
     $this->filterEsFacetQuery('videoCodec', 'metsData.mediainfo.videoTracks.codec', $queryBool, 'AND', array('noInteger' => true));
     $this->filterEsFacetQuery('audioCodec', 'metsData.mediainfo.audioTracks.codec', $queryBool, 'AND', array('noInteger' => true));
     $this->filterEsFacetQuery('resolution', 'metsData.mediainfo.videoTracks.resolution', $queryBool);
-    $this->filterEsFacetQuery('chromaSubSampling', 'metsData.mediainfo.videoTracks.chromaSubsampling', $filterBool, 'AND', array('noInteger' => true));
+    $this->filterEsFacetFilter('chromaSubSampling', 'metsData.mediainfo.videoTracks.chromaSubsampling', $filterBool, 'AND', array('noInteger' => true));
     $this->filterEsFacetQuery('colorSpace', 'metsData.mediainfo.videoTracks.colorSpace', $queryBool, 'AND', array('noInteger' => true));
     $this->filterEsFacetQuery('sampleRate', 'metsData.mediainfo.audioTracks.samplingRate', $queryBool);
     $this->filterEsFacetQuery('bitDepth', 'metsData.mediainfo.videoTracks.bitDepth', $queryBool);
