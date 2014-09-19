@@ -78,6 +78,7 @@ QubitMenu:
       pt_BR: Gerenciar
       sl: Uredi
       th: บริหาร(Manage)
+      vi: 'Quản lý'
     path: accession/browse
   QubitMenu_mainmenu_manage_accessions:
     parent_id: QubitMenu_mainmenu_manage
@@ -141,6 +142,7 @@ QubitMenu:
       pt_BR: 'Depósito físico'
       sl: 'Fizična hramba'
       th: การเก็บเอกสารทางกายภาพ
+      vi: 'vật lý'
     path: physicalobject/browse
   QubitMenu_mainmenu_manage_rightsholders:
     parent_id: QubitMenu_mainmenu_manage
@@ -170,7 +172,7 @@ QubitMenu:
     name: taxonomies
     label:
       ca: Taxonomies
-      de: Taxonomie
+      de: Taxonomien
       en: Taxonomies
       es: Taxonomías
       fr: Référentiels
@@ -268,7 +270,7 @@ QubitMenu:
       nl: 'archivistische beschrijving'
       pl: 'Opis archiwalny'
       pt: 'descrição arquivística'
-      pt_BR: 'Descrições arquivística'
+      pt_BR: 'Descrições arquivísticas'
       sl: 'arhivski opisi'
     path: informationobject/add
   QubitMenu_mainmenu_addedit_actor:
@@ -666,6 +668,7 @@ QubitMenu:
       pt: Menus
       pt_BR: Menus
       sl: Meniji
+      vi: Menus
     path: menu/list
   QuitMenu_mainmenu_admin_plugins:
     parent_id: QubitMenu_mainmenu_admin
@@ -912,7 +915,7 @@ QubitMenu:
       it: 'Descrizioni archivistiche'
       nl: 'archivistische beschrijving'
       pt: 'descrição arquivística'
-      pt_BR: 'Descrições arquivística'
+      pt_BR: 'Descrições arquivísticas'
       sl: 'arhivski opisi'
     path: informationobject/browse
   QubitMenu_browse_actors:
@@ -1051,6 +1054,7 @@ QubitMenu:
     name: visibleElements
     label:
       ca: 'Elements públics'
+      de: 'Sichtbare Elemente'
       en: 'Visible elements'
       es: 'Elementos visibles'
       fr: 'Éléments visibles'

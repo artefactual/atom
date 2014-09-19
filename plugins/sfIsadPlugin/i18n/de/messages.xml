@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2014-09-17T11:58:16Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2014-09-19T13:20:03Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -128,7 +128,7 @@
       </trans-unit>
       <trans-unit id="896">
         <source>This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.</source>
-        <target/>
+        <target>Diese archivische Erschließung oder eine ihrer höheren Stufen %1%benötigt%2% wenigstens die Angabe des %3%Bestandsbildners oder der Provenienzstelle%4%.</target>
       </trans-unit>
       <trans-unit id="897">
         <source>%1%Date(s)%2% - are not consistent with %3%higher levels%2%.</source>
@@ -284,7 +284,7 @@
       </trans-unit>
       <trans-unit id="943">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
-        <target/>
+        <target>Diese archivische Erschließung oder eine ihrer höheren Stufen benötigt wenigstens die Angabe des Bestandsbildners oder der Provenienzstelle.</target>
       </trans-unit>
       <trans-unit id="953">
         <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.</source>
@@ -473,11 +473,11 @@ Für elektronische Akten ist festzuhalten oder zu verweisen auf Informationen zu
       </trans-unit>
       <trans-unit id="1026">
         <source>Related descriptions</source>
-        <target/>
+        <target>Verwandte Beschreibungen</target>
       </trans-unit>
       <trans-unit id="1027">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target/>
+        <target>Um eine Beziehung zwischen dieser Beschreibungund einer anderen Beschreibung in Atom herzustellen, beginnen Sie den Namen der verwandten Beschreibung einzugeben und wählen sie aus dem Autovervollständigen Drop-down Menü aus. Es können mehrere Beziehungen erstellt werden.</target>
       </trans-unit>
     </body>
   </file>

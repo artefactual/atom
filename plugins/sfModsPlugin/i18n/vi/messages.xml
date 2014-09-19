@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2014-09-17T12:02:50Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2014-09-19T13:20:08Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Add new resource</source>
-        <target/>
+        <target>Thêm nguồn tài nguyên mới</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Untitled</source>
@@ -14,7 +14,7 @@
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
-        <target/>
+        <target>Hiệu %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Select the type of activity that established the relation between the authority record and the resource.</source>
@@ -22,7 +22,7 @@
       </trans-unit>
       <trans-unit id="5">
         <source>How to access to this content?</source>
-        <target/>
+        <target>Làm thế nào để truy cập vào nội dung này?</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Contact the archivist at %1%</source>
@@ -34,19 +34,21 @@
       </trans-unit>
       <trans-unit id="8">
         <source>Close</source>
-        <target/>
+        <target>Đóng</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Elements area</source>
-        <target/>
+        <target> Vùng yếu tố </target>
       </trans-unit>
       <trans-unit id="10">
         <source>Edit elements area</source>
-        <target/>
+        <target>
+ 
+Hiệu</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Identifier</source>
-        <target/>
+        <target>Định danh</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Title</source>
@@ -58,7 +60,7 @@
       </trans-unit>
       <trans-unit id="14">
         <source>Language</source>
-        <target/>
+        <target>Ngôn ngữ</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Internet media type</source>
@@ -78,7 +80,7 @@
       </trans-unit>
       <trans-unit id="19">
         <source>Physical location</source>
-        <target/>
+        <target>Vị trí vật lý </target>
       </trans-unit>
       <trans-unit id="20">
         <source>Rights area</source>
@@ -86,7 +88,7 @@
       </trans-unit>
       <trans-unit id="21">
         <source>Edit rights area</source>
-        <target/>
+        <target>Hiệu khu quyền</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Accession area</source>
@@ -110,7 +112,7 @@
       </trans-unit>
       <trans-unit id="27">
         <source>Add new name and/or origin info</source>
-        <target/>
+        <target>Thêm tên và / hoặc thông tin nguồn gốc</target>
       </trans-unit>
       <trans-unit id="28">
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
@@ -134,11 +136,11 @@
       </trans-unit>
       <trans-unit id="33">
         <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>
-        <target/>
+        <target>Thông tin về những hạn chế đối với quyền truy cập vào một tài nguyên. Xem MODS access Condition top-level element để biết thêm thông tin về cách sử dụng lĩnh vực này.</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.</source>
-        <target/>
+        <target>Xác định các tổ chức, kho lưu giữ tài nguyên. Tìm kiếm một tên kho hiện tại bằng cách gõ một vài ký tự đầu tiên của tên. Ngoài ra, nhập tên mới để tạo ra và liên kết đến một kho lưu trữ mới.</target>
       </trans-unit>
     </body>
   </file>

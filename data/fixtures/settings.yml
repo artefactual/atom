@@ -256,6 +256,7 @@ QubitSetting:
       pt_BR: Fundos
       sl: Fondi
       th: เอกสารระดับกลุ่ม
+      vi: 'Các phông'
   QubitSetting_19:
     name: holdings
     scope: ui_label
@@ -279,6 +280,7 @@ QubitSetting:
       pt_BR: Acervo
       sl: 'Arhivsko gradivo'
       th: สถานที่เก็บเอกสาร
+      vi: 'Ngắn về'
   QubitSetting_20:
     name: place
     scope: ui_label
@@ -352,6 +354,7 @@ QubitSetting:
       pt_BR: 'Objeto digital'
       sl: 'Digitalni objekt'
       th: วัตถุดิจิตอล
+      vi: 'Digital object'
   QubitSetting_23:
     name: physicalobject
     scope: ui_label
@@ -375,6 +378,7 @@ QubitSetting:
       pt_BR: 'Depósito físico'
       sl: 'Fizična hramba'
       th: การเก็บเอกสารทางกายภาพ
+      vi: 'vật lý'
   QubitSetting_24:
     name: mediatype
     scope: ui_label
@@ -398,6 +402,7 @@ QubitSetting:
       pt_BR: 'Tipo de mídia'
       sl: 'Vrsta medija'
       th: ประเภทสื่อ
+      vi: 'Loại truyền thông'
   QubitSetting_25:
     name: materialtype
     scope: ui_label
@@ -420,6 +425,7 @@ QubitSetting:
       pt_BR: 'Tipo de material'
       sl: 'Vrsta gradiva'
       th: ประเภทเอกสาร
+      vi: 'Loại tài liệu'
   QubitSetting_facets_title:
     name: facetstitle
     scope: ui_label
@@ -436,6 +442,7 @@ QubitSetting:
       it: 'Restringi i risultati per:'
       pt_BR: 'Limite seus resultados por:'
       sl: 'Omejite rezultate:'
+      vi: 'Thu hẹp kết quả của bạn bằng cách'
   QubitSetting_26:
     name: en
     scope: i18n_languages

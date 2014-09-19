@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2014-09-17T12:02:50Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2014-09-19T13:20:08Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Add new archival description</source>
-        <target/>
+        <target>Thêm mô tả lưu trữ mới</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Untitled</source>
@@ -14,7 +14,7 @@
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
-        <target/>
+        <target>Hiệu %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.</source>
@@ -22,31 +22,31 @@
       </trans-unit>
       <trans-unit id="5">
         <source>%1%Date(s)%2% - are not consistent with %3%higher levels%2%.</source>
-        <target/>
+        <target>%1% Ngày%2% - %3% không khớp với level cao hơn.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>%1%Date(s)%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Ngày%2% - Đây là yếu tố %3%bắt buộc%4%.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>%1%Extent and medium%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Extent and medium%2% - Đây là yếu tố %3%bắt buộc%4%.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Identifier%2% - Đây là yếu tố %3%bắt buộc%4%.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>%1%Level of description%2% - Value "%value%" is not consistent with higher levels.</source>
-        <target/>
+        <target>%1%Level of description%2% - Giá trị "%value%" không khớp với level cao hơn.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>%1%Level of description%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Level of description%2% - Đây là yếu tố %3%bắt buộc%4%.</target>
       </trans-unit>
       <trans-unit id="11">
         <source>%1%Title%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Nhan đề%2% - Đây là yếu tố %3%bắt buộc%4%.</target>
       </trans-unit>
       <trans-unit id="12">
         <source>File list</source>
@@ -70,7 +70,7 @@
       </trans-unit>
       <trans-unit id="17">
         <source>How to access to this content?</source>
-        <target/>
+        <target>Làm thế nào để truy cập vào nội dung này?</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Contact the archivist at %1%</source>
@@ -82,11 +82,11 @@
       </trans-unit>
       <trans-unit id="20">
         <source>Close</source>
-        <target/>
+        <target>Đóng</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Identity area</source>
-        <target/>
+        <target>Chỉnh vùng ID</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Edit identity area</source>
@@ -94,7 +94,7 @@
       </trans-unit>
       <trans-unit id="23">
         <source>Level of description</source>
-        <target/>
+        <target>Level mô tả</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Extent and medium</source>
@@ -102,11 +102,11 @@
       </trans-unit>
       <trans-unit id="25">
         <source>Context area</source>
-        <target/>
+        <target>Khu vực bối cảnh</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Edit context area</source>
-        <target/>
+        <target>Hiệu chỉnh vùng bối cảnh</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Related function</source>
@@ -118,7 +118,7 @@
       </trans-unit>
       <trans-unit id="29">
         <source>Archival history</source>
-        <target/>
+        <target>Lịch sử lưu trữ</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Immediate source of acquisition or transfer</source>
@@ -130,7 +130,7 @@
       </trans-unit>
       <trans-unit id="32">
         <source>Edit content and structure area</source>
-        <target/>
+        <target>Hiệu khu vực cấu trúc và nội dung</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Scope and content</source>
@@ -150,11 +150,11 @@
       </trans-unit>
       <trans-unit id="37">
         <source>Conditions of access and use area</source>
-        <target/>
+        <target>Điều kiện tiếp cận và khu vực sử dụng</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Edit conditions of access and use area</source>
-        <target/>
+        <target>Hiệu chỉnh điều kiện của truy cập và vùng sử dụng </target>
       </trans-unit>
       <trans-unit id="39">
         <source>Conditions governing reproduction</source>
@@ -162,7 +162,7 @@
       </trans-unit>
       <trans-unit id="40">
         <source>Language of material</source>
-        <target/>
+        <target>Ngôn ngữ của các tài liệu</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Script of material</source>
@@ -178,7 +178,7 @@
       </trans-unit>
       <trans-unit id="44">
         <source>Finding aids</source>
-        <target/>
+        <target>Việc hỗ trợ tìm kiếm</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Allied materials area</source>
@@ -186,7 +186,7 @@
       </trans-unit>
       <trans-unit id="46">
         <source>Edit alied materials area</source>
-        <target/>
+        <target>Chỉnh sửa khu vực vật liệu trung gian.</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Existence and location of originals</source>
@@ -210,7 +210,7 @@
       </trans-unit>
       <trans-unit id="52">
         <source>Edit notes area</source>
-        <target/>
+        <target>Hiệu chỉnh vùng ghi chú</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Note</source>
@@ -222,7 +222,7 @@
       </trans-unit>
       <trans-unit id="55">
         <source>Edit access points</source>
-        <target/>
+        <target>Hiệu điểm truy cập</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Description control area</source>
@@ -238,7 +238,7 @@
       </trans-unit>
       <trans-unit id="59">
         <source>Institution identifier</source>
-        <target/>
+        <target>Định danh tổ chức</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Rules and/or conventions used</source>
@@ -250,15 +250,15 @@
       </trans-unit>
       <trans-unit id="62">
         <source>Level of detail</source>
-        <target/>
+        <target>Mức độ chi tiết</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Dates of creation revision deletion</source>
-        <target/>
+        <target>Ngày tháng năm tạo, sửa đổi, xóa</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Language(s)</source>
-        <target/>
+        <target>Ngôn ngữ </target>
       </trans-unit>
       <trans-unit id="65">
         <source>Script(s)</source>
@@ -270,7 +270,7 @@
       </trans-unit>
       <trans-unit id="67">
         <source>Archivist's note</source>
-        <target/>
+        <target>Ghi chú của chuyên viên lưu trữ</target>
       </trans-unit>
       <trans-unit id="68">
         <source>Rights area</source>
@@ -278,7 +278,7 @@
       </trans-unit>
       <trans-unit id="69">
         <source>Edit rights area</source>
-        <target/>
+        <target>Hiệu khu quyền</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Accession area</source>
@@ -302,7 +302,7 @@
       </trans-unit>
       <trans-unit id="75">
         <source>End</source>
-        <target/>
+        <target>Kết thúc</target>
       </trans-unit>
       <trans-unit id="76">
         <source>This is a duplicate of record %1%</source>
@@ -314,7 +314,7 @@
       </trans-unit>
       <trans-unit id="78">
         <source>Identifier</source>
-        <target/>
+        <target>Định danh</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)</source>
@@ -362,15 +362,15 @@
       </trans-unit>
       <trans-unit id="90">
         <source>Give a summary of the scope (such as, time periods, geography) and content, (such as documentary forms, subject matter, administrative processes) of the unit of description, appropriate to the level of description. (ISAD 3.3.1)</source>
-        <target/>
+        <target>Cung cấp cho một bản tóm tắt về phạm vi (chẳng hạn như, khoảng thời gian, địa lý) và nội dung (chẳng hạn, các hình thức tài liệu, đối tượng, quy trình hành chính) của các đơn vị mô tả, phù hợp với mức độ mô tả.(ISAD 3.3.1)</target>
       </trans-unit>
       <trans-unit id="91">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material. (ISAD 3.3.2)</source>
-        <target/>
+        <target>Biên bản thẩm định, phá hủy và lập kế hoạch hành động thực hiện trên hoặc lên kế hoạch cho các đơn vị mô tả, đặc biệt là nếu họ có thể ảnh hưởng đến việc giải thích của vật liệu.</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Indicate if accruals are expected. Where appropriate, give an estimate of their quantity and frequency. (ISAD 3.3.3)</source>
-        <target/>
+        <target>Cho biết nếu trích trước được mong đợi. Khi thích hợp, cung cấp cho một ước tính về số lượng và tần số của chúng.</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Specify the internal structure, order and/or the system of classification of the unit of description. Note how these have been treated by the archivist. For electronic records, record or reference information on system design. (ISAD 3.3.4)</source>
@@ -402,7 +402,7 @@
       </trans-unit>
       <trans-unit id="100">
         <source>Give information about any finding aids that the repository or records creator may have that provide information relating to the context and contents of the unit of description. If appropriate, include information on where to obtain a copy. (ISAD 3.4.5)</source>
-        <target/>
+        <target>Cung cấp thông tin về bất kỳ sự hỗ trợ tìm kiếm mà các kho lưu trữ hoặc người tạo lập hồ sơ có thể cung cấp thông tin liên quan đến bối cảnh và nội dung của đơn vị mô tả. Nếu thích hợp, bao gồm thông tin về địa điểm để tạo ra một bản sao.(ISAD 3.4.5)</target>
       </trans-unit>
       <trans-unit id="101">
         <source>If the original of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. If the originals no longer exist, or their location is unknown, give that information. (ISAD 3.5.1)</source>
@@ -470,11 +470,11 @@
       </trans-unit>
       <trans-unit id="117">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>Chỉ ra các ngôn ngữ được sử dụng để tạo ra các mô tả về tài liệu lưu trữ.</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>Chỉ ra các kịch bản được sử dụng để tạo ra các mô tả về tài liệu lưu trữ.</target>
       </trans-unit>
       <trans-unit id="119">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>

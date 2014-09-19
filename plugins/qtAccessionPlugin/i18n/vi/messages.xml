@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2014-09-17T12:02:51Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2014-09-19T13:20:08Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -14,15 +14,15 @@
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
-        <target/>
+        <target>Hiệu %1%</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Most recent</source>
-        <target/>
+        <target>Gần đây   hơn</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Alphabetic</source>
-        <target/>
+        <target>Chư cái</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Relevance</source>
@@ -66,7 +66,7 @@
       </trans-unit>
       <trans-unit id="16">
         <source>Add new</source>
-        <target/>
+        <target>Thêm mới</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Related donors</source>
@@ -126,7 +126,7 @@
       </trans-unit>
       <trans-unit id="31">
         <source>Edit administrative area</source>
-        <target/>
+        <target>Hiệu khu hành chính</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Acquisition type</source>
@@ -154,7 +154,7 @@
       </trans-unit>
       <trans-unit id="38">
         <source>Physical condition</source>
-        <target/>
+        <target>Kiện vật lý </target>
       </trans-unit>
       <trans-unit id="39">
         <source>Received extent units</source>
@@ -186,7 +186,7 @@
       </trans-unit>
       <trans-unit id="46">
         <source>Edit rights area</source>
-        <target/>
+        <target>Hiệu khu quyền</target>
       </trans-unit>
       <trans-unit id="47">
         <source>%1% area</source>
@@ -202,7 +202,7 @@
       </trans-unit>
       <trans-unit id="50">
         <source>Edit</source>
-        <target/>
+        <target>Hiệu</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Delete</source>
@@ -218,7 +218,7 @@
       </trans-unit>
       <trans-unit id="54">
         <source>Are you sure you want to delete %1%?</source>
-        <target/>
+        <target>Bạn có muốn xóa %1% và tất cả các hạng mục %1%?</target>
       </trans-unit>
       <trans-unit id="55">
         <source>It has %1% deaccessions that will also be deleted:</source>
@@ -230,11 +230,11 @@
       </trans-unit>
       <trans-unit id="57">
         <source>Cancel</source>
-        <target/>
+        <target>Cancel</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Edit accession record</source>
-        <target/>
+        <target>Hiệu kỷ lục  về truy cập</target>
       </trans-unit>
       <trans-unit id="59">
         <source>You are creating an accrual to accession %1%</source>
@@ -326,15 +326,18 @@
       </trans-unit>
       <trans-unit id="81">
         <source>Authorized form of name - This is a mandatory element.</source>
-        <target/>
+        <target>Authorized form of name - Đây là yếu tố bắt buộc.</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Browse donor</source>
-        <target/>
+        <target>
+người tặng 
+
+ </target>
       </trans-unit>
       <trans-unit id="83">
         <source>Identifier</source>
-        <target/>
+        <target>Định danh</target>
       </trans-unit>
       <trans-unit id="84">
         <source>View donor</source>
@@ -342,11 +345,11 @@
       </trans-unit>
       <trans-unit id="85">
         <source>Authorized form of name</source>
-        <target/>
+        <target>Authorized form of name</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Contact area</source>
-        <target/>
+        <target>Khu vực liên hệ</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Accession area</source>
@@ -358,7 +361,7 @@
       </trans-unit>
       <trans-unit id="89">
         <source>List donor</source>
-        <target/>
+        <target>Danh sách nhà tài trợ </target>
       </trans-unit>
       <trans-unit id="90">
         <source>Search donor</source>
@@ -370,7 +373,7 @@
       </trans-unit>
       <trans-unit id="92">
         <source>Identity area</source>
-        <target/>
+        <target>Chỉnh vùng ID</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Add new deaccession record</source>
@@ -378,7 +381,7 @@
       </trans-unit>
       <trans-unit id="94">
         <source>Identifier - This is a mandatory element.</source>
-        <target/>
+        <target>Định danh  - Đây là yếu tố bắt buộc.</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Date of acquisition - This is a mandatory element.</source>
@@ -386,7 +389,7 @@
       </trans-unit>
       <trans-unit id="96">
         <source>Scope - This is a mandatory element.</source>
-        <target/>
+        <target> Phạm vi - Đây là yếu tố bắt buộc.</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Description - This is a mandatory element.</source>
@@ -402,7 +405,7 @@
       </trans-unit>
       <trans-unit id="100">
         <source>Scope</source>
-        <target/>
+        <target>Phạm vi </target>
       </trans-unit>
       <trans-unit id="101">
         <source>Date</source>

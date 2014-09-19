@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2014-09-17T12:13:45Z" original="messages" product-name="messages" source-language="en" target-language="">
+  <file datatype="plaintext" date="2014-09-19T13:34:01Z" original="messages" product-name="messages" source-language="en" target-language="">
     <header/>
     <body>
       <trans-unit id="a5162e31ab7277f79bebcb03364debdf5c0913b8">
@@ -241,7 +241,7 @@
       </trans-unit>
       <trans-unit id="87339d79f30a0c6e67e25f2e139a6813f351ac0c">
         <source>Add new physical storage</source>
-        <target>Adicionar novo dep&#xF3;sito</target>
+        <target>Adicionar novo dep&#xF3;sito f&#xED;sico</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/physicalobject/actions/editAction.class.php</note>
       </trans-unit>
       <trans-unit id="14add67826288a4f674635c7733cc295e32abec2">
@@ -356,7 +356,7 @@
       </trans-unit>
       <trans-unit id="a707a85edc66a653109fa80da8910d24c0d7d6d7">
         <source>Alphabetic</source>
-        <target>Ordem alfab&#xE9;tica</target>
+        <target>Alfab&#xE9;tica</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/browseSuccess.php</note>
       </trans-unit>
       <trans-unit id="6afc36bac9c7e1594ec45e43eaa02f71a8755171">
@@ -396,7 +396,7 @@
       </trans-unit>
       <trans-unit id="521a4f60c4e5d71fe20bf4d3f69a6fd72133df1a">
         <source>Appraisal, destruction and scheduling information</source>
-        <target>Avalia&#xE7;&#xE3;o, elimina&#xE7;&#xE3;o e sele&#xE7;&#xE3;o</target>
+        <target>Avalia&#xE7;&#xE3;o, elimina&#xE7;&#xE3;o e temporalidade</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="5e8cb87d756f0e0440b2aa5bdb04e73899bac924">
@@ -691,7 +691,7 @@
       </trans-unit>
       <trans-unit id="d602519e2305b1d7a015327c3b1dce1f50497c2d">
         <source>Converse term</source>
-        <target>Termo de depoimento</target>
+        <target>Ant&#xF4;nimo relacional</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/templates/editSuccess.php</note>
       </trans-unit>
       <trans-unit id="f5be8cb4484610ea7ef57afc1b2974dadf6bb8d9">
@@ -821,7 +821,7 @@
       </trans-unit>
       <trans-unit id="1b0b32a6e2f9bb2eb56aaffb447bcb1afdec7839">
         <source>Default publication status for newly created or imported %1%</source>
-        <target>Estado de publica&#xE7;&#xE3;o padr&#xE3;o para rec&#xE9;m criados ou importados %1%</target>
+        <target>Estado da publica&#xE7;&#xE3;o padr&#xE3;o para rec&#xE9;m-criados ou importados %1%</target>
         <note>https://github.com/artefactual/atom/blob/master/lib/form/SettingsGlobalForm.class.php</note>
       </trans-unit>
       <trans-unit id="1d947d4b95d1b39fc1ff0184cbb5c065c4119148">
@@ -1086,7 +1086,7 @@
       </trans-unit>
       <trans-unit id="a2bb9d34b8a1a79665858d354585cf147e0dee4e">
         <source>End</source>
-        <target>FIM</target>
+        <target>Fim</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/actions/editComponent.class.php</note>
       </trans-unit>
       <trans-unit id="89d10cd6c1e1437d6318d6fbb25a40e0aaaddd34">
@@ -2101,12 +2101,12 @@
       </trans-unit>
       <trans-unit id="084ea620d93fcf80f10d7a8277a855e3957bda61">
         <source>Publication status</source>
-        <target>Estado de publica&#xE7;&#xE3;o</target>
+        <target>Estado da publica&#xE7;&#xE3;o</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/_adminInfo.php</note>
       </trans-unit>
       <trans-unit id="47de9e6e7621d452722061214cda24399ef01229">
         <source>Publication status (%1% only)</source>
-        <target>Estado de publica&#xE7;&#xE3;o (%1% apenas)</target>
+        <target>Estado da publica&#xE7;&#xE3;o (%1% apenas)</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/templates/descriptionUpdatesSuccess.php</note>
       </trans-unit>
       <trans-unit id="483bf2075c12023a5e849d12a42027be89c5e94b">
@@ -2416,7 +2416,7 @@
       </trans-unit>
       <trans-unit id="ee6d6afa9f3aaa476cc5b9a2da788206cf784166">
         <source>Script</source>
-        <target>Escrita</target>
+        <target>Sistema de escrita</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/settings/templates/visibleElementsSuccess.php</note>
       </trans-unit>
       <trans-unit id="1543708613e125e019a3d514e7e0705a1500ac5d">

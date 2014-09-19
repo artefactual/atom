@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2014-09-17T11:50:27Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2014-09-19T13:20:03Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -24,7 +24,7 @@
       </trans-unit>
       <trans-unit id="845">
         <source>Type of resource</source>
-        <target/>
+        <target>Typ der Ressource</target>
       </trans-unit>
       <trans-unit id="897">
         <source>Internet media type</source>

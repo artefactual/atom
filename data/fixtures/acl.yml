@@ -6,6 +6,7 @@ QubitAclGroup:
     parent_id: QubitAclGroup_ROOT
     name:
       ca: anònim
+      de: anonym
       en: anonymous
       es: anónimo
       fr: anonyme
@@ -39,6 +40,7 @@ QubitAclGroup:
     parent_id: QubitAclGroup_authenticated
     name:
       ca: administrador
+      de: Administrator
       en: administrator
       es: administrador
       fr: administrateur
@@ -55,6 +57,7 @@ QubitAclGroup:
     parent_id: QubitAclGroup_authenticated
     name:
       ca: editor
+      de: Herausgeber
       en: editor
       es: editor
       fr: 'auteur de la modification'
