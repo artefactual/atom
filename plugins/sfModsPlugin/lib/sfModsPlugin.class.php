@@ -84,6 +84,14 @@ class sfModsPlugin implements ArrayAccess
     return call_user_func_array(array($this, '__isset'), $args);
   }
 
+  protected function baseUrl()
+  {
+    $baseUrl = QubitSetting::getByName('siteBaseUrl');
+    $baseUrl = ($baseUrl == null) ? 'http://'. gethostname() : $baseUrl;
+
+    return $baseUrl;
+  }
+
   public function __get($name)
   {
     switch ($name)
@@ -92,12 +100,38 @@ class sfModsPlugin implements ArrayAccess
 
         return $this->resource->referenceCode;
 
+      case 'baseurl':
+
+        return $this->baseUrl();
+
       case 'uri':
 
-        $baseUrl = QubitSetting::getByName('siteBaseUrl');
-        $baseUrl = ($baseUrl == null) ? 'http://'. gethostname() : $baseUrl;
+        return $this->baseUrl() .'/'. $this->resource->slug;
 
-        return $baseUrl .'/'. $this->resource->slug;
+      case 'digitalAssetUrl':
+
+        $do = $this->resource->digitalObjects[0];
+
+        if (isset($do))
+        {
+          $path = $do->getFullPath();
+
+          // if path is external, it's absolute so return it
+          if (QubitTerm::EXTERNAL_URI_ID == $do->usageId)
+          {
+            return $path;
+          } else
+          { 
+            if (QubitAcl::check($this->resource, 'readMaster'))
+            {
+              return $this->baseUrl() . $path;
+            }
+            elseif (null !== $do->reference && QubitAcl::check($this->resource, 'readReference'))
+            {
+              return $this->baseUrl() . $do->reference->getFullPath();
+            }
+          }
+        }
 
       case 'name':
         $name = array();

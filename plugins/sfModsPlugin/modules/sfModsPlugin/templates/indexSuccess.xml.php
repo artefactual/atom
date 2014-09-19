@@ -116,7 +116,7 @@
   <location>
 
     <?php if (isset($resource->digitalObjects[0])): ?>
-      <url usage="primary display">http://<?php echo $sf_request->getHost().$sf_request->getRelativeUrlRoot().$resource->digitalObjects[0]->getFullPath() ?></url>
+      <url usage="primary display"><?php echo esc_specialchars($mods->digitalAssetUrl) ?></url>
     <?php endif; ?>
 
     <?php if (0 < count($mods->physicalLocation)): ?>
