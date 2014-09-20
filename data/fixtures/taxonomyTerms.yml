@@ -809,6 +809,21 @@ QubitTaxonomy:
       sl: 'DACS opombe'
     note:
       en: 'Note types that occur specifically within the Society of American Archivists "Describing Archives: a Content Standard" (DACS).'
+  QubitTaxonomy_vra_core_agent_role:
+    id: 75
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'Agent role'
+  QubitTaxonomy_vra_core_date_type:
+    id: 76
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'Data type'
+  QubitTaxonomy_vra_core_location_type:
+    id: 77
+    parent_id: QubitTaxonomy_root
+    name:
+      en: 'Location type'
 QubitTerm:
   QubitTerm_110:
     taxonomy_id: 30
@@ -5462,6 +5477,71 @@ QubitTerm:
       en: 'Record-keeping activity'
       pt_BR: 'Atividade de manutenção de registros'
       sl: 'Zapisi o nedavnih dejanjih'
+  QubitTerm_vra_role_architect:
+    taxonomy_id: QubitTaxonomy_vra_core_agent_role
+    source_culture: en
+    name:
+      en: Architect
+  QubitTerm_vra_role_architect:
+    taxonomy_id: QubitTaxonomy_vra_core_agent_role
+    source_culture: en
+    name:
+      en: Associated
+  QubitTerm_vra_role_author:
+    taxonomy_id: QubitTaxonomy_vra_core_agent_role
+    source_culture: en
+    name:
+      en: Author
+  QubitTerm_vra_role_contributor:
+    taxonomy_id: QubitTaxonomy_vra_core_agent_role
+    source_culture: en
+    name:
+      en: Contributor
+  QubitTerm_vra_role_designer:
+    taxonomy_id: QubitTaxonomy_vra_core_agent_role
+    source_culture: en
+    name:
+      en: Designer
+  QubitTerm_vra_role_director:
+    taxonomy_id: QubitTaxonomy_vra_core_agent_role
+    source_culture: en
+    name:
+      en: Director
+  QubitTerm_vra_role_donor:
+    taxonomy_id: QubitTaxonomy_vra_core_agent_role
+    source_culture: en
+    name:
+      en: Donor
+  QubitTerm_vra_role_editor:
+    taxonomy_id: QubitTaxonomy_vra_core_agent_role
+    source_culture: en
+    name:
+      en: Editor
+  QubitTerm_vra_role_founder:
+    taxonomy_id: QubitTaxonomy_vra_core_agent_role
+    source_culture: en
+    name:
+      en: Founder
+  QubitTerm_vra_role_funder:
+    taxonomy_id: QubitTaxonomy_vra_core_agent_role
+    source_culture: en
+    name:
+      en: Funder
+  QubitTerm_vra_role_owner:
+    taxonomy_id: QubitTaxonomy_vra_core_agent_role
+    source_culture: en
+    name:
+      en: Owner
+  QubitTerm_vra_role_photographer:
+    taxonomy_id: QubitTaxonomy_vra_core_agent_role
+    source_culture: en
+    name:
+      en: Photographer
+  QubitTerm_vra_role_subject:
+    taxonomy_id: QubitTaxonomy_vra_core_agent_role
+    source_culture: en
+    name:
+      en: Subject
 QubitNote:
   QubitNote_1:
     object_id: QubitTerm_111

@@ -256,6 +256,8 @@ CREATE TABLE `event`
 	`type_id` INTEGER  NOT NULL,
 	`information_object_id` INTEGER,
 	`actor_id` INTEGER,
+	`vra_actor_role_id` INTEGER  NOT NULL,
+	`vra_date_type_id` INTEGER  NOT NULL,
 	`source_culture` VARCHAR(7)  NOT NULL,
 	PRIMARY KEY (`id`),
 	CONSTRAINT `event_FK_1`
@@ -275,7 +277,17 @@ CREATE TABLE `event`
 	INDEX `event_FI_4` (`actor_id`),
 	CONSTRAINT `event_FK_4`
 		FOREIGN KEY (`actor_id`)
-		REFERENCES `actor` (`id`)
+		REFERENCES `actor` (`id`),
+	INDEX `event_FI_5` (`vra_actor_role_id`),
+	CONSTRAINT `event_FK_5`
+		FOREIGN KEY (`vra_actor_role_id`)
+		REFERENCES `term` (`id`)
+		ON DELETE CASCADE,
+	INDEX `event_FI_6` (`vra_date_type_id`),
+	CONSTRAINT `event_FK_6`
+		FOREIGN KEY (`vra_date_type_id`)
+		REFERENCES `term` (`id`)
+		ON DELETE CASCADE
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------

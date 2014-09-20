@@ -76,7 +76,12 @@ class QubitTaxonomy extends BaseTaxonomy
     GEOGRAPHIC_SUBREGION_ID = 73,
 
     // DACS notes
-    DACS_NOTE_ID = 74;
+    DACS_NOTE_ID = 74,
+
+    // VRA core
+    VRA_CORE_AGENT_ROLE = 75,
+    VRA_CORE_DATE_TYPE = 76,
+    VRA_CORE_LOCATION_TYPE = 77;
 
   public static
     $lockedTaxonomies = array(
