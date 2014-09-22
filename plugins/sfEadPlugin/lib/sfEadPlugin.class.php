@@ -133,6 +133,9 @@ class sfEadPlugin
     $this->resource = $resource;
 
     $this->version = 'Access to Memory (AtoM) '.qubitConfiguration::VERSION;
+
+    $this->siteBaseUrl = QubitSetting::getByName('siteBaseUrl');
+    $this->siteBaseUrl = ($this->siteBaseUrl == null) ? '' : $this->siteBaseUrl;
   }
 
   public function __get($name)
@@ -165,16 +168,15 @@ class sfEadPlugin
 
     if ($this->siteBaseUrl !== false)
     {
-      return $this->siteBaseUrl . ltrim($do->getFullPath(), '/');
+      return $this->siteBaseUrl .'/'. ltrim($do->getFullPath(), '/');
     }
 
     return public_path($do->getFullPath(), true);
   }
 
-  public function renderEadId($siteBaseUrl = false)
+  public function renderEadId()
   {
     $countryCode = $mainAgencyCode = '';
-    $this->siteBaseUrl = $siteBaseUrl;
 
     if (null !== $this->resource->getRepository(array('inherit' => true)))
     {
@@ -194,8 +196,8 @@ class sfEadPlugin
       }
     }
 
-    $url = ($siteBaseUrl)
-      ? $siteBaseUrl . $this->resource->slug
+    $url = ($this->siteBaseUrl)
+      ? $this->siteBaseUrl . $this->resource->slug
       : url_for(array($this->resource, 'module' => 'informationobject'), $absolute = true);
 
     if (null === $identifier = $this->resource->descriptionIdentifier)
