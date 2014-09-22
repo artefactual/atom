@@ -40,7 +40,7 @@ class eadExportTask extends sfBaseTask
     ));
 
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'), 
+      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
       new sfCommandOption('items-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Indicate progress every n items.'),
@@ -56,7 +56,6 @@ class eadExportTask extends sfBaseTask
   public function execute($arguments = array(), $options = array())
   {
     // Make sure arguments are valid
-    $siteBaseUrl = $this->checkAndNormalizeSiteUrl($options['site-url']);
     $this->checkForValidFolder($arguments['folder']);
 
     $databaseManager = new sfDatabaseManager($this->configuration);
@@ -88,6 +87,8 @@ class eadExportTask extends sfBaseTask
       $sourceLanguage = $resource->getSourceCulture();
 
       $ead = new sfEadPlugin($resource);
+
+      $ead->siteBaseUrl = $this->checkAndNormalizeSiteUrl($options['site-url']);
 
       ob_start();
       include('plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccess.xml.php');
