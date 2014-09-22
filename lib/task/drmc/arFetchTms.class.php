@@ -465,7 +465,7 @@ class arFetchTms
     $criteria = new Criteria;
     $criteria->add(QubitInformationObject::LFT, $artwork->lft, Criteria::GREATER_THAN);
     $criteria->add(QubitInformationObject::RGT, $artwork->rgt, Criteria::LESS_THAN);
-    $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, $this->componentsLevels, Criteria::IN);
+    $criteria->add(QubitInformationObject::LEVEL_OF_DESCRIPTION_ID, $this->componentLevels, Criteria::IN);
 
     $tmsComponentsIoIds = array();
     foreach (QubitInformationObject::get($criteria) as $component)
