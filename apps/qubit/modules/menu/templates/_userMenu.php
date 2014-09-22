@@ -22,7 +22,7 @@
 
           <?php echo $form->email->renderRow() ?>
 
-          <?php echo $form->password->renderRow() ?>
+          <?php echo $form->password->renderRow(array('autocomplete' => 'off')) ?>
 
           <button type="submit"><?php echo _('Log in') ?></button>
 

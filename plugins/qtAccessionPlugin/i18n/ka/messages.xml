@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2013-10-03T11:50:22Z" product-name="messages">
+  <file source-language="EN" target-language="ka" datatype="plaintext" original="messages" date="2014-09-17T11:59:27Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -392,14 +392,6 @@
         <source>Browse accession</source>
         <target>დანამატის არჩევა</target>
       </trans-unit>
-      <trans-unit id="105">
-        <source>Search accession</source>
-        <target>დამატების (დანამატის) ძებნა </target>
-      </trans-unit>
-      <trans-unit id="106">
-        <source>List accession record</source>
-        <target>დამატებული ჩანაწერის ჩამონათვალი </target>
-      </trans-unit>
       <trans-unit id="107">
         <source>Identifier</source>
         <target>იდენტიფიკატორი </target>
@@ -438,7 +430,7 @@
       </trans-unit>
       <trans-unit id="118">
         <source>Basic info</source>
-        <target/>
+        <target>მთავარი ინფორმაცია</target>
       </trans-unit>
       <trans-unit id="119">
         <source>Search %1%</source>
@@ -446,6 +438,10 @@
       </trans-unit>
       <trans-unit id="120">
         <source>Most recent</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>Relevance</source>
         <target/>
       </trans-unit>
     </body>

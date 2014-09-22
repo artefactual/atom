@@ -25,7 +25,7 @@
 
           <?php echo $form->email->renderRow(array('autofocus' => 'autofocus', 'class' => 'input-block-level')) ?>
 
-          <?php echo $form->password->renderRow(array('class' => 'input-block-level')) ?>
+          <?php echo $form->password->renderRow(array('class' => 'input-block-level', 'autocomplete' => 'off')) ?>
 
           <section class="actions">
             <button type="submit" class="btn btn-primary btn-block btn-large"><?php echo _('Log in') ?></button>

@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2014-09-19T13:19:56Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new accession record</source>
+        <target>Afegeix un nou registre d'ingrés</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target>Sense títol </target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>Edita %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Most recent</source>
+        <target>Més recent </target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Alphabetic</source>
+        <target>Alfabètic </target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Relevance</source>
+        <target>Rellevància</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Acquisition date - This is a mandatory element.</source>
+        <target>Data d'adquisició - Aquest és un element obligatori.  </target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Source of acquisition - This is a mandatory element.</source>
+        <target>Font d'adquisició - Aquest és un element obligatori.</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Location information - This is a mandatory element.</source>
+        <target>Informació de localització - Aquest és un element obligatori.</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Browse accession</source>
+        <target>Explora l'ingrés</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Search %1%</source>
+        <target>Cerca %1%</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Accession number</source>
+        <target>Número de registre</target>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Title</source>
+        <target>Títol </target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Acquisition date</source>
+        <target>Data d'adquisició </target>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Updated</source>
+        <target>Actualitzat</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Add new</source>
+        <target>Afegeix</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Related donors</source>
+        <target>Donants relacionats </target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Name</source>
+        <target>Nom </target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Related donor record</source>
+        <target>Registre del donant relacionat </target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>This is the legal entity field and provides the contact information for the person(s) or the institution that donated or transferred the materials. It has the option of multiple instances and provides the option of creating more than one contact record using the same form.</source>
+        <target>Aquest és el camp de l'entitat jurídica i proporciona informació de contacte amb les persona(es) de la institució que ha realitzat l'ingrés o transferència de la documentació. Es poden afegir tantes entrades com siguin necessàries repetint l'operació tantes vegades com calqui.</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Primary contact information</source>
+        <target>Informació del contacte principal</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Region/province</source>
+        <target>Regió/província</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Country</source>
+        <target>País </target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>View accession record</source>
+        <target>Veure registre d'accés</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Immediate source of acquisition</source>
+        <target>Origen de l'ingrés </target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Location information</source>
+        <target>Informació de la localització </target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Donor/Transferring body area</source>
+        <target>Àrea de l'ens donant/Transferència</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Edit donor/transferring body area</source>
+        <target>Editar àrea de l'ens donant/transferència</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Related donor</source>
+        <target>Donant relacionat</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Administrative area</source>
+        <target>Àrea administrativa </target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Edit administrative area</source>
+        <target>Edita l'àrea administrativa</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Acquisition type</source>
+        <target>Tipus d'adquisició </target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Resource type</source>
+        <target>Tipus de recurs</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Creators</source>
+        <target>Productors </target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Archival/Custodial history</source>
+        <target>Història arxivística o de la custòdia </target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Scope and content</source>
+        <target>Abast i contingut </target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Appraisal, destruction and scheduling</source>
+        <target>Valoració, destrucció i programació </target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Physical condition</source>
+        <target>Condicions físiques </target>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Received extent units</source>
+        <target>Unitats d'instal·lació rebudes</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Processing status</source>
+        <target>Estat del tractament</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Processing priority</source>
+        <target>Prioritat en el tractament</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Processing notes</source>
+        <target>Notes de processament</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Accruals</source>
+        <target>Ingressos </target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Accrual to</source>
+        <target>Nou ingrés a</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Rights area</source>
+        <target>Àrea de drets</target>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Edit rights area</source>
+        <target>Edita l'àrea de drets</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>%1% area</source>
+        <target>%1% àrea </target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Deaccession area</source>
+        <target>Àrea d'eliminació</target>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Deaccession</source>
+        <target>Eliminació </target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Edit</source>
+        <target>Edita</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Delete</source>
+        <target>Suprimeix</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Add accrual</source>
+        <target>Afegeix un nou ingrés</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Create %1%</source>
+        <target>Crea %1% </target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Are you sure you want to delete %1%?</source>
+        <target>Esteu segur que voleu eliminar %1%?</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>It has %1% deaccessions that will also be deleted:</source>
+        <target>Té %1% eliminacions que també seran eliminades:</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>It has %1% accruals. They will not be deleted.</source>
+        <target>Conté %1% nous ingressos que no seran eliminats.</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Cancel</source>
+        <target>Cancel·la</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Edit accession record</source>
+        <target>Edita el registre d'accés</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>You are creating an accrual to accession %1%</source>
+        <target>Esteu afegint un nou ingrés al registre d'ingrés %1%</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Basic info</source>
+        <target>Informació bàsica </target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
+        <target>El número de registre ha de ser una combinació de valors o un codi amb el qual identificar unívocament aquest ingrés.</target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
+        <target>La data d'ingrés és la data de recepció i incorporació de la documentació al fons de la institució receptora durant, p. e., un procés de donació.</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>This is a mandatory element.</source>
+        <target>Aquest és un element obligatori.</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.</source>
+        <target>Consigneu l'origen de l'ingrés o transferència, les dates i la forma d'ingrés SI és informació NO confidencial.</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>A description of the physical location in the repository where the accession can be found.</source>
+        <target>Descripció de la ubicació física de l'ingrés en la institució arxivística que el custodia.</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Term describing the type of accession transaction and referring to the way in which the accession was acquired.</source>
+        <target>Terme que descriu el tipus d'ingrés i la manera en que va ser adquirit.</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Select the type of resource represented in the accession, either public or private.</source>
+        <target>Seleccioneu el tipus de documentació que forma l'ingrés, atenent a la seva titularitat: pública o privada.</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>The title of the accession, usually the creator name and term describing the format of the accession materials.</source>
+        <target>Títol de l'ingrés, normalment el nom del productor més un terme que descrigui el tipus de documents ingressats.</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>The name of the creator of the accession or the name of the department that created the accession.</source>
+        <target>Nom del productor de l'ingrés o nom de la unitat administrativa que ha realitzat la transferència.</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>Information on the history of the accession. When the accession is acquired directly from the creator, do not record an archival history but record the information as the Immediate Source of Acquisition.</source>
+        <target>Informació sobre les circumstàncies i història de l'ingrés. Si l'ingrés va ser adquirit directament pel productor, consigneu aquesta informació en el camp Origen de l'ingrés.</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>A description of the intellectual content and document types represented in the accession.</source>
+        <target>Una descripció del contingut intel·lectual i dels tipus de documents representants en l'ingrés.</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
+        <target>Consigneu les actuacions de valoració, selecció i eliminació realitzades o planificades, especialment si afecten d'alguna manera a la interpretació de la documentació.</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
+        <target>Descripció de l'estat físic en què es troba la documentació ingressada i de les condicions o requeriments tècnics necessaris pel seu tractament.</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>The number of units as a whole number and the measurement of the received volume of records in the accession.</source>
+        <target>Nombre total d'unitats documentals i volum total dels documents rebuts en l'ingrés.</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>An indicator of the accessioning process.</source>
+        <target>Indicador del procés d'accés</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Indicates the priority the repository assigns to completing the processing of the accession.</source>
+        <target>Indica la prioritat que s'ha d'assignar al tractament de l'ingrés.</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>Notes about the processing plan, describing what needs to be done for the accession to be processed completely.</source>
+        <target>Notes sobre els processos necessaris i pla d'actuació sobre l'ingrés per a finalitzar el seu tractament.</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Save</source>
+        <target>Desa</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Create</source>
+        <target>Crea</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>Add new donor</source>
+        <target>Afegeix un nou donant </target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Authorized form of name - This is a mandatory element.</source>
+        <target>Forma autoritzada del nom - Aquest és un element obligatori. </target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Browse donor</source>
+        <target>Explora els donants</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Identifier</source>
+        <target>Identificador </target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>View donor</source>
+        <target>Veure els donants</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Authorized form of name</source>
+        <target>Forma autoritzada del nom</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Contact area</source>
+        <target>Àrea de contacte </target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Accession area</source>
+        <target>Àrea d'ingressos</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Related accession(s)</source>
+        <target>Accessos relacionats </target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>List donor</source>
+        <target>Veure els donants</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Search donor</source>
+        <target>Cerca donants</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Edit donor</source>
+        <target>Edita la informació del donant </target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Identity area</source>
+        <target>Àrea d'identificació </target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Add new deaccession record</source>
+        <target>Afegeix un nou registre d'eliminació </target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Identifier - This is a mandatory element.</source>
+        <target>Identificador - Aquest és un element obligatori.</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Date of acquisition - This is a mandatory element.</source>
+        <target>Data d'adquisició - Aquest és un element obligatori.</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Scope - This is a mandatory element.</source>
+        <target>Abast - Aquest és un element obligatori.</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Description - This is a mandatory element.</source>
+        <target>Descripció - Aquest és un element obligatori.</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>View deaccession record</source>
+        <target>Veure el registre d'eliminació </target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Deaccession number</source>
+        <target>Número d'eliminació</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Scope</source>
+        <target>Abast</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>Date</source>
+        <target>Data</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>Description</source>
+        <target>Descripció</target>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Extent</source>
+        <target>Extensió</target>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Reason</source>
+        <target>Raó </target>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Edit deaccession record</source>
+        <target>Edita el registre d'eliminació </target>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Identify if the whole accession is being deaccessioned or if only a part of the accession is being deaccessioned.</source>
+        <target>Especifique si està prevista l'eliminació de tota la documentació d'un ingrés o si només una part.</target>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Date of deaccession</source>
+        <target>Data d'eliminació</target>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>Identify what materials are being deaccessioned.</source>
+        <target>Identifiqueu la documentació que està prevista de ser eliminada.</target>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>The number of units as a whole number and the measurement of the records to be deaccessioned.</source>
+        <target>Nombre total d'unitats documentals i volum total dels documents que seran eliminats.</target>
+      </trans-unit>
+      <trans-unit id="110">
+        <source>Provide a reason why the records are being deaccessioned.</source>
+        <target>Informeu del motiu pel qual es justifica l'eliminació dels documents.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

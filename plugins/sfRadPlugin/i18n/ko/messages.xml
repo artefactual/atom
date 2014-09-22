@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2013-10-03T11:51:18Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2014-09-17T12:00:05Z" product-name="messages">
     <body>
       <trans-unit id="44">
         <source>Reference code</source>
@@ -136,10 +136,6 @@
       </trans-unit>
       <trans-unit id="729">
         <source>Terms governing use, reproduction, and publication</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="730">
-        <source>Associated / related material</source>
         <target/>
       </trans-unit>
       <trans-unit id="732">
@@ -332,10 +328,6 @@
       </trans-unit>
       <trans-unit id="884">
         <source>Biographical sketch</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="885">
-        <source>Associated/related material</source>
         <target/>
       </trans-unit>
       <trans-unit id="887">
@@ -664,6 +656,18 @@
       </trans-unit>
       <trans-unit id="979">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="980">
+        <source>Associated materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="981">
+        <source>Related materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="982">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
         <target/>
       </trans-unit>
     </body>

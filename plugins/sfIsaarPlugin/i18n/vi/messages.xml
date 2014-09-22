@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2014-09-19T13:20:08Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new authority record</source>
+        <target>Thêm authority record mới</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>Hiệu %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Authorized form of name%2% - Đây là yếu tố  %3% bắt buộc %4%.</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Dates of existence%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Dates of existence%2% - Đây là yếu tố %3%bắt buộc%4%.</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1%Description identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Description identifier%2% - Đây là yếu tố %3%bắt buộc%4%.</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>%1%Type of entity%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Loại hình của thực thể%2% - Đây là yếu tố %3%bắt buộc%4%.</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Related corporate bodies, persons or families</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Category</source>
+        <target>Danh mục</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Dates</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Description</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Related corporate body, person or family</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Authorized form of name</source>
+        <target>Authorized form of name</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>"Record the authorized form of name and any relevant unique identifiers, including the authority record identifier, for the related entity." (ISAAR 5.3.1) Select the name from the drop-down menu; enter the first few letters to narrow the choices.</source>
+        <target>Ghi lại các hình thức biểu ghi của bất kỳ tên và định danh duy nhất có liên quan, bao gồm cả các định dang biểu ghi, cho các thực thể có liên quan "(ISAAR 5.3.1) Chọn tên từ trình đơn thả xuống; Nhập một vài ký tự đầu tiên để thu hẹp lựa chọn.</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>"Purpose: To identify the general category of relationship between the entity being described and another corporate body, person or family." (ISAAR 5.3.2). Select a category from the drop-down menu: hierarchical, temporal, family or associative.</source>
+        <target>Mục đích:.. Để xác định các thể loại nói chung của mối quan hệ giữa các thực thể được mô tả và một cơ quan hợp nhất, cá nhân hoặc gia đình "(ISAAR 5.3.2) Chọn một danh mục từ trình đơn thả xuống: phân cấp, thời gian, gia đình hoặc kết hợp.</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Category of relationship</source>
+        <target> Thể loại  của mối quan hệ </target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Relationship type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>"Select a descriptive term from the drop-down menu to clarify the type of relationship between these two actors."</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>"Record a precise description of the nature of the relationship between the entity described in this authority record and the other related entity....Record in the Rules and/or conventions element (5.4.3) any classification scheme used as a source of controlled vocabulary terms to describe the relationship. A narrative description of the history and/or nature of the relationship may also be provided here." (ISAAR 5.3.3). Note that the text entered in this field will also appear in the related authority record.</source>
+        <target>Ghi lại một mô tả rõ ràng về bản chất của mối quan hệ giữa các thực thể được mô tả trong biểu ghi này và các tổ chức khác có liên quan .... ghi lại dưới hình thức các quy tắc và/hoặc quy ước (5.4.3) bất kỳ phương án phân loại được sử dụng như một nguồn kiểm soát những thuật ngữ để mô tả các mối quan hệ. Một mô tả tường thuật của lịch sử và/hoặc bản chất của mối quan hệ cũng có thể được cung cấp ở đây. "(ISAAR 5.3.3). Lưu ý rằng văn bản đã nhập trong lĩnh vực này cũng sẽ xuất hiện trong các biểu ghi liên quan. </target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Description of relationship</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>"Record when relevant the commencement date of the relationship or succession date and, when relevant, the cessation date of the relationship." (ISAAR 5.3.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target>Ghi lại khi có liên quan, ngày bắt đầu từ ngày mối quan hệ hoặc ngày tiếp theo khi có liên quan, ngày chấm dứt mối quan hệ. "(ISAAR 5.3.4) Ghi ngày như bạn muốn nó xuất hiện trong trang hiển thị cho các biểu ghi, sử dụng từ hạn định và/hoặc các ký hiệu đánh máy để bày tỏ sự không chắc chắn nếu muốn.</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Export</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>EAC</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Identity area</source>
+        <target>Chỉnh vùng ID</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Edit identity area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Type of entity</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Parallel form(s) of name</source>
+        <target>Hình thức song song của tên</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Standardized form(s) of name according to other rules</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Other form(s) of name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Identifiers for corporate bodies</source>
+        <target>Định danh cho các cơ quan doanh nghiệp</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Description area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Edit description area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Dates of existence</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>History</source>
+        <target>Lịch sử </target>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Places</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Legal status</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Functions, occupations and activities</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Mandates/sources of authority</source>
+        <target>Nhiệm vụ / Nguồn quyền</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Internal structures/genealogy</source>
+        <target>Cấu trúc nội bộ / phả hệ</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>General context</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Relationships area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Edit relationships area</source>
+        <target>Hiệu khu của mối quan hệ</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Related entity</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Identifier of the related entity</source>
+        <target>Định danh của thực thể được liên quan</target>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Category of the relationship</source>
+        <target> Thể loại  của mối quan hệ </target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Type of relationship</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Dates of the relationship</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Related function</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Control area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Edit control area</source>
+        <target>Hiệu chỉnh vùng kiểm soát</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Description identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Institution identifier</source>
+        <target>Định danh tổ chức</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Rules and/or conventions used</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Status</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Level of detail</source>
+        <target>Mức độ chi tiết</target>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Dates of creation, revision and deletion</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Language(s)</source>
+        <target>Ngôn ngữ </target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Script(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Sources</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>Maintenance notes</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Edit</source>
+        <target>Hiệu</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>Delete</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Add new</source>
+        <target>Thêm mới</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Related resources</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Title</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Relationship</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>Title of related resource</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>"Provide the unique identifiers/reference codes and/or titles for the related resources." (ISAAR 6.1) Select the title from the drop-down menu; enter the identifier or the first few letters to narrow the choices.</source>
+        <target>Cung cấp các mã định danh/tham chiếu và/hoặc tiêu đề cho các nguồn tài nguyên liên quan đến "(ISAAR 6.1) Chọn tiêu đề từ trình đơn thả xuống;. Nhập định danh hoặc một vài ký tự đầu tiên để thu hẹp lựa chọn.</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>"Describe the nature of the relationships between the corporate body, person or family and the related resource." (ISAAR 6.3) Select the type of relationship from the drop-down menu; these values are drawn from the Event Types taxonomy.</source>
+        <target>Mô tả bản chất của mối quan hệ giữa tổ chức, cá nhân, gia đình và nguồn tài nguyên liên quan. (ISAAR 6.3) Chọn loại mối quan hệ từ drop-down menu. Những giá trị này được lấy từ phân loại Evnet Type.</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>Nature of relationship</source>
+        <target>Bản chất của quan hệ </target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>"Identify the type of related resources, e.g. Archival materials (fonds, record series, etc), archival description, finding aid, monograph, journal article, web site, photograph, museum collection, documentary film, oral history recording." (ISAAR 6.2) In the current version of the software, Archival material is provided as the only default value.</source>
+        <target>Xác định các loại tài nguyên liên quan, ví dụ Tài liệu lưu trữ (Phông, hồ sơ lưu trữ, vv), mô tả lưu trữ, hỗ trợ tìm kiếm, chuyên khảo, bài báo, trang web, ảnh, bộ sưu tập bảo tàng, bộ phim tài liệu, ghi lại lịch sử truyền miệng. "(ISAAR 6.2) Trong phiên bản hiện tại của phần mềm, tài liệu lưu trữ được cung cấp chỉ như các giá trị mặc định.</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>Type of related resource</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>"Provide any relevant dates for the related resources and/or the relationship between the corporate body, person or family and the related resource." (ISAAR 6.4) Enter the date as you would like it to appear in the show page for the authority record, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
+        <target>Cung cấp bất kỳ ngày tháng phù hợp cho các tài nguyên liên quan và/hoặc các mối quan hệ giữa các cơ quan hợp nhất, cá nhân hoặc gia đình và các tài nguyên liên quan. "(ISAAR 6.4) Ghi ngày như bạn muốn nó xuất hiện trong trang hiển thị cho các biểu ghi, sử dụng từ hạn định và/hoặc các ký hiệu đánh máy để thể hiện sự không chắc chắn nếu muốn.</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Edit %1% - ISAAR</source>
+        <target>Edit %1% - ISAAR</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>"Specify the type of entity that is being described in this authority record." (ISAAR 5.1.1) Select Corporate body, Family or Person from the drop-down menu.</source>
+        <target>Xác định các loại thực thể được mô tả trong biểu ghi này. "(ISAAR 5.1.1) Chọn cơ quan hợp nhất, gia đình hoặc cá nhân từ trình đơn thả xuống.</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>"Record the standardized form of name for the entity being described in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record. Use dates, place, jurisdiction, occupation, epithet and other qualifiers as appropriate to distinguish the authorized form of name from those of other entities with similar names." (ISAAR 5.1.2)</source>
+        <target>Ghi lại các hình thức tiêu chuẩn hóa các tên cho các thực thể được mô tả phù hợp với các công ước và nguyên tắc quốc gia hoặc quốc tế có liên quan bởi các cơ quan tạo ra biểu ghi. Sử dụng ngày tháng, địa điểm, thẩm quyền, nghề nghiệp, biệt danh và từ hạn định thích hợp khác để phân biệt các hình thức ủy quyền của tên từ những người của đơn vị khác có tên tương tự. "(ISAAR 5.1.2)</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>"Purpose: To indicate the various forms in which the Authorized form of name occurs in other languages or script form(s). Rule: record the parallel form(s) of name in accordance with any relevant national or international conventions or rules applied by the agency that created the authority record, including any necessary sub elements and/or qualifiers required by those conventions or rules." (ISAAR 5.1.3)</source>
+        <target>Mục đích: Để chỉ ra các hình thức khác nhau, trong đó hình thức ủy quyền của tên xuất hiện trong các ngôn ngữ khác hoặc hình thức kịch bản . Quy tắc: ghi lại các hình thức song song của tên phù hợp với các công ước quốc gia hoặc quốc tế có liên quan hoặc các quy định được áp dụng bởi các cơ quan tạo ra các biểu ghi, bao gồm cả các yếu tố phụ cần thiết và/hoặc từ hạn định theo yêu cầu của các quy ước "(. ISAAR 5.1.3)</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>"Record the standardized form of name for the entity being described in accordance with other conventions or rules. Specify the rules and/or if appropriate the name of the agency by which these standardized forms of name have been constructed." (ISAAR 5.1.4)</source>
+        <target>Ghi lại các hình thức tiêu chuẩn hóa các tên cho các thực thể được mô tả phù hợp với quy ước và nguyên tắc khác. Xác định các quy tắc và/hoặc nếu thích hợp thì tên của cơ quan mà các hình thức tiêu chuẩn hóa các tên đã được xây dựng. "(ISAAR 5.1.4)</target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>The purpose of this field is to "indicate any other name(s) for the corporate body, person or family not used elsewhere in the Identity Area." Examples are acronyms, previous names, pseudonyms, maiden names and titles of nobility or honour. (ISAAR 5.1.5)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>"Record where possible any official number or other identifier (e.g. a company registration number) for the corporate body and reference the jurisdiction and scheme under which it has been allocated." (ISAAR 5.1.6)</source>
+        <target>Ghi lại nơi mà có thể bất kỳ nhận dạng khác hay số chính thức (ví dụ như một số đăng ký công ty) cho cơ quan hợp nhất và tài liệu tham khảo thẩm quyền và phương án theo đó nó đã được phân bổ. "(ISAAR 5.1.6)</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>"Record the dates of existence of the entity being described. For corporate bodies include the date of establishment/foundation/enabling legislation and dissolution. For persons include the dates or approximate dates of birth and death or, when these dates are not known, floruit dates. Where parallel systems of dating are used, equivalences may be recorded according to relevant conventions or rules. Specify in the Rules and/or conventions element (5.4.3) the system(s) of dating used, e.g. ISO 8601." (ISAAR 5.2.1)</source>
+        <target> Ghi lại những ngày tồn tại của thực thể được mô tả. Đối với các cơ quan hợp nhất bao gồm ngày thành lập/nền tản/pháp luật bảo trợ và giải thể. Đối với những người có ngày hoặc những ngày gần đúng của sinh và tử vong hoặc, khi những ngày này không phải là được biết đến, những ngày thủa bình sinh. Trường hợp hệ thống ngày tháng song song được sử dụng, sự tương đương có thể được ghi theo quy ước và nguyên tắc có liên quan. Chỉ định trong các yếu tố các quy tắc và/hoặc các quy ước (5.4.3) hệ thống ngày tháng được sử dụng, ví dụ như ISO 8601 . "(ISAAR 5.2.1) </target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>"Record in narrative form or as a chronology the main life events, activities, achievements and/or roles of the entity being described. This may include information on gender, nationality, family and religious or political affiliations. Wherever possible, supply dates as an integral component of the narrative description." (ISAAR 5.2.2)</source>
+        <target>Ghi lại dưới hình thức tường thuật hay như một trình tự thời gian các sự kiện cuộc đời chính, hoạt động, những thành tựu và/hoặc vai trò của các thực thể được mô tả. Điều này có thể bao gồm thông tin về giới tính, quốc tịch, gia đình và cộng đồng tôn giáo hay chính trị. Bất cứ nơi nào có thể, thì cung cấp ngày như một phần không thể thiếu của các mô tả tường thuật. "(ISAAR 5.2.2)</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>"Purpose: to indicate the predominant places and/or jurisdictions where the corporate body, person or family was based, lived or resided or had some other connection. Rule: record the name of the predominant place(s)/jurisdiction(s), together with the nature and covering dates of the relationship with the entity." (ISAAR 5.2.3)</source>
+        <target>"Mục đích: để chỉ ra địa điểm và/hoặc khu vực pháp lý chính mà cơ quan hợp nhất, cá nhân hoặc gia đình sống hoặc cư trú hoặc đã có một số kết nối khác. Quy tắc: Ghi lại tên của nơi địa điểm và/hoặc khu vực pháp lý chính , cùng với tính chất, bao gồm ngày của mối quan hệ với các thực thể. "(ISAAR 5.2.3)</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>"Record the legal status and where appropriate the type of corporate body together with the covering dates when this status applied." (ISAAR 5.2.4)</source>
+        <target>Ghi lại tình trạng pháp lý và khi thích hợp các loại hình cơ quan hợp nhất ghi rõ ngày bao gồm khi tình trạng này được áp dụng. "(ISAAR 5.2.4)</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>"Record the functions, occupations and activities performed by the entity being described, together with the covering dates when useful. If necessary, describe the nature of the function, occupation or activity." (ISAAR 5.2.5)</source>
+        <target>"Ghi lại chức năng, nghề nghiệp và các hoạt động thực hiện bởi các thực thể được mô tả, và ghi rõ ngày bao gồm khi hữu ích. Nếu cần thiết, mô tả bản chất của chức năng, nghề nghiệp hoặc hoạt động." (ISAAR 5.2.5)</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the entity being described, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISAAR 5.2.6)</source>
+        <target>Ghi lại bất kỳ tài liệu, pháp luật, chỉ thị hoặc điều lệ hoạt động như một nguồn quyền lực cho các quyền hạn, chức năng và trách nhiệm của các thực thể được mô tả, cùng với thông tin về thẩm quyền và ngày bao gồm khi nhiệm vụ được áp dụng hoặc được thay đổi "(ISAAR 5.2.6).</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>"Describe the internal structure of a corporate body and the dates of any changes to that structure that are significant to the understanding of the way that corporate body conducted its affairs (e.g. by means of dated organization charts). Describe the genealogy of a family (e.g. by means of a family tree) in a way that demonstrates the inter-relationships of its members with covering dates." (ISAAR 5.2.7)</source>
+        <target> "Mô tả cấu trúc nội bộ của một cơ quan hợp nhất và thời gian có bất kỳ thay đổi nào lên cấu trúc, được coi là đáng kể cho sự hiểu biết về cách mà cơ quan hợp nhất tiến hành các công việc của mình (bằng việc sử dụng các biểu đồ tổ chức ngày chẳng hạn). Mô tả phả hệ của một gia đình (ví dụ: bằng cách sử dụng cây gia đình) bằng cách cho thấy liên mối quan hệ của các thành viên cùng với thời gian. "(ISAAR 5.2.7)</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>"Provide any significant information on the social, cultural, economic, political and/or historical context in which the entity being described operated." (ISAAR 5.2.8)</source>
+        <target>Cung cấp bất kỳ thông tin quan trọng về bối cảnh lịch sử, chính trị, kinh tế, văn hóa hay/và xã hội nào trong đó các thực thể được mô tả hoạt động (ISAAR 5.2.8)</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>"Record a unique authority record identifier in accordance with local and/or national conventions. If the authority record is to be used internationally, record the country code of the country in which the authority record was created in accordance with the latest version of ISO 3166 Codes for the representation of names of countries. Where the creator of the authority record is an international organization, give the organizational identifier in place of the country code." (ISAAR 5.4.1)</source>
+        <target>Ghi lại một nhận dạng biểu ghi độc đáo phù hợp với quy ước của địa phương và/hoặc quốc gia. Nếu các biểu ghi được sử dụng mang tính quốc tế, thì ghi lại các mã quốc gia của các quốc gia mà các biểu ghi được tạo ra phù hợp với phiên bản mới nhất của tiêu chuẩn ISO 3166 Mã số cho đại diện của tên các nước. Trường hợp tác giả của biểu ghi là một tổ chức quốc tế, thì cung cấp nhận dạng tổ chức trong vị trí của mã quốc gia. "(ISAAR 5.4.1)</target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>"Record the full authorized form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the authority record or, alternatively, record a code for the agency in accordance with the national or international agency code standard. Include reference to any systems of identification used to identify the institutions (e.g. ISO 15511)." (ISAAR 5.4.2)</source>
+        <target>Ghi lại các hình thức ủy quyền đầy đủ tên của cơ quan chịu trách nhiệm cho việc tạo lập, sửa đổi, phổ biến các biểu ghi hoặc, cách khác, ghi lại một mã số cho cơ quan phù hợp với các tiêu chuẩn mã cơ quan quốc gia hoặc quốc tế. Bao gồm tài liệu tham khảo cho bất kỳ hệ thống nhận dạng được sử dụng để nhận diện tổ chức (ví dụ: ISO 15511) (ISAAR 5.4.2)</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>"Purpose: To identify the national or international conventions or rules applied in creating the archival authority record. Rule: Record the names and where useful the editions or publication dates of the conventions or rules applied. Specify separately which rules have been applied for creating the Authorized form of name. Include reference to any system(s) of dating used to identify dates in this authority record (e.g. ISO 8601)." (ISAAR 5.4.3)</source>
+        <target>Mục đích: Để xác định quy tắc quốc gia hay quốc tế áp dụng trong việc tạo ra các biểu ghi lưu trữ. Quy tắc: Ghi lại tên và nơi thuận lợi để các ngày xuất bản của hay tái bản các công ước hoặc quy tắc được áp dụng. Chỉ định cụ thể các quy tắc đã được áp dụng để tạo ra các hình thức ủy quyền của tên. Bao gồm tài liệu tham khảo cho bất kỳ hệ thống của ngày tháng được sử dụng để xác định số ngày trong biểu ghi này (ví dụ như ISO 8601). "(ISAAR 5.4.3)</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>The purpose of this field is "[t]o indicate the drafting status of the authority record so that users can understand the current status of the authority record." (ISAAR 5.4.4). Select Final, Revised or Draft from the drop-down menu.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal records are those that consist only of the four essential elements of an ISAAR(CPF) compliant authority record (see 4.8), while full records are those that convey information for all relevant ISAAR(CPF) elements of description." (ISAAR 5.4.5)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>"Record the date the authority record was created and the dates of any revisions to the record." (ISAAR 5.4.6)</source>
+        <target>Ghi lại những ngày biểu ghi được tạo ra và những ngày trong lần sửa đổi vào hồ sơ. "(ISAAR 5.4.6)</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Last updated</source>
+        <target>Cập nhật lần cuối</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Select the language(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Select the script(s) of the authority record from the drop-down menu; enter the first few letters to narrow the choices. (ISAAR 5.4.7)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>"Record the sources consulted in establishing the authority record." (ISAAR 5.4.8)</source>
+        <target>Ghi lại các nguồn được tham khảo ý kiến ​​trong việc xây dựng biểu ghi. "(ISAAR 5.4.8)</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>"Record notes pertinent to the creation and maintenance of the authority record. The names of persons responsible for creating the authority record may be recorded here." (ISAAR 5.4.9)</source>
+        <target>"Ghi lại lưu ý thích hợp cho việc tạo lập và duy trì các biểu ghi. Tên của người có trách nhiệm cho việc tạo các biểu ghi có thể được ghi lại ở đây." (ISAAR 5.4.9)</target>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>Cancel</source>
+        <target>Cancel</target>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Save</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Create</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

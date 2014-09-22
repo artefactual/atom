@@ -36,6 +36,10 @@ class arMigration0095
    */
   public function up($configuration)
   {
+    // Disable this upgrade step since we can now automatically
+    // remove missing plugins and set new themes, see #4557
+    return true;
+
     // Retrieve QubitSetting object
     $criteria = new Criteria;
     $criteria->add(QubitSetting::NAME, 'plugins');
@@ -59,7 +63,5 @@ class arMigration0095
     // Save
     $setting->setValue(serialize(array_unique($plugins)), array('sourceCulture' => true));
     $setting->save();
-
-    return true;
   }
 }

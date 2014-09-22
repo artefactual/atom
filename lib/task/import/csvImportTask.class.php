@@ -80,6 +80,9 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
+    $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
+    $sf_context = sfContext::createInstance($configuration);
+
     $this->validateOptions($options);
 
     $skipRows = ($options['skip-rows']) ? $options['skip-rows'] : 0;
@@ -118,6 +121,21 @@ EOF;
     QubitFlatfileImport::createOrFetchTerm(
       QubitTaxonomy::NOTE_TYPE_ID,
       'Language note'
+    );
+
+    QubitFlatfileImport::createOrFetchTerm(
+      QubitTaxonomy::RAD_NOTE_ID,
+      'Cast note'
+    );
+
+    QubitFlatfileImport::createOrFetchTerm(
+      QubitTaxonomy::RAD_NOTE_ID,
+      'Credits note'
+    );
+
+    QubitFlatfileImport::createOrFetchTerm(
+      QubitTaxonomy::RAD_NOTE_ID,
+      'Signatures note'
     );
 
     // Load taxonomies into variables to avoid use of magic numbers
@@ -279,6 +297,15 @@ EOF;
         ),
         'archivistNote' => array(
           'typeId' => array_search("Archivist's note", $termData['noteTypes'])
+        ),
+        'radNoteCast' => array(
+          'typeId' => array_search('Cast note', $termData['radNoteTypes'])
+        ),
+        'radNoteCredits' => array(
+          'typeId' => array_search('Credits note', $termData['radNoteTypes'])
+        ),
+        'radNoteSignaturesInscriptions' => array(
+          'typeId' => array_search('Signatures note', $termData['radNoteTypes'])
         ),
         'radNoteConservation' => array(
           'typeId' => array_search('Conservation', $termData['radNoteTypes'])
@@ -451,8 +478,8 @@ EOF;
         if (isset($self->rowStatusVars['publicationStatus'])
           && 0 < strlen($self->rowStatusVars['publicationStatus']))
         {
-          $pubStatusTermId = array_search(
-            ucwords($self->rowStatusVars['publicationStatus']),
+          $pubStatusTermId = array_search_case_insensitive(
+            $self->rowStatusVars['publicationStatus'],
             $self->status['pubStatusTypes']
           );
           if (!$pubStatusTermId)
@@ -681,6 +708,12 @@ EOF;
                 {
                   $actorOptions['history'] = $self->rowStatusVars['nameAccessPointHistories'][$index];
                 }
+
+                if (isset($self->object->repositoryId))
+                {
+                  $actorOptions['repositoryId'] = $self->object->repositoryId;
+                }
+
                 $actor = $self->createOrFetchActor($name, $actorOptions);
                 $self->createRelation($self->object->id, $actor->id, QubitTerm::NAME_ACCESS_POINT_ID);
               }
@@ -1097,6 +1130,11 @@ EOF;
     }
   }
 
+}
+
+function array_search_case_insensitive($search, $array)
+{
+  return array_search(strtolower($search), array_map('strtolower', $array));
 }
 
 function setupEventDateData(&$self, &$eventData, $index)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2013-10-03T11:52:34Z" product-name="messages">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2014-09-17T11:52:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -416,17 +416,9 @@
         <source>Country</source>
         <target>Negara</target>
       </trans-unit>
-      <trans-unit id="112">
-        <source>List accession record</source>
-        <target/>
-      </trans-unit>
       <trans-unit id="113">
         <source>Identifier</source>
         <target/>
-      </trans-unit>
-      <trans-unit id="114">
-        <source>Search accession</source>
-        <target>Pencarian Akuisisi</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Browse accession</source>
@@ -446,6 +438,10 @@
       </trans-unit>
       <trans-unit id="120">
         <source>Most recent</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>Relevance</source>
         <target/>
       </trans-unit>
     </body>

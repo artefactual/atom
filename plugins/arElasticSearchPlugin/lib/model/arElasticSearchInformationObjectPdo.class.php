@@ -310,7 +310,7 @@ class arElasticSearchInformationObjectPdo
     }
   }
 
-  public function getInheritReferenceCode()
+  public function getReferenceCode()
   {
     if (null == $this->__get('identifier'))
     {
@@ -1211,7 +1211,7 @@ class arElasticSearchInformationObjectPdo
     $serialized['slug'] = $this->slug;
 
     $serialized['identifier'] = $this->identifier;
-    $serialized['inheritReferenceCode'] = $this->getInheritReferenceCode();
+    $serialized['referenceCode'] = $this->getReferenceCode();
     $serialized['levelOfDescriptionId'] = $this->level_of_description_id;
     $serialized['publicationStatusId'] = $this->publication_status_id;
 

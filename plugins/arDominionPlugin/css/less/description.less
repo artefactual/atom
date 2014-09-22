@@ -77,3 +77,25 @@
 .modal .vcard .adr > h3 {
   display: none;
 }
+
+// Translations links
+
+.translation-links {
+  margin-bottom: 20px;
+
+  button:before {
+    content: '\f0ac';
+    font-family: 'FontAwesome';
+    margin-right: 3px;
+  }
+
+  .caret {
+    margin-left: 10px;
+  }
+
+  .dropdown-menu a:hover {
+    background-color: @grayLighter;
+    background-image: none;
+    color: @black;
+  }
+}

@@ -33,7 +33,16 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
     {
       case 'type':
 
-        foreach (sfIsadPlugin::eventTypes() as $item)
+        if ('arDacsPlugin' == $this->request->module)
+        {
+          $eventTypes = arDacsPlugin::eventTypes();
+        }
+        else
+        {
+          $eventTypes = sfIsadPlugin::eventTypes();
+        }
+
+        foreach ($eventTypes as $item)
         {
           // Default event type is creation
           if (QubitTerm::CREATION_ID == $item->id)
@@ -58,14 +67,6 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
   // TODO Refactor with parent::processForm()
   public function processForm()
   {
-    if ($this->request->hasParameter('csvimport'))
-    {
-      if ($this->request->getParameterHolder()->has('datesOfCreation'))
-      {
-        $this->request->editEvents = $this->request->getParameterHolder()->get('datesOfCreation');
-      }
-    }
-
     $params = array($this->request->editEvent);
     if (isset($this->request->editEvents))
     {

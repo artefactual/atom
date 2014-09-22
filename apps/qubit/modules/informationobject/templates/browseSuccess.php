@@ -120,7 +120,8 @@
       array(
         'options' => array(
           'lastUpdated' => __('Most recent'),
-          'alphabetic' => __('Alphabetic')))) ?>
+          'alphabetic' => __('Alphabetic'),
+          'identifier' => __('Reference code')))) ?>
 
   </section>
 
@@ -143,7 +144,7 @@
 
 <?php foreach ($pager->getResults() as $hit): ?>
   <?php $doc = $hit->getData() ?>
-  <?php echo include_partial('search/searchResult', array('doc' => $doc, 'pager' => $pager)) ?>
+  <?php echo include_partial('search/searchResult', array('doc' => $doc, 'pager' => $pager, 'culture' => $selectedCulture)) ?>
 <?php endforeach; ?>
 
 <?php slot('after-content') ?>

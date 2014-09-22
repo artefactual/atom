@@ -24,6 +24,8 @@
     <?php echo include_partial('default/breadcrumb', array('resource' => $resource, 'objects' => $resource->getAncestors()->andSelf()->orderBy('lft'))) ?>
   <?php endif; ?>
 
+  <?php echo get_component('default', 'translationLinks', array('resource' => $resource)) ?>
+
 <?php end_slot() ?>
 
 <?php slot('context-menu') ?>
@@ -71,9 +73,6 @@
         <?php foreach ($resource->getDates() as $item): ?>
           <li>
             <?php echo Qubit::renderDateStartEnd($item->getDate(array('cultureFallback' => true)), $item->startDate, $item->endDate) ?> (<?php echo $item->getType(array('cultureFallback' => true)) ?>)
-            <?php if (isset($item->actor)): ?>
-              <?php echo link_to(render_title($item->actor), array($item->actor, 'module' => 'actor')) ?>
-            <?php endif; ?>
           </li>
         <?php endforeach; ?>
       </ul>
@@ -175,6 +174,8 @@
 
   <?php echo render_show(__('Related archival materials'), render_value($resource->getRelatedUnitsOfDescription(array('cultureFallback' => true)))) ?>
 
+  <?php echo get_partial('informationobject/relatedMaterialDescriptions', array('resource' => $resource, 'template' => 'isad')) ?>
+
   <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::PUBLICATION_NOTE_ID)) as $item): ?>
     <?php echo render_show(__('Publication notes'), render_value($item->getContent(array('cultureFallback' => true)))) ?>
   <?php endforeach; ?>
@@ -186,9 +187,22 @@
   <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Notes element').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'notesArea', 'title' => __('Edit notes element'))) ?>
 
   <?php if (check_field_visibility('app_element_visibility_isad_notes')): ?>
+
     <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID)) as $item): ?>
-      <?php echo render_show(__('Note'), render_value($item->getContent(array('cultureFallback' => true)))) ?>
+      <?php echo render_show(__('General note'), render_value($item->getContent(array('cultureFallback' => true)))) ?>
     <?php endforeach; ?>
+
+    <div class="field">
+      <h3><?php echo __('Specialized notes') ?></h3>
+      <div>
+        <ul>
+          <?php foreach ($resource->getNotesByTaxonomy(array('taxonomyId' => QubitTaxonomy::DACS_NOTE_ID)) as $item): ?>
+            <li><?php echo $item->type ?>: <?php echo $item->getContent(array('cultureFallback' => true)) ?></li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
+    </div>
+
   <?php endif; ?>
 
   <?php echo get_partial('informationobject/alternativeIdentifiersIndex', array('resource' => $resource)) ?>

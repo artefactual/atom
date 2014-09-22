@@ -19,6 +19,8 @@
 
 class TermBrowseTermAction extends DefaultBrowseAction
 {
+  const INDEX_TYPE = 'QubitInformationObject';
+
   // Arrays not allowed in class constants
   public static
     $FACETS = array(

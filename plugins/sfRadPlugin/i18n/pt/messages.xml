@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2013-10-03T11:53:11Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2014-09-17T11:52:58Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -137,10 +137,6 @@
       <trans-unit id="797">
         <source>Terms governing use, reproduction, and publication</source>
         <target>Termos que regulam o uso, reprodução e publicação</target>
-      </trans-unit>
-      <trans-unit id="798">
-        <source>Associated / related material</source>
-        <target>Material associado/relacionado</target>
       </trans-unit>
       <trans-unit id="800">
         <source>Rules or conventions</source>
@@ -333,10 +329,6 @@
       <trans-unit id="952">
         <source>Biographical sketch</source>
         <target>Resumo biográfico</target>
-      </trans-unit>
-      <trans-unit id="953">
-        <source>Associated/related material</source>
-        <target>Material associado/relacionado</target>
       </trans-unit>
       <trans-unit id="955">
         <source>Add new archival description</source>
@@ -665,6 +657,18 @@ elaboração da descrição.</target>
       </trans-unit>
       <trans-unit id="1047">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1048">
+        <source>Associated materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1049">
+        <source>Related materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="1050">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
         <target/>
       </trans-unit>
     </body>

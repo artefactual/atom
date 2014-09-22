@@ -81,10 +81,6 @@
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'autocomplete')) ?>"/>
         </div>
 
-        <?php echo render_field($form->archivalHistory
-          ->label(__('Administrative/biographical history'))
-          ->help(__('At the highest level of description, give information about the history of corporate body(ies), person(s), or family(ies) that created, assembled, accumulated, and/or maintained and used the material as a whole (DACS 2.7.6). Optionally, at subsequent levels of description, if the creator of the subordinate unit is different from the creator of the material as a whole, give information about the history of the corporate body(ies), person(s), or family(ies) that created, assembled, accumulated, and/or maintained and used that subordinate unit. (DACS 2.7.7)')), $resource, array('class' => 'resizable')) ?>
-
         <?php echo get_partial('informationobject/childLevels', array('help' => __('<strong>Identifier</strong><br />Provide a unique identifier for the materials being described in accordance with the institution’s administrative control system.<br /><strong>Level of description</strong><br />Record the level of this unit of description.<br /><strong>Title</strong><br />In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material.<br /><strong>Date</strong><br />Record a date of creation.'))) ?>
 
       </fieldset> <!-- /#identityArea -->
@@ -179,6 +175,20 @@
           ->help(__('If there are materials that have a direct and significant connection to those being described by reason of closely shared responsibility or sphere of activity, provide the title, location, and, optionally, the reference number(s) of the related materials and their relationship with the materials being described. (DACS 6.3.5)'))
           ->label(__('Related archival materials')), $resource, array('class' => 'resizable')) ?>
 
+        <div class="form-item">
+          <?php echo $form->relatedMaterialDescriptions
+            ->label(__('Related descriptions'))
+            ->renderLabel() ?>
+          <?php echo $form->relatedMaterialDescriptions->render(array('class' => 'form-autocomplete')) ?>
+          <?php if (QubitAcl::check(QubitInformationObject::getRoot(), 'create')): ?>
+            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'add')) ?> #title"/>
+          <?php endif; ?>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'informationobject', 'action' => 'autocomplete')) ?>"/>
+          <?php echo $form->relatedMaterialDescriptions
+            ->help(__('To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.'))
+            ->renderHelp() ?>
+        </div>
+
         <?php echo get_partial('informationobject/notes', $publicationNotesComponent->getVarHolder()->getAll()) ?>
 
       </fieldset> <!-- /#alliedMaterialsArea -->
@@ -188,6 +198,8 @@
         <legend><?php echo __('Notes element') ?></legend>
 
         <?php echo get_partial('informationobject/notes', $notesComponent->getVarHolder()->getAll()) ?>
+
+        <?php echo get_partial('informationobject/notes', $specializedNotesComponent->getVarHolder()->getAll()) ?>
 
       </fieldset> <!-- /#notesArea -->
 

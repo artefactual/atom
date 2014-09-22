@@ -25,7 +25,8 @@
 class sfEadPlugin
 {
   public
-    $resource;
+    $resource,
+    $siteBaseUrl;
 
   public static
     $ENCODING_MAP = array(
@@ -155,9 +156,25 @@ class sfEadPlugin
     return $hasNonBlankNotes;
   }
 
-  public function renderEadId()
+  public function getAssetPath($do, $getReference = false)
+  {
+    if ($getReference)
+    {
+      $do = $do->reference;
+    }
+
+    if ($this->siteBaseUrl !== false)
+    {
+      return $this->siteBaseUrl . ltrim($do->getFullPath(), '/');
+    }
+
+    return public_path($do->getFullPath(), true);
+  }
+
+  public function renderEadId($siteBaseUrl = false)
   {
     $countryCode = $mainAgencyCode = '';
+    $this->siteBaseUrl = $siteBaseUrl;
 
     if (null !== $this->resource->getRepository(array('inherit' => true)))
     {
@@ -177,16 +194,19 @@ class sfEadPlugin
       }
     }
 
-    $url = url_for(array($this->resource, 'module' => 'informationobject'), $absolute = true);
+    $url = ($siteBaseUrl)
+      ? $siteBaseUrl . $this->resource->slug
+      : url_for(array($this->resource, 'module' => 'informationobject'), $absolute = true);
 
     if (null === $identifier = $this->resource->descriptionIdentifier)
     {
-      $identifier = url_for($this->resource, $absolute = true);
+      $identifier = $this->resource->slug;
     }
 
     $encodinganalog = $this->getMetadataParameter('eadid');
+    $sanitizedIdentifier = esc_specialchars($this->resource->identifier);
 
-    return "<eadid identifier=\"$identifier\"$countryCode$mainAgencyCode url=\"$url\" encodinganalog=\"$encodinganalog\">{$this->resource->identifier}</eadid>";
+    return "<eadid identifier=\"$identifier\"$countryCode$mainAgencyCode url=\"$url\" encodinganalog=\"$encodinganalog\">{$sanitizedIdentifier}</eadid>";
   }
 
   public function renderEadNormalizedDate($date)
@@ -299,7 +319,7 @@ class sfEadPlugin
     $dlEndTag = '</dl>';
 
     $physDescContent = '';
-    $extentAndMedium = trim($extentAndMedium);
+    $extentAndMedium = trim(esc_specialchars($extentAndMedium));
 
     $dlPos = strpos($extentAndMedium, $dlStartTag);
     $dlEndPos = strpos($extentAndMedium, $dlEndTag);
@@ -307,7 +327,7 @@ class sfEadPlugin
     // Check if extentAndMedium contains a HTML definition list
     if ($dlPos === false)
     {
-      $physDescContent .= '<extent encodinganalog="' . $this->getMetadataParameter('extent') . '">' . escape_dc(esc_specialchars($extentAndMedium)) . '</extent>';
+      $physDescContent .= '<extent encodinganalog="' . $this->getMetadataParameter('extent') . '">' . escape_dc($extentAndMedium) . '</extent>';
     }
     else // AtoM uses <dl> / <dd> / <dt> tags to specify children of <extent>.
     {
@@ -368,5 +388,54 @@ class sfEadPlugin
     }
 
     return $physDescContent;
+  }
+
+  public static function getUnitidValue($resource)
+  {
+    if (!isset($resource->identifier))
+    {
+      return;
+    }
+
+    if (!sfConfig::get('app_inherit_code_informationobject', false))
+    {
+      return $resource->identifier;
+    }
+
+    $identifier = array();
+    foreach ($resource->ancestors->andSelf()->orderBy('lft') as $item)
+    {
+      if (isset($item->identifier))
+      {
+        $identifier[] = $item->identifier;
+      }
+    }
+
+    return implode(sfConfig::get('app_separator_character', '-'), $identifier);
+  }
+
+  /**
+   * Get a string representation of the resource's level of description.
+   */
+  public static function renderLOD($resource, $eadLevels)
+  {
+    $defaultLevel = 'otherlevel';
+    $renderedLOD = '';
+    $levelOfDescription = $defaultLevel;
+
+    if ($resource->levelOfDescriptionId)
+    {
+      $levelOfDescription = strtolower($resource->getLevelOfDescription()->getName(array('culture' => 'en')));
+
+      if (!in_array($levelOfDescription, $eadLevels))
+      {
+        $renderedLOD = 'otherlevel="' . $levelOfDescription . '" ';
+        $levelOfDescription = $defaultLevel;
+      }
+    }
+
+    $renderedLOD .= 'level="' . $levelOfDescription . '"';
+
+    return $renderedLOD;
   }
 }

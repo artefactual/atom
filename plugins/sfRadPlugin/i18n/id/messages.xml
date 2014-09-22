@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2013-10-03T11:52:34Z" product-name="messages">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2014-09-17T11:52:15Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -284,10 +284,6 @@
         <source>Finding aids</source>
         <target/>
       </trans-unit>
-      <trans-unit id="76">
-        <source>Associated / related material</source>
-        <target>Asosiasi/ materi yang berkaitan</target>
-      </trans-unit>
       <trans-unit id="77">
         <source>Accruals</source>
         <target>Akrual</target>
@@ -548,10 +544,6 @@
         <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
         <target>Untuk material yang berasosiasi, "Jika arsip pada institusi lain berkaitan dengan unit yang sedang dideskripsikan untuk kebaikan dan keterjagaan informasi kedua arsip memiliki prinsip provenance yang sama, maka buatkan sitasi untuk material arsip yang berkaitan tersebut pada level fonds, series atau koleksi atau item yang terpisah, indikasikan lokasinya jika diketahui." (RAD 1.8B18). Untuk material arsip yang berrelasi, "Indikasikan kelompok kerja dari arsip tersebut yang memiliki relasi dengan alasan pembagian tanggungjawab atau pembagian lingkungan kerja dari suatu aktivitas pada satu atau lebih unit dari material eksternal kepada berkas yang sedang dideskripsikan." (RAD 1.8B20)</target>
       </trans-unit>
-      <trans-unit id="149">
-        <source>Associated/related material</source>
-        <target>Asosiasi/ materi yang berkaitan</target>
-      </trans-unit>
       <trans-unit id="150">
         <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
         <target>"Apabila berkas yang sedang dideskripsikan belum selesai, mis. sebuah kumpulan series yang sedang berjalan, buat catatan yang menjelaskan bahwa akan terdapat akumulasi selanjutnya dari berkas tersebut... jika diperkirakan tidak terdapat akumulasi tambahan terhadap berkas tersebut maka dianggap series sudah selesai." (RAD 1.8B19)</target>
@@ -666,6 +658,18 @@
       </trans-unit>
       <trans-unit id="180">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="181">
+        <source>Associated materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="182">
+        <source>Related materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="183">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
         <target/>
       </trans-unit>
     </body>

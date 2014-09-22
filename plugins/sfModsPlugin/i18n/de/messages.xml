@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2013-08-22T17:21:53Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2014-09-19T13:20:03Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -8,7 +8,7 @@
       </trans-unit>
       <trans-unit id="111">
         <source>Language</source>
-        <target/>
+        <target>Sprache</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Identifier</source>
@@ -20,23 +20,23 @@
       </trans-unit>
       <trans-unit id="651">
         <source>URL</source>
-        <target/>
+        <target>URL</target>
       </trans-unit>
       <trans-unit id="845">
         <source>Type of resource</source>
-        <target/>
+        <target>Typ der Ressource</target>
       </trans-unit>
       <trans-unit id="897">
         <source>Internet media type</source>
-        <target/>
+        <target>Internet Medien Typ</target>
       </trans-unit>
       <trans-unit id="898">
         <source>Access condition</source>
-        <target/>
+        <target>Zugangsbedingungen</target>
       </trans-unit>
       <trans-unit id="899">
         <source>Physical location</source>
-        <target/>
+        <target>Lagerungsort</target>
       </trans-unit>
       <trans-unit id="901">
         <source>This is a duplicate of record %1%</source>
@@ -44,23 +44,23 @@
       </trans-unit>
       <trans-unit id="902">
         <source>Names and origin info</source>
-        <target/>
+        <target>Informationen zu Namen und Herkunft</target>
       </trans-unit>
       <trans-unit id="903">
         <source>Add new name and/or origin info</source>
-        <target/>
+        <target>Information zu Namen und/oder Herkunft hinzufügen</target>
       </trans-unit>
       <trans-unit id="904">
         <source>Add new child levels (if describing a collection)</source>
-        <target/>
+        <target>Erschließungsebenen hinzufügen (wenn ein Bestand erschlossen wird)</target>
       </trans-unit>
       <trans-unit id="905">
         <source>Add new resource</source>
-        <target/>
+        <target>Ressource hinzufügen</target>
       </trans-unit>
       <trans-unit id="906">
         <source>Untitled</source>
-        <target/>
+        <target>Ohne Titel</target>
       </trans-unit>
       <trans-unit id="907">
         <source>Edit %1%</source>
@@ -104,19 +104,19 @@
       </trans-unit>
       <trans-unit id="917">
         <source>Rights area</source>
-        <target/>
+        <target>Bereich 'Rechte'</target>
       </trans-unit>
       <trans-unit id="918">
         <source>Edit rights area</source>
-        <target/>
+        <target>Bearbeite Bereich 'Rechte'</target>
       </trans-unit>
       <trans-unit id="919">
         <source>Accession area</source>
-        <target/>
+        <target>Bereich Zugang</target>
       </trans-unit>
       <trans-unit id="920">
         <source>Elements area</source>
-        <target/>
+        <target>Bereich 'Elemente'</target>
       </trans-unit>
       <trans-unit id="921">
         <source>How to access to this content?</source>
@@ -128,15 +128,15 @@
       </trans-unit>
       <trans-unit id="923">
         <source>Show details</source>
-        <target/>
+        <target>Zeige Details</target>
       </trans-unit>
       <trans-unit id="924">
         <source>Close</source>
-        <target/>
+        <target>Schließen</target>
       </trans-unit>
       <trans-unit id="925">
         <source>Edit elements area</source>
-        <target/>
+        <target>Bearbeite Bereich 'Elemente'</target>
       </trans-unit>
     </body>
   </file>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2013-10-03T11:53:25Z" product-name="messages">
+  <file source-language="EN" target-language="fr" datatype="plaintext" original="messages" date="2014-09-17T12:08:44Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -381,10 +381,6 @@ dans les notices des services d'archives la Forme autorisée du champ Nom. Reche
         <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
         <target>Pour les documents connexes, "si d'autres documents conservés par un autre établissement sont reliés à l'unité archivistique à décrire en raison de leur provenance commune, on en fera mention au niveau du fonds, de la série, de la collection ou de la pièce isolée, en indiquant leur emplacement, s'il est connu." (RDDA 1.8B18). Pour les documents associés, "on signalera les groupes de documents de toute unité extérieure à l’unité archivistique à décrire s'ils ont des liens significatifs avec cette dernière en raison de responsabilités partagées, d'activités de même nature, etc." (RDDA 1.8B20)</target>
       </trans-unit>
-      <trans-unit id="103">
-        <source>Associated/related material</source>
-        <target>Sources complémentaires/associées</target>
-      </trans-unit>
       <trans-unit id="104">
         <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
         <target>"Lorsque l'unité archivistique à décrire est ouverte (par exemple une série ou un fonds), on rédige une note signalant que d'autres versements sont attendus. (...) Si aucun versement ultérieur n'est prévu, on indique que l'unité est close." (RDDA 1.8B19)</target>
@@ -573,10 +569,6 @@ dans les notices des services d'archives la Forme autorisée du champ Nom. Reche
         <source>Finding aids</source>
         <target>Instruments de recherche</target>
       </trans-unit>
-      <trans-unit id="155">
-        <source>Associated / related material</source>
-        <target>Sources complémentaires / associées</target>
-      </trans-unit>
       <trans-unit id="156">
         <source>Accruals</source>
         <target>Accroissements</target>
@@ -671,6 +663,18 @@ la reproduction des documents." (RDDA 1.8B16c). Pour les conditions de publicati
       </trans-unit>
       <trans-unit id="179">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="180">
+        <source>Associated materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="181">
+        <source>Related materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="182">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
         <target/>
       </trans-unit>
     </body>

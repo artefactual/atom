@@ -94,9 +94,9 @@
             </thead><tbody>
               <tr>
                 <td>
-                  <input name="updateChildLevels[0][identifier]"/>
+                  <input type="text" name="updateChildLevels[0][identifier]"/>
                 </td><td>
-                  <input name="updateChildLevels[0][title]"/>
+                  <input type="text" name="updateChildLevels[0][title]"/>
                 </td>
               </tr>
             </tbody>

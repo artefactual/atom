@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2013-10-03T11:51:46Z" product-name="messages">
+  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2014-09-17T11:55:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -228,10 +228,6 @@
         <source>Finding aids</source>
         <target>Strumenti di ricerca</target>
       </trans-unit>
-      <trans-unit id="66">
-        <source>Associated / related material</source>
-        <target>Materiale collegato</target>
-      </trans-unit>
       <trans-unit id="67">
         <source>Accruals</source>
         <target>Incrementi</target>
@@ -323,10 +319,6 @@
       <trans-unit id="93">
         <source>Edit authority record</source>
         <target>Modifica record d'autorità</target>
-      </trans-unit>
-      <trans-unit id="94">
-        <source>Associated/related material</source>
-        <target>Materiale collagato</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Subject access points</source>
@@ -666,6 +658,18 @@
       </trans-unit>
       <trans-unit id="192">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="193">
+        <source>Associated materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="194">
+        <source>Related materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="195">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
         <target/>
       </trans-unit>
     </body>

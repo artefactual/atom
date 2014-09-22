@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="sl" datatype="plaintext" original="messages" date="2013-10-03T11:49:43Z" product-name="messages">
+  <file source-language="en" target-language="sl" datatype="plaintext" original="messages" date="2014-09-19T13:19:58Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -60,10 +60,6 @@
         <source>Reference code</source>
         <target>Signatura</target>
       </trans-unit>
-      <trans-unit id="15">
-        <source>TODO tooltip</source>
-        <target>Zaslonski namig za TODO</target>
-      </trans-unit>
       <trans-unit id="16">
         <source>Identifier</source>
         <target>Identifikator</target>
@@ -76,10 +72,6 @@
         <source>Name and location of repository</source>
         <target>Ime in lokacija skladišča</target>
       </trans-unit>
-      <trans-unit id="19">
-        <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
-        <target>Navedite ime organizacije, ki je skrbnik arhivskega gradiva. Poiščite obstoječe ime v zapisih arhiva, tako da vnesete prvih nekaj črk imena, lahko pa vnesete tudi novo ime in ustvarite povezavo do novega zapisa arhiva.</target>
-      </trans-unit>
       <trans-unit id="20">
         <source>Levels of description</source>
         <target>Nivoji popisa</target>
@@ -88,10 +80,6 @@
         <source>Title</source>
         <target>Naslov</target>
       </trans-unit>
-      <trans-unit id="22">
-        <source>Record information about physical characteristics that affect the use of the unit being described in the Physical Access Element.</source>
-        <target>Zabeležite podatke o fizičnih značilnostih z vplivom na rabo enote, ki se popisuje v Elementu o fizičnem dostopu.</target>
-      </trans-unit>
       <trans-unit id="23">
         <source>Extent</source>
         <target>Obseg/količina</target>
@@ -99,14 +87,6 @@
       <trans-unit id="24">
         <source>Name of creator(s)</source>
         <target>Ime ustvarjalca/-ev</target>
-      </trans-unit>
-      <trans-unit id="25">
-        <source>Optionally, describe the nature of the relationship between the entities named in the creator element and the materials being described (e.g., creator, author, subject, custodian, copyright owner, controller, or owner.).</source>
-        <target>Po želji opišite naravo razmerja med entitetami, navedenimi v elementu o ustvarjalcu in popisnih gradivih (npr. ustvarjalec, avtor, subjekt, skrbnik, lastnik avtorske pravice, nadzornik ali lastnik.).</target>
-      </trans-unit>
-      <trans-unit id="26">
-        <source>Administrative/biographical history</source>
-        <target>Administrativne/biografska zgodovina</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Content and structure elements</source>
@@ -276,10 +256,6 @@
         <source>Edit notes element</source>
         <target>Uredite element o opombah</target>
       </trans-unit>
-      <trans-unit id="69">
-        <source>Note</source>
-        <target>Opomba</target>
-      </trans-unit>
       <trans-unit id="70">
         <source>Edit description control element</source>
         <target>Uredite element o nadzoru popisa</target>
@@ -299,6 +275,130 @@
       <trans-unit id="74">
         <source>Accession area</source>
         <target>Območje prevzemanja</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>General note</source>
+        <target>Splošna opomba</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>Specialized notes</source>
+        <target>Strokovne opombe</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>At the highest level of a multilevel description or in a single level description, provide a unique identifier for the materials being described in accordance with the institution’s administrative control system. Optionally, devise unique identifiers at lower levels of a multilevel description. (DACS 2.1.3) The country and repository code will be automatically added from the linked repository record to form a full reference code.</source>
+        <target>Pri najvišjem nivoju večnivojskega popisa ali pri popisu z enim samim nivojem zagotovite edinstven identifikator za popisna gradiva, skladen s sistemom administrativnega nadzora ustanove. Po želji so lahko edinstvene identifikatorje izmislite tudi pri nižjih nivojih večnivojskega popisa. (DACS 2.1.3) Šifra države in skladišča bosta samodejno dodani iz povezanega zapisa o skladišču, da nastane popolna signatura.</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>Explicitly state the name of the repository, including any parent bodies (DACS 2.2.2). Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
+        <target>Nedvoumno navedite ime skladišča in vključite tudi morebitne matične ustanove (DACS 2.2.2). Poiščite obstoječe ime v zapisih arhiva, tako da vnesete prvih nekaj črk imena. Vnesete pa lahko tudi novo ime in ustvarite povezavo do novega zapisa arhiva.</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Select a level of description from the drop-down menu. Follow any relevant local or institutional guidelines in selecting the proper level of description. See DACS (2013) Chapter 1 for further guidance.</source>
+        <target>Iz spustnega menija izberite nivo popisa. Pri izbiri pravega nivoja popisa upoštevajte morebitne lokalne ali zakonske smernice. Za več informacij glejte DACS (2013), 1. poglavje.</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material, normally consisting of a name segment, a term indicating the nature of the unit being described, and optionally a topical segment. Do not enclose devised titles in square brackets. (DACS 2.3.3)</source>
+        <target>Če smiseln uradni naslov ne obstaja, si izmislite kratek naslov, ki gradivo edinstveno opisuje in ponavadi vključuje segment z imenom, izraz, ki navaja naravo popisne enote, in po želji segment s snovjo. Izmišljenih naslovov ne postavljajte v oglate oklepaje (DACS 2.3.3)</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
+        <target>Zabeležite datume v zvezi z nastankom, dejavnostjo evidentiranja, izdajo ali javnim predvajanjem, kot je primerno za posamezno popisno gradivo (DACS 2.4.3). V polje Prikaz datuma lahko v obliki prostega besedila vnesete podatke o datumu in dodate tipografske znake za izražanje približnosti, nezanesljivosti ali omejitev. Uporabite začetno in končno polje, če želite, da bo po datumih mogoče iskati. V tem primeru ne uporabljajte kvalifikatorjev ali tipografskih simbolov za izražanje nezanesljivosti. Sprejemljive so naslednje oblike datumskega zapisa: LLLLMMDD, LLLL-MM-DD, LLLL-MM, LLLL.</target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>Record the quantity of the material in terms of its physical extent as linear or cubic feet, number of items, or number of containers or carriers. (DACS 2.5.4). Optionally, record the quantity in terms of material type(s) (DACS 2.5.5), and/or qualify the statement of physical extent to hightlight the existence of material types that re important (DACS 2.5.6).</source>
+        <target>Zabeležite količino gradiva, tako da navedete njegov fizični obseg v metrih oz. kubičnih metrih ali navedete število dokumentov oz. število tehničnih enot ali nosilcev (DACS 2.5.4). Po želji lahko količino zabeležite tudi s pomočjo vrste (vrst) gradiva (DACS 2.5.5) in/ali prilagodite izjavo o fizičnem obsegu, da poudarite obstoj pomembnih vrst gradiva (DACS 2.5.6).</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Record the name(s) of the creator(s) identified in the name element in the devised title of the materials using standardized vocabularies or with rules for formulating standardized names (DACS 2.6.4). Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
+        <target>Zabeležite ime/-na ustvarjalca/-ev, ki so navedeni v elementu o imenu v izmišljenem naslovu gradiv, tako da uporabite standardizirano besedišče ali pravila za oblikovanje standardiziranih imen (DACS 2.6.4). Poiščite obstoječe ime v zapisih o ustvarjalcu, tako da vnesete prvih nekaj črk imena, lahko pa vnesete tudi novo ime in ustvarite povezavo do novega zapisa o ustvarjalcu.</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>&lt;strong&gt;Identifier&lt;/strong&gt;&lt;br /&gt;Provide a unique identifier for the materials being described in accordance with the institution’s administrative control system.&lt;br /&gt;&lt;strong&gt;Level of description&lt;/strong&gt;&lt;br /&gt;Record the level of this unit of description.&lt;br /&gt;&lt;strong&gt;Title&lt;/strong&gt;&lt;br /&gt;In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material.&lt;br /&gt;&lt;strong&gt;Date&lt;/strong&gt;&lt;br /&gt;Record a date of creation.</source>
+        <target>&lt;strong&gt;Identifikator&lt;/strong&gt;&lt;br /&gt;Zagotovite edinstven identifikator za popisno gradivo, ki je skladen s sistemom administrativnega nadzora ustanove.&lt;br /&gt;&lt;strong&gt;Nivo popisa&lt;/strong&gt;&lt;br /&gt;Zabeležite nivo popisa te enote.&lt;br /&gt;&lt;strong&gt;Naslov&lt;/strong&gt;&lt;br /&gt;Če smiselno uradno ime ne obstaja, si izmislite kratek naslov, ki edinstveno poimenuje gradivo.&lt;br /&gt;&lt;strong&gt;Datum&lt;/strong&gt;&lt;br /&gt;Zabeležite datum nastanka.</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Record information about the nature of the materials and activities reflected in the unit being described to enable users to judge its potential relevance, including information about functions, activities, transations, and processes; documentary form(s) or intellectual characteristics; content dates; geographic areas and places; subject matter; completeness of the materials; or any other information that assists the user in evaluating the relevance of the materials. (DACS 3.1)</source>
+        <target>Zabeležite podatke o naravi gradiv in dejavnostih, opisanih v popisni enoti, da lahko uporabniki presodijo njihovo pomembnost. Navedite podatke o funkcijah, dejavnostih, izmenjavah in postopkih; obliki/-ah dokumentacije ali intelektualni značilnosti; datumih, relevantnih za vsebino; geografskih območjih in krajih; snovi; celovitosti gradiv; navedite tudi katere koli druge podatke, ki bi uporabniku lahko pomagali oceniti, kako relevantna so zanj gradiva. (DACS 3.1)</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Describe the current arrangement of the material in terms of the various aggregations within it and their relationships. (DACS 3.2.3)</source>
+        <target>Opišite trenutno ureditev gradiva, kar se tiče različnega združevanja znotraj njega in njegovih povezav. (DACS 3.2.3)</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Give information about any restrictions on access to the unit being described (or parts thereof) as a result of the nature of the information therein or statutory/contractual requirements. As appropriate, specify the details of the restriction. If there are no restrictions, state that fact. (DACS 4.1.5)</source>
+        <target>Navedite podatke o morebitnih omejitvah dostopa do popisne enote (ali njenih delov), ki izhajajo iz narave vsebovanih informacij ali normativnih/pogodbenih zahtev. Če je to primerno, opišite podrobnosti omejitve. Če omejitev ni, to navedite (DACS 4.1.5)</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Provide information about the physical characteristics or condition of the unit being described that limit access to it or restrict its use. (DACS 4.2.5)</source>
+        <target>Zagotovite podatke o fizičnih značilnostih ali stanju popisne enote, ki omejujejo dostop do nje ali njene uporabe. (DACS 4.2.5)</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Provide information about any special equipment required to view or access the unit being described, if it is not clear from the Extent element. (DACS 4.3.5)</source>
+        <target>Zagotovite podatke o morebitni posebni opremi, potrebni za ogled ali dostop do popisne enote, če to ni jasno iz elementa obseg. (DACS 4.3.5)</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Give information about copyright status and any other conditions governing the reproduction, publication, and further use (e.g., display, public screening, broadcast, etc.) of the unit being described after access has been provided. (DACS 4.4.5)</source>
+        <target>Navedite informacije o statusu avtorskih pravic in drugih pogojev reprodukcije, objave in nadaljnje uporabe gradiva oziroma popisne enote (npr. predvajanja, oddajanja, javnega predvajanja itd.), do katere nam je bil omogočen dostop. (DACS 4.4.5)</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Record the language(s) of the materials being described. (DACS 4.5.2)</source>
+        <target>Zabeležite, v katerem/-ih jeziku/-ih so popisna gradiva. (DACS 4.5.2)</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Record the scripts(s) of the materials being described.</source>
+        <target>Zabeležite, v kateri/-ih pisavi/-ah so popisna gradiva.</target>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>Record information about any distinctive alphabets, scripts, symbol systems, or abbreviations employed (DACS 4.5.3). If there is no language content, record “no linguistic content.” (DACS 4.5.4)</source>
+        <target>Zabeležite podatek o uporabi morebitnih posebnih abeced, pisav, sistemov simbolov ali krajšav (DACS 4.5.3). Če jezikovne vsebine ni, zabeležite "brez lingvistične vsebine". (DACS 4.5.4)</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>Record information about any existing finding aids that provide information relating to the context and contents of the unit being described... including any relevant information about its location or availability, and any other information necessary to assist the user in evaluating its usefulness. Include finding aids prepared by the creator (e.g., registers, indexes, etc.) that are part of the unit being described. (DACS 4.6.2)</source>
+        <target>Zabeležite podatke o morebitnih pripomočkih za uporabo, ki nudijo informacije o kontekstu in vsebini popisne enote, vključno s kakršnimi koli koristnimi informacijami o lokaciji ali dostopnosti ali drugimi informacijami, s katerimi lahko uporabnik oceni uporabnost popisne enote. Vključite pripomočke za uporabo, ki jih je pripravil ustvarjalec (npr. evidence, kazala itn.) in so del popisne enote. (DACS 4.6.2)</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Record the successive transfers of ownership, responsibility, or custody or control of the unit being described from the time it left the possession of the creator until its acquisition by the repository, along with the dates thereof, insofar as this information can be ascertained and is significant to the user’s understanding of the authenticity. (DACS 5.1.3)</source>
+        <target>Zabeležite zaporedne prenose lastništva, odgovornosti, skrbništva ali nadzora nad popisno enoto, in to vse od trenutka, ko ni bila več lastnina ustvarjalca, pa do sprejema v skladišče. Zapisano opremite z datumi, če je ta podatek mogoče ugotoviti ali je pomemben za uporabnikovo razumevanje verodostojnosti popisne enote. (DACS 5.1.3)</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Record the source(s) from which the materials being described were acquired, the date(s) of acquisition, and the method of acquisition, if this information is not confidential. (DACS 5.2.3)</source>
+        <target>Zabeležite vir/-e, od katerih so bila popisna gradiva pridobljena, ter datum/-e in metodo pridobitve, če ta podatek ni zaupen, (DACS 5.2.3)</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Where the destruction or retention of archival materials has a bearing on the interpretation and use of the unit being described, provide information about the materials destroyed or retained and provide the reason(s) for the appraisal decision(s), where known. (DACS 5.3.4)</source>
+        <target>Če uničenje ali zadržanje arhivskih gradiv kakor koli vpliva na tolmačenje in uporabo popisne enote, zagotovite podatke o gradivih, ki so bili uničeni ali zadržani, in navedite razlog/-e za odločitev/-ve glede vrednotenja, kjer je to znano. (DACS 5.3.4)</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>If known, indicate whether or not further accruals are expected. When appropriate, indicate frequency and volume. (DACS 5.4.2)</source>
+        <target>Če je podatek znan, navedite, ali je pričakovati, da se bo arhivsko gradivo popisne enote še dopolnjevalo. Če je mogoče, navedite kdaj in kolikokrat se bo dopolnjevalo in predviden obsega gradiva. (DACS 5.4.2)</target>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>If the materials being described are reproductions and the originals are located elsewhere, give the location of the originals (DACS 6.1.4). Record any identifying numbers that may help in locating the originals in the cited location (DACS 6.1.6).</source>
+        <target>Če so popisna gradiva reprodukcije, izvirniki pa se nahajajo drugje, navedite lokacije izvirnika (DACS 6.1.4). Zabeležite kakršne koli identifikacijske številke, ki bi lahko pomagale pri iskanju izvirnikov na navedenih lokacijah (DACS 6.1.6).</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>If a copy of all or part of the material being described is available, in addition to the originals, record information about the medium and location of the copy, any identifying numbers, and any conditions on the use or availability of the copy. If a copy of only a part of the unit being described is available, indicate which part. If the materials being described are available via remote access (electronically or otherwise), provide the relevant information needed to access them. (DACS 6.2.3)</source>
+        <target>Če so popisano arhivsko gradivo ali njegovi deli poleg originalov na voljo tudi v obliki kopije, vnesite podatke o mediju in lokaciji kopije, signature in pogoje dostopnosti kopij. Če je na voljo kopija le dela popisanega arhivskega gradiva, označite dele, ki so dostopni. Dodajte podatke o gradivu, ki je dostopno z oddaljenim dostopom (elektronsko ali drugače) in informacije potrebne za dostop. (DACS 6.2.3)</target>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>If there are materials that have a direct and significant connection to those being described by reason of closely shared responsibility or sphere of activity, provide the title, location, and, optionally, the reference number(s) of the related materials and their relationship with the materials being described. (DACS 6.3.5)</source>
+        <target>Če obstajajo gradiva, ki so neposredno in pomembno povezana s popisnimi gradivi, bodisi zaradi skupne odgovornosti bodisi zaradi področja dejavnosti, zagotovite naslov, lokacijo in po želji referenčno/-e številko/-e sorodnih gradiv ter njihovo povezavo s popisnimi gradivi. (DACS 6.3.5)</target>
+      </trans-unit>
+      <trans-unit id="102">
+        <source>Related descriptions</source>
+        <target>Povezani opisi</target>
+      </trans-unit>
+      <trans-unit id="103">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target>Za ustvarjanje povezave med tem popisom in drugim popisom, vsebovanim v sistemu AtoM, začnite z vnosom imena sorodne povezave in jo izberite iz spustnega menija, ko se ime samodejno pojavi spodaj. Ustvariti je mogoče več povezav.</target>
+      </trans-unit>
+      <trans-unit id="104">
+        <source>Record relevant information about sources consulted in establishing or revising the description. (DACS 8.1.3)</source>
+        <target>Zabeležite relevantne podatke o uporabljenih virih pri pripravi ali pregledu popisa. (DACS 8.1.3)</target>
+      </trans-unit>
+      <trans-unit id="105">
+        <source>Record the international, national or local rules or conventions followed in preparing the description. (DACS 8.1.4)</source>
+        <target>Zabeležite, katera mednarodna, narodna ali lokalna pravila oz. dogovori so se upoštevali pri pripravi popisa. (DACS 8.1.4)</target>
       </trans-unit>
     </body>
   </file>

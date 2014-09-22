@@ -56,7 +56,8 @@
           array(
             'options' => array(
               'lastUpdated' => __('Most recent'),
-              'alphabetic' => __('Alphabetic')))) ?>
+              'alphabetic' => __('Alphabetic'),
+              'identifier' => __('Identifier')))) ?>
       </div>
     </div>
   </section>
@@ -65,7 +66,7 @@
 
 <?php foreach ($pager->getResults() as $hit): ?>
   <?php $doc = $hit->getData() ?>
-  <?php echo include_partial('actor/searchResult', array('doc' => $doc, 'pager' => $pager)) ?>
+  <?php echo include_partial('actor/searchResult', array('doc' => $doc, 'pager' => $pager, 'culture' => $selectedCulture)) ?>
 <?php endforeach; ?>
 
 <?php slot('after-content') ?>

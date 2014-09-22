@@ -64,7 +64,7 @@ class sfIsdiahPluginIndexAction extends RepositoryIndexAction
           new sfValidatorSchema(array('region' => new sfValidatorString(array('required' => true))), array('allow_extra_fields' => true)),
           new sfValidatorSchema(array('streetAddress' => new sfValidatorString(array('required' => true))), array('allow_extra_fields' => true))), array(
           'required' => true), array(
-          'invalid' => $this->context->i18n->__('%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.', array('%1%' => '<a href="http://ica-atom.org/doc/RS-3#5.2.1">', '%2%' => '</a>', '%3%' => '<a href="<a href="http://ica-atom.org/doc/RS-3#4.7">', '%4%' => '</a>'))))), array(
+          'invalid' => $this->context->i18n->__('%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.', array('%1%' => '<a href="http://ica-atom.org/doc/RS-3#5.2.1">', '%2%' => '</a>', '%3%' => '<a href="http://ica-atom.org/doc/RS-3#4.7">', '%4%' => '</a>'))))), array(
         'required' => true), array(
         'required' => $this->context->i18n->__('%1%Contact information%2% - This is a %3%mandatory%4% element.', array('%1%' => '<a href="http://ica-atom.org/doc/RS-3#5.2.1">', '%2%' => '</a>', '%3%' => '<a href="http://ica-atom.org/doc/RS-3#4.7">', '%4%' => '</a>'))));
 

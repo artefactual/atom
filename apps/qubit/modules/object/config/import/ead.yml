@@ -55,7 +55,7 @@ information_object:
       Method: SetLevelOfDescriptionByName
 
     repository:
-      XPath:   "(did/repository/corpname | did/repository/name)[1]"
+      XPath:   "(did/repository[not(*)] | did/repository/corpname | did/repository/name)[1]"
       Method:  setRepositoryByName
 
     creator:
@@ -85,6 +85,10 @@ information_object:
     alternate_title:
       XPath: "did/unittitle[@type='parallel']"
       Method:  setAlternateTitle
+
+    edition_statement:
+      XPath: "did/unittitle[@type='editionStat']"
+      Method:  setEdition
 
     other_title:
       XPath: "did/unittitle[@type='otherInfo']"
@@ -426,7 +430,7 @@ information_object:
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)"]
 
     revision_history:
-      XPath:  "(processinfo/p/date | descgrp/processinfo/p/date)"
+      XPath:  "(processinfo/date | processinfo/p/date | descgrp/processinfo/date | descgrp/processinfo/p/date)"
       Method:  setRevisionHistory
 
     userestrict:

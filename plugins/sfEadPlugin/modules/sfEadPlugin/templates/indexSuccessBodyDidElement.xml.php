@@ -61,7 +61,7 @@
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getEdition(array('cultureFallback' => true)))): ?>
-    <unittitle <?php if (0 < strlen($encoding = $ead->getMetadataParameter('editionstatement'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><edition><?php echo escape_dc(esc_specialchars($value)) ?></edition></unittitle>
+    <unittitle type="editionStat" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('editionstatement'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><edition><?php echo escape_dc(esc_specialchars($value)) ?></edition></unittitle>
   <?php endif; ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getPropertyByName('editionStatementOfResponsibility')->__toString())): ?>
@@ -76,7 +76,7 @@
         <?php break; ?>
       <?php endif; ?>
     <?php endforeach; ?>
-    <unitid encodinganalog="<?php echo $ead->getMetadataParameter('unitid') ?>" <?php if (isset($repository)): ?><?php if ($countrycode = $repository->getCountryCode()): ?><?php echo 'countrycode="'.$countrycode.'" ' ?><?php endif;?><?php if ($repocode = $repository->getIdentifier()): ?><?php echo 'repositorycode="'.escape_dc(esc_specialchars($repocode)).'" ' ?><?php endif; ?><?php endif; ?>><?php echo escape_dc(esc_specialchars($$resourceVar->getIdentifier())) ?></unitid>
+    <unitid encodinganalog="<?php echo $ead->getMetadataParameter('unitid') ?>" <?php if (isset($repository)): ?><?php if ($countrycode = $repository->getCountryCode()): ?><?php echo 'countrycode="'.$countrycode.'" ' ?><?php endif;?><?php if ($repocode = $repository->getIdentifier()): ?><?php echo 'repositorycode="'.escape_dc(esc_specialchars($repocode)).'" ' ?><?php endif; ?><?php endif; ?>><?php echo escape_dc(esc_specialchars(sfEadPlugin::getUnitidValue($$resourceVar))) ?></unitid>
   <?php endif; ?>
 
   <?php foreach ($$resourceVar->getProperties(null, 'alternativeIdentifiers') as $item): ?>
@@ -181,9 +181,9 @@
   <?php endif; ?>
 
   <?php if (null !== $digitalObject = $$resourceVar->digitalObjects[0]): ?>
-    <?php if (QubitAcl::check($$resourceVar, 'readMaster') && 0 < strlen($url = QubitTerm::EXTERNAL_URI_ID == $digitalObject->usageId ? $digitalObject->getPath() : public_path($digitalObject->getFullPath(), true))): ?>
+    <?php if (QubitAcl::check($$resourceVar, 'readMaster') && 0 < strlen($url = QubitTerm::EXTERNAL_URI_ID == $digitalObject->usageId ? $digitalObject->getPath() : $ead->getAssetPath($digitalObject))): ?>
       <dao linktype="simple" href="<?php echo $url ?>" role="master" actuate="onRequest" show="embed"/>
-    <?php elseif (null !== $digitalObject->reference && QubitAcl::check($$resourceVar, 'readReference') && 0 < strlen($url = public_path($digitalObject->reference->getFullPath(), true))): ?>
+    <?php elseif (null !== $digitalObject->reference && QubitAcl::check($$resourceVar, 'readReference') && 0 < strlen($url = $ead->getAssetPath($digitalObject, true))): ?>
       <dao linktype="simple" href="<?php echo $url ?>" role="reference" actuate="onRequest" show="embed"/>
     <?php endif; ?>
   <?php endif; ?>

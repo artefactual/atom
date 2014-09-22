@@ -184,6 +184,40 @@
 
       </fieldset>
 
+      <fieldset class="collapsible collapsed" id="accessPointsArea">
+
+        <legend><?php echo __('Access points') ?></legend>
+
+        <div class="form-item">
+          <?php echo $form->thematicArea
+            ->label(__('Thematic area'))
+            ->renderLabel() ?>
+          <?php echo $form->thematicArea->render(array('class' => 'form-autocomplete')) ?>
+          <?php if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::THEMATIC_AREA_ID), 'createTerm')): ?>
+            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::THEMATIC_AREA_ID), 'module' => 'taxonomy')))) ?> #name"/>
+          <?php endif; ?>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::THEMATIC_AREA_ID), 'module' => 'taxonomy')))) ?>"/>
+          <?php echo $form->thematicArea
+            ->help(__("Search for an existing term in the Thematic Areas taxonomy by typing the first few characters of the term name. This should be used to identify major collecting areas."))
+            ->renderHelp() ?>
+        </div>
+
+        <div class="form-item">
+          <?php echo $form->geographicSubregion
+            ->label(__('Geographic subregion'))
+            ->renderLabel() ?>
+          <?php echo $form->geographicSubregion->render(array('class' => 'form-autocomplete')) ?>
+          <?php if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID), 'createTerm')): ?>
+            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID), 'module' => 'taxonomy')))) ?> #name"/>
+          <?php endif; ?>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID), 'module' => 'taxonomy')))) ?>"/>
+          <?php echo $form->geographicSubregion
+            ->help(__("Search for an existing term in the Geographic Subregion taxonomy by typing the first few characters of the term name."))
+            ->renderHelp() ?>
+        </div>
+
+      </fieldset>
+
     </section>
 
     <section class="actions">

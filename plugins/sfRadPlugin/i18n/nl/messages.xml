@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2013-10-03T11:52:46Z" product-name="messages">
+  <file source-language="EN" target-language="nl" datatype="plaintext" original="messages" date="2014-09-17T12:06:10Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -380,10 +380,6 @@
         <source>For associated material, "If records in another institution are associated with the unit being described by virtue of the fact that they share the same provenance, make a citation to the associated material at the fonds, series or collection level, or for discrete items, indicating its location if known." (RAD 1.8B18). For related material, "Indicate groups of records having some significant relationship by reason of shared responsibility or shared sphere of activity in one or more units of material external to the unit being described." (RAD 1.8B20)</source>
         <target/>
       </trans-unit>
-      <trans-unit id="103">
-        <source>Associated/related material</source>
-        <target>Verwant materiaal</target>
-      </trans-unit>
       <trans-unit id="104">
         <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
         <target/>
@@ -572,10 +568,6 @@
         <source>Finding aids</source>
         <target>Toegangen</target>
       </trans-unit>
-      <trans-unit id="155">
-        <source>Associated / related material</source>
-        <target>Verwant materiaal</target>
-      </trans-unit>
       <trans-unit id="156">
         <source>Accruals</source>
         <target>Aanvullingen</target>
@@ -666,6 +658,18 @@
       </trans-unit>
       <trans-unit id="180">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="181">
+        <source>Associated materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="182">
+        <source>Related materials</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="183">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
         <target/>
       </trans-unit>
     </body>

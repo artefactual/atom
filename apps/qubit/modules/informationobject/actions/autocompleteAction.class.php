@@ -51,13 +51,13 @@ class InformationObjectAutocompleteAction extends sfAction
     {
       $queryString = new \Elastica\Query\QueryString('*'.$request->query.'*');
 
-      // Query over inheritReferenceCode or identifier, and title
-      if ('1' == sfConfig::get('app_inherit_code_informationobject', 1))
+      // Search for referenceCode or identifier, and title
+      if (1 == sfConfig::get('app_inherit_code_informationobject', 1))
       {
-        $queryString->setFields(array('i18n.'.$culture.'.title.autocomplete', 'inheritReferenceCode.autocomplete'));
+        $queryString->setFields(array('i18n.'.$culture.'.title.autocomplete', 'referenceCode.autocomplete'));
 
         // Change sort order
-        $this->query->setSort(array('levelOfDescriptionId' => 'asc', 'inheritReferenceCode' => 'asc', 'i18n.'.$culture.'.title' => 'asc'));
+        $this->query->setSort(array('levelOfDescriptionId' => 'asc', 'referenceCode' => 'asc', 'i18n.'.$culture.'.title' => 'asc'));
       }
       else
       {

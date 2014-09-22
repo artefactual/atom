@@ -602,6 +602,10 @@ class QubitXmlImport
     // Default $strictXmlParsing to false
     $strictXmlParsing = (isset($options['strictXmlParsing'])) ? $options['strictXmlParsing'] : false;
 
+    // Pre-fetch the raw XML string from file so we can remove any default
+    // namespaces and reuse the string for later when finding/registering namespaces.
+    $rawXML = file_get_contents($xmlFile);
+
     if ($strictXmlParsing)
     {
       // enforce all XML parsing rules and validation
@@ -618,7 +622,7 @@ class QubitXmlImport
     $doc->preserveWhitespace = false;
     $doc->substituteEntities = true;
 
-    $doc->load($xmlFile);
+    $doc->loadXML($this->removeDefaultNamespace($rawXML));
 
     $xsi = false;
     $doc->namespaces = array();
@@ -643,7 +647,7 @@ class QubitXmlImport
     // Consider: http://www.php.net/manual/en/book.dom.php#73793
 
     $re = '/xmlns:([^=]+)="([^"]+)"/';
-    preg_match_all($re, $doc->saveXML(), $mat, PREG_SET_ORDER);
+    preg_match_all($re, $rawXML, $mat, PREG_SET_ORDER);
 
     foreach ($mat as $xmlns)
     {
@@ -763,6 +767,15 @@ class QubitXmlImport
     }
 
     return $nodeValue;
+  }
+
+  /**
+   * Make sure to remove any default namespaces from
+   * EAD tags. See issue #7280 for details.
+   */
+  private function removeDefaultNamespace($xml)
+  {
+    return preg_replace('/(<ead.*?)xmlns="[^"]*"\s+(.*?>)/', '${1}${2}', $xml, 1);
   }
 
   /**

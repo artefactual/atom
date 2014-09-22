@@ -8,6 +8,7 @@
 <?php end_slot() ?>
 
 <?php slot("before-content") ?>
+
   <?php if (isset($errorSchema)): ?>
     <div class="messages error">
       <ul>
@@ -17,6 +18,9 @@
       </ul>
     </div>
   <?php endif; ?>
+
+  <?php echo get_component('default', 'translationLinks', array('resource' => $resource)) ?>
+
 <?php end_slot() ?>
 
 <div class="section" id="identityArea">

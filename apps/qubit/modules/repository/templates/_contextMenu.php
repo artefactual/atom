@@ -11,7 +11,7 @@
   <ul>
     <?php foreach ($resultSet->getResults() as $hit): ?>
       <?php $doc = $hit->getData() ?>
-      <li><?php echo link_to(get_search_i18n($doc, 'title'), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></li>
+      <li><?php echo link_to(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture)), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></li>
     <?php endforeach; ?>
   </ul>
 

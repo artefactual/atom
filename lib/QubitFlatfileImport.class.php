@@ -566,7 +566,7 @@ class QubitFlatfileImport
         $this->object = QubitInformationObject::getById($mapEntry->target_id);
 
         // was the keymap entry invalid?
-        if ($this->object === NULL)
+        if ($this->object === null)
         {
           // delete invalid keymap entry
           $query = "DELETE FROM keymap \r
@@ -1068,6 +1068,11 @@ class QubitFlatfileImport
           $actorOptions['history'] = $options['actorHistory'];
         }
 
+        if (isset($this->object->repositoryId))
+        {
+          $actorOptions['repositoryId'] = $this->object->repositoryId;
+        }
+
         $actor = $this->createOrFetchActor($options['actorName'], $actorOptions);
         $event->actorId = $actor->id;
       }
@@ -1137,21 +1142,14 @@ class QubitFlatfileImport
    */
   public static function createOrFetchActor($name, $options = array())
   {
-    $query = "SELECT id FROM actor_i18n WHERE authorized_form_of_name=?";
-
-    $statement = QubitFlatfileImport::sqlQuery($query, array($name));
-    $result = $statement->fetch(PDO::FETCH_OBJ);
-
-    if ($result)
+    // Get actor or create a new one. If the actor exists the data is not overwritten
+    if (null === $actor = QubitActor::getByNameAndRepositoryId($name, $options['repositoryId']))
     {
-      $actor = QubitActor::getById($result->id);
-      $allowedProperties = array('history', 'entityTypeId');
-      QubitFlatfileImport::setPropertiesFromArray($actor, $options, $allowedProperties);
-      $actor->save();
-      return $actor;
-    } else {
-      return QubitFlatfileImport::createActor($name, $options);
+      unset($options['repositoryId']);
+      $actor = QubitFlatfileImport::createActor($name, $options);
     }
+
+    return $actor;
   }
 
   /**

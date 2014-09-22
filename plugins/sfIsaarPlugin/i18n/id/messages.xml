@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2013-10-03T11:52:35Z" product-name="messages">
+  <file source-language="EN" target-language="id" datatype="plaintext" original="messages" date="2014-09-19T13:19:50Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -406,6 +406,22 @@
       </trans-unit>
       <trans-unit id="105">
         <source>Last updated</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="106">
+        <source>Category</source>
+        <target>Kategori</target>
+      </trans-unit>
+      <trans-unit id="107">
+        <source>Relationship type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="108">
+        <source>"Select a descriptive term from the drop-down menu to clarify the type of relationship between these two actors."</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="109">
+        <source>Type of relationship</source>
         <target/>
       </trans-unit>
     </body>

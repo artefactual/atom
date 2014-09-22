@@ -158,6 +158,11 @@ class Qubit
    */
   public static function getDirectorySize($directory, $options = array())
   {
+    if (!is_dir($directory))
+    {
+      return -1;
+    }
+
     // Derived from http://www.php.net/manual/en/function.filesize.php#94566
     $size = 0;
     $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));

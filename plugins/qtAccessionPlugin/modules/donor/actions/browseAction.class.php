@@ -57,6 +57,9 @@ class DonorBrowseAction extends sfAction
 
     switch ($request->sort)
     {
+      case 'identifier':
+        $criteria->addAscendingOrderByColumn(QubitActor::DESCRIPTION_IDENTIFIER);
+
       case 'alphabetic':
         $criteria->addAscendingOrderByColumn('authorized_form_of_name');
 

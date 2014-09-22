@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2013-08-22T17:10:58Z" product-name="messages">
+  <file source-language="EN" target-language="pt_BR" datatype="plaintext" original="messages" date="2014-09-19T13:20:17Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -136,7 +136,7 @@
       </trans-unit>
       <trans-unit id="934">
         <source>&lt;p&gt;The name of a place or geographic area which is a topic of the resource or relevant to its jurisdiction.&lt;/p&gt;&lt;p&gt;Search for an existing term in the Place taxonomy by typing the first few characters of the place name. Alternatively, type a new name to create and link to a new place.&lt;/p&gt;&lt;p&gt;Please note: if you entered a place of creation, publication or contribution that will be output automatically, so don’t repeat that place name here.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;O nome de um lugar ou área geográfica que é um tópico de recursos ou relevante à sua jurisdição.&lt;/p&gt;&lt;p&gt;Pesquise um termo existente na taxonomia Lugar digitando as iniciais do nome deste lugar. Opcionalmente, digite um novo nome para criar e ligar a um novo lugar.&lt;/p&gt;&lt;p&gt;Por favor, observe: se você inseriu um lugar de criação, publicação ou contribuição, este será exibido automaticamente, não repita o seu nome aqui.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="935">
         <source>Rights area</source>
@@ -168,11 +168,11 @@
       </trans-unit>
       <trans-unit id="942">
         <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>Identifique e registre a data da unidade de descrição. Identifique o tipo de data fornecida. Registre como uma data simples ou um intervalo de datas, como apropriado. O campo de exibição Data pode ser usado para inserir informações de data de texto livre, incluindo marcas tipográficas para expressar aproximação, incerteza ou qualificação. Use os campos de início e fim para tornar as datas pesquisáveis. Não use os qualificadores ou símbolos tipográficos para expressar incerteza. Formatos aceitáveis ​​de data: AAAAMMDD, AAAA-MM-DD, AAAA-MM, AAAA.</target>
       </trans-unit>
       <trans-unit id="943">
         <source>Name(s)</source>
-        <target/>
+        <target>Nome(s)</target>
       </trans-unit>
       <trans-unit id="944">
         <source>Actor name</source>
@@ -180,7 +180,7 @@
       </trans-unit>
       <trans-unit id="945">
         <source>Identify and record the name(s) and type(s) of the unit of description.</source>
-        <target/>
+        <target>Identifique e registre os nome(s) e tipo(s) da unidade de descrição</target>
       </trans-unit>
     </body>
   </file>

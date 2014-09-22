@@ -45,6 +45,8 @@
     </div>
   <?php endif; ?>
 
+  <?php echo get_component('default', 'translationLinks', array('resource' => $resource)) ?>
+
 <?php end_slot() ?>
 
 <?php slot('context-menu') ?>
@@ -220,6 +222,23 @@
 
 </section>
 
+<section id="accessPointsArea">
+
+  <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'repository'), '<h2>'.__('Access points').'</h2>', array($resource, 'module' => 'repository', 'action' => 'edit'), array('anchor' => 'accessPointsArea', 'title' => __('Edit access points'))) ?>
+  <div class="field">
+    <h3><?php echo __('Access Points') ?></h3>
+    <div>
+      <ul>
+        <?php foreach ($resource->getTermRelations(QubitTaxonomy::THEMATIC_AREA_ID) as $item): ?>
+          <li><?php echo __(render_value($item->term)) ?> (Thematic area)</li>
+        <?php endforeach; ?>
+        <?php foreach ($resource->getTermRelations(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID) as $item): ?>
+          <li><?php echo __(render_value($item->term)) ?> (Geographic subregion)</li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+  </div>
+</section>
 
 <?php if (QubitAcl::check($resource, array('update', 'delete', 'create'))): ?>
 

@@ -76,6 +76,10 @@
 
 <?php end_slot() ?>
 
+<?php slot('before-content') ?>
+  <?php echo get_component('default', 'translationLinks', array('resource' => $resource)) ?>
+<?php end_slot() ?>
+
 <?php slot('context-menu') ?>
 
   <div class="sidebar">
@@ -262,7 +266,7 @@
         </div>
       <?php endif; ?>
 
-      <?php echo get_partial('search/searchResults', array('pager' => $pager)) ?>
+      <?php echo get_partial('search/searchResults', array('pager' => $pager, 'culture' => $culture)) ?>
 
     </div>
   <?php endif; ?>

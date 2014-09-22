@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2013-10-03T11:52:11Z" product-name="messages">
+  <file source-language="EN" target-language="sl" datatype="plaintext" original="messages" date="2014-09-19T13:19:58Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -192,10 +192,6 @@
         <source>Browse accession</source>
         <target>Prebrskaj podatke o prevzemu</target>
       </trans-unit>
-      <trans-unit id="54">
-        <source>Search accession</source>
-        <target>Išči prevzem</target>
-      </trans-unit>
       <trans-unit id="55">
         <source>Related donors</source>
         <target>Sorodni donatorji</target>
@@ -384,10 +380,6 @@
         <source>Create %1%</source>
         <target>Ustvari %1%</target>
       </trans-unit>
-      <trans-unit id="106">
-        <source>List accession record</source>
-        <target>Navedi zapis o prevzemanju gradiva</target>
-      </trans-unit>
       <trans-unit id="107">
         <source>Identifier</source>
         <target>Identifikator</target>
@@ -438,15 +430,19 @@
       </trans-unit>
       <trans-unit id="121">
         <source>Basic info</source>
-        <target/>
+        <target>Osnovni podatki</target>
       </trans-unit>
       <trans-unit id="122">
         <source>Search %1%</source>
-        <target/>
+        <target>Išči %1%</target>
       </trans-unit>
       <trans-unit id="123">
         <source>Most recent</source>
-        <target/>
+        <target>Najaktualnejše</target>
+      </trans-unit>
+      <trans-unit id="124">
+        <source>Relevance</source>
+        <target>Relevantnost</target>
       </trans-unit>
     </body>
   </file>

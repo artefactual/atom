@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2014-09-19T13:19:54Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Browse by</source>
+        <target>Explora per</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Virtual exhibits</source>
+        <target>Exposicions virtuals </target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Search %1%</source>
+        <target>Cerca %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Search</source>
+        <target>Cerca </target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Advanced search</source>
+        <target>Cerca avançada </target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Global search</source>
+        <target>Cerca global </target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Search &lt;span&gt;%1%&lt;/span&gt;</source>
+        <target>Cerca &lt;span&gt;%1%&lt;/span&gt;</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -12,7 +12,15 @@
   </div>
   <div class="span6">
 
-    <div id="header-facets" class="pull-right">
+    <?php echo get_partial('default/sortPicker',
+      array(
+        'class' => 'shared',
+        'options' => array(
+          'alphabetic' => __('Alphabetic (title)'),
+          'identifier' => __('Alphabetic (identifier)'),
+          'lastUpdated' => __('Most recent')))) ?>
+
+    <div class="header-facets">
       <?php echo get_partial('search/singleFacet', array(
         'target' => '#facet-mediatype',
         'label' => __('Media type'),
@@ -52,9 +60,9 @@
           <?php echo link_to(image_tag('question-mark'), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
         <?php endif; ?>
       </div>
-      <p class="description"><?php echo render_title(get_search_i18n($doc, 'title')) ?></p>
-      <?php if ('1' == sfConfig::get('app_inherit_code_informationobject', 1) && isset($doc['inheritReferenceCode']) && !empty($doc['inheritReferenceCode'])) : ?>
-        <div class="bottom"><p><?php echo $doc['inheritReferenceCode'] ?></p></div>
+      <p class="description"><?php echo render_title(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture))) ?></p>
+      <?php if ('1' == sfConfig::get('app_inherit_code_informationobject', 1) && isset($doc['referenceCode']) && !empty($doc['referenceCode'])) : ?>
+        <div class="bottom"><p><?php echo $doc['referenceCode'] ?></p></div>
       <?php elseif (!empty($doc['identifier'])) : ?>
         <div class="bottom"><p><?php echo $doc['identifier'] ?></p></div>
       <?php endif; ?>
@@ -62,6 +70,4 @@
   <?php endforeach; ?>
 </section>
 
-<section>
-  <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
-</section>
+<?php echo get_partial('default/pager', array('pager' => $pager)) ?>

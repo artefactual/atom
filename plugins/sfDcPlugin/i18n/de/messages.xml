@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2013-08-22T17:21:53Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2014-09-17T11:50:27Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -8,7 +8,7 @@
       </trans-unit>
       <trans-unit id="111">
         <source>Language</source>
-        <target/>
+        <target>Sprache</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Identifier</source>
@@ -32,7 +32,7 @@
       </trans-unit>
       <trans-unit id="843">
         <source>Source</source>
-        <target/>
+        <target>Quelle</target>
       </trans-unit>
       <trans-unit id="844">
         <source>Rights</source>
@@ -40,11 +40,11 @@
       </trans-unit>
       <trans-unit id="895">
         <source>%1%Identifier%2% - This is a mandatory element.</source>
-        <target/>
+        <target>%1%Identifikator/Signatur%2% - Dies ist ein notwendiges Element.</target>
       </trans-unit>
       <trans-unit id="896">
         <source>%1%Title%2% - This is a mandatory element.</source>
-        <target/>
+        <target>%1%Titel%2% - Dies ist ein notwendiges Element.</target>
       </trans-unit>
       <trans-unit id="901">
         <source>Creator</source>
@@ -52,7 +52,7 @@
       </trans-unit>
       <trans-unit id="902">
         <source>Publisher</source>
-        <target/>
+        <target>Herausgeber</target>
       </trans-unit>
       <trans-unit id="903">
         <source>Contributor</source>
@@ -64,7 +64,7 @@
       </trans-unit>
       <trans-unit id="905">
         <source>Coverage (spatial)</source>
-        <target/>
+        <target>Abdeckung (räumlich)</target>
       </trans-unit>
       <trans-unit id="907">
         <source>This is a duplicate of record %1%</source>
@@ -76,15 +76,15 @@
       </trans-unit>
       <trans-unit id="909">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Dies ist ein notwendiges Element.</target>
       </trans-unit>
       <trans-unit id="910">
         <source>The name given to this resource.</source>
-        <target/>
+        <target>Der Name, der dieser Ressource gegeben wurde.</target>
       </trans-unit>
       <trans-unit id="911">
         <source>Names and dates</source>
-        <target/>
+        <target>Namen und Daten</target>
       </trans-unit>
       <trans-unit id="913">
         <source>The topic of the resource. Search for an existing term in the Subject taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
@@ -92,7 +92,7 @@
       </trans-unit>
       <trans-unit id="916">
         <source>Child levels (if describing a collection)</source>
-        <target/>
+        <target>Erschließungsebenen (wenn ein Bestand erschlossen wird)</target>
       </trans-unit>
       <trans-unit id="919">
         <source>Related material(s) from which this resource is derived.</source>
@@ -100,7 +100,7 @@
       </trans-unit>
       <trans-unit id="920">
         <source>Language(s) of this resource.</source>
-        <target/>
+        <target> In der Verzeichnungseinheit enthaltene Sprache(n)</target>
       </trans-unit>
       <trans-unit id="924">
         <source>Information about rights held in and over the resource (e.g. copyright, access conditions, etc.).</source>
@@ -108,15 +108,15 @@
       </trans-unit>
       <trans-unit id="925">
         <source>Add new resource</source>
-        <target/>
+        <target>Ressource hinzufügen</target>
       </trans-unit>
       <trans-unit id="926">
         <source>Untitled</source>
-        <target/>
+        <target>Ohne Titel</target>
       </trans-unit>
       <trans-unit id="928">
         <source>An abstract, table of contents or description of the resource's scope and contents.</source>
-        <target/>
+        <target>Eine Zusammenfassung, ein Inhaltsverzeichnis oder eine Beschreibung von Eingrenzung und Inhalt der Ressource.</target>
       </trans-unit>
       <trans-unit id="929">
         <source>&lt;p&gt;The nature or genre of the resource.&lt;/p&gt;&lt;p&gt;Assign as many types as applicable. The &lt;em&gt;Type&lt;/em&gt; options are limited to the DCMI Type vocabulary.&lt;/p&gt;&lt;p&gt;Assign the &lt;em&gt;Collection&lt;/em&gt; value if this resource is the top-level for a set of lower-level (child) resources.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the &lt;em&gt;image&lt;/em&gt;, &lt;em&gt;text&lt;/em&gt;, &lt;em&gt;sound&lt;/em&gt; or &lt;em&gt;moving image&lt;/em&gt; types are added automatically upon output, so do not duplicate those values here.&lt;/p&gt;</source>
@@ -124,43 +124,43 @@
       </trans-unit>
       <trans-unit id="930">
         <source>&lt;p&gt;&lt;strong&gt;Child levels&lt;/strong&gt;&lt;br/&gt;Use these two fields to add lower levels to a collection level description. Click &lt;em&gt;Add new&lt;/em&gt; to create as many child levels as necessary.&lt;/p&gt;&lt;p&gt;These fields can also be used to add any number of intermediate levels of description (e.g. series, file, etc) between the top and bottom levels in a descriptive hierarchy. Use the hierarchy treeview to re-order hierarchy levels as necessary.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Identifier&lt;/em&gt;: The unambiguous reference code used to uniquely identify the child-level resource.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Title&lt;/em&gt;: The name given to the child-level resource.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;&lt;strong&gt;Untergeordnete Ebenen&lt;/strong&gt;&lt;br/&gt;Nützen Sie diese beiden Felder, um der Bestandserschließung um tiefere Erschließungsebenen zu ergänzen. Auf&lt;em&gt;Hinzufügen&lt;/em&gt; clicken, um so viele tiefere Ebenen hinzuzufügen, wie nötig.&lt;/p&gt;&lt;p&gt;diese Felder können auch genutzt werden, um Zwischenebenen (z. B. series, file, etc) zwischen der Bestandsebene und der Objektebene in die Beschreibungshierarchie einzufügen. Nutzen Sie die Baumansicht, um die Hierarchieebenen zu reorganisieren.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Identifikator&lt;/em&gt;: Die eindeutige Signatur wird benötigt, um die untergeordnete Einheit eindeutig zu identifizieren.&lt;/p&gt;&lt;p&gt;&lt;em&gt;Titel&lt;/em&gt;: Die Bezeichnung für eine untergeordnete Einheit.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="931">
         <source>&lt;p&gt;The file format, physical medium, or dimensions of the resource.&lt;/p&gt;&lt;p&gt;Please note: if this resource is linked to a digital object, the Internet Media Types (MIME) will be added automatically upon output, so don't duplicate those values here.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;Das Dateiformat, das physische Medium oder die Abmessungen der Ressource&lt;/p&gt;&lt;p&gt;Bitte beachten Sie: wenn diese Ressource mit einem digitalen Objekt verknüpft ist, wird der Internet Media Typ (MIME) automatisch bei der Ausgabe hinzugefügt - bitte duplizieren Sie diese Werte hier nicht. &lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="932">
         <source>&lt;p&gt;The name of the organization which has custody of the resource.&lt;/p&gt;&lt;p&gt;Search for an existing name in the organization records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new organization record.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;Der Name der Einrichtung, die die Resource verwahrt.&lt;/p&gt;&lt;p&gt;Suchen Sie in den Dateien für Organisationen nach einem existierenden Namen, indem Sie die ersten Buchstaben des Namens eintippen. Alternativ geben sie einen neuen Namen ein und verlinken ihn mit einer neuen Datei für Organisationen. &lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="933">
         <source>&lt;p&gt;The name of a place or geographic area which is a topic of the resource or relevant to its jurisdiction.&lt;/p&gt;&lt;p&gt;Search for an existing term in the Place taxonomy by typing the first few characters of the place name. Alternatively, type a new name to create and link to a new place.&lt;/p&gt;&lt;p&gt;Please note: if you entered a place of creation, publication or contribution that will be output automatically, so don’t repeat that place name here.&lt;/p&gt;</source>
-        <target/>
+        <target>&lt;p&gt;Der Name eines Platzes oder einer geografischen Region, der Gegenstand der Ressource oder relevant für ihren Kompetenzbereich ist.&lt;/p&gt;&lt;p&gt;Suchen Sie in deTaxonomie für Orte nach einem existierenden Begriff, indem Sie die ersten Buchstaben des Namens eintippen. Alternativ geben sie einen neuen Namen ein und verlinken ihn mit einer neuen Datei für Organisationen. &lt;/p&gt;&lt;p&gt;Bitte beachten Sie: wenn einen Ortsnamen für Erstellung, Veröffentlichung oder einen Beitrag eingegeben haben, der automatisch ausgegeben wird,  -  wiederholen Sie diesen Ortsnamen hier nicht.&lt;/p&gt;</target>
       </trans-unit>
       <trans-unit id="934">
         <source>Rights area</source>
-        <target/>
+        <target>Bereich 'Rechte'</target>
       </trans-unit>
       <trans-unit id="935">
         <source>Edit rights area</source>
-        <target/>
+        <target>Bearbeite Bereich 'Rechte'</target>
       </trans-unit>
       <trans-unit id="936">
         <source>Accession area</source>
-        <target/>
+        <target>Bereich Zugang</target>
       </trans-unit>
       <trans-unit id="937">
         <source>%1%Relation%2% (%3%isLocatedAt%4%) - This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
-        <target/>
+        <target>%1%Beziehung%2% (%3%isLocatedAt%4%)  - Dies ist ein notwendiges Element für diese Resource oder eines ihrer höheren Erschließungsebenen (wenn es Teil eines hierarchisch gegliederten Bestandes ist).</target>
       </trans-unit>
       <trans-unit id="938">
         <source>This is a mandatory element for this resource or one of its higher descriptive levels (if part of a collection hierarchy).</source>
-        <target/>
+        <target>Dies ist ein notwendiges Element für diese Resource oder eines ihrer höheren Erschließungsebenen (wenn es Teil eines hierarchisch gegliederten Bestandes ist). </target>
       </trans-unit>
       <trans-unit id="939">
         <source>Elements area</source>
-        <target/>
+        <target>Bereich 'Elemente'</target>
       </trans-unit>
       <trans-unit id="940">
         <source>How to access to this content?</source>
@@ -172,15 +172,15 @@
       </trans-unit>
       <trans-unit id="942">
         <source>Show details</source>
-        <target/>
+        <target>Zeige Details</target>
       </trans-unit>
       <trans-unit id="943">
         <source>Close</source>
-        <target/>
+        <target>Schließen</target>
       </trans-unit>
       <trans-unit id="944">
         <source>Edit elements area</source>
-        <target/>
+        <target>Bearbeite Bereich 'Elemente'</target>
       </trans-unit>
       <trans-unit id="945">
         <source>Date(s)</source>
@@ -188,23 +188,23 @@
       </trans-unit>
       <trans-unit id="946">
         <source>Date</source>
-        <target/>
+        <target>Datum</target>
       </trans-unit>
       <trans-unit id="947">
         <source>Start</source>
-        <target/>
+        <target>Beginn</target>
       </trans-unit>
       <trans-unit id="948">
         <source>End</source>
-        <target/>
+        <target>Ende</target>
       </trans-unit>
       <trans-unit id="949">
         <source>Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate. The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>Das Entstehungsdatum bzw. der Entstehungszeitraum der Verzeichnungseinheit ist zu identifizieren und festzuhalten. Die Art der Daten ist anzugeben. Das Feld zur Anzeige des Datums kann mit freiem Text belegt werden, einschließlich typographischer Zeichen, die Näherung, Ungewissheit oder eine nähere Bestimmung ausdrücken. Nutze die Felder für "Beginn" und "Ende" um Daten suchbar zu machen. Benutzen Sie hier keine näheren Bestimmungen oder typographische Zeichen um Ungewissheit auszudrücken. Geeignete Datenformate sind: JJJJMMTT, JJJJ-MM-TT, JJJJ-MM, JJJJ.</target>
       </trans-unit>
       <trans-unit id="950">
         <source>Name(s)</source>
-        <target/>
+        <target>Name(n)</target>
       </trans-unit>
       <trans-unit id="951">
         <source>Actor name</source>

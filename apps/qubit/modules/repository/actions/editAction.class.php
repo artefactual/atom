@@ -101,6 +101,60 @@ class RepositoryEditAction extends DefaultEditAction
 
         break;
 
+      case 'thematicArea':
+        $criteria = new Criteria;
+        $criteria = $this->resource->addObjectTermRelationsRelatedByObjectIdCriteria($criteria);
+        $criteria->addJoin(QubitObjectTermRelation::TERM_ID, QubitTerm::ID);
+        $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::THEMATIC_AREA_ID);
+
+        $value = array();
+        foreach ($this->thematicAreaRelations = QubitObjectTermRelation::get($criteria) as $item)
+        {
+          $value[] = $this->context->routing->generate(null, array($item->term, 'module' => 'term'));
+        }
+
+        $this->form->setDefault('thematicArea', $value);
+        $this->form->setValidator('thematicArea', new sfValidatorPass);
+
+        $choices = array();
+        foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::THEMATIC_AREA_ID) as $item)
+        {
+          $choices[$this->context->routing->generate(null, array($item, 'module' => 'term'))] = $item->__toString();
+        }
+
+        $choice[] = asort($choices);
+
+        $this->form->setWidget('thematicArea', new sfWidgetFormSelect(array('choices' => $choices, 'multiple' => true)));
+
+        break;
+
+      case 'geographicSubregion':
+        $criteria = new Criteria;
+        $criteria = $this->resource->addObjectTermRelationsRelatedByObjectIdCriteria($criteria);
+        $criteria->addJoin(QubitObjectTermRelation::TERM_ID, QubitTerm::ID);
+        $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID);
+
+        $value = array();
+        foreach ($this->geographicSubregionRelations = QubitObjectTermRelation::get($criteria) as $item)
+        {
+          $value[] = $this->context->routing->generate(null, array($item->term, 'module' => 'term'));
+        }
+
+        $this->form->setDefault('geographicSubregion', $value);
+        $this->form->setValidator('geographicSubregion', new sfValidatorPass);
+
+        $choices = array();
+        foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::GEOGRAPHIC_SUBREGION_ID) as $item)
+        {
+          $choices[$this->context->routing->generate(null, array($item, 'module' => 'term'))] = $item->__toString();
+        }
+
+        $choice[] = asort($choices);
+
+        $this->form->setWidget('geographicSubregion', new sfWidgetFormSelect(array('choices' => $choices, 'multiple' => true)));
+
+        break;
+
       case 'descDetail':
       case 'descStatus':
         $this->form->setDefault($name, $this->context->routing->generate(null, array($this->resource[$name], 'module' => 'term')));
@@ -204,6 +258,68 @@ class RepositoryEditAction extends DefaultEditAction
 
         break;
 
+      case 'geographicSubregion':
+        $value = $filtered = array();
+        foreach ($this->form->getValue('geographicSubregion') as $item)
+        {
+          $params = $this->context->routing->parse(Qubit::pathInfo($item));
+          $resource = $params['_sf_route']->resource;
+          $value[$resource->id] = $filtered[$resource->id] = $resource;
+        }
+
+        foreach ($this->geographicSubregionRelations as $item)
+        {
+          if (isset($value[$item->termId]))
+          {
+            unset($filtered[$item->termId]);
+          }
+          else
+          {
+            $item->delete();
+          }
+        }
+
+        foreach ($filtered as $item)
+        {
+          $relation = new QubitObjectTermRelation;
+          $relation->term = $item;
+
+          $this->resource->objectTermRelationsRelatedByobjectId[] = $relation;
+        }
+
+        break;
+
+      case 'thematicArea':
+        $value = $filtered = array();
+        foreach ($this->form->getValue('thematicArea') as $item)
+        {
+          $params = $this->context->routing->parse(Qubit::pathInfo($item));
+          $resource = $params['_sf_route']->resource;
+          $value[$resource->id] = $filtered[$resource->id] = $resource;
+        }
+
+        foreach ($this->thematicAreaRelations as $item)
+        {
+          if (isset($value[$item->termId]))
+          {
+            unset($filtered[$item->termId]);
+          }
+          else
+          {
+            $item->delete();
+          }
+        }
+
+        foreach ($filtered as $item)
+        {
+          $relation = new QubitObjectTermRelation;
+          $relation->term = $item;
+
+          $this->resource->objectTermRelationsRelatedByobjectId[] = $relation;
+        }
+
+        break;
+
       case 'descStatus':
       case 'descDetail':
         unset($this->resource[$field->getName()]);
@@ -227,59 +343,7 @@ class RepositoryEditAction extends DefaultEditAction
   {
     parent::execute($request);
 
-    if ($request->hasParameter('csvimport'))
-    {
-      $this->form->bind($request->getParameterHolder()->getAll());
-      if ($this->form->isValid())
-      {
-        $this->processForm();
-
-        $type = $request->getParameter('type');
-        if (!empty($type))
-        {
-          $this->resource->setTypeByName($type);
-        }
-
-        $this->resource->save();
-
-        if ($this->request->contact_type
-            || $this->request->contactPerson
-            || $this->request->streetAddress
-            || $this->request->city
-            || $this->request->region
-            || $this->request->countryCode
-            || $this->request->postalCode
-            || $this->request->telephone
-            || $this->request->fax
-            || $this->request->email
-            || $this->request->website)
-        {
-          $contactInformation = new QubitContactInformation;
-          $contactInformation->actor = $this->resource;
-          $contactInformation->contactType = $this->request->contactType;
-          $contactInformation->contactPerson = $this->request->contactPerson;
-          $contactInformation->streetAddress = $this->request->streetAddress;
-          $contactInformation->city = $this->request->city;
-          $contactInformation->region = $this->request->region;
-          $contactInformation->countryCode = $this->request->countryCode;
-          $contactInformation->postalCode = $this->request->postalCode;
-          $contactInformation->telephone = $this->request->telephone;
-          $contactInformation->fax = $this->request->fax;
-          $contactInformation->email = $this->request->email;
-          $contactInformation->website = $this->request->website;
-          $contactInformation->note = $this->request->contactInformationNote;
-
-          $contactInformation->save();
-
-          if ($this->request->primaryContact)
-          {
-            $contactInformation->makePrimaryContact();
-          }
-        }
-      }
-
-    }
-    elseif ($request->isMethod('post'))
+    if ($request->isMethod('post'))
     {
       $this->form->bind($request->getPostParameters());
       if ($this->form->isValid())

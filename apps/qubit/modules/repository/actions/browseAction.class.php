@@ -25,6 +25,8 @@
  */
 class RepositoryBrowseAction extends DefaultBrowseAction
 {
+  const INDEX_TYPE = 'QubitRepository';
+
   // Arrays not allowed in class constants
   public static
     $FACETS = array(
@@ -39,6 +41,18 @@ class RepositoryBrowseAction extends DefaultBrowseAction
       'regions' =>
         array('type' => 'term',
               'field' => 'contactInformations.i18n.en.region.untouched',
+              'size' => 10),
+      'geographicSubregions' =>
+        array('type' => 'term',
+              'field' => 'geographicSubregions',
+              'size' => 10),
+      'locality' =>
+        array('type' => 'term',
+              'field' => 'contactInformations.i18n.en.city.untouched',
+              'size' => 10),
+      'thematicAreas' =>
+        array('type' => 'term',
+              'field' => 'thematicAreas',
               'size' => 10));
 
   protected function populateFacet($name, $ids)
@@ -46,6 +60,8 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     switch ($name)
     {
       case 'types':
+      case 'geographicSubregions':
+      case 'thematicAreas':
         $criteria = new Criteria;
         $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
 
@@ -57,6 +73,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
         break;
 
       case 'regions':
+      case 'locality':
         foreach ($ids as $key => $count)
         {
           $this->types[$key] = $key;
@@ -91,9 +108,11 @@ class RepositoryBrowseAction extends DefaultBrowseAction
 
     switch ($request->sort)
     {
+      case 'identifier':
+        $this->query->addSort(array('identifier' => 'asc'));
       case 'alphabetic':
-        $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->context->user->getCulture());
-        $this->query->setSort(array($field => 'asc'));
+        $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->selectedCulture);
+        $this->query->addSort(array($field => 'asc'));
 
         break;
 
@@ -103,7 +122,6 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     }
 
     $this->query->setQuery($this->queryBool);
-    // $this->query->setFields(array('slug', 'sourceCulture', 'i18n', 'entityTypeId', 'updatedAt'));
 
     // Set filter
     if (0 < count($this->filterBool->toArray()))

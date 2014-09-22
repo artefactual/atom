@@ -1,6 +1,6 @@
 <ead>
 <eadheader langencoding="iso639-2b" countryencoding="iso3166-1" dateencoding="iso8601" repositoryencoding="iso15511" scriptencoding="iso15924" relatedencoding="DC">
-  <?php echo $ead->renderEadId() ?>
+  <?php echo $ead->renderEadId($ead->siteBaseUrl) ?>
   <filedesc>
     <titlestmt>
       <?php if (0 < strlen($value = $resource->getTitle(array('cultureFallback' => true)))): ?>
@@ -86,7 +86,7 @@
 
 <?php // TODO: <frontmatter></frontmatter> ?>
 
-<archdesc <?php if ($resource->levelOfDescriptionId):?>level="<?php if (in_array(strtolower($levelOfDescription = $resource->getLevelOfDescription()->getName(array('culture' => 'en'))), $eadLevels)): ?><?php echo strtolower($levelOfDescription).'"' ?><?php else: ?><?php echo 'otherlevel" otherlevel="'.strtolower($levelOfDescription).'"' ?><?php endif; ?><?php endif; ?> relatedencoding="<?php echo $ead->getMetadataParameter('relatedencoding') ?>">
+<archdesc <?php echo $ead->renderLOD($resource, $eadLevels) ?> relatedencoding="<?php echo $ead->getMetadataParameter('relatedencoding') ?>">
   <?php
 
   $resourceVar = 'resource';
@@ -264,7 +264,7 @@
     <?php $nestedRgt = array() ?>
     <?php foreach ($resource->getDescendants()->orderBy('lft') as $descendant): ?>
 
-      <c <?php if ($descendant->levelOfDescriptionId):?>level="<?php if (in_array(strtolower($levelOfDescription = $descendant->getLevelOfDescription()->getName(array('culture' => 'en'))), $eadLevels)): ?><?php echo strtolower($levelOfDescription).'"' ?><?php else: ?><?php echo 'otherlevel" otherlevel="'.strtolower($levelOfDescription).'"' ?><?php endif; ?><?php endif; ?>>
+      <c <?php echo $ead->renderLOD($descendant, $eadLevels) ?>>
 
       <?php
         $resourceVar = 'descendant';

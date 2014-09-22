@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2014-09-19T13:19:54Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Password strength:</source>
+        <target>Seguretat de la contrasenya:</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>To make your password stronger:</source>
+        <target>Per a fer més segura la contrasenya:</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Make it at least six characters</source>
+        <target>Ha de contenir almenys sis caràcters</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Add lowercase letters</source>
+        <target>Afegeix lletres minúscules </target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Add uppercase letters</source>
+        <target>Afegeix lletres majúscules </target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Add numbers</source>
+        <target>Afegeix números </target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Add punctuation</source>
+        <target>Afegeix la puntuació</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Make it different from your username</source>
+        <target>Ha de contenir almenys sis caràcters</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Yes</source>
+        <target>Sí</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>No</source>
+        <target>No</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Passwords match:</source>
+        <target>Coincidència de les contrasenyes:</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

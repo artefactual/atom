@@ -88,4 +88,25 @@ class arDacsPlugin extends sfIsadPlugin
 
     return $this->property[$name];
   }
+
+  public static function eventTypes()
+  {
+    $types = array(
+      QubitTerm::getById(QubitTerm::CREATION_ID),
+      QubitTerm::getById(QubitTerm::PUBLICATION_ID));
+
+    $criteria = new Criteria;
+    $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+    $criteria->add(QubitTermI18n::NAME, array('Broadcasting', 'Record-keeping activity'), Criteria::IN);
+    $criteria->add(QubitTermI18n::CULTURE, 'en');
+    if (null !== $terms = QubitTerm::get($criteria))
+    {
+      foreach ($terms as $item)
+      {
+        $types[] = $item;
+      }
+    }
+
+    return $types;
+  }
 }

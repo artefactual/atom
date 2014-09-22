@@ -29,4 +29,4 @@ all:
     install_sidebar: [sfInstallPlugin, task]
   stylesheets:
     -*:
-    /plugins/arDominionPlugin/css/min.css:
+    /plugins/arDominionPlugin/css/main.css:

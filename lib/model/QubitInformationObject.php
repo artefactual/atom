@@ -1305,38 +1305,38 @@ class QubitInformationObject extends BaseInformationObject
 
   public function setActorByName($name, $options)
   {
-    // Only create an linked Actor if the event or relation type is indicated
+    // Only create an link actor if the event or relation type is indicated
     if (!isset($options['event_type_id']) && !isset($options['relation_type_id']))
     {
       return;
     }
 
-    // See if the Actor record already exists, if not create it
-    $criteria = new Criteria;
-    $criteria->addJoin(QubitActor::ID, QubitActorI18n::ID);
-    $criteria->add(QubitActorI18n::AUTHORIZED_FORM_OF_NAME, $name);
+    // Information object must be saved before.
+    // The id is needed to save the events and relations when
+    // they are created instead of when the information object is saved
+    // to be able to execute raw queries over them (in QubitActor::getByNameAndRepositoryId)
+    if (!isset($this->id))
+    {
+      $this->save();
+    }
 
-    if (null === $actor = QubitActor::getOne($criteria))
+    // Get actor or create a new one. If the actor exists the data is not overwritten
+    if (null === $actor = QubitActor::getByNameAndRepositoryId($name, $this->repositoryId))
     {
       $actor = new QubitActor;
-
-      // Make root actor the parent of new actors
       $actor->parentId = QubitActor::ROOT_ID;
-
       $actor->setAuthorizedFormOfName($name);
+
       if (isset($options['entity_type_id']))
       {
-        // set actor entityTypeId
         $actor->setEntityTypeId($options['entity_type_id']);
       }
       if (isset($options['source']))
       {
-        // set actor entityTypeId
         $actor->setSources($options['source']);
       }
       if (isset($options['rules']))
       {
-        // set actor entityTypeId
         $actor->setRules($options['rules']);
       }
       if (isset($options['history']))
@@ -1347,15 +1347,17 @@ class QubitInformationObject extends BaseInformationObject
       {
         $actor->datesOfExistence = $options['dates_of_existence'];
       }
+
       $actor->save();
     }
 
     if (isset($options['event_type_id']))
     {
-      // create an event object to link the information object and actor
+      // Create an event object to link the information object and actor
       $event = new QubitEvent;
       $event->setActorId($actor->id);
       $event->setTypeId($options['event_type_id']);
+
       if (isset($options['dates']))
       {
         $event->setDate($options['dates']);
@@ -1373,11 +1375,17 @@ class QubitInformationObject extends BaseInformationObject
         $event->setDescription($options['event_note']);
       }
 
+      // Needs to be saved and added to $this->events
+      // to be able to execute raw queries and to be available
+      // for the following existingRelation foreach
+      $event->informationObjectId = $this->id;
+      $event->save();
+
       $this->events[] = $event;
     }
     else if (isset($options['relation_type_id']))
     {
-      // only add Actor as name access point if they are not already linked to
+      // Only add actor as name access point if they are not already linked to
       // an event (i.e. they are not already a "creator", "accumulator", etc.)
       $existingRelation = false;
       foreach ($this->events as $existingEvent)
@@ -1394,6 +1402,8 @@ class QubitInformationObject extends BaseInformationObject
         $relation = new QubitRelation;
         $relation->objectId = $actor->id;
         $relation->typeId = QubitTerm::NAME_ACCESS_POINT_ID;
+        $relation->subjectId = $this->id;
+        $relation->save();
 
         $this->relationsRelatedBysubjectId[] = $relation;
       }
@@ -1717,8 +1727,8 @@ class QubitInformationObject extends BaseInformationObject
   {
     $physicalDescription = '';
     $childTags = array(
-      'extent' => 'Extent', 
-      'dimensions' => 'Dimensions', 
+      'extent' => 'Extent',
+      'dimensions' => 'Dimensions',
       'genreform' => 'Form of material',
       'physfacet' => 'Physical facet'
     );
@@ -1730,7 +1740,7 @@ class QubitInformationObject extends BaseInformationObject
       {
         $physicalDescription .= "<dt>{$headingText}</dt><dd>" . QubitXmlImport::replaceLineBreaks($nodeList->item(0)) . "</dd>";
 
-        // Remove the children nodes as we go so we're 
+        // Remove the children nodes as we go so we're
         // left with any remaining node text in physDescNode.
         $physDescNode->removeChild($nodeList->item(0));
       }
@@ -2112,6 +2122,9 @@ class QubitInformationObject extends BaseInformationObject
       $fullType = ucfirst($label);
     }
 
+    $name = trim($name);
+    $location = trim($location);
+
     // if a type has been provided, look it up
     $term = ($fullType)
       ? QubitFlatfileImport::createOrFetchTerm(
@@ -2120,20 +2133,45 @@ class QubitInformationObject extends BaseInformationObject
         )
       : false;
 
-    $object = new QubitPhysicalObject();
-    $object->name = trim($name);
-
-    if ($location)
+    // Check for an existing physical object within this collection with the same name
+    if ($this->parentId)
     {
-      $object->location = trim($location);
+      // Get collection id, note we must loop through parent ids here
+      // as opposed to calling getCollectionRoot() because these objects 
+      // aren't fully formed yet.
+
+      $topLevelParent = $this->parent;
+      while ($topLevelParent->parent && $topLevelParent->parent->id != QubitInformationObject::ROOT_ID)
+      {
+        $topLevelParent = $topLevelParent->parent;
+      }
+
+      $object = QubitPhysicalObject::checkPhysicalObjectExistsInCollection(
+        $name, 
+        $location,
+        ($term) ? $term->id : null,
+        $topLevelParent->id
+      );
     }
 
-    if ($term)
+    // There was no existing physical object to attach, create a new one.
+    if (!isset($object) || $object === null)
     {
-      $object->typeId = $term->id;
-    }
+      $object = new QubitPhysicalObject();
+      $object->name = $name;
 
-    $object->save();
+      if ($location)
+      {
+        $object->location = $location;
+      }
+
+      if ($term)
+      {
+        $object->typeId = $term->id;
+      }
+
+      $object->save();
+    }
 
     $this->addPhysicalObject($object);
   }

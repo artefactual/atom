@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2013-10-03T11:51:58Z" product-name="messages">
+  <file source-language="EN" target-language="es" datatype="plaintext" original="messages" date="2014-09-17T11:50:24Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="3">
@@ -154,7 +154,7 @@
       </trans-unit>
       <trans-unit id="48">
         <source>Edit permissions</source>
-        <target/>
+        <target>Editar permisos</target>
       </trans-unit>
     </body>
   </file>

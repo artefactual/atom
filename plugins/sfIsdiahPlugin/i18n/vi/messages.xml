@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2014-09-19T13:20:08Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>Add new archival institution</source>
+        <target>Thêm tổ chức lưu trữ mới</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Untitled</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Edit %1%</source>
+        <target>Hiệu %1%</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>See ISDIAH 5.2 for contact area information and examples.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>%1%Authorized form of name%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Authorized form of name%2% - Đây là yếu tố  %3% bắt buộc %4%.</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Identifier%2% - Đây là yếu tố %3%bắt buộc%4%.</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>%1%Contact information%2% - You %3%must%4% at least include one of the following location or address fields: city, country, postal code, region or street address.</source>
+        <target>%1%Contact information%2% - %3%Bắt buộc phải%4% nhập ít nhất một trong các field location hoặc address dưới đây : city, country, postal code, region or street address</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>%1%Contact information%2% - This is a %3%mandatory%4% element.</source>
+        <target>%1%Contact information%2% - Đây là  yếu tố %3% bắt buộc%4%.</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Primary contact</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>Website</source>
+        <target>Trang web</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="12">
+        <source>Opening times</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>Identity area</source>
+        <target>Chỉnh vùng ID</target>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>Edit identity area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>Identifier</source>
+        <target>Định danh</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Authorized form of name</source>
+        <target>Authorized form of name</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>Parallel form(s) of name</source>
+        <target>Hình thức song song của tên</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>Other form(s) of name</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>Type</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>Contact area</source>
+        <target>Khu vực liên hệ</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>Edit contact area</source>
+        <target>Khu vực liên hệ</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Description area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Edit description area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>History</source>
+        <target>Lịch sử </target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Geographical and cultural context</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>Mandates/Sources of authority</source>
+        <target>Nhiệm vụ / Nguồn quyền</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Administrative structure</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>Records management and collecting policies</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>Buildings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Holdings</source>
+        <target>Ngắn về</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Finding aids, guides and publications</source>
+        <target>Công cụ tra cứu và xuất bản phẩm</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Access area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Edit access area</source>
+        <target>Hiệu khu truy cập</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Access conditions and requirements</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>Accessibility</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Services area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Edit services area</source>
+        <target>Hiệu khu dịch vụ</target>
+      </trans-unit>
+      <trans-unit id="38">
+        <source>Research services</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="39">
+        <source>Reproduction services</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>Public areas</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>Control area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Edit control area</source>
+        <target>Hiệu chỉnh vùng kiểm soát</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Description identifier</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>Institution identifier</source>
+        <target>Định danh tổ chức</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>Rules and/or conventions used</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="46">
+        <source>Status</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="47">
+        <source>Level of detail</source>
+        <target>Mức độ chi tiết</target>
+      </trans-unit>
+      <trans-unit id="48">
+        <source>Dates of creation, revision and deletion</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="49">
+        <source>Language(s)</source>
+        <target>Ngôn ngữ </target>
+      </trans-unit>
+      <trans-unit id="50">
+        <source>Script(s)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Sources</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Maintenance notes</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Access points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Edit access points</source>
+        <target>Hiệu điểm truy cập</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Access Points</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Edit</source>
+        <target>Hiệu</target>
+      </trans-unit>
+      <trans-unit id="57">
+        <source>Delete</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="58">
+        <source>Add new</source>
+        <target>Thêm mới</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Edit theme</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Edit %1% - ISDIAH</source>
+        <target>Hiệu %1% - ISDIAH</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>"Record the numeric or alpha-numeric code identifying the institution in accordance with the relevant international and national standards." (ISDIAH 5.1.1)</source>
+        <target>Ghi lại các mã số hoặc chữ số xác định tổ chức phù hợp với các tiêu chuẩn quốc tế và quốc gia có liên quan. "(ISDIAH 5.1.1) </target>
+      </trans-unit>
+      <trans-unit id="62">
+        <source>This is a mandatory element.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>"Record the standardised form of name of the institution, adding appropriate qualifiers (for instance dates, place, etc.), if necessary. Specify separately in the Rules and/or conventions used element (5.6.3) which set of rules has been applied for this element." (ISDIAH 5.1.2)</source>
+        <target>Ghi lại các hình thức tiêu chuẩn hóa tên các trung tâm, thêm từ hạn định thích hợp (ví dụ ngày, địa điểm, vv), nếu cần thiết. Chỉ định riêng trong các quy tắc và hoặc quy ước sử dụng yếu tố (5.6.3) mà thiết lập các quy tắc đã được áp dụng cho các phần tử này. "(ISDIAH 5.1.2)</target>
+      </trans-unit>
+      <trans-unit id="64">
+        <source>This is a mandatory element</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>"Purpose: To indicate the various forms in which the authorised form of name of an institution occurs in other languages or script form(s). Rule: Record the parallel form(s) of name of the institution in accordance with any relevant national or international conventions or rules applied by the agency that created the description, including any necessary sub elements and/or qualifiers required by those conventions or rules. Specify in the Rules and/or conventions used element (5.6.3) which rules have been applied." (ISDIAH 5.1.3)</source>
+        <target> "Mục đích: Để chỉ ra các hình thức khác nhau, trong đó hình thức ủy quyền tên của một tổ chức xảy ra trong các ngôn ngữ khác hoặc hình thức kịch bản:. Ghi lại hình thức song song tên của tổ chức phù hợp với bất kỳ ước quốc gia hoặc quốc tế có liên quan hoặc các quy định được áp dụng bởi các cơ quan tạo ra các mô tả, bao gồm bất kỳ yếu tố phụ cần thiết và/hoặc vòng loại theo yêu cầu của những quy ước. Chỉ định yếu tố trong các quy tắc và/hoặc ước nguyên được sử dụng (5.6.3) mà những nguyên tắc đã được áp dụng. "(ISDIAH 5.1.3)</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>"Record any other name(s) by which the institution may be known. This could include other forms of the same name, acronyms, other institutional names, or changes of name over time, including, if possible, relevant dates." (ISDIAH 5.1.4)</source>
+        <target>Ghi lại bất kỳ tên khác mà tổ chức này có thể được biết đến. Điều này có thể bao gồm các hình thức khác của cùng tên, từ viết tắt, tên tổ chức khác, hoặc thay đổi tên theo thời gian, bao gồm cả, nếu có thể, số ngày có liên quan. "(ISDIAH 5.1.4)</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Record the type of the institution. (ISDIAH 5.1.5) Select as many types as desired from the drop-down menu; these values are drawn from the Repository Types taxonomy.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>"Record any relevant information about the history of the institution. This element may include information on dates of establishment, changes of names, changes of legislative mandates, or of any other sources of authority for the institution." (ISDIAH 5.3.1)</source>
+        <target>Ghi lại bất kỳ thông tin liên quan về lịch sử của tổ chức. Yếu tố này có thể bao gồm thông tin về ngày thành lập, thay đổi tên, thay đổi sự ủy nhiệm hợp pháp, hoặc của bất kỳ các nguồn quyền lực khác cho tổ chức. "(ISDIAH 5.3.1)</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>"Identify the geographical area the institution belongs to. Record any other relevant information about the cultural context of the institution." (ISDIAH 5.3.2)</source>
+        <target>Xác định các khu vực địa lý mà tổ chức thuộc về. Ghi lại bất kỳ thông tin liên quan khác về bối cảnh văn hóa của tổ chức. (IISSDIAH 5.3.2)</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>"Record any document, law, directive or charter which acts as a source of authority for the powers, functions and responsibilities of the institution, together with information on the jurisdiction(s) and covering dates when the mandate(s) applied or were changed." (ISDIAH 5.3.3)</source>
+        <target>Ghi lại bất kỳ tài liệu, pháp luật, chỉ thị hoặc điều lệ hoạt động như một nguồn quyền lực cho các quyền hạn, chức năng và trách nhiệm của tổ chức, cùng với thông tin về thẩm quyền và ngày bao gồm khi nhiệm vụ được áp dụng hoặc được thay đổi. "(ISDIAH 5.3.3)</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>"Describe, in narrative form or using organisational charts, the current administrative structure of the institution." (ISDIAH 5.3.4)</source>
+        <target>Mô tả cơ cấu hành chính hiện tại của tổ chức bằng câu văn hoặc sơ đồ tổ chức. (ISDIAH 5.3.4)</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>"Record information about the records management and collecting policies of the institution. Define the scope and nature of material which the institution accessions. Indicate whether the repository seeks to acquire archival materials by transfer, gift, purchase and/or loan. If the policy includes active survey and/or rescue work, this might be spelt out." (ISDIAH 5.3.5)</source>
+        <target>Ghi lại thông tin về quản lý hồ sơ và chính sách thu thập của tổ chức. Xác định phạm vi và tính chất của vật liệu mà tổ chức bổ sung. Cho biết khi nào các kho lưu trữ tìm kiếm để có được tài liệu lưu trữ bằng cách chuyển nhượng, quà tặng, mua hàng và/hoặc cho vay. Nếu chính sách này bao gồm khảo sát hoạt động và/hoặc công tác cứu hộ, điều này có thể được giải thích rõ ràng. "(ISDIAH 5.3.5)</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>"Record information on the building(s) of the institution (general and architectural characteristics of the building, capacity of storage areas, etc). Where possible, provide information which can be used for generating statistics." (ISDIAH 5.3.6)</source>
+        <target>Ghi lại thông tin về việc xây dựng tổ chức (đặc điểm kiến trúc và đặc điểm chung khác của tòa nhà, năng lực của khu vực lưu trữ, vv). Nơi có thể, cung cấp thông tin mà có thể được sử dụng để tạo ra các số liệu thống kê. "(ISDIAH 5.3.6)</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>"Record a short description of the holdings of the institution, describing how and when they were formed. Provide information on volume of holdings, media formats, thematic coverage, etc." (ISDIAH 5.3.7)</source>
+        <target>Ghi lại một mô tả ngắn về các tài liệu của tổ chức, mô tả như thế nào và khi nào chúng được hình thành. Cung cấp thông tin về khối lượng tài liệu, các định dạng phương tiện truyền thông, bảo hiểm chuyên đề, vv "(ISDIAH 5.3.7)</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>Archival and other holdings</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>"Record the title and other pertinent details of the published and/or unpublished finding aids and guides prepared by the institution and of any other relevant publications. Use ISO 690 Information and documentation – Bibliographic references and other national or international cataloguing rules." (ISDIAH 5.3.8)</source>
+        <target>Ghi lại các tiêu đề và các chi tiết cần thiết khác của những hướng dẫn và hỗ trợ tìm kiếm đã được hoặc chưa được xuất bản được chuẩn bị bởi tổ chức và của bất kỳ cá nhân khác có liên quan. Sử dụng tài liệu và thông tin ISO 69. Tham khảo thư mục và quy tắc biên mục quốc gia hoặc quốc tế khác. "(ISDIAH 5.3.8)</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>"Record the opening hours of the institution and annual, seasonal and public holidays, and any other planned closures. Record times associated with the availability and/or delivery of services (for example, exhibition spaces, reference services, etc.)." (ISDIAH 5.4.1)</source>
+        <target>Ghi lại giờ mở cửa của tổ chức và ngày nghỉ hàng năm theo mùa và ngày lễ lớn và bất kỳ ngày nghỉ theo kế hoạch khác. Thời gian hồ sơ liên quan đến sự sẵn có và/hoặc cung cấp dịch vụ (ví dụ, không gian trưng bày, dịch vụ tham khảo, vv.) "(ISDIAH 5.4.1)</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>"Describe access policies, including any restrictions and/or regulations for the use of materials and facilities. Record information about registration, appointments, readers’ tickets, letters of introduction, admission fees, etc. Where appropriate, make reference to the relevant legislation." (ISDIAH 5.4.2)</source>
+        <target>Mô tả phương châm truy cập bao gồm các hạn chế, quy luật về việc sử dụng tài liệu hoặc sử dụng facility. Ghi lại thông tin về việc đang ký người sử dụng, đặt trước sử dụng, thẻ người sử dụng, thư giới hiệu, phí vào cửa v.v. Đề cập đến pháp luật liên quan nếu cần. (ISDIAH 5.4.2)</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>Conditions and requirements</source>
+        <target>Trạng thái truy cập và điều kiện cần thiết</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>"Record information about travelling to the institution and details for users with disabilities, including building features, specialised equipment or tools, parking or lifts." (ISDIAH 5.4.3)</source>
+        <target>Ghi lại thông tin về du lịch đến các tổ chức và các chi tiết cho người khuyết tật dùng, bao gồm các đặc điểm xâ dựng, thiết bị và công cụ chuyên dụng, bãi đậu xe hoặc thang máy. "(ISDIAH 5.4.3)</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>"Record information about the onsite services provided by the institution such as languages spoken by staff, research and consultation rooms, enquiry services, internal libraries, map, microfiches, audio-visual, computer rooms, etc. Record as well any relevant information about research services, such as research undertaken by the institution, and the fee charge if applicable." (ISDIAH 5.5.1)</source>
+        <target>Ghi lại thông tin về các dịch vụ tại khách sạn được cung cấp bởi các tổ chức như ngôn ngữ nói của nhân viên, nghiên cứu và các phòng tư vấn, dịch vụ điều tra, thư viện nội bộ, bản đồ, tấm vi phim, nghe nhìn, phòng máy tính, vv Ghi lại cũng như bất kỳ thông tin liên quan về các dịch vụ nghiên cứu , chẳng hạn như nghiên cứu được thực hiện bởi tổ chức này, và phí lệ phí nếu có. "(ISDIAH 5.5.1)</target>
+      </trans-unit>
+      <trans-unit id="82">
+        <source>"Record information about reproduction services available to the public (microfilms, photocopies, photographs, digitised copies). Specify general conditions and restrictions to the services, including applicable fees and publication rules." (ISDIAH 5.5.2)</source>
+        <target>Ghi lại thông tin về các dịch vụ sao in có sẵn cho công chúng (vi phim, bản sao, hình ảnh, các bản sao kỹ thuật số). Cụ thể điều kiện và hạn chế chung cho các dịch vụ, bao gồm cả lệ phí và các quy định xuất bản. "(ISDIAH 5.5.2)</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>"Record information about spaces available for public use (permanent or temporary exhibitions, free or charged internet connection, cash machines, cafeterias, restaurants, shops, etc.)." (ISDIAH 5.5.3)</source>
+        <target>Ghi lại thông tin về không gian có sẵn để sử dụng công cộng (triển lãm vĩnh viễn hoặc tạm thời, kết nối internet miễn phí hoặc tính phí, máy rút tiền, nhà ăn, nhà hàng, cửa hàng, vv). "(ISDIAH 5.5.3)</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>"Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code." (ISIAH 5.6.1)</source>
+        <target>Ghi lại một nhận dạng mô tả độc đáo phù hợp với quy ước của địa phương và/hoặc quốc gia. Nếu mô tả được sử dụng mang tính quốc tế, thì ghi lại mã của các quốc gia trong đó mô tả được tạo ra phù hợp với phiên bản mới nhất của tiêu chuẩn ISO 3166 - Mã số cho các đại diện của tên nước. Khi người tạo lập mô tả là một tổ chức quốc tế, thì cung cấp nhận dạng tổ chức trong vị trí của mã quốc gia. "(ISIAH 5.6.1)</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>"Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard." (ISDIAH 5.6.2)</source>
+        <target>Ghi lại hình thức thẩm quyền đầy đủ tên của cơ quan chịu trách nhiệm cho việc tạo lập, sửa đổi, phổ biến các mô tả hoặc, cách khác, ghi lại một mã số cho cơ quan phù hợp với các tiêu chuẩn mã cơ quan quốc gia hoặc quốc tế. "(ISDIAH 5.6.2)</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>"Record the names, and, where useful, the editions or publication dates of the conventions or rules applied. Specify, separately, which rules have been applied for creating the Authorised form(s) of name. Include reference to any system(s) of dating used to identify dates in this description (e.g. ISO 8601)." (ISDIAH 5.6.3)</source>
+        <target>Ghi lại tên, và khi hữu ích, ngày xuất bản và tái bản của các công ước hoặc quy tắc được áp dụng. Chỉ định, riêng biệt, trong đó nguyên tắc đã được áp dụng để tạo ra các hình thức ủy quyền của tên. Bao gồm tài liệu tham khảo cho bất kỳ hệ thống ngày tháng được sử dụng để xác định số ngày trong mô tả này (ví dụ như ISO 8601). "(ISDIAH 5.6.3)</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>The purpose of this field is "[t]o indicate the drafting status of the description so that users can understand the current status of the description." (ISDIAH 5.6.4). Select Final, Revised or Draft from the drop-down menu.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Select Full, Partial or Minimal from the drop-down menu. "In the absence of national guidelines or rules, minimal descriptions are those that consist only of the three essential elements of an ISIAH compliant description (see 4.7), while full records are those that convey information for all relevant ISDIAH elements of description." (ISDIAH 5.6.5)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>"Record the date the description was created and the dates of any revisions to the description." (ISDIAH 5.6.6)</source>
+        <target>Ghi ngày mà mô tả được tạo ra và những ngày trong lần sửa đổi vào mô tả. "(ISDIAH 5.6.6)</target>
+      </trans-unit>
+      <trans-unit id="90">
+        <source>Last updated</source>
+        <target>Cập nhật lần cuối</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Select the language(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Select the script(s) of this record from the drop-down menu; enter the first few letters to narrow the choices. (ISDIAH 5.6.7)</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="93">
+        <source>"Record the sources consulted in establishing the description of the institution." (ISDIAH 5.6.8)</source>
+        <target>Ghi lại các nguồn được tham khảo ý kiến ​​trong việc xây dựng mô tả chức năng của tổ chức. "(ISDIAH 5.6.8)</target>
+      </trans-unit>
+      <trans-unit id="94">
+        <source>"Record notes pertinent to the creation and maintenance of the description." (ISDIAH 5.6.9)</source>
+        <target>Ghi lại lưu ý thích hợp cho việc tạo lập và duy trì các mô tả. "(ISDIAH 5.6.9)</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Thematic area</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Search for an existing term in the Thematic Areas taxonomy by typing the first few characters of the term name. This should be used to identify major collecting areas.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Geographic subregion</source>
+        <target>Tiểu vùng địa lý</target>
+      </trans-unit>
+      <trans-unit id="98">
+        <source>Search for an existing term in the Geographic Subregion taxonomy by typing the first few characters of the term name.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="99">
+        <source>Cancel</source>
+        <target>Cancel</target>
+      </trans-unit>
+      <trans-unit id="100">
+        <source>Save</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="101">
+        <source>Create</source>
+        <target/>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

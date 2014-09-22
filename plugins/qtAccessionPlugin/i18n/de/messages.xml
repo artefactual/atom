@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2013-10-03T11:52:22Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2014-09-19T13:20:03Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Add new donor</source>
-        <target/>
+        <target>Abgebende Person/Stelle hinzufügen</target>
       </trans-unit>
       <trans-unit id="2">
         <source>Untitled</source>
-        <target/>
+        <target>Ohne Titel</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
@@ -18,15 +18,15 @@
       </trans-unit>
       <trans-unit id="4">
         <source>Authorized form of name - This is a mandatory element.</source>
-        <target/>
+        <target>Authorisierte Namensform - Dies ist ein notwendiges Element.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Alphabetic</source>
-        <target/>
+        <target>Alphabetisch</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Browse donor</source>
-        <target/>
+        <target>Abgebende Stellen/Personen durchsuchen</target>
       </trans-unit>
       <trans-unit id="10">
         <source>Name</source>
@@ -34,7 +34,7 @@
       </trans-unit>
       <trans-unit id="11">
         <source>Updated</source>
-        <target/>
+        <target>Aktualisiert</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Search donor</source>
@@ -42,7 +42,7 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Are you sure you want to delete %1%?</source>
-        <target/>
+        <target>Sind Sie sicher, dass Sie %1% löschen wollen?</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Cancel</source>
@@ -50,7 +50,7 @@
       </trans-unit>
       <trans-unit id="17">
         <source>Edit donor</source>
-        <target/>
+        <target>Bearbeite 'abgebende Person/Stelle'</target>
       </trans-unit>
       <trans-unit id="18">
         <source>Identity area</source>
@@ -62,7 +62,7 @@
       </trans-unit>
       <trans-unit id="20">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Dies ist ein notwendiges Element.</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Contact area</source>
@@ -98,39 +98,39 @@
       </trans-unit>
       <trans-unit id="31">
         <source>Add new deaccession record</source>
-        <target/>
+        <target>Abgabedatei hinzufügen</target>
       </trans-unit>
       <trans-unit id="32">
         <source>Identifier - This is a mandatory element.</source>
-        <target/>
+        <target>Identifikator/Signatur - Dies ist ein notwendiges Element.</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Date of acquisition - This is a mandatory element.</source>
-        <target/>
+        <target>Übernahmedatum - Dies ist ein notwendiges Element. </target>
       </trans-unit>
       <trans-unit id="34">
         <source>Scope - This is a mandatory element.</source>
-        <target/>
+        <target>Eingrenzung - Dies ist ein notwendiges Element.</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Description - This is a mandatory element.</source>
-        <target/>
+        <target>Beschreibung - Dies ist ein notwendiges Element. </target>
       </trans-unit>
       <trans-unit id="36">
         <source>Edit deaccession record</source>
-        <target/>
+        <target>Bearbeite Abgabedatei</target>
       </trans-unit>
       <trans-unit id="37">
         <source>Deaccession number</source>
-        <target/>
+        <target>Abgabenummer</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Scope</source>
-        <target/>
+        <target>Eingrenzung</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Date</source>
-        <target/>
+        <target>Datum</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Description</source>
@@ -142,39 +142,35 @@
       </trans-unit>
       <trans-unit id="42">
         <source>Edit accession record</source>
-        <target/>
+        <target>Akzessionsdatei bearbeiten</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Extent</source>
-        <target/>
+        <target>Umfang</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Reason</source>
-        <target/>
+        <target>Grund</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Add new accession record</source>
-        <target/>
+        <target>Akzessionsdatei hinzufügen</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Acquisition date - This is a mandatory element.</source>
-        <target/>
+        <target>Übernahmedatum  - Dies ist ein notwendiges Element.</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Source of acquisition - This is a mandatory element.</source>
-        <target/>
+        <target>Abgebende Stelle - Dies ist ein notwendiges Element. </target>
       </trans-unit>
       <trans-unit id="48">
         <source>Location information - This is a mandatory element.</source>
-        <target/>
+        <target>Aufbewahrungsort - Dies ist ein notwendiges Element.</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Browse accession</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="51">
-        <source>Search accession</source>
-        <target/>
+        <target>Durchsuche Akzession</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Related donors</source>
@@ -186,7 +182,7 @@
       </trans-unit>
       <trans-unit id="54">
         <source>Primary contact information</source>
-        <target/>
+        <target>Kontaktinformationen</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Region/province</source>
@@ -202,11 +198,11 @@
       </trans-unit>
       <trans-unit id="58">
         <source>Accession number</source>
-        <target/>
+        <target>Akzessionsnummer</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Acquisition date</source>
-        <target/>
+        <target>Übernahmedatum</target>
       </trans-unit>
       <trans-unit id="61">
         <source>Location information</source>
@@ -218,19 +214,19 @@
       </trans-unit>
       <trans-unit id="63">
         <source>Administrative area</source>
-        <target/>
+        <target>Bereich Verwaltung</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Creators</source>
-        <target/>
+        <target>Urheber/Bestandsbildner</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Physical condition</source>
-        <target/>
+        <target>Physischer Zustand</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Rights area</source>
-        <target/>
+        <target>Bereich 'Rechte'</target>
       </trans-unit>
       <trans-unit id="67">
         <source>View accession record</source>
@@ -238,7 +234,7 @@
       </trans-unit>
       <trans-unit id="68">
         <source>Edit donor/transferring body area</source>
-        <target/>
+        <target>Bearbeite Bereich 'abgebende Person/Stelle'</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Related donor</source>
@@ -246,15 +242,15 @@
       </trans-unit>
       <trans-unit id="71">
         <source>Edit administrative area</source>
-        <target/>
+        <target>Bearbeite Bereich 'Verwaltung'</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Acquisition type</source>
-        <target/>
+        <target>Übernahmetyp</target>
       </trans-unit>
       <trans-unit id="73">
         <source>Resource type</source>
-        <target/>
+        <target>Ressourcentyp</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Title</source>
@@ -262,7 +258,7 @@
       </trans-unit>
       <trans-unit id="76">
         <source>Scope and content</source>
-        <target/>
+        <target>Eingrenzung und Inhalt</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Received extent units</source>
@@ -270,27 +266,23 @@
       </trans-unit>
       <trans-unit id="80">
         <source>Processing notes</source>
-        <target/>
+        <target>Anmerkungen zur Erschließung</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Edit rights area</source>
-        <target/>
+        <target>Bearbeite Bereich 'Rechte'</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Deaccession area</source>
-        <target/>
+        <target>Bereich Abgabe</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Deaccession</source>
-        <target/>
+        <target>Abgabe</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Create %1%</source>
-        <target/>
-      </trans-unit>
-      <trans-unit id="86">
-        <source>List accession record</source>
-        <target/>
+        <target>Erstelle %1%</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Identifier</source>
@@ -302,7 +294,7 @@
       </trans-unit>
       <trans-unit id="89">
         <source>Date of deaccession</source>
-        <target/>
+        <target>Abgabedatum</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Identify what materials are being deaccessioned.</source>
@@ -322,11 +314,11 @@
       </trans-unit>
       <trans-unit id="94">
         <source>Accession number should be a combination of values recorded in the field and should be a unique accession number for the repository</source>
-        <target/>
+        <target>Die Akzessionsnummer sollte ein Kombination aus Werten darstellen, die in das Feld eingegeben werden, und sollte eindeutig für das Archiv sein.</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Accession date represents the date of receipt of the materials and is added during the donation process.</source>
-        <target/>
+        <target>Das Akzessionsdatum gibt das Datum der Übernahme des Materials an und wird während des Übernahmevorgangs erfasst.</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Identify immediate source of acquisition or transfer, and date and method of acquisition IF the information is NOT confidential.</source>
@@ -350,7 +342,7 @@
       </trans-unit>
       <trans-unit id="101">
         <source>The name of the creator of the accession or the name of the department that created the accession.</source>
-        <target/>
+        <target>Der Name des Bestandsbildners der Akzession oder der Name der Abteilung, die diese Akzession gebildet hat.</target>
       </trans-unit>
       <trans-unit id="103">
         <source>A description of the intellectual content and document types represented in the accession.</source>
@@ -358,11 +350,11 @@
       </trans-unit>
       <trans-unit id="104">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material.</source>
-        <target/>
+        <target>Jede geplante und vorgenommene Bewertung und Kassation der Verzeichnungseinheit ist zu vermerken, besonders wenn sie für die Interpretation des Materials von Bedeutung ist. (ISAD 3.3.2) </target>
       </trans-unit>
       <trans-unit id="105">
         <source>Appraisal, destruction and scheduling</source>
-        <target/>
+        <target>Bewertung, Vernichtung und Terminierung</target>
       </trans-unit>
       <trans-unit id="106">
         <source>A description of the physical condition of the accession and if any preservation or special handling is required.</source>
@@ -386,19 +378,19 @@
       </trans-unit>
       <trans-unit id="111">
         <source>Processing status</source>
-        <target/>
+        <target>Erschließungsstatus</target>
       </trans-unit>
       <trans-unit id="112">
         <source>Processing priority</source>
-        <target/>
+        <target>Erschließungspriorität</target>
       </trans-unit>
       <trans-unit id="113">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>Abgebende Stelle </target>
       </trans-unit>
       <trans-unit id="114">
         <source>Archival/Custodial history</source>
-        <target/>
+        <target>Bestandsgeschichte</target>
       </trans-unit>
       <trans-unit id="115">
         <source>Information on the history of the accession. When the accession is acquired directly from the creator, do not record an archival history but record the information as the Immediate Source of Acquisition.</source>
@@ -406,23 +398,23 @@
       </trans-unit>
       <trans-unit id="116">
         <source>Accession area</source>
-        <target/>
+        <target>Bereich Zugang</target>
       </trans-unit>
       <trans-unit id="117">
         <source>Related accession(s)</source>
-        <target/>
+        <target>Verwandte Akzessionen</target>
       </trans-unit>
       <trans-unit id="118">
         <source>Accruals</source>
-        <target/>
+        <target>Zuwächse</target>
       </trans-unit>
       <trans-unit id="119">
         <source>Accrual to</source>
-        <target/>
+        <target>Zuwachs zu</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Add accrual</source>
-        <target/>
+        <target>Zuwachs hinzufügen</target>
       </trans-unit>
       <trans-unit id="122">
         <source>It has %1% accruals. They will not be deleted.</source>
@@ -434,19 +426,23 @@
       </trans-unit>
       <trans-unit id="125">
         <source>%1% area</source>
-        <target/>
+        <target>%1% Bereich</target>
       </trans-unit>
       <trans-unit id="126">
         <source>Basic info</source>
-        <target/>
+        <target>Grundlegende Informationen</target>
       </trans-unit>
       <trans-unit id="127">
         <source>Search %1%</source>
-        <target/>
+        <target>Suche %1%</target>
       </trans-unit>
       <trans-unit id="128">
         <source>Most recent</source>
-        <target/>
+        <target>Jüngste</target>
+      </trans-unit>
+      <trans-unit id="129">
+        <source>Relevance</source>
+        <target>Relevanz</target>
       </trans-unit>
     </body>
   </file>

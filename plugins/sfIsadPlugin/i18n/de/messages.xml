@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2013-10-03T11:52:23Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2014-09-19T13:20:03Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -76,7 +76,7 @@
       </trans-unit>
       <trans-unit id="333">
         <source>Date</source>
-        <target/>
+        <target>Datum</target>
       </trans-unit>
       <trans-unit id="470">
         <source>Date(s)</source>
@@ -84,11 +84,11 @@
       </trans-unit>
       <trans-unit id="764">
         <source>Edit identity area</source>
-        <target/>
+        <target>Bearbeite Bereich 'Identifikation'</target>
       </trans-unit>
       <trans-unit id="765">
         <source>Edit context area</source>
-        <target/>
+        <target>Bearbeite Bereich 'Kontext'</target>
       </trans-unit>
       <trans-unit id="799">
         <source>Rules or conventions</source>
@@ -96,131 +96,131 @@
       </trans-unit>
       <trans-unit id="814">
         <source>Appraisal, destruction and scheduling</source>
-        <target/>
+        <target>Bewertung, Vernichtung und Terminierung</target>
       </trans-unit>
       <trans-unit id="817">
         <source>System of arrangement</source>
-        <target/>
+        <target>Ordnung und Klassifikation </target>
       </trans-unit>
       <trans-unit id="821">
         <source>Conditions governing reproduction</source>
-        <target/>
+        <target>Reproduktionsbedingungen</target>
       </trans-unit>
       <trans-unit id="823">
         <source>Physical characteristics and technical requirements</source>
-        <target/>
+        <target>Physische Beschaffenheit und technische Anforderungen </target>
       </trans-unit>
       <trans-unit id="826">
         <source>Existence and location of originals</source>
-        <target/>
+        <target>Existenz und Aufbewahrungsort von Originalen</target>
       </trans-unit>
       <trans-unit id="828">
         <source>Existence and location of copies</source>
-        <target/>
+        <target>Existenz und Aufbewahrungsort von Kopien</target>
       </trans-unit>
       <trans-unit id="830">
         <source>Related units of description</source>
-        <target/>
+        <target>Verwandte Verzeichnungseinheiten</target>
       </trans-unit>
       <trans-unit id="895">
         <source>Untitled</source>
-        <target/>
+        <target>Ohne Titel</target>
       </trans-unit>
       <trans-unit id="896">
         <source>This archival description, or one of its higher levels, %1%requires%2% at least one %3%creator%4%.</source>
-        <target/>
+        <target>Diese archivische Erschließung oder eine ihrer höheren Stufen %1%benötigt%2% wenigstens die Angabe des %3%Bestandsbildners oder der Provenienzstelle%4%.</target>
       </trans-unit>
       <trans-unit id="897">
         <source>%1%Date(s)%2% - are not consistent with %3%higher levels%2%.</source>
-        <target/>
+        <target>%1%Datum/Laufzeit%2% - die Angaben sind nicht vereinbar mit den  %3%höheren Stufen%2%.</target>
       </trans-unit>
       <trans-unit id="898">
         <source>%1%Date(s)%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Datum/Laufzeit%2% - Dies ist ein%3%notwendiges%4% Element.</target>
       </trans-unit>
       <trans-unit id="899">
         <source>%1%Extent and medium%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Umfang und Medium%2%   - Dies ist ein%3%notwendiges%4% Element.</target>
       </trans-unit>
       <trans-unit id="900">
         <source>%1%Identifier%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Identifikator/Signatur%2% - Dies ist ein%3%notwendiges%4% Element.</target>
       </trans-unit>
       <trans-unit id="901">
         <source>%1%Level of description%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Verzeichnungsstufe%2% - Dies ist ein%3%notwendiges%4% Element.</target>
       </trans-unit>
       <trans-unit id="902">
         <source>%1%Title%2% - This is a %3%mandatory%4% element.</source>
-        <target/>
+        <target>%1%Titel%2% - Dies ist ein%3%notwendiges%4% Element.</target>
       </trans-unit>
       <trans-unit id="903">
         <source>%1%Level of description%2% - Value "%value%" is not consistent with higher levels.</source>
-        <target/>
+        <target>%1%Verzeichnungsstufe%2% - Der Wert "%value%" ist nicht vereinbar mit den höheren Stufen.</target>
       </trans-unit>
       <trans-unit id="905">
         <source>File list</source>
-        <target/>
+        <target>Aktenverzeichnis</target>
       </trans-unit>
       <trans-unit id="908">
         <source>Extent and medium</source>
-        <target/>
+        <target>Umfang und Medium</target>
       </trans-unit>
       <trans-unit id="909">
         <source>Related function</source>
-        <target/>
+        <target>Verwandte Funktion</target>
       </trans-unit>
       <trans-unit id="910">
         <source>Archival history</source>
-        <target/>
+        <target>Bestandsgeschichte</target>
       </trans-unit>
       <trans-unit id="911">
         <source>Immediate source of acquisition or transfer</source>
-        <target/>
+        <target>Abgebende Stelle </target>
       </trans-unit>
       <trans-unit id="912">
         <source>Content and structure area</source>
-        <target/>
+        <target>Bereich Inhalt und innere Ordnung</target>
       </trans-unit>
       <trans-unit id="913">
         <source>Edit content and structure area</source>
-        <target/>
+        <target>Bearbeit Bereich 'Inhalt und innere Ordnung'</target>
       </trans-unit>
       <trans-unit id="914">
         <source>Scope and content</source>
-        <target/>
+        <target>Eingrenzung und Inhalt</target>
       </trans-unit>
       <trans-unit id="915">
         <source>Accruals</source>
-        <target/>
+        <target>Zuwächse</target>
       </trans-unit>
       <trans-unit id="916">
         <source>Conditions of access and use area</source>
-        <target/>
+        <target>Bereich Zugangs- und Benutzungsbedingungen</target>
       </trans-unit>
       <trans-unit id="917">
         <source>Edit conditions of access and use area</source>
-        <target/>
+        <target>Bearbeite Bereich 'Zugang und Benutzung'</target>
       </trans-unit>
       <trans-unit id="918">
         <source>Language of material</source>
-        <target/>
+        <target> In der Verzeichnungseinheit enthaltene Sprache</target>
       </trans-unit>
       <trans-unit id="919">
         <source>Script of material</source>
-        <target/>
+        <target>Schrift in den Unterlagen</target>
       </trans-unit>
       <trans-unit id="920">
         <source>Finding aids</source>
-        <target/>
+        <target>Findmittel</target>
       </trans-unit>
       <trans-unit id="921">
         <source>Allied materials area</source>
-        <target/>
+        <target>Bereich Sachverwandte Unterlagen</target>
       </trans-unit>
       <trans-unit id="922">
         <source>Edit alied materials area</source>
-        <target/>
+        <target>Bearbeite Bereich 'Sachverwandte Unterlagen'</target>
       </trans-unit>
       <trans-unit id="923">
         <source>Publication note</source>
@@ -228,27 +228,27 @@
       </trans-unit>
       <trans-unit id="924">
         <source>Notes area</source>
-        <target/>
+        <target>Bereich 'Anmerkungen'</target>
       </trans-unit>
       <trans-unit id="925">
         <source>Edit notes area</source>
-        <target/>
+        <target>Bearbeite Bereich 'Anmerkungen'</target>
       </trans-unit>
       <trans-unit id="926">
         <source>Access points</source>
-        <target/>
+        <target>Zugriffspunkte</target>
       </trans-unit>
       <trans-unit id="927">
         <source>Edit access points</source>
-        <target/>
+        <target>Bearbeite 'Zugriffspunkte'</target>
       </trans-unit>
       <trans-unit id="928">
         <source>Description control area</source>
-        <target/>
+        <target>Bereich Beschreibungskontrolle</target>
       </trans-unit>
       <trans-unit id="929">
         <source>Edit description control area</source>
-        <target/>
+        <target>Bearbeite Bereich Beschreibungskontrolle</target>
       </trans-unit>
       <trans-unit id="930">
         <source>Rules and/or conventions used</source>
@@ -256,15 +256,15 @@
       </trans-unit>
       <trans-unit id="931">
         <source>Dates of creation revision deletion</source>
-        <target/>
+        <target>Daten der Bestandsbildung, Überprüfung, Löschung/Kassierung</target>
       </trans-unit>
       <trans-unit id="932">
         <source>Language(s)</source>
-        <target/>
+        <target>Sprache(n)</target>
       </trans-unit>
       <trans-unit id="933">
         <source>Script(s)</source>
-        <target/>
+        <target>Schrift(en)</target>
       </trans-unit>
       <trans-unit id="934">
         <source>Archivist's note</source>
@@ -276,15 +276,15 @@
       </trans-unit>
       <trans-unit id="937">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Dies ist ein notwendiges Element.</target>
       </trans-unit>
       <trans-unit id="942">
         <source>Name of creator(s)</source>
-        <target/>
+        <target>Name der Bestandsbildner</target>
       </trans-unit>
       <trans-unit id="943">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
-        <target/>
+        <target>Diese archivische Erschließung oder eine ihrer höheren Stufen benötigt wenigstens die Angabe des Bestandsbildners oder der Provenienzstelle.</target>
       </trans-unit>
       <trans-unit id="953">
         <source>Indicate any important physical conditions, such as preservation requirements, that affect the use of the unit of description. Note any software and/or hardware required to access the unit of description.</source>
@@ -292,7 +292,7 @@
       </trans-unit>
       <trans-unit id="962">
         <source>Add new archival description</source>
-        <target/>
+        <target>Archivische Beschreibung hinzufügen</target>
       </trans-unit>
       <trans-unit id="963">
         <source>Edit %1%</source>
@@ -300,27 +300,27 @@
       </trans-unit>
       <trans-unit id="964">
         <source>Start</source>
-        <target/>
+        <target>Beginn</target>
       </trans-unit>
       <trans-unit id="965">
         <source>End</source>
-        <target/>
+        <target>Ende</target>
       </trans-unit>
       <trans-unit id="969">
         <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Provide a specific local reference code, control number, or other unique identifier.&lt;br/&gt;&lt;strong&gt;Level of description:&lt;/strong&gt; Record the level of this unit of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.</source>
-        <target/>
+        <target>&lt;strong&gt;Signatur:&lt;/strong&gt; Für die eindeutige Identifikation sind ein spezifischer lokaler Referenzcode, eine Kontrollnummer oder andere eindeutige Identifikationsmerkmale anzugeben. &lt;br/&gt;&lt;strong&gt;Verzeichnungsstufe:&lt;/strong&gt; Die Verzeichnungsstufe der Verzeichnungseinheit ist festzuhalten.&lt;br/&gt;&lt;strong&gt;Titel:&lt;/strong&gt; Anzugeben ist entweder der überlieferte Titel oder ein neuer, prägnant formulierter Titel in Übereinstimmung mit den Regeln der mehrstufigen Verzeichnung oder nationalen Konventionen.</target>
       </trans-unit>
       <trans-unit id="972">
         <source>Record the name of the organization which has custody of the archival material. Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
-        <target/>
+        <target>Der Name der Einrichtung, die die Resource verwahrt, ist festzuhalten. Suchen Sie in den Dateien für Organisationen nach einem existierenden Namen, indem Sie die ersten Buchstaben des Namens eintippen. Alternativ geben sie einen neuen Namen ein und verlinken ihn mit einer neuen Datei für Organisationen. </target>
       </trans-unit>
       <trans-unit id="977">
         <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
-        <target/>
+        <target>In Übereinstimmung mit lokalen und/oder nationalen Konventionen ist ein eindeutiger Identifikator für die Normdatei anzugeben. Wenn die Normdatei international verwendet werden soll, ist der Ländercode des Landes, in welchem die Normdatei gebildet wurde, in Übereinstimmung mit der aktuellsten Version von ISO 3166 - Codes für die Namen von Ländern - anzugeben. Falls der Aktenbildner eine internationale Organisation ist, ist der Identifizierungscode der Organisation anstelle des Ländercodes anzugeben.  (ISDIAH 5.6.1) </target>
       </trans-unit>
       <trans-unit id="978">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
-        <target/>
+        <target>"Anzugeben ist der vollständige, autorisierte Name der Institution, die für das Erstellen, Verändern oder Verbreiten der Normdatei verantwortlich ist. Alternativ kann ein Code zur Identifizierung dieser Institution(en) gemäss einem nationalen oder internationalen Standard für die Identifizierung von Institutionen angegeben werden." (ISDIAH 5.6.2)</target>
       </trans-unit>
       <trans-unit id="979">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
@@ -336,79 +336,80 @@
       </trans-unit>
       <trans-unit id="982">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>Die zur Beschreibung des Archivmaterials verwendeten Sprache(n) sind anzugeben.</target>
       </trans-unit>
       <trans-unit id="983">
         <source>Indicate the script(s) used to create the description of the archival material.</source>
-        <target/>
+        <target>Die zur Beschreibung des Archivmaterials verwendeten Schrift(en) sind anzugeben.</target>
       </trans-unit>
       <trans-unit id="986">
         <source>Provide a specific local reference code, control number, or other unique identifier. The country and repository code will be automatically added from the linked repository record to form a full reference code. (ISAD 3.1.1)</source>
-        <target/>
+        <target>Festzuhalten sind ein spezifischer lokaler Referenzcode, eine Kontrollnummer oder andere eindeutige Identifikationsmerkmale. Der Länder- und Archivcode werden automatisch von der verlinkten Archivbeschreibung hinzugefügt. (ISAD 3.1.1)</target>
       </trans-unit>
       <trans-unit id="987">
         <source>Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)</source>
-        <target/>
+        <target>Anzugeben ist entweder der überlieferte Titel oder ein neuer, prägnant formulierter Titel in Übereinstimmung mit den Regeln der mehrstufigen Verzeichnung und nationalen Konventionen. (ISAD 3.1.2) </target>
       </trans-unit>
       <trans-unit id="988">
         <source>Record the level of this unit of description. (ISAD 3.1.4)</source>
-        <target/>
+        <target>Die Verzeichnungsstufe der Verzeichnungseinheit ist anzugeben. (ISAD 3.1.4) </target>
       </trans-unit>
       <trans-unit id="989">
         <source>Record the extent of the unit of description by giving the number of physical or logical units in arabic numerals and the unit of measurement. Give the specific medium (media) of the unit of description. Separate multiple extents with a linebreak. (ISAD 3.1.5)</source>
-        <target/>
+        <target>Der Umfang der Verzeichnungseinheit ist durch die Anzahl der physischen Einheiten in arabischen Zahlen und durch die Angabe der Maßeinheit anzugeben. Die spezifische Art des Materials (der Materialien) soll ebenfalls erwähnt werden. Trenne mehrere Angaben zum Umfang durch einen Zeilenumbruch. (ISAD 3.1.5)</target>
       </trans-unit>
       <trans-unit id="990">
         <source>Record the name of the organization(s) or the individual(s) responsible for the creation, accumulation and maintenance of the records in the unit of description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record. (ISAD 3.2.1)</source>
-        <target/>
+        <target>Die für die Entstehung, Ansammlung und Pflege der Verzeichnungseinheit verantwortlichen Organisationen oder Personen sind zu benennen. Duchen Sie in den Normdateien nach einem existierenden Namen, indem Sie die ersten Buchstaben des Namens eintippen. Alternativ geben sie einen neuen Namen ein und verlinken ihn mit einer neuen Normdatei. (ISAD 3.2.1)</target>
       </trans-unit>
       <trans-unit id="991">
         <source>Record the successive transfers of ownership, responsibility and/or custody of the unit of description and indicate those actions, such as history of the arrangement, production of contemporary finding aids, re-use of the records for other purposes or software migrations, that have contributed to its present structure and arrangement. Give the dates of these actions, insofar as they can be ascertained. If the archival history is unknown, record that information. (ISAD 3.2.3)</source>
-        <target/>
+        <target> Wechsel in den Eigentums- und Besitzverhältnissen sind, so weit wie möglich, in chronologischer Reihenfolge zu beschreiben. Es ist hinzuweisen auf die Geschichte der Ordnung der Verzeichnungseinheit, die Erstellung von zeitgenössischen Findmitteln, Nachnutzung der Unterlagen für andere Zwecke oder Softwaremigrationen, , die zur jetzigen Struktur und Gliederung der Verzeichnungseinheit beigetragen haben. Wenn die Bestandsgeschichte unbekannt ist, ist dieses zu vermerken. (ISAD 3.2.3)</target>
       </trans-unit>
       <trans-unit id="992">
         <source>Record the source from which the unit of description was acquired and the date and/or method of acquisition if any or all of this information is not confidential. If the source is unknown, record that information. Optionally, add accession numbers or codes. (ISAD 3.2.4)</source>
-        <target/>
+        <target>Festzuhalten ist die Herkunft der übernommenen Verzeichnungseinheit und das Datum und die Art und Weise der Übernahme, insofern diese Angaben nicht vertraulich sind. Wenn die abgebende Stelle oder der Stifter unbekannt ist, ist auch dieses zu vermerken. Optional sind Zugangsnummern oder -codes hinzuzufügen. (ISAD 3.2.4)</target>
       </trans-unit>
       <trans-unit id="993">
         <source>Give a summary of the scope (such as, time periods, geography) and content, (such as documentary forms, subject matter, administrative processes) of the unit of description, appropriate to the level of description. (ISAD 3.3.1)</source>
-        <target/>
+        <target>Es sind anzugeben die Grenzen (z. B. des Zeitraums, des geografischen Raums) und der Inhalt (z. B. Dokumentenformen, Themen, Verwaltungsprozesse) der Verzeichnungseinheit – angepasst an die Erschließungsebene.  (ISAD 3.3.1)</target>
       </trans-unit>
       <trans-unit id="994">
         <source>Record appraisal, destruction and scheduling actions taken on or planned for the unit of description, especially if they may affect the interpretation of the material. (ISAD 3.3.2)</source>
-        <target/>
+        <target>Jede geplante und vorgenommene Bewertung und Kassation der Verzeichnungseinheit ist zu vermerken, besonders wenn sie für die Interpretation des Materials von Bedeutung ist. (ISAD 3.3.2)</target>
       </trans-unit>
       <trans-unit id="995">
         <source>Indicate if accruals are expected. Where appropriate, give an estimate of their quantity and frequency. (ISAD 3.3.3)</source>
-        <target/>
+        <target>Es ist anzugeben, ob ergänzende Übernahmen zu erwarten sind. Wenn ja, sollten ungefähre Angaben über den Umfang und den Turnus der Neuzugänge erfolgen. (ISAD 3.3.3)</target>
       </trans-unit>
       <trans-unit id="996">
         <source>Specify the internal structure, order and/or the system of classification of the unit of description. Note how these have been treated by the archivist. For electronic records, record or reference information on system design. (ISAD 3.3.4)</source>
-        <target/>
+        <target>Die interne Struktur, Ordnung und/oder das Klassifikationsschema der Verzeichnungseinheit sind zu spezifizieren. Eine Erläuterung der im Archiv durchgeführten Ordnungsarbeiten sollte erfolgen.
+Für elektronische Akten ist festzuhalten oder zu verweisen auf Informationen zum Systemdesign. (ISAD 3.3.4)</target>
       </trans-unit>
       <trans-unit id="997">
         <source>Specify the law or legal status, contract, regulation or policy that affects access to the unit of description. Indicate the extent of the period of closure and the date at which the material will open when appropriate. (ISAD 3.4.1)</source>
-        <target/>
+        <target>Es ist auf gesetzliche Bestimmungen, Verordnungen, vertragliche Vereinbarungen oder sonstige Regelungen hinzuweisen, die den Zugang zur Verzeichnungseinheit einschränken oder beeinflussen, wobei Dauer und Ende von Schutzfristen anzugeben sind. (ISAD 3.4.1)</target>
       </trans-unit>
       <trans-unit id="999">
         <source>Record the language(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
-        <target/>
+        <target>Festzuhalten sind die in der Verzeichnungseinheit enthaltenen Sprache(n).... (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="1001">
         <source>Give information about any finding aids that the repository or records creator may have that provide information relating to the context and contents of the unit of description. If appropriate, include information on where to obtain a copy. (ISAD 3.4.5)</source>
-        <target/>
+        <target>Alle von der Provenienzstelle herrührenden oder im Archiv verfügbaren Findhilfsmittel, die Informationen über den Kontext und den Inhalt der Verzeichnungseinheit geben, sind aufzuführen. Gegebenenfalls sollte vermerkt werden, wo eine Ausgabe des Findbuchs zu erhalten ist.  (ISAD 3.4.5)</target>
       </trans-unit>
       <trans-unit id="1002">
         <source>If the original of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. If the originals no longer exist, or their location is unknown, give that information. (ISAD 3.5.1)</source>
-        <target/>
+        <target>Falls die Verzeichnungseinheit im Original verfügbar ist, (entweder in der Institution oder anderen Orts)  sollen der Aufbewahrungsort und alle signifikanten Signaturen aufgeführt werden. Wenn die Originale nicht mehr existieren, ist darauf hinzuweisen. (ISAD 3.5.1)</target>
       </trans-unit>
       <trans-unit id="1003">
         <source>If the copy of the unit of description is available (either in the institution or elsewhere) record its location, together with any significant control numbers. (ISAD 3.5.2)</source>
-        <target/>
+        <target>Wenn die Verzeichnungseinheit als Kopie (im betreffenden Archiv oder anderen Orts) zur Verfügung steht, ist auf  Aufbewahrungsort und alle signifikanten Signaturen hinzuweisen. (ISAD 3.5.2)</target>
       </trans-unit>
       <trans-unit id="1004">
         <source>Record information about units of description in the same repository or elsewhere that are related by provenance or other association(s). Use appropriate introductory wording and explain the nature of the relationship . If the related unit of description is a finding aid, use the finding aids element of description (3.4.5) to make the reference to it. (ISAD 3.5.3)</source>
-        <target/>
+        <target>Festzuhalten sind alle Informationen über Verzeichnungseinheiten, die im selben Archiv oder an anderer Stelle aufbewahrt werden, die durch Provenienz oder andere Verbindungen mit der Verzeichnungseinheit in Beziehung stehen. Einleitende Hinweise zu der Verzeichnungseinheit und die Art der Beziehung sind anzugeben. Handelt es sich bei der verwandten Verzeichnungseinheit um ein Findmittel, dann soll das Element „Findhilfsmittel“ (3.4.5) verwendet werden. (ISAD 3.5.3)</target>
       </trans-unit>
       <trans-unit id="1007">
         <source>Name access points (subjects)</source>
@@ -416,35 +417,35 @@
       </trans-unit>
       <trans-unit id="1008">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description. (ISAD 3.7.2)</source>
-        <target/>
+        <target>Alle der Verzeichnung zugrunde gelegten internationalen, nationalen und/oder lokalen Verzeichnungsgrundsätze sind anzugeben und in der Art ihrer Anwendung zu beschreiben. (ISAD 3.7.2)</target>
       </trans-unit>
       <trans-unit id="1010">
         <source>Rights area</source>
-        <target/>
+        <target>Bereich 'Rechte'</target>
       </trans-unit>
       <trans-unit id="1011">
         <source>Edit rights area</source>
-        <target/>
+        <target>Bearbeite Bereich 'Rechte'</target>
       </trans-unit>
       <trans-unit id="1012">
         <source>Accession area</source>
-        <target/>
+        <target>Bereich Zugang</target>
       </trans-unit>
       <trans-unit id="1016">
         <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
-        <target/>
+        <target>Festzuhalten sind die in der Verzeichnungseinheit enthaltenen Schrift(en).... (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="1017">
         <source>Language and script notes</source>
-        <target/>
+        <target>Anmerkungen zu Sprache und Schrift</target>
       </trans-unit>
       <trans-unit id="1018">
         <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
-        <target/>
+        <target>Alle charakteristischen Alphabete, Schriftarten, Zeichensysteme oder verwendete Abkürzungen sollten angegeben werden. (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="1019">
         <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
-        <target/>
+        <target>Es sind die Bedingungen, wie z.B. urheberrechtliche Einschränkungen, mitzuteilen, die die Reproduktion der Verzeichnungseinheit nach gewährtem Zugang regeln. Wenn besondere Bestimmungen über die Benutzung, Reproduktion oder Publikation der jeweiligen Verzeichnungseinheit nicht bekannt sind, ist keine Angabe erforderlich. (ISAD 3.4.2)</target>
       </trans-unit>
       <trans-unit id="1020">
         <source>How to access to this content?</source>
@@ -456,19 +457,27 @@
       </trans-unit>
       <trans-unit id="1022">
         <source>Show details</source>
-        <target/>
+        <target>Zeige Details</target>
       </trans-unit>
       <trans-unit id="1023">
         <source>Close</source>
-        <target/>
+        <target>Schließen</target>
       </trans-unit>
       <trans-unit id="1024">
         <source>"Identify and record the date(s) of the unit of description. Identify the type of date given. Record as a single date or a range of dates as appropriate.” (ISAD 3.1.3). The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols to express uncertainty. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>"Das Entstehungsdatum bzw. der Entstehungszeitraum der Verzeichnungseinheit ist zu identifizieren und festzuhalten. Die Art der Daten ist anzugeben." (ISAD 3.1.3). Das Feld zur Anzeige des Datums kann mit freiem Text belegt werden, einschließlich typographischer Zeichen, die Näherung, Ungewissheit oder eine nähere Bestimmung ausdrücken. Nutzen Sie die Felder für "Beginn" und "Ende", um Daten suchbar zu machen. Benutzen Sie hier keine näheren Bestimmungen oder typographische Zeichen, um Ungewissheit auszudrücken. Geeignete Datenformate sind: JJJJMMTT, JJJJ-MM-TT, JJJJ-MM, JJJJ.</target>
       </trans-unit>
       <trans-unit id="1025">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).</source>
         <target/>
+      </trans-unit>
+      <trans-unit id="1026">
+        <source>Related descriptions</source>
+        <target>Verwandte Beschreibungen</target>
+      </trans-unit>
+      <trans-unit id="1027">
+        <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
+        <target>Um eine Beziehung zwischen dieser Beschreibungund einer anderen Beschreibung in Atom herzustellen, beginnen Sie den Namen der verwandten Beschreibung einzugeben und wählen sie aus dem Autovervollständigen Drop-down Menü aus. Es können mehrere Beziehungen erstellt werden.</target>
       </trans-unit>
     </body>
   </file>

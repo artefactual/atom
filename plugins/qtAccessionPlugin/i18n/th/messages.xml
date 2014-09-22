@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="th" datatype="plaintext" original="messages" date="2013-10-03T11:51:33Z" product-name="messages">
+  <file source-language="EN" target-language="th" datatype="plaintext" original="messages" date="2014-09-17T12:07:16Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -418,17 +418,9 @@
         <source>Country</source>
         <target>ประเทศ</target>
       </trans-unit>
-      <trans-unit id="112">
-        <source>List accession record</source>
-        <target>บันทึกรายงานของการเข้าถึง(Accession Record)</target>
-      </trans-unit>
       <trans-unit id="113">
         <source>Identifier</source>
         <target>ตัวระบุ</target>
-      </trans-unit>
-      <trans-unit id="114">
-        <source>Search accession</source>
-        <target>ค้นหาการเข้าถึงเอกสาร</target>
       </trans-unit>
       <trans-unit id="116">
         <source>Browse accession</source>
@@ -440,7 +432,7 @@
       </trans-unit>
       <trans-unit id="118">
         <source>Basic info</source>
-        <target/>
+        <target>ข้อมูลพื้นฐาน</target>
       </trans-unit>
       <trans-unit id="119">
         <source>Search %1%</source>
@@ -448,6 +440,10 @@
       </trans-unit>
       <trans-unit id="120">
         <source>Most recent</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="121">
+        <source>Relevance</source>
         <target/>
       </trans-unit>
     </body>

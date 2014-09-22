@@ -1703,7 +1703,7 @@ class QubitDigitalObject extends BaseDigitalObject
       throw new sfException('Couldn\'t find related information object for digital object');
     }
 
-    if ($this->usageId == QubitTerm::MASTER_ID)
+    if ($this->usageId == QubitTerm::MASTER_ID || $this->parent->usageId == QubitTerm::EXTERNAL_URI_ID)
     {
       $id = (string) $infoObject->id;
 
@@ -3054,6 +3054,17 @@ class QubitDigitalObject extends BaseDigitalObject
    */
   public static function reachedAppUploadLimit()
   {
-    return sfConfig::get('app_upload_limit', 0) > 0 && Qubit::getDirectorySize(sfConfig::get('sf_upload_dir')) > sfConfig::get('app_upload_limit', 0) * pow(1024, 3);
+    if (sfConfig::get('app_upload_limit', 0) < 1)
+    {
+      return false;
+    }
+
+    $size = Qubit::getDirectorySize(sfConfig::get('sf_upload_dir'));
+    if ($size < 0)
+    {
+      return false;
+    }
+
+    return $size > sfConfig::get('app_upload_limit', 0) * pow(1024, 3);
   }
 }

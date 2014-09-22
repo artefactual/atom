@@ -40,6 +40,7 @@ class arDacsPluginEditAction extends InformationObjectEditAction
       'nameAccessPoints',
       'physicalCharacteristics',
       'placeAccessPoints',
+      'relatedMaterialDescriptions',
       'relatedUnitsOfDescription',
       'repository',
       'reproductionConditions',
@@ -94,6 +95,10 @@ class arDacsPluginEditAction extends InformationObjectEditAction
     $this->notesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
     $this->notesComponent->resource = $this->resource;
     $this->notesComponent->execute($this->request, $options = array('type' => 'dacsNotes'));
+
+    $this->specializedNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+    $this->specializedNotesComponent->resource = $this->resource;
+    $this->specializedNotesComponent->execute($this->request, $options = array('type' => 'dacsSpecializedNotes'));
 
     $this->archivistsNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
     $this->archivistsNotesComponent->resource = $this->resource;
@@ -217,25 +222,6 @@ class arDacsPluginEditAction extends InformationObjectEditAction
    */
   protected function updateNotes()
   {
-    if ($this->request->hasParameter('csvimport'))
-    {
-      // remap notes from parameters to request object
-      if ($this->request->getParameterHolder()->has('newArchivistNote'))
-      {
-        $this->request->new_archivist_note = $this->request->getParameterHolder()->get('newArchivistNote');
-      }
-
-      if ($this->request->getParameterHolder()->has('newPublicationNote'))
-      {
-        $this->request->new_publication_note = $this->request->getParameterHolder()->get('newPublicationNote');
-      }
-
-      if ($this->request->getParameterHolder()->has('newNote'))
-      {
-        $this->request->new_note = $this->request->getParameterHolder()->get('newNote');
-      }
-    }
-
     // Update archivist's notes (multiple)
     foreach ((array) $this->request->new_archivist_note as $content)
     {

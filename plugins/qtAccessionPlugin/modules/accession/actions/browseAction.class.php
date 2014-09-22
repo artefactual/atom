@@ -71,21 +71,32 @@ class AccessionBrowseAction extends sfAction
     {
       $queryString = new \Elastica\Query\QueryString($request->subquery);
 
-      // TODO: Add boost options to arElasticSearchPluginUtil::setAllFields function
-      $queryString->setFields(array(
-        'identifier^10',
-        'donors.i18n.'.$culture.'.authorizedFormOfName^10',
-        'i18n.'.$culture.'.title^10',
-        'i18n.'.$culture.'.scopeAndContent^10',
-        'i18n.'.$culture.'.locationInformation^5',
-        'i18n.'.$culture.'.processingNotes^5',
-        'i18n.'.$culture.'.sourceOfAcquisition^5',
-        'i18n.'.$culture.'.archivalHistory^5',
-        'i18n.'.$culture.'.appraisal',
-        'i18n.'.$culture.'.physicalCharacteristics',
-        'i18n.'.$culture.'.receivedExtentUnits',
-        'donors.contactInformations.contactPerson',
-        'creators.i18n.'.$culture.'.authorizedFormOfName'));
+      $boost = array(
+        'donors.i18n.%s.authorizedFormOfName' => 10,
+        'i18n.%s.title' => 10,
+        'i18n.%s.scopeAndContent' => 10,
+        'i18n.%s.locationInformation' => 5,
+        'i18n.%s.processingNotes' => 5,
+        'i18n.%s.sourceOfAcquisition' => 5,
+        'i18n.%s.archivalHistory' => 5);
+
+      $fields = arElasticSearchPluginUtil::getI18nFieldNames(array(
+        'donors.i18n.%s.authorizedFormOfName',
+        'i18n.%s.title',
+        'i18n.%s.scopeAndContent',
+        'i18n.%s.locationInformation',
+        'i18n.%s.processingNotes',
+        'i18n.%s.sourceOfAcquisition',
+        'i18n.%s.archivalHistory',
+        'i18n.%s.appraisal',
+        'i18n.%s.physicalCharacteristics',
+        'i18n.%s.receivedExtentUnits',
+        'creators.i18n.%s.authorizedFormOfName'), null, $boost);
+
+      $fields[] = 'identifier^10';
+      $fields[] = 'donors.contactInformations.contactPerson';
+
+      $queryString->setFields($fields);
 
       $this->queryBool->addMust($queryString);
 
@@ -99,6 +110,7 @@ class AccessionBrowseAction extends sfAction
     switch ($request->sort)
     {
       // I don't think that this is going to scale, but let's leave it for now
+      case 'identifier':
       case 'alphabetic':
         $this->query->setSort(array('identifier' => 'asc'));
 

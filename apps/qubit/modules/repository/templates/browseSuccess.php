@@ -40,8 +40,29 @@
 
       <?php echo get_partial('search/facet', array(
         'target' => '#facet-province',
-        'label' => __('Region'),
+        'label' => __('Geographic Region'),
         'facet' => 'regions',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+
+      <?php echo get_partial('search/facet', array(
+        'target' => '#facet-geographicsubregion',
+        'label' => __('Geographic Subregion'),
+        'facet' => 'geographicSubregions',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+
+      <?php echo get_partial('search/facet', array(
+        'target' => '#facet-locality',
+        'label' => __('Locality'),
+        'facet' => 'locality',
+        'pager' => $pager,
+        'filters' => $filters)) ?>
+
+      <?php echo get_partial('search/facet', array(
+        'target' => '#facet-thematicarea',
+        'label' => __('Thematic Area'),
+        'facet' => 'thematicAreas',
         'pager' => $pager,
         'filters' => $filters)) ?>
 
@@ -64,7 +85,8 @@
           array(
             'options' => array(
               'lastUpdated' => __('Most recent'),
-              'alphabetic' => __('Alphabetic')))) ?>
+              'alphabetic' => __('Alphabetic'),
+              'identifier' => __('Identifier')))) ?>
       </div>
     </div>
   </section>
@@ -76,7 +98,7 @@
 
     <?php foreach ($pager->getResults() as $hit): ?>
       <?php $doc = $hit->getData() ?>
-      <?php $authorizedFormOfName = render_title(get_search_i18n($doc, 'authorizedFormOfName')) ?>
+      <?php $authorizedFormOfName = render_title(get_search_i18n($doc, 'authorizedFormOfName', array('allowEmpty' => false, 'culture' => $selectedCulture))) ?>
       <?php $hasLogo = file_exists(sfConfig::get('sf_upload_dir').'/r/'.$doc['slug'].'/conf/logo.png') ?>
       <?php if ($hasLogo): ?>
         <div class="brick">

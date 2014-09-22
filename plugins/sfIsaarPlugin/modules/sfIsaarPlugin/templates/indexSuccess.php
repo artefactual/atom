@@ -25,6 +25,8 @@
     </ul>
   </section>
 
+  <?php echo get_component('default', 'translationLinks', array('resource' => $resource)) ?>
+
 <?php end_slot() ?>
 
 <?php slot('context-menu') ?>

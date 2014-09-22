@@ -8,6 +8,10 @@
   </h1>
 <?php end_slot() ?>
 
+<?php slot('before-content') ?>
+  <?php echo get_component('default', 'translationLinks', array('resource' => $resource)) ?>
+<?php end_slot() ?>
+
 <?php echo render_show(__('Type'), $resource->type) ?>
 
 <?php echo render_show(__('Location'), $resource->getLocation(array('cultureFallback' => true))) ?>

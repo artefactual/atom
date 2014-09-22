@@ -44,6 +44,7 @@ class arElasticSearchAccession extends arElasticSearchModelBase
 
     $serialized['identifier'] = $object->identifier;
 
+    $serialized['date'] = arElasticSearchPluginUtil::convertDate($object->date);
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($object->createdAt);
     $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($object->updatedAt);
 

@@ -56,7 +56,13 @@ class arElasticSearchPluginUtil
     }
     else
     {
-      $culture = sfContext::getInstance()->user->getCulture();
+      // Get available cultures
+      $cultures = array();
+      foreach (QubitSetting::getByScope('i18n_languages') as $setting)
+      {
+        $cultures[] = $setting->getValue(array('sourceCulture' => true));
+      }
+
       $allFields = $filteredFields = $hiddenFields = $relations = array();
 
       if (!isset($options['type']))
@@ -70,7 +76,7 @@ class arElasticSearchPluginUtil
       // Get all string fields included in _all for the type and actual culture
       if (isset($mappings[$options['type']]))
       {
-        $allFields = self::getAllObjectStringFields($mappings[$options['type']], $prefix = '', $culture);
+        $allFields = self::getAllObjectStringFields($mappings[$options['type']], $prefix = '', $cultures);
       }
 
       // Get actual template tor the type
@@ -89,7 +95,7 @@ class arElasticSearchPluginUtil
         // TODO: Other types (actor, term, etc)
       }
 
-      // Create array with relations (hidden field => ES mapping field) for the actual template and culture
+      // Create array with relations (hidden field => ES mapping field) for the actual template and cultures
       if (isset($template))
       {
         switch ($template)
@@ -97,20 +103,20 @@ class arElasticSearchPluginUtil
           case 'isad':
 
             $relations = array(
-              'isad_archival_history' => 'i18n.'.$culture.'.archivalHistory',
-              'isad_immediate_source' => 'i18n.'.$culture.'.acquisition',
-              'isad_appraisal_destruction' => 'i18n.'.$culture.'.appraisal',
+              'isad_archival_history' => self::getI18nFieldNames('i18n.%s.archivalHistory', $cultures),
+              'isad_immediate_source' => self::getI18nFieldNames('i18n.%s.acquisition', $cultures),
+              'isad_appraisal_destruction' => self::getI18nFieldNames('i18n.%s.appraisal', $cultures),
               'isad_notes' => '',
-              'isad_physical_condition' => 'i18n.'.$culture.'.physicalCharacteristics',
+              'isad_physical_condition' => self::getI18nFieldNames('i18n.%s.physicalCharacteristics', $cultures),
               'isad_control_description_identifier' => '',
-              'isad_control_institution_identifier' => 'i18n.'.$culture.'.institutionResponsibleIdentifier',
-              'isad_control_rules_conventions' => 'i18n.'.$culture.'.rules',
+              'isad_control_institution_identifier' => self::getI18nFieldNames('i18n.%s.institutionResponsibleIdentifier', $cultures),
+              'isad_control_rules_conventions' => self::getI18nFieldNames('i18n.%s.rules', $cultures),
               'isad_control_status' => '',
               'isad_control_level_of_detail' => '',
-              'isad_control_dates' => 'i18n.'.$culture.'.revisionHistory',
+              'isad_control_dates' => self::getI18nFieldNames('i18n.%s.revisionHistory', $cultures),
               'isad_control_languages' => '',
               'isad_control_scripts' => '',
-              'isad_control_sources' => 'i18n.'.$culture.'.sources',
+              'isad_control_sources' => self::getI18nFieldNames('i18n.%s.sources', $cultures),
               'isad_control_archivists_notes' => '');
 
             break;
@@ -118,20 +124,20 @@ class arElasticSearchPluginUtil
           case 'rad':
 
             $relations = array(
-              'rad_archival_history' => 'i18n.'.$culture.'.archivalHistory',
-              'rad_physical_condition' => 'i18n.'.$culture.'.physicalCharacteristics',
-              'rad_immediate_source' => 'i18n.'.$culture.'.acquisition',
+              'rad_archival_history' => self::getI18nFieldNames('i18n.%s.archivalHistory', $cultures),
+              'rad_physical_condition' => self::getI18nFieldNames('i18n.%s.physicalCharacteristics', $cultures),
+              'rad_immediate_source' => self::getI18nFieldNames('i18n.%s.acquisition', $cultures),
               'rad_general_notes' => '',
               'rad_conservation_notes' => '',
               'rad_control_description_identifier' => '',
-              'rad_control_institution_identifier' => 'i18n.'.$culture.'.institutionResponsibleIdentifier',
-              'rad_control_rules_conventions' => 'i18n.'.$culture.'.rules',
+              'rad_control_institution_identifier' => self::getI18nFieldNames('i18n.%s.institutionResponsibleIdentifier', $cultures),
+              'rad_control_rules_conventions' => self::getI18nFieldNames('i18n.%s.rules', $cultures),
               'rad_control_status' => '',
               'rad_control_level_of_detail' => '',
-              'rad_control_dates' => 'i18n.'.$culture.'.revisionHistory',
+              'rad_control_dates' => self::getI18nFieldNames('i18n.%s.revisionHistory', $cultures),
               'rad_control_language' => '',
               'rad_control_script' => '',
-              'rad_control_sources' => 'i18n.'.$culture.'.sources');
+              'rad_control_sources' => self::getI18nFieldNames('i18n.%s.sources', $cultures));
 
             break;
 
@@ -146,7 +152,10 @@ class arElasticSearchPluginUtil
           && isset($relations[$setting->name])
           && $relations[$setting->name] != '')
         {
-          $hiddenFields[] = $relations[$setting->name];
+          foreach ($relations[$setting->name] as $fieldName)
+          {
+            $hiddenFields[] = $fieldName;
+          }
         }
       }
 
@@ -159,33 +168,41 @@ class arElasticSearchPluginUtil
   }
 
   /**
-   * Gets all string fields included in _all from a mapping type array and a culture
+   * Gets all string fields included in _all from a mapping type array and cultures
    */
-  protected static function getAllObjectStringFields($object, $prefix, $culture)
+  protected static function getAllObjectStringFields($object, $prefix, $cultures)
   {
     $fields = array();
     if (isset($object['properties']))
     {
       foreach ($object['properties'] as $propertyName => $propertyProperties)
       {
-        // Get i18n fields for the actual culture, they're always included in _all
-        if ($propertyName == 'i18n' && isset($propertyProperties['properties'][$culture]['properties']))
+        // Get i18n fields for selected cultures, they're always included in _all
+        if ($propertyName == 'i18n')
         {
-          foreach ($propertyProperties['properties'][$culture]['properties'] as $fieldName => $fieldProperties)
+          foreach ($cultures as $culture)
           {
-            // Concatenate object name ($prefix) and field name
-            $fields[] = $prefix.'i18n.'.$culture.'.'.$fieldName;
+            if (!isset($propertyProperties['properties'][$culture]['properties']))
+            {
+              continue;
+            }
+
+            foreach ($propertyProperties['properties'][$culture]['properties'] as $fieldName => $fieldProperties)
+            {
+              // Concatenate object name ($prefix) and field name
+              $fields[] = $prefix.'i18n.'.$culture.'.'.$fieldName;
+            }
           }
         }
         // Get nested objects fields
         else if (isset($propertyProperties['type']) && $propertyProperties['type'] == 'object')
         {
-          $fields = array_merge($fields, self::getAllObjectStringFields($object['properties'][$propertyName], $prefix.$propertyName.'.', $culture));
+          $fields = array_merge($fields, self::getAllObjectStringFields($object['properties'][$propertyName], $prefix.$propertyName.'.', $cultures));
         }
         // Get foreing objects fields (couldn't find a better why that checking the dynamic property)
         else if (isset($propertyProperties['dynamic']))
         {
-          $fields = array_merge($fields, self::getAllObjectStringFields($object['properties'][$propertyName], $prefix.$propertyName.'.', $culture));
+          $fields = array_merge($fields, self::getAllObjectStringFields($object['properties'][$propertyName], $prefix.$propertyName.'.', $cultures));
         }
         // Get string fields included in _all
         else if ((!isset($propertyProperties['include_in_all']) || $propertyProperties['include_in_all'])
@@ -198,5 +215,49 @@ class arElasticSearchPluginUtil
     }
 
     return $fields;
+  }
+
+  public static function getI18nFieldNames($fields, $cultures = null, $boost = array())
+  {
+    // Get all available cultures if $cultures isn't set
+    if (empty($cultures))
+    {
+      $cultures = array();
+      foreach (QubitSetting::getByScope('i18n_languages') as $setting)
+      {
+        $cultures[] = $setting->getValue(array('sourceCulture' => true));
+      }
+    }
+
+    // Make sure cultures is an array
+    if (!is_array($cultures))
+    {
+      $cultures = array($cultures);
+    }
+
+    // Make sure fields is an array
+    if (!is_array($fields))
+    {
+      $fields = array($fields);
+    }
+
+    // Format fields
+    $i18nFieldNames = array();
+    foreach ($cultures as $culture)
+    {
+      foreach ($fields as $field)
+      {
+        $formattedField = sprintf($field, $culture);
+
+        if (isset($boost[$field]))
+        {
+          $formattedField .= '^'.$boost[$field];
+        }
+
+        $i18nFieldNames[] = $formattedField;
+      }
+    }
+
+    return $i18nFieldNames;
   }
 }

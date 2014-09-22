@@ -88,9 +88,21 @@ class InformationObjectNotesComponent extends sfComponent
           $this->hiddenType = true;
           $this->hiddenTypeId = QubitTerm::GENERAL_NOTE_ID;
           $this->allNotes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
-          $this->tableName = $this->context->i18n->__('Notes');
+          $this->tableName = $this->context->i18n->__('General note(s)');
           $this->arrayName = 'dacsNotes';
           $this->help = $this->context->i18n->__('Record, as needed, information not accommodated by any of the defined elements of description. (DACS 7.1.2)');
+
+          break;
+
+        case 'dacsSpecializedNotes':
+          $this->hiddenType = false;
+          $this->taxonomyId = QubitTaxonomy::DACS_NOTE_ID;
+          $this->allNotes = $this->resource->getNotesByTaxonomy(array('noteTypeId' => $this->taxonomyId));
+          $this->tableName = $this->context->i18n->__('Specialized note(s)');
+          $this->arrayName = 'dacsSpecializedNotes';
+          $this->help = $this->context->i18n->__('Select a note type from the drop-down menu and record, as needed, specialized information not accommodated by any of the defined elements of description, including Conservation (DACS 7.1.3), Citation (DACS 7.1.5), Alphanumeric designations (DACS 7.1.6), Variant title information (DACS 7.1.7), or Processing information (DACS 7.1.8).');
+
+          $this->addField('type');
 
           break;
 
