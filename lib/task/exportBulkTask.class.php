@@ -72,7 +72,7 @@ class eadExportTask extends sfBaseTask
     include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
     include($appRoot .'/lib/helper/QubitHelper.php');
 
-    $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
+    $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'cli', false);
     $sf_context = sfContext::createInstance($configuration);
 
     $iso639convertor = new fbISO639_Map;
