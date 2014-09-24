@@ -106,7 +106,7 @@ class sfModsPlugin implements ArrayAccess
 
       case 'uri':
 
-        return $this->baseUrl() .'/'. $this->resource->slug;
+        return $this->baseUrl() .'/index.php/'. $this->resource->slug;
 
       case 'digitalAssetUrl':
 

@@ -197,7 +197,7 @@ class sfEadPlugin
     }
 
     $url = ($this->siteBaseUrl)
-      ? $this->siteBaseUrl . $this->resource->slug
+      ? $this->siteBaseUrl . '/index.php/'. $this->resource->slug
       : url_for(array($this->resource, 'module' => 'informationobject'), $absolute = true);
 
     if (null === $identifier = $this->resource->descriptionIdentifier)
