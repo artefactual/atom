@@ -15,13 +15,13 @@
 
       <?php if (0 < count($resource->getCreators())): ?>
         <div class="field">
-          <h3>
-            <?php if (QubitTerm::CORPORATE_BODY_ID == $item->entityTypeId): ?>
-              <?php echo __('Administrative history') ?>
-            <?php else: ?>
-              <?php echo __('Biographical history') ?>
-            <?php endif; ?>
-          </h3><div>
+          <?php if (QubitTerm::CORPORATE_BODY_ID == $item->entityTypeId): ?>
+            <?php $history_kind = __('Administrative history'); ?>
+          <?php else: ?>
+            <?php $history_kind = __('Biographical history'); ?>
+          <?php endif; ?>
+          <h3><?php echo $history_kind; ?></h3>
+          <div>
             <?php echo render_value($item->getHistory(array('cultureFallback' => true))) ?>
           </div>
         </div>
