@@ -44,7 +44,8 @@ class purgeTask extends sfBaseTask
       new sfCommandOption('username', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired admin username'),
       new sfCommandOption('email', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired admin email address'),
       new sfCommandOption('password', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired admin password'),
-      new sfCommandOption('no-confirmation', null, sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation')
+      new sfCommandOption('no-confirmation', null, sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation'),
+      new sfCommandOption('demo', null, sfCommandOption::PARAMETER_NONE, 'Use default demo values, do not ask for confirmation')
     ));
 
     $this->namespace = 'tools';
@@ -72,6 +73,11 @@ EOF;
     $insertSql = new sfPropelInsertSqlTask($this->dispatcher, $this->formatter);
     $insertSql->setCommandApplication($this->commandApplication);
     $insertSql->setConfiguration($this->configuration);
+
+    if ($options['demo'])
+    {
+      $this->setDemoOptions($options);
+    }
 
     $insertSqlArguments = array();
     $insertSqlOptions = array('no-confirmation' => $options['no-confirmation']);
@@ -145,5 +151,19 @@ EOF;
     $setting->name = $name;
     $setting->value = $value;
     $setting->save();
+  }
+
+  /**
+   * Set the site to have default demo site values,
+   * i.e. admin user is demo@example.com / demo.
+   */
+  private function setDemoOptions(&$options)
+  {
+    $options['no-confirmation'] = true;
+    $options['title'] = 'Demo site';
+    $options['description'] = 'Demo site';
+    $options['email'] = 'demo@example.com';
+    $options['username'] = 'demo';
+    $options['password'] = 'demo';
   }
 }
