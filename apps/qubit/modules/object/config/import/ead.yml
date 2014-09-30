@@ -420,17 +420,13 @@ information_object:
       Method: importEadNote # Manually parsed, see case 'processinfo' in QubitXmlImport.class.php
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)"]
 
-    publicationdate:
-      XPath: "../eadheader/filedesc/publicationstmt/date"
-      Method: setPublicationDate
-
     archivistnote:
       XPath:  "../eadheader/filedesc/titlestmt/author[@encodinganalog='creator']"
       Method: importEadNote
       Parameters: ["$options = array('note' => $nodeValue, 'noteTypeId' => QubitTerm::ARCHIVIST_NOTE_ID)"]
 
     revision_history:
-      XPath:  "(processinfo/date | processinfo/p/date | descgrp/processinfo/date | descgrp/processinfo/p/date)"
+      XPath:  "(processinfo/date | processinfo/p/date | descgrp/processinfo/date | descgrp/processinfo/p/date | ../eadheader/filedesc/publicationstmt/date)"
       Method:  setRevisionHistory
 
     userestrict:
