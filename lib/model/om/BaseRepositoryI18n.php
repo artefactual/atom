@@ -372,6 +372,11 @@ abstract class BaseRepositoryI18n implements ArrayAccess
           $this->row[$offset] = $this->values[$column->getPhpName()];
         }
 
+        if ($this->new && $column->isPrimaryKey())
+        {
+          $this->keys[$column->getPhpName()] = $this->values[$column->getPhpName()];
+        }
+
         $offset++;
       }
     }
