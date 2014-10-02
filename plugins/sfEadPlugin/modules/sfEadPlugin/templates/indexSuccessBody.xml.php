@@ -176,6 +176,7 @@
   $subjects = $resource->getSubjectAccessPoints();
   $names = $resource->getNameAccessPoints();
   $places = $resource->getPlaceAccessPoints();
+  $place_events = $resource->getPlaceAccessPoints(array('events' => true));
 
   if ((0 < count($materialtypes)) ||
      (0 < count($subjects)) ||
@@ -213,6 +214,9 @@
       <?php endforeach; ?>
       <?php foreach ($places as $place): ?>
         <geogname><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
+      <?php endforeach; ?>
+      <?php foreach ($place_events as $place): ?>
+        <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>"><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
       <?php endforeach; ?>
     </controlaccess>
   <?php endif; ?>
@@ -286,6 +290,7 @@
         $subjects = $descendant->getSubjectAccessPoints();
         $names = $descendant->getNameAccessPoints();
         $places = $descendant->getPlaceAccessPoints();
+        $place_events = $descendant->getPlaceAccessPoints(array('events' => true));
 
         if ((0 < count($materialtypes)) ||
             (0 < count($subjects)) ||
@@ -327,6 +332,10 @@
 
             <?php foreach ($places as $place): ?>
               <geogname><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
+            <?php endforeach; ?>
+
+            <?php foreach ($place_events as $place): ?>
+              <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>"><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
             <?php endforeach; ?>
 
           </controlaccess>
