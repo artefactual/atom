@@ -70,9 +70,9 @@ EOF;
     $this->addSuperuser($arguments['username'], $options);
   }
 
-  public static function addSuperUser($username, $options)
+  protected function addSuperUser($username, $options)
   {
-    // ask for admin user information
+    // Ask for admin user information
     if (!$username)
     {
       $usernamePrompt = 'Admin username';
@@ -98,7 +98,7 @@ EOF;
       $password = trim(readline("Admin password: "));
     }
 
-    // create user
+    // Create user
     $user = new QubitUser();
     $user->username = $username;
     $user->email = $email;
@@ -106,10 +106,10 @@ EOF;
     $user->active = true;
     $user->save();
 
-    // give user admin capability
+    // Give user admin capability
     $group = new QubitAclUserGroup();
     $group->userId = $user->id;
-    $group->groupId = 100;
+    $group->groupId = QubitAclGroup::ADMIN_ID;
     $group->save();
   }
 }
