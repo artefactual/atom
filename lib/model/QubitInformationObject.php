@@ -777,9 +777,27 @@ class QubitInformationObject extends BaseInformationObject
     return $this->getTermRelations(QubitTaxonomy::SUBJECT_ID);
   }
 
-  public function getPlaceAccessPoints()
+  public function getPlaceAccessPoints(array $options = array('events' => false))
   {
-    return $this->getTermRelations(QubitTaxonomy::PLACE_ID);
+    $criteria = new Criteria;
+
+    // Places are either associated with the information object directly
+    // (for standard authorities) or with events (for places added in
+    // the events module).
+    if ($options['events'])
+    {
+      $criteria->addJoin(QubitObjectTermRelation::OBJECT_ID, QubitEvent::ID);
+      $criteria->add(QubitEvent::INFORMATION_OBJECT_ID, $this->id);
+    }
+    else
+    {
+      $criteria->add(QubitObjectTermRelation::OBJECT_ID, $this->id);
+    }
+
+    $criteria->addJoin(QubitObjectTermRelation::TERM_ID, QubitTerm::ID);
+    $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::PLACE_ID);
+
+    return QubitObjectTermRelation::get($criteria);
   }
 
   /**************
