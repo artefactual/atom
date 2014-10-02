@@ -70,7 +70,7 @@ EOF;
     $this->addSuperuser($arguments['username'], $options);
   }
 
-  protected function addSuperUser($username, $options)
+  public static function addSuperUser($username, $options)
   {
     // Ask for admin user information
     if (!$username)
