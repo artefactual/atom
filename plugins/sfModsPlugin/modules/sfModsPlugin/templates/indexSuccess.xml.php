@@ -13,7 +13,7 @@
     <?php foreach ($mods->name as $item): ?>
       <name<?php if ($item->actor->entityType): ?> type="<?php echo $item->actor->entityType ?>"<?php endif; ?>>
         <namePart><?php echo esc_specialchars($item->actor) ?></namePart>
-        <role><?php echo $item->type->getRole() ?></role>
+        <role><roleTerm><?php echo $item->type->getRole() ?></roleTerm></role>
       </name>
     <?php endforeach; ?>
   <?php endif; ?>
@@ -28,7 +28,7 @@
     <originInfo>
       <?php foreach ($resource->getDates() as $item): ?>
 
-        <place><?php echo $item->getPlace() ?></place>
+        <place><placeTerm><?php echo $item->getPlace() ?></placeTerm></place>
 
         <?php switch ($item->typeId): case QubitTerm::CREATION_ID: ?>
             <dateCreated><?php echo $item->getDate(array('cultureFallback' => true)) ?></dateCreated>
@@ -50,7 +50,7 @@
     <?php endforeach; ?>
   <?php endif; ?>
 
-  <?php if (isset($reosurce->digitalObjects[0]->mimeType)): ?>
+  <?php if (isset($resource->digitalObjects[0]->mimeType)): ?>
     <physicalDescription>
       <internetMediaType><?php echo $resource->digitalObjects[0]->mimeType ?></internetMediaType>
     </physicalDescription>
@@ -70,7 +70,7 @@
   <?php endif; ?>
 
   <?php if ($scopeAndContent = $resource->getScopeAndContent(array('cultureFallback' => true))): ?>
-  <abstract><?php echo esc_specialchars($scopeAndContent) ?></abstract>
+    <abstract><?php echo esc_specialchars($scopeAndContent) ?></abstract>
   <?php endif; ?>
 
   <?php if (0 < count($materialTypes = $mods->materialTypes)): ?>
@@ -113,19 +113,19 @@
     <accessCondition type="use and reproduction"></accessCondition>
   <?php endif; ?>
 
-  <location>
-
-    <?php if (isset($resource->digitalObjects[0])): ?>
+  <?php if (isset($resource->digitalObjects[0])): ?>
+    <location>
       <url usage="primary display"><?php echo esc_specialchars($mods->digitalAssetUrl) ?></url>
-    <?php endif; ?>
+    </location>
+  <?php endif; ?>
 
-    <?php if (0 < count($mods->physicalLocation)): ?>
-      <?php foreach ($mods->physicalLocation as $item): ?>
+  <?php if (0 < count($mods->physicalLocation)): ?>
+    <?php foreach ($mods->physicalLocation as $item): ?>
+      <location>
         <physicalLocation><?php echo esc_specialchars($item) ?></physicalLocation>
-      <?php endforeach; ?>
-    <?php endif; ?>
-
-  </location>
+      </location>
+    <?php endforeach; ?>
+  <?php endif; ?>
 
   <?php $places = $resource->getPlaceAccessPoints(); ?>
 
