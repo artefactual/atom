@@ -78,7 +78,7 @@ class eadExportTask extends sfBaseTask
     $iso639convertor = new fbISO639_Map;
     $eadLevels = array('class', 'collection', 'file', 'fonds', 'item', 'otherlevel', 'recordgrp', 'series', 'subfonds', 'subgrp', 'subseries');
     $pluginName = 'sf'. ucfirst($options['format']) .'Plugin';
-    $exportTemplate = 'plugins/'. $pluginName .'/modules/'. $pluginName .'/templates/indexSuccess.xml.php';
+    $exportTemplate = sprintf('plugins/%s/modules/%s/templates/indexSuccess.xml.php', $pluginName, $pluginName);
 
     $itemsExported = 0;
 
@@ -114,8 +114,9 @@ class eadExportTask extends sfBaseTask
       $output = $dom->saveXML();
 
       // save XML file
-      $filename = $options['format'] .'_'. $row['id'] .'.xml';
-      $filePath = $arguments['folder'] .'/'. $filename;
+      // (padding ID with zeros so filenames can be sorted in creation order for imports)
+      $filename = sprintf('%s_%s.xml', $options['format'], str_pad($row['id'], 9, '0', STR_PAD_LEFT));
+      $filePath = sprintf('%s/%s', $arguments['folder'], $filename);
       file_put_contents($filePath, $output);
 
       // if progress indicator should be displayed, display it
