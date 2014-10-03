@@ -186,13 +186,13 @@
     <controlaccess>
       <?php foreach ($resource->getActorEvents() as $event): ?>
         <?php if ($event->getActor()->getEntityTypeId() == QubitTerm::PERSON_ID): ?>
-          <persname role="<?php echo $event->getType()->getRole(array('cultureFallback' => true)) ?>"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></persname>
+          <persname role="<?php echo $event->getType()->getRole() ?>"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></persname>
         <?php elseif ($event->getActor()->getEntityTypeId() == QubitTerm::FAMILY_ID): ?>
-          <famname role="<?php echo $event->getType()->getRole(array('cultureFallback' => true)) ?>"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></famname>
+          <famname role="<?php echo $event->getType()->getRole() ?>"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></famname>
         <?php elseif ($event->getActor()->getEntityTypeId() == QubitTerm::CORPORATE_BODY_ID): ?>
-          <corpname role="<?php echo $event->getType()->getRole(array('cultureFallback' => true)) ?>"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></corpname>
+          <corpname role="<?php echo $event->getType()->getRole() ?>"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></corpname>
         <?php else: ?>
-          <name role="<?php echo $event->getType()->getRole(array('cultureFallback' => true)) ?>"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></name>
+          <name role="<?php echo $event->getType()->getRole() ?>"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></name>
         <?php endif; ?>
       <?php endforeach; ?>
       <?php foreach ($names as $name): ?>
