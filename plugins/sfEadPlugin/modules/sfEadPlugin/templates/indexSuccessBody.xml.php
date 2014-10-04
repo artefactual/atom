@@ -186,13 +186,13 @@
     <controlaccess>
       <?php foreach ($resource->getActorEvents() as $event): ?>
         <?php if ($event->getActor()->getEntityTypeId() == QubitTerm::PERSON_ID): ?>
-          <persname role="<?php echo $event->getType()->getRole() ?>"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></persname>
+          <persname role="<?php echo $event->getType()->getRole() ?>" id="<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></persname>
         <?php elseif ($event->getActor()->getEntityTypeId() == QubitTerm::FAMILY_ID): ?>
-          <famname role="<?php echo $event->getType()->getRole() ?>"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></famname>
+          <famname role="<?php echo $event->getType()->getRole() ?>" id="<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></famname>
         <?php elseif ($event->getActor()->getEntityTypeId() == QubitTerm::CORPORATE_BODY_ID): ?>
-          <corpname role="<?php echo $event->getType()->getRole() ?>"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></corpname>
+          <corpname role="<?php echo $event->getType()->getRole() ?>" id="<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></corpname>
         <?php else: ?>
-          <name role="<?php echo $event->getType()->getRole() ?>"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></name>
+          <name role="<?php echo $event->getType()->getRole() ?>" id="<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></name>
         <?php endif; ?>
       <?php endforeach; ?>
       <?php foreach ($names as $name): ?>
@@ -216,7 +216,7 @@
         <geogname><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
       <?php endforeach; ?>
       <?php foreach ($place_events as $place): ?>
-        <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>"><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
+        <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>" id="<?php echo $event->id ?>_place"><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
       <?php endforeach; ?>
     </controlaccess>
   <?php endif; ?>
@@ -302,11 +302,11 @@
 
             <?php foreach ($descendant->getActorEvents() as $event): ?>
               <?php if ($event->getActor()->getEntityTypeId() == QubitTerm::PERSON_ID): ?>
-                <persname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('actorEventsName'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </persname>
+                <persname role="<?php echo $event->getType()->getRole() ?>" id="<?php echo $event->id ?>_actor" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('actorEventsName'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </persname>
               <?php elseif ($event->getActor()->getEntityTypeId() == QubitTerm::FAMILY_ID): ?>
-                <famname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('actorEventsName'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </famname>
+                <famname role="<?php echo $event->getType()->getRole() ?>" id="<?php echo $event->id ?>_actor" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('actorEventsName'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </famname>
               <?php else: ?>
-                <corpname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('actorEventsName'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </corpname>
+                <corpname role="<?php echo $event->getType()->getRole() ?>" id="<?php echo $event->id ?>_actor" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('actorEventsName'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </corpname>
               <?php endif; ?>
             <?php endforeach; ?>
 
@@ -335,7 +335,7 @@
             <?php endforeach; ?>
 
             <?php foreach ($place_events as $place): ?>
-              <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>"><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
+              <geogname role="<?php echo $place->getObject()->getType()->getRole() ?>" id="<?php echo $event->id ?>_place"><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geogname>
             <?php endforeach; ?>
 
           </controlaccess>
