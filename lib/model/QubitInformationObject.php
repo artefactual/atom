@@ -1426,6 +1426,8 @@ class QubitInformationObject extends BaseInformationObject
         $this->relationsRelatedBysubjectId[] = $relation;
       }
     }
+
+    return $actor;
   }
 
   /**
@@ -1988,6 +1990,8 @@ class QubitInformationObject extends BaseInformationObject
     $event->setDate($date);
 
     $this->events[] = $event;
+
+    return $event;
   }
 
   protected function getDefaultDateValue($date)
@@ -2077,6 +2081,8 @@ class QubitInformationObject extends BaseInformationObject
     }
 
     $this->addTermRelation($term->id);
+
+    return $term;
   }
 
   public function setPhysicalObjectByName($physicalObjectName, $options)
