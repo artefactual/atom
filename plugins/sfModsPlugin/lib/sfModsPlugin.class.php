@@ -84,6 +84,14 @@ class sfModsPlugin implements ArrayAccess
     return call_user_func_array(array($this, '__isset'), $args);
   }
 
+  protected function baseUrl()
+  {
+    $baseUrl = QubitSetting::getByName('siteBaseUrl');
+    $baseUrl = ($baseUrl == null) ? 'http://'. gethostname() : $baseUrl;
+
+    return $baseUrl;
+  }
+
   public function __get($name)
   {
     switch ($name)
@@ -91,6 +99,39 @@ class sfModsPlugin implements ArrayAccess
       case 'identifier':
 
         return $this->resource->referenceCode;
+
+      case 'baseurl':
+
+        return $this->baseUrl();
+
+      case 'uri':
+
+        return $this->baseUrl() .'/index.php/'. $this->resource->slug;
+
+      case 'digitalAssetUrl':
+
+        $do = $this->resource->digitalObjects[0];
+
+        if (isset($do))
+        {
+          $path = $do->getFullPath();
+
+          // if path is external, it's absolute so return it
+          if (QubitTerm::EXTERNAL_URI_ID == $do->usageId)
+          {
+            return $path;
+          } else
+          { 
+            if (QubitAcl::check($this->resource, 'readMaster'))
+            {
+              return $this->baseUrl() . $path;
+            }
+            elseif (null !== $do->reference && QubitAcl::check($this->resource, 'readReference'))
+            {
+              return $this->baseUrl() . $do->reference->getFullPath();
+            }
+          }
+        }
 
       case 'name':
         $name = array();
@@ -109,8 +150,12 @@ class sfModsPlugin implements ArrayAccess
 
         if (isset($this->resource->repository))
         {
-          $list[] = $this->resource->repository->identifier;
-          $list[] = $this->resource->repository;
+          $list[] = $this->resource->repository->authorizedFormOfName;
+
+          if (isset($this->resource->repository->identifier))
+          {
+            $list[] = $this->resource->repository->identifier;
+          }
 
           if (null !== $contact = $this->resource->repository->getPrimaryContact())
           {
@@ -144,7 +189,89 @@ class sfModsPlugin implements ArrayAccess
       case 'typeOfResource':
 
         return $this->resource->getTermRelations(QubitTaxonomy::MODS_RESOURCE_TYPE_ID);
+
+      case 'materialTypes':
+
+        $materialTypes = array();
+
+        foreach ($this->resource->getTermRelations(QubitTaxonomy::MATERIAL_TYPE_ID) as $relation)
+        {
+          array_push($materialTypes, $relation->term->getName(array('cultureFallback' => true)));
+        }
+
+        return $materialTypes;
+
+      case 'languageNotes':
+
+        return $this->getNoteTexts(QubitTerm::LANGUAGE_NOTE_ID);
+
+      case 'alphanumericNotes':
+
+        return $this->getMatchingRadNotesByName('Alpha-numeric designations');
+
+      case 'generalNotes':
+
+        return $this->getMatchingRadNotesByName('General note');
+
+      case 'hasRightsAccess':
+
+        return $this->determineIfResourceHasRightsAct('Display');
+
+      case 'hasRightsReplicate':
+
+        return $this->determineIfResourceHasRightsAct('Replicate');
     }
+  }
+
+  public function getMatchingRadNotesByName($noteTypeName)
+  {
+    foreach (QubitTerm::getRADNotes() as $term)
+    {
+      if ($term->getName() == $noteTypeName)
+      {
+        return $this->getNoteTexts($term->id);
+      }
+    }
+  }
+
+  public function getNoteTexts($noteTypeId)
+  {
+    $notes = array();
+
+    $noteData = $this->resource->getNotesByType(array('noteTypeId' => $noteTypeId));
+    foreach ($noteData as $note)
+    {
+      array_push($notes, $note->getContent(array('cultureFallback' => true)));
+    }
+
+    return $notes;
+  }
+
+  public function getIdForRightsActTerm($termName)
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::RIGHT_ACT_ID);
+    $criteria->add(QubitTerm::SOURCE_CULTURE, 'en');
+    $criteria->addJoin(QubitTermI18n::ID, QubitTerm::ID);
+    $criteria->add(QubitTermI18n::NAME, $termName);
+
+    if ($term = QubitTerm::getOne($criteria))
+    {
+      return $term->id;
+    }
+
+    return false;
+  }
+
+  public function determineIfResourceHasRightsAct($actName)
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitInformationObject::ID, $this->resource->id);
+    $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitInformationObject::ID);
+    $criteria->addJoin(QubitRights::ID, QubitRelation::OBJECT_ID);
+    $criteria->add(QubitRights::ACT_ID, $this->getIdForRightsActTerm($actName));
+
+    return QubitRights::getOne($criteria);
   }
 
   public function offsetGet($offset)
