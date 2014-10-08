@@ -95,7 +95,9 @@ class eadExportTask extends sfBaseTask
       if ($options['format'] == 'ead')
       {
         $ead = new sfEadPlugin($resource);
-      } else {
+      }
+      else
+      {
         $mods = new sfModsPlugin($resource);
       }
 
@@ -158,7 +160,7 @@ class eadExportTask extends sfBaseTask
   {
     // EAD data nests children, so we only have to get top-level items
     $whereClause = ($options['format'] == 'ead' || $options['current-level-only'])
-      ? "parent_id=1"
+      ? "parent_id=". QubitInformationObject::ROOT_ID
       : "i.id != 1";
 
     if ($options['criteria'])
