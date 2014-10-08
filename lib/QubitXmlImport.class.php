@@ -78,8 +78,16 @@ class QubitXmlImport
         $this->errors[] = sfContext::getInstance()->i18n->__('libxml error %code% on line %line% in input file: %message%', array('%code%' => $libxmlerror->code, '%message%' => $libxmlerror->message, '%line%' => $libxmlerror->line));
       }
 
-      $p = new sfModsConvertor();
-      $p->parse($xmlFile);
+      $parser = new sfModsConvertor();
+      if ($parser->parse($xmlFile))
+      {
+        $this->rootObject = $parser->getResource();
+      }
+      else
+      {
+        $errorData = $parser->getErrorData();
+        $this->errors = array(sfContext::getInstance()->i18n->__('SAX xml parse error %code% on line %line% in input file: %message%', array('%code%' => $errorData['code'], '%message%' => $errorData['string'], '%line%' => $errorData['line'])));
+      }
 
       return $this;
     }
