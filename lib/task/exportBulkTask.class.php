@@ -44,9 +44,9 @@ class eadExportTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
       new sfCommandOption('items-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Indicate progress every n items.'),
+      new sfCommandOption('format', null, sfCommandOption::PARAMETER_OPTIONAL, 'XML format ("ead" or "mods")', 'ead'),
       new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria'),
-      new sfCommandOption('current-level-only', null, sfCommandOption::PARAMETER_NONE, 'Do not export child descriptions of exported items'),
-      new sfCommandOption('site-url', null, sfCommandOption::PARAMETER_REQUIRED, 'The base URL of your AtoM site (example: "http://www.example.com").', false),
+      new sfCommandOption('current-level-only', null, sfCommandOption::PARAMETER_NONE, 'Do not export child descriptions of exported items')
     ));
   }
 
@@ -57,6 +57,8 @@ class eadExportTask extends sfBaseTask
   {
     // Make sure arguments are valid
     $this->checkForValidFolder($arguments['folder']);
+    $options['format'] = strtolower($options['format']);
+    $this->checkForValidExportFormat($options['format']);
 
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
@@ -70,15 +72,19 @@ class eadExportTask extends sfBaseTask
     include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
     include($appRoot .'/lib/helper/QubitHelper.php');
 
+    $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'cli', false);
+    $sf_context = sfContext::createInstance($configuration);
+
     $iso639convertor = new fbISO639_Map;
     $eadLevels = array('class', 'collection', 'file', 'fonds', 'item', 'otherlevel', 'recordgrp', 'series', 'subfonds', 'subgrp', 'subseries');
-
-    $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'test', false);
-    $sf_context = sfContext::createInstance($configuration);
+    $pluginName = 'sf'. ucfirst($options['format']) .'Plugin';
+    $exportTemplate = sprintf('plugins/%s/modules/%s/templates/indexSuccess.xml.php', $pluginName, $pluginName);
 
     $itemsExported = 0;
 
-    foreach($conn->query($this->exportQuerySql($options['criteria']), PDO::FETCH_ASSOC) as $row)
+    $rows = $conn->query($this->exportQuerySql($options), PDO::FETCH_ASSOC);
+
+    foreach($rows as $row)
     {
       $resource = QubitInformationObject::getById($row['id']);
 
@@ -86,17 +92,33 @@ class eadExportTask extends sfBaseTask
       $exportLanguage = sfContext::getInstance()->user->getCulture();
       $sourceLanguage = $resource->getSourceCulture();
 
-      $ead = new sfEadPlugin($resource);
+      if ($options['format'] == 'ead')
+      {
+        $ead = new sfEadPlugin($resource);
+      }
+      else
+      {
+        $mods = new sfModsPlugin($resource);
+      }
 
-      $ead->siteBaseUrl = $this->checkAndNormalizeSiteUrl($options['site-url']);
-
+      // capture XML template output
       ob_start();
-      include('plugins/sfEadPlugin/modules/sfEadPlugin/templates/indexSuccess.xml.php');
-      $output = ob_get_contents();
+      include($exportTemplate);
+      $rawOutput = ob_get_contents();
       ob_end_clean();
 
-      $filename = 'ead_'. $row['id'] .'.xml';
-      $filePath = $arguments['folder'] .'/'. $filename;
+      // clean up XML
+      $xml = simplexml_load_string($rawOutput);
+      $dom = new DOMDocument("1.0");
+      $dom->preserveWhiteSpace = false;
+      $dom->formatOutput = true;
+      $dom->loadXML($xml->asXML());
+      $output = $dom->saveXML();
+
+      // save XML file
+      // (padding ID with zeros so filenames can be sorted in creation order for imports)
+      $filename = sprintf('%s_%s.xml', $options['format'], str_pad($row['id'], 9, '0', STR_PAD_LEFT));
+      $filePath = sprintf('%s/%s', $arguments['folder'], $filename);
       file_put_contents($filePath, $output);
 
       // if progress indicator should be displayed, display it
@@ -107,24 +129,8 @@ class eadExportTask extends sfBaseTask
 
       $itemsExported++;
     }
-  }
 
-  protected function checkAndNormalizeSiteUrl($url)
-  {
-    if (!$url)
-    {
-      return false;
-    }
-
-    if (filter_var($url, FILTER_VALIDATE_URL) === False)
-    {
-      throw new sfException('Invalid URL');
-    }
-
-    // Add trailing slash to URL if it's not already there
-    $url = (substr($url, -1) != '/') ? $url .'/' : $url;
-
-    return $url;
+    print "\nExport complete (". $itemsExported ." descriptions exported).\n";
   }
 
   protected function checkForValidFolder($folder)
@@ -140,15 +146,32 @@ class eadExportTask extends sfBaseTask
     }
   }
 
-  protected function exportQuerySql($criteria)
+  protected function checkForValidExportFormat($format)
   {
-    $whereClause = "parent_id=1";
+    $validFormats = array('ead', 'mods');
 
-    if ($criteria)
+    if (!in_array($format, $validFormats))
     {
-      $whereClause .= ' AND '. $criteria;
+      throw new sfException('Invalid format. Allowed formats: '. join(', ', $validFormats));
+    }
+  }
+
+  protected function exportQuerySql($options)
+  {
+    // EAD data nests children, so we only have to get top-level items
+    $whereClause = ($options['format'] == 'ead' || $options['current-level-only'])
+      ? "parent_id=". QubitInformationObject::ROOT_ID
+      : "i.id != 1";
+
+    if ($options['criteria'])
+    {
+      $whereClause .= ' AND '. $options['criteria'];
     }
 
-    return "SELECT * FROM information_object i INNER JOIN information_object_i18n i18n ON i.id=i18n.id WHERE ". $whereClause;
+    $query = "SELECT * FROM information_object i
+      INNER JOIN information_object_i18n i18n ON i.id=i18n.id
+      WHERE ". $whereClause;
+
+    return $query;
   }
 }
