@@ -56,6 +56,9 @@
  */
 class QubitSaxParser
 {
+  protected $sax = null;
+  protected $error = null;
+
   // Ancestor tag data stack
   protected $ancestors = array();
 
@@ -110,6 +113,8 @@ class QubitSaxParser
 
     // Store current tag data
     $this->tag = $tag;
+    unset($this->data);
+
     array_push($this->attrStack, $attr);
 
     // Methods that end with "StartTag" are handlers for specific tags...
@@ -190,6 +195,8 @@ class QubitSaxParser
   /**
    * Handle tag CDATA
    *
+   * Note that this gets executed even for whitespace between tags.
+   *
    * @param object $sax  SAX parser
    * @param string $data  CDATA text
    *
@@ -197,7 +204,13 @@ class QubitSaxParser
    */
   protected function tagDataInternalHandler($sax, $data)
   {
-    $this->data = $data;
+    if (isset($this->data))
+    {
+      $this->data .= $data;
+    }
+    else {
+      $this->data = $data;
+    }
   }
 
   /**
@@ -237,14 +250,90 @@ class QubitSaxParser
   /**
    * Parse contents of file
    *
+   * The parser can optionally not be freed after a parse, if one wants to
+   * inspect error state externally.
+   *
    * @param string $file  file path of XML to parse
+   * @param boolean $freeAfterParse  whether to free parser after parse
    *
    * @return void
    */
-  public function parse($file)
+  public function parse($file, $freeAfterParse = true)
   {
-    xml_parse($this->sax, file_get_contents($file), true);
-    xml_parser_free($this->sax);
+    $fp = fopen($file, 'r');
+
+    if (!$fp)
+    {
+      $this->error = array(
+        'string' => 'Unable to open file'
+      );
+
+      return false;
+    }
+
+    $success = true;
+
+    // Parse in chunks to preserve memory
+    while ($data = fread($fp, 4096))
+    {
+      if (!xml_parse($this->sax, $data, feof($fp)))
+      {
+        $success = false;
+        break;
+      }
+    }
+    fclose($fp);
+
+    if (!$success)
+    {
+      $errorCode = xml_get_error_code($this->sax);
+
+      $this->error = array(
+        'code'   => $errorCode,
+        'string' => xml_error_string($errorCode),
+        'line'   => xml_get_current_line_number($this->sax),
+        'column' => xml_get_current_column_number($this->sax),
+        'byte'   => xml_get_current_byte_index($this->sax)
+      );
+
+      $this->error['summary'] = sprintf(
+        'Parsing error %d: "%s" at line %d, column %d (byte %d)',
+        $this->error['code'],
+        $this->error['string'],
+        $this->error['line'],
+        $this->error['column'],
+        $this->error['byte']
+      );
+    }
+
+    if ($freeAfterParse)
+    {
+      xml_parser_free($this->sax);
+    }
+
+    return $success;
+  }
+
+  /**
+   * Get parser
+   *
+   * Can be used to inspect error state externally
+   *
+   * @return resource  SAX parser
+   */
+  public function getParser()
+  {
+    return $this->sax;
+  }
+
+  /**
+   * Get parsing error description
+   *
+   * @return string  Description of parsing error
+   */
+  public function getErrorData()
+  {
+    return $this->error;
   }
 
 
@@ -317,7 +406,7 @@ class QubitSaxParser
   {
     $path = array();
 
-    foreach($this->ancestors as $ancestor)
+    foreach ($this->ancestors as $ancestor)
     {
       array_push($path, $ancestor['tag']);
     }
@@ -354,7 +443,7 @@ class QubitSaxParser
   {
     $handlers = array();
 
-    foreach(get_class_methods(get_class($this)) as $method)
+    foreach (get_class_methods(get_class($this)) as $method)
     {
       if ($this->methodIsHandler($method))
       {
