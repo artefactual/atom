@@ -104,6 +104,19 @@ class sfModsPlugin implements ArrayAccess
     return $baseUrl;
   }
 
+  public function getDateTagNameForEventType($typeId)
+  {
+    switch ($typeId)
+    {
+      case QubitTerm::CREATION_ID:
+        return 'dateCreated';
+      case QubitTerm::PUBLICATION_ID:
+        return 'dateIssued';
+      default:
+        return 'dateOther';
+    }
+  }
+
   public function __get($name)
   {
     switch ($name)

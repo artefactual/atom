@@ -37,15 +37,14 @@
 
         <place><placeTerm><?php echo $item->getPlace() ?></placeTerm></place>
 
-        <?php switch ($item->typeId): case QubitTerm::CREATION_ID: ?>
-            <dateCreated><?php echo $item->getDate(array('cultureFallback' => true)) ?></dateCreated>
-            <?php break ?>
-          <?php case QubitTerm::PUBLICATION_ID: ?>
-            <dateIssued><?php echo $item->getDate(array('cultureFallback' => true)) ?></dateIssued>
-            <?php break ?>
-          <?php default: ?>
-            <dateOther type="Broadcasting"><?php echo $item->getDate(array('cultureFallback' => true)) ?></dateOther>
-        <?php endswitch; ?>
+        <?php $dateTagName = $mods->getDateTagNameForEventType($item->typeId) ?>
+        <<?php echo $dateTagName ?>><?php echo $item->getDate(array('cultureFallback' => true)) ?> <?php if ($dateTagName == 'dateOther'): ?>(<?php echo $item->type ?>)<?php endif; ?></<?php echo $dateTagName ?>>
+        <?php if (!empty($item->startDate)): ?>
+          <<?php echo $dateTagName ?> point="start"><?php echo $item->startDate ?></<?php echo $dateTagName ?>>
+        <?php endif; ?>
+        <?php if (!empty($item->endDate)): ?>
+          <<?php echo $dateTagName ?> point="end"><?php echo $item->endDate ?></<?php echo $dateTagName ?>>
+        <?php endif; ?>
 
       <?php endforeach; ?>
     </originInfo>

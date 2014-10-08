@@ -59,6 +59,14 @@ class QubitXmlImport
       $this->errors = array_merge((array) $this->errors, $xmlerrors);
     }
 
+    if ('mods' == $importDOM->documentElement->tagName)
+    {
+      $p = new sfModsConvertor();
+      $p->parse($xmlFile);
+
+      return $this;
+    }
+
     if ('eac-cpf' == $importDOM->documentElement->tagName)
     {
       $this->rootObject = new QubitActor;
