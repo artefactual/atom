@@ -1401,7 +1401,9 @@ class QubitInformationObject extends BaseInformationObject
 
       $this->events[] = $event;
     }
-    else if (isset($options['relation_type_id']))
+    // In EAD import, the term relation is not always created at this point;
+    // it might be created afterwards.
+    else if (isset($options['relation_type_id']) && isset($options['createRelation']) && false !== $options['createRelation'])
     {
       // Only add actor as name access point if they are not already linked to
       // an event (i.e. they are not already a "creator", "accumulator", etc.)
@@ -2080,7 +2082,12 @@ class QubitInformationObject extends BaseInformationObject
       }
     }
 
-    $this->addTermRelation($term->id);
+    // In EAD import, the term relation is not always created at this point;
+    // it might be created afterwards.
+    if (isset($options['createRelation']) && false !== $options['createRelation'])
+    {
+      $this->addTermRelation($term->id);
+    }
 
     return $term;
   }
