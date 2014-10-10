@@ -350,27 +350,27 @@ information_object:
     controlaccess_name:
       XPath:  "(controlaccess/name | controlaccess/controlaccess/name)"
       Method: setActorByName
-      Parameters: [$nodeValue, "$options = array('relation_type_id' => QubitTerm::NAME_ACCESS_POINT_ID)"]
+      Parameters: [$nodeValue, "$options = array('relation_type_id' => QubitTerm::NAME_ACCESS_POINT_ID, 'createRelation' => !$importDOM->xpath->query('@id', $domNode2)->length)"]
 
     controlaccess_corpname:
       XPath:   "(controlaccess/corpname | controlaccess/controlaccess/corpname)"
       Method:  setActorByName
-      Parameters: [$nodeValue, "$options = array('relation_type_id' => QubitTerm::NAME_ACCESS_POINT_ID, 'entity_type_id' => QubitTerm::CORPORATE_BODY_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'rules' => $importDOM->xpath->query('@rules', $domNode2)->item(0)->nodeValue)"]
+      Parameters: [$nodeValue, "$options = array('relation_type_id' => QubitTerm::NAME_ACCESS_POINT_ID, 'entity_type_id' => QubitTerm::CORPORATE_BODY_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'rules' => $importDOM->xpath->query('@rules', $domNode2)->item(0)->nodeValue, 'createRelation' => !$importDOM->xpath->query('@id', $domNode2)->length)"]
 
     controlaccess_persname:
       XPath:   "(controlaccess/persname | controlaccess/controlaccess/persname)"
       Method:  setActorByName
-      Parameters: [$nodeValue, "$options = array('relation_type_id' => QubitTerm::NAME_ACCESS_POINT_ID, 'entity_type_id' => QubitTerm::PERSON_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'rules' => $importDOM->xpath->query('@rules', $domNode2)->item(0)->nodeValue)"]
+      Parameters: [$nodeValue, "$options = array('relation_type_id' => QubitTerm::NAME_ACCESS_POINT_ID, 'entity_type_id' => QubitTerm::PERSON_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'rules' => $importDOM->xpath->query('@rules', $domNode2)->item(0)->nodeValue, 'createRelation' => !$importDOM->xpath->query('@id', $domNode2)->length)"]
 
     controlaccess_famname:
       XPath:   "(controlaccess/famname | controlaccess/controlaccess/famname)"
       Method:  setActorByName
-      Parameters: [$nodeValue, "$options = array('relation_type_id' => QubitTerm::NAME_ACCESS_POINT_ID, 'entity_type_id' => QubitTerm::FAMILY_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'rules' => $importDOM->xpath->query('@rules', $domNode2)->item(0)->nodeValue)"]
+      Parameters: [$nodeValue, "$options = array('relation_type_id' => QubitTerm::NAME_ACCESS_POINT_ID, 'entity_type_id' => QubitTerm::FAMILY_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'rules' => $importDOM->xpath->query('@rules', $domNode2)->item(0)->nodeValue, 'createRelation' => !$importDOM->xpath->query('@id', $domNode2)->length)"]
 
     controlaccess_geogname:
       XPath:   "(controlaccess/geogname | controlaccess/controlaccess/geogname)"
       Method:  setTermRelationByName
-      Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::PLACE_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue)"]
+      Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::PLACE_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'createRelation' => !$importDOM->xpath->query('@id', $domNode2)->length)"]
 
     controlaccess_subject:
       XPath:   "(controlaccess/subject | controlaccess/controlaccess/subject)"
