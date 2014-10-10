@@ -31,7 +31,8 @@ class QubitXmlImport
   protected
     $errors = null,
     $rootObject = null,
-    $parent = null;
+    $parent = null,
+    $events = array();
 
   public function import($xmlFile, $options = array())
   {
@@ -569,9 +570,18 @@ class QubitXmlImport
               $generalNoteTypeId                   = array_search("General note", $termData['radNoteTypes']);
 
               // invoke the object and method defined in the schema map
-              call_user_func_array(array( & $currentObject, $methodMap['Method']), $parameters);
+              $obj = call_user_func_array(array( & $currentObject, $methodMap['Method']), $parameters);
+
+              // If an actor/event object was returned, track that
+              // in the events cache for later cleanup
+              if($obj !== NULL)
+              {
+                $this->trackEvent($obj, $domNode2);
+              }
             }
         }
+
+        $this->associateEvents();
 
         unset($nodeList2);
       }
@@ -817,5 +827,78 @@ class QubitXmlImport
     }
 
     return $nodeValue;
+  }
+
+  /**
+   * Track objects to be reassociated with an event on import.
+   * This is used to associate actors and places with events for
+   * RAD-style events.
+   */
+  private function trackEvent($object, $node)
+  {
+    $kind = $node->nodeName;
+    if ($kind === 'geogname')
+    {
+      $key = 'place';
+    }
+    else if ($kind === 'unitdate')
+    {
+      $key = 'event';
+    }
+    else if (in_array($kind, array('name', 'persname', 'corpname', 'famname')))
+    {
+      $key = 'actor';
+    }
+    else
+    {
+      return;
+    }
+
+    $id = $node->getAttribute('id');
+    if ($id !== NULL)
+    {
+      // The ID value is suffixed with its category, e.g. 384_place
+      // This is because `id` is required to be unique within the entire
+      // document.
+      $id = preg_replace('_' . $key . '$', '', $id);
+      array_key_exists($id, $this->events) || $this->events[$id] = array();
+      $this->events[$id][$key] = $object;
+    }
+  }
+
+  /**
+   * Reattach all places and actors to their respective events,
+   * using the $events map on this object.
+   */
+  private function associateEvents()
+  {
+    foreach ($this->events as $id => $values)
+    {
+      $event = $values['event'];
+
+      $place = array_key_exists('place', $values) ? $values['place'] : NULL;
+      $actor = array_key_exists('actor', $values) ? $values['actor'] : NULL;
+
+      if ($place !== NULL)
+      {
+        if ($event->getPlace() === NULL)
+        {
+          $otr = new QubitObjectTermRelation;
+          $otr->setObject($event);
+          $otr->setTerm($place);
+          $otr->save();
+        }
+      }
+
+      if ($actor !== NULL)
+      {
+        if ($event->getActor() === NULL)
+        {
+          $event->setActor($actor);
+        }
+      }
+
+      $event->save();
+    }
   }
 }
