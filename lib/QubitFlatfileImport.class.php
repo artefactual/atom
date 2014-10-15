@@ -1328,7 +1328,7 @@ class QubitFlatfileImport
    *
    * @return QubitActor  created actor
    */
-  public function createActor($name, $options = array())
+  private static function createActor($name, $options = array())
   {
     $actor = new QubitActor;
     $actor->parentId = QubitActor::ROOT_ID;
