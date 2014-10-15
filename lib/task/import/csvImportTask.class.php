@@ -210,7 +210,7 @@ EOF;
         'pubStatusTypes'         => $termData['pubStatusTypes'],
         'levelOfDetailTypes'     => $termData['levelOfDetailTypes'],
         'materialTypes'          => $termData['materialTypes'],
-        'physicalObjectTypes'    => $termData['physicalObjectTypes']
+        'physicalObjectTypes'    => $termData['physicalObjectTypes'],
       ),
 
       /* import columns that map directory to QubitInformationObject properties */
@@ -403,17 +403,16 @@ EOF;
         'eventDates'           => '|',
         'eventStartDates'      => '|',
         'eventEndDates'        => '|',
-        'eventDescriptions'    => '|'
+        'eventDescriptions'    => '|',
+        'alternativeIdentifiers'  => '|',
+        'alternativeIdentifierLabels'  => '|'
       ),
 
       /* import logic to execute before saving information object */
       'preSaveLogic' => function(&$self)
       {
         // set repository
-        if (
-          isset($self->rowStatusVars['repository'])
-          && $self->rowStatusVars['repository']
-        )
+        if (isset($self->rowStatusVars['repository']) && $self->rowStatusVars['repository'])
         {
           $repository = $self->createOrFetchRepository($self->rowStatusVars['repository']);
           $self->object->repositoryId = $repository->id;
@@ -452,6 +451,13 @@ EOF;
             );
           }
         }
+
+        // add alternative identifiers
+        setAlternativeIdentifiers(
+          $self->object,
+          $self->rowStatusVars['alternativeIdentifiers'],
+          $self->rowStatusVars['alternativeIdentifierLabels']
+        );
 
         // set description status
         if (isset($self->rowStatusVars['descriptionStatus'])
@@ -493,10 +499,7 @@ EOF;
 
         $self->object->setPublicationStatus($pubStatusTermId);
 
-        if (
-          isset($self->rowStatusVars['qubitParentSlug'])
-          && $self->rowStatusVars['qubitParentSlug']
-        )
+        if (isset($self->rowStatusVars['qubitParentSlug']) && $self->rowStatusVars['qubitParentSlug'])
         {
           $parentId = getIdCorrespondingToSlug($self->rowStatusVars['qubitParentSlug']);
         } else {
@@ -548,10 +551,8 @@ EOF;
           $keymap->save();
 
           // add physical objects
-          if (
-            isset($self->rowStatusVars['physicalObjectName'])
-            && $self->rowStatusVars['physicalObjectName']
-          )
+          if (isset($self->rowStatusVars['physicalObjectName']) &&
+              $self->rowStatusVars['physicalObjectName'])
           {
             $names = explode('|', $self->rowStatusVars['physicalObjectName']);
             $locations = explode('|', $self->rowStatusVars['physicalObjectLocation']);
@@ -722,10 +723,8 @@ EOF;
           }
 
           // add accessions
-          if (
-            isset($self->rowStatusVars['accessionNumber'])
-            && count($self->rowStatusVars['accessionNumber'])
-          )
+          if (isset($self->rowStatusVars['accessionNumber']) &&
+              count($self->rowStatusVars['accessionNumber']))
           {
             foreach($self->rowStatusVars['accessionNumber'] as $accessionNumber)
             {
@@ -1191,5 +1190,18 @@ function getIdCorrespondingToSlug($slug)
     return $result->object_id;
   } else {
     throw new sfException('Could not find information object matching slug "'. $slug .'"');
+  }
+}
+
+function setAlternativeIdentifiers($io, $altIds, $altIdLabels)
+{
+  if (count($altIdLabels) !== count($altIds))
+  {
+    throw new sfException('Number of alternative ids does not match number of alt id labels');
+  }
+
+  for ($i = 0; $i < count($altIds); $i++)
+  {
+    $io->addProperty($altIdLabels[$i], $altIds[$i], array('scope' => 'alternativeIdentifiers'));
   }
 }
