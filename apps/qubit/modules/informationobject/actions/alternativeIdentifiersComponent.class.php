@@ -38,9 +38,11 @@ class InformationObjectAlternativeIdentifiersComponent extends sfComponent
 
   public function processForm()
   {
-    if (is_array($alternativeIdentifiers = $this->request->alternativeIdentifiers) && count($alternativeIdentifiers))
+    $finalAlternativeIdentifiers = array();
+
+    if (is_array($this->request->alternativeIdentifiers))
     {
-      foreach ($alternativeIdentifiers as $item)
+      foreach ($this->request->alternativeIdentifiers as $item)
       {
         // Continue only if both fields are populated
         if (1 > strlen($item['label']) || 1 > strlen($item['identifier']))
