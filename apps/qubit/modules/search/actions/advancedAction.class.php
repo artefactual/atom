@@ -446,7 +446,7 @@ class SearchAdvancedAction extends DefaultBrowseAction
     // Get actual information object template to check archival history
     // visibility in _searchFields partial and in parseQuery function
     $this->template = '';
-    if (null != $infoObjectTemplate = QubitSetting::getByNameAndScope('informationobject', 'default_template'))
+    if (null !== $infoObjectTemplate = QubitSetting::getByNameAndScope('informationobject', 'default_template'))
     {
       $this->template = $infoObjectTemplate->getValue(array('sourceCulture'=>true));
     }
