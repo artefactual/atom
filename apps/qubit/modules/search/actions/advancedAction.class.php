@@ -326,9 +326,17 @@ class SearchAdvancedAction extends DefaultBrowseAction
           break;
 
         case 'archivalHistory':
-          $queryField = new \Elastica\Query\QueryString($query);
-          $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.archivalHistory'));
-          $queryField->setDefaultOperator('OR');
+          ProjectConfiguration::getActive()->loadHelpers(array('Asset', 'Qubit'));
+
+          // Check archival history visibility
+          if (($this->template == 'rad' && check_field_visibility('app_element_visibility_rad_archival_history'))
+            || ($this->template == 'isad' && check_field_visibility('app_element_visibility_isad_archival_history'))
+            || ($this->template != 'isad' && $this->template != 'rad'))
+          {
+            $queryField = new \Elastica\Query\QueryString($query);
+            $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('i18n.%s.archivalHistory'));
+            $queryField->setDefaultOperator('OR');
+          }
 
           break;
 
@@ -433,6 +441,14 @@ class SearchAdvancedAction extends DefaultBrowseAction
     foreach ($this::$NAMES as $name)
     {
       $this->addField($name);
+    }
+
+    // Get actual information object template to check archival history
+    // visibility in _searchFields partial and in parseQuery function
+    $this->template = '';
+    if (null != $infoObjectTemplate = QubitSetting::getByNameAndScope('informationobject', 'default_template'))
+    {
+      $this->template = $infoObjectTemplate->getValue(array('sourceCulture'=>true));
     }
 
     // Stop if the input is not valid

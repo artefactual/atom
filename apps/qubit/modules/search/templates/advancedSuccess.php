@@ -73,7 +73,7 @@
   </section>
 <?php end_slot() ?>
 
-<?php echo get_partial('search/searchFields', array('criterias' => $criterias)) ?>
+<?php echo get_partial('search/searchFields', array('criterias' => $criterias, 'template' => $template)) ?>
 
 <section class="actions">
   <input type="submit" class="c-btn c-btn-submit" value="<?php echo __('Search') ?>"/>
