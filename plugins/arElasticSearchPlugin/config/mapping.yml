@@ -260,7 +260,7 @@ mapping:
       alternative_identifiers:
         type: object
         properties:
-          label: { type: string, index: not_analyzed }
+          label: { type: string, index: analyzed }
           identifier: { type: string, index: not_analyzed }
       reference_code:
         type: string
