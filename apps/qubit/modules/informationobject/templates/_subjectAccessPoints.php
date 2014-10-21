@@ -2,6 +2,8 @@
 
   <?php if (isset($sidebar)): ?>
     <h4><?php echo __('Related subjects') ?></h4>
+  <?php elseif (isset($mods)): ?>
+    <h3><?php echo __('Subjects') ?></h3>
   <?php else: ?>
     <h3><?php echo __('Subject access points') ?></h3>
   <?php endif; ?>

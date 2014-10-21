@@ -93,8 +93,6 @@
 
   <?php echo render_show(__('Title'), render_value($resource->getTitle(array('cultureFallback' => true)))) ?>
 
-  <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource)) ?>
-
   <?php echo get_partial('informationobject/dates', array('resource' => $resource)) ?>
 
   <?php foreach ($mods->typeOfResource as $item): ?>
@@ -109,9 +107,11 @@
     <?php echo render_show(__('Internet media type'), $resource->digitalObjects[0]->mimeType) ?>
   <?php endif; ?>
 
-  <?php foreach ($resource->getSubjectAccessPoints() as $item): ?>
-    <?php echo render_show(__('Subject'), link_to($item->term, array($item->term, 'module' => 'term'))) ?>
-  <?php endforeach; ?>
+  <?php echo get_partial('informationobject/subjectAccessPoints', array('resource' => $resource, 'mods' => true)) ?>
+
+  <?php echo get_partial('informationobject/placeAccessPoints', array('resource' => $resource, 'mods' => true)) ?>
+
+  <?php echo get_partial('informationobject/nameAccessPoints', array('resource' => $resource, 'mods' => true)) ?>
 
   <?php echo render_show(__('Access condition'), render_value($resource->getAccessConditions(array('cultureFallback' => true)))) ?>
 

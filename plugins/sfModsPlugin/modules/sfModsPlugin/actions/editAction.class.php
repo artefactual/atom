@@ -34,6 +34,8 @@ class sfModsPluginEditAction extends InformationObjectEditAction
       'identifier',
       'language',
       'subjectAccessPoints',
+      'placeAccessPoints',
+      'nameAccessPoints',
       'title',
       'type',
       'repository',
