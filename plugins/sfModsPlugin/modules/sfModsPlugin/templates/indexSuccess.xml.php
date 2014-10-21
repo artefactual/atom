@@ -71,7 +71,7 @@
   <?php endif; ?>
 
   <?php if ($scopeAndContent = $resource->getScopeAndContent(array('cultureFallback' => true))): ?>
-    <abstract><?php echo esc_specialchars($scopeAndContent) ?></abstract>
+    <abstract type="description"><?php echo esc_specialchars($scopeAndContent) ?></abstract>
   <?php endif; ?>
 
   <?php if (0 < count($materialTypes = $mods->materialTypes)): ?>
