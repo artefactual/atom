@@ -38,7 +38,7 @@
             <dateIssued><?php echo $item->getDate(array('cultureFallback' => true)) ?></dateIssued>
             <?php break ?>
           <?php default: ?>
-            <dateOther><?php echo $item->getDate(array('cultureFallback' => true)) ?> (<?php echo $item->type ?>)</dateOther>
+            <dateOther type="Broadcasting"><?php echo $item->getDate(array('cultureFallback' => true)) ?></dateOther>
         <?php endswitch; ?>
 
       <?php endforeach; ?>
