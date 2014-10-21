@@ -63,12 +63,6 @@
     </physicalDescription>
   <?php endif; ?>
 
-  <?php if (0 < count($resource->getSubjectAccessPoints())): ?>
-    <?php foreach ($resource->getSubjectAccessPoints() as $item): ?>
-      <subject><topic><?php echo esc_specialchars($item->term) ?></topic></subject>
-    <?php endforeach; ?>
-  <?php endif; ?>
-
   <identifier type="local"><?php echo esc_specialchars($mods->identifier) ?></identifier>
   <identifier type="uri"><?php echo esc_specialchars($mods->uri) ?></identifier>
 
@@ -128,13 +122,33 @@
     <?php endforeach; ?>
   <?php endif; ?>
 
-  <?php $places = $resource->getPlaceAccessPoints(); ?>
-
-  <?php if (count($places)): ?>
-    <?php foreach ($places as $place): ?>
-      <subject><geographic><?php echo escape_dc(esc_specialchars($place->getTerm())) ?></geographic></subject>
+  <?php if (0 < count($resource->getSubjectAccessPoints())): ?>
+    <?php foreach ($resource->getSubjectAccessPoints() as $item): ?>
+      <subject><topic><?php echo esc_specialchars($item->term) ?></topic></subject>
     <?php endforeach; ?>
   <?php endif; ?>
+
+  <?php if (0 < count($resource->getPlaceAccessPoints())): ?>
+    <?php foreach ($resource->getPlaceAccessPoints() as $item): ?>
+      <subject><geographic><?php echo escape_dc(esc_specialchars($item->getTerm())) ?></geographic></subject>
+    <?php endforeach; ?>
+  <?php endif; ?>
+
+  <?php foreach ($resource->relationsRelatedBysubjectId as $item): ?>
+    <?php if (isset($item->type) && QubitTerm::NAME_ACCESS_POINT_ID == $item->type->id): ?>
+      <subject>
+        <?php if ($item->object->entityTypeId == QubitTerm::PERSON_ID): ?>
+          <name type="personal"><?php echo escape_dc(esc_specialchars($item->object)) ?></name>
+        <?php elseif ($item->object->entityTypeId == QubitTerm::FAMILY_ID): ?>
+          <name type="family"><?php echo escape_dc(esc_specialchars($item->object)) ?></name>
+        <?php elseif ($item->object->entityTypeId == QubitTerm::CORPORATE_BODY_ID): ?>
+          <name type="corporate"><?php echo escape_dc(esc_specialchars($item->object)) ?></name>
+        <?php else: ?>
+          <name><?php echo escape_dc(esc_specialchars($item->object)) ?></name>
+        <?php endif; ?>
+      </subject>
+    <?php endif; ?>
+  <?php endforeach; ?>
 
   <?php if (QubitInformationObject::ROOT_ID != $resource->parentId): ?>
     <?php $parent = QubitInformationObject::getById($resource->parentId); ?>
