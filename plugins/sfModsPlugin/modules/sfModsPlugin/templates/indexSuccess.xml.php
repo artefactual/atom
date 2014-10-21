@@ -25,6 +25,12 @@
     <?php endforeach; ?>
   <?php endif; ?>
 
+  <?php if (0 < count($materialTypes = $mods->materialTypes)): ?>
+    <?php foreach ($materialTypes as $materialType): ?>
+      <typeOfResource><?php echo esc_specialchars($mods->gmdMapping[$materialType]) ?></typeOfResource>
+    <?php endforeach; ?>
+  <?php endif; ?>
+
   <?php if (0 < count($resource->getDates())): ?>
     <originInfo>
       <?php foreach ($resource->getDates() as $item): ?>
@@ -72,12 +78,6 @@
 
   <?php if ($scopeAndContent = $resource->getScopeAndContent(array('cultureFallback' => true))): ?>
     <abstract type="description"><?php echo esc_specialchars($scopeAndContent) ?></abstract>
-  <?php endif; ?>
-
-  <?php if (0 < count($materialTypes = $mods->materialTypes)): ?>
-    <?php foreach ($materialTypes as $materialType): ?>
-      <typeOfResource><?php echo esc_specialchars($mods->gmdMapping[$materialType]) ?></typeOfResource>
-    <?php endforeach; ?>
   <?php endif; ?>
 
   <?php if ($locationOfOriginals = $resource->getLocationOfOriginals(array('cultureFallback' => true))): ?>
