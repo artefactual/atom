@@ -126,6 +126,10 @@
           <input class="list" type="hidden" value="<?php echo url_for($repoAcParams) ?>"/>
         </div>
 
+        <?php echo render_field($form->scopeAndContent
+          ->help(__('An abstract, table of contents or description of the resource\'s scope and contents.'))
+          ->label(__('Description')), $resource, array('class' => 'resizable')) ?>
+
       </fieldset> <!-- #elementsArea -->
 
       <fieldset class="collapsible collapsed" id="rightsArea">

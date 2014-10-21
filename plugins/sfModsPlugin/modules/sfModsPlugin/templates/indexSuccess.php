@@ -154,6 +154,8 @@
     </div>
   </div>
 
+  <?php echo render_show(__('Description'), render_value($resource->getScopeAndContent(array('cultureFallback' => true)))) ?>
+
   <?php if (0 < count($resource->digitalObjects)): ?>
 
     <?php echo get_partial('digitalobject/metadata', array('resource' => $resource->digitalObjects[0])) ?>
