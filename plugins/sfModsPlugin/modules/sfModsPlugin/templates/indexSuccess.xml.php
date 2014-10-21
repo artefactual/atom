@@ -1,9 +1,10 @@
 <?php echo '<?xml version="1.0" encoding="'.sfConfig::get('sf_charset', 'UTF-8')."\" ?>\n" ?>
 
-<mods xmlns="http://www.loc.gov/mods/v3"
+<mods version="3.5"
+    xmlns="http://www.loc.gov/mods/v3"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.loc.gov/standards/mods/v3/mods-3-3.xsd">
+    xsi:schemaLocation="http://www.loc.gov/standards/mods/v3/mods-3-5.xsd">
 
   <titleInfo>
     <title><?php echo esc_specialchars($resource->title) ?></title>
