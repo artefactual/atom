@@ -33,6 +33,18 @@ class sfModsPlugin implements ArrayAccess
   public function __construct(QubitInformationObject $resource)
   {
     $this->resource = $resource;
+
+    $this->gmdMapping = array(
+      'Architectural drawing' => 'Still image',
+      'Cartographic material' => 'Cartographic',
+      'Graphic material' => 'Still image',
+      'Moving images' => 'Moving image',
+      'Multiple media' => 'Mixed material',
+      'Object' => 'Three dimensional object',
+      'Philatelic record' => 'Still image',
+      'Sound recording' => 'Sound recording',
+      'Technical drawing' => 'Still image',
+      'Textual record' => 'Text');
   }
 
   public function __toString()
@@ -196,7 +208,7 @@ class sfModsPlugin implements ArrayAccess
 
         foreach ($this->resource->getTermRelations(QubitTaxonomy::MATERIAL_TYPE_ID) as $relation)
         {
-          array_push($materialTypes, $relation->term->getName(array('cultureFallback' => true)));
+          array_push($materialTypes, $relation->term->getName(array('sourceCulture' => true)));
         }
 
         return $materialTypes;

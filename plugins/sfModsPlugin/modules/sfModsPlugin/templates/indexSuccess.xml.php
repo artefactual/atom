@@ -75,7 +75,7 @@
 
   <?php if (0 < count($materialTypes = $mods->materialTypes)): ?>
     <?php foreach ($materialTypes as $materialType): ?>
-      <note type="gmd"><?php echo esc_specialchars($materialType) ?></note>
+      <typeOfResource><?php echo esc_specialchars($mods->gmdMapping[$materialType]) ?></typeOfResource>
     <?php endforeach; ?>
   <?php endif; ?>
 
