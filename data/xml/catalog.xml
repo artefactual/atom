@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!DOCTYPE catalog
+  PUBLIC "-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN"
+         "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd">
+
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+
+  <system
+    systemId="http://www.w3.org/2001/03/xml.xsd"
+    uri="../xsd/xml.xsd"/>
+
+  <system
+    systemId="http://www.loc.gov/standards/xlink/xlink.xsd"
+    uri="../xsd/xlink.xsd"/>
+
+  <system
+    systemId="http://dublincore.org/schemas/xmls/simpledc20021212.xsd"
+    uri="../xsd/simpledc20021212.xsd"/>
+
+  <system
+    systemId="http://www.openarchives.org/OAI/2.0/oai_dc.xsd"
+    uri="../xsd/oai_dc.xsd"/>
+
+  <system
+    systemId="http://www.loc.gov/mods/xml.xsd"
+    uri="../xsd/xml.xsd"/>
+
+  <system
+    systemId="http://www.loc.gov/standards/mods/v3/mods.xsd"
+    uri="../xsd/mods.xsd"/>
+
+  <public
+    publicId="+//ISBN 1-931666-00-8//DTD ead.dtd (Encoded Archival Description (EAD) Version 2002)//EN"
+    uri="../dtd/ead.dtd"/>
+
+  <group>
+
+    <public
+      publicId='ISO 8879:1986//ENTITIES Added Latin 1//EN//XML'
+      uri='../ent/iso-lat1.ent'/>
+
+    <public
+      publicId='ISO 8879:1986//ENTITIES Added Latin 2//EN//XML'
+      uri='../ent/iso-lat2.ent'/>
+
+    <public
+      publicId='ISO 8879:1986//ENTITIES Greek Symbols//EN//XML'
+      uri='../ent/iso-grk3.ent'/>
+
+    <public
+      publicId='ISO 8879:1986//ENTITIES Alternative Greek Symbols//EN//XML'
+      uri='../ent/iso-grk4.ent'/>
+
+   <public
+      publicId='ISO 8879:1986//ENTITIES Greek Letters//EN//XML'
+      uri='../ent/iso-grk1.ent'/>
+
+    <public
+      publicId='ISO 8879:1986//ENTITIES Monotoniko Greek//EN//XML'
+      uri='../ent/iso-grk2.ent'/>
+
+    <public
+      publicId='ISO 8879:1986//ENTITIES Diacritical Marks//EN//XML'
+      uri='../ent/iso-dia.ent'/>
+
+    <public
+      publicId='ISO 8879:1986//ENTITIES Numeric and Special Graphic//EN//XML'
+      uri='../ent/iso-num.ent'/>
+
+    <public
+      publicId='ISO 8879:1986//ENTITIES Publishing//EN//XML'
+      uri='../ent/iso-pub.ent'/>
+
+    <public
+      publicId='ISO 8879:1986//ENTITIES General Technical//EN//XML'
+      uri='../ent/iso-tech.ent'/>
+
+    <public
+      publicId='ISO 8879:1986//ENTITIES Russian Cyrillic//EN//XML'
+      uri='../ent/iso-cyr1.ent'/>
+
+    <public
+      publicId='ISO 8879:1986//ENTITIES Non-Russian Cyrillic//EN//XML'
+      uri='../ent/iso-cyr2.ent'/>
+
+  </group>
+
+</catalog>
