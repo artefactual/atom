@@ -40,7 +40,7 @@ class sfInstallPluginConfigureSiteAction extends sfAction
 
     $this->form->setValidator('siteBaseUrl', new sfValidatorUrl(array('required' => true)));
     $this->form->setWidget('siteBaseUrl', new sfWidgetFormInput);
-    $this->form->setDefault('siteBaseUrl', sfContext::getInstance()->getController()->genUrl('homepage', true));
+    $this->form->setDefault('siteBaseUrl', 'http://'. $_SERVER['HTTP_HOST']);
 
     $this->form->setValidator('username', new sfValidatorString(array('required' => true)));
     $this->form->setWidget('username', new sfWidgetFormInput);
@@ -56,6 +56,11 @@ class sfInstallPluginConfigureSiteAction extends sfAction
         $setting = new QubitSetting;
         $setting->name = 'siteTitle';
         $setting->value = $this->form->getValue('siteTitle');
+        $setting->save();
+
+        $setting = new QubitSetting;
+        $setting->name = 'siteBaseUrl';
+        $setting->value = $this->form->getValue('siteBaseUrl');
         $setting->save();
 
         $setting = new QubitSetting;

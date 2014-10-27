@@ -41,7 +41,7 @@ class SettingsSiteInformationForm extends sfForm
     $this->widgetSchema->setLabels(array(
       'site_title' => __('Site title'),
       'site_description' => __('Site description'),
-      'site_base_url' => __('Site base URL')
+      'site_base_url' => __('Site base URL (used in MODS and EAD exports)')
     ));
 
     // Add helper text

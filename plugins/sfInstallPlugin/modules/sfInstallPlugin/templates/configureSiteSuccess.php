@@ -24,6 +24,12 @@
       ->label('Site base URL')
       ->renderRow() ?>
 
+    <div class="description">
+      <p>
+        The site base URL is used to assemble absolute URLs during EAD and MODS exports.
+      </p>
+    </div>
+
   </fieldset>
 
   <fieldset class="collapsible">
