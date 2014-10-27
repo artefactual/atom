@@ -20,6 +20,10 @@
 
     <?php echo $form->siteDescription->renderRow() ?>
 
+    <?php echo $form->siteBaseUrl
+      ->label('Site base URL')
+      ->renderRow() ?>
+
   </fieldset>
 
   <fieldset class="collapsible">

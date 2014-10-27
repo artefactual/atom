@@ -40,6 +40,7 @@ class sfInstallPluginConfigureSiteAction extends sfAction
 
     $this->form->setValidator('siteBaseUrl', new sfValidatorUrl(array('required' => true)));
     $this->form->setWidget('siteBaseUrl', new sfWidgetFormInput);
+    $this->form->setDefault('siteBaseUrl', sfContext::getInstance()->getController()->genUrl('homepage', true));
 
     $this->form->setValidator('username', new sfValidatorString(array('required' => true)));
     $this->form->setWidget('username', new sfWidgetFormInput);
