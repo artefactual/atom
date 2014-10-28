@@ -25,6 +25,12 @@ class DonorDeleteAction extends sfAction
 
     $this->resource = $this->getRoute()->resource;
 
+    // Check user authorization
+    if (!QubitAcl::check($this->resource, 'delete'))
+    {
+      QubitAcl::forwardUnauthorized();
+    }
+
     if ($request->isMethod('delete'))
     {
       foreach (QubitRelation::getBySubjectOrObjectId($this->resource->id) as $item)

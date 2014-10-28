@@ -31,6 +31,12 @@ class ActorDeleteAction extends sfAction
       $this->forward404();
     }
 
+    // Check user authorization
+    if (!QubitAcl::check($this->resource, 'delete'))
+    {
+      QubitAcl::forwardUnauthorized();
+    }
+
     if ($request->isMethod('delete'))
     {
       foreach ($this->resource->events as $item)

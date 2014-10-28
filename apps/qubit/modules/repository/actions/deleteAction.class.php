@@ -25,6 +25,18 @@ class RepositoryDeleteAction extends sfAction
 
     $this->resource = $this->getRoute()->resource;
 
+    // Check that this isn't the root
+    if (!isset($this->resource->parent))
+    {
+      $this->forward404();
+    }
+
+    // Check user authorization
+    if (!QubitAcl::check($this->resource, 'delete'))
+    {
+      QubitAcl::forwardUnauthorized();
+    }
+
     if ($request->isMethod('delete'))
     {
       foreach ($this->resource->informationObjects as $item)

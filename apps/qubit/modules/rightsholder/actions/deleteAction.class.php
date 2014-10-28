@@ -21,6 +21,12 @@ class RightsHolderDeleteAction extends sfAction
 {
   public function execute($request)
   {
+    // Check user authorization
+    if (!$this->getUser()->isAuthenticated())
+    {
+      QubitAcl::forwardUnauthorized();
+    }
+
     $this->form = new sfForm;
 
     $this->resource = $this->getRoute()->resource;

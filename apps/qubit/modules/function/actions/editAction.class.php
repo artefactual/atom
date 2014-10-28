@@ -35,10 +35,24 @@ class FunctionEditAction extends DefaultEditAction
     {
       $this->resource = $this->getRoute()->resource;
 
+      // Check user authorization
+      if (!QubitAcl::check($this->resource, 'update') && !QubitAcl::check($this->resource, 'translate'))
+      {
+        QubitAcl::forwardUnauthorized();
+      }
+
       // Add optimistic lock
       $this->form->setDefault('serialNumber', $this->resource->serialNumber);
       $this->form->setValidator('serialNumber', new sfValidatorInteger);
       $this->form->setWidget('serialNumber', new sfWidgetFormInputHidden);
+    }
+    else
+    {
+      // Check authorization
+      if (!QubitAcl::check($this->parent, 'create'))
+      {
+        QubitAcl::forwardUnauthorized();
+      }
     }
   }
 
