@@ -631,6 +631,12 @@ class InformationObjectEditAction extends DefaultEditAction
 
   public function execute($request)
   {
+    // Force subclassing
+    if ('informationobject' == $this->context->getModuleName() && 'edit' == $this->context->getActionName())
+    {
+      $this->forward404();
+    }
+
     parent::execute($request);
 
     if ($request->isMethod('post'))

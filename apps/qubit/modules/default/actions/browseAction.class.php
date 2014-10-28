@@ -233,6 +233,12 @@ class DefaultBrowseAction extends sfAction
 
   public function execute($request)
   {
+    // Force subclassing
+    if ('default' == $this->context->getModuleName() && 'edit' == $this->context->getActionName())
+    {
+      $this->forward404();
+    }
+
     if (empty($request->limit))
     {
       $request->limit = sfConfig::get('app_hits_per_page');

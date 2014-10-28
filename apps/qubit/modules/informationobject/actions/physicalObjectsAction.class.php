@@ -34,6 +34,12 @@ class InformationObjectPhysicalObjectsAction extends sfAction
       $this->forward404();
     }
 
+    // Check user authorization
+    if (!QubitAcl::check($this->resource, 'update'))
+    {
+      QubitAcl::forwardUnauthorized();
+    }
+
     $criteria = new Criteria;
     $criteria->add(QubitRelation::OBJECT_ID, $this->resource->id);
     $criteria->add(QubitRelation::TYPE_ID, QubitTerm::HAS_PHYSICAL_OBJECT_ID);

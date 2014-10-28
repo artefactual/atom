@@ -21,6 +21,12 @@ class ContactInformationIndexAction extends sfAction
 {
   public function execute($request)
   {
+    // Check user authorization
+    if (!$this->getUser()->isAuthenticated())
+    {
+      QubitAcl::forwardUnauthorized();
+    }
+
     $this->resource = QubitContactInformation::getById($request->id);
 
     if (!isset($this->resource))

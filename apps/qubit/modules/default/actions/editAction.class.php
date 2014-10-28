@@ -187,6 +187,12 @@ class DefaultEditAction extends sfAction
 
   public function execute($request)
   {
+    // Force subclassing
+    if ('default' == $this->context->getModuleName() && 'edit' == $this->context->getActionName())
+    {
+      $this->forward404();
+    }
+
     $this->form = new sfForm;
 
     $this->earlyExecute();
