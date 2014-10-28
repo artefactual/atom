@@ -25,3 +25,25 @@ passwordEdit:
 update:
   credentials: administrator
   is_secure: true
+
+indexTermAcl:
+  is_secure: true
+
+indexRepositoryAcl:
+  is_secure: true
+
+editActorAcl:
+  credentials: administrator
+  is_secure: true
+
+editInformationObjectAcl:
+  credentials: administrator
+  is_secure: true
+
+editRepositoryAcl:
+  credentials: administrator
+  is_secure: true
+
+editTermAcl:
+  credentials: administrator
+  is_secure: true

@@ -1,3 +1,11 @@
+delete:
+  credentials: administrator
+  is_secure: true
+
+edit:
+  credentials: administrator
+  is_secure: true
+
 list:
   credentials: administrator
   is_secure: true
