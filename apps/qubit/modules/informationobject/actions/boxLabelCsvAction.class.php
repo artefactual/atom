@@ -28,6 +28,12 @@ class InformationObjectBoxLabelCsvAction extends sfAction
       $this->forward404();
     }
 
+    // Check user authorization
+    if (!QubitAcl::check($this->resource, 'read'))
+    {
+      QubitAcl::forwardUnauthorized();
+    }
+
     // Use php://temp stream, max 2M
     $csv = fopen('php://temp/maxmemory:'. (2*1024*1024), 'r+');
 

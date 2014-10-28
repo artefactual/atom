@@ -84,6 +84,14 @@ class TermEditAction extends DefaultEditAction
 
       $title = $this->context->i18n->__('Edit %1%', array('%1%' => $title));
     }
+    else
+    {
+      // Check authorization
+      if (!QubitAcl::check($this->resource, 'create'))
+      {
+        QubitAcl::forwardUnauthorized();
+      }
+    }
 
     $this->response->setTitle("$title - {$this->response->getTitle()}");
   }

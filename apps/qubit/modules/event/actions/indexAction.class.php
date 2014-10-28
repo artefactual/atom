@@ -21,6 +21,11 @@ class EventIndexAction extends sfAction
 {
   public function execute($request)
   {
+    if (!$this->getUser()->isAuthenticated())
+    {
+      QubitAcl::forwardUnauthorized();
+    }
+
     $this->resource = $this->getRoute()->resource;
 
     $value = array();
