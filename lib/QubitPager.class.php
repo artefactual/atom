@@ -22,6 +22,7 @@
  *
  * @package AccesstoMemory
  * @author  David Juhasz <david@artefactual.com>
+ * @author  Mike Cantelon <mike@artefactual.com>
  */
 class QubitPager extends sfPropelPager
 {
@@ -78,5 +79,26 @@ class QubitPager extends sfPropelPager
     $this->init();
 
     return parent::getResults();
+  }
+
+  /**
+   * Similar to getResults but gets raw row data, not objects
+   *
+   * Columns need to be selected using the criteria
+   *
+   * Example: $criteria->addSelectColumn(QubitInformationObject::ID);
+   * 
+   */
+  public function getRows(Criteria $criteria)
+  {
+    $this->init();
+
+    $class = $this->class;
+
+    $options = array();
+    $options['connection'] = Propel::getConnection($class::DATABASE_NAME);
+    $options['rows'] = true;
+
+    return QubitQuery::createFromCriteria($criteria, $this->class, $options);
   }
 }

@@ -77,7 +77,7 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
     return array($this->statement, $sorted);
   }
 
-  protected function getObjects(QubitQuery $leaf)
+  protected function getData(QubitQuery $leaf)
   {
     // HACK Tell the caller whether we sorted according to the leaf
     $sorted = false;
@@ -86,7 +86,7 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
     {
       if (isset($this->parent))
       {
-        list ($this->objects, $sorted) = $this->parent->getObjects($leaf);
+        list ($this->objects, $sorted) = $this->parent->getData($leaf);
 
         // Possibly re-index
         if (isset($this->indexByName))
@@ -111,8 +111,13 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
 
           while ($row = $this->statement->fetch())
           {
-            // $this->parent is unset, so we should have a className?
-            $object = call_user_func(array($this->className, 'getFromRow'), $row);
+            if (isset($this->options['rows']) && $this->options['rows'])
+            {
+              $object = $row;
+            } else {
+              // $this->parent is unset, so we should have a className?
+              $object = call_user_func(array($this->className, 'getFromRow'), $row);
+            }
 
             // TODO $this->parent is unset, so we probably do not have
             // $this->indexByName, but it would be nice to use the indexByName
@@ -170,7 +175,7 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
 
   public function __isset($name)
   {
-    list ($objects, $sorted) = $this->getObjects($this);
+    list ($objects, $sorted) = $this->getData($this);
 
     return array_key_exists($name, $this->objects);
   }
@@ -194,7 +199,7 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
       return $this->objects;
     }
 
-    list ($objects, $sorted) = $this->getObjects($this);
+    list ($objects, $sorted) = $this->getData($this);
 
     if (isset($this->objects[$name]))
     {
@@ -282,14 +287,14 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
 
   public function current()
   {
-    list ($objects, $sorted) = $this->getObjects($this);
+    list ($objects, $sorted) = $this->getData($this);
 
     return current($this->objects);
   }
 
   public function key()
   {
-    list ($objects, $sorted) = $this->getObjects($this);
+    list ($objects, $sorted) = $this->getData($this);
 
     return key($this->objects);
   }
@@ -298,7 +303,7 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
   {
     $this->offset++;
 
-    list ($objects, $sorted) = $this->getObjects($this);
+    list ($objects, $sorted) = $this->getData($this);
 
     return next($this->objects);
   }
@@ -307,14 +312,14 @@ class QubitQuery implements ArrayAccess, Countable, Iterator
   {
     $this->offset = 0;
 
-    list ($objects, $sorted) = $this->getObjects($this);
+    list ($objects, $sorted) = $this->getData($this);
 
     return reset($this->objects);
   }
 
   public function valid()
   {
-    list ($objects, $sorted) = $this->getObjects($this);
+    list ($objects, $sorted) = $this->getData($this);
 
     return $this->offset < count($this->objects);
   }
