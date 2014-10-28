@@ -21,7 +21,8 @@ class RightsHolderListAction extends sfAction
 {
   public function execute($request)
   {
-    if (!$this->context->user->hasCredential(array('contributor', 'editor', 'administrator'), false))
+    // Check user authorization
+    if (!$this->getUser()->isAuthenticated())
     {
       QubitAcl::forwardUnauthorized();
     }
