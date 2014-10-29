@@ -53,12 +53,12 @@ informationobject/action:
     module: informationobject
     action: { pattern: 'addDigitalObject|fileList|multiFileUpload|reports' }
 
-repository/action:
-  url: /:slug/:action
+repository/popular:
+  url: /:slug/popular
   class: QubitResourceRoute
   param:
     module: repository
-    action: { pattern: 'popular' }
+    action: popular
 
 oai:
   url: /;oai
