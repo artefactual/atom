@@ -98,11 +98,6 @@ abstract class BaseRights extends QubitObject implements ArrayAccess
     {
     }
 
-    if ('grantedRights' == $name)
-    {
-      return true;
-    }
-
     if ('rightsI18ns' == $name)
     {
       return true;
@@ -140,23 +135,6 @@ abstract class BaseRights extends QubitObject implements ArrayAccess
     }
     catch (sfException $e)
     {
-    }
-
-    if ('grantedRights' == $name)
-    {
-      if (!isset($this->refFkValues['grantedRights']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['grantedRights'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['grantedRights'] = self::getgrantedRightsById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['grantedRights'];
     }
 
     if ('rightsI18ns' == $name)
@@ -269,26 +247,6 @@ abstract class BaseRights extends QubitObject implements ArrayAccess
     $criteria->addJoin(QubitRights::COPYRIGHT_STATUS_ID, QubitTerm::ID);
 
     return $criteria;
-  }
-
-  public static function addgrantedRightsCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitGrantedRight::RIGHTS_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getgrantedRightsById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addgrantedRightsCriteriaById($criteria, $id);
-
-    return QubitGrantedRight::get($criteria, $options);
-  }
-
-  public function addgrantedRightsCriteria(Criteria $criteria)
-  {
-    return self::addgrantedRightsCriteriaById($criteria, $this->id);
   }
 
   public static function addrightsI18nsCriteriaById(Criteria $criteria, $id)

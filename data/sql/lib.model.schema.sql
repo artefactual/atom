@@ -1023,36 +1023,6 @@ CREATE TABLE `rights`
 )Engine=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- granted_right
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `granted_right`;
-
-
-CREATE TABLE `granted_right`
-(
-	`rights_id` INTEGER  NOT NULL,
-	`act_id` INTEGER,
-	`restriction` TINYINT default 1,
-	`start_date` DATE,
-	`end_date` DATE,
-	`notes` TEXT,
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`serial_number` INTEGER default 0 NOT NULL,
-	PRIMARY KEY (`id`),
-	INDEX `granted_right_FI_1` (`rights_id`),
-	CONSTRAINT `granted_right_FK_1`
-		FOREIGN KEY (`rights_id`)
-		REFERENCES `rights` (`id`)
-		ON DELETE CASCADE,
-	INDEX `granted_right_FI_2` (`act_id`),
-	CONSTRAINT `granted_right_FK_2`
-		FOREIGN KEY (`act_id`)
-		REFERENCES `term` (`id`)
-		ON DELETE SET NULL
-)Engine=InnoDB;
-
-#-----------------------------------------------------------------------------
 #-- rights_i18n
 #-----------------------------------------------------------------------------
 
