@@ -68,6 +68,12 @@ abstract class Net_Gearman_Job
         $file = NET_GEARMAN_JOB_PATH . '/' . $job . '.php';
         include_once $file;
         $class = NET_GEARMAN_JOB_CLASS_PREFIX . $job;
+
+        // Strip out any potential prefixes used in uniquely identifying AtoM installs.
+        // e.g. "/var/www/atom - arMyJob" -> "arMyJob"
+        // See issue #7423
+        $class = str_replace(QubitJob::getJobPrefix(), '', $class);
+
         if (!class_exists($class)) {
             throw new Net_Gearman_Job_Exception('Invalid Job class');
         }

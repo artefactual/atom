@@ -121,6 +121,13 @@ QubitMenu:
       sl: Donatorji
       th: ผู้บริจาค
     path: donor/browse
+  QubitMenu_mainmenu_manage_jobs:
+    parent_id: QubitMenu_mainmenu_manage
+    source_culture: en
+    name: jobs
+    label:
+      en: Jobs
+    path: jobs/browse
   QubitMenu_mainmenu_manage_physicalobject:
     parent_id: QubitMenu_mainmenu_manage
     source_culture: en

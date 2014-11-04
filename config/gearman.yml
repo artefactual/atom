@@ -1,0 +1,10 @@
+all:
+  servers:
+    default:
+      host: 127.0.0.1
+      port: 4730
+
+  worker_types:
+    general: [arGenerateFindingAid, arDeleteInformationObjectJob]
+    acl: [arInheritRightsJob]
+    sword: [qtSwordPluginWorker]
