@@ -185,17 +185,17 @@ abstract class BaseObject implements ArrayAccess
       }
     }
 
-    if ('aclPermissions' == $name)
-    {
-      return true;
-    }
-
     if ('accessLogs' == $name)
     {
       return true;
     }
 
     if ('aipsRelatedBypartOf' == $name)
+    {
+      return true;
+    }
+
+    if ('jobsRelatedByobjectId' == $name)
     {
       return true;
     }
@@ -236,6 +236,11 @@ abstract class BaseObject implements ArrayAccess
     }
 
     if ('statuss' == $name)
+    {
+      return true;
+    }
+
+    if ('aclPermissions' == $name)
     {
       return true;
     }
@@ -281,23 +286,6 @@ abstract class BaseObject implements ArrayAccess
       }
     }
 
-    if ('aclPermissions' == $name)
-    {
-      if (!isset($this->refFkValues['aclPermissions']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['aclPermissions'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['aclPermissions'] = self::getaclPermissionsById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['aclPermissions'];
-    }
-
     if ('accessLogs' == $name)
     {
       if (!isset($this->refFkValues['accessLogs']))
@@ -330,6 +318,23 @@ abstract class BaseObject implements ArrayAccess
       }
 
       return $this->refFkValues['aipsRelatedBypartOf'];
+    }
+
+    if ('jobsRelatedByobjectId' == $name)
+    {
+      if (!isset($this->refFkValues['jobsRelatedByobjectId']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['jobsRelatedByobjectId'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['jobsRelatedByobjectId'] = self::getjobsRelatedByobjectIdById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['jobsRelatedByobjectId'];
     }
 
     if ('notes' == $name)
@@ -468,6 +473,23 @@ abstract class BaseObject implements ArrayAccess
       return $this->refFkValues['statuss'];
     }
 
+    if ('aclPermissions' == $name)
+    {
+      if (!isset($this->refFkValues['aclPermissions']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['aclPermissions'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['aclPermissions'] = self::getaclPermissionsById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['aclPermissions'];
+    }
+
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
   }
 
@@ -587,6 +609,11 @@ abstract class BaseObject implements ArrayAccess
         if (array_key_exists($column->getPhpName(), $this->values))
         {
           $this->row[$offset] = $this->values[$column->getPhpName()];
+        }
+
+        if ($this->new && $column->isPrimaryKey())
+        {
+          $this->keys[$column->getPhpName()] = $this->values[$column->getPhpName()];
         }
 
         $offset++;
@@ -776,26 +803,6 @@ abstract class BaseObject implements ArrayAccess
 		$this->setid($key);
 	}
 
-  public static function addaclPermissionsCriteriaById(Criteria $criteria, $id)
-  {
-    $criteria->add(QubitAclPermission::OBJECT_ID, $id);
-
-    return $criteria;
-  }
-
-  public static function getaclPermissionsById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addaclPermissionsCriteriaById($criteria, $id);
-
-    return QubitAclPermission::get($criteria, $options);
-  }
-
-  public function addaclPermissionsCriteria(Criteria $criteria)
-  {
-    return self::addaclPermissionsCriteriaById($criteria, $this->id);
-  }
-
   public static function addaccessLogsCriteriaById(Criteria $criteria, $id)
   {
     $criteria->add(QubitAccessLog::OBJECT_ID, $id);
@@ -834,6 +841,26 @@ abstract class BaseObject implements ArrayAccess
   public function addaipsRelatedBypartOfCriteria(Criteria $criteria)
   {
     return self::addaipsRelatedBypartOfCriteriaById($criteria, $this->id);
+  }
+
+  public static function addjobsRelatedByobjectIdCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitJob::OBJECT_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getjobsRelatedByobjectIdById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addjobsRelatedByobjectIdCriteriaById($criteria, $id);
+
+    return QubitJob::get($criteria, $options);
+  }
+
+  public function addjobsRelatedByobjectIdCriteria(Criteria $criteria)
+  {
+    return self::addjobsRelatedByobjectIdCriteriaById($criteria, $this->id);
   }
 
   public static function addnotesCriteriaById(Criteria $criteria, $id)
@@ -994,6 +1021,26 @@ abstract class BaseObject implements ArrayAccess
   public function addstatussCriteria(Criteria $criteria)
   {
     return self::addstatussCriteriaById($criteria, $this->id);
+  }
+
+  public static function addaclPermissionsCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitAclPermission::OBJECT_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function getaclPermissionsById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addaclPermissionsCriteriaById($criteria, $id);
+
+    return QubitAclPermission::get($criteria, $options);
+  }
+
+  public function addaclPermissionsCriteria(Criteria $criteria)
+  {
+    return self::addaclPermissionsCriteriaById($criteria, $this->id);
   }
 
   public function __call($name, $args)

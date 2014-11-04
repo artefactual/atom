@@ -9,7 +9,9 @@ abstract class BaseRightsI18n implements ArrayAccess
 
     RIGHTS_NOTE = 'rights_i18n.RIGHTS_NOTE',
     COPYRIGHT_NOTE = 'rights_i18n.COPYRIGHT_NOTE',
-    LICENSE_IDENTIFIER = 'rights_i18n.LICENSE_IDENTIFIER',
+    IDENTIFIER_VALUE = 'rights_i18n.IDENTIFIER_VALUE',
+    IDENTIFIER_TYPE = 'rights_i18n.IDENTIFIER_TYPE',
+    IDENTIFIER_ROLE = 'rights_i18n.IDENTIFIER_ROLE',
     LICENSE_TERMS = 'rights_i18n.LICENSE_TERMS',
     LICENSE_NOTE = 'rights_i18n.LICENSE_NOTE',
     STATUTE_JURISDICTION = 'rights_i18n.STATUTE_JURISDICTION',
@@ -22,7 +24,9 @@ abstract class BaseRightsI18n implements ArrayAccess
   {
     $criteria->addSelectColumn(QubitRightsI18n::RIGHTS_NOTE);
     $criteria->addSelectColumn(QubitRightsI18n::COPYRIGHT_NOTE);
-    $criteria->addSelectColumn(QubitRightsI18n::LICENSE_IDENTIFIER);
+    $criteria->addSelectColumn(QubitRightsI18n::IDENTIFIER_VALUE);
+    $criteria->addSelectColumn(QubitRightsI18n::IDENTIFIER_TYPE);
+    $criteria->addSelectColumn(QubitRightsI18n::IDENTIFIER_ROLE);
     $criteria->addSelectColumn(QubitRightsI18n::LICENSE_TERMS);
     $criteria->addSelectColumn(QubitRightsI18n::LICENSE_NOTE);
     $criteria->addSelectColumn(QubitRightsI18n::STATUTE_JURISDICTION);
@@ -44,8 +48,8 @@ abstract class BaseRightsI18n implements ArrayAccess
   public static function getFromRow(array $row)
   {
     $keys = array();
-    $keys['id'] = $row[8];
-    $keys['culture'] = $row[9];
+    $keys['id'] = $row[10];
+    $keys['culture'] = $row[11];
 
     $key = serialize($keys);
     if (!isset(self::$rightsI18ns[$key]))

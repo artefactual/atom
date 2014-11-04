@@ -1,33 +1,37 @@
 <?php
 
-abstract class BaseProperty implements ArrayAccess
+abstract class BaseGrantedRight implements ArrayAccess
 {
   const
     DATABASE_NAME = 'propel',
 
-    TABLE_NAME = 'property',
+    TABLE_NAME = 'granted_right',
 
-    OBJECT_ID = 'property.OBJECT_ID',
-    SCOPE = 'property.SCOPE',
-    NAME = 'property.NAME',
-    SOURCE_CULTURE = 'property.SOURCE_CULTURE',
-    ID = 'property.ID',
-    SERIAL_NUMBER = 'property.SERIAL_NUMBER';
+    RIGHTS_ID = 'granted_right.RIGHTS_ID',
+    ACT_ID = 'granted_right.ACT_ID',
+    RESTRICTION = 'granted_right.RESTRICTION',
+    START_DATE = 'granted_right.START_DATE',
+    END_DATE = 'granted_right.END_DATE',
+    NOTES = 'granted_right.NOTES',
+    ID = 'granted_right.ID',
+    SERIAL_NUMBER = 'granted_right.SERIAL_NUMBER';
 
   public static function addSelectColumns(Criteria $criteria)
   {
-    $criteria->addSelectColumn(QubitProperty::OBJECT_ID);
-    $criteria->addSelectColumn(QubitProperty::SCOPE);
-    $criteria->addSelectColumn(QubitProperty::NAME);
-    $criteria->addSelectColumn(QubitProperty::SOURCE_CULTURE);
-    $criteria->addSelectColumn(QubitProperty::ID);
-    $criteria->addSelectColumn(QubitProperty::SERIAL_NUMBER);
+    $criteria->addSelectColumn(QubitGrantedRight::RIGHTS_ID);
+    $criteria->addSelectColumn(QubitGrantedRight::ACT_ID);
+    $criteria->addSelectColumn(QubitGrantedRight::RESTRICTION);
+    $criteria->addSelectColumn(QubitGrantedRight::START_DATE);
+    $criteria->addSelectColumn(QubitGrantedRight::END_DATE);
+    $criteria->addSelectColumn(QubitGrantedRight::NOTES);
+    $criteria->addSelectColumn(QubitGrantedRight::ID);
+    $criteria->addSelectColumn(QubitGrantedRight::SERIAL_NUMBER);
 
     return $criteria;
   }
 
   protected static
-    $propertys = array();
+    $grantedRights = array();
 
   protected
     $keys = array(),
@@ -36,39 +40,39 @@ abstract class BaseProperty implements ArrayAccess
   public static function getFromRow(array $row)
   {
     $keys = array();
-    $keys['id'] = $row[4];
+    $keys['id'] = $row[6];
 
     $key = serialize($keys);
-    if (!isset(self::$propertys[$key]))
+    if (!isset(self::$grantedRights[$key]))
     {
-      $property = new QubitProperty;
+      $grantedRight = new QubitGrantedRight;
 
-      $property->keys = $keys;
-      $property->row = $row;
+      $grantedRight->keys = $keys;
+      $grantedRight->row = $row;
 
-      $property->new = false;
+      $grantedRight->new = false;
 
-      self::$propertys[$key] = $property;
+      self::$grantedRights[$key] = $grantedRight;
     }
 
-    return self::$propertys[$key];
+    return self::$grantedRights[$key];
   }
 
   public static function clearCache()
   {
-    self::$propertys = array();
+    self::$grantedRights = array();
   }
 
   public static function get(Criteria $criteria, array $options = array())
   {
     if (!isset($options['connection']))
     {
-      $options['connection'] = Propel::getConnection(QubitProperty::DATABASE_NAME);
+      $options['connection'] = Propel::getConnection(QubitGrantedRight::DATABASE_NAME);
     }
 
     self::addSelectColumns($criteria);
 
-    return QubitQuery::createFromCriteria($criteria, 'QubitProperty', $options);
+    return QubitQuery::createFromCriteria($criteria, 'QubitGrantedRight', $options);
   }
 
   public static function getAll(array $options = array())
@@ -86,7 +90,7 @@ abstract class BaseProperty implements ArrayAccess
   public static function getById($id, array $options = array())
   {
     $criteria = new Criteria;
-    $criteria->add(QubitProperty::ID, $id);
+    $criteria->add(QubitGrantedRight::ID, $id);
 
     if (1 == count($query = self::get($criteria, $options)))
     {
@@ -98,7 +102,7 @@ abstract class BaseProperty implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitProperty::DATABASE_NAME);
+      $connection = QubitTransactionFilter::getConnection(QubitGrantedRight::DATABASE_NAME);
     }
 
     $affectedRows = 0;
@@ -113,7 +117,7 @@ abstract class BaseProperty implements ArrayAccess
 
   public function __construct()
   {
-    $this->tables[] = Propel::getDatabaseMap(QubitProperty::DATABASE_NAME)->getTable(QubitProperty::TABLE_NAME);
+    $this->tables[] = Propel::getDatabaseMap(QubitGrantedRight::DATABASE_NAME)->getTable(QubitGrantedRight::TABLE_NAME);
   }
 
   protected
@@ -141,11 +145,11 @@ abstract class BaseProperty implements ArrayAccess
 
       if (!isset($options['connection']))
       {
-        $options['connection'] = Propel::getConnection(QubitProperty::DATABASE_NAME);
+        $options['connection'] = Propel::getConnection(QubitGrantedRight::DATABASE_NAME);
       }
 
       $criteria = new Criteria;
-      $criteria->add(QubitProperty::ID, $this->id);
+      $criteria->add(QubitGrantedRight::ID, $this->id);
 
       call_user_func(array(get_class($this), 'addSelectColumns'), $criteria);
 
@@ -183,24 +187,6 @@ abstract class BaseProperty implements ArrayAccess
 
         $offset++;
       }
-    }
-
-    if ('propertyI18ns' == $name)
-    {
-      return true;
-    }
-
-    try
-    {
-      if (!$value = call_user_func_array(array($this->getCurrentpropertyI18n($options), '__isset'), $args) && !empty($options['cultureFallback']))
-      {
-        return call_user_func_array(array($this->getCurrentpropertyI18n(array('sourceCulture' => true) + $options), '__isset'), $args);
-      }
-
-      return $value;
-    }
-    catch (sfException $e)
-    {
     }
 
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
@@ -244,36 +230,6 @@ abstract class BaseProperty implements ArrayAccess
       }
     }
 
-    if ('propertyI18ns' == $name)
-    {
-      if (!isset($this->refFkValues['propertyI18ns']))
-      {
-        if (!isset($this->id))
-        {
-          $this->refFkValues['propertyI18ns'] = QubitQuery::create();
-        }
-        else
-        {
-          $this->refFkValues['propertyI18ns'] = self::getpropertyI18nsById($this->id, array('self' => $this) + $options);
-        }
-      }
-
-      return $this->refFkValues['propertyI18ns'];
-    }
-
-    try
-    {
-      if (1 > strlen($value = call_user_func_array(array($this->getCurrentpropertyI18n($options), '__get'), $args)) && !empty($options['cultureFallback']))
-      {
-        return call_user_func_array(array($this->getCurrentpropertyI18n(array('sourceCulture' => true) + $options), '__get'), $args);
-      }
-
-      return $value;
-    }
-    catch (sfException $e)
-    {
-    }
-
     throw new sfException("Unknown record property \"$name\" on \"".get_class($this).'"');
   }
 
@@ -315,8 +271,6 @@ abstract class BaseProperty implements ArrayAccess
       }
     }
 
-    call_user_func_array(array($this->getCurrentpropertyI18n($options), '__set'), $args);
-
     return $this;
   }
 
@@ -329,14 +283,6 @@ abstract class BaseProperty implements ArrayAccess
 
   public function __unset($name)
   {
-    $args = func_get_args();
-
-    $options = array();
-    if (1 < count($args))
-    {
-      $options = $args[1];
-    }
-
     $offset = 0;
     foreach ($this->tables as $table)
     {
@@ -356,8 +302,6 @@ abstract class BaseProperty implements ArrayAccess
       }
     }
 
-    call_user_func_array(array($this->getCurrentpropertyI18n($options), '__unset'), $args);
-
     return $this;
   }
 
@@ -370,11 +314,6 @@ abstract class BaseProperty implements ArrayAccess
 
   public function clear()
   {
-    foreach ($this->propertyI18ns as $propertyI18n)
-    {
-      $propertyI18n->clear();
-    }
-
     $this->row = $this->values = array();
 
     return $this;
@@ -424,13 +363,6 @@ abstract class BaseProperty implements ArrayAccess
     $this->new = false;
     $this->values = array();
 
-    foreach ($this->propertyI18ns as $propertyI18n)
-    {
-      $propertyI18n->id = $this->id;
-
-      $propertyI18n->save($connection);
-    }
-
     return $this;
   }
 
@@ -477,7 +409,7 @@ abstract class BaseProperty implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitProperty::DATABASE_NAME);
+      $connection = QubitTransactionFilter::getConnection(QubitGrantedRight::DATABASE_NAME);
     }
 
     $offset = 0;
@@ -529,7 +461,7 @@ abstract class BaseProperty implements ArrayAccess
   {
     if (!isset($connection))
     {
-      $connection = QubitTransactionFilter::getConnection(QubitProperty::DATABASE_NAME);
+      $connection = QubitTransactionFilter::getConnection(QubitGrantedRight::DATABASE_NAME);
     }
 
     $offset = 0;
@@ -582,7 +514,7 @@ abstract class BaseProperty implements ArrayAccess
     }
 
     $criteria = new Criteria;
-    $criteria->add(QubitProperty::ID, $this->id);
+    $criteria->add(QubitGrantedRight::ID, $this->id);
 
     self::doDelete($criteria, $connection);
 
@@ -611,52 +543,18 @@ abstract class BaseProperty implements ArrayAccess
 		$this->setid($key);
 	}
 
-  public static function addJoinobjectCriteria(Criteria $criteria)
+  public static function addJoinrightsCriteria(Criteria $criteria)
   {
-    $criteria->addJoin(QubitProperty::OBJECT_ID, QubitObject::ID);
+    $criteria->addJoin(QubitGrantedRight::RIGHTS_ID, QubitRights::ID);
 
     return $criteria;
   }
 
-  public static function addpropertyI18nsCriteriaById(Criteria $criteria, $id)
+  public static function addJoinactCriteria(Criteria $criteria)
   {
-    $criteria->add(QubitPropertyI18n::ID, $id);
+    $criteria->addJoin(QubitGrantedRight::ACT_ID, QubitTerm::ID);
 
     return $criteria;
-  }
-
-  public static function getpropertyI18nsById($id, array $options = array())
-  {
-    $criteria = new Criteria;
-    self::addpropertyI18nsCriteriaById($criteria, $id);
-
-    return QubitPropertyI18n::get($criteria, $options);
-  }
-
-  public function addpropertyI18nsCriteria(Criteria $criteria)
-  {
-    return self::addpropertyI18nsCriteriaById($criteria, $this->id);
-  }
-
-  public function getCurrentpropertyI18n(array $options = array())
-  {
-    if (!empty($options['sourceCulture']))
-    {
-      $options['culture'] = $this->sourceCulture;
-    }
-
-    if (!isset($options['culture']))
-    {
-      $options['culture'] = sfPropel::getDefaultCulture();
-    }
-
-    $propertyI18ns = $this->propertyI18ns->indexBy('culture');
-    if (!isset($propertyI18ns[$options['culture']]))
-    {
-      $propertyI18ns[$options['culture']] = new QubitPropertyI18n;
-    }
-
-    return $propertyI18ns[$options['culture']];
   }
 
   public function __call($name, $args)
