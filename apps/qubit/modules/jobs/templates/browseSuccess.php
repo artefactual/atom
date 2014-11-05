@@ -1,8 +1,8 @@
 <h1>Manage jobs</h1>
 <div>
-  <ul class="nav nav-tabs" style="margin:0px;padding:0px">
-    <li<?php if ('all' === $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('All jobs'), array('filter' => 'all') + $sf_request->getParameterHolder()->getAll()) ?></li>
-    <li<?php if ('active' === $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Active jobs'), array('filter' => 'active') + $sf_request->getParameterHolder()->getAll()) ?></li>
+  <ul class="nav nav-tabs" id="job-tabs">
+    <li<?php if ('all' === $filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('All jobs'), array('filter' => 'all') + $sf_request->getParameterHolder()->getAll()) ?></li>
+    <li<?php if ('active' === $filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Active jobs'), array('filter' => 'active') + $sf_request->getParameterHolder()->getAll()) ?></li>
   </ul>
 </div>
 <div class="tab-content">
@@ -14,12 +14,11 @@
         <th width="20%">Job name</th>
         <th width="10%">Job status</th>
         <th width="30%">Info</th>
-        <th width="15%">User</th>
+        <th width="10%">User</th>
       </tr>
     </thead>
 
     <?php $jobs = $pager->getResults() ?>
-    <?php $autoRefresh = $sf_request->autoRefresh; ?>
 
     <?php foreach ($jobs as $job): ?>
       <tr>
@@ -35,11 +34,11 @@
         <!-- Job status -->
         <td>
           <?php if ($job->statusId == QubitTerm::JOB_STATUS_COMPLETED_ID): ?>
-            <i class="icon-check-sign" style="color:#00CC00"></i>
+            <i class="icon-check-sign" id="job-check-color"></i>
           <?php elseif ($job->statusId == QubitTerm::JOB_STATUS_ERROR_ID): ?>
-            <i class="icon-warning-sign" style="color:#CC0000"></i>
+            <i class="icon-warning-sign" id="job-warning-color"></i>
           <?php elseif ($job->statusId == QubitTerm::JOB_STATUS_IN_PROGRESS_ID): ?>
-            <i class="icon-cogs" style="color:#666666"></i>
+            <i class="icon-cogs" id="job-cogs-color"></i>
           <?php endif; ?>
 
           <?php echo ucfirst($job->getStatusString()) ?>
@@ -65,15 +64,15 @@
 
 <!-- User tips -->
 <?php if ($this->context->user->isAdministrator() && $jobs->count()): ?>
-  <div class="messages" style="background-color:#FFFFCC">
-    <i class="icon-info-sign" style="color:#336699"></i>&nbsp;You may only clear jobs belonging to you.
+  <div class="messages" id="job-info-box">
+    <i class="icon-info-sign" id="job-info-box-icon"></i>&nbsp;You may only clear jobs belonging to you.
   </div>
 <?php endif; ?>
 
 <?php if (!$jobs->count()): ?>
-  <div class="messages error" style="margin-top:20px;">
+  <div class="messages error" id="job-error-box">
     <ul>
-        <li>There are no jobs to report on.</li>
+      <li>There are no jobs to report on.</li>
     </ul>
   </div>
 <?php endif; ?>
@@ -85,10 +84,10 @@
       <a class="c-btn" onClick="window.location.reload()"><i class="icon-refresh icon-large" ></i> Refresh</a>
     </li>
     <li>
-        <?php $autoRefreshIcons = sprintf("c-btn %s icon-large", $autoRefresh ? 'icon-ok-circle' : 'icon-circle-blank') ?>
-        <?php echo link_to(__(' Auto refresh'), array('module' => 'jobs', 'action' => 'browse',
-         'autoRefresh' => !$autoRefresh) + $sf_request->getParameterHolder()->getAll(),
-         array('class' => $autoRefreshIcons)) ?>
+      <?php $autoRefreshIcons = sprintf("c-btn %s icon-large", $autoRefresh ? 'icon-ok-circle' : 'icon-circle-blank') ?>
+      <?php echo link_to(__(' Auto refresh'), array('module' => 'jobs', 'action' => 'browse',
+        'autoRefresh' => !$autoRefresh) + $sf_request->getParameterHolder()->getAll(),
+        array('class' => $autoRefreshIcons)) ?>
     </li>
     <?php if ($jobs->count()): ?>
       <li>
