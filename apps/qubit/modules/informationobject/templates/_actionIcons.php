@@ -53,5 +53,45 @@
       </li>
     <?php endif; ?>
 
+    <?php if ($resource->parentId == QubitInformationObject::ROOT_ID): ?>
+      <li class="separator"><h4><?php echo __('Finding aid') ?></h4></li>
+      <?php $path = arGenerateFindingAid::getFindingAidPath($resource->id) ?>
+
+      <?php if ($sf_user->isAuthenticated()): ?>
+        <li>
+          <a href="<?php echo url_for(array($resource, 'module' => 'informationobject', 'action' => 'findingAid')) ?>">
+            <i class="icon-cogs"></i>
+            <?php echo __('Generate') ?>
+          </a>
+        </li>
+      <?php endif; ?>
+
+      <?php $faStatus = arGenerateFindingAid::getStatus($resource->id) ?>
+      <?php $faStatusString = arGenerateFindingAid::getStatusString($resource->id) ?>
+
+      <!-- Ensure file is actually there -->
+      <?php if ($faStatus === QubitTerm::JOB_STATUS_COMPLETED_ID && !file_exists($path)): ?>
+        <?php $faStatus = QubitTerm::JOB_STATUS_ERROR_ID ?>
+        <?php $faStatusString = 'File missing' ?>
+      <?php endif; ?>
+
+      <?php if ($faStatus === QubitTerm::JOB_STATUS_COMPLETED_ID): ?>
+        <li>
+          <a href="<?php echo public_path($path) ?>">
+
+            <i class="icon-upload-alt"></i>
+            <?php echo __('Download'); ?>
+          </a>
+        </li>
+      <?php else: ?>
+        <li>
+          <a>
+            <i class="icon-info-sign"></i>
+            <?php echo __('Status: ') . ucfirst($faStatusString); ?>
+          </a>
+        </li>
+      <?php endif; ?>
+    <?php endif; ?>
+
   </ul>
 </section>
