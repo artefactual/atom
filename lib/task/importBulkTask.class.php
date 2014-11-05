@@ -30,6 +30,7 @@ class importBulkTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('index', null, sfCommandOption::PARAMETER_NONE, 'Set to enable indexing on imported objects'),
       new sfCommandOption('taxonomy', null, sfCommandOption::PARAMETER_OPTIONAL, 'Set the taxonomy id to insert the SKOS concepts into'),
+      new sfCommandOption('completed-dir', null, sfCommandOption::PARAMETER_OPTIONAL, 'Directory to move completed files into'),
       new sfCommandOption('schema', null, sfCommandOption::PARAMETER_OPTIONAL, 'Schema to use if importing a CSV file'),
       new sfCommandOption('output', null, sfCommandOption::PARAMETER_OPTIONAL, 'Filename to output results in CSV format'),
       new sfCommandOption('verbose', '-v', sfCommandOption::PARAMETER_NONE, 'Verbose output'),
@@ -79,6 +80,12 @@ EOF;
     foreach ($files as $file)
     {
       $start = microtime(true);
+      $importer = null;
+
+      if ($options['verbose'])
+      {
+        print 'Importing: '. $file ."\n";
+      }
 
       // Choose import type based on file extension, eg. csv, xml
       if ('csv' == pathinfo($file, PATHINFO_EXTENSION))
@@ -99,7 +106,18 @@ EOF;
         continue;
       }
 
-      print '.';
+      if (isset($options['completed-dir']) && !empty($importer))
+      {
+        $path_info = pathinfo($file);
+        $move_source = $path_info['dirname'] .'/'. $path_info['basename'];
+        $move_destination = $options['completed-dir'] .'/'. $path_info['basename'];
+        rename($file, $move_destination);
+      }
+
+      if (!$options['verbose'])
+      {
+        print '.';
+      }
 
       // Try to free up memory
       unset($importer);
