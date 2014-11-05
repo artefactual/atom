@@ -36,7 +36,7 @@ class eadExportTask extends sfBaseTask
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('folder', sfCommandArgument::REQUIRED, 'The destination folder for XML export files.')
+      new sfCommandArgument('path', sfCommandArgument::REQUIRED, 'The destination path for XML export file(s).')
     ));
 
     $this->addOptions(array(
@@ -46,7 +46,8 @@ class eadExportTask extends sfBaseTask
       new sfCommandOption('items-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Indicate progress every n items.'),
       new sfCommandOption('format', null, sfCommandOption::PARAMETER_OPTIONAL, 'XML format ("ead" or "mods")', 'ead'),
       new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria'),
-      new sfCommandOption('current-level-only', null, sfCommandOption::PARAMETER_NONE, 'Do not export child descriptions of exported items')
+      new sfCommandOption('current-level-only', null, sfCommandOption::PARAMETER_NONE, 'Do not export child descriptions of exported items'),
+      new sfCommandOption('single-id', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export an EAD file for a single fonds or collection based on id')
     ));
   }
 
@@ -56,9 +57,13 @@ class eadExportTask extends sfBaseTask
   public function execute($arguments = array(), $options = array())
   {
     // Make sure arguments are valid
-    $this->checkForValidFolder($arguments['folder']);
     $options['format'] = strtolower($options['format']);
     $this->checkForValidExportFormat($options['format']);
+
+    if (!isset($options['single-id']))
+    {
+      $this->checkForValidFolder($arguments['path']);
+    }
 
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
@@ -115,10 +120,20 @@ class eadExportTask extends sfBaseTask
       $dom->loadXML($xml->asXML());
       $output = $dom->saveXML();
 
-      // save XML file
-      // (padding ID with zeros so filenames can be sorted in creation order for imports)
-      $filename = sprintf('%s_%s.xml', $options['format'], str_pad($row['id'], 9, '0', STR_PAD_LEFT));
-      $filePath = sprintf('%s/%s', $arguments['folder'], $filename);
+      if (isset($options['single-id']))
+      {
+        // If we're just exporting the one record, the given path
+        // is actually the full path+filename.
+        $filePath = $arguments['path'];
+      }
+      else
+      {
+        // save XML file
+        // (padding ID with zeros so filenames can be sorted in creation order for imports)
+        $filename = sprintf('%s_%s.xml', $options['format'], str_pad($row['id'], 9, '0', STR_PAD_LEFT));
+        $filePath = sprintf('%s/%s', $arguments['path'], $filename);
+      }
+
       file_put_contents($filePath, $output);
 
       // if progress indicator should be displayed, display it
@@ -171,6 +186,11 @@ class eadExportTask extends sfBaseTask
     $query = "SELECT * FROM information_object i
       INNER JOIN information_object_i18n i18n ON i.id=i18n.id
       WHERE ". $whereClause;
+
+    if (isset($options['single-id']))
+    {
+      $query .= ' AND i.id=' . $options['single-id'] . ' LIMIT 1';
+    }
 
     return $query;
   }
