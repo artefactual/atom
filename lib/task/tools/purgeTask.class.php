@@ -175,5 +175,6 @@ EOF;
     $options['email'] = 'demo@example.com';
     $options['username'] = 'demo';
     $options['password'] = 'demo';
+    $options['url'] = 'http://127.0.0.1';
   }
 }
