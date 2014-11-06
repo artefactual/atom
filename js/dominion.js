@@ -447,12 +447,6 @@
           {
             self.hide();
             self.hideRealm();
-
-            // Remove value when it's not a placeholder added before
-            if (Modernizr.input.placeholder)
-            {
-              self.$element.val('');
-            }
           }, 150);
 
         // Add placeholder as value in browsers without support
@@ -466,7 +460,11 @@
 
     focus: function (e)
       {
-        this.$element.val('');
+        if (!Modernizr.input.placeholder)
+        {
+          this.$element.val('');
+        }
+
         this.showRealm();
 
         this.$form.addClass('active');
