@@ -38,12 +38,12 @@
         <place><placeTerm><?php echo $item->getPlace() ?></placeTerm></place>
 
         <?php $dateTagName = $mods->getDateTagNameForEventType($item->typeId) ?>
-        <<?php echo $dateTagName ?>><?php echo $item->getDate(array('cultureFallback' => true)) ?> <?php if ($dateTagName == 'dateOther'): ?>(<?php echo $item->type ?>)<?php endif; ?></<?php echo $dateTagName ?>>
+        <<?php echo $dateTagName ?><?php if ($dateTagName == 'dateOther'): ?> type="Broadcasting"<?php endif; ?>><?php echo $item->getDate(array('cultureFallback' => true)) ?></<?php echo $dateTagName ?>>
         <?php if (!empty($item->startDate)): ?>
-          <<?php echo $dateTagName ?> point="start"><?php echo $item->startDate ?></<?php echo $dateTagName ?>>
+          <<?php echo $dateTagName ?><?php if ($dateTagName == 'dateOther'): ?> type="Broadcasting"<?php endif; ?> point="start"><?php echo $item->startDate ?></<?php echo $dateTagName ?>>
         <?php endif; ?>
         <?php if (!empty($item->endDate)): ?>
-          <<?php echo $dateTagName ?> point="end"><?php echo $item->endDate ?></<?php echo $dateTagName ?>>
+          <<?php echo $dateTagName ?><?php if ($dateTagName == 'dateOther'): ?> type="Broadcasting"<?php endif; ?> point="end"><?php echo $item->endDate ?></<?php echo $dateTagName ?>>
         <?php endif; ?>
 
       <?php endforeach; ?>
