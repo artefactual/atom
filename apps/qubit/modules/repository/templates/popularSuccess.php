@@ -56,7 +56,7 @@
     </tr>
   </thead><tbody>
     <?php foreach ($objects as $hit): ?>
-      <?php echo include_partial('repository/pageViewsSearchResult', array('hit' => $hit, 'rank' => $rank, 'referenceCodes' => $referenceCodes, 'parents' => $parents, 'pager' => $pager)) ?>
+      <?php echo include_partial('repository/pageViewsSearchResult', array('hit' => $hit, 'rank' => $rank, 'resources' => $resources, 'parents' => $parents, 'pager' => $pager)) ?>
       <?php $rank++ ?>
     <?php endforeach; ?>
   </tbody>
