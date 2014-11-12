@@ -203,36 +203,51 @@ class sfModsPlugin implements ArrayAccess
 
         return $this->resource->getTermRelations(QubitTaxonomy::MODS_RESOURCE_TYPE_ID);
 
-      case 'materialTypes':
+      case 'typeOfResourceForXml':
 
-        $materialTypes = array();
+        $typeOfResources = array();
 
         // Map to translate RAD GMD terms to MODS resource types
+        // and fix a couple of MODS resource types
         $map = array(
-          'architectural drawing' => 'Still image',
-          'cartographic material' => 'Cartographic',
-          'graphic material'      => 'Still image',
-          'moving images'         => 'Moving image',
-          'multiple media'        => 'Mixed material',
-          'object'                => 'Three dimensional object',
-          'philatelic record'     => 'Still image',
-          'sound recording'       => 'Sound recording',
-          'technical drawing'     => 'Still image',
-          'textual record'        => 'Text'
+          'architectural drawing' => 'still image',
+          'cartographic material' => 'cartographic',
+          'graphic material'      => 'still image',
+          'moving images'         => 'moving image',
+          'multiple media'        => 'mixed material',
+          'object'                => 'three dimensional object',
+          'philatelic record'     => 'still image',
+          'sound recording'       => 'sound recording',
+          'technical drawing'     => 'still image',
+          'textual record'        => 'text',
+          'sound recording - musical'        => 'sound recording-musical',
+          'sound recording - nonmusical'        => 'sound recording-nonmusical'
         );
+
+        foreach ($this->resource->getTermRelations(QubitTaxonomy::MODS_RESOURCE_TYPE_ID) as $relation)
+        {
+          $typeOfResource = $relation->term->getName(array('culture' => 'en'));
+
+          // Fix resource type string (some were throwing errors on XSD validation)
+          $normalizedTypeOfResource = trim(strtolower($typeOfResource));
+          $typeOfResource = (isset($map[$normalizedTypeOfResource])) ? $map[$normalizedTypeOfResource] : $typeOfResource;
+
+          array_push($typeOfResources, $typeOfResource);
+        }
 
         foreach ($this->resource->getTermRelations(QubitTaxonomy::MATERIAL_TYPE_ID) as $relation)
         {
-          $typeOfResource = $relation->term->getName(array('cultureFallback' => true));
+          $typeOfResource = $relation->term->getName(array('culture' => 'en'));
 
           // Translate RAD GMD terms to MODS resource types
           $normalizedTypeOfResource = trim(strtolower($typeOfResource));
           $typeOfResource = (isset($map[$normalizedTypeOfResource])) ? $map[$normalizedTypeOfResource] : $typeOfResource;
 
-          array_push($materialTypes, $typeOfResource);
+          array_push($typeOfResources, $typeOfResource);
         }
 
-        return $materialTypes;
+        // Return without duplicates
+        return array_unique($typeOfResources);
 
       case 'languageNotes':
 

@@ -19,15 +19,9 @@
     <?php endforeach; ?>
   <?php endif; ?>
 
-  <?php if (0 < count($mods->typeOfResource)): ?>
-    <?php foreach ($mods->typeOfResource as $item): ?>
-      <typeOfResource><?php echo esc_specialchars($item->term) ?></typeOfResource>
-    <?php endforeach; ?>
-  <?php endif; ?>
-
-  <?php if (0 < count($materialTypes = $mods->materialTypes)): ?>
-    <?php foreach ($materialTypes as $materialType): ?>
-      <typeOfResource><?php echo esc_specialchars($materialType) ?></typeOfResource>
+  <?php if (0 < count($mods->typeOfResourceForXml)): ?>
+    <?php foreach ($mods->typeOfResourceForXml as $item): ?>
+      <typeOfResource><?php echo esc_specialchars($item) ?></typeOfResource>
     <?php endforeach; ?>
   <?php endif; ?>
 
