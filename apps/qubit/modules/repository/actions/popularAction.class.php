@@ -36,111 +36,44 @@ class RepositoryPopularAction extends sfAction
       return sfView::HEADER_ONLY;
     }
 
+    // Take note of resource and 404 if not valid resource
     $this->resource = $this->getRoute()->resource;
     if (!isset($this->resource))
     {
       $this->forward404();
     }
 
-    // Expose these values to template
+    // Expose date parameters to template
     $this->startDate = $request->start_date;
     $this->endDate = $request->end_date;
 
-    // Get hits per object, and slug, in descending order of hits
-    $criteria = new Criteria;
-    $criteria->add(QubitAccessLog::ID, 0, Criteria::GREATER_THAN);
-    $criteria->addSelectColumn(QubitAccessLog::OBJECT_ID);
-    $criteria->addGroupByColumn(QubitAccessLog::OBJECT_ID);
-    $criteria->addAsColumn('hits', 'COUNT('. QubitAccessLog::OBJECT_ID .')');
+    // Assemble SQL queries
+    list ($reportCountSql, $reportCountSqlParams) = $this->reportCountSqlAndParams($request);
+    list ($reportSql, $reportSqlParams) = $this->reportSql($request);
 
-    // Filter by date
-    if (
-      (isset($request->start_date) && !empty($request->start_date))
-      && (isset($request->end_date) && !empty($request->end_date))
-    )
-    {
-      $criteria->add(
-        QubitAccessLog::ACCESS_DATE,
-        'DATE('. QubitAccessLog::ACCESS_DATE .") >= '". $request->start_date ."' AND DATE(". QubitAccessLog::ACCESS_DATE .") <= '". $request->end_date ."'",
-        Criteria::CUSTOM
-      );
-    }
-    else if (isset($request->start_date) && !empty($request->start_date)) 
-    {
-      $criteria->add(
-        QubitAccessLog::ACCESS_DATE,
-        'DATE('. QubitAccessLog::ACCESS_DATE .") >= '". $request->start_date ."'",
-        Criteria::CUSTOM
-      );
-    }
-    else if (isset($request->end_date) && !empty($request->end_date)) 
-    {
-      $criteria->add(
-        QubitAccessLog::ACCESS_DATE,
-        'DATE('. QubitAccessLog::ACCESS_DATE .") <= '". $request->end_date ."'",
-        Criteria::CUSTOM
-      );
-    }
-
-     // Sort results
-    $criteria->addDescendingOrderByColumn('hits');
-    $criteria->addAscendingOrderByColumn(QubitSlug::SLUG);
-
-    // Join with slugs
-    $criteria->addJoin(QubitAccessLog::OBJECT_ID, QubitSlug::OBJECT_ID);
-    $criteria->addSelectColumn(QubitSlug::SLUG);
-
-    // Join with information object tables
-    $criteria->addJoin(QubitAccessLog::OBJECT_ID, QubitInformationObject::ID);
-    $criteria->addSelectColumn(QubitInformationObject::ID);
-    $criteria->addSelectColumn(QubitInformationObject::IDENTIFIER);
-    $criteria->addSelectColumn(QubitInformationObject::PARENT_ID);
-
-    $criteria->addJoin(QubitAccessLog::OBJECT_ID, QubitInformationObjectI18n::ID);
-    $criteria->addSelectColumn(QubitInformationObjectI18n::TITLE);
-
-    // "ancestor" will be a join of the information object table with itself
-    // done to fetch the repository ID (if necessary)
-    $criteria->addAlias('ancestor', QubitInformationObject::TABLE_NAME);
-
-    $criteria->addMultipleJoin(
-      array(
-        array(QubitInformationObject::LFT, 'ancestor.LFT', Criteria::GREATER_THAN),
-        array(QubitInformationObject::RGT, 'ancestor.RGT', Criteria::LESS_THAN)
-      ),
-      Criteria::LEFT_JOIN
-    );
-
-    // Find information objects in specified repository
-    $c = new Criterion($criteria, QubitInformationObject::REPOSITORY_ID, $this->resource->id);
-    $c2 = new Criterion($criteria, 'ancestor.repository_id', $this->resource->id);
-    $c->addOr($c2);
-    $criteria->add($c);
-
-    // Paginate hits
-    $this->pager = new QubitPager('QubitAccessLog');
+    // Paginate results
+    $this->pager = new QubitPdoPager($reportSql, $reportSqlParams, $reportCountSql, $reportCountSqlParams);
     $this->pager->setMaxPerPage(10);
-    $this->pager->setPage($request->page);
-    $this->pager->setCriteria($criteria);
+    $this->pager->setPage($request->page ? $request->page : 1);
+    $this->objects = $this->pager->getResults();
 
-    $this->objects = $this->pager->getRows($criteria);
+    // Look up resource and parent resource details
+    $this->resources = array();
+    $this->parents   = array();
 
-    // Look up reference codes and top-level parents
-    $this->referenceCodes = array();
-    $this->parents = array();
     foreach($this->objects as $object)
     {
-      $resource = QubitInformationObject::getById($object['ID']);
-      $this->referenceCodes[$object['ID']] = $resource->referenceCode;
+      $resource = QubitInformationObject::getById($object->object_id);
+      $this->resources[$object->object_id] = $resource;
 
-      if ($object['PARENT_ID'] != QubitInformationObject::ROOT_ID)
+      if ($object->bot_parent_id != QubitInformationObject::ROOT_ID)
       {
         foreach ($resource->ancestors->andSelf()->orderBy('rgt') as $item)
         {
           // Stop iteration before the root object is reached
           if (QubitInformationObject::ROOT_ID == $item->parentId)
           {
-            $this->parents[($object['ID'])] = $item;
+            $this->parents[($object->object_id)] = $item;
             break;
           }
         }
@@ -149,5 +82,64 @@ class RepositoryPopularAction extends sfAction
 
     // Calculate starting rank on this page
     $this->rank = (($this->pager->getPage() - 1) * $this->pager->getMaxPerPage()) + 1;
+  }
+
+  protected function baseSqlClause()
+  {
+    // Get information objects for access log, self-joining to get repository ID
+    // from top-level description
+    return 'FROM information_object bot
+       JOIN information_object top
+         ON bot.lft >= top.lft AND bot.rgt <= top.rgt
+       JOIN access_log on bot.id = access_log.object_id
+       WHERE top.repository_id = '.  $this->resource->id .' ';
+  }
+
+  protected function dateFilterSqlClause($request, &$params)
+  {
+    $dateFilterClause = '';
+
+    if (isset($request->start_date) && !empty($request->start_date))
+    {
+      $dateFilterClause .= "AND access_log.access_date >= :start ";
+      $params[':start'] = $request->start_date;
+    }
+
+    if (isset($request->end_date) && !empty($request->end_date))
+    {
+      $dateFilterClause .= "AND access_log.access_date <= :end ";
+      $params[':end'] = $request->end_date;
+    }
+
+    return $dateFilterClause;
+  }
+
+  protected function reportCountSqlAndParams($request)
+  {
+    $params = array();
+
+    // SQL to get hit count
+    $reportCountSql = 'SELECT COUNT(DISTINCT access_log.object_id) AS hits '. $this->baseSqlClause();
+
+    // Filter by date
+    $reportCountSql .= $this->dateFilterSqlClause($request, $params);
+
+    return array($reportCountSql, $params);
+  }
+
+  protected function reportSql($request)
+  {
+    $params = array();
+
+    // SQL to get results
+    $reportSql = 'SELECT access_log.object_id, bot.parent_id AS bot_parent_id, COUNT(*) AS visits '. $this->baseSqlClause();
+
+    // Filter by date
+    $reportSql .= $this->dateFilterSqlClause($request, $params);
+
+    // Add grouping/ordering
+    $sql = $reportSql . 'GROUP BY access_log.object_id ORDER BY visits DESC';
+
+    return array($sql, $params);
   }
 }
