@@ -33,18 +33,6 @@ class sfModsPlugin implements ArrayAccess
   public function __construct(QubitInformationObject $resource)
   {
     $this->resource = $resource;
-
-    $this->gmdMapping = array(
-      'Architectural drawing' => 'Still image',
-      'Cartographic material' => 'Cartographic',
-      'Graphic material' => 'Still image',
-      'Moving images' => 'Moving image',
-      'Multiple media' => 'Mixed material',
-      'Object' => 'Three dimensional object',
-      'Philatelic record' => 'Still image',
-      'Sound recording' => 'Sound recording',
-      'Technical drawing' => 'Still image',
-      'Textual record' => 'Text');
   }
 
   public function __toString()
