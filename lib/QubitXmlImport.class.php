@@ -59,8 +59,25 @@ class QubitXmlImport
       $this->errors = array_merge((array) $this->errors, $xmlerrors);
     }
 
+    // Add local XML catalog for EAD DTD and DC and MODS XSD validations
+    putenv('XML_CATALOG_FILES='.sfConfig::get('sf_data_dir').DIRECTORY_SEPARATOR.'xml'.DIRECTORY_SEPARATOR.'catalog.xml');
+
     if ('mods' == $importDOM->documentElement->tagName)
     {
+      // XSD validation for MODS
+      $schema = sfConfig::get('sf_data_dir').DIRECTORY_SEPARATOR.'xsd'.DIRECTORY_SEPARATOR.'mods.xsd';
+
+      if (!$importDOM->schemaValidate($schema))
+      {
+        $this->errors[] = 'XSD validation failed';
+      }
+
+      // Populate errors to show in the template
+      foreach (libxml_get_errors() as $libxmlerror)
+      {
+        $this->errors[] = sfContext::getInstance()->i18n->__('libxml error %code% on line %line% in input file: %message%', array('%code%' => $libxmlerror->code, '%message%' => $libxmlerror->message, '%line%' => $libxmlerror->line));
+      }
+
       $p = new sfModsConvertor();
       $p->parse($xmlFile);
 
@@ -140,9 +157,6 @@ class QubitXmlImport
         $usedDescriptor = $descriptor;
       }
     }
-
-    // Add local XML catalog for EAD DTD and DC XSD validations
-    putenv('XML_CATALOG_FILES='.sfConfig::get('sf_data_dir').DIRECTORY_SEPARATOR.'xml'.DIRECTORY_SEPARATOR.'catalog.xml');
 
     switch ($importSchema)
     {
