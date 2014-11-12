@@ -1,7 +1,7 @@
 <?php
 
 class sfModsConvertor extends QubitSaxParser {
- 
+
   protected $resource;
 
   // Name access point-related bookkeeping
@@ -49,7 +49,7 @@ class sfModsConvertor extends QubitSaxParser {
     $this->importArrayOfTermNames(QubitTaxonomy::MODS_RESOURCE_TYPE_ID, $this->typesOfResources);
 
     // Material types
-    $this->importArrayOfTermNames(QubitTaxonomy::MATERIAL_TYPE_ID, $this->materialTypes);
+    $this->importArrayOfTermNames(QubitTaxonomy::MATERIAL_TYPE_ID, $this->typesOfResources);
 
     // Subject access points
     $this->importArrayOfTermNames(QubitTaxonomy::SUBJECT_ID, $this->subjects);
@@ -158,7 +158,7 @@ class sfModsConvertor extends QubitSaxParser {
   protected function accessConditionTag()
   {
     $this->resource->accessConditions = $this->data();
-  } 
+  }
 
   // </namePart>
   protected function namePartTag()
@@ -347,8 +347,8 @@ class sfModsConvertor extends QubitSaxParser {
       'text'                          => 'Textual record',
       'cartographic'                  => 'Cartographic material',
       'notated music'                 => 'Textual record',
-      'sound recording – musical'     => 'Sound recording',
-      'sound recording – non-musical' => 'Sound recording',
+      'sound recording-musical'     => 'Sound recording',
+      'sound recording-nonmusical' => 'Sound recording',
       'sound recording'               => 'Sound recording',
       'still image'                   => 'Graphic material',
       'moving image'                  => 'Moving images',
@@ -373,7 +373,7 @@ class sfModsConvertor extends QubitSaxParser {
       {
         $termName = $this->translateModsTypeOfResourceToRadGmd($termName);
       }
-      
+
       $term = QubitFlatfileImport::createOrFetchTerm($taxonomyId, $termName);
       QubitFlatfileImport::createObjectTermRelation($objectId, $term->id);
     }
