@@ -766,8 +766,11 @@ class arElasticSearchInformationObjectPdo
   {
     if (!isset(self::$statements['rights']))
     {
-      $sql  = 'SELECT *';
+      $sql  = 'SELECT
+                  rights.*, rightsi18n.*';
       $sql .= ' FROM '.QubitRights::TABLE_NAME.' rights';
+      $sql .= ' JOIN '.QubitRightsI18n::TABLE_NAME.' rightsi18n
+                  ON rights.id = rightsi18n.id';
       $sql .= ' JOIN '.QubitRelation::TABLE_NAME.' rel
                   ON rights.id = rel.object_id';
       $sql .= ' WHERE rel.subject_id = ?';
@@ -780,6 +783,26 @@ class arElasticSearchInformationObjectPdo
       $this->__get('id')));
 
     return self::$statements['rights']->fetchAll(PDO::FETCH_CLASS);
+  }
+
+  public function getGrantedRights()
+  {
+    if (!isset(self::$statements['grantedRights']))
+    {
+      $sql  = 'SELECT
+                  gr.*';
+      $sql .= ' FROM '.QubitGrantedRight::TABLE_NAME.' gr';
+      $sql .= ' JOIN '.QubitRelation::TABLE_NAME.' rel
+                  ON gr.rights_id = rel.object_id';
+      $sql .= ' WHERE rel.subject_id = ?';
+      $sql .= ' AND rel.type_id = '.QubitTerm::RIGHT_ID;
+
+      self::$statements['grantedRights'] = self::$conn->prepare($sql);
+    }
+
+    self::$statements['grantedRights']->execute(array($this->__get('id')));
+
+    return self::$statements['grantedRights']->fetchAll(PDO::FETCH_CLASS);
   }
 
   /**
@@ -1198,6 +1221,62 @@ class arElasticSearchInformationObjectPdo
     }
   }
 
+  private function getBasisRights()
+  {
+    $basisRights = array();
+
+    foreach ($this->getRights() as $right)
+    {
+      $basisRight = array();
+
+      $basisRight['startDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrYear($right->start_date);
+      $basisRight['endDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrYear($right->end_date, true);
+      $basisRight['rightsNote'] = $right->rights_note;
+      $basisRight['licenseTerms'] = $right->license_terms;
+
+      if ($right->rights_holder_id)
+      {
+        $basisRight['rightsHolder'] = QubitActor::getById($right->rights_holder_id)->getAuthorizedFormOfName();
+      }
+
+      if ($right->basis_id)
+      {
+        $basisRight['basis'] = QubitTerm::getById($right->basis_id)->getName();
+      }
+
+      if ($right->copyright_status_id)
+      {
+        $basisRight['copyrightStatus'] = QubitTerm::getById($right->copyright_status_id)->getName();
+      }
+
+      $basisRights[] = $basisRight;
+    }
+
+    return $basisRights;
+  }
+
+  private function getActRights()
+  {
+    $actRights = array();
+    foreach ($this->getGrantedRights() as $grantedRight)
+    {
+      $actRight = array();
+
+      if ($grantedRight->act_id)
+      {
+        $actRight['act'] = QubitTerm::getById($grantedRight->act_id)->getName();
+      }
+
+      $actRight['restriction'] = QubitGrantedRight::getRestrictionString($grantedRight->restriction);
+      $actRight['startDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrYear($grantedRight->start_date);
+      $actRight['endDate'] = arElasticSearchPluginUtil::normalizeDateWithoutMonthOrYear($grantedRight->end_date, true);
+
+      $actRights[] = $actRight;
+    }
+
+    return $actRights;
+  }
+
   public function serialize()
   {
     $serialized = array();
@@ -1395,6 +1474,9 @@ class arElasticSearchInformationObjectPdo
     {
       $serialized['metsData'] = $metsData;
     }
+
+    $serialized['actRights'] = $this->getActRights();
+    $serialized['basisRights'] = $this->getBasisRights();
 
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($this->created_at);
     $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($this->updated_at);

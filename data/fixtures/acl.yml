@@ -115,6 +115,11 @@ QubitAclPermission:
     object_id: 1
     action: readReference
     grant_deny: 1
+  QubitAclPermission_anonymous_readThumbnail:
+    group_id: QubitAclGroup_anonymous
+    object_id: 1
+    action: readThumbnail
+    grant_deny: 1
   QubitAclPermission_authenticated_read:
     group_id: QubitAclGroup_authenticated
     action: read
@@ -123,6 +128,11 @@ QubitAclPermission:
     group_id: QubitAclGroup_authenticated
     object_id: 1
     action: readReference
+    grant_deny: 1
+  QubitAclPermission_authenticated_readThumbnail:
+    group_id: QubitAclGroup_authenticated
+    object_id: 1
+    action: readThumbnail
     grant_deny: 1
   QubitAclPermission_admin_all:
     group_id: QubitAclGroup_administrator

@@ -75,11 +75,6 @@ class DigitalObjectEditAction extends sfAction
       }
     }
 
-    // Add rights component
-    $this->rightEditComponent = new RightEditComponent($this->context, 'right', 'edit');
-    $this->rightEditComponent->resource = $this->resource;
-    $this->rightEditComponent->execute($this->request);
-
     $maxUploadSize = QubitDigitalObject::getMaxUploadSize();
 
     ProjectConfiguration::getActive()->loadHelpers('Qubit');
@@ -107,14 +102,6 @@ class DigitalObjectEditAction extends sfAction
         // Add "auto-generate" checkbox
         $this->form->setValidator($derName, new sfValidatorBoolean);
         $this->form->setWidget($derName, new sfWidgetFormInputCheckbox(array(), array('value' => 1)));
-      }
-      // Otherwise, load right component
-      else
-      {
-        $this["rightEditComponent_$usageId"] = new RightEditComponent($this->context, 'right', 'edit');
-        $this["rightEditComponent_$usageId"]->resource = $representation;
-        $this["rightEditComponent_$usageId"]->nameFormat = 'editRight'.$usageId.'[%s]';
-        $this["rightEditComponent_$usageId"]->execute($this->request);
       }
     }
   }
@@ -180,21 +167,6 @@ class DigitalObjectEditAction extends sfAction
 
     // Update media type
     $this->resource->mediaTypeId = $this->form->getValue('mediaType');
-
-    // Process master rights component
-    $this->rightEditComponent->processForm();
-
-    // Process reference/thumbnail rights components
-    foreach ($this->representations as $usageId => $representation)
-    {
-      if (!isset($this["rightEditComponent_$usageId"]))
-      {
-        continue;
-      }
-
-      $this["rightEditComponent_$usageId"]->processForm();
-      $representation->save();
-    }
 
     // Upload new representations
     $uploadedFiles = array();

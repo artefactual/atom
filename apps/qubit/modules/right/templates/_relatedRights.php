@@ -1,15 +1,12 @@
 <?php if ($resource instanceof QubitInformationObject): ?>
 
-  <?php foreach ($ancestors as $item): ?>
+  <?php foreach ($resource->getRights() as $right): ?>
 
-    <?php foreach ($item->getRights() as $right): ?>
-
-      <?php echo get_partial('right/right',
-        array(
-          'resource' => $right->object,
-          'inherit' => $item != $resource ? $item : null)) ?>
-
-    <?php endforeach; ?>
+    <?php echo get_partial('right/right',
+      array(
+        'resource' => $right->object,
+        'inherit' => $item != $resource ? $item : null,
+        'informationObject' => $resource)) ?>
 
   <?php endforeach; ?>
 

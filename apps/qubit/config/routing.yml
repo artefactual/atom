@@ -99,5 +99,11 @@ default_index:
   param:
     action: index
 
+upload:
+  url: /uploads/r/*
+  param:
+    module: digitalobject
+    action: view
+
 default:
   url: /:module/:action

@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 112
+    value: 113
   milestone:
     name: milestone
     editable: 0
@@ -443,6 +443,22 @@ QubitSetting:
       pt_BR: 'Limite seus resultados por:'
       sl: 'Omejite rezultate:'
       vi: 'Thu hẹp kết quả của bạn bằng cách'
+  QubitSetting_access_disallow_warning:
+    name: access_disallow_warning
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'Access to this record is restricted because it contains personal or confidential information. Please contact the Reference Archivist for more information on accessing this record.'
+  QubitSetting_access_conditional_warning:
+    name: access_conditional_warning
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'This record has not yet been reviewed for personal or confidential information. Please contact the Reference Archivist to request access and initiate an access review.'
   QubitSetting_26:
     name: en
     scope: i18n_languages
@@ -769,3 +785,9 @@ QubitSetting:
     source_culture: en
     value:
       en: pdf
+  Qubit_Settings_premisAccessRight:
+    name: premisAccessRight
+    value: disseminate
+  Qubit_Settings_premisAccessRightValues:
+    name: premisAccessRightValues
+    value: a:9:{s:12:"allow_master";s:1:"1";s:15:"allow_reference";s:1:"1";s:11:"allow_thumb";s:1:"1";s:18:"conditional_master";s:1:"0";s:21:"conditional_reference";s:1:"1";s:17:"conditional_thumb";s:1:"1";s:15:"disallow_master";s:1:"0";s:18:"disallow_reference";s:1:"0";s:14:"disallow_thumb";s:1:"0";}

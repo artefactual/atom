@@ -158,6 +158,29 @@ mapping:
       digital_object_count: { type: integer, index: not_analyzed, include_in_all: false }
       created_at: { type: date, index: not_analyzed, include_in_all: false }
 
+  basis_right:
+    _attributes:
+      nested_only: true
+    dynamic: strict
+    properties:
+      basis: { type: string, index: analyzed, include_in_all: false }
+      start_date: { type: date, index: not_analyzed, include_in_all: false }
+      end_date: { type: date, index: not_analyzed, include_in_all: false }
+      copyright_status: { type: string, index: analyzed, include_in_all: false }
+      rights_holder: { type: string, index: analyzed, include_in_all: false }
+      rights_note: { type: string, index: analyzed, include_in_all: false }
+      license_terms: { type: string, index: analyzed, include_in_all: false }
+
+  act_right:
+    _attributes:
+      nested_only: true
+    dynamic: strict
+    properties:
+      act: { type: string, index: analyzed, include_in_all: false }
+      restriction: { type: string, index: analyzed, include_in_all: false }
+      start_date: { type: date, index: not_analyzed, include_in_all: false }
+      end_date: { type: date, index: not_analyzed, include_in_all: false }
+
   term:
     _attributes:
       i18n: true
@@ -228,6 +251,8 @@ mapping:
       dates: event
       aip: aip
       mets_data: mets_data
+      act_rights: act_right
+      basis_rights: basis_right
       physical_objects: physical_object
       title_statement_of_responsibility: property
       general_notes: note

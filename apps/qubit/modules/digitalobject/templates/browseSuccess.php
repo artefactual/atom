@@ -55,19 +55,34 @@
     <div class="brick">
       <div class="preview">
         <?php if (!empty($doc['digitalObject']['thumbnailPath'])): ?>
-          <?php echo link_to(image_tag($doc['digitalObject']['thumbnailPath']), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
+          <?php if (QubitAcl::check(QubitInformationObject::getById($hit->getId()), 'readThumbnail') &&
+                    QubitGrantedRight::checkPremis($hit->getId(), 'readThumb')): ?>
+
+            <?php echo link_to(image_tag($doc['digitalObject']['thumbnailPath']), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
+          <?php else: ?>
+            <?php echo link_to(image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($doc['digitalObject']['mediaTypeId'])),
+              array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
+          <?php endif; ?>
         <?php else: ?>
-          <?php echo link_to(image_tag('question-mark'), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
+            <?php echo link_to(image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($doc['digitalObject']['mediaTypeId'])),
+              array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>
         <?php endif; ?>
       </div>
-      <p class="description"><?php echo render_title(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture))) ?></p>
-      <?php if ('1' == sfConfig::get('app_inherit_code_informationobject', 1) && isset($doc['referenceCode']) && !empty($doc['referenceCode'])) : ?>
-        <div class="bottom"><p><?php echo $doc['referenceCode'] ?></p></div>
-      <?php elseif (!empty($doc['identifier'])) : ?>
-        <div class="bottom"><p><?php echo $doc['identifier'] ?></p></div>
-      <?php endif; ?>
+      <p class="description"><?php echo render_title(get_search_i18n($doc, 'title')) ?></p>
+      <div class="bottom">
+        <p>
+          <?php if ('1' == sfConfig::get('app_inherit_code_informationobject', 1)
+            && isset($doc['inheritReferenceCode']) && !empty($doc['inheritReferenceCode'])) : ?>
+              <?php echo $doc['inheritReferenceCode'] ?>
+          <?php elseif (isset($doc['identifier']) && !empty($doc['identifier'])) : ?>
+              <?php echo $doc['identifier'] ?>
+          <?php endif; ?>
+        </p>
+      </div>
     </div>
   <?php endforeach; ?>
 </section>
 
-<?php echo get_partial('default/pager', array('pager' => $pager)) ?>
+<section>
+  <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
+</section>

@@ -13,7 +13,7 @@
       <?php echo render_show(__('URL'), render_value($resource->path)) ?>
     <?php endif; ?>
   <?php else: ?>
-    <?php if (check_field_visibility('app_element_visibility_digital_object_file_name')): ?>
+    <?php if (check_field_visibility('app_element_visibility_digital_object_file_name') && !$denyFileNameByPremis): ?>
       <?php echo render_show(__('Filename'), $resource->name) ?>
     <?php endif; ?>
   <?php endif; ?>

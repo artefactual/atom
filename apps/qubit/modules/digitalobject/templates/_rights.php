@@ -4,7 +4,7 @@
 
   <?php foreach ($resource->getRights() as $item): ?>
 
-    <?php echo get_partial('right/right', array('resource' => $item->object)) ?>
+    <?php echo get_partial('right/right', array('resource' => $item->object, 'object' => $item)) ?>
 
   <?php endforeach; ?>
 
@@ -18,7 +18,7 @@
 
     <?php foreach ($child->getRights() as $item): ?>
 
-      <?php echo get_partial('right/right', array('resource' => $item->object)) ?>
+      <?php echo get_partial('right/right', array('resource' => $item->object, 'object' => $resource)) ?>
 
     <?php endforeach; ?>
 
@@ -34,7 +34,7 @@
 
     <?php foreach ($child->getRights() as $item): ?>
 
-      <?php echo get_partial('right/right', array('resource' => $item->object)) ?>
+      <?php echo get_partial('right/right', array('resource' => $item->object, 'object' => $resource)) ?>
 
     <?php endforeach; ?>
 

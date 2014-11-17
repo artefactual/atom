@@ -21,11 +21,7 @@ class RightRelatedRightsComponent extends sfComponent
 {
   public function execute($request)
   {
-    if ($this->resource instanceof QubitInformationObject)
-    {
-      $this->ancestors = $this->resource->ancestors->andSelf()->orderBy('rgt');
-    }
-    else if ($this->resource instanceof QubitAccession)
+    if ($this->resource instanceof QubitAccession)
     {
       $this->ancestor = $this->resource;
     }

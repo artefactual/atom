@@ -1,0 +1,18 @@
+editSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+    /vendor/yui/connection/connection-min:
+    /vendor/yui/datasource/datasource-min:
+    /vendor/yui/autocomplete/autocomplete-min:
+    autocomplete:
+    description:
+  stylesheets:
+    edit:
+manageSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/jquery.once.js:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/collapse:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/form:
+    description:

@@ -59,6 +59,44 @@ class QubitRights extends BaseRights
       $item->delete();
     }
 
+    // remove any related granted rights
+    foreach ($this->grantedRights as $gr) {
+      $gr->delete();
+    }
+
     parent::delete($connection);
+  }
+
+  public function grantedRightsFindById($id)
+  {
+    foreach($this->grantedRights as $gr)
+    {
+      if($gr->id === $id)
+      {
+        return $gr;
+      }
+    }
+
+    return false;
+  }
+
+  public function save($connection = null)
+  {
+    parent::save($connection);
+
+    // Save updated grantedRights
+    foreach ($this->grantedRights as $grantedRight)
+    {
+      $grantedRight->indexOnSave = false;
+      $grantedRight->rights = $this;
+
+      try
+      {
+        $grantedRight->save();
+      }
+      catch (PropelException $e)
+      {
+      }
+    }
   }
 }

@@ -41,11 +41,91 @@ class DigitalObjectShowComponent extends sfComponent
       $this->usageType = QubitTerm::THUMBNAIL_ID;
     }
 
-    if (QubitTerm::REFERENCE_ID == $this->usageType && !QubitAcl::check($this->resource->informationObject, 'readReference'))
+    if (QubitTerm::MASTER_ID == $this->usageType && !QubitAcl::check($this->resource->informationObject, 'readMaster'))
     {
       return sfView::NONE;
     }
 
+    $this->setComponentType();
+
+    // Check to see if the user has permission to view this representation,
+    // if not, we'll show a generic icon.
+    if ($this->checkShowGenericIcon())
+    {
+      $this->showComponent = 'showGenericIcon';
+    }
+
+    if ($this->usageType === QubitTerm::REFERENCE_ID)
+    {
+      $this->refMessage = $this->getAccessWarning();
+    }
+
+    if (!isset($this->link))
+    {
+      $this->link = null;
+    }
+
+    if (!isset($this->iconOnly))
+    {
+      $this->iconOnly = false;
+    }
+  }
+
+  /**
+   * Check permissions to tell if we should show a generic icon or not.
+   */
+  private function checkShowGenericIcon()
+  {
+    $curUser = sfContext::getInstance()->getUser();
+    $curInfoObjectId = $this->resource->informationObject->id;
+
+    switch ($this->usageType)
+    {
+      case QubitTerm::REFERENCE_ID:
+        // Non-authenticated user: check against PREMIS rules.
+        if (!$curUser->isAuthenticated() && QubitGrantedRight::hasGrantedRights($curInfoObjectId))
+        {
+          return !QubitGrantedRight::checkPremis($curInfoObjectId, 'readReference');
+        }
+
+        // Authenticated, check regular ACL rules...
+        return !QubitAcl::check($this->resource->informationObject, 'readReference');
+
+      case QubitTerm::THUMBNAIL_ID:
+        return !QubitAcl::check($this->resource->informationObject, 'readThumbnail');
+    }
+  }
+
+  /**
+   * Get warning messages if access denied via 'deny' or 'conditional' PREMIS rules.
+   * @return  A string of the warning if reference access denied, otherwise bool false
+   */
+  private function getAccessWarning()
+  {
+    $curInfoObjectId = $this->resource->informationObject->id;
+    $denyReason = '';
+
+    $conditionalWarning = QubitSetting::getByName('access_conditional_warning');
+    $deniedWarning = QubitSetting::getByName('access_disallow_warning');
+
+    if (!QubitGrantedRight::checkPremis($curInfoObjectId, 'readReference', $denyReason) ||
+        !QubitAcl::check($this->resource->informationObject, 'readReference'))
+    {
+      if ($denyReason === 'conditional')
+      {
+        return $conditionalWarning ? $conditionalWarning->getValue() : '';
+      }
+      else
+      {
+        return $deniedWarning ? $deniedWarning->getValue() : '';
+      }
+    }
+
+    return false;
+  }
+
+  private function setComponentType()
+  {
     // Figure out which show component to call
     switch ($this->resource->mediaTypeId)
     {
@@ -93,16 +173,6 @@ class DigitalObjectShowComponent extends sfComponent
         $this->showComponent = 'showDownload';
 
         break;
-    }
-
-    if (!isset($this->link))
-    {
-      $this->link = null;
-    }
-
-    if (!isset($this->iconOnly))
-    {
-      $this->iconOnly = false;
     }
   }
 }

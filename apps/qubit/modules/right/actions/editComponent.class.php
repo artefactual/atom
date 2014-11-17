@@ -65,9 +65,10 @@ class RightEditComponent extends sfComponent
 
       case 'restriction':
         $choices[1] = $this->context->i18n->__('Allow');
+        $choices[2] = $this->context->i18n->__('Conditional');
         $choices[0] = $this->context->i18n->__('Disallow');
 
-        $this->form->setValidator('restriction', new sfValidatorBoolean);
+        $this->form->setValidator('restriction', new sfValidatorInteger);
         $this->form->setWidget('restriction', new sfWidgetFormSelect(array('choices' => $choices)));
 
         break;

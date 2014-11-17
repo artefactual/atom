@@ -1,5 +1,6 @@
 <?php use_helper('Text') ?>
 
+<?php $doc = $hit->getData() ?>
 <?php if (isset($doc['hasDigitalObject']) && true === $doc['hasDigitalObject']): ?>
   <article class="search-result has-preview">
 <?php else: ?>
@@ -13,7 +14,13 @@
       <?php if (isset($doc['digitalObject']['thumbnailPath'])): ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>">
           <div class="preview-container">
-            <?php echo image_tag($doc['digitalObject']['thumbnailPath']) ?>
+            <?php if (QubitAcl::check(QubitInformationObject::getById($hit->getId()), 'readThumbnail') &&
+                      QubitGrantedRight::checkPremis($hit->getId(), 'readThumb')): ?>
+
+              <?php echo image_tag($doc['digitalObject']['thumbnailPath']) ?>
+            <?php else: ?>
+              <?php echo image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($doc['digitalObject']['mediaTypeId'])) ?>
+            <?php endif; ?>
           </div>
         </a>
       <?php endif; ?>

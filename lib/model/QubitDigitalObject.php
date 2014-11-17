@@ -1060,13 +1060,29 @@ class QubitDigitalObject extends BaseDigitalObject
 
     // Qubit generic icon list
     $qubitGenericThumbs = array(
-      'application/x-msaccess'        => 'icon-ms-access.gif',
-      'application/vnd.ms-excel'      => 'icon-ms-excel.gif',
-      'application/msword'            => 'icon-ms-word.gif',
-      'application/vnd.ms-powerpoint' => 'icon-ms-powerpoint.gif'),
+      'application/vnd.ms-excel'      => 'excel.png',
+      'application/msword'            => 'word.png',
+      'application/vnd.ms-powerpoint' => 'powerpoint.png',
+      'audio/*'                       => 'audio.png',
+      'video/*'                       => 'video.png',
+      'application/pdf'               => 'pdf.png',
+      // text & rich text
+      'text/plain'                    => 'text.png',
+      'application/rtf'               => 'text.png',
+      'text/richtext'                 => 'text.png',
+      // archives: zip, rar, tar
+      'application/x-tar'             => 'archive.png',
+      'application/zip'               => 'archive.png',
+      'application/x-rar-compressed'  => 'archive.png',
+      // images
+      'image/jpeg'                    => 'image.png',
+      'image/jpg'                     => 'image.png',
+      'image/jpe'                     => 'image.png',
+      'image/gif'                     => 'image.png',
+      'image/png'                     => 'image.png'),
 
     $qubitGenericReference = array(
-      '*/*' => 'no_reference_rep.png');
+      '*/*' => 'blank.png');
 
   public function __toString()
   {
@@ -1616,6 +1632,23 @@ class QubitDigitalObject extends BaseDigitalObject
   }
 
   /**
+   * Find QubitDigitalObject by PATH and FILE
+   *
+   * @param string  a string expected to match on the PATH column
+   * @param string  a string expected to match on the FILE column
+   */
+  public static function getByPathFile($path, $name)
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitDigitalObject::PATH, $path);
+    $criteria->add(QubitDigitalObject::NAME, $name);
+
+    $result = QubitDigitalObject::getOne($criteria);
+
+    return $result;
+  }
+
+  /**
    * Get a representation for the given $usageId.  Currently only searches
    * direct children of current digital object.
    *
@@ -1782,6 +1815,38 @@ class QubitDigitalObject extends BaseDigitalObject
     }
 
     return $genericIconPath;
+  }
+
+  /**
+   * Get path to the appropriate generic icon for specified
+   * media type id. This method is similar to getGenericIconPath().
+   *
+   * @param int $mimeTypeId
+   * @return string
+   */
+  public static function getGenericIconPathByMediaTypeId($mimeTypeId)
+  {
+    $mediaTypeFilename = 'blank.png';
+    switch ($mimeTypeId)
+    {
+      case QubitTerm::AUDIO_ID:
+        $mediaTypeFilename = 'audio.png';
+        break;
+
+      case QubitTerm::IMAGE_ID:
+        $mediaTypeFilename = 'image.png';
+        break;
+
+      case QubitTerm::TEXT_ID:
+        $mediaTypeFilename = 'text.png';
+        break;
+
+      case QubitTerm::VIDEO_ID:
+        $mediaTypeFilename = 'video.png';
+        break;
+    }
+
+    return self::GENERIC_ICON_DIR . '/' . $mediaTypeFilename;
   }
 
   /**

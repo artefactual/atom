@@ -95,6 +95,11 @@ class InformationObjectIndexAction extends sfAction
   {
     $this->resource = $this->getRoute()->resource;
 
+    // specified here instead of view.yml so plugins calling
+    // calling inheriting and calling parent::execute also
+    // automatically load the file(s)
+    $this->getResponse()->addJavascript('deleteBasisRight.js');
+
     // Check that this isn't the root
     if (!isset($this->resource->parent))
     {
@@ -117,17 +122,22 @@ class InformationObjectIndexAction extends sfAction
     // Only show link to view/download master copy of digital object if the
     // user has readMaster permissions OR it's a text object (to allow reading)
     $this->digitalObjectLink = null;
-    if (0 < count($this->resource->digitalObjects)
-      && (QubitAcl::check($this->resource, 'readMaster')
-        || in_array($this->resource->digitalObjects[0]->mediaTypeId, array(QubitTerm::TEXT_ID, QubitTerm::AUDIO_ID))))
+    if (count($this->resource->digitalObjects) > 0)
     {
-      if (QubitTerm::EXTERNAL_URI_ID == $this->resource->digitalObjects[0]->usageId)
+      $isText = in_array($this->resource->digitalObjects[0]->mediaTypeId, array(QubitTerm::TEXT_ID));
+
+      if ((QubitAcl::check($this->resource, 'readMaster') || $isText) &&
+           QubitGrantedRight::checkPremis($this->resource->id, 'readMaster'))
       {
-        $this->digitalObjectLink = $this->resource->digitalObjects[0]->path;
-      }
-      else
-      {
-        $this->digitalObjectLink = $request->getUriPrefix().$request->getRelativeUrlRoot().$this->resource->digitalObjects[0]->getFullPath();
+        if (QubitTerm::EXTERNAL_URI_ID == $this->resource->digitalObjects[0]->usageId)
+        {
+          $this->digitalObjectLink = $this->resource->digitalObjects[0]->path;
+        }
+        else
+        {
+          $this->digitalObjectLink = $request->getUriPrefix() . $request->getRelativeUrlRoot() .
+                                     $this->resource->digitalObjects[0]->getFullPath();
+        }
       }
     }
   }

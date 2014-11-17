@@ -45,6 +45,43 @@ class arElasticSearchPluginUtil
   }
 
   /**
+   * Given a date string in the format YYYY-MM-DD, if either MM or DD is
+   * set to 00 (such as when indexing a MySQL date with *only* the year filled
+   * in), fill in the blank MM or DD with 01s. e.g. 2014-00-00 -> 2014-01-01
+   *
+   * @param  string  date  The date string
+   * @param  bool  endDate  If this is set to true, use 12-31 instead
+   */
+  public static function normalizeDateWithoutMonthOrYear($date, $endDate = false)
+  {
+    if (!strlen($date))
+    {
+      return null;
+    }
+
+    $dateParts = explode('-', $date);
+
+    if (count($dateParts) !== 3)
+    {
+      throw new sfException("Invalid date string given: {$date}. Must be in format YYYY-MM-DD");
+    }
+
+    list($year, $month, $day) = $dateParts;
+
+    if ((int)$month === 0)
+    {
+      $month = $endDate ? '12' : '01';
+    }
+
+    if ((int)$day === 0)
+    {
+      $day = $endDate ? cal_days_in_month(CAL_GREGORIAN, $month, $year) : '01';
+    }
+
+    return implode('-', array($year, $month, $day));
+  }
+
+  /**
    * Set all fields for a QueryString, removing those hidden for public users
    */
   public static function setAllFields(\Elastica\Query\QueryString $query, $options = array())
