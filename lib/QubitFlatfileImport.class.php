@@ -1128,7 +1128,7 @@ class QubitFlatfileImport
     }
     else
     {
-      return $this->createRepository($name);
+      return QubitFlatfileImport::createRepository($name);
     }
   }
 
@@ -1312,7 +1312,7 @@ class QubitFlatfileImport
    *
    * @return QubitRepository  created repository
    */
-  public function createRepository($name)
+  public static function createRepository($name)
   {
     $repo = new QubitRepository;
     $repo->authorizedFormOfName = $name;
