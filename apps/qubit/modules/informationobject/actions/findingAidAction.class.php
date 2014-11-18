@@ -27,7 +27,7 @@ class InformationObjectFindingAidAction extends sfAction
       $id = $this->getRoute()->resource->id;
 
       $params = array('objectId' => $id, 'url' => $request->getHttpHeader('referer'));
-      QubitJob::runJob('arGenerateFindingAid', $params);
+      QubitJob::runJob('arGenerateFindingAidJob', $params);
     }
 
     $this->redirect($request->getHttpHeader('referer'));

@@ -184,3 +184,15 @@ Url: http://leftnode.com/entry/the-last-php-pdo-library-you-will-ever-need
 Copyright: Vic Cherubini
 License: Public domain? Code listed at Url above with statement that "You are
          free to take it and use it for your projects"
+
+Basis for EAD to XSL FO transformations (ead-pdf.xsl)
+--------
+Url: https://github.com/archivesspace/archivesspace/blob/master/stylesheets/as-ead-pdf.xsl
+Copyright: Winona Salesky
+License: Educational Community License, Version 2.0
+
+saxon9he.jar
+--------
+Url: http://saxon.sourceforge.net/
+Copyright: Saxonica Limited
+License: Mozilla Public License version 1.0

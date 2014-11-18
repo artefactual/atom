@@ -5,6 +5,6 @@ all:
       port: 4730
 
   worker_types:
-    general: [arGenerateFindingAid, arDeleteInformationObjectJob]
+    general: [arGenerateFindingAidJob, arDeleteInformationObjectJob]
     acl: [arInheritRightsJob]
     sword: [qtSwordPluginWorker]
