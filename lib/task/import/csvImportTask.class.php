@@ -463,10 +463,8 @@ EOF;
         if (isset($self->rowStatusVars['descriptionStatus'])
           && 0 < strlen($self->rowStatusVars['descriptionStatus']))
         {
-          $statusTermId = array_search(
-            trim($self->rowStatusVars['descriptionStatus']),
-            $self->status['descriptionStatusTypes']
-          );
+          $descStatus = trim($self->rowStatusVars['descriptionStatus']);
+          $statusTermId = array_search_case_insensitive($descStatus, $self->status['descriptionStatusTypes']);
 
           if (false !== $statusTermId)
           {
@@ -474,9 +472,12 @@ EOF;
           }
           else
           {
-            printf("Row %s: Invalid description status '%s', using null instead\n",
-              $self->getStatus('rows') + 1,
-              trim($self->rowStatusVars['descriptionStatus']));
+            print "\nTerm $descStatus not found in description status taxonomy, creating it...\n";
+
+            $culture = isset($self->object->culture) ? $self->object->culture : 'en';
+            $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::DESCRIPTION_STATUS_ID, $descStatus, $culture);
+
+            $self->object->descriptionStatusId = $newTerm->id;
           }
         }
 
@@ -488,12 +489,15 @@ EOF;
             $self->rowStatusVars['publicationStatus'],
             $self->status['pubStatusTypes']
           );
+
           if (!$pubStatusTermId)
           {
-            print "Publication status: '". $self->rowStatusVars['publicationStatus'] ."' is invalid. Using default.\n";
+            print "\nPublication status: '". $self->rowStatusVars['publicationStatus'] ."' is invalid. Using default.\n";
             $pubStatusTermId = $self->status['defaultStatusId'];
           }
-        } else {
+        }
+        else
+        {
           $pubStatusTermId = $self->status['defaultStatusId'];
         }
 
@@ -590,22 +594,17 @@ EOF;
                 $type = 'Box';
               }
 
-              $physicalObjectTypeId = array_search(
-                $type,
-                $self->getStatus('physicalObjectTypes')
-              );
+              $physicalObjectTypeId = array_search($type, $self->getStatus('physicalObjectTypes'));
 
               // Create new physical object type if not found
               if ($physicalObjectTypeId === false)
               {
-                $newType = new QubitTerm;
-                $newType->name = $type;
-                $newType->culture = isset($self->object->culture) ? $self->object->culture : 'en';
-                $newType->taxonomyId = QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID;
-                $newType->parentId = QubitTerm::ROOT_ID;
+                print "\nTerm $type not found in physical object type taxonomy, creating it...\n";
 
-                $newType->save();
-                $physicalObjectTypeId = $newType->id;
+                $culture = isset($self->object->culture) ? $self->object->culture : 'en';
+                $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID, $type, $culture);
+
+                $physicalObjectTypeId = $newTerm->id;
               }
 
               $container = $self->createOrFetchPhysicalObject(
@@ -1102,16 +1101,21 @@ EOF;
 
         foreach ($data as $value)
         {
-          $materialIndex = array_search(
-            $value,
-            $self->getStatus('materialTypes')
-          );
+          $value = trim($value);
+          $materialTypeId = array_search_case_insensitive($value, $self->getStatus('materialTypes'));
 
-          if (is_numeric($materialIndex))
+          if ($materialTypeId !== false)
           {
-            $self->rowStatusVars['radGeneralMaterialDesignation'][] = $materialIndex;
-          } else {
-            throw new sfException('Invalid material type:'. $value);
+            $self->rowStatusVars['radGeneralMaterialDesignation'][] = $materialTypeId;
+          }
+          else
+          {
+            print "\nTerm $value not found in material type taxonomy, creating it...\n";
+
+            $culture = isset($self->object->culture) ? $self->object->culture : 'en';
+            $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::MATERIAL_TYPE_ID, $value, $culture);
+
+            $self->rowStatusVars['radGeneralMaterialDesignation'][] = $newTerm->id;
           }
         }
       }
