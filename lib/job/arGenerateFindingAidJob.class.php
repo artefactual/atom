@@ -19,10 +19,10 @@
 
 /**
  * @package    AccesstoMemory
- * @author     Mike G <mikeg@artefactual.com
+ * @author     Mike G <mikeg@artefactual.com>
  */
 
-class arGenerateFindingAid extends arBaseJob
+class arGenerateFindingAidJob extends arBaseJob
 {
   private $resourceId = 0;
 
@@ -64,9 +64,15 @@ class arGenerateFindingAid extends arBaseJob
       $eadFilePath = $this->getTmpFilePath($eadFileHandle);
       $foFilePath = $this->getTmpFilePath($foFileHandle);
 
-      // Call generate EAD task
       unlink($eadFilePath);
-      exec("php $appRoot/symfony export:bulk --single-id=$resource->id $eadFilePath");
+
+      // Call generate EAD task
+      exec("php $appRoot/symfony export:bulk --single-id=$resource->id $eadFilePath", $junk, $exitCode);
+      if ($exitCode != 0)
+      {
+        $this->error('Exporting EAD has failed');
+        return false;
+      }
 
       // Crank the XML through XSL stylesheet and fix header / fonds URL
       $eadXslFilePath = $appRoot . '/lib/task/pdf/ead-pdf.xsl';
@@ -180,6 +186,6 @@ class arGenerateFindingAid extends arBaseJob
 
   public static function getFindingAidPath($id, $format = 'pdf')
   {
-    return 'downloads/' . $id . ".{$format}";
+    return 'downloads' . DIRECTORY_SEPARATOR . $id . ".{$format}";
   }
 }

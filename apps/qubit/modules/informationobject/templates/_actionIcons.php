@@ -55,7 +55,7 @@
 
     <?php if ($resource->parentId == QubitInformationObject::ROOT_ID): ?>
       <li class="separator"><h4><?php echo __('Finding aid') ?></h4></li>
-      <?php $path = arGenerateFindingAid::getFindingAidPath($resource->id) ?>
+      <?php $path = arGenerateFindingAidJob::getFindingAidPath($resource->id) ?>
 
       <?php if ($sf_user->isAuthenticated()): ?>
         <li>
@@ -66,8 +66,8 @@
         </li>
       <?php endif; ?>
 
-      <?php $faStatus = arGenerateFindingAid::getStatus($resource->id) ?>
-      <?php $faStatusString = arGenerateFindingAid::getStatusString($resource->id) ?>
+      <?php $faStatus = arGenerateFindingAidJob::getStatus($resource->id) ?>
+      <?php $faStatusString = arGenerateFindingAidJob::getStatusString($resource->id) ?>
 
       <!-- Ensure file is actually there -->
       <?php if ($faStatus === QubitTerm::JOB_STATUS_COMPLETED_ID && !file_exists($path)): ?>
