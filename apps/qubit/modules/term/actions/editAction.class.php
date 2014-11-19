@@ -82,7 +82,7 @@ class TermEditAction extends DefaultEditAction
     else
     {
       // Check authorization
-      if (!QubitAcl::check($this->resource, 'create'))
+      if (!QubitAcl::check(QubitTerm::getRoot(), 'create'))
       {
         QubitAcl::forwardUnauthorized();
       }
