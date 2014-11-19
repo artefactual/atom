@@ -419,13 +419,26 @@ EOF;
         }
 
         // set level of detail
-        if (isset($self->rowStatusVars['levelOfDetail'])
-          && 0 < strlen($self->rowStatusVars['levelOfDetail']))
+        if (isset($self->rowStatusVars['levelOfDetail']) &&
+            0 < strlen($self->rowStatusVars['levelOfDetail']))
         {
-          $levelOfDetailTermId = array_search(
-            (trim($self->rowStatusVars['levelOfDetail'])) ? $self->rowStatusVars['levelOfDetail'] : 'Full',
-            $self->status['levelOfDetailTypes']
-          );
+          $levelOfDetail = trim($self->rowStatusVars['levelOfDetail']);
+
+          $levelOfDetailTermId = array_search($levelOfDetail, $self->status['levelOfDetailTypes']);
+          if ($levelOfDetailTermId === false)
+          {
+            print "\nTerm $levelOfDetail not found in description details level taxonomy, creating it...\n";
+
+            $culture = isset($self->object->culture) ? $self->object->culture : 'en';
+
+            $newTerm = QubitFlatfileImport::createTerm(
+              QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID,
+              $levelOfDetail,
+              $culture
+            );
+
+            $levelOfDetailTermId = $newTerm->id;
+          }
 
           $self->object->descriptionDetailId = $levelOfDetailTermId;
         }
@@ -438,7 +451,7 @@ EOF;
           'scriptOfDescription'
         );
 
-        foreach($languageProperties as $serializeProperty)
+        foreach ($languageProperties as $serializeProperty)
         {
           if (isset($self->rowStatusVars[$serializeProperty])
             && 0 < strlen($self->rowStatusVars[$serializeProperty]))
