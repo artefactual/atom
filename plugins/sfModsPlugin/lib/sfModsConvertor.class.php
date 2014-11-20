@@ -45,11 +45,8 @@ class sfModsConvertor extends QubitSaxParser {
     $this->resource->setPublicationStatusByName('Published');
     $this->resource->save();
 
-    // Resource types
-    $this->importArrayOfTermNames(QubitTaxonomy::MODS_RESOURCE_TYPE_ID, $this->typesOfResources);
-
-    // Material types
-    $this->importArrayOfTermNames(QubitTaxonomy::MATERIAL_TYPE_ID, $this->typesOfResources);
+    // Resource types and RAD GMD crosswalk
+    $this->importTypeOfResources($this->typesOfResources);
 
     // Subject access points
     $this->importArrayOfTermNames(QubitTaxonomy::SUBJECT_ID, $this->subjects);
@@ -341,7 +338,7 @@ class sfModsConvertor extends QubitSaxParser {
     }
   }
 
-  protected function translateModsTypeOfResourceToRadGmd($typeOfResource)
+  protected function importTypeOfResources($typeOfResources)
   {
     $map = array(
       'text'                          => 'Textual record',
@@ -357,23 +354,34 @@ class sfModsConvertor extends QubitSaxParser {
       'mixed material'                => 'Multiple media'
     );
 
-    $normalizedTypeOfResource = trim(strtolower($typeOfResource));
-    return (isset($map[$normalizedTypeOfResource])) ? $map[$normalizedTypeOfResource] : $typeOfResource;
+    $typeOfResourceTermNames = $gmdTermNames = array();
+
+    // Only existing ones are added
+    foreach ($typeOfResources as $typeOfResource)
+    {
+      $typeOfResource = trim(strtolower($typeOfResource));
+
+      if (isset($map[$typeOfResource]))
+      {
+        // Add to type of resources
+        $typeOfResourceTermNames[] = $typeOfResource;
+
+        // Translate to GMD
+        $gmdTermNames[] = $map[$typeOfResource];
+      }
+    }
+
+    // Import without duplicates
+    $this->importArrayOfTermNames(QubitTaxonomy::MODS_RESOURCE_TYPE_ID, array_unique($typeOfResourceTermNames));
+    $this->importArrayOfTermNames(QubitTaxonomy::MATERIAL_TYPE_ID, array_unique($gmdTermNames));
   }
 
   protected function importArrayOfTermNames($taxonomyId, $termNames, $objectId = null)
   {
     $objectId = (is_null($objectId)) ? $this->resource->id : $objectId;
 
-    // Subject access points
     foreach($termNames as $termName)
     {
-      // Translate MODS resource types into RAD GMD terms
-      if ($taxonomyId == QubitTaxonomy::MATERIAL_TYPE_ID)
-      {
-        $termName = $this->translateModsTypeOfResourceToRadGmd($termName);
-      }
-
       $term = QubitFlatfileImport::createOrFetchTerm($taxonomyId, $termName);
       QubitFlatfileImport::createObjectTermRelation($objectId, $term->id);
     }

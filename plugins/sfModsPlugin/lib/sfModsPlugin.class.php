@@ -208,7 +208,6 @@ class sfModsPlugin implements ArrayAccess
         $typeOfResources = array();
 
         // Map to translate RAD GMD terms to MODS resource types
-        // and fix a couple of MODS resource types
         $map = array(
           'architectural drawing' => 'still image',
           'cartographic material' => 'cartographic',
@@ -219,31 +218,24 @@ class sfModsPlugin implements ArrayAccess
           'philatelic record'     => 'still image',
           'sound recording'       => 'sound recording',
           'technical drawing'     => 'still image',
-          'textual record'        => 'text',
-          'sound recording - musical'        => 'sound recording-musical',
-          'sound recording - nonmusical'        => 'sound recording-nonmusical'
+          'textual record'        => 'text'
         );
 
+        // Real MODS resource types
         foreach ($this->resource->getTermRelations(QubitTaxonomy::MODS_RESOURCE_TYPE_ID) as $relation)
         {
-          $typeOfResource = $relation->term->getName(array('culture' => 'en'));
-
-          // Fix resource type string (some were throwing errors on XSD validation)
-          $normalizedTypeOfResource = trim(strtolower($typeOfResource));
-          $typeOfResource = (isset($map[$normalizedTypeOfResource])) ? $map[$normalizedTypeOfResource] : $typeOfResource;
-
-          array_push($typeOfResources, $typeOfResource);
+          $typeOfResources[] = $relation->term->getName(array('culture' => 'en'));
         }
 
+        // Translated RAD material types
         foreach ($this->resource->getTermRelations(QubitTaxonomy::MATERIAL_TYPE_ID) as $relation)
         {
-          $typeOfResource = $relation->term->getName(array('culture' => 'en'));
+          $gmd = trim(strtolower($relation->term->getName(array('culture' => 'en'))));
 
-          // Translate RAD GMD terms to MODS resource types
-          $normalizedTypeOfResource = trim(strtolower($typeOfResource));
-          $typeOfResource = (isset($map[$normalizedTypeOfResource])) ? $map[$normalizedTypeOfResource] : $typeOfResource;
-
-          array_push($typeOfResources, $typeOfResource);
+          if (isset($map[$gmd]))
+          {
+            $typeOfResources[] = $map[$gmd];
+          }
         }
 
         // Return without duplicates
