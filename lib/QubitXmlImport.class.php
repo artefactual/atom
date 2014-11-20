@@ -860,9 +860,15 @@ class QubitXmlImport
       // The ID value is suffixed with its category, e.g. 384_place
       // This is because `id` is required to be unique within the entire
       // document.
-      $id = preg_replace('_' . $key . '$', '', $id);
-      array_key_exists($id, $this->events) || $this->events[$id] = array();
-      $this->events[$id][$key] = $object;
+      //
+      // First check if the ID is actually an AtoM tag, since the ID
+      // may exist for another purpose.
+      if (substr($id, 0, 4) == 'atom' && substr($id, -strlen($key)) == $key) {
+        // chop off atom_ prefix and the _category suffix
+        $id = substr($id, 5, -strlen($key) - 1);
+        array_key_exists($id, $this->events) || $this->events[$id] = array();
+        $this->events[$id][$key] = $object;
+      }
     }
   }
 
