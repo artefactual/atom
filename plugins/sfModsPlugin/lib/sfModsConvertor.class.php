@@ -405,7 +405,7 @@ class sfModsConvertor extends QubitSaxParser {
     }
 
     // Import without duplicates
-    $this->importArrayOfTermNames(QubitTaxonomy::MODS_RESOURCE_TYPE_ID, array_unique($typeOfResource~
+    $this->importArrayOfTermNames(QubitTaxonomy::MODS_RESOURCE_TYPE_ID, array_unique($typeOfResourceTermNames));
     $this->importArrayOfTermNames(QubitTaxonomy::MATERIAL_TYPE_ID, array_unique($gmdTermNames));
   }
 
