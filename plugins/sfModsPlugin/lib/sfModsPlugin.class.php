@@ -227,29 +227,15 @@ class sfModsPlugin implements ArrayAccess
           $typeOfResources[] = $relation->term->getName(array('culture' => 'en'));
         }
 
-        // Map to translate RAD GMD terms to MODS resource types
-        $map = array(
-          'architectural drawing' => 'Still image',
-          'cartographic material' => 'Cartographic',
-          'graphic material'      => 'Still image',
-          'moving images'         => 'Moving image',
-          'multiple media'        => 'Mixed material',
-          'object'                => 'Three dimensional object',
-          'philatelic record'     => 'Still image',
-          'sound recording'       => 'Sound recording',
-          'technical drawing'     => 'Still image',
-          'textual record'        => 'Text'
-        );
-
+        // Translated RAD material types
         foreach ($this->resource->getTermRelations(QubitTaxonomy::MATERIAL_TYPE_ID) as $relation)
         {
-          $typeOfResource = $relation->term->getName(array('cultureFallback' => true));
+          $gmd = trim(strtolower($relation->term->getName(array('culture' => 'en'))));
 
-          // Translate RAD GMD terms to MODS resource types
-          $normalizedTypeOfResource = trim(strtolower($typeOfResource));
-          $typeOfResource = (isset($map[$normalizedTypeOfResource])) ? $map[$normalizedTypeOfResource] : $typeOfResource;
-
-          array_push($materialTypes, $typeOfResource);
+          if (isset($map[$gmd]))
+          {
+            $typeOfResources[] = $map[$gmd];
+          }
         }
 
         // Return without duplicates
