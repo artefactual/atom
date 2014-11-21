@@ -574,7 +574,7 @@ class QubitXmlImport
 
               // If an actor/event object was returned, track that
               // in the events cache for later cleanup
-              if($obj !== NULL)
+              if(!empty($obj))
               {
                 $this->trackEvent($obj, $domNode2);
               }
@@ -855,12 +855,12 @@ class QubitXmlImport
     }
 
     $id = $node->getAttribute('id');
-    if ($id !== NULL)
+    if (!empty($id))
     {
       // The ID value is suffixed with its category, e.g. 384_place
       // This is because `id` is required to be unique within the entire
       // document.
-      $id = preg_replace('_' . $key . '$', '', $id);
+      $id = preg_replace('/_' . $key . '$/', '', $id);
       array_key_exists($id, $this->events) || $this->events[$id] = array();
       $this->events[$id][$key] = $object;
     }
@@ -876,29 +876,26 @@ class QubitXmlImport
     {
       $event = $values['event'];
 
-      $place = array_key_exists('place', $values) ? $values['place'] : NULL;
-      $actor = array_key_exists('actor', $values) ? $values['actor'] : NULL;
-
-      if ($place !== NULL)
+      if (!empty($event))
       {
-        if ($event->getPlace() === NULL)
+        $place = array_key_exists('place', $values) ? $values['place'] : NULL;
+        $actor = array_key_exists('actor', $values) ? $values['actor'] : NULL;
+
+        if ($place !== NULL && $event->getPlace() === NULL)
         {
           $otr = new QubitObjectTermRelation;
           $otr->setObject($event);
           $otr->setTerm($place);
           $otr->save();
         }
-      }
 
-      if ($actor !== NULL)
-      {
-        if ($event->getActor() === NULL)
+        if ($actor !== NULL && $event->getActor() === NULL)
         {
           $event->setActor($actor);
         }
-      }
 
-      $event->save();
+        $event->save();
+      }
     }
   }
 }
