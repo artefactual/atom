@@ -23,6 +23,17 @@ class UserIndexAction extends sfAction
   {
     $this->resource = $this->getRoute()->resource;
 
+    if (1 == QubitSetting::getByName('oai_enabled')->value)
+    {
+      // Get OAI API key value, if any
+      $oaiApiKeyProperty = QubitProperty::getOneByObjectIdAndName($this->resource->id, 'oaiApiKey');
+
+      if (null != $oaiApiKeyProperty)
+      {
+        $this->oai_api_key = $oaiApiKeyProperty->value;
+      }
+    }
+
     // Except for administrators, only allow users to see their own profile
     if (!$this->context->user->isAdministrator())
     {

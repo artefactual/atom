@@ -28,7 +28,8 @@ class UserEditAction extends DefaultEditAction
       'groups',
       'password',
       'translate',
-      'username');
+      'username',
+      'oai_api_key');
 
   protected function earlyExecute()
   {
@@ -178,6 +179,29 @@ class UserEditAction extends DefaultEditAction
         $this->form->setWidget('translate', new sfWidgetFormSelect(array('choices'  => $choices, 'multiple' => true)));
 
         break;
+
+      case 'oai_api_key':
+        // Give user option of (re)generating or deleting OAI-PMH API key
+        $choices = array(
+          ''         => $this->context->i18n->__('-- Select action --'),
+          'generate' => $this->context->i18n->__('(Re)generate API key'),
+          'delete'   => $this->context->i18n->__('Delete API key')
+        );
+
+        $this->form->setValidator('oai_api_key', new sfValidatorString());
+        $this->form->setWidget('oai_api_key', new sfWidgetFormSelect(array('choices' => $choices)));
+
+        // Expose OAI-PMH API key value to template if one exists
+        if (null != $oaiKey = $this->getOaiApiKeyProperty())
+        {
+          $this->oai_api_key = $oaiKey->value;
+        }
+
+        // Expose whether or not OAI-PMH API is enabled
+        $oaiEnabledSetting = QubitSetting::getByName('oai_enabled');
+        $this->oai_enabled = (null !== $oaiEnabledSetting && $oaiEnabledSetting->value);
+
+        break;
     }
   }
 
@@ -272,6 +296,38 @@ class UserEditAction extends DefaultEditAction
 
         break;
 
+      case 'oai_api_key':
+        $oaiAction = $this->form->getValue('oai_api_key');
+
+        switch ($oaiAction)
+        {
+          case 'generate':
+            // Create user OAI-PMH key property if it doesn't exist
+            if (null == $oaiKey = $this->getOaiApiKeyProperty())
+            {
+              $oaiKey = new QubitProperty;
+              $oaiKey->objectId = $this->resource->id;
+              $oaiKey->name = 'oaiApiKey';
+            }
+
+            // Generate new OAI-PMH API key
+            $oaiKey->value = bin2hex(openssl_random_pseudo_bytes(8));
+            $oaiKey->save();
+
+            break;
+
+          case 'delete':
+            // Delete user OAI-PMH key property if it exists
+            if (null != $oaiKey = $this->getOaiApiKeyProperty())
+            {
+              $oaiKey->delete();
+            }
+
+            break;
+        }
+
+        break;
+
       default:
         $this->resource[$name] = $this->form->getValue($name);
     }
@@ -327,5 +383,10 @@ class UserEditAction extends DefaultEditAction
     }
 
     return $values;
+  }
+
+  protected function getOaiApiKeyProperty()
+  {
+    return QubitProperty::getOneByObjectIdAndName($this->resource->id, 'oaiApiKey');
   }
 }
