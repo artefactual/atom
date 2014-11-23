@@ -50,7 +50,7 @@ class arOaiPluginIndexAction extends sfAction
     include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
 
     // only respond to OAI requests if the feature has been enabled
-    if (sfConfig::get('app_oai_oai_enabled') == 0)
+    if (QubitSetting::getByName('oai_enabled')->value == 0)
     {
       // the following displays a GUI response, should we return a
       // '503 - Service unavailable' HTTP response (without specifying
