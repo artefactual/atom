@@ -650,6 +650,7 @@ class SettingsListAction extends sfAction
   {
     // Get OAI Repository settings
     $oaiEnabled = QubitSetting::getByName('oai_enabled');
+    $oaiAuthenticationEnabled = QubitSetting::getByName('oai_authentication_enabled');
     $oaiRepositoryCode = QubitSetting::getByName('oai_repository_code');
     $oaiRepositoryIdentifier = QubitOai::getRepositoryIdentifier();
     $sampleOaiIdentifier = QubitOai::getSampleIdentifier();
@@ -658,6 +659,7 @@ class SettingsListAction extends sfAction
     // Set defaults for global form
     $this->oaiRepositoryForm->setDefaults(array(
       'oai_enabled' => (isset($oaiEnabled)) ? intval($oaiEnabled->getValue(array('sourceCulture'=>true))) : 1,
+      'oai_authentication_enabled' => (isset($oaiAuthenticationEnabled)) ? intval($oaiAuthenticationEnabled->getValue(array('sourceCulture'=>true))) : 1,
       'oai_repository_code' => (isset($oaiRepositoryCode)) ? $oaiRepositoryCode->getValue(array('sourceCulture'=>true)) : null,
       'oai_repository_identifier' => $oaiRepositoryIdentifier,
       'sample_oai_identifier' => $sampleOaiIdentifier,
@@ -676,6 +678,16 @@ class SettingsListAction extends sfAction
     if (null !== $oaiEnabledValue = $thisForm->getValue('oai_enabled'))
     {
       $setting = QubitSetting::getByName('oai_enabled');
+
+      // Force sourceCulture update to prevent discrepency in settings between cultures
+      $setting->setValue($oaiEnabledValue, array('sourceCulture'=>true));
+      $setting->save();
+    }
+
+    // OAI API authentication enabled radio button
+    if (null !== $oaiEnabledValue = $thisForm->getValue('oai_authentication_enabled'))
+    {
+      $setting = QubitSetting::getByName('oai_authentication_enabled');
 
       // Force sourceCulture update to prevent discrepency in settings between cultures
       $setting->setValue($oaiEnabledValue, array('sourceCulture'=>true));

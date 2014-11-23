@@ -281,6 +281,8 @@
 
   <legend><?php echo __('OAI Repository') ?></legend>
 
+  <p><?php echo __('The OAI-PMH API can be secured, optionally, by requiring API requests authenticate using API keys (granted to specific users).') ?></p>
+
   <form action="<?php echo url_for('settings/list') ?>" method="post">
     <table class="table table-bordered">
       <thead>

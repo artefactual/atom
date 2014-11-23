@@ -49,13 +49,45 @@ class arOaiPluginIndexAction extends sfAction
     $appRoot = dirname(__FILE__) .'/../../../../..';
     include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
 
-    // only respond to OAI requests if the feature has been enabled
-    if (QubitSetting::getByName('oai_enabled')->value == 0)
+    // Only respond to OAI requests if the feature has been enabled
+    $enabledSetting = QubitSetting::getByName('oai_enabled');
+
+    if (null === $enabledSetting || $enabledSetting->value == false)
     {
       // the following displays a GUI response, should we return a
       // '503 - Service unavailable' HTTP response (without specifying
       // a 'Retry-After' parameter instead?
       $this->forward('admin', 'oaiDisabled');
+    }
+
+    // If authentication is enabled, check API key in HTTP header
+    $authenticationRequiredSetting = QubitSetting::getByName('oai_authentication_enabled');
+
+    if (null !== $authenticationRequiredSetting && $authenticationRequiredSetting->value)
+    {
+      // Require user have valid API key to access OAI data
+      $requestOaiApiKey = $request->getHttpHeader('X-OAI-API-Key');
+
+      if (empty($requestOaiApiKey))
+      {
+        $this->getResponse()->setStatusCode( '403', 'Forbidden' );
+        return sfView::HEADER_ONLY;
+      }
+      else {
+        $criteria = new Criteria;
+        $criteria->add(QubitProperty::NAME, 'oaiApiKey');
+        $criteria->add(QubitPropertyI18n::VALUE, $requestOaiApiKey);
+
+        if (null == $oaiApiKeyProperty = QubitProperty::getOne($criteria))
+        {
+          $this->getResponse()->setStatusCode( '403', 'Forbidden' );
+          return sfView::HEADER_ONLY;
+        }
+
+        // Authenticate user so ACL checks can be applies in XML template# get user ID from property?
+        $user = QubitUser::getById($oaiApiKeyProperty->objectId);
+        $this->context->user->signIn($user);
+      }
     }
 
     $request->setRequestFormat('xml');
