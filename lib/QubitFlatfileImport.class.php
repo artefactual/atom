@@ -1113,7 +1113,7 @@ class QubitFlatfileImport
    *
    * @return QubitRepository  created or fetched repository
    */
-  public function createOrFetchRepository($name)
+  public static function createOrFetchRepository($name)
   {
     $query = "SELECT r.id FROM actor_i18n a \r
       INNER JOIN repository r ON a.id=r.id \r
