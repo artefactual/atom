@@ -108,11 +108,11 @@
   <?php endif; ?>
 
   <?php if (0 < count($mods->physicalLocation)): ?>
-    <?php foreach ($mods->physicalLocation as $item): ?>
-      <location>
+    <location>
+      <?php foreach ($mods->physicalLocation as $item): ?>
         <physicalLocation><?php echo esc_specialchars($item) ?></physicalLocation>
-      </location>
-    <?php endforeach; ?>
+      <?php endforeach; ?>
+    </location>
   <?php endif; ?>
 
   <?php if (0 < count($resource->getSubjectAccessPoints())): ?>
@@ -154,7 +154,8 @@
     <?php endforeach; ?>
   <?php endif; ?>
 
-  <accessCondition><?php echo esc_specialchars($resource->getAccessConditions(array('cultureFallback' => true))) ?></accessCondition>
+  <accessCondition type="restriction on access"><?php echo esc_specialchars($resource->getAccessConditions(array('cultureFallback' => true))) ?></accessCondition>
+  <accessCondition><?php echo esc_specialchars($resource->getReproductionConditions(array('cultureFallback' => true))) ?></accessCondition>
 
   <recordInfo>
     <recordCreationDate><?php echo $resource->createdAt ?></recordCreationDate>

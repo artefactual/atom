@@ -204,7 +204,7 @@ class sfModsConvertor extends QubitSaxParser {
       'type' => $this->entityType
     );
 
-    $this->arrayPushIfValueNotEmpty($this->names, $eventData);
+    array_push($this->names, $eventData);
   }
 
   // </topic>
@@ -324,7 +324,7 @@ class sfModsConvertor extends QubitSaxParser {
 
   protected function arrayPushIfValueNotEmpty(&$array, $value)
   {
-    if (!empty(trim($value)))
+    if (0 < strlen(trim($value)))
     {
       array_push($array, $value);
     }
