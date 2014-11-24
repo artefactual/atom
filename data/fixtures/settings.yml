@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 111
+    value: 112
   milestone:
     name: milestone
     editable: 0
@@ -762,3 +762,10 @@ QubitSetting:
     name: isad_description_control_area
     scope: element_visibility
     value: 1
+  Qubit_Settings_findingAidFormat:
+    name: findingAidFormat
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: pdf

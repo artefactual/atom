@@ -37,7 +37,6 @@ class arGenerateFindingAidJob extends arBaseJob
     {
       $this->resourceId = $parameters['objectId'];
       $resource = QubitInformationObject::getById($this->resourceId);
-      $format = 'pdf';
 
       if (!$resource)
       {
@@ -68,6 +67,7 @@ class arGenerateFindingAidJob extends arBaseJob
 
       // Call generate EAD task
       exec("php $appRoot/symfony export:bulk --single-id=$resource->id $eadFilePath", $junk, $exitCode);
+
       if ($exitCode != 0)
       {
         $this->error('Exporting EAD has failed');
@@ -83,7 +83,7 @@ class arGenerateFindingAidJob extends arBaseJob
       file_put_contents($eadFilePath, $eadFileString);
 
       $pdfPath = sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR .
-        self::getFindingAidPath($this->resourceId, $format);
+        self::getFindingAidPath($this->resourceId);
 
       $junk = array();
 
@@ -97,7 +97,7 @@ class arGenerateFindingAidJob extends arBaseJob
       }
 
       // Use FOP generated in previous step to generate PDF
-      exec(sprintf("fop -r -q -fo '%s' -{$format} '%s'", $foFilePath, $pdfPath), $junk, $exitCode);
+      exec(sprintf("fop -r -q -fo '%s' -%s '%s'", $foFilePath, self::getFindingAidFormat(), $pdfPath), $junk, $exitCode);
 
       if ($exitCode != 0)
       {
@@ -184,8 +184,18 @@ class arGenerateFindingAidJob extends arBaseJob
     }
   }
 
-  public static function getFindingAidPath($id, $format = 'pdf')
+  public static function getFindingAidPath($id)
   {
-    return 'downloads' . DIRECTORY_SEPARATOR . $id . ".{$format}";
+    return 'downloads' . DIRECTORY_SEPARATOR . $id . '.' . self::getFindingAidFormat();
+  }
+
+  public static function getFindingAidFormat()
+  {
+    if (null !== $setting = QubitSetting::getByName('findingAidFormat'))
+    {
+      $format = $setting->getValue(array('sourceCulture' => true));
+    }
+
+    return isset($format) ? $format : 'pdf';
   }
 }

@@ -236,6 +236,7 @@ class SettingsListAction extends sfAction
     $showTooltips = QubitSetting::getByName('show_tooltips');
     $defaultPubStatus = QubitSetting::getByName('defaultPubStatus');
     $swordDepositDir = QubitSetting::getByName('sword_deposit_dir');
+    $findingAidFormat = QubitSetting::getByName('findingAidFormat');
 
     // Set defaults for global form
     $this->globalForm->setDefaults(array(
@@ -255,7 +256,8 @@ class SettingsListAction extends sfAction
       'explode_multipage_files' => (isset($explodeMultipageFiles)) ? intval($explodeMultipageFiles->getValue(array('sourceCulture'=>true))) : 1,
       'show_tooltips' => (isset($showTooltips)) ? intval($showTooltips->getValue(array('sourceCulture'=>true))) : 1,
       'defaultPubStatus' => (isset($defaultPubStatus)) ? $defaultPubStatus->getValue(array('sourceCulture'=>true)) : QubitTerm::PUBLICATION_STATUS_DRAFT_ID,
-      'sword_deposit_dir' => (isset($swordDepositDir)) ? $swordDepositDir->getValue(array('sourceCulture'=>true)) : null
+      'sword_deposit_dir' => (isset($swordDepositDir)) ? $swordDepositDir->getValue(array('sourceCulture'=>true)) : null,
+      'finding_aid_format' => (isset($findingAidFormat)) ? $findingAidFormat->getValue(array('sourceCulture'=>true)) : 'pdf'
     ));
   }
 
@@ -447,6 +449,16 @@ class SettingsListAction extends sfAction
 
       // Force sourceCulture update to prevent discrepency in settings between cultures
       $setting->setValue($swordDepositDir, array('sourceCulture' => true));
+      $setting->save();
+    }
+
+    // Finding Aids format
+    if (null !== $findingAidFormat = $thisForm->getValue('finding_aid_format'))
+    {
+      $setting = QubitSetting::getByName('findingAidFormat');
+
+      // Force sourceCulture update to prevent discrepency in settings between cultures
+      $setting->setValue($findingAidFormat, array('sourceCulture' => true));
       $setting->save();
     }
 
