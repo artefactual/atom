@@ -217,7 +217,7 @@ class QubitXmlImport
         $langCodeConvertor = new fbISO639_Map;
         foreach ($langusage as $language)
         {
-          $isocode = trim(preg_replace('[\n\r\s]+', ' ', $language->nodeValue));
+          $isocode = trim(preg_replace('/[\n\r\s]+/', ' ', $language->nodeValue));
           // convert to Symfony culture code
           if (!$twoCharCode = strtolower($langCodeConvertor->getID1($isocode, false)))
           {
