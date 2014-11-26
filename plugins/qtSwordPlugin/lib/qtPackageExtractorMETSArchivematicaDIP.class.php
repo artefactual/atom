@@ -573,14 +573,15 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - objectUUID: '.$uuid.' ('.$use.')');
 
       // Check availability of FLocat
-      if (!isset($file->FLocat))
+      $file->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+      if (null === $fLocat = $file->xpath('m:FLocat')[0])
       {
         sfContext::getInstance()->getLogger()->err('METSArchivematicaDIP - FLocat not found');
         continue;
       }
 
       // Store relative path within AIP
-      $fLocatAttrs = $file->FLocat->attributes('xlink', true);
+      $fLocatAttrs = $fLocat->attributes('xlink', true);
       if (empty($fLocatAttrs->href))
       {
         sfContext::getInstance()->getLogger()->err('METSArchivematicaDIP - FLocat[href] not found or empty');
