@@ -1865,6 +1865,27 @@ class arElasticSearchInformationObjectPdo
       }
     }
 
+    // Format
+    if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:format/s:formatDesignation/s:formatName')))
+    {
+      $metsData['format']['name'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:format/s:formatDesignation/s:formatVersion')))
+    {
+      $metsData['format']['version'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:format/s:formatRegistry/s:formatRegistryName')))
+    {
+      $metsData['format']['registryName'] = (string)$value[0];
+    }
+
+    if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:format/s:formatRegistry/s:formatRegistryKey')))
+    {
+      $metsData['format']['registryKey'] = (string)$value[0];
+    }
+
     if (empty($metsData))
     {
       return;

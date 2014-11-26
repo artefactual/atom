@@ -231,6 +231,13 @@ mapping:
           identifier_value: { type: string, index: not_analyzed, include_in_all: false }
           name: { type: string, index: not_analyzed, include_in_all: false }
           type: { type: string, index: not_analyzed, include_in_all: false }
+      format:
+        type: object
+        properties:
+          name: { type: string, index: not_analyzed, include_in_all: false }
+          version: { type: string, index: not_analyzed, include_in_all: false }
+          registry_name: { type: string, index: not_analyzed, include_in_all: false }
+          registry_key: { type: string, index: not_analyzed, include_in_all: false }
 
   tms_object:
     _attributes:

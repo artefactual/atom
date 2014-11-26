@@ -43,25 +43,25 @@
         <div>{{ mets.mimeType }}</div>
       </div>
 
-      <div ng-if="mets.formatIdentificationEvent != undefined">
+      <div ng-if="mets.format != undefined">
 
-        <h4>Format identification</h4>
+        <h4>Format</h4>
 
-        <div ng-if="mets.formatIdentificationEvent.detail != undefined" class="field">
-          <h3>Detail</h3>
-          <div>{{ mets.formatIdentificationEvent.detail }}</div>
+        <div ng-if="mets.format.name != undefined" class="field">
+          <h3>Format name</h3>
+          <div>{{ mets.format.name }}</div>
         </div>
-        <div ng-if="mets.formatIdentificationEvent.outcome != undefined" class="field">
-          <h3>Outcome</h3>
-          <div>{{ mets.formatIdentificationEvent.outcome }}</div>
+        <div ng-if="mets.format.version != undefined" class="field">
+          <h3>Format version</h3>
+          <div>{{ mets.format.version }}</div>
         </div>
-        <div ng-if="mets.formatIdentificationEvent.outcomeDetailNote != undefined" class="field">
-          <h3>Outcome detail note</h3>
-          <div>{{ mets.formatIdentificationEvent.outcomeDetailNote }}</div>
+        <div ng-if="mets.format.registryName != undefined" class="field">
+          <h3>Registry name</h3>
+          <div>{{ mets.format.registryName }}</div>
         </div>
-        <div ng-if="mets.formatIdentificationEvent.dateTime != undefined" class="field">
-          <h3>Date</h3>
-          <div>{{ mets.formatIdentificationEvent.dateTime | date:'short' }}</div>
+        <div ng-if="mets.format.registryKey != undefined" class="field">
+          <h3>Registry key</h3>
+          <div>{{ mets.format.registryKey }}</div>
         </div>
 
       </div>
