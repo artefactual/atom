@@ -159,7 +159,7 @@
 
     if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => $noteTypeId)))):
       foreach ($notes as $note): ?>
-        <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></odd>
+        <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars((string)$note)) ?></p></odd>
       <?php endforeach;
     endif;
   } ?>
@@ -201,7 +201,7 @@
         <?php elseif ($name->getObject()->getEntityTypeId() == QubitTerm::FAMILY_ID): ?>
           <famname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></famname>
         <?php elseif ($name->getObject()->getEntityTypeId() == QubitTerm::CORPORATE_BODY_ID): ?>
-          <corpname role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></corpname>
+          <corpname role="subject"><?php echo escape_dc(esc_specialchars((string)$name->getObject())) ?></corpname>
         <?php else: ?>
           <name role="subject"><?php echo escape_dc(esc_specialchars($name->getObject())) ?></name>
         <?php endif; ?>

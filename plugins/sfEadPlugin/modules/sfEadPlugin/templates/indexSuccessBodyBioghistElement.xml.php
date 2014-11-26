@@ -6,14 +6,6 @@
 <?php if (0 < count($creators)): ?>
   <?php foreach($events as $date): ?>
     <?php $creator = QubitActor::getById($date->actorId); ?>
-    <bioghist id="<?php echo 'md5-' . md5(url_for(array($creator, 'module' => 'actor'), true)) ?>" encodinganalog="<?php echo $ead->getMetadataParameter('bioghist') ?>">
-      <?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
-        <note><p><?php echo escape_dc(esc_specialchars($value)) ?></p></note>
-      <?php endif; ?>
-      <?php if ($creator->datesOfExistence): ?>
-        <date type="existence"><?php echo escape_dc(esc_specialchars($creator->datesOfExistence)) ?></date>
-      <?php endif; ?>
-    </bioghist>
 
     <origination encodinganalog="<?php echo $ead->getMetadataParameter('origination') ?>">
       <?php if ($type = $creator->getEntityTypeId()): ?>
@@ -30,6 +22,15 @@
         <name><?php echo escape_dc(esc_specialchars($creator->getAuthorizedFormOfName(array('cultureFallback' => true)))) ?></name>
       <?php endif; ?>
     </origination>
+
+    <bioghist id="<?php echo 'md5-' . md5(url_for(array($creator, 'module' => 'actor'), true)) ?>" encodinganalog="<?php echo $ead->getMetadataParameter('bioghist') ?>">
+      <?php if ($value = $creator->getHistory(array('cultureFallback' => true))): ?>
+        <note><p><?php echo escape_dc(esc_specialchars($value)) ?></p></note>
+      <?php endif; ?>
+      <?php if ($creator->datesOfExistence): ?>
+        <date type="existence"><?php echo escape_dc(esc_specialchars($creator->datesOfExistence)) ?></date>
+      <?php endif; ?>
+    </bioghist>
 
   <?php endforeach; ?>
 <?php endif; ?>

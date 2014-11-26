@@ -109,11 +109,19 @@ class eadExportTask extends sfBaseTask
 
       // clean up XML
       $xml = simplexml_load_string($rawOutput);
-      $dom = new DOMDocument("1.0");
-      $dom->preserveWhiteSpace = false;
-      $dom->formatOutput = true;
-      $dom->loadXML($xml->asXML());
-      $output = $dom->saveXML();
+
+      if (empty($xml))
+      {
+        print 'Invalid XML generated for information object '. $row['id'] .'.';
+        exit();
+      }
+      else {
+        $dom = new DOMDocument("1.0");
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+        $dom->loadXML($xml->asXML());
+        $output = $dom->saveXML();
+      }
 
       // save XML file
       // (padding ID with zeros so filenames can be sorted in creation order for imports)
