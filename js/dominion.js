@@ -133,6 +133,13 @@
         }).addClass('open');
     });
 
+    $(document).ready(function () {
+        $('.lod-filter [type=radio]').change(function (ev) {
+            var link = ev.target.getAttribute('data-link');
+            document.location.replace(link);
+        });
+    });
+
   /****
    ****
    ****  Date facets

@@ -12,6 +12,20 @@
   <div class="facet-body" id="<?php echo $target ?>">
 
     <ul>
+      <?php if ($facet === 'levels'): ?>
+        <div class="lod-filter btn-group" data-toggle="buttons">
+          <li>
+            <label>
+              <input type="radio" name="lod-filter" data-link="<?php echo $topLvlDescUrl ?>" <?php echo $checkedTopDesc ?>>
+              <?php echo __('Top-level descriptions') ?>
+            </label>
+            <label>
+              <input type="radio" name="lod-filter" data-link="<?php echo $allLvlDescUrl ?>" <?php echo $checkedAllDesc ?>>
+              <?php echo __('All descriptions') ?>
+            </label>
+          </li>
+        </div>
+      <?php endif; ?>
 
       <?php if (!isset($filters[$facet])): ?>
         <li class="active">

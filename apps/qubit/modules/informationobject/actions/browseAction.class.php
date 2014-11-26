@@ -132,6 +132,36 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
     }
   }
 
+  /**
+   * Determine url parameters based on if the "top-level descriptions" or "all descriptions"
+   * radio buttons are selected. Also determine which radio button is 'checked'.
+   *
+   * Filter out non-top level descriptions from the ES query if the user has selected
+   * "top-level descriptions."
+   */
+  private function handleTopLevelDescriptionsOnlyFilter()
+  {
+    $this->topLvlDescUrl = $this->context->routing->generate(null, array('topLod' => true) +
+                           $this->request->getParameterHolder()->getAll());
+
+
+    $this->allLvlDescUrl = $this->context->routing->generate(null, array('topLod' => false) +
+                           $this->request->getParameterHolder()->getAll());
+
+    if ($this->request->topLod)
+    {
+      $this->checkedTopDesc = 'checked';
+      $this->checkedAllDesc = '';
+
+      $this->queryBool->addMust(new \Elastica\Query\Term(array('parentId' => QubitInformationObject::ROOT_ID)));
+    }
+    else
+    {
+      $this->checkedTopDesc = '';
+      $this->checkedAllDesc = 'checked';
+    }
+  }
+
   public function execute($request)
   {
     parent::execute($request);
@@ -192,6 +222,14 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
         return;
       }
     }
+
+    // Default to show top level descriptions only when browsing.
+    if (!isset($request->topLod))
+    {
+      $request->topLod = true;
+    }
+
+    $this->handleTopLevelDescriptionsOnlyFilter();
 
     if (isset($request->onlyMedia))
     {
