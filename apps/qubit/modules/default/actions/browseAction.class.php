@@ -231,6 +231,36 @@ class DefaultBrowseAction extends sfAction
     }
   }
 
+  /**
+   * Determine url parameters based on if the "top-level descriptions" or "all descriptions"
+   * radio buttons are selected. Also determine which radio button is 'checked'.
+   *
+   * Filter out non-top level descriptions from the ES query if the user has selected
+   * "top-level descriptions."
+   */
+  protected function handleTopLevelDescriptionsOnlyFilter()
+  {
+    $this->topLvlDescUrl = $this->context->routing->generate(null, array('topLod' => true) +
+                           $this->request->getParameterHolder()->getAll());
+
+
+    $this->allLvlDescUrl = $this->context->routing->generate(null, array('topLod' => false) +
+                           $this->request->getParameterHolder()->getAll());
+
+    if (isset($this->request->topLod) && $this->request->topLod)
+    {
+      $this->checkedTopDesc = 'checked';
+      $this->checkedAllDesc = '';
+
+      $this->queryBool->addMust(new \Elastica\Query\Term(array('parentId' => QubitInformationObject::ROOT_ID)));
+    }
+    else
+    {
+      $this->checkedTopDesc = '';
+      $this->checkedAllDesc = 'checked';
+    }
+  }
+
   public function execute($request)
   {
     if (empty($request->limit))

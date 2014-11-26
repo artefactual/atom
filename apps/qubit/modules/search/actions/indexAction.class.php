@@ -171,6 +171,7 @@ class SearchIndexAction extends DefaultBrowseAction
       $this->queryBool->addMust(new \Elastica\Query\Term(array('hasDigitalObject' => true)));
     }
 
+    $this->handleTopLevelDescriptionsOnlyFilter();
     $this->query->setQuery($this->queryBool);
 
     // Add suggestion

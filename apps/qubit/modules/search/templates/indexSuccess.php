@@ -30,6 +30,15 @@
       </span>
     <?php endif; ?>
 
+    <?php if (isset($sf_request->topLod) && $sf_request->topLod): ?>
+      <span class="search-filter">
+        <?php echo __('Only top-level descriptions') ?>
+        <?php $params = $sf_request->getGetParameters() ?>
+        <?php $params['topLod'] = 0 ?>
+        <a href="<?php echo url_for(array('module' => 'search', 'action' => 'index') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
+
   </section>
 
 <?php end_slot() ?>
@@ -71,6 +80,10 @@
       'facet' => 'levels',
       'pager' => $pager,
       'filters' => $filters,
+      'topLvlDescUrl' => $topLvlDescUrl,
+      'allLvlDescUrl' => $allLvlDescUrl,
+      'checkedTopDesc' => $checkedTopDesc,
+      'checkedAllDesc' => $checkedAllDesc,
       'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(

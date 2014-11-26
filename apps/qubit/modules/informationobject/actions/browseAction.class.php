@@ -193,6 +193,14 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       }
     }
 
+    // Default to show top level descriptions only when browsing.
+    if (!isset($request->topLod))
+    {
+      $request->topLod = true;
+    }
+
+    $this->handleTopLevelDescriptionsOnlyFilter();
+
     if (isset($request->onlyMedia))
     {
       $this->queryBool->addMust(new \Elastica\Query\Term(array('hasDigitalObject' => true)));

@@ -70,7 +70,12 @@
         'label' => __('Level of description'),
         'facet' => 'levels',
         'pager' => $pager,
-        'filters' => $filters)) ?>
+        'filters' => $filters,
+        'topLvlDescUrl' => $topLvlDescUrl,
+        'allLvlDescUrl' => $allLvlDescUrl,
+        'checkedTopDesc' => $checkedTopDesc,
+        'checkedAllDesc' => $checkedAllDesc,
+        'open' => true)) ?>
 
       <?php echo get_partial('search/facet', array(
         'target' => '#facet-mediaTypes',
@@ -112,6 +117,15 @@
         <?php $params = $sf_request->getGetParameters() ?>
         <?php unset($params['onlyMedia']) ?>
         <?php unset($params['page']) ?>
+        <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+      </span>
+    <?php endif; ?>
+
+    <?php if (isset($sf_request->topLod) && $sf_request->topLod): ?>
+      <span class="search-filter">
+        <?php echo __('Only top-level descriptions') ?>
+        <?php $params = $sf_request->getGetParameters() ?>
+        <?php $params['topLod'] = 0 ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
       </span>
     <?php endif; ?>
