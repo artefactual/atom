@@ -2,13 +2,7 @@
 
   'use strict';
 
-  var angular = require('angular');
-
-  module.exports = angular.module('momaApp.modules')
-
-    /**
-     * Simplified version of witoldsz/angular-http-auth without HttpBuffer.
-     */
+  angular.module('drmc.modules.auth')
 
     /**
      * AUTH_EVENTS is a dictionary containing the different types of events used
@@ -16,15 +10,6 @@
      */
     .constant('AUTH_EVENTS', {
       loginRequired: 'login-required'
-    })
-
-    /**
-     * AuthInterceptorService will broadcast AUTH_EVENTS.login-required whenever
-     * a HTTP 401 response is intercepted.
-     */
-    .factory('AuthInterceptorService', require('./AuthInterceptorService'))
-    .config(function ($httpProvider) {
-      $httpProvider.interceptors.push('AuthInterceptorService');
     })
 
     /**
@@ -43,12 +28,6 @@
         $rootScope.isLogging = true;
         $state.go('login');
       });
-    })
-
-    /**
-     * AuthenticationService configures the $http provider and validates your
-     * credentials, also logs you out when required and creates the user object.
-     */
-    .service('AuthenticationService', require('./AuthenticationService'));
+    });
 
 })();

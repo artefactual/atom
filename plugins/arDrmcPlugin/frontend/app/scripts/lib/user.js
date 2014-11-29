@@ -8,6 +8,8 @@
     this.groups = data.groups;
   }
 
+  window.User = User;
+
   User.prototype.isMemberOf = function (group) {
     return this.groups.indexOf(group) !== -1;
   };
@@ -41,7 +43,5 @@
   User.prototype.canRead = function () {
     return this.isMemberOf('authenticated');
   };
-
-  module.exports = User;
 
 })();

@@ -2,8 +2,16 @@
 
   'use strict';
 
-  module.exports = function ($rootScope, $q, AUTH_EVENTS) {
+  /**
+   * AuthInterceptorService will broadcast AUTH_EVENTS.login-required whenever
+   * a HTTP 401 response is intercepted.
+   */
 
+  angular.module('drmc').config(function ($httpProvider) {
+    $httpProvider.interceptors.push('AuthInterceptorService');
+  });
+
+  angular.module('drmc.modules.auth').factory('AuthInterceptorService', function ($rootScope, $q, AUTH_EVENTS) {
     return {
       responseError: function (response) {
         if (response.status === 401) {
@@ -14,7 +22,6 @@
         return $q.reject(response);
       }
     };
-
-  };
+  });
 
 })();

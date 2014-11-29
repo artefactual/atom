@@ -1,87 +1,91 @@
-'use strict';
+(function () {
 
-module.exports = function ($http, SETTINGS) {
+  'use strict';
 
-  /**
-   * API endpoints
-   *
-   * - /api/activity/downloads
-   * - /api/activity/ingestion
-   * - /api/summary/ingestion
-   * - /api/summary/artworkbydate
-   * - /api/summary/mediafilesizebycollectionyear
-   * - /api/summary/departmentartworkcount
-   * - /api/summary/storagebycodec
-   * - /api/summary/storagebymediacategory
-   *
-   */
+  angular.module('drmc.services').service('StatisticsService', function ($http, SETTINGS) {
 
-  this.getDownloadActivity = function () {
-    return $http({
-      method: 'GET',
-      url: SETTINGS.frontendPath + 'api/activity/downloads'
-    });
-  };
+    /**
+     * API endpoints
+     *
+     * - /api/activity/downloads
+     * - /api/activity/ingestion
+     * - /api/summary/ingestion
+     * - /api/summary/artworkbydate
+     * - /api/summary/mediafilesizebycollectionyear
+     * - /api/summary/departmentartworkcount
+     * - /api/summary/storagebycodec
+     * - /api/summary/storagebymediacategory
+     *
+     */
 
-  this.getIngestionActivity = function () {
-    return $http({
-      method: 'GET',
-      url: SETTINGS.frontendPath + 'api/activity/ingestion'
-    });
-  };
+    this.getDownloadActivity = function () {
+      return $http({
+        method: 'GET',
+        url: SETTINGS.frontendPath + 'api/activity/downloads'
+      });
+    };
 
-  this.getIngestionSummary = function () {
-    return $http({
-      method: 'GET',
-      url: SETTINGS.frontendPath + 'api/summary/ingestion'
-    });
-  };
+    this.getIngestionActivity = function () {
+      return $http({
+        method: 'GET',
+        url: SETTINGS.frontendPath + 'api/activity/ingestion'
+      });
+    };
 
-  this.getArtworkByMonthSummary = function () {
-    return $http({
-      method: 'GET',
-      url: SETTINGS.frontendPath + 'api/summary/artworkbydate'
-    });
-  };
+    this.getIngestionSummary = function () {
+      return $http({
+        method: 'GET',
+        url: SETTINGS.frontendPath + 'api/summary/ingestion'
+      });
+    };
 
-  this.getArtworkSizesByYearSummary = function () {
-    return $http({
-      method: 'GET',
-      url: SETTINGS.frontendPath + 'api/summary/mediafilesizebycollectionyear'
-    });
-  };
+    this.getArtworkByMonthSummary = function () {
+      return $http({
+        method: 'GET',
+        url: SETTINGS.frontendPath + 'api/summary/artworkbydate'
+      });
+    };
 
-  // Artwork counts and running totals by ingestion month and collection year
-  this.getArtworkCountsAndTotalsByDate = function () {
-    return $http({
-      method: 'GET',
-      url: SETTINGS.frontendPath + 'api/summary/artworkbydate'
-    });
-  };
+    this.getArtworkSizesByYearSummary = function () {
+      return $http({
+        method: 'GET',
+        url: SETTINGS.frontendPath + 'api/summary/mediafilesizebycollectionyear'
+      });
+    };
 
-  // Artwork count per department
-  this.getRunningTotalByDepartment = function () {
-    return $http({
-      method: 'GET',
-      url: SETTINGS.frontendPath + 'api/summary/departmentartworkcount'
-    });
+    // Artwork counts and running totals by ingestion month and collection year
+    this.getArtworkCountsAndTotalsByDate = function () {
+      return $http({
+        method: 'GET',
+        url: SETTINGS.frontendPath + 'api/summary/artworkbydate'
+      });
+    };
 
-  };
+    // Artwork count per department
+    this.getRunningTotalByDepartment = function () {
+      return $http({
+        method: 'GET',
+        url: SETTINGS.frontendPath + 'api/summary/departmentartworkcount'
+      });
 
-  // Storage used per codec
-  this.getRunningTotalByCodec = function () {
-    return $http({
-      method: 'GET',
-      url: SETTINGS.frontendPath + 'api/summary/storagebycodec'
-    });
-  };
+    };
 
-  // Storage used per media category
-  this.getRunningTotalByFormat = function () {
-    return $http({
-      method: 'GET',
-      url: SETTINGS.frontendPath + 'api/summary/storagebymediacategory'
-    });
-  };
+    // Storage used per codec
+    this.getRunningTotalByCodec = function () {
+      return $http({
+        method: 'GET',
+        url: SETTINGS.frontendPath + 'api/summary/storagebycodec'
+      });
+    };
 
-};
+    // Storage used per media category
+    this.getRunningTotalByFormat = function () {
+      return $http({
+        method: 'GET',
+        url: SETTINGS.frontendPath + 'api/summary/storagebymediacategory'
+      });
+    };
+
+  });
+
+})();

@@ -2,18 +2,17 @@
 
   'use strict';
 
-  var Graph = require('./graph');
-  var Zoom = require('./zoom');
-  var Renderer = require('./renderer');
-
-  var d3 = require('d3');
-  var jQuery = require('jquery');
-  var EventEmitter = require('wolfy87-eventemitter');
+  var Graph = window.Graph;
+  var Zoom = window.GraphZoom;
+  var Renderer = window.GraphRenderer;
+  var EventEmitter = window.EventEmitter;
 
   function ContextBrowser (container) {
     this.container = container;
     this.events = new EventEmitter();
   }
+
+  window.ContextBrowser =  ContextBrowser;
 
   ContextBrowser.prototype.init = function (data, filter) {
 
@@ -353,7 +352,5 @@
     this.graph.addAssociativeEdge(relation_id, source, target, type);
     this.draw();
   };
-
-  module.exports = ContextBrowser;
 
 })();

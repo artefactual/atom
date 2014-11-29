@@ -9,10 +9,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-concat'); // Not used
-  grunt.loadNpmTasks('grunt-contrib-uglify'); // Not used
-  grunt.loadNpmTasks('grunt-browserify');
-  grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-contrib-concat');
 
   // Build task
   grunt.registerTask('default', [
@@ -32,7 +29,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build-js', [
     'clean:dist',
-    'browserify',
+    'concat',
     'copy',
     'clean:build'
   ]);
@@ -40,7 +37,7 @@ module.exports = function (grunt) {
   // This is for grunt-watch
   grunt.registerTask('build-js-after-changes', [
     'lint',
-    'browserify:app',
+    'concat',
     'copy'
   ]);
 
@@ -49,14 +46,6 @@ module.exports = function (grunt) {
     'jshint',
     'jscs'
   ]);
-
-  var karmaConfig = function (configFile, customOptions) {
-    var options = {
-      configFile: configFile,
-      keepalive: true
-    };
-    return grunt.util._.extend(options, customOptions);
-  };
 
   grunt.initConfig({
     distdir: 'dist',
@@ -121,57 +110,41 @@ module.exports = function (grunt) {
       }
     },
 
-    karma: {
-      unit: {
-        options: karmaConfig('test/config/karma.config.js')
-      },
-      watch: {
-        options: karmaConfig('test/config/karma.config.js', {
-          singleRun: false,
-          autoWatch: true
-        })
-      }
-    },
-
     clean: {
       dist: ['<%= distdir %>/**/*'],
       build: ['<%= builddir %>/**/*']
     },
 
-    browserify: {
-
+    concat: {
       vendor: {
-        src: 'app/scripts/import.js',
+        src: [
+          'node_modules/wolfy87-eventemitter/EventEmitter.js',
+          'node_modules/jquery/dist/jquery.js',
+          'node_modules/d3/d3.js',
+          'vendor/dagre.js',
+          'node_modules/rickshaw/rickshaw.js',
+          'node_modules/angular/angular.js',
+          'node_modules/angular-ui-router/release/angular-ui-router.js',
+          'vendor/angular-ui-router.js',
+          'vendor/angular-ui.js',
+          'node_modules/ng-storage/ngStorage.js',
+          'vendor/angular-hotkeys/hotkeys.js',
+          '../../../vendor/bootstrap/js/bootstrap.js'
+        ],
         dest: '<%= builddir %>/vendor.js',
-        options: {
-          debug: true,
-          alias: [
-            'jquery:jquery',
-            'd3:d3',
-            'rickshaw:rickshaw',
-            'dagre:dagre',
-            'angular:angular',
-            'wolfy87-eventemitter:wolfy87-eventemitter'
-          ]
-        }
       },
-
       app: {
-        src: '<%= src.jsEntry %>',
+        src: [
+          'app/scripts/app.js',
+          'app/scripts/lib/cbd/graph.js',
+          'app/scripts/lib/cbd/zoom.js',
+          'app/scripts/lib/cbd/renderer.js',
+          'app/scripts/lib/cbd/index.js',
+          'app/scripts/**/module.js',
+          'app/scripts/**/*.js'
+        ],
         dest: '<%= builddir %>/app.js',
-        options: {
-          debug: true,
-          external: [
-            'jquery',
-            'd3',
-            'rickshaw',
-            'dagre',
-            'angular',
-            'wolfy87-eventemitter'
-          ]
-        }
       }
-
     },
 
     copy: {

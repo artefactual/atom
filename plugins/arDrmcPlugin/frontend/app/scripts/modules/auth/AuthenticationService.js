@@ -2,9 +2,14 @@
 
   'use strict';
 
-  var User = require('../../lib/user');
+  var User = window.User;
 
-  module.exports = function ($rootScope, $http, $state, SETTINGS) {
+  /**
+   * AuthenticationService configures the $http provider and validates your
+   * credentials, also logs you out when required and creates the user object.
+   */
+
+  angular.module('drmc.modules.auth').service('AuthenticationService', function ($rootScope, $http, $state, SETTINGS) {
 
     // Notice that a reference to the user object (User) is stored in
     // $rootScope.user so it can be used across all our models. An alternative
@@ -50,6 +55,6 @@
       });
     };
 
-  };
+  });
 
 })();

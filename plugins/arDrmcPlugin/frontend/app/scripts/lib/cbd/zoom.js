@@ -2,9 +2,6 @@
 
   'use strict';
 
-  var d3 = require('d3');
-  var jQuery = require('jquery');
-
   // Click to zoom via transform,
   // I feel like I'm going to need this soon
   // http://bl.ocks.org/mbostock/2206590
@@ -28,6 +25,8 @@
     this.SVG.call(this.zoomBehavior);
     this.SVG.on('dblclick.zoom', null);
   }
+
+  window.GraphZoom = Zoom;
 
   Zoom.prototype.getViewportDimensions = function () {
     return {
@@ -80,7 +79,5 @@
   Zoom.prototype.zoomed = function () {
     this.container.attr('transform', 'translate(' + d3.event.translate + ') scale(' + d3.event.scale + ')');
   };
-
-  module.exports = Zoom;
 
 })();

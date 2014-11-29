@@ -1,64 +1,68 @@
-'use strict';
+(function () {
 
-module.exports = function ($scope, $stateParams, InformationObjectService, ModalEditDcMetadataService, ModalDigitalObjectViewerService, ModalDownloadService) {
+  'use strict';
 
-  $scope.pull = function () {
-    InformationObjectService.getSupportingTechnologyRecord($stateParams.id).then(function (response) {
-      $scope.techRecord = response.data;
-    }, function (reason) {
-      throw reason;
-    });
-  };
+  angular.module('drmc.controllers').controller('TechnologyRecordViewCtrl', function ($scope, $stateParams, InformationObjectService, ModalEditDcMetadataService, ModalDigitalObjectViewerService, ModalDownloadService) {
 
-  // Pull during initialization
-  $scope.pull();
+    $scope.pull = function () {
+      InformationObjectService.getSupportingTechnologyRecord($stateParams.id).then(function (response) {
+        $scope.techRecord = response.data;
+      }, function (reason) {
+        throw reason;
+      });
+    };
 
-  // A list of digital objects. This is shared within the context browser
-  // directive (two-way binding);
-  $scope.files = [];
+    // Pull during initialization
+    $scope.pull();
 
-  $scope.selectNode = function () {
-    InformationObjectService.getAips($stateParams.id).then(function (data) {
-      $scope.aggregation = data.overview;
-    });
-  };
+    // A list of digital objects. This is shared within the context browser
+    // directive (two-way binding);
+    $scope.files = [];
 
-  // Edit metadata of the current technology record
-  $scope.edit = function () {
-    ModalEditDcMetadataService.edit($scope.techRecord.id).result.then(function () {
-      $scope.pull();
-      $scope.$broadcast('reload');
-    });
-  };
+    $scope.selectNode = function () {
+      InformationObjectService.getAips($stateParams.id).then(function (data) {
+        $scope.aggregation = data.overview;
+      });
+    };
 
-  // Add new child
-  $scope.addChild = function () {
-    ModalEditDcMetadataService.create($scope.techRecord.id).result.then(function () {
-      $scope.pull();
-      $scope.$broadcast('reload');
-    });
-  };
+    // Edit metadata of the current technology record
+    $scope.edit = function () {
+      ModalEditDcMetadataService.edit($scope.techRecord.id).result.then(function () {
+        $scope.pull();
+        $scope.$broadcast('reload');
+      });
+    };
+
+    // Add new child
+    $scope.addChild = function () {
+      ModalEditDcMetadataService.create($scope.techRecord.id).result.then(function () {
+        $scope.pull();
+        $scope.$broadcast('reload');
+      });
+    };
 
 
-  // TODO: downloadFile, downloadAip and openDigitalObjectModal is used both in
-  // WorkViewCtrl and TechnologyRecordViewctrl, inside aip-overview.html. Create
-  // a directive that can be shared instead of having duplicated functionality.
+    // TODO: downloadFile, downloadAip and openDigitalObjectModal is used both in
+    // WorkViewCtrl and TechnologyRecordViewctrl, inside aip-overview.html. Create
+    // a directive that can be shared instead of having duplicated functionality.
 
-  $scope.downloadFile = function (file) {
-    ModalDownloadService.downloadFile(
-      file.aip_name,
-      file.aip_uuid,
-      file.id,
-      file.original_relative_path_within_aip
-    );
-  };
+    $scope.downloadFile = function (file) {
+      ModalDownloadService.downloadFile(
+        file.aip_name,
+        file.aip_uuid,
+        file.id,
+        file.original_relative_path_within_aip
+      );
+    };
 
-  $scope.downloadAip = function (file) {
-    ModalDownloadService.downloadAip(file.aip_name, file.aip_uuid);
-  };
+    $scope.downloadAip = function (file) {
+      ModalDownloadService.downloadAip(file.aip_name, file.aip_uuid);
+    };
 
-  $scope.openDigitalObjectModal = function (files, index) {
-    ModalDigitalObjectViewerService.open(files, index);
-  };
+    $scope.openDigitalObjectModal = function (files, index) {
+      ModalDigitalObjectViewerService.open(files, index);
+    };
 
-};
+  });
+
+})();

@@ -1,77 +1,81 @@
-'use strict';
+(function () {
 
-module.exports = function (SETTINGS) {
+  'use strict';
 
-  var dcFields = [
-    'identifier',
-    'title',
-    'description',
-    'names',
-    'dates',
-    'types',
-    'format',
-    'source',
-    'rights'
-  ];
+  angular.module('drmc.directives').directive('arContextBrowserMetadata', function (SETTINGS) {
 
-  return {
-    restrict: 'E',
-    templateUrl: SETTINGS.viewsPath + '/partials/context-browser.metadata.html',
-    replace: true,
-    link: function (scope, element, attrs) {
+    var dcFields = [
+      'identifier',
+      'title',
+      'description',
+      'names',
+      'dates',
+      'types',
+      'format',
+      'source',
+      'rights'
+    ];
 
-      scope.fields = dcFields;
+    return {
+      restrict: 'E',
+      templateUrl: SETTINGS.viewsPath + '/partials/context-browser.metadata.html',
+      replace: true,
+      link: function (scope, element, attrs) {
 
-      scope.$watch(attrs.metadata, function (value) {
-        if (typeof value !== 'undefined') {
-          scope.metadata = value;
-        }
-      });
+        scope.fields = dcFields;
 
-      scope.isList = function (value) {
-        return angular.isArray(value);
-      };
+        scope.$watch(attrs.metadata, function (value) {
+          if (typeof value !== 'undefined') {
+            scope.metadata = value;
+          }
+        });
 
-      scope.hasField = function (name) {
-        return scope.metadata.hasOwnProperty(name);
-      };
+        scope.isList = function (value) {
+          return angular.isArray(value);
+        };
 
-      scope.renderField = function (name) {
-        var value = scope.metadata[name];
-        if (angular.isObject(value)) {
-          return scope.renderObject(value, name);
-        }
-        return scope.renderValue(value);
-      };
+        scope.hasField = function (name) {
+          return scope.metadata.hasOwnProperty(name);
+        };
 
-      scope.renderValue = function (value) {
-        return value;
-      };
+        scope.renderField = function (name) {
+          var value = scope.metadata[name];
+          if (angular.isObject(value)) {
+            return scope.renderObject(value, name);
+          }
+          return scope.renderValue(value);
+        };
 
-      scope.renderObject = function (value, name) {
-        switch (name) {
-          case 'dates':
-            var el = [];
-            ['date', 'start_date', 'end_date'].forEach(function (e) {
-              if (!value.hasOwnProperty(e)) {
-                return;
-              }
-              el.push(value[e]);
-            });
-            return el.join(', ');
-          case 'names':
-            return value.authorized_form_of_name;
-          case 'types':
-            return value.name;
-        }
-      };
+        scope.renderValue = function (value) {
+          return value;
+        };
 
-      scope.collapsed = false;
-      scope.toggle = function () {
-        scope.collapsed = !scope.collapsed;
-      };
+        scope.renderObject = function (value, name) {
+          switch (name) {
+            case 'dates':
+              var el = [];
+              ['date', 'start_date', 'end_date'].forEach(function (e) {
+                if (!value.hasOwnProperty(e)) {
+                  return;
+                }
+                el.push(value[e]);
+              });
+              return el.join(', ');
+            case 'names':
+              return value.authorized_form_of_name;
+            case 'types':
+              return value.name;
+          }
+        };
 
-    }
-  };
+        scope.collapsed = false;
+        scope.toggle = function () {
+          scope.collapsed = !scope.collapsed;
+        };
 
-};
+      }
+    };
+
+  });
+
+})();

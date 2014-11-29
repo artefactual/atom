@@ -9,7 +9,7 @@
     <?php echo javascript_include_tag('/plugins/arDrmcPlugin/frontend/dist/DRMC.vendor.js') ?>
     <?php echo javascript_include_tag('/plugins/arDrmcPlugin/frontend/dist/DRMC.app.js') ?>
   </head>
-  <body ng-app="momaApp" class="drmc" ng-controller="BodyCtrl">
+  <body ng-app="drmc" class="drmc" ng-controller="BodyCtrl">
 
     <!-- View placeholder -->
     <ui-view autoscroll="false"/>

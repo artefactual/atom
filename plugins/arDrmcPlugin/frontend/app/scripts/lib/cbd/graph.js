@@ -2,9 +2,6 @@
 
   'use strict';
 
-  var angular = require('angular');
-  var dagre = require('dagre');
-
   function Graph (data) {
     // Call parent constructor
     this._parent = dagre.Digraph.call(this);
@@ -15,6 +12,8 @@
       this.build();
     }
   }
+
+  window.Graph = Graph;
 
   Graph.prototype = Object.create(dagre.Digraph.prototype);
   Graph.prototype.constructor = Graph;
@@ -158,7 +157,5 @@
 
     return list;
   };
-
-  module.exports = Graph;
 
 })();

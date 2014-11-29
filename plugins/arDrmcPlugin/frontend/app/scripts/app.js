@@ -2,40 +2,24 @@
 
   'use strict';
 
-  var angular = require('angular');
-
   /*
    * Define module and dependencies
    */
 
-  angular.module('momaApp', [
+  angular.module('drmc', [
 
-    require('./services').name,
-    require('./directives').name,
-    require('./controllers').name,
-    require('./filters').name,
-    require('./modules').name,
+    'drmc.services',
+    'drmc.directives',
+    'drmc.controllers',
+    'drmc.filters',
+    'drmc.modules',
 
     'ui.router',
     'ui.bootstrap',
-    'cfp.hotkeys',
+    // 'cfp.hotkeys',
     'ngStorage'
 
   ]);
-
-
-  /*
-   * Routing
-   */
-
-  angular.module('momaApp').config(require('./routing'));
-
-
-  /*
-   * Settings
-   */
-
-  angular.module('momaApp').constant('SETTINGS', require('./settings'));
 
 
   /*
@@ -45,7 +29,7 @@
    * has been created.
    */
 
-  angular.module('momaApp')
+  angular.module('drmc')
     .run(function ($rootScope, SETTINGS, $state, $stateParams) {
 
       // Share information with $rootScope so it's globally available from our views

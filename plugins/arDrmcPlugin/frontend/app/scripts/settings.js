@@ -1,21 +1,25 @@
-'use strict';
+(function () {
 
-module.exports = {
+  'use strict';
 
-  // Base path, e.g. "/~user/atom"
-  basePath: Qubit.relativeUrlRoot,
+  angular.module('drmc').constant('SETTINGS', {
 
-  // Frontend path, e.g. "/~user/atom/index.php"
-  frontendPath: Qubit.frontend,
+    // Base path, e.g. "/~user/atom"
+    basePath: Qubit.relativeUrlRoot,
 
-  // DRMC path, e.g. "/~user/atom/index.php/drmc"
-  DRMCPath: Qubit.frontend + 'drmc/',
+    // Frontend path, e.g. "/~user/atom/index.php"
+    frontendPath: Qubit.frontend,
 
-  // Things like levels of description, etc...
-  drmc: Qubit.drmc,
+    // DRMC path, e.g. "/~user/atom/index.php/drmc"
+    DRMCPath: Qubit.frontend + 'drmc/',
 
-  // Views, assets, etc...
-  viewsPath: Qubit.relativeUrlRoot + '/plugins/arDrmcPlugin/frontend/app/views',
-  assetsPath: Qubit.relativeUrlRoot + '/plugins/arDrmcPlugin/frontend/assets'
+    // Things like levels of description, etc...
+    drmc: Qubit.drmc,
 
-};
+    // Views, assets, etc...
+    viewsPath: Qubit.relativeUrlRoot + '/plugins/arDrmcPlugin/frontend/app/views',
+    assetsPath: Qubit.relativeUrlRoot + '/plugins/arDrmcPlugin/frontend/assets'
+
+  });
+
+})();

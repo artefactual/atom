@@ -24,13 +24,15 @@
   "globals": {
     "angular": false,
     "Qubit": false,
+    "rickshaw": false,
     "jQuery": false,
     "d3": false,
     "dagre": false,
     "dagreD3": false,
     "Plumb": false,
     "jsPlumb": false,
-    "prompt": false
+    "prompt": false,
+    "ContextBrowser": false
   }
 
 }

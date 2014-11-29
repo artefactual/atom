@@ -1,19 +1,23 @@
-'use strict';
+(function () {
 
-module.exports = function ($scope, ModalReclassifyAipService, SETTINGS) {
+  'use strict';
 
-  // Default sorting options
-  $scope.criteria.sort_direction = 'desc';
-  $scope.criteria.sort = 'createdAt';
+  angular.module('drmc.controllers').controller('AipSearchCtrl', function ($scope, ModalReclassifyAipService, SETTINGS) {
 
-  // Levels of description to determine part_of link
-  $scope.artworkId = parseInt(SETTINGS.drmc.lod_artwork_record_id);
-  $scope.techId = parseInt(SETTINGS.drmc.lod_supporting_technology_record_id);
+    // Default sorting options
+    $scope.criteria.sort_direction = 'desc';
+    $scope.criteria.sort = 'createdAt';
 
-  $scope.openReclassifyModal = function (aip) {
-    ModalReclassifyAipService.open(aip.uuid, aip.part_of.title).result.then(function () {
-      $scope.$parent.updateResults();
-    });
-  };
+    // Levels of description to determine part_of link
+    $scope.artworkId = parseInt(SETTINGS.drmc.lod_artwork_record_id);
+    $scope.techId = parseInt(SETTINGS.drmc.lod_supporting_technology_record_id);
 
-};
+    $scope.openReclassifyModal = function (aip) {
+      ModalReclassifyAipService.open(aip.uuid, aip.part_of.title).result.then(function () {
+        $scope.$parent.updateResults();
+      });
+    };
+
+  });
+
+})();

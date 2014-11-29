@@ -1,37 +1,41 @@
-'use strict';
+(function () {
 
-module.exports = function () {
+  'use strict';
 
-  return function (time) {
+  angular.module('drmc.filters').filter('ConvertSecondsFilter', function () {
 
-    if (time === 0) {
-      return '0s';
-    }
+    return function (time) {
 
-    if (!Number(time)) {
-      return;
-    }
+      if (time === 0) {
+        return '0s';
+      }
 
-    // Calculate
-    var days = Math.floor(time / 86400);
-    time -= days * 86400;
-    var hours = Math.floor(time / 3600);
-    time -= hours * 3600;
-    var minutes = Math.floor(time / 60);
-    time -= minutes * 60;
-    var seconds = time;
+      if (!Number(time)) {
+        return;
+      }
 
-    // Return
-    if (days > 0) {
-      return days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's';
-    } else if (hours > 0) {
-      return hours + 'h ' + minutes + 'm ' + seconds + 's';
-    } else if (minutes > 0) {
-      return minutes + 'm ' + seconds + 's';
-    } else {
-      return seconds + 's';
-    }
+      // Calculate
+      var days = Math.floor(time / 86400);
+      time -= days * 86400;
+      var hours = Math.floor(time / 3600);
+      time -= hours * 3600;
+      var minutes = Math.floor(time / 60);
+      time -= minutes * 60;
+      var seconds = time;
 
-  };
+      // Return
+      if (days > 0) {
+        return days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's';
+      } else if (hours > 0) {
+        return hours + 'h ' + minutes + 'm ' + seconds + 's';
+      } else if (minutes > 0) {
+        return minutes + 'm ' + seconds + 's';
+      } else {
+        return seconds + 's';
+      }
 
-};
+    };
+
+  });
+
+})();

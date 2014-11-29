@@ -1,18 +1,22 @@
-'use strict';
+(function () {
 
-module.exports = function ($rootScope, $scope, $state, SETTINGS, ModalEditDcMetadataService, AuthenticationService) {
+  'use strict';
 
-  $scope.openEditDcModal = function () {
-    ModalEditDcMetadataService.create();
-  };
+  angular.module('drmc.controllers').controller('HeaderCtrl', function ($rootScope, $scope, $state, SETTINGS, ModalEditDcMetadataService, AuthenticationService) {
 
-  $scope.logOut = function () {
-    AuthenticationService.logOut();
-    $state.go('login');
-  };
+    $scope.openEditDcModal = function () {
+      ModalEditDcMetadataService.create();
+    };
 
-  if (angular.isUndefined($rootScope.user)) {
-    AuthenticationService.load();
-  }
+    $scope.logOut = function () {
+      AuthenticationService.logOut();
+      $state.go('login');
+    };
 
-};
+    if (angular.isUndefined($rootScope.user)) {
+      AuthenticationService.load();
+    }
+
+  });
+
+})();

@@ -2,7 +2,7 @@
 
   'use strict';
 
-  module.exports = function ($compile) {
+  angular.module('drmc.directives').directive('arDigitalObjectThumbnail', function ($compile) {
 
     var templates = {
       'icon':      '<a href ng-click="click()">' +
@@ -106,6 +106,6 @@
       }
     };
 
-  };
+  });
 
 })();

@@ -1,105 +1,109 @@
-'use strict';
+(function () {
 
-var myrickshaw = require('rickshaw');
+  'use strict';
 
-module.exports = function () {
-  return {
-    restrict: 'E',
-    replace: true,
-    scope: {
-      'yFilter': '=yFilter'
-    },
-    template: '<div><rs-y-axis></rs-y-axis><rs-chart></rs-chart><rs-x-axis></rs-x-axis></div>',
-    link: function (scope, element, attrs) {
+  angular.module('drmc.directives').directive('arGraphLine', function () {
 
-      attrs.$observe('data', function (graphSpecification) {
+    return {
+      restrict: 'E',
+      replace: true,
+      scope: {
+        'yFilter': '=yFilter'
+      },
+      template: '<div><rs-y-axis></rs-y-axis><rs-chart></rs-chart><rs-x-axis></rs-x-axis></div>',
+      link: function (scope, element, attrs) {
 
-        var series = [],
-            max = Number.MIN_VALUE,
-            dataFound = false;
+        attrs.$observe('data', function (graphSpecification) {
 
-        if (graphSpecification) {
-          var xLabels = [];
+          var series = [],
+              max = Number.MIN_VALUE,
+              dataFound = false;
 
-          // process data for each line of the graph
-          JSON.parse(graphSpecification).forEach(function (lineData) {
-            // set graph x/y values and increase max y if needed
-            for (var i = 0; i < lineData.data.length; i++) {
-              // note that data has been found
-              dataFound = true;
+          if (graphSpecification) {
+            var xLabels = [];
 
-              // store index as X value because Rickshaw accepts only sequential value
-              lineData.data[i].x = i;
+            // process data for each line of the graph
+            JSON.parse(graphSpecification).forEach(function (lineData) {
+              // set graph x/y values and increase max y if needed
+              for (var i = 0; i < lineData.data.length; i++) {
+                // note that data has been found
+                dataFound = true;
 
-              // store real X value as a label to be diplayed using a custom formatter
-              if (typeof lineData.xLabelFormat !== 'undefined') {
-                if (lineData.xLabelFormat === 'yearAndMonth')
-                {
-                  xLabels[i] = lineData.data[i].year + '-' + lineData.data[i].month;
+                // store index as X value because Rickshaw accepts only sequential value
+                lineData.data[i].x = i;
+
+                // store real X value as a label to be diplayed using a custom formatter
+                if (typeof lineData.xLabelFormat !== 'undefined') {
+                  if (lineData.xLabelFormat === 'yearAndMonth')
+                  {
+                    xLabels[i] = lineData.data[i].year + '-' + lineData.data[i].month;
+                  } else {
+                    console.log('Invalid xLabelFormat.');
+                  }
                 } else {
-                  console.log('Invalid xLabelFormat.');
+                  xLabels[i] = parseInt(lineData.data[i][lineData.xProperty]);
                 }
-              } else {
-                xLabels[i] = parseInt(lineData.data[i][lineData.xProperty]);
+
+                // store y value data
+                lineData.data[i].y = lineData.data[i][lineData.yProperty];
+
+                // determine whether a new Y data ceiling should be set
+                max = Math.max(max, lineData.data[i].y);
               }
+              series.push(lineData);
+            });
 
-              // store y value data
-              lineData.data[i].y = lineData.data[i][lineData.yProperty];
+            // add padding to max
+            max = max + (max / 10);
 
-              // determine whether a new Y data ceiling should be set
-              max = Math.max(max, lineData.data[i].y);
+            // set optional element ID
+            if (typeof attrs.id !== 'undefined') {
+              element.attr('id', attrs.id);
             }
-            series.push(lineData);
-          });
 
-          // add padding to max
-          max = max + (max / 10);
+            if (dataFound) {
+              var graph = new rickshaw.Graph({
+                element: element.find('rs-chart')[0],
+                width: attrs.width,
+                height: attrs.height,
+                series: series,
+                max: max
+              });
 
-          // set optional element ID
-          if (typeof attrs.id !== 'undefined') {
-            element.attr('id', attrs.id);
+              // use custom X axis formatter so we can use arbitrary X values
+              var xFormat = function (i) {
+                return (typeof xLabels[i] !== 'undefined') ? xLabels[i] : '';
+              };
+
+              var xAxis = new rickshaw.Graph.Axis.X({
+                graph: graph,
+                element: element.find('rs-x-axis')[0],
+                orientation: 'bottom',
+                pixelsPerTick: attrs.xperTick,
+                tickFormat: xFormat
+              });
+              xAxis.render();
+
+              // allow optional use of Y axis formatter passed in as attribute
+              var yFormat = (typeof scope.yFilter !== 'undefined') ? scope.yFilter : rickshaw.Fixtures.Number.formatKMBT;
+
+              var yAxis = new rickshaw.Graph.Axis.Y({
+                graph: graph,
+                element: element.find('rs-y-axis')[0],
+                pixelsPerTick: attrs.yperTick,
+                orientation: 'left',
+                tickFormat: yFormat
+              });
+              yAxis.render();
+
+              graph.setRenderer(attrs.type);
+              graph.render();
+            }
           }
+        });
+      }
+    };
 
-          if (dataFound) {
-            var graph = new myrickshaw.Graph({
-              element: element.find('rs-chart')[0],
-              width: attrs.width,
-              height: attrs.height,
-              series: series,
-              max: max
-            });
+  });
 
-            // use custom X axis formatter so we can use arbitrary X values
-            var xFormat = function (i) {
-              return (typeof xLabels[i] !== 'undefined') ? xLabels[i] : '';
-            };
-
-            var xAxis = new myrickshaw.Graph.Axis.X({
-              graph: graph,
-              element: element.find('rs-x-axis')[0],
-              orientation: 'bottom',
-              pixelsPerTick: attrs.xperTick,
-              tickFormat: xFormat
-            });
-            xAxis.render();
-
-            // allow optional use of Y axis formatter passed in as attribute
-            var yFormat = (typeof scope.yFilter !== 'undefined') ? scope.yFilter : myrickshaw.Fixtures.Number.formatKMBT;
-
-            var yAxis = new myrickshaw.Graph.Axis.Y({
-              graph: graph,
-              element: element.find('rs-y-axis')[0],
-              pixelsPerTick: attrs.yperTick,
-              orientation: 'left',
-              tickFormat: yFormat
-            });
-            yAxis.render();
-
-            graph.setRenderer(attrs.type);
-            graph.render();
-          }
-        }
-      });
-    }
-  };
-};
+})();

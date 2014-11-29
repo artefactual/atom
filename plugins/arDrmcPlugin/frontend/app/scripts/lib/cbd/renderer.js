@@ -2,14 +2,13 @@
 
   'use strict';
 
-  var d3 = require('d3');
-  var dagre = require('dagre');
-
   function Renderer () {
     this.edgeInterpolate = 'bundle';
     this.edgeTension = 0.95;
     this.rankDir = 'RL';
   }
+
+  window.GraphRenderer = Renderer;
 
   Renderer.prototype.run = function (graph, svg) {
     this.layout = dagre.layout().nodeSep(20).rankSep(80).rankDir(this.rankDir);
@@ -590,7 +589,5 @@
       y: y + sy
     };
   }
-
-  module.exports = Renderer;
 
 })();
