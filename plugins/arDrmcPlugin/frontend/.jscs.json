@@ -40,7 +40,7 @@
   "disallowKeywordsOnNewLine": ["else"],
   "requireLineFeedAtFileEnd": true,
   "maximumLineLength": {
-    "value": 160,
+    "value": 250,
     "tabSize": 1,
     "allowComments": true,
     "allowUrlComments": true,

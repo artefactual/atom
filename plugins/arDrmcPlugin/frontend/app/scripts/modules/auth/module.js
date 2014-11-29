@@ -6,6 +6,6 @@
    * Simplified version of witoldsz/angular-http-auth without HttpBuffer.
    */
 
-  angular.module('drmc.modules.auth', [])
+  angular.module('drmc.modules.auth', []);
 
 })();

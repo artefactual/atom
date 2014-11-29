@@ -131,7 +131,7 @@ module.exports = function (grunt) {
           'vendor/angular-hotkeys/hotkeys.js',
           '../../../vendor/bootstrap/js/bootstrap.js'
         ],
-        dest: '<%= builddir %>/vendor.js',
+        dest: '<%= builddir %>/vendor.js'
       },
       app: {
         src: [
@@ -143,7 +143,7 @@ module.exports = function (grunt) {
           'app/scripts/**/module.js',
           'app/scripts/**/*.js'
         ],
-        dest: '<%= builddir %>/app.js',
+        dest: '<%= builddir %>/app.js'
       }
     },
 
