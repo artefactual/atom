@@ -16,7 +16,7 @@
 
     'ui.router',
     'ui.bootstrap',
-    // 'cfp.hotkeys',
+    'cfp.hotkeys',
     'ngStorage'
 
   ]);
