@@ -62,7 +62,7 @@
             }
 
             if (dataFound) {
-              var graph = new rickshaw.Graph({
+              var graph = new Rickshaw.Graph({
                 element: element.find('rs-chart')[0],
                 width: attrs.width,
                 height: attrs.height,
@@ -75,7 +75,7 @@
                 return (typeof xLabels[i] !== 'undefined') ? xLabels[i] : '';
               };
 
-              var xAxis = new rickshaw.Graph.Axis.X({
+              var xAxis = new Rickshaw.Graph.Axis.X({
                 graph: graph,
                 element: element.find('rs-x-axis')[0],
                 orientation: 'bottom',
@@ -85,9 +85,9 @@
               xAxis.render();
 
               // allow optional use of Y axis formatter passed in as attribute
-              var yFormat = (typeof scope.yFilter !== 'undefined') ? scope.yFilter : rickshaw.Fixtures.Number.formatKMBT;
+              var yFormat = (typeof scope.yFilter !== 'undefined') ? scope.yFilter : Rickshaw.Fixtures.Number.formatKMBT;
 
-              var yAxis = new rickshaw.Graph.Axis.Y({
+              var yAxis = new Rickshaw.Graph.Axis.Y({
                 graph: graph,
                 element: element.find('rs-y-axis')[0],
                 pixelsPerTick: attrs.yperTick,
