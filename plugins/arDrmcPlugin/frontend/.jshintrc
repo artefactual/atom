@@ -24,7 +24,7 @@
   "globals": {
     "angular": false,
     "Qubit": false,
-    "rickshaw": false,
+    "Rickshaw": false,
     "jQuery": false,
     "d3": false,
     "dagre": false,
