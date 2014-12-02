@@ -6,14 +6,6 @@
 
 <section class="list-menu">
 
-  <?php if (QubitAcl::check($resource, 'update')): ?>
-    <h4><?php echo __('Reports') ?></h4>
-
-    <ul>
-      <li><?php echo link_to(__('Page views'), array($resource, 'module' => 'repository', 'action' => 'popular')); ?></li>
-    </ul>
-  <?php endif; ?>
-
   <h4><?php echo sfConfig::get('app_ui_label_holdings') ?></h4>
 
   <ul>
