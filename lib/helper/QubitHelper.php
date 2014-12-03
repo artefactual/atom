@@ -292,22 +292,34 @@ function get_search_i18n($hit, $fieldName, $options = array())
 
   $value = null;
 
-  if (isset($options['culture']) && isset($hit['i18n'][$options['culture']][$fieldName]))
+  // I'm not sure why sfOutputEscaper throws notices when using
+  // isset() against nested undefined items. It seems that the behavior of
+  // ArrayAccess implementors are not exactly like arrays? So excuse
+  // the verbosity of the following checks, please!
+
+  if (isset($options['culture']) &&
+    isset($hit['i18n']) &&
+    isset($hit['i18n'][$options['culture']]) &&
+    isset($hit['i18n'][$options['culture']][$fieldName]))
   {
     $value = $hit['i18n'][$options['culture']][$fieldName];
   }
-  else if (isset($hit['i18n'][$userCulture][$fieldName]))
+  else if (isset($hit['i18n']) &&
+    isset($hit['i18n'][$userCulture]) &&
+    isset($hit['i18n'][$userCulture][$fieldName]))
   {
     $value = $hit['i18n'][$userCulture][$fieldName];
   }
-  else if ((!isset($options['cultureFallback']) || $options['cultureFallback'])
-    && isset($hit['i18n'][$hit['sourceCulture']][$fieldName]))
+  else if ((!isset($options['cultureFallback']) || $options['cultureFallback']) &&
+    isset($hit['i18n']) &&
+    isset($hit['i18n'][$hit['sourceCulture']]) &&
+    isset($hit['i18n'][$hit['sourceCulture']][$fieldName]))
   {
     $value = $hit['i18n'][$hit['sourceCulture']][$fieldName];
   }
 
-  if (($value == null || $value == '')
-    && isset($options['allowEmpty']) && !$options['allowEmpty'])
+  if (($value == null || $value == '') &&
+    isset($options['allowEmpty']) && !$options['allowEmpty'])
   {
     $value = sfContext::getInstance()->i18n->__('Untitled');
   }
