@@ -63,11 +63,16 @@ class arOaiPluginIndexAction extends sfAction
     // If authentication is enabled, check API key in HTTP header
     $authenticationRequiredSetting = QubitSetting::getByName('oai_authentication_enabled');
 
-    if (null !== $authenticationRequiredSetting && $authenticationRequiredSetting->value)
+    // If auth key specified or authentication is required then attempt to
+    // authenticate, responding with 403 if authentication fails
+    $requestOaiApiKey = $request->getHttpHeader('X-OAI-API-Key');
+
+    if (
+      !empty($requestOaiApiKey)
+      || null !== $authenticationRequiredSetting && $authenticationRequiredSetting->value
+    )
     {
       // Require user have valid API key to access OAI data
-      $requestOaiApiKey = $request->getHttpHeader('X-OAI-API-Key');
-
       if (empty($requestOaiApiKey))
       {
         $this->getResponse()->setStatusCode( '403', 'Forbidden' );
