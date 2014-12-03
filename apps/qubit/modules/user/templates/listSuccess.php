@@ -11,8 +11,8 @@
 </section>
 
 <ul class="nav nav-pills">
-  <li<?php if ('onlyInactive' != $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Show active only'), array('filter' => 'onlyActive') + $sf_request->getParameterHolder()->getAll()) ?></li>
-  <li<?php if ('onlyInactive' == $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Show inactive only'), array('filter' => 'onlyInactive') + $sf_request->getParameterHolder()->getAll()) ?></li>
+  <li<?php if ('onlyInactive' != $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Show active only'), array('filter' => 'onlyActive') + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?></li>
+  <li<?php if ('onlyInactive' == $sf_request->filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Show inactive only'), array('filter' => 'onlyInactive') + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?></li>
 </ul>
 
 <table class="table table-bordered sticky-enabled">

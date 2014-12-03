@@ -21,14 +21,14 @@
     <thead>
       <tr>
         <th class="sortable">
-          <?php echo link_to(__('Name'), array('sort' => ('nameUp' == $sf_request->sort) ? 'nameDown' : 'nameUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'), 'class' => 'sortable')) ?>
+          <?php echo link_to(__('Name'), array('sort' => ('nameUp' == $sf_request->sort) ? 'nameDown' : 'nameUp') + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('title' => __('Sort'), 'class' => 'sortable')) ?>
           <?php if ('nameUp' == $sf_request->sort): ?>
             <?php echo image_tag('up.gif') ?>
           <?php elseif ('nameDown' == $sf_request->sort): ?>
             <?php echo image_tag('down.gif') ?>
           <?php endif; ?>
         </th><th class="sortable">
-          <?php echo link_to(__('Location'), array('sort' => ('locationUp' == $sf_request->sort) ? 'locationDown' : 'locationUp') + $sf_request->getParameterHolder()->getAll(), array('title' => __('Sort'), 'class' => 'sortable')) ?>
+          <?php echo link_to(__('Location'), array('sort' => ('locationUp' == $sf_request->sort) ? 'locationDown' : 'locationUp') + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('title' => __('Sort'), 'class' => 'sortable')) ?>
           <?php if ('locationUp' == $sf_request->sort): ?>
             <?php echo image_tag('up.gif') ?>
           <?php elseif ('locationDown' == $sf_request->sort): ?>

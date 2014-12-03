@@ -7,11 +7,12 @@
   <article class="search-result">
 <?php endif; ?>
 
-  <?php if (isset($doc['hasDigitalObject'])): ?>
+  <?php if (isset($doc['hasDigitalObject']) && true === $doc['hasDigitalObject']): ?>
 
     <div class="search-result-preview">
 
       <?php if (isset($doc['digitalObject']['thumbnailPath'])): ?>
+
         <a href="<?php echo url_for(array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>">
           <div class="preview-container">
             <?php if (QubitAcl::check(QubitInformationObject::getById($hit->getId()), 'readThumbnail') &&

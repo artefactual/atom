@@ -9,7 +9,7 @@
         </li>
       <?php endforeach; ?>
       <?php if ($descriptions->getTotalHits() > 3): ?>
-        <li class="showall"><?php echo link_to(__('all matching descriptions'), array('module' => 'search', 'action' => 'index') + $sf_request->getParameterHolder()->getAll()) ?></li>
+        <li class="showall"><?php echo link_to(__('all matching descriptions'), array('module' => 'search', 'action' => 'index') + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?></li>
       <?php endif; ?>
     </ul>
   </section>
@@ -23,7 +23,7 @@
         <li><?php echo link_to(get_search_i18n_highlight($hit, 'authorizedFormOfName.autocomplete'), array('module' => 'repository', 'slug' => current($hit->slug))) ?></li>
       <?php endforeach; ?>
       <?php if ($repositories->getTotalHits() > 3): ?>
-        <li class="showall"><?php echo link_to(__('all matching institutions'), array('module' => 'repository', 'action' => 'browse') + $sf_request->getParameterHolder()->getAll()) ?></li>
+        <li class="showall"><?php echo link_to(__('all matching institutions'), array('module' => 'repository', 'action' => 'browse') + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?></li>
       <?php endif; ?>
     </ul>
   </section>
@@ -37,7 +37,7 @@
         <li><?php echo link_to(get_search_i18n_highlight($hit, 'authorizedFormOfName.autocomplete'), array('module' => 'actor', 'slug' => current($hit->slug))) ?></li>
       <?php endforeach; ?>
       <?php if ($actors->getTotalHits() > 3): ?>
-        <li class="showall"><?php echo link_to(__('all matching people & organizations'), array('module' => 'actor', 'action' => 'browse') + $sf_request->getParameterHolder()->getAll()) ?></li>
+        <li class="showall"><?php echo link_to(__('all matching people & organizations'), array('module' => 'actor', 'action' => 'browse') + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?></li>
       <?php endif; ?>
     </ul>
   </section>

@@ -4,7 +4,7 @@
     __('All'),
     array(
       $facet => null,
-      'page' => null) + $sf_request->getParameterHolder()->getAll(),
+      'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
     array('class' => 'btn' . ('' == $sf_request->getParameter($facet) ? ' active' : ''))) ?>
 
   <?php if (isset($pager->facets[$facet])): ?>
@@ -24,7 +24,7 @@
                   array_intersect(@$filters[$facet], array($id))))
               :
                 $id),
-          'page' => null) + $sf_request->getParameterHolder()->getAll(),
+          'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
         array('class' => 'btn' . ($active ? ' active' : ''))) ?>
 
     <?php endforeach; ?>
