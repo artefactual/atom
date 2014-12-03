@@ -45,6 +45,12 @@ EOF;
         'source-name',
         null,
         sfCommandOption::PARAMETER_OPTIONAL, 'Source name to use when inserting keymap entries.'
+      ),
+      new sfCommandOption(
+        'index',
+        null,
+        sfCommandOption::PARAMETER_NONE,
+        "Index for search during import."
       )
     ));
   }
@@ -239,7 +245,7 @@ EOF;
             // create relation between accession and donor
             $self->createRelation($self->object->id, $actor->id, QubitTerm::DONOR_ID);
           }
-          
+
           // Link accession to existing description
           if (
             isset($self->rowStatusVars['qubitParentSlug'])
@@ -317,6 +323,9 @@ EOF;
         $self->getStatus('processingPriority')
       );
     });
+
+    // Allow search indexing to be enabled via a CLI option
+    $import->searchIndexingDisabled = ($options['index']) ? false : true;
 
     $import->csv($fh, $skipRows);
   }
