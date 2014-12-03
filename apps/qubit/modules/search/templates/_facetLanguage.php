@@ -19,7 +19,7 @@
       <?php endif; ?>
         <?php echo link_to(__('Unique records'), array(
           $facet => null,
-          'page' => null) + $sf_request->getParameterHolder()->getAll()) ?>
+          'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?>
         <span class="facet-count"><?php echo $pager->facets[$facet]['terms']['unique']['count'] ?></span>
       </li>
 
@@ -31,7 +31,7 @@
                 $term['term'],
                 array(
                   $facet => $id,
-                  'page' => null) + $sf_request->getParameterHolder()->getAll()) ?>
+                  'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?>
               <span class="facet-count"><?php echo $term['count'] ?></span>
             </li>
           <?php endif; ?>

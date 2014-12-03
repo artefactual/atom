@@ -39,7 +39,7 @@
 
             <?php foreach (array('en', 'fr') as $item): ?>
               <?php if ($sf_user->getCulture() != $item): ?>
-                <li><?php echo link_to(format_language($item, $item), array('sf_culture' => $item) + $sf_request->getParameterHolder()->getAll()) ?></li>
+                <li><?php echo link_to(format_language($item, $item), array('sf_culture' => $item) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?></li>
                 <?php break; ?>
               <?php endif; ?>
             <?php endforeach; ?>

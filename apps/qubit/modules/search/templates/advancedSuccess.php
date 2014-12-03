@@ -54,7 +54,7 @@
   <?php if ('print' == $sf_request->getParameter('media')): ?>
     <div id="preview-message">
       <?php echo __('Print preview') ?>
-      <?php echo link_to('Close', array_diff($sf_request->getParameterHolder()->getAll(), array('media' => 'print'))) ?>
+      <?php echo link_to('Close', array_diff($sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('media' => 'print'))) ?>
     </div>
   <?php endif; ?>
   <h1><?php echo __('Advanced search') ?></h1>
@@ -64,7 +64,7 @@
   <section id="action-icons">
     <ul>
       <li>
-        <a href="<?php echo url_for(array_merge($sf_request->getParameterHolder()->getAll(), array('media' => 'print'))) ?>">
+        <a href="<?php echo url_for(array_merge($sf_data->getRaw('sf_request')->getParameterHolder()->getAll(), array('media' => 'print'))) ?>">
           <i class="icon-print"></i>
           <?php echo __('Print') ?>
         </a>
