@@ -85,6 +85,11 @@ class QubitAcl
    */
   public static function check($resource, $actions, $options = array())
   {
+    if ($resource instanceof sfOutputEscaper)
+    {
+      $resource = sfOutputEscaper::unescape($resource);
+    }
+
     $hasAccess = false;
 
     // Skip ACL checks for command-line tasks
