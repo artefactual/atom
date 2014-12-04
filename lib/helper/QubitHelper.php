@@ -231,7 +231,8 @@ function render_treeview_node($item, array $classes = array(), array $options = 
   }
   else
   {
-    if ($item instanceof QubitInformationObject)
+    $rawItem = sfOutputEscaper::unescape($item);
+    if ($rawItem instanceof QubitInformationObject)
     {
       // Level of description
       if (null !== $levelOfDescription = QubitTerm::getById($item->levelOfDescriptionId))
@@ -256,7 +257,7 @@ function render_treeview_node($item, array $classes = array(), array $options = 
         $node .= '<span class="pubStatus">('.$status->__toString().')</span>';
       }
     }
-    else if ($item instanceof QubitTerm)
+    else if ($rawItem instanceof QubitTerm)
     {
       $action = isset($options['browser']) && true === $options['browser'] ? 'browseTerm' : 'index';
 
