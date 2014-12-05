@@ -242,6 +242,12 @@ mapping:
       timestamp: true
       autocompleteFields: [title]
       rawFields:  [title]
+    _partial_foreign_types:
+      part_of:
+        _i18nFields: [title]
+        dynamic: strict
+        properties:
+          slug: { type: string, index: not_analyzed }
     _foreign_types:
       repository: repository
       names: actor

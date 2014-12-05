@@ -64,7 +64,10 @@
       <?php if (isset($doc['publicationStatusId']) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $doc['publicationStatusId']): ?>
         <li class="publication-status"><?php echo QubitCache::getLabel($doc['publicationStatusId'], 'QubitTerm') ?></li>
       <?php endif; ?>
-
+      <?php if (isset($doc['partOf'])): ?>
+        <p><?php echo __('Part of '), link_to(render_title(get_search_i18n($doc['partOf'], 'title', array('allowEmpty' => false, 'culture' => $culture))),
+                 array('slug' => $doc['partOf']['slug'], 'module' => 'informationobject')) ?></p>
+      <?php endif; ?>
     </ul>
 
     <?php if (null !== $scopeAndContent = get_search_i18n($doc, 'scopeAndContent', array('culture' => $culture))): ?>
