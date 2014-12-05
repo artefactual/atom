@@ -277,6 +277,7 @@ mapping:
       children: { type: integer, index: not_analyzed, include_in_all: false }
       copyright_status_id: { type: integer, index: not_analyzed, include_in_all: false }
       material_type_id: { type: integer, index: not_analyzed, include_in_all: false }
+      genre_id: { type: integer, index: not_analyzed, include_in_all: false }
       transcript: { type: string, index: analyzed, include_in_all: true }
       direct_subjects: { type: integer, index: not_analyzed, include_in_all: false }
       direct_places: { type: integer, index: not_analyzed, include_in_all: false }

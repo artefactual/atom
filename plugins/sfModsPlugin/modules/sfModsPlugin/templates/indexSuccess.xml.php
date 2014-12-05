@@ -25,6 +25,12 @@
     <?php endforeach; ?>
   <?php endif; ?>
 
+  <?php if (0 < count($genres = $mods->genres)): ?>
+    <?php foreach ($genres as $genre): ?>
+      <genre><?php echo esc_specialchars($genre) ?></genre>
+    <?php endforeach; ?>
+  <?php endif; ?>
+
   <?php if (0 < count($resource->getDates())): ?>
     <originInfo>
       <?php foreach ($resource->getDates() as $item): ?>

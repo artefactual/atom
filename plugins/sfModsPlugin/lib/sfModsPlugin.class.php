@@ -241,6 +241,17 @@ class sfModsPlugin implements ArrayAccess
         // Return without duplicates
         return array_unique($typeOfResources);
 
+      case 'genres':
+
+        $genres = array();
+
+        foreach ($this->resource->getTermRelations(QubitTaxonomy::GENRE_ID) as $relation)
+        {
+          array_push($genres, $relation->term->getName(array('cultureFallback' => true)));
+        }
+
+        return $genres;
+
       case 'languageNotes':
 
         return $this->getNoteTexts(QubitTerm::LANGUAGE_NOTE_ID);

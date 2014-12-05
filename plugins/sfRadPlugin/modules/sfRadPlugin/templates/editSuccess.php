@@ -330,6 +330,20 @@
         </div>
 
         <div class="form-item">
+          <?php echo $form->genreAccessPoints
+            ->label(__('Genre access points'))
+            ->renderLabel() ?>
+          <?php echo $form->genreAccessPoints->render(array('class' => 'form-autocomplete')) ?>
+          <?php if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::GENRE_ID), 'createTerm')): ?>
+            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::GENRE_ID), 'module' => 'taxonomy')))) ?> #name"/>
+          <?php endif; ?>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::GENRE_ID), 'module' => 'taxonomy')))) ?>"/>
+          <?php echo $form->genreAccessPoints
+            ->help(__('Search for an existing term in the Genre taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new genre term.'))
+            ->renderHelp() ?>
+        </div>
+
+        <div class="form-item">
           <?php echo $form->nameAccessPoints
             ->label(__('Name access points (subjects)'))
             ->renderLabel() ?>

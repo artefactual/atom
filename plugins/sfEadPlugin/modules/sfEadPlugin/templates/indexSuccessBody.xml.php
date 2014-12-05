@@ -173,12 +173,14 @@
     <arrangement encodinganalog="<?php echo $ead->getMetadataParameter('arrangement') ?>"><p><?php echo escape_dc(esc_specialchars($value)) ?></p></arrangement><?php endif; ?>
   <?php
   $materialtypes = $resource->getMaterialTypes();
+  $genres = $resource->getTermRelations(QubitTaxonomy::GENRE_ID);
   $subjects = $resource->getSubjectAccessPoints();
   $names = $resource->getNameAccessPoints();
   $places = $resource->getPlaceAccessPoints();
   $place_events = $resource->getPlaceAccessPoints(array('events' => true));
 
   if ((0 < count($materialtypes)) ||
+     (0 < count($genres)) ||
      (0 < count($subjects)) ||
      (0 < count($names)) ||
      (0 < count($places)) ||
@@ -212,6 +214,9 @@
       <?php endforeach; ?>
       <?php foreach ($materialtypes as $materialtype): ?>
         <genreform <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars($materialtype->getTerm()))) ?></genreform>
+      <?php endforeach; ?>
+      <?php foreach ($genres as $genre): ?>
+        <genreform source="rad" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars($genre->getTerm()))) ?></genreform>
       <?php endforeach; ?>
       <?php foreach ($subjects as $subject): ?>
         <subject<?php if ($subject->getTerm()->code):?> authfilenumber="<?php echo $subject->getTerm()->code ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($subject->getTerm())) ?></subject>
@@ -291,12 +296,14 @@
       <?php
 
         $materialtypes = $descendant->getMaterialTypes();
+        $genres = $descendant->getTermRelations(QubitTaxonomy::GENRE_ID);
         $subjects = $descendant->getSubjectAccessPoints();
         $names = $descendant->getNameAccessPoints();
         $places = $descendant->getPlaceAccessPoints();
         $place_events = $descendant->getPlaceAccessPoints(array('events' => true));
 
         if ((0 < count($materialtypes)) ||
+            (0 < count($genres)) ||
             (0 < count($subjects)) ||
             (0 < count($names)) ||
             (0 < count($places)) ||
@@ -328,6 +335,10 @@
 
             <?php foreach ($materialtypes as $materialtype): ?>
               <genreform <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($materialtype->getTerm())) ?></genreform>
+            <?php endforeach; ?>
+
+            <?php foreach ($genres as $genre): ?>
+              <genreform source="rad" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars($genre->getTerm()))) ?></genreform>
             <?php endforeach; ?>
 
             <?php foreach ($subjects as $subject): ?>
