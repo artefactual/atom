@@ -187,6 +187,12 @@ EOF;
       $jobs[] = str_replace('.class.php', '', $file);
     }
 
+    // Add qtSwordPluginWorker if qtSwordPlugin is enabled
+    if (in_array('qtSwordPlugin', unserialize(sfConfig::get('app_plugins'))))
+    {
+      $jobs[] = 'qtSwordPluginWorker';
+    }
+
     return $jobs;
   }
 
