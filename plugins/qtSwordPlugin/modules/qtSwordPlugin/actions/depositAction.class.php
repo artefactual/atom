@@ -98,8 +98,7 @@ class qtSwordPluginDepositAction extends sfAction
         {
           $data = $this->package + array('information_object_id' => $this->informationObject->id);
 
-          $client = new Net_Gearman_Client(sfConfig::get('app_gearman_job_server'));
-          $handle = $client->qtSwordPluginWorker($data);
+          QubitJob::runJob('qtSwordPluginWorker', $data);
 
           // Job accepted!
           return $this->generateResponse(202, 'deposit',

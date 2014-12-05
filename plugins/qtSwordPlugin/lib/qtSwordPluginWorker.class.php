@@ -17,7 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class qtSwordPluginWorker extends Net_Gearman_Job_Common
+class qtSwordPluginWorker extends arBaseJob
 {
   protected $dispatcher = null;
 
@@ -29,13 +29,19 @@ class qtSwordPluginWorker extends Net_Gearman_Job_Common
 
   public function run($package)
   {
+    $this->addRequiredParameters(array('information_object_id'));
+    parent::run($package);
+
     $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
 
     $this->log('A new job has started to being processed.');
 
     if (!is_writable(sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.sfConfig::get('app_upload_dir')))
     {
-      throw new sfException('ERROR: Read-write access needed in {sf_web_dir}/{app_upload_dir}!');
+      $this->log('ERROR: Read-write access needed in {sf_web_dir}/{app_upload_dir}.');
+      $this->error('Read-write access needed in {sf_web_dir}/{app_upload_dir}.');
+
+      return false;
     }
 
     if (isset($package['location']))
@@ -64,7 +70,13 @@ class qtSwordPluginWorker extends Net_Gearman_Job_Common
     catch (Exception $e)
     {
       $this->log(sprintf('Exception: %s', $e->getMessage()));
+      $this->error(sprintf('Exception: %s', $e->getMessage()));
+
+      return false;
     }
+
+    $this->job->setStatusCompleted();
+    $this->job->save();
 
     // Save ES documents in the batch queue
     // We need to call the magic method explictly
