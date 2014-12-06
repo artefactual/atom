@@ -36,19 +36,22 @@ class InformationObjectTreeViewComponent extends sfComponent
 
     $this->hasPrevSiblings = false;
     $this->hasNextSiblings = false;
+    $this->siblingCountNext = 0;
+    $this->siblingCountPrev = 0;
 
     // Child descriptions
     if ($this->resource->hasChildren())
     {
-      list($this->children, $this->hasNextSiblings) = $this->resource->getTreeViewChildren(array('numberOfPreviousOrNextSiblings' => $numberOfPreviousOrNextSiblings));
+      list($this->children, $this->hasNextSiblings) = $this->resource->getTreeViewChildren(array('numberOfPreviousOrNextSiblings' => $numberOfPreviousOrNextSiblings), $this->siblingCountNext);
     }
     // Show siblings if there's no children, but not for root descriptions
     else if (QubitInformationObject::ROOT_ID != $this->resource->parentId)
     {
       // Previous siblings
       // Get an extra sibling just to know if the + button is necessary
-      $this->prevSiblings = $this->resource->getTreeViewSiblings(array('limit' => $numberOfPreviousOrNextSiblings + 1, 'position' => 'previous'));
+      $this->prevSiblings = $this->resource->getTreeViewSiblings(array('limit' => $numberOfPreviousOrNextSiblings + 1, 'position' => 'previous'), $this->siblingCountPrev);
       $this->hasPrevSiblings = count($this->prevSiblings) > $numberOfPreviousOrNextSiblings;
+
       if ($this->hasPrevSiblings)
       {
         array_pop($this->prevSiblings);
@@ -58,8 +61,9 @@ class InformationObjectTreeViewComponent extends sfComponent
       $this->prevSiblings = array_reverse($this->prevSiblings);
 
       // Next siblings, same logic than above with the + button
-      $this->nextSiblings = $this->resource->getTreeViewSiblings(array('limit' => $numberOfPreviousOrNextSiblings + 1, 'position' => 'next'));
+      $this->nextSiblings = $this->resource->getTreeViewSiblings(array('limit' => $numberOfPreviousOrNextSiblings + 1, 'position' => 'next'), $this->siblingCountNext);
       $this->hasNextSiblings = count($this->nextSiblings) > $numberOfPreviousOrNextSiblings;
+
       if ($this->hasNextSiblings)
       {
         array_pop($this->nextSiblings);

@@ -241,7 +241,14 @@ function render_treeview_node($item, array $classes = array(), array $options = 
 
   if (isset($_classes['more']))
   {
-    $node .= '<a href="#">...</a>';
+    $node .= '<a href="#">';
+
+    if (isset($options['numSiblingsLeft']))
+    {
+      $node .= abs($options['numSiblingsLeft']) . ' more';
+    }
+
+    $node .= '...</a>';
   }
   else
   {
