@@ -2463,7 +2463,7 @@ class QubitInformationObject extends BaseInformationObject
    TreeView
   *****************************************************/
 
-  public function getTreeViewChildren(array $options = array())
+  public function getTreeViewChildren(array $options = array(), &$childrenRemaining = null)
   {
     $numberOfPreviousOrNextSiblings = 4;
     if (isset($options['numberOfPreviousOrNextSiblings']))
@@ -2489,8 +2489,13 @@ class QubitInformationObject extends BaseInformationObject
     $items = array();
     if (isset($firstChild))
     {
+      $firstChildSiblings = $firstChild->getTreeViewSiblings(
+        array('limit' => $numberOfPreviousOrNextSiblings + 2, 'position' => 'next'),
+        $childrenRemaining
+      );
+
       // Merge the first child found and its potential siblings
-      $items = array_merge(array($firstChild), $firstChild->getTreeViewSiblings(array('limit' => $numberOfPreviousOrNextSiblings + 2, 'position' => 'next')));
+      $items = array_merge(array($firstChild), $firstChildSiblings);
 
       $hasNextSiblings = count($items) > $numberOfPreviousOrNextSiblings;
       if ($hasNextSiblings)
@@ -2502,7 +2507,7 @@ class QubitInformationObject extends BaseInformationObject
     return array($items, $hasNextSiblings);
   }
 
-  public function getTreeViewSiblings(array $options = array())
+  public function getTreeViewSiblings(array $options = array(), &$siblingsRemaining = null)
   {
     // The max number of items that will be shown
     // The final amount may be smaller if there are no result enough
@@ -2629,10 +2634,30 @@ class QubitInformationObject extends BaseInformationObject
       }
 
       // This is the number of items we were asked for.
-      $criteria->setLimit($limit);
+      $rows = QubitInformationObject::get($criteria);
+      $items = array();
+
+      // Transfer the results into an array. We enforce the limit this way as opposed to
+      // setLimit() because we need the 'total count' of siblings in $row->count(),
+      // not just a limited count. Doing it this way doesn't appear to significantly impact
+      // performance.
+      $i = 0;
+      foreach ($rows as $item)
+      {
+        $items[] = $item;
+        if (++$n == $limit)
+        {
+          break;
+        }
+      }
+
+      if ($siblingsRemaining !== null)
+      {
+        $siblingsRemaining = $rows->count() - $limit + 1;
+      }
 
       // Iterate over results and store them in the $results array
-      foreach (QubitInformationObject::get($criteria) as $item)
+      foreach ($items as $item)
       {
         // Avoid to add the same element, this may happen when sorting by title
         // or identifierTitle for unknown reasons

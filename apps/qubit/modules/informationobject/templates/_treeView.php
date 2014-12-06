@@ -32,7 +32,8 @@
         <?php echo render_treeview_node(
           null,
           array('more' => true),
-          array('xhr-location' => url_for(array($prevSiblings[0], 'module' => 'informationobject', 'action' => 'treeView')))); ?>
+          array('xhr-location' => url_for(array($prevSiblings[0], 'module' => 'informationobject', 'action' => 'treeView')),
+                'numSiblingsLeft' => $siblingCountPrev)); ?>
       <?php endif; ?>
 
       <?php // N prev items ?>
@@ -69,7 +70,8 @@
         <?php echo render_treeview_node(
           null,
           array('more' => true),
-          array('xhr-location' => url_for(array($child, 'module' => 'informationobject', 'action' => 'treeView')))); ?>
+          array('xhr-location' => url_for(array($child, 'module' => 'informationobject', 'action' => 'treeView')),
+                'numSiblingsLeft' => $siblingCountNext)); ?>
       <?php endif; ?>
 
     <?php // Or siblings ?>
@@ -89,7 +91,8 @@
         <?php echo render_treeview_node(
           null,
           array('more' => true),
-          array('xhr-location' => url_for(array($last, 'module' => 'informationobject', 'action' => 'treeView')))); ?>
+          array('xhr-location' => url_for(array($last, 'module' => 'informationobject', 'action' => 'treeView')),
+                'numSiblingsLeft' => $siblingCountNext)); ?>
       <?php endif; ?>
 
     <?php endif; ?>
