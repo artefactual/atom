@@ -32,7 +32,7 @@ class addSuperuserTask extends sfBaseTask
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('username', sfCommandArgument::REQUIRED, 'The username to create.')
+      new sfCommandArgument('username', sfCommandArgument::OPTIONAL, 'The username to create.')
     ));
 
     $this->addOptions(array(
@@ -40,7 +40,8 @@ class addSuperuserTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
       new sfCommandOption('email', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired user email address'),
-      new sfCommandOption('password', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired user password')
+      new sfCommandOption('password', null, sfCommandOption::PARAMETER_OPTIONAL, 'Desired user password'),
+      new sfCommandOption('demo', null, sfCommandOption::PARAMETER_NONE, 'Use default demo values')
     ));
 
     $this->namespace = 'tools';
@@ -57,6 +58,11 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
+    if ($options['demo'])
+    {
+      $this->setDemoOptions($arguments, $options);
+    }
+
     $needsData = !$arguments['username'] || !$options['email'] || !$options['password'];
     if ($needsData && !function_exists('readline'))
     {
@@ -68,6 +74,17 @@ EOF;
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
     $this->addSuperuser($arguments['username'], $options);
+  }
+
+  /**
+   * Set the user to have default demo values,
+   * i.e. admin user is demo@example.com / demo.
+   */
+  private function setDemoOptions(&$arguments, &$options)
+  {
+    $arguments['username'] = 'demo';
+    $options['email'] = 'demo@example.com';
+    $options['password'] = 'demo';
   }
 
   public static function addSuperUser($username, $options)
