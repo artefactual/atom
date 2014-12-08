@@ -1811,7 +1811,9 @@ class QubitInformationObject extends BaseInformationObject
       $criteria = new Criteria;
       $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID);
       $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
+      $criteria->add(QubitTermI18n::CULTURE, sfContext::getInstance()->user->getCulture());
       $criteria->add(QubitTermI18n::NAME, $name);
+
       if ($term = QubitTermI18n::getOne($criteria))
       {
         $this->levelOfDescriptionId = $term->id;
@@ -2168,7 +2170,7 @@ class QubitInformationObject extends BaseInformationObject
     if ($this->parentId)
     {
       // Get collection id, note we must loop through parent ids here
-      // as opposed to calling getCollectionRoot() because these objects 
+      // as opposed to calling getCollectionRoot() because these objects
       // aren't fully formed yet.
 
       $topLevelParent = $this->parent;
@@ -2178,7 +2180,7 @@ class QubitInformationObject extends BaseInformationObject
       }
 
       $object = QubitPhysicalObject::checkPhysicalObjectExistsInCollection(
-        $name, 
+        $name,
         $location,
         ($term) ? $term->id : null,
         $topLevelParent->id
