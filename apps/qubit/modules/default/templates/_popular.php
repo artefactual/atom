@@ -6,7 +6,7 @@
       <?php $object = QubitObject::getById($item[0]); ?>
       <li>
         <a href="<?php echo url_for(array($object)) ?>">
-          <?php echo esc_entities(render_title($object)) ?>
+          <?php echo render_title(esc_entities($object->__toString())) ?>
           <strong><?php echo __('%1% visits', array('%1%' => $item[1])) ?></strong>
         </a>
       </li>
