@@ -5,23 +5,24 @@
     array(
       $facet => null,
       'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
-    array('class' => 'btn' . ('' == $sf_request->getParameter($facet) ? ' active' : ''))) ?>
+    array('class' => 'btn' . ('' == $sf_data->getRaw('sf_request')->getParameter($facet) ? ' active' : ''))) ?>
 
   <?php if (isset($pager->facets[$facet])): ?>
 
     <?php foreach ($pager->facets[$facet]['terms'] as $id => $term): ?>
 
-      <?php $active = in_array($id, (array)@$filters[$facet]) ? true : false; ?>
+      <?php $filter = (array)$filters->getRaw($facet) ?>
+      <?php $active = in_array($id, $filter) ? true : false; ?>
 
       <?php echo link_to(
         __($term['term']).'<span class="badge">'.$term['count'].'</span>',
         array(
           $facet => (
-            @$filters[$facet]
+            $filter
               ?
                 implode(',', array_diff(
-                  array_merge(@$filters[$facet], array($id)),
-                  array_intersect(@$filters[$facet], array($id))))
+                  array_merge($filter, array($id)),
+                  array_intersect($filter, array($id))))
               :
                 $id),
           'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
