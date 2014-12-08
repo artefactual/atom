@@ -92,6 +92,7 @@ EOF;
     // Ask for admin user information
     if (!$username)
     {
+      $defaultUser = 'admin';
       $usernamePrompt = 'Admin username';
       $usernamePrompt .= ($defaultUser) ? ' ['. $defaultUser .']' : '';
       $usernamePrompt .= ': ';
@@ -102,6 +103,7 @@ EOF;
     $email = ($options['email']) ? $options['email'] : '';
     if (!$email)
     {
+      $defaultEmail = 'admin@example.com';
       $emailPrompt = 'Admin email';
       $emailPrompt .= ($defaultEmail) ? ' ['. $defaultEmail .']' : '';
       $emailPrompt .= ': ';
