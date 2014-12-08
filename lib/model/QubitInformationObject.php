@@ -2702,7 +2702,7 @@ class QubitInformationObject extends BaseInformationObject
    *
    * @return mixed standards-based class instance
    */
-  public static function getStandardsBasedInstance(QubitInformationObject $resource)
+  public static function getStandardsBasedInstance($resource)
   {
     if (!isset(sfContext::getInstance()->getRequest()->informationobject_template))
     {

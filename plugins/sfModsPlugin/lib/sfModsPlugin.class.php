@@ -30,7 +30,7 @@ class sfModsPlugin implements ArrayAccess
   protected
     $resource;
 
-  public function __construct(QubitInformationObject $resource)
+  public function __construct($resource)
   {
     $this->resource = $resource;
   }

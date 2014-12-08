@@ -128,7 +128,7 @@ class sfEadPlugin
         'general'        => '1.8B21',
         'actorEventsName'   => '1.4D'));
 
-  public function __construct(QubitInformationObject $resource)
+  public function __construct($resource)
   {
     $this->resource = $resource;
 
