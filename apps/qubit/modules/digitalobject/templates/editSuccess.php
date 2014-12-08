@@ -39,6 +39,8 @@
             ->renderRow() ?>
         <?php endif; ?>
 
+        <?php echo get_partial('right/edit', $sf_data->getRaw('rightEditComponent')->getVarHolder()->getAll()) ?>
+
       </fieldset>
 
       <?php foreach ($representations as $usageId => $representation): ?>
@@ -50,6 +52,9 @@
           <?php if (isset($representation)): ?>
 
             <?php echo get_component('digitalobject', 'editRepresentation', array('resource' => $resource, 'representation' => $representation)) ?>
+
+            <?php $rightComponent = "rightEditComponent_$usageId" ?>
+            <?php echo get_partial('right/edit', $sf_data->getRaw($rightComponent)->getVarHolder()->getAll() + array('tableId' => $usageId)) ?>
 
           <?php else: ?>
 
