@@ -31,7 +31,7 @@ class sfRadPlugin implements ArrayAccess
     $resource,
     $property;
 
-  public function __construct(QubitInformationObject $resource)
+  public function __construct($resource)
   {
     $this->resource = $resource;
   }
