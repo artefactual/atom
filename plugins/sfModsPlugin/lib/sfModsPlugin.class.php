@@ -225,6 +225,10 @@ class sfModsPlugin implements ArrayAccess
 
       case 'generalNotes':
 
+        return $this->getNoteTexts(QubitTerm::GENERAL_NOTE_ID);
+
+      case 'radGeneralNotes':
+
         return $this->getMatchingRadNotesByName('General note');
 
       case 'hasRightsAccess':

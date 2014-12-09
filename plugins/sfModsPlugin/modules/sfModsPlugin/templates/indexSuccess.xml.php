@@ -87,6 +87,12 @@
     <?php endforeach; ?>
   <?php endif; ?>
 
+  <?php if (count($generalNotes = $mods->radGeneralNotes)): ?>
+    <?php foreach ($generalNotes as $generalNote): ?>
+      <note type="genNote"><?php echo esc_specialchars($generalNote) ?></note>
+    <?php endforeach; ?>
+  <?php endif; ?>
+
   <?php if (count($alphanumericNotes = $mods->alphanumericNotes)): ?>
     <?php foreach ($alphanumericNotes as $alphanumericNote): ?>
       <note type="numbering"><?php echo esc_specialchars($alphanumericNote) ?></note>

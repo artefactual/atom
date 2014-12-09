@@ -146,6 +146,10 @@ class sfModsConvertor extends QubitSaxParser {
         $this->arrayPushIfValueNotEmpty($this->materialTypes, $this->data());
         break;
 
+      case 'genNote':
+        $this->addRadNote('General note', $this->data());
+        break;
+
       default:
         $this->addNote('General note', $this->data());
     }
@@ -332,7 +336,7 @@ class sfModsConvertor extends QubitSaxParser {
 
   protected function importNotes($notes)
   {
-    foreach($notes as $noteSpec)
+    foreach ($notes as $noteSpec)
     {
       $note = new QubitNote;
       $note->objectId = $this->resource->id;
@@ -413,7 +417,7 @@ class sfModsConvertor extends QubitSaxParser {
   {
     $objectId = (is_null($objectId)) ? $this->resource->id : $objectId;
 
-    foreach($termNames as $termName)
+    foreach ($termNames as $termName)
     {
       $term = QubitFlatfileImport::createOrFetchTerm($taxonomyId, $termName);
       QubitFlatfileImport::createObjectTermRelation($objectId, $term->id);
@@ -422,7 +426,7 @@ class sfModsConvertor extends QubitSaxParser {
 
   protected function importNameAccessPoints($nameData)
   {
-    foreach($nameData as $name)
+    foreach ($nameData as $name)
     {
       $event = new QubitEvent();
       $event->informationObjectId = $this->resource->id;
@@ -483,7 +487,7 @@ class sfModsConvertor extends QubitSaxParser {
   function importDigitalObjects($digitalObjects)
   {
     // Create digital objects
-    foreach($digitalObjects as $digitalObject)
+    foreach ($digitalObjects as $digitalObject)
     {
       // Import digital object
       $do = new QubitDigitalObject;
