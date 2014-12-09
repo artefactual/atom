@@ -328,7 +328,7 @@ function get_search_i18n($hit, $fieldName, $options = array())
   return $value;
 }
 
-function get_search_i18n_highlight(\Elastica\Result $hit, $fieldName, $options = array())
+function get_search_i18n_highlight($hit, $fieldName, $options = array())
 {
   if (!isset($options['culture']))
   {
