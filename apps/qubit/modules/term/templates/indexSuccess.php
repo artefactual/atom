@@ -232,7 +232,7 @@
           <?php if (isset($sf_request->onlyDirect)): ?>
             <span class="search-filter">
               <?php echo __('Only results directly related') ?>
-              <?php $params = $sf_request->getGetParameters() ?>
+              <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
               <?php unset($params['onlyDirect']) ?>
               <?php unset($params['page']) ?>
               <a href="<?php echo url_for(array($resource, 'module' => 'term') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
@@ -256,7 +256,7 @@
           <p>
             <?php echo __('%1% results directly related', array(
               '%1%' => $pager->facets['direct']['count'])) ?>
-            <?php $params = $sf_request->getGetParameters() ?>
+            <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
             <?php unset($params['page']) ?>
             <a href="<?php echo url_for(array($resource, 'module' => 'term') + $params + array('onlyDirect' => true)) ?>">
               <i class="icon-search"></i>
