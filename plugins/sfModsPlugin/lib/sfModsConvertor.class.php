@@ -21,6 +21,7 @@ class sfModsConvertor extends QubitSaxParser {
   protected $subjects         = array();
   protected $geographic       = array();
   protected $typesOfResources = array();
+  protected $genres           = array();
   protected $languages        = array();
   protected $notes            = array();
   protected $materialTypes    = array();
@@ -51,7 +52,10 @@ class sfModsConvertor extends QubitSaxParser {
     $this->resource->save();
 
     // Resource types and RAD GMD crosswalk
-    $this->importTypeOfResources($this->typesOfResources);
+    $this->importTypesOfResources($this->typesOfResources);
+
+    // Genres
+    $this->importGenres($this->genres);
 
     // Subject access points
     $this->importArrayOfTermNames(QubitTaxonomy::SUBJECT_ID, $this->subjects);
@@ -117,13 +121,14 @@ class sfModsConvertor extends QubitSaxParser {
   // </physicalLocation>
   protected function physicalLocationTag()
   {
-    $repository = QubitFlatfileImport::createOrFetchRepository($this->data());
-    $this->resource->repositoryId = $repository->id;
+    $this->resource->setRepositoryByName($this->data());
   }
 
   // </note type="originalLocation | otherFormats | numbering | language | gmd">
   protected function noteTag()
   {
+    if ($this->path() != 'mods') return;
+
     switch ($this->attr('type'))
     {
       case 'originalLocation':
@@ -227,6 +232,12 @@ class sfModsConvertor extends QubitSaxParser {
   protected function typeOfResourceTag()
   {
     $this->arrayPushIfValueNotEmpty($this->typesOfResources, $this->data());
+  }
+
+  // </genre>
+  protected function genreTag()
+  {
+    $this->arrayPushIfValueNotEmpty($this->genres, $this->data());
   }
 
   // </placeTerm>
@@ -338,12 +349,15 @@ class sfModsConvertor extends QubitSaxParser {
   {
     foreach ($notes as $noteSpec)
     {
-      $note = new QubitNote;
-      $note->objectId = $this->resource->id;
-      $note->typeId = $noteSpec['typeId'];
-      $note->content = $noteSpec['content'];
-      $note->culture = 'en';
-      $note->save();
+      if (!empty($noteSpec['content']))
+      {
+        $note = new QubitNote;
+        $note->objectId = $this->resource->id;
+        $note->typeId = $noteSpec['typeId'];
+        $note->content = $noteSpec['content'];
+        $note->culture = 'en';
+        $note->save();
+      }
     }
   }
 
@@ -375,7 +389,20 @@ class sfModsConvertor extends QubitSaxParser {
     }
   }
 
-  protected function importTypeOfResources($typeOfResources)
+  protected function importGenres($genres)
+  {
+    $sanitizedGenres = array();
+
+    foreach ($genres as $genre)
+    {
+      $sanitizedGenres[] = trim(strtolower($genre));
+    }
+
+    // Import without duplicates
+    $this->importArrayOfTermNames(QubitTaxonomy::GENRE_ID, array_unique($genres));
+  }
+
+  protected function importTypesOfResources($typeOfResources)
   {
     $map = array(
       'text'                          => 'Textual record',
