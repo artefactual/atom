@@ -158,43 +158,6 @@ class sfModsPlugin implements ArrayAccess
 
         return $name;
 
-      case 'physicalLocation':
-        $list = array();
-
-        if (isset($this->resource->repository))
-        {
-          $list[] = $this->resource->repository->authorizedFormOfName;
-
-          if (isset($this->resource->repository->identifier))
-          {
-            $list[] = $this->resource->repository->identifier;
-          }
-
-          if (null !== $contact = $this->resource->repository->getPrimaryContact())
-          {
-            $physicalLocation = array();
-
-            if (isset($contact->city))
-            {
-              $physicalLocation[] = $contact->city;
-            }
-
-            if (isset($contact->region))
-            {
-              $physicalLocation[] = $contact->region;
-            }
-
-            if (isset($contact->countryCode))
-            {
-              $physicalLocation[] = format_country($contact->countryCode);
-            }
-
-            $list[] = implode(', ', $physicalLocation);
-          }
-        }
-
-        return $list;
-
       case 'sourceCulture':
 
         return $this->resource->sourceCulture;

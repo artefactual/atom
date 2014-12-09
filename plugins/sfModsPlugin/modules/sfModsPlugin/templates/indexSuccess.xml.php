@@ -113,11 +113,9 @@
     </location>
   <?php endif; ?>
 
-  <?php if (0 < count($mods->physicalLocation)): ?>
+  <?php if ($resource->repository->authorizedFormOfName): ?>
     <location>
-      <?php foreach ($mods->physicalLocation as $item): ?>
-        <physicalLocation><?php echo esc_specialchars($item) ?></physicalLocation>
-      <?php endforeach; ?>
+      <physicalLocation><?php echo esc_specialchars($resource->repository->authorizedFormOfName) ?></physicalLocation>
     </location>
   <?php endif; ?>
 
