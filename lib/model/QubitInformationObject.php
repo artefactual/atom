@@ -1323,23 +1323,83 @@ class QubitInformationObject extends BaseInformationObject
 
   public function setActorByName($name, $options)
   {
-    // Only create an link actor if the event or relation type is indicated
+    // Only create and link actor if the event or relation type is indicated
     if (!isset($options['event_type_id']) && !isset($options['relation_type_id']))
     {
       return;
     }
 
-    // Information object must be saved before.
-    // The id is needed to save the events and relations when
-    // they are created instead of when the information object is saved
-    // to be able to execute raw queries over them (in QubitActor::getByNameAndRepositoryId)
-    if (!isset($this->id))
+    // Check if the actor is already related in the description events
+    // Store if it's related to avoid add it as a name access point
+    $existingEventRelation = false;
+    foreach ($this->events as $event)
     {
-      $this->save();
+      if (isset($event->actor))
+      {
+        foreach ($event->actor->actorI18ns as $actorI18n)
+        {
+          if (isset($actorI18n->authorizedFormOfName) &&
+            $name == $actorI18n->authorizedFormOfName)
+          {
+            $actor = $event->actor;
+            $existingEventRelation = true;
+
+            break 2;
+          }
+        }
+      }
     }
 
-    // Get actor or create a new one. If the actor exists the data is not overwritten
-    if (null === $actor = QubitActor::getByNameAndRepositoryId($name, $this->repositoryId))
+    // Check relations related by subject
+    if (!isset($actor))
+    {
+      foreach ($this->relationsRelatedBysubjectId as $relation)
+      {
+        if ($relation->object instanceof QubitActor)
+        {
+          foreach ($relation->object->actorI18ns as $actorI18n)
+          {
+            if (isset($actorI18n->authorizedFormOfName) &&
+              $name == $actorI18n->authorizedFormOfName)
+            {
+              $actor = $relation->object;
+
+              break 2;
+            }
+          }
+        }
+      }
+    }
+
+    // Check relations related by object
+    if (!isset($actor))
+    {
+      foreach ($this->relationsRelatedByobjectId as $relation)
+      {
+        if ($relation->subject instanceof QubitActor)
+        {
+          foreach ($relation->subject->actorI18ns as $actorI18n)
+          {
+            if (isset($actorI18n->authorizedFormOfName) &&
+              $name == $actorI18n->authorizedFormOfName)
+            {
+              $actor = $relation->subject;
+
+              break 2;
+            }
+          }
+        }
+      }
+    }
+
+    // Check relations with other descriptions in the repository
+    if (!isset($actor))
+    {
+      $actor = QubitActor::getByNameAndRepositoryId($name, $this->repositoryId);
+    }
+
+    // If there isn't a match create a new actor
+    if (!isset($actor))
     {
       $actor = new QubitActor;
       $actor->parentId = QubitActor::ROOT_ID;
@@ -1369,11 +1429,11 @@ class QubitInformationObject extends BaseInformationObject
       $actor->save();
     }
 
+    // Create event or relation to link the information object and actor
     if (isset($options['event_type_id']))
     {
-      // Create an event object to link the information object and actor
       $event = new QubitEvent;
-      $event->setActorId($actor->id);
+      $event->setActor($actor);
       $event->setTypeId($options['event_type_id']);
 
       if (isset($options['dates']))
@@ -1393,37 +1453,21 @@ class QubitInformationObject extends BaseInformationObject
         $event->setDescription($options['event_note']);
       }
 
-      // Needs to be saved and added to $this->events
-      // to be able to execute raw queries and to be available
-      // for the following existingRelation foreach
-      $event->informationObjectId = $this->id;
-      $event->save();
-
       $this->events[] = $event;
     }
     // In EAD import, the term relation is not always created at this point;
     // it might be created afterwards.
-    else if (isset($options['relation_type_id']) && isset($options['createRelation']) && false !== $options['createRelation'])
+    else if (isset($options['relation_type_id']) &&
+      isset($options['createRelation']) &&
+      false !== $options['createRelation'])
     {
       // Only add actor as name access point if they are not already linked to
       // an event (i.e. they are not already a "creator", "accumulator", etc.)
-      $existingRelation = false;
-      foreach ($this->events as $existingEvent)
-      {
-        if ($actor->id == $existingEvent->actorId)
-        {
-          $existingRelation = true;
-          break;
-        }
-      }
-
-      if (!$existingRelation)
+      if (!$existingEventRelation)
       {
         $relation = new QubitRelation;
-        $relation->objectId = $actor->id;
+        $relation->object = $actor;
         $relation->typeId = QubitTerm::NAME_ACCESS_POINT_ID;
-        $relation->subjectId = $this->id;
-        $relation->save();
 
         $this->relationsRelatedBysubjectId[] = $relation;
       }
