@@ -378,12 +378,12 @@ information_object:
       Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue)"]
 
     controlaccess_genreform_material_type:
-      XPath:   "(controlaccess/genreform[@source='rad'] | controlaccess/controlaccess/genreform[@source='rad'])"
+      XPath:   "(controlaccess/genreform[@source='rad'] | controlaccess/controlaccess/genreform[@source='rad'] | controlaccess/genreform[@encodinganalog='1.1C'] | controlaccess/controlaccess/genreform[@encodinganalog='1.1C'])"
       Method:  setTermRelationByName
       Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::MATERIAL_TYPE_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'createRelation' => true)"]
 
     controlaccess_genreform_genre:
-      XPath:   "(controlaccess/genreform[not(@source)] | controlaccess/controlaccess/genreform[not(@source)])"
+      XPath:   "(controlaccess/genreform[not(@source) and not(@encodinganalog='1.1C')] | controlaccess/controlaccess/genreform[not(@source) and not(@encodinganalog='1.1C')])"
       Method:  setTermRelationByName
       Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::GENRE_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'createRelation' => true)"]
 

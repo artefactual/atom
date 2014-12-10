@@ -41,6 +41,7 @@ class sfEadPlugin
         'languageOfDescription' => 'languageOfDescription',
         'script'                => 'script',
         'scriptOfDescription'   => 'scriptOfDescription',
+        'materialType'          => '1.1C',
         'descrules'             => '3.7.2',
         'scopecontent'          => '3.3.1',
         'arrangement'           => '3.3.4',
