@@ -28,7 +28,7 @@ class arGenerateFindingAidJob extends arBaseJob
 
   public function run($parameters)
   {
-    $this->addRequiredParameters(array('url', 'objectId'));
+    $this->addRequiredParameters(array('objectId'));
     parent::run($parameters);
 
     $appRoot = rtrim(sfConfig::get('sf_root_dir'), '/');
@@ -79,7 +79,7 @@ class arGenerateFindingAidJob extends arBaseJob
       $saxonPath = $appRoot . '/lib/task/pdf/saxon9he.jar';
 
       $eadFileString = file_get_contents($eadFilePath);
-      $eadFileString = $this->fixHeader($eadFileString, isset($parameters['url']) ? $parameters['url'] : null);
+      $eadFileString = $this->fixHeader($eadFileString, sfConfig::get('app_site_base_url', null));
       file_put_contents($eadFilePath, $eadFileString);
 
       $pdfPath = sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR .
