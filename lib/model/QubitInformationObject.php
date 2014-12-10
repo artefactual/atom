@@ -1321,6 +1321,92 @@ class QubitInformationObject extends BaseInformationObject
     $this->objectTermRelationsRelatedByobjectId[] = $relation;
   }
 
+  /**
+   * Returns an actor if one exists with the specified name and
+   * is related to this information object (either as a subject
+   * or an object)
+   *
+   * @param $name  The actor name
+   * @param $relatedBy  The relation type, either 'object' or 'subject'
+   * @return QubitActor matching the specified parameters, null otherwise
+   */
+  private function getActorByNameAndRelation($name, $relatedBy = 'object')
+  {
+    // We could also maybe use $this->$varmagic here but
+    // I figure just a simple if/else was more readable.
+    if ($relatedBy === 'object')
+    {
+      $relations = $this->relationsRelatedByobjectId;
+    }
+    else
+    {
+      $relations = $this->relationsRelatedBysubjectId;
+    }
+
+    foreach ($relations as $relation)
+    {
+      if ($relation->$relatedBy instanceof QubitActor)
+      {
+        foreach ($relation->$relatedBy->actorI18ns as $actorI18n)
+        {
+          if (isset($actorI18n->authorizedFormOfName) &&
+            $name == $actorI18n->authorizedFormOfName)
+          {
+            return $relation->$relatedBy;
+          }
+        }
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Returns an actor if one exists with the specified name and
+   * who is also part of an event related to this information object.
+   *
+   * @param $name  The actor name
+   * @return QubitActor matching the specified parameters, null otherwise
+   */
+  private function getActorByNameAndEvent($name)
+  {
+    foreach ($this->events as $event)
+    {
+      if (isset($event->actor))
+      {
+        foreach ($event->actor->actorI18ns as $actorI18n)
+        {
+          if (isset($actorI18n->authorizedFormOfName) &&
+            $name == $actorI18n->authorizedFormOfName)
+          {
+            return $event->actor;
+          }
+        }
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * This method will add an existing actor related to this information object to events or
+   * name access points. Or, if no actor exists as such, create a new one to add to events
+   * or name access point.
+   *
+   * First it will try to find an existing actor associated with this information object
+   * that matches the specified name. If there are no actors with that name associated with
+   * this information object, we will create a new actor with said name.
+   *
+   * To find existing actors associated with the information object, we check:
+   * 1. Actors associated with this information object by an existing event
+   * 2. Actors associated with this information object by relation (either subject or object)
+   * 3. Actors associated with other information objects in this repository
+   *
+   * @param $name  The name of the actor
+   * @param $options  An array of options filling in the new event or name access point info.
+   *
+   * @return QubitActor  The new or existing actor just added to the event/name access point list.
+   */
   public function setActorByName($name, $options)
   {
     // Only create and link actor if the event or relation type is indicated
@@ -1331,75 +1417,29 @@ class QubitInformationObject extends BaseInformationObject
 
     // Check if the actor is already related in the description events
     // Store if it's related to avoid add it as a name access point
-    $existingEventRelation = false;
-    foreach ($this->events as $event)
-    {
-      if (isset($event->actor))
-      {
-        foreach ($event->actor->actorI18ns as $actorI18n)
-        {
-          if (isset($actorI18n->authorizedFormOfName) &&
-            $name == $actorI18n->authorizedFormOfName)
-          {
-            $actor = $event->actor;
-            $existingEventRelation = true;
-
-            break 2;
-          }
-        }
-      }
-    }
+    $actor = $this->getActorByNameAndEvent($name);
+    $existingEventRelation = !is_null($actor);
 
     // Check relations related by subject
-    if (!isset($actor))
+    if (!$actor)
     {
-      foreach ($this->relationsRelatedBysubjectId as $relation)
-      {
-        if ($relation->object instanceof QubitActor)
-        {
-          foreach ($relation->object->actorI18ns as $actorI18n)
-          {
-            if (isset($actorI18n->authorizedFormOfName) &&
-              $name == $actorI18n->authorizedFormOfName)
-            {
-              $actor = $relation->object;
-
-              break 2;
-            }
-          }
-        }
-      }
+      $actor = $this->getActorByNameAndRelation($name, 'subject');
     }
 
     // Check relations related by object
-    if (!isset($actor))
+    if (!$actor)
     {
-      foreach ($this->relationsRelatedByobjectId as $relation)
-      {
-        if ($relation->subject instanceof QubitActor)
-        {
-          foreach ($relation->subject->actorI18ns as $actorI18n)
-          {
-            if (isset($actorI18n->authorizedFormOfName) &&
-              $name == $actorI18n->authorizedFormOfName)
-            {
-              $actor = $relation->subject;
-
-              break 2;
-            }
-          }
-        }
-      }
+      $actor = $this->getActorByNameAndRelation($name, 'object');
     }
 
     // Check relations with other descriptions in the repository
-    if (!isset($actor))
+    if (!$actor)
     {
       $actor = QubitActor::getByNameAndRepositoryId($name, $this->repositoryId);
     }
 
     // If there isn't a match create a new actor
-    if (!isset($actor))
+    if (!$actor)
     {
       $actor = new QubitActor;
       $actor->parentId = QubitActor::ROOT_ID;
