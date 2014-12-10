@@ -213,10 +213,10 @@
         <?php endif; ?>
       <?php endforeach; ?>
       <?php foreach ($materialtypes as $materialtype): ?>
-        <genreform <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars($materialtype->getTerm()))) ?></genreform>
+        <genreform source="rad" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars($materialtype->getTerm()))) ?></genreform>
       <?php endforeach; ?>
       <?php foreach ($genres as $genre): ?>
-        <genreform source="rad" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars($genre->getTerm()))) ?></genreform>
+        <genreform <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars($genre->getTerm()))) ?></genreform>
       <?php endforeach; ?>
       <?php foreach ($subjects as $subject): ?>
         <subject<?php if ($subject->getTerm()->code):?> authfilenumber="<?php echo $subject->getTerm()->code ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($subject->getTerm())) ?></subject>
@@ -334,11 +334,11 @@
             <?php endforeach; ?>
 
             <?php foreach ($materialtypes as $materialtype): ?>
-              <genreform <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($materialtype->getTerm())) ?></genreform>
+              <genreform source="rad" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(esc_specialchars($materialtype->getTerm())) ?></genreform>
             <?php endforeach; ?>
 
             <?php foreach ($genres as $genre): ?>
-              <genreform source="rad" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars($genre->getTerm()))) ?></genreform>
+              <genreform <?php if (0 < strlen($encoding = $ead->getMetadataParameter('genreform'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><?php echo escape_dc(escape_dc(esc_specialchars($genre->getTerm()))) ?></genreform>
             <?php endforeach; ?>
 
             <?php foreach ($subjects as $subject): ?>
