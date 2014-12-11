@@ -75,17 +75,18 @@ class arOaiPluginIndexAction extends sfAction
       // Require user have valid API key to access OAI data
       if (empty($requestOaiApiKey))
       {
-        $this->getResponse()->setStatusCode( '403', 'Forbidden' );
+        $this->getResponse()->setStatusCode(403, 'Forbidden');
         return sfView::HEADER_ONLY;
       }
-      else {
+      else
+      {
         $criteria = new Criteria;
         $criteria->add(QubitProperty::NAME, 'oaiApiKey');
         $criteria->add(QubitPropertyI18n::VALUE, $requestOaiApiKey);
 
         if (null == $oaiApiKeyProperty = QubitProperty::getOne($criteria))
         {
-          $this->getResponse()->setStatusCode( '403', 'Forbidden' );
+          $this->getResponse()->setStatusCode(403, 'Forbidden');
           return sfView::HEADER_ONLY;
         }
 
@@ -137,7 +138,9 @@ class arOaiPluginIndexAction extends sfAction
             default:
               $resumptionTokenError = True;
           }
-        } else {
+        }
+        else
+        {
           $resumptionTokenError = True;
         }
 
