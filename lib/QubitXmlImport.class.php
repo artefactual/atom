@@ -405,7 +405,7 @@ class QubitXmlImport
 
                 foreach ($childNode as $pNode)
                 {
-                  // A <p> node inside <processinfo> with no other children, 
+                  // A <p> node inside <processinfo> with no other children,
                   // this is part of an archivist's note.
                   if ($pNode->childNodes->length === 1 && $pNode->firstChild->nodeType === XML_TEXT_NODE)
                   {
@@ -826,7 +826,7 @@ class QubitXmlImport
       $nodeValue .= $node->nodeValue;
     }
 
-    return $nodeValue;
+    return trim($nodeValue);
   }
 
   /**
