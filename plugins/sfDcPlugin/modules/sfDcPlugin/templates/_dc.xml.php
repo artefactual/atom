@@ -6,33 +6,33 @@
   <title><?php echo esc_specialchars($resource->title) ?></title>
 
   <?php foreach ($resource->getCreators() as $item): ?>
-    <creator><?php echo esc_specialchars($item) ?></creator>
+    <creator><?php echo esc_specialchars((string)$item) ?></creator>
   <?php endforeach; ?>
 
   <?php foreach ($dc->subject as $item): ?>
-    <subject><?php echo esc_specialchars($item) ?></subject>
+    <subject><?php echo esc_specialchars((string)$item) ?></subject>
   <?php endforeach; ?>
 
   <description><?php echo esc_specialchars($resource->scopeAndContent) ?></description>
 
   <?php foreach ($resource->getPublishers() as $item): ?>
-    <publisher><?php echo esc_specialchars($item) ?></publisher>
+    <publisher><?php echo esc_specialchars((string)$item) ?></publisher>
   <?php endforeach; ?>
 
   <?php foreach ($resource->getContributors() as $item): ?>
-    <contributor><?php echo esc_specialchars($item) ?></contributor>
+    <contributor><?php echo esc_specialchars((string)$item) ?></contributor>
   <?php endforeach; ?>
 
   <?php foreach ($dc->date as $item): ?>
-    <date><?php echo esc_specialchars($item) ?></date>
+    <date><?php echo esc_specialchars((string)$item) ?></date>
   <?php endforeach; ?>
 
   <?php foreach ($dc->type as $item): ?>
-    <type><?php echo esc_specialchars($item) ?></type>
+    <type><?php echo esc_specialchars((string)$item) ?></type>
   <?php endforeach; ?>
 
   <?php foreach ($dc->format as $item): ?>
-    <format><?php echo esc_specialchars($item) ?></format>
+    <format><?php echo esc_specialchars((string)$item) ?></format>
   <?php endforeach; ?>
 
   <identifier><?php echo url_for(array($resource, 'module' => 'informationobject'), true) ?></identifier>
@@ -51,7 +51,7 @@
   <?php endif; ?>
 
   <?php foreach ($dc->coverage as $item): ?>
-    <coverage><?php echo esc_specialchars($item) ?></coverage>
+    <coverage><?php echo esc_specialchars((string)$item) ?></coverage>
   <?php endforeach; ?>
 
   <rights><?php echo esc_specialchars($resource->accessConditions) ?></rights>
