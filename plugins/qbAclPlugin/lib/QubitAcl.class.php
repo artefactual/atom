@@ -545,9 +545,14 @@ class QubitAcl
     return $collapsedRules;
   }
 
-  public static function forwardUnauthorized()
+  public static function forwardUnauthorized($headerOnly = false)
   {
     sfContext::getInstance()->response->setStatuscode(403);
+
+    if ($headerOnly)
+    {
+      return sfView::HEADER_ONLY;
+    }
 
     if (!sfContext::getInstance()->user->isAuthenticated())
     {

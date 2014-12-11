@@ -75,8 +75,7 @@ class arOaiPluginIndexAction extends sfAction
       // Require user have valid API key to access OAI data
       if (empty($requestOaiApiKey))
       {
-        $this->getResponse()->setStatusCode(403, 'Forbidden');
-        return sfView::HEADER_ONLY;
+        return QubitAcl::forwardUnauthorized(true);
       }
       else
       {
@@ -86,8 +85,7 @@ class arOaiPluginIndexAction extends sfAction
 
         if (null == $oaiApiKeyProperty = QubitProperty::getOne($criteria))
         {
-          $this->getResponse()->setStatusCode(403, 'Forbidden');
-          return sfView::HEADER_ONLY;
+          return QubitAcl::forwardUnauthorized(true);
         }
 
         // Authenticate user so ACL checks can be applies in XML template# get user ID from property?
