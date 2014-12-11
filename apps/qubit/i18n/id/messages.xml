@@ -447,11 +447,6 @@
         <target>Kembali</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/fileListError.php</note>
       </trans-unit>
-      <trans-unit id="c6ac7dc32de58d2a3bed7d71f651215296b3e193">
-        <source>Back to previous page</source>
-        <target>kembali ke halaman sebelumnya</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/admin/templates/oaiDisabledSuccess.php</note>
-      </trans-unit>
       <trans-unit id="1a0371e373ff2700ab0c7bb696ff5d8fb3aad23d">
         <source>Background color</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/repository/templates/editThemeSuccess.php</note>
@@ -1164,10 +1159,6 @@
       <trans-unit id="208ff18328edd454ef70ecba213b356a30c46109">
         <source>Global search/replace</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/actions/globalReplaceAction.class.php</note>
-      </trans-unit>
-      <trans-unit id="cfffcdb55549bfe6577314cfbbba000f833f1b12">
-        <source>Go to homepage</source>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/admin/templates/oaiDisabledSuccess.php</note>
       </trans-unit>
       <trans-unit id="927a7738d39cceba4da0a47d6beacf25fc85153c">
         <source>Go to page %1%</source>
@@ -2334,11 +2325,6 @@
       <trans-unit id="094da9b95fdcee3dafde31b838dc0798f0eaa523">
         <source>Slug</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/staticpage/templates/listSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="00f2c029f14da879f6ad3337534d2d056cc716fb">
-        <source>Sorry, OAI harvesting is disabled for this system.</source>
-        <target>Maaf, OAI harvesting tidak digunakan untuk sistem ini.</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/admin/templates/oaiDisabledSuccess.php</note>
       </trans-unit>
       <trans-unit id="13fd9b8db5acb6ba73f8ef1386b8a231fafeaaa8">
         <source>Sorry, page not found</source>
