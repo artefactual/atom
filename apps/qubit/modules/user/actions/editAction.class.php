@@ -198,8 +198,7 @@ class UserEditAction extends DefaultEditAction
         }
 
         // Expose whether or not OAI-PMH API is enabled
-        $oaiEnabledSetting = QubitSetting::getByName('oai_enabled');
-        $this->oai_enabled = (null !== $oaiEnabledSetting && $oaiEnabledSetting->value);
+        $this->oai_enabled = $this->context->getConfiguration()->isPluginEnabled('arOaiPlugin');
 
         break;
     }

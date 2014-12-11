@@ -49,17 +49,6 @@ class arOaiPluginIndexAction extends sfAction
     $appRoot = dirname(__FILE__) .'/../../../../..';
     include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
 
-    // Only respond to OAI requests if the feature has been enabled
-    $enabledSetting = QubitSetting::getByName('oai_enabled');
-
-    if (null === $enabledSetting || $enabledSetting->value == false)
-    {
-      // the following displays a GUI response, should we return a
-      // '503 - Service unavailable' HTTP response (without specifying
-      // a 'Retry-After' parameter instead?
-      $this->forward('admin', 'oaiDisabled');
-    }
-
     // If authentication is enabled, check API key in HTTP header
     $authenticationRequiredSetting = QubitSetting::getByName('oai_authentication_enabled');
 

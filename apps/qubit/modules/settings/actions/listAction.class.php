@@ -649,7 +649,6 @@ class SettingsListAction extends sfAction
   protected function populateOaiRepositoryForm()
   {
     // Get OAI Repository settings
-    $oaiEnabled = QubitSetting::getByName('oai_enabled');
     $oaiAuthenticationEnabled = QubitSetting::getByName('oai_authentication_enabled');
     $oaiRepositoryCode = QubitSetting::getByName('oai_repository_code');
     $oaiRepositoryIdentifier = QubitOai::getRepositoryIdentifier();
@@ -658,7 +657,6 @@ class SettingsListAction extends sfAction
 
     // Set defaults for global form
     $this->oaiRepositoryForm->setDefaults(array(
-      'oai_enabled' => (isset($oaiEnabled)) ? intval($oaiEnabled->getValue(array('sourceCulture'=>true))) : 1,
       'oai_authentication_enabled' => (isset($oaiAuthenticationEnabled)) ? intval($oaiAuthenticationEnabled->getValue(array('sourceCulture'=>true))) : 1,
       'oai_repository_code' => (isset($oaiRepositoryCode)) ? $oaiRepositoryCode->getValue(array('sourceCulture'=>true)) : null,
       'oai_repository_identifier' => $oaiRepositoryIdentifier,
@@ -674,41 +672,26 @@ class SettingsListAction extends sfAction
   {
     $thisForm = $this->oaiRepositoryForm;
 
-    // OAI enabled radio button
-    if (null !== $oaiEnabledValue = $thisForm->getValue('oai_enabled'))
-    {
-      $setting = QubitSetting::getByName('oai_enabled');
-
-      // Force sourceCulture update to prevent discrepency in settings between cultures
-      $setting->setValue($oaiEnabledValue, array('sourceCulture'=>true));
-      $setting->save();
-    }
-
     // OAI API authentication enabled radio button
-    if (null !== $oaiEnabledValue = $thisForm->getValue('oai_authentication_enabled'))
-    {
-      $setting = QubitSetting::getByName('oai_authentication_enabled');
-
-      // Force sourceCulture update to prevent discrepency in settings between cultures
-      $setting->setValue($oaiEnabledValue, array('sourceCulture'=>true));
-      $setting->save();
-    }
+    $oaiEnabledValue = $thisForm->getValue('oai_authentication_enabled');
+    $setting = QubitSetting::getByName('oai_authentication_enabled');
+    $setting->setValue($oaiEnabledValue, array('sourceCulture' => true));
+    $setting->save();
 
     // OAI repository code
     $oaiRepositoryCodeValue = $thisForm->getValue('oai_repository_code');
     $setting = QubitSetting::getByName('oai_repository_code');
-    $setting->setValue($oaiRepositoryCodeValue, array('sourceCulture'=>true));
+    $setting->setValue($oaiRepositoryCodeValue, array('sourceCulture' => true));
     $setting->save();
 
     // Hits per page
-    if (null !== $resumptionTokenLimit = $thisForm->getValue('resumption_token_limit'))
+    $resumptionTokenLimit = $thisForm->getValue('resumption_token_limit');
+
+    if (intval($resumptionTokenLimit) && $resumptionTokenLimit > 0)
     {
-      if (intval($resumptionTokenLimit) && $resumptionTokenLimit > 0)
-      {
-        $setting = QubitSetting::getByName('resumption_token_limit');
-        $setting->setValue($resumptionTokenLimit, array('sourceCulture'=>true));
-        $setting->save();
-      }
+      $setting = QubitSetting::getByName('resumption_token_limit');
+      $setting->setValue($resumptionTokenLimit, array('sourceCulture' => true));
+      $setting->save();
     }
 
     return $this;

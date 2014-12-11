@@ -489,12 +489,6 @@ QubitSetting:
     editable: 1
     deleteable: 1
     value: pt
-  QubitSetting_oai_enabled:
-    name: oai_enabled
-    scope: oai
-    editable: 1
-    deleteable: 0
-    value: 0
   QubitSetting_oai_authentication_enabled:
     name: oai_authentication_enabled
     scope: oai

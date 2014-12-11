@@ -64,7 +64,7 @@
       <?php endif; ?>
     <?php endif; ?>
 
-    <?php if (!empty($oai_api_key)): ?>
+    <?php if ($sf_context->getConfiguration()->isPluginEnabled('arOaiPlugin')): ?>
       <div class="field">
         <h3><?php echo __('OAI-PMH API key') ?></h3>
         <div>
