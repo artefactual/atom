@@ -3,9 +3,9 @@
   <form method="get" action="<?php echo $route ?>">
 
     <?php if (isset($sf_request->subqueryField) && 0 < strlen($sf_request->subqueryField)): ?>
-      <input type="hidden" name="subqueryField" id="subqueryField" value="<?php echo esc_entities($sf_request->subqueryField) ?>" />
+      <input type="hidden" name="subqueryField" id="subqueryField" value="<?php echo $sf_request->subqueryField ?>" />
     <?php else: ?>
-      <input type="hidden" name="subqueryField" id="subqueryField" value="<?php echo esc_entities($fields[0]) ?>" />
+      <input type="hidden" name="subqueryField" id="subqueryField" value="<?php echo $fields[0] ?>" />
     <?php endif; ?>
 
     <div class="input-prepend input-append">
@@ -14,9 +14,9 @@
         <div class="btn-group">
           <button class="btn dropdown-toggle" data-toggle="dropdown">
             <?php if (isset($sf_request->subqueryField) && 0 < strlen($sf_request->subqueryField)): ?>
-              <?php echo esc_entities($sf_request->subqueryField) ?>
+              <?php echo $sf_request->subqueryField ?>
             <?php else: ?>
-              <?php echo esc_entities($fields[0]) ?>
+              <?php echo $fields[0] ?>
             <?php endif; ?>
             <span class="caret"></span>
           </button>
@@ -29,7 +29,7 @@
       <?php endif; ?>
 
       <?php if (isset($sf_request->subquery)): ?>
-        <input type="text" name="subquery" value="<?php echo esc_entities($sf_request->subquery) ?>" />
+        <input type="text" name="subquery" value="<?php echo $sf_request->subquery ?>" />
         <a class="btn" href="<?php echo $cleanRoute ?>">
           <i class="icon-remove"></i>
         </a>
