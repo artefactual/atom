@@ -1592,6 +1592,7 @@ class QubitInformationObject extends BaseInformationObject
    * Import creation-related data from an <bioghist> tag in EAD2002
    *
    * @param $biogHistNode  DOMNode  EAD bioghist DOM node
+   * @param $key Position of the current bioghist node
    */
   public function importBioghistEadData($biogHistNode, $key)
   {
@@ -1716,26 +1717,37 @@ class QubitInformationObject extends BaseInformationObject
         }
       }
 
-      // Add bioghist if there is a creator in the position and it doesn't have history
-      if (isset($creators[$key]) && !isset($creators[$key]->history))
+      // Add bioghist
+      if (strlen($history = QubitXmlImport::normalizeNodeValue($biogHistNode)) > 0)
       {
-        $creators[$key]->history = QubitXmlImport::normalizeNodeValue($biogHistNode);
-        $creators[$key]->save();
-      }
-      else
-      {
-        // Otherwise create new 'Untitled' actor
-        $actor = new QubitActor;
-        $actor->parentId = QubitActor::ROOT_ID;
-        $actor->setHistory(QubitXmlImport::normalizeNodeValue($biogHistNode));
-        $actor->save();
+        // Options:
+        // 1. If there isn't an actor in the current position:
+        //   - Create new 'Untitled' actor with bioghist value as history and new event
+        // 2. If the actor in the current position doesn't have history:
+        //   - Add bioghist value to the actor's history
+        // 3. If the actor in the current position has history and it's different to the bioghist value:
+        //   - Create new 'Untitled' actor with bioghist value as history and new event
+        // 4. If the actor in the current position has history and it's equal to the bioghist value:
+        //   - Do nothing
+        if (!isset($creators[$key]) ||
+          (isset($creators[$key]->history) && $creators[$key]->history !== $history))
+        {
+          $actor = new QubitActor;
+          $actor->parentId = QubitActor::ROOT_ID;
+          $actor->setHistory($history);
+          $actor->save();
 
-        // And add it to a new creation event for the resource
-        $event = new QubitEvent;
-        $event->setActorId($actor->id);
-        $event->setTypeId(QubitTerm::CREATION_ID);
+          $event = new QubitEvent;
+          $event->setActorId($actor->id);
+          $event->setTypeId(QubitTerm::CREATION_ID);
 
-        $this->events[] = $event;
+          $this->events[] = $event;
+        }
+        else if (!isset($creators[$key]->history))
+        {
+          $creators[$key]->history = $history;
+          $creators[$key]->save();
+        }
       }
     }
   }
