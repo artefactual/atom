@@ -131,7 +131,7 @@
     <?php if (isset($sf_request->topLod) && $sf_request->topLod): ?>
       <span class="search-filter">
         <?php echo __('Only top-level descriptions') ?>
-        <?php $params = $sf_request->getGetParameters() ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php $params['topLod'] = 0 ?>
         <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
       </span>
