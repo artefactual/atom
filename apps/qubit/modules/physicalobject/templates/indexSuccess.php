@@ -21,7 +21,7 @@
   <div>
     <ul>
       <?php foreach (QubitRelation::getRelatedObjectsBySubjectId('QubitInformationObject', $resource->id, array('typeId' => QubitTerm::HAS_PHYSICAL_OBJECT_ID)) as $item): ?>
-        <li><?php echo link_to(render_title($item), array($item, 'module' => 'informationobject')) ?></li>
+        <li><?php echo link_to(esc_entities(render_title($item)), array($item, 'module' => 'informationobject')) ?></li>
       <?php endforeach; ?>
     </ul>
   </div>
