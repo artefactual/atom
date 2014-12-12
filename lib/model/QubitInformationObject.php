@@ -1676,6 +1676,7 @@ class QubitInformationObject extends BaseInformationObject
    * Import creation-related data from an <bioghist> tag in EAD2002
    *
    * @param $biogHistNode  DOMNode  EAD bioghist DOM node
+   * @param $key Position of the current bioghist node
    */
   public function importBioghistEadData($biogHistNode, $key)
   {
