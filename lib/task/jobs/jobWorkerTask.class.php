@@ -83,7 +83,7 @@ EOF;
         $ability = trim($ability);
         if (!class_exists($ability))
         {
-          throw new sfException("Ability not defined: $ability, please ensure the job is in the lib/task/job directory.");
+          throw new sfException("Ability not defined: $ability. Please ensure the job is in the lib/task/job directory or that the plugin is enabled.");
         }
 
         $this->logSection('gearman-worker', "New ability: $ability");
