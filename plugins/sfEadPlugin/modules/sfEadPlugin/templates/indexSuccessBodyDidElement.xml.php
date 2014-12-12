@@ -182,9 +182,9 @@
 
   <?php if (null !== $digitalObject = $$resourceVar->digitalObjects[0]): ?>
     <?php if (QubitAcl::check($$resourceVar, 'readMaster') && 0 < strlen($url = QubitTerm::EXTERNAL_URI_ID == $digitalObject->usageId ? $digitalObject->getPath() : $ead->getAssetPath($digitalObject))): ?>
-      <dao linktype="simple" href="<?php echo $url ?>" role="master" actuate="onRequest" show="embed"/>
+      <dao linktype="simple" href="<?php echo $url ?>" role="master" actuate="onrequest" show="embed"/>
     <?php elseif (null !== $digitalObject->reference && QubitAcl::check($$resourceVar, 'readReference') && 0 < strlen($url = $ead->getAssetPath($digitalObject, true))): ?>
-      <dao linktype="simple" href="<?php echo $url ?>" role="reference" actuate="onRequest" show="embed"/>
+      <dao linktype="simple" href="<?php echo $url ?>" role="reference" actuate="onrequest" show="embed"/>
     <?php endif; ?>
   <?php endif; ?>
 
