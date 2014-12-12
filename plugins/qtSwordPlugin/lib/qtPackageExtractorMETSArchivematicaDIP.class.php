@@ -22,10 +22,9 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
   protected function processDmdSec($xml, $informationObject)
   {
     $xml->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+    $xml->registerXPathNamespace('dc', 'http://purl.org/dc/terms/');
 
-    $dublincore = $xml->xpath('.//m:mdWrap/m:xmlData/*');
-    $dublincore = end($dublincore);
-    $dublincore->registerXPathNamespace('dc', 'http://purl.org/dc/terms/');
+    $dublincore = $xml->xpath('.//m:mdWrap/m:xmlData/dc:dublincore/*');
 
     $creation = array();
 
@@ -37,7 +36,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
         continue;
       }
 
-      switch (str_replace('dcterms:', '', $item->getName()))
+      switch (str_replace(array('dcterms:', 'dc:'), '', $item->getName()))
       {
         case 'title':
           $informationObject->setTitle($value);
@@ -425,22 +424,25 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
       QubitSearch::getInstance()->update($child);
     }
 
-    $this->resource->save();
+    // Update resource in ES
+    QubitSearch::getInstance()->update($this->resource);
 
     parent::process();
   }
 
   protected function getStructMapFileToDmdSecMapping()
   {
+    $this->structMap->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+
     switch ((string)$this->structMap['TYPE'])
     {
       case 'logical':
-        $items = $this->structMap->div->div;
+        $items = $this->structMap->xpath('m:div/m:div');
 
         break;
 
       case 'physical':
-        $items = $this->structMap->div->div->div;
+        $items = $this->structMap->xpath('m:div/m:div/m:div');
 
         break;
     }
@@ -506,15 +508,17 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
   {
     foreach ($this->document->xpath('//m:structMap[@TYPE="logical" or @TYPE="physical"]') as $item)
     {
+      $item->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+
       switch ((string)$item['TYPE'])
       {
         case 'logical':
-          $dmdId = $item->div['DMDID'];
+          $divs = $item->xpath('m:div');
 
           break;
 
         case 'physical':
-          $dmdId = $item->div->div['DMDID'];
+          $divs = $item->xpath('m:div/m:div');
 
           break;
 
@@ -524,6 +528,11 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
 
       // We're going to need this later
       $this->structMap = $item;
+
+      if (count($divs) > 0)
+      {
+        $dmdId = $divs[0]['DMDID'];
+      }
 
       if (null === $dmdId)
       {
