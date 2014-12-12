@@ -40,6 +40,8 @@ class sfIsdiahPluginIndexAction extends RepositoryIndexAction
 
     $this->response->setTitle("$title - {$this->response->getTitle()}");
 
+    $this->htmlSnippet = $this->getPurifiedHtmlSnippet();
+
     if (QubitAcl::check($this->resource, 'update'))
     {
       $validatorSchema = new sfValidatorSchema;
@@ -95,5 +97,28 @@ class sfIsdiahPluginIndexAction extends RepositoryIndexAction
         $this->longitude = $contact->longitude;
       }
     }
+  }
+
+  protected function getPurifiedHtmlSnippet()
+  {
+    $cacheKey = 'repository:htmlsnippet:'.$this->resource->id;
+    $cache = QubitCache::getInstance();
+
+    if (null === $cache)
+    {
+      return;
+    }
+
+    if ($cache->has($cacheKey))
+    {
+      return $cache->get($cacheKey);
+    }
+
+    $content = $this->resource->getHtmlSnippet();
+    $content = QubitHtmlPurifier::getInstance()->purify($content);
+
+    $cache->set($cacheKey, $content);
+
+    return $content;
   }
 }

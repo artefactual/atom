@@ -29,5 +29,31 @@ class StaticPageIndexAction extends sfAction
     }
 
     $this->response->setTitle("$title - {$this->response->getTitle()}");
+
+    $this->content = $this->getPurifiedStaticPageContent();
+  }
+
+  protected function getPurifiedStaticPageContent()
+  {
+    $culture = sfContext::getInstance()->getUser()->getCulture();
+    $cacheKey = 'staticpage:'.$this->resource->id.':'.$culture;
+    $cache = QubitCache::getInstance();
+
+    if (null === $cache)
+    {
+      return;
+    }
+
+    if ($cache->has($cacheKey))
+    {
+      return $cache->get($cacheKey);
+    }
+
+    $content = $this->resource->getContent(array('cultureFallback' => true));
+    $content = QubitHtmlPurifier::getInstance()->purify($content);
+
+    $cache->set($cacheKey, $content);
+
+    return $content;
   }
 }
