@@ -64,6 +64,15 @@
       <?php endif; ?>
     <?php endif; ?>
 
+    <?php if ($sf_context->getConfiguration()->isPluginEnabled('arOaiPlugin')): ?>
+      <div class="field">
+        <h3><?php echo __('OAI-PMH API key') ?></h3>
+        <div>
+          <code><?php echo $oai_api_key ?></code>
+        </div>
+      </div>
+    <?php endif; ?>
+
   </section>
 
 </section>

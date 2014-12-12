@@ -13,6 +13,7 @@
     <metadata>
       <?php echo get_component('sfDcPlugin', 'dc', array('resource' => $record)) ?>
     </metadata>
+    <?php include('_about.xml.php') ?>
    </record>
 <?php endforeach ?>
   <?php if($remaining > 0):?>

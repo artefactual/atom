@@ -17,11 +17,35 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class AdminOaiDisabledAction extends sfAction
+/*
+ * Create granted_right table, jobs table, jobs menu items
+ * Add job table
+ *
+ * @package    AccesstoMemory
+ * @subpackage migration
+ */
+class arMigration0114
 {
-  public function execute($request)
+  const
+    VERSION = 114, // The new database version
+    MIN_MILESTONE = 2; // The minimum milestone required
+
+  /**
+   * Upgrade
+   *
+   * @return bool True if the upgrade succeeded, False otherwise
+   */
+  public function up($configuration)
   {
-    $this->response->setStatusCode(503, 'Service Temporarily Unavailable');
-    $this->response->setHttpHeader('Retry-After', '86400');
+    // Add setting for enabling OAI API key authentication
+    $setting = new QubitSetting;
+    $setting->name = 'oai_authentication_enabled';
+    $setting->scope = 'oai';
+    $setting->editable = 1;
+    $setting->deleteable = 0;
+    $setting->value = 0;
+    $setting->save();
+
+    return true;
   }
 }

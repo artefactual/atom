@@ -453,11 +453,6 @@
         <target>&#x10E3;&#x10D9;&#x10D0;&#x10DC;</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/templates/fileListError.php</note>
       </trans-unit>
-      <trans-unit id="c6ac7dc32de58d2a3bed7d71f651215296b3e193">
-        <source>Back to previous page</source>
-        <target>&#x10EC;&#x10D8;&#x10DC;&#x10D0; &#x10D2;&#x10D5;&#x10D4;&#x10E0;&#x10D3;&#x10D6;&#x10D4; &#x10D3;&#x10D0;&#x10D1;&#x10E0;&#x10E3;&#x10DC;&#x10D4;&#x10D1;&#x10D0;</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/admin/templates/oaiDisabledSuccess.php</note>
-      </trans-unit>
       <trans-unit id="1a0371e373ff2700ab0c7bb696ff5d8fb3aad23d">
         <source>Background color</source>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/repository/templates/editThemeSuccess.php</note>
@@ -1196,11 +1191,6 @@
         <source>Global search/replace</source>
         <target>&#x10D2;&#x10DA;&#x10DD;&#x10D1;&#x10D0;&#x10DA;&#x10E3;&#x10E0;&#x10D8; &#x10EB;&#x10D4;&#x10D1;&#x10DC;&#x10D0; /&#x10E8;&#x10D4;&#x10DC;&#x10D0;&#x10EA;&#x10D5;&#x10DA;&#x10D4;&#x10D1;&#x10D0; </target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/actions/globalReplaceAction.class.php</note>
-      </trans-unit>
-      <trans-unit id="cfffcdb55549bfe6577314cfbbba000f833f1b12">
-        <source>Go to homepage</source>
-        <target>&#x10E1;&#x10D0;&#x10EC;&#x10E7;&#x10D8;&#x10E1; &#x10D2;&#x10D5;&#x10D4;&#x10E0;&#x10D3;&#x10D6;&#x10D4; &#x10D3;&#x10D0;&#x10D1;&#x10E0;&#x10E3;&#x10DC;&#x10D4;&#x10D1;&#x10D0; </target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/admin/templates/oaiDisabledSuccess.php</note>
       </trans-unit>
       <trans-unit id="927a7738d39cceba4da0a47d6beacf25fc85153c">
         <source>Go to page %1%</source>
@@ -2453,11 +2443,6 @@
         <source>Slug</source>
         <target> Slug</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/staticpage/templates/listSuccess.php</note>
-      </trans-unit>
-      <trans-unit id="00f2c029f14da879f6ad3337534d2d056cc716fb">
-        <source>Sorry, OAI harvesting is disabled for this system.</source>
-        <target>&#x10D1;&#x10DD;&#x10D3;&#x10D8;&#x10E8;&#x10D8;, , OAI &#x10E8;&#x10D4;&#x10D3;&#x10D4;&#x10D2;&#x10D8; &#x10E3;&#x10E3;&#x10DC;&#x10D0;&#x10E0;&#x10DD;&#x10D0; &#x10D0;&#x10DB; &#x10E1;&#x10D8;&#x10E1;&#x10E2;&#x10D4;&#x10DB;&#x10D8;&#x10E1;&#x10D0;&#x10D7;&#x10D5;&#x10D8;&#x10E1;</target>
-        <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/admin/templates/oaiDisabledSuccess.php</note>
       </trans-unit>
       <trans-unit id="13fd9b8db5acb6ba73f8ef1386b8a231fafeaaa8">
         <source>Sorry, page not found</source>

@@ -118,14 +118,6 @@ class QubitMigrate104 extends QubitMigrate
   protected function alterQubitSettings()
   {
     // Add new settings
-    $this->data['QubitSetting']['QubitSetting_oai_enabled'] = array(
-      'name' => 'oai_enabled',
-      'scope' => 'oai',
-      'editable' => '1',
-      'deleteable' => '0',
-      'source_culture' => 'en',
-      'value' => array('en' => '0'),
-    );
     $this->data['QubitSetting']['QubitSetting_oai_repository_code'] = array(
       'name' => 'oai_repository_code',
       'scope' => 'oai',

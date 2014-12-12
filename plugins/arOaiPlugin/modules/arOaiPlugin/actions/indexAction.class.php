@@ -49,13 +49,38 @@ class arOaiPluginIndexAction extends sfAction
     $appRoot = dirname(__FILE__) .'/../../../../..';
     include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
 
-    // only respond to OAI requests if the feature has been enabled
-    if (sfConfig::get('app_oai_oai_enabled') == 0)
+    // If authentication is enabled, check API key in HTTP header
+    $authenticationRequiredSetting = QubitSetting::getByName('oai_authentication_enabled');
+
+    // If auth key specified or authentication is required then attempt to
+    // authenticate, responding with 403 if authentication fails
+    $requestOaiApiKey = $request->getHttpHeader('X-OAI-API-Key');
+
+    if (
+      !empty($requestOaiApiKey)
+      || null !== $authenticationRequiredSetting && $authenticationRequiredSetting->value
+    )
     {
-      // the following displays a GUI response, should we return a
-      // '503 - Service unavailable' HTTP response (without specifying
-      // a 'Retry-After' parameter instead?
-      $this->forward('admin', 'oaiDisabled');
+      // Require user have valid API key to access OAI data
+      if (empty($requestOaiApiKey))
+      {
+        return QubitAcl::forwardUnauthorized(true);
+      }
+      else
+      {
+        $criteria = new Criteria;
+        $criteria->add(QubitProperty::NAME, 'oaiApiKey');
+        $criteria->add(QubitPropertyI18n::VALUE, $requestOaiApiKey);
+
+        if (null == $oaiApiKeyProperty = QubitProperty::getOne($criteria))
+        {
+          return QubitAcl::forwardUnauthorized(true);
+        }
+
+        // Authenticate user so ACL checks can be applies in XML template# get user ID from property?
+        $user = QubitUser::getById($oaiApiKeyProperty->objectId);
+        $this->context->user->signIn($user);
+      }
     }
 
     $request->setRequestFormat('xml');
@@ -100,7 +125,9 @@ class arOaiPluginIndexAction extends sfAction
             default:
               $resumptionTokenError = True;
           }
-        } else {
+        }
+        else
+        {
           $resumptionTokenError = True;
         }
 

@@ -10,7 +10,9 @@
       <li><a href="#defaultTemplateArea"><?php echo __('Default template') ?></a></li>
       <li><a href="#userInterfaceLabelArea"><?php echo __('User interface label') ?></a></li>
       <li><a href="#i18nLanguagesArea"><?php echo __('I18n languages') ?></a></li>
-      <li><a href="#oaiRepositoryArea"><?php echo __('OAI repository') ?></a></li>
+      <?php if ($sf_context->getConfiguration()->isPluginEnabled('arOaiPlugin')): ?>
+        <li><a href="#oaiRepositoryArea"><?php echo __('OAI repository') ?></a></li>
+      <?php endif; ?>
       <li><a href="#jobSchedulingArea"><?php echo __('Job scheduling') ?></a></li>
       <li><a href="#securityArea"><?php echo __('Security') ?></a></li>
       <li><a href="#permissionsArea"><?php echo __('Permissions') ?></a></li>
@@ -277,33 +279,37 @@
 
 </fieldset>
 
-<fieldset class="collapsible" id="oaiRepositoryArea">
+<?php if ($sf_context->getConfiguration()->isPluginEnabled('arOaiPlugin')): ?>
+  <fieldset class="collapsible" id="oaiRepositoryArea">
 
-  <legend><?php echo __('OAI Repository') ?></legend>
+    <legend><?php echo __('OAI Repository') ?></legend>
 
-  <form action="<?php echo url_for('settings/list') ?>" method="post">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th width="30%"><?php echo __('Name')?></th>
-          <th><?php echo __('Value')?></th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php echo $oaiRepositoryForm ?>
-        <tr>
-          <td>&nbsp;</td>
-          <td>
-            <div style="float: right; margin: 3px 8px 0 0;">
-              <input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </form>
+    <p><?php echo __('The OAI-PMH API can be secured, optionally, by requiring API requests authenticate using API keys (granted to specific users).') ?></p>
 
-</fieldset>
+    <form action="<?php echo url_for('settings/list') ?>" method="post">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th width="30%"><?php echo __('Name')?></th>
+            <th><?php echo __('Value')?></th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php echo $oaiRepositoryForm ?>
+          <tr>
+            <td>&nbsp;</td>
+            <td>
+              <div style="float: right; margin: 3px 8px 0 0;">
+                <input class="form-submit" type="submit" value="<?php echo __('Save') ?>"/>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+
+  </fieldset>
+<?php endif; ?>
 
 <fieldset class="collapsible" id="jobSchedulingArea">
 
