@@ -196,3 +196,9 @@ saxon9he.jar
 Url: http://saxon.sourceforge.net/
 Copyright: Saxonica Limited
 License: Mozilla Public License version 1.0
+
+htmlpurifier
+------------
+Url: http://htmlpurifier.org/
+Copyright: Edward Z. Yang <ezyang@mit.edu>
+License: LGPLv2.1
