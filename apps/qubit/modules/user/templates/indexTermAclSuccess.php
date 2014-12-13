@@ -40,7 +40,7 @@
                   <em><?php echo __('All privileges') ?></em>
                 <?php endif; ?>
               </td>
-              <?php foreach ($roles as $roleId): ?>
+              <?php foreach ($sf_data->getRaw('roles') as $roleId): ?>
                 <td>
                   <?php if (isset($groupPermission[$roleId]) && $permission = $groupPermission[$roleId]): ?>
                     <?php if ('translate' == $permission->action && null !== $permission->getConstants(array('name' => 'languages'))): ?>

@@ -84,8 +84,7 @@
 
   <?php if ($pager->hasResults()): ?>
     <?php foreach ($pager->getResults() as $hit): ?>
-      <?php $doc = $hit->getData() ?>
-      <?php echo include_partial('search/searchResult', array('doc' => $doc, 'pager' => $pager)) ?>
+      <?php echo include_partial('search/searchResult', array('hit' => $hit, 'pager' => $pager)) ?>
     <?php endforeach; ?>
   <?php else: ?>
     <section id="no-search-results">

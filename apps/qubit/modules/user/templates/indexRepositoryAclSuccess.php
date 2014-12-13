@@ -39,7 +39,7 @@
                   <em><?php echo __('All privileges') ?></em>
                 <?php endif; ?>
               </td>
-              <?php foreach ($userGroups as $groupId): ?>
+              <?php foreach ($sf_data->getRaw('userGroups') as $groupId): ?>
                 <td>
                   <?php if (isset($groupPermission[$groupId]) && $permission = $groupPermission[$groupId]): ?>
                     <?php if ('translate' == $permission->action && null !== $permission->getConstants(array('name' => 'languages'))): ?>
