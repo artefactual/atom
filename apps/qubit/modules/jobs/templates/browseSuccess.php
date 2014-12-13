@@ -1,10 +1,14 @@
 <h1>Manage jobs</h1>
+
 <div>
   <ul class="nav nav-tabs" id="job-tabs">
-    <li<?php if ('all' === $filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('All jobs'), array('filter' => 'all') + $sf_request->getParameterHolder()->getAll()) ?></li>
-    <li<?php if ('active' === $filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Active jobs'), array('filter' => 'active') + $sf_request->getParameterHolder()->getAll()) ?></li>
+    <li<?php if ('all' === $filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('All jobs'), array('filter' => 'all') + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?></li>
+    <li<?php if ('active' === $filter): ?> class="active"<?php endif; ?>><?php echo link_to(__('Active jobs'), array('filter' => 'active') + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?></li>
   </ul>
 </div>
+
+<br />
+
 <div class="tab-content">
   <table class="table table-bordered sticky-enabled sticky-table">
     <thead class="tableheader-processed">
@@ -47,13 +51,13 @@
         <!-- Job notes -->
         <td>
           <?php foreach ($job->getNotes() as $note): ?>
-            <p><?php echo $note->__toString(); ?></p>
+            <p><?php echo $note->__toString() ?></p>
           <?php endforeach; ?>
         </td>
 
         <!-- User who created the job -->
         <td>
-          <?php echo QubitJob::getUserString($job); ?>
+          <?php echo esc_entities(QubitJob::getUserString($job)) ?>
         </td>
       </tr>
     <?php endforeach; ?>
@@ -86,7 +90,7 @@
     <li>
       <?php $autoRefreshIcons = sprintf("c-btn %s icon-large", $autoRefresh ? 'icon-ok-circle' : 'icon-circle-blank') ?>
       <?php echo link_to(__(' Auto refresh'), array('module' => 'jobs', 'action' => 'browse',
-        'autoRefresh' => !$autoRefresh) + $sf_request->getParameterHolder()->getAll(),
+        'autoRefresh' => !$autoRefresh) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
         array('class' => $autoRefreshIcons)) ?>
     </li>
     <?php if ($jobs->count()): ?>

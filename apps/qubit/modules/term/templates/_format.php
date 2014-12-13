@@ -1,4 +1,4 @@
-<?php if (in_array('sfSkosPlugin', $sf_context->getConfiguration()->getPlugins())): ?>
+<?php if (in_array('sfSkosPlugin', $sf_data->getRaw('sf_context')->getConfiguration()->getPlugins())): ?>
   <section id="action-icons">
     <ul>
 

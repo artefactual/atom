@@ -1,5 +1,5 @@
 <table id="<?php echo 'acl_'.url_for(array($object, 'module' => $module)) ?>" class="table table-bordered">
-  <?php if ($object->id != constant(get_class($object).'::ROOT_ID')): ?>
+  <?php if ($object->id != constant(get_class($sf_data->getRaw('object')).'::ROOT_ID')): ?>
     <caption><?php echo render_title($object) ?></caption>
   <?php else: ?>
     <caption><em><?php echo __('All %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_'.$module)))) ?></em></caption>
