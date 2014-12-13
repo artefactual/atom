@@ -189,7 +189,7 @@ class sfWidgetFormSchemaDecorator extends sfWidgetFormSchema
   /**
    * @see sfWidgetFormSchema
    */
-  public function setHelp($name, $help)
+  public function setHelp($name, $help = null)
   {
     $this->widget->setHelp($name, $help);
 
@@ -199,7 +199,7 @@ class sfWidgetFormSchemaDecorator extends sfWidgetFormSchema
   /**
    * @see sfWidgetFormSchema
    */
-  public function getHelp($name)
+  public function getHelp($name = null)
   {
     return $this->widget->getHelp($name);
   }
