@@ -290,64 +290,104 @@ function check_field_visibility($fieldName, $options = array())
 
 function get_search_i18n($hit, $fieldName, $options = array())
 {
-  $userCulture = sfContext::getInstance()->user->getCulture();
-
-  if ($hit instanceof \Elastica\Result)
+  if ($hit instanceof sfOutputEscaperObjectDecorator && 'Elastica\Result' == $hit->getClass())
   {
-    $hit = $hit->getData();
+    $hit = $hit->getData(); // type=sfOutputEscaperArrayDecorator
   }
 
-  $value = null;
-
-  // I'm not sure why sfOutputEscaper throws notices when using
-  // isset() against nested undefined items. It seems that the behavior of
-  // ArrayAccess implementors are not exactly like arrays? So excuse
-  // the verbosity of the following checks, please!
-
-  if (isset($options['culture']) &&
-    isset($hit['i18n']) &&
-    isset($hit['i18n'][$options['culture']]) &&
-    isset($hit['i18n'][$options['culture']][$fieldName]))
+  // If the fields requested to Elasticserach have been manually specified the
+  // fields will be flatterned, e.g. $r['i18n.es.title'] vs $r['i18n']['es']['title']
+  $flat = false;
+  if (isset($options['flat']))
   {
-    $value = $hit['i18n'][$options['culture']][$fieldName];
-  }
-  else if (isset($hit['i18n']) &&
-    isset($hit['i18n'][$userCulture]) &&
-    isset($hit['i18n'][$userCulture][$fieldName]))
-  {
-    $value = $hit['i18n'][$userCulture][$fieldName];
-  }
-  else if ((!isset($options['cultureFallback']) || $options['cultureFallback']) &&
-    isset($hit['i18n']) &&
-    isset($hit['i18n'][$hit['sourceCulture']]) &&
-    isset($hit['i18n'][$hit['sourceCulture']][$fieldName]))
-  {
-    $value = $hit['i18n'][$hit['sourceCulture']][$fieldName];
+    $flat = $options['flat'];
   }
 
-  if (($value == null || $value == '') &&
-    isset($options['allowEmpty']) && !$options['allowEmpty'])
+  // The default is to return "Untitled" unless allowEmpty is true
+  $allowEmpty = true;
+  if (isset($options['allowEmpty']))
   {
-    $value = sfContext::getInstance()->i18n->__('Untitled');
+    $cultureFallback = $options['allowEmpty'];
   }
 
-  return $value;
-}
-
-function get_search_i18n_highlight($hit, $fieldName, $options = array())
-{
-  if (!isset($options['culture']))
+  // Use culture fallback? Default = true
+  $cultureFallback = true;
+  if (isset($options['cultureFallback']))
   {
-    $options['culture'] = sfContext::getInstance()->user->getCulture();
+    $cultureFallback = $options['cultureFallback'];
   }
 
-  $highlights = $hit->getHighlights();
-  $field = 'i18n.'.$options['culture'].'.'.$fieldName;
-
-  if (isset($highlights[$field]))
+  // Filter return value if empty
+  $showUntitled = function($value = null) use ($allowEmpty)
   {
-    return $highlights[$field][0];
+    if (null !== $value || 0 < count($value))
+    {
+      return $value->get(0);
+    }
+
+    if ($allowEmpty)
+    {
+      return '';
+    }
+
+    return sfContext::getInstance()->i18n->__('Untitled');
+  };
+
+  $accessField = function($culture) use ($hit, $fieldName, $flat)
+  {
+    if ($flat)
+    {
+      $key = sprintf("i18n.%s.%s", $culture, $fieldName);
+      if (empty($hit->get($key)->get(0)))
+      {
+        return false;
+      }
+
+      return $hit->get($key)->get(0);
+    }
+    else
+    {
+      $i18nRaw = $hit->getRaw('i18n');
+      if (empty($i18nRaw[$culture][$fieldName]))
+      {
+        return false;
+      }
+
+      return $hit->get('i18n')->get($culture)->get($fieldName);
+    }
+  };
+
+  if (isset($options['culture']))
+  {
+    $v = $accessField($options['culture']);
+    if (false !== $v)
+    {
+      return $v;
+    }
   }
+
+  $v = $accessField(sfContext::getInstance()->user->getCulture());
+  if (false !== $v)
+  {
+    return $v;
+  }
+
+  if ($cultureFallback)
+  {
+    $sourceCulture = $hit->get('sourceCulture');
+    if (empty($sourceCulture))
+    {
+      return $showUntitled();
+    }
+
+    $v = $accessField($sourceCulture);
+    if (false !== $v)
+    {
+      return $v;
+    }
+  }
+
+  return $showUntitled();
 }
 
 function get_search_creation_details($hit, $culture = null)
@@ -412,9 +452,9 @@ function get_search_creation_details($hit, $culture = null)
 
 function get_search_autocomplete_string($hit)
 {
-  if ($hit instanceof \Elastica\Result)
+  if ($hit instanceof sfOutputEscaperObjectDecorator && 'Elastica\Result' == $hit->getClass())
   {
-    $hit = $hit->getData();
+    $hit = $hit->getData(); // type=sfOutputEscaperArrayDecorator
   }
 
   $string = array();
