@@ -50,9 +50,9 @@
 
           <h3><?php echo __('Names and dates') ?></h3>
 
-          <?php echo get_partial('dcNames', $dcNamesComponent->getVarHolder()->getAll()) ?>
+          <?php echo get_partial('dcNames', $sf_data->getRaw('dcNamesComponent')->getVarHolder()->getAll()) ?>
 
-          <?php echo get_partial('dcDates', $dcDatesComponent->getVarHolder()->getAll()) ?>
+          <?php echo get_partial('dcDates', $sf_data->getRaw('dcDatesComponent')->getVarHolder()->getAll()) ?>
 
         </section>
 
@@ -156,7 +156,7 @@
 
         <legend><?php echo __('Rights area') ?></legend>
 
-        <?php echo get_partial('right/edit', $rightEditComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('right/edit', $sf_data->getRaw('rightEditComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset> <!-- #rightsArea -->
 

@@ -44,7 +44,7 @@
           ->label(__('Identifier').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
           ->renderRow() ?>
 
-        <?php echo get_partial('informationobject/alternativeIdentifiers', $alternativeIdentifiersComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('informationobject/alternativeIdentifiers', $sf_data->getRaw('alternativeIdentifiersComponent')->getVarHolder()->getAll()) ?>
 
         <?php echo render_field($form->title
           ->help(__('Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions. (ISAD 3.1.2)'))
@@ -185,7 +185,7 @@
             ->renderHelp() ?>
         </div>
 
-        <?php echo get_partial('informationobject/notes', $publicationNotesComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('publicationNotesComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset> <!-- /#alliedMaterialsArea -->
 
@@ -193,7 +193,7 @@
 
         <legend><?php echo __('Notes area') ?></legend>
 
-        <?php echo get_partial('informationobject/notes', $notesComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('notesComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset> <!-- /#notesArea -->
 
@@ -279,7 +279,7 @@
           ->help(__('Record citations for any external sources used in the archival description (such as the Scope and Content, Archival History, or Notes fields).'))
           ->label(__('Sources')), $resource, array('class' => 'resizable')) ?>
 
-        <?php echo get_partial('informationobject/notes', $archivistsNotesComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('archivistsNotesComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset> <!-- /#descriptionControlArea -->
 
@@ -287,7 +287,7 @@
 
         <legend><?php echo __('Rights area') ?></legend>
 
-        <?php echo get_partial('right/edit', $rightEditComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('right/edit', $sf_data->getRaw('rightEditComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset>
 
