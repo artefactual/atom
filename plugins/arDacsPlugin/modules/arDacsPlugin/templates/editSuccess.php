@@ -63,7 +63,7 @@
           ->help(__('In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material, normally consisting of a name segment, a term indicating the nature of the unit being described, and optionally a topical segment. Do not enclose devised titles in square brackets. (DACS 2.3.3)'))
           ->label(__('Title').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>'), $resource) ?>
 
-        <?php echo get_partial('sfIsadPlugin/event', $eventComponent->getVarHolder()->getAll() + array('help' => __('Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.'))) ?>
+        <?php echo get_partial('sfIsadPlugin/event', $sf_data->getRaw('eventComponent')->getVarHolder()->getAll() + array('help' => __('Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.'))) ?>
 
         <?php echo render_field($form->extentAndMedium
           ->help(__('Record the quantity of the material in terms of its physical extent as linear or cubic feet, number of items, or number of containers or carriers. (DACS 2.5.4). Optionally, record the quantity in terms of material type(s) (DACS 2.5.5), and/or qualify the statement of physical extent to hightlight the existence of material types that re important (DACS 2.5.6).'))
@@ -189,7 +189,7 @@
             ->renderHelp() ?>
         </div>
 
-        <?php echo get_partial('informationobject/notes', $publicationNotesComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('publicationNotesComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset> <!-- /#alliedMaterialsArea -->
 
@@ -199,7 +199,7 @@
 
         <?php echo get_partial('informationobject/notes', $notesComponent->getVarHolder()->getAll()) ?>
 
-        <?php echo get_partial('informationobject/notes', $specializedNotesComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('specializedNotesComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset> <!-- /#notesArea -->
 
@@ -217,7 +217,7 @@
 
         <!-- TODO: Make $archivistsNotesComponent to include ISAD 3.7.3 Date(s) of description as the first note and editable -->
 
-        <?php echo get_partial('informationobject/notes', $archivistsNotesComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('archivistsNotesComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset> <!-- /#descriptionControlArea -->
 
@@ -264,7 +264,7 @@
 
         <legend><?php echo __('Rights area') ?></legend>
 
-        <?php echo get_partial('right/edit', $rightEditComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('right/edit', $sf_data->getRaw('rightEditComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset>
 

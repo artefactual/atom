@@ -71,11 +71,11 @@
 
         <legend><?php echo __('Relationships area') ?></legend>
 
-        <?php echo get_partial('relatedFunction', $relatedFunctionComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('relatedFunction', $sf_data->getRaw('relatedFunctionComponent')->getVarHolder()->getAll()) ?>
 
-        <?php echo get_partial('relatedAuthorityRecord', $relatedAuthorityRecordComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('relatedAuthorityRecord', $sf_data->getRaw('relatedAuthorityRecordComponent')->getVarHolder()->getAll()) ?>
 
-        <?php echo get_partial('relatedResource', $relatedResourceComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('relatedResource', $sf_data->getRaw('relatedResourceComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset>
 

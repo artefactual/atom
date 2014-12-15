@@ -56,7 +56,7 @@
 
           <h3><?php echo __('Add new name and/or origin info') ?></h3>
 
-          <?php echo get_partial('informationobject/event', $eventComponent->getVarHolder()->getAll()) ?>
+          <?php echo get_partial('informationobject/event', $sf_data->getRaw('eventComponent')->getVarHolder()->getAll()) ?>
 
         </section>
 
@@ -132,7 +132,7 @@
 
         <legend><?php echo __('Rights area') ?></legend>
 
-        <?php echo get_partial('right/edit', $rightEditComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('right/edit', $sf_data->getRaw('rightEditComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset> <!-- #rightsArea -->
 

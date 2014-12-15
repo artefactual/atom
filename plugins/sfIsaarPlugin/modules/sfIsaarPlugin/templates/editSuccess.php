@@ -94,9 +94,9 @@
 
         <legend><?php echo __('Relationships area') ?></legend>
 
-        <?php echo get_partial('relatedAuthorityRecord', $relatedAuthorityRecordComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('relatedAuthorityRecord', $sf_data->getRaw('relatedAuthorityRecordComponent')->getVarHolder()->getAll()) ?>
 
-        <?php echo get_partial('event', $eventComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('event', $sf_data->getRaw('eventComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset>
 
