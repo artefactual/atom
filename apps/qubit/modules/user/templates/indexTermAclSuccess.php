@@ -12,7 +12,7 @@
           <th colspan="2">&nbsp;</th>
           <?php foreach ($roles as $item): ?>
             <?php if (null !== $group = QubitAclGroup::getById($item)): ?>
-              <th><?php echo $group->__toString() ?></th>
+              <th><?php echo esc_entities($group->__toString()) ?></th>
             <?php elseif ($resource->username == $item): ?>
               <th><?php echo $resource->username ?></th>
             <?php endif; ?>
@@ -25,7 +25,7 @@
               <?php if ('' == $taxonomy): ?>
                 <em><?php echo __('All %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_term')))) ?></em>
               <?php else: ?>
-                <?php echo __('Taxonomy: %1%', array('%1%' => render_title(QubitTaxonomy::getBySlug($taxonomy)))) ?>
+                <?php echo __('Taxonomy: %1%', array('%1%' => esc_entities(render_title(QubitTaxonomy::getBySlug($taxonomy))))) ?>
               <?php endif; ?>
             </strong></td>
           </tr>
@@ -44,6 +44,7 @@
                 <td>
                   <?php if (isset($groupPermission[$roleId]) && $permission = $groupPermission[$roleId]): ?>
                     <?php if ('translate' == $permission->action && null !== $permission->getConstants(array('name' => 'languages'))): ?>
+                      <?php $permission = sfOutputEscaper::unescape($permission) ?>
                       <?php echo $permission->renderAccess().': '.implode(',', $permission->getConstants(array('name' => 'languages'))) ?>
                     <?php else: ?>
                       <?php echo $permission->renderAccess() ?>

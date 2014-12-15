@@ -12,7 +12,7 @@
           <th colspan="2">&nbsp;</th>
           <?php foreach ($userGroups as $item): ?>
             <?php if (null !== $group = QubitAclGroup::getById($item)): ?>
-              <th><?php echo $group->__toString() ?></th>
+              <th><?php echo esc_entities($group->__toString()) ?></th>
             <?php elseif ($resource->username == $item): ?>
               <th><?php echo $resource->username ?></th>
             <?php endif; ?>
@@ -23,7 +23,7 @@
           <tr>
             <td colspan="<?php echo $tableCols ?>"><strong>
               <?php if (1 < $objectId): ?>
-                <?php echo render_title(QubitRepository::getById($objectId)) ?>
+                <?php echo esc_entities(render_title(QubitRepository::getById($objectId))) ?>
               <?php else: ?>
                 <em><?php echo __('All %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_repository')))) ?></em>
               <?php endif; ?>
@@ -43,6 +43,7 @@
                 <td>
                   <?php if (isset($groupPermission[$groupId]) && $permission = $groupPermission[$groupId]): ?>
                     <?php if ('translate' == $permission->action && null !== $permission->getConstants(array('name' => 'languages'))): ?>
+                      <?php $permission = sfOutputEscaper::unescape($permission) ?>
                       <?php echo $permission->renderAccess().': '.implode(',', $permission->getConstants(array('name' => 'languages'))) ?>
                     <?php else: ?>
                       <?php echo $permission->renderAccess() ?>

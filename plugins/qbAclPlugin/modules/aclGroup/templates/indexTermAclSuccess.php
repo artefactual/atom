@@ -8,7 +8,7 @@
       <tr>
         <th colspan="2">&nbsp;</th>
         <?php foreach ($groups as $groupId): ?>
-          <th><?php echo render_title(QubitAclGroup::getById($groupId)) ?></th>
+          <th><?php echo esc_entities(render_title(QubitAclGroup::getById($groupId))) ?></th>
         <?php endforeach; ?>
       </tr>
     </thead>
@@ -20,7 +20,7 @@
               <?php if ('' == $taxonomy): ?>
                 <em><?php echo __('All %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_term')))) ?></em>
               <?php else: ?>
-                <?php echo __('Taxonomy: %1%', array('%1%' => render_title(QubitTaxonomy::getBySlug($taxonomy)))) ?>
+                <?php echo __('Taxonomy: %1%', array('%1%' => esc_entities(render_title(QubitTaxonomy::getBySlug($taxonomy))))) ?>
               <?php endif; ?>
             </strong>
           </td>
@@ -39,6 +39,7 @@
               <td>
                 <?php if (isset($groupPermission[$groupId]) && $permission = $groupPermission[$groupId]): ?>
                   <?php if ('translate' == $permission->action && null !== $permission->getConstants(array('name' => 'languages'))): ?>
+                    <?php $permission = sfOutputEscaper::unescape($permission) ?>
                     <?php echo __('%1%: %2%', array('%1%' => $permission->renderAccess(), '%2%' => implode(', ', $permission->getConstants(array('name' => 'languages'))))) ?>
                   <?php else: ?>
                     <?php echo __($permission->renderAccess()) ?>

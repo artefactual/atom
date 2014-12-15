@@ -8,7 +8,7 @@
       <tr>
         <th colspan="2">&nbsp;</th>
         <?php foreach ($roles as $roleId): ?>
-          <th><?php echo QubitAclGroup::getById($roleId)->__toString() ?></th>
+          <th><?php echo esc_entities(render_title(QubitAclGroup::getById($roleId))) ?></th>
         <?php endforeach; ?>
       </tr>
     </thead>
@@ -18,7 +18,7 @@
           <td colspan="<?php echo $tableCols - 1 ?>">
             <strong>
               <?php if (1 < $objectId): ?>
-                <?php echo render_title(QubitActor::getById($objectId)) ?>
+                <?php echo esc_entities(render_title(QubitActor::getById($objectId))) ?>
               <?php else: ?>
                 <em><?php echo __('All %1%', array('%1%' => lcfirst(sfConfig::get('app_ui_label_actor')))) ?></em>
               <?php endif; ?>
