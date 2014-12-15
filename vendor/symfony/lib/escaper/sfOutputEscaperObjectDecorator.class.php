@@ -119,4 +119,9 @@ class sfOutputEscaperObjectDecorator extends sfOutputEscaperGetterDecorator impl
   {
     return count($this->value);
   }
+
+  public function getClass()
+  {
+    return get_class($this->value);
+  }
 }
