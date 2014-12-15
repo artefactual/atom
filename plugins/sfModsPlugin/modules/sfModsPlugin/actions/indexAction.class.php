@@ -29,6 +29,11 @@ class sfModsPluginIndexAction extends InformationObjectIndexAction
 {
   public function execute($request)
   {
+    if ('xml' === $request->getRequestFormat())
+    {
+      sfConfig::set('sf_escaping_strategy', false);
+    }
+
     parent::execute($request);
 
     $this->mods = new sfModsPlugin($this->resource);

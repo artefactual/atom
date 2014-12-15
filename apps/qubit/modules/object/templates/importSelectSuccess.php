@@ -16,7 +16,7 @@
   <?php if ($sf_user->hasFlash('error')): ?>
     <div class="messages error">
       <h3><?php echo __('Error encountered') ?></h3>
-      <div><?php echo $sf_user->getFlash('error') ?></div>
+      <div><?php echo $sf_user->getFlash('error', ESC_RAW) ?></div>
     </div>
   <?php endif; ?>
 
