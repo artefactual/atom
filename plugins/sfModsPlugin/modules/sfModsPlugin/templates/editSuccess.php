@@ -123,7 +123,7 @@
             ->help(__('Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.'))
             ->renderHelp() ?>
           <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'repository', 'action' => 'add')) ?> #authorizedFormOfName"/>
-          <input class="list" type="hidden" value="<?php echo url_for($repoAcParams) ?>"/>
+          <input class="list" type="hidden" value="<?php echo url_for($sf_data->getRaw('repoAcParams')) ?>"/>
         </div>
 
       </fieldset> <!-- #elementsArea -->
