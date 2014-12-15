@@ -391,50 +391,21 @@ function get_search_creation_details($hit, $culture = null)
     $culture = sfContext::getInstance()->user->getCulture();
   }
 
-  if ($hit instanceof \Elastica\Result)
+  if ($hit instanceof sfOutputEscaperObjectDecorator && 'Elastica\Result' == $hit->getClass())
   {
-    $hit = $hit->getData();
+    $hit = $hit->getData(); // type=sfOutputEscaperArrayDecorator
   }
 
   $details = array();
 
-  // Get creator
-  if (isset($hit['creators']) && 0 < count($hit['creators']))
+  // Get creators
+  $creators = $hit->get('creators');
+  if (null !== $creators && 0 < count($creators))
   {
-    $creator = array_pop($hit['creators']);
-
-    $details[] = get_search_i18n($creator, 'authorizedFormOfName', true, true, $culture);
+    $details[] = get_search_i18n($creators->get(0), 'authorizedFormOfName', array('allowEmpty' => false, 'cultureFallback' => true));
   }
 
   // WIP, we are not showing labels for now. See #5202.
-  if (0 == count($details)) return null;
-  return implode(', ', $details);
-
-  ProjectConfiguration::getActive()->loadHelpers('Date');
-
-  // Get dates
-  if (isset($hit['dates']))
-  {
-    foreach ($hit['dates'] as $item)
-    {
-      if (QubitTerm::CREATION_ID == $item['typeId'])
-      {
-        if (isset($item['date']))
-        {
-          $details[] = $item['date'];
-        }
-        elseif (isset($item['startDate']) && isset($item['endDate']))
-        {
-          $details[] = Qubit::renderDateStartEnd(null,
-            format_date(strtotime($item['startDate']), 'yyyy-M-dd'),
-            format_date(strtotime($item['endDate']), 'yyyy-M-dd'));
-        }
-      }
-
-      // For now let's just print the first match
-      break;
-    }
-  }
 
   if (0 == count($details))
   {
