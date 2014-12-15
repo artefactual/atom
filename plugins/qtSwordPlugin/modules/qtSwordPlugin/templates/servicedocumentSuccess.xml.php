@@ -18,32 +18,32 @@
 
         <atom:title type="text"><?php echo render_title($item) ?></atom:title>
 
-        <!-- Accepted media ranges -->
+        <?php # Accepted media ranges ?>
         <?php foreach (qtSwordPluginConfiguration::$mediaRanges as $mediaRange): ?>
           <accept><?php echo $mediaRange ?></accept>
         <?php endforeach; ?>
 
-        <!-- MAY be included. Used for a human-readable description of collection policy. Include either a text description or a URI. --> 
-        <!-- <sword:collectionPolicy>No guarantee of service, or that deposits will be retained for any length of time.</sword:collectionPolicy> -->
+        <?php # MAY be included. Used for a human-readable description of collection policy. Include either a text description or a URI. ?>
+        <?php # <sword:collectionPolicy>No guarantee of service, or that deposits will be retained for any length of time.</sword:collectionPolicy> ?>
 
-        <!-- SHOULD be included. Used to indicate if mediated deposit is allowed on the defined collection. -->
+        <?php # SHOULD be included. Used to indicate if mediated deposit is allowed on the defined collection. ?>
         <sword:mediation><?php echo $mediation ?></sword:mediation>
 
-        <!-- MAY be included. Used for a human-readable statement about what treatment the deposited resource will receive. -->
-        <!-- <sword:treatment>This is a server</sword:treatment> -->
+        <?php # MAY be included. Used for a human-readable statement about what treatment the deposited resource will receive. ?>
+        <?php # <sword:treatment>This is a server</sword:treatment> ?>
 
-        <!-- MAY be included. Used to identify the content packaging types supported by this collection. SHOULD be a URI from [SWORD-TYPES]. The q attribute MAY be used to indicate relative preferences between packaging formats (See Part A Section 1.1). -->
+        <?php # MAY be included. Used to identify the content packaging types supported by this collection. SHOULD be a URI from [SWORD-TYPES]. The q attribute MAY be used to indicate relative preferences between packaging formats (See Part A Section 1.1). ?>
         <?php foreach (qtSwordPluginConfiguration::$packaging as $key => $value): ?>
           <sword:acceptPackaging q="<?php echo $key ?>"><?php echo $value ?></sword:acceptPackaging>
         <?php endforeach; ?>
 
-        <!-- 0 or more MAY be included to direct clients to nested service definitions. If present, the value MUST be a URI that dereferences to another SWORD Service Document. -->
+        <?php # 0 or more MAY be included to direct clients to nested service definitions. If present, the value MUST be a URI that dereferences to another SWORD Service Document. ?>
         <?php if (0 < count($item->getChildren())): ?>
           <sword:service><?php echo url_for(array($item, 'module' => 'qtSwordPlugin', 'action' => 'servicedocument'), true) ?></sword:service>
         <?php endif; ?>
 
-        <!-- The use of a Dublin Core dcterms:abstract element containing a description of the Collection is RECOMMENDED. -->
-        <!-- <dcterms:abstract>Collection description</dcterms:abstract> -->
+        <?php # The use of a Dublin Core dcterms:abstract element containing a description of the Collection is RECOMMENDED. ?>
+        <?php # <dcterms:abstract>Collection description</dcterms:abstract> ?>
 
       </collection>
 

@@ -6,7 +6,10 @@
         <?php $doc = $hit->getData() ?>
         <li>
           <?php echo link_to(get_search_i18n($hit, 'title', array('flat' => true)), array('module' => 'informationobject', 'slug' => $doc->get('slug')->get(0))) ?>
-          <strong><?php echo $levelsOfDescription[$doc->get('levelOfDescriptionId')->get(0)] ?></strong>
+          <?php $lodId = $doc->get('levelOfDescriptionId') ?>
+          <?php if (null !== $lodId): ?>
+            <?php echo $levelsOfDescription->get($lodId->get(0)) ?>
+          <?php endif; ?>
         </li>
       <?php endforeach; ?>
       <?php if ($descriptions->getTotalHits() > 3): ?>

@@ -39,6 +39,8 @@ class sfEacPluginIndexAction extends ActorIndexAction
 
   public function execute($request)
   {
+    sfConfig::set('sf_escaping_strategy', false);
+
     parent::execute($request);
 
     $this->eac = new sfEacPlugin($this->resource);
