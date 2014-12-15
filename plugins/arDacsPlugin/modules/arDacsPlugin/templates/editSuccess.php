@@ -48,7 +48,7 @@
           <?php echo $form->repository->label(__('Name and location of repository'))->renderLabel() ?>
           <?php echo $form->repository->render(array('class' => 'form-autocomplete')) ?>
           <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'repository', 'action' => 'add')) ?> #authorizedFormOfName"/>
-          <input class="list" type="hidden" value="<?php echo url_for($repoAcParams) ?>"/>
+          <input class="list" type="hidden" value="<?php echo url_for($sf_data->getRaw('repoAcParams')) ?>"/>
           <?php echo $form->repository
             ->help(__('Explicitly state the name of the repository, including any parent bodies (DACS 2.2.2). Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.'))
             ->renderHelp(); ?>

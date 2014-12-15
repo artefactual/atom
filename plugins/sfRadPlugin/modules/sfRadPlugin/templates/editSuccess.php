@@ -71,7 +71,7 @@
           <?php echo $form->repository->renderLabel() ?>
           <?php echo $form->repository->render(array('class' => 'form-autocomplete')) ?>
           <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'repository', 'action' => 'add')) ?> #authorizedFormOfName"/>
-          <input class="list" type="hidden" value="<?php echo url_for($repoAcParams) ?>"/>
+          <input class="list" type="hidden" value="<?php echo url_for($sf_data->getRaw('repoAcParams')) ?>"/>
           <?php echo $form->repository
             ->help(__('Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.'))
             ->renderHelp() ?>
