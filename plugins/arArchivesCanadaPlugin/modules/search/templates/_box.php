@@ -5,9 +5,9 @@
     <div class="input-append">
 
       <?php if (isset($repository)): ?>
-        <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo esc_entities($sf_request->query) ?>" placeholder="<?php echo __('Search %1%', array('%1%' => render_title($repository))) ?>"/>
+        <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo $sf_request->query ?>" placeholder="<?php echo __('Search %1%', array('%1%' => render_title($repository))) ?>"/>
       <?php else: ?>
-        <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo esc_entities($sf_request->query) ?>" placeholder="<?php echo __('Search') ?>"/>
+        <input type="text" name="query"<?php if (isset($sf_request->query)) echo ' class="focused"' ?> value="<?php echo $sf_request->query ?>" placeholder="<?php echo __('Search') ?>"/>
       <?php endif; ?>
 
       <div class="btn-group">
@@ -33,7 +33,7 @@
                     <?php if (isset($icons[$item->name])): ?>
                       <?php echo image_tag($icons[$item->name], array('width' => 42, 'height' => 42)) ?>
                     <?php endif; ?>
-                    <?php echo $item->getLabel(array('cultureFallback' => true)) ?>
+                    <?php echo esc_entities($item->getLabel(array('cultureFallback' => true))) ?>
                   </a>
                 </li>
               <?php endforeach; ?>

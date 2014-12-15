@@ -150,7 +150,7 @@
     <p>
       <?php echo __('%1% results with digital objects', array(
         '%1%' => $pager->facets['digitalobjects']['count'])) ?>
-      <?php $params = $sf_request->getGetParameters() ?>
+      <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
       <?php unset($params['page']) ?>
       <a href="<?php echo url_for(array('module' => 'search') + $params + array('onlyMedia' => true)) ?>">
         <i class="icon-search"></i>
