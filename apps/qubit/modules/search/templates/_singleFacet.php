@@ -11,7 +11,7 @@
 
     <?php foreach ($pager->facets[$facet]['terms'] as $id => $term): ?>
 
-      <?php $filter = (array)$filters->getRaw($facet) ?>
+      <?php $filter = count($filters) > 0 ? $filters->getRaw($facet) : array() ?>
       <?php $active = in_array($id, $filter) ? true : false; ?>
 
       <?php echo link_to(

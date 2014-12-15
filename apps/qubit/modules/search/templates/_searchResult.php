@@ -17,7 +17,6 @@
           <div class="preview-container">
             <?php if (QubitAcl::check(QubitInformationObject::getById($hit->getId()), 'readThumbnail') &&
                       QubitGrantedRight::checkPremis($hit->getId(), 'readThumb')): ?>
-
               <?php echo image_tag($doc['digitalObject']['thumbnailPath']) ?>
             <?php else: ?>
               <?php echo image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($doc['digitalObject']['mediaTypeId'])) ?>

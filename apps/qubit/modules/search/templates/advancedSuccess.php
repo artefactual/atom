@@ -84,7 +84,7 @@
 
   <?php if ($pager->hasResults()): ?>
     <?php foreach ($pager->getResults() as $hit): ?>
-      <?php echo include_partial('search/searchResult', array('hit' => $hit, 'pager' => $pager)) ?>
+      <?php echo include_partial('search/searchResult', array('hit' => $hit, 'pager' => $pager, 'culture' => $sf_user->getCulture())) ?>
     <?php endforeach; ?>
   <?php else: ?>
     <section id="no-search-results">

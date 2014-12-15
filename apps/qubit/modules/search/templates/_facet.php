@@ -27,6 +27,8 @@
         </div>
       <?php endif; ?>
 
+      <?php $filters = sfOutputEscaper::unescape($filters) ?>
+
       <?php if (!isset($filters[$facet])): ?>
         <li class="active">
       <?php else: ?>
