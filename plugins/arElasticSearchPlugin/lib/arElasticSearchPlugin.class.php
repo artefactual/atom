@@ -110,6 +110,9 @@ class arElasticSearchPlugin extends QubitSearchEngine
     {
       $this->index->addDocuments($this->batchDocs);
       $this->index->flush();
+
+      // And clear them
+      $this->batchDocs = array();
     }
 
     $this->index->refresh();
