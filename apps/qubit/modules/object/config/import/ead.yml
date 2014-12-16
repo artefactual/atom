@@ -46,6 +46,10 @@ information_object:
 
     # each of the following XPath expressions are relative to the current matched node:
 
+    title:
+      XPath: "did/unittitle[not(@type)]"
+      Method:  setTitle
+
     level:
       XPath:  "@level"
       Method: SetLevelOfDescriptionByName
@@ -77,10 +81,6 @@ information_object:
       XPath:   "(did/origination/famname|origination/famname)"
       Method:  setActorByName
       Parameters: [$nodeValue, "$options = array('event_type_id' => QubitTerm::CREATION_ID, 'entity_type_id' => QubitTerm::FAMILY_ID)"]
-
-    title:
-      XPath: "did/unittitle[not(@type)]"
-      Method:  setTitle
 
     alternate_title:
       XPath: "did/unittitle[@type='parallel']"
