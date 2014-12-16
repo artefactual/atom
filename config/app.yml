@@ -27,3 +27,5 @@ all:
 
   # Google Analitycs
   # google_analytics_api_key: ...
+
+  htmlpurifier_enabled: true

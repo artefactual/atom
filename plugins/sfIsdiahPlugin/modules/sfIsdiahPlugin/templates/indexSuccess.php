@@ -37,10 +37,10 @@
     </div>
   <?php endif; ?>
 
-  <?php if (null !== $resource->htmlSnippet && null !== $resource->htmlSnippet->getValue()): ?>
+  <?php if (!empty($sf_data->getRaw('htmlSnippet'))): ?>
     <div class="row" id="repository-html-snippet">
       <div class="span7">
-        <?php echo $resource->htmlSnippet ?>
+        <?php echo $sf_data->getRaw('htmlSnippet') // Using htmlpurifier ?>
       </div>
     </div>
   <?php endif; ?>

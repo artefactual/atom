@@ -118,6 +118,8 @@ class StaticPageEditAction extends DefaultEditAction
           $culture = sfContext::getInstance()->getUser()->getCulture();
           $cacheKey = 'staticpage:'.$this->resource->id.':'.$culture;
           $cache->remove($cacheKey);
+
+          // TODO: Remove all the cultures at once
         }
 
         $this->redirect(array($this->resource, 'module' => 'staticpage'));

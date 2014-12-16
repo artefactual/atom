@@ -50,41 +50,7 @@ class StaticPageIndexAction extends sfAction
     }
 
     $content = $this->resource->getContent(array('cultureFallback' => true));
-
-    // Prepare htmlpurifier cache directory
-    $purifierCacheDirectory = sfConfig::get('sf_cache_dir').DIRECTORY_SEPARATOR.'htmlpurifier';
-    if (!file_exists($purifierCacheDirectory))
-    {
-      mkdir($purifierCacheDirectory, 0770, true);
-    }
-
-    // Load htmlpurifier
-    require sfConfig::get('sf_root_dir').'/vendor/htmlpurifier/library/HTMLPurifier.includes.php';
-    $config = HTMLPurifier_Config::createDefault();
-    $config->set('Core', 'Encoding', sfConfig::get('sf_charset', 'UTF-8'));
-    $config->set('Cache.SerializerPath', $purifierCacheDirectory);
-    $config->set('AutoFormat.AutoParagraph', true);
-    $config->set('HTML', 'Doctype', 'XHTML 1.1');
-    $config->set('HTML.Allowed', implode(',', array(
-      'div', 'span', 'p',
-      'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-      'strong', 'em',
-      'abbr[title]', 'acronym', 'address',
-      'blockquote', 'cite', 'code',
-      'pre', 'br',
-      'a[href]', 'img[src]',
-      'ul', 'ol', 'li',
-      'dl', 'dt', 'dd',
-      'table', 'tr', 'td', 'th',
-      'tbody', 'thead', 'tfoot',
-      'col', 'colgroup', 'caption',
-      'b', 'i', 'tt',
-      'sub', 'sup', 'big', 'small', 'hr')));
-    $config->set('HTML.AllowedAttributes', implode(',', array(
-      'class', 'title', 'src', 'href')));
-    $purifier = new HTMLPurifier($config);
-
-    $content = $purifier->purify($content);
+    $content = QubitHtmlPurifier::getInstance()->purify($content);
 
     $cache->set($cacheKey, $content);
 
