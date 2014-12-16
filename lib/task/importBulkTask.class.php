@@ -119,6 +119,16 @@ EOF;
         print '.';
       }
 
+      if ($importer->hasErrors())
+      {
+        foreach ($importer->getErrors() as $error)
+        {
+          $this->log('Error ('. $file .'): '. $error);
+        }
+      }
+
+      print '.';
+
       // Try to free up memory
       unset($importer);
 
@@ -161,7 +171,7 @@ EOF;
       QubitSearch::getInstance()->optimize();
     }
 
-    $this->log("\nSuccessfully imported ".$count." XML/CSV files in ".$timer->elapsed()." s. ".memory_get_peak_usage()." bytes used.");
+    $this->log("\nImported ".$count." XML/CSV files in ".$timer->elapsed()." s. ".memory_get_peak_usage()." bytes used.");
   }
 
   protected function dir_tree($dir)

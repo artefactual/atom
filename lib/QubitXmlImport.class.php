@@ -86,7 +86,7 @@ class QubitXmlImport
       else
       {
         $errorData = $parser->getErrorData();
-        $this->errors = array(sfContext::getInstance()->i18n->__('SAX xml parse error %code% on line %line% in input file: %message%', array('%code%' => $errorData['code'], '%message%' => $errorData['string'], '%line%' => $errorData['line'])));
+        $this->errors[] = array(sfContext::getInstance()->i18n->__('SAX xml parse error %code% on line %line% in input file: %message%', array('%code%' => $errorData['code'], '%message%' => $errorData['string'], '%line%' => $errorData['line'])));
       }
 
       return $this;
