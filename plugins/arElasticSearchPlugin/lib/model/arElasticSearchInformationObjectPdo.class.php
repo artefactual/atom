@@ -715,11 +715,6 @@ class arElasticSearchInformationObjectPdo
     return $this->getObjectTermRelations('materialType', QubitTaxonomy::MATERIAL_TYPE_ID);
   }
 
-  public function getGenreId()
-  {
-    return $this->getObjectTermRelations('genre', QubitTaxonomy::GENRE_ID);
-  }
-
   protected function getObjectTermRelations($statementType, $taxonomyId)
   {
     if (!isset(self::$statements[$statementType]))
@@ -1342,12 +1337,6 @@ class arElasticSearchInformationObjectPdo
       $serialized['materialTypeId'][] = $item->id;
     }
 
-    // Genre
-    foreach ($this->getGenreId() as $item)
-    {
-      $serialized['genreId'][] = $item->id;
-    }
-
     // Media
     if ($this->media_type_id)
     {
@@ -1418,6 +1407,13 @@ class arElasticSearchInformationObjectPdo
     {
       $node = new arElasticSearchActorPdo($item->id);
       $serialized['names'][] = $node->serialize();
+    }
+
+    // Genres
+    foreach ($this->getRelatedTerms(QubitTaxonomy::GENRE_ID) as $item)
+    {
+      $node = new arElasticSearchTermPdo($item->id);
+      $serialized['genres'][] = $node->serialize();
     }
 
     // Creators

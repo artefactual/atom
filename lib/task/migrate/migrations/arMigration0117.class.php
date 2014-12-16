@@ -31,6 +31,16 @@ class arMigration0117
 
   public function up($configuration)
   {
+    // Add genre search label setting
+    $setting = new QubitSetting;
+    $setting->name  = 'genre';
+    $setting->scope = 'ui_label';
+    $setting->editable = 1;
+    $setting->deleteable = 0;
+    $setting->source_culture = 'en';
+    $setting->setValue('Genre', array('culture' => 'en'));
+    $setting->save();
+
     // Add the genre taxonomy
     QubitMigrate::bumpTaxonomy(QubitTaxonomy::GENRE_ID, $configuration);
     $taxonomy = new QubitTaxonomy;

@@ -33,6 +33,10 @@ class TermBrowseTermAction extends DefaultBrowseAction
         array('type'   => 'term',
               'field'  => 'places.id',
               'size'   => 10),
+      'genres' =>
+        array('type'   => 'term',
+              'field'  => 'genres.id',
+              'size'   => 10),
       'subjects' =>
         array('type'   => 'term',
               'field'  => 'subjects.id',
@@ -44,6 +48,7 @@ class TermBrowseTermAction extends DefaultBrowseAction
     {
       case 'places':
       case 'subjects':
+      case 'genres':
         $criteria = new Criteria;
         $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
 
@@ -86,6 +91,12 @@ class TermBrowseTermAction extends DefaultBrowseAction
       case QubitTaxonomy::SUBJECT_ID:
         $this->icon = 'subjects';
         $this->queryBool->addMust(new \Elastica\Query\Terms('subjects.id', array($this->resource->id)));
+
+        break;
+
+      case QubitTaxonomy::GENRE_ID:
+        $this->icon = 'subjects';
+        $this->queryBool->addMust(new \Elastica\Query\Terms('genres.id', array($this->resource->id)));
 
         break;
 

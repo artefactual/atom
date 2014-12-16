@@ -37,6 +37,10 @@ class TermIndexAction extends DefaultBrowseAction
         array('type'   => 'term',
               'field'  => 'subjects.id',
               'size'   => 10),
+      'genres' =>
+        array('type'   => 'term',
+              'field'  => 'genres.id',
+              'size'   => 10),
       'direct' =>
         array('type' => 'query',
               'field'  => '',
@@ -49,6 +53,7 @@ class TermIndexAction extends DefaultBrowseAction
     {
       case 'places':
       case 'subjects':
+      case 'genres':
         $criteria = new Criteria;
         $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
 
@@ -127,8 +132,8 @@ class TermIndexAction extends DefaultBrowseAction
       }
     }
 
-    // Add browse elements for places and subjects
-    $this->addBrowseElements = ($this->resource->taxonomyId == QubitTaxonomy::PLACE_ID || $this->resource->taxonomyId == QubitTaxonomy::SUBJECT_ID);
+    // Add browse elements for places and subjects and genres
+    $this->addBrowseElements = ($this->resource->taxonomyId == QubitTaxonomy::PLACE_ID || $this->resource->taxonomyId == QubitTaxonomy::SUBJECT_ID || $this->resource->taxonomyId == QubitTaxonomy::GENRE_ID);
     if ($this->addBrowseElements)
     {
       // Return special response in JSON for XHR requests
@@ -230,6 +235,15 @@ EOF;
 
           case QubitTaxonomy::SUBJECT_ID:
             $query = new \Elastica\Query\Terms('subjects.id', array($this->resource->id));
+            $this::$FACETS['direct']['field'] = array('directSubjects' => $this->resource->id);
+
+            if (isset($request->onlyDirect))
+            {
+              $queryDirect = new \Elastica\Query\Terms('directSubjects', array($this->resource->id));
+            }
+
+          case QubitTaxonomy::GENRE_ID:
+            $query = new \Elastica\Query\Terms('genres.id', array($this->resource->id));
             $this::$FACETS['direct']['field'] = array('directSubjects' => $this->resource->id);
 
             if (isset($request->onlyDirect))
