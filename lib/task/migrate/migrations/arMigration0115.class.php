@@ -17,27 +17,33 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class SettingsDeleteAction extends sfAction
+/*
+ * Update settings path
+ *
+ * @package    AccesstoMemory
+ * @subpackage migration
+ */
+class arMigration0115
 {
-  public function execute($request)
+  const
+    VERSION = 115, // The new database version
+    MIN_MILESTONE = 2; // The minimum milestone required
+
+  /**
+   * Upgrade
+   *
+   * @return bool True if the upgrade succeeded, False otherwise
+   */
+  public function up($configuration)
   {
-    $setting = QubitSetting::getById($this->request->id);
+    $menu = QubitMenu::getByName('settings');
 
-    $this->forward404Unless($setting);
-
-    // check that the setting is deleteable
-    if ($setting->isDeleteable())
+    if (isset($menu))
     {
-      $setting->delete();
-    }
-    // TODO: else populate an error?
-
-    if ($this->context->getViewCacheManager() !== null)
-    {
-      $this->context->getViewCacheManager()->remove('@sf_cache_partial?module=menu&action=_browseMenu&sf_cache_key=*');
-      $this->context->getViewCacheManager()->remove('@sf_cache_partial?module=menu&action=_mainMenu&sf_cache_key=*');
+      $menu->setPath('settings/global');
+      $menu->save();
     }
 
-    $this->redirect('settings/language');
+    return true;
   }
 }

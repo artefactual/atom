@@ -17,6 +17,7 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
+ProjectConfiguration::getActive()->loadHelpers('I18N');
 
 /**
  * Settings module - "site information" form definition

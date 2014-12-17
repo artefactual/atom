@@ -738,7 +738,7 @@ QubitMenu:
       pt_BR: Configurações
       sl: Nastavitve
       th: การตั้งค่า
-    path: settings/list
+    path: settings/global
   QubitMenu_mainmenu_admin_descriptionUpdates:
     parent_id: QubitMenu_mainmenu_admin
     source_culture: en

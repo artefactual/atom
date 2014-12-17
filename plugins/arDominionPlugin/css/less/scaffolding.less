@@ -280,6 +280,12 @@ th {
   background-color: @grayLighter;
 }
 
+// Fix magin bottom for tables under content div
+
+div#content > table.table {
+  margin-bottom: 0;
+}
+
 // Read more link
 
 .read-more a,
@@ -1517,4 +1523,43 @@ body.login #content {
     }
   }
 
+}
+
+// Settings menu sticker
+
+.settings-menu {
+  td {
+    padding: 0;
+  }
+
+  a {
+    padding: 4px 5px;
+    display: block;
+  }
+}
+
+.settings-menu.stick {
+  position: fixed;
+  width: 220px;
+  top: 0px;
+}
+
+@media (min-width: 1200px) {
+  .settings-menu.stick {
+    width: 270px;
+  }
+}
+
+@media (max-width: 979px) and (min-width: 768px) {
+  .settings-menu.stick {
+    width: 166px;
+  }
+}
+
+@media (max-width: 767px) {
+  .settings-menu.stick {
+    position: relative;
+    width: 100%;
+    top: none;
+  }
 }
