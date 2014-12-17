@@ -55,8 +55,7 @@ class SettingsGlobalForm extends sfForm
       'explode_multipage_files' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
       'show_tooltips' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
       'defaultPubStatus' => new sfWidgetFormSelectRadio(array('choices'=>array(QubitTerm::PUBLICATION_STATUS_DRAFT_ID=>__('Draft'), QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID=>__('Published'))), array('class'=>'radio')),
-      'sword_deposit_dir' => new sfWidgetFormInput,
-      'finding_aid_format' =>  new sfWidgetFormSelect(array('choices'=>array('pdf' => 'PDF', 'rtf' => 'RTF', 'txt' => 'TXT')))
+      'sword_deposit_dir' => new sfWidgetFormInput
     ));
 
     // Add labels
@@ -80,8 +79,7 @@ class SettingsGlobalForm extends sfForm
       'defaultPubStatus' => __('Default publication status'),
       'sword_deposit_dir' => __('SWORD deposit directory'),
       'require_ssl_admin' => __('Require SSL for all administrator funcionality'),
-      'require_strong_passwords' => __('Require strong passwords'),
-      'finding_aid_format' => __('Finding Aid format')
+      'require_strong_passwords' => __('Require strong passwords')
     ));
 
     // Add helper text
@@ -148,7 +146,6 @@ class SettingsGlobalForm extends sfForm
     $this->validatorSchema['show_tooltips'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['defaultPubStatus'] = new sfValidatorChoice(array('choices' => array(QubitTerm::PUBLICATION_STATUS_DRAFT_ID, QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)));
     $this->validatorSchema['sword_deposit_dir'] = new sfValidatorString(array('required' => false));
-    $this->validatorSchema['finding_aid_format'] = new sfValidatorString(array('required' => false));
 
     // Set decorator
     $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);

@@ -737,8 +737,12 @@
           });
     });
 
+  /****
+   ****
+   ****  Disable/enable converseTerm field
+   ****
+   ****/
 
-  // Disable/enable converseTerm field
   $(function ()
     {
       var $selfReciprocal = $('input[id=selfReciprocal]');
@@ -761,6 +765,26 @@
               $converseTerm.prop('disabled', 'disabled').val('');
             }
           });
+    });
+
+  /****
+   ****
+   ****  Settings menu sticker
+   ****
+   ****/
+
+  $(function ()
+    {
+      var s = $("#sidebar > .settings-menu");
+      var pos = s.position();
+      $(window).scroll(function() {
+        var windowpos = $(window).scrollTop();
+        if (windowpos >= pos.top) {
+          s.addClass("stick");
+        } else {
+          s.removeClass("stick");
+        }
+      });
     });
 
 })(window.jQuery);

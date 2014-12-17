@@ -95,7 +95,7 @@ class sfThemePluginIndexAction extends sfAction
 
         QubitCache::getInstance()->removePattern('settings:i18n:*');
 
-        $this->redirect(array('module' => 'settings', 'action' => 'list'));
+        $this->redirect(array('module' => 'settings', 'action' => 'pageElements'));
       }
     }
   }
