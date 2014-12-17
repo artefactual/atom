@@ -72,8 +72,8 @@
       <div class="bottom">
         <p>
           <?php if ('1' == sfConfig::get('app_inherit_code_informationobject', 1)
-            && isset($doc['inheritReferenceCode']) && !empty($doc['inheritReferenceCode'])) : ?>
-              <?php echo $doc['inheritReferenceCode'] ?>
+            && isset($doc['referenceCode']) && !empty($doc['referenceCode'])) : ?>
+              <?php echo $doc['referenceCode'] ?>
           <?php elseif (isset($doc['identifier']) && !empty($doc['identifier'])) : ?>
               <?php echo $doc['identifier'] ?>
           <?php endif; ?>
