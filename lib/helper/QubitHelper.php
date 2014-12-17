@@ -290,6 +290,27 @@ function check_field_visibility($fieldName, $options = array())
 
 function get_search_i18n($hit, $fieldName, $options = array())
 {
+  // Filter return value if empty
+  $showUntitled = function($value = null) use ($allowEmpty)
+  {
+    if (null !== $value || 0 < count($value))
+    {
+      return $value->get(0);
+    }
+
+    if ($allowEmpty)
+    {
+      return '';
+    }
+
+    return sfContext::getInstance()->i18n->__('Untitled');
+  };
+
+  if (empty($hit))
+  {
+    return $showUntitled();
+  }
+
   if ($hit instanceof sfOutputEscaperObjectDecorator && 'Elastica\Result' == $hit->getClass())
   {
     $hit = $hit->getData(); // type=sfOutputEscaperArrayDecorator
@@ -316,22 +337,6 @@ function get_search_i18n($hit, $fieldName, $options = array())
   {
     $cultureFallback = $options['cultureFallback'];
   }
-
-  // Filter return value if empty
-  $showUntitled = function($value = null) use ($allowEmpty)
-  {
-    if (null !== $value || 0 < count($value))
-    {
-      return $value->get(0);
-    }
-
-    if ($allowEmpty)
-    {
-      return '';
-    }
-
-    return sfContext::getInstance()->i18n->__('Untitled');
-  };
 
   $accessField = function($culture) use ($hit, $fieldName, $flat)
   {
