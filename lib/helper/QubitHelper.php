@@ -290,6 +290,28 @@ function check_field_visibility($fieldName, $options = array())
 
 function get_search_i18n($hit, $fieldName, $options = array())
 {
+  // If the fields requested to Elasticserach have been manually specified the
+  // fields will be flatterned, e.g. $r['i18n.es.title'] vs $r['i18n']['es']['title']
+  $flat = false;
+  if (isset($options['flat']))
+  {
+    $flat = $options['flat'];
+  }
+
+  // The default is to return "Untitled" unless allowEmpty is true
+  $allowEmpty = true;
+  if (isset($options['allowEmpty']))
+  {
+    $cultureFallback = $options['allowEmpty'];
+  }
+
+  // Use culture fallback? Default = true
+  $cultureFallback = true;
+  if (isset($options['cultureFallback']))
+  {
+    $cultureFallback = $options['cultureFallback'];
+  }
+
   // Filter return value if empty
   $showUntitled = function($value = null) use ($allowEmpty)
   {
@@ -314,28 +336,6 @@ function get_search_i18n($hit, $fieldName, $options = array())
   if ($hit instanceof sfOutputEscaperObjectDecorator && 'Elastica\Result' == $hit->getClass())
   {
     $hit = $hit->getData(); // type=sfOutputEscaperArrayDecorator
-  }
-
-  // If the fields requested to Elasticserach have been manually specified the
-  // fields will be flatterned, e.g. $r['i18n.es.title'] vs $r['i18n']['es']['title']
-  $flat = false;
-  if (isset($options['flat']))
-  {
-    $flat = $options['flat'];
-  }
-
-  // The default is to return "Untitled" unless allowEmpty is true
-  $allowEmpty = true;
-  if (isset($options['allowEmpty']))
-  {
-    $cultureFallback = $options['allowEmpty'];
-  }
-
-  // Use culture fallback? Default = true
-  $cultureFallback = true;
-  if (isset($options['cultureFallback']))
-  {
-    $cultureFallback = $options['cultureFallback'];
   }
 
   $accessField = function($culture) use ($hit, $fieldName, $flat)
