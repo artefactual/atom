@@ -153,8 +153,7 @@
 <?php endif; ?>
 
 <?php foreach ($pager->getResults() as $hit): ?>
-  <?php $doc = $hit->getData() ?>
-  <?php echo get_partial('search/searchResult', array('hit' => $hit, 'pager' => $pager, 'culture' => $selectedCulture)) ?>
+  <?php echo get_partial('search/searchResult', array('hit' => $hit, 'culture' => $selectedCulture)) ?>
 <?php endforeach; ?>
 
 <?php slot('after-content') ?>
