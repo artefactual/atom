@@ -171,7 +171,7 @@ nav > div {
 #browse-menu {
   float: left;
   > a {
-    .border-radius(0 4px 4px 0);
+    .border-radius(4px);
     background-color: lighten(@grayDark, 5%);
   }
 }
@@ -324,7 +324,7 @@ nav > div {
 
     // See .top-item
     background-color: @grayDark;
-    .border-radius(4px 0 0 4px);
+    .border-radius(4px);
     color: lighten(@gray, 40%);
 
     // Overrides defaults for [type=text]
@@ -346,6 +346,25 @@ nav > div {
 
   }
 
+  button {
+    display: block;
+    width: 25px;
+    height: 25px;
+    right: 0px;
+    position: absolute;
+    top: 0px;
+    background-color: #666;
+    color: white;
+    margin-top: 0px;
+    font-size: 1.1em;
+    border: none;
+    .border-radius(0 4px 4px 0);
+
+    &:before {
+      font-family: FontAwesome;
+      content:"\f002";
+    }
+  }
 }
 
 // Responsive desgin
