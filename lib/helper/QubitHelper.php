@@ -38,10 +38,12 @@ function render_field($field, $resource, array $options = array())
   $div = null;
   $culture = sfContext::getInstance()->user->getCulture();
 
-  if (isset($resource)
-      && $culture != $resource->sourceCulture
-        && 0 < strlen($source = $resource->__get($options['name'], array('sourceCulture' => true)))
-          && 0 == strlen($resource->__get($options['name'])))
+  $resourceRaw = sfOutputEscaper::unescape($resource);
+
+  if (isset($resourceRaw)
+      && $culture != $resourceRaw->sourceCulture
+        && 0 < strlen($source = $resourceRaw->__get($options['name'], array('sourceCulture' => true)))
+          && 0 == strlen($resourceRaw->__get($options['name'])))
   {
     // TODO Are there cases where the direction of this <div/>'s containing
     // block isn't the direction of the current culture?
@@ -196,12 +198,12 @@ function render_treeview_node($item, array $classes = array(), array $options = 
 
     if (isset($item->levelOfDescription))
     {
-      $dataTitle[] = $item->levelOfDescription->__toString();
+      $dataTitle[] = esc_entities($item->levelOfDescription->__toString());
     }
 
     if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId)
     {
-      $dataTitle[] = $item->getPublicationStatus()->__toString();
+      $dataTitle[] = esc_entities($item->getPublicationStatus()->__toString());
     }
 
     if (0 < count($dataTitle))
@@ -211,7 +213,7 @@ function render_treeview_node($item, array $classes = array(), array $options = 
   }
   else if ($item instanceof QubitTerm)
   {
-    $node .= ' data-title="'.sfConfig::get('app_ui_label_term').'"';
+    $node .= ' data-title="'.esc_entities(sfConfig::get('app_ui_label_term')).'"';
   }
 
   $node .= ' data-content="'.esc_entities(render_title($item)).'"';
@@ -237,7 +239,7 @@ function render_treeview_node($item, array $classes = array(), array $options = 
       // Level of description
       if (null !== $levelOfDescription = QubitTerm::getById($item->levelOfDescriptionId))
       {
-        $node .= '<span class="levelOfDescription">'.$levelOfDescription->getName().'</span>';
+        $node .= '<span class="levelOfDescription">'.esc_specialchars($levelOfDescription->getName()).'</span>';
       }
 
       // Title

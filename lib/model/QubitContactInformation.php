@@ -47,18 +47,21 @@ class QubitContactInformation extends BaseContactInformation
 
   public function getContactInformationString(array $options = array())
   {
-    $string = ($this->getStreetAddress()) ? $this->getStreetAddress().'<br/>' : '';
-    $string .= ($this->getCity()) ? $this->getCity() : '';
-    $string .= ($this->getRegion()) ? ', '.$this->getRegion() : '';
-    $string .= ($this->getCountryCode()) ? '<br/>'.$this->getCountryCode().'' : '';
-    $string .= ($this->getPostalCode()) ? '   '.$this->getPostalCode(): '';
+    // TODO: This should be converted into a partial!
+    sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
+
+    $string = ($this->getStreetAddress()) ? esc_specialchars($this->getStreetAddress()).'<br/>' : '';
+    $string .= ($this->getCity()) ? esc_specialchars($this->getCity()) : '';
+    $string .= ($this->getRegion()) ? ', '.esc_specialchars($this->getRegion()) : '';
+    $string .= ($this->getCountryCode()) ? '<br/>'.esc_specialchars($this->getCountryCode()).'' : '';
+    $string .= ($this->getPostalCode()) ? '   '.esc_specialchars($this->getPostalCode()): '';
 
     if (!isset($options['simple']))
     {
-      $string .= ($this->getTelephone()) ? '<p>telephone number: '.$this->getTelephone().'<br/>' : '';
-      $string .= ($this->getFax()) ? 'fax number: '.$this->getFax().'<br/>' : '';
-      $string .= ($this->getEmail()) ? 'email: '.$this->getEmail().'<br/>' : '';
-      $string .= ($this->getWebsite()) ? 'website: <a href="'.$this->getWebsite().'">'.$this->getWebsite().'</a>' : '';
+      $string .= ($this->getTelephone()) ? '<p>telephone number: '.esc_specialchars($this->getTelephone()).'<br/>' : '';
+      $string .= ($this->getFax()) ? 'fax number: '.esc_specialchars($this->getFax()).'<br/>' : '';
+      $string .= ($this->getEmail()) ? 'email: '.esc_specialchars($this->getEmail()).'<br/>' : '';
+      $string .= ($this->getWebsite()) ? 'website: <a href="'.esc_specialchars($this->getWebsite()).'">'.esc_specialchars($this->getWebsite()).'</a>' : '';
     }
 
     return $string;

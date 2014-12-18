@@ -54,7 +54,7 @@
   <?php if (isset($primaryContact)): ?>
     <section id="primary-contact">
       <h4><?php echo __('Primary contact') ?></h4>
-      <?php echo $primaryContact->getContactInformationString(array('simple' => true)) ?>
+      <?php echo $sf_data->getRaw('primaryContact')->getContactInformationString(array('simple' => true)) ?>
       <div class="context-actions">
         <?php if (null !== $website = $primaryContact->getWebsite()): ?>
           <a class="btn btn-small" href="<?php echo esc_entities($website) ?>"><?php echo __('Website') ?></a>
