@@ -76,7 +76,7 @@ class QubitSlug extends BaseSlug
       $connection = QubitTransactionFilter::getConnection(QubitObject::DATABASE_NAME);
     }
 
-    // Try a max of 10 times before giving up (avoid infinite loops when 
+    // Try a max of 10 times before giving up (avoid infinite loops when
     // possible slugs exhausted)
     for ($i = 0; $i < 10; $i++)
     {
@@ -92,6 +92,17 @@ class QubitSlug extends BaseSlug
       {
         return $slug;
       }
+    }
+  }
+
+  public static function getByObjectId($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitSlug::OBJECT_ID, $id);
+
+    if (1 == count($query = self::get($criteria, $options)))
+    {
+      return $query[0];
     }
   }
 }

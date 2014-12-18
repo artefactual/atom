@@ -188,7 +188,17 @@ class arGenerateFindingAidJob extends arBaseJob
 
   public static function getFindingAidPath($id)
   {
-    return 'downloads' . DIRECTORY_SEPARATOR . $id . '.' . self::getFindingAidFormat();
+    if (null !== $slug = QubitSlug::getByObjectId($id))
+    {
+      $filename = $slug->slug;
+    }
+
+    if (!isset($filename))
+    {
+      $filename = $id;
+    }
+
+    return 'downloads' . DIRECTORY_SEPARATOR . $filename . '.' . self::getFindingAidFormat();
   }
 
   public static function getFindingAidFormat()
