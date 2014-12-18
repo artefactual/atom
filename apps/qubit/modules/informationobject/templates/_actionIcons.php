@@ -77,7 +77,7 @@
 
       <?php if ($faStatus === QubitTerm::JOB_STATUS_COMPLETED_ID): ?>
         <li>
-          <a href="<?php echo public_path($path) ?>">
+          <a href="<?php echo public_path($path) ?>" target="_blank">
 
             <i class="icon-upload-alt"></i>
             <?php echo __('Download'); ?>
