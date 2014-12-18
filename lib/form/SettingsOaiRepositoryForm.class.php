@@ -17,10 +17,8 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-ProjectConfiguration::getActive()->loadHelpers('I18N');
-
 /**
- * Global form definition for settings module - with validation.
+ * OAI plugin form definition for settings module - with validation.
  *
  * @package    AccesstoMemory
  * @subpackage settings
@@ -33,6 +31,8 @@ class SettingsOaiRepositoryForm extends sfForm
 
   public function configure()
   {
+    $i18n = sfContext::getInstance()->i18n;
+
     // Build widgets
     $this->setWidgets(array(
       'oai_authentication_enabled' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
@@ -44,20 +44,20 @@ class SettingsOaiRepositoryForm extends sfForm
 
     // Add labels
     $this->widgetSchema->setLabels(array(
-      'oai_authentication_enabled' => __('Require API key authentication'),
-      'oai_repository_code' => __('OAI repository code'),
-      'oai_repository_identifier' => __('OAI repository identifier'),
-      'sample_oai_identifier' => __('Sample OAI identifier'),
-      'resumption_token_limit' => __('Resumption token limit')
+      'oai_authentication_enabled' => $i18n->__('Require API key authentication'),
+      'oai_repository_code' => $i18n->__('OAI repository code'),
+      'oai_repository_identifier' => $i18n->__('OAI repository identifier'),
+      'sample_oai_identifier' => $i18n->__('Sample OAI identifier'),
+      'resumption_token_limit' => $i18n->__('Resumption token limit')
     ));
 
     // Add helper text
     $this->widgetSchema->setHelps(array(
-      'oai_authentication_enabled' => __('An API key must be sent in the HTTP request ZZZ header to authenticate requests'),
-      'oai_repository_code' => __('Add an alpha-numeric code to uniquely identify this particular OAI repository within its network domain to create a unique, OAI-compliant identifier, e.g. oai:foo.org:repositorycode_10001'),
-      'oai_repository_identifier' => ('this is an auto-generated setting that produces an OAI compliant repository identifier, which includes the OAI repository code value if it is set'),
-      'sample_oai_identifier' => ('this is an example of the auto-generated, OAI compliant identifier which is created for each item in this particular OAI repository'),
-      'resumption_token_limit' => __('The number of entities to include in a single OAI response list before inserting a resumption token')
+      'oai_authentication_enabled' => $i18n->__('An API key must be sent in the HTTP request ZZZ header to authenticate requests'),
+      'oai_repository_code' => $i18n->__('Add an alpha-numeric code to uniquely identify this particular OAI repository within its network domain to create a unique, OAI-compliant identifier, e.g. oai:foo.org:repositorycode_10001'),
+      'oai_repository_identifier' => $i18n->__('This is an auto-generated setting that produces an OAI compliant repository identifier, which includes the OAI repository code value if it is set'),
+      'sample_oai_identifier' => $i18n->__('This is an example of the auto-generated, OAI compliant identifier which is created for each item in this particular OAI repository'),
+      'resumption_token_limit' => $i18n->__('The number of entities to include in a single OAI response list before inserting a resumption token')
     ));
 
     // Reference image max. width validator
@@ -68,14 +68,14 @@ class SettingsOaiRepositoryForm extends sfForm
         'max' => self::$resumptionTokenMaxLimit
       ),
       array(
-        'required' => __('This field is required'),
-        'min' => __('This value must be at least %min%'),
-        'max' => __('This value cannot be more than %max%')
+        'required' => $i18n->__('This field is required'),
+        'min' => $i18n->__('This value must be at least %min%'),
+        'max' => $i18n->__('This value cannot be more than %max%')
       )
     );
 
     $this->validatorSchema['oai_authentication_enabled'] = new sfValidatorInteger(array('required' => false));
-    $this->validatorSchema['oai_repository_code'] = new sfValidatorRegex(array('required' => false, 'pattern' => '/^[a-zA-Z0-9]+$/'), array('invalid' => __('The code can only contain letters and numbers')));
+    $this->validatorSchema['oai_repository_code'] = new sfValidatorRegex(array('required' => false, 'pattern' => '/^[a-zA-Z0-9]+$/'), array('invalid' => $i18n->__('The code can only contain letters and numbers')));
     $this->validatorSchema['oai_repository_identifier'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['sample_oai_identifier'] = new sfValidatorString(array('required' => false));
 

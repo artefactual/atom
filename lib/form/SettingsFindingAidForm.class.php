@@ -17,8 +17,6 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-ProjectConfiguration::getActive()->loadHelpers('I18N');
-
 /**
  * Finding Aid form definition for settings module - with validation.
  *
@@ -29,6 +27,8 @@ class SettingsFindingAidForm extends sfForm
 {
   public function configure()
   {
+    $i18n = sfContext::getInstance()->i18n;
+
     // Build widgets
     $this->setWidgets(array(
       'finding_aid_format' =>  new sfWidgetFormSelect(array('choices'=>array('pdf' => 'PDF', 'rtf' => 'RTF', 'txt' => 'TXT')))
@@ -36,7 +36,7 @@ class SettingsFindingAidForm extends sfForm
 
     // Add labels
     $this->widgetSchema->setLabels(array(
-      'finding_aid_format' => __('Finding Aid format')
+      'finding_aid_format' => $i18n->__('Finding Aid format')
     ));
 
     // Add helper text

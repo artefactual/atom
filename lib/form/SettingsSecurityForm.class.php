@@ -17,10 +17,8 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-ProjectConfiguration::getActive()->loadHelpers('I18N');
-
 /**
- * Global form definition for settings module - with validation.
+ * Security form definition for settings module
  *
  * @package    AccesstoMemory
  * @subpackage settings
@@ -29,6 +27,8 @@ class SettingsSecurityForm extends sfForm
 {
   public function configure()
   {
+    $i18n = sfContext::getInstance()->i18n;
+
     // Build widgets
     $this->setWidgets(array(
       'limit_admin_ip' => new sfWidgetFormInput,
@@ -38,16 +38,16 @@ class SettingsSecurityForm extends sfForm
 
     // Add labels
     $this->widgetSchema->setLabels(array(
-      'limit_admin_ip' => __('Limit administrator functionality to one ore more IP addresses, separated by semicolons.'),
-      'require_ssl_admin' => __('Require SSL for all administrator functionality'),
-      'require_strong_passwords' => __('Require strong passwords')
+      'limit_admin_ip' => $i18n->__('Limit administrator functionality to one ore more IP addresses, separated by semicolons.'),
+      'require_ssl_admin' => $i18n->__('Require SSL for all administrator functionality'),
+      'require_strong_passwords' => $i18n->__('Require strong passwords')
     ));
 
     // Add helper text
     $this->widgetSchema->setHelps(array(
-      // 'limit_admin_ip' => __('')
-      // 'require_ssl_admin' => __('')
-      // 'require_strong_passwords' => __('')
+      // 'limit_admin_ip' => $i18n->__('')
+      // 'require_ssl_admin' => $i18n->__('')
+      // 'require_strong_passwords' => $i18n->__('')
     ));
 
     $this->validatorSchema['limit_admin_ip'] = new sfValidatorString(array('required' => false));

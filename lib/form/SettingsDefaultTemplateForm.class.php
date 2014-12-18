@@ -17,10 +17,8 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-ProjectConfiguration::getActive()->loadHelpers('I18N');
-
 /**
- * Settings module - "site information" form definition
+ * Settings module - "Default template" form definition
  *
  * @package    AccesstoMemory
  * @subpackage settings
@@ -30,6 +28,8 @@ class SettingsDefaultTemplateForm extends sfForm
 {
   public function configure()
   {
+    $i18n = sfContext::getInstance()->i18n;
+
     // Available templates
     $configuration = ProjectConfiguration::getActive();
 
@@ -37,31 +37,31 @@ class SettingsDefaultTemplateForm extends sfForm
 
     if ($configuration->isPluginEnabled('sfIsadPlugin'))
     {
-      $informationObjectTemplates['isad'] = __('ISAD(G), 2nd ed. International Council on Archives');
+      $informationObjectTemplates['isad'] = $i18n->__('ISAD(G), 2nd ed. International Council on Archives');
     }
     if ($configuration->isPluginEnabled('sfDcPlugin'))
     {
-      $informationObjectTemplates['dc'] = __('Dublin Core, Version 1.1. Dublin Core Metadata Initiative');
+      $informationObjectTemplates['dc'] = $i18n->__('Dublin Core, Version 1.1. Dublin Core Metadata Initiative');
     }
     if ($configuration->isPluginEnabled('sfModsPlugin'))
     {
-      $informationObjectTemplates['mods'] = __('MODS, Version 3.3. U.S. Library of Congress');
+      $informationObjectTemplates['mods'] = $i18n->__('MODS, Version 3.3. U.S. Library of Congress');
     }
     if ($configuration->isPluginEnabled('sfRadPlugin'))
     {
-      $informationObjectTemplates['rad'] = __('RAD, July 2008 version. Canadian Council of Archives');
+      $informationObjectTemplates['rad'] = $i18n->__('RAD, July 2008 version. Canadian Council of Archives');
     }
     if ($configuration->isPluginEnabled('arDacsPlugin'))
     {
-      $informationObjectTemplates['dacs'] = __('DACS, 2nd ed. Society of American Archivists');
+      $informationObjectTemplates['dacs'] = $i18n->__('DACS, 2nd ed. Society of American Archivists');
     }
 
     $actorTemplates = array(
-      'isaar' => __('ISAAR(CPF), 2nd ed. International Council on Archives')
+      'isaar' => $i18n->__('ISAAR(CPF), 2nd ed. International Council on Archives')
     );
 
     $repositoryTemplates = array(
-      'isdiah' => __('ISDIAH, 1st ed. International Council on Archives')
+      'isdiah' => $i18n->__('ISDIAH, 1st ed. International Council on Archives')
     );
 
     // Build widgets
