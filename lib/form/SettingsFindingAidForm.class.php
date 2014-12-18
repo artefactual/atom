@@ -31,20 +31,24 @@ class SettingsFindingAidForm extends sfForm
 
     // Build widgets
     $this->setWidgets(array(
-      'finding_aid_format' =>  new sfWidgetFormSelect(array('choices'=>array('pdf' => 'PDF', 'rtf' => 'RTF', 'txt' => 'TXT')))
+      'finding_aid_format' =>  new sfWidgetFormSelect(array('choices'=>array('pdf' => 'PDF', 'rtf' => 'RTF', 'txt' => 'TXT'))),
+      'finding_aid_model' =>  new sfWidgetFormSelect(array('choices'=>array('bombardier' => 'Bombardier', 'sfu' => 'SFU')))
     ));
 
     // Add labels
     $this->widgetSchema->setLabels(array(
-      'finding_aid_format' => $i18n->__('Finding Aid format')
+      'finding_aid_format' => $i18n->__('Finding Aid format'),
+      'finding_aid_model' => $i18n->__('Finding Aid model')
     ));
 
     // Add helper text
     $this->widgetSchema->setHelps(array(
-      'finding_aid_format' => ''
+      'finding_aid_format' => '',
+      'finding_aid_model' => ''
     ));
 
     $this->validatorSchema['finding_aid_format'] = new sfValidatorString(array('required' => false));
+    $this->validatorSchema['finding_aid_model'] = new sfValidatorString(array('required' => false));
 
     // Set decorator
     $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);

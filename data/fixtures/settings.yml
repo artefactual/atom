@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 118
+    value: 119
   milestone:
     name: milestone
     editable: 0
@@ -790,6 +790,13 @@ QubitSetting:
     source_culture: en
     value:
       en: pdf
+  Qubit_Settings_findingAidModel:
+    name: findingAidModel
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: bombardier
   Qubit_Settings_premisAccessRight:
     name: premisAccessRight
     value: disseminate

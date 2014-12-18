@@ -57,9 +57,11 @@ class SettingsFindingAidAction extends sfAction
   protected function populateFindingAidForm()
   {
     $findingAidFormat = QubitSetting::getByName('findingAidFormat');
+    $findingAidModel = QubitSetting::getByName('findingAidModel');
 
     $this->findingAidForm->setDefaults(array(
-      'finding_aid_format' => (isset($findingAidFormat)) ? $findingAidFormat->getValue(array('sourceCulture'=>true)) : 'pdf'
+      'finding_aid_format' => (isset($findingAidFormat)) ? $findingAidFormat->getValue(array('sourceCulture'=>true)) : 'pdf',
+      'finding_aid_model' => (isset($findingAidModel)) ? $findingAidModel->getValue(array('sourceCulture'=>true)) : 'bombardier'
     ));
   }
 
@@ -74,6 +76,13 @@ class SettingsFindingAidAction extends sfAction
     {
       $setting = QubitSetting::getByName('findingAidFormat');
       $setting->setValue($findingAidFormat, array('sourceCulture' => true));
+      $setting->save();
+    }
+
+    if (null !== $findingAidModel = $thisForm->getValue('finding_aid_model'))
+    {
+      $setting = QubitSetting::getByName('findingAidModel');
+      $setting->setValue($findingAidModel, array('sourceCulture' => true));
       $setting->save();
     }
 

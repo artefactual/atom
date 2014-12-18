@@ -74,10 +74,17 @@ class arGenerateFindingAidJob extends arBaseJob
       return false;
     }
 
-    // Crank the XML through XSL stylesheet and fix header / fonds URL
-    $eadXslFilePath = $appRoot . '/lib/task/pdf/ead-pdf.xsl';
+    // Use XSL file selected in Finding Aid model setting
+    $findingAidModel = 'bombardier';
+    if (null !== $setting = QubitSetting::getByName('findingAidModel'))
+    {
+      $findingAidModel = $setting->getValue(array('sourceCulture' => true));
+    }
+
+    $eadXslFilePath = $appRoot . '/lib/task/pdf/ead-pdf-' . $findingAidModel . '.xsl';
     $saxonPath = $appRoot . '/lib/task/pdf/saxon9he.jar';
 
+    // Crank the XML through XSL stylesheet and fix header / fonds URL
     $eadFileString = file_get_contents($eadFilePath);
     $eadFileString = $this->fixHeader($eadFileString, sfConfig::get('app_site_base_url', null));
     file_put_contents($eadFilePath, $eadFileString);
