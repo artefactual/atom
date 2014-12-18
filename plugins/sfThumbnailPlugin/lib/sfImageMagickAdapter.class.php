@@ -348,6 +348,11 @@ class sfImageMagickAdapter
       $command .= ' -quality '.$this->quality.'% ';
     }
 
+    if (isset($this->options['colorspace']))
+    {
+      $command .= ' -colorspace '.$this->options['colorspace'];
+    }
+
     // extract images such as pages from a pdf doc
     $extract = $this->getExtract();
 

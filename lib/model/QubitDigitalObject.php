@@ -2412,7 +2412,7 @@ class QubitDigitalObject extends BaseDigitalObject
     // Create a thumbnail
     try
     {
-      $newImage = new sfThumbnail($width, $height, true, false, 75, $adapter, array('extract' => 1));
+      $newImage = new sfThumbnail($width, $height, true, false, 75, $adapter, array('extract' => 1, 'colorspace' => 'YUV'));
       $newImage->loadFile($originalImageName);
     }
     catch (Exception $e)
