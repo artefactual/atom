@@ -185,6 +185,8 @@
      (0 < count($resource->getActors()))): ?>
     <controlaccess>
       <?php foreach ($resource->getActorEvents() as $event): ?>
+        <?php if ($event->getType()->getRole() != 'Creator'): ?>
+
         <?php if ($event->getActor()->getEntityTypeId() == QubitTerm::PERSON_ID): ?>
           <persname role="<?php echo $event->getType()->getRole() ?>" id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></persname>
         <?php elseif ($event->getActor()->getEntityTypeId() == QubitTerm::FAMILY_ID): ?>
@@ -193,6 +195,8 @@
           <corpname role="<?php echo $event->getType()->getRole() ?>" id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></corpname>
         <?php else: ?>
           <name role="<?php echo $event->getType()->getRole() ?>" id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor()))) ?></name>
+        <?php endif; ?>
+
         <?php endif; ?>
       <?php endforeach; ?>
       <?php foreach ($names as $name): ?>
