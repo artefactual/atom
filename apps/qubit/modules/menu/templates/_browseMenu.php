@@ -2,7 +2,7 @@
 
   <a class="top-item top-dropdown" data-toggle="dropdown" data-target="#"><?php echo $browseMenu->getLabel(array('cultureFallback' => true)) ?></a>
 
-  <div class="top-dropdown-container">
+  <div class="top-dropdown-container top-dropdown-container-right">
 
     <div class="top-dropdown-arrow">
       <div class="arrow"></div>
