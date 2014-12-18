@@ -24,7 +24,7 @@
  * @subpackage task
  * @author     Mike Cantelon <mike@artefactual.com>
  */
-class eadExportTask extends sfBaseTask
+class exportBulkTask extends exportBulkBaseTask
 {
   protected $namespace        = 'export';
   protected $name             = 'bulk';
@@ -33,135 +33,60 @@ class eadExportTask extends sfBaseTask
   /**
    * @see sfTask
    */
-  protected function configure()
-  {
-    $this->addArguments(array(
-      new sfCommandArgument('folder', sfCommandArgument::REQUIRED, 'The destination folder for XML export files.')
-    ));
-
-    $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-      new sfCommandOption('items-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Indicate progress every n items.'),
-      new sfCommandOption('format', null, sfCommandOption::PARAMETER_OPTIONAL, 'XML format ("ead" or "mods")', 'ead'),
-      new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria'),
-      new sfCommandOption('current-level-only', null, sfCommandOption::PARAMETER_NONE, 'Do not export child descriptions of exported items')
-    ));
-  }
-
-  /**
-   * @see sfTask
-   */
   public function execute($arguments = array(), $options = array())
   {
-    // Make sure arguments are valid
-    $this->checkForValidFolder($arguments['folder']);
-    $options['format'] = strtolower($options['format']);
-    $this->checkForValidExportFormat($options['format']);
+    $options['format'] = $this->normalizeExportFormat($options['format']);
 
-    $databaseManager = new sfDatabaseManager($this->configuration);
-    $conn = $databaseManager->getDatabase('propel')->getConnection();
-
-    $appRoot = dirname(__FILE__) .'/../..';
-
-    include($appRoot .'/plugins/sfEadPlugin/lib/sfEadPlugin.class.php');
-    include($appRoot .'/vendor/symfony/lib/helper/UrlHelper.php');
-    include($appRoot .'/vendor/symfony/lib/helper/I18NHelper.php');
-    include($appRoot .'/vendor/FreeBeerIso639Map.php');
-    include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
-    include($appRoot .'/lib/helper/QubitHelper.php');
+    if (!isset($options['single-id']))
+    {
+      $this->checkPathIsWritable($arguments['path']);
+    }
 
     $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'cli', false);
     $sf_context = sfContext::createInstance($configuration);
 
-    $iso639convertor = new fbISO639_Map;
-    $eadLevels = array('class', 'collection', 'file', 'fonds', 'item', 'otherlevel', 'recordgrp', 'series', 'subfonds', 'subgrp', 'subseries');
-    $pluginName = 'sf'. ucfirst($options['format']) .'Plugin';
-    $exportTemplate = sprintf('plugins/%s/modules/%s/templates/indexSuccess.xml.php', $pluginName, $pluginName);
+    // QubitSetting are not available for tasks? See lib/SiteSettingsFilter.class.php
+    sfConfig::add(QubitSetting::getSettingsArray());
 
     $itemsExported = 0;
 
+    $conn = $this->getDatabaseConnection();
     $rows = $conn->query($this->exportQuerySql($options), PDO::FETCH_ASSOC);
 
     foreach($rows as $row)
     {
       $resource = QubitInformationObject::getById($row['id']);
 
-      // Determine language(s) used in the export
-      $exportLanguage = sfContext::getInstance()->user->getCulture();
-      $sourceLanguage = $resource->getSourceCulture();
-
-      if ($options['format'] == 'ead')
+      try
       {
-        $ead = new sfEadPlugin($resource);
+        $rawXml = $this->captureResourceExportTemplateOutput($resource, $options['format']);
+        $xml = $this->tidyXml($rawXml);
+      }
+      catch (Exception $e)
+      {
+        throw new sfException('Invalid XML generated for object '. $row['id'] .'.');
+      }
+
+      if (isset($options['single-id']))
+      {
+        // If we're just exporting the one record, the given path
+        // is actually the full path+filename.
+        $filePath = $arguments['path'];
       }
       else
       {
-        $mods = new sfModsPlugin($resource);
+        $filename = $this->generateSortableFilename($row['id'], $options['format']);
+        $filePath = sprintf('%s/%s', $arguments['path'], $filename);
       }
 
-      // capture XML template output
-      ob_start();
-      include($exportTemplate);
-      $rawOutput = ob_get_contents();
-      ob_end_clean();
+      file_put_contents($filePath, $xml);
 
-      // clean up XML
-      $xml = simplexml_load_string($rawOutput);
-
-      if (empty($xml))
-      {
-        print 'Invalid XML generated for information object '. $row['id'] .'.';
-        exit();
-      }
-      else {
-        $dom = new DOMDocument("1.0");
-        $dom->preserveWhiteSpace = false;
-        $dom->formatOutput = true;
-        $dom->loadXML($xml->asXML());
-        $output = $dom->saveXML();
-      }
-
-      // save XML file
-      // (padding ID with zeros so filenames can be sorted in creation order for imports)
-      $filename = sprintf('%s_%s.xml', $options['format'], str_pad($row['id'], 9, '0', STR_PAD_LEFT));
-      $filePath = sprintf('%s/%s', $arguments['folder'], $filename);
-      file_put_contents($filePath, $output);
-
-      // if progress indicator should be displayed, display it
-      if (!isset($options['items-until-update']) || !($itemsExported % $options['items-until-update']))
-      {
-        print '.';
-      }
+      $this->indicateProgress($options['items-until-update']);
 
       $itemsExported++;
     }
 
     print "\nExport complete (". $itemsExported ." descriptions exported).\n";
-  }
-
-  protected function checkForValidFolder($folder)
-  {
-    if (!is_dir($folder))
-    {
-      throw new sfException('You must specify a valid folder');
-    }
-
-    if (!is_writable($folder))
-    {
-      throw new sfException("Can't write to this folder");
-    }
-  }
-
-  protected function checkForValidExportFormat($format)
-  {
-    $validFormats = array('ead', 'mods');
-
-    if (!in_array($format, $validFormats))
-    {
-      throw new sfException('Invalid format. Allowed formats: '. join(', ', $validFormats));
-    }
   }
 
   protected function exportQuerySql($options)
