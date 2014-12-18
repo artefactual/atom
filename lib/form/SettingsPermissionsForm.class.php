@@ -17,10 +17,8 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-ProjectConfiguration::getActive()->loadHelpers('I18N');
-
 /**
- * Settings module - "site information" form definition
+ * Settings module - "Permissions" form definition
  *
  * @package    AccesstoMemory
  * @subpackage settings
@@ -44,9 +42,11 @@ class SettingsPermissionsForm extends sfForm
 
   protected function newSubForm()
   {
+    $i18n = sfContext::getInstance()->i18n;
+
     $choices = array(
-      '0' => __('Disallowed'),
-      '1' => __('Allowed')
+      '0' => $i18n->__('Disallowed'),
+      '1' => $i18n->__('Allowed')
     );
 
     $form = new sfForm;
@@ -64,15 +64,15 @@ class SettingsPermissionsForm extends sfForm
     ));
 
     $form->widgetSchema->setLabels(array(
-      'allow_master'           => __('View / download master representation'),
-      'allow_reference'        => __('View / download reference representation'),
-      'allow_thumb'            => __('View / download thumbnail representation'),
-      'conditional_master'     => __('View / download master representation'),
-      'conditional_reference'  => __('View / download reference representation'),
-      'conditional_thumb'      => __('View / download thumbnail representation'),
-      'disallow_master'        => __('View / download master representation'),
-      'disallow_reference'     => __('View / download reference representation'),
-      'disallow_thumb'         => __('View / download thumbnail representation')
+      'allow_master'           => $i18n->__('View / download master representation'),
+      'allow_reference'        => $i18n->__('View / download reference representation'),
+      'allow_thumb'            => $i18n->__('View / download thumbnail representation'),
+      'conditional_master'     => $i18n->__('View / download master representation'),
+      'conditional_reference'  => $i18n->__('View / download reference representation'),
+      'conditional_thumb'      => $i18n->__('View / download thumbnail representation'),
+      'disallow_master'        => $i18n->__('View / download master representation'),
+      'disallow_reference'     => $i18n->__('View / download reference representation'),
+      'disallow_thumb'         => $i18n->__('View / download thumbnail representation')
     ));
 
     $form->setDefaults(unserialize($this->premisAccessRightValues->value));

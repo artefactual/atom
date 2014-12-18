@@ -17,10 +17,8 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-ProjectConfiguration::getActive()->loadHelpers('I18N');
-
 /**
- * Global form definition for settings module - with validation.
+ * Job scheduler form definition for settings module
  *
  * @package    AccesstoMemory
  * @subpackage settings
@@ -29,6 +27,8 @@ class SettingsJobSchedulingForm extends sfForm
 {
   public function configure()
   {
+    $i18n = sfContext::getInstance()->i18n;
+
     // Build widgets
     $this->setWidgets(array(
       'use_job_scheduler' => new sfWidgetFormSelectRadio(array('choices' => array(1 => 'yes', 0 => 'no')), array('class' => 'radio'))
@@ -36,7 +36,7 @@ class SettingsJobSchedulingForm extends sfForm
 
     // Add labels
     $this->widgetSchema->setLabels(array(
-      'use_job_scheduler' => __('Enable job scheduler')
+      'use_job_scheduler' => $i18n->__('Enable job scheduler')
     ));
 
     // Add helper text

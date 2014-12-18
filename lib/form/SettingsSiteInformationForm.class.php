@@ -17,8 +17,6 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-ProjectConfiguration::getActive()->loadHelpers('I18N');
-
 /**
  * Settings module - "site information" form definition
  *
@@ -30,6 +28,8 @@ class SettingsSiteInformationForm extends sfForm
 {
   public function configure()
   {
+    $i18n = sfContext::getInstance()->i18n;
+
     // Build widgets
     $this->setWidgets(array(
       'site_title' => new sfWidgetFormInput,
@@ -39,9 +39,9 @@ class SettingsSiteInformationForm extends sfForm
 
     // Add labels
     $this->widgetSchema->setLabels(array(
-      'site_title' => __('Site title'),
-      'site_description' => __('Site description'),
-      'site_base_url' => __('Site base URL (used in MODS and EAD exports)')
+      'site_title' => $i18n->__('Site title'),
+      'site_description' => $i18n->__('Site description'),
+      'site_base_url' => $i18n->__('Site base URL (used in MODS and EAD exports)')
     ));
 
     // Add helper text
