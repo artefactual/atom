@@ -1,11 +1,17 @@
+# User-generated configuration files
 /apps/qubit/config/settings.yml
 /apps/qubit/config/app.yml
-/cache/
 /config/config.php
 /config/databases.yml
 /config/search.yml
 /config/propel.ini
+
+# Internal use
+/cache/
 /log/
 /sf
-/uploads/
 /build/
+
+# Symlinks or dirctories are possible
+/downloads
+/uploads
