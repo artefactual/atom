@@ -1355,7 +1355,7 @@
 
     <!-- Collection Inventory (dsc) templates -->
     <xsl:template match="ead:archdesc/ead:dsc">
-        <fo:block xsl:use-attribute-sets="sectionTable">
+        <fo:block xsl:use-attribute-sets="sectionTable" margin-top="10pt">
             <fo:block xsl:use-attribute-sets="h2ID">Collection holdings</fo:block>
             <xsl:apply-templates select="*[not(self::ead:head)]"/>
         </fo:block>
@@ -1378,8 +1378,8 @@
     <xsl:template name="clevel">
         <xsl:param name="level" />
 
-        <fo:block border-bottom="1pt dotted #333" margin-top="10pt">
-            <fo:block margin-left="{($level - 1)*16}pt" margin-top="10pt" font-size="10pt" text-align="left">
+        <fo:block border-bottom="1pt dotted #333">
+            <fo:block margin-left="{($level - 1)*16+4}pt" font-size="10pt" text-align="left">
                 <xsl:apply-templates select="ead:did" mode="dscSeriesTitle"/>
                 <xsl:apply-templates select="ead:did" mode="dscSeries"/>
                 <xsl:value-of select="self::bioghist"/>
@@ -1429,7 +1429,7 @@
 
     <!-- Series titles -->
     <xsl:template match="ead:did" mode="dscSeriesTitle">
-        <fo:block font-weight="bold" font-size="14" margin-bottom="10pt" margin-top="0" id="{local:buildID(parent::*)}">
+        <fo:block font-weight="bold" font-size="14" margin-bottom="5pt" margin-top="20pt" id="{local:buildID(parent::*)}">
             <xsl:choose>
                 <xsl:when test="../@level='series'">Series: </xsl:when>
                 <xsl:when test="../@level='subseries'">Subseries: </xsl:when>
@@ -1463,7 +1463,7 @@
 
     <!-- Series child elements -->
     <xsl:template match="ead:did" mode="dscSeries">
-        <fo:block margin-left="2pt" margin-bottom="4pt" margin-top="0" font-size="9">
+        <fo:block margin-left="2pt" margin-bottom="4pt" font-size="9">
             <!--Atom: <xsl:apply-templates select="ead:repository" mode="dsc"/> -->
             <xsl:apply-templates select="ead:origination" mode="dsc"/>
             <xsl:apply-templates select="ead:unittitle[not(ead:bibseries)]" mode="dsc"/>
