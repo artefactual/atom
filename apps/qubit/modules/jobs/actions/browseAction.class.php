@@ -30,7 +30,12 @@ class JobsBrowseAction extends DefaultBrowseAction
 
     $this->user = $this->context->user;
 
-    $this->autoRefresh = isset($request->autoRefresh);
+    $this->autoRefresh = false;
+    if (isset($request->autoRefresh))
+    {
+      $this->autoRefresh = $request->autoRefresh;
+    }
+
     $this->refreshInterval = 10000;
     $this->filter = $request->filter;
 
