@@ -174,7 +174,7 @@
                 <!-- Page footer-->
                 <fo:static-content flow-name="xsl-region-after">
                     <fo:block text-align="left" text-align-last="justify" border-top-style="solid">
-                        <xsl:apply-templates select="//ead:repository/ead:corpname"/>
+                        <xsl:apply-templates select="(//ead:repository/ead:corpname)[1]"/>
                         <fo:leader leader-pattern="space"/>
 
                         <xsl:text/>
@@ -206,7 +206,7 @@
                 <!-- Page footer-->
                 <fo:static-content flow-name="xsl-region-after">
                     <fo:block text-align="left" text-align-last="justify" border-top-style="solid">
-                        <xsl:apply-templates select="//ead:repository/ead:corpname"/>
+                        <xsl:apply-templates select="(//ead:repository/ead:corpname)[1]"/>
                         <fo:leader leader-pattern="space"/>
 
                         <xsl:text/>
@@ -295,7 +295,7 @@
                         <fo:external-graphic src="images/pdf-logo.png"  height="1cm" width="2cm"
                             content-width="scale-to-fit" content-height="scale-to-fit"/>
                         <xsl:text> </xsl:text>
-                        <xsl:apply-templates select="//ead:repository/ead:corpname"/>
+                        <xsl:apply-templates select="(//ead:repository/ead:corpname)[1]"/>
                         <fo:block/>
                         Finding Aid - <xsl:apply-templates select="ead:titleproper[1]"/> (<xsl:value-of select="//ead:eadid"/>)
                     </xsl:otherwise>
@@ -740,7 +740,7 @@
             </fo:table-cell>
             <fo:table-cell padding-bottom="2pt">
                 <fo:block>
-                    <xsl:value-of select="//ead:repository/ead:corpname"/>
+                    <xsl:value-of select="(//ead:repository/ead:corpname)[1]"/>
                 </fo:block>
             </fo:table-cell>
         </fo:table-row>
