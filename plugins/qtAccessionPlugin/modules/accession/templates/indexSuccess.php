@@ -170,7 +170,17 @@
       <?php endif; ?>
 
       <li><?php echo link_to(__('Create %1%', array('%1%' => sfConfig::get('app_ui_label_informationobject'))), array($resource, 'module' => 'accession', 'action' => 'addInformationObject'), array('class' => 'c-btn')) ?></li>
-
+      <li>
+        <div class="btn-group dropup">
+          <a class="c-btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <?php echo __('More') ?>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><?php echo link_to(__('Create new rights'), array($resource,  'sf_route' => 'slug/default', 'module' => 'right', 'action' => 'edit')) ?></li>
+          </ul>
+        </div>
+      </li>
     </ul>
   </section>
 <?php end_slot() ?>

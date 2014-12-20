@@ -291,7 +291,7 @@ class RightEditAction extends sfAction
         break;
 
       case 'QubitAccession':
-        $this->redirectTo = array($this->resource, 'module' => 'accession', 'action' => 'edit');
+        $this->redirectTo = array($this->resource, 'module' => 'accession');
 
         break;
     }
