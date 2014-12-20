@@ -152,14 +152,6 @@
 
       </fieldset> <!-- #elementsArea -->
 
-      <fieldset class="collapsible collapsed" id="rightsArea">
-
-        <legend><?php echo __('Rights area') ?></legend>
-
-        <?php echo get_partial('right/edit', $rightEditComponent->getVarHolder()->getAll()) ?>
-
-      </fieldset> <!-- #rightsArea -->
-
       <?php echo get_partial('informationobject/adminInfo', array('form' => $form, 'resource' => $resource)) ?>
 
     </div>
