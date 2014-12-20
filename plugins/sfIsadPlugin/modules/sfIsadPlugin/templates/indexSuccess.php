@@ -325,7 +325,9 @@
 
   <div class="section" id="rightsArea">
 
-    <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Rights area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'rightsArea', 'title' => __('Edit rights area'))) ?>
+    <?php if (QubitAcl::check($resource, 'update')): ?>
+      <h2><?php echo __('Rights area') ?> </h2>
+    <?php endif; ?>
 
     <?php echo get_component('right', 'relatedRights', array('resource' => $resource)) ?>
 
