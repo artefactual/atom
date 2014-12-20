@@ -1,6 +1,6 @@
 <did>
 
-  <?php if (check_field_visibility('app_element_visibility_physical_storage')): ?>
+  <?php if (check_field_visibility('app_element_visibility_physical_storage', $options)): ?>
     <?php $objects = $$resourceVar->getPhysicalObjects() ?>
     <?php foreach ($objects as $object): ?>
       <?php if (0 < strlen($object->location)): ?>

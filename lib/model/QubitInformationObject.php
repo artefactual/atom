@@ -565,6 +565,28 @@ class QubitInformationObject extends BaseInformationObject
     }
   }
 
+  /**
+   * Returns non draft descendants order by lft. The childs of a draft descendant
+   * will not be added even if they are public
+   *
+   * @return array of QubitInformationObject objects.
+   */
+  public function getNonDraftDescendants()
+  {
+    $descendants = array();
+
+    foreach ($this->getChildren()->orderBy('lft') as $child)
+    {
+      if (QubitTerm::PUBLICATION_STATUS_DRAFT_ID != $child->getPublicationStatus()->statusId)
+      {
+        $descendants[] = $child;
+        $descendants = array_merge($descendants, $child->getNonDraftDescendants());
+      }
+    }
+
+    return $descendants;
+  }
+
   /***********************
    Actor/Event relations
   ************************/

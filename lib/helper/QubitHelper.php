@@ -276,8 +276,14 @@ function is_using_cli()
   return php_sapi_name() === 'cli';
 }
 
-function check_field_visibility($fieldName)
+function check_field_visibility($fieldName, $options = array())
 {
+  // Check always field if public option is set to true
+  if (isset($options['public']) && $options['public'])
+  {
+    return sfConfig::get($fieldName, false);
+  }
+
   return (is_using_cli() || sfContext::getInstance()->user->isAuthenticated()) || sfConfig::get($fieldName, false);
 }
 

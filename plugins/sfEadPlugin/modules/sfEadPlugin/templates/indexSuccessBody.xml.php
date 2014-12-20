@@ -269,8 +269,14 @@
   <?php if (!$options['current-level-only']): ?>
   <dsc type="combined">
 
+    <?php if (isset($options['public']) && $options['public']): ?>
+      <?php $descendants = $resource->getNonDraftDescendants(); ?>
+    <?php else: ?>
+      <?php $descendants = $resource->getDescendants()->orderBy('lft'); ?>
+    <?php endif; ?>
+
     <?php $nestedRgt = array() ?>
-    <?php foreach ($resource->getDescendants()->orderBy('lft') as $descendant): ?>
+    <?php foreach ($descendants as $descendant): ?>
 
       <c <?php echo $ead->renderLOD($descendant, $eadLevels) ?>>
 
