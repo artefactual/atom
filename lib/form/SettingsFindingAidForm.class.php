@@ -32,23 +32,27 @@ class SettingsFindingAidForm extends sfForm
     // Build widgets
     $this->setWidgets(array(
       'finding_aid_format' =>  new sfWidgetFormSelect(array('choices'=>array('pdf' => 'PDF', 'rtf' => 'RTF', 'txt' => 'TXT'))),
-      'finding_aid_model' =>  new sfWidgetFormSelect(array('choices'=>array('bombardier' => 'Bombardier', 'sfu' => 'SFU')))
+      'finding_aid_model' =>  new sfWidgetFormSelect(array('choices'=>array('bombardier' => 'Bombardier', 'sfu' => 'SFU'))),
+      'public_finding_aid' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio'))
     ));
 
     // Add labels
     $this->widgetSchema->setLabels(array(
       'finding_aid_format' => $i18n->__('Finding Aid format'),
-      'finding_aid_model' => $i18n->__('Finding Aid model')
+      'finding_aid_model' => $i18n->__('Finding Aid model'),
+      'public_finding_aid' => $i18n->__('Generate Finding Aid as public user')
     ));
 
     // Add helper text
     $this->widgetSchema->setHelps(array(
       'finding_aid_format' => '',
-      'finding_aid_model' => ''
+      'finding_aid_model' => '',
+      'public_finding_aid' => ''
     ));
 
     $this->validatorSchema['finding_aid_format'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['finding_aid_model'] = new sfValidatorString(array('required' => false));
+    $this->validatorSchema['public_finding_aid'] = new sfValidatorInteger(array('required' => false));
 
     // Set decorator
     $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);

@@ -18,7 +18,7 @@
  */
 
 /*
- * Add Finding Aid model snd public Finding Aid settings
+ * Add Finding Aid model and public Finding Aid settings
  *
  * @package    AccesstoMemory
  * @subpackage migration

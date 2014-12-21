@@ -51,6 +51,13 @@ class arMigration0116
       }
     }
 
+    $setting = new QubitSetting;
+    $setting->setName('publicFindingAid');
+    $setting->setValue(1);
+    $setting->setEditable(1);
+    $setting->setDeleteable(0);
+    $setting->save();
+
     return true;
   }
 }

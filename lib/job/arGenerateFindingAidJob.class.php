@@ -65,8 +65,15 @@ class arGenerateFindingAidJob extends arBaseJob
 
     unlink($eadFilePath);
 
+    $public = '';
+    if ((null !== $setting = QubitSetting::getByName('publicFindingAid'))
+      && $setting->getValue(array('sourceCulture' => true)))
+    {
+      $public = '--public';
+    }
+
     // Call generate EAD task
-    exec("php $appRoot/symfony export:bulk --single-id=$resource->id $eadFilePath", $junk, $exitCode);
+    exec("php $appRoot/symfony export:bulk --single-id=$resource->id $public $eadFilePath", $junk, $exitCode);
 
     if ($exitCode != 0)
     {

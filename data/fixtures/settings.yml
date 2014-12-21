@@ -797,6 +797,11 @@ QubitSetting:
     source_culture: en
     value:
       en: bombardier
+  Qubit_Settings_publicFindingAid:
+    name: publicFindingAid
+    editable: 1
+    deleteable: 0
+    value: 1
   Qubit_Settings_premisAccessRight:
     name: premisAccessRight
     value: disseminate
