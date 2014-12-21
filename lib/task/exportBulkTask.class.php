@@ -81,6 +81,9 @@ class eadExportTask extends sfBaseTask
     $configuration = ProjectConfiguration::getApplicationConfiguration('qubit', 'cli', false);
     $sf_context = sfContext::createInstance($configuration);
 
+    // QubitSetting are not available for tasks? See lib/SiteSettingsFilter.class.php
+    sfConfig::add(QubitSetting::getSettingsArray());
+
     $iso639convertor = new fbISO639_Map;
     $eadLevels = array('class', 'collection', 'file', 'fonds', 'item', 'otherlevel', 'recordgrp', 'series', 'subfonds', 'subgrp', 'subseries');
     $pluginName = 'sf'. ucfirst($options['format']) .'Plugin';
