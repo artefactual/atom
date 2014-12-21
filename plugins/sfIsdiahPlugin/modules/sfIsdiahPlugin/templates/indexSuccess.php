@@ -66,13 +66,6 @@
     </section>
   <?php endif; ?>
 
-  <?php if (null !== $openingTimes = $resource->getOpeningTimes(array('cultureFallback' => true))): ?>
-    <section id="opening-times">
-      <h4><?php echo __('Opening times') ?></h4>
-      <?php echo render_value($openingTimes) ?>
-    </section>
-  <?php endif; ?>
-
 <?php end_slot() ?>
 
 <?php if (isset($latitude) && isset($longitude) && null !== $key = sfConfig::get('app_google_maps_api_key')): ?>
