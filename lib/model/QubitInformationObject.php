@@ -566,21 +566,34 @@ class QubitInformationObject extends BaseInformationObject
   }
 
   /**
-   * Returns non draft descendants order by lft. The childs of a draft descendant
-   * will not be added even if they are public
+   * Returns descendants order by lft checking their visivility.
+   * The childs of a non visible descendant will not be added even if they are visible
    *
    * @return array of QubitInformationObject objects.
    */
-  public function getNonDraftDescendants()
+  public function getDescendantsForExport($options = array())
   {
     $descendants = array();
 
     foreach ($this->getChildren()->orderBy('lft') as $child)
     {
-      if (QubitTerm::PUBLICATION_STATUS_DRAFT_ID != $child->getPublicationStatus()->statusId)
+      $addCondition = true;
+
+      // If we're not in a CLI enviroment, check ACL
+      if (!is_using_cli())
+      {
+        $addCondition = QubitAcl::check($child, 'read');
+      }
+      // Otherwise, if public option is set to true, check drafts directly
+      if (isset($options['public']) && $options['public'])
+      {
+        $addCondition = QubitTerm::PUBLICATION_STATUS_DRAFT_ID != $child->getPublicationStatus()->statusId;
+      }
+
+      if ($addCondition)
       {
         $descendants[] = $child;
-        $descendants = array_merge($descendants, $child->getNonDraftDescendants());
+        $descendants = array_merge($descendants, $child->getDescendantsForExport($options));
       }
     }
 
