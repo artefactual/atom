@@ -525,9 +525,9 @@ class QubitInformationObject extends BaseInformationObject
 
   /**
    * Get all info objects that have the root node as a parent, and have children
-   * (not orphans)
+   * (not orphans). Checking ACL
    *
-   * @return QubitQuery collection of QubitInformationObjects
+   * @return array collection of QubitInformationObjects
    */
   public static function getCollections()
   {
@@ -540,7 +540,17 @@ class QubitInformationObject extends BaseInformationObject
     $criteria->add(QubitInformationObject::RGT, QubitInformationObject::RGT.' > ('.QubitInformationObject::LFT.' + 1)', Criteria::CUSTOM);
     $criteria->add('parent.lft', 1);
 
-    return QubitInformationObject::get($criteria);
+    $collections = array();
+
+    foreach (QubitInformationObject::get($criteria) as $item)
+    {
+      if (QubitAcl::check($item, 'read'))
+      {
+        $collections[] = $item;
+      }
+    }
+
+    return $collections;
   }
 
   public function getCollectionRoot()
