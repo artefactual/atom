@@ -451,6 +451,8 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
     {
       foreach ($items as $item)
       {
+        $item->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+
         switch ((string)$item['TYPE'])
         {
           case 'Directory':
@@ -464,7 +466,9 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
             break;
 
           case 'Item':
-            $mapping[(string)$item->fptr['FILEID']] = (string)$item['DMDID'];
+            $fptr = $item->xpath('m:fptr');
+
+            $mapping[(string)$fptr[0]['FILEID']] = (string)$item['DMDID'];
 
             break;
         }
