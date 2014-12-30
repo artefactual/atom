@@ -54,7 +54,8 @@ abstract class exportBulkBaseTask extends sfBaseTask
       new sfCommandOption('format', null, sfCommandOption::PARAMETER_OPTIONAL, 'XML format ("ead" or "mods")', 'ead'),
       new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria'),
       new sfCommandOption('current-level-only', null, sfCommandOption::PARAMETER_NONE, 'Do not export child descriptions of exported items'),
-      new sfCommandOption('single-id', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export an EAD file for a single fonds or collection based on id')
+      new sfCommandOption('single-id', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export an EAD file for a single fonds or collection based on id'),
+      new sfCommandOption('public', null, sfCommandOption::PARAMETER_NONE, 'Do not export child descriptions of exported items')
     ));
   }
 
