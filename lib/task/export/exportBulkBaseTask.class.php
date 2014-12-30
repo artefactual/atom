@@ -120,6 +120,10 @@ abstract class exportBulkBaseTask extends sfBaseTask
         $mods = new sfModsPlugin($resource);
         break;
 
+      case 'eac':
+        $eac = new sfEacPlugin($resource);
+        break;
+
       default:
         throw Exception('Unknown format.');
     }
