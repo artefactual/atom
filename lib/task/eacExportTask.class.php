@@ -44,29 +44,32 @@ class eacExportTask extends exportBulkBaseTask
 
     $conn = $this->getDatabaseConnection();
 
-    $sql = "SELECT id FROM actor WHERE entity_type_id IN (" .
-            QubitTerm::CORPORATE_BODY_ID . ", " . QubitTerm::PERSON_ID . 
-            ", " . QubitTerm::FAMILY_ID . ")";
+    // Get descriptions matching optional specification
+    $rows = $conn->query($this->informationObjectQuerySql($options), PDO::FETCH_ASSOC);
 
-    $actors = $conn->query($sql, PDO::FETCH_ASSOC);
-
-    foreach ($actors as $row)
+    foreach ($rows as $row)
     {
-      $resource = QubitActor::getById($row['id']);
+      // Fetch description then assocated actors
+      $informationObject = QubitInformationObject::getById($row['id']);
 
-      $eac = new sfEacPlugin($resource);
+      foreach($informationObject->getActors() as $resource)
+      {
+        $filename = $this->generateSortableFilename($resource->id, 'eac');
+        $filePath = sprintf('%s/%s', $arguments['path'], $filename);
 
-      $rawXml = $this->captureResourceExportTemplateOutput($resource, 'eac');
-      $xml = $this->tidyXml($rawXml);
+        // Only export actor the first time it's encountered in a description
+        if (!file_exists($filePath))
+        {
+          $rawXml = $this->captureResourceExportTemplateOutput($resource, 'eac');
+          $xml = $this->tidyXml($rawXml);
 
-      $filename = $this->generateSortableFilename($row['id'], 'eac');
-      $filePath = sprintf('%s/%s', $arguments['path'], $filename);
+          file_put_contents($filePath, $xml);
 
-      file_put_contents($filePath, $xml);
+          $this->indicateProgress($options['items-until-update']);
 
-      $this->indicateProgress($options['items-until-update']);
-
-      $itemsExported++;
+          $itemsExported++;
+        }
+      }
     }
 
     print "\nExport complete (". $itemsExported ." actors exported).\n";

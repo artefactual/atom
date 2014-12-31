@@ -51,7 +51,7 @@ class exportBulkTask extends exportBulkBaseTask
     $itemsExported = 0;
 
     $conn = $this->getDatabaseConnection();
-    $rows = $conn->query($this->exportQuerySql($options), PDO::FETCH_ASSOC);
+    $rows = $conn->query($this->informationObjectQuerySql($options), PDO::FETCH_ASSOC);
 
     foreach($rows as $row)
     {
@@ -87,24 +87,5 @@ class exportBulkTask extends exportBulkBaseTask
     }
 
     print "\nExport complete (". $itemsExported ." descriptions exported).\n";
-  }
-
-  protected function exportQuerySql($options)
-  {
-    // EAD data nests children, so we only have to get top-level items
-    $whereClause = ($options['format'] == 'ead' || $options['current-level-only'])
-      ? "parent_id=". QubitInformationObject::ROOT_ID
-      : "i.id != 1";
-
-    if ($options['criteria'])
-    {
-      $whereClause .= ' AND '. $options['criteria'];
-    }
-
-    $query = "SELECT * FROM information_object i
-      INNER JOIN information_object_i18n i18n ON i.id=i18n.id
-      WHERE ". $whereClause;
-
-    return $query;
   }
 }

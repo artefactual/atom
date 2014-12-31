@@ -175,4 +175,28 @@ abstract class exportBulkBaseTask extends sfBaseTask
       print '.';
     }
   }
+
+  protected function informationObjectQuerySql($options)
+  {
+    // EAD data nests children, so we only have to get top-level items
+    $whereClause = ($options['format'] == 'ead' || $options['current-level-only'])
+      ? "parent_id=". QubitInformationObject::ROOT_ID
+      : "i.id != 1";
+
+    if ($options['criteria'])
+    {
+      $whereClause .= ' AND '. $options['criteria'];
+    }
+
+    $query = "SELECT * FROM information_object i
+      INNER JOIN information_object_i18n i18n ON i.id=i18n.id
+      WHERE ". $whereClause;
+
+    if (isset($options['single-id']))
+    {
+      $query .= ' AND i.id=' . $options['single-id'] . ' LIMIT 1';
+    }
+
+    return $query;
+  }
 }
