@@ -167,32 +167,39 @@ class QubitAclSearch
   {
     // Filter out 'draft' items by repository
     $repositoryViewDrafts = QubitAcl::getRepositoryAccess('viewDraft');
+
+    // No specific permission rules for repositories
     if (1 == count($repositoryViewDrafts))
     {
       if (QubitAcl::DENY == $repositoryViewDrafts[0]['access'])
       {
         // Don't show *any* draft info objects
         $filter = new \Elastica\Filter\Term();
-        $filter->setTerm('publicationStatusId', QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID);
+        $filter->setTerm('publicationStatusId', QubitTerm::PUBLICATION_STATUS_DRAFT_ID);
 
-        $filterBool->addMust($filter);
+        $filterBool->addMustNot($filter);
       }
     }
     else
     {
+      // At least one specific rule
       // Get last rule in list, it will be the global rule with the opposite
       // access of the preceeding rules (e.g. if last rule is "DENY ALL" then
       // preceeding rules will be "ALLOW" rules)
       $globalRule = array_pop($repositoryViewDrafts);
 
       $filter = new \Elastica\Filter\Bool();
+      $filter->addShould(new \Elastica\Filter\Term(array('publicationStatusId' => QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID,
+                                                         'publicationStatusId' => QubitTerm::PUBLICATION_STATUS_PRIVATE_ID)));
 
       while ($repo = array_shift($repositoryViewDrafts))
       {
-        $filter->addShould(new \Elastica\Filter\Term(array('repository.id' => (int)$repo['id'])));
-      }
+        $filterBoolRepo = new \Elastica\Filter\Bool();
+        $filterBoolRepo->addMust(new \Elastica\Filter\Term(array('publicationStatusId' => QubitTerm::PUBLICATION_STATUS_DRAFT_ID,
+                                                                 'repository.id' => (int)$repo['id'])));
 
-      $filter->addShould(new \Elastica\Filter\Term(array('publicationStatusId' => QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID)));
+        $filter->addShould($filterBoolRepo);
+      }
 
       // Does this ever happen in AtoM?
       if ($globalRule['access'] == QubitAcl::GRANT)
