@@ -52,7 +52,7 @@ class eacExportTask extends exportBulkBaseTask
       // Fetch description then assocated actors
       $informationObject = QubitInformationObject::getById($row['id']);
 
-      foreach($informationObject->getActors() as $resource)
+      foreach ($informationObject->getActors() as $resource)
       {
         $filename = $this->generateSortableFilename($resource->id, 'eac');
         $filePath = sprintf('%s/%s', $arguments['path'], $filename);
@@ -61,7 +61,18 @@ class eacExportTask extends exportBulkBaseTask
         if (!file_exists($filePath))
         {
           $rawXml = $this->captureResourceExportTemplateOutput($resource, 'eac');
-          $xml = $this->tidyXml($rawXml);
+
+          try
+          {
+            $xml = $this->tidyXml($rawXml);
+          }
+          catch (Exception $e)
+          {
+            $badXmlFilePath = sys_get_temp_dir() .'/'. $filename;
+            file_put_contents($badXmlFilePath, $rawXml);
+
+            throw new sfException('Saved invalid generated XML to '. $badXmlFilePath);
+          }
 
           file_put_contents($filePath, $xml);
 
