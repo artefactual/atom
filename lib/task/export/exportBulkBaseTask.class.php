@@ -32,9 +32,6 @@ abstract class exportBulkBaseTask extends sfBaseTask
   public function __construct(sfEventDispatcher $dispatcher, sfFormatter $formatter)
   {
     parent::__construct($dispatcher, $formatter);
-
-    // Include classes/helpers not automatically loaded by Symfony
-    $this->includeClassesAndHelpers();
   }
 
   /**
@@ -94,18 +91,26 @@ abstract class exportBulkBaseTask extends sfBaseTask
 
   protected function includeClassesAndHelpers()
   {
+    if (class_exists('sfEadPlugin')) return;
+
     $appRoot = dirname(__FILE__) .'/../../..';
 
     include($appRoot .'/plugins/sfEadPlugin/lib/sfEadPlugin.class.php');
+    include($appRoot .'/plugins/sfEacPlugin/lib/sfEacPlugin.class.php');
+    include($appRoot .'/plugins/sfIsaarPlugin/lib/sfIsaarPlugin.class.php');
     include($appRoot .'/vendor/symfony/lib/helper/UrlHelper.php');
     include($appRoot .'/vendor/symfony/lib/helper/I18NHelper.php');
     include($appRoot .'/vendor/FreeBeerIso639Map.php');
     include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
     include($appRoot .'/lib/helper/QubitHelper.php');
+    include($appRoot .'/vendor/symfony/lib/helper/TextHelper.php');
+    include($appRoot .'/vendor/symfony/lib/helper/TagHelper.php');
   }
 
   protected function captureResourceExportTemplateOutput($resource, $format)
   {
+    $this->includeClassesAndHelpers();
+
     $pluginName = 'sf'. ucfirst($format) .'Plugin';
     $template = sprintf('plugins/%s/modules/%s/templates/indexSuccess.xml.php', $pluginName, $pluginName);
 
