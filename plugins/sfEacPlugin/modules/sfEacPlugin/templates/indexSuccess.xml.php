@@ -168,7 +168,7 @@
 
       <?php foreach ($resource->getActorRelations() as $item): ?>
         <cpfRelation cpfRelationType="<?php echo sfEacPlugin::toCpfRelationType($item->type->id) ?>" xlink:href="<?php echo url_for(array($item->getOpposedObject($resource), 'module' => 'actor'), true) ?>" xlink:type="simple">
-          <relationEntry><?php echo render_title($item->getOpposedObject($resource)) ?></relationEntry>
+          <relationEntry><?php echo esc_specialchars(render_title($item->getOpposedObject($resource))) ?></relationEntry>
           <?php echo sfEacPlugin::renderDates($item) ?>
           <?php if (isset($item->description)): ?>
             <descriptiveNote>
@@ -180,13 +180,13 @@
 
       <?php foreach ($eac->subjectOf as $item): ?>
         <resourceRelation resourceRelationType="subjectOf" xlink:href="<?php echo url_for(array($item->subject, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
-          <relationEntry><?php echo render_title($item->subject) ?></relationEntry>
+          <relationEntry><?php echo esc_specialchars(render_title($item->subject)) ?></relationEntry>
         </resourceRelation>
       <?php endforeach; ?>
 
       <?php foreach ($eac->resourceRelation as $item): ?>
         <resourceRelation <?php echo sfEacPlugin::toResourceRelationTypeAndXlinkRole($item->type) ?> xlink:href="<?php echo url_for(array($item->informationObject, 'module' => 'informationobject'), true) ?>" xlink:type="simple">
-          <relationEntry><?php echo render_title($item->informationObject) ?></relationEntry>
+          <relationEntry><?php echo esc_specialchars(render_title($item->informationObject)) ?></relationEntry>
           <?php echo sfEacPlugin::renderDates($item) ?>
           <?php if (isset($item->date)): ?>
             <descriptiveNote>
@@ -198,7 +198,7 @@
 
       <?php foreach ($eac->functionRelation as $item): ?>
         <functionRelation xlink:href="<?php echo url_for(array($item, 'module' => 'function'), true) ?>" xlink:type="simple">
-          <relationEntry><?php echo render_title($item->subject) ?></relationEntry>
+          <relationEntry><?php echo esc_specialchars(render_title($item->subject)) ?></relationEntry>
           <?php echo sfEacPlugin::renderDates($item) ?>
           <?php if (0 < count($date = $item->getNotesByType(array('noteTypeId' => QubitTerm::RELATION_NOTE_DATE_ID)))): ?>
             <descriptiveNote>
