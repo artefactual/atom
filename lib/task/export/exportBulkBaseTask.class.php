@@ -91,21 +91,45 @@ abstract class exportBulkBaseTask extends sfBaseTask
 
   protected function includeClassesAndHelpers()
   {
-    if (class_exists('sfEadPlugin')) return;
-
     $appRoot = dirname(__FILE__) .'/../../..';
+
+    if (!function_exists('link_to2'))
+    {
+      include($appRoot .'/vendor/symfony/lib/helper/UrlHelper.php');
+    }
+
+    if (!function_exists('__'))
+    {
+      include($appRoot .'/vendor/symfony/lib/helper/I18NHelper.php');
+    }
+
+    if (!function_exists('esc_entities'))
+    {
+      include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
+    }
+
+    if (!function_exists('format_script'))
+    {
+      include($appRoot .'/lib/helper/QubitHelper.php');
+    }
+
+    if (!function_exists('truncate_text'))
+    {
+      include($appRoot .'/vendor/symfony/lib/helper/TextHelper.php');
+    }
+
+    if (!function_exists('tag'))
+    {
+      include($appRoot .'/vendor/symfony/lib/helper/TagHelper.php');
+    }
+
+    if (class_exists('sfEadPlugin')) return;
 
     include($appRoot .'/plugins/sfEadPlugin/lib/sfEadPlugin.class.php');
     include($appRoot .'/plugins/sfEacPlugin/lib/sfEacPlugin.class.php');
     include($appRoot .'/plugins/sfIsaarPlugin/lib/sfIsaarPlugin.class.php');
-    include($appRoot .'/vendor/symfony/lib/helper/UrlHelper.php');
-    include($appRoot .'/vendor/symfony/lib/helper/I18NHelper.php');
     include($appRoot .'/vendor/FreeBeerIso639Map.php');
-    include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
-    include($appRoot .'/lib/helper/QubitHelper.php');
-    include($appRoot .'/vendor/symfony/lib/helper/TextHelper.php');
-    include($appRoot .'/vendor/symfony/lib/helper/TagHelper.php');
-  }
+ }
 
   protected function captureResourceExportTemplateOutput($resource, $format)
   {
