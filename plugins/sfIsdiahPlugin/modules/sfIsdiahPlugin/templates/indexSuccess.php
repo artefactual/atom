@@ -24,7 +24,7 @@
 
   <section class="breadcrumb">
     <ul>
-      <li><?php echo link_to(sfConfig::get('app_ui_label_repository'), array('module' => 'repository', 'action' => 'browse')) ?></li>
+      <li><?php echo link_to(esc_specialchars(sfConfig::get('app_ui_label_repository')), array('module' => 'repository', 'action' => 'browse')) ?></li>
       <li><span><?php echo render_title($resource) ?></span></li>
     </ul>
   </section>

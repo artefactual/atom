@@ -65,7 +65,7 @@
           ->label(__('Level of description').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
           ->renderRow() ?>
 
-        <?php echo get_partial('informationobject/childLevels', array('help' => __('<strong>Identifier:</strong> Enter an unambiguous code used to uniquely identify the description.<br/><strong>Level:</strong> Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.<br/><strong>Title:</strong> Enter the title proper, either transcribed or supplied. (RAD 1.1B)'))) ?>
+        <?php echo get_partial('informationobject/childLevels', array('help' => __('Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)'))) ?>
 
         <div class="form-item">
           <?php echo $form->repository->renderLabel() ?>

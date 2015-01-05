@@ -25,5 +25,7 @@ class RightRelatedRightsComponent extends sfComponent
     {
       $this->ancestor = $this->resource;
     }
+
+    $this->className = get_class($this->resource);
   }
 }

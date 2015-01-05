@@ -126,7 +126,7 @@
     <div class="field">
       <h3><?php echo sfConfig::get('app_ui_label_informationobject') ?></h3>
       <div>
-        <?php echo link_to(render_title($item->subject), array($item->subject, 'module' => 'informationobject')) ?>
+        <?php echo link_to(esc_specialchars(render_title($item->subject)), array($item->subject, 'module' => 'informationobject')) ?>
       </div>
     </div>
 

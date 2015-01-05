@@ -42,7 +42,7 @@
       <?php endif; ?>
 
       <?php if (isset($doc['levelOfDescriptionId']) && !empty($doc['levelOfDescriptionId'])): ?>
-        <li class="level-description"><?php echo QubitCache::getLabel($doc['levelOfDescriptionId'], 'QubitTerm') ?></li>
+        <li class="level-description"><?php echo esc_specialchars(QubitCache::getLabel($doc['levelOfDescriptionId'], 'QubitTerm')) ?></li>
       <?php endif; ?>
 
       <?php if (isset($doc['dates'])): ?>

@@ -57,7 +57,7 @@
           ->label(__('Level of description').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
           ->renderRow() ?>
 
-        <?php echo get_partial('informationobject/childLevels', array('help' => __('<strong>Identifier:</strong> Provide a specific local reference code, control number, or other unique identifier.<br/><strong>Level of description:</strong> Record the level of this unit of description.<br/><strong>Title:</strong> Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.'))) ?>
+        <?php echo get_partial('informationobject/childLevels', array('help' => __('Identifier: Provide a specific local reference code, control number, or other unique identifier. Level of description: Record the level of this unit of description. Title: Provide either a formal title or a concise supplied title in accordance with the rules of multilevel description and national conventions.'))) ?>
 
         <?php echo render_field($form->extentAndMedium
           ->help(__('Record the extent of the unit of description by giving the number of physical or logical units in arabic numerals and the unit of measurement. Give the specific medium (media) of the unit of description. Separate multiple extents with a linebreak. (ISAD 3.1.5)'))
