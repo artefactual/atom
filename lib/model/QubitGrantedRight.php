@@ -176,7 +176,7 @@ class QubitGrantedRight extends BaseGrantedRight {
   public static function getPremisSettings()
   {
     $premisAccessRight = QubitSetting::getByName('premisAccessRight');
-    $act = QubitTaxonomy::getBySlug($premisAccessRight->value);
+    $act = QubitTaxonomy::getBySlug($premisAccessRight->getValue(array('sourceCulture' => true)));
 
     if ($act === null)
     {
