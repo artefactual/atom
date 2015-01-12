@@ -796,7 +796,7 @@ QubitSetting:
     deleteable: 0
     source_culture: en
     value:
-      en: bombardier
+      en: inventory-summary
   Qubit_Settings_publicFindingAid:
     name: publicFindingAid
     editable: 1

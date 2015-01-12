@@ -31,8 +31,8 @@ class SettingsFindingAidForm extends sfForm
 
     // Build widgets
     $this->setWidgets(array(
-      'finding_aid_format' =>  new sfWidgetFormSelect(array('choices'=>array('pdf' => 'PDF', 'rtf' => 'RTF', 'txt' => 'TXT'))),
-      'finding_aid_model' =>  new sfWidgetFormSelect(array('choices'=>array('bombardier' => 'Bombardier', 'sfu' => 'SFU'))),
+      'finding_aid_format' =>  new sfWidgetFormSelect(array('choices'=>array('pdf' => 'PDF', 'rtf' => 'RTF'))),
+      'finding_aid_model' =>  new sfWidgetFormSelect(array('choices'=>array('inventory-summary' => 'Inventory summary', 'full-details' => 'Full details'))),
       'public_finding_aid' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio'))
     ));
 
@@ -46,7 +46,7 @@ class SettingsFindingAidForm extends sfForm
     // Add helper text
     $this->widgetSchema->setHelps(array(
       'finding_aid_format' => '',
-      'finding_aid_model' => '',
+      'finding_aid_model' => $i18n->__('Finding Aid model: \'Inventory summary\' will include only key details for lower-level descriptions (file, item, part) in a table. \'Full details\' includes full lower-level descriptions in the same format used throughout the finding aid.'),
       'public_finding_aid' => ''
     ));
 
