@@ -889,12 +889,14 @@
 
     <!-- Formats controlled access terms -->
     <xsl:template match="ead:controlaccess">
-        <fo:block xsl:use-attribute-sets="section">
-            <fo:block xsl:use-attribute-sets="h2ID"><xsl:value-of select="local:tagName(.)"/></fo:block>
-            <fo:list-block xsl:use-attribute-sets="smp">
-                <xsl:apply-templates/>
-            </fo:list-block>
-        </fo:block>
+        <xsl:if test="child::*">
+            <fo:block xsl:use-attribute-sets="section">
+                <fo:block xsl:use-attribute-sets="h2ID"><xsl:value-of select="local:tagName(.)"/></fo:block>
+                <fo:list-block xsl:use-attribute-sets="smp">
+                    <xsl:apply-templates/>
+                </fo:list-block>
+            </fo:block>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="ead:controlaccess/child::*">
         <fo:list-item>
