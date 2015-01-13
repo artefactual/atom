@@ -121,7 +121,7 @@ class sfModsPlugin implements ArrayAccess
           {
             return $path;
           } else
-          { 
+          {
             if (QubitAcl::check($this->resource, 'readMaster'))
             {
               return $this->baseUrl() . $path;
@@ -268,8 +268,8 @@ class sfModsPlugin implements ArrayAccess
     $criteria = new Criteria;
     $criteria->add(QubitInformationObject::ID, $this->resource->id);
     $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitInformationObject::ID);
-    $criteria->addJoin(QubitRights::ID, QubitRelation::OBJECT_ID);
-    $criteria->add(QubitRights::ACT_ID, $this->getIdForRightsActTerm($actName));
+    $criteria->addJoin(QubitGrantedRight::RIGHTS_ID, QubitRelation::OBJECT_ID);
+    $criteria->add(QubitGrantedRight::ACT_ID, $this->getIdForRightsActTerm($actName));
 
     return QubitRights::getOne($criteria);
   }
