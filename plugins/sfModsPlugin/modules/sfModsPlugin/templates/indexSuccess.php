@@ -81,10 +81,6 @@
 
 <?php end_slot() ?>
 
-<?php if (0 < count($resource->digitalObjects)): ?>
-  <?php echo get_component('digitalobject', 'show', array('link' => $digitalObjectLink, 'resource' => $resource->digitalObjects[0], 'usageType' => QubitTerm::REFERENCE_ID)) ?>
-<?php endif; ?>
-
 <section id="elementsArea">
 
   <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Elements area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'mainArea', 'title' => __('Edit elements area'))) ?>
@@ -157,18 +153,6 @@
       <?php endif; ?>
     </div>
   </div>
-
-  <?php if ($sf_user->isAuthenticated()): ?>
-
-    <section id="rightsArea">
-
-      <?php echo link_to_if(QubitAcl::check($resource, 'update'), '<h2>'.__('Rights area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'rightsArea', 'title' => __('Edit rights area'))) ?>
-
-      <?php echo get_component('right', 'relatedRights', array('resource' => $resource)) ?>
-
-    </section> <!-- /section#rightsArea -->
-
-  <?php endif; ?>
 
   <?php if (0 < count($resource->digitalObjects)): ?>
 
