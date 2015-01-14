@@ -21,8 +21,9 @@ class InformationObjectFindingAidComponent extends sfComponent
 {
   public function execute($request)
   {
-    // Only allowed for top-level descriptions
-    if ($this->resource->parentId != QubitInformationObject::ROOT_ID)
+    // Only allowed for top-level and non draft descriptions
+    if ($this->resource->parentId != QubitInformationObject::ROOT_ID
+      || $this->resource->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID)
     {
       return sfView::NONE;
     }
