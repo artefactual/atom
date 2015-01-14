@@ -23,7 +23,9 @@ class InformationObjectFindingAidComponent extends sfComponent
   {
     // Only allowed for top-level and non draft descriptions
     if ($this->resource->parentId != QubitInformationObject::ROOT_ID
-      || $this->resource->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID)
+      || ((null !== $setting = QubitSetting::getByName('publicFindingAid'))
+        && $setting->getValue(array('sourceCulture' => true))
+        && $this->resource->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID))
     {
       return sfView::NONE;
     }
