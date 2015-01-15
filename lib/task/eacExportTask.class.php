@@ -44,6 +44,8 @@ class eacExportTask extends exportBulkBaseTask
 
     $conn = $this->getDatabaseConnection();
 
+    $this->includeClassesAndHelpers();
+
     // Get descriptions matching optional specification
     $rows = $conn->query($this->informationObjectQuerySql($options), PDO::FETCH_ASSOC);
 
