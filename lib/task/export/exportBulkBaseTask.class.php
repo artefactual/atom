@@ -34,7 +34,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
     parent::__construct($dispatcher, $formatter);
 
     // Include classes/helpers not automatically loaded by Symfony
-    $this->includeClassesAndHelpers();
+//    $this->includeClassesAndHelpers();
   }
 
   /**
@@ -92,7 +92,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
     return $databaseManager->getDatabase('propel')->getConnection();
   }
 
-  protected function includeClassesAndHelpers()
+  public function includeClassesAndHelpers()
   {
     $appRoot = dirname(__FILE__) .'/../../..';
 

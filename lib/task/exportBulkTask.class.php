@@ -35,6 +35,8 @@ class exportBulkTask extends exportBulkBaseTask
    */
   public function execute($arguments = array(), $options = array())
   {
+$this->reloadAutoload();
+
     $options['format'] = $this->normalizeExportFormat($options['format']);
 
     if (!isset($options['single-id']))
@@ -52,6 +54,8 @@ class exportBulkTask extends exportBulkBaseTask
 
     $conn = $this->getDatabaseConnection();
     $rows = $conn->query($this->informationObjectQuerySql($options), PDO::FETCH_ASSOC);
+
+    $this->includeClassesAndHelpers();
 
     foreach ($rows as $row)
     {
