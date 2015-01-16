@@ -38,8 +38,413 @@ class QubitMetsParser
 
     // Register namespaces
     $this->document->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
-    $this->document->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
+    $this->document->registerXPathNamespace('p', 'info:lc/xmlns/premis-v2');
     $this->document->registerXPathNamespace('f', 'http://hul.harvard.edu/ois/xml/ns/fits/fits_output');
+  }
+
+  public function getStructMap()
+  {
+    // Check first for logical structMap
+    $structMap = $this->document->xpath('//m:structMap[@TYPE="logical"]');
+
+    if (false !== $structMap && 0 < count($structMap))
+    {
+      return  $structMap[0];
+    }
+
+    // Then for physical
+    $structMap = $this->document->xpath('//m:structMap[@TYPE="physical"]');
+
+    if (false !== $structMap && 0 < count($structMap))
+    {
+      return  $structMap[0];
+    }
+  }
+
+  public function getDipUploadMappings($structMap)
+  {
+    $mappings = $lodMapping = $dmdMapping = $uuidMapping = array();
+
+    // LOD mapping (only for hierarchical DIP upload over logical structMap)
+    if ($structMap['TYPE'] == 'logical')
+    {
+      $structMap->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+
+      foreach ($structMap->xpath('.//m:div') as $item)
+      {
+        if (null === $item['TYPE'])
+        {
+          continue;
+        }
+
+        $lodName = (string)$item['TYPE'];
+
+        $sql  = 'SELECT
+                    term.id';
+        $sql .= ' FROM '.QubitTerm::TABLE_NAME.' term';
+        $sql .= ' JOIN '.QubitTermI18n::TABLE_NAME.' i18n
+                    ON term.id = i18n.id';
+        $sql .= ' WHERE i18n.name = ?
+                    AND term.taxonomy_id = ?';
+
+        if (false !== $id = QubitPdo::fetchColumn($sql, array($lodName, QubitTaxonomy::LEVEL_OF_DESCRIPTION_ID)))
+        {
+          $lodMapping[$lodName] = $id;
+        }
+        else
+        {
+          // If a LOD is not found for a type, the upload process is stoped
+          throw new sfException('Level of description not found: '.$lodName);
+        }
+      }
+    }
+
+    // FILEID to DMD mapping
+    foreach ($this->document->xpath('//m:structMap[@TYPE="logical" or @TYPE="physical"]//m:div') as $item)
+    {
+      $item->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+
+      if (0 < count($fptr = $item->xpath('m:fptr')))
+      {
+        $dmdId = (string)$item['DMDID'];
+        $fileId = (string)$fptr[0]['FILEID'];
+
+        if (strlen($fileId) > 0 && strlen($dmdId) > 0)
+        {
+          $dmdMapping[$fileId] = $dmdId;
+        }
+      }
+    }
+
+    // FILEID to UUID mapping
+    foreach ($this->document->xpath('//m:fileSec/m:fileGrp[@USE="original"]/m:file') as $file)
+    {
+      // Get premis:objectIdentifiers in amd section for each file
+      if (isset($file['ADMID']) && isset($file['ID'])
+       && false !== $identifiers = $this->document->xpath('//m:amdSec[@ID="'.(string)$file['ADMID'].'"]//p:objectIdentifier'))
+      {
+        // Find UUID type
+        foreach ($identifiers as $item)
+        {
+          $item->registerXPathNamespace('p', 'info:lc/xmlns/premis-v2');
+
+          if (count($type = $item->xpath('p:objectIdentifierType')) > 0
+            && count($value = $item->xpath('p:objectIdentifierValue')) > 0
+            && 'UUID' == (string)$type[0])
+          {
+            $uuidMapping[(string)$file['ID']] = (string)$value[0];
+          }
+        }
+      }
+    }
+
+    $mappings['lodMapping'] = $lodMapping;
+    $mappings['dmdMapping'] = $dmdMapping;
+    $mappings['uuidMapping'] = $uuidMapping;
+
+    return $mappings;
+  }
+
+  public function getMainDmdSec()
+  {
+    foreach ($this->document->xpath('//m:structMap[@TYPE="logical" or @TYPE="physical"]') as $item)
+    {
+      if (!isset($item['TYPE']))
+      {
+        continue;
+      }
+
+      $item->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+
+      switch ((string)$item['TYPE'])
+      {
+        case 'logical':
+          $divs = $item->xpath('m:div');
+
+          break;
+
+        case 'physical':
+          $divs = $item->xpath('m:div/m:div');
+
+          break;
+      }
+
+      if (count($divs) > 0)
+      {
+        $dmdId = $divs[0]['DMDID'];
+      }
+
+      if (null === $dmdId)
+      {
+        continue;
+      }
+
+      return $this->getDmdSec((string)$dmdId);
+    }
+  }
+
+  public function getDmdSec($dmdId)
+  {
+    $dmdSec = $this->document->xpath('//m:dmdSec[@ID="'.$dmdId.'"]');
+    if (0 < count($dmdSec))
+    {
+      return $dmdSec[0];
+    }
+  }
+
+  /**
+   * Find the original filename
+   * simple_load_string() is used to make xpath queries faster
+   */
+  public function getOriginalFilename($fileId)
+  {
+    if ((false !== $file = $this->document->xpath('//m:fileSec/m:fileGrp[@USE="original"]/m:file[@ID="'.$fileId.'"]'))
+      && (null !== $admId = $file[0]['ADMID'])
+      && (false !== $xmlData = $this->document->xpath('//m:amdSec[@ID="'.(string)$admId.'"]/m:techMD/m:mdWrap/m:xmlData')))
+    {
+      $xmlData = simplexml_load_string($xmlData[0]->asXML());
+      $xmlData->registerXPathNamespace('p', 'info:lc/xmlns/premis-v2');
+
+      if (false !== $originalName = $xmlData->xpath('//p:object//p:originalName'))
+      {
+        return end(explode('/', (string)$originalName[0]));
+      }
+    }
+  }
+
+  public function getFilesFromOriginalFileGrp()
+  {
+    return $this->document->xpath('//m:mets/m:fileSec/m:fileGrp[@USE="original"]/m:file');
+  }
+
+  /*
+   * AIP functions
+   */
+
+  public function getAipSizeOnDisk()
+  {
+    $totalSize = 0;
+
+    foreach ($this->document->xpath('//m:amdSec/m:techMD/m:mdWrap[@MDTYPE="PREMIS:OBJECT"]/m:xmlData') as $xmlData)
+    {
+      $xmlData->registerXPathNamespace('p', 'info:lc/xmlns/premis-v2');
+
+      if (0 < count($size = $xmlData->xpath('p:object/p:objectCharacteristics/p:size')))
+      {
+        $totalSize += $size[0];
+      }
+    }
+
+    return $totalSize;
+  }
+
+  public function getAipCreationDate()
+  {
+    $metsHdr = $this->document->xpath('//m:metsHdr');
+
+    if (isset($metsHdr) && null !== $createdAt = $metsHdr[0]['CREATEDATE'])
+    {
+      return $createdAt;
+    }
+  }
+
+  /*
+   * Information object functions
+   */
+
+  public function processDmdSec($xml, $informationObject)
+  {
+    $xml->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
+    $xml->registerXPathNamespace('dc', 'http://purl.org/dc/terms/');
+
+    $dublincore = $xml->xpath('.//m:mdWrap/m:xmlData/dc:dublincore/*');
+
+    $creation = array();
+
+    foreach ($dublincore as $item)
+    {
+      $value = trim($item->__toString());
+      if (0 == strlen($value))
+      {
+        continue;
+      }
+
+      switch (str_replace(array('dcterms:', 'dc:'), '', $item->getName()))
+      {
+        case 'title':
+          $informationObject->setTitle($value);
+
+          break;
+
+        case 'creator':
+          $creation['actorName'] = $value;
+          break;
+
+        case 'provenance':
+          $informationObject->acquisition = $value;
+
+          break;
+
+        case 'coverage':
+          $informationObject->setAccessPointByName($value, array('type_id' => QubitTaxonomy::PLACE_ID));
+
+          break;
+
+        case 'subject':
+          $informationObject->setAccessPointByName($value, array('type_id' => QubitTaxonomy::SUBJECT_ID));
+
+          break;
+
+        case 'description':
+          $informationObject->scopeAndContent = $value;
+
+          break;
+
+        case 'publisher':
+          $informationObject->setActorByName($value, array('event_type_id' => QubitTerm::PUBLICATION_ID));
+
+          break;
+
+        case 'contributor':
+          $informationObject->setActorByName($value, array('event_type_id' => QubitTerm::CONTRIBUTION_ID));
+
+          break;
+
+        case 'date':
+          $creation['date'] = $value;
+
+          break;
+
+        case 'type':
+          foreach (QubitTaxonomy::getTermsById(QubitTaxonomy::DC_TYPE_ID) as $item)
+          {
+            if (strtolower($value) == strtolower($item->__toString()))
+            {
+              $relation = new QubitObjectTermRelation;
+              $relation->term = $item;
+
+              $informationObject->objectTermRelationsRelatedByobjectId[] = $relation;
+
+              break;
+            }
+          }
+
+          break;
+
+        case 'extent':
+        case 'format':
+          $informationObject->extentAndMedium = $value;
+
+          break;
+
+        case 'identifier':
+          $informationObject->identifier = $value;
+
+          break;
+
+        case 'source':
+          $informationObject->locationOfOriginals = $value;
+
+          break;
+
+        case 'language':
+          // TODO: the user could write "English" instead of "en"? (see symfony...widget/i18n/*)
+          $informationObject->language = array($value);
+
+          break;
+
+        case 'isPartOf':
+          // TODO: ?
+
+          break;
+
+        case 'rights':
+          $informationObject->accessConditions = $value;
+
+          break;
+      }
+    }
+
+    if (count($creation) > 0)
+    {
+      $event = new QubitEvent;
+      $event->typeId = QubitTerm::CREATION_ID;
+
+      if ($creation['actorName'])
+      {
+        // Check actor creation with the target repository
+        if (null === $actor = QubitActor::getByNameAndRepositoryId($creation['actorName'], $this->resource->repositoryId))
+        {
+          $actor = new QubitActor;
+          $actor->parentId = QubitActor::ROOT_ID;
+          $actor->setAuthorizedFormOfName($creation['actorName']);
+          $actor->save();
+        }
+
+        $event->actorId = $actor->id;
+      }
+
+      if ($creation['date'])
+      {
+        $date = $creation['date'];
+
+        // Normalize expression of date range
+        $date = str_replace('/', '|', $date);
+        $date = str_replace(' - ', '|', $date);
+
+        if (substr_count($date, '|'))
+        {
+          // Date is a range
+          $dates = explode('|', $date);
+
+          // If date is a range, set start/end dates
+          if (count($dates) == 2)
+          {
+            $parsedDates = array();
+
+            // Parse each component date
+            foreach($dates as $dateItem)
+            {
+              array_push($parsedDates, QubitFlatfileImport::parseDate($dateItem));
+            }
+
+            $event->startDate = $parsedDates[0];
+            $event->endDate = $parsedDates[1];
+
+            // if date range is similar to ISO 8601 then make it a normal date range
+            if (Qubit::likeISO8601Date(trim($dates[0])))
+            {
+              if ($event->startDate == $event->endDate)
+              {
+                $date = $event->startDate;
+              }
+              else
+              {
+                $date = $event->startDate.'|'.$event->endDate;
+              }
+            }
+          }
+
+          // If date is a single ISO 8601 date then truncate off time
+          if (Qubit::likeISO8601Date(trim($event->date)))
+          {
+            $date = substr(trim($event->date), 0, 10);
+          }
+
+          // Make date range indicator friendly
+          $event->date = str_replace('|', ' - ', $date);
+        }
+        else
+        {
+          // Date isn't a range
+          $event->date = QubitFlatfileImport::parseDate($date);
+        }
+      }
+
+      $informationObject->events[] = $event;
+    }
+
+    return $informationObject;
   }
 
   public function getInformationObjectDataForSearchIndex($objectUuid)
@@ -60,7 +465,7 @@ class QubitMetsParser
       throw new sfException('AMD section was not found for object UUID: ' . $objectUuid);
     }
 
-    $this->objectXpath = '//m:amdSec[@ID="'.$amdSecId.'"]/m:techMD/m:mdWrap[@MDTYPE="PREMIS:OBJECT"]/m:xmlData/s:object/';
+    $this->objectXpath = '//m:amdSec[@ID="'.$amdSecId.'"]/m:techMD/m:mdWrap[@MDTYPE="PREMIS:OBJECT"]/m:xmlData/p:object/';
 
     $this->ioData = array();
 
@@ -85,22 +490,22 @@ class QubitMetsParser
   {
     $fields = array(
       'filename' => array(
-        'xpath' => $this->objectXpath.'s:originalName',
+        'xpath' => $this->objectXpath.'p:originalName',
         'type' => 'lastPartOfPath'),
       'puid' => array(
-        'xpath' => $this->objectXpath.'s:objectCharacteristics/s:format/s:formatRegistry[s:formatRegistryName="PRONOM"]/s:formatRegistryKey',
+        'xpath' => $this->objectXpath.'p:objectCharacteristics/p:format/p:formatRegistry[s:formatRegistryName="PRONOM"]/p:formatRegistryKey',
         'type' => 'string'),
       'lastModified' => array(
-        'xpath' => $this->objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/repInfo/lastModified',
+        'xpath' => $this->objectXpath.'p:objectCharacteristics/p:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/repInfo/lastModified',
         'type' => 'date'),
       'size' => array(
-        'xpath' => $this->objectXpath.'s:objectCharacteristics/s:size',
+        'xpath' => $this->objectXpath.'p:objectCharacteristics/p:size',
         'type' => 'string'),
       'mimeType' => array(
-        'xpath' => $this->objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/fileUtilityOutput/mimetype',
+        'xpath' => $this->objectXpath.'p:objectCharacteristics/p:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/fileUtilityOutput/mimetype',
         'type' => 'string'),
       'exiftoolRawOutput' => array(
-        'xpath' => $this->objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/exiftool/rawOutput',
+        'xpath' => $this->objectXpath.'p:objectCharacteristics/p:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/exiftool/rawOutput',
         'type' => 'string'));
 
     foreach ($fields as $fieldName => $options)
@@ -115,7 +520,7 @@ class QubitMetsParser
 
   private function loadFitsAudioData()
   {
-    $audioXpath = $this->objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:metadata/f:audio/';
+    $audioXpath = $this->objectXpath.'p:objectCharacteristics/p:objectCharacteristicsExtension/f:fits/f:metadata/f:audio/';
 
     $fields = array(
       'bitDepth' => array(
@@ -149,7 +554,7 @@ class QubitMetsParser
 
   private function loadFitsDocumentData()
   {
-    $documentXpath = $this->objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:metadata/f:document/';
+    $documentXpath = $this->objectXpath.'p:objectCharacteristics/p:objectCharacteristicsExtension/f:fits/f:metadata/f:document/';
 
     $fields = array(
       'title' => array(
@@ -201,7 +606,7 @@ class QubitMetsParser
 
   private function loadFitsTextData()
   {
-    $textXpath = $this->objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:metadata/f:text/';
+    $textXpath = $this->objectXpath.'p:objectCharacteristics/p:objectCharacteristicsExtension/f:fits/f:metadata/f:text/';
 
     $fields = array(
       'linebreak' => array(
@@ -460,19 +865,19 @@ class QubitMetsParser
         'type' => 'date'));
 
     // Get all tracks
-    $mediainfoTracks = $this->document->xpath($this->objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/Mediainfo/File/track');
+    $mediainfoTracks = $this->document->xpath($this->objectXpath.'p:objectCharacteristics/p:objectCharacteristicsExtension/Mediainfo/File/track');
     $oldMets = false;
 
     // Check xpath query for old Archivematica METS files if no tracks were found
     if (1 > count($mediainfoTracks))
     {
-      $mediainfoTracks = $this->document->xpath($this->objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/s:Mediainfo/s:File/s:track');
+      $mediainfoTracks = $this->document->xpath($this->objectXpath.'p:objectCharacteristics/p:objectCharacteristicsExtension/p:Mediainfo/p:File/p:track');
       $oldMets = true;
     }
 
     foreach ($mediainfoTracks as $track)
     {
-      $track->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
+      $track->registerXPathNamespace('p', 'info:lc/xmlns/premis-v2');
 
       $esTrack = array();
 
@@ -482,7 +887,7 @@ class QubitMetsParser
         // Add namespace to xpath query for old METS
         if ($oldMets)
         {
-          $options['xpath'] = 's:'.$options['xpath'];
+          $options['xpath'] = 'p:'.$options['xpath'];
         }
 
         $value = $this->getFieldValue($track, $options['xpath'], $options['type']);
@@ -518,16 +923,16 @@ class QubitMetsParser
   {
     $fields = array(
       'name' => array(
-        'xpath' => $this->objectXpath.'s:objectCharacteristics/s:format/s:formatDesignation/s:formatName',
+        'xpath' => $this->objectXpath.'p:objectCharacteristics/p:format/p:formatDesignation/p:formatName',
         'type' => 'string'),
       'version' => array(
-        'xpath' => $this->objectXpath.'s:objectCharacteristics/s:format/s:formatDesignation/s:formatVersion',
+        'xpath' => $this->objectXpath.'p:objectCharacteristics/p:format/p:formatDesignation/p:formatVersion',
         'type' => 'string'),
       'registryName' => array(
-        'xpath' => $this->objectXpath.'s:objectCharacteristics/s:format/s:formatRegistry/s:formatRegistryName',
+        'xpath' => $this->objectXpath.'p:objectCharacteristics/p:format/p:formatRegistry/p:formatRegistryName',
         'type' => 'string'),
       'registryKey' => array(
-        'xpath' => $this->objectXpath.'s:objectCharacteristics/s:format/s:formatRegistry/s:formatRegistryKey',
+        'xpath' => $this->objectXpath.'p:objectCharacteristics/p:format/p:formatRegistry/p:formatRegistryKey',
         'type' => 'string'));
 
     foreach ($fields as $fieldName => $options)
@@ -544,33 +949,33 @@ class QubitMetsParser
   {
     $eventFields = array(
       'type' => array(
-        'xpath' => 's:eventType',
+        'xpath' => 'p:eventType',
         'type' => 'string'),
       'dateTime' => array(
-        'xpath' => 's:eventDateTime',
+        'xpath' => 'p:eventDateTime',
         'type' => 'date'),
       'detail' => array(
-        'xpath' => 's:eventDetail',
+        'xpath' => 'p:eventDetail',
         'type' => 'string'),
       'outcome' => array(
-        'xpath' => 's:eventOutcomeInformation/s:eventOutcome',
+        'xpath' => 'p:eventOutcomeInformation/p:eventOutcome',
         'type' => 'string'),
       'outcomeDetailNote' => array(
-        'xpath' => 's:eventOutcomeInformation/s:eventOutcomeDetail/s:eventOutcomeDetailNote',
+        'xpath' => 'p:eventOutcomeInformation/p:eventOutcomeDetail/p:eventOutcomeDetailNote',
         'type' => 'string'));
 
     $linkingAgentIdentifierFields = array(
       'type' => array(
-        'xpath' => 's:linkingAgentIdentifierType',
+        'xpath' => 'p:linkingAgentIdentifierType',
         'type' => 'string'),
       'value' => array(
-        'xpath' => 's:linkingAgentIdentifierValue',
+        'xpath' => 'p:linkingAgentIdentifierValue',
         'type' => 'string'));
 
     // Get all events
-    foreach ($this->document->xpath('//m:amdSec[@ID="'.$amdSecId.'"]/m:digiprovMD/m:mdWrap[@MDTYPE="PREMIS:EVENT"]/m:xmlData/s:event') as $item)
+    foreach ($this->document->xpath('//m:amdSec[@ID="'.$amdSecId.'"]/m:digiprovMD/m:mdWrap[@MDTYPE="PREMIS:EVENT"]/m:xmlData/p:event') as $item)
     {
-      $item->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
+      $item->registerXPathNamespace('p', 'info:lc/xmlns/premis-v2');
 
       $event = array();
 
@@ -585,9 +990,9 @@ class QubitMetsParser
       }
 
       // Get all event linking agent identifiers
-      foreach ($item->xpath('s:linkingAgentIdentifier') as $linkingAgent)
+      foreach ($item->xpath('p:linkingAgentIdentifier') as $linkingAgent)
       {
-        $linkingAgent->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
+        $linkingAgent->registerXPathNamespace('p', 'info:lc/xmlns/premis-v2');
 
         $linkingAgentIdentifier = array();
 
