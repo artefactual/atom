@@ -81,10 +81,6 @@ class AccessionEditAction extends DefaultEditAction
     $this->relatedDonorComponent = new AccessionRelatedDonorComponent($this->context, 'accession', 'relatedDonor');
     $this->relatedDonorComponent->resource = $this->resource;
     $this->relatedDonorComponent->execute($this->request);
-
-    $this->rightEditComponent = new RightEditComponent($this->context, 'right', 'edit');
-    $this->rightEditComponent->resource = $this->resource;
-    $this->rightEditComponent->execute($this->request);
   }
 
   protected function addField($name)
@@ -360,8 +356,6 @@ class AccessionEditAction extends DefaultEditAction
       if ($this->form->isValid())
       {
         $this->relatedDonorComponent->processForm();
-
-        $this->rightEditComponent->processForm();
 
         if (isset($this->request->deleteRelations))
         {

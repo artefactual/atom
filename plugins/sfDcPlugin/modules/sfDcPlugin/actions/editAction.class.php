@@ -71,10 +71,6 @@ class sfDcPluginEditAction extends InformationObjectEditAction
     $this->dcNamesComponent = new sfDcPluginDcNamesComponent($this->context, 'sfDcPlugin', 'dcNames');
     $this->dcNamesComponent->resource = $this->resource;
     $this->dcNamesComponent->execute($this->request);
-
-    $this->rightEditComponent = new RightEditComponent($this->context, 'right', 'edit');
-    $this->rightEditComponent->resource = $this->resource;
-    $this->rightEditComponent->execute($this->request);
   }
 
   protected function addField($name)
@@ -156,8 +152,6 @@ class sfDcPluginEditAction extends InformationObjectEditAction
   protected function processForm()
   {
     $this->resource->sourceStandard = 'Dublin Core Simple version 1.1';
-
-    $this->rightEditComponent->processForm();
 
     $this->dcDatesComponent->processForm();
 
