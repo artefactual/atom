@@ -31,6 +31,7 @@ class digitalObjectRegenDerivativesTask extends sfBaseTask
       new sfCommandOption('index', 'i', sfCommandOption::PARAMETER_NONE, 'Update search index (defaults to false)', null),
       new sfCommandOption('force', 'f', sfCommandOption::PARAMETER_NONE, 'No confirmation message', null),
       new sfCommandOption('only-externals', 'o', sfCommandOption::PARAMETER_NONE, 'Only external objects', null),
+      new sfCommandOption('only-missing', null, sfCommandOption::PARAMETER_NONE, 'Regenerate only missing derivatives', null),
       new sfCommandOption('json', 'j', sfCommandOption::PARAMETER_OPTIONAL, 'Limit regenerating derivatives to IDs in a JSON file', null),
     ));
 
@@ -128,6 +129,12 @@ EOF;
         continue;
       }
 
+      if ($options['only-missing'] && $this->hasExistingDerivativesInDb($do))
+      {
+        $this->logSection('digital object', "Skipping {$do->name} (already has derivatives)");
+        continue;
+      }
+
       $this->logSection('digital object', sprintf('Regenerating derivatives for %s... (%ss)',
         $do->name, $timer->elapsed()));
 
@@ -169,5 +176,13 @@ EOF;
     {
       $this->logSection('Done!', 'Please update the search index manually to reflect any changes');
     }
+  }
+
+  private function hasExistingDerivativesInDb($do)
+  {
+    $sql = 'SELECT count(1) AS count FROM digital_object WHERE parent_id=?';
+    $derivCount = QubitPdo::fetchColumn($sql, array($do->id));
+
+    return $derivCount != 0;
   }
 }
