@@ -88,6 +88,7 @@ value
 );
 
 $url = url_for($resource);
+$actorTitle = esc_entities($resource->__toString());
 
 echo javascript_tag(<<<content
 Drupal.behaviors.relatedAuthorityRecord = {
@@ -121,7 +122,7 @@ Drupal.behaviors.relatedAuthorityRecord = {
               response.subType = response.converseSubType;
             }
 
-            response.actor = ' $resource';
+            response.actor = ' $actorTitle';
 
             return response;
           } });
