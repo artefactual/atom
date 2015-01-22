@@ -46,6 +46,8 @@ class arOaiPluginIndexAction extends sfAction
    */
   public function execute($request)
   {
+    sfConfig::set('sf_escaping_strategy', false);
+
     $appRoot = dirname(__FILE__) .'/../../../../..';
     include($appRoot .'/vendor/symfony/lib/helper/EscapingHelper.php');
 

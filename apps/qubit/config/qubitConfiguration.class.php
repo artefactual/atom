@@ -49,6 +49,9 @@ class qubitConfiguration extends sfApplicationConfiguration
     {
       sfConfig::set('app_read_only', filter_var($readOnly, FILTER_VALIDATE_BOOLEAN));
     }
+
+    // Force escaping
+    sfConfig::set('sf_escaping_strategy', true);
   }
 
   /**

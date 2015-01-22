@@ -8,6 +8,7 @@
 
       <div class="dropdown-selected">
 
+        <?php $options = $sf_data->getRaw('options') ?>
         <?php if (isset($sf_request->sort) && isset($options[$sf_request->sort])): ?>
           <span><?php echo $options[$sf_request->sort] ?></span>
           <?php unset($options[$sf_request->sort]) ?>
@@ -26,7 +27,7 @@
             <?php $urlParams = array(
               'module' => $sf_request->module,
               'action' => $sf_request->action,
-              'sort' => $key) + $sf_request->getParameterHolder()->getAll() ?>
+              'sort' => $key) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll() ?>
             <a href="<?php echo url_for($urlParams) ?>" data-order="<?php echo $key ?>">
               <span><?php echo $value ?></span>
             </a>

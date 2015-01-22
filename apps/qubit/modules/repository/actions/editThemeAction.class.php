@@ -195,6 +195,13 @@ class RepositoryEditThemeAction extends sfAction
 
         $this->resource->save();
 
+        // Invalidate cached htmlSnippet
+        if (!$this->new && null !== $cache = QubitCache::getInstance())
+        {
+          $cacheKey = 'repository:htmlsnippet:'.$this->resource->id;
+          $cache->remove($cacheKey);
+        }
+
         $this->redirect(array($this->resource, 'module' => 'repository'));
       }
     }

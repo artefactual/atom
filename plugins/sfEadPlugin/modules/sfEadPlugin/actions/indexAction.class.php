@@ -29,6 +29,8 @@ class sfEadPluginIndexAction extends InformationObjectIndexAction
 {
   public function execute($request)
   {
+    sfConfig::set('sf_escaping_strategy', false);
+
     // run the core informationObject show action commands
     parent::execute($request);
 

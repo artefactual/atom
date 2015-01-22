@@ -212,7 +212,7 @@ class SearchIndexAction extends DefaultBrowseAction
         return;
       }
 
-      sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
+      sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url', 'Escaping'));
 
       $response = array('results' => array());
       foreach ($resultSet->getResults() as $item)
@@ -222,9 +222,9 @@ class SearchIndexAction extends DefaultBrowseAction
 
         $result = array(
           'url' => url_for(array('module' => 'informationobject', 'slug' => $data['slug'])),
-          'title' => $data['i18n'][$this->context->user->getCulture()]['title'],
-          'identifier' => isset($data['identifier']) && !empty($data['identifier']) ? $data['identifier'].' - ' : '',
-          'level' => null !== $levelOfDescription ? $levelOfDescription->getName() : '');
+          'title' => esc_specialchars($data['i18n'][$this->context->user->getCulture()]['title']),
+          'identifier' => isset($data['identifier']) && !empty($data['identifier']) ? esc_specialchars($data['identifier']).' - ' : '',
+          'level' => null !== $levelOfDescription ? esc_specialchars($levelOfDescription->getName()) : '');
 
         $response['results'][] = $result;
       }

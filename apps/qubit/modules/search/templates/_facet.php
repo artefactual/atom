@@ -27,6 +27,8 @@
         </div>
       <?php endif; ?>
 
+      <?php $filters = sfOutputEscaper::unescape($filters) ?>
+
       <?php if (!isset($filters[$facet])): ?>
         <li class="active">
       <?php else: ?>
@@ -34,7 +36,7 @@
       <?php endif; ?>
         <?php echo link_to(__('All'), array(
           $facet => null,
-          'page' => null) + $sf_request->getParameterHolder()->getAll()) ?>
+          'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?>
       </li>
 
       <?php if (isset($pager->facets[$facet])): ?>
@@ -51,7 +53,7 @@
                         array_intersect(@$filters[$facet], array($id))))
                     :
                       $id),
-                'page' => null) + $sf_request->getParameterHolder()->getAll()) ?>
+                'page' => null) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?>
             <span class="facet-count"><?php echo $term['count'] ?></span>
           </li>
         <?php endforeach; ?>

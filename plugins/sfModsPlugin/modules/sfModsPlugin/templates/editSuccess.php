@@ -56,7 +56,7 @@
 
           <h3><?php echo __('Add new name and/or origin info') ?></h3>
 
-          <?php echo get_partial('informationobject/event', $eventComponent->getVarHolder()->getAll()) ?>
+          <?php echo get_partial('informationobject/event', $sf_data->getRaw('eventComponent')->getVarHolder()->getAll()) ?>
 
         </section>
 
@@ -151,7 +151,7 @@
             ->help(__('Identifies the institution or repository holding the resource. Search for an existing repository name by typing the first few letters of the name. ALternatively, type a new name to create and link to a new repository record.'))
             ->renderHelp() ?>
           <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'repository', 'action' => 'add')) ?> #authorizedFormOfName"/>
-          <input class="list" type="hidden" value="<?php echo url_for($repoAcParams) ?>"/>
+          <input class="list" type="hidden" value="<?php echo url_for($sf_data->getRaw('repoAcParams')) ?>"/>
         </div>
 
         <?php echo render_field($form->scopeAndContent
@@ -164,7 +164,7 @@
 
         <legend><?php echo __('Rights area') ?></legend>
 
-        <?php echo get_partial('right/edit', $rightEditComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('right/edit', $sf_data->getRaw('rightEditComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset> <!-- #rightsArea -->
 

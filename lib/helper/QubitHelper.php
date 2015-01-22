@@ -38,10 +38,12 @@ function render_field($field, $resource, array $options = array())
   $div = null;
   $culture = sfContext::getInstance()->user->getCulture();
 
-  if (isset($resource)
-      && $culture != $resource->sourceCulture
-        && 0 < strlen($source = $resource->__get($options['name'], array('sourceCulture' => true)))
-          && 0 == strlen($resource->__get($options['name'])))
+  $resourceRaw = sfOutputEscaper::unescape($resource);
+
+  if (isset($resourceRaw)
+      && $culture != $resourceRaw->sourceCulture
+        && 0 < strlen($source = $resourceRaw->__get($options['name'], array('sourceCulture' => true)))
+          && 0 == strlen($resourceRaw->__get($options['name'])))
   {
     // TODO Are there cases where the direction of this <div/>'s containing
     // block isn't the direction of the current culture?
@@ -196,12 +198,12 @@ function render_treeview_node($item, array $classes = array(), array $options = 
 
     if (isset($item->levelOfDescription))
     {
-      $dataTitle[] = $item->levelOfDescription->__toString();
+      $dataTitle[] = esc_entities($item->levelOfDescription->__toString());
     }
 
     if ((null !== $status = $item->getPublicationStatus()) && QubitTerm::PUBLICATION_STATUS_DRAFT_ID == $status->statusId)
     {
-      $dataTitle[] = $item->getPublicationStatus()->__toString();
+      $dataTitle[] = esc_entities($item->getPublicationStatus()->__toString());
     }
 
     if (0 < count($dataTitle))
@@ -211,7 +213,7 @@ function render_treeview_node($item, array $classes = array(), array $options = 
   }
   else if ($item instanceof QubitTerm)
   {
-    $node .= ' data-title="'.sfConfig::get('app_ui_label_term').'"';
+    $node .= ' data-title="'.esc_entities(sfConfig::get('app_ui_label_term')).'"';
   }
 
   $node .= ' data-content="'.esc_entities(render_title($item)).'"';
@@ -231,12 +233,13 @@ function render_treeview_node($item, array $classes = array(), array $options = 
   }
   else
   {
-    if ($item instanceof QubitInformationObject)
+    $rawItem = sfOutputEscaper::unescape($item);
+    if ($rawItem instanceof QubitInformationObject)
     {
       // Level of description
       if (null !== $levelOfDescription = QubitTerm::getById($item->levelOfDescriptionId))
       {
-        $node .= '<span class="levelOfDescription">'.$levelOfDescription->getName().'</span>';
+        $node .= '<span class="levelOfDescription">'.esc_specialchars($levelOfDescription->getName()).'</span>';
       }
 
       // Title
@@ -256,7 +259,7 @@ function render_treeview_node($item, array $classes = array(), array $options = 
         $node .= '<span class="pubStatus">('.$status->__toString().')</span>';
       }
     }
-    else if ($item instanceof QubitTerm)
+    else if ($rawItem instanceof QubitTerm)
     {
       $action = isset($options['browser']) && true === $options['browser'] ? 'browseTerm' : 'index';
 
@@ -289,52 +292,109 @@ function check_field_visibility($fieldName, $options = array())
 
 function get_search_i18n($hit, $fieldName, $options = array())
 {
-  $userCulture = sfContext::getInstance()->user->getCulture();
-
-  if ($hit instanceof \Elastica\Result)
+  // If the fields requested to Elasticserach have been manually specified the
+  // fields will be flatterned, e.g. $r['i18n.es.title'] vs $r['i18n']['es']['title']
+  $flat = false;
+  if (isset($options['flat']))
   {
-    $hit = $hit->getData();
+    $flat = $options['flat'];
   }
 
-  $value = null;
-
-  if (isset($options['culture']) && isset($hit['i18n'][$options['culture']][$fieldName]))
+  // The default is to return "Untitled" unless allowEmpty is true
+  $allowEmpty = true;
+  if (isset($options['allowEmpty']))
   {
-    $value = $hit['i18n'][$options['culture']][$fieldName];
-  }
-  else if (isset($hit['i18n'][$userCulture][$fieldName]))
-  {
-    $value = $hit['i18n'][$userCulture][$fieldName];
-  }
-  else if ((!isset($options['cultureFallback']) || $options['cultureFallback'])
-    && isset($hit['i18n'][$hit['sourceCulture']][$fieldName]))
-  {
-    $value = $hit['i18n'][$hit['sourceCulture']][$fieldName];
+    $cultureFallback = $options['allowEmpty'];
   }
 
-  if (($value == null || $value == '')
-    && isset($options['allowEmpty']) && !$options['allowEmpty'])
+  // Use culture fallback? Default = true
+  $cultureFallback = true;
+  if (isset($options['cultureFallback']))
   {
-    $value = sfContext::getInstance()->i18n->__('Untitled');
+    $cultureFallback = $options['cultureFallback'];
   }
 
-  return $value;
-}
-
-function get_search_i18n_highlight(\Elastica\Result $hit, $fieldName, $options = array())
-{
-  if (!isset($options['culture']))
+  // Filter return value if empty
+  $showUntitled = function($value = null) use ($allowEmpty)
   {
-    $options['culture'] = sfContext::getInstance()->user->getCulture();
+    if (null !== $value || 0 < count($value))
+    {
+      return $value->get(0);
+    }
+
+    if ($allowEmpty)
+    {
+      return '';
+    }
+
+    return sfContext::getInstance()->i18n->__('Untitled');
+  };
+
+  if (empty($hit))
+  {
+    return $showUntitled();
   }
 
-  $highlights = $hit->getHighlights();
-  $field = 'i18n.'.$options['culture'].'.'.$fieldName;
-
-  if (isset($highlights[$field]))
+  if ($hit instanceof sfOutputEscaperObjectDecorator && 'Elastica\Result' == $hit->getClass())
   {
-    return $highlights[$field][0];
+    $hit = $hit->getData(); // type=sfOutputEscaperArrayDecorator
   }
+
+  $accessField = function($culture) use ($hit, $fieldName, $flat)
+  {
+    if ($flat)
+    {
+      $key = sprintf("i18n.%s.%s", $culture, $fieldName);
+      if (empty($hit->get($key)->get(0)))
+      {
+        return false;
+      }
+
+      return $hit->get($key)->get(0);
+    }
+    else
+    {
+      $i18nRaw = $hit->getRaw('i18n');
+      if (empty($i18nRaw[$culture][$fieldName]))
+      {
+        return false;
+      }
+
+      return $hit->get('i18n')->get($culture)->get($fieldName);
+    }
+  };
+
+  if (isset($options['culture']))
+  {
+    $v = $accessField($options['culture']);
+    if (false !== $v)
+    {
+      return $v;
+    }
+  }
+
+  $v = $accessField(sfContext::getInstance()->user->getCulture());
+  if (false !== $v)
+  {
+    return $v;
+  }
+
+  if ($cultureFallback)
+  {
+    $sourceCulture = $hit->get('sourceCulture');
+    if (empty($sourceCulture))
+    {
+      return $showUntitled();
+    }
+
+    $v = $accessField($sourceCulture);
+    if (false !== $v)
+    {
+      return $v;
+    }
+  }
+
+  return $showUntitled();
 }
 
 function get_search_creation_details($hit, $culture = null)
@@ -344,50 +404,21 @@ function get_search_creation_details($hit, $culture = null)
     $culture = sfContext::getInstance()->user->getCulture();
   }
 
-  if ($hit instanceof \Elastica\Result)
+  if ($hit instanceof sfOutputEscaperObjectDecorator && 'Elastica\Result' == $hit->getClass())
   {
-    $hit = $hit->getData();
+    $hit = $hit->getData(); // type=sfOutputEscaperArrayDecorator
   }
 
   $details = array();
 
-  // Get creator
-  if (isset($hit['creators']) && 0 < count($hit['creators']))
+  // Get creators
+  $creators = $hit->get('creators');
+  if (null !== $creators && 0 < count($creators))
   {
-    $creator = array_pop($hit['creators']);
-
-    $details[] = get_search_i18n($creator, 'authorizedFormOfName', true, true, $culture);
+    $details[] = get_search_i18n($creators->get(0), 'authorizedFormOfName', array('allowEmpty' => false, 'cultureFallback' => true));
   }
 
   // WIP, we are not showing labels for now. See #5202.
-  if (0 == count($details)) return null;
-  return implode(', ', $details);
-
-  ProjectConfiguration::getActive()->loadHelpers('Date');
-
-  // Get dates
-  if (isset($hit['dates']))
-  {
-    foreach ($hit['dates'] as $item)
-    {
-      if (QubitTerm::CREATION_ID == $item['typeId'])
-      {
-        if (isset($item['date']))
-        {
-          $details[] = $item['date'];
-        }
-        elseif (isset($item['startDate']) && isset($item['endDate']))
-        {
-          $details[] = Qubit::renderDateStartEnd(null,
-            format_date(strtotime($item['startDate']), 'yyyy-M-dd'),
-            format_date(strtotime($item['endDate']), 'yyyy-M-dd'));
-        }
-      }
-
-      // For now let's just print the first match
-      break;
-    }
-  }
 
   if (0 == count($details))
   {
@@ -399,9 +430,9 @@ function get_search_creation_details($hit, $culture = null)
 
 function get_search_autocomplete_string($hit)
 {
-  if ($hit instanceof \Elastica\Result)
+  if ($hit instanceof sfOutputEscaperObjectDecorator && 'Elastica\Result' == $hit->getClass())
   {
-    $hit = $hit->getData();
+    $hit = $hit->getData(); // type=sfOutputEscaperArrayDecorator
   }
 
   $string = array();

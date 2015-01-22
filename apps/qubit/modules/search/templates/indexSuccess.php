@@ -14,7 +14,7 @@
     <?php if (isset($repos)): ?>
       <span class="search-filter">
         <?php echo render_title($repos) ?>
-        <?php $params = $sf_request->getGetParameters() ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['repos']) ?>
         <a href="<?php echo url_for(array('module' => 'search') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
       </span>
@@ -23,7 +23,7 @@
     <?php if (isset($sf_request->onlyMedia)): ?>
       <span class="search-filter">
         <?php echo __('Only digital objects') ?>
-        <?php $params = $sf_request->getGetParameters() ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php unset($params['onlyMedia']) ?>
         <?php unset($params['page']) ?>
         <a href="<?php echo url_for(array('module' => 'search') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
@@ -33,7 +33,7 @@
     <?php if (isset($sf_request->topLod) && $sf_request->topLod): ?>
       <span class="search-filter">
         <?php echo __('Only top-level descriptions') ?>
-        <?php $params = $sf_request->getGetParameters() ?>
+        <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
         <?php $params['topLod'] = 0 ?>
         <a href="<?php echo url_for(array('module' => 'search', 'action' => 'index') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
       </span>
@@ -150,7 +150,7 @@
     <p>
       <?php echo __('%1% results with digital objects', array(
         '%1%' => $pager->facets['digitalobjects']['count'])) ?>
-      <?php $params = $sf_request->getGetParameters() ?>
+      <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
       <?php unset($params['page']) ?>
       <a href="<?php echo url_for(array('module' => 'search') + $params + array('onlyMedia' => true)) ?>">
         <i class="icon-search"></i>

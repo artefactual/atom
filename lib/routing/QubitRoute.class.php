@@ -29,6 +29,11 @@ class QubitRoute extends sfRoute
 
     if (isset($params[0]))
     {
+      if ($params[0] instanceof sfOutputEscaper)
+      {
+        $params[0] = sfOutputEscaper::unescape($params[0]);
+      }
+
       foreach (array_diff_key($this->params + $this->variables, $params) as $key => $ignore)
       {
         try

@@ -35,6 +35,17 @@ class StaticPageDeleteAction extends sfAction
     {
       $this->resource->delete();
 
+      // Invalidate static page content cache entry
+      if (null !== $cache = QubitCache::getInstance())
+      {
+        $languages = QubitSetting::getByScope('i18n_languages');
+        foreach ($languages as $culture)
+        {
+          $cacheKey = 'staticpage:'.$this->resource->id.':'.$culture;
+          $cache->remove($cacheKey);
+        }
+      }
+
       $this->redirect(array('module' => 'staticpage', 'action' => 'list'));
     }
   }

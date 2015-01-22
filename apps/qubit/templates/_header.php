@@ -14,7 +14,7 @@
 
   <?php if (sfConfig::get('app_toggleTitle')): ?>
     <h1 id="site-name">
-      <?php echo link_to('<span>'.sfConfig::get('app_siteTitle').'</span>', '@homepage', array('rel' => 'home', 'title' => __('Home'))) ?>
+      <?php echo link_to('<span>'.esc_specialchars(sfConfig::get('app_siteTitle')).'</span>', '@homepage', array('rel' => 'home', 'title' => __('Home'))) ?>
     </h1>
   <?php endif; ?>
 
@@ -49,7 +49,7 @@
     <div class="container">
       <div class="row">
         <div class="span12">
-          <span><?php echo sfConfig::get('app_siteDescription') ?></span>
+          <span><?php echo esc_specialchars(sfConfig::get('app_siteDescription')) ?></span>
         </div>
       </div>
     </div>

@@ -14,7 +14,7 @@
         <?php foreach ($browseMenu->getChildren() as $item): ?>
           <li>
             <a href="<?php echo url_for($item->getPath(array('getUrl' => true, 'resolveAlias' => true))) ?>">
-              <?php echo $item->getLabel(array('cultureFallback' => true)) ?>
+              <?php echo esc_specialchars($item->getLabel(array('cultureFallback' => true))) ?>
             </a>
           </li>
         <?php endforeach; ?>
@@ -27,7 +27,7 @@
 <?php end_slot() ?>
 
 <div class="page">
-  <?php echo render_value($resource->getContent(array('cultureFallback' => true))) ?>
+  <?php echo $sf_data->getRaw('content') ?>
 </div>
 
 <?php if (SecurityCheck::hasPermission($sf_user, array('module' => 'staticpage', 'action' => 'update'))): ?>

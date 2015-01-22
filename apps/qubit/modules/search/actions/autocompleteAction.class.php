@@ -56,11 +56,11 @@ class SearchAutocompleteAction extends sfAction
       array(
         'type' => 'QubitRepository',
         'field' => sprintf('i18n.%s.authorizedFormOfName', $culture),
-        'fields' => array('slug', sprintf('i18n.%s.title', $culture))),
+        'fields' => array('slug', sprintf('i18n.%s.authorizedFormOfName', $culture))),
       array(
         'type' => 'QubitActor',
         'field' => sprintf('i18n.%s.authorizedFormOfName', $culture),
-        'fields' => array('slug', sprintf('i18n.%s.title', $culture))),
+        'fields' => array('slug', sprintf('i18n.%s.authorizedFormOfName', $culture))),
       array(
         'type' => 'QubitTerm',
         'field' => sprintf('i18n.%s.name', $culture),
@@ -80,14 +80,7 @@ class SearchAutocompleteAction extends sfAction
       $query = new \Elastica\Query();
       $query
         ->setSize(3)
-        ->setFields($item['fields'])
-        ->setHighlight(array(
-            'require_field_match' => true, // Restrict highlighting to matched fields
-            'fields' => array(
-              $item['field'].'.autocomplete' => array(
-                  'fragment_size' => 100, // Size limit for the highlighted fragmetns
-                  'number_of_fragments' => 0, // Request the entire field
-              ))));
+        ->setFields($item['fields']);
 
       $queryBool = new \Elastica\Query\Bool;
 

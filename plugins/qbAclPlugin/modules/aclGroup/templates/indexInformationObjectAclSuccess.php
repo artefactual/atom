@@ -8,7 +8,7 @@
       <tr>
         <th colspan="2">&nbsp;</th>
         <?php foreach ($groups as $groupId): ?>
-          <th><?php echo render_title(QubitAclGroup::getById($groupId)) ?></th>
+          <th><?php echo esc_entities(render_title(QubitAclGroup::getById($groupId))) ?></th>
         <?php endforeach; ?>
       </tr>
     </thead>
@@ -38,10 +38,11 @@
                   <em><?php echo __('All privileges') ?></em>
                 <?php endif; ?>
               </td>
-              <?php foreach ($groups as $groupId): ?>
+              <?php foreach ($sf_data->getRaw('groups') as $groupId): ?>
                 <td>
                   <?php if (isset($groupPermission[$groupId]) && $permission = $groupPermission[$groupId]): ?>
                     <?php if ('translate' == $permission->action && null !== $permission->getConstants(array('name' => 'languages'))): ?>
+                      <?php $permission = sfOutputEscaper::unescape($permission) ?>
                       <?php echo __('%1%: %2%', array('%1%' => $permission->renderAccess(), '%2%' => implode(', ', $permission->getConstants(array('name' => 'languages'))))) ?>
                     <?php else: ?>
                       <?php echo __($permission->renderAccess()) ?>

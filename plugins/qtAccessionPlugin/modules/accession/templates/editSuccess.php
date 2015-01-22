@@ -55,7 +55,7 @@
 
         <legend><?php echo __('Donor/Transferring body area') ?></legend>
 
-        <?php echo get_partial('relatedDonor', $relatedDonorComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('relatedDonor', $sf_data->getRaw('relatedDonorComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset>
 
@@ -123,7 +123,7 @@
 
         <legend><?php echo __('Rights area') ?></legend>
 
-        <?php echo get_partial('right/edit', $rightEditComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('right/edit', $sf_data->getRaw('rightEditComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset>
 

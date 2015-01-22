@@ -12,7 +12,7 @@
     <div class="messages error">
       <ul>
         <?php foreach ($errorSchema as $error): ?>
-          <li><?php echo $error ?></li>
+          <li><?php echo $error->getMessage(ESC_RAW) ?></li>
         <?php endforeach; ?>
       </ul>
     </div>
@@ -20,7 +20,7 @@
 
   <section class="breadcrumb">
     <ul>
-      <li><?php echo link_to(sfConfig::get('app_ui_label_actor'), array('module' => 'actor', 'action' => 'browse')) ?></li>
+      <li><?php echo link_to(esc_specialchars(sfConfig::get('app_ui_label_actor')), array('module' => 'actor', 'action' => 'browse')) ?></li>
       <li><span><?php echo render_title($resource) ?></span></li>
     </ul>
   </section>

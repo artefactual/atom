@@ -16,7 +16,7 @@
         </th>
       </tr>
     </thead><tbody>
-      <?php foreach ($plugins as $name => $plugin): ?>
+      <?php foreach ($sf_data->getRaw('plugins') as $name => $plugin): ?>
         <tr>
           <td>
             <?php if (file_exists($plugin->getRootDir().'/images/image.png')): ?>

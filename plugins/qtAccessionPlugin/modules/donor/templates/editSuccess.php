@@ -34,7 +34,7 @@
 
         <legend><?php echo __('Contact area') ?></legend>
 
-        <?php echo get_partial('contactinformation/edit', $contactInformationEditComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('contactinformation/edit', $sf_data->getRaw('contactInformationEditComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset>
 

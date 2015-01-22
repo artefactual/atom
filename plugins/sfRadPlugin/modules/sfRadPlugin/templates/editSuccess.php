@@ -58,20 +58,20 @@
           ->help(__('"At the item level of description, transcribe explicit statements of responsibility appearing in conjunction with the formal title proper in or on the chief source of information..." (RAD 1.1F)'))
           ->label(__('Statement of responsibility')), $rad) ?>
 
-        <?php echo get_partial('informationobject/notes', $titleNotesComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('titleNotesComponent')->getVarHolder()->getAll()) ?>
 
         <?php echo $form->levelOfDescription
           ->help(__('Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.'))
           ->label(__('Level of description').' <span class="form-required" title="'.__('This is a mandatory element.').'">*</span>')
           ->renderRow() ?>
 
-        <?php echo get_partial('informationobject/childLevels', array('help' => __('<strong>Identifier:</strong> Enter an unambiguous code used to uniquely identify the description.<br/><strong>Level:</strong> Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.<br/><strong>Title:</strong> Enter the title proper, either transcribed or supplied. (RAD 1.1B)'))) ?>
+        <?php echo get_partial('informationobject/childLevels', array('help' => __('Identifier: Enter an unambiguous code used to uniquely identify the description. Level: Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description. Title: Enter the title proper, either transcribed or supplied. (RAD 1.1B)'))) ?>
 
         <div class="form-item">
           <?php echo $form->repository->renderLabel() ?>
           <?php echo $form->repository->render(array('class' => 'form-autocomplete')) ?>
           <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'repository', 'action' => 'add')) ?> #authorizedFormOfName"/>
-          <input class="list" type="hidden" value="<?php echo url_for($repoAcParams) ?>"/>
+          <input class="list" type="hidden" value="<?php echo url_for($sf_data->getRaw('repoAcParams')) ?>"/>
           <?php echo $form->repository
             ->help(__('Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.'))
             ->renderHelp() ?>
@@ -81,7 +81,7 @@
           ->help(__('Enter an unambiguous code used to uniquely identify the description.'))
           ->renderRow() ?>
 
-        <?php echo get_partial('informationobject/alternativeIdentifiers', $alternativeIdentifiersComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('informationobject/alternativeIdentifiers', $sf_data->getRaw('alternativeIdentifiersComponent')->getVarHolder()->getAll()) ?>
 
         <?php echo render_show(__('Reference code'), $rad->referenceCode) ?>
 
@@ -137,7 +137,7 @@
 
           <h3><?php echo __('Add new name and/or date(s)') ?></h3>
 
-          <?php echo get_partial('informationobject/event', $eventComponent->getVarHolder()->getAll()) ?>
+          <?php echo get_partial('informationobject/event', $sf_data->getRaw('eventComponent')->getVarHolder()->getAll()) ?>
 
         </div>
 
@@ -284,7 +284,7 @@
         <?php echo render_field($form->accruals
           ->help(__('"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)')), $resource, array('class' => 'resizable')) ?>
 
-        <?php echo get_partial('informationobject/notes', $otherNotesComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('otherNotesComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset> <!-- #notesArea -->
 
@@ -410,7 +410,7 @@
 
         <legend><?php echo __('Rights area') ?></legend>
 
-        <?php echo get_partial('right/edit', $rightEditComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('right/edit', $sf_data->getRaw('rightEditComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset> <!-- #rightsArea -->
 

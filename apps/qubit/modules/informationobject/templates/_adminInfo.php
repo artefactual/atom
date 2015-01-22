@@ -16,7 +16,7 @@
               <?php echo format_language($resource->sourceCulture) ?>
             <?php else: ?>
               <div class="default-translation">
-                <?php echo link_to(format_language($resource->sourceCulture), array('sf_culture' => $resource->sourceCulture) + $sf_request->getParameterHolder()->getAll()) ?>
+                <?php echo link_to(format_language($resource->sourceCulture), array('sf_culture' => $resource->sourceCulture) + $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?>
               </div>
             <?php endif; ?>
           <?php else: ?>

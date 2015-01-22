@@ -30,7 +30,7 @@
               <?php if ($hiddenType): ?>
                 <input type="hidden" name="<?php echo $arrayName ?>[<?php echo $i ?>][type]" value="<?php echo $hiddenTypeId ?>"/>
               <?php endif; ?>
-              <?php $form->setDefault('content', $item['content']); ?>
+              <?php $form->setDefault('content', $item->getContent()); ?>
               <?php echo render_field($form->content, $item, array('onlyInput' => true, 'class' => 'resizable')) ?>
             </div>
           </td>

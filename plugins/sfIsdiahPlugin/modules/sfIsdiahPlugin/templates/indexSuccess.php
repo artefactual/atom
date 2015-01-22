@@ -16,7 +16,7 @@
     <div class="messages error">
       <ul>
         <?php foreach ($errorSchema as $error): ?>
-          <li><?php echo $error ?></li>
+          <li><?php echo $error->getMessage(ESC_RAW) ?></li>
         <?php endforeach; ?>
       </ul>
     </div>
@@ -24,7 +24,7 @@
 
   <section class="breadcrumb">
     <ul>
-      <li><?php echo link_to(sfConfig::get('app_ui_label_repository'), array('module' => 'repository', 'action' => 'browse')) ?></li>
+      <li><?php echo link_to(esc_specialchars(sfConfig::get('app_ui_label_repository')), array('module' => 'repository', 'action' => 'browse')) ?></li>
       <li><span><?php echo render_title($resource) ?></span></li>
     </ul>
   </section>
@@ -37,10 +37,10 @@
     </div>
   <?php endif; ?>
 
-  <?php if (null !== $resource->htmlSnippet && null !== $resource->htmlSnippet->getValue()): ?>
+  <?php if (!empty($sf_data->getRaw('htmlSnippet'))): ?>
     <div class="row" id="repository-html-snippet">
       <div class="span7">
-        <?php echo $resource->htmlSnippet ?>
+        <?php echo $sf_data->getRaw('htmlSnippet') // Using htmlpurifier ?>
       </div>
     </div>
   <?php endif; ?>
@@ -54,7 +54,7 @@
   <?php if (isset($primaryContact)): ?>
     <section id="primary-contact">
       <h4><?php echo __('Primary contact') ?></h4>
-      <?php echo $primaryContact->getContactInformationString(array('simple' => true)) ?>
+      <?php echo $sf_data->getRaw('primaryContact')->getContactInformationString(array('simple' => true)) ?>
       <div class="context-actions">
         <?php if (null !== $website = $primaryContact->getWebsite()): ?>
           <a class="btn btn-small" href="<?php echo esc_entities($website) ?>"><?php echo __('Website') ?></a>

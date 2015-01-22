@@ -36,12 +36,18 @@ class StaticPageEditAction extends DefaultEditAction
     {
       $this->resource = $this->getRoute()->resource;
 
+      $this->new = false;
+
       if (1 > strlen($title = $this->resource->__toString()))
       {
         $title = $this->context->i18n->__('Untitled');
       }
 
       $title = $this->context->i18n->__('Edit %1%', array('%1%' => $title));
+    }
+    else
+    {
+      $this->new = true;
     }
 
     $this->response->setTitle("$title - {$this->response->getTitle()}");
@@ -105,6 +111,17 @@ class StaticPageEditAction extends DefaultEditAction
         $this->processForm();
 
         $this->resource->save();
+
+        // Invalidate static page content cache entry
+        if (!$this->new && null !== $cache = QubitCache::getInstance())
+        {
+          $languages = QubitSetting::getByScope('i18n_languages');
+          foreach ($languages as $culture)
+          {
+            $cacheKey = 'staticpage:'.$this->resource->id.':'.$culture;
+            $cache->remove($cacheKey);
+          }
+        }
 
         $this->redirect(array($this->resource, 'module' => 'staticpage'));
       }

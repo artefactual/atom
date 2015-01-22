@@ -37,7 +37,7 @@
 
   <?php foreach (QubitRelation::getRelationsBySubjectId($resource->id, array('typeId' => QubitTerm::DONOR_ID)) as $item): ?>
 
-    <?php echo render_show(__('Related donor'), link_to(render_title($item->object), array($item->object, 'module' => 'donor'))) ?>
+    <?php echo render_show(__('Related donor'), link_to(esc_specialchars(render_title($item->object)), array($item->object, 'module' => 'donor'))) ?>
 
     <?php foreach ($item->object->contactInformations as $contactItem): ?>
       <?php echo get_partial('contactinformation/contactInformation', array('contactInformation' => $contactItem)) ?>
@@ -126,7 +126,7 @@
     <div class="field">
       <h3><?php echo sfConfig::get('app_ui_label_informationobject') ?></h3>
       <div>
-        <?php echo link_to(render_title($item->subject), array($item->subject, 'module' => 'informationobject')) ?>
+        <?php echo link_to(esc_specialchars(render_title($item->subject)), array($item->subject, 'module' => 'informationobject')) ?>
       </div>
     </div>
 

@@ -7,16 +7,16 @@
   <article class="search-result">
 <?php endif; ?>
 
-  <?php if (isset($doc['hasDigitalObject'])): ?>
+  <?php if (isset($doc['hasDigitalObject']) && true === $doc['hasDigitalObject']): ?>
 
     <div class="search-result-preview">
 
       <?php if (isset($doc['digitalObject']['thumbnailPath'])): ?>
+
         <a href="<?php echo url_for(array('module' => 'informationobject', 'slug' => $doc['slug'])) ?>">
           <div class="preview-container">
             <?php if (QubitAcl::check(QubitInformationObject::getById($hit->getId()), 'readThumbnail') &&
                       QubitGrantedRight::checkPremis($hit->getId(), 'readThumb')): ?>
-
               <?php echo image_tag($doc['digitalObject']['thumbnailPath']) ?>
             <?php else: ?>
               <?php echo image_tag(QubitDigitalObject::getGenericIconPathByMediaTypeId($doc['digitalObject']['mediaTypeId'])) ?>
@@ -42,7 +42,7 @@
       <?php endif; ?>
 
       <?php if (isset($doc['levelOfDescriptionId']) && !empty($doc['levelOfDescriptionId'])): ?>
-        <li class="level-description"><?php echo QubitCache::getLabel($doc['levelOfDescriptionId'], 'QubitTerm') ?></li>
+        <li class="level-description"><?php echo esc_specialchars(QubitCache::getLabel($doc['levelOfDescriptionId'], 'QubitTerm')) ?></li>
       <?php endif; ?>
 
       <?php if (isset($doc['dates'])): ?>
