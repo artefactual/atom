@@ -59,6 +59,39 @@ class QubitXmlImport
       $this->errors = array_merge((array) $this->errors, $xmlerrors);
     }
 
+    // Add local XML catalog for EAD DTD and DC and MODS XSD validations
+    putenv('XML_CATALOG_FILES='.sfConfig::get('sf_data_dir').DIRECTORY_SEPARATOR.'xml'.DIRECTORY_SEPARATOR.'catalog.xml');
+
+    if ('mods' == $importDOM->documentElement->tagName)
+    {
+      // XSD validation for MODS
+      $schema = sfConfig::get('sf_data_dir').DIRECTORY_SEPARATOR.'xsd'.DIRECTORY_SEPARATOR.'mods.xsd';
+
+      if (!$importDOM->schemaValidate($schema))
+      {
+        $this->errors[] = 'XSD validation failed';
+      }
+
+      // Populate errors to show in the template
+      foreach (libxml_get_errors() as $libxmlerror)
+      {
+        $this->errors[] = sfContext::getInstance()->i18n->__('libxml error %code% on line %line% in input file: %message%', array('%code%' => $libxmlerror->code, '%message%' => $libxmlerror->message, '%line%' => $libxmlerror->line));
+      }
+
+      $parser = new sfModsConvertor();
+      if ($parser->parse($xmlFile))
+      {
+        $this->rootObject = $parser->getResource();
+      }
+      else
+      {
+        $errorData = $parser->getErrorData();
+        $this->errors[] = array(sfContext::getInstance()->i18n->__('SAX xml parse error %code% on line %line% in input file: %message%', array('%code%' => $errorData['code'], '%message%' => $errorData['string'], '%line%' => $errorData['line'])));
+      }
+
+      return $this;
+    }
+
     if ('eac-cpf' == $importDOM->documentElement->tagName)
     {
       $this->rootObject = new QubitActor;
@@ -126,6 +159,10 @@ class QubitXmlImport
       if (array_key_exists($descriptor, $validSchemas))
       {
         $importSchema = $validSchemas[$descriptor];
+
+        // Store the used descriptor to differentiate between
+        // oai_dc:dc and simple dc in XSD validation
+        $usedDescriptor = $descriptor;
       }
     }
 
@@ -137,6 +174,32 @@ class QubitXmlImport
         $importDOM->validate();
 
         // if libxml threw errors, populate them to show in the template
+        foreach (libxml_get_errors() as $libxmlerror)
+        {
+          $this->errors[] = sfContext::getInstance()->i18n->__('libxml error %code% on line %line% in input file: %message%', array('%code%' => $libxmlerror->code, '%message%' => $libxmlerror->message, '%line%' => $libxmlerror->line));
+        }
+
+        break;
+
+      case 'dc':
+
+        // XSD validation for DC
+        $schema = sfConfig::get('sf_data_dir').DIRECTORY_SEPARATOR.'xsd'.DIRECTORY_SEPARATOR;
+        if ($usedDescriptor == 'oai_dc:dc')
+        {
+          $schema .= 'oai_dc.xsd';
+        }
+        else
+        {
+          $schema .= 'simpledc20021212.xsd';
+        }
+
+        if (!$importDOM->schemaValidate($schema))
+        {
+          $this->errors[] = 'XSD validation failed';
+        }
+
+        // Populate errors to show in the template
         foreach (libxml_get_errors() as $libxmlerror)
         {
           $this->errors[] = sfContext::getInstance()->i18n->__('libxml error %code% on line %line% in input file: %message%', array('%code%' => $libxmlerror->code, '%message%' => $libxmlerror->message, '%line%' => $libxmlerror->line));

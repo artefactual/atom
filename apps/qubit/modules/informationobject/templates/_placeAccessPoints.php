@@ -2,6 +2,8 @@
 
   <?php if (isset($sidebar)): ?>
     <h4><?php echo __('Related places') ?></h4>
+  <?php elseif (isset($mods)): ?>
+    <h3><?php echo __('Places') ?></h3>
   <?php else: ?>
     <h3><?php echo __('Place access points') ?></h3>
   <?php endif; ?>

@@ -127,6 +127,14 @@
       'open' => true)) ?>
 
     <?php echo get_partial('search/facet', array(
+      'target' => '#facet-genres',
+      'label' => sfConfig::get('app_ui_label_genre'),
+      'facet' => 'genres',
+      'pager' => $pager,
+      'filters' => $filters,
+      'open' => true)) ?>
+
+    <?php echo get_partial('search/facet', array(
       'target' => '#facet-mediaTypes',
       'label' => __('Media types'),
       'facet' => 'mediatypes',

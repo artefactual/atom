@@ -76,7 +76,10 @@ class QubitTaxonomy extends BaseTaxonomy
     GEOGRAPHIC_SUBREGION_ID = 73,
 
     // DACS notes
-    DACS_NOTE_ID = 74;
+    DACS_NOTE_ID = 74,
+
+    // Genre taxonomy
+    GENRE_ID = 78;
 
   public static
     $lockedTaxonomies = array(

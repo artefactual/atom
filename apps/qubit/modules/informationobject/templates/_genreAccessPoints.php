@@ -1,16 +1,16 @@
 <div class="field">
 
   <?php if (isset($sidebar)): ?>
-    <h4><?php echo __('Related subjects') ?></h4>
+    <h4><?php echo __('Related genres') ?></h4>
   <?php elseif (isset($mods)): ?>
-    <h3><?php echo __('Subjects') ?></h3>
+    <h3><?php echo __('Genres') ?></h3>
   <?php else: ?>
-    <h3><?php echo __('Subject access points') ?></h3>
+    <h3><?php echo __('Genre access points') ?></h3>
   <?php endif; ?>
 
   <div>
     <ul>
-      <?php foreach ($resource->getSubjectAccessPoints() as $item): ?>
+      <?php foreach ($resource->getTermRelations(QubitTaxonomy::GENRE_ID) as $item): ?>
         <li>
           <?php foreach ($item->term->ancestors->andSelf()->orderBy('lft') as $key => $subject): ?>
             <?php if (QubitTerm::ROOT_ID == $subject->id) continue; ?>

@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 115
+    value: 117
   milestone:
     name: milestone
     editable: 0
@@ -459,6 +459,14 @@ QubitSetting:
     source_culture: en
     value:
       en: 'This record has not yet been reviewed for personal or confidential information. Please contact the Reference Archivist to request access and initiate an access review.'
+  QubitSetting_genre:
+    name: genre
+    scope: ui_label
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value:
+      en: 'Genre'
   QubitSetting_26:
     name: en
     scope: i18n_languages

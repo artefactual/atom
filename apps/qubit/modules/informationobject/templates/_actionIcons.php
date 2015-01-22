@@ -48,7 +48,7 @@
       <li>
         <a href="<?php echo url_for(array($resource, 'module' => 'sfModsPlugin', 'sf_format' => 'xml')) ?>">
           <i class="icon-upload-alt"></i>
-          <?php echo __('MODS 3.3 XML') ?>
+          <?php echo __('MODS 3.5 XML') ?>
         </a>
       </li>
     <?php endif; ?>

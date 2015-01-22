@@ -712,22 +712,27 @@ class arElasticSearchInformationObjectPdo
 
   public function getMaterialTypeId()
   {
-    if (!isset(self::$statements['materialType']))
+    return $this->getObjectTermRelations('materialType', QubitTaxonomy::MATERIAL_TYPE_ID);
+  }
+
+  protected function getObjectTermRelations($statementType, $taxonomyId)
+  {
+    if (!isset(self::$statements[$statementType]))
     {
       $sql  = 'SELECT term.id';
       $sql .= ' FROM '.QubitObjectTermRelation::TABLE_NAME.' otr';
       $sql .= ' JOIN '.QubitTerm::TABLE_NAME.' term
                   ON otr.term_id = term.id';
       $sql .= ' WHERE object_id = ?';
-      $sql .= ' AND term.taxonomy_id = '.QubitTaxonomy::MATERIAL_TYPE_ID;
+      $sql .= ' AND term.taxonomy_id = '.$taxonomyId;
 
-      self::$statements['materialType'] = self::$conn->prepare($sql);
+      self::$statements[$statementType] = self::$conn->prepare($sql);
     }
 
-    self::$statements['materialType']->execute(array(
+    self::$statements[$statementType]->execute(array(
       $this->__get('id')));
 
-    return self::$statements['materialType']->fetchAll(PDO::FETCH_OBJ);
+    return self::$statements[$statementType]->fetchAll(PDO::FETCH_OBJ);
   }
 
   public function getStorageNames()
@@ -1402,6 +1407,13 @@ class arElasticSearchInformationObjectPdo
     {
       $node = new arElasticSearchActorPdo($item->id);
       $serialized['names'][] = $node->serialize();
+    }
+
+    // Genres
+    foreach ($this->getRelatedTerms(QubitTaxonomy::GENRE_ID) as $item)
+    {
+      $node = new arElasticSearchTermPdo($item->id);
+      $serialized['genres'][] = $node->serialize();
     }
 
     // Creators

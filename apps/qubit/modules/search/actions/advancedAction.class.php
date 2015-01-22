@@ -347,6 +347,13 @@ class SearchAdvancedAction extends DefaultBrowseAction
 
           break;
 
+        case 'genre':
+          $queryField = new \Elastica\Query\QueryString($query);
+          $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('genres.i18n.%s.name'));
+          $queryField->setDefaultOperator('OR');
+
+          break;
+
         case 'subject':
           $queryField = new \Elastica\Query\QueryString($query);
           $queryField->setFields(arElasticSearchPluginUtil::getI18nFieldNames('subjects.i18n.%s.name'));

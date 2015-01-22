@@ -65,6 +65,11 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
               'field'  => 'subjects.id',
               'filter' => 'hideDrafts',
               'size'   => 10),
+      'genres' =>
+        array('type'   => 'term',
+              'field'  => 'genres.id',
+              'filter' => 'hideDrafts',
+              'size'   => 10),
       'creators' =>
         array('type'   => 'term',
               'field'  => 'creators.id',
@@ -105,6 +110,7 @@ class InformationObjectBrowseAction extends DefaultBrowseAction
       case 'mediatypes':
       case 'places':
       case 'subjects':
+      case 'genres':
         $criteria = new Criteria;
         $criteria->add(QubitTerm::ID, array_keys($ids), Criteria::IN);
 

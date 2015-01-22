@@ -48,6 +48,15 @@
             'pager' => $pager,
             'filters' => $filters)) ?>
 
+        <?php if (QubitTaxonomy::GENRE_ID == $resource->taxonomyId): ?>
+
+          <?php echo get_partial('search/facet', array(
+            'target' => '#facet-genres',
+            'label' => sfConfig::get('app_ui_label_genre'),
+            'facet' => 'genres',
+            'pager' => $pager,
+            'filters' => $filters)) ?>
+
         <?php elseif (QubitTaxonomy::SUBJECT_ID == $resource->taxonomyId): ?>
 
           <?php echo get_partial('search/facet', array(

@@ -113,6 +113,34 @@
           <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::SUBJECT_ID), 'module' => 'taxonomy')))) ?>"/>
         </div>
 
+        <div class="form-item">
+          <?php echo $form->placeAccessPoints
+            ->label(__('Places'))
+            ->renderLabel() ?>
+          <?php echo $form->placeAccessPoints->render(array('class' => 'form-autocomplete')) ?>
+          <?php if (QubitAcl::check(QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'createTerm')): ?>
+            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'add', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'module' => 'taxonomy')))) ?> #name"/>
+          <?php endif; ?>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'term', 'action' => 'autocomplete', 'taxonomy' => url_for(array(QubitTaxonomy::getById(QubitTaxonomy::PLACE_ID), 'module' => 'taxonomy')))) ?>"/>
+          <?php echo $form->placeAccessPoints
+            ->help(__('Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.'))
+            ->renderHelp() ?>
+        </div>
+
+        <div class="form-item">
+          <?php echo $form->nameAccessPoints
+            ->label(__('Names'))
+            ->renderLabel() ?>
+          <?php echo $form->nameAccessPoints->render(array('class' => 'form-autocomplete')) ?>
+          <?php if (QubitAcl::check(QubitActor::getRoot(), 'create')): ?>
+            <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'add')) ?> #authorizedFormOfName"/>
+          <?php endif; ?>
+          <input class="list" type="hidden" value="<?php echo url_for(array('module' => 'actor', 'action' => 'autocomplete', 'showOnlyActors' => 'true')) ?>"/>
+          <?php echo $form->nameAccessPoints
+            ->help(__('"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.'))
+            ->renderHelp() ?>
+        </div>
+
         <?php echo render_field($form->accessConditions
           ->help(__('Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.')), $resource, array('class' => 'resizable')) ?>
 
@@ -125,6 +153,10 @@
           <input class="add" type="hidden" value="<?php echo url_for(array('module' => 'repository', 'action' => 'add')) ?> #authorizedFormOfName"/>
           <input class="list" type="hidden" value="<?php echo url_for($repoAcParams) ?>"/>
         </div>
+
+        <?php echo render_field($form->scopeAndContent
+          ->help(__('An abstract, table of contents or description of the resource\'s scope and contents.'))
+          ->label(__('Description')), $resource, array('class' => 'resizable')) ?>
 
       </fieldset> <!-- #elementsArea -->
 

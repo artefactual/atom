@@ -92,6 +92,19 @@ class sfModsPlugin implements ArrayAccess
     return $baseUrl;
   }
 
+  public function getDateTagNameForEventType($typeId)
+  {
+    switch ($typeId)
+    {
+      case QubitTerm::CREATION_ID:
+        return 'dateCreated';
+      case QubitTerm::PUBLICATION_ID:
+        return 'dateIssued';
+      default:
+        return 'dateOther';
+    }
+  }
+
   public function __get($name)
   {
     switch ($name)
@@ -145,43 +158,6 @@ class sfModsPlugin implements ArrayAccess
 
         return $name;
 
-      case 'physicalLocation':
-        $list = array();
-
-        if (isset($this->resource->repository))
-        {
-          $list[] = $this->resource->repository->authorizedFormOfName;
-
-          if (isset($this->resource->repository->identifier))
-          {
-            $list[] = $this->resource->repository->identifier;
-          }
-
-          if (null !== $contact = $this->resource->repository->getPrimaryContact())
-          {
-            $physicalLocation = array();
-
-            if (isset($contact->city))
-            {
-              $physicalLocation[] = $contact->city;
-            }
-
-            if (isset($contact->region))
-            {
-              $physicalLocation[] = $contact->region;
-            }
-
-            if (isset($contact->countryCode))
-            {
-              $physicalLocation[] = format_country($contact->countryCode);
-            }
-
-            $list[] = implode(', ', $physicalLocation);
-          }
-        }
-
-        return $list;
-
       case 'sourceCulture':
 
         return $this->resource->sourceCulture;
@@ -190,16 +166,54 @@ class sfModsPlugin implements ArrayAccess
 
         return $this->resource->getTermRelations(QubitTaxonomy::MODS_RESOURCE_TYPE_ID);
 
-      case 'materialTypes':
+      case 'typeOfResourceForXml':
 
-        $materialTypes = array();
+        $typeOfResources = array();
 
-        foreach ($this->resource->getTermRelations(QubitTaxonomy::MATERIAL_TYPE_ID) as $relation)
+        // Map to translate RAD GMD terms to MODS resource types
+        $map = array(
+          'architectural drawing' => 'still image',
+          'cartographic material' => 'cartographic',
+          'graphic material'      => 'still image',
+          'moving images'         => 'moving image',
+          'multiple media'        => 'mixed material',
+          'object'                => 'three dimensional object',
+          'philatelic record'     => 'still image',
+          'sound recording'       => 'sound recording',
+          'technical drawing'     => 'still image',
+          'textual record'        => 'text'
+        );
+
+        // Real MODS resource types
+        foreach ($this->resource->getTermRelations(QubitTaxonomy::MODS_RESOURCE_TYPE_ID) as $relation)
         {
-          array_push($materialTypes, $relation->term->getName(array('cultureFallback' => true)));
+          $typeOfResources[] = $relation->term->getName(array('culture' => 'en'));
         }
 
-        return $materialTypes;
+        // Translated RAD material types
+        foreach ($this->resource->getTermRelations(QubitTaxonomy::MATERIAL_TYPE_ID) as $relation)
+        {
+          $gmd = trim(strtolower($relation->term->getName(array('culture' => 'en'))));
+
+          if (isset($map[$gmd]))
+          {
+            $typeOfResources[] = $map[$gmd];
+          }
+        }
+
+        // Return without duplicates
+        return array_unique($typeOfResources);
+
+      case 'genres':
+
+        $genres = array();
+
+        foreach ($this->resource->getTermRelations(QubitTaxonomy::GENRE_ID) as $relation)
+        {
+          array_push($genres, $relation->term->getName(array('cultureFallback' => true)));
+        }
+
+        return $genres;
 
       case 'languageNotes':
 
@@ -210,6 +224,10 @@ class sfModsPlugin implements ArrayAccess
         return $this->getMatchingRadNotesByName('Alpha-numeric designations');
 
       case 'generalNotes':
+
+        return $this->getNoteTexts(QubitTerm::GENERAL_NOTE_ID);
+
+      case 'radGeneralNotes':
 
         return $this->getMatchingRadNotesByName('General note');
 

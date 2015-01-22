@@ -76,6 +76,7 @@ class sfRadPluginEditAction extends InformationObjectEditAction
       'statementOfScaleArchitectural',
       'statementOfScaleCartographic',
       'subjectAccessPoints',
+      'genreAccessPoints',
       'descriptionStatus',
       'title',
       'titleStatementOfResponsibility',

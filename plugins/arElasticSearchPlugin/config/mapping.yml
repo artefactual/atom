@@ -254,6 +254,7 @@ mapping:
       creators: actor
       subjects: term
       places: term
+      genres: term
       dates: event
       aip: aip
       mets_data: mets_data
@@ -280,6 +281,7 @@ mapping:
       transcript: { type: string, index: analyzed, include_in_all: true }
       direct_subjects: { type: integer, index: not_analyzed, include_in_all: false }
       direct_places: { type: integer, index: not_analyzed, include_in_all: false }
+      direct_genres: { type: integer, index: not_analyzed, include_in_all: false }
       has_digital_object: { type: boolean, index: not_analyzed, include_in_all: false }
       digital_object:
         type: object

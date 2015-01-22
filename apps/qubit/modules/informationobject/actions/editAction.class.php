@@ -258,6 +258,7 @@ class InformationObjectEditAction extends DefaultEditAction
 
         break;
 
+      case 'genreAccessPoints':
       case 'subjectAccessPoints':
       case 'placeAccessPoints':
         $criteria = new Criteria;
@@ -265,6 +266,11 @@ class InformationObjectEditAction extends DefaultEditAction
         $criteria->addJoin(QubitObjectTermRelation::TERM_ID, QubitTerm::ID);
         switch ($name)
         {
+          case 'genreAccessPoints':
+            $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::GENRE_ID);
+
+            break;
+
           case 'subjectAccessPoints':
             $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::SUBJECT_ID);
 
@@ -358,6 +364,7 @@ class InformationObjectEditAction extends DefaultEditAction
 
         break;
 
+      case 'genreAccessPoints':
       case 'subjectAccessPoints':
       case 'placeAccessPoints':
         $value = $filtered = array();
