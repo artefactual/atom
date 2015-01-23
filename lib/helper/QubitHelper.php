@@ -345,12 +345,13 @@ function get_search_i18n($hit, $fieldName, $options = array())
     if ($flat)
     {
       $key = sprintf("i18n.%s.%s", $culture, $fieldName);
-      if (empty($hit->get($key)->get(0)))
+      $r = $hit->get($key)->get(0);
+      if (empty($r))
       {
         return false;
       }
 
-      return $hit->get($key)->get(0);
+      return $r;
     }
     else
     {
