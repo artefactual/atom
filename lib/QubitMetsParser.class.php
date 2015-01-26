@@ -503,9 +503,6 @@ class QubitMetsParser
         'type' => 'string'),
       'mimeType' => array(
         'xpath' => $this->objectXpath.'p:objectCharacteristics/p:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/fileUtilityOutput/mimetype',
-        'type' => 'string'),
-      'exiftoolRawOutput' => array(
-        'xpath' => $this->objectXpath.'p:objectCharacteristics/p:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/exiftool/rawOutput',
         'type' => 'string'));
 
     foreach ($fields as $fieldName => $options)
