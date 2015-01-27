@@ -370,7 +370,7 @@ class arElasticSearchInformationObjectPdo
         $sql .= ' FROM '.QubitEvent::TABLE_NAME.' event';
         $sql .= ' JOIN '.QubitEventI18n::TABLE_NAME.' i18n
                     ON event.id = i18n.id';
-        $sql .= ' WHERE event.information_object_id = ?';
+        $sql .= ' WHERE event.object_id = ?';
 
         self::$statements['event'] = self::$conn->prepare($sql);
       }

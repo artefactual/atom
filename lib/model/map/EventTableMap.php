@@ -42,7 +42,7 @@ class EventTableMap extends TableMap {
 		$this->addColumn('END_DATE', 'endDate', 'DATE', false, null, null);
 		$this->addColumn('END_TIME', 'endTime', 'TIME', false, null, null);
 		$this->addForeignKey('TYPE_ID', 'typeId', 'INTEGER', 'term', 'ID', true, null, null);
-		$this->addForeignKey('INFORMATION_OBJECT_ID', 'informationObjectId', 'INTEGER', 'information_object', 'ID', false, null, null);
+		$this->addForeignKey('OBJECT_ID', 'objectId', 'INTEGER', 'object', 'ID', false, null, null);
 		$this->addForeignKey('ACTOR_ID', 'actorId', 'INTEGER', 'actor', 'ID', false, null, null);
 		$this->addColumn('SOURCE_CULTURE', 'sourceCulture', 'VARCHAR', true, 7, null);
 		// validators
@@ -53,9 +53,9 @@ class EventTableMap extends TableMap {
 	 */
 	public function buildRelations()
 	{
-    $this->addRelation('object', 'object', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('objectRelatedByid', 'object', RelationMap::MANY_TO_ONE, array('id' => 'id', ), 'CASCADE', null);
     $this->addRelation('term', 'term', RelationMap::MANY_TO_ONE, array('type_id' => 'id', ), 'CASCADE', null);
-    $this->addRelation('informationObject', 'informationObject', RelationMap::MANY_TO_ONE, array('information_object_id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('objectRelatedByobjectId', 'object', RelationMap::MANY_TO_ONE, array('object_id' => 'id', ), 'CASCADE', null);
     $this->addRelation('actor', 'actor', RelationMap::MANY_TO_ONE, array('actor_id' => 'id', ), null, null);
     $this->addRelation('eventI18n', 'eventI18n', RelationMap::ONE_TO_MANY, array('id' => 'id', ), 'CASCADE', null);
 	} // buildRelations()

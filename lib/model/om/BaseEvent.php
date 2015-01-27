@@ -13,7 +13,7 @@ abstract class BaseEvent extends QubitObject implements ArrayAccess
     END_DATE = 'event.END_DATE',
     END_TIME = 'event.END_TIME',
     TYPE_ID = 'event.TYPE_ID',
-    INFORMATION_OBJECT_ID = 'event.INFORMATION_OBJECT_ID',
+    OBJECT_ID = 'event.OBJECT_ID',
     ACTOR_ID = 'event.ACTOR_ID',
     SOURCE_CULTURE = 'event.SOURCE_CULTURE';
 
@@ -29,7 +29,7 @@ abstract class BaseEvent extends QubitObject implements ArrayAccess
     $criteria->addSelectColumn(QubitEvent::END_DATE);
     $criteria->addSelectColumn(QubitEvent::END_TIME);
     $criteria->addSelectColumn(QubitEvent::TYPE_ID);
-    $criteria->addSelectColumn(QubitEvent::INFORMATION_OBJECT_ID);
+    $criteria->addSelectColumn(QubitEvent::OBJECT_ID);
     $criteria->addSelectColumn(QubitEvent::ACTOR_ID);
     $criteria->addSelectColumn(QubitEvent::SOURCE_CULTURE);
 
@@ -233,9 +233,9 @@ abstract class BaseEvent extends QubitObject implements ArrayAccess
     return $criteria;
   }
 
-  public static function addJoininformationObjectCriteria(Criteria $criteria)
+  public static function addJoinobjectCriteria(Criteria $criteria)
   {
-    $criteria->addJoin(QubitEvent::INFORMATION_OBJECT_ID, QubitInformationObject::ID);
+    $criteria->addJoin(QubitEvent::OBJECT_ID, QubitObject::ID);
 
     return $criteria;
   }

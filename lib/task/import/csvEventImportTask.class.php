@@ -191,7 +191,7 @@ EOF;
             }
 
             $event = new QubitEvent;
-            $event->informationObjectId = $objectId;
+            $event->objectId = $objectId;
             $event->typeId              = $typeId;
             $event->actorId             = $subjectId;
             $event->save();

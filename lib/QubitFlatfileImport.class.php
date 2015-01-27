@@ -1047,7 +1047,7 @@ class QubitFlatfileImport
     {
       // Create new event
       $event = new QubitEvent;
-      $event->informationObjectId = $this->object->id;
+      $event->objectId = $this->object->id;
       $event->typeId = $typeId;
     }
 

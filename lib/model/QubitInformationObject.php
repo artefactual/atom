@@ -261,7 +261,7 @@ class QubitInformationObject extends BaseInformationObject
       $item->indexOnSave = false;
 
       // TODO Needed if $this is new, should be transparent
-      $item->informationObject = $this;
+      $item->object = $this;
 
       try
       {
@@ -656,7 +656,7 @@ class QubitInformationObject extends BaseInformationObject
   {
     $criteria = new Criteria;
     $criteria->addJoin(QubitActor::ID, QubitEvent::ACTOR_ID);
-    $criteria->add(QubitEvent::INFORMATION_OBJECT_ID, $this->id);
+    $criteria->add(QubitEvent::OBJECT_ID, $this->id);
 
     if (isset($options['eventTypeId']))
     {
@@ -708,7 +708,7 @@ class QubitInformationObject extends BaseInformationObject
   public function getActorEvents(array $options = array())
   {
     $criteria = new Criteria;
-    $criteria->add(QubitEvent::INFORMATION_OBJECT_ID, $this->id);
+    $criteria->add(QubitEvent::OBJECT_ID, $this->id);
     $criteria->add(QubitEvent::ACTOR_ID, null, Criteria::ISNOTNULL);
     if (isset($options['eventTypeId']))
     {
@@ -722,7 +722,7 @@ class QubitInformationObject extends BaseInformationObject
   public function getCreationEvents()
   {
     $criteria = new Criteria;
-    $criteria->add(QubitEvent::INFORMATION_OBJECT_ID, $this->id);
+    $criteria->add(QubitEvent::OBJECT_ID, $this->id);
     $criteria->add(QubitEvent::TYPE_ID, QubitTerm::CREATION_ID);
 
     $criteria->addDescendingOrderByColumn(QubitEvent::START_DATE);
@@ -736,7 +736,7 @@ class QubitInformationObject extends BaseInformationObject
   public function getDates(array $options = array())
   {
     $criteria = new Criteria;
-    $criteria->add(QubitEvent::INFORMATION_OBJECT_ID, $this->id);
+    $criteria->add(QubitEvent::OBJECT_ID, $this->id);
 
     $criteria->addMultipleJoin(array(
       array(QubitEvent::ID, QubitEventI18n::ID),
@@ -782,7 +782,7 @@ class QubitInformationObject extends BaseInformationObject
   {
     $criteria = new Criteria;
 
-    $criteria->add(QubitEvent::INFORMATION_OBJECT_ID, $this->id);
+    $criteria->add(QubitEvent::OBJECT_ID, $this->id);
     $criteria->add(QubitEvent::ACTOR_ID, $actorId);
     $criteria->add(QubitEvent::TYPE_ID, $eventTypeId);
 
@@ -870,7 +870,7 @@ class QubitInformationObject extends BaseInformationObject
     if ($options['events'])
     {
       $criteria->addJoin(QubitObjectTermRelation::OBJECT_ID, QubitEvent::ID);
-      $criteria->add(QubitEvent::INFORMATION_OBJECT_ID, $this->id);
+      $criteria->add(QubitEvent::OBJECT_ID, $this->id);
     }
     else
     {

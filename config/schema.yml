@@ -97,7 +97,7 @@ propel:
     end_date: bu_date
     end_time: time
     type_id: { type: integer, required: true, foreignTable: term, foreignReference: id, onDelete: cascade }
-    information_object_id: { type: integer, foreignTable: information_object, foreignReference: id, onDelete: cascade }
+    object_id: { type: integer, foreignTable: object, foreignReference: id, onDelete: cascade }
     actor_id:
 
   event_i18n:

@@ -40,21 +40,21 @@ class QubitEvent extends BaseEvent
    */
   public function save($connection = null)
   {
-    // TODO $cleanInformationObject = $this->informationObject->clean;
-    $cleanInformationObjectId = $this->__get('informationObjectId', array('clean' => true));
+    // TODO $cleanObject = $this->object->clean;
+    $cleanObjectId = $this->__get('objectId', array('clean' => true));
 
     parent::save($connection);
 
     if ($this->indexOnSave)
     {
-      if ($this->informationObjectId != $cleanInformationObjectId && null !== QubitInformationObject::getById($cleanInformationObjectId))
+      if ($this->objectId != $cleanObjectId && null !== QubitObject::getById($cleanObjectId))
       {
-        QubitSearch::getInstance()->update(QubitInformationObject::getById($cleanInformationObjectId));
+        QubitSearch::getInstance()->update(QubitObject::getById($cleanObjectId));
       }
 
-      if (isset($this->informationObject))
+      if (isset($this->object))
       {
-        QubitSearch::getInstance()->update($this->informationObject);
+        QubitSearch::getInstance()->update($this->object);
       }
     }
 
@@ -72,9 +72,9 @@ class QubitEvent extends BaseEvent
   {
     parent::delete($connection);
 
-    if (isset($this->informationObject))
+    if (isset($this->object))
     {
-      QubitSearch::getInstance()->update($this->getInformationObject());
+      QubitSearch::getInstance()->update($this->getObject());
     }
   }
 

@@ -539,7 +539,7 @@ abstract class BaseInformationObject extends QubitObject implements ArrayAccess
 
   public static function addeventsCriteriaById(Criteria $criteria, $id)
   {
-    $criteria->add(QubitEvent::INFORMATION_OBJECT_ID, $id);
+    $criteria->add(QubitEvent::OBJECT_ID, $id);
 
     return $criteria;
   }

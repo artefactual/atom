@@ -1063,14 +1063,19 @@ EOF;
         {
           if ($self->rowStatusVars['culture'] != $self->object->sourceCulture)
           {
-            // Add i18n data to existing event
-            $sql = "SELECT id FROM event WHERE information_object_id = ? and type_id = ?;";
-            $stmt = QubitFlatfileImport::sqlQuery($sql, array($self->object->id, QubitTerm::CREATION_ID));
-
-            $i = 0;
-            while ($eventId = $stmt->fetchColumn())
+            if ($self->rowStatusVars['culture'] != $self->object->sourceCulture)
             {
-              $createEvents[$i++]['eventId'] = $eventId;
+              // Add i18n data to existing event
+              $sql = "SELECT id FROM event WHERE object_id = ? and type_id = ?;";
+              $stmt = QubitFlatfileImport::sqlQuery($sql, array(
+                $self->object->id,
+                QubitTerm::CREATION_ID));
+
+              $i = 0;
+              while ($eventId = $stmt->fetchColumn())
+              {
+                $createEvents[$i++]['eventId'] = $eventId;
+              }
             }
           }
 
@@ -1089,7 +1094,7 @@ EOF;
           {
             $do = new QubitDigitalObject;
             $do->importFromURI($uri);
-            $do->informationObject = $self->object;
+            $do->object = $self->object;
             $do->save($conn);
           }
           catch (Exception $e)
@@ -1108,7 +1113,7 @@ EOF;
             $do = new QubitDigitalObject;
             $do->assets[] = new QubitAsset($path, $content);
             $do->usageId = QubitTerm::MASTER_ID;
-            $do->informationObject = $self->object;
+            $do->object = $self->object;
             $do->save($conn);
           }
         }

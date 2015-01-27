@@ -474,7 +474,7 @@ class QubitActor extends BaseActor
   public function getResourceRelations()
   {
     $criteria = new Criteria;
-    $criteria->addJoin(QubitInformationObject::ID, QubitEvent::INFORMATION_OBJECT_ID);
+    $criteria->addJoin(QubitInformationObject::ID, QubitEvent::OBJECT_ID);
     $criteria->addGroupByColumn(QubitInformationObject::ID);
     $criteria->add(QubitEvent::ACTOR_ID, $this->id);
 
@@ -511,7 +511,7 @@ class QubitActor extends BaseActor
     $sql .= 'JOIN information_object anc ON io.lft >= anc.lft AND io.rgt <= anc.rgt ';
     $sql .= $repositoryCondition;
     $sql .= ' UNION SELECT e.actor_id AS id FROM event e ';
-    $sql .= 'LEFT JOIN information_object io ON e.information_object_id=io.id ';
+    $sql .= 'LEFT JOIN information_object io ON e.object_id=io.id ';
     $sql .= 'JOIN information_object anc ON io.lft >= anc.lft AND io.rgt <= anc.rgt ';
     $sql .= $repositoryCondition;
     $sql .= ')';
