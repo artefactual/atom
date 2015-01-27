@@ -10,9 +10,11 @@
 
   <div>
     <ul>
+      <?php $actorsShown = array(); ?>
       <?php foreach ($resource->getActorEvents() as $item): ?>
-        <?php if (isset($item->actor)): ?>
+        <?php if (isset($item->actor) && !isset($actorsShown[$item->actor->id])): ?>
           <li><?php echo link_to(render_title($item->actor), array($item->actor)) ?> <span class="note2">(<?php echo $item->type->getRole() ?>)</span></li>
+          <?php $actorsShown[$item->actor->id] = true; ?>
         <?php endif; ?>
       <?php endforeach; ?>
       <?php foreach ($resource->relationsRelatedBysubjectId as $item): ?>

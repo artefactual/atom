@@ -62,13 +62,17 @@
 
   <?php echo render_show(__('Title'), render_value($resource->getTitle(array('cultureFallback' => true)))) ?>
 
+  <?php $actorsShown = array(); ?>
   <?php  foreach ($resource->getCreators() as $item): ?>
-    <div class="field">
-      <h3><?php echo __('Creator') ?></h3>
-      <div>
-        <?php echo link_to(render_title($item), array($item, 'module' => 'actor')) ?><?php if (0 < strlen($value = $item->getDatesOfExistence(array('cultureFallback' => true)))): ?> <span class="note2">(<?php echo $value ?>)</span><?php endif; ?>
+    <?php if (!isset($actorsShown[$item->id])): ?>
+      <div class="field">
+        <h3><?php echo __('Creator') ?></h3>
+        <div>
+          <?php echo link_to(render_title($item), array($item, 'module' => 'actor')) ?><?php if (0 < strlen($value = $item->getDatesOfExistence(array('cultureFallback' => true)))): ?> <span class="note2">(<?php echo $value ?>)</span><?php endif; ?>
+        </div>
       </div>
-    </div>
+      <?php $actorsShown[$item->id] = true; ?>
+    <?php endif; ?>
   <?php endforeach; ?>
 
   <?php  foreach ($resource->getPublishers() as $item): ?>
