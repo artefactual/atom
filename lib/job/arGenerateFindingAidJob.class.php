@@ -26,99 +26,92 @@ class arGenerateFindingAidJob extends arBaseJob
 {
   private $resourceId = 0;
 
-  public function run($parameters)
+  public function runJob($parameters)
   {
     $this->addRequiredParameters(array('objectId'));
-    parent::run($parameters);
+    parent::runJob($parameters);
 
     $appRoot = rtrim(sfConfig::get('sf_root_dir'), '/');
 
-    try
+    $this->resourceId = $parameters['objectId'];
+    $resource = QubitInformationObject::getById($this->resourceId);
+
+    if (!$resource)
     {
-      $this->resourceId = $parameters['objectId'];
-      $resource = QubitInformationObject::getById($this->resourceId);
-
-      if (!$resource)
-      {
-        $this->error('Error: Could not find an information object with id=' . $this->resourceId);
-        return false;
-      }
-
-      $this->checkDownloadsExistsAndCreate();
-      $this->info("Generating finding aid ({$resource->slug})...");
-
-      // Determine language(s) used in the export
-      $exportLanguage = sfContext::getInstance()->user->getCulture();
-      $sourceLanguage = $resource->getSourceCulture();
-
-      $eadFileHandle = tmpfile();
-      $foFileHandle = tmpfile();
-
-      if (!$eadFileHandle || !$foFileHandle)
-      {
-        $this->error('Failed to create temporary file.');
-        return false;
-      }
-
-      $eadFilePath = $this->getTmpFilePath($eadFileHandle);
-      $foFilePath = $this->getTmpFilePath($foFileHandle);
-
-      unlink($eadFilePath);
-
-      // Call generate EAD task
-      exec("php $appRoot/symfony export:bulk --single-id=$resource->id $eadFilePath", $junk, $exitCode);
-
-      if ($exitCode != 0)
-      {
-        $this->error('Exporting EAD has failed');
-        return false;
-      }
-
-      // Crank the XML through XSL stylesheet and fix header / fonds URL
-      $eadXslFilePath = $appRoot . '/lib/task/pdf/ead-pdf.xsl';
-      $saxonPath = $appRoot . '/lib/task/pdf/saxon9he.jar';
-
-      $eadFileString = file_get_contents($eadFilePath);
-      $eadFileString = $this->fixHeader($eadFileString, sfConfig::get('app_site_base_url', null));
-      file_put_contents($eadFilePath, $eadFileString);
-
-      $pdfPath = sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR .
-        self::getFindingAidPath($this->resourceId);
-
-      $junk = array();
-
-      exec(sprintf("java -jar '%s' -s:'%s' -xsl:'%s' -o:'%s'",
-        $saxonPath, $eadFilePath, $eadXslFilePath, $foFilePath), $junk, $exitCode);
-
-      if ($exitCode != 0)
-      {
-        $this->error('Transforming the EAD with Saxon has failed');
-        return false;
-      }
-
-      // Use FOP generated in previous step to generate PDF
-      exec(sprintf("fop -r -q -fo '%s' -%s '%s'", $foFilePath, self::getFindingAidFormat(), $pdfPath), $junk, $exitCode);
-
-      if ($exitCode != 0)
-      {
-        $this->error('Converting the EAD FO to PDF has failed.');
-        return false;
-      }
-
-      $this->info("PDF generated successfully: $pdfPath");
-
-      fclose($eadFileHandle); // Will delete the tmp file
-      fclose($foFileHandle);
-    }
-    catch (Exception $e)
-    {
-      $this->error(sprintf('Exception: %s', $e->getMessage()));
+      $this->error('Error: Could not find an information object with id=' . $this->resourceId);
       return false;
     }
 
-    $this->info('Job finished.');
+    $this->checkDownloadsExistsAndCreate();
+    $this->info("Generating finding aid ({$resource->slug})...");
+
+    // Determine language(s) used in the export
+    $exportLanguage = sfContext::getInstance()->user->getCulture();
+    $sourceLanguage = $resource->getSourceCulture();
+
+    $eadFileHandle = tmpfile();
+    $foFileHandle = tmpfile();
+
+    if (!$eadFileHandle || !$foFileHandle)
+    {
+      $this->error('Failed to create temporary file.');
+      return false;
+    }
+
+    $eadFilePath = $this->getTmpFilePath($eadFileHandle);
+    $foFilePath = $this->getTmpFilePath($foFileHandle);
+
+    unlink($eadFilePath);
+
+    // Call generate EAD task
+    exec("php $appRoot/symfony export:bulk --single-id=$resource->id $eadFilePath", $junk, $exitCode);
+
+    if ($exitCode != 0)
+    {
+      $this->error('Exporting EAD has failed');
+      return false;
+    }
+
+    // Crank the XML through XSL stylesheet and fix header / fonds URL
+    $eadXslFilePath = $appRoot . '/lib/task/pdf/ead-pdf.xsl';
+    $saxonPath = $appRoot . '/lib/task/pdf/saxon9he.jar';
+
+    $eadFileString = file_get_contents($eadFilePath);
+    $eadFileString = $this->fixHeader($eadFileString, sfConfig::get('app_site_base_url', null));
+    file_put_contents($eadFilePath, $eadFileString);
+
+    $pdfPath = sfConfig::get('sf_web_dir') . DIRECTORY_SEPARATOR .
+      self::getFindingAidPath($this->resourceId);
+
+    $junk = array();
+
+    exec(sprintf("java -jar '%s' -s:'%s' -xsl:'%s' -o:'%s'",
+      $saxonPath, $eadFilePath, $eadXslFilePath, $foFilePath), $junk, $exitCode);
+
+    if ($exitCode != 0)
+    {
+      $this->error('Transforming the EAD with Saxon has failed');
+      return false;
+    }
+
+    // Use FOP generated in previous step to generate PDF
+    exec(sprintf("fop -r -q -fo '%s' -%s '%s'", $foFilePath, self::getFindingAidFormat(), $pdfPath), $junk, $exitCode);
+
+    if ($exitCode != 0)
+    {
+      $this->error('Converting the EAD FO to PDF has failed.');
+      return false;
+    }
+
+    $this->info("PDF generated successfully: $pdfPath");
+
+    fclose($eadFileHandle); // Will delete the tmp file
+    fclose($foFileHandle);
+
     $this->job->setStatusCompleted();
     $this->job->save();
+
+    $this->info('Job finished.');
 
     return true;
   }

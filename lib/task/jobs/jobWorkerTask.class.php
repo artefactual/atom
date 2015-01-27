@@ -60,65 +60,66 @@ EOF;
 
     // Unset default net_gearman prefix for jobs
     define('NET_GEARMAN_JOB_CLASS_PREFIX', '');
-    try
+
+    $abilities = $this->getAbilities($options);
+    $servers = $this->getServers();
+
+    if (!count($abilities))
     {
-      $abilities = $this->getAbilities($options);
-      $servers = $this->getServers();
+      throw new sfException('No abilities specified.');
+    }
 
-      if (!count($abilities))
+    if (!count($servers))
+    {
+      $servers = array('127.0.0.1:4730');
+    }
+
+    $worker = new Net_Gearman_Worker($servers);
+
+    // Register abilities (jobs)
+    foreach ($abilities as $ability)
+    {
+      $ability = trim($ability);
+      if (!class_exists($ability))
       {
-        throw new sfException('No abilities specified.');
+        $this->logSection('gearman-worker', "Ability not defined: $ability. Please ensure the job is in the lib/task/job directory or that the plugin is enabled.");
+
+        continue;
       }
 
-      if (!count($servers))
-      {
-        $servers = array('127.0.0.1:4730');
-      }
+      $this->logSection('gearman-worker', "New ability: $ability");
+      $worker->addAbility(QubitJob::getJobPrefix() . $ability);
+    }
 
-      $worker = new Net_Gearman_Worker($servers);
-
-      // Register abilities (jobs)
-      foreach ($abilities as $ability)
+    $worker->attachCallback(
+      function($handle, $job, $e)
       {
-        $ability = trim($ability);
-        if (!class_exists($ability))
+        $this->logSection('gearman-worker', "Job failed: ".$e->getMessage());
+      },
+      Net_Gearman_Worker::JOB_FAIL);
+
+    $this->logSection('gearman-worker', 'Running worker...');
+    $this->logSection('gearman-worker', 'PID ' . getmypid());
+
+    $counter = 0;
+
+    // The worker loop!
+    $worker->beginWork(
+      // Pass a callback that pings the database every ~30 seconds
+      // in order to keep the connection alive. AtoM connects to MySQL in a
+      // persistent way that timeouts when running the worker for a long time.
+      // Another option would be to catch the ProperException from the worker
+      // and restablish the connection when needed. Also, the persistent mode
+      // could be disabled for this worker. See issue #4182.
+      function() use (&$counter)
+      {
+        if (30 == $counter++)
         {
-          $this->logSection('gearman-worker', "Ability not defined: $ability. Please ensure the job is in the lib/task/job directory or that the plugin is enabled.");
+          $counter = 0;
 
-          continue;
+          QubitPdo::prepareAndExecute('SELECT 1');
         }
-
-        $this->logSection('gearman-worker', "New ability: $ability");
-        $worker->addAbility(QubitJob::getJobPrefix() . $ability);
-      }
-
-      $this->logSection('gearman-worker', 'Running worker...');
-      $this->logSection('gearman-worker', 'PID ' . getmypid());
-
-      $counter = 0;
-
-      // The worker loop!
-      $worker->beginWork(
-        // Pass a callback that pings the database every ~30 seconds
-        // in order to keep the connection alive. AtoM connects to MySQL in a
-        // persistent way that timeouts when running the worker for a long time.
-        // Another option would be to catch the ProperException from the worker
-        // and restablish the connection when needed. Also, the persistent mode
-        // could be disabled for this worker. See issue #4182.
-        function() use (&$counter)
-        {
-          if (30 == $counter++)
-          {
-            $counter = 0;
-
-            QubitPdo::prepareAndExecute('SELECT 1');
-          }
-        });
-    }
-    catch (Net_Gearman_Exception $e)
-    {
-      throw $e;
-    }
+      });
   }
 
   // Parse the Gearman YAML file

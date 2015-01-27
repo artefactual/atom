@@ -31,6 +31,25 @@ class arBaseJob extends Net_Gearman_Job_Common
 
   public function run($parameters)
   {
+    // Catch all possible exceptions in job execution and throw
+    // Net_Gearman_Job_Exception to avoid breaking the worker
+    try
+    {
+      $this->runJob($parameters);
+    }
+    catch (Exception $e)
+    {
+      // TODO: Create undoJob() functions in subclasses for cleanups
+
+      // Mark QubitJob as failed
+      $this->error('Exception: '.$e->getMessage());
+
+      throw new Net_Gearman_Job_Exception($e->getMessage());
+    }
+  }
+
+  public function runJob($parameters)
+  {
     $this->addRequiredParameters(array('id', 'name'));
     $this->checkRequiredParameters($parameters);
 
@@ -39,7 +58,7 @@ class arBaseJob extends Net_Gearman_Job_Common
 
     if ($this->job === null)
     {
-      throw new Exception('Called a Gearman worker with an invalid QubitJob id.');
+      throw new Net_Gearman_Job_Exception('Called a Gearman worker with an invalid QubitJob id.');
     }
 
     $this->clearCache();
@@ -69,7 +88,7 @@ class arBaseJob extends Net_Gearman_Job_Common
     {
       if (!isset($parameters[$paramName]))
       {
-        throw new Exception("Required parameter not found for job: $paramName");
+        throw new Net_Gearman_Job_Exception("Required parameter not found for job: $paramName");
       }
     }
   }
@@ -84,7 +103,7 @@ class arBaseJob extends Net_Gearman_Job_Common
   {
     if (!isset($this->job) || !isset($this->job->name))
     {
-      throw new Exception('Called arBaseJob::error() before QubitJob fetched.');
+      throw new Net_Gearman_Job_Exception('Called arBaseJob::error() before QubitJob fetched.');
     }
 
     $this->logger->err($this->formatLogMsg($message));
@@ -101,7 +120,7 @@ class arBaseJob extends Net_Gearman_Job_Common
   {
     if (!isset($this->job->name))
     {
-      throw new Exception('Called arBaseJob::info() before QubitJob fetched.');
+      throw new Net_Gearman_Job_Exception('Called arBaseJob::info() before QubitJob fetched.');
     }
 
     $this->logger->info($this->formatLogMsg($message));
