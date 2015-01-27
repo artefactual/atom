@@ -27,10 +27,27 @@
 
 class arBaseJob extends Net_Gearman_Job_Common
 {
-  private $requiredParameters = array();
+  // Required parameters for all jobs:
+  // - Parameters that are mandatory for all jobs
+  // - They are checked at the begining of the job in checkRequiredParameters() function
+  // - Required parameters for each job can be declared in the subclases
+  // - The job will fail if any of the required paramaters are missing
+  private $requiredParametersForAllJobs = array('id', 'name');
 
   public function run($parameters)
   {
+    $this->checkRequiredParameters($parameters);
+
+    $this->logger = sfContext::getInstance()->getLogger();
+    $this->job = QubitJob::getById($parameters['id']);
+
+    if ($this->job === null)
+    {
+      throw new Net_Gearman_Job_Exception('Called a Gearman worker with an invalid QubitJob id.');
+    }
+
+    $this->clearCache();
+
     // Catch all possible exceptions in job execution and throw
     // Net_Gearman_Job_Exception to avoid breaking the worker
     try
@@ -48,34 +65,6 @@ class arBaseJob extends Net_Gearman_Job_Common
     }
   }
 
-  public function runJob($parameters)
-  {
-    $this->addRequiredParameters(array('id', 'name'));
-    $this->checkRequiredParameters($parameters);
-
-    $this->logger = sfContext::getInstance()->getLogger();
-    $this->job = QubitJob::getById($parameters['id']);
-
-    if ($this->job === null)
-    {
-      throw new Net_Gearman_Job_Exception('Called a Gearman worker with an invalid QubitJob id.');
-    }
-
-    $this->clearCache();
-
-    return true;
-  }
-
-  /**
-   * Add a parameter name to a list of required parameters.
-   *
-   * @param   $parameters  the parameters passed to this job that are required
-   */
-  protected function addRequiredParameters($parameters)
-  {
-    $this->requiredParameters = array_merge($this->requiredParameters, $parameters);
-  }
-
   /**
    * Check if all required parameters are present in $parameters,
    * if one is missing throw an exception.
@@ -84,7 +73,16 @@ class arBaseJob extends Net_Gearman_Job_Common
    */
   protected function checkRequiredParameters($parameters)
   {
-    foreach ($this->requiredParameters as $paramName)
+    if (isset($this->requiredParameters))
+    {
+      $toCheckParameters = array_merge($this->requiredParametersForAllJobs, $this->requiredParameters);
+    }
+    else
+    {
+      $toCheckParameters = $this->requiredParametersForAllJobs;
+    }
+
+    foreach ($toCheckParameters as $paramName)
     {
       if (!isset($parameters[$paramName]))
       {

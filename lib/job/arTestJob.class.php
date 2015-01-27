@@ -27,14 +27,15 @@
 
 class arTestJob extends arBaseJob
 {
+  // Required parameters:
+  // - Parameters that are mandatory for the job
+  // - They are checked at the begining of the job from arBaseJob run() function
+  // - 'id' and 'name' are required parameters for all jobs and they are added in arBaseJob
+  // - The job will fail if any of the required paramaters are missing
+  protected $requiredParameters = array();
+
   public function runJob($parameters)
   {
-    // This will be an array of required parameter names
-    $this->addRequiredParameters(array());
-
-    // parent::runJob() will check parameters and throw an exception if any are missing
-    parent::runJob($parameters);
-
     $this->info("Got a test job! id: {$this->job->id}\n");
 
     if (isset($parameters['error']))

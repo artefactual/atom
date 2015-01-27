@@ -19,6 +19,13 @@
 
 class qtSwordPluginWorker extends arBaseJob
 {
+  // Required parameters:
+  // - Parameters that are mandatory for the job
+  // - They are checked at the begining of the job from arBaseJob run() function
+  // - 'id' and 'name' are required parameters for all jobs and they are added in arBaseJob
+  // - The job will fail if any of the required paramaters are missing
+  protected $requiredParameters = array('information_object_id');
+
   protected $dispatcher = null;
 
   protected function log($message)
@@ -29,9 +36,6 @@ class qtSwordPluginWorker extends arBaseJob
 
   public function runJob($package)
   {
-    $this->addRequiredParameters(array('information_object_id'));
-    parent::runJob($package);
-
     $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
 
     $this->log('A new job has started to being processed.');

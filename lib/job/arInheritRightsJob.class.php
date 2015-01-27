@@ -28,18 +28,19 @@
 
 class arInheritRightsJob extends arBaseJob
 {
+  // Required parameters:
+  // - Parameters that are mandatory for the job
+  // - They are checked at the begining of the job from arBaseJob run() function
+  // - 'id' and 'name' are required parameters for all jobs and they are added in arBaseJob
+  // - The job will fail if any of the required paramaters are missing
+  protected $requiredParameters = array(
+    'information_object_id',
+    'overwrite_or_combine',  // values: overwrite, combine
+    'all_or_digital_only'  // values: all, digital_only
+  );
+
   public function runJob($parameters)
   {
-    // This will be an array of required parameter names
-    $this->addRequiredParameters(array(
-      'information_object_id',
-      'overwrite_or_combine',  // values: overwrite, combine
-      'all_or_digital_only'  // values: all, digital_only
-    ));
-
-    // parent::runJob() will check parameters and throw an exception if any are missing
-    parent::runJob($parameters);
-
     $ioId = $parameters['information_object_id'];
 
     if (($io = QubitInformationObject::getById($ioId)) === null)
