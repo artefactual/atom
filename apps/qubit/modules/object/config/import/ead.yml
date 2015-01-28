@@ -375,7 +375,7 @@ information_object:
     controlaccess_subject:
       XPath:   "(controlaccess/subject | controlaccess/controlaccess/subject)"
       Method:  setTermRelationByName
-      Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue)"]
+      Parameters: [$nodeValue, "$options = array('taxonomyId' => QubitTaxonomy::SUBJECT_ID, 'source' => $importDOM->xpath->query('@source', $domNode2)->item(0)->nodeValue, 'createRelation' => true)"]
 
     controlaccess_genreform_material_type:
       XPath:   "(controlaccess/genreform[@source='rad'] | controlaccess/controlaccess/genreform[@source='rad'] | controlaccess/genreform[@encodinganalog='1.1C'] | controlaccess/controlaccess/genreform[@encodinganalog='1.1C'])"
