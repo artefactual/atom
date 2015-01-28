@@ -36,8 +36,7 @@ class qtPackageExtractorMETSArchivematicaDIP extends qtPackageExtractorBase
           sfContext::getInstance()->getLogger()->info('METSArchivematicaDIP - Opening '.$path);
 
           // Directory for the METS file
-          $dirPath = sfConfig::get('sf_web_dir').
-            DIRECTORY_SEPARATOR.'uploads'.
+          $dirPath = sfConfig::get('sf_uploads_dir').
             DIRECTORY_SEPARATOR.'aips'.
             DIRECTORY_SEPARATOR.$aipUUID.
             DIRECTORY_SEPARATOR;

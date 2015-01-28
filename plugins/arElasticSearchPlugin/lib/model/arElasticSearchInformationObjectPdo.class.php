@@ -953,8 +953,7 @@ class arElasticSearchInformationObjectPdo
     }
 
     // Get METS filepath
-    $metsFilepath = sfConfig::get('sf_web_dir').
-      DIRECTORY_SEPARATOR.'uploads'.
+    $metsFilepath = sfConfig::get('sf_uploads_dir').
       DIRECTORY_SEPARATOR.'aips'.
       DIRECTORY_SEPARATOR.$aipUUID.
       DIRECTORY_SEPARATOR.'METS.xml';
