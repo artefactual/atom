@@ -27,12 +27,14 @@
 
 class arBaseJob extends Net_Gearman_Job_Common
 {
-  // Required parameters for all jobs:
-  // - Parameters that are mandatory for all jobs
-  // - They are checked at the begining of the job in checkRequiredParameters() function
-  // - Required parameters for each job can be declared in the subclases
-  // - The job will fail if any of the required paramaters are missing
-  private $requiredParametersForAllJobs = array('id', 'name');
+  /*
+   * Required parameters:
+   *
+   * Declares parameters that are mandatory for the jobs execution. They can be
+   * extended on each job subclasse using the $extraRequiredParameters property.
+   * If any of the required paramareters is missing the job will fail.
+   */
+  private $requiredParameters = array('id', 'name');
 
   public function run($parameters)
   {
@@ -73,16 +75,12 @@ class arBaseJob extends Net_Gearman_Job_Common
    */
   protected function checkRequiredParameters($parameters)
   {
-    if (isset($this->requiredParameters))
+    if (isset($this->extraRequiredParameters))
     {
-      $toCheckParameters = array_merge($this->requiredParametersForAllJobs, $this->requiredParameters);
-    }
-    else
-    {
-      $toCheckParameters = $this->requiredParametersForAllJobs;
+      $this->requiredParameters = array_merge($this->requiredParameters, $this->extraRequiredParameters);
     }
 
-    foreach ($toCheckParameters as $paramName)
+    foreach ($this->requiredParameters as $paramName)
     {
       if (!isset($parameters[$paramName]))
       {
