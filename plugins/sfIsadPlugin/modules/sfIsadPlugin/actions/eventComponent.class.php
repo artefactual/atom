@@ -74,19 +74,14 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
       $params = $this->request->editEvents;
     }
 
+    $finalEventIds = array();
+
     foreach ($params as $item)
     {
       // Continue only if user typed something
       if (1 > strlen($item['date'])
           && 1 > strlen($item['endDate'])
           && 1 > strlen($item['startDate']))
-      {
-        continue;
-      }
-
-      // Ignore item if it was removed and it was being duplicated
-      if (isset($item['id'])
-          && false !== array_search($item['id'], (array)$this->request->deleteEvents))
       {
         continue;
       }
@@ -98,6 +93,7 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
         {
           $params = $this->context->routing->parse(Qubit::pathInfo($item['id']));
           $this->event = $params['_sf_route']->resource;
+          array_push($finalEventIds, $this->event->id);
         }
         else
         {
@@ -114,12 +110,12 @@ class sfIsadPluginEventComponent extends InformationObjectEventComponent
       }
     }
 
-    if (!isset($this->request->sourceId) && isset($this->request->deleteEvents))
+    // Delete the old events if they don't appear in the table (removed by multiRow.js)
+    foreach ($this->resource->events as $item)
     {
-      foreach ($this->request->deleteEvents as $item)
+      if (isset($item->id) && false === array_search($item->id, $finalEventIds))
       {
-        $params = $this->context->routing->parse(Qubit::pathInfo($item));
-        $params['_sf_route']->resource->delete();
+        $item->delete();
       }
     }
   }

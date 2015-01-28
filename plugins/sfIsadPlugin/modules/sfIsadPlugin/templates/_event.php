@@ -1,11 +1,10 @@
 <?php $sf_response->addJavaScript('date') ?>
-<?php $sf_response->addJavaScript('multiDelete') ?>
 
 <div class="section">
 
   <h3><?php echo __('Date(s)') ?> <span class="form-required" title="<?php echo __('This is a mandatory element.') ?>">*</span></h3>
 
-  <table class="table table-bordered">
+  <table class="table table-bordered multiRow">
     <thead>
       <tr>
         <th style="width: 25%">
@@ -16,8 +15,6 @@
           <?php echo __('Start') ?>
         </th><th style="width: 20%">
           <?php echo __('End') ?>
-        </th><th style="width: 5%">
-          <?php echo image_tag('delete', array('align' => 'top', 'class' => 'deleteIcon')) ?>
         </th>
       </tr>
     </thead><tbody>
@@ -44,10 +41,6 @@
             <div class="animateNicely">
               <?php echo $form->getWidgetSchema()->renderField('endDate', Qubit::renderDate($item->endDate)) ?>
             </div>
-          </td><td style="text-align: right">
-            <div class="animateNicely">
-              <input class="multiDelete" name="deleteEvents[]" type="checkbox" value="<?php echo url_for(array($item, 'module' => 'event')) ?>"/>
-            </div>
           </td>
         </tr>
 
@@ -66,8 +59,6 @@
           <?php echo $form->startDate ?>
         </td><td>
           <?php echo $form->endDate ?>
-        </td><td>
-          &nbsp;
         </td>
       </tr>
 
