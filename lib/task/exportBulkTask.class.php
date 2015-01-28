@@ -35,8 +35,6 @@ class exportBulkTask extends exportBulkBaseTask
    */
   public function execute($arguments = array(), $options = array())
   {
-$this->reloadAutoload();
-
     $options['format'] = $this->normalizeExportFormat($options['format']);
 
     if (!isset($options['single-id']))
