@@ -130,6 +130,10 @@
                 event.preventDefault();
 
                 $this = $(this);
+
+                // deleting element sometimes causes focusout not to fire in Firefox
+                $this.trigger('focusout');
+
                 table = $this.closest('table');
                 rows = table.find('tbody tr');
                 objectRows = table.find('tr[class^="even related_obj_"], tr[class^="odd related_obj_"]');
