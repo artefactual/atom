@@ -28,120 +28,83 @@ class qtSwordPluginDepositAction extends sfAction
 {
   public function execute($request)
   {
+    if ($request->isMethod('put') || $request->isMethod('delete'))
+    {
+      return $this->generateResponse(501, 'error/ErrorNotImplemented', array('summary' => $this->context->i18n->__('Not implemented')));
+    }
+
+    if (!$request->isMethod('post'))
+    {
+      return $this->generateResponse(400, 'error/ErrorBadRequest', array('summary' => $this->context->i18n->__('Bad request')));
+    }
+
+    if (QubitAcl::check(QubitInformationObject::getRoot(), 'create'))
+    {
+      return $this->generateResponse(403, 'error/ErrorBadRequest', array('summary' => $this->context->i18n->__('Forbidden')));
+    }
+
     if (!isset($this->getRoute()->resource))
     {
       return $this->generateResponse(404, 'error/ErrorBadRequest', array('summary' => $this->context->i18n->__('Not found')));
     }
 
     $this->resource = $this->getRoute()->resource;
-
     $this->user = $request->getAttribute('user');
-
     $this->package = array();
 
-    if ($request->isMethod('post'))
+    // Package format, check if supported
+    $this->package['format'] = $request->getHttpHeader('X-Packaging');
+    if (!in_array($this->package['format'], qtSwordPluginConfiguration::$packaging))
     {
-      // ACL check
-      if (QubitAcl::check(QubitInformationObject::getRoot(), 'create'))
-      {
-        return $this->generateResponse(403, 'error/ErrorBadRequest', array('summary' => $this->context->i18n->__('Forbidden')));
-      }
-
-      // Package format, check if supported
-      $this->package['format'] = $request->getHttpHeader('X-Packaging');
-      if (!in_array($this->package['format'], qtSwordPluginConfiguration::$packaging))
-      {
-        return $this->generateResponse(415, 'error/ErrorContent', array('summary' => $this->context->i18n->__('The supplied format is not supported by this server')));
-      }
-
-      // Package content is part of the request or sent by reference?
-      if (null !== $request->getHttpHeader('Content-Location'))
-      {
-        $this->package['location'] = $request->getHttpHeader('Content-Location');
-      }
-      else
-      {
-        // Save the file temporary
-        $this->package['filename'] = qtSwordPlugin::saveRequestContent();
-
-        // Package content type, check if supported
-        $this->package['type'] = $request->getContentType();
-        if (!in_array($this->package['type'], qtSwordPluginConfiguration::$mediaRanges))
-        {
-          return $this->generateResponse(415, 'error/ErrorContent', array('summary' => $this->context->i18n->__('The supplied content type is not supported by this server')));
-        }
-      }
-
-      // Check if a filename was suggested
-      if (null !== $request->getHttpHeader('Content-Disposition'))
-      {
-        $this->package['suggested_name'] = substr($request->getHttpHeader('Content-Disposition'), 9);
-      }
-      else
-      {
-        // TODO see [RFC2183]
-        $this->package['suggested_name'] = $filename;
-      }
-
-      // Check if a filename was suggested
-      if (null !== $request->getHttpHeader('Content-MD5'))
-      {
-        $this->package['checksum_md5'] = $request->getHttpHeader('Content-MD5');
-      }
-
-      $this->informationObject = $this->resource;
-
-      try
-      {
-        // Put the job in the background if the queue support is enabled
-        if (sfConfig::get('app_use_job_scheduler', true))
-        {
-          $data = $this->package + array('information_object_id' => $this->informationObject->id);
-
-          QubitJob::runJob('qtSwordPluginWorker', $data);
-
-          // Job accepted!
-          return $this->generateResponse(202, 'deposit',
-            array('headers' =>
-              array('Location' =>
-                $this->context->routing->generate(null, array($this->informationObject, 'module' => 'informationobject')))));
-        }
-        // Otherwise, run it sinchronously (not a good idea)
-        else
-        {
-          $extractor = qtPackageExtractorFactory::build($this->package['format'],
-            $this->package + array('resource' => $this->informationObject));
-
-          $extractor->run();
-
-          // Resource created!
-          return $this->generateResponse(201, 'deposit',
-            array('headers' =>
-              array('Location' =>
-                $this->context->routing->generate(null, array($this->informationObject, 'module' => 'informationobject')))));
-        }
-      }
-      catch (qtPackageExtractorChecksumException $e)
-      {
-        // Calculated MD5 check does not match the value provided by the client
-        if (md5(file_get_contents($filename)) != $request->getHttpHeader('Content-MD5'))
-        {
-          return $this->generateResponse(412, 'error/ErrorChecksumMismatchSuccess', array('summary' => $this->context->i18n->__('Checksum sent does not match the calculated checksum')));
-        }
-      }
-      catch (Exception $e)
-      {
-        return $this->generateResponse(415, 'error/ErrorContent', array('summary' => $e->getMessage()));
-      }
+      return $this->generateResponse(415, 'error/ErrorContent', array('summary' => $this->context->i18n->__('The supplied format is not supported by this server')));
     }
-    else if ($request->isMethod('put') || $request->isMethod('delete'))
+
+    // Package content is part of the request or sent by reference?
+    if (null !== $request->getHttpHeader('Content-Location'))
     {
-      return $this->generateResponse(501, 'error/ErrorNotImplemented', array('summary' => $this->context->i18n->__('Not implemented')));
+      $this->package['location'] = $request->getHttpHeader('Content-Location');
     }
     else
     {
-      return $this->generateResponse(400, 'error/ErrorBadRequest', array('summary' => $this->context->i18n->__('Bad request')));
+      // Save the file temporary
+      $this->package['filename'] = qtSwordPlugin::saveRequestContent();
+
+      // Package content type, check if supported
+      $this->package['type'] = $request->getContentType();
+      if (!in_array($this->package['type'], qtSwordPluginConfiguration::$mediaRanges))
+      {
+        return $this->generateResponse(415, 'error/ErrorContent', array('summary' => $this->context->i18n->__('The supplied content type is not supported by this server')));
+      }
     }
+
+    // Check if a filename was suggested
+    if (null !== $request->getHttpHeader('Content-Disposition'))
+    {
+      $this->package['suggested_name'] = substr($request->getHttpHeader('Content-Disposition'), 9);
+    }
+    else
+    {
+      // TODO see [RFC2183]
+      $this->package['suggested_name'] = $filename;
+    }
+
+    // Check if a filename was suggested
+    if (null !== $request->getHttpHeader('Content-MD5'))
+    {
+      $this->package['checksum_md5'] = $request->getHttpHeader('Content-MD5');
+    }
+
+    $this->informationObject = $this->resource;
+
+    $data = $this->package + array('information_object_id' => $this->informationObject->id);
+
+    QubitJob::runJob('qtSwordPluginWorker', $data);
+
+    // Job accepted!
+    return $this->generateResponse(202, 'deposit',
+      array('headers' =>
+        array('Location' =>
+          $this->context->routing->generate(null, array($this->informationObject, 'module' => 'informationobject')))));
   }
 
   protected function generateResponse($code, $template = null, array $options = array())

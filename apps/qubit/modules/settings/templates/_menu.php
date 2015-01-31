@@ -10,7 +10,6 @@
         <?php if ($sf_context->getConfiguration()->isPluginEnabled('arOaiPlugin')): ?>
             <tr><td><?php echo link_to(__('OAI repository'), array('module' => 'settings', 'action' => 'oai')) ?></td></tr>
         <?php endif; ?>
-        <tr><td><?php echo link_to(__('Job scheduling'), array('module' => 'settings', 'action' => 'job')) ?></td></tr>
         <tr><td><?php echo link_to(__('Finding Aid'), array('module' => 'settings', 'action' => 'findingAid')) ?></td></tr>
         <tr><td><?php echo link_to(__('Security'), array('module' => 'settings', 'action' => 'security')) ?></td></tr>
         <tr><td><?php echo link_to(__('Permissions'), array('module' => 'settings', 'action' => 'permissions')) ?></td></tr>
