@@ -72,16 +72,15 @@ class QubitAccession extends BaseAccession
   public static function getAccessionNumber($incrementCounter)
   {
     $setting = QubitSetting::getByName('accession_counter');
+    $value = $setting->getValue(array('sourceCulture' => true)) + 1;
 
     if ($incrementCounter)
     {
-      $setting->value = $setting->getValue(array('sourceCulture' => true)) + 1;
+      $setting->setValue($value, array('sourceCulture' => true));
       $setting->save();
-
-      return $setting->getValue(array('sourceCulture' => true));
     }
 
-    return $setting->getValue(array('sourceCulture' => true)) + 1;
+    return $value;
   }
 
   public static function generateAccessionIdentifier($incrementCounter = false)
