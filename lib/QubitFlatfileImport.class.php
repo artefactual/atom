@@ -1057,7 +1057,7 @@ class QubitFlatfileImport
       return;
     }
 
-    $allowedProperties = array('date', 'description', 'startDate', 'endDate');
+    $allowedProperties = array('date', 'description', 'startDate', 'endDate', 'typeId');
     $ignoreOptions  = array('actorName', 'actorHistory');
 
     $this->setPropertiesFromArray($event, $options, $allowedProperties, $ignoreOptions);

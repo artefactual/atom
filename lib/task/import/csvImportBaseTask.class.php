@@ -182,7 +182,26 @@ abstract class csvImportBaseTask extends sfBaseTask
    */
   static function importCreationEvents(&$import)
   {
-    // add creators and create events
+    // copy legacy column data, if present, for backwards compatibility
+    $legacyColumns = array(
+      'creatorDates'      => 'creationDates',
+      'creatorDatesStart' => 'creationDatesStart',
+      'creatorDatesEnd'   => 'creationDatesEnd',
+      'creatorDateNotes'  => 'creationDateNotes'
+    );
+
+    foreach ($legacyColumns as $legacyColumn => $newColumn)
+    {
+      if (
+        isset($import->rowStatusVars[$legacyColumn])
+        && !isset($import->rowStatusVars[$newColumn])
+      )
+      {
+        $import->rowStatusVars[$newColumn] = $import->rowStatusVars[$legacyColumn];
+      }
+    }
+
+    // add creators and creation events
     $createEvents = array();
     if (isset($import->rowStatusVars['creators'])
       && count($import->rowStatusVars['creators']))
@@ -204,11 +223,11 @@ abstract class csvImportBaseTask extends sfBaseTask
       }
     }
     else if(
-      isset($import->rowStatusVars['creatorDatesStart'])
-      || isset($import->rowStatusVars['creatorDatesEnd'])
+      isset($import->rowStatusVars['creationDatesStart'])
+      || isset($import->rowStatusVars['creationDatesEnd'])
     )
     {
-      foreach($import->rowStatusVars['creatorDatesStart'] as $index => $date)
+      foreach($import->rowStatusVars['creationDatesStart'] as $index => $date)
       {
         $eventData = array();
 
@@ -217,9 +236,9 @@ abstract class csvImportBaseTask extends sfBaseTask
         array_push($createEvents, $eventData);
       }
     }
-    else if(isset($import->rowStatusVars['creatorDates']))
+    else if(isset($import->rowStatusVars['creationDates']))
     {
-      foreach($import->rowStatusVars['creatorDates'] as $index => $date)
+      foreach($import->rowStatusVars['creationDates'] as $index => $date)
       {
         $eventData = array();
 
@@ -249,10 +268,10 @@ abstract class csvImportBaseTask extends sfBaseTask
 
       foreach($createEvents as $eventData)
       {
-         $event = $import->createOrUpdateEvent(
-           QubitTerm::CREATION_ID,
-           $eventData
-         );
+        $event = $import->createOrUpdateEvent(
+          QubitTerm::CREATION_ID,
+          $eventData
+        );
       }
     }
   }

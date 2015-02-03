@@ -120,10 +120,11 @@ EOF;
       'arrayColumns' => array(
         'creators'             => '|',
         'creatorHistories'       => '|',
-        // TODO: the creatorDates* columns should be depricated in favor of
-        // a separate event import
-        'creatorDates'      => '|',
-        'creatorDateNotes'  => '|',
+        'creationDates'      => '|',
+        'creationDatesStart' => '|',
+        'creationDatesEnd'   => '|',
+        'creationDatesType'  => '|',
+        'creatorDates'      => '|', // These 3 columns are for backwards compatibility
         'creatorDatesStart' => '|',
         'creatorDatesEnd'   => '|',
         'eventActors'          => '|',

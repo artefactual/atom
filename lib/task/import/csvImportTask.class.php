@@ -390,12 +390,14 @@ EOF;
         'accessionNumber'      => '|',
         'creators'             => '|',
         'creatorHistories'       => '|',
-        // TODO: the creatorDates* columns should be depricated in favor of
-        // a separate event import
-        'creatorDates'      => '|',
-        'creatorDateNotes'  => '|',
+        'creationDates'      => '|',
+        'creationDateNotes'  => '|',
+        'creationDatesStart' => '|',
+        'creationDatesEnd'   => '|',
+        'creatorDates'      => '|', // These 4 columns are for backwards compatibility
         'creatorDatesStart' => '|',
         'creatorDatesEnd'   => '|',
+        'creatorDateNotes'  => '|',
 
         'nameAccessPoints'     => '|',
         'nameAccessPointHistories' => '|',
@@ -1121,10 +1123,18 @@ function array_search_case_insensitive($search, $array)
 function setupEventDateData(&$self, &$eventData, $index)
 {
   // add dates if specified
-  if (isset($self->rowStatusVars['creatorDates'][$index]) || isset($self->rowStatusVars['creatorDatesStart'][$index]))
+  if (
+    isset($self->rowStatusVars['creationDates'][$index])
+    || isset($self->rowStatusVars['creationDatesStart'][$index])
+  )
   {
     // Start and end date
-    foreach (array('creatorDatesEnd' => 'endDate', 'creatorDatesStart' => 'startDate') as $statusVar => $eventProperty)
+    foreach(array(
+        'creationDatesEnd' => 'endDate',
+        'creationDatesStart' => 'startDate'
+      )
+      as $statusVar => $eventProperty
+    )
     {
       if (isset($self->rowStatusVars[$statusVar][$index]))
       {
@@ -1133,11 +1143,24 @@ function setupEventDateData(&$self, &$eventData, $index)
     }
 
     // Other date info
-    foreach (array('creatorDateNotes' => 'description', 'creatorDates' => 'date') as $statusVar => $eventProperty)
+    foreach(array(
+        'creationDateNotes' => 'description',
+        'creationDates' => 'date',
+        'creationDatesType' => 'typeId'
+      )
+      as $statusVar => $eventProperty
+    )
     {
       if (isset($self->rowStatusVars[$statusVar][$index]))
       {
-        $eventData[$eventProperty] = $self->rowStatusVars[$statusVar][$index];
+        if ($eventProperty == 'typeId')
+        {
+          $eventType = $self->rowStatusVars[$statusVar][$index];
+          $eventData[$eventProperty] = (strtolower($eventType) == 'accumulation') ? QubitTerm::ACCUMULATION_ID : QubitTerm::CREATION_ID;
+        }
+        else {
+          $eventData[$eventProperty] = $self->rowStatusVars[$statusVar][$index];
+        }
       }
     }
   }
