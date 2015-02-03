@@ -94,4 +94,166 @@ abstract class csvImportBaseTask extends sfBaseTask
     }
     return false;
   }
+
+  /**
+   * Import events
+   */
+  static function importEvents(&$import)
+  {
+    // add ad-hoc events
+    if (isset($import->rowStatusVars['eventActors']))
+    {
+      foreach($import->rowStatusVars['eventActors'] as $index => $actor)
+      {
+        // initialize data that'll be used to create the event
+        $eventData = array(
+          'actorName' => $actor
+        );
+
+        // define whether each event-related column's values go directly
+        // into an event property or put into a varibale for further
+        // processing
+        $eventColumns = array(
+          'eventTypes' => array(
+            'variable'      => 'eventType',
+            'requiredError' => 'You have populated the eventActors column but not the eventTypes column.'
+          ),
+          'eventPlaces'        => array('variable' => 'place'),
+          'eventDates'         => array('property' => 'date'),
+          'eventStartDates'    => array('property' => 'startDate'),
+          'eventEndDates'      => array('property' => 'endDate'),
+          'eventDescriptions'  => array('property' => 'description')
+        );
+
+        // handle each of the event-related columns
+        $eventType = false;
+        $place     = false;
+        foreach($eventColumns as $column => $definition)
+        {
+          if (isset($import->rowStatusVars[$column]))
+          {
+            $value
+              = (count($import->rowStatusVars['eventActors']) == count($import->rowStatusVars[$column]))
+                ? $import->rowStatusVars[$column][$index]
+                : $import->rowStatusVars[$column][0];
+
+            // allow column value(s) to set event property
+            if (isset($definition['property']))
+            {
+              $eventData[($definition['property'])] = $value;
+            }
+
+            // allow column values(s) to set variable
+            if (isset($definition['variable']))
+            {
+              $$definition['variable'] = $value;
+            }
+          } else if (isset($definition['requiredError'])) {
+            throw new sfException('You have populated the eventActors column but not the eventTypes column.');
+          }
+        }
+
+        // if an event type has been specified, attempt to create the event
+        if ($eventType)
+        {
+          // do lookup of type ID
+          $typeTerm = $import->createOrFetchTerm(QubitTaxonomy::EVENT_TYPE_ID, $eventType);
+          $eventTypeId = $typeTerm->id;
+
+          // create event
+          $event = $import->createOrUpdateEvent($eventTypeId, $eventData);
+
+          // create a place term if specified
+          if ($place)
+          {
+            // create place
+            $placeTerm = $import->createTerm(QubitTaxonomy::PLACE_ID, $place);
+            $import->createObjectTermRelation($event->id, $placeTerm->id);
+          }
+        } else {
+          throw new sfException('eventTypes column need to be populated.');
+        }
+      }
+    }
+  }
+
+  /**
+   * Import creation events
+   */
+  static function importCreationEvents(&$import)
+  {
+    // add creators and create events
+    $createEvents = array();
+    if (isset($import->rowStatusVars['creators'])
+      && count($import->rowStatusVars['creators']))
+    {
+      foreach($import->rowStatusVars['creators'] as $index => $creator)
+      {
+        // Init eventData array and add creator name
+        $eventData = array('actorName' => $creator);
+
+        setupEventDateData($import, $eventData, $index);
+
+        // Add creator history if specified
+        if(isset($import->rowStatusVars['creatorHistories'][$index]))
+        {
+          $eventData['actorHistory'] = $import->rowStatusVars['creatorHistories'][$index];
+        }
+
+        array_push($createEvents, $eventData);
+      }
+    }
+    else if(
+      isset($import->rowStatusVars['creatorDatesStart'])
+      || isset($import->rowStatusVars['creatorDatesEnd'])
+    )
+    {
+      foreach($import->rowStatusVars['creatorDatesStart'] as $index => $date)
+      {
+        $eventData = array();
+
+        setupEventDateData($import, $eventData, $index);
+
+        array_push($createEvents, $eventData);
+      }
+    }
+    else if(isset($import->rowStatusVars['creatorDates']))
+    {
+      foreach($import->rowStatusVars['creatorDates'] as $index => $date)
+      {
+        $eventData = array();
+
+        setupEventDateData($import, $eventData, $index);
+
+        array_push($createEvents, $eventData);
+      }
+    }
+
+    // create events, if any
+    if (count($createEvents))
+    {
+      if ($import->rowStatusVars['culture'] != $import->object->sourceCulture)
+      {
+        // Add i18n data to existing event
+        $sql = "SELECT id FROM event WHERE object_id = ? and type_id = ?;";
+        $stmt = QubitFlatfileImport::sqlQuery($sql, array(
+          $import->object->id,
+          QubitTerm::CREATION_ID));
+
+        $i = 0;
+        while ($eventId = $stmt->fetchColumn())
+        {
+          $createEvents[$i++]['eventId'] = $eventId;
+        }
+      }
+
+      foreach($createEvents as $eventData)
+      {
+         $event = $import->createOrUpdateEvent(
+           QubitTerm::CREATION_ID,
+           $eventData
+         );
+      }
+    }
+  }
 }

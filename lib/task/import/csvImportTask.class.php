@@ -1015,75 +1015,11 @@ EOF;
           }
         }
 
-        // add creators and create events
-        $createEvents = array();
-        if (isset($self->rowStatusVars['creators']) && count($self->rowStatusVars['creators']))
-        {
-          foreach ($self->rowStatusVars['creators'] as $index => $creator)
-          {
-            // Init eventData array and add creator name
-            $eventData = array('actorName' => $creator);
+        // add ad-hoc events
+        parent::importEvents($self);
 
-            setupEventDateData($self, $eventData, $index);
-
-            // Add creator history if specified
-            if (isset($self->rowStatusVars['creatorHistories'][$index]))
-            {
-              $eventData['actorHistory'] = $self->rowStatusVars['creatorHistories'][$index];
-            }
-
-            array_push($createEvents, $eventData);
-          }
-        }
-        else if (isset($self->rowStatusVars['creatorDatesStart']) || isset($self->rowStatusVars['creatorDatesEnd']))
-        {
-          foreach ($self->rowStatusVars['creatorDatesStart'] as $index => $date)
-          {
-            $eventData = array();
-
-            setupEventDateData($self, $eventData, $index);
-
-            array_push($createEvents, $eventData);
-          }
-        }
-        else if (isset($self->rowStatusVars['creatorDates']))
-        {
-          foreach ($self->rowStatusVars['creatorDates'] as $index => $date)
-          {
-            $eventData = array();
-
-            setupEventDateData($self, $eventData, $index);
-
-            array_push($createEvents, $eventData);
-          }
-        }
-
-        // create events, if any
-        if (count($createEvents))
-        {
-          if ($self->rowStatusVars['culture'] != $self->object->sourceCulture)
-          {
-            if ($self->rowStatusVars['culture'] != $self->object->sourceCulture)
-            {
-              // Add i18n data to existing event
-              $sql = "SELECT id FROM event WHERE object_id = ? and type_id = ?;";
-              $stmt = QubitFlatfileImport::sqlQuery($sql, array(
-                $self->object->id,
-                QubitTerm::CREATION_ID));
-
-              $i = 0;
-              while ($eventId = $stmt->fetchColumn())
-              {
-                $createEvents[$i++]['eventId'] = $eventId;
-              }
-            }
-          }
-
-          foreach ($createEvents as $eventData)
-          {
-            $event = $self->createOrUpdateEvent(QubitTerm::CREATION_ID, $eventData);
-          }
-        }
+        // add creation events
+        parent::importCreationEvents($self);
 
         // This will import only a single digital object;
         // if both a URI and path are provided, the former is preferred.
