@@ -43,4 +43,20 @@ class QubitSessionStorage extends sfSessionStorage
 
     parent::initialize($options);
   }
+
+  public function regenerate($destroy = false)
+  {
+    // session_regenerate_id(true) deletes the old session file and submits a new session cookie
+    // with the new session id, but it doesn't overwrite the old session values and the 'Set-Cookie'
+    // header is sent twice (possible fix in PHP 5.6 -> https://github.com/php/php-src/pull/795)
+    // In GET requests that perform login, the previous session needs to be destroyed before
+    // calling session_regenerate_id(true) to fix this problem
+    if (!self::$sessionIdRegenerated && $destroy && self::$sessionStarted
+      && sfContext::getInstance()->request->getMethod() == 'GET')
+    {
+      session_destroy();
+    }
+
+    parent::regenerate($destroy);
+  }
 }

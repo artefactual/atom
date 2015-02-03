@@ -945,286 +945,30 @@ class arElasticSearchInformationObjectPdo
 
   protected function getMetsData()
   {
-    if ((null !== $aipUUID = $this->getPropertyValue('aipUUID'))
-      && (null !== $objectUUID = $this->getPropertyValue('objectUUID')))
+    $aipUUID = $this->getPropertyValue('aipUUID');
+    $objectUUID = $this->getPropertyValue('objectUUID');
+    if (null === $aipUUID || null === $objectUUID)
     {
-      // Get METS file
-      $metsFile = sfConfig::get('sf_web_dir').
-        DIRECTORY_SEPARATOR.'uploads'.
-        DIRECTORY_SEPARATOR.'aips'.
-        DIRECTORY_SEPARATOR.$aipUUID.
-        DIRECTORY_SEPARATOR.'METS.xml';
-
-      if (file_exists($metsFile))
-      {
-        $document = new SimpleXMLElement(@file_get_contents($metsFile));
-      }
-
-      if (isset($document))
-      {
-        // Register namespaces
-        $document->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
-        $document->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
-        $document->registerXPathNamespace('f', 'http://hul.harvard.edu/ois/xml/ns/fits/fits_output');
-
-        // Obtain amdSec id for objectUUID
-        foreach ($document->xpath('//m:fileSec/m:fileGrp[@USE="original"]/m:file') as $item)
-        {
-          if (false !== strrpos($item['ID'], $objectUUID))
-          {
-            $amdSecId = $item['ADMID'];
-
-            break;
-          }
-        }
-
-        if (isset($amdSecId))
-        {
-          $metsData = array();
-
-          // Object
-          $objectXpath = '//m:amdSec[@ID="'.(string)$amdSecId.'"]/m:techMD/m:mdWrap[@MDTYPE="PREMIS:OBJECT"]/m:xmlData/s:object/';
-
-          if (0 < count($value = $document->xpath($objectXpath.'s:originalName')))
-          {
-            $metsData['filename'] = end(explode('/', (string)$value[0]));
-          }
-
-          if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/repInfo/lastModified')))
-          {
-            $metsData['lastModified'] = arElasticSearchPluginUtil::convertDate((string)$value[0]);
-          }
-
-          if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:size')))
-          {
-            $metsData['size'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $document->xpath($objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/fileUtilityOutput/mimetype')))
-          {
-            $metsData['mimeType'] = (string)$value[0];
-          }
-
-          // Exiftool rawOutput
-          $exiftoolXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/exiftool/rawOutput';
-
-          if (0 < count($value = $document->xpath($exiftoolXpath)))
-          {
-            $metsData['exiftoolRawOutput'] = (string)$value[0];
-          }
-
-          // Audio
-          $audioXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:metadata/f:audio/';
-
-          if (0 < count($value = $document->xpath($audioXpath.'f:bitDepth')))
-          {
-            $metsData['audio']['bitDepth'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $document->xpath($audioXpath.'f:sampleRate')))
-          {
-            $metsData['audio']['sampleRate'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $document->xpath($audioXpath.'f:channels')))
-          {
-            $metsData['audio']['channels'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $document->xpath($audioXpath.'f:audioDataEncoding')))
-          {
-            $metsData['audio']['dataEncoding'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $document->xpath($audioXpath.'f:offset')))
-          {
-            $metsData['audio']['offset'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $document->xpath($audioXpath.'f:byteOrder')))
-          {
-            $metsData['audio']['byteOrder'] = (string)$value[0];
-          }
-
-          // Document
-          $documentXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:metadata/f:document/';
-
-          if (0 < count($value = $document->xpath($documentXpath.'f:title')))
-          {
-            $metsData['document']['title'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $document->xpath($documentXpath.'f:author')))
-          {
-            $metsData['document']['author'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $document->xpath($documentXpath.'f:pageCount')))
-          {
-            $metsData['document']['pageCount'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $document->xpath($documentXpath.'f:wordCount')))
-          {
-            $metsData['document']['wordCount'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $document->xpath($documentXpath.'f:characterCount')))
-          {
-            $metsData['document']['characterCount'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $document->xpath($documentXpath.'f:language')))
-          {
-            $metsData['document']['language'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $document->xpath($documentXpath.'f:isProtected')))
-          {
-            $metsData['document']['isProtected'] = (string)$value[0] == 'yes' ? true : false;
-          }
-
-          if (0 < count($value = $document->xpath($documentXpath.'f:isRightsManaged')))
-          {
-            $metsData['document']['isRightsManaged'] = (string)$value[0] == 'yes' ? true : false;
-          }
-
-          if (0 < count($value = $document->xpath($documentXpath.'f:isTagged')))
-          {
-            $metsData['document']['isTagged'] = (string)$value[0] == 'yes' ? true : false;
-          }
-
-          if (0 < count($value = $document->xpath($documentXpath.'f:hasOutline')))
-          {
-            $metsData['document']['hasOutline'] = (string)$value[0] == 'yes' ? true : false;
-          }
-
-          if (0 < count($value = $document->xpath($documentXpath.'f:hasAnnotations')))
-          {
-            $metsData['document']['hasAnnotations'] = (string)$value[0] == 'yes' ? true : false;
-          }
-
-          if (0 < count($value = $document->xpath($documentXpath.'f:hasForms')))
-          {
-            $metsData['document']['hasForms'] = (string)$value[0] == 'yes' ? true : false;
-          }
-
-          // Text
-          $textXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:metadata/f:text/';
-
-          if (0 < count($value = $document->xpath($textXpath.'f:linebreak')))
-          {
-            $metsData['text']['linebreak'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $document->xpath($textXpath.'f:charset')))
-          {
-            $metsData['text']['charset'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $document->xpath($textXpath.'f:markupBasis')))
-          {
-            $metsData['text']['markupBasis'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $document->xpath($textXpath.'f:markupBasisVersion')))
-          {
-            $metsData['text']['markupBasisVersion'] = (string)$value[0];
-          }
-
-          if (0 < count($value = $document->xpath($textXpath.'f:markupLanguage')))
-          {
-            $metsData['text']['markupLanguage'] = (string)$value[0];
-          }
-
-          // Events
-          foreach ($document->xpath('//m:amdSec[@ID="'.(string)$amdSecId.'"]/m:digiprovMD/m:mdWrap[@MDTYPE="PREMIS:EVENT"]/m:xmlData/s:event') as $item)
-          {
-            $event = array();
-
-            $item->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
-
-            if (0 < count($value = $item->xpath('s:eventType')))
-            {
-              $event['type'] = (string)$value[0];
-            }
-
-            if (0 < count($value = $item->xpath('s:eventDateTime')))
-            {
-              $event['dateTime'] = arElasticSearchPluginUtil::convertDate((string)$value[0]);
-            }
-
-            if (0 < count($value = $item->xpath('s:eventDetail')))
-            {
-              $event['detail'] = (string)$value[0];
-            }
-
-            if (0 < count($value = $item->xpath('s:eventOutcomeInformation/s:eventOutcome')))
-            {
-              $event['outcome'] = (string)$value[0];
-            }
-
-            if (0 < count($value = $item->xpath('s:eventOutcomeInformation/s:eventOutcomeDetail/s:eventOutcomeDetailNote')))
-            {
-              $event['outcomeDetailNote'] = (string)$value[0];
-            }
-
-            foreach ($item->xpath('s:linkingAgentIdentifier') as $linkingAgent)
-            {
-              $linkingAgentIdentifier = array();
-
-              $linkingAgent->registerXPathNamespace('s', 'info:lc/xmlns/premis-v2');
-
-              if (0 < count($value = $linkingAgent->xpath('s:linkingAgentIdentifierType')))
-              {
-                $linkingAgentIdentifier['type'] = (string)$value[0];
-              }
-
-              if (0 < count($value = $linkingAgent->xpath('s:linkingAgentIdentifierValue')))
-              {
-                $linkingAgentIdentifier['value'] = (string)$value[0];
-              }
-
-              $event['linkingAgentIdentifier'][] = $linkingAgentIdentifier;
-            }
-
-            $metsData['event'][] = $event;
-          }
-
-          // Agents
-          foreach ($document->xpath('//m:amdSec[@ID="'.(string)$amdSecId.'"]/m:digiprovMD/m:mdWrap[@MDTYPE="PREMIS:AGENT"]/m:xmlData/m:agent') as $item)
-          {
-            $agent = array();
-
-            $item->registerXPathNamespace('m', 'http://www.loc.gov/METS/');
-
-            if (0 < count($value = $item->xpath('m:agentIdentifier/m:agentIdentifierType')))
-            {
-              $agent['identifierType'] = (string)$value[0];
-            }
-
-            if (0 < count($value = $item->xpath('m:agentIdentifier/m:agentIdentifierValue')))
-            {
-              $agent['identifierValue'] = (string)$value[0];
-            }
-
-            if (0 < count($value = $item->xpath('m:agentName')))
-            {
-              $agent['name'] = (string)$value[0];
-            }
-
-            if (0 < count($value = $item->xpath('m:agentType')))
-            {
-              $agent['type'] = (string)$value[0];
-            }
-
-            $metsData['agent'][] = $agent;
-          }
-
-          return $metsData;
-        }
-      }
+      return;
     }
+
+    // Get METS filepath
+    $metsFilepath = sfConfig::get('sf_uploads_dir').
+      DIRECTORY_SEPARATOR.'aips'.
+      DIRECTORY_SEPARATOR.$aipUUID.
+      DIRECTORY_SEPARATOR.'METS.xml';
+
+    try
+    {
+      $parser = new QubitMetsParser($metsFilepath);
+      $metsData = $parser->getInformationObjectDataForSearchIndex($objectUUID);
+    }
+    catch (Exception $e)
+    {
+      return;
+    }
+
+    return $metsData;
   }
 
   private function getBasisRights()
