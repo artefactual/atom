@@ -19,19 +19,25 @@ QubitMenu:
     label:
       ca: Explora
       de: Durchsuchen
+      el: Περιήγηση
       en: Browse
       es: Navegar
+      eu: Nabigatu
       fr: Parcourir
       gl: Navegar
+      hu_HU: Böngészés
       id: Telusur
+      is_IS: Vafra
       it: Scorri
       ja: ブラウズ
       ka: დათვალიერება(ამორჩევა)
+      ko: 훑어보기
       nl: Blader
       pl: Przeglądaj
       pt: Navegar
       pt_BR: Navegar
       sl: Brskaj
+      vi: Duyệt
   QubitMenu_mainmenu_addedit:
     id: 5
     parent_id: QubitMenu_mainmenu
@@ -40,12 +46,16 @@ QubitMenu:
     label:
       ca: Afegeix
       de: Hinzufügen
+      el: Εισαγωγή
       en: Add
       es: Agregar
+      eu: Gehitu
       fa: افزودن
       fr: Ajouter
       gl: Engadir
+      hu_HU: Új
       id: Tambah
+      is_IS: 'Bæta við'
       it: Aggiungi
       ja: 追加
       ka: დამატება
@@ -65,13 +75,18 @@ QubitMenu:
     name: manage
     label:
       ca: Administra
+      el: Διαχείριση
       en: Manage
       es: Administrar
+      eu: Kudeatu
       fr: Gérer
       gl: Administrar
+      hu_HU: Szerkesztés
+      is_IS: Stjórna
       it: Gestisci
       ja: 運営する
       ka: მართვა
+      ko: 관리
       nl: Beheer
       pl: Zarządzanie
       pt: Gerir
@@ -87,19 +102,25 @@ QubitMenu:
     label:
       ca: Ingressos
       de: Akzessionen
+      el: Προσκτήσεις
       en: Accessions
       es: Ingresos
+      eu: Atxikimenduak
       fr: Entrées
       gl: Ingresos
+      hu_HU: Gyarapodások
+      is_IS: Afhendingar
       it: Acquisizioni
       ja: 受入資料
       ka: დაშვებები
+      ko: 인수들
       nl: Aanwinsten
       pl: Dopływy
       pt: Incorporação
       pt_BR: Incorporações
       sl: Prevzemi
       th: การเข้าถึงเอกสาร
+      vi: 'Truy cập'
     path: accession/browse
   QubitMenu_mainmenu_manage_donors:
     parent_id: QubitMenu_mainmenu_manage
@@ -107,19 +128,26 @@ QubitMenu:
     name: donors
     label:
       ca: Donants
+      cs: Dárci
+      de: 'Abgebende Stellen/Personen'
       en: Donors
       es: Donadores
+      eu: Emaileak
       fr: 'Donateurs/Services versants'
       gl: Donantes
+      hu_HU: Adományozók
+      is_IS: Gefendur
       it: Donatori
       ja: 寄贈者
       ka: დონორები
+      ko: 기증자들
       nl: Schenkers
       pl: 'Przekazujący (materiały archiwalne)'
       pt: Doadores
       pt_BR: Doadores
       sl: Donatorji
       th: ผู้บริจาค
+      vi: 'Người tặng'
     path: donor/browse
   QubitMenu_mainmenu_manage_physicalobject:
     parent_id: QubitMenu_mainmenu_manage
@@ -128,14 +156,17 @@ QubitMenu:
     label:
       ca: 'Unitat d''instal·lació'
       de: Aufbewahrung
+      el: 'Χώρος Αποθήκευσης'
       en: 'Physical storage'
       es: 'Unidad de almacenaje'
+      eu: 'Biltegi fisikoa'
       fr: 'Localisation physique'
       gl: 'Almacenamento físico'
       id: 'Penyimpanan Fisik'
       it: Deposito
       ja: 物理的記憶
       ka: 'ფიზიკური საცავი'
+      ko: '물리적 보관장소'
       nl: 'Fysieke opslag'
       pl: 'Fizyczne miejsce przechowywania'
       pt: 'Depósito físico'
@@ -153,17 +184,21 @@ QubitMenu:
       de: Rechteinhaber
       en: 'Rights holders'
       es: 'Titulares de derechos'
+      eu: 'Eskubideen jabeak'
       fr: 'Détenteurs de droits'
       gl: 'Titulares de dereitos'
+      is_IS: 'Handhafar leyfis'
       it: 'Detentori di diritti'
       ja: 権利保持者
       ka: 'უფლებების მქონეები(მფლობელები)'
+      ko: '권한 보유자들'
       nl: Rechthebbenden
       pl: 'Posiadacze praw'
       pt: 'Proprietários dos direitos'
       pt_BR: 'Detentores de direitos'
       sl: 'Imetniki pravic'
       th: เจ้าของสิทธิ
+      vi: 'Người nắm giữ quyền'
     path: rightsholder/browse
   QubitMenu_mainmenu_manage_taxonomies:
     id: 6
@@ -173,20 +208,25 @@ QubitMenu:
     label:
       ca: Taxonomies
       de: Taxonomien
+      el: Ταξονομίες
       en: Taxonomies
       es: Taxonomías
+      eu: Taxonomiak
       fr: Référentiels
       gl: Taxonomías
+      hu_HU: Taxonómiák
       id: Taksonomi
       it: Tassonomie
       ja: 分類
       ka: 'ტაქსონომიები  ( კლასიფიცირება)'
+      ko: 택소노미
       nl: Taxonomieën
       pl: Taksonomie
       pt: Taxonomias
       pt_BR: Taxonomias
       sl: Taksonomije
       th: อนุกรมวิธาน
+      vi: 'Phân loại'
     path: taxonomy/browse
   QubitMenu_mainmenu_import:
     id: 7
@@ -196,21 +236,26 @@ QubitMenu:
     label:
       ca: Importa
       de: Importieren
+      el: Εισαγωγή
       en: Import
       es: Importar
+      eu: Inportatu
       fa: 'وارد كردن'
       fr: Importer
       gl: Importar
+      hu_HU: Importálás
+      is_IS: 'Hlaða inn'
       it: Importa
       ja: インポート
       ka: იმპორტი
       ko: 가져오기
       nl: import
       pl: Importowanie
-      pt: importar
+      pt: Importar
       pt_BR: Importar
       sl: Uvoz
       th: นำเข้า
+      vi: 'nội dung'
     path: object/importSelect
   QubitMenu_mainmenu_admin:
     id: 9
@@ -220,16 +265,21 @@ QubitMenu:
     label:
       ca: Administrador
       de: Administrator
+      el: Διαχειριστής
       en: Admin
       es: Administrador
+      eu: Administratzaiilea
       fa: مدير
       fr: Administration
       gl: Administrador
+      hu_HU: Admin
+      is_IS: Stjórnandi
       it: Amministrazione
       ja: 管理者
       ka: ადმინი
+      ko: 관리자
       pl: Administrator
-      pt: Admin
+      pt: Administrar
       pt_BR: Administrador
       sl: Skrbnik
       vi: 'quản trị'
@@ -241,19 +291,25 @@ QubitMenu:
     label:
       ca: 'Registres d''ingressos'
       de: Akzessionsdateien
+      el: 'Εγγραφή πρόσκτησης'
       en: 'Accession records'
       es: 'Registros de ingresos'
+      eu: 'Atxikimendu erregistroak'
       fr: 'Notices d''entrée'
       gl: 'Rexistros de ingresos'
+      hu_HU: 'Gyarapodási rekord/adatok'
+      is_IS: Aðfangaskrá
       it: 'Registrazioni delle acquisizioni'
       ja: 受入記録
       ka: 'დაშვების დოკუმენტები'
+      ko: '인수 기록'
       nl: 'Aanwinst documentatie'
       pl: Nabytki
-      pt: 'Registos de incorporação'
+      pt: 'Registo de incorporação'
       pt_BR: 'Registros de incorporação'
       sl: 'Zapisi o prevzemu'
       th: รายงานการเข้าถึงเอกสาร
+      vi: 'Kỷ lục truy cập'
     path: accession/add
   QubitMenu_mainmenu_addedit_informationobject:
     parent_id: QubitMenu_mainmenu_addedit
@@ -261,17 +317,24 @@ QubitMenu:
     name: addInformationObject
     label:
       ca: 'Descripcions arxivístiques'
+      cs: 'Archivní popisy'
       de: 'Archivische Beschreibungen'
+      el: 'Αρχειακές περιγραφές'
       en: 'Archival descriptions'
       es: 'Descripción archivística'
+      eu: 'Artxibo deskribapenak'
       fr: 'Descriptions archivistiques'
       gl: 'Descrición arquivística'
+      hu_HU: 'Levéltári leírások'
+      is_IS: 'Lýsandi samantektir'
       it: 'Descrizioni archivistiche'
+      ko: '기록물 기술'
       nl: 'archivistische beschrijving'
       pl: 'Opis archiwalny'
-      pt: 'descrição arquivística'
+      pt: 'Descrições arquivísticas'
       pt_BR: 'Descrições arquivísticas'
       sl: 'arhivski opisi'
+      vi: 'Mô tả lưu trữ'
     path: informationobject/add
   QubitMenu_mainmenu_addedit_actor:
     parent_id: QubitMenu_mainmenu_addedit
@@ -280,17 +343,22 @@ QubitMenu:
     label:
       ca: 'Registres d''autoritat'
       de: Normdateien
+      el: 'Καθιερωμένες εγγραφές'
       en: 'Authority records'
       es: 'Registro de autoridad'
+      eu: 'Autoretza erregistroak'
       fr: 'Notices d''autorité'
       gl: 'Rexistros de autoridade'
+      hu_HU: Iratképzők
+      is_IS: Nafnspjöld
       it: 'Record d''autorità'
+      ko: 전거레코드
       nl: 'geautoriseerd bestand'
       pl: 'Hasło wzorcowe'
-      pt: 'registro de autoridade'
+      pt: 'Registos de autoridade'
       pt_BR: 'Registros de autoridade'
       sl: 'normativni zapisi'
-      vi: 'Authority records'
+      vi: 'Biểu ghi tiêu'
     path: actor/add
   QubitMenu_mainmenu_addedit_repository:
     parent_id: QubitMenu_mainmenu_addedit
@@ -299,17 +367,22 @@ QubitMenu:
     label:
       ca: 'Institucions arxivístiques'
       de: Archive
+      el: 'Αρχειακοί Φορείς'
       en: 'Archival institutions'
       es: 'Instituciones archivísticas'
+      eu: 'Artxibo erakundeak'
       fr: 'Institutions de conservation'
       gl: Repositorios
+      hu_HU: Levéltárak
       id: Repositori
+      is_IS: Vörslustofnanir
       it: 'Istituzione archivistica'
       ja: リポジトリ
       ka: საცავები
+      ko: 기록물관리기관
       nl: archiefinstelling
       pl: 'Instytucja archiwalna'
-      pt: 'instituição arquivística'
+      pt: 'Instituição arquivística'
       pt_BR: 'Instituições arquivísticas'
       sl: 'arhivske ustanove'
       th: คลังเก็บ
@@ -322,20 +395,25 @@ QubitMenu:
     label:
       ca: Termes
       de: Begriffe
+      el: Όροι
       en: Terms
       es: Términos
+      eu: Terminoak
       fr: Termes
       gl: Termos
       id: Istilah
+      is_IS: Ákvæði
       it: Termini
       ja: 用語
       ka: ვადები
+      ko: 용어
       nl: Termen
       pl: Terminy
-      pt: Termos
+      pt: Termo
       pt_BR: Termos
       sl: Izrazi
       th: คำศัพท์
+      vi: Hạn
     path: term/add
   QubitMenu_mainmenu_addedit_functions:
     parent_id: QubitMenu_mainmenu_addedit
@@ -344,20 +422,25 @@ QubitMenu:
     label:
       ca: Funció
       de: Funktion
+      el: Λειτουργία
       en: Function
       es: Función
+      eu: Funtzioa
       fr: Fonctions
       gl: Función
       id: Fungsi
+      is_IS: Virkni
       it: Funzione
       ja: 機能
       ka: ფუნქცია
+      ko: 기능
       nl: Functie
       pl: Funkcja
       pt: Função
       pt_BR: Função
       sl: Funkcija
       th: ฟังก์ชั่น
+      vi: 'Các chức năng'
     path: function/add
   QubitMenu_mainmenu_import_xml:
     parent_id: QubitMenu_mainmenu_import
@@ -366,16 +449,22 @@ QubitMenu:
     label:
       ca: XML
       de: XML
+      el: XML
       en: XML
       es: XML
+      eu: XML
       fr: XML
       gl: XML
+      hu_HU: XML
+      is_IS: XML
       it: XML
       ka: XML
+      ko: XML
       pl: XML
       pt: XML
       pt_BR: XML
       sl: XML
+      vi: XML
     path: 'object/importSelect?type=xml'
   QubitMenu_mainmenu_import_csv:
     parent_id: QubitMenu_mainmenu_import
@@ -386,14 +475,18 @@ QubitMenu:
       de: CSV
       en: CSV
       es: CSV
+      eu: CSV
       fr: CSV
       gl: CSV
+      is_IS: CSV
       it: CSV
       ka: CSV
+      ko: CSV
       pl: CSV
       pt: CSV
       pt_BR: CSV
       sl: CSV
+      vi: CSV
     path: 'object/importSelect?type=csv'
   QubitMenu_mainmenu_admin_users:
     parent_id: QubitMenu_mainmenu_admin
@@ -401,21 +494,28 @@ QubitMenu:
     name: users
     label:
       ca: Usuaris
+      cs: Uživatelé
       de: Benutzer
+      el: Χρήστες
       en: Users
       es: Usuarios
+      eu: Erabiltzaileak
       fa: كاربران
       fr: Utilisateurs
       gl: Usuarios
+      hu_HU: Felhasználók
+      is_IS: Notendur
       it: Utenti
       ja: ユーザー
       ka: მომხმარებლები
+      ko: 사용자
       nl: Gebruikers
       pl: Użytkownicy
       pt: Utilizadores
       pt_BR: Usuários
       sl: Uporabniki
       th: ผู้ใช้
+      vi: 'Người dùng'
     path: user/list
   QubitMenu_mainmenu_admin_users_profile:
     parent_id: QubitMenu_mainmenu_admin_users
@@ -427,17 +527,22 @@ QubitMenu:
       de: Profil
       en: Profile
       es: Perfil
+      eu: Profila
       fr: Profil
       gl: Perfil
+      hu_HU: Profil
+      is_IS: Síða
       it: Profilo
       ja: プロフィール
       ka: პროფილი
+      ko: 프로필
       nl: Profiel
       pl: Profil
       pt: Perfil
       pt_BR: Perfil
       sl: profil
       th: ประว้ติส่วนตัว
+      vi: 'hồ sơ'
   QubitMenu_mainmenu_admin_users_infoObjectAcl:
     parent_id: QubitMenu_mainmenu_admin_users
     name: userInformationObjectAcl
@@ -445,17 +550,22 @@ QubitMenu:
     source_culture: en
     label:
       ca: 'Permisos de les descripcions arxivístiques'
+      cs: 'Práva k archivním popisům'
       en: 'Archival description permissions'
       es: 'Information object permissions'
+      eu: 'Artxibo deskribapenaren baimenak'
       fr: 'Droits sur la description archivistique'
       gl: 'Permisos de descrición arquivística'
+      hu_HU: 'Levéltári leírások jogosultságai'
       it: 'Permessi per la descrizione archivistica'
       ja: 情報オブジェクト許可
       ka: 'საინფორმაციო ობიექტის უფლებამოსილებები'
-      pt: 'Permissões do objeto informacional'
+      ko: '기술정보 접근권한'
+      pt: 'Permissões da descrição arquivística'
       pt_BR: 'Permissões para descrições arquivísticas'
       sl: 'Dovoljenja glede informacijskega objekta'
       th: วัตถุข้อมูลการอนุญาต
+      vi: 'Cho phép mô tả lưu trữ'
   QubitMenu_mainmenu_admin_users_actorAcl:
     parent_id: QubitMenu_mainmenu_admin_users
     name: userActorAcl
@@ -465,14 +575,17 @@ QubitMenu:
       ca: 'Permisos del registre d''autoritat'
       en: 'Authority record permissions'
       es: 'Permisos del actor'
+      eu: 'Autoretza erregistroaren baimenak'
       fr: 'Droits de la notice d''autorité'
       gl: 'Permisos de actor'
+      hu_HU: 'Iratképző jogosultságok'
       id: 'Izin Aktor'
       it: 'Permessi per il record d''autorità'
       ja: 主体者の許可
       ka: 'მონაწილის უფლებები'
+      ko: '전거레코드 허가'
       pl: 'Uprawnienia sprawcy/powoda'
-      pt: 'Permissões do ator'
+      pt: 'Permissões do registo de autoridade'
       pt_BR: 'Permissões de registro de autoridade'
       sl: 'Dovoljenja za delovalca'
       vi: 'Quyền truy Authority record'
@@ -485,9 +598,14 @@ QubitMenu:
       ca: 'Permisos de les institucions arxivístiques'
       en: 'Archival institution permissions'
       es: 'Permisos Instituciones archivísticas'
+      eu: 'Erakunde artxibozainaren baimenak'
       fr: 'Autorisations de l''institution de conservation'
       gl: 'Permisos de institución arquivística'
+      hu_HU: 'Levéltári intézmény jogosultságok'
+      is_IS: 'Heimildir vörslustofnunar'
       it: 'Permessi dell''istituto archivistico'
+      ko: '기록관리기관 접근권한'
+      pt: 'Permissões da instituição arquivística'
       pt_BR: 'Permissões de instituições arquivísticas'
       sl: 'Dovoljenja glede arhivske ustanove'
       vi: 'Cho phép tổ chức lưu trữ'
@@ -498,20 +616,24 @@ QubitMenu:
     source_culture: en
     label:
       ca: 'Permisos per a les taxonomies'
+      el: 'Δικαιώματα ταξονομίας'
       en: 'Taxonomy permissions'
       es: 'Permisos para taxonomías'
+      eu: 'Taxonomiaren baimenak'
       fr: 'Droits sur les référentiels'
       gl: 'Permisos de taxonomías'
       id: 'Perijinan Taksonomi'
       it: 'Permessi relativi alla tassonomia'
       ja: 分類許可
       ka: 'ტაქსონომის ნების დართვა'
+      ko: '택소노미 권한'
       nl: 'Taxonomie permissies'
       pl: 'Uprawnienia w zakresie taksonomii'
       pt: 'Permissões da taxonomia'
       pt_BR: 'Permissões para taxonomia'
       sl: 'Dovoljenja za taksonomijo'
       th: การอนุญาตอนุกรมวิธาน
+      vi: 'Cho phép phân loại'
   QubitMenu_mainmenu_admin_groups:
     parent_id: QubitMenu_mainmenu_admin
     source_culture: en
@@ -519,19 +641,25 @@ QubitMenu:
     label:
       ca: Grups
       de: Gruppen
+      el: Ομάδες
       en: Groups
       es: Grupos
+      eu: Taldeak
       fr: Groupes
       gl: Grupos
+      hu_HU: Csoportok
+      is_IS: Hópar
       it: Gruppi
       ja: グループ
       ka: ჯგუფები
+      ko: 그룹
       nl: Groepen
       pl: Grupy
-      pt: Groupos
+      pt: Grupos
       pt_BR: Grupos
       sl: Skupine
       th: กลุ่ม
+      vi: Nhóm
     path: aclGroup/list
   QubitMenu_mainmenu_admin_groups_profile:
     parent_id: QubitMenu_mainmenu_admin_groups
@@ -543,17 +671,22 @@ QubitMenu:
       de: Profil
       en: Profile
       es: Perfil
+      eu: Profila
       fr: Profil
       gl: Perfil
+      hu_HU: Profil
+      is_IS: Síða
       it: Profilo
       ja: プロフィール
       ka: პროფილი
+      ko: 프로필
       nl: Profiel
       pl: Profil
       pt: Perfil
       pt_BR: Perfil
       sl: profil
       th: ประว้ติส่วนตัว
+      vi: 'hồ sơ'
   QubitMenu_mainmenu_admin_groups_infoObjectAcl:
     parent_id: QubitMenu_mainmenu_admin_groups
     name: groupInformationObjectAcl
@@ -561,17 +694,22 @@ QubitMenu:
     source_culture: en
     label:
       ca: 'Permisos de les descripcions arxivístiques'
+      cs: 'Práva k archivním popisům'
       en: 'Archival description permissions'
       es: 'Information object permissions'
+      eu: 'Artxibo deskribapenaren baimenak'
       fr: 'Droits sur la description archivistique'
       gl: 'Permisos de descrición arquivística'
+      hu_HU: 'Levéltári leírások jogosultságai'
       it: 'Permessi per la descrizione archivistica'
       ja: 情報オブジェクト許可
       ka: 'საინფორმაციო ობიექტის უფლებამოსილებები'
-      pt: 'Permissões do objeto informacional'
+      ko: '기술정보 접근권한'
+      pt: 'Permissões da descrição arquivística'
       pt_BR: 'Permissões para descrições arquivísticas'
       sl: 'Dovoljenja glede informacijskega objekta'
       th: วัตถุข้อมูลการอนุญาต
+      vi: 'Cho phép mô tả lưu trữ'
   QubitMenu_mainmenu_admin_groups_actorAcl:
     parent_id: QubitMenu_mainmenu_admin_groups
     name: groupActorAcl
@@ -581,14 +719,17 @@ QubitMenu:
       ca: 'Permisos del registre d''autoritat'
       en: 'Authority record permissions'
       es: 'Permisos del actor'
+      eu: 'Autoretza erregistroaren baimenak'
       fr: 'Droits de la notice d''autorité'
       gl: 'Permisos de actor'
+      hu_HU: 'Iratképző jogosultságok'
       id: 'Izin Aktor'
       it: 'Permessi per il record d''autorità'
       ja: 主体者の許可
       ka: 'მონაწილის უფლებები'
+      ko: '전거레코드 허가'
       pl: 'Uprawnienia sprawcy/powoda'
-      pt: 'Permissões do ator'
+      pt: 'Permissões do registo de autoridade'
       pt_BR: 'Permissões de registro de autoridade'
       sl: 'Dovoljenja za delovalca'
       vi: 'Quyền truy Authority record'
@@ -601,9 +742,14 @@ QubitMenu:
       ca: 'Permisos de les institucions arxivístiques'
       en: 'Archival institution permissions'
       es: 'Permisos Instituciones archivísticas'
+      eu: 'Erakunde artxibozainaren baimenak'
       fr: 'Autorisations de l''institution de conservation'
       gl: 'Permisos de institución arquivística'
+      hu_HU: 'Levéltári intézmény jogosultságok'
+      is_IS: 'Heimildir vörslustofnunar'
       it: 'Permessi dell''istituto archivistico'
+      ko: '기록관리기관 접근권한'
+      pt: 'Permissões da instituição arquivística'
       pt_BR: 'Permissões de instituições arquivísticas'
       sl: 'Dovoljenja glede arhivske ustanove'
       vi: 'Cho phép tổ chức lưu trữ'
@@ -614,20 +760,24 @@ QubitMenu:
     source_culture: en
     label:
       ca: 'Permisos per a les taxonomies'
+      el: 'Δικαιώματα ταξονομίας'
       en: 'Taxonomy permissions'
       es: 'Permisos para taxonomías'
+      eu: 'Taxonomiaren baimenak'
       fr: 'Droits sur les référentiels'
       gl: 'Permisos de taxonomías'
       id: 'Perijinan Taksonomi'
       it: 'Permessi relativi alla tassonomia'
       ja: 分類許可
       ka: 'ტაქსონომის ნების დართვა'
+      ko: '택소노미 권한'
       nl: 'Taxonomie permissies'
       pl: 'Uprawnienia w zakresie taksonomii'
       pt: 'Permissões da taxonomia'
       pt_BR: 'Permissões para taxonomia'
       sl: 'Dovoljenja za taksonomijo'
       th: การอนุญาตอนุกรมวิธาน
+      vi: 'Cho phép phân loại'
   QubitMenu_mainmenu_admin_staticpages:
     parent_id: QubitMenu_mainmenu_admin
     source_culture: en
@@ -635,20 +785,25 @@ QubitMenu:
     label:
       ca: 'Pàgines estàtiques'
       de: 'Statische Seiten'
+      el: 'Στατικές σελίδες'
       en: 'Static pages'
       es: 'Páginas estáticas'
+      eu: 'Orrialde estatikoak'
       fa: 'صفحات ايستا'
       fr: 'Pages statiques'
       gl: 'Páxinas estáticas'
+      hu_HU: 'Statikus oldalak'
       it: 'Pagine statiche'
       ja: 静的ページ
       ka: 'არეულ-დარეული გვერდები'
+      ko: '정적 페이지들'
       nl: 'statische pagina''s'
       pl: 'Strony statyczne'
       pt: 'Páginas estáticas'
       pt_BR: 'Páginas estáticas'
       sl: 'Statične strani'
       th: หน้าคง
+      vi: 'Trang tĩnh'
     path: staticpage/list
   QubitMenu_mainmenu_admin_menu:
     parent_id: QubitMenu_mainmenu_admin
@@ -657,13 +812,17 @@ QubitMenu:
     label:
       ca: Menús
       de: Menüs
+      el: Μενού
       en: Menus
       es: Menús
+      eu: Menuak
       fr: Menus
       gl: Menús
+      is_IS: Valmyndir
       it: Menu
       ja: メニュー
       ka: მენიუები
+      ko: 메뉴
       pl: 'Listy menu'
       pt: Menus
       pt_BR: Menus
@@ -677,17 +836,22 @@ QubitMenu:
     label:
       ca: Connectors
       de: Plugins
+      el: Πρόσθετα
       en: Plugins
       es: Plugins
+      eu: Pluginak
       fr: Extensions
+      is_IS: Viðbætur
       it: Plugin
       ja: プラグイン
       ka: ფლაგინები
+      ko: 플러그인
       pl: Wtyczki/pluginy
       pt: Componentes
       pt_BR: Plugins
       sl: Vtičniki
       th: ปลั๊กอิน
+      vi: Plugins
     path: sfPluginAdminPlugin/plugins
   QuitMenu_mainmenu_admin_themes:
     parent_id: QubitMenu_mainmenu_admin
@@ -698,17 +862,21 @@ QubitMenu:
       de: Themen
       en: Themes
       es: Temas
+      eu: Itxura-azala
       fr: Thèmes
       gl: Temas
       id: Tema
+      is_IS: Þemu
       it: Temi
       ja: テーマ
       ka: თემები
+      ko: 주제
       nl: 'Thema''s'
       pl: Motywy
       pt: Temas
       pt_BR: Temas
       sl: Teme
+      vi: 'Chủ đề'
     path: sfPluginAdminPlugin/themes
   QubitMenu_mainmenu_admin_settings:
     parent_id: QubitMenu_mainmenu_admin
@@ -719,18 +887,23 @@ QubitMenu:
       de: Einstellungen
       en: Settings
       es: Configuraciones
+      eu: Ezarpenak
       fa: تنظيمات
       fr: Paramétrages
       gl: Configuraciones
+      hu_HU: Beállítások
+      is_IS: Stillingar
       it: Impostazioni
       ja: 設定
       ka: '“სეთინგები“, ფუნქციები.'
+      ko: 설정
       nl: Instellingen
       pl: Ustawienia
       pt: Configurações
       pt_BR: Configurações
       sl: Nastavitve
       th: การตั้งค่า
+      vi: 'Cài đặt'
     path: settings/list
   QubitMenu_mainmenu_admin_descriptionUpdates:
     parent_id: QubitMenu_mainmenu_admin
@@ -739,20 +912,24 @@ QubitMenu:
     label:
       ca: 'Actualitzacions de descripció'
       de: 'Aktualisierung der Beschreibung'
+      el: 'Περιγραφή ενημερώσεων'
       en: 'Description updates'
       es: 'Actualizaciones de descripción'
+      eu: 'Eguneraketen deskribapena'
       fr: 'Mises à jour de la description'
       gl: 'Actualizacións da descrición'
       id: 'Update Dekripsi'
       it: 'Aggiornamenti della descrizione'
       ja: 記述のアップデート
       ka: 'განახლებების აღწერა, ან აღწერის განახლებები'
+      ko: '기술 갱신'
       nl: 'Wijzigingen van de beschrijving'
       pl: 'Uaktualnienia opisu'
-      pt: 'Actualizações da descrição'
+      pt: 'Atualizações da descrição'
       pt_BR: 'Atualizações da descrição'
       sl: 'Posodobitve popisa'
       th: อับเดตคำอธิบาย
+      vi: 'Cập nhật mô tả'
     path: search/descriptionUpdates
   QubitMenu_mainmenu_admin_globalReplace:
     parent_id: QubitMenu_mainmenu_admin
@@ -761,17 +938,22 @@ QubitMenu:
     label:
       ca: 'Cerca/reemplaça a nivell global'
       de: 'Allgemeines Suchen/Ersetzen'
+      el: 'Γενική αναζήτηση/αντικατάσταση'
       en: 'Global search/replace'
       es: 'Buscar/reemplazar global'
+      eu: 'Bilaketa/ordezkatze globala'
       fr: 'Recherche et remplacement globaux'
       gl: 'Búsqueda global/Reemprazar'
+      is_IS: 'Víðvær leit/skipti'
       it: 'Ricerca/Sostituisci (globale)'
       ja: 'グローバル 検索/変更'
       ka: 'გლობალური ძებნა /შენაცვლება'
+      ko: '글로벌 검색/대체'
       pt: 'Pesquisa/substituição global'
       pt_BR: 'Pesquisa/substituição global'
       sl: 'Išči/zamenjaj v celotnem programu'
       th: 'ค้นหา / แทน ทั่วโลก'
+      vi: 'Tìm hiểu phạm vi quốc tế/ thay thế'
     path: search/globalReplace
   QubitMenu_quicklinks_home:
     parent_id: QubitMenu_quicklinks
@@ -780,19 +962,25 @@ QubitMenu:
     label:
       ca: Inici
       de: Startseite
+      el: Αρχική
       en: Home
       es: Inicio
+      eu: 'Orrialde nagusia'
       fa: 'صفحه اصلي'
       fr: Accueil
       gl: Inicio
+      hu_HU: Címlap
+      is_IS: Heim
       it: 'Pagina iniziale'
       ja: ホーム
       ka: საწყისი
+      ko: 홈
       nl: home
       pl: 'Strona Domowa'
       pt: Início
       pt_BR: Início
       sl: Domov
+      vi: 'Trang chủ'
     path: '@homepage'
   QubitMenu_quicklinks_about:
     parent_id: QubitMenu_quicklinks
@@ -801,20 +989,26 @@ QubitMenu:
     label:
       ca: 'Quant a'
       de: Über
+      el: Σχετικά
       en: About
       es: Acerca
+      eu: Buruz
       fa: 'درباره ما'
       fr: 'À propos'
       gl: Acerca
+      hu_HU: Info
       id: 'Tentang Kami'
+      is_IS: Um
       it: Riguardo
       ja: ついて
       ka: შესახებ
+      ko: About
       nl: Over
       pl: O...
       pt: Sobre
       pt_BR: Sobre
       sl: 'O programu'
+      vi: Về
     path: 'staticpage/index?slug=about'
   QubitMenu_quicklinks_help:
     parent_id: QubitMenu_quicklinks
@@ -823,19 +1017,25 @@ QubitMenu:
     label:
       ca: Ajuda
       de: Hilfe
+      el: Βοήθεια
       en: Help
       es: Ayuda
+      eu: Laguntza
       fa: راهنما
       fr: Aide
       gl: Axuda
+      hu_HU: Súgó
+      is_IS: Hjálp
       it: Aiuto
       ja: ヘルプ
       ka: დახმარება
+      ko: 도움
       nl: Help
       pl: Pomoc
       pt: Ajuda
       pt_BR: Ajuda
       sl: Pomoč
+      vi: Help
     path: 'http://docs.accesstomemory.org/'
   QubitMenu_quicklinks_myProfile:
     parent_id: QubitMenu_quicklinks
@@ -844,19 +1044,24 @@ QubitMenu:
     label:
       ca: 'El meu perfil'
       de: 'Mein Profil'
+      el: 'Το προφίλ μου'
       en: 'My profile'
       es: 'Mi perfil'
+      eu: 'Nire profila'
       fr: 'Mon profil'
       gl: 'O meu perfil'
+      is_IS: 'Síðan mín'
       it: 'Il mio profilo'
       ja: 私のプロフィール
       ka: 'ჩემი პროფილი'
+      ko: '나의 프로필'
       nl: 'Mijn profiel'
       pl: 'Mój profil'
       pt: 'O meu perfil'
       pt_BR: 'Meu perfil'
       sl: 'Moj profil'
       th: ประว้ติส่วนตัว
+      vi: 'Hồ sơ của tôi'
     path: '%profile%'
   QubitMenu_quicklinks_login:
     parent_id: QubitMenu_quicklinks
@@ -864,12 +1069,17 @@ QubitMenu:
     name: login
     label:
       ca: 'Inicieu sessió'
+      cs: 'Přihlásit se'
       de: Anmelden
+      el: Σύνδεση
       en: 'Log in'
       es: 'Iniciar sesión'
+      eu: 'Saioa hasi'
       fa: 'ورود به سيستم'
       fr: 'Ouverture de session'
       gl: 'Iniciar sesión'
+      hu_HU: Bejelentkezés
+      is_IS: Innskráning
       it: Accedi
       ja: ログイン
       ka: ავტორიზაცია
@@ -880,6 +1090,7 @@ QubitMenu:
       pt_BR: Entrar
       sl: Prijava
       th: เข้าสู่ระบบ
+      vi: 'Đăng nhập'
     path: user/login
   QubitMenu_quicklinks_logout:
     parent_id: QubitMenu_quicklinks
@@ -887,19 +1098,25 @@ QubitMenu:
     name: logout
     label:
       ca: 'Tanca la sessió'
+      cs: 'Odhlásit se'
       de: Abmelden
+      el: Αποσύνδεση
       en: 'Log out'
       es: 'cerrar sesión'
+      eu: 'Saioa amaitu'
       fa: خروج
       fr: 'Fermeture de session'
       gl: 'Pechar sesión'
+      is_IS: Útskráning
       it: Esci
       ja: ログアウト
       ka: გამოსვლა
+      ko: 로그아웃
       nl: uitloggen
       pt: Sair
       pt_BR: Sair
       sl: odjava
+      vi: 'Đăng xuất'
     path: user/logout
   QubitMenu_browse_informationobjects:
     parent_id: QubitMenu_browse
@@ -907,16 +1124,23 @@ QubitMenu:
     name: browseInformationObjects
     label:
       ca: 'Descripcions arxivístiques'
+      cs: 'Archivní popisy'
       de: 'Archivische Beschreibungen'
+      el: 'Αρχειακές περιγραφές'
       en: 'Archival descriptions'
       es: 'Descripción archivística'
+      eu: 'Artxibo deskribapenak'
       fr: 'Descriptions archivistiques'
       gl: 'Descrición arquivística'
+      hu_HU: 'Levéltári leírások'
+      is_IS: 'Lýsandi samantektir'
       it: 'Descrizioni archivistiche'
+      ko: '기록물 기술'
       nl: 'archivistische beschrijving'
-      pt: 'descrição arquivística'
+      pt: 'Descrições arquivísticas'
       pt_BR: 'Descrições arquivísticas'
       sl: 'arhivski opisi'
+      vi: 'Mô tả lưu trữ'
     path: informationobject/browse
   QubitMenu_browse_actors:
     parent_id: QubitMenu_browse
@@ -925,16 +1149,21 @@ QubitMenu:
     label:
       ca: 'Registres d''autoritat'
       de: Normdateien
+      el: 'Καθιερωμένες εγγραφές'
       en: 'Authority records'
       es: 'Registro de autoridad'
+      eu: 'Autoretza erregistroak'
       fr: 'Notices d''autorité'
       gl: 'Rexistros de autoridade'
+      hu_HU: Iratképzők
+      is_IS: Nafnspjöld
       it: 'Record d''autorità'
+      ko: 전거레코드
       nl: 'geautoriseerd bestand'
-      pt: 'registro de autoridade'
+      pt: 'Registos de autoridade'
       pt_BR: 'Registros de autoridade'
       sl: 'normativni zapisi'
-      vi: 'Authority records'
+      vi: 'Biểu ghi tiêu'
     path: actor/browse
   QubitMenu_browse_repositories:
     parent_id: QubitMenu_browse
@@ -943,16 +1172,21 @@ QubitMenu:
     label:
       ca: 'Institucions arxivístiques'
       de: Archive
+      el: 'Αρχειακοί Φορείς'
       en: 'Archival institutions'
       es: 'Instituciones archivísticas'
+      eu: 'Artxibo erakundeak'
       fr: 'Institutions de conservation'
       gl: Repositorios
+      hu_HU: Levéltárak
       id: Repositori
+      is_IS: Vörslustofnanir
       it: 'Istituzione archivistica'
       ja: リポジトリ
       ka: საცავები
+      ko: 기록물관리기관
       nl: archiefinstelling
-      pt: 'instituição arquivística'
+      pt: 'Instituição arquivística'
       pt_BR: 'Instituições arquivísticas'
       sl: 'arhivske ustanove'
       th: คลังเก็บ
@@ -965,20 +1199,26 @@ QubitMenu:
     label:
       ca: Funcions
       de: Funktionen
+      el: Λειτουργίες
       en: Functions
       es: Funciones
+      eu: Funtzioak
       fr: Fonctions
       gl: Funcións
+      hu_HU: Funkciók
       id: Fungsi
+      is_IS: Starfssvið
       it: Funzioni
       ja: 機能
       ka: ფუნქციები
+      ko: 기능
       nl: Functies
       pl: Funkcja
       pt: Funções
       pt_BR: Funções
       sl: Funkcije
       th: ฟังก์ชั่น
+      vi: 'Các chức năng'
     path: function/browse
   QubitMenu_browse_subjects:
     parent_id: QubitMenu_browse
@@ -987,19 +1227,25 @@ QubitMenu:
     label:
       ca: Matèries
       de: Themen
+      el: Θέματα
       en: Subjects
       es: Materias
+      eu: Gaiak
       fr: Sujets
       gl: Materias
+      hu_HU: Témák
       id: Subjek
+      is_IS: Viðfangsefni
       it: Soggetti
       ja: 主題
       ka: სუბიექტები
+      ko: 주제
       nl: Onderwerpen
       pt: Assuntos
       pt_BR: Assuntos
       sl: Osebe
       th: หัวข้อ
+      vi: 'Chủ đề'
     path: 'taxonomy/browse?id=35'
   QubitMenu_browse_places:
     parent_id: QubitMenu_browse
@@ -1008,22 +1254,27 @@ QubitMenu:
     label:
       ca: Llocs
       de: Orte
+      el: Τοποθεσίες
       en: Places
       es: Lugares
+      eu: Lekuak
       fa: 'مكان ها'
       fr: Lieux
       gl: Lugares
+      hu_HU: Helyek
       id: Tempat
+      is_IS: Staðir
       it: Luoghi
       ja: 場所
       ka: ადგილები
       ko: 장소
       nl: Plaatsen
       pl: Miejsca
-      pt: locais
+      pt: Locais
       pt_BR: Locais
       sl: Kraji
       th: สถานที
+      vi: 'địa điểm'
     path: 'taxonomy/browse?id=42'
   QubitMenu_browse_digital_objects:
     parent_id: QubitMenu_browse
@@ -1032,11 +1283,15 @@ QubitMenu:
     label:
       ca: 'Objectes digitals'
       de: 'Digitales Objekt'
+      el: 'Ψηφιακά αντικείμενα'
       en: 'Digital objects'
       es: 'Objetos digitales'
+      eu: 'Objektu digitalak'
       fr: 'Objets numériques'
       gl: 'Obxectos dixitais'
+      hu_HU: 'Digitális obkektumok'
       id: 'Objek Digital'
+      is_IS: 'Stafrænar einingar'
       it: 'Oggetti digitali'
       ja: ディジタルオブジェクト
       ka: 'ციფრული ობიექტები'
@@ -1047,6 +1302,7 @@ QubitMenu:
       pt_BR: 'Objetos digitais'
       sl: 'Digitalni predmeti'
       th: วัตถุดิจิตอล
+      vi: 'Tượng kỹ thuật số'
     path: digitalobject/browse
   QubitMenu_mainmenu_admin_visibleElements:
     parent_id: QubitMenu_mainmenu_admin
@@ -1055,16 +1311,21 @@ QubitMenu:
     label:
       ca: 'Elements públics'
       de: 'Sichtbare Elemente'
+      el: 'Ορατά στοιχεία'
       en: 'Visible elements'
       es: 'Elementos visibles'
+      eu: 'Ikusgai dauden elementuak'
       fr: 'Éléments visibles'
       gl: 'Elementos visíbeis'
       id: 'Elemen terlihat'
+      is_IS: 'Sýnileg hylki'
       it: 'Elementi visibili'
       ja: 見えるエレメント
       ka: 'შესამჩნევი ელემენტები'
-      pt: 'Elementos visiveis'
+      ko: '가시적 요소'
+      pt: 'Elementos visíveis'
       pt_BR: 'Elementos visiveis'
       sl: 'Vidni elementi'
       th: 'elementsที่สามารถมองเห็นได้,'
+      vi: 'Yếu tố có thể thấy'
     path: settings/visibleElements

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2014-09-19T13:20:08Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2015-02-04T13:33:20Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,7 +10,7 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Untitled</source>
-        <target/>
+        <target>Chưa có tiêu đề</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
@@ -18,7 +18,7 @@
       </trans-unit>
       <trans-unit id="4">
         <source>Select the type of activity that established the relation between the authority record and the resource.</source>
-        <target/>
+        <target>Chọn loại hình hoạt động mà thành lập mối quan hệ giữa phần biên mục và tài nguyên.</target>
       </trans-unit>
       <trans-unit id="5">
         <source>How to access to this content?</source>
@@ -26,11 +26,11 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Contact the archivist at %1%</source>
-        <target/>
+        <target>Liên hệ với chuyên viên lưu trữ tại</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Show details</source>
-        <target/>
+        <target>Hiển thị chi tiết</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Close</source>
@@ -52,11 +52,11 @@ Hiệu</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Title</source>
-        <target/>
+        <target>Nhan đề </target>
       </trans-unit>
       <trans-unit id="13">
         <source>Type of resource</source>
-        <target/>
+        <target>Loại của tài nguyên </target>
       </trans-unit>
       <trans-unit id="14">
         <source>Language</source>
@@ -64,19 +64,20 @@ Hiệu</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Internet media type</source>
-        <target/>
+        <target>Internet media type</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Subject</source>
-        <target/>
+        <target>Tượng 
+</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Access condition</source>
-        <target/>
+        <target>điều kiện truy cập </target>
       </trans-unit>
       <trans-unit id="18">
         <source>URL</source>
-        <target/>
+        <target>URL</target>
       </trans-unit>
       <trans-unit id="19">
         <source>Physical location</source>
@@ -84,7 +85,7 @@ Hiệu</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Rights area</source>
-        <target/>
+        <target>Vùng quyền</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Edit rights area</source>
@@ -92,23 +93,23 @@ Hiệu</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Accession area</source>
-        <target/>
+        <target>Vùng truy cập</target>
       </trans-unit>
       <trans-unit id="23">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Đây là bản sao của record %1%</target>
       </trans-unit>
       <trans-unit id="24">
         <source>Contains a unique standard number or code that distinctively identifies a resource.</source>
-        <target/>
+        <target>Có chứa một tiêu chuẩn hoặc mã duy nhất, nó đặc trưng để xác định một nguồn tài nguyên.</target>
       </trans-unit>
       <trans-unit id="25">
         <source>A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it. Choice and format of titles should be governed by a content standard such as the Anglo-American Cataloging Rules, 2nd edition (AACR2), Cataloguing Cultural Objects (CCO), or Describing Archives: A Content Standard (DACS). Details such as capitalization, choosing among the forms of titles presented on an item, and use of abbreviations should be determined based on the rules in a content standard. One standard should be chosen and used consistently for all records in a set.</source>
-        <target/>
+        <target>Một từ, cụm từ, nhân vật hoặc nhóm nhân vật, thường xuất hiện trong một nguồn tài nguyên, mà tên nó hoặc công việc liên quan đến nó. Lựa chọn và định dạng các tiêu đề cần được điều chỉnh bởi một tiêu chuẩn nội dung như Anglo-American Cataloging Rules, Xuất bản lần 2 (AACR2), Biên mục các đối tượng văn hoá (CCO), hoặc mô tả Lưu trữ: Một tiêu chuẩn nội dung (DACS). Các chi tiết như viết hoa, lựa chọn trong số các hình thức tiêu đề trình bày trên một mục, và sử dụng các chữ viết tắt phải được xác định dựa trên các quy tắc trong một tiêu chuẩn nội dung. Một tiêu chuẩn nên được lựa chọn và sử dụng thống nhất cho tất cả các bản ghi trong một tập.</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Names and origin info</source>
-        <target/>
+        <target>Tên và thông tin nguồn gốc</target>
       </trans-unit>
       <trans-unit id="27">
         <source>Add new name and/or origin info</source>
@@ -116,23 +117,23 @@ Hiệu</target>
       </trans-unit>
       <trans-unit id="28">
         <source>A term that specifies the characteristics and general type of content of the resource. Assign as many types as are applicable. The Type of resource options are limited to the values in the MODS typeOfResource top-level element.</source>
-        <target/>
+        <target>Một thuật ngữ xác định đặc điểm và loại nội dung chung của tài nguyên. Ấn định cho nhiều loại có thể áp dụng được. Loại lựa chọn nguồn tài nguyên được giới hạn cho các giá trị trong yếu tố cấp độ cao nhất của MODS type Of Resource .</target>
       </trans-unit>
       <trans-unit id="29">
         <source>Add new child levels (if describing a collection)</source>
-        <target/>
+        <target>Thêm level thấp mới (nếu mô tả collection)</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Use these two fields to add lower levels to a collection-level description. Click Add new to add as many child levels as necessary. Identifer: enter a unique standard number or code that distinctively identifies the resource. Title: enter A word, phrase, character, or group of characters, normally appearing in a resource, that names it or the work contained in it.</source>
-        <target/>
+        <target>Sử dụng hai trường thông tin này để mô tả bộ sưu tập ở mức độ thấp. Vui lòng ấn vào Add New để thêm vào mức độ của đứa con duy nhất số lượng yêu cầu. Nhận dạng: Nhập mã hoặc số chuẩn xác định duy nhất để rõ ràng nhận diện nguồn tài nguyên: Tiêu đề: Nhập một từ, cụm từ, đặc điểm hay một nhóm đặc điểm, thường xuất hiện trong một tài nguyên, điều đó đặt tên nó hay công việc được bao gồm trong nó. </target>
       </trans-unit>
       <trans-unit id="31">
         <source>A designation of the language in which the content of a resource is expressed. Select as many languages as required.</source>
-        <target/>
+        <target>Chỉ định ngôn ngữ được sử dụng để mô tả nội dung của nguồn tài nguyên. Chọn nhiều ngôn ngữ nếu cần.</target>
       </trans-unit>
       <trans-unit id="32">
         <source>A term or phrase representing the primary topic(s) on which a work is focused. Search for an existing term in the Subjects taxonomy by typing the first few characters of the term name. Alternatively, type a new name to create and link to a new subject term.</source>
-        <target/>
+        <target>Một thuật ngữ hoặc cụm từ đại diện cho các chủ đề chính mà tác phẩm được tập trung. Tìm kiếm cho một thuật ngữ hiện có trong các phân loại các đối tượng bằng cách gõ vài ký tự đầu tiên của thuật ngữ. Ngoài ra, nhập tên mới để tạo ra và liên kết với một thuật ngữ chủ đề mới.</target>
       </trans-unit>
       <trans-unit id="33">
         <source>Information about restrictions imposed on access to a resource. See MODS accessCondition top-level element for more information on how to use this field.</source>

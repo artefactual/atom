@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2014-09-19T13:19:54Z" product-name="messages">
+  <file source-language="en" target-language="ca" datatype="plaintext" original="messages" date="2015-02-04T13:33:21Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -278,11 +278,11 @@
       </trans-unit>
       <trans-unit id="69">
         <source>Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>Consigneu les dates de creació, de les activitats de manteniment dels documents, publicació o emissió apropiades als materials descrits. (DACS 2.4.3). El camp data que es visualitza es pot fer servir per introduir informació sobre data en format de text lliure, incloent marques tipogràfiques per expressar aproximació o qualificació. . Utilitzeu els camps d'inici i començament per fer aquestes dates recuperables. No feu servir qualificadors o símbols tipogràfics. Els formats acceptats són: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Record the quantity of the material in terms of its physical extent as linear or cubic feet, number of items, or number of containers or carriers. (DACS 2.5.4). Optionally, record the quantity in terms of material type(s) (DACS 2.5.5), and/or qualify the statement of physical extent to hightlight the existence of material types that re important (DACS 2.5.6).</source>
-        <target/>
+        <target>Consigneu la quantitat del material indicant la seva extensió física, lineal o de peus cúbics, i el nombre d'elements o el nombre de contenidors. (DACS 2.5.4). Opcionalment, consigneu la quantitat indicant el tipus de material(s) (DACS 2.5.5), i/o qualifiqueu la menció d'extensió física per fer èmfasi en l'existència de tipus de materials que són importants (DACS 2.5.6).</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Name of creator(s)</source>

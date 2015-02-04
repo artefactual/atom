@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2014-09-19T13:19:57Z" product-name="messages">
+  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2015-02-04T13:33:22Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -391,23 +391,23 @@
       </trans-unit>
       <trans-unit id="118">
         <source>Access Points</source>
-        <target/>
+        <target>Punti di accesso</target>
       </trans-unit>
       <trans-unit id="119">
         <source>Thematic area</source>
-        <target/>
+        <target>Area tematica</target>
       </trans-unit>
       <trans-unit id="120">
         <source>Search for an existing term in the Thematic Areas taxonomy by typing the first few characters of the term name. This should be used to identify major collecting areas.</source>
-        <target/>
+        <target>Per individuare le principali aree di raccolta, cerca un termine esistente all'interno della Tassonomia delle aree tematiche, inserendo le prime lettere del termine.</target>
       </trans-unit>
       <trans-unit id="121">
         <source>Geographic subregion</source>
-        <target/>
+        <target>Sub-regione geografica</target>
       </trans-unit>
       <trans-unit id="122">
         <source>Search for an existing term in the Geographic Subregion taxonomy by typing the first few characters of the term name.</source>
-        <target/>
+        <target>Cerca un termine esistente all'interno della Tassonomia delle sub-regioni geografiche, inserendo le prime lettere del termine.</target>
       </trans-unit>
     </body>
   </file>

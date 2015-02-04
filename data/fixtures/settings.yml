@@ -75,15 +75,21 @@ QubitSetting:
     source_culture: en
     value:
       ca: 'Descripció arxivística'
+      cs: 'Archivní popisy'
       de: 'Archivische Beschreibung'
+      el: 'Αρχειακή περιγραφή'
       en: 'Archival description'
       es: 'Descripción archivística'
+      eu: 'Artxibo deskribapena'
       fr: 'Description archivistique'
       gl: 'Descrición arquivística'
+      hu_HU: 'Levéltári leírás'
       id: 'Deskripsi Arsip'
+      is_IS: 'Lýsandi samantekt'
       it: 'Descrizione archivistica'
       ja: アーカイブズ記述
       ka: 'საარქივო აღწერა'
+      ko: '기록물 기술'
       nl: 'Archivistische beschrijving'
       pl: 'Opis archiwalny'
       pt: 'Descrição arquivística'
@@ -100,17 +106,22 @@ QubitSetting:
     value:
       ca: 'Registre d''autoritat'
       de: Normdatei
+      el: 'Καθιερωμένη εγγραφή'
       en: 'Authority record'
       es: 'Registro de autoridad'
+      eu: 'Autoretza erregistroa'
       fr: 'Notice d''autorité'
       gl: 'Rexistro de autoridade'
+      hu_HU: Iratképző
       id: 'Pencipta Arsip'
+      is_IS: Nafnspjald
       it: 'Record d''autorità'
       ja: 典拠レコード
       ka: 'ავტორიტეტული ჩანაწერი'
+      ko: 전거레코드
       nl: 'Geauthoriseerde beschrijving'
       pl: 'Hasło wzorcowe'
-      pt: 'Registro de autoridade'
+      pt: 'Registo de autoridade'
       pt_BR: 'Registro de autoridade'
       sl: 'Zapis o ustvarjalcu'
       th: รายการควบคุม
@@ -124,20 +135,26 @@ QubitSetting:
     value:
       ca: Productor
       de: Urheber/Bestandsbildner
+      el: Παραγωγός
       en: Creator
       es: Creador
+      eu: Sortzailea
       fr: Producteur
       gl: Creador
+      hu_HU: Iratképző
       id: Pencipta
+      is_IS: Skjalamyndari
       it: 'Soggetto produttore'
       ja: 作成者
       ka: შემოქმედი
+      ko: 생산자
       nl: Archiefvormer
       pl: Twórca
       pt: Produtor
       pt_BR: Produtor
       sl: Ustvaril
       th: ผู้ผลิตเอกสาร
+      vi: 'người sáng tạo'
   QubitSetting_14:
     name: repository
     scope: ui_label
@@ -147,12 +164,16 @@ QubitSetting:
     value:
       ca: 'Institució arxivística'
       de: Archiv
+      el: 'Αρχειακός Φορέας'
       en: 'Archival institution'
       es: 'Institución archivística'
+      eu: 'Artxibo erakundea'
       fa: منبع
       fr: 'Institution de conservation'
       gl: 'Institución arquivística'
+      hu_HU: Levéltár
       id: 'Institusi Arsip'
+      is_IS: Vörslustofnun
       it: 'Istituzione archivistica'
       ja: アーカイブズ機関
       ka: 'საარქივო ინსტიტუცია'
@@ -173,20 +194,25 @@ QubitSetting:
     value:
       ca: Funció
       de: Funktion
+      el: Λειτουργία
       en: Function
       es: Función
+      eu: Funtzioa
       fr: Fonctions
       gl: Función
       id: Fungsi
+      is_IS: Virkni
       it: Funzione
       ja: 機能
       ka: ფუნქცია
+      ko: 기능
       nl: Functie
       pl: Funkcja
       pt: Função
       pt_BR: Função
       sl: Funkcija
       th: ฟังก์ชั่น
+      vi: 'Các chức năng'
   QubitSetting_16:
     name: term
     scope: ui_label
@@ -196,20 +222,24 @@ QubitSetting:
     value:
       ca: Terme
       de: Begriff
+      el: Όρος
       en: Term
       es: Término
+      eu: Terminoa
       fr: Terme
       gl: Termo
       id: Istilah
       it: Termine
       ja: 用語
       ka: ვადა
+      ko: 용어
       nl: Term
       pl: Termin
       pt: Termo
       pt_BR: Termo
       sl: Izraz
       th: คำศัพท์
+      vi: Hạn
   QubitSetting_17:
     name: subject
     scope: ui_label
@@ -219,11 +249,15 @@ QubitSetting:
     value:
       ca: Matèria
       de: Gegenstand
+      el: Θέμα
       en: Subject
       es: Materia
+      eu: Gaia
       fr: Sujet
       gl: Tema
+      hu_HU: Tárgy
       id: Subjek
+      is_IS: Viðfangsefni
       it: Soggetto
       ja: 主題
       ka: 'სუბიექტი (თემა, საგანი, სათაური)'
@@ -234,6 +268,7 @@ QubitSetting:
       pt_BR: Assunto
       sl: Tematika
       th: หัวข้อ
+      vi: Tượng
   QubitSetting_18:
     name: collection
     scope: ui_label
@@ -243,16 +278,21 @@ QubitSetting:
     value:
       ca: Fons
       de: Fonds
+      el: Αρχείο
       en: Fonds
       es: Fondo
-      fr: collection
+      eu: Fondoak
+      fr: Fonds
       gl: Fondos
+      hu_HU: Fond
+      is_IS: Safn
       it: Fondo
       ja: フォンド
       ka: ფონდები
+      ko: 퐁
       nl: Archief
       pl: Zespoły
-      pt: Fundos
+      pt: Arquivo
       pt_BR: Fundos
       sl: Fondi
       th: เอกสารระดับกลุ่ม
@@ -268,15 +308,19 @@ QubitSetting:
       de: Bestände
       en: Holdings
       es: Fondos
+      eu: Inbertsioak
       fa: دربرگيرندگي
       fr: Fonds
       gl: Fondos
+      hu_HU: Állomány
+      is_IS: Skjalamagn
       it: Patrimoni
       ja: 所蔵
       ka: ანაბრები
+      ko: 소장물
       nl: Bestanden
       pl: 'Zasoby posiadane'
-      pt: Acervo
+      pt: 'Acervos documentais'
       pt_BR: Acervo
       sl: 'Arhivsko gradivo'
       th: สถานที่เก็บเอกสาร
@@ -290,12 +334,16 @@ QubitSetting:
     value:
       ca: Lloc
       de: Ort
+      el: Τόπος
       en: Place
       es: Lugar
+      eu: Lekua
       fa: مكان
       fr: Lieu
       gl: Lugar
+      hu_HU: Hely
       id: Tempat
+      is_IS: Staður
       it: Luogo
       ja: 場所
       ka: ადგილი
@@ -306,6 +354,7 @@ QubitSetting:
       pt_BR: Local
       sl: Kraj
       th: จัด
+      vi: 'địa điểm'
   QubitSetting_21:
     name: name
     scope: ui_label
@@ -315,12 +364,15 @@ QubitSetting:
     value:
       ca: Nom
       de: Name
+      el: Όνομα
       en: Name
       es: Nombre
+      eu: Izena
       fa: نام
       fr: Nom
       gl: Nome
       id: Nama
+      is_IS: Nafn
       it: Nome
       ja: 名称
       ka: სახელი
@@ -331,6 +383,7 @@ QubitSetting:
       pt_BR: Nome
       sl: Ime
       th: ชื่อ
+      vi: Tên
   QubitSetting_22:
     name: digitalobject
     scope: ui_label
@@ -340,14 +393,19 @@ QubitSetting:
     value:
       ca: 'Objecte digital'
       de: 'Digitales Objekt'
+      el: 'Ψηφιακό αντικείμενο'
       en: 'Digital object'
       es: 'Objeto digital'
+      eu: 'Objektu digitala'
       fr: 'Objet numérique'
       gl: 'Obxecto dixital'
+      hu_HU: 'Digitális objektum'
       id: 'Objek Digital'
+      is_IS: 'Stafræn eining'
       it: 'Oggetto digitale'
       ja: ディジタルオブジェクト
       ka: 'ციფრული ობიექტი'
+      ko: 디지털
       nl: 'Digitaal object'
       pl: 'Obiekt cyfrowy'
       pt: 'Objeto digital'
@@ -364,14 +422,17 @@ QubitSetting:
     value:
       ca: 'Unitat d''instal·lació'
       de: Aufbewahrung
+      el: 'Χώρος Αποθήκευσης'
       en: 'Physical storage'
       es: 'Unidad de almacenaje'
+      eu: 'Biltegi fisikoa'
       fr: 'Localisation physique'
       gl: 'Almacenamento físico'
       id: 'Penyimpanan Fisik'
       it: Deposito
       ja: 物理的記憶
       ka: 'ფიზიკური საცავი'
+      ko: '물리적 보관장소'
       nl: 'Fysieke opslag'
       pl: 'Fizyczne miejsce przechowywania'
       pt: 'Depósito físico'
@@ -388,14 +449,18 @@ QubitSetting:
     value:
       ca: 'Tipus de suport'
       de: Medienart
+      el: 'Τύπος μέσου'
       en: 'Media type'
       es: 'Tipo de soporte'
+      eu: 'Medio Mota'
       fa: 'نوع رسانه'
       fr: 'Type de support'
       gl: 'Tipo de medio'
+      is_IS: 'Gerð miðla'
       it: 'Tipo di supporto'
       ja: メディア種別
       ka: 'მედია ტიპი'
+      ko: '미디어 유형'
       nl: mediatype
       pl: 'Typ medium'
       pt: 'Tipo de suporte'
@@ -412,13 +477,17 @@ QubitSetting:
     value:
       ca: 'Tipus de material'
       de: Materialart
+      el: 'Τύπος υλικού'
       en: 'Material type'
       es: 'Tipo de material'
+      eu: 'Material mota'
       fr: 'Type de document'
       gl: 'Tipo de material'
+      is_IS: Efnisform
       it: 'Tipo di materiale'
       ja: 資料種別
       ka: 'მასალის ტიპი'
+      ko: '자료 유형'
       nl: 'Soort materiaal'
       pl: 'Typ materiału'
       pt: 'Tipo de material'
@@ -435,11 +504,17 @@ QubitSetting:
     value:
       ca: 'Filtreu els resultats per:'
       de: 'Grenzen Sie Ihre Trefferzahl ein durch:'
+      el: 'Κατάλογος κατόχων δικαιωμάτων'
       en: 'Narrow your results by:'
       es: 'Restringir resultados por:'
+      eu: 'Murriztu zure emaitzak:'
       fr: 'Affiner les résultats par :'
       gl: 'Refinar os resultados por:'
+      hu_HU: 'Találatok szűkítése:'
+      is_IS: 'Þrengja niðurstöður:'
       it: 'Restringi i risultati per:'
+      ko: '귀하의 검색 결과를 다음과 같이 좁히시오.:'
+      pt: 'Limite os seus resultados por:'
       pt_BR: 'Limite seus resultados por:'
       sl: 'Omejite rezultate:'
       vi: 'Thu hẹp kết quả của bạn bằng cách'

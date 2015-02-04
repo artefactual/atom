@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pl" datatype="plaintext" original="messages" date="2014-09-17T11:51:36Z" product-name="messages">
+  <file source-language="EN" target-language="pl" datatype="plaintext" original="messages" date="2015-02-04T13:33:18Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -434,7 +434,7 @@
       </trans-unit>
       <trans-unit id="123">
         <source>Record the script(s) of the materials comprising the unit of description. (ISAD 3.4.3)</source>
-        <target/>
+        <target>Język / pismo dokumentów - Cel: Określenie języka/języków, pisma (pism) i systemu zapisu zastosowanego w opisywanym obiekcie. Reguła: Należy podać język/języki i/lub pismo/pisma występujące w materiałach wchodzących w skład opisywanego obiektu. Należy odnotowywać odrębne alfabety, pisma, systemy zapisu i stosowane skróty. (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="124">
         <source>Language and script notes</source>
@@ -442,11 +442,15 @@
       </trans-unit>
       <trans-unit id="125">
         <source>Note any distinctive alphabets, scripts, symbol systems or abbreviations employed. (ISAD 3.4.3)</source>
-        <target/>
+        <target>Język / pismo dokumentów
+Cel: Określenie języka/języków, pisma/pism i systemu zapisu zastosowanego w opisywanym obiekcie.
+Reguła: Należy podać język/języki i/lub pismo/pisma występujące w materiałach wchodzących w skład opisywanego obiektu. Należy odnotowywać odrębne alfabety, pisma, systemy zapisu i stosowane skróty.  (ISAD 3.4.3)</target>
       </trans-unit>
       <trans-unit id="126">
         <source>Give information about conditions, such as copyright, governing the reproduction of the unit of description after access has been provided. If the existence of such conditions is unknown, record this. If there are no conditions, no statement is necessary. (ISAD 3.4.2)</source>
-        <target/>
+        <target>Warunki decydujące o reprodukowaniu
+Cel: Określenie wszelkich ograniczeń co do możliwości reprodukcji opisywanego obiektu.
+Reguła: Należy podać informacje, takie jak prawa autorskie, określające warunki reprodukowania obiektu po jego udostępnieniu. Jeżeli istnienie takich warunków nie jest znane, należy to odnotować. Jeżeli nie ma żadnych ograniczeń, nie jest konieczne stwierdzanie tego faktu. (ISAD 3.4.2)</target>
       </trans-unit>
       <trans-unit id="127">
         <source>How to access to this content?</source>

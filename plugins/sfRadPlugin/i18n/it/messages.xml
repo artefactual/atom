@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2014-09-17T11:55:17Z" product-name="messages">
+  <file source-language="EN" target-language="it" datatype="plaintext" original="messages" date="2015-02-04T13:33:22Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -658,19 +658,19 @@
       </trans-unit>
       <trans-unit id="192">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target/>
+        <target>Citare le fonti esterne utilizzate per la descrizione archivistica (ad esempio, nei campi Ambito e contenuto, Storia della custodia o Note).</target>
       </trans-unit>
       <trans-unit id="193">
         <source>Associated materials</source>
-        <target/>
+        <target>Materiali collegati</target>
       </trans-unit>
       <trans-unit id="194">
         <source>Related materials</source>
-        <target/>
+        <target>Materiali collegati</target>
       </trans-unit>
       <trans-unit id="195">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target/>
+        <target>Per creare una relazione tra questa descrizione e un'altra descrizione di AtoM, inserire le prime lettere del nome della descrizione collegata e selezionarla dal menu a tendina. Si possono creare più relazioni.</target>
       </trans-unit>
     </body>
   </file>

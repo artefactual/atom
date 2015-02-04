@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2012-08-17T14:34:21Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2015-02-04T13:33:21Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>Password strength:</source>
-        <target/>
+        <target>비밀번호 강도:</target>
       </trans-unit>
       <trans-unit id="2">
         <source>To make your password stronger:</source>
-        <target/>
+        <target>더 강력한 비밀번호를 입력하시오.</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Make it at least six characters</source>
-        <target/>
+        <target>최소 6자 이상 기입하시오</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Add lowercase letters</source>
-        <target/>
+        <target>소문자 추가</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Add uppercase letters</source>
-        <target/>
+        <target>대문자 추가</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Add numbers</source>
-        <target/>
+        <target>번호 추가</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Add punctuation</source>
-        <target/>
+        <target>구두법 추가</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Make it different from your username</source>
-        <target/>
+        <target>본인의 이용자명과 다르게 하시오</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Passwords match:</source>
-        <target/>
+        <target>암호 일치:</target>
       </trans-unit>
       <trans-unit id="12">
         <source>Yes</source>
-        <target/>
+        <target>네</target>
       </trans-unit>
       <trans-unit id="13">
         <source>No</source>
-        <target/>
+        <target>아니다</target>
       </trans-unit>
     </body>
   </file>

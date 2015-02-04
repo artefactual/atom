@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file datatype="plaintext" date="2014-09-19T13:22:39Z" original="messages" product-name="messages" source-language="en" target-language="">
+  <file datatype="plaintext" date="2015-02-04T13:37:17Z" original="messages" product-name="messages" source-language="en" target-language="">
     <header/>
     <body>
       <trans-unit id="a5162e31ab7277f79bebcb03364debdf5c0913b8">
         <source>"Record, when relevant, the start and the end date of the relationship." (ISDF 6.3) Enter the date as you would like it to appear in the show page for the function, using qualifiers and/or typographical symbols to express uncertainty if desired.</source>
-        <target>"Consigne quan siga apropiat la data d'inici i la data final de la relaci&#xF3;". (ISDF 6.3) Escriga la data tal com li agradaria que apareguera en la vista definitiva de la descripci&#xF3; de funci&#xF3;, usant qualificadors i/o s&#xED;mbols tipogr&#xE0;fics per a expressar incertesa si ho desitja.</target>
+        <target>"Consigneu, quan sigui apropiat, la data d'inici i la data final de la relaci&#xF3;". (ISDF 6.3) Escriviu la data tal com vulgueu que aparegui en la vista definitiva de la descripci&#xF3; de funci&#xF3;, utilitzant qualificadors i/o s&#xED;mbols tipogr&#xE0;fics per expressar incertesa si &#xE9;s necessari.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/relation/actions/editComponent.class.php</note>
       </trans-unit>
       <trans-unit id="d08f88df745fa7950b104e4a707a31cfce7b5841">
@@ -376,7 +376,7 @@
       </trans-unit>
       <trans-unit id="b7063e1e7db18c362696dec9cf8da2c9a4f40444">
         <source>An identifying designation for the statute. Use standard citation form when applicable, e.g. bibliographic citation.</source>
-        <target>Esment identificable de la normativa aplicable. Quan siga apropiat (p. ex. cita bibliogr&#xE0;fica), cite segons les regles dels est&#xE0;ndards.</target>
+        <target>Una designaci&#xF3; que identifica a la normativa aplicable. Quan sigui apropiat (p. e. cita bibliogr&#xE0;fica), citeu segons les regles aplicables.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/right/templates/_edit.php</note>
       </trans-unit>
       <trans-unit id="a01e33f4dcdb6ba1ae9f34a97cf8f6deeedf1a8d">
@@ -516,7 +516,7 @@
       </trans-unit>
       <trans-unit id="9a5f21c8f5cd4940eec3fb9eece5ad218d289f2b">
         <source>Both source and replacement fields are required.</source>
-        <target>Camp de recurs i camp de reempla&#xE7;ar requerits.</target>
+        <target>Els camp font i de reempla&#xE7;ament s&#xF3;n requerits.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/search/actions/globalReplaceAction.class.php</note>
       </trans-unit>
       <trans-unit id="06b4667fc13b846dd91c9da36e4dc25d1963530b">
@@ -1095,7 +1095,7 @@
       </trans-unit>
       <trans-unit id="0e58ad386dae9642f84207d280dd7175abeaebcf">
         <source>Enter free-text information, including qualifiers or typographical symbols to express uncertainty, to change the way the date displays. If this field is not used, the default will be the start and end years only.</source>
-        <target>Escriga informaci&#xF3; de text lliure, incloent qualificadors o s&#xED;mbols tipogr&#xE0;fics per a expressar incertesa, per a canviar la forma en qu&#xE8; es visualitza la data. Si aquest camp no &#xE9;s utilitzat, el valor per defecte ser&#xE0; l'any inicial i final.</target>
+        <target>Escriviu qualsevol informaci&#xF3;, incloent qualificadors o s&#xED;mbols tipogr&#xE0;fics per expressar incertesa, amb l'objectiu de canviar la forma en que es visualitza la data. Si aquest camp no s'utilitza, el valor per defecte ser&#xE0; l'any inicial i el final.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/event/actions/editComponent.class.php</note>
       </trans-unit>
       <trans-unit id="4f83d31d66cec4d3a556ed4055976117d787540e">
@@ -1545,6 +1545,7 @@
       </trans-unit>
       <trans-unit id="a1fffaaafb7cc996685bceb829c053cc4f7de43d">
         <source>List</source>
+        <target>Llista</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/term/templates/_treeView.php</note>
       </trans-unit>
       <trans-unit id="bac3b7e4d6e313101aef6a5e4f4b75a2d43475b8">
@@ -2154,7 +2155,7 @@
       </trans-unit>
       <trans-unit id="ec177c36f9020b04d5735612ec19d256e5929b12">
         <source>Record a citation to, and/or information about a publication that is about or based on the use, study, or analysis of the unit of description. Include references to published facsimiles or transcriptions. (ISAD 3.5.4)</source>
-        <target>Registre una cita i/o informaci&#xF3; sobre una publicaci&#xF3; que tracte o es base en l'&#xFA;s, estudi o an&#xE0;lisi de la unitat de descripci&#xF3;. Incloga refer&#xE8;ncies de facs&#xED;mils o transcripcions publicades. (ISAD 3.5.4)</target>
+        <target>Citar i/o donar informaci&#xF3; de qualsevol publicaci&#xF3; sobre la unitat de descripci&#xF3; o basada en el seu &#xFA;s, estudi o an&#xE0;lisi. Incloure refer&#xE8;ncies d&#x2019;edicions facs&#xED;mils o de transcripcions publicades. (ISAD 3.5.4).</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/notesComponent.class.php</note>
       </trans-unit>
       <trans-unit id="5abafdf357f92215784bc8ce12a4ef41f2cf56cc">
@@ -2164,12 +2165,12 @@
       </trans-unit>
       <trans-unit id="b5ed865bd130aa9047b8cc4b5d512e2ca1ab7d23">
         <source>Record notes on sources consulted in preparing the description and who prepared it. (ISAD 3.7.1)</source>
-        <target>Consigneu notes de les fonts consultades en l'elaboraci&#xF3; de la descripci&#xF3; i qui la va realitzar. (ISAD 3.7.1)</target>
+        <target>Esmenteu les fonts consultades per a la preparaci&#xF3; de la descripci&#xF3; i qui l&#x2019;ha duta a terme. (ISAD 3.7.1)</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/notesComponent.class.php</note>
       </trans-unit>
       <trans-unit id="53acccead279f0e87c4051db5cefa6dbe4ec049f">
         <source>Record specialized or other important information not accommodated by any of the defined elements of description. (ISAD 3.6.1)</source>
-        <target>Consigneu informaci&#xF3; especialitzada o d'import&#xE0;ncia que no es pugui incloure en cap dels altres elements de la descripci&#xF3;. (ISAD 3.6.1)</target>
+        <target>Ressenyeu informaci&#xF3; especialitzada o important que no s&#x2019;hagi pogut incloure adequadament en cap dels elements de descripci&#xF3; definits pr&#xE8;viament. (ISAD 3.6.1)</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/notesComponent.class.php</note>
       </trans-unit>
       <trans-unit id="63c296933a55bb7904726cbbac42dee2fb4b25c8">
@@ -2504,6 +2505,7 @@
       </trans-unit>
       <trans-unit id="b35a38de2b87b224870761a8edeab25404313043">
         <source>Select a note type from the drop-down menu and record, as needed, specialized information not accommodated by any of the defined elements of description, including Conservation (DACS 7.1.3), Citation (DACS 7.1.5), Alphanumeric designations (DACS 7.1.6), Variant title information (DACS 7.1.7), or Processing information (DACS 7.1.8).</source>
+        <target>Seleccioneu un tipus de nota del men&#xFA; desplegable i consigneu, si &#xE9;s necessari, informaci&#xF3; addicional, si no s&#x2019;ha fet constar ja als elements de descripci&#xF3;, incloent Conservaci&#xF3; (DACS 7.1.3), Citaci&#xF3; (DACS 7.1.5), Designacions alfanum&#xE8;riques (DACS 7.1.6), Informaci&#xF3; del t&#xED;tol variant (DACS 7.1.7), o Informaci&#xF3; del processament (DACS 7.1.8).</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/notesComponent.class.php</note>
       </trans-unit>
       <trans-unit id="aafff94d31ca5c5e8a36f7e340e67db03a4f7985">
@@ -3091,7 +3093,7 @@
       </trans-unit>
       <trans-unit id="7f2c2029af462f4021d0d20994e9606eee38faf6">
         <source>Use the actor name field to link an authority record to this description. Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target>Use el camp de nom d'actor per a enlla&#xE7;ar un registre d'autoritat a aquesta descripci&#xF3;. Cerque un nom existent en els registres d'autoritat escrivint els primers car&#xE0;cters del nom. Alternativament, escriga un nou nom per a crear i enlla&#xE7;ar a un nou registre d'autoritat.</target>
+        <target>Utilitzeu el camp de nom d'actor per a enlla&#xE7;ar un registre d'autoritat a aquesta descripci&#xF3;. Cerque un nom existent en els registres d'autoritat escrivint els primers car&#xE0;cters del nom. Alternativament, escriga un nou nom per a crear i enlla&#xE7;ar a un nou registre d'autoritat.</target>
         <note>https://github.com/artefactual/atom/blob/master/apps/qubit/modules/informationobject/actions/eventComponent.class.php</note>
       </trans-unit>
       <trans-unit id="2764971eb13a1a505b93df836819177745d6b0c1">

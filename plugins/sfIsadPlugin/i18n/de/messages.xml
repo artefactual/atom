@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2014-09-19T13:20:03Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2015-02-04T13:33:21Z" product-name="messages">
     <body>
       <trans-unit id="8">
         <source>Title</source>
@@ -92,7 +92,7 @@
       </trans-unit>
       <trans-unit id="799">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Regeln oder Grundsätze</target>
       </trans-unit>
       <trans-unit id="814">
         <source>Appraisal, destruction and scheduling</source>
@@ -252,7 +252,7 @@
       </trans-unit>
       <trans-unit id="930">
         <source>Rules and/or conventions used</source>
-        <target/>
+        <target>Verwendete Regeln oder Grundsätze</target>
       </trans-unit>
       <trans-unit id="931">
         <source>Dates of creation revision deletion</source>
@@ -272,7 +272,7 @@
       </trans-unit>
       <trans-unit id="936">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Dies ist ein Duplikat des Datensatzes %1%</target>
       </trans-unit>
       <trans-unit id="937">
         <source>This is a mandatory element.</source>
@@ -324,7 +324,7 @@
       </trans-unit>
       <trans-unit id="979">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
-        <target/>
+        <target>Halten Sie den aktuellen Status der Beschreibung fest, handelt es  sich um eine Entwurfsfassung, eine abgeschlossene Beschreibung und/oder um eine revidierte oder gelöschte Fasssung.</target>
       </trans-unit>
       <trans-unit id="980">
         <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2014-09-19T13:20:02Z" product-name="messages">
+  <file source-language="EN" target-language="de" datatype="plaintext" original="messages" date="2015-02-04T13:33:21Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -136,11 +136,11 @@
       </trans-unit>
       <trans-unit id="796">
         <source>Terms governing use, reproduction, and publication</source>
-        <target/>
+        <target>Bedingungen, die Benutzung, Reproduktion und Veröffentlichung regeln</target>
       </trans-unit>
       <trans-unit id="799">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Regeln oder Grundsätze</target>
       </trans-unit>
       <trans-unit id="831">
         <source>Description record identifier</source>
@@ -316,7 +316,7 @@
       </trans-unit>
       <trans-unit id="947">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Dies ist ein Duplikat des Datensatzes %1%</target>
       </trans-unit>
       <trans-unit id="948">
         <source>Statement of responsibility</source>
@@ -568,7 +568,7 @@
       </trans-unit>
       <trans-unit id="1021">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
-        <target/>
+        <target>Halten Sie den aktuellen Status der Beschreibung fest, handelt es  sich um eine Entwurfsfassung, eine abgeschlossene Beschreibung und/oder um eine revidierte oder gelöschte Fasssung.</target>
       </trans-unit>
       <trans-unit id="1022">
         <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>

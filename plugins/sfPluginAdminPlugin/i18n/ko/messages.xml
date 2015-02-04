@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2013-10-03T11:51:19Z" product-name="messages">
+  <file source-language="EN" target-language="ko" datatype="plaintext" original="messages" date="2015-02-04T13:33:21Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
         <source>List plugins</source>
-        <target/>
+        <target>목록 플러그인</target>
       </trans-unit>
       <trans-unit id="2">
         <source>List themes</source>
-        <target/>
+        <target>목록 주제</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Name</source>
@@ -18,11 +18,11 @@
       </trans-unit>
       <trans-unit id="4">
         <source>Version</source>
-        <target/>
+        <target>버전</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Enabled</source>
-        <target/>
+        <target>작동</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Save</source>

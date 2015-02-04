@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2014-09-19T13:20:08Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2015-02-04T13:33:20Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,7 +10,7 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Untitled</source>
-        <target/>
+        <target>Chưa có tiêu đề</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
@@ -22,27 +22,27 @@
       </trans-unit>
       <trans-unit id="5">
         <source>Name and location of repository - This is a mandatory element.</source>
-        <target/>
+        <target>Tên và vị trí của repository - Đây là yếu tố bắt buộc.</target>
       </trans-unit>
       <trans-unit id="6">
         <source>Title - This is a mandatory element.</source>
-        <target/>
+        <target>Nhan đề - Đây là yếu tố bắt buộc.</target>
       </trans-unit>
       <trans-unit id="7">
         <source>Date(s) - are not consistent with higher levels.</source>
-        <target/>
+        <target>Ngày - không khớp với   level cao hơn.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Date(s) - This is a mandatory element.</source>
-        <target/>
+        <target>Ngày - Đây là yếu tố bắt buộc.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Extent - This is a mandatory element.</source>
-        <target/>
+        <target>Phạm vi  - Đây là yếu tố bắt buộc.</target>
       </trans-unit>
       <trans-unit id="10">
         <source>This archival description, or one of its higher levels, requires at least one creator.</source>
-        <target/>
+        <target>Mô tả lưu trữ hoặc mô tả level cao hơn của nó, phải có ít nhất một tác giả.</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Scope and content - This is a mandatory element.</source>
@@ -54,15 +54,15 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Edit identity elements</source>
-        <target/>
+        <target>Hiệu yếu tố ID</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Reference code</source>
-        <target/>
+        <target>Mã tham khảo</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Name and location of repository</source>
-        <target/>
+        <target>Tên và vị trí của repository</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Level of description</source>
@@ -70,23 +70,23 @@
       </trans-unit>
       <trans-unit id="17">
         <source>Title</source>
-        <target/>
+        <target>Nhan đề </target>
       </trans-unit>
       <trans-unit id="18">
         <source>Date(s)</source>
-        <target/>
+        <target>Ngày </target>
       </trans-unit>
       <trans-unit id="19">
         <source>Extent</source>
-        <target/>
+        <target>Phạm vi</target>
       </trans-unit>
       <trans-unit id="20">
         <source>Related function</source>
-        <target/>
+        <target>Các chức năng  liên quan</target>
       </trans-unit>
       <trans-unit id="21">
         <source>Content and structure elements</source>
-        <target/>
+        <target> Vùng cấu trúc và nội dung</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Edit context and structure elements</source>
@@ -94,15 +94,15 @@
       </trans-unit>
       <trans-unit id="23">
         <source>Scope and content</source>
-        <target/>
+        <target>Phạm vi và khái niệm</target>
       </trans-unit>
       <trans-unit id="24">
         <source>System of arrangement</source>
-        <target/>
+        <target>Hệ thống sắp xếp</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Conditions of access and use elements</source>
-        <target/>
+        <target>Điều kiện yếu tố tiếp cận và  vực sử dụng</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Edit conditions of access and use elements</source>
@@ -110,7 +110,7 @@
       </trans-unit>
       <trans-unit id="27">
         <source>Conditions governing access</source>
-        <target/>
+        <target>điều kiện quản trị truy cập </target>
       </trans-unit>
       <trans-unit id="28">
         <source>Physical access</source>
@@ -120,11 +120,11 @@ Truy cập vật lý
       </trans-unit>
       <trans-unit id="29">
         <source>Technical access</source>
-        <target/>
+        <target>Truy cập kỹ thuật</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Conditions governing reproduction</source>
-        <target/>
+        <target>Kiện quản trị tái sản xuất </target>
       </trans-unit>
       <trans-unit id="31">
         <source>Languages of the material</source>
@@ -132,11 +132,11 @@ Truy cập vật lý
       </trans-unit>
       <trans-unit id="32">
         <source>Scripts of the material</source>
-        <target/>
+        <target>Scripts của vật liệu </target>
       </trans-unit>
       <trans-unit id="33">
         <source>Language and script notes</source>
-        <target/>
+        <target>Ngôn ngữ và ghi chú script </target>
       </trans-unit>
       <trans-unit id="34">
         <source>Finding aids</source>
@@ -144,7 +144,7 @@ Truy cập vật lý
       </trans-unit>
       <trans-unit id="35">
         <source>Acquisition and appraisal elements</source>
-        <target/>
+        <target>Thu được và  đánh giá giá trị </target>
       </trans-unit>
       <trans-unit id="36">
         <source>Edit acquisition and appraisal elements</source>
@@ -152,51 +152,51 @@ Truy cập vật lý
       </trans-unit>
       <trans-unit id="37">
         <source>Custodial history</source>
-        <target/>
+        <target>Lịch sử lưu giữ</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>Nguồn thu được hiện tại</target>
       </trans-unit>
       <trans-unit id="39">
         <source>Appraisal, destruction and scheduling information</source>
-        <target/>
+        <target>Thông tin Đánh giá giá trị, tiêu hủy tài liệu và lập kế hoạch</target>
       </trans-unit>
       <trans-unit id="40">
         <source>Accruals</source>
-        <target/>
+        <target>Số lượng tích lại</target>
       </trans-unit>
       <trans-unit id="41">
         <source>Related materials elements</source>
-        <target/>
+        <target>liên quan</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Edit related materials elements</source>
-        <target/>
+        <target>Hiệu chỉnh yếu tố vật liệu  liên quan</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Existence and location of originals</source>
-        <target/>
+        <target>Tồn tại và  vị trí của nguyên bản</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Existence and location of copies</source>
-        <target/>
+        <target>Sự  tồn tại và  vị trí của bản sao</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Related archival materials</source>
-        <target/>
+        <target>Tài liệu lưu liên quan</target>
       </trans-unit>
       <trans-unit id="46">
         <source>Publication notes</source>
-        <target/>
+        <target>Lưu ý công bố</target>
       </trans-unit>
       <trans-unit id="47">
         <source>Notes element</source>
-        <target/>
+        <target>Yếu tố ghi chú</target>
       </trans-unit>
       <trans-unit id="48">
         <source>Edit notes element</source>
-        <target/>
+        <target>Hiệu yếu tố ghi chú</target>
       </trans-unit>
       <trans-unit id="49">
         <source>General note</source>
@@ -204,23 +204,23 @@ Truy cập vật lý
       </trans-unit>
       <trans-unit id="50">
         <source>Specialized notes</source>
-        <target/>
+        <target>Ghi chú chuyên ngành</target>
       </trans-unit>
       <trans-unit id="51">
         <source>Description control element</source>
-        <target/>
+        <target>Yếu tố kiểm soát mô tả</target>
       </trans-unit>
       <trans-unit id="52">
         <source>Edit description control element</source>
-        <target/>
+        <target>Hiệu yếu tố kiểm soát mô tả</target>
       </trans-unit>
       <trans-unit id="53">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Quy tắc hoặc quy ước</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Sources used</source>
-        <target/>
+        <target>Nguồn sử dụng</target>
       </trans-unit>
       <trans-unit id="55">
         <source>Archivist's note</source>
@@ -228,7 +228,7 @@ Truy cập vật lý
       </trans-unit>
       <trans-unit id="56">
         <source>Access points</source>
-        <target/>
+        <target>điểm truy cập</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Edit access points</source>
@@ -236,7 +236,7 @@ Truy cập vật lý
       </trans-unit>
       <trans-unit id="58">
         <source>Rights area</source>
-        <target/>
+        <target>Vùng quyền</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Edit rights area</source>
@@ -244,15 +244,15 @@ Truy cập vật lý
       </trans-unit>
       <trans-unit id="60">
         <source>Accession area</source>
-        <target/>
+        <target>Vùng truy cập</target>
       </trans-unit>
       <trans-unit id="61">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Đây là bản sao của record %1%</target>
       </trans-unit>
       <trans-unit id="62">
         <source>At the highest level of a multilevel description or in a single level description, provide a unique identifier for the materials being described in accordance with the institution’s administrative control system. Optionally, devise unique identifiers at lower levels of a multilevel description. (DACS 2.1.3) The country and repository code will be automatically added from the linked repository record to form a full reference code.</source>
-        <target/>
+        <target>Ở cấp độ cao nhất của một mô tả đa cấp hoặc trong một mô tả mức độ duy nhất, cung cấp một định danh duy nhất cho các tài liệu được mô tả phù hợp với hệ thống kiểm soát hành chính của tổ chức. Tùy chọn, đưa ra định danh duy nhất ở các cấp thấp hơn của một mô tả đa cấp. (DACS 2.1.3) Đất nước và mã kho lưu trữ sẽ được tự động thêm từ các kho lưu trữ kỷ lục liên kết để tạo thành một mã số tham chiếu đầy đủ.</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Identifier</source>
@@ -260,15 +260,15 @@ Truy cập vật lý
       </trans-unit>
       <trans-unit id="64">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Đây là yếu tố bắt buộc phải có.</target>
       </trans-unit>
       <trans-unit id="65">
         <source>Explicitly state the name of the repository, including any parent bodies (DACS 2.2.2). Search for an existing name in the archival institution records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution record.</source>
-        <target/>
+        <target>Một cách rõ ràng nêu tên của kho lưu trữ, bao gồm bất kỳ cơ quan mẹ (DACS 2.2.2). Tìm kiếm một cái tên hiện có trong hồ sơ tổ chức lưu trữ bằng cách gõ vài ký tự đầu tiên của tên. Ngoài ra, gõ tên mới để tạo ra và liên kết đến một bản ghi cơ sở lưu trữ mới.</target>
       </trans-unit>
       <trans-unit id="66">
         <source>Select a level of description from the drop-down menu. Follow any relevant local or institutional guidelines in selecting the proper level of description. See DACS (2013) Chapter 1 for further guidance.</source>
-        <target/>
+        <target>Chọn một mức độ mô tả từ trình đơn thả xuống. Thực hiện theo bất kỳ hướng dẫn địa phương hoặc tổ chức có liên quan trong việc lựa chọn các mức độ thích hợp của mô tả. Xem DACS (2013) Chương 1 để được hướng dẫn thêm.</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Levels of description</source>
@@ -276,75 +276,75 @@ Truy cập vật lý
       </trans-unit>
       <trans-unit id="68">
         <source>In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material, normally consisting of a name segment, a term indicating the nature of the unit being described, and optionally a topical segment. Do not enclose devised titles in square brackets. (DACS 2.3.3)</source>
-        <target/>
+        <target>Trong trường hợp không có một danh hiệu chính thức có ý nghĩa, soạn một tiêu đề ngắn gọn xác định duy nhất các tài liệu, thông thường bao gồm một phân khúc tên, một thuật ngữ chỉ rõ tính chất của đơn vị được mô tả, và tùy chọn một phân đoạn tại chỗ. Không kèm theo tiêu đề đặt ra trong dấu ngoặc vuông. (DACS 2.3.3)</target>
       </trans-unit>
       <trans-unit id="69">
         <source>Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY.</source>
-        <target/>
+        <target>Record dates of creation, record-keeping activity, publication, or broadcast as appropriate to the materials being described. (DACS 2.4.3) The Date display field can be used to enter free-text date information, including typographical marks to express approximation, uncertainty, or qualification. Use the start and end fields to make the dates searchable. Do not use any qualifiers or typographical symbols. Acceptable date formats: YYYYMMDD, YYYY-MM-DD, YYYY-MM, YYYY. </target>
       </trans-unit>
       <trans-unit id="70">
         <source>Record the quantity of the material in terms of its physical extent as linear or cubic feet, number of items, or number of containers or carriers. (DACS 2.5.4). Optionally, record the quantity in terms of material type(s) (DACS 2.5.5), and/or qualify the statement of physical extent to hightlight the existence of material types that re important (DACS 2.5.6).</source>
-        <target/>
+        <target>Ghi lại số lượng của vật liệu về mức độ vật lý của nó là tuyến tính hoặc feet khối, số lượng mặt hàng, hoặc số lượng container hoặc người vận chuyển. (DACS 2.5.4). Tùy chọn, ghi lại số lượng về loại vật liệu (s) (DACS 2.5.5), và / hoặc đủ điều kiện báo cáo kết quả mức độ vật chất để Hightlight sự tồn tại của loại vật liệu đó lại quan trọng (DACS 2.5.6)</target>
       </trans-unit>
       <trans-unit id="71">
         <source>Name of creator(s)</source>
-        <target/>
+        <target>Tên của sáng tạo viên</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Record the name(s) of the creator(s) identified in the name element in the devised title of the materials using standardized vocabularies or with rules for formulating standardized names (DACS 2.6.4). Search for an existing name in the authority records by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
-        <target/>
+        <target>Ghi tên (s) của tác giả (s) được xác định trong các yếu tố tên trong tiêu đề đặt ra của các vật liệu sử dụng từ vựng tiêu chuẩn hoặc quy tắc để xây dựng tên tiêu chuẩn hóa (DACS 2.6.4). Tìm kiếm một cái tên hiện có trong biểu ghi bằng cách gõ vài ký tự đầu tiên của tên. Ngoài ra, gõ tên mới để tạo ra và liên kết đến một biểu ghi mới.</target>
       </trans-unit>
       <trans-unit id="73">
         <source>&lt;strong&gt;Identifier&lt;/strong&gt;&lt;br /&gt;Provide a unique identifier for the materials being described in accordance with the institution’s administrative control system.&lt;br /&gt;&lt;strong&gt;Level of description&lt;/strong&gt;&lt;br /&gt;Record the level of this unit of description.&lt;br /&gt;&lt;strong&gt;Title&lt;/strong&gt;&lt;br /&gt;In the absence of a meaningful formal title, compose a brief title that uniquely identifies the material.&lt;br /&gt;&lt;strong&gt;Date&lt;/strong&gt;&lt;br /&gt;Record a date of creation.</source>
-        <target/>
+        <target>&lt;strong&gt; Nhận dạng: &lt;/ strong&gt; Cung cấp một mã số cụ thể địa phương tham khảo, số kiểm soát, hoặc định danh duy nhất khác &lt;br/&gt; &lt;strong&gt; Mức độ mô tả:.. &lt;/ strong&gt; Ghi lại mức của đơn vị này mô tả &lt;br /&gt; &lt;strong&gt; title: &lt;/ strong&gt; cung cấp hoặc là một danh hiệu chính thức hoặc cung cấp một tiêu đề ngắn gọn phù hợp với các quy tắc của mô tả đa và các công ước quốc gia.</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Record information about the nature of the materials and activities reflected in the unit being described to enable users to judge its potential relevance, including information about functions, activities, transations, and processes; documentary form(s) or intellectual characteristics; content dates; geographic areas and places; subject matter; completeness of the materials; or any other information that assists the user in evaluating the relevance of the materials. (DACS 3.1)</source>
-        <target/>
+        <target>Ghi lại thông tin về bản chất của các vật liệu và các hoạt động phản ánh trong các đơn vị được mô tả cho phép người dùng để đánh giá phù hợp tiềm năng của nó, bao gồm cả thông tin về chức năng, hoạt động, transations, và quy trình; hình thức phim tài liệu (s) hoặc trí tuệ đặc điểm; ngày nội dung; khu vực và các địa điểm địa lý; vấn đề; đầy đủ của các tài liệu; hoặc bất kỳ thông tin nào khác hỗ trợ người sử dụng trong việc đánh giá sự phù hợp của vật liệu. (DACS 3.1)</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Describe the current arrangement of the material in terms of the various aggregations within it and their relationships. (DACS 3.2.3)</source>
-        <target/>
+        <target>Mô tả sự sắp xếp hiện tại của vật liệu trong điều khoản của các kết hợp khác nhau bên trong nó và mối quan hệ của họ. (DACS 3.2.3)</target>
       </trans-unit>
       <trans-unit id="76">
         <source>Give information about any restrictions on access to the unit being described (or parts thereof) as a result of the nature of the information therein or statutory/contractual requirements. As appropriate, specify the details of the restriction. If there are no restrictions, state that fact. (DACS 4.1.5)</source>
-        <target/>
+        <target>Cung cấp thông tin về bất kỳ hạn chế về tiếp cận các đơn vị được mô tả (hoặc bộ phận của chúng) như là một kết quả của bản chất của thông tin đó hoặc yêu cầu luật định / hợp đồng. Nếu phù hợp, xác định các chi tiết của những hạn chế. Nếu không có giới hạn, nhà nước thực tế. (DACS 4.1.5)</target>
       </trans-unit>
       <trans-unit id="77">
         <source>Provide information about the physical characteristics or condition of the unit being described that limit access to it or restrict its use. (DACS 4.2.5)</source>
-        <target/>
+        <target>Cung cấp thông tin về các đặc tính vật lý hay điều kiện của đơn vị được mô tả giới hạn truy cập vào nó hoặc hạn chế việc sử dụng nó. (DACS 4.2.5)</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Provide information about any special equipment required to view or access the unit being described, if it is not clear from the Extent element. (DACS 4.3.5)</source>
-        <target/>
+        <target>Cung cấp thông tin về bất kỳ thiết bị đặc biệt cần thiết để xem hoặc truy cập vào các đơn vị được mô tả, nếu nó không phải là rõ ràng từ các yếu tố Mức độ. (DACS 4.3.5)</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Give information about copyright status and any other conditions governing the reproduction, publication, and further use (e.g., display, public screening, broadcast, etc.) of the unit being described after access has been provided. (DACS 4.4.5)</source>
-        <target/>
+        <target>Cung cấp thông tin về tình trạng bản quyền và các điều kiện khác điều chỉnh việc sinh sản, xuất bản, và tiếp tục sử dụng (ví dụ, hiển thị, công chiếu, phát sóng, vv) của đơn vị được mô tả sau khi truy cập đã được cung cấp. (DACS 4.4.5)</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Conditions governing reproduction and use</source>
-        <target/>
+        <target>Điều kiện điều chỉnh sinh sản và sử dụng</target>
       </trans-unit>
       <trans-unit id="81">
         <source>Record the language(s) of the materials being described. (DACS 4.5.2)</source>
-        <target/>
+        <target>Ghi lại ngôn ngữ của các tài liệu được mô tả.(DACS 4.5.2)</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Record the scripts(s) of the materials being described.</source>
-        <target/>
+        <target>Ghi lại các kịch bản  của các vật liệu được mô tả.</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Record information about any distinctive alphabets, scripts, symbol systems, or abbreviations employed (DACS 4.5.3). If there is no language content, record “no linguistic content.” (DACS 4.5.4)</source>
-        <target/>
+        <target>Ghi lại thông tin về bất kỳ bảng chữ cái đặc biệt, kịch bản, hệ thống biểu tượng, hoặc chữ viết tắt được sử dụng (DACS 4.5.3). Nếu không có nội dung ngôn ngữ, ghi "không có nội dung ngôn ngữ." (DACS 4.5.4)</target>
       </trans-unit>
       <trans-unit id="84">
         <source>Record information about any existing finding aids that provide information relating to the context and contents of the unit being described... including any relevant information about its location or availability, and any other information necessary to assist the user in evaluating its usefulness. Include finding aids prepared by the creator (e.g., registers, indexes, etc.) that are part of the unit being described. (DACS 4.6.2)</source>
-        <target/>
+        <target>Ghi lại thông tin về bất kỳ hỗ trợ việc tìm kiếm hiện cung cấp thông tin liên quan đến bối cảnh và nội dung của đơn vị được mô tả ... bao gồm bất kỳ thông tin liên quan về vị trí và tính sẵn sàng của nó, và các thông tin khác cần thiết để hỗ trợ người sử dụng trong việc đánh giá tính hữu dụng của nó. Bao gồm việc tìm kiếm hỗ trợ chuẩn bị của các tác giả (ví dụ, đăng ký, chỉ số, vv) là một phần của các đơn vị được mô tả. (DACS 4.6.2)</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Record the successive transfers of ownership, responsibility, or custody or control of the unit being described from the time it left the possession of the creator until its acquisition by the repository, along with the dates thereof, insofar as this information can be ascertained and is significant to the user’s understanding of the authenticity. (DACS 5.1.3)</source>
-        <target/>
+        <target>Ghi lại các chuyển tiếp quyền sở hữu, trách nhiệm, hoặc tạm giữ hoặc kiểm soát của đơn vị được mô tả từ thời điểm rời khỏi sở hữu của người sáng tạo cho đến khi việc mua lại bởi các kho lưu trữ, cùng với ngày báo cáo, trong chừng mực những thông tin này có thể được xác định chắc chắn và là đáng kể cho sự hiểu biết của người sử dụng về tính xác thực. (DACS 5.1.3)</target>
       </trans-unit>
       <trans-unit id="86">
         <source>Record the source(s) from which the materials being described were acquired, the date(s) of acquisition, and the method of acquisition, if this information is not confidential. (DACS 5.2.3)</source>
@@ -352,55 +352,55 @@ Truy cập vật lý
       </trans-unit>
       <trans-unit id="87">
         <source>Immediate source of acquisition or transfer</source>
-        <target/>
+        <target>Nguồn tài liệu thu được hay chuyển nhượng hiện tại</target>
       </trans-unit>
       <trans-unit id="88">
         <source>Where the destruction or retention of archival materials has a bearing on the interpretation and use of the unit being described, provide information about the materials destroyed or retained and provide the reason(s) for the appraisal decision(s), where known. (DACS 5.3.4)</source>
-        <target/>
+        <target>Trường hợp tiêu huỷ hoặc lưu giữ tài liệu lưu trữ có mang về việc giải thích và sử dụng của đơn vị được mô tả, cung cấp thông tin về các vật liệu bị phá hủy hoặc giữ lại và cung cấp lý do (s) để quyết định thẩm định (s), nơi được biết đến. (DACS 5.3.4)</target>
       </trans-unit>
       <trans-unit id="89">
         <source>If known, indicate whether or not further accruals are expected. When appropriate, indicate frequency and volume. (DACS 5.4.2)</source>
-        <target/>
+        <target>Nếu biết, chỉ có hay không tiếp tục trích trước dự kiến​​. Khi thích hợp, cho thấy tần suất và khối lượng. (DACS 5.4.2)</target>
       </trans-unit>
       <trans-unit id="90">
         <source>If the materials being described are reproductions and the originals are located elsewhere, give the location of the originals (DACS 6.1.4). Record any identifying numbers that may help in locating the originals in the cited location (DACS 6.1.6).</source>
-        <target/>
+        <target>Nếu vật liệu được mô tả là tái tạo và bản gốc được đặt ở những nơi khác, cung cấp cho các vị trí của bản gốc (DACS 6.1.4). Ghi lại bất kỳ số xác định có thể giúp trong việc định vị bản ở vị trí trích dẫn (DACS 6.1.6).</target>
       </trans-unit>
       <trans-unit id="91">
         <source>If a copy of all or part of the material being described is available, in addition to the originals, record information about the medium and location of the copy, any identifying numbers, and any conditions on the use or availability of the copy. If a copy of only a part of the unit being described is available, indicate which part. If the materials being described are available via remote access (electronically or otherwise), provide the relevant information needed to access them. (DACS 6.2.3)</source>
-        <target/>
+        <target>Nếu một bản sao của tất cả hoặc một phần của tài liệu được mô tả là có sẵn, ngoài các bản gốc, ghi lại thông tin về các phương tiện và vị trí của các bản sao, bất kỳ con số xác định, và các điều kiện về việc sử dụng và tính sẵn sàng của bản sao. Nếu một bản sao của chỉ là một phần của các đơn vị được mô tả là có sẵn, chỉ ra một phần. Nếu vật liệu được mô tả là có sẵn thông qua truy cập từ xa (điện tử hay cách khác), cung cấp các thông tin liên quan cần thiết để truy cập chúng. (DACS 6.2.3)</target>
       </trans-unit>
       <trans-unit id="92">
         <source>If there are materials that have a direct and significant connection to those being described by reason of closely shared responsibility or sphere of activity, provide the title, location, and, optionally, the reference number(s) of the related materials and their relationship with the materials being described. (DACS 6.3.5)</source>
-        <target/>
+        <target>Nếu có tài liệu có một kết nối trực tiếp và có ý nghĩa cho những người được mô tả bởi lý do trách nhiệm hoặc lĩnh vực hoạt động chia sẻ chặt chẽ, cung cấp các tiêu đề, vị trí, và tùy chọn, số lượng tài liệu tham khảo (s) của các thành phần liên quan và mối quan hệ của họ với các tài liệu được mô tả. (DACS 6.3.5)</target>
       </trans-unit>
       <trans-unit id="93">
         <source>Related descriptions</source>
-        <target/>
+        <target> Mô tả liên quan</target>
       </trans-unit>
       <trans-unit id="94">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target/>
+        <target>Để tạo ra một mối quan hệ giữa mô tả và một mô tả tổ chức tại nguyên tử, bắt đầu gõ tên của mô tả có liên quan và chọn nó từ trình đơn thả xuống tự động hoàn chỉnh khi nó xuất hiện bên dưới. Nhiều mối quan hệ có thể được tạo ra.</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Record relevant information about sources consulted in establishing or revising the description. (DACS 8.1.3)</source>
-        <target/>
+        <target>Record relevant information about sources consulted in formulating or amending the description. (DACS 8.1.3)</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Record the international, national or local rules or conventions followed in preparing the description. (DACS 8.1.4)</source>
-        <target/>
+        <target>Ghi lại các quy tắc hay quy ước quốc tế, quốc gia và / hoặc địa phương theo việc chuẩn bị mô tả.(DACS 8.1.4)</target>
       </trans-unit>
       <trans-unit id="97">
         <source>Subject access points</source>
-        <target/>
+        <target>Cá địa điểm truy cập đối tượng</target>
       </trans-unit>
       <trans-unit id="98">
         <source>Place access points</source>
-        <target/>
+        <target>địa điểm  điểm truy cập</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>Tên điểm truy cập(tượng)</target>
       </trans-unit>
     </body>
   </file>

@@ -7,68 +7,93 @@ QubitAclGroup:
     name:
       ca: anònim
       de: anonym
+      el: ανώνυμος
       en: anonymous
       es: anónimo
+      eu: anonimoa
       fr: anonyme
       gl: anónimo
+      hu_HU: anonim
+      is_IS: nafnlaus
       it: anonimo
       ja: 匿名
       ka: ანონიმი
+      ko: 익명
       pl: anonimowy
       pt: anónimo
       pt_BR: anônimo
       sl: anonimno
       th: นิรนาม
+      vi: 'Vô danh'
   QubitAclGroup_authenticated:
     id: 99
     parent_id: QubitAclGroup_ROOT
     name:
       ca: autenticat
+      de: authentifiziert
+      el: επικυρωμένα
       en: authenticated
       es: autenticado
+      eu: autentifikatua
       fr: authentifié
       gl: autentificado
+      hu_HU: bejelentkezett
+      is_IS: staðfest
       it: autenticato
       ja: 認証された
       ka: აუთენტური
+      ko: '진본으로 인정됨'
       pl: zweryfikowany
       pt: autenticado
       pt_BR: autenticado
       sl: overjeno
+      vi: 'Chứng thực'
   QubitAclGroup_administrator:
     id: 100
     parent_id: QubitAclGroup_authenticated
     name:
       ca: administrador
       de: Administrator
+      el: διαχειριστής
       en: administrator
       es: administrador
+      eu: administratzailea
       fr: administrateur
       gl: administrador
+      hu_HU: adminisztrátor
+      is_IS: stjórnandi
       it: Amministratore
       ja: 管理者
       ka: ადმინისტრატორი
+      ko: 관리자
       pl: administrator
       pt: administrador
       pt_BR: administrador
       sl: skrbnik
+      vi: 'Quản trị'
   QubitAclGroup_editor:
     id: 101
     parent_id: QubitAclGroup_authenticated
     name:
       ca: editor
       de: Herausgeber
+      el: εκδότης
       en: editor
       es: editor
+      eu: editorea
       fr: 'auteur de la modification'
       gl: editor
+      hu_HU: szerkesztő
+      is_IS: ritstjóri
       it: editore
       ja: 編集者
       ka: რედაქტორი
+      ko: 편집자
       pl: edytor
       pt: editor
       pt_BR: editor
       sl: urednik
+      vi: 'Người sửa chửa tác phẩm'
   QubitAclGroup_contributor:
     id: 102
     parent_id: QubitAclGroup_authenticated
@@ -76,35 +101,45 @@ QubitAclGroup:
       ca: col·laborador
       en: contributor
       es: contribuidor
+      eu: kolaboratzailea
       fr: contributeur
       gl: contribuínte
       id: Kontributor
+      is_IS: framlagsveitandi
       it: 'soggetto che ha fornito un contributo'
       ja: 貢献者
       ka: 'კონტრიბუტორი, დამხმარე, ხელის შემწყობი'
+      ko: 기여자
       pl: kontrybutor
       pt: colaborador
       pt_BR: colaborador
       sl: sodelavec
+      vi: 'Người chịu phần'
   QubitAclGroup_translator:
     id: 103
     parent_id: QubitAclGroup_authenticated
     name:
       ca: traductor
       de: Übersetzer
+      el: μεταφραστής
       en: translator
       es: traductor
+      eu: itzultzailea
       fr: traducteur
       gl: traductor
+      hu_HU: fordító
       id: terjemah
+      is_IS: þýðandi
       it: traduttore
       ja: 翻訳者
       ka: მთარგმნელი
+      ko: 번역자
       pl: tłumacz
       pt: tradutor
       pt_BR: tradutor
       sl: prevajalec
       th: 'three dimensional วัตถุ'
+      vi: 'Người phiên dịch'
 QubitAclPermission:
   QubitAclPermission_anonymous_read:
     group_id: QubitAclGroup_anonymous

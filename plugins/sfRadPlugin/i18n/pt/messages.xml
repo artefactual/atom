@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2014-09-17T11:52:58Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2015-02-04T13:33:17Z" product-name="messages">
     <body>
       <trans-unit id="41">
         <source>Reference code</source>
@@ -633,19 +633,19 @@ elaboração da descrição.</target>
       </trans-unit>
       <trans-unit id="1041">
         <source>How to access to this content?</source>
-        <target/>
+        <target>Como aceder a este conteúdo?</target>
       </trans-unit>
       <trans-unit id="1042">
         <source>Contact the archivist at %1%</source>
-        <target/>
+        <target>Contacte o arquivista em %1%</target>
       </trans-unit>
       <trans-unit id="1043">
         <source>Show details</source>
-        <target/>
+        <target>Mostrar detalhes</target>
       </trans-unit>
       <trans-unit id="1044">
         <source>Close</source>
-        <target/>
+        <target>Fechar</target>
       </trans-unit>
       <trans-unit id="1045">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
@@ -661,15 +661,15 @@ elaboração da descrição.</target>
       </trans-unit>
       <trans-unit id="1048">
         <source>Associated materials</source>
-        <target/>
+        <target>Materiais associados</target>
       </trans-unit>
       <trans-unit id="1049">
         <source>Related materials</source>
-        <target/>
+        <target>Materiais relacionados</target>
       </trans-unit>
       <trans-unit id="1050">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target/>
+        <target>Para criar uma relação entre esta descrição e outra existente no AtoM, comece por escrever o nome da descrição relacionada e selecione-a na lista de menu quando surgir. Várias relações podem ser criadas.</target>
       </trans-unit>
     </body>
   </file>

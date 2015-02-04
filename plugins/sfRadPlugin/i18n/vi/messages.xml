@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2014-09-19T13:20:08Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2015-02-04T13:33:20Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,7 +10,7 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Untitled</source>
-        <target/>
+        <target>Chưa có tiêu đề</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Edit %1%</source>
@@ -26,15 +26,15 @@
       </trans-unit>
       <trans-unit id="6">
         <source>Select the type of activity that established the relation between the authority record and the archival description (e.g. creation, accumulation, collection, publication, etc.)</source>
-        <target/>
+        <target>Chọn loại hình hoạt động mà thiết lập mối quan hệ giữa các biên mục và mô tả lưu trữ (ví dụ như sáng tạo, tích lũy, bộ sưu tập, xuất bản, vv)</target>
       </trans-unit>
       <trans-unit id="7">
         <source>This archival description requires at least one date.</source>
-        <target/>
+        <target>Mô tả lưu trữ này phải có ít nhất một dữ liệu.</target>
       </trans-unit>
       <trans-unit id="8">
         <source>Date(s) - are not consistent with %1%higher levels%2%.</source>
-        <target/>
+        <target> Ngày - không khớp với  %1% level cao hơn%2%.</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Physical description - This is a mandatory element.</source>
@@ -42,7 +42,7 @@
       </trans-unit>
       <trans-unit id="10">
         <source>Title - This is a mandatory element.</source>
-        <target/>
+        <target>Nhan đề - Đây là yếu tố bắt buộc.</target>
       </trans-unit>
       <trans-unit id="11">
         <source>Level of description - Value "%value%" is not consistent with higher levels.</source>
@@ -54,19 +54,19 @@
       </trans-unit>
       <trans-unit id="13">
         <source>Statement of scale (architectural) - This is a mandatory element for architectural drawing.</source>
-        <target/>
+        <target>Tuyên bố về quy mô (kiến trúc) - Đây là một yếu tố bắt buộc đối với bản vẽ kiến ​​trúc</target>
       </trans-unit>
       <trans-unit id="14">
         <source>Statement of coordinates (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>Tuyên bố về sự chiếu ra (bản đồ)- Đây là yếu tố bắt buộc phải có cho tài liệu bản đồ.</target>
       </trans-unit>
       <trans-unit id="15">
         <source>Statement of projection (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target> Bản Tuyên Bố về  trách nhiệm sự chiếu ra (bản đồ) - Đây là một yếu tố bắt buộc đối với tài liệu bản đồ.</target>
       </trans-unit>
       <trans-unit id="16">
         <source>Statement of scale (cartographic) - This is a mandatory element for cartographic material.</source>
-        <target/>
+        <target>Tuyên bố về quy mô (bản đồ) - Đây là một yếu tố bắt buộc đối với tài liệu bản đồ.</target>
       </trans-unit>
       <trans-unit id="17">
         <source>Issuing jurisdiction and denomination (philatelic) - This is a mandatory element for philatelic record.</source>
@@ -78,7 +78,7 @@
       </trans-unit>
       <trans-unit id="19">
         <source>Edition statement - This is a mandatory element for published items if there are multiple editions.</source>
-        <target/>
+        <target>Vấn đề phiên bản - Đây là một yếu tố bắt buộc đối với các sản phẩm công bố nếu có nhiều phiên bản.</target>
       </trans-unit>
       <trans-unit id="20">
         <source>How to access to this content?</source>
@@ -86,11 +86,11 @@
       </trans-unit>
       <trans-unit id="21">
         <source>Contact the archivist at %1%</source>
-        <target/>
+        <target>Liên hệ với chuyên viên lưu trữ tại</target>
       </trans-unit>
       <trans-unit id="22">
         <source>Show details</source>
-        <target/>
+        <target>Hiển thị chi tiết</target>
       </trans-unit>
       <trans-unit id="23">
         <source>Close</source>
@@ -98,19 +98,19 @@
       </trans-unit>
       <trans-unit id="24">
         <source>Title and statement of responsibility area</source>
-        <target/>
+        <target>Vùng nhan đề và minh xác về trách nhiệm</target>
       </trans-unit>
       <trans-unit id="25">
         <source>Edit title and statement of responsibility area</source>
-        <target/>
+        <target>Hiệu chỉnh khu vực nhan đề và tuyên bố về trách nhiệm</target>
       </trans-unit>
       <trans-unit id="26">
         <source>Title proper</source>
-        <target/>
+        <target>Nhan đề chính </target>
       </trans-unit>
       <trans-unit id="27">
         <source>General material designation</source>
-        <target/>
+        <target> Chỉ định vật liệu chung</target>
       </trans-unit>
       <trans-unit id="28">
         <source>Parallel title</source>
@@ -118,15 +118,18 @@
       </trans-unit>
       <trans-unit id="29">
         <source>Other title information</source>
-        <target/>
+        <target>Thông tin nhan đề khác</target>
       </trans-unit>
       <trans-unit id="30">
         <source>Title statements of responsibility</source>
-        <target/>
+        <target>
+
+Tiêu đề tuyên bố về trách nhiệm 
+</target>
       </trans-unit>
       <trans-unit id="31">
         <source>Title notes</source>
-        <target/>
+        <target>Ghi chú nhan đề </target>
       </trans-unit>
       <trans-unit id="32">
         <source>Level of description</source>
@@ -134,15 +137,15 @@
       </trans-unit>
       <trans-unit id="33">
         <source>Repository</source>
-        <target/>
+        <target>Repository</target>
       </trans-unit>
       <trans-unit id="34">
         <source>Reference code</source>
-        <target/>
+        <target>Mã tham khảo</target>
       </trans-unit>
       <trans-unit id="35">
         <source>Edition area</source>
-        <target/>
+        <target>Nơi phiên bản</target>
       </trans-unit>
       <trans-unit id="36">
         <source>Edit edition area</source>
@@ -150,11 +153,11 @@
       </trans-unit>
       <trans-unit id="37">
         <source>Edition statement</source>
-        <target/>
+        <target>Vấn đề phiên bản</target>
       </trans-unit>
       <trans-unit id="38">
         <source>Edition statement of responsibility</source>
-        <target/>
+        <target>ấn bản lần báo cáo đề cập đến </target>
       </trans-unit>
       <trans-unit id="39">
         <source>Class of material specific details area</source>
@@ -166,23 +169,23 @@
       </trans-unit>
       <trans-unit id="41">
         <source>Statement of scale (cartographic)</source>
-        <target/>
+        <target>Tuyên bố về quy mô (bản đồ)</target>
       </trans-unit>
       <trans-unit id="42">
         <source>Statement of projection (cartographic)</source>
-        <target/>
+        <target>Tuyên bố về sự chiếu ra (bản đồ)</target>
       </trans-unit>
       <trans-unit id="43">
         <source>Statement of coordinates (cartographic)</source>
-        <target/>
+        <target> Tuyên bố của tọa độ (bản đồ)</target>
       </trans-unit>
       <trans-unit id="44">
         <source>Statement of scale (architectural)</source>
-        <target/>
+        <target>Tuyên bố về quy mô (kiến trúc)</target>
       </trans-unit>
       <trans-unit id="45">
         <source>Issuing jurisdiction and denomination (philatelic)</source>
-        <target/>
+        <target>Thẩm quyền ban hành và tên gọi (tem) </target>
       </trans-unit>
       <trans-unit id="46">
         <source>Dates of creation area</source>
@@ -198,7 +201,7 @@
       </trans-unit>
       <trans-unit id="49">
         <source>Edit physical description area</source>
-        <target/>
+        <target>Hiệu chỉnh khu vực mô tả vật lý</target>
       </trans-unit>
       <trans-unit id="50">
         <source>Physical description</source>
@@ -210,11 +213,11 @@
       </trans-unit>
       <trans-unit id="52">
         <source>Edit publisher's series area</source>
-        <target/>
+        <target>Hiệu chỉnh vùng series của nhà xuất bản </target>
       </trans-unit>
       <trans-unit id="53">
         <source>Title proper of publisher's series</source>
-        <target/>
+        <target>Nhan đề chính của series của nhà xuất bản</target>
       </trans-unit>
       <trans-unit id="54">
         <source>Parallel titles of publisher's series</source>
@@ -222,23 +225,24 @@
       </trans-unit>
       <trans-unit id="55">
         <source>Other title information of publisher's series</source>
-        <target/>
+        <target>Thông tin tiêu đề khác của loạt bài của nhà xuất bản</target>
       </trans-unit>
       <trans-unit id="56">
         <source>Statement of responsibility relating to publisher's series</source>
-        <target/>
+        <target> Bản Tuyên Bố về  trách nhiệm trách nhiệm liên quan đến Publisher's series.</target>
       </trans-unit>
       <trans-unit id="57">
         <source>Numbering within publisher's series</source>
-        <target/>
+        <target>Đánh số bao gồm mã số của nhà xuất bản</target>
       </trans-unit>
       <trans-unit id="58">
         <source>Note on publisher's series</source>
-        <target/>
+        <target>Ghi chú trên series của nhà xuất bản
+</target>
       </trans-unit>
       <trans-unit id="59">
         <source>Archival description area</source>
-        <target/>
+        <target>Vùng mô tả lưu trữ</target>
       </trans-unit>
       <trans-unit id="60">
         <source>Edit archival description area</source>
@@ -246,15 +250,15 @@
       </trans-unit>
       <trans-unit id="61">
         <source>Custodial history</source>
-        <target/>
+        <target>Lịch sử lưu giữ</target>
       </trans-unit>
       <trans-unit id="62">
         <source>Scope and content</source>
-        <target/>
+        <target>Phạm vi và khái niệm</target>
       </trans-unit>
       <trans-unit id="63">
         <source>Notes area</source>
-        <target/>
+        <target>Vùng  ghi chú</target>
       </trans-unit>
       <trans-unit id="64">
         <source>Edit notes area</source>
@@ -266,7 +270,7 @@
       </trans-unit>
       <trans-unit id="66">
         <source>Immediate source of acquisition</source>
-        <target/>
+        <target>Nguồn thu được hiện tại</target>
       </trans-unit>
       <trans-unit id="67">
         <source>Arrangement</source>
@@ -278,15 +282,16 @@
       </trans-unit>
       <trans-unit id="69">
         <source>Script of material</source>
-        <target/>
+        <target>Script của vật liệu 
+</target>
       </trans-unit>
       <trans-unit id="70">
         <source>Language and script note</source>
-        <target/>
+        <target>Ngôn ngữ và ghi chú script </target>
       </trans-unit>
       <trans-unit id="71">
         <source>Location of originals</source>
-        <target/>
+        <target>Một vị trí của nguyên bản</target>
       </trans-unit>
       <trans-unit id="72">
         <source>Availability of other formats</source>
@@ -294,11 +299,11 @@
       </trans-unit>
       <trans-unit id="73">
         <source>Restrictions on access</source>
-        <target/>
+        <target>Hạn chế  truy cập</target>
       </trans-unit>
       <trans-unit id="74">
         <source>Terms governing use, reproduction, and publication</source>
-        <target/>
+        <target>Điều khoản quản lý sử dụng, tái sản xuất, và công bố</target>
       </trans-unit>
       <trans-unit id="75">
         <source>Finding aids</source>
@@ -310,15 +315,15 @@
       </trans-unit>
       <trans-unit id="77">
         <source>Accruals</source>
-        <target/>
+        <target>Số lượng tích lại</target>
       </trans-unit>
       <trans-unit id="78">
         <source>Other notes</source>
-        <target/>
+        <target>Lưu ý khác</target>
       </trans-unit>
       <trans-unit id="79">
         <source>Standard number area</source>
-        <target/>
+        <target>Khu vực số tiêu chuẩn</target>
       </trans-unit>
       <trans-unit id="80">
         <source>Edit standard number area</source>
@@ -326,11 +331,11 @@
       </trans-unit>
       <trans-unit id="81">
         <source>Standard number</source>
-        <target/>
+        <target>Số tiêu chuẩn</target>
       </trans-unit>
       <trans-unit id="82">
         <source>Access points</source>
-        <target/>
+        <target>điểm truy cập</target>
       </trans-unit>
       <trans-unit id="83">
         <source>Edit access points</source>
@@ -338,7 +343,7 @@
       </trans-unit>
       <trans-unit id="84">
         <source>Control area</source>
-        <target/>
+        <target>Vùng kiểm soát</target>
       </trans-unit>
       <trans-unit id="85">
         <source>Edit control area</source>
@@ -346,7 +351,7 @@
       </trans-unit>
       <trans-unit id="86">
         <source>Description record identifier</source>
-        <target/>
+        <target>Nhận dạng tài liệu mô tả</target>
       </trans-unit>
       <trans-unit id="87">
         <source>Institution identifier</source>
@@ -354,11 +359,11 @@
       </trans-unit>
       <trans-unit id="88">
         <source>Rules or conventions</source>
-        <target/>
+        <target>Quy tắc hoặc quy ước</target>
       </trans-unit>
       <trans-unit id="89">
         <source>Status</source>
-        <target/>
+        <target>Tình trạng</target>
       </trans-unit>
       <trans-unit id="90">
         <source>Level of detail</source>
@@ -366,7 +371,7 @@
       </trans-unit>
       <trans-unit id="91">
         <source>Dates of creation, revision and deletion</source>
-        <target/>
+        <target>Ngày tháng năm tạo, sửa đổi, xóa</target>
       </trans-unit>
       <trans-unit id="92">
         <source>Language of description</source>
@@ -374,15 +379,16 @@
       </trans-unit>
       <trans-unit id="93">
         <source>Script of description</source>
-        <target/>
+        <target>Script của mô tả </target>
       </trans-unit>
       <trans-unit id="94">
         <source>Sources</source>
-        <target/>
+        <target>Nguồn 
+</target>
       </trans-unit>
       <trans-unit id="95">
         <source>Rights area</source>
-        <target/>
+        <target>Vùng quyền</target>
       </trans-unit>
       <trans-unit id="96">
         <source>Edit rights area</source>
@@ -390,11 +396,11 @@
       </trans-unit>
       <trans-unit id="97">
         <source>Accession area</source>
-        <target/>
+        <target>Vùng truy cập</target>
       </trans-unit>
       <trans-unit id="98">
         <source>This is a duplicate of record %1%</source>
-        <target/>
+        <target>Đây là bản sao của record %1%</target>
       </trans-unit>
       <trans-unit id="99">
         <source>Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
@@ -402,11 +408,11 @@
       </trans-unit>
       <trans-unit id="100">
         <source>This is a mandatory element.</source>
-        <target/>
+        <target>Đây là yếu tố bắt buộc phải có.</target>
       </trans-unit>
       <trans-unit id="101">
         <source>Select the General Material Designation at the highest level of description. If there are more than three, select "multiple media" (RAD 1.1C)</source>
-        <target/>
+        <target>Chọn tên vật liệu chung (General Material Designation) ở cấp độ miêu tả cao nhất. Nếu nhiều hơn 3, lựa chọn "Multiple media" (RAD 1.1C).</target>
       </trans-unit>
       <trans-unit id="102">
         <source>"[W]hen applicable, transcribe parallel titles that appear in conjunction with the formal title proper..." (RAD 1.1D)</source>
@@ -426,7 +432,7 @@
       </trans-unit>
       <trans-unit id="106">
         <source>Statement of responsibility</source>
-        <target/>
+        <target> Bản Tuyên Bố về  trách nhiệm </target>
       </trans-unit>
       <trans-unit id="107">
         <source>Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.</source>
@@ -434,19 +440,19 @@
       </trans-unit>
       <trans-unit id="108">
         <source>&lt;strong&gt;Identifier:&lt;/strong&gt; Enter an unambiguous code used to uniquely identify the description.&lt;br/&gt;&lt;strong&gt;Level:&lt;/strong&gt; Select a level of description from the drop-down menu. See RAD 1.0A for rules and conventions on selecting levels of description.&lt;br/&gt;&lt;strong&gt;Title:&lt;/strong&gt; Enter the title proper, either transcribed or supplied. (RAD 1.1B)</source>
-        <target/>
+        <target>&lt;strong&gt; Nhận dạng:. &lt;/ strong&gt; Nhập mã rõ ràng được sử dụng để xác định duy nhất mô tả &lt;br/&gt; &lt;strong&gt; Level: &lt;/ strong&gt; Chọn một mức độ mô tả từ trình đơn thả xuống. Xem RAD 1.0A cho các quy tắc và công ước về việc lựa chọn mức độ mô tả &lt;br/&gt; &lt;strong&gt; Title:. &lt;/ Strong&gt; Nhập tiêu đề thích hợp, hoặc sao chép hoặc cung cấp. (RAD 1.1b)</target>
       </trans-unit>
       <trans-unit id="109">
         <source>Select the repository that has custody and control of the archival material. The values in this field are drawn from the Authorized form of name field in archival institution records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new archival institution.</source>
-        <target/>
+        <target>Chọn các kho lưu trữ có bảo quan và kiểm soát các tài liệu lưu trữ. Các giá trị trong lĩnh vực này được rút ra từ các hình thức ủy quyền của trường tên trong hồ sơ tổ chức lưu trữ. Tìm kiếm một tên hiện tại bằng cách gõ vài ký tự đầu tiên của tên. Ngoài ra, nhập tên mới để tạo ra và liên kết với một tổ chức lưu trữ mới.</target>
       </trans-unit>
       <trans-unit id="110">
         <source>Enter an unambiguous code used to uniquely identify the description.</source>
-        <target/>
+        <target>Nhập một mã số rõ ràng được sử dụng để nhận diện các mô tả.</target>
       </trans-unit>
       <trans-unit id="111">
         <source>"Use this area only in item level description to record statements relating to versions of items existing in two or more versions or states in single or multiple copies." (RAD 1.2A1) "Transcribe the edition statement relating to the item being described." (RAD 1.2B1) "If the item being described lacks an edition statement but is known to contain significant changes from other editions, supply a suitable brief statement in the language and script of the title proper and enclose it in square brackets." (RAD 1.2B3)</source>
-        <target/>
+        <target>Diện tích sử dụng này chỉ mô tả mức độ mục để ghi lại báo cáo liên quan đến các phiên bản của các mặt hàng hiện có trong hai hoặc nhiều phiên bản hoặc phát biểu trong một hoặc nhiều bản sao. "(RAD 1.2A1)" Chuyển biên bản báo cáo liên quan đến các sản phẩm được mô tả. "(RAD 1.2B1) "Nếu sản phẩm đang được mô tả thiếu một tuyên bố phiên bản nhưng được biết là có những thay đổi đáng kể so với các phiên bản khác, cung cấp một tuyên bố ngắn gọn phù hợp trong ngôn ngữ và chữ viết của tên phù hợp và kèm theo nó trong dấu ngoặc vuông." (RAD 1.2 B3)</target>
       </trans-unit>
       <trans-unit id="112">
         <source>"Transcribe a statement of responsibility relating to one or more editions, but not to all editions, of the item being described following the edition statement if there is one." (RAD 1.2.C1) "When describing the first edition, give all statements of responsibility in the Title and statement of responsibility area." (RAD 1.2C2)</source>
@@ -454,7 +460,7 @@
       </trans-unit>
       <trans-unit id="113">
         <source>Statement of responsibility relating to the edition</source>
-        <target/>
+        <target> Bản Tuyên Bố về  trách nhiệm trách nhiệm liên quan đến phiên bản</target>
       </trans-unit>
       <trans-unit id="114">
         <source>"Give the scale of the unit being described...as a representative fraction (RF) expressed as a ratio (1: ). Precede the ratio by Scale. Give the scale even if it is already recorded as part of the title proper or other title information." (RAD 5.3B1)</source>
@@ -514,11 +520,11 @@
       </trans-unit>
       <trans-unit id="128">
         <source>Administrative history</source>
-        <target/>
+        <target>Lịch sử hành chính</target>
       </trans-unit>
       <trans-unit id="129">
         <source>Biographical sketch</source>
-        <target/>
+        <target>Phác họa tiểu sử</target>
       </trans-unit>
       <trans-unit id="130">
         <source>Edit authority record</source>
@@ -554,11 +560,11 @@
       </trans-unit>
       <trans-unit id="138">
         <source>"Record the language or languages of the unit being described, unless they are noted elsewhere or are apparent from other elements of the description. Also note any distinctive alphabets or symbol systems employed." (RAD 1.8B14). Do not duplicate information added via the drop-down in the language or script fields.</source>
-        <target/>
+        <target>Ghi lại ngôn ngữ hoặc các ngôn ngữ của các đơn vị được mô tả, trừ khi chúng được ghi nhận ở nơi khác hoặc rõ ràng là từ các yếu tố khác của mô tả "(RAD 1.8.B14) Không trùng lặp thông tin thêm qua trình đơn thả xuống trong các lĩnh vực ngôn ngữ hoặc kịch bản.</target>
       </trans-unit>
       <trans-unit id="139">
         <source>Language and script notes</source>
-        <target/>
+        <target>Ngôn ngữ và ghi chú script </target>
       </trans-unit>
       <trans-unit id="140">
         <source>"If the unit being described is a reproduction and the location of the original material is known, give that location. Give, in addition, any identifying numbers that may help in locating the original material in the cited location. If the originals are known to be no longer extant, give that information." (RAD 1.8B15a)</source>
@@ -574,7 +580,7 @@
       </trans-unit>
       <trans-unit id="143">
         <source>For terms governing use and reproduction, "Give information on legal or donor restrictions that may affect use or reproduction of the material." (RAD 1.8B16c). For terms governing publication, "Give information on legal or donor restrictions that may affect publication of the material." (RAD 1.8B16d)</source>
-        <target/>
+        <target>Đối với các điều khoản quản lý sử dụng và tái sản xuất, "Cung cấp thông tin về các hạn chế của pháp luật hoặc các nhà tài trợ có thể ảnh hưởng đến việc sử dụng hoặc sinh sản của vật liệu." (RAD 1.8B16c). Với các điều kiện quản lý xuất bản, "Cung cấp thông tin về các hạn chế của pháp luật hoặc các nhà tài trợ có thể ảnh hưởng đến bản của vật liệu." (RAD 1.8B16d)</target>
       </trans-unit>
       <trans-unit id="144">
         <source>"Give information regarding the existence of any finding aids. Include appropriate administrative and/or intellectual control tools over the material in existence at the time the unit is described, such as card catalogues, box lists, series lists, inventories, indexes, etc." (RAD 1.8B17)</source>
@@ -586,11 +592,11 @@
       </trans-unit>
       <trans-unit id="146">
         <source>Related materials</source>
-        <target/>
+        <target> Vật liệu liên quan</target>
       </trans-unit>
       <trans-unit id="147">
         <source>To create a relationship between this description and another description held in AtoM, begin typing the name of the related description and select it from the autocomplete drop-down menu when it appears below. Multiple relationships can be created.</source>
-        <target/>
+        <target>Để tạo ra một mối quan hệ giữa mô tả và một mô tả tổ chức tại nguyên tử, bắt đầu gõ tên của mô tả có liên quan và chọn nó từ trình đơn thả xuống tự động hoàn chỉnh khi nó xuất hiện bên dưới. Nhiều mối quan hệ có thể được tạo ra.</target>
       </trans-unit>
       <trans-unit id="148">
         <source>"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)</source>
@@ -602,23 +608,23 @@
       </trans-unit>
       <trans-unit id="150">
         <source>Subject access points</source>
-        <target/>
+        <target>Cá địa điểm truy cập đối tượng</target>
       </trans-unit>
       <trans-unit id="151">
         <source>Search for an existing term in the Subjects taxonomy by typing the first few characters of the term. Alternatively, type a new term to create and link to a new subject term.</source>
-        <target/>
+        <target>Tìm kiếm một thuật ngữ hiện có trong phân loại đối tượng bằng cách gõ vài ký tự đầu tiên của từ này. Ngoài ra, gõ một thuật ngữ mới để tạo ra và liên kết với một thuật ngữ chủ đề mới.</target>
       </trans-unit>
       <trans-unit id="152">
         <source>Place access points</source>
-        <target/>
+        <target>địa điểm  điểm truy cập</target>
       </trans-unit>
       <trans-unit id="153">
         <source>Search for an existing term in the Places taxonomy by typing the first few characters of the term name. Alternatively, type a new term to create and link to a new place term.</source>
-        <target/>
+        <target>Tìm kiếm một thuật ngữ hiện có trong phân loại Địa danh bằng cách gõ vài ký tự đầu tiên của địa danh. Ngoài ra, gõ một thuật ngữ mới để tạo ra và liên kết đến một địa danh mới.</target>
       </trans-unit>
       <trans-unit id="154">
         <source>Name access points (subjects)</source>
-        <target/>
+        <target>Tên điểm truy cập(tượng)</target>
       </trans-unit>
       <trans-unit id="155">
         <source>"Choose provenance, author and other non-subject access points from the archival description, as appropriate. All access points must be apparent from the archival description to which they relate." (RAD 21.0B) The values in this field are drawn from the Authorized form of name field in authority records. Search for an existing name by typing the first few characters of the name. Alternatively, type a new name to create and link to a new authority record.</source>
@@ -627,31 +633,32 @@ Tìm kiếm tên có sẵn bằng cách gõ một vài ký tự đầu của tê
       </trans-unit>
       <trans-unit id="156">
         <source>Record a unique description identifier in accordance with local and/or national conventions. If the description is to be used internationally, record the code of the country in which the description was created in accordance with the latest version of ISO 3166 - Codes for the representation of names of countries. Where the creator of the description is an international organisation, give the organisational identifier in place of the country code.</source>
-        <target/>
+        <target>Ghi lại một nhận dạng mô tả độc đáo phù hợp với quy ước của địa phương và/hoặc quốc gia. Nếu mô tả được sử dụng mang tính quốc tế, thì ghi lại mã của các quốc gia trong đó mô tả được tạo ra phù hợp với phiên bản mới nhất của tiêu chuẩn ISO 3166 - Mã số cho các đại diện của tên nước. Khi người tạo lập mô tả là một tổ chức quốc tế, thì cung cấp nhận dạng tổ chức trong vị trí của mã quốc gia. "(ISIAH 5.6.1)</target>
       </trans-unit>
       <trans-unit id="157">
         <source>Description identifier</source>
-        <target/>
+        <target>Định danh mô tả</target>
       </trans-unit>
       <trans-unit id="158">
         <source>Record the full authorised form of name(s) of the agency(ies) responsible for creating, modifying or disseminating the description or, alternatively, record a code for the agency in accordance with the national or international agency code standard.</source>
-        <target/>
+        <target>Ghi lại hình thức thẩm quyền đầy đủ tên của cơ quan chịu trách nhiệm cho việc tạo lập, sửa đổi, phổ biến các mô tả hoặc, cách khác, ghi lại một mã số công nhận cho cơ quan này
+phù hợp với các tiêu chuẩn đang cơ quan quốc gia hoặc quốc tế.</target>
       </trans-unit>
       <trans-unit id="159">
         <source>Record the international, national and/or local rules or conventions followed in preparing the description.</source>
-        <target/>
+        <target>Ghi lại các quy tắc hay quy ước quốc tế, quốc gia và / hoặc địa phương theo việc chuẩn bị mô tả.</target>
       </trans-unit>
       <trans-unit id="160">
         <source>Record the current status of the description, indicating whether it is a draft, finalized and/or revised or deleted.</source>
-        <target/>
+        <target>Ghi lại hiện trạng mô tả, chỉ ra cho dù đó là một dự thảo, hoàn thiện và / hoặc được sửa đổi hoặc bị xóa.</target>
       </trans-unit>
       <trans-unit id="161">
         <source>Record whether the description consists of a minimal, partial or full level of detail in accordance with relevant international and/or national guidelines and/or rules.</source>
-        <target/>
+        <target>Ghi lại bất cứ khi nào bản mô tả bao gồm một mức độ tối thiểu, một phần hoặc toàn bộ chi tiết phù hợp với các quy định và hướng dẫn quốc gia hay quốc tế. </target>
       </trans-unit>
       <trans-unit id="162">
         <source>Record the date(s) the entry was prepared and/or revised.</source>
-        <target/>
+        <target>Ghi ngày nhập đã được chuẩn bị và / hoặc sửa đổi.</target>
       </trans-unit>
       <trans-unit id="163">
         <source>Indicate the language(s) used to create the description of the archival material.</source>
@@ -667,11 +674,11 @@ Tìm kiếm tên có sẵn bằng cách gõ một vài ký tự đầu của tê
       </trans-unit>
       <trans-unit id="166">
         <source>Script</source>
-        <target/>
+        <target>Script</target>
       </trans-unit>
       <trans-unit id="167">
         <source>Record citations for any external sources used in the archival description (such as the Scope and Content, Custodial History, or Notes fields).</source>
-        <target/>
+        <target>Ghi lại câu trích dẫn sơ  bất kỳ nguồn bên ngoài được sử dụng trong các mô tả lưu trữ (chẳng hạn như phạm vi và nội dung, lưu trữ lịch sử, hoặc các lĩnh vực ghi chú).</target>
       </trans-unit>
     </body>
   </file>

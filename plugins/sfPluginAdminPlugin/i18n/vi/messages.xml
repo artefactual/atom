@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2014-09-19T13:20:08Z" product-name="messages">
+  <file source-language="en" target-language="vi" datatype="plaintext" original="messages" date="2015-02-04T13:33:20Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -10,11 +10,11 @@
       </trans-unit>
       <trans-unit id="2">
         <source>Name</source>
-        <target/>
+        <target>Tên</target>
       </trans-unit>
       <trans-unit id="3">
         <source>Version</source>
-        <target/>
+        <target>Phiên bản</target>
       </trans-unit>
       <trans-unit id="4">
         <source>Enabled</source>
@@ -22,11 +22,11 @@
       </trans-unit>
       <trans-unit id="5">
         <source>Save</source>
-        <target/>
+        <target>Save</target>
       </trans-unit>
       <trans-unit id="6">
         <source>List plugins</source>
-        <target/>
+        <target>Danh sách plugins</target>
       </trans-unit>
     </body>
   </file>
