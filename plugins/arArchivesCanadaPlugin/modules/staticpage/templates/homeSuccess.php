@@ -34,16 +34,16 @@
   <div class="span3" id="intro">
     <?php if ('fr' == $sf_user->getCulture()): ?>
       <h2>
-        <span class="title">ArchivesCanada</span>
-        Votre accèss à l’histoire du Canada
+        <span class="title">ARCHIVESCANADA.ca</span>
+        Votre accès à l’histoire du Canada
       </h2>
-      <p>ARCHIVESCANADA.ca est votre portail à les ressources archivistiques à travers le Canada:<br />Par l'entremise de cet portail, vous pouvez faire une recherche pour les details (descriptions archivistiques), visionnez des photographies, des cartes, ou d’autres documents numérisés ainsi que des expositions virtuelles, et découvrir les dépôts d’archives avec l’information que vous avez besoin. ArchivesCanada.ca est votre portail archivistique nationale à la patrimoine documentaire du Canada que l’on retrouve dans plus de 800 dépôts.</p>
+      <p>ARCHIVESCANADA.ca est un portail vous donnant accès à des ressources archivistiques à travers le Canada:<br />Par l'entremise de ce portail, vous pouvez faire une recherche dans les descriptions de documents d'archives, visionner des photographies, des cartes, ou d’autres documents numérisés ainsi que visiter des expositions virtuelles, et découvrir les dépôts d’archives qui détient l’information dont vous avez besoin. ARCHIVESCANADA.ca est votre portail archivistique national pour découvrir le patrimoine documentaire du Canada que l’on retrouve dans plus de 800 dépôts d'archives.</p>
     <?php else: ?>
       <h2>
-        <span class="title">ArchivesCanada</span>
+        <span class="title">ARCHIVESCANADA.ca</span>
         The Gateway to Canada's Past
       </h2>
-      <p>ARCHIVESCANADA.ca is your gateway to resources in archives across Canada:<br />Through this gateway, search for details (descriptions) about archival materials, find digital images, visit virtual exhibits, browse information about archives in every province and territory, and discover the archives with the information you need.  ArchivesCanada.ca is your national portal to Canada's documentary heritage, found in over 800 archives.</p>
+      <p>ARCHIVESCANADA.ca is your gateway to resources in archives across Canada:<br />Through this gateway, search descriptions of archival materials, find digital images, visit virtual exhibits, browse information about archives in every province and territory, and discover the archives with the information you need. ARCHIVESCANADA.ca is your national portal to Canada's documentary heritage, found in over 800 archives.</p>
     <?php endif; ?>
   </div>
 
