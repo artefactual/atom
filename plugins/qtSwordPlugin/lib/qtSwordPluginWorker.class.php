@@ -60,16 +60,16 @@ class qtSwordPluginWorker extends Net_Gearman_Job_Common
         $package + array('resource' => $resource, 'job' => $job));
 
       $extractor->run();
+
+      // Save ES documents in the batch queue
+      // We need to call the magic method explictly
+      // because the object isn't destroyed in a worker
+      QubitSearch::getInstance()->__destruct();
     }
     catch (Exception $e)
     {
       $this->log(sprintf('Exception: %s', $e->getMessage()));
     }
-
-    // Save ES documents in the batch queue
-    // We need to call the magic method explictly
-    // because the object isn't destroyed in a worker
-    QubitSearch::getInstance()->__destruct();
 
     $this->log(sprintf('Job finished.'));
 

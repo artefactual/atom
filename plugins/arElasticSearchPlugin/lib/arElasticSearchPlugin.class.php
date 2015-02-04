@@ -108,8 +108,20 @@ class arElasticSearchPlugin extends QubitSearchEngine
     // If there are still documents in the batch queue, send them
     if ($this->config['batch_mode'] && count($this->batchDocs) > 0)
     {
-      $this->index->addDocuments($this->batchDocs);
-      $this->index->flush();
+      try
+      {
+        $this->index->addDocuments($this->batchDocs);
+        $this->index->flush();
+      }
+      catch (Exception $e)
+      {
+        // Clear batchDocs if something went wrong too
+        $this->batchDocs = array();
+
+        throw $e;
+      }
+
+      $this->batchDocs = array();
     }
 
     $this->index->refresh();

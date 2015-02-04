@@ -981,14 +981,6 @@ class arElasticSearchInformationObjectPdo
             $metsData['mimeType'] = (string)$value[0];
           }
 
-          // Exiftool rawOutput
-          $exiftoolXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:toolOutput/f:tool/exiftool/rawOutput';
-
-          if (0 < count($value = $document->xpath($exiftoolXpath)))
-          {
-            $metsData['exiftoolRawOutput'] = (string)$value[0];
-          }
-
           // Audio
           $audioXpath = $objectXpath.'s:objectCharacteristics/s:objectCharacteristicsExtension/f:fits/f:metadata/f:audio/';
 
