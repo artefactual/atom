@@ -65,8 +65,15 @@ class arGenerateFindingAidJob extends arBaseJob
 
     unlink($eadFilePath);
 
+    $public = '';
+    if ((null !== $setting = QubitSetting::getByName('publicFindingAid'))
+      && $setting->getValue(array('sourceCulture' => true)))
+    {
+      $public = '--public';
+    }
+
     // Call generate EAD task
-    exec("php $appRoot/symfony export:bulk --single-id=$resource->id $eadFilePath", $junk, $exitCode);
+    exec("php $appRoot/symfony export:bulk --single-id=$resource->id $public $eadFilePath", $junk, $exitCode);
 
     if ($exitCode != 0)
     {
@@ -74,10 +81,17 @@ class arGenerateFindingAidJob extends arBaseJob
       return false;
     }
 
-    // Crank the XML through XSL stylesheet and fix header / fonds URL
-    $eadXslFilePath = $appRoot . '/lib/task/pdf/ead-pdf.xsl';
+    // Use XSL file selected in Finding Aid model setting
+    $findingAidModel = 'inventory-summary';
+    if (null !== $setting = QubitSetting::getByName('findingAidModel'))
+    {
+      $findingAidModel = $setting->getValue(array('sourceCulture' => true));
+    }
+
+    $eadXslFilePath = $appRoot . '/lib/task/pdf/ead-pdf-' . $findingAidModel . '.xsl';
     $saxonPath = $appRoot . '/lib/task/pdf/saxon9he.jar';
 
+    // Crank the XML through XSL stylesheet and fix header / fonds URL
     $eadFileString = file_get_contents($eadFilePath);
     $eadFileString = $this->fixHeader($eadFileString, sfConfig::get('app_site_base_url', null));
     file_put_contents($eadFilePath, $eadFileString);
@@ -181,7 +195,17 @@ class arGenerateFindingAidJob extends arBaseJob
 
   public static function getFindingAidPath($id)
   {
-    return 'downloads' . DIRECTORY_SEPARATOR . $id . '.' . self::getFindingAidFormat();
+    if (null !== $slug = QubitSlug::getByObjectId($id))
+    {
+      $filename = $slug->slug;
+    }
+
+    if (!isset($filename))
+    {
+      $filename = $id;
+    }
+
+    return 'downloads' . DIRECTORY_SEPARATOR . $filename . '.' . self::getFindingAidFormat();
   }
 
   public static function getFindingAidFormat()

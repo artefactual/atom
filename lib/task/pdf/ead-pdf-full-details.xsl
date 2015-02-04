@@ -173,10 +173,15 @@
                 </fo:static-content>
                 <!-- Page footer-->
                 <fo:static-content flow-name="xsl-region-after">
-                    <fo:block text-align="center" color="gray">
-                        <xsl:text>- Page </xsl:text>
+                    <fo:block text-align="left" text-align-last="justify" border-top-style="solid">
+                        <xsl:apply-templates select="(//ead:repository/ead:corpname)[1]"/>
+                        <fo:leader leader-pattern="space"/>
+
+                        <xsl:text/>
+                        <fo:leader leader-pattern="space"/>
+
+                        <xsl:text>Page </xsl:text>
                         <fo:page-number/>
-                        <xsl:text> -</xsl:text>
                     </fo:block>
                 </fo:static-content>
                 <!-- Content of page -->
@@ -201,7 +206,7 @@
                 <!-- Page footer-->
                 <fo:static-content flow-name="xsl-region-after">
                     <fo:block text-align="left" text-align-last="justify" border-top-style="solid">
-                        <xsl:apply-templates select="//ead:repository/ead:corpname"/>
+                        <xsl:apply-templates select="(//ead:repository/ead:corpname)[1]"/>
                         <fo:leader leader-pattern="space"/>
 
                         <xsl:text/>
@@ -290,7 +295,7 @@
                         <fo:external-graphic src="images/pdf-logo.png"  height="1cm" width="2cm"
                             content-width="scale-to-fit" content-height="scale-to-fit"/>
                         <xsl:text> </xsl:text>
-                        <xsl:apply-templates select="//ead:repository/ead:corpname"/>
+                        <xsl:apply-templates select="(//ead:repository/ead:corpname)[1]"/>
                         <fo:block/>
                         Finding Aid - <xsl:apply-templates select="ead:titleproper[1]"/> (<xsl:value-of select="//ead:eadid"/>)
                     </xsl:otherwise>
@@ -388,17 +393,18 @@
                 </fo:bookmark>
             </xsl:if>
 
+            <xsl:if test="ead:phystech">
+                <fo:bookmark internal-destination="{local:buildID(ead:phystech[1])}">
+                    <fo:bookmark-title><xsl:value-of select="local:tagName(ead:phystech[1])"/></fo:bookmark-title>
+                </fo:bookmark>
+            </xsl:if>
+
             <xsl:if test="ead:controlaccess">
                 <fo:bookmark internal-destination="{local:buildID(ead:controlaccess[1])}">
                     <fo:bookmark-title><xsl:value-of select="local:tagName(ead:controlaccess[1])"/></fo:bookmark-title>
                 </fo:bookmark>
             </xsl:if>
 
-            <xsl:if test="ead:phystech">
-                <fo:bookmark internal-destination="{local:buildID(ead:phystech[1])}">
-                    <fo:bookmark-title><xsl:value-of select="local:tagName(ead:phystech[1])"/></fo:bookmark-title>
-                </fo:bookmark>
-            </xsl:if>
             <xsl:if test="ead:odd">
                 <fo:bookmark internal-destination="{local:buildID(ead:odd[1])}">
                     <fo:bookmark-title><xsl:value-of select="local:tagName(ead:odd[1])"/></fo:bookmark-title>
@@ -419,11 +425,11 @@
             <xsl:for-each select="ead:dsc">
                 <xsl:if test="child::*">
                     <fo:bookmark internal-destination="{local:buildID(.)}">
-                        <fo:bookmark-title><xsl:value-of select="local:tagName(.)"/></fo:bookmark-title>
+                        <fo:bookmark-title>Collection holdings</fo:bookmark-title>
                     </fo:bookmark>
                 </xsl:if>
-                <!--Creates a submenu for collections, record groups and series and fonds-->
-                <xsl:for-each select="child::*[@level = 'collection']  | child::*[@level = 'recordgrp']  | child::*[@level = 'series'] | child::*[@level = 'fonds']">
+                <!--Creates descendants bookmarks-->
+                <xsl:for-each select="//ead:c">
                     <fo:bookmark internal-destination="{local:buildID(.)}">
                         <fo:bookmark-title>
                             <xsl:choose>
@@ -436,21 +442,6 @@
                             </xsl:choose>
                         </fo:bookmark-title>
                     </fo:bookmark>
-                    <!-- Creates a submenu for subfonds, subgrp or subseries -->
-                    <xsl:for-each select="child::*[@level = 'subfonds'] | child::*[@level = 'subgrp']  | child::*[@level = 'subseries']">
-                        <fo:bookmark internal-destination="{local:buildID(.)}">
-                            <fo:bookmark-title>
-                                <xsl:choose>
-                                    <xsl:when test="ead:head">
-                                        <xsl:apply-templates select="child::*/ead:head"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:apply-templates select="child::*/ead:unittitle"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </fo:bookmark-title>
-                        </fo:bookmark>
-                    </xsl:for-each>
                 </xsl:for-each>
             </xsl:for-each>
         </fo:bookmark-tree>
@@ -521,6 +512,16 @@
                         </fo:block>
                 </xsl:if>
 
+                <xsl:if test="ead:phystech">
+                    <fo:block text-align-last="justify">
+                        <fo:basic-link internal-destination="{local:buildID(ead:phystech[1])}"><xsl:value-of select="local:tagName(ead:phystech[1])"/></fo:basic-link>
+                        <xsl:text>&#160;&#160;</xsl:text>
+                        <fo:leader leader-pattern="dots"/>
+                        <xsl:text>&#160;&#160;</xsl:text>
+                        <fo:page-number-citation ref-id="{local:buildID(ead:phystech[1])}"/>
+                    </fo:block>
+                </xsl:if>
+
                 <xsl:if test="ead:controlaccess">
                     <fo:block text-align-last="justify">
                         <fo:basic-link internal-destination="{local:buildID(ead:controlaccess[1])}"><xsl:value-of select="local:tagName(ead:controlaccess[1])"/></fo:basic-link>
@@ -531,15 +532,6 @@
                     </fo:block>
                 </xsl:if>
 
-                <xsl:if test="ead:phystech">
-                    <fo:block text-align-last="justify">
-                        <fo:basic-link internal-destination="{local:buildID(ead:phystech[1])}"><xsl:value-of select="local:tagName(ead:phystech[1])"/></fo:basic-link>
-                        <xsl:text>&#160;&#160;</xsl:text>
-                        <fo:leader leader-pattern="dots"/>
-                        <xsl:text>&#160;&#160;</xsl:text>
-                        <fo:page-number-citation ref-id="{local:buildID(ead:phystech[1])}"/>
-                    </fo:block>
-                </xsl:if>
                 <xsl:if test="ead:odd and not(ead:odd[@type='publicationStatus'])">
                     <fo:block text-align-last="justify">
                         <fo:basic-link internal-destination="{local:buildID(ead:odd[1])}"><xsl:value-of select="local:tagName(ead:odd[1])"/></fo:basic-link>
@@ -572,25 +564,31 @@
                 <xsl:for-each select="ead:dsc">
                     <xsl:if test="child::*">
                         <fo:block text-align-last="justify">
-                            <fo:basic-link internal-destination="{local:buildID(.)}"><xsl:value-of select="local:tagName(.)"/></fo:basic-link>
+                            <fo:basic-link internal-destination="{local:buildID(.)}">Collection holdings</fo:basic-link>
                             <xsl:text>&#160;&#160;</xsl:text>
                             <fo:leader leader-pattern="dots"/>
                             <xsl:text>&#160;&#160;</xsl:text>
                             <fo:page-number-citation ref-id="{local:buildID(.)}"/>
                         </fo:block>
                     </xsl:if>
-                    <!--Creates a submenu for collections, record groups and series and fonds-->
-                    <xsl:for-each select="child::*[@level = 'collection']  | child::*[@level = 'recordgrp']  | child::*[@level = 'series'] | child::*[@level = 'fonds']">
-                        <fo:block text-align-last="justify" margin-left="8pt">
+                    <!--Creates descendants hierarchy-->
+                    <xsl:for-each select="//ead:c">
+                        <xsl:variable name="indention" select="(count(ancestor-or-self::*) - 3) * 8"/>
+                        <fo:block text-align-last="justify" margin-left="{$indention}pt">
                             <fo:basic-link internal-destination="{local:buildID(.)}">
                                 <xsl:choose>
                                     <xsl:when test="ead:head">
                                         <xsl:apply-templates select="child::*/ead:head"/>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:value-of select="child::*/ead:unitid"/>,
-                                        <xsl:apply-templates select="child::*/ead:unittitle"/>,
-                                        <xsl:apply-templates select="child::*/ead:unitdate" mode="did"/>
+                                        <xsl:value-of select="(child::*/ead:unitid)[1]"/>
+                                        <xsl:if test="(child::*/ead:unitid)[1] and (child::*/ead:unittitle[not(ead:bibseries)])[1]">
+                                            <xsl:text>,&#160;</xsl:text>
+                                        </xsl:if>
+                                        <xsl:apply-templates select="(child::*/ead:unittitle[not(ead:bibseries)])[1]"/>
+                                        <xsl:if test="(child::*/ead:unitdate)[1]">
+                                             (<xsl:apply-templates select="(child::*/ead:unitdate)[1]" mode="did"/>)
+                                        </xsl:if>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </fo:basic-link>
@@ -599,26 +597,6 @@
                             <xsl:text>&#160;&#160;</xsl:text>
                             <fo:page-number-citation ref-id="{local:buildID(.)}"/>
                         </fo:block>
-                        <!-- Creates a submenu for subfonds, subgrp or subseries -->
-                        <xsl:for-each select="child::*[@level = 'subfonds'] | child::*[@level = 'subgrp']  | child::*[@level = 'subseries']">
-                            <fo:block text-align-last="justify" margin-left="16pt">
-                                <fo:basic-link internal-destination="{local:buildID(.)}">
-                                    <xsl:choose>
-                                        <xsl:when test="ead:head">
-                                            <xsl:apply-templates select="child::*/ead:head"/>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:value-of select="child::*/ead:unitid"/>,
-                                            <xsl:apply-templates select="child::*/ead:unittitle"/>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
-                                </fo:basic-link>
-                                <xsl:text>&#160;&#160;</xsl:text>
-                                <fo:leader leader-pattern="dots"/>
-                                <xsl:text>&#160;&#160;</xsl:text>
-                                <fo:page-number-citation ref-id="{local:buildID(.)}"/>
-                            </fo:block>
-                        </xsl:for-each>
                     </xsl:for-each>
                 </xsl:for-each>
             </fo:block>
@@ -680,15 +658,17 @@
                 <fo:table-column column-width="2in"/>
                 <fo:table-column column-width="5in"/>
                 <fo:table-body>
-                        <!--<xsl:apply-templates select="ead:repository" mode="overview"/>-->
-                        <xsl:call-template name="summaryInfoRepoName"/>
-                        <xsl:apply-templates select="//ead:origination" mode="overview"/>
-                        <xsl:apply-templates select="ead:unittitle" mode="overview"/>
-                        <xsl:apply-templates select="ead:unitid" mode="overview"/>
-                        <xsl:apply-templates select="ead:unitdate" mode="overview"/>
-                        <xsl:apply-templates select="ead:physdesc" mode="overview"/>
-                        <xsl:apply-templates select="ead:physloc" mode="overview"/>
-                        <xsl:apply-templates select="ead:note" mode="overview"/>
+                    <!--<xsl:apply-templates select="ead:repository" mode="overview"/>-->
+                    <xsl:call-template name="summaryInfoRepoName"/>
+                    <xsl:apply-templates select="//ead:origination" mode="overview"/>
+                    <xsl:apply-templates select="ead:unittitle[not(ead:bibseries)]" mode="overview"/>
+                    <xsl:apply-templates select="ead:unitid" mode="overview"/>
+                    <xsl:apply-templates select="ead:unitdate" mode="overview"/>
+                    <xsl:apply-templates select="ead:langmaterial/ead:language" mode="overview"/>
+                    <xsl:apply-templates select="ead:materialspec" mode="overview"/>
+                    <xsl:apply-templates select="ead:physdesc" mode="overview"/>
+                    <xsl:apply-templates select="ead:physloc" mode="overview"/>
+                    <xsl:apply-templates select="ead:note" mode="overview"/>
                 </fo:table-body>
             </fo:table>
 
@@ -700,7 +680,7 @@
     <!-- Formats children of arcdesc/did -->
     <xsl:template match="ead:repository | ead:origination | ead:unittitle | ead:unitdate | ead:unitid
         | ead:physdesc | ead:physloc | ead:dao | ead:daogrp | ead:langmaterial | ead:materialspec | ead:container
-        | ead:abstract | ead:note" mode="overview">
+        | ead:abstract | ead:note | ead:langmaterial/ead:language" mode="overview">
         <fo:table-row>
             <fo:table-cell padding-bottom="8pt" padding-right="16pt" text-align="right" font-weight="bold">
                 <fo:block>
@@ -760,7 +740,7 @@
             </fo:table-cell>
             <fo:table-cell padding-bottom="2pt">
                 <fo:block>
-                    <xsl:value-of select="//ead:repository/ead:corpname"/>
+                    <xsl:value-of select="(//ead:repository/ead:corpname)[1]"/>
                 </fo:block>
             </fo:table-cell>
         </fo:table-row>
@@ -909,12 +889,14 @@
 
     <!-- Formats controlled access terms -->
     <xsl:template match="ead:controlaccess">
-        <fo:block xsl:use-attribute-sets="section">
-            <fo:block xsl:use-attribute-sets="h2ID"><xsl:value-of select="local:tagName(.)"/></fo:block>
-            <fo:list-block xsl:use-attribute-sets="smp">
-                <xsl:apply-templates/>
-            </fo:list-block>
-        </fo:block>
+        <xsl:if test="child::*">
+            <fo:block xsl:use-attribute-sets="section">
+                <fo:block xsl:use-attribute-sets="h2ID"><xsl:value-of select="local:tagName(.)"/></fo:block>
+                <fo:list-block xsl:use-attribute-sets="smp">
+                    <xsl:apply-templates/>
+                </fo:list-block>
+            </fo:block>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="ead:controlaccess/child::*">
         <fo:list-item>
@@ -1375,33 +1357,9 @@
 
     <!-- Collection Inventory (dsc) templates -->
     <xsl:template match="ead:archdesc/ead:dsc">
-        <fo:block xsl:use-attribute-sets="sectionTable" >
-            <fo:block xsl:use-attribute-sets="h2ID"><xsl:value-of select="local:tagName(.)"/></fo:block>
-            <fo:table table-layout="fixed" space-after="12pt" width="100%" font-size="10pt"
-                border-bottom="1pt solid #000" border-top="1pt solid #000"
-                border-left="1pt solid #000" border-right="1pt solid #000" text-align="left"
-                border-after-width.length="1pt" border-after-width.conditionality="retain"
-                border-before-width.length="1pt" border-before-width.conditionality="retain">
-
-                <fo:table-column column-number="1" column-width="1.5in"
-                                 border-bottom="1px solid #000" border-top="1pt solid #000"
-                                 border-left="1pt solid #000" border-right="1pt solid #000"/>
-
-                <fo:table-column column-number="2" column-width="2.5in"
-                                 border-bottom="1px solid #000" border-top="1pt solid #000"/>
-                <fo:table-column column-number="3" column-width="1.1in"
-                                 border-bottom="1px solid #000" border-top="1pt solid #000"/>
-                <fo:table-column column-number="4" column-width="1.3in"
-                                 border-bottom="1px solid #000" border-top="1pt solid #000"/>
-                <fo:table-column column-number="5" column-width="1in"
-                                 border-bottom="1px solid #000" border-top="1pt solid #000"/>
-                <fo:table-body start-indent="0in">
-                    <xsl:if test="child::*[@level][1][@level='item' or @level='file' or @level='otherlevel']">
-                        <xsl:call-template name="tableHeaders"/>
-                    </xsl:if>
-                    <xsl:apply-templates select="*[not(self::ead:head)]"/>
-                </fo:table-body>
-            </fo:table>
+        <fo:block xsl:use-attribute-sets="sectionTable" margin-top="10pt">
+            <fo:block xsl:use-attribute-sets="h2ID">Collection holdings</fo:block>
+            <xsl:apply-templates select="*[not(self::ead:head)]"/>
         </fo:block>
     </xsl:template>
 
@@ -1416,92 +1374,20 @@
         <xsl:call-template name="clevel">
             <xsl:with-param name="level" select="$findClevel"></xsl:with-param>
         </xsl:call-template>
-        <xsl:if test="@level='series'">
-            <fo:table-row>
-                <fo:table-cell number-columns-spanned="5"><xsl:call-template name="toc"/></fo:table-cell>
-            </fo:table-row>
-        </xsl:if>
     </xsl:template>
+
     <!--This is a named template that processes all the components  -->
     <xsl:template name="clevel">
-        <!-- Establishes which level is being processed in order to provided indented displays. -->
         <xsl:param name="level" />
-        <xsl:variable name="clevelMargin" select="'2pt'">
-            <!-- Uncomment for indented series descriptions
-            <xsl:choose>
-                <xsl:when test="$level = 1">4pt</xsl:when>
-                <xsl:when test="$level = 2">12pt</xsl:when>
-                <xsl:when test="$level = 3">20pt</xsl:when>
-                <xsl:when test="$level = 4">28pt</xsl:when>
-                <xsl:when test="$level = 5">36pt</xsl:when>
-                <xsl:when test="$level = 6">44pt</xsl:when>
-                <xsl:when test="$level = 7">52pt</xsl:when>
-                <xsl:when test="$level = 8">60pt</xsl:when>
-                <xsl:when test="$level = 9">68pt</xsl:when>
-                <xsl:when test="$level = 10">74pt</xsl:when>
-                <xsl:when test="$level = 11">82pt</xsl:when>
-                <xsl:when test="$level = 12">90pt</xsl:when>
-            </xsl:choose>
-            -->
-        </xsl:variable>
-        <xsl:choose>
-            <!--Formats Series and Groups  -->
-            <xsl:when test="@level='subcollection' or @level='subgrp' or @level='series'
-                or @level='subseries' or @level='collection'or @level='fonds' or
-                @level='recordgrp' or @level='subfonds' or @level='class' or
-                (@level='otherlevel' and not(child::ead:did/ead:container))">
 
-                <fo:table-row background-color="#ffffff" border-bottom="1pt solid #000"
-                              border-top="1pt solid #000"  text-align="left">
+        <fo:block border-bottom="1pt dotted #333">
+            <fo:block margin-left="{($level - 1)*16+4}pt" font-size="10pt" text-align="left">
+                <xsl:apply-templates select="ead:did" mode="dscSeriesTitle"/>
+                <xsl:apply-templates select="ead:did" mode="dscSeries"/>
+                <xsl:value-of select="self::bioghist"/>
+            </fo:block>
+        </fo:block>
 
-                    <fo:table-cell margin-left="{$clevelMargin}" padding-top="4pt">
-                        <xsl:attribute name="number-columns-spanned">5</xsl:attribute>
-
-                        <xsl:apply-templates select="ead:did" mode="dscSeriesTitle"/>
-                        <xsl:apply-templates select="ead:did" mode="dscSeries"/>
-                        <xsl:value-of select="self::bioghist"/>
-                        <!--<xsl:apply-templates select="child::*[not(ead:did) and not(self::ead:did)]" mode="dsc"/>-->
-                    </fo:table-cell>
-                </fo:table-row>
-                <fo:table-row border-top="1px solid #000" border-bottom="1pt solid #000" margin-top="3pt">
-                    <fo:table-cell margin-left="{$clevelMargin}" padding-top="4pt" number-columns-spanned="5">
-                        <fo:block text-align="center" xsl:use-attribute-sets="h4">
-                            File / item list
-                        </fo:block>
-                    </fo:table-cell>
-                </fo:table-row>
-
-                <!-- Adds column headings if series/subseries is followed by an item -->
-                <xsl:if test="child::*[@level][1][@level='item' or @level='file' or @level='otherlevel']">
-                    <xsl:call-template name="tableHeaders"/>
-                </xsl:if>
-            </xsl:when>
-
-            <xsl:otherwise>
-                <fo:table-row border-top="1px solid #000" padding-left="2pt" margin-left="2pt">
-                    <fo:table-cell>
-                        <!-- We insert zero width spaces before dashes so text-wrap works,
-                        this is a kludge due to a bug where text-wrap doesn't work, see here:
-                        http://xmlgraphics.apache.org/fop/faq.html#cells-overflow -->
-                        <fo:block>
-                            <xsl:value-of select="ead:did/ead:unitid"/>
-                        </fo:block>
-                    </fo:table-cell>
-                    <fo:table-cell>
-                        <fo:block><xsl:apply-templates select="ead:did" mode="dsc"/></fo:block>
-                    </fo:table-cell>
-                    <fo:table-cell>
-                        <fo:block><xsl:value-of select="ead:did/ead:unitdate"/></fo:block>
-                    </fo:table-cell>
-                    <fo:table-cell>
-                        <fo:block><xsl:value-of select="(ead:accessrestrict/p | ead:accessrestrict)"/></fo:block>
-                    </fo:table-cell>
-                    <fo:table-cell>
-                        <fo:block><xsl:value-of select="ead:did/ead:container"/></fo:block>
-                    </fo:table-cell>
-                </fo:table-row>
-            </xsl:otherwise>
-        </xsl:choose>
         <!-- Calls child components -->
         <xsl:apply-templates select="ead:c | ead:c01 | ead:c02 | ead:c03 | ead:c04 | ead:c05 | ead:c06 | ead:c07 | ead:c08 | ead:c09 | ead:c10 | ead:c11 | ead:c12"/>
     </xsl:template>
@@ -1545,31 +1431,33 @@
 
     <!-- Series titles -->
     <xsl:template match="ead:did" mode="dscSeriesTitle">
-        <fo:block font-weight="bold" font-size="14" margin-bottom="0" margin-top="0" id="{local:buildID(parent::*)}">
-            <!-- Uncomment the following to add 'Series' to series titles  -->
+        <fo:block font-weight="bold" font-size="14" margin-bottom="5pt" margin-top="20pt" id="{local:buildID(parent::*)}">
+            <xsl:choose>
+                <xsl:when test="../@level='series'">Series: </xsl:when>
+                <xsl:when test="../@level='subseries'">Subseries: </xsl:when>
+                <xsl:when test="../@level='subsubseries'">Sub-Subseries: </xsl:when>
+                <xsl:when test="../@level='collection'">Collection: </xsl:when>
+                <xsl:when test="../@level='subcollection'">Subcollection: </xsl:when>
+                <xsl:when test="../@level='fonds'">Fonds: </xsl:when>
+                <xsl:when test="../@level='subfonds'">Subfonds: </xsl:when>
+                <xsl:when test="../@level='recordgrp'">Record group: </xsl:when>
+                <xsl:when test="../@level='subgrp'">Subgroup: </xsl:when>
+                <xsl:when test="../@level='file'">File: </xsl:when>
+                <xsl:when test="../@level='item'">Item: </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="../@otherlevel">
+                        <xsl:call-template name="ucfirst">
+                            <xsl:with-param name="value" select="../@otherlevel"/>
+                        </xsl:call-template>
+                        <xsl:text>: </xsl:text>
+                    </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:if test="ead:unitid">
-                <xsl:choose>
-                    <xsl:when test="../@level='series'">Series <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:when test="../@level='subseries'">Subseries <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:when test="../@level='subsubseries'">Sub-Subseries <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:when test="../@level='collection'">Collection <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:when test="../@level='subcollection'">Subcollection <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:when test="../@level='fonds'">Fonds <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:when test="../@level='subfonds'">Subfonds <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:when test="../@level='recordgrp'">Record group <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:when test="../@level='subgrp'">Subgroup <xsl:value-of select="ead:unitid"/>: </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:if test="../@otherlevel">
-                            <xsl:call-template name="ucfirst">
-                                <xsl:with-param name="value" select="../@otherlevel"/>
-                            </xsl:call-template>
-                            <xsl:text> </xsl:text>
-                            <!--<xsl:value-of select="../@otherlevel"/><xsl:text> </xsl:text>-->
-                        </xsl:if>
-                        <xsl:value-of select="ead:unitid"/>: </xsl:otherwise>
-                </xsl:choose>
+                <xsl:value-of select="(ead:unitid)[1]"/>
+                <xsl:text> - </xsl:text>
             </xsl:if>
-            <xsl:apply-templates select="ead:unittitle"/>
+            <xsl:apply-templates select="(ead:unittitle[not(ead:bibseries)])[1]"/>
             <!--<xsl:if test="(string-length(ead:unittitle[1]) &gt; 1) and (string-length(ead:unitdate[1]) &gt; 1)"></xsl:if>
             <xsl:apply-templates select="ead:unitdate" mode="did"/>-->
         </fo:block>
@@ -1577,9 +1465,11 @@
 
     <!-- Series child elements -->
     <xsl:template match="ead:did" mode="dscSeries">
-        <fo:block margin-left="2pt" margin-bottom="4pt" margin-top="0" font-size="9">
+        <fo:block margin-left="2pt" margin-bottom="4pt" font-size="9">
             <!--Atom: <xsl:apply-templates select="ead:repository" mode="dsc"/> -->
             <xsl:apply-templates select="ead:origination" mode="dsc"/>
+            <xsl:apply-templates select="ead:unittitle[not(ead:bibseries)]" mode="dsc"/>
+            <xsl:apply-templates select="ead:unitid" mode="dsc"/>
             <xsl:apply-templates select="ead:unitdate" mode="dsc"/>
             <xsl:apply-templates select="following-sibling::ead:scopecontent[1]" mode="dsc"/>
             <xsl:apply-templates select="ead:physdesc" mode="dsc"/>
@@ -1588,7 +1478,6 @@
             <xsl:apply-templates select="ead:materialspec" mode="dsc"/>
             <xsl:apply-templates select="ead:abstract" mode="dsc"/>
             <xsl:apply-templates select="ead:note" mode="dsc"/>
-            <xsl:apply-templates select="following-sibling::ead:controlaccess" mode="dsc"/>
         </fo:block>
 
         <fo:block margin-left="2pt" margin-bottom="4pt" margin-top="0" font-size="9">
@@ -1605,6 +1494,7 @@
             <xsl:apply-templates select="following-sibling::ead:relatedmaterial" mode="dsc"/>
             <xsl:apply-templates select="following-sibling::ead:accruals" mode="dsc"/>
             <xsl:call-template name="otherNotesSeries"/>
+            <xsl:apply-templates select="following-sibling::ead:controlaccess" mode="dsc"/>
         </fo:block>
     </xsl:template>
 
@@ -1649,7 +1539,7 @@
     </xsl:template>
 
     <!-- Special formatting for elements in the collection inventory list -->
-    <xsl:template match="ead:repository | ead:origination | ead:unitdate | ead:unitid | ead:scopecontent
+    <xsl:template match="ead:repository | ead:origination | ead:unittitle | ead:unitdate | ead:unitid | ead:scopecontent
         | ead:physdesc | ead:physloc | ead:materialspec | ead:container
         | ead:abstract | ead:note | ead:phystech | ead:acqinfo | ead:arrangement | ead:originalsloc
         | ead:altformavail | ead:accessrestrict | ead:userestrict | ead:otherfindaid | ead:relatedmaterial
@@ -1676,6 +1566,7 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="local:tagName(.)"/>
+                    <xsl:if test="@type"> [<xsl:value-of select="@type"/>]</xsl:if>
                 </xsl:otherwise>
             </xsl:choose></fo:inline>: <xsl:apply-templates/>
             <xsl:if test="@datechar"> (<xsl:value-of select="@datechar"/>)</xsl:if>

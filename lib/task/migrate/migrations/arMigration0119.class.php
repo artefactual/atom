@@ -18,38 +18,31 @@
  */
 
 /*
- * Fix MODS resource types terms
+ * Add Finding Aid model and public Finding Aid settings
  *
  * @package    AccesstoMemory
  * @subpackage migration
  */
-class arMigration0116
+class arMigration0119
 {
   const
-    VERSION = 116, // The new database version
+    VERSION = 119, // The new database version
     MIN_MILESTONE = 2; // The minimum milestone required
 
+  /**
+   * Upgrade
+   *
+   * @return bool True if the upgrade succeeded, False otherwise
+   */
   public function up($configuration)
   {
-    $termNames = array(
-      'sound recording - musical' => 'sound recording-musical',
-      'sound recording - nonmusical' => 'sound recording-nonmusical'
-    );
-
-    foreach ($termNames as $oldName => $newName)
-    {
-      $criteria = new Criteria;
-      $criteria->addJoin(QubitTerm::ID, QubitTermI18n::ID);
-      $criteria->add(QubitTerm::TAXONOMY_ID, QubitTaxonomy::MODS_RESOURCE_TYPE_ID);
-      $criteria->add(QubitTermI18n::CULTURE, 'en');
-      $criteria->add(QubitTermI18n::NAME, $oldName);
-
-      if (null !== $term = QubitTerm::getOne($criteria))
-      {
-        $term->setName($newName, array('culture' => 'en'));
-        $term->save();
-      }
-    }
+    $setting = new QubitSetting;
+    $setting->setName('findingAidModel');
+    $setting->setSourceCulture('en');
+    $setting->setValue('inventory-summary', array('culture' => 'en'));
+    $setting->setEditable(1);
+    $setting->setDeleteable(0);
+    $setting->save();
 
     $setting = new QubitSetting;
     $setting->setName('publicFindingAid');

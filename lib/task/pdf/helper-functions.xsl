@@ -69,6 +69,12 @@
         <xsl:if test="$type = 'titleSource'">
             <xsl:text>Source of title proper</xsl:text>
         </xsl:if>
+        <xsl:if test="$type = 'titleVariation'">
+            <xsl:text>Variations in title</xsl:text>
+        </xsl:if>
+        <xsl:if test="$type = 'titleAttributions'">
+            <xsl:text>Attributions and conjectures</xsl:text>
+        </xsl:if>
     </xsl:function>
 
     <!--
@@ -99,9 +105,7 @@
             <xsl:when test="$tag = 'bibliography'">Bibliography</xsl:when>
 
             <!-- AtoM: Test if the bioghist is from a person/family/corp, set heading accordingly -->
-            <xsl:when test="$tag = 'bioghist'">
-                Administrative history / Biographical sketch
-            </xsl:when>
+            <xsl:when test="$tag = 'bioghist'">Administrative history / Biographical sketch</xsl:when>
 
             <xsl:when test="$tag = 'change'">Change</xsl:when>
             <xsl:when test="$tag = 'chronlist'">Chronology list</xsl:when>
@@ -157,12 +161,8 @@
             <xsl:when test="$tag = 'odd'">
                 <!-- Atom: Choose prefix to note: -->
                 <xsl:choose>
-                    <xsl:when test="$elementNode[@type='publicationStatus']">
-                        Publication status
-                    </xsl:when>
-                    <xsl:otherwise>
-                        Other descriptive data
-                    </xsl:otherwise>
+                    <xsl:when test="$elementNode[@type='publicationStatus']">Publication status</xsl:when>
+                    <xsl:otherwise>Other descriptive data</xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:when test="$tag = 'otherfindaid'">Finding aids</xsl:when>
