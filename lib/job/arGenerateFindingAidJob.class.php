@@ -82,7 +82,7 @@ class arGenerateFindingAidJob extends arBaseJob
     }
 
     // Use XSL file selected in Finding Aid model setting
-    $findingAidModel = 'bombardier';
+    $findingAidModel = 'inventory-summary';
     if (null !== $setting = QubitSetting::getByName('findingAidModel'))
     {
       $findingAidModel = $setting->getValue(array('sourceCulture' => true));
