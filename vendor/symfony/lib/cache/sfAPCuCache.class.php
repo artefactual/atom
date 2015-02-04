@@ -18,10 +18,10 @@
  */
 
 /**
- * Cache class that stores cached content in APCu. The PHP API should be the
- * comparing it with APC but there is actually an issue in apcu_cache_info. The
- * error seems to be solved now in the official repo but it has not been
- * packaged yet.
+ * This class was used in the past to address #7850 but after a while we
+ * decided to deal with compatibility issues from sfAPCCache to simplify the
+ * configuration. You can still use sfAPCuCache but in reality this class is
+ * not overriding any member of its subclass.
  *
  * @package    symfony
  * @subpackage cache
@@ -32,49 +32,9 @@ class sfAPCuCache extends sfAPCCache
   {
     parent::initialize($options);
 
-    if (!extension_loaded('apcu') || !ini_get('apc.enabled'))
+    if (!$this->usingAPCu)
     {
       throw new sfInitializationException('You must have APCu installed and enabled to use sfAPCuCache class.');
     }
-  }
-
-  /**
-   * @see sfCache
-   */
-  public function removePattern($pattern)
-  {
-    $infos = apcu_cache_info();
-    if (!is_array($infos['cache_list']))
-    {
-      return;
-    }
-
-    $regexp = self::patternToRegexp($this->getOption('prefix').$pattern);
-
-    foreach ($infos['cache_list'] as $info)
-    {
-      if (preg_match($regexp, $info['key']))
-      {
-        apc_delete($info['key']);
-      }
-    }
-  }
-
-  public function getCacheInfo($key)
-  {
-    $infos = apcu_cache_info();
-
-    if (is_array($infos['cache_list']))
-    {
-      foreach ($infos['cache_list'] as $info)
-      {
-        if ($this->getOption('prefix').$key == $info['key'])
-        {
-          return $info;
-        }
-      }
-    }
-
-    return null;
   }
 }
