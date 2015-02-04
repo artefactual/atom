@@ -35,6 +35,11 @@ class sfAPCCache extends sfCache
     {
       throw new sfInitializationException('You must have APC installed and enabled to use sfAPCCache class.');
     }
+
+    // The implementation of removePattern() and getCacheInfo() differs between
+    // sfAPCCache and sfAPCuCache, see https://github.com/krakjoe/apcu/issues/41
+    // See also ticket #7850.
+    $this->usingAPCu = extension_loaded('apcu');
   }
 
  /**
@@ -130,7 +135,9 @@ class sfAPCCache extends sfCache
    */
   public function removePattern($pattern)
   {
+    $infoKey = $this->usingAPCu ? 'key' : 'info';
     $infos = apc_cache_info('user');
+
     if (!is_array($infos['cache_list']))
     {
       return;
@@ -140,22 +147,23 @@ class sfAPCCache extends sfCache
 
     foreach ($infos['cache_list'] as $info)
     {
-      if (preg_match($regexp, $info['info']))
+      if (preg_match($regexp, $info[$infoKey]))
       {
-        apc_delete($info['info']);
+        apc_delete($info[$infoKey]);
       }
     }
   }
 
   protected function getCacheInfo($key)
   {
+    $infoKey = $this->usingAPCu ? 'key' : 'info';
     $infos = apc_cache_info('user');
 
     if (is_array($infos['cache_list']))
     {
       foreach ($infos['cache_list'] as $info)
       {
-        if ($this->getOption('prefix').$key == $info['info'])
+        if ($this->getOption('prefix').$key == $info[$infoKey])
         {
           return $info;
         }
