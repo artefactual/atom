@@ -437,7 +437,7 @@ class Net_Gearman_Worker
      *
      * @return void
      */
-    protected function fail($handle, $job, PEAR_Exception $error)
+    protected function fail($handle, $job, Exception $error)
     {
         if (count($this->callback[self::JOB_FAIL]) == 0) {
             return; // No callbacks to run

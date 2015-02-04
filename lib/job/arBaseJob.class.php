@@ -27,11 +27,17 @@
 
 class arBaseJob extends Net_Gearman_Job_Common
 {
-  private $requiredParameters = array();
+  /*
+   * Required parameters:
+   *
+   * Declares parameters that are mandatory for the jobs execution. They can be
+   * extended on each job subclasse using the $extraRequiredParameters property.
+   * If any of the required paramareters is missing the job will fail.
+   */
+  private $requiredParameters = array('id', 'name');
 
   public function run($parameters)
   {
-    $this->addRequiredParameters(array('id', 'name'));
     $this->checkRequiredParameters($parameters);
 
     $this->logger = sfContext::getInstance()->getLogger();
@@ -39,22 +45,26 @@ class arBaseJob extends Net_Gearman_Job_Common
 
     if ($this->job === null)
     {
-      throw new Exception('Called a Gearman worker with an invalid QubitJob id.');
+      throw new Net_Gearman_Job_Exception('Called a Gearman worker with an invalid QubitJob id.');
     }
 
     $this->clearCache();
 
-    return true;
-  }
+    // Catch all possible exceptions in job execution and throw
+    // Net_Gearman_Job_Exception to avoid breaking the worker
+    try
+    {
+      $this->runJob($parameters);
+    }
+    catch (Exception $e)
+    {
+      // TODO: Create undoJob() functions in subclasses for cleanups
 
-  /**
-   * Add a parameter name to a list of required parameters.
-   *
-   * @param   $parameters  the parameters passed to this job that are required
-   */
-  protected function addRequiredParameters($parameters)
-  {
-    $this->requiredParameters = array_merge($this->requiredParameters, $parameters);
+      // Mark QubitJob as failed
+      $this->error('Exception: '.$e->getMessage());
+
+      throw new Net_Gearman_Job_Exception($e->getMessage());
+    }
   }
 
   /**
@@ -65,11 +75,16 @@ class arBaseJob extends Net_Gearman_Job_Common
    */
   protected function checkRequiredParameters($parameters)
   {
+    if (isset($this->extraRequiredParameters))
+    {
+      $this->requiredParameters = array_merge($this->requiredParameters, $this->extraRequiredParameters);
+    }
+
     foreach ($this->requiredParameters as $paramName)
     {
       if (!isset($parameters[$paramName]))
       {
-        throw new Exception("Required parameter not found for job: $paramName");
+        throw new Net_Gearman_Job_Exception("Required parameter not found for job: $paramName");
       }
     }
   }
@@ -84,7 +99,7 @@ class arBaseJob extends Net_Gearman_Job_Common
   {
     if (!isset($this->job) || !isset($this->job->name))
     {
-      throw new Exception('Called arBaseJob::error() before QubitJob fetched.');
+      throw new Net_Gearman_Job_Exception('Called arBaseJob::error() before QubitJob fetched.');
     }
 
     $this->logger->err($this->formatLogMsg($message));
@@ -101,7 +116,7 @@ class arBaseJob extends Net_Gearman_Job_Common
   {
     if (!isset($this->job->name))
     {
-      throw new Exception('Called arBaseJob::info() before QubitJob fetched.');
+      throw new Net_Gearman_Job_Exception('Called arBaseJob::info() before QubitJob fetched.');
     }
 
     $this->logger->info($this->formatLogMsg($message));

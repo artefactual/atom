@@ -19,6 +19,11 @@
 
 class qtSwordPluginWorker extends arBaseJob
 {
+  /**
+   * @see arBaseJob::$requiredParameters
+   */
+  protected $extraRequiredParameters = array('information_object_id');
+
   protected $dispatcher = null;
 
   protected function log($message)
@@ -27,18 +32,15 @@ class qtSwordPluginWorker extends arBaseJob
       array('message' => $message)));
   }
 
-  public function run($package)
+  public function runJob($package)
   {
-    $this->addRequiredParameters(array('information_object_id'));
-    parent::run($package);
-
     $this->dispatcher = sfContext::getInstance()->getEventDispatcher();
 
     $this->log('A new job has started to being processed.');
 
     if (!is_writable(sfConfig::get('sf_web_dir').DIRECTORY_SEPARATOR.sfConfig::get('app_upload_dir')))
     {
-      $this->log('ERROR: Read-write access needed in {sf_web_dir}/{app_upload_dir}.');
+      $this->log('Job failed: Read-write access needed in {sf_web_dir}/{app_upload_dir}.');
       $this->error('Read-write access needed in {sf_web_dir}/{app_upload_dir}.');
 
       return false;
@@ -56,32 +58,22 @@ class qtSwordPluginWorker extends arBaseJob
 
     $this->log(sprintf('Processing...'));
 
-    try
-    {
-      $resource = QubitInformationObject::getById($package['information_object_id']);
+    $resource = QubitInformationObject::getById($package['information_object_id']);
 
-      $this->log(sprintf('Object slug: %s', $resource->slug));
+    $this->log(sprintf('Object slug: %s', $resource->slug));
 
-      $extractor = qtPackageExtractorFactory::build($package['format'],
-        $package + array('resource' => $resource, 'job' => $job));
+    $extractor = qtPackageExtractorFactory::build($package['format'],
+      $package + array('resource' => $resource, 'job' => $job));
 
-      $extractor->run();
-    }
-    catch (Exception $e)
-    {
-      $this->log(sprintf('Exception: %s', $e->getMessage()));
-      $this->error(sprintf('Exception: %s', $e->getMessage()));
-
-      return false;
-    }
-
-    $this->job->setStatusCompleted();
-    $this->job->save();
+    $extractor->run();
 
     // Save ES documents in the batch queue
     // We need to call the magic method explictly
     // because the object isn't destroyed in a worker
     QubitSearch::getInstance()->__destruct();
+
+    $this->job->setStatusCompleted();
+    $this->job->save();
 
     $this->log(sprintf('Job finished.'));
 
