@@ -120,7 +120,9 @@
     <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Context area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'contextArea', 'title' => __('Edit context area'))) ?>
   <?php endif; ?>
 
-  <?php echo get_component('informationobject', 'creatorDetail', array('resource' => $resource)) ?>
+  <?php echo get_component('informationobject', 'creatorDetail', array(
+    'resource' => $resource,
+    'creatorHistoryLabels' => $creatorHistoryLabels)) ?>
 
   <?php foreach ($functionRelations as $item): ?>
     <div class="field">

@@ -47,6 +47,14 @@ class sfIsadPluginIndexAction extends InformationObjectIndexAction
 
     $this->functionRelations = QubitRelation::get($criteria);
 
+    // Set creator history label
+    $this->creatorHistoryLabels = array(
+      NULL => $this->context->i18n->__('Administrative / Biographical history'),
+      QubitTerm::CORPORATE_BODY_ID => $this->context->i18n->__('Administrative history'),
+      QubitTerm::PERSON_ID => $this->context->i18n->__('Biographical history'),
+      QubitTerm::FAMILY_ID => $this->context->i18n->__('Biographical history')
+    );
+
     if (QubitAcl::check($this->resource, 'update'))
     {
       $validatorSchema = new sfValidatorSchema;
