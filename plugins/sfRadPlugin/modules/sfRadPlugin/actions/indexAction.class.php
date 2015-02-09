@@ -38,6 +38,14 @@ class sfRadPluginIndexAction extends InformationObjectIndexAction
       $title = $this->context->i18n->__('Untitled');
     }
 
+    // Set creator history label
+    $this->creatorHistoryLabels = array(
+      NULL => $this->context->i18n->__('Administrative history / Biographical sketch'),
+      QubitTerm::CORPORATE_BODY_ID => $this->context->i18n->__('Administrative history'),
+      QubitTerm::PERSON_ID => $this->context->i18n->__('Biographical sketch'),
+      QubitTerm::FAMILY_ID => $this->context->i18n->__('Biographical sketch')
+    );
+
     $this->response->setTitle("$title - {$this->response->getTitle()}");
 
     if (QubitAcl::check($this->resource, 'update'))
