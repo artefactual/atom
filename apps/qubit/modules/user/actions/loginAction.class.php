@@ -25,7 +25,8 @@ class UserLoginAction extends sfAction
     $this->form->getValidatorSchema()->setOption('allow_extra_fields', true);
 
     // Redirect to @homepage if the user is already authenticated
-    if ($this->context->user->isAuthenticated())
+    // or the read only mode is enabled
+    if ($this->context->user->isAuthenticated() || Qubit::isReadOnly())
     {
       $this->redirect('@homepage');
     }

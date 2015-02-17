@@ -214,4 +214,33 @@ class Qubit
       return false;
     }
   }
+
+  /**
+   * Check if the app is in read only mode looking at the
+   * env. variable "ATOM_READ_ONLY" and the setting
+   * "read_only" in app.yml, giving priority to the env. variable
+   *
+   * @return boolean
+   */
+  public static function isReadOnly()
+  {
+    // The env. variable is set to 'true', '1', 'on' or 'yes'
+    if (filter_var(getenv('ATOM_READ_ONLY'), FILTER_VALIDATE_BOOLEAN))
+    {
+      return true;
+    }
+
+    // The env. variable doesn't exist and the setting is set to 'true'
+    if (false === getenv('ATOM_READ_ONLY')
+      && sfConfig::get('app_read_only', false))
+    {
+      return true;
+    }
+
+    // Otherwise:
+    // - The env. variable and the setting don't exist
+    // - The env. variable is set to anything different than 'true', '1', 'on' or 'yes'
+    // - The env. varibale doesn't exist and the setting is set to anything different than 'true'
+    return false;
+  }
 }

@@ -21,6 +21,11 @@ class MenuUserMenuComponent extends sfComponent
 {
   public function execute($request)
   {
+    if (Qubit::isReadOnly())
+    {
+      return sfView::NONE;
+    }
+
     $this->form = new sfForm;
 
     $this->form->setValidator('next', new sfValidatorString);
