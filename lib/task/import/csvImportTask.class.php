@@ -438,6 +438,7 @@ EOF;
             );
 
             $levelOfDetailTermId = $newTerm->id;
+            $self->status['levelOfDetailTypes'] = refreshTaxonomyTerms(QubitTaxonomy::DESCRIPTION_DETAIL_LEVEL_ID);
           }
 
           $self->object->descriptionDetailId = $levelOfDetailTermId;
@@ -489,6 +490,7 @@ EOF;
 
             $culture = isset($self->object->culture) ? $self->object->culture : 'en';
             $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::DESCRIPTION_STATUS_ID, $descStatus, $culture);
+            $self->status['descriptionStatusTypes'] = refreshTaxonomyTerms(QubitTaxonomy::DESCRIPTION_STATUS_ID);
 
             $self->object->descriptionStatusId = $newTerm->id;
           }
@@ -616,6 +618,7 @@ EOF;
 
                 $culture = isset($self->object->culture) ? $self->object->culture : 'en';
                 $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID, $type, $culture);
+                $self->status['physicalObjectTypes'] = refreshTaxonomyTerms(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID);
 
                 $physicalObjectTypeId = $newTerm->id;
               }
@@ -1127,6 +1130,7 @@ EOF;
 
             $culture = isset($self->object->culture) ? $self->object->culture : 'en';
             $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::MATERIAL_TYPE_ID, $value, $culture);
+            $self->status['materialTypes'] = refreshTaxonomyTerms(QubitTaxonomy::MATERIAL_TYPE_ID);
 
             $self->rowStatusVars['radGeneralMaterialDesignation'][] = $newTerm->id;
           }
@@ -1221,4 +1225,15 @@ function setAlternativeIdentifiers($io, $altIds, $altIdLabels)
   {
     $io->addProperty($altIdLabels[$i], $altIds[$i], array('scope' => 'alternativeIdentifiers'));
   }
+}
+
+/**
+ * Reload a taxonomy's terms from the database. We'll need to do this
+ * whenever we create new terms on the fly when importing the file,
+ * so subsequent rows can use the newly created terms.
+ */
+function refreshTaxonomyTerms($taxonomyId)
+{
+  $result = QubitFlatfileImport::loadTermsFromTaxonomies(array($taxonomyId => 'terms'));
+  return $result['terms'];
 }
