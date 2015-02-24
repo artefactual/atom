@@ -119,14 +119,6 @@
 
       </fieldset>
 
-      <fieldset class="collapsible collapsed" id="rightsArea">
-
-        <legend><?php echo __('Rights area') ?></legend>
-
-        <?php echo get_partial('right/edit', $sf_data->getRaw('rightEditComponent')->getVarHolder()->getAll()) ?>
-
-      </fieldset>
-
       <fieldset class="collapsible collapsed" id="informationObjectArea">
 
         <legend><?php echo __('%1% area', array('%1%' => sfConfig::get('app_ui_label_informationobject'))) ?></legend>

@@ -68,10 +68,6 @@ class sfModsPluginEditAction extends InformationObjectEditAction
     $this->eventComponent->execute($this->request);
 
     $this->eventComponent->form->getWidgetSchema()->type->setHelp($this->context->i18n->__('Select the type of activity that established the relation between the authority record and the resource.'));
-
-    $this->rightEditComponent = new RightEditComponent($this->context, 'right', 'edit');
-    $this->rightEditComponent->resource = $this->resource;
-    $this->rightEditComponent->execute($this->request);
   }
 
   protected function addField($name)
@@ -155,8 +151,6 @@ class sfModsPluginEditAction extends InformationObjectEditAction
     $this->resource->sourceStandard = 'MODS version 3.3';
 
     $this->eventComponent->processForm();
-
-    $this->rightEditComponent->processForm();
 
     return parent::processForm();
   }

@@ -96,10 +96,6 @@ class sfIsadPluginEditAction extends InformationObjectEditAction
     $this->eventComponent->resource = $this->resource;
     $this->eventComponent->execute($this->request);
 
-    $this->rightEditComponent = new RightEditComponent($this->context, 'right', 'edit');
-    $this->rightEditComponent->resource = $this->resource;
-    $this->rightEditComponent->execute($this->request);
-
     $this->publicationNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
     $this->publicationNotesComponent->resource = $this->resource;
     $this->publicationNotesComponent->execute($this->request, $options = array('type' => 'isadPublicationNotes'));
@@ -211,8 +207,6 @@ class sfIsadPluginEditAction extends InformationObjectEditAction
     $this->alternativeIdentifiersComponent->processForm();
 
     $this->eventComponent->processForm();
-
-    $this->rightEditComponent->processForm();
 
     $this->publicationNotesComponent->processForm();
 
