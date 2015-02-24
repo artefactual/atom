@@ -19,7 +19,7 @@
           <?php if (isset($creatorHistoryLabels[$item->entityTypeId])): ?>
             <?php echo $creatorHistoryLabels[$item->entityTypeId] ?>
           <?php else: ?>
-            <?php echo $creatorHistoryLabels[NULL]; // Use generic label ?>
+            <?php echo $creatorHistoryLabels[null] // Use generic label ?>
           <?php endif; ?>
           </h3><div>
             <?php echo render_value($item->getHistory(array('cultureFallback' => true))) ?>
