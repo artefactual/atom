@@ -1903,9 +1903,11 @@ class QubitDigitalObject extends BaseDigitalObject
    * Create various representations for this digital object
    *
    * @param integer $usageId intended use of asset
+   * @param $connection  The database connection
+   * @param $options  Various options for this method
    * @return QubitDigitalObject this object
    */
-  public function createRepresentations($usageId, $connection = null)
+  public function createRepresentations($usageId, $connection = null, $options = array())
   {
     switch ($this->mediaTypeId)
     {
@@ -1915,8 +1917,8 @@ class QubitDigitalObject extends BaseDigitalObject
         {
           if ($usageId == QubitTerm::EXTERNAL_URI_ID || $usageId == QubitTerm::MASTER_ID)
           {
-            $this->createReferenceImage($connection);
-            $this->createThumbnail($connection);
+            $this->createReferenceImage($connection, $options);
+            $this->createThumbnail($connection, $options);
           }
           else if ($usageId == QubitTerm::REFERENCE_ID)
           {
