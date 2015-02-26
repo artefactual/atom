@@ -206,7 +206,9 @@
     <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Archival description area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'archivalDescriptionArea', 'title' => __('Edit archival description area'))) ?>
   <?php endif; ?>
 
-  <?php echo get_component('informationobject', 'creatorDetail', array('resource' => $resource)) ?>
+  <?php echo get_component('informationobject', 'creatorDetail', array(
+    'resource' => $resource,
+    'creatorHistoryLabels' => $creatorHistoryLabels)) ?>
 
   <?php if (check_field_visibility('app_element_visibility_rad_archival_history')): ?>
     <?php echo render_show(__('Custodial history'), render_value($resource->getArchivalHistory(array('cultureFallback' => true)))) ?>
