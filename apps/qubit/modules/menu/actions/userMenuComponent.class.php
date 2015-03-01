@@ -21,7 +21,7 @@ class MenuUserMenuComponent extends sfComponent
 {
   public function execute($request)
   {
-    if (Qubit::isReadOnly())
+    if (sfConfig::get('app_read_only', false))
     {
       return sfView::NONE;
     }

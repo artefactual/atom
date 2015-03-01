@@ -26,7 +26,7 @@ class UserLoginAction extends sfAction
 
     // Redirect to @homepage if the user is already authenticated
     // or the read only mode is enabled
-    if ($this->context->user->isAuthenticated() || Qubit::isReadOnly())
+    if (sfConfig::get('app_read_only', false) || $this->context->user->isAuthenticated())
     {
       $this->redirect('@homepage');
     }
