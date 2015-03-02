@@ -92,8 +92,8 @@
   <?php endforeach; // dates ?>
 
   <?php if (0 < strlen($value = $$resourceVar->getExtentAndMedium(array('cultureFallback' => true)))): ?>
-    <physdesc>
-        <?php echo $ead->renderEadPhysDesc($value) ?>
+    <physdesc <?php if (0 < strlen($encoding = $ead->getMetadataParameter('extent'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>>
+        <?php echo $value ?>
     </physdesc>
   <?php endif; ?>
 

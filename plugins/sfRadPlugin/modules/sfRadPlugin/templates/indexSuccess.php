@@ -176,7 +176,7 @@
     <?php echo link_to_if(SecurityPriviliges::editCredentials($sf_user, 'informationObject'), '<h2>'.__('Physical description area').'</h2>', array($resource, 'module' => 'informationobject', 'action' => 'edit'), array('anchor' => 'physicalDescriptionArea', 'title' => __('Edit physical description area'))) ?>
   <?php endif; ?>
 
-  <?php echo render_show(__('Physical description'), render_value($resource->getExtentAndMedium(array('cultureFallback' => true)))) ?>
+  <?php echo render_show(__('Physical description'), render_value($resource->getCleanExtentAndMedium(array('cultureFallback' => true)))) ?>
 
 </section> <!-- /section#physicalDescriptionArea -->
 

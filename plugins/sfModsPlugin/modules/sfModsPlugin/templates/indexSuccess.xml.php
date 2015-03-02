@@ -65,7 +65,7 @@
   <identifier type="local"><?php echo esc_specialchars($mods->identifier) ?></identifier>
   <identifier type="uri"><?php echo esc_specialchars($mods->uri) ?></identifier>
 
-  <?php if ($extentAndMedium = $resource->getExtentAndMedium(array('cultureFallback' => true))): ?>
+  <?php if ($extentAndMedium = $resource->getCleanExtentAndMedium(array('cultureFallback' => true))): ?>
     <physicalDescription><extent><?php echo esc_specialchars($extentAndMedium) ?></extent></physicalDescription>
   <?php endif; ?>
 

@@ -142,7 +142,7 @@ class sfDcPlugin implements ArrayAccess
 
         if (isset($this->resource->extentAndMedium))
         {
-          $format[] = $this->resource->getExtentAndMedium(array('cultureFallback' => true));
+          $format[] = $this->resource->getCleanExtentAndMedium(array('cultureFallback' => true));
         }
 
         return $format;

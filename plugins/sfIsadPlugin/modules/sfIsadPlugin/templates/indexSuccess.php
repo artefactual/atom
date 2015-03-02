@@ -110,7 +110,7 @@
 
   <?php echo render_show(__('Level of description'), render_value($resource->levelOfDescription)) ?>
 
-  <?php echo render_show(__('Extent and medium'), render_value($resource->getExtentAndMedium(array('cultureFallback' => true)))) ?>
+  <?php echo render_show(__('Extent and medium'), render_value($resource->getCleanExtentAndMedium(array('cultureFallback' => true)))) ?>
 
 </section> <!-- /section#identityArea -->
 

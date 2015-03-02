@@ -79,7 +79,7 @@
     </div>
   </div>
 
-  <?php echo render_show(__('Extent'), render_value($resource->getExtentAndMedium(array('cultureFallback' => true)))) ?>
+  <?php echo render_show(__('Extent'), render_value($resource->getCleanExtentAndMedium(array('cultureFallback' => true)))) ?>
 
   <?php echo get_component('informationobject', 'creatorDetail', array(
     'resource' => $resource,

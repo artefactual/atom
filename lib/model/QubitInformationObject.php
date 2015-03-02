@@ -1882,42 +1882,20 @@ class QubitInformationObject extends BaseInformationObject
   }
 
   /**
-   * Import extent and dimension elements from an <physdesc> tag in EAD2002
+   * Import all the elements from <physdesc> tag as XML
    *
    * @param $physDescNode  DOMNode  EAD physdesc DOM node
    */
   public function importPhysDescEadData($physDescNode)
   {
-    $physicalDescription = '';
-    $childTags = array(
-      'extent' => 'Extent',
-      'dimensions' => 'Dimensions',
-      'genreform' => 'Form of material',
-      'physfacet' => 'Physical facet'
-    );
-
-    foreach ($childTags as $tag => $headingText)
+    $extentAndMedium = '';
+    foreach ($physDescNode->childNodes as $node)
     {
-      $nodeList = $physDescNode->getElementsByTagName($tag);
-      if ($nodeList->length > 0)
-      {
-        $physicalDescription .= "<dt>{$headingText}</dt><dd>" . QubitXmlImport::replaceLineBreaks($nodeList->item(0)) . "</dd>";
-
-        // Remove the children nodes as we go so we're
-        // left with any remaining node text in physDescNode.
-        $physDescNode->removeChild($nodeList->item(0));
-      }
+      $extentAndMedium .= $node->ownerDocument->saveXML($node);
     }
 
-    // Get the node text for physloc itself, e.g.:
-    // <physdesc>Hello<extent>...</extent><dimensions>...</dimensions></physdesc>
-    // "Hello" in this case.
-    $this->extentAndMedium = trim($physDescNode->nodeValue);
-
-    if (strlen($physicalDescription) > 0)
-    {
-      $this->extentAndMedium .= '<dl>' . $physicalDescription . '</dl>';
-    }
+    // Trim final result
+    $this->extentAndMedium = trim($extentAndMedium);
   }
 
   /**
@@ -2778,5 +2756,16 @@ class QubitInformationObject extends BaseInformationObject
     }
 
     return $instance;
+  }
+
+  /**
+   * Return the extentAndMedium field without XML tags for the index pages.
+   * strip_tags() is not working in the templates after the escaping changes
+   *
+   * @return string Cleaned extentAndMedium field
+   */
+  public function getCleanExtentAndMedium($options = array())
+  {
+    return strip_tags($this->getExtentAndMedium($options));
   }
 }
