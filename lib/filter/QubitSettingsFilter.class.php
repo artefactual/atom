@@ -49,6 +49,8 @@ class QubitSettingsFilter extends sfFilter
       {
         case 'boolean':
           $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+
+          break;
       }
 
       $key = strtolower(str_replace('ATOM', 'app', $env));
