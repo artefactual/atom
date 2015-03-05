@@ -47,6 +47,9 @@ class digitalObjectLoadTask extends sfBaseTask
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
       new sfCommandOption('path', 'p', sfCommandOption::PARAMETER_OPTIONAL, 'Path prefix for digital objects', null),
       new sfCommandOption('index', 'i', sfCommandOption::PARAMETER_NONE, 'Update search index (defaults to false)', null),
+
+      new sfCommandOption('attach-existing-derivatives', null, sfCommandOption::PARAMETER_OPTIONAL,
+                          'Attach to existing derivatives rather than create them', 'prepared_derivatives'),
     ));
 
     $this->namespace = 'digitalobject';
@@ -84,6 +87,11 @@ EOF;
     }
 
     $this->logSection("Load digital objects from {$arguments['filename']}...");
+
+    if (isset($options['attach-existing-derivatives']))
+    {
+      $this->fetchExistingDerivativeFiles($options['attach-existing-derivatives']);
+    }
 
     // Get header (first) row
     $header = fgetcsv($fh, 1000);
@@ -240,6 +248,13 @@ EOF;
     $do->informationObjectId = $ioId;
     $do->usageId = QubitTerm::MASTER_ID;
     $do->assets[] = new QubitAsset($filename, $content);
+
+    if (isset($options['attach-existing-derivatives']))
+    {
+      $do->createDerivatives = false;
+
+    }
+
     $do->save($options['conn']);
 
     self::$count++;
@@ -260,5 +275,32 @@ EOF;
     }
 
     return $uploadDir;
+  }
+
+  // Build hash map of all derivative files' full paths.
+  private function fetchExistingDerivativeFiles($path)
+  {
+    $this->derivPaths = array();
+
+    $it = new RecursiveDirectoryIterator($path);
+    foreach (new RecursiveIteratorIterator($it) as $file)
+    {
+      if (pathinfo($file, PATHINFO_EXTENSION) === QubitDigitalObject::THUMB_EXTENSION)
+      {
+        $pathParts = explode('/', $file);
+        end($pathParts);
+
+        $checksum = prev($pathParts);
+
+        if (array_key_exists($checksum, $this->derivPaths))
+        {
+          $this->derivPaths[$checksum][] = array($file->__toString());
+        }
+        else
+        {
+          $this->derivPaths[$checksum] = array($file->__toString());
+        }
+      }
+    }
   }
 }
