@@ -25,8 +25,6 @@
  */
 class jobWorkerTask extends arBaseTask
 {
-  private static $gearmanConf = null;
-
   protected function configure()
   {
     $this->addOptions(array(
@@ -61,25 +59,28 @@ EOF;
     // Unset default net_gearman prefix for jobs
     define('NET_GEARMAN_JOB_CLASS_PREFIX', '');
 
-    $abilities = $this->getAbilities($options);
-    $servers = $this->getServers();
-
-    if (!count($abilities))
+    if (0 < strlen($options['abilities']))
     {
-      throw new sfException('No abilities specified.');
+      $abilities = array_filter(explode(',', $options['abilities']));
+    }
+    else
+    {
+      $opts = array();
+      if (0 < strlen($options['types']))
+      {
+        $opts['types'] = $options['types'];
+      }
+
+      $abilities = arGearman::getAbilities($opts);
     }
 
-    if (!count($servers))
-    {
-      $servers = array('127.0.0.1:4730');
-    }
+    $servers = arGearman::getServers();
 
     $worker = new Net_Gearman_Worker($servers);
 
     // Register abilities (jobs)
     foreach ($abilities as $ability)
     {
-      $ability = trim($ability);
       if (!class_exists($ability))
       {
         $this->logSection('gearman-worker', "Ability not defined: $ability. Please ensure the job is in the lib/task/job directory or that the plugin is enabled.");
@@ -120,97 +121,6 @@ EOF;
           QubitPdo::prepareAndExecute('SELECT 1');
         }
       });
-  }
-
-  // Parse the Gearman YAML file
-  private static function getGearmanConf()
-  {
-    if (!self::$gearmanConf)
-    {
-      self::$gearmanConf = sfYaml::load(sfConfig::get('sf_config_dir') . '/' . 'gearman.yml');
-      if (!is_array(self::$gearmanConf) || !array_key_exists('all', self::$gearmanConf))
-      {
-        throw new sfException('Invalid Gearman settings file specified.');
-      }
-
-      self::$gearmanConf = self::$gearmanConf['all'];
-    }
-
-    return self::$gearmanConf;
-  }
-
-  /**
-   * Get all the abilities this worker will have, a possible combination of
-   * abilities specified in the CLI and or abilities specified in one or more
-   * 'worker types' as outlined in config/gearman.yml. If no abilities are
-   * specified as options, the worker will have all abilities defined under
-   * lib/job/.
-   */
-  private function getAbilities($options)
-  {
-    $gearmanConf = self::getGearmanConf();
-
-    $abilities = array_filter(explode(',', $options['abilities']));
-
-    if ($options['types'])
-    {
-      $types = array_filter(explode(',', $options['types']));
-      foreach ($types as $type)
-      {
-        if (!array_key_exists($type, $gearmanConf['worker_types']))
-        {
-          throw new sfException("Invalid type specified: $type -- does it exist in the gearman config file?");
-        }
-
-        $abilities = array_merge($abilities, $gearmanConf['worker_types'][$type]);
-      }
-    }
-
-    if (!count($abilities))
-    {
-      $abilities = $this->getAllDefinedJobs();
-    }
-
-    return $abilities;
-  }
-
-  /**
-   * Return an array with all class names for jobs under lib/job/
-   */
-  private function getAllDefinedJobs()
-  {
-    $jobs = array();
-    foreach (scandir(sfConfig::get('sf_root_dir') . '/lib/job') as $file)
-    {
-      if ($file == '.' || $file == '..' || $file == 'arBaseJob.class.php')
-      {
-        continue;
-      }
-
-      $jobs[] = str_replace('.class.php', '', $file);
-    }
-
-    // Add qtSwordPluginWorker if qtSwordPlugin is enabled
-    if (in_array('qtSwordPlugin', unserialize(sfConfig::get('app_plugins'))))
-    {
-      $jobs[] = 'qtSwordPluginWorker';
-    }
-
-    return $jobs;
-  }
-
-  // Get an array of Gearman host strings
-  private function getServers()
-  {
-    $ret = array();
-
-    $gearmanConf = self::getGearmanConf();
-    foreach ($gearmanConf['servers'] as $serv)
-    {
-      $ret[] = $serv['host'] . ':' . $serv['port'];
-    }
-
-    return $ret;
   }
 
   public function gearmanWorkerLogger(sfEvent $event)

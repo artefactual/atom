@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Access to Memory (AtoM) software.
  *
@@ -194,14 +195,11 @@ class QubitJob extends BaseJob
    * @param array   $jobParams  Whatever parameters need to be passed to the worker.
    * You can set 'name' to specify the job name, otherwise the class name is used.
    *
-   * @param string  $gearmanPath  Optional parameter specifying the host / port where
-   * Gearman is running. Defaults to localhost and the default Gearman port.
-   *
    * @return  QubitJob  The job that was just created for the running job
    */
-  public static function runJob($jobName, $jobParams = array(), $gearmanPath = 'localhost:4730')
+  public static function runJob($jobName, $jobParams = array())
   {
-    if (!self::checkWorkerAvailable(self::getJobPrefix() . $jobName, $gearmanPath))
+    if (!self::checkWorkerAvailable(self::getJobPrefix() . $jobName))
     {
       throw new Net_Gearman_Exception("No Gearman worker available that can handle the job $jobName.");
     }
@@ -236,15 +234,15 @@ class QubitJob extends BaseJob
     $jobName = self::getJobPrefix() . $jobName; // Append prefix, see getJobPrefix() for details
 
     // Send a Gearman client request to start the job in any available workers...
-    $gmClient = new Net_Gearman_Client($gearmanPath);
+    $gmClient = new Net_Gearman_Client(arGearman::getServers());
     $gmClient->$jobName($jobParams);
 
     return $job;
   }
 
-  private static function checkWorkerAvailable($jobName, $gearmanPath = 'localhost:4730')
+  private static function checkWorkerAvailable($jobName)
   {
-    $manager = new Net_Gearman_Manager($gearmanPath, 2);
+    $manager = new Net_Gearman_Manager(arGearman::getServer(), 2);
     $status = $manager->status();
 
     if (!array_key_exists($jobName, $status) || !$status[$jobName]['capable_workers'])
