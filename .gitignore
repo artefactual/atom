@@ -2,9 +2,11 @@
 /apps/qubit/config/factories.yml
 /apps/qubit/config/settings.yml
 /apps/qubit/config/app.yml
+/apps/qubit/config/gearman.yml
+/apps/qubit/config/search.yml
+/config/search.yml
 /config/config.php
 /config/databases.yml
-/config/search.yml
 /config/propel.ini
 
 # Internal use
