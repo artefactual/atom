@@ -1321,10 +1321,22 @@ class QubitDigitalObject extends BaseDigitalObject
       $cleanFileName .= '.'.$newFileExtension;
     }
 
+    $checksum = $asset->getChecksum();
+
     // Upload paths for this information object / digital object
-    $infoObjectPath = $this->getAssetPath($asset->getChecksum());
-    $filePath       = sfConfig::get('sf_web_dir').$infoObjectPath.'/';
-    $relativePath   = $infoObjectPath.'/';
+    if (isset($options['preparedFilePath']))
+    {
+      $checksum = $options['preparedFileChecksum'];
+      $checksumPath = $checksum[0].'/'.$checksum[1].'/'.$checksum[2].'/'.$checksum;
+      $filePath = rtrim($options['preparedFileDerivFolder'], '/').'/'.$checksumPath.'/';
+    }
+    else
+    {
+      $checksumPath   = $this->getAssetPath($checksum);
+      $filePath       = sfConfig::get('sf_web_dir').$checksumPath.'/';
+    }
+
+    $relativePath   = $checksumPath.'/';
     $filePathName   = $filePath.$cleanFileName;
 
     // make the target directory if necessary
@@ -1336,7 +1348,7 @@ class QubitDigitalObject extends BaseDigitalObject
 
     // Write file
     // If the asset contents are not included but referred, move or copy
-    if (null !== $assetPath = $asset->getPath())
+    if (!isset($options['preparedFilePath']) && null !== $assetPath = $asset->getPath())
     {
       if (false === @copy($assetPath, $filePathName))
       {
@@ -1354,7 +1366,7 @@ class QubitDigitalObject extends BaseDigitalObject
     if ($this->getChecksum() != $asset->getChecksum())
     {
       unlink($filePathName);
-      rmdir($infoObjectPath);
+      rmdir($checksumPath);
 
       throw new sfException('Checksum values did not validate: '. $filePathName);
     }
@@ -1367,17 +1379,20 @@ class QubitDigitalObject extends BaseDigitalObject
 
     // Iterate through new directories and set permissions (mkdir() won't do this properly)
     $pathToDir = sfConfig::get('sf_web_dir');
-    foreach (explode('/', $infoObjectPath) as $dir)
+    foreach (explode('/', $checksumPath) as $dir)
     {
       $pathToDir .= '/'.$dir;
       @chmod($pathToDir, 0755);
     }
 
-    // Save digital object in database
-    $this->setName($cleanFileName);
-    $this->setPath($relativePath);
-    $this->setByteSize(filesize($filePathName));
-    $this->setMimeAndMediaType();
+    if (!isset($options['preparedFilePath']))
+    {
+      // Save digital object in database
+      $this->setName($cleanFileName);
+      $this->setPath($relativePath);
+      $this->setByteSize(filesize($filePathName));
+      $this->setMimeAndMediaType();
+    }
 
     return $this;
   }
@@ -1904,7 +1919,7 @@ class QubitDigitalObject extends BaseDigitalObject
    *
    * @param integer $usageId intended use of asset
    * @param $connection  The database connection
-   * @param $options  Various options for this method
+   * @param $options  Various options
    * @return QubitDigitalObject this object
    */
   public function createRepresentations($usageId, $connection = null, $options = array())
@@ -1939,8 +1954,8 @@ class QubitDigitalObject extends BaseDigitalObject
           // Thumbnail PDFs (may add other formats in future)
           if ($this->canThumbnail())
           {
-            $this->createReferenceImage($connection);
-            $this->createThumbnail($connection);
+            $this->createReferenceImage($connection, $options);
+            $this->createThumbnail($connection, $options);
           }
 
           // Extract text
@@ -2227,10 +2242,10 @@ class QubitDigitalObject extends BaseDigitalObject
    *
    * @return QubitDigitalObject
    */
-  public function createThumbnail($connection = null)
+  public function createThumbnail($connection = null, $options = array())
   {
     // Create a thumbnail
-    $derivative = $this->createImageDerivative(QubitTerm::THUMBNAIL_ID, $connection);
+    $derivative = $this->createImageDerivative(QubitTerm::THUMBNAIL_ID, $connection, $options);
 
     return $derivative;
   }
@@ -2240,10 +2255,10 @@ class QubitDigitalObject extends BaseDigitalObject
    *
    * @return QubitDigitalObject  The new derived reference digital object
    */
-  public function createReferenceImage($connection = null)
+  public function createReferenceImage($connection = null, $options = array())
   {
     // Create derivative
-    $derivative = $this->createImageDerivative(QubitTerm::REFERENCE_ID, $connection);
+    $derivative = $this->createImageDerivative(QubitTerm::REFERENCE_ID, $connection, $options);
 
     return $derivative;
   }
@@ -2265,13 +2280,17 @@ class QubitDigitalObject extends BaseDigitalObject
    * @param integer  $usageId  usage type id
    * @return QubitDigitalObject derivative object
    */
-  public function createImageDerivative($usageId, $connection = null)
+  public function createImageDerivative($usageId, $connection = null, $options = array())
   {
     // Get max dimensions
     $maxDimensions = self::getImageMaxDimensions($usageId);
 
     // Build new filename and path
-    if (QubitTerm::EXTERNAL_URI_ID == $this->usageId)
+    if (isset($options['preparedFilePath']))
+    {
+      $originalFullPath = $options['preparedFilePath'];
+    }
+    else if (QubitTerm::EXTERNAL_URI_ID == $this->usageId)
     {
       $originalFullPath = $this->getLocalPath();
     }
@@ -2287,7 +2306,11 @@ class QubitDigitalObject extends BaseDigitalObject
     // Resize
     $resizedImage = QubitDigitalObject::resizeImage($originalFullPath, $maxDimensions[0], $maxDimensions[1]);
 
-    if (0 < strlen($resizedImage))
+    if (isset($options['preparedFilePath']))
+    {
+      $this->writeToFileSystem(new QubitAsset($derivativeName, $resizedImage), $options);
+    }
+    else if (0 < strlen($resizedImage))
     {
       $derivative = new QubitDigitalObject;
       $derivative->parentId = $this->id;

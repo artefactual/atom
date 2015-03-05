@@ -21,9 +21,11 @@ class digitalObjectPrepareTask extends sfBaseTask
 {
   protected function configure()
   {
+    error_reporting(E_ALL);
+
     $this->addArguments(array(
       new sfCommandArgument('input', sfCommandArgument::REQUIRED, 'The input file'),
-      new sfCommandArgument('output', sfCommandArgument::REQUIRED, 'The output folder')
+      new sfCommandArgument('output', sfCommandArgument::OPTIONAL, 'The output folder', 'prepared_derivatives')
     ));
 
     $this->addOptions(array(
@@ -50,7 +52,7 @@ EOF;
 
     sfContext::createInstance($this->configuration);
     $databaseManager = new sfDatabaseManager($this->configuration);
-    $conn = $databaseManager->getDatabase('propel')->getConnection();
+    $this->conn = $databaseManager->getDatabase('propel')->getConnection();
 
 
     $this->checkOutputFolder($arguments);
@@ -61,13 +63,31 @@ EOF;
       throw new sfException('Failed to open file: ' . $arguments['input']);
     }
 
+    $filePaths = array();
+
+    // Just build an array of the file paths first,
+    // we need to do this to get the total digital object count!
     while (($line = fgets($fh)) !== false)
     {
-      $filePath = trim($line);
-      $this->generateDerivatives($filePath, $arguments['output']);
+      $line = trim($line);
+      if (strlen($line))
+      {
+        $filePaths[] = trim($line);
+      }
     }
 
     fclose($fh);
+
+    $n = 0;
+    foreach ($filePaths as $path)
+    {
+      $msg = sprintf('%s Generating derivatives for %s (%d of %d)', strftime('%r'), basename($path),
+                     ++$n, count($filePaths));
+
+      $this->logSection('digitalobject', $msg);
+
+      $this->generateDerivatives($path, $arguments['output']);
+    }
   }
 
   private function checkOutputFolder($args)
@@ -88,8 +108,20 @@ EOF;
       return;
     }
 
+    $asset = new QubitAsset($filePath, $content);
+
     $do = new QubitDigitalObject;
+    $do->name = basename($filePath);
     $do->usageId = QubitTerm::MASTER_ID;
-    $do->assets[] = new QubitAsset($filePath, $content);
+    $do->assets[] = $asset;
+    $do->setMimeAndMediaType();
+
+    $options = array(
+      'preparedFilePath' => $filePath,
+      'preparedFileDerivFolder' => $outputPath,
+      'preparedFileChecksum' => $asset->getChecksum()
+    );
+
+    $do->createRepresentations($do->usageId, $this->conn, $options);
   }
 }
