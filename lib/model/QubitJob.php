@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Access to Memory (AtoM) software.
  *
@@ -23,92 +24,40 @@
  * @subpackage model
  */
 
-class QubitJob extends BaseJob {
+class QubitJob extends BaseJob
+{
   private
     $notes = array();
 
-  /**
-   * Run a job via gearman
-   *
-   * @param string  $jobName  The name of the ability the worker will execute
-   *
-   * @param array   $jobParams  Whatever parameters need to be passed to the worker.
-   * You can set 'name' to specify the job name, otherwise the class name is used.
-   *
-   * @param string  $gearmanPath  Optional parameter specifying the host / port where
-   * Gearman is running. Defaults to localhost and the default Gearman port.
-   *
-   * @return  QubitJob  The job that was just created for the running job
-   */
-  public static function runJob($jobName, $jobParams = array(), $gearmanPath = 'localhost:4730')
+  public function __toString()
   {
-    if (!self::checkWorkerAvailable(self::getJobPrefix() . $jobName, $gearmanPath))
-    {
-      throw new Net_Gearman_Exception("No Gearman worker available that can handle the job $jobName.");
-    }
-
-    $job = new QubitJob;
-
-    // You can specify 'name' => 'whatever' to make the name human friendly.
-    // Default is we just use the job class name.
-    if (!isset($jobParams['name']))
-    {
-      $jobParams['name'] = $jobName;
-    }
-
-    $job->name = $jobParams['name'];
-    $job->statusId = QubitTerm::JOB_STATUS_IN_PROGRESS_ID;
-
-    $sfUser = sfContext::getInstance()->user;
-    if ($sfUser !== null && $sfUser->isAuthenticated())
-    {
-      $job->userId = $sfUser->getUserID();
-    }
-
-    if (isset($jobParams['objectId']))
-    {
-      $job->objectId = $jobParams['objectId'];
-    }
-
-    $job->save();
-
-    // Pass in the job id to the worker so it can update status
-    $jobParams['id'] = $job->id;
-    $jobName = self::getJobPrefix() . $jobName; // Append prefix, see getJobPrefix() for details
-
-    // Send a Gearman client request to start the job in any available workers...
-    $gmClient = new Net_Gearman_Client($gearmanPath);
-    $gmClient->$jobName($jobParams);
-
-    return $job;
-  }
-
-  private static function checkWorkerAvailable($jobName, $gearmanPath = 'localhost:4730')
-  {
-    $manager = new Net_Gearman_Manager($gearmanPath, 2);
-    $status = $manager->status();
-
-    if (!array_key_exists($jobName, $status) || !$status[$jobName]['capable_workers'])
-    {
-      return false;
-    }
-
-    return true;
+    return $this->name;
   }
 
   /**
-   * Get a unique identifier to associate a job with a particular AtoM install.
-   * This is used to prevent workers from other AtoM installs on the same system
-   * from taking the jobs from AtoM instances they don't belong to.
-   *
-   * Ideally we'd just have one giant pool of workers that any AtoM instance can use,
-   * but taking into account different job versions / changes, client specific jobs,
-   * database, data and folder access between AtoM instances, etc., it was much simpler
-   * to do it this way for now.
+   * Save the job along with its notes
    */
-  public static function getJobPrefix()
+  public function save($connection = null)
   {
-    return sfConfig::get('sf_root_dir') . ' - ';
+    parent::save($connection);
+
+    foreach ($this->notes as $note)
+    {
+      $note->save();
+    }
+  }
+
+  /**
+   * Delete the job along with its notes
+   */
+  public function delete($connection = null)
+  {
+    parent::delete($connection);
+
+    foreach ($this->notes as $note)
+    {
+      $note->delete();
+    }
   }
 
   /**
@@ -142,16 +91,6 @@ class QubitJob extends BaseJob {
   {
     $this->statusId = QubitTerm::JOB_STATUS_COMPLETED_ID;
     $this->completedAt = new DateTime('now');
-  }
-
-  /**
-   * Get a string representing a date.
-   * @return  string  The job's creation date in a human readable string.
-   */
-  private function formatDate($date)
-  {
-    $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $date);
-    return $dateTime ? $dateTime->format('Y-m-d h:i A') : 'N/A';
   }
 
   /**
@@ -197,21 +136,6 @@ class QubitJob extends BaseJob {
   }
 
   /**
-   * Get a string representation of a job's user name
-   * @return  string  The user name
-   */
-  static public function getUserString($job)
-  {
-    if (isset($job->userId))
-    {
-      $user = QubitUser::getById($job->userId);
-      return $user ? $user->__toString() : 'Deleted user';
-    }
-
-    return 'Command line';
-  }
-
-  /**
    * Add a basic note to this job
    * @param  string  $contents  The text for the note
    */
@@ -242,6 +166,16 @@ class QubitJob extends BaseJob {
   }
 
   /**
+   * Get a string representing a date.
+   * @return  string  The job's creation date in a human readable string.
+   */
+  private function formatDate($date)
+  {
+    $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $date);
+    return $dateTime ? $dateTime->format('Y-m-d h:i A') : 'N/A';
+  }
+
+  /**
    * Add a basic note to this job
    * @param  myUser  $user  the currently logged in user.
    */
@@ -254,33 +188,99 @@ class QubitJob extends BaseJob {
   }
 
   /**
-   * Save the job along with its notes
+   * Run a job via gearman
+   *
+   * @param string  $jobName  The name of the ability the worker will execute
+   *
+   * @param array   $jobParams  Whatever parameters need to be passed to the worker.
+   * You can set 'name' to specify the job name, otherwise the class name is used.
+   *
+   * @return  QubitJob  The job that was just created for the running job
    */
-  public function save($connection = null)
+  public static function runJob($jobName, $jobParams = array())
   {
-    parent::save($connection);
-
-    foreach ($this->notes as $note)
+    if (!self::checkWorkerAvailable(self::getJobPrefix() . $jobName))
     {
-      $note->save();
+      throw new Net_Gearman_Exception("No Gearman worker available that can handle the job $jobName.");
     }
+
+    $job = new QubitJob;
+
+    // You can specify 'name' => 'whatever' to make the name human friendly.
+    // Default is we just use the job class name.
+    if (!isset($jobParams['name']))
+    {
+      $jobParams['name'] = $jobName;
+    }
+
+    $job->name = $jobParams['name'];
+    $job->statusId = QubitTerm::JOB_STATUS_IN_PROGRESS_ID;
+
+    $sfUser = sfContext::getInstance()->user;
+    if ($sfUser !== null && $sfUser->isAuthenticated())
+    {
+      $job->userId = $sfUser->getUserID();
+    }
+
+    if (isset($jobParams['objectId']))
+    {
+      $job->objectId = $jobParams['objectId'];
+    }
+
+    $job->save();
+
+    // Pass in the job id to the worker so it can update status
+    $jobParams['id'] = $job->id;
+    $jobName = self::getJobPrefix() . $jobName; // Append prefix, see getJobPrefix() for details
+
+    // Send a Gearman client request to start the job in any available workers...
+    $gmClient = new Net_Gearman_Client(arGearman::getServers());
+    $gmClient->$jobName($jobParams);
+
+    return $job;
+  }
+
+  private static function checkWorkerAvailable($jobName)
+  {
+    $manager = new Net_Gearman_Manager(arGearman::getServer(), 2);
+    $status = $manager->status();
+
+    if (!array_key_exists($jobName, $status) || !$status[$jobName]['capable_workers'])
+    {
+      return false;
+    }
+
+    return true;
   }
 
   /**
-   * Delete the job along with its notes
+   * Get a unique identifier to associate a job with a particular AtoM install.
+   * This is used to prevent workers from other AtoM installs on the same system
+   * from taking the jobs from AtoM instances they don't belong to.
+   *
+   * Ideally we'd just have one giant pool of workers that any AtoM instance can use,
+   * but taking into account different job versions / changes, client specific jobs,
+   * database, data and folder access between AtoM instances, etc., it was much simpler
+   * to do it this way for now.
    */
-  public function delete($connection = null)
+  public static function getJobPrefix()
   {
-    parent::delete($connection);
-
-    foreach ($this->notes as $note)
-    {
-      $note->delete();
-    }
+    return sfConfig::get('sf_root_dir') . ' - ';
   }
 
-  public function __toString()
+  /**
+   * Get a string representation of a job's user name
+   *
+   * @return  string  The user name
+   */
+  public static function getUserString($job)
   {
-    return $this->name;
+    if (isset($job->userId))
+    {
+      $user = QubitUser::getById($job->userId);
+      return $user ? $user->__toString() : 'Deleted user';
+    }
+
+    return 'Command line';
   }
 }
