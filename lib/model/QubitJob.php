@@ -23,9 +23,168 @@
  * @subpackage model
  */
 
-class QubitJob extends BaseJob {
+class QubitJob extends BaseJob
+{
   private
     $notes = array();
+
+  public function __toString()
+  {
+    return $this->name;
+  }
+
+  /**
+   * Save the job along with its notes
+   */
+  public function save($connection = null)
+  {
+    parent::save($connection);
+
+    foreach ($this->notes as $note)
+    {
+      $note->save();
+    }
+  }
+
+  /**
+   * Delete the job along with its notes
+   */
+  public function delete($connection = null)
+  {
+    parent::delete($connection);
+
+    foreach ($this->notes as $note)
+    {
+      $note->delete();
+    }
+  }
+
+  /**
+   * Set the job status to error
+   *
+   * @param string  $errorNote  Optional note to give additional error information
+   */
+  public function setStatusError($errorNote = null)
+  {
+    if ($errorNote !== null)
+    {
+      $this->addNoteText($errorNote);
+    }
+
+    $this->statusId = QubitTerm::JOB_STATUS_ERROR_ID;
+    $this->completedAt = new DateTime('now');
+  }
+
+  /**
+   * Set the job status to in progress
+   */
+  public function setStatusInProgress()
+  {
+    $this->statusId = QubitTerm::JOB_STATUS_IN_PROGRESS_ID;
+  }
+
+  /**
+   * Set the job status to complete
+   */
+  public function setStatusCompleted()
+  {
+    $this->statusId = QubitTerm::JOB_STATUS_COMPLETED_ID;
+    $this->completedAt = new DateTime('now');
+  }
+
+  /**
+   * Get a string representing the job creation date.
+   * @return  string  The job's creation date in a human readable string.
+   */
+  public function getCreationDateString()
+  {
+    return $this->formatDate($this->createdAt);
+  }
+
+  /**
+   * Get a string representing the job completion date.
+   * @return  string  The job's creation date in a human readable string.
+   */
+  public function getCompletionDateString()
+  {
+    return $this->formatDate($this->completedAt);
+  }
+
+  /**
+   * Get a string representing the job status.
+   * @return  string  The job's status in a human readable string.
+   */
+  public function getStatusString()
+  {
+    if (!isset($this->statusId))
+    {
+      return 'unknown';
+    }
+
+    switch ($this->statusId)
+    {
+      case QubitTerm::JOB_STATUS_COMPLETED_ID:
+        return 'completed';
+      case QubitTerm::JOB_STATUS_IN_PROGRESS_ID:
+        return 'running';
+      case QubitTerm::JOB_STATUS_ERROR_ID:
+        return 'error';
+      default:
+        return 'unknown';
+    }
+  }
+
+  /**
+   * Add a basic note to this job
+   * @param  string  $contents  The text for the note
+   */
+  public function addNoteText($contents)
+  {
+    $note = new QubitNote;
+    $note->content = $contents;
+
+    if (!isset($this->id))
+    {
+      throw new sfException('Tried to add a note to a job that is not saved yet');
+    }
+
+    $note->objectId = $this->id;
+    $this->notes[] = $note;
+  }
+
+  /**
+   * Get the notes attached to this job
+   * @return  QubitQuery  An query of the notes for this job
+   */
+  public function getNotes()
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitNote::OBJECT_ID, $this->id);
+
+    return QubitNote::get($criteria);
+  }
+
+  /**
+   * Get a string representing a date.
+   * @return  string  The job's creation date in a human readable string.
+   */
+  private function formatDate($date)
+  {
+    $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $date);
+    return $dateTime ? $dateTime->format('Y-m-d h:i A') : 'N/A';
+  }
+
+  /**
+   * Add a basic note to this job
+   * @param  myUser  $user  the currently logged in user.
+   */
+  public static function getJobsByUser($user)
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitJob::USER_ID, $user->getUserID());
+
+    return QubitJob::get($criteria);
+  }
 
   /**
    * Run a job via gearman
@@ -112,95 +271,11 @@ class QubitJob extends BaseJob {
   }
 
   /**
-   * Set the job status to error
-   *
-   * @param string  $errorNote  Optional note to give additional error information
-   */
-  public function setStatusError($errorNote = null)
-  {
-    if ($errorNote !== null)
-    {
-      $this->addNoteText($errorNote);
-    }
-
-    $this->statusId = QubitTerm::JOB_STATUS_ERROR_ID;
-    $this->completedAt = new DateTime('now');
-  }
-
-  /**
-   * Set the job status to in progress
-   */
-  public function setStatusInProgress()
-  {
-    $this->statusId = QubitTerm::JOB_STATUS_IN_PROGRESS_ID;
-  }
-
-  /**
-   * Set the job status to complete
-   */
-  public function setStatusCompleted()
-  {
-    $this->statusId = QubitTerm::JOB_STATUS_COMPLETED_ID;
-    $this->completedAt = new DateTime('now');
-  }
-
-  /**
-   * Get a string representing a date.
-   * @return  string  The job's creation date in a human readable string.
-   */
-  private function formatDate($date)
-  {
-    $dateTime = DateTime::createFromFormat('Y-m-d H:i:s', $date);
-    return $dateTime ? $dateTime->format('Y-m-d h:i A') : 'N/A';
-  }
-
-  /**
-   * Get a string representing the job creation date.
-   * @return  string  The job's creation date in a human readable string.
-   */
-  public function getCreationDateString()
-  {
-    return $this->formatDate($this->createdAt);
-  }
-
-  /**
-   * Get a string representing the job completion date.
-   * @return  string  The job's creation date in a human readable string.
-   */
-  public function getCompletionDateString()
-  {
-    return $this->formatDate($this->completedAt);
-  }
-
-  /**
-   * Get a string representing the job status.
-   * @return  string  The job's status in a human readable string.
-   */
-  public function getStatusString()
-  {
-    if (!isset($this->statusId))
-    {
-      return 'unknown';
-    }
-
-    switch ($this->statusId)
-    {
-      case QubitTerm::JOB_STATUS_COMPLETED_ID:
-        return 'completed';
-      case QubitTerm::JOB_STATUS_IN_PROGRESS_ID:
-        return 'running';
-      case QubitTerm::JOB_STATUS_ERROR_ID:
-        return 'error';
-      default:
-        return 'unknown';
-    }
-  }
-
-  /**
    * Get a string representation of a job's user name
+   *
    * @return  string  The user name
    */
-  static public function getUserString($job)
+  public static function getUserString($job)
   {
     if (isset($job->userId))
     {
@@ -209,78 +284,5 @@ class QubitJob extends BaseJob {
     }
 
     return 'Command line';
-  }
-
-  /**
-   * Add a basic note to this job
-   * @param  string  $contents  The text for the note
-   */
-  public function addNoteText($contents)
-  {
-    $note = new QubitNote;
-    $note->content = $contents;
-
-    if (!isset($this->id))
-    {
-      throw new sfException('Tried to add a note to a job that is not saved yet');
-    }
-
-    $note->objectId = $this->id;
-    $this->notes[] = $note;
-  }
-
-  /**
-   * Get the notes attached to this job
-   * @return  QubitQuery  An query of the notes for this job
-   */
-  public function getNotes()
-  {
-    $criteria = new Criteria;
-    $criteria->add(QubitNote::OBJECT_ID, $this->id);
-
-    return QubitNote::get($criteria);
-  }
-
-  /**
-   * Add a basic note to this job
-   * @param  myUser  $user  the currently logged in user.
-   */
-  public static function getJobsByUser($user)
-  {
-    $criteria = new Criteria;
-    $criteria->add(QubitJob::USER_ID, $user->getUserID());
-
-    return QubitJob::get($criteria);
-  }
-
-  /**
-   * Save the job along with its notes
-   */
-  public function save($connection = null)
-  {
-    parent::save($connection);
-
-    foreach ($this->notes as $note)
-    {
-      $note->save();
-    }
-  }
-
-  /**
-   * Delete the job along with its notes
-   */
-  public function delete($connection = null)
-  {
-    parent::delete($connection);
-
-    foreach ($this->notes as $note)
-    {
-      $note->delete();
-    }
-  }
-
-  public function __toString()
-  {
-    return $this->name;
   }
 }
