@@ -36,6 +36,27 @@ class QubitSettingsFilter extends sfFilter
       $cache->set($cacheKey, serialize($settings));
     }
 
+    // Check environment vairables and overwrite/populate settings
+    $envHashmap  = array('ATOM_READ_ONLY' => 'boolean');
+    foreach ($envHashmap as $env => $type)
+    {
+      if (false === $value = getenv($env))
+      {
+        continue;
+      }
+
+      switch ($type)
+      {
+        case 'boolean':
+          $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+
+          break;
+      }
+
+      $key = strtolower(str_replace('ATOM', 'app', $env));
+      $settings[$key] = $value;
+    }
+
     // Overwrite/populate settings into sfConfig object
     sfConfig::add($settings);
 

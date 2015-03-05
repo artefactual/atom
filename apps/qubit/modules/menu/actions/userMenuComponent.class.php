@@ -21,6 +21,11 @@ class MenuUserMenuComponent extends sfComponent
 {
   public function execute($request)
   {
+    if (sfConfig::get('app_read_only', false))
+    {
+      return sfView::NONE;
+    }
+
     $this->form = new sfForm;
 
     $this->form->setValidator('next', new sfValidatorString);
