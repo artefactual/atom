@@ -39,27 +39,39 @@ function render_field($field, $resource, array $options = array())
   $culture = sfContext::getInstance()->user->getCulture();
 
   $resourceRaw = sfOutputEscaper::unescape($resource);
-
-  if (isset($resourceRaw)
-      && $culture != $resourceRaw->sourceCulture
-        && 0 < strlen($source = $resourceRaw->__get($options['name'], array('sourceCulture' => true)))
-          && 0 == strlen($resourceRaw->__get($options['name'])))
+  if (isset($resourceRaw) && $culture != $resourceRaw->sourceCulture)
   {
-    // TODO Are there cases where the direction of this <div/>'s containing
-    // block isn't the direction of the current culture?
-    $dir = null;
-    $sourceCultureInfo = sfCultureInfo::getInstance($resource->sourceCulture);
-    if (sfCultureInfo::getInstance($culture)->direction != $sourceCultureInfo->direction)
+    try
     {
-      $dir = " dir=\"$sourceCultureInfo->direction\"";
+      $source = $resourceRaw->__get($options['name'], array('sourceCulture' => true));
+      $fallback = $resourceRaw->__get($options['name']);
+    }
+    catch (Exception $e)
+    {
+      if ('Unknown record property' !== substr($e->getMessage(), 0, 23))
+      {
+        throw $e;
+      }
     }
 
-    $div = <<<div
+    if (0 < strlen($source) && 0 === strlen($fallback))
+    {
+      // TODO Are there cases where the direction of this <div/>'s containing
+      // block isn't the direction of the current culture?
+      $dir = null;
+      $sourceCultureInfo = sfCultureInfo::getInstance($resource->sourceCulture);
+      if (sfCultureInfo::getInstance($culture)->direction != $sourceCultureInfo->direction)
+      {
+        $dir = " dir=\"$sourceCultureInfo->direction\"";
+      }
+
+      $div = <<<div
 <div class="default-translation"$dir>
   $source
 </div>
 
 div;
+    }
   }
 
   unset($options['name']);
