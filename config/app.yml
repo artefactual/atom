@@ -13,7 +13,7 @@ all:
   download_timeout: 10
 
   # Use sfMemcacheCache if you want a distributed cache.
-  # sfAPCCache can do the trick for a single instance (sfAPCuCache in PHP 5.5).
+  # sfAPCCache works with both APC and APCu
   cache_engine: sfAPCCache
 
   # Enable read only mode
