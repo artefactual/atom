@@ -5,7 +5,6 @@ all:
   worker_types:
     general:
       - arGenerateFindingAidJob
-      - arDeleteInformationObjectJob
     acl:
       - arInheritRightsJob
     sword:
