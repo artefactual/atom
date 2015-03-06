@@ -680,14 +680,20 @@
                 <fo:table-column column-width="2in"/>
                 <fo:table-column column-width="5in"/>
                 <fo:table-body>
-                        <!--<xsl:apply-templates select="ead:repository" mode="overview"/>-->
-                        <xsl:call-template name="summaryInfoRepoName"/>
+                        <xsl:call-template name="summaryInfoOtherField">
+                            <xsl:with-param name="path" select="//ead:repository/ead:corpname"/>
+                            <xsl:with-param name="label" select="'Repository'"/>
+                        </xsl:call-template>
                         <xsl:apply-templates select="//ead:origination" mode="overview"/>
                         <xsl:apply-templates select="ead:unittitle" mode="overview"/>
                         <xsl:apply-templates select="ead:unitid" mode="overview"/>
                         <xsl:apply-templates select="ead:unitdate" mode="overview"/>
                         <xsl:apply-templates select="ead:physdesc" mode="overview"/>
                         <xsl:apply-templates select="ead:physloc" mode="overview"/>
+                        <xsl:call-template name="summaryInfoOtherField">
+                            <xsl:with-param name="path" select="//ead:processinfo/ead:date"/>
+                            <xsl:with-param name="label" select="'Dates of creation, revision and deletion'"/>
+                        </xsl:call-template>
                         <xsl:apply-templates select="ead:note" mode="overview"/>
                 </fo:table-body>
             </fo:table>
@@ -750,17 +756,18 @@
         </fo:table-row>
     </xsl:template>
 
-    <!-- For Summary Information - repeating repository name -->
-    <xsl:template name="summaryInfoRepoName">
+    <xsl:template name="summaryInfoOtherField">
+        <xsl:param name="path"/>
+        <xsl:param name="label"/>
         <fo:table-row>
             <fo:table-cell padding-bottom="8pt" padding-right="16pt" text-align="right" font-weight="bold">
                 <fo:block>
-                    Repository:
+                    <xsl:value-of select="$label"/>:
                 </fo:block>
             </fo:table-cell>
             <fo:table-cell padding-bottom="2pt">
                 <fo:block>
-                    <xsl:value-of select="(//ead:repository/ead:corpname)[1]"/>
+                    <xsl:value-of select="($path)[1]"/>
                 </fo:block>
             </fo:table-cell>
         </fo:table-row>
