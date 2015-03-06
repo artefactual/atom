@@ -95,4 +95,9 @@ class QubitPdo
 
     return $prepStmt;
   }
+
+  public static function lastInsertId()
+  {
+    return self::$conn->lastInsertId();
+  }
 }

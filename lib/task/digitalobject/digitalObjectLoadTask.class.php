@@ -49,7 +49,7 @@ class digitalObjectLoadTask extends sfBaseTask
       new sfCommandOption('index', 'i', sfCommandOption::PARAMETER_NONE, 'Update search index (defaults to false)', null),
 
       new sfCommandOption('attach-existing-derivatives', null, sfCommandOption::PARAMETER_OPTIONAL,
-                          'Attach to existing derivatives rather than create them', 'prepared_derivatives'),
+                          'Attach to existing derivatives rather than create them', null),
     ));
 
     $this->namespace = 'digitalobject';
@@ -243,19 +243,30 @@ EOF;
     $filename = basename($path);
     $this->log("(" . strftime("%h %d, %r") . ") Loading '$filename' " . "({$this->curObjNum} of {$this->totalObjCount})");
 
+    $asset = new QubitAsset($filename, $content);
     // Create digital object
     $do = new QubitDigitalObject;
     $do->informationObjectId = $ioId;
     $do->usageId = QubitTerm::MASTER_ID;
-    $do->assets[] = new QubitAsset($filename, $content);
+    $do->assets[] = $asset;
+
+    $checksum = $asset->getChecksum();
 
     if (isset($options['attach-existing-derivatives']))
     {
-      $do->createDerivatives = false;
-
+      if (array_key_exists($checksum, $this->derivPaths))
+      {
+        $derivPaths = $this->derivPaths[$checksum];
+        $do->createDerivatives = false;
+      }
     }
 
     $do->save($options['conn']);
+
+    if (isset($options['attach-existing-derivatives']) && !$do->createDerivatives)
+    {
+      $this->attachExistingDerivatives($do, $derivPaths);
+    }
 
     self::$count++;
   }
@@ -294,7 +305,7 @@ EOF;
 
         if (array_key_exists($checksum, $this->derivPaths))
         {
-          $this->derivPaths[$checksum][] = array($file->__toString());
+          $this->derivPaths[$checksum][] = $file->__toString();
         }
         else
         {
@@ -302,5 +313,73 @@ EOF;
         }
       }
     }
+  }
+
+  private function attachExistingDerivatives($master, $derivPaths)
+  {
+    $absMasterPath = sfConfig::get('sf_web_dir') . $master->getPath();
+
+    foreach ($derivPaths as $derivPath)
+    {
+      $isThumb = $this->isThumbnail($derivPath);
+
+      if (!copy($derivPath, $absMasterPath . basename($derivPath)))
+      {
+        $this->logSection('digitalobject', "Failed to copy $derivPath to " . $absMasterPath . basename($derivPath));
+        continue;
+      }
+      else
+      {
+        $this->insertDerivativeRow($master, $derivPath, $isThumb);
+        print "\t=> Attached " . ($isThumb ? 'thumbnail' : 'reference') . " successfully.\n";
+      }
+    }
+  }
+
+  private function insertDerivativeRow($master, $derivPath, $isThumb)
+  {
+    $sql = 'INSERT INTO object(class_name, created_at, updated_at) VALUES (?, NOW(), NOW())';
+
+    QubitPdo::prepareAndExecute($sql, array('QubitDigitalObject'));
+    $objectId = QubitPdo::lastInsertId();
+
+    $sql = '
+      INSERT INTO digital_object(
+        id,
+        usage_id,
+        mime_type,
+        media_type_id,
+        name,
+        path,
+        sequence,
+        byte_size,
+        checksum,
+        checksum_type,
+        parent_id
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ';
+
+    $params = array(
+      $objectId,
+      $isThumb ? QubitTerm::THUMBNAIL_ID : QubitTerm::REFERENCE_ID,
+      'image/jpeg',
+      QubitTerm::IMAGE_ID,
+      basename($derivPath),
+      $master->getPath(),
+      null,
+      filesize($derivPath),
+      hash_file('sha256', $derivPath),
+      'sha256',
+      $master->id
+    );
+
+    QubitPdo::prepareAndExecute($sql, $params);
+  }
+
+  // True if the filename indicates it's a thumbnail, false we'll assume reference image
+  private function isThumbnail($filename)
+  {
+    $thumbnailEnding = '_' . QubitTerm::THUMBNAIL_ID . '.' . QubitDigitalObject::THUMB_EXTENSION;
+    return substr($filename, -strlen($thumbnailEnding)) === $thumbnailEnding;
   }
 }
