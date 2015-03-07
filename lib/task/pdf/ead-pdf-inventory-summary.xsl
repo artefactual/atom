@@ -688,6 +688,7 @@
                         <xsl:apply-templates select="ead:unitdate" mode="overview"/>
                         <xsl:apply-templates select="ead:physdesc" mode="overview"/>
                         <xsl:apply-templates select="ead:physloc" mode="overview"/>
+                        <xsl:apply-templates select="ead:langmaterial/ead:language" mode="overview"/>
                         <xsl:apply-templates select="ead:note" mode="overview"/>
                 </fo:table-body>
             </fo:table>
@@ -700,7 +701,7 @@
     <!-- Formats children of arcdesc/did -->
     <xsl:template match="ead:repository | ead:origination | ead:unittitle | ead:unitdate | ead:unitid
         | ead:physdesc | ead:physloc | ead:dao | ead:daogrp | ead:langmaterial | ead:materialspec | ead:container
-        | ead:abstract | ead:note" mode="overview">
+        | ead:abstract | ead:note | ead:langmaterial/ead:language" mode="overview">
         <fo:table-row>
             <fo:table-cell padding-bottom="8pt" padding-right="16pt" text-align="right" font-weight="bold">
                 <fo:block>
@@ -1623,7 +1624,6 @@
         <fo:block margin-bottom="0pt" margin-top="0" font-size="12">
             <xsl:apply-templates select="ead:origination" mode="dsc"/>
             <xsl:apply-templates select="ead:physloc" mode="dsc"/>
-            <xsl:apply-templates select="ead:langmaterial" mode="dsc"/>
             <xsl:apply-templates select="ead:materialspec" mode="dsc"/>
             <xsl:apply-templates select="ead:abstract" mode="dsc"/>
             <xsl:apply-templates select="ead:note" mode="dsc"/>
