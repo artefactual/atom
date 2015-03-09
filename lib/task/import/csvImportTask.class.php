@@ -569,6 +569,17 @@ EOF;
           $keymap->targetName = 'information_object';
           $keymap->save();
 
+          // inherit repository instead of duplicating the association to it
+          // if applicable
+          if ($self->object->canInheritRepository($self->object->repositoryId))
+          {
+            // Use raw SQL since we don't want an entire save() here.
+            $sql = 'UPDATE information_object SET repository_id = NULL WHERE id = ?';
+            QubitPdo::prepareAndExecute($sql, array($self->object->id));
+
+            $self->object->repositoryId = null;
+          }
+
           // add physical objects
           if (isset($self->rowStatusVars['physicalObjectName']) &&
               $self->rowStatusVars['physicalObjectName'])

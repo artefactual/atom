@@ -486,6 +486,41 @@ class QubitInformationObject extends BaseInformationObject
     return $repository;
   }
 
+  /**
+   * Returns whether or not this information object would
+   * inherit the specified repository from one of its ancestors.
+   *
+   * @param int $repositoryId  The repository to check again
+   * @return bool  Whether or not this information object would inherit
+   * a repository with the same id as $repositoryId.
+   */
+  public function canInheritRepository($repositoryId)
+  {
+    if (!$repositoryId)
+    {
+      throw new sfException('Must pass a non-null repository id to canInheritRepository.');
+    }
+
+    $inheritedRepoId = null;
+
+    // Find out which repository we'd inherit if any.
+    foreach ($this->getAncestors() as $ancestor)
+    {
+      if ($ancestor->id == QubitInformationObject::ROOT_ID)
+      {
+        continue;
+      }
+
+      if (isset($ancestor->repositoryId) && $ancestor->repositoryId !== null)
+      {
+        $inheritedRepoId = $ancestor->repositoryId;
+        break;
+      }
+    }
+
+    return $repositoryId == $inheritedRepoId;
+  }
+
   /**************************
      Nested Set (Hierarchy)
   ***************************/
