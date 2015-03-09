@@ -16,7 +16,8 @@ all:
   # sfAPCCache works with both APC and APCu
   cache_engine: sfAPCCache
 
-  # Enable read only mode
+  # Enable read only mode. This setting may be overwritten
+  # by and environment variable called "ATOM_READ_ONLY"
   read_only: false
 
   # Used in the repo template
