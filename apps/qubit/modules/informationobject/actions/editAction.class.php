@@ -634,6 +634,7 @@ class InformationObjectEditAction extends DefaultEditAction
     $this->deleteNotes();
     $this->updateChildLevels();
     $this->updateStatus(); // Must come after updateChildLevels()
+    $this->removeDuplicateRepositoryAssociations();
   }
 
   public function execute($request)
@@ -660,6 +661,19 @@ class InformationObjectEditAction extends DefaultEditAction
     }
 
     QubitDescription::addAssets($this->response);
+  }
+
+  /**
+   * If the user selected an existing repository that this record
+   * would inherit an association to anyway, don't bother duplicating
+   * the association.
+   */
+  private function removeDuplicateRepositoryAssociations()
+  {
+    if ($this->resource->canInheritRepository($this->resource->repositoryId))
+    {
+      $this->resource->repositoryId = null;
+    }
   }
 
   /**
