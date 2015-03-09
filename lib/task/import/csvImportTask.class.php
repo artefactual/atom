@@ -161,7 +161,9 @@ EOF;
       {
         print 'Parent ID of slug "'. $options['default-parent-slug'] .'" is '. $defaultParentId;
       }
-    } else if($options['default-legacy-parent-id']) {
+    }
+    else if ($options['default-legacy-parent-id'])
+    {
       // attempt to fetch keymap entry
       $keyMapEntry = QubitFlatfileImport::fetchKeymapEntryBySourceAndTargetName(
         $options['default-legacy-parent-id'],
@@ -172,11 +174,16 @@ EOF;
       if ($keyMapEntry)
       {
         $defaultParentId = $keyMapEntry->target_id;
-      } else {
+      }
+      else
+      {
         throw new sfException('Could not find Qubit ID corresponding to legacy ID.');
       }
+
       print 'Using default parent ID '. $defaultParentId .' (legacy parent ID '. $options['default-legacy-parent-id'] .")\n";
-    } else {
+    }
+    else
+    {
       $defaultParentId = QubitInformationObject::ROOT_ID;
     }
 
@@ -419,8 +426,7 @@ EOF;
         }
 
         // set level of detail
-        if (isset($self->rowStatusVars['levelOfDetail']) &&
-            0 < strlen($self->rowStatusVars['levelOfDetail']))
+        if (isset($self->rowStatusVars['levelOfDetail']) && 0 < strlen($self->rowStatusVars['levelOfDetail']))
         {
           $levelOfDetail = trim($self->rowStatusVars['levelOfDetail']);
 
@@ -454,15 +460,10 @@ EOF;
 
         foreach ($languageProperties as $serializeProperty)
         {
-          if (isset($self->rowStatusVars[$serializeProperty])
-            && 0 < strlen($self->rowStatusVars[$serializeProperty]))
+          if (isset($self->rowStatusVars[$serializeProperty]) && 0 < strlen($self->rowStatusVars[$serializeProperty]))
           {
             $data = explode('|', $self->rowStatusVars[$serializeProperty]);
-
-            $self->object->addProperty(
-              $serializeProperty,
-              serialize($data)
-            );
+            $self->object->addProperty($serializeProperty, serialize($data));
           }
         }
 
@@ -474,8 +475,7 @@ EOF;
         );
 
         // set description status
-        if (isset($self->rowStatusVars['descriptionStatus'])
-          && 0 < strlen($self->rowStatusVars['descriptionStatus']))
+        if (isset($self->rowStatusVars['descriptionStatus']) && 0 < strlen($self->rowStatusVars['descriptionStatus']))
         {
           $descStatus = trim($self->rowStatusVars['descriptionStatus']);
           $statusTermId = array_search_case_insensitive($descStatus, $self->status['descriptionStatusTypes']);
@@ -497,8 +497,7 @@ EOF;
         }
 
         // set publication status
-        if (isset($self->rowStatusVars['publicationStatus'])
-          && 0 < strlen($self->rowStatusVars['publicationStatus']))
+        if (isset($self->rowStatusVars['publicationStatus']) && 0 < strlen($self->rowStatusVars['publicationStatus']))
         {
           $pubStatusTermId = array_search_case_insensitive(
             $self->rowStatusVars['publicationStatus'],
@@ -521,7 +520,9 @@ EOF;
         if (isset($self->rowStatusVars['qubitParentSlug']) && $self->rowStatusVars['qubitParentSlug'])
         {
           $parentId = getIdCorrespondingToSlug($self->rowStatusVars['qubitParentSlug']);
-        } else {
+        }
+        else
+        {
           if (!isset($self->rowStatusVars['parentId']) || !$self->rowStatusVars['parentId'])
           {
             // Don't overwrite valid parentId when adding an i18n row
@@ -529,7 +530,9 @@ EOF;
             {
               $parentId = $self->status['defaultParentId'];
             }
-          } else {
+          }
+          else
+          {
             if ($mapEntry = $self->fetchKeymapEntryBySourceAndTargetName(
               $self->rowStatusVars['parentId'],
               $self->getStatus('sourceName'),
@@ -537,7 +540,9 @@ EOF;
             ))
             {
               $parentId = $mapEntry->target_id;
-            } else {
+            }
+            else
+            {
               $error = 'For legacyId '
                 . $self->rowStatusVars['legacyId']
                 .' Could not find parentId '
@@ -560,544 +565,551 @@ EOF;
         if (!$self->object->id)
         {
           throw new sfException('Information object save failed');
-        } else {
-          // add keymap entry
-          $keymap = new QubitKeymap;
-          $keymap->sourceId   = $self->rowStatusVars['legacyId'];
-          $keymap->sourceName = $self->getStatus('sourceName');
-          $keymap->targetId   = $self->object->id;
-          $keymap->targetName = 'information_object';
-          $keymap->save();
+        }
 
-          // inherit repository instead of duplicating the association to it
-          // if applicable
-          if ($self->object->canInheritRepository($self->object->repositoryId))
+        // add keymap entry
+        $keymap = new QubitKeymap;
+        $keymap->sourceId   = $self->rowStatusVars['legacyId'];
+        $keymap->sourceName = $self->getStatus('sourceName');
+        $keymap->targetId   = $self->object->id;
+        $keymap->targetName = 'information_object';
+        $keymap->save();
+
+        // inherit repository instead of duplicating the association to it
+        // if applicable
+        if ($self->object->canInheritRepository($self->object->repositoryId))
+        {
+          // Use raw SQL since we don't want an entire save() here.
+          $sql = 'UPDATE information_object SET repository_id = NULL WHERE id = ?';
+          QubitPdo::prepareAndExecute($sql, array($self->object->id));
+
+          $self->object->repositoryId = null;
+        }
+
+        // add physical objects
+        if (isset($self->rowStatusVars['physicalObjectName']) &&
+            $self->rowStatusVars['physicalObjectName'])
+        {
+          $names = explode('|', $self->rowStatusVars['physicalObjectName']);
+          $locations = explode('|', $self->rowStatusVars['physicalObjectLocation']);
+          $types = (isset($self->rowStatusVars['physicalObjectType']))
+            ? explode('|', $self->rowStatusVars['physicalObjectType'])
+            : array();
+
+          foreach ($names as $index => $name)
           {
-            // Use raw SQL since we don't want an entire save() here.
-            $sql = 'UPDATE information_object SET repository_id = NULL WHERE id = ?';
-            QubitPdo::prepareAndExecute($sql, array($self->object->id));
-
-            $self->object->repositoryId = null;
-          }
-
-          // add physical objects
-          if (isset($self->rowStatusVars['physicalObjectName']) &&
-              $self->rowStatusVars['physicalObjectName'])
-          {
-            $names = explode('|', $self->rowStatusVars['physicalObjectName']);
-            $locations = explode('|', $self->rowStatusVars['physicalObjectLocation']);
-            $types = (isset($self->rowStatusVars['physicalObjectType']))
-              ? explode('|', $self->rowStatusVars['physicalObjectType'])
-              : array();
-
-            foreach($names as $index => $name)
+            // if location column populated
+            if ($self->rowStatusVars['physicalObjectLocation'])
             {
-              // if location column populated
-              if ($self->rowStatusVars['physicalObjectLocation'])
+              // if current index applicable
+              if (isset($locations[$index]))
               {
-                // if current index applicable
-                if (isset($locations[$index]))
-                {
-                  $location = $locations[$index];
-                } else {
-                  $location = $locations[0];
-                }
-              } else {
-                $location = '';
+                $location = $locations[$index];
               }
-
-              // if object type column populated
-              if ($self->rowStatusVars['physicalObjectType'])
+              else
               {
-                // if current index applicable
-                if (isset($types[$index]))
-                {
-                  $type = $types[$index];
-                } else {
-                  $type = $types[0];
-                }
-              } else {
-                $type = 'Box';
+                $location = $locations[0];
               }
-
-              $physicalObjectTypeId = array_search($type, $self->getStatus('physicalObjectTypes'));
-
-              // Create new physical object type if not found
-              if ($physicalObjectTypeId === false)
-              {
-                print "\nTerm $type not found in physical object type taxonomy, creating it...\n";
-
-                $culture = isset($self->object->culture) ? $self->object->culture : 'en';
-                $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID, $type, $culture);
-                $self->status['physicalObjectTypes'] = refreshTaxonomyTerms(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID);
-
-                $physicalObjectTypeId = $newTerm->id;
-              }
-
-              $container = $self->createOrFetchPhysicalObject(
-                $name,
-                $location,
-                $physicalObjectTypeId
-              );
-
-              // associate container with information object
-              $self->createRelation(
-                $container->id,
-                $self->object->id,
-                QubitTerm::HAS_PHYSICAL_OBJECT_ID
-              );
             }
-          }
-
-          // add subject access points
-          $accessPointColumns = array(
-            'subjectAccessPoints' => QubitTaxonomy::SUBJECT_ID,
-            'placeAccessPoints'   => QubitTaxonomy::PLACE_ID,
-          );
-
-          foreach($accessPointColumns as $columnName => $taxonomyId)
-          {
-            if (isset($self->rowStatusVars[$columnName]))
+            else
             {
-              $index = 0;
-              foreach($self->rowStatusVars[$columnName] as $subject)
+              $location = '';
+            }
+
+            // if object type column populated
+            if ($self->rowStatusVars['physicalObjectType'])
+            {
+              // if current index applicable
+              if (isset($types[$index]))
               {
-                if ($subject)
+                $type = $types[$index];
+              }
+              else
+              {
+                $type = $types[0];
+              }
+            }
+            else
+            {
+              $type = 'Box';
+            }
+
+            $physicalObjectTypeId = array_search($type, $self->getStatus('physicalObjectTypes'));
+
+            // Create new physical object type if not found
+            if ($physicalObjectTypeId === false)
+            {
+              print "\nTerm $type not found in physical object type taxonomy, creating it...\n";
+
+              $culture = isset($self->object->culture) ? $self->object->culture : 'en';
+              $newTerm = QubitFlatfileImport::createTerm(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID, $type, $culture);
+              $self->status['physicalObjectTypes'] = refreshTaxonomyTerms(QubitTaxonomy::PHYSICAL_OBJECT_TYPE_ID);
+
+              $physicalObjectTypeId = $newTerm->id;
+            }
+
+            $container = $self->createOrFetchPhysicalObject($name, $location, $physicalObjectTypeId);
+
+            // associate container with information object
+            $self->createRelation($container->id, $self->object->id, QubitTerm::HAS_PHYSICAL_OBJECT_ID);
+          }
+        }
+
+        // add subject access points
+        $accessPointColumns = array(
+          'subjectAccessPoints' => QubitTaxonomy::SUBJECT_ID,
+          'placeAccessPoints'   => QubitTaxonomy::PLACE_ID,
+        );
+
+        foreach ($accessPointColumns as $columnName => $taxonomyId)
+        {
+          if (isset($self->rowStatusVars[$columnName]))
+          {
+            $index = 0;
+            foreach ($self->rowStatusVars[$columnName] as $subject)
+            {
+              if ($subject)
+              {
+                $scope = false;
+                if (isset($self->rowStatusVars['subjectAccessPointScopes'][$index]))
                 {
-                  $scope = false;
-                  if (isset($self->rowStatusVars['subjectAccessPointScopes'][$index]))
-                  {
-                    $scope = $self->rowStatusVars['subjectAccessPointScopes'][$index];
-                  }
+                  $scope = $self->rowStatusVars['subjectAccessPointScopes'][$index];
+                }
 
-                  $self->createAccessPoint($taxonomyId, $subject);
+                $self->createAccessPoint($taxonomyId, $subject);
 
-                  if ($scope)
+                if ($scope)
+                {
+                  // get term ID
+                  $query = "SELECT t.id FROM term t \r
+                    INNER JOIN term_i18n i ON t.id=i.id \r
+                    WHERE i.name=? AND t.taxonomy_id=? AND culture='en'";
+
+                  $statement = QubitFlatfileImport::sqlQuery(
+                    $query,
+                    array($subject, $taxonomyId)
+                  );
+
+                  $result = $statement->fetch(PDO::FETCH_OBJ);
+
+                  if ($result)
                   {
-                    // get term ID
-                    $query = "SELECT t.id FROM term t \r
-                      INNER JOIN term_i18n i ON t.id=i.id \r
-                      WHERE i.name=? AND t.taxonomy_id=? AND culture='en'";
+                    $termId = $result->id;
+
+                    // check if a scope note already exists for this term
+                    $query = "SELECT n.id FROM note n INNER JOIN note_i18n i ON n.id=i.id WHERE n.object_id=? AND n.type_id=?";
 
                     $statement = QubitFlatfileImport::sqlQuery(
                       $query,
-                      array($subject, $taxonomyId)
+                      array($termId, QubitTerm::SCOPE_NOTE_ID)
                     );
 
                     $result = $statement->fetch(PDO::FETCH_OBJ);
 
-                    if ($result)
+                    if (!$result)
                     {
-                      $termId = $result->id;
-
-                      // check if a scope note already exists for this term
-                      $query = "SELECT n.id FROM note n INNER JOIN note_i18n i ON n.id=i.id WHERE n.object_id=? AND n.type_id=?";
-
-                      $statement = QubitFlatfileImport::sqlQuery(
-                        $query,
-                        array($termId, QubitTerm::SCOPE_NOTE_ID)
-                      );
-
-                      $result = $statement->fetch(PDO::FETCH_OBJ);
-
-                      if (!$result)
-                      {
-                        // add scope note if it doesn't exist
-                        $note = new QubitNote;
-                        $note->objectId = $termId;
-                        $note->typeId = QubitTerm::SCOPE_NOTE_ID;
-                        $note->content = $self->content($scope);
-                        $note->scope = 'QubitTerm'; # not sure if this is needed
-                        $note->save();
-                      }
-                    } else {
-                      throw new sfException('Could not find term "'. $subject .'"');
+                      // add scope note if it doesn't exist
+                      $note = new QubitNote;
+                      $note->objectId = $termId;
+                      $note->typeId = QubitTerm::SCOPE_NOTE_ID;
+                      $note->content = $self->content($scope);
+                      $note->scope = 'QubitTerm'; # not sure if this is needed
+                      $note->save();
                     }
                   }
+                  else
+                  {
+                    throw new sfException('Could not find term "'. $subject .'"');
+                  }
                 }
-                $index++;
-              }
-            }
-          }
-
-          // add name access points
-          if (isset($self->rowStatusVars['nameAccessPoints']))
-          {
-            // add name access points
-            $index = 0;
-            foreach($self->rowStatusVars['nameAccessPoints'] as $name)
-            {
-              // skip blank names
-              if ($name)
-              {
-                $actorOptions = array();
-                if (isset($self->rowStatusVars['nameAccessPointHistories'][$index]))
-                {
-                  $actorOptions['history'] = $self->rowStatusVars['nameAccessPointHistories'][$index];
-                }
-
-                if (isset($self->object->repositoryId))
-                {
-                  $actorOptions['repositoryId'] = $self->object->repositoryId;
-                }
-
-                $actor = $self->createOrFetchActor($name, $actorOptions);
-                $self->createRelation($self->object->id, $actor->id, QubitTerm::NAME_ACCESS_POINT_ID);
               }
               $index++;
             }
           }
+        }
 
-          // add accessions
-          if (isset($self->rowStatusVars['accessionNumber']) &&
-              count($self->rowStatusVars['accessionNumber']))
+        // add name access points
+        if (isset($self->rowStatusVars['nameAccessPoints']))
+        {
+          // add name access points
+          $index = 0;
+          foreach ($self->rowStatusVars['nameAccessPoints'] as $name)
           {
-            foreach($self->rowStatusVars['accessionNumber'] as $accessionNumber)
+            // skip blank names
+            if ($name)
             {
-              // attempt to fetch keymap entry
-              $accessionMapEntry = $self->fetchKeymapEntryBySourceAndTargetName(
-                $accessionNumber,
-                $self->getStatus('sourceName'),
-                'accession'
-              );
-
-              // if no entry found, create accession and entry
-              if (!$accessionMapEntry)
+              $actorOptions = array();
+              if (isset($self->rowStatusVars['nameAccessPointHistories'][$index]))
               {
-                print "\nCreating accession # ". $accessionNumber ."\n";
-
-                // create new accession
-                $accession = new QubitAccession;
-                $accession->identifier = $accessionNumber;
-                $accession->save();
-
-                // create keymap entry for accession
-                $keymap = new QubitKeymap;
-                $keymap->sourceId   = $accessionNumber;
-                $keymap->sourceName = $self->getStatus('sourceName');
-                $keymap->targetId   = $accession->id;
-                $keymap->targetName = 'accession';
-                $keymap->save();
-
-                $accessionId = $accession->id;
-              } else {
-                $accessionId = $accessionMapEntry->target_id;
+                $actorOptions['history'] = $self->rowStatusVars['nameAccessPointHistories'][$index];
               }
 
-              print "\nAssociating accession # ". $accessionNumber ." with ". $self->object->title ."\n";
+              if (isset($self->object->repositoryId))
+              {
+                $actorOptions['repositoryId'] = $self->object->repositoryId;
+              }
 
-              // add relationship between information object and accession
-              $self->createRelation($self->object->id, $accessionId, QubitTerm::ACCESSION_ID);
+              $actor = $self->createOrFetchActor($name, $actorOptions);
+              $self->createRelation($self->object->id, $actor->id, QubitTerm::NAME_ACCESS_POINT_ID);
             }
-          }
 
-          // add material-related term relation
-          if (isset($self->rowStatusVars['radGeneralMaterialDesignation']))
+            $index++;
+          }
+        }
+
+        // add accessions
+        if (isset($self->rowStatusVars['accessionNumber']) &&
+            count($self->rowStatusVars['accessionNumber']))
+        {
+          foreach ($self->rowStatusVars['accessionNumber'] as $accessionNumber)
           {
-            foreach($self->rowStatusVars['radGeneralMaterialDesignation'] as $material)
+            // attempt to fetch keymap entry
+            $accessionMapEntry = $self->fetchKeymapEntryBySourceAndTargetName(
+              $accessionNumber,
+              $self->getStatus('sourceName'),
+              'accession'
+            );
+
+            // if no entry found, create accession and entry
+            if (!$accessionMapEntry)
             {
-              $self->createObjectTermRelation(
-                $self->object->id,
-                $material
-              );
+              print "\nCreating accession # ". $accessionNumber ."\n";
+
+              // create new accession
+              $accession = new QubitAccession;
+              $accession->identifier = $accessionNumber;
+              $accession->save();
+
+              // create keymap entry for accession
+              $keymap = new QubitKeymap;
+              $keymap->sourceId   = $accessionNumber;
+              $keymap->sourceName = $self->getStatus('sourceName');
+              $keymap->targetId   = $accession->id;
+              $keymap->targetName = 'accession';
+              $keymap->save();
+
+              $accessionId = $accession->id;
             }
-          }
-
-          // add copyright info
-          // TODO: handle this via a separate import
-          if (isset($self->rowStatusVars['copyrightStatus']) && $self->rowStatusVars['copyrightStatus'])
-          {
-            switch (strtolower($self->rowStatusVars['copyrightStatus']))
+            else
             {
-              case 'under copyright':
-                print "Adding rights for ". $self->object->title ."...\n";
-                $rightsHolderId = false;
-                $rightsHolderNames = explode('|', $self->rowStatusVars['copyrightHolder']);
+              $accessionId = $accessionMapEntry->target_id;
+            }
 
-                if ($self->rowStatusVars['copyrightExpires'])
-                {
-                  $endDates = explode('|', $self->rowStatusVars['copyrightExpires']);
-                }
+            print "\nAssociating accession # ". $accessionNumber ." with ". $self->object->title ."\n";
 
-                foreach($rightsHolderNames as $index => $rightsHolderName)
-                {
-                  $rightsHolderName = ($rightsHolderName) ? $rightsHolderName : 'Unknown';
-                  $rightsHolder = $self->createOrFetchRightsHolder($rightsHolderName);
-                  $rightsHolderId = $rightsHolder->id;
+            // add relationship between information object and accession
+            $self->createRelation($self->object->id, $accessionId, QubitTerm::ACCESSION_ID);
+          }
+        }
 
-                  $rightsHolderName = trim(strtolower($rightsHolderName));
-                  if (
-                    $rightsHolderName == 'city of vancouver'
-                    || strpos($rightsHolderName, 'city of vancouver') === 0
-                  )
-                  {
-                    $restriction = 1;
-                  } else {
-                    $restriction = 0;
-                  }
+        // add material-related term relation
+        if (isset($self->rowStatusVars['radGeneralMaterialDesignation']))
+        {
+          foreach ($self->rowStatusVars['radGeneralMaterialDesignation'] as $material)
+          {
+            $self->createObjectTermRelation($self->object->id, $material);
+          }
+        }
 
-                  $rightAndRelation = array(
-                    'restriction'       => $restriction,
-                    'basisId'           => QubitTerm::RIGHT_BASIS_COPYRIGHT_ID,
-                    'actId'             => array_search(
-                      'Replicate',
-                      $self->getStatus('copyrightActTypes')
-                    ),
-                    'copyrightStatusId' => array_search(
-                      'Under copyright',
-                      $self->getStatus('copyrightStatusTypes')
-                    )
-                  );
+        // add copyright info
+        // TODO: handle this via a separate import
+        if (isset($self->rowStatusVars['copyrightStatus']) && $self->rowStatusVars['copyrightStatus'])
+        {
+          switch (strtolower($self->rowStatusVars['copyrightStatus']))
+          {
+            case 'under copyright':
+              print "Adding rights for ". $self->object->title ."...\n";
+              $rightsHolderId = false;
+              $rightsHolderNames = explode('|', $self->rowStatusVars['copyrightHolder']);
 
-                  if (isset($endDates))
-                  {
-                    // if rightsholder/expiry dates and paired, use
-                    // corresponding date ...otherwise just use the
-                    // first expiry date
-                    $rightAndRelation['endDate']
-                      = (count($endDates) == count($rightsHolderNames))
-                        ? $endDates[$index]
-                        : $endDates[0];
+              if ($self->rowStatusVars['copyrightExpires'])
+              {
+                $endDates = explode('|', $self->rowStatusVars['copyrightExpires']);
+              }
 
-                    if (!is_numeric($rightAndRelation['endDate']))
-                    {
-                      throw new sfException('Copyright expiry '. $rightAndRelation['endDate']
-                        .' is invalid.');
-                    }
-                  }
-
-                  if ($rightsHolderId) $rightAndRelation['rightsHolderId'] = $rightsHolderId;
-                  $self->createRightAndRelation($rightAndRelation);
-                }
-                break;
-
-              case 'unknown':
-                $rightsHolder   = $self->createOrFetchRightsHolder('Unknown');
+              foreach ($rightsHolderNames as $index => $rightsHolderName)
+              {
+                $rightsHolderName = ($rightsHolderName) ? $rightsHolderName : 'Unknown';
+                $rightsHolder = $self->createOrFetchRightsHolder($rightsHolderName);
                 $rightsHolderId = $rightsHolder->id;
 
+                $rightsHolderName = trim(strtolower($rightsHolderName));
+                if ($rightsHolderName == 'city of vancouver' || strpos($rightsHolderName, 'city of vancouver') === 0)
+                {
+                  $restriction = 1;
+                }
+                else
+                {
+                  $restriction = 0;
+                }
+
                 $rightAndRelation = array(
-                  'rightsHolderId'    => $rightsHolderId,
-                  'restriction'       => 0,
+                  'restriction'       => $restriction,
                   'basisId'           => QubitTerm::RIGHT_BASIS_COPYRIGHT_ID,
                   'actId'             => array_search(
                     'Replicate',
                     $self->getStatus('copyrightActTypes')
                   ),
                   'copyrightStatusId' => array_search(
-                    'Unknown',
+                    'Under copyright',
                     $self->getStatus('copyrightStatusTypes')
                   )
                 );
 
-                if ($self->rowStatusVars['copyrightExpires'])
+                if (isset($endDates))
                 {
-                  $rightAndRelation['endDate'] = $self->rowStatusVars['copyrightExpires'];
+                  // if rightsholder/expiry dates and paired, use
+                  // corresponding date ...otherwise just use the
+                  // first expiry date
+                  $rightAndRelation['endDate']
+                    = (count($endDates) == count($rightsHolderNames))
+                      ? $endDates[$index]
+                      : $endDates[0];
+
+                  if (!is_numeric($rightAndRelation['endDate']))
+                  {
+                    throw new sfException('Copyright expiry '. $rightAndRelation['endDate']
+                      .' is invalid.');
+                  }
                 }
 
+                if ($rightsHolderId) $rightAndRelation['rightsHolderId'] = $rightsHolderId;
                 $self->createRightAndRelation($rightAndRelation);
-                break;
+              }
+              break;
 
-              case 'public domain':
+            case 'unknown':
+              $rightsHolder   = $self->createOrFetchRightsHolder('Unknown');
+              $rightsHolderId = $rightsHolder->id;
 
-                $rightAndRelation = array(
-                  'restriction'       => 1,
-                  'basisId'           => QubitTerm::RIGHT_BASIS_COPYRIGHT_ID,
-                  'actId'             => array_search(
-                    'Replicate',
-                    $self->getStatus('copyrightActTypes')
-                  ),
-                  'copyrightStatusId' => array_search(
-                    'Public domain',
-                    $self->getStatus('copyrightStatusTypes')
-                  )
-                );
-
-                if ($self->rowStatusVars['copyrightExpires'])
-                {
-                  $rightAndRelation['endDate'] = $self->rowStatusVars['copyrightExpires'];
-                }
-
-                $self->createRightAndRelation($rightAndRelation);
-                break;
-
-              default:
-                throw new sfException('Copyright status "'
-                  . $self->rowStatusVars['copyrightStatus']
-                  .'" not handled: adjust script or import data');
-                break;
-            }
-          }
-
-          // add ad-hoc events
-          if (isset($self->rowStatusVars['eventActors']))
-          {
-            foreach($self->rowStatusVars['eventActors'] as $index => $actor)
-            {
-              // initialize data that'll be used to create the event
-              $eventData = array(
-                'actorName' => $actor
-              );
-
-              // define whether each event-related column's values go directly
-              // into an event property or put into a varibale for further
-              // processing
-              $eventColumns = array(
-                'eventTypes' => array(
-                  'variable'      => 'eventType',
-                  'requiredError' => 'You have populated the eventActors column but not the eventTypes column.'
+              $rightAndRelation = array(
+                'rightsHolderId'    => $rightsHolderId,
+                'restriction'       => 0,
+                'basisId'           => QubitTerm::RIGHT_BASIS_COPYRIGHT_ID,
+                'actId'             => array_search(
+                  'Replicate',
+                  $self->getStatus('copyrightActTypes')
                 ),
-                'eventPlaces'        => array('variable' => 'place'),
-                'eventDates'         => array('property' => 'date'),
-                'eventStartDates'    => array('property' => 'startDate'),
-                'eventEndDates'      => array('property' => 'endDate'),
-                'eventDescriptions'  => array('property' => 'description')
+                'copyrightStatusId' => array_search(
+                  'Unknown',
+                  $self->getStatus('copyrightStatusTypes')
+                )
               );
 
-              // handle each of the event-related columns
-              $eventType = false;
-              $place     = false;
-              foreach($eventColumns as $column => $definition)
+              if ($self->rowStatusVars['copyrightExpires'])
               {
-                if (isset($self->rowStatusVars[$column]))
+                $rightAndRelation['endDate'] = $self->rowStatusVars['copyrightExpires'];
+              }
+
+              $self->createRightAndRelation($rightAndRelation);
+              break;
+
+            case 'public domain':
+
+              $rightAndRelation = array(
+                'restriction'       => 1,
+                'basisId'           => QubitTerm::RIGHT_BASIS_COPYRIGHT_ID,
+                'actId'             => array_search(
+                  'Replicate',
+                  $self->getStatus('copyrightActTypes')
+                ),
+                'copyrightStatusId' => array_search(
+                  'Public domain',
+                  $self->getStatus('copyrightStatusTypes')
+                )
+              );
+
+              if ($self->rowStatusVars['copyrightExpires'])
+              {
+                $rightAndRelation['endDate'] = $self->rowStatusVars['copyrightExpires'];
+              }
+
+              $self->createRightAndRelation($rightAndRelation);
+              break;
+
+            default:
+              throw new sfException('Copyright status "'
+                . $self->rowStatusVars['copyrightStatus']
+                .'" not handled: adjust script or import data');
+              break;
+          }
+        }
+
+        // add ad-hoc events
+        if (isset($self->rowStatusVars['eventActors']))
+        {
+          foreach ($self->rowStatusVars['eventActors'] as $index => $actor)
+          {
+            // initialize data that'll be used to create the event
+            $eventData = array(
+              'actorName' => $actor
+            );
+
+            // define whether each event-related column's values go directly
+            // into an event property or put into a varibale for further
+            // processing
+            $eventColumns = array(
+              'eventTypes' => array(
+                'variable'      => 'eventType',
+                'requiredError' => 'You have populated the eventActors column but not the eventTypes column.'
+              ),
+              'eventPlaces'        => array('variable' => 'place'),
+              'eventDates'         => array('property' => 'date'),
+              'eventStartDates'    => array('property' => 'startDate'),
+              'eventEndDates'      => array('property' => 'endDate'),
+              'eventDescriptions'  => array('property' => 'description')
+            );
+
+            // handle each of the event-related columns
+            $eventType = false;
+            $place     = false;
+            foreach ($eventColumns as $column => $definition)
+            {
+              if (isset($self->rowStatusVars[$column]))
+              {
+                $value
+                  = (count($self->rowStatusVars['eventActors']) == count($self->rowStatusVars[$column]))
+                    ? $self->rowStatusVars[$column][$index]
+                    : $self->rowStatusVars[$column][0];
+
+                // allow column value(s) to set event property
+                if (isset($definition['property']))
                 {
-                  $value
-                    = (count($self->rowStatusVars['eventActors']) == count($self->rowStatusVars[$column]))
-                      ? $self->rowStatusVars[$column][$index]
-                      : $self->rowStatusVars[$column][0];
+                  $eventData[($definition['property'])] = $value;
+                }
 
-                  // allow column value(s) to set event property
-                  if (isset($definition['property']))
-                  {
-                    $eventData[($definition['property'])] = $value;
-                  }
-
-                  // allow column values(s) to set variable
-                  if (isset($definition['variable']))
-                  {
-                    $$definition['variable'] = $value;
-                  }
-                } else if (isset($definition['requiredError'])) {
-                  throw new sfException('You have populated the eventActors column but not the eventTypes column.');
+                // allow column values(s) to set variable
+                if (isset($definition['variable']))
+                {
+                  $$definition['variable'] = $value;
                 }
               }
-
-              // if an event type has been specified, attempt to create the event
-              if ($eventType)
+              else if (isset($definition['requiredError']))
               {
-                // do lookup of type ID
-                $typeTerm = $self->createOrFetchTerm(QubitTaxonomy::EVENT_TYPE_ID, $eventType);
-                $eventTypeId = $typeTerm->id;
-
-                // create event
-                $event = $self->createOrUpdateEvent($eventTypeId, $eventData);
-
-                // create a place term if specified
-                if ($place)
-                {
-                  // create place
-                  $placeTerm = $self->createTerm(QubitTaxonomy::PLACE_ID, $place);
-                  $self->createObjectTermRelation($event->id, $placeTerm->id);
-                }
-              } else {
-                throw new sfException('eventTypes column need to be populated.');
+                throw new sfException('You have populated the eventActors column but not the eventTypes column.');
               }
             }
-          }
 
-          // add creators and create events
-          $createEvents = array();
-          if (isset($self->rowStatusVars['creators'])
-            && count($self->rowStatusVars['creators']))
+            // if an event type has been specified, attempt to create the event
+            if ($eventType)
+            {
+              // do lookup of type ID
+              $typeTerm = $self->createOrFetchTerm(QubitTaxonomy::EVENT_TYPE_ID, $eventType);
+              $eventTypeId = $typeTerm->id;
+
+              // create event
+              $event = $self->createOrUpdateEvent($eventTypeId, $eventData);
+
+              // create a place term if specified
+              if ($place)
+              {
+                // create place
+                $placeTerm = $self->createTerm(QubitTaxonomy::PLACE_ID, $place);
+                $self->createObjectTermRelation($event->id, $placeTerm->id);
+              }
+            }
+            else
+            {
+              throw new sfException('eventTypes column need to be populated.');
+            }
+          }
+        }
+
+        // add creators and create events
+        $createEvents = array();
+        if (isset($self->rowStatusVars['creators']) && count($self->rowStatusVars['creators']))
+        {
+          foreach ($self->rowStatusVars['creators'] as $index => $creator)
           {
-            foreach($self->rowStatusVars['creators'] as $index => $creator)
+            // Init eventData array and add creator name
+            $eventData = array('actorName' => $creator);
+
+            setupEventDateData($self, $eventData, $index);
+
+            // Add creator history if specified
+            if (isset($self->rowStatusVars['creatorHistories'][$index]))
             {
-              // Init eventData array and add creator name
-              $eventData = array('actorName' => $creator);
-
-              setupEventDateData($self, $eventData, $index);
-
-              // Add creator history if specified
-              if(isset($self->rowStatusVars['creatorHistories'][$index]))
-              {
-                $eventData['actorHistory'] = $self->rowStatusVars['creatorHistories'][$index];
-              }
-
-              array_push($createEvents, $eventData);
+              $eventData['actorHistory'] = $self->rowStatusVars['creatorHistories'][$index];
             }
+
+            array_push($createEvents, $eventData);
           }
-          else if(
-            isset($self->rowStatusVars['creatorDatesStart'])
-            || isset($self->rowStatusVars['creatorDatesEnd'])
-          ) {
-            foreach($self->rowStatusVars['creatorDatesStart'] as $index => $date)
-            {
-              $eventData = array();
-
-              setupEventDateData($self, $eventData, $index);
-
-              array_push($createEvents, $eventData);
-            }
-          }
-          else if(isset($self->rowStatusVars['creatorDates'])) {
-            foreach($self->rowStatusVars['creatorDates'] as $index => $date)
-            {
-              $eventData = array();
-
-              setupEventDateData($self, $eventData, $index);
-
-              array_push($createEvents, $eventData);
-            }
-          }
-
-          // create events, if any
-          if (count($createEvents))
+        }
+        else if (isset($self->rowStatusVars['creatorDatesStart']) || isset($self->rowStatusVars['creatorDatesEnd']))
+        {
+          foreach ($self->rowStatusVars['creatorDatesStart'] as $index => $date)
           {
-            if ($self->rowStatusVars['culture'] != $self->object->sourceCulture)
-            {
-              // Add i18n data to existing event
-              $sql = "SELECT id FROM event WHERE information_object_id = ? and type_id = ?;";
-              $stmt = QubitFlatfileImport::sqlQuery($sql, array(
-                $self->object->id,
-                QubitTerm::CREATION_ID));
+            $eventData = array();
 
-              $i = 0;
-              while ($eventId = $stmt->fetchColumn())
-              {
-                $createEvents[$i++]['eventId'] = $eventId;
-              }
-            }
+            setupEventDateData($self, $eventData, $index);
 
-            foreach($createEvents as $eventData)
+            array_push($createEvents, $eventData);
+          }
+        }
+        else if (isset($self->rowStatusVars['creatorDates']))
+        {
+          foreach ($self->rowStatusVars['creatorDates'] as $index => $date)
+          {
+            $eventData = array();
+
+            setupEventDateData($self, $eventData, $index);
+
+            array_push($createEvents, $eventData);
+          }
+        }
+
+        // create events, if any
+        if (count($createEvents))
+        {
+          if ($self->rowStatusVars['culture'] != $self->object->sourceCulture)
+          {
+            // Add i18n data to existing event
+            $sql = "SELECT id FROM event WHERE information_object_id = ? and type_id = ?;";
+            $stmt = QubitFlatfileImport::sqlQuery($sql, array($self->object->id, QubitTerm::CREATION_ID));
+
+            $i = 0;
+            while ($eventId = $stmt->fetchColumn())
             {
-               $event = $self->createOrUpdateEvent(
-                 QubitTerm::CREATION_ID,
-                 $eventData
-               );
+              $createEvents[$i++]['eventId'] = $eventId;
             }
           }
 
-          // This will import only a single digital object;
-          // if both a URI and path are provided, the former is preferred.
-          if ($uri = $self->rowStatusVars['digitalObjectURI']) {
+          foreach ($createEvents as $eventData)
+          {
+            $event = $self->createOrUpdateEvent(QubitTerm::CREATION_ID, $eventData);
+          }
+        }
+
+        // This will import only a single digital object;
+        // if both a URI and path are provided, the former is preferred.
+        if ($uri = $self->rowStatusVars['digitalObjectURI'])
+        {
+          // importFromURI can raise an exception if the download hits a timeout
+          try
+          {
             $do = new QubitDigitalObject;
-            try {
-              $do->importFromURI($uri);
-              $do->informationObject = $self->object;
-              $do->save($conn);
-              // importFromURI can raise if the download hits a timeout
-            } catch (Exception $e) {
-              $self->logError($e->getMessage());
-            }
-          } elseif ($path = $self->rowStatusVars['digitalObjectPath']) {
-            if (false === $content = file_get_contents($path)) {
-              $this->logError("Unable to read file: ".$path);
-            } else {
-              $do = new QubitDigitalObject;
-              $do->assets[] = new QubitAsset($path, $content);
-              $do->usageId = QubitTerm::MASTER_ID;
-              $do->informationObject = $self->object;
-              $do->save($conn);
-            }
+            $do->importFromURI($uri);
+            $do->informationObject = $self->object;
+            $do->save($conn);
+          }
+          catch (Exception $e)
+          {
+            $self->logError($e->getMessage());
+          }
+        }
+        else if ($path = $self->rowStatusVars['digitalObjectPath'])
+        {
+          if (false === $content = file_get_contents($path))
+          {
+            $this->logError("Unable to read file: ".$path);
+          }
+          else
+          {
+            $do = new QubitDigitalObject;
+            $do->assets[] = new QubitAsset($path, $content);
+            $do->usageId = QubitTerm::MASTER_ID;
+            $do->informationObject = $self->object;
+            $do->save($conn);
           }
         }
       }
@@ -1109,9 +1121,7 @@ EOF;
     // convert content with | characters to a bulleted list
     $import->contentFilterLogic = function($text)
     {
-      return (substr_count($text, '|'))
-        ? '* '. str_replace("|", "\n* ", $text)
-        : $text;
+      return (substr_count($text, '|')) ? '* '. str_replace("|", "\n* ", $text) : $text;
     };
 
     $import->addColumnHandler('levelOfDescription', function(&$self, $data)
@@ -1160,7 +1170,6 @@ EOF;
       $ret = $buildNestedSet->run();
     }
   }
-
 }
 
 function array_search_case_insensitive($search, $array)
@@ -1170,33 +1179,20 @@ function array_search_case_insensitive($search, $array)
 
 function setupEventDateData(&$self, &$eventData, $index)
 {
-
   // add dates if specified
-  if (
-    isset($self->rowStatusVars['creatorDates'][$index])
-    || isset($self->rowStatusVars['creatorDatesStart'][$index])
-  )
+  if (isset($self->rowStatusVars['creatorDates'][$index]) || isset($self->rowStatusVars['creatorDatesStart'][$index]))
   {
     // Start and end date
-    foreach(array(
-        'creatorDatesEnd' => 'endDate',
-        'creatorDatesStart' => 'startDate'
-      )
-      as $statusVar => $eventProperty
-    )
+    foreach (array('creatorDatesEnd' => 'endDate', 'creatorDatesStart' => 'startDate') as $statusVar => $eventProperty)
     {
-      if (isset($self->rowStatusVars[$statusVar][$index])) {
+      if (isset($self->rowStatusVars[$statusVar][$index]))
+      {
         $eventData[$eventProperty] = $self->rowStatusVars[$statusVar][$index] .'-00-00';
       }
     }
 
     // Other date info
-    foreach(array(
-        'creatorDateNotes' => 'description',
-        'creatorDates'      => 'date'
-      )
-      as $statusVar => $eventProperty
-    )
+    foreach (array('creatorDateNotes' => 'description', 'creatorDates' => 'date') as $statusVar => $eventProperty)
     {
       if (isset($self->rowStatusVars[$statusVar][$index]))
       {
@@ -1210,17 +1206,16 @@ function getIdCorrespondingToSlug($slug)
 {
   $query = "SELECT object_id FROM slug WHERE slug=?";
 
-  $statement = QubitFlatfileImport::sqlQuery(
-    $query,
-    array($slug)
-  );
+  $statement = QubitFlatfileImport::sqlQuery($query, array($slug));
 
   $result = $statement->fetch(PDO::FETCH_OBJ);
 
   if ($result)
   {
     return $result->object_id;
-  } else {
+  }
+  else
+  {
     throw new sfException('Could not find information object matching slug "'. $slug .'"');
   }
 }

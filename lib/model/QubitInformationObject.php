@@ -511,7 +511,7 @@ class QubitInformationObject extends BaseInformationObject
         continue;
       }
 
-      if (isset($ancestor->repositoryId) && $ancestor->repositoryId !== null)
+      if (isset($ancestor->repositoryId))
       {
         $inheritedRepoId = $ancestor->repositoryId;
         break;
