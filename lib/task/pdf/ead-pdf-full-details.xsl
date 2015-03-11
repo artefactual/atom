@@ -660,7 +660,7 @@
                 <fo:table-body>
                     <!--<xsl:apply-templates select="ead:repository" mode="overview"/>-->
                     <xsl:call-template name="summaryInfoRepoName"/>
-                    <xsl:apply-templates select="//ead:origination" mode="overview"/>
+                    <xsl:apply-templates select="//ead:archdesc/ead:origination" mode="overview"/>
                     <xsl:apply-templates select="ead:unittitle[not(ead:bibseries)]" mode="overview"/>
                     <xsl:apply-templates select="ead:unitid" mode="overview"/>
                     <xsl:apply-templates select="ead:unitdate" mode="overview"/>

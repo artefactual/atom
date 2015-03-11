@@ -684,7 +684,7 @@
                             <xsl:with-param name="path" select="//ead:repository/ead:corpname"/>
                             <xsl:with-param name="label" select="'Repository'"/>
                         </xsl:call-template>
-                        <xsl:apply-templates select="//ead:origination" mode="overview"/>
+                        <xsl:apply-templates select="//ead:archdesc/ead:origination" mode="overview"/>
                         <xsl:apply-templates select="ead:unittitle" mode="overview"/>
                         <xsl:apply-templates select="ead:unitid" mode="overview"/>
                         <xsl:apply-templates select="ead:unitdate" mode="overview"/>
