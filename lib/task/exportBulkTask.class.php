@@ -59,9 +59,16 @@ class exportBulkTask extends exportBulkBaseTask
     {
       $resource = QubitInformationObject::getById($row['id']);
 
+      // Don't export draft descriptions with public option
+      if (isset($options['public']) && $options['public']
+        && $resource->getPublicationStatus()->statusId == QubitTerm::PUBLICATION_STATUS_DRAFT_ID)
+      {
+        continue;
+      }
+
       try
       {
-        $rawXml = $this->captureResourceExportTemplateOutput($resource, $options['format']);
+        $rawXml = $this->captureResourceExportTemplateOutput($resource, $options['format'], $options);
         $xml = $this->tidyXml($rawXml);
       }
       catch (Exception $e)

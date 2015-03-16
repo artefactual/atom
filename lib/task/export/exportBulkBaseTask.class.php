@@ -101,7 +101,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
     include($appRoot .'/lib/helper/QubitHelper.php');
   }
 
-  protected function captureResourceExportTemplateOutput($resource, $format)
+  protected function captureResourceExportTemplateOutput($resource, $format, $options)
   {
     $pluginName = 'sf'. ucfirst($format) .'Plugin';
     $template = sprintf('plugins/%s/modules/%s/templates/indexSuccess.xml.php', $pluginName, $pluginName);
