@@ -39,7 +39,7 @@ class InformationObjectAddDigitalObjectAction extends sfAction
     // URL
     if (isset($request->url) && 'http://' != $request->url)
     {
-      $this->form->setValidator('url', new sfValidatorUrl);
+      $this->form->setValidator('url', new QubitValidatorUrl);
     }
 
     $this->form->setDefault('url', 'http://');
