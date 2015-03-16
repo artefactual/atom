@@ -490,15 +490,18 @@ class QubitInformationObject extends BaseInformationObject
    * Returns whether or not this information object would
    * inherit the specified repository from one of its ancestors.
    *
-   * @param int $repositoryId  The repository to check again
+   * @param int $repositoryId  The repository to check again. If this is
+   * null, this function will return false.
+   *
    * @return bool  Whether or not this information object would inherit
    * a repository with the same id as $repositoryId.
    */
   public function canInheritRepository($repositoryId)
   {
+    // Inheriting from no repository doesn't make sense, return false.
     if (!$repositoryId)
     {
-      throw new sfException('Must pass a non-null repository id to canInheritRepository.');
+      return false;
     }
 
     $inheritedRepoId = null;
