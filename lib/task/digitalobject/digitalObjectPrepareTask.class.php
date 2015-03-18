@@ -32,7 +32,8 @@ class digitalObjectPrepareTask extends sfBaseTask
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', 'qubit'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
-      new sfCommandOption('slug', 'l', sfCommandOption::PARAMETER_OPTIONAL, 'Information object slug', null)
+      new sfCommandOption('slug', 'l', sfCommandOption::PARAMETER_OPTIONAL, 'Information object slug', null),
+      new sfCommandOption('no-overwrites', null, sfCommandOption::PARAMETER_NONE, 'Do not generate/overwrite derivatives if already in prep folder')
     ));
 
     $this->namespace = 'digitalobject';
@@ -72,7 +73,7 @@ EOF;
       $line = trim($line);
       if (strlen($line))
       {
-        $filePaths[] = trim($line);
+        $filePaths[] = $line;
       }
     }
 
@@ -86,19 +87,19 @@ EOF;
 
       $this->logSection('digitalobject', $msg);
 
-      $this->generateDerivatives($path, $arguments['output']);
+      $this->generateDerivatives($path, $arguments['output'], $options);
     }
   }
 
   private function checkOutputFolder($args)
   {
-    if (!is_writable($args['output']) && !mkdir($args['output'], 0755))
+    if (!is_writable($args['output']) && !mkdir($args['output'], 0755, true))
     {
       throw new sfException('Unable to write to or create folder: ' . $args['output']);
     }
   }
 
-  private function generateDerivatives($filePath, $outputPath)
+  private function generateDerivatives($filePath, $outputPath, $options)
   {
     $content = file_get_contents($filePath);
 
@@ -109,6 +110,12 @@ EOF;
     }
 
     $asset = new QubitAsset($filePath, $content);
+
+    if ($options['no-overwrites'] && $this->derivativesAlreadyExist($outputPath, $filePath, $asset->getChecksum()))
+    {
+      $this->logSection('digitalobject', 'Derivatives already exist in preperation folder, skipping...');
+      return;
+    }
 
     $do = new QubitDigitalObject;
     $do->name = basename($filePath);
@@ -123,5 +130,34 @@ EOF;
     );
 
     $do->createRepresentations($do->usageId, $this->conn, $options);
+  }
+
+  /**
+   * If both derivatives for a given master digital object exist in our
+   * prepare folder, return true. Otherwise false.
+   */
+  private function derivativesAlreadyExist($prepFolder, $masterFilePath, $masterChecksum)
+  {
+    $derivPath = rtrim($prepFolder, '/') . '/' . $masterChecksum[0] . '/' . $masterChecksum[1] . '/' .
+                 $masterChecksum[2] . '/' . $masterChecksum;
+
+    foreach (array(QubitTerm::THUMBNAIL_ID, QubitTerm::REFERENCE_ID) as $derivType)
+    {
+      $path = sprintf('%s/%s_%s.%s', $derivPath, $this->stripExtension($masterFilePath),
+                      $derivType, QubitDigitalObject::THUMB_EXTENSION);
+
+      if (!file_exists($path))
+      {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  private function stripExtension($filePath)
+  {
+    $parts = pathinfo($filePath);
+    return $parts['filename'];
   }
 }
