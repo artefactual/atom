@@ -612,18 +612,17 @@ class QubitInformationObject extends BaseInformationObject
   }
 
   /* True if this information object or any descendant uses a LOD of $level. */
-  public function containsLevelOfDescription($level)
+  public function containsLevelOfDescription($level, $culture = 'en')
   {
     $sql = "
       SELECT 1 FROM information_object
-      INNER JOIN term on term.id = information_object.level_of_description_id
-      INNER JOIN term_i18n on term_i18n.id = term.id
+      INNER JOIN term_i18n on term_i18n.id = information_object.level_of_description_id
       WHERE information_object.lft > ? and information_object.rgt < ?
-      AND term_i18n.culture = 'en' AND term_i18n.name = ?
+      AND term_i18n.culture = ? AND term_i18n.name = ?
       LIMIT 1
     ";
 
-    $rows = QubitPdo::fetchAll($sql, array($this->lft, $this->rgt, $level));
+    $rows = QubitPdo::fetchAll($sql, array($this->lft, $this->rgt, $culture, $level));
 
     return count($rows) == 1;
   }

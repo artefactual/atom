@@ -55,13 +55,12 @@ class InformationObjectReportsAction extends sfAction
           $choices[$this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'boxLabelCsv'))] = $this->context->i18n->__('Box label CSV');
         }
 
-
         $this->reportsAvailable = !empty($choices);
 
         if ($this->reportsAvailable) {
           $available_routes = array_keys($choices);
           $this->form->setDefault($name, $available_routes[0]);
-          $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
+          $this->form->setValidator($name, new sfValidatorChoice(array('choices' => $available_routes)));
           $this->form->setWidget($name, new sfWidgetFormChoice(array(
             'expanded' => true,
             'choices' => $choices)));
