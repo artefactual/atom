@@ -48,7 +48,15 @@ class UserEditRepositoryAclAction extends DefaultEditAction
     {
       foreach ($permissions as $item)
       {
-        $this->repositories[$item->objectId][$item->action] = $item;
+        // In this context permissions for all objects (null) and root repository object are equivalent
+        if ($item->objectId === null)
+        {
+          $this->repositories[QubitRepository::ROOT_ID][$item->action] = $item;
+        }
+        else
+        {
+          $this->repositories[$item->objectId][$item->action] = $item;
+        }
       }
     }
 

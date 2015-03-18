@@ -48,7 +48,15 @@ class UserEditActorAclAction extends DefaultEditAction
     {
       foreach ($permissions as $item)
       {
-        $this->actors[$item->objectId][$item->action] = $item;
+        // In this context permissions for all objects (null) and root actor object are equivalent
+        if ($item->objectId === null)
+        {
+          $this->actors[QubitActor::ROOT_ID][$item->action] = $item;
+        }
+        else
+        {
+          $this->actors[$item->objectId][$item->action] = $item;
+        }
       }
     }
 
