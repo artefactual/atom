@@ -265,36 +265,6 @@ class UserEditAction extends DefaultEditAction
 
         break;
 
-      case 'translate':
-        $languages = $this->form->getValue('translate');
-
-        $criteria = new Criteria;
-        $criteria->add(QubitAclPermission::USER_ID, $this->resource->id);
-        $criteria->addAnd(QubitAclPermission::USER_ID, null, Criteria::ISNOTNULL);
-        $criteria->add(QubitAclPermission::ACTION, 'translate');
-
-        if (null === $permission = QubitAclPermission::getOne($criteria))
-        {
-          $permission = new QubitAclPermission;
-          $permission->userId = $this->resource->id;
-          $permission->action = 'translate';
-          $permission->grantDeny = 1;
-          $permission->conditional = 'in_array(%p[language], %k[languages])';
-        }
-        else if (!is_array($languages))
-        {
-          // If $languages is not an array, then remove the translate permission
-          $permission->delete();
-        }
-
-        if (is_array($languages))
-        {
-          $permission->setConstants(array('languages' => $languages));
-          $permission->save();
-        }
-
-        break;
-
       case 'oai_api_key':
         $oaiAction = $this->form->getValue('oai_api_key');
 
@@ -350,6 +320,34 @@ class UserEditAction extends DefaultEditAction
         $this->processForm();
 
         $this->resource->save();
+
+        // Allowed languages for translation must be saved after the user is created
+        $languages = $this->form->getValue('translate');
+
+        $criteria = new Criteria;
+        $criteria->add(QubitAclPermission::USER_ID, $this->resource->id);
+        $criteria->addAnd(QubitAclPermission::USER_ID, null, Criteria::ISNOTNULL);
+        $criteria->add(QubitAclPermission::ACTION, 'translate');
+
+        if (null === $permission = QubitAclPermission::getOne($criteria))
+        {
+          $permission = new QubitAclPermission;
+          $permission->userId = $this->resource->id;
+          $permission->action = 'translate';
+          $permission->grantDeny = 1;
+          $permission->conditional = 'in_array(%p[language], %k[languages])';
+        }
+        else if (!is_array($languages))
+        {
+          // If $languages is not an array, then remove the translate permission
+          $permission->delete();
+        }
+
+        if (is_array($languages))
+        {
+          $permission->setConstants(array('languages' => $languages));
+          $permission->save();
+        }
 
         if ($this->context->getViewCacheManager() !== null)
         {
