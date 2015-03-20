@@ -55,7 +55,7 @@ class DigitalObjectShowComponent extends sfComponent
       $this->showComponent = 'showGenericIcon';
     }
 
-    if ($this->usageType === QubitTerm::REFERENCE_ID)
+    if ($this->usageType == QubitTerm::REFERENCE_ID)
     {
       $this->refMessage = $this->getAccessWarning();
     }
