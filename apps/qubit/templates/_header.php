@@ -2,7 +2,7 @@
 
 <?php if ($sf_user->isAdministrator() && (string)QubitSetting::getByName('siteBaseUrl') === ''): ?>
   <div id="update-check">
-    <?php echo link_to('Please configure your site base URL', 'settings/list', array('rel' => 'home', 'title' => __('Home'))) ?>
+    <?php echo link_to('Please configure your site base URL', 'settings/siteInformation', array('rel' => 'home', 'title' => __('Home'))) ?>
   </div>
 <?php endif; ?>
 
