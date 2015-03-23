@@ -2,12 +2,9 @@
 
 <?php echo get_component('user', 'aclMenu') ?>
 
-<?php if (0 < $notesCount || !$resource->active): ?>
+<?php if (!$resource->active): ?>
   <div class="messages error">
     <ul>
-      <?php if (0 < $notesCount): ?>
-        <li><?php echo __('This user has %1% notes in the system and therefore it cannot be removed', array('%1%' => $notesCount)) ?></li>
-      <?php endif; ?>
       <?php if (!$resource->active): ?>
         <li><?php echo __('This user is inactive') ?></li>
       <?php endif; ?>
