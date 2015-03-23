@@ -60,6 +60,18 @@ class QubitUser extends BaseUser
     return $this;
   }
 
+  public function delete($connection = null)
+  {
+    // Remove user's association with notes before deletion.
+    foreach ($this->getNotes() as $note)
+    {
+      $note->userId = null;
+      $note->save();
+    }
+
+    parent::delete($connection);
+  }
+
   public function setPassword($password)
   {
     $salt = md5(rand(100000, 999999).$this->getEmail());
