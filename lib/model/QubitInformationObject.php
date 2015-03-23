@@ -1518,7 +1518,13 @@ class QubitInformationObject extends BaseInformationObject
     // Check relations with other descriptions in the repository
     if (!$actor)
     {
-      $actor = QubitActor::getByNameAndRepositoryId($name, $this->repositoryId);
+      $repoId = null;
+      if (null !== $repo = $this->getRepository(array('inherit' => true)))
+      {
+        $repoId = $repo->id;
+      }
+
+      $actor = QubitActor::getByNameAndRepositoryId($name, $repoId);
     }
 
     // If there isn't a match create a new actor

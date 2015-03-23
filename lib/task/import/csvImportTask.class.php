@@ -744,9 +744,9 @@ EOF;
                 $actorOptions['history'] = $self->rowStatusVars['nameAccessPointHistories'][$index];
               }
 
-              if (isset($self->object->repositoryId))
+              if (null !== $repo = $self->object->getRepository(array('inherit' => true)))
               {
-                $actorOptions['repositoryId'] = $self->object->repositoryId;
+                $actorOptions['repositoryId'] = $repo->id;
               }
 
               $actor = $self->createOrFetchActor($name, $actorOptions);

@@ -373,7 +373,13 @@ class QubitMetsParser
       if ($creation['actorName'])
       {
         // Check actor creation with the target repository
-        if (null === $actor = QubitActor::getByNameAndRepositoryId($creation['actorName'], $this->resource->repositoryId))
+        $repoId = null;
+        if (null !== $repo = $this->resource->getRepository(array('inherit' => true)))
+        {
+          $repoId = $repo->id;
+        }
+
+        if (null === $actor = QubitActor::getByNameAndRepositoryId($creation['actorName'], $repoId))
         {
           $actor = new QubitActor;
           $actor->parentId = QubitActor::ROOT_ID;

@@ -489,7 +489,7 @@ class QubitActor extends BaseActor
     // with descriptions without repository
     if (isset($repositoryId))
     {
-      $repositoryCondition = 'WHERE io.repository_id=?';
+      $repositoryCondition = 'WHERE anc.repository_id=?';
       $params = array($name, $repositoryId, $repositoryId, $repositoryId);
     }
     else
@@ -504,12 +504,15 @@ class QubitActor extends BaseActor
     $sql .= 'AND act.id IN (';
     $sql .= 'SELECT r.object_id AS id FROM relation r ';
     $sql .= 'LEFT JOIN information_object io ON r.subject_id=io.id ';
+    $sql .= 'JOIN information_object anc ON io.lft >= anc.lft AND io.rgt <= anc.rgt ';
     $sql .= $repositoryCondition;
     $sql .= ' UNION SELECT r.subject_id AS id FROM relation r ';
     $sql .= 'LEFT JOIN information_object io ON r.object_id=io.id ';
+    $sql .= 'JOIN information_object anc ON io.lft >= anc.lft AND io.rgt <= anc.rgt ';
     $sql .= $repositoryCondition;
     $sql .= ' UNION SELECT e.actor_id AS id FROM event e ';
     $sql .= 'LEFT JOIN information_object io ON e.information_object_id=io.id ';
+    $sql .= 'JOIN information_object anc ON io.lft >= anc.lft AND io.rgt <= anc.rgt ';
     $sql .= $repositoryCondition;
     $sql .= ')';
 
