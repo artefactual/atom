@@ -430,7 +430,7 @@ EOF;
         {
           $levelOfDetail = trim($self->rowStatusVars['levelOfDetail']);
 
-          $levelOfDetailTermId = array_search($levelOfDetail, $self->status['levelOfDetailTypes']);
+          $levelOfDetailTermId = array_search_case_insensitive($levelOfDetail, $self->status['levelOfDetailTypes']);
           if ($levelOfDetailTermId === false)
           {
             print "\nTerm $levelOfDetail not found in description details level taxonomy, creating it...\n";
@@ -634,7 +634,7 @@ EOF;
               $type = 'Box';
             }
 
-            $physicalObjectTypeId = array_search($type, $self->getStatus('physicalObjectTypes'));
+            $physicalObjectTypeId = array_search_case_insensitive($type, $self->getStatus('physicalObjectTypes'));
 
             // Create new physical object type if not found
             if ($physicalObjectTypeId === false)
