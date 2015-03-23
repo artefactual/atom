@@ -46,6 +46,9 @@ class ActorContextMenuComponent extends sfComponent
     $criteria->add(QubitRelation::TYPE_ID, QubitTerm::NAME_ACCESS_POINT_ID);
     $criteria->addJoin(QubitRelation::SUBJECT_ID, QubitInformationObject::ID);
 
+    // Filter draft descriptions
+    $criteria = QubitAcl::addFilterDraftsCriteria($criteria);
+
     // Paginate results
     $pager = new QubitPager('QubitInformationObject');
     $pager->setCriteria($criteria);
