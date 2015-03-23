@@ -57,6 +57,10 @@
       <?php echo $sf_data->getRaw('primaryContact')->getContactInformationString(array('simple' => true)) ?>
       <div class="context-actions">
         <?php if (null !== $website = $primaryContact->getWebsite()): ?>
+          <?php if (null === parse_url($website, PHP_URL_SCHEME)): ?>
+            <?php $website = 'http://' . $website // Ensure scheme prefix for absolute url ?>
+          <?php endif; ?>
+
           <a class="btn btn-small" href="<?php echo esc_entities($website) ?>"><?php echo __('Website') ?></a>
         <?php endif; ?>
         <?php if (null !== $email = $primaryContact->email): ?>
