@@ -96,6 +96,9 @@ class sfIsdiahPluginIndexAction extends RepositoryIndexAction
         $this->latitude = $contact->latitude;
         $this->longitude = $contact->longitude;
       }
+
+      // Ensure website URL has a scheme to force absolute URL #6951
+      $contact->setWebsite($this->addDefaultSchemeIfMissing($contact->getWebsite()));
     }
   }
 
@@ -120,5 +123,10 @@ class sfIsdiahPluginIndexAction extends RepositoryIndexAction
     $cache->set($cacheKey, $content);
 
     return $content;
+  }
+
+  private function addDefaultSchemeIfMissing($url)
+  {
+    return parse_url($url, PHP_URL_SCHEME) === null ? 'http://' . $url : $url;
   }
 }
