@@ -39,7 +39,5 @@ class UserIndexAction extends sfAction
         $this->redirect('admin/secure');
       }
     }
-
-    $this->notesCount = count($this->resource->getNotes());
   }
 }
