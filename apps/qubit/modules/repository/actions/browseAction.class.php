@@ -40,7 +40,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
               'size' => 10),
       'regions' =>
         array('type' => 'term',
-              'field' => 'contactInformations.i18n.en.region',
+              'field' => 'contactInformations.i18n.en.region.untouched',
               'size' => 10),
       'geographicSubregions' =>
         array('type' => 'term',
@@ -48,7 +48,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
               'size' => 10),
       'locality' =>
         array('type' => 'term',
-              'field' => 'contactInformations.i18n.en.city',
+              'field' => 'contactInformations.i18n.en.city.untouched',
               'size' => 10),
       'thematicAreas' =>
         array('type' => 'term',
