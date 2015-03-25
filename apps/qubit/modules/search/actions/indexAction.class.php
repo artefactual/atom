@@ -229,7 +229,7 @@ class SearchIndexAction extends DefaultBrowseAction
         $response['results'][] = $result;
       }
 
-      $url = url_for(array('module' => 'informationobject', 'action' => 'browse', 'collection' =>  $request->collection, 'query' => $request->query));
+      $url = url_for(array('module' => 'informationobject', 'action' => 'browse', 'collection' =>  $request->collection, 'query' => $request->query, 'topLod' => '0'));
       $link = $this->context->i18n->__('Browse all descriptions');
       $response['more'] = <<<EOF
 <div class="more">
