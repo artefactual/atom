@@ -236,7 +236,7 @@ QubitMenu:
       ja: 管理者
       ka: ადმინი
       pl: Administrator
-      pt: Admin
+      pt: Administrar
       pt_BR: Administrador
       sl: Skrbnik
       vi: 'quản trị'
@@ -257,7 +257,7 @@ QubitMenu:
       ka: 'დაშვების დოკუმენტები'
       nl: 'Aanwinst documentatie'
       pl: Nabytki
-      pt: 'Registos de incorporação'
+      pt: 'Registo de incorporação'
       pt_BR: 'Registros de incorporação'
       sl: 'Zapisi o prevzemu'
       th: รายงานการเข้าถึงเอกสาร
@@ -276,7 +276,7 @@ QubitMenu:
       it: 'Descrizioni archivistiche'
       nl: 'archivistische beschrijving'
       pl: 'Opis archiwalny'
-      pt: 'descrição arquivística'
+      pt: 'Descrições arquivísticas'
       pt_BR: 'Descrições arquivísticas'
       sl: 'arhivski opisi'
     path: informationobject/add
@@ -294,7 +294,7 @@ QubitMenu:
       it: 'Record d''autorità'
       nl: 'geautoriseerd bestand'
       pl: 'Hasło wzorcowe'
-      pt: 'registro de autoridade'
+      pt: 'Registos de autoridade'
       pt_BR: 'Registros de autoridade'
       sl: 'normativni zapisi'
       vi: 'Authority records'
@@ -316,7 +316,7 @@ QubitMenu:
       ka: საცავები
       nl: archiefinstelling
       pl: 'Instytucja archiwalna'
-      pt: 'instituição arquivística'
+      pt: 'Instituição arquivística'
       pt_BR: 'Instituições arquivísticas'
       sl: 'arhivske ustanove'
       th: คลังเก็บ
@@ -339,7 +339,7 @@ QubitMenu:
       ka: ვადები
       nl: Termen
       pl: Terminy
-      pt: Termos
+      pt: Termo
       pt_BR: Termos
       sl: Izrazi
       th: คำศัพท์
@@ -459,7 +459,7 @@ QubitMenu:
       it: 'Permessi per la descrizione archivistica'
       ja: 情報オブジェクト許可
       ka: 'საინფორმაციო ობიექტის უფლებამოსილებები'
-      pt: 'Permissões do objeto informacional'
+      pt: 'Permissões da descrição arquivística'
       pt_BR: 'Permissões para descrições arquivísticas'
       sl: 'Dovoljenja glede informacijskega objekta'
       th: วัตถุข้อมูลการอนุญาต
@@ -479,7 +479,7 @@ QubitMenu:
       ja: 主体者の許可
       ka: 'მონაწილის უფლებები'
       pl: 'Uprawnienia sprawcy/powoda'
-      pt: 'Permissões do ator'
+      pt: 'Permissões do registo de autoridade'
       pt_BR: 'Permissões de registro de autoridade'
       sl: 'Dovoljenja za delovalca'
       vi: 'Quyền truy Authority record'
@@ -495,6 +495,7 @@ QubitMenu:
       fr: 'Autorisations de l''institution de conservation'
       gl: 'Permisos de institución arquivística'
       it: 'Permessi dell''istituto archivistico'
+      pt: 'Permissões da instituição arquivística'
       pt_BR: 'Permissões de instituições arquivísticas'
       sl: 'Dovoljenja glede arhivske ustanove'
       vi: 'Cho phép tổ chức lưu trữ'
@@ -535,7 +536,7 @@ QubitMenu:
       ka: ჯგუფები
       nl: Groepen
       pl: Grupy
-      pt: Groupos
+      pt: Grupos
       pt_BR: Grupos
       sl: Skupine
       th: กลุ่ม
@@ -575,7 +576,7 @@ QubitMenu:
       it: 'Permessi per la descrizione archivistica'
       ja: 情報オブジェクト許可
       ka: 'საინფორმაციო ობიექტის უფლებამოსილებები'
-      pt: 'Permissões do objeto informacional'
+      pt: 'Permissões da descrição arquivística'
       pt_BR: 'Permissões para descrições arquivísticas'
       sl: 'Dovoljenja glede informacijskega objekta'
       th: วัตถุข้อมูลการอนุญาต
@@ -595,7 +596,7 @@ QubitMenu:
       ja: 主体者の許可
       ka: 'მონაწილის უფლებები'
       pl: 'Uprawnienia sprawcy/powoda'
-      pt: 'Permissões do ator'
+      pt: 'Permissões do registo de autoridade'
       pt_BR: 'Permissões de registro de autoridade'
       sl: 'Dovoljenja za delovalca'
       vi: 'Quyền truy Authority record'
@@ -611,6 +612,7 @@ QubitMenu:
       fr: 'Autorisations de l''institution de conservation'
       gl: 'Permisos de institución arquivística'
       it: 'Permessi dell''istituto archivistico'
+      pt: 'Permissões da instituição arquivística'
       pt_BR: 'Permissões de instituições arquivísticas'
       sl: 'Dovoljenja glede arhivske ustanove'
       vi: 'Cho phép tổ chức lưu trữ'
@@ -756,7 +758,7 @@ QubitMenu:
       ka: 'განახლებების აღწერა, ან აღწერის განახლებები'
       nl: 'Wijzigingen van de beschrijving'
       pl: 'Uaktualnienia opisu'
-      pt: 'Actualizações da descrição'
+      pt: 'Atualizações da descrição'
       pt_BR: 'Atualizações da descrição'
       sl: 'Posodobitve popisa'
       th: อับเดตคำอธิบาย
@@ -921,7 +923,7 @@ QubitMenu:
       gl: 'Descrición arquivística'
       it: 'Descrizioni archivistiche'
       nl: 'archivistische beschrijving'
-      pt: 'descrição arquivística'
+      pt: 'Descrições arquivísticas'
       pt_BR: 'Descrições arquivísticas'
       sl: 'arhivski opisi'
     path: informationobject/browse
@@ -938,7 +940,7 @@ QubitMenu:
       gl: 'Rexistros de autoridade'
       it: 'Record d''autorità'
       nl: 'geautoriseerd bestand'
-      pt: 'registro de autoridade'
+      pt: 'Registos de autoridade'
       pt_BR: 'Registros de autoridade'
       sl: 'normativni zapisi'
       vi: 'Authority records'
@@ -959,7 +961,7 @@ QubitMenu:
       ja: リポジトリ
       ka: საცავები
       nl: archiefinstelling
-      pt: 'instituição arquivística'
+      pt: 'Instituição arquivística'
       pt_BR: 'Instituições arquivísticas'
       sl: 'arhivske ustanove'
       th: คลังเก็บ
@@ -1027,7 +1029,7 @@ QubitMenu:
       ko: 장소
       nl: Plaatsen
       pl: Miejsca
-      pt: locais
+      pt: Locais
       pt_BR: Locais
       sl: Kraji
       th: สถานที
@@ -1070,7 +1072,7 @@ QubitMenu:
       it: 'Elementi visibili'
       ja: 見えるエレメント
       ka: 'შესამჩნევი ელემენტები'
-      pt: 'Elementos visiveis'
+      pt: 'Elementos visíveis'
       pt_BR: 'Elementos visiveis'
       sl: 'Vidni elementi'
       th: 'elementsที่สามารถมองเห็นได้,'
