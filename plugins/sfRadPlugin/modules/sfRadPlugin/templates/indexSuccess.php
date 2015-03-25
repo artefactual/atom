@@ -276,28 +276,26 @@
 
   <?php echo render_show(__('Accruals'), render_value($resource->getAccruals(array('cultureFallback' => true)))) ?>
 
-  <div class="field">
-    <h3><?php echo __('Other notes') ?></h3>
-    <div>
-      <ul>
-        <?php foreach ($resource->getNotesByTaxonomy(array('taxonomyId' => QubitTaxonomy::RAD_NOTE_ID)) as $item): ?>
+  <?php foreach ($resource->getNotesByTaxonomy(array('taxonomyId' => QubitTaxonomy::RAD_NOTE_ID)) as $item): ?>
 
-          <?php $type = $item->getType(array('sourceCulture' => true)) ?>
+    <?php $type = $item->getType(array('sourceCulture' => true)) ?>
 
-          <?php if ('General note' == $type && !check_field_visibility('app_element_visibility_rad_general_notes')): ?>
-            <?php continue; ?>
-          <?php endif; ?>
+    <?php if ('General note' == $type && !check_field_visibility('app_element_visibility_rad_general_notes')): ?>
+      <?php continue; ?>
+    <?php endif; ?>
 
-          <?php if ('Conservation' == $type && !check_field_visibility('app_element_visibility_rad_conservation_notes')): ?>
-            <?php continue; ?>
-          <?php endif; ?>
+    <?php if ('Conservation' == $type && !check_field_visibility('app_element_visibility_rad_conservation_notes')): ?>
+      <?php continue; ?>
+    <?php endif; ?>
 
-          <li><?php echo $item->type ?>: <?php echo render_value($item->getContent(array('cultureFallback' => true))) ?></li>
-
-        <?php endforeach; ?>
-      </ul>
+    <div class="field">
+      <h3><?php echo __($item->type) ?></h3>
+      <div>
+        <?php echo render_value($item->getContent(array('cultureFallback' => true))) ?>
+      </div>
     </div>
-  </div>
+
+  <?php endforeach; ?>
 
   <?php echo get_partial('informationobject/alternativeIdentifiersIndex', array('resource' => $resource)) ?>
 
