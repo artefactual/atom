@@ -37,10 +37,10 @@ abstract class exportBulkBaseTask extends sfBaseTask
   /**
    * @see sfTask
    */
-  protected function configure()
+  protected function addCommonArgumentsAndOptions()
   {
     $this->addArguments(array(
-      new sfCommandArgument('path', sfCommandArgument::REQUIRED, 'The destination path for XML export file(s).')
+      new sfCommandArgument('path', sfCommandArgument::REQUIRED, 'The destination path for export file(s).')
     ));
 
     $this->addOptions(array(
@@ -48,10 +48,9 @@ abstract class exportBulkBaseTask extends sfBaseTask
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
       new sfCommandOption('items-until-update', null, sfCommandOption::PARAMETER_OPTIONAL, 'Indicate progress every n items.'),
-      new sfCommandOption('format', null, sfCommandOption::PARAMETER_OPTIONAL, 'XML format ("ead" or "mods")', 'ead'),
       new sfCommandOption('criteria', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export criteria'),
       new sfCommandOption('current-level-only', null, sfCommandOption::PARAMETER_NONE, 'Do not export child descriptions of exported items'),
-      new sfCommandOption('single-id', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export an EAD file for a single fonds or collection based on id'),
+      new sfCommandOption('single-id', null, sfCommandOption::PARAMETER_OPTIONAL, 'Export a single fonds or collection based on id'),
       new sfCommandOption('public', null, sfCommandOption::PARAMETER_NONE, 'Do not export draft physical locations or child descriptions')
     ));
   }
@@ -69,11 +68,9 @@ abstract class exportBulkBaseTask extends sfBaseTask
     }
   }
 
-  protected function normalizeExportFormat($format)
+  protected function normalizeExportFormat($format, $validFormats)
   {
     $format = strtolower($format);
-
-    $validFormats = array('ead', 'mods');
 
     if (!in_array($format, $validFormats))
     {
@@ -89,7 +86,7 @@ abstract class exportBulkBaseTask extends sfBaseTask
     return $databaseManager->getDatabase('propel')->getConnection();
   }
 
-  protected function includeClassesAndHelpers()
+  protected function includeXmlExportClassesAndHelpers()
   {
     $appRoot = dirname(__FILE__) .'/../../..';
 
@@ -158,10 +155,10 @@ abstract class exportBulkBaseTask extends sfBaseTask
     return $cleanXml;
   }
 
-  protected function generateSortableFilename($objectId, $formatAbbreviation)
+  public static function generateSortableFilename($objectId, $extension, $formatAbbreviation)
   {
     // Pad ID with zeros so filenames can be sorted in creation order for imports
-    return sprintf('%s_%s.xml', $formatAbbreviation, str_pad($objectId, 10, '0', STR_PAD_LEFT));
+    return sprintf('%s_%s.%s', $formatAbbreviation, str_pad($objectId, 10, '0', STR_PAD_LEFT), $extension);
   }
 
   protected function indicateProgress($itemsUntilUpdate)

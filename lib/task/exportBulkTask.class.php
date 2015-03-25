@@ -33,9 +33,23 @@ class exportBulkTask extends exportBulkBaseTask
   /**
    * @see sfTask
    */
+  protected function configure()
+  {
+    $this->addCommonArgumentsAndOptions();
+    $this->addOptions(array(
+      new sfCommandOption('format', null, sfCommandOption::PARAMETER_OPTIONAL, 'XML format ("ead" or "mods")', 'ead')
+    ));
+  }
+
+  /**
+   * @see sfTask
+   */
   public function execute($arguments = array(), $options = array())
   {
-    $options['format'] = $this->normalizeExportFormat($options['format']);
+    $options['format'] = $this->normalizeExportFormat(
+      $options['format'],
+      array('ead', 'mods')
+    );
 
     if (!isset($options['single-id']))
     {
@@ -53,7 +67,7 @@ class exportBulkTask extends exportBulkBaseTask
     $conn = $this->getDatabaseConnection();
     $rows = $conn->query($this->informationObjectQuerySql($options), PDO::FETCH_ASSOC);
 
-    $this->includeClassesAndHelpers();
+    $this->includeXmlExportClassesAndHelpers();
 
     foreach ($rows as $row)
     {
@@ -84,7 +98,7 @@ class exportBulkTask extends exportBulkBaseTask
       }
       else
       {
-        $filename = $this->generateSortableFilename($row['id'], $options['format']);
+        $filename = $this->generateSortableFilename($row['id'], 'xml', $options['format']);
         $filePath = sprintf('%s/%s', $arguments['path'], $filename);
       }
 
