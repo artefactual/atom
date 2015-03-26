@@ -2909,7 +2909,16 @@ class QubitDigitalObject extends BaseDigitalObject
       return;
     }
 
-    $command = sprintf('pdftotext %s - 2> /dev/null', $this->getAbsolutePath());
+    if (QubitTerm::EXTERNAL_URI_ID == $this->usageId)
+    {
+      $path = $this->localPath;
+    }
+    else
+    {
+      $path = $this->getAbsolutePath();
+    }
+
+    $command = sprintf('pdftotext %s - 2> /dev/null', $path);
     exec($command, $output, $status);
 
     if (0 == $status && 0 < count($output))
