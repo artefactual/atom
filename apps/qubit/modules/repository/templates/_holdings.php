@@ -6,7 +6,23 @@
     <?php echo sfConfig::get('app_ui_label_holdings') ?>
     <?php echo image_tag('loading.small.gif', array('class' => 'hidden', 'id' => 'spinner')) ?>
   </h3>
-
+  <form class="sidebar-search" method="get" action="/index.php/search" _lpchecked="1">
+    <input type="hidden" name="repos" value="<?php echo $resource->id ?>">
+    <div class="input-prepend input-append">
+      <input type="text" name="query" placeholder="Search holdings">
+      <div class="btn-group">
+        <button class="btn" type="submit">
+          <i class="icon-search"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="more">
+    <a href="<?php echo url_for(array('module' => 'informationobject', 'action' => 'browse', 'repos' => $resource->id)) ?>">
+      <i class="icon-search"></i>
+      <?php echo __('Browse %1% holdings', array('%1%' => $pager->getNbResults())) ?>
+    </a>
+  </div>
   <ul>
     <?php foreach ($pager->getResults() as $hit): ?>
       <?php $doc = $hit->getData() ?>
