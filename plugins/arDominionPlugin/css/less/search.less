@@ -279,3 +279,18 @@ h1 {
     width: 100%;
   }
 }
+
+#sidebar form.sidebar-search {
+  margin: 0px;
+  width: 100%;
+
+  [type=text] {
+    display: inline-block;
+    width: 85%;                   // Fallback width (for IE 8, etc.)
+    width: calc(~'100% - 37px');
+  }
+
+  div {
+    width: 100%;
+  }
+}

@@ -7,6 +7,17 @@
 <section class="list-menu">
 
   <h4><?php echo sfConfig::get('app_ui_label_holdings') ?></h4>
+  <form class="sidebar-search" method="get" action="/index.php/search" _lpchecked="1">
+    <input type="hidden" name="repos" value="<?php echo $resource->id ?>">
+    <div class="input-prepend input-append">
+      <input type="text" name="query" placeholder="Search holdings">
+      <div class="btn-group">
+        <button class="btn" type="submit">
+          <i class="icon-search"></i>
+        </button>
+      </div>
+    </div>
+  </form>
 
   <ul>
     <?php foreach ($resultSet->getResults() as $hit): ?>
