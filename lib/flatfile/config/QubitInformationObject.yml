@@ -1,0 +1,93 @@
+# Columns that map directly to information object properties
+direct:
+  - updatedAt
+  - createdAt
+  - accessConditions
+  - accruals
+  - acquisition
+  - alternateTitle
+  - appraisal
+  - archivalHistory
+  - arrangement
+  - culture
+  - descriptionIdentifier
+  - extentAndMedium
+  - findingAids
+  - identifier
+  - locationOfCopies
+  - locationOfOriginals
+  - physicalCharacteristics
+  - relatedUnitsOfDescription
+  - reproductionConditions
+  - revisionHistory
+  - rules
+  - scopeAndContent
+  - sources
+  - title
+  - language
+  - script
+  - languageOfDescription
+  - scriptOfDescription
+
+# Columns that map to information object properties
+map:
+  id:                                legacyId
+  institutionResponsibleIdentifier:  institutionIdentifier
+
+# Columns that map to QubitProperty values
+property:
+  radOtherTitleInformation:                                otherTitleInformation
+  radTitleStatementOfResponsibility:                       titleStatementOfResponsibility
+  radStatementOfProjection:                                statementOfProjection
+  radStatementOfCoordinates:                               statementOfCoordinates
+  radStatementOfScaleArchitectural:                        statementOfScaleArchitectural
+  radStatementOfScaleCartographic:                         statementOfScaleCartographic
+  radPublishersSeriesNote:                                 noteOnPublishersSeries
+  radIssuingJurisdiction:                                  issuingJurisdictionAndDenomination
+  radEditionStatementOfResponsibility:                     editionStatementOfResponsibility
+  radTitleProperOfPublishersSeries:                        titleProperOfPublishersSeries
+  radParallelTitlesOfPublishersSeries:                     parallelTitleOfPublishersSeries
+  radOtherTitleInformationOfPublishersSeries:              otherTitleInformationOfPublishersSeries
+  radStatementOfResponsibilityRelatingToPublishersSeries:  statementOfResponsibilityRelatingToPublishersSeries
+  radNumberingWithinPublishersSeries:                      numberingWithinPublishersSeries
+  radStandardNumber:                                       standardNumber
+
+# Columns that map to notes of various types
+note:
+  common:
+    languageNote:                           Language note
+    publicationNote:                        Publication note
+    generalNote:                            General note
+    archivistNote:                          Archivist's note
+  rad:
+    radNoteCast:                            Cast note
+    radNoteCredits:                         Credits note
+    radNoteSignaturesInscriptions:          Signatures note
+    radNoteConservation:                    Conservation
+    radNoteGeneral:                         General note
+    radNotePhysicalDescription:             Physical description
+    radNotePublishersSeries:                Publisher's series
+    radNoteRights:                          Rights
+    radNoteAccompanyingMaterial:            Accompanying material
+    radNoteAlphaNumericDesignation:         Alpha-numeric designations
+    radNoteEdition:                         Edition
+  title:
+    radTitleStatementOfResponsibilityNote:  Statements of responsibility
+    radTitleParallelTitles:                 Parallel titles and other title information
+    radTitleSourceOfTitleProper:            Source of title proper
+    radTitleVariationsInTitle:              Variations in title
+    radTitleAttributionsAndConjectures:     Attributions and conjectures
+    radTitleContinues:                      Continuation of title
+    radTitleNoteContinuationOfTitle:        Continuation of title
+
+# Taxonomies related to the resource type, values will be referred to in resource-specific
+# CSV row modification logic
+cacheTaxonomies:
+  commonNoteTypeIds:        NOTE_TYPE_ID
+  radNoteTypeIds:           RAD_NOTE_ID
+  titleNoteTypeIds:         RAD_TITLE_NOTE_ID
+  levelOfDescriptionTerms:  LEVEL_OF_DESCRIPTION_ID
+  levelOfDetailTerms:       DESCRIPTION_DETAIL_LEVEL_ID
+  descriptionStatusTerms:   DESCRIPTION_STATUS_ID
+  eventTypeTerms:           EVENT_TYPE_ID
+  physicalObjectTypes:      PHYSICAL_OBJECT_TYPE_ID
