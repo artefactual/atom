@@ -68,6 +68,7 @@ class SettingsOaiAction extends sfAction
     // Get OAI Repository settings
     $oaiAuthenticationEnabled = QubitSetting::getByName('oai_authentication_enabled');
     $oaiRepositoryCode = QubitSetting::getByName('oai_repository_code');
+    $oaiAdminEmails = QubitSetting::getByName('oai_admin_emails');
     $oaiRepositoryIdentifier = QubitOai::getRepositoryIdentifier();
     $sampleOaiIdentifier = QubitOai::getSampleIdentifier();
     $resumptionTokenLimit = QubitSetting::getByName('resumption_token_limit');
@@ -77,6 +78,7 @@ class SettingsOaiAction extends sfAction
       'oai_authentication_enabled' => (isset($oaiAuthenticationEnabled)) ? intval($oaiAuthenticationEnabled->getValue(array('sourceCulture'=>true))) : 1,
       'oai_repository_code' => (isset($oaiRepositoryCode)) ? $oaiRepositoryCode->getValue(array('sourceCulture'=>true)) : null,
       'oai_repository_identifier' => $oaiRepositoryIdentifier,
+      'oai_admin_emails' => $oaiAdminEmails,
       'sample_oai_identifier' => $sampleOaiIdentifier,
       'resumption_token_limit' => (isset($resumptionTokenLimit)) ? $resumptionTokenLimit->getValue(array('sourceCulture'=>true)) : null
     ));
