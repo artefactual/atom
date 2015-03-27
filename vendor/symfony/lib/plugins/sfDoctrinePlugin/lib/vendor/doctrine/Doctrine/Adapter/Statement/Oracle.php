@@ -583,7 +583,7 @@ class Doctrine_Adapter_Statement_Oracle implements Doctrine_Adapter_Statement_In
         }
         $bind_index = 1;
         // Replace ? bind-placeholders with :oci_b_var_ variables
-        $query = preg_replace("/(\?)/e", '":oci_b_var_". $bind_index++' , $query);
+        $query = preg_replace_callback("/(\?)/", function($m) { return ":oci_b_var_". $bind_index++; } , $query);
 
         $this->statement =  @oci_parse($this->connection, $query);
 
