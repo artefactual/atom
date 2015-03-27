@@ -23,10 +23,10 @@
  * @package    AccesstoMemory
  * @subpackage migration
  */
-class arMigration0120
+class arMigration0121
 {
   const
-    VERSION = 120, // The new database version
+    VERSION = 121, // The new database version
     MIN_MILESTONE = 2; // The minimum milestone required
 
   public function up($configuration)
@@ -38,9 +38,14 @@ class arMigration0120
     $sql = "DROP INDEX `event_FI_3` ON `event`";
     QubitPdo::modify($sql);
 
-    // Rename column
-    $sql = "ALTER TABLE `event` CHANGE `information_object_id` `object_id` INT(11) DEFAULT NULL";
-    QubitPdo::modify($sql);
+    try {
+      // Rename column
+      $sql = "ALTER TABLE `event` CHANGE `information_object_id` `object_id` INT(11) DEFAULT NULL";
+      QubitPdo::modify($sql);
+    }
+    catch (Exception $e)
+    {
+    }
 
     // Add new index
     $sql = "CREATE INDEX `event_FI_3` ON `event`(`object_id`)";

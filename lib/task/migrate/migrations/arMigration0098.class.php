@@ -36,6 +36,40 @@ class arMigration0098
    */
   public function up($configuration)
   {
+    // Remove existing constraint and index
+    $sql = "ALTER TABLE `event` DROP FOREIGN KEY `event_FK_3`";
+    QubitPdo::modify($sql);
+
+    $sql = "DROP INDEX `event_FI_3` ON `event`";
+    QubitPdo::modify($sql);
+
+    // Attempt to rename old column name to new column name so newer
+    // ORM will work with it
+    try {
+      $sql = "ALTER TABLE `event` CHANGE `information_object_id` `object_id` INT(11) DEFAULT NULL";
+      QubitPdo::modify($sql);
+    }
+    catch (Exception $e)
+    {
+    }
+
+    // Add new index
+    $sql = "CREATE INDEX `event_FI_3` ON `event`(`object_id`)";
+    QubitPdo::modify($sql);
+
+    // Add new constraint
+    $sql = <<<sql
+
+ALTER TABLE `event`
+  ADD CONSTRAINT `event_FK_3`
+  FOREIGN KEY (`object_id`)
+  REFERENCES `object` (`id`)
+  ON DELETE CASCADE;
+
+sql;
+
+    QubitPdo::modify($sql);
+
     // Create root repository
     $object = new QubitRepository;
     $object->id = QubitRepository::ROOT_ID;
