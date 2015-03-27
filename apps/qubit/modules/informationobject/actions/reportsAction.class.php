@@ -34,10 +34,15 @@ class InformationObjectReportsAction extends sfAction
         // Hide if DC or MODS since they don't use such levels of description
         if (!in_array($this->resource->sourceStandard, array('Dublin Core Simple version 1.1', 'MODS version 3.3')))
         {
-          $choices = array(
-            $this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'fileList')) => $this->context->i18n->__('File list'),
-            $this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'itemList')) => $this->context->i18n->__('Item list'),
-          );
+          $choices = array();
+
+          if ($this->resource->containsLevelOfDescription('File')) {
+            $choices[$this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'fileList'))] = $this->context->i18n->__('File list');
+          }
+
+          if ($this->resource->containsLevelOfDescription('Item')) {
+            $choices[$this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'itemList'))] = $this->context->i18n->__('Item list');
+          }
         }
         else
         {
@@ -50,11 +55,16 @@ class InformationObjectReportsAction extends sfAction
           $choices[$this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'boxLabelCsv'))] = $this->context->i18n->__('Box label CSV');
         }
 
-        $this->form->setDefault($name, $this->context->routing->generate(null, array($this->resource, 'module' => 'informationobject', 'action' => 'fileList')));
-        $this->form->setValidator($name, new sfValidatorChoice(array('choices' => array_keys($choices))));
-        $this->form->setWidget($name, new sfWidgetFormChoice(array(
-          'expanded' => true,
-          'choices' => $choices)));
+        $this->reportsAvailable = !empty($choices);
+
+        if ($this->reportsAvailable) {
+          $available_routes = array_keys($choices);
+          $this->form->setDefault($name, $available_routes[0]);
+          $this->form->setValidator($name, new sfValidatorChoice(array('choices' => $available_routes)));
+          $this->form->setWidget($name, new sfWidgetFormChoice(array(
+            'expanded' => true,
+            'choices' => $choices)));
+        }
 
         break;
     }

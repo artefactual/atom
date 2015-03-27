@@ -18,7 +18,11 @@
 
   <div class="fieldset-wrapper">
 
+  <?php if ($reportsAvailable): ?>
     <?php echo render_field($form->report->label(__('Select report')), $resource) ?>
+  <?php else: ?>
+    <?php echo __('There are no relevant reports for this item') ?>
+  <?php endif; ?>
 
   </div>
 
