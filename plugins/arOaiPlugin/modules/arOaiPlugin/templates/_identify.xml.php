@@ -3,7 +3,7 @@
     <baseURL><?php echo QubitOai::getBaseUrl() ?></baseURL>
     <protocolVersion><?php echo $protocolVersion ?></protocolVersion>
     <?php
-    foreach($adminEmail as $email){
+    foreach($adminEmails as $email){
       echo "    <adminEmail>".trim($email)."</adminEmail>\n";
     }
     ?>
