@@ -36,16 +36,16 @@ class arOaiPluginlistSetsComponent extends sfComponent
     $request->setRequestFormat('xml');
     $this->date = QubitOai::getDate();
     $this->path = $this->request->getUriPrefix().$this->request->getPathInfo();
-    $this->attributes = $this->request->getGetParameters();
 
+    $this->attributes = $this->request->getGetParameters();
     $this->attributesKeys = array_keys($this->attributes);
     $this->requestAttributes = '';
     foreach ($this->attributesKeys as $key)
     {
       $this->requestAttributes .= ' '.$key.'="'.$this->attributes[$key].'"';
     }
-    $this->sets = array();
 
+    $this->sets = array();
     foreach (QubitInformationObject::getCollections() as $el)
     {
       $this->sets[] = new sfIsadPlugin($el);

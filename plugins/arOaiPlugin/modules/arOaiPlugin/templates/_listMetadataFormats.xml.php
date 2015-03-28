@@ -1,12 +1,9 @@
   <ListMetadataFormats>
-<?php
-  foreach(QubitOai::getMetadataFormats() as $metadataFormat)
-  {
-    echo "    <metadataFormat>\n";
-    echo "      <metadataPrefix>".$metadataFormat['prefix']."</metadataPrefix>\n";
-    echo "      <schema>".$metadataFormat['schema']."</schema>\n";
-    echo "      <metadataNamespace>".$metadataFormat['namespace']."</metadataNamespace>\n";
-    echo "    </metadataFormat>\n";
-  }
-?>
+    <?php foreach (QubitOai::getMetadataFormats() as $metadataFormat): ?>
+      <metadataFormat>
+        <metadataPrefix><?php echo $metadataFormat['prefix'] ?></metadataPrefix>
+        <schema><?php echo $metadataFormat['schema'] ?></schema>
+        <metadataNamespace><?php echo $metadataFormat['namespace'] ?></metadataNamespace>
+      </metadataFormat>
+    <?php endforeach; ?>
   </ListMetadataFormats>

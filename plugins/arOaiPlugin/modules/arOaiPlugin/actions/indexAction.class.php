@@ -58,10 +58,8 @@ class arOaiPluginIndexAction extends sfAction
     // authenticate, responding with 403 if authentication fails
     $requestOaiApiKey = $request->getHttpHeader('X-OAI-API-Key');
 
-    if (
-      !empty($requestOaiApiKey)
-      || null !== $authenticationRequiredSetting && $authenticationRequiredSetting->value
-    )
+    if (!empty($requestOaiApiKey)
+      || null !== $authenticationRequiredSetting && $authenticationRequiredSetting->value)
     {
       // Require user have valid API key to access OAI data
       if (empty($requestOaiApiKey))
@@ -102,7 +100,7 @@ class arOaiPluginIndexAction extends sfAction
     if (isset($this->attributes['resumptionToken']))
     {
       $stateChange = explode('&', $this->attributes['resumptionToken']);
-      foreach($stateChange as $keyValuePair)
+      foreach ($stateChange as $keyValuePair)
       {
         $resumptionTokenError = False;
 
@@ -148,8 +146,8 @@ class arOaiPluginIndexAction extends sfAction
     {
       $this->requestAttributes .= ' '.$key.'="'.esc_specialchars($this->attributes[$key]).'"';
     }
-    $this->sets = array();
 
+    $this->sets = array();
     foreach (QubitInformationObject::getCollections() as $el)
     {
       $this->sets[] = new sfIsadPlugin($el);
@@ -188,7 +186,7 @@ class arOaiPluginIndexAction extends sfAction
         $this->forward('arOaiPlugin', 'error');
       }
 
-      switch($this->request->verb)
+      switch ($this->request->verb)
       {
         case 'Identify':
           $this->verb = 'identify';
@@ -211,7 +209,8 @@ class arOaiPluginIndexAction extends sfAction
         default:
           $this->verb = 'badVerb';
       }
-    } else
+    }
+    else
     {
       $this->verb = 'badVerb';
     }

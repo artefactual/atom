@@ -38,20 +38,21 @@ class arOaiPluginErrorAction extends sfAction
     $request->setRequestFormat('xml');
     $this->date = QubitOai::getDate();
     $this->path = $this->request->getUriPrefix().$this->request->getPathInfo();
-    $this->attributes = $this->request->getGetParameters();
 
+    $this->attributes = $this->request->getGetParameters();
     $this->attributesKeys = array_keys($this->attributes);
     $this->requestAttributes = '';
     foreach ($this->attributesKeys as $key)
     {
       $this->requestAttributes .= ' '.$key.'="'.$this->attributes[$key].'"';
     }
-    $this->sets = array();
 
+    $this->sets = array();
     foreach (QubitInformationObject::getCollections() as $el)
     {
       $this->sets[] = new sfIsadPlugin($el);
     }
+
     if (isset($this->request->verb))
     {
       switch($this->request->verb)
@@ -77,7 +78,8 @@ class arOaiPluginErrorAction extends sfAction
         default:
           $this->verb = 'badVerb';
       }
-    } else
+    }
+    else
     {
       $this->verb = 'badVerb';
     }
