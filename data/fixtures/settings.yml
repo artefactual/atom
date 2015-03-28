@@ -515,7 +515,7 @@ QubitSetting:
     editable: 1
     deleteable: 0
     value: 100
-  QubitSetting_oai_repository_code:
+  QubitSetting_oai_admin_emails:
     name: oai_admin_emails
     scope: oai
     editable: 1
