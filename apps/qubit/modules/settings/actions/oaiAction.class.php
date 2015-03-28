@@ -103,6 +103,12 @@ class SettingsOaiAction extends sfAction
     $setting->setValue($oaiRepositoryCodeValue, array('sourceCulture' => true));
     $setting->save();
 
+    // OAI admin emails
+    $oaiAdminEmailsValue = $thisForm->getValue('oai_admin_emails');
+    $setting = QubitSetting::getByName('oai_admin_emails');
+    $setting->setValue($oaiAdminEmailsValue, array('sourceCulture' => true));
+    $setting->save();
+
     // Hits per page
     $resumptionTokenLimit = $thisForm->getValue('resumption_token_limit');
 

@@ -79,6 +79,7 @@ class SettingsOaiRepositoryForm extends sfForm
 
     $this->validatorSchema['oai_authentication_enabled'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['oai_repository_code'] = new sfValidatorRegex(array('required' => false, 'pattern' => '/^[a-zA-Z0-9]+$/'), array('invalid' => $i18n->__('The code can only contain letters and numbers')));
+    $this->validatorSchema['oai_admin_emails'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['oai_repository_identifier'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['sample_oai_identifier'] = new sfValidatorString(array('required' => false));
 
