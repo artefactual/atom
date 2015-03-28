@@ -397,7 +397,7 @@ class QubitInformationObject extends BaseInformationObject
 
     if ($until != '')
     {
-      $criteria->add(QubitObject::UPDATED_AT, $until, Criteria::LESS_EQUAL);
+      $criteria->addAnd(QubitObject::UPDATED_AT, $until, Criteria::LESS_EQUAL);
     }
 
     if ($set != '')
