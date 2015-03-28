@@ -44,15 +44,11 @@ class arOaiPluginIdentifyComponent extends arOaiPluginComponent
 
     $this->setRequestAttributes($request);
 
-    $criteria = new Criteria;
-    $criteria->add(QubitAclUserGroup::GROUP_ID, QubitAclGroup::ADMINISTRATOR_ID);
-    $criteria->addJoin(QubitAclUserGroup::USER_ID, QubitUser::ID);
-    $users = QubitUser::get($criteria);
-    $this->adminEmail = array();
-
-    foreach ($users as $user)
+    $this->adminEmails = array();
+    if ((null !== $adminEmailsSetting = QubitSetting::getByName('oai_admin_emails'))
+        && $adminEmailsValue = $adminEmailsSetting->getValue(array('sourceCulture' => true)))
     {
-      $this->adminEmail[] = $user->getEmail()."\n";
+      $this->adminEmails = explode(',', $adminEmailsValue);
     }
   }
 }

@@ -1,8 +1,8 @@
-<?php if($recordsCount == 0):?>
+<?php if ($recordsCount == 0): ?>
   <error code="noRecordsMatch">The combination of the values of the from, until, set and metadataPrefix arguments results in an empty list.</error>
-<?php else:?>
+<?php else: ?>
   <ListRecords>
-<?php foreach($publishedRecords as $record): ?>
+<?php foreach ($publishedRecords as $record): ?>
 <?php $requestname->setAttribute('informationObject', $record) ?>
    <record>
     <header>
@@ -15,9 +15,9 @@
     </metadata>
     <?php include('_about.xml.php') ?>
    </record>
-<?php endforeach ?>
-  <?php if($remaining > 0):?>
-    <resumptionToken><?php echo $resumptionToken?></resumptionToken>
-  <?php endif?>
+<?php endforeach; ?>
+  <?php if ($remaining > 0): ?>
+    <resumptionToken><?php echo $resumptionToken ?></resumptionToken>
+  <?php endif; ?>
   </ListRecords>
-<?php endif?>
+<?php endif; ?>

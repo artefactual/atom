@@ -3,7 +3,7 @@ QubitSetting:
     name: version
     editable: 0
     deleteable: 0
-    value: 119
+    value: 120
   milestone:
     name: milestone
     editable: 0
@@ -515,6 +515,13 @@ QubitSetting:
     editable: 1
     deleteable: 0
     value: 100
+  QubitSetting_oai_admin_emails:
+    name: oai_admin_emails
+    scope: oai
+    editable: 1
+    deleteable: 0
+    source_culture: en
+    value: ''
   QubitSetting_inherit_code_informationobject:
     name: inherit_code_informationobject
     editable: 1

@@ -37,6 +37,7 @@ class SettingsOaiRepositoryForm extends sfForm
     $this->setWidgets(array(
       'oai_authentication_enabled' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio')),
       'oai_repository_code' => new sfWidgetFormInput,
+      'oai_admin_emails' => new sfWidgetFormTextarea,
       'oai_repository_identifier' => new sfWidgetFormInput(array(), array('class'=>'disabled', 'disabled'=>true)),
       'sample_oai_identifier' => new sfWidgetFormInput(array(), array('class'=>'disabled', 'disabled'=>true)),
       'resumption_token_limit' => new sfWidgetFormInput
@@ -46,6 +47,7 @@ class SettingsOaiRepositoryForm extends sfForm
     $this->widgetSchema->setLabels(array(
       'oai_authentication_enabled' => $i18n->__('Require API key authentication'),
       'oai_repository_code' => $i18n->__('OAI repository code'),
+      'oai_admin_emails' => $i18n->__('Administrator email(s)'),
       'oai_repository_identifier' => $i18n->__('OAI repository identifier'),
       'sample_oai_identifier' => $i18n->__('Sample OAI identifier'),
       'resumption_token_limit' => $i18n->__('Resumption token limit')
@@ -55,6 +57,7 @@ class SettingsOaiRepositoryForm extends sfForm
     $this->widgetSchema->setHelps(array(
       'oai_authentication_enabled' => $i18n->__('An API key must be sent in the HTTP request ZZZ header to authenticate requests'),
       'oai_repository_code' => $i18n->__('Add an alpha-numeric code to uniquely identify this particular OAI repository within its network domain to create a unique, OAI-compliant identifier, e.g. oai:foo.org:repositorycode_10001'),
+      'oai_admin_emails' => $i18n->__('Enter the email address(es) of at least one administrator for the repository. Multiple addresses can be entered, separated by commas. The address(es) will be exposed as part of a response to an Identify request.'),
       'oai_repository_identifier' => $i18n->__('This is an auto-generated setting that produces an OAI compliant repository identifier, which includes the OAI repository code value if it is set'),
       'sample_oai_identifier' => $i18n->__('This is an example of the auto-generated, OAI compliant identifier which is created for each item in this particular OAI repository'),
       'resumption_token_limit' => $i18n->__('The number of entities to include in a single OAI response list before inserting a resumption token')
@@ -76,6 +79,7 @@ class SettingsOaiRepositoryForm extends sfForm
 
     $this->validatorSchema['oai_authentication_enabled'] = new sfValidatorInteger(array('required' => false));
     $this->validatorSchema['oai_repository_code'] = new sfValidatorRegex(array('required' => false, 'pattern' => '/^[a-zA-Z0-9]+$/'), array('invalid' => $i18n->__('The code can only contain letters and numbers')));
+    $this->validatorSchema['oai_admin_emails'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['oai_repository_identifier'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['sample_oai_identifier'] = new sfValidatorString(array('required' => false));
 
