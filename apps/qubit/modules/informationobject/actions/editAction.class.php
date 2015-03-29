@@ -518,66 +518,15 @@ class InformationObjectEditAction extends DefaultEditAction
 
       foreach (QubitRelation::getRelationsBySubjectId($sourceInformationObject->id, array('typeId' => QubitTerm::RIGHT_ID)) as $item)
       {
-        $sourceRight = $item->object;
+        $sourceRights = $item->object;
 
-        if (false === array_search($this->context->routing->generate(null, array($sourceRight, 'module' => 'right')), (array)$this->request->deleteRights))
-        {
-          $right = new QubitRights;
-          $right->act = $sourceRight->act;
-          $right->startDate = $sourceRight->startDate;
-          $right->endDate = $sourceRight->endDate;
-          $right->basis = $sourceRight->basis;
-          $right->restriction = $sourceRight->restriction;
-          $right->copyrightStatus = $sourceRight->copyrightStatus;
-          $right->copyrightStatusDate = $sourceRight->copyrightStatusDate;
-          $right->copyrightJurisdiction = $sourceRight->copyrightJurisdiction;
-          $right->statuteNote = $sourceRight->statuteNote;
+        $newRights = $sourceRights->copy();
 
-          // Right holder
-          if (isset($sourceRight->rightsHolder))
-          {
-            $right->rightsHolder = $sourceRight->rightsHolder;
-          }
+        $relation = new QubitRelation;
+        $relation->object = $newRights;
+        $relation->typeId = QubitTerm::RIGHT_ID;
 
-          // I18n
-          $right->rightsNote = $sourceRight->rightsNote;
-          $right->copyrightNote = $sourceRight->copyrightNote;
-          $right->licenseIdentifier = $sourceRight->licenseIdentifier;
-          $right->licenseTerms = $sourceRight->licenseTerms;
-          $right->licenseNote = $sourceRight->licenseNote;
-          $right->statuteJurisdiction = $sourceRight->statuteJurisdiction;
-          $right->statuteCitation = $sourceRight->statuteCitation;
-          $right->statuteDeterminationDate = $sourceRight->statuteDeterminationDate;
-
-          foreach ($sourceRight->rightsI18ns as $sourceRightI18n)
-          {
-            if ($this->context->user->getCulture() == $sourceRightI18n->culture)
-            {
-              continue;
-            }
-
-            $rightI18n = new QubitRightsI18n;
-            $rightI18n->rightNote = $sourceRightI18n->rightNote;
-            $rightI18n->copyrightNote = $sourceRightI18n->copyrightNote;
-            $rightI18n->licenseIdentifier = $sourceRightI18n->licenseIdentifier;
-            $rightI18n->licenseTerms = $sourceRightI18n->licenseTerms;
-            $rightI18n->licenseNote = $sourceRightI18n->licenseNote;
-            $rightI18n->statuteJurisdiction = $sourceRightI18n->statuteJurisdiction;
-            $rightI18n->statuteCitation = $sourceRightI18n->statuteCitation;
-            $rightI18n->statuteNote = $sourceRightI18n->statuteNote;
-            $rightI18n->culture = $sourceRightI18n->culture;
-
-            $right->rightsI18ns[] = $rightI18n;
-          }
-
-          $right->save();
-
-          $relation = new QubitRelation;
-          $relation->object = $right;
-          $relation->typeId = QubitTerm::RIGHT_ID;
-
-          $this->resource->relationsRelatedBysubjectId[] = $relation;
-        }
+        $this->resource->relationsRelatedBysubjectId[] = $relation;
       }
 
       if ('sfIsadPlugin' != $this->request->module)
