@@ -117,6 +117,25 @@ EOF;
         'title'
       ),
 
+      'arrayColumns' => array(
+        'creators'             => '|',
+        'creatorHistories'       => '|',
+        'creationDates'      => '|',
+        'creationDatesStart' => '|',
+        'creationDatesEnd'   => '|',
+        'creationDatesType'  => '|',
+        'creatorDates'      => '|', // These 3 columns are for backwards compatibility
+        'creatorDatesStart' => '|',
+        'creatorDatesEnd'   => '|',
+        'eventActors'          => '|',
+        'eventTypes'           => '|',
+        'eventPlaces'          => '|',
+        'eventDates'           => '|',
+        'eventStartDates'      => '|',
+        'eventEndDates'        => '|',
+        'eventDescriptions'    => '|'
+      ),
+
       /* import columns that should be redirected to QubitInformationObject
          properties (and optionally transformed)
 
@@ -152,7 +171,6 @@ EOF;
         'donorPostalCode',
         'donorTelephone',
         'donorEmail',
-        'creators',
         'qubitParentSlug'
       ),
 
@@ -195,13 +213,19 @@ EOF;
       {
         if(isset($self->object) && is_object($self->object))
         {
+          // add ad-hoc events
+          csvImportBaseTask::importEvents($self);
+
+          // add creation events
+          csvImportBaseTask::importCreationEvents($self);
+
+          // add creators
           if (
             isset($self->rowStatusVars['creators'])
             && $self->rowStatusVars['creators']
           )
           {
-            $creators = explode('|', $self->rowStatusVars['creators']);
-            foreach($creators as $creator)
+            foreach($self->rowStatusVars['creators'] as $creator)
             {
               // fetch/create actor
               $actor = $self->createOrFetchActor($creator);

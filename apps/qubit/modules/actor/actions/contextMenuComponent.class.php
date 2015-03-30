@@ -73,7 +73,7 @@ class ActorContextMenuComponent extends sfComponent
       $criteria = new Criteria;
       $criteria->add(QubitEvent::ACTOR_ID, $this->resource->id);
       $criteria->add(QubitEvent::TYPE_ID, $eventType->id);
-      $criteria->addJoin(QubitEvent::INFORMATION_OBJECT_ID, QubitInformationObject::ID);
+      $criteria->addJoin(QubitEvent::OBJECT_ID, QubitInformationObject::ID);
 
       // Sort info objects alphabetically (w/ fallback)
       $criteria->addAscendingOrderByColumn('title');

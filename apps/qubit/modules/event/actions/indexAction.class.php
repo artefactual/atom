@@ -48,9 +48,9 @@ class EventIndexAction extends sfAction
       $value['description'] = $this->resource->description;
     }
 
-    if (isset($this->resource->informationObject))
+    if (isset($this->resource->object))
     {
-      $value['informationObject'] = $this->context->routing->generate(null, array($this->resource->informationObject, 'module' => 'informationobject'));
+      $value['informationObject'] = $this->context->routing->generate(null, array($this->resource->object, 'module' => 'informationobject'));
     }
 
     $place = $this->resource->getPlace();

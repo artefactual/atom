@@ -113,6 +113,18 @@ class AccessionAddInformationObjectAction extends sfAction
       $informationObject->events[] = $event;
     }
 
+    // Populate dates
+    foreach ($this->resource->getDates() as $accessionEvent)
+    {
+      $event = new QubitEvent;
+      $event->date = $accessionEvent->date;
+      $event->startDate = $accessionEvent->startDate;
+      $event->endDate = $accessionEvent->endDate;
+      $event->typeId = $accessionEvent->typeId;
+
+      $informationObject->events[] = $event;
+    }
+
     // Relationship between the information object and accession record
     $relation = new QubitRelation;
     $relation->object = $this->resource;

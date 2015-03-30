@@ -43,6 +43,24 @@ class QubitAccession extends BaseAccession
   {
     parent::save($connection);
 
+    // Save updated related events (update search index after updating all
+    // related objects that are included in the index document)
+    foreach ($this->events as $item)
+    {
+      $item->indexOnSave = false;
+
+      // TODO Needed if $this is new, should be transparent
+      $item->object = $this;
+
+      try
+      {
+        $item->save($connection);
+      }
+      catch (PropelException $e)
+      {
+      }
+    }
+
     QubitSearch::getInstance()->update($this);
 
     return $this;
@@ -125,5 +143,65 @@ class QubitAccession extends BaseAccession
         }
       }
     }, sfConfig::get('app_accession_mask'));
+  }
+
+  /**
+   * Get related actors 
+   */
+  public function getActors($options = array())
+  {
+    $criteria = new Criteria;
+    $criteria->addJoin(QubitActor::ID, QubitEvent::ACTOR_ID);
+    $criteria->add(QubitEvent::OBJECT_ID, $this->id);
+
+    if (isset($options['eventTypeId']))
+    {
+      $criteria->add(QubitEvent::TYPE_ID, $options['eventTypeId']);
+    }
+
+    if (isset($options['cultureFallback']) && true === $options['cultureFallback'])
+    {
+      $criteria->addAscendingOrderByColumn('authorized_form_of_name');
+      $criteria = QubitCultureFallback::addFallbackCriteria($criteria, 'QubitActor', $options);
+    }
+
+    $actors = QubitActor::get($criteria);
+
+    return $actors;
+  }
+
+  /**
+   * Get creators
+   */
+  public function getCreators($options = array())
+  {
+    return $this->getActors($options = array('eventTypeId' => QubitTerm::CREATION_ID));
+  }
+
+  /**
+   * Related events which have a date
+   */
+  public function getDates(array $options = array())
+  {
+    $criteria = new Criteria;
+    $criteria->add(QubitEvent::OBJECT_ID, $this->id);
+
+    $criteria->addMultipleJoin(array(
+      array(QubitEvent::ID, QubitEventI18n::ID),
+      array(QubitEvent::SOURCE_CULTURE, QubitEventI18n::CULTURE)),
+      Criteria::LEFT_JOIN);
+
+    $criteria->add($criteria->getNewCriterion(QubitEvent::END_DATE, null, Criteria::ISNOTNULL)
+      ->addOr($criteria->getNewCriterion(QubitEvent::START_DATE, null, Criteria::ISNOTNULL))
+      ->addOr($criteria->getNewCriterion(QubitEventI18n::DATE, null, Criteria::ISNOTNULL)));
+
+    if (isset($options['type_id']))
+    {
+      $criteria->add(QubitEvent::TYPE_ID, $options['type_id']);
+    }
+
+    $criteria->addDescendingOrderByColumn(QubitEvent::START_DATE);
+
+    return QubitEvent::get($criteria);
   }
 }

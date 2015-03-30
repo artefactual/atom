@@ -7,6 +7,7 @@ editSuccess:
     /vendor/yui/connection/connection-min:
     /vendor/yui/datasource/datasource-min:
     /vendor/yui/autocomplete/autocomplete-min:
+    multiRow:
     autocomplete:
     date:
 

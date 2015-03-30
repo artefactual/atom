@@ -59,10 +59,27 @@
 
   <div class="field">
     <h3><?php echo __('Creators') ?></h3>
+   <div>
+     <ul>
+       <?php $actorsShown = array(); ?>
+       <?php foreach (QubitRelation::getRelationsByObjectId($resource->id, array('typeId' => QubitTerm::CREATION_ID)) as $item): ?>
+         <?php if (!isset($actorsShown[$item->subject->id])): ?>
+           <li><?php echo link_to(render_title($item->subject), array($item->subject, 'module' => 'actor')) ?></li>
+         <?php endif; ?>
+         <?php $actorsShown[$item->subject->id] = true; ?>
+       <?php endforeach; ?>
+     </ul>
+   </div>
+  </div>
+
+  <div class="field">
+    <h3><?php echo __('Date(s)') ?></h3>
     <div>
       <ul>
-        <?php foreach (QubitRelation::getRelationsByObjectId($resource->id, array('typeId' => QubitTerm::CREATION_ID)) as $item): ?>
-          <li><?php echo link_to(render_title($item->subject), array($item->subject, 'module' => 'actor')) ?></li>
+        <?php foreach ($resource->getDates() as $item): ?>
+          <li>
+            <?php echo Qubit::renderDateStartEnd($item->getDate(array('cultureFallback' => true)), $item->startDate, $item->endDate) ?> (<?php echo $item->getType(array('cultureFallback' => true)) ?>)
+          </li>
         <?php endforeach; ?>
       </ul>
     </div>

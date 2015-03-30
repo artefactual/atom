@@ -319,7 +319,7 @@ return;
       case 'resourceRelation':
         $criteria = new Criteria;
         $criteria->add(QubitEvent::ACTOR_ID, $this->resource->id);
-        $criteria->addJoin(QubitEvent::INFORMATION_OBJECT_ID, QubitInformationObject::ID);
+        $criteria->addJoin(QubitEvent::OBJECT_ID, QubitInformationObject::ID);
 
         return QubitEvent::get($criteria);
 

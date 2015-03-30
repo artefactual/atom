@@ -1047,7 +1047,7 @@ class QubitFlatfileImport
     {
       // Create new event
       $event = new QubitEvent;
-      $event->informationObjectId = $this->object->id;
+      $event->objectId = $this->object->id;
       $event->typeId = $typeId;
     }
 
@@ -1057,7 +1057,7 @@ class QubitFlatfileImport
       return;
     }
 
-    $allowedProperties = array('date', 'description', 'startDate', 'endDate');
+    $allowedProperties = array('date', 'description', 'startDate', 'endDate', 'typeId');
     $ignoreOptions  = array('actorName', 'actorHistory');
 
     $this->setPropertiesFromArray($event, $options, $allowedProperties, $ignoreOptions);
@@ -1083,7 +1083,7 @@ class QubitFlatfileImport
           $actorOptions['history'] = $options['actorHistory'];
         }
 
-        if (isset($this->object->repositoryId))
+        if (property_exists($this->object, 'repositoryId') && isset($this->object->repositoryId))
         {
           $actorOptions['repositoryId'] = $this->object->repositoryId;
         }

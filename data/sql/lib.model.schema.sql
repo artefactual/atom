@@ -286,7 +286,7 @@ CREATE TABLE `event`
 	`end_date` DATE,
 	`end_time` TIME,
 	`type_id` INTEGER  NOT NULL,
-	`information_object_id` INTEGER,
+	`object_id` INTEGER,
 	`actor_id` INTEGER,
 	`source_culture` VARCHAR(7)  NOT NULL,
 	PRIMARY KEY (`id`),
@@ -299,10 +299,10 @@ CREATE TABLE `event`
 		FOREIGN KEY (`type_id`)
 		REFERENCES `term` (`id`)
 		ON DELETE CASCADE,
-	INDEX `event_FI_3` (`information_object_id`),
+	INDEX `event_FI_3` (`object_id`),
 	CONSTRAINT `event_FK_3`
-		FOREIGN KEY (`information_object_id`)
-		REFERENCES `information_object` (`id`)
+		FOREIGN KEY (`object_id`)
+		REFERENCES `object` (`id`)
 		ON DELETE CASCADE,
 	INDEX `event_FI_4` (`actor_id`),
 	CONSTRAINT `event_FK_4`

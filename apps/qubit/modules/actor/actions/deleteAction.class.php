@@ -41,7 +41,7 @@ class ActorDeleteAction extends sfAction
     {
       foreach ($this->resource->events as $item)
       {
-        if (isset($item->informationObject) && isset($item->type))
+        if (isset($item->object) && isset($item->type))
         {
           unset($item->actor);
 

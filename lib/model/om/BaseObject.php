@@ -200,6 +200,11 @@ abstract class BaseObject implements ArrayAccess
       return true;
     }
 
+    if ('eventsRelatedByobjectId' == $name)
+    {
+      return true;
+    }
+
     if ('notes' == $name)
     {
       return true;
@@ -335,6 +340,23 @@ abstract class BaseObject implements ArrayAccess
       }
 
       return $this->refFkValues['jobsRelatedByobjectId'];
+    }
+
+    if ('eventsRelatedByobjectId' == $name)
+    {
+      if (!isset($this->refFkValues['eventsRelatedByobjectId']))
+      {
+        if (!isset($this->id))
+        {
+          $this->refFkValues['eventsRelatedByobjectId'] = QubitQuery::create();
+        }
+        else
+        {
+          $this->refFkValues['eventsRelatedByobjectId'] = self::geteventsRelatedByobjectIdById($this->id, array('self' => $this) + $options);
+        }
+      }
+
+      return $this->refFkValues['eventsRelatedByobjectId'];
     }
 
     if ('notes' == $name)
@@ -861,6 +883,26 @@ abstract class BaseObject implements ArrayAccess
   public function addjobsRelatedByobjectIdCriteria(Criteria $criteria)
   {
     return self::addjobsRelatedByobjectIdCriteriaById($criteria, $this->id);
+  }
+
+  public static function addeventsRelatedByobjectIdCriteriaById(Criteria $criteria, $id)
+  {
+    $criteria->add(QubitEvent::OBJECT_ID, $id);
+
+    return $criteria;
+  }
+
+  public static function geteventsRelatedByobjectIdById($id, array $options = array())
+  {
+    $criteria = new Criteria;
+    self::addeventsRelatedByobjectIdCriteriaById($criteria, $id);
+
+    return QubitEvent::get($criteria, $options);
+  }
+
+  public function addeventsRelatedByobjectIdCriteria(Criteria $criteria)
+  {
+    return self::addeventsRelatedByobjectIdCriteriaById($criteria, $this->id);
   }
 
   public static function addnotesCriteriaById(Criteria $criteria, $id)
