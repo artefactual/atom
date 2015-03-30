@@ -22,7 +22,7 @@ class updatePublicationStatusTask extends sfBaseTask
   protected function configure()
   {
     $this->addArguments(array(
-      new sfCommandArgument('publicationStatusId', sfCommandArgument::REQUIRED, 'Desired publication status identifier'),
+      new sfCommandArgument('publicationStatus', sfCommandArgument::REQUIRED, 'Desired publication status'),
       new sfCommandArgument('slug', sfCommandArgument::REQUIRED, 'Resource slug')
     ));
 
@@ -46,6 +46,7 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
+    sfContext::createInstance($this->configuration);
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
@@ -62,8 +63,7 @@ EOF;
       $resource = QubitRepository::get($criteria)->__get(0);
     }
 
-    $publicationStatus = QubitTerm::getById($arguments['publicationStatusId']);
-
+    $publicationStatus = QubitTerm::getById($this->getPublicationStatusIdByName($arguments['publicationStatus']));
 
     // Check if the resource exists
     if (!isset($resource))
@@ -112,6 +112,7 @@ EOF;
     }
 
     echo "\n";
+    $this->logSection('tools', 'Finished updating publication statuses');
   }
 
   protected static function updatePublicationStatus($resource, $publicationStatus, $options)
@@ -119,7 +120,6 @@ EOF;
     // Start work
     $resource->setPublicationStatus($publicationStatus->id);
     $resource->save();
-    echo '+';
 
     // Update pub status of descendants
     if (!$options['ignore-descendants'])
@@ -137,9 +137,26 @@ EOF;
         {
           $descendantPubStatus->statusId = $publicationStatus->id;
           $descendantPubStatus->save();
-          echo '^';
         }
+
+        echo '.';
       }
     }
+  }
+
+  private function getPublicationStatusIdByName($pubStatus)
+  {
+    $sql = '
+      SELECT t.id FROM term t JOIN term_i18n ti ON t.id = ti.id
+      WHERE t.taxonomy_id = ? AND ti.name = ?
+    ';
+
+    $pubStatusId = QubitPdo::fetchColumn($sql, array(QubitTaxonomy::PUBLICATION_STATUS_ID, $pubStatus));
+    if (!$pubStatusId)
+    {
+      throw new sfException("Invalid publication status specified: $pubStatus");
+    }
+
+    return $pubStatusId;
   }
 }
