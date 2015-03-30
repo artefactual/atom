@@ -19,8 +19,6 @@
 
 class RepositoryContextMenuComponent extends sfComponent
 {
-  const LIMIT = 10;
-
   public function execute($request)
   {
     if (!isset($request->getAttribute('sf_route')->resource))
@@ -28,8 +26,7 @@ class RepositoryContextMenuComponent extends sfComponent
       return sfView::NONE;
     }
 
-    $this->limit = self::LIMIT;
-
+    $this->limit = sfConfig::get('app_hits_per_page', 10);
     $this->resource = $request->getAttribute('sf_route')->resource;
 
     $queryBool = new \Elastica\Query\Bool();
@@ -58,5 +55,11 @@ class RepositoryContextMenuComponent extends sfComponent
     }
 
     $this->resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
+
+    $this->pager = new QubitSearchPager($this->resultSet);
+    $this->pager->setPage(1);
+    $this->pager->setMaxPerPage($this->limit);
+
+    $this->pager->init();
   }
 }

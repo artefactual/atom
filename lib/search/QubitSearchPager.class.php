@@ -61,6 +61,8 @@ class QubitSearchPager extends sfPager
    */
   public function getResults()
   {
+    // Note: to get results here beyond page 1, you'll need to call $resultSet->setFrom()
+    // prior to this pager's creation.
     return $this->resultSet->getResults();
   }
 
