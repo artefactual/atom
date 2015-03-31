@@ -68,6 +68,15 @@ abstract class arOaiPluginComponent extends sfComponent
       $this->until = $request->until;
     }
 
+    if (!isset($request->set))
+    {
+      $this->set = '';
+    }
+    else
+    {
+      $this->set = $request->set;
+    }
+
     /*
      * If cursor not supplied, define as 0
      */
@@ -87,13 +96,13 @@ abstract class arOaiPluginComponent extends sfComponent
     /*
      * If set is not supplied, define it as ''
      */
-    if (!isset($request->set))
+    if (!isset($this->set))
     {
       $collection = '';
     }
     else
     {
-      $collection = QubitOai::getCollectionInfo($request->set, $this->collectionsTable);
+      $collection = QubitOai::getCollectionInfo($this->set, $this->collectionsTable);
     }
 
     //Get the records according to the limit dates and collection

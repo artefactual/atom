@@ -213,7 +213,7 @@ class QubitOai
 
     foreach ($collections as $collection)
     {
-      $collectionTable[] = array('setSpec'=>$collection->getOaiIdentifier(), 'lft' => $collection->getLft(), 'rgt' => $collection->getRgt());
+      $collectionTable[] = new QubitOaiCollectionSet($collection);
     }
     return $collectionTable;
   }
@@ -224,13 +224,12 @@ class QubitOai
    * @param int $left left side of information object
    * @return string oai identifier of the element's collection
    */
-  public static function getSetSpec($left, $collectionTable)
+  public static function getSetSpec($record, $collectionTable)
   {
     foreach ($collectionTable as $collection)
     {
-      if ($collection['lft'] <= $left AND $collection['rgt'] > $left)
-      {
-        return $collection['setSpec'];
+      if ($collection->contains($record)) {
+        return $collection->setSpec();
       }
     }
     return 'None';
@@ -246,7 +245,7 @@ class QubitOai
   {
     foreach ($collectionsTable as $collection)
     {
-      if ($collection['setSpec'] == $setSpec)
+      if ($collection->setSpec() == $setSpec)
       {
         return $collection;
       }
