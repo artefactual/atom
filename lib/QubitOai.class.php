@@ -220,9 +220,13 @@ class QubitOai
       $oaiSets[] = new QubitOaiCollectionSet($collection);
     }
 
-    foreach (QubitOai::$additionalOaiSets as $oaiSet)
-    {
-      $oaiSets[] = $oaiSet;
+    $useAdditionalOaiSets = QubitSetting::getByName('oai_additional_sets_enabled');
+
+    if ($useAdditionalOaiSets && $useAdditionalOaiSets->value) {
+      foreach (QubitOai::$additionalOaiSets as $oaiSet)
+      {
+        $oaiSets[] = $oaiSet;
+      }
     }
 
     return $oaiSets;
