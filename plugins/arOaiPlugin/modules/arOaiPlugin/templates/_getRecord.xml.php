@@ -3,7 +3,7 @@
       <header>
         <identifier><?php echo $informationObject->getOaiIdentifier() ?></identifier>
         <datestamp><?php echo QubitOai::getDate($informationObject->getUpdatedAt())?></datestamp>
-        <setSpec><?php echo QubitOai::getSetSpec($informationObject, $collectionsTable)?></setSpec>
+        <setSpec><?php echo QubitOai::getSetSpec($informationObject, $oaiSets)?></setSpec>
       </header>
       <metadata>
         <?php echo get_component('sfDcPlugin', 'dc', array('resource' => $informationObject)) ?>

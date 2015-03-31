@@ -37,7 +37,7 @@ class arOaiPluginGetRecordComponent extends arOaiPluginComponent
     $this->informationObject = QubitInformationObject::getRecordByOaiID($oai_local_identifier_id);
     $request->setAttribute('informationObject', $this->informationObject);
 
-    $this->collectionsTable = QubitOai::getCollectionArray();
+    $this->oaiSets = QubitOai::getOaiSets();
 
     $this->path = $request->getUriPrefix().$request->getPathInfo();
 

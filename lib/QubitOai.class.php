@@ -202,71 +202,54 @@ class QubitOai
   }
 
   /**
-   * Load array of collections
+   * Load array of OAI sets
    *
-   * @return array associative array of collection information
+   * @return array of available OAI sets
    */
-  public static function getCollectionArray()
+  public static function getOaiSets()
   {
     $collections = QubitInformationObject::getCollections();
-    $collectionTable = array();
+    $oaiSets = array();
 
     foreach ($collections as $collection)
     {
-      $collectionTable[] = new QubitOaiCollectionSet($collection);
+      $oaiSets[] = new QubitOaiCollectionSet($collection);
     }
-    return $collectionTable;
+    return $oaiSets;
   }
 
   /**
-   * Returns collection identifier for the element with $left element
+   * Returns the setSpec for the OAI set containiner $record
    *
-   * @param int $left left side of information object
+   * @param mixed $record, an Information Object record
+   * @param array of available OAI sets
+
    * @return string oai identifier of the element's collection
    */
-  public static function getSetSpec($record, $collectionTable)
+  public static function getSetSpec($record, $oaiSets)
   {
-    foreach ($collectionTable as $collection)
+    foreach ($oaiSets as $oaiSet)
     {
-      if ($collection->contains($record)) {
-        return $collection->setSpec();
+      if ($oaiSet->contains($record)) {
+        return $oaiSet->setSpec();
       }
     }
     return 'None';
   }
 
   /**
-   * Returns collection info for the element with $setSpec
+   * Returns the OAI set matching $setSpec
    *
-   * @param int $setSpec left side of information object
-   * @return string oai identifier of the element's collection
+   * @param string $setSpec, the setSpec of an OAI set
+   * @return QubitOaiSet/boolean the OAI set matched (or false if none matched)
    */
-  public static function getCollectionInfo($setSpec, $collectionsTable)
+  public static function getMatchingOaiSet($setSpec, $oaiSets)
   {
-    foreach ($collectionsTable as $collection)
+    foreach ($oaiSets as $oaiSet)
     {
-      if ($collection->setSpec() == $setSpec)
+      if ($oaiSet->setSpec() == $setSpec)
       {
-        return $collection;
-      }
-    }
-    return false;
-  }
-
-  /**
-   * Gets limits of the collection
-   *
-   * @param string $setSpec the collection id
-   * @return array associative array of collection with setSpec
-   */
-  public static function getCollectionLimits($setSpec)
-  {
-    $collectionTable = oai::getCollectionArray();
-    foreach ($collectionTable as $collection)
-    {
-      if ($collection['setSpec'] == $setSpec)
-      {
-        return $collection;
+        return $oaiSet;
       }
     }
     return false;
