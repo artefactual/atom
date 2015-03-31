@@ -312,12 +312,18 @@
           <controlaccess>
 
             <?php foreach ($descendant->getActorEvents() as $event): ?>
-              <?php if ($event->getActor()->getEntityTypeId() == QubitTerm::PERSON_ID): ?>
-                <persname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('name'.$event->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('nameDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </persname>
-              <?php elseif ($event->getActor()->getEntityTypeId() == QubitTerm::FAMILY_ID): ?>
-                <famname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('name'.$event->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('nameDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </famname>
-              <?php else: ?>
-                <corpname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('name'.$event->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('nameDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </corpname>
+              <?php if ($event->getType()->getRole() != 'Creator'): ?>
+
+                <?php if ($event->getActor()->getEntityTypeId() == QubitTerm::PERSON_ID): ?>
+                  <persname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('name'.$event->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('nameDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </persname>
+                <?php elseif ($event->getActor()->getEntityTypeId() == QubitTerm::FAMILY_ID): ?>
+                  <famname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('name'.$event->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('nameDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </famname>
+                <?php elseif ($event->getActor()->getEntityTypeId() == QubitTerm::CORPORATE_BODY_ID): ?>
+                  <corpname role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('name'.$event->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('nameDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </corpname>
+                <?php else: ?>
+                  <name role="<?php echo $event->getType()->getRole() ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('name'.$event->getType()->getRole()))): ?>encodinganalog="<?php echo $encoding ?>"<?php elseif (0 < strlen($encoding = $ead->getMetadataParameter('nameDefault'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?> id="atom_<?php echo $event->id ?>_actor"><?php echo escape_dc(esc_specialchars(render_title($event->getActor(array('cultureFallback' => true))))) ?> </name>
+                <?php endif; ?>
+
               <?php endif; ?>
             <?php endforeach; ?>
 
