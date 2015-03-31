@@ -28,6 +28,10 @@
 
 class QubitOai
 {
+  /* Any custom OAI set implementations that are available (in addition to the
+   * standard collection sets) */
+  private static $additionalOaiSets = array();
+
   /**
    * Mail error report
    *
@@ -215,7 +219,22 @@ class QubitOai
     {
       $oaiSets[] = new QubitOaiCollectionSet($collection);
     }
+
+    foreach (QubitOai::$additionalOaiSets as $oaiSet)
+    {
+      $oaiSets[] = $oaiSet;
+    }
+
     return $oaiSets;
+  }
+
+  /**
+   * Add a new OAI set to the available list
+   *
+   */
+  public static function addOaiSet($oaiSet)
+  {
+    QubitOai::$additionalOaiSets[] = $oaiSet;
   }
 
   /**
