@@ -18,7 +18,7 @@
 
     <div id="content">
 
-      <table class="table">
+      <table class="table sticky-enabled">
         <thead>
           <tr>
             <th><?php echo __('Name') ?></th>

@@ -10,8 +10,8 @@
 <br />
 
 <div class="tab-content">
-  <table class="table table-bordered sticky-enabled sticky-table">
-    <thead class="tableheader-processed">
+  <table class="table table-bordered sticky-enabled">
+    <thead>
       <tr>
         <th width="15%">Start date</th>
         <th width="15%">End date</th>
