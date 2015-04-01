@@ -240,8 +240,8 @@ EOF;
             && $self->rowStatusVars['donorName']
           )
           {
-            // fetch/create actor
-            $actor = $self->createOrFetchActor($self->rowStatusVars['donorName']);
+            // fetch/create donor
+            $donor = $self->createOrFetchDonor($self->rowStatusVars['donorName']);
 
             // map column names to QubitContactInformation properties
             $columnToProperty = array(
@@ -264,10 +264,10 @@ EOF;
             }
 
             // create contact information if none exists
-            $self->createOrFetchContactInformation($actor->id, $contactData);
+            $self->createOrFetchContactInformation($donor->id, $contactData);
 
             // create relation between accession and donor
-            $self->createRelation($self->object->id, $actor->id, QubitTerm::DONOR_ID);
+            $self->createRelation($self->object->id, $donor->id, QubitTerm::DONOR_ID);
           }
 
           // Link accession to existing description
