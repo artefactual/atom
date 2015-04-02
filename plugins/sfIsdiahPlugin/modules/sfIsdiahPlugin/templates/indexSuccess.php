@@ -37,7 +37,7 @@
     </div>
   <?php endif; ?>
 
-  <?php if (!empty($sf_data->getRaw('htmlSnippet'))): ?>
+  <?php if ($sf_data->getRaw('htmlSnippet')): ?>
     <div class="row" id="repository-html-snippet">
       <div class="span7">
         <?php echo $sf_data->getRaw('htmlSnippet') // Using htmlpurifier ?>
