@@ -5,7 +5,15 @@
   var holdingsView = function(element)
   {
     this.$element = element;
+
     this.currentPage = 1;
+    this.url = this.$element.data('url');
+    this.maxPage = this.$element.data('total-pages');
+
+    // Stop execution when pagination is not needed
+    if (this.maxPage < 2) {
+    	return;
+    }
 
     this.$next = this.$element.find('.next');
     this.$prev = this.$element.find('.prev');
@@ -13,9 +21,6 @@
     this.$currentPage = this.$element.find('#holdings-page');
     this.$resultStart = this.$element.find('#result-start');
     this.$resultEnd = this.$element.find('#result-end');
-
-    this.url = this.$element.data('url');
-    this.maxPage = this.$element.data('total-pages');
 
     this.init();
   };
