@@ -1,6 +1,6 @@
 (function ($) {
 
-  "use strict";
+  'use strict';
 
   var holdingsView = function(element)
   {
@@ -32,21 +32,19 @@
 
     next: function (e)
     {
-      this.fetchResults(true);
+      this.fetchResults(this.currentPage + 1);
     },
 
     prev: function (e)
     {
-      this.fetchResults(false);
+      this.fetchResults(this.currentPage - 1);
     },
 
     // Return next or previous page of results. fetchResults will return the next page
     // if getNext is true, or the previous page if false.
-    fetchResults: function (getNext)
+    fetchResults: function (page)
     {
-      var requestedPage = (getNext) ? this.currentPage + 1 : this.currentPage - 1;
-
-      if (requestedPage < 1 || requestedPage > this.maxPage)
+      if (page < 1 || page > this.maxPage)
       {
         return;
       }
@@ -55,7 +53,7 @@
         url: this.url,
         context: this,
         dataType: 'json',
-        data: { page: requestedPage },
+        data: { page: page },
         beforeSend: function()
           {
           },
@@ -73,7 +71,7 @@
               ));
             }
 
-            this.currentPage = requestedPage;
+            this.currentPage = page;
 
             this.$resultStart.empty();
             this.$resultEnd.empty();
