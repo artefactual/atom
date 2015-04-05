@@ -8,10 +8,10 @@
 
     this.currentPage = 1;
     this.url = this.$element.data('url');
-    this.maxPage = this.$element.data('total-pages');
+    this.totalPages = this.$element.data('total-pages');
 
     // Stop execution when pagination is not needed
-    if (this.maxPage < 2) {
+    if (this.totalPages < 2) {
     	return;
     }
 
@@ -49,7 +49,7 @@
     // if getNext is true, or the previous page if false.
     fetchResults: function (page)
     {
-      if (page < 1 || page > this.maxPage)
+      if (page < 1 || page > this.totalPages)
       {
         return;
       }
