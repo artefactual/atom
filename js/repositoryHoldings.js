@@ -56,6 +56,7 @@
 
       $.ajax({
         url: this.url,
+        type: 'GET',
         context: this,
         dataType: 'json',
         data: { page: page },
