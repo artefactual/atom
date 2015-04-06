@@ -374,13 +374,20 @@ function get_search_i18n($hit, $fieldName, $options = array())
     }
     else
     {
-      $i18nRaw = $hit->getRaw('i18n');
-      if (empty($i18nRaw[$culture][$fieldName]))
+      if ('sfOutputEscaperArrayDecorator' === get_class($hit))
       {
-        return false;
-      }
+        $i18nRaw = $hit->getRaw('i18n');
+        if (empty($i18nRaw[$culture][$fieldName]))
+        {
+          return false;
+        }
 
-      return $hit->get('i18n')->get($culture)->get($fieldName);
+        return $hit->get('i18n')->get($culture)->get($fieldName);
+      }
+      else
+      {
+        return $hit['i18n'][$culture][$fieldName];
+      }
     }
   };
 
