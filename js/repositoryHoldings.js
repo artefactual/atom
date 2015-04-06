@@ -12,12 +12,12 @@
 
     // Stop execution when pagination is not needed
     if (this.totalPages < 2) {
-    	return;
+      return;
     }
 
     this.$next = this.$element.find('.next');
     this.$prev = this.$element.find('.prev');
-    this.$results = this.$element.find('#repo-holdings-results');
+    this.$results = this.$element.find('ul');
     this.$currentPage = this.$element.find('#holdings-page');
     this.$resultStart = this.$element.find('#result-start');
     this.$resultEnd = this.$element.find('#result-end');

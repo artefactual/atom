@@ -5,7 +5,7 @@
   <h3><?php echo sfConfig::get('app_ui_label_holdings') ?></h3>
   <div><?php echo image_tag('loading.small.gif', array('class' => 'hidden')) ?></div>
 
-  <ul id="repo-holdings-results">
+  <ul>
     <?php foreach ($pager->getResults() as $hit): ?>
       <?php $doc = $hit->getData() ?>
       <li><?php echo link_to(get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture)), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></li>
