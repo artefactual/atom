@@ -379,7 +379,21 @@ class QubitAcl
       foreach ($permissions as $permission)
       {
         $aclMethod = (1 == $permission->grantDeny) ? 'allow' : 'deny';
-        $roleId = (isset($permission->userId)) ? $permission->userId : $permission->groupId;
+
+        if (isset($permission->userId))
+        {
+          // Ignore permission belonging to other users, refs #7817
+          if ($permission->userId != $this->_user->getUserID())
+          {
+            continue;
+          }
+
+          $roleId = $permission->userId;
+        }
+        else
+        {
+          $roleId = $permission->groupId;
+        }
 
         /* Debugging
         var_dump('id:', $permission->id, 'access:', $aclMethod, 'role:', $roleId, 'resource:', $permission->objectId, 'action:', $permission->action);
