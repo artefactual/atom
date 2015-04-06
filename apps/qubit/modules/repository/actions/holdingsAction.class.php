@@ -39,7 +39,7 @@ class RepositoryHoldingsAction extends sfAction
 
     $pager = new QubitSearchPager($resultSet);
     $pager->setMaxPerPage($limit);
-    $pager->setPage($page);
+    $pager->setPage($request->page);
     $pager->init();
 
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('Qubit', 'Url'));
@@ -55,9 +55,11 @@ class RepositoryHoldingsAction extends sfAction
     }
 
     $results = array(
-      'holdings' => $holdings,
-      'start'    => $pager->getFirstIndice(),
-      'end'      => $pager->getLastIndice()
+      'holdings'    => $holdings,
+      'start'       => $pager->getFirstIndice(),
+      'end'         => $pager->getLastIndice(),
+      'currentPage' => $pager->getPage(),
+      'lastPage'    => $pager->getLastPage()
     );
 
     return $this->renderText(json_encode($results));

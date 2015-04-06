@@ -2,8 +2,10 @@
   data-total-pages="<?php echo $pager->getLastPage() ?>"
   data-url="<?php echo url_for(array('module' => 'repository', 'action' => 'holdings', 'id' => $resource->id)) ?>">
 
-  <h3><?php echo sfConfig::get('app_ui_label_holdings') ?></h3>
-  <div><?php echo image_tag('loading.small.gif', array('class' => 'hidden')) ?></div>
+  <h3>
+    <?php echo sfConfig::get('app_ui_label_holdings') ?>
+    <?php echo image_tag('loading.small.gif', array('class' => 'hidden', 'id' => 'spinner')) ?>
+  </h3>
 
   <ul>
     <?php foreach ($pager->getResults() as $hit): ?>
