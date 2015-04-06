@@ -22,50 +22,63 @@ class RepositoryHoldingsAction extends sfAction
   public function execute($request)
   {
     $this->response->setHttpHeader('Content-Type', 'application/json; charset=utf-8');
-    sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
 
-    $this->repositoryId = $request->repositoryId;
-    $this->page = $request->page;
+    if (empty($request->id) || !ctype_digit($request->id))
+    {
+      $this->forward404();
+    }
+
+    if (!empty($request->page) && !ctype_digit($request->page))
+    {
+      $this->forward404();
+    }
+
+    $limit = sfConfig::get('app_hits_per_page', 10);
+
+    $resultSet = self::getHoldings($request->id, $request->page, $limit);
+
+    $pager = new QubitSearchPager($resultSet);
+    $pager->setMaxPerPage($limit);
+    $pager->setPage($page);
+    $pager->init();
+
+    sfContext::getInstance()->getConfiguration()->loadHelpers(array('Qubit', 'Url'));
 
     $holdings = array();
-    $this->getHoldings();
-
-    foreach ($this->pager->getResults() as $res)
+    foreach ($pager->getResults() as $item)
     {
-      $res = $res->getData();
-      $url = url_for(array('module' => 'informationobject', 'slug' => $res['slug']));
-      $title = $res['i18n'][$this->context->user->getCulture()]['title'];
-
-      $holdings[] = array('url' => $url, 'title' => $title);
+      $doc = $item->getData();
+      $holdings[] = array(
+        'url' => url_for(array('module' => 'informationobject', 'slug' => $doc['slug'])),
+        'title' => get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture))
+      );
     }
 
     $results = array(
       'holdings' => $holdings,
-      'start'    => $this->pager->getFirstIndice(),
-      'end'      => $this->pager->getLastIndice()
+      'start'    => $pager->getFirstIndice(),
+      'end'      => $pager->getLastIndice()
     );
 
     return $this->renderText(json_encode($results));
   }
 
   /**
-   * Query this repository's holdings and initialize pager.
+   * Query this repository's holdings
    */
-  private function getHoldings()
+  public static function getHoldings($id, $page, $limit)
   {
-    $limit = sfConfig::get('app_hits_per_page', 10);
-
     $queryBool = new \Elastica\Query\Bool();
     $queryBool->addShould(new \Elastica\Query\MatchAll());
     $queryBool->addMust(new \Elastica\Query\Term(array('parentId' => QubitInformationObject::ROOT_ID)));
-    $queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $this->repositoryId)));
+    $queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $id)));
 
     $query = new \Elastica\Query($queryBool);
 
     $query->setLimit($limit);
-    $query->setFrom($limit * ($this->page - 1));
+    $query->setFrom($limit * ($page - 1));
 
-    $title = sprintf('i18n.%s.title.untouched', $this->context->user->getCulture());
+    $title = sprintf('i18n.%s.title.untouched', sfContext::getInstance()->user->getCulture());
     $query->setSort(array($title => array('order' => 'asc', 'ignore_unmapped' => true)));
 
     $filter = new \Elastica\Filter\Bool;
@@ -76,12 +89,8 @@ class RepositoryHoldingsAction extends sfAction
       $query->setFilter($filter);
     }
 
-    $this->resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
-    $this->pager = new QubitSearchPager($this->resultSet);
+    $resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
 
-    $this->pager->setMaxPerPage($limit);
-    $this->pager->setPage($this->page);
-
-    $this->pager->init();
+    return $resultSet;
   }
 }

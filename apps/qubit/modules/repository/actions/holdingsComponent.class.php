@@ -21,39 +21,13 @@ class RepositoryHoldingsComponent extends sfComponent
 {
   public function execute($request)
   {
-    $this->limit = sfConfig::get('app_hits_per_page', 10);
+    $page = 1;
+    $limit = sfConfig::get('app_hits_per_page', 10);
+    $resultSet = RepositoryHoldingsAction::getHoldings($this->resource->id, $page, $limit);
 
-    $queryBool = new \Elastica\Query\Bool();
-    $queryBool->addShould(new \Elastica\Query\MatchAll());
-    $queryBool->addMust(new \Elastica\Query\Term(array('parentId' => QubitInformationObject::ROOT_ID)));
-    $queryBool->addMust(new \Elastica\Query\Term(array('repository.id' => $this->resource->id)));
-
-    $query = new \Elastica\Query($queryBool);
-
-    $query->setLimit($this->limit);
-    $query->setSort(array(
-        sprintf('i18n.%s.title.untouched', $this->context->user->getCulture()) => array(
-            'order' => 'asc',
-            'ignore_unmapped' => true)));
-
-    // Filter
-    $filter = new \Elastica\Filter\Bool;
-
-    // Filter drafts
-    QubitAclSearch::filterDrafts($filter);
-
-    // Set filter
-    if (0 < count($filter->toArray()))
-    {
-      $query->setFilter($filter);
-    }
-
-    $this->resultSet = QubitSearch::getInstance()->index->getType('QubitInformationObject')->search($query);
-
-    $this->pager = new QubitSearchPager($this->resultSet);
-    $this->pager->setPage(1);
-    $this->pager->setMaxPerPage($this->limit);
-
+    $this->pager = new QubitSearchPager($resultSet);
+    $this->pager->setPage($page);
+    $this->pager->setMaxPerPage($limit);
     $this->pager->init();
   }
 }
