@@ -186,6 +186,14 @@ class arOaiPluginIndexAction extends sfAction
         $this->forward('arOaiPlugin', 'error');
       }
 
+
+      // If the 'set' parameter is provided, it should refer to an existing set
+      if ($this->request->set && !QubitOai::getMatchingOaiSet($this->request->set, QubitOai::getOaiSets())) {
+        $request->setParameter('errorCode', 'badArgument');
+        $request->setParameter('errorMsg', 'The requested OAI set is not known by this repository.');
+        $this->forward('arOaiPlugin', 'error');
+      }
+
       switch ($this->request->verb)
       {
         case 'Identify':
