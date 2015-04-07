@@ -18,29 +18,47 @@
  */
 
 /**
- * Get current state data for information object edit form.
+ * The interface provided by OAI set implementations
  *
  * @package    AccesstoMemory
  * @subpackage oai
- * @author     Peter Van Garderen <peter@artefactual.com>
- * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
+ * @author     Mark Triggs <mark@teaspoon-consulting.com>
  */
 
-class arOaiPluginGetRecordComponent extends arOaiPluginComponent
+interface QubitOaiSet
 {
-  public function execute($request)
-  {
-    $request->setRequestFormat('xml');
-    $this->date = gmdate('Y-m-d\TH:i:s\Z');
+  /**
+   * Query OAI set membership by record
+   *
+   * @param mixed $record A record that can be part of an OAI set
+   *
+   * @return boolean true if $record is contained in this OAI set.
+   */
 
-    $oai_local_identifier_id = QubitOai::getOaiIdNumber($request->identifier);
-    $this->informationObject = QubitInformationObject::getRecordByOaiID($oai_local_identifier_id);
-    $request->setAttribute('informationObject', $this->informationObject);
+  public function contains($record);
 
-    $this->oaiSets = QubitOai::getOaiSets();
+  /**
+   * The OAI set specification for the current set
+   *
+   * @return string An OAI set specification
+   */
 
-    $this->path = $request->getUriPrefix().$request->getPathInfo();
+  public function setSpec();
 
-    $this->setRequestAttributes($request);
-  }
+  /**
+   * The name of the current OAI set
+   *
+   * @return string A display name
+   */
+
+  public function getName();
+
+  /**
+   * Apply the current set's restrictions to $criteria
+   *
+   * @param Criteria $criteria The search criteria to be modified
+   *
+   */
+
+  public function apply($criteria);
 }

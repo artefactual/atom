@@ -17,19 +17,34 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class arOaiPluginConfiguration extends sfPluginConfiguration
+/*
+ * Add setting for additional OAI sets
+ *
+ * @package    AccesstoMemory
+ * @subpackage migration
+ */
+class arMigration0122
 {
-  public static
-    $summary = 'OAI plugin.',
-    $version = '1.0.0';
+  const
+    VERSION = 122, // The new database version
+    MIN_MILESTONE = 2; // The minimum milestone required
 
-  public function initialize()
+  /**
+   * Upgrade
+   *
+   * @return bool True if the upgrade succeeded, False otherwise
+   */
+  public function up($configuration)
   {
-    $enabledModules = sfConfig::get('sf_enabled_modules');
-    $enabledModules[] = 'arOaiPlugin';
-    sfConfig::set('sf_enabled_modules', $enabledModules);
+    $setting = new QubitSetting;
+    $setting->setName('oai_additional_sets_enabled');
+    $setting->setSourceCulture('en');
+    $setting->setValue(0);
+    $setting->setEditable(1);
+    $setting->setDeleteable(0);
+    $setting->setScope('oai');
+    $setting->save();
 
-    /* Custom OAI set definitions */
-    QubitOai::addOaiSet(new QubitOaiTopLevelSet());
+    return true;
   }
 }

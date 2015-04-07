@@ -40,7 +40,8 @@ class SettingsOaiRepositoryForm extends sfForm
       'oai_admin_emails' => new sfWidgetFormTextarea,
       'oai_repository_identifier' => new sfWidgetFormInput(array(), array('class'=>'disabled', 'disabled'=>true)),
       'sample_oai_identifier' => new sfWidgetFormInput(array(), array('class'=>'disabled', 'disabled'=>true)),
-      'resumption_token_limit' => new sfWidgetFormInput
+      'resumption_token_limit' => new sfWidgetFormInput,
+      'oai_additional_sets_enabled' => new sfWidgetFormSelectRadio(array('choices'=>array(1=>'yes', 0=>'no')), array('class'=>'radio'))
     ));
 
     // Add labels
@@ -50,7 +51,8 @@ class SettingsOaiRepositoryForm extends sfForm
       'oai_admin_emails' => $i18n->__('Administrator email(s)'),
       'oai_repository_identifier' => $i18n->__('OAI repository identifier'),
       'sample_oai_identifier' => $i18n->__('Sample OAI identifier'),
-      'resumption_token_limit' => $i18n->__('Resumption token limit')
+      'resumption_token_limit' => $i18n->__('Resumption token limit'),
+      'oai_additional_sets_enabled' => $i18n->__('Enable additional OAI sets')
     ));
 
     // Add helper text
@@ -60,7 +62,8 @@ class SettingsOaiRepositoryForm extends sfForm
       'oai_admin_emails' => $i18n->__('Enter the email address(es) of at least one administrator for the repository. Multiple addresses can be entered, separated by commas. The address(es) will be exposed as part of a response to an Identify request.'),
       'oai_repository_identifier' => $i18n->__('This is an auto-generated setting that produces an OAI compliant repository identifier, which includes the OAI repository code value if it is set'),
       'sample_oai_identifier' => $i18n->__('This is an example of the auto-generated, OAI compliant identifier which is created for each item in this particular OAI repository'),
-      'resumption_token_limit' => $i18n->__('The number of entities to include in a single OAI response list before inserting a resumption token')
+      'resumption_token_limit' => $i18n->__('The number of entities to include in a single OAI response list before inserting a resumption token'),
+      'oai_additional_sets_enabled' => $i18n->__('If "no", just show one OAI set per collection')
     ));
 
     // Reference image max. width validator
@@ -82,6 +85,7 @@ class SettingsOaiRepositoryForm extends sfForm
     $this->validatorSchema['oai_admin_emails'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['oai_repository_identifier'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['sample_oai_identifier'] = new sfValidatorString(array('required' => false));
+    $this->validatorSchema['oai_additional_sets_enabled'] = new sfValidatorInteger(array('required' => false));
 
     // Set decorator
     $decorator = new QubitWidgetFormSchemaFormatterList($this->widgetSchema);

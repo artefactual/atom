@@ -18,29 +18,36 @@
  */
 
 /**
- * Get current state data for information object edit form.
+ * An OAI set for a single collection
  *
  * @package    AccesstoMemory
  * @subpackage oai
- * @author     Peter Van Garderen <peter@artefactual.com>
- * @author     Mathieu Fortin Library and Archives Canada <mathieu.fortin@lac-bac.gc.ca>
+ * @author     Mark Triggs <mark@teaspoon-consulting.com>
  */
 
-class arOaiPluginGetRecordComponent extends arOaiPluginComponent
+class QubitOaiCollectionSet implements QubitOaiSet
 {
-  public function execute($request)
-  {
-    $request->setRequestFormat('xml');
-    $this->date = gmdate('Y-m-d\TH:i:s\Z');
+  private $collection;
 
-    $oai_local_identifier_id = QubitOai::getOaiIdNumber($request->identifier);
-    $this->informationObject = QubitInformationObject::getRecordByOaiID($oai_local_identifier_id);
-    $request->setAttribute('informationObject', $this->informationObject);
+  public function __construct($collection) {
+    $this->collection = $collection;
+  }
 
-    $this->oaiSets = QubitOai::getOaiSets();
+  public function contains($record) {
+    $lft = $record->getLft();
+    return ($this->collection['lft'] <= $lft AND $this->collection['rgt'] > $lft);
+  }
 
-    $this->path = $request->getUriPrefix().$request->getPathInfo();
+  public function setSpec() {
+    return $this->collection->getOaiIdentifier();
+  }
 
-    $this->setRequestAttributes($request);
+  public function getName() {
+    return new sfIsadPlugin($this->collection);
+  }
+
+  public function apply($criteria) {
+    $criteria->add(QubitInformationObject::LFT, $this->collection['lft'], Criteria::GREATER_EQUAL);
+    $criteria->add(QubitInformationObject::RGT, $this->collection['rgt'], Criteria::LESS_EQUAL);
   }
 }

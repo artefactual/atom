@@ -402,8 +402,7 @@ class QubitInformationObject extends BaseInformationObject
 
     if ($set != '')
     {
-      $criteria->add(QubitInformationObject::LFT, $set['lft'], Criteria::GREATER_EQUAL);
-      $criteria->add(QubitInformationObject::RGT, $set['rgt'], Criteria::LESS_EQUAL);
+      $set->apply($criteria);
     }
 
     $criteria->add(QubitInformationObject::PARENT_ID, null, Criteria::ISNOTNULL);
