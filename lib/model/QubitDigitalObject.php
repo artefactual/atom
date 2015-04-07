@@ -2898,9 +2898,10 @@ class QubitDigitalObject extends BaseDigitalObject
   }
 
   /**
-   * Create a thumbnail derivative for the current digital object
+   * Extracts text from the current digital object
+   * and creates a 'transcript' property
    *
-   * @return QubitDigitalObject
+   * @return String Text extracted
    */
   public function extractText($connection = null)
   {
@@ -2912,10 +2913,26 @@ class QubitDigitalObject extends BaseDigitalObject
     if (QubitTerm::EXTERNAL_URI_ID == $this->usageId)
     {
       $path = $this->localPath;
+
+      // Create new temporary copy from external resources if the old copy is missing
+      if (!isset($path) || !file_exists($path))
+      {
+        list($filename, $contents) = $this->downloadExternalObject($this->getPath());
+        if (false === $path = Qubit::saveTemporaryFile($filename, $contents))
+        {
+          return;
+        }
+      }
     }
     else
     {
       $path = $this->getAbsolutePath();
+    }
+
+    // Stop if the local copy is missing
+    if (!file_exists($path))
+    {
+      return;
     }
 
     $command = sprintf('pdftotext %s - 2> /dev/null', $path);
@@ -2925,10 +2942,20 @@ class QubitDigitalObject extends BaseDigitalObject
     {
       $text = implode(PHP_EOL, $output);
 
-      $property = new QubitProperty;
-      $property->objectId = $this->id;
-      $property->name = 'transcript';
-      $property->scope = 'Text extracted from source PDF file\'s text layer using pdftotext';
+      // Update or create 'transcript' property
+      $criteria = new Criteria;
+      $criteria->add(QubitProperty::OBJECT_ID, $this->id);
+      $criteria->add(QubitProperty::NAME, 'transcript');
+      $criteria->add(QubitProperty::SCOPE, 'Text extracted from source PDF file\'s text layer using pdftotext');
+
+      if (null === $property = QubitProperty::getOne($criteria))
+      {
+        $property = new QubitProperty;
+        $property->objectId = $this->id;
+        $property->name = 'transcript';
+        $property->scope = 'Text extracted from source PDF file\'s text layer using pdftotext';
+      }
+
       $property->value = $text;
       $property->indexOnSave = false;
 
