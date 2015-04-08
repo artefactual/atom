@@ -34,6 +34,7 @@ class RepositoryHoldingsAction extends sfAction
     }
 
     $limit = sfConfig::get('app_hits_per_page', 10);
+    $culture = $this->context->user->getCulture();
 
     $resultSet = self::getHoldings($request->id, $request->page, $limit);
 
@@ -50,7 +51,7 @@ class RepositoryHoldingsAction extends sfAction
       $doc = $item->getData();
       $holdings[] = array(
         'url' => url_for(array('module' => 'informationobject', 'slug' => $doc['slug'])),
-        'title' => get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture))
+        'title' => get_search_i18n($doc, 'title', array('allowEmpty' => false, 'culture' => $culture, 'cultureFallback' => true))
       );
     }
 
