@@ -323,7 +323,7 @@ function get_search_i18n($hit, $fieldName, $options = array())
   $allowEmpty = true;
   if (isset($options['allowEmpty']))
   {
-    $cultureFallback = $options['allowEmpty'];
+    $allowEmpty = $options['allowEmpty'];
   }
 
   // Use culture fallback? Default = true
@@ -394,21 +394,21 @@ function get_search_i18n($hit, $fieldName, $options = array())
   if (isset($options['culture']))
   {
     $v = $accessField($options['culture']);
-    if (false !== $v)
+    if ($v)
     {
       return $v;
     }
   }
 
   $v = $accessField(sfContext::getInstance()->user->getCulture());
-  if (false !== $v)
+  if ($v)
   {
     return $v;
   }
 
   if ($cultureFallback)
   {
-    $sourceCulture = $hit->get('sourceCulture');
+    $sourceCulture = is_object($hit) ? $hit->get('sourceCulture') : $hit['sourceCulture'];
     if (empty($sourceCulture))
     {
       return $showUntitled();
