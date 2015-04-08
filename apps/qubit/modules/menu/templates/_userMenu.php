@@ -24,7 +24,7 @@
 
           <?php echo $form->password->renderRow(array('autocomplete' => 'off')) ?>
 
-          <button type="submit"><?php echo _('Log in') ?></button>
+          <button type="submit"><?php echo __('Log in') ?></button>
 
         </form>
 

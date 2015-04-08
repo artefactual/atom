@@ -50,7 +50,7 @@
         <?php if (null != ($accessConditions = $item->getAccessConditions(array('cultureFallback' => true)))): ?>
           <?php echo render_value($accessConditions) ?>
         <?php else: ?>
-          <?php echo _('None') ?>
+          <?php echo __('None') ?>
         <?php endif; ?>
         </td>
       </tr>
