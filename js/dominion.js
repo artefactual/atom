@@ -12,6 +12,7 @@
   {
     $element.find('input:text, input:password, input:file, select').val('');
     $element.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+    $element.find('select').prop('selectedIndex', 0);
   }
 
   /****
@@ -578,7 +579,7 @@
     listen: function()
     {
       this.$form
-        .on('click', 'input[type=reset]', $.proxy(this.reset, this))
+        .on('click', 'input.reset', $.proxy(this.reset, this))
         .on('submit', $.proxy(this.submit, this));
 
       // Bind events

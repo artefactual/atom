@@ -77,7 +77,7 @@
 
 <section class="actions">
   <input type="submit" class="c-btn c-btn-submit" value="<?php echo __('Search') ?>"/>
-  <input type="reset" class="c-btn c-btn-delete" value="<?php echo __('Reset') ?>"/>
+  <input type="button" class="reset c-btn c-btn-delete" value="<?php echo __('Reset') ?>"/>
 </section>
 
 <?php if (isset($pager)): ?>
