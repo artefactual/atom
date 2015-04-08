@@ -24,7 +24,8 @@ class deleteDraftsTask extends sfBaseTask
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel')
+      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+      new sfCommandOption('no-confirmation', 'B', sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation'),
     ));
 
     $this->namespace = 'tools';
@@ -49,12 +50,13 @@ EOF;
                  " AND i.id <> 1"; // Don't delete root node!
 
     $this->logSection("delete-drafts", "Deleting all information objects marked as draft...");
-    
-    $choice = strtolower(trim(readline("Are you SURE you want to do this (y/n)? ")));
-    $choice = ($choice) ? $choice : 'n';
 
-    if ($choice !== 'y')
-      die();
+    // Confirmation
+    $question = 'Are you SURE you want to do this (y/N)?';
+    if (!$options['no-confirmation'] && !$this->askConfirmation(array($question), 'QUESTION_LARGE', false))
+    {
+      return 1;
+    }
 
     $n = 0;
     foreach($conn->query($sqlQuery, PDO::FETCH_ASSOC) as $row)

@@ -66,14 +66,16 @@ EOF;
     $needsData = !$arguments['username'] || !$options['email'] || !$options['password'];
     if ($needsData && !function_exists('readline'))
     {
-      throw new Exception('This tasks needs the PHP readline extension: not all the parameters have been supplied.');
+      throw new Exception('One of the following properties have not been '.
+        'assigned: username, email and password. Please, use the '.
+        'corresponding command line options.');
     }
 
     sfContext::createInstance($this->configuration);
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-    $this->addSuperuser($arguments['username'], $options);
+    self::addSuperUser($arguments['username'], $options);
   }
 
   /**
