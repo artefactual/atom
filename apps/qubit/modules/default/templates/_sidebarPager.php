@@ -8,13 +8,13 @@
         array('%1%' => $pager->getFirstIndice(), '%2%' => $pager->getLastIndice(), '%3%' => $pager->getNbResults())) ?>
 
       <div>
-        <button class="prev btn btn-small">&laquo;</button>
+        <button class="prev btn btn-small icon-arrow-left"></button>
 
         <input id="sidebar-pager-input" type="text" value="<?php echo $pager->getPage() ?>">
          of <?php echo $pager->getLastPage() ?>
         </input>
 
-        <button class="next btn btn-small">&raquo;</button>
+        <button class="next btn btn-small icon-arrow-right"></button>
       </div>
 
     </div>
