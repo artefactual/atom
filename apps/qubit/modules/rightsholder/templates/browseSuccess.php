@@ -30,7 +30,7 @@
 <?php end_slot() ?>
 
 <?php slot('content') ?>
-  <table class="table table-bordered">
+  <table class="table table-bordered sticky-enabled">
     <thead>
       <tr>
         <th>

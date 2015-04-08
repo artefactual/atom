@@ -68,6 +68,15 @@ abstract class arOaiPluginComponent extends sfComponent
       $this->until = $request->until;
     }
 
+    if (!isset($request->set))
+    {
+      $this->set = '';
+    }
+    else
+    {
+      $this->set = $request->set;
+    }
+
     /*
      * If cursor not supplied, define as 0
      */
@@ -82,18 +91,18 @@ abstract class arOaiPluginComponent extends sfComponent
 
   public function getUpdates()
   {
-    $this->collectionsTable = QubitOai::getCollectionArray();
+    $this->oaiSets = QubitOai::getOaiSets();
 
     /*
      * If set is not supplied, define it as ''
      */
-    if (!isset($request->set))
+    if (!isset($this->set))
     {
-      $collection = '';
+      $oaiSet = '';
     }
     else
     {
-      $collection = QubitOai::getCollectionInfo($request->set, $this->collectionsTable);
+      $oaiSet = QubitOai::getMatchingOaiSet($this->set, $this->oaiSets);
     }
 
     //Get the records according to the limit dates and collection
@@ -102,7 +111,7 @@ abstract class arOaiPluginComponent extends sfComponent
       $this->until,
       $this->cursor,
       QubitSetting::getByName('resumption_token_limit')->__toString(),
-      $collection
+      $oaiSet
     );
     $this->publishedRecords = $update['data'];
     $this->remaining        = $update['remaining'];

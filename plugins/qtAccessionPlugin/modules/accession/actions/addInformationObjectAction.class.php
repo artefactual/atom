@@ -44,60 +44,12 @@ class AccessionAddInformationObjectAction extends sfAction
     // Copy (not link) rights
     foreach (QubitRelation::getRelationsBySubjectId($this->resource->id, array('typeId' => QubitTerm::RIGHT_ID)) as $item)
     {
-      $sourceRight = $item->object;
+      $sourceRights = $item->object;
 
-      $right = new QubitRights;
-      $right->act = $sourceRight->act;
-      $right->startDate = $sourceRight->startDate;
-      $right->endDate = $sourceRight->endDate;
-      $right->basis = $sourceRight->basis;
-      $right->restriction = $sourceRight->restriction;
-      $right->copyrightStatus = $sourceRight->copyrightStatus;
-      $right->copyrightStatusDate = $sourceRight->copyrightStatusDate;
-      $right->copyrightJurisdiction = $sourceRight->copyrightJurisdiction;
-      $right->statuteNote = $sourceRight->statuteNote;
-
-      // Right holder
-      if (isset($sourceRight->rightsHolder))
-      {
-        $right->rightsHolder = $sourceRight->rightsHolder;
-      }
-
-      // I18n
-      $right->rightsNote = $sourceRight->rightsNote;
-      $right->copyrightNote = $sourceRight->copyrightNote;
-      $right->licenseIdentifier = $sourceRight->licenseIdentifier;
-      $right->licenseTerms = $sourceRight->licenseTerms;
-      $right->licenseNote = $sourceRight->licenseNote;
-      $right->statuteJurisdiction = $sourceRight->statuteJurisdiction;
-      $right->statuteCitation = $sourceRight->statuteCitation;
-      $right->statuteDeterminationDate = $sourceRight->statuteDeterminationDate;
-
-      foreach ($sourceRight->rightsI18ns as $sourceRightI18n)
-      {
-        if ($this->context->user->getCulture() == $sourceRightI18n->culture)
-        {
-          continue;
-        }
-
-        $rightI18n = new QubitRightsI18n;
-        $rightI18n->rightNote = $sourceRightI18n->rightNote;
-        $rightI18n->copyrightNote = $sourceRightI18n->copyrightNote;
-        $rightI18n->licenseIdentifier = $sourceRightI18n->licenseIdentifier;
-        $rightI18n->licenseTerms = $sourceRightI18n->licenseTerms;
-        $rightI18n->licenseNote = $sourceRightI18n->licenseNote;
-        $rightI18n->statuteJurisdiction = $sourceRightI18n->statuteJurisdiction;
-        $rightI18n->statuteCitation = $sourceRightI18n->statuteCitation;
-        $rightI18n->statuteNote = $sourceRightI18n->statuteNote;
-        $rightI18n->culture = $sourceRightI18n->culture;
-
-        $right->rightsI18ns[] = $rightI18n;
-      }
-
-      $right->save();
+      $newRights = $sourceRights->copy();
 
       $relation = new QubitRelation;
-      $relation->object = $right;
+      $relation->object = $newRights;
       $relation->typeId = QubitTerm::RIGHT_ID;
 
       $informationObject->relationsRelatedBysubjectId[] = $relation;

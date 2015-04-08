@@ -43,6 +43,7 @@ EOF;
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
+      new sfCommandOption('no-confirmation', 'B', sfCommandOption::PARAMETER_NONE, 'Do not ask for confirmation'),
     ));
   }
 
@@ -56,11 +57,6 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     $conn = $databaseManager->getDatabase('propel')->getConnection();
 
-    if (!function_exists('readline'))
-    {
-      throw new Exception('This task needs the PHP readline extension.');
-    }
-
     $sql = 'SELECT count(1) FROM job WHERE status_id=?';
     $runningJobCount = QubitPdo::fetchColumn($sql, array(QubitTerm::JOB_STATUS_IN_PROGRESS_ID));
     
@@ -70,11 +66,12 @@ EOF;
             "there aren't any jobs actually running.\n\n";
     }
 
-    $confirmed = readline('Are you SURE you want to clear all jobs in the database? Type "clear" to confirm: ');
-    if ($confirmed !== 'clear')
+    // Confirmation
+    $question = 'Are you SURE you want to clear all jobs in the database? (y/N)';
+    if (!$options['no-confirmation'] && !$this->askConfirmation(array($question), 'QUESTION_LARGE', false))
     {
       $this->logSection('jobs:clear', 'Aborting.');
-      return;
+      return 1;
     }
 
     $jobs = QubitJob::getAll();

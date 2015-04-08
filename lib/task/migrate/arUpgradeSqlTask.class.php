@@ -336,8 +336,9 @@ EOF;
       {
         if (($key = array_search($configPlugin, $configuredPlugins)) !== false)
         {
-          $promptRemove = strtolower(readline("Plugin $configPlugin no longer exists. Remove it? (Y/n): "));
-          if ($promptRemove == 'n' || $promptRemove == 'no')
+          // Confirmation
+          $question = "Plugin $configPlugin no longer exists. Remove it (Y/n)?";
+          if (!$options['no-confirmation'] && !$this->askConfirmation(array($question), 'QUESTION_LARGE', true))
           {
             continue;
           }
@@ -379,8 +380,10 @@ EOF;
     {
       $this->logSection('upgrade-sql', 'There is not a valid theme set currently.');
 
-      $prompt = strtolower(readline("Would you like to choose a new theme (Y/n): "));
-      if ($prompt == 'n' || $prompt == 'no')
+      // Confirmation
+      $question = 'Would you like to choose a new theme (Y/n)?';
+      $shouldConfirm = function_exists('readline') && !$options['no-confirmation'];
+      if ($shouldConfirm && !$this->askConfirmation(array($question), 'QUESTION_LARGE', true))
       {
         return;
       }

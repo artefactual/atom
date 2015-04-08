@@ -7,3 +7,7 @@ editSuccess:
 indexSuccess:
   javascripts:
     blank:
+
+browseSuccess:
+  javascripts:
+    /plugins/sfDrupalPlugin/vendor/drupal/misc/tableheader:

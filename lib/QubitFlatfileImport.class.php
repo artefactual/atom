@@ -1203,6 +1203,39 @@ class QubitFlatfileImport
   }
 
   /**
+   * Create a QubitDonor or, if one already exists, fetch it
+   *
+   * @param string $name     name of donor
+   *
+   * @return QubitDonor  created or fetched donor
+   */
+  public function createOrFetchDonor($name)
+  {
+    $query = "SELECT object.id
+      FROM object JOIN actor_i18n i18n
+      ON object.id = i18n.id
+      WHERE i18n.authorized_form_of_name = ?
+      AND object.class_name = 'QubitDonor';";
+
+    $statement = QubitFlatfileImport::sqlQuery($query, array($name));
+
+    $result = $statement->fetch(PDO::FETCH_OBJ);
+
+    if (!$result)
+    {
+      $donor = new QubitDonor;
+      $donor->authorizedFormOfName = $name;
+      $donor->save();
+    }
+    else
+    {
+      $donor = QubitDonor::getById($result->id);
+    }
+
+    return $donor;
+  }
+
+  /**
    * Create Qubit contract information for an actor or, if it already exists,
    * fetch it
    *

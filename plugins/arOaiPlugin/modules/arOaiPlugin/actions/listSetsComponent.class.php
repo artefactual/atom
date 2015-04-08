@@ -45,10 +45,6 @@ class arOaiPluginlistSetsComponent extends sfComponent
       $this->requestAttributes .= ' '.$key.'="'.$this->attributes[$key].'"';
     }
 
-    $this->sets = array();
-    foreach (QubitInformationObject::getCollections() as $el)
-    {
-      $this->sets[] = new sfIsadPlugin($el);
-    }
+    $this->sets = QubitOAI::getOaiSets();
   }
 }

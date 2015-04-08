@@ -63,9 +63,15 @@ EOF;
    */
   public function execute($arguments = array(), $options = array())
   {
-    if (!function_exists('readline'))
+    if (!$options['demo'] && !function_exists('readline'))
     {
-      throw new Exception('This tasks needs the PHP readline extension.');
+      $needed = array('title', 'description', 'url', 'email', 'username', 'password');
+      if (!array_key_exists($needed, $options))
+      {
+        throw new Exception('At least one of the following command line '.
+          'options is missing: title, description, url, email, username '.
+          'and/or password.');
+      }
     }
 
     $databaseManager = new sfDatabaseManager($this->configuration);

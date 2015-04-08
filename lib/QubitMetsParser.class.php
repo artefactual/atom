@@ -374,7 +374,7 @@ class QubitMetsParser
       {
         // Check actor creation with the target repository
         $repoId = null;
-        if (null !== $repo = $this->resource->getRepository(array('inherit' => true)))
+        if (null !== $repo = $informationObject->getRepository(array('inherit' => true)))
         {
           $repoId = $repo->id;
         }

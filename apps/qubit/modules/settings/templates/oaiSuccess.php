@@ -20,7 +20,7 @@
 
     <div id="content">
 
-      <table class="table">
+      <table class="table sticky-enabled">
         <thead>
           <tr>
             <th width="30%"><?php echo __('Name')?></th>

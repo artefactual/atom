@@ -72,6 +72,7 @@ class SettingsOaiAction extends sfAction
     $oaiRepositoryIdentifier = QubitOai::getRepositoryIdentifier();
     $sampleOaiIdentifier = QubitOai::getSampleIdentifier();
     $resumptionTokenLimit = QubitSetting::getByName('resumption_token_limit');
+    $oaiAdditionalSetsEnabled = QubitSetting::getByName('oai_additional_sets_enabled');
 
     // Set defaults for global form
     $this->oaiRepositoryForm->setDefaults(array(
@@ -80,7 +81,8 @@ class SettingsOaiAction extends sfAction
       'oai_repository_identifier' => $oaiRepositoryIdentifier,
       'oai_admin_emails' => $oaiAdminEmails,
       'sample_oai_identifier' => $sampleOaiIdentifier,
-      'resumption_token_limit' => (isset($resumptionTokenLimit)) ? $resumptionTokenLimit->getValue(array('sourceCulture'=>true)) : null
+      'resumption_token_limit' => (isset($resumptionTokenLimit)) ? $resumptionTokenLimit->getValue(array('sourceCulture'=>true)) : null,
+      'oai_additional_sets_enabled' => (isset($oaiAdditionalSetsEnabled)) ? intval($oaiAdditionalSetsEnabled->getValue(array('sourceCulture'=>true))) : 0
     ));
   }
 
@@ -118,6 +120,12 @@ class SettingsOaiAction extends sfAction
       $setting->setValue($resumptionTokenLimit, array('sourceCulture' => true));
       $setting->save();
     }
+
+    // OAI additional sets enabled radio button
+    $oaiAdditionalSetsEnabledValue = $thisForm->getValue('oai_additional_sets_enabled');
+    $setting = QubitSetting::getByName('oai_additional_sets_enabled');
+    $setting->setValue($oaiAdditionalSetsEnabledValue, array('sourceCulture' => true));
+    $setting->save();
 
     return $this;
   }
