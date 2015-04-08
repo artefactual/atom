@@ -17,16 +17,18 @@
       return;
     }
 
-    this.$prev = this.$element.find('.prev').hide();
+    this.$prev = this.$element.find('.prev').prop('disabled', true);
     this.$next = this.$element.find('.next');
+    this.$pageInput = this.$element.find('#sidebar-pager-input');
 
     this.$results = this.$element.find('ul');
     this.$spinner = this.$element.find('#spinner');
     this.$resultStart = this.$element.find('.result-start');
     this.$resultEnd = this.$element.find('.result-end');
 
-    // Threshold for the spinning timer
-    this.THRESHOLD = 200;
+    // Threshold for the spinning timer and page input
+    this.BUSY_THRESHOLD = 200;
+    this.PAGE_TYPING_THRESHOLD = 650;
 
     this.init();
   };
@@ -38,6 +40,7 @@
     {
       this.$next.on('mousedown', $.proxy(this.next, this));
       this.$prev.on('mousedown', $.proxy(this.prev, this));
+      this.$pageInput.on('keyup', $.proxy(this.pageTyping, this));
     },
 
     next: function (e)
@@ -67,15 +70,15 @@
       {
         var $spinner = this.$spinner;
 
-        this.timer && clearTimeout(this.timer);
-        this.timer = setTimeout(function ()
+        this.busyTimer && clearTimeout(this.busyTimer);
+        this.busyTimer = setTimeout(function ()
           {
             $spinner.removeClass('hidden').show();
-          }, this.THRESHOLD);
+          }, this.BUSY_THRESHOLD);
       }
       else
       {
-        clearTimeout(this.timer);
+        clearTimeout(this.busyTimer);
         this.$spinner.hide();
       }
     },
@@ -90,6 +93,7 @@
 
       if (page < 1 || page > this.totalPages)
       {
+        this.$pageInput.prop('value', this.currentPage);
         return;
       }
 
@@ -106,6 +110,7 @@
         success: function (data)
           {
             this.currentPage = page;
+            this.$pageInput.prop('value', page);
 
             this.$results.empty();
 
@@ -122,16 +127,27 @@
             this.$resultStart.html(data['start']);
             this.$resultEnd.html(data['end']);
 
-            // Show or hide prev/next buttons according to the current page
-            this.$prev.toggle(this.currentPage !== 1);
-            this.$next.toggle(this.currentPage !== this.totalPages);
+            // Enable/disable prev/next buttons according to the current page
+            this.$prev.prop('disabled', this.currentPage == 1);
+            this.$next.prop('disabled', this.currentPage == this.totalPages);
           },
         complete: function()
           {
             this.busy(false);
           }
         });
-    }
+    },
+
+    pageTyping: function() {
+      var fetchResults = $.proxy(this.fetchResults, this);
+      var page = parseInt(this.$pageInput.prop('value'));
+
+      this.pageTimer && clearTimeout(this.pageTimer);
+      this.pageTimer = setTimeout(function ()
+        {
+          fetchResults(page);
+        }, this.PAGE_TYPING_THRESHOLD);
+      }
   };
 
   $.fn.holdings = function()
