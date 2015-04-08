@@ -10,7 +10,7 @@
       <div>
         <button class="prev btn btn-small icon-arrow-left"></button>
 
-        <input id="sidebar-pager-input" type="text" value="<?php echo $pager->getPage() ?>">
+        <input id="sidebar-pager-input" autocomplete="off" type="text" value="1">
          of <?php echo $pager->getLastPage() ?>
         </input>
 
