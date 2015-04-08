@@ -33,7 +33,9 @@ class AccessionBrowseAction extends sfAction
 
     $this->sortOptions = array(
       'lastUpdated' => $this->context->i18n->__('Most recent'),
-      'alphabetic' => $this->context->i18n->__('Alphabetic'));
+      'accessionNumber' => $this->context->i18n->__('Accession number'),
+      'title' => $this->context->i18n->__('Title'),
+      'acquisitionDate' => $this->context->i18n->__('Acquisition date'));
 
     if (!isset($request->sort))
     {
@@ -109,10 +111,21 @@ class AccessionBrowseAction extends sfAction
     // Set order
     switch ($request->sort)
     {
-      // I don't think that this is going to scale, but let's leave it for now
-      case 'identifier':
-      case 'alphabetic':
+      case 'identifier': // For backward compatibility
+      case 'accessionNumber':
         $this->query->setSort(array('identifier' => 'asc'));
+
+        break;
+
+      case 'title':
+      case 'alphabetic': // For backward compatibility
+        $field = sprintf('i18n.%s.title.untouched', $this->context->user->getCulture());
+        $this->query->addSort(array($field => 'asc'));
+
+        break;
+
+      case 'acquisitionDate':
+        $this->query->addSort(array('date' => array('order' => 'asc', 'missing' => '_last')));
 
         break;
 
