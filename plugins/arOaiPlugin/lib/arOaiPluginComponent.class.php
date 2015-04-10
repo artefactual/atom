@@ -77,6 +77,15 @@ abstract class arOaiPluginComponent extends sfComponent
       $this->set = $request->set;
     }
 
+    if (!isset($request->metadataPrefix))
+    {
+      $this->metadataPrefix = 'oai_dc';
+    }
+    else
+    {
+      $this->metadataPrefix = $request->metadataPrefix;
+    }
+
     /*
      * If cursor not supplied, define as 0
      */
@@ -117,7 +126,11 @@ abstract class arOaiPluginComponent extends sfComponent
     $this->remaining        = $update['remaining'];
     $this->recordsCount     = count($this->publishedRecords);
     $resumptionCursor       = $this->cursor + QubitSetting::getByName('resumption_token_limit')->__toString();
-    $this->resumptionToken  = 'from='. $this->from .'&amp;until='. $this->until .'&amp;cursor='. $resumptionCursor;
+    $this->resumptionToken  = base64_encode(json_encode(array('from' => $this->from,
+                                                              'until' => $this->until,
+                                                              'cursor' => $resumptionCursor,
+                                                              'metadataPrefix' => $this->metadataPrefix,
+                                                              'set' => $this->set)));
   }
 
   public function setRequestAttributes($request)
