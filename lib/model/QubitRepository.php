@@ -200,37 +200,37 @@ class QubitRepository extends BaseRepository
    *
    * @return  mixed  Returns the field if found, null otherwise
    */
-  private function getFromPrimaryOrFirstValidContact($getFunction)
+  private function getFromPrimaryOrFirstValidContact($getFunction, $options)
   {
     $primaryContact = $this->getPrimaryContact();
 
     if ($primaryContact && $primaryContact->$getFunction())
     {
-      return $primaryContact->$getFunction();
+      return $primaryContact->$getFunction($options);
     }
 
     foreach ($this->getContactInformation() as $contact)
     {
       if ($contact->$getFunction())
       {
-        return $contact->$getFunction();
+        return $contact->$getFunction($options);
       }
     }
   }
 
-  public function getCountryCode()
+  public function getCountryCode($options = array())
   {
-    return $this->getFromPrimaryOrFirstValidContact('getCountryCode');
+    return $this->getFromPrimaryOrFirstValidContact('getCountryCode', $options);
   }
 
-  public function getRegion()
+  public function getRegion($options = array())
   {
-    return $this->getFromPrimaryOrFirstValidContact('getRegion');
+    return $this->getFromPrimaryOrFirstValidContact('getRegion', $options);
   }
 
-  public function getCity()
+  public function getCity($options = array())
   {
-    return $this->getFromPrimaryOrFirstValidContact('getCity');
+    return $this->getFromPrimaryOrFirstValidContact('getCity', $options);
   }
 
   /**
