@@ -81,6 +81,7 @@ class SettingsGlobalAction extends sfAction
     $sortTreeviewInformationObject = QubitSetting::getByName('sort_treeview_informationobject');
     $sortBrowserUser = QubitSetting::getByName('sort_browser_user');
     $sortBrowserAnonymous = QubitSetting::getByName('sort_browser_anonymous');
+    $defaultRepositoryView = QubitSetting::getByName('default_repository_browse_view');
     $multiRepository = QubitSetting::getByName('multi_repository');
     $repositoryQuota = QubitSetting::getByName('repository_quota');
     $explodeMultipageFiles = QubitSetting::getByName('explode_multipage_files');
@@ -101,6 +102,7 @@ class SettingsGlobalAction extends sfAction
       'sort_treeview_informationobject' => (isset($sortTreeviewInformationObject)) ? $sortTreeviewInformationObject->getValue(array('sourceCulture'=>true)) : 0,
       'sort_browser_user' => (isset($sortBrowserUser)) ? $sortBrowserUser->getValue(array('sourceCulture'=>true)) : 0,
       'sort_browser_anonymous' => (isset($sortBrowserAnonymous)) ? $sortBrowserAnonymous->getValue(array('sourceCulture'=>true)) : 0,
+      'default_repository_browse_view' => (isset($defaultRepositoryView)) ? $defaultRepositoryView->getValue(array('sourceCulture' => true)) : 'card',
       'multi_repository' => (isset($multiRepository)) ? intval($multiRepository->getValue(array('sourceCulture'=>true))) : 1,
       'repository_quota' => (isset($repositoryQuota)) ? $repositoryQuota->getValue(array('sourceCulture'=>true)) : 0,
       'explode_multipage_files' => (isset($explodeMultipageFiles)) ? intval($explodeMultipageFiles->getValue(array('sourceCulture'=>true))) : 1,
@@ -226,6 +228,15 @@ class SettingsGlobalAction extends sfAction
       $setting->save();
     }
 
+    // Default repository browse page view
+    if (null !== $defaultRepositoryView = $thisForm->getValue('default_repository_browse_view'))
+    {
+      $setting = QubitSetting::getByName('default_repository_browse_view');
+
+       // Force sourceCulture update to prevent discrepency in settings between cultures
+      $setting->setValue($defaultRepositoryView, array('sourceCulture'=>true));
+      $setting->save();
+    }
 
     // Multi-repository radio button
     if (null !== $multiRepositoryValue = $thisForm->getValue('multi_repository'))

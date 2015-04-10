@@ -17,35 +17,34 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class SearchInlineSearchComponent extends sfComponent
+/*
+ * Add setting for default repository browse view
+ *
+ * @package    AccesstoMemory
+ * @subpackage migration
+ */
+class arMigration0124
 {
-  public function execute($request)
+  const
+    VERSION = 124, // The new database version
+    MIN_MILESTONE = 2; // The minimum milestone required
+
+  /**
+   * Upgrade
+   *
+   * @return bool True if the upgrade succeeded, False otherwise
+   */
+  public function up($configuration)
   {
-    if (!isset($this->route))
+    if (QubitSetting::getByName('default_repository_browse_view') === null)
     {
-      $params = array('module' => $request->module, 'action' => $request->action);
-
-      if (isset($request->view))
-      {
-        $params['view'] = $request->view;
-      }
-
-      $this->route = $this->context->routing->generate(null, $params);
+      $setting = new QubitSetting;
+      $setting->setName('default_repository_browse_view');
+      $setting->setSourceCulture('en');
+      $setting->setValue('card');
+      $setting->save();
     }
 
-    if (isset($request->subquery))
-    {
-      $params = $request->getGetParameters();
-      unset($params['subquery']);
-
-      if (isset($this->route))
-      {
-        $this->cleanRoute = $this->route;
-      }
-      else
-      {
-        $this->cleanRoute = $this->context->routing->generate(null, array('module' => $request->module, 'action' => $request->action) + $params);
-      }
-    }
+    return true;
   }
 }

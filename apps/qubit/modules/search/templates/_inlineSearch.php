@@ -4,8 +4,12 @@
 
     <?php if (isset($sf_request->subqueryField) && 0 < strlen($sf_request->subqueryField)): ?>
       <input type="hidden" name="subqueryField" id="subqueryField" value="<?php echo $sf_request->subqueryField ?>" />
-    <?php else: ?>
+    <?php elseif (isset($fields)): ?>
       <input type="hidden" name="subqueryField" id="subqueryField" value="<?php echo $fields[0] ?>" />
+    <?php endif; ?>
+
+    <?php if (isset($sf_request->view)): ?>
+      <input type="hidden" name="view" value="<?php echo $sf_request->view ?>"/>
     <?php endif; ?>
 
     <div class="input-prepend input-append">
