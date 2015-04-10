@@ -6,7 +6,7 @@
     <?php echo sfConfig::get('app_ui_label_holdings') ?>
     <?php echo image_tag('loading.small.gif', array('class' => 'hidden', 'id' => 'spinner')) ?>
   </h3>
-  <form class="sidebar-search" method="get" action="/index.php/search" _lpchecked="1">
+  <form class="sidebar-search" action="<?php echo url_for(array('module' => 'search')) ?>">
     <input type="hidden" name="repos" value="<?php echo $resource->id ?>">
     <div class="input-prepend input-append">
       <input type="text" name="query" placeholder="Search holdings">
