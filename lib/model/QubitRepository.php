@@ -204,14 +204,14 @@ class QubitRepository extends BaseRepository
   {
     $primaryContact = $this->getPrimaryContact();
 
-    if ($primaryContact && $primaryContact->$getFunction())
+    if ($primaryContact && $primaryContact->$getFunction($options))
     {
       return $primaryContact->$getFunction($options);
     }
 
     foreach ($this->getContactInformation() as $contact)
     {
-      if ($contact->$getFunction())
+      if ($contact->$getFunction($options))
       {
         return $contact->$getFunction($options);
       }

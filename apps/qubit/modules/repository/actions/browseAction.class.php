@@ -106,16 +106,44 @@ class RepositoryBrowseAction extends DefaultBrowseAction
       $this->queryBool->addMust($queryText);
     }
 
-    // TODO, ACL filter
-    // $this->query = QubitAclSearch::filterBy...
+    $i18n = sprintf('i18n.%s.', $this->selectedCulture);
 
     switch ($request->sort)
     {
+      case 'nameUp':
+        $this->query->setSort(array($i18n.'authorizedFormOfName.untouched' =>
+                              array('order' => 'asc', 'ignore_unmapped' => true)));
+        break;
+
+      case 'nameDown':
+        $this->query->setSort(array($i18n.'authorizedFormOfName.untouched' =>
+                              array('order' => 'desc', 'ignore_unmapped' => true)));
+        break;
+
+      case 'regionUp':
+        $this->query->setSort(array($i18n.'region.untouched' =>
+                              array('order' => 'asc', 'ignore_unmapped' => true)));
+        break;
+
+      case 'regionDown':
+        $this->query->setSort(array($i18n.'region.untouched' =>
+                              array('order' => 'desc', 'ignore_unmapped' => true)));
+        break;
+
+      case 'localityUp':
+        $this->query->setSort(array($i18n.'city.untouched' =>
+                              array('order' => 'asc', 'ignore_unmapped' => true)));
+        break;
+
+      case 'localityDown':
+        $this->query->setSort(array($i18n.'city.untouched' =>
+                              array('order' => 'desc', 'ignore_unmapped' => true)));
+        break;
+
       case 'identifier':
         $this->query->addSort(array('identifier' => 'asc'));
       case 'alphabetic':
-        $field = sprintf('i18n.%s.authorizedFormOfName.untouched', $this->selectedCulture);
-        $this->query->addSort(array($field => 'asc'));
+        $this->query->addSort(array($i18n.'authorizedFormOfName.untouched' => 'asc'));
 
         break;
 

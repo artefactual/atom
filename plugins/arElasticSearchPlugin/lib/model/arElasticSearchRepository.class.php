@@ -45,8 +45,6 @@ class arElasticSearchRepository extends arElasticSearchModelBase
     $serialized['slug'] = $object->slug;
 
     $serialized['identifier'] = $object->identifier;
-    $serialized['region'] = $object->getRegion();
-    $serialized['locality'] = $object->getCity();
 
     foreach ($object->getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $relation)
     {
@@ -85,8 +83,33 @@ class arElasticSearchRepository extends arElasticSearchModelBase
 
     $serialized['sourceCulture'] = $object->sourceCulture;
     $serialized['i18n'] = self::serializeI18ns($object->id, array('QubitActor', 'QubitRepository'));
+    self::addExtraSortInfo($serialized['i18n'], $object);
 
     return $serialized;
+  }
+
+  /**
+   * We store extra I18n fields (city, region) for table sorting purposes in the repository browse page.
+   *
+   * These values will be the city & region of the primary contact if valid, otherwise the first contact
+   * that has a valid city / region will be used.
+   */
+  private static function addExtraSortInfo(&$i18n, $object)
+  {
+    foreach (QubitSetting::getByScope('i18n_languages') as $setting)
+    {
+      $lang = $setting->getValue(array('sourceCulture' => true));
+
+      if ($object->getCity(array('culture' => $lang)))
+      {
+        $i18n[$lang]['city'] = $object->getCity(array('culture' => $lang));
+      }
+
+      if ($object->getRegion(array('culture' => $lang)))
+      {
+        $i18n[$lang]['region'] = $object->getRegion(array('culture' => $lang));
+      }
+    }
   }
 
   public static function update($object)
