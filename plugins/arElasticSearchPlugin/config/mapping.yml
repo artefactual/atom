@@ -350,7 +350,7 @@ mapping:
       identifier: { type: string, index: not_analyzed }
       types: { type: integer, index: not_analyzed, include_in_all: false }
       geographic_subregions: { type: integer, index: not_analyzed, include_in_all: false }
-      city: { type: string, index: not_analyzed }
+      locality: { type: string, index: not_analyzed }
       region: { type: string, index: not_analyzed }
       thematic_areas: { type: integer, index: not_analyzed, include_in_all: false }
 

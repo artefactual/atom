@@ -46,7 +46,7 @@ class arElasticSearchRepository extends arElasticSearchModelBase
 
     $serialized['identifier'] = $object->identifier;
     $serialized['region'] = $object->getRegion();
-    $serialized['city'] = $object->getCity();
+    $serialized['locality'] = $object->getCity();
 
     foreach ($object->getTermRelations(QubitTaxonomy::REPOSITORY_TYPE_ID) as $relation)
     {
