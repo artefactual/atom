@@ -90,6 +90,9 @@ class RepositoryBrowseAction extends DefaultBrowseAction
   {
     parent::execute($request);
 
+    $this->cardView = 'card';
+    $this->tableView = 'table';
+
     if (1 === preg_match('/^[\s\t\r\n]*$/', $request->subquery))
     {
       $this->queryBool->addMust(new \Elastica\Query\MatchAll());
@@ -137,5 +140,14 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     $this->pager->init();
 
     $this->populateFacets($resultSet);
+
+    if (isset($request->view))
+    {
+      $this->view = $request->view;
+    }
+    else
+    {
+      $this->view = sfConfig::get('app_default_repository_view', 'card');
+    }
   }
 }
