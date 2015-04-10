@@ -243,9 +243,12 @@ class arElasticSearchMapping
 
           if (isset($typeProperties['_attributes']['i18nExtra']))
           {
-            foreach ($this->getI18nFields(lcfirst(sfInflector::camelize($typeProperties['_attributes']['i18nExtra']))) as $fieldName)
+            foreach ($typeProperties['_attributes']['i18nExtra'] as $extraClass)
             {
-              $nestedI18nFields[$fieldName] = $this->getI18nFieldMapping($fieldName);
+              foreach ($this->getI18nFields(lcfirst(sfInflector::camelize($extraClass))) as $fieldName)
+              {
+                $nestedI18nFields[$fieldName] = $this->getI18nFieldMapping($fieldName);
+              }
             }
           }
 

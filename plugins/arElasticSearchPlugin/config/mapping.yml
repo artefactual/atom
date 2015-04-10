@@ -24,7 +24,7 @@ mapping:
     _attributes:
       rawFields: [region, city]
       i18n: true
-      i18nExtra: actor
+      i18nExtra: [actor]
       timestamp: true
       nested_only: true
     dynamic: strict
@@ -62,7 +62,7 @@ mapping:
 
   donor:
     _attributes:
-      i18nExtra: actor
+      i18nExtra: [actor]
       nested_only: true
     _foreign_types: { contact_informations: contact_information }
     dynamic: true
@@ -336,7 +336,7 @@ mapping:
   repository:
     _attributes:
       i18n: true
-      i18nExtra: actor
+      i18nExtra: [actor]
       timestamp: true
       autocompleteFields: [authorizedFormOfName]
       rawFields:  [authorizedFormOfName]
