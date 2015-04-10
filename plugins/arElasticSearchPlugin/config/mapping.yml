@@ -336,7 +336,7 @@ mapping:
   repository:
     _attributes:
       i18n: true
-      i18nExtra: [actor]
+      i18nExtra: [actor, contact_information]
       timestamp: true
       autocompleteFields: [authorizedFormOfName]
       rawFields:  [authorizedFormOfName]
@@ -350,8 +350,6 @@ mapping:
       identifier: { type: string, index: not_analyzed }
       types: { type: integer, index: not_analyzed, include_in_all: false }
       geographic_subregions: { type: integer, index: not_analyzed, include_in_all: false }
-      locality: { type: string, index: not_analyzed }
-      region: { type: string, index: not_analyzed }
       thematic_areas: { type: integer, index: not_analyzed, include_in_all: false }
 
   information_object:
