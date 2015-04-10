@@ -13,12 +13,12 @@
   <table class="table table-bordered sticky-enabled">
     <thead>
       <tr>
-        <th width="15%">Start date</th>
-        <th width="15%">End date</th>
-        <th width="20%">Job name</th>
-        <th width="10%">Job status</th>
-        <th width="30%">Info</th>
-        <th width="10%">User</th>
+        <th style="width: 15%"><?php echo __('Start date') ?></th>
+        <th style="width: 15%"><?php echo __('End date') ?></th>
+        <th style="width: 20%"><?php echo __('Job name') ?></th>
+        <th style="width: 10%"><?php echo __('Job status') ?></th>
+        <th style="width: 30%"><?php echo __('Info') ?></th>
+        <th style="width: 10%"><?php echo __('User') ?></th>
       </tr>
     </thead>
 
