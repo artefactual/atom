@@ -186,25 +186,51 @@ class QubitRepository extends BaseRepository
     }
   }
 
+  /**
+   * Get a value from this repository's contact information.
+   * This method will first check to see if there is a primary
+   * contact and return the field from there if it is set.
+   *
+   * If there is no primary contact or the primary contact does not
+   * have the specified field set, iterate over all contacts and return
+   * the first one that has the field set.
+   *
+   * @param  $getFunction  The get function for the field we want to return.
+   *                       e.g. getFromPrimaryOrFirstValidContact('getCity')
+   *
+   * @return  mixed  Returns the field if found, null otherwise
+   */
+  private function getFromPrimaryOrFirstValidContact($getFunction)
+  {
+    $primaryContact = $this->getPrimaryContact();
+
+    if ($primaryContact && $primaryContact->$getFunction())
+    {
+      return $primaryContact->$getFunction();
+    }
+
+    foreach ($this->getContactInformation() as $contact)
+    {
+      if ($contact->$getFunction())
+      {
+        return $contact->$getFunction();
+      }
+    }
+  }
+
   public function getCountryCode()
   {
-    if ($this->getPrimaryContact())
-    {
-      if ($countryCode = $this->getPrimaryContact()->getCountryCode())
-      {
-        return $countryCode;
-      }
-    }
-    if (count($contacts = $this->getContactInformation()) > 0)
-    {
-      foreach ($contacts as $contact)
-        {
-        if ($countryCode = $contact->getCountryCode())
-        {
-          return $countryCode;
-        }
-      }
-    }
+    return $this->getFromPrimaryOrFirstValidContact('getCountryCode');
+  }
+
+  public function getRegion()
+  {
+    return $this->getFromPrimaryOrFirstValidContact('getRegion');
+  }
+
+  public function getCity()
+  {
+    return $this->getFromPrimaryOrFirstValidContact('getCity');
   }
 
   /**
