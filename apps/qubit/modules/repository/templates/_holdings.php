@@ -10,11 +10,9 @@
     <input type="hidden" name="repos" value="<?php echo $resource->id ?>">
     <div class="input-prepend input-append">
       <input type="text" name="query" placeholder="Search holdings">
-      <div class="btn-group">
-        <button class="btn" type="submit">
-          <i class="icon-search"></i>
-        </button>
-      </div>
+      <button class="btn" type="submit">
+        <i class="icon-search"></i>
+      </button>
     </div>
   </form>
   <div class="more">
