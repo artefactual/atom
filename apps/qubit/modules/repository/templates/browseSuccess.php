@@ -82,14 +82,16 @@
       </div>
 
       <div class="span2">
-        <span class="view-header-label"><?php echo __('View:  ') ?></span>
+        <span class="view-header-label"><?php echo __('View:') ?></span>
 
         <div class="btn-group">
-          <a href="<?php echo url_for(array('module' => 'repository', 'action' => 'browse', 'view' => $cardView)) ?>"
-             class="btn icon-th-large <?php if ($view === $cardView) echo 'active' ?>"></a>
+          <?php echo link_to(' ', array('module' => 'repository', 'action' => 'browse', 'view' => $cardView) +
+                             $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
+                             array('class' => 'btn icon-th-large '.($view === $cardView ? 'active' : ''))) ?>
 
-          <a href="<?php echo url_for(array('module' => 'repository', 'action' => 'browse', 'view' => $tableView)) ?>"
-             class="btn icon-list <?php if ($view === $tableView) echo 'active' ?>"></a>
+          <?php echo link_to(' ', array('module' => 'repository', 'action' => 'browse', 'view' => $tableView) +
+                             $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
+                             array('class' => 'btn icon-list '.($view === $tableView ? 'active' : ''))) ?>
         </div>
       </div>
       <div class="span2">

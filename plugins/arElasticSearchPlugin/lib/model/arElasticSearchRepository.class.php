@@ -78,6 +78,11 @@ class arElasticSearchRepository extends arElasticSearchModelBase
       $serialized['parallelNames'][] = arElasticSearchOtherName::serialize($item);
     }
 
+    if ($object->existsLogo())
+    {
+      $serialized['logoPath'] = $object->getLogoPath();
+    }
+
     $serialized['createdAt'] = arElasticSearchPluginUtil::convertDate($object->createdAt);
     $serialized['updatedAt'] = arElasticSearchPluginUtil::convertDate($object->updatedAt);
 

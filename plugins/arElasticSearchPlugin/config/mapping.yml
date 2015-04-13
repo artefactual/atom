@@ -351,6 +351,7 @@ mapping:
       types: { type: integer, index: not_analyzed, include_in_all: false }
       geographic_subregions: { type: integer, index: not_analyzed, include_in_all: false }
       thematic_areas: { type: integer, index: not_analyzed, include_in_all: false }
+      logo_path: { type: string, index: not_analyzed, include_in_all: false }
 
   information_object:
     _attributes:

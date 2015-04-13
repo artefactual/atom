@@ -92,6 +92,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
 
     $this->cardView = 'card';
     $this->tableView = 'table';
+    $allowedViews = array($this->cardView, $this->tableView);
 
     if (1 === preg_match('/^[\s\t\r\n]*$/', $request->subquery))
     {
@@ -169,7 +170,7 @@ class RepositoryBrowseAction extends DefaultBrowseAction
 
     $this->populateFacets($resultSet);
 
-    if (isset($request->view))
+    if (isset($request->view) && in_array($request->view, $allowedViews))
     {
       $this->view = $request->view;
     }

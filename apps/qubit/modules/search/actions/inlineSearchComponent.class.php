@@ -23,7 +23,14 @@ class SearchInlineSearchComponent extends sfComponent
   {
     if (!isset($this->route))
     {
-      $this->route = $this->context->routing->generate(null, array('module' => $request->module, 'action' => $request->action));
+      $params = array('module' => $request->module, 'action' => $request->action);
+
+      if (isset($request->view))
+      {
+        $params['view'] = $request->view;
+      }
+
+      $this->route = $this->context->routing->generate(null, $params);
     }
 
     if (isset($request->subquery))
