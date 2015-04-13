@@ -44,7 +44,7 @@
   </thead>
 
   <?php foreach ($pager->getResults() as $hit): ?>
-    <?php $doc = $hit->getData(); ?>
+    <?php $doc = $hit->getData() ?>
     <tr>
       <td>
         <?php if (isset($doc['logoPath'])): ?>
