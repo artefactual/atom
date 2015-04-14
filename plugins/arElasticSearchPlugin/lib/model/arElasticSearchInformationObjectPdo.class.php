@@ -1252,12 +1252,20 @@ class arElasticSearchInformationObjectPdo
         throw new sfException("No slug found for information object $collectionRootId");
       }
 
+      $rootSourceCulture = QubitPdo::fetchColumn('SELECT source_culture FROM information_object WHERE id=?',
+                                                 array($collectionRootId));
+      if (!$rootSourceCulture)
+      {
+        throw new sfException("No source culture found for information object $collectionRootId");
+      }
+
       $i18nFields = arElasticSearchModelBase::serializeI18ns(
         $collectionRootId,
         array('QubitInformationObject'),
         array('fields' => array('title'))
       );
 
+      $serialized['partOf']['sourceCulture'] = $rootSourceCulture;
       $serialized['partOf']['slug'] = $rootSlug;
       $serialized['partOf']['i18n'] = $i18nFields;
     }
