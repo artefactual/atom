@@ -136,7 +136,7 @@ class QubitJob extends BaseJob
   }
 
   /**
-   * Add a basic note to this job
+   * Add a basic note to this job. This function creates/saves a new note.
    * @param  string  $contents  The text for the note
    */
   public function addNoteText($contents)
@@ -151,6 +151,8 @@ class QubitJob extends BaseJob
 
     $note->objectId = $this->id;
     $this->notes[] = $note;
+
+    $note->save();
   }
 
   /**
@@ -194,6 +196,7 @@ class QubitJob extends BaseJob
    *
    * @param array   $jobParams  Whatever parameters need to be passed to the worker.
    * You can set 'name' to specify the job name, otherwise the class name is used.
+   * You can set 'description' to summarize what the job is doing.
    *
    * @return  QubitJob  The job that was just created for the running job
    */
@@ -228,6 +231,12 @@ class QubitJob extends BaseJob
     }
 
     $job->save();
+
+    // Add summary info to the job
+    if (isset($jobParams['description']))
+    {
+      $job->addNoteText($jobParams['description']);
+    }
 
     // Pass in the job id to the worker so it can update status
     $jobParams['id'] = $job->id;
