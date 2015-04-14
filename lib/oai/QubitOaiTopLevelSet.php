@@ -42,10 +42,6 @@ class QubitOaiTopLevelSet implements QubitOaiSet
   }
 
   public function apply($criteria) {
-    $criteria->addAlias('parent', QubitInformationObject::TABLE_NAME);
-    $criteria->addJoin(QubitInformationObject::PARENT_ID, 'parent.id');
-
-    $criteria->add(QubitInformationObject::RGT, QubitInformationObject::RGT.' > ('.QubitInformationObject::LFT.' + 1)', Criteria::CUSTOM);
-    $criteria->add('parent.lft', 1);
+    $criteria->add(QubitInformationObject::PARENT_ID, QubitInformationObject::ROOT_ID);
   }
 }
