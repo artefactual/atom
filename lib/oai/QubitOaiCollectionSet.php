@@ -47,6 +47,8 @@ class QubitOaiCollectionSet implements QubitOaiSet
   }
 
   public function apply($criteria) {
+    $criteria->add(QubitInformationObject::PARENT_ID, null, Criteria::ISNOTNULL);
+
     $criteria->add(QubitInformationObject::LFT, $this->collection['lft'], Criteria::GREATER_EQUAL);
     $criteria->add(QubitInformationObject::RGT, $this->collection['rgt'], Criteria::LESS_EQUAL);
   }
