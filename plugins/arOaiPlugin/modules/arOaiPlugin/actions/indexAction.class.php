@@ -96,49 +96,8 @@ class arOaiPluginIndexAction extends sfAction
     $this->path = $this->request->getUriPrefix().$this->request->getPathInfo();
     $this->attributes = $this->request->getGetParameters();
 
-    /* allow resumption token to set attributes */
-    if (isset($this->attributes['resumptionToken']))
-    {
-      $stateChange = explode('&', $this->attributes['resumptionToken']);
-      foreach ($stateChange as $keyValuePair)
-      {
-        $resumptionTokenError = False;
-
-        if (substr_count($keyValuePair, '='))
-        {
-          list($attribute, $value) = explode('=', $keyValuePair);
-
-          switch ($attribute)
-          {
-            case 'from':
-              $request->from = $value;
-              break;
-
-            case 'until':
-              $request->until = $value;
-              break;
-
-            case 'cursor':
-              $request->cursor = $value;
-              break;
-
-            default:
-              $resumptionTokenError = True;
-          }
-        }
-        else
-        {
-          $resumptionTokenError = True;
-        }
-
-        if ($resumptionTokenError)
-        {
-          $request->setParameter('errorCode', 'badResumptionToken');
-          $request->setParameter('errorMsg', 'Value of the resumptionToken argument is invalid.');
-          $this->forward('arOaiPlugin', 'error');
-        }
-      }
-    }
+    /* If we have a valid resumption token, apply its parameters to our request */
+    $this->applyResumptionToken($request, $this->attributes);
 
     $this->attributesKeys = array_keys($this->attributes);
     $this->requestAttributes = '';
@@ -222,5 +181,39 @@ class arOaiPluginIndexAction extends sfAction
     {
       $this->verb = 'badVerb';
     }
+  }
+
+  private function applyResumptionToken($request, &$attributes)
+  {
+    if (!isset($request->resumptionToken)) {
+      /* Nothing to do */
+      return;
+    }
+
+    $resumptionTokenJson = base64_decode($request->resumptionToken);
+    $resumptionToken = $resumptionTokenJson ? json_decode($resumptionTokenJson) : False;
+
+    if ($resumptionToken === False) {
+      $this->sendResumptionTokenError($request);
+    }
+
+    $settableAttributes = array('from', 'until', 'cursor', 'set', 'metadataPrefix');
+
+    foreach ($settableAttributes as $attribute)
+    {
+      if ($resumptionToken->$attribute) {
+        /* We set each attribute both on the request and on our attributes list.
+         * The attributes list is checked by QubitOai::checkBadArgument, while
+         * $request is used by the call to arOaiPluginComponent. */
+        $attributes[$attribute] = $resumptionToken->$attribute;
+        $request->$attribute = $resumptionToken->$attribute;
+      }
+    }
+  }
+
+  private function sendResumptionTokenError($request) {
+    $request->setParameter('errorCode', 'badResumptionToken');
+    $request->setParameter('errorMsg', 'Value of the resumptionToken argument is invalid.');
+    $this->forward('arOaiPlugin', 'error');
   }
 }
