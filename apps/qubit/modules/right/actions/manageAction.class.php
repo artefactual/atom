@@ -82,12 +82,13 @@ class RightManageAction extends sfAction
         $jobParams['information_object_id'] = $this->resource->getId();
         $jobParams['name'] = $this->context->i18n->__('Inherit rights');
 
+        $desc = $this->context->i18n->__('Children inheriting rights from record: ') .
+                $this->resource->getTitle(array('cultureFallback' => true));
+
+        $jobParams['description'] = $desc;
+
         // Queue job with params
         $job = QubitJob::runJob('arInheritRightsJob', $jobParams);
-
-        $text = $this->context->i18n->__('Children inheriting rights from record "') . $this->resource->title . '"';
-        $job->addNoteText($text);
-        $job->save();
 
         // redirect to info object view page
         $this->redirect(array($this->resource, 'module' => 'informationobject'));
