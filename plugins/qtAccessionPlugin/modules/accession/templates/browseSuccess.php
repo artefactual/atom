@@ -52,7 +52,7 @@
             <?php echo link_to(render_title(get_search_i18n($doc, 'title')), array('module' => 'accession', 'slug' => $doc['slug'])) ?>
           </td>
           <td width="20%">
-            <?php echo format_date($doc['date'], 'd') ?>
+            <?php echo format_date($doc['date'], 'i') ?>
           </td>
           <?php if ('lastUpdated' == $sf_request->sort): ?>
             <td width="20%">
