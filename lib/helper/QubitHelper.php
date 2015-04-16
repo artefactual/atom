@@ -510,3 +510,16 @@ function escape_dc($text)
 {
   return preg_replace('/\n/', '<lb/>', $text);
 }
+
+/**
+ * Format poorly formatted XML strings
+ */
+function tidy_xml($xml)
+{
+  $dom = new DOMDocument;
+  $dom->preserveWhiteSpace = false;
+  $dom->formatOutput = true;
+  $dom->loadXML($xml);
+
+  return $dom->saveXML();
+}

@@ -66,7 +66,7 @@ class eacExportTask extends exportBulkBaseTask
 
           try
           {
-            $xml = $this->tidyXml($rawXml);
+            $xml = tidy_xml($rawXml);
           }
           catch (Exception $e)
           {

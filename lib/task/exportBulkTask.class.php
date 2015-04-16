@@ -69,7 +69,7 @@ class exportBulkTask extends exportBulkBaseTask
       try
       {
         $rawXml = $this->captureResourceExportTemplateOutput($resource, $options['format'], $options);
-        $xml = $this->tidyXml($rawXml);
+        $xml = tidy_xml($rawXml);
       }
       catch (Exception $e)
       {
