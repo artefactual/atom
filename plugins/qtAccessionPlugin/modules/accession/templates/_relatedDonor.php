@@ -1,5 +1,6 @@
 <?php $sf_response->addJavaScript('/vendor/yui/datasource/datasource-min') ?>
 <?php $sf_response->addJavaScript('/vendor/yui/container/container-min') ?>
+<?php $sf_response->addJavaScript('/vendor/yui/tabview/tabview-min') ?>
 <?php $sf_response->addJavaScript('dialog') ?>
 <?php $sf_response->addJavaScript('multiDelete') ?>
 
@@ -21,7 +22,7 @@
         <tr class="<?php echo 0 == @@++$row % 2 ? 'even' : 'odd' ?> related_obj_<?php echo $item->id ?>" id="<?php echo url_for(array($item, 'module' => 'accession', 'action' => 'relatedDonor')) ?>">
           <td>
             <?php echo render_title($item->object) ?>
-          </td><td style="text-align: center;">
+          </td><td style="text-align: right;">
             <input class="multiDelete" name="deleteRelations[]" type="checkbox" value="<?php echo url_for(array($item, 'module' => 'relation')) ?>"/>
           </td>
         </tr>
@@ -73,7 +74,7 @@ Drupal.behaviors.relatedAuthorityRecord = {
       // Load primary contact data when a new item is selected
       jQuery('#relatedDonor .yui-ac-input').on('itemSelected', function (e)
         {
-          dialog.loadData(e.itemValue + '/primaryContact', function ()
+          dialog.loadData(e.itemValue + '/donor/primaryContact', function ()
             {
               dialog.yuiDialog.show();
             });
@@ -109,23 +110,67 @@ content
 
         <legend><?php echo __('Primary contact information') ?></legend>
 
-        <?php echo $form->contactPerson->renderRow() ?>
+        <div id="contactInformationRelationTabView" class="yui-navset">
 
-        <?php echo $form->streetAddress->renderRow() ?>
+          <ul class="yui-nav">
 
-        <?php echo $form->region
-          ->label(__('Region/province'))
-          ->renderRow() ?>
+            <li class="selected"><a href="#contactInformationRelation_Tab1"><em><?php echo __('Main') ?></em></a></li>
+            <li><a href="#contactInformationRelation_Tab2"><em><?php echo __('Physical location') ?></em></a></li>
+            <li><a href="#contactInformationRelation_Tab3"><em><?php echo __('Other details') ?></em></a></li>
 
-        <?php echo $form->countryCode
-          ->label(__('Country'))
-          ->renderRow() ?>
+          </ul>
 
-        <?php echo $form->postalCode->renderRow() ?>
+          <div class="yui-content">
 
-        <?php echo $form->telephone->renderRow() ?>
+            <div id="contactInformationRelation_Tab1">
 
-        <?php echo $form->email->renderRow() ?>
+              <?php echo $form->contactPerson->renderRow() ?>
+
+              <?php echo $form->telephone->renderRow() ?>
+
+              <?php echo $form->fax->renderRow() ?>
+
+              <?php echo $form->email->renderRow() ?>
+
+              <?php echo $form->website
+                ->label(__('URL'))
+                ->renderRow() ?>
+
+            </div>
+
+            <div id="contactInformationRelation_Tab2">
+
+              <?php echo $form->streetAddress->renderRow() ?>
+
+              <?php echo $form->region
+                ->label(__('Region/province'))
+                ->renderRow() ?>
+
+              <?php echo $form->countryCode
+                ->label(__('Country'))
+                ->renderRow() ?>
+
+              <?php echo $form->postalCode->renderRow() ?>
+
+              <?php echo $form->city->renderRow() ?>
+
+              <?php echo $form->latitude->renderRow() ?>
+
+              <?php echo $form->longitude->renderRow() ?>
+
+            </div>
+
+            <div id="contactInformationRelation_Tab3">
+
+              <?php echo $form->contactType->renderRow() ?>
+
+              <?php echo $form->note->renderRow() ?>
+
+            </div>
+
+          </div>
+
+        </div>
 
       </fieldset>
 

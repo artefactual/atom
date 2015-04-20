@@ -37,7 +37,13 @@ class AccessionRelatedDonorComponent extends RelationEditComponent
       'postalCode',
       'region',
       'streetAddress',
-      'telephone');
+      'telephone',
+      'contactType',
+      'website',
+      'fax',
+      'latitude',
+      'longitude',
+      'note');
 
   protected function addField($name)
   {
@@ -56,6 +62,20 @@ class AccessionRelatedDonorComponent extends RelationEditComponent
 
         break;
 
+      case 'latitude':
+      case 'longitude':
+        $this->form->setValidator($name, new sfValidatorNumber);
+        $this->form->setWidget($name, new sfWidgetFormInput);
+
+        break;
+
+      case 'streetAddress':
+      case 'note':
+        $this->form->setValidator($name, new sfValidatorString);
+        $this->form->setWidget($name, new sfWidgetFormTextArea(array(), array('rows' => 2)));
+
+        break;
+
       case 'countryCode':
         $this->form->setValidator('countryCode', new sfValidatorI18nChoiceCountry);
         $this->form->setWidget('countryCode', new sfWidgetFormI18nChoiceCountry(array('add_empty' => true, 'culture' => $this->context->user->getCulture())));
@@ -67,8 +87,10 @@ class AccessionRelatedDonorComponent extends RelationEditComponent
       case 'email':
       case 'postalCode':
       case 'region':
-      case 'streetAddress':
       case 'telephone':
+      case 'contactType':
+      case 'fax':
+      case 'website':
         $this->form->setValidator($name, new sfValidatorString);
         $this->form->setWidget($name, new sfWidgetFormInput);
 
@@ -108,6 +130,12 @@ class AccessionRelatedDonorComponent extends RelationEditComponent
       case 'region':
       case 'streetAddress':
       case 'telephone':
+      case 'contactType':
+      case 'latitude':
+      case 'longitude':
+      case 'note':
+      case 'fax':
+      case 'website':
         $this->contactInformation[$field->getName()] = $this->form->getValue($field->getName());
 
         break;
@@ -128,7 +156,13 @@ class AccessionRelatedDonorComponent extends RelationEditComponent
         isset($this->contactInformation->region) ||
         isset($this->contactInformation->streetAddress) ||
         isset($this->contactInformation->telephone) ||
-        isset($this->contactInformation->countryCode))
+        isset($this->contactInformation->countryCode) ||
+        isset($this->contactInformation->contactType) ||
+        isset($this->contactInformation->latitude) ||
+        isset($this->contactInformation->longitude) ||
+        isset($this->contactInformation->note) ||
+        isset($this->contactInformation->fax) ||
+        isset($this->contactInformation->website))
     {
       $this->contactInformation->actor = $this->relation->object;
       $this->contactInformation->save();
