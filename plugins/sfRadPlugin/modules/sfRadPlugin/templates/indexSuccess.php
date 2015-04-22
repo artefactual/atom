@@ -276,13 +276,15 @@
 
   <?php echo render_show(__('Accruals'), render_value($resource->getAccruals(array('cultureFallback' => true)))) ?>
 
+  <?php if (check_field_visibility('app_element_visibility_rad_general_notes')): ?>
+    <?php foreach ($resource->getNotesByType(array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID)) as $item): ?>
+      <?php echo render_show(__('General note'), render_value($item->getContent(array('cultureFallback' => true)))) ?>
+    <?php endforeach; ?>
+  <?php endif; ?>
+
   <?php foreach ($resource->getNotesByTaxonomy(array('taxonomyId' => QubitTaxonomy::RAD_NOTE_ID)) as $item): ?>
 
     <?php $type = $item->getType(array('sourceCulture' => true)) ?>
-
-    <?php if ('General note' == $type && !check_field_visibility('app_element_visibility_rad_general_notes')): ?>
-      <?php continue; ?>
-    <?php endif; ?>
 
     <?php if ('Conservation' == $type && !check_field_visibility('app_element_visibility_rad_conservation_notes')): ?>
       <?php continue; ?>

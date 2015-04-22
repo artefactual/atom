@@ -149,8 +149,7 @@
     'Accompanying material'      => 'material',
     'Alpha-numeric designations' => 'alphanumericDesignation',
     "Publisher's series"         => 'bibSeries',
-    'Rights'                     => 'rights',
-    'General note'               => 'general'
+    'Rights'                     => 'rights'
   );
 
   foreach($radNotes as $name => $xmlType)

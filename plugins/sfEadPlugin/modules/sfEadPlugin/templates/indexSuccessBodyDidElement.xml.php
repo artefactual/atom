@@ -154,7 +154,7 @@
 
   <?php if (0 < count($notes = $$resourceVar->getNotesByType(array('noteTypeId' => QubitTerm::GENERAL_NOTE_ID)))): ?>
     <?php foreach ($notes as $note): ?>
-      <note type="generalNote">
+      <note type="generalNote" <?php if (0 < strlen($encoding = $ead->getMetadataParameter('generalNote'))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>>
         <p><?php echo escape_dc(esc_specialchars($note->getContent(array('cultureFallback' => true)))) ?></p>
       </note>
     <?php endforeach; ?>

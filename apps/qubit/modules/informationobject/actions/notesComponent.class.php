@@ -48,7 +48,7 @@ class InformationObjectNotesComponent extends sfComponent
           $this->allNotes = $this->resource->getNotesByTaxonomy(array('taxonomyId' => $this->taxonomyId));
           $this->tableName = $this->context->i18n->__('Other notes');
           $this->arrayName = 'radOtherNotes';
-          $this->help = $this->context->i18n->__('Select a note type from the drop-down menu and enter note text in accordance with the following sections in RAD: 1.5E (Accompanying material); 1.8 B11 (Alpha-numeric designations); 1.8B9b (Conservation); 1.8B7 (Edition); 1.8B9 (Physical Description); 1.8B16b (Rights); 1.8B21 (General note).');
+          $this->help = $this->context->i18n->__('Select a note type from the drop-down menu and enter note text in accordance with the following sections in RAD: 1.5E (Accompanying material); 1.8 B11 (Alpha-numeric designations); 1.8B9b (Conservation); 1.8B7 (Edition); 1.8B9 (Physical Description); 1.8B16b (Rights).');
 
           $this->addField('type');
 
@@ -71,6 +71,16 @@ class InformationObjectNotesComponent extends sfComponent
           $this->tableName = $this->context->i18n->__('Publication notes');
           $this->arrayName = 'dacsPublicationNotes';
           $this->help = $this->context->i18n->__('Record a citation to, or information about, a publication that is about or is based on the use, study, or analysis of the materials being described. Provide sufficient information to indicate the relationship between the publication and the unit being described. This includes annotated editions. (DACS 6.4.4)');
+
+          break;
+
+        case 'radNotes':
+          $this->hiddenType = true;
+          $this->hiddenTypeId = QubitTerm::GENERAL_NOTE_ID;
+          $this->allNotes = $this->resource->getNotesByType(array('noteTypeId' => $this->hiddenTypeId));
+          $this->tableName = $this->context->i18n->__('General note(s)');
+          $this->arrayName = 'radNotes';
+          $this->help = $this->context->i18n->__('"Use this note to record any other descriptive information considered important but not falling within the definitions of the other notes." (RAD 1.8B21)');
 
           break;
 

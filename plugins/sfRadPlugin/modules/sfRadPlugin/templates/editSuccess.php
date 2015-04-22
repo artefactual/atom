@@ -284,6 +284,8 @@
         <?php echo render_field($form->accruals
           ->help(__('"When the unit being described is not yet complete, e.g., an open fonds or series, make a note explaining that further accruals are expected... If no further accruals are expected, indicate that the unit is considered closed." (RAD 1.8B19)')), $resource, array('class' => 'resizable')) ?>
 
+        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('notesComponent')->getVarHolder()->getAll()) ?>
+
         <?php echo get_partial('informationobject/notes', $sf_data->getRaw('otherNotesComponent')->getVarHolder()->getAll()) ?>
 
       </fieldset> <!-- #notesArea -->
