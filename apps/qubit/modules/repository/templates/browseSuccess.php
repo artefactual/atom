@@ -80,7 +80,21 @@
         <?php echo get_component('search', 'inlineSearch', array(
           'label' => __('Search %1%', array('%1%' => strtolower(sfConfig::get('app_ui_label_repository')))))) ?>
       </div>
-      <div class="span4">
+
+      <div class="span2">
+        <span class="view-header-label"><?php echo __('View:') ?></span>
+
+        <div class="btn-group">
+          <?php echo link_to(' ', array('module' => 'repository', 'action' => 'browse', 'view' => $cardView) +
+                             $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
+                             array('class' => 'btn icon-th-large '.($view === $cardView ? 'active' : ''))) ?>
+
+          <?php echo link_to(' ', array('module' => 'repository', 'action' => 'browse', 'view' => $tableView) +
+                             $sf_data->getRaw('sf_request')->getParameterHolder()->getAll(),
+                             array('class' => 'btn icon-list '.($view === $tableView ? 'active' : ''))) ?>
+        </div>
+      </div>
+      <div class="span2">
         <?php echo get_partial('default/sortPicker',
           array(
             'options' => array(
@@ -94,33 +108,11 @@
 <?php end_slot() ?>
 
 <?php slot('content') ?>
-  <section class="masonry">
-
-    <?php foreach ($pager->getResults() as $hit): ?>
-      <?php $doc = $hit->getData() ?>
-      <?php $authorizedFormOfName = render_title(get_search_i18n($doc, 'authorizedFormOfName', array('allowEmpty' => false, 'culture' => $selectedCulture))) ?>
-      <?php $hasLogo = file_exists(sfConfig::get('sf_upload_dir').'/r/'.$doc['slug'].'/conf/logo.png') ?>
-      <?php if ($hasLogo): ?>
-        <div class="brick">
-      <?php else: ?>
-        <div class="brick brick-only-text">
-      <?php endif; ?>
-        <a href="<?php echo url_for(array('module' => 'repository', 'slug' => $doc['slug'])) ?>">
-          <?php if ($hasLogo): ?>
-            <div class="preview">
-              <?php echo image_tag('/uploads/r/'.$doc['slug'].'/conf/logo.png') ?>
-            </div>
-          <?php else: ?>
-            <h4><?php echo $authorizedFormOfName ?></h4>
-          <?php endif; ?>
-        </a>
-        <div class="bottom">
-          <p><?php echo $authorizedFormOfName ?></p>
-        </div>
-      </div>
-    <?php endforeach; ?>
-
-  </section>
+  <?php if ($view === $tableView): ?>
+    <?php echo get_partial('repository/browseTableView', array('pager' => $pager)) ?>
+  <?php elseif ($view === $cardView): ?>
+    <?php echo get_partial('repository/browseCardView', array('pager' => $pager)) ?>
+  <?php endif; ?>
 <?php end_slot() ?>
 
 <?php slot('after-content') ?>

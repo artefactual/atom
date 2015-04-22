@@ -8,6 +8,10 @@
       <input type="hidden" name="subqueryField" id="subqueryField" value="<?php echo $fields[0] ?>" />
     <?php endif; ?>
 
+    <?php if (isset($sf_request->view)): ?>
+      <input type="hidden" name="view" value="<?php echo $sf_request->view ?>"/>
+    <?php endif; ?>
+
     <div class="input-prepend input-append">
 
       <?php if (isset($fields)): ?>
