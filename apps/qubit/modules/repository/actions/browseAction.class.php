@@ -178,5 +178,18 @@ class RepositoryBrowseAction extends DefaultBrowseAction
     {
       $this->view = sfConfig::get('app_default_repository_browse_view', 'card');
     }
+
+    $this->getAdvancedFilterTerms();
+  }
+
+  private function getAdvancedFilterTerms()
+  {
+    $this->thematicAreas = array();
+    foreach (QubitPdo::fetchAll('select t.id, ti.name from term t join term_i18n ti on t.id=ti.id where t.taxonomy_id=72 and ti.culture="en"') as $thematicArea)
+    {
+      $this->thematicAreas[] = $thematicArea->name;
+    }
+    $this->repositoryTypes = array('Aboriginal', 'Religious', 'Community');
+    $this->regions = array('BC', 'AB', 'SK');
   }
 }
