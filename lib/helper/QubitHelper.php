@@ -17,6 +17,17 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
+function clear_class_caches()
+{
+  foreach (get_declared_classes() as $c)
+  {
+    if (strpos($c, 'Qubit') === 0 && method_exists($c, 'clearCache'))
+    {
+      $c::clearCache();
+    }
+  }
+}
+
 function format_script($script_iso, $culture = null)
 {
   $c = sfCultureInfo::getInstance($culture === null ? sfContext::getInstance()->user->getCulture() : $culture);
