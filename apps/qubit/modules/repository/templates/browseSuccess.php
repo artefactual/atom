@@ -103,6 +103,18 @@
               'identifier' => __('Identifier')))) ?>
       </div>
     </div>
+
+    <div class="row">
+      <div class="span5">
+        <button id="toggleAdvancedFilters" class="btn icon-double-angle-down">&nbsp;<?php echo __('Advanced') ?></button>
+      </div>
+    </div>
+
+    <div id="advancedRepositoryFilters" class="row">
+      <?php echo get_component('repository', 'advancedFilters', array('thematicAreas' => $thematicAreas,
+                             'repositories' => $repositories, 'repositoryTypes' => $repositoryTypes) +
+                             $sf_data->getRaw('sf_request')->getParameterHolder()->getAll()) ?>
+    </div>
   </section>
 
 <?php end_slot() ?>
