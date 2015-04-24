@@ -109,9 +109,9 @@
 
 <?php slot('content') ?>
   <?php if ($view === $tableView): ?>
-    <?php echo get_partial('repository/browseTableView', array('pager' => $pager)) ?>
+    <?php echo get_partial('repository/browseTableView', array('pager' => $pager, 'selectedCulture' => $selectedCulture)) ?>
   <?php elseif ($view === $cardView): ?>
-    <?php echo get_partial('repository/browseCardView', array('pager' => $pager)) ?>
+    <?php echo get_partial('repository/browseCardView', array('pager' => $pager, 'selectedCulture' => $selectedCulture)) ?>
   <?php endif; ?>
 <?php end_slot() ?>
 
