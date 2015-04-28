@@ -313,7 +313,10 @@ mapping:
       number_of_descendants: { type: integer, index: not_analyzed, include_in_all: false }
 
   accession:
-    _attributes: { i18n: true, timestamp: true }
+    _attributes:
+      i18n: true
+      timestamp: true
+      rawFields:  [title]
     _foreign_types: { donors: donor, creators: actor }
     dynamic: strict
     properties:

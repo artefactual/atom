@@ -3877,27 +3877,6 @@ QubitTerm:
       pt_BR: Direitos
       sl: Pravice
       th: สิทธิ
-  QubitTerm_245:
-    taxonomy_id: QubitTaxonomy_21
-    parent_id: QubitTerm_110
-    source_culture: en
-    name:
-      ca: 'Nota general'
-      de: 'Allgemeine Anmerkung'
-      en: 'General note'
-      es: 'Nota general'
-      fr: 'Note générale'
-      gl: 'Nota xeral'
-      id: 'Catatan Umum'
-      it: 'Nota generale'
-      ja: 一般の注記
-      ka: 'ძირითადი შენიშვნა'
-      nl: 'Algemene aantekening'
-      pt: 'Nota geral'
-      pt_BR: 'Nota geral'
-      sl: 'Splošna opomba'
-      th: หมายเหตุทั่วไป
-      vi: 'General note'
   QubitTerm_246:
     taxonomy_id: QubitTaxonomy_22
     parent_id: QubitTerm_110

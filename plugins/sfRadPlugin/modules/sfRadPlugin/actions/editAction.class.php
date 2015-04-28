@@ -122,6 +122,10 @@ class sfRadPluginEditAction extends InformationObjectEditAction
     $this->titleNotesComponent->resource = $this->resource;
     $this->titleNotesComponent->execute($this->request, $options = array('type' => 'radTitleNotes'));
 
+    $this->notesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
+    $this->notesComponent->resource = $this->resource;
+    $this->notesComponent->execute($this->request, $options = array('type' => 'radNotes'));
+
     $this->otherNotesComponent = new InformationObjectNotesComponent($this->context, 'informationobject', 'notes');
     $this->otherNotesComponent->resource = $this->resource;
     $this->otherNotesComponent->execute($this->request, $options = array('type' => 'radOtherNotes'));
@@ -268,6 +272,8 @@ class sfRadPluginEditAction extends InformationObjectEditAction
     $this->eventComponent->processForm();
 
     $this->titleNotesComponent->processForm();
+
+    $this->notesComponent->processForm();
 
     $this->otherNotesComponent->processForm();
 

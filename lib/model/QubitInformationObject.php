@@ -405,8 +405,6 @@ class QubitInformationObject extends BaseInformationObject
       $set->apply($criteria);
     }
 
-    $criteria->add(QubitInformationObject::PARENT_ID, null, Criteria::ISNOTNULL);
-
     $criteria->addAscendingOrderByColumn(QubitObject::UPDATED_AT);
 
     $c2 = clone $criteria;

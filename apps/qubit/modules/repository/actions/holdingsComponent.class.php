@@ -17,15 +17,17 @@
  * along with Access to Memory (AtoM).  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class RepositoryContextMenuComponent extends sfComponent
+class RepositoryHoldingsComponent extends sfComponent
 {
   public function execute($request)
   {
-    if (!isset($request->getAttribute('sf_route')->resource))
-    {
-      return sfView::NONE;
-    }
+    $page = 1;
+    $limit = sfConfig::get('app_hits_per_page', 10);
+    $resultSet = RepositoryHoldingsAction::getHoldings($this->resource->id, $page, $limit);
 
-    $this->resource = $request->getAttribute('sf_route')->resource;
+    $this->pager = new QubitSearchPager($resultSet);
+    $this->pager->setPage($page);
+    $this->pager->setMaxPerPage($limit);
+    $this->pager->init();
   }
 }

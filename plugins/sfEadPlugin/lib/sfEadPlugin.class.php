@@ -128,7 +128,7 @@ class sfEadPlugin
         'material'              => '1.5E',
         'alphanumericDesignation' => '1.8B11',
         'rights'        => '1.8B16b',
-        'general'        => '1.8B21',
+        'generalNote'    => '1.8B21',
         'nameDefault' => '1.4D',
         'nameManufacturer' => '1.4G',
         'geogDefault' => '1.4C',
