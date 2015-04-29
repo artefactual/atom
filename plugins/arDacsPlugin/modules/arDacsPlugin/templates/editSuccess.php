@@ -197,7 +197,7 @@
 
         <legend><?php echo __('Notes element') ?></legend>
 
-        <?php echo get_partial('informationobject/notes', $notesComponent->getVarHolder()->getAll()) ?>
+        <?php echo get_partial('informationobject/notes', $sf_data->getRaw('notesComponent')->getVarHolder()->getAll()) ?>
 
         <?php echo get_partial('informationobject/notes', $sf_data->getRaw('specializedNotesComponent')->getVarHolder()->getAll()) ?>
 
