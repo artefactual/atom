@@ -1,0 +1,10 @@
+---
+
+information_object_priorities:
+  - [ level: "Collection", priority: "0.9" ]
+  - [ level: "Fonds",      priority: "0.9" ]
+  - [ level: "Subfonds",   priority: "0.8" ]
+  - [ level: "Series",     priority: "0.7" ]
+  - [ level: "Subseries",  priority: "0.6" ]
+  - [ level: "File",       priority: "0.5" ]
+  - [ level: "Item",       priority: "0.4" ]

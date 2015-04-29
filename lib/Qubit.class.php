@@ -214,4 +214,46 @@ class Qubit
       return false;
     }
   }
+
+  /**
+   * GZIPs a file on disk (appending .gz to the name)
+   *
+   * From http://stackoverflow.com/questions/6073397/how-do-you-create-a-gz-file-using-php
+   * Based on function by Kioob at:
+   * http://www.php.net/manual/en/function.gzwrite.php#34955
+   *
+   * @param string $source Path to file that should be compressed
+   * @param integer $level GZIP compression level (default: 9)
+   * @return string New filename (with .gz appended) if success, or false if operation fails
+   */
+  public static function gzipFile($source, $level = 9)
+  {
+    $dest = $source.'.gz';
+    $mode = 'wb'.$level;
+    $error = false;
+    if ($fpOut = gzopen($dest, $mode))
+    {
+      if ($fpIn = fopen($source, 'rb'))
+      {
+        while (!feof($fpIn))
+        {
+          gzwrite($fpOut, fread($fpIn, 1024 * 512));
+        }
+
+        fclose($fpIn);
+      }
+      else
+      {
+        $error = true;
+      }
+
+      gzclose($fpOut);
+    }
+    else
+    {
+      $error = true;
+    }
+
+    return $error ? false : $dest;
+  }
 }
