@@ -18,3 +18,6 @@
 # Symlinks or dirctories are possible
 /downloads
 /uploads
+
+# Sitemap
+/sitemap.*
