@@ -79,7 +79,8 @@ class RightManageAction extends sfAction
       {
         // Set job params
         $jobParams = $this->form->getValues();
-        $jobParams['information_object_id'] = $this->resource->getId();
+        $jobParams['objectId'] = $this->resource->getId();
+
         $jobParams['name'] = $this->context->i18n->__('Inherit rights');
 
         $desc = $this->context->i18n->__('Children inheriting rights from record: ') .

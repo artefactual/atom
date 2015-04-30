@@ -136,6 +136,34 @@ class QubitJob extends BaseJob
   }
 
   /**
+   * Get the module type for this job's corresponding object.
+   * e.g., informationobject, actor, etc.
+   *
+   * @return mixed  A string indicating the module type of the object for this job,
+   *                or else null.
+   */
+  public function getObjectModule()
+  {
+    $className = QubitPdo::fetchColumn('SELECT class_name FROM object WHERE id = ?', array($this->objectId));
+    if (!$className)
+    {
+      return null;
+    }
+
+    return strtolower(str_replace('Qubit', '', $className));
+  }
+
+  /**
+   * Get the associated object's slug for this job.
+   *
+   * @return mixed  A string indicating the object's slug. If none, return null.
+   */
+  public function getObjectSlug()
+  {
+    return QubitPdo::fetchColumn('SELECT slug FROM slug WHERE object_id = ?', array($this->objectId));
+  }
+
+  /**
    * Add a basic note to this job. This function creates/saves a new note.
    * @param  string  $contents  The text for the note
    */

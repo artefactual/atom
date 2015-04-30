@@ -32,14 +32,13 @@ class arInheritRightsJob extends arBaseJob
    * @see arBaseJob::$requiredParameters
    */
   protected $extraRequiredParameters = array(
-    'information_object_id',
     'overwrite_or_combine',  // values: overwrite, combine
     'all_or_digital_only'  // values: all, digital_only
   );
 
   public function runJob($parameters)
   {
-    $ioId = $parameters['information_object_id'];
+    $ioId = $parameters['objectId'];
 
     if (($io = QubitInformationObject::getById($ioId)) === null)
     {
