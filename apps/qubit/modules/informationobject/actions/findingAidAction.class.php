@@ -29,7 +29,6 @@ class InformationObjectFindingAidAction extends sfAction
 
       $params = array(
         'objectId' => $resource->id,
-        'name' => $i18n->__('Generate finding aid'),
         'description' => $i18n->__('Generating finding aid for: ').$resource->getTitle(array('cultureFallback' => true))
       );
 
