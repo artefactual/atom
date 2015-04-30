@@ -19,7 +19,7 @@
         <edition><?php echo escape_dc(esc_specialchars($value)) ?></edition>
       </editionstmt>
     <?php endif; ?>
-    <?php if ($value = $resource->getRepository()): ?>
+    <?php if ($value = $resource->getRepository(array('inherit' => true))): ?>
       <publicationstmt>
         <publisher encodinganalog="<?php echo $ead->getMetadataParameter('publisher') ?>"><?php echo escape_dc(esc_specialchars($value->__toString())) ?></publisher>
         <?php if ($address = $value->getPrimaryContact()): ?>
@@ -92,9 +92,12 @@
   $resourceVar = 'resource';
   $counter = 0;
   $counterVar = 'counter';
+  $topLevelDid = true;
 
   include('indexSuccessBodyDidElement.xml.php');
   include('indexSuccessBodyBioghistElement.xml.php');
+
+  $topLevelDid = false;
   ?>
 
   <?php if ($resource->getPublicationStatus()): ?>

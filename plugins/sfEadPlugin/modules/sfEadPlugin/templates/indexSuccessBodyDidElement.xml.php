@@ -97,7 +97,7 @@
     </physdesc>
   <?php endif; ?>
 
-  <?php if ($value = $$resourceVar->getRepository()): ?>
+  <?php if ($value = $$resourceVar->getRepository(array('inherit' => $topLevelDid))): ?>
     <repository>
       <corpname><?php echo escape_dc(esc_specialchars($value->__toString())) ?></corpname>
       <?php if ($address = $value->getPrimaryContact()): ?>
