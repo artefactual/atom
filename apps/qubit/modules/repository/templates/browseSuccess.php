@@ -103,17 +103,6 @@
               'identifier' => __('Identifier')))) ?>
       </div>
     </div>
-
-    <div class="row">
-      <div class="span5">
-        <div id="toggleAdvancedFilters" class="btn icon-double-angle-down">&nbsp;<?php echo __('Advanced') ?></div>
-      </div>
-    </div>
-
-    <div id="advancedRepositoryFilters" class="row">
-      <?php echo get_partial('repository/advancedFilters', array('thematicAreas' => $thematicAreas, 'regions' => $regions,
-                             'repositoryTypes' => $repositoryTypes)) ?>
-    </div>
   </section>
 
 <?php end_slot() ?>
