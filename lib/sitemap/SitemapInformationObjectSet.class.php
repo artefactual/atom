@@ -26,15 +26,15 @@ SELECT IO.level_of_description_id, IO.parent_id, S.slug, O.created_at, O.updated
 FROM information_object IO
 LEFT JOIN object O ON (IO.id = O.id)
 LEFT JOIN slug S ON (IO.id = S.object_id)
-LEFT JOIN status SS ON (IO.id = SS.object_id AND SS.status_id = ?)
-WHERE IO.id != ?
+LEFT JOIN status SS ON (IO.id = SS.object_id)
+WHERE SS.status_id = ? AND IO.id != ?
 EOF;
 
     $this->rec = $this->conn->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
     $this->rec->setFetchMode(PDO::FETCH_INTO, new SitemapInformationObjectUrl($this->config));
     $this->rec->execute(array(
-      QubitInformationObject::ROOT_ID,
-      QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID));
+      QubitTerm::PUBLICATION_STATUS_PUBLISHED_ID,
+      QubitInformationObject::ROOT_ID));
   }
 }
 
