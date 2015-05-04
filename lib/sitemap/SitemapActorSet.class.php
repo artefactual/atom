@@ -26,7 +26,7 @@ SELECT A.parent_id, S.slug, O.created_at, O.updated_at
 FROM actor A
 LEFT JOIN object O ON (A.id = O.id)
 LEFT JOIN slug S ON (A.id = S.object_id)
-WHERE A.id != ?
+WHERE A.id != ? AND O.class_name = 'QubitActor'
 EOF;
 
     $this->rec = $this->conn->prepare($query, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
