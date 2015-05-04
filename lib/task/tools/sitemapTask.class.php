@@ -35,14 +35,14 @@ class sitemapTask extends sfBaseTask
 
   protected function configure()
   {
-    $outputDocument =  sfConfig::get('sf_root_dir').DIRECTORY_SEPARATOR.'sitemap.xml';
+    $outputDirectory =  sfConfig::get('sf_root_dir');
 
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'cli'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel'),
 
-      new sfCommandOption('output-document', 'O', sfCommandOption::PARAMETER_OPTIONAL, 'Location of the sitemap file', $outputDocument),
+      new sfCommandOption('output-directory', 'O', sfCommandOption::PARAMETER_OPTIONAL, 'Location of the sitemap file(s)', $outputDirectory),
       new sfCommandOption('base-url', null, sfCommandOption::PARAMETER_OPTIONAL, 'Base URL', null),
       new sfCommandOption('indent', null, sfCommandOption::PARAMETER_OPTIONAL, 'Indent XML', true),
       new sfCommandOption('no-compress', null, sfCommandOption::PARAMETER_NONE, 'Compress XML output with Gzip'),
@@ -58,7 +58,7 @@ class sitemapTask extends sfBaseTask
 Write a Sitemap XML file that lists the URLs of the current site.
 
 By default, the sitemap is stored in the root directory. Its final location can
-be defined using [--output-document|INFO].
+be defined using [--output-directory|INFO].
 
 The URLs included in the sitemap will be based on [Site base URL|INFO], that
 can be defined under the application settings in the web interface or using
@@ -84,8 +84,18 @@ EOF;
       }
     }
 
+    // Check if the given directory exists
+    if (!is_dir($options['output-directory']))
+    {
+      throw new sfException('The given directory cannot be found');
+    }
+
     // Delete existing sitemap(s)
-    $files = sfFinder::type('file')->name('sitemap.*')->maxdepth(0)->in(sfConfig::get('sf_root_dir'));
+    $files = sfFinder::type('file')
+      ->name('sitemap*.xml')
+      ->name('sitemap*.xml.gz')
+      ->maxdepth(0)
+      ->in($options['output-directory']);
     if (count($files) > 0)
     {
       if (!$options['no-confirmation'])
@@ -106,7 +116,7 @@ EOF;
     }
 
     // Write XML
-    $writer = new SitemapWriter($options['output-document'], $options['base-url'], $options['indent'], !$options['no-compress']);
+    $writer = new SitemapWriter($options['output-directory'], $options['base-url'], $options['indent'], !$options['no-compress']);
     $this->log('Indexing information objects');
     $writer->addSet(new SitemapInformationObjectSet);
     $this->log('Indexing actors');

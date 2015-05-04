@@ -57,6 +57,10 @@ class SitemapWriter
    */
   private $compress = false;
 
+  /**
+   * Main document location
+   */
+  private $file;
 
   /**
    * Is the document ended?
@@ -76,10 +80,9 @@ class SitemapWriter
   /**
    * Constructor
    */
-  public function __construct($file, $baseUrl, $indent = false, $compress = false)
+  public function __construct($baseDir, $baseUrl, $indent = false, $compress = false)
   {
-    $this->file = $file;
-    $this->baseUrl = $baseUrl;
+    $this->file = $baseDir.DIRECTORY_SEPARATOR.'sitemap.xml';
     $this->indent = $indent;
     $this->compress = $compress;
 
