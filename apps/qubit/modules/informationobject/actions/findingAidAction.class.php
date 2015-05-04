@@ -24,10 +24,15 @@ class InformationObjectFindingAidAction extends sfAction
   {
     if (isset($this->getRoute()->resource) && sfContext::getInstance()->user->isAuthenticated())
     {
-      $id = $this->getRoute()->resource->id;
+      $i18n = $this->context->i18n;
+      $resource = $this->getRoute()->resource;
 
-      $params = array('objectId' => $id);
-      QubitJob::runJob('arGenerateFindingAidJob', $params);
+      $params = array(
+        'objectId' => $resource->id,
+        'description' => $i18n->__('Generating finding aid for: ').$resource->getTitle(array('cultureFallback' => true))
+      );
+
+      $job = QubitJob::runJob('arGenerateFindingAidJob', $params);
     }
 
     $this->redirect($request->getHttpHeader('referer'));

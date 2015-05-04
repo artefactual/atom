@@ -119,7 +119,8 @@
   $termData = QubitFlatfileImport::loadTermsFromTaxonomies(array(
     QubitTaxonomy::NOTE_TYPE_ID                => 'noteTypes',
     QubitTaxonomy::RAD_NOTE_ID                 => 'radNoteTypes',
-    QubitTaxonomy::RAD_TITLE_NOTE_ID           => 'titleNoteTypes'
+    QubitTaxonomy::RAD_TITLE_NOTE_ID      => 'titleNoteTypes',
+    QubitTaxonomy::DACS_NOTE_ID               => 'dacsSpecializedNotesTypes'
   ));
 
   $radTitleNotes = array(
@@ -159,6 +160,25 @@
     if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => $noteTypeId)))):
       foreach ($notes as $note): ?>
         <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars((string)$note)) ?></p></odd>
+      <?php endforeach;
+    endif;
+  }
+
+  $dacsSpecializedNotes = array(
+    'Conservation'       => 'conservation',
+    'Citation'                => 'citation',
+    'Alpha-numeric designations' => 'alphanumericDesignation',
+    'Variant title information'               => 'variantTitleInformation',
+    'Processing information'      => 'processingInformation'
+  );
+
+  foreach ($dacsSpecializedNotes as $name => $xmlType)
+  {
+    $noteTypeId = array_search($name, $termData['dacsSpecializedNotesTypes']);
+
+    if (0 < count($notes = $resource->getNotesByType(array('noteTypeId' => $noteTypeId)))):
+      foreach ($notes as $note): ?>
+        <odd type="<?php echo $xmlType ?>" <?php if (0 < strlen($encoding = $ead->getMetadataParameter($xmlType))): ?>encodinganalog="<?php echo $encoding ?>"<?php endif; ?>><p><?php echo escape_dc(esc_specialchars($note)) ?></p></odd>
       <?php endforeach;
     endif;
   } ?>

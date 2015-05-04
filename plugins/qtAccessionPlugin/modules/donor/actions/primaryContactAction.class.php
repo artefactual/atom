@@ -38,17 +38,28 @@ class DonorPrimaryContactAction extends sfAction
     $data = array();
 
     foreach (array(
-      'streetAddress',
-      'region',
+      'city',
+      'contactPerson',
       'countryCode',
-      'postalCode',
-      'telephone',
       'email',
-      'contactPerson') as $field)
+      'postalCode',
+      'region',
+      'streetAddress',
+      'telephone',
+      'contactType',
+      'website',
+      'fax',
+      'latitude',
+      'longitude',
+      'note') as $field)
     {
       if (isset($primaryContactInformation->$field))
       {
         $data[$field] = $primaryContactInformation->$field;
+      }
+      else
+      {
+        $data[$field] = '';
       }
     }
 
