@@ -296,7 +296,7 @@ class DefaultBrowseAction extends sfAction
       $this->query->setFrom(($request->page - 1) * $request->limit);
     }
 
-    $this->queryBool = new \Elastica\Query\Bool();
+    $this->queryBool = new \Elastica\Query\Bool;
     $this->filterBool = new \Elastica\Filter\Bool;
 
     if (isset($this::$FACETS))

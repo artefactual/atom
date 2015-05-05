@@ -13,6 +13,7 @@
         <tr><td><?php echo link_to(__('Finding Aid'), array('module' => 'settings', 'action' => 'findingAid')) ?></td></tr>
         <tr><td><?php echo link_to(__('Security'), array('module' => 'settings', 'action' => 'security')) ?></td></tr>
         <tr><td><?php echo link_to(__('Permissions'), array('module' => 'settings', 'action' => 'permissions')) ?></td></tr>
+        <tr><td><?php echo link_to(__('Inventory'), array('module' => 'settings', 'action' => 'inventory')) ?></td></tr>
       </tbody>
     </table>
 </div>
