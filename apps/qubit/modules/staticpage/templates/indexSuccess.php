@@ -1,4 +1,12 @@
-<?php decorate_with('layout_1col') ?>
+<?php $menu = get_component('menu', 'staticPagesMenu') ?>
+<?php $layout = 'layout_1col' ?>
+<?php if (!empty($menu)): ?>
+  <?php $layout = 'layout_2col' ?>
+  <?php slot('sidebar') ?>
+    <?php echo $menu ?>
+  <?php end_slot() ?>
+<?php endif; ?>
+<?php decorate_with($layout) ?>
 
 <?php slot('title') ?>
   <h1><?php echo render_title($resource->getTitle(array('cultureFallback' => true))) ?></h1>
