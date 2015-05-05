@@ -8,6 +8,15 @@
       </a>
     </li>
 
+    <?php if (InformationObjectInventoryAction::showInventory($resource)): ?>
+      <li>
+        <a href="<?php echo url_for(array($resource, 'module' => 'informationobject', 'action' => 'inventory')) ?>">
+          <i class="icon-list-alt"></i>
+          <?php echo __('Inventory') ?>
+        </a>
+      </li>
+    <?php endif; ?>
+
     <?php if ($sf_user->isAdministrator()): ?>
       <li class="separator"><h4><?php echo __('Import') ?></h4></li>
       <li>

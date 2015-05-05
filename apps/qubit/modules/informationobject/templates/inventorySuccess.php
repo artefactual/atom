@@ -1,0 +1,77 @@
+<?php decorate_with('layout_wide') ?>
+
+<div class="row-fluid">
+  <div class="span12">
+
+    <h1 class="multiline">
+      <?php echo render_title($resource) ?>
+      <span class="sub"><?php echo __('Inventory list') ?></span>
+    </h1>
+
+    <?php echo get_partial('informationobject/printPreviewBar', array('resource' => $resource)) ?>
+
+    <?php if (QubitInformationObject::ROOT_ID != $resource->parentId): ?>
+      <?php echo include_partial('default/breadcrumb', array('resource' => $resource, 'objects' => $resource->getAncestors()->andSelf()->orderBy('lft'))) ?>
+    <?php endif; ?>
+
+    <?php if ($pager->hasResults()): ?>
+
+      <table class="table table-bordered table-striped">
+        <tr>
+          <?php echo get_partial('default/sortableTableHeader',
+            array('label' => __('Identifier'), 'name' => 'identifier', 'size' => '15%', 'default' => 'up')) ?>
+          <?php echo get_partial('default/sortableTableHeader',
+            array('label' => __('Title'), 'name' => 'title', 'size' => '45%')) ?>
+          <?php echo get_partial('default/sortableTableHeader',
+            array('label' => __('Level of description'), 'name' => 'level', 'size' => '15%')) ?>
+          <?php echo get_partial('default/sortableTableHeader',
+            array('label' => __('Date'), 'name' => 'date', 'size' => '25%')) ?>
+        </tr>
+        <?php foreach ($pager->getResults() as $hit): ?>
+          <?php $doc = $hit->getData() ?>
+          <tr>
+            <td>
+              <?php echo $doc['identifier'] ?>
+            </td>
+            <td><?php echo link_to(get_search_i18n($doc, 'title'), array('module' => 'informationobject', 'slug' => $doc['slug'])) ?></td>
+            <td>
+              <?php $level = QubitTerm::getById($doc['levelOfDescriptionId']) ?>
+              <?php if ($level !== null): ?>
+                <?php echo $level->getName() ?>
+              <?php endif; ?>
+            </td>
+            <td>
+              <?php if (isset($doc['dates'])): ?>
+                <ul>
+                  <?php foreach ($doc['dates']->getRawValue() as $date): ?>
+                    <?php if (isset($date['startDateString'])
+                      || isset($date['endDateString'])
+                      || null != get_search_i18n($date, 'date', array('culture' => $culture))): ?>
+                      <li class="dates"><?php echo Qubit::renderDateStartEnd(get_search_i18n($date, 'date', array('culture' => $culture)),
+                        isset($date['startDateString']) ? $date['startDateString'] : null,
+                        isset($date['endDateString']) ? $date['endDateString'] : null) ?></li>
+                      <?php break; ?>
+                    <?php endif; ?>
+                  <?php endforeach; ?>
+                </ul>
+              <?php endif; ?>
+            </td>
+
+          </tr>
+        <?php endforeach; ?>
+      </table>
+
+    <?php else: ?>
+
+      <div>
+        <h2><?php echo __('We couldn\'t find any results matching your search.') ?></h2>
+      </div>
+
+    <?php endif; ?>
+
+    <section>
+      <?php echo get_partial('default/pager', array('pager' => $pager)) ?>
+    </section>
+
+  </div>
+</div>
