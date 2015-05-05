@@ -1075,3 +1075,9 @@ QubitMenu:
       sl: 'Vidni elementi'
       th: 'elementsที่สามารถมองเห็นได้,'
     path: settings/visibleElements
+  QubitMenu_staticpagesmenu:
+    parent_id: QubitMenu_root
+    source_culture: en
+    name: 'staticPagesMenu'
+    label:
+      en: 'Static pages'

@@ -6,6 +6,8 @@
 
 <?php slot('sidebar') ?>
 
+  <?php echo get_component('menu', 'staticPagesMenu') ?>
+
   <section>
     <h3><?php echo __('Browse by') ?></h3>
     <ul>
