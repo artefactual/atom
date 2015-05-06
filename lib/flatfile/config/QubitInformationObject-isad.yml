@@ -12,7 +12,6 @@ columnNames:
   - creationDatesType
   - creationDatesStart
   - creationDatesEnd
-  - creationDateNotes
   - levelOfDescription
   - extentAndMedium
   - repository

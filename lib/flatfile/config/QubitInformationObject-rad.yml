@@ -31,7 +31,6 @@ columnNames:
   - creationDatesType
   - creationDatesStart
   - creationDatesEnd
-  - creationDateNotes
   - extentAndMedium
   - radTitleProperOfPublishersSeries
   - radParallelTitlesOfPublishersSeries
