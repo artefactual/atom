@@ -895,8 +895,8 @@ class QubitFlatfileImport
   }
 
   /**
-   * Handle mapping of column, containing multiple values delimitd by a
-   * character, to an array
+   * Handle mapping of column, containing multiple values delimited by a
+   * character, to an array. Any values set to 'NULL' will be filtered out.
    *
    * @param string $column  column name
    * @param array $delimiter  delimiting character

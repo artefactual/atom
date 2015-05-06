@@ -32,7 +32,7 @@ class csvInformationObjectExport extends QubitFlatfileExport
   protected $titleNoteMap;
 
   // Taxonomy cache properties
-  protected $commonNoteTypeIds       = array(); 
+  protected $commonNoteTypeIds       = array();
   protected $radNoteTypeIds          = array();
   protected $titleNoteTypeIds        = array();
   protected $levelOfDescriptionTerms = array();
@@ -232,32 +232,38 @@ class csvInformationObjectExport extends QubitFlatfileExport
    */
   protected function setCreationColumns()
   {
-    $creators           = array();
-    $creatorHistories   = array();
-    $creationDates      = array();
-    $creationDateNotes  = array();
-    $creationStartDates = array();
-    $creationEndDates   = array();
-    $creationDateTypes  = array();
+    $creationEvents = array();
 
-    foreach($this->resource->getCreationEvents() as $event)
+    foreach ($this->resource->getCreationEvents() as $event)
     {
-      $creators[]           = $event->actor->authorizedFormOfName;
-      $creatorHistories[]   = $event->actor->history;
-      $creationDates[]      = $event->date;
-      $creationDateNotes[]  = $event->description;
-      $creationStartDates[] = $event->startDate;
-      $creationEndDates[]   = $event->endDate;
-      $creationDateTypes[]  = $this->eventTypeTerms[$event->typeId];
+      $creationEvents['creators'][]           = $event->actor->authorizedFormOfName;
+      $creationEvents['creatorHistories'][]   = $event->actor->history;
+      $creationEvents['creationDates'][]      = $event->date;
+      $creationEvents['creationDateNotes'][]  = $event->description;
+      $creationEvents['creationStartDates'][] = $event->startDate;
+      $creationEvents['creationEndDates'][]   = $event->endDate;
+      $creationEvents['creationDateTypes'][]  = $this->eventTypeTerms[$event->typeId];
     }
 
-    $this->setColumn('creators', $creators);
-    $this->setColumn('creatorHistories', $creatorHistories);
-    $this->setColumn('creationDates', $creationDates);
-    $this->setColumn('creationDateNotes', $creationDateNotes);
-    $this->setColumn('creationDatesStart', $creationStartDates);
-    $this->setColumn('creationDatesEnd', $creationEndDates);
-    $this->setColumn('creationDatesType', $creationDateTypes);
+    // Convert null values to the string 'NULL'. We use this to ensure we have the same number of values across
+    // multiple piped fields that correspond to each other.
+    //
+    // e.g.: If we have 3 dates but only the first and last ones have notes, we'll get this:
+    //       column 'creationDates':     2005|2006|2007
+    //       column 'creationDateNotes': hello|NULL|world
+
+    foreach ($creationEvents as &$eventField)
+    {
+      $eventField = array_map(function($x) { return $x === null ? 'NULL' : $x; }, $eventField);
+    }
+
+    $this->setColumn('creators', $creationEvents['creators']);
+    $this->setColumn('creatorHistories', $creationEvents['creatorHistories']);
+    $this->setColumn('creationDates', $creationEvents['creationDates']);
+    $this->setColumn('creationDateNotes', $creationEvents['creationDateNotes']);
+    $this->setColumn('creationDatesStart', $creationEvents['creationStartDates']);
+    $this->setColumn('creationDatesEnd', $creationEvents['creationEndDates']);
+    $this->setColumn('creationDatesType', $creationEvents['creationDateTypes']);
   }
 
   /*
