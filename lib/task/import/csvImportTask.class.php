@@ -1120,45 +1120,45 @@ function array_search_case_insensitive($search, $array)
   return array_search(strtolower($search), array_map('strtolower', $array));
 }
 
+/**
+ * Parse creation event data.
+ *
+ * Note: if the string 'NULL' is encountered as a value, ignore it. This is a special value
+ *       for lining up piped fields across multiple columns when they are related.
+ */
 function setupEventDateData(&$self, &$eventData, $index)
 {
   // add dates if specified
-  if (
-    isset($self->rowStatusVars['creationDates'][$index])
-    || isset($self->rowStatusVars['creationDatesStart'][$index])
-  )
+  if (isset($self->rowStatusVars['creationDates'][$index]) ||
+      isset($self->rowStatusVars['creationDatesStart'][$index]))
   {
     // Start and end date
-    foreach(array(
-        'creationDatesEnd' => 'endDate',
-        'creationDatesStart' => 'startDate'
-      )
-      as $statusVar => $eventProperty
-    )
+    foreach (array('creationDatesEnd' => 'endDate', 'creationDatesStart' => 'startDate') as $statusVar => $eventProperty)
     {
-      if (!empty($self->rowStatusVars[$statusVar][$index]))
+      if (!empty($self->rowStatusVars[$statusVar][$index]) && $self->rowStatusVars[$statusVar][$index] !== 'NULL')
       {
         $eventData[$eventProperty] = $self->rowStatusVars[$statusVar][$index] .'-00-00';
       }
     }
 
+    $otherDateInfo = array(
+      'creationDateNotes' => 'description',
+      'creationDates'     => 'date',
+      'creationDatesType' => 'typeId'
+    );
+
     // Other date info
-    foreach(array(
-        'creationDateNotes' => 'description',
-        'creationDates' => 'date',
-        'creationDatesType' => 'typeId'
-      )
-      as $statusVar => $eventProperty
-    )
+    foreach ($otherDateInfo  as $statusVar => $eventProperty)
     {
-      if (!empty($self->rowStatusVars[$statusVar][$index]))
+      if (!empty($self->rowStatusVars[$statusVar][$index]) && $self->rowStatusVars[$statusVar][$index] !== 'NULL')
       {
         if ($eventProperty == 'typeId')
         {
           $eventType = $self->rowStatusVars[$statusVar][$index];
           $eventData[$eventProperty] = (strtolower($eventType) == 'accumulation') ? QubitTerm::ACCUMULATION_ID : QubitTerm::CREATION_ID;
         }
-        else {
+        else
+        {
           $eventData[$eventProperty] = $self->rowStatusVars[$statusVar][$index];
         }
       }

@@ -203,45 +203,49 @@ abstract class csvImportBaseTask extends sfBaseTask
 
     // add creators and creation events
     $createEvents = array();
-    if (isset($import->rowStatusVars['creators'])
-      && count($import->rowStatusVars['creators']))
+    if (isset($import->rowStatusVars['creators']) && count($import->rowStatusVars['creators']))
     {
-      foreach($import->rowStatusVars['creators'] as $index => $creator)
+      foreach ($import->rowStatusVars['creators'] as $index => $creator)
       {
-        // Init eventData array and add creator name
-        $eventData = array('actorName' => $creator);
+        // Init eventData array and add creator name. Ignore fields with value: 'NULL'.
+        $eventData = array();
+
+        if ($creator !== 'NULL')
+        {
+          $eventData['actorName'] = $creator;
+        }
 
         setupEventDateData($import, $eventData, $index);
 
         // Add creator history if specified
-        if(isset($import->rowStatusVars['creatorHistories'][$index]))
+        if (isset($import->rowStatusVars['creatorHistories'][$index]) &&
+            $import->rowStatusVars['creatorHistories'][$index] !== 'NULL')
         {
           $eventData['actorHistory'] = $import->rowStatusVars['creatorHistories'][$index];
         }
 
-        array_push($createEvents, $eventData);
+        if (count($eventData))
+        {
+          array_push($createEvents, $eventData);
+        }
       }
     }
-    else if(
-      isset($import->rowStatusVars['creationDatesStart'])
-      || isset($import->rowStatusVars['creationDatesEnd'])
-    )
+    else if (isset($import->rowStatusVars['creationDatesStart']) ||
+             isset($import->rowStatusVars['creationDatesEnd']))
     {
-      foreach($import->rowStatusVars['creationDatesStart'] as $index => $date)
+      foreach ($import->rowStatusVars['creationDatesStart'] as $index => $date)
       {
         $eventData = array();
-
         setupEventDateData($import, $eventData, $index);
 
         array_push($createEvents, $eventData);
       }
     }
-    else if(isset($import->rowStatusVars['creationDates']))
+    else if (isset($import->rowStatusVars['creationDates']))
     {
-      foreach($import->rowStatusVars['creationDates'] as $index => $date)
+      foreach ($import->rowStatusVars['creationDates'] as $index => $date)
       {
         $eventData = array();
-
         setupEventDateData($import, $eventData, $index);
 
         array_push($createEvents, $eventData);
@@ -266,12 +270,9 @@ abstract class csvImportBaseTask extends sfBaseTask
         }
       }
 
-      foreach($createEvents as $eventData)
+      foreach ($createEvents as $eventData)
       {
-        $event = $import->createOrUpdateEvent(
-          QubitTerm::CREATION_ID,
-          $eventData
-        );
+        $event = $import->createOrUpdateEvent(QubitTerm::CREATION_ID, $eventData);
       }
     }
   }
