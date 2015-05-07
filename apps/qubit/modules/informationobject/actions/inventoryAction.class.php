@@ -41,7 +41,7 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
       $request->limit = sfConfig::get('app_hits_per_page');
     }
 
-    $resultSet = self::getResults($this->resource, $this->limit, $this->page, $this->sort);
+    $resultSet = self::getResults($this->resource, $request->limit, $request->page, $request->sort);
 
     // Page results
     $this->pager = new QubitSearchPager($resultSet);
