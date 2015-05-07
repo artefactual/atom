@@ -42,18 +42,16 @@
             </td>
             <td>
               <?php if (isset($doc['dates'])): ?>
-                <ul>
-                  <?php foreach ($doc['dates']->getRawValue() as $date): ?>
-                    <?php if (isset($date['startDateString'])
-                      || isset($date['endDateString'])
-                      || null != get_search_i18n($date, 'date', array('culture' => $culture))): ?>
-                      <li class="dates"><?php echo Qubit::renderDateStartEnd(get_search_i18n($date, 'date', array('culture' => $culture)),
-                        isset($date['startDateString']) ? $date['startDateString'] : null,
-                        isset($date['endDateString']) ? $date['endDateString'] : null) ?></li>
-                      <?php break; ?>
-                    <?php endif; ?>
-                  <?php endforeach; ?>
-                </ul>
+                <?php foreach ($doc['dates']->getRawValue() as $date): ?>
+                  <?php if (isset($date['startDateString'])
+                    || isset($date['endDateString'])
+                    || null != get_search_i18n($date, 'date', array('culture' => $culture))): ?>
+                    <?php echo Qubit::renderDateStartEnd(get_search_i18n($date, 'date', array('culture' => $culture)),
+                      isset($date['startDateString']) ? $date['startDateString'] : null,
+                      isset($date['endDateString']) ? $date['endDateString'] : null) ?>
+                    <?php break; ?>
+                  <?php endif; ?>
+                <?php endforeach; ?>
               <?php endif; ?>
             </td>
 
