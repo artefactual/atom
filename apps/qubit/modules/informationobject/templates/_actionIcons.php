@@ -17,6 +17,29 @@
       </li>
     <?php endif; ?>
 
+    <li>
+      <a href="<?php echo url_for(array(
+        'module' => 'informationobject',
+        'action' => 'browse',
+        'collection' => $resource->getCollectionRoot()->id,
+        'topLod' => false)) ?>">
+        <i class="icon-list"></i>
+        <?php echo __('Browse as list') ?>
+      </a>
+    </li>
+
+    <li>
+      <a href="<?php echo url_for(array(
+        $resource->getCollectionRoot(),
+        'module' => 'digitalobject',
+        'action' => 'browse',
+        'collection' => $resource->getCollectionRoot()->id,
+        'topLod' => false)) ?>">
+        <i class="icon-picture"></i>
+        <?php echo __('Browse digital objects') ?>
+      </a>
+    </li>
+
     <?php if ($sf_user->isAdministrator()): ?>
       <li class="separator"><h4><?php echo __('Import') ?></h4></li>
       <li>
