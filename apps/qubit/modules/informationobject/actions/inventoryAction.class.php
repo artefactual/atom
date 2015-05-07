@@ -31,11 +31,6 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
       $this->forward404();
     }
 
-    if (!self::showInventory($this->resource))
-    {
-      $this->forward404();
-    }
-
     // Set title header
     sfContext::getInstance()->getConfiguration()->loadHelpers(array('Qubit'));
     $title = render_title($this->resource, false);
@@ -44,15 +39,6 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
     if (empty($request->limit))
     {
       $request->limit = sfConfig::get('app_hits_per_page');
-    }
-
-    if ($this->getUser()->isAuthenticated())
-    {
-      $this->sortSetting = sfConfig::get('app_sort_browser_user');
-    }
-    else
-    {
-      $this->sortSetting = sfConfig::get('app_sort_browser_anonymous');
     }
 
     $resultSet = self::getResults($this->resource, $this->limit, $this->page, $this->sort);
@@ -87,7 +73,7 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
     return $value;
   }
 
-  private static function getResults(&$resource, &$limit = 10, &$page = 1, &$sort = 'identifierUp')
+  private static function getResults($resource, $limit = 10, $page = 1, $sort = null)
   {
     $query = new \Elastica\Query;
     $query->setLimit($limit);
@@ -152,6 +138,10 @@ class InformationObjectInventoryAction extends DefaultBrowseAction
           'dates.startDate' => array('order' => 'desc', 'ignore_unmapped' => true),
           'dates.endDate' => array('order' => 'desc', 'ignore_unmapped' => true)));
 
+        break;
+
+      // Avoid sorting when we are just counting records
+      case null:
         break;
 
       case 'identifierUp':
