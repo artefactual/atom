@@ -40,7 +40,8 @@
       <?php if (isset($resource)): ?>
         <span class="search-filter">
           <?php echo render_title($resource) ?>
-          <a href="<?php echo url_for(array('module' => 'digitalobject', 'action' => 'browse') + $sf_request->getGetParameters()) ?>" class="remove-filter"><i class="icon-remove"></i></a>
+          <?php $params = $sf_data->getRaw('sf_request')->getGetParameters() ?>
+          <a href="<?php echo url_for(array('module' => 'digitalobject', 'action' => 'browse') + $params) ?>" class="remove-filter"><i class="icon-remove"></i></a>
         </span>
       <?php endif; ?>
 
