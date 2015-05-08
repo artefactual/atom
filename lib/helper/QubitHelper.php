@@ -137,9 +137,7 @@ function render_title($value, $html = true)
 
 function render_value($value)
 {
-  ProjectConfiguration::getActive()->loadHelpers('Text');
-
-  $value = auto_link_text($value);
+  $value = qubit_auto_link_text($value);
 
   // Simple lists
   $value = preg_replace('/(?:^\*.*\r?\n)*(?:^\*.*)/m', "<ul>\n$0\n</ul>", $value);
@@ -509,4 +507,83 @@ function get_search_autocomplete_string($hit)
 function escape_dc($text)
 {
   return preg_replace('/\n/', '<lb/>', $text);
+}
+
+/**
+ * qubit_auto_link_text is like TextHelper::auto_link_text(), but it uses
+ * the local QubitHelper::qubit_auto_link_urls() instead of
+ * TextHelper::_auto_link_urls().
+ */
+function qubit_auto_link_text($text, $link = 'all', $href_options = array())
+{
+  require_once(dirname(__FILE__).'/../../vendor/symfony/lib/helper/TextHelper.php');
+
+  if ($link == 'all')
+  {
+    return qubit_auto_link_urls(_auto_link_email_addresses($text), $href_options);
+  }
+  else if ($link == 'email_addresses')
+  {
+    return _auto_link_email_addresses($text);
+  }
+  else if ($link == 'urls')
+  {
+    return qubit_auto_link_urls($text, $href_options);
+  }
+}
+
+if (!defined('AR_AUTO_LINK_RE'))
+{
+  define('AR_AUTO_LINK_RE', '~
+    (?:
+      (                                             # Leading text
+        <\w+.*?>|                                   #  - Leading HTML tag, or
+        [^=!:\'"/]|                                 #  - Leading punctuation, or
+        ^                                           #  - beginning of line
+      )|                                            # Or Redmine hyperlink
+      (?:&quot;|\")(?<label>.*?)(?:\&quot;|\")\:    #  - Double quote and colon
+    )
+    (
+      (?:(?:https?|ftp)://)|                        # protocol spec, or
+      (?:www\.)|                                    # www.*
+      (?:mailto:)
+    )
+    (
+      [-\w@]+                                       # subdomain or domain
+      (?:\.[-\w@]+)*                                # remaining subdomains or domain
+      (?::\d+)?                                     # port
+      (?:/(?:(?:[\~\w\+%-]|(?:[,.;:][^\s$]))+)?)*   # path
+      (?:\?[\w\+\/%&=.;-]+)?                        # query string
+      (?:\#[\w\-/\?!=]*)?                           # trailing anchor
+    )
+    ([[:punct:]]|\s|<|$)                            # trailing text
+   ~x');
+}
+
+function qubit_auto_link_urls($text, $href_options = array())
+{
+  require_once(dirname(__FILE__).'/../../vendor/symfony/lib/helper/TagHelper.php');
+
+  $href_options = _tag_options($href_options);
+
+  $callback_function = '
+    if (!empty($matches[\'label\']))
+    {
+      return $matches[1].\'<a href="\'.$matches[3].$matches[4].\'">\'.$matches[\'label\'].\'</a>\'.$matches[5];
+    }
+
+    if (preg_match("/<a\s/i", $matches[1]))
+    {
+      return $matches[0];
+    }
+    else
+    {
+      return $matches[1].\'<a href="\'.($matches[3] == "www." ? "http://www." : $matches[3]).$matches[4].\'"'.$href_options.'>\'.$matches[3].$matches[4].\'</a>\'.$matches[5];
+    }
+    ';
+
+  return preg_replace_callback(
+    AR_AUTO_LINK_RE,
+    create_function('$matches', $callback_function),
+    $text);
 }
